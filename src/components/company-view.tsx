@@ -83,7 +83,7 @@ export function CompanyView({
   const [showAll, setShowAll] = useState(false);
   const [compareOpen, setCompareOpen] = useState(false);
   const [chartMode, setChartMode] = useChartMode("curve");
-  const [barsVariant, setBarsVariant] = useState<"iso3d" | "classic">("iso3d");
+  const [barsVariant, setBarsVariant] = useState<"iso3d" | "classic">("classic");
   const [compareTicker, setCompareTicker] = useState<string | null>(null);
 
   const heroRef = useRef<HTMLDivElement>(null);
