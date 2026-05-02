@@ -1,36 +1,37 @@
 "use client";
 
 import { Brain, TrendingUp, Zap, ShieldAlert, MinusCircle } from "lucide-react";
-import type { AIPositioning } from "@/lib/data";
+import { isOfficialSource, type AIPositioning } from "@/lib/data";
 import { brand } from "@/lib/brand";
+import { useT } from "@/lib/i18n/provider";
 
 const STANCE_META: Record<
   AIPositioning["stance"],
-  { label: string; color: string; Icon: typeof Brain; description: string }
+  { labelKey: string; descKey: string; color: string; Icon: typeof Brain }
 > = {
   leader: {
-    label: "Acteur majeur",
+    labelKey: "ai.stance.leader.label",
+    descKey: "ai.stance.leader.desc",
     color: "#a78bfa",
     Icon: Brain,
-    description: "L'IA est au cœur de la stratégie et des produits.",
   },
   integrator: {
-    label: "Intégrateur",
+    labelKey: "ai.stance.integrator.label",
+    descKey: "ai.stance.integrator.desc",
     color: "#06b6d4",
     Icon: Zap,
-    description: "L'IA est intégrée de façon significative aux opérations et à l'offre.",
   },
   cautious: {
-    label: "Observateur prudent",
+    labelKey: "ai.stance.cautious.label",
+    descKey: "ai.stance.cautious.desc",
     color: "#f59e0b",
     Icon: ShieldAlert,
-    description: "L'IA est mentionnée mais l'intégration reste limitée ou émergente.",
   },
   absent: {
-    label: "Aucun positionnement",
+    labelKey: "ai.stance.absent.label",
+    descKey: "ai.stance.absent.desc",
     color: "#71717a",
     Icon: MinusCircle,
-    description: "Aucune mention significative de l'IA dans les communications officielles.",
   },
 };
 
@@ -43,15 +44,15 @@ export function AIPositioningCard({
   companyName: string;
   ticker: string;
 }) {
+  const { t } = useT();
   const accent = brand(ticker).primary;
 
-  // If no positioning data at all, render "absent" card by default
   const effective: AIPositioning =
     positioning ?? {
       stance: "absent",
-      summary: `${companyName} n'a pas communiqué de positionnement explicite sur l'IA dans ses dépôts légaux ni ses conférences récentes. À reconsidérer dès qu'une position sera formulée.`,
+      summary: `${companyName} ${t("ai.absent_summary")}`,
       evidence: [],
-      source: "Non disclosé",
+      source: t("ai.absent_source"),
     };
 
   const meta = STANCE_META[effective.stance];
@@ -62,7 +63,7 @@ export function AIPositioningCard({
       <div className="mb-3 flex items-center justify-between">
         <h2 className="flex items-center gap-2.5 text-[22px] font-semibold text-zinc-50">
           <Brain className="size-5" style={{ color: accent }} />
-          Positionnement de {companyName} sur l'IA
+          {t("ai.title_prefix")} {companyName} {t("ai.title_suffix")}
         </h2>
       </div>
 
@@ -83,10 +84,10 @@ export function AIPositioningCard({
             }}
           >
             <Icon className="size-3.5" />
-            {meta.label}
+            {t(meta.labelKey)}
           </span>
           <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-400">
-            {meta.description}
+            {t(meta.descKey)}
           </span>
         </div>
 
@@ -97,7 +98,7 @@ export function AIPositioningCard({
         {effective.evidence.length > 0 && (
           <div className="mt-5">
             <div className="mb-2 font-mono text-[10.5px] uppercase tracking-wider text-zinc-300">
-              Éléments concrets
+              {t("ai.evidence_label")}
             </div>
             <ul className="grid gap-1.5 sm:grid-cols-2">
               {effective.evidence.map((e, i) => (
@@ -116,9 +117,11 @@ export function AIPositioningCard({
           </div>
         )}
 
-        <div className="mt-4 font-mono text-[11px] italic text-zinc-400">
-          Source : {effective.source}
-        </div>
+        {effective.source && !isOfficialSource(effective.source) && (
+          <div className="mt-4 font-mono text-[11px] italic text-zinc-400">
+            {t("ai.source")} : {effective.source}
+          </div>
+        )}
       </div>
     </section>
   );

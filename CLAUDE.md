@@ -1,11 +1,34 @@
 @AGENTS.md
+@HANDOFF.md
+@SHARED-STATUS.md
 
-# Mettrik — Context for new Claude Code sessions
+# Mettrik AI — Context for new Claude Code sessions
 
 This file is auto-loaded by Claude Code at the project root.
 **Read this entire file before answering any question.** Don't make assumptions
 that contradict the rules below — they were established with the user across
 many hours of iteration.
+
+> **🔴 RÈGLE ABSOLUE — coordination 4 conversations**
+>
+> Avant de répondre à CHAQUE prompt user :
+> 1. Re-lire `SHARED-STATUS.md` (au moins les 10 dernières lignes du log + section
+>    "🔄 EN COURS").
+> 2. Vérifier qu'aucune autre conv n'est en train de toucher au même périmètre.
+> 3. Si chevauchement détecté → l'évoquer explicitement avant d'agir.
+> 4. Esprit **entraide**, pas rivalité. Ne jamais re-faire / dé-faire / dupliquer
+>    le travail d'une autre conv.
+> 5. Les 4 conversations : **CONCEPTS · SYSTEMS · DATA · BRAND**. Pas d'autre nom.
+> 6. Le terme **"Pulse"** ne désigne plus rien : la marque est **Mettrik AI**.
+>    Toute mention résiduelle de "Pulse" dans un fichier = reliquat à signaler
+>    ou remplacer selon ton scope.
+> 7. **DATA PRESERVATION ABSOLUE** : toute migration / refactor qui touche
+>    une structure de données (BDD, fichiers JSON `src/data/`, configs user)
+>    DOIT préserver les données existantes. Migration SQL = `UPDATE` de
+>    mapping AVANT de changer le schéma. Jamais de `DROP TABLE` ni
+>    `DELETE FROM` sans backup explicite + go user. Les éléments saisis dans
+>    le desk (notes, todos, idées, drafts, calendar, bookmarks, links,
+>    inspiration, pitch) doivent survivre à TOUTES les mises à jour.
 
 ---
 
@@ -83,20 +106,21 @@ founders.
 
 ---
 
-## 3. THREE VISUAL VARIANTS
+## 3. SINGLE VISUAL IDENTITY
 
-The same data is rendered in three completely different visual identities:
+Une seule vue par société : `/<ticker>` (composant `company-view.tsx`),
+dark + violet/cyan gradients + conic-border sur les cards.
 
-| Route | Variant | Style |
-|---|---|---|
-| `/<ticker>` | **Mettrik** (default) | Dark + violet/cyan gradients, conic-border on cards |
-| `/aurora/<ticker>` | **Aurora** | Glass-morphism + drifting brand-color halos in the BG |
-| `/spatial/<ticker>` | **Spatial** | Embossed/debossed "depth" + subtle texture |
+Les anciennes variantes Aurora (glass-morphism) et Spatial (embossed) ont
+été supprimées : elles fragmentaient le brand pour aucun gain produit.
+Toutes traces (routes, composants, CSS, sitemap, page-search variant prop,
+compare-control variant prop) ont été nettoyées.
 
-A `VariantSwitcher` component (top nav) lets the user jump between them with
-the same active KPI preserved.
+Un éventuel mode clair/sombre futur passera par un `ThemeToggle` (déjà
+présent dans la top-nav), pas par des routes séparées.
 
-The chart-lab is at `/chart-lab/<ticker>` (gallery, not a 4th variant).
+Le chart-lab est à `/chart-lab/<ticker>` (galerie de styles, pas une
+variante d'app). Les concepts sont à `/concepts` (prototype isolé).
 
 ---
 
@@ -126,6 +150,74 @@ Helper functions: `formatUnit`, `formatCAGR`, `cagr`, `interpretStructured`,
 
 ---
 
+## 4bis. ORDRE D'AFFICHAGE DES KPI (Hero / Indicateurs clés / Stories)
+
+**Règle figée pour toutes les sociétés.** Une fois appliquée pour une société,
+l'ordre des KPIs ne change plus, même quand de nouvelles données trimestrielles
+arrivent. L'ajout de data ne réordonne JAMAIS la liste.
+
+### Tags KPI (dans `data.ts`)
+
+```ts
+type KPI = {
+  // … champs existants …
+  is_wow?: boolean;          // distinctif, propre à la sté ou sous-industrie
+  is_generic?: boolean;      // comptable banal (Revenue, Net Income, EPS, …)
+  is_short_history?: boolean; // <5 ans → bouge dans bloc Stories
+  story_category?: string;   // "Innovation", "Marché", "Adoption", "Capacité"
+};
+
+type Company = {
+  hero_kpi: string;            // KPI.short choisi comme Hero
+  hero_kpi_rationale?: string; // pourquoi ce choix (1-2 phrases)
+  // …
+};
+```
+
+### 1. Hero KPI (en haut, avec le graph)
+
+Le KPI dont les investisseurs ont le plus envie de connaître la valeur,
+en privilégiant un KPI **wow** (distinctif). Doit avoir ≥5 ans d'historique.
+Doit pouvoir alimenter un bloc Interprétation 4 points (Lead, Moteur,
+Vigilance, Surveillance).
+
+Choix V1 :
+| Sté | Hero | Rationale |
+|---|---|---|
+| **META** | DAP | Audience effective cross-apps, base de monétisation |
+| **GOOGL** | Cloud | Segment qui change la trajectoire d'Alphabet |
+| **MSCI** | Total Run Rate | KPI maître secteur indices/analytics |
+| **SPGI** | Ratings | Segment cyclique le plus suivi (signal crédit) |
+| **CAT** | Backlog | Visibilité 6-18 mois sur revenu futur (cycles longs) |
+
+### 2. Indicateurs clés (liste sous le graph)
+
+Ordre d'alternance (par `orderKpis()` dans `src/lib/kpi-ordering.ts`) :
+- Position 1 : wow
+- Position 2 : wow
+- Position 3 : generic
+- Position 4 : wow
+- Position 5 : generic
+- Position 6+ : alternance générique / wow jusqu'à épuisement
+- Generics restants en bas dans leur ordre original
+
+**KPI generic** = Total Revenue, Net Income, EPS dilué, Op Margin, Headcount,
+Capex (sauf si magnitude wow), Free Cash Flow.
+
+### 3. Stories (sous Indicateurs clés)
+
+Bloc carrousel autoplay 5s avec :
+- KPIs avec `is_short_history: true`
+- MarketPositions intégrées (catégorie "Marché")
+- Boucle infinie 2 sens, pause au hover, flèches + dots
+- Component : `src/components/kpi-stories.tsx` + `kpi-story-card.tsx`
+- Logic : `src/lib/kpi-stories-ordering.ts` (groupage par story_category)
+
+Le bloc Stories REMPLACE l'ancien bloc "Position marché · TAM" qui n'existe
+plus sous sa forme propre — TAM est intégré comme story.
+
+---
+
 ## 5. UI STRUCTURE OF A COMPANY PAGE (in order of appearance)
 
 1. **Top nav** — back link + VariantSwitcher + CompareControl + Save button
@@ -146,10 +238,11 @@ Helper functions: `formatUnit`, `formatCAGR`, `cagr`, `interpretStructured`,
      Point de vigilance, Génération de cash) + 1 future-watch bullet
      (cyan, equal weight, "À surveiller au prochain trimestre")
 4. **Compare panel** (conditional) — appears below HERO when user clicks Comparer
-5. **KPI table** — 5-12 KPIs, click to promote to hero, scroll smoothly to top
-6. **Position marché · TAM** (conditional) — only segments where company has
-   disclosed both the segment revenue AND a credible TAM. Full-width card when
-   only 1 segment.
+5. **KPI table** — 5-12 KPIs ordonnés via `orderKpis()` (cf. § 4bis), click to
+   promote to hero, scroll smoothly to top.
+6. **Stories** (conditional) — carrousel autoplay 5s avec KPIs short-history +
+   MarketPositions intégrées. REMPLACE l'ancien "Position marché · TAM".
+   Voir `src/components/kpi-stories.tsx`.
 7. **Facteurs de risque** — 5-8 risks per company, each with category badge,
    trend chip (new/up/stable/down/removed), severity score 1-5 + score_rationale
    tooltip with 4 inputs (10-K position, language intensity, trend vs N-1, category weight)
@@ -236,10 +329,9 @@ spx-app/
     app/
       layout.tsx           # fonts (Manrope/Bricolage/JetBrains), metadata
       page.tsx             # home → HomeView
-      [ticker]/page.tsx    # default Mettrik view
-      aurora/[ticker]/     # Aurora variant route
-      spatial/[ticker]/    # Spatial variant route
+      [ticker]/page.tsx    # vue société (la seule)
       chart-lab/[ticker]/  # 15-style gallery (reference)
+      concepts/            # prototypes isolés (preview shell)
     data/
       google.json  meta.json  msci.json  spgi.json  cat.json
     lib/
@@ -251,9 +343,7 @@ spx-app/
       utils.ts       # cn, yoyTone, yoyColor
     components/
       home-view.tsx
-      company-view.tsx       # default Mettrik
-      aurora-view.tsx
-      spatial-view.tsx
+      company-view.tsx       # vue société (la seule)
       company-header.tsx
       kpi-row.tsx
       chart-cycle.tsx        # Curve/Bars/Variation/Panel toggle
@@ -293,6 +383,66 @@ spx-app/
 ```
 
 ---
+
+## 7bis. RECENT DISCUSSION TOPICS (the user may bring these up)
+
+These topics were discussed at length right before the handoff and the user
+expects you to remember the substance.
+
+### Charts 3D — what was rejected and what's wanted
+- **Rejected:** axonometric/isometric projection (looks like Excel 2015), simple
+  side-face skew, pseudo-3D with parallelogram top/right faces.
+- **Wanted:** front-view that **animates a smooth camera rotation toward a
+  top-right perspective angle** at mount, like a CAD model tilting itself.
+  Final position = slight tilt with eye at top-right, "vue d'ensemble". The
+  current `bars-chart.tsx` includes a CSS `preserve-3d` stage with a `motion.div`
+  wrapper that tries this (`rotateX(-16deg) rotateY(20deg)`) — improve on this,
+  don't start from scratch. Pie chart popup should be redesigned similarly.
+
+### Holographic pie modal
+- Component : `src/components/holographic-pie.tsx`. Currently OK but the user
+  has a reference image to provide for redesign. Background overlay was
+  reduced from `bg-black/0.7 + blur-md` to `bg-black/0.45 + blur-2px` so the
+  app behind stays slightly visible.
+
+### Chart-lab gallery
+- Route `/chart-lab/[ticker]` shows 5 styles per chart type (15 total).
+- Bars : Crystal, Hologram, Mercury, Particle Stream, Floating Panels
+- Curve : Energy Ribbon, Wireframe Terrain, Light Beam, Cosmic Trail, Liquid Wave
+- Variation : Ripple Waves, Geyser, Tornado, Diving Arrows, Stacked Discs
+- The user has NOT picked any yet. It's a gallery for inspiration.
+
+### Data freshness rule (V2+ critical)
+- Every KPI may carry `last_data_date` ISO string.
+- `getFreshness(date)` returns `fresh | recent | stale | unknown`.
+- `<FreshnessIndicator>` shows a small pill with a "i" tooltip explaining the tier.
+- Stale data (>12 months) gets the orange ⚠ badge. Critical for V2 DB.
+
+### TAM honesty rule (locked)
+- Only show a `MarketPosition` card when **the company itself** has disclosed
+  both segment revenue AND TAM (10-K, 10-Q, investor day, earnings call).
+- External TAM + internal company revenue = methodology mismatch. Forbidden.
+- Coverage drop is acceptable, fabrication is not.
+
+### Risk scoring rationale (locked)
+- Every `CompanyRisk` has `score: 1-5` AND `score_rationale` string.
+- The rationale must cite the 4 inputs: (1) position in 10-K order,
+  (2) language intensity, (3) trend vs N-1, (4) category weight.
+- Trend chip values: `new | up | stable | down | removed`.
+
+### Company peer ranks
+- Only show in Governance card for now.
+- Use simple words: "Plus bas que la moyenne" / "Dans la moyenne" /
+  "Plus haut que la moyenne" / "Bien au-dessus".
+- For "lower is better" metrics (CEO comp, pay ratio), set `inverse: true`.
+
+### V2 financial pipeline (planned, NOT to start)
+- Sources: SEC EDGAR (free, all filings) + IR-page scraping (free, Python +
+  pdftotext) + Brave Search API (2000 free/mo) for fallback TAM research.
+- LLM: Groq Llama 3.3 70B (free tier, ~$50 if paid for speed).
+- Languages: 10-K, 10-Q, 8-K mandatory ; DEF 14A V2.1 ; transcripts V2.2.
+- Coverage: 2000 largest US + ~700 EU (Stoxx 600 + FTSE 100 + SMI, capi >5 Md€).
+- Total V2 budget cap: $150.
 
 ## 8. ROADMAP
 
@@ -345,10 +495,9 @@ because it leaks IP and adds warning pages.
 
 - **Design changes:** show the user before deciding.
 - **New data:** never invent. Ask for the source PDF or skip the field.
-- **Naming:** the brand is `Mettrik`. The previous candidates `Pulse`,
-  `kpulse.ai`, `pulsair.ai` were rejected (collisions). Don't suggest renames.
-- **Variants:** all changes apply to the 3 views (`company-view`, `aurora-view`,
-  `spatial-view`). Don't fix only one.
+- **Naming:** the brand is `Mettrik AI`. Don't suggest renames.
+- **Vue unique:** `company-view.tsx` est la seule vue société. Aurora /
+  Spatial supprimées (cf. §3).
 
 ---
 

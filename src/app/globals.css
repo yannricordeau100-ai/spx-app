@@ -82,15 +82,6 @@ html, body {
   100% { transform: rotate(215deg) translateX(-700px); opacity: 0; }
 }
 
-@keyframes aurora-drift {
-  0%, 100% { transform: translate3d(-3%, -2%, 0) rotate(0deg); }
-  50% { transform: translate3d(3%, 2%, 0) rotate(4deg); }
-}
-@keyframes aurora-drift-2 {
-  0%, 100% { transform: translate3d(2%, 1%, 0) rotate(-3deg); }
-  50% { transform: translate3d(-2%, -1%, 0) rotate(2deg); }
-}
-
 @keyframes fade-up {
   from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
@@ -112,8 +103,6 @@ html, body {
 .animate-fade-up-d2 { animation: fade-up 0.6s 0.18s ease-out both; }
 .animate-pulse-dot { animation: pulse-dot 3.4s ease-in-out infinite; }
 .animate-spotlight { animation: spotlight 2.4s 0.3s ease-out both; }
-.animate-aurora-1 { animation: aurora-drift 90s ease-in-out infinite; }
-.animate-aurora-2 { animation: aurora-drift-2 120s ease-in-out infinite; }
 
 /* Lighter neutral grays for "label" / "muted" text */
 .text-label { color: #d4d4d8; } /* zinc-300, lighter than zinc-500 */
@@ -158,39 +147,35 @@ html, body {
   opacity: 0;
   transition: opacity 0.5s ease;
   z-index: -1;
-  animation: spin 4s linear infinite;
+  animation: spin 12s linear infinite;
 }
 .conic-border:hover::before { opacity: 1; }
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* Spatial 3D — depth, layered shadows */
-.spatial-card {
-  background: linear-gradient(180deg, #0f0f12 0%, #08080b 100%);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.05),
-    inset 0 -1px 0 rgba(0,0,0,0.6),
-    0 30px 60px -30px rgba(0,0,0,0.8),
-    0 12px 24px -12px rgba(0,0,0,0.6);
-  border: 1px solid #1a1a1f;
-}
-.spatial-emboss {
-  text-shadow: 0 1px 0 rgba(255,255,255,0.06), 0 2px 8px rgba(0,0,0,0.6);
-}
-.spatial-deboss {
-  text-shadow: 0 -1px 0 rgba(255,255,255,0.04), 0 1px 0 rgba(0,0,0,0.4);
-}
-
-/* Aurora — soft glass + drifting halos */
-.glass-card {
-  background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%);
-  border: 1px solid rgba(255,255,255,0.08);
-  backdrop-filter: blur(20px) saturate(140%);
-  -webkit-backdrop-filter: blur(20px) saturate(140%);
-}
-
 /* Soft inner glow on tile */
 .glass {
   background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0) 100%);
   backdrop-filter: blur(8px);
+}
+
+/* Cmd+F find-on-page highlights */
+mark.cmdf-match {
+  background: rgba(250, 204, 21, 0.32);
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+  box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.55) inset;
+}
+mark.cmdf-match-active {
+  background: rgba(168, 85, 247, 0.55);
+  box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.9) inset, 0 0 8px rgba(168, 85, 247, 0.45);
+  color: #fff;
+}
+
+/* En mode clair, l'app est inversée via filter sur <html>. Les éléments
+   marqués .preserve-colors voient leur inversion contre-appliquée pour
+   conserver les vraies couleurs (drapeaux, logos brand, badges colorés). */
+html[data-theme="light"] .preserve-colors {
+  filter: invert(1) hue-rotate(180deg);
 }

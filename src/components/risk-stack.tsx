@@ -18,31 +18,136 @@ import {
   Minus,
   X,
 } from "lucide-react";
-import type { CompanyRisk, RiskCategory, RiskTrend } from "@/lib/data";
+import type { CompanyRisk, ProfitWarning, RiskCategory, RiskTrend } from "@/lib/data";
 import { InfoTooltip } from "@/components/info-tooltip";
+import { useT } from "@/lib/i18n/provider";
+
+function formatDate(iso: string, locale: "fr" | "en" = "fr"): string {
+  try {
+    return new Date(iso).toLocaleDateString(locale === "fr" ? "fr-FR" : "en-US", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+  } catch {
+    return iso;
+  }
+}
+
+function ProfitWarningCard({ pw }: { pw: ProfitWarning }) {
+  const { t, locale } = useT();
+  const scoreColor =
+    pw.score <= 1 ? "#10b981" :
+    pw.score <= 2 ? "#84cc16" :
+    pw.score <= 3 ? "#f59e0b" :
+    pw.score <= 4 ? "#f97316" : "#f43f5e";
+  const scoreLabel =
+    pw.score <= 1 ? t("risks.pw.score.very_unlikely") :
+    pw.score <= 2 ? t("risks.pw.score.unlikely") :
+    pw.score <= 3 ? t("risks.pw.score.moderate") :
+    pw.score <= 4 ? t("risks.pw.score.high") : t("risks.pw.score.imminent");
+  return (
+    <div className="rounded-xl border border-[#1a1a1a] bg-[#070707] transition-colors hover:border-[#2a2a2a]">
+      <div className="flex items-start gap-3.5 p-4">
+        <span
+          className="mt-0.5 inline-flex size-9 shrink-0 items-center justify-center rounded-md"
+          style={{
+            background: `${scoreColor}1a`,
+            color: scoreColor,
+            border: `1px solid ${scoreColor}40`,
+          }}
+        >
+          <AlertTriangle className="size-4" />
+        </span>
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-center gap-2">
+            <span
+              className="rounded-md px-1.5 py-0.5 text-[10.5px] font-semibold uppercase tracking-wider"
+              style={{
+                background: `${scoreColor}1a`,
+                color: scoreColor,
+                border: `1px solid ${scoreColor}33`,
+              }}
+            >
+              {t("risks.pw.label")}
+            </span>
+            <InfoTooltip color={scoreColor}>
+              <div className="mb-1.5 font-mono text-[10px] uppercase tracking-wider" style={{ color: scoreColor }}>
+                {t("risks.pw.title_tooltip")}
+              </div>
+              <p className="text-[12px] leading-relaxed text-zinc-200">
+                {t("risks.pw.explainer")}
+              </p>
+              <p className="mt-2 text-[11.5px] text-zinc-300">
+                <span className="font-semibold">{t("risks.pw.note_label")}</span> {t("risks.pw.note_body")}
+              </p>
+            </InfoTooltip>
+          </div>
+
+          <div className="mt-2 text-[15px] font-semibold leading-snug text-zinc-50">
+            {t("risks.pw.headline")}
+          </div>
+
+          <div className="mt-2.5 flex flex-wrap items-center gap-3">
+            <ScoreBar score={pw.score} color={scoreColor} />
+            <span
+              className="font-mono text-[11px] font-semibold uppercase tracking-wider"
+              style={{ color: scoreColor }}
+            >
+              {scoreLabel}
+            </span>
+            <span className="font-mono text-[11px] tabular-nums text-zinc-400">
+              {pw.score}/5
+            </span>
+          </div>
+
+          <div className="mt-2 flex flex-wrap items-center gap-2 text-[12.5px] text-zinc-300">
+            <span className="font-mono text-[10.5px] uppercase tracking-wider text-zinc-400">
+              {t("risks.pw.last_date")}
+            </span>
+            <span className="font-mono text-[13px] font-semibold text-zinc-50">
+              {pw.last_date ? formatDate(pw.last_date, locale) : t("risks.pw.never")}
+            </span>
+          </div>
+
+          {pw.rationale && (
+            <p className="mt-2.5 text-[12.5px] leading-relaxed text-zinc-300">
+              {pw.rationale}
+            </p>
+          )}
+          {pw.margin_trend && (
+            <p className="mt-1.5 text-[12px] italic leading-relaxed text-zinc-400">
+              {t("risks.pw.margin_trend")} {pw.margin_trend}
+            </p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 const CATEGORY_META: Record<
   RiskCategory,
-  { label: string; color: string; Icon: typeof Gavel }
+  { labelKey: string; color: string; Icon: typeof Gavel }
 > = {
-  regulatory: { label: "Réglementaire", color: "#f59e0b", Icon: Gavel },
-  competitive: { label: "Concurrentiel", color: "#f43f5e", Icon: Swords },
-  cyber: { label: "Cybersécurité", color: "#06b6d4", Icon: ShieldAlert },
-  operational: { label: "Opérationnel", color: "#a78bfa", Icon: Wrench },
-  financial: { label: "Financier", color: "#10b981", Icon: Banknote },
-  macro: { label: "Macro", color: "#94a3b8", Icon: Globe2 },
-  technology: { label: "Technologique", color: "#fb923c", Icon: Cpu },
+  regulatory: { labelKey: "risks.category.regulatory", color: "#f59e0b", Icon: Gavel },
+  competitive: { labelKey: "risks.category.competitive", color: "#f43f5e", Icon: Swords },
+  cyber: { labelKey: "risks.category.cyber", color: "#06b6d4", Icon: ShieldAlert },
+  operational: { labelKey: "risks.category.operational", color: "#a78bfa", Icon: Wrench },
+  financial: { labelKey: "risks.category.financial", color: "#10b981", Icon: Banknote },
+  macro: { labelKey: "risks.category.macro", color: "#94a3b8", Icon: Globe2 },
+  technology: { labelKey: "risks.category.technology", color: "#fb923c", Icon: Cpu },
 };
 
 const TREND_META: Record<
   RiskTrend,
-  { label: string; color: string; Icon: typeof ArrowUp | typeof Sparkles }
+  { labelKey: string; color: string; Icon: typeof ArrowUp | typeof Sparkles }
 > = {
-  new: { label: "Nouveau 2025", color: "#a78bfa", Icon: Sparkles },
-  up: { label: "Aggravé", color: "#f43f5e", Icon: ArrowUp },
-  stable: { label: "Stable", color: "#a1a1aa", Icon: Minus },
-  down: { label: "Atténué", color: "#10b981", Icon: ArrowDown },
-  removed: { label: "Retiré", color: "#71717a", Icon: X },
+  new: { labelKey: "risks.trend.new", color: "#a78bfa", Icon: Sparkles },
+  up: { labelKey: "risks.trend.up", color: "#f43f5e", Icon: ArrowUp },
+  stable: { labelKey: "risks.trend.stable", color: "#a1a1aa", Icon: Minus },
+  down: { labelKey: "risks.trend.down", color: "#10b981", Icon: ArrowDown },
+  removed: { labelKey: "risks.trend.removed", color: "#71717a", Icon: X },
 };
 
 function ScoreBar({ score, color }: { score: number; color: string }) {
@@ -62,20 +167,26 @@ function ScoreBar({ score, color }: { score: number; color: string }) {
   );
 }
 
-function ScoreLabel(score: number): string {
+function scoreLabelKey(score: number): string {
   return score >= 5
-    ? "Critique"
+    ? "risks.score.critical"
     : score >= 4
-      ? "Élevé"
+      ? "risks.score.high"
       : score >= 3
-        ? "Modéré"
+        ? "risks.score.moderate"
         : score >= 2
-          ? "Faible"
-          : "Marginal";
+          ? "risks.score.low"
+          : "risks.score.marginal";
 }
 
 function RiskCard({ risk, index }: { risk: CompanyRisk; index: number }) {
+  const { t, locale } = useT();
   const [open, setOpen] = useState(false);
+  const displayTitle = locale === "en" && risk.title_en ? risk.title_en : risk.title;
+  // quote source = EN (10-K verbatim). En FR, on affiche la traduction si dispo.
+  const displayQuote = locale === "fr" && risk.quote_fr ? risk.quote_fr : risk.quote;
+  const quoteOpen = locale === "en" ? "“" : "« ";
+  const quoteClose = locale === "en" ? "”" : " »";
   const meta = CATEGORY_META[risk.category];
   const trend = TREND_META[risk.trend];
   const Icon = meta.Icon;
@@ -100,9 +211,17 @@ function RiskCard({ risk, index }: { risk: CompanyRisk; index: number }) {
       transition={{ duration: 0.35, delay: 0.04 * index, ease: [0.22, 1, 0.36, 1] }}
       className="rounded-xl border border-[#1a1a1a] bg-[#070707] transition-colors hover:border-[#2a2a2a]"
     >
-      <button
+      <div
+        role="button"
+        tabIndex={0}
         onClick={() => setOpen((o) => !o)}
-        className="flex w-full items-start gap-3.5 p-4 text-left"
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            setOpen((o) => !o);
+          }
+        }}
+        className="flex w-full cursor-pointer items-start gap-3.5 p-4 text-left"
       >
         <span
           className="mt-0.5 inline-flex size-9 shrink-0 items-center justify-center rounded-md"
@@ -124,7 +243,7 @@ function RiskCard({ risk, index }: { risk: CompanyRisk; index: number }) {
                 border: `1px solid ${meta.color}33`,
               }}
             >
-              {meta.label}
+              {t(meta.labelKey)}
             </span>
             <span
               className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[10.5px] font-semibold uppercase tracking-wider"
@@ -135,11 +254,11 @@ function RiskCard({ risk, index }: { risk: CompanyRisk; index: number }) {
               }}
             >
               <TrendIcon className="size-3" />
-              {trend.label}
+              {t(trend.labelKey)}
             </span>
           </div>
           <div className="mt-2 text-[15px] font-semibold leading-snug text-zinc-50">
-            {risk.title}
+            {displayTitle}
           </div>
 
           <div className="mt-2.5 flex items-center gap-3">
@@ -148,7 +267,7 @@ function RiskCard({ risk, index }: { risk: CompanyRisk; index: number }) {
               className="font-mono text-[11px] font-semibold uppercase tracking-wider"
               style={{ color: scoreColor }}
             >
-              {ScoreLabel(risk.score)}
+              {t(scoreLabelKey(risk.score))}
             </span>
             <span className="font-mono text-[11px] tabular-nums text-zinc-400">
               {risk.score}/5
@@ -162,20 +281,20 @@ function RiskCard({ risk, index }: { risk: CompanyRisk; index: number }) {
                   className="mb-1.5 font-mono text-[10px] uppercase tracking-wider"
                   style={{ color: scoreColor }}
                 >
-                  Comment cette note a été calculée
+                  {t("risks.score_explainer_title")}
                 </div>
                 <p className="text-[12px] leading-relaxed text-zinc-200">
                   {risk.score_rationale}
                 </p>
                 <div className="mt-3 rounded-md border border-[#1f1f1f] bg-[#0c0c0c] p-2">
                   <div className="font-mono text-[10px] uppercase tracking-wider text-zinc-400">
-                    Barème
+                    {t("risks.score_scale_title")}
                   </div>
                   <ul className="mt-1 space-y-0.5 text-[11.5px] text-zinc-300">
-                    <li>• Position dans le 10-K (ordre officiel)</li>
-                    <li>• Intensité du langage juridique</li>
-                    <li>• Tendance vs 10-K N-1</li>
-                    <li>• Poids de catégorie (cyber, regulatory élevés)</li>
+                    <li>• {t("risks.score_scale_1")}</li>
+                    <li>• {t("risks.score_scale_2")}</li>
+                    <li>• {t("risks.score_scale_3")}</li>
+                    <li>• {t("risks.score_scale_4")}</li>
                   </ul>
                 </div>
               </InfoTooltip>
@@ -185,7 +304,7 @@ function RiskCard({ risk, index }: { risk: CompanyRisk; index: number }) {
         <ChevronDown
           className={`mt-1 size-4 shrink-0 text-zinc-400 transition-transform ${open ? "rotate-180" : ""}`}
         />
-      </button>
+      </div>
 
       <AnimatePresence>
         {open && (
@@ -198,10 +317,10 @@ function RiskCard({ risk, index }: { risk: CompanyRisk; index: number }) {
           >
             <div className="border-t border-[#1a1a1a] px-4 py-3.5">
               <div className="mb-1.5 font-mono text-[10px] uppercase tracking-wider text-zinc-400">
-                Extrait du 10-K
+                {t("risks.management_quote")}
               </div>
               <p className="border-l-2 border-[#2a2a2a] pl-3 text-[13px] italic leading-relaxed text-zinc-200">
-                « {risk.quote} »
+                {quoteOpen}{displayQuote}{quoteClose}
               </p>
             </div>
           </motion.div>
@@ -214,18 +333,31 @@ function RiskCard({ risk, index }: { risk: CompanyRisk; index: number }) {
 export function RiskStack({
   risks,
   accent = "#a78bfa",
+  profitWarning,
 }: {
   risks: CompanyRisk[];
   accent?: string;
+  profitWarning?: ProfitWarning;
 }) {
+  const { t } = useT();
   if (!risks || risks.length === 0) return null;
 
-  // Sort by score desc to emphasize critical first
-  const sorted = [...risks].sort((a, b) => b.score - a.score);
+  // Sort by score desc, mixing the profit warning with regular risks so it
+  // takes its rightful place among them based on its own score.
+  type Item =
+    | { kind: "risk"; key: string; score: number; data: CompanyRisk }
+    | { kind: "pw"; key: string; score: number; data: ProfitWarning };
+  const items: Item[] = [
+    ...risks.map<Item>((r) => ({ kind: "risk", key: r.title, score: r.score, data: r })),
+    ...(profitWarning
+      ? [{ kind: "pw" as const, key: "profit-warning", score: profitWarning.score, data: profitWarning }]
+      : []),
+  ].sort((a, b) => b.score - a.score);
 
   // Count emerging risks (new to 2025)
   const newCount = risks.filter((r) => r.trend === "new").length;
   const upCount = risks.filter((r) => r.trend === "up").length;
+  const totalCount = items.length;
 
   return (
     <section className="mt-9 animate-fade-up-d2">
@@ -233,30 +365,33 @@ export function RiskStack({
         <div>
           <h2 className="flex items-center gap-2.5 text-[22px] font-semibold text-zinc-50">
             <AlertTriangle className="size-5" style={{ color: accent }} />
-            Facteurs de risque
+            {t("risks.title")}
           </h2>
           <p className="mt-0.5 text-[13.5px] text-zinc-300">
-            Extraits directs du 10-K, notés selon 4 critères. Cliquez pour voir la citation
-            intégrale ; survolez l'icône « i » pour comprendre la note.
+            {t("risks.subtitle")}
           </p>
         </div>
         <div className="flex flex-col items-end gap-1 font-mono text-[11px] uppercase tracking-wider text-zinc-400">
-          <span>{risks.length} risques</span>
+          <span>{totalCount} {t("risks.count")}</span>
           {upCount > 0 && (
-            <span className="text-rose-300">{upCount} aggravé{upCount > 1 ? "s" : ""}</span>
+            <span className="text-rose-300">{upCount} {upCount > 1 ? t("risks.aggravated_many") : t("risks.aggravated_one")}</span>
           )}
           {newCount > 0 && (
             <span className="text-violet-300">
-              {newCount} nouveau{newCount > 1 ? "x" : ""} en 2025
+              {newCount} {newCount > 1 ? t("risks.new_many") : t("risks.new_one")}
             </span>
           )}
         </div>
       </div>
 
       <div className="grid gap-3">
-        {sorted.map((r, i) => (
-          <RiskCard key={r.title} risk={r} index={i} />
-        ))}
+        {items.map((item, i) =>
+          item.kind === "risk" ? (
+            <RiskCard key={item.key} risk={item.data} index={i} />
+          ) : (
+            <ProfitWarningCard key={item.key} pw={item.data} />
+          )
+        )}
       </div>
     </section>
   );

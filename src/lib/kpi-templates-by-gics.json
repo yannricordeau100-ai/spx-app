@@ -1,0 +1,1528 @@
+{
+  "UNIVERSAL_KPIS": [
+    {
+      "short": "CA / temps",
+      "name_fr": "Chiffre d'affaires par unité de temps",
+      "name_en": "Revenue per Time Unit",
+      "explanation": "Combien d'euros / dollars la société génère par seconde, minute, heure, jour. Calculé sur les 12 derniers mois divisé par le nombre de secondes / minutes / etc. de l'année.",
+      "why_pv": "Donne une intuition concrète de la taille et du rythme de la société. Permet de comparer 'ils gagnent X $ par seconde' vs un autre acteur.",
+      "unit": "$ ou €",
+      "type": "Revenue",
+      "wow_or_generic": "generic"
+    },
+    {
+      "short": "Profit / temps",
+      "name_fr": "Bénéfice net par unité de temps",
+      "name_en": "Net Income per Time Unit",
+      "explanation": "Combien d'euros / dollars la société garde réellement après tous frais, par seconde / minute / etc. Caché si la société perd de l'argent.",
+      "why_pv": "Mesure de profitabilité absolue, complément du CA/temps. Ex: 'ils gagnent 1000 $ de profit par minute' impressionne.",
+      "unit": "$ ou €",
+      "type": "Margin",
+      "wow_or_generic": "generic"
+    },
+    {
+      "short": "CA / employé",
+      "name_fr": "Chiffre d'affaires par employé",
+      "name_en": "Revenue per Employee",
+      "explanation": "Indicateur de productivité. Combien chaque employé génère en moyenne, par an / mois / semaine / jour / heure / minute / seconde.",
+      "why_pv": "Mesure de productivité comparable entre sociétés. Tech (1-3 M$/employé) vs retail (~200 K$/employé) vs banque (~500 K$/employé).",
+      "unit": "$ ou €",
+      "type": "Margin",
+      "wow_or_generic": "wow"
+    }
+  ],
+  "KPI_TEMPLATES": {
+    "COMMUNICATION_SERVICES": {
+      "sector_fr": "Services de communication",
+      "sector_en": "Communication Services",
+      "description": "Internet (Meta, Google, Tencent), médias (Disney, Netflix), télécoms (AT&T, Vodafone), jeux vidéo (NetEase, Take-Two).",
+      "hero_candidates": [
+        {
+          "short": "DAP",
+          "name_fr": "Utilisateurs actifs quotidiens (toutes apps)",
+          "name_en": "Daily Active People",
+          "explanation": "Nombre unique d'utilisateurs qui se connectent chaque jour à au moins une app du groupe. Métrique clé pour Meta, ByteDance, etc.",
+          "why_pv": "Base de monétisation publicitaire = directement liée à ce KPI.",
+          "unit": "M",
+          "type": "User",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Cloud Revenue",
+          "name_fr": "Revenu Cloud / IA",
+          "name_en": "Cloud / AI Revenue",
+          "explanation": "Revenu généré par les services cloud et IA (AWS, Azure, Google Cloud, Alibaba Cloud).",
+          "why_pv": "Segment qui change la trajectoire des géants du numérique avec la vague IA générative.",
+          "unit": "$B",
+          "type": "Demand",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "ARPU",
+          "name_fr": "Revenu moyen par utilisateur",
+          "name_en": "Average Revenue Per User (ARPU)",
+          "explanation": "Chiffre d'affaires divisé par le nombre d'utilisateurs. Indique combien chaque utilisateur rapporte.",
+          "why_pv": "Indicateur clé telecom et streaming (ARPU > prix abonnement = upsell réussi).",
+          "unit": "$ ou €",
+          "type": "Margin",
+          "wow_or_generic": "wow"
+        }
+      ],
+      "standard_kpis": [
+        {
+          "short": "Net Adds",
+          "name_fr": "Nouveaux abonnés nets",
+          "name_en": "Net Subscriber Additions",
+          "explanation": "Différence entre nouveaux abonnés gagnés et anciens perdus dans la période. Si négatif = la société perd des clients.",
+          "why_pv": "Indicateur de croissance organique (telecom, streaming).",
+          "unit": "M",
+          "type": "User",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Churn",
+          "name_fr": "Taux de départ clients (churn)",
+          "name_en": "Churn Rate",
+          "explanation": "Pourcentage de clients qui annulent leur abonnement chaque mois ou année.",
+          "why_pv": "Fidélité du client = directement liée à la profitabilité long-terme.",
+          "unit": "%",
+          "type": "Risk",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Postpaid Mix",
+          "name_fr": "Part de contrats long terme (postpayé)",
+          "name_en": "Postpaid Subscriber Mix",
+          "explanation": "Pourcentage des clients en contrat long terme (postpayé) vs prépayé.",
+          "why_pv": "Postpayé = client plus rentable, ARPU plus élevé.",
+          "unit": "%",
+          "type": "Mix",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Ad Impressions",
+          "name_fr": "Volume d'impressions publicitaires",
+          "name_en": "Ad Impressions Growth",
+          "explanation": "Nombre de pubs vues par les utilisateurs. Driver direct du revenu publicitaire (Meta, Google, etc.).",
+          "why_pv": "Permet de séparer croissance volumique vs croissance prix dans la pub.",
+          "unit": "%",
+          "type": "Demand",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Op Margin",
+          "name_fr": "Marge opérationnelle",
+          "name_en": "Operating Margin",
+          "explanation": "Bénéfice opérationnel divisé par chiffre d'affaires.",
+          "why_pv": "Indicateur de profitabilité standard, comparable entre pairs.",
+          "unit": "%",
+          "type": "Margin",
+          "wow_or_generic": "generic"
+        },
+        {
+          "short": "Capex",
+          "name_fr": "Investissements (data centers, réseau)",
+          "name_en": "Capital Expenditures",
+          "explanation": "Investissements en infrastructure : data centers (cloud + IA), réseau télécom, etc.",
+          "why_pv": "Driver de la capacité 2-3 ans. Capex IA actuel = drive trajectoire 2027-2030.",
+          "unit": "$B",
+          "type": "Investment",
+          "wow_or_generic": "wow"
+        }
+      ],
+      "story_short_history": [
+        {
+          "short": "AI Adoption",
+          "name_fr": "Adoption produits IA",
+          "name_en": "AI Product Adoption / Daily Users",
+          "explanation": "Nombre d'utilisateurs / clients utilisant des fonctionnalités IA (Copilot, Gemini, Meta AI).",
+          "why_pv": "Trajectoire IA = clé pour valoriser. Lancements 2023-2025, courte histoire.",
+          "unit": "M",
+          "type": "Adoption",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "New Format Bookings",
+          "name_fr": "Réservations nouveaux formats publicitaires",
+          "name_en": "New Ad Format Bookings (Reels, Shorts, etc.)",
+          "explanation": "Volume de revenus publicitaires sur les nouveaux formats (Reels, TikTok-like, Shorts).",
+          "why_pv": "Indicateur d'innovation produit qui résiste au shift d'attention.",
+          "unit": "$B",
+          "type": "Demand",
+          "wow_or_generic": "wow"
+        }
+      ],
+      "super_kpi_mettrik": [
+        {
+          "short": "Concentration top 1",
+          "name_fr": "Concentration premier client",
+          "name_en": "Top 1 Customer Revenue Share",
+          "explanation": "Part du revenu généré par le plus gros client (souvent caché dans le 20-F mais critique).",
+          "why_pv": "Risque de dépendance. Pour un éditeur : Apple Store + Google Play = 50%+ chez certains.",
+          "unit": "%",
+          "type": "Risk",
+          "wow_or_generic": "wow"
+        }
+      ],
+      "hero_override_examples": [
+        "META → Hero = DAP (Daily Active People cross-apps)",
+        "GOOGL → Hero = Cloud Revenue (segment qui change la trajectoire IA)",
+        "BABA → Hero = Cloud Intelligence (Qwen IA)",
+        "NFLX → Hero = Subscribers (à calculer manuellement depuis 2024 si plus publié)",
+        "T (AT&T) → Hero = ARPU + Net Adds postpayés"
+      ]
+    },
+    "CONSUMER_DISCRETIONARY": {
+      "sector_fr": "Consommation discrétionnaire",
+      "sector_en": "Consumer Discretionary",
+      "description": "Auto (Toyota, Tesla, Stellantis), retail (Amazon, Home Depot), luxe (LVMH, Hermès, Ferrari), restauration (McDonald's), e-commerce.",
+      "hero_candidates": [
+        {
+          "short": "Same-Store Sales",
+          "name_fr": "Ventes magasins comparables",
+          "name_en": "Same-Store Sales (SSS) / Like-for-Like",
+          "explanation": "Croissance des ventes des magasins ouverts depuis plus d'un an. Mesure de croissance organique pure (hors ouvertures nouvelles).",
+          "why_pv": "Indicateur le plus regardé en retail. Signale la santé réelle de l'enseigne.",
+          "unit": "%",
+          "type": "Demand",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "GMV",
+          "name_fr": "Volume de ventes brut (e-commerce)",
+          "name_en": "Gross Merchandise Volume (GMV)",
+          "explanation": "Total de la valeur des produits vendus sur la plateforme avant déduction des coûts (Shopify, Alibaba, Amazon, Sea).",
+          "why_pv": "Driver direct du revenu de commission e-commerce. Indique la part de marché.",
+          "unit": "$B",
+          "type": "Demand",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Vehicle Sales",
+          "name_fr": "Ventes véhicules en unités",
+          "name_en": "Vehicle Unit Sales",
+          "explanation": "Nombre total de véhicules vendus dans l'année. Fondamental pour les constructeurs auto.",
+          "why_pv": "KPI principal industrie auto (volume + mix prémium).",
+          "unit": "M unités",
+          "type": "Demand",
+          "wow_or_generic": "wow"
+        }
+      ],
+      "standard_kpis": [
+        {
+          "short": "Op Margin",
+          "name_fr": "Marge opérationnelle",
+          "name_en": "Operating Margin",
+          "explanation": "Bénéfice opérationnel / Chiffre d'affaires.",
+          "why_pv": "Comparable entre marques (luxe 25%+, retail 5-10%, auto 8-12%).",
+          "unit": "%",
+          "type": "Margin",
+          "wow_or_generic": "generic"
+        },
+        {
+          "short": "Inventory Turn",
+          "name_fr": "Rotation des stocks",
+          "name_en": "Inventory Turnover",
+          "explanation": "Nombre de fois où le stock est entièrement vendu et reconstitué dans l'année.",
+          "why_pv": "Indicateur de fluidité retail. Plus élevé = mieux (moins de cash bloqué).",
+          "unit": "x",
+          "type": "Margin",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Premium Mix",
+          "name_fr": "Part premium dans les ventes",
+          "name_en": "Premium Product Mix",
+          "explanation": "Pourcentage des ventes provenant des gammes premium / haut de gamme.",
+          "why_pv": "Drive la marge. Trade-up consumer = trajectoire structurelle.",
+          "unit": "%",
+          "type": "Mix",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "EV Mix",
+          "name_fr": "Part véhicules électriques",
+          "name_en": "EV / BEV Sales Mix",
+          "explanation": "Part des véhicules 100% électriques dans les ventes totales (auto).",
+          "why_pv": "Trajectoire transition énergétique = clé pour valoriser un OEM.",
+          "unit": "%",
+          "type": "Mix",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Stores",
+          "name_fr": "Nombre de magasins",
+          "name_en": "Total Store Count",
+          "explanation": "Total magasins ouverts globalement.",
+          "why_pv": "Indicateur de scale géographique. Croissance via ouvertures vs SSS.",
+          "unit": "",
+          "type": "Demand",
+          "wow_or_generic": "generic"
+        },
+        {
+          "short": "Op Cash Flow",
+          "name_fr": "Flux de trésorerie d'exploitation",
+          "name_en": "Operating Cash Flow",
+          "explanation": "Cash réellement généré par l'activité courante.",
+          "why_pv": "Indicateur de profitabilité réelle (vs comptable).",
+          "unit": "$B",
+          "type": "Cash",
+          "wow_or_generic": "generic"
+        }
+      ],
+      "story_short_history": [
+        {
+          "short": "Personalisation",
+          "name_fr": "Part du sur-mesure / personnalisation",
+          "name_en": "Personalisation Revenue Share",
+          "explanation": "Pourcentage du revenu issu d'options et configurations sur-mesure (Ferrari, RACE).",
+          "why_pv": "Marge bien supérieure (50%+ chez Ferrari). Pricing power exclusif.",
+          "unit": "%",
+          "type": "Mix",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Order Book",
+          "name_fr": "Carnet de commandes (en années)",
+          "name_en": "Order Book Coverage (years)",
+          "explanation": "Visibilité du carnet de commandes en années de production. Signe de rareté / désirabilité.",
+          "why_pv": "Pricing power inégalé pour les marques avec >2 ans de carnet.",
+          "unit": "ans",
+          "type": "Demand",
+          "wow_or_generic": "wow"
+        }
+      ],
+      "super_kpi_mettrik": [
+        {
+          "short": "Resilience SSS",
+          "name_fr": "Résistance des ventes en récession",
+          "name_en": "SSS Resilience in Downturns",
+          "explanation": "Comparaison ventes magasins comparables en années récession (2008, 2020) vs croissance.",
+          "why_pv": "Indique la 'défensive nature' du business model.",
+          "unit": "%",
+          "type": "Risk",
+          "wow_or_generic": "wow"
+        }
+      ],
+      "hero_override_examples": [
+        "Ferrari (RACE) → Hero = Personalisation (% sur-mesure)",
+        "Toyota (TM) → Hero = Hybrid Sales (différenciation full-EV concurrents)",
+        "Shopify (SHOP) → Hero = GMV",
+        "Amazon (AMZN) → Hero = AWS Revenue (segment qui change la trajectoire)"
+      ]
+    },
+    "CONSUMER_STAPLES": {
+      "sector_fr": "Consommation de base",
+      "sector_en": "Consumer Staples",
+      "description": "Alimentation et boissons (Nestlé, Coca-Cola, Unilever, AB InBev), produits ménagers (Procter & Gamble), tabac (Philip Morris).",
+      "hero_candidates": [
+        {
+          "short": "Underlying Sales",
+          "name_fr": "Croissance organique des ventes",
+          "name_en": "Underlying Sales Growth (USG)",
+          "explanation": "Croissance des ventes hors effet change et hors acquisitions/cessions. Mesure pure de la croissance organique (prix + volume).",
+          "why_pv": "KPI le plus regardé chez Unilever, Nestlé, P&G.",
+          "unit": "%",
+          "type": "Demand",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Volume Growth",
+          "name_fr": "Croissance volume",
+          "name_en": "Volume Growth",
+          "explanation": "Croissance des ventes en volume seul (hors hausse de prix).",
+          "why_pv": "Indique si la sté grandit vraiment ou juste profite de l'inflation.",
+          "unit": "%",
+          "type": "Demand",
+          "wow_or_generic": "wow"
+        }
+      ],
+      "standard_kpis": [
+        {
+          "short": "Premium Mix",
+          "name_fr": "Part premium dans les ventes",
+          "name_en": "Premium Brand Sales Share",
+          "explanation": "Pourcentage des ventes issues des marques premium / super-premium.",
+          "why_pv": "Trade-up consumer = trajectoire structurelle (luxe spirits, beauté).",
+          "unit": "%",
+          "type": "Mix",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Power Brands",
+          "name_fr": "Concentration top 30 marques",
+          "name_en": "Top 30 Power Brands Sales Share",
+          "explanation": "Part des ventes générées par les 30 marques principales (Dove, Magnum, Knorr...).",
+          "why_pv": "Stratégie focus = priorisation des grosses marques.",
+          "unit": "%",
+          "type": "Mix",
+          "wow_or_generic": "generic"
+        },
+        {
+          "short": "Op Margin",
+          "name_fr": "Marge opérationnelle ajustée",
+          "name_en": "Underlying Operating Margin",
+          "explanation": "Marge opérationnelle hors éléments exceptionnels.",
+          "why_pv": "Comparable entre pairs (FMCG ~18-22%, alcool ~30%).",
+          "unit": "%",
+          "type": "Margin",
+          "wow_or_generic": "generic"
+        },
+        {
+          "short": "Volume",
+          "name_fr": "Volume hectolitres / unités",
+          "name_en": "Total Volume (hL or units)",
+          "explanation": "Volume total vendu (hectolitres pour bière, unités pour PG).",
+          "why_pv": "Indicateur de scale industriel. Plat = mature, croissance = nouveaux marchés.",
+          "unit": "hL ou unités",
+          "type": "Demand",
+          "wow_or_generic": "generic"
+        },
+        {
+          "short": "FCF",
+          "name_fr": "Flux de trésorerie disponible",
+          "name_en": "Free Cash Flow",
+          "explanation": "Cash disponible après tous frais et investissements courants.",
+          "why_pv": "Sert dividendes + buybacks. Indicateur de qualité du cash flow.",
+          "unit": "$B",
+          "type": "Cash",
+          "wow_or_generic": "generic"
+        }
+      ],
+      "story_short_history": [
+        {
+          "short": "Spin-off / Demerger",
+          "name_fr": "Démantèlement de filiale",
+          "name_en": "Demerger / Spin-off Announced",
+          "explanation": "Annonces récentes de démantèlement de filiale (Unilever Ice Cream 2024-2025).",
+          "why_pv": "Évènement structurant qui change la trajectoire en 12-18 mois.",
+          "unit": "$B",
+          "type": "Risk",
+          "wow_or_generic": "wow"
+        }
+      ],
+      "super_kpi_mettrik": [
+        {
+          "short": "Pricing Power",
+          "name_fr": "Capacité à augmenter les prix sans perdre de volume",
+          "name_en": "Pricing Power (Price Realization vs Volume)",
+          "explanation": "Différence entre hausse de prix obtenue et perte de volume associée. >0 = pricing power, <0 = sensibilité au prix.",
+          "why_pv": "L'or de l'investisseur défensif. Coca-Cola, Diageo en ont. Distributeurs n'en ont pas.",
+          "unit": "pts",
+          "type": "Margin",
+          "wow_or_generic": "wow"
+        }
+      ],
+      "hero_override_examples": [
+        "Unilever (UL) → Hero = Underlying Sales Growth",
+        "AB InBev (BUD) → Hero = Premium Beer Mix",
+        "Diageo (DEO) → Hero = Premium+ Spirits Mix",
+        "Procter & Gamble (PG) → Hero = Organic Sales Growth"
+      ]
+    },
+    "ENERGY": {
+      "sector_fr": "Énergie",
+      "sector_en": "Energy",
+      "description": "Pétrole et gaz intégrés (Shell, BP, ExxonMobil, Chevron), services pétroliers (SLB), midstream / pipelines (Enbridge), oil sands (Suncor).",
+      "hero_candidates": [
+        {
+          "short": "Production",
+          "name_fr": "Production hydrocarbures",
+          "name_en": "Total Hydrocarbon Production (boe/day)",
+          "explanation": "Production journalière en barils équivalent pétrole (boe = oil + gas + LGN convertis en équivalent pétrole).",
+          "why_pv": "KPI maître secteur upstream. Driver direct du revenu et de la marge.",
+          "unit": "Mboe/j",
+          "type": "Demand",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "LNG Volumes",
+          "name_fr": "Volumes LNG (gaz naturel liquéfié)",
+          "name_en": "LNG Liquefaction + Sales Volumes",
+          "explanation": "Volume de gaz naturel liquéfié produit et vendu. Shell est #1 mondial.",
+          "why_pv": "Segment qui distingue les majors. Pricing premium vs gaz pipeline.",
+          "unit": "Mt",
+          "type": "Demand",
+          "wow_or_generic": "wow"
+        }
+      ],
+      "standard_kpis": [
+        {
+          "short": "Refining Margin",
+          "name_fr": "Marge de raffinage",
+          "name_en": "Refinery Crack Spread",
+          "explanation": "Différence entre prix de vente des produits raffinés (essence, diesel) et coût du baril brut.",
+          "why_pv": "Driver direct des profits aval (refining + marketing).",
+          "unit": "$/bl",
+          "type": "Margin",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Refinery Util",
+          "name_fr": "Utilisation des raffineries",
+          "name_en": "Refinery Utilization Rate",
+          "explanation": "Pourcentage de capacité de raffinage utilisée. >95% = exploitation optimale.",
+          "why_pv": "Indicateur d'efficacité opérationnelle (Suncor 97% = best-in-class).",
+          "unit": "%",
+          "type": "Margin",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "FCF",
+          "name_fr": "Flux de trésorerie disponible",
+          "name_en": "Free Cash Flow",
+          "explanation": "Cash après capex courant.",
+          "why_pv": "Cyclique mais critique : sert dividendes + buybacks énormes.",
+          "unit": "$B",
+          "type": "Cash",
+          "wow_or_generic": "generic"
+        },
+        {
+          "short": "Op Margin",
+          "name_fr": "Marge opérationnelle ajustée",
+          "name_en": "Adjusted EBITDA Margin",
+          "explanation": "EBITDA ajusté / Chiffre d'affaires.",
+          "why_pv": "Comparable entre majors. Cyclique (Brent dépendant).",
+          "unit": "%",
+          "type": "Margin",
+          "wow_or_generic": "generic"
+        },
+        {
+          "short": "Capex",
+          "name_fr": "Investissements (upstream + raffinage)",
+          "name_en": "Capital Expenditures",
+          "explanation": "Capex annuel (exploration, développement champs, raffineries).",
+          "why_pv": "Driver de la production future. Discipline capex = signal pro-shareholder.",
+          "unit": "$B",
+          "type": "Investment",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Reserves Life",
+          "name_fr": "Durée de vie des réserves",
+          "name_en": "Reserves Life (R/P ratio)",
+          "explanation": "Réserves prouvées divisées par production annuelle. Combien d'années on peut produire au rythme actuel.",
+          "why_pv": "Visibilité long-terme. <10 ans = signal alarmant.",
+          "unit": "ans",
+          "type": "Demand",
+          "wow_or_generic": "wow"
+        }
+      ],
+      "story_short_history": [
+        {
+          "short": "Renewables Capex",
+          "name_fr": "Capex renouvelables / bas-carbone",
+          "name_en": "Renewables + Low-Carbon Capex",
+          "explanation": "Investissements annuels dans renouvelables (solar, wind, hydrogen, capture CO2).",
+          "why_pv": "Trajectoire transition énergétique. Strategy reset BP 2025 = baisse, Equinor stable.",
+          "unit": "$B",
+          "type": "Investment",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Strategy Reset",
+          "name_fr": "Recentrage stratégique",
+          "name_en": "Strategic Reset / Capital Reallocation",
+          "explanation": "Annonces de réallocation capex (BP fév 2025 : -50% renouvelables, +20% upstream).",
+          "why_pv": "Évènement qui change la trajectoire pluriannuelle.",
+          "unit": "$B/an",
+          "type": "Risk",
+          "wow_or_generic": "wow"
+        }
+      ],
+      "super_kpi_mettrik": [
+        {
+          "short": "Breakeven",
+          "name_fr": "Prix Brent breakeven (seuil de rentabilité)",
+          "name_en": "Project Breakeven Brent Price",
+          "explanation": "Prix moyen pondéré du Brent qui équilibre les cash-flows projets en cours.",
+          "why_pv": "Signal de résilience face aux cycles. Equinor ~$35/bl = champion. >$50/bl = fragile.",
+          "unit": "$/bl",
+          "type": "Margin",
+          "wow_or_generic": "wow"
+        }
+      ],
+      "hero_override_examples": [
+        "Shell (SHEL) → Hero = LNG Volumes (#1 mondial)",
+        "BP (BP) → Hero = Production (post strategy reset 2025)",
+        "Equinor (EQNR) → Hero = Production + Breakeven $35/bl",
+        "Suncor (SU) → Hero = Upgraded Production (oil sands intégrée)",
+        "Enbridge (ENB) → Hero = Liquids Mainline Throughput"
+      ]
+    },
+    "FINANCIALS": {
+      "sector_fr": "Finance",
+      "sector_en": "Financials",
+      "description": "Banques (HSBC, JPMorgan, RBC, ICICI), assurances (AXA, Allianz), gestion d'actifs (BlackRock), bourses et data (S&P Global, MSCI).",
+      "hero_candidates": [
+        {
+          "short": "Loan Book",
+          "name_fr": "Encours de crédit",
+          "name_en": "Total Loan Book",
+          "explanation": "Total des prêts accordés et non encore remboursés. Driver direct du Net Interest Income.",
+          "why_pv": "KPI maître banques. Croissance loan book = croissance bilan.",
+          "unit": "$B ou T",
+          "type": "Demand",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Wealth AUM",
+          "name_fr": "Actifs sous gestion (gestion de fortune)",
+          "name_en": "Wealth Management Assets Under Management",
+          "explanation": "Total d'actifs investis pour le compte de clients fortunés (UBS, RBC, HSBC).",
+          "why_pv": "Driver de revenus de commissions. Stables, récurrents, peu cycliques.",
+          "unit": "T USD",
+          "type": "Demand",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Run Rate",
+          "name_fr": "Taux de revenu annualisé (subscription)",
+          "name_en": "Run Rate / ARR",
+          "explanation": "Revenu subscription annualisé sur la base du dernier mois ou trimestre.",
+          "why_pv": "MSCI = leading indicator pour les revenus N+1.",
+          "unit": "$B",
+          "type": "Recurring",
+          "wow_or_generic": "wow"
+        }
+      ],
+      "standard_kpis": [
+        {
+          "short": "NIM",
+          "name_fr": "Marge nette d'intérêt",
+          "name_en": "Net Interest Margin",
+          "explanation": "Différence entre taux des prêts et taux des dépôts, en %. Indicateur de profitabilité bancaire.",
+          "why_pv": "Cyclique aux taux centraux. NIM élevé = banque profitable.",
+          "unit": "%",
+          "type": "Margin",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "ROE",
+          "name_fr": "Rentabilité des capitaux propres",
+          "name_en": "Return on Equity",
+          "explanation": "Bénéfice net / capitaux propres. Mesure la rentabilité pour l'actionnaire.",
+          "why_pv": "Cible long-terme banques 12-15%. ROE >15% = top-tier (Itaú 22%, ICICI 17%).",
+          "unit": "%",
+          "type": "Margin",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "CET1",
+          "name_fr": "Ratio de fonds propres durs (CET1)",
+          "name_en": "Common Equity Tier 1 Ratio",
+          "explanation": "Ratio de capital de base (actions + réserves) divisé par les actifs pondérés du risque. Mesure la solidité.",
+          "why_pv": "Régulé. >12% = fort, permet buybacks et dividendes.",
+          "unit": "%",
+          "type": "Capital",
+          "wow_or_generic": "generic"
+        },
+        {
+          "short": "GNPA",
+          "name_fr": "Ratio de prêts non performants",
+          "name_en": "Gross Non-Performing Assets Ratio",
+          "explanation": "Pourcentage des prêts en défaut (90 jours+ de retard).",
+          "why_pv": "Qualité de la signature. <2% = sain, >5% = stress crédit.",
+          "unit": "%",
+          "type": "Risk",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Cost-Income",
+          "name_fr": "Ratio coût / revenu",
+          "name_en": "Cost-Income Ratio",
+          "explanation": "Charges d'exploitation / Revenus. Plus c'est bas, plus la banque est efficiente.",
+          "why_pv": "Top-class <50%. >70% = inefficient (transformation digitale en cours).",
+          "unit": "%",
+          "type": "Margin",
+          "wow_or_generic": "generic"
+        },
+        {
+          "short": "Buybacks",
+          "name_fr": "Rachats d'actions cumulés",
+          "name_en": "Cumulative Share Buybacks",
+          "explanation": "Total des rachats d'actions annoncés sur les dernières années.",
+          "why_pv": "Capital return shareholder. HSBC $21B sur 3 ans = yield total 12%+.",
+          "unit": "$B",
+          "type": "Cash",
+          "wow_or_generic": "wow"
+        }
+      ],
+      "story_short_history": [
+        {
+          "short": "AI Adoption (Kensho)",
+          "name_fr": "Adoption produits IA financiers",
+          "name_en": "AI Product Adoption (Kensho-like)",
+          "explanation": "Nombre de clients utilisant les APIs IA (Kensho LLM-Ready chez SPGI).",
+          "why_pv": "Trajectoire IA = clé pour la valorisation des fournisseurs de data.",
+          "unit": "+",
+          "type": "Adoption",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "ACV Multiplier IA",
+          "name_fr": "Multiplicateur valeur contrat clients IA",
+          "name_en": "ACV Growth (AI customers vs others)",
+          "explanation": "Croissance de l'Annualized Contract Value des clients IA vs autres clients (SPGI : 1.3x à 2x).",
+          "why_pv": "Confirme que l'IA n'érode pas le revenu mais l'amplifie.",
+          "unit": "x",
+          "type": "Adoption",
+          "wow_or_generic": "wow"
+        }
+      ],
+      "super_kpi_mettrik": [
+        {
+          "short": "Concentration géo",
+          "name_fr": "Exposition géographique principale",
+          "name_en": "Top Geography Revenue Share",
+          "explanation": "Pourcentage du profit issu de la principale géographie (HSBC Asia 50%+, Santander Brazil 25%).",
+          "why_pv": "Indicateur de risque de concentration géopolitique.",
+          "unit": "%",
+          "type": "Risk",
+          "wow_or_generic": "wow"
+        }
+      ],
+      "hero_override_examples": [
+        "S&P Global (SPGI) → Hero = Ratings Revenue (segment cyclique le plus suivi)",
+        "MSCI (MSCI) → Hero = Total Run Rate (KPI maître secteur indices/analytics)",
+        "HSBC → Hero = Asia Wealth Revenue (focus stratégique)",
+        "RBC (RY) → Hero = Wealth Management Revenue",
+        "BBVA → Hero = Mexico Net Profit (50%+ du profit groupe)",
+        "Itaú (ITUB) → Hero = Loan Book BRL"
+      ]
+    },
+    "HEALTHCARE": {
+      "sector_fr": "Santé",
+      "sector_en": "Healthcare",
+      "description": "Pharma (Novo Nordisk, AstraZeneca, Novartis, Sanofi, Pfizer), biotech (Vertex, Gilead), équipements médicaux (Philips, Stryker, Medtronic), services santé (UnitedHealth).",
+      "hero_candidates": [
+        {
+          "short": "Top Drug",
+          "name_fr": "Revenu du médicament principal",
+          "name_en": "Top Drug Franchise Revenue",
+          "explanation": "Revenu du blockbuster #1 de la société (GLP-1 chez NVO, Tagrisso chez AZN).",
+          "why_pv": "Driver de la trajectoire pharma. Falaise brevet = risque #1.",
+          "unit": "$B ou Mds local",
+          "type": "Demand",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Pipeline",
+          "name_fr": "Pipeline R&D phases avancées",
+          "name_en": "Late-Stage Pipeline (Phase 3)",
+          "explanation": "Nombre de molécules en phase 3 (dernière étape avant approbation).",
+          "why_pv": "Visibilité 2-5 ans. Pipeline solide = relais de croissance.",
+          "unit": "molécules",
+          "type": "Pipeline",
+          "wow_or_generic": "wow"
+        }
+      ],
+      "standard_kpis": [
+        {
+          "short": "Op Margin",
+          "name_fr": "Marge opérationnelle (Core)",
+          "name_en": "Core Operating Margin",
+          "explanation": "Marge opérationnelle ajustée hors amortissements.",
+          "why_pv": "Pharma blockbuster top-quartile : 35-45%.",
+          "unit": "%",
+          "type": "Margin",
+          "wow_or_generic": "generic"
+        },
+        {
+          "short": "R&D",
+          "name_fr": "Investissements R&D (% du CA)",
+          "name_en": "R&D as % Revenue",
+          "explanation": "Dépenses R&D divisées par chiffre d'affaires.",
+          "why_pv": "Indicateur d'innovation. Pharma top : 15-20%. <10% = sociétés matures (générique).",
+          "unit": "%",
+          "type": "Investment",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Patent Cliff",
+          "name_fr": "Échéance brevets (% revenu exposé)",
+          "name_en": "Patent Cliff Exposure",
+          "explanation": "Pourcentage du revenu exposé à une perte de brevet dans les 3-5 ans.",
+          "why_pv": "Risque stratégique majeur. >30% = pipeline N+5 critique.",
+          "unit": "%",
+          "type": "Risk",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Vaccines / Specialty",
+          "name_fr": "Revenu segment niche",
+          "name_en": "Vaccines / Specialty Care Revenue",
+          "explanation": "Revenu segment vaccins, maladies rares, oncologie spécialisée.",
+          "why_pv": "Souvent la zone à plus forte croissance (Sanofi Beyfortus).",
+          "unit": "$B",
+          "type": "Demand",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "FCF",
+          "name_fr": "Flux de trésorerie disponible",
+          "name_en": "Free Cash Flow",
+          "explanation": "Cash réel après tous frais et investissements courants.",
+          "why_pv": "Pharma = machines à cash. Sert acquisitions + dividend.",
+          "unit": "$B",
+          "type": "Cash",
+          "wow_or_generic": "generic"
+        }
+      ],
+      "story_short_history": [
+        {
+          "short": "Phase 3 Read-out",
+          "name_fr": "Résultat phase 3 récent",
+          "name_en": "Recent Phase 3 Trial Result",
+          "explanation": "Lecture de phase 3 récente (CagriSema chez NVO, retatrutide chez Lilly).",
+          "why_pv": "Évènement binaire qui peut transformer la valorisation en 1 jour.",
+          "unit": "% efficacité",
+          "type": "Adoption",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "FDA Approval",
+          "name_fr": "Approbation FDA récente",
+          "name_en": "Recent FDA Approval",
+          "explanation": "Médicament récemment approuvé (lancement <2 ans, courbe revenue à observer).",
+          "why_pv": "Lancement = courbe d'adoption mesurable trimestriellement.",
+          "unit": "",
+          "type": "Adoption",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Capex Production",
+          "name_fr": "Capex production multi-sites",
+          "name_en": "Multi-Year Production Capacity Capex",
+          "explanation": "Investissements pluriannuels en capacité (NVO Mds DKK 145 sur 2024-2027 pour GLP-1).",
+          "why_pv": "Réponse aux shortages, signal de croissance future.",
+          "unit": "$B ou Mds local",
+          "type": "Investment",
+          "wow_or_generic": "wow"
+        }
+      ],
+      "super_kpi_mettrik": [
+        {
+          "short": "Pipeline / Revenue",
+          "name_fr": "Couverture pipeline vs revenu actuel",
+          "name_en": "Pipeline Peak Sales / Current Revenue",
+          "explanation": "Pic de ventes potentiel du pipeline phase 3 divisé par revenu actuel.",
+          "why_pv": "Indicateur 'futur > présent'. >1x = relais de croissance solide.",
+          "unit": "x",
+          "type": "Pipeline",
+          "wow_or_generic": "wow"
+        }
+      ],
+      "hero_override_examples": [
+        "Novo Nordisk (NVO) → Hero = GLP-1 Franchise (Wegovy + Ozempic + Rybelsus)",
+        "AstraZeneca (AZN) → Hero = Oncology Revenue",
+        "Novartis (NVS) → Hero = Innovative Medicines Revenue",
+        "Sanofi (SNY) → Hero = Dupixent Revenue",
+        "Philips (PHG) → Hero = Diagnosis & Treatment Revenue"
+      ]
+    },
+    "INDUSTRIALS": {
+      "sector_fr": "Industrie",
+      "sector_en": "Industrials",
+      "description": "Machines lourdes (Caterpillar), aéronautique (Boeing, Airbus), auto (Toyota, Honda, Stellantis), électrification (Schneider, ABB, Siemens), rail (CN, CP), défense (Lockheed Martin).",
+      "hero_candidates": [
+        {
+          "short": "Backlog",
+          "name_fr": "Carnet de commandes",
+          "name_en": "Order Backlog",
+          "explanation": "Total des commandes fermes restant à livrer. Visibilité 6-18 mois minimum.",
+          "why_pv": "KPI maître industries cycliques (CAT, ABB, ASML). Driver direct du revenu N+1.",
+          "unit": "$B",
+          "type": "Demand",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Vehicle Sales",
+          "name_fr": "Ventes véhicules unités",
+          "name_en": "Vehicle Unit Sales",
+          "explanation": "Ventes annuelles auto en unités globales.",
+          "why_pv": "KPI principal OEM auto.",
+          "unit": "M unités",
+          "type": "Demand",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Hybrid Mix",
+          "name_fr": "Part hybrides / EV dans ventes",
+          "name_en": "HEV / BEV Mix",
+          "explanation": "Part véhicules hybrides + électriques dans le mix.",
+          "why_pv": "Différenciation Toyota. Trajectoire transition.",
+          "unit": "%",
+          "type": "Mix",
+          "wow_or_generic": "wow"
+        }
+      ],
+      "standard_kpis": [
+        {
+          "short": "Op Margin",
+          "name_fr": "Marge opérationnelle ajustée",
+          "name_en": "Adjusted Operating Margin",
+          "explanation": "Marge op. hors restructurations.",
+          "why_pv": "Comparable. Auto best-in-class : 12% (Toyota), industriels : 15-20%.",
+          "unit": "%",
+          "type": "Margin",
+          "wow_or_generic": "generic"
+        },
+        {
+          "short": "Op Ratio (rail)",
+          "name_fr": "Ratio d'exploitation (rail)",
+          "name_en": "Operating Ratio (lower is better)",
+          "explanation": "Op expenses / revenue. Spécifique au rail.",
+          "why_pv": "Top-class <60%. CN ~62%, CSX ~58%.",
+          "unit": "%",
+          "type": "Margin",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Carloads",
+          "name_fr": "Volume wagons transportés (rail)",
+          "name_en": "Total Carloads",
+          "explanation": "Nombre de wagons transportés sur l'année.",
+          "why_pv": "Driver volume rail. Sensible cycle économique.",
+          "unit": "M",
+          "type": "Demand",
+          "wow_or_generic": "generic"
+        },
+        {
+          "short": "Services",
+          "name_fr": "Revenu services récurrents",
+          "name_en": "Services / Aftermarket Revenue",
+          "explanation": "Revenu récurrent post-vente (maintenance, pièces détachées).",
+          "why_pv": "CAT target 2030 = $30B. Marge supérieure aux machines neuves.",
+          "unit": "$B",
+          "type": "Recurring",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "FCF",
+          "name_fr": "Flux de trésorerie disponible",
+          "name_en": "Free Cash Flow",
+          "explanation": "Cash après capex courant.",
+          "why_pv": "Cyclique mais drive dividendes + buybacks.",
+          "unit": "$B",
+          "type": "Cash",
+          "wow_or_generic": "generic"
+        },
+        {
+          "short": "Capex",
+          "name_fr": "Investissements",
+          "name_en": "Capital Expenditures",
+          "explanation": "Capex annuel.",
+          "why_pv": "Driver capacité. Ratio capex/sales = discipline.",
+          "unit": "$B",
+          "type": "Investment",
+          "wow_or_generic": "generic"
+        }
+      ],
+      "story_short_history": [
+        {
+          "short": "EV Strategy",
+          "name_fr": "Plan capex EV / software pluriannuel",
+          "name_en": "EV + Software Capex Plan (multi-year)",
+          "explanation": "Plan capex pluriannuel pour EV + software (Honda JPY 10T 2024-2030).",
+          "why_pv": "Pivot stratégique. Trajectoire 2030.",
+          "unit": "T JPY ou $B",
+          "type": "Investment",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Autonomous Trucks",
+          "name_fr": "Camions / véhicules autonomes en service",
+          "name_en": "Autonomous Trucks in Operation",
+          "explanation": "Nombre de véhicules autonomes en service chez les clients (CAT autonomous mining).",
+          "why_pv": "Indicateur de tech leadership. Cible 2030 = tripler le parc.",
+          "unit": "unités",
+          "type": "Adoption",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Synergies M&A",
+          "name_fr": "Synergies cumulées suite à fusion",
+          "name_en": "M&A Synergies Cumulative",
+          "explanation": "Économies cumulées d'une fusion récente (CPKC : KCS 2023).",
+          "why_pv": "Trackable trimestre par trimestre.",
+          "unit": "$B",
+          "type": "Margin",
+          "wow_or_generic": "wow"
+        }
+      ],
+      "super_kpi_mettrik": [
+        {
+          "short": "Backlog Coverage",
+          "name_fr": "Couverture backlog (en années de revenu)",
+          "name_en": "Backlog Coverage (years)",
+          "explanation": "Backlog divisé par revenu annuel. Visibilité forward.",
+          "why_pv": "ASML ~1.3x = bonne visibilité. CAT $51B ~0.75x.",
+          "unit": "x ou ans",
+          "type": "Demand",
+          "wow_or_generic": "wow"
+        }
+      ],
+      "hero_override_examples": [
+        "Caterpillar (CAT) → Hero = Backlog (visibilité 6-18 mois)",
+        "Toyota (TM) → Hero = Hybrid Sales (différenciation full-EV)",
+        "ABB → Hero = Electrification Revenue (data centers + EV)",
+        "Stellantis (STLA) → Hero = North America Revenue (50% du profit)",
+        "Canadian Pacific (CP) → Hero = Synergies KCS"
+      ]
+    },
+    "INFORMATION_TECHNOLOGY": {
+      "sector_fr": "Technologie",
+      "sector_en": "Information Technology",
+      "description": "Semi-conducteurs (TSMC, ASML, NVIDIA, AMD, Intel, STMicro), software (Microsoft, SAP, Oracle, Adobe, Shopify), IT services (Infosys, Wipro, Accenture), hardware (Apple).",
+      "hero_candidates": [
+        {
+          "short": "HPC / Cloud",
+          "name_fr": "Revenu segment IA / cloud",
+          "name_en": "HPC / Cloud / AI Revenue",
+          "explanation": "Revenu du segment qui capte la vague IA générative (HPC chez TSM, Cloud chez Azure/AWS).",
+          "why_pv": "Driver #1 de la trajectoire 2024-2030 dans tech.",
+          "unit": "$B",
+          "type": "Demand",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Cloud Backlog",
+          "name_fr": "Carnet cloud (CCB)",
+          "name_en": "Current Cloud Backlog",
+          "explanation": "Total des engagements cloud déjà signés à délivrer (12 mois forward chez SAP).",
+          "why_pv": "Leading indicator 12-18 mois revenue cloud.",
+          "unit": "$B ou Mds €",
+          "type": "Demand",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Bookings",
+          "name_fr": "Commandes nettes (semi)",
+          "name_en": "Net Bookings",
+          "explanation": "Nouvelles commandes systèmes signées sur l'année (ASML).",
+          "why_pv": "Driver direct du revenu N+1, N+2.",
+          "unit": "Mds €",
+          "type": "Demand",
+          "wow_or_generic": "wow"
+        }
+      ],
+      "standard_kpis": [
+        {
+          "short": "Gross Margin",
+          "name_fr": "Marge brute",
+          "name_en": "Gross Margin",
+          "explanation": "Marge brute consolidée.",
+          "why_pv": "Comparable. Software 75-85%, semi 50-60%, hardware 30-40%.",
+          "unit": "%",
+          "type": "Margin",
+          "wow_or_generic": "generic"
+        },
+        {
+          "short": "Op Margin",
+          "name_fr": "Marge opérationnelle",
+          "name_en": "Operating Margin",
+          "explanation": "Bénéfice opérationnel / Revenu.",
+          "why_pv": "Software top : 30-40%. Semi top : 40-50% (TSMC 50.8%).",
+          "unit": "%",
+          "type": "Margin",
+          "wow_or_generic": "generic"
+        },
+        {
+          "short": "R&D",
+          "name_fr": "Investissements R&D (% revenu)",
+          "name_en": "R&D as % Revenue",
+          "explanation": "Dépenses R&D / Revenu.",
+          "why_pv": "Tech top : 15-20%. ASML 14%. Software ~25%.",
+          "unit": "%",
+          "type": "Investment",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Capex",
+          "name_fr": "Investissements (semi : fabs)",
+          "name_en": "Capital Expenditures",
+          "explanation": "Capex annuel (TSM $40B+, ASML modeste).",
+          "why_pv": "Driver capacité 2-3 ans semi. Ratio capex/sales = signal.",
+          "unit": "$B",
+          "type": "Investment",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Service / ARR",
+          "name_fr": "Revenu récurrent / abonnement",
+          "name_en": "Service / Subscription / ARR Revenue",
+          "explanation": "Revenu récurrent (SaaS, maintenance, upgrades).",
+          "why_pv": "Marge supérieure, prédictible. Drive valorisation tech.",
+          "unit": "$B",
+          "type": "Recurring",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Headcount",
+          "name_fr": "Effectif (employés)",
+          "name_en": "Total Employees",
+          "explanation": "Nombre d'employés total.",
+          "why_pv": "Levier productivité. Tech rationalise depuis 2023 (cycle layoffs).",
+          "unit": "K",
+          "type": "Investment",
+          "wow_or_generic": "generic"
+        }
+      ],
+      "story_short_history": [
+        {
+          "short": "AI Cloud Mix",
+          "name_fr": "Part deals incluant fonctionnalités IA",
+          "name_en": "AI-related Cloud Deals Mix",
+          "explanation": "Pourcentage des deals cloud qui incluent des fonctionnalités IA (SAP Joule 30%).",
+          "why_pv": "Indicateur d'adoption IA enterprise mesurable.",
+          "unit": "%",
+          "type": "Adoption",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "AI API Calls",
+          "name_fr": "Volume d'appels API IA",
+          "name_en": "AI API Call Volume",
+          "explanation": "Volume d'appels aux APIs IA (Kensho chez SPGI ×2 en 1 mois, Topaz Infosys, Sidekick Shopify).",
+          "why_pv": "Indicateur précoce d'adoption massive.",
+          "unit": "M / x",
+          "type": "Adoption",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Top Customer Concentration",
+          "name_fr": "Concentration premier client",
+          "name_en": "Top 1 Customer Revenue Share",
+          "explanation": "Part du revenu issue du plus gros client (Apple ~22% chez TSM).",
+          "why_pv": "Risque de dépendance, surtout en semi.",
+          "unit": "%",
+          "type": "Risk",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Advanced Nodes",
+          "name_fr": "Part nodes avancés (≤7nm)",
+          "name_en": "Advanced Technology Wafer Share",
+          "explanation": "Part du revenu wafer généré par les nodes les plus avancés (≤7nm).",
+          "why_pv": "Mix premium pricing. TSMC 74% en 2025.",
+          "unit": "%",
+          "type": "Mix",
+          "wow_or_generic": "wow"
+        }
+      ],
+      "super_kpi_mettrik": [
+        {
+          "short": "Capex Forward / Current",
+          "name_fr": "Capex prévu N+1 vs capex actuel",
+          "name_en": "Forward Capex Multiplier",
+          "explanation": "Ratio capex prévu N+1 / capex actuel. >1.3x = expansion massive.",
+          "why_pv": "TSM 2025→2026 : $40.9B → $54B (1.3x) = ramp 2nm + Arizona Phase 2.",
+          "unit": "x",
+          "type": "Investment",
+          "wow_or_generic": "wow"
+        }
+      ],
+      "hero_override_examples": [
+        "TSMC (TSM) → Hero = HPC (vague IA, 58% du revenu)",
+        "ASML → Hero = Net Bookings (cycle visibilité 18-24 mois)",
+        "SAP → Hero = Cloud Backlog (migration S/4HANA)",
+        "Microsoft → Hero = Azure Revenue / OpenAI partnership",
+        "Apple → Hero = iPhone Revenue + Services Mix",
+        "Shopify (SHOP) → Hero = GMV",
+        "Infosys (INFY) → Hero = Digital Revenue"
+      ]
+    },
+    "MATERIALS": {
+      "sector_fr": "Matériaux",
+      "sector_en": "Materials",
+      "description": "Mining diversifié (BHP, Rio Tinto, Vale), métaux précieux (Newmont, Barrick), chimie (Linde, BASF, Air Liquide), matériaux de construction (CRH, Vulcan).",
+      "hero_candidates": [
+        {
+          "short": "Iron Ore Volume",
+          "name_fr": "Volume iron ore (mining)",
+          "name_en": "Iron Ore Production Volume",
+          "explanation": "Volume de minerai de fer produit (BHP Pilbara ~290 Mt, Rio Tinto ~330 Mt).",
+          "why_pv": "KPI maître mining diversifié. Driver volume.",
+          "unit": "Mt",
+          "type": "Demand",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Copper Revenue",
+          "name_fr": "Revenu cuivre",
+          "name_en": "Copper Revenue",
+          "explanation": "Revenu segment cuivre (BHP, Rio, Freeport, Glencore).",
+          "why_pv": "Cuivre = pari long-terme transition énergétique (IA + EV + grids). Trajectoire structurelle.",
+          "unit": "$B",
+          "type": "Demand",
+          "wow_or_generic": "wow"
+        }
+      ],
+      "standard_kpis": [
+        {
+          "short": "Realized Price",
+          "name_fr": "Prix de vente réalisé",
+          "name_en": "Realized Price per tonne / oz",
+          "explanation": "Prix moyen pondéré reçu par la sté (vs prix spot LME ou COMEX).",
+          "why_pv": "Cyclique. Différence vs spot = qualité du produit + contrats long-terme.",
+          "unit": "$/t ou $/oz",
+          "type": "Margin",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Underlying EBITDA Margin",
+          "name_fr": "Marge EBITDA underlying",
+          "name_en": "Underlying EBITDA Margin",
+          "explanation": "EBITDA underlying / Revenu.",
+          "why_pv": "Top-class mining : 50%+ (BHP 53%).",
+          "unit": "%",
+          "type": "Margin",
+          "wow_or_generic": "generic"
+        },
+        {
+          "short": "Cost / Tonne",
+          "name_fr": "Coût par tonne (Pilbara, Olympic Dam, Escondida)",
+          "name_en": "C1 Cost per Tonne",
+          "explanation": "Cash cost de production par tonne (BHP Pilbara <$20/t = leader cost mondial).",
+          "why_pv": "Compétitivité. Top quartile = résiste cycle bas.",
+          "unit": "$/t",
+          "type": "Margin",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Reserves Life",
+          "name_fr": "Durée de vie des réserves",
+          "name_en": "Reserves Life (R/P ratio)",
+          "explanation": "Réserves prouvées / production annuelle.",
+          "why_pv": "Visibilité long-terme. Cuivre 15-20 ans, gold 10-15 ans, iron ore 30+ ans.",
+          "unit": "ans",
+          "type": "Demand",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Capex",
+          "name_fr": "Capex (mining + projets)",
+          "name_en": "Capital Expenditures",
+          "explanation": "Capex annuel.",
+          "why_pv": "Driver capacité future. Ratio capex/sales = discipline cycle.",
+          "unit": "$B",
+          "type": "Investment",
+          "wow_or_generic": "generic"
+        },
+        {
+          "short": "FCF",
+          "name_fr": "Flux de trésorerie disponible",
+          "name_en": "Free Cash Flow",
+          "explanation": "Cash après capex courant.",
+          "why_pv": "Cyclique mais drive dividend extraordinaires en pic cycle.",
+          "unit": "$B",
+          "type": "Cash",
+          "wow_or_generic": "generic"
+        }
+      ],
+      "story_short_history": [
+        {
+          "short": "Major Project",
+          "name_fr": "Projet greenfield majeur",
+          "name_en": "Major Greenfield Project Capex",
+          "explanation": "Capex pluriannuel sur projet greenfield majeur (Rio Simandou Guinée $11.6B, BHP copper $13.5B 5 ans).",
+          "why_pv": "Trajectoire 2025-2030. First production = milestone à marquer.",
+          "unit": "$B",
+          "type": "Investment",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Low-Carbon Premium",
+          "name_fr": "Premium produit bas-carbone",
+          "name_en": "Low-Carbon Product Revenue Premium",
+          "explanation": "Revenu issu de produits bas-carbone à premium (Rio Tinto ELYSIS aluminium zéro-carbone Apple).",
+          "why_pv": "Trajectoire transition énergétique mesurable.",
+          "unit": "$B",
+          "type": "Demand",
+          "wow_or_generic": "wow"
+        }
+      ],
+      "super_kpi_mettrik": [
+        {
+          "short": "Cost Position vs Pairs",
+          "name_fr": "Position coût vs pairs (cost curve)",
+          "name_en": "Position on Industry Cost Curve",
+          "explanation": "Quartile de coût de production vs pairs mondiaux (1er quartile = top 25% des plus bas coûts).",
+          "why_pv": "Indique la résistance en cycle bas (BHP Pilbara 1er quartile = champion).",
+          "unit": "quartile",
+          "type": "Margin",
+          "wow_or_generic": "wow"
+        }
+      ],
+      "hero_override_examples": [
+        "BHP → Hero = Iron Ore Volume + Copper expansion ($13.5B 5 ans)",
+        "Rio Tinto (RIO) → Hero = Iron Ore + Simandou ($11.6B greenfield)",
+        "Vale → Hero = Iron Ore Volume",
+        "Newmont → Hero = Gold Production + Realized Price",
+        "Linde → Hero = Industrial Gas Revenue + Project Backlog"
+      ]
+    },
+    "REAL_ESTATE": {
+      "sector_fr": "Immobilier",
+      "sector_en": "Real Estate",
+      "description": "REITs cotés (Equity Residential, Prologis, Public Storage, AvalonBay, Realty Income, Simon Property), gestion immobilière, hôtellerie REITs.",
+      "hero_candidates": [
+        {
+          "short": "FFO / AFFO",
+          "name_fr": "Flux de trésorerie disponible REIT (FFO / AFFO)",
+          "name_en": "Funds From Operations / Adjusted FFO",
+          "explanation": "Flux de trésorerie REIT-spécifique : net income + amortissement immobilier - gains/pertes ventes. Mesure du cash réellement distribuable.",
+          "why_pv": "KPI maître REITs. Plus pertinent que net income (qui sous-estime le cash REIT).",
+          "unit": "$/share",
+          "type": "Cash",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Occupancy",
+          "name_fr": "Taux d'occupation",
+          "name_en": "Occupancy Rate",
+          "explanation": "Pourcentage de surface louée vs surface totale disponible.",
+          "why_pv": "Indicateur opérationnel direct. >95% = stable, <90% = stress.",
+          "unit": "%",
+          "type": "Demand",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Same-Store NOI",
+          "name_fr": "Croissance revenu opérationnel net (immeubles comparables)",
+          "name_en": "Same-Store Net Operating Income Growth",
+          "explanation": "Croissance du revenu opérationnel net des immeubles détenus depuis +12 mois.",
+          "why_pv": "Mesure pure croissance organique. Industrial Prologis ~6-8%, residential ~3-5%.",
+          "unit": "%",
+          "type": "Demand",
+          "wow_or_generic": "wow"
+        }
+      ],
+      "standard_kpis": [
+        {
+          "short": "Rental Growth",
+          "name_fr": "Croissance loyers signés",
+          "name_en": "Rental Rate Growth (signed leases)",
+          "explanation": "Croissance des loyers signés sur les nouveaux baux vs précédents.",
+          "why_pv": "Indicateur leading. Industrial post-COVID 30-50%, residential 5-8%.",
+          "unit": "%",
+          "type": "Demand",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "NAV / share",
+          "name_fr": "Valeur d'actif net par action",
+          "name_en": "Net Asset Value per Share",
+          "explanation": "Valeur de marché des immeubles - dette - autres passifs, par action.",
+          "why_pv": "Sert de benchmark vs cours bourse. Cote sous NAV = sous-évalué.",
+          "unit": "$/share",
+          "type": "Capital",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Debt / EBITDA",
+          "name_fr": "Endettement (dette nette / EBITDA)",
+          "name_en": "Net Debt / EBITDA",
+          "explanation": "Mesure d'endettement. REITs investment-grade visent 5-6x.",
+          "why_pv": "Sécurité financière. >7x = stress. <5x = bilan robuste.",
+          "unit": "x",
+          "type": "Capital",
+          "wow_or_generic": "generic"
+        },
+        {
+          "short": "Capex Maintenance",
+          "name_fr": "Capex de maintenance",
+          "name_en": "Recurring Maintenance Capex",
+          "explanation": "Capex pour maintenir les immeubles existants en bon état.",
+          "why_pv": "Souvent oublié. AFFO = FFO - capex maintenance.",
+          "unit": "$M",
+          "type": "Investment",
+          "wow_or_generic": "generic"
+        },
+        {
+          "short": "Dividend Yield",
+          "name_fr": "Rendement dividende",
+          "name_en": "Dividend Yield",
+          "explanation": "Dividende annuel / cours action. REITs structurellement >3%.",
+          "why_pv": "REITs = produit dividende. Yield comparable secteur. Realty Income 5-6%.",
+          "unit": "%",
+          "type": "Cash",
+          "wow_or_generic": "generic"
+        }
+      ],
+      "story_short_history": [
+        {
+          "short": "Acquisition / Disposition",
+          "name_fr": "Acquisitions / cessions récentes",
+          "name_en": "Recent Acquisition / Disposition Volume",
+          "explanation": "Volume d'achats / ventes d'immeubles dans les 12 derniers mois.",
+          "why_pv": "Indique stratégie active vs passive.",
+          "unit": "$B",
+          "type": "Investment",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Development Pipeline",
+          "name_fr": "Pipeline de développement",
+          "name_en": "Development Pipeline (under construction)",
+          "explanation": "Surface en construction qui sera livrée dans 12-24 mois.",
+          "why_pv": "Visibilité croissance NOI. Prologis $8B+ pipeline.",
+          "unit": "$B ou M sqft",
+          "type": "Pipeline",
+          "wow_or_generic": "wow"
+        }
+      ],
+      "super_kpi_mettrik": [
+        {
+          "short": "Cap Rate Spread",
+          "name_fr": "Différence taux de capitalisation vs taux 10 ans",
+          "name_en": "Cap Rate Spread vs 10Y Treasury",
+          "explanation": "Yield des immeubles - taux des obligations 10 ans. Mesure de l'attractivité relative.",
+          "why_pv": "REITs souffrent quand spread se compresse. Indicateur de cycle.",
+          "unit": "bps",
+          "type": "Margin",
+          "wow_or_generic": "wow"
+        }
+      ],
+      "hero_override_examples": [
+        "Prologis (PLD) → Hero = Same-Store NOI Growth (industrial prime)",
+        "Equity Residential → Hero = Rental Growth + Occupancy",
+        "Public Storage → Hero = Same-Store NOI",
+        "Realty Income (O) → Hero = Dividend Track Record (50+ ans)",
+        "Simon Property (SPG) → Hero = Mall NOI + Premium Outlet performance"
+      ]
+    },
+    "UTILITIES": {
+      "sector_fr": "Services aux collectivités",
+      "sector_en": "Utilities",
+      "description": "Électricité régulée (NextEra, Duke Energy, Southern Company, Iberdrola), gaz régulé (Enbridge gas), eau (American Water), renouvelables intégrés (Orsted, NextEra Energy Resources).",
+      "hero_candidates": [
+        {
+          "short": "Rate Base (RAB)",
+          "name_fr": "Base d'actifs régulés (Rate Base)",
+          "name_en": "Regulated Asset Base (RAB)",
+          "explanation": "Total des actifs régulés sur lesquels la sté gagne un rendement autorisé. Driver direct du revenu garanti.",
+          "why_pv": "KPI maître utilities régulés. Croissance RAB = croissance revenu garantie.",
+          "unit": "$B",
+          "type": "Capital",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Energy Volume",
+          "name_fr": "Volume d'énergie distribué (TWh)",
+          "name_en": "Energy Delivered Volume (TWh)",
+          "explanation": "Térawattheures d'électricité ou volumes de gaz / eau distribués.",
+          "why_pv": "Indicateur opérationnel. Sensible aux conditions météo + croissance économique.",
+          "unit": "TWh",
+          "type": "Demand",
+          "wow_or_generic": "wow"
+        }
+      ],
+      "standard_kpis": [
+        {
+          "short": "Allowed ROE",
+          "name_fr": "Rentabilité autorisée par le régulateur",
+          "name_en": "Allowed Return on Equity",
+          "explanation": "ROE autorisé par le régulateur sur la rate base. Garanti par l'état.",
+          "why_pv": "Sécurité revenu. US 9-10%, Europe 6-8%.",
+          "unit": "%",
+          "type": "Margin",
+          "wow_or_generic": "generic"
+        },
+        {
+          "short": "Capex Régulé",
+          "name_fr": "Capex régulé (incrémental rate base)",
+          "name_en": "Regulated Capex",
+          "explanation": "Investissements régulés qui s'ajoutent à la rate base = futur revenu garanti.",
+          "why_pv": "Driver direct croissance RAB pour 5-10 ans.",
+          "unit": "$B",
+          "type": "Investment",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Generation Mix",
+          "name_fr": "Mix de production d'énergie",
+          "name_en": "Generation Mix (renewables / gas / coal / nuclear)",
+          "explanation": "Part de chaque source dans la production électrique (renouvelables, gaz, charbon, nucléaire).",
+          "why_pv": "Trajectoire transition. Renewables % en hausse = bonne ESG.",
+          "unit": "%",
+          "type": "Mix",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Renewable Capacity",
+          "name_fr": "Capacité installée renouvelables (GW)",
+          "name_en": "Installed Renewable Capacity (GW)",
+          "explanation": "Gigawatts de capacité renouvelable installée (NextEra, Orsted, Iberdrola).",
+          "why_pv": "KPI clé pure-play renewables. Croissance >10%/an attendue.",
+          "unit": "GW",
+          "type": "Demand",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "Customer Count",
+          "name_fr": "Nombre de clients raccordés",
+          "name_en": "Total Customer Connections",
+          "explanation": "Nombre de clients résidentiels + commerciaux + industriels.",
+          "why_pv": "Croissance organique. Sensible démographie + nouvelle construction.",
+          "unit": "M",
+          "type": "User",
+          "wow_or_generic": "generic"
+        },
+        {
+          "short": "Op Cash Flow",
+          "name_fr": "Flux de trésorerie d'exploitation",
+          "name_en": "Operating Cash Flow",
+          "explanation": "Cash de l'activité courante.",
+          "why_pv": "Stable, prédictible. Sert capex + dividend (utilities = dividend stocks).",
+          "unit": "$B",
+          "type": "Cash",
+          "wow_or_generic": "generic"
+        }
+      ],
+      "story_short_history": [
+        {
+          "short": "Data Center PPA",
+          "name_fr": "Contrats PPA data centers",
+          "name_en": "Data Center PPA Volume Signed",
+          "explanation": "Power Purchase Agreements signés avec des hyperscalers data centers (Microsoft, AWS, Google).",
+          "why_pv": "Trajectoire IA = boost demande électrique inédit. Bullish trigger.",
+          "unit": "GW signés",
+          "type": "Demand",
+          "wow_or_generic": "wow"
+        },
+        {
+          "short": "New Renewables COD",
+          "name_fr": "Mises en service récentes (COD)",
+          "name_en": "New Renewable Commercial Operation Dates",
+          "explanation": "Mégawatts de nouveaux projets renouvelables mis en service dans l'année.",
+          "why_pv": "Croissance immédiatement intégrée à la rate base.",
+          "unit": "MW",
+          "type": "Adoption",
+          "wow_or_generic": "wow"
+        }
+      ],
+      "super_kpi_mettrik": [
+        {
+          "short": "Capex / Rate Base",
+          "name_fr": "Ratio capex sur rate base",
+          "name_en": "Capex / Rate Base Ratio",
+          "explanation": "Capex annuel / Rate Base actuel. Indique vitesse de croissance future.",
+          "why_pv": ">8% = expansion forte (NextEra). <5% = mature (Duke).",
+          "unit": "%",
+          "type": "Investment",
+          "wow_or_generic": "wow"
+        }
+      ],
+      "hero_override_examples": [
+        "NextEra Energy (NEE) → Hero = Renewable Capacity GW + Rate Base",
+        "Duke Energy → Hero = Rate Base growth",
+        "Iberdrola → Hero = Renewable Capacity + Networks RAB",
+        "American Water → Hero = Rate Base + Acquisitions volume",
+        "Orsted → Hero = Offshore Wind Capacity GW"
+      ]
+    }
+  },
+  "PIPELINE_NOTES": "\nRAPPELS QUALITÉ POUR LE PIPELINE :\n\n1. Hero KPI = LE chiffre wow propre à la sté. Si pas de wow distinctif :\n   → utilise le KPI maître secteur (générique mais le plus regardé)\n   → ajoute la sté dans la liste \"noWowSocieties\" pour le bloc dédié sandbox\n\n2. Stories : valeur dernier exercice fiscal OBLIGATOIRE.\n   - Si valeur 2023 + 2024 mais pas 2025 → SKIP même si KPI intéressant\n   - Si 1 seule valeur (lancement 2025) → OK, garder + benchmark secteur en story-card\n\n3. Toujours apporter quelque chose en + dans une story (vs le simple chiffre Hero) :\n   contexte, benchmark secteur, ratio vs pairs, comparaison vs précédent.\n\n4. 3 KPI universels (CA/temps, Profit/temps, CA/employé) :\n   calculés automatiquement depuis Total Revenue + Net Income + Headcount.\n   Aucune action LLM requise pour ces 3, juste vérifier que les bases sont là.\n\n5. Année fiscale :\n   - Par défaut, utiliser l'année calendaire (2025 = jan-déc 2025).\n   - Si la sté ferme à une autre date (Toyota mars, Microsoft juin) :\n     → préciser dans le dataset le champ `fiscal_year_end_month` (mois 1-12)\n     → le frontend affichera un toggle \"Vue calendaire / Vue fiscale\".\n\n6. Devises : reporter dans la devise locale principale (TWD/EUR/JPY/CNY/DKK/etc.)\n   sauf si la sté reporte naturellement en USD (Shell, BP, HSBC, MUFG GAAP).\n   Format unit : \"Mds €\", \"Mds DKK\", \"Mds JPY\", etc.\n   Le `$B` est auto-converti en \"Mds $\" par formatUnit().\n\n7. Sources : remplir le champ `last_data_date` (ISO yyyy-mm-dd) sur chaque KPI\n   pour que <FreshnessIndicator> affiche la fraîcheur. Stale (>12 mois) = badge orange.\n\n8. Lecture des fichiers — ORDRE DE PRIORITÉ par cat :\n\n   ─── Cat 1 (US 2 500 stés) ───\n   1) 10-K dernier : revenu segments + history 5-10 ans + risks + governance\n   2) 10-Q dernier (Q1-Q4) : chiffres trimestriels validés, historique 5+ ans\n   3) **8-K Item 2.02 + exhibit 99.1** = EARNINGS RELEASE complet (déjà télé-\n      chargé dans cat1-us/8K/<year>/). Source principale pour les ER trimestriels.\n   4) **8-K exhibit 99.2** = EARNINGS SLIDES quand présent (à parser depuis 8-K).\n   5) DEF 14A (proxy statement) : governance + comp + actionnariat\n   6) Forms 3/4/5 : insider trades (super-KPI Mettrik)\n   7) ER / ES / Transcripts IR scrapés v3 : COMPLÉMENT pour les Q non couverts\n      par 8-K, ou pour vérifier les chiffres complexes\n   8) kpi-overrides.ts : surcharges user-defined (priorité absolue sur tout)\n\n   ─── Cat 2 (FPI étrangères 1 652) ───\n   1) 20-F dernier : équivalent 10-K annuel\n   2) **6-K** = current report FPI (events trimestriels, dividendes, M&A,\n      ER trimestrielles quand publiées). Source ER cat 2.\n   3) ER / ES / Transcripts IR scrapés v3 : indispensables car pas de\n      10-Q normalisé en FPI\n   4) kpi-overrides.ts\n\n   ─── Cat 3 (EU 361+ Stoxx 600) ───\n   1) Annual Report annualreports.com (déjà téléchargé)\n   2) ER / ES / Transcripts IR scrapés v3 (à venir) — INDISPENSABLES car pas\n      de structure SEC normalisée\n   3) Pages OAM (ESMA, AMF, FCA NSM) pour filings réglementaires\n   4) kpi-overrides.ts\n\nNOTE pipeline : pour cat 1 US, les 8-K (Item 2.02 + exhibits) couvrent\n80%+ du besoin ER/ES sans avoir à scraper les pages IR. PRIORITÉ sur 8-K\nparsing avant tout IR scraping pour cat 1.\n\n9. Validation : si un KPI extrait n'a pas de valeur dans le doc source identifié,\n   NE PAS l'inventer. Skip et logger \"missing\".\n"
+}

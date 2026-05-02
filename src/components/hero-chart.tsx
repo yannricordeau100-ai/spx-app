@@ -56,7 +56,7 @@ export function HeroChart({
             }}
             labelStyle={{ color: "#a1a1aa", marginBottom: 4 }}
             itemStyle={{ color: "#fafafa" }}
-            formatter={(v: number) => [`${v}${unit}`, "Value"]}
+            formatter={(v) => [`${v}${unit}`, "Value"]}
           />
           <Area
             type="monotone"

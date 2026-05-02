@@ -16,6 +16,7 @@ import {
   type Company,
   type KPI,
   formatCAGR,
+  formatHeroValue,
   formatUnit,
   findComparable,
   getHero,
@@ -26,27 +27,50 @@ import { brand, rate, detectAnomalies } from "@/lib/brand";
 import { smoothScrollTo } from "@/lib/scroll";
 import { Spotlight } from "@/components/effects/spotlight";
 import { NumberTicker } from "@/components/effects/number-ticker";
-import { ChartCycle } from "@/components/chart-cycle";
+import { ChartCycle, ChartCycleControls, useChartMode } from "@/components/chart-cycle";
 import { KpiRow } from "@/components/kpi-row";
 import { QualityBadge, QualityChipOnly, PercentileChipOnly } from "@/components/quality-badge";
 import { CompanyHeader } from "@/components/company-header";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { PeriodToggle } from "@/components/period-toggle";
 import { InfoTooltip } from "@/components/info-tooltip";
 import { InterpretationBlock } from "@/components/interpretation-block";
-import { VariantSwitcher } from "@/components/variant-switcher";
-import { EventTimeline } from "@/components/event-timeline";
+import { getCompanyEvents } from "@/lib/events";
 import { CompareControl } from "@/components/compare-control";
 import { ComparePanel } from "@/components/compare-panel";
-import { MarketPositionCard } from "@/components/market-position-card";
+import { KpiStories } from "@/components/kpi-stories";
+import { hasStories } from "@/lib/kpi-stories-ordering";
+import { orderKpis } from "@/lib/kpi-ordering";
 import { RiskStack } from "@/components/risk-stack";
 import { AIPositioningCard } from "@/components/ai-positioning-card";
 import { PageSearch } from "@/components/page-search";
 import { GovernanceCard } from "@/components/governance-card";
+import { RepartitionBlock } from "@/components/repartition-block";
 import { FreshnessIndicator } from "@/components/freshness-indicator";
+import { AcronymHover } from "@/components/acronym-hover";
+import { SenateTradesLive } from "@/components/senate-trades-live";
+import { CompanyNavChrome } from "@/components/company-nav-chrome";
+import { SuperKpiBoard } from "@/components/super-kpi-board";
+import { computeSuperKpis, computeSectorSuperKpis } from "@/lib/super-kpi";
+import { useT } from "@/lib/i18n/provider";
+import { CmdFSearch } from "@/components/cmdf-search";
 
 const VISIBLE_KPI_COUNT = 6;
 
-export function CompanyView({ company }: { company: Company }) {
+export function CompanyView({
+  company,
+  authSlot,
+  hideSenate = false,
+  hidePriceBar = false,
+}: {
+  company: Company;
+  authSlot?: React.ReactNode;
+  /** Si true, masque le bloc SenateTradesLive (utile pour FPI étrangers V2). */
+  hideSenate?: boolean;
+  /** Si true, masque le StockPriceBlock (utile pour datasets V1.6 sans live data). */
+  hidePriceBar?: boolean;
+}) {
+  const { t } = useT();
   const accent = brand(company.ticker).primary;
   const glow = brand(company.ticker).glow;
 
@@ -58,6 +82,7 @@ export function CompanyView({ company }: { company: Company }) {
 
   const [showAll, setShowAll] = useState(false);
   const [compareOpen, setCompareOpen] = useState(false);
+  const [chartMode, setChartMode] = useChartMode("curve");
   const [compareTicker, setCompareTicker] = useState<string | null>(null);
 
   const heroRef = useRef<HTMLDivElement>(null);
@@ -68,8 +93,13 @@ export function CompanyView({ company }: { company: Company }) {
     }
   };
 
-  const visibleKpis = showAll ? company.kpis : company.kpis.slice(0, VISIBLE_KPI_COUNT);
-  const hiddenCount = company.kpis.length - VISIBLE_KPI_COUNT;
+  // Ordering : règle Hero / Indicateurs clés / Stories (cf. CLAUDE.md § ORDRE)
+  const orderedKpis = useMemo(
+    () => orderKpis(company.kpis, company.hero_kpi),
+    [company]
+  );
+  const visibleKpis = showAll ? orderedKpis : orderedKpis.slice(0, VISIBLE_KPI_COUNT);
+  const hiddenCount = orderedKpis.length - VISIBLE_KPI_COUNT;
 
   const tone = yoyTone(active.yoy, active.type);
   const yoyColor =
@@ -78,6 +108,7 @@ export function CompanyView({ company }: { company: Company }) {
   const heroRating = rate(active);
   const anomalies = detectAnomalies(active.history, active.type, active.short);
   const formattedUnit = formatUnit(active.unit);
+  const heroFormatted = formatHeroValue(active.value, active.unit);
   const heroCAGR = formatCAGR(active.history, active.unit);
   const interp = useMemo(() => interpretStructured(company), [company]);
 
@@ -96,20 +127,21 @@ export function CompanyView({ company }: { company: Company }) {
       />
       <div className="pointer-events-none absolute inset-0 bg-grid" />
       <Spotlight className="-top-40 left-0 md:-top-20 md:left-60" />
+      <CmdFSearch scopeSelector="main" />
 
-      <div className="relative mx-auto max-w-6xl px-4 py-7 sm:px-6 sm:py-9">
-        {/* Top nav */}
-        <nav className="mb-9 flex items-center justify-between">
+      <main className="relative mx-auto max-w-6xl px-4 py-7 sm:px-6 sm:py-9">
+        {/* Top nav — tout sur une ligne : back + recherche (collée à gauche)
+            puis actions à droite (variant, comparer, enregistrer, compte). */}
+        <nav className="mb-9 flex flex-nowrap items-center gap-3 whitespace-nowrap">
           <Link
             href="/"
-            className="group inline-flex items-center gap-2 text-sm text-zinc-400 transition-colors hover:text-zinc-100"
+            className="group inline-flex shrink-0 items-center gap-2 text-sm text-zinc-400 transition-colors hover:text-zinc-100"
           >
             <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-0.5" />
-            <span className="font-display text-xl tracking-tight text-zinc-100">Mettrik</span>
+            <span className="text-[15px] font-medium text-zinc-100">{t("nav.home")}</span>
           </Link>
-          <div className="flex items-center gap-2">
-            <PageSearch variant="default" />
-            <VariantSwitcher ticker={company.ticker} />
+          <PageSearch variant="default" />
+          <div className="ml-auto flex shrink-0 items-center gap-2">
             <CompareControl
               comparables={comparables}
               activeKpi={active}
@@ -122,66 +154,88 @@ export function CompanyView({ company }: { company: Company }) {
             />
             <button className="inline-flex items-center gap-1.5 rounded-lg border border-[#262626] bg-[#0a0a0a] px-3.5 py-2 text-sm font-medium text-zinc-300 transition-colors hover:border-[#3a3a3a] hover:text-zinc-100">
               <Bookmark className="size-4" />
-              <span className="hidden sm:inline">Enregistrer</span>
+              <span className="hidden sm:inline">{t("company.save.button")}</span>
             </button>
+            <ThemeToggle />
+            {authSlot}
           </div>
         </nav>
 
         {/* Rich company header */}
-        <CompanyHeader company={company} />
+        <CompanyHeader company={company} hidePriceBar={hidePriceBar} />
 
         {/* HERO SECTION — plain section (no motion opacity:0 -> mobile bug) */}
         <section
+          id="sec-hero"
           ref={heroRef}
-          className="conic-border relative scroll-mt-6 overflow-hidden rounded-2xl border border-[#1f1f1f] bg-gradient-to-b from-[#0a0a0a] via-[#0a0a0a] to-[#070707] p-5 animate-fade-up sm:p-7"
+          className="conic-border relative scroll-mt-24 overflow-hidden rounded-2xl border border-[#1f1f1f] bg-gradient-to-b from-[#0a0a0a] via-[#0a0a0a] to-[#070707] p-5 animate-fade-up sm:p-7"
         >
           <div
             className="pointer-events-none absolute -right-24 -top-24 size-80 rounded-full blur-3xl"
             style={{ background: `${accent}33` }}
           />
 
-          <div className="grid grid-cols-1 gap-7 lg:grid-cols-12">
-            {/* LEFT: hero number — 4 cols (narrower) */}
-            <div className="lg:col-span-4">
-              <div className="mb-2 flex items-center gap-2">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
+            {/* LEFT: hero number — colonne réduite à 3/12 pour donner plus
+                d'espace au graph (8 → 9). Tout ce qui est trop large doit
+                glisser à gauche, le bord droit étant fixe. */}
+            <div className="lg:col-span-3">
+              {/* « À jour » à GAUCHE, juste à côté de KPI principal */}
+              <div className="mb-2 flex flex-wrap items-center gap-2">
                 <span
                   className="inline-block size-1.5 animate-pulse-dot rounded-full"
                   style={{ background: accent }}
                 />
                 <span className="font-sans text-[12px] font-semibold uppercase tracking-[0.14em] text-zinc-300">
-                  KPI principal
+                  {t("company.kpi_principal")}
                 </span>
-                <FreshnessIndicator lastDate={active.last_data_date ?? "2025-12-31"} alwaysShow size="sm" />
+                <FreshnessIndicator
+                  lastDate={active.last_data_date ?? "2025-12-31"}
+                  nextEarningsDate={company.next_earnings_date}
+                  alwaysShow
+                  size="sm"
+                />
               </div>
 
               <div className="mt-1 flex items-center gap-2.5">
-                <span
-                  className="rounded-md px-1.5 py-0.5 font-mono text-[12px] font-bold uppercase tracking-wider"
-                  style={{ background: `${accent}1a`, color: accent, border: `1px solid ${accent}33` }}
+                <AcronymHover
+                  align="left"
+                  label={`${active.name_fr}${
+                    active.name_en && active.name_en !== active.name_fr
+                      ? ` (${active.name_en})`
+                      : ""
+                  }`}
                 >
-                  {active.short}
-                </span>
-                <div className="leading-tight">
-                  <div className="text-[16px] font-semibold text-zinc-100">{active.name_fr}</div>
-                  {active.name_en && active.name_en !== active.name_fr && (
-                    <div className="text-[11.5px] text-zinc-400">{active.name_en}</div>
-                  )}
-                </div>
-                <InfoTooltip color={accent}>
-                  <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: accent }}>
-                    Définition
-                  </div>
-                  <div className="text-zinc-200">{active.explanation}</div>
-                </InfoTooltip>
+                  <span
+                    className="cursor-help rounded-md px-1.5 py-0.5 font-mono text-[12px] font-bold uppercase tracking-wider"
+                    style={{ background: `${accent}1a`, color: accent, border: `1px solid ${accent}33` }}
+                  >
+                    {active.short}
+                  </span>
+                </AcronymHover>
               </div>
 
-              <div className="mt-5 flex items-baseline gap-2">
-                <div className="font-display text-[64px] font-semibold leading-none tracking-tight gradient-text sm:text-[88px]">
-                  <NumberTicker value={active.value} />
+              {/* Chiffre principal — clamp responsif (max 7vw) pour éviter
+                  l'overflow horizontal sur les grandes valeurs (ex BPA dilué
+                  $XX.XX, ABF $XXX.X Mds, etc.). flex-wrap permet à l'unité
+                  de basculer en dessous si pas la place. min-w-0 sur la
+                  colonne parent côté layout HERO. */}
+              <div className="mt-5 flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                <div
+                  className="font-display font-semibold leading-none tracking-tight gradient-text"
+                  style={{
+                    fontSize: "clamp(40px, 7vw, 72px)",
+                    wordBreak: "keep-all",
+                  }}
+                >
+                  <NumberTicker value={heroFormatted.value} />
                 </div>
-                {formattedUnit && (
-                  <div className="text-xl font-medium text-zinc-400 sm:text-2xl">
-                    {formattedUnit}
+                {heroFormatted.unit && (
+                  <div
+                    className="font-medium text-zinc-400"
+                    style={{ fontSize: "clamp(15px, 2vw, 22px)" }}
+                  >
+                    {heroFormatted.unit}
                   </div>
                 )}
               </div>
@@ -221,21 +275,52 @@ export function CompanyView({ company }: { company: Company }) {
               </div>
             </div>
 
-            {/* RIGHT: chart — 8 cols (dominant) */}
-            <div className="lg:col-span-8">
-              <div className="mb-3 flex items-center justify-end gap-2">
+            {/* RIGHT: chart — élargi à 9/12 (était 8) pour plus de place au
+                graph principal. */}
+            <div className="lg:col-span-9">
+              {/* Toolbar au-dessus du graph en 2 LIGNES :
+                    Ligne 1 : titre du KPI centré, agrandi
+                    Ligne 2 : styles graph (gauche) + période 5/10/20 (droite)
+                  « À jour » a été remonté dans la col gauche, à côté de
+                  « KPI principal ». */}
+              {/* Toolbar onglets graph (abaissé) → titre KPI (agrandi) →
+                  graph. Les contrôles sont placés EN PREMIER pour pousser le
+                  titre vers le bas, puis le graph vient juste sous le titre. */}
+              <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+                <ChartCycleControls
+                  mode={chartMode}
+                  onChange={setChartMode}
+                  color={accent}
+                />
                 <PeriodToggle accent={accent} />
               </div>
+              <div className="mb-3 flex flex-wrap items-baseline justify-center gap-2.5 text-center">
+                <span className="text-[24px] font-bold leading-tight tracking-tight text-zinc-50 sm:text-[28px]">
+                  {active.name_fr}
+                </span>
+                {active.name_en && active.name_en !== active.name_fr && (
+                  <span className="text-[14px] leading-tight text-zinc-400">
+                    {active.name_en}
+                  </span>
+                )}
+                <InfoTooltip color={accent}>
+                  <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: accent }}>
+                    Définition
+                  </div>
+                  <div className="text-zinc-200">{active.explanation}</div>
+                </InfoTooltip>
+              </div>
               <ChartCycle
+                mode={chartMode}
                 data={active.history}
                 unit={active.unit}
                 color={accent}
                 anomalies={anomalies}
+                events={getCompanyEvents(company.ticker)}
                 company={company}
                 activeShort={active.short}
                 onPickKpi={handleKpiClick}
               />
-              <EventTimeline ticker={company.ticker} color={accent} />
             </div>
           </div>
 
@@ -267,7 +352,7 @@ export function CompanyView({ company }: { company: Company }) {
         </AnimatePresence>
 
         {/* KPI table */}
-        <section className="mt-9 animate-fade-up-d2">
+        <section id="sec-kpis" className="mt-9 scroll-mt-24 animate-fade-up-d2">
           <div className="mb-4 flex items-end justify-between">
             <div>
               <h2 className="text-[22px] font-semibold text-zinc-100">Indicateurs clés</h2>
@@ -292,6 +377,7 @@ export function CompanyView({ company }: { company: Company }) {
                 kpi={kpi}
                 active={kpi.short === active.short}
                 subsector={company.subsector}
+                ticker={company.ticker}
                 onClick={() => handleKpiClick(kpi.short)}
               />
             ))}
@@ -304,67 +390,64 @@ export function CompanyView({ company }: { company: Company }) {
                   className={`size-4 transition-transform ${showAll ? "rotate-180" : ""}`}
                 />
                 {showAll
-                  ? "Réduire"
-                  : `Voir ${hiddenCount} indicateur${hiddenCount > 1 ? "s" : ""} supplémentaire${hiddenCount > 1 ? "s" : ""}`}
+                  ? t("company.kpi_table.collapse")
+                  : (hiddenCount > 1
+                      ? t("company.kpi_table.see_more_many").replace("{n}", String(hiddenCount))
+                      : t("company.kpi_table.see_more_one"))}
               </button>
             )}
           </div>
         </section>
 
-        {/* Market position / TAM */}
-        {company.market_positions && company.market_positions.length > 0 && (
-          <section className="mt-9 animate-fade-up-d2">
-            <div className="mb-4 flex items-end justify-between">
-              <div>
-                <h2 className="text-[22px] font-semibold text-zinc-50">
-                  Position marché · TAM
-                </h2>
-                <p className="mt-0.5 text-[13.5px] text-zinc-300">
-                  Part de marché de la société sur ses segments clés vs le Total Addressable Market.
-                </p>
-              </div>
-              <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-400">
-                {company.market_positions.length} segment{company.market_positions.length > 1 ? "s" : ""}
-              </span>
-            </div>
-            <div
-              className={`grid gap-4 ${
-                company.market_positions.length === 1
-                  ? "grid-cols-1"
-                  : "lg:grid-cols-2"
-              }`}
-            >
-              {company.market_positions.map((p) => (
-                <MarketPositionCard
-                  key={p.segment_name}
-                  company={company}
-                  position={p}
-                  wide={company.market_positions!.length === 1}
-                />
-              ))}
-            </div>
-          </section>
+        {/* Stories — KPIs short-history + MarketPositions intégrées */}
+        {hasStories(company.kpis, company.market_positions) && (
+          <KpiStories company={company} />
         )}
 
         {/* Risk factors */}
-        {company.risks && <RiskStack risks={company.risks} accent={accent} />}
+        {company.risks && (
+          <div id="sec-risks" className="scroll-mt-24">
+            <RiskStack risks={company.risks} accent={accent} profitWarning={company.profit_warning} />
+          </div>
+        )}
+
+        {/* Répartition CA (géo + segment) — au-dessus de Gouvernance */}
+        <RepartitionBlock company={company} />
 
         {/* Governance */}
         {company.governance && (
-          <GovernanceCard governance={company.governance} ticker={company.ticker} />
+          <div id="sec-governance" className="scroll-mt-24">
+            <GovernanceCard governance={company.governance} ticker={company.ticker} />
+          </div>
         )}
 
         {/* AI positioning — placed after risks + governance */}
-        <AIPositioningCard
-          positioning={company.ai_positioning}
+        <div id="sec-ai" className="scroll-mt-24">
+          <AIPositioningCard
+            positioning={company.ai_positioning}
+            companyName={company.name}
+            ticker={company.ticker}
+          />
+        </div>
+
+        {/* Trades du Sénat US — données LIVE via FMP /stable/senate-trades */}
+        {!hideSenate && <SenateTradesLive ticker={company.ticker} accent={accent} />}
+
+        {/* Super-KPI Mettrik — bloc final, combinaisons composites */}
+        <SuperKpiBoard
+          kpis={computeSuperKpis(company)}
+          sectorKpis={computeSectorSuperKpis(company)}
           companyName={company.name}
           ticker={company.ticker}
+          accent={accent}
         />
 
         <footer className="mt-16 pb-8 text-center font-mono text-[11px] uppercase tracking-wider text-zinc-500">
-          Mettrik · KPI Intelligence — V1
+          Mettrik AI · KPI Intelligence
         </footer>
-      </div>
+      </main>
+
+      <CompanyNavChrome />
     </div>
   );
 }

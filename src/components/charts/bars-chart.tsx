@@ -23,17 +23,46 @@ function isCurrencyLike(unit: string): boolean {
 }
 
 /**
- * True axonometric 3D bars chart.
+ * Generates "nice" round tick values between min and max for axis scale.
+ * Rounds the step to 1, 2, 5, or 10 × magnitude so labels look clean
+ * (10, 20, 50, 100 ...) instead of derived from raw data extremes.
+ */
+function niceTicks(min: number, max: number, count = 5): number[] {
+  if (max === min) return [min];
+  const range = max - min;
+  const roughStep = range / (count - 1);
+  const magnitude = Math.pow(10, Math.floor(Math.log10(roughStep)));
+  const normalized = roughStep / magnitude;
+  let step;
+  if (normalized < 1.5) step = 1;
+  else if (normalized < 3) step = 2;
+  else if (normalized < 7) step = 5;
+  else step = 10;
+  step *= magnitude;
+  const niceMin = Math.floor(min / step) * step;
+  const niceMax = Math.ceil(max / step) * step;
+  const out: number[] = [];
+  for (let v = niceMin; v <= niceMax + step / 1000; v += step) {
+    out.push(Math.round(v * 1e6) / 1e6); // strip float noise
+  }
+  return out;
+}
+
+const W = 920;
+const H = 420;
+const PAD_LEFT = 96;
+const PAD_RIGHT = 50;
+const PAD_TOP = 40;
+const PAD_BOTTOM = 80;
+const DX = 22;
+const DY = -14;
+
+/**
+ * Bars chart — "Neon Outline" promoted from chart-lab. Hollow bars with a
+ * vibrant neon stroke, soft inner glow halo behind, faint top-down inner
+ * gradient. 3D depth via top + right wireframe outlines (parallelograms).
  *
- * Projection rule: Y axis is VERTICAL and UNDISTORTED. Y-axis ticks on the
- * back-left wall align HORIZONTALLY with the TOP of each bar's FRONT face,
- * so the data scale stays readable.
- *
- * The 3D illusion comes from:
- *   - receding floor grid (back-left vanishing)
- *   - back-left wall with Y ticks
- *   - each bar = 3D box (front + top + right face) with consistent light source
- *   - drop shadows on the floor
+ * Reverted from the rounded-top experiment (rejected). Pure SVG, single tree.
  */
 export function BarsChart({
   data,
@@ -50,30 +79,21 @@ export function BarsChart({
 }) {
   const [hover, setHover] = useState<number | null>(null);
 
-  // SVG canvas
-  const W = 920;
-  const H = 420;
+  const innerW = W - PAD_LEFT - PAD_RIGHT;
+  const innerH = H - PAD_TOP - PAD_BOTTOM;
 
-  // Chart plane (inside walls)
-  const padLeft = 96;      // Y axis wall + ticks space
-  const padRight = 50;
-  const padTop = 40;
-  const padBottom = 80;    // room for X labels + tilted floor
-  const innerW = W - padLeft - padRight;
-  const innerH = H - padTop - padBottom;
-
-  // 3D depth vector (toward back-right)
-  const dZ = 54;
-  const dx = dZ * 0.82;  // cos 35°
-  const dy = -dZ * 0.48; // sin 29° (negative = up)
-
-  const min = Math.min(0, ...data);
-  const max = Math.max(...data, 0);
+  const dataMin = Math.min(0, ...data);
+  const dataMax = Math.max(...data, 0);
+  // Compute "nice" tick values rounded to 1/2/5×magnitude. The chart's actual
+  // scale spans the rounded min..max so the data fits within the gridlines.
+  const tickValues = niceTicks(dataMin, dataMax, 5);
+  const min = Math.min(...tickValues, dataMin);
+  const max = Math.max(...tickValues, dataMax);
   const range = max - min || 1;
-  const zeroY = padTop + ((max - 0) / range) * innerH;
+  const zeroY = PAD_TOP + ((max - 0) / range) * innerH;
 
   const slot = innerW / data.length;
-  const barW = Math.min(slot * 0.46, 56);
+  const barW = Math.min(slot * 0.42, 56);
 
   const u = formatUnit(unit);
   const header = axisHeader(unit);
@@ -86,144 +106,74 @@ export function BarsChart({
     return ((v - prev) / Math.abs(prev)) * 100;
   });
 
-  const ticks = [
-    max,
-    max * 0.75 + min * 0.25,
-    (max + min) / 2,
-    max * 0.25 + min * 0.75,
-    min,
-  ].map((v) => ({ v, y: padTop + ((max - v) / range) * innerH }));
-
-  const idFront = `b3d-front-${color.slice(1)}`;
-  const idTop = `b3d-top-${color.slice(1)}`;
-  const idSide = `b3d-side-${color.slice(1)}`;
-  const idFloorLine = `b3d-floor-${color.slice(1)}`;
-  const idWallFade = `b3d-wall-${color.slice(1)}`;
+  const ticks = tickValues.map((v) => ({
+    v,
+    y: PAD_TOP + ((max - v) / range) * innerH,
+  }));
 
   const anomalyByIndex = new Map(anomalies.map((a) => [a.index, a]));
 
-  // Front face X position (left edge of bar)
-  const barX = (i: number) => padLeft + slot * i + (slot - barW) / 2;
-
-  // Back-plane coords
-  const backLeft = padLeft + dx;
-  const backTop = padTop + dy;
-  const backRight = padLeft + innerW + dx;
-  const backBottomY = zeroY + dy;
+  const idGlow = `bn-glow-${color.slice(1)}`;
+  const idFill = `bn-fill-${color.slice(1)}`;
 
   return (
     <div className="relative w-full">
       <div className="mb-2 flex items-center justify-start">
         <span className="font-mono text-[12px] font-semibold text-zinc-200">{header}</span>
       </div>
-      <svg width="100%" height="420" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet">
+
+      <svg
+        width="100%"
+        height="auto"
+        viewBox={`0 0 ${W} ${H}`}
+        preserveAspectRatio="xMidYMid meet"
+        style={{ display: "block", overflow: "visible" }}
+      >
         <defs>
-          <linearGradient id={idFront} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor={color} stopOpacity={1} />
-            <stop offset="100%" stopColor={color} stopOpacity={0.35} />
-          </linearGradient>
-          <linearGradient id={idTop} x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#ffffff" stopOpacity={0.65} />
-            <stop offset="100%" stopColor={color} stopOpacity={0.85} />
-          </linearGradient>
-          <linearGradient id={idSide} x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor={color} stopOpacity={0.55} />
-            <stop offset="100%" stopColor="#000000" stopOpacity={0.7} />
-          </linearGradient>
-          <linearGradient id={idWallFade} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor={color} stopOpacity={0.08} />
+          <filter id={idGlow} x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="3" />
+          </filter>
+          <linearGradient id={idFill} x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor={color} stopOpacity={0.22} />
             <stop offset="100%" stopColor={color} stopOpacity={0} />
           </linearGradient>
-          <filter id="b3d-glow" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="8" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
         </defs>
 
-        {/* Back-left wall (Y axis plane) — parallelogram */}
-        <path
-          d={`M ${padLeft} ${padTop} L ${backLeft} ${backTop} L ${backLeft} ${backBottomY} L ${padLeft} ${zeroY} Z`}
-          fill={`url(#${idWallFade})`}
-          stroke={color}
-          strokeOpacity="0.15"
-          strokeWidth="1"
-        />
+        {/* Y guidelines */}
+        {ticks.map(({ y }, i) => (
+          <line
+            key={`gl-${i}`}
+            x1={PAD_LEFT}
+            x2={PAD_LEFT + innerW}
+            y1={y}
+            y2={y}
+            stroke="#1a1a1a"
+            strokeWidth={1}
+            strokeDasharray="3 6"
+          />
+        ))}
 
-        {/* Floor plane (horizontal receding) */}
-        <path
-          d={`M ${padLeft} ${zeroY} L ${padLeft + innerW} ${zeroY} L ${backRight} ${backBottomY} L ${backLeft} ${backBottomY} Z`}
-          fill="#08080b"
-          stroke={color}
-          strokeOpacity="0.12"
-          strokeWidth="1"
-        />
+        {/* Y labels — taille agrandie */}
+        {ticks.map(({ v, y }, i) => (
+          <text
+            key={`yn-${i}`}
+            x={PAD_LEFT - 12}
+            y={y + 5}
+            textAnchor="end"
+            fontSize={16}
+            fontWeight={500}
+            fill="#e4e4e7"
+            fontFamily="ui-monospace, monospace"
+          >
+            {intTicks ? Math.round(v).toLocaleString("fr-FR") : (Math.round(v * 10) / 10).toLocaleString("fr-FR")}
+          </text>
+        ))}
 
-        {/* Floor grid lines (parallel to back edge — receding) */}
-        {[0.25, 0.5, 0.75].map((t, i) => {
-          const fx1 = padLeft + dx * t;
-          const fy1 = zeroY + dy * t;
-          const fx2 = padLeft + innerW + dx * t;
-          const fy2 = zeroY + dy * t;
-          return (
-            <line
-              key={`hfloor-${i}`}
-              x1={fx1}
-              y1={fy1}
-              x2={fx2}
-              y2={fy2}
-              stroke={color}
-              strokeOpacity="0.07"
-              strokeDasharray="3 6"
-            />
-          );
-        })}
-
-        {/* Y-axis ticks on the LEFT WALL — horizontal line extends from front-left to back-left */}
-        {ticks.map(({ v, y }, i) => {
-          const bx = padLeft + dx;
-          const by = y + dy;
-          return (
-            <g key={i}>
-              {/* guideline across chart plane (on back wall + through air) */}
-              <line
-                x1={padLeft}
-                y1={y}
-                x2={bx}
-                y2={by}
-                stroke={color}
-                strokeOpacity="0.15"
-                strokeDasharray="2 4"
-              />
-              <line
-                x1={padLeft}
-                y1={y}
-                x2={padLeft + innerW}
-                y2={y}
-                stroke="#1f1f1f"
-                strokeWidth={1}
-                strokeDasharray="3 6"
-              />
-              <text
-                x={padLeft - 12}
-                y={y + 4}
-                textAnchor="end"
-                fontSize={12.5}
-                fill="#d4d4d8"
-                fontFamily="ui-monospace, monospace"
-              >
-                {intTicks ? Math.round(v) : Math.round(v * 10) / 10}
-              </text>
-            </g>
-          );
-        })}
-
+        {/* Zero line */}
         {min < 0 && max > 0 && (
           <line
-            x1={padLeft}
-            x2={padLeft + innerW}
+            x1={PAD_LEFT}
+            x2={PAD_LEFT + innerW}
             y1={zeroY}
             y2={zeroY}
             stroke="#3f3f46"
@@ -231,148 +181,151 @@ export function BarsChart({
           />
         )}
 
-        {/* 3D bars */}
         {data.map((v, i) => {
-          const x = barX(i);
-          const yTop = padTop + ((max - Math.max(v, 0)) / range) * innerH;
-          const yBot = padTop + ((max - Math.min(v, 0)) / range) * innerH;
+          const x = PAD_LEFT + slot * i + (slot - barW) / 2;
+          const yTop = PAD_TOP + ((max - Math.max(v, 0)) / range) * innerH;
+          const yBot = PAD_TOP + ((max - Math.min(v, 0)) / range) * innerH;
           const h = Math.max(2, yBot - yTop);
           const isHover = hover === i;
           const yPct = yoyPct[i];
-          const yoyColor = yPct == null ? "#a1a1aa" : yPct >= 0 ? "#10b981" : "#f43f5e";
+          const yoyColor =
+            yPct == null ? "#a1a1aa" : yPct >= 0 ? "#10b981" : "#f43f5e";
           const isAnomaly = anomalyByIndex.has(i);
 
-          // Front face rectangle: (x, yTop) → (x+barW, yBot)
-          // Top face parallelogram: front-top edge pushed by (dx, dy)
-          const ftL = [x, yTop];
-          const ftR = [x + barW, yTop];
-          const btL = [x + dx, yTop + dy];
-          const btR = [x + barW + dx, yTop + dy];
-
-          // Right face parallelogram: right-front edge pushed
-          const frT = [x + barW, yTop];
-          const frB = [x + barW, yBot];
-          const brT = [x + barW + dx, yTop + dy];
-          const brB = [x + barW + dx, yBot + dy];
+          const topPath = `M ${x},${yTop} L ${x + barW},${yTop} L ${x + barW + DX},${yTop + DY} L ${x + DX},${yTop + DY} Z`;
+          const sidePath = `M ${x + barW},${yTop} L ${x + barW + DX},${yTop + DY} L ${x + barW + DX},${yBot + DY} L ${x + barW},${yBot} Z`;
 
           return (
             <motion.g
               key={i}
-              initial={{ opacity: 0, y: 18 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.08 * i, ease: [0.22, 1, 0.36, 1] }}
-              filter={isHover || isAnomaly ? "url(#b3d-glow)" : undefined}
-              style={{ opacity: hover === null || isHover ? 1 : 0.55 }}
+              transition={{ duration: 0.55, delay: 0.07 * i, ease: [0.22, 1, 0.36, 1] }}
               onMouseEnter={() => setHover(i)}
               onMouseLeave={() => setHover(null)}
+              style={{
+                opacity: hover === null || isHover ? 1 : 0.5,
+                transition: "opacity 200ms ease-out",
+                cursor: "pointer",
+              }}
             >
-              {/* Drop shadow on floor */}
-              <ellipse
-                cx={x + barW / 2 + dx / 2}
-                cy={yBot + 5}
-                rx={barW * 0.55}
-                ry={4}
-                fill="#000000"
-                fillOpacity={0.5}
-              />
-              {/* Right face (in shadow) */}
-              <motion.path
-                initial={{ scaleY: 0 }}
-                animate={{ scaleY: 1 }}
-                transition={{ duration: 0.7, delay: 0.08 * i, ease: [0.22, 1, 0.36, 1] }}
-                style={{ transformOrigin: `${x + barW}px ${yBot}px` }}
-                d={`M ${frT[0]} ${frT[1]} L ${brT[0]} ${brT[1]} L ${brB[0]} ${brB[1]} L ${frB[0]} ${frB[1]} Z`}
-                fill={`url(#${idSide})`}
-                stroke={color}
-                strokeOpacity="0.3"
-                strokeWidth={0.5}
-              />
-              {/* Front face (main data rectangle) */}
-              <motion.rect
-                initial={{ scaleY: 0 }}
-                animate={{ scaleY: 1 }}
-                transition={{ duration: 0.7, delay: 0.08 * i, ease: [0.22, 1, 0.36, 1] }}
-                style={{ transformOrigin: `${x}px ${yBot}px` }}
+              {/* Halo glow behind the bar */}
+              <rect
                 x={x}
                 y={yTop}
-                rx={2}
                 width={barW}
                 height={h}
-                fill={`url(#${idFront})`}
-                stroke={color}
-                strokeOpacity="0.6"
-                strokeWidth={0.5}
+                fill={color}
+                fillOpacity={isHover ? 0.32 : 0.15}
+                filter={`url(#${idGlow})`}
               />
-              {/* Top face (catches light) */}
-              <motion.path
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.4, delay: 0.08 * i + 0.4 }}
-                d={`M ${ftL[0]} ${ftL[1]} L ${ftR[0]} ${ftR[1]} L ${btR[0]} ${btR[1]} L ${btL[0]} ${btL[1]} Z`}
-                fill={`url(#${idTop})`}
+              {/* Subtle inner gradient fill */}
+              <rect
+                x={x}
+                y={yTop}
+                width={barW}
+                height={h}
+                fill={`url(#${idFill})`}
+              />
+              {/* Top face — outline only with glow */}
+              <path
+                d={topPath}
+                fill="none"
                 stroke={color}
-                strokeOpacity="0.7"
-                strokeWidth={0.5}
+                strokeWidth={1.5}
+                filter={`url(#${idGlow})`}
+              />
+              <path
+                d={topPath}
+                fill="none"
+                stroke={color}
+                strokeWidth={1.5}
+                strokeLinejoin="round"
+              />
+              {/* Right face — outline only, dimmer */}
+              <path
+                d={sidePath}
+                fill="none"
+                stroke={color}
+                strokeWidth={1.2}
+                strokeOpacity={0.6}
+                strokeLinejoin="round"
+              />
+              {/* Front face — neon stroke, sharp corners */}
+              <rect
+                x={x}
+                y={yTop}
+                width={barW}
+                height={h}
+                fill="none"
+                stroke={color}
+                strokeWidth={isHover ? 2.2 : 1.6}
               />
 
-              {/* Anomaly marker on top face */}
+              {/* Anomaly marker */}
               {isAnomaly && (
                 <circle
-                  cx={x + barW / 2 + dx / 2}
-                  cy={yTop + dy / 2}
-                  r={5}
+                  cx={x + barW / 2 + DX / 2}
+                  cy={yTop + DY / 2}
+                  r={4.5}
                   fill={color}
-                  stroke="#fff"
+                  stroke="#ffffff"
                   strokeWidth={1.5}
+                  filter={`url(#${idGlow})`}
                 />
               )}
 
-              {/* YoY % above bar (on the back side so it floats) */}
+              {/* YoY % above — espace augmenté pour ne pas coller à la barre */}
               {yPct != null && (
                 <motion.text
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.08 * i + 0.6 }}
-                  x={x + barW / 2 + dx / 2}
-                  y={yTop + dy - 10}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.07 * i + 0.4, duration: 0.4 }}
+                  x={x + barW / 2 + DX / 2}
+                  y={yTop + DY - 24}
                   textAnchor="middle"
-                  fontSize={13}
+                  fontSize={17}
                   fontWeight={700}
                   fill={yoyColor}
                   fontFamily="ui-monospace, monospace"
+                  style={{ filter: `drop-shadow(0 0 4px ${yoyColor})` }}
                 >
                   {yPct >= 0 ? "+" : ""}
                   {yPct.toFixed(1)} %
                 </motion.text>
               )}
 
-              {/* Hover value */}
+              {/* Hover value — taille agrandie */}
               {isHover && (
-                <motion.text
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  x={x + barW / 2 + dx / 2}
-                  y={yTop + dy - 28}
+                <text
+                  x={x + barW / 2 + DX / 2}
+                  y={yTop + DY - 48}
                   textAnchor="middle"
-                  fontSize={14}
+                  fontSize={18}
                   fontWeight={800}
                   fill="#fafafa"
                   fontFamily="ui-monospace, monospace"
+                  style={{ filter: `drop-shadow(0 0 4px ${color})` }}
                 >
                   {v}
-                  {u && <tspan fill="#a1a1aa" fontSize="12"> {u}</tspan>}
-                </motion.text>
+                  {u && (
+                    <tspan fill="#a1a1aa" fontSize="14">
+                      {" "}
+                      {u}
+                    </tspan>
+                  )}
+                </text>
               )}
 
-              {/* X axis label (on the floor, slight offset for alignment) */}
+              {/* X-axis label — taille agrandie */}
               <text
-                x={x + barW / 2 + dx / 2}
-                y={H - padBottom + 28}
+                x={x + barW / 2 + DX / 2}
+                y={H - PAD_BOTTOM + 26}
                 textAnchor="middle"
-                fontSize={14}
-                fill="#d4d4d8"
+                fontSize={17}
+                fill="#e4e4e7"
                 fontFamily="ui-monospace, monospace"
-                fontWeight={500}
+                fontWeight={600}
               >
                 {labels[i] ?? ""}
               </text>

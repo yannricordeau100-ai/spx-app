@@ -57,9 +57,6 @@ Claude exécutera. Si tu as besoin de relire l'historique : tout est dans
 - Le fait que tu prépares une démo aux fondateurs de **baggr.fr** et **iq-invest**
 - Le budget V2 plafonné à **$150**
 - Le domaine `mettrik.ai` est acheté chez **Spaceship**
-- Tu as testé `kpulse.ai` (rejeté), `pulsair.ai` (TM USA bloquant), `pulsato`
-  (italien — tu n'as pas validé), `pulzy` (français-mauvais), avant de choisir
-  Mettrik
 - L'app a tourné sous `localhost:3000` puis brièvement sous tunnels
   (cloudflared, localtunnel, serveo) que tu as fait annuler — pas de tunnel par
   défaut désormais

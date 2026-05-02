@@ -7,6 +7,9 @@ import { rate } from "@/lib/brand";
 import { Sparkline } from "@/components/effects/sparkline";
 import { QualityBadge } from "@/components/quality-badge";
 import { InfoTooltip } from "@/components/info-tooltip";
+import { StarButton } from "@/components/star-button";
+import { AcronymHover } from "@/components/acronym-hover";
+import { useT } from "@/lib/i18n/provider";
 
 const TYPE_COLOR: Record<string, string> = {
   Revenue: "#a78bfa",
@@ -25,12 +28,17 @@ export function KpiRow({
   active = false,
   onClick,
   subsector,
+  ticker,
 }: {
   kpi: KPI;
   active?: boolean;
   onClick?: () => void;
   subsector: string;
+  ticker: string;
 }) {
+  const { t, locale } = useT();
+  const primaryName = locale === "en" && kpi.name_en ? kpi.name_en : kpi.name_fr;
+  const secondaryName = locale === "en" ? kpi.name_fr : kpi.name_en;
   const tone = yoyTone(kpi.yoy, kpi.type);
   const yoyColor =
     tone === "pos" ? "#10b981" : tone === "neg" ? "#f43f5e" : "#a1a1aa";
@@ -62,36 +70,54 @@ export function KpiRow({
 
       {active && (
         <span
-          className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[10.5px] font-medium"
+          className="absolute right-12 top-3 inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[10.5px] font-medium"
           style={{ background: `${accent}1f`, color: accent }}
         >
           <Check className="size-3" />
-          Actif
+          {t("kpi.active")}
         </span>
       )}
+
+      {/* Étoile favori : toujours top-right absolu du module */}
+      <span className="absolute right-2 top-2 z-10">
+        <StarButton
+          mode="kpi"
+          ticker={ticker}
+          kpiShort={kpi.short}
+          size="sm"
+          stopPropagation
+        />
+      </span>
 
       {/* COL 1 — Indicateur (4 cols). Acronym + name centered vertically together. */}
       <div className="col-span-12 sm:col-span-4">
         <div className="flex items-center gap-2.5">
-          <span
-            className="rounded-md px-1.5 py-0.5 font-mono text-[11px] font-bold uppercase tracking-wider"
-            style={{
-              background: `${accent}1a`,
-              color: accent,
-              border: `1px solid ${accent}33`,
-            }}
+          <AcronymHover
+            align="left"
+            label={`${kpi.name_fr}${
+              kpi.name_en && kpi.name_en !== kpi.name_fr ? ` (${kpi.name_en})` : ""
+            }`}
           >
-            {kpi.short}
-          </span>
+            <span
+              className="cursor-help rounded-md px-1.5 py-0.5 font-mono text-[11px] font-bold uppercase tracking-wider"
+              style={{
+                background: `${accent}1a`,
+                color: accent,
+                border: `1px solid ${accent}33`,
+              }}
+            >
+              {kpi.short}
+            </span>
+          </AcronymHover>
           <div className="min-w-0 leading-tight">
-            <div className="text-[15.5px] font-medium text-zinc-100">{kpi.name_fr}</div>
-            {kpi.name_en && kpi.name_en !== kpi.name_fr && (
-              <div className="text-[11.5px] text-zinc-400">{kpi.name_en}</div>
+            <div className="text-[15.5px] font-medium text-zinc-100">{primaryName}</div>
+            {secondaryName && secondaryName !== primaryName && (
+              <div className="text-[11.5px] text-zinc-400">{secondaryName}</div>
             )}
           </div>
           <InfoTooltip color={accent}>
             <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: accent }}>
-              Définition
+              {t("kpi.definition")}
             </div>
             <div className="text-zinc-200">{kpi.explanation}</div>
           </InfoTooltip>
@@ -122,19 +148,21 @@ export function KpiRow({
             <span className="ml-1 text-sm font-normal text-zinc-400">{formattedUnit}</span>
           )}
         </div>
-        <div
-          className="mt-2 inline-flex items-center gap-1 font-mono text-[13px] tabular-nums"
-          style={{ color: yoyColor }}
-        >
-          {tone === "pos" && <ArrowUpRight className="size-3.5" />}
-          {tone === "neg" && <ArrowDownRight className="size-3.5" />}
-          {kpi.yoy}
-          <span className="text-[10.5px] italic text-zinc-400">(YoY)</span>
-        </div>
+        {kpi.yoy && kpi.yoy.toLowerCase() !== "n/a" && (
+          <div
+            className="mt-2 inline-flex items-center gap-1 font-mono text-[13px] tabular-nums"
+            style={{ color: yoyColor }}
+          >
+            {tone === "pos" && <ArrowUpRight className="size-3.5" />}
+            {tone === "neg" && <ArrowDownRight className="size-3.5" />}
+            {kpi.yoy}
+            <span className="text-[10.5px] italic text-zinc-400">{t("hero.yoy")}</span>
+          </div>
+        )}
         {cagrLabel && (
           <div className="mt-1 font-mono text-[11.5px] tabular-nums text-zinc-400">
             {cagrLabel}
-            <span className="ml-1 text-[10px] italic text-zinc-500">(CAGR 5 ans)</span>
+            <span className="ml-1 text-[10px] italic text-zinc-500">{t("hero.cagr_5y")}</span>
           </div>
         )}
       </div>

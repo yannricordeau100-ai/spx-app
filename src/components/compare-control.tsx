@@ -5,6 +5,7 @@ import { ChevronDown, GitCompare } from "lucide-react";
 import type { KPI } from "@/lib/data";
 import type { findComparable } from "@/lib/data";
 import { brand } from "@/lib/brand";
+import { useT } from "@/lib/i18n/provider";
 
 type Comparables = ReturnType<typeof findComparable>;
 
@@ -14,21 +15,17 @@ export function CompareControl({
   open,
   onToggle,
   onPick,
-  variant = "default",
 }: {
   comparables: Comparables;
   activeKpi: KPI;
   open: boolean;
   onToggle: () => void;
   onPick: (t: string) => void;
-  variant?: "default" | "aurora" | "spatial";
 }) {
+  const { t, locale } = useT();
+  const kpiName = locale === "en" && activeKpi.name_en ? activeKpi.name_en : activeKpi.name_fr;
   const triggerClass =
-    variant === "aurora"
-      ? "glass-card inline-flex items-center gap-1.5 rounded-lg px-3.5 py-2 text-sm font-medium text-zinc-100 transition-colors hover:bg-white/10 disabled:opacity-50"
-      : variant === "spatial"
-        ? "spatial-card inline-flex items-center gap-1.5 rounded-lg px-3.5 py-2 text-sm font-medium text-zinc-100 transition-transform hover:-translate-y-0.5 disabled:opacity-50"
-        : "inline-flex items-center gap-1.5 rounded-lg border border-[#262626] bg-[#0a0a0a] px-3.5 py-2 text-sm font-medium text-zinc-200 transition-colors hover:border-[#3a3a3a] hover:text-zinc-50 disabled:opacity-50";
+    "inline-flex items-center gap-1.5 rounded-lg border border-[#262626] bg-[#0a0a0a] px-3.5 py-2 text-sm font-medium text-zinc-200 transition-colors hover:border-[#3a3a3a] hover:text-zinc-50 disabled:opacity-50";
 
   return (
     <div className="relative">
@@ -38,7 +35,7 @@ export function CompareControl({
         className={triggerClass}
       >
         <GitCompare className="size-4" />
-        <span>Comparer</span>
+        <span>{t("company.compare.button")}</span>
         <ChevronDown
           className={`size-3.5 transition-transform ${open ? "rotate-180" : ""}`}
         />
@@ -55,17 +52,17 @@ export function CompareControl({
           >
             <div className="border-b border-[#1a1a1a] px-3 py-2.5">
               <div className="font-mono text-[10px] uppercase tracking-wider text-zinc-400">
-                Comparer sur
+                {t("company.compare.on")}
               </div>
               <div className="mt-0.5 text-[12.5px] text-zinc-200">
                 <span className="font-medium">{activeKpi.short}</span>
-                <span className="text-zinc-400"> · {activeKpi.name_fr}</span>
+                <span className="text-zinc-400"> · {kpiName}</span>
               </div>
             </div>
             <div className="max-h-72 overflow-y-auto py-1">
               {comparables.length === 0 ? (
                 <div className="px-3 py-4 text-[12px] text-zinc-400">
-                  Aucune société du panel ne publie un KPI comparable à&nbsp;
+                  {t("company.compare.empty")}&nbsp;
                   <em>{activeKpi.short}</em>.
                 </div>
               ) : (
@@ -87,7 +84,7 @@ export function CompareControl({
                             {company.name}
                           </div>
                           <div className="truncate text-[11px] text-zinc-400">
-                            ↳ {matchedKpi.short} · {matchedKpi.name_fr}
+                            ↳ {matchedKpi.short} · {locale === "en" && matchedKpi.name_en ? matchedKpi.name_en : matchedKpi.name_fr}
                           </div>
                         </div>
                       </div>
@@ -98,7 +95,7 @@ export function CompareControl({
                             : "bg-zinc-700/30 text-zinc-300"
                         }`}
                       >
-                        {score >= 100 ? "Direct" : "Connexe"}
+                        {score >= 100 ? t("company.compare.direct") : t("company.compare.connex")}
                       </span>
                     </button>
                   );

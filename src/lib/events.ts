@@ -5,9 +5,52 @@
 
 export type CompanyEvent = {
   year: number;
+  /**
+   * Mois 1-12 pour positionner finement le point sur le graph entre 2
+   * années. Si absent, le point est placé à la moitié de l'année
+   * (règle universelle : "place-le à la moitié si pas d'info date").
+   */
+  month?: number;
   title: string;
   body: string;
 };
+
+/**
+ * Calcule la position fractionnaire d'un événement sur l'axe X du graph
+ * (en index de point de donnée). Le 1er label = index 0.
+ *
+ * Exemples avec xLabels = ["2021","2022","2023","2024","2025"] :
+ *   { year: 2023 }            → 2.5     (mi-2023)
+ *   { year: 2023, month: 1 }  → 2.04    (début janvier 2023)
+ *   { year: 2023, month: 6 }  → 2.46    (mi-juin 2023)
+ *   { year: 2023, month: 12 } → 2.96    (fin décembre 2023)
+ *
+ * Retourne `null` si l'année est hors-range.
+ */
+export function eventFractionalIndex(
+  event: CompanyEvent,
+  xLabels: string[]
+): number | null {
+  const start = parseInt(xLabels[0] ?? "");
+  const end = parseInt(xLabels[xLabels.length - 1] ?? "");
+  if (isNaN(start) || isNaN(end)) return null;
+  const monthOffset =
+    event.month != null && event.month >= 1 && event.month <= 12
+      ? (event.month - 0.5) / 12
+      : 0.5;
+  const idx = event.year - start + monthOffset;
+  if (idx < 0 || idx > xLabels.length - 1 + 0.001) return null;
+  return idx;
+}
+
+/** Retourne les events d'un ticker (gère l'alias GOOGL/GOOGLE). */
+export function getCompanyEvents(ticker: string): CompanyEvent[] {
+  const t = ticker.toUpperCase();
+  const direct = EVENTS[t];
+  if (direct && direct.length > 0) return direct;
+  if (t === "GOOGL" && EVENTS.GOOGLE?.length) return EVENTS.GOOGLE;
+  return [];
+}
 
 export const EVENTS: Record<string, CompanyEvent[]> = {
   GOOGLE: [

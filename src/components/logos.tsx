@@ -49,18 +49,17 @@ export function LogoMETA() {
 
 export function LogoMSCI() {
   return (
-    <svg viewBox="0 0 56 56" className="size-full">
-      {/* MSCI wordmark — clean, brand-correct */}
-      <rect x="4" y="20" width="48" height="16" rx="2" fill="#1B365D" />
+    <svg viewBox="0 0 80 56" className="size-full">
+      {/* MSCI wordmark — bleu corporate MSCI, sans box, comme l'identité officielle */}
       <text
-        x="28"
-        y="32"
+        x="40"
+        y="38"
         textAnchor="middle"
         fontFamily="Inter, system-ui, sans-serif"
-        fontWeight="800"
-        fontSize="11"
-        fill="#FFFFFF"
-        letterSpacing="0.5"
+        fontWeight="900"
+        fontSize="26"
+        fill="#1F4F8B"
+        letterSpacing="-0.5"
       >
         MSCI
       </text>
@@ -70,20 +69,31 @@ export function LogoMSCI() {
 
 export function LogoSPGI() {
   return (
-    <svg viewBox="0 0 56 56" className="size-full">
-      {/* S&P Global — red square with stylized S&P */}
-      <rect x="6" y="6" width="44" height="44" rx="3" fill="#E31837" />
+    <svg viewBox="0 0 80 56" className="size-full">
+      {/* S&P Global — carré rouge S&P + wordmark Global, identité corporate */}
+      <rect x="2" y="14" width="28" height="28" rx="2" fill="#E31837" />
       <text
-        x="28"
+        x="16"
         y="34"
         textAnchor="middle"
         fontFamily="Inter, system-ui, sans-serif"
         fontWeight="800"
-        fontSize="18"
+        fontSize="14"
         fill="#FFFFFF"
         letterSpacing="-0.5"
       >
         S&amp;P
+      </text>
+      <text
+        x="36"
+        y="34"
+        fontFamily="Inter, system-ui, sans-serif"
+        fontWeight="600"
+        fontSize="14"
+        fill="#1A1A1A"
+        letterSpacing="-0.3"
+      >
+        Global
       </text>
     </svg>
   );
@@ -91,22 +101,53 @@ export function LogoSPGI() {
 
 export function LogoCAT() {
   return (
-    <svg viewBox="0 0 56 56" className="size-full">
-      {/* Caterpillar — yellow wedge + CAT */}
-      <rect x="4" y="14" width="48" height="28" rx="2" fill="#FFCD11" />
-      {/* Black triangle wedge top-left (Cat trademark accent) */}
-      <polygon points="4,14 22,14 4,32" fill="#000000" />
+    <svg viewBox="0 0 80 56" className="size-full">
+      {/* Caterpillar — wordmark CAT noir + triangle jaune iconique sous le A */}
       <text
-        x="32"
-        y="33"
+        x="40"
+        y="34"
         textAnchor="middle"
-        fontFamily="Inter, system-ui, sans-serif"
+        fontFamily="Helvetica, Arial, sans-serif"
         fontWeight="900"
-        fontSize="13"
+        fontSize="28"
         fill="#000000"
-        letterSpacing="1"
+        letterSpacing="-1"
       >
         CAT
+      </text>
+      {/* Triangle jaune sous le A central (signature visuelle Caterpillar) */}
+      <polygon points="33,40 47,40 40,52" fill="#FFCD11" />
+    </svg>
+  );
+}
+
+/**
+ * Fallback monogramme pour les sociétés sans logo SVG dédié (FPI cat 2,
+ * Stoxx 600, etc.). Affiche les 2-4 premiers caractères du ticker dans
+ * un cercle au gradient brand. Utilisé pour V2 sandbox.
+ */
+function LogoMonogram({ ticker }: { ticker: string }) {
+  const display = ticker.length <= 4 ? ticker : ticker.slice(0, 3);
+  return (
+    <svg viewBox="0 0 100 100" className="h-full w-full">
+      <defs>
+        <linearGradient id={`mg-${ticker}`} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#a78bfa" />
+          <stop offset="100%" stopColor="#22d3ee" />
+        </linearGradient>
+      </defs>
+      <circle cx="50" cy="50" r="44" fill={`url(#mg-${ticker})`} fillOpacity="0.15" stroke={`url(#mg-${ticker})`} strokeWidth="2" />
+      <text
+        x="50"
+        y="58"
+        textAnchor="middle"
+        fontSize={display.length <= 3 ? 30 : 24}
+        fontWeight="700"
+        fill="#fafafa"
+        fontFamily="ui-sans-serif, system-ui, sans-serif"
+        letterSpacing="-0.5"
+      >
+        {display}
       </text>
     </svg>
   );
@@ -125,6 +166,21 @@ export function CompanyLogo({ ticker }: { ticker: string }) {
     case "CAT":
       return <LogoCAT />;
     default:
-      return null;
+      return <LogoMonogram ticker={ticker} />;
   }
+}
+
+/**
+ * Indique si le logo contient des couleurs sombres (proches du noir) qui
+ * deviendraient invisibles sur le fond sombre Mettrik. Quand true, le
+ * conteneur logo doit utiliser un fond blanc/clair pour assurer le contraste.
+ *
+ *  - GOOGL : 4 couleurs vives (bleu, rouge, jaune, vert) → visible sur dark
+ *  - META : bleu gradient → visible sur dark
+ *  - MSCI : bleu corporate #1F4F8B → trop foncé sur dark, fond clair requis
+ *  - SPGI : carré rouge OK + texte "Global" #1A1A1A noir → fond clair requis
+ *  - CAT : wordmark "CAT" noir + triangle jaune → fond clair requis
+ */
+export function logoNeedsLightBg(ticker: string): boolean {
+  return ticker === "MSCI" || ticker === "SPGI" || ticker === "CAT";
 }

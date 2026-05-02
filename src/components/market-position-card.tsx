@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 import { Target, TrendingUp } from "lucide-react";
-import type { Company, MarketPosition } from "@/lib/data";
+import { isOfficialSource, type Company, type MarketPosition } from "@/lib/data";
 import { InfoTooltip } from "@/components/info-tooltip";
 import { brand } from "@/lib/brand";
 
@@ -48,11 +48,13 @@ export function MarketPositionCard({
                 className="mb-1.5 font-mono text-[10px] uppercase tracking-wider"
                 style={{ color: c }}
               >
-                Source & méthodologie
+                {isOfficialSource(position.source) ? "Méthodologie" : "Source & méthodologie"}
               </div>
-              <div className="mb-2 text-[12px] font-semibold text-zinc-100">
-                {position.source}
-              </div>
+              {!isOfficialSource(position.source) && (
+                <div className="mb-2 text-[12px] font-semibold text-zinc-100">
+                  {position.source}
+                </div>
+              )}
               {position.source_note && (
                 <p className="text-[12px] leading-relaxed text-zinc-300">{position.source_note}</p>
               )}
@@ -165,9 +167,11 @@ export function MarketPositionCard({
         </div>
       )}
 
-      <div className="mt-3 text-[11px] italic text-zinc-400">
-        Source : {position.source}. Estimation indicative.
-      </div>
+      {position.source && !isOfficialSource(position.source) && (
+        <div className="mt-3 text-[11px] italic text-zinc-400">
+          Source : {position.source}. Estimation indicative.
+        </div>
+      )}
     </div>
   );
 }

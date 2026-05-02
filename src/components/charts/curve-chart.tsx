@@ -5,6 +5,8 @@ import { motion } from "motion/react";
 import { AnomalyInfo } from "@/components/anomaly-info";
 import type { Anomaly } from "@/lib/brand";
 import { formatUnit } from "@/lib/data";
+import type { CompanyEvent } from "@/lib/events";
+import { EventDotsSVG, EventDotsOverlay } from "@/components/charts/event-dots";
 
 function axisHeader(unit: string): string {
   switch (unit) {
@@ -21,11 +23,72 @@ function axisHeader(unit: string): string {
 function isCurrencyLike(unit: string): boolean {
   return ["$B", "$M", "B", "M"].includes(unit);
 }
+function isPercentLike(unit: string): boolean {
+  return ["%", "% YoY"].includes(unit);
+}
+
+/** Same niceTicks helper as bars-chart : rounds step to 1/2/5×magnitude. */
+function niceTicks(min: number, max: number, count = 5): number[] {
+  if (max === min) return [min];
+  const range = max - min;
+  const roughStep = range / (count - 1);
+  const magnitude = Math.pow(10, Math.floor(Math.log10(roughStep)));
+  const normalized = roughStep / magnitude;
+  let step;
+  if (normalized < 1.5) step = 1;
+  else if (normalized < 3) step = 2;
+  else if (normalized < 7) step = 5;
+  else step = 10;
+  step *= magnitude;
+  const niceMin = Math.floor(min / step) * step;
+  const niceMax = Math.ceil(max / step) * step;
+  const out: number[] = [];
+  for (let v = niceMin; v <= niceMax + step / 1000; v += step) {
+    out.push(Math.round(v * 1e6) / 1e6);
+  }
+  return out;
+}
 
 /**
- * 3D axonometric curve chart — SAME projection as BarsChart for visual coherence.
- * The curve is drawn on the front vertical plane; its shadow is projected onto
- * the receding floor.
+ * Format Y-axis tick value following Mettrik's strict rule (CLAUDE.md §6) :
+ *   - currency-like ("$B", "$M", "B", "M") → integer values only, FR locale
+ *   - percent-like ("%", "% YoY") → 1 decimal max, FR locale
+ *   - other → 1 decimal max, FR locale
+ */
+function formatYTick(v: number, unit: string): string {
+  if (isCurrencyLike(unit)) {
+    return Math.round(v).toLocaleString("fr-FR");
+  }
+  if (isPercentLike(unit)) {
+    return (Math.round(v * 10) / 10).toLocaleString("fr-FR", {
+      maximumFractionDigits: 1,
+    });
+  }
+  return (Math.round(v * 10) / 10).toLocaleString("fr-FR", {
+    maximumFractionDigits: 1,
+  });
+}
+
+const W = 920;
+const H = 420;
+const PAD_LEFT = 96;
+const PAD_RIGHT = 50;
+const PAD_TOP = 40;
+const PAD_BOTTOM = 80;
+const DX = 22;          // 3D depth offset (rightward)
+const DY = -14;         // 3D depth offset (upward in SVG)
+
+/**
+ * Curve chart — promoted from chart-lab "Neon Wire 3D" :
+ *   - Front curve : color stroke with strong glow filter, white core on top
+ *   - Back curve : offset by (DX, DY), dimmer glow, gives 3D depth
+ *   - Wall under the front curve : faint color gradient down to baseline
+ *   - Connector lines from each year point front → back (depth ticks)
+ *   - Glowing pulsating nodes at each data point
+ *   - Faint horizontal grid behind everything
+ *
+ * Y-axis ticks follow Mettrik's strict format rule : integer for currency,
+ * 1 decimal max for percent, FR locale.
  */
 export function CurveChart({
   data,
@@ -33,59 +96,46 @@ export function CurveChart({
   unit,
   color = "#a78bfa",
   anomalies = [],
+  events = [],
 }: {
   data: number[];
   labels: string[];
   unit: string;
   color?: string;
   anomalies?: Anomaly[];
+  events?: CompanyEvent[];
 }) {
   const [hover, setHover] = useState<number | null>(null);
 
-  const W = 920;
-  const H = 420;
-  const padLeft = 96;
-  const padRight = 50;
-  const padTop = 40;
-  const padBottom = 80;
-  const innerW = W - padLeft - padRight;
-  const innerH = H - padTop - padBottom;
+  const innerW = W - PAD_LEFT - PAD_RIGHT;
+  const innerH = H - PAD_TOP - PAD_BOTTOM;
 
-  const dZ = 54;
-  const dx = dZ * 0.82;
-  const dy = -dZ * 0.48;
-
-  const min = Math.min(0, ...data);
-  const max = Math.max(...data, 0);
+  const dataMin = Math.min(0, ...data);
+  const dataMax = Math.max(...data, 0);
+  // Nice round ticks (rule Mettrik §6).
+  const tickValues = niceTicks(dataMin, dataMax, 5);
+  const min = Math.min(...tickValues, dataMin);
+  const max = Math.max(...tickValues, dataMax);
   const range = max - min || 1;
+  const baselineY = PAD_TOP + innerH;
+
   const stepX = data.length > 1 ? innerW / (data.length - 1) : innerW;
-  const zeroY = padTop + ((max - 0) / range) * innerH;
+  const points = data.map((v, i) => [
+    PAD_LEFT + i * stepX,
+    PAD_TOP + ((max - v) / range) * innerH,
+  ] as const);
 
   const u = formatUnit(unit);
   const header = axisHeader(unit);
-  const intTicks = isCurrencyLike(unit);
 
-  // Front plane points — strict Y alignment
-  const points = data.map((v, i) => {
-    const x = padLeft + i * stepX;
-    const y = padTop + ((max - v) / range) * innerH;
-    return [x, y] as const;
-  });
-  // Shadow projected onto floor (Z pushed back)
-  const shadowPts = data.map((_, i) => {
-    const x = padLeft + i * stepX + dx;
-    const y = zeroY + dy;
-    return [x, y] as const;
-  });
-  // But the shadow should represent the curve shape projected down —
-  // so we use the x of each point and the floor-y (receding):
-  const floorShadowPts = data.map((_, i) => {
-    const [x] = points[i];
-    return [x + dx, zeroY + dy] as const;
-  });
+  const ticks = tickValues.map((v) => ({
+    v,
+    y: PAD_TOP + ((max - v) / range) * innerH,
+  }));
 
-  const linePath = (pts: readonly (readonly [number, number])[]) =>
-    pts
+  // Smoothed paths : front curve and back-offset curve.
+  function smoothFrom(pts: readonly (readonly [number, number])[]) {
+    return pts
       .map(([x, y], i) => {
         if (i === 0) return `M ${x},${y}`;
         const [px, py] = pts[i - 1];
@@ -93,248 +143,243 @@ export function CurveChart({
         return `Q ${cx},${py} ${x},${y}`;
       })
       .join(" ");
+  }
 
-  const ticks = [
-    max,
-    max * 0.75 + min * 0.25,
-    (max + min) / 2,
-    max * 0.25 + min * 0.75,
-    min,
-  ].map((v) => ({ v, y: padTop + ((max - v) / range) * innerH }));
+  const frontPath = smoothFrom(points);
+  const backPts = points.map(([x, y]) => [x + DX, y + DY] as const);
+  const wallPath = `${frontPath} L ${points[points.length - 1][0]},${baselineY} L ${points[0][0]},${baselineY} Z`;
 
-  const backLeft = padLeft + dx;
-  const backTop = padTop + dy;
-  const backRight = padLeft + innerW + dx;
-  const backBottomY = zeroY + dy;
+  const anomalyByIndex = new Map(anomalies.map((a) => [a.index, a]));
 
-  const idArea = `c3d-area-${color.slice(1)}-${data.length}`;
-  const idFloor = `c3d-floor-${color.slice(1)}`;
-  const idSphere = `c3d-sphere-${color.slice(1)}`;
-
-  const anomalyByIdx = new Map(anomalies.map((a) => [a.index, a]));
+  const idGlow = `cv-glow-${color.slice(1)}`;
+  const idWall = `cv-wall-${color.slice(1)}`;
 
   return (
     <div className="relative w-full">
-      <div className="mb-2 flex items-center justify-start">
-        <span className="font-mono text-[12px] font-semibold text-zinc-200">{header}</span>
-      </div>
-      <svg width="100%" height="420" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet">
+      {/* Header d'unité — hors SVG (n'ajoute PAS de hauteur au graph
+          puisque la hauteur du graph est fixée par le viewBox SVG en
+          dessous). On le décale vers la droite via padding-left
+          proportionnel pour qu'il s'aligne approximativement sur l'axe Y
+          (PAD_LEFT = 96 / W = 920 ≈ 10.4 %). */}
+      {header && (
+        <div
+          className="mb-1 font-mono text-[12px] font-semibold text-zinc-200"
+          style={{ paddingLeft: `${(PAD_LEFT / W) * 100}%` }}
+        >
+          {header}
+        </div>
+      )}
+      <svg
+        width="100%"
+        height="auto"
+        viewBox={`0 0 ${W} ${H}`}
+        preserveAspectRatio="xMidYMid meet"
+        style={{ display: "block", overflow: "visible" }}
+      >
         <defs>
-          <linearGradient id={idArea} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor={color} stopOpacity={0.55} />
-            <stop offset="100%" stopColor={color} stopOpacity={0} />
-          </linearGradient>
-          <linearGradient id={idFloor} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor={color} stopOpacity={0.08} />
-            <stop offset="100%" stopColor={color} stopOpacity={0} />
-          </linearGradient>
-          <radialGradient id={idSphere}>
-            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.95" />
-            <stop offset="40%" stopColor={color} stopOpacity="1" />
-            <stop offset="100%" stopColor={color} stopOpacity="0.4" />
-          </radialGradient>
-          <filter id="c3d-glow" x="-50%" y="-50%" width="200%" height="200%">
+          <filter id={idGlow} x="-30%" y="-30%" width="160%" height="160%">
             <feGaussianBlur stdDeviation="6" />
           </filter>
+          <linearGradient id={idWall} x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor={color} stopOpacity="0.35" />
+            <stop offset="100%" stopColor={color} stopOpacity="0" />
+          </linearGradient>
         </defs>
 
-        {/* Back-left wall */}
-        <path
-          d={`M ${padLeft} ${padTop} L ${backLeft} ${backTop} L ${backLeft} ${backBottomY} L ${padLeft} ${zeroY} Z`}
-          fill={`url(#${idFloor})`}
-          stroke={color}
-          strokeOpacity="0.15"
-          strokeWidth="1"
-        />
-        {/* Floor */}
-        <path
-          d={`M ${padLeft} ${zeroY} L ${padLeft + innerW} ${zeroY} L ${backRight} ${backBottomY} L ${backLeft} ${backBottomY} Z`}
-          fill="#08080b"
-          stroke={color}
-          strokeOpacity="0.12"
-          strokeWidth="1"
-        />
-        {/* Floor receding grid */}
-        {[0.25, 0.5, 0.75].map((t, i) => {
-          const fx1 = padLeft + dx * t;
-          const fy1 = zeroY + dy * t;
-          const fx2 = padLeft + innerW + dx * t;
-          const fy2 = zeroY + dy * t;
-          return (
-            <line
-              key={i}
-              x1={fx1}
-              y1={fy1}
-              x2={fx2}
-              y2={fy2}
-              stroke={color}
-              strokeOpacity="0.07"
-              strokeDasharray="3 6"
-            />
-          );
-        })}
-
-        {/* Y-axis ticks (aligned with front plane curve) */}
-        {ticks.map(({ v, y }, i) => (
-          <g key={i}>
-            <line
-              x1={padLeft}
-              y1={y}
-              x2={padLeft + dx}
-              y2={y + dy}
-              stroke={color}
-              strokeOpacity="0.15"
-              strokeDasharray="2 4"
-            />
-            <line
-              x1={padLeft}
-              y1={y}
-              x2={padLeft + innerW}
-              y2={y}
-              stroke="#1f1f1f"
-              strokeWidth={1}
-              strokeDasharray="3 6"
-            />
-            <text
-              x={padLeft - 12}
-              y={y + 4}
-              textAnchor="end"
-              fontSize={12.5}
-              fill="#d4d4d8"
-              fontFamily="ui-monospace, monospace"
-            >
-              {intTicks ? Math.round(v) : Math.round(v * 10) / 10}
-            </text>
-          </g>
-        ))}
-
-        {/* Shadow on floor (projected curve outline on the ground) */}
-        <motion.path
-          d={linePath(floorShadowPts)}
-          fill="none"
-          stroke="#000000"
-          strokeWidth={5}
-          strokeOpacity={0.55}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          filter="url(#c3d-glow)"
-          initial={{ pathLength: 0 }}
-          animate={{ pathLength: 1 }}
-          transition={{ duration: 1.4, ease: [0.19, 1, 0.22, 1] }}
-        />
-
-        {/* Vertical "stems" dropping from each point to the floor (ties curve to 3D space) */}
-        {points.map(([x, y], i) => (
-          <motion.line
-            key={`stem-${i}`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4, delay: 0.15 * i + 0.8 }}
-            x1={x}
+        {/* Y guidelines */}
+        {ticks.map(({ y }, i) => (
+          <line
+            key={`gl-${i}`}
+            x1={PAD_LEFT}
+            x2={PAD_LEFT + innerW}
             y1={y}
-            x2={x + dx}
-            y2={zeroY + dy}
-            stroke={color}
-            strokeOpacity="0.3"
-            strokeDasharray="2 4"
+            y2={y}
+            stroke="#1a1a1a"
+            strokeWidth={1}
+            strokeDasharray="3 6"
           />
         ))}
 
-        {/* Area under curve on front plane */}
+        {/* Y-axis labels — strict Mettrik formatting + taille agrandie */}
+        {ticks.map(({ v, y }, i) => (
+          <text
+            key={`yn-${i}`}
+            x={PAD_LEFT - 12}
+            y={y + 5}
+            textAnchor="end"
+            fontSize={16}
+            fontWeight={500}
+            fill="#e4e4e7"
+            fontFamily="ui-monospace, monospace"
+          >
+            {formatYTick(v, unit)}
+          </text>
+        ))}
+
+        {/* Wall under front curve */}
         <motion.path
-          d={`${linePath(points)} L ${padLeft + innerW},${zeroY} L ${padLeft},${zeroY} Z`}
-          fill={`url(#${idArea})`}
+          d={wallPath}
+          fill={`url(#${idWall})`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          transition={{ duration: 1, delay: 0.2 }}
         />
 
-        {/* Main curve (front plane) */}
+        {/* Back curve (3D depth cue) */}
         <motion.path
-          d={linePath(points)}
+          d={smoothFrom(backPts)}
           fill="none"
           stroke={color}
-          strokeWidth={3.5}
+          strokeOpacity="0.55"
+          strokeWidth={2}
           strokeLinecap="round"
-          strokeLinejoin="round"
+          filter={`url(#${idGlow})`}
           initial={{ pathLength: 0 }}
           animate={{ pathLength: 1 }}
-          transition={{ duration: 1.4, ease: [0.19, 1, 0.22, 1] }}
-          style={{ filter: `drop-shadow(0 0 10px ${color}90)` }}
+          transition={{ duration: 1.3 }}
         />
 
-        {/* 3D spheres at data points */}
+        {/* Front curve — outer color glow */}
+        <motion.path
+          d={frontPath}
+          fill="none"
+          stroke={color}
+          strokeWidth={3}
+          strokeLinecap="round"
+          filter={`url(#${idGlow})`}
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 1.4 }}
+        />
+        {/* Front curve — bright white core */}
+        <motion.path
+          d={frontPath}
+          fill="none"
+          stroke="#ffffff"
+          strokeWidth={1.5}
+          strokeLinecap="round"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 1.4 }}
+        />
+
+        {/* Depth-tick connectors at each data point */}
+        {points.map(([x, y], i) => (
+          <line
+            key={`c-${i}`}
+            x1={x}
+            y1={y}
+            x2={x + DX}
+            y2={y + DY}
+            stroke={color}
+            strokeOpacity="0.4"
+            strokeWidth={1}
+          />
+        ))}
+
+        {/* Year nodes */}
         {points.map(([x, y], i) => {
           const isHover = hover === i;
-          const isAnomaly = anomalyByIdx.has(i);
-          const r = isAnomaly ? 8 : isHover ? 7 : 5.5;
-
+          const isAnomaly = anomalyByIndex.has(i);
           return (
-            <g key={i}>
+            <g
+              key={`n-${i}`}
+              onMouseEnter={() => setHover(i)}
+              onMouseLeave={() => setHover(null)}
+              style={{ cursor: "pointer" }}
+            >
+              <circle cx={x} cy={y} r={isHover ? 11 : 8} fill={color} fillOpacity={0.55} filter={`url(#${idGlow})`} />
+              <circle cx={x} cy={y} r={isHover ? 4 : 2.8} fill="#ffffff" />
               {isAnomaly && (
-                <circle cx={x} cy={y} r={22} fill={color} fillOpacity={0.18} />
+                <circle
+                  cx={x}
+                  cy={y}
+                  r={6}
+                  fill="none"
+                  stroke={color}
+                  strokeWidth={1.5}
+                  strokeDasharray="2 2"
+                />
               )}
-              {/* Drop shadow on floor */}
-              <ellipse
-                cx={x + dx}
-                cy={zeroY + dy}
-                rx={r * 1.4}
-                ry={r * 0.45}
-                fill="#000000"
-                fillOpacity={0.4}
-              />
-              {/* Sphere */}
-              <circle cx={x} cy={y} r={r + 1.5} fill="none" stroke={color} strokeWidth={1.5} strokeOpacity={0.7} />
-              <circle cx={x} cy={y} r={r} fill={`url(#${idSphere})`} />
-              <circle
-                cx={x - r * 0.3}
-                cy={y - r * 0.3}
-                r={r * 0.35}
-                fill="#ffffff"
-                fillOpacity={0.8}
-              />
-
-              {isHover && (
-                <text
-                  x={x}
-                  y={y - r - 12}
-                  textAnchor="middle"
-                  fontSize={14}
-                  fontWeight={800}
-                  fill="#fafafa"
-                  fontFamily="ui-monospace, monospace"
-                >
-                  {data[i]}
-                  {u && <tspan fill="#a1a1aa" fontSize="12"> {u}</tspan>}
-                </text>
-              )}
-
-              {/* X axis label on the floor */}
               <text
-                x={x + dx}
-                y={H - padBottom + 28}
+                x={x}
+                y={H - PAD_BOTTOM + 26}
                 textAnchor="middle"
-                fontSize={14}
-                fill="#d4d4d8"
+                fontSize={17}
+                fill="#e4e4e7"
                 fontFamily="ui-monospace, monospace"
-                fontWeight={500}
+                fontWeight={600}
               >
                 {labels[i] ?? ""}
               </text>
-
-              <rect
-                x={x - stepX / 2}
-                y={padTop}
-                width={stepX}
-                height={innerH}
-                fill="transparent"
-                onMouseEnter={() => setHover(i)}
-                onMouseLeave={() => setHover(null)}
-              />
+              {isHover && (
+                <text
+                  x={x}
+                  y={y - 22}
+                  textAnchor="middle"
+                  fontSize={18}
+                  fontWeight={800}
+                  fill="#fafafa"
+                  fontFamily="ui-monospace, monospace"
+                  style={{ filter: `drop-shadow(0 0 4px ${color})` }}
+                >
+                  {data[i]}
+                  {u && (
+                    <tspan fill="#a1a1aa" fontSize="14">
+                      {" "}
+                      {u}
+                    </tspan>
+                  )}
+                </text>
+              )}
             </g>
           );
         })}
+
+        {/* Last value floating at the end of the curve — taille agrandie */}
+        {data.length > 0 && hover === null && (
+          <text
+            x={points[points.length - 1][0] + DX}
+            y={points[points.length - 1][1] + DY - 16}
+            textAnchor="middle"
+            fontSize={17}
+            fontWeight={700}
+            fill={color}
+            fontFamily="ui-monospace, monospace"
+            style={{ filter: `drop-shadow(0 0 4px ${color})` }}
+          >
+            {data[data.length - 1]}
+            {u && (
+              <tspan fill="#a1a1aa" fontSize="14">
+                {" "}
+                {u}
+              </tspan>
+            )}
+          </text>
+        )}
+        {/* Points de curiosité (événements clefs) sur l'axe X */}
+        <EventDotsSVG
+          events={events}
+          xLabels={labels}
+          padLeft={PAD_LEFT}
+          innerW={innerW}
+          padTop={PAD_TOP}
+          innerH={innerH}
+          color={color}
+        />
       </svg>
+      {/* Overlay HTML pour les popovers d'événements (clic sur point) */}
+      <EventDotsOverlay
+        events={events}
+        xLabels={labels}
+        svgW={W}
+        svgH={H}
+        padLeft={PAD_LEFT}
+        innerW={innerW}
+        padTop={PAD_TOP}
+        innerH={innerH}
+        color={color}
+      />
 
       {anomalies.length > 0 && (
         <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 px-1 text-[12px] text-zinc-300">

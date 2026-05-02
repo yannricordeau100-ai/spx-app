@@ -306,3 +306,444 @@ export function CurveLiquid({ data, labels, color, unit }: Props) {
     </svg>
   );
 }
+
+/* ------------------------------------------------------------------ */
+/* 6. EXTRUDED RIDGE — la courbe devient une véritable arête 3D : top  */
+/* face glossy, paroi latérale qui descend en ombre, ombre au sol.    */
+/* Inspiration : crête de montagne en perspective isométrique.        */
+/* ------------------------------------------------------------------ */
+export function CurveExtrudedRidge({ data, labels, color, unit }: Props) {
+  const min = Math.min(0, ...data);
+  const max = Math.max(...data, 0);
+  const range = max - min || 1;
+  const stepX = data.length > 1 ? innerW / (data.length - 1) : innerW;
+  const baselineY = padTop + innerH;
+  const DX = 22;
+  const DY = -14;
+  const id = `ridge-${color.slice(1)}`;
+  const pts = data.map((v, i) => [padLeft + i * stepX, padTop + ((max - v) / range) * innerH] as const);
+  // Front edge of the ridge (the curve)
+  const frontPath = pts
+    .map(([x, y], i) => {
+      if (i === 0) return `M ${x},${y}`;
+      const [px, py] = pts[i - 1];
+      const cx = (px + x) / 2;
+      return `Q ${cx},${py} ${x},${y}`;
+    })
+    .join(" ");
+  // Back edge (offset by depth vector)
+  const backPts = pts.map(([x, y]) => [x + DX, y + DY] as const);
+  const backPath = backPts
+    .map(([x, y], i) => {
+      if (i === 0) return `M ${x},${y}`;
+      const [px, py] = backPts[i - 1];
+      const cx = (px + x) / 2;
+      return `Q ${cx},${py} ${x},${y}`;
+    })
+    .join(" ");
+  // Top face polygon: front curve → back curve (reversed)
+  const topFace = `${frontPath} L ${backPts[backPts.length - 1][0]},${backPts[backPts.length - 1][1]} ${backPts
+    .slice()
+    .reverse()
+    .map(([x, y], i) => (i === 0 ? `L ${x},${y}` : `L ${x},${y}`))
+    .join(" ")} Z`;
+  // Side wall: front curve → drop down to baseline → back to start
+  const wall = `${frontPath} L ${pts[pts.length - 1][0]},${baselineY} L ${pts[0][0]},${baselineY} Z`;
+  return (
+    <svg viewBox={`0 0 ${W} ${H}`} className="w-full" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <linearGradient id={`${id}-wall`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor={color} stopOpacity="0.55" />
+          <stop offset="100%" stopColor={color} stopOpacity="0.05" />
+        </linearGradient>
+        <linearGradient id={`${id}-top`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#ffffff" stopOpacity="0.85" />
+          <stop offset="100%" stopColor={color} stopOpacity="0.95" />
+        </linearGradient>
+        <filter id={`${id}-glow`} x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="3" />
+        </filter>
+      </defs>
+      {/* Floor shadow under the ridge */}
+      <ellipse cx={padLeft + innerW / 2 + DX / 2} cy={baselineY + 6} rx={innerW * 0.45} ry={5}
+        fill="#000000" fillOpacity="0.4" filter={`url(#${id}-glow)`} />
+      {/* Front wall (from curve down to baseline) */}
+      <motion.path d={wall} fill={`url(#${id}-wall)`} stroke="none"
+        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.2 }} />
+      {/* Top face — extruded ribbon */}
+      <motion.path d={topFace} fill={`url(#${id}-top)`} stroke={color} strokeOpacity="0.6" strokeWidth="1"
+        initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.3 }} />
+      {/* Bright ridge line on top of the front edge */}
+      <motion.path d={frontPath} fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round"
+        style={{ filter: `drop-shadow(0 0 6px ${color})` }}
+        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.3 }} />
+      {/* Year markers */}
+      {pts.map(([x, y], i) => (
+        <g key={i}>
+          <circle cx={x} cy={y} r="4" fill={color} stroke="#ffffff" strokeWidth="1.5" />
+          <text x={x} y={H - padBottom + 22} textAnchor="middle" fontSize="12" fill="#d4d4d8"
+            fontFamily="ui-monospace, monospace">{labels[i]}</text>
+        </g>
+      ))}
+      {/* Last value floating */}
+      {data.length > 0 && (
+        <text x={pts[pts.length - 1][0] + DX} y={pts[pts.length - 1][1] + DY - 10} textAnchor="middle" fontSize="13"
+          fontWeight="700" fill="#fafafa" fontFamily="ui-monospace, monospace">
+          {data[data.length - 1]}<tspan fontSize="10" fill="#a1a1aa"> {unit}</tspan>
+        </text>
+      )}
+    </svg>
+  );
+}
+
+/* ===== Helper : path lissé ===== */
+function smoothFromPts(pts: readonly (readonly [number, number])[]) {
+  return pts.map(([x, y], i) => {
+    if (i === 0) return `M ${x},${y}`;
+    const [px, py] = pts[i - 1];
+    const cx = (px + x) / 2;
+    return `Q ${cx},${py} ${x},${y}`;
+  }).join(" ");
+}
+function ptsAt(data: number[]) {
+  const min = Math.min(0, ...data);
+  const max = Math.max(...data, 0);
+  const range = max - min || 1;
+  const stepX = data.length > 1 ? innerW / (data.length - 1) : innerW;
+  return data.map((v, i) => [padLeft + i * stepX, padTop + ((max - v) / range) * innerH] as const);
+}
+
+/* ------------------------------------------------------------------ */
+/* 7. LIQUID TUBE — courbe = tube glossy 3D extrudé en perspective.    */
+/* Top edge bright, tube body avec gradient cylindrique, ombre douce. */
+/* ------------------------------------------------------------------ */
+export function CurveLiquidTube({ data, labels, color, unit }: Props) {
+  const pts = ptsAt(data);
+  const DX = 18, DY = -10;
+  const id = `tube-${color.slice(1)}`;
+  const front = smoothFromPts(pts);
+  const back = pts.map(([x, y]) => [x + DX, y + DY] as const);
+  const tubeBody = `${front} L ${back[back.length - 1][0]},${back[back.length - 1][1]} ${back.slice().reverse().map(([x, y], i) => i === 0 ? `L ${x},${y}` : `L ${x},${y}`).join(" ")} Z`;
+  return (
+    <svg viewBox={`0 0 ${W} ${H}`} className="w-full" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <linearGradient id={`${id}-tube`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#ffffff" stopOpacity="0.85" />
+          <stop offset="40%" stopColor={color} stopOpacity="0.95" />
+          <stop offset="100%" stopColor={color} stopOpacity="0.4" />
+        </linearGradient>
+      </defs>
+      <rect x="0" y="0" width={W} height={H} fill="#06060a" />
+      <motion.path d={tubeBody} fill={`url(#${id}-tube)`} stroke={color} strokeOpacity="0.7" strokeWidth="1"
+        initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }} />
+      <motion.path d={front} fill="none" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round"
+        style={{ filter: `drop-shadow(0 0 8px ${color})` }}
+        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.4 }} />
+      {pts.map(([x, y], i) => (
+        <g key={i}>
+          <circle cx={x} cy={y} r="5" fill="#ffffff" />
+          <circle cx={x} cy={y} r="3" fill={color} />
+          <text x={x} y={H - padBottom + 22} textAnchor="middle" fontSize="12" fill="#d4d4d8" fontFamily="ui-monospace, monospace">{labels[i]}</text>
+        </g>
+      ))}
+      {data.length > 0 && (
+        <text x={pts[pts.length - 1][0] + DX + 4} y={pts[pts.length - 1][1] + DY - 8} textAnchor="middle" fontSize="13" fontWeight="700" fill="#fafafa" fontFamily="ui-monospace, monospace">
+          {data[data.length - 1]}<tspan fontSize="10" fill="#a1a1aa"> {unit}</tspan>
+        </text>
+      )}
+    </svg>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* 8. AURORA FILL — courbe avec aire remplie de gradient aurora multi- */
+/* couleurs sous la ligne, ligne principale glow blanc.                */
+/* ------------------------------------------------------------------ */
+export function CurveAuroraFill({ data, labels, color, unit }: Props) {
+  const pts = ptsAt(data);
+  const baselineY = padTop + innerH;
+  const id = `aurfill-${color.slice(1)}`;
+  const linePath = smoothFromPts(pts);
+  const areaPath = `${linePath} L ${pts[pts.length - 1][0]},${baselineY} L ${pts[0][0]},${baselineY} Z`;
+  return (
+    <svg viewBox={`0 0 ${W} ${H}`} className="w-full" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <linearGradient id={`${id}-area`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#ffffff" stopOpacity="0.45" />
+          <stop offset="30%" stopColor={color} stopOpacity="0.8" />
+          <stop offset="100%" stopColor={color} stopOpacity="0" />
+        </linearGradient>
+      </defs>
+      <rect x="0" y="0" width={W} height={H} fill="#08080d" />
+      <motion.path d={areaPath} fill={`url(#${id}-area)`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }} />
+      <motion.path d={linePath} fill="none" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round"
+        style={{ filter: `drop-shadow(0 0 10px ${color})` }}
+        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.5 }} />
+      {pts.map(([x, y], i) => (
+        <g key={i}>
+          <circle cx={x} cy={y} r="6" fill={color} fillOpacity="0.4" />
+          <circle cx={x} cy={y} r="3" fill="#ffffff" />
+          <text x={x} y={H - padBottom + 22} textAnchor="middle" fontSize="12" fill="#d4d4d8" fontFamily="ui-monospace, monospace">{labels[i]}</text>
+        </g>
+      ))}
+      {data.length > 0 && (
+        <text x={pts[pts.length - 1][0]} y={pts[pts.length - 1][1] - 14} textAnchor="middle" fontSize="13" fontWeight="700" fill="#fafafa" fontFamily="ui-monospace, monospace">
+          {data[data.length - 1]}<tspan fontSize="10" fill="#a1a1aa"> {unit}</tspan>
+        </text>
+      )}
+    </svg>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* 9. NEON WIRE — fil néon ultra-fin avec halo + nodes pulsants.       */
+/* Inspiration : Vercel, dashboards minimalistes hi-tech.              */
+/* ------------------------------------------------------------------ */
+export function CurveNeonWire({ data, labels, color, unit }: Props) {
+  const pts = ptsAt(data);
+  const id = `nwire-${color.slice(1)}`;
+  const linePath = smoothFromPts(pts);
+  return (
+    <svg viewBox={`0 0 ${W} ${H}`} className="w-full" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <filter id={`${id}-glow`} x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="6" />
+        </filter>
+      </defs>
+      <rect x="0" y="0" width={W} height={H} fill="#050508" />
+      {/* Faint horizontal grid */}
+      {[0.25, 0.5, 0.75].map((t, i) => (
+        <line key={i} x1={padLeft} x2={padLeft + innerW} y1={padTop + t * innerH} y2={padTop + t * innerH} stroke="#1a1a1a" strokeWidth="0.5" />
+      ))}
+      <motion.path d={linePath} fill="none" stroke={color} strokeWidth="3" strokeLinecap="round" filter={`url(#${id}-glow)`}
+        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.4 }} />
+      <motion.path d={linePath} fill="none" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round"
+        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.4 }} />
+      {pts.map(([x, y], i) => (
+        <g key={i}>
+          <circle cx={x} cy={y} r="8" fill={color} fillOpacity="0.6" filter={`url(#${id}-glow)`} />
+          <circle cx={x} cy={y} r="2.5" fill="#ffffff" />
+          <text x={x} y={H - padBottom + 22} textAnchor="middle" fontSize="12" fill="#d4d4d8" fontFamily="ui-monospace, monospace">{labels[i]}</text>
+        </g>
+      ))}
+      {data.length > 0 && (
+        <text x={pts[pts.length - 1][0]} y={pts[pts.length - 1][1] - 14} textAnchor="middle" fontSize="13" fontWeight="700" fill={color} fontFamily="ui-monospace, monospace" style={{ filter: `drop-shadow(0 0 4px ${color})` }}>
+          {data[data.length - 1]}<tspan fontSize="10" fill="#a1a1aa"> {unit}</tspan>
+        </text>
+      )}
+    </svg>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* 10. LAYERED MOUNTAINS — courbe = sommet d'une chaîne de couches qui */
+/* reculent en perspective avec opacité décroissante. Inspiration :    */
+/* Apple Health, Nordic minimalism.                                    */
+/* ------------------------------------------------------------------ */
+export function CurveLayeredMountains({ data, labels, color, unit }: Props) {
+  const pts = ptsAt(data);
+  const baselineY = padTop + innerH;
+  const id = `mtn-${color.slice(1)}`;
+  const linePath = smoothFromPts(pts);
+  const layers = 4;
+  const offsets = Array.from({ length: layers }, (_, k) => ({
+    dx: -k * 8,
+    dy: -k * 14,
+    opacity: 0.75 - k * 0.18,
+  }));
+  return (
+    <svg viewBox={`0 0 ${W} ${H}`} className="w-full" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <linearGradient id={`${id}-layer`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor={color} stopOpacity="0.9" />
+          <stop offset="100%" stopColor={color} stopOpacity="0.2" />
+        </linearGradient>
+      </defs>
+      <rect x="0" y="0" width={W} height={H} fill="#0a0a0f" />
+      {offsets.slice().reverse().map((o, k) => {
+        const lpts = pts.map(([x, y]) => [x + o.dx, y + o.dy] as const);
+        const lline = smoothFromPts(lpts);
+        const larea = `${lline} L ${lpts[lpts.length - 1][0]},${baselineY} L ${lpts[0][0]},${baselineY} Z`;
+        return (
+          <motion.path key={k} d={larea} fill={`url(#${id}-layer)`} fillOpacity={o.opacity} stroke={color} strokeOpacity={o.opacity * 0.7} strokeWidth="1"
+            initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1 * (layers - k) }} />
+        );
+      })}
+      <motion.path d={linePath} fill="none" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round"
+        style={{ filter: `drop-shadow(0 0 6px ${color})` }}
+        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.4 }} />
+      {pts.map(([x, y], i) => (
+        <g key={i}>
+          <circle cx={x} cy={y} r="4" fill={color} stroke="#ffffff" strokeWidth="1.5" />
+          <text x={x} y={H - padBottom + 22} textAnchor="middle" fontSize="12" fill="#d4d4d8" fontFamily="ui-monospace, monospace">{labels[i]}</text>
+        </g>
+      ))}
+      {data.length > 0 && (
+        <text x={pts[pts.length - 1][0]} y={pts[pts.length - 1][1] - 14} textAnchor="middle" fontSize="13" fontWeight="700" fill="#fafafa" fontFamily="ui-monospace, monospace">
+          {data[data.length - 1]}<tspan fontSize="10" fill="#a1a1aa"> {unit}</tspan>
+        </text>
+      )}
+    </svg>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* 11. NEON WIRE 3D — variante 3D du Neon Wire : la courbe devient un  */
+/* ruban néon extrudé (front + back glow + paroi remplie).             */
+/* ------------------------------------------------------------------ */
+export function CurveNeonWire3D({ data, labels, color, unit }: Props) {
+  const pts = ptsAt(data);
+  const baselineY = padTop + innerH;
+  const DX = 18, DY = -12;
+  const id = `nw3-${color.slice(1)}`;
+  const front = smoothFromPts(pts);
+  const backPts = pts.map(([x, y]) => [x + DX, y + DY] as const);
+  const back = smoothFromPts(backPts);
+  const wall = `${front} L ${pts[pts.length - 1][0]},${baselineY} L ${pts[0][0]},${baselineY} Z`;
+  return (
+    <svg viewBox={`0 0 ${W} ${H}`} className="w-full" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <linearGradient id={`${id}-wall`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor={color} stopOpacity="0.35" />
+          <stop offset="100%" stopColor={color} stopOpacity="0" />
+        </linearGradient>
+        <filter id={`${id}-glow`} x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="6" />
+        </filter>
+      </defs>
+      <rect x="0" y="0" width={W} height={H} fill="#050508" />
+      {[0.25, 0.5, 0.75].map((t, i) => (
+        <line key={i} x1={padLeft} x2={padLeft + innerW} y1={padTop + t * innerH} y2={padTop + t * innerH} stroke="#1a1a1a" strokeWidth="0.5" />
+      ))}
+      <motion.path d={wall} fill={`url(#${id}-wall)`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }} />
+      <motion.path d={back} fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeOpacity="0.55" filter={`url(#${id}-glow)`}
+        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.3 }} />
+      <motion.path d={front} fill="none" stroke={color} strokeWidth="3" strokeLinecap="round" filter={`url(#${id}-glow)`}
+        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.4 }} />
+      <motion.path d={front} fill="none" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round"
+        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.4 }} />
+      {pts.map(([x, y], i) => (
+        <line key={`c-${i}`} x1={x} y1={y} x2={x + DX} y2={y + DY} stroke={color} strokeOpacity="0.4" strokeWidth="1" />
+      ))}
+      {pts.map(([x, y], i) => (
+        <g key={i}>
+          <circle cx={x} cy={y} r="8" fill={color} fillOpacity="0.6" filter={`url(#${id}-glow)`} />
+          <circle cx={x} cy={y} r="2.5" fill="#ffffff" />
+          <text x={x} y={H - padBottom + 22} textAnchor="middle" fontSize="12" fill="#d4d4d8" fontFamily="ui-monospace, monospace">{labels[i]}</text>
+        </g>
+      ))}
+      {data.length > 0 && (
+        <text x={pts[pts.length - 1][0] + DX} y={pts[pts.length - 1][1] + DY - 14} textAnchor="middle" fontSize="13" fontWeight="700" fill={color} fontFamily="ui-monospace, monospace" style={{ filter: `drop-shadow(0 0 4px ${color})` }}>
+          {data[data.length - 1]}<tspan fontSize="10" fill="#a1a1aa"> {unit}</tspan>
+        </text>
+      )}
+    </svg>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* 12. NEON RIBBON 3D — ruban 3D plus large, top face glossy, glow      */
+/* néon sur les arêtes seulement. Plus matériel que NeonWire3D.         */
+/* ------------------------------------------------------------------ */
+export function CurveNeonRibbon3D({ data, labels, color, unit }: Props) {
+  const pts = ptsAt(data);
+  const DX = 24, DY = -16;
+  const id = `nrb-${color.slice(1)}`;
+  const front = smoothFromPts(pts);
+  const backPts = pts.map(([x, y]) => [x + DX, y + DY] as const);
+  const back = smoothFromPts(backPts);
+  const lastBack = backPts[backPts.length - 1];
+  const reversedBack = backPts.slice().reverse().map(([x, y], i) => i === 0 ? `L ${x},${y}` : `L ${x},${y}`).join(" ");
+  const topFace = `${front} L ${lastBack[0]},${lastBack[1]} ${reversedBack} Z`;
+  return (
+    <svg viewBox={`0 0 ${W} ${H}`} className="w-full" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <linearGradient id={`${id}-top`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#ffffff" stopOpacity="0.85" />
+          <stop offset="100%" stopColor={color} stopOpacity="0.85" />
+        </linearGradient>
+        <filter id={`${id}-glow`} x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="5" />
+        </filter>
+      </defs>
+      <rect x="0" y="0" width={W} height={H} fill="#06060a" />
+      {[0.25, 0.5, 0.75].map((t, i) => (
+        <line key={i} x1={padLeft} x2={padLeft + innerW} y1={padTop + t * innerH} y2={padTop + t * innerH} stroke="#1a1a1a" strokeWidth="0.5" />
+      ))}
+      <motion.path d={front} fill="none" stroke={color} strokeWidth="6" strokeLinecap="round" filter={`url(#${id}-glow)`} strokeOpacity="0.7"
+        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.3 }} />
+      <motion.path d={topFace} fill={`url(#${id}-top)`} stroke={color} strokeOpacity="0.8" strokeWidth="1.2"
+        initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.2 }} />
+      <motion.path d={front} fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round"
+        style={{ filter: `drop-shadow(0 0 6px ${color})` }}
+        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.4 }} />
+      <motion.path d={back} fill="none" stroke={color} strokeWidth="1.2" strokeLinecap="round" strokeOpacity="0.65"
+        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.4 }} />
+      {pts.map(([x, y], i) => (
+        <g key={i}>
+          <circle cx={x} cy={y} r="6" fill={color} fillOpacity="0.7" filter={`url(#${id}-glow)`} />
+          <circle cx={x} cy={y} r="2.5" fill="#ffffff" />
+          <text x={x} y={H - padBottom + 22} textAnchor="middle" fontSize="12" fill="#d4d4d8" fontFamily="ui-monospace, monospace">{labels[i]}</text>
+        </g>
+      ))}
+      {data.length > 0 && (
+        <text x={pts[pts.length - 1][0] + DX} y={pts[pts.length - 1][1] + DY - 14} textAnchor="middle" fontSize="13" fontWeight="700" fill="#fafafa" fontFamily="ui-monospace, monospace" style={{ filter: `drop-shadow(0 0 4px ${color})` }}>
+          {data[data.length - 1]}<tspan fontSize="10" fill="#a1a1aa"> {unit}</tspan>
+        </text>
+      )}
+    </svg>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* 13. NEON TUBE 3D — version tubulaire : néon enveloppe une tube       */
+/* cylindrique avec ombre dessous. Plus volumétrique que les 2 autres.  */
+/* ------------------------------------------------------------------ */
+export function CurveNeonTube3D({ data, labels, color, unit }: Props) {
+  const pts = ptsAt(data);
+  const DY = 14;
+  const id = `ntb-${color.slice(1)}`;
+  const front = smoothFromPts(pts);
+  const shadowPts = pts.map(([x, y]) => [x, y + DY] as const);
+  const shadow = smoothFromPts(shadowPts);
+  const lastShadow = shadowPts[shadowPts.length - 1];
+  const reversedShadow = shadowPts.slice().reverse().map(([x, y], i) => i === 0 ? `L ${x},${y}` : `L ${x},${y}`).join(" ");
+  const tubeBody = `${front} L ${lastShadow[0]},${lastShadow[1]} ${reversedShadow} Z`;
+  void shadow;
+  return (
+    <svg viewBox={`0 0 ${W} ${H}`} className="w-full" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <linearGradient id={`${id}-tube`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor={color} stopOpacity="0.95" />
+          <stop offset="50%" stopColor={color} stopOpacity="0.55" />
+          <stop offset="100%" stopColor="#000000" stopOpacity="0.85" />
+        </linearGradient>
+        <filter id={`${id}-glow`} x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="7" />
+        </filter>
+      </defs>
+      <rect x="0" y="0" width={W} height={H} fill="#050508" />
+      {[0.25, 0.5, 0.75].map((t, i) => (
+        <line key={i} x1={padLeft} x2={padLeft + innerW} y1={padTop + t * innerH} y2={padTop + t * innerH} stroke="#1a1a1a" strokeWidth="0.5" />
+      ))}
+      <motion.path d={front} fill="none" stroke={color} strokeWidth="14" strokeLinecap="round" filter={`url(#${id}-glow)`} strokeOpacity="0.55"
+        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.3 }} />
+      <motion.path d={tubeBody} fill={`url(#${id}-tube)`} stroke={color} strokeOpacity="0.6" strokeWidth="0.8"
+        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.2 }} />
+      <motion.path d={front} fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round"
+        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.4 }} />
+      {pts.map(([x, y], i) => (
+        <g key={i}>
+          <circle cx={x} cy={y} r="7" fill={color} fillOpacity="0.55" filter={`url(#${id}-glow)`} />
+          <circle cx={x} cy={y} r="2.5" fill="#ffffff" />
+          <text x={x} y={H - padBottom + 22} textAnchor="middle" fontSize="12" fill="#d4d4d8" fontFamily="ui-monospace, monospace">{labels[i]}</text>
+        </g>
+      ))}
+      {data.length > 0 && (
+        <text x={pts[pts.length - 1][0]} y={pts[pts.length - 1][1] - 14} textAnchor="middle" fontSize="13" fontWeight="700" fill={color} fontFamily="ui-monospace, monospace" style={{ filter: `drop-shadow(0 0 4px ${color})` }}>
+          {data[data.length - 1]}<tspan fontSize="10" fill="#a1a1aa"> {unit}</tspan>
+        </text>
+      )}
+    </svg>
+  );
+}

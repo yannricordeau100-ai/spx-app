@@ -35,7 +35,7 @@ export const BRAND: Record<
 };
 
 export function brand(ticker: string) {
-  return BRAND[ticker] ?? BRAND.GOOGL;
+  return BRAND[ticker] ?? BRAND.META;
 }
 
 /* -------------------------------------------------------------------------- */

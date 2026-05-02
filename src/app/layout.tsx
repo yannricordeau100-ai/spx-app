@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
-import { Manrope, JetBrains_Mono, Bricolage_Grotesque } from "next/font/google";
+import { Manrope, JetBrains_Mono, Bricolage_Grotesque, Sora } from "next/font/google";
+import { PlausibleScript } from "@/components/analytics/plausible";
+import { I18nProvider } from "@/lib/i18n/provider";
+import { getServerLocale } from "@/lib/i18n/server";
 import "./globals.css";
 
 // Manrope = body/UI
@@ -25,21 +28,67 @@ const display = Bricolage_Grotesque({
   weight: ["400", "500", "600", "700", "800"],
 });
 
+// Sora = sans géométrique original et très fin (200 ExtraLight) pour les
+// chiffres "stars" (prix d'action). Proportionnel : plus d'espace excessif
+// autour de la virgule comme avec une mono. Fine, élégant, distinctif sans
+// être tape-à-l'œil. Mobile-safe.
+const sora = Sora({
+  variable: "--font-sora",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["200", "300", "400"],
+});
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.mettrik.ai";
+
 export const metadata: Metadata = {
-  title: "Mettrik · KPI Intelligence",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Mettrik AI · KPI Intelligence",
+    template: "%s · Mettrik AI",
+  },
   description:
-    "Le moteur d'intelligence KPI du S&P 500 : chaque indicateur lu, interprété, et instantanément comparable.",
+    "Les KPI indispensables et Super KPI privées des plus grandes sociétés américaines et européennes.",
+  applicationName: "Mettrik AI",
+  authors: [{ name: "Mettrik AI" }],
+  creator: "Mettrik AI",
+  publisher: "Mettrik AI",
+  alternates: { canonical: SITE_URL },
+  openGraph: {
+    type: "website",
+    siteName: "Mettrik AI",
+    title: "Mettrik AI · KPI Intelligence",
+    description: "KPI Intelligence pour investisseurs : indicateurs scorés, risques tracés, gouvernance, IA.",
+    url: SITE_URL,
+    locale: "fr_FR",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Mettrik AI · KPI Intelligence",
+    description: "KPI Intelligence pour investisseurs : indicateurs scorés, risques tracés, gouvernance, IA.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
+  },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const locale = await getServerLocale();
   return (
     <html
-      lang="fr"
-      className={`${sans.variable} ${jetbrains.variable} ${display.variable} h-full antialiased`}
+      lang={locale}
+      data-theme="dark"
+      style={{ colorScheme: "dark" }}
+      className={`dark ${sans.variable} ${jetbrains.variable} ${display.variable} ${sora.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-[#050505] text-base text-zinc-100">{children}</body>
+      <body className="min-h-full bg-[#050505] text-base text-zinc-100">
+        <I18nProvider locale={locale}>{children}</I18nProvider>
+        <PlausibleScript />
+      </body>
     </html>
   );
 }
