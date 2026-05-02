@@ -1,6 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
+
+/**
+ * KeepAlive : monte le composant au 1er affichage actif, puis le garde en
+ * mémoire (display:none) quand on change de tab. Évite le re-fetch des
+ * données BDD à chaque switch d'onglet. Premier mount = fetch normal,
+ * mounts suivants = instantané (data déjà en RAM).
+ */
+function KeepAlive({ active, id, children }: { active: string; id: string; children: React.ReactNode }) {
+  const wasActive = useRef(false);
+  const isActive = active === id;
+  if (isActive) wasActive.current = true;
+  if (!wasActive.current) return null; // pas encore visité, pas monté
+  return <div style={{ display: isActive ? "block" : "none" }}>{children}</div>;
+}
 import {
   FileText, ListTodo, Library, FolderOpen, Calendar, Bookmark, Cpu, Lightbulb,
   Link as LinkIcon, ImageIcon, BarChart3, MessageSquare, Target, Map, Info,
@@ -160,20 +174,25 @@ export function DeskClient({ ownerEmail }: { ownerEmail: string }) {
           </header>
 
           <div className="mx-auto max-w-5xl p-6">
-            {tab === "notes" && <TabNotes ownerEmail={ownerEmail} />}
-            {tab === "todos" && <TabTodos ownerEmail={ownerEmail} />}
-            {tab === "roadmap" && <TabRoadmap />}
-            {tab === "documents" && <TabDocuments />}
-            {tab === "gics" && <TabGics />}
-            {tab === "pipeline" && <TabPipeline />}
-            {tab === "calendar" && <TabCalendar ownerEmail={ownerEmail} />}
-            {tab === "bookmarks" && <TabBookmarks ownerEmail={ownerEmail} />}
-            {tab === "links" && <TabLinks ownerEmail={ownerEmail} />}
-            {tab === "inspiration" && <TabInspiration ownerEmail={ownerEmail} />}
-            {tab === "ideas" && <TabIdeas ownerEmail={ownerEmail} />}
-            {tab === "drafts" && <TabDrafts ownerEmail={ownerEmail} />}
-            {tab === "pitch" && <TabPitch ownerEmail={ownerEmail} />}
-            {tab === "metrics" && <TabMetrics />}
+            {/* PERF : keep-alive lazy mount.
+                Chaque tab visité reste monté en mémoire (cache local) puis caché
+                via CSS quand on en change. 1er click sur un tab = fetch normal,
+                clicks suivants sur le même tab = instantané (data déjà en RAM).
+                Coût mémoire négligeable (quelques KB par tab). */}
+            <KeepAlive active={tab} id="notes"><TabNotes ownerEmail={ownerEmail} /></KeepAlive>
+            <KeepAlive active={tab} id="todos"><TabTodos ownerEmail={ownerEmail} /></KeepAlive>
+            <KeepAlive active={tab} id="roadmap"><TabRoadmap /></KeepAlive>
+            <KeepAlive active={tab} id="documents"><TabDocuments /></KeepAlive>
+            <KeepAlive active={tab} id="gics"><TabGics /></KeepAlive>
+            <KeepAlive active={tab} id="pipeline"><TabPipeline /></KeepAlive>
+            <KeepAlive active={tab} id="calendar"><TabCalendar ownerEmail={ownerEmail} /></KeepAlive>
+            <KeepAlive active={tab} id="bookmarks"><TabBookmarks ownerEmail={ownerEmail} /></KeepAlive>
+            <KeepAlive active={tab} id="links"><TabLinks ownerEmail={ownerEmail} /></KeepAlive>
+            <KeepAlive active={tab} id="inspiration"><TabInspiration ownerEmail={ownerEmail} /></KeepAlive>
+            <KeepAlive active={tab} id="ideas"><TabIdeas ownerEmail={ownerEmail} /></KeepAlive>
+            <KeepAlive active={tab} id="drafts"><TabDrafts ownerEmail={ownerEmail} /></KeepAlive>
+            <KeepAlive active={tab} id="pitch"><TabPitch ownerEmail={ownerEmail} /></KeepAlive>
+            <KeepAlive active={tab} id="metrics"><TabMetrics /></KeepAlive>
           </div>
         </main>
       </div>
