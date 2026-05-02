@@ -12,10 +12,12 @@ async function requireOwner() {
 }
 
 // Catégories "dossiers" stockées dans le champ `priority` legacy.
-// Mapping affiché → DB (voir tab-todos.tsx) :
-//   urgent → urgent · V2 → high · V3 → normal · Idée à creuser → low.
-// Ordre de tri descendant : urgent (4) en haut, low/Idée (1) en bas.
-const PRIORITY_ORDER = { urgent: 4, high: 3, normal: 2, low: 1 } as const;
+// Mapping par défaut affiché -> DB (label customisable côté UI) :
+//   urgent -> urgent (rose) · V2 -> high (ambre) · V3 -> normal (cyan)
+//   Idée à creuser -> low (zinc) · Bonus -> extra (emerald)
+// Ordre de tri descendant : urgent (5) en haut, extra (1) en bas.
+// NOTE 'extra' requiert la migration SQL 20260502_todo_5th_category.sql.
+const PRIORITY_ORDER = { urgent: 5, high: 4, normal: 3, low: 2, extra: 1 } as const;
 
 export async function GET() {
   const r = await requireOwner();

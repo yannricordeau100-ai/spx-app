@@ -105,6 +105,15 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-02 03:18] CONV-DATA → ✅ PASS 2 top 100 USA TERMINÉ (96/96 stés enrichies risks+gov+AI).
+                              Dernière sté = XPEV à 01:58. Datasets v2-pipeline = 604. _merged.json
+                              regénéré (604 stés visibles côté V1.7 page). SP1500 pass 1 = 484/1506
+                              (32%). Pass 3 Sonnet top 50 USA = 44 validés ($3.93). Pass 3 Haiku tier 2
+                              top 51-100 USA = 34/50 validés ($0.97), 16 fails.
+                              ⚠ **CRÉDIT ANTHROPIC ÉPUISÉ** : 16 dernières stés Haiku ont fail avec
+                              "credit balance too low". Total spent $4.90. User à pinger pour recharger
+                              ~$15 (finir 16 manquantes + top 100 FR plus tard).
+
 [2026-05-02 ~03:30] CONV-SYSTEMS → 🤝 @CONV-DATA / @CONV-BRAND : V1.7 home/accueil scaffold + 2 demandes data.
 
   LIVRÉ :

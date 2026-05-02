@@ -31,10 +31,11 @@ type CategoryStyle = { id: DbValue; bg: string; border: string; text: string };
 
 // Le STYLE (couleur) est figé par DB-value. Seul le label change.
 const CATEGORY_STYLES: CategoryStyle[] = [
-  { id: "urgent", bg: "bg-rose-500/15",  border: "border-rose-500/40",  text: "text-rose-200" },
-  { id: "high",   bg: "bg-amber-500/15", border: "border-amber-500/40", text: "text-amber-200" },
-  { id: "normal", bg: "bg-cyan-500/15",  border: "border-cyan-500/40",  text: "text-cyan-200" },
-  { id: "low",    bg: "bg-zinc-500/15",  border: "border-zinc-500/40",  text: "text-zinc-300" },
+  { id: "urgent", bg: "bg-rose-500/15",    border: "border-rose-500/40",    text: "text-rose-200" },
+  { id: "high",   bg: "bg-amber-500/15",   border: "border-amber-500/40",   text: "text-amber-200" },
+  { id: "normal", bg: "bg-cyan-500/15",    border: "border-cyan-500/40",    text: "text-cyan-200" },
+  { id: "low",    bg: "bg-zinc-500/15",    border: "border-zinc-500/40",    text: "text-zinc-300" },
+  { id: "extra",  bg: "bg-emerald-500/15", border: "border-emerald-500/40", text: "text-emerald-200" },
 ];
 
 type Category = CategoryStyle & { label: string };
@@ -131,42 +132,50 @@ export function TabTodos({ ownerEmail: _ownerEmail }: { ownerEmail: string }) {
   }
 
   const visible = useMemo(() => {
-    return todos.filter((t) => {
+    const filtered = todos.filter((t) => {
       if (!showDone && t.done) return false;
       if (filter !== "all" && t.priority !== filter) return false;
       return true;
     });
+    // Tri : terminées en bas, sinon ordre chronologique (plus récent en haut).
+    return filtered.sort((a, b) => {
+      if (a.done !== b.done) return a.done ? 1 : -1;
+      return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+    });
   }, [todos, showDone, filter]);
 
   const counts = useMemo(() => {
-    const c: Record<DbValue, number> = { urgent: 0, high: 0, normal: 0, low: 0 };
+    const c: Record<DbValue, number> = { urgent: 0, high: 0, normal: 0, low: 0, extra: 0 };
     for (const t of todos) if (!t.done) c[t.priority] = (c[t.priority] ?? 0) + 1;
     return c;
   }, [todos]);
 
   return (
     <div>
-      {/* CRÉATION : input + 4 pills (catégorie cliquable) + bouton */}
+      {/* CRÉATION : input pleine ligne + en dessous catégories + bouton */}
       <DeskCard className="mb-4">
         <div className="mb-2 flex items-baseline gap-2">
           <span className="text-[13px] font-medium text-zinc-200">Nouvelle tâche</span>
           <HelpTip>
-            Click sur l&apos;une des 4 étiquettes pour assigner la nouvelle tâche à un dossier.
-            Les noms des 4 catégories sont customisables via le bouton <Pencil className="inline size-3" />
-            dans la barre de filtres ci-dessous : tu peux renommer <em>urgent / V2 / V3 / Idée à creuser</em>
-            comme tu veux. Tes tâches existantes restent intactes.
+            Tape ton texte sur la 1ère ligne, puis click sur une étiquette ci-dessous pour
+            assigner la tâche à un dossier. Les noms des catégories sont customisables via
+            le bouton <Pencil className="inline size-3" /> dans la barre de filtres :
+            tu peux renommer <em>urgent / V2 / V3 / Idée à creuser / Bonus</em> comme tu veux.
+            Tes tâches existantes restent intactes.
           </HelpTip>
         </div>
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-          <Input
-            placeholder="Que faut-il faire ?"
-            value={newTitle}
-            onChange={(e) => setNewTitle(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && add()}
-            className="flex-1"
-          />
+        {/* Ligne 1 : input pleine largeur */}
+        <Input
+          placeholder="Que faut-il faire ?"
+          value={newTitle}
+          onChange={(e) => setNewTitle(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && add()}
+          className="mb-2 w-full"
+        />
+        {/* Ligne 2 : 5 pills catégorie + bouton Ajouter à droite */}
+        <div className="flex flex-wrap items-center gap-2">
           <CategoryPicker value={newCategory} onChange={setNewCategory} categories={categories} />
-          <PrimaryButton onClick={add}>
+          <PrimaryButton onClick={add} className="ml-auto">
             <Plus className="size-3.5" />
             Ajouter
           </PrimaryButton>
@@ -389,7 +398,7 @@ function RowCategoryPicker({ value, onChange, categories }: { value: DbValue; on
 }
 
 /* ============================================================ */
-/* CategoryLabelEditor : panneau pour renommer les 4 catégories   */
+/* CategoryLabelEditor : panneau pour renommer les 5 catégories   */
 /* ============================================================ */
 function CategoryLabelEditor({
   initial,
@@ -414,7 +423,7 @@ function CategoryLabelEditor({
     <DeskCard className="mb-3 border-violet-500/30 bg-violet-500/[0.04]">
       <div className="mb-3 flex items-baseline gap-2">
         <Pencil className="size-3.5 text-violet-300" />
-        <span className="text-[13px] font-medium text-zinc-100">Renommer les 4 catégories</span>
+        <span className="text-[13px] font-medium text-zinc-100">Renommer les 5 catégories</span>
         <HelpTip>
           Tu changes uniquement l&apos;<em>affichage</em> des catégories. Tes tâches existantes
           gardent leur catégorie en BDD intacte. Les couleurs (rose / ambre / cyan / zinc)

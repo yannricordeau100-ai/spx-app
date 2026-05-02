@@ -10,7 +10,7 @@
  * Fallback : labels par défaut si aucune customisation.
  */
 
-export type DbValue = "urgent" | "high" | "normal" | "low";
+export type DbValue = "urgent" | "high" | "normal" | "low" | "extra";
 
 export type CategoryLabels = Record<DbValue, string>;
 
@@ -19,6 +19,7 @@ export const DEFAULT_CATEGORY_LABELS: CategoryLabels = {
   high: "V2",
   normal: "V3",
   low: "Idée à creuser",
+  extra: "Bonus",
 };
 
 const STORAGE_KEY = "mettrik.todo.categories.v1";
@@ -36,6 +37,7 @@ export function readCategoryLabels(): CategoryLabels {
       high: parsed.high || DEFAULT_CATEGORY_LABELS.high,
       normal: parsed.normal || DEFAULT_CATEGORY_LABELS.normal,
       low: parsed.low || DEFAULT_CATEGORY_LABELS.low,
+      extra: parsed.extra || DEFAULT_CATEGORY_LABELS.extra,
     };
   } catch {
     return DEFAULT_CATEGORY_LABELS;
