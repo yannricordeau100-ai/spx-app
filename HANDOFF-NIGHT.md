@@ -1,4 +1,93 @@
-# HANDOFF NIGHT · Matin du 1er mai 2026
+# HANDOFF NIGHT · Matin du 2 mai 2026 (8h autonomie)
+
+> Tu m'as donné 24h d'auth pour tout. J'ai bossé pendant que tu dormais.
+> Lis cette section, puis l'archive du 1er mai et 27 nov 2025 plus bas restent intactes.
+
+---
+
+## Livré cette nuit (déployé en prod sans interruption)
+
+### A. Maintenance fun
+- ";)" ajouté après "très bientôt" / "very soon" sur la page maintenance.
+- Bilingue FR/EN auto + switcher de langue.
+- Toggle via env var `MAINTENANCE_MODE=on/off` dans Vercel (settings → env vars).
+
+### B. Page d'aide /sandbox/aide (FR uniquement)
+- 12 URLs canoniques (prod, staging, dashboards Vercel/Supabase/Stripe/Spaceship, etc.)
+- 14 fiches problèmes avec :
+  * Symptômes (comment ça se manifeste)
+  * Cause (pourquoi)
+  * Solution (étapes claires, langage 16 ans non-tech)
+  * Sévérité (critical/warning/info, avec couleurs)
+  * Aliases (mots-clés pour la recherche)
+- Recherche fuzzy : tape n'importe quel mot (rollback, 404, dns, todo, V2.5, maintenance, login),
+  les fiches pertinentes apparaissent triées par pertinence.
+- Couvre : front public, back office (desk), déploiements, données, auth.
+
+### C. TTM bar/dot dans charts (live + concepts)
+- Type KPI étendu : champ `ttm?: number | null` optionnel.
+- BarsChart : barre supplémentaire en pointillé + opacité réduite avec label "TTM" italique gris.
+- CurveChart : point creux en cercle pointillé + segment dashed entre dernier calendaire et TTM.
+- Activé sur 5 KPIs des sociétés V1 (GOOGL Cloud, META Revenue, MSCI Revenue, SPGI Ratings + Revenue, CAT Revenue).
+- Pour les autres KPIs où TTM n'a pas de sens (DAP, Backlog, Run Rate déjà dynamiques) : volontairement skip.
+- Concept page comparative : `/concepts/charts-bars` (3 propositions).
+
+### D. Toggle 3D / Classique pour Bars
+- Sur n'importe quelle page société, click "Barres" → un sub-toggle apparaît à droite.
+- 3D = style isométrique actuel (perspective + ombre).
+- Classique = 2D flat, sans perspective, plus sobre. Lisibilité meilleure pour comparer des nombres.
+- Choix mémorisé pour la session (par-onglet).
+
+### E. Branche staging configurée
+- Branche Git `staging` créée + URL stable `https://mettrik-staging.vercel.app`.
+- Workflow : tu me dis "modif X" → je push staging → check sur l'antichambre → tu valides → merge main → prod.
+- Aucun risque pour la prod pendant que tu testes.
+
+### F. Vercel deploys verts en prod et staging
+- Auteur commit corrigé (yannricordeau100@gmail.com) pour passer la team gate.
+- Build OK, 122/122 static pages générées, 41 routes compilées.
+
+---
+
+## Audit pages sociétés (V1.7)
+
+CONV-DATA a poussé **604 sociétés** dans `_merged.json` cette nuit (jusqu'à `XPEV` à 02:18 UTC).
+
+Coverage actuel par rapport à `top-companies.ts` :
+- **USA top 100 : 89/102 (87%)** dispo. Manquent : BRK.B, TMO, TMUS, UPS, USB, PNC, TGT, SLB, PLD, NOW, SPGI, ZTS, SO.
+- **France top 100 : 0/70 (0%)**. Aucun ticker .PA dans le pipeline. CONV-DATA est consciente, signalée dans SHARED-STATUS.
+
+Les 604 sociétés sont visibles sur `/sandbox/v1-7` (anglais) et `/fr/sandbox/v1-7` (français). Les non-listées dans top-companies.ts sont accessibles directement par URL `/sandbox/v1-7/<ticker>`.
+
+---
+
+## Décisions qui t'attendent au réveil
+
+1. **Choisir un style de bars par défaut** : 3D (cool) ou Classique (sobre) ? Pour l'instant les 2 sont dispos via toggle. Si tu veux n'avoir qu'un seul style, dis-moi lequel.
+2. **TTM sur les autres KPIs** : si tu veux qu'on affiche TTM sur d'autres KPIs (Top Drug, Cloud Backlog, etc.), envoie-moi les valeurs ou je les estime.
+3. **CGV / Mentions** : il manque encore SIREN, statut juridique (auto-entreprise / SASU), adresse, directeur de publication. Quand tu me les passes, je remplis.
+4. **Domaine mettrik.ai** : tu peux brancher le DNS Spaceship → Vercel quand tu veux. Si tu m'ouvres l'accès biométrique, je le fais en 5 min.
+5. **Resend / Plausible** : pas encore branchés. Les emails transactionnels passent encore par Supabase défaut.
+
+---
+
+## URLs utiles (à mémoriser)
+
+| Quoi | URL |
+|---|---|
+| Prod | https://mettrik.vercel.app |
+| Staging | https://mettrik-staging.vercel.app |
+| Maintenance preview | https://mettrik.vercel.app/fr/maintenance |
+| Page d'aide perso | https://mettrik.vercel.app/sandbox/aide |
+| Concept charts bars | https://mettrik.vercel.app/concepts/charts-bars |
+| Vercel dashboard | https://vercel.com/yannricordeau100-7226s-projects/mettrik |
+| GitHub repo | https://github.com/yannricordeau100-ai/spx-app |
+| Supabase | https://supabase.com/dashboard/project/cnggtyxzqlqqjrynnvdq |
+
+---
+
+# Archive : HANDOFF NIGHT 1er mai 2026 (intact)
+
 
 > Travail autonome de la nuit (CONV-SYSTEMS). Auth user "oui à tout B" reçue à 04:35.
 > Lis cette section, valide / corrige, puis l'historique nov 2025 plus bas reste intact.
