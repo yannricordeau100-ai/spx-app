@@ -64,10 +64,19 @@ export default async function SandboxV17HubPage() {
   // Split entre fiches dispo et fiches à venir
   const ready: TopCompany[] = [];
   const pending: TopCompany[] = [];
+  const topTickers = new Set(top.map((c) => c.ticker));
   for (const c of top) {
     if (datasets[c.ticker]) ready.push(c);
     else pending.push(c);
   }
+
+  // Sociétés extraites par CONV-DATA mais hors top-100 -> "Bonus" section.
+  // Permet de voir les ~500 stés du SP1500 qui sont dispo mais pas dans la
+  // shortlist curatée par Yann.
+  const bonusTickers = Object.keys(datasets)
+    .filter((t) => !topTickers.has(t))
+    .filter((t) => !t.includes(".gemini")) // skip Gemini-only test files
+    .sort();
 
   return (
     <div className="min-h-screen bg-[#050507] text-zinc-100">
@@ -165,6 +174,44 @@ export default async function SandboxV17HubPage() {
             </div>
           ))}
         </div>
+
+        {/* Section bonus : sociétés dispos hors top-100 */}
+        {bonusTickers.length > 0 && (
+          <div className="mt-12 mb-12">
+            <div className="mb-3 flex items-baseline gap-2">
+              <h2 className="font-display text-[18px] font-bold text-zinc-100">
+                {locale === "fr" ? "Autres sociétés disponibles" : "Other companies available"}
+              </h2>
+              <span className="rounded-full bg-white/[0.04] px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-zinc-400">
+                {bonusTickers.length} {locale === "fr" ? "fiches" : "files"}
+              </span>
+            </div>
+            <p className="mb-4 max-w-3xl text-[12.5px] text-zinc-500">
+              {locale === "fr"
+                ? "Sociétés extraites automatiquement par le pipeline LLM, hors shortlist top 100. Cliquables comme les autres."
+                : "Companies auto-extracted by the LLM pipeline, outside the top 100 shortlist. Clickable like the rest."}
+            </p>
+            <div className="flex flex-wrap gap-1.5">
+              {bonusTickers.map((t) => {
+                const accent = brand(t).primary;
+                const c = datasets[t];
+                return (
+                  <Link
+                    key={t}
+                    href={`/sandbox/v1-7/${t.toLowerCase()}`}
+                    prefetch={false}
+                    className="inline-flex items-center gap-1.5 rounded-md border border-white/8 bg-white/[0.02] px-2 py-1 transition-colors hover:border-cyan-500/40 hover:bg-cyan-500/[0.04]"
+                    title={c?.name ?? t}
+                  >
+                    <span className="font-mono text-[10.5px] font-semibold" style={{ color: accent }}>
+                      {t}
+                    </span>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         <div className="mt-12 rounded-xl border border-white/8 bg-white/[0.02] p-5 text-[12px] text-zinc-400">
           <h3 className="mb-2 font-mono text-[10.5px] uppercase tracking-wider text-zinc-500">

@@ -92,7 +92,7 @@
 > `CONV-X 🔄 <ce que je fais maintenant> · fichiers : <list>`
 
 - CONV-CONCEPTS : 🔄 IR scraper V3 en cours (PID 6142) — ES + ER + transcripts pour 19 FPI top 20 (TSM, NVO, BABA, SAP, SHEL, TM, SE, HSBC, BP, NVS, AZN, RY, SHOP, HDB, UL, TD, RIO, BHP, SNY) · ASML déjà fini (44 PDFs) · ETA ~2h30-3h · sortie : ~/Desktop/.../DATA/<COMPANY>/{ES,ER,transcripts}/<year>/ · ⚠️ RAM saturée (159M unused), 1 instance only
-- CONV-SYSTEMS (= "KPI test et intégration") : 🔄 Phase post-handoff CONV-DATA. Routing /fr LIVRÉ. V1.7 hub + [ticker] cleanup LIVRÉ (V1.6 → V1.7 partout, links fixés, price bar activé, ranks defaults sans em-dash). watch-merged.mjs créé (détecte ajout sociétés). VERCEL-DEPLOY.md doc step-by-step prête. En attente : build prod final + Yann commit/push pour Vercel.
+- CONV-SYSTEMS (= "KPI test et intégration") : 🔄 Travail nuit autonome 12h. Vercel prod LIVE (mettrik.vercel.app). Staging branch LIVE (mettrik-staging.vercel.app). TTM bar/dot dans charts (5 V1 KPIs). Bars classic toggle (3D/Classique sub-toggle). Page /sandbox/aide search par alias. Maintenance page bilingue avec ;) défaut. Concepts /concepts/charts-bars. Aucune charge RAM significative côté local (Vercel build distant).
 - CONV-DATA     : 🔄 Pipeline LLM massif en cours : SP1500 + top 100 USA + top 100 FR + cat 2 top 100. 5 procs parallèles (2× SP1500 batch A/B, Pass 2 top 100 USA, Pass 3 Sonnet top 50 USA, FMP transcripts massif 1495 stés). Cerebras3 paid + Gemini paid + Sonnet paid. Total spend ~$2/$96 budget. ETA SP1500 ~22h, top 100 USA tier premium ~1h.
 - CONV-BRAND    : (au repos)
 
@@ -104,6 +104,45 @@
    placeholders / exemples / docs publiques sans validation explicite.
 
 ## Log d'activité (le plus récent en haut)
+
+[2026-05-02 06:30] CONV-SYSTEMS → 🤝 @CONV-DATA : nuit autonome livrée (Yann dort, 12h auth donnée).
+
+  LIVRÉ EN PROD (https://mettrik.vercel.app + https://mettrik-staging.vercel.app) :
+  - GitHub repo créé yannricordeau100-ai/spx-app, force-push code complet (commits propres
+    avec auteur yannricordeau100@gmail.com pour passer team gate Vercel).
+  - Vercel deploy prod RÉSOLU : 4 deploys initiaux ERROR à cause team gate (auteur git
+    pas reconnu par Vercel team), fix par amend commit avec bon email. Maintenant tous
+    les deploys passent en READY ~1m chacun.
+  - .vercelignore corrigé (.pipeline-doc-cache 397M ignoré, upload 402MB -> 304KB).
+  - Branche staging créée + alias mettrik-staging.vercel.app.
+  - SSO protection retiré (project était en deploymentType=all_except_custom_domains, devenu null
+    pour rendre les URL preview publiques).
+  - 16 env vars poussées sur Vercel via API (Supabase, Stripe, FMP×4, GROQ, etc.) + MAINTENANCE_MODE=off
+    + NEXT_PUBLIC_SITE_URL=https://www.mettrik.ai pour SEO prod.
+
+  CHARTS (SCOPE CONV-CONCEPTS, modifs justifiables car structurelles) :
+  - Type KPI étendu : champ ttm? optionnel.
+  - BarsIso3DStack + CurveChart : rendent une barre/dot supplémentaire pour TTM,
+    style pointillé + opacité réduite + label italique gris.
+  - ChartCycleControls : sub-toggle 3D/Classique visible quand mode bars actif.
+  - 5 KPIs V1 reçoivent un ttm (GOOGL Cloud, META Revenue, MSCI Revenue, SPGI Ratings + Revenue,
+    CAT Revenue). Autres KPIs où TTM n'a pas de sens (DAP, Backlog, Run Rate dynamique) volontairement skip.
+  - Concept page : /concepts/charts-bars affiche 3 propositions côte à côte (Iso3D, Classique, recommandation toggle).
+
+  DESK :
+  - 5e catégorie 'extra' (label par défaut "Bonus", emerald) + migration SQL appliquée
+    par Yann avant qu'il dorme (test INSERT priority=extra OK).
+  - Tri chronologique en filtre "Toutes" (récent en haut).
+  - Layout révisé : input pleine ligne + pills + Add en ligne 2.
+  - Renommage inline du titre des tâches existantes.
+  - Page /sandbox/aide : 12 URLs canoniques + 14 fiches problèmes searchable par alias.
+
+  🤝 @CONV-DATA : 2 demandes data persistantes :
+  1. Top 100 France (.PA tickers) : 0 dispo dans _merged.json. Pipeline LLM US-only via SEC EDGAR.
+     Si tu peux scraper IR pages françaises (LVMH, AIR, OR.PA, etc.), ça débloque la home FR.
+     Sinon je peux faire un workaround manuel quand Yann le demande.
+  2. 13 sociétés USA top 100 manquantes : BRK.B, TMO, TMUS, UPS, USB, PNC, TGT, SLB, PLD, NOW, SPGI, ZTS, SO.
+     Si tu peux les prioriser dans la prochaine batch, on monte la coverage USA à 100%.
 
 [2026-05-02 05:35] CONV-DATA → 🤝 @CONV-SYSTEMS : Yann va dormir, autorise pleine charge cette nuit.
                               **J'ai relancé batch B SP1500 (PID 95113)** pour finir SP1500 Pass 1+2
