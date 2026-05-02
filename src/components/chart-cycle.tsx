@@ -15,6 +15,7 @@ import type { CompanyEvent } from "@/lib/events";
 import { useT } from "@/lib/i18n/provider";
 
 export type ChartMode = "curve" | "bars" | "delta" | "panel";
+export type BarsVariant = "iso3d" | "classic";
 
 const MODES: {
   id: ChartMode;
@@ -42,48 +43,86 @@ export function ChartCycleControls({
   mode,
   onChange,
   color = "#a78bfa",
+  barsVariant,
+  onBarsVariantChange,
 }: {
   mode: ChartMode;
   onChange: (m: ChartMode) => void;
   color?: string;
+  /** Variant sub-toggle quand mode === 'bars'. Optionnel : si non fourni, pas de toggle. */
+  barsVariant?: BarsVariant;
+  onBarsVariantChange?: (v: BarsVariant) => void;
 }) {
   const { t } = useT();
   return (
-    <div
-      role="tablist"
-      className="relative inline-flex items-center gap-1 rounded-full border border-[#1f1f1f] bg-[#0a0a0a] p-1"
-    >
-      {MODES.map((m) => {
-        const Icon = m.icon;
-        const active = mode === m.id;
-        return (
+    <div className="inline-flex flex-wrap items-center gap-2">
+      <div
+        role="tablist"
+        className="relative inline-flex items-center gap-1 rounded-full border border-[#1f1f1f] bg-[#0a0a0a] p-1"
+      >
+        {MODES.map((m) => {
+          const Icon = m.icon;
+          const active = mode === m.id;
+          return (
+            <button
+              key={m.id}
+              role="tab"
+              aria-selected={active}
+              onClick={() => onChange(m.id)}
+              title={t(m.hintKey)}
+              className={cn(
+                "relative inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[12.5px] font-medium transition-colors",
+                active ? "text-zinc-50" : "text-zinc-400 hover:text-zinc-100"
+              )}
+            >
+              {active && (
+                <motion.span
+                  layoutId="chart-mode-pill"
+                  className="absolute inset-0 rounded-full"
+                  style={{
+                    background: `linear-gradient(135deg, ${color}30, ${color}18)`,
+                    border: `1px solid ${color}55`,
+                  }}
+                  transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                />
+              )}
+              <Icon className="relative size-3.5" />
+              <span className="relative">{t(m.labelKey)}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Sub-toggle 3D / Classique : visible UNIQUEMENT quand mode === bars
+          ET un setter est fourni par le parent. */}
+      {mode === "bars" && barsVariant && onBarsVariantChange && (
+        <div className="inline-flex items-center gap-0.5 rounded-full border border-white/10 bg-white/[0.02] p-0.5">
           <button
-            key={m.id}
-            role="tab"
-            aria-selected={active}
-            onClick={() => onChange(m.id)}
-            title={t(m.hintKey)}
+            onClick={() => onBarsVariantChange("iso3d")}
             className={cn(
-              "relative inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[12.5px] font-medium transition-colors",
-              active ? "text-zinc-50" : "text-zinc-400 hover:text-zinc-100"
+              "rounded-full px-2.5 py-1 text-[11px] font-medium transition-colors",
+              barsVariant === "iso3d"
+                ? "bg-white/10 text-zinc-100"
+                : "text-zinc-500 hover:text-zinc-200"
             )}
+            title="Style 3D isométrique (par défaut)"
           >
-            {active && (
-              <motion.span
-                layoutId="chart-mode-pill"
-                className="absolute inset-0 rounded-full"
-                style={{
-                  background: `linear-gradient(135deg, ${color}30, ${color}18)`,
-                  border: `1px solid ${color}55`,
-                }}
-                transition={{ type: "spring", stiffness: 400, damping: 32 }}
-              />
-            )}
-            <Icon className="relative size-3.5" />
-            <span className="relative">{t(m.labelKey)}</span>
+            3D
           </button>
-        );
-      })}
+          <button
+            onClick={() => onBarsVariantChange("classic")}
+            className={cn(
+              "rounded-full px-2.5 py-1 text-[11px] font-medium transition-colors",
+              barsVariant === "classic"
+                ? "bg-white/10 text-zinc-100"
+                : "text-zinc-500 hover:text-zinc-200"
+            )}
+            title="Style classique 2D plat"
+          >
+            Classique
+          </button>
+        </div>
+      )}
     </div>
   );
 }
@@ -105,6 +144,8 @@ export function ChartCycle({
   company,
   activeShort,
   onPickKpi,
+  ttm = null,
+  barsVariant = "iso3d",
 }: {
   mode: ChartMode;
   data: number[];
@@ -116,6 +157,11 @@ export function ChartCycle({
   company?: Company;
   activeShort?: string;
   onPickKpi?: (short: string) => void;
+  /** TTM = somme des 4 derniers trimestres (Q-1 + Q-2 + Q-3 + Q-4). Si fourni,
+      ajoute une barre / point supplémentaire au chart. */
+  ttm?: number | null;
+  /** Variant pour le mode bars uniquement. */
+  barsVariant?: BarsVariant;
 }) {
   const xLabels = labels ?? defaultLabels(data.length);
 
@@ -130,10 +176,10 @@ export function ChartCycle({
           transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
         >
           {mode === "curve" && (
-            <CurveChart data={data} labels={xLabels} unit={unit} color={color} anomalies={anomalies} events={events} />
+            <CurveChart data={data} labels={xLabels} unit={unit} color={color} anomalies={anomalies} events={events} ttm={ttm} />
           )}
           {mode === "bars" && (
-            <BarsIso3DStack data={data} labels={xLabels} unit={unit} color={color} events={events} />
+            <BarsIso3DStack data={data} labels={xLabels} unit={unit} color={color} events={events} ttm={ttm} variant={barsVariant} />
           )}
           {mode === "delta" && (
             <VariationIsoSteps3D data={data} labels={xLabels} events={events} />

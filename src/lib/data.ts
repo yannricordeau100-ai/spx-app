@@ -47,6 +47,15 @@ export type KPI = {
   is_short_history?: boolean;
   /** Catégorie de la story. Ex: "Innovation", "Marché", "Adoption", "Capacité". */
   story_category?: string;
+  /**
+   * TTM = Trailing Twelve Months. Somme des 4 derniers trimestres dispo
+   * (Q2 N-1 + Q3 N-1 + Q4 N-1 + Q1 N). Affiché sur les charts comme une
+   * barre / point supplémentaire APRÈS la dernière année calendaire,
+   * avec un style visuel distinct (couleur plus claire / pointillé) pour
+   * qu'on comprenne que c'est "12 derniers mois" et pas une année calendaire.
+   * Optionnel : non rendu si absent ou null.
+   */
+  ttm?: number | null;
 };
 
 export type Ranks = {

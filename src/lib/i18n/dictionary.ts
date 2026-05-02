@@ -542,8 +542,8 @@ export const DICTIONARY: Dict = {
     en: "Estimated return: ",
   },
   "maintenance.eta_default": {
-    fr: "très bientôt",
-    en: "very soon",
+    fr: "très bientôt ;)",
+    en: "very soon ;)",
   },
   "maintenance.fun_caption": {
     fr: "On vise plus haut, plus beau, plus utile.",

@@ -157,16 +157,32 @@ def cmd_transcripts(args, log):
         if i > 0 and i % 20 == 0:
             log(f"   {i}/{len(tickers)} done... (ok={ok} fail={fail} skip={skip})")
 
-        # Essaie année courante Q4 → Q3 → Q2 → Q1, puis année précédente Q4 etc.
+        # SMART : essaie Q4 et Q3 année courante d'abord. Si rien, skip ticker.
+        # Évite de gaspiller 8 calls sur stés sans transcript du tout.
         found = None
-        for year in [current_year, current_year - 1]:
-            for q in [4, 3, 2, 1]:
-                data = fmp_get("earning-call-transcript", {"symbol": t, "year": year, "quarter": q})
+        empty_count_2026 = 0
+        # Année courante : essai Q4, Q3 (les 2 plus récents, max likely)
+        for q in [4, 3]:
+            data = fmp_get("earning-call-transcript", {"symbol": t, "year": current_year, "quarter": q})
+            if isinstance(data, list) and data and data[0].get("content"):
+                found = data[0]
+                break
+            if isinstance(data, list) and len(data) == 0:
+                empty_count_2026 += 1
+        # Si trouvé, stop. Sinon vérifier Q2 et Q1 année courante seulement si Q4/Q3 ne sont pas tous deux vides
+        if not found and empty_count_2026 < 2:
+            for q in [2, 1]:
+                data = fmp_get("earning-call-transcript", {"symbol": t, "year": current_year, "quarter": q})
                 if isinstance(data, list) and data and data[0].get("content"):
                     found = data[0]
                     break
-            if found:
-                break
+        # Si toujours rien et Q4/Q3 année courante vides : ne tente PAS l'année précédente (probablement no data)
+        if not found and empty_count_2026 < 2:
+            for q in [4, 3, 2, 1]:
+                data = fmp_get("earning-call-transcript", {"symbol": t, "year": current_year - 1, "quarter": q})
+                if isinstance(data, list) and data and data[0].get("content"):
+                    found = data[0]
+                    break
 
         if found:
             out_file.write_text(json.dumps(found, ensure_ascii=False, indent=2))

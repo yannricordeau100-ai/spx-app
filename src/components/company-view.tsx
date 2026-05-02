@@ -83,6 +83,7 @@ export function CompanyView({
   const [showAll, setShowAll] = useState(false);
   const [compareOpen, setCompareOpen] = useState(false);
   const [chartMode, setChartMode] = useChartMode("curve");
+  const [barsVariant, setBarsVariant] = useState<"iso3d" | "classic">("iso3d");
   const [compareTicker, setCompareTicker] = useState<string | null>(null);
 
   const heroRef = useRef<HTMLDivElement>(null);
@@ -291,6 +292,8 @@ export function CompanyView({
                   mode={chartMode}
                   onChange={setChartMode}
                   color={accent}
+                  barsVariant={barsVariant}
+                  onBarsVariantChange={setBarsVariant}
                 />
                 <PeriodToggle accent={accent} />
               </div>
@@ -320,6 +323,8 @@ export function CompanyView({
                 company={company}
                 activeShort={active.short}
                 onPickKpi={handleKpiClick}
+                ttm={active.ttm ?? null}
+                barsVariant={barsVariant}
               />
             </div>
           </div>

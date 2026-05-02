@@ -97,6 +97,8 @@ export function CurveChart({
   color = "#a78bfa",
   anomalies = [],
   events = [],
+  ttm = null,
+  ttmLabel = "TTM",
 }: {
   data: number[];
   labels: string[];
@@ -104,14 +106,24 @@ export function CurveChart({
   color?: string;
   anomalies?: Anomaly[];
   events?: CompanyEvent[];
+  /** Trailing 12 months : point + segment pointillé en fin de courbe. */
+  ttm?: number | null;
+  ttmLabel?: string;
 }) {
   const [hover, setHover] = useState<number | null>(null);
+
+  // Étend data + labels avec TTM si fourni. Le dernier point est rendu
+  // en pointillé pour signaler "12 derniers mois" (pas une année calendaire).
+  const hasTTM = ttm != null && Number.isFinite(ttm);
+  const allData = hasTTM ? [...data, ttm as number] : data;
+  const allLabels = hasTTM ? [...labels, ttmLabel] : labels;
+  const ttmIndex = hasTTM ? allData.length - 1 : -1;
 
   const innerW = W - PAD_LEFT - PAD_RIGHT;
   const innerH = H - PAD_TOP - PAD_BOTTOM;
 
-  const dataMin = Math.min(0, ...data);
-  const dataMax = Math.max(...data, 0);
+  const dataMin = Math.min(0, ...allData);
+  const dataMax = Math.max(...allData, 0);
   // Nice round ticks (rule Mettrik §6).
   const tickValues = niceTicks(dataMin, dataMax, 5);
   const min = Math.min(...tickValues, dataMin);
@@ -119,8 +131,8 @@ export function CurveChart({
   const range = max - min || 1;
   const baselineY = PAD_TOP + innerH;
 
-  const stepX = data.length > 1 ? innerW / (data.length - 1) : innerW;
-  const points = data.map((v, i) => [
+  const stepX = allData.length > 1 ? innerW / (allData.length - 1) : innerW;
+  const points = allData.map((v, i) => [
     PAD_LEFT + i * stepX,
     PAD_TOP + ((max - v) / range) * innerH,
   ] as const);
@@ -277,19 +289,46 @@ export function CurveChart({
           />
         ))}
 
-        {/* Year nodes */}
+        {/* Segment pointillé entre dernier point calendaire et TTM (si présent) */}
+        {hasTTM && points.length >= 2 && (() => {
+          const last = points[points.length - 1];
+          const prev = points[points.length - 2];
+          return (
+            <line
+              x1={prev[0]}
+              y1={prev[1]}
+              x2={last[0]}
+              y2={last[1]}
+              stroke={color}
+              strokeWidth={1.5}
+              strokeDasharray="5 4"
+              strokeLinecap="round"
+              opacity={0.7}
+            />
+          );
+        })()}
+
+        {/* Year nodes (+ TTM dot stylé différemment) */}
         {points.map(([x, y], i) => {
           const isHover = hover === i;
           const isAnomaly = anomalyByIndex.has(i);
+          const isTTM = i === ttmIndex;
           return (
             <g
               key={`n-${i}`}
               onMouseEnter={() => setHover(i)}
               onMouseLeave={() => setHover(null)}
-              style={{ cursor: "pointer" }}
+              style={{ cursor: "pointer", opacity: isTTM ? 0.8 : 1 }}
             >
-              <circle cx={x} cy={y} r={isHover ? 11 : 8} fill={color} fillOpacity={0.55} filter={`url(#${idGlow})`} />
-              <circle cx={x} cy={y} r={isHover ? 4 : 2.8} fill="#ffffff" />
+              {isTTM ? (
+                /* TTM : cercle creux pointillé (vs cercle plein pour années) */
+                <circle cx={x} cy={y} r={isHover ? 9 : 7} fill="none" stroke={color} strokeWidth={2} strokeDasharray="3 2" />
+              ) : (
+                <>
+                  <circle cx={x} cy={y} r={isHover ? 11 : 8} fill={color} fillOpacity={0.55} filter={`url(#${idGlow})`} />
+                  <circle cx={x} cy={y} r={isHover ? 4 : 2.8} fill="#ffffff" />
+                </>
+              )}
               {isAnomaly && (
                 <circle
                   cx={x}
@@ -305,12 +344,13 @@ export function CurveChart({
                 x={x}
                 y={H - PAD_BOTTOM + 26}
                 textAnchor="middle"
-                fontSize={17}
-                fill="#e4e4e7"
+                fontSize={isTTM ? 15 : 17}
+                fill={isTTM ? "#a1a1aa" : "#e4e4e7"}
                 fontFamily="ui-monospace, monospace"
-                fontWeight={600}
+                fontWeight={isTTM ? 500 : 600}
+                fontStyle={isTTM ? "italic" : "normal"}
               >
-                {labels[i] ?? ""}
+                {allLabels[i] ?? ""}
               </text>
               {isHover && (
                 <text
@@ -323,7 +363,7 @@ export function CurveChart({
                   fontFamily="ui-monospace, monospace"
                   style={{ filter: `drop-shadow(0 0 4px ${color})` }}
                 >
-                  {data[i]}
+                  {allData[i]}
                   {u && (
                     <tspan fill="#a1a1aa" fontSize="14">
                       {" "}

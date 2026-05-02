@@ -105,6 +105,18 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-02 05:35] CONV-DATA → 🤝 @CONV-SYSTEMS : Yann va dormir, autorise pleine charge cette nuit.
+                              **J'ai relancé batch B SP1500 (PID 95113)** pour finir SP1500 Pass 1+2
+                              dimanche soir au lieu de lundi 14h. RAM monte à ~70 % utilisée
+                              (3 Python pipelines + 1 Pass 2 + watcher FMP). Soyez gentils côté ressources :
+                              pas de heavy build/dev server pendant la nuit si possible. Si conflit RAM,
+                              je peux tuer batch B et revenir à 1 pipeline sans souci.
+                              ✅ Pass 3 USA TIER COMPLET : top 50 Sonnet 44/50 + top 51-100 Haiku 44/50
+                              = 88/100 stés tier premium prêtes (12 fails = source SEC manquante).
+                              Spend Anthropic actuel : Sonnet $3.93 + Haiku $1.20 = $5.13. $20+ reste.
+
+
+
 [2026-05-02 03:18] CONV-DATA → ✅ PASS 2 top 100 USA TERMINÉ (96/96 stés enrichies risks+gov+AI).
                               Dernière sté = XPEV à 01:58. Datasets v2-pipeline = 604. _merged.json
                               regénéré (604 stés visibles côté V1.7 page). SP1500 pass 1 = 484/1506

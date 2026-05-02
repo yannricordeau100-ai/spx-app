@@ -51,22 +51,38 @@ type Props = {
   unit?: string;
   color?: string;
   events?: CompanyEvent[];
+  /** Trailing 12 months : barre supplémentaire à la fin si fourni. */
+  ttm?: number | null;
+  /** Label sous la barre TTM. Default "TTM". */
+  ttmLabel?: string;
+  /** Style visuel : iso3d (par défaut, perspective isométrique) ou classique 2D. */
+  variant?: "iso3d" | "classic";
 };
 
 /* ============================================================ */
 /* B26 — ISO 3D BARS (parallépipèdes en isométrique vrai)         */
-/* Inspiration freepik : bars iso colorées image 4/5.              */
+/* Avec support TTM (barre supplémentaire pointillée) et variant   */
+/* "classic" pour basculer en 2D flat.                             */
 /* ============================================================ */
-export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", events = [] }: Props) {
+export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", events = [], ttm = null, ttmLabel = "TTM", variant = "iso3d" }: Props) {
   const [hover, setHover] = useState<number | null>(null);
-  const ticks = niceTicks(0, Math.max(...data, 0), 5);
-  const max = Math.max(...ticks, ...data);
+
+  // Étend data + labels avec TTM si fourni. Dernière barre stylée distinctement.
+  const hasTTM = ttm != null && Number.isFinite(ttm);
+  const allData = hasTTM ? [...data, ttm as number] : data;
+  const allLabels = hasTTM ? [...labels, ttmLabel] : labels;
+  const ttmIndex = hasTTM ? allData.length - 1 : -1;
+  const isClassic = variant === "classic";
+
+  const ticks = niceTicks(0, Math.max(...allData, 0), 5);
+  const max = Math.max(...ticks, ...allData);
   const range = max || 1;
-  const slot = INNER_W / data.length;
+  const slot = INNER_W / allData.length;
   const barW = Math.min(slot * 0.42, 56);
   const baseY = PAD_TOP + INNER_H;
   const yFor = (v: number) => PAD_TOP + ((max - v) / range) * INNER_H;
-  const DX = 26, DY = -16;
+  const DX = isClassic ? 0 : 26;
+  const DY = isClassic ? 0 : -16;
   const header = axisHeader(unit);
 
   return (
@@ -106,38 +122,63 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
           {(Math.round(v * 10) / 10).toLocaleString("fr-FR")}
         </text>
       ))}
-      {data.map((v, i) => {
+      {allData.map((v, i) => {
         const x = PAD_LEFT + slot * i + (slot - barW) / 2;
         const yT = yFor(v);
         const h = baseY - yT;
         const isH = hover === i;
+        const isTTM = i === ttmIndex;
+        // TTM : opacité réduite + pointillé sur stroke pour signaler "12 derniers mois".
+        const ttmDash = isTTM ? "5 4" : undefined;
+        const ttmOpacity = isTTM ? 0.6 : 1;
         const top = `M ${x} ${yT} L ${x + barW} ${yT} L ${x + barW + DX} ${yT + DY} L ${x + DX} ${yT + DY} Z`;
         const side = `M ${x + barW} ${yT} L ${x + barW + DX} ${yT + DY} L ${x + barW + DX} ${baseY + DY} L ${x + barW} ${baseY} Z`;
         const front = `M ${x} ${yT} L ${x + barW} ${yT} L ${x + barW} ${baseY} L ${x} ${baseY} Z`;
         return (
           <g key={i} onMouseEnter={() => setHover(i)} onMouseLeave={() => setHover(null)}
-            style={{ opacity: hover === null || isH ? 1 : 0.5, cursor: "pointer", transition: "opacity 200ms" }}>
-            {/* shadow under bar */}
-            <ellipse cx={x + barW / 2 + DX / 2} cy={baseY + 6} rx={barW * 0.7} ry={6} fill="#000" fillOpacity={0.4} />
-            <path d={front} fill="url(#b26-front)" stroke="#050505" strokeWidth={0.6} />
-            <path d={side} fill="url(#b26-side)" stroke="#050505" strokeWidth={0.6} />
-            <path d={top} fill="url(#b26-top)" stroke="#050505" strokeWidth={0.6} />
+            style={{ opacity: (hover === null || isH ? 1 : 0.5) * ttmOpacity, cursor: "pointer", transition: "opacity 200ms" }}>
+            {/* shadow under bar (skip in classic / TTM) */}
+            {!isClassic && !isTTM && (
+              <ellipse cx={x + barW / 2 + DX / 2} cy={baseY + 6} rx={barW * 0.7} ry={6} fill="#000" fillOpacity={0.4} />
+            )}
+            {isClassic ? (
+              /* Classic 2D flat bar */
+              <rect
+                x={x}
+                y={yT}
+                width={barW}
+                height={h}
+                fill={color}
+                fillOpacity={isTTM ? 0.35 : 0.75}
+                stroke={color}
+                strokeWidth={isTTM ? 1.6 : 1.2}
+                strokeDasharray={ttmDash}
+                rx={2}
+              />
+            ) : (
+              /* Iso 3D : front + side + top */
+              <>
+                <path d={front} fill="url(#b26-front)" stroke="#050505" strokeWidth={0.6} strokeDasharray={ttmDash} />
+                <path d={side} fill="url(#b26-side)" stroke="#050505" strokeWidth={0.6} strokeDasharray={ttmDash} />
+                <path d={top} fill="url(#b26-top)" stroke="#050505" strokeWidth={0.6} strokeDasharray={ttmDash} />
+              </>
+            )}
             {/* value above */}
-            <text x={x + barW / 2 + DX / 2} y={yT + DY - 12} textAnchor="middle" fontSize={15} fontWeight={700}
+            <text x={x + barW / 2 + (isClassic ? 0 : DX / 2)} y={yT + (isClassic ? -10 : DY - 12)} textAnchor="middle" fontSize={15} fontWeight={700}
               fill="#fafafa" fontFamily="ui-monospace, monospace">
               {v}
             </text>
-            {/* x label */}
-            <text x={x + barW / 2 + DX / 2} y={H - PAD_BOTTOM + 26} textAnchor="middle" fontSize={17}
-              fill="#e4e4e7" fontFamily="ui-monospace, monospace" fontWeight={600}>
-              {labels[i]}
+            {/* x label : TTM en italique gris */}
+            <text x={x + barW / 2 + (isClassic ? 0 : DX / 2)} y={H - PAD_BOTTOM + 26} textAnchor="middle" fontSize={isTTM ? 15 : 17}
+              fill={isTTM ? "#a1a1aa" : "#e4e4e7"} fontFamily="ui-monospace, monospace" fontWeight={isTTM ? 500 : 600} fontStyle={isTTM ? "italic" : "normal"}>
+              {allLabels[i]}
             </text>
           </g>
         );
       })}
       <EventDotsSVG
         events={events}
-        xLabels={labels}
+        xLabels={allLabels}
         padLeft={PAD_LEFT}
         innerW={INNER_W}
         padTop={PAD_TOP}
@@ -147,7 +188,7 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
     </svg>
     <EventDotsOverlay
       events={events}
-      xLabels={labels}
+      xLabels={allLabels}
       svgW={W}
       svgH={H}
       padLeft={PAD_LEFT}

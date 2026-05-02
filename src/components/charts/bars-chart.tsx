@@ -70,20 +70,37 @@ export function BarsChart({
   unit,
   color = "#a78bfa",
   anomalies = [],
+  ttm = null,
+  ttmLabel = "TTM",
+  variant = "neon3d",
 }: {
   data: number[];
   labels: string[];
   unit: string;
   color?: string;
   anomalies?: Anomaly[];
+  /** Trailing 12 months : barre supplémentaire à la fin si fourni (Q-1+Q-2+Q-3+Q-4). */
+  ttm?: number | null;
+  /** Label affiché sous la barre TTM. Default "TTM". */
+  ttmLabel?: string;
+  /** Style visuel du chart : neon3d (par défaut) ou classique 2D simple. */
+  variant?: "neon3d" | "classic";
 }) {
   const [hover, setHover] = useState<number | null>(null);
+
+  // Étend data + labels avec la barre TTM si fournie. La dernière barre
+  // est ensuite stylée différemment (pointillé / opacité réduite) pour
+  // qu'on comprenne que c'est "12 derniers mois" et pas une année calendaire.
+  const hasTTM = ttm != null && Number.isFinite(ttm);
+  const allData = hasTTM ? [...data, ttm as number] : data;
+  const allLabels = hasTTM ? [...labels, ttmLabel] : labels;
+  const ttmIndex = hasTTM ? allData.length - 1 : -1;
 
   const innerW = W - PAD_LEFT - PAD_RIGHT;
   const innerH = H - PAD_TOP - PAD_BOTTOM;
 
-  const dataMin = Math.min(0, ...data);
-  const dataMax = Math.max(...data, 0);
+  const dataMin = Math.min(0, ...allData);
+  const dataMax = Math.max(...allData, 0);
   // Compute "nice" tick values rounded to 1/2/5×magnitude. The chart's actual
   // scale spans the rounded min..max so the data fits within the gridlines.
   const tickValues = niceTicks(dataMin, dataMax, 5);
@@ -92,16 +109,16 @@ export function BarsChart({
   const range = max - min || 1;
   const zeroY = PAD_TOP + ((max - 0) / range) * innerH;
 
-  const slot = innerW / data.length;
+  const slot = innerW / allData.length;
   const barW = Math.min(slot * 0.42, 56);
 
   const u = formatUnit(unit);
   const header = axisHeader(unit);
   const intTicks = isCurrencyLike(unit);
 
-  const yoyPct = data.map((v, i) => {
+  const yoyPct = allData.map((v, i) => {
     if (i === 0) return null;
-    const prev = data[i - 1];
+    const prev = allData[i - 1];
     if (!prev) return null;
     return ((v - prev) / Math.abs(prev)) * 100;
   });
@@ -181,7 +198,7 @@ export function BarsChart({
           />
         )}
 
-        {data.map((v, i) => {
+        {allData.map((v, i) => {
           const x = PAD_LEFT + slot * i + (slot - barW) / 2;
           const yTop = PAD_TOP + ((max - Math.max(v, 0)) / range) * innerH;
           const yBot = PAD_TOP + ((max - Math.min(v, 0)) / range) * innerH;
@@ -191,9 +208,16 @@ export function BarsChart({
           const yoyColor =
             yPct == null ? "#a1a1aa" : yPct >= 0 ? "#10b981" : "#f43f5e";
           const isAnomaly = anomalyByIndex.has(i);
+          const isTTM = i === ttmIndex;
 
           const topPath = `M ${x},${yTop} L ${x + barW},${yTop} L ${x + barW + DX},${yTop + DY} L ${x + DX},${yTop + DY} Z`;
           const sidePath = `M ${x + barW},${yTop} L ${x + barW + DX},${yTop + DY} L ${x + barW + DX},${yBot + DY} L ${x + barW},${yBot} Z`;
+
+          // Style classique : pas de 3D depth, fill plein.
+          // Style neon3d : faces top + right + stroke.
+          // TTM : pointillé partout (différencier des années calendaires).
+          const ttmDash = isTTM ? "4 3" : undefined;
+          const isClassic = variant === "classic";
 
           return (
             <motion.g
@@ -209,69 +233,94 @@ export function BarsChart({
                 cursor: "pointer",
               }}
             >
-              {/* Halo glow behind the bar */}
-              <rect
-                x={x}
-                y={yTop}
-                width={barW}
-                height={h}
-                fill={color}
-                fillOpacity={isHover ? 0.32 : 0.15}
-                filter={`url(#${idGlow})`}
-              />
-              {/* Subtle inner gradient fill */}
-              <rect
-                x={x}
-                y={yTop}
-                width={barW}
-                height={h}
-                fill={`url(#${idFill})`}
-              />
-              {/* Top face — outline only with glow */}
-              <path
-                d={topPath}
-                fill="none"
-                stroke={color}
-                strokeWidth={1.5}
-                filter={`url(#${idGlow})`}
-              />
-              <path
-                d={topPath}
-                fill="none"
-                stroke={color}
-                strokeWidth={1.5}
-                strokeLinejoin="round"
-              />
-              {/* Right face — outline only, dimmer */}
-              <path
-                d={sidePath}
-                fill="none"
-                stroke={color}
-                strokeWidth={1.2}
-                strokeOpacity={0.6}
-                strokeLinejoin="round"
-              />
-              {/* Front face — neon stroke, sharp corners */}
-              <rect
-                x={x}
-                y={yTop}
-                width={barW}
-                height={h}
-                fill="none"
-                stroke={color}
-                strokeWidth={isHover ? 2.2 : 1.6}
-              />
+              {isClassic ? (
+                /* === Classic 2D bar === */
+                <>
+                  <rect
+                    x={x}
+                    y={yTop}
+                    width={barW}
+                    height={h}
+                    fill={color}
+                    fillOpacity={isTTM ? 0.35 : (isHover ? 0.85 : 0.7)}
+                    stroke={color}
+                    strokeWidth={isTTM ? 1.6 : 1.2}
+                    strokeDasharray={ttmDash}
+                    rx={2}
+                  />
+                </>
+              ) : (
+                /* === Neon3D bar (default) === */
+                <>
+                  {/* Halo glow behind the bar */}
+                  <rect
+                    x={x}
+                    y={yTop}
+                    width={barW}
+                    height={h}
+                    fill={color}
+                    fillOpacity={isHover ? 0.32 : 0.15}
+                    filter={`url(#${idGlow})`}
+                  />
+                  {/* Subtle inner gradient fill */}
+                  <rect
+                    x={x}
+                    y={yTop}
+                    width={barW}
+                    height={h}
+                    fill={`url(#${idFill})`}
+                  />
+                  {/* Top face — outline only with glow */}
+                  <path
+                    d={topPath}
+                    fill="none"
+                    stroke={color}
+                    strokeWidth={1.5}
+                    strokeDasharray={ttmDash}
+                    filter={`url(#${idGlow})`}
+                  />
+                  <path
+                    d={topPath}
+                    fill="none"
+                    stroke={color}
+                    strokeWidth={1.5}
+                    strokeDasharray={ttmDash}
+                    strokeLinejoin="round"
+                  />
+                  {/* Right face — outline only, dimmer */}
+                  <path
+                    d={sidePath}
+                    fill="none"
+                    stroke={color}
+                    strokeWidth={1.2}
+                    strokeOpacity={0.6}
+                    strokeDasharray={ttmDash}
+                    strokeLinejoin="round"
+                  />
+                  {/* Front face — neon stroke, sharp corners */}
+                  <rect
+                    x={x}
+                    y={yTop}
+                    width={barW}
+                    height={h}
+                    fill="none"
+                    stroke={color}
+                    strokeWidth={isHover ? 2.2 : 1.6}
+                    strokeDasharray={ttmDash}
+                  />
+                </>
+              )}
 
               {/* Anomaly marker */}
               {isAnomaly && (
                 <circle
-                  cx={x + barW / 2 + DX / 2}
-                  cy={yTop + DY / 2}
+                  cx={x + barW / 2 + (isClassic ? 0 : DX / 2)}
+                  cy={yTop + (isClassic ? 0 : DY / 2)}
                   r={4.5}
                   fill={color}
                   stroke="#ffffff"
                   strokeWidth={1.5}
-                  filter={`url(#${idGlow})`}
+                  filter={isClassic ? undefined : `url(#${idGlow})`}
                 />
               )}
 
@@ -281,14 +330,14 @@ export function BarsChart({
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.07 * i + 0.4, duration: 0.4 }}
-                  x={x + barW / 2 + DX / 2}
-                  y={yTop + DY - 24}
+                  x={x + barW / 2 + (isClassic ? 0 : DX / 2)}
+                  y={yTop + (isClassic ? -10 : DY - 24)}
                   textAnchor="middle"
                   fontSize={17}
                   fontWeight={700}
                   fill={yoyColor}
                   fontFamily="ui-monospace, monospace"
-                  style={{ filter: `drop-shadow(0 0 4px ${yoyColor})` }}
+                  style={isClassic ? undefined : { filter: `drop-shadow(0 0 4px ${yoyColor})` }}
                 >
                   {yPct >= 0 ? "+" : ""}
                   {yPct.toFixed(1)} %
@@ -298,14 +347,14 @@ export function BarsChart({
               {/* Hover value — taille agrandie */}
               {isHover && (
                 <text
-                  x={x + barW / 2 + DX / 2}
-                  y={yTop + DY - 48}
+                  x={x + barW / 2 + (isClassic ? 0 : DX / 2)}
+                  y={yTop + (isClassic ? -34 : DY - 48)}
                   textAnchor="middle"
                   fontSize={18}
                   fontWeight={800}
                   fill="#fafafa"
                   fontFamily="ui-monospace, monospace"
-                  style={{ filter: `drop-shadow(0 0 4px ${color})` }}
+                  style={isClassic ? undefined : { filter: `drop-shadow(0 0 4px ${color})` }}
                 >
                   {v}
                   {u && (
@@ -317,17 +366,18 @@ export function BarsChart({
                 </text>
               )}
 
-              {/* X-axis label — taille agrandie */}
+              {/* X-axis label — taille agrandie. TTM en italique pour distinguer. */}
               <text
-                x={x + barW / 2 + DX / 2}
+                x={x + barW / 2 + (variant === "classic" ? 0 : DX / 2)}
                 y={H - PAD_BOTTOM + 26}
                 textAnchor="middle"
-                fontSize={17}
-                fill="#e4e4e7"
+                fontSize={isTTM ? 15 : 17}
+                fill={isTTM ? "#a1a1aa" : "#e4e4e7"}
                 fontFamily="ui-monospace, monospace"
-                fontWeight={600}
+                fontWeight={isTTM ? 500 : 600}
+                fontStyle={isTTM ? "italic" : "normal"}
               >
-                {labels[i] ?? ""}
+                {allLabels[i] ?? ""}
               </text>
             </motion.g>
           );
