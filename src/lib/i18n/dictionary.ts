@@ -549,6 +549,31 @@ export const DICTIONARY: Dict = {
     fr: "On vise plus haut, plus beau, plus utile.",
     en: "Aiming higher, prettier, more useful.",
   },
+
+  // === TTM (Trailing Twelve Months) ============================
+  "ttm.label": { fr: "TTM", en: "TTM" },
+  "ttm.tooltip_title": {
+    fr: "TTM, c'est quoi ?",
+    en: "What is TTM?",
+  },
+  "ttm.tooltip_body": {
+    fr: "TTM signifie Trailing Twelve Months : les 12 derniers mois publiés. C'est la somme des 4 derniers trimestres connus, peu importe quand l'année calendaire commence. Ça permet de voir la tendance la plus récente sans attendre la clôture annuelle. La barre TTM est en pointillé pour la distinguer des années calendaires.",
+    en: "TTM means Trailing Twelve Months: the most recent 12 months published. It's the sum of the last 4 known quarters, regardless of when the calendar year begins. It shows the latest trend without waiting for the annual close. The TTM bar is dashed to distinguish it from calendar years.",
+  },
+
+  // === Time fraction toggle (sec/min/h/j/sem/mois/an) ===========
+  "timefrac.label": { fr: "Voir la valeur par :", en: "Show value per:" },
+  "timefrac.year": { fr: "an", en: "year" },
+  "timefrac.month": { fr: "mois", en: "month" },
+  "timefrac.week": { fr: "semaine", en: "week" },
+  "timefrac.day": { fr: "jour", en: "day" },
+  "timefrac.hour": { fr: "heure", en: "hour" },
+  "timefrac.minute": { fr: "minute", en: "minute" },
+  "timefrac.second": { fr: "seconde", en: "second" },
+  "timefrac.tooltip": {
+    fr: "Affiche la valeur divisée par fraction de temps. Utile pour voir « combien gagne cette société par seconde ? ». Calcul simple : valeur annuelle ÷ nombre de fractions dans une année (365 jours, 8 760 heures, etc.).",
+    en: "Shows the value divided by time fraction. Useful to see 'how much does this company earn per second?'. Simple math: yearly value ÷ number of fractions in a year (365 days, 8,760 hours, etc.).",
+  },
   "senate.demo_footer": {
     fr: "Données démo : branchement live API Senate Stock Watcher / Capitol Trades en V1.5",
     en: "Demo data: live wiring to Senate Stock Watcher / Capitol Trades API in V1.5",

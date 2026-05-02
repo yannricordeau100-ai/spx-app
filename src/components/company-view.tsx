@@ -28,6 +28,7 @@ import { smoothScrollTo } from "@/lib/scroll";
 import { Spotlight } from "@/components/effects/spotlight";
 import { NumberTicker } from "@/components/effects/number-ticker";
 import { ChartCycle, ChartCycleControls, useChartMode } from "@/components/chart-cycle";
+import { TimeFractionToggle, type TimeFraction } from "@/components/charts/time-fraction-toggle";
 import { KpiRow } from "@/components/kpi-row";
 import { QualityBadge, QualityChipOnly, PercentileChipOnly } from "@/components/quality-badge";
 import { CompanyHeader } from "@/components/company-header";
@@ -84,6 +85,7 @@ export function CompanyView({
   const [compareOpen, setCompareOpen] = useState(false);
   const [chartMode, setChartMode] = useChartMode("curve");
   const [barsVariant, setBarsVariant] = useState<"iso3d" | "classic">("classic");
+  const [timeFraction, setTimeFraction] = useState<TimeFraction>("year");
   const [compareTicker, setCompareTicker] = useState<string | null>(null);
 
   const heroRef = useRef<HTMLDivElement>(null);
@@ -313,6 +315,18 @@ export function CompanyView({
                   <div className="text-zinc-200">{active.explanation}</div>
                 </InfoTooltip>
               </div>
+              {/* TimeFraction toggle visible UNIQUEMENT pour les charts qui ont
+                  du sens à diviser : courbe + barres. Pour variation/dashboard,
+                  on cache (les % de variation ne se divisent pas par seconde). */}
+              {(chartMode === "curve" || chartMode === "bars") && (
+                <div className="mb-2 flex justify-end">
+                  <TimeFractionToggle
+                    value={timeFraction}
+                    onChange={setTimeFraction}
+                    accent={accent}
+                  />
+                </div>
+              )}
               <ChartCycle
                 mode={chartMode}
                 data={active.history}
@@ -325,7 +339,25 @@ export function CompanyView({
                 onPickKpi={handleKpiClick}
                 ttm={active.ttm ?? null}
                 barsVariant={barsVariant}
+                timeFraction={timeFraction}
               />
+              {/* Légende TTM (visible si TTM présent + chart bars/courbe) */}
+              {active.ttm != null && (chartMode === "curve" || chartMode === "bars") && (
+                <div className="mt-2 flex items-center justify-end gap-2 text-[11px] text-zinc-500">
+                  <span className="inline-flex items-center gap-1">
+                    <span className="inline-block size-2 rounded-full border-2 border-dashed" style={{ borderColor: accent }} />
+                    <span className="font-mono italic">TTM</span>
+                  </span>
+                  <InfoTooltip color={accent} align="right">
+                    <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: accent }}>
+                      {t("ttm.tooltip_title")}
+                    </div>
+                    <div className="text-[12px] leading-relaxed text-zinc-200">
+                      {t("ttm.tooltip_body")}
+                    </div>
+                  </InfoTooltip>
+                </div>
+              )}
             </div>
           </div>
 

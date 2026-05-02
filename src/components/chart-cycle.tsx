@@ -17,6 +17,9 @@ import { useT } from "@/lib/i18n/provider";
 export type ChartMode = "curve" | "bars" | "delta" | "panel";
 export type BarsVariant = "iso3d" | "classic";
 
+import type { TimeFraction } from "@/components/charts/time-fraction-toggle";
+import { timeFractionDivisor } from "@/components/charts/time-fraction-toggle";
+
 const MODES: {
   id: ChartMode;
   labelKey: string;
@@ -146,6 +149,7 @@ export function ChartCycle({
   onPickKpi,
   ttm = null,
   barsVariant = "iso3d",
+  timeFraction = "year",
 }: {
   mode: ChartMode;
   data: number[];
@@ -162,8 +166,16 @@ export function ChartCycle({
   ttm?: number | null;
   /** Variant pour le mode bars uniquement. */
   barsVariant?: BarsVariant;
+  /** Fraction de temps : year (défaut) divise pas, month=/12, day=/365, etc.
+   *  Affecte uniquement les valeurs affichées (data + ttm). YoY% inchangé. */
+  timeFraction?: TimeFraction;
 }) {
   const xLabels = labels ?? defaultLabels(data.length);
+
+  // Diviseur appliqué aux valeurs (data + ttm) pour le mode "par jour", "par seconde", etc.
+  const divisor = timeFractionDivisor(timeFraction);
+  const scaledData = divisor === 1 ? data : data.map((v) => v / divisor);
+  const scaledTtm = ttm == null ? null : (divisor === 1 ? ttm : ttm / divisor);
 
   return (
     <div className="relative min-h-[320px]">
@@ -176,13 +188,13 @@ export function ChartCycle({
           transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
         >
           {mode === "curve" && (
-            <CurveChart data={data} labels={xLabels} unit={unit} color={color} anomalies={anomalies} events={events} ttm={ttm} />
+            <CurveChart data={scaledData} labels={xLabels} unit={unit} color={color} anomalies={anomalies} events={events} ttm={scaledTtm} />
           )}
           {mode === "bars" && (
-            <BarsIso3DStack data={data} labels={xLabels} unit={unit} color={color} events={events} ttm={ttm} variant={barsVariant} />
+            <BarsIso3DStack data={scaledData} labels={xLabels} unit={unit} color={color} events={events} ttm={scaledTtm} variant={barsVariant} />
           )}
           {mode === "delta" && (
-            <VariationIsoSteps3D data={data} labels={xLabels} events={events} />
+            <VariationIsoSteps3D data={scaledData} labels={xLabels} events={events} />
           )}
           {mode === "panel" && company && activeShort && onPickKpi && (
             <MiniMultiplesChart
