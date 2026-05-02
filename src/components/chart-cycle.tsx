@@ -19,6 +19,7 @@ export type BarsVariant = "iso3d" | "classic";
 
 import type { TimeFraction } from "@/components/charts/time-fraction-toggle";
 import { timeFractionDivisor } from "@/components/charts/time-fraction-toggle";
+import { toAbsolute, rescaleForReadability } from "@/lib/format";
 
 const MODES: {
   id: ChartMode;
@@ -174,8 +175,32 @@ export function ChartCycle({
 
   // Diviseur appliqué aux valeurs (data + ttm) pour le mode "par jour", "par seconde", etc.
   const divisor = timeFractionDivisor(timeFraction);
-  const scaledData = divisor === 1 ? data : data.map((v) => v / divisor);
-  const scaledTtm = ttm == null ? null : (divisor === 1 ? ttm : ttm / divisor);
+
+  // Rescale auto de l'unité pour garder valeur >= 1 quand on divise.
+  // Ex : Cloud GOOGL 58.71 Md$ /an → /seconde = 1.86 $/s (unit Md$ → $)
+  // On bosse en valeur ABSOLUE puis on retrouve l'unité optimale basée sur le MAX.
+  let scaledData = data;
+  let scaledTtm = ttm;
+  let displayUnit = unit;
+
+  if (divisor !== 1) {
+    // Convertir chaque value de history en valeur absolue (unité de base)
+    const absData = data.map((v) => toAbsolute(v, unit) / divisor);
+    const absTtm = ttm == null ? null : toAbsolute(ttm, unit) / divisor;
+    // Trouver le MAX absolu (positif) pour décider de l'unité commune
+    const allAbs = [...absData, ...(absTtm != null ? [absTtm] : [])].filter(Number.isFinite);
+    const maxAbs = Math.max(...allAbs.map((v) => Math.abs(v)));
+    const { unit: newUnit } = rescaleForReadability(maxAbs, unit);
+    // Trouver le facteur de conversion entre l'unité de base et la nouvelle unité
+    const factorPerUnit: Record<string, number> = {
+      "$T": 1e12, "$B": 1e9, "$M": 1e6, "$K": 1e3, "$": 1, "$¢": 0.01,
+      "T": 1e12, "B": 1e9, "M": 1e6, "K": 1e3, "": 1,
+    };
+    const newFactor = factorPerUnit[newUnit] ?? 1;
+    scaledData = absData.map((v) => v / newFactor);
+    scaledTtm = absTtm == null ? null : absTtm / newFactor;
+    displayUnit = newUnit;
+  }
 
   return (
     <div className="relative min-h-[320px]">
@@ -188,10 +213,10 @@ export function ChartCycle({
           transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
         >
           {mode === "curve" && (
-            <CurveChart data={scaledData} labels={xLabels} unit={unit} color={color} anomalies={anomalies} events={events} ttm={scaledTtm} />
+            <CurveChart data={scaledData} labels={xLabels} unit={displayUnit} color={color} anomalies={anomalies} events={events} ttm={scaledTtm} />
           )}
           {mode === "bars" && (
-            <BarsIso3DStack data={scaledData} labels={xLabels} unit={unit} color={color} events={events} ttm={scaledTtm} variant={barsVariant} />
+            <BarsIso3DStack data={scaledData} labels={xLabels} unit={displayUnit} color={color} events={events} ttm={scaledTtm} variant={barsVariant} />
           )}
           {mode === "delta" && (
             <VariationIsoSteps3D data={scaledData} labels={xLabels} events={events} />

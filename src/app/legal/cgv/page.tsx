@@ -19,7 +19,7 @@ export default function CGVPage() {
           dont le siège social est situé : <strong>60 rue François 1er, 75008 Paris, France</strong>.
         </p>
         <p>
-          Numéro d&apos;identification : <ToFill>SIREN/SIRET ou IDE</ToFill> · Numéro TVA : <ToFill>à compléter</ToFill> ·
+          SIREN : 935 055 137 · TVA intracommunautaire : FR16935055137 ·
           Email : <a href="mailto:contact@mettrik.ai" className="text-violet-300 hover:underline">contact@mettrik.ai</a>
         </p>
       </LegalSection>

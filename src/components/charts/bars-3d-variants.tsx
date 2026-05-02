@@ -168,10 +168,14 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
               fill="#fafafa" fontFamily="ui-monospace, monospace">
               {v}
             </text>
-            {/* x label : TTM en italique gris */}
+            {/* x label : TTM en italique gris + tooltip natif au hover */}
             <text x={x + barW / 2 + (isClassic ? 0 : DX / 2)} y={H - PAD_BOTTOM + 26} textAnchor="middle" fontSize={isTTM ? 15 : 17}
-              fill={isTTM ? "#a1a1aa" : "#e4e4e7"} fontFamily="ui-monospace, monospace" fontWeight={isTTM ? 500 : 600} fontStyle={isTTM ? "italic" : "normal"}>
+              fill={isTTM ? "#a1a1aa" : "#e4e4e7"} fontFamily="ui-monospace, monospace" fontWeight={isTTM ? 500 : 600} fontStyle={isTTM ? "italic" : "normal"}
+              style={isTTM ? { cursor: "help" } : undefined}>
               {allLabels[i]}
+              {isTTM && (
+                <title>TTM = Trailing Twelve Months : les 12 derniers mois publiés (4 derniers trimestres connus). Permet de voir la tendance la plus récente sans attendre la clôture annuelle.</title>
+              )}
             </text>
           </g>
         );

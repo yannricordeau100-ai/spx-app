@@ -22,10 +22,10 @@ export default function MentionsPage() {
           <strong>Contact :</strong> <a href="mailto:contact@mettrik.ai" className="text-violet-300 hover:underline">contact@mettrik.ai</a>
         </p>
         <p>
-          <strong>Numéro d&apos;identification :</strong> <ToFill>SIREN/SIRET (FR) ou IDE (CH)</ToFill>
+          <strong>SIREN :</strong> 935 055 137
         </p>
         <p>
-          <strong>Numéro de TVA intracommunautaire :</strong> <ToFill>à compléter si applicable</ToFill>
+          <strong>Numéro de TVA intracommunautaire :</strong> FR16935055137
         </p>
         <p>
           <strong>Directeur de la publication :</strong> AIRSCAPE

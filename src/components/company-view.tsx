@@ -341,23 +341,6 @@ export function CompanyView({
                 barsVariant={barsVariant}
                 timeFraction={timeFraction}
               />
-              {/* Légende TTM (visible si TTM présent + chart bars/courbe) */}
-              {active.ttm != null && (chartMode === "curve" || chartMode === "bars") && (
-                <div className="mt-2 flex items-center justify-end gap-2 text-[11px] text-zinc-500">
-                  <span className="inline-flex items-center gap-1">
-                    <span className="inline-block size-2 rounded-full border-2 border-dashed" style={{ borderColor: accent }} />
-                    <span className="font-mono italic">TTM</span>
-                  </span>
-                  <InfoTooltip color={accent} align="right">
-                    <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: accent }}>
-                      {t("ttm.tooltip_title")}
-                    </div>
-                    <div className="text-[12px] leading-relaxed text-zinc-200">
-                      {t("ttm.tooltip_body")}
-                    </div>
-                  </InfoTooltip>
-                </div>
-              )}
             </div>
           </div>
 

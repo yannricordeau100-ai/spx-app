@@ -349,8 +349,12 @@ export function CurveChart({
                 fontFamily="ui-monospace, monospace"
                 fontWeight={isTTM ? 500 : 600}
                 fontStyle={isTTM ? "italic" : "normal"}
+                style={isTTM ? { cursor: "help" } : undefined}
               >
                 {allLabels[i] ?? ""}
+                {isTTM && (
+                  <title>TTM = Trailing Twelve Months : les 12 derniers mois publiés (4 derniers trimestres connus). Permet de voir la tendance la plus récente sans attendre la clôture annuelle.</title>
+                )}
               </text>
               {isHover && (
                 <text
