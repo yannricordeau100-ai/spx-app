@@ -39,6 +39,8 @@ function isPublicPath(pathname: string): boolean {
   if (pathname === "/legal" || pathname.startsWith("/legal/")) return true;
   // /pricing = page publique tarifs (voir avant de s'inscrire).
   if (pathname === "/pricing") return true;
+  // /maintenance = page de maintenance, toujours publique (sinon pas affichable).
+  if (pathname === "/maintenance") return true;
   return false;
 }
 
@@ -67,6 +69,32 @@ export async function proxy(request: NextRequest) {
   //    auth gates et desk gates voient la route "réelle" sans confusion.
   const originalPathname = request.nextUrl.pathname;
   const { stripped: routePathname, hadPrefix: isFrLocale } = stripFrPrefix(originalPathname);
+
+  // 0. Maintenance mode : si MAINTENANCE_MODE=on, redirige tout le trafic
+  //    user-facing vers /maintenance (ou /fr/maintenance). Exceptions :
+  //    /maintenance lui-même, /api/*, /desk-* (Yann doit pouvoir bosser),
+  //    /admin, et les assets statiques. Le toggle se fait depuis le
+  //    dashboard Vercel (Project Settings -> Environment Variables).
+  const maintenanceMode = (process.env.MAINTENANCE_MODE ?? "").toLowerCase();
+  const isMaintenanceOn = maintenanceMode === "on" || maintenanceMode === "true" || maintenanceMode === "1";
+  if (isMaintenanceOn) {
+    const isMaintenancePage = routePathname === "/maintenance";
+    const isInternalRoute =
+      routePathname.startsWith("/api/") ||
+      routePathname.startsWith("/desk-") ||
+      routePathname === "/admin" ||
+      routePathname.startsWith("/admin/") ||
+      routePathname === "/whoami" ||
+      routePathname === "/favicon.ico" ||
+      routePathname === "/robots.txt" ||
+      routePathname === "/sitemap.xml";
+    if (!isMaintenancePage && !isInternalRoute) {
+      const url = request.nextUrl.clone();
+      url.pathname = isFrLocale ? "/fr/maintenance" : "/maintenance";
+      url.search = "";
+      return NextResponse.redirect(url, 307); // 307 = temporary, ne casse pas le SEO long terme
+    }
+  }
 
   let response = NextResponse.next({ request });
 

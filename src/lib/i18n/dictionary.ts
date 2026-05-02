@@ -507,6 +507,48 @@ export const DICTIONARY: Dict = {
   "senate.relative.years_ago": { fr: "il y a {n} ans", en: "{n} years ago" },
   "senate.declared_within": { fr: "déclaré sous {n} j", en: "filed within {n}d" },
   "senate.late_filing": { fr: "late filing", en: "late filing" },
+
+  // Page de maintenance (FR + EN obligatoires)
+  "maintenance.headline": {
+    fr: "On peaufine quelques détails",
+    en: "We're polishing a few things",
+  },
+  "maintenance.subhead": {
+    fr: "Mettrik AI est en cours d'amélioration importante. On revient très vite, promis.",
+    en: "Mettrik AI is getting an important update. We'll be back very soon, promise.",
+  },
+  "maintenance.body": {
+    fr: "Pendant qu'on bricole sous le capot, prends un café (ou rage-tweet sur nous si tu es impatient). Le site sera plus rapide, plus joli et avec plus de sociétés analysées au retour.",
+    en: "While we're tinkering under the hood, grab a coffee (or rage-tweet at us if you're impatient). The site will be faster, prettier and with more companies analysed when it's back.",
+  },
+  "maintenance.notify_label": {
+    fr: "Préviens-moi quand c'est revenu",
+    en: "Let me know when it's back",
+  },
+  "maintenance.notify_placeholder": {
+    fr: "ton@email.com",
+    en: "your@email.com",
+  },
+  "maintenance.notify_submit": {
+    fr: "Me prévenir",
+    en: "Notify me",
+  },
+  "maintenance.notify_success": {
+    fr: "Top, on te ping dès que c'est en ligne.",
+    en: "Cool, we'll ping you the moment it's back online.",
+  },
+  "maintenance.eta_intro": {
+    fr: "Estimation retour : ",
+    en: "Estimated return: ",
+  },
+  "maintenance.eta_default": {
+    fr: "très bientôt",
+    en: "very soon",
+  },
+  "maintenance.fun_caption": {
+    fr: "On vise plus haut, plus beau, plus utile.",
+    en: "Aiming higher, prettier, more useful.",
+  },
   "senate.demo_footer": {
     fr: "Données démo : branchement live API Senate Stock Watcher / Capitol Trades en V1.5",
     en: "Demo data: live wiring to Senate Stock Watcher / Capitol Trades API in V1.5",
