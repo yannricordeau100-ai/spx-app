@@ -19,8 +19,9 @@ export default function ConfidentialitePage() {
 
       <LegalSection title="1. Responsable du traitement">
         <p>
-          Le responsable du traitement de vos données personnelles est <strong>Mettrik AI</strong>,
-          <ToFill>statut + adresse à préciser</ToFill>.
+          Le responsable du traitement de vos données personnelles est <strong>AIRSCAPE</strong>
+          (exploitant la marque <strong>Mettrik AI</strong>), siège social
+          au <strong>60 rue François 1er, 75008 Paris, France</strong>.
         </p>
         <p>
           Délégué à la Protection des Données (DPO) :

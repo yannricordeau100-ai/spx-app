@@ -15,8 +15,8 @@ export default function CGVPage() {
 
       <LegalSection title="1. Identité du vendeur">
         <p>
-          Le vendeur est <strong>Mettrik AI</strong>, <ToFill>statut juridique à préciser</ToFill>, dont le siège social est
-          situé : <ToFill>adresse complète à préciser</ToFill>.
+          Le vendeur est <strong>AIRSCAPE</strong> (exploitant la marque <strong>Mettrik AI</strong>),
+          dont le siège social est situé : <strong>60 rue François 1er, 75008 Paris, France</strong>.
         </p>
         <p>
           Numéro d&apos;identification : <ToFill>SIREN/SIRET ou IDE</ToFill> · Numéro TVA : <ToFill>à compléter</ToFill> ·

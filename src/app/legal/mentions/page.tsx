@@ -15,8 +15,8 @@ export default function MentionsPage() {
 
       <LegalSection title="1. Éditeur du site">
         <p>
-          Le site est édité par <strong>Mettrik AI</strong>, <ToFill>statut juridique à préciser : auto-entreprise / SASU / Sàrl CH</ToFill>,
-          dont le siège social est situé : <ToFill>adresse complète à préciser</ToFill>.
+          Le site est édité par <strong>AIRSCAPE</strong> (société d&apos;exploitation de la marque Mettrik AI),
+          dont le siège social est situé : <strong>60 rue François 1er, 75008 Paris, France</strong>.
         </p>
         <p>
           <strong>Contact :</strong> <a href="mailto:contact@mettrik.ai" className="text-violet-300 hover:underline">contact@mettrik.ai</a>
@@ -28,7 +28,7 @@ export default function MentionsPage() {
           <strong>Numéro de TVA intracommunautaire :</strong> <ToFill>à compléter si applicable</ToFill>
         </p>
         <p>
-          <strong>Directeur de la publication :</strong> <ToFill>nom du responsable</ToFill>
+          <strong>Directeur de la publication :</strong> AIRSCAPE
         </p>
       </LegalSection>
 
