@@ -157,28 +157,23 @@ def cmd_transcripts(args, log):
         if i > 0 and i % 20 == 0:
             log(f"   {i}/{len(tickers)} done... (ok={ok} fail={fail} skip={skip})")
 
-        # SMART : essaie Q4 et Q3 année courante d'abord. Si rien, skip ticker.
-        # Évite de gaspiller 8 calls sur stés sans transcript du tout.
+        # SMART "latest first" : essaie Q2/Q1 année courante (= calls récents avril-mai),
+        # puis Q4/Q3 année précédente (= fiscal-end calendrier). Skip si tout vide après 4 essais.
+        # En mai 2026 : Q4/Q3 2026 sont FUTURS (vides garantis), inutile de tester.
         found = None
-        empty_count_2026 = 0
-        # Année courante : essai Q4, Q3 (les 2 plus récents, max likely)
-        for q in [4, 3]:
+        empty_count = 0
+        # Étape 1 : Q2 année courante (le PLUS récent réaliste pour fiscal-end Sept type AAPL)
+        # puis Q1 année courante (fiscal calendrier type GOOG/AMZN)
+        for q in [2, 1]:
             data = fmp_get("earning-call-transcript", {"symbol": t, "year": current_year, "quarter": q})
             if isinstance(data, list) and data and data[0].get("content"):
                 found = data[0]
                 break
             if isinstance(data, list) and len(data) == 0:
-                empty_count_2026 += 1
-        # Si trouvé, stop. Sinon vérifier Q2 et Q1 année courante seulement si Q4/Q3 ne sont pas tous deux vides
-        if not found and empty_count_2026 < 2:
-            for q in [2, 1]:
-                data = fmp_get("earning-call-transcript", {"symbol": t, "year": current_year, "quarter": q})
-                if isinstance(data, list) and data and data[0].get("content"):
-                    found = data[0]
-                    break
-        # Si toujours rien et Q4/Q3 année courante vides : ne tente PAS l'année précédente (probablement no data)
-        if not found and empty_count_2026 < 2:
-            for q in [4, 3, 2, 1]:
+                empty_count += 1
+        # Étape 2 : si rien trouvé, fallback Q4/Q3 année précédente (calls sortis nov-fév)
+        if not found and empty_count < 2:
+            for q in [4, 3]:
                 data = fmp_get("earning-call-transcript", {"symbol": t, "year": current_year - 1, "quarter": q})
                 if isinstance(data, list) and data and data[0].get("content"):
                     found = data[0]

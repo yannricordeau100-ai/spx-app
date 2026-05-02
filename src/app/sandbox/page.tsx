@@ -14,7 +14,7 @@ const ITEMS = [
     href: "/sandbox/billing",
     icon: CreditCard,
     label: "Billing test",
-    desc: "Test du flow Stripe Checkout en mode test (carte 4242…). Webhook + table subscriptions Supabase.",
+    desc: "Test du flow Stripe Checkout en mode test (carte 4242…). Webhook + table subscriptions internes.",
   },
   {
     href: "/concepts",

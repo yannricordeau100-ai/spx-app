@@ -1,4 +1,4 @@
-import { LegalLayout, LegalSection, ToFill } from "@/components/legal/legal-layout";
+import { LegalLayout, LegalSection } from "@/components/legal/legal-layout";
 
 export const metadata = {
   title: "Conditions générales de vente · Mettrik AI",
@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function CGVPage() {
   return (
-    <LegalLayout title="Conditions générales de vente" updatedAt="30 avril 2026">
+    <LegalLayout title="Conditions générales de vente" updatedAt="3 mai 2026">
       <p>
         Les présentes Conditions Générales de Vente (ci-après « <strong>CGV</strong> ») régissent la souscription
         d&apos;abonnements aux services payants de Mettrik AI sur <strong>www.mettrik.ai</strong>.
@@ -24,164 +24,302 @@ export default function CGVPage() {
         </p>
       </LegalSection>
 
-      <LegalSection title="2. Offres d'abonnement">
+      <LegalSection title="2. Qualification de l'utilisateur (particulier ou professionnel)">
+        <p>
+          Lors de la souscription, l&apos;utilisateur indique sa qualité : <strong>particulier</strong> (consommateur,
+          au sens de l&apos;article liminaire du Code de la consommation) ou <strong>professionnel</strong> (au sens
+          de l&apos;article L. 121-1 du Code de la consommation).
+        </p>
+        <p>
+          La qualité <strong>professionnel</strong> est sélectionnée par défaut sur le site, reflétant la cible
+          principale du service (investisseurs, analystes financiers, asset managers, family offices).
+        </p>
+        <p>
+          Cette qualification détermine les régimes applicables :
+        </p>
+        <ul className="list-disc space-y-1.5 pl-6">
+          <li><strong>Particuliers (B2C)</strong> : application du Code de la consommation, droit de rétractation (sous réserve d&apos;article 6 ci-dessous), médiateur de la consommation, juridiction protectrice.</li>
+          <li><strong>Professionnels (B2B)</strong> : pas de droit de rétractation (article L. 221-3 Code conso), pas de bénéfice de la loi Hamon, juridiction commerciale exclusive de Paris.</li>
+        </ul>
+      </LegalSection>
+
+      <LegalSection title="3. Offres d'abonnement">
         <p>Mettrik AI propose les abonnements suivants :</p>
         <ul className="list-disc space-y-1.5 pl-6">
-          <li><strong>Free</strong> : 0 € / mois. Accès complet à 2 sociétés (Google, Meta) avec comparaison entre elles. Les autres sociétés sont accessibles avec contenus floutés.</li>
-          <li><strong>Premium mensuel</strong> : 24,90 € HT / mois (ou 24,90 CHF / 29,90 USD selon devise). Accès complet à toutes les sociétés couvertes, comparaison N-vs-N, watchlists, alertes.</li>
-          <li><strong>Premium annuel</strong> : 189 € HT / an (ou 189 CHF / 249 USD). Économie d&apos;environ 37 % par rapport au mensuel. Mêmes fonctionnalités que Premium mensuel.</li>
-          <li><strong>Enterprise / API</strong> : sur devis. Accès API, multi-utilisateurs, support dédié.</li>
+          <li><strong>Free</strong> : 0 € / mois. Accès limité (sociétés de démonstration).</li>
+          <li><strong>Premium mensuel</strong> : 24,90 € HT / mois. Accès complet aux sociétés couvertes, comparaison, watchlists, alertes.</li>
+          <li><strong>Premium annuel</strong> : 189 € HT / an. Mêmes fonctionnalités, économie d&apos;environ 37 %.</li>
+          <li><strong>Enterprise / API</strong> : sur devis. Multi-utilisateurs, accès API, support dédié.</li>
         </ul>
         <p>
-          Les prix sont indiqués hors taxes. La TVA applicable (taux en vigueur dans le pays de résidence de
-          l&apos;utilisateur) est ajoutée automatiquement par notre prestataire de paiement Stripe au moment du
-          paiement.
+          Les prix sont indiqués hors taxes. La TVA applicable (taux du pays de résidence de l&apos;utilisateur)
+          est ajoutée automatiquement par notre prestataire de paiement <strong>Stripe</strong> au moment du paiement.
         </p>
       </LegalSection>
 
-      <LegalSection title="3. Souscription">
+      <LegalSection title="4. Caractère personnel et nominatif de l'abonnement">
         <p>
-          La souscription s&apos;effectue en ligne via la plateforme de paiement sécurisée <strong>Stripe</strong>.
-          Mettrik AI n&apos;a accès à aucune donnée bancaire de l&apos;utilisateur ; ces données sont stockées et
-          traitées exclusivement par Stripe selon les normes PCI-DSS.
+          Chaque abonnement est strictement <strong>personnel et nominatif</strong>. Un abonnement Premium ouvre l&apos;accès
+          au service à un et un seul utilisateur identifié, depuis un nombre raisonnable d&apos;appareils utilisés par cette
+          même personne (typiquement ordinateur + smartphone personnel).
+        </p>
+        <p>
+          Le partage des identifiants, l&apos;accès simultané ou alterné depuis plusieurs personnes physiques, l&apos;accès
+          via comptes mutualisés ou organisations multiples relèvent de l&apos;abonnement <strong>Enterprise</strong>.
+        </p>
+        <p>
+          Mettrik AI met en œuvre des dispositifs techniques de détection des accès simultanés ou alternés depuis des
+          contextes incompatibles (signatures de navigateur, géolocalisation IP, fréquence de connexion,
+          empreintes d&apos;appareil). En cas de partage avéré : <strong>résiliation immédiate sans remboursement</strong>
+          et facturation rétroactive de chaque utilisateur additionnel détecté au tarif Premium en vigueur, conformément
+          à l&apos;article L. 122-4 du Code de la propriété intellectuelle.
+        </p>
+        <p>
+          <strong>Interdiction d&apos;utilisation de VPN, proxy ou réseaux d&apos;anonymisation</strong> (TOR, IPSec
+          tunnel, services de masquage IP) pour accéder au service Mettrik AI, directement ou indirectement. Toute
+          connexion détectée via VPN ou proxy entraîne la suspension automatique du compte le temps de vérification.
+          Les VPN d&apos;entreprise utilisés par les abonnés Enterprise font l&apos;objet d&apos;un agrément préalable
+          au cas par cas.
+        </p>
+      </LegalSection>
+
+      <LegalSection title="5. Souscription et paiement">
+        <p>
+          La souscription s&apos;effectue en ligne via la plateforme de paiement sécurisée <strong>Stripe</strong>,
+          conforme aux normes PCI-DSS. Mettrik AI n&apos;a accès à aucune donnée bancaire.
         </p>
         <p>
           La souscription prend effet immédiatement après confirmation du paiement. L&apos;utilisateur reçoit une
-          confirmation par email à l&apos;adresse indiquée lors de l&apos;inscription.
+          confirmation par email à l&apos;adresse renseignée lors de l&apos;inscription.
         </p>
       </LegalSection>
 
-      <LegalSection title="4. Renouvellement et résiliation">
+      <LegalSection title="6. Renouvellement et résiliation">
         <p>
           Les abonnements Premium se renouvellent automatiquement à la fin de chaque période (mensuelle ou annuelle).
         </p>
         <p>
-          L&apos;utilisateur peut résilier son abonnement à tout moment depuis son espace personnel ou en contactant
+          <strong>Pour les abonnements annuels souscrits par un particulier</strong>, conformément à
+          l&apos;article L. 215-1 du Code de la consommation (loi Châtel), Mettrik AI notifie l&apos;utilisateur
+          par email <strong>entre un et trois mois avant la date de reconduction</strong>. À défaut de notification,
+          l&apos;utilisateur peut mettre fin à la reconduction tacite à tout moment et obtenir le remboursement
+          au prorata des mois non consommés.
+        </p>
+        <p>
+          La résiliation est possible à tout moment depuis l&apos;espace personnel ou par email à
           <a href="mailto:contact@mettrik.ai" className="text-violet-300 hover:underline"> contact@mettrik.ai</a>.
-          La résiliation prend effet à la fin de la période en cours ; aucun remboursement au prorata n&apos;est effectué pour
-          la période entamée.
+          Elle prend effet à la fin de la période en cours. Aucun remboursement au prorata n&apos;est effectué
+          pour la période entamée.
         </p>
       </LegalSection>
 
-      <LegalSection title="5. Droit de rétractation">
+      <LegalSection title="7. Exclusion du droit de rétractation (service personnalisé)">
         <p>
-          Conformément à la législation européenne sur la consommation, l&apos;utilisateur dispose d&apos;un délai de
-          <strong> 14 jours </strong>à compter de la souscription pour exercer son droit de rétractation, sauf si le
-          service a déjà été pleinement exécuté avec son accord exprès et renoncement explicite à ce droit.
+          Conformément à l&apos;article L. 221-28 3° du Code de la consommation, le droit de rétractation
+          <strong> ne s&apos;applique pas</strong> aux contrats portant sur la <strong>fourniture d&apos;un service
+          de contenu numérique personnalisé</strong>, exécuté immédiatement à la souscription.
         </p>
         <p>
-          <strong>Renoncement explicite :</strong> En cliquant sur le bouton « Souscrire » lors du checkout,
-          l&apos;utilisateur reconnaît expressément que le service Mettrik AI est fourni immédiatement après le paiement
-          et accepte de renoncer à son droit de rétractation pour le contenu déjà consulté. Les périodes non encore
-          consommées peuvent toutefois faire l&apos;objet d&apos;un remboursement au prorata sur demande motivée.
+          Le service Mettrik AI consiste en la fourniture <strong>personnalisée et continue</strong> de KPIs sélectionnés
+          en fonction du profil de l&apos;utilisateur, de ses watchlists, de ses préférences sectorielles, de son
+          historique de comparaisons et de ses paramètres d&apos;alertes : il s&apos;agit d&apos;un service personnalisé
+          au sens de l&apos;article précité, dont l&apos;exécution commence immédiatement à la souscription avec
+          consentement express de l&apos;utilisateur (case dédiée cochée au checkout).
+        </p>
+        <p>
+          Cette exclusion est rappelée explicitement au moment du paiement. <strong>Aucun droit de rétractation
+          ne s&apos;applique aux abonnements professionnels</strong> (article L. 221-3 Code conso).
         </p>
       </LegalSection>
 
-      <LegalSection title="6. Modifications de prix">
+      <LegalSection title="8. Modifications de prix">
         <p>
-          Mettrik AI se réserve le droit de modifier ses tarifs à tout moment. Toute modification de prix sera notifiée
-          aux abonnés au moins 30 jours avant son entrée en vigueur, par email à l&apos;adresse associée au compte.
+          Mettrik AI se réserve le droit de modifier ses tarifs à tout moment. Toute modification est notifiée aux
+          abonnés au moins 30 jours avant son entrée en vigueur, par email à l&apos;adresse associée au compte.
           L&apos;utilisateur peut résilier son abonnement avant l&apos;entrée en vigueur du nouveau tarif sans frais.
         </p>
       </LegalSection>
 
-      <LegalSection title="7. Facturation">
+      <LegalSection title="9. Facturation">
         <p>
-          Une facture est émise automatiquement à chaque échéance d&apos;abonnement et envoyée par email. Toutes les
-          factures sont également téléchargeables depuis l&apos;espace personnel de l&apos;utilisateur.
+          Une facture est émise automatiquement à chaque échéance d&apos;abonnement et envoyée par email.
+          Toutes les factures sont également téléchargeables depuis l&apos;espace personnel.
         </p>
       </LegalSection>
 
-      <LegalSection title="8. Responsabilité et garanties">
+      <LegalSection title="10. Statut éditorial des contenus diffusés">
         <p>
-          Mettrik AI s&apos;engage à fournir le service avec diligence et selon les règles de l&apos;art. Toutefois, le
-          service est fourni « en l&apos;état » et Mettrik AI ne garantit ni l&apos;adéquation du service à un usage
-          particulier, ni l&apos;absence d&apos;erreurs, ni la continuité ininterrompue du service.
+          Les scores, classements, interprétations, indicateurs composites (Super KPIs), comparaisons, signaux
+          et tout contenu produit par Mettrik AI constituent des <strong>opinions éditoriales</strong>, protégées par
+          la liberté d&apos;expression (article 11 de la Déclaration des Droits de l&apos;Homme et du Citoyen) et
+          l&apos;article L. 121-1 du Code de la consommation.
         </p>
         <p>
-          La responsabilité de Mettrik AI est expressément limitée au montant de l&apos;abonnement payé par
-          l&apos;utilisateur sur les 12 derniers mois.
+          Ces contenus ne constituent <strong>ni une recommandation personnalisée d&apos;investissement</strong>,
+          <strong> ni une assertion de fait</strong>, <strong>ni un conseil financier</strong> au sens de
+          l&apos;article L. 541-1 du Code monétaire et financier. Ils sont fournis à titre purement informatif
+          et reflètent l&apos;analyse éditoriale de Mettrik AI à un instant donné.
+        </p>
+        <p>
+          Toute décision d&apos;investissement relève de la seule responsabilité de l&apos;utilisateur. Les
+          performances passées ne préjugent pas des performances futures.
         </p>
       </LegalSection>
 
-      <LegalSection title="9. Propriété intellectuelle des KPIs et des contenus générés">
+      <LegalSection title="11. Responsabilité et garanties">
+        <p>
+          Mettrik AI s&apos;engage à fournir le service avec diligence et selon les règles de l&apos;art. Le service
+          est fourni « en l&apos;état » sans garantie d&apos;adéquation à un usage particulier, d&apos;absence
+          d&apos;erreur ou de continuité ininterrompue.
+        </p>
+        <p>
+          La responsabilité de Mettrik AI est expressément limitée :
+        </p>
+        <ul className="list-disc space-y-1.5 pl-6">
+          <li><strong>Pour les particuliers</strong> : au plus élevé entre (a) le montant total des abonnements
+            payés sur les 12 derniers mois, et (b) <strong>100 €</strong>.</li>
+          <li><strong>Pour les professionnels</strong> : au montant total des abonnements payés sur les 12 derniers
+            mois (pas de plancher minimal).</li>
+        </ul>
+        <p>
+          <strong>Force majeure étendue.</strong> Constituent des cas de force majeure exonératoires : cyberattaques
+          externes (DDoS, ransomware, intrusions ciblées), défaillance des prestataires d&apos;infrastructure ou
+          de paiement, modification réglementaire imposant l&apos;arrêt du service, indisponibilité prolongée des
+          sources de données publiques (régulateurs, opérateurs de marché, dépôts officiels), sanctions
+          internationales ou décisions administratives. Mettrik AI ne saurait être tenue responsable des conséquences
+          de tels événements, dès lors que les bonnes pratiques de sécurité (chiffrement, authentification, sauvegardes,
+          procédures de réponse aux incidents) ont été appliquées.
+        </p>
+      </LegalSection>
+
+      <LegalSection title="12. Délai des données et caractère informatif">
+        <p>
+          Les données financières affichées sur Mettrik AI (cours, indicateurs, ratios, KPIs) proviennent de sources
+          publiques et de calculs propriétaires. Même lorsqu&apos;une mention « en temps réel », « live », « à jour »
+          ou équivalente est affichée, ces données peuvent comporter un <strong>décalage de plusieurs secondes,
+          plusieurs minutes voire plusieurs heures</strong> par rapport à la valeur effective sur les marchés
+          (différé de feed, latences réseau, traitements algorithmiques, fenêtres de mise à jour).
+        </p>
+        <p>
+          Mettrik AI ne garantit en aucun cas la disponibilité des données en temps réel strict. L&apos;utilisateur
+          est invité à vérifier auprès des sources officielles (opérateurs de marché, régulateurs) toute donnée
+          servant de base à une décision d&apos;investissement.
+        </p>
+      </LegalSection>
+
+      <LegalSection title="13. Propriété intellectuelle des KPIs et des contenus générés">
         <p>
           Les contenus présentés sur Mettrik AI sont de deux natures :
         </p>
         <ul className="list-disc space-y-1.5 pl-6">
           <li>
-            <strong>Données primaires sources :</strong> chiffres financiers, déclarations, faits relatifs aux sociétés
-            cotées analysées. Ces données sont issues de publications officielles (rapports annuels, trimestriels,
-            communiqués réglementaires) et restent la propriété de leurs auteurs respectifs (les sociétés cotées
-            elles-mêmes ou leurs régulateurs).
+            <strong>Données primaires sources</strong> : chiffres financiers, déclarations, faits relatifs aux sociétés
+            cotées analysées, issus de publications officielles (rapports annuels, trimestriels, communiqués
+            réglementaires). Ces données restent la propriété de leurs auteurs respectifs.
           </li>
           <li>
-            <strong>Contenus générés et travaillés par Mettrik AI :</strong> méthodologies de scoring, indicateurs
-            composites (Super KPIs), interprétations éditoriales, analyses comparatives, scores de qualité,
-            scores de risque, classements, agrégations, visualisations, et tout autre dérivé produit par les
-            traitements algorithmiques ou éditoriaux de Mettrik AI. Ces contenus sont la <strong>propriété
-            exclusive de Mettrik AI</strong>, protégés par le droit d&apos;auteur, le droit des bases de données
-            (article L. 341-1 et suivants du Code de la propriété intellectuelle français, et dispositions
-            équivalentes en Suisse) et tout autre régime applicable.
+            <strong>Contenus générés et travaillés par Mettrik AI</strong> : méthodologies de scoring, indicateurs
+            composites, interprétations éditoriales, analyses comparatives, scores de qualité, scores de risque,
+            classements, agrégations, visualisations. Ces contenus sont la <strong>propriété exclusive de Mettrik AI</strong>,
+            protégés par le droit d&apos;auteur, le droit des bases de données (art. L. 341-1 et suivants CPI),
+            et le droit sui generis du producteur.
           </li>
         </ul>
+        <p>
+          <strong>Œuvres dérivées cumulatives.</strong> Chaque mise à jour algorithmique, méthodologique ou
+          éditoriale constitue une <strong>œuvre dérivée nouvelle</strong> protégée de manière cumulative
+          (art. L. 113-2 CPI). La fin de l&apos;abonnement ne donne aucun droit d&apos;usage sur les versions
+          accédées historiquement.
+        </p>
         <p>
           L&apos;abonnement confère à l&apos;utilisateur un droit d&apos;usage personnel, non exclusif et non
-          transférable des contenus auxquels il a accès. Toute reproduction, redistribution, republication,
-          revente, adaptation, traduction ou exploitation commerciale, totale ou partielle, des contenus
-          générés par Mettrik AI est strictement interdite sans autorisation écrite préalable.
+          transférable. Toute reproduction, redistribution, republication, revente, adaptation, traduction
+          ou exploitation commerciale, totale ou partielle, est strictement interdite sans autorisation écrite
+          préalable.
         </p>
       </LegalSection>
 
-      <LegalSection title="10. Interdictions techniques">
-        <p>
-          L&apos;utilisateur s&apos;engage explicitement à ne pas :
-        </p>
+      <LegalSection title="14. Interdictions techniques et clause anti-IA">
+        <p>L&apos;utilisateur s&apos;engage explicitement à ne pas :</p>
         <ul className="list-disc space-y-1.5 pl-6">
           <li>
-            <strong>Procéder à toute forme de rétro-ingénierie</strong> (« reverse engineering ») du service,
-            de son code, de ses algorithmes, de ses méthodologies de scoring ou de tout composant logiciel,
-            sauf dans les cas strictement autorisés par la loi (article L. 122-6-1 IV CPI en France) ;
+            <strong>Procéder à toute forme de rétro-ingénierie</strong> du service, de son code, de ses algorithmes
+            ou de ses méthodologies de scoring, sauf dans les cas strictement autorisés par la loi
+            (article L. 122-6-1 IV CPI) ;
           </li>
           <li>
-            <strong>Effectuer toute extraction automatisée de données</strong> (« scraping », « crawling »,
-            utilisation de robots, de scripts automatisés, de plug-ins ou d&apos;outils similaires) à partir du
-            site, en dehors des éventuelles API officielles fournies par Mettrik AI ;
+            <strong>Effectuer toute extraction automatisée de données</strong> (scraping, crawling, robots,
+            scripts, plug-ins) en dehors des éventuelles API officielles fournies par Mettrik AI ;
           </li>
           <li>
-            Tenter de contourner les limites techniques (paywall, quotas, authentification, cookies, jetons,
-            chiffrements) ;
+            Tenter de contourner les limites techniques (paywall, quotas, authentification, jetons, chiffrements) ;
           </li>
           <li>
-            Décompiler, désassembler ou modifier le code source du service ;
+            Décompiler, désassembler, modifier le code source du service ;
           </li>
           <li>
-            Reproduire la base de données Mettrik AI dans tout ou en partie qualitativement ou
-            quantitativement substantielle, ce qui constituerait une atteinte au droit sui generis du
-            producteur de la base.
+            Reproduire la base de données Mettrik AI dans tout ou en partie qualitativement ou quantitativement
+            substantielle ;
+          </li>
+          <li>
+            <strong>Utiliser tout contenu Mettrik AI (textes, scores, méthodologies, données dérivées,
+            visualisations, interprétations) pour entraîner, fine-tuner, alimenter ou enrichir tout modèle
+            d&apos;intelligence artificielle</strong> (LLM, machine learning, embeddings, RAG, transformers,
+            réseaux de neurones, et toute architecture similaire). Cette interdiction s&apos;applique à
+            l&apos;auteur direct (utilisateur du compte), aux plateformes d&apos;IA (responsables des LLM
+            tiers entraînés), et aux services intermédiaires (proxys, agrégateurs, services partagés).
           </li>
         </ul>
         <p>
-          Toute violation de l&apos;une de ces interdictions entraînera la résiliation immédiate du compte
-          sans remboursement, ainsi que d&apos;éventuelles poursuites judiciaires civiles et pénales.
+          <strong>Poursuites systématiques.</strong> En cas de violation de l&apos;interdiction d&apos;usage
+          IA ci-dessus, Mettrik AI s&apos;engage à engager systématiquement des poursuites civiles et pénales
+          contre :
+        </p>
+        <ul className="list-disc space-y-1.5 pl-6">
+          <li>L&apos;utilisateur direct du compte ayant servi à l&apos;extraction ;</li>
+          <li>L&apos;éditeur du modèle d&apos;IA ayant intégré ou diffusé les contenus extraits ;</li>
+          <li>Tout intermédiaire technique (services proxys, partages d&apos;accès, agrégateurs) ayant facilité
+            la violation, dans les conditions de l&apos;article 1240 du Code civil et de l&apos;article L. 335-3 CPI.</li>
+        </ul>
+        <p>
+          Toute violation entraîne en outre la résiliation immédiate du compte sans remboursement.
         </p>
       </LegalSection>
 
-      <LegalSection title="11. Avertissement investissement">
+      <LegalSection title="15. Sous-traitants">
         <p>
-          <strong>Le service Mettrik AI ne constitue pas un conseil en investissement.</strong> Les contenus diffusés
-          (analyses, scores, comparaisons) sont fournis à titre informatif uniquement. Mettrik AI ne fournit aucune
-          recommandation personnalisée d&apos;achat ou de vente d&apos;instruments financiers. Toute décision
-          d&apos;investissement relève de la seule responsabilité de l&apos;utilisateur.
+          Pour le traitement des paiements, Mettrik AI fait appel à <strong>Stripe Payments Europe Ltd.</strong>
+          (Irlande), conforme aux normes PCI-DSS Level 1 et au Règlement (UE) 2016/679 (RGPD). Stripe est
+          autonome dans le traitement des données bancaires confiées par l&apos;utilisateur lors du paiement.
+        </p>
+        <p>
+          Pour les autres traitements (hébergement, base de données, envoi d&apos;emails transactionnels,
+          analytics), Mettrik AI fait appel à des sous-traitants techniques sélectionnés selon les critères
+          de l&apos;article 28 RGPD. La liste détaillée et les garanties associées sont disponibles sur demande
+          écrite à <a href="mailto:contact@mettrik.ai" className="text-violet-300 hover:underline">contact@mettrik.ai</a>.
         </p>
       </LegalSection>
 
-      <LegalSection title="12. Droit applicable et juridiction">
+      <LegalSection title="16. Médiation de la consommation (particuliers uniquement)">
         <p>
-          Les présentes CGV sont régies par le droit français. En cas de litige,
-          une solution amiable sera recherchée prioritairement. À défaut, les tribunaux de
-          Paris seront seuls compétents.
+          Conformément à l&apos;article L. 612-1 du Code de la consommation, le particulier peut, en cas de
+          différend non résolu après réclamation écrite, recourir gratuitement à la médiation. Il est invité
+          à <strong>contacter le médiateur de la consommation compétent le plus proche du siège social de Mettrik AI</strong>,
+          via le répertoire public des médiateurs accrédités par la Commission d&apos;évaluation et de contrôle
+          de la médiation de la consommation (CECMC).
         </p>
+      </LegalSection>
+
+      <LegalSection title="17. Droit applicable et juridiction">
+        <p>
+          Les présentes CGV sont régies par le droit français. En cas de litige :
+        </p>
+        <ul className="list-disc space-y-1.5 pl-6">
+          <li><strong>Pour les particuliers</strong> : recherche prioritaire d&apos;une solution amiable, puis
+            médiation (article 16), puis juridiction protectrice prévue par le Code de la consommation.</li>
+          <li><strong>Pour les professionnels</strong> : compétence exclusive du <strong>Tribunal de commerce de Paris</strong>,
+            même en cas de pluralité de défendeurs ou d&apos;appel en garantie.</li>
+        </ul>
       </LegalSection>
     </LegalLayout>
   );

@@ -25,12 +25,27 @@ export default function robots(): MetadataRoute.Robots {
           "/_not-found-desk",
         ],
       },
-      // GPTBot et autres scrapers IA : autorise (gain de visibilité dans les
-      // réponses ChatGPT / Perplexity / Claude). Désactive si tu veux bloquer.
+      // Bots d'entraînement IA / LLM : interdiction TOTALE.
+      // Cohérent avec la clause anti-IA des CGV/CGU. Pas 100 % efficace
+      // (les gros LLM ignorent souvent), mais signal opt-out
+      // juridiquement opposable + élément de preuve en cas de litige.
       {
-        userAgent: ["GPTBot", "ChatGPT-User", "PerplexityBot", "ClaudeBot", "anthropic-ai"],
-        allow: ["/"],
-        disallow: ["/api/", "/auth/", "/account/", "/admin/", "/desk-", "/sandbox/", "/concepts/"],
+        userAgent: [
+          "GPTBot", "ChatGPT-User", "OAI-SearchBot",
+          "ClaudeBot", "anthropic-ai", "Claude-Web",
+          "PerplexityBot", "Perplexity-User",
+          "CCBot",
+          "Google-Extended", "GoogleOther",
+          "Bytespider",
+          "FacebookBot", "Meta-ExternalAgent",
+          "Applebot-Extended",
+          "Amazonbot",
+          "cohere-ai",
+          "Diffbot", "ImagesiftBot", "Omgilibot",
+          "PetalBot", "Timpibot", "YouBot",
+          "ai2bot", "DataForSeoBot", "magpie-crawler",
+        ],
+        disallow: ["/"],
       },
     ],
     sitemap: `${base}/sitemap.xml`,

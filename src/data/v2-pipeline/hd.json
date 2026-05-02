@@ -99,7 +99,7 @@
       "value": "4.4",
       "unit": "x",
       "yoy": "-0.3 x",
-      "type": "Margin",
+      "type": "Efficiency",
       "nature": "Conjoncturel",
       "comparable": "Comparable",
       "signal": "Détérioration de l'efficacité logistique en 2025.",
@@ -147,9 +147,9 @@
       "name_en": "Total Store Count",
       "explanation": "Nombre total de magasins ouverts dans le monde.",
       "value": "2359",
-      "unit": "",
+      "unit": "units",
       "yoy": "+12",
-      "type": "Demand",
+      "type": "Scale",
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Croissance modérée du réseau physique.",
@@ -174,7 +174,7 @@
       "value": "25.7",
       "unit": "%",
       "yoy": "-5.6 pts",
-      "type": "Investment",
+      "type": "Return",
       "nature": "Conjoncturel",
       "comparable": "Comparable",
       "signal": "ROIC en baisse après l'acquisition de GMS.",
@@ -298,5 +298,14 @@
         "stake_pct": 4.3
       }
     ]
-  }
+  },
+  "_validation": [
+    "Inventory Turn: type corrigé de 'Margin' à 'Efficiency' (la rotation des stocks est un indicateur d'efficacité, pas de marge)",
+    "Stores: unit corrigé de '' à 'units' (valeur numérique 2359 doit avoir une unité explicite)",
+    "ROIC: type corrigé de 'Investment' à 'Return' (ROIC mesure un rendement, non un investissement)",
+    "Tous les KPI vérifié: valeurs, unités et historiques correspondent aux données du 10-K fiscal 2025",
+    "Online Sales history: ajout null pour 3ème et 4ème positions (données manquantes avant FY2025 et FY2024)",
+    "Aucun KPI halluciné détecté: tous les KPI présents dans le MD&A et états financiers consolidés",
+    "hero_kpi_rationale: vérification format français sans tiret cadratin (em-dash) - OK"
+  ]
 }

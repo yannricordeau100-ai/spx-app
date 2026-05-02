@@ -85,6 +85,13 @@ export default async function RootLayout({
       style={{ colorScheme: "dark" }}
       className={`dark ${sans.variable} ${jetbrains.variable} ${display.variable} ${sora.variable} h-full antialiased`}
     >
+      <head>
+        {/* Anti-IA training opt-out (cohérent CGV/CGU). Pas 100 % efficace
+            mais signal opposable juridiquement. */}
+        <meta name="robots" content="noai, noimageai" />
+        <meta name="googlebot" content="noai, noimageai" />
+        <meta name="ai-content-declaration" content="no-training" />
+      </head>
       <body className="min-h-full bg-[#050505] text-base text-zinc-100">
         <I18nProvider locale={locale}>{children}</I18nProvider>
         <PlausibleScript />

@@ -62,16 +62,24 @@ export default function ConfidentialitePage() {
       </LegalSection>
 
       <LegalSection title="5. Sous-traitants et hébergement">
-        <p>Vos données peuvent être transmises aux sous-traitants suivants, qui agissent sur instruction de Mettrik AI :</p>
-        <ul className="list-disc space-y-1.5 pl-6">
-          <li><strong>Vercel Inc.</strong> (États-Unis) : hébergement de l&apos;application web. Vercel est certifié EU-US Data Privacy Framework.</li>
-          <li><strong>Supabase Inc.</strong> (région UE Frankfurt après mise en prod) : base de données et authentification.</li>
-          <li><strong>Stripe Payments Europe Ltd.</strong> (Irlande) : traitement des paiements. Conformité PCI-DSS Level 1.</li>
-          <li><strong>Resend Inc.</strong> (États-Unis) : envoi d&apos;emails transactionnels. Certifié EU-US Data Privacy Framework.</li>
-        </ul>
         <p>
-          Tous les transferts de données hors UE sont encadrés par des Clauses Contractuelles Types (Standard Contractual
-          Clauses) approuvées par la Commission européenne, garantissant un niveau de protection équivalent au RGPD.
+          Pour le traitement des paiements, Mettrik AI fait appel à <strong>Stripe Payments Europe Ltd.</strong>
+          (Irlande), conforme aux normes PCI-DSS Level 1 et au Règlement (UE) 2016/679 (RGPD). Stripe agit de manière
+          autonome dans le traitement des données bancaires confiées par l&apos;utilisateur lors du paiement.
+        </p>
+        <p>
+          Pour les autres traitements techniques (hébergement, base de données, envoi d&apos;emails transactionnels,
+          analytics anonymes), Mettrik AI fait appel à des sous-traitants sélectionnés selon les critères de
+          l&apos;article 28 du RGPD : engagements contractuels, garanties de sécurité (chiffrement au repos et en
+          transit, audits SOC 2, certifications ISO 27001 ou équivalentes), localisation préférentielle des données
+          dans l&apos;Espace Économique Européen.
+        </p>
+        <p>
+          La liste détaillée des sous-traitants techniques, avec leur rôle, leur base juridique et les garanties
+          associées, est disponible sur demande écrite à
+          <a href="mailto:contact@mettrik.ai" className="text-violet-300 hover:underline"> contact@mettrik.ai</a>.
+          Les éventuels transferts hors UE sont encadrés par des Clauses Contractuelles Types approuvées par la
+          Commission européenne ou par des décisions d&apos;adéquation en vigueur.
         </p>
       </LegalSection>
 
