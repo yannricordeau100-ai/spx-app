@@ -24,6 +24,15 @@ export type V17SearchEntry = {
   ticker: string;
   name: string;
   sector: string;
+  /**
+   * `true` si la sté a passé Pass 3 (validation Sonnet du dataset par CONV-DATA).
+   * Ces stés sont la "top top" qualité, route vers /sandbox/v1-7/<ticker>.
+   * Les autres routent vers /sandbox/v1-6/<ticker> (extraction Pass 1/2 brute,
+   * non validée mais utilisable). Permet à la search de proposer toutes les
+   * 1606 stés tout en pointant l'utilisateur sur la fiche de meilleure qualité
+   * disponible.
+   */
+  validated: boolean;
 };
 
 export const V17_SEARCH_INDEX: V17SearchEntry[] = indexJson as V17SearchEntry[];

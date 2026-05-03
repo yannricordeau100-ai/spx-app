@@ -8,7 +8,7 @@ import type { Company } from "@/lib/data";
 
 export const dynamic = "force-dynamic";
 export const metadata = {
-  title: "V1.6 — Pipeline LLM (35 stés) · Sandbox",
+  title: "V1.6 · Pipeline LLM (toutes les stés extraites) · Sandbox",
   robots: { index: false, follow: false },
 };
 
@@ -47,13 +47,15 @@ export default async function SandboxV16HubPage() {
           </span>
         </div>
         <p className="mb-2 max-w-3xl text-[14px] text-zinc-400">
-          <strong className="text-cyan-200">Top 20 cat 1 (US)</strong> + <strong className="text-cyan-200">top 20 cat 2 (FPI)</strong> traitées via le pipeline
-          LLM multi-provider (Groq, Cerebras, SambaNova, OpenRouter, Together).
+          Toutes les sociétés extraites par le pipeline LLM multi-provider
+          (Groq, Cerebras, Gemini, SambaNova, OpenRouter, Together).
           Pass 1 : Hero KPI + KPI segments + stories. Pass 2 : risks + gouvernance + IA positioning.
+          Pour la qualité top-top (Pass 3 validée Sonnet), va sur{" "}
+          <Link href="/sandbox/v1-7" className="text-amber-300 hover:underline">/sandbox/v1-7</Link>.
         </p>
         <p className="mb-8 max-w-3xl text-[12px] text-amber-200/80">
-          ⚠ Données extraites automatiquement depuis 10-K / 20-F / 40-F. À valider visuellement avant scaling Phase B (1500 cat 1).
-          Source : <code className="text-zinc-400">src/data/v2-pipeline/</code>
+          ⚠ Données extraites automatiquement depuis 10-K / 20-F / 40-F. Valider visuellement avant usage critique.
+          Les fiches Pass 3 validées portent un badge ambré dans la search globale.
         </p>
 
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">

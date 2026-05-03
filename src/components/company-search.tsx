@@ -416,9 +416,15 @@ function ResultCardV17({
   const e = V17_SEARCH_BY_TICKER[ticker.toUpperCase()];
   const accent = brand(ticker).primary;
   if (!e) return null;
+  // Routing : Pass 3 validées -> /sandbox/v1-7 (qualité top-top, fiche complète
+  // contrôlée Sonnet). Pass 1/2 brutes -> /sandbox/v1-6 (extraction LLM auto,
+  // utilisable mais non validée).
+  const href = e.validated
+    ? `/sandbox/v1-7/${ticker.toLowerCase()}`
+    : `/sandbox/v1-6/${ticker.toLowerCase()}`;
   return (
     <Link
-      href={`/sandbox/v1-7/${ticker.toLowerCase()}`}
+      href={href}
       onClick={onSelect}
       className="group relative flex items-center gap-4 overflow-hidden rounded-2xl border border-white/8 bg-white/[0.02] p-3 transition-all hover:border-white/20 hover:bg-white/[0.05]"
     >
@@ -450,9 +456,15 @@ function ResultCardV17({
           >
             {ticker}
           </span>
-          <span className="rounded-md border border-cyan-400/30 bg-cyan-400/10 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-cyan-200">
-            V1.7
-          </span>
+          {e.validated ? (
+            <span className="rounded-md border border-amber-400/40 bg-amber-400/10 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-amber-200">
+              ✓ Pass 3
+            </span>
+          ) : (
+            <span className="rounded-md border border-cyan-400/30 bg-cyan-400/10 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-cyan-200">
+              V1.6
+            </span>
+          )}
         </div>
         <div className="mt-0.5 truncate text-[11.5px] text-zinc-400">
           {e.sector || "-"}
