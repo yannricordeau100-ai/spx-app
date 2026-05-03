@@ -22,8 +22,7 @@ export function DisclaimerFooter({ variant = "full" }: { variant?: "full" | "com
         </p>
         <div className="mt-2 inline-flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[11px] text-zinc-500">
           <Link href="/legal/mentions" className="hover:text-zinc-300">Mentions légales</Link>
-          <Link href="/legal/cgu" className="hover:text-zinc-300">CGU</Link>
-          <Link href="/legal/cgv" className="hover:text-zinc-300">CGV</Link>
+          <Link href="/legal/conditions" className="hover:text-zinc-300">Conditions générales</Link>
           <Link href="/legal/confidentialite" className="hover:text-zinc-300">Confidentialité</Link>
           <span>· © {new Date().getFullYear()} Mettrik AI</span>
         </div>
@@ -54,8 +53,7 @@ export function DisclaimerFooter({ variant = "full" }: { variant?: "full" | "com
             <div className="mb-3 font-mono text-[10.5px] uppercase tracking-[0.18em] text-zinc-500">Légal</div>
             <ul className="space-y-1.5 text-[12.5px]">
               <li><Link href="/legal/mentions" className="text-zinc-300 hover:text-zinc-100">Mentions légales</Link></li>
-              <li><Link href="/legal/cgu" className="text-zinc-300 hover:text-zinc-100">CGU</Link></li>
-              <li><Link href="/legal/cgv" className="text-zinc-300 hover:text-zinc-100">CGV</Link></li>
+              <li><Link href="/legal/conditions" className="text-zinc-300 hover:text-zinc-100">Conditions générales</Link></li>
               <li><Link href="/legal/confidentialite" className="text-zinc-300 hover:text-zinc-100">Confidentialité</Link></li>
             </ul>
           </div>

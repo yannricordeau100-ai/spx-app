@@ -45,8 +45,7 @@ export function LegalLayout({
 
         <div className="mt-12 flex flex-wrap items-baseline gap-x-6 gap-y-2 border-t border-[#1f1f1f] pt-6 text-[12.5px] text-zinc-500">
           <Link href="/legal/mentions" className="hover:text-zinc-200">Mentions légales</Link>
-          <Link href="/legal/cgu" className="hover:text-zinc-200">CGU</Link>
-          <Link href="/legal/cgv" className="hover:text-zinc-200">CGV</Link>
+          <Link href="/legal/conditions" className="hover:text-zinc-200">Conditions générales</Link>
           <Link href="/legal/confidentialite" className="hover:text-zinc-200">Confidentialité</Link>
           <Link href="/" className="ml-auto hover:text-zinc-200">Retour à l&apos;accueil</Link>
         </div>
