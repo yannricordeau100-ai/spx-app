@@ -41,6 +41,8 @@ function isPublicPath(pathname: string): boolean {
   if (pathname === "/pricing") return true;
   // /maintenance = page de maintenance, toujours publique (sinon pas affichable).
   if (pathname === "/maintenance") return true;
+  // /parrainage = page publique (visible sans compte, propose le sign-in à l'intérieur).
+  if (pathname === "/parrainage") return true;
   return false;
 }
 
