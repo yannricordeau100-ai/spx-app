@@ -633,28 +633,61 @@ def find_latest_filing(ticker: str, cat: int, form_dir: str) -> Path | None:
     return candidates[0][1]
 
 
+CAT3_DIR = Path("/Volumes/250GB/Mettrik/sec-data/cat3-european")
+CAT3_DIR_LOCAL = PROJECT_ROOT / "sec-data/cat3-european"
+
+
+def find_cat3_text(ticker: str) -> tuple[Path | None, str]:
+    """Pour cat 3 EU pures : trouve le dernier annual-report en .txt depuis cat3-european/."""
+    for base in [CAT3_DIR, CAT3_DIR_LOCAL]:
+        d = base / ticker / "annual-text"
+        if d.exists():
+            txts = sorted(d.glob("*.txt"), reverse=True)  # latest year first
+            if txts:
+                latest = txts[0]
+                try:
+                    text = latest.read_text(encoding="utf-8", errors="ignore")
+                    return latest, text
+                except Exception:
+                    continue
+    return None, ""
+
+
 def gather_docs(ticker: str, cat: int) -> dict:
     """Rassemble les docs principaux pour la sté."""
     if cat == 1:
         annual = find_latest_filing(ticker, 1, "10K")
         quarter = find_latest_filing(ticker, 1, "10Q")
         er = find_latest_filing(ticker, 1, "8K")
-    else:
-        # FPI : essayer 20-F puis 40-F-canadian (Canadian MJDS filers)
+        annual_text = extract_key_sections(extract_text_from_htm_gz(annual)) if annual else ""
+        quarter_text = extract_text_from_htm_gz(quarter)[:8000] if quarter else ""
+        er_text = extract_text_from_htm_gz(er)[:6000] if er else ""
+    elif cat == 2:
         annual = (
             find_latest_filing(ticker, 2, "20F")
             or find_latest_filing(ticker, 2, "40F-canadian")
         )
-        quarter = None  # pas de 10-Q en FPI
+        quarter = None
         er = find_latest_filing(ticker, 2, "6K")
+        annual_text = extract_key_sections(extract_text_from_htm_gz(annual)) if annual else ""
+        quarter_text = ""
+        er_text = extract_text_from_htm_gz(er)[:6000] if er else ""
+    else:  # cat 3 EU pures : annual-report converti en .txt
+        annual, annual_full = find_cat3_text(ticker)
+        # Truncate à 25K chars (mêmes ordres de grandeur que extract_key_sections cat 1)
+        annual_text = annual_full[:25000] if annual_full else ""
+        quarter = None
+        quarter_text = ""
+        er = None
+        er_text = ""
 
     return {
         "annual_path": annual,
-        "annual_text": extract_key_sections(extract_text_from_htm_gz(annual)) if annual else "",
+        "annual_text": annual_text,
         "quarter_path": quarter,
-        "quarter_text": extract_text_from_htm_gz(quarter)[:8000] if quarter else "",
+        "quarter_text": quarter_text,
         "er_path": er,
-        "er_text": extract_text_from_htm_gz(er)[:6000] if er else "",
+        "er_text": er_text,
     }
 
 

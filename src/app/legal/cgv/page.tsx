@@ -96,20 +96,23 @@ export default function CGVPage() {
 
       <LegalSection title="6. Renouvellement et résiliation">
         <p>
-          Les abonnements Premium se renouvellent automatiquement à la fin de chaque période (mensuelle ou annuelle).
+          Les abonnements Premium se renouvellent <strong>automatiquement par tacite reconduction</strong> à la
+          fin de chaque période (mensuelle ou annuelle), pour une durée identique à celle de la période initiale,
+          sans nécessité de notification préalable.
         </p>
         <p>
-          <strong>Pour les abonnements annuels souscrits par un particulier</strong>, conformément à
-          l&apos;article L. 215-1 du Code de la consommation (loi Châtel), Mettrik AI notifie l&apos;utilisateur
-          par email <strong>entre un et trois mois avant la date de reconduction</strong>. À défaut de notification,
-          l&apos;utilisateur peut mettre fin à la reconduction tacite à tout moment et obtenir le remboursement
-          au prorata des mois non consommés.
+          La résiliation est possible à tout moment depuis l&apos;espace personnel utilisateur. Elle prend effet à
+          la fin de la période en cours. <strong>Aucun remboursement, total ou partiel, n&apos;est effectué pour
+          la période entamée</strong>, quelle que soit la fraction restant à courir.
         </p>
         <p>
-          La résiliation est possible à tout moment depuis l&apos;espace personnel ou par email à
-          <a href="mailto:contact@mettrik.ai" className="text-violet-300 hover:underline"> contact@mettrik.ai</a>.
-          Elle prend effet à la fin de la période en cours. Aucun remboursement au prorata n&apos;est effectué
-          pour la période entamée.
+          <strong>Résolution unilatérale par Mettrik AI.</strong> Mettrik AI se réserve le droit de résilier
+          unilatéralement et sans préavis tout abonnement en cas (a) d&apos;impayé, (b) de violation des présentes
+          CGV ou des CGU, (c) d&apos;usage frauduleux, abusif ou non conforme du service, (d) de partage avéré du
+          compte, (e) d&apos;usage de VPN ou de moyens d&apos;anonymisation, (f) d&apos;extraction automatisée ou
+          d&apos;usage IA non autorisé, (g) de contestation, charge-back ou litige bancaire, (h) de toute autre
+          situation portant atteinte à Mettrik AI ou à ses autres abonnés. La résiliation unilatérale ne donne
+          droit à aucun remboursement.
         </p>
       </LegalSection>
 
@@ -168,27 +171,32 @@ export default function CGVPage() {
 
       <LegalSection title="11. Responsabilité et garanties">
         <p>
-          Mettrik AI s&apos;engage à fournir le service avec diligence et selon les règles de l&apos;art. Le service
-          est fourni « en l&apos;état » sans garantie d&apos;adéquation à un usage particulier, d&apos;absence
-          d&apos;erreur ou de continuité ininterrompue.
+          Mettrik AI s&apos;engage à fournir le service avec diligence. Le service est fourni « en l&apos;état »
+          sans garantie d&apos;adéquation à un usage particulier, d&apos;absence d&apos;erreur, de fiabilité,
+          d&apos;exactitude, d&apos;exhaustivité ou de continuité.
         </p>
         <p>
-          La responsabilité de Mettrik AI est expressément limitée :
+          <strong>Limitation de responsabilité.</strong> La responsabilité totale et cumulée de Mettrik AI envers
+          l&apos;utilisateur, toutes causes confondues, est <strong>strictement limitée au montant des abonnements
+          effectivement payés par l&apos;utilisateur sur les 3 derniers mois</strong> précédant le fait générateur,
+          dans la limite maximale de 250 €. Cette limitation s&apos;applique à toute action contractuelle,
+          délictuelle ou quasi-délictuelle, et inclut sans limitation : pertes financières directes ou indirectes,
+          manque à gagner, perte de chance, préjudice moral, atteinte à la réputation. Pour les abonnements gratuits
+          (Free), la responsabilité est expressément <strong>limitée à zéro euro</strong>.
         </p>
-        <ul className="list-disc space-y-1.5 pl-6">
-          <li><strong>Pour les particuliers</strong> : au plus élevé entre (a) le montant total des abonnements
-            payés sur les 12 derniers mois, et (b) <strong>100 €</strong>.</li>
-          <li><strong>Pour les professionnels</strong> : au montant total des abonnements payés sur les 12 derniers
-            mois (pas de plancher minimal).</li>
-        </ul>
+        <p>
+          <strong>Renonciation à l&apos;action collective.</strong> L&apos;utilisateur renonce expressément à toute
+          forme d&apos;action collective, action de groupe (loi Hamon), class action ou recours collectif contre
+          Mettrik AI. Tout litige doit être traité individuellement.
+        </p>
         <p>
           <strong>Force majeure étendue.</strong> Constituent des cas de force majeure exonératoires : cyberattaques
-          externes (DDoS, ransomware, intrusions ciblées), défaillance des prestataires d&apos;infrastructure ou
-          de paiement, modification réglementaire imposant l&apos;arrêt du service, indisponibilité prolongée des
-          sources de données publiques (régulateurs, opérateurs de marché, dépôts officiels), sanctions
-          internationales ou décisions administratives. Mettrik AI ne saurait être tenue responsable des conséquences
-          de tels événements, dès lors que les bonnes pratiques de sécurité (chiffrement, authentification, sauvegardes,
-          procédures de réponse aux incidents) ont été appliquées.
+          externes (DDoS, ransomware, intrusions, exploitation de vulnérabilités tiers), défaillance des prestataires
+          d&apos;infrastructure ou de paiement, panne d&apos;internet ou d&apos;opérateur télécom, modification
+          réglementaire imposant l&apos;arrêt du service, indisponibilité des sources de données publiques,
+          décisions administratives, sanctions internationales, conflits armés, pandémies, catastrophes naturelles.
+          Cette liste est indicative et non exhaustive. Mettrik AI ne saurait être tenue responsable des conséquences
+          de tels événements.
         </p>
       </LegalSection>
 
@@ -284,19 +292,34 @@ export default function CGVPage() {
         <p>
           Toute violation entraîne en outre la résiliation immédiate du compte sans remboursement.
         </p>
+        <p>
+          <strong>Clause pénale forfaitaire.</strong> Sans préjudice de tout préjudice supplémentaire et
+          d&apos;éventuels dommages et intérêts complémentaires, toute extraction automatisée non autorisée,
+          toute reproduction substantielle de la base de données, et tout usage d&apos;un contenu Mettrik AI
+          pour entraîner un modèle d&apos;intelligence artificielle, constituent une violation grave entraînant
+          le paiement par le contrevenant d&apos;une <strong>indemnité forfaitaire minimale de cinquante mille
+          (50 000) euros par infraction constatée</strong>, due de plein droit. Cette clause pénale est
+          cumulable avec toute action civile et pénale.
+        </p>
+        <p>
+          <strong>Incessibilité.</strong> Le compte utilisateur, l&apos;abonnement et tous les droits qui en
+          découlent sont strictement personnels et ne peuvent être cédés, prêtés, loués, sous-licenciés ou
+          transférés à un tiers, à titre gratuit ou onéreux, sous quelque forme que ce soit. Toute tentative
+          de cession est nulle et entraîne la résiliation immédiate.
+        </p>
       </LegalSection>
 
       <LegalSection title="15. Sous-traitants">
         <p>
-          Pour le traitement des paiements, Mettrik AI fait appel à <strong>Stripe Payments Europe Ltd.</strong>
-          (Irlande), conforme aux normes PCI-DSS Level 1 et au Règlement (UE) 2016/679 (RGPD). Stripe est
-          autonome dans le traitement des données bancaires confiées par l&apos;utilisateur lors du paiement.
+          Pour le traitement des paiements, Mettrik AI fait appel à <strong>Stripe</strong>, conforme aux
+          normes PCI-DSS Level 1 et au Règlement (UE) 2016/679 (RGPD). Stripe est autonome dans le traitement
+          des données bancaires confiées par l&apos;utilisateur lors du paiement.
         </p>
         <p>
-          Pour les autres traitements (hébergement, base de données, envoi d&apos;emails transactionnels,
-          analytics), Mettrik AI fait appel à des sous-traitants techniques sélectionnés selon les critères
-          de l&apos;article 28 RGPD. La liste détaillée et les garanties associées sont disponibles sur demande
-          écrite à <a href="mailto:contact@mettrik.ai" className="text-violet-300 hover:underline">contact@mettrik.ai</a>.
+          Pour tout autre traitement technique nécessaire au fonctionnement du service, Mettrik AI peut faire
+          appel à des sous-traitants sélectionnés selon les critères de l&apos;article 28 du RGPD. Mettrik AI
+          se réserve le droit de modifier librement la liste de ces sous-traitants sans préavis individuel,
+          sous réserve de maintenir un niveau de protection équivalent ou supérieur.
         </p>
       </LegalSection>
 
