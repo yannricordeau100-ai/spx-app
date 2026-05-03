@@ -36,7 +36,7 @@ const META: Record<
 };
 
 /** Format approximatif d'une date ISO selon la locale ("~ 29 avril 2026" ou "April 29, 2026"). */
-function formatApproxDate(iso?: string, locale: "fr" | "en" = "fr"): string | null {
+function formatApproxDate(iso?: string, locale: string = "fr"): string | null {
   if (!iso) return null;
   try {
     const d = new Date(iso);

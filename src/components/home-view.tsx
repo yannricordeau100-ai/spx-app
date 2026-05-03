@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { ArrowRight, Sparkles } from "lucide-react";
 
@@ -23,17 +24,47 @@ import { useT } from "@/lib/i18n/provider";
  * Original sans être tape-à-l'œil : 1 typeface différente (serif italic
  * vs sans-serif partout ailleurs), gradient mesh, animation in 1 fois.
  */
+/**
+ * Pill "Données à jour au X" avec date calculée selon timezone du visiteur.
+ * Côté SSR : on rend l'écran sans date (juste "Données à jour") pour éviter
+ * tout mismatch (le serveur utilise UTC, le visiteur peut être à Tokyo où
+ * le jour calendaire est différent). Côté client : useEffect calcule la
+ * date locale du visiteur et la rend.
+ */
+function DataFreshnessPill({ locale, freshnessKey }: { locale: string; freshnessKey: string }) {
+  const [dateLocal, setDateLocal] = useState<string | null>(null);
+  useEffect(() => {
+    // Date "today" dans le timezone du navigateur du visiteur
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const fmt = new Intl.DateTimeFormat(locale === "fr" ? "fr-FR" : locale === "de" || locale === "de-CH" ? "de-DE" : locale === "nl" ? "nl-NL" : locale === "sv" ? "sv-SE" : locale === "da" ? "da-DK" : locale === "en-GB" ? "en-GB" : "en-US", {
+      day: "numeric", month: "long", year: "numeric", timeZone: tz,
+    });
+    setDateLocal(fmt.format(new Date()));
+  }, [locale]);
+  return (
+    <div className="inline-flex items-center gap-1.5 rounded-full border border-[#1f1f1f] bg-[#0a0a0a]/70 px-2.5 py-0.5 backdrop-blur">
+      <Sparkles className="size-2.5 text-violet-400" />
+      <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-400">
+        {freshnessKey}{" "}
+        <em className="not-italic font-mono italic text-zinc-200">
+          {dateLocal ?? "…"}
+        </em>
+      </span>
+    </div>
+  );
+}
+
 function BrandWordmark() {
   const letters = "Mettrik AI".split("");
   return (
-    <div className="mb-10 flex flex-col items-center sm:mb-14">
+    <div className="mb-6 flex flex-col items-center sm:mb-8">
       <div
         className="relative inline-flex items-baseline leading-none"
         style={{
           fontFamily: "var(--font-fraunces), Georgia, serif",
           fontWeight: 800,
           fontStyle: "italic",
-          fontSize: "clamp(72px, 13vw, 156px)",
+          fontSize: "clamp(56px, 9vw, 110px)",
           letterSpacing: "-0.04em",
         }}
       >
@@ -160,11 +191,8 @@ export function HomeView() {
   // (pill arrondie qui zoome en modal centrée). On garde la grille de
   // sociétés en dessous pour le browse direct.
   const results = TICKERS;
-  // Format de date locale-aware : 27 avril 2026 (FR) / April 27, 2026 (EN)
-  const dateFmt = new Date().toLocaleDateString(
-    locale === "fr" ? "fr-FR" : "en-US",
-    { day: "numeric", month: "long", year: "numeric" }
-  );
+  // Note : la date "Données à jour au X" est désormais rendue côté client
+  // via <DataFreshnessPill /> pour utiliser le timezone du visiteur.
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#050505]">
@@ -172,31 +200,21 @@ export function HomeView() {
       <div className="pointer-events-none absolute inset-0 bg-grid" />
       <Spotlight className="-top-40 left-0 md:-top-20 md:left-60" />
 
-      <div className="relative mx-auto max-w-5xl px-4 pt-14 pb-16 sm:px-6 sm:pt-24">
-        {/* Brand — wordmark Mettrik massif avec entrée lettre-par-lettre,
-            gradient holographique, pulse-dot intégré sur le i, et rail
-            iridescent qui se trace pour relier au sous-titre.
-            Police Fraunces 800 italic (serif éditorial premium) en
-            contraste sur le reste de l'app qui est sans-serif. */}
+      <div className="relative mx-auto max-w-5xl px-4 pt-6 pb-16 sm:px-6 sm:pt-8">
+        {/* Pill "Données à jour" en haut, taille réduite, libère la place pour le wordmark + sociétés */}
+        <div className="mb-4 flex justify-center">
+          <DataFreshnessPill locale={locale} freshnessKey={t("brand.data_updated")} />
+        </div>
+
         <BrandWordmark />
 
-        {/* Headline */}
+        {/* Headline réduite + nouvelle punchline */}
         <div className="text-center animate-fade-up">
-          <div className="mb-5 inline-flex items-center gap-1.5 rounded-full border border-[#1f1f1f] bg-[#0a0a0a]/70 px-3 py-1 backdrop-blur">
-            <Sparkles className="size-3 text-violet-400" />
-            <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-zinc-400">
-              {t("brand.data_updated")}{" "}
-              <em className="not-italic font-mono italic text-zinc-200">
-                {dateFmt}
-              </em>
-            </span>
-          </div>
-          <h1 className="mx-auto max-w-3xl text-balance font-display text-4xl font-semibold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl">
-            <span className="gradient-text">{t("brand.tagline_main_1")}</span>
-            <br />
+          <h1 className="mx-auto max-w-3xl text-balance font-display text-2xl font-semibold leading-[1.1] tracking-tight sm:text-4xl md:text-5xl">
+            <span className="gradient-text">{t("brand.tagline_main_1")}</span>{" "}
             <span className="gradient-text-violet">{t("brand.tagline_main_2")}</span>
           </h1>
-          <p className="mx-auto mt-5 max-w-xl text-balance text-[15px] leading-relaxed text-zinc-400 sm:mt-6 sm:text-lg">
+          <p className="mx-auto mt-4 max-w-2xl text-balance text-[13.5px] leading-relaxed text-zinc-400 sm:text-[15px]">
             {t("brand.tagline_sub")}
           </p>
         </div>

@@ -43,6 +43,8 @@ function isPublicPath(pathname: string): boolean {
   if (pathname === "/maintenance") return true;
   // /parrainage = page publique (visible sans compte, propose le sign-in à l'intérieur).
   if (pathname === "/parrainage") return true;
+  // /contact = formulaire de contact public.
+  if (pathname === "/contact") return true;
   return false;
 }
 
@@ -71,6 +73,31 @@ export async function proxy(request: NextRequest) {
   //    auth gates et desk gates voient la route "réelle" sans confusion.
   const originalPathname = request.nextUrl.pathname;
   const { stripped: routePathname, hadPrefix: isFrLocale } = stripFrPrefix(originalPathname);
+
+  // 1.bis Détection langue automatique par IP (Vercel x-vercel-ip-country).
+  // Si visiteur arrive sur une route SANS préfixe et SANS cookie NEXT_LOCALE,
+  // on regarde son pays via header IP. Si le pays parle FR (FR/BE/LU/MC),
+  // redirect vers /fr/<route>. Sinon laisser passer (EN par défaut).
+  // Exceptions : /api, /auth, /_next, assets.
+  const hasLocaleCookie = !!request.cookies.get("NEXT_LOCALE")?.value;
+  const isApiOrAsset =
+    originalPathname.startsWith("/api/") ||
+    originalPathname.startsWith("/auth/") ||
+    originalPathname.startsWith("/_next/") ||
+    originalPathname === "/favicon.ico" ||
+    originalPathname === "/robots.txt" ||
+    originalPathname === "/sitemap.xml";
+  if (!isFrLocale && !hasLocaleCookie && !isApiOrAsset) {
+    const country = request.headers.get("x-vercel-ip-country") ?? "";
+    // Liste des pays qu'on redirige vers /fr (les seuls actuellement traduits).
+    // Quand DE/NL/SV/DA seront traduits, on étendra cette logique.
+    const FR_COUNTRIES = ["FR", "BE", "LU", "MC"];
+    if (FR_COUNTRIES.includes(country.toUpperCase())) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/fr" + (originalPathname === "/" ? "" : originalPathname);
+      return NextResponse.redirect(url, 307);
+    }
+  }
 
   // 0. Maintenance mode : si MAINTENANCE_MODE=on, redirige tout le trafic
   //    user-facing vers /maintenance (ou /fr/maintenance). Exceptions :

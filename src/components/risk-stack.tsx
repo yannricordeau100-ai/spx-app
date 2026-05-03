@@ -22,7 +22,7 @@ import type { CompanyRisk, ProfitWarning, RiskCategory, RiskTrend } from "@/lib/
 import { InfoTooltip } from "@/components/info-tooltip";
 import { useT } from "@/lib/i18n/provider";
 
-function formatDate(iso: string, locale: "fr" | "en" = "fr"): string {
+function formatDate(iso: string, locale: string = "fr"): string {
   try {
     return new Date(iso).toLocaleDateString(locale === "fr" ? "fr-FR" : "en-US", {
       day: "numeric",

@@ -26,12 +26,12 @@ export const DICTIONARY: Dict = {
     en: "The numbers that",
   },
   "brand.tagline_main_2": {
-    fr: "racontent une histoire.",
-    en: "tell a story.",
+    fr: "racontent l'histoire.",
+    en: "tell the story.",
   },
   "brand.tagline_sub": {
-    fr: "Plus que 3 clics pour découvrir les KPI indispensables et Super KPI privées des plus grandes sociétés américaines et européennes.",
-    en: "3 clicks away from the essential KPIs and private Super KPIs of the biggest US and European companies.",
+    fr: "3 clics pour découvrir les KPI clés et Super KPI exclusifs des plus grandes sociétés américaines et européennes.",
+    en: "3 clicks to the key KPIs and exclusive Super KPIs of the largest US and European companies.",
   },
   "brand.data_updated": {
     fr: "Données à jour au",
@@ -578,8 +578,8 @@ export const DICTIONARY: Dict = {
   // === Parrainage / Referral ====================================
   "referral.title": { fr: "Parrainez un proche", en: "Invite a friend" },
   "referral.subtitle": {
-    fr: "Vous parrainez. Votre filleul s'abonne. Vous gagnez chacun 1 mois offert sur votre plan respectif.",
-    en: "You refer. Your friend subscribes. You both get 1 month free on your respective plans.",
+    fr: "Vous parrainez. Votre filleul s'abonne. Vous gagnez tous les deux 1 mois offert du plan Premium.",
+    en: "You refer. Your friend subscribes. You both get 1 month free of the Premium plan.",
   },
   "referral.cta_generate": { fr: "Générer mon code de parrainage", en: "Generate my invite code" },
   "referral.cta_copy": { fr: "Copier le lien", en: "Copy the link" },
@@ -591,8 +591,8 @@ export const DICTIONARY: Dict = {
     en: "Sign in to generate your invite code.",
   },
   "referral.paid_required": {
-    fr: "Le parrainage est réservé aux utilisateurs avec un plan payant actif.",
-    en: "Invite program is for active paid users only.",
+    fr: "Le parrainage est réservé aux abonnés Premium actifs. Souscrivez d'abord pour pouvoir parrainer.",
+    en: "Referral is for active Premium subscribers only. Subscribe first to start referring.",
   },
   "referral.history_title": { fr: "Vos parrainages", en: "Your referrals" },
   "referral.history_empty": { fr: "Aucun parrainage pour l'instant.", en: "No referrals yet." },
@@ -605,22 +605,52 @@ export const DICTIONARY: Dict = {
   "referral.expires_in": { fr: "Expire le", en: "Expires on" },
   "referral.how_it_works": { fr: "Comment ça marche", en: "How it works" },
   "referral.step1": {
-    fr: "Cliquez sur « Générer mon code » pour obtenir un lien unique.",
-    en: "Click \"Generate my code\" to get a unique link.",
+    fr: "Inscrivez-vous et souscrivez à un plan Premium (mensuel ou annuel).",
+    en: "Sign up and subscribe to any Premium plan (monthly or annual).",
   },
   "referral.step2": {
-    fr: "Partagez ce lien avec un proche par email, message, ou réseau social.",
-    en: "Share this link with a friend by email, message, or social network.",
+    fr: "Sur cette page, cliquez « Générer mon code » et partagez le lien obtenu à un proche.",
+    en: "On this page, click \"Generate my code\" and share the link with a friend.",
   },
   "referral.step3": {
-    fr: "Quand votre filleul s'abonne à un plan payant, vous recevez tous les deux 1 mois offert (peu importe le plan choisi).",
-    en: "When your friend subscribes to any paid plan, you both receive 1 month free (any plan).",
+    fr: "Quand votre filleul s'abonne à un plan payant, vous recevez tous les deux 1 mois offert du plan Premium (peu importe le plan choisi).",
+    en: "When your friend subscribes to any paid plan, you both receive 1 month free of the Premium plan (any plan they choose).",
   },
   "referral.code_invalid": { fr: "Code de parrainage invalide ou expiré.", en: "Invalid or expired invite code." },
   "referral.code_valid_invited_by": { fr: "Vous avez été invité par", en: "You were invited by" },
   "referral.disabled": {
     fr: "Le programme de parrainage est temporairement suspendu. Revenez bientôt.",
     en: "The referral program is temporarily on hold. Check back soon.",
+  },
+
+  // === Contact form ============================================
+  "contact.title": { fr: "Une question ? On répond.", en: "A question? We answer." },
+  "contact.subtitle": {
+    fr: "Vous parlez à des humains, pas à un robot. Un email, une réponse sous 48h ouvrées.",
+    en: "You're talking to humans, not bots. One email, one reply within 48 business hours.",
+  },
+  "contact.recipient_label": { fr: "Type de demande", en: "Request type" },
+  "contact.recipient_contact": { fr: "Contact général (commercial, presse, partenariat)", en: "General contact (sales, press, partnership)" },
+  "contact.recipient_support": { fr: "Support technique (bug, problème de compte)", en: "Technical support (bug, account issue)" },
+  "contact.name_label": { fr: "Votre nom", en: "Your name" },
+  "contact.name_placeholder": { fr: "Marie Dupont", en: "Jane Doe" },
+  "contact.email_label": { fr: "Votre email", en: "Your email" },
+  "contact.email_placeholder": { fr: "marie@exemple.com", en: "jane@example.com" },
+  "contact.subject_label": { fr: "Sujet", en: "Subject" },
+  "contact.subject_placeholder": { fr: "Quel est le sujet de votre message ?", en: "What's your message about?" },
+  "contact.body_label": { fr: "Votre message", en: "Your message" },
+  "contact.body_placeholder": { fr: "Écrivez ici. Soyez aussi clair que possible, on lira chaque mot.", en: "Write here. Be as clear as possible, we'll read every word." },
+  "contact.submit": { fr: "Envoyer", en: "Send" },
+  "contact.sending": { fr: "Envoi…", en: "Sending…" },
+  "contact.success_title": { fr: "Message reçu ✓", en: "Message received ✓" },
+  "contact.success_body": {
+    fr: "On vous répond dans les 48h. Pour aller plus vite : précisez votre besoin dès le sujet.",
+    en: "We'll get back within 48h. Pro tip: a clear subject = faster reply.",
+  },
+  "contact.error": { fr: "Une erreur est survenue. Réessayez ou écrivez à contact@mettrik.ai.", en: "Something went wrong. Try again or email contact@mettrik.ai." },
+  "contact.privacy_note": {
+    fr: "On garde votre email uniquement pour vous répondre. Aucun marketing, aucune revente.",
+    en: "We keep your email only to reply. No marketing, no resale.",
   },
   "senate.demo_footer": {
     fr: "Données démo : branchement live API Senate Stock Watcher / Capitol Trades en V1.5",
@@ -725,5 +755,17 @@ export const DICTIONARY: Dict = {
 export function translate(key: string, locale: Locale): string {
   const entry = DICTIONARY[key];
   if (!entry) return key;
-  return entry[locale] ?? entry.fr;
+  // Lookup avec fallback en cascade :
+  //   1. locale exacte (fr, en) si présent dans l'entry
+  //   2. base locale (de-CH -> de, en-GB -> en) si présent
+  //   3. en (default international)
+  //   4. fr (compatibilité ancien dictionary)
+  // Les 6 locales ajoutées récemment (de, nl, sv, da, en-GB, de-CH) tomberont
+  // sur le fallback EN tant que les traductions ne sont pas écrites.
+  const e = entry as Record<string, string | undefined>;
+  if (e[locale]) return e[locale]!;
+  // base : "de-CH" -> "de"
+  const base = locale.split("-")[0];
+  if (e[base]) return e[base]!;
+  return e.en ?? e.fr ?? key;
 }

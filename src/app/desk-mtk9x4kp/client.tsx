@@ -18,7 +18,7 @@ function KeepAlive({ active, id, children }: { active: string; id: string; child
 import {
   FileText, ListTodo, Library, FolderOpen, Calendar, Bookmark, Cpu, Lightbulb,
   Link as LinkIcon, ImageIcon, BarChart3, MessageSquare, Target, Map, Info, Gift,
-  PanelLeftClose, PanelLeftOpen,
+  PanelLeftClose, PanelLeftOpen, Mail,
 } from "lucide-react";
 import { TabNotes } from "@/components/desk/tab-notes";
 import { TabTodos } from "@/components/desk/tab-todos";
@@ -32,6 +32,7 @@ import { TabLinks } from "@/components/desk/tab-links";
 import { TabInspiration } from "@/components/desk/tab-inspiration";
 import { TabMetrics } from "@/components/desk/tab-metrics";
 import { TabReferrals } from "@/components/desk/tab-referrals";
+import { TabMessages } from "@/components/desk/tab-messages";
 import { TabDrafts } from "@/components/desk/tab-drafts";
 import { TabPitch } from "@/components/desk/tab-pitch";
 import { TabRoadmap } from "@/components/desk/tab-roadmap";
@@ -42,7 +43,7 @@ type TabId =
   | "calendar" | "bookmarks" | "links"
   | "drafts" | "pitch"
   | "inspiration" | "ideas" | "metrics"
-  | "referrals";
+  | "referrals" | "messages";
 
 type TabSection = {
   label: string;
@@ -100,6 +101,13 @@ const SECTIONS: TabSection[] = [
     hint: "Programmes user growth",
     items: [
       { id: "referrals", label: "Parrainage", Icon: Gift, hint: "Paramètres du programme de parrainage (page /parrainage publique)" },
+    ],
+  },
+  {
+    label: "Communication",
+    hint: "Messages reçus + threads",
+    items: [
+      { id: "messages", label: "Messages reçus", Icon: Mail, hint: "Formulaires de contact + support reçus depuis /contact" },
     ],
   },
 ];
@@ -234,6 +242,7 @@ export function DeskClient({ ownerEmail }: { ownerEmail: string }) {
             <KeepAlive active={tab} id="pitch"><TabPitch ownerEmail={ownerEmail} /></KeepAlive>
             <KeepAlive active={tab} id="metrics"><TabMetrics /></KeepAlive>
             <KeepAlive active={tab} id="referrals"><TabReferrals /></KeepAlive>
+            <KeepAlive active={tab} id="messages"><TabMessages /></KeepAlive>
           </div>
         </main>
       </div>

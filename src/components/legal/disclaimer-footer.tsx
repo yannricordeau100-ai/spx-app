@@ -59,12 +59,13 @@ export function DisclaimerFooter({ variant = "full" }: { variant?: "full" | "com
             </ul>
           </div>
 
-          {/* Contact */}
+          {/* Contact + Engagement */}
           <div>
-            <div className="mb-3 font-mono text-[10.5px] uppercase tracking-[0.18em] text-zinc-500">Contact</div>
+            <div className="mb-3 font-mono text-[10.5px] uppercase tracking-[0.18em] text-zinc-500">Communauté</div>
             <ul className="space-y-1.5 text-[12.5px]">
-              <li><a href="mailto:contact@mettrik.ai" className="text-zinc-300 hover:text-zinc-100">contact@mettrik.ai</a></li>
-              <li><a href="mailto:support@mettrik.ai" className="text-zinc-300 hover:text-zinc-100">support@mettrik.ai</a></li>
+              <li><Link href="/contact" className="text-zinc-300 hover:text-zinc-100">Contact</Link></li>
+              <li><Link href="/parrainage" className="text-zinc-300 hover:text-zinc-100">Parrainage</Link></li>
+              <li><Link href="/pricing" className="text-zinc-300 hover:text-zinc-100">Tarifs</Link></li>
             </ul>
           </div>
         </div>

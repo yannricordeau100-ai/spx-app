@@ -2,6 +2,13 @@
 @HANDOFF.md
 @SHARED-STATUS.md
 
+> 🔍 **RÈGLE TEST RÉEL OBLIGATOIRE** (ajoutée 3 mai 2026) :
+> Avant de dire à Yann « à tester côté toi », je DOIS tester en réel sur la prod
+> via curl (HTTP status + grep du contenu attendu). Pour les pages qui demandent
+> auth/cookie, je vérifie au minimum que la route est servie sans erreur. Yann
+> m'a déjà eu plusieurs fois sur des pages qui ne marchaient pas alors que je
+> disais « live ». Plus jamais.
+
 > ⚡⚡⚡ **YANN A UPGRADÉ À CLAUDE MAX 20× LE 3 MAI 2026.** Plus aucune limite
 > de tokens ni de quota côté user. Si tu te dis "il faut économiser des tokens"
 > ou "je dois ralentir pour ne pas saturer", c'est FAUX. Toutes les auths

@@ -57,7 +57,10 @@ const STR = {
 
 export default async function SandboxV17HubPage() {
   const datasets = await loadPipelineDatasets();
-  const locale = await getServerLocale();
+  const localeFull = await getServerLocale();
+  // Narrow vers fr|en pour les structures STR + getTopCompaniesForLocale qui
+  // ne supportent que ces 2 locales pour l'instant.
+  const locale: "fr" | "en" = localeFull === "fr" ? "fr" : "en";
   const t = STR[locale];
   const top = getTopCompaniesForLocale(locale);
 

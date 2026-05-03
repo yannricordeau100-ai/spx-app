@@ -93,11 +93,15 @@ export async function signUpWithPassword(formData: FormData) {
 
 export async function signInWithMagicLink(formData: FormData) {
   const email = String(formData.get("email") ?? "");
+  const next = safeNextParam(formData.get("next"));
   const supabase = await createSupabaseServerClient();
   const origin = await getOrigin();
+  const callback = next && next !== "/account"
+    ? `${origin}/auth/callback?next=${encodeURIComponent(next)}`
+    : `${origin}/auth/callback`;
   const { error } = await supabase.auth.signInWithOtp({
     email,
-    options: { emailRedirectTo: `${origin}/auth/callback` },
+    options: { emailRedirectTo: callback },
   });
   if (error) {
     redirect(`/?auth=signin&error=${await authErr(error.message)}`);
@@ -109,12 +113,18 @@ export async function signInWithMagicLink(formData: FormData) {
 
 /* ─── Google OAuth ──────────────────────────────────────────────────── */
 
-export async function signInWithGoogle() {
+export async function signInWithGoogle(formData?: FormData) {
   const supabase = await createSupabaseServerClient();
   const origin = await getOrigin();
+  // Propage le `next` à travers le redirect Google → /auth/callback?next=...
+  // pour que le user retombe sur la page d'origine après login (ex: /parrainage).
+  const next = safeNextParam(formData?.get("next") ?? null);
+  const callback = next && next !== "/account"
+    ? `${origin}/auth/callback?next=${encodeURIComponent(next)}`
+    : `${origin}/auth/callback`;
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
-    options: { redirectTo: `${origin}/auth/callback` },
+    options: { redirectTo: callback },
   });
   if (error) {
     redirect(`/?auth=signin&error=${await authErr(error.message)}`);

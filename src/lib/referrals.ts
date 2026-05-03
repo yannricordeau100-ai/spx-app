@@ -65,8 +65,9 @@ export const DEFAULT_REFERRAL_SETTINGS: ReferralSettings = {
 };
 
 /** Construit l'URL d'invitation à partager. */
-export function referralInviteUrl(code: string, locale: "fr" | "en" = "fr"): string {
+export function referralInviteUrl(code: string, locale: string = "fr"): string {
   const base = process.env.NEXT_PUBLIC_SITE_URL ?? "https://mettrik.ai";
+  // FR explicite -> /fr/, sinon EN (défaut, sans préfixe).
   const path = locale === "fr" ? "/fr/parrainage" : "/parrainage";
   return `${base}${path}?code=${encodeURIComponent(code)}`;
 }

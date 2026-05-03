@@ -39,6 +39,10 @@ export function AuthModal() {
 
   const [mode, setMode] = useState<Mode>(initialMode);
   const [email, setEmail] = useState("");
+  // Conserve le `next` URL pour le passer en hidden input à tous les forms
+  // d'auth (password, signup, magic link, Google). Sinon le user atterrit
+  // sur /account au lieu de la page d'origine (ex: /parrainage).
+  const nextParam = params.get("next") ?? "";
 
   // Sync mode quand le param URL change
   useEffect(() => {
@@ -187,6 +191,7 @@ export function AuthModal() {
             {mode === "reset" && (
               <>
                 <form action={requestPasswordReset} className="relative space-y-3">
+                  <input type="hidden" name="next" value={nextParam} />
                   <Field icon={<Mail className="size-4" />}>
                     <input
                       type="email"
@@ -221,6 +226,7 @@ export function AuthModal() {
             {mode !== "reset" && (
               <>
                 <form action={signInWithGoogle} className="relative">
+                  <input type="hidden" name="next" value={nextParam} />
                   <button
                     type="submit"
                     className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2.5 text-sm font-medium text-zinc-100 transition-colors hover:bg-white/[0.07]"
@@ -240,6 +246,7 @@ export function AuthModal() {
                   action={mode === "signin" ? signInWithPassword : signUpWithPassword}
                   className="relative space-y-2.5"
                 >
+                  <input type="hidden" name="next" value={nextParam} />
                   <Field icon={<Mail className="size-4" />}>
                     <input
                       type="email"
@@ -297,6 +304,7 @@ export function AuthModal() {
                       <span className="h-px flex-1 bg-white/10" />
                     </div>
                     <form action={signInWithMagicLink} className="relative">
+                      <input type="hidden" name="next" value={nextParam} />
                       <Field icon={<Mail className="size-4" />}>
                         <input
                           type="email"
