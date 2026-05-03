@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /**
  * KeepAlive : monte le composant au 1er affichage actif, puis le garde en
@@ -18,6 +18,7 @@ function KeepAlive({ active, id, children }: { active: string; id: string; child
 import {
   FileText, ListTodo, Library, FolderOpen, Calendar, Bookmark, Cpu, Lightbulb,
   Link as LinkIcon, ImageIcon, BarChart3, MessageSquare, Target, Map, Info, Gift,
+  PanelLeftClose, PanelLeftOpen,
 } from "lucide-react";
 import { TabNotes } from "@/components/desk/tab-notes";
 import { TabTodos } from "@/components/desk/tab-todos";
@@ -107,13 +108,33 @@ const ALL_TABS = SECTIONS.flatMap((s) => s.items);
 
 export function DeskClient({ ownerEmail }: { ownerEmail: string }) {
   const [tab, setTab] = useState<TabId>("todos");
+  // Persistance UI : sidebar collapse mémorisé en localStorage entre visites.
+  const [sidebarOpen, setSidebarOpen] = useState<boolean>(true);
+  useEffect(() => {
+    try {
+      const saved = window.localStorage.getItem("mettrik.desk.sidebar.v1");
+      if (saved === "closed") setSidebarOpen(false);
+    } catch {}
+  }, []);
+  function toggleSidebar() {
+    setSidebarOpen((v) => {
+      const next = !v;
+      try { window.localStorage.setItem("mettrik.desk.sidebar.v1", next ? "open" : "closed"); } catch {}
+      return next;
+    });
+  }
   const current = ALL_TABS.find((t) => t.id === tab);
 
   return (
     <div className="min-h-screen bg-[#050507] text-zinc-100">
       <div className="flex">
-        {/* SIDEBAR */}
-        <aside className="sticky top-0 h-screen w-64 shrink-0 overflow-y-auto border-r border-white/8 bg-[#08080b]/95 backdrop-blur">
+        {/* SIDEBAR (collapsible) */}
+        <aside
+          className={`sticky top-0 h-screen shrink-0 overflow-hidden border-r border-white/8 bg-[#08080b]/95 backdrop-blur transition-[width] duration-200 ease-out ${
+            sidebarOpen ? "w-64" : "w-0"
+          }`}
+          aria-hidden={!sidebarOpen}
+        >
           <div className="border-b border-white/8 p-4">
             <div className="flex items-baseline gap-2">
               <span className="font-display text-[18px] font-bold tracking-tight text-zinc-50">
@@ -172,13 +193,23 @@ export function DeskClient({ ownerEmail }: { ownerEmail: string }) {
         {/* MAIN */}
         <main className="flex-1 min-w-0">
           <header className="sticky top-0 z-20 border-b border-white/8 bg-[#050507]/85 px-6 py-3.5 backdrop-blur">
-            <div className="flex items-baseline gap-2">
-              <h1 className="font-display text-[20px] font-bold tracking-tight text-zinc-50">
-                {current?.label ?? "Desk"}
-              </h1>
-              {current?.hint && (
-                <p className="text-[12.5px] text-zinc-400">{current.hint}</p>
-              )}
+            <div className="flex items-center gap-3">
+              <button
+                onClick={toggleSidebar}
+                title={sidebarOpen ? "Cacher le menu" : "Afficher le menu"}
+                aria-label={sidebarOpen ? "Cacher le menu" : "Afficher le menu"}
+                className="inline-flex size-8 shrink-0 items-center justify-center rounded-md border border-white/10 bg-white/[0.03] text-zinc-400 transition-colors hover:border-white/20 hover:text-zinc-200"
+              >
+                {sidebarOpen ? <PanelLeftClose className="size-4" /> : <PanelLeftOpen className="size-4" />}
+              </button>
+              <div className="flex items-baseline gap-2">
+                <h1 className="font-display text-[20px] font-bold tracking-tight text-zinc-50">
+                  {current?.label ?? "Desk"}
+                </h1>
+                {current?.hint && (
+                  <p className="text-[12.5px] text-zinc-400">{current.hint}</p>
+                )}
+              </div>
             </div>
           </header>
 
