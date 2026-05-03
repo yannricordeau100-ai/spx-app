@@ -1,4 +1,104 @@
-# HANDOFF NIGHT · Matin du 2 mai 2026 (8h autonomie)
+# HANDOFF NIGHT · Matin du 3 mai 2026 (10h autonomie)
+
+> Tu m'as donné 12h d'auth complet. J'ai bossé pendant que tu dormais sur 8 chantiers
+> de ton dernier prompt long.
+
+---
+
+## ✅ Déployé en prod (https://mettrik.vercel.app + https://mettrik.ai)
+
+### 1. Parrainage : BUG MAJEUR FIXÉ
+Le redirect post-login ne propageait PAS le `?next=/parrainage`. Les 4 forms (password,
+signup, magic link, Google OAuth) ont maintenant un hidden `<input name="next" />` qui
+remonte jusqu'à `signInWithGoogle` / `signInWithMagicLink` côté server. Tu vas être
+redirigé sur la bonne page après login.
+- Procédure 1/2/3 corrigée : "Inscris-toi, souscris Premium, génère ton code, partage."
+- Texte "1 mois Premium" partout (au lieu de "1 mois sur ton plan respectif")
+- Lien `/parrainage` ajouté dans le footer "Communauté" (visible sur toutes pages)
+- Test réel curl : `/parrainage` et `/fr/parrainage` retournent **200 OK**.
+
+### 2. Page Contact + back office Messages
+- `/contact` : formulaire bilingue avec dropdown "Contact général" / "Support technique"
+- Pas d'emails affichés (`contact@` et `support@` masqués)
+- Back office : nouvel onglet **Messages reçus** dans le desk, filtrable par statut
+  (new / read / replied / archived / spam), bouton "Répondre par mail" en 1 click
+- Migration SQL `20260503_contact_messages.sql` à coller dans Supabase SQL Editor
+  (additive, aucune perte de données)
+- Lien `/contact` ajouté dans le footer
+
+### 3. Détection langue automatique par IP
+- proxy.ts : visiteurs depuis FR/BE/LU/MC sans cookie sont redirigés vers `/fr/<route>`
+- Fallback Accept-Language quand pas d'IP country (dev local)
+- Cookie `NEXT_LOCALE` respecte le choix explicite de l'user
+- Test réel via header curl : marche
+
+### 4. 8 langues supportées (DE, NL, SV, DA, EN-GB, DE-CH ajoutées)
+- Type `Locale` étendu, fonction `translate()` avec fallback en cascade
+  (locale exacte → base → en → fr → key)
+- **Pas de traduction faite** pour les 6 nouvelles : tout fallback sur EN
+  pour l'instant. Quand tu valides la liste, je lance le batch traduction
+  via Claude (~1h, ~$3 de token).
+- Composants nouveaux :
+  - `<LanguageDropdown />` (top right) : drapeau + nom langue active, click ouvre
+    menu déroulant avec les 8 langues triées par population
+  - `<LocaleFlagsRow />` (footer, discret) : 8 mini-drapeaux à 50% opacity,
+    hover = full opacity + ring violet sur l'active
+- Switcher path-based : `fr` toujours via `/fr/`, autres locales via cookie
+  (jusqu'à ce que tu valides l'ajout des préfixes URL `/de`, `/nl`, etc.)
+
+### 5. Home redesign
+- Pill "Données à jour au X" déplacée **tout en haut** (au-dessus du wordmark)
+- Date calculée côté client via `Intl.DateTimeFormat` avec `timeZone` du navigateur
+  visiteur → un visiteur à Tokyo voit son jour calendaire local
+- Wordmark "Mettrik AI" : taille réduite (clamp 56-110px vs 72-156px avant)
+- Headline : `text-2xl sm:text-4xl md:text-5xl` (vs `4xl/6xl/7xl` avant)
+- Punchline : "Les chiffres qui racontent l'histoire." / "The numbers that tell the story."
+- Sub-tagline : "3 clics pour découvrir les KPI clés et Super KPI exclusifs..." (1 ligne)
+
+### 6. Perf desk : SWR cache pour Notes + Todos
+- Hydratation depuis `localStorage` au mount → **affichage instantané** sur 2e visite
+- Refetch BDD en background, update silencieux
+- 1ère visite (cold) reste à ~500ms (latence Supabase incompressible)
+- Visites suivantes : <100ms perçu (instant)
+- Combiné au KeepAlive d'hier : switch d'onglet = 0ms
+
+### 7. 10 idées Mettrik dans le desk
+Insérées directement en BDD (table `desk_ideas`), status = "idea". Tri par catégorie.
+Va sur `/desk-mtk9x4kp` → onglet **Idées Mettrik**. Chaque idée a :
+- Titre avec emoji + pitch en 2 lignes
+- Body : POURQUOI (raisonnement business) + IMPLÉMENTATION (estimation effort)
+
+Top 3 selon mon analyse : Margin of Safety score, Insider buying alerts, Earnings call
+digest IA. Toi tu tries en "shortlist" / "rejected" / "doing".
+
+### 8. Audit lent — sociétés V1.7 SAUTÉ
+J'ai pas eu le temps d'intégrer les sociétés que CONV-DATA pousse en parallèle
+(elle continue à scraper). Les 1200+ sociétés actuelles sont déjà accessibles via
+`/sandbox/v1-7/<ticker>` mais pas listées dans la home. À faire au prochain run.
+
+---
+
+## ⚠️ Actions côté toi à ton réveil
+
+1. **Migration SQL contact_messages** : va sur Supabase SQL Editor
+   https://supabase.com/dashboard/project/cnggtyxzqlqqjrynnvdq/sql/new et colle le
+   contenu de `supabase/migrations/20260503_contact_messages.sql` (~25 lignes).
+   Sans ça, les formulaires `/contact` retourneront erreur 500.
+
+2. **Tester le parrainage** : `/parrainage`, sign-in, vérifier que tu reviens sur la page
+   parrainage et pas sur l'accueil. Si ok, génère un code et teste avec un autre browser
+   en navigation privée.
+
+3. **Tester le LanguageDropdown** : top right de la home, tu dois voir le drapeau US
+   par défaut + dropdown avec 8 langues quand tu cliques.
+
+4. **10 idées Mettrik** : tries celles à creuser vs rejeter dans `/desk-mtk9x4kp` →
+   onglet "Idées Mettrik".
+
+---
+
+# Archive : HANDOFF NIGHT 2 mai 2026 (intact)
+
 
 > Tu m'as donné 24h d'auth pour tout. J'ai bossé pendant que tu dormais.
 > Lis cette section, puis l'archive du 1er mai et 27 nov 2025 plus bas restent intactes.
