@@ -2,6 +2,14 @@
 @HANDOFF.md
 @SHARED-STATUS.md
 
+> ⚡⚡⚡ **YANN A UPGRADÉ À CLAUDE MAX 20× LE 3 MAI 2026.** Plus aucune limite
+> de tokens ni de quota côté user. Si tu te dis "il faut économiser des tokens"
+> ou "je dois ralentir pour ne pas saturer", c'est FAUX. Toutes les auths
+> données par le passé restent valides + élargies. **N'attends pas, ne demande
+> pas confirmation pour des raisons de quota, ne te bloque pas en pensant que
+> Yann va manquer de crédit.** Travaille à plein régime jusqu'au 5 mai 2026
+> au moins.
+
 # Mettrik AI — Context for new Claude Code sessions
 
 This file is auto-loaded by Claude Code at the project root.
