@@ -13,7 +13,17 @@ import type { Locale } from "./types";
  *   - Si une clé prend des paramètres, les markers `{name}` sont remplacés
  *     côté composant.
  */
-export type Dict = Record<string, { fr: string; en: string }>;
+export type DictEntry = {
+  fr: string;
+  en: string;
+  de?: string;
+  nl?: string;
+  sv?: string;
+  da?: string;
+  "en-GB"?: string;
+  "de-CH"?: string;
+};
+export type Dict = Record<string, DictEntry>;
 
 export const DICTIONARY: Dict = {
   /* ──────────────────────── BRAND ──────────────────────── */
@@ -752,20 +762,31 @@ export const DICTIONARY: Dict = {
  * Récupère une string traduite. Si la clé n'existe pas → retourne la
  * clé elle-même (utile pour repérer les clés manquantes en dev).
  */
+// Import des traductions complémentaires (DE/NL/SV/DA top ~50 clés).
+// Marche en cascade : si la clé existe dans EXTRA_LOCALES pour la locale demandée,
+// on l'utilise ; sinon fallback EN.
+import { EXTRA_LOCALES } from "./dictionary-extra-locales";
+
 export function translate(key: string, locale: Locale): string {
   const entry = DICTIONARY[key];
   if (!entry) return key;
   // Lookup avec fallback en cascade :
-  //   1. locale exacte (fr, en) si présent dans l'entry
-  //   2. base locale (de-CH -> de, en-GB -> en) si présent
-  //   3. en (default international)
-  //   4. fr (compatibilité ancien dictionary)
-  // Les 6 locales ajoutées récemment (de, nl, sv, da, en-GB, de-CH) tomberont
-  // sur le fallback EN tant que les traductions ne sont pas écrites.
+  //   1. EXTRA_LOCALES[key][locale] (DE/NL/SV/DA traductions ajoutées au runtime)
+  //   2. locale exacte dans entry (fr, en, ou variante)
+  //   3. base locale (de-CH -> de, en-GB -> en)
+  //   4. en (default international)
+  //   5. fr (legacy / dernière chance)
+  const extra = EXTRA_LOCALES[key];
+  if (extra && (extra as Record<string, string | undefined>)[locale]) {
+    return (extra as Record<string, string>)[locale]!;
+  }
   const e = entry as Record<string, string | undefined>;
   if (e[locale]) return e[locale]!;
   // base : "de-CH" -> "de"
   const base = locale.split("-")[0];
+  if (extra && (extra as Record<string, string | undefined>)[base]) {
+    return (extra as Record<string, string>)[base]!;
+  }
   if (e[base]) return e[base]!;
   return e.en ?? e.fr ?? key;
 }

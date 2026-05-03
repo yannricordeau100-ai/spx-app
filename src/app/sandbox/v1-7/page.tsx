@@ -73,6 +73,15 @@ export default async function SandboxV17HubPage() {
     else pending.push(c);
   }
 
+  // PASS 3 VALIDÉES : sociétés avec champ _validation_global rempli par CONV-DATA
+  // (vérification Sonnet du dataset). Marquer "validé Pass 3" dans la card.
+  const validatedTickers = new Set(
+    Object.keys(datasets).filter((t) => {
+      const d = datasets[t] as Company & { _validation_global?: unknown; _validation?: unknown };
+      return !!(d._validation_global || d._validation);
+    })
+  );
+
   // Sociétés extraites par CONV-DATA mais hors top-100 -> "Bonus" section.
   // Permet de voir les ~500 stés du SP1500 qui sont dispo mais pas dans la
   // shortlist curatée par Yann.
@@ -110,12 +119,17 @@ export default async function SandboxV17HubPage() {
             const accent = brand(c.ticker).primary;
             const heroKpi = (data as Company & { hero_kpi?: string }).hero_kpi;
             const sector = data?.sector;
+            const isPass3 = validatedTickers.has(c.ticker);
             return (
               <Link
                 key={c.ticker}
                 href={`/sandbox/v1-7/${c.ticker.toLowerCase()}`}
                 prefetch={false}
-                className="group flex flex-col rounded-xl border border-cyan-500/15 bg-white/[0.02] p-4 transition-colors hover:border-cyan-500/40 hover:bg-white/[0.04]"
+                className={`group flex flex-col rounded-xl border bg-white/[0.02] p-4 transition-colors hover:bg-white/[0.04] ${
+                  isPass3
+                    ? "border-amber-500/30 hover:border-amber-500/60"
+                    : "border-cyan-500/15 hover:border-cyan-500/40"
+                }`}
               >
                 <div className="mb-2 flex items-start gap-3">
                   <div className="size-10 shrink-0 rounded-lg border border-white/10 bg-white/[0.03] p-1.5">
@@ -130,6 +144,11 @@ export default async function SandboxV17HubPage() {
                         {c.ticker}
                       </span>
                       <span className="truncate font-display text-[13.5px] font-bold text-zinc-50">{c.name}</span>
+                      {isPass3 && (
+                        <span className="ml-auto rounded-full border border-amber-500/40 bg-amber-500/10 px-1.5 py-0.5 font-mono text-[8.5px] font-semibold uppercase tracking-wider text-amber-200">
+                          ✓ Pass 3
+                        </span>
+                      )}
                     </div>
                     <div className="text-[10.5px] text-zinc-500">{sector ?? "-"}</div>
                   </div>

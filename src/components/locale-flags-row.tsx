@@ -28,15 +28,17 @@ export function LocaleFlagsRow({ align = "center" }: { align?: "left" | "center"
             key={loc}
             onClick={() => setLocale(loc as Locale)}
             title={meta.nativeName}
-            whileHover={{ scale: 1.15 }}
+            whileHover={{ scale: 1.18 }}
             whileTap={{ scale: 0.95 }}
-            className={`relative inline-flex size-5 items-center justify-center rounded-full text-[14px] leading-none transition-all ${
-              isActive ? "opacity-100 ring-1 ring-violet-400/60" : "opacity-50 hover:opacity-100"
+            className={`relative inline-flex size-7 items-center justify-center rounded-full border text-[15px] leading-none transition-all ${
+              isActive
+                ? "border-violet-400/70 bg-white shadow-[0_0_8px_rgba(167,139,250,0.4)] dark:bg-zinc-900"
+                : "border-zinc-300/60 bg-white/80 hover:scale-110 hover:bg-white dark:border-zinc-700/60 dark:bg-zinc-900/80 dark:hover:bg-zinc-900"
             }`}
             aria-label={meta.nativeName}
             aria-pressed={isActive}
           >
-            <span aria-hidden>{meta.flag}</span>
+            <span aria-hidden style={{ filter: "drop-shadow(0 1px 1px rgba(0,0,0,0.3))" }}>{meta.flag}</span>
           </motion.button>
         );
       })}
