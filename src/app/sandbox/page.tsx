@@ -140,6 +140,8 @@ export default function SandboxPage() {
             </div>
 
             {/* ─────────────── BLOC V1.5 cat 2 ─────────────── */}
+            {/* Collapsible : header + boutons toujours visibles, détails (liste FPI
+                + adaptations) dans un <details>. Économise ~70% de hauteur par défaut. */}
             <div className="rounded-xl border border-amber-500/25 bg-amber-500/[0.04] p-5">
               <div className="mb-3 flex items-baseline gap-3">
                 <div className="flex size-9 items-center justify-center rounded-lg border border-amber-500/30 bg-amber-500/10 text-amber-300">
@@ -153,59 +155,75 @@ export default function SandboxPage() {
                 </div>
               </div>
 
-              <ul className="mt-4 grid gap-1.5">
-                {V2_CAT2_CANDIDATES.map((c) => (
-                  <li key={c.ticker} className="flex items-center gap-3 rounded-md border border-white/8 bg-white/[0.02] px-3 py-2">
-                    <span className="inline-flex size-6 shrink-0 items-center justify-center rounded border border-white/10 bg-white/[0.03] font-mono text-[10px] font-bold uppercase text-zinc-300">
-                      {c.country}
-                    </span>
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-baseline gap-2">
-                        <span className="font-mono text-[11px] font-semibold uppercase tracking-wider text-amber-300">
-                          {c.ticker}
+              <details className="group mt-3 rounded-md border border-amber-500/15 bg-amber-500/[0.04] open:bg-amber-500/[0.06]">
+                <summary className="flex cursor-pointer items-center justify-between px-3 py-2 text-[11px] font-mono uppercase tracking-wider text-amber-200/80 hover:text-amber-100">
+                  <span>Voir les 10 candidates + adaptations vs US</span>
+                  <span className="transition-transform group-open:rotate-180">▾</span>
+                </summary>
+                <div className="px-3 pb-3 pt-1">
+                  <ul className="mt-2 grid gap-1.5">
+                    {V2_CAT2_CANDIDATES.map((c) => (
+                      <li key={c.ticker} className="flex items-center gap-3 rounded-md border border-white/8 bg-white/[0.02] px-3 py-2">
+                        <span className="inline-flex size-6 shrink-0 items-center justify-center rounded border border-white/10 bg-white/[0.03] font-mono text-[10px] font-bold uppercase text-zinc-300">
+                          {c.country}
                         </span>
-                        <span className="text-[12.5px] font-medium text-zinc-100">{c.name}</span>
-                      </div>
-                      <div className="text-[10.5px] text-zinc-500">
-                        {c.sector} · devise {c.currency} · {c.filing}
-                      </div>
-                    </div>
-                    <span className="shrink-0 rounded bg-amber-500/15 px-1.5 py-0.5 font-mono text-[9px] uppercase text-amber-300">
-                      pipeline·todo
-                    </span>
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-3 text-[11px] text-zinc-500">
-                <strong className="text-amber-200">50 sociétés FPI</strong> implémentées dans la sandbox V2 (10 raffinées + 11 enrichies + 29 minimales).
-                + 1 602 autres FPI disponibles dans <code className="text-zinc-400">cat2-foreign-adr/</code> à activer.
-              </p>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-baseline gap-2">
+                            <span className="font-mono text-[11px] font-semibold uppercase tracking-wider text-amber-300">
+                              {c.ticker}
+                            </span>
+                            <span className="text-[12.5px] font-medium text-zinc-100">{c.name}</span>
+                          </div>
+                          <div className="text-[10.5px] text-zinc-500">
+                            {c.sector} · devise {c.currency} · {c.filing}
+                          </div>
+                        </div>
+                        <span className="shrink-0 rounded bg-amber-500/15 px-1.5 py-0.5 font-mono text-[9px] uppercase text-amber-300">
+                          pipeline·todo
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="mt-3 text-[11px] text-zinc-500">
+                    <strong className="text-amber-200">50 sociétés FPI</strong> implémentées dans la sandbox V1.5 (10 raffinées + 11 enrichies + 29 minimales).
+                    + 1 602 autres FPI disponibles dans <code className="text-zinc-400">cat2-foreign-adr/</code> à activer.
+                  </p>
+                  <div className="mt-3 space-y-1.5 text-[11px] text-amber-100/80">
+                    <div className="font-mono text-[10px] uppercase tracking-wider text-amber-300/70">Adaptations vs US :</div>
+                    <ul className="list-inside list-disc space-y-0.5 pl-1">
+                      <li>20-F annuel → équivalent 10-K, parser dédié</li>
+                      <li>6-K + IR direct → quarterly reconstitué, partiel</li>
+                      <li>Pas de DEF 14A ni Forms 3/4/5 (insider)</li>
+                      <li>Conversion devise (TWD/EUR/JPY/CNY/DKK)</li>
+                      <li>Bloc Stories prioritaire si history &lt; 5 ans</li>
+                    </ul>
+                  </div>
+                </div>
+              </details>
 
-              <div className="mt-4 space-y-1.5 text-[11px] text-amber-100/80">
-                <div className="font-mono text-[10px] uppercase tracking-wider text-amber-300/70">Adaptations vs US :</div>
-                <ul className="list-inside list-disc space-y-0.5 pl-1">
-                  <li>20-F annuel → équivalent 10-K, parser dédié</li>
-                  <li>6-K + IR direct → quarterly reconstitué, partiel</li>
-                  <li>Pas de DEF 14A ni Forms 3/4/5 (insider)</li>
-                  <li>Conversion devise (TWD/EUR/JPY/CNY/DKK)</li>
-                  <li>Bloc Stories prioritaire si history &lt; 5 ans</li>
-                </ul>
+              <div className="mt-4 grid gap-2">
+                <Link
+                  href="/sandbox/v2"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-amber-500/40 bg-amber-500/15 px-4 py-2.5 font-mono text-[11.5px] font-semibold uppercase tracking-wider text-amber-100 transition-all hover:border-amber-500/70 hover:bg-amber-500/25"
+                >
+                  Ouvrir 1.5 (50 sociétés DRAFT seed)
+                  <span className="text-base">→</span>
+                </Link>
+                <Link
+                  href="/sandbox/v1-6"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-cyan-500/40 bg-cyan-500/15 px-4 py-2.5 font-mono text-[11.5px] font-semibold uppercase tracking-wider text-cyan-100 transition-all hover:border-cyan-500/70 hover:bg-cyan-500/25"
+                >
+                  Ouvrir 1.6 (toutes stés extraites · 1606)
+                  <span className="text-base">→</span>
+                </Link>
+                <Link
+                  href="/sandbox/v1-7"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-emerald-500/50 bg-emerald-500/20 px-4 py-2.5 font-mono text-[11.5px] font-semibold uppercase tracking-wider text-emerald-100 transition-all hover:border-emerald-500/80 hover:bg-emerald-500/30"
+                >
+                  Ouvrir 1.7 (Pass 3 validées · 421)
+                  <span className="text-base">→</span>
+                </Link>
               </div>
-
-              <Link
-                href="/sandbox/v2"
-                className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-amber-500/40 bg-amber-500/15 px-4 py-2.5 font-mono text-[11.5px] font-semibold uppercase tracking-wider text-amber-100 transition-all hover:border-amber-500/70 hover:bg-amber-500/25"
-              >
-                Ouvrir V1.5 (50 sociétés DRAFT seed)
-                <span className="text-base">→</span>
-              </Link>
-              <Link
-                href="/sandbox/v1-6"
-                className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-cyan-500/40 bg-cyan-500/15 px-4 py-2.5 font-mono text-[11.5px] font-semibold uppercase tracking-wider text-cyan-100 transition-all hover:border-cyan-500/70 hover:bg-cyan-500/25"
-              >
-                Ouvrir V1.6 (35 sociétés Pipeline LLM)
-                <span className="text-base">→</span>
-              </Link>
             </div>
           </div>
         </section>

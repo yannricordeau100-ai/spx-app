@@ -44,7 +44,7 @@ export function CompanySearch({
   variant?: Variant;
   placeholder?: string;
 }) {
-  const { t } = useT();
+  const { t, locale } = useT();
   const ph =
     placeholder ??
     (variant === "hero"
@@ -257,16 +257,25 @@ export function CompanySearch({
                 </button>
               </div>
 
-              {/* Compteur résultats */}
+              {/* Compteur résultats : visible vs catalogue total */}
               <div className="relative flex items-center justify-between px-5 py-2.5 text-[10.5px] font-semibold uppercase tracking-[0.18em] text-zinc-500">
                 <span>
-                  {results.length}{" "}
-                  {results.length > 1
-                    ? t("search.results_count_many")
-                    : t("search.results_count_one")}
-                  {query
-                    ? ` ${t("search.results_for")}${query}${t("search.results_for_end")}`
-                    : ""}
+                  {query ? (
+                    <>
+                      {results.length}{" "}
+                      {results.length > 1
+                        ? t("search.results_count_many")
+                        : t("search.results_count_one")}
+                      {` ${t("search.results_for")}${query}${t("search.results_for_end")}`}
+                    </>
+                  ) : (
+                    <>
+                      {results.length} {locale === "fr" ? "visibles" : "shown"}{" "}
+                      <span className="text-zinc-600">·</span>{" "}
+                      <span className="text-violet-300">{totalCatalog}</span>{" "}
+                      {locale === "fr" ? "stés au total, tape pour filtrer" : "companies total, type to filter"}
+                    </>
+                  )}
                 </span>
                 <span className="text-zinc-600">{t("search.enter_to_open")}</span>
               </div>
