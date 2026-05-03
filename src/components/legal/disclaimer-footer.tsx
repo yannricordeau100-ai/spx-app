@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { LocaleFlagsRow } from "@/components/locale-flags-row";
 
 /**
  * Footer global avec :
@@ -70,8 +71,9 @@ export function DisclaimerFooter({ variant = "full" }: { variant?: "full" | "com
           </div>
         </div>
 
-        <div className="mt-8 flex flex-col items-baseline gap-1 border-t border-[#1a1a1a] pt-5 text-[11px] text-zinc-500 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-8 flex flex-col items-baseline gap-3 border-t border-[#1a1a1a] pt-5 text-[11px] text-zinc-500 sm:flex-row sm:items-center sm:justify-between">
           <span>© {new Date().getFullYear()} Mettrik AI · Tous droits réservés.</span>
+          <LocaleFlagsRow align="center" />
           <span className="font-mono">www.mettrik.ai</span>
         </div>
       </div>

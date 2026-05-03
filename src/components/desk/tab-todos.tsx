@@ -58,8 +58,16 @@ type FilterValue = "all" | DbValue;
 
 export function TabTodos({ ownerEmail: _ownerEmail }: { ownerEmail: string }) {
   void _ownerEmail; // RLS Supabase fait le filtrage côté DB
-  const [todos, setTodos] = useState<Todo[]>([]);
-  const [loading, setLoading] = useState(true);
+  // SWR cache : hydrate depuis localStorage au mount = affichage instantané.
+  // Puis fetch BDD en background pour refresh.
+  const [todos, setTodos] = useState<Todo[]>(() => {
+    if (typeof window === "undefined") return [];
+    try {
+      const raw = window.localStorage.getItem("mettrik.desk.cache.v1.todos");
+      return raw ? JSON.parse(raw) : [];
+    } catch { return []; }
+  });
+  const [loading, setLoading] = useState(false); // false par défaut = pas de spinner si cache présent
   const [newTitle, setNewTitle] = useState("");
   const [newCategory, setNewCategory] = useState<DbValue>("normal"); // = "V3" en label
   const [filter, setFilter] = useState<FilterValue>("all");
@@ -78,9 +86,15 @@ export function TabTodos({ ownerEmail: _ownerEmail }: { ownerEmail: string }) {
   );
 
   async function load() {
-    setLoading(true);
+    // Spinner uniquement si vraiment vide (pas de cache).
+    if (todos.length === 0) setLoading(true);
     const r = await fetch("/api/desk/todos");
-    if (r.ok) setTodos(await r.json());
+    if (r.ok) {
+      const data = await r.json();
+      setTodos(data);
+      // Persiste le cache pour next mount instantané.
+      try { window.localStorage.setItem("mettrik.desk.cache.v1.todos", JSON.stringify(data)); } catch {}
+    }
     setLoading(false);
   }
   useEffect(() => { load(); }, []);

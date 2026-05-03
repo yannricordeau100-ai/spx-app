@@ -2,7 +2,7 @@ import Link from "next/link";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getServerLocale } from "@/lib/i18n/server";
 import { translate } from "@/lib/i18n/dictionary";
-import { LanguageSwitcher } from "@/components/language-switcher";
+import { LanguageDropdown as LanguageSwitcher } from "@/components/language-dropdown";
 
 /**
  * AuthNav — server component qui montre :

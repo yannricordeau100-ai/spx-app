@@ -15,15 +15,26 @@ type Note = {
 };
 
 export function TabNotes({ ownerEmail }: { ownerEmail: string }) {
-  const [notes, setNotes] = useState<Note[]>([]);
-  const [loading, setLoading] = useState(true);
+  // SWR cache : hydrate localStorage au mount = affichage instantané.
+  const [notes, setNotes] = useState<Note[]>(() => {
+    if (typeof window === "undefined") return [];
+    try {
+      const raw = window.localStorage.getItem("mettrik.desk.cache.v1.notes");
+      return raw ? JSON.parse(raw) : [];
+    } catch { return []; }
+  });
+  const [loading, setLoading] = useState(false);
   const [editing, setEditing] = useState<Note | null>(null);
   const [filter, setFilter] = useState("");
 
   async function load() {
-    setLoading(true);
+    if (notes.length === 0) setLoading(true);
     const r = await fetch("/api/desk/notes");
-    if (r.ok) setNotes(await r.json());
+    if (r.ok) {
+      const data = await r.json();
+      setNotes(data);
+      try { window.localStorage.setItem("mettrik.desk.cache.v1.notes", JSON.stringify(data)); } catch {}
+    }
     setLoading(false);
   }
 

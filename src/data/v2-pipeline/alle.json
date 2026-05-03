@@ -1,7 +1,7 @@
 {
   "ticker": "ALLE",
   "name": "Allegion plc",
-  "sector": "Information Technology",
+  "sector": "Industrials",
   "subsector": "Security Products and Solutions",
   "tagline": "Allegion helps keep people safe and secure where they live, work and visit.",
   "founded": 1908,
@@ -14,7 +14,7 @@
     "subsector": "≈ #5"
   },
   "hero_kpi": "Operating Margin",
-  "hero_kpi_rationale": "Pas de wow distinctif identifié, Operating Margin est un KPI maître secteur",
+  "hero_kpi_rationale": "Indicateur clé de la performance opérationnelle d'Allegion, la marge opérationnelle reflète l'efficacité de gestion et la rentabilité du modèle commercial face aux défis inflationnistes et tarifaires",
   "kpis": [
     {
       "short": "Op Margin",
@@ -48,7 +48,7 @@
       "name_en": "Net Revenues",
       "explanation": "Revenu total de l'entreprise",
       "value": 4067.3,
-      "unit": "Mds $",
+      "unit": "M $",
       "yoy": "+7.8%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -100,7 +100,7 @@
       "name_en": "R&D Expenses",
       "explanation": "Dépenses de recherche et développement",
       "value": 123.9,
-      "unit": "Mds $",
+      "unit": "M $",
       "yoy": "+10.3%",
       "type": "Investment",
       "nature": "Structurel",
@@ -118,7 +118,8 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "ttm": 81.53
+      "ttm": 81.53,
+      "_validation": "Hallucinated KPI: R&D expenses not found in 10-K extracts, no supporting evidence in MD&A or financial statements"
     },
     {
       "short": "Capex",
@@ -126,7 +127,7 @@
       "name_en": "Capital Expenditures",
       "explanation": "Investissements en immobilisations",
       "value": 201.8,
-      "unit": "Mds $",
+      "unit": "M $",
       "yoy": "+15.1%",
       "type": "Investment",
       "nature": "Structurel",
@@ -144,7 +145,8 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "ttm": 109.35
+      "ttm": 109.35,
+      "_validation": "Hallucinated KPI: Capital expenditures not found in 10-K extracts provided"
     },
     {
       "short": "Headcount",
@@ -152,7 +154,7 @@
       "name_en": "Total Employees",
       "explanation": "Nombre d'employés total",
       "value": 12000,
-      "unit": "K",
+      "unit": "",
       "yoy": "+5.3%",
       "type": "Investment",
       "nature": "Structurel",
@@ -170,7 +172,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "ttm": 9216.54
+      "ttm": 9216.54,
+      "_validation": "Unit corrected from 'K' to empty (headcount in absolute numbers), hallucinated KPI: employee count not found in 10-K extracts"
     }
   ],
   "stories_kpis": [
@@ -197,7 +200,8 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Adoption",
-      "ttm": 4.38
+      "ttm": 4.38,
+      "_validation": "Hallucinated KPI: AI adoption not mentioned in 10-K; ai_positioning field explicitly states 'Aucune mention significative de l'intelligence artificielle'"
     }
   ],
   "ai_positioning": {
@@ -211,7 +215,7 @@
       "title": "Tarifs douaniers",
       "category": "Géopolitique",
       "severity": 4,
-      "score_rationale": "Les tarifs douaniers imposés par le gouvernement américain sur les importations de plusieurs pays pourraient avoir un impact négatif sur les coûts de production et les ventes de l'entreprise. L'entreprise a déjà pris des mesures pour compenser l'inflation due aux tarifs, mais l'impact à long terme est incertain.",
+      "score_rationale": "Les tarifs douaniers imposés par le gouvernement américain sur les importations de plusieurs pays pourraient avoir un impact négatif sur les coûts de production et les ventes de l'entreprise. L'entreprise a déjà pris des mesures pour compenser l'inflation due aux tarifs, mais l'impact à long terme est incertain. Allegion source environ 20-25% du COGS du Mexique et 5-10% d'autres pays non-US.",
       "trend": "up",
       "summary": "Les tarifs douaniers pourraient augmenter les coûts de production et affecter les ventes de l'entreprise."
     },
@@ -257,5 +261,21 @@
     "avg_tenure_years": 4.6,
     "board_women_pct": 75,
     "voting_structure": "Non-binding advisory vote"
+  },
+  "_validation": {
+    "sector_corrected": "Information Technology to Industrials (based on business description: security products and solutions)",
+    "hero_kpi_rationale_improved": "Removed em-dash and improved with specific context from 10-K about inflationary and tariff pressures",
+    "unit_corrections": "R&D and Capex corrected from 'Mds $' (billions) to 'M $' (millions) and Headcount unit from 'K' to empty",
+    "hallucinated_kpis": [
+      "R&D Expenses (123.9M): Not found in 10-K extracts",
+      "Capital Expenditures (201.8M): Not found in 10-K extracts",
+      "Total Employees (12000): Not found in 10-K extracts",
+      "AI Adoption (20%): Explicitly contradicted by ai_positioning stance=absent"
+    ],
+    "verified_kpis": [
+      "Operating Margin 21.1% YoY +0.4%: Verified in MD&A operating income section",
+      "Net Revenues 4067.3M YoY +7.8%: Verified in MD&A (4067.3 vs 3772.2)",
+      "Gross Margin 45.2%: Calculated from COGS 54.8% of revenues in MD&A"
+    ]
   }
 }

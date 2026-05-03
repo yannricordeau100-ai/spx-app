@@ -25,9 +25,12 @@ export function I18nProvider({
 
   const setLocale = useCallback((next: Locale) => {
     if (typeof document === "undefined" || typeof window === "undefined") return;
-    // Cookie pour persister le choix au-delà de la navigation actuelle.
+    // Cookie pour persister le choix (gère les variantes type "en-GB", "de-CH").
     document.cookie = `${COOKIE_NAME}=${next}; path=/; max-age=${COOKIE_MAX_AGE}; SameSite=Lax`;
-    // Path-based : naviguer vers /fr/<route> ou /<route> selon la cible.
+    // Path-based : seul "fr" a un préfixe URL pour l'instant. Les autres
+    // locales (en, de, nl, sv, da, en-GB, de-CH) utilisent /<route> avec
+    // distinction via cookie. Quand DE/NL/etc. seront pleinement traduits,
+    // on ajoutera leurs préfixes URL.
     const path = window.location.pathname;
     const search = window.location.search;
     const FR_PREFIX = "/fr";
