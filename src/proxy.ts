@@ -99,25 +99,28 @@ export async function proxy(request: NextRequest) {
     }
   }
 
-  // 0. Maintenance mode : si MAINTENANCE_MODE=on, redirige tout le trafic
-  //    user-facing vers /maintenance (ou /fr/maintenance). Exceptions :
-  //    /maintenance lui-même, /api/*, /desk-* (Yann doit pouvoir bosser),
-  //    /admin, et les assets statiques. Le toggle se fait depuis le
-  //    dashboard Vercel (Project Settings -> Environment Variables).
+  // 0. Maintenance mode (cf. règle Yann 3 mai 2026) : sur prod (mettrik.ai),
+  //    SEULE la page /maintenance est accessible. Toute autre URL user-facing
+  //    redirige vers /maintenance, y compris /desk-*, /admin, /whoami qui
+  //    étaient temporairement whitelistés. Quand Yann veut accéder à son
+  //    desk en prod, il désactive MAINTENANCE_MODE depuis Vercel ou bosse
+  //    sur staging (où MAINTENANCE_MODE n'est jamais activé).
+  //    Seules exceptions strictement techniques : assets statiques (favicon,
+  //    robots, sitemap) et endpoints API internes nécessaires au runtime
+  //    Next/Vercel (sans /api Next ne peut pas servir la page).
   const maintenanceMode = (process.env.MAINTENANCE_MODE ?? "").toLowerCase();
   const isMaintenanceOn = maintenanceMode === "on" || maintenanceMode === "true" || maintenanceMode === "1";
   if (isMaintenanceOn) {
     const isMaintenancePage = routePathname === "/maintenance";
-    const isInternalRoute =
+    // Strictement les routes techniques nécessaires au rendu du site lui-même.
+    // /api/* nécessaire pour les appels que la page maintenance pourrait faire
+    // (analytics, OG image SSR, etc.) et que le runtime Next utilise.
+    const isTechnicalRoute =
       routePathname.startsWith("/api/") ||
-      routePathname.startsWith("/desk-") ||
-      routePathname === "/admin" ||
-      routePathname.startsWith("/admin/") ||
-      routePathname === "/whoami" ||
       routePathname === "/favicon.ico" ||
       routePathname === "/robots.txt" ||
       routePathname === "/sitemap.xml";
-    if (!isMaintenancePage && !isInternalRoute) {
+    if (!isMaintenancePage && !isTechnicalRoute) {
       const url = request.nextUrl.clone();
       url.pathname = isFrLocale ? "/fr/maintenance" : "/maintenance";
       url.search = "";
