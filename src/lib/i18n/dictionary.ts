@@ -574,6 +574,54 @@ export const DICTIONARY: Dict = {
     fr: "Affiche la valeur divisée par fraction de temps. Utile pour voir « combien gagne cette société par seconde ? ». Calcul simple : valeur annuelle ÷ nombre de fractions dans une année (365 jours, 8 760 heures, etc.).",
     en: "Shows the value divided by time fraction. Useful to see 'how much does this company earn per second?'. Simple math: yearly value ÷ number of fractions in a year (365 days, 8,760 hours, etc.).",
   },
+
+  // === Parrainage / Referral ====================================
+  "referral.title": { fr: "Parrainez un proche", en: "Invite a friend" },
+  "referral.subtitle": {
+    fr: "Vous parrainez. Votre filleul s'abonne. Vous gagnez chacun 1 mois offert sur votre plan respectif.",
+    en: "You refer. Your friend subscribes. You both get 1 month free on your respective plans.",
+  },
+  "referral.cta_generate": { fr: "Générer mon code de parrainage", en: "Generate my invite code" },
+  "referral.cta_copy": { fr: "Copier le lien", en: "Copy the link" },
+  "referral.cta_copied": { fr: "Lien copié ✓", en: "Link copied ✓" },
+  "referral.your_code": { fr: "Votre code", en: "Your code" },
+  "referral.your_link": { fr: "Votre lien à partager", en: "Your link to share" },
+  "referral.signin_required": {
+    fr: "Connectez-vous pour générer votre code de parrainage.",
+    en: "Sign in to generate your invite code.",
+  },
+  "referral.paid_required": {
+    fr: "Le parrainage est réservé aux utilisateurs avec un plan payant actif.",
+    en: "Invite program is for active paid users only.",
+  },
+  "referral.history_title": { fr: "Vos parrainages", en: "Your referrals" },
+  "referral.history_empty": { fr: "Aucun parrainage pour l'instant.", en: "No referrals yet." },
+  "referral.status_pending": { fr: "En attente", en: "Pending" },
+  "referral.status_signed_up": { fr: "Filleul inscrit", en: "Friend signed up" },
+  "referral.status_subscribed": { fr: "Filleul abonné", en: "Friend subscribed" },
+  "referral.status_rewarded": { fr: "Récompense versée", en: "Reward applied" },
+  "referral.status_expired": { fr: "Expiré", en: "Expired" },
+  "referral.status_invalid": { fr: "Invalide", en: "Invalid" },
+  "referral.expires_in": { fr: "Expire le", en: "Expires on" },
+  "referral.how_it_works": { fr: "Comment ça marche", en: "How it works" },
+  "referral.step1": {
+    fr: "Cliquez sur « Générer mon code » pour obtenir un lien unique.",
+    en: "Click \"Generate my code\" to get a unique link.",
+  },
+  "referral.step2": {
+    fr: "Partagez ce lien avec un proche par email, message, ou réseau social.",
+    en: "Share this link with a friend by email, message, or social network.",
+  },
+  "referral.step3": {
+    fr: "Quand votre filleul s'abonne à un plan payant, vous recevez tous les deux 1 mois offert (peu importe le plan choisi).",
+    en: "When your friend subscribes to any paid plan, you both receive 1 month free (any plan).",
+  },
+  "referral.code_invalid": { fr: "Code de parrainage invalide ou expiré.", en: "Invalid or expired invite code." },
+  "referral.code_valid_invited_by": { fr: "Vous avez été invité par", en: "You were invited by" },
+  "referral.disabled": {
+    fr: "Le programme de parrainage est temporairement suspendu. Revenez bientôt.",
+    en: "The referral program is temporarily on hold. Check back soon.",
+  },
   "senate.demo_footer": {
     fr: "Données démo : branchement live API Senate Stock Watcher / Capitol Trades en V1.5",
     en: "Demo data: live wiring to Senate Stock Watcher / Capitol Trades API in V1.5",

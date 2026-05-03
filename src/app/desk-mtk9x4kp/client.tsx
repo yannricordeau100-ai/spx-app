@@ -17,7 +17,7 @@ function KeepAlive({ active, id, children }: { active: string; id: string; child
 }
 import {
   FileText, ListTodo, Library, FolderOpen, Calendar, Bookmark, Cpu, Lightbulb,
-  Link as LinkIcon, ImageIcon, BarChart3, MessageSquare, Target, Map, Info,
+  Link as LinkIcon, ImageIcon, BarChart3, MessageSquare, Target, Map, Info, Gift,
 } from "lucide-react";
 import { TabNotes } from "@/components/desk/tab-notes";
 import { TabTodos } from "@/components/desk/tab-todos";
@@ -30,6 +30,7 @@ import { TabIdeas } from "@/components/desk/tab-ideas";
 import { TabLinks } from "@/components/desk/tab-links";
 import { TabInspiration } from "@/components/desk/tab-inspiration";
 import { TabMetrics } from "@/components/desk/tab-metrics";
+import { TabReferrals } from "@/components/desk/tab-referrals";
 import { TabDrafts } from "@/components/desk/tab-drafts";
 import { TabPitch } from "@/components/desk/tab-pitch";
 import { TabRoadmap } from "@/components/desk/tab-roadmap";
@@ -39,7 +40,8 @@ type TabId =
   | "documents" | "gics" | "pipeline"
   | "calendar" | "bookmarks" | "links"
   | "drafts" | "pitch"
-  | "inspiration" | "ideas" | "metrics";
+  | "inspiration" | "ideas" | "metrics"
+  | "referrals";
 
 type TabSection = {
   label: string;
@@ -72,7 +74,7 @@ const SECTIONS: TabSection[] = [
     items: [
       { id: "calendar",    label: "Calendrier",    Icon: Calendar,    hint: "Earnings, AGM, conférences sectorielles" },
       { id: "bookmarks",   label: "Bookmarks",     Icon: Bookmark,    hint: "Articles, vidéos, ressources tagguées" },
-      { id: "links",       label: "Quick links",   Icon: LinkIcon,    hint: "Stripe, Supabase, GitHub, dashboards" },
+      { id: "links",       label: "Quick links",   Icon: LinkIcon,    hint: "Stripe, GitHub, dashboards techniques" },
       { id: "inspiration", label: "Galerie inspi", Icon: ImageIcon,   hint: "Screenshots de visuels qui t'inspirent" },
     ],
   },
@@ -90,6 +92,13 @@ const SECTIONS: TabSection[] = [
     hint: "À câbler en V2",
     items: [
       { id: "metrics", label: "Métriques app", Icon: BarChart3, hint: "Visiteurs, MRR, churn (placeholder)" },
+    ],
+  },
+  {
+    label: "Croissance",
+    hint: "Programmes user growth",
+    items: [
+      { id: "referrals", label: "Parrainage", Icon: Gift, hint: "Paramètres du programme de parrainage (page /parrainage publique)" },
     ],
   },
 ];
@@ -193,6 +202,7 @@ export function DeskClient({ ownerEmail }: { ownerEmail: string }) {
             <KeepAlive active={tab} id="drafts"><TabDrafts ownerEmail={ownerEmail} /></KeepAlive>
             <KeepAlive active={tab} id="pitch"><TabPitch ownerEmail={ownerEmail} /></KeepAlive>
             <KeepAlive active={tab} id="metrics"><TabMetrics /></KeepAlive>
+            <KeepAlive active={tab} id="referrals"><TabReferrals /></KeepAlive>
           </div>
         </main>
       </div>
