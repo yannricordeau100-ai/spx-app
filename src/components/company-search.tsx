@@ -16,6 +16,11 @@ import { yoyTone } from "@/lib/utils";
 import { CompanyLogo, logoNeedsLightBg } from "@/components/logos";
 import { AcronymHover } from "@/components/acronym-hover";
 import { useT } from "@/lib/i18n/provider";
+import {
+  V17_SEARCH_INDEX,
+  V17_SEARCH_BY_TICKER,
+  type V17SearchEntry,
+} from "@/lib/v1-7/tickers-search-index";
 
 /**
  * CompanySearch — barre de recherche unifiée, utilisée :
@@ -75,24 +80,53 @@ export function CompanySearch({
     };
   }, [open]);
 
-  const results = useMemo(() => {
-    if (!query.trim()) return TICKERS;
-    const q = query.toLowerCase();
-    return TICKERS.filter((t) => {
-      // L'alias est consultable mais résout vers le canonique : taper
-      // "goog" matche GOOGL aussi. On n'affiche pas l'alias comme entrée
-      // séparée pour éviter les doublons visuels.
+  /**
+   * Résultats unifiés V1 + V1.7. On filtre les 1607 entrées V1.7 puis on
+   * priorise les 5 V1 en tête (plus riches : hero KPI, secteur, etc.).
+   * Chaque résultat carry son origine ("v1" | "v17") pour que ResultCard
+   * route correctement (`/<ticker>` vs `/sandbox/v1-7/<ticker>`).
+   *
+   * Sans query : on affiche 5 V1 + premier slice V1.7 (top alphabétique).
+   *              Évite de charger 1607 cards à l'ouverture.
+   * Avec query : on filtre toutes les sources, cap visuel 60 résultats.
+   */
+  const results = useMemo<{ ticker: string; source: "v1" | "v17" }[]>(() => {
+    const q = query.trim().toLowerCase();
+    const v1Out: { ticker: string; source: "v1" }[] = [];
+    const v17Out: { ticker: string; source: "v17" }[] = [];
+
+    // V1 (5 stés, riches)
+    for (const t of TICKERS) {
       const aliases = Object.entries(TICKER_ALIASES)
         .filter(([, target]) => target === t)
         .map(([alias]) => alias.toLowerCase());
-      return (
+      const matches =
+        !q ||
         t.toLowerCase().includes(q) ||
         aliases.some((a) => a.includes(q)) ||
         COMPANIES[t].name.toLowerCase().includes(q) ||
         COMPANIES[t].sector.toLowerCase().includes(q) ||
-        COMPANIES[t].subsector.toLowerCase().includes(q)
-      );
-    });
+        COMPANIES[t].subsector.toLowerCase().includes(q);
+      if (matches) v1Out.push({ ticker: t, source: "v1" });
+    }
+
+    // V1.7 (1607 stés, format léger). Skip ceux déjà présents en V1.
+    const v1Set = new Set(TICKERS.map((t) => t.toUpperCase()));
+    const v17Source: V17SearchEntry[] = !q
+      ? V17_SEARCH_INDEX.slice(0, 30) // sample initial
+      : V17_SEARCH_INDEX;
+    for (const e of v17Source) {
+      if (v1Set.has(e.ticker.toUpperCase())) continue;
+      const matches =
+        !q ||
+        e.ticker.toLowerCase().includes(q) ||
+        e.name.toLowerCase().includes(q) ||
+        e.sector.toLowerCase().includes(q);
+      if (matches) v17Out.push({ ticker: e.ticker, source: "v17" });
+    }
+
+    // Cap à 60 résultats visuels (au-delà devient illisible).
+    return [...v1Out, ...v17Out].slice(0, 60);
   }, [query]);
 
   const close = () => {
@@ -243,9 +277,13 @@ export function CompanySearch({
                   </div>
                 ) : (
                   <ul className="grid grid-cols-1 gap-2">
-                    {results.map((tk) => (
-                      <li key={tk}>
-                        <ResultCard ticker={tk} onSelect={close} />
+                    {results.map((r) => (
+                      <li key={`${r.source}-${r.ticker}`}>
+                        {r.source === "v1" ? (
+                          <ResultCard ticker={r.ticker} onSelect={close} />
+                        ) : (
+                          <ResultCardV17 ticker={r.ticker} onSelect={close} />
+                        )}
                       </li>
                     ))}
                   </ul>
@@ -348,6 +386,72 @@ function ResultCard({
       </div>
 
       {/* Chevron */}
+      <ArrowRight className="size-4 shrink-0 -translate-x-1 text-zinc-600 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:text-zinc-300 group-hover:opacity-100" />
+    </Link>
+  );
+}
+
+/* ─── Carte résultat V1.7 (sté pipeline, format léger) ──────────────── */
+/**
+ * Variante de ResultCard pour les 1602 stés V1.7 (pipeline LLM).
+ * On a moins d'info qu'en V1 : pas de hero KPI calculé, pas de yoy.
+ * On affiche logo (placeholder ticker), nom, ticker, secteur, et un
+ * petit chip "V1.7" pour signaler que c'est une fiche pipeline.
+ * Route vers `/sandbox/v1-7/<ticker>` (la fiche V1.7).
+ */
+function ResultCardV17({
+  ticker,
+  onSelect,
+}: {
+  ticker: string;
+  onSelect: () => void;
+}) {
+  const e = V17_SEARCH_BY_TICKER[ticker.toUpperCase()];
+  const accent = brand(ticker).primary;
+  if (!e) return null;
+  return (
+    <Link
+      href={`/sandbox/v1-7/${ticker.toLowerCase()}`}
+      onClick={onSelect}
+      className="group relative flex items-center gap-4 overflow-hidden rounded-2xl border border-white/8 bg-white/[0.02] p-3 transition-all hover:border-white/20 hover:bg-white/[0.05]"
+    >
+      <span
+        aria-hidden
+        className="absolute left-0 top-0 h-full w-[3px] origin-bottom scale-y-0 transition-transform duration-300 group-hover:scale-y-100"
+        style={{ background: accent }}
+      />
+
+      {/* Logo : tente CompanyLogo (Clearbit / SVG si dispo), sinon placeholder lettre */}
+      <div
+        className={`size-12 shrink-0 rounded-xl border p-1.5 transition-transform duration-300 group-hover:scale-105 ${
+          logoNeedsLightBg(ticker)
+            ? "border-[#e5e5e5] bg-[#fafafa]"
+            : "border-[#1f1f1f] bg-[#0a0a0a]"
+        }`}
+      >
+        <CompanyLogo ticker={ticker} />
+      </div>
+
+      <div className="min-w-0 flex-1">
+        <div className="flex items-baseline gap-2">
+          <span className="truncate text-[14.5px] font-semibold text-zinc-50">
+            {e.name}
+          </span>
+          <span
+            className="font-mono text-[11px] font-bold tracking-wider"
+            style={{ color: accent }}
+          >
+            {ticker}
+          </span>
+          <span className="rounded-md border border-cyan-400/30 bg-cyan-400/10 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-cyan-200">
+            V1.7
+          </span>
+        </div>
+        <div className="mt-0.5 truncate text-[11.5px] text-zinc-400">
+          {e.sector || "-"}
+        </div>
+      </div>
+
       <ArrowRight className="size-4 shrink-0 -translate-x-1 text-zinc-600 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:text-zinc-300 group-hover:opacity-100" />
     </Link>
   );
