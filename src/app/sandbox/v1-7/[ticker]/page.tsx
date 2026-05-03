@@ -81,10 +81,13 @@ export default async function SandboxV16TickerPage({
       </div>
 
       {/* CompanyView complet : graph hero + KPI normaux + stories + risks + gov + AI.
-          Price bar activé pour V1.7 (CONV-DATA demande). Senate trades cachés
-          (V1 only). Toute donnée manquante (events, TAM, gov, AI) est gérée
-          gracieusement par CompanyView via flags conditionnels. */}
-      <CompanyView company={company} authSlot={null} hideSenate />
+          hidePriceBar pour rester aligné avec V1.6 (StockPriceBlock V1 dépend
+          de tickers V1 hardcodés et plante sur datasets pipeline = 500
+          server-side). On le réactivera ticker par ticker une fois le fetch
+          FMP générique câblé. Senate trades cachés (V1 only). Données
+          manquantes (events, TAM, gov, AI) gérées gracieusement par
+          CompanyView via flags conditionnels. */}
+      <CompanyView company={company} authSlot={null} hideSenate hidePriceBar />
     </>
   );
 }

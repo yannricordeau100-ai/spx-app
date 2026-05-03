@@ -111,9 +111,14 @@ export function CompanySearch({
     }
 
     // V1.7 (1607 stés, format léger). Skip ceux déjà présents en V1.
+    // Empty query : on liste les 50 premiers alphabétiques pour faire
+    // découvrir le catalogue mais sans crasher la modal (1607 cards = trop).
+    // Avec query : on filtre l'intégralité de l'index, cap à 200 résultats
+    // visuels (typer "a" remonte des centaines de tickers, on coupe pour
+    // garder la modal scrollable et lisible).
     const v1Set = new Set(TICKERS.map((t) => t.toUpperCase()));
     const v17Source: V17SearchEntry[] = !q
-      ? V17_SEARCH_INDEX.slice(0, 30) // sample initial
+      ? V17_SEARCH_INDEX.slice(0, 50)
       : V17_SEARCH_INDEX;
     for (const e of v17Source) {
       if (v1Set.has(e.ticker.toUpperCase())) continue;
@@ -125,9 +130,11 @@ export function CompanySearch({
       if (matches) v17Out.push({ ticker: e.ticker, source: "v17" });
     }
 
-    // Cap à 60 résultats visuels (au-delà devient illisible).
-    return [...v1Out, ...v17Out].slice(0, 60);
+    return [...v1Out, ...v17Out].slice(0, 200);
   }, [query]);
+
+  // Compteur "X stés au total dans le catalogue" affiché en footer modal.
+  const totalCatalog = TICKERS.length + V17_SEARCH_INDEX.length;
 
   const close = () => {
     setOpen(false);
