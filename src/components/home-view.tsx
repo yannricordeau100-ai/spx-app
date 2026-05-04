@@ -389,30 +389,57 @@ export function HomeView({
             {results.map((ticker) => {
               const c = COMPANIES_USED[ticker];
               if (!c) return null;
-              // Garde défensive : sté sans KPI = on skip (V1.7 dataset peut
-              // avoir des stés vides en attente d'enrichissement LLM).
-              if (!c.kpis || !Array.isArray(c.kpis) || c.kpis.length === 0) return null;
-              const hero = getHero(c);
-              if (
-                !hero ||
-                typeof hero.value !== "string" ||
-                typeof hero.yoy !== "string" ||
-                typeof hero.type !== "string" ||
-                typeof hero.unit !== "string" ||
-                typeof hero.short !== "string"
-              )
-                return null;
-              const tone = yoyTone(hero.yoy, hero.type);
-              const yoyColor =
-                tone === "pos" ? "#10b981" : tone === "neg" ? "#f43f5e" : "#a1a1aa";
-              const accent = brand(ticker).primary;
-              let r;
+              // Render carte avec try/catch global : si le dataset V1.7
+              // est partiellement extrait (champ manquant qui crashe rate(),
+              // formatUnit(), etc.), on skip silencieusement plutôt que
+              // crasher toute la home.
               try {
-                r = rate(hero);
+                return renderCompanyCard(c, ticker, buildHref, locale, t);
               } catch {
-                // rate() peut crasher sur des stés V1.7 partielles. Fallback neutre.
-                r = { tier: "moyen" as const, label: "Moyen", percentile: "", color: "#a1a1aa" };
+                return null;
               }
+            })}
+          </div>
+        </div>
+
+        <footer className="mt-20 pb-8 text-center font-mono text-[11px] uppercase tracking-wider text-zinc-500 sm:mt-24">
+          Mettrik AI · {t("brand.subtitle")}
+        </footer>
+      </div>
+      <BackToTop />
+    </div>
+  );
+}
+
+/** Card sté de la home : extraite pour pouvoir try/catch autour. */
+function renderCompanyCard(
+  c: import("@/lib/data").Company,
+  ticker: string,
+  buildHref: (t: string) => string,
+  locale: string,
+  t: (k: string) => string
+): React.ReactNode {
+  if (!c.kpis || !Array.isArray(c.kpis) || c.kpis.length === 0) return null;
+  const hero = getHero(c);
+  if (
+    !hero ||
+    typeof hero.value !== "string" ||
+    typeof hero.yoy !== "string" ||
+    typeof hero.type !== "string" ||
+    typeof hero.unit !== "string" ||
+    typeof hero.short !== "string"
+  )
+    return null;
+  const tone = yoyTone(hero.yoy, hero.type);
+  const yoyColor =
+    tone === "pos" ? "#10b981" : tone === "neg" ? "#f43f5e" : "#a1a1aa";
+  const accent = brand(ticker).primary;
+  let r;
+  try {
+    r = rate(hero);
+  } catch {
+    r = { tier: "moyen" as const, label: "Moyen", percentile: "", color: "#a1a1aa" };
+  }
               return (
                 <div key={ticker}>
                   <Link
@@ -478,15 +505,4 @@ export function HomeView({
                   </Link>
                 </div>
               );
-            })}
-          </div>
-        </div>
-
-        <footer className="mt-20 pb-8 text-center font-mono text-[11px] uppercase tracking-wider text-zinc-500 sm:mt-24">
-          Mettrik AI · {t("brand.subtitle")}
-        </footer>
-      </div>
-      <BackToTop />
-    </div>
-  );
 }
