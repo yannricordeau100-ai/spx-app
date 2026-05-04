@@ -93,7 +93,8 @@ export default async function HomePage({
   let v17Tickers: string[] | null = null;
   if (IS_STAGING) {
     v17Datasets = loadV17();
-    v17Tickers = Object.keys(v17Datasets).sort();
+    // Cap temporaire à 30 pour isoler une éventuelle sté qui crashe.
+    v17Tickers = Object.keys(v17Datasets).sort().slice(0, 30);
   }
 
   return (

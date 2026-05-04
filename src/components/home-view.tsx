@@ -13,6 +13,7 @@ import { FreshnessIndicator } from "@/components/freshness-indicator";
 import { BackToTop } from "@/components/back-to-top";
 import { StarButton } from "@/components/star-button";
 import { CompanySearch } from "@/components/company-search";
+import { HomeFAQ } from "@/components/home-faq";
 import { useT } from "@/lib/i18n/provider";
 
 /**
@@ -326,10 +327,14 @@ export function HomeView({
   companies: companiesProp,
   tickers: tickersProp,
   hrefBuilder,
+  showFAQ = true,
 }: {
   companies?: Record<string, import("@/lib/data").Company>;
   tickers?: string[];
   hrefBuilder?: (ticker: string) => string;
+  /** Affiche la FAQ + disclaimer (true par défaut). Les hubs sandbox
+      V1.5/V1.6/V1.7 le passent à false : ils sont des vues de browse pures. */
+  showFAQ?: boolean;
 } = {}) {
   const { t, locale } = useT();
   const COMPANIES_USED = companiesProp ?? COMPANIES;
@@ -401,6 +406,8 @@ export function HomeView({
             })}
           </div>
         </div>
+
+        {showFAQ && <HomeFAQ />}
 
         <footer className="mt-20 pb-8 text-center font-mono text-[11px] uppercase tracking-wider text-zinc-500 sm:mt-24">
           Mettrik AI · {t("brand.subtitle")}

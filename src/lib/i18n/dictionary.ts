@@ -544,6 +544,122 @@ export const DICTIONARY: Dict = {
     en: "Discussions handled only in French or English.",
   },
 
+  /* ──────────────────────── FAQ HOME ──────────────────────── */
+  // FAQ home : 12 questions standards investisseur. Wording 100% original
+  // Mettrik, écrit from scratch (4 mai 2026). Disclaimers cohérents avec CG.
+  "faq.title": {
+    fr: "Questions fréquentes",
+    en: "Frequently asked questions",
+  },
+  "faq.subtitle": {
+    fr: "Tout ce qui est utile à savoir avant de t'inscrire ou de t'abonner.",
+    en: "What's useful to know before signing up or subscribing.",
+  },
+  "faq.q.what": {
+    fr: "Concrètement, à quoi sert Mettrik AI ?",
+    en: "What does Mettrik AI actually do?",
+  },
+  "faq.a.what": {
+    fr: "Mettrik AI agrège, structure et présente les KPIs les plus utiles des grandes sociétés cotées : indicateurs métier propres à chaque sous-secteur, scores de qualité, signaux comparatifs entre pairs, gouvernance, risques, positionnement IA. L'objectif : faire gagner du temps à un investisseur qui veut une lecture chiffrée et lisible d'une société, sans avoir à parcourir 200 pages de rapport annuel.",
+    en: "Mettrik AI aggregates, structures and surfaces the most useful KPIs of large listed companies: industry-specific operational metrics, quality scores, peer comparison signals, governance, risks, AI positioning. The goal: save time for an investor who wants a quantitative, readable view of a company without going through 200 pages of annual report.",
+  },
+  "faq.q.data_sources": {
+    fr: "D'où viennent les données ?",
+    en: "Where does the data come from?",
+  },
+  "faq.a.data_sources": {
+    fr: "Exclusivement de sources publiques officielles : 10-K, 10-Q, 8-K, DEF 14A déposés auprès de la SEC pour les sociétés US, 20-F et rapports équivalents pour les FPI étrangères, communiqués de résultats, transcripts d'earnings calls. Aucune source privée, aucun deal d'exclusivité avec une banque ou un broker. Tu peux toujours retrouver la source primaire toi-même via SEC EDGAR ou la page investisseurs de la société.",
+    en: "Exclusively public official sources: 10-K, 10-Q, 8-K, DEF 14A filings with the SEC for US companies, 20-F and equivalent reports for foreign private issuers, earnings releases, earnings call transcripts. No private feeds, no exclusivity deals with banks or brokers. You can always trace any data point back to its primary source via SEC EDGAR or the company's investor relations page.",
+  },
+  "faq.q.freshness": {
+    fr: "À quelle fréquence les KPIs sont-ils mis à jour ?",
+    en: "How often are the KPIs updated?",
+  },
+  "faq.a.freshness": {
+    fr: "À chaque publication officielle de la société : trimestriellement pour les 10-Q et résultats, annuellement pour les 10-K, ponctuellement pour les 8-K (événements matériels). Un indicateur de fraîcheur est affiché sur chaque KPI principal : vert si la donnée a moins de 4 mois, ambre entre 4 et 12 mois, rouge au-delà.",
+    en: "On every official company filing: quarterly for 10-Qs and earnings, annually for 10-Ks, ad-hoc for 8-Ks (material events). A freshness indicator appears next to each lead KPI: green under 4 months, amber between 4 and 12 months, red beyond.",
+  },
+  "faq.q.advice": {
+    fr: "Mettrik AI me dit quoi acheter ou vendre ?",
+    en: "Does Mettrik AI tell me what to buy or sell?",
+  },
+  "faq.a.advice": {
+    fr: "Non, jamais. Mettrik AI n'est pas un service de conseil en investissement au sens de l'article L. 541-1 du Code monétaire et financier. Tous les contenus présentés (KPIs, scores, classements, signaux comparatifs, interprétations, accroches marketing) sont publiés à titre purement informatif et n'ont pas vocation à orienter une décision d'achat, de vente ou de conservation d'un instrument financier. Toute décision d'investissement relève de ta seule responsabilité ou de celle de ton conseiller habilité.",
+    en: "No, never. Mettrik AI is not an investment advisory service. All content shown (KPIs, scores, rankings, peer signals, interpretations, marketing copy) is published for informational purposes only and is not intended to guide a buy, sell or hold decision on any financial instrument. Every investment decision is your sole responsibility, or that of your licensed advisor.",
+  },
+  "faq.q.scores_trust": {
+    fr: "Quel niveau de confiance accorder aux scores et classements ?",
+    en: "How much should I trust the scores and rankings?",
+  },
+  "faq.a.scores_trust": {
+    fr: "Les scores Mettrik AI sont des opinions éditoriales construites à partir d'une méthodologie quantitative documentée (poids des inputs, normalisation, fenêtres temporelles). Ils reflètent une analyse à un instant donné et peuvent évoluer à chaque nouvelle publication officielle. Ils ne sont jamais une note de crédit ni une recommandation, et ne remplacent pas la lecture de la documentation primaire pour une décision engageante.",
+    en: "Mettrik AI scores are editorial opinions built from a documented quantitative methodology (input weights, normalization, time windows). They reflect an analysis at a given moment and may evolve with every new official filing. They are not a credit rating nor a recommendation, and do not replace reading primary documentation for any committing decision.",
+  },
+  "faq.q.coverage": {
+    fr: "Quelles sociétés sont couvertes ?",
+    en: "Which companies are covered?",
+  },
+  "faq.a.coverage": {
+    fr: "À ce stade : les principales sociétés américaines cotées (S&P 500 + extension SP1500 en cours) et un échantillon européen et FPI étrangères. La couverture s'étend par vagues : nouvelles sociétés ajoutées dès que leur extraction et leur validation passent nos contrôles qualité (3 passes successives dont une revue par modèle premium).",
+    en: "At this stage: the main listed US companies (S&P 500 plus an in-progress SP1500 extension) and a European and foreign private issuer sample. Coverage expands in waves: new companies are added once their extraction and validation pass our quality checks (three successive passes including a premium model review).",
+  },
+  "faq.q.free_or_paid": {
+    fr: "Est-ce gratuit ou payant ?",
+    en: "Is it free or paid?",
+  },
+  "faq.a.free_or_paid": {
+    fr: "Une formule gratuite donne accès à un échantillon de sociétés de démonstration pour évaluer le service. Les formules payantes (Premium mensuel, Premium annuel, Enterprise/API) débloquent l'accès complet aux sociétés couvertes, la comparaison entre sociétés, les watchlists et les alertes. Les tarifs détaillés sont sur la page Tarifs.",
+    en: "A free plan grants access to a demo company sample so you can evaluate the service. Paid plans (Premium monthly, Premium annual, Enterprise/API) unlock full access to covered companies, company comparison, watchlists and alerts. Detailed pricing is on the Pricing page.",
+  },
+  "faq.q.cancel": {
+    fr: "Comment annuler mon abonnement ?",
+    en: "How do I cancel my subscription?",
+  },
+  "faq.a.cancel": {
+    fr: "Depuis ton espace personnel, en un clic. L'abonnement s'arrête à la fin de la période en cours déjà payée et ne se renouvelle pas. Aucune justification demandée, aucun délai imposé.",
+    en: "From your account area, in one click. Your subscription stops at the end of the period already paid for and does not renew. No reason required, no waiting period imposed.",
+  },
+  "faq.q.delete": {
+    fr: "Puis-je supprimer mon compte et mes données ?",
+    en: "Can I delete my account and my data?",
+  },
+  "faq.a.delete": {
+    fr: "Oui, à tout moment, depuis ton espace personnel. La suppression entraîne l'effacement de ton profil, de tes watchlists, de tes notes et de toute donnée personnelle associée, dans les délais prévus par le RGPD. Les factures émises sont conservées au titre des obligations comptables légales (10 ans).",
+    en: "Yes, at any time, from your account area. Deletion erases your profile, watchlists, notes and any associated personal data within the time limits set by GDPR. Issued invoices are retained for legal accounting obligations (10 years).",
+  },
+  "faq.q.data_errors": {
+    fr: "Que faire si je vois une erreur dans une donnée ?",
+    en: "What if I spot an error in the data?",
+  },
+  "faq.a.data_errors": {
+    fr: "Signale-le via le formulaire de contact. Les données affichées proviennent d'une chaîne d'extraction automatisée qui peut, malgré nos contrôles successifs, comporter des erreurs ponctuelles indépendantes de notre volonté (mauvaise lecture d'un PDF, ambiguïté d'un libellé, valeur manquante). Vérifie systématiquement toute donnée auprès de la source officielle citée avant de l'utiliser pour une décision engageante.",
+    en: "Report it via the contact form. The data shown comes from an automated extraction chain that may, despite our successive controls, contain occasional errors beyond our control (PDF misread, label ambiguity, missing value). Always cross-check any data point against the cited official source before using it for a committing decision.",
+  },
+  "faq.q.personal_data": {
+    fr: "Mes données personnelles sont-elles sécurisées ?",
+    en: "Is my personal data secure?",
+  },
+  "faq.a.personal_data": {
+    fr: "Oui. Authentification via Supabase, mots de passe stockés sous forme de hash, paiements traités exclusivement par Stripe (norme PCI-DSS, aucune donnée bancaire ne transite par nos serveurs), aucune revente de données à des tiers. Détail complet dans la politique de confidentialité.",
+    en: "Yes. Authentication via Supabase, passwords stored as hashes, payments handled exclusively by Stripe (PCI-DSS compliant, no card data transits through our servers), no resale of data to third parties. Full details in the privacy policy.",
+  },
+  "faq.q.support": {
+    fr: "Comment vous contacter ?",
+    en: "How can I reach you?",
+  },
+  "faq.a.support": {
+    fr: "Via le formulaire de la page contact. Les échanges sont traités en français ou en anglais uniquement. Délai de réponse moyen : 1 à 3 jours ouvrés.",
+    en: "Via the form on the contact page. Exchanges are handled in French or English only. Average response time: 1 to 3 business days.",
+  },
+  "faq.disclaimer.title": {
+    fr: "Rappel important :",
+    en: "Important reminder:",
+  },
+  "faq.disclaimer.body": {
+    fr: "Mettrik AI publie des analyses et des indicateurs à titre informatif uniquement. Aucun contenu du site (KPI, score, classement, signal, interprétation, accroche marketing, comparaison) ne constitue un conseil en investissement, une recommandation personnalisée ni une assertion de fait. Les données peuvent comporter des erreurs ou des décalages. Toute décision d'investissement engage uniquement son auteur.",
+    en: "Mettrik AI publishes analyses and indicators for informational purposes only. No content on the site (KPI, score, ranking, signal, interpretation, marketing copy, comparison) constitutes investment advice, a personalized recommendation, or a statement of fact. Data may contain errors or delays. Any investment decision is the sole responsibility of its author.",
+  },
+
   // Page de maintenance / pré-lancement (page fixe, no action).
   // Ton positif "on se fait beau" : donne envie sans donner d'info.
   "maintenance.headline": {
