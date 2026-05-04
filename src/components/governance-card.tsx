@@ -21,7 +21,12 @@ import { HolographicPie } from "@/components/holographic-pie";
 import { useT } from "@/lib/i18n/provider";
 import type { Locale } from "@/lib/i18n/types";
 
-function fmt(n: number, decimals = 0, locale: Locale = "fr") {
+function fmt(n: number | undefined | null, decimals = 0, locale: Locale = "fr") {
+  // Guard ajouté 4 mai 2026 : datasets pipeline (NFLX et autres) peuvent
+  // avoir des champs governance manquants (ceo_pay_ratio, avg_board_age,
+  // etc.). Sans ce guard, fmt(undefined) crashait toLocaleString = 500
+  // server-side sur la fiche société.
+  if (n === undefined || n === null || Number.isNaN(n)) return "-";
   return n.toLocaleString(locale === "fr" ? "fr-FR" : "en-US", {
     minimumFractionDigits: decimals,
     maximumFractionDigits: decimals,
