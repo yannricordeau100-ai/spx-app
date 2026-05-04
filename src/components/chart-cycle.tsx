@@ -171,7 +171,9 @@ export function ChartCycle({
    *  Affecte uniquement les valeurs affichées (data + ttm). YoY% inchangé. */
   timeFraction?: TimeFraction;
 }) {
-  const xLabels = labels ?? defaultLabels(data.length);
+  // Garde-fou : data peut être null/undefined dans certaines fiches. Forcer tableau.
+  const safeData = Array.isArray(data) ? data : [];
+  const xLabels = labels ?? defaultLabels(safeData.length);
 
   // Diviseur appliqué aux valeurs (data + ttm) pour le mode "par jour", "par seconde", etc.
   const divisor = timeFractionDivisor(timeFraction);
@@ -185,7 +187,7 @@ export function ChartCycle({
 
   if (divisor !== 1) {
     // Convertir chaque value de history en valeur absolue (unité de base)
-    const absData = data.map((v) => toAbsolute(v, unit) / divisor);
+    const absData = safeData.map((v) => toAbsolute(v, unit) / divisor);
     const absTtm = ttm == null ? null : toAbsolute(ttm, unit) / divisor;
     // Trouver le MAX absolu (positif) pour décider de l'unité commune
     const allAbs = [...absData, ...(absTtm != null ? [absTtm] : [])].filter(Number.isFinite);

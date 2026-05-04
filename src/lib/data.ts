@@ -351,11 +351,13 @@ export function formatUnit(unit: string): string {
  * Évite que le chiffre + unité passe sur 2 lignes quand la colonne hero
  * est étroite (cas "3,302 M $" → "3,3 Mds $" plus court).
  */
-export function formatHeroValue(value: string, unit: string): { value: string; unit: string } {
-  const cleaned = value.replace(/,/g, "").trim();
+export function formatHeroValue(value: string | number | null | undefined, unit: string): { value: string; unit: string } {
+  // Garde-fou : value peut être null, undefined, ou un number
+  const valueStr = typeof value === "string" ? value : (value != null ? String(value) : "");
+  const cleaned = valueStr.replace(/,/g, "").trim();
   const num = parseFloat(cleaned);
   if (!Number.isFinite(num)) {
-    return { value, unit: formatUnit(unit) };
+    return { value: valueStr || "—", unit: formatUnit(unit) };
   }
 
   let displayNum = num;
@@ -467,7 +469,10 @@ export function interpretStructured(company: Company): InterpretBlock {
   );
   const cash = company.kpis.find((k) => k.type === "Cash");
 
-  const lead = `Le KPI principal de <strong>${company.name}</strong> est <strong>${hero.name_fr}</strong>, à <strong>${hero.value} ${formatUnit(hero.unit)}</strong> (${hero.yoy} <em>YoY</em>). À retenir : <em>${hero.signal.toLowerCase()}</em>.`;
+  const heroSignal = typeof hero.signal === "string" ? hero.signal.toLowerCase() : "à analyser";
+  const heroValue = hero.value ?? "—";
+  const heroYoy = hero.yoy ?? "n/a";
+  const lead = `Le KPI principal de <strong>${company.name}</strong> est <strong>${hero.name_fr}</strong>, à <strong>${heroValue} ${formatUnit(hero.unit)}</strong> (${heroYoy} <em>YoY</em>). À retenir : <em>${heroSignal}</em>.`;
 
   const bullets: InterpretBullet[] = [];
   if (driver && driver.short !== hero.short) {

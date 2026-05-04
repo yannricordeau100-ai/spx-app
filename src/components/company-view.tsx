@@ -76,10 +76,22 @@ export function CompanyView({
   const glow = brand(company.ticker).glow;
 
   const [activeKpiShort, setActiveKpiShort] = useState(company.hero_kpi);
-  const active: KPI = useMemo(
-    () => company.kpis.find((k) => k.short === activeKpiShort) ?? getHero(company),
+  const active: KPI | undefined = useMemo(
+    () => company.kpis?.find((k) => k.short === activeKpiShort) ?? getHero(company),
     [activeKpiShort, company]
   );
+
+  // Garde-fou : fiches sans aucun KPI (UUUU, SU, etc.) — afficher un message au lieu de crasher
+  if (!active) {
+    return (
+      <div className="mx-auto max-w-3xl px-4 py-16 text-center">
+        <h1 className="text-2xl font-semibold text-zinc-100">{company.name}</h1>
+        <p className="mt-3 text-zinc-400">
+          Données KPI en cours d'extraction pour cette société. Reviens bientôt.
+        </p>
+      </div>
+    );
+  }
 
   const [showAll, setShowAll] = useState(false);
   const [compareOpen, setCompareOpen] = useState(false);
@@ -103,12 +115,13 @@ export function CompanyView({
   // exacts au lieu d'années inférées qui partent de 2006 quand history.length
   // est grand (cf. bug observé sur NFLX 4 mai 2026).
   const chartLabels = useMemo(() => {
-    if (active.period_type !== "quarter" || !active.last_data_date) return undefined;
+    if (!active || active.period_type !== "quarter" || !active.last_data_date) return undefined;
     const d = new Date(active.last_data_date);
     if (Number.isNaN(d.getTime())) return undefined;
     let endQ = Math.floor(d.getUTCMonth() / 3) + 1; // 1..4
     let endY = d.getUTCFullYear();
-    const n = active.history.length;
+    const n = active.history?.length ?? 0;
+    if (n === 0) return undefined;
     const out: string[] = [];
     for (let i = n - 1; i >= 0; i--) {
       out.unshift(`T${endQ} ${String(endY).slice(-2)}`);

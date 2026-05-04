@@ -55,7 +55,8 @@ export function AIPositioningCard({
       source: t("ai.absent_source"),
     };
 
-  const meta = STANCE_META[effective.stance];
+  // Garde-fou : nouveaux datasets peuvent avoir des stances hors mapping
+  const meta = STANCE_META[effective.stance] ?? STANCE_META.absent;
   const Icon = meta.Icon;
 
   return (
@@ -95,7 +96,7 @@ export function AIPositioningCard({
           {effective.summary}
         </p>
 
-        {effective.evidence.length > 0 && (
+        {Array.isArray(effective.evidence) && effective.evidence.length > 0 && (
           <div className="mt-5">
             <div className="mb-2 font-mono text-[10.5px] uppercase tracking-wider text-zinc-300">
               {t("ai.evidence_label")}

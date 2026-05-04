@@ -12,6 +12,24 @@ export const dynamic = "force-dynamic";
  * un rendu identique à la prod, seul le dataset change (lit dans
  * `src/data/v2-pipeline/` au lieu de `src/data/<ticker>.json`).
  */
+/**
+ * Normalise history : certaines fiches stockent history sous forme
+ * d'objets { date, value, unit }[] au lieu de number[]. On extrait .value.
+ */
+function normalizeHistory(h: unknown): number[] {
+  if (!Array.isArray(h)) return [];
+  return h
+    .map((item) => {
+      if (typeof item === "number") return item;
+      if (item && typeof item === "object" && "value" in item) {
+        const v = (item as { value: unknown }).value;
+        return typeof v === "number" ? v : Number(v);
+      }
+      return Number(item);
+    })
+    .filter((v) => Number.isFinite(v));
+}
+
 async function loadDataset(ticker: string): Promise<Company | null> {
   const filePath = path.join(process.cwd(), "src/data/v2-pipeline", `${ticker.toLowerCase()}.json`);
   try {
@@ -21,6 +39,13 @@ async function loadDataset(ticker: string): Promise<Company | null> {
       const stories = data.stories_kpis.map((s) => ({ ...s, is_short_history: true }));
       data.kpis = [...(data.kpis || []), ...stories];
       delete data.stories_kpis;
+    }
+    // Normalise history sur tous les KPIs (gère format objet ou nombre)
+    if (Array.isArray(data.kpis)) {
+      data.kpis = data.kpis.map((k) => ({
+        ...k,
+        history: normalizeHistory((k as unknown as { history: unknown }).history),
+      }));
     }
     if (!data.logo_treatment) (data as Company).logo_treatment = "orbit";
     if (!data.ranks) data.ranks = { global_world: "-", global_us: "-", sector: "-", subsector: "-" };

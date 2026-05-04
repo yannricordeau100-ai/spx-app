@@ -159,11 +159,12 @@ const CAUSE_LABEL: Record<AnomalyCause, string> = {
  * Cause heuristics use the KPI type + the magnitude.
  */
 export function detectAnomalies(
-  history: number[],
+  history: number[] | null | undefined,
   kpiType?: string,
   kpiShort?: string
 ): Anomaly[] {
   const out: Anomaly[] = [];
+  if (!history || !Array.isArray(history)) return out;
   for (let i = 1; i < history.length; i++) {
     const prev = history[i - 1];
     const curr = history[i];

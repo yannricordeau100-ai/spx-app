@@ -110,17 +110,14 @@ export function CompanySearch({
       if (matches) v1Out.push({ ticker: t, source: "v1" });
     }
 
-    // V1.7 (1607 stés, format léger). Skip ceux déjà présents en V1.
-    // Empty query : on liste les 50 premiers alphabétiques pour faire
-    // découvrir le catalogue mais sans crasher la modal (1607 cards = trop).
-    // Avec query : on filtre l'intégralité de l'index, cap à 200 résultats
-    // visuels (typer "a" remonte des centaines de tickers, on coupe pour
-    // garder la modal scrollable et lisible).
+    // V1.7 strict (Pass 3 validées uniquement = `validated: true`). Décision
+    // Yann 4 mai 2026 : la search ne montre QUE les stés qu'on a sur V1.7
+    // (cohérence avec le hub /sandbox/v1-7). Les stés Pass 1/2 du V1.6 ne
+    // sont PAS searchables (browse exhaustif réservé au hub V1.6).
+    // Skip aussi ceux déjà présents en V1 (évite doublon).
     const v1Set = new Set(TICKERS.map((t) => t.toUpperCase()));
-    const v17Source: V17SearchEntry[] = !q
-      ? V17_SEARCH_INDEX.slice(0, 50)
-      : V17_SEARCH_INDEX;
-    for (const e of v17Source) {
+    for (const e of V17_SEARCH_INDEX) {
+      if (!e.validated) continue;
       if (v1Set.has(e.ticker.toUpperCase())) continue;
       const matches =
         !q ||
@@ -130,11 +127,11 @@ export function CompanySearch({
       if (matches) v17Out.push({ ticker: e.ticker, source: "v17" });
     }
 
-    return [...v1Out, ...v17Out].slice(0, 200);
+    return [...v1Out, ...v17Out];
   }, [query]);
 
-  // Compteur "X stés au total dans le catalogue" affiché en footer modal.
-  const totalCatalog = TICKERS.length + V17_SEARCH_INDEX.length;
+  // Compteur "X stés au total" : V1 (5) + V1.7 Pass 3 validées seulement.
+  const totalCatalog = TICKERS.length + V17_SEARCH_INDEX.filter((e) => e.validated).length;
 
   const close = () => {
     setOpen(false);
