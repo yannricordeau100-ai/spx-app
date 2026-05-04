@@ -23,6 +23,7 @@ type Strings = {
   success_body: string;
   error: string;
   privacy_note: string;
+  lang_notice: string;
 };
 
 export function ContactClient({ locale, strings }: { locale: Locale; strings: Strings }) {
@@ -74,6 +75,13 @@ export function ContactClient({ locale, strings }: { locale: Locale; strings: St
 
   return (
     <form onSubmit={submit} className="space-y-4">
+      {/* Note langue : seuls FR et EN sont traités. Affiché en haut du form
+          pour qu'aucun visiteur ne soit surpris d'écrire en allemand et de
+          recevoir une réponse FR/EN. */}
+      <div className="rounded-md border border-violet-500/25 bg-violet-500/[0.05] px-3 py-2 text-[12px] text-violet-100/85">
+        ℹ {strings.lang_notice}
+      </div>
+
       {/* Recipient dropdown */}
       <div>
         <label className="mb-1.5 block text-[11.5px] font-medium uppercase tracking-wider text-zinc-400">

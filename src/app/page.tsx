@@ -7,11 +7,6 @@ import { AuthRequiredBanner } from "@/components/auth-required-banner";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
-import type { Company } from "@/lib/data";
-// Pré-filtré au build (300KB vs 16MB merged). Régénéré par
-// scripts/build-v17-public.ts. N'inclut que les stés sanitized
-// (validation + hero KPI bien formé).
-import V17_PUBLIC from "@/data/v1-7-public.json";
 
 export const dynamic = "force-dynamic";
 
@@ -24,9 +19,6 @@ const IS_STAGING =
   process.env.VERCEL_GIT_COMMIT_REF === "staging" ||
   process.env.NEXT_PUBLIC_DEPLOY_TARGET === "staging";
 
-function loadV17(): Record<string, Company> {
-  return V17_PUBLIC as unknown as Record<string, Company>;
-}
 
 function safeNextParam(raw: string | string[] | undefined): string | null {
   if (typeof raw !== "string" || !raw) return null;
@@ -63,13 +55,10 @@ export default async function HomePage({
     redirect(next);
   }
 
-  // Staging : home = V1.7 hub (1607 stés validées), href -> /sandbox/v1-7/<t>.
-  // Prod : home = V1 (5 stés), href -> /<t>.
-  let v17Datasets: Record<string, Company> | null = null;
-  let v17Tickers: string[] | null = null;
+  // Staging : root '/' redirige vers /sandbox/v1-7 (hub V1.7 public).
+  // Prod : root '/' = HomeView V1 (5 stés handcrafted).
   if (IS_STAGING) {
-    v17Datasets = loadV17();
-    v17Tickers = Object.keys(v17Datasets).sort();
+    redirect("/sandbox/v1-7");
   }
 
   return (
@@ -78,15 +67,7 @@ export default async function HomePage({
         <ThemeToggle />
         <AuthNav />
       </div>
-      {IS_STAGING && v17Datasets && v17Tickers ? (
-        <HomeView
-          companies={v17Datasets}
-          tickers={v17Tickers}
-          hrefBuilder={(t) => `/sandbox/v1-7/${t.toLowerCase()}`}
-        />
-      ) : (
-        <HomeView />
-      )}
+      <HomeView />
       {!user && (
         <Suspense fallback={null}>
           <AuthRequiredBanner />

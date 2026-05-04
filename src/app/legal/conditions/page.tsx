@@ -30,6 +30,10 @@ const STR = {
     intro_1_e: "Services",
     intro_1_f: "»). Elles forment un unique corpus contractuel, organisé en trois parties : utilisation (Partie I), vente (Partie II) et dispositions communes (Partie III).",
     intro_2: "En accédant au site ou en souscrivant à un abonnement, vous reconnaissez avoir pris connaissance des présentes Conditions et les accepter sans réserve.",
+    disclaimer_title: "Avertissement essentiel — à lire avant tout usage du site",
+    disclaimer_p1: "Mettrik AI publie des indicateurs financiers (KPIs), scores composites, classements, signaux comparatifs, interprétations éditoriales et accroches marketing à titre purement informatif. AUCUN contenu publié sur le site (sans exception : page d'accueil, fiches sociétés, comparaisons, accroches publicitaires, FAQ, emails de bienvenue, communications marketing, classements thématiques) ne constitue un conseil en investissement au sens de l'article L. 541-1 du Code monétaire et financier, ni une recommandation personnalisée d'investissement, ni une sollicitation à l'achat ou à la vente d'instruments financiers, ni une assertion de fait sur la valeur intrinsèque d'une société.",
+    disclaimer_p2: "Les chaînes d'extraction automatisée et de traitement algorithmique utilisées par Mettrik AI peuvent comporter, malgré les contrôles successifs mis en œuvre, des erreurs, omissions, retards ou imprécisions indépendantes de la volonté de l'éditeur (mauvaise interprétation d'un PDF, erreur OCR, ambiguïté d'un libellé source, valeur manquante, retard de mise à jour). Toute donnée affichée doit être systématiquement vérifiée auprès de la source officielle citée avant tout usage engageant.",
+    disclaimer_p3: "Toute décision d'investissement, d'arbitrage ou d'allocation patrimoniale relève de la seule et entière responsabilité de l'utilisateur, ou le cas échéant de son conseiller financier habilité. Mettrik AI ne saurait être tenue responsable des conséquences directes ou indirectes d'une décision prise sur la base d'un contenu publié.",
 
     s0_title: "0. Identité de l'éditeur et du vendeur",
     s0_p1_a: "L'éditeur du site et le vendeur des abonnements est",
@@ -259,6 +263,10 @@ const STR = {
     intro_1_e: "Services",
     intro_1_f: "\"). They form a single contractual corpus, organized in three parts: use (Part I), sale (Part II) and common provisions (Part III).",
     intro_2: "By accessing the website or subscribing, you acknowledge that you have read and unreservedly accept these Conditions.",
+    disclaimer_title: "Essential warning — read before using the site",
+    disclaimer_p1: "Mettrik AI publishes financial indicators (KPIs), composite scores, rankings, peer signals, editorial interpretations and marketing copy for informational purposes only. NO content published on the site (without exception: home page, company files, comparisons, marketing copy, FAQ, welcome emails, marketing communications, thematic rankings) constitutes investment advice within the meaning of Article L. 541-1 of the French Monetary and Financial Code, nor a personalized investment recommendation, nor a solicitation to buy or sell financial instruments, nor a statement of fact about the intrinsic value of any company.",
+    disclaimer_p2: "The automated extraction and algorithmic processing chains used by Mettrik AI may, despite the successive controls implemented, contain errors, omissions, delays or inaccuracies beyond the publisher's control (PDF misinterpretation, OCR error, source label ambiguity, missing value, update lag). Any displayed data must be systematically verified against the cited official source before any committing use.",
+    disclaimer_p3: "Any investment, arbitrage or asset allocation decision is the sole and entire responsibility of the user, or where applicable of their licensed financial advisor. Mettrik AI cannot be held liable for the direct or indirect consequences of a decision taken on the basis of any published content.",
 
     s0_title: "0. Identity of the Publisher and Seller",
     s0_p1_a: "The publisher of the website and seller of the subscriptions is",
@@ -490,6 +498,27 @@ export default async function ConditionsPage() {
         {t.intro_1_a}<strong>{t.intro_1_b}</strong>{t.intro_1_c} <strong>{t.intro_1_site}</strong> {t.intro_1_d}<strong>{t.intro_1_e}</strong>{t.intro_1_f}
       </p>
       <p>{t.intro_2}</p>
+
+      {/* Avertissement essentiel mis en exergue : visible avant tout le
+          reste pour qu'aucun visiteur ne puisse prétendre ne pas avoir vu
+          la clause "pas de conseil en investissement". Couvre explicitement
+          TOUS les contenus du site (KPIs, scores, FAQ, accroches marketing,
+          punchlines home, etc.) pour bloquer toute action en responsabilité
+          fondée sur une accroche commerciale considérée comme conseil. */}
+      <div className="my-6 rounded-xl border-2 border-amber-500/40 bg-amber-500/[0.06] p-5">
+        <h2 className="mb-3 font-display text-[18px] font-bold text-amber-100">
+          ⚠ {t.disclaimer_title}
+        </h2>
+        <p className="mb-3 text-[13.5px] leading-relaxed text-amber-100/95">
+          {t.disclaimer_p1}
+        </p>
+        <p className="mb-3 text-[13.5px] leading-relaxed text-amber-100/95">
+          {t.disclaimer_p2}
+        </p>
+        <p className="text-[13.5px] leading-relaxed text-amber-100/95">
+          {t.disclaimer_p3}
+        </p>
+      </div>
 
       {/* ──────────────── IDENTITY ─────────────────── */}
       <LegalSection title={t.s0_title}>

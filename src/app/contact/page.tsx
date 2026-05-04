@@ -53,6 +53,7 @@ export default async function ContactPage() {
             success_body: t("contact.success_body"),
             error: t("contact.error"),
             privacy_note: t("contact.privacy_note"),
+            lang_notice: t("contact.lang_notice"),
           }}
         />
       </div>

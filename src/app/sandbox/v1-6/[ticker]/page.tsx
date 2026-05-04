@@ -1,6 +1,4 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 import { promises as fs } from "fs";
 import path from "path";
 import { CompanyView } from "@/components/company-view";
@@ -52,36 +50,7 @@ export default async function SandboxV16TickerPage({
   const company = await loadDataset(ticker);
   if (!company) notFound();
 
-  const hasRisks = !!company.risks && company.risks.length > 0;
-  const hasGov = !!company.governance;
-  const hasAI = !!company.ai_positioning;
-
-  return (
-    <>
-      {/* Bannière sticky V1.6 — discrète, focus sur le contenu KPI */}
-      <div className="sticky top-0 z-40 border-b border-cyan-500/30 bg-cyan-500/[0.06] px-4 py-2 backdrop-blur-md">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3">
-          <Link
-            href="/sandbox/v1-6"
-            className="group inline-flex items-center gap-2 text-[12px] text-cyan-200 transition-colors hover:text-cyan-100"
-          >
-            <ArrowLeft className="size-3.5 transition-transform group-hover:-translate-x-0.5" />
-            V1.6 hub
-          </Link>
-          <span className="rounded-full bg-cyan-500/20 px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-cyan-100">
-            V1.6 · pipeline LLM auto-extrait
-          </span>
-          <span className="font-mono text-[10px] text-cyan-200/70">
-            {company.ticker} · {company.kpis?.length ?? 0} KPI
-            {hasRisks && ` · ${company.risks!.length}r`}
-            {hasGov && " · G"}
-            {hasAI && " · AI"}
-          </span>
-        </div>
-      </div>
-
-      {/* CompanyView complet — graph hero + KPI normaux + stories + risks + gov + AI */}
-      <CompanyView company={company} authSlot={null} hideSenate hidePriceBar />
-    </>
-  );
+  // Décision Yann 4 mai 2026 : V1.6 ticker = même rendu que /<ticker> V1,
+  // sans bandeau sandbox. Seul le dataset change (lit dans v2-pipeline/).
+  return <CompanyView company={company} authSlot={null} hideSenate hidePriceBar />;
 }
