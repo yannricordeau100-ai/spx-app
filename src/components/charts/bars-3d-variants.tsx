@@ -24,7 +24,24 @@ function axisHeader(unit: string): string {
 }
 
 const W = 920, H = 420;
-const PAD_LEFT = 96, PAD_RIGHT = 50, PAD_TOP = 40, PAD_BOTTOM = 80;
+// PAD_RIGHT = 70 (vs 50 avant) pour donner de la place au label TTM
+// horizontal (sinon coupé par le bord droit du SVG en mode crowded).
+const PAD_LEFT = 96, PAD_RIGHT = 70, PAD_TOP = 40, PAD_BOTTOM = 90;
+
+/**
+ * Split d'un label trimestriel "T1 21" → { top: "T1", bottom: "21" }.
+ * - "T1 21" → { top: "T1", bottom: "21" } (rendu sur 2 lignes)
+ * - "TTM"   → { top: "TTM", bottom: "" }  (1 ligne, pas de year)
+ * - "2024"  → { top: "2024", bottom: "" } (label année simple, pas split)
+ * Permet aux charts d'afficher quarter sur ligne 1 + year sur ligne 2 sans
+ * rotation -45° (rejetée par Yann le 4 mai 2026 = doit rester horizontal).
+ */
+function splitQuarterLabel(label: string): { top: string; bottom: string } {
+  if (!label) return { top: "", bottom: "" };
+  const m = label.match(/^(T[1-4])\s+(\d{2,4})$/);
+  if (m) return { top: m[1], bottom: m[2] };
+  return { top: label, bottom: "" };
+}
 const INNER_W = W - PAD_LEFT - PAD_RIGHT;
 const INNER_H = H - PAD_TOP - PAD_BOTTOM;
 
@@ -90,13 +107,13 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
   const barW = Math.min(slot * 0.42, 56);
   const baseY = PAD_TOP + INNER_H;
   const yFor = (v: number) => PAD_TOP + ((max - v) / range) * INNER_H;
-  // Densité crowded : > 12 colonnes -> rotate labels -45° + hide value
-  // labels au-dessus des barres (sinon ils se chevauchent visuellement
-  // comme '207.249.213' vu sur staging avec NFLX 21 colonnes).
+  // Densité crowded : > 12 colonnes -> 2 lignes horizontales (quarter + year)
+  // au lieu de rotation -45° (rejetée par Yann le 4 mai 2026 : "doit être à
+  // l'horizontale, pas en biais"). Format ex : ligne 1 "T1", ligne 2 "21".
+  // Hide value labels au-dessus des barres car trop denses.
   const isCrowded = allData.length > 12;
-  const labelFontSize = isCrowded ? 11 : 17;
+  const labelFontSize = isCrowded ? 13 : 17;
   const valueFontSize = isCrowded ? 0 : 15;
-  const labelRotate = isCrowded ? -45 : 0;
   const DX = isClassic ? 0 : 26;
   const DY = isClassic ? 0 : -16;
   const header = axisHeader(unit);
@@ -194,24 +211,43 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
                 {v}
               </text>
             )}
-            {/* x label : rotation -45° en crowded mode pour éviter chevauchement. */}
-            <text
-              x={x + barW / 2 + (isClassic ? 0 : DX / 2)}
-              y={H - PAD_BOTTOM + 26}
-              textAnchor={isCrowded ? "end" : "middle"}
-              fontSize={isTTM ? Math.max(labelFontSize - 2, 11) : labelFontSize}
-              fill={isTTM ? "#a1a1aa" : "#e4e4e7"}
-              fontFamily="ui-monospace, monospace"
-              fontWeight={isTTM ? 500 : 600}
-              fontStyle={isTTM ? "italic" : "normal"}
-              transform={labelRotate ? `rotate(${labelRotate}, ${x + barW / 2 + (isClassic ? 0 : DX / 2)}, ${H - PAD_BOTTOM + 26})` : undefined}
-              style={isTTM ? { cursor: "help" } : undefined}
-            >
-              {allLabels[i]}
-              {isTTM && (
-                <title>TTM = Trailing Twelve Months : les 12 derniers mois publiés (4 derniers trimestres connus). Permet de voir la tendance la plus récente sans attendre la clôture annuelle.</title>
-              )}
-            </text>
+            {/* x label : 2 lignes horizontales en mode crowded. Ligne 1 =
+                quarter (T1/T2/T3/T4) ou full label, ligne 2 = year (21/22).
+                Pas de rotation. TTM sur ligne 1 uniquement. */}
+            {(() => {
+              const cx = x + barW / 2 + (isClassic ? 0 : DX / 2);
+              const yTop = H - PAD_BOTTOM + 22;
+              const yBot = H - PAD_BOTTOM + 38;
+              const split = splitQuarterLabel(allLabels[i]);
+              const fz = isTTM ? labelFontSize : labelFontSize;
+              const fill = isTTM ? "#a1a1aa" : "#e4e4e7";
+              const fw = isTTM ? 500 : 600;
+              return (
+                <>
+                  <text
+                    x={cx}
+                    y={isCrowded ? yTop : H - PAD_BOTTOM + 26}
+                    textAnchor="middle"
+                    fontSize={fz}
+                    fill={fill}
+                    fontFamily="ui-monospace, monospace"
+                    fontWeight={fw}
+                    fontStyle={isTTM ? "italic" : "normal"}
+                    style={isTTM ? { cursor: "help" } : undefined}
+                  >
+                    {isCrowded ? split.top : allLabels[i]}
+                    {isTTM && (
+                      <title>TTM = Trailing Twelve Months : les 12 derniers mois publiés (4 derniers trimestres connus). Permet de voir la tendance la plus récente sans attendre la clôture annuelle.</title>
+                    )}
+                  </text>
+                  {isCrowded && split.bottom && (
+                    <text x={cx} y={yBot} textAnchor="middle" fontSize={fz} fill={fill} fontFamily="ui-monospace, monospace" fontWeight={fw}>
+                      {split.bottom}
+                    </text>
+                  )}
+                </>
+              );
+            })()}
           </g>
         );
       })}

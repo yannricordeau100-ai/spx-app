@@ -18,7 +18,7 @@ export function Sparkline({
   color?: string;
   className?: string;
 }) {
-  if (!data.length) return null;
+  if (!data || !data.length) return null;
   const min = Math.min(...data);
   const max = Math.max(...data);
   const range = max - min || 1;

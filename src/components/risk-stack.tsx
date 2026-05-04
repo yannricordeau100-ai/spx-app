@@ -187,8 +187,9 @@ function RiskCard({ risk, index }: { risk: CompanyRisk; index: number }) {
   const displayQuote = locale === "fr" && risk.quote_fr ? risk.quote_fr : risk.quote;
   const quoteOpen = locale === "en" ? "“" : "« ";
   const quoteClose = locale === "en" ? "”" : " »";
-  const meta = CATEGORY_META[risk.category];
-  const trend = TREND_META[risk.trend];
+  // Garde-fous : nouveaux datasets peuvent avoir des catégories/trends hors mapping
+  const meta = CATEGORY_META[risk.category] ?? CATEGORY_META.operational;
+  const trend = TREND_META[risk.trend] ?? TREND_META.stable;
   const Icon = meta.Icon;
   const TrendIcon = trend.Icon;
 

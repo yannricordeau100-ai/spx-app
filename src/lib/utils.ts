@@ -9,7 +9,8 @@ export function cn(...inputs: ClassValue[]) {
  * Determine the sentiment of a YoY change.
  * For "Cost"-type KPIs, growth is BAD (loss/expense grew) → flip the sign.
  */
-export function yoyTone(yoy: string, type?: string): "pos" | "neg" | "neutral" {
+export function yoyTone(yoy: string | null | undefined, type?: string): "pos" | "neg" | "neutral" {
+  if (typeof yoy !== "string") return "neutral";
   const s = yoy.trim();
   let raw: "pos" | "neg" | "neutral" = "neutral";
   if (s.startsWith("+")) raw = "pos";

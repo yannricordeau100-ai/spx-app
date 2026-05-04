@@ -58,8 +58,9 @@ const TIER_META: Record<QualityTier, { label: string; color: string }> = {
   faible: { label: "Faible", color: "#f43f5e" },
 };
 
-function parsePct(s: string): number | null {
+function parsePct(s: string | null | undefined): number | null {
   // accepts "+12%", "-3.5 pts", "+9.2%", "+x.x pts"
+  if (typeof s !== "string") return null;
   const m = s.match(/(-?\+?-?\d+\.?\d*)/);
   if (!m) return null;
   return parseFloat(m[1].replace(/\+/g, ""));
@@ -71,7 +72,9 @@ function parsePct(s: string): number | null {
  */
 export function rate(kpi: KPI): Rating {
   const yoy = parsePct(kpi.yoy) ?? 0;
-  const value = parseFloat(kpi.value.replace(/,/g, ""));
+  // Garde-fou : value peut être number, null, ou string. Convertir avec sécurité.
+  const valueStr = typeof kpi.value === "string" ? kpi.value : (kpi.value != null ? String(kpi.value) : "");
+  const value = parseFloat(valueStr.replace(/,/g, ""));
   const t = kpi.type;
 
   // Cost-type: growth is bad

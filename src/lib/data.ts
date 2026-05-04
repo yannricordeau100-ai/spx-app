@@ -462,8 +462,8 @@ export function interpretStructured(company: Company): InterpretBlock {
     segmentDrivers[0];
   const risk = company.kpis.find(
     (k) =>
-      (k.type === "Cost" && !k.yoy.startsWith("-")) ||
-      (k.type === "Margin" && k.yoy.startsWith("-"))
+      (k.type === "Cost" && typeof k.yoy === "string" && !k.yoy.startsWith("-")) ||
+      (k.type === "Margin" && typeof k.yoy === "string" && k.yoy.startsWith("-"))
   );
   const cash = company.kpis.find((k) => k.type === "Cash");
 

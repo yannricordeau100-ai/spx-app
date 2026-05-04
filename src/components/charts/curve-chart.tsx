@@ -72,9 +72,22 @@ function formatYTick(v: number, unit: string): string {
 const W = 920;
 const H = 420;
 const PAD_LEFT = 96;
-const PAD_RIGHT = 50;
+// PAD_RIGHT = 70 (vs 50 avant) pour donner de la place au label TTM
+// horizontal (sinon coupé par le bord droit du SVG en mode crowded).
+const PAD_RIGHT = 70;
 const PAD_TOP = 40;
-const PAD_BOTTOM = 80;
+const PAD_BOTTOM = 90;
+
+/**
+ * Split d'un label trimestriel "T1 21" → { top: "T1", bottom: "21" }.
+ * Mêmes specs que dans bars-3d-variants.tsx (template uniforme).
+ */
+function splitQuarterLabel(label: string): { top: string; bottom: string } {
+  if (!label) return { top: "", bottom: "" };
+  const m = label.match(/^(T[1-4])\s+(\d{2,4})$/);
+  if (m) return { top: m[1], bottom: m[2] };
+  return { top: label, bottom: "" };
+}
 const DX = 22;          // 3D depth offset (rightward)
 const DY = -14;         // 3D depth offset (upward in SVG)
 
@@ -112,6 +125,11 @@ export function CurveChart({
 }) {
   const [hover, setHover] = useState<number | null>(null);
 
+  // Garde-fou : si pas de data utilisable, ne rien afficher au lieu de crasher.
+  if (!data || !Array.isArray(data) || data.length === 0) {
+    return null;
+  }
+
   // Étend data + labels avec TTM si fourni. Le dernier point est rendu
   // en pointillé pour signaler "12 derniers mois" (pas une année calendaire).
   const hasTTM = ttm != null && Number.isFinite(ttm);
@@ -134,10 +152,10 @@ export function CurveChart({
   const min = Math.min(...tickValues, dataMin);
   const max = Math.max(...tickValues, dataMax);
   const range = max - min || 1;
-  // Densité crowded : > 12 points -> rotation labels -45° + masquer hover values.
+  // Densité crowded : > 12 points -> labels sur 2 lignes horizontales
+  // (T1/T2/T3/T4 ligne 1, année ligne 2). Rotation -45° rejetée par Yann.
   const isCrowded = allData.length > 12;
-  const xLabelFontSize = isCrowded ? 11 : 14;
-  const xLabelRotate = isCrowded ? -45 : 0;
+  const xLabelFontSize = isCrowded ? 13 : 14;
   const baselineY = PAD_TOP + innerH;
 
   const stepX = allData.length > 1 ? innerW / (allData.length - 1) : innerW;
@@ -349,23 +367,39 @@ export function CurveChart({
                   strokeDasharray="2 2"
                 />
               )}
-              <text
-                x={x}
-                y={H - PAD_BOTTOM + 26}
-                textAnchor={isCrowded ? "end" : "middle"}
-                fontSize={isTTM ? Math.max(xLabelFontSize - 2, 10) : xLabelFontSize}
-                fill={isTTM ? "#a1a1aa" : "#e4e4e7"}
-                fontFamily="ui-monospace, monospace"
-                fontWeight={isTTM ? 500 : 600}
-                fontStyle={isTTM ? "italic" : "normal"}
-                transform={xLabelRotate ? `rotate(${xLabelRotate}, ${x}, ${H - PAD_BOTTOM + 26})` : undefined}
-                style={isTTM ? { cursor: "help" } : undefined}
-              >
-                {allLabels[i] ?? ""}
-                {isTTM && (
-                  <title>TTM = Trailing Twelve Months : les 12 derniers mois publiés (4 derniers trimestres connus). Permet de voir la tendance la plus récente sans attendre la clôture annuelle.</title>
-                )}
-              </text>
+              {(() => {
+                const split = splitQuarterLabel(allLabels[i] ?? "");
+                const yTop = isCrowded ? H - PAD_BOTTOM + 22 : H - PAD_BOTTOM + 26;
+                const yBot = H - PAD_BOTTOM + 38;
+                const fz = xLabelFontSize;
+                const fill = isTTM ? "#a1a1aa" : "#e4e4e7";
+                const fw = isTTM ? 500 : 600;
+                return (
+                  <>
+                    <text
+                      x={x}
+                      y={yTop}
+                      textAnchor="middle"
+                      fontSize={fz}
+                      fill={fill}
+                      fontFamily="ui-monospace, monospace"
+                      fontWeight={fw}
+                      fontStyle={isTTM ? "italic" : "normal"}
+                      style={isTTM ? { cursor: "help" } : undefined}
+                    >
+                      {isCrowded ? split.top : (allLabels[i] ?? "")}
+                      {isTTM && (
+                        <title>TTM = Trailing Twelve Months : les 12 derniers mois publiés (4 derniers trimestres connus). Permet de voir la tendance la plus récente sans attendre la clôture annuelle.</title>
+                      )}
+                    </text>
+                    {isCrowded && split.bottom && (
+                      <text x={x} y={yBot} textAnchor="middle" fontSize={fz} fill={fill} fontFamily="ui-monospace, monospace" fontWeight={fw}>
+                        {split.bottom}
+                      </text>
+                    )}
+                  </>
+                );
+              })()}
               {isHover && (
                 <text
                   x={x}
