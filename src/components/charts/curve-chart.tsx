@@ -122,13 +122,22 @@ export function CurveChart({
   const innerW = W - PAD_LEFT - PAD_RIGHT;
   const innerH = H - PAD_TOP - PAD_BOTTOM;
 
-  const dataMin = Math.min(0, ...allData);
-  const dataMax = Math.max(...allData, 0);
-  // Nice round ticks (rule Mettrik §6).
+  // Y-axis adaptive : si toutes les valeurs sont >> 0 (NFLX abonnés
+  // 200-325M), on évite d'ancrer à 0 qui écraserait la lecture du graph.
+  // Heuristique : si dataMin > 30% de dataMax, axe commence proche du min.
+  const dataMaxRaw = Math.max(...allData, 0);
+  const dataMinRaw = Math.min(...allData, 0);
+  const useDataMin = dataMinRaw > 0 && dataMinRaw > dataMaxRaw * 0.3;
+  const dataMin = useDataMin ? dataMinRaw : Math.min(0, ...allData);
+  const dataMax = dataMaxRaw;
   const tickValues = niceTicks(dataMin, dataMax, 5);
   const min = Math.min(...tickValues, dataMin);
   const max = Math.max(...tickValues, dataMax);
   const range = max - min || 1;
+  // Densité crowded : > 12 points -> rotation labels -45° + masquer hover values.
+  const isCrowded = allData.length > 12;
+  const xLabelFontSize = isCrowded ? 11 : 14;
+  const xLabelRotate = isCrowded ? -45 : 0;
   const baselineY = PAD_TOP + innerH;
 
   const stepX = allData.length > 1 ? innerW / (allData.length - 1) : innerW;
@@ -343,12 +352,13 @@ export function CurveChart({
               <text
                 x={x}
                 y={H - PAD_BOTTOM + 26}
-                textAnchor="middle"
-                fontSize={isTTM ? 15 : 17}
+                textAnchor={isCrowded ? "end" : "middle"}
+                fontSize={isTTM ? Math.max(xLabelFontSize - 2, 10) : xLabelFontSize}
                 fill={isTTM ? "#a1a1aa" : "#e4e4e7"}
                 fontFamily="ui-monospace, monospace"
                 fontWeight={isTTM ? 500 : 600}
                 fontStyle={isTTM ? "italic" : "normal"}
+                transform={xLabelRotate ? `rotate(${xLabelRotate}, ${x}, ${H - PAD_BOTTOM + 26})` : undefined}
                 style={isTTM ? { cursor: "help" } : undefined}
               >
                 {allLabels[i] ?? ""}

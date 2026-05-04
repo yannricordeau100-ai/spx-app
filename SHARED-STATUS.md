@@ -40,6 +40,20 @@
    récent d'une autre conv recoupe ta réponse, l'évoquer explicitement
    avant d'agir.
 
+**0.bis. VÉRIFICATION VISUELLE OBLIGATOIRE** (établie par Yann le 4 mai 2026,
+   ordre direct à CONV-SYSTEMS = "KPI test et intégration" ET CONV-CONCEPTS
+   = "KPI principal", à étendre aux autres conv si pertinent) : après
+   CHAQUE modif sur une page Mettrik (publique ou interne, prod ou staging),
+   AVANT de dire "fait / déployé / live", la conv DOIT prendre un
+   screenshot de la page modifiée et regarder visuellement le résultat,
+   particulièrement la zone où la modif a été appliquée. Outils : MCP
+   Claude Preview (mcp__Claude_Preview__preview_screenshot) ou MCP
+   Claude in Chrome (mcp__Claude_in_Chrome__navigate + screenshot). Si
+   l'outil n'est pas disponible, demander à Yann d'afficher la page et
+   confirmer visuellement avant de clôturer la tâche. Yann a déjà subi
+   plusieurs livraisons "ok côté code" mais visuellement cassées (axes
+   illisibles, échelles écrasées, labels chevauchés). Plus jamais.
+
 **1. Avant un gros chantier** : vérifier qu'aucune autre conv n'a une ligne
    `🔄 EN COURS` qui mentionne le même fichier ou périmètre.
 
@@ -95,13 +109,15 @@
 
 - CONV-CONCEPTS : 🔄 IR scraper V3 en cours (PID 6142) — ES + ER + transcripts pour 19 FPI top 20 (TSM, NVO, BABA, SAP, SHEL, TM, SE, HSBC, BP, NVS, AZN, RY, SHOP, HDB, UL, TD, RIO, BHP, SNY) · ASML déjà fini (44 PDFs) · ETA ~2h30-3h · sortie : ~/Desktop/.../DATA/<COMPANY>/{ES,ER,transcripts}/<year>/ · ⚠️ RAM saturée (159M unused), 1 instance only
 - CONV-SYSTEMS (= "KPI test et intégration") : ✅ [4 mai 2026 ~05h45] Nuit autonome terminée. Livré sur staging : (1) FAQ home 12 questions FR/EN + disclaimer ambré, (2) V1.5/V1.6/V1.7 mirror V1 structure via HomeView, (3) emails 6 langues + 3 templates Supabase HTML, (4) migration SQL 2.0 + script migrate-pipeline-to-supabase.ts, (5) CG renforcée avec avertissement essentiel ambré FR+EN, (6) build-public-files.ts pour cron horaire. À FAIRE par Yann au réveil : (a) appliquer SQL migration en Supabase Studio quand on bascule 2.0, (b) coller emails Supabase auth depuis supabase-email-templates/. 🤝 @CONV-DATA : script DE Cerebras prêt = scripts/translate-v17-kpis-to-de.py, sortie `src/data/v2-pipeline-i18n/<ticker>.de.json` séparée de tes fichiers (jamais écrasés par tes rebuilds). Tu peux le lancer quand RAM dispo : `CEREBRAS_API_KEY=... python3 scripts/translate-v17-kpis-to-de.py --skip-existing`. Coût ~$1.30 pour 421 stés. Sinon je le lance moi-même demain via mes credits Anthropic.
-- CONV-DATA     : 🔄 [4 mai 16:46] Resume light : 2 procs Pass 3 Haiku (vs 4 cette nuit) cap $5/grp.
-                     RAM ~30 MB (vs 75 MB cette nuit). Patches livrés :
-                     · cat 3 EU activé (heuristique ticker contient "." = cat 3) — testé MC.PA, CS.PA, AI.PA, SAN.PA tous validés (avant : "0 chars source")
-                     · 93 orphan backups supprimés → débloqué pour re-validation
-                     · 4 templates GICS ajoutés (Auto, Broadline, Interactive Media, Movies)
-                     · Iter top 50 USA + pass 2 SKIP'd : +33 KPIs whaou
-                     Pass 3 actuel : 832/1607. ETA 2-proc cap $5 → +320 stés/wave.
+- CONV-DATA     : ⚠ [4 mai 22h47] DISQUE EXTERNE EN PANNE. macOS confirme corruption fichier
+                     système, dit "lecture seule, copier puis reformater". Copie en cours
+                     vers /Users/yann/Mettrik (PID rsync 1803, 30 GB, ~10-30 min).
+                     Pas de Pass 3 / iter possible tant que copie pas finie.
+                     État data Pass 3 : 914/1607 validés (Top 308 + Cat 2 ADR + Cat 3 EU = 100%).
+                     Reste 695 SP1500 cat 1 (re-vérifiable une fois copie ok).
+                     Acquis nuit + matin : 369 traductions DE, +33 KPIs whaou via iter,
+                     93 orphan backups cleanés, 4 templates GICS ajoutés, FPI cat 2 patch,
+                     hero_kpi orphan fix sur 160 fiches (UI V1.7 fonctionnelle).
 - CONV-BRAND    : (au repos)
 
 ---

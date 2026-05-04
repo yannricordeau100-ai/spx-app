@@ -74,13 +74,29 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
   const ttmIndex = hasTTM ? allData.length - 1 : -1;
   const isClassic = variant === "classic";
 
-  const ticks = niceTicks(0, Math.max(...allData, 0), 5);
+  // Y-axis adaptive : si toutes les valeurs sont >> 0 (ex : NFLX abonnés
+  // 200-325M), on évite d'ancrer à 0 qui écraserait la lecture du graph.
+  // Heuristique : si dataMin > 30% de dataMax, on commence l'axe à un seuil
+  // proche du min (rounding par niceTicks) au lieu de forcer 0.
+  // Sinon (valeurs proches de 0 ou negatives), on garde 0 comme baseline.
+  const dataMaxRaw = Math.max(...allData, 0);
+  const dataMinRaw = Math.min(...allData, 0);
+  const useDataMin = dataMinRaw > 0 && dataMinRaw > dataMaxRaw * 0.3;
+  const ticks = niceTicks(useDataMin ? dataMinRaw : 0, dataMaxRaw, 5);
   const max = Math.max(...ticks, ...allData);
-  const range = max || 1;
+  const min = Math.min(...ticks, useDataMin ? dataMinRaw : 0);
+  const range = (max - min) || 1;
   const slot = INNER_W / allData.length;
   const barW = Math.min(slot * 0.42, 56);
   const baseY = PAD_TOP + INNER_H;
   const yFor = (v: number) => PAD_TOP + ((max - v) / range) * INNER_H;
+  // Densité crowded : > 12 colonnes -> rotate labels -45° + hide value
+  // labels au-dessus des barres (sinon ils se chevauchent visuellement
+  // comme '207.249.213' vu sur staging avec NFLX 21 colonnes).
+  const isCrowded = allData.length > 12;
+  const labelFontSize = isCrowded ? 11 : 17;
+  const valueFontSize = isCrowded ? 0 : 15;
+  const labelRotate = isCrowded ? -45 : 0;
   const DX = isClassic ? 0 : 26;
   const DY = isClassic ? 0 : -16;
   const header = axisHeader(unit);
@@ -163,15 +179,34 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
                 <path d={top} fill="url(#b26-top)" stroke="#050505" strokeWidth={0.6} strokeDasharray={ttmDash} />
               </>
             )}
-            {/* value above */}
-            <text x={x + barW / 2 + (isClassic ? 0 : DX / 2)} y={yT + (isClassic ? -10 : DY - 12)} textAnchor="middle" fontSize={15} fontWeight={700}
-              fill="#fafafa" fontFamily="ui-monospace, monospace">
-              {v}
-            </text>
-            {/* x label : TTM en italique gris + tooltip natif au hover */}
-            <text x={x + barW / 2 + (isClassic ? 0 : DX / 2)} y={H - PAD_BOTTOM + 26} textAnchor="middle" fontSize={isTTM ? 15 : 17}
-              fill={isTTM ? "#a1a1aa" : "#e4e4e7"} fontFamily="ui-monospace, monospace" fontWeight={isTTM ? 500 : 600} fontStyle={isTTM ? "italic" : "normal"}
-              style={isTTM ? { cursor: "help" } : undefined}>
+            {/* value above : caché en mode crowded (>12 cols) ou montré
+                seulement au hover. Sinon les chiffres se chevauchent. */}
+            {valueFontSize > 0 && (
+              <text x={x + barW / 2 + (isClassic ? 0 : DX / 2)} y={yT + (isClassic ? -10 : DY - 12)} textAnchor="middle" fontSize={valueFontSize} fontWeight={700}
+                fill="#fafafa" fontFamily="ui-monospace, monospace">
+                {v}
+              </text>
+            )}
+            {/* En mode crowded : montre la valeur uniquement sur la barre survolée. */}
+            {valueFontSize === 0 && isH && (
+              <text x={x + barW / 2 + (isClassic ? 0 : DX / 2)} y={yT + (isClassic ? -10 : DY - 12)} textAnchor="middle" fontSize={14} fontWeight={700}
+                fill="#fafafa" fontFamily="ui-monospace, monospace">
+                {v}
+              </text>
+            )}
+            {/* x label : rotation -45° en crowded mode pour éviter chevauchement. */}
+            <text
+              x={x + barW / 2 + (isClassic ? 0 : DX / 2)}
+              y={H - PAD_BOTTOM + 26}
+              textAnchor={isCrowded ? "end" : "middle"}
+              fontSize={isTTM ? Math.max(labelFontSize - 2, 11) : labelFontSize}
+              fill={isTTM ? "#a1a1aa" : "#e4e4e7"}
+              fontFamily="ui-monospace, monospace"
+              fontWeight={isTTM ? 500 : 600}
+              fontStyle={isTTM ? "italic" : "normal"}
+              transform={labelRotate ? `rotate(${labelRotate}, ${x + barW / 2 + (isClassic ? 0 : DX / 2)}, ${H - PAD_BOTTOM + 26})` : undefined}
+              style={isTTM ? { cursor: "help" } : undefined}
+            >
               {allLabels[i]}
               {isTTM && (
                 <title>TTM = Trailing Twelve Months : les 12 derniers mois publiés (4 derniers trimestres connus). Permet de voir la tendance la plus récente sans attendre la clôture annuelle.</title>
