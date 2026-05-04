@@ -1,29 +1,26 @@
 /**
- * Resend — service d'envoi d'emails transactionnels.
+ * Resend — service d'envoi d'emails transactionnels Mettrik AI.
  *
- * STATUS : stub prêt, env vars en `todo`. À activer après création compte
- * Resend + setup DNS mettrik.ai (voir SUPABASE-EMAIL-SETUP.md option B).
+ * STATUS : stub prêt, env var RESEND_API_KEY en `todo`. À activer après
+ * création compte Resend + setup DNS mettrik.ai (voir SUPABASE-EMAIL-SETUP.md).
  *
- * Usage typique :
+ * Usage :
+ *   import { sendWelcomeEmail } from "@/lib/email/resend";
+ *   await sendWelcomeEmail("user@example.com", { name: "Yann", locale: "fr" });
  *
- *   import { sendEmail } from "@/lib/email/resend";
- *   await sendEmail({
- *     to: "user@example.com",
- *     from: "noreply",  // mappé vers noreply@mettrik.ai
- *     subject: "Bienvenue",
- *     html: "<h1>...</h1>",
- *   });
- *
- * Adresses configurées (existantes côté Spacemail Spaceship) :
- *   - contact@mettrik.ai      (créée le 29/04/2026)
- *   - support@mettrik.ai      (créée le 29/04/2026)
+ * Adresses (existantes côté Spacemail Spaceship) :
+ *   - contact@mettrik.ai      (créée 29 avr 2026)
+ *   - support@mettrik.ai      (créée 29 avr 2026)
  *   - noreply@mettrik.ai      (à créer si on veut un sender no-reply propre)
  *
- * yann@ et antoine@ retirés de la liste car non créés à date — éviterait
- * des bounces silencieux. À ré-ajouter quand effectivement créés.
+ * Localisation des emails (4 mai 2026) :
+ *   - 6 locales supportées : fr, en, de, nl, sv, da.
+ *   - en-GB tombe sur en, de-CH tombe sur de (cascade fallback).
+ *   - Toute autre locale fallback sur en.
  */
 
 type FromAddress = "contact" | "support" | "noreply";
+export type EmailLocale = "fr" | "en" | "de" | "nl" | "sv" | "da";
 
 const FROM_MAP: Record<FromAddress, string> = {
   contact: "Mettrik AI <contact@mettrik.ai>",
@@ -82,26 +79,106 @@ export async function sendEmail(params: SendEmailParams): Promise<{ ok: boolean;
 }
 
 /* ============================================================ */
-/* HELPERS pour les types d'emails standards                      */
+/* HELPERS pour les types d'emails standards (6 locales)         */
 /* ============================================================ */
 
-export async function sendWelcomeEmail(to: string, name?: string) {
+/** Réduit toute Locale dictionnaire à une des 6 locales emails (en-GB → en, de-CH → de). */
+function normalizeEmailLocale(loc: string | undefined | null): EmailLocale {
+  if (!loc) return "en";
+  const l = loc.toLowerCase();
+  if (l === "fr") return "fr";
+  if (l === "de" || l === "de-ch") return "de";
+  if (l === "nl") return "nl";
+  if (l === "sv") return "sv";
+  if (l === "da") return "da";
+  if (l === "en" || l === "en-gb") return "en";
+  return "en";
+}
+
+/* ── WELCOME ── */
+const WELCOME_SUBJECT: Record<EmailLocale, string> = {
+  fr: "Bienvenue sur Mettrik AI",
+  en: "Welcome to Mettrik AI",
+  de: "Willkommen bei Mettrik AI",
+  nl: "Welkom bij Mettrik AI",
+  sv: "Välkommen till Mettrik AI",
+  da: "Velkommen til Mettrik AI",
+};
+
+const WELCOME_BODY: Record<EmailLocale, (name: string) => string> = {
+  fr: (n) => `<p>Bonjour${n ? " " + n : ""},</p>
+<p>Bienvenue sur Mettrik AI. Tu peux dès maintenant explorer les KPIs des plus grandes sociétés cotées et comparer leurs indicateurs sectoriels.</p>
+<p>Une question ? Réponds simplement à cet email.</p>
+<p style="color:#888;font-size:12px;margin-top:24px">Mettrik AI publie des analyses à titre informatif. Aucun contenu ne constitue un conseil en investissement.</p>`,
+  en: (n) => `<p>Hi${n ? " " + n : ""},</p>
+<p>Welcome to Mettrik AI. You can now explore the KPIs of the largest listed companies and compare their sector-specific indicators.</p>
+<p>Any question? Just reply to this email.</p>
+<p style="color:#888;font-size:12px;margin-top:24px">Mettrik AI publishes analyses for informational purposes only. No content constitutes investment advice.</p>`,
+  de: (n) => `<p>Hallo${n ? " " + n : ""},</p>
+<p>Willkommen bei Mettrik AI. Sie können nun die KPIs der größten börsennotierten Unternehmen erkunden und ihre branchenspezifischen Indikatoren vergleichen.</p>
+<p>Eine Frage? Antworten Sie einfach auf diese E-Mail.</p>
+<p style="color:#888;font-size:12px;margin-top:24px">Mettrik AI veröffentlicht Analysen ausschließlich zu Informationszwecken. Kein Inhalt stellt eine Anlageberatung dar.</p>`,
+  nl: (n) => `<p>Hallo${n ? " " + n : ""},</p>
+<p>Welkom bij Mettrik AI. Je kunt nu de KPI's van de grootste beursgenoteerde bedrijven verkennen en hun sectorindicatoren vergelijken.</p>
+<p>Een vraag? Antwoord gewoon op deze e-mail.</p>
+<p style="color:#888;font-size:12px;margin-top:24px">Mettrik AI publiceert analyses uitsluitend ter informatie. Geen enkele inhoud vormt beleggingsadvies.</p>`,
+  sv: (n) => `<p>Hej${n ? " " + n : ""},</p>
+<p>Välkommen till Mettrik AI. Du kan nu utforska KPI:erna för de största börsnoterade bolagen och jämföra deras branschindikatorer.</p>
+<p>Frågor? Svara bara på det här mejlet.</p>
+<p style="color:#888;font-size:12px;margin-top:24px">Mettrik AI publicerar analyser endast i informationssyfte. Inget innehåll utgör investeringsrådgivning.</p>`,
+  da: (n) => `<p>Hej${n ? " " + n : ""},</p>
+<p>Velkommen til Mettrik AI. Du kan nu udforske KPI'erne for de største børsnoterede selskaber og sammenligne deres branchespecifikke indikatorer.</p>
+<p>Spørgsmål? Svar blot på denne mail.</p>
+<p style="color:#888;font-size:12px;margin-top:24px">Mettrik AI udgiver analyser udelukkende til informationsformål. Intet indhold udgør investeringsrådgivning.</p>`,
+};
+
+export async function sendWelcomeEmail(
+  to: string,
+  opts?: { name?: string; locale?: string }
+) {
+  const locale = normalizeEmailLocale(opts?.locale);
   return sendEmail({
     to,
     from: "contact",
-    subject: "Bienvenue sur Mettrik AI",
+    subject: WELCOME_SUBJECT[locale],
     tag: "welcome",
-    html: `<p>Bonjour ${name ?? ""},</p><p>Bienvenue sur Mettrik AI.</p>`, // template à enrichir via concepts/Email templates
+    html: WELCOME_BODY[locale](opts?.name ?? ""),
   });
 }
 
-export async function sendBillingFailedEmail(to: string) {
+/* ── BILLING FAILED ── */
+const BILLING_SUBJECT: Record<EmailLocale, string> = {
+  fr: "Problème de paiement · Mettrik AI",
+  en: "Payment issue · Mettrik AI",
+  de: "Zahlungsproblem · Mettrik AI",
+  nl: "Betalingsprobleem · Mettrik AI",
+  sv: "Betalningsproblem · Mettrik AI",
+  da: "Betalingsproblem · Mettrik AI",
+};
+
+const BILLING_BODY: Record<EmailLocale, string> = {
+  fr: `<p>Le paiement de ton abonnement Mettrik AI a échoué.</p>
+<p>Merci de mettre à jour tes informations bancaires depuis ton espace personnel pour éviter une interruption de service.</p>`,
+  en: `<p>The payment for your Mettrik AI subscription failed.</p>
+<p>Please update your billing information from your account area to avoid a service interruption.</p>`,
+  de: `<p>Die Zahlung für Ihr Mettrik AI Abonnement ist fehlgeschlagen.</p>
+<p>Bitte aktualisieren Sie Ihre Zahlungsinformationen in Ihrem Konto, um eine Unterbrechung zu vermeiden.</p>`,
+  nl: `<p>De betaling voor je Mettrik AI-abonnement is mislukt.</p>
+<p>Werk je betaalgegevens bij vanuit je accountpagina om een onderbreking van de dienst te voorkomen.</p>`,
+  sv: `<p>Betalningen för din Mettrik AI-prenumeration misslyckades.</p>
+<p>Uppdatera dina betalningsuppgifter i ditt konto för att undvika ett avbrott i tjänsten.</p>`,
+  da: `<p>Betalingen for dit Mettrik AI-abonnement mislykkedes.</p>
+<p>Opdater dine betalingsoplysninger fra din kontoside for at undgå en afbrydelse af tjenesten.</p>`,
+};
+
+export async function sendBillingFailedEmail(to: string, opts?: { locale?: string }) {
+  const locale = normalizeEmailLocale(opts?.locale);
   return sendEmail({
     to,
     from: "noreply",
-    subject: "Problème de paiement — Mettrik AI",
+    subject: BILLING_SUBJECT[locale],
     replyTo: "contact@mettrik.ai",
     tag: "billing-failed",
-    html: `<p>Le paiement de ton abonnement Mettrik AI a échoué. Merci de mettre à jour tes informations bancaires depuis ton compte.</p>`,
+    html: BILLING_BODY[locale],
   });
 }
