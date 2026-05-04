@@ -160,12 +160,12 @@ export const DICTIONARY: Dict = {
     en: "Latest data point is less than 4 months old: most recent fiscal year.",
   },
   "company.recent_explainer": {
-    fr: "Le dernier point de donnée a entre 4 et 12 mois. Toujours valide mais le prochain exercice approche.",
-    en: "Latest data point is 4 to 12 months old. Still valid but the next fiscal year is approaching.",
+    fr: "Le dernier point de donnée a entre 4 et 18 mois. Toujours valide : le dernier exercice fiscal complet reste pertinent.",
+    en: "Latest data point is 4 to 18 months old. Still valid: the last full fiscal year remains relevant.",
   },
   "company.stale_explainer": {
-    fr: "Le dernier point de donnée a plus de 12 mois. La société a probablement publié un exercice plus récent : la donnée affichée n'est plus à jour.",
-    en: "Latest data point is over 12 months old. The company has likely published a more recent fiscal year: data shown is outdated.",
+    fr: "Le dernier point de donnée a plus de 18 mois. La société a probablement publié un exercice plus récent : la donnée affichée n'est plus à jour.",
+    en: "Latest data point is over 18 months old. The company has likely published a more recent fiscal year: data shown is outdated.",
   },
   "company.unknown_explainer": {
     fr: "Pas de date associée à ce point de donnée.",
@@ -576,8 +576,8 @@ export const DICTIONARY: Dict = {
     en: "How often are the KPIs updated?",
   },
   "faq.a.freshness": {
-    fr: "À chaque publication officielle de la société : trimestriellement pour les 10-Q et résultats, annuellement pour les 10-K, ponctuellement pour les 8-K (événements matériels). Un indicateur de fraîcheur est affiché sur chaque KPI principal : vert si la donnée a moins de 4 mois, ambre entre 4 et 12 mois, rouge au-delà.",
-    en: "On every official company filing: quarterly for 10-Qs and earnings, annually for 10-Ks, ad-hoc for 8-Ks (material events). A freshness indicator appears next to each lead KPI: green under 4 months, amber between 4 and 12 months, red beyond.",
+    fr: "À chaque publication officielle de la société : trimestriellement pour les 10-Q et résultats, annuellement pour les 10-K, ponctuellement pour les 8-K (événements matériels). Un indicateur de fraîcheur est affiché sur chaque KPI principal : vert si la donnée a moins de 4 mois, ambre entre 4 et 18 mois, rouge au-delà.",
+    en: "On every official company filing: quarterly for 10-Qs and earnings, annually for 10-Ks, ad-hoc for 8-Ks (material events). A freshness indicator appears next to each lead KPI: green under 4 months, amber between 4 and 18 months, red beyond.",
   },
   "faq.q.advice": {
     fr: "Mettrik AI me dit quoi acheter ou vendre ?",

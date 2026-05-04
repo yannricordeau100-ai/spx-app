@@ -380,10 +380,15 @@ export function ensureYoYSuffix(yoy: string): string {
 
 /**
  * Freshness tier for a piece of data based on its last_data_date.
- *  - "fresh" : < 4 months (last quarter)
- *  - "recent" : 4–12 months (last fiscal year still relevant)
- *  - "stale" : > 12 months (warn user)
- *  - "unknown" : no date
+ *
+ * Seuils ajustés le 4 mai 2026 (Yann) :
+ *  - "fresh"  : < 4 mois  (dernier trimestre)
+ *  - "recent" : 4–18 mois (le dernier exercice fiscal complet reste pertinent
+ *               jusqu'à ce que le suivant soit largement publié; le pipeline
+ *               CONV-DATA peut être en cours de refresh donc on tolère une
+ *               fenêtre plus large que la stricte année)
+ *  - "stale"  : > 18 mois (alerte utilisateur : data probablement périmée)
+ *  - "unknown": pas de date
  */
 export type FreshnessTier = "fresh" | "recent" | "stale" | "unknown";
 
@@ -393,7 +398,7 @@ export function getFreshness(lastDate?: string, now: Date = new Date()): Freshne
   if (Number.isNaN(d.getTime())) return "unknown";
   const months = (now.getTime() - d.getTime()) / (1000 * 60 * 60 * 24 * 30.4);
   if (months < 4) return "fresh";
-  if (months < 12) return "recent";
+  if (months < 18) return "recent";
   return "stale";
 }
 
