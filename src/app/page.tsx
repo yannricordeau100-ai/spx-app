@@ -30,15 +30,24 @@ function loadV17(): Record<string, Company> {
   >;
   const out: Record<string, Company> = {};
   for (const [t, v] of Object.entries(all)) {
+    if (!v || typeof v !== "object") continue;
+    if (!v._validation && !v._validation_global) continue;
+    if (!Array.isArray(v.kpis) || v.kpis.length === 0) continue;
+    // Vérifie que le hero est utilisable côté HomeView : tous les champs
+    // string requis doivent être présents (rate(), parsePct(), formatUnit()
+    // crashent sur undefined). Sinon skip.
+    const hero =
+      v.kpis.find((k) => k && k.short === v.hero_kpi) ?? v.kpis[0];
     if (
-      v &&
-      typeof v === "object" &&
-      (v._validation || v._validation_global) &&
-      Array.isArray(v.kpis) &&
-      v.kpis.length > 0
-    ) {
-      out[t] = v;
-    }
+      !hero ||
+      typeof hero.value !== "string" ||
+      typeof hero.yoy !== "string" ||
+      typeof hero.type !== "string" ||
+      typeof hero.unit !== "string" ||
+      typeof hero.short !== "string"
+    )
+      continue;
+    out[t] = v;
   }
   return out;
 }
