@@ -39,6 +39,52 @@ function isPass3(v: AnyRecord): boolean {
   return !!(v._validation || v._validation_global);
 }
 
+/**
+ * Garde UNIQUEMENT les champs nécessaires au rendu d'une card HomeView.
+ * Les hubs sandbox V1.6/V1.7 affichent ~1 KPI (le hero) + meta basiques.
+ * Pas besoin de risks/governance/ai_positioning/_validation dans le bundle.
+ *
+ * Réduction observée : 4.5 MB → ~200 KB pour V1.7. Évite les 500 dûs au
+ * bundle Next.js qui dépasse les limites de fonction serverless Vercel
+ * (4 MB compressed pour les server components qui import du JSON).
+ */
+function slimForHub(entry: AnyRecord): AnyRecord {
+  const heroKpiShort = entry.hero_kpi as string | undefined;
+  const allKpis = Array.isArray(entry.kpis) ? (entry.kpis as AnyRecord[]) : [];
+  // Garde le hero KPI complet (nécessaire pour rate(), yoy, history,
+  // freshness) + un placeholder léger pour les autres (pour que kpis.length
+  // reste correct si un consommateur compte).
+  const heroKpi = allKpis.find((k) => k.short === heroKpiShort) ?? allKpis[0];
+  const slimKpis = heroKpi
+    ? [
+        {
+          short: heroKpi.short,
+          name_fr: heroKpi.name_fr,
+          name_en: heroKpi.name_en,
+          value: heroKpi.value,
+          unit: heroKpi.unit,
+          yoy: heroKpi.yoy,
+          type: heroKpi.type,
+          history: heroKpi.history,
+          last_data_date: heroKpi.last_data_date,
+          ttm: heroKpi.ttm,
+        },
+      ]
+    : [];
+  return {
+    ticker: entry.ticker,
+    name: entry.name,
+    sector: entry.sector,
+    subsector: entry.subsector,
+    hero_kpi: entry.hero_kpi,
+    ranks: entry.ranks,
+    next_earnings_date: entry.next_earnings_date,
+    logo_treatment: entry.logo_treatment,
+    tagline: entry.tagline,
+    kpis: slimKpis,
+  };
+}
+
 function main() {
   const raw = readFileSync(MERGED_PATH, "utf-8");
   const merged = JSON.parse(raw) as Record<string, unknown>;
@@ -48,8 +94,9 @@ function main() {
 
   for (const [ticker, entry] of Object.entries(merged)) {
     if (!isValidPipelineEntry(entry)) continue;
-    v16[ticker] = entry;
-    if (isPass3(entry)) v17[ticker] = entry;
+    const slim = slimForHub(entry as AnyRecord);
+    v16[ticker] = slim;
+    if (isPass3(entry as AnyRecord)) v17[ticker] = slim;
   }
 
   writeFileSync(V17_OUT, JSON.stringify(v17), "utf-8");
