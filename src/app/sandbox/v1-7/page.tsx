@@ -1,7 +1,7 @@
-import { promises as fs } from "fs";
-import path from "path";
 import { HomeView } from "@/components/home-view";
 import type { Company } from "@/lib/data";
+// Import JSON direct (16MB bundlé) : fs.readFile rate l'output-file-tracing.
+import V17_MERGED from "@/data/v2-pipeline/_merged.json";
 
 export const dynamic = "force-dynamic";
 export const metadata = {
@@ -18,33 +18,30 @@ export const metadata = {
  * Filtre : ne garde que les stés avec _validation OU _validation_global
  * (champs ajoutés par CONV-DATA quand Sonnet a vérifié l'extraction).
  */
-async function loadValidatedDatasets(): Promise<Record<string, Company>> {
-  const dir = path.join(process.cwd(), "src/data/v2-pipeline");
-  try {
-    const merged = await fs.readFile(path.join(dir, "_merged.json"), "utf-8");
-    const all = JSON.parse(merged) as Record<string, Company & { _validation?: unknown; _validation_global?: unknown }>;
-    const out: Record<string, Company> = {};
-    for (const [t, v] of Object.entries(all)) {
-      // Filtre : validé par Sonnet ET au moins 1 KPI (sinon HomeView crashe
-      // sur getHero / hero.yoy → 500).
-      if (
-        v &&
-        typeof v === "object" &&
-        (v._validation || v._validation_global) &&
-        Array.isArray(v.kpis) &&
-        v.kpis.length > 0
-      ) {
-        out[t] = v;
-      }
+function loadValidatedDatasets(): Record<string, Company> {
+  const all = V17_MERGED as unknown as Record<
+    string,
+    Company & { _validation?: unknown; _validation_global?: unknown }
+  >;
+  const out: Record<string, Company> = {};
+  for (const [t, v] of Object.entries(all)) {
+    // Filtre : validé par Sonnet ET au moins 1 KPI (sinon HomeView crashe
+    // sur getHero / hero.yoy → 500).
+    if (
+      v &&
+      typeof v === "object" &&
+      (v._validation || v._validation_global) &&
+      Array.isArray(v.kpis) &&
+      v.kpis.length > 0
+    ) {
+      out[t] = v;
     }
-    return out;
-  } catch {
-    return {};
   }
+  return out;
 }
 
 export default async function SandboxV17HubPage() {
-  const datasets = await loadValidatedDatasets();
+  const datasets = loadValidatedDatasets();
   // Tri alphabétique par ticker pour un browse prévisible. Yann pourra
   // changer le tri (par secteur, par cap boursière, etc.) plus tard.
   const tickers = Object.keys(datasets).sort();
