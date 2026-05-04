@@ -40,15 +40,35 @@ export const DICTIONARY: Dict = {
     en: "tell the story.",
   },
   "brand.tagline_sub": {
-    fr: "3 clics pour découvrir les KPI clés et Super KPI exclusifs des plus grandes sociétés américaines et européennes.",
+    fr: "À seulement 1 clic découvrir les KPI clés et Super KPI exclusifs des plus grandes sociétés américaines et européennes…",
     en: "3 clicks to the key KPIs and exclusive Super KPIs of the largest US and European companies.",
+  },
+  "brand.kpi_intelligence_under": {
+    fr: "L'application de KPI de sociétés la plus puissante au monde, tout simplement.",
+    en: "",
+  },
+  "home.punchline.1": {
+    fr: "*Conseiller bancaire sérieux* 👨‍💼👔 : vous n'avez rien de plus que les autres pour battre le marché ! *Moi confiant* : moi seul non, mais moi + Mettrik AI si",
+    en: "",
+  },
+  "home.punchline.2": {
+    fr: "*Conseiller bancaire sérieux* 👨‍💼👔 : vous n'arriverez pas à battre le marché ? *Moi confiant* : Moi seul sans informations non, mais Moi + Mettrik AI si",
+    en: "",
+  },
+  "home.punchline.3": {
+    fr: "📚 📖 Question : Comment avoir un avantage compétitif sur vos collègues à la machine à café ? Réponse : Utiliser Mettrik AI 🤷🏼‍♂️",
+    en: "",
+  },
+  "home.punchline.4": {
+    fr: "👦 Dis Papa, comment t'as eu et gardé un avantage compétitif par rapport aux autres ? 👨 J'utilise Mettrik AI mon fils, tout simplement.",
+    en: "",
   },
   "brand.data_updated": {
     fr: "Données à jour au",
     en: "Data updated as of",
   },
   "brand.companies_available": {
-    fr: "Sociétés disponibles",
+    fr: "KPI = INDICATEUR",
     en: "Available companies",
   },
   "brand.footer_tagline": {

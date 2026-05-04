@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { motion } from "motion/react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { ArrowRight, Sparkles } from "lucide-react";
 
 import { COMPANIES, TICKERS, formatUnit, getHero } from "@/lib/data";
@@ -54,7 +54,7 @@ function DataFreshnessPill({ locale, freshnessKey }: { locale: string; freshness
   );
 }
 
-function BrandWordmark() {
+function BrandWordmark({ kpiUnderText }: { kpiUnderText?: string }) {
   const letters = "Mettrik AI".split("");
   return (
     <div className="mb-6 flex flex-col items-center sm:mb-8">
@@ -181,6 +181,129 @@ function BrandWordmark() {
       >
         KPI Intelligence
       </motion.div>
+
+      {/* Ligne sous-KPI INTELLIGENCE (catchphrase produit, FR uniquement) */}
+      {kpiUnderText && (
+        <motion.div
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.25, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-2 max-w-xl text-balance text-center text-[12px] italic text-zinc-400 sm:text-[13.5px]"
+        >
+          {kpiUnderText}
+        </motion.div>
+      )}
+    </div>
+  );
+}
+
+/**
+ * Rendu d'une punchline avec :
+ *   - Segments *italique* via Markdown-like (entre * *)
+ *   - Emojis agrandis à 1.5em (50 % plus gros que le texte), centrés
+ *     verticalement (overflow ~25 % au-dessus / en-dessous via `lineHeight: 1`
+ *     + `verticalAlign: middle`).
+ */
+function renderPunchline(text: string): React.ReactNode {
+  // 1. Split par italique *...*
+  const italicSplit = text.split(/(\*[^*]+\*)/g);
+  return italicSplit.map((seg, i) => {
+    if (seg.startsWith("*") && seg.endsWith("*") && seg.length > 2) {
+      return (
+        <em key={i} className="not-italic font-semibold italic text-zinc-200">
+          {wrapEmojis(seg.slice(1, -1))}
+        </em>
+      );
+    }
+    return <span key={i}>{wrapEmojis(seg)}</span>;
+  });
+}
+
+/** Wrap chaque emoji dans un span agrandi à 1.5em, centré vertical. */
+function wrapEmojis(text: string): React.ReactNode {
+  // Match séquences emoji (avec modificateurs de teint + ZWJ).
+  const re =
+    /(\p{Extended_Pictographic}(?:\p{Emoji_Modifier}|‍\p{Extended_Pictographic})*)/gu;
+  const parts: React.ReactNode[] = [];
+  let lastIdx = 0;
+  let m: RegExpExecArray | null;
+  let key = 0;
+  while ((m = re.exec(text)) !== null) {
+    if (m.index > lastIdx) parts.push(<span key={key++}>{text.slice(lastIdx, m.index)}</span>);
+    parts.push(
+      <span
+        key={key++}
+        style={{
+          fontSize: "1.5em",
+          lineHeight: 1,
+          verticalAlign: "middle",
+          display: "inline-block",
+        }}
+      >
+        {m[0]}
+      </span>
+    );
+    lastIdx = m.index + m[0].length;
+  }
+  if (lastIdx < text.length) parts.push(<span key={key++}>{text.slice(lastIdx)}</span>);
+  return parts;
+}
+
+/** Estime le nombre de lignes en mesurant la hauteur rendue vs line-height. */
+function useLineCount(ref: React.RefObject<HTMLElement | null>, deps: unknown[]): 1 | 2 {
+  const [lines, setLines] = useState<1 | 2>(2);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const computed = window.getComputedStyle(el);
+    const lh = parseFloat(computed.lineHeight) || parseFloat(computed.fontSize) * 1.4;
+    const h = el.getBoundingClientRect().height;
+    setLines(h > lh * 1.4 ? 2 : 1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, deps);
+  return lines;
+}
+
+/**
+ * Rouleau casino : punchlines rotées aléatoirement. La précédente sort
+ * vers le bas, la nouvelle entre par le haut. Durée : 5 s (1 ligne)
+ * ou 9 s (2 lignes).
+ */
+function RotatingPunchline({ items }: { items: string[] }) {
+  const [idx, setIdx] = useState(() => Math.floor(Math.random() * items.length));
+  const ref = useRef<HTMLParagraphElement>(null);
+  const lines = useLineCount(ref, [idx]);
+
+  useEffect(() => {
+    if (items.length <= 1) return;
+    const dur = lines === 1 ? 5000 : 9000;
+    const t = setTimeout(() => {
+      setIdx((prev) => {
+        let next = Math.floor(Math.random() * items.length);
+        // Évite la même punchline 2 fois de suite.
+        let safety = 0;
+        while (next === prev && safety++ < 8) next = Math.floor(Math.random() * items.length);
+        return next;
+      });
+    }, dur);
+    return () => clearTimeout(t);
+  }, [idx, lines, items.length]);
+
+  return (
+    <div className="relative mx-auto mt-3 h-[88px] max-w-2xl sm:mt-4 sm:h-[96px]">
+      <AnimatePresence mode="wait">
+        <motion.p
+          key={idx}
+          ref={ref}
+          initial={{ y: -64, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: 64, opacity: 0 }}
+          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          className="absolute inset-x-0 text-balance text-center text-[14px] leading-[1.55] text-zinc-300 sm:text-[16px]"
+        >
+          {renderPunchline(items[idx])}
+        </motion.p>
+      </AnimatePresence>
     </div>
   );
 }
@@ -227,7 +350,9 @@ export function HomeView({
           <DataFreshnessPill locale={locale} freshnessKey={t("brand.data_updated")} />
         </div>
 
-        <BrandWordmark />
+        <BrandWordmark
+          kpiUnderText={locale === "fr" ? t("brand.kpi_intelligence_under") : undefined}
+        />
 
         {/* Headline réduite + nouvelle punchline */}
         <div className="text-center animate-fade-up">
@@ -238,6 +363,16 @@ export function HomeView({
           <p className="mx-auto mt-4 max-w-2xl text-balance text-[13.5px] leading-relaxed text-zinc-400 sm:text-[15px]">
             {t("brand.tagline_sub")}
           </p>
+          {locale === "fr" && (
+            <RotatingPunchline
+              items={[
+                t("home.punchline.1"),
+                t("home.punchline.2"),
+                t("home.punchline.3"),
+                t("home.punchline.4"),
+              ]}
+            />
+          )}
         </div>
 
         {/* Search — pill arrondie qui zoome en modal centrée au clic */}
@@ -254,8 +389,12 @@ export function HomeView({
             {results.map((ticker) => {
               const c = COMPANIES_USED[ticker];
               if (!c) return null;
+              // Garde défensive : sté sans KPI = on skip (V1.7 dataset peut
+              // avoir des stés vides en attente d'enrichissement LLM).
+              if (!c.kpis || !Array.isArray(c.kpis) || c.kpis.length === 0) return null;
               const hero = getHero(c);
-              const tone = yoyTone(hero.yoy, hero.type);
+              if (!hero) return null;
+              const tone = yoyTone(hero.yoy ?? "", hero.type ?? "");
               const yoyColor =
                 tone === "pos" ? "#10b981" : tone === "neg" ? "#f43f5e" : "#a1a1aa";
               const accent = brand(ticker).primary;

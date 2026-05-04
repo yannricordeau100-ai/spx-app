@@ -25,7 +25,15 @@ async function loadValidatedDatasets(): Promise<Record<string, Company>> {
     const all = JSON.parse(merged) as Record<string, Company & { _validation?: unknown; _validation_global?: unknown }>;
     const out: Record<string, Company> = {};
     for (const [t, v] of Object.entries(all)) {
-      if (v && typeof v === "object" && (v._validation || v._validation_global)) {
+      // Filtre : validé par Sonnet ET au moins 1 KPI (sinon HomeView crashe
+      // sur getHero / hero.yoy → 500).
+      if (
+        v &&
+        typeof v === "object" &&
+        (v._validation || v._validation_global) &&
+        Array.isArray(v.kpis) &&
+        v.kpis.length > 0
+      ) {
         out[t] = v;
       }
     }
