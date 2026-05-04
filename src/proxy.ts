@@ -45,9 +45,10 @@ function isPublicPath(pathname: string): boolean {
   if (pathname === "/parrainage") return true;
   // /contact = formulaire de contact public.
   if (pathname === "/contact") return true;
-  // /sandbox/v1-7 = hub V1.7 public (preview du dataset 348 stés). Le
-  // détail /sandbox/v1-7/<ticker> reste auth-gated.
-  if (pathname === "/sandbox/v1-7") return true;
+  // /sandbox/v1-7 et /sandbox/v1-7/<ticker> = hub V1.7 + fiches société
+  // Pass 3 strict, publics (showcase qualité top-top, accessible sans auth
+  // pour démo investisseur). Décision Yann 4 mai 2026.
+  if (pathname === "/sandbox/v1-7" || pathname.startsWith("/sandbox/v1-7/")) return true;
   return false;
 }
 
