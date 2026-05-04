@@ -1,7 +1,8 @@
 import { HomeView } from "@/components/home-view";
 import type { Company } from "@/lib/data";
-// Import JSON direct (16MB bundlé) : fs.readFile rate l'output-file-tracing.
-import V17_MERGED from "@/data/v2-pipeline/_merged.json";
+// Pré-filtré au build (300KB) : src/data/v1-7-public.json. Régénéré
+// par scripts/build-v17-public.ts.
+import V17_PUBLIC from "@/data/v1-7-public.json";
 
 export const dynamic = "force-dynamic";
 export const metadata = {
@@ -19,25 +20,7 @@ export const metadata = {
  * (champs ajoutés par CONV-DATA quand Sonnet a vérifié l'extraction).
  */
 function loadValidatedDatasets(): Record<string, Company> {
-  const all = V17_MERGED as unknown as Record<
-    string,
-    Company & { _validation?: unknown; _validation_global?: unknown }
-  >;
-  const out: Record<string, Company> = {};
-  for (const [t, v] of Object.entries(all)) {
-    // Filtre : validé par Sonnet ET au moins 1 KPI (sinon HomeView crashe
-    // sur getHero / hero.yoy → 500).
-    if (
-      v &&
-      typeof v === "object" &&
-      (v._validation || v._validation_global) &&
-      Array.isArray(v.kpis) &&
-      v.kpis.length > 0
-    ) {
-      out[t] = v;
-    }
-  }
-  return out;
+  return V17_PUBLIC as unknown as Record<string, Company>;
 }
 
 export default async function SandboxV17HubPage() {
@@ -50,6 +33,7 @@ export default async function SandboxV17HubPage() {
     <HomeView
       companies={datasets}
       tickers={tickers}
+      showFAQ={false}
       hrefBuilder={(t) => `/sandbox/v1-7/${t.toLowerCase()}`}
     />
   );

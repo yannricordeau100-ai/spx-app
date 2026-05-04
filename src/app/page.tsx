@@ -8,9 +8,10 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import type { Company } from "@/lib/data";
-// Import JSON direct : 16MB bundlé dans la fonction serverless (vs
-// fs.readFile qui rate l'output-file-tracing pour ce gros fichier).
-import V17_MERGED from "@/data/v2-pipeline/_merged.json";
+// Pré-filtré au build (300KB vs 16MB merged). Régénéré par
+// scripts/build-v17-public.ts. N'inclut que les stés sanitized
+// (validation + hero KPI bien formé).
+import V17_PUBLIC from "@/data/v1-7-public.json";
 
 export const dynamic = "force-dynamic";
 
@@ -24,32 +25,7 @@ const IS_STAGING =
   process.env.NEXT_PUBLIC_DEPLOY_TARGET === "staging";
 
 function loadV17(): Record<string, Company> {
-  const all = V17_MERGED as unknown as Record<
-    string,
-    Company & { _validation?: unknown; _validation_global?: unknown }
-  >;
-  const out: Record<string, Company> = {};
-  for (const [t, v] of Object.entries(all)) {
-    if (!v || typeof v !== "object") continue;
-    if (!v._validation && !v._validation_global) continue;
-    if (!Array.isArray(v.kpis) || v.kpis.length === 0) continue;
-    // Vérifie que le hero est utilisable côté HomeView : tous les champs
-    // string requis doivent être présents (rate(), parsePct(), formatUnit()
-    // crashent sur undefined). Sinon skip.
-    const hero =
-      v.kpis.find((k) => k && k.short === v.hero_kpi) ?? v.kpis[0];
-    if (
-      !hero ||
-      typeof hero.value !== "string" ||
-      typeof hero.yoy !== "string" ||
-      typeof hero.type !== "string" ||
-      typeof hero.unit !== "string" ||
-      typeof hero.short !== "string"
-    )
-      continue;
-    out[t] = v;
-  }
-  return out;
+  return V17_PUBLIC as unknown as Record<string, Company>;
 }
 
 function safeNextParam(raw: string | string[] | undefined): string | null {
@@ -93,8 +69,7 @@ export default async function HomePage({
   let v17Tickers: string[] | null = null;
   if (IS_STAGING) {
     v17Datasets = loadV17();
-    // Cap temporaire à 30 pour isoler une éventuelle sté qui crashe.
-    v17Tickers = Object.keys(v17Datasets).sort().slice(0, 30);
+    v17Tickers = Object.keys(v17Datasets).sort();
   }
 
   return (
