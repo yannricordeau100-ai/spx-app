@@ -79,6 +79,19 @@ for (const [t, v] of Object.entries(merged)) {
     skipped++;
     continue;
   }
+  // Skip placeholders LLM "Non disponible / spécifié / disclosé / etc." :
+  // ces stés affichent une carte vide donc à exclure du hub public.
+  const PLACEHOLDERS = /^(non\s*(disponible|spécifié|specifie|disclosé|discloses?|reporté|reporte|précisé|precise|publié|publie|fourni|trouvé|connue?|renseigné|renseigne)|n\/a|na|—|-)$/i;
+  const h = hero as AnyKPI;
+  if (
+    PLACEHOLDERS.test(String(h.value).trim()) ||
+    PLACEHOLDERS.test(String(h.yoy).trim()) ||
+    PLACEHOLDERS.test(String(h.short).trim()) ||
+    PLACEHOLDERS.test(String((h as { name_fr?: string }).name_fr ?? "").trim())
+  ) {
+    skipped++;
+    continue;
+  }
   out[t] = {
     ticker: v.ticker,
     name: v.name,
