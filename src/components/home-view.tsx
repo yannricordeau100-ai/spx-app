@@ -393,8 +393,10 @@ export function HomeView({
               // avoir des stés vides en attente d'enrichissement LLM).
               if (!c.kpis || !Array.isArray(c.kpis) || c.kpis.length === 0) return null;
               const hero = getHero(c);
-              if (!hero) return null;
-              const tone = yoyTone(hero.yoy ?? "", hero.type ?? "");
+              // Skip si hero malformé (V1.7 dataset peut avoir des kpis
+              // partiellement extraits → rate() crashe sur kpi.value.replace).
+              if (!hero || typeof hero.value !== "string" || !hero.type) return null;
+              const tone = yoyTone(hero.yoy ?? "", hero.type);
               const yoyColor =
                 tone === "pos" ? "#10b981" : tone === "neg" ? "#f43f5e" : "#a1a1aa";
               const accent = brand(ticker).primary;
