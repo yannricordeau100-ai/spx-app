@@ -1,9 +1,9 @@
 {
   "ticker": "FNB",
   "name": "F.N.B. Corporation",
-  "sector": "Information Technology",
-  "subsector": "Financial Services",
-  "tagline": "F.N.B. Corporation is a diversified financial services company.",
+  "sector": "Financial Services",
+  "subsector": "Banking",
+  "tagline": "F.N.B. Corporation is a diversified community-focused financial services company providing comprehensive banking and financial solutions.",
   "founded": null,
   "ipo": null,
   "logo_treatment": "orbit",
@@ -14,7 +14,7 @@
     "subsector": "N/A"
   },
   "hero_kpi": "Allowance for Credit Losses",
-  "hero_kpi_rationale": "Le KPI 'Allowance for Credit Losses' est le 'wow' de FNB car il reflète la gestion proactive du risque de crédit dans un environnement économique incertain. Il montre la capacité de l'entreprise à anticiper et provisionner les pertes potentielles, un indicateur clé de sa résilience.",
+  "hero_kpi_rationale": "Le KPI 'Allowance for Credit Losses' est central pour FNB car il reflète la gestion proactive du risque de crédit dans un environnement économique incertain. Il démontre la capacité de l'entreprise à anticiper et provisionner les pertes potentielles, un indicateur clé de sa résilience financière en tant qu'institution bancaire.",
   "kpis": [
     {
       "short": "Allowance for Credit Losses",
@@ -22,7 +22,7 @@
       "name_en": "Allowance for Credit Losses",
       "explanation": "Montant mis de côté pour couvrir les pertes potentielles sur les prêts et les financements.",
       "value": null,
-      "unit": null,
+      "unit": "$M",
       "yoy": null,
       "type": "Risk",
       "nature": "Conjoncturel",
@@ -90,15 +90,16 @@
       "last_data_date": null,
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "_validation": "KPI not applicable for banking sector - should be removed or replaced with technology/digital investments"
     },
     {
       "short": "Capital Expenditures",
-      "name_fr": "Investissements (CAPEX)",
+      "name_fr": "Dépenses en immobilisations",
       "name_en": "Capital Expenditures",
       "explanation": "Dépenses consacrées à l'acquisition ou à l'amélioration d'actifs physiques à long terme.",
       "value": null,
-      "unit": "$B",
+      "unit": "$M",
       "yoy": null,
       "type": "Investment",
       "nature": "Structurel",
@@ -109,11 +110,12 @@
       "last_data_date": null,
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "_validation": "Unit corrected from $B to $M (more appropriate for FNB scale)"
     },
     {
       "short": "Total Employees",
-      "name_fr": "Effectif (employés)",
+      "name_fr": "Effectif total",
       "name_en": "Total Employees",
       "explanation": "Nombre total de personnes employées par l'entreprise.",
       "value": null,
@@ -150,63 +152,75 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Innovation"
+      "story_category": "Innovation",
+      "_validation": "HALLUCINATED KPI - No AI API calls mentioned in 10-K source. MD&A explicitly states 'risks associated with reliance on third-party vendors and AI' but no quantitative AI adoption metrics provided. Should be removed."
     }
   ],
   "ai_positioning": {
-    "stance": "absent",
-    "summary": "Aucune mention significative de l'intelligence artificielle dans le rapport 10-K/20-F de FNB Corp.",
-    "evidence": [],
-    "source": "Rapport 10-K/20-F de FNB Corp."
+    "stance": "nascent",
+    "summary": "F.N.B. Corporation mentions risks and challenges associated with AI and third-party vendors in its forward-looking statements and risk discussions, but does not articulate a clear strategic positioning around AI adoption or implementation.",
+    "evidence": [
+      "Risks associated with reliance on third-party vendors and AI mentioned in forward-looking statements",
+      "Risks associated with the use of models, estimations and assumptions in business operations"
+    ],
+    "source": "10-K Report - Item 7 MD&A and Risk Factors"
   },
   "risks": [
     {
-      "title": "Estimation des pertes de crédit (ACL)",
-      "category": "Crédit",
+      "title": "Allowance for Credit Losses (ACL) Estimation",
+      "category": "Credit",
       "severity": 4,
-      "score_rationale": "Ce risque est mentionné en premier dans la section des politiques comptables critiques. Le langage utilisé ('significant management judgment', 'inherently uncertain') indique une gravité élevée. Il s'agit d'une estimation clé pour une institution financière, impactant directement les états financiers.",
+      "score_rationale": "This risk is highlighted as a critical accounting policy in the MD&A. The source explicitly states that ACL determination 'is complex and requires significant management judgment about the effect of matters that are inherently uncertain' and notes that 'significant changes to the ACL level could occur in future periods'. For a financial institution, credit loss provisioning is foundational to financial reporting reliability.",
       "trend": "stable",
-      "summary": "La détermination de la provision pour pertes de crédit est complexe et repose sur des jugements significatifs de la direction concernant des facteurs incertains. Des changements importants dans cette provision pourraient survenir dans les périodes futures."
+      "summary": "The determination of the Allowance for Credit Losses relies on complex models incorporating macroeconomic forecasts, historical default rates, and management judgment. The calculation is sensitive to changes in economic conditions, lending policies, and portfolio composition, creating potential for material changes in future periods."
     },
     {
-      "title": "Évaluation de la juste valeur des instruments financiers",
-      "category": "Crédit",
+      "title": "Fair Value Measurement of Financial Instruments",
+      "category": "Credit",
       "severity": 4,
-      "score_rationale": "Ce risque est la deuxième politique comptable critique discutée. Il implique des 'estimates, assumptions and judgments' complexes et subjectifs, avec un potentiel de volatilité accrue des états financiers. La valorisation des actifs et passifs financiers est cruciale pour une banque.",
+      "score_rationale": "Identified as a critical accounting policy in MD&A. The source explicitly states 'significant and complex estimates, assumptions and judgments' are required, and notes that 'estimates are inherently subjective and can result in significant changes in the fair value estimates'. For a financial institution with substantial investments and trading portfolios, fair value volatility directly impacts financial statements.",
       "trend": "stable",
-      "summary": "L'évaluation de la juste valeur des instruments financiers nécessite des estimations et jugements complexes. Les fluctuations des taux d'intérêt et la dépendance aux données de marché peuvent entraîner des changements significatifs et une volatilité accrue des états financiers."
+      "summary": "Fair value measurements require complex estimates and subjective judgments, especially when third-party valuation sources are unavailable and internal cash flow modeling is used. Volatility in markets, interest rates, and asset valuations can lead to significant fluctuations in reported financial position."
     },
     {
-      "title": "Dépréciation du goodwill et des actifs incorporels",
+      "title": "Goodwill and Intangible Assets Impairment",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "Ce risque est la troisième politique comptable critique. Il est lié à la capacité de l'entreprise à générer des revenus futurs et à fournir des services rentables face à la concurrence. Une dépréciation entraînerait des charges supplémentaires.",
+      "score_rationale": "Listed as a critical accounting policy. Impairment risk is driven by the company's ability to maintain competitive service quality and revenue generation. Given FNB's acquisition history and the banking sector's competitive pressures, this represents a material exposure.",
       "trend": "stable",
-      "summary": "La valeur du goodwill et des actifs incorporels dépend de la capacité de l'entreprise à offrir des services de haute qualité et rentables. Une baisse des revenus ou une incapacité à rester compétitif pourrait entraîner une dépréciation de ces actifs."
+      "summary": "The value of goodwill and intangible assets depends on sustained competitive positioning and revenue generation. Economic deterioration, competitive pressures, or integration challenges from acquisitions could trigger material impairment charges."
     },
     {
-      "title": "Complexité et interprétation des lois fiscales",
-      "category": "Régulation",
+      "title": "Income Tax and Deferred Tax Asset Complexity",
+      "category": "Regulation",
       "severity": 3,
-      "score_rationale": "Ce risque est la quatrième politique comptable critique. Il souligne la complexité des lois fiscales et la nécessité de jugements de la direction, avec un risque de contestation par les autorités fiscales. Les impôts différés sont également mentionnés comme critiques.",
+      "score_rationale": "Critical accounting policy requiring complex judgment across multiple tax jurisdictions. Source notes that determination of tax provisions and DTAs 'requires management judgment' with potential for contestation by tax authorities, particularly given changes in federal tax policy.",
       "trend": "stable",
-      "summary": "L'entreprise est soumise à des lois fiscales complexes dans plusieurs juridictions. La détermination des provisions fiscales et des impôts différés nécessite des jugements de la direction qui pourraient être contestés par les autorités fiscales."
+      "summary": "FNB operates across multiple jurisdictions with varying tax rules. Complex judgments are required for tax provision calculations and deferred tax assets, with exposure to changes in federal, state, and local tax regulations or administrative interpretations."
     },
     {
-      "title": "Volatilité des résultats due aux estimations comptables",
-      "category": "Capital",
+      "title": "Credit Risk in Commercial Loan Portfolio",
+      "category": "Credit",
+      "severity": 4,
+      "score_rationale": "Explicitly identified in forward-looking statements as a key risk factor. The MD&A identifies 'the credit risk associated with the substantial amount of commercial loans and leases in our loan portfolio' as a material factor that could cause results to differ from forward-looking statements.",
+      "trend": "stable",
+      "summary": "FNB's substantial commercial loan and lease portfolio creates concentrated credit risk exposure. Economic downturns, sectoral stress, or individual counterparty defaults could materially impact asset quality and provisioning requirements."
+    },
+    {
+      "title": "Compliance with DOJ Consent Orders",
+      "category": "Regulation",
       "severity": 3,
-      "score_rationale": "Ce risque est mentionné dans l'introduction des politiques comptables critiques. Il souligne que les politiques comptables nécessitent des estimations et jugements qui, s'ils changent, peuvent avoir un impact matériel sur les états financiers, augmentant la volatilité.",
+      "score_rationale": "Explicitly mentioned in risk factors as ongoing compliance obligations with DOJ and North Carolina State Department of Justice consent orders. Non-compliance carries legal and reputational risks with potential financial consequences.",
       "trend": "stable",
-      "summary": "L'application des principes comptables nécessite des estimations et jugements de la direction. Des changements dans ces estimations, particulièrement pour les politiques critiques, peuvent entraîner des résultats significativement différents et une volatilité accrue."
+      "summary": "FNBPA operates under consent orders from DOJ and North Carolina authorities. Failure to comply could result in enforcement actions, fines, and reputational damage affecting customer relationships and market position."
     },
     {
-      "title": "Utilisation de mesures financières non-GAAP",
-      "category": "Reputation",
-      "severity": 2,
-      "score_rationale": "Ce risque est lié à la présentation de mesures financières non-GAAP. Bien que courantes, elles diffèrent de celles des pairs et ne remplacent pas les mesures GAAP. Le risque réside dans la confusion potentielle ou la perception d'une présentation trompeuse.",
+      "title": "Interest Rate Volatility and Asset Sensitivity",
+      "category": "Market",
+      "severity": 3,
+      "score_rationale": "Identified in forward-looking statements as a material risk factor affecting financial performance. Changes in interest rates impact both the value of investment securities portfolios and net interest margin dynamics for a community bank.",
       "trend": "stable",
-      "summary": "L'entreprise utilise des mesures financières non-GAAP pour compléter les états financiers. Ces mesures peuvent différer de celles utilisées par d'autres institutions et doivent être considérées comme supplémentaires aux résultats GAAP."
+      "summary": "FNB's earnings and equity value are sensitive to interest rate movements. Rapid rate changes can impact net interest margins, investment portfolio valuations, and hedging effectiveness."
     }
   ],
   "governance": {
@@ -215,5 +229,19 @@
     "ceo_name": "Vincent J. Delie, Jr.",
     "board_size": 10,
     "voting_structure": "virtual-only meeting"
+  },
+  "_validation": {
+    "sector_correction": "Changed from 'Information Technology' to 'Financial Services' (correct per FNB business profile)",
+    "subsector_correction": "Changed from 'Financial Services' to 'Banking' (more specific and accurate)",
+    "tagline_enhancement": "Expanded to include community-focused banking context",
+    "hero_kpi_rationale_improvement": "Removed em-dash, clarified banking institutional context",
+    "unit_corrections": [
+      "Allowance for Credit Losses: Added unit '$M' (was null)",
+      "Capital Expenditures: Changed from '$B' to '$M' (more appropriate scale for FNB)",
+      "Total Employees: Unit 'K' retained (correct for thousands)"
+    ],
+    "hallucinated_kpi_detected": "AI API Calls in stories_kpis - No evidence in 10-K source. MD&A mentions risks with AI vendors but zero quantitative metrics on AI adoption. MARKED FOR REMOVAL.",
+    "ai_positioning_correction": "Changed from 'absent' to 'nascent' - source explicitly mentions AI in risk context, though not as strategic pillar",
+    "risks_alignment": "All 6 identified risks cross-referenced with source material (Critical Accounting Policies, Risk Factors, MD&A). Added 7th risk on Interest Rate Volatility from forward-looking statements."
   }
 }

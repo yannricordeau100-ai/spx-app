@@ -394,9 +394,18 @@ export function HomeView({
               if (!c.kpis || !Array.isArray(c.kpis) || c.kpis.length === 0) return null;
               const hero = getHero(c);
               // Skip si hero malformé (V1.7 dataset peut avoir des kpis
-              // partiellement extraits → rate() crashe sur kpi.value.replace).
-              if (!hero || typeof hero.value !== "string" || !hero.type) return null;
-              const tone = yoyTone(hero.yoy ?? "", hero.type);
+              // partiellement extraits ; rate() crashe sur kpi.value.replace,
+              // parsePct crashe sur kpi.yoy.match).
+              if (
+                !hero ||
+                typeof hero.value !== "string" ||
+                typeof hero.yoy !== "string" ||
+                typeof hero.type !== "string" ||
+                typeof hero.unit !== "string" ||
+                typeof hero.short !== "string"
+              )
+                return null;
+              const tone = yoyTone(hero.yoy, hero.type);
               const yoyColor =
                 tone === "pos" ? "#10b981" : tone === "neg" ? "#f43f5e" : "#a1a1aa";
               const accent = brand(ticker).primary;

@@ -13,34 +13,9 @@
     "sector": "≈ #1",
     "subsector": "≈ #1"
   },
-  "hero_kpi": "GMV",
-  "hero_kpi_rationale": "Le Volume de Ventes Brut (GMV) est le moteur principal de la croissance d'Amazon, reflétant sa domination dans le commerce électronique et sa capacité à attirer vendeurs et acheteurs sur sa plateforme.",
+  "hero_kpi": "Op Cash Flow",
+  "hero_kpi_rationale": "Le flux de trésorerie d'exploitation est le moteur principal de la création de valeur pour Amazon. L'entreprise privilégie la croissance durable du flux de trésorerie libre, ce qui reflète sa capacité à convertir les revenus en liquidités réelles et à financer ses investissements technologiques et d'infrastructure long terme.",
   "kpis": [
-    {
-      "short": "GMV",
-      "name_fr": "Volume de ventes brut (e-commerce)",
-      "name_en": "Gross Merchandise Volume (GMV)",
-      "explanation": "Valeur totale des biens vendus sur la plateforme avant déduction des coûts.",
-      "value": "1000.0",
-      "unit": "Mds $",
-      "yoy": null,
-      "type": "Demand",
-      "nature": "Structurel",
-      "comparable": "Non comparable",
-      "signal": "Domination du marché e-commerce mondial.",
-      "description": "Représente la valeur totale des ventes de produits et services sur les plateformes d'Amazon, incluant les ventes par des vendeurs tiers.",
-      "history": [
-        1000.0,
-        900.0,
-        800.0,
-        700.0,
-        600.0
-      ],
-      "last_data_date": "2025-12-31",
-      "is_wow": true,
-      "is_generic": false,
-      "is_short_history": false
-    },
     {
       "short": "Op Cash Flow",
       "name_fr": "Flux de trésorerie d'exploitation",
@@ -62,21 +37,22 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "_validation": "KPI confirmé dans la source 10-K (Consolidated Statements of Cash Flows)"
     },
     {
-      "short": "Net income",
+      "short": "Net Income",
       "name_fr": "Bénéfice net",
       "name_en": "Net Income",
       "explanation": "Profit total après toutes les dépenses et impôts.",
       "value": "77.7",
       "unit": "Mds $",
       "yoy": "+31.1%",
-      "type": "Margin",
+      "type": "Profitability",
       "nature": "Structurel",
       "comparable": "Comparable",
-      "signal": "Croissance significative de la rentabilité.",
-      "description": "Le résultat net représente le profit de l'entreprise après déduction de toutes les charges.",
+      "signal": "Croissance significative de la rentabilité nette.",
+      "description": "Le résultat net représente le profit de l'entreprise après déduction de toutes les charges et impôts.",
       "history": [
         77.67,
         59.248,
@@ -85,7 +61,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "_validation": "KPI confirmé dans Consolidated Statements of Operations. Type changé de 'Margin' à 'Profitability'"
     },
     {
       "short": "Inventory Turn",
@@ -95,35 +72,37 @@
       "value": null,
       "unit": "x",
       "yoy": null,
-      "type": "Margin",
+      "type": "Efficiency",
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Efficacité de la gestion des stocks.",
-      "description": "Indique l'efficacité avec laquelle une entreprise vend et remplace son inventaire au cours d'une période donnée.",
+      "description": "Indique l'efficacité avec laquelle une entreprise vend et remplace son inventaire au cours d'une période donnée. Amazon gère la rotation des stocks en fonction de la disponibilité produit et des perturbations de la chaîne d'approvisionnement.",
       "history": [],
       "last_data_date": null,
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "_validation": "Données manquantes dans la source. KPI halluciné - pas de valeur spécifique fournie dans le 10-K. Type changé de 'Margin' à 'Efficiency'"
     },
     {
       "short": "Stores",
-      "name_fr": "Nombre de magasins",
+      "name_fr": "Nombre de magasins physiques",
       "name_en": "Total Store Count",
       "explanation": "Nombre total de points de vente physiques exploités par l'entreprise.",
       "value": null,
-      "unit": "",
+      "unit": "count",
       "yoy": null,
-      "type": "Demand",
+      "type": "Scale",
       "nature": "Structurel",
       "comparable": "Comparable",
-      "signal": "Expansion du réseau physique.",
-      "description": "Le nombre total de magasins physiques ouverts par l'entreprise, indiquant son envergure géographique.",
+      "signal": "Expansion du réseau physique de vente.",
+      "description": "Le nombre total de magasins physiques ouverts par l'entreprise, indiquant son envergure géographique et sa présence omnicanal.",
       "history": [],
       "last_data_date": null,
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "_validation": "Données manquantes. Unité corrigée de '' à 'count'. Type changé de 'Demand' à 'Scale'"
     },
     {
       "short": "Op Margin",
@@ -137,64 +116,81 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Rentabilité des opérations principales.",
-      "description": "Mesure la rentabilité d'une entreprise par rapport à ses revenus après avoir soustrait les coûts d'exploitation.",
+      "description": "Mesure la rentabilité opérationnelle d'une entreprise en pourcentage de ses revenus, après soustraction des coûts d'exploitation.",
       "history": [],
       "last_data_date": null,
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "_validation": "Données manquantes dans la source fournie"
     }
   ],
   "stories_kpis": [
     {
-      "short": "AWS",
-      "name_fr": "Revenu Amazon Web Services",
+      "short": "AWS Revenue",
+      "name_fr": "Chiffre d'affaires Amazon Web Services",
       "name_en": "Amazon Web Services (AWS) Revenue",
-      "explanation": "Chiffre d'affaires généré par les services de cloud computing d'Amazon.",
+      "explanation": "Chiffre d'affaires généré par les services de cloud computing et d'infrastructure d'Amazon.",
       "value": null,
       "unit": "Mds $",
       "yoy": null,
       "type": "Revenue",
       "nature": "Structurel",
       "comparable": "Comparable",
-      "signal": "Croissance continue du segment cloud.",
-      "description": "AWS est le leader mondial des services d'infrastructure cloud, offrant une large gamme de services informatiques.",
+      "signal": "Croissance continue du segment cloud leader du marché.",
+      "description": "AWS est le leader mondial des services d'infrastructure cloud et offre une large gamme de services informatiques (compute, storage, database, analytics, machine learning) aux développeurs et entreprises de toutes tailles.",
       "history": [],
       "last_data_date": null,
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Marché"
+      "story_category": "Market",
+      "_validation": "Données manquantes. story_category changé de 'Marché' à 'Market' pour cohérence anglaise. Description enrichie basée sur MDA"
     },
     {
       "short": "AI Investment",
-      "name_fr": "Investissement en Intelligence Artificielle",
-      "name_en": "Artificial Intelligence Investment",
-      "explanation": "Dépenses consacrées au développement et à l'intégration de technologies d'IA.",
+      "name_fr": "Investissement en intelligence artificielle et apprentissage automatique",
+      "name_en": "Artificial Intelligence and Machine Learning Investment",
+      "explanation": "Dépenses d'investissement consacrées au développement et au déploiement de technologies d'IA et de machine learning.",
       "value": null,
       "unit": "Mds $",
       "yoy": null,
-      "type": "Investment",
+      "type": "CapEx",
       "nature": "Structurel",
       "comparable": "Non comparable",
-      "signal": "Engagement fort dans l'innovation IA.",
-      "description": "Les investissements en IA soutiennent le développement de nouveaux produits, services et l'amélioration de l'efficacité opérationnelle.",
+      "signal": "Engagement stratégique massif dans l'innovation IA pour la croissance long terme.",
+      "description": "Les investissements en infrastructure technologique et IA soutiennent le développement de nouveaux produits, services cloud, amélioration de l'efficacité opérationnelle et optimisation de la logistique. Amazon augmente ses dépenses en technologie et infrastructure pour soutenir ses initiatives d'IA et de machine learning.",
       "history": [],
       "last_data_date": null,
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Innovation"
+      "story_category": "Innovation",
+      "_validation": "Données manquantes. Type changé de 'Investment' à 'CapEx'. Description alignée avec MDA mentionnant augmentation des dépenses IA/ML"
     }
   ],
   "ai_positioning": {
     "stance": "leader",
-    "summary": "Amazon est un leader dans l'intégration de l'IA à travers ses opérations, de AWS à ses services clients et appareils connectés. L'entreprise investit massivement pour développer et déployer des capacités d'IA avancées, visant à améliorer l'expérience client et l'efficacité opérationnelle.",
+    "summary": "Amazon est un leader dans l'intégration de l'IA à travers l'ensemble de ses opérations, de AWS à ses services clients et appareils connectés. L'entreprise investit massivement dans l'infrastructure technologique et les initiatives d'IA et de machine learning pour soutenir sa croissance long terme, améliorer l'expérience client et optimiser l'efficacité opérationnelle.",
     "evidence": [
-      "Investissements dans AWS pour les services d'IA et de machine learning.",
-      "Développement d'appareils électroniques intégrant l'IA (ex: Echo, Alexa).",
-      "Utilisation de l'IA pour optimiser la logistique et la recommandation de produits."
+      "Investissements importants dans AWS pour les services d'IA, machine learning, analytics et de base de données.",
+      "Développement d'appareils électroniques intégrant l'IA et connectés (Echo, Alexa, Ring, Blink).",
+      "Utilisation de l'IA pour optimiser la logistique, les systèmes de recommandation de produits et améliorer l'expérience utilisateur.",
+      "Augmentation planifiée des dépenses en technologie et infrastructure pour soutenir les initiatives d'IA à long terme."
     ],
-    "source": "MDA & Business sections"
-  }
+    "source": "MDA Section Overview & Technology Investment Discussion"
+  },
+  "_validation": [
+    "GMV KPI HALLUCINÉ: Aucune valeur de GMV (1000 Mds $) trouvée dans le 10-K fourni. Suppressão recommandée ou obtenir source additionnelle.",
+    "HERO KPI: Changé de 'GMV' à 'Op Cash Flow' car Amazon déclare explicitement que son focus financier est sur la croissance durable du free cash flow (MDA Overview).",
+    "HERO KPI RATIONALE: Reformulé en français sans em-dash pour refléter la priorité déclarée d'Amazon.",
+    "Net Income TYPE: Changé de 'Margin' à 'Profitability' pour plus de précision.",
+    "Inventory Turn TYPE: Changé de 'Margin' à 'Efficiency'.",
+    "Stores UNIT: Corrigé de '' à 'count'.",
+    "Stores TYPE: Changé de 'Demand' à 'Scale'.",
+    "AWS story_category: Changé de 'Marché' à 'Market' pour cohérence bilingue.",
+    "AI Investment TYPE: Changé de 'Investment' à 'CapEx' pour plus de précision. Description enrichie avec données MDA.",
+    "Descriptions enrichies avec références explicites au MDA et structure 10-K.",
+    "Evidence AI positioning augmentée avec détails du MDA sur augmentation dépenses technologie."
+  ]
 }

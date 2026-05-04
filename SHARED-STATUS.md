@@ -70,7 +70,9 @@
 **6. Ne jamais inventer un nom de conversation** que tu vois pas dans la
    liste ci-dessus. Les 4 convs sont fixes : CONCEPTS, SYSTEMS, DATA, BRAND.
 
-**7. PERSISTANCE ABSOLUE des données user** : tout contenu saisi par Yann
+**7. CONVENTION "DOB"** (établie par Yann le 3 mai 2026) : "**dob**" = **D**irect, **O**bjectif, **B**ref. Aller droit au but. Pas de mot inutile, pas de phrase de transition redondante, pas de récap de ce que Yann vient de dire. Quand Yann écrit "dob" ou demande une réponse "dob", la conv doit répondre en 1-3 phrases max, action ou info concrète, zéro flag de politesse, zéro intro. À retenir et appliquer dans toutes les convs CONCEPTS, SYSTEMS, DATA, BRAND.
+
+**8. PERSISTANCE ABSOLUE des données user** : tout contenu saisi par Yann
    (notes, todos, idées, drafts, calendar, bookmarks, links, inspirations,
    pitch notes, abonnements, profils) DOIT survivre à toute mise à jour
    ultérieure du code. Concrètement :

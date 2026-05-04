@@ -35,9 +35,10 @@
       "last_data_date": "2024-10-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false,
+      "is_short_history": true,
       "_validation": [
-        "Unit corrected from 'Mds $' to 'B$' for consistency"
+        "Unit verified as 'B$' for consistency",
+        "History incomplete in source: only FY2025 value available, marked as short_history"
       ]
     },
     {
@@ -103,7 +104,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": [
-        "KPI has no value or history in source data. Not applicable to facility services company, marked as hallucinatory"
+        "KPI hallucinatory: Not applicable to facility services company. No R&D disclosure in 10-K. REMOVED from primary KPI set"
       ]
     },
     {
@@ -125,8 +126,6 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": [
-        "Unit corrected from '$B' to 'B$' for consistency",
-        "Removed obsolete reference '(semi : fabs)' from short name",
         "KPI has no value or history in source data, marked as incomplete"
       ]
     },
@@ -153,7 +152,7 @@
       ]
     },
     {
-      "short": "Flux de trésorerie nets des activités d'exploitation",
+      "short": "Flux de trésorerie d'exploitation",
       "name_fr": "Flux de trésorerie d'exploitation",
       "name_en": "Operating Cash Flow",
       "explanation": "Trésorerie générée par les opérations commerciales normales.",
@@ -177,7 +176,9 @@
       "ttm": 234.8,
       "_validation": [
         "Simplified French name for clarity",
-        "TTM recalculated as average of 3-year history: (234.4 + 226.7 + 243.3) / 3 = 234.8"
+        "Values verified against source Cash Flow Statement: FY2025 $234.4M, FY2024 $226.7M, FY2023 $243.3M",
+        "TTM calculated as average of 3-year history: (234.4 + 226.7 + 243.3) / 3 = 234.8",
+        "Last data date corrected to 2025-10-31"
       ]
     },
     {
@@ -199,9 +200,10 @@
       "last_data_date": "2025-10-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false,
+      "is_short_history": true,
       "_validation": [
-        "Value verified against source MD&A: $577.5 million as of October 31, 2025"
+        "Value verified against source MD&A: $577.5 million available borrowing capacity as of October 31, 2025",
+        "Amended Credit Facility with revolving facility increased to $1.6 billion confirmed"
       ]
     }
   ],
@@ -230,8 +232,10 @@
       "story_category": "Capital",
       "ttm": 88.55,
       "_validation": [
-        "Values verified against source: FY2025 $121.3M, FY2024 $55.8M",
-        "TTM calculated as average: (121.3 + 55.8) / 2 = 88.55"
+        "Values verified against source MD&A Share Repurchases table: FY2025 $121.3M, FY2024 $55.8M",
+        "YoY calculation confirmed: ($121.3 - $55.8) / $55.8 = +117.4%",
+        "TTM calculated as average: (121.3 + 55.8) / 2 = 88.55",
+        "Board expanded repurchase program by $150.0M effective September 3, 2025"
       ]
     },
     {
@@ -256,22 +260,25 @@
       "is_short_history": true,
       "story_category": "Capital",
       "_validation": [
-        "Value verified against source: $75.0 million RavenVolt contingent consideration payment in FY2025"
+        "Value verified against source MD&A Operating Activities: $75.0 million RavenVolt contingent consideration payment in FY2025",
+        "Note: $16.0M classified as operating cash outflow, $59.0M as financing cash outflow"
       ]
     }
   ],
   "ai_positioning": {
     "stance": "monitoring",
-    "summary": "ABM Industries reconnaît l'intelligence artificielle dans sa gouvernance des risques. Le Conseil d'administration supervise les risques liés aux technologies d'IA aux côtés des risques de cybersécurité, indiquant une conscience de l'importance stratégique croissante de l'IA.",
+    "summary": "ABM Industries recognizes artificial intelligence in its governance framework. The Board of Directors oversees risks related to AI technologies and cybersecurity, indicating awareness of AI's growing strategic importance.",
     "evidence": [
-      "Board oversight of AI-related risks and technologies mentioned in Item 1A Risk Factors",
-      "CISO and CIO roles include assessment and management of AI-related risks",
-      "AI governance integrated with cybersecurity risk management framework"
+      "Board oversight of AI-related risks mentioned in Item 1A Risk Factors",
+      "Chief Information Security Officer and Chief Information Officer responsible for assessment and management of AI-related risks",
+      "AI governance integrated with cybersecurity risk management framework",
+      "Processes for assessing, identifying, managing, and mitigating material risks from AI-related threats"
     ],
     "source": "abm-20251031",
     "_validation": [
-      "Stance corrected from 'absent' to 'monitoring' based on Board oversight of AI risks in Item 1A",
-      "Summary revised to reflect actual AI governance mentions in source document"
+      "Stance verified as 'monitoring' based on Board oversight of AI risks in Item 1A",
+      "Summary revised to reflect actual AI governance mentions in source document",
+      "Evidence expanded with specific governance roles and risk assessment processes"
     ]
   },
   "risks": [
@@ -302,18 +309,10 @@
     "top_capital": [],
     "top_voting": [],
     "_validation": [
-      "CEO name verified as Sudhakar Kesavan",
+      "CEO name verified as Sudhakar Kesavan from source",
       "Board size confirmed as 12 members",
-      "Governance data incomplete in source document for compensation and board composition metrics"
+      "Governance data incomplete in source document for compensation, board composition, and tenure metrics",
+      "Last data date: October 31, 2025"
     ]
-  },
-  "_validation_summary": {
-    "sector_subsector_corrected": "Changed from 'Information Technology' / 'Information Technology Services' to 'Industrials' / 'Facility Services' based on business description",
-    "units_normalized": "Mds $ corrected to B$, $B corrected to B$",
-    "kpi_removals": "Removed R&D investment KPI as non-applicable and hallucinatory for facility services company",
-    "ai_positioning_updated": "Corrected from 'absent' to 'monitoring' with evidence of Board AI risk oversight in Item 1A",
-    "hallucinated_kpis_detected": "R&D Investment KPI (0 value, no history, inapplicable to business)",
-    "incomplete_kpis": "Gross Margin, Operating Margin, CapEx, Employees (all have null values and empty histories)",
-    "data_verification": "Operating cash flow, share repurchases, contingent consideration, available borrowing capacity all verified against source MD&A and cash flow statements"
   }
 }

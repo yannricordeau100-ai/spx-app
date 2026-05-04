@@ -958,6 +958,19 @@ async def process_ticker(ticker: str, cat: int, template: dict, log):
     # Save output
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     out_path = OUTPUT_DIR / f"{ticker.lower()}.json"
+    # Préserve _validation field si déjà existant (Pass 3 Sonnet/Haiku) — ne pas écraser
+    if out_path.exists():
+        try:
+            existing = json.loads(out_path.read_text())
+            if existing.get("_validation"):
+                # Conserve les corrections Pass 3, mais update le reste depuis nouveau extract
+                data["_validation_preserved_from_previous"] = True
+                # Don't overwrite — laisse l'ancien fichier validé intact
+                # SAUF si user veut explicitement re-extract via flag (à ajouter plus tard si besoin)
+                log(f"   ⚠ Preserve : {ticker} a déjà _validation Pass 3 actif, on n'écrase PAS")
+                return existing
+        except Exception:
+            pass
     with open(out_path, "w") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 

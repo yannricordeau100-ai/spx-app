@@ -137,7 +137,7 @@ export function TabNotes({ ownerEmail }: { ownerEmail: string }) {
             value={editing.body}
             onChange={(e) => setEditing({ ...editing, body: e.target.value })}
             rows={8}
-            className="mb-2 font-mono text-[12.5px]"
+            className="mb-2 text-[14px] leading-relaxed"
           />
           <div className="flex items-center gap-2">
             <Input

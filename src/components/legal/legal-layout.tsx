@@ -11,16 +11,35 @@ export function LegalLayout({
   title,
   updatedAt,
   children,
+  locale = "fr",
 }: {
   title: string;
   updatedAt: string;
   children: ReactNode;
+  locale?: "fr" | "en";
 }) {
+  const isEN = locale === "en";
+  const homeHref = isEN ? "/" : "/fr";
+  const labels = isEN
+    ? {
+        updated: "Last updated",
+        mentions: "Legal notice",
+        conditions: "General terms",
+        privacy: "Privacy",
+        back: "Back to home",
+      }
+    : {
+        updated: "Dernière mise à jour",
+        mentions: "Mentions légales",
+        conditions: "Conditions générales",
+        privacy: "Confidentialité",
+        back: "Retour à l'accueil",
+      };
   return (
     <div className="min-h-screen bg-[#050505]">
       <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
         <Link
-          href="/"
+          href={homeHref}
           className="group mb-8 inline-flex items-center gap-2 text-sm text-zinc-400 transition-colors hover:text-zinc-100"
         >
           <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-0.5" />
@@ -34,7 +53,7 @@ export function LegalLayout({
               {title}
             </h1>
             <p className="mt-1 font-mono text-[11px] uppercase tracking-wider text-zinc-500">
-              Dernière mise à jour : {updatedAt}
+              {labels.updated} : {updatedAt}
             </p>
           </div>
         </div>
@@ -44,10 +63,10 @@ export function LegalLayout({
         </article>
 
         <div className="mt-12 flex flex-wrap items-baseline gap-x-6 gap-y-2 border-t border-[#1f1f1f] pt-6 text-[12.5px] text-zinc-500">
-          <Link href="/legal/mentions" className="hover:text-zinc-200">Mentions légales</Link>
-          <Link href="/legal/conditions" className="hover:text-zinc-200">Conditions générales</Link>
-          <Link href="/legal/confidentialite" className="hover:text-zinc-200">Confidentialité</Link>
-          <Link href="/" className="ml-auto hover:text-zinc-200">Retour à l&apos;accueil</Link>
+          <Link href="/legal/mentions" className="hover:text-zinc-200">{labels.mentions}</Link>
+          <Link href="/legal/conditions" className="hover:text-zinc-200">{labels.conditions}</Link>
+          <Link href="/legal/confidentialite" className="hover:text-zinc-200">{labels.privacy}</Link>
+          <Link href={homeHref} className="ml-auto hover:text-zinc-200">{labels.back}</Link>
         </div>
       </div>
     </div>
