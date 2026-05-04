@@ -122,9 +122,18 @@ export function CompanyView({
     let endY = d.getUTCFullYear();
     const n = active.history?.length ?? 0;
     if (n === 0) return undefined;
+    // Stratégie d'affichage de l'année :
+    //   - Toujours sur le tout premier label (extrémité gauche).
+    //   - Sur T1 de chaque année (= début d'un nouveau cycle annuel).
+    //   - Sur T1 implicite quand une année n'a qu'un seul trimestre couvert
+    //     (ex : 1 seul T1 2026 isolé en bout de chart) → géré naturellement
+    //     car ce T1 sera précédé d'un autre groupe.
+    //   - Pas répété sur T2/T3/T4 d'une année déjà étiquetée.
     const out: string[] = [];
     for (let i = n - 1; i >= 0; i--) {
-      out.unshift(`T${endQ} ${String(endY).slice(-2)}`);
+      const isFirst = i === 0;
+      const showYear = isFirst || endQ === 1;
+      out.unshift(showYear ? `T${endQ} ${String(endY).slice(-2)}` : `T${endQ}`);
       endQ -= 1;
       if (endQ === 0) {
         endQ = 4;

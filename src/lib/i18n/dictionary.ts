@@ -688,13 +688,13 @@ export const DICTIONARY: Dict = {
 
   // === Time fraction toggle (sec/min/h/j/sem/mois/an) ===========
   "timefrac.label": { fr: "Voir la valeur par :", en: "Show value per:" },
-  "timefrac.year": { fr: "an", en: "year" },
-  "timefrac.month": { fr: "mois", en: "month" },
-  "timefrac.week": { fr: "semaine", en: "week" },
-  "timefrac.day": { fr: "jour", en: "day" },
-  "timefrac.hour": { fr: "heure", en: "hour" },
-  "timefrac.minute": { fr: "minute", en: "minute" },
-  "timefrac.second": { fr: "seconde", en: "second" },
+  "timefrac.year": { fr: "A", en: "Y" },
+  "timefrac.month": { fr: "M", en: "M" },
+  "timefrac.week": { fr: "S", en: "W" },
+  "timefrac.day": { fr: "J", en: "D" },
+  "timefrac.hour": { fr: "h", en: "H" },
+  "timefrac.minute": { fr: "m", en: "m" },
+  "timefrac.second": { fr: "s", en: "S" },
   "timefrac.tooltip": {
     fr: "Affiche la valeur divisée par fraction de temps. Utile pour voir « combien gagne cette société par seconde ? ». Calcul simple : valeur annuelle ÷ nombre de fractions dans une année (365 jours, 8 760 heures, etc.).",
     en: "Shows the value divided by time fraction. Useful to see 'how much does this company earn per second?'. Simple math: yearly value ÷ number of fractions in a year (365 days, 8,760 hours, etc.).",

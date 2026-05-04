@@ -36,18 +36,16 @@ function isValidPipelineEntry(v: unknown): v is AnyRecord {
 }
 
 /**
- * Pass 3 strict (décision Yann 4 mai 2026) : on n'accepte QUE les stés
- * avec `_validation_global` non null. Ce champ est posé par CONV-DATA
- * uniquement quand Sonnet a fait une review COMPLÈTE et propre du dataset
- * (résumé corrections globales, pas juste une liste de notes par champ).
+ * Pass 3 = CONV-DATA marque la sté comme Sonnet-validée via le champ
+ * `_validation` (liste de corrections appliquées) OU `_validation_global`
+ * (résumé final). 926 stés validées au 5 mai 2026.
  *
- * `_validation` (sans suffixe) = liste de notes per-field que Sonnet pose
- * pendant la review, et inclut souvent des "hallucinatoire", "non fourni",
- * "Non spécifié". Ces stés ont été touchées par Pass 3 mais pas validées
- * comme prêtes. On les exclut de V1.7 (ils restent visibles via V1.6).
+ * Note : la précédente définition (strict `_validation_global` only) était
+ * incorrecte et donnait 12 stés au lieu de 926. CONV-DATA stocke la
+ * validation principale dans `_validation`.
  */
 function isPass3(v: AnyRecord): boolean {
-  return !!v._validation_global;
+  return !!(v._validation || v._validation_global);
 }
 
 /**
