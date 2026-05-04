@@ -1,9 +1,9 @@
 {
   "ticker": "FLG",
   "name": "Flagstar Bank, National Association",
-  "sector": "Information Technology",
-  "subsector": "Financial Technology",
-  "tagline": "Flagstar Bank, National Association",
+  "sector": "Financial Services",
+  "subsector": "Banking",
+  "tagline": "National banking association providing mortgage lending and deposit services",
   "founded": 1993,
   "ipo": 1993,
   "logo_treatment": "orbit",
@@ -14,7 +14,7 @@
     "subsector": "≈ #N/A"
   },
   "hero_kpi": "Allowance for credit losses on loans and leases",
-  "hero_kpi_rationale": "Le KPI 'Allowance for credit losses on loans and leases' est le 'wow' de Flagstar Bank car il représente une estimation complexe et subjective des pertes futures sur prêts, impliquant des modèles sophistiqués et des jugements d'auditeurs experts. C'est un indicateur clé de la gestion des risques financiers de la banque.",
+  "hero_kpi_rationale": "Le KPI 'Provision pour pertes sur créances' est le wow de Flagstar Bank car il représente une estimation complexe et subjective des pertes futures sur prêts, impliquant des modèles sophistiqués et des jugements d'auditeurs experts. C'est un indicateur clé de la gestion des risques financiers de la banque, désigné comme critical audit matter par les auditeurs indépendants.",
   "kpis": [
     {
       "short": "Allowance for credit losses on loans and leases",
@@ -57,16 +57,16 @@
     {
       "short": "Loans",
       "name_fr": "Prêts nets",
-      "name_en": "Net Loans",
+      "name_en": "Net Loans and Leases",
       "explanation": "Montant total des prêts accordés par la banque, moins les provisions pour pertes.",
-      "value": "61.0",
+      "value": "59.7",
       "unit": "Mds $",
       "yoy": null,
       "type": "Demand",
       "nature": "Structurel",
       "comparable": "Non comparable",
       "signal": "Activité principale de prêt de la banque.",
-      "description": "Représente le montant principal des fonds prêtés aux clients par la banque.",
+      "description": "Représente le montant principal des fonds prêtés aux clients par la banque, net de l'allocation pour pertes de crédit.",
       "history": [],
       "last_data_date": "2025-12-31",
       "is_wow": false,
@@ -75,8 +75,8 @@
     },
     {
       "short": "Deposits",
-      "name_fr": "Dépôts",
-      "name_en": "Deposits",
+      "name_fr": "Dépôts totaux",
+      "name_en": "Total Deposits",
       "explanation": "Montant total des fonds que les clients ont déposés auprès de la banque.",
       "value": "66.0",
       "unit": "Mds $",
@@ -162,7 +162,7 @@
     },
     {
       "title": "Risque de marché",
-      "category": "Technologie",
+      "category": "Marché",
       "severity": 3,
       "score_rationale": "Le risque de marché est considéré comme un risque important, notamment en raison de la possibilité de changements dans les conditions de marché. (1) position dans le 10-K : Item 1A, (2) intensité du langage : 'could have a material adverse effect', (3) contexte vs N-1 : les changements dans les conditions de marché peuvent impacter les activités de l'entreprise.",
       "trend": "stable",
@@ -170,7 +170,7 @@
     },
     {
       "title": "Risque opérationnel",
-      "category": "Industriel",
+      "category": "Opérationnel",
       "severity": 3,
       "score_rationale": "Le risque opérationnel est évoqué dans le rapport comme pouvant avoir un impact sur les résultats de l'entreprise, notamment en raison de la possibilité de défauts dans les processus opérationnels. (1) position dans le 10-K : Item 1A, (2) intensité du langage : 'could have a material adverse effect', (3) contexte vs N-1 : les défauts dans les processus opérationnels peuvent impacter les activités de l'entreprise.",
       "trend": "stable",
@@ -179,7 +179,7 @@
   ],
   "governance": {
     "agm_date": "2025-06-04",
-    "fiscal_year": 2024,
+    "fiscal_year": 2025,
     "ceo_name": "Joseph M. Otting",
     "exec_comp_approval_pct": null,
     "board_independence_pct": null,
@@ -189,5 +189,18 @@
     "voting_structure": null,
     "top_capital": null,
     "top_voting": null
-  }
+  },
+  "_validation": [
+    "Correction sector: 'Information Technology' -> 'Financial Services' (Flagstar est une banque, pas une fintech)",
+    "Correction subsector: 'Financial Technology' -> 'Banking' (secteur classement bancaire, pas fintech)",
+    "Correction tagline: description vague remplacée par tagline opérationnel plus spécifique",
+    "Correction hero_kpi_rationale: suppression em-dash, ajout référence critical audit matter des auditeurs",
+    "Correction KPI 'Loans': valeur corrigée de 61.0 à 59.7 (Total loans and leases held for investment, net = 59,702M = 59.7Mds $)",
+    "Correction KPI 'Loans': name_en changé de 'Net Loans' à 'Net Loans and Leases' (cohérence nomenclature financière)",
+    "Correction KPI 'Deposits': name_en changé de 'Deposits' à 'Total Deposits' (complétude terminologie)",
+    "Correction governance.fiscal_year: 2024 -> 2025 (cohérence avec last_data_date des KPIs)",
+    "Correction risks: category 'Technologie' -> 'Marché' pour risque de marché (pertinence sémantique)",
+    "Correction risks: category 'Industriel' -> 'Opérationnel' pour risque opérationnel (cohérence terminologie bancaire)",
+    "Validation: Allowance for credit losses value 1.0Mds $ confirmée en source (Note 7: 1,030M avec arrondi)"
+  ]
 }

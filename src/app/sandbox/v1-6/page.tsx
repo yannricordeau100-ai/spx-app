@@ -28,7 +28,7 @@ export default async function SandboxV16HubPage() {
       companies={datasets}
       tickers={tickers}
       showFAQ={false}
-      hrefBuilder={(t) => `/sandbox/v1-6/${t.toLowerCase()}`}
+      routePrefix="/sandbox/v1-6"
     />
   );
 }

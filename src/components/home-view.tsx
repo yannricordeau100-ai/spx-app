@@ -326,12 +326,18 @@ function RotatingPunchline({ items }: { items: string[] }) {
 export function HomeView({
   companies: companiesProp,
   tickers: tickersProp,
-  hrefBuilder,
+  routePrefix,
   showFAQ = true,
 }: {
   companies?: Record<string, import("@/lib/data").Company>;
   tickers?: string[];
-  hrefBuilder?: (ticker: string) => string;
+  /** Préfixe de route pour les liens des cards (ex: "/sandbox/v1-7").
+      L'URL finale = `${routePrefix}/${ticker.toLowerCase()}`. Sans valeur,
+      route = `/${ticker.toLowerCase()}` (V1 home historique).
+      Note : on prend une string et pas une fonction parce que HomeView est
+      un client component, et Next 16 refuse les functions sérialisées
+      depuis un server component (= page sandbox/v1-X). */
+  routePrefix?: string;
   /** Affiche la FAQ + disclaimer (true par défaut). Les hubs sandbox
       V1.5/V1.6/V1.7 le passent à false : ils sont des vues de browse pures. */
   showFAQ?: boolean;
@@ -339,7 +345,8 @@ export function HomeView({
   const { t, locale } = useT();
   const COMPANIES_USED = companiesProp ?? COMPANIES;
   const results = tickersProp ?? TICKERS;
-  const buildHref = hrefBuilder ?? ((tk: string) => `/${tk.toLowerCase()}`);
+  const buildHref = (tk: string): string =>
+    routePrefix ? `${routePrefix}/${tk.toLowerCase()}` : `/${tk.toLowerCase()}`;
   // Note : la date "Données à jour au X" est désormais rendue côté client
   // via <DataFreshnessPill /> pour utiliser le timezone du visiteur.
 

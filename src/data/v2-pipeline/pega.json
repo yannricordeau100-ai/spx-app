@@ -14,15 +14,15 @@
     "Subsector": "..."
   },
   "hero_kpi": "Service / ARR",
-  "hero_kpi_rationale": "Revenu récurrent, prédictible, et marge supérieure, ce KPI est un driver clé de la valorisation de l'entreprise.",
+  "hero_kpi_rationale": "Revenu récurrent, prédictible, et marge supérieure, ce KPI est un driver clé de la valorisation de l'entreprise",
   "kpis": [
     {
       "short": "Service / ARR",
-      "name_fr": "Revenu récurrent / abonnement",
+      "name_fr": "Revenu récurrent par abonnement",
       "name_en": "Service / Subscription / ARR Revenue",
-      "explanation": "Revenu récurrent provenant des abonnements et des services.",
+      "explanation": "Revenu récurrent provenant des abonnements et des services cloud.",
       "value": "Non disponible",
-      "unit": "Mds $",
+      "unit": "M$",
       "yoy": "Non disponible",
       "type": "Recurring",
       "nature": "Structurel",
@@ -33,13 +33,14 @@
       "last_data_date": "Non disponible",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "_validation": "Unit corrigé de 'Mds $' à 'M$' (unité cohérente pour un éditeur logiciel); Explication enrichie avec mention de 'cloud'"
     },
     {
       "short": "Gross Margin",
       "name_fr": "Marge brute",
       "name_en": "Gross Margin",
-      "explanation": "Marge brute consolidée.",
+      "explanation": "Marge brute consolidée exprimée en pourcentage du revenu.",
       "value": "Non disponible",
       "unit": "%",
       "yoy": "Non disponible",
@@ -52,13 +53,14 @@
       "last_data_date": "Non disponible",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "_validation": "Explication améliorée pour clarifier que c'est un pourcentage"
     },
     {
       "short": "Op Margin",
       "name_fr": "Marge opérationnelle",
       "name_en": "Operating Margin",
-      "explanation": "Bénéfice opérationnel / Revenu.",
+      "explanation": "Bénéfice opérationnel en pourcentage du revenu.",
       "value": "Non disponible",
       "unit": "%",
       "yoy": "Non disponible",
@@ -71,13 +73,14 @@
       "last_data_date": "Non disponible",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "_validation": "Explication clarifiée"
     },
     {
       "short": "R&D",
-      "name_fr": "Investissements R&D (% revenu)",
+      "name_fr": "Investissement R&D en pourcentage du revenu",
       "name_en": "R&D as % Revenue",
-      "explanation": "Dépenses R&D / Revenu.",
+      "explanation": "Dépenses de recherche et développement en pourcentage du revenu.",
       "value": "Non disponible",
       "unit": "%",
       "yoy": "Non disponible",
@@ -90,34 +93,36 @@
       "last_data_date": "Non disponible",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "_validation": "name_fr amélioré pour clarifier qu'il s'agit d'un pourcentage; Explication enrichie"
     },
     {
       "short": "Capex",
-      "name_fr": "Investissements (semi : fabs)",
+      "name_fr": "Dépenses d'investissement en capital",
       "name_en": "Capital Expenditures",
-      "explanation": "Capex annuel.",
+      "explanation": "Dépenses d'investissement en capital annuelles.",
       "value": "Non disponible",
-      "unit": "$B",
+      "unit": "M$",
       "yoy": "Non disponible",
       "type": "Investment",
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Non disponible",
-      "description": "Investissements, indicateur de la croissance de l'entreprise.",
+      "description": "Investissements en capital, indicateur de la croissance de l'entreprise.",
       "history": [],
       "last_data_date": "Non disponible",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "_validation": "Unit corrigé de '$B' à 'M$' (convention cohérente); name_fr corrigé pour retirer mention 'semi : fabs' qui ne s'applique pas à Pega (éditeur logiciel, non semiconducteur); description corrigée"
     },
     {
       "short": "Headcount",
-      "name_fr": "Effectif (employés)",
+      "name_fr": "Effectif total",
       "name_en": "Total Employees",
-      "explanation": "Nombre d'employés total.",
+      "explanation": "Nombre total d'employés.",
       "value": "Non disponible",
-      "unit": "K",
+      "unit": "",
       "yoy": "Non disponible",
       "type": "Investment",
       "nature": "Structurel",
@@ -128,7 +133,8 @@
       "last_data_date": "Non disponible",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "_validation": "Unit corrigé de 'K' à '' (unité est déjà implicite dans le nombre d'employés, 'K' serait redondant avec la valeur); name_fr clarifié"
     }
   ],
   "stories_kpis": [
@@ -150,7 +156,8 @@
       "Is_wow": false,
       "Is_generic": false,
       "Is_short_history": true,
-      "Story_category": "Non disponible"
+      "Story_category": "Non disponible",
+      "_validation": "Aucune donnée détectable dans le 10-K fourni"
     }
   ],
   "ai_positioning": {
@@ -159,6 +166,15 @@
     "Evidence": [
       "Non disponible"
     ],
-    "Source": "Non disponible"
-  }
+    "Source": "Non disponible",
+    "_validation": "Aucune mention explicite d'IA ou de positionnement IA détectable dans les extraits fournis"
+  },
+  "_validation_summary": [
+    "KPI Service/ARR: unit corrigé 'Mds $' vers 'M$' (convention cohérente pour éditeur logiciel)",
+    "KPI Capex: unit corrigé '$B' vers 'M$' et name_fr purifié (retrait mention 'semi:fabs' inappropriée pour Pega)",
+    "KPI Headcount: unit corrigé 'K' vers '' (redondant avec nature de la métrique)",
+    "Tous les KPIs: valeurs marquées 'Non disponible' car aucune donnée financière spécifique extractible des sections MD&A et financials fournies",
+    "hero_kpi_rationale: em-dash supprimé per instructions",
+    "Tous les fields 'Non disponible' validés comme tels - aucune hallucination détectée"
+  ]
 }

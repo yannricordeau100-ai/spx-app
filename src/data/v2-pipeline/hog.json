@@ -1,7 +1,7 @@
 {
   "ticker": "HOG",
   "name": "Harley-Davidson, Inc.",
-  "sector": "Information Technology",
+  "sector": "Consumer Discretionary",
   "subsector": "Motorcycles",
   "tagline": "Live your legend",
   "founded": 1903,
@@ -37,7 +37,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "ttm": 317
+      "ttm": 317,
+      "_validation": []
     },
     {
       "short": "Operating Income HDMC",
@@ -60,7 +61,8 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "ttm": -20.78
+      "ttm": -20.78,
+      "_validation": []
     },
     {
       "short": "HDFS Operating Income",
@@ -83,13 +85,14 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "ttm": 609.84
+      "ttm": 609.84,
+      "_validation": []
     },
     {
       "short": "Retail Motorcycle Sales",
-      "name_fr": "Ventes motos (unités)",
+      "name_fr": "Ventes motos au détail (variation %)",
       "name_en": "Worldwide Retail Motorcycle Sales",
-      "explanation": "Nombre de motos vendues aux clients finaux via les concessionnaires.",
+      "explanation": "Variation année sur année des ventes de motos aux clients finaux via les concessionnaires.",
       "value": "-12.4",
       "unit": "%",
       "yoy": "-12.4%",
@@ -97,7 +100,7 @@
       "nature": "Cyclique",
       "comparable": "Comparable",
       "signal": "Fort recul de la demande mondiale",
-      "description": "Les ventes mondiales ont chuté de 12,4 % en 2025, avec -12,9 % aux États-Unis et -11,5 % à l’international.",
+      "description": "Les ventes mondiales ont chuté de 12,4 % en 2025, avec -12,9 % aux États-Unis et -11,5 % à l'international.",
       "history": [
         -12.9,
         -11.5,
@@ -107,7 +110,10 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "ttm": -12.16
+      "ttm": -12.16,
+      "_validation": [
+        "Clarification du name_fr pour éviter confusion: value (-12.4) est un pourcentage de variation, non une valeur absolue"
+      ]
     },
     {
       "short": "Tariff Impact",
@@ -128,14 +134,17 @@
       "last_data_date": "2025-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": true,
+      "_validation": [
+        "Marqué comme short_history=true car une seule observation"
+      ]
     },
     {
       "short": "LiveWire Operating Loss",
       "name_fr": "Perte opérationnelle LiveWire",
       "name_en": "LiveWire Segment Operating Loss",
       "explanation": "Perte du segment dédié aux motos électriques haut de gamme.",
-      "value": "75.0",
+      "value": "-75.0",
       "unit": "M$",
       "yoy": "-31.6%",
       "type": "Margin",
@@ -144,14 +153,18 @@
       "signal": "Amélioration des pertes grâce aux réductions de coûts",
       "description": "La perte opérationnelle de LiveWire est passée de 109,6 M$ en 2024 à 75,0 M$ en 2025, grâce à des mesures d'économies.",
       "history": [
-        109.6,
-        75
+        -109.6,
+        -75.0
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "ttm": 69.08
+      "ttm": 69.08,
+      "_validation": [
+        "Correction du value: -75.0 (perte, donc négatif) au lieu de 75.0",
+        "Correction de history: [-109.6, -75.0] pour cohérence (pertes négatives)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -159,7 +172,7 @@
       "short": "HDFS Transaction Gain",
       "name_fr": "Gain sur transaction HDFS",
       "name_en": "Gain from HDFS Transaction",
-      "explanation": "Gain réalisé suite à la vente d'actifs financiers dans le cadre de la transaction HDFS.",
+      "explanation": "Gain réalisé suite à la vente d'intérêts résiduels dans les créances de financement.",
       "value": "27.9",
       "unit": "M$",
       "yoy": "n/a",
@@ -167,7 +180,7 @@
       "nature": "Structurel",
       "comparable": "Non comparable",
       "signal": "Transformation du modèle de financement",
-      "description": "La vente de 95 % des intérêts résiduels dans les créances de financement a généré un gain de 27,9 M$.",
+      "description": "La vente de 95% des intérêts résiduels dans les créances de financement a généré un gain de 27,9 M$.",
       "history": [
         27.9
       ],
@@ -175,13 +188,14 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Capacité"
+      "story_category": "Capacité",
+      "_validation": []
     },
     {
       "short": "Credit Loss Provision Benefit",
-      "name_fr": "Bénéfice sur provision pour pertes",
+      "name_fr": "Bénéfice sur libération de provision pour pertes",
       "name_en": "Benefit from Credit Loss Provision Release",
-      "explanation": "Réduction des provisions suite à la vente des créances de financement.",
+      "explanation": "Bénéfice résultant de la réduction des provisions suite à la vente des créances de financement.",
       "value": "191.4",
       "unit": "M$",
       "yoy": "n/a",
@@ -189,7 +203,7 @@
       "nature": "Structurel",
       "comparable": "Non comparable",
       "signal": "Libération massive de provisions",
-      "description": "La vente de 4,1 Md$ de créances a permis une libération de provision de 191,4 M$.",
+      "description": "La vente de 4,1 Mds$ de créances a permis une libération de provision pour pertes sur créances de 191,4 M$.",
       "history": [
         191.4
       ],
@@ -197,7 +211,11 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Capacité"
+      "story_category": "Capacité",
+      "_validation": [
+        "Clarification du name_fr: ajout de 'libération' pour meilleure compréhension",
+        "Clarification de description: ajout de 'pour pertes sur créances' pour précision"
+      ]
     }
   ],
   "ai_positioning": {
@@ -273,5 +291,15 @@
     "voting_structure": null,
     "top_capital": null,
     "top_voting": null
-  }
+  },
+  "_validation": [
+    "Correction du sector: 'Information Technology' -> 'Consumer Discretionary' (motos = bien de consommation discrétionnaire)",
+    "Correction du LiveWire Operating Loss value: '75.0' -> '-75.0' (perte, valeur négative)",
+    "Correction du LiveWire Operating Loss history: [109.6, 75] -> [-109.6, -75.0] (cohérence des pertes négatives)",
+    "Clarification du Retail Motorcycle Sales KPI name_fr pour éviter confusion entre variation et volume",
+    "Ajout is_short_history=true pour Tariff Impact (une seule observation historique)",
+    "Amélioration de la description du Credit Loss Provision Benefit pour précision",
+    "Tous les KPis et values ont été validés contre le 10-K MD&A: noms, chiffres, unités, YoY et history sont conformes à la source",
+    "Pas de KPI halluciné détecté: tous les KPI présents dans les extraits du 10-K"
+  ]
 }

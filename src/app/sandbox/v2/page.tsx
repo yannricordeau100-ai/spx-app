@@ -21,7 +21,7 @@ export default function SandboxV15HubPage() {
       companies={V2_COMPANIES}
       tickers={V2_TICKERS}
       showFAQ={false}
-      hrefBuilder={(t) => `/sandbox/v2/${t.toLowerCase()}`}
+      routePrefix="/sandbox/v2"
     />
   );
 }

@@ -184,8 +184,13 @@ async def validate_ticker(ticker: str, log) -> dict | None:
 
     # Détermine cat depuis dataset ou heuristique
     cat = 1  # par défaut
-    if dataset.get("ticker", "").upper() in pl.TOP20_CAT2 if hasattr(pl, "TOP20_CAT2") else False:
+    tk_upper = (dataset.get("ticker", "") or ticker).upper()
+    if hasattr(pl, "TOP20_CAT2") and tk_upper in pl.TOP20_CAT2:
         cat = 2
+    # Heuristique cat 3 : ticker contenant un "." (suffix bourse EU)
+    # Exclut les hyphens US courants (BRK-B, BF-B)
+    if "." in tk_upper:
+        cat = 3
 
     # Charge source via pipeline-llm
     try:
