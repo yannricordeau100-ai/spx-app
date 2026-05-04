@@ -1,17 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { Download } from "lucide-react";
 import type { CompanyEvent } from "@/lib/events";
 import { EventDotsSVG, EventDotsOverlay } from "@/components/charts/event-dots";
+import { downloadSvgAsPng, buildYearGroups } from "@/lib/chart-export";
 
 /**
  * Essais variation 3D / iso (V11-V12) inspirés freepik.
  */
 
 const W = 920, H = 420;
-const PAD_LEFT = 96, PAD_RIGHT = 50, PAD_TOP = 56, PAD_BOTTOM = 80;
+// PAD_BOTTOM = 100 (vs 80 avant) pour caser : (1) labels axe X
+// trimestriels en T1/T2/T3/T4 + (2) year-band en dessous + (3) valeurs
+// négatives qui s'affichent sous les bars rouges sans toucher le year-band.
+const PAD_LEFT = 96, PAD_RIGHT = 50, PAD_TOP = 56, PAD_BOTTOM = 100;
 const INNER_W = W - PAD_LEFT - PAD_RIGHT;
 const INNER_H = H - PAD_TOP - PAD_BOTTOM;
+
+/** Idem bars/curve : "T1 21" → quarter only, year extrait pour year-band. */
+function splitQuarterLabel(label: string): { top: string; bottom: string; isQuarter: boolean } {
+  if (!label) return { top: "", bottom: "", isQuarter: false };
+  const m = label.match(/^(T[1-4])\s+(\d{2,4})$/);
+  if (m) return { top: m[1], bottom: m[2], isQuarter: true };
+  return { top: label, bottom: "", isQuarter: false };
+}
 
 function niceTicks(min: number, max: number, count = 5): number[] {
   if (max === min) return [min];
@@ -46,12 +59,18 @@ const NEG = "#f43f5e";
 /* ============================================================ */
 export function VariationIsoSteps3D({ data, labels, events = [] }: Props) {
   const [hover, setHover] = useState<number | null>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
 
   const deltas = data.slice(1).map((v, i) => {
     const prev = data[i];
     if (prev === 0) return 0;
     return ((v - prev) / Math.abs(prev)) * 100;
   });
+
+  // labels[0] correspond à data[0] = la valeur de référence pour le 1er
+  // delta. L'axe X de variation utilise donc labels[i+1].
+  const xLabels = labels.slice(1, deltas.length + 1);
+  const yearGroups = buildYearGroups(xLabels);
 
   const dataMin = Math.min(...deltas, 0);
   const dataMax = Math.max(...deltas, 0);
@@ -75,7 +94,7 @@ export function VariationIsoSteps3D({ data, labels, events = [] }: Props) {
       >
         % (YoY)
       </div>
-    <svg width="100%" height="420" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" style={{ overflow: "visible" }}>
+    <svg ref={svgRef} width="100%" height="420" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" style={{ overflow: "visible" }}>
       <defs>
         {[POS, NEG].map((c, k) => (
           <g key={k}>
@@ -123,14 +142,51 @@ export function VariationIsoSteps3D({ data, labels, events = [] }: Props) {
             <path d={front} fill={`url(#v11-front-${k})`} stroke="#050505" strokeWidth={0.6} />
             <path d={side} fill={`url(#v11-side-${k})`} stroke="#050505" strokeWidth={0.6} />
             <path d={top} fill={`url(#v11-top-${k})`} stroke="#050505" strokeWidth={0.6} />
-            <text x={x + barW / 2 + DX / 2} y={isPos ? yTop + DY - 18 : yBot + DY + 26} textAnchor="middle"
-              fontSize={16} fontWeight={700} fill={c} fontFamily="ui-monospace, monospace"
-              style={{ textShadow: "0 1px 4px rgba(0,0,0,0.85)" }}>
-              {isPos ? "+" : ""}{pct.toFixed(1)} %
-            </text>
+            {/* Valeur stack 2 lignes : nombre sur la 1ère, "%" sur la 2ème.
+                Signe (+/-) et "%" en font réduit pour laisser le chiffre
+                dominer. Évite chevauchement horizontal des "+1.6 +1.6 +1.6"
+                (mention Yann 5 mai 2026). */}
+            {(() => {
+              const cx = x + barW / 2 + DX / 2;
+              const sign = isPos ? "+" : "-";
+              const numTxt = Math.abs(pct).toFixed(1);
+              const numFz = 14;
+              const signFz = 9;
+              const pctFz = 9;
+              // Espace entre le bar et la 1ère ligne (clearance vertical)
+              const gap = 12;
+              const lineH = 13;
+              if (isPos) {
+                const yNum = (yTop + DY) - gap - lineH;
+                const yPct = (yTop + DY) - gap;
+                return (
+                  <>
+                    <text x={cx} y={yNum} textAnchor="middle" fontFamily="ui-monospace, monospace" fill={c} fontWeight={700} fontSize={numFz} style={{ textShadow: "0 1px 4px rgba(0,0,0,0.85)" }}>
+                      <tspan fontSize={signFz} fontWeight={500}>{sign}</tspan>{numTxt}
+                    </text>
+                    <text x={cx} y={yPct} textAnchor="middle" fontFamily="ui-monospace, monospace" fill={c} fontWeight={500} fontSize={pctFz} style={{ textShadow: "0 1px 4px rgba(0,0,0,0.85)" }}>%</text>
+                  </>
+                );
+              }
+              // Négatif : sous la barre, plus loin pour éviter overlap
+              // bar / texte (mention Yann 5 mai 2026 : "prévoir plus
+              // d'espace sous le 0% quand au moins une barre rouge").
+              const yNum = yBot + 22;
+              const yPct = yBot + 22 + lineH;
+              return (
+                <>
+                  <text x={cx} y={yNum} textAnchor="middle" fontFamily="ui-monospace, monospace" fill={c} fontWeight={700} fontSize={numFz} style={{ textShadow: "0 1px 4px rgba(0,0,0,0.85)" }}>
+                    <tspan fontSize={signFz} fontWeight={500}>{sign}</tspan>{numTxt}
+                  </text>
+                  <text x={cx} y={yPct} textAnchor="middle" fontFamily="ui-monospace, monospace" fill={c} fontWeight={500} fontSize={pctFz} style={{ textShadow: "0 1px 4px rgba(0,0,0,0.85)" }}>%</text>
+                </>
+              );
+            })()}
+            {/* Quarter only (T1/T2/T3/T4) ; year rendu UNE fois via year-band
+                après la boucle, plus de "T2 T3 T4 T1 22 T2 T3 T4 T1 23". */}
             <text x={x + barW / 2 + DX / 2} y={H - PAD_BOTTOM + 26} textAnchor="middle"
-              fontSize={17} fill="#e4e4e7" fontFamily="ui-monospace, monospace" fontWeight={600}>
-              {labels[i + 1] ?? ""}
+              fontSize={15} fill="#e4e4e7" fontFamily="ui-monospace, monospace" fontWeight={600}>
+              {splitQuarterLabel(labels[i + 1] ?? "").top}
             </text>
           </g>
         );
@@ -144,7 +200,49 @@ export function VariationIsoSteps3D({ data, labels, events = [] }: Props) {
         innerH={INNER_H}
         color="#a78bfa"
       />
+
+      {/* Year band : 1 année = 1 bracket sous l'axe X. */}
+      {yearGroups.map((g) => {
+        const cxStart = PAD_LEFT + slot * g.startIdx + (slot - barW) / 2 + barW / 2 + DX / 2;
+        const cxEnd = PAD_LEFT + slot * g.endIdx + (slot - barW) / 2 + barW / 2 + DX / 2;
+        const yLine = H - PAD_BOTTOM + 46;
+        const yText = H - PAD_BOTTOM + 60;
+        const tickH = 4;
+        const single = g.startIdx === g.endIdx;
+        const yearFull = g.year.length === 2 ? `20${g.year}` : g.year;
+        return (
+          <g key={`yg-${g.startIdx}`}>
+            {!single && (
+              <>
+                <line x1={cxStart} y1={yLine} x2={cxEnd} y2={yLine} stroke="#3f3f46" strokeWidth={1} />
+                <line x1={cxStart} y1={yLine - tickH} x2={cxStart} y2={yLine} stroke="#3f3f46" strokeWidth={1} />
+                <line x1={cxEnd} y1={yLine - tickH} x2={cxEnd} y2={yLine} stroke="#3f3f46" strokeWidth={1} />
+              </>
+            )}
+            <text x={(cxStart + cxEnd) / 2} y={yText} textAnchor="middle" fontSize={13} fill="#a1a1aa" fontFamily="ui-monospace, monospace" fontWeight={500}>
+              {yearFull}
+            </text>
+          </g>
+        );
+      })}
+
+      {/* Watermark Mettrik AI (filigrane top-left, présent dans l'export). */}
+      <text x={PAD_LEFT + 6} y={PAD_TOP - 14} fontSize={11} fontFamily="ui-monospace, monospace" fill="#52525b" fillOpacity={0.55} letterSpacing="0.18em">
+        MET·TRIK · AI
+      </text>
     </svg>
+
+    {/* Bouton download */}
+    <button
+      type="button"
+      onClick={() => {
+        if (svgRef.current) downloadSvgAsPng(svgRef.current, `mettrik-variation-${Date.now()}.png`);
+      }}
+      aria-label="Télécharger le graphique"
+      className="absolute right-2 top-2 inline-flex size-8 items-center justify-center rounded-full border border-white/10 bg-black/40 text-zinc-300 backdrop-blur-md transition-colors hover:border-white/30 hover:text-white"
+    >
+      <Download className="size-4" />
+    </button>
     <EventDotsOverlay
       events={events}
       xLabels={labels}
