@@ -37,6 +37,14 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 OUTPUT_DIR = PROJECT_ROOT / "src/data/v2-pipeline"
 LOG_PATH = PROJECT_ROOT / "sec-data/_meta/pipeline-claude-validate.log"
 
+# Load FPI ticker set au startup pour détection cat 2 fiable
+_FPI_PATH = PROJECT_ROOT / "sec-data/_meta/fpi-tickers.json"
+try:
+    _fpi_data = json.loads(_FPI_PATH.read_text())
+    FPI_SET = {t.get("ticker", "").upper() for t in _fpi_data.get("tickers", []) if isinstance(t, dict)}
+except Exception:
+    FPI_SET = set()
+
 # Import pipeline-llm pour réutiliser gather_docs/extract_key_sections
 import importlib.util
 spec = importlib.util.spec_from_file_location(
@@ -182,14 +190,12 @@ async def validate_ticker(ticker: str, log) -> dict | None:
         log(f"   [ERR] {ticker}: parse JSON fail: {e}")
         return None
 
-    # Détermine cat depuis dataset ou heuristique
-    cat = 1  # par défaut
+    # Détermine cat : FPI list (cat 2) > "." in ticker (cat 3) > sinon cat 1
+    cat = 1
     tk_upper = (dataset.get("ticker", "") or ticker).upper()
-    if hasattr(pl, "TOP20_CAT2") and tk_upper in pl.TOP20_CAT2:
+    if tk_upper in FPI_SET:
         cat = 2
-    # Heuristique cat 3 : ticker contenant un "." (suffix bourse EU)
-    # Exclut les hyphens US courants (BRK-B, BF-B)
-    if "." in tk_upper:
+    elif "." in tk_upper:
         cat = 3
 
     # Charge source via pipeline-llm

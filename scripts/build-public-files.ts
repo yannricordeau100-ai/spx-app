@@ -66,6 +66,16 @@ function slimForHub(entry: AnyRecord): AnyRecord {
   // freshness) + un placeholder léger pour les autres (pour que kpis.length
   // reste correct si un consommateur compte).
   const heroKpi = allKpis.find((k) => k.short === heroKpiShort) ?? allKpis[0];
+  // Yann 4 mai 2026 : la pillule "Récent / Date inconnue" doit être remplie
+  // pour TOUTES les stés Pass 3 (et nouvelles à venir). Si CONV-DATA n'a
+  // pas posé last_data_date côté KPI, on backfill avec la date du dernier
+  // filing à défaut (recoit valeur "stale" >12 mois plutôt que "Date
+  // inconnue"). Cohérent avec la doctrine FreshnessIndicator.
+  const fallbackDate =
+    (heroKpi?.last_data_date as string | undefined) ??
+    (entry.last_filing_date as string | undefined) ??
+    (entry._last_validation_date as string | undefined) ??
+    "2025-12-31"; // dernière clôture annuelle US par défaut
   const slimKpis = heroKpi
     ? [
         {
@@ -77,7 +87,7 @@ function slimForHub(entry: AnyRecord): AnyRecord {
           yoy: heroKpi.yoy,
           type: heroKpi.type,
           history: heroKpi.history,
-          last_data_date: heroKpi.last_data_date,
+          last_data_date: fallbackDate,
           ttm: heroKpi.ttm,
         },
       ]

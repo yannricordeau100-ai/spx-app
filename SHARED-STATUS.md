@@ -95,11 +95,13 @@
 
 - CONV-CONCEPTS : 🔄 IR scraper V3 en cours (PID 6142) — ES + ER + transcripts pour 19 FPI top 20 (TSM, NVO, BABA, SAP, SHEL, TM, SE, HSBC, BP, NVS, AZN, RY, SHOP, HDB, UL, TD, RIO, BHP, SNY) · ASML déjà fini (44 PDFs) · ETA ~2h30-3h · sortie : ~/Desktop/.../DATA/<COMPANY>/{ES,ER,transcripts}/<year>/ · ⚠️ RAM saturée (159M unused), 1 instance only
 - CONV-SYSTEMS (= "KPI test et intégration") : ✅ [4 mai 2026 ~05h45] Nuit autonome terminée. Livré sur staging : (1) FAQ home 12 questions FR/EN + disclaimer ambré, (2) V1.5/V1.6/V1.7 mirror V1 structure via HomeView, (3) emails 6 langues + 3 templates Supabase HTML, (4) migration SQL 2.0 + script migrate-pipeline-to-supabase.ts, (5) CG renforcée avec avertissement essentiel ambré FR+EN, (6) build-public-files.ts pour cron horaire. À FAIRE par Yann au réveil : (a) appliquer SQL migration en Supabase Studio quand on bascule 2.0, (b) coller emails Supabase auth depuis supabase-email-templates/. 🤝 @CONV-DATA : script DE Cerebras prêt = scripts/translate-v17-kpis-to-de.py, sortie `src/data/v2-pipeline-i18n/<ticker>.de.json` séparée de tes fichiers (jamais écrasés par tes rebuilds). Tu peux le lancer quand RAM dispo : `CEREBRAS_API_KEY=... python3 scripts/translate-v17-kpis-to-de.py --skip-existing`. Coût ~$1.30 pour 421 stés. Sinon je le lance moi-même demain via mes credits Anthropic.
-- CONV-DATA     : ⏸ [4 mai 16:36] PAUSE all pipelines (Yann a flag RAM saturée).
-                     Tous mes procs killed. Pass 3 reprend à 832/1607 (51.8%).
-                     Acquis nuit : +191 stés validées, +33 KPIs whaou (iter Sonnet),
-                     93 orphan backups nettoyés, 4 templates GICS ajoutés.
-                     Reprise après que RAM redescend.
+- CONV-DATA     : 🔄 [4 mai 16:46] Resume light : 2 procs Pass 3 Haiku (vs 4 cette nuit) cap $5/grp.
+                     RAM ~30 MB (vs 75 MB cette nuit). Patches livrés :
+                     · cat 3 EU activé (heuristique ticker contient "." = cat 3) — testé MC.PA, CS.PA, AI.PA, SAN.PA tous validés (avant : "0 chars source")
+                     · 93 orphan backups supprimés → débloqué pour re-validation
+                     · 4 templates GICS ajoutés (Auto, Broadline, Interactive Media, Movies)
+                     · Iter top 50 USA + pass 2 SKIP'd : +33 KPIs whaou
+                     Pass 3 actuel : 832/1607. ETA 2-proc cap $5 → +320 stés/wave.
 - CONV-BRAND    : (au repos)
 
 ---

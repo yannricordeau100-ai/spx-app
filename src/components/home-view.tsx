@@ -493,7 +493,13 @@ function renderCompanyCard(
                       </span>
                     </div>
                     <div className="mt-1.5 truncate text-[12px] text-zinc-400">
-                      {hero.short} · {locale === "en" && hero.name_en ? hero.name_en : hero.name_fr}
+                      {/* Affichage localisé : en FR le nom français, en EN le nom anglais.
+                          On supprime le préfixe technique `short` (= identifiant interne
+                          souvent en EN) demandé par Yann le 4 mai 2026 : le user veut
+                          voir un libellé naturel dans sa langue, pas un acronyme tech. */}
+                      {locale === "fr"
+                        ? (hero.name_fr || hero.name_en || hero.short)
+                        : (hero.name_en || hero.name_fr || hero.short)}
                     </div>
                     <div className="mt-3 flex flex-wrap items-center gap-1.5">
                       <span
