@@ -518,6 +518,12 @@ export const DICTIONARY: Dict = {
   "senate.declared_within": { fr: "déclaré sous {n} j", en: "filed within {n}d" },
   "senate.late_filing": { fr: "late filing", en: "late filing" },
 
+  // Note langue sur formulaire contact : seuls FR et EN sont supportés.
+  "contact.lang_notice": {
+    fr: "Discussions traitées uniquement en français ou anglais.",
+    en: "Discussions handled only in French or English.",
+  },
+
   // Page de maintenance / pré-lancement (page fixe, no action).
   // Ton positif "on se fait beau" : donne envie sans donner d'info.
   "maintenance.headline": {

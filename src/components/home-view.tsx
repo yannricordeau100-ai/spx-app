@@ -185,12 +185,33 @@ function BrandWordmark() {
   );
 }
 
-export function HomeView() {
+/**
+ * HomeView accepte optionnellement une liste de sociétés custom + un builder
+ * de href. Sert pour /sandbox/v1-X qui veulent la MÊME structure que la home
+ * (wordmark + search + grille de cards) mais avec un dataset différent et
+ * une route de navigation différente.
+ *
+ * Sans prop : comportement V1 historique (5 stés handcrafted, route /<ticker>).
+ * Avec props :
+ *   - companies : Record<ticker, Company>
+ *   - tickers : string[] dans l'ordre d'affichage
+ *   - hrefBuilder : (ticker) => string (ex: t => `/sandbox/v1-7/${t.toLowerCase()}`)
+ *   - title (optionnel) : override le wordmark "Mettrik AI" (ex: "V1.7 · 421 stés")
+ *   - subtitle (optionnel) : override la headline secondaire
+ */
+export function HomeView({
+  companies: companiesProp,
+  tickers: tickersProp,
+  hrefBuilder,
+}: {
+  companies?: Record<string, import("@/lib/data").Company>;
+  tickers?: string[];
+  hrefBuilder?: (ticker: string) => string;
+} = {}) {
   const { t, locale } = useT();
-  // La recherche est désormais entièrement gérée par <CompanySearch />
-  // (pill arrondie qui zoome en modal centrée). On garde la grille de
-  // sociétés en dessous pour le browse direct.
-  const results = TICKERS;
+  const COMPANIES_USED = companiesProp ?? COMPANIES;
+  const results = tickersProp ?? TICKERS;
+  const buildHref = hrefBuilder ?? ((tk: string) => `/${tk.toLowerCase()}`);
   // Note : la date "Données à jour au X" est désormais rendue côté client
   // via <DataFreshnessPill /> pour utiliser le timezone du visiteur.
 
@@ -231,7 +252,8 @@ export function HomeView() {
           </div>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {results.map((ticker) => {
-              const c = COMPANIES[ticker];
+              const c = COMPANIES_USED[ticker];
+              if (!c) return null;
               const hero = getHero(c);
               const tone = yoyTone(hero.yoy, hero.type);
               const yoyColor =
@@ -241,7 +263,7 @@ export function HomeView() {
               return (
                 <div key={ticker}>
                   <Link
-                    href={`/${ticker.toLowerCase()}`}
+                    href={buildHref(ticker)}
                     className="conic-border group relative block rounded-xl border border-[#1f1f1f] bg-[#0a0a0a] p-4 transition-colors hover:border-[#2a2a2a]"
                   >
                     <div
