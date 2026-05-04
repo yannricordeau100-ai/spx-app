@@ -56,6 +56,14 @@ export type KPI = {
    * Optionnel : non rendu si absent ou null.
    */
   ttm?: number | null;
+  /**
+   * Périodicité de l'historique. Par défaut "year" (V1 historique : 5-6
+   * années annuelles). "quarter" pour les KPI publiés trimestriellement
+   * (NFLX subscribers : 20 trimestres Q1'21 → Q4'25). Détermine les
+   * labels axe X générés par CompanyView : ["2020", ..., "2025"] en
+   * mode année, ["T1 21", ..., "T4 25"] en mode trimestre.
+   */
+  period_type?: "year" | "quarter";
 };
 
 export type Ranks = {
