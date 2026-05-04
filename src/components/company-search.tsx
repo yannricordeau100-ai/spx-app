@@ -232,6 +232,18 @@ export function CompanySearch({
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder={ph}
+                  // Coupe le correcteur auto sur tous les navigateurs (Safari,
+                  // Chrome, Firefox, mobile + desktop). C'est une recherche
+                  // de tickers / noms de société, pas de la rédaction libre :
+                  // le correcteur transforme "MSCI" en "MISC" etc.
+                  autoComplete="off"
+                  autoCorrect="off"
+                  autoCapitalize="off"
+                  spellCheck={false}
+                  inputMode="search"
+                  enterKeyHint="search"
+                  data-1p-ignore
+                  data-lpignore="true"
                   className="flex-1 bg-transparent text-[16px] text-zinc-100 outline-none placeholder:text-zinc-500"
                 />
                 {query && (

@@ -118,6 +118,14 @@ export function CmdFSearch({ scopeSelector = "main" }: { scopeSelector?: string 
               }
             }}
             placeholder={t("cmdf.placeholder")}
+            autoComplete="off"
+            autoCorrect="off"
+            autoCapitalize="off"
+            spellCheck={false}
+            inputMode="search"
+            enterKeyHint="search"
+            data-1p-ignore
+            data-lpignore="true"
             className="flex-1 bg-transparent text-[13px] text-zinc-100 outline-none placeholder:text-zinc-500"
           />
           <span className="font-mono text-[11px] tabular-nums text-zinc-400">

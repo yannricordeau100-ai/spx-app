@@ -692,7 +692,7 @@ export const DICTIONARY: Dict = {
   "timefrac.month": { fr: "M", en: "M" },
   "timefrac.week": { fr: "S", en: "W" },
   "timefrac.day": { fr: "J", en: "D" },
-  "timefrac.hour": { fr: "h", en: "H" },
+  "timefrac.hour": { fr: "H", en: "H" },
   "timefrac.minute": { fr: "m", en: "m" },
   "timefrac.second": { fr: "s", en: "S" },
   "timefrac.tooltip": {

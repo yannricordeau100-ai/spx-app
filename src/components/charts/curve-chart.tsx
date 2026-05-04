@@ -1,12 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { motion } from "motion/react";
+import { Download } from "lucide-react";
 import { AnomalyInfo } from "@/components/anomaly-info";
 import type { Anomaly } from "@/lib/brand";
 import { formatUnit } from "@/lib/data";
 import type { CompanyEvent } from "@/lib/events";
 import { EventDotsSVG, EventDotsOverlay } from "@/components/charts/event-dots";
+import { downloadSvgAsPng, buildYearGroups } from "@/lib/chart-export";
 
 function axisHeader(unit: string): string {
   switch (unit) {
@@ -82,11 +84,11 @@ const PAD_BOTTOM = 90;
  * Split d'un label trimestriel "T1 21" → { top: "T1", bottom: "21" }.
  * Mêmes specs que dans bars-3d-variants.tsx (template uniforme).
  */
-function splitQuarterLabel(label: string): { top: string; bottom: string } {
-  if (!label) return { top: "", bottom: "" };
+function splitQuarterLabel(label: string): { top: string; bottom: string; isQuarter: boolean } {
+  if (!label) return { top: "", bottom: "", isQuarter: false };
   const m = label.match(/^(T[1-4])\s+(\d{2,4})$/);
-  if (m) return { top: m[1], bottom: m[2] };
-  return { top: label, bottom: "" };
+  if (m) return { top: m[1], bottom: m[2], isQuarter: true };
+  return { top: label, bottom: "", isQuarter: false };
 }
 const DX = 22;          // 3D depth offset (rightward)
 const DY = -14;         // 3D depth offset (upward in SVG)
@@ -124,6 +126,7 @@ export function CurveChart({
   ttmLabel?: string;
 }) {
   const [hover, setHover] = useState<number | null>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
 
   // Garde-fou : si pas de data utilisable, ne rien afficher au lieu de crasher.
   if (!data || !Array.isArray(data) || data.length === 0) {
@@ -136,6 +139,7 @@ export function CurveChart({
   const allData = hasTTM ? [...data, ttm as number] : data;
   const allLabels = hasTTM ? [...labels, ttmLabel] : labels;
   const ttmIndex = hasTTM ? allData.length - 1 : -1;
+  const yearGroups = buildYearGroups(allLabels);
 
   const innerW = W - PAD_LEFT - PAD_RIGHT;
   const innerH = H - PAD_TOP - PAD_BOTTOM;
@@ -209,6 +213,7 @@ export function CurveChart({
         </div>
       )}
       <svg
+        ref={svgRef}
         width="100%"
         height="auto"
         viewBox={`0 0 ${W} ${H}`}
@@ -368,83 +373,52 @@ export function CurveChart({
                 />
               )}
               {(() => {
+                // Quarter only sur l'axe X (T1/T2/T3/T4). Year est rendu UNE
+                // SEULE FOIS via le year-band en bas (cf. yearGroups.map).
                 const split = splitQuarterLabel(allLabels[i] ?? "");
-                const yTop = isCrowded ? H - PAD_BOTTOM + 22 : H - PAD_BOTTOM + 26;
-                const yBot = H - PAD_BOTTOM + 38;
+                const yQuarter = H - PAD_BOTTOM + 26;
                 const fz = xLabelFontSize;
                 const fill = isTTM ? "#a1a1aa" : "#e4e4e7";
                 const fw = isTTM ? 500 : 600;
                 return (
-                  <>
-                    <text
-                      x={x}
-                      y={yTop}
-                      textAnchor="middle"
-                      fontSize={fz}
-                      fill={fill}
-                      fontFamily="ui-monospace, monospace"
-                      fontWeight={fw}
-                      fontStyle={isTTM ? "italic" : "normal"}
-                      style={isTTM ? { cursor: "help" } : undefined}
-                    >
-                      {isCrowded ? split.top : (allLabels[i] ?? "")}
-                      {isTTM && (
-                        <title>TTM = Trailing Twelve Months : les 12 derniers mois publiés (4 derniers trimestres connus). Permet de voir la tendance la plus récente sans attendre la clôture annuelle.</title>
-                      )}
-                    </text>
-                    {isCrowded && split.bottom && (
-                      <text x={x} y={yBot} textAnchor="middle" fontSize={fz} fill={fill} fontFamily="ui-monospace, monospace" fontWeight={fw}>
-                        {split.bottom}
-                      </text>
+                  <text
+                    x={x}
+                    y={yQuarter}
+                    textAnchor="middle"
+                    fontSize={fz}
+                    fill={fill}
+                    fontFamily="ui-monospace, monospace"
+                    fontWeight={fw}
+                    fontStyle={isTTM ? "italic" : "normal"}
+                    style={isTTM ? { cursor: "help" } : undefined}
+                  >
+                    {split.top}
+                    {isTTM && (
+                      <title>TTM = Trailing Twelve Months : les 12 derniers mois publiés (4 derniers trimestres connus). Permet de voir la tendance la plus récente sans attendre la clôture annuelle.</title>
                     )}
-                  </>
+                  </text>
                 );
               })()}
-              {isHover && (
+              {/* Valeur au-dessus de CHAQUE point (toujours visible). En mode
+                  crowded on alterne up/down pour éviter chevauchements. */}
+              {!isTTM && (
                 <text
                   x={x}
-                  y={y - 22}
+                  y={isCrowded ? (i % 2 === 0 ? y - 14 : y - 26) : y - 18}
                   textAnchor="middle"
-                  fontSize={18}
-                  fontWeight={800}
-                  fill="#fafafa"
+                  fontSize={isCrowded ? 11 : 14}
+                  fontWeight={isHover ? 800 : 600}
+                  fill={isHover ? "#fafafa" : "#d4d4d8"}
                   fontFamily="ui-monospace, monospace"
-                  style={{ filter: `drop-shadow(0 0 4px ${color})` }}
+                  style={isHover ? { filter: `drop-shadow(0 0 4px ${color})` } : undefined}
                 >
-                  {allData[i]}
-                  {u && (
-                    <tspan fill="#a1a1aa" fontSize="14">
-                      {" "}
-                      {u}
-                    </tspan>
-                  )}
+                  {Math.round(Number(allData[i]))}
                 </text>
               )}
             </g>
           );
         })}
 
-        {/* Last value floating at the end of the curve — taille agrandie */}
-        {data.length > 0 && hover === null && (
-          <text
-            x={points[points.length - 1][0] + DX}
-            y={points[points.length - 1][1] + DY - 16}
-            textAnchor="middle"
-            fontSize={17}
-            fontWeight={700}
-            fill={color}
-            fontFamily="ui-monospace, monospace"
-            style={{ filter: `drop-shadow(0 0 4px ${color})` }}
-          >
-            {data[data.length - 1]}
-            {u && (
-              <tspan fill="#a1a1aa" fontSize="14">
-                {" "}
-                {u}
-              </tspan>
-            )}
-          </text>
-        )}
         {/* Points de curiosité (événements clefs) sur l'axe X */}
         <EventDotsSVG
           events={events}
@@ -455,7 +429,69 @@ export function CurveChart({
           innerH={innerH}
           color={color}
         />
+
+        {/* Year band : 1 année = 1 bracket sous l'axe X. L'année apparaît
+            UNE seule fois par groupe de quarters consécutifs. */}
+        {yearGroups.map((g) => {
+          const xStart = points[g.startIdx]?.[0] ?? 0;
+          const xEnd = points[g.endIdx]?.[0] ?? 0;
+          const yLine = H - PAD_BOTTOM + 46;
+          const yText = H - PAD_BOTTOM + 60;
+          const tickH = 4;
+          const single = g.startIdx === g.endIdx;
+          const yearFull = g.year.length === 2 ? `20${g.year}` : g.year;
+          return (
+            <g key={`yg-${g.startIdx}`}>
+              {!single && (
+                <>
+                  <line x1={xStart} y1={yLine} x2={xEnd} y2={yLine} stroke="#3f3f46" strokeWidth={1} />
+                  <line x1={xStart} y1={yLine - tickH} x2={xStart} y2={yLine} stroke="#3f3f46" strokeWidth={1} />
+                  <line x1={xEnd} y1={yLine - tickH} x2={xEnd} y2={yLine} stroke="#3f3f46" strokeWidth={1} />
+                </>
+              )}
+              <text
+                x={(xStart + xEnd) / 2}
+                y={yText}
+                textAnchor="middle"
+                fontSize={13}
+                fill="#a1a1aa"
+                fontFamily="ui-monospace, monospace"
+                fontWeight={500}
+              >
+                {yearFull}
+              </text>
+            </g>
+          );
+        })}
+
+        {/* Watermark Mettrik AI : top-left, filigrane discret, présent dans
+            l'export PNG. */}
+        <text
+          x={PAD_LEFT + 6}
+          y={PAD_TOP - 14}
+          fontSize={11}
+          fontFamily="ui-monospace, monospace"
+          fill="#52525b"
+          fillOpacity={0.55}
+          letterSpacing="0.18em"
+        >
+          MET·TRIK · AI
+        </text>
       </svg>
+
+      {/* Bouton download (capture SVG + watermark → PNG) */}
+      <button
+        type="button"
+        onClick={() => {
+          if (svgRef.current) {
+            downloadSvgAsPng(svgRef.current, `mettrik-curve-${Date.now()}.png`);
+          }
+        }}
+        aria-label="Télécharger le graphique"
+        className="absolute right-2 top-2 inline-flex size-8 items-center justify-center rounded-full border border-white/10 bg-black/40 text-zinc-300 backdrop-blur-md transition-colors hover:border-white/30 hover:text-white"
+      >
+        <Download className="size-4" />
+      </button>
       {/* Overlay HTML pour les popovers d'événements (clic sur point) */}
       <EventDotsOverlay
         events={events}

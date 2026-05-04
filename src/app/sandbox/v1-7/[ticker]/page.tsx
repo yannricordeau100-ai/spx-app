@@ -78,9 +78,11 @@ export default async function SandboxV17TickerPage({
   const { ticker } = await params;
   const company = await loadDataset(ticker);
   if (!company) notFound();
-  // hidePriceBar : StockPriceBlock V1 dépend de tickers V1 hardcodés et
-  // plante sur datasets pipeline (500 server-side). À réactiver ticker
-  // par ticker quand un fetch FMP générique sera câblé.
-  // hideSenate : senate trades = scope V1 uniquement.
-  return <CompanyView company={company} authSlot={null} hideSenate hidePriceBar />;
+  // hideSenate : senate trades = scope V1 uniquement (5 stés handcrafted).
+  // hidePriceBar : RÉACTIVÉ le 5 mai 2026. Le composant a une garde
+  // `?? FAKE.META` pour le seed, et le fetch /api/stock-prices fonctionne
+  // pour tout ticker reconnu par Yahoo Finance (incl. ADR US comme TSM,
+  // BABA, NVO en USD). Si Yahoo ne reconnaît pas, deltaPct=0 et barre
+  // neutre, pas de crash.
+  return <CompanyView company={company} authSlot={null} hideSenate />;
 }

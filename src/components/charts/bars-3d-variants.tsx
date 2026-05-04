@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { Download } from "lucide-react";
 import type { CompanyEvent } from "@/lib/events";
 import { EventDotsSVG, EventDotsOverlay } from "@/components/charts/event-dots";
+import { downloadSvgAsPng, buildYearGroups } from "@/lib/chart-export";
 
 /**
  * Essais bars 3D / iso (B26-B27) inspirés freepik isométrique.
@@ -36,11 +38,11 @@ const PAD_LEFT = 96, PAD_RIGHT = 70, PAD_TOP = 40, PAD_BOTTOM = 90;
  * Permet aux charts d'afficher quarter sur ligne 1 + year sur ligne 2 sans
  * rotation -45° (rejetée par Yann le 4 mai 2026 = doit rester horizontal).
  */
-function splitQuarterLabel(label: string): { top: string; bottom: string } {
-  if (!label) return { top: "", bottom: "" };
+function splitQuarterLabel(label: string): { top: string; bottom: string; isQuarter: boolean } {
+  if (!label) return { top: "", bottom: "", isQuarter: false };
   const m = label.match(/^(T[1-4])\s+(\d{2,4})$/);
-  if (m) return { top: m[1], bottom: m[2] };
-  return { top: label, bottom: "" };
+  if (m) return { top: m[1], bottom: m[2], isQuarter: true };
+  return { top: label, bottom: "", isQuarter: false };
 }
 const INNER_W = W - PAD_LEFT - PAD_RIGHT;
 const INNER_H = H - PAD_TOP - PAD_BOTTOM;
@@ -83,11 +85,16 @@ type Props = {
 /* ============================================================ */
 export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", events = [], ttm = null, ttmLabel = "TTM", variant = "iso3d" }: Props) {
   const [hover, setHover] = useState<number | null>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
 
   // Étend data + labels avec TTM si fourni. Dernière barre stylée distinctement.
   const hasTTM = ttm != null && Number.isFinite(ttm);
   const allData = hasTTM ? [...data, ttm as number] : data;
   const allLabels = hasTTM ? [...labels, ttmLabel] : labels;
+  // Year groups (visualisation type "bracket" sous l'axe X) : chaque groupe
+  // de quarters consécutifs même année est rendu via une barre + année une
+  // seule fois, au lieu de répéter le chiffre 4 fois.
+  const yearGroups = buildYearGroups(allLabels);
   const ttmIndex = hasTTM ? allData.length - 1 : -1;
   const isClassic = variant === "classic";
 
@@ -107,13 +114,14 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
   const barW = Math.min(slot * 0.42, 56);
   const baseY = PAD_TOP + INNER_H;
   const yFor = (v: number) => PAD_TOP + ((max - v) / range) * INNER_H;
-  // Densité crowded : > 12 colonnes -> 2 lignes horizontales (quarter + year)
-  // au lieu de rotation -45° (rejetée par Yann le 4 mai 2026 : "doit être à
-  // l'horizontale, pas en biais"). Format ex : ligne 1 "T1", ligne 2 "21".
-  // Hide value labels au-dessus des barres car trop denses.
+  // Densité crowded : > 12 colonnes. En quarters on bascule en mode
+  // "quarter only" (T1/T2/T3/T4) avec un year-band en-dessous (groupage
+  // visuel 1 année = 4 quarters = 1 seul libellé d'année).
   const isCrowded = allData.length > 12;
   const labelFontSize = isCrowded ? 13 : 17;
-  const valueFontSize = isCrowded ? 0 : 15;
+  // Valeurs TOUJOURS affichées au-dessus de chaque barre (demande Yann
+  // 5 mai 2026), font-size adapté à la densité pour éviter les chevauchements.
+  const valueFontSize = isCrowded ? 11 : 15;
   const DX = isClassic ? 0 : 26;
   const DY = isClassic ? 0 : -16;
   const header = axisHeader(unit);
@@ -130,7 +138,7 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
           {header}
         </div>
       )}
-    <svg width="100%" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" style={{ overflow: "visible" }}>
+    <svg ref={svgRef} width="100%" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" style={{ overflow: "visible" }}>
       <defs>
         <linearGradient id="b26-front" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor={color} stopOpacity={0.95} />
@@ -196,56 +204,47 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
                 <path d={top} fill="url(#b26-top)" stroke="#050505" strokeWidth={0.6} strokeDasharray={ttmDash} />
               </>
             )}
-            {/* value above : caché en mode crowded (>12 cols) ou montré
-                seulement au hover. Sinon les chiffres se chevauchent. */}
-            {valueFontSize > 0 && (
-              <text x={x + barW / 2 + (isClassic ? 0 : DX / 2)} y={yT + (isClassic ? -10 : DY - 12)} textAnchor="middle" fontSize={valueFontSize} fontWeight={700}
-                fill="#fafafa" fontFamily="ui-monospace, monospace">
-                {v}
-              </text>
-            )}
-            {/* En mode crowded : montre la valeur uniquement sur la barre survolée. */}
-            {valueFontSize === 0 && isH && (
-              <text x={x + barW / 2 + (isClassic ? 0 : DX / 2)} y={yT + (isClassic ? -10 : DY - 12)} textAnchor="middle" fontSize={14} fontWeight={700}
-                fill="#fafafa" fontFamily="ui-monospace, monospace">
-                {v}
-              </text>
-            )}
-            {/* x label : 2 lignes horizontales en mode crowded. Ligne 1 =
-                quarter (T1/T2/T3/T4) ou full label, ligne 2 = year (21/22).
-                Pas de rotation. TTM sur ligne 1 uniquement. */}
+            {/* Valeur au-dessus de chaque barre (toujours visible). Format
+                entier, sans virgule ni point (demande Yann 5 mai 2026). */}
+            <text
+              x={x + barW / 2 + (isClassic ? 0 : DX / 2)}
+              y={yT + (isClassic ? -10 : DY - 12)}
+              textAnchor="middle"
+              fontSize={valueFontSize}
+              fontWeight={700}
+              fill="#fafafa"
+              fontFamily="ui-monospace, monospace"
+            >
+              {Math.round(Number(v))}
+            </text>
+            {/* x label : quarter uniquement (T1/T2/T3/T4) sur ligne 1. Le
+                year apparaît UNE SEULE FOIS par groupe via le year-band
+                rendu après la boucle (cf. bloc yearGroups.map plus bas).
+                Labels non-trimestriels ("2024", "TTM") rendus tel quel. */}
             {(() => {
               const cx = x + barW / 2 + (isClassic ? 0 : DX / 2);
-              const yTop = H - PAD_BOTTOM + 22;
-              const yBot = H - PAD_BOTTOM + 38;
+              const yQuarter = H - PAD_BOTTOM + 26;
               const split = splitQuarterLabel(allLabels[i]);
-              const fz = isTTM ? labelFontSize : labelFontSize;
+              const fz = labelFontSize;
               const fill = isTTM ? "#a1a1aa" : "#e4e4e7";
               const fw = isTTM ? 500 : 600;
               return (
-                <>
-                  <text
-                    x={cx}
-                    y={isCrowded ? yTop : H - PAD_BOTTOM + 26}
-                    textAnchor="middle"
-                    fontSize={fz}
-                    fill={fill}
-                    fontFamily="ui-monospace, monospace"
-                    fontWeight={fw}
-                    fontStyle={isTTM ? "italic" : "normal"}
-                    style={isTTM ? { cursor: "help" } : undefined}
-                  >
-                    {isCrowded ? split.top : allLabels[i]}
-                    {isTTM && (
-                      <title>TTM = Trailing Twelve Months : les 12 derniers mois publiés (4 derniers trimestres connus). Permet de voir la tendance la plus récente sans attendre la clôture annuelle.</title>
-                    )}
-                  </text>
-                  {isCrowded && split.bottom && (
-                    <text x={cx} y={yBot} textAnchor="middle" fontSize={fz} fill={fill} fontFamily="ui-monospace, monospace" fontWeight={fw}>
-                      {split.bottom}
-                    </text>
+                <text
+                  x={cx}
+                  y={yQuarter}
+                  textAnchor="middle"
+                  fontSize={fz}
+                  fill={fill}
+                  fontFamily="ui-monospace, monospace"
+                  fontWeight={fw}
+                  fontStyle={isTTM ? "italic" : "normal"}
+                  style={isTTM ? { cursor: "help" } : undefined}
+                >
+                  {split.top}
+                  {isTTM && (
+                    <title>TTM = Trailing Twelve Months : les 12 derniers mois publiés (4 derniers trimestres connus). Permet de voir la tendance la plus récente sans attendre la clôture annuelle.</title>
                   )}
-                </>
+                </text>
               );
             })()}
           </g>
@@ -260,7 +259,73 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
         innerH={INNER_H}
         color={color}
       />
+
+      {/* Year band : 1 année = 1 bracket horizontal sous l'axe X. Au lieu de
+          répéter "21 / 21 / 21 / 21" sous T1/T2/T3/T4, on dessine un trait
+          subtil reliant le centre de T1 au centre de T4 + l'année écrite UNE
+          fois au milieu. Solution créative pour gagner de la lisibilité sur
+          les graphes trimestriels longs. */}
+      {yearGroups.map((g) => {
+        const slot2 = INNER_W / allData.length;
+        const cxStart = PAD_LEFT + slot2 * g.startIdx + (slot2 - barW) / 2 + barW / 2 + (isClassic ? 0 : DX / 2);
+        const cxEnd = PAD_LEFT + slot2 * g.endIdx + (slot2 - barW) / 2 + barW / 2 + (isClassic ? 0 : DX / 2);
+        const yLine = H - PAD_BOTTOM + 46;
+        const yText = H - PAD_BOTTOM + 60;
+        const tickH = 4;
+        const single = g.startIdx === g.endIdx;
+        const yearFull = g.year.length === 2 ? `20${g.year}` : g.year;
+        return (
+          <g key={`yg-${g.startIdx}`}>
+            {!single && (
+              <>
+                <line x1={cxStart} y1={yLine} x2={cxEnd} y2={yLine} stroke="#3f3f46" strokeWidth={1} />
+                <line x1={cxStart} y1={yLine - tickH} x2={cxStart} y2={yLine} stroke="#3f3f46" strokeWidth={1} />
+                <line x1={cxEnd} y1={yLine - tickH} x2={cxEnd} y2={yLine} stroke="#3f3f46" strokeWidth={1} />
+              </>
+            )}
+            <text
+              x={(cxStart + cxEnd) / 2}
+              y={yText}
+              textAnchor="middle"
+              fontSize={13}
+              fill="#a1a1aa"
+              fontFamily="ui-monospace, monospace"
+              fontWeight={500}
+            >
+              {yearFull}
+            </text>
+          </g>
+        );
+      })}
+
+      {/* Watermark Mettrik AI : top-left, très discret (filigrane). Toujours
+          présent en SVG donc il apparaît dans l'export PNG. */}
+      <text
+        x={PAD_LEFT + 6}
+        y={PAD_TOP - 14}
+        fontSize={11}
+        fontFamily="ui-monospace, monospace"
+        fill="#52525b"
+        fillOpacity={0.55}
+        letterSpacing="0.18em"
+      >
+        MET·TRIK · AI
+      </text>
     </svg>
+
+    {/* Bouton download (capture SVG + watermark → PNG) */}
+    <button
+      type="button"
+      onClick={() => {
+        if (svgRef.current) {
+          downloadSvgAsPng(svgRef.current, `mettrik-bars-${Date.now()}.png`);
+        }
+      }}
+      aria-label="Télécharger le graphique"
+      className="absolute right-2 top-2 inline-flex size-8 items-center justify-center rounded-full border border-white/10 bg-black/40 text-zinc-300 backdrop-blur-md transition-colors hover:border-white/30 hover:text-white"
+    >
+      <Download className="size-4" />
+    </button>
     <EventDotsOverlay
       events={events}
       xLabels={allLabels}
