@@ -112,21 +112,40 @@ function main() {
 
   const v17: Record<string, AnyRecord> = {};
   const v16: Record<string, AnyRecord> = {};
+  const indexEntries: Array<{ ticker: string; name: string; sector: string; validated: boolean }> = [];
 
   for (const [ticker, entry] of Object.entries(merged)) {
     if (!isValidPipelineEntry(entry)) continue;
-    const slim = slimForHub(entry as AnyRecord);
+    const e = entry as AnyRecord;
+    const slim = slimForHub(e);
     v16[ticker] = slim;
-    if (isPass3(entry as AnyRecord)) v17[ticker] = slim;
+    const isV17 = isPass3(e);
+    if (isV17) v17[ticker] = slim;
+    indexEntries.push({
+      ticker,
+      name: String(e.name ?? ""),
+      sector: String(e.sector ?? ""),
+      validated: isV17, // STRICT : aligné sur V1.7 hub (= _validation_global only)
+    });
   }
+
+  // Sort : validated d'abord (apparaissent en premier dans la search), puis alpha.
+  indexEntries.sort((a, b) => (Number(!a.validated) - Number(!b.validated)) || a.ticker.localeCompare(b.ticker));
 
   writeFileSync(V17_OUT, JSON.stringify(v17), "utf-8");
   writeFileSync(V16_OUT, JSON.stringify(v16), "utf-8");
+  // Régénère aussi tickers-index.json pour aligner search avec V1.7 strict.
+  // (Cron horaire build-public-files.ts maintient cohérence au fil des
+  // nouvelles validations Pass 3 par CONV-DATA.)
+  const TICKERS_INDEX = path.join(ROOT, "src/data/v2-pipeline/_tickers-index.json");
+  writeFileSync(TICKERS_INDEX, JSON.stringify(indexEntries), "utf-8");
 
   const v17Size = (JSON.stringify(v17).length / 1024).toFixed(0);
   const v16Size = (JSON.stringify(v16).length / 1024).toFixed(0);
+  const validatedCount = indexEntries.filter((e) => e.validated).length;
   console.log(`✅ V1.7 public : ${Object.keys(v17).length} stés (${v17Size} KB) → ${V17_OUT}`);
   console.log(`✅ V1.6 public : ${Object.keys(v16).length} stés (${v16Size} KB) → ${V16_OUT}`);
+  console.log(`✅ Tickers index : ${indexEntries.length} stés (${validatedCount} validated Pass 3 strict) → ${TICKERS_INDEX}`);
 }
 
 main();
