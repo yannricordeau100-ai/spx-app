@@ -14,16 +14,18 @@ export type DbValue = "urgent" | "high" | "normal" | "low" | "extra";
 
 export type CategoryLabels = Record<DbValue, string>;
 
-// Defaults restaurés (4 mai 2026) : labels = valeurs DB d'origine. Yann a
-// signalé que les labels précédents (V2/V3/Idée à creuser/Bonus) n'étaient
-// pas ceux qu'il attendait. Les tâches existantes ne sont jamais affectées
-// (le mapping label → DB value est figé). Customisable via crayon UI.
+// Defaults v3 (5 mai 2026) : Yann a re-signalé qu'il ne reconnaît pas
+// "urgent/high/low" et veut son ancienne version. On restore celle d'avril
+// (urgent/V2/V3/Idée à creuser/Bonus) qui était la version la plus à jour
+// avant mon revert du 4 mai. Les tâches ne sont jamais perdues : seul
+// l'AFFICHAGE des labels change, le mapping label → DB value est figé.
+// Yann peut customiser via le crayon UI dans la barre filtres todos.
 export const DEFAULT_CATEGORY_LABELS: CategoryLabels = {
   urgent: "urgent",
-  high: "high",
-  normal: "normal",
-  low: "low",
-  extra: "extra",
+  high: "V2",
+  normal: "V3",
+  low: "Idée à creuser",
+  extra: "Bonus",
 };
 
 const STORAGE_KEY = "mettrik.todo.categories.v1";
