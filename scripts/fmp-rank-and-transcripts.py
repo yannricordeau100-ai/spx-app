@@ -95,7 +95,7 @@ def cmd_rank(args, log):
     tickers = set()
 
     # SP1500
-    sp1500_path = Path("/Volumes/250GB/Mettrik/sec-data/_meta/sp1500.json")
+    sp1500_path = Path("/Users/yann/spx-app/sec-data/_meta/sp1500.json")
     if sp1500_path.exists():
         sp = json.loads(sp1500_path.read_text())
         for t in sp.get("tickers", []):

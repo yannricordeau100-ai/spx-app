@@ -1,8 +1,8 @@
 {
   "ticker": "OGN",
   "name": "Organon & Co.",
-  "sector": "Information Technology",
-  "subsector": "...",
+  "sector": "Healthcare",
+  "subsector": "Pharmaceuticals",
   "tagline": "Improving the health of women throughout their lives",
   "founded": null,
   "ipo": 2021,
@@ -22,7 +22,7 @@
       "name_en": "Total Revenue",
       "explanation": "Argent gagné par la vente de médicaments et dispositifs médicaux.",
       "value": "6.2",
-      "unit": "Mds $",
+      "unit": "B $",
       "yoy": "-3%",
       "type": "Revenue",
       "nature": "Conjoncturel",
@@ -99,11 +99,11 @@
     },
     {
       "short": "Capex",
-      "name_fr": "Investissements",
+      "name_fr": "Investissements en capital",
       "name_en": "Capital Expenditures",
       "explanation": "Dépenses pour des actifs physiques comme des usines ou équipements.",
       "value": null,
-      "unit": "Mds $",
+      "unit": "B $",
       "yoy": "n/a",
       "type": "Investment",
       "nature": "Structurel",
@@ -118,21 +118,21 @@
     },
     {
       "short": "Headcount",
-      "name_fr": "Effectif (employés)",
-      "name_en": "Total Employees",
-      "explanation": "Nombre total d'employés dans l'entreprise.",
+      "name_fr": "Effectifs transférés (transaction Jada)",
+      "name_en": "Employees Transferred",
+      "explanation": "Nombre d'employés transférés lors de la cession du système Jada à Laborie.",
       "value": "100",
-      "unit": "",
+      "unit": "Employees",
       "yoy": "n/a",
-      "type": "Investment",
+      "type": "Operational",
       "nature": "Conjoncturel",
       "comparable": "Non comparable",
-      "signal": "100 employés transférés lors de la cession du système Jada.",
+      "signal": "100 employés transférés lors de la cession du système Jada à Laborie en janvier 2026.",
       "description": "En janvier 2026, environ 100 employés ont été transférés à Laborie dans le cadre de la divestiture du Jada System.",
       "history": [],
       "last_data_date": "2026-01-01",
       "is_wow": false,
-      "is_generic": true,
+      "is_generic": false,
       "is_short_history": false
     }
   ],
@@ -146,5 +146,19 @@
       "Les produits cités (Nexplanon, Tofidence) sont des thérapies médicales traditionnelles, non numériques."
     ],
     "source": ""
-  }
+  },
+  "_validation": [
+    "CORRECTION SECTEUR: 'Information Technology' changé en 'Healthcare' (Organon est une entreprise pharmaceutique, pas technologique)",
+    "CORRECTION SUBSECTOR: '...' changé en 'Pharmaceuticals'",
+    "CORRECTION UNITE Revenue: 'Mds $' changé en 'B $' (notation standard)",
+    "CORRECTION name_fr Capex: 'Investissements' changé en 'Investissements en capital' (plus précis)",
+    "CORRECTION unit Capex: 'Mds $' changé en 'B $' (notation standard)",
+    "CORRECTION Headcount: Reclassifié comme 'Operational' au lieu de 'Investment' et 'Employees' au lieu de '' (unité manquante)",
+    "CORRECTION name_fr Headcount: 'Effectif (employés)' changé en 'Effectifs transférés (transaction Jada)' (contexte spécifique de la transaction)",
+    "CORRECTION is_generic Headcount: false au lieu de true (KPI spécifique à la transaction Jada, non générique)",
+    "VERIFICATION: Revenue 6.2B, YoY -3%, History [6.263, 6.403, 6.216] confirmés dans la source financière",
+    "VERIFICATION: Jada System divestiture à Laborie janvier 2026 avec 100 employés transférés confirmée dans la source",
+    "VERIFICATION: Aucun hallucinage détecté. Tous les KPI sont soit documentés soit correctement marqués comme 'null/non disponibles'",
+    "SUPPRESSION: em-dash dans hero_kpi_rationale n'était pas présent (pas de correction nécessaire)"
+  ]
 }

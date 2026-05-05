@@ -1,8 +1,8 @@
 {
   "ticker": "PLNT",
   "name": "Planet Fitness, Inc.",
-  "sector": "Information Technology",
-  "subsector": "Fitness Centers",
+  "sector": "Consumer Discretionary",
+  "subsector": "Leisure Facilities",
   "tagline": "Fitness for everyone",
   "founded": 2015,
   "ipo": 2015,
@@ -35,15 +35,16 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "_validation": []
     },
     {
       "short": "Revenu",
       "name_fr": "Revenu total",
       "name_en": "Total revenue",
       "explanation": "Revenu total généré par l'entreprise",
-      "value": 1.3,
-      "unit": "Mds $",
+      "value": 1324.1,
+      "unit": "M $",
       "yoy": "n/a",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -51,19 +52,23 @@
       "signal": "Croissance du revenu, indicateur de santé de l'entreprise",
       "description": "Le revenu total est un indicateur clé de la santé financière de l'entreprise",
       "history": [
-        1.3
+        1324.1
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "_validation": [
+        "Correction unité: 'Mds $' corrigé en 'M $' (valeur source: $1,324,144 thousand = $1,324.1 million)",
+        "Correction valeur: 1.3 corrigé en 1324.1 millions de dollars"
+      ]
     },
     {
       "short": "Marge brute",
       "name_fr": "Marge brute",
       "name_en": "Gross margin",
       "explanation": "Marge brute de l'entreprise",
-      "value": "n/a",
+      "value": null,
       "unit": "%",
       "yoy": "n/a",
       "type": "Margin",
@@ -75,7 +80,11 @@
       "last_data_date": "n/a",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "_validation": [
+        "KPI halluciné: pas de données de marge brute explicite dans la source. Valeur 'n/a' convertie en null",
+        "À considérer pour suppression: cet indicateur n'est pas présent dans le 10-K fourni"
+      ]
     },
     {
       "short": "Clubs",
@@ -83,7 +92,7 @@
       "name_en": "Number of clubs",
       "explanation": "Nombre total de clubs Planet Fitness",
       "value": 2896,
-      "unit": "",
+      "unit": "Count",
       "yoy": "n/a",
       "type": "User",
       "nature": "Structurel",
@@ -96,7 +105,10 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "_validation": [
+        "Correction unité: '' (vide) corrigé en 'Count'"
+      ]
     }
   ],
   "stories_kpis": [
@@ -120,7 +132,8 @@
       "Is_wow": false,
       "Is_generic": true,
       "Is_short_history": true,
-      "Story_category": "Adoption"
+      "Story_category": "Adoption",
+      "_validation": []
     }
   ],
   "ai_positioning": {
@@ -128,5 +141,14 @@
     "Summary": "Aucune information disponible sur la position de Planet Fitness en matière d'intelligence artificielle",
     "Evidence": [],
     "Source": ""
+  },
+  "_validation_summary": {
+    "sector_correction": "Information Technology remplacé par Consumer Discretionary (secteur correct pour les centres de fitness)",
+    "subsector_correction": "Fitness Centers remplacé par Leisure Facilities (classification GICS appropriée)",
+    "kpi_corrections": [
+      "KPI 'Revenu': unité corrigée de 'Mds $' à 'M $' et valeur corrigée de 1.3 à 1324.1 (basé sur financial statements: $1,324,144 thousands)",
+      "KPI 'Clubs': unité corrigée de '' à 'Count'",
+      "KPI 'Marge brute': KPI halluciné sans données de support dans la source fournie, vide de valeur numérique, recommandation de suppression"
+    ]
   }
 }

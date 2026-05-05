@@ -29,7 +29,7 @@ from datetime import datetime
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-EXTERNAL_ROOT = Path("/Volumes/250GB/Mettrik/sec-data")
+EXTERNAL_ROOT = Path("/Users/yann/spx-app/sec-data")
 LOCAL_ROOT = PROJECT_ROOT / "sec-data"
 DATA_ROOT = EXTERNAL_ROOT if EXTERNAL_ROOT.exists() else LOCAL_ROOT
 OUT_DIR = DATA_ROOT / "cat3-european"

@@ -30,7 +30,7 @@ echo "[$(date)] Pass 2 terminé." >> "$LOG"
 echo "[$(date)] Build liste 1500 stés à traiter..." >> "$LOG"
 python3 << 'PYEOF' >> "$LOG" 2>&1
 import json, os
-sp1500 = json.load(open('/Volumes/250GB/Mettrik/sec-data/_meta/sp1500.json'))
+sp1500 = json.load(open('/Users/yann/spx-app/sec-data/_meta/sp1500.json'))
 existing = set(f.replace('.json','').upper() for f in os.listdir('/Users/yann/spx-app/src/data/v2-pipeline') if f.endswith('.json') and not f.startswith('_'))
 todo = [t['ticker'] for t in sp1500['tickers'] if t['ticker'].upper() not in existing]
 print(f'sp1500 total: {len(sp1500["tickers"])}, déjà fait: {len(existing)}, à traiter: {len(todo)}')

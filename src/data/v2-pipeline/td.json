@@ -22,7 +22,7 @@
       "name_en": "Total Loan Book",
       "explanation": "Montant total des prêts accordés aux clients, base du revenu d'intérêts.",
       "value": "695.8",
-      "unit": "Mds $",
+      "unit": "B $",
       "yoy": "+6.2%",
       "type": "Demand",
       "nature": "Cyclique",
@@ -41,7 +41,7 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 706.58,
-      "_validation": "No corrections required - values and units verified"
+      "_validation": "Unit corrected from 'Mds $' to 'B $' for standardization. Values cannot be verified against source (XBRL taxonomy only, no MD&A provided)."
     },
     {
       "short": "NIM",
@@ -68,7 +68,7 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 2.18,
-      "_validation": "Corrected yoy from '+0.12 pts' to '+12 bps' for clarity"
+      "_validation": "YoY already standardized to '+12 bps'. Values cannot be verified against source (XBRL taxonomy only)."
     },
     {
       "short": "ROE",
@@ -82,7 +82,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "ROE en progression vers l'objectif stratégique de 15-17 %.",
-      "description": "La rentabilité des capitaux propres atteint 14,8 % en 2025, en hausse de 0,8 point, portée par une amélioration de la marge et une discipline des coûts.",
+      "description": "La rentabilité des capitaux propres atteint 14,8 % en 2025, en hausse de 80 points de base, portée par une amélioration de la marge et une discipline des coûts.",
       "history": [
         13.2,
         13.5,
@@ -95,7 +95,7 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 14.98,
-      "_validation": "Corrected yoy from '+0.8 pts' to '+80 bps' for standardization"
+      "_validation": "YoY already standardized to '+80 bps'. Values cannot be verified against source (XBRL taxonomy only)."
     },
     {
       "short": "CET1",
@@ -108,7 +108,7 @@
       "type": "Capital",
       "nature": "Structurel",
       "comparable": "Comparable",
-      "signal": "Ratio CET1 élevé, offrant flexibilité pour capital return.",
+      "signal": "Ratio CET1 élevé, offrant flexibilité pour retour au capital.",
       "description": "Le ratio CET1 s'élève à 12,7 % en 2025, en progression de 30 points de base, dépassant les exigences réglementaires et soutenant les politiques de retour au capital.",
       "history": [
         12.1,
@@ -122,11 +122,11 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 12.75,
-      "_validation": "Corrected yoy from '+0.3 pts' to '+30 bps' for standardization"
+      "_validation": "YoY already standardized to '+30 bps'. Signal clarified: 'capital return' instead of 'capital returns'. Values cannot be verified against source."
     },
     {
       "short": "Cost-Income",
-      "name_fr": "Ratio coût / revenu",
+      "name_fr": "Ratio coût/revenu",
       "name_en": "Cost-Income Ratio",
       "explanation": "Part des coûts dans les revenus totaux : plus bas = plus efficace.",
       "value": "56.4",
@@ -149,7 +149,7 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 56.11,
-      "_validation": "Corrected yoy from '-1.2 pts' to '-120 bps' for standardization"
+      "_validation": "YoY already standardized to '-120 bps'. Values cannot be verified against source (XBRL taxonomy only)."
     },
     {
       "short": "Wealth AUM",
@@ -157,7 +157,7 @@
       "name_en": "Wealth Management Assets Under Management",
       "explanation": "Total des actifs gérés pour les clients fortunés, source de revenus récurrents.",
       "value": "489.2",
-      "unit": "Mds $",
+      "unit": "B $",
       "yoy": "+7.5%",
       "type": "Demand",
       "nature": "Structurel",
@@ -176,7 +176,7 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 498.36,
-      "_validation": "No corrections required - values and units verified"
+      "_validation": "Unit corrected from 'Mds $' to 'B $' for standardization. Values cannot be verified against source."
     }
   ],
   "stories_kpis": [],
@@ -190,11 +190,17 @@
     ],
     "source": "TD Bank Group 6-K filings and public announcements (2025-2026)"
   },
-  "_validation_summary": {
-    "tagline_updated": "Changed from 'America's Most Convenient Bank' to more accurate 'Leading North American diversified financial services provider'",
-    "yoy_standardization": "Converted all basis points notation: '+0.12 pts' to '+12 bps', '+0.8 pts' to '+80 bps', '+0.3 pts' to '+30 bps', '-1.2 pts' to '-120 bps'",
-    "history_correction": "Fixed ROE history: changed 14 to 14.0 for consistency",
-    "source_validation": "Source document provided is technical XBRL taxonomy only, containing no MD&A or financial data to verify KPI values. All KPI values cannot be validated against source material. Dataset marked as unverifiable but structurally sound.",
-    "hallucination_detection": "Unable to detect hallucination - source material lacks narrative financial data"
+  "_validation": {
+    "unit_corrections": [
+      "Loan Book: 'Mds $' corrected to 'B $'",
+      "Wealth AUM: 'Mds $' corrected to 'B $'"
+    ],
+    "yoy_standardization": "All basis points notation already standardized in dataset",
+    "signal_clarifications": [
+      "CET1 signal: 'capital returns' standardized to 'retour au capital'"
+    ],
+    "source_validation": "Source document provided contains only XBRL taxonomy structure (Level 3 Fair Value Hierarchy, derivative classifications, etc.) with no narrative MD&A or actual financial KPI values for 2025-10-31. Cannot verify: Loan Book (695.8B), NIM (2.15%), ROE (14.8%), CET1 (12.7%), Cost-Income (56.4%), Wealth AUM (489.2B). Dataset structure is sound but values are unverifiable against provided source material.",
+    "hallucination_assessment": "Unable to definitively detect hallucination due to absence of comparable narrative financial data in source. However, values are internally consistent with historical progression and reasonable banking sector metrics. Recommend cross-reference with TD's official 2025 annual report MD&A section.",
+    "critical_note": "All KPI values extracted from dataset lack supporting documentation in source material. This audit flags structural/unit integrity only, not numerical accuracy."
   }
 }

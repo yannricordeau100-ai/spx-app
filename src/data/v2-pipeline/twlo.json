@@ -38,15 +38,16 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "ttm": 300307.69
+      "ttm": 300307.69,
+      "_validation": "Valeurs vérifiées dans MDA: 402k (2025), 325k (2024), 305k (2023). YoY confirmé: (402-325)/325 = 23.7% ≈ +24%."
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires total",
       "name_en": "Total Revenue",
       "explanation": "Montant total des revenus générés par l'entreprise.",
-      "value": "5.07",
-      "unit": "Mds $",
+      "value": "5067",
+      "unit": "M $",
       "yoy": "+14%",
       "type": "Revenue",
       "nature": "Structurel",
@@ -54,22 +55,23 @@
       "signal": "Croissance du chiffre d'affaires supérieure à la moyenne du secteur.",
       "description": "Mesure la performance globale des ventes de l'entreprise.",
       "history": [
-        5.07,
-        4.46,
-        4.15
+        5067,
+        4458,
+        4154
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "ttm": 4.08
+      "ttm": 4816,
+      "_validation": "Correction unité: 'Mds $' -> 'M $' (valeurs en milliers dans source: 5067220 = 5067M = 5.067B). Historique: 5067 (2025), 4458 (2024), 4154 (2023). YoY: (5067-4458)/4458 = 13.7% ≈ +14% confirmé. TTM recalculé."
     },
     {
       "short": "Dollar-Based Net Expansion Rate",
       "name_fr": "Taux d'expansion net basé sur le dollar",
       "name_en": "Dollar-Based Net Expansion Rate",
       "explanation": "Mesure la croissance des revenus des clients existants, ajustée des baisses de revenus.",
-      "value": "108%",
+      "value": "108",
       "unit": "%",
       "yoy": "+4 pts",
       "type": "Revenue",
@@ -86,11 +88,12 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "ttm": 102.75
+      "ttm": 102.75,
+      "_validation": "Valeurs vérifiées dans MDA: 108% (2025), 104% (2024), 103% (2023). YoY confirmé: +4 points. Tous les chiffres correspondent à la source."
     },
     {
-      "short": "R&D",
-      "name_fr": "Investissements R&D (% revenu)",
+      "short": "R&D as % Revenue",
+      "name_fr": "Investissements R&D (en % du revenu)",
       "name_en": "R&D as % Revenue",
       "explanation": "Pourcentage du chiffre d'affaires consacré à la recherche et au développement.",
       "value": null,
@@ -105,15 +108,16 @@
       "last_data_date": null,
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "_validation": "KPI halluciné: aucune donnée R&D en % revenu trouvée dans le 10-K. Valeur, historique et date restent null. Le KPI doit être supprimé ou complété avec données du 10-K."
     },
     {
-      "short": "Capex",
-      "name_fr": "Investissements (semi : fabs)",
+      "short": "Capital Expenditures",
+      "name_fr": "Investissements en capital",
       "name_en": "Capital Expenditures",
       "explanation": "Dépenses en immobilisations corporelles et incorporelles.",
       "value": null,
-      "unit": "$B",
+      "unit": "M $",
       "yoy": null,
       "type": "Investment",
       "nature": "Structurel",
@@ -124,13 +128,14 @@
       "last_data_date": null,
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "_validation": "Correction unité: '$B' -> 'M $' (cohérence avec Total Revenue). Pas de données Capex dans l'extrait fourni. KPI halluciné avec description générique inappropriée au secteur software (mention 'fabs' = fabrication de semiconducteurs). À suppression."
     }
   ],
   "stories_kpis": [
     {
-      "short": "AI Cloud Mix",
-      "name_fr": "Part deals incluant fonctionnalités IA",
+      "short": "AI-related Cloud Deals Mix",
+      "name_fr": "Part des contrats intégrant l'IA",
       "name_en": "AI-related Cloud Deals Mix",
       "explanation": "Pourcentage des contrats cloud qui intègrent des fonctionnalités liées à l'intelligence artificielle.",
       "value": null,
@@ -146,21 +151,27 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Adoption"
+      "story_category": "Adoption",
+      "_validation": "KPI halluciné: aucune donnée sur 'AI Cloud Mix' ou 'deals incluant IA' trouvée dans le 10-K. Bien que l'IA soit mentionnée dans la vision (AI, predictive/generative AI), aucun métrique chiffrée n'existe. À supprimer ou compléter avec données concrètes du 10-K."
     }
   ],
   "ai_positioning": {
-    "stance": "absent",
-    "summary": "Aucune mention significative de l'intelligence artificielle ou de l'apprentissage automatique n'a été trouvée dans le texte fourni.",
-    "evidence": [],
-    "source": "twlo-20251231"
+    "stance": "present",
+    "summary": "Twilio mentionne explicitement l'intelligence artificielle et l'apprentissage automatique comme éléments clés de sa stratégie. L'IA est intégrée à la plateforme pour l'orchestration des communications et l'amélioration de l'engagement client.",
+    "evidence": [
+      "By combining our leading communications capabilities with rich contextual data and artificial intelligence (AI), we provide the infrastructure for businesses of all sizes to revolutionize how they engage with their customers",
+      "Twilio platform combines our communications channels and software solutions with contextual data and AI-powered orchestration",
+      "leverage predictive and generative AI"
+    ],
+    "source": "twlo-20251231",
+    "_validation": "Correction stance: 'absent' -> 'present'. L'IA est mentionnée explicitement dans le Business Overview et MDA plusieurs fois. Ajout de 3 evidences extraites de la source."
   },
   "risks": [
     {
       "title": "Conditions économiques et politiques mondiales défavorables",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "Mentionné en premier dans les risques liés à l'activité et à l'industrie. Le langage est fort (\"adverse impact\", \"widespread macroeconomic uncertainties\"). Le contexte N-1 n'est pas précisé mais l'impact sur un modèle basé sur l'usage est souligné.",
+      "score_rationale": "Mentionné en premier dans les risques liés à l'activité et à l'industrie. Le langage est fort (adverse impact, widespread macroeconomic uncertainties). Le contexte N-1 n'est pas précisé mais l'impact sur un modèle basé sur l'usage est souligné.",
       "trend": "stable",
       "summary": "Les incertitudes économiques mondiales (inflation, taux d'intérêt, relations commerciales) et l'instabilité politique peuvent nuire à l'activité, réduire les dépenses des clients et affecter la demande pour les produits."
     },
@@ -168,7 +179,7 @@
       "title": "Fluctuations des résultats trimestriels et attentes des investisseurs",
       "category": "Reputation",
       "severity": 3,
-      "score_rationale": "Mentionné tôt dans les risques liés à l'activité. Le langage (\"fluctuate\", \"fail to meet expectations\") indique une préoccupation récurrente. La pondération est moyenne car l'impact direct sur l'activité est moins fort que les risques macro.",
+      "score_rationale": "Mentionné tôt dans les risques liés à l'activité. Le langage (fluctuate, fail to meet expectations) indique une préoccupation récurrente. La pondération est moyenne car l'impact direct sur l'activité est moins fort que les risques macro.",
       "trend": "stable",
       "summary": "Les résultats financiers peuvent varier, entraînant des déceptions pour les analystes et investisseurs, ce qui pourrait faire chuter le cours de l'action."
     },
@@ -176,7 +187,7 @@
       "title": "Dépendance à l'égard de l'utilisation des produits par les clients",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Décrit en détail dans les risques liés à l'activité. Le langage est fort (\"adversely affected\", \"revenue may decline\"). Le modèle basé sur l'usage est un point clé. La sévérité est élevée car c'est le cœur du modèle économique.",
+      "score_rationale": "Décrit en détail dans les risques liés à l'activité. Le langage est fort (adversely affected, revenue may decline). Le modèle basé sur l'usage est un point clé. La sévérité est élevée car c'est le cœur du modèle économique.",
       "trend": "stable",
       "summary": "La majorité des revenus dépend de l'utilisation des produits par les clients, qui peuvent réduire ou cesser leur usage sans pénalité, impactant directement le chiffre d'affaires."
     },
@@ -184,7 +195,7 @@
       "title": "Concurrence intense et évolution rapide du marché",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Mentionné dans les risques liés à l'activité et à l'industrie. Le langage est fort (\"intensely competitive\", \"rapidly evolving\"). La catégorie concurrence est pondérée. Le risque est constant dans ce secteur.",
+      "score_rationale": "Mentionné dans les risques liés à l'activité et à l'industrie. Le langage est fort (intensely competitive, rapidly evolving). La catégorie concurrence est pondérée. Le risque est constant dans ce secteur.",
       "trend": "stable",
       "summary": "Le marché est très concurrentiel et évolue rapidement, nécessitant une adaptation constante et une offre attrayante pour rester compétitif face aux nouveaux produits et technologies."
     },
@@ -192,7 +203,7 @@
       "title": "Risques liés à la cybersécurité et à la protection des données",
       "category": "Cybersécurité",
       "severity": 4,
-      "score_rationale": "Section dédiée (\"Cybersecurity, Data Privacy and Intellectual Property\"). Le langage est fort (\"breaches\", \"incidents\", \"failure to comply\"). La cybersécurité est une préoccupation majeure pour les entreprises technologiques.",
+      "score_rationale": "Section dédiée (Cybersecurity, Data Privacy and Intellectual Property). Le langage est fort (breaches, incidents, failure to comply). La cybersécurité est une préoccupation majeure pour les entreprises technologiques.",
       "trend": "up",
       "summary": "Les violations de sécurité, les incidents sur les systèmes ou le non-respect des réglementations sur la confidentialité des données peuvent nuire à la réputation et entraîner des sanctions."
     },
@@ -200,7 +211,7 @@
       "title": "Capacité à attirer et retenir le personnel qualifié",
       "category": "Personne-clé",
       "severity": 3,
-      "score_rationale": "Mentionné dans les risques liés à l'activité. Le langage est clair (\"hire, integrate and retain highly skilled personnel\"). La dépendance à l'expertise est typique du secteur technologique.",
+      "score_rationale": "Mentionné dans les risques liés à l'activité. Le langage est clair (hire, integrate and retain highly skilled personnel). La dépendance à l'expertise est typique du secteur technologique.",
       "trend": "stable",
       "summary": "L'entreprise dépend de l'embauche, de l'intégration et de la rétention d'employés hautement qualifiés, ce qui est essentiel pour l'innovation et l'exécution."
     },
@@ -208,7 +219,7 @@
       "title": "Conformité réglementaire et légale",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "Section dédiée (\"Legal and Regulatory Matters\"). Le langage est précis (\"comply with telecommunications-related regulations\", \"legislative or regulatory actions\"). La complexité réglementaire est une préoccupation constante.",
+      "score_rationale": "Section dédiée (Legal and Regulatory Matters). Le langage est précis (comply with telecommunications-related regulations, legislative or regulatory actions). La complexité réglementaire est une préoccupation constante.",
       "trend": "stable",
       "summary": "Le respect des réglementations télécoms, des lois sur la protection des données et d'autres législations applicables est crucial et des changements peuvent impacter l'activité."
     }
@@ -220,5 +231,18 @@
     "board_independence_pct": 90,
     "board_size": 10,
     "voting_structure": "One share, one vote"
+  },
+  "_validation": {
+    "summary": "Audit dataset TWLO complété. 8 corrections majeures identifiées.",
+    "corrections": [
+      "KPI 'Total Revenue': unité corrigée de 'Mds $' à 'M $' (5067 M$ = 5.067 Mds$). Valeur numérique harmonisée avec source 10-K (5067220 en milliers). Historique ajusté: 5067, 4458, 4154. TTM recalculé à 4816.",
+      "KPI 'Active Customer Accounts': YoY confirmé +24% ((402-325)/325 = 23.7%). Toutes les valeurs vérifiées dans MDA.",
+      "KPI 'Dollar-Based Net Expansion Rate': Valeur numérique corrigée de '108%' à '108' (unité % suffit). Historique confirmé: 108, 104, 103.",
+      "KPI 'R&D': Halluciné. Aucune donnée R&D en % revenu trouvée dans le 10-K. À supprimer ou compléter.",
+      "KPI 'Capex': Halluciné. Unité corrigée '$B' -> 'M $'. Description incorrecte (mention fabs = semiconductor manufacturing, hors scope software). Aucune donnée Capex dans l'extrait. À supprimer.",
+      "Story KPI 'AI Cloud Mix': Halluciné. Aucune métrique chiffrée sur deals incluant IA trouvée malgré présence d'IA dans vision. À supprimer.",
+      "AI Positioning: stance corrigé de 'absent' à 'present'. IA mentionnée explicitement 3+ fois dans Business Overview et MDA (AI-powered orchestration, predictive and generative AI). 3 evidences directes ajoutées.",
+      "Unités harmonisées: tous KPI revenue/financiers en 'M $' pour cohérence (millions USD)."
+    ]
   }
 }

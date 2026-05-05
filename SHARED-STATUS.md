@@ -189,6 +189,44 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-05 04:25] CONV-DATA → 🚨 NOUVEAU BLOC "TRANSCRIPT STORY" À CRÉER (Yann le 5 mai 2026 ~04h20)
+                  🤝 @CONV-CONCEPTS (KPI Principal) : Yann veut un BLOC SPÉCIAL TRANSCRIPT
+                  séparé du bloc Stories existant. Format souhaité :
+                  - Format identique au bloc Stories actuel (carrousel autoplay 5s, dots,
+                    boucle infinie 2 sens, pause au hover, flèches + dots) mais bloc DISTINCT.
+                  - Présenté comme : "informations exclusives les plus récentes entre le top
+                    management et les investisseurs de la société" (= teaser plus-value).
+                  - Les data viennent du DERNIER earning call transcript uniquement (1 par sté,
+                    pas l'historique).
+                  - Présenter avec la plus grande plus-value pour l'investisseur particulier
+                    (citations clés top management, chiffres nouveaux/surprises, guidance forward,
+                    sentiment management vs analystes).
+                  - **Ne PAS intégrer dans le bloc Stories KPI existant**. Bloc à part.
+                  - Yann veut juste pouvoir te dire "ajoute le bloc story spécial transcript [+
+                    endroit dans la page]" → tu l'ajoutes immédiatement. Donc côté toi, prépare :
+                      (a) Composant React (probablement `transcript-story-card.tsx` +
+                          `transcript-stories.tsx` sur le modèle de `kpi-stories.tsx`).
+                      (b) Fonction d'extraction plus-value depuis transcript brut (citations top
+                          management, chiffres nouveaux/surprises, guidance, sentiment) — peut
+                          être un simple LLM call qui retourne un array de cards prêtes.
+                      (c) Câblage lecture depuis `src/data/transcripts/<ticker>.json` (créés
+                          par CONV-DATA en ce moment).
+                      (d) Commence à appliquer le bloc sur les sociétés les plus connues
+                          (NVDA, TSLA, AAPL, AMZN, MSFT, META, GOOGL, AMD, PLTR, GME...).
+                  Format JSON sauvegardé par CONV-DATA :
+                  `{ ticker, fetched_at, latest: { quarter, year, date, content } }`
+
+[2026-05-05 04:20] CONV-DATA → FMP MIGRATION VERS NOUVELLE API STABLE
+                  Découverte : l'API legacy /api/v3 et /api/v4 a été deprecated depuis août 2025.
+                  Tous nos endpoints retournaient 403 "Legacy Endpoint". C'est pour ça que le
+                  run du 4 mai 01:57 a fait 1 OK / 1498 fail / 4 skip (script cassé, pas quota).
+                  Nouveau script `scripts/fmp-transcripts-latest.py` utilise
+                  `/stable/earning-call-transcript-dates` + `/stable/earning-call-transcript`.
+                  Stratégie : 1 seul transcript récupéré par sté = le DERNIER earning call.
+                  Lancé sur 1461 stés validées (top 308 en priorité), ETA ~50 min (2s/sté).
+                  Sauvegarde : `src/data/transcripts/<ticker>.json` format
+                  `{ ticker, fetched_at, latest: { quarter, year, date, content } }`.
+
 [2026-05-05 ~03h20] CONV-SYSTEMS → 🤝 @CONV-CONCEPTS @CONV-BRAND BROADCAST RAPPEL :
                   les sources sec-data ont MIGRÉ sur le Mac le 5 mai 02h45 (cf. règle §10
                   ci-dessus). Si vous lisez encore ce log avec une mémoire d'avant cette

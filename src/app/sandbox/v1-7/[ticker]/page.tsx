@@ -3,6 +3,7 @@ import { promises as fs } from "fs";
 import path from "path";
 import { CompanyView } from "@/components/company-view";
 import type { Company } from "@/lib/data";
+import { enhanceFreshness } from "@/lib/v1-7/enhance-freshness";
 
 export const dynamic = "force-dynamic";
 
@@ -50,7 +51,7 @@ async function loadDataset(ticker: string): Promise<Company | null> {
     if (!data.logo_treatment) (data as Company).logo_treatment = "orbit";
     if (!data.ranks) data.ranks = { global_world: "-", global_us: "-", sector: "-", subsector: "-" };
     if (!data.tagline) data.tagline = "";
-    return data as Company;
+    return enhanceFreshness(data as Company & Record<string, unknown>);
   } catch {
     return null;
   }

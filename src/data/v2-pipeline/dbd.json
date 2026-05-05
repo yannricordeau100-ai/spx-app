@@ -22,7 +22,7 @@
       "name_en": "Service / Subscription / ARR Revenue",
       "explanation": "Revenu provenant des contrats de maintenance, de logiciels et de services récurrents.",
       "value": "1.2",
-      "unit": "Mds $",
+      "unit": "B $",
       "yoy": "+8%",
       "type": "Recurring",
       "nature": "Structurel",
@@ -40,7 +40,8 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "ttm": 1.22
+      "ttm": 1.22,
+      "_validation": "Unit corrected from 'Mds $' to 'B $' for consistency with US conventions"
     },
     {
       "short": "Gross Margin",
@@ -66,7 +67,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "ttm": 28.65
+      "ttm": 28.65,
+      "_validation": "No changes needed"
     },
     {
       "short": "Op Margin",
@@ -92,7 +94,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "ttm": 5.31
+      "ttm": 5.31,
+      "_validation": "No changes needed"
     },
     {
       "short": "R&D",
@@ -109,7 +112,7 @@
       "description": "DBD investit modestement en R&D, concentré sur les solutions logicielles pour distributeurs.",
       "history": [
         3.9,
-        4,
+        4.0,
         4.1,
         4.1,
         4.1
@@ -118,15 +121,16 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "ttm": 4.1
+      "ttm": 4.1,
+      "_validation": "No changes needed"
     },
     {
       "short": "Capex",
-      "name_fr": "Investissements (semi : fabs)",
+      "name_fr": "Investissements (actifs matériels et immatériels)",
       "name_en": "Capital Expenditures",
       "explanation": "Dépenses en actifs matériels et immatériels pour maintenir et étendre les opérations.",
       "value": "0.18",
-      "unit": "Mds $",
+      "unit": "B $",
       "yoy": "-5%",
       "type": "Investment",
       "nature": "Conjoncturel",
@@ -144,7 +148,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "ttm": 0.18
+      "ttm": 0.18,
+      "_validation": "Unit corrected from 'Mds $' to 'B $'; name_fr clarified to remove misleading reference to 'semi : fabs' (not applicable to DBD)"
     },
     {
       "short": "Headcount",
@@ -170,7 +175,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "ttm": 5.78
+      "ttm": 5.78,
+      "_validation": "No changes needed"
     }
   ],
   "stories_kpis": [
@@ -180,7 +186,7 @@
       "name_en": "AI API Call Volume",
       "explanation": "Nombre d'appels aux APIs d'intelligence artificielle dans les solutions logicielles.",
       "value": "1.2",
-      "unit": "Mds",
+      "unit": "B",
       "yoy": "+150%",
       "type": "Adoption",
       "nature": "Structurel",
@@ -191,7 +197,7 @@
         0.3,
         0.5,
         0.8,
-        1,
+        1.0,
         1.2
       ],
       "last_data_date": "2026-02-24",
@@ -199,7 +205,8 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Adoption",
-      "ttm": 1.26
+      "ttm": 1.26,
+      "_validation": "HALLUCINATED KPI: Unit changed from 'Mds' to 'B' but no source data provided in 10-K for AI API call volume. This metric appears fabricated and not verifiable from the 10-K extract provided. Flagged as unsupported claim."
     },
     {
       "short": "AI Cloud Mix",
@@ -226,7 +233,8 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Adoption",
-      "ttm": 36.46
+      "ttm": 36.46,
+      "_validation": "HALLUCINATED KPI: No source data provided in 10-K for AI cloud deals mix percentage. Company's ai_positioning section explicitly states 'stance: absent' and 'no mention of AI in 10-K'. This metric contradicts the 10-K content and appears fabricated."
     }
   ],
   "ai_positioning": {
@@ -292,5 +300,19 @@
     "board_independence_pct": null,
     "board_size": 8,
     "voting_structure": "Non-cumulative voting"
+  },
+  "_validation": {
+    "summary": "Dataset audit completed with critical issues identified",
+    "corrections": [
+      "Service/ARR: Unit 'Mds $' corrected to 'B $' for USD billions consistency",
+      "Capex: Unit 'Mds $' corrected to 'B $'; name_fr updated to remove inapplicable 'semi: fabs' reference",
+      "Two stories_kpis (AI API Calls, AI Cloud Mix) flagged as HALLUCINATED: No supporting data found in 10-K extract; contradicts ai_positioning stance 'absent'",
+      "All risk factors verified against 10-K structure (Items 1A, 1C, 3)",
+      "Governance data verified against signatures section (CEO Octavio Marquez confirmed, board size 8 confirmed)"
+    ],
+    "high_risk_items": [
+      "AI API Calls (1.2B calls, +150% YoY): UNSUPPORTED in source",
+      "AI Cloud Mix (35%, +10pts YoY): UNSUPPORTED in source - contradicts explicit ai_positioning.stance='absent'"
+    ]
   }
 }

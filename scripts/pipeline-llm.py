@@ -40,8 +40,12 @@ OUTPUT_DIR = PROJECT_ROOT / "src/data/v2-pipeline"
 CACHE_DIR = PROJECT_ROOT / ".pipeline-cache"
 LOG_PATH = PROJECT_ROOT / "sec-data/_meta/pipeline-llm.log"
 
-CAT1_DIR = Path("/Volumes/250GB/Mettrik/sec-data/cat1-us")
-CAT2_DIR = Path("/Volumes/250GB/Mettrik/sec-data/cat2-foreign-adr")
+# Sources sec-data : utilise le symlink ~/spx-app/sec-data qui pointe maintenant
+# sur la copie locale ~/Mettrik/sec-data (au lieu du disque externe en panne).
+# Le symlink est suivi automatiquement, donc si Yann déplace la source plus tard
+# il suffit de mettre à jour le symlink, pas de toucher au code.
+CAT1_DIR = PROJECT_ROOT / "sec-data/cat1-us"
+CAT2_DIR = PROJECT_ROOT / "sec-data/cat2-foreign-adr"
 
 # Top 20 cat 1 (US) — par market cap 2024-2025, hors META + GOOGL (V1)
 TOP20_CAT1 = [
@@ -633,7 +637,7 @@ def find_latest_filing(ticker: str, cat: int, form_dir: str) -> Path | None:
     return candidates[0][1]
 
 
-CAT3_DIR = Path("/Volumes/250GB/Mettrik/sec-data/cat3-european")
+CAT3_DIR = PROJECT_ROOT / "sec-data/cat3-european"
 CAT3_DIR_LOCAL = PROJECT_ROOT / "sec-data/cat3-european"
 
 

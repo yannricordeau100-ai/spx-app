@@ -18,7 +18,7 @@ done
 echo "[$(date)] Cat1 terminé." >> "$LOG"
 python3 -c "
 import json
-d = json.load(open('/Volumes/250GB/Mettrik/sec-data/_meta/cat1-us-v2-progress.json'))
+d = json.load(open('/Users/yann/spx-app/sec-data/_meta/cat1-us-v2-progress.json'))
 print(f'Cat1 final : {len(d[\"completed\"])}/2500 completed')
 " >> "$LOG"
 touch "$FLAG_CAT1"
@@ -39,7 +39,7 @@ echo "[$(date)] Cat3 terminé." >> "$LOG"
 python3 -c "
 import json
 try:
-    d = json.load(open('/Volumes/250GB/Mettrik/sec-data/_meta/cat3-_progress.json'))
+    d = json.load(open('/Users/yann/spx-app/sec-data/_meta/cat3-_progress.json'))
     print(f'Cat3 final : {len(d.get(\"completed\",[]))} completed, {len(d.get(\"failed\",[]))} failed')
 except Exception as e:
     print(f'Cat3 progress lookup failed: {e}')

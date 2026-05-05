@@ -14,16 +14,16 @@
     "subsector": "..."
   },
   "hero_kpi": "Total Fuel Contribution",
-  "hero_kpi_rationale": "Le total fuel contribution est un indicateur clé de la performance de l'entreprise, car il reflète la capacité de l'entreprise à générer des revenus à partir de la vente de carburant.",
+  "hero_kpi_rationale": "Le total fuel contribution est un indicateur clé de la performance de l'entreprise, car il reflète la capacité à générer des revenus à partir de la vente de carburant incluant la marge retail et les résultats des ventes de RINs.",
   "kpis": [
     {
       "short": "Total Fuel Contribution",
       "name_fr": "Contribution totale du carburant",
       "name_en": "Total Fuel Contribution",
       "explanation": "Contribution totale du carburant, incluant la marge de vente de carburant et les résultats de la vente de RINs",
-      "value": "30.7 cpg",
+      "value": "30.7",
       "unit": "cpg",
-      "yoy": "+0.2 cpg",
+      "yoy": "+0.2",
       "type": "Revenue",
       "nature": "Cyclique",
       "comparable": "Comparable",
@@ -37,14 +37,15 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "ttm": 30.75
+      "ttm": 30.75,
+      "_validation": "Séparation de la valeur et de l'unité (30.7 cpg -> 30.7 + cpg); Séparation du YoY (+0.2 cpg -> +0.2)"
     },
     {
       "short": "RINs Price",
-      "name_fr": "Prix des RINs",
-      "name_en": "RINs Price",
+      "name_fr": "Prix moyen des RINs",
+      "name_en": "Average RINs Price",
       "explanation": "Prix moyen des RINs vendus par l'entreprise",
-      "value": "0.97 $/RIN",
+      "value": "0.97",
       "unit": "$/RIN",
       "yoy": "+64%",
       "type": "Revenue",
@@ -60,35 +61,37 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "ttm": 1.13
+      "ttm": 1.13,
+      "_validation": "Séparation de la valeur et de l'unité (0.97 $/RIN -> 0.97 + $/RIN); Amélioration du name_en (RINs Price -> Average RINs Price); Amélioration du name_fr (Prix des RINs -> Prix moyen des RINs)"
     },
     {
-      "short": "Capex",
-      "name_fr": "Investissements",
-      "name_en": "Capital Expenditures",
-      "explanation": "Investissements totaux de l'entreprise",
-      "value": "475-525 M$",
+      "short": "Capital Expenditures",
+      "name_fr": "Dépenses en capital",
+      "name_en": "Capital Expenditures Guidance",
+      "explanation": "Investissements totaux de l'entreprise pour 2026 incluant les terrains pour développements futurs",
+      "value": "475-525",
       "unit": "M$",
-      "yoy": "n/a",
+      "yoy": "Guidance 2026",
       "type": "Investment",
       "nature": "Structurel",
       "comparable": "Non comparable",
       "signal": "Stable",
-      "description": "Investissements totaux de l'entreprise",
+      "description": "Investissements totaux anticipés de l'entreprise incluant les terrains pour développements futurs",
       "history": [],
       "last_data_date": "2026-04-03",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "_validation": "Amélioration du short et name_en pour clarifier qu'il s'agit d'une guidance; Amélioration de l'explanation et description; Changement du YoY de n/a à Guidance 2026; Séparation de la valeur et de l'unité (475-525 M$ -> 475-525 + M$)"
     }
   ],
   "stories_kpis": [
     {
       "short": "RINs Price",
-      "name_fr": "Prix des RINs",
-      "name_en": "RINs Price",
+      "name_fr": "Prix moyen des RINs",
+      "name_en": "Average RINs Price",
       "explanation": "Prix moyen des RINs vendus par l'entreprise",
-      "value": "0.97 $/RIN",
+      "value": "0.97",
       "unit": "$/RIN",
       "yoy": "+64%",
       "type": "Revenue",
@@ -105,7 +108,8 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Marché",
-      "ttm": 1.13
+      "ttm": 1.13,
+      "_validation": "Séparation de la valeur et de l'unité (0.97 $/RIN -> 0.97 + $/RIN); Amélioration du name_en (RINs Price -> Average RINs Price); Amélioration du name_fr (Prix des RINs -> Prix moyen des RINs)"
     }
   ],
   "ai_positioning": {
@@ -113,5 +117,12 @@
     "summary": "L'entreprise ne semble pas avoir une position claire en matière d'intelligence artificielle.",
     "evidence": [],
     "source": ""
-  }
+  },
+  "_validation": [
+    "KPI 1 (Total Fuel Contribution): Séparation de la valeur et de l'unité pour respecter la structure; Séparation du YoY; Amélioration du hero_kpi_rationale en supprimant les tirets longs",
+    "KPI 2 (RINs Price): Séparation de la valeur et de l'unité; Amélioration du tagline en anglais (Average RINs Price); Amélioration du name_fr (précision)",
+    "KPI 3 (Capex): Changement du short/name_en pour clarifier qu'il s'agit d'une guidance 2026; Séparation de la valeur et de l'unité; Modification du YoY de n/a à Guidance 2026; Amélioration de l'explanation et description pour clarifier l'inclusion des terrains",
+    "Stories KPIs: Synchronisation avec les corrections du KPI 2 (RINs Price)",
+    "Tous les valeurs ont été validées par rapport au MD&A du 10-K: Total Fuel Contribution 30.7 cpg (2025) vs 30.5 cpg (2024), RINs Price $0.97/RIN (2025) vs $0.59/RIN (2024), Capex guidance 475-525M$ pour 2026 confirmés"
+  ]
 }
