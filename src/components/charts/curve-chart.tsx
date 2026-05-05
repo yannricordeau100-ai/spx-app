@@ -200,19 +200,6 @@ export function CurveChart({
 
   return (
     <div className="relative w-full">
-      {/* Header d'unité — hors SVG (n'ajoute PAS de hauteur au graph
-          puisque la hauteur du graph est fixée par le viewBox SVG en
-          dessous). On le décale vers la droite via padding-left
-          proportionnel pour qu'il s'aligne approximativement sur l'axe Y
-          (PAD_LEFT = 96 / W = 920 ≈ 10.4 %). */}
-      {header && (
-        <div
-          className="mb-1 font-mono text-[12px] font-semibold text-zinc-200"
-          style={{ paddingLeft: `${(PAD_LEFT / W) * 100}%` }}
-        >
-          {header}
-        </div>
-      )}
       <svg
         ref={svgRef}
         width="100%"
@@ -221,6 +208,13 @@ export function CurveChart({
         preserveAspectRatio="xMidYMid meet"
         style={{ display: "block", overflow: "visible" }}
       >
+      {/* Header d'unité dans le SVG (au-dessus de l'axe Y) pour qu'il
+          apparaisse aussi dans l'export PNG. Demande Yann 5 mai 2026. */}
+      {header && (
+        <text x={PAD_LEFT} y={22} fontSize={13} fontWeight={600} fill="#e4e4e7" fontFamily="ui-monospace, monospace">
+          {header}
+        </text>
+      )}
         <defs>
           <filter id={idGlow} x="-30%" y="-30%" width="160%" height="160%">
             <feGaussianBlur stdDeviation="6" />

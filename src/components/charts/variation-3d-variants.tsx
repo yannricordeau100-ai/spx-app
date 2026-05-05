@@ -87,15 +87,11 @@ export function VariationIsoSteps3D({ data, labels, events = [] }: Props) {
 
   return (
     <div className="relative w-full">
-      {/* Header d'unité — variation = % par construction. Hors SVG,
-          décalé vers la droite via padding-left proportionnel à PAD_LEFT. */}
-      <div
-        className="mb-1 font-mono text-[12px] font-semibold text-zinc-200"
-        style={{ paddingLeft: `${(PAD_LEFT / W) * 100}%` }}
-      >
-        % (YoY)
-      </div>
     <svg ref={svgRef} width="100%" height="420" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" style={{ overflow: "visible" }}>
+      {/* Header d'unité dans le SVG pour qu'il apparaisse aussi dans l'export. */}
+      <text x={PAD_LEFT} y={22} fontSize={13} fontWeight={600} fill="#e4e4e7" fontFamily="ui-monospace, monospace">
+        % (YoY)
+      </text>
       <defs>
         {[POS, NEG].map((c, k) => (
           <g key={k}>

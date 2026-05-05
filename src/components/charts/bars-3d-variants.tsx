@@ -129,17 +129,14 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
 
   return (
     <div className="relative w-full">
-      {/* Header d'unité — hors SVG, décalé vers la droite par padding-left
-          proportionnel à PAD_LEFT pour s'aligner sur l'axe Y. */}
-      {header && (
-        <div
-          className="mb-1 font-mono text-[12px] font-semibold text-zinc-200"
-          style={{ paddingLeft: `${(PAD_LEFT / W) * 100}%` }}
-        >
-          {header}
-        </div>
-      )}
     <svg ref={svgRef} width="100%" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" style={{ overflow: "visible" }}>
+      {/* Header d'unité dans le SVG (au-dessus de l'axe Y) pour qu'il
+          apparaisse aussi dans l'export PNG. Demande Yann 5 mai 2026. */}
+      {header && (
+        <text x={PAD_LEFT} y={22} fontSize={13} fontWeight={600} fill="#e4e4e7" fontFamily="ui-monospace, monospace">
+          {header}
+        </text>
+      )}
       <defs>
         <linearGradient id="b26-front" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor={color} stopOpacity={0.95} />
