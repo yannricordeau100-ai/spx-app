@@ -153,6 +153,12 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
           <stop offset="0%" stopColor="#ffffff" stopOpacity={0.85} />
           <stop offset="100%" stopColor={color} stopOpacity={0.85} />
         </linearGradient>
+        {/* Filtre néon : halo lumineux autour de chaque barre, identique
+            au glow utilisé sur la courbe (cohérence visuelle demandée
+            Yann 5 mai 2026 : "barres style néon comme la courbe"). */}
+        <filter id={`b26-neon-${color.slice(1)}`} x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="5" />
+        </filter>
       </defs>
       {ticks.map((v, i) => (
         <line key={i} x1={PAD_LEFT} x2={PAD_LEFT + INNER_W} y1={yFor(v)} y2={yFor(v)}
@@ -184,25 +190,50 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
               <ellipse cx={x + barW / 2 + DX / 2} cy={baseY + 6} rx={barW * 0.7} ry={6} fill="#000" fillOpacity={0.4} />
             )}
             {isClassic ? (
-              /* Classic 2D flat bar */
-              <rect
-                x={x}
-                y={yT}
-                width={barW}
-                height={h}
-                fill={color}
-                fillOpacity={isTTM ? 0.35 : 0.75}
-                stroke={color}
-                strokeWidth={isTTM ? 1.6 : 1.2}
-                strokeDasharray={ttmDash}
-                rx={2}
-              />
-            ) : (
-              /* Iso 3D : front + side + top */
+              /* Classic 2D flat bar — style néon : halo glow derrière +
+                 fill semi-transparent + stroke vif + cap blanc en haut. */
               <>
-                <path d={front} fill="url(#b26-front)" stroke="#050505" strokeWidth={0.6} strokeDasharray={ttmDash} />
-                <path d={side} fill="url(#b26-side)" stroke="#050505" strokeWidth={0.6} strokeDasharray={ttmDash} />
-                <path d={top} fill="url(#b26-top)" stroke="#050505" strokeWidth={0.6} strokeDasharray={ttmDash} />
+                {/* Glow halo derrière (filtre Gaussian blur) */}
+                {!isTTM && (
+                  <rect
+                    x={x}
+                    y={yT}
+                    width={barW}
+                    height={h}
+                    fill={color}
+                    fillOpacity={0.55}
+                    rx={2}
+                    filter={`url(#b26-neon-${color.slice(1)})`}
+                  />
+                )}
+                {/* Bar principale : fill semi-transparent + stroke néon */}
+                <rect
+                  x={x}
+                  y={yT}
+                  width={barW}
+                  height={h}
+                  fill={color}
+                  fillOpacity={isTTM ? 0.18 : 0.4}
+                  stroke={color}
+                  strokeWidth={isTTM ? 1.6 : 1.5}
+                  strokeDasharray={ttmDash}
+                  rx={2}
+                />
+                {/* Top cap blanc lumineux (façon tube néon) */}
+                {!isTTM && (
+                  <line x1={x + 1.5} y1={yT + 0.5} x2={x + barW - 1.5} y2={yT + 0.5} stroke="#ffffff" strokeWidth={1.4} strokeOpacity={0.9} strokeLinecap="round" />
+                )}
+              </>
+            ) : (
+              /* Iso 3D : front + side + top — style néon : glow halo
+                 + faces semi-transparentes + arête frontale blanche. */
+              <>
+                {!isTTM && (
+                  <path d={front} fill={color} fillOpacity={0.5} filter={`url(#b26-neon-${color.slice(1)})`} />
+                )}
+                <path d={front} fill="url(#b26-front)" stroke={color} strokeWidth={1.2} strokeDasharray={ttmDash} fillOpacity={isTTM ? 0.4 : 0.85} />
+                <path d={side} fill="url(#b26-side)" stroke="#050505" strokeWidth={0.4} strokeDasharray={ttmDash} fillOpacity={isTTM ? 0.4 : 0.85} />
+                <path d={top} fill="url(#b26-top)" stroke="#ffffff" strokeWidth={isTTM ? 0.6 : 1.1} strokeOpacity={isTTM ? 0.4 : 0.9} strokeDasharray={ttmDash} />
               </>
             )}
             {/* Valeur au-dessus de chaque barre (toujours visible). Format
@@ -302,7 +333,7 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
       {/* Mini-logo Mettrik AI (italic Fraunces, gradient iridescent) — version
           home-style miniature. Marqué `data-chart-logo="small"` : caché à
           l'export et remplacé par un grand watermark (cf. chart-export.ts). */}
-      <ChartMiniLogo x={PAD_LEFT + 6} y={PAD_TOP - 18} height={14} gradientId="mini-logo-bars" />
+      <ChartMiniLogo x={PAD_LEFT + 6} y={PAD_TOP - 18} height={14} />
     </svg>
 
     {/* Bouton download (capture SVG + watermark → PNG) */}

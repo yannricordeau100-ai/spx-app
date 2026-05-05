@@ -150,9 +150,10 @@ export function VariationIsoSteps3D({ data, labels, events = [] }: Props) {
             {(() => {
               const cx = x + barW / 2 + DX / 2;
               const numTxt = Math.abs(pct).toFixed(1);
-              const numFz = 24;
-              const yPos = (yTop + DY) - 14;       // au-dessus de la barre verte
-              const yNeg = yBot + 28;              // sous la barre rouge, clearance OK
+              // 14 (vs 24 avant) = -40 % comme demandé Yann (5 mai 2026)
+              const numFz = 14;
+              const yPos = (yTop + DY) - 10;       // au-dessus de la barre verte
+              const yNeg = yBot + 22;              // sous la barre rouge, clearance OK
               return (
                 <text
                   x={cx}
@@ -214,7 +215,7 @@ export function VariationIsoSteps3D({ data, labels, events = [] }: Props) {
 
       {/* Mini-logo Mettrik AI (home-style). Caché à l'export, remplacé
           par un grand watermark (cf. chart-export.ts). */}
-      <ChartMiniLogo x={PAD_LEFT + 6} y={PAD_TOP - 18} height={14} gradientId="mini-logo-variation" />
+      <ChartMiniLogo x={PAD_LEFT + 6} y={PAD_TOP - 18} height={14} />
     </svg>
 
     {/* Bouton download */}

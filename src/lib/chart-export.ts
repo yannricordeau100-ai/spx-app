@@ -71,18 +71,31 @@ export async function downloadSvgAsPng(
   defs.appendChild(grad);
   wmGroup.appendChild(defs);
 
+  // Position : haut-droite (où Yann a dessiné le rectangle blanc sur les
+  // 2 screenshots du 5 mai 2026). Padding 24px depuis bord droit + haut.
   const wmText = document.createElementNS(NS, "text");
-  // Centré horizontalement (texte ancré en milieu de viewBox).
-  wmText.setAttribute("x", String(W / 2));
-  wmText.setAttribute("y", String(H / 2 + 30));
-  wmText.setAttribute("text-anchor", "middle");
+  const wmFontSize = 56;
+  wmText.setAttribute("x", String(W - 24));
+  wmText.setAttribute("y", String(24 + wmFontSize * 0.85));
+  wmText.setAttribute("text-anchor", "end");
   wmText.setAttribute("font-family", "Georgia, serif");
   wmText.setAttribute("font-style", "italic");
   wmText.setAttribute("font-weight", "800");
-  wmText.setAttribute("font-size", "96");
+  wmText.setAttribute("font-size", String(wmFontSize));
   wmText.setAttribute("letter-spacing", "-0.04em");
   wmText.setAttribute("fill", "url(#mettrik-watermark-grad)");
-  wmText.textContent = "Mettrik AI";
+  // Wordmark "Mettrik.AI" avec point entre Mettrik et AI (demande Yann
+  // 5 mai 2026 : "rajoutant un point entre le k et le 'ai'").
+  const tspan1 = document.createElementNS(NS, "tspan");
+  tspan1.textContent = "Mettrik";
+  wmText.appendChild(tspan1);
+  const tspanDot = document.createElementNS(NS, "tspan");
+  tspanDot.setAttribute("font-weight", "400");
+  tspanDot.textContent = ".";
+  wmText.appendChild(tspanDot);
+  const tspan2 = document.createElementNS(NS, "tspan");
+  tspan2.textContent = "AI";
+  wmText.appendChild(tspan2);
   wmGroup.appendChild(wmText);
   clone.appendChild(wmGroup);
 
