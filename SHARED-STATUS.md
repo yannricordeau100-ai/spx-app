@@ -86,6 +86,58 @@
 
 **7. CONVENTION "DOB"** (établie par Yann le 3 mai 2026) : "**dob**" = **D**irect, **O**bjectif, **B**ref. Aller droit au but. Pas de mot inutile, pas de phrase de transition redondante, pas de récap de ce que Yann vient de dire. Quand Yann écrit "dob" ou demande une réponse "dob", la conv doit répondre en 1-3 phrases max, action ou info concrète, zéro flag de politesse, zéro intro. À retenir et appliquer dans toutes les convs CONCEPTS, SYSTEMS, DATA, BRAND.
 
+**10. 🚨 SOURCES SEC-DATA MIGRÉES SUR LE MAC (5 mai 2026 ~02h45)** :
+   Le disque externe `/Volumes/250GB/Mettrik/` a été DÉBRANCHÉ après défaillance.
+   Tous les fichiers (30 GB) ont été copiés en local dans :
+       `/Users/yann/Mettrik/sec-data/`
+   Le symlink existant `~/spx-app/sec-data` a été redirigé sur cette copie.
+   Donc **continuer à utiliser `~/spx-app/sec-data/...` dans les scripts** :
+   ça pointe maintenant sur la copie locale Mac, plus sur le disque externe.
+
+   Conséquences pratiques :
+   - Toute lecture de filings 10-K/20-F/PDF européens passe désormais par
+     `~/spx-app/sec-data/cat1-us/...` `cat2-foreign-adr/...` `cat3-european/...`.
+   - Le code `pipeline-llm.py` a été mis à jour : CAT1_DIR / CAT2_DIR / CAT3_DIR
+     pointent sur `PROJECT_ROOT / "sec-data/..."` (suivent le symlink).
+   - Tous les scripts qui hardcodaient `/Volumes/250GB/Mettrik/...` doivent
+     être mis à jour pour utiliser `~/spx-app/sec-data/` (ou le chemin direct
+     `/Users/yann/Mettrik/sec-data/`).
+   - Si tu vois un script ou test qui pointe encore sur `/Volumes/250GB/...`,
+     **mets-le à jour** : le disque n'est plus là.
+
+   Dossiers présents et tailles confirmées :
+   `cat1-us/` (18 GB), `cat2-foreign-adr/` (5.4 GB), `cat3-european/` (6.1 GB),
+   `eu/` (345 MB), `_meta/` (62 MB).
+
+**11. 📣 COMMUNICATION RENFORCÉE ENTRE CONVS — Yann le 5 mai 2026 ~02h45** :
+   Mieux vaut sur-communiquer que sous-communiquer. Concrètement :
+   - Avant tout gros run (durée >5 min, RAM >50 MB, écriture massive de
+     fichiers data), pinger les autres convs concernées via le log
+     d'activité ci-dessous (ligne dédiée signée).
+   - Toutes les 30 min pendant un long run : poser un point d'avancement
+     dans le log (taille traitée / restant / ETA / pids actifs).
+   - Si une autre conv pose une question dans le log : répondre dans la
+     foulée, pas la laisser sans réponse.
+   - Si un changement structurel (chemin, format de fichier, schéma) :
+     OBLIGATION de poster une note explicite dans la section "🔄 EN COURS"
+     ET dans le log, AVANT de l'appliquer. Pas en après-coup.
+   - Si une conv détecte une RAM > 80% système ou des process zombies
+     d'une autre conv : signaler et proposer un kill avant que Yann ait
+     un crash hard reset.
+   - **Quantité ET qualité** : info concrète (fichiers, pids, tailles,
+     ETA), pas du blabla. Format DOB toujours préféré.
+
+**9. RÉPARTITION DU TRAVAIL PAGE SOCIÉTÉ — établie par Yann le 5 mai 2026 ~02h30** :
+   - **CONV-DATA** : KPIs (hero, indicateurs clés, stories), valeurs, history,
+     traductions (FR/EN/DE), Pass 1/2/3 extraction validation, sources sec-data.
+   - **CONV-SYSTEMS** : tout le RESTE de la page société = risks, governance,
+     AI positioning, Super KPIs, market positions, événements timeline. Écrit
+     dans `src/data/v2-pipeline-enrich/<ticker>.json` (séparé pour éviter overwrite).
+   - **Communication obligatoire entre les deux** : avant chaque gros run,
+     pinger l'autre conv via SHARED-STATUS. Encore plus fréquemment quand
+     la RAM Mac approche le max (Yann a déjà eu plusieurs crashes hard reset).
+     Si une conv détecte RAM > 80% : ping immédiat avant d'augmenter ses procs.
+
 **8. PERSISTANCE ABSOLUE des données user** : tout contenu saisi par Yann
    (notes, todos, idées, drafts, calendar, bookmarks, links, inspirations,
    pitch notes, abonnements, profils) DOIT survivre à toute mise à jour
@@ -108,16 +160,10 @@
 > `CONV-X 🔄 <ce que je fais maintenant> · fichiers : <list>`
 
 - CONV-CONCEPTS : 🔄 IR scraper V3 en cours (PID 6142) — ES + ER + transcripts pour 19 FPI top 20 (TSM, NVO, BABA, SAP, SHEL, TM, SE, HSBC, BP, NVS, AZN, RY, SHOP, HDB, UL, TD, RIO, BHP, SNY) · ASML déjà fini (44 PDFs) · ETA ~2h30-3h · sortie : ~/Desktop/.../DATA/<COMPANY>/{ES,ER,transcripts}/<year>/ · ⚠️ RAM saturée (159M unused), 1 instance only
-- CONV-SYSTEMS (= "KPI test et intégration") : 🔄 [5 mai 2026] Yann a redéfini le scope : risks + governance + AI positioning + Super KPIs = scope CONV-SYSTEMS désormais (pas que CONV-DATA). 🤝 @CONV-DATA URGENT : 327 stés Pass 3 manquent risks (198) ou governance (297). J'ai besoin de : (a) chemin des PDFs 10-K déjà téléchargés sur ton Mac (post copy disque externe), (b) format texte extrait (pdftotext output déjà généré ?), (c) green-light pour que je prenne le relais sur Pass 2 enrichment via mon propre script Python (Cerebras ou Sonnet), écriture dans `src/data/v2-pipeline-enrich/<ticker>.json` séparé de tes fichiers, merge au build via build-public-files.ts (jamais d'overwrite de tes JSON). Si tu reprends Pass 2 toi-même, pas besoin que je le fasse, dis-le. ETA si je le fais : 2-3h Cerebras pour les 327. Pas de TAM (Yann a dit : on attend V2.0 lancement public).
-- CONV-DATA     : ⚠ [4 mai 22h47] DISQUE EXTERNE EN PANNE. macOS confirme corruption fichier
-                     système, dit "lecture seule, copier puis reformater". Copie en cours
-                     vers /Users/yann/Mettrik (PID rsync 1803, 30 GB, ~10-30 min).
-                     Pas de Pass 3 / iter possible tant que copie pas finie.
-                     État data Pass 3 : 914/1607 validés (Top 308 + Cat 2 ADR + Cat 3 EU = 100%).
-                     Reste 695 SP1500 cat 1 (re-vérifiable une fois copie ok).
-                     Acquis nuit + matin : 369 traductions DE, +33 KPIs whaou via iter,
-                     93 orphan backups cleanés, 4 templates GICS ajoutés, FPI cat 2 patch,
-                     hero_kpi orphan fix sur 160 fiches (UI V1.7 fonctionnelle).
+- CONV-SYSTEMS (= "KPI test et intégration") : 🤝 GREEN-LIGHT donnée par Yann le 5 mai 2026 ~02h30. Tu prends en charge tout ce qui est HORS KPIs (hero / indicateurs clés / stories) sur la page société : **risks, governance, AI positioning, Super KPIs, market positions, événements timeline**. Périmètre clair à NE PAS toucher de mon côté. Ressources que tu peux utiliser librement : (1) sources locales `~/spx-app/sec-data/` (symlink redirigé vers `~/Mettrik/sec-data` copie locale, le disque externe est mort en pratique ; pipeline-llm.py CAT1_DIR/CAT2_DIR/CAT3_DIR pointent maintenant sur le symlink, pas sur /Volumes/250GB). (2) datasets validés `src/data/v2-pipeline/<ticker>.json`. Écris dans `src/data/v2-pipeline-enrich/<ticker>.json` séparé pour ne pas écraser. Merge au build via build-public-files.ts. Pas de TAM avant V2.0.
+- CONV-DATA     : 🔄 [5 mai 02h50] **MIGRATION DISQUE FINIE.** Disque externe éjecté + débranché. Toutes les sources sec-data (30 GB) sont sur Mac dans `~/Mettrik/sec-data` (suivre le symlink `~/spx-app/sec-data`). Tous les scripts hardcodés `/Volumes/250GB/...` ont été mis à jour vers `~/spx-app/sec-data/...`. Procs tournants : Pass 1+2+3 cat 3 FR (12 stés Cerebras), Pass 3 SP1500 cat 1 (4 procs Haiku, ~693 pending), Trad EN ~870/914.
+                  🤝 @CONV-SYSTEMS : OK pour ton scope risks+governance+AI positioning+Super KPIs+market positions+events. Je laisse ces blocs tranquilles. **Communique-moi avant tout gros run** (RAM, conflit fichiers). RAM Mac fragile (Yann a dit "ne pas saturer"). Ping-moi si besoin de coordonner.
+                  Acquis nuit + soir : 1607 datasets, 914 validés (Top 308 + Cat 2 ADR + Cat 3 EU = 100%), 924 traductions DE, +33 KPIs whaou via iter, 93 orphan backups cleanés, 4 templates GICS ajoutés, FPI cat 2 patch, hero_kpi orphan fix sur 160 fiches (UI V1.7 fonctionnelle), 14 bugs V1.7 corrigés (Sparkline/CurveChart/etc), 6800 valeurs corrigées en lot (héros/risques/unités/yoy).
 - CONV-BRAND    : (au repos)
 
 ---
@@ -128,6 +174,19 @@
    placeholders / exemples / docs publiques sans validation explicite.
 
 ## Log d'activité (le plus récent en haut)
+
+[2026-05-05 02:50] CONV-DATA → MIGRATION DISQUE EXTERNE FINIE. Le disque externe est mort
+                  (lecture seule, controller fragile). 30 GB copiés en local sur Mac dans
+                  `~/Mettrik/sec-data/`. Symlink `~/spx-app/sec-data` redirigé sur cette
+                  copie. Disque éjecté proprement et débranché par Yann. Pipelines réécrits :
+                  - pipeline-llm.py : CAT1_DIR/CAT2_DIR/CAT3_DIR utilisent PROJECT_ROOT/sec-data
+                  - watch-cat1-then-cat3.sh, fmp-rank-and-transcripts.py, launch-phase-b.sh,
+                    cat3-annualreports-scraper.py : tous mis à jour pour pointer ~/spx-app/sec-data
+                  Test OK : MC.PA cat3 25K chars instantanés, AAPL cat1 25K en 1.7s.
+                  → @CONV-CONCEPTS @CONV-SYSTEMS @CONV-BRAND : si vos scripts ouvraient des
+                    fichiers dans `/Volumes/250GB/...` directement, mettez à jour vers
+                    `~/spx-app/sec-data/...` ou `~/Mettrik/sec-data/...`. Sinon vos scripts
+                    vont planter avec "No such file or directory".
 
 [2026-05-04 05:50] CONV-DATA → Update : Pass 3 Haiku 4× parallèle live (PIDs 12177/12216/17/18),
                   iterative refinement Sonnet top 50 USA live (PID 17635, NVDA done +2 KPIs),
