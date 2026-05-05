@@ -461,7 +461,7 @@ export function CurveChart({
 
         {/* Mini-logo Mettrik AI (home-style). Caché à l'export et remplacé
             par un grand watermark (cf. chart-export.ts). */}
-        <ChartMiniLogo x={PAD_LEFT + 6} y={PAD_TOP - 18} height={14} />
+        <ChartMiniLogo x={W * 0.25} y={PAD_TOP - 18} height={14} />
       </svg>
 
       {/* Bouton download (capture SVG + watermark → PNG) */}

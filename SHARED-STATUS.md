@@ -86,6 +86,16 @@
 
 **7. CONVENTION "DOB"** (établie par Yann le 3 mai 2026) : "**dob**" = **D**irect, **O**bjectif, **B**ref. Aller droit au but. Pas de mot inutile, pas de phrase de transition redondante, pas de récap de ce que Yann vient de dire. Quand Yann écrit "dob" ou demande une réponse "dob", la conv doit répondre en 1-3 phrases max, action ou info concrète, zéro flag de politesse, zéro intro. À retenir et appliquer dans toutes les convs CONCEPTS, SYSTEMS, DATA, BRAND.
 
+**12. 🔌 RÉSILIENCE COUPURE INTERNET** (établie par Yann le 5 mai 2026) :
+   Si une commande échoue par coupure réseau (DNS error, ECONNRESET, fetch
+   failed, HTTP 502/503/504, timeout >60s sur appel habituellement <10s) :
+   - Retry l'opération toutes les **30 secondes**.
+   - Reprendre exactement où j'en étais quand la connexion revient.
+   - NE PAS interrompre Yann pour signaler.
+   - Signaler UNIQUEMENT si > 3 min (= 6 retries fail).
+   À NE PAS retry : 401/403 (auth), 404, erreurs TS/build, permission denied.
+   Toutes les convs CONCEPTS / SYSTEMS / DATA / BRAND DOIVENT appliquer.
+
 **10. 🚨 SOURCES SEC-DATA MIGRÉES SUR LE MAC (5 mai 2026 ~02h45)** :
    Le disque externe `/Volumes/250GB/Mettrik/` a été DÉBRANCHÉ après défaillance.
    Tous les fichiers (30 GB) ont été copiés en local dans :

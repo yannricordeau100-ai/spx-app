@@ -699,6 +699,32 @@ export const DICTIONARY: Dict = {
   "timefrac.hour": { fr: "H", en: "H" },
   "timefrac.minute": { fr: "m", en: "m" },
   "timefrac.second": { fr: "s", en: "S" },
+  /* Transcript stories (last earning call) */
+  "transcript.section_title": { fr: "Dernier earning call", en: "Last earnings call" },
+  "transcript.section_subtitle": {
+    fr: "Informations exclusives entre le top management et les investisseurs lors du dernier appel résultats.",
+    en: "Exclusive insights from top management to investors during the latest earnings call.",
+  },
+  "transcript.quotes_title": { fr: "Citations management", en: "Management quotes" },
+  "transcript.figures_title": { fr: "Chiffres & guidance", en: "Numbers & guidance" },
+  "transcript.no_data": { fr: "Aucune citation extraite pour le moment.", en: "No quotes extracted yet." },
+  "transcript.no_figures": { fr: "Aucun chiffre extrait pour le moment.", en: "No figures extracted yet." },
+  "transcript.extraction_pending": {
+    fr: "Extraction LLM en cours par le pipeline data.",
+    en: "LLM extraction in progress via the data pipeline.",
+  },
+  "transcript.sentiment.bullish": { fr: "Confiant", en: "Bullish" },
+  "transcript.sentiment.neutral": { fr: "Neutre", en: "Neutral" },
+  "transcript.sentiment.cautious": { fr: "Prudent", en: "Cautious" },
+
+  /* Suffix titre du graph "par X" en toutes lettres (fr/en) */
+  "timefrac.suffix.year": { fr: "par an", en: "per year" },
+  "timefrac.suffix.month": { fr: "par mois", en: "per month" },
+  "timefrac.suffix.week": { fr: "par semaine", en: "per week" },
+  "timefrac.suffix.day": { fr: "par jour", en: "per day" },
+  "timefrac.suffix.hour": { fr: "par heure", en: "per hour" },
+  "timefrac.suffix.minute": { fr: "par minute", en: "per minute" },
+  "timefrac.suffix.second": { fr: "par seconde", en: "per second" },
   "timefrac.tooltip": {
     fr: "Affiche la valeur divisée par fraction de temps. Utile pour voir « combien gagne cette société par seconde ? ». Calcul simple : valeur annuelle ÷ nombre de fractions dans une année (365 jours, 8 760 heures, etc.).",
     en: "Shows the value divided by time fraction. Useful to see 'how much does this company earn per second?'. Simple math: yearly value ÷ number of fractions in a year (365 days, 8,760 hours, etc.).",

@@ -1,8 +1,24 @@
 import { notFound, redirect } from "next/navigation";
+import { promises as fs } from "fs";
+import path from "path";
 import { CompanyView } from "@/components/company-view";
 import { AuthNav } from "@/components/auth-nav";
 import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
 import { COMPANIES, TICKERS, TICKER_ALIASES, getCompany } from "@/lib/data";
+import type { TranscriptDoc } from "@/components/transcript-stories";
+
+async function loadTranscript(ticker: string): Promise<TranscriptDoc | null> {
+  const root = process.cwd();
+  for (const f of [`${ticker.toUpperCase()}.json`, `${ticker.toLowerCase()}.json`]) {
+    try {
+      const raw = await fs.readFile(path.join(root, "src/data/transcripts", f), "utf-8");
+      return JSON.parse(raw) as TranscriptDoc;
+    } catch {
+      // try next
+    }
+  }
+  return null;
+}
 
 // Force dynamic rendering pour que la session auth (cookies) soit lue
 // par AuthNav à chaque requête.
@@ -65,9 +81,10 @@ export default async function TickerPage({
   }
   const company = getCompany(ticker);
   if (!company) notFound();
+  const transcript = await loadTranscript(ticker);
   return (
     <>
-      <CompanyView company={company} authSlot={<AuthNav />} />
+      <CompanyView company={company} authSlot={<AuthNav />} transcript={transcript} />
       <DisclaimerFooter />
     </>
   );

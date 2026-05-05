@@ -55,6 +55,7 @@ import { SuperKpiBoard } from "@/components/super-kpi-board";
 import { computeSuperKpis, computeSectorSuperKpis } from "@/lib/super-kpi";
 import { useT } from "@/lib/i18n/provider";
 import { CmdFSearch } from "@/components/cmdf-search";
+import { TranscriptStories, type TranscriptDoc } from "@/components/transcript-stories";
 
 const VISIBLE_KPI_COUNT = 6;
 
@@ -63,6 +64,7 @@ export function CompanyView({
   authSlot,
   hideSenate = false,
   hidePriceBar = false,
+  transcript = null,
 }: {
   company: Company;
   authSlot?: React.ReactNode;
@@ -70,6 +72,8 @@ export function CompanyView({
   hideSenate?: boolean;
   /** Si true, masque le StockPriceBlock (utile pour datasets V1.6 sans live data). */
   hidePriceBar?: boolean;
+  /** Dernier earning call transcript (créé par CONV-DATA). Null si pas dispo. */
+  transcript?: TranscriptDoc | null;
 }) {
   const { t } = useT();
   const accent = brand(company.ticker).primary;
@@ -98,6 +102,9 @@ export function CompanyView({
   const [chartMode, setChartMode] = useChartMode("curve");
   const [barsVariant, setBarsVariant] = useState<"iso3d" | "classic">("classic");
   const [timeFraction, setTimeFraction] = useState<TimeFraction>("year");
+  // Toggle Annuel / Trimestriel : trimestriel par défaut quand data dispo
+  // (5 mai 2026 : Yann impose trimestriel partout). Fallback annuel sinon.
+  const [graphPeriod, setGraphPeriod] = useState<"year" | "quarter">("quarter");
   const [compareTicker, setCompareTicker] = useState<string | null>(null);
 
   const heroRef = useRef<HTMLDivElement>(null);
@@ -114,18 +121,30 @@ export function CompanyView({
   // Permet aux KPIs trimestriels (ex : NFLX abonnés) d'avoir des labels
   // exacts au lieu d'années inférées qui partent de 2006 quand history.length
   // est grand (cf. bug observé sur NFLX 4 mai 2026).
+  // Trimestriel : génère "T1 21", "T2 21"... pour 20 trimestres.
+  // Annuel : génère "2021", "2022"... pour 5 années (= Q4 de chaque année).
   const chartLabels = useMemo(() => {
-    if (!active || active.period_type !== "quarter" || !active.last_data_date) return undefined;
+    if (!active) return undefined;
+    if (active.period_type !== "quarter" || !active.last_data_date) return undefined;
     const d = new Date(active.last_data_date);
     if (Number.isNaN(d.getTime())) return undefined;
-    let endQ = Math.floor(d.getUTCMonth() / 3) + 1; // 1..4
-    let endY = d.getUTCFullYear();
     const n = active.history?.length ?? 0;
     if (n === 0) return undefined;
-    // Émet "T1 21", "T2 21", "T3 21", "T4 21", "T1 22"... — chaque label
-    // porte son année. Les composants chart (bars/curve) groupent ensuite
-    // visuellement les 4 quarters d'une même année via un "year band"
-    // (bracket horizontal sous l'axe X) au lieu de répéter le chiffre.
+    const endQ0 = Math.floor(d.getUTCMonth() / 3) + 1;
+    const endY0 = d.getUTCFullYear();
+
+    if (graphPeriod === "year") {
+      // Mode annuel : 1 label par tranche de 4 trimestres en remontant
+      // depuis le dernier (= Q4 de chaque année si on commence sur Q4).
+      const yearsCount = Math.ceil(n / 4);
+      const out: string[] = [];
+      for (let i = 0; i < yearsCount; i++) out.unshift(String(endY0 - i));
+      return out;
+    }
+
+    // Mode trimestriel : 1 label par trimestre, year-band groupant.
+    let endQ = endQ0;
+    let endY = endY0;
     const out: string[] = [];
     for (let i = n - 1; i >= 0; i--) {
       out.unshift(`T${endQ} ${String(endY).slice(-2)}`);
@@ -136,7 +155,24 @@ export function CompanyView({
       }
     }
     return out;
-  }, [active]);
+  }, [active, graphPeriod]);
+
+  // History adaptée : si graphPeriod=year + period_type=quarter, on agrège
+  // (last value of each 4-quarter window pour stock, mais la majorité des
+  // KPIs avec quarterly history sont stock-like → take last). Pour les
+  // KPIs flux trimestriels, sum dans une future itération.
+  const chartHistory = useMemo(() => {
+    if (!active) return [];
+    if (active.period_type !== "quarter" || graphPeriod !== "year") {
+      return active.history ?? [];
+    }
+    const h = active.history ?? [];
+    const n = h.length;
+    // Take Q4 (last quarter) of each year en remontant depuis le dernier point.
+    const out: number[] = [];
+    for (let i = n - 1; i >= 0; i -= 4) out.unshift(h[i]);
+    return out;
+  }, [active, graphPeriod]);
 
   // Ordering : règle Hero / Indicateurs clés / Stories (cf. CLAUDE.md § ORDRE)
   const orderedKpis = useMemo(
@@ -338,23 +374,40 @@ export function CompanyView({
                   color={accent}
                   barsVariant={barsVariant}
                   onBarsVariantChange={setBarsVariant}
+                  graphPeriod={graphPeriod}
+                  onGraphPeriodChange={setGraphPeriod}
+                  graphPeriodAvailable={{
+                    year: true,
+                    // Quarter dispo si KPI a period_type=quarter (data réelle).
+                    // Sinon désactivé (fallback automatique sur annuel).
+                    quarter: active.period_type === "quarter",
+                  }}
                 />
                 <PeriodToggle accent={accent} />
               </div>
               <div className="mb-3 flex flex-wrap items-baseline justify-center gap-2.5 text-center">
                 <span className="text-[24px] font-bold leading-tight tracking-tight text-zinc-50 sm:text-[28px]">
                   {active.name_fr}
+                  {/* Suffix "par X" si le KPI est divisible (flux) ET que la
+                      fréquence sélectionnée n'est pas l'année. (5 mai 2026) */}
+                  {timeFraction !== "year" && (
+                    <span className="ml-2 text-[18px] font-medium text-zinc-300 sm:text-[22px]">
+                      {t(`timefrac.suffix.${timeFraction}`)}
+                    </span>
+                  )}
                 </span>
-                {active.name_en && active.name_en !== active.name_fr && (
-                  <span className="text-[14px] leading-tight text-zinc-400">
-                    {active.name_en}
-                  </span>
-                )}
                 <InfoTooltip color={accent}>
                   <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: accent }}>
                     Définition
                   </div>
                   <div className="text-zinc-200">{active.explanation}</div>
+                  {/* Traduction EN (anciennement affichée inline à côté du
+                      titre, déplacée ici pour épurer le titre. 5 mai 2026). */}
+                  {active.name_en && active.name_en !== active.name_fr && (
+                    <div className="mt-2 border-t border-white/5 pt-2 font-mono text-[11px] italic text-zinc-400">
+                      {active.name_en}
+                    </div>
+                  )}
                 </InfoTooltip>
               </div>
               {/* TimeFraction toggle visible UNIQUEMENT pour les charts qui ont
@@ -371,7 +424,7 @@ export function CompanyView({
               )}
               <ChartCycle
                 mode={chartMode}
-                data={active.history}
+                data={chartHistory}
                 labels={chartLabels}
                 unit={active.unit}
                 color={accent}
@@ -466,6 +519,11 @@ export function CompanyView({
         {hasStories(company.kpis, company.market_positions) && (
           <KpiStories company={company} />
         )}
+
+        {/* Transcript Stories — bloc 2 colonnes côte à côte (citations
+            management + chiffres/guidance du dernier earning call). Placé
+            entre Stories KPI et Risks. (5 mai 2026) */}
+        <TranscriptStories ticker={company.ticker} doc={transcript} />
 
         {/* Risk factors */}
         {company.risks && (

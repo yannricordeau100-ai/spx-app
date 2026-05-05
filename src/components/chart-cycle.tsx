@@ -43,12 +43,17 @@ function defaultLabels(n: number): string[] {
  * le toolbar du HERO (à gauche du PeriodToggle "5 / 10 / 20 ans") au
  * lieu de l'avoir au-dessus du graph.
  */
+export type GraphPeriod = "year" | "quarter";
+
 export function ChartCycleControls({
   mode,
   onChange,
   color = "#a78bfa",
   barsVariant,
   onBarsVariantChange,
+  graphPeriod,
+  onGraphPeriodChange,
+  graphPeriodAvailable = { year: true, quarter: true },
 }: {
   mode: ChartMode;
   onChange: (m: ChartMode) => void;
@@ -56,6 +61,12 @@ export function ChartCycleControls({
   /** Variant sub-toggle quand mode === 'bars'. Optionnel : si non fourni, pas de toggle. */
   barsVariant?: BarsVariant;
   onBarsVariantChange?: (v: BarsVariant) => void;
+  /** Toggle Annuel / Trimestriel — affiché si setter fourni. (5 mai 2026) */
+  graphPeriod?: GraphPeriod;
+  onGraphPeriodChange?: (p: GraphPeriod) => void;
+  /** Quelle période est dispo dans la data ? Si quarter absent → onglet
+   *  trimestriel grisé, fallback annuel auto. */
+  graphPeriodAvailable?: { year: boolean; quarter: boolean };
 }) {
   const { t } = useT();
   return (
@@ -96,6 +107,43 @@ export function ChartCycleControls({
           );
         })}
       </div>
+
+      {/* Toggle Annuel / Trimestriel — visible si setter fourni. Le bouton
+          Trimestriel est grisé si la data n'a pas de quarterly history.
+          (5 mai 2026 : Yann impose trimestriel par défaut sur tous les
+          graphs hero, fallback annuel pour les KPIs sans data quarterly.) */}
+      {graphPeriod && onGraphPeriodChange && (
+        <div className="inline-flex items-center gap-0.5 rounded-full border border-white/10 bg-white/[0.02] p-0.5">
+          <button
+            onClick={() => onGraphPeriodChange("quarter")}
+            disabled={!graphPeriodAvailable.quarter}
+            className={cn(
+              "rounded-full px-2.5 py-1 text-[11px] font-medium transition-colors",
+              graphPeriod === "quarter" && graphPeriodAvailable.quarter
+                ? "bg-white/10 text-zinc-100"
+                : graphPeriodAvailable.quarter
+                  ? "text-zinc-500 hover:text-zinc-200"
+                  : "text-zinc-700 cursor-not-allowed"
+            )}
+            title={graphPeriodAvailable.quarter ? "Vue trimestrielle (par défaut)" : "Données trimestrielles non disponibles pour ce KPI"}
+          >
+            Trimestriel
+          </button>
+          <button
+            onClick={() => onGraphPeriodChange("year")}
+            disabled={!graphPeriodAvailable.year}
+            className={cn(
+              "rounded-full px-2.5 py-1 text-[11px] font-medium transition-colors",
+              graphPeriod === "year"
+                ? "bg-white/10 text-zinc-100"
+                : "text-zinc-500 hover:text-zinc-200"
+            )}
+            title="Vue annuelle (avec barre TTM)"
+          >
+            Annuel
+          </button>
+        </div>
+      )}
 
       {/* Sub-toggle 3D / Classique : visible UNIQUEMENT quand mode === bars
           ET un setter est fourni par le parent. */}

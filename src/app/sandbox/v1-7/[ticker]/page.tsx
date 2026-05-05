@@ -3,6 +3,7 @@ import { promises as fs } from "fs";
 import path from "path";
 import { CompanyView } from "@/components/company-view";
 import type { Company } from "@/lib/data";
+import type { TranscriptDoc } from "@/components/transcript-stories";
 import { enhanceFreshness } from "@/lib/v1-7/enhance-freshness";
 
 export const dynamic = "force-dynamic";
@@ -71,6 +72,24 @@ export async function generateMetadata({
   };
 }
 
+/** Charge le transcript du DERNIER earning call pour ce ticker, si dispo. */
+async function loadTranscript(ticker: string): Promise<TranscriptDoc | null> {
+  const filePath = path.join(process.cwd(), "src/data/transcripts", `${ticker.toUpperCase()}.json`);
+  try {
+    const raw = await fs.readFile(filePath, "utf-8");
+    return JSON.parse(raw) as TranscriptDoc;
+  } catch {
+    // Tentative en lower case (CONV-DATA n'a pas tranché la convention).
+    try {
+      const alt = path.join(process.cwd(), "src/data/transcripts", `${ticker.toLowerCase()}.json`);
+      const raw = await fs.readFile(alt, "utf-8");
+      return JSON.parse(raw) as TranscriptDoc;
+    } catch {
+      return null;
+    }
+  }
+}
+
 export default async function SandboxV17TickerPage({
   params,
 }: {
@@ -79,11 +98,6 @@ export default async function SandboxV17TickerPage({
   const { ticker } = await params;
   const company = await loadDataset(ticker);
   if (!company) notFound();
-  // hideSenate : senate trades = scope V1 uniquement (5 stés handcrafted).
-  // hidePriceBar : RÉACTIVÉ le 5 mai 2026. Le composant a une garde
-  // `?? FAKE.META` pour le seed, et le fetch /api/stock-prices fonctionne
-  // pour tout ticker reconnu par Yahoo Finance (incl. ADR US comme TSM,
-  // BABA, NVO en USD). Si Yahoo ne reconnaît pas, deltaPct=0 et barre
-  // neutre, pas de crash.
-  return <CompanyView company={company} authSlot={null} hideSenate />;
+  const transcript = await loadTranscript(ticker);
+  return <CompanyView company={company} authSlot={null} hideSenate transcript={transcript} />;
 }
