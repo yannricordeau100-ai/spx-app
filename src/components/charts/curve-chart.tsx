@@ -9,6 +9,7 @@ import { formatUnit } from "@/lib/data";
 import type { CompanyEvent } from "@/lib/events";
 import { EventDotsSVG, EventDotsOverlay } from "@/components/charts/event-dots";
 import { downloadSvgAsPng, buildYearGroups } from "@/lib/chart-export";
+import { ChartMiniLogo } from "@/components/charts/chart-mini-logo";
 
 function axisHeader(unit: string): string {
   switch (unit) {
@@ -464,19 +465,9 @@ export function CurveChart({
           );
         })}
 
-        {/* Watermark Mettrik AI : top-left, filigrane discret, présent dans
-            l'export PNG. */}
-        <text
-          x={PAD_LEFT + 6}
-          y={PAD_TOP - 14}
-          fontSize={11}
-          fontFamily="ui-monospace, monospace"
-          fill="#52525b"
-          fillOpacity={0.55}
-          letterSpacing="0.18em"
-        >
-          MET·TRIK · AI
-        </text>
+        {/* Mini-logo Mettrik AI (home-style). Caché à l'export et remplacé
+            par un grand watermark (cf. chart-export.ts). */}
+        <ChartMiniLogo x={PAD_LEFT + 6} y={PAD_TOP - 18} height={14} gradientId="mini-logo-curve" />
       </svg>
 
       {/* Bouton download (capture SVG + watermark → PNG) */}
@@ -488,7 +479,7 @@ export function CurveChart({
           }
         }}
         aria-label="Télécharger le graphique"
-        className="absolute right-2 top-2 inline-flex size-8 items-center justify-center rounded-full border border-white/10 bg-black/40 text-zinc-300 backdrop-blur-md transition-colors hover:border-white/30 hover:text-white"
+        className="absolute right-2 top-2 inline-flex size-7 items-center justify-center rounded-full border border-white/5 bg-black/20 text-zinc-500 opacity-50 backdrop-blur transition-all hover:border-white/20 hover:bg-black/50 hover:text-zinc-100 hover:opacity-100"
       >
         <Download className="size-4" />
       </button>

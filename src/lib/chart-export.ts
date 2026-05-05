@@ -1,31 +1,90 @@
 /**
  * Export d'un SVG chart vers PNG côté client.
  *
- * Le watermark "Mettrik AI" est rendu directement dans le SVG (composant
- * <ChartWatermark />) → il fait partie du DOM affiché ET du PNG exporté.
+ * Distinction site / download :
+ *   - Sur le SVG live, le logo "Mettrik AI" est rendu en miniature en haut
+ *     à gauche, marqué `data-chart-logo="small"`.
+ *   - À l'export, on CACHE ce mini-logo et on INJECTE un grand watermark
+ *     du même logo (italic Fraunces, iridescent), centré-droit semi-
+ *     transparent. Ainsi : 1 seul logo visible à la fois.
  *
  * Workflow :
- *  1. Sérialiser le SVG via XMLSerializer.
- *  2. Le rendre dans un <Image> en mémoire.
- *  3. Le draw sur un <canvas> 2× pour une qualité retina.
- *  4. canvas.toBlob → trigger download via <a download>.
+ *  1. Cloner le SVG.
+ *  2. Hide le mini-logo, append le watermark large.
+ *  3. Sérialiser via XMLSerializer.
+ *  4. Render dans un <Image> en mémoire.
+ *  5. Draw sur un <canvas> 2× pour une qualité retina.
+ *  6. canvas.toBlob → trigger download via <a download>.
  */
 export async function downloadSvgAsPng(
   svg: SVGSVGElement,
   filename: string,
   scale = 2
 ): Promise<void> {
-  // Clone pour pouvoir injecter background sombre sans toucher au DOM live.
+  // Clone pour pouvoir injecter / cacher des éléments sans toucher au DOM live.
   const clone = svg.cloneNode(true) as SVGSVGElement;
-  // Force xmlns pour que l'image soit bien interprétée par le navigateur.
   clone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-  // Background opaque (sinon PNG transparent → incompréhensible si partagé
-  // sur fond clair).
+
+  // Background opaque (sinon PNG transparent illisible sur fond clair).
   const bg = document.createElementNS("http://www.w3.org/2000/svg", "rect");
   bg.setAttribute("width", "100%");
   bg.setAttribute("height", "100%");
   bg.setAttribute("fill", "#050505");
   clone.insertBefore(bg, clone.firstChild);
+
+  // Cache le mini-logo "site only" → un seul logo apparaît dans l'export.
+  clone.querySelectorAll('[data-chart-logo="small"]').forEach((el) => {
+    (el as SVGElement).setAttribute("display", "none");
+  });
+
+  // Inject le watermark grand format (home wordmark Mettrik AI, italic
+  // Fraunces, gradient holographique violet→cyan→rose) en bas-droite,
+  // semi-transparent. Visible UNIQUEMENT à l'export.
+  const vb = svg.viewBox.baseVal;
+  const W = vb?.width || 920;
+  const H = vb?.height || 420;
+  const NS = "http://www.w3.org/2000/svg";
+  const wmGroup = document.createElementNS(NS, "g");
+  wmGroup.setAttribute("data-chart-logo", "watermark");
+  wmGroup.setAttribute("opacity", "0.55");
+  // Gradient iridescent (mêmes stops que la home)
+  const defs = document.createElementNS(NS, "defs");
+  const grad = document.createElementNS(NS, "linearGradient");
+  grad.setAttribute("id", "mettrik-watermark-grad");
+  grad.setAttribute("x1", "0%");
+  grad.setAttribute("y1", "0%");
+  grad.setAttribute("x2", "100%");
+  grad.setAttribute("y2", "100%");
+  const stops = [
+    { offset: "0%", color: "#ffffff" },
+    { offset: "30%", color: "#d8d8e4" },
+    { offset: "55%", color: "#a855f7" },
+    { offset: "78%", color: "#22d3ee" },
+    { offset: "100%", color: "#f472b6" },
+  ];
+  for (const s of stops) {
+    const stopEl = document.createElementNS(NS, "stop");
+    stopEl.setAttribute("offset", s.offset);
+    stopEl.setAttribute("stop-color", s.color);
+    grad.appendChild(stopEl);
+  }
+  defs.appendChild(grad);
+  wmGroup.appendChild(defs);
+
+  const wmText = document.createElementNS(NS, "text");
+  // Centré horizontalement (texte ancré en milieu de viewBox).
+  wmText.setAttribute("x", String(W / 2));
+  wmText.setAttribute("y", String(H / 2 + 30));
+  wmText.setAttribute("text-anchor", "middle");
+  wmText.setAttribute("font-family", "Georgia, serif");
+  wmText.setAttribute("font-style", "italic");
+  wmText.setAttribute("font-weight", "800");
+  wmText.setAttribute("font-size", "96");
+  wmText.setAttribute("letter-spacing", "-0.04em");
+  wmText.setAttribute("fill", "url(#mettrik-watermark-grad)");
+  wmText.textContent = "Mettrik AI";
+  wmGroup.appendChild(wmText);
+  clone.appendChild(wmGroup);
 
   const xml = new XMLSerializer().serializeToString(clone);
   const svgBlob = new Blob([xml], { type: "image/svg+xml;charset=utf-8" });

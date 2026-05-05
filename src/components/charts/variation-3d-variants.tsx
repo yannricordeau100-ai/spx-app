@@ -5,6 +5,7 @@ import { Download } from "lucide-react";
 import type { CompanyEvent } from "@/lib/events";
 import { EventDotsSVG, EventDotsOverlay } from "@/components/charts/event-dots";
 import { downloadSvgAsPng, buildYearGroups } from "@/lib/chart-export";
+import { ChartMiniLogo } from "@/components/charts/chart-mini-logo";
 
 /**
  * Essais variation 3D / iso (V11-V12) inspirés freepik.
@@ -142,44 +143,29 @@ export function VariationIsoSteps3D({ data, labels, events = [] }: Props) {
             <path d={front} fill={`url(#v11-front-${k})`} stroke="#050505" strokeWidth={0.6} />
             <path d={side} fill={`url(#v11-side-${k})`} stroke="#050505" strokeWidth={0.6} />
             <path d={top} fill={`url(#v11-top-${k})`} stroke="#050505" strokeWidth={0.6} />
-            {/* Valeur stack 2 lignes : nombre sur la 1ère, "%" sur la 2ème.
-                Signe (+/-) et "%" en font réduit pour laisser le chiffre
-                dominer. Évite chevauchement horizontal des "+1.6 +1.6 +1.6"
-                (mention Yann 5 mai 2026). */}
+            {/* Valeur : juste le chiffre, sans signe (+/-) ni % — la couleur
+                vert/rouge indique le signe, le KPI est par construction en %.
+                Taille agrandie (24 vs 14 avant) puisqu'on gagne la place du
+                signe + %. Décision Yann 5 mai 2026. */}
             {(() => {
               const cx = x + barW / 2 + DX / 2;
-              const sign = isPos ? "+" : "-";
               const numTxt = Math.abs(pct).toFixed(1);
-              const numFz = 14;
-              const signFz = 9;
-              const pctFz = 9;
-              // Espace entre le bar et la 1ère ligne (clearance vertical)
-              const gap = 12;
-              const lineH = 13;
-              if (isPos) {
-                const yNum = (yTop + DY) - gap - lineH;
-                const yPct = (yTop + DY) - gap;
-                return (
-                  <>
-                    <text x={cx} y={yNum} textAnchor="middle" fontFamily="ui-monospace, monospace" fill={c} fontWeight={700} fontSize={numFz} style={{ textShadow: "0 1px 4px rgba(0,0,0,0.85)" }}>
-                      <tspan fontSize={signFz} fontWeight={500}>{sign}</tspan>{numTxt}
-                    </text>
-                    <text x={cx} y={yPct} textAnchor="middle" fontFamily="ui-monospace, monospace" fill={c} fontWeight={500} fontSize={pctFz} style={{ textShadow: "0 1px 4px rgba(0,0,0,0.85)" }}>%</text>
-                  </>
-                );
-              }
-              // Négatif : sous la barre, plus loin pour éviter overlap
-              // bar / texte (mention Yann 5 mai 2026 : "prévoir plus
-              // d'espace sous le 0% quand au moins une barre rouge").
-              const yNum = yBot + 22;
-              const yPct = yBot + 22 + lineH;
+              const numFz = 24;
+              const yPos = (yTop + DY) - 14;       // au-dessus de la barre verte
+              const yNeg = yBot + 28;              // sous la barre rouge, clearance OK
               return (
-                <>
-                  <text x={cx} y={yNum} textAnchor="middle" fontFamily="ui-monospace, monospace" fill={c} fontWeight={700} fontSize={numFz} style={{ textShadow: "0 1px 4px rgba(0,0,0,0.85)" }}>
-                    <tspan fontSize={signFz} fontWeight={500}>{sign}</tspan>{numTxt}
-                  </text>
-                  <text x={cx} y={yPct} textAnchor="middle" fontFamily="ui-monospace, monospace" fill={c} fontWeight={500} fontSize={pctFz} style={{ textShadow: "0 1px 4px rgba(0,0,0,0.85)" }}>%</text>
-                </>
+                <text
+                  x={cx}
+                  y={isPos ? yPos : yNeg}
+                  textAnchor="middle"
+                  fontFamily="ui-monospace, monospace"
+                  fill={c}
+                  fontWeight={700}
+                  fontSize={numFz}
+                  style={{ textShadow: "0 1px 4px rgba(0,0,0,0.85)" }}
+                >
+                  {numTxt}
+                </text>
               );
             })()}
             {/* Quarter only (T1/T2/T3/T4) ; year rendu UNE fois via year-band
@@ -226,10 +212,9 @@ export function VariationIsoSteps3D({ data, labels, events = [] }: Props) {
         );
       })}
 
-      {/* Watermark Mettrik AI (filigrane top-left, présent dans l'export). */}
-      <text x={PAD_LEFT + 6} y={PAD_TOP - 14} fontSize={11} fontFamily="ui-monospace, monospace" fill="#52525b" fillOpacity={0.55} letterSpacing="0.18em">
-        MET·TRIK · AI
-      </text>
+      {/* Mini-logo Mettrik AI (home-style). Caché à l'export, remplacé
+          par un grand watermark (cf. chart-export.ts). */}
+      <ChartMiniLogo x={PAD_LEFT + 6} y={PAD_TOP - 18} height={14} gradientId="mini-logo-variation" />
     </svg>
 
     {/* Bouton download */}
@@ -239,7 +224,7 @@ export function VariationIsoSteps3D({ data, labels, events = [] }: Props) {
         if (svgRef.current) downloadSvgAsPng(svgRef.current, `mettrik-variation-${Date.now()}.png`);
       }}
       aria-label="Télécharger le graphique"
-      className="absolute right-2 top-2 inline-flex size-8 items-center justify-center rounded-full border border-white/10 bg-black/40 text-zinc-300 backdrop-blur-md transition-colors hover:border-white/30 hover:text-white"
+      className="absolute right-2 top-2 inline-flex size-7 items-center justify-center rounded-full border border-white/5 bg-black/20 text-zinc-500 opacity-50 backdrop-blur transition-all hover:border-white/20 hover:bg-black/50 hover:text-zinc-100 hover:opacity-100"
     >
       <Download className="size-4" />
     </button>
