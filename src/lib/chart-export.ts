@@ -1,108 +1,104 @@
 /**
  * Export d'un SVG chart vers PNG côté client.
  *
- * Distinction site / download :
- *   - Sur le SVG live, le logo "Mettrik AI" est rendu en miniature en haut
- *     à gauche, marqué `data-chart-logo="small"`.
- *   - À l'export, on CACHE ce mini-logo et on INJECTE un grand watermark
- *     du même logo (italic Fraunces, iridescent), centré-droit semi-
- *     transparent. Ainsi : 1 seul logo visible à la fois.
+ * Spec Yann (6 mai 2026) :
+ *  - Le PNG doit ressembler PRESQUE au live (mêmes couleurs, mêmes courbes).
+ *  - Le mini-logo "Mettrik AI" reste visible MAIS à 80 % d'opacité (= 20 %
+ *    transparence demandée). Aux mêmes coordonnées que le live.
+ *  - Le TITRE du KPI est injecté en haut du PNG (le live l'affiche en HTML
+ *    hors SVG donc absent du capture par défaut).
+ *  - Plus d'espace vide autour du graph (padding 36 px de chaque côté +
+ *    52 px en haut pour titre + watermark).
+ *  - Si le site est en thème clair (data-theme="light" sur <html>), le PNG
+ *    sort en thème clair (background blanc, texte sombre).
+ *  - JAMAIS d'icône "télécharger" dans le PNG (le bouton est HTML, pas SVG,
+ *    donc déjà exclu par capture).
+ *  - Les onglets de fréquence (A M S J H m s) sont en HTML, pas dans le
+ *    SVG, donc absents du PNG par construction.
  *
  * Workflow :
  *  1. Cloner le SVG.
- *  2. Hide le mini-logo, append le watermark large.
- *  3. Sérialiser via XMLSerializer.
- *  4. Render dans un <Image> en mémoire.
- *  5. Draw sur un <canvas> 2× pour une qualité retina.
- *  6. canvas.toBlob → trigger download via <a download>.
+ *  2. Étendre le viewBox top/sides pour le titre + le padding.
+ *  3. Insérer un rect background (couleur selon thème).
+ *  4. Réduire l'opacité du mini-logo à 0.8.
+ *  5. Injecter le titre KPI au top.
+ *  6. Sérialiser via XMLSerializer → <Image> → <canvas> 2× → blob → download.
  */
 export async function downloadSvgAsPng(
   svg: SVGSVGElement,
   filename: string,
+  options: { title?: string } = {},
   scale = 2
 ): Promise<void> {
-  // Clone pour pouvoir injecter / cacher des éléments sans toucher au DOM live.
+  // Détection du thème depuis <html data-theme>. Default = dark.
+  const themeAttr =
+    typeof document !== "undefined"
+      ? document.documentElement.getAttribute("data-theme")
+      : null;
+  const isLight = themeAttr === "light";
+
+  const bgColor = isLight ? "#ffffff" : "#050505";
+  const titleColor = isLight ? "#0a0a0a" : "#fafafa";
+
+  // Clone pour pouvoir injecter / modifier sans toucher au DOM live.
   const clone = svg.cloneNode(true) as SVGSVGElement;
   clone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
 
-  // Background opaque (sinon PNG transparent illisible sur fond clair).
-  const bg = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-  bg.setAttribute("width", "100%");
-  bg.setAttribute("height", "100%");
-  bg.setAttribute("fill", "#050505");
-  clone.insertBefore(bg, clone.firstChild);
-
-  // Cache le mini-logo "site only" → un seul logo apparaît dans l'export.
-  clone.querySelectorAll('[data-chart-logo="small"]').forEach((el) => {
-    (el as SVGElement).setAttribute("display", "none");
-  });
-
-  // Watermark download-only : wordmark "Mettrik•AI" italic Fraunces 800,
-  // tout blanc (style home + monochrome demandé Yann 5 mai 2026), avec
-  // un point design = petit cercle blanc plein entre "Mettrik" et "AI"
-  // (rappel du i-pulse-dot violet de la home).
-  // Position : top-right au-dessus de PAD_TOP donc clean (jamais de
-  // courbe/barre/texte d'axe à cet endroit).
+  // Récupère le viewBox actuel.
   const vb = svg.viewBox.baseVal;
-  const W = vb?.width || 920;
+  const origX = vb?.x ?? 0;
+  const origY = vb?.y ?? 0;
+  const origW = vb?.width || svg.clientWidth || 920;
+  const origH = vb?.height || svg.clientHeight || 360;
+
+  // Padding ajouté autour du graph dans l'export.
+  const PAD_TOP = 80; // espace pour titre + watermark
+  const PAD_SIDE = 36; // espace gauche/droite
+  const PAD_BOTTOM = 28; // espace bas
+
+  // Nouveau viewBox englobant le contenu original + le padding.
+  const newW = origW + PAD_SIDE * 2;
+  const newH = origH + PAD_TOP + PAD_BOTTOM;
+  const newX = origX - PAD_SIDE;
+  const newY = origY - PAD_TOP;
+  clone.setAttribute("viewBox", `${newX} ${newY} ${newW} ${newH}`);
+  clone.setAttribute("width", String(newW));
+  clone.setAttribute("height", String(newH));
+
   const NS = "http://www.w3.org/2000/svg";
 
-  const wmGroup = document.createElementNS(NS, "g");
-  wmGroup.setAttribute("data-chart-logo", "watermark");
-  wmGroup.setAttribute("opacity", "0.92");
+  // Background opaque (sinon PNG transparent illisible). Couvre le viewBox étendu.
+  const bg = document.createElementNS(NS, "rect");
+  bg.setAttribute("x", String(newX));
+  bg.setAttribute("y", String(newY));
+  bg.setAttribute("width", String(newW));
+  bg.setAttribute("height", String(newH));
+  bg.setAttribute("fill", bgColor);
+  clone.insertBefore(bg, clone.firstChild);
 
-  // Mesures : font-size réduit de 56 → 28 (plus petit). Position au-dessus
-  // de la zone graph, donc dans la marge top où il n'y a JAMAIS de pixel
-  // bleu/blanc du chart.
-  const wmFontSize = 28;
-  const padX = 14;
-  const yBaseline = 28; // baseline du texte près du haut du SVG
-  const xRight = W - padX;
-  // Approx widths (italic Georgia 800) pour aligner les 3 sub-éléments
-  const aiWidth = wmFontSize * 0.95;       // largeur "AI"
-  const dotR = 3.2;
-  const dotGap = 5;
-  const dotCx = xRight - aiWidth - dotGap - dotR;
-  const dotCy = yBaseline - wmFontSize * 0.32; // visuellement centré x-height
+  // Réduit l'opacité du mini-logo à 0.8 (= 20 % transparence demandée par
+  // Yann le 6 mai 2026). Reste à la même position que le live.
+  clone.querySelectorAll('[data-chart-logo="small"]').forEach((el) => {
+    (el as SVGElement).setAttribute("opacity", "0.8");
+  });
 
-  // "AI" anchored end à droite
-  const ai = document.createElementNS(NS, "text");
-  ai.setAttribute("x", String(xRight));
-  ai.setAttribute("y", String(yBaseline));
-  ai.setAttribute("text-anchor", "end");
-  ai.setAttribute("font-family", "Georgia, serif");
-  ai.setAttribute("font-style", "italic");
-  ai.setAttribute("font-weight", "800");
-  ai.setAttribute("font-size", String(wmFontSize));
-  ai.setAttribute("letter-spacing", "-0.04em");
-  ai.setAttribute("fill", "#ffffff");
-  ai.textContent = "AI";
-  wmGroup.appendChild(ai);
-
-  // Dot design : cercle blanc plein, légèrement glow pour rappel home
-  const dot = document.createElementNS(NS, "circle");
-  dot.setAttribute("cx", String(dotCx));
-  dot.setAttribute("cy", String(dotCy));
-  dot.setAttribute("r", String(dotR));
-  dot.setAttribute("fill", "#ffffff");
-  wmGroup.appendChild(dot);
-
-  // "Mettrik" anchored end juste à gauche du dot
-  const mettrik = document.createElementNS(NS, "text");
-  const mettrikRightEdge = dotCx - dotR - dotGap;
-  mettrik.setAttribute("x", String(mettrikRightEdge));
-  mettrik.setAttribute("y", String(yBaseline));
-  mettrik.setAttribute("text-anchor", "end");
-  mettrik.setAttribute("font-family", "Georgia, serif");
-  mettrik.setAttribute("font-style", "italic");
-  mettrik.setAttribute("font-weight", "800");
-  mettrik.setAttribute("font-size", String(wmFontSize));
-  mettrik.setAttribute("letter-spacing", "-0.04em");
-  mettrik.setAttribute("fill", "#ffffff");
-  mettrik.textContent = "Mettrik";
-  wmGroup.appendChild(mettrik);
-
-  clone.appendChild(wmGroup);
+  // Titre KPI en haut du PNG (centré horizontalement au-dessus du graph).
+  if (options.title) {
+    const titleEl = document.createElementNS(NS, "text");
+    titleEl.setAttribute("x", String(origX + origW / 2));
+    titleEl.setAttribute("y", String(origY - PAD_TOP + 36));
+    titleEl.setAttribute("text-anchor", "middle");
+    titleEl.setAttribute(
+      "font-family",
+      "var(--font-manrope), -apple-system, BlinkMacSystemFont, sans-serif"
+    );
+    titleEl.setAttribute("font-weight", "700");
+    titleEl.setAttribute("font-size", "20");
+    titleEl.setAttribute("letter-spacing", "-0.01em");
+    titleEl.setAttribute("fill", titleColor);
+    titleEl.textContent = options.title;
+    clone.appendChild(titleEl);
+  }
 
   const xml = new XMLSerializer().serializeToString(clone);
   const svgBlob = new Blob([xml], { type: "image/svg+xml;charset=utf-8" });
@@ -115,21 +111,16 @@ export async function downloadSvgAsPng(
     img.src = url;
   });
 
-  // Dimensions cibles : viewBox du SVG ou bounding rect.
-  const viewBox = svg.viewBox.baseVal;
-  const w = viewBox?.width || svg.clientWidth || 1840;
-  const h = viewBox?.height || svg.clientHeight || 920;
-
   const canvas = document.createElement("canvas");
-  canvas.width = w * scale;
-  canvas.height = h * scale;
+  canvas.width = newW * scale;
+  canvas.height = newH * scale;
   const ctx = canvas.getContext("2d");
   if (!ctx) {
     URL.revokeObjectURL(url);
     return;
   }
   ctx.scale(scale, scale);
-  ctx.drawImage(img, 0, 0, w, h);
+  ctx.drawImage(img, 0, 0, newW, newH);
 
   const blob: Blob | null = await new Promise((resolve) =>
     canvas.toBlob((b) => resolve(b), "image/png")

@@ -202,6 +202,28 @@ export const DICTIONARY: Dict = {
   "company.period.5y": { fr: "5 ans", en: "5y" },
   "company.period.10y": { fr: "10 ans", en: "10y" },
   "company.period.20y": { fr: "20 ans", en: "20y" },
+  "company.period.locked": { fr: "Disponible en V2", en: "Available in V2" },
+
+  // Toggle Trimestriel / Annuel sur le hero chart (6 mai 2026).
+  "graph.period.quarter": { fr: "Trimestriel", en: "Quarterly" },
+  "graph.period.year": { fr: "Annuel", en: "Annual" },
+  "graph.period.quarter.tooltip": {
+    fr: "Vue trimestrielle (par défaut)",
+    en: "Quarterly view (default)",
+  },
+  "graph.period.year.tooltip": {
+    fr: "Vue annuelle (avec barre TTM)",
+    en: "Annual view (with TTM bar)",
+  },
+  "graph.period.quarter.unavailable": {
+    fr: "Données trimestrielles non disponibles pour ce KPI",
+    en: "Quarterly data not available for this KPI",
+  },
+  "graph.bars.2d.tooltip": { fr: "Style classique 2D plat", en: "Classic flat 2D style" },
+  "graph.bars.3d.tooltip": {
+    fr: "Style 3D isométrique (par défaut)",
+    en: "Isometric 3D style (default)",
+  },
 
   "company.compare.button": { fr: "Comparer", en: "Compare" },
   "company.compare.on": { fr: "Comparer sur", en: "Compare on" },

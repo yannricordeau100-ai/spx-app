@@ -436,6 +436,9 @@ export function CompanyView({
                 ttm={active.ttm ?? null}
                 barsVariant={barsVariant}
                 timeFraction={timeFraction}
+                exportTitle={`${active.name_fr}${
+                  timeFraction !== "year" ? ` ${t(`timefrac.suffix.${timeFraction}`)}` : ""
+                } · ${company.name}`}
               />
             </div>
           </div>

@@ -77,6 +77,8 @@ type Props = {
   ttmLabel?: string;
   /** Style visuel : iso3d (par défaut, perspective isométrique) ou classique 2D. */
   variant?: "iso3d" | "classic";
+  /** Titre injecté DANS le PNG exporté (KPI name_fr). */
+  exportTitle?: string;
 };
 
 /* ============================================================ */
@@ -84,7 +86,7 @@ type Props = {
 /* Avec support TTM (barre supplémentaire pointillée) et variant   */
 /* "classic" pour basculer en 2D flat.                             */
 /* ============================================================ */
-export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", events = [], ttm = null, ttmLabel = "TTM", variant = "iso3d" }: Props) {
+export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", events = [], ttm = null, ttmLabel = "TTM", variant = "iso3d", exportTitle }: Props) {
   const [hover, setHover] = useState<number | null>(null);
   const svgRef = useRef<SVGSVGElement>(null);
 
@@ -349,7 +351,7 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
       type="button"
       onClick={() => {
         if (svgRef.current) {
-          downloadSvgAsPng(svgRef.current, `mettrik-bars-${Date.now()}.png`);
+          downloadSvgAsPng(svgRef.current, `mettrik-bars-${Date.now()}.png`, { title: exportTitle });
         }
       }}
       aria-label="Télécharger le graphique"

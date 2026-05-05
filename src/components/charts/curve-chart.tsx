@@ -115,6 +115,7 @@ export function CurveChart({
   events = [],
   ttm = null,
   ttmLabel = "TTM",
+  exportTitle,
 }: {
   data: number[];
   labels: string[];
@@ -125,6 +126,8 @@ export function CurveChart({
   /** Trailing 12 months : point + segment pointillé en fin de courbe. */
   ttm?: number | null;
   ttmLabel?: string;
+  /** Titre injecté DANS le PNG exporté (KPI name_fr). Pas affiché live (= titre HTML déjà visible côté parent). */
+  exportTitle?: string;
 }) {
   const [hover, setHover] = useState<number | null>(null);
   const svgRef = useRef<SVGSVGElement>(null);
@@ -469,7 +472,7 @@ export function CurveChart({
         type="button"
         onClick={() => {
           if (svgRef.current) {
-            downloadSvgAsPng(svgRef.current, `mettrik-curve-${Date.now()}.png`);
+            downloadSvgAsPng(svgRef.current, `mettrik-curve-${Date.now()}.png`, { title: exportTitle });
           }
         }}
         aria-label="Télécharger le graphique"

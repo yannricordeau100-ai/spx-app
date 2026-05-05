@@ -49,6 +49,8 @@ type Props = {
   labels: string[];
   color?: string;
   events?: CompanyEvent[];
+  /** Titre injecté DANS le PNG exporté (KPI name_fr). */
+  exportTitle?: string;
 };
 
 const POS = "#10b981";
@@ -58,7 +60,7 @@ const NEG = "#f43f5e";
 /* V11 — ISO STEP BARS 3D                                         */
 /* Bars de variation en iso, hauteur en plus / moins du zéro.     */
 /* ============================================================ */
-export function VariationIsoSteps3D({ data, labels, events = [] }: Props) {
+export function VariationIsoSteps3D({ data, labels, events = [], exportTitle }: Props) {
   const [hover, setHover] = useState<number | null>(null);
   const svgRef = useRef<SVGSVGElement>(null);
 
@@ -218,7 +220,7 @@ export function VariationIsoSteps3D({ data, labels, events = [] }: Props) {
     <button
       type="button"
       onClick={() => {
-        if (svgRef.current) downloadSvgAsPng(svgRef.current, `mettrik-variation-${Date.now()}.png`);
+        if (svgRef.current) downloadSvgAsPng(svgRef.current, `mettrik-variation-${Date.now()}.png`, { title: exportTitle });
       }}
       aria-label="Télécharger le graphique"
       className="absolute right-2 top-2 inline-flex size-7 items-center justify-center rounded-full border border-white/5 bg-black/20 text-zinc-500 opacity-50 backdrop-blur transition-all hover:border-white/20 hover:bg-black/50 hover:text-zinc-100 hover:opacity-100"

@@ -70,10 +70,12 @@ export function ChartCycleControls({
 }) {
   const { t } = useT();
   return (
-    <div className="inline-flex flex-wrap items-center gap-2">
+    // Pas de flex-wrap : on veut TOUT sur une ligne (4 modes + Trimestriel/Annuel
+    // + 2D/3D + 5/10/20 ans à droite via le parent). gap-1.5 minimal.
+    <div className="inline-flex items-center gap-1.5">
       <div
         role="tablist"
-        className="relative inline-flex items-center gap-1 rounded-full border border-[#1f1f1f] bg-[#0a0a0a] p-1"
+        className="relative inline-flex items-center gap-0.5 rounded-full border border-[#1f1f1f] bg-[#0a0a0a] p-0.5"
       >
         {MODES.map((m) => {
           const Icon = m.icon;
@@ -86,7 +88,7 @@ export function ChartCycleControls({
               onClick={() => onChange(m.id)}
               title={t(m.hintKey)}
               className={cn(
-                "relative inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[12.5px] font-medium transition-colors",
+                "relative inline-flex items-center gap-1 rounded-full px-2 py-1 text-[11.5px] font-medium transition-colors",
                 active ? "text-zinc-50" : "text-zinc-400 hover:text-zinc-100"
               )}
             >
@@ -101,7 +103,7 @@ export function ChartCycleControls({
                   transition={{ type: "spring", stiffness: 400, damping: 32 }}
                 />
               )}
-              <Icon className="relative size-3.5" />
+              <Icon className="relative size-3" />
               <span className="relative">{t(m.labelKey)}</span>
             </button>
           );
@@ -118,60 +120,61 @@ export function ChartCycleControls({
             onClick={() => onGraphPeriodChange("quarter")}
             disabled={!graphPeriodAvailable.quarter}
             className={cn(
-              "rounded-full px-2.5 py-1 text-[11px] font-medium transition-colors",
+              "rounded-full px-2 py-0.5 text-[10.5px] font-medium transition-colors",
               graphPeriod === "quarter" && graphPeriodAvailable.quarter
                 ? "bg-white/10 text-zinc-100"
                 : graphPeriodAvailable.quarter
                   ? "text-zinc-500 hover:text-zinc-200"
                   : "text-zinc-700 cursor-not-allowed"
             )}
-            title={graphPeriodAvailable.quarter ? "Vue trimestrielle (par défaut)" : "Données trimestrielles non disponibles pour ce KPI"}
+            title={graphPeriodAvailable.quarter ? t("graph.period.quarter.tooltip") : t("graph.period.quarter.unavailable")}
           >
-            Trimestriel
+            {t("graph.period.quarter")}
           </button>
           <button
             onClick={() => onGraphPeriodChange("year")}
             disabled={!graphPeriodAvailable.year}
             className={cn(
-              "rounded-full px-2.5 py-1 text-[11px] font-medium transition-colors",
+              "rounded-full px-2 py-0.5 text-[10.5px] font-medium transition-colors",
               graphPeriod === "year"
                 ? "bg-white/10 text-zinc-100"
                 : "text-zinc-500 hover:text-zinc-200"
             )}
-            title="Vue annuelle (avec barre TTM)"
+            title={t("graph.period.year.tooltip")}
           >
-            Annuel
+            {t("graph.period.year")}
           </button>
         </div>
       )}
 
-      {/* Sub-toggle 3D / Classique : visible UNIQUEMENT quand mode === bars
-          ET un setter est fourni par le parent. */}
+      {/* Sub-toggle 2D / 3D : visible UNIQUEMENT quand mode === bars
+          ET un setter est fourni par le parent. Ordre : 2D à gauche, 3D
+          à droite (logique = simple → enrichi). 6 mai 2026. */}
       {mode === "bars" && barsVariant && onBarsVariantChange && (
         <div className="inline-flex items-center gap-0.5 rounded-full border border-white/10 bg-white/[0.02] p-0.5">
           <button
-            onClick={() => onBarsVariantChange("iso3d")}
-            className={cn(
-              "rounded-full px-2.5 py-1 text-[11px] font-medium transition-colors",
-              barsVariant === "iso3d"
-                ? "bg-white/10 text-zinc-100"
-                : "text-zinc-500 hover:text-zinc-200"
-            )}
-            title="Style 3D isométrique (par défaut)"
-          >
-            3D
-          </button>
-          <button
             onClick={() => onBarsVariantChange("classic")}
             className={cn(
-              "rounded-full px-2.5 py-1 text-[11px] font-medium transition-colors",
+              "rounded-full px-2 py-0.5 text-[10.5px] font-medium transition-colors",
               barsVariant === "classic"
                 ? "bg-white/10 text-zinc-100"
                 : "text-zinc-500 hover:text-zinc-200"
             )}
-            title="Style classique 2D plat"
+            title={t("graph.bars.2d.tooltip")}
           >
-            Classique
+            2D
+          </button>
+          <button
+            onClick={() => onBarsVariantChange("iso3d")}
+            className={cn(
+              "rounded-full px-2 py-0.5 text-[10.5px] font-medium transition-colors",
+              barsVariant === "iso3d"
+                ? "bg-white/10 text-zinc-100"
+                : "text-zinc-500 hover:text-zinc-200"
+            )}
+            title={t("graph.bars.3d.tooltip")}
+          >
+            3D
           </button>
         </div>
       )}
@@ -199,6 +202,7 @@ export function ChartCycle({
   ttm = null,
   barsVariant = "iso3d",
   timeFraction = "year",
+  exportTitle,
 }: {
   mode: ChartMode;
   data: number[];
@@ -218,6 +222,10 @@ export function ChartCycle({
   /** Fraction de temps : year (défaut) divise pas, month=/12, day=/365, etc.
    *  Affecte uniquement les valeurs affichées (data + ttm). YoY% inchangé. */
   timeFraction?: TimeFraction;
+  /** Titre injecté dans le PNG exporté (KPI name_fr, déjà visible côté HTML
+   *  donc pas répété live mais ajouté dans le download pour qu'il se suffise
+   *  à lui-même hors du contexte page). */
+  exportTitle?: string;
 }) {
   // Garde-fou : data peut être null/undefined dans certaines fiches. Forcer tableau.
   const safeData = Array.isArray(data) ? data : [];
@@ -263,13 +271,13 @@ export function ChartCycle({
           transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
         >
           {mode === "curve" && (
-            <CurveChart data={scaledData} labels={xLabels} unit={displayUnit} color={color} anomalies={anomalies} events={events} ttm={scaledTtm} />
+            <CurveChart data={scaledData} labels={xLabels} unit={displayUnit} color={color} anomalies={anomalies} events={events} ttm={scaledTtm} exportTitle={exportTitle} />
           )}
           {mode === "bars" && (
-            <BarsIso3DStack data={scaledData} labels={xLabels} unit={displayUnit} color={color} events={events} ttm={scaledTtm} variant={barsVariant} />
+            <BarsIso3DStack data={scaledData} labels={xLabels} unit={displayUnit} color={color} events={events} ttm={scaledTtm} variant={barsVariant} exportTitle={exportTitle} />
           )}
           {mode === "delta" && (
-            <VariationIsoSteps3D data={scaledData} labels={xLabels} events={events} />
+            <VariationIsoSteps3D data={scaledData} labels={xLabels} events={events} exportTitle={exportTitle} />
           )}
           {mode === "panel" && company && activeShort && onPickKpi && (
             <MiniMultiplesChart
