@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Check, Lock, Sparkles, ArrowRight, Mail, ArrowLeft } from "lucide-react";
 import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
+import { PricingBlock } from "@/components/billing/pricing-checkout";
 
 /**
  * Page tarifs publique. Squelette avec placeholders — le contenu marketing
@@ -97,31 +98,13 @@ export default function PricingPage() {
             ctaHref="/signup"
           />
 
-          {/* PREMIUM */}
-          <PlanCard
-            tier="premium"
-            title="Premium"
-            tagline="Toutes les sociétés du S&P 500, comparaisons illimitées, alertes."
-            price="24,90 €"
-            priceUnit="/ mois"
-            secondaryPrice="ou 189 € / an"
-            secondaryNote="(15,75 € / mois, économise 37 %)"
-            features={[
-              "Toutes les sociétés (S&P 500 et plus)",
-              "Comparaisons illimitées (N vs N)",
-              "Alertes email sur seuils KPI",
-              "Digest hebdomadaire personnalisé",
-              "Favoris illimités",
-              "Accès aux KPI composites Mettrik",
-              "Historique 10 ans (vs 5 en Free)",
-              "Export PDF des analyses",
-            ]}
-            limitations={[]}
-            cta="Choisir Premium"
-            ctaHref="/signup?plan=premium"
-            badge="Recommandé"
-            highlighted
-          />
+          {/* PREMIUM — wired sur Stripe via PricingBlock (CurrencySelector +
+              2 cartes Mensuel/Annuel + CTA POST /api/billing/checkout).
+              Multi-devise (EUR/USD/GBP/CHF/SEK/DKK/CAD), detection auto +
+              override user. */}
+          <div className="relative lg:col-span-1">
+            <PricingBlock />
+          </div>
 
           {/* API */}
           <PlanCard
