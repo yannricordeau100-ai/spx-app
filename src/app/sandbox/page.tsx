@@ -203,6 +203,13 @@ export default function SandboxPage() {
 
               <div className="mt-4 grid gap-2">
                 <Link
+                  href="/"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-violet-500/40 bg-violet-500/15 px-4 py-2.5 font-mono text-[11.5px] font-semibold uppercase tracking-wider text-violet-100 transition-all hover:border-violet-500/70 hover:bg-violet-500/25"
+                >
+                  Ouvrir 1.0 (5 sociétés handcrafted · GOOGL META MSCI SPGI CAT)
+                  <span className="text-base">→</span>
+                </Link>
+                <Link
                   href="/sandbox/v2"
                   className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-amber-500/40 bg-amber-500/15 px-4 py-2.5 font-mono text-[11.5px] font-semibold uppercase tracking-wider text-amber-100 transition-all hover:border-amber-500/70 hover:bg-amber-500/25"
                 >

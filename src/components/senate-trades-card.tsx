@@ -1,7 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "motion/react";
-import { Landmark, ArrowUpRight, ArrowDownRight, Clock } from "lucide-react";
+import { Landmark, ArrowUpRight, ArrowDownRight, Clock, ChevronDown } from "lucide-react";
 import { InfoTooltip } from "@/components/info-tooltip";
 import type { SenateTrade } from "@/lib/senate-trades";
 import { useT } from "@/lib/i18n/provider";
@@ -51,10 +52,20 @@ export function SenateTradesCard({
   accent?: string;
 }) {
   const { t, locale } = useT();
+  const [showAll, setShowAll] = useState(false);
   if (!trades || trades.length === 0) return null;
 
-  const buyCount = trades.filter((tr) => tr.type === "Purchase").length;
-  const sellCount = trades.filter((tr) => tr.type === "Sale").length;
+  // Filtre 6 mois (Yann 5 mai 2026) : ne montrer que les transactions
+  // récentes pour rester actionnable. Les vieilles tx (>6 mois) sont
+  // historiques et brouillent le signal court terme.
+  const SIX_MONTHS_MS = 1000 * 60 * 60 * 24 * 30.4 * 6;
+  const cutoff = Date.now() - SIX_MONTHS_MS;
+  const recentTrades = trades.filter((tr) => +new Date(tr.date) >= cutoff);
+  // Si aucune tx <6 mois, on n'affiche rien (la card disparaît).
+  if (recentTrades.length === 0) return null;
+
+  const buyCount = recentTrades.filter((tr) => tr.type === "Purchase").length;
+  const sellCount = recentTrades.filter((tr) => tr.type === "Sale").length;
   const total = buyCount + sellCount;
   const buyShare = total > 0 ? buyCount / total : 0.5;
 
@@ -65,8 +76,14 @@ export function SenateTradesCard({
       ? { label: t("senate.bearish"), color: "#f43f5e", explainer: t("senate.bearish_explainer") }
       : { label: t("senate.neutral"), color: "#a1a1aa", explainer: t("senate.neutral_explainer") };
 
-  const maxMid = Math.max(...trades.map((tr) => (tr.amount_low + tr.amount_high) / 2), 1);
-  const sorted = [...trades].sort((a, b) => +new Date(b.date) - +new Date(a.date));
+  const maxMid = Math.max(...recentTrades.map((tr) => (tr.amount_low + tr.amount_high) / 2), 1);
+  const sorted = [...recentTrades].sort((a, b) => +new Date(b.date) - +new Date(a.date));
+  // Cap visuel : 5 tx par défaut, dropdown pour le reste si >5 (cohérent
+  // avec le pattern KPI normaux de la page société).
+  const VISIBLE_CAP = 5;
+  const hasOverflow = sorted.length > VISIBLE_CAP;
+  const visibleTrades = showAll ? sorted : sorted.slice(0, VISIBLE_CAP);
+  const hiddenCount = sorted.length - VISIBLE_CAP;
 
   return (
     <section
@@ -148,7 +165,7 @@ export function SenateTradesCard({
       </div>
 
       <div className="relative grid gap-2.5">
-        {sorted.map((tr, i) => {
+        {visibleTrades.map((tr, i) => {
           const meta = PARTY_META[tr.party];
           const mid = (tr.amount_low + tr.amount_high) / 2;
           const widthPct = 60 + (mid / maxMid) * 40;
@@ -236,6 +253,23 @@ export function SenateTradesCard({
           );
         })}
       </div>
+
+      {/* Dropdown chevron : meme pattern UX que les KPI normaux (toggle
+          show all). Affiché seulement si >5 tx récentes. */}
+      {hasOverflow && (
+        <button
+          type="button"
+          onClick={() => setShowAll((s) => !s)}
+          className="relative mt-4 inline-flex w-full items-center justify-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.02] px-4 py-2 text-[12.5px] text-zinc-300 transition-colors hover:border-white/25 hover:text-zinc-100"
+        >
+          <ChevronDown className={`size-4 transition-transform ${showAll ? "rotate-180" : ""}`} />
+          <span>
+            {showAll
+              ? t("senate.show_less")
+              : `${t("senate.show_more_prefix")} ${hiddenCount} ${hiddenCount > 1 ? t("senate.tx_many") : t("senate.tx_one")}`}
+          </span>
+        </button>
+      )}
 
       <p className="relative mt-4 text-center font-mono text-[10.5px] uppercase tracking-wider text-zinc-500">
         {t("senate.demo_footer")}
