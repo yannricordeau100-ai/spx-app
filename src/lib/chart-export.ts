@@ -76,13 +76,38 @@ export async function downloadSvgAsPng(
   bg.setAttribute("fill", bgColor);
   clone.insertBefore(bg, clone.firstChild);
 
-  // Réduit l'opacité du mini-logo à 0.8 (= 20 % transparence demandée par
-  // Yann le 6 mai 2026). Reste à la même position que le live.
-  clone.querySelectorAll('[data-chart-logo="small"]').forEach((el) => {
-    (el as SVGElement).setAttribute("opacity", "0.8");
-  });
+  // Mini-logo : opacité 100 % (= comme le live, demande Yann 6 mai 2026
+  // qui a invalidé l'opacité 0.8 testée précédemment). Aucune mutation.
+
+  // Embed les @font-face du document parent dans la balise <style> du SVG
+  // cloné, pour que Fraunces (mini-logo) et Manrope (titre) rendent
+  // identiquement entre live et PNG. Sans ça, var(--font-fraunces) ne
+  // résoud pas dans le contexte SVG → fallback Georgia → rendu différent
+  // de ce que voit l'utilisateur.
+  const fontFaceCss: string[] = [];
+  try {
+    for (const sheet of Array.from(document.styleSheets)) {
+      let rules: CSSRuleList | null = null;
+      try { rules = sheet.cssRules; } catch { rules = null; }
+      if (!rules) continue;
+      for (const rule of Array.from(rules)) {
+        if ((rule as CSSRule).constructor.name === "CSSFontFaceRule") {
+          fontFaceCss.push(rule.cssText);
+        }
+      }
+    }
+  } catch {
+    // Cross-origin sheets : ignore. Fallback chains restent valides.
+  }
+  if (fontFaceCss.length > 0) {
+    const styleEl = document.createElementNS(NS, "style");
+    styleEl.textContent = fontFaceCss.join("\n");
+    clone.insertBefore(styleEl, clone.firstChild);
+  }
 
   // Titre KPI en haut du PNG (centré horizontalement au-dessus du graph).
+  // Police = Manrope (= police body du site, identique au titre HTML live
+  // qui s'affiche au-dessus du chart sur la page société).
   if (options.title) {
     const titleEl = document.createElementNS(NS, "text");
     titleEl.setAttribute("x", String(origX + origW / 2));
@@ -90,10 +115,10 @@ export async function downloadSvgAsPng(
     titleEl.setAttribute("text-anchor", "middle");
     titleEl.setAttribute(
       "font-family",
-      "var(--font-manrope), -apple-system, BlinkMacSystemFont, sans-serif"
+      "var(--font-manrope), Manrope, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
     );
     titleEl.setAttribute("font-weight", "700");
-    titleEl.setAttribute("font-size", "20");
+    titleEl.setAttribute("font-size", "22");
     titleEl.setAttribute("letter-spacing", "-0.01em");
     titleEl.setAttribute("fill", titleColor);
     titleEl.textContent = options.title;

@@ -206,7 +206,12 @@ export const DICTIONARY: Dict = {
 
   // Toggle Trimestriel / Annuel sur le hero chart (6 mai 2026).
   "graph.period.quarter": { fr: "Trimestriel", en: "Quarterly" },
+  "graph.period.semester": { fr: "Semestriel", en: "Semester" },
   "graph.period.year": { fr: "Annuel", en: "Annual" },
+  "graph.period.semester.tooltip": {
+    fr: "Vue semestrielle (les sociétés EU ne reportent que 2 fois par an)",
+    en: "Semester view (EU companies only report twice a year)",
+  },
   "graph.period.quarter.tooltip": {
     fr: "Vue trimestrielle (par défaut)",
     en: "Quarterly view (default)",

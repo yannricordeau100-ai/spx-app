@@ -43,7 +43,7 @@ function defaultLabels(n: number): string[] {
  * le toolbar du HERO (à gauche du PeriodToggle "5 / 10 / 20 ans") au
  * lieu de l'avoir au-dessus du graph.
  */
-export type GraphPeriod = "year" | "quarter";
+export type GraphPeriod = "year" | "quarter" | "semester";
 
 export function ChartCycleControls({
   mode,
@@ -53,7 +53,7 @@ export function ChartCycleControls({
   onBarsVariantChange,
   graphPeriod,
   onGraphPeriodChange,
-  graphPeriodAvailable = { year: true, quarter: true },
+  graphPeriodAvailable = { year: true, quarter: true, semester: false },
 }: {
   mode: ChartMode;
   onChange: (m: ChartMode) => void;
@@ -61,12 +61,11 @@ export function ChartCycleControls({
   /** Variant sub-toggle quand mode === 'bars'. Optionnel : si non fourni, pas de toggle. */
   barsVariant?: BarsVariant;
   onBarsVariantChange?: (v: BarsVariant) => void;
-  /** Toggle Annuel / Trimestriel — affiché si setter fourni. (5 mai 2026) */
+  /** Toggle Annuel / Trimestriel / Semestriel — affiché si setter fourni. (5 mai 2026, semester ajouté 6 mai). */
   graphPeriod?: GraphPeriod;
   onGraphPeriodChange?: (p: GraphPeriod) => void;
-  /** Quelle période est dispo dans la data ? Si quarter absent → onglet
-   *  trimestriel grisé, fallback annuel auto. */
-  graphPeriodAvailable?: { year: boolean; quarter: boolean };
+  /** Quelles périodes sont dispo dans la data ? Bouton grisé si false. */
+  graphPeriodAvailable?: { year: boolean; quarter: boolean; semester?: boolean };
 }) {
   const { t } = useT();
   return (
@@ -116,21 +115,34 @@ export function ChartCycleControls({
           graphs hero, fallback annuel pour les KPIs sans data quarterly.) */}
       {graphPeriod && onGraphPeriodChange && (
         <div className="inline-flex items-center gap-0.5 rounded-full border border-white/10 bg-white/[0.02] p-0.5">
-          <button
-            onClick={() => onGraphPeriodChange("quarter")}
-            disabled={!graphPeriodAvailable.quarter}
-            className={cn(
-              "rounded-full px-2 py-0.5 text-[10.5px] font-medium transition-colors",
-              graphPeriod === "quarter" && graphPeriodAvailable.quarter
-                ? "bg-white/10 text-zinc-100"
-                : graphPeriodAvailable.quarter
-                  ? "text-zinc-500 hover:text-zinc-200"
-                  : "text-zinc-700 cursor-not-allowed"
-            )}
-            title={graphPeriodAvailable.quarter ? t("graph.period.quarter.tooltip") : t("graph.period.quarter.unavailable")}
-          >
-            {t("graph.period.quarter")}
-          </button>
+          {graphPeriodAvailable.quarter && (
+            <button
+              onClick={() => onGraphPeriodChange("quarter")}
+              className={cn(
+                "rounded-full px-2 py-0.5 text-[10.5px] font-medium transition-colors",
+                graphPeriod === "quarter"
+                  ? "bg-white/10 text-zinc-100"
+                  : "text-zinc-500 hover:text-zinc-200"
+              )}
+              title={t("graph.period.quarter.tooltip")}
+            >
+              {t("graph.period.quarter")}
+            </button>
+          )}
+          {graphPeriodAvailable.semester && (
+            <button
+              onClick={() => onGraphPeriodChange("semester")}
+              className={cn(
+                "rounded-full px-2 py-0.5 text-[10.5px] font-medium transition-colors",
+                graphPeriod === "semester"
+                  ? "bg-white/10 text-zinc-100"
+                  : "text-zinc-500 hover:text-zinc-200"
+              )}
+              title={t("graph.period.semester.tooltip")}
+            >
+              {t("graph.period.semester")}
+            </button>
+          )}
           <button
             onClick={() => onGraphPeriodChange("year")}
             disabled={!graphPeriodAvailable.year}

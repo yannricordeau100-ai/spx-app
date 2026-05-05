@@ -63,7 +63,7 @@ export type KPI = {
    * labels axe X générés par CompanyView : ["2020", ..., "2025"] en
    * mode année, ["T1 21", ..., "T4 25"] en mode trimestre.
    */
-  period_type?: "year" | "quarter";
+  period_type?: "year" | "quarter" | "semester";
 };
 
 export type Ranks = {

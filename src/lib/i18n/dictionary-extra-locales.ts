@@ -239,6 +239,18 @@ export const EXTRA_LOCALES: Record<string, Partial<Record<LocaleKey, string>>> =
     sv: "Årligen",
     da: "Årligt",
   },
+  "graph.period.semester": {
+    de: "Halbjährlich",
+    nl: "Halfjaarlijks",
+    sv: "Halvårsvis",
+    da: "Halvårligt",
+  },
+  "graph.period.semester.tooltip": {
+    de: "Halbjahresansicht (EU-Unternehmen berichten nur 2x/Jahr)",
+    nl: "Halfjaarweergave (EU-bedrijven rapporteren slechts 2x/jaar)",
+    sv: "Halvårsvy (EU-bolag rapporterar endast 2 ggr/år)",
+    da: "Halvårsvisning (EU-selskaber rapporterer kun 2 gange/år)",
+  },
   "graph.period.quarter.tooltip": {
     de: "Quartalsansicht (Standard)",
     nl: "Kwartaalweergave (standaard)",

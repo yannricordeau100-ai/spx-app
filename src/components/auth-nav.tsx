@@ -3,6 +3,7 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getServerLocale } from "@/lib/i18n/server";
 import { translate } from "@/lib/i18n/dictionary";
 import { LanguageDropdown as LanguageSwitcher } from "@/components/language-dropdown";
+import type { Locale } from "@/lib/i18n/types";
 
 /**
  * AuthNav — server component qui montre :
@@ -11,7 +12,22 @@ import { LanguageDropdown as LanguageSwitcher } from "@/components/language-drop
  *   - Sinon : 2 boutons Connexion / S'inscrire en style Risographe
  *
  * Les libellés sont traduits via la locale serveur (cookie + IP).
+ *
+ * Prop `scope` (Yann 6 mai 2026) :
+ *   - "home" (défaut) : toutes les langues sont pleinement traduites
+ *     (8 locales) → aucune grisée dans le dropdown.
+ *   - "company" : uniquement FR/EN sont traduites à 100 %, les autres
+ *     locales (DE/NL/SV/DA/en-GB/de-CH) sont grisées + pastille "partiel".
  */
+
+// Locales pleinement traduites par scope. Yann a couvert FR/EN partout. DE
+// est partiel sur les pages société (toolbar du chart traduit, mais blocs
+// risks/governance/AI positioning encore en FR).
+const COVERAGE: Record<"home" | "company", Locale[]> = {
+  home: ["en", "fr", "de", "nl", "en-GB", "sv", "da", "de-CH"],
+  company: ["en", "fr"],
+};
+
 function initials(email: string): string {
   const local = email.split("@")[0] ?? email;
   const parts = local.split(/[._-]/).filter(Boolean);
@@ -19,7 +35,7 @@ function initials(email: string): string {
   return local.slice(0, 2).toUpperCase();
 }
 
-export async function AuthNav() {
+export async function AuthNav({ scope = "home" }: { scope?: "home" | "company" } = {}) {
   const supabase = await createSupabaseServerClient();
   const {
     data: { user },
@@ -30,7 +46,7 @@ export async function AuthNav() {
   if (user) {
     return (
       <div className="flex items-center gap-2.5">
-        <LanguageSwitcher />
+        <LanguageSwitcher availableLocales={COVERAGE[scope]} />
         <Link
           href="/account"
           className="inline-flex items-center gap-2 rounded-full border border-[#2a2a2a] bg-[#0a0a0a] px-2.5 py-1 text-[12.5px] font-medium text-zinc-100 transition-colors hover:border-violet-500/50 hover:text-violet-200"

@@ -84,7 +84,7 @@ export default async function TickerPage({
   const transcript = await loadTranscript(ticker);
   return (
     <>
-      <CompanyView company={company} authSlot={<AuthNav />} transcript={transcript} />
+      <CompanyView company={company} authSlot={<AuthNav scope="company" />} transcript={transcript} />
       <DisclaimerFooter />
     </>
   );
