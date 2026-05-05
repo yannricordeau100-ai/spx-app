@@ -36,7 +36,7 @@ const STR = {
     disclaimer_p3: "Toute décision d'investissement, d'arbitrage ou d'allocation patrimoniale relève de la seule et entière responsabilité de l'utilisateur, ou le cas échéant de son conseiller financier habilité. Mettrik AI ne saurait être tenue responsable des conséquences directes ou indirectes d'une décision prise sur la base d'un contenu publié.",
 
     s0_title: "0. Identité de l'éditeur et du vendeur",
-    s0_p1_a: "L'éditeur du site et le vendeur des abonnements est",
+    s0_p1_a: "L'éditeur du site est",
     s0_p1_b: "AIRSCAPE",
     s0_p1_c: "(exploitant la marque",
     s0_p1_d: "Mettrik AI",
@@ -44,6 +44,13 @@ const STR = {
     s0_p1_addr: "60 rue François 1er, 75008 Paris, France",
     s0_p1_f: ".",
     s0_p2_a: "SIREN : 935 055 137 · TVA intracommunautaire : FR16935055137 · Email :",
+    s0_p3_a: "La facturation et l'encaissement des abonnements souscrits sur",
+    s0_p3_b: "www.mettrik.ai",
+    s0_p3_c: "sont assurés par",
+    s0_p3_d: "R consulting",
+    s0_p3_e: ", société de droit suisse établie au",
+    s0_p3_addr: "Leubernstrasse 3, 8280 Kreuzlingen, Suisse",
+    s0_p3_f: ". R consulting n'est pas assujettie à la TVA.",
 
     part1_title: "Partie I · Utilisation du service",
 
@@ -124,9 +131,9 @@ const STR = {
     s21_li3_t: ": 189 € HT / an. Mêmes fonctionnalités, économie d'environ 37 %.",
     s21_li4_b: "Enterprise / API",
     s21_li4_t: ": sur devis. Multi-utilisateurs, accès API, support dédié.",
-    s21_p2_a: "Les prix sont indiqués hors taxes. La TVA applicable (taux du pays de résidence de l'utilisateur) est ajoutée automatiquement par notre prestataire de paiement",
-    s21_p2_b: "Stripe",
-    s21_p2_c: "au moment du paiement.",
+    s21_p2_a: "Les prix affichés sont les prix finaux dus par l'utilisateur, sans TVA additionnelle, le vendeur",
+    s21_p2_b: "R consulting",
+    s21_p2_c: "n'étant pas assujetti à la TVA. Les paiements sont traités via le prestataire sécurisé Stripe (norme PCI-DSS).",
 
     s22_title: "II.2 Souscription et paiement",
     s22_p1_a: "La souscription s'effectue en ligne via la plateforme de paiement sécurisée",
@@ -277,6 +284,13 @@ const STR = {
     s0_p1_addr: "60 rue François 1er, 75008 Paris, France",
     s0_p1_f: ".",
     s0_p2_a: "SIREN: 935 055 137 · Intra-community VAT: FR16935055137 · Email:",
+    s0_p3_a: "Subscriptions taken out on",
+    s0_p3_b: "www.mettrik.ai",
+    s0_p3_c: "are billed and collected by",
+    s0_p3_d: "R consulting",
+    s0_p3_e: ", a company under Swiss law established at",
+    s0_p3_addr: "Leubernstrasse 3, 8280 Kreuzlingen, Switzerland",
+    s0_p3_f: ". R consulting is not subject to VAT.",
 
     part1_title: "Part I · Use of the Service",
 
@@ -357,9 +371,9 @@ const STR = {
     s21_li3_t: ": €189 excl. VAT / year. Same features, savings of approximately 37%.",
     s21_li4_b: "Enterprise / API",
     s21_li4_t: ": on request. Multi-user, API access, dedicated support.",
-    s21_p2_a: "Prices are shown excluding tax. The applicable VAT (rate of the user's country of residence) is added automatically by our payment provider",
-    s21_p2_b: "Stripe",
-    s21_p2_c: "at the time of payment.",
+    s21_p2_a: "Displayed prices are the final prices due by the user, without additional VAT, as the seller",
+    s21_p2_b: "R consulting",
+    s21_p2_c: "is not subject to VAT. Payments are processed via secure provider Stripe (PCI-DSS compliant).",
 
     s22_title: "II.2 Subscription and payment",
     s22_p1_a: "Subscription is made online via the secure payment platform",
@@ -531,6 +545,10 @@ export default async function ConditionsPage() {
           <a href="mailto:contact@mettrik.ai" className="text-violet-300 hover:underline">
             contact@mettrik.ai
           </a>
+        </p>
+        <p>
+          {t.s0_p3_a} <strong>{t.s0_p3_b}</strong> {t.s0_p3_c} <strong>{t.s0_p3_d}</strong>{t.s0_p3_e}{" "}
+          <strong>{t.s0_p3_addr}</strong>{t.s0_p3_f}
         </p>
       </LegalSection>
 
