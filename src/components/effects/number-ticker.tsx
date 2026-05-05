@@ -15,7 +15,12 @@ export function NumberTicker({
   duration?: number;
   className?: string;
 }) {
-  const cleaned = value.replace(/,/g, "");
+  // Détecte le format FR (virgule = décimale, espace = milliers) vs en-US
+  // (virgule = milliers, point = décimale). Évite "325,27" → "32527" (bug).
+  const isFR = /,\d{1,2}(?!\d)/.test(value) || /\s\d{3}\b/.test(value);
+  const cleaned = isFR
+    ? value.replace(/[\s  ]/g, "").replace(",", ".")
+    : value.replace(/,/g, "");
   const sign = cleaned.startsWith("+") ? "+" : cleaned.startsWith("-") ? "-" : "";
   const target = parseFloat(cleaned);
   const decimals = (cleaned.split(".")[1] ?? "").length;
@@ -32,7 +37,7 @@ export function NumberTicker({
       const progress = Math.min(elapsed / duration, 1);
       const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
       const current = Math.abs(target) * eased;
-      const formatted = current.toLocaleString("en-US", {
+      const formatted = current.toLocaleString(isFR ? "fr-FR" : "en-US", {
         minimumFractionDigits: decimals,
         maximumFractionDigits: decimals,
       });

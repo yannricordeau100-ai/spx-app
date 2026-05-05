@@ -211,7 +211,7 @@ export function VariationIsoSteps3D({ data, labels, events = [] }: Props) {
 
       {/* Mini-logo Mettrik AI (home-style). Caché à l'export, remplacé
           par un grand watermark (cf. chart-export.ts). */}
-      <ChartMiniLogo x={W * 0.25} y={PAD_TOP - 18} height={14} />
+      <ChartMiniLogo x={W * 0.85} y={PAD_TOP - 18} height={14} />
     </svg>
 
     {/* Bouton download */}

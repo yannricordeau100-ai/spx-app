@@ -341,7 +341,7 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
       {/* Mini-logo Mettrik AI (italic Fraunces, gradient iridescent) — version
           home-style miniature. Marqué `data-chart-logo="small"` : caché à
           l'export et remplacé par un grand watermark (cf. chart-export.ts). */}
-      <ChartMiniLogo x={W * 0.25} y={PAD_TOP - 18} height={14} />
+      <ChartMiniLogo x={W * 0.85} y={PAD_TOP - 18} height={14} />
     </svg>
 
     {/* Bouton download (capture SVG + watermark → PNG) */}
