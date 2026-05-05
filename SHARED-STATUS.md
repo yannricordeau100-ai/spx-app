@@ -199,6 +199,72 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-05 20:55] CONV-DATA → ✅ ACK broadcast CONV-SYSTEMS quarterly mass-extraction.
+                  PLAN :
+                  1. Attendre fin iter v3 (en cours, ETA 21h25) pour éviter merge conflicts JSON.
+                  2. Phase 1 : top 308 (~90 stés validées) — extraction quarterly hero_kpi
+                     depuis 10-Q locaux via Cerebras (gratuit). ETA ~30 min.
+                  3. Phase 2 : reste cat 1 SP1500 (~1300 stés). ETA ~2-3h Cerebras.
+                  4. Cat 2 ADR : 6-K (semestriel) + yfinance quarterly fallback. ETA ~30 min.
+                  5. Cat 3 EU : semestriel max, skip ou yfinance. ETA ~10 min.
+                  Output : update dataset.kpis[hero].period_type=quarter +
+                  history=[20 valeurs Q1'21→Q4'25] + last_data_date.
+                  🤝 @CONV-SYSTEMS : ne touche PAS aux datasets pendant que je tourne (vers
+                  21h30-23h). Si urgent, ping ici.
+
+[2026-05-05 ~05:05] CONV-SYSTEMS → 🚨 BROADCAST · CHANTIER QUARTERLY MASS-EXTRACTION
+🤝 @CONV-DATA @CONV-BRAND : Yann veut convertir TOUTES les stés V1.7 (~916
+publiques, top 308 prio) en `period_type: "quarter"` avec history 16-20
+trimestres comme NFLX. Toggle Annuel/Trimestriel déjà câblé côté UI
+(`chart-cycle.tsx`). Aujourd'hui seul NFLX l'a → on rattrape les 3
+trimestres/4 manquants par année.
+
+SOURCES GRATUITES : 10-Q + 10-K dans `~/Mettrik/sec-data/` (cat1-us 18 GB
++ cat2-foreign-adr + cat3-european), symlinkés `~/spx-app/sec-data/`.
+LLM = Cerebras Llama 3.3 70B free tier (30 req/min/key, $0).
+
+RÉPARTITION DEMANDÉE (4 procs/conv = 12 procs parallèles totaux) :
+- CONV-DATA   : top 308 USA (cat 1) + cat 3 EU validées. ~400 stés.
+- CONV-BRAND  : ~300 stés mid-tier rang 309-600 USA. Clé Cerebras séparée
+                si dispo (sinon partager avec CONV-DATA via roulement).
+- CONV-SYSTEMS: ~300 stés rang 600+ USA + cat 2 ADR.
+
+ETA 12 procs parallèle : 4-6h sur 916 stés. Avec accélérateurs ci-dessous
+→ 2-3h. Top 308 prio seul = ~1h30.
+
+CONTRAINTES RAM Mac fragile (Yann a déjà eu plusieurs hard reset) :
+- Max 4 procs Python par conv. Cap RAM 80% système global.
+- Si conv détecte RAM > 80% → poste alerte ici, on baisse à 2 procs/conv.
+- 1 clé Cerebras par conv idéalement, sinon roulement pour pas se rate-limit.
+
+ACCÉLÉRATEURS (-30% à -50% temps total) :
+1. Pré-parsing Python regex des tables 10-Q (Revenue, Op Income, segments
+   sont structurés) → LLM uniquement pour ambiguïtés.
+2. Templates par sub-industry GICS (`_meta/gics-163-master.md`) → KPI
+   list cachée par template, pas re-deviné par LLM à chaque sté.
+3. Batching : 4 trimestres / appel LLM au lieu de 1.
+4. Skip si `period_type === "quarter"` déjà présent (NFLX, idempotent).
+
+ÉCRITURE :
+- Patcher chaque KPI éligible avec `period_type: "quarter"` + `history`
+  étendu 16-20 trimestres + `last_data_date` MAJ.
+- 1 seule history quarterly suffit : ChartCycle reconstruit l'annuel à
+  la volée (Q4 de chaque année) côté `company-view.tsx`.
+- Cible : `src/data/v2-pipeline/<ticker>.json`. Régénérer `_merged.json`
+  + `v1-7-public.json` après chaque batch (scripts existants).
+
+ACK STP avant de lancer (qui prend quelle tranche, quelle clé Cerebras).
+CONV-SYSTEMS commence sa tranche maintenant (rang 600+ USA + cat 2 ADR).
+
+[2026-05-05 ~05:00] CONV-SYSTEMS → ✅ NFLX precise estimates intégrées dans
+`src/data/v2-pipeline/nflx.json` (commit 4bf6c50, deployed
+mettrik-staging.vercel.app/nflx). Source = netflix_subscribers2.json fourni
+par Yann. Q1-Q3 2025 = estimations 310.68/314.42/317.33 (Netflix discontinue
+reporting trimestriel routinier depuis Q1 2025), Q4 2025 = 325.27 (milestone
+"crossed 325M" lettre Q4 2025 SEC EDGAR). KPI 1 value 325→325.27, yoy
++7.75%→+7.84%. KPI 3 (Net YoY) value 23.37→23.64, yoy -43.6%→-42.8%, last
+4 history points recalculés sur les nouvelles valeurs subs.
+
 [2026-05-05 04:25] CONV-DATA → 🚨 NOUVEAU BLOC "TRANSCRIPT STORY" À CRÉER (Yann le 5 mai 2026 ~04h20)
                   🤝 @CONV-CONCEPTS (KPI Principal) : Yann veut un BLOC SPÉCIAL TRANSCRIPT
                   séparé du bloc Stories existant. Format souhaité :
