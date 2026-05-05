@@ -36,16 +36,66 @@ function isValidPipelineEntry(v: unknown): v is AnyRecord {
 }
 
 /**
- * Pass 3 = CONV-DATA marque la sté comme Sonnet-validée via le champ
- * `_validation` (liste de corrections appliquées) OU `_validation_global`
- * (résumé final). 926 stés validées au 5 mai 2026.
+ * Pass 3 "true ready" (Yann 5 mai 2026 ~04h) = sté qui peut être affichée
+ * sans honte sur V1.7 publique. Critères cumulés :
  *
- * Note : la précédente définition (strict `_validation_global` only) était
- * incorrecte et donnait 12 stés au lieu de 926. CONV-DATA stocke la
- * validation principale dans `_validation`.
+ *  1. Marquée par CONV-DATA via `_validation` ou `_validation_global`.
+ *  2. Pas de marqueurs qualité douteux dans les notes de validation
+ *     ("Non spécifié", "hallucinatoire", "non fourni", etc.). Ces flags
+ *     sont posés par Sonnet quand l'extraction a buté sur du data
+ *     manquant ou inventé.
+ *  3. KPIs réels : moins de 40% de values vides/non spécifiées.
+ *  4. Au moins 1 champ Pass 2 rempli (risks OU governance OU ai_positioning).
+ *
+ * Précédentes définitions :
+ *   - lenient `_validation OR _global` = 926 mais inclut ~290 stés cassées
+ *   - strict `_validation_global only` = 12 (trop restrictif).
+ *
+ * "True ready" = ~634 stés au 5 mai 2026, croît avec CONV-DATA pipeline.
  */
+const WEAK_MARKERS = [
+  "non spécifié", "non specifie", "non spécifie",
+  "non fourni", "non disponible",
+  "hallucinatoire", "hallucinated", "partially hallucinatory",
+  "tous les champs restent",
+  "données financières détaillées du 10-K ne sont pas",
+  "no actual revenue figure", "pas de hero kpi distinctif",
+];
+
+function validationText(v: AnyRecord): string {
+  const val = v._validation;
+  if (Array.isArray(val)) return val.map((x) => String(x)).join(" ").toLowerCase();
+  if (val) return String(val).toLowerCase();
+  return "";
+}
+
+function hasWeakMarker(v: AnyRecord): boolean {
+  const txt = validationText(v);
+  if (!txt) return false;
+  return WEAK_MARKERS.some((m) => txt.includes(m));
+}
+
+function kpiQualityLow(v: AnyRecord): boolean {
+  const kpis = v.kpis as Array<{ value?: unknown }> | undefined;
+  if (!kpis || kpis.length === 0) return true;
+  const badVals = ["non spécifié", "non specifie", "n/a", "non disponible", "unknown", "-", ""];
+  const badCount = kpis.filter((k) => {
+    const v = String(k.value ?? "").toLowerCase().trim();
+    return badVals.includes(v);
+  }).length;
+  return badCount > kpis.length * 0.4;
+}
+
+function hasPass2(v: AnyRecord): boolean {
+  return !!(v.risks || v.governance || v.ai_positioning);
+}
+
 function isPass3(v: AnyRecord): boolean {
-  return !!(v._validation || v._validation_global);
+  if (!(v._validation || v._validation_global)) return false;
+  if (hasWeakMarker(v)) return false;
+  if (kpiQualityLow(v)) return false;
+  if (!hasPass2(v)) return false;
+  return true;
 }
 
 /**
