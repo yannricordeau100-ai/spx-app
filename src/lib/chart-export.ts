@@ -76,8 +76,54 @@ export async function downloadSvgAsPng(
   bg.setAttribute("fill", bgColor);
   clone.insertBefore(bg, clone.firstChild);
 
-  // Mini-logo : opacité 100 % (= comme le live, demande Yann 6 mai 2026
-  // qui a invalidé l'opacité 0.8 testée précédemment). Aucune mutation.
+  // ── Mini-logo : remplacé par l'image PNG officielle de la home ──
+  // (méthode Yann 6 mai 2026 : capture du wordmark de /sandbox/v1-7,
+  // crop fond noir, puis embed en base64 dans le SVG via <image>).
+  // Le ChartMiniLogo SVG live reste pour le rendu écran ; ici on le
+  // CACHE et on insère <image> au même endroit pour garantir un rendu
+  // pixel-perfect du logo home dans le PNG exporté.
+  const logoEl = clone.querySelector('[data-chart-logo="small"]') as SVGElement | null;
+  let logoCx = origX + origW * 0.85;
+  let logoCy = origY + 22;
+  if (logoEl) {
+    try {
+      const bbox = (logoEl as unknown as SVGGraphicsElement).getBBox?.();
+      if (bbox && bbox.width > 0) {
+        logoCx = bbox.x + bbox.width / 2;
+        logoCy = bbox.y + bbox.height / 2;
+      }
+    } catch {
+      /* getBBox indispo dans certains contextes : on garde la position par défaut. */
+    }
+    logoEl.setAttribute("display", "none");
+  }
+
+  // Charge le PNG du logo une fois, le convertit en data URL, l'injecte.
+  // Aspect ratio image = 1424:270 ≈ 5.27. Hauteur cible = 28px (visible
+  // mais discret), largeur = 28 × 5.27 ≈ 148px.
+  try {
+    const logoBlob = await fetch("/brand-mini-logo.png").then((r) => r.blob());
+    const logoDataUrl: string = await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = reject;
+      reader.readAsDataURL(logoBlob);
+    });
+    const logoH = 28;
+    const logoW = logoH * (1424 / 270);
+    const imgEl = document.createElementNS(NS, "image");
+    imgEl.setAttribute("href", logoDataUrl);
+    imgEl.setAttribute("x", String(logoCx - logoW / 2));
+    imgEl.setAttribute("y", String(logoCy - logoH / 2));
+    imgEl.setAttribute("width", String(logoW));
+    imgEl.setAttribute("height", String(logoH));
+    imgEl.setAttribute("preserveAspectRatio", "xMidYMid meet");
+    clone.appendChild(imgEl);
+  } catch {
+    // Fallback : si le fetch échoue, on retire le `display:none` pour
+    // remettre le ChartMiniLogo SVG visible (vaut mieux que pas de logo).
+    if (logoEl) logoEl.removeAttribute("display");
+  }
 
   // Embed les @font-face du document parent dans la balise <style> du SVG
   // cloné, pour que Fraunces (mini-logo) et Manrope (titre) rendent
