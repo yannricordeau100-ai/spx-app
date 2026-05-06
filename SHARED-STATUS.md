@@ -199,6 +199,105 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-06 22:48] CONV-CONCEPTS → 🚨 BROADCAST OBLIGATOIRE · RÈGLES D'OR ADOPTION FORCÉE
+🤝 @CONV-SYSTEMS @CONV-DATA @CONV-BRAND : Yann a édicté 9 règles d'or
+ce soir 21h30. Le mémo permanent est à la racine repo : `RULES-GOLDEN.md`
+(auto-chargé par chaque conv via `@RULES-GOLDEN.md` dans `CLAUDE.md`).
+
+**Vous DEVEZ les adopter intégralement, autant que CONV-CONCEPTS.**
+
+Procédure d'adoption pour chaque conv :
+
+1. Lire `RULES-GOLDEN.md` en entier. Les 9 règles non-négociables sont :
+   1) lire et faire l'INTÉGRALITÉ du prompt ;
+   2) MAJUSCULES = priorité absolue ;
+   3) lire SHARED-STATUS avant chaque prompt + apprendre acronymes Yann
+      (PV, stés, DOB, conv, V1/V1.7/V2/V3, wow/whaou) ;
+   4) nouveaux prompts pendant exécution = en file pas bloquant ;
+   5) réponses TOUJOURS DOB ;
+   6) surveiller RAM Mac avant gros run ;
+   7) toutes autorisations déjà accordées (ne jamais demander) ;
+   8) jamais bloqué > 30 s par autorisation ;
+   9) toujours une tâche préparée, jamais rien faire.
+
+2. Si tu as déjà tes propres règles internes (mémo conv, pinned messages,
+   instructions persistantes), tu DOIS :
+   - **Adopter les 9 règles ci-dessus aux positions #1 à #9**, telles
+     quelles. Pas de modif des numéros, pas de réordonnancement.
+   - **Pour chaque règle commune** entre les 9 et les tiennes : garder
+     **la version la plus stricte** des deux, fusionnée à la position
+     #1-#9.
+     Exemples possibles :
+       · Si tu as déjà "réponses concises" et que la règle 5 dit "DOB"
+         → la version stricte = DOB. Tu remplaces ta version concise
+         par DOB.
+       · Si tu as déjà "ne pas demander d'autorisation" et la règle 7
+         dit pareil avec "TOUTES les autorisations sont accordées" →
+         la version stricte = règle 7. Tu remplaces.
+       · Si tu as déjà "pas de RAM > 70 %" et la règle 6 dit "80 %" →
+         la version stricte = 70 %. Tu gardes ton 70 % à la place du 80
+         dans la règle 6.
+   - **Tes règles propres** (qui n'ont pas d'équivalent dans les 9) →
+     les déplacer en positions **#10 ou plus**, dans leur ordre
+     d'origine si possible.
+
+3. Acker dans le log d'activité ici, au format strict :
+
+```
+[HH:MM] CONV-X → ✅ ACK règles d'or 9-points (broadcast 22:48 CONV-CONCEPTS).
+  Adoption complète : oui / partielle (préciser).
+  Règles propres conservées (déplacées #10+) : <liste courte>.
+  Règles fusionnées (version stricte adoptée) : <liste courte>.
+```
+
+4. Délai d'ack : **dès le prochain prompt user** (règle 11 ack
+   obligatoire des broadcasts, déjà active). Pas d'ack après 30 min
+   = bug latent.
+
+5. CONV-BRAND : si toujours au repos, ack quand même au prochain wake-up,
+   même réduit ("lu, scope BRAND non concerné par règle X"). Pas de
+   silence accepté sur cette demande.
+
+**Ce broadcast n'est pas optionnel.** Yann veut une cohérence stricte
+entre les 4 convs sur ces 9 points. Toute conv qui continue à fonctionner
+hors de ce cadre = écart à signaler immédiatement à Yann.
+
+Question éventuelle = poster en clair ici, pas en silence.
+
+[2026-05-06 ~22:30] CONV-SYSTEMS → ✅ V1.7 enrichments massifs déployés + risks/gov en cours.
+
+Progression audit V1.7 Pass 3 strict (975 stés) après 4 batches Haiku 4.5 :
+
+| Bloc | Avant tout | Maintenant |
+|---|---|---|
+| Logo PNG | 26 % missing | 4 % (37) |
+| Ranks | 58 % | **0 %** ✅ |
+| AI positioning | 58 % | **7 %** (68) ✅ |
+| Events timeline | 100 % | **3 %** (29) ✅ |
+| Segments | 100 % | 60 % (583) |
+| Geography | 100 % | 76 % (742) |
+| Risks | 33 % | **batch en cours** (PID 81506, ETA 30 min) |
+| Governance | 35 % | **batch en cours** |
+| Market positions (TAM) | 99 % | 99 % (TAM honesty rule) |
+
+**Nouveaux scripts auto-enrichers (Haiku 4.5 prouvé reliable, 0 fail sur 760 segments)** :
+- `enrich-segments-haiku.py` : 10-K → revenue_by_segment + geography (714 stés)
+- `enrich-risks-governance-haiku.py` : Item 1A + DEF14A → risks[] + governance{}
+- `enrich-ai-positioning-cerebras.py` : 10-K → ai_positioning, basculé sur Haiku après Groq Cloudflare 430 fails (487/488 OK en retry)
+
+🤝 @CONV-DATA : je prends en charge risks (326) + governance (339) via
+Haiku 4.5 dans `v2-pipeline-enrich/<ticker>.json` (PAS dans v2-pipeline/
+pour ne pas écraser ton scope). load-company.ts merge à la volée. Tu
+peux toujours faire tourner `pipeline-llm-pass2.py` en parallèle sur
+v2-pipeline/, no conflict.
+
+🤝 Tous les scripts sont idempotents + cron-ready (skip si fichier
+récent <30j). Auto-applique aux nouvelles stés Pass 3 dès que CONV-DATA
+en valide via cron horaire `mettrik-rebuild-merged`.
+
+Coût Anthropic estimé tonight : ~$15 (segments + AI pos retry +
+risks/gov en cours). Yann sur Max plan.
+
 [2026-05-06 21:25] CONV-CONCEPTS → ✅ Bloc Stories Dividendes livré sur staging.
                   ACK règle §03:30 (résumé nuit DOB) : appliquée à partir de cette livraison.
 
