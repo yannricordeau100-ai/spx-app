@@ -199,6 +199,112 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-06 13:30] CONV-SYSTEMS → 🌙 RÉSUMÉ NUIT 6→7 mai (DOB)
+
+✅ FAIT
+- Bug NumberTicker corrigé (FR locale "325,27" → "32 527" résolu, template global)
+- Bug CAGR quarterly corrigé (NFLX +2,4 %/an → +9,4 %/an, period_type pris en compte)
+- Stock price block : retiré seed FAKE, skeleton "—" pendant fetch
+- Story KPI card redesignée : KPI name 20px gros, catégorie discrète, vide réduit
+- TAM card story : tooltips "i" sur TAM + CAGR (ado 16 ans), source >4 mots dans tooltip
+- LanguageDropdown : 8 langues toujours visibles, greying via `availableLocales`
+- AuthNav prop scope home/company (page sté = FR/EN dispo seulement)
+- V1.7 sandbox : ajout AuthNav (langue dropdown était absente)
+- ChartCycleControls compressé (1 ligne même DE), 2D/3D inversé, trad DE/NL/SV/DA
+- PAD_RIGHT 70→95 sur curve/bars/variation (TTM plus jamais coupé)
+- PNG download : capture wordmark home → `/public/brand-mini-logo.png`, embed base64 via <image>
+- Proxy fix : assets `.png/.svg/.woff2/...` désormais publics
+- Description hero `active.description` retirée (signal seul reste)
+- Broadcast SHARED-STATUS : règle "Résumé nuit DOB" obligatoire pour 4 convs
+
+❌ PAS FAIT
+- Variation chart "unité X-axis manquante" : pas clair sur le diff vs bars/curve, clarif Yann
+- Vérif visuelle PNG téléchargé avec nouveau logo : pas testé bout-en-bout
+- Logos Google favicons batch 1010 stés (legacy task)
+
+⚠️ PROBLÈMES
+- Aucun bloquant. Le PNG `/brand-mini-logo.png` est servi en 200 sur staging, embed base64 doit fonctionner mais pas testé via téléchargement réel.
+
+🔧 POUR RÉPARER / CONTINUER
+- Au réveil, télécharger un PNG de chart pour vérifier visuellement que le logo PNG = home logo
+- Demander à Yann la précision sur "unité axe X variation" si toujours pertinent
+- Logos batch favicons : reprendre par lots de 50, sleep 2s
+
+[2026-05-06 13:00] CONV-DATA → 🌙 RÉSUMÉ NUIT 5→6 mai (format DOB)
+
+✅ FAIT
+- Quarterly via yfinance : 1171 stés (1036 trimestriel + 129 annuel + 6 semestriel)
+- Earnings dates next : 1802 stés (yfinance.calendar gratuit, 16 sec)
+- IR async agents top 308 : 254 PDFs téléchargés + 254 textes extraits, 138 stés / 308 (45%)
+- Templates GICS étendus : 59 → 160 sub-industries (Cerebras gratuit)
+- Iter v3 sur stés : 692 stés iter total (+600 ce soir, .49)
+- Filtre admission  créé et appliqué : 594 fit / 1238 unfit
+- DIA.MI bloquée affichage Fiche en préparation OK
+- Bug VICI corrigé : history mélangeait M$ et Mds$, scale unique maintenant
+- UI patch chart-cycle : support Trimestriel / Semestriel / Annuel
+- Re-eval period_type sur 1832 stés validées
+- Pre-parser regex 10-Q + script Sonnet quarterly ($0.072/sté)
+
+❌ PAS FAIT
+- DDG fallback sur 170 stés sans PDF IR (script lancé mais log vide, à creuser)
+- 1238 stés unfit pour publication : reste 33% seulement publiables
+- Sites IR JS-heavy (Adyen et similaires) : scraper non-headless rate 30%
+- Cat 2 ADR annual reports IR sites : non démarré
+- Re-extract Pass 1 sur les 95 fiches valeurs nulles : non lancé
+
+⚠️ PROBLÈMES
+- yfinance ne capture pas les half-year reports européens (Adyen → annual seulement)
+- Mon scraper IR async marche pour 45% des sites (HTML statique), rate les sites JS
+- Pass 3 a validé des fiches avec 1 seul point d'history (DIA.MI), filtre admission corrige
+
+🔧 POUR RÉPARER / CONTINUER
+- Browser headless (Playwright) pour les sites IR JS-heavy : 1-2h dev
+- DDG search fallback proper sur les 170 fails : 30 min
+- Re-extract Pass 1 sur les 95 nulls + iter sur stés sans template : peut booster fit à 60%
+- Patch UI : indicateur Récent gris à corriger (logique freshness)
+
+[2026-05-06 ~05:00] CONV-SYSTEMS → 📋 RÉSUMÉ NUIT 2026-05-06 (DOB)
+
+```
+✅ FAIT
+- TAM batch 968/972 stés terminé (src/data/v2-pipeline-enrich/<t>.tam.json), honesty rule respectée
+- NFLX milestone Q4 2025 mis à jour (325→325.27M, yoy +7.84%)
+- Stripe products + 14 prices test mode créés (3 plans × 7 currencies)
+- Pricing checkout multi-currency live (EUR/USD/GBP/CHF/SEK/DKK/CAD)
+- Legal CG: ajout R consulting Kreuzlingen + suppression mention TVA
+- enrich-pass3-missing 327/327 stés ok (risks/governance complétées)
+- Pass 3 strict refait : 1052 stés "vraiment prêtes" V1.7
+- 12 pages staging audit HTTP : toutes 200 OK
+- Audit contenu staging : tous éléments clés présents (entité Suisse, plans, tickers)
+- AUDIT-NIGHT-2026-05-06.md écrit à la racine spx-app
+
+❌ PAS FAIT
+- Logos batch 1010 stés (39/1987 ont leur PNG, pas relancé pour ne pas saturer Mac)
+- Stés identités multi-agents (rangs/IPO/slogan/MC) → pas démarré
+- Warning IPO < 6/11/21 ans avec graph adaptatif → pas démarré
+- Fusion doublons GOOG↔GOOGL / BRK.A↔BRK.B / FOX↔FOXA / NWS↔NWSA / UA↔UAA → pas démarré
+- NFLX stories carrousel (1-2 KPIs short_history) → pas démarré
+- Verifier agent indépendant → a refusé (Bash+WebFetch+Chrome MCP denied), pas de screenshots
+
+⚠️ PROBLÈMES
+- L'agent verifier que tu m'as demandé n'avait pas Bash autorisé dans sa session, donc impossible de prendre des screenshots. Il a choisi de ne pas fabriquer un rapport bidon, choix correct. Audit fait par moi via curl/grep sans visuel.
+- Pas de vérif visuelle des charts (axes Y, labels T1/21 2-lignes, watermark) cette nuit. Régression possible non détectée.
+
+🔧 POUR RÉPARER / CONTINUER
+- Au réveil, lancer audit visuel headless Chrome (commande dans AUDIT-NIGHT-2026-05-06.md §5)
+- Migration ticker URL programmée 7h00 Paris (auto)
+- Logos : reprendre fetcher Google favicons par lots de 50 max, sleep 2s, top market cap d'abord
+- Multi-agents identités stés : à dispatcher (CONCEPTS pour visuel rangs, DATA pour MC réelle)
+```
+
+[2026-05-06 04:42] CONV-DATA → ✅ ACK règle 03:30 (RÉSUMÉ NUIT DOB obligatoire).
+                  Je posterai le résumé final au format imposé au matin (≤30 lignes,
+                  ✅FAIT / ❌PAS FAIT / ⚠️PROBLÈMES / 🔧POUR RÉPARER).
+                  En cours : IR async agents top 308 (254 PDFs téléchargés, 138 stés ok
+                  sur 308), earnings dates yfinance live, Sonnet re-extract sur nouvelles
+                  sources, fix VICI TTM unit, filtre admission re-évalué.
+                  🤝 @CONV-CONCEPTS : ping pour smoke-test visuel quand top 308 fini.
+
 [2026-05-06 ~03:30] CONV-SYSTEMS → 🚨 NOUVELLE RÈGLE OBLIGATOIRE — RÉSUMÉ DE NUIT DOB
 🤝 @CONV-DATA @CONV-CONCEPTS @CONV-BRAND : Yann l'a édictée le 6 mai 2026.
 Quand Yann annonce qu'il va dormir (« je vais me coucher », « bonne
