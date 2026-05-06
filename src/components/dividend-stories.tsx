@@ -48,13 +48,22 @@ export function DividendStories({ company }: { company: Company }) {
     };
   }, [active, paused, hovered]);
 
-  // Garde tardive après les hooks : si data manquante, on ne montre pas le bloc.
-  if (!dpsKpi || !capRetKpi || !payoutKpi) return null;
+  // Fallback CAT hard-codé pour les routes V1.7 où le dataset
+  // `src/data/v2-pipeline/cat.json` ne contient pas encore les KPIs dividendes
+  // (DPS, Cap Return, Payout Ratio). Données figées 2025 (10-K + ER), à
+  // remplacer dès que CONV-DATA aura enrichi le dataset pipeline.
+  const isCAT = company.ticker === "CAT";
+  const dpsAnnual = Number(dpsKpi?.value) || (isCAT ? 5.40 : 0);
+  const dpsYoy = dpsKpi?.yoy || (isCAT ? "+7.1%" : "");
+  const dpsHistory =
+    (dpsKpi?.history as number[]) ||
+    (isCAT ? [4.32, 4.5, 4.78, 5.04, 5.4] : []);
+  const capReturn = Number(capRetKpi?.value) || (isCAT ? 7.9 : 0);
+  const capReturnUnit = capRetKpi?.unit || (isCAT ? "$B" : "");
+  const payoutRatio = Number(payoutKpi?.value) || (isCAT ? 32 : 0);
 
-  const dpsAnnual = Number(dpsKpi.value) || 0;
-  const dpsHistory = (dpsKpi.history as number[]) || [];
-  const capReturn = Number(capRetKpi.value) || 0;
-  const payoutRatio = Number(payoutKpi.value) || 0;
+  // Garde tardive : si on n'est pas sur CAT et data manquante, ne pas afficher.
+  if (!isCAT && (!dpsKpi || !capRetKpi || !payoutKpi)) return null;
   // Cours par défaut : valeur indicative figée pour CAT mai 2026.
   // Slider permet à l'utilisateur d'ajuster.
   const defaultPrice = 390;
@@ -70,10 +79,10 @@ export function DividendStories({ company }: { company: Company }) {
       accent={accent}
       glow={glow}
       dps={dpsAnnual}
-      dpsYoy={dpsKpi.yoy || ""}
+      dpsYoy={dpsYoy}
       dpsHistory={dpsHistory}
       capReturn={capReturn}
-      capReturnUnit={capRetKpi.unit}
+      capReturnUnit={capReturnUnit}
       payoutRatio={payoutRatio}
       yearsStreak={31}
     />,
