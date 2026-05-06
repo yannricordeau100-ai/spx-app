@@ -459,7 +459,7 @@ export function CompanyView({
                 unit={active.unit}
                 color={accent}
                 anomalies={anomalies}
-                events={getCompanyEvents(company.ticker)}
+                events={(company.events && company.events.length > 0) ? company.events : getCompanyEvents(company.ticker)}
                 company={company}
                 activeShort={active.short}
                 onPickKpi={handleKpiClick}

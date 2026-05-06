@@ -253,6 +253,14 @@ export type Company = {
   /** Governance / executive compensation from DEF 14A. */
   governance?: Governance;
   /**
+   * Faits saillants récents (≤4) sur 12 mois. Format `CompanyEvent[]` cf
+   * src/lib/events.ts. Source dynamique : `enrich-events-yfinance.py`
+   * remplit `src/data/v2-pipeline-enrich/<ticker>.events.json` ; merge
+   * automatique côté `loadV17Company`. Si absent → fallback sur events
+   * hand-curated V1.0 via `getCompanyEvents`.
+   */
+  events?: Array<{ year: number; month?: number; title: string; body: string; source?: string; url?: string; date?: string }>;
+  /**
    * Profit warning history + forward-looking risk score.
    * Score (1-5) calé sur :
    *   1) historique des PW + commentaires direction + dernier earnings call

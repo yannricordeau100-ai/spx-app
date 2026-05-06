@@ -60,25 +60,60 @@ function safeFilename(ticker: string): string {
  *
  * Renvoie une liste de candidats à tester dans l'ordre.
  */
+// Mapping suffixe ticker → TLD localisé. Ex : "ABF.L" → essayer aussi
+// `abf.co.uk`. Ces stés européennes / asiatiques manquaient sinon.
+const TLD_BY_SUFFIX: Record<string, string[]> = {
+  L: ["co.uk", "com"],
+  DE: ["de", "com"],
+  PA: ["fr", "com"],
+  MI: ["it", "com"],
+  ST: ["se", "com"],
+  OL: ["no", "com"],
+  CO: ["dk", "com"],
+  HE: ["fi", "com"],
+  AS: ["com", "nl"],
+  BR: ["be", "com"],
+  SW: ["ch", "com"],
+  MC: ["es", "com"],
+  LS: ["pt", "com"],
+  HK: ["com.hk", "com"],
+  T: ["co.jp", "com"],
+  TO: ["ca", "com"],
+  AX: ["com.au", "com"],
+};
+
 function guessDomains(entry: Entry, overrides: Record<string, string>): string[] {
   const candidates: string[] = [];
   const tu = entry.ticker.toUpperCase();
   if (overrides[tu]) candidates.push(overrides[tu]);
 
   // Strip suffix (.PA, .L, .DE, .MI, .ST, .SW, .CO, .AS, .BR, etc.)
-  const baseTicker = entry.ticker.split(".")[0].toLowerCase();
+  const parts = entry.ticker.split(".");
+  const baseTicker = parts[0].toLowerCase();
+  const suffix = parts[1]?.toUpperCase();
+  const tlds = suffix && TLD_BY_SUFFIX[suffix] ? TLD_BY_SUFFIX[suffix] : ["com"];
 
+  // 1. Slug nom de société → différents TLD
   if (entry.name) {
-    // Slug : "Netflix, Inc." → "netflix"
     let slug = entry.name
       .toLowerCase()
-      .replace(/\b(inc|corp|corporation|company|co|sa|nv|ag|plc|llc|holdings?|group|s\.?p\.?a\.?|s\.?a\.?|ltd|limited|the)\b\.?/g, "")
+      .replace(/\b(inc|corp|corporation|company|co|sa|nv|ag|plc|llc|holdings?|group|s\.?p\.?a\.?|s\.?a\.?|ltd|limited|the|gmbh|kgaa)\b\.?/g, "")
       .replace(/[^a-z0-9]+/g, "")
       .trim();
-    if (slug.length >= 3) candidates.push(`${slug}.com`);
+    if (slug.length >= 3) {
+      for (const tld of tlds) candidates.push(`${slug}.${tld}`);
+      // Variantes communes : <slug>group / <slug>corp si court
+      if (slug.length <= 6) {
+        candidates.push(`${slug}group.com`);
+        candidates.push(`${slug}corp.com`);
+      }
+    }
   }
 
-  if (baseTicker.length >= 3) candidates.push(`${baseTicker}.com`);
+  // 2. Ticker base → différents TLD
+  if (baseTicker.length >= 3) {
+    for (const tld of tlds) candidates.push(`${baseTicker}.${tld}`);
+  }
 
   return Array.from(new Set(candidates));
 }

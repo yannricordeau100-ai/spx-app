@@ -89,6 +89,35 @@ export async function loadV17Company(ticker: string): Promise<LoadOutcome> {
   if (!data.ranks) data.ranks = { global_world: "-", global_us: "-", sector: "-", subsector: "-" };
   if (!data.tagline) data.tagline = "";
 
+  // Enrichissement ranks : si la sté n'a pas de ranks complets côté
+  // CONV-DATA (4 champs valides), on merge depuis
+  // `v2-pipeline-enrich/<ticker>.ranks.json` produit par
+  // `scripts/enrich-ranks-yfinance.py`. Champ par champ : on ne remplace
+  // que les ranks invalides ("-", "Not ranked", vide).
+  const isUsableRank = (s: unknown): boolean => {
+    if (typeof s !== "string") return false;
+    const t = s.trim();
+    if (!t || t === "-" || t === "—" || t === "...") return false;
+    const low = t.toLowerCase();
+    if (low.includes("not ranked") || low.includes("non class")) return false;
+    return true;
+  };
+  const ranksPath = path.join(
+    ROOT,
+    "src/data/v2-pipeline-enrich",
+    `${ticker.toLowerCase()}.ranks.json`,
+  );
+  const ranksEnrich = await readJsonOrNull<{ ranks?: Record<string, string> }>(ranksPath);
+  if (ranksEnrich?.ranks) {
+    const cur = (data.ranks as Record<string, unknown>) || {};
+    for (const k of ["global_world", "global_us", "sector", "subsector"] as const) {
+      if (!isUsableRank(cur[k]) && ranksEnrich.ranks[k]) {
+        cur[k] = ranksEnrich.ranks[k];
+      }
+    }
+    data.ranks = cur;
+  }
+
   // Filtre admission strict Pass 3
   if (!isStrictPass3(data)) {
     return {
