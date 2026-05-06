@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import type { Locale } from "@/lib/i18n/types";
 import { LocaleFlagsRow } from "@/components/locale-flags-row";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { MettrikWordmark } from "@/components/mettrik-wordmark";
 
 type Strings = {
   headline: string;
@@ -51,24 +52,13 @@ export function MaintenanceClient({
 
       {/* Contenu central */}
       <main className="relative z-10 mx-auto flex min-h-screen max-w-2xl flex-col items-center justify-center px-6 py-20 text-center">
-        {/* Wordmark qui respire */}
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="mb-10"
-        >
-          <motion.span
-            animate={{ opacity: [0.85, 1, 0.85] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="font-display text-[34px] font-bold tracking-tight text-zinc-50 sm:text-[42px]"
-          >
-            Mettrik <span className="text-violet-300">AI</span>
-          </motion.span>
-        </motion.div>
-
-        {/* Sparkle décoratif */}
-        <Sparkle />
+        {/* Wordmark Mettrik AI : repris du composant home (BrandWordmark)
+            via le composant réutilisable MettrikWordmark — Fraunces 800
+            italic, gradient holographique, pulse-dot intégré au i, rail
+            iridescent. Yann le 7 mai 2026. */}
+        <div className="mb-10">
+          <MettrikWordmark size="lg" />
+        </div>
 
         {/* Headline */}
         <motion.h1
