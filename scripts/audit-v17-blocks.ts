@@ -118,16 +118,20 @@ function main() {
     const full = readJsonOrNull<AnyRec>(path.join(V2, `${lower}.json`));
     const enrich = readJsonOrNull<AnyRec>(path.join(ENR, `${lower}.json`));
     const tam = readJsonOrNull<AnyRec>(path.join(ENR, `${lower}.tam.json`));
+    const ranksEnrich = readJsonOrNull<AnyRec>(path.join(ENR, `${lower}.ranks.json`));
+    const eventsEnrich = readJsonOrNull<AnyRec>(path.join(ENR, `${lower}.events.json`));
 
     if (!full) continue;
 
-    // Ranks
-    const ranks = (full.ranks as AnyRec | undefined) ?? {};
-    const ranksOk =
-      isUsableRank(ranks.global_world) &&
-      isUsableRank(ranks.global_us) &&
-      isUsableRank(ranks.sector) &&
-      isUsableRank(ranks.subsector);
+    // Ranks — coalesce CONV-DATA full.ranks + enrich .ranks.json
+    const fullRanks = (full.ranks as AnyRec | undefined) ?? {};
+    const enrichRanks = (ranksEnrich?.ranks as AnyRec | undefined) ?? {};
+    const ranksOk = (
+      (isUsableRank(fullRanks.global_world) || isUsableRank(enrichRanks.global_world)) &&
+      (isUsableRank(fullRanks.global_us) || isUsableRank(enrichRanks.global_us)) &&
+      (isUsableRank(fullRanks.sector) || isUsableRank(enrichRanks.sector)) &&
+      (isUsableRank(fullRanks.subsector) || isUsableRank(enrichRanks.subsector))
+    );
     if (!ranksOk) {
       flags.push("MISSING_RANKS");
       counters.MISSING_RANKS++;
@@ -159,8 +163,12 @@ function main() {
       counters.MISSING_MARKET_POSITIONS++;
     }
 
-    // Events
-    if (!nonEmptyArray(full.events) && !nonEmptyArray(enrich?.events)) {
+    // Events — full.events OU enrich.json events OU enrich.events.json
+    if (
+      !nonEmptyArray(full.events) &&
+      !nonEmptyArray(enrich?.events) &&
+      !nonEmptyArray(eventsEnrich?.events)
+    ) {
       flags.push("MISSING_EVENTS");
       counters.MISSING_EVENTS++;
     }
