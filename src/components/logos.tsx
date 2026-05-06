@@ -153,21 +153,47 @@ function LogoMonogram({ ticker }: { ticker: string }) {
   );
 }
 
+/**
+ * Logos cachés localement dans public/logos/<TICKER>.png. Auto-fetch via
+ * scripts/fetch-company-logos.ts depuis sources publiques (favicons HD).
+ * Si présent → utilisé en priorité. Sinon fallback sur SVG hardcodés (V1)
+ * ou monogramme lettre (V1.7+).
+ */
+const HARDCODED_TICKERS = new Set(["GOOGL", "META", "MSCI", "SPGI", "CAT"]);
+
 export function CompanyLogo({ ticker }: { ticker: string }) {
-  switch (ticker) {
-    case "GOOGL":
-      return <LogoGOOGL />;
-    case "META":
-      return <LogoMETA />;
-    case "MSCI":
-      return <LogoMSCI />;
-    case "SPGI":
-      return <LogoSPGI />;
-    case "CAT":
-      return <LogoCAT />;
-    default:
-      return <LogoMonogram ticker={ticker} />;
+  const t = ticker.toUpperCase();
+  // V1 stés gardent leur SVG handcrafted (qualité supérieure).
+  if (HARDCODED_TICKERS.has(t)) {
+    if (t === "GOOGL") return <LogoGOOGL />;
+    if (t === "META") return <LogoMETA />;
+    if (t === "MSCI") return <LogoMSCI />;
+    if (t === "SPGI") return <LogoSPGI />;
+    if (t === "CAT") return <LogoCAT />;
   }
+  // V1.7+ : logo PNG cache local. Fallback sur monogramme si load fail (onError).
+  // Convention fichier : public/logos/<TICKER>.png (ex: public/logos/NFLX.png).
+  // Le ticker peut contenir . ou - selon source. Convertit . en - pour fichier.
+  const safeTicker = t.replace(/\./g, "-");
+  return (
+    <picture className="block size-full">
+      <img
+        src={`/logos/${safeTicker}.png`}
+        alt=""
+        className="size-full object-contain"
+        loading="lazy"
+        onError={(e) => {
+          // Si pas de PNG cache, on bascule sur monogramme via state.
+          (e.currentTarget as HTMLImageElement).style.display = "none";
+          const next = (e.currentTarget as HTMLImageElement).nextElementSibling as HTMLElement | null;
+          if (next) next.style.display = "block";
+        }}
+      />
+      <span style={{ display: "none" }} className="block size-full">
+        <LogoMonogram ticker={ticker} />
+      </span>
+    </picture>
+  );
 }
 
 /**
