@@ -15,7 +15,8 @@ const W = 920, H = 420;
 // PAD_BOTTOM = 100 (vs 80 avant) pour caser : (1) labels axe X
 // trimestriels en T1/T2/T3/T4 + (2) year-band en dessous + (3) valeurs
 // négatives qui s'affichent sous les bars rouges sans toucher le year-band.
-const PAD_LEFT = 96, PAD_RIGHT = 50, PAD_TOP = 56, PAD_BOTTOM = 100;
+// PAD_RIGHT 95 (vs 50) = même règle que curve/bars : pas de clipping TTM.
+const PAD_LEFT = 96, PAD_RIGHT = 95, PAD_TOP = 56, PAD_BOTTOM = 100;
 const INNER_W = W - PAD_LEFT - PAD_RIGHT;
 const INNER_H = H - PAD_TOP - PAD_BOTTOM;
 

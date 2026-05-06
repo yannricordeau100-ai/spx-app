@@ -27,9 +27,9 @@ function axisHeader(unit: string): string {
 }
 
 const W = 920, H = 420;
-// PAD_RIGHT = 70 (vs 50 avant) pour donner de la place au label TTM
+// PAD_RIGHT = 95 (vs 70 avant) pour garantir aucun clipping du label TTM
 // horizontal (sinon coupé par le bord droit du SVG en mode crowded).
-const PAD_LEFT = 96, PAD_RIGHT = 70, PAD_TOP = 40, PAD_BOTTOM = 90;
+const PAD_LEFT = 96, PAD_RIGHT = 95, PAD_TOP = 40, PAD_BOTTOM = 90;
 
 /**
  * Split d'un label trimestriel "T1 21" → { top: "T1", bottom: "21" }.

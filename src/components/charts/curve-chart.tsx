@@ -75,9 +75,10 @@ function formatYTick(v: number, unit: string): string {
 const W = 920;
 const H = 420;
 const PAD_LEFT = 96;
-// PAD_RIGHT = 70 (vs 50 avant) pour donner de la place au label TTM
-// horizontal (sinon coupé par le bord droit du SVG en mode crowded).
-const PAD_RIGHT = 70;
+// PAD_RIGHT = 95 (vs 70 avant) pour garantir qu'aucun label X (ex : "TTM"
+// italique 13-14px) ne soit coupé par le bord droit du SVG, sur tous les
+// viewports (mobile narrow, conteneurs avec overflow hidden, etc.)
+const PAD_RIGHT = 95;
 const PAD_TOP = 40;
 const PAD_BOTTOM = 90;
 
