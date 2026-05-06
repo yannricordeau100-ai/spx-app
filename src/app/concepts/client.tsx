@@ -2,15 +2,15 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { Mail, BarChart3, Sun, Search, Tag, Sliders, Layers, Home, Sparkles, AtSign, LineChart, Activity } from "lucide-react";
+import { Mail, BarChart3, Search, Tag, Sliders, Layers, Home, Sparkles, AtSign, LineChart, Activity, Coins } from "lucide-react";
 import { TICKERS } from "@/lib/data";
 import { CONCEPT_COMPANIES as COMPANIES, getConceptCompany as getCompany } from "@/lib/concepts-data";
 import { brand } from "@/lib/brand";
 import { CompanyLogo } from "@/components/logos";
 import { EmailLabClient } from "@/app/email-lab/client";
 import { ChartLabContent } from "@/app/chart-lab/[ticker]/content";
-import { RealViewWithToggle } from "./real-view-toggle";
 import { MockupScreener } from "./mockups/screener";
+import { MockupDividend } from "./mockups/dividend";
 import { MockupCompareN } from "./mockups/compare-n";
 import { MockupLanding } from "./mockups/landing";
 import { MockupOnboarding } from "./mockups/onboarding";
@@ -19,16 +19,14 @@ import { MockupHeaderBarRedesign } from "./mockups/header-bar-redesign";
 import { MockupPriceChartTests } from "./mockups/price-chart-tests";
 
 type Tab =
-  | "email" | "chart" | "clair-1" | "clair-2" | "clair-3"
+  | "email" | "chart"
   | "mk-screener" | "mk-compare" | "mk-landing" | "mk-onboarding" | "mk-email-templates"
-  | "mk-header-bar" | "mk-price-chart";
+  | "mk-header-bar" | "mk-price-chart" | "mk-dividend";
 
 const TABS: { id: Tab; label: string; Icon: typeof Mail; group?: "visuels" | "mockups" }[] = [
   { id: "email", label: "Email", Icon: Mail, group: "visuels" },
   { id: "chart", label: "Chart", Icon: BarChart3, group: "visuels" },
-  { id: "clair-1", label: "Clair 1", Icon: Sun, group: "visuels" },
-  { id: "clair-2", label: "Clair 2", Icon: Sun, group: "visuels" },
-  { id: "clair-3", label: "Clair 3", Icon: Sun, group: "visuels" },
+  { id: "mk-dividend", label: "Dividende", Icon: Coins, group: "mockups" },
   { id: "mk-email-templates", label: "Email templates", Icon: AtSign, group: "mockups" },
   { id: "mk-screener", label: "Screener", Icon: Sliders, group: "mockups" },
   { id: "mk-compare", label: "Compare N-vs-N", Icon: Layers, group: "mockups" },
@@ -39,7 +37,7 @@ const TABS: { id: Tab; label: string; Icon: typeof Mail; group?: "visuels" | "mo
 ];
 
 export function ConceptsClient() {
-  const [tab, setTab] = useState<Tab>("clair-1");
+  const [tab, setTab] = useState<Tab>("mk-dividend");
   const [ticker, setTicker] = useState<string>("META");
   const [query, setQuery] = useState<string>("");
   const [searchOpen, setSearchOpen] = useState<boolean>(false);
@@ -215,27 +213,7 @@ export function ConceptsClient() {
         {tab === "chart" && (
           <ChartLabContent ticker={ticker} showHeader={false} showNavChrome={true} />
         )}
-        {tab === "clair-1" && company && (
-          <RealViewWithToggle
-            company={company}
-            lightFilter="invert(1) hue-rotate(180deg)"
-            description="Clair 1 — invert pur"
-          />
-        )}
-        {tab === "clair-2" && company && (
-          <RealViewWithToggle
-            company={company}
-            lightFilter="invert(0.92) hue-rotate(180deg)"
-            description="Clair 2 — invert doux (off-white)"
-          />
-        )}
-        {tab === "clair-3" && company && (
-          <RealViewWithToggle
-            company={company}
-            lightFilter="invert(1) hue-rotate(180deg) saturate(0.92)"
-            description="Clair 3 — invert + désaturation"
-          />
-        )}
+        {tab === "mk-dividend" && <MockupDividend />}
         {tab === "mk-screener" && <MockupScreener />}
         {tab === "mk-compare" && <MockupCompareN />}
         {tab === "mk-landing" && <MockupLanding />}
