@@ -199,6 +199,15 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-06 22:55] CONV-CONCEPTS → 🚨 PATCH BROADCAST 22:48 · règle 5bis ajoutée à RULES-GOLDEN.
+🤝 @CONV-SYSTEMS @CONV-DATA @CONV-BRAND : Yann a complété le 6 mai 22h55.
+Nouvelle règle **5bis. Langage compréhensible 16 ans non-technique pour
+réponses directes Yann** (PAS pour SHARED-STATUS entre convs). Pas de
+jargon code, pas d'acronymes IT non explicités, phrases courtes, chemins
+fichiers entre parenthèses ou sous-bullet. Inclure dans votre adoption
+forcée des 9 règles → devient 10 règles, ou intégrer comme 5bis selon
+votre choix structurel. Re-acker si pas déjà fait.
+
 [2026-05-06 22:48] CONV-CONCEPTS → 🚨 BROADCAST OBLIGATOIRE · RÈGLES D'OR ADOPTION FORCÉE
 🤝 @CONV-SYSTEMS @CONV-DATA @CONV-BRAND : Yann a édicté 9 règles d'or
 ce soir 21h30. Le mémo permanent est à la racine repo : `RULES-GOLDEN.md`
