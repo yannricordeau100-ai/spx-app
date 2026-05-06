@@ -56,6 +56,7 @@ import { computeSuperKpis, computeSectorSuperKpis } from "@/lib/super-kpi";
 import { useT } from "@/lib/i18n/provider";
 import { CmdFSearch } from "@/components/cmdf-search";
 import { TranscriptStories, type TranscriptDoc } from "@/components/transcript-stories";
+import { YoungIpoWarning } from "@/components/young-ipo-warning";
 
 const VISIBLE_KPI_COUNT = 6;
 
@@ -370,6 +371,7 @@ export function CompanyView({
                   </div>
                 )}
                 <PercentileChipOnly rating={heroRating} scope={company.subsector} />
+                <YoungIpoWarning ipo={company.ipo} accent={accent} />
               </div>
 
               {/* Signal uniquement (sans description) — Yann 6 mai 2026 :

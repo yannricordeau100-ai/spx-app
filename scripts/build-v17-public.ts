@@ -1,13 +1,11 @@
 #!/usr/bin/env tsx
 /**
- * Génère src/data/v1-7-public.json (~300KB) à partir de _merged.json (16MB).
+ * Génère src/data/v1-7-public.json à partir de _merged.json.
  *
- * Garde uniquement :
- *   - stés validées par Sonnet (_validation OU _validation_global)
- *   - kpis non vide
- *   - hero KPI dont les champs string requis (value/yoy/type/unit/short)
- *     sont bien présents (sinon rate(), parsePct(), formatUnit() crashent
- *     côté HomeView et la home plante en 500)
+ * Filtre admission strict = `isStrictPass3` (cf.
+ * src/lib/v1-7/strict-pass3.ts) — source unique de vérité partagée avec
+ * la page ticker `/sandbox/v1-7/[ticker]`. Sans cet alignement, le hub
+ * peut afficher des cartes qui mènent à des pages "Fiche en préparation".
  *
  * Strip les champs non-utilisés par la home (KPI table, risks, gov, etc.)
  * pour minimiser le bundle. Les pages détail /sandbox/v1-7/[ticker] lisent
@@ -18,23 +16,14 @@
  */
 import * as fs from "node:fs";
 import * as path from "node:path";
+import { isStrictPass3 } from "../src/lib/v1-7/strict-pass3";
 
 const ROOT = path.resolve(__dirname, "..");
 const SRC = path.join(ROOT, "src/data/v2-pipeline/_merged.json");
 const DST = path.join(ROOT, "src/data/v1-7-public.json");
 
-type AnyKPI = {
-  short?: unknown;
-  value?: unknown;
-  yoy?: unknown;
-  type?: unknown;
-  unit?: unknown;
-  name_fr?: unknown;
-  name_en?: unknown;
-  last_data_date?: unknown;
-};
-
-type AnyCo = {
+type AnyKPI = Record<string, unknown>;
+type AnyCo = Record<string, unknown> & {
   ticker?: string;
   name?: string;
   sector?: string;
@@ -42,8 +31,6 @@ type AnyCo = {
   hero_kpi?: string;
   next_earnings_date?: string;
   kpis?: AnyKPI[];
-  _validation?: unknown;
-  _validation_global?: unknown;
 };
 
 const merged = JSON.parse(fs.readFileSync(SRC, "utf-8")) as Record<string, AnyCo>;
@@ -53,42 +40,15 @@ let kept = 0;
 let skipped = 0;
 
 for (const [t, v] of Object.entries(merged)) {
-  if (!v || typeof v !== "object") {
+  if (!isStrictPass3(v)) {
     skipped++;
     continue;
   }
-  if (!v._validation && !v._validation_global) {
-    skipped++;
-    continue;
-  }
-  if (!Array.isArray(v.kpis) || v.kpis.length === 0) {
-    skipped++;
-    continue;
-  }
+  const heroShort = v.hero_kpi;
   const hero =
-    v.kpis.find((k) => k && typeof k === "object" && (k as AnyKPI).short === v.hero_kpi) ??
-    v.kpis[0];
-  if (
-    !hero ||
-    typeof (hero as AnyKPI).value !== "string" ||
-    typeof (hero as AnyKPI).yoy !== "string" ||
-    typeof (hero as AnyKPI).type !== "string" ||
-    typeof (hero as AnyKPI).unit !== "string" ||
-    typeof (hero as AnyKPI).short !== "string"
-  ) {
-    skipped++;
-    continue;
-  }
-  // Skip placeholders LLM "Non disponible / spécifié / disclosé / etc." :
-  // ces stés affichent une carte vide donc à exclure du hub public.
-  const PLACEHOLDERS = /^(non\s*(disponible|spécifié|specifie|disclosé|discloses?|reporté|reporte|précisé|precise|publié|publie|fourni|trouvé|connue?|renseigné|renseigne)|n\/a|na|—|-)$/i;
-  const h = hero as AnyKPI;
-  if (
-    PLACEHOLDERS.test(String(h.value).trim()) ||
-    PLACEHOLDERS.test(String(h.yoy).trim()) ||
-    PLACEHOLDERS.test(String(h.short).trim()) ||
-    PLACEHOLDERS.test(String((h as { name_fr?: string }).name_fr ?? "").trim())
-  ) {
+    (Array.isArray(v.kpis) ? v.kpis.find((k) => k && (k as AnyKPI).short === heroShort) : undefined) ??
+    (Array.isArray(v.kpis) ? v.kpis[0] : undefined);
+  if (!hero) {
     skipped++;
     continue;
   }
@@ -106,4 +66,4 @@ for (const [t, v] of Object.entries(merged)) {
 
 fs.writeFileSync(DST, JSON.stringify(out));
 const sizeKB = Math.round(fs.statSync(DST).size / 1024);
-console.log(`✅ v1-7-public.json regénéré : ${kept} stés (${skipped} skip), ${sizeKB} KB`);
+console.log(`✅ v1-7-public.json regénéré (Pass 3 strict) : ${kept} stés (${skipped} skip), ${sizeKB} KB`);

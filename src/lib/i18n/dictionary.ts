@@ -204,6 +204,19 @@ export const DICTIONARY: Dict = {
   "company.period.20y": { fr: "20 ans", en: "20y" },
   "company.period.locked": { fr: "Disponible en V2", en: "Available in V2" },
 
+  "company.ipo_young.label": {
+    fr: "IPO récente : {years} ans en bourse ({year})",
+    en: "Recent IPO: {years} years public ({year})",
+  },
+  "company.ipo_young.tooltip_title": {
+    fr: "Historique court",
+    en: "Short history",
+  },
+  "company.ipo_young.tooltip_body": {
+    fr: "Société introduite en bourse depuis moins de 6 ans. CAGR 5 ans, comparaisons de pic et signaux long terme à interpréter avec précaution.",
+    en: "Company has been public for less than 6 years. 5-year CAGR, peak comparisons and long-term signals should be read with caution.",
+  },
+
   // Toggle Trimestriel / Annuel sur le hero chart (6 mai 2026).
   "graph.period.quarter": { fr: "Trimestriel", en: "Quarterly" },
   "graph.period.semester": { fr: "Semestriel", en: "Semester" },
