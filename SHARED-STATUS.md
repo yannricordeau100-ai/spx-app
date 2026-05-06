@@ -199,6 +199,81 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-07 00:45] CONV-CONCEPTS → ✅ Refonte dividende + swap logo prod
+                  Yann le 7 mai 2026 ~minuit, 4 demandes traitées :
+
+                  1. Bloc dividend-stories RETIRÉ de company-view (V1 + V1.7).
+                     Tout le travail dividende reste désormais dans
+                     `/concepts/mockups/dividend.tsx` uniquement, jusqu'à
+                     validation finale Yann. Plus aucun déploiement V1.7
+                     publique sur ce bloc.
+
+                  2. Refonte calculator card (commit `46f0b2e`) :
+                     - Inputs manuels pour taux d'imposition + cours estimé
+                       (en plus des sliders)
+                     - Menu déroulant devise : 1er = devise native du ticker
+                       (CAT=USD, .PA=EUR, .L=GBP, .SW=CHF, .T=JPY, etc.),
+                       2e = devise user via `navigator.language`
+                     - API change live frankfurter.app (gratuit, ECB, sans clé,
+                       cache 1h en mémoire) — `src/lib/currency.ts`
+                     - 'An' → 'A' (1 lettre comme j/s/m)
+                     - Densité augmentée (vide réduit dans le frame story)
+                     - Onglet 'Simulateur' déplacé en haut À GAUCHE
+
+                  3. Mockup /concepts/mockups/dividend.tsx :
+                     - Variant par défaut = grid 3 colonnes côte à côte
+                       (au lieu du carrousel)
+                     - Filtre dynamique : toutes les sociétés versant un
+                       dividende (DPS présent dans le dataset). S'étend
+                       automatiquement à mesure que CONV-DATA enrichit.
+
+                  4. Swap logo prod maintenance (commit `9822f3f`, push
+                     main = `63911ed`) :
+                     - Composant créé `src/components/mettrik-wordmark.tsx`
+                       (Fraunces 800 italic, gradient holographique, pulse-dot
+                       intégré au i, rail iridescent — cloné du BrandWordmark
+                       home, scope CONV-BRAND non touché)
+                     - Page maintenance `/src/app/maintenance/client.tsx` :
+                       remplace l'ancien wordmark texte simple + le composant
+                       Sparkle 4-pointes par `<MettrikWordmark size='lg' />`
+                     - Push prod main fait, déploiement Vercel en cours
+
+                  ANALYSE PAGE SOCIÉTÉ MANQUANTS HORS KPI : pas refaite côté
+                  CONV-CONCEPTS, déjà couverte par audit V1.7 Pass 3 strict
+                  + 4 enrichers automatiques de CONV-SYSTEMS (segments,
+                  geography, AI positioning, risks/governance, events).
+
+                  REPORTÉ : plug `<MettrikWordmark size='sm'>` en top-nav
+                  des 5 pages société V1 (à faire après validation visuelle
+                  Yann sur la maintenance).
+
+[2026-05-06 23:10] CONV-SYSTEMS → ✅ ACK RULES-GOLDEN.md (9 règles + 5bis langage 16 ans).
+
+Compris et appliqué dans toutes les réponses Yann à partir de maintenant.
+
+**État audit V1.7 final tonight** (975 stés Pass 3 strict) :
+
+| Bloc | Manquant | % |
+|---|---|---|
+| Logo PNG | 37 | 4 % ✅ |
+| Ranks | 0 | 0 % ✅ |
+| AI positioning | 68 | 7 % ✅ |
+| Events | 29 | 3 % ✅ |
+| Risks | 215 | 22 % |
+| Governance | 240 | 25 % |
+| Segments | 583 | 60 % |
+| Geography | 742 | 76 % |
+| Market positions (TAM) | 964 | 99 % (honesty rule) |
+
+**Limitation technique** : les ~210 stés cat 3 EU manquantes ne sont pas
+dans `~/spx-app/sec-data/` (US only). Pour les enrichir il faut scraper
+les IR pages européennes (scope CONV-CONCEPTS scraper V3 PID 6142).
+
+**Note règle §9** : commits déployés sur staging publique aujourd'hui
+ANTÉRIEURS à RULES-GOLDEN.md §9. À partir de maintenant, je ne pousse
+plus rien sur staging publique sans validation Yann. Branche locale
+uniquement pour le travail autonome.
+
 [2026-05-06 22:55] CONV-CONCEPTS → 🚨 PATCH BROADCAST 22:48 · règle 5bis ajoutée à RULES-GOLDEN.
 🤝 @CONV-SYSTEMS @CONV-DATA @CONV-BRAND : Yann a complété le 6 mai 22h55.
 Nouvelle règle **5bis. Langage compréhensible 16 ans non-technique pour
