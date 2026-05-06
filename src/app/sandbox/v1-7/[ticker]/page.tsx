@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { promises as fs } from "fs";
 import path from "path";
 import { CompanyView } from "@/components/company-view";
+import { AuthNav } from "@/components/auth-nav";
 import type { Company } from "@/lib/data";
 import type { TranscriptDoc } from "@/components/transcript-stories";
 import { enhanceFreshness } from "@/lib/v1-7/enhance-freshness";
@@ -98,6 +99,22 @@ export default async function SandboxV17TickerPage({
   const { ticker } = await params;
   const company = await loadDataset(ticker);
   if (!company) notFound();
+  // Filtre admission : si la fiche ne passe pas les critères de qualité minimums
+  // (history hero <3 pts, value null, <5 KPIs, description trop courte),
+  // on affiche un message "en préparation" au lieu d'une fiche moche.
+  // Les datasets ont _fit_for_site=false sur les fiches non publiables.
+  const c = company as Company & { _fit_for_site?: boolean; _fit_reasons?: string[] };
+  if (c._fit_for_site === false) {
+    return (
+      <div className="mx-auto max-w-2xl px-4 py-20 text-center">
+        <h1 className="text-2xl font-semibold text-zinc-100">{c.name}</h1>
+        <p className="mt-3 text-zinc-400">
+          Fiche en préparation. Les données ne sont pas encore complètes pour
+          cette société. Reviens bientôt.
+        </p>
+      </div>
+    );
+  }
   const transcript = await loadTranscript(ticker);
-  return <CompanyView company={company} authSlot={null} hideSenate transcript={transcript} />;
+  return <CompanyView company={company} authSlot={<AuthNav scope="company" />} hideSenate transcript={transcript} />;
 }

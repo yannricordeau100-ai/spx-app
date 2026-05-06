@@ -408,20 +408,38 @@ export function getFreshness(lastDate?: string, now: Date = new Date()): Freshne
  * Compound annual growth rate over the full history window.
  * Returns null when not meaningful (any zero/negative endpoint, < 2 points,
  * or KPIs that already are themselves growth rates like "% YoY").
+ *
+ * BUG FIX 6 mai 2026 (Yann) : pour les KPIs trimestriels (period_type
+ * "quarter"), la formule retournait le taux PAR TRIMESTRE au lieu du taux
+ * annuel. Ex : NFLX abonnés 207,64 → 325,27 sur 20 trimestres = 9,3 %/an
+ * mais on affichait 2,4 %/an (= 9,3 % / 4 = taux trimestriel). Fix : on
+ * divise le nombre de périodes par 4 quand period_type === "quarter", ou
+ * par 2 quand "semester".
  */
-export function cagr(history: number[], unit?: string): number | null {
+export function cagr(
+  history: number[],
+  unit?: string,
+  period_type: "year" | "quarter" | "semester" = "year"
+): number | null {
   if (unit === "% YoY") return null; // already a growth-of-growth → meaningless
   if (!history || history.length < 2) return null;
   const first = history[0];
   const last = history[history.length - 1];
   if (first <= 0 || last <= 0) return null;
-  const periods = history.length - 1;
-  return (Math.pow(last / first, 1 / periods) - 1) * 100;
+  const stepsPerYear =
+    period_type === "quarter" ? 4 : period_type === "semester" ? 2 : 1;
+  const years = (history.length - 1) / stepsPerYear;
+  if (years <= 0) return null;
+  return (Math.pow(last / first, 1 / years) - 1) * 100;
 }
 
 /** Format CAGR for display, e.g. "+22.4 % / an" or null when N/A. */
-export function formatCAGR(history: number[], unit?: string): string | null {
-  const c = cagr(history, unit);
+export function formatCAGR(
+  history: number[],
+  unit?: string,
+  period_type: "year" | "quarter" | "semester" = "year"
+): string | null {
+  const c = cagr(history, unit, period_type);
   if (c === null) return null;
   const sign = c > 0 ? "+" : "";
   return `${sign}${c.toLocaleString("fr-FR", {

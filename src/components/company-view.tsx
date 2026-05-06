@@ -102,9 +102,17 @@ export function CompanyView({
   const [chartMode, setChartMode] = useChartMode("curve");
   const [barsVariant, setBarsVariant] = useState<"iso3d" | "classic">("classic");
   const [timeFraction, setTimeFraction] = useState<TimeFraction>("year");
-  // Toggle Annuel / Trimestriel : trimestriel par défaut quand data dispo
-  // (5 mai 2026 : Yann impose trimestriel partout). Fallback annuel sinon.
-  const [graphPeriod, setGraphPeriod] = useState<"year" | "quarter">("quarter");
+  // Toggle Annuel / Trimestriel / Semestriel selon period_type du hero KPI
+  // (6 mai 2026 : extension semester pour stés EU qui reportent 2x/an).
+  // Default : period natif si data dispo, sinon annual.
+  const heroNativePeriod = (() => {
+    const hk = company.kpis?.find((k) => k.short === company.hero_kpi) ?? company.kpis?.[0];
+    const pt = hk?.period_type;
+    if (pt === "quarter") return "quarter";
+    if (pt === "semester") return "semester";
+    return "year";
+  })();
+  const [graphPeriod, setGraphPeriod] = useState<"year" | "quarter" | "semester">(heroNativePeriod);
   const [compareTicker, setCompareTicker] = useState<string | null>(null);
 
   const heroRef = useRef<HTMLDivElement>(null);
@@ -125,34 +133,52 @@ export function CompanyView({
   // Annuel : génère "2021", "2022"... pour 5 années (= Q4 de chaque année).
   const chartLabels = useMemo(() => {
     if (!active) return undefined;
-    if (active.period_type !== "quarter" || !active.last_data_date) return undefined;
+    const pt = active.period_type;
+    if (pt !== "quarter" && pt !== "semester") return undefined;
+    if (!active.last_data_date) return undefined;
     const d = new Date(active.last_data_date);
     if (Number.isNaN(d.getTime())) return undefined;
     const n = active.history?.length ?? 0;
     if (n === 0) return undefined;
-    const endQ0 = Math.floor(d.getUTCMonth() / 3) + 1;
     const endY0 = d.getUTCFullYear();
+    const endMonth = d.getUTCMonth() + 1;
+    const endQ0 = Math.floor(d.getUTCMonth() / 3) + 1;
+    const endSem0 = endMonth <= 6 ? 1 : 2;
 
+    if (pt === "semester") {
+      if (graphPeriod === "year") {
+        const yearsCount = Math.ceil(n / 2);
+        const out: string[] = [];
+        for (let i = 0; i < yearsCount; i++) out.unshift(String(endY0 - i));
+        return out;
+      }
+      // Mode semestriel : 1 label par semestre.
+      let endSem = endSem0;
+      let endY = endY0;
+      const out: string[] = [];
+      for (let i = n - 1; i >= 0; i--) {
+        out.unshift(`S${endSem} ${String(endY).slice(-2)}`);
+        endSem -= 1;
+        if (endSem === 0) { endSem = 2; endY -= 1; }
+      }
+      return out;
+    }
+
+    // pt === 'quarter'
     if (graphPeriod === "year") {
-      // Mode annuel : 1 label par tranche de 4 trimestres en remontant
-      // depuis le dernier (= Q4 de chaque année si on commence sur Q4).
       const yearsCount = Math.ceil(n / 4);
       const out: string[] = [];
       for (let i = 0; i < yearsCount; i++) out.unshift(String(endY0 - i));
       return out;
     }
-
-    // Mode trimestriel : 1 label par trimestre, year-band groupant.
+    // Mode trimestriel : 1 label par trimestre.
     let endQ = endQ0;
     let endY = endY0;
     const out: string[] = [];
     for (let i = n - 1; i >= 0; i--) {
       out.unshift(`T${endQ} ${String(endY).slice(-2)}`);
       endQ -= 1;
-      if (endQ === 0) {
-        endQ = 4;
-        endY -= 1;
-      }
+      if (endQ === 0) { endQ = 4; endY -= 1; }
     }
     return out;
   }, [active, graphPeriod]);
@@ -163,14 +189,15 @@ export function CompanyView({
   // KPIs flux trimestriels, sum dans une future itération.
   const chartHistory = useMemo(() => {
     if (!active) return [];
-    if (active.period_type !== "quarter" || graphPeriod !== "year") {
+    const pt = active.period_type;
+    if (graphPeriod !== "year" || (pt !== "quarter" && pt !== "semester")) {
       return active.history ?? [];
     }
     const h = active.history ?? [];
     const n = h.length;
-    // Take Q4 (last quarter) of each year en remontant depuis le dernier point.
+    const step = pt === "semester" ? 2 : 4;
     const out: number[] = [];
-    for (let i = n - 1; i >= 0; i -= 4) out.unshift(h[i]);
+    for (let i = n - 1; i >= 0; i -= step) out.unshift(h[i]);
     return out;
   }, [active, graphPeriod]);
 
@@ -190,7 +217,7 @@ export function CompanyView({
   const anomalies = detectAnomalies(active.history, active.type, active.short);
   const formattedUnit = formatUnit(active.unit);
   const heroFormatted = formatHeroValue(active.value, active.unit);
-  const heroCAGR = formatCAGR(active.history, active.unit);
+  const heroCAGR = formatCAGR(active.history, active.unit, active.period_type ?? "year");
   const interp = useMemo(() => interpretStructured(company), [company]);
 
   const comparables = useMemo(
@@ -345,13 +372,13 @@ export function CompanyView({
                 <PercentileChipOnly rating={heroRating} scope={company.subsector} />
               </div>
 
+              {/* Signal uniquement (sans description) — Yann 6 mai 2026 :
+                  le bloc descriptif sous le signal était trop long et
+                  inutilement verbeux. Le signal seul suffit pour la PV. */}
               <div className="mt-5 flex max-w-md items-start gap-2.5 rounded-xl border border-[#1a1a1a] bg-[#070707] p-3.5">
                 <Sparkles className="mt-0.5 size-4 shrink-0" style={{ color: accent }} />
-                <div>
-                  <div className="text-[14px] font-semibold text-zinc-100">{active.signal}</div>
-                  <div className="mt-1 text-[12.5px] leading-relaxed text-zinc-400">
-                    {active.description}
-                  </div>
+                <div className="text-[14px] font-semibold leading-snug text-zinc-100">
+                  {active.signal}
                 </div>
               </div>
             </div>
@@ -378,9 +405,10 @@ export function CompanyView({
                   onGraphPeriodChange={setGraphPeriod}
                   graphPeriodAvailable={{
                     year: true,
-                    // Quarter dispo si KPI a period_type=quarter (data réelle).
-                    // Sinon désactivé (fallback automatique sur annuel).
+                    // Quarter / Semester dispo selon period_type natif du KPI.
+                    // (data réelle, sinon désactivé).
                     quarter: active.period_type === "quarter",
+                    semester: active.period_type === "semester",
                   }}
                 />
                 <PeriodToggle accent={accent} />
