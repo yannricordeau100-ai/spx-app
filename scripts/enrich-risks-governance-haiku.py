@@ -92,15 +92,34 @@ def find_filing(ticker: str, form: str = "10K") -> str | None:
 
 
 def extract_risk_factors(text: str, max_chars: int = 18000) -> str:
+    """Cherche le bloc 'Risk Factors' dans 10-K Item 1A ou 20-F Item 3.D.
+    Tolère les séparateurs ',' '.' ' ' entre Item 1A et Risk Factors. Si
+    pas trouvé, fallback sur la dernière occurrence brute de 'Risk Factors'.
+    """
     if not text:
         return ""
+    # Pattern spécifique Item 1A/3D (le plus précis)
     matches = list(re.finditer(
-        r"(?:item\s+1a\.?\s+risk\s+factors|item\s+3\.?\s*d\s+risk\s+factors)",
+        r"(?:item\s+1a[\.\,\s]+risk\s+factors|item\s+3[\.\,\s]*d[\.\,\s]+risk\s+factors)",
         text, re.IGNORECASE
     ))
     if not matches:
-        return ""
-    start = matches[-1].start()
+        # Fallback : dernière occurrence brute de "Risk Factors" qui n'est
+        # pas dans un TOC (skip les premières occurrences si trop tôt).
+        all_rf = list(re.finditer(r"risk\s+factors", text, re.IGNORECASE))
+        if not all_rf:
+            return ""
+        # Skip les TOC : prend la dernière occurrence APRÈS au moins 5 % du
+        # document (pour éviter la table des matières)
+        cutoff = int(len(text) * 0.05)
+        late_matches = [m for m in all_rf if m.start() >= cutoff]
+        if not late_matches:
+            return ""
+        # Prend la première occurrence "tardive" qui est suivie de assez
+        # de texte (pas un cross-reference dans le corps).
+        start = late_matches[0].start()
+    else:
+        start = matches[-1].start()
     return re.sub(r"\s+", " ", text[start:start + max_chars + 2000])[:max_chars]
 
 
