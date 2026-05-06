@@ -50,14 +50,16 @@ const VARIANT_LABELS: Record<Variant, { title: string; sub: string }> = {
 
 export function MockupDividend() {
   const [ticker, setTicker] = useState<string>("CAT");
-  const [variant, setVariant] = useState<Variant>("A_carrousel");
+  // Default = grid 3 colonnes côte à côte (Yann 7 mai 2026).
+  const [variant, setVariant] = useState<Variant>("B_grid");
 
-  // Companies dividend-friendly côté V1 démo.
-  // Pour itérer plus tard sur d'autres dividend payers V2.
-  const dividendStocks: string[] = TICKERS.filter(
-    (t) => CONCEPT_COMPANIES[t]?.kpis.some((k) => k.short === "DPS")
-  );
-  // Fallback minimum sur CAT seul si rien trouvé.
+  // Toutes les sociétés versant un dividende (DPS présent OU is CAT pour
+  // bénéficier du fallback hard-codé). À mesure que CONV-DATA enrichit les
+  // datasets, la liste grossit automatiquement.
+  const dividendStocks: string[] = TICKERS.filter((t) => {
+    const c = CONCEPT_COMPANIES[t];
+    return c?.kpis.some((k) => k.short === "DPS") || t === "CAT";
+  });
   const availableTickers = dividendStocks.length > 0 ? dividendStocks : ["CAT"];
 
   const company = getConceptCompany(ticker);
