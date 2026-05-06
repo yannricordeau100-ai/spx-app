@@ -41,6 +41,7 @@ import { CompareControl } from "@/components/compare-control";
 import { ComparePanel } from "@/components/compare-panel";
 import { KpiStories } from "@/components/kpi-stories";
 import { hasStories } from "@/lib/kpi-stories-ordering";
+import { DividendStories } from "@/components/dividend-stories";
 import { orderKpis } from "@/lib/kpi-ordering";
 import { RiskStack } from "@/components/risk-stack";
 import { AIPositioningCard } from "@/components/ai-positioning-card";
@@ -552,6 +553,11 @@ export function CompanyView({
         {hasStories(company.kpis, company.market_positions) && (
           <KpiStories company={company} />
         )}
+
+        {/* Stories Dividendes — bloc séparé, 3 fenêtres (Aristocrat /
+            Calculateur revenu / Boule de neige DRIP). Activé uniquement sur
+            CAT en V1 démo (test, à étendre aux autres dividend payers). */}
+        {company.ticker === "CAT" && <DividendStories company={company} />}
 
         {/* Transcript Stories — bloc 2 colonnes côte à côte (citations
             management + chiffres/guidance du dernier earning call). Placé
