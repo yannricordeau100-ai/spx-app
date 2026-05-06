@@ -14,24 +14,14 @@ import type { Locale } from "@/lib/i18n/types";
  * dernières valeurs connues (ou FAKE seed) si l'API est down.
  */
 
-/**
- * Seed de fallback si /api/stock-prices ne répond pas. Volontairement
- * obsolète mais cohérent : on préfère afficher quelque chose que rien.
- * Mis à jour automatiquement dès que le fetch live revient.
- */
-const FAKE = {
-  GOOGL: { price: 198.42, deltaPct: 0.93, shares: 12.4 },
-  META: { price: 725.34, deltaPct: 0.95, shares: 2.55 },
-  MSCI: { price: 587.21, deltaPct: -0.58, shares: 0.078 },
-  SPGI: { price: 521.88, deltaPct: 0.41, shares: 0.308 },
-  CAT: { price: 401.73, deltaPct: 1.42, shares: 0.48 },
-} as const;
-
 type LivePrice = {
   price: number;
   deltaPct: number;
   marketCap: number; // en Mds $
   marketState: string | null;
+  /** Si true : pas encore de fetch live aboutie → on doit afficher un
+   *  skeleton "—" au lieu de chiffres bidon. (6 mai 2026) */
+  loading: boolean;
 };
 
 type ApiResp = {
@@ -69,6 +59,7 @@ async function fetchPrice(ticker: string): Promise<LivePrice | null> {
       // marketCap reçu en USD bruts → convertis en Mds $
       marketCap: item.marketCap != null ? item.marketCap / 1_000_000_000 : 0,
       marketState: item.marketState,
+      loading: false,
     };
   } catch {
     return null;
@@ -76,13 +67,15 @@ async function fetchPrice(ticker: string): Promise<LivePrice | null> {
 }
 
 function useLivePrice(ticker: string): LivePrice {
-  // Seed avec FAKE pour éviter le flash vide au mount
-  const seed = FAKE[ticker as keyof typeof FAKE] ?? FAKE.META;
+  // Pas de seed FAKE : Yann ne veut pas voir 1-2 secondes de valeur figée
+  // qui change à l'arrivée du fetch live. On démarre en `loading=true` →
+  // le block affiche des skeletons (—) jusqu'à la 1re réponse réelle. (6 mai 2026)
   const [data, setData] = useState<LivePrice>({
-    price: seed.price,
-    deltaPct: seed.deltaPct,
-    marketCap: seed.price * seed.shares,
+    price: 0,
+    deltaPct: 0,
+    marketCap: 0,
     marketState: null,
+    loading: true,
   });
 
   useEffect(() => {
@@ -133,9 +126,12 @@ export function StockPriceBlock({ company }: { company: Company }) {
     marketCap: live.marketCap,
   };
   const isUp = s.deltaPct >= 0;
-  const tone = isUp ? GREEN_PURE : RED_PURE;
-  const toneLight = isUp ? GREEN_LIGHT : RED_LIGHT;
-  const ledColor = isUp ? GREEN_LED : RED_LED;
+  // Pendant le loading : couleurs neutres (gris) au lieu de vert/rouge
+  // calculé sur 0.00 (qui s'afficherait vert par défaut).
+  const tone = live.loading ? "#52525b" : isUp ? GREEN_PURE : RED_PURE;
+  const toneLight = live.loading ? "#a1a1aa" : isUp ? GREEN_LIGHT : RED_LIGHT;
+  const ledColor = live.loading ? "#a1a1aa" : isUp ? GREEN_LED : RED_LED;
+  const placeholder = "—";
 
   return (
     <div
@@ -163,7 +159,7 @@ export function StockPriceBlock({ company }: { company: Company }) {
           {t("stock.market_cap")}
         </span>
         <span className="mt-1 text-center font-display text-[22px] font-bold leading-none tracking-tight text-zinc-50 tabular-nums sm:text-[24px]">
-          {fmtMarketCap(s.marketCap, locale)}
+          {live.loading ? placeholder : fmtMarketCap(s.marketCap, locale)}
         </span>
       </div>
 
@@ -178,8 +174,7 @@ export function StockPriceBlock({ company }: { company: Company }) {
             fontSize: "clamp(14px, 1.6vw, 17px)",
           }}
         >
-          {isUp ? "+" : ""}
-          {s.deltaPct.toFixed(2)} %
+          {live.loading ? placeholder : `${isUp ? "+" : ""}${s.deltaPct.toFixed(2)} %`}
         </span>
       </div>
 
@@ -204,10 +199,12 @@ export function StockPriceBlock({ company }: { company: Company }) {
             textShadow: "0 2px 12px rgba(0,0,0,0.55)",
           }}
         >
-          {s.price.toLocaleString(locale === "fr" ? "fr-FR" : "en-US", {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-          })}
+          {live.loading
+            ? placeholder
+            : s.price.toLocaleString(locale === "fr" ? "fr-FR" : "en-US", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}
           <span
             className="ml-1.5 text-[20px] text-white/85 sm:text-[22px]"
             style={{
