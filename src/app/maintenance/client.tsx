@@ -105,39 +105,6 @@ export function MaintenanceClient({
 }
 
 /* ============================================================ */
-/* Sparkle : étoile centrale qui scintille                        */
-/* ============================================================ */
-function Sparkle() {
-  return (
-    <motion.div
-      className="relative size-16"
-      animate={{ rotate: 360 }}
-      transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
-    >
-      <motion.div
-        className="absolute inset-0"
-        animate={{ scale: [1, 1.15, 1], opacity: [0.7, 1, 0.7] }}
-        transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <svg viewBox="0 0 64 64" className="size-full" aria-hidden>
-          <defs>
-            <radialGradient id="sparkleGrad" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#e9d5ff" stopOpacity="1" />
-              <stop offset="50%" stopColor="#a78bfa" stopOpacity="0.8" />
-              <stop offset="100%" stopColor="#22d3ee" stopOpacity="0" />
-            </radialGradient>
-          </defs>
-          <path
-            d="M32 4 L36 28 L60 32 L36 36 L32 60 L28 36 L4 32 L28 28 Z"
-            fill="url(#sparkleGrad)"
-          />
-        </svg>
-      </motion.div>
-    </motion.div>
-  );
-}
-
-/* ============================================================ */
 /* BackgroundStars : 30 petites étoiles animées en background    */
 /* ============================================================ */
 function BackgroundStars() {
