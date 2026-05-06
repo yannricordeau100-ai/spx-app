@@ -32,6 +32,11 @@ function isPublicPath(pathname: string): boolean {
   if (pathname.startsWith("/api/")) return true;
   if (pathname === "/favicon.ico") return true;
   if (pathname === "/robots.txt" || pathname === "/sitemap.xml") return true;
+  // Assets statiques de public/ (.png, .jpg, .svg, .webp, .ico, etc.) :
+  // toujours publics, sinon le proxy renvoie sur /login et casse les
+  // <image> embeds (notamment /brand-mini-logo.png utilisé par le PNG
+  // download des charts). Yann 6 mai 2026.
+  if (/\.(png|jpe?g|svg|webp|gif|ico|woff2?|ttf|otf)$/i.test(pathname)) return true;
   // /whoami = diag temporaire pour résoudre le 404 desk
   if (pathname === "/whoami") return true;
   // /legal/* = pages légales (mentions, CGU, CGV, confidentialité) — publiques
