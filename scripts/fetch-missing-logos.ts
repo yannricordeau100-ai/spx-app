@@ -139,16 +139,20 @@ async function fetchWithTimeout(url: string): Promise<ArrayBuffer | null> {
 async function fetchLogo(entry: Entry, overrides: Record<string, string>): Promise<ArrayBuffer | null> {
   const domains = guessDomains(entry, overrides);
   for (const d of domains) {
-    // Priorité Clearbit (plus haute qualité que favicons quand dispo).
+    // Clearbit était primaire mais l'API est devenue instable / morte
+    // (API.clearbit retire ses logos en 2024+). On essaie quand même mais
+    // on ne s'attarde pas si elle bug.
     const clearbit = await fetchWithTimeout(`https://logo.clearbit.com/${d}`);
-    if (clearbit && clearbit.byteLength > 1000) return clearbit;
+    if (clearbit && clearbit.byteLength > 2000) return clearbit;
 
-    // Fallback Google s2 favicons (toujours dispo, qualité moyenne).
+    // Google s2 favicons (gratuit, illimité, fallback robuste). Suit les
+    // redirects automatiquement (fetch follows par défaut).
     const favicon = await fetchWithTimeout(`https://www.google.com/s2/favicons?domain=${d}&sz=128`);
-    // sz=128 fournit du PNG décent, mais favicons par défaut < 1KB sont
-    // souvent des placeholders Google → on les garde tout de même comme
-    // dernier recours (mieux que LogoMonogram pour les stés peu connues).
-    if (favicon && favicon.byteLength > 500) return favicon;
+    if (favicon && favicon.byteLength > 400) return favicon;
+
+    // DuckDuckGo icons (autre alternative gratuite).
+    const ddg = await fetchWithTimeout(`https://icons.duckduckgo.com/ip3/${d}.ico`);
+    if (ddg && ddg.byteLength > 400) return ddg;
   }
   return null;
 }

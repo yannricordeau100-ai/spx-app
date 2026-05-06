@@ -173,14 +173,22 @@ function main() {
       counters.MISSING_EVENTS++;
     }
 
-    // Revenue by segment
-    if (!nonEmptyArray(full.revenue_by_segment) && !nonEmptyArray(enrich?.revenue_by_segment)) {
+    // Revenue by segment — RevenueBreakdown {unit, slices: [...]} (objet, pas array)
+    const segOk = (
+      (full.revenue_by_segment && (full.revenue_by_segment as AnyRec).slices && nonEmptyArray((full.revenue_by_segment as AnyRec).slices)) ||
+      (enrich?.revenue_by_segment && (enrich.revenue_by_segment as AnyRec).slices && nonEmptyArray((enrich.revenue_by_segment as AnyRec).slices))
+    );
+    if (!segOk) {
       flags.push("MISSING_SEGMENTS");
       counters.MISSING_SEGMENTS++;
     }
 
-    // Revenue by geography
-    if (!nonEmptyArray(full.revenue_by_geography) && !nonEmptyArray(enrich?.revenue_by_geography)) {
+    // Revenue by geography — même format objet RevenueBreakdown
+    const geoOk = (
+      (full.revenue_by_geography && (full.revenue_by_geography as AnyRec).slices && nonEmptyArray((full.revenue_by_geography as AnyRec).slices)) ||
+      (enrich?.revenue_by_geography && (enrich.revenue_by_geography as AnyRec).slices && nonEmptyArray((enrich.revenue_by_geography as AnyRec).slices))
+    );
+    if (!geoOk) {
       flags.push("MISSING_GEOGRAPHY");
       counters.MISSING_GEOGRAPHY++;
     }

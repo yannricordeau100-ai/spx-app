@@ -156,6 +156,7 @@ def extract_ai_context(text: str, max_chars: int = 8000) -> str:
 
 CEREBRAS_URL = "https://api.cerebras.ai/v1/chat/completions"
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
+ANTHROPIC_URL = "https://api.anthropic.com/v1/messages"
 PROMPT_TEMPLATE = """Tu es un analyste investisseur. Lis ces extraits du 10-K de {ticker} et extrais le positionnement IA de la société.
 
 Extraits :
@@ -182,28 +183,41 @@ Pas d'invention. Si rien dans les extraits, stance=absent et summary explicite.
 
 
 def _try_provider(url: str, model: str, prompt: str, api_key: str) -> dict | None:
-    body = json.dumps({
-        "model": model,
-        "messages": [{"role": "user", "content": prompt}],
-        "temperature": 0.1,
-        "max_tokens": 800,
-        "response_format": {"type": "json_object"},
-    }).encode()
-    req = urllib.request.Request(
-        url,
-        data=body,
-        headers={
+    is_anthropic = "anthropic" in url
+    if is_anthropic:
+        body = json.dumps({
+            "model": model,
+            "max_tokens": 800,
+            "messages": [{"role": "user", "content": prompt}],
+            "temperature": 0.0,
+        }).encode()
+        headers = {
+            "x-api-key": api_key,
+            "anthropic-version": "2023-06-01",
+            "content-type": "application/json",
+        }
+    else:
+        body = json.dumps({
+            "model": model,
+            "messages": [{"role": "user", "content": prompt}],
+            "temperature": 0.1,
+            "max_tokens": 800,
+            "response_format": {"type": "json_object"},
+        }).encode()
+        headers = {
             "Authorization": f"Bearer {api_key}",
             "Content-Type": "application/json",
             "Accept": "application/json",
-            # Cloudflare devant Groq bloque urllib par défaut → UA browser-like.
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
-        },
-    )
+        }
+    req = urllib.request.Request(url, data=body, headers=headers)
     try:
         with urllib.request.urlopen(req, context=SSL_CTX, timeout=30) as r:
             resp = json.loads(r.read())
-        content = resp.get("choices", [{}])[0].get("message", {}).get("content", "")
+        if is_anthropic:
+            content = resp.get("content", [{}])[0].get("text", "")
+        else:
+            content = resp.get("choices", [{}])[0].get("message", {}).get("content", "")
         content = re.sub(r"^```(?:json)?\s*|\s*```$", "", content.strip())
         try:
             return json.loads(content)
@@ -244,7 +258,10 @@ def main():
     args = ap.parse_args()
 
     load_env()
+    # Priorité Anthropic Haiku 4.5 (reliable) > Groq (rate-limited Cloudflare)
+    # > Cerebras (free tier).
     providers = [
+        (ANTHROPIC_URL, "claude-haiku-4-5-20251001", os.environ.get("ANTHROPIC_API_KEY", "")),
         (GROQ_URL, "llama-3.3-70b-versatile", os.environ.get("GROQ_API_KEY", "")),
         (CEREBRAS_URL, "llama3.3-70b", os.environ.get("CEREBRAS_API_KEY", "")),
         (CEREBRAS_URL, "llama3.3-70b", os.environ.get("CEREBRAS2_API_KEY", "")),
@@ -252,7 +269,7 @@ def main():
     ]
     providers = [p for p in providers if p[2]]
     if not providers:
-        print("❌ Aucune clé LLM dispo (GROQ_API_KEY / CEREBRAS_API_KEY)", file=sys.stderr)
+        print("❌ Aucune clé LLM dispo", file=sys.stderr)
         sys.exit(1)
     print(f"🤖 Providers actifs : {[p[1] for p in providers]}")
 
@@ -263,14 +280,17 @@ def main():
 
     pending_all = [t for t, flags in audit.items() if "MISSING_AI_POSITIONING" in flags]
 
-    # Skip si déjà fait dans enrich
+    # Skip si déjà fait avec un VRAI résultat dans enrich. Les stés
+    # marquées stance=absent par défaut (10-K introuvable) restent à retry
+    # quand sec-data se complète. Les stés avec evidence non vide sont OK.
     pending = []
     for t in pending_all:
         out_path = ENR / f"{t.lower()}.json"
         if out_path.exists() and not args.force:
             try:
                 existing = json.loads(out_path.read_text())
-                if existing.get("ai_positioning"):
+                ai = existing.get("ai_positioning")
+                if ai and (ai.get("evidence") or ai.get("stance") in ("leader", "integrator", "cautious")):
                     continue
             except Exception:
                 pass
