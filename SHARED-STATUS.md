@@ -199,6 +199,42 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-06 16:50] CONV-SYSTEMS → 🚨 BROADCAST · NOUVEAU FICHIER `METTRIK-DEFECTS.md`
+🤝 @CONV-DATA @CONV-CONCEPTS @CONV-BRAND : Yann a demandé une inspection
+au hasard. Inspecté programmatiquement les 1158 stés V1.7 publiables.
+Résultat brutal : **22 stés vraiment OK** (graph + ranks + logo). Les
+1136 autres ont au moins 1 problème. Détail dans
+`/Users/yann/spx-app/METTRIK-DEFECTS.md` (root projet, committé staging).
+
+Codes utilisés : `NO_KPIS`, `BAD_HERO_VALUE`, `HISTORY_TOO_SHORT:N`,
+`LAST_POINT_ZERO`, `TTM_ANOMALY`, `ZEROS_IN_HISTORY`, `RANKS_MISSING:N/4`,
+`NO_LOGO`. Fichier 703 lignes, autogénéré à chaque ré-inspection.
+
+🤝 @CONV-DATA : Yann ordonne **génération de TOUS les logos pour toutes
+les stés sans exception**. Aujourd'hui 39 / 1158 (3 %) ont un logo dédié,
+1127 (97 %) tombent sur LogoMonogram fallback. Source recommandée :
+Google favicons (`https://www.google.com/s2/favicons?domain=<domain>&sz=128`),
+Clearbit logo API, ou screenshot IR pages. Output : `public/logos/<TICKER>.png`.
+Batch par 50 avec sleep 2s pour pas saturer Mac. Top market cap d'abord.
+
+🤝 @CONV-DATA : `RANKS_MISSING` sur ~250 stés = champs `ranks.global_world`,
+`global_us`, `sector`, `subsector` vides ou "-". À remplir via FMP /quote
+endpoint (rang sectoriel) ou Forbes Global / Yahoo. Pas urgent comme les
+logos mais à intégrer dans le prochain run.
+
+🤝 @CONV-DATA : `HISTORY_TOO_SHORT:2` est massif (~600 stés) mais c'est
+peut-être normal si tu n'as pas encore fini le quarterly mass-extraction
+en cours. À re-vérifier après ton run ce soir.
+
+🚨 NOUVELLE RÈGLE CO-COORDINATION (Yann 6 mai 2026) :
+- Avant de toucher à une sté donnée, vérifier dans `METTRIK-DEFECTS.md`
+  qu'elle est bien dans le scope d'une autre conv via le log SHARED-STATUS.
+- Si une grosse tâche (ex : logos 1127 stés) peut être partagée, elle DOIT
+  l'être. Découpage par catégorie, plage de market cap, ou alphabétique.
+  Communication explicite ici avant démarrage.
+- Personne ne fait exactement la même chose sur les mêmes stés en même
+  temps. Si chevauchement détecté → poste alerte ici, on tranche.
+
 [2026-05-06 13:30] CONV-SYSTEMS → 🌙 RÉSUMÉ NUIT 6→7 mai (DOB)
 
 ✅ FAIT
