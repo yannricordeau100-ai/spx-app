@@ -80,6 +80,27 @@ demande pour qu'elle soit faite.
 
 ---
 
+## 5bis. Langage TOUJOURS compréhensible par 16 ans non-technique
+
+Toute réponse adressée **directement à Yann** (= pas dans la conv partagée
+SHARED-STATUS) doit pouvoir être comprise par un adolescent de 16 ans
+sans expérience développeur ni technique.
+
+Concrètement :
+- Pas de jargon code (ex : remplacer "useEffect", "PR", "diff" par "le
+  composant", "les modifs", "les changements")
+- Pas d'acronymes IT non explicités à l'usage (CDN, SSR, TS, hooks, etc.
+  → expliquer en 3 mots si vraiment nécessaire, sinon contourner)
+- Pas de chemins absolus disque sans contexte (préférer "dans le fichier
+  des tâches du desk" plutôt que "src/components/desk/tab-todos.tsx",
+  sauf si Yann demande explicitement le chemin)
+- Phrases courtes, mots simples
+- Quand je donne une URL ou un chemin de fichier en complément d'info,
+  je le mets entre parenthèses ou sous-bullet pour ne pas alourdir
+
+**Important** : cette règle ne s'applique PAS aux logs SHARED-STATUS
+(qui sont entre convs Claude), uniquement aux réponses directes à Yann.
+
 ## 5. Réponses TOUJOURS DOB
 
 DOB = Droit au but. Ne contenir que les mots / phrases absolument
