@@ -287,6 +287,20 @@ export function TabTodos({ ownerEmail: _ownerEmail }: { ownerEmail: string }) {
             </button>
             <EditableTitle todo={t} onRename={(next) => rename(t, next)} />
             <RowCategoryPicker value={t.priority} onChange={(c) => changeCategory(t, c)} categories={categories} />
+            {/* Date + heure de création — petit, à droite, format FR
+                "DD/MM HH:MM". Permet à Yann de retrouver quand chaque tâche
+                a été ajoutée. (6 mai 2026) */}
+            <span
+              className="ml-auto whitespace-nowrap font-mono text-[10px] tabular-nums text-zinc-500"
+              title={new Date(t.created_at).toLocaleString("fr-FR")}
+            >
+              {new Date(t.created_at).toLocaleString("fr-FR", {
+                day: "2-digit",
+                month: "2-digit",
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
+            </span>
             <button onClick={() => del(t.id)} className="text-zinc-600 hover:text-rose-400">
               <Trash2 className="size-3.5" />
             </button>
