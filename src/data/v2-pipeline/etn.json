@@ -69,9 +69,10 @@
       "is_short_history": false,
       "ttm": 35.38,
       "_validation": [
-        "KPI is generic metric, flagged appropriately",
-        "No hallucination detected, value plausible for industrial manufacturer",
-        "No explicit gross margin disclosure in provided source material but values are reasonable and consistent with operating margin trajectory"
+        "HALLUCINATION DETECTED: Gross margin value (35.2%) not explicitly disclosed in provided source material",
+        "KPI flagged as generic metric appropriately",
+        "VALUE UNVERIFIABLE: No consolidated income statement or gross profit figures provided in source excerpt",
+        "RECOMMENDATION: Remove or flag with low confidence until explicit disclosure found in full financial statements"
       ]
     },
     {
@@ -98,15 +99,16 @@
       "is_short_history": false,
       "ttm": 18.94,
       "_validation": [
-        "KPI is generic metric, flagged appropriately",
-        "No explicit operating margin disclosure in provided source material but values are reasonable and consistent with gross margin trajectory",
-        "Narrative about synergies supported by acquisitions mentioned in Business section"
+        "HALLUCINATION DETECTED: Operating margin value (18.7%) not explicitly disclosed in provided source material",
+        "KPI flagged as generic metric appropriately",
+        "VALUE UNVERIFIABLE: No consolidated income statement with operating income figures provided in source excerpt",
+        "RECOMMENDATION: Remove or flag with low confidence until explicit disclosure found in full financial statements"
       ]
     },
     {
       "short": "R&D",
       "name_fr": "Investissements R&D en pourcentage du revenu",
-      "name_en": "R&D as % Revenue",
+      "name_en": "R&D as % of Revenue",
       "explanation": "Dépenses en recherche et développement rapportées au chiffre d'affaires.",
       "value": "3.8",
       "unit": "%",
@@ -127,9 +129,11 @@
       "is_short_history": false,
       "ttm": 3.8,
       "_validation": [
+        "HALLUCINATION DETECTED: R&D percentage value (3.8%) not disclosed in provided source material",
         "Name and description consistent with company strategy on intelligent power management",
-        "No explicit R&D percentage disclosure in provided source material but value is reasonable for industrial innovator",
-        "No hallucination detected, consistent with investment strategy narrative"
+        "VALUE UNVERIFIABLE: No R&D expense figures provided in source excerpt",
+        "RECOMMENDATION: Remove or flag with low confidence until explicit disclosure found in full financial statements",
+        "Minor correction: name_en changed from 'R&D as % Revenue' to 'R&D as % of Revenue' for consistency"
       ]
     },
     {
@@ -139,7 +143,7 @@
       "explanation": "Dépenses en actifs physiques comme les usines et équipements.",
       "value": "1.2",
       "unit": "B $",
-      "yoy": "+0.2",
+      "yoy": "+0.2 B $",
       "type": "Investment",
       "nature": "Structurel",
       "comparable": "Non comparable",
@@ -156,9 +160,12 @@
       "is_short_history": false,
       "ttm": 1.23,
       "_validation": [
+        "HALLUCINATION DETECTED: Capex value (1.2B$) not disclosed in provided source material",
         "Unit confirmed as 'B $' for consistency",
-        "Capex magnitude reasonable for company of this scale (4.4% of revenue)",
-        "No explicit capex disclosure in provided source material but values are reasonable and consistent with growth narrative"
+        "VALUE UNVERIFIABLE: No cash flow statement with capital expenditure figures provided in source excerpt",
+        "YoY FORMAT CORRECTION: Changed from '+0.2' to '+0.2 B $' for unit consistency",
+        "Capex magnitude reasonable for company of this scale (4.4% of revenue) but unverifiable from source",
+        "RECOMMENDATION: Remove or flag with low confidence until explicit disclosure found in full financial statements"
       ]
     },
     {
@@ -185,9 +192,11 @@
       "is_short_history": false,
       "ttm": 90.01,
       "_validation": [
+        "HALLUCINATION DETECTED: Headcount value (89.5K employees) not disclosed in provided source material",
         "Unit confirmed as 'K' (thousands of employees)",
-        "Headcount increase justified by acquisitions mentioned in Business section (Fibrebond, Resilient, Ultra PCS, Boyd Thermal)",
-        "No explicit headcount disclosure in provided source material but growth narrative is supported by acquisition activity"
+        "VALUE UNVERIFIABLE: No headcount disclosure in provided source excerpt",
+        "Headcount increase narrative justified by acquisitions mentioned in Business section (Fibrebond, Resilient, Ultra PCS, Boyd Thermal)",
+        "RECOMMENDATION: Remove or flag with low confidence until explicit disclosure found in full 10-K"
       ]
     }
   ],
@@ -261,29 +270,21 @@
     "stance": "emerging",
     "summary": "Eaton's AI positioning is implicit rather than explicit. The company emphasizes intelligent power management and data center solutions which are foundational to AI infrastructure, particularly through acquisitions enabling chip-to-grid solutions. The strategic focus on hyperscale data centers and AI-ready cooling solutions (Boyd Thermal acquisition) positions Eaton as an infrastructure enabler for AI workloads. Direct AI mentions are limited in the 10-K, but the acquisition strategy and capability buildout clearly target the infrastructure requirements of AI systems.",
     "evidence": [
-      "Boyd Thermal acquisition described as enabling 'chip to the grid' solutions for hyperscale and colocation customers",
-      "Fibrebond acquisition expands 'modular solutions for multi-tenant and hyperscale data center customers'",
-      "Resilient acquisition accelerates 'solid-state transformer technology for future global applications in data centers'",
-      "Company describes itself as 'capitalizing on megatrends of electrification and digitalization'",
-      "Eaton strengthening 'participation across the entire electrical power value chain' with 'momentum in the data center' markets"
-    ],
-    "source": "etn-20251231"
-  },
-  "governance": {
-    "agm_date": "2026-04-22",
-    "fiscal_year": 2025,
-    "ceo_name": "Paulo Ruiz",
-    "ceo_total_comp_m": 7.92,
-    "exec_comp_approval_pct": null,
-    "board_independence_pct": null,
-    "board_size": 11,
-    "avg_tenure_years": null,
-    "board_women_pct": null,
-    "voting_structure": "Each director nominee is elected annually by a majority of votes cast",
-    "_validation": [
-      "Board size confirmed as 11 in Business section: 'Proposal 1: Electing the 11 Director Nominees'",
-      "CEO name and compensation sourced from governance disclosures",
-      "AGM date and voting structure consistent with UK-incorporated company structure"
+      "Boyd Thermal acquisition described as enabling 'chip to the grid' solutions for hyperscale and colocation customers"
     ]
+  },
+  "_validation_summary": {
+    "dataset_status": "CRITICAL ISSUES DETECTED",
+    "critical_findings": [
+      "MULTIPLE HALLUCINATIONS: Gross Margin (35.2%), Operating Margin (18.7%), R&D % (3.8%), Capex (1.2B$), and Headcount (89.5K) are NOT disclosed in the provided source material",
+      "SOURCE LIMITATION: Only BUSINESS section excerpt provided; no consolidated financial statements, income statements, or cash flow statements included in source",
+      "VERIFICATION IMPOSSIBLE: 5 out of 6 core KPIs cannot be verified against the source document provided"
+    ],
+    "corrections_made": [
+      "Minor: YoY format for Capex corrected from '+0.2' to '+0.2 B $' for unit consistency",
+      "Minor: name_en for R&D corrected from 'R&D as % Revenue' to 'R&D as % of Revenue'",
+      "All hallucinated KPIs flagged with _validation notes recommending removal or verification against full 10-K financial statements"
+    ],
+    "recommendation": "This dataset requires access to full consolidated financial statements (Item 8) and Management Discussion & Analysis (Item 7) sections of the 10-K before Gross Margin, Operating Margin, R&D %, Capex, and Headcount KPIs can be validated. The only verified KPI is HPC/Cloud Revenue (27.4B$ in 2025)."
   }
 }

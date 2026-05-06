@@ -21,7 +21,7 @@
       "name_fr": "Revenu net d'intérêts",
       "name_en": "Net Interest Income",
       "explanation": "Revenue generated from interest on education loans net of funding costs",
-      "value": "369",
+      "value": 369,
       "unit": "M $",
       "yoy": null,
       "type": "Revenue",
@@ -36,12 +36,13 @@
         0,
         0
       ],
-      "last_data_date": "2025-12-31",
+      "last_data_date": "2026-03-31",
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
       "ttm": 0,
-      "_validation": "Unit corrected from Mds $ to M $ (369M is gains on loan sales, not full NII); is_short_history set to true due to incomplete historical data; is_generic set to false as this is company-specific revenue driver"
+      "_validation": "Unit corrected from Mds $ to M $ (369M is gains on loan sales, not full NII); is_short_history set to true due to incomplete historical data; is_generic set to false as this is company-specific revenue driver",
+      "period_type": "quarter"
     },
     {
       "short": "Private Education Loans",
@@ -96,6 +97,46 @@
       "is_short_history": true,
       "ttm": 0,
       "_validation": "Unit corrected from Mds $ to M $ (1,430.318M from allowance table); Value corrected to 1430 (ending balance 2025); History updated with 2024 value (1,435.920M); is_short_history set to true"
+    },
+    {
+      "short": "NPL Ratio",
+      "name_fr": "NPL Ratio",
+      "value": "Not explicitly disclosed as a percentage",
+      "unit": "%",
+      "yoy": "Not disclosed",
+      "type": "Revenue",
+      "is_wow": true,
+      "_added_by_iterative_refinement": "Private Education Loans are charged off at the end of the month in which they reach 120 days delinquent or otherwise when the loans are classified as a loss by us or our regulator."
+    },
+    {
+      "short": "Cost of Risk",
+      "name_fr": "Cost of Risk",
+      "value": "59,879 thousand (after loan sale reductions)",
+      "unit": "$ thousands",
+      "yoy": "59,879 (2025) vs 121,112 (2024)",
+      "type": "Revenue",
+      "is_wow": true,
+      "_added_by_iterative_refinement": "For the years ended December 31, 2025: Provision, current period 400,677; Total provisions for loan losses 59,879"
+    },
+    {
+      "short": "Yield on Loans",
+      "name_fr": "Yield on Loans",
+      "value": "Not explicitly disclosed as percentage",
+      "unit": "%",
+      "yoy": "Not disclosed",
+      "type": "Revenue",
+      "is_wow": true,
+      "_added_by_iterative_refinement": "The majority of our interest income comes from our Private Education Loan portfolio. We also often refer to the net interest margin, which is the net interest yield earned on our interest-earning asse"
+    },
+    {
+      "short": "Loan Loss Coverage",
+      "name_fr": "Loan Loss Coverage",
+      "value": "6.60% (1,430,318 / 21,660,434)",
+      "unit": "%",
+      "yoy": "6.60% (2025) vs calculated higher in 2024",
+      "type": "Revenue",
+      "is_wow": true,
+      "_added_by_iterative_refinement": "Ending balance [Allowance for Credit Losses] $ 1,430,318 [2025] $ 1,435,920 [2024]; Total Private Education Loans, gross $ 21,660,434 [2025]"
     }
   ],
   "stories_kpis": [
@@ -226,5 +267,23 @@
     "ai_positioning: Summary updated to reflect actual 10-K content with specific reference to 2025 Form 10-K",
     "Risk factors: Descriptions enhanced with specific financial data from 10-K (allowance amounts, borrowing breakdowns, portfolio sizes) to validate severity ratings and trends",
     "All KPI historical data flagged as incomplete (zeros) - source document does not provide multi-year comparative data for these metrics"
-  ]
+  ],
+  "_iterative_refinement": {
+    "date": "2026-05-05 20:56",
+    "kpis_added": 4,
+    "model": "claude-sonnet-4-5",
+    "cost_usd": 0.0276
+  },
+  "_quarterly_extraction": {
+    "date": "2026-05-06 12:57",
+    "n_periods": 5,
+    "period_type": "quarter",
+    "method": "yfinance",
+    "yf_metric": "(none-fallback-existing-history)"
+  },
+  "_fit_for_site": false,
+  "_fit_reasons": [
+    "no_yoy"
+  ],
+  "next_earnings_date": "2026-07-23"
 }

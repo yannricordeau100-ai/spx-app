@@ -21,7 +21,7 @@
       "name_fr": "Marge d'intérêt nette",
       "name_en": "Net Interest Margin",
       "explanation": "Marge entre les intérêts gagnés et les intérêts payés",
-      "value": "3.57",
+      "value": 3.57,
       "unit": "%",
       "yoy": "+29bps",
       "type": "Margin",
@@ -36,12 +36,13 @@
         3.05,
         2.98
       ],
-      "last_data_date": "2025-12-31",
+      "last_data_date": "2026-03-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
       "ttm": 3.2,
-      "_validation": "Valeur corrigée: suppression du % dans la valeur numérique, history réordonnée (année actuelle en premier)"
+      "_validation": "Valeur corrigée: suppression du % dans la valeur numérique, history réordonnée (année actuelle en premier)",
+      "period_type": "quarter"
     },
     {
       "short": "Loan Growth",
@@ -163,6 +164,66 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Type changé de Margin à Profitability, name_fr changé à Rendement des capitaux propres pour clarté"
+    },
+    {
+      "short": "NII",
+      "name_fr": "NII",
+      "value": "Net interest income data mentioned in context of margin calculation",
+      "unit": "$",
+      "yoy": "Increase (margin up 29 bps)",
+      "type": "Revenue",
+      "is_wow": true,
+      "_added_by_iterative_refinement": "Net interest margin increase of 29 basis points to 3.57% as compared to the full year 2024"
+    },
+    {
+      "short": "Cost / Income",
+      "name_fr": "Cost / Income",
+      "value": "Operating expenses including $39.6M merger costs",
+      "unit": "%",
+      "yoy": "Data available for calculation",
+      "type": "Profit",
+      "is_wow": true,
+      "_added_by_iterative_refinement": "Financial results for 2025 and 2024 also reflected pre-tax merger-related costs of $39.6 million"
+    },
+    {
+      "short": "ROTE",
+      "name_fr": "ROTE",
+      "value": "Explicitly tracked by management",
+      "unit": "%",
+      "yoy": "Tracked metric",
+      "type": "Revenue",
+      "is_wow": true,
+      "_added_by_iterative_refinement": "Management evaluates the Company s operating results and financial condition using measures that include net income, earnings per share, return on assets and equity, return on tangible common equity"
+    },
+    {
+      "short": "NPL Ratio",
+      "name_fr": "NPL Ratio",
+      "value": "Allowance for credit losses was $190 million",
+      "unit": "%",
+      "yoy": "Credit quality metrics available",
+      "type": "Revenue",
+      "is_wow": true,
+      "_added_by_iterative_refinement": "a $34.5 million provision for credit losses on non-PCD loans attributable to the closing of the Enterprise acquisition"
+    },
+    {
+      "short": "Deposits",
+      "name_fr": "Deposits",
+      "value": "Total deposits with 31.5% growth, including $4.4 billion from Enterprise acquisition",
+      "unit": "$B",
+      "yoy": "+31.5%",
+      "type": "Revenue",
+      "is_wow": true,
+      "_added_by_iterative_refinement": "Deposit growth of 31.5%"
+    },
+    {
+      "short": "Loan Book",
+      "name_fr": "Loan Book",
+      "value": "$18.5 billion",
+      "unit": "$B",
+      "yoy": "+27.5%",
+      "type": "Revenue",
+      "is_wow": true,
+      "_added_by_iterative_refinement": "Loan growth of 27.5% mainly due to the Enterprise acquisition, robust organic commercial and industrial loan growth"
     }
   ],
   "stories_kpis": [
@@ -316,5 +377,23 @@
     ],
     "hallucinatio_check": "Aucun KPI halluciné détecté. Toutes les valeurs (NIM 3.57%, Loan Growth 27.5%, Deposit Growth 31.5%, Net Income 205.1M) sont confirmées dans le 10-K source",
     "data_integrity": "Validé - Données d'acquisition Enterprise (3.9B prêts, 4.4B dépôts, 27 succursales), fermeture 1er juillet 2025, tous les KPIs ancrés dans source officielle"
-  }
+  },
+  "_iterative_refinement": {
+    "date": "2026-05-05 20:55",
+    "kpis_added": 6,
+    "model": "claude-sonnet-4-5",
+    "cost_usd": 0.026
+  },
+  "_quarterly_extraction": {
+    "date": "2026-05-06 12:57",
+    "n_periods": 5,
+    "period_type": "quarter",
+    "method": "yfinance",
+    "yf_metric": "(none-fallback-existing-history)"
+  },
+  "_fit_for_site": false,
+  "_fit_reasons": [
+    "description_too_short_77"
+  ],
+  "next_earnings_date": "2026-04-16"
 }

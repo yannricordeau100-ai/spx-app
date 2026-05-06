@@ -21,7 +21,7 @@
       "name_fr": "Actifs sous gestion",
       "name_en": "Assets Under Management",
       "explanation": "Valeur totale des actifs gérés par la société",
-      "value": "63",
+      "value": 63,
       "unit": "B$",
       "yoy": "n/a",
       "type": "Investment",
@@ -36,7 +36,7 @@
         0,
         0
       ],
-      "last_data_date": "2025-12-31",
+      "last_data_date": "2026-03-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
@@ -44,7 +44,8 @@
         "Corrected unit from 'Mds $' to 'B$' for consistency",
         "Updated description to reference specific subsidiaries",
         "Verified value 63B from source: confirmed in Item 1 Business and MD&A"
-      ]
+      ],
+      "period_type": "quarter"
     },
     {
       "short": "BVPS",
@@ -79,6 +80,26 @@
         "Verified all BVPS values from source financial statements table",
         "Updated signal to emphasize financial stability"
       ]
+    },
+    {
+      "short": "Net Flows",
+      "name_fr": "Net Flows",
+      "value": "Non spécifié",
+      "unit": "USD",
+      "yoy": "N/A",
+      "type": "Revenue",
+      "is_wow": true,
+      "_added_by_iterative_refinement": "Management fees, where applicable, are generally prorated for capital inflows and redemptions during the relevant period."
+    },
+    {
+      "short": "Fee Margin",
+      "name_fr": "Fee Margin",
+      "value": "Non spécifié",
+      "unit": "%",
+      "yoy": "N/A",
+      "type": "Revenue",
+      "is_wow": true,
+      "_added_by_iterative_refinement": "Management fees are generally calculated as a percentage of AUM or invested capital, depending on the structure and governing documents of the applicable investment vehicle"
     }
   ],
   "stories_kpis": [
@@ -126,5 +147,24 @@
     "Expanded BVPS history to include all 5 quarters from table (Dec 2025, Sep 2025, Jun 2025, Mar 2025, Dec 2024)",
     "No hallucinated KPIs detected; all values present in source documents",
     "Removed em-dashes from French descriptions per guidelines"
-  ]
+  ],
+  "_iterative_refinement": {
+    "date": "2026-05-05 20:59",
+    "kpis_added": 2,
+    "model": "claude-sonnet-4-5",
+    "cost_usd": 0.0237
+  },
+  "_quarterly_extraction": {
+    "date": "2026-05-06 00:55",
+    "n_periods": 5,
+    "period_type": "quarter",
+    "method": "yfinance",
+    "yf_metric": "(none-fallback-existing-history)"
+  },
+  "_fit_for_site": false,
+  "_fit_reasons": [
+    "too_few_kpis_4",
+    "no_yoy"
+  ],
+  "next_earnings_date": "2026-07-28"
 }

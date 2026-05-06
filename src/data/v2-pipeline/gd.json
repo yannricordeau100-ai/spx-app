@@ -21,7 +21,7 @@
       "name_fr": "Revenu",
       "name_en": "Revenue",
       "explanation": "Total revenue of the company",
-      "value": "52.6",
+      "value": 52.6,
       "unit": "Mds $",
       "yoy": "+10.1%",
       "type": "Revenue",
@@ -34,12 +34,13 @@
         47.7,
         42.3
       ],
-      "last_data_date": "2025-12-31",
+      "last_data_date": "2026-03-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
       "ttm": null,
-      "_validation": "Corrected unit from 'Mds $' to 'B $'; Verified value 52,550M from 10-K Consolidated Statement of Earnings; Corrected history to actual years 2025/2024/2023 (52.6/47.7/42.3); Removed TTM value (37.57) as not clearly derivable from source"
+      "_validation": "Corrected unit from 'Mds $' to 'B $'; Verified value 52,550M from 10-K Consolidated Statement of Earnings; Corrected history to actual years 2025/2024/2023 (52.6/47.7/42.3); Removed TTM value (37.57) as not clearly derivable from source",
+      "period_type": "quarter"
     },
     {
       "short": "Operating Earnings",
@@ -234,6 +235,46 @@
       "is_short_history": true,
       "ttm": null,
       "_validation": "New KPI added; Verified from 10-K MD&A: 'Cash provided by operating activities of $5.1 billion, or 122% of net earnings'; Single year only in source"
+    },
+    {
+      "short": "Book-to-Bill",
+      "name_fr": "Book-to-Bill",
+      "value": "Implicit >1",
+      "unit": "ratio",
+      "yoy": "Backlog +30%, indicating strong orders vs deliveries",
+      "type": "Revenue",
+      "is_wow": true,
+      "_added_by_iterative_refinement": "Backlog of $118 billion, an increase of 30% from 2024, supports our long-term growth expectations: Strong Gulfstream aircraft order activity, including orders across all aircraft models Several signif"
+    },
+    {
+      "short": "Production Rate",
+      "name_fr": "Production Rate",
+      "value": "Not disclosed numerically",
+      "unit": "aircraft/month",
+      "yoy": "158 deliveries in 2025 vs 136 in 2024 (+16.2%)",
+      "type": "Revenue",
+      "is_wow": true,
+      "_added_by_iterative_refinement": "A new aircraft model typically has lower margins in its initial production lots, and then margins generally increase as we realize efficiencies in the production process."
+    },
+    {
+      "short": "Aftermarket Mix",
+      "name_fr": "Aftermarket Mix",
+      "value": "$259M increase in aircraft services",
+      "unit": "$ millions",
+      "yoy": "+$259M services revenue (from $11,249M to $13,110M total Aerospace revenue)",
+      "type": "Revenue",
+      "is_wow": true,
+      "_added_by_iterative_refinement": "Aircraft services revenue was higher in 2025 due to increased customer demand for aircraft maintenance based on established maintenance cycles, a larger installed base and customer flight activity. [."
+    },
+    {
+      "short": "Defense Backlog",
+      "name_fr": "Defense Backlog",
+      "value": "Portion of $118B total backlog",
+      "unit": "$ billions",
+      "yoy": "Total backlog +30%; defense contracts include $20.1B Navy + $9.2B vehicles",
+      "type": "Revenue",
+      "is_wow": true,
+      "_added_by_iterative_refinement": "Several significant contract awards received in our defense segments, including $20.1 billion of combined awards from the U.S. Navy for the Virginia-class and Columbia-class submarine programs and $9."
     }
   ],
   "stories_kpis": [
@@ -425,5 +466,23 @@
     "hallucination_checks": "No hallucinated KPIs detected. All values verified against 10-K Consolidated Statement of Earnings, MD&A, and segment tables. Original history arrays with 5 values per 2025 figures were replaced with actual fiscal year data available in source (2025/2024/2023 for 2-3 year comparisons).",
     "risks_enhanced": "Risk descriptions improved with specific 2025 context from 10-K including tariff impacts (30bps), Israeli supplier delays, Navy contract awards, and government shutdown effects",
     "sources_verified": "All primary data points traced to 10-K Item 7 (MD&A) and Item 8 (Consolidated Financial Statements) for fiscal year ended December 31, 2025"
-  }
+  },
+  "_iterative_refinement": {
+    "date": "2026-05-05 16:52",
+    "kpis_added": 4,
+    "model": "claude-sonnet-4-5",
+    "cost_usd": 0.0292
+  },
+  "_quarterly_extraction": {
+    "date": "2026-05-06 12:57",
+    "n_periods": 3,
+    "period_type": "quarter",
+    "method": "yfinance",
+    "yf_metric": "TotalRevenue"
+  },
+  "_fit_for_site": false,
+  "_fit_reasons": [
+    "description_too_short_29"
+  ],
+  "next_earnings_date": "2026-07-22"
 }

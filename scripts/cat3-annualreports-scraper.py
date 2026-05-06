@@ -237,11 +237,20 @@ def main():
     parser.add_argument("--tickers", help="Comma-separated tickers")
     parser.add_argument("--top100-fr", action="store_true", help="Tous les 48 EU pures top 100 FR")
     parser.add_argument("--tickers-file", help="Fichier 1 ticker par ligne")
+    parser.add_argument("--names-json", help="JSON {mapping: {ticker: name}} pour extension du dict TICKER_TO_NAME")
     args = parser.parse_args()
 
     LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
     log_fh = open(LOG_PATH, "a")
     OUT_DIR.mkdir(parents=True, exist_ok=True)
+
+    # Charge mapping étendu si fourni
+    extended_names = dict(TICKER_TO_NAME)
+    if args.names_json:
+        ext = json.loads(Path(args.names_json).read_text())
+        for tk, name in (ext.get("mapping") or {}).items():
+            if name:
+                extended_names[tk.upper()] = name
 
     tickers = []
     if args.tickers:
@@ -258,7 +267,7 @@ def main():
     log(f"CAT3 SCRAPER démarré, {len(tickers)} stés à scraper, sortie: {OUT_DIR}", log_fh)
     n_ok = n_fail = n_skip = 0
     for ticker in tickers:
-        name = TICKER_TO_NAME.get(ticker, ticker.split(".")[0])
+        name = extended_names.get(ticker, ticker.split(".")[0])
         log(f"\n=== {ticker} ({name}) ===", log_fh)
         res = process_ticker(ticker, name, log_fh)
         if res["status"] == "ok":

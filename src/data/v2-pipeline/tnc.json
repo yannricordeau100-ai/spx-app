@@ -18,7 +18,7 @@
   "kpis": [
     {
       "short": "Revenue",
-      "name_fr": "Revenu net",
+      "name_fr": "Chiffre d'affaires net",
       "name_en": "Net Sales",
       "explanation": "Argent gagné par la vente de produits et services.",
       "value": "1203.5",
@@ -27,7 +27,7 @@
       "type": "Revenue",
       "nature": "Conjoncturel",
       "comparable": "Comparable",
-      "signal": "Baisse organique liée à ERP + macro",
+      "signal": "Baisse organique liée à ERP et macro",
       "description": "Revenu en baisse en 2025, impacté par les perturbations ERP en Amérique du Nord et un environnement macroéconomique difficile, notamment en Chine et EMEA.",
       "history": [
         1286.7,
@@ -37,7 +37,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_validation": "Correction unité: Mds $ vers M $ (valeur 1203.5 M), correction valeur numérique: 1.2035 vers 1203.5"
+      "_validation": "Unité validée: M $ correct pour 1203.5 millions, valeur numérique confirmée contre source financière"
     },
     {
       "short": "Gross Margin",
@@ -60,7 +60,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_validation": "Pas de correction nécessaire, données validées"
+      "_validation": "Pas de correction nécessaire, données validées (484.3 / 1203.5 = 40.2% en 2025, 550.0 / 1286.7 = 42.7% en 2024)"
     },
     {
       "short": "Op Margin",
@@ -83,11 +83,11 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_validation": "Correction valeur: 9.1 vers 5.7, correction yoy: stable vers -3.2 pts, correction description pour clarifier les données sources"
+      "_validation": "Valeur 5.7% confirmée (68.3/1203.5=5.7%), yoy -3.2 pts confirmé (8.9%-5.7%=-3.2 pts), calculs sources validés"
     },
     {
       "short": "R&D",
-      "name_fr": "Investissements R&D (% du revenu)",
+      "name_fr": "Investissements R&D (pourcentage du revenu)",
       "name_en": "R&D as % of Revenue",
       "explanation": "Argent dépensé pour innover, rapporté aux ventes.",
       "value": "3.4",
@@ -126,7 +126,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "_validation": "Données manquantes dans le 10-K fourni, KPI incomplet"
+      "_validation": "KPI incomplet: données manquantes dans l'extrait 10-K fourni, à récupérer de la section cash flows statement complète"
     },
     {
       "short": "Headcount",
@@ -146,7 +146,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "_validation": "Données manquantes dans le 10-K fourni, KPI incomplet"
+      "_validation": "KPI incomplet: données manquantes dans l'extrait 10-K fourni, à récupérer de la section Item 1 (Business) complète"
     }
   ],
   "stories_kpis": [
@@ -171,7 +171,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Capacité",
-      "_validation": "Pas de correction nécessaire, données validées contre MD&A"
+      "_validation": "Pas de correction nécessaire, données validées contre MD&A (item 7: loss of three weeks of machine order entry and parts shipping capability)"
     }
   ],
   "ai_positioning": {
@@ -283,24 +283,13 @@
   },
   "_validation_summary": {
     "corrections_made": [
-      "Sector: 'Information Technology' → 'Industrials' (classification correcte pour fabricant d'équipements)",
-      "Subsector: 'Industrial Machinery' → 'Machinery & Equipment' (terminologie standard)",
-      "Revenue KPI unité: 'Mds $' → 'M $' (valeur 1203.5 est en millions, non milliards)",
-      "Revenue KPI valeur: '1.2035' → '1203.5' (format numérique cohérent, pas de notation décimale en Mds)",
-      "Op Margin valeur: '9.1' → '5.7' (validation contre source: 68.3/1203.5 = 5.7%, non 9.1%)",
-      "Op Margin yoy: 'stable' → '-3.2 pts' (correction, baisse de 8.9% à 5.7% = -3.2 pts)",
-      "Op Margin description: clarification des calculs sources et correction de la valeur erronée",
-      "R&D name_en: 'R&D as % Revenue' → 'R&D as % of Revenue' (grammaire)",
-      "AI positioning source: suppression de '8-K février 2026' (date hors scope 10-K 2025)"
-    ],
-    "validations_passed": [
-      "Revenue 1203.5 M$ vs 1286.7 M$ avec yoy -6.5% confirmé",
-      "Gross Margin 40.2% vs 42.7% avec yoy -2.5 pts confirmé",
-      "R&D 3.4% stable confirmé (41.2/1203.5 = 3.4%, 43.8/1286.7 = 3.4%)",
-      "ERP Impact: 3 semaines de perte d'ordre/expédition confirmée dans MD&A",
-      "Governance data cohérente"
-    ],
-    "hallucinated_kpis": "Aucun KPI halluciné détecté; Capex et Headcount marqués comme données manquantes (non hallucinés)",
-    "data_quality": "Bonnes données sources, corrections principalement liées à la présentation des unités et calculs de marges"
+      "Revenue name_fr: 'Revenu net' vers 'Chiffre d'affaires net' (terminologie financière standard)",
+      "R&D name_fr: ajout de clarification '(pourcentage du revenu)' pour éviter ambiguité entre valeur absolue et ratio",
+      "Tous les KPI Revenue, Gross Margin, Op Margin, R&D: unités et valeurs confirmées correctes contre source financière 10-K MD&A Item 7",
+      "KPI Capex et Headcount: marqués incomplets, données non présentes dans l'extrait fourni",
+      "Story KPI ERP Impact: validé contre MD&A section ERP System Implementation (three weeks loss)",
+      "AI Positioning: validé correct (aucune mention d'IA détectée dans l'extrait fourni)",
+      "Aucune hallucination KPI détectée: toutes les valeurs numériques proviennent de la source officielle 10-K"
+    ]
   }
 }

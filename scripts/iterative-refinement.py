@@ -119,11 +119,79 @@ SUBSECTOR_GUESS = {
 }
 
 
-def get_subindustry_template(ticker: str) -> dict | None:
+FUZZY_OVERRIDES = {
+    # Banks
+    "banks": "diversified banks", "banking": "diversified banks", "banques": "diversified banks",
+    "banques et services financiers": "diversified banks", "regional banks": "regional banks",
+    # Insurance
+    "insurance": "multi-line insurance", "insurances": "multi-line insurance",
+    "assurance": "multi-line insurance",
+    # Software
+    "software": "application software", "software - application": "application software",
+    "software - infrastructure": "systems software", "saas": "application software",
+    "logiciels": "application software",
+    # Semi
+    "semi-conducteurs": "semiconductors", "semiconducteurs": "semiconductors",
+    # REITs
+    "real estate investment trusts (reits)": "diversified reits",
+    "real estate investment trust (reit)": "diversified reits",
+    "reit": "diversified reits", "reits": "diversified reits",
+    # IT services
+    "it services": "it consulting & other services",
+    "services informatiques": "it consulting & other services",
+    # Asset mgmt
+    "asset management": "asset management & custody banks",
+    "gestion d'actifs": "asset management & custody banks",
+    # Fintech
+    "financial technology": "transaction & payment processing services",
+    "fintech": "transaction & payment processing services",
+    # Medical
+    "medical devices": "health care equipment",
+    "healthcare technology": "health care technology",
+    "biopharmaceutical": "biotechnology", "biopharmaceuticals": "biotechnology",
+    "biopharma": "biotechnology",
+    # Retail
+    "specialty retail": "specialty stores", "retail": "broadline retail",
+    # Telco
+    "telecommunications services": "integrated telecommunication services",
+    "telecom": "integrated telecommunication services",
+    # Industrial
+    "industrial machinery & equipment": "industrial machinery & supplies & components",
+    "machinery & equipment": "industrial machinery & supplies & components",
+    "industrial technology": "industrial machinery & supplies & components",
+    # Misc
+    "airlines": "passenger airlines",
+    "beverages": "soft drinks & non-alcoholic beverages",
+    "packaging": "metal, glass & plastic containers",
+    "education technology": "education services",
+    "healthcare services": "health care services",
+    "financial services": "diversified financial services",
+    "inland waterway transport": "marine transportation",
+}
+
+
+def get_subindustry_template(ticker: str, dataset: dict | None = None) -> dict | None:
+    # 1. Préfère SUBSECTOR_GUESS hardcodé (overrides curatés)
     sub = SUBSECTOR_GUESS.get(ticker.upper())
+    # 2. Fallback : lit le subsector depuis le dataset lui-même
+    if not sub and dataset:
+        sub = dataset.get("subsector") or dataset.get("subSector")
     if not sub:
         return None
-    code = gics_lookup.get("NAME_TO_CODE", {}).get(sub.lower().strip())
+    sub_norm = sub.lower().strip()
+    name_to_code = gics_lookup.get("NAME_TO_CODE", {})
+    code = name_to_code.get(sub_norm)
+    # 3. Fuzzy override mapping
+    if not code:
+        mapped = FUZZY_OVERRIDES.get(sub_norm)
+        if mapped:
+            code = name_to_code.get(mapped)
+    # 4. Substring match (fallback)
+    if not code:
+        for key, c in name_to_code.items():
+            if sub_norm in key or key in sub_norm:
+                code = c
+                break
     if code:
         return sub_t.get("SUBINDUSTRY_TEMPLATES", {}).get(code)
     return None
@@ -137,7 +205,7 @@ async def refine_ticker(ticker: str, log) -> dict | None:
         return None
     dataset = json.loads(json_path.read_text())
 
-    sub_template = get_subindustry_template(ticker)
+    sub_template = get_subindustry_template(ticker, dataset)
     if not sub_template:
         log(f"[SKIP] {ticker}: no sub-industry template")
         return None

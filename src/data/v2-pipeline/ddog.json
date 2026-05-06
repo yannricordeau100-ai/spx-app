@@ -45,7 +45,7 @@
       "name_fr": "Taux de rétention nette basé sur le chiffre d'affaires",
       "name_en": "Dollar-Based Net Retention Rate",
       "explanation": "Taux de rétention des clients et de croissance des revenus",
-      "value": "120",
+      "value": 120,
       "unit": "%",
       "yoy": "+9%",
       "type": "Recurring",
@@ -61,7 +61,8 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "ttm": 120
+      "ttm": 120,
+      "period_type": "quarter"
     },
     {
       "short": "Net Income",
@@ -157,6 +158,36 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 33435.75
+    },
+    {
+      "short": "ARR",
+      "name_fr": "ARR",
+      "value": "Not disclosed in absolute terms; only customer segments (4,310 customers with ARR $100K+, 603 customers with ARR $1M+)",
+      "unit": "USD",
+      "yoy": "Growth implied by customer count increases (4,310 vs 3,610 for $100K+ tier; 603 vs 462 for $1M+ tier)",
+      "type": "Revenue",
+      "is_wow": true,
+      "_added_by_iterative_refinement": "We define ARR as the annual run-rate revenue of subscription agreements from all customers at a point in time. We calculate ARR by taking the monthly run-rate revenue, or MRR, and multiplying it by 12"
+    },
+    {
+      "short": "Rule of 40",
+      "name_fr": "Rule of 40",
+      "value": "Calculable: ~28% revenue growth + operating margin (derivable from net income $107.7M / revenue $3,427.2M ≈ 3.1% net margin, operating margin would be higher)",
+      "unit": "%",
+      "yoy": "Revenue growth was 28% in 2025 vs 26% in 2024",
+      "type": "Revenue",
+      "is_wow": true,
+      "_added_by_iterative_refinement": "Revenue growth rate: 28% YoY for 2025 (from $2,684.3M to $3,427.2M). Operating margin or profitability data available in financials to calculate this metric."
+    },
+    {
+      "short": "Gross Margin",
+      "name_fr": "Gross Margin",
+      "value": "Not explicitly disclosed in provided MDA excerpt",
+      "unit": "%",
+      "yoy": "N/A",
+      "type": "Revenue",
+      "is_wow": true,
+      "_added_by_iterative_refinement": "Reference to subscription model and SaaS platform economics, though specific gross margin percentage not explicitly stated in provided excerpt. Financial statements (Item 8) would contain cost of reve"
     }
   ],
   "stories_kpis": [
@@ -304,5 +335,24 @@
     "Risk Factors: aligné avec language du 10-K, retiré la redondance 'Dépendance à la plateforme', fusionné avec 'Dépendance à la technologie'",
     "Net Income type: changed from 'Revenue' to 'Profitability'",
     "Value formatting: removed commas from numeric values for consistency"
-  ]
+  ],
+  "_iterative_refinement": {
+    "date": "2026-05-05 16:53",
+    "kpis_added": 3,
+    "model": "claude-sonnet-4-5",
+    "cost_usd": 0.0256
+  },
+  "_quarterly_extraction": {
+    "date": "2026-05-06 12:57",
+    "n_periods": 2,
+    "period_type": "quarter",
+    "method": "yfinance",
+    "yf_metric": "(none-fallback-existing-history)"
+  },
+  "_fit_for_site": false,
+  "_fit_reasons": [
+    "hero_history_too_short_2",
+    "description_too_short_72"
+  ],
+  "next_earnings_date": "2026-05-07"
 }

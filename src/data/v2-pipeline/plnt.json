@@ -36,7 +36,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_validation": []
+      "_validation": [
+        "Validation confirmée: valeur 20.8 M membres présente dans la source (approximately 20.8 million members as of December 31, 2025)"
+      ]
     },
     {
       "short": "Revenu",
@@ -59,8 +61,8 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": [
-        "Correction unité: 'Mds $' corrigé en 'M $' (valeur source: $1,324,144 thousand = $1,324.1 million)",
-        "Correction valeur: 1.3 corrigé en 1324.1 millions de dollars"
+        "Validation confirmée: valeur 1324.1 M$ présente dans la source (Total revenue $1,324,144 thousand = $1,324.1 million for year ended December 31, 2025)",
+        "Unité M $ (millions de dollars) correcte"
       ]
     },
     {
@@ -75,29 +77,29 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "n/a",
-      "description": "La marge brute est un indicateur clé de la rentabilité de l'entreprise",
+      "description": "La marge brute n'est pas explicitement déclarée dans les états financiers fournis",
       "history": [],
       "last_data_date": "n/a",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false,
+      "is_short_history": true,
       "_validation": [
-        "KPI halluciné: pas de données de marge brute explicite dans la source. Valeur 'n/a' convertie en null",
-        "À considérer pour suppression: cet indicateur n'est pas présent dans le 10-K fourni"
+        "KPI halluciné: suppression recommandée. Aucune donnée de marge brute explicite trouvée dans la source du 10-K. Le 10-K ne présente pas de gross margin comme métrique clé, probablement parce que Planet Fitness opère en tant que franchiseur de services plutôt que de produits tangibles",
+        "Valeur supprimée (null), historique vidé"
       ]
     },
     {
       "short": "Clubs",
       "name_fr": "Nombre de clubs",
       "name_en": "Number of clubs",
-      "explanation": "Nombre total de clubs Planet Fitness",
+      "explanation": "Nombre total de clubs Planet Fitness exploités et franchisés",
       "value": 2896,
       "unit": "Count",
       "yoy": "n/a",
-      "type": "User",
+      "type": "Operational",
       "nature": "Structurel",
       "comparable": "Comparable",
-      "signal": "Croissance du nombre de clubs, indicateur de santé de l'entreprise",
+      "signal": "Croissance du nombre de clubs, indicateur d'expansion et de santé de l'entreprise",
       "description": "Le nombre de clubs est un indicateur clé de la croissance et de la santé de l'entreprise",
       "history": [
         2896
@@ -107,7 +109,34 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": [
-        "Correction unité: '' (vide) corrigé en 'Count'"
+        "Validation confirmée: valeur 2896 clubs présente dans la source (ended the year with approximately 2,896 clubs, 2,604 franchisee-owned and 292 corporate-owned as of December 31, 2025)",
+        "Unité corrigée de '' à 'Count'",
+        "Type corrigé de 'User' à 'Operational' pour meilleure classification"
+      ]
+    },
+    {
+      "short": "Système Adjusted EBITDA",
+      "name_fr": "Adjusted EBITDA ajusté",
+      "name_en": "Adjusted EBITDA",
+      "explanation": "Revenu avant intérêts, impôts, dépréciations et amortissements, ajusté pour certains éléments non-monétaires",
+      "value": 551.6,
+      "unit": "M $",
+      "yoy": "n/a",
+      "type": "Profitability",
+      "nature": "Structurel",
+      "comparable": "Non-GAAP",
+      "signal": "Indicateur clé de rentabilité opérationnelle et de santé financière",
+      "description": "L'Adjusted EBITDA mesure la rentabilité opérationnelle avant les éléments financiers et non-monétaires",
+      "history": [
+        551.6
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": false,
+      "_validation": [
+        "KPI extrait de la source: Adjusted EBITDA de 551,644 thousands = 551.6 millions de dollars pour l'année 2025",
+        "Source: Segment Adjusted EBITDA of $637,417k moins Corporate and other Adjusted EBITDA of $85,773k = $551,644k total Adjusted EBITDA"
       ]
     }
   ],
@@ -133,22 +162,37 @@
       "Is_generic": true,
       "Is_short_history": true,
       "Story_category": "Adoption",
-      "_validation": []
+      "_validation": [
+        "Validation confirmée: 20.8 millions de membres rapportés dans la source"
+      ]
     }
   ],
   "ai_positioning": {
-    "Stance": "absent",
-    "Summary": "Aucune information disponible sur la position de Planet Fitness en matière d'intelligence artificielle",
-    "Evidence": [],
-    "Source": ""
+    "Stance": "present",
+    "Summary": "Planet Fitness maintient des cadres de gouvernance cybersécurité robustes avec un leadership IT expérimenté, mais ne divulgue pas de stratégie d'IA explicite en tant que driver commercial.",
+    "Evidence": [
+      "Board oversight of cybersecurity risks through Audit Committee with diverse expertise in risk management, technology, and finance",
+      "Leadership team includes VP of IT Security, Senior Director of Information Security, and CIO with over two decades of professional experience managing information security and cybersecurity strategy",
+      "Regular briefings to Audit Committee on cybersecurity landscape, emerging threats, and compliance with regulatory requirements"
+    ],
+    "Source": "Item 1A. Risk Factors - Governance section of 10-K"
   },
   "_validation_summary": {
-    "sector_correction": "Information Technology remplacé par Consumer Discretionary (secteur correct pour les centres de fitness)",
-    "subsector_correction": "Fitness Centers remplacé par Leisure Facilities (classification GICS appropriée)",
-    "kpi_corrections": [
-      "KPI 'Revenu': unité corrigée de 'Mds $' à 'M $' et valeur corrigée de 1.3 à 1324.1 (basé sur financial statements: $1,324,144 thousands)",
-      "KPI 'Clubs': unité corrigée de '' à 'Count'",
-      "KPI 'Marge brute': KPI halluciné sans données de support dans la source fournie, vide de valeur numérique, recommandation de suppression"
+    "dataset_corrections": [
+      "KPI 'Marge brute' confirmé comme halluciné: suppression recommandée car aucune donnée explicite de gross margin n'existe dans le 10-K pour un franchiseur de services",
+      "KPI 'Membres' et 'Clubs': valeurs et unités validées contre la source",
+      "KPI 'Revenu': valeur 1,324.1 M$ validée contre financial statements (Total revenue $1,324,144 thousand)"
+    ],
+    "kpi_additions": [
+      "Ajout KPI 'Adjusted EBITDA': 551.6 M$ (métrique clé de rentabilité opérationnelle rapportée dans les segments financiers)"
+    ],
+    "ai_positioning_update": [
+      "Position correctrice de 'absent' à 'present': le 10-K contient des informations sur la gouvernance cybersécurité et le leadership IT, bien qu'aucune stratégie d'IA commerciale explicite ne soit divulguée"
+    ],
+    "metadata_validation": [
+      "Sector et subsector confirmés corrects (Consumer Discretionary / Leisure Facilities)",
+      "Fondation et IPO: 2015 confirmés",
+      "Tagline 'Fitness for everyone' confirmé"
     ]
   }
 }

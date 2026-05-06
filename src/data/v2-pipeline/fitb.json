@@ -36,12 +36,13 @@
         63,
         62
       ],
-      "last_data_date": "2025-12-31",
+      "last_data_date": "2026-03-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
       "ttm": 61.75,
-      "_validation": "Valeur numérique corrigée de '66%' à 66 (unit reste %); name_fr et explanation améliorés; hero_kpi_rationale révisé sans tiret"
+      "_validation": "Valeur numérique corrigée de '66%' à 66 (unit reste %); name_fr et explanation améliorés; hero_kpi_rationale révisé sans tiret",
+      "period_type": "quarter"
     },
     {
       "short": "Noninterest Income",
@@ -89,6 +90,66 @@
       "is_generic": false,
       "is_short_history": true,
       "_validation": "is_generic changé de true à false (KPI réglementaire spécifique); last_data_date reste vide car donnée non fournie dans source; explanation amélioré"
+    },
+    {
+      "short": "NIM",
+      "name_fr": "NIM",
+      "value": "Non précisé dans extrait",
+      "unit": "%",
+      "yoy": "Non précisé dans extrait",
+      "type": "Revenue",
+      "is_wow": true,
+      "_added_by_iterative_refinement": "Net Interest Margin (non-GAAP): Net interest income on an FTE basis divided by average interest-earning assets"
+    },
+    {
+      "short": "Cost / Income",
+      "name_fr": "Cost / Income",
+      "value": "Non précisé dans extrait",
+      "unit": "%",
+      "yoy": "Non précisé dans extrait",
+      "type": "Profit",
+      "is_wow": true,
+      "_added_by_iterative_refinement": "Efficiency Ratio (non-GAAP): Noninterest expense divided by the sum of net interest income on an FTE basis and noninterest income"
+    },
+    {
+      "short": "ROTE",
+      "name_fr": "ROTE",
+      "value": "17.4",
+      "unit": "%",
+      "yoy": "17.8% (2024) → 17.4% (2025)",
+      "type": "Revenue",
+      "is_wow": true,
+      "_added_by_iterative_refinement": "Return on Average Tangible Common Equity (non-GAAP): Tangible net income available to common shareholders divided by average tangible common equity"
+    },
+    {
+      "short": "NPL Ratio",
+      "name_fr": "NPL Ratio",
+      "value": "Non précisé dans extrait",
+      "unit": "%",
+      "yoy": "Non précisé dans extrait",
+      "type": "Revenue",
+      "is_wow": true,
+      "_added_by_iterative_refinement": "Nonperforming Portfolio Assets Ratio: Nonperforming portfolio assets divided by portfolio loans and leases and OREO"
+    },
+    {
+      "short": "Deposits",
+      "name_fr": "Deposits",
+      "value": "Non précisé dans extrait",
+      "unit": "$B",
+      "yoy": "Non précisé dans extrait",
+      "type": "Revenue",
+      "is_wow": true,
+      "_added_by_iterative_refinement": "Loan-to-Deposit Ratio: Total loans divided by total deposits"
+    },
+    {
+      "short": "Loan Book",
+      "name_fr": "Loan Book",
+      "value": "122.7",
+      "unit": "$B",
+      "yoy": "119.8B (2024) → 122.7B (2025)",
+      "type": "Revenue",
+      "is_wow": true,
+      "_added_by_iterative_refinement": "Portfolio loans and leases (a) (includes $ 106 and $ 108 of residential mortgage loans measured at fair value) 122,651 119,791"
     }
   ],
   "stories_kpis": [
@@ -208,5 +269,24 @@
     "risks_section": "Tous les résumés de risques reformulés en anglais pour cohérence avec source 10-K; trends uniformisés basé sur langage source (la plupart 'stable' sauf cybersecurity 'up'); severity scores validés contre classement source (5=credit,cyber; 4=liquidity,operational,reputation,counterparty; 3=regulatory,market)",
     "data_validation": "NET_INTEREST_INCOME_FTE: $6,002M (2025) confirmé source; NONINTEREST_INCOME: $3,035M (2025) confirmé source; TOTAL_REVENUE_FTE: $9,037M confirmé (66% NII + 34% noninterest = 100%); Comerica acquisition: $12.7B all-stock transaction confirmé, closed Feb 1 2026; CET1 ratio: données manquantes dans source fournie (non-halluciné, marqué n/a); aucun KPI fabriqué détecté",
     "no_hallucinated_kpis": true
-  }
+  },
+  "_iterative_refinement": {
+    "date": "2026-05-05 20:55",
+    "kpis_added": 6,
+    "model": "claude-sonnet-4-5",
+    "cost_usd": 0.0285
+  },
+  "_quarterly_extraction": {
+    "date": "2026-05-06 12:57",
+    "n_periods": 5,
+    "period_type": "quarter",
+    "method": "yfinance",
+    "yf_metric": "(none-fallback-existing-history)"
+  },
+  "_fit_for_site": false,
+  "_fit_reasons": [
+    "description_too_short_52",
+    "no_yoy"
+  ],
+  "next_earnings_date": "2026-07-17"
 }
