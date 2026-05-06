@@ -83,8 +83,11 @@ def load_pipeline(ticker):
         return None
 
 
-def fetch_market_cap(ticker, retries=3):
-    """Fetch market cap from yfinance. Returns (market_cap_usd, country)."""
+def fetch_market_cap(ticker, retries=2):
+    """Fetch market cap from yfinance. Returns (market_cap_usd, country).
+    Catch all exceptions (404, JSONDecode, etc) silencieusement → None pour
+    que le script ne crashe pas sur 1 ticker invalide.
+    """
     import yfinance as yf
 
     for attempt in range(retries):
@@ -98,8 +101,8 @@ def fetch_market_cap(ticker, retries=3):
             return None, country
         except Exception:
             if attempt < retries - 1:
-                time.sleep(1.0 * (attempt + 1))
-            continue
+                time.sleep(0.8)
+                continue
     return None, ""
 
 
@@ -185,7 +188,7 @@ def main():
             "subsector": subsector,
         }
         if (i + 1) % 50 == 0:
-            print(f"  …{i+1}/{len(tickers)} (fail={fail})")
+            print(f"  …{i+1}/{len(tickers)} (fail={fail})", flush=True)
         time.sleep(0.3)  # rate-limit doux pour ne pas se faire ban
 
     # Étape 3 : compute ranks

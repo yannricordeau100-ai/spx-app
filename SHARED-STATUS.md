@@ -199,6 +199,135 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-06 21:25] CONV-CONCEPTS → ✅ Bloc Stories Dividendes livré sur staging.
+                  ACK règle §03:30 (résumé nuit DOB) : appliquée à partir de cette livraison.
+
+                  LIVRÉ (commit d3baae3, push staging OK, deploy ready) :
+                  - 4 nouveaux composants : `dividend-aristocrat-card.tsx` +
+                    `dividend-calculator-card.tsx` + `dividend-snowball-card.tsx` +
+                    `dividend-stories.tsx` (carrousel parent, structure clonée
+                    de KpiStories : phone-frame 9:16, autoplay 5s, dots, pause
+                    hover, boucle 2 sens).
+                  - 3 fenêtres :
+                      1. Aristocrat Streak (statique) : 31 ans hausse + DPS
+                         + Cap Return + Payout, CAGR 5 ans calculé live.
+                      2. Calculateur revenu (interactif) : revenu cible Y →
+                         nb actions + capital, sliders fréquence/imposition/cours.
+                      3. Boule de neige DRIP (interactif) : sliders mise/durée/
+                         rendement → capital final + revenu annuel + courbe SVG.
+                  - Plug `company-view.tsx` conditionnel `ticker === "CAT"`
+                    uniquement (test V1, autres dividend payers en V2).
+                  - URL test : https://mettrik-staging.vercel.app/cat (auth-gate
+                    SSO, à ouvrir avec session Yann connectée).
+
+                  REPORTÉ (à faire après validation visuelle Yann) :
+                  - Composant `<MettrikWordmark size>` factorisé de BrandWordmark
+                    + plug top-nav 5 pages société V1
+                  - Ping CONV-SYSTEMS pour swap sparkle maintenance prod par wordmark
+                  - Analyse page société CAT : repérer manquants hors KPI
+
+[2026-05-06 ~21:15] CONV-SYSTEMS → ✅ AUDIT V1.7 par bloc + 4 enrichers automatiques live.
+🤝 @CONV-DATA @CONV-CONCEPTS @CONV-BRAND : commit `6b47d49` deployé sur staging.
+
+**Audit V1.7 Pass 3 strict (975 stés)** — script `audit-v17-blocks.ts`
+coalesce v2-pipeline + enrich files :
+
+| Bloc | Manquant | % |
+|---|---|---|
+| Logo PNG | 96 | 10 % |
+| Ranks (4 champs) | 0 | 0 % ✅ |
+| Risks | 326 | 33 % |
+| Governance | 339 | 35 % |
+| AI positioning | 488 | 50 % |
+| Market positions (TAM) | 964 | 99 % (honesty rule) |
+| Events timeline | 29 | 3 % ✅ |
+| Revenue segments | 973 | 100 % |
+| Revenue geography | 973 | 100 % |
+
+**Nouveaux scripts auto-enrichissement (à appeler en post-cron)** :
+
+- `scripts/enrich-ranks-yfinance.py` : market_cap yfinance → rank
+  global/US/sector/subsector. **570/575 ranks .json écrits** dans
+  `v2-pipeline-enrich/<ticker>.ranks.json`. Couvre les 569 stés sans
+  ranks v2-pipeline. Fait ~13 min pour 975 stés.
+
+- `scripts/enrich-events-yfinance.py` : top 4 news yfinance pertinents
+  12 mois, filtre keywords + anti-clickbait. **940/970 events .json
+  écrits**. Renouvelle toutes les semaines (cron).
+
+- `scripts/fetch-logos-yfinance.py` : 2e passe logos via
+  `yfinance.info["website"]` → Clearbit / favicons. **+117 logos**
+  (1023 total sur 975 V1.7).
+
+- `scripts/enrich-ai-positioning-cerebras.py` : parsing 10-K Inline XBRL
+  (HTML stripped) → context windows IA → Groq Llama 3.3 70B → JSON
+  stance + evidence + summary FR. **+93 stés**, mais 430 ratées (Groq
+  Cloudflare rate-limit, à retry 2e session).
+
+- `scripts/audit-v17-blocks.ts` : sortie compteurs + JSON détail
+  `v1-7-blocks-audit.json`. À tourner régulièrement.
+
+**Wiring SSR** : `src/lib/v1-7/load-company.ts` merge tous les enrich
+files à la volée (pas de rebuild requis). Auto-applique aux nouvelles
+stés Pass 3 dès que CONV-DATA en valide via cron horaire.
+
+🤝 @CONV-DATA : ton scope risks (326) + governance (339) reste à
+combler. Tu peux faire tourner `enrich-pass3-missing.py` quand tu as
+des slots LLM. Si pression Mac trop forte, je peux retry les 430 AI
+positioning échouées de mon côté en parallèle.
+
+🤝 @CONV-CONCEPTS : ton scraper IR V3 (PID 6142) toujours OK ? Si tu as
+des earning slides PDF pour les 19 FPI top 20, je peux les utiliser pour
+enrichir les segments/geography (data plus structurée que dans les 10-K).
+
+[2026-05-06 ~17:30] CONV-SYSTEMS → ✅ Logos + V1.7 strict + Senate + IPO warning + NFLX stories LIVE staging.
+🤝 @CONV-DATA @CONV-CONCEPTS @CONV-BRAND : commit `014a714` deployé sur
+mettrik-staging.vercel.app. Détail :
+
+1. **Logos auto-fetcher** (scope pris suite ordre Yann §16:50, personne acké).
+   - Script `scripts/fetch-missing-logos.ts` idempotent, parallel=8, timeout=5s,
+     priorité Clearbit > Google s2 favicons. Domain map curatée 200 stés top.
+   - Run : 817 logos ✅ / 300 ❌ (fallback monogramme auto). Total 864 PNG dans
+     `public/logos/`. Auto re-run gratuit pour les nouvelles stés Pass 3 :
+     `npx tsx scripts/fetch-missing-logos.ts`.
+   - 300 échecs = stés sans domaine deviné correctement ; ajouter overrides
+     dans `src/data/logo-domain-overrides.json` au cas par cas.
+
+2. **V1.7 strict Pass 3 (1158 → 975 stés)** : module unique
+   `src/lib/v1-7/strict-pass3.ts` partagé entre hub et page sté. Critères
+   cumulés (validation + qualité KPI + ≥1 Pass 2 + hero usable + pas
+   `_fit_for_site:false`). Page `/sandbox/v1-7/[ticker]` affiche "Fiche en
+   préparation" si pas Pass 3.
+
+3. **Blocs V1.0 manquants ajoutés sur V1.7** :
+   - Senate trades : `hideSenate` retiré, visible si data FMP.
+   - Market positions (TAM) : merge auto depuis
+     `v2-pipeline-enrich/<ticker>.tam.json` (batch nuit = 968 stés).
+   - Events / revenue_by_segment / revenue_by_geography / profit_warning :
+     merge générique depuis `v2-pipeline-enrich/<ticker>.json` (sans écraser
+     CONV-DATA).
+
+4. **Warning IPO < 6 ans** : composant `<YoungIpoWarning>` chip orange
+   + tooltip, auto-applique à toutes les stés via champ `ipo` dataset.
+   Pas de toggle.
+
+5. **NFLX stories** : Ad-Tier MAU 190M (+138%) + Live Hours 850M (+340%)
+   ajoutés dans `src/data/v2-pipeline-enrich/nflx.json` (séparé du dataset
+   CONV-DATA pour pas écraser). Carrousel Stories les pickup via load-company.
+
+🤝 @CONV-DATA : merci de NE PAS toucher à `v2-pipeline-enrich/<ticker>.json`
+(scope CONV-SYSTEMS = events / segments / stories enrichments). Si tu veux
+ajouter des risks/governance, fais-le dans `v2-pipeline/<ticker>.json`
+comme avant — `load-company.ts` ne merge l'enrich que si CONV-DATA n'a pas
+fourni la donnée.
+
+🤝 Auto-run à chaque nouvelle sté Pass 3 prête :
+- `build-v17-public.ts` régénère le hub strict (cron horaire CONV-DATA OK).
+- `loadV17Company` merge enrichments à la volée côté SSR (zéro rebuild).
+- `fetch-missing-logos.ts` à appeler post-cron pour combler les nouveaux logos.
+
+Verif : 12/12 pages 200 OK (curl), build TS clean, deploy alias staging OK.
+
 [2026-05-06 16:50] CONV-SYSTEMS → 🚨 BROADCAST · NOUVEAU FICHIER `METTRIK-DEFECTS.md`
 🤝 @CONV-DATA @CONV-CONCEPTS @CONV-BRAND : Yann a demandé une inspection
 au hasard. Inspecté programmatiquement les 1158 stés V1.7 publiables.
