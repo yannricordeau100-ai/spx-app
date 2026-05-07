@@ -81,7 +81,15 @@ def _strip_html(html: str) -> str:
 
 
 def find_10k_text(ticker: str) -> str | None:
+    """Cherche un rapport annuel local pour le ticker, dans l'ordre :
+      1. cat 1 US     : cat1-us/10K/<year>/<TICKER>_<date>.htm.gz
+      2. cat 2 FPI    : cat2-foreign-adr/(20F|10K)/<year>/<TICKER>_<date>.htm.gz
+      3. cat 3 EU     : cat3-european/<TICKER>/annual-text/<year>.txt
+         (Yann + CONV-DATA confirmation 7 mai 2026 : convention différente
+          pour les pures EU, format texte déjà extrait au lieu de HTML.gz)
+    """
     tu = ticker.upper()
+    # 1+2 : US + FPI HTML compressé
     candidates = [
         SEC / "cat1-us" / "10K",
         SEC / "cat2-foreign-adr" / "20F",
@@ -98,6 +106,18 @@ def find_10k_text(ticker: str) -> str | None:
                         return _strip_html(g.read())
                 except Exception:
                     continue
+    # 3 : cat 3 EU texte déjà extrait
+    cat3_dir = SEC / "cat3-european" / tu / "annual-text"
+    if cat3_dir.exists():
+        try:
+            txt_files = sorted(cat3_dir.glob("*.txt"), reverse=True)
+            for f in txt_files[:1]:  # le plus récent
+                try:
+                    return _strip_html(f.read_text(errors="ignore"))
+                except Exception:
+                    continue
+        except Exception:
+            pass
     return None
 
 
@@ -238,8 +258,10 @@ def main():
         wanted = {t.strip().upper() for t in args.tickers.split(",")}
         tickers = [t for t in v17 if t.upper() in wanted]
     else:
-        # Cat 1 US only (sec-data couvre principalement)
-        tickers = [t for t in v17 if "." not in t]
+        # Toutes les sés V1.7 : cat 1 US + cat 2 ADR + cat 3 EU.
+        # find_10k_text() route automatiquement vers le bon dossier
+        # (cat1-us/10K, cat2-foreign-adr/{20F,10K}, cat3-european/annual-text).
+        tickers = list(v17.keys())
 
     pending = []
     for t in tickers:

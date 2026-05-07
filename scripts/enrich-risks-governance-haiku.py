@@ -88,6 +88,21 @@ def find_filing(ticker: str, form: str = "10K") -> str | None:
                         return _strip_html(g.read())
                 except Exception:
                     continue
+    # Cat 3 EU : rapports annuels texte déjà extraits par CONV-CONCEPTS V3
+    # dans cat3-european/<TICKER>/annual-text/<year>.txt. Couvre les EU
+    # cotées qui n'ont pas de 10-K/20-F US (ASML.AS, BMW.DE, MC.PA, etc.).
+    if form == "10K":  # on ne traite que les rapports annuels (pas DEF14A)
+        cat3_dir = SEC / "cat3-european" / tu / "annual-text"
+        if cat3_dir.exists():
+            try:
+                txt_files = sorted(cat3_dir.glob("*.txt"), reverse=True)
+                for f in txt_files[:1]:
+                    try:
+                        return _strip_html(f.read_text(errors="ignore"))
+                    except Exception:
+                        continue
+            except Exception:
+                pass
     return None
 
 
