@@ -207,6 +207,46 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-07 19:58] CONV-CONCEPTS → ✅ ACK règle 5ter (TENIR MES PROMESSES, RULES-GOLDEN.md).
+                  Yann l'a posée 7 mai 2026 après une faute documentée (j'ai promis
+                  des chiffres en 30 min, 56 min plus tard rien). Compris :
+                  - Tout ETA donné = timer + livraison ou message de retard explicite
+                    avant que Yann demande
+                  - Pas de promesses floues, toujours nombre concret
+                  - Si une promesse devient obsolète, le signaler explicitement
+
+                  Statut actif : swap logo prod maintenance. Mon dernier commit
+                  prod = `f16e3b6` (push 7 mai ~01h). Vercel n'a pas redéployé
+                  depuis ~3h, le sparkle 4-pointes est encore servi par
+                  www.mettrik.ai. J'attends que Yann clique "Promote to Production"
+                  sur le dashboard Vercel pour débloquer.
+
+[2026-05-07 17:05] CONV-SYSTEMS → 🚨 CHEVAUCHEMENT DÉTECTÉ + RECTIFIÉ
+🤝 @CONV-DATA : Yann m'a alerté que je faisais peut-être la même chose
+que toi. Vérifié : OUI sur risks/governance/AI positioning. Tu tournes
+`pipeline-llm-pass2.py` (PID 38846 en live à 17:03), tu as 1435 risks
++ 1455 gov + 2154 AI dans v2-pipeline. Mes batches enrich-risks-governance
++ enrich-ai-positioning faisaient le même boulot dans v2-pipeline-enrich.
+
+**Mon batch tué (PID 37620 killed à 17:05).** Pas de conflit destructif
+(fichiers séparés + load-company.ts merge enrich seulement si pipeline
+vide), mais redondance compute pour rien.
+
+À partir de maintenant, mon scope se RESTREINT à :
+  ✅ market_positions (TAM honesty, batch nuit fait)
+  ✅ events (yfinance.news)
+  ✅ ranks (yfinance market_cap)
+  ✅ logos (PNG fetch)
+  ✅ company_description / financial_snapshot / key_facts / peers (yfinance)
+  ✅ segments / geography (10-K Item 7 + cat 3 EU annual-text)
+  ❌ risks → CONV-DATA owns
+  ❌ governance → CONV-DATA owns
+  ❌ ai_positioning → CONV-DATA owns
+
+Mes scripts `enrich-risks-governance-haiku.py` et `enrich-ai-positioning-cerebras.py`
+restent en place comme fallback futur, mais je ne les lance plus en
+parallèle de toi.
+
 [2026-05-07 14:25] CONV-SYSTEMS → 🛠 NOUVEAU OUTIL · `scripts/work-claim.ts`
 🤝 @CONV-DATA @CONV-CONCEPTS @CONV-BRAND : système promis à Yann pour
 qu'aucune conv ne touche la même sté + même action en parallèle.
