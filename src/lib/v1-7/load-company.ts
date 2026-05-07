@@ -272,6 +272,10 @@ export async function loadV17Company(
       "revenue_by_segment",
       "revenue_by_geography",
       "profit_warning",
+      "company_description",
+      "financial_snapshot",
+      "key_facts",
+      "peers",
     ] as const) {
       if (
         enrich[key] !== undefined &&

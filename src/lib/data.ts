@@ -273,6 +273,48 @@ export type Company = {
    * dans la tooltip "à jour" sous la forme "~ [date]".
    */
   next_earnings_date?: string;
+  /**
+   * Description longue de la société (1-3 paragraphes). Source : 10-K
+   * Item 1 Business via yfinance `longBusinessSummary`. Affichée dans
+   * le bloc "Profil société".
+   */
+  company_description?: string;
+  /** Snapshot boursier live (rafraîchi toutes les 14 j via yfinance). */
+  financial_snapshot?: {
+    market_cap_usd?: number | null;
+    pe_ratio?: number | null;
+    forward_pe?: number | null;
+    eps_ttm?: number | null;
+    beta?: number | null;
+    dividend_yield_pct?: number | null;
+    high_52w?: number | null;
+    low_52w?: number | null;
+    day_change_pct?: number | null;
+    currency?: string | null;
+  };
+  /** Faits clés sur la société (siège, employés, bourse de cotation, etc.). */
+  key_facts?: {
+    hq_city?: string | null;
+    hq_country?: string | null;
+    employees_count?: number | null;
+    exchange?: string | null;
+    isin?: string | null;
+    industry?: string | null;
+    industry_disp?: string | null;
+    website?: string | null;
+    fiscal_year_end?: number | null;
+  };
+  /**
+   * Sociétés comparables (peers) pour suggestion dans le panneau Comparer.
+   * Calculé offline depuis le sub-sector + market_cap proximity.
+   */
+  peers?: Array<{
+    ticker: string;
+    name: string;
+    sector: string;
+    subsector: string;
+    market_cap_usd: number | null;
+  }>;
 };
 
 export type ProfitWarning = {

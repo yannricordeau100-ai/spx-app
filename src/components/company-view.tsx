@@ -58,6 +58,7 @@ import { CmdFSearch } from "@/components/cmdf-search";
 import { TranscriptStories, type TranscriptDoc } from "@/components/transcript-stories";
 import { V18MissingPlaceholder } from "@/components/v18-missing-placeholder";
 import { YoungIpoWarning } from "@/components/young-ipo-warning";
+import { CompanyProfileCard } from "@/components/company-profile-card";
 
 const VISIBLE_KPI_COUNT = 6;
 
@@ -575,6 +576,10 @@ export function CompanyView({
             management + chiffres/guidance du dernier earning call). Placé
             entre Stories KPI et Risks. (5 mai 2026) */}
         <TranscriptStories ticker={company.ticker} doc={transcript} />
+
+        {/* Profil société & marché — description longue + snapshot
+            boursier + faits clés + sés comparables. (7 mai 2026) */}
+        <CompanyProfileCard company={company} accent={accent} />
 
         {/* Risk factors */}
         {company.risks && company.risks.length > 0 ? (
