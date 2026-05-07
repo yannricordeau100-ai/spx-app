@@ -51,14 +51,40 @@ function getMarketCap(ticker: string): number {
   }
 }
 
+/**
+ * Lit l'audit blocks pour filtrer V1.8 = stés avec ≤1 défaut.
+ * Yann 8 mai 2026 : V1.8 doit montrer UNIQUEMENT les stés vendables client
+ * (parfaites ou max 1 bloc à compléter, marqué en rouge dans la fiche).
+ */
+function loadAuditDefects(): Record<string, string[]> {
+  const p = path.join(process.cwd(), "src/data/v1-7-blocks-audit.json");
+  if (!existsSync(p)) return {};
+  try {
+    return JSON.parse(readFileSync(p, "utf-8")) as Record<string, string[]>;
+  } catch {
+    return {};
+  }
+}
+
 export default async function SandboxV18HubPage() {
   const datasets = loadDatasets();
-  // 1. Filtre doublons + Chine
-  // 2. Tri par market_cap décroissant
-  // 3. Top 308 max (= 306 stés réelles puisque BABA + NIO retirées)
+  const audit = loadAuditDefects();
+  // V1.8 strict (Yann 8 mai 2026) :
+  //  1. Filtre doublons + Chine
+  //  2. **Filtre qualité : ≤ 1 défaut** dans l'audit (zéro défaut OU 1 bloc
+  //     manquant à compléter, qui sera marqué en rouge dans la fiche).
+  //     Stés à 2+ défauts sont écartées du hub V1.8 (mais accessibles via
+  //     /sandbox/v1-7/<t> pour le mode dev).
+  //  3. Tri par market_cap décroissant
+  //  4. Top 308 max
   const ranked = Object.keys(datasets)
     .filter((t) => !HIDDEN_DUPLICATES.has(t.toUpperCase()))
     .filter((t) => !CHINESE_TICKERS.has(t.toUpperCase()))
+    .filter((t) => {
+      // ≤1 défaut. Si t pas dans audit = zéro défaut (par construction).
+      const defects = audit[t] || audit[t.toUpperCase()] || [];
+      return defects.length <= 1;
+    })
     .map((t) => ({ ticker: t, mc: getMarketCap(t) }))
     .filter((x) => x.mc > 0)
     .sort((a, b) => b.mc - a.mc)

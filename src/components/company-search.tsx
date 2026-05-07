@@ -454,12 +454,11 @@ function ResultCardV17({
   const e = V17_SEARCH_BY_TICKER[ticker.toUpperCase()];
   const accent = brand(ticker).primary;
   if (!e) return null;
-  // Routing : Pass 3 validées -> /sandbox/v1-7 (qualité top-top, fiche complète
-  // contrôlée Sonnet). Pass 1/2 brutes -> /sandbox/v1-6 (extraction LLM auto,
-  // utilisable mais non validée).
-  const href = e.validated
-    ? `/sandbox/v1-7/${ticker.toLowerCase()}`
-    : `/sandbox/v1-6/${ticker.toLowerCase()}`;
+  // Routing (Yann 8 mai 2026) : V1.8 par défaut (filtre relaxé + bordures
+  // rouges sur blocs manquants). V1.7 strict était trop restrictif côté UX.
+  // Les fiches non-validées tombent sur "Fiche en préparation" via le filtre
+  // V1.8 lui-même, donc plus besoin de scinder vers /sandbox/v1-6.
+  const href = `/sandbox/v1-8/${ticker.toLowerCase()}`;
   return (
     <Link
       href={href}

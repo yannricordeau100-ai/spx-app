@@ -156,7 +156,11 @@ function MarketPositionStoryCard({
   accent: string;
   glow: string;
 }) {
-  const sharePct = (mp.segment_revenue / mp.tam) * 100;
+  // Yann 8 mai 2026 : si TAM=null (honesty rule, sté n'a pas publié),
+  // segment_revenue/null = NaN/Infinity. On affiche un placeholder propre
+  // au lieu d'un chiffre absurde (ex : "Infinity %" sur Apple Services).
+  const tamUsable = typeof mp.tam === "number" && Number.isFinite(mp.tam) && mp.tam > 0;
+  const sharePct = tamUsable ? (mp.segment_revenue / (mp.tam as number)) * 100 : null;
   // Source >4 mots = trop long pour l'écran story → on cache derrière un "i".
   // Sinon affichage direct en bas (cas court type "Rapport interne 2024").
   const sourceFull = `${mp.source}${mp.source_note ? " · " + mp.source_note : ""}`;
@@ -193,15 +197,34 @@ function MarketPositionStoryCard({
           </div>
         </div>
 
-        {/* Part de marché : domine l'écran, taille augmentée. */}
+        {/* Part de marché : domine l'écran. Si TAM null (honesty rule),
+            on affiche le revenu du segment à la place + une note "TAM non
+            publié par la société" pour rester transparent. */}
         <div className="my-auto flex flex-col items-center text-center">
-          <div
-            className="font-display font-bold leading-none tracking-tight gradient-text"
-            style={{ fontSize: "clamp(72px, 25vw, 120px)" }}
-          >
-            {sharePct.toFixed(1)}&nbsp;%
-          </div>
-          <div className="mt-2 text-[18px] font-semibold text-zinc-100">part de marché</div>
+          {sharePct !== null ? (
+            <>
+              <div
+                className="font-display font-bold leading-none tracking-tight gradient-text"
+                style={{ fontSize: "clamp(72px, 25vw, 120px)" }}
+              >
+                {sharePct.toFixed(1)}&nbsp;%
+              </div>
+              <div className="mt-2 text-[18px] font-semibold text-zinc-100">part de marché</div>
+            </>
+          ) : (
+            <>
+              <div
+                className="font-display font-bold leading-none tracking-tight gradient-text"
+                style={{ fontSize: "clamp(56px, 18vw, 88px)" }}
+              >
+                {mp.segment_revenue} <span className="text-[0.5em] font-medium text-zinc-300">{formatUnit(mp.segment_unit)}</span>
+              </div>
+              <div className="mt-2 text-[16px] font-semibold text-zinc-100">revenu du segment</div>
+              <div className="mt-2 text-[12px] italic text-zinc-400">
+                Taille de marché non publiée par la société
+              </div>
+            </>
+          )}
         </div>
 
         {/* Mini-blocs Revenu segment / TAM : valeurs agrandies, libellés mieux
@@ -237,10 +260,18 @@ function MarketPositionStoryCard({
               </InfoTooltip>
             </div>
             <div className="mt-1.5 font-display text-[20px] font-bold leading-none tabular-nums text-zinc-50">
-              {mp.tam}
-              <span className="ml-1 text-[12px] font-medium text-zinc-300">
-                {formatUnit(mp.tam_unit)}
-              </span>
+              {tamUsable ? (
+                <>
+                  {mp.tam}
+                  <span className="ml-1 text-[12px] font-medium text-zinc-300">
+                    {formatUnit(mp.tam_unit)}
+                  </span>
+                </>
+              ) : (
+                <span className="text-[14px] font-medium italic text-zinc-400">
+                  non publié
+                </span>
+              )}
             </div>
           </div>
         </div>

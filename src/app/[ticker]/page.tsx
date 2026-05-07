@@ -6,6 +6,7 @@ import { AuthNav } from "@/components/auth-nav";
 import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
 import { COMPANIES, TICKERS, TICKER_ALIASES, getCompany } from "@/lib/data";
 import type { TranscriptDoc } from "@/components/transcript-stories";
+import V17_PUBLIC from "@/data/v1-7-public.json";
 
 async function loadTranscript(ticker: string): Promise<TranscriptDoc | null> {
   const root = process.cwd();
@@ -80,7 +81,15 @@ export default async function TickerPage({
     redirect(`/${TICKER_ALIASES[upper].toLowerCase()}`);
   }
   const company = getCompany(ticker);
-  if (!company) notFound();
+  if (!company) {
+    // Yann 8 mai 2026 : si le ticker n'est pas V1 mais existe en V1.7-public,
+    // redirect vers /sandbox/v1-8/<ticker> (UX : tape /AAPL → ouvre AAPL).
+    const v17 = V17_PUBLIC as unknown as Record<string, unknown>;
+    if (v17[upper]) {
+      redirect(`/sandbox/v1-8/${ticker.toLowerCase()}`);
+    }
+    notFound();
+  }
   const transcript = await loadTranscript(ticker);
   return (
     <>
