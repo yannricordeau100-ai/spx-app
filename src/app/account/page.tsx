@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { Star, LogOut, User, KeyRound, AtSign, Trash2 } from "lucide-react";
+import { Star, LogOut, User, KeyRound, AtSign, Trash2, CreditCard } from "lucide-react";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import {
   signOut,
@@ -106,6 +106,25 @@ export default async function AccountPage({
               </div>
             </div>
           </Link>
+
+          {/* Lien Stripe Customer Portal — gérer abonnement, factures,
+              moyen de paiement. Si jamais abonné → redirige sur /pricing. */}
+          <a
+            href="/api/billing/portal"
+            className="group flex items-center gap-3 rounded-xl border border-[#1f1f1f] bg-[#0a0a0a] p-4 transition-colors hover:border-violet-400/40"
+          >
+            <span className="inline-flex size-10 items-center justify-center rounded-lg border border-violet-400/30 bg-violet-500/10 text-violet-200">
+              <CreditCard className="size-4" />
+            </span>
+            <div>
+              <div className="text-[14px] font-semibold text-zinc-50">
+                Facturation et abonnement
+              </div>
+              <div className="text-[11.5px] text-zinc-400">
+                Changer de plan, télécharger les factures, mettre à jour la carte
+              </div>
+            </div>
+          </a>
 
           <form action={signOut}>
             <button

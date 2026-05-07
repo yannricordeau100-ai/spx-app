@@ -1,0 +1,320 @@
+/**
+ * plans.ts — modèle de plans 3 tiers Mettrik AI (Yann 7 mai 2026).
+ *
+ * Catalogue centralisé des fonctionnalités par tier, utilisé à la fois par
+ * la page tarifs (display marketing) et par le moteur de gating (access.ts).
+ *
+ * Une seule source de vérité : si on ajoute une feature, on la définit
+ * ICI avec sa disponibilité par tier, et tout le reste suit (UI tarifs,
+ * paywall, dashboard).
+ */
+
+export type PlanTier = "free" | "investisseur" | "pro_plus";
+
+/** Métadonnées display d'un plan (pricing page). */
+export type PlanDisplay = {
+  tier: PlanTier;
+  name: string;
+  tagline: string;
+  /** Prix mensuel en euros (annuel = month × 10 = -16,7 % vs ×12). */
+  price_monthly_eur: number;
+  /** Prix annuel facturé en une fois en euros. */
+  price_annual_eur: number;
+  /** Mention promo annuelle ("2 mois offerts", etc.). */
+  annual_savings_label: string;
+  /** Couleur d'accent (hex). */
+  accent: string;
+  /** Plan le plus populaire ? (badge "Recommandé"). */
+  highlight: boolean;
+  /** CTA bouton principal. */
+  cta_label: string;
+  /** Audience cible (1 phrase). */
+  audience: string;
+};
+
+export const PLANS: PlanDisplay[] = [
+  {
+    tier: "free",
+    name: "Découverte",
+    tagline: "Teste la profondeur de Mettrik sur les 2 GAFA les plus suivies.",
+    price_monthly_eur: 0,
+    price_annual_eur: 0,
+    annual_savings_label: "À vie, sans carte bancaire",
+    accent: "#71717a",
+    highlight: false,
+    cta_label: "Démarrer gratuitement",
+    audience: "Particuliers curieux et étudiants en finance.",
+  },
+  {
+    tier: "investisseur",
+    name: "Investisseur",
+    tagline: "L'essentiel pour suivre ton portefeuille au quotidien.",
+    price_monthly_eur: 24.9,
+    price_annual_eur: 199, // ≈ 16,6 €/mois facturé annuel = -33 % vs mensuel × 12
+    annual_savings_label: "2 mois offerts vs mensuel",
+    accent: "#a78bfa",
+    highlight: true,
+    cta_label: "Choisir Investisseur",
+    audience: "Particuliers actifs avec 5 à 50 lignes en portefeuille.",
+  },
+  {
+    tier: "pro_plus",
+    name: "Pro+",
+    tagline: "Outils avancés pour family offices, conseillers et fonds.",
+    price_monthly_eur: 79,
+    price_annual_eur: 699, // ≈ 58 €/mois facturé annuel = -26 % vs mensuel × 12
+    annual_savings_label: "2 mois offerts vs mensuel",
+    accent: "#22d3ee",
+    highlight: false,
+    cta_label: "Passer en Pro+",
+    audience: "Pros de la finance, family offices, gestionnaires de patrimoine.",
+  },
+];
+
+/** Catalogue des fonctionnalités, leur disponibilité par tier. */
+export type FeatureRow = {
+  id: string;
+  /** Catégorie pour grouper visuellement la matrice. */
+  category: "Sociétés" | "Analyse" | "Suivi" | "Comparaison" | "Données" | "Pro";
+  label: string;
+  /** Aide tooltip (1 phrase). */
+  help?: string;
+  free: string | boolean;
+  investisseur: string | boolean;
+  pro_plus: string | boolean;
+};
+
+export const FEATURES: FeatureRow[] = [
+  // ─── Sociétés ───────────────────────────────────────────────────────
+  {
+    id: "stes_count",
+    category: "Sociétés",
+    label: "Sociétés accessibles",
+    help: "Nombre de fiches société consultables en intégralité.",
+    free: "2 (Google + Meta)",
+    investisseur: "1 000+ américaines & européennes",
+    pro_plus: "1 000+ + ajouts mensuels",
+  },
+  {
+    id: "logo_pages",
+    category: "Sociétés",
+    label: "Logos officiels + identité visuelle",
+    free: true,
+    investisseur: true,
+    pro_plus: true,
+  },
+  {
+    id: "ranks",
+    category: "Sociétés",
+    label: "Rangs mondial / USA / secteur",
+    free: false,
+    investisseur: true,
+    pro_plus: true,
+  },
+  // ─── Analyse ────────────────────────────────────────────────────────
+  {
+    id: "kpis",
+    category: "Analyse",
+    label: "Indicateurs clés (KPI principaux + secondaires)",
+    free: "Limité à Google + Meta",
+    investisseur: true,
+    pro_plus: true,
+  },
+  {
+    id: "stories_kpis",
+    category: "Analyse",
+    label: "Histoires clés (carrousel KPI nouveaux)",
+    help: "KPI émergents propres à chaque société (ex : adoption IA, expansion géo).",
+    free: false,
+    investisseur: true,
+    pro_plus: true,
+  },
+  {
+    id: "transcripts",
+    category: "Analyse",
+    label: "Citations dirigeants (dernier appel résultats)",
+    free: false,
+    investisseur: true,
+    pro_plus: true,
+  },
+  {
+    id: "risks",
+    category: "Analyse",
+    label: "Facteurs de risque scorés 1 à 5",
+    free: false,
+    investisseur: true,
+    pro_plus: true,
+  },
+  {
+    id: "governance",
+    category: "Analyse",
+    label: "Gouvernance + rémunération dirigeants",
+    free: false,
+    investisseur: true,
+    pro_plus: true,
+  },
+  {
+    id: "ai_positioning",
+    category: "Analyse",
+    label: "Positionnement IA (leader / intégrateur / prudent)",
+    free: false,
+    investisseur: true,
+    pro_plus: true,
+  },
+  // ─── Suivi ──────────────────────────────────────────────────────────
+  {
+    id: "favorites",
+    category: "Suivi",
+    label: "Sociétés favorites",
+    free: "2 max",
+    investisseur: "50 max",
+    pro_plus: "Illimité",
+  },
+  {
+    id: "alerts_email",
+    category: "Suivi",
+    label: "Alertes par email sur seuils KPI",
+    help: "Reçois un email quand un KPI franchit un seuil que tu as fixé.",
+    free: false,
+    investisseur: "5 alertes",
+    pro_plus: "Illimité",
+  },
+  {
+    id: "earnings_calendar",
+    category: "Suivi",
+    label: "Calendrier des résultats à venir",
+    free: false,
+    investisseur: true,
+    pro_plus: true,
+  },
+  // ─── Comparaison ────────────────────────────────────────────────────
+  {
+    id: "compare_basic",
+    category: "Comparaison",
+    label: "Comparaison 2 sociétés",
+    free: "Google ↔ Meta",
+    investisseur: true,
+    pro_plus: true,
+  },
+  {
+    id: "compare_basket",
+    category: "Comparaison",
+    label: "Panier de comparaison (3+ sociétés)",
+    free: false,
+    investisseur: "3 sociétés",
+    pro_plus: "Jusqu'à 10",
+  },
+  {
+    id: "sector_compare",
+    category: "Comparaison",
+    label: "Comparaison sectorielle (vs pairs)",
+    free: false,
+    investisseur: true,
+    pro_plus: true,
+  },
+  // ─── Données ────────────────────────────────────────────────────────
+  {
+    id: "senate_trades",
+    category: "Données",
+    label: "Transactions du Sénat US (live)",
+    help: "Voir en direct les achats/ventes des sénateurs américains pour chaque société.",
+    free: false,
+    investisseur: true,
+    pro_plus: true,
+  },
+  {
+    id: "tam",
+    category: "Données",
+    label: "Taille de marché (TAM) déclarée par la société",
+    free: false,
+    investisseur: true,
+    pro_plus: true,
+  },
+  {
+    id: "segments",
+    category: "Données",
+    label: "Répartition CA par segment & géographie",
+    free: false,
+    investisseur: true,
+    pro_plus: true,
+  },
+  {
+    id: "history_5y",
+    category: "Données",
+    label: "Historique 5 ans",
+    free: "Sur Google + Meta",
+    investisseur: true,
+    pro_plus: true,
+  },
+  {
+    id: "history_10y",
+    category: "Données",
+    label: "Historique 10 ans",
+    free: false,
+    investisseur: false,
+    pro_plus: true,
+  },
+  {
+    id: "history_20y",
+    category: "Données",
+    label: "Historique 20 ans",
+    free: false,
+    investisseur: false,
+    pro_plus: true,
+  },
+  // ─── Pro ────────────────────────────────────────────────────────────
+  {
+    id: "export_pdf",
+    category: "Pro",
+    label: "Export PDF des fiches société",
+    free: false,
+    investisseur: false,
+    pro_plus: true,
+  },
+  {
+    id: "export_csv",
+    category: "Pro",
+    label: "Export CSV des données",
+    free: false,
+    investisseur: false,
+    pro_plus: true,
+  },
+  {
+    id: "api_access",
+    category: "Pro",
+    label: "Accès API (lecture)",
+    help: "Endpoints REST pour intégrer les données Mettrik dans tes outils.",
+    free: false,
+    investisseur: false,
+    pro_plus: true,
+  },
+  {
+    id: "priority_support",
+    category: "Pro",
+    label: "Support prioritaire (réponse < 24 h)",
+    free: false,
+    investisseur: "Email",
+    pro_plus: "Email + appel mensuel",
+  },
+  {
+    id: "early_access",
+    category: "Pro",
+    label: "Accès anticipé aux nouvelles fonctions",
+    free: false,
+    investisseur: false,
+    pro_plus: true,
+  },
+];
+
+/** Helper : prix mensuel équivalent quand facturé annuellement. */
+export function monthlyEquivalent(plan: PlanDisplay): number {
+  if (plan.price_annual_eur === 0) return 0;
+  return Math.round((plan.price_annual_eur / 12) * 10) / 10;
+}
+
+/** Helper : "à partir de X €/mois" quand on hésite entre tier. */
+export function startingPriceLabel(currency: string = "€"): string {
+  const cheapest = PLANS.find((p) => p.price_monthly_eur > 0);
+  if (!cheapest) return "Gratuit";
+  return `À partir de ${cheapest.price_monthly_eur.toFixed(2).replace(".", ",")} ${currency}/mois`;
+}

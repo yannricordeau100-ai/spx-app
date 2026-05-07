@@ -5,22 +5,28 @@ import { PricingMatrix } from "@/components/billing/pricing-matrix";
 import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
 
 /**
- * Page tarifs publique `/pricing` (RGPD-friendly, aucune auth requise).
+ * /sandbox/v1-8/pricing — page tarifs sales-optimized.
  *
- * Refonte 7 mai 2026 : abandon du squelette ad-hoc, alignement sur le
- * nouveau modèle 3 plans (Découverte / Investisseur / Pro+) défini dans
- * `src/lib/billing/plans.ts`. Une seule source de vérité partagée avec
- * `/sandbox/v1-8/pricing`.
+ * 3 plans : Découverte (gratuit), Investisseur (recommandé), Pro+.
+ * Layout : hero + cards + matrice features + trust + FAQ + CTA final.
  *
- * Sales-optimisée : annuel par défaut, garanties visibles, matrice
- * features détaillée, FAQ, CTA finale.
+ * Optimisations vente :
+ *  - Annuel par défaut + chip -33 % (ancrage prix bas)
+ *  - Carte Investisseur visuellement dominante
+ *  - 3 garanties dans le hero (sans engagement, satisfait/remboursé, sans
+ *    carte pour Free)
+ *  - Matrice features détaillée → réduit la friction "qu'est-ce que je
+ *    perds en restant Free"
+ *  - FAQ couvre les objections fréquentes (annulation, devises, données)
+ *  - CTA final dupliqué en bas (re-engagement après lecture)
  */
 export const metadata = {
   title: "Tarifs · Mettrik AI",
   description: "3 plans Mettrik AI : Découverte gratuit, Investisseur 24,90 €/mois, Pro+ 79 €/mois. 30 jours satisfait ou remboursé.",
+  robots: { index: false, follow: false },
 };
 
-export default function PricingPage() {
+export default function V18PricingPage() {
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#050505]">
       <div
@@ -30,9 +36,10 @@ export default function PricingPage() {
         }}
       />
 
+      {/* Top nav */}
       <nav className="relative mx-auto flex max-w-6xl items-center justify-between px-4 py-6 sm:px-6">
         <Link
-          href="/"
+          href="/sandbox/v1-8"
           className="group inline-flex items-center gap-2 text-sm text-zinc-400 transition-colors hover:text-zinc-100"
         >
           <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-0.5" />
@@ -52,6 +59,7 @@ export default function PricingPage() {
       </nav>
 
       <main className="relative mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+        {/* HERO */}
         <div className="mx-auto max-w-3xl text-center">
           <span className="inline-block rounded-full border border-violet-500/30 bg-violet-500/10 px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-violet-200">
             Tarifs simples, accès puissant
@@ -75,15 +83,17 @@ export default function PricingPage() {
             </span>
             <span className="inline-flex items-center gap-1.5 rounded-full border border-violet-500/20 bg-violet-500/[0.06] px-3 py-1.5">
               <Sparkles className="size-3.5 text-violet-300" />
-              Tarifs en 7 devises
+              Tarifs en 7 devises (€/$/£/CHF/SEK/DKK/CAD)
             </span>
           </div>
         </div>
 
+        {/* PLAN CARDS */}
         <div className="mx-auto mt-14 max-w-5xl">
-          <PricingCards ctaTrackingPrefix="pricing_top_" />
+          <PricingCards ctaTrackingPrefix="v18_top_" />
         </div>
 
+        {/* MATRICE FEATURES */}
         <section className="mx-auto mt-20 max-w-5xl">
           <div className="mb-6 text-center">
             <h2 className="font-display text-3xl font-bold tracking-tight text-zinc-50">
@@ -96,27 +106,60 @@ export default function PricingPage() {
           <PricingMatrix />
         </section>
 
+        {/* TRUST / VALUE */}
         <section className="mx-auto mt-20 grid max-w-5xl gap-5 sm:grid-cols-3">
-          <TrustCard title="Données vérifiées" body="Chaque chiffre vient des documents officiels (10-K, 20-F, transcripts) déposés par les sociétés. Aucune estimation maison." />
-          <TrustCard title="Pas de revente de tes données" body="On ne vend ni ne loue tes données à des tiers. Pas de tracker publicitaire, pas de data broker." />
-          <TrustCard title="Hébergement européen" body="Tes données restent en Europe. Conforme RGPD. Facturation par R consulting (Suisse)." />
+          <TrustCard
+            title="Données vérifiées"
+            body="Chaque chiffre vient des documents officiels (10-K, 20-F, transcripts) déposés par les sociétés. Aucune estimation maison."
+          />
+          <TrustCard
+            title="Pas de revente de tes données"
+            body="On ne vend ni ne loue tes données à des tiers. Pas de tracker publicitaire, pas de data broker."
+          />
+          <TrustCard
+            title="Hébergement européen"
+            body="Tes données restent en Europe. Conforme RGPD. Facturation par R consulting (Suisse)."
+          />
         </section>
 
+        {/* FAQ */}
         <section className="mx-auto mt-20 max-w-3xl">
           <h2 className="mb-6 text-center font-display text-3xl font-bold tracking-tight text-zinc-50">
             Questions fréquentes
           </h2>
           <div className="space-y-3">
-            <FaqItem q="Puis-je tester Mettrik AI sans payer ?" a="Oui, le plan Découverte est gratuit à vie. Tu accèdes à l'intégralité de Google (GOOGL) et Meta (META) sans carte bancaire. C'est suffisant pour évaluer la profondeur de l'analyse avant de décider." />
-            <FaqItem q="Comment annuler mon abonnement ?" a="Depuis ton compte (Mon profil > Facturation), un seul clic. Pas de pénalité, ton accès reste actif jusqu'à la fin de la période payée." />
-            <FaqItem q="Quelle différence entre Investisseur et Pro+ ?" a="Investisseur couvre les besoins d'un particulier qui suit son portefeuille (1 000+ sociétés, 50 favoris, 5 alertes email). Pro+ ajoute l'export PDF/CSV, l'accès API en lecture, l'historique 10 et 20 ans, et un support prioritaire — pensé pour les family offices et conseillers." />
-            <FaqItem q="Puis-je changer de plan plus tard ?" a="Oui, à tout moment. Si tu passes de Investisseur à Pro+, l'écart est facturé au prorata. Si tu downgrade, le changement prend effet à la prochaine échéance." />
-            <FaqItem q="Les prix incluent-ils la TVA ?" a="Oui, les prix affichés sont TTC. La facturation est assurée par R consulting (Kreuzlingen, Suisse) qui n'est pas assujettie à la TVA." />
-            <FaqItem q="Quelles sociétés sont couvertes en Investisseur et Pro+ ?" a="Plus de 1 000 sociétés américaines (S&P 500, S&P MidCap 400, Nasdaq) et européennes (CAC 40, DAX, FTSE 100, AEX, etc.). Le catalogue s'étoffe automatiquement chaque mois." />
-            <FaqItem q="Comment fonctionne la garantie 30 jours ?" a="Si Mettrik AI ne te convient pas dans les 30 premiers jours, on te rembourse intégralement, sans question. Un email à contact@mettrik.ai suffit." />
+            <FaqItem
+              q="Puis-je tester Mettrik AI sans payer ?"
+              a="Oui, le plan Découverte est gratuit à vie. Tu accèdes à l'intégralité de Google (GOOGL) et Meta (META) sans carte bancaire. C'est suffisant pour évaluer la profondeur de l'analyse avant de décider."
+            />
+            <FaqItem
+              q="Comment annuler mon abonnement ?"
+              a="Depuis ton compte (Mon profil > Facturation), un seul clic. Pas de pénalité, ton accès reste actif jusqu'à la fin de la période payée."
+            />
+            <FaqItem
+              q="Quelle différence entre Investisseur et Pro+ ?"
+              a="Investisseur couvre les besoins d'un particulier qui suit son portefeuille (1 000+ sociétés, 50 favoris, 5 alertes email). Pro+ ajoute l'export PDF/CSV, l'accès API en lecture, l'historique 10 et 20 ans, et un support prioritaire — pensé pour les family offices et conseillers."
+            />
+            <FaqItem
+              q="Puis-je changer de plan plus tard ?"
+              a="Oui, à tout moment. Si tu passes de Investisseur à Pro+, l'écart est facturé au prorata. Si tu downgrade, le changement prend effet à la prochaine échéance."
+            />
+            <FaqItem
+              q="Les prix incluent-ils la TVA ?"
+              a="Oui, les prix affichés sont TTC. La facturation est assurée par R consulting (Kreuzlingen, Suisse) qui n'est pas assujettie à la TVA."
+            />
+            <FaqItem
+              q="Quelles sociétés sont couvertes en Investisseur et Pro+ ?"
+              a="Plus de 1 000 sociétés américaines (S&P 500, S&P MidCap 400, Nasdaq) et européennes (CAC 40, DAX, FTSE 100, AEX, etc.). Le catalogue s'étoffe automatiquement chaque mois."
+            />
+            <FaqItem
+              q="Comment fonctionne la garantie 30 jours ?"
+              a="Si Mettrik AI ne te convient pas dans les 30 premiers jours, on te rembourse intégralement, sans question. Un email à contact@mettrik.ai suffit."
+            />
           </div>
         </section>
 
+        {/* CTA FINAL */}
         <section className="mx-auto mt-20 max-w-3xl rounded-3xl border border-violet-500/30 bg-gradient-to-br from-violet-500/[0.10] to-cyan-500/[0.05] p-10 text-center">
           <h2 className="font-display text-3xl font-bold tracking-tight text-zinc-50">
             Prêt à voir tes sociétés sous un autre angle ?
@@ -127,7 +170,7 @@ export default function PricingPage() {
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Link
               href="/signup"
-              data-pricing-cta="pricing_bottom_signup"
+              data-pricing-cta="v18_bottom_signup"
               className="inline-flex items-center gap-2 rounded-xl bg-violet-500 px-6 py-3 text-[14px] font-bold text-zinc-50 transition-colors hover:bg-violet-400"
             >
               Démarrer gratuitement
