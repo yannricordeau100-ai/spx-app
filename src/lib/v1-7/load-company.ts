@@ -281,6 +281,40 @@ export async function loadV17Company(
     `${ticker.toLowerCase()}.json`,
   );
   const enrich = await readJsonOrNull<Record<string, unknown>>(enrichPath);
+
+  // AI positioning v2 : fichier séparé .ai-pos.json (Yann 8 mai 2026,
+  // process amélioré qui combine 10-K + transcripts + Anthropic Haiku).
+  // S'il existe et que le dataset CONV-DATA n'a pas d'ai_positioning ou
+  // a un "absent" (10-K-only minimisé), on prend le .ai-pos.json.
+  const aiPosPath = path.join(
+    ROOT,
+    "src/data/v2-pipeline-enrich",
+    `${ticker.toLowerCase()}.ai-pos.json`,
+  );
+  const aiPosV2 = await readJsonOrNull<Record<string, unknown>>(aiPosPath);
+  if (aiPosV2) {
+    const cur = (data as Record<string, unknown>).ai_positioning as
+      | Record<string, unknown>
+      | undefined;
+    const curStance = cur?.stance;
+    const curEvidence = Array.isArray(cur?.evidence) ? cur?.evidence : [];
+    const v2Stance = aiPosV2.stance;
+    const v2Evidence = Array.isArray(aiPosV2.evidence) ? aiPosV2.evidence : [];
+    // Override si v2 a plus d'evidence ou si v1 disait "absent" / vide.
+    const v1Weak =
+      !cur ||
+      curStance === "absent" ||
+      curStance === null ||
+      curEvidence.length < (v2Evidence as unknown[]).length;
+    if (v1Weak && v2Stance) {
+      (data as Record<string, unknown>).ai_positioning = {
+        stance: v2Stance,
+        summary: aiPosV2.summary,
+        evidence: v2Evidence,
+        source_note: aiPosV2.source_note,
+      };
+    }
+  }
   if (enrich) {
     for (const key of [
       "events",
