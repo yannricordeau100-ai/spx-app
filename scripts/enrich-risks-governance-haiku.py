@@ -275,7 +275,8 @@ def main():
 
     # Combine, dédup, prioriser stés cat 1 US (sec-data)
     pending = list(dict.fromkeys(pending_risks + pending_gov))
-    pending = [t for t in pending if "." not in t]  # cat 1 only (sec-data principalement)
+    # Toutes les sés V1.7 : find_filing() route auto vers cat1-us, cat2-FPI
+    # ou cat3-european annual-text/ selon ce qui est dispo. Yann 7 mai 2026.
 
     if args.limit:
         pending = pending[: args.limit]
