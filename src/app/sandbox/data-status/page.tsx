@@ -189,6 +189,30 @@ export default async function DataStatusPage() {
         </Card>
       </div>
 
+      {/* ─── Défauts de type silencieux ──────────────────────────────── */}
+      <div className="mt-4">
+        <Card title={`Défauts de type dataset (${s.type_defects.total_affected} sés sur ${s.type_defects.total_companies} affectées)`}>
+          <p className="mb-3 text-[12px] text-zinc-400">
+            Bugs silencieux qui peuvent casser le rendu d'une fiche (ex : <code>unit: null</code>,
+            <code> top_capital: null</code>, hero KPI introuvable). La UI les coerce
+            automatiquement à la lecture, mais les données sources gagneraient à être nettoyées.
+          </p>
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+            {Object.entries(s.type_defects.by_code)
+              .sort((a, b) => b[1] - a[1])
+              .map(([code, n]) => (
+                <div key={code} className="flex items-center justify-between rounded-lg border border-white/[0.06] bg-black/20 px-3 py-2 text-[12px]">
+                  <span className="font-mono text-zinc-300">{code}</span>
+                  <span className="font-mono font-semibold tabular-nums text-amber-300">{n}</span>
+                </div>
+              ))}
+            {Object.keys(s.type_defects.by_code).length === 0 && (
+              <div className="text-[12px] text-zinc-500">Aucun défaut détecté.</div>
+            )}
+          </div>
+        </Card>
+      </div>
+
       {/* ─── Audit V1.7 par bloc UI ───────────────────────────────────── */}
       <div className="mt-4">
         <Card title={`Audit V1.7 — qualité des blocs (${auditTotal} sociétés Pass 3 strict)`}>

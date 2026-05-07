@@ -104,6 +104,12 @@ function uniqueTickersDownloaded(base: string, recentYears: number = 3): Set<str
 
 export type DataStatusSnapshot = {
   generated_at: string;
+  /** Défauts de type silencieux détectés par audit-data-types.ts. */
+  type_defects: {
+    total_affected: number;
+    total_companies: number;
+    by_code: Record<string, number>;
+  };
   /** Compteur sec-data par catégorie. */
   sec_data: {
     cat1_us: { target: number; downloaded: number; coverage_pct: number };
@@ -240,6 +246,19 @@ export function computeDataStatus(): DataStatusSnapshot {
     },
   };
 
+  // ─── type defects ─────────────────────────────────────────────────
+  const defectsPath = path.join(paths().ROOT, "src/data/v2-pipeline-type-defects.json");
+  const defects = safeJson<Record<string, string[]>>(defectsPath) ?? {};
+  const defectsByCode: Record<string, number> = {};
+  for (const codes of Object.values(defects)) {
+    for (const c of codes) defectsByCode[c] = (defectsByCode[c] ?? 0) + 1;
+  }
+  const typeDefects = {
+    total_affected: Object.keys(defects).length,
+    total_companies: total,
+    by_code: defectsByCode,
+  };
+
   // ─── logos count ──────────────────────────────────────────────────
   const logosCount = existsSync(LOGOS) ? readdirSync(LOGOS).filter((f) => f.endsWith(".png")).length : 0;
 
@@ -278,6 +297,7 @@ export function computeDataStatus(): DataStatusSnapshot {
     llm_credits,
     searchable_count: v17Total,
     logos_count: logosCount,
+    type_defects: typeDefects,
   };
 }
 

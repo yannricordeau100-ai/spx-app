@@ -42,6 +42,107 @@ function normalizeHistory(h: unknown): number[] {
     .filter((v) => Number.isFinite(v));
 }
 
+/**
+ * Coercion défensive sur tout le dataset d'une sé. Yann 7 mai 2026 : 27 %
+ * des sés ont au moins un défaut de type silencieux (governance.top_capital
+ * null, hero unit null, history null, etc). Plutôt que d'attendre que
+ * CONV-DATA corrige toutes ces données, on coerce ici à la lecture pour
+ * que la UI ne soit jamais exposée à des null inattendus → composants
+ * crash, "Fiche en préparation" silencieux, etc.
+ *
+ * Les composants downstream peuvent supposer que les types sont stables.
+ *
+ * Retour : la même donnée mais avec :
+ *  - hero_kpi normalisé via fuzzy match si exact short pas trouvé
+ *  - hero KPI string fields coercés ("" si null) → laisse le filtre Pass 3
+ *    décider de l'admission, mais évite les crash render
+ *  - hero KPI history coercé en []
+ *  - governance.top_capital / top_voting coercés en []
+ *  - ai_positioning supprimé si stance null (= absent)
+ *  - market_positions[].slices coercés en [] si null
+ */
+function sanitizeCompanyData(data: AnyCo): AnyCo {
+  // 1. Hero KPI : si hero_kpi pointe sur un short qui n'existe pas, on
+  //    cherche un fuzzy match (substring case-insensitive). Sinon kpis[0].
+  const kpis = (data.kpis as AnyKPI[] | undefined) ?? [];
+  const heroShort = data.hero_kpi as string | undefined;
+  if (heroShort && kpis.length > 0) {
+    const exact = kpis.find((k) => k.short === heroShort);
+    if (!exact) {
+      const heroLow = heroShort.toLowerCase();
+      const fuzzy = kpis.find((k) => {
+        const s = String(k.short ?? "").toLowerCase();
+        return s && (heroLow.includes(s) || s.includes(heroLow));
+      });
+      if (fuzzy) {
+        // Réécrit hero_kpi pour pointer sur le short réel trouvé
+        data.hero_kpi = fuzzy.short as string;
+      } else if (kpis[0]?.short) {
+        data.hero_kpi = kpis[0].short as string;
+      }
+    }
+  }
+
+  // 2. Coerce KPIs : null → defaults, history non-array → [].
+  if (Array.isArray(data.kpis)) {
+    data.kpis = data.kpis.map((k) => {
+      const out = { ...(k as AnyKPI) };
+      // Strings critiques : si null → "" pour ne pas crasher formatUnit() etc.
+      // (le filtre Pass 3 rejettera la sé si vraiment vide.)
+      for (const field of ["unit", "type", "name_fr", "name_en", "explanation", "signal", "description", "comparable", "nature"]) {
+        if (out[field] === null) out[field] = "";
+      }
+      // history null → [].
+      if (out.history === null || out.history === undefined) {
+        out.history = [];
+      } else if (Array.isArray(out.history)) {
+        out.history = normalizeHistory(out.history);
+      } else {
+        out.history = [];
+      }
+      return out;
+    });
+  }
+
+  // 3. Governance : top_capital / top_voting null → [].
+  if (data.governance && typeof data.governance === "object") {
+    const gov = data.governance as Record<string, unknown>;
+    if (gov.top_capital === null || (gov.top_capital !== undefined && !Array.isArray(gov.top_capital))) {
+      gov.top_capital = [];
+    }
+    if (gov.top_voting === null || (gov.top_voting !== undefined && !Array.isArray(gov.top_voting))) {
+      gov.top_voting = [];
+    }
+  }
+
+  // 4. AI positioning : si stance null → supprimer le bloc entier (la
+  //    AIPositioningCard gère absent/présent, mais pas null à l'intérieur).
+  const ai = data.ai_positioning as Record<string, unknown> | undefined;
+  if (ai && (ai.stance === null || ai.stance === undefined) && (ai.evidence === null || (Array.isArray(ai.evidence) && ai.evidence.length === 0))) {
+    delete data.ai_positioning;
+  } else if (ai && ai.evidence !== undefined && !Array.isArray(ai.evidence)) {
+    ai.evidence = [];
+  }
+
+  // 5. market_positions[].slices null → [].
+  if (Array.isArray(data.market_positions)) {
+    data.market_positions = (data.market_positions as Record<string, unknown>[]).map((mp) => {
+      const out = { ...mp };
+      if (out.slices === null || (out.slices !== undefined && !Array.isArray(out.slices))) {
+        out.slices = [];
+      }
+      return out;
+    });
+  }
+
+  // 6. Risks : si pas un array, supprimer.
+  if (data.risks !== undefined && !Array.isArray(data.risks)) {
+    delete data.risks;
+  }
+
+  return data;
+}
+
 async function readJsonOrNull<T>(p: string): Promise<T | null> {
   try {
     const raw = await fs.readFile(p, "utf-8");
@@ -91,6 +192,11 @@ export async function loadV17Company(
   if (!data.logo_treatment) data.logo_treatment = "orbit";
   if (!data.ranks) data.ranks = { global_world: "-", global_us: "-", sector: "-", subsector: "-" };
   if (!data.tagline) data.tagline = "";
+
+  // Coercion défensive contre les défauts de type CONV-DATA (cf. comment
+  // de sanitizeCompanyData ci-dessus). 27 % des sés en avaient au moins
+  // un avant ce fix.
+  sanitizeCompanyData(data);
 
   // Enrichissement ranks : si la sté n'a pas de ranks complets côté
   // CONV-DATA (4 champs valides), on merge depuis
