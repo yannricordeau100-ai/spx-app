@@ -35,14 +35,37 @@ const PLACEHOLDER_VALUES = /^(non\s*(disponible|spécifié|specifie|disclosé|di
 
 function validationText(v: AnyRecord): string {
   const val = v._validation;
-  if (Array.isArray(val)) return val.map((x) => String(x)).join(" ").toLowerCase();
+  if (Array.isArray(val)) {
+    return val
+      .map((x) => (typeof x === "string" ? x : JSON.stringify(x)))
+      .join(" ")
+      .toLowerCase();
+  }
   if (val) return String(val).toLowerCase();
   return "";
+}
+
+/** Sonnet a-t-il appliqué des corrections (objet `{ corrected: ... }`) ? */
+function hasSonnetCorrections(v: AnyRecord): boolean {
+  const val = v._validation;
+  if (!Array.isArray(val)) return false;
+  return val.some(
+    (x) =>
+      x &&
+      typeof x === "object" &&
+      !Array.isArray(x) &&
+      "corrected" in (x as Record<string, unknown>),
+  );
 }
 
 function hasWeakMarker(v: AnyRecord): boolean {
   const txt = validationText(v);
   if (!txt) return false;
+  // Faux-positif : si Sonnet a flag "halluciné" mais a aussi APPLIQUÉ une
+  // correction (objet { corrected: ... }), le KPI a été remplacé → la note
+  // historique reste mais ne doit plus bloquer la fiche. Ex : AMZN "GMV
+  // halluciné" → corrigé en "Op Cash Flow", sté affichable. Yann 7 mai 2026.
+  if (hasSonnetCorrections(v)) return false;
   return WEAK_MARKERS.some((m) => txt.includes(m));
 }
 
