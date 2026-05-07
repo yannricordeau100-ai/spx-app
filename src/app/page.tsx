@@ -55,10 +55,12 @@ export default async function HomePage({
     redirect(next);
   }
 
-  // Staging : root '/' redirige vers /sandbox/v1-7 (hub V1.7 public).
+  // Staging : root '/' redirige vers /sandbox/v1-8 (hub V1.8 par défaut
+  // depuis Yann le 8 mai 2026 ; V1.7 reste pour le dév général sur tout
+  // le pipeline, V1.8 = top 308 hors Chine pour le rendu vitrine).
   // Prod : root '/' = HomeView V1 (5 stés handcrafted).
   if (IS_STAGING) {
-    redirect("/sandbox/v1-7");
+    redirect("/sandbox/v1-8");
   }
 
   return (

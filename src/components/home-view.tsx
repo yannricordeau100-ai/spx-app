@@ -328,19 +328,20 @@ export function HomeView({
   tickers: tickersProp,
   routePrefix,
   showFAQ = true,
+  searchScope,
 }: {
   companies?: Record<string, import("@/lib/data").Company>;
   tickers?: string[];
-  /** Préfixe de route pour les liens des cards (ex: "/sandbox/v1-7").
-      L'URL finale = `${routePrefix}/${ticker.toLowerCase()}`. Sans valeur,
-      route = `/${ticker.toLowerCase()}` (V1 home historique).
-      Note : on prend une string et pas une fonction parce que HomeView est
-      un client component, et Next 16 refuse les functions sérialisées
-      depuis un server component (= page sandbox/v1-X). */
   routePrefix?: string;
-  /** Affiche la FAQ + disclaimer (true par défaut). Les hubs sandbox
-      V1.5/V1.6/V1.7 le passent à false : ils sont des vues de browse pures. */
   showFAQ?: boolean;
+  /**
+   * Restreint la barre de recherche à un scope spécifique. Yann le 8 mai
+   * 2026 : "la barre de recherche doit être propre à chaque version".
+   *  - undefined : recherche dans toute la base V1.7 strict (~617)
+   *  - { tickers, total } : recherche dans `tickers` uniquement, compteur
+   *    affiché = `total`. V1.8 = top 308 hors Chine = 306.
+   */
+  searchScope?: { tickers: string[]; total: number };
 } = {}) {
   const { t, locale } = useT();
   const COMPANIES_USED = companiesProp ?? COMPANIES;
@@ -389,7 +390,11 @@ export function HomeView({
 
         {/* Search — pill arrondie qui zoome en modal centrée au clic */}
         <div className="mx-auto mt-10 flex max-w-2xl justify-center sm:mt-12">
-          <CompanySearch variant="hero" />
+          <CompanySearch
+            variant="hero"
+            searchableTickers={searchScope?.tickers}
+            totalLabel={searchScope?.total}
+          />
         </div>
 
         {/* Suggestions */}

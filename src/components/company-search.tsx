@@ -40,9 +40,20 @@ type Variant = "hero" | "compact";
 export function CompanySearch({
   variant = "hero",
   placeholder,
+  searchableTickers,
+  totalLabel,
 }: {
   variant?: Variant;
   placeholder?: string;
+  /**
+   * Restreint le scope de recherche à un sous-ensemble de tickers V1.7
+   * (ex: 306 sur V1.8 = top 308 hors Chine). Si non fourni, recherche
+   * dans toute la base V1.7 Pass 3 strict. Yann 8 mai 2026 : "la barre
+   * de recherche doit être propre à chaque version".
+   */
+  searchableTickers?: string[];
+  /** Override du compteur affiché (sinon = TICKERS V1 + V1.7 valid). */
+  totalLabel?: number;
 }) {
   const { t, locale } = useT();
   const ph =
@@ -115,10 +126,16 @@ export function CompanySearch({
     // (cohérence avec le hub /sandbox/v1-7). Les stés Pass 1/2 du V1.6 ne
     // sont PAS searchables (browse exhaustif réservé au hub V1.6).
     // Skip aussi ceux déjà présents en V1 (évite doublon).
+    // Yann 8 mai 2026 : si `searchableTickers` est fourni, on restreint le
+    // scope (ex V1.8 = top 308 hors Chine = 306 stés).
     const v1Set = new Set(TICKERS.map((t) => t.toUpperCase()));
+    const scopeSet = searchableTickers
+      ? new Set(searchableTickers.map((t) => t.toUpperCase()))
+      : null;
     for (const e of V17_SEARCH_INDEX) {
       if (!e.validated) continue;
       if (v1Set.has(e.ticker.toUpperCase())) continue;
+      if (scopeSet && !scopeSet.has(e.ticker.toUpperCase())) continue;
       const matches =
         !q ||
         e.ticker.toLowerCase().includes(q) ||
@@ -128,10 +145,13 @@ export function CompanySearch({
     }
 
     return [...v1Out, ...v17Out];
-  }, [query]);
+  }, [query, searchableTickers]);
 
-  // Compteur "X stés au total" : V1 (5) + V1.7 Pass 3 validées seulement.
-  const totalCatalog = TICKERS.length + V17_SEARCH_INDEX.filter((e) => e.validated).length;
+  // Compteur "X stés au total" : override fourni en prop, sinon V1 (5) +
+  // V1.7 Pass 3 validées (le défaut historique).
+  const totalCatalog =
+    totalLabel ??
+    (TICKERS.length + V17_SEARCH_INDEX.filter((e) => e.validated).length);
 
   const close = () => {
     setOpen(false);

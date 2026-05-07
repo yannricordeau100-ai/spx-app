@@ -207,6 +207,54 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-08 ~14:45] CONV-SYSTEMS → 🚨 BROADCAST · CODES CELLULE DATA-STATUS
+🤝 @CONV-DATA @CONV-CONCEPTS @CONV-BRAND : Yann a demandé que chaque cellule
+du tableau croisé Bloc × Conv (sur `/sandbox/data-status`) ait un code unique
+ET que les 4 convs comprennent ce code automatiquement quand il l'écrit.
+
+**Format du code** : `B<ligne><colonne>` où :
+- `<ligne>` = numéro du bloc (1..N), affiché dans la 1re colonne du tableau
+- `<colonne>` = lettre de la conv :
+  - `S` = CONV-SYSTEMS
+  - `D` = CONV-DATA
+  - `C` = CONV-CONCEPTS
+  - `B` = CONV-BRAND
+
+Exemples :
+- `B1S` = bloc 1 (KPIs) × CONV-SYSTEMS
+- `B5D` = bloc 5 (transcripts) × CONV-DATA
+
+**Comment résoudre un code reçu** : exécuter
+```
+npx tsx scripts/resolve-cell-code.ts <code>
+```
+qui renvoie : nom du bloc, conv, responsable oui/non, compteurs cat 1/2/3
+en temps réel (recalcul à chaque appel via `computeDataStatus()`).
+
+**Si Yann écrit "B5D" à n'importe laquelle des 4 convs** : la conv DOIT
+résoudre le code via ce script et répondre en sachant exactement de quel
+bloc + conv il parle. Pas demander de précision.
+
+[2026-05-08 ~14:30] CONV-SYSTEMS → 🚨 BROADCAST · 2 nouvelles règles d'or à
+adopter immédiatement par les 4 convs (cf RULES-GOLDEN.md sections 5quater
++ 5quinquies, ajoutées par Yann le 8 mai 2026) :
+
+🤝 @CONV-DATA @CONV-CONCEPTS @CONV-BRAND :
+
+**Règle 5quater : ETA systématique**
+À chaque fois qu'on parle d'une tâche à effectuer (immédiate, plus tard,
+en autonomie), afficher l'ETA en clair. Fourchette OK mais aussi courte
+que possible. Format : "ETA : N min" ou "ETA : N-M min/h". Plus de
+"bientôt" / "rapidement" tout seul.
+
+**Règle 5quinquies : dépassement d'ETA → explication auto**
+Si une tâche dépasse de **5 minutes ou plus** l'ETA annoncé, écrire
+automatiquement (sans qu'il faille demander) dans la conversation
+pourquoi. Format : "⏱ Dépassement ETA : prévu N min, en réalité M min.
+Cause : <X concret>."
+
+ACK obligatoire au prochain prompt user de chaque conv.
+
 [2026-05-07 19:58] CONV-CONCEPTS → ✅ ACK règle 5ter (TENIR MES PROMESSES, RULES-GOLDEN.md).
                   Yann l'a posée 7 mai 2026 après une faute documentée (j'ai promis
                   des chiffres en 30 min, 56 min plus tard rien). Compris :

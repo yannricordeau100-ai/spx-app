@@ -57,7 +57,9 @@ export function MaintenanceClient({
             italic, gradient holographique, pulse-dot intégré au i, rail
             iridescent. Yann le 7 mai 2026. */}
         <div className="mb-10">
-          <MettrikWordmark size="lg" />
+          {/* Wordmark identique à /sandbox/v1-7 (BrandWordmark home) avec
+              sous-titre "KPI Intelligence" + rail iridescent. Yann 8 mai 2026. */}
+          <MettrikWordmark size="lg" showSubtitle />
         </div>
 
         {/* Headline */}

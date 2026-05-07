@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { readFileSync, existsSync } from "fs";
+import path from "path";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { HomeView } from "@/components/home-view";
 import type { Company } from "@/lib/data";
@@ -11,31 +13,57 @@ export const metadata = {
 };
 
 /**
- * /sandbox/v1-8 = hub similaire à V1.7 mais utilisant le filtre relaxé
- * (Pass 3 Sonnet + hero usable suffisent). Permet à Yann de naviguer
- * sur les stés à 1 critère manquant et de voir les blocs à compléter
- * (rendus en placeholder rouge dans la fiche détail via `v18Mode`).
+ * /sandbox/v1-8 = hub vitrine "top 308 hors Chine" depuis Yann le 8 mai 2026.
+ * V1.7 reste le hub dév général (toutes les sés Pass 3 strict, ~617 sés)
+ * pour permettre tester ordre / styles / sub-industries.
  *
- * Yann 7 mai 2026 : "je ne veux que les sociétés qui sont tout OK
- * (j'accepte qu'il manque le logo)" → V1.8 montre les "presque OK"
- * pour qu'il décide quoi prioriser, V1.7 reste le strict.
+ * Filtre V1.8 :
+ *  1. Top 308 par market_cap (yfinance via enrich/<t>.json snapshot)
+ *  2. Hors Chine (BABA, NIO, JD, BIDU, PDD, etc retirés)
+ *  3. Hors doublons multi-classes (cf HIDDEN_DUPLICATES)
+ *
+ * Tri d'affichage : décroissant par market_cap (top 308).
  */
 function loadDatasets(): Record<string, Company> {
-  // V1.8 utilise le même fichier source que V1.7 pour l'instant. Le
-  // filtre relaxé s'applique côté page détail (`/sandbox/v1-8/[ticker]`).
-  // Quand on aura un build dédié V1.8 (plus permissif), on switchera ici.
   return V17_PUBLIC as unknown as Record<string, Company>;
 }
 
-// Doublons multi-classes : cache la classe NON-canonique pour ne pas
-// montrer 2 fois la même société dans le hub.
 const HIDDEN_DUPLICATES = new Set(["GOOG", "BRK-A", "BRK.A", "BRK.B", "FOX", "NWSA", "UAA"]);
+
+const CHINESE_TICKERS = new Set([
+  "BABA", "JD", "BIDU", "NIO", "PDD", "BEKE", "TME", "LI", "XPEV", "TCOM",
+  "VIPS", "YMM", "BILI", "HUYA", "DOYU", "EDU", "TAL", "GOTU", "LU", "RLX",
+  "DIDIY", "TCEHY", "005930.KS",
+]);
+
+/**
+ * Lit le market_cap depuis l'enrich file (yfinance). Renvoie 0 si absent.
+ */
+function getMarketCap(ticker: string): number {
+  const enrPath = path.join(process.cwd(), "src/data/v2-pipeline-enrich", `${ticker.toLowerCase()}.json`);
+  if (!existsSync(enrPath)) return 0;
+  try {
+    const data = JSON.parse(readFileSync(enrPath, "utf-8"));
+    const mc = data?.financial_snapshot?.market_cap_usd;
+    return typeof mc === "number" ? mc : 0;
+  } catch {
+    return 0;
+  }
+}
 
 export default async function SandboxV18HubPage() {
   const datasets = loadDatasets();
-  const tickers = Object.keys(datasets)
+  // 1. Filtre doublons + Chine
+  // 2. Tri par market_cap décroissant
+  // 3. Top 308 max (= 306 stés réelles puisque BABA + NIO retirées)
+  const ranked = Object.keys(datasets)
     .filter((t) => !HIDDEN_DUPLICATES.has(t.toUpperCase()))
-    .sort();
+    .filter((t) => !CHINESE_TICKERS.has(t.toUpperCase()))
+    .map((t) => ({ ticker: t, mc: getMarketCap(t) }))
+    .filter((x) => x.mc > 0)
+    .sort((a, b) => b.mc - a.mc)
+    .slice(0, 308);
+  const tickers = ranked.map((x) => x.ticker);
 
   return (
     <>
@@ -65,6 +93,7 @@ export default async function SandboxV18HubPage() {
         tickers={tickers}
         showFAQ={false}
         routePrefix="/sandbox/v1-8"
+        searchScope={{ tickers, total: tickers.length }}
       />
     </>
   );

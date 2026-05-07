@@ -245,10 +245,20 @@ export default async function DataStatusPage() {
             ayant ce bloc rempli, réparti par catégorie (cat 1 USA / cat 2 ADR
             / cat 3 EU). Vide = la conv ne traite pas ce bloc.
           </p>
+          <p className="mb-3 rounded-lg border border-violet-500/20 bg-violet-500/[0.05] px-3 py-2 text-[11.5px] text-zinc-300">
+            <strong className="text-violet-200">Code cellule :</strong> en bas à droite
+            de chaque cellule, un code unique (B1A, B5C, etc.) référence la cellule.
+            Tu peux écrire ce code à n'importe quelle conv (CONV-SYSTEMS, CONV-DATA,
+            CONV-CONCEPTS, CONV-BRAND) et elle saura automatiquement de quoi tu parles.
+            Format : <code className="text-violet-200">B&lt;ligne&gt;&lt;colonne&gt;</code>
+            où ligne = numéro de bloc (1-{s.responsibility_matrix.length}) et colonne =
+            S/D/C/B (Systems/Data/Concepts/Brand).
+          </p>
           <div className="overflow-x-auto">
             <table className="w-full border-collapse text-[12px]">
               <thead>
                 <tr className="border-b border-white/[0.08]">
+                  <th className="px-2 py-2 text-left font-semibold text-zinc-300">#</th>
                   <th className="px-2 py-2 text-left font-semibold text-zinc-300">Bloc</th>
                   {(["CONV-SYSTEMS", "CONV-DATA", "CONV-CONCEPTS", "CONV-BRAND"] as const).map((c) => (
                     <th key={c} className="px-2 py-2 text-center font-semibold text-zinc-300">{c.replace("CONV-", "")}</th>
@@ -256,32 +266,43 @@ export default async function DataStatusPage() {
                 </tr>
               </thead>
               <tbody>
-                {s.responsibility_matrix.map((row) => (
-                  <tr key={row.block_id} className="border-b border-white/[0.04]">
-                    <td className="px-2 py-2 text-zinc-200">{row.block_label}</td>
-                    {(["CONV-SYSTEMS", "CONV-DATA", "CONV-CONCEPTS", "CONV-BRAND"] as const).map((c) => {
-                      const cell = row.by_conv[c];
-                      return (
-                        <td key={c} className="px-2 py-1.5 text-center align-middle">
-                          {cell ? (
-                            <div className="font-mono text-[11px] tabular-nums leading-tight">
-                              <div className="font-semibold text-zinc-100">{cell.cat1 + cell.cat2 + cell.cat3}</div>
-                              <div className="text-[10px] text-zinc-500">
-                                <span className="text-cyan-300">{cell.cat1}</span>
-                                <span className="mx-1">·</span>
-                                <span className="text-amber-300">{cell.cat2}</span>
-                                <span className="mx-1">·</span>
-                                <span className="text-emerald-300">{cell.cat3}</span>
-                              </div>
-                            </div>
-                          ) : (
-                            <span className="text-zinc-700">—</span>
-                          )}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                ))}
+                {s.responsibility_matrix.map((row, rowIdx) => {
+                  const lineNum = rowIdx + 1;
+                  return (
+                    <tr key={row.block_id} className="border-b border-white/[0.04]">
+                      <td className="px-2 py-2 font-mono text-[10.5px] text-zinc-500">B{lineNum}</td>
+                      <td className="px-2 py-2 text-zinc-200">{row.block_label}</td>
+                      {(["CONV-SYSTEMS", "CONV-DATA", "CONV-CONCEPTS", "CONV-BRAND"] as const).map((c) => {
+                        const cell = row.by_conv[c];
+                        const colLetter = c === "CONV-SYSTEMS" ? "S" : c === "CONV-DATA" ? "D" : c === "CONV-CONCEPTS" ? "C" : "B";
+                        const cellCode = `B${lineNum}${colLetter}`;
+                        return (
+                          <td key={c} className="relative px-2 py-1.5 text-center align-middle">
+                            {cell ? (
+                              <>
+                                <div className="font-mono text-[11px] tabular-nums leading-tight">
+                                  <div className="font-semibold text-zinc-100">{cell.cat1 + cell.cat2 + cell.cat3}</div>
+                                  <div className="text-[10px] text-zinc-500">
+                                    <span className="text-cyan-300">{cell.cat1}</span>
+                                    <span className="mx-1">·</span>
+                                    <span className="text-amber-300">{cell.cat2}</span>
+                                    <span className="mx-1">·</span>
+                                    <span className="text-emerald-300">{cell.cat3}</span>
+                                  </div>
+                                </div>
+                                <span className="absolute bottom-0.5 right-1 font-mono text-[8.5px] uppercase tracking-wider text-zinc-600">
+                                  {cellCode}
+                                </span>
+                              </>
+                            ) : (
+                              <span className="text-zinc-700">—</span>
+                            )}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>

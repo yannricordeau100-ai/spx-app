@@ -39,9 +39,16 @@ const SIZE_RAIL: Record<Size, { mt: string; w: string }> = {
 export function MettrikWordmark({
   size = "lg",
   showRail = true,
+  showSubtitle = false,
 }: {
   size?: Size;
   showRail?: boolean;
+  /**
+   * Affiche "KPI Intelligence" sous le rail (cf BrandWordmark de la home).
+   * Activé par défaut sur /maintenance pour matcher le design /sandbox/v1-7
+   * que Yann préfère (8 mai 2026).
+   */
+  showSubtitle?: boolean;
 }) {
   const letters = "Mettrik AI".split("");
   const fontSize = SIZE_FONT[size];
@@ -158,6 +165,21 @@ export function MettrikWordmark({
               "0 0 12px rgba(168,85,247,0.4), 0 0 24px rgba(34,211,238,0.25)",
           }}
         />
+      )}
+
+      {/* Sous-titre "KPI Intelligence" : reproduit fidèlement le BrandWordmark
+          de la home (/sandbox/v1-7). Yann le 8 mai 2026 : "utilise le logo
+          de cette page sur la maintenance". */}
+      {showSubtitle && (
+        <motion.div
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.05, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-3 font-mono text-[11px] font-semibold uppercase text-zinc-300 sm:text-[13px]"
+          style={{ letterSpacing: "0.42em" }}
+        >
+          KPI Intelligence
+        </motion.div>
       )}
     </div>
   );

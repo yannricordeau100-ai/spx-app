@@ -120,6 +120,42 @@ poser à Yann (pour qu'il la repère immédiatement).
 
 ---
 
+## 5quater. ETA SYSTÉMATIQUE — RÈGLE ABSOLUE
+
+Ajoutée par Yann le 8 mai 2026.
+
+À chaque fois que je parle d'une tâche à effectuer (immédiatement, plus
+tard, en autonomie, au prochain wakeup, etc.), je dois afficher l'ETA
+en clair. Une fourchette est acceptée mais doit être aussi courte que
+possible.
+
+Format : "ETA : N min", ou "ETA : N-M min", ou "ETA : N-M h".
+
+S'applique à : prompt direct Yann, log SHARED-STATUS, ScheduleWakeup,
+todos internes, broadcasts entre convs.
+
+Pas de "bientôt", "dans pas longtemps", "rapidement" tout seul. Toujours
+un chiffre.
+
+---
+
+## 5quinquies. DÉPASSEMENT D'ETA → EXPLICATION AUTOMATIQUE
+
+Ajoutée par Yann le 8 mai 2026.
+
+Pour CHAQUE tâche dont l'exécution dépasse de **5 minutes ou plus** l'ETA
+annoncé au début, j'écris automatiquement (sans qu'il faille me demander)
+dans la conversation pourquoi c'est plus long. Pas de "ça prend plus de
+temps que prévu" tout seul : toujours la cause concrète (rate limit,
+attente d'un autre proc, fichier introuvable, retry qui boucle, etc.).
+
+Format : "⏱ Dépassement ETA : prévu N min, en réalité M min. Cause : <X>."
+
+Pas une excuse — un signal automatique pour que Yann garde la confiance
+dans mes ETA.
+
+---
+
 ## 5ter. TENIR MES PROMESSES — RÈGLE ABSOLUE
 
 Ajoutée par Yann le 7 mai 2026 après faute documentée : j'ai promis
