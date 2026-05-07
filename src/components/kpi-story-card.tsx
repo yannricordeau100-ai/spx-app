@@ -36,7 +36,7 @@ export function KpiStoryCard({ slide, ticker }: { slide: StorySlide; ticker: str
 function KpiCard({ kpi, accent, glow }: { kpi: KPI; accent: string; glow: string }) {
   return (
     <div
-      className="relative flex h-full flex-col overflow-hidden rounded-[36px] bg-gradient-to-br from-[#101015] via-[#0a0a0e] to-[#060608] px-5 pb-5 pt-12"
+      className="relative flex h-full flex-col overflow-hidden rounded-[36px] bg-gradient-to-br from-[#101015] via-[#0a0a0e] to-[#060608] px-5 pb-4 pt-11"
       style={{ boxShadow: `inset 0 0 120px ${glow}` }}
     >
       <div
@@ -51,76 +51,84 @@ function KpiCard({ kpi, accent, glow }: { kpi: KPI; accent: string; glow: string
       />
 
       <div className="relative flex h-full flex-col">
-        {/* Catégorie : version DISCRÈTE en haut à droite, ne pollue plus le titre. */}
-        <div
-          className="ml-auto inline-flex w-fit items-center gap-1 rounded-full border px-2 py-0.5 text-[9.5px] font-semibold uppercase tracking-[0.14em] opacity-80"
-          style={{ background: `${accent}14`, color: accent, borderColor: `${accent}40` }}
-        >
-          <Sparkles className="size-2.5" />
-          {kpi.story_category || "Story"}
+        {/* Header row : nom KPI à gauche (gros), badge catégorie discret à
+            droite. Plus compact que avant : 1 ligne au lieu de 2 niveaux. */}
+        <div className="flex items-start justify-between gap-2">
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center gap-1.5">
+              <AcronymHover label={kpi.short} align="left">
+                <span
+                  className="rounded px-1.5 py-0.5 font-mono text-[11px] font-bold uppercase tracking-wider"
+                  style={{ background: `${accent}1a`, color: accent, border: `1px solid ${accent}33` }}
+                >
+                  {kpi.short}
+                </span>
+              </AcronymHover>
+              {kpi.explanation && (
+                <InfoTooltip color={accent} size="sm">
+                  <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: accent }}>
+                    {kpi.short}
+                  </div>
+                  <div className="text-zinc-200">{kpi.explanation}</div>
+                </InfoTooltip>
+              )}
+            </div>
+            <div className="mt-1 text-[22px] font-bold leading-tight text-zinc-50">
+              {kpi.name_fr}
+            </div>
+          </div>
+          <div
+            className="shrink-0 inline-flex items-center gap-1 rounded-full border px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.14em] opacity-70"
+            style={{ background: `${accent}10`, color: accent, borderColor: `${accent}33` }}
+          >
+            <Sparkles className="size-2.5" />
+            {kpi.story_category || "Story"}
+          </div>
         </div>
 
-        {/* NOM DU KPI = info principale, beaucoup plus gros que catégorie. */}
-        <div className="mt-3 flex items-center gap-2">
-          <AcronymHover label={kpi.short} align="left">
-            <span
-              className="rounded px-1.5 py-0.5 font-mono text-[11px] font-bold uppercase tracking-wider"
-              style={{ background: `${accent}1a`, color: accent, border: `1px solid ${accent}33` }}
-            >
-              {kpi.short}
-            </span>
-          </AcronymHover>
-          {kpi.explanation && (
-            <InfoTooltip color={accent} size="sm">
-              <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: accent }}>
-                {kpi.short}
-              </div>
-              <div className="text-zinc-200">{kpi.explanation}</div>
-            </InfoTooltip>
-          )}
-        </div>
-        <div className="mt-1.5 text-[20px] font-bold leading-tight text-zinc-50">
-          {kpi.name_fr}
-        </div>
-        {kpi.name_en && kpi.name_en !== kpi.name_fr && (
-          <div className="text-[11.5px] italic text-zinc-400">{kpi.name_en}</div>
-        )}
-
-        {/* Chiffre principal — agrandi, espaces du dessus/dessous réduits. */}
-        <div className="mt-5 mb-4 flex flex-col items-center">
+        {/* Chiffre principal : occupe le centre, beaucoup plus grand qu'avant
+            (Yann 7 mai 2026 : "informations essentielles trop petites"). */}
+        <div className="my-auto flex flex-col items-center text-center">
           <div
             className="font-display font-bold leading-none tracking-tight gradient-text"
-            style={{ fontSize: "clamp(46px, 16vw, 72px)" }}
+            style={{ fontSize: "clamp(64px, 22vw, 110px)" }}
           >
             {kpi.value}
           </div>
           {formatUnit(kpi.unit) && (
-            <div className="mt-1.5 text-[16px] font-medium text-zinc-200">
+            <div className="mt-2 text-[20px] font-semibold text-zinc-100">
               {formatUnit(kpi.unit)}
             </div>
           )}
-
           {kpi.yoy && kpi.yoy.toLowerCase() !== "n/a" && (
-            <div className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-[14px] font-semibold text-emerald-200">
-              <TrendingUp className="size-3.5" />
+            <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-emerald-500/40 bg-emerald-500/15 px-3.5 py-1.5 text-[16px] font-bold text-emerald-200">
+              <TrendingUp className="size-4" />
               <span className="font-mono tabular-nums">{kpi.yoy}</span>
-              <span className="text-[11px] italic text-zinc-400">(YoY)</span>
+              <span className="text-[12px] font-medium italic text-zinc-400">(YoY)</span>
             </div>
           )}
         </div>
 
-        {/* Signal en bas (clé du business). Pousse en bas via mt-auto pour
-            occuper l'espace restant. */}
+        {/* Signal en bas (clé du business). Plus compact, taille augmentée
+            quand même. La description longue est cachée derrière "i" pour
+            ne pas écraser visuellement le chiffre principal. */}
         {kpi.signal && (
-          <div className="mt-auto rounded-xl border border-white/10 bg-black/45 p-3.5 backdrop-blur">
-            <div className="text-[14px] font-semibold leading-snug text-zinc-50">
-              {kpi.signal}
-            </div>
-            {kpi.description && (
-              <div className="mt-1.5 line-clamp-3 text-[12px] leading-relaxed text-zinc-300">
-                {kpi.description}
+          <div className="rounded-xl border border-white/10 bg-black/55 p-3 backdrop-blur">
+            <div className="flex items-start gap-1.5">
+              <div className="flex-1 text-[15px] font-semibold leading-snug text-zinc-50">
+                {kpi.signal}
               </div>
-            )}
+              {kpi.description && (
+                <InfoTooltip color={accent} size="sm" align="right">
+                  <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: accent }}>
+                    Détail
+                  </div>
+                  <div className="text-[12.5px] leading-relaxed text-zinc-200">
+                    {kpi.description}
+                  </div>
+                </InfoTooltip>
+              )}
+            </div>
           </div>
         )}
       </div>
@@ -171,29 +179,29 @@ function MarketPositionStoryCard({
       />
 
       <div className="relative flex h-full flex-col">
-        {/* Badge catégorie : discret en haut à droite. */}
-        <div
-          className="ml-auto inline-flex w-fit items-center gap-1 rounded-full border px-2 py-0.5 text-[9.5px] font-semibold uppercase tracking-[0.14em] opacity-80"
-          style={{ background: `${accent}14`, color: accent, borderColor: `${accent}40` }}
-        >
-          <Building2 className="size-2.5" />
-          Marché
+        {/* Header compact : nom segment à gauche (gros), badge à droite. */}
+        <div className="flex items-start justify-between gap-2">
+          <div className="min-w-0 flex-1 text-[22px] font-bold leading-tight text-zinc-50">
+            {mp.segment_name}
+          </div>
+          <div
+            className="shrink-0 inline-flex items-center gap-1 rounded-full border px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.14em] opacity-70"
+            style={{ background: `${accent}10`, color: accent, borderColor: `${accent}33` }}
+          >
+            <Building2 className="size-2.5" />
+            Marché
+          </div>
         </div>
 
-        {/* Nom du segment — gros et lisible. */}
-        <div className="mt-3 text-[20px] font-bold leading-tight text-zinc-50">
-          {mp.segment_name}
-        </div>
-
-        {/* Part de marché, agrandie, recadrée. */}
-        <div className="mt-5 mb-4 flex flex-col items-center">
+        {/* Part de marché : domine l'écran, taille augmentée. */}
+        <div className="my-auto flex flex-col items-center text-center">
           <div
             className="font-display font-bold leading-none tracking-tight gradient-text"
-            style={{ fontSize: "clamp(54px, 19vw, 84px)" }}
+            style={{ fontSize: "clamp(72px, 25vw, 120px)" }}
           >
             {sharePct.toFixed(1)}&nbsp;%
           </div>
-          <div className="mt-1.5 text-[14px] font-medium text-zinc-200">part de marché</div>
+          <div className="mt-2 text-[18px] font-semibold text-zinc-100">part de marché</div>
         </div>
 
         {/* Mini-blocs Revenu segment / TAM : valeurs agrandies, libellés mieux
