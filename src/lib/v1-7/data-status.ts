@@ -13,13 +13,27 @@
 import { existsSync, readFileSync, readdirSync, statSync } from "fs";
 import path from "path";
 
-const ROOT = process.cwd();
-const SEC = path.join(ROOT, "sec-data");
-const META = path.join(SEC, "_meta");
-const PIPELINE_MERGED = path.join(ROOT, "src/data/v2-pipeline/_merged.json");
-const V17_PUBLIC = path.join(ROOT, "src/data/v1-7-public.json");
-const AUDIT = path.join(ROOT, "src/data/v1-7-blocks-audit.json");
-const LOGOS = path.join(ROOT, "public/logos");
+// Yann 7 mai 2026 : turbopack 16 suit les symlinks à l'analyse statique du
+// module et casse le build (sec-data → ~/Mettrik hors project root).
+// Solution : ne PAS exposer les paths comme constants top-level. Wrap dans
+// une fonction appelée à runtime → turbopack ne peut pas suivre.
+function paths() {
+  const ROOT = process.cwd();
+  // Turbopack résout les paths littéraux "sec-data" et suit le symlink hors
+  // du project root → casse le build. Solution : composer "sec-data" via
+  // env var ou opération qu'il ne peut pas réduire constant. process.env
+  // n'est pas constant-folded à l'analyse.
+  const SEC = process.env.METTRIK_SEC_DIR ?? path.join(ROOT, ["sec", "data"].join("-"));
+  return {
+    ROOT,
+    SEC,
+    META: path.join(SEC, "_meta"),
+    PIPELINE_MERGED: path.join(ROOT, "src/data/v2-pipeline/_merged.json"),
+    V17_PUBLIC: path.join(ROOT, "src/data/v1-7-public.json"),
+    AUDIT: path.join(ROOT, "src/data/v1-7-blocks-audit.json"),
+    LOGOS: path.join(ROOT, "public/logos"),
+  };
+}
 
 type AnyRec = Record<string, unknown>;
 
@@ -124,6 +138,8 @@ export type DataStatusSnapshot = {
 };
 
 export function computeDataStatus(): DataStatusSnapshot {
+  // Charge les paths à runtime, JAMAIS en const top-level (cf. comment paths()).
+  const { SEC, META, PIPELINE_MERGED, V17_PUBLIC, AUDIT, LOGOS } = paths();
   // ─── sec-data download counts ─────────────────────────────────────
   const cat1Tickers = uniqueTickersDownloaded(path.join(SEC, "cat1-us/10K"));
   const cat2Tickers = uniqueTickersDownloaded(path.join(SEC, "cat2-foreign-adr/20F"));
