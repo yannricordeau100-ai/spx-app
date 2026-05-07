@@ -227,7 +227,14 @@ export default function SandboxPage() {
                   href="/sandbox/v1-7"
                   className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-emerald-500/50 bg-emerald-500/20 px-4 py-2.5 font-mono text-[11.5px] font-semibold uppercase tracking-wider text-emerald-100 transition-all hover:border-emerald-500/80 hover:bg-emerald-500/30"
                 >
-                  Ouvrir 1.7 (Pass 3 validées · 421)
+                  Ouvrir 1.7 (Pass 3 strict, fiches complètes)
+                  <span className="text-base">→</span>
+                </Link>
+                <Link
+                  href="/sandbox/v1-8"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-rose-500/50 bg-rose-500/15 px-4 py-2.5 font-mono text-[11.5px] font-semibold uppercase tracking-wider text-rose-100 transition-all hover:border-rose-500/80 hover:bg-rose-500/25"
+                >
+                  Ouvrir 1.8 (Pass 3 + blocs manquants en rouge)
                   <span className="text-base">→</span>
                 </Link>
               </div>
