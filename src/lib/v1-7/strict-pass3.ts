@@ -67,12 +67,23 @@ function heroKpiUsable(v: AnyRecord): boolean {
   const heroShort = v.hero_kpi as string | undefined;
   const hero = kpis.find((k) => k.short === heroShort) ?? kpis[0];
   if (!hero) return false;
-  // Hero KPI strings must be non-placeholder. Évite "Non disponible" en value.
-  const stringFields = ["value", "yoy", "type", "unit", "short"] as const;
-  for (const f of stringFields) {
+  // Hero KPI doit avoir tous les champs critiques renseignés (non null/undefined).
+  // value et yoy peuvent être number (ex AAPL 23.9) OU string (ex "23.9"). Le
+  // composant formatHeroValue les coerce. type / unit / short doivent rester
+  // string. Reject seulement les placeholders explicites ("Non disponible").
+  const requiredString = ["type", "unit", "short"] as const;
+  for (const f of requiredString) {
     const raw = hero[f];
     if (typeof raw !== "string") return false;
     if (PLACEHOLDER_VALUES.test(raw.trim())) return false;
+  }
+  // value et yoy : accepter string OU number. Reject si null/undefined ou
+  // string placeholder.
+  for (const f of ["value", "yoy"] as const) {
+    const raw = hero[f];
+    if (raw === undefined || raw === null) return false;
+    if (typeof raw === "string" && PLACEHOLDER_VALUES.test(raw.trim())) return false;
+    if (typeof raw !== "string" && typeof raw !== "number") return false;
   }
   return true;
 }
