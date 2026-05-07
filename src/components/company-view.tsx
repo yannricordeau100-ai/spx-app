@@ -468,7 +468,15 @@ export function CompanyView({
                 company={company}
                 activeShort={active.short}
                 onPickKpi={handleKpiClick}
-                ttm={active.ttm ?? null}
+                ttm={
+                  // Bug fix template Yann 7 mai 2026 : ne PAS afficher la
+                  // barre TTM en mode trimestriel (la TTM est une somme 12
+                  // mois, ~4× un trimestre, donc visuellement choquante à
+                  // côté de points trimestriels — pic vertical artificiel).
+                  // En annuel, la TTM reste cohérente avec les annuels.
+                  // En semestriel, idem : TTM = 12 mois ≠ semestre.
+                  graphPeriod === "year" ? (active.ttm ?? null) : null
+                }
                 barsVariant={barsVariant}
                 timeFraction={timeFraction}
                 exportTitle={`${active.name_fr}${
