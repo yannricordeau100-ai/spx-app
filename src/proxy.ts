@@ -54,6 +54,9 @@ function isPublicPath(pathname: string): boolean {
   // Pass 3 strict, publics (showcase qualité top-top, accessible sans auth
   // pour démo investisseur). Décision Yann 4 mai 2026.
   if (pathname === "/sandbox/v1-7" || pathname.startsWith("/sandbox/v1-7/")) return true;
+  // /sandbox/v1-8 et /sandbox/v1-8/<ticker> = même chose mais filtre relaxé
+  // (Pass 3 Sonnet + hero usable). Yann 7 mai 2026 — public.
+  if (pathname === "/sandbox/v1-8" || pathname.startsWith("/sandbox/v1-8/")) return true;
   // /sandbox/data-status = dashboard interne agrégé (compteurs sec-data,
   // pipeline, audit V1.7, crédits LLM). Public car Yann le consulte
   // souvent sans vouloir signer. Aucune PII, aucune donnée client.

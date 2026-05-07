@@ -56,6 +56,7 @@ import { computeSuperKpis, computeSectorSuperKpis } from "@/lib/super-kpi";
 import { useT } from "@/lib/i18n/provider";
 import { CmdFSearch } from "@/components/cmdf-search";
 import { TranscriptStories, type TranscriptDoc } from "@/components/transcript-stories";
+import { V18MissingPlaceholder } from "@/components/v18-missing-placeholder";
 import { YoungIpoWarning } from "@/components/young-ipo-warning";
 
 const VISIBLE_KPI_COUNT = 6;
@@ -66,6 +67,7 @@ export function CompanyView({
   hideSenate = false,
   hidePriceBar = false,
   transcript = null,
+  v18Mode = false,
 }: {
   company: Company;
   authSlot?: React.ReactNode;
@@ -75,6 +77,9 @@ export function CompanyView({
   hidePriceBar?: boolean;
   /** Dernier earning call transcript (créé par CONV-DATA). Null si pas dispo. */
   transcript?: TranscriptDoc | null;
+  /** V1.8 : affiche les blocs manquants en placeholder rouge au lieu de
+   *  les masquer. Permet à Yann de voir ce qu'il manque sur chaque sté. */
+  v18Mode?: boolean;
 }) {
   const { t } = useT();
   const accent = brand(company.ticker).primary;
@@ -564,30 +569,38 @@ export function CompanyView({
         <TranscriptStories ticker={company.ticker} doc={transcript} />
 
         {/* Risk factors */}
-        {company.risks && (
+        {company.risks && company.risks.length > 0 ? (
           <div id="sec-risks" className="scroll-mt-24">
             <RiskStack risks={company.risks} accent={accent} profitWarning={company.profit_warning} />
           </div>
+        ) : (
+          v18Mode && <V18MissingPlaceholder id="sec-risks" label="Facteurs de risque" hint="Item 1A 10-K à extraire (Sonnet/Haiku Pass 2)." />
         )}
 
         {/* Répartition CA (géo + segment) — au-dessus de Gouvernance */}
         <RepartitionBlock company={company} />
 
         {/* Governance */}
-        {company.governance && (
+        {company.governance ? (
           <div id="sec-governance" className="scroll-mt-24">
             <GovernanceCard governance={company.governance} ticker={company.ticker} />
           </div>
+        ) : (
+          v18Mode && <V18MissingPlaceholder id="sec-governance" label="Gouvernance & rémunération" hint="DEF14A (cat 1) ou rapport annuel à extraire." />
         )}
 
         {/* AI positioning — placed after risks + governance */}
-        <div id="sec-ai" className="scroll-mt-24">
-          <AIPositioningCard
-            positioning={company.ai_positioning}
-            companyName={company.name}
-            ticker={company.ticker}
-          />
-        </div>
+        {company.ai_positioning ? (
+          <div id="sec-ai" className="scroll-mt-24">
+            <AIPositioningCard
+              positioning={company.ai_positioning}
+              companyName={company.name}
+              ticker={company.ticker}
+            />
+          </div>
+        ) : (
+          v18Mode && <V18MissingPlaceholder id="sec-ai" label="Positionnement IA" hint="Mentions IA dans 10-K à parser via Cerebras Llama 3.3 70B." />
+        )}
 
         {/* Trades du Sénat US — données LIVE via FMP /stable/senate-trades */}
         {!hideSenate && <SenateTradesLive ticker={company.ticker} accent={accent} />}

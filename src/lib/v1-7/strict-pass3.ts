@@ -135,3 +135,53 @@ export function isStrictPass3(v: unknown): boolean {
   if (!heroKpiUsable(obj)) return false;
   return true;
 }
+
+/**
+ * V1.8 (Yann 7 mai 2026) : version plus permissive du filtre, qui affiche
+ * la fiche dès que le hero KPI est utilisable + Pass 3 Sonnet OK.
+ * Les blocs manquants (risks, governance, AI positioning, segments, etc.)
+ * sont rendus en placeholder rouge dans la UI (mode `v18Mode={true}`).
+ *
+ * Critères stricts conservés :
+ *  - Validation Sonnet présente (= Pass 3 a tourné)
+ *  - Hero KPI utilisable (value/yoy/type/unit/short non-placeholder)
+ *  - `_fit_for_site` n'est pas explicitement à false
+ *
+ * Critères assouplis vs V1.7 strict :
+ *  - hasPass2 (risks/gov/AI) : NON requis (les blocs vides s'affichent rouge)
+ *  - hasWeakMarker : NON bloquant (les markers texte sont juste indicatifs)
+ *  - kpiQualityLow : NON bloquant
+ */
+export function isV18Eligible(v: unknown): boolean {
+  if (!v || typeof v !== "object") return false;
+  const obj = v as AnyRecord;
+  if ((obj._fit_for_site as boolean | undefined) === false) return false;
+  if (!(obj._validation || obj._validation_global)) return false;
+  if (!heroKpiUsable(obj)) return false;
+  return true;
+}
+
+/** Compte les blocs manquants pour la UI v18 (afficher placeholder rouge). */
+export type V18MissingBlocks = {
+  risks: boolean;
+  governance: boolean;
+  ai_positioning: boolean;
+  market_positions: boolean;
+  events: boolean;
+};
+
+export function v18MissingBlocks(v: unknown): V18MissingBlocks {
+  const obj = (v && typeof v === "object" ? v : {}) as AnyRecord;
+  const isEmpty = (k: string) => {
+    const x = obj[k];
+    if (Array.isArray(x)) return x.length === 0;
+    return !x;
+  };
+  return {
+    risks: isEmpty("risks"),
+    governance: isEmpty("governance"),
+    ai_positioning: isEmpty("ai_positioning"),
+    market_positions: isEmpty("market_positions"),
+    events: isEmpty("events"),
+  };
+}

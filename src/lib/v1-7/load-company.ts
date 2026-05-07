@@ -23,7 +23,7 @@ import { promises as fs } from "fs";
 import path from "path";
 import type { Company, CompanyRisk } from "@/lib/data";
 import { enhanceFreshness } from "@/lib/v1-7/enhance-freshness";
-import { isStrictPass3 } from "@/lib/v1-7/strict-pass3";
+import { isStrictPass3, isV18Eligible } from "@/lib/v1-7/strict-pass3";
 
 type AnyKPI = Record<string, unknown>;
 type AnyCo = Record<string, unknown>;
@@ -62,7 +62,10 @@ export type LoadOutcome =
  *  - `preparing` : ticker connu mais pas encore Pass 3 → "Fiche en préparation".
  *  - `missing`   : ticker inconnu → notFound.
  */
-export async function loadV17Company(ticker: string): Promise<LoadOutcome> {
+export async function loadV17Company(
+  ticker: string,
+  opts: { mode?: "v17" | "v18" } = {}
+): Promise<LoadOutcome> {
   const ROOT = process.cwd();
   const filePath = path.join(ROOT, "src/data/v2-pipeline", `${ticker.toLowerCase()}.json`);
   const raw = await readJsonOrNull<AnyCo>(filePath);
@@ -118,8 +121,11 @@ export async function loadV17Company(ticker: string): Promise<LoadOutcome> {
     data.ranks = cur;
   }
 
-  // Filtre admission strict Pass 3
-  if (!isStrictPass3(data)) {
+  // Filtre admission : V1.7 strict OU V1.8 relaxé selon le mode demandé.
+  // V1.8 = juste Pass 3 Sonnet + hero usable, blocs manquants montrés en
+  // placeholder rouge dans la UI (Yann 7 mai 2026).
+  const eligible = opts.mode === "v18" ? isV18Eligible(data) : isStrictPass3(data);
+  if (!eligible) {
     return {
       kind: "preparing",
       company: {
