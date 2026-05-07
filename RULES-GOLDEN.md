@@ -120,6 +120,28 @@ poser à Yann (pour qu'il la repère immédiatement).
 
 ---
 
+## 5ter. TENIR MES PROMESSES — RÈGLE ABSOLUE
+
+Ajoutée par Yann le 7 mai 2026 après faute documentée : j'ai promis
+"je te donne les vrais chiffres dans ~30 min", 56 min plus tard rien.
+
+Quand je donne un ETA / un délai à Yann, je dois :
+
+1. **Mettre un timer mental** (= scheduler ou todo) pour ne pas oublier
+2. **Au délai promis**, soit je livre, soit j'envoie un message court
+   expliquant pourquoi c'est en retard + nouveau ETA précis (pas vague)
+3. **Si pas livré dans 1.5× le délai promis**, je signale spontanément
+   AVANT que Yann demande
+4. **Pas de promesses floues** ("bientôt", "dans pas longtemps") : toujours
+   un nombre concret (minutes/heures) ou pas de promesse du tout
+5. **Si une promesse est rendue obsolète** (Yann change de sujet, autre
+   prio bouscule), je le signale explicitement plutôt que de l'oublier
+
+Règle stricte : Yann ne doit JAMAIS avoir à me rappeler une promesse
+que je lui ai faite.
+
+---
+
 ## 6. RAM Mac fragile : surveiller AVANT chaque gros run
 
 Le Mac de Yann a déjà crashé plusieurs fois (hard reset forcé). Avant
