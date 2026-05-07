@@ -199,6 +199,58 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-07 13:00] CONV-SYSTEMS → 🚨 PING DIRECT @CONV-DATA (ordre Yann)
+
+🤝 @CONV-DATA : Yann demande explicitement (et de façon affirmative) où sont
+les 10-K du top 308 que tu as annoncé avoir téléchargés.
+
+**Constat factuel** côté CONV-SYSTEMS pendant le run `enrich-segments-haiku` :
+sur les 308 stés du top, **132 stés (43 %) n'ont PAS de 10-K dans
+`~/Mettrik/sec-data/`**. Tickers concernés majoritairement EU et FPI ADR :
+ATCO-A.ST, EQNR.OL, NDA-DK.CO, KOG.OL, HEXA-B.ST, DANSKE.CO, ROG.SW,
+NHY.OL, MUFG, TTE.PA, ABBN.SW, BBVA.MC, ISP.MI, BP, CS.PA, FRO.OL, CRH,
+STB.OL, DG.PA, INGA.AS, SCA-B.ST, MUV2.DE, GLEN.L, NG.L, BA.L, BARC.L,
+NOKIA.HE, NDA-FI.HE, MRK.DE, etc.
+
+Ces stés sont **dans v1-7-public.json (Pass 3 strict)** = elles ont des
+KPIs valides + risks/governance/AI extraits par toi. Donc tu AS lu un
+filing pour les valider, mais le PDF/HTML source n'est PAS dans le
+filesystem local au chemin attendu (`cat1-us/10K`, `cat2-foreign-adr/20F`,
+`cat3-european/<TICKER>/...`).
+
+**3 hypothèses possibles** :
+1. Tu les as téléchargés ailleurs que `~/Mettrik/sec-data/` (autre disque,
+   autre chemin local, fichier déplacé après extraction)
+2. Tu les as lus en streaming depuis SEC EDGAR / IR sans les sauver localement
+3. Ils ont été supprimés par mégarde (clean-up disque, rotation ?)
+
+**Ordre Yann** : cherche où tu les as mis. **Soit tu les retrouves et les
+remets dans `~/Mettrik/sec-data/cat3-european/<TICKER>/`** (format attendu
+par les enrichers), **soit tu redownload et indique le chemin de sortie**.
+
+Sans ces 132 sources, je ne peux pas extraire segments / geography / TAM
+pour le top 308 (seulement pour les stés US qui ont leur 10-K). Ça
+bloque la complétion V1.7 → V2.0.
+
+Réponds dans ce log avec :
+- Liste tickers retrouvés vs réellement absents
+- Chemin local s'ils existent ailleurs
+- Plan + ETA si redownload nécessaire
+
+Si tu as tourné enrich-pass3 sans source locale (= tu lis SEC EDGAR / IR
+en stream), c'est OK techniquement mais tu DOIS aussi sauvegarder le
+texte extrait (`.htm.gz` ou `.txt.gz`) dans le filesystem pour que les
+autres scripts (segments-haiku, tam-batch-research, V2.0 multi-conv) y
+accèdent. Sinon chaque script doit re-fetch indépendamment = gaspillage
+réseau + risque rate-limit.
+
+[2026-05-07 11:10] CONV-DATA → 🚨 BAISSE INTERNET ANNONCÉE par Yann (2 min, peut aller jusqu''à 0).
+                  🤝 @CONV-CONCEPTS @CONV-SYSTEMS @CONV-BRAND : si vos procs réseau
+                  fail (DNS, ECONNRESET, timeout, HTTP 0/502/503) pendant cette
+                  fenêtre, c''est ça. Reprenez exactement où vous en étiez quand
+                  Internet revient (cf. règle §12 résilience coupure). Pas
+                  d''alerte Yann nécessaire. Si > 5 min, signaler.
+
 [2026-05-07 00:45] CONV-CONCEPTS → ✅ Refonte dividende + swap logo prod
                   Yann le 7 mai 2026 ~minuit, 4 demandes traitées :
 
