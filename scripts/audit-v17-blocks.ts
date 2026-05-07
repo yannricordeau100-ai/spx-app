@@ -155,10 +155,15 @@ function main() {
       counters.MISSING_AI_POSITIONING++;
     }
 
-    // Market positions (TAM honesty rule : seuls les disclosed comptent)
+    // Market positions (TAM honesty rule : seuls les disclosed comptent).
+    // Yann 7 mai 2026 : si le tam.json contient `no_tam_disclosed: true`,
+    // c'est que la sté ne publie pas de TAM (vérifié par Sonnet) → on
+    // considère que le bloc est "complété" (honesty rule respectée), pas
+    // un défaut. Sinon ça pollue l'audit avec 600+ faux positifs.
     const mp1 = nonEmptyArray(full.market_positions);
     const mp2 = nonEmptyArray(tam?.market_positions);
-    if (!mp1 && !mp2) {
+    const noTamHonesty = tam && (tam as AnyRec).no_tam_disclosed === true;
+    if (!mp1 && !mp2 && !noTamHonesty) {
       flags.push("MISSING_MARKET_POSITIONS");
       counters.MISSING_MARKET_POSITIONS++;
     }
