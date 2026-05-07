@@ -236,6 +236,141 @@ export default async function DataStatusPage() {
         </Card>
       </div>
 
+      {/* ─── Tableau croisé Bloc × Conversation ────────────────────── */}
+      <div className="mt-4">
+        <Card title="Qui s'occupe de quoi (par bloc et par conv)">
+          <p className="mb-3 text-[12px] text-zinc-400">
+            Une ligne par bloc de la page société. Une colonne par conversation.
+            Chaque case montre, pour la conv responsable, le nombre de sociétés
+            ayant ce bloc rempli, réparti par catégorie (cat 1 USA / cat 2 ADR
+            / cat 3 EU). Vide = la conv ne traite pas ce bloc.
+          </p>
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse text-[12px]">
+              <thead>
+                <tr className="border-b border-white/[0.08]">
+                  <th className="px-2 py-2 text-left font-semibold text-zinc-300">Bloc</th>
+                  {(["CONV-SYSTEMS", "CONV-DATA", "CONV-CONCEPTS", "CONV-BRAND"] as const).map((c) => (
+                    <th key={c} className="px-2 py-2 text-center font-semibold text-zinc-300">{c.replace("CONV-", "")}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {s.responsibility_matrix.map((row) => (
+                  <tr key={row.block_id} className="border-b border-white/[0.04]">
+                    <td className="px-2 py-2 text-zinc-200">{row.block_label}</td>
+                    {(["CONV-SYSTEMS", "CONV-DATA", "CONV-CONCEPTS", "CONV-BRAND"] as const).map((c) => {
+                      const cell = row.by_conv[c];
+                      return (
+                        <td key={c} className="px-2 py-1.5 text-center align-middle">
+                          {cell ? (
+                            <div className="font-mono text-[11px] tabular-nums leading-tight">
+                              <div className="font-semibold text-zinc-100">{cell.cat1 + cell.cat2 + cell.cat3}</div>
+                              <div className="text-[10px] text-zinc-500">
+                                <span className="text-cyan-300">{cell.cat1}</span>
+                                <span className="mx-1">·</span>
+                                <span className="text-amber-300">{cell.cat2}</span>
+                                <span className="mx-1">·</span>
+                                <span className="text-emerald-300">{cell.cat3}</span>
+                              </div>
+                            </div>
+                          ) : (
+                            <span className="text-zinc-700">—</span>
+                          )}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-2 text-[10px] text-zinc-500">
+            Légende : nombre du haut = total · ligne du bas = <span className="text-cyan-300">cat 1 USA</span> · <span className="text-amber-300">cat 2 ADR</span> · <span className="text-emerald-300">cat 3 EU</span>
+          </p>
+        </Card>
+      </div>
+
+      {/* ─── Responsable de l'organisation centrale ─────────────────── */}
+      <div className="mt-4">
+        <Card title="Qui contrôle l'organisation centrale des données">
+          <div className="rounded-xl border border-violet-500/30 bg-violet-500/[0.05] p-4">
+            <div className="mb-1 font-display text-[16px] font-bold tracking-tight text-violet-200">
+              {s.central_storage_owner.conv}
+            </div>
+            <p className="mb-3 text-[12.5px] leading-relaxed text-zinc-300">
+              {s.central_storage_owner.description}
+            </p>
+            <div className="text-[11px] uppercase tracking-wider text-zinc-500">Chemins canoniques</div>
+            <ul className="mt-1 space-y-0.5">
+              {s.central_storage_owner.paths.map((p) => (
+                <li key={p} className="font-mono text-[11px] text-zinc-400">{p}</li>
+              ))}
+            </ul>
+          </div>
+        </Card>
+      </div>
+
+      {/* ─── Pass 3 par catégorie avec liste nominative ─────────────── */}
+      <div className="mt-4">
+        <Card title="Pass 3 validé : sociétés par catégorie + modèle utilisé">
+          <p className="mb-3 text-[12px] text-zinc-400">
+            Liste nominative des sociétés dont tous les KPI ont été extraits ET validés
+            via Pass 3 (Sonnet pour les top 308 / Haiku pour les autres). Le nom canonique
+            de chaque société est indiqué.
+          </p>
+          <div className="grid grid-cols-1 gap-3 lg:grid-cols-3">
+            {(["cat1", "cat2", "cat3"] as const).map((cat) => {
+              const data = s.pass3_by_cat[cat];
+              const colors: Record<typeof cat, string> = { cat1: "#22d3ee", cat2: "#f59e0b", cat3: "#10b981" };
+              const labels: Record<typeof cat, string> = { cat1: "Cat 1 — USA", cat2: "Cat 2 — ADR foreign", cat3: "Cat 3 — Europe" };
+              return (
+                <div key={cat} className="rounded-xl border border-white/[0.06] bg-black/20 p-4">
+                  <div className="mb-2 flex items-baseline justify-between">
+                    <h3 className="font-display text-[13px] font-semibold uppercase tracking-wider" style={{ color: colors[cat] }}>
+                      {labels[cat]}
+                    </h3>
+                    <span className="font-mono text-[18px] font-bold tabular-nums text-zinc-100">
+                      {data.total}
+                    </span>
+                  </div>
+                  <div className="mb-3 grid grid-cols-2 gap-2 text-[11px]">
+                    <div className="rounded bg-violet-500/10 px-2 py-1 text-center">
+                      <div className="text-violet-300">Sonnet</div>
+                      <div className="font-mono font-semibold text-violet-200">{data.sonnet.length}</div>
+                    </div>
+                    <div className="rounded bg-cyan-500/10 px-2 py-1 text-center">
+                      <div className="text-cyan-300">Haiku</div>
+                      <div className="font-mono font-semibold text-cyan-200">{data.haiku.length}</div>
+                    </div>
+                  </div>
+                  <details className="cursor-pointer">
+                    <summary className="text-[11px] text-zinc-400 hover:text-zinc-200">
+                      Voir les {data.total} sociétés
+                    </summary>
+                    <div className="mt-2 max-h-72 overflow-y-auto rounded bg-black/40 p-2 font-mono text-[10.5px] text-zinc-300">
+                      {data.sonnet.length > 0 && (
+                        <div className="mb-2">
+                          <div className="mb-1 text-[10px] uppercase text-violet-400">Sonnet</div>
+                          <div className="leading-relaxed">{data.sonnet.join(" · ")}</div>
+                        </div>
+                      )}
+                      {data.haiku.length > 0 && (
+                        <div>
+                          <div className="mb-1 text-[10px] uppercase text-cyan-400">Haiku</div>
+                          <div className="leading-relaxed">{data.haiku.join(" · ")}</div>
+                        </div>
+                      )}
+                      {data.total === 0 && <div className="text-zinc-600">Aucune société</div>}
+                    </div>
+                  </details>
+                </div>
+              );
+            })}
+          </div>
+        </Card>
+      </div>
+
       <footer className="mt-12 pb-8 text-center font-mono text-[10px] uppercase tracking-wider text-zinc-600">
         Mettrik AI · Statut interne · Cache 5 min
       </footer>

@@ -1,10 +1,25 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { promises as fs } from "fs";
 import path from "path";
 import { CompanyView } from "@/components/company-view";
 import { AuthNav } from "@/components/auth-nav";
 import type { TranscriptDoc } from "@/components/transcript-stories";
 import { loadV17Company } from "@/lib/v1-7/load-company";
+
+/**
+ * Doublons multi-classes : redirect 308 (permanent) vers le canonique pour
+ * que l'URL visible matche le ticker du dataset. Évite que GOOG, NWSA,
+ * UAA, BRK.A apparaissent en barre d'adresse alors qu'on rend GOOGL/NWS/UA/BRK-B.
+ */
+const URL_ALIASES: Record<string, string> = {
+  GOOG: "googl",
+  NWSA: "nws",
+  UAA: "ua",
+  FOX: "foxa",
+  "BRK.A": "brk-b",
+  "BRK-A": "brk-b",
+  "BRK.B": "brk-b",
+};
 
 export const dynamic = "force-dynamic";
 
@@ -60,6 +75,11 @@ export default async function SandboxV17TickerPage({
   params: Promise<{ ticker: string }>;
 }) {
   const { ticker } = await params;
+  // Redirect alias → canonique (308 permanent) pour propreté URL
+  const aliasTarget = URL_ALIASES[ticker.toUpperCase()];
+  if (aliasTarget && aliasTarget !== ticker.toLowerCase()) {
+    redirect(`/sandbox/v1-7/${aliasTarget}`);
+  }
   const r = await loadV17Company(ticker);
   if (r.kind === "missing") notFound();
   if (r.kind === "preparing") {

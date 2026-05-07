@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { promises as fs } from "fs";
 import path from "path";
 import { CompanyView } from "@/components/company-view";
@@ -7,6 +7,17 @@ import type { TranscriptDoc } from "@/components/transcript-stories";
 import { loadV17Company } from "@/lib/v1-7/load-company";
 
 export const dynamic = "force-dynamic";
+
+/** Doublons multi-classes : redirect vers le canonique (cf V1.7). */
+const URL_ALIASES: Record<string, string> = {
+  GOOG: "googl",
+  NWSA: "nws",
+  UAA: "ua",
+  FOX: "foxa",
+  "BRK.A": "brk-b",
+  "BRK-A": "brk-b",
+  "BRK.B": "brk-b",
+};
 
 /**
  * /sandbox/v1-8/<ticker> — variante V1.8 (Yann 7 mai 2026).
@@ -50,6 +61,10 @@ export default async function SandboxV18TickerPage({
   params: Promise<{ ticker: string }>;
 }) {
   const { ticker } = await params;
+  const aliasTarget = URL_ALIASES[ticker.toUpperCase()];
+  if (aliasTarget && aliasTarget !== ticker.toLowerCase()) {
+    redirect(`/sandbox/v1-8/${aliasTarget}`);
+  }
   const r = await loadV17Company(ticker, { mode: "v18" });
   if (r.kind === "missing") notFound();
   if (r.kind === "preparing") {

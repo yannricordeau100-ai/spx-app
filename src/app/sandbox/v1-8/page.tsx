@@ -27,9 +27,15 @@ function loadDatasets(): Record<string, Company> {
   return V17_PUBLIC as unknown as Record<string, Company>;
 }
 
+// Doublons multi-classes : cache la classe NON-canonique pour ne pas
+// montrer 2 fois la même société dans le hub.
+const HIDDEN_DUPLICATES = new Set(["GOOG", "BRK-A", "BRK.A", "BRK.B", "FOX", "NWSA", "UAA"]);
+
 export default async function SandboxV18HubPage() {
   const datasets = loadDatasets();
-  const tickers = Object.keys(datasets).sort();
+  const tickers = Object.keys(datasets)
+    .filter((t) => !HIDDEN_DUPLICATES.has(t.toUpperCase()))
+    .sort();
 
   return (
     <>

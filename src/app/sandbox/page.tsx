@@ -237,6 +237,13 @@ export default function SandboxPage() {
                   Ouvrir 1.8 (Pass 3 + blocs manquants en rouge)
                   <span className="text-base">→</span>
                 </Link>
+                <Link
+                  href="/sandbox/data-status"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-violet-500/50 bg-violet-500/15 px-4 py-2.5 font-mono text-[11.5px] font-semibold uppercase tracking-wider text-violet-100 transition-all hover:border-violet-500/80 hover:bg-violet-500/25"
+                >
+                  Statut des données (qui fait quoi, Pass 3 par cat, audit)
+                  <span className="text-base">→</span>
+                </Link>
               </div>
             </div>
           </div>

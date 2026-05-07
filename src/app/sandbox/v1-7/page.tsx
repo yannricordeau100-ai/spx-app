@@ -23,11 +23,18 @@ function loadValidatedDatasets(): Record<string, Company> {
   return V17_PUBLIC as unknown as Record<string, Company>;
 }
 
+// Doublons multi-classes : on cache la classe NON-canonique du hub pour
+// ne pas afficher 2 fois la même société. Liste = tickers à RETIRER.
+// Le ticker canonique (côté droit dans TICKER_ALIASES) reste affiché.
+const HIDDEN_DUPLICATES = new Set(["GOOG", "BRK-A", "BRK.A", "BRK.B", "FOX", "NWSA", "UAA"]);
+
 export default async function SandboxV17HubPage() {
   const datasets = loadValidatedDatasets();
   // Tri alphabétique par ticker pour un browse prévisible. Yann pourra
   // changer le tri (par secteur, par cap boursière, etc.) plus tard.
-  const tickers = Object.keys(datasets).sort();
+  const tickers = Object.keys(datasets)
+    .filter((t) => !HIDDEN_DUPLICATES.has(t.toUpperCase()))
+    .sort();
 
   return (
     <HomeView

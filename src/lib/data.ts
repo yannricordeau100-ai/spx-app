@@ -350,8 +350,27 @@ export const TICKERS = Object.keys(COMPANIES);
  * Étendre cette table à mesure que de nouvelles sociétés sont ajoutées
  * (BRK.A/BRK.B, FOX/FOXA, NWS/NWSA, DISCA/DISCK, etc.).
  */
+/**
+ * Alias multi-classes : la cible est le ticker RÉELLEMENT présent dans le
+ * dataset au moment T. Quand CONV-DATA ajoute la classe préférée ailleurs,
+ * inverser le mapping pour pointer dessus.
+ *
+ *  - Alphabet     : GOOGL Class A (vote) prioritaire. GOOG Class C alias.
+ *  - Berkshire    : BRK.B accessible aux particuliers vs BRK.A à 700k$.
+ *                   Slash bloqué dans les URL → on stocke BRK-B.
+ *  - Fox Corp     : FOXA Class A (vote) prioritaire vs FOX Class B (sans).
+ *  - News Corp    : NWS Class B présent dans le dataset → NWSA alias dessus.
+ *                   À inverser quand CONV-DATA ajoute NWSA Class A (vote).
+ *  - Under Armour : UA Class C présent → UAA alias dessus. Idem.
+ */
 export const TICKER_ALIASES: Record<string, string> = {
   GOOG: "GOOGL",
+  "BRK.A": "BRK-B",
+  "BRK-A": "BRK-B",
+  "BRK.B": "BRK-B",
+  FOX: "FOXA",
+  NWSA: "NWS",
+  UAA: "UA",
 };
 
 /** Renvoie le ticker canonique (majuscules), résout les alias. */

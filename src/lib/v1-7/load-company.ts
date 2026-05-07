@@ -168,7 +168,22 @@ export async function loadV17Company(
   opts: { mode?: "v17" | "v18" } = {}
 ): Promise<LoadOutcome> {
   const ROOT = process.cwd();
-  const filePath = path.join(ROOT, "src/data/v2-pipeline", `${ticker.toLowerCase()}.json`);
+  // Résolution doublons multi-classes : GOOG → GOOGL, NWSA → NWS, UAA → UA, etc.
+  // Les variantes (Class A / B / C) doivent toutes pointer vers la même fiche.
+  // On lit l'alias map runtime sans dépendance circulaire (data.ts est lourd
+  // et déjà chargé via Company type).
+  const ALIASES: Record<string, string> = {
+    GOOG: "GOOGL",
+    "BRK.A": "BRK-B",
+    "BRK-A": "BRK-B",
+    "BRK.B": "BRK-B",
+    FOX: "FOXA",
+    NWSA: "NWS",
+    UAA: "UA",
+  };
+  const upper = ticker.toUpperCase();
+  const canonical = ALIASES[upper] ?? upper;
+  const filePath = path.join(ROOT, "src/data/v2-pipeline", `${canonical.toLowerCase()}.json`);
   const raw = await readJsonOrNull<AnyCo>(filePath);
   if (!raw) return { kind: "missing" };
 

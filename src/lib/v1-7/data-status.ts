@@ -32,6 +32,7 @@ function paths() {
     V17_PUBLIC: path.join(ROOT, "src/data/v1-7-public.json"),
     AUDIT: path.join(ROOT, "src/data/v1-7-blocks-audit.json"),
     LOGOS: path.join(ROOT, "public/logos"),
+    ENR: path.join(ROOT, "src/data/v2-pipeline-enrich"),
   };
 }
 
@@ -141,6 +142,33 @@ export type DataStatusSnapshot = {
   searchable_count: number;
   /** Logos PNG locaux (pour audit). */
   logos_count: number;
+  /**
+   * Tableau croisé bloc × conv responsable, avec couverture par catégorie
+   * de société. Une ligne par bloc, une colonne par conv. Compteurs
+   * (cat1, cat2, cat3) pour la conv qui possède le bloc, vide pour les
+   * autres convs.
+   */
+  responsibility_matrix: Array<{
+    block_id: string;
+    block_label: string;
+    /** Pour chaque conv : si elle possède ce bloc, nb de sés enrichies par cat. */
+    by_conv: Record<
+      "CONV-SYSTEMS" | "CONV-DATA" | "CONV-CONCEPTS" | "CONV-BRAND",
+      { cat1: number; cat2: number; cat3: number } | null
+    >;
+  }>;
+  /** Conv qui contrôle l'organisation centrale des données. */
+  central_storage_owner: {
+    conv: string;
+    paths: string[];
+    description: string;
+  };
+  /** Pass 3 stés par catégorie + liste nominative (Sonnet vs Haiku). */
+  pass3_by_cat: {
+    cat1: { sonnet: string[]; haiku: string[]; total: number };
+    cat2: { sonnet: string[]; haiku: string[]; total: number };
+    cat3: { sonnet: string[]; haiku: string[]; total: number };
+  };
 };
 
 export function computeDataStatus(): DataStatusSnapshot {
@@ -298,7 +326,254 @@ export function computeDataStatus(): DataStatusSnapshot {
     searchable_count: v17Total,
     logos_count: logosCount,
     type_defects: typeDefects,
+    responsibility_matrix: computeResponsibilityMatrix(merged ?? {}),
+    central_storage_owner: {
+      conv: "CONV-SYSTEMS",
+      paths: [
+        "src/data/v2-pipeline-enrich/<ticker>.json",
+        "src/data/v2-pipeline-enrich/<ticker>.tam.json",
+        "src/data/v2-pipeline-enrich/<ticker>.events.json",
+        "src/data/v2-pipeline-enrich/<ticker>.ranks.json",
+        "src/data/v1-7-public.json",
+        "src/lib/v1-7/load-company.ts (merge runtime)",
+      ],
+      description:
+        "CONV-SYSTEMS contrôle que toutes les conversations posent leurs enrichissements dans v2-pipeline-enrich/ et que load-company.ts les fusionne correctement à la lecture. CONV-DATA reste maître du fichier canonique v2-pipeline/<ticker>.json (KPIs + risks + governance + AI positioning).",
+    },
+    pass3_by_cat: computePass3ByCategory(merged ?? {}),
   };
+}
+
+/**
+ * Calcule pour chaque bloc UI : la conv responsable + couverture par cat.
+ * Catégorie = simple heuristique :
+ *   - cat 3 = ticker contient un point (ex MC.PA, BMW.DE)
+ *   - cat 1+2 = pas de point (US ou ADR foreign-listed US)
+ *   On distingue cat 1 vs cat 2 via le suffixe ADR connu (BABA, ASML,
+ *   etc.) — cf liste hardcodée ADR_TICKERS.
+ */
+const ADR_TICKERS = new Set([
+  "BABA", "ASML", "BP", "NVS", "AZN", "TSM", "TM", "SAN", "STLA", "UL",
+  "RY", "TD", "SHOP", "VALE", "BHP", "RIO", "NIO", "JD", "BIDU", "PBR",
+  "MUFG", "SMFG", "LYG", "HSBC", "NVO", "SE", "HDB", "SNY", "BBVA",
+  "DEO", "ABEV", "PDD", "BCS", "CS", "ING", "TEVA", "WBK", "ITUB",
+]);
+
+function categorize(ticker: string): "cat1" | "cat2" | "cat3" {
+  if (ticker.includes(".")) return "cat3";
+  if (ADR_TICKERS.has(ticker.toUpperCase())) return "cat2";
+  return "cat1";
+}
+
+const RESPONSIBILITY_MAP: Array<{
+  block_id: string;
+  block_label: string;
+  conv: "CONV-SYSTEMS" | "CONV-DATA" | "CONV-CONCEPTS" | "CONV-BRAND";
+  /** Predicate qui dit si la sté a ce bloc rempli. */
+  isFilled: (e: AnyRec) => boolean;
+}> = [
+  {
+    block_id: "kpis",
+    block_label: "KPIs (hero / secondaires / stories)",
+    conv: "CONV-DATA",
+    isFilled: (e) => Array.isArray(e.kpis) && (e.kpis as unknown[]).length > 0,
+  },
+  {
+    block_id: "risks",
+    block_label: "Risques (Item 1A 10-K)",
+    conv: "CONV-DATA",
+    isFilled: (e) => Array.isArray(e.risks) && (e.risks as unknown[]).length > 0,
+  },
+  {
+    block_id: "governance",
+    block_label: "Gouvernance (DEF14A)",
+    conv: "CONV-DATA",
+    isFilled: (e) =>
+      !!e.governance &&
+      typeof e.governance === "object" &&
+      Object.keys(e.governance as object).length > 0,
+  },
+  {
+    block_id: "ai_positioning",
+    block_label: "Positionnement IA",
+    conv: "CONV-DATA",
+    isFilled: (e) =>
+      !!e.ai_positioning &&
+      typeof e.ai_positioning === "object" &&
+      typeof (e.ai_positioning as AnyRec).stance === "string",
+  },
+  {
+    block_id: "transcripts",
+    block_label: "Transcripts dirigeants",
+    conv: "CONV-DATA",
+    isFilled: () => false, // calculé séparément (lecture filesystem)
+  },
+  {
+    block_id: "logo",
+    block_label: "Logo société",
+    conv: "CONV-SYSTEMS",
+    isFilled: () => false, // calculé séparément
+  },
+  {
+    block_id: "ranks",
+    block_label: "Rangs (mondial / USA / secteur)",
+    conv: "CONV-SYSTEMS",
+    isFilled: (e) => {
+      const r = e.ranks as AnyRec | undefined;
+      if (!r) return false;
+      const isUsable = (s: unknown) =>
+        typeof s === "string" && s.trim() !== "" && s !== "-" && !/not\s*ranked/i.test(s);
+      return (
+        isUsable(r.global_world) &&
+        isUsable(r.global_us) &&
+        isUsable(r.sector) &&
+        isUsable(r.subsector)
+      );
+    },
+  },
+  {
+    block_id: "market_positions",
+    block_label: "Taille de marché (TAM)",
+    conv: "CONV-SYSTEMS",
+    isFilled: (e) => Array.isArray(e.market_positions) && (e.market_positions as unknown[]).length > 0,
+  },
+  {
+    block_id: "events",
+    block_label: "Faits saillants récents",
+    conv: "CONV-SYSTEMS",
+    isFilled: (e) => Array.isArray(e.events) && (e.events as unknown[]).length > 0,
+  },
+  {
+    block_id: "segments",
+    block_label: "Répartition par segment",
+    conv: "CONV-SYSTEMS",
+    isFilled: (e) => {
+      const s = e.revenue_by_segment as AnyRec | undefined;
+      return !!s && Array.isArray(s.slices) && (s.slices as unknown[]).length > 0;
+    },
+  },
+  {
+    block_id: "geography",
+    block_label: "Répartition géographique",
+    conv: "CONV-SYSTEMS",
+    isFilled: (e) => {
+      const g = e.revenue_by_geography as AnyRec | undefined;
+      return !!g && Array.isArray(g.slices) && (g.slices as unknown[]).length > 0;
+    },
+  },
+  {
+    block_id: "company_profile",
+    block_label: "Profil société (description / snapshot / faits / peers)",
+    conv: "CONV-SYSTEMS",
+    isFilled: () => false, // calculé séparément (lecture enrich)
+  },
+  {
+    block_id: "ir_scraper_eu",
+    block_label: "Sources EU (rapports annuels)",
+    conv: "CONV-CONCEPTS",
+    isFilled: () => false, // calculé séparément
+  },
+  {
+    block_id: "copy_brand",
+    block_label: "Copy marketing / KPI rationale",
+    conv: "CONV-BRAND",
+    isFilled: (e) => typeof e.hero_kpi_rationale === "string" && (e.hero_kpi_rationale as string).length > 0,
+  },
+];
+
+function computeResponsibilityMatrix(merged: Record<string, AnyRec>): DataStatusSnapshot["responsibility_matrix"] {
+  const p = paths();
+  const ROOT = p.ROOT;
+  const ENR = p.ENR;
+  const LOGOS_DIR = p.LOGOS;
+  const TRANSCRIPTS = path.join(ROOT, "src/data/transcripts");
+  const SEC = p.SEC;
+
+  // Pre-load enrich files index
+  const enrichTickers = new Set<string>();
+  if (existsSync(ENR)) {
+    for (const f of readdirSync(ENR)) {
+      if (!f.endsWith(".json")) continue;
+      enrichTickers.add(
+        f.replace(/\.(events|ranks|tam)\.json$/, "").replace(/\.json$/, "").toUpperCase(),
+      );
+    }
+  }
+  const logosSet = existsSync(LOGOS_DIR)
+    ? new Set(readdirSync(LOGOS_DIR).filter((f) => f.endsWith(".png")).map((f) => f.replace(".png", "").toUpperCase()))
+    : new Set<string>();
+  const transcriptsSet = existsSync(TRANSCRIPTS)
+    ? new Set(readdirSync(TRANSCRIPTS).filter((f) => f.endsWith(".json")).map((f) => f.replace(".json", "").toUpperCase()))
+    : new Set<string>();
+  const cat3DirsScraped = new Set<string>();
+  const cat3Path = path.join(SEC, "cat3-european");
+  if (existsSync(cat3Path)) {
+    for (const d of readdirSync(cat3Path)) {
+      try {
+        if (statSync(path.join(cat3Path, d)).isDirectory() && existsSync(path.join(cat3Path, d, "annual-text"))) {
+          cat3DirsScraped.add(d.toUpperCase());
+        }
+      } catch {
+        // skip
+      }
+    }
+  }
+
+  const rows: DataStatusSnapshot["responsibility_matrix"] = RESPONSIBILITY_MAP.map((r) => {
+    const counts = { cat1: 0, cat2: 0, cat3: 0 };
+    for (const [ticker, e] of Object.entries(merged)) {
+      let filled = false;
+      if (r.block_id === "logo") {
+        filled = logosSet.has(ticker.toUpperCase().replace(/\./g, "-"));
+      } else if (r.block_id === "transcripts") {
+        filled = transcriptsSet.has(ticker.toUpperCase());
+      } else if (r.block_id === "company_profile") {
+        const enrPath = path.join(ENR, `${ticker.toLowerCase()}.json`);
+        if (existsSync(enrPath)) {
+          const enr = safeJson<AnyRec>(enrPath);
+          filled = !!enr?.financial_snapshot && !!enr?.key_facts;
+        }
+      } else if (r.block_id === "ir_scraper_eu") {
+        filled = ticker.includes(".") && cat3DirsScraped.has(ticker.toUpperCase());
+      } else {
+        filled = r.isFilled(e);
+      }
+      if (filled) counts[categorize(ticker)]++;
+    }
+    return {
+      block_id: r.block_id,
+      block_label: r.block_label,
+      by_conv: {
+        "CONV-SYSTEMS": r.conv === "CONV-SYSTEMS" ? counts : null,
+        "CONV-DATA": r.conv === "CONV-DATA" ? counts : null,
+        "CONV-CONCEPTS": r.conv === "CONV-CONCEPTS" ? counts : null,
+        "CONV-BRAND": r.conv === "CONV-BRAND" ? counts : null,
+      },
+    };
+  });
+
+  return rows;
+}
+
+function computePass3ByCategory(merged: Record<string, AnyRec>): DataStatusSnapshot["pass3_by_cat"] {
+  const out = {
+    cat1: { sonnet: [] as string[], haiku: [] as string[], total: 0 },
+    cat2: { sonnet: [] as string[], haiku: [] as string[], total: 0 },
+    cat3: { sonnet: [] as string[], haiku: [] as string[], total: 0 },
+  };
+  for (const [ticker, e] of Object.entries(merged)) {
+    if (!(e._validation || e._validation_global)) continue;
+    const cat = categorize(ticker);
+    const isSonnet = !!(e._validation_global || e._iterative_refinement);
+    if (isSonnet) out[cat].sonnet.push(ticker);
+    else out[cat].haiku.push(ticker);
+    out[cat].total++;
+  }
+  for (const c of ["cat1", "cat2", "cat3"] as const) {
+    out[c].sonnet.sort();
+    out[c].haiku.sort();
+  }
+  return out;
 }
 
 export const BLOCK_LABELS: Record<string, string> = {
