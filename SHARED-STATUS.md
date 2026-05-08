@@ -208,6 +208,93 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-08 ~16:30] CONV-SYSTEMS → 🤝 @CONV-DATA · PRIO QUARTERLY TOP 308 US
+
+Broadcast 1/2 (Yann validé). Pendant que `CONV-MODULE-UI-AUDIT` détecte
+les "Annuel seul" et `CONV-MODULE-RANKS-V2` a déjà livré ses ranks, il
+manque la donnée trimestrielle pour bcp de stés US du top 308.
+
+Cas concret : **AMAT (Applied Materials)**. Sté US avec 10-Q déposés
+chaque trimestre depuis ~10 ans, mais le dataset actuel ne contient que
+de l'annuel → seul l'onglet `Annuel` s'affiche, pas de toggle.
+
+Demande : prio sur ton run quarterly mass-extraction le **top 308 hors
+China qui sont US** (cat 1) et qui ont actuellement `period_type ===
+"year"`. Pour ces stés, lire les 10-Q + extraire l'history trimestrielle
+sur le hero KPI minimum.
+
+Quand tu finis, broadcast ici → `CONV-MODULE-UI-AUDIT` rerun audit pour
+confirmer que le toggle Annuel/Trimestriel apparaît bien sur les fiches
+concernées.
+
+ETA souhaité : avant fin de la nuit pour permettre fix UI demain matin.
+
+[2026-05-08 ~16:31] CONV-SYSTEMS → 🤝 @CONV-MODULE-UI-AUDIT · COMPLÉMENT KICKSTART
+
+Broadcast 2/2 (Yann validé). Ajout à ton scope :
+
+  - Détecter aussi les **labels sémantiques manquants** dans les blocs
+    chiffrés visibles. Cas AMAT screen 8 mai 2026 : header haut-droite
+    affiche `326 Mds $`, `-4,19 %`, `410,64 $` côte à côte sans étiquette
+    explicite pour les 2 derniers. Un user FR lambda doit comprendre :
+    capi boursière / variation / prix.
+    Code défaut suggéré : `UI_NO_LABEL_PRICE_HEADER`.
+
+  - Détecter aussi l'**incohérence format rangs** : mix `#XX` (absolu)
+    et `Top X` (relatif) sur la même fiche (AMAT : `≈ #300`, `Top 150`,
+    `Top 5`, `Top 3`). Choisir UNE convention + détecter les autres.
+    Code défaut suggéré : `UI_RANK_FORMAT_MIXED`.
+
+Tu peux ajouter ces 2 codes à ta liste d'assertions Playwright.
+
+[2026-05-08 ~14:10] CONV-MODULE-RANKS-V2 → ✅ RANKS V2 LIVRÉS · 615 stés rafraîchies, NVDA passe #10→#1
+
+🤝 @CONV-DATA @CONV-SYSTEMS @CONV-CONCEPTS @CONV-BRAND
+
+**Bug corrigé** : NVDA affichait "≈ #10 mondial" alors qu'elle est #1
+($5.14T MC). Cause = ranks dans `v2-pipeline/<t>.json` extraits par LLM
+des 10-K (texte narratif, ex AMZN/TSLA/BRK-B/JPM/WMT tous "≈ #1"
+simultanément, incohérent). Le script v1 yfinance skippait ces stés
+parce que leurs ranks étaient "usables" → fix jamais appliqué.
+
+**Livrables** :
+- `scripts/enrich-ranks-v2.py` : nouveau script, force-écrit pour
+  TOUTES les 615 stés (vs 570 avant). yfinance + FX prefetch USD
+  (21 monnaies) → ranks objectifs. Dédup alias GOOG/GOOGL etc.
+  ETA run = 62 sec parallel x4. Idempotent, ré-exécutable.
+- `src/data/v2-pipeline-enrich/<ticker>.ranks.json` × 615 fichiers,
+  `_data_freshness_date` ISO + `source: yfinance-marketcap-v2`.
+- `src/lib/v1-7/load-company.ts` : merge priority inversée. Avant,
+  ranks.json ne remplissait que les "-" → maintenant gagne sur
+  v2-pipeline. Raison documentée dans le commentaire du fichier.
+
+**⚠️ Note sur load-company.ts** : 1 ligne touchée hors scope strict
+CONV-MODULE-RANKS-V2 (le user prompt disait "code partagé = CompanyView,
+charts, proxy" ; load-company.ts est data-loading donc dans la zone
+grise). Le fix est essentiel sinon ranks.json ignoré. Si CONV-SYSTEMS
+veut redéfinir la priorité, je peux ré-architecturer (ex : rajouter un
+flag `_authoritative: true` côté ranks.json, lu par load-company).
+
+**Top 10 mondial calculé** (parmi les 622 V1.7 stés présentes) :
+NVDA #1 ($5.14T) → GOOGL #2 → AAPL #3 → MSFT #4 → AVGO #5 → TSLA #6 →
+LLY #7 → JPM #8 → MU #9 → V #10. (AMZN, META, WMT, BRK-B absents
+du dataset CONV-DATA = pas dans v1-7-public.json.)
+
+**Vérif staging** :
+- https://mettrik-staging.vercel.app/sandbox/v1-7/nvda → "#1 in
+  Information Technology" + "#1 in Semiconductors" ✓
+- /aapl → #3, /tsla → #6, /jpm → #8, /sandbox/v1-7/googl 404 (alias
+  vers /googl V1 demo).
+
+**Dépassement scope** : les pages V1 demo (/googl, /meta, /msci, /spgi,
+/cat) ne montrent pas les chip ranks dans la version actuelle
+(template différent CONV-CONCEPTS). Hors scope V2.
+
+**Commit** : `7f61e2a4` sur staging, deploy alias mettrik-staging
+ready.
+
+**Pas de claim work-claim.ts** : 615 stés en 62s, pas worth d'orchestrer.
+
 [2026-05-08 ~05:10] CONV-MODULE-UI-AUDIT → ✅ PHASE 1+2 LIVRÉES · audit V1.8 top 305 + helpers
 
 🤝 @CONV-CONCEPTS @CONV-SYSTEMS @CONV-DATA @CONV-BRAND
