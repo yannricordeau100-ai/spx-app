@@ -58,6 +58,7 @@ import { CmdFSearch } from "@/components/cmdf-search";
 import { TranscriptStories, type TranscriptDoc } from "@/components/transcript-stories";
 import { V18MissingPlaceholder } from "@/components/v18-missing-placeholder";
 import { YoungIpoWarning } from "@/components/young-ipo-warning";
+import { MettrikWordmark } from "@/components/mettrik-wordmark";
 import { CompanyProfileCard } from "@/components/company-profile-card";
 
 const VISIBLE_KPI_COUNT = 6;
@@ -248,12 +249,17 @@ export function CompanyView({
         {/* Top nav — tout sur une ligne : back + recherche (collée à gauche)
             puis actions à droite (variant, comparer, enregistrer, compte). */}
         <nav className="mb-9 flex flex-nowrap items-center gap-3 whitespace-nowrap">
+          {/* Logo wordmark Mettrik AI (taille sm) — cliquable, retour home.
+              Réutilise le composant MettrikWordmark identique au logo home
+              et à la page maintenance. Cohérence brand sur toutes les
+              pages. (8 mai 2026) */}
           <Link
             href="/"
-            className="group inline-flex shrink-0 items-center gap-2 text-sm text-zinc-400 transition-colors hover:text-zinc-100"
+            className="group inline-flex shrink-0 items-center gap-3 transition-opacity hover:opacity-90"
+            aria-label={t("nav.home")}
           >
-            <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-0.5" />
-            <span className="text-[15px] font-medium text-zinc-100">{t("nav.home")}</span>
+            <MettrikWordmark size="sm" showRail={false} />
+            <ArrowLeft className="size-4 text-zinc-500 transition-transform group-hover:-translate-x-0.5 group-hover:text-zinc-300" />
           </Link>
           <PageSearch variant="default" />
           <div className="ml-auto flex shrink-0 items-center gap-2">
