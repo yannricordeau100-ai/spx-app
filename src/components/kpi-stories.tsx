@@ -2,11 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 import type { Company } from "@/lib/data";
 import { brand } from "@/lib/brand";
 import { buildStories, hasStories } from "@/lib/kpi-stories-ordering";
 import { KpiStoryCard } from "@/components/kpi-story-card";
 import { useT } from "@/lib/i18n/provider";
+import { useSwipeStories } from "@/lib/hooks/use-swipe-stories";
 
 /**
  * Bloc Stories — KPIs short-history + MarketPositions présentés en
@@ -53,6 +55,10 @@ export function KpiStories({ company }: { company: Company }) {
   const goPrev = () => setActive((prev) => (prev - 1 + total) % total);
   const goNext = () => setActive((prev) => (prev + 1) % total);
 
+  // Swipe drag souris/doigt : prev/next sur le frame entier.
+  const swipeRef = useRef<HTMLDivElement>(null);
+  useSwipeStories(swipeRef, { onPrev: goPrev, onNext: goNext });
+
   // Pour montrer la catégorie en cours, retrouver dans quelle catégorie on est
   let counted = 0;
   let currentCategory = "";
@@ -86,7 +92,7 @@ export function KpiStories({ company }: { company: Company }) {
       {/* "Phone frame" centré : aspect 9/16 portrait, max 400px de large.
           Les controls (pause/arrows) sont autour, pas dans la frame, pour
           que la story ressemble vraiment à un écran de mobile. */}
-      <div className="relative mx-auto" style={{ width: "min(400px, 100%)" }}>
+      <div className="relative mx-auto" style={{ width: "min(400px, 100%)" }} ref={swipeRef}>
         {/* Bouton précédent — extérieur gauche */}
         {total > 1 && (
           <button
@@ -150,9 +156,20 @@ export function KpiStories({ company }: { company: Company }) {
             {paused ? <Play className="size-3" /> : <Pause className="size-3" />}
           </button>
 
-          {/* Story content (fill) */}
+          {/* Story content (fill) — animation slide horizontale au switch */}
           <div className="absolute inset-0">
-            <KpiStoryCard slide={slides[active]} ticker={company.ticker} />
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={active}
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -30 }}
+                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                className="absolute inset-0"
+              >
+                <KpiStoryCard slide={slides[active]} ticker={company.ticker} />
+              </motion.div>
+            </AnimatePresence>
           </div>
 
           {/* Tap-zones invisibles : moitié gauche = prev, moitié droite = next.

@@ -180,18 +180,21 @@ export function MockupDividend() {
                   Politique de dividende
                 </h3>
                 <p className="mt-0.5 max-w-2xl text-[13px] text-zinc-300">
-                  Les 3 angles côte à côte, sans carrousel.
+                  Les 3 angles côte à côte, layout desktop optimisé. Pas de
+                  carrousel, tout visible d&apos;un coup.
                 </p>
               </div>
             </div>
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-              {/* Chaque card est ratio 9:16 mais bornée pour ne pas exploser */}
+            {/* Layout desktop : grid 3 colonnes, cards à hauteur uniforme via
+                items-stretch. Pas de phone-frame artificiel — chaque card
+                garde sa largeur max raisonnable et s'étire en hauteur via
+                flex-col interne. */}
+            <div className="grid grid-cols-1 items-stretch gap-5 md:grid-cols-3">
               <div
-                className="mx-auto w-full overflow-hidden rounded-[36px] border border-white/10"
+                className="overflow-hidden rounded-[28px] border border-white/10"
                 style={{
-                  aspectRatio: "9 / 16",
-                  maxWidth: 360,
-                  boxShadow: `0 0 0 8px #0a0a0a, 0 0 0 9px #1f1f1f, 0 30px 80px -20px ${accent}55`,
+                  minHeight: 540,
+                  boxShadow: `0 30px 80px -20px ${accent}33`,
                 }}
               >
                 <DividendAristocratCard
@@ -207,11 +210,10 @@ export function MockupDividend() {
                 />
               </div>
               <div
-                className="mx-auto w-full overflow-hidden rounded-[36px] border border-white/10"
+                className="overflow-hidden rounded-[28px] border border-white/10"
                 style={{
-                  aspectRatio: "9 / 16",
-                  maxWidth: 360,
-                  boxShadow: `0 0 0 8px #0a0a0a, 0 0 0 9px #1f1f1f, 0 30px 80px -20px ${accent}55`,
+                  minHeight: 540,
+                  boxShadow: `0 30px 80px -20px ${accent}33`,
                 }}
               >
                 <DividendCalculatorCard
@@ -223,11 +225,10 @@ export function MockupDividend() {
                 />
               </div>
               <div
-                className="mx-auto w-full overflow-hidden rounded-[36px] border border-white/10"
+                className="overflow-hidden rounded-[28px] border border-white/10"
                 style={{
-                  aspectRatio: "9 / 16",
-                  maxWidth: 360,
-                  boxShadow: `0 0 0 8px #0a0a0a, 0 0 0 9px #1f1f1f, 0 30px 80px -20px ${accent}55`,
+                  minHeight: 540,
+                  boxShadow: `0 30px 80px -20px ${accent}33`,
                 }}
               >
                 <DividendSnowballCard

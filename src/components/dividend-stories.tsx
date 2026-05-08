@@ -2,11 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 import type { Company } from "@/lib/data";
 import { brand } from "@/lib/brand";
 import { DividendAristocratCard } from "@/components/dividend-aristocrat-card";
 import { DividendCalculatorCard } from "@/components/dividend-calculator-card";
 import { DividendSnowballCard } from "@/components/dividend-snowball-card";
+import { useSwipeStories } from "@/lib/hooks/use-swipe-stories";
 
 /**
  * Bloc Stories Dividendes — séparé du bloc KPI Stories existant.
@@ -73,6 +75,10 @@ export function DividendStories({ company }: { company: Company }) {
   const goPrev = () => setActive((prev) => (prev - 1 + total) % total);
   const goNext = () => setActive((prev) => (prev + 1) % total);
 
+  // Swipe : drag souris ou doigt sur la frame entière → prev/next.
+  const swipeRef = useRef<HTMLDivElement>(null);
+  useSwipeStories(swipeRef, { onPrev: goPrev, onNext: goNext });
+
   const cards = [
     <DividendAristocratCard
       key="aristocrat"
@@ -124,7 +130,7 @@ export function DividendStories({ company }: { company: Company }) {
         </span>
       </div>
 
-      <div className="relative mx-auto" style={{ width: "min(400px, 100%)" }}>
+      <div className="relative mx-auto" style={{ width: "min(400px, 100%)" }} ref={swipeRef}>
         {total > 1 && (
           <button
             onClick={goPrev}
@@ -184,7 +190,20 @@ export function DividendStories({ company }: { company: Company }) {
             {paused ? <Play className="size-3" /> : <Pause className="size-3" />}
           </button>
 
-          <div className="absolute inset-0">{cards[active]}</div>
+          <div className="absolute inset-0">
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={active}
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -30 }}
+                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                className="absolute inset-0"
+              >
+                {cards[active]}
+              </motion.div>
+            </AnimatePresence>
+          </div>
 
           {/* Tap-zones uniquement en haut + bas pour ne pas bloquer les
               sliders/inputs des cards interactives au centre.
