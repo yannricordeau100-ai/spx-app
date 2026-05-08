@@ -194,6 +194,24 @@ export const ACRONYM_GLOSSARY: Record<string, string> = {
   IPO: "Initial Public Offering : introduction en bourse.",
   GICS: "Global Industry Classification Standard : norme de classification sectorielle des sociétés.",
   GMV: "Gross Merchandise Value : valeur totale des biens vendus sur une plateforme.",
+  TTM: "Trailing Twelve Months : 12 derniers mois (4 trimestres glissants), donne une vision plus récente que les chiffres annuels.",
+  YoY: "Year-over-Year : variation par rapport à la même période l'année précédente (ex : Q3 2026 vs Q3 2025).",
+  QoQ: "Quarter-over-Quarter : variation par rapport au trimestre précédent.",
+  CapEx: "Capital Expenditure : dépenses d'investissement (machines, usines, R&D capitalisée).",
+  OpEx: "Operating Expenses : dépenses opérationnelles courantes (salaires, marketing, R&D non capitalisée).",
+  P_E: "Price/Earnings : ratio cours sur bénéfice, mesure la valorisation d'une action.",
+};
+
+/**
+ * Termes Mettrik composés (>1 mot) qui ont aussi besoin d'un tooltip pour
+ * un FR de 16 ans non-tech. Séparé de ACRONYM_GLOSSARY car ils ne sont pas
+ * détectables par regex acronymes (caractère espace au milieu).
+ */
+export const TERM_GLOSSARY: Record<string, string> = {
+  "Run Rate": "Taux annualisé : on prend la performance d'un trimestre et on la projette sur 12 mois pour obtenir un chiffre d'affaires « comme si » le trimestre actuel se répétait toute l'année.",
+  "Backlog": "Carnet de commandes : valeur des commandes déjà signées mais pas encore livrées. Donne de la visibilité sur les revenus futurs (6-18 mois).",
+  "Hero KPI": "Indicateur principal d'une société : celui qui résume le mieux sa performance et que les investisseurs suivent en priorité.",
+  "Free Cash Flow": "Trésorerie libre : cash dispo après dépenses d'investissement. Permet de payer dividendes / racheter actions / réduire dette.",
 };
 
 /**
