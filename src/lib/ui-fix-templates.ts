@@ -141,6 +141,30 @@ export function translateFreshnessLabel(en: string): string {
   return FRESHNESS_LABEL_FR[en] ?? en;
 }
 
+/**
+ * Convertit un nombre format US ("6.9%", "1,234.56") en format FR
+ * ("6,9 %", "1 234,56"). Utile pour les nombres déjà sérialisés en string
+ * dans les datasets ou hardcodés dans les templates.
+ *
+ * Si tu pars d'un Number JS, préfère `n.toLocaleString("fr-FR")` directement.
+ */
+export function normalizeNumberToFr(text: string): string {
+  if (!text) return text;
+  // Cas 1 : "1,234.56" (US complet) → "1 234,56"
+  let out = text.replace(
+    /(\d{1,3}(?:,\d{3})+)(\.\d+)?/g,
+    (full, intPart: string, dec: string | undefined) => {
+      const intFr = intPart.replace(/,/g, NBSP);
+      return dec ? `${intFr},${dec.slice(1)}` : intFr;
+    },
+  );
+  // Cas 2 : "6.9%" / "6.9 €" (décimal POINT, sans virgule milliers) → "6,9 %"
+  // ATTENTION : ne pas matcher des mots type "1.5" qui peuvent être versions
+  // (ex : "v1.5"). On exige un suffix devise/% ou rien après.
+  out = out.replace(/(\d+)\.(\d+)(?=\s?(?:%|\$|€|Mds|<|$))/g, "$1,$2");
+  return out;
+}
+
 export function translateChipLabel(en: string): string {
   if (!en) return en;
   return CHIP_LABEL_FR[en] ?? en;

@@ -20,6 +20,7 @@ import {
   translateSubsector,
   translateChipLabel,
   translateFreshnessLabel,
+  normalizeNumberToFr,
 } from "../src/lib/ui-fix-templates";
 
 const NBSP = " ";
@@ -133,6 +134,28 @@ eq("Recent → Récent", translateFreshnessLabel("Recent"), "Récent");
 eq("Fresh → À jour", translateFreshnessLabel("Fresh"), "À jour");
 eq("Stale → Périmé", translateFreshnessLabel("Stale"), "Périmé");
 eq("Unknown → Inconnu", translateFreshnessLabel("Unknown"), "Inconnu");
+
+console.log("\n=== normalizeNumberToFr ===");
+eq(
+  "6.9% → 6,9% (décimal POINT → VIRGULE)",
+  normalizeNumberToFr("croissance 6.9%"),
+  "croissance 6,9%",
+);
+eq(
+  "1,234.56 → 1 234,56 (US complet → FR)",
+  normalizeNumberToFr("CA de 1,234.56 Mds"),
+  `CA de 1${NBSP}234,56 Mds`,
+);
+eq(
+  "167,139 → 167 139 (milliers seuls)",
+  normalizeNumberToFr("167,139 employés"),
+  `167${NBSP}139 employés`,
+);
+eq(
+  "v1.5 (version, pas modifié)",
+  normalizeNumberToFr("App v1.5 stable"),
+  "App v1.5 stable",
+);
 
 console.log(`\n=== ${pass} pass · ${fail} fail ===`);
 process.exit(fail > 0 ? 1 : 0);

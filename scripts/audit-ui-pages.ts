@@ -73,6 +73,7 @@ type DefectCode =
   | "UI_NO_LABEL_PRICE_HEADER"  // ajouté suite à ping CONV-SYSTEMS (cas AMAT 8 mai)
   | "UI_TOGGLE_SINGLE"          // toggle à 1 seul choix (ex : Annuel sans Trimestriel)
   | "UI_FRESHNESS_LABEL_EN"     // label freshness en anglais (Recent/Fresh/Stale)
+  | "UI_NUMBER_FORMAT_NON_FR"   // "6.9%" au lieu de "6,9 %", "1,234" au lieu de "1 234"
   | "UI_LANG_HTML_EN"
   | "UI_PAGE_HTTP_ERROR";
 
@@ -340,6 +341,26 @@ function detectDefects(ticker: string, html: string, status: number): Defect[] {
         note: "toggle à 1 seul choix → devrait être hidden ou compléter avec quarterly data",
       });
     }
+  }
+
+  // 11bis. UI_NUMBER_FORMAT_NON_FR : nombres affichés au format US (POINT décimal,
+  // VIRGULE séparateur de milliers) au lieu du format FR (VIRGULE décimal, ESPACE
+  // séparateur de milliers). Convention `Number.toLocaleString("fr-FR")` produit
+  // "1 234,56". On cible uniquement les nombres affichés (entre > et <), pas
+  // les attributs ni le code JSON inline.
+  const numUsDecimal = [...html.matchAll(/(?<=>)\s*[-+]?[0-9]{1,3}\.[0-9]{1,2}\s?(?:%|\$|€|<)/g)];
+  const numUsThousand = [...html.matchAll(/(?<=>)\s*[-+]?[0-9]{1,3},[0-9]{3}(?:[,.][0-9]+)?\s?(?:<|%|\$|€|Mds|M\b)/g)];
+  const usCount = numUsDecimal.length + numUsThousand.length;
+  if (usCount > 0) {
+    const samples: string[] = [];
+    for (const m of numUsDecimal.slice(0, 2)) samples.push(`décimal POINT : ${m[0].trim()}`);
+    for (const m of numUsThousand.slice(0, 2)) samples.push(`milliers VIRGULE : ${m[0].trim()}`);
+    defects.push({
+      code: "UI_NUMBER_FORMAT_NON_FR",
+      count: usCount,
+      samples: samples.slice(0, 4),
+      note: "convention FR : virgule décimale + espace milliers (toLocaleString fr-FR)",
+    });
   }
 
   // 11. UI_FRESHNESS_LABEL_EN : labels Recent / Fresh / Stale en anglais
