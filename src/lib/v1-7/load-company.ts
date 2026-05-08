@@ -213,19 +213,13 @@ export async function loadV17Company(
   // un avant ce fix.
   sanitizeCompanyData(data);
 
-  // Enrichissement ranks : si la sté n'a pas de ranks complets côté
-  // CONV-DATA (4 champs valides), on merge depuis
-  // `v2-pipeline-enrich/<ticker>.ranks.json` produit par
-  // `scripts/enrich-ranks-yfinance.py`. Champ par champ : on ne remplace
-  // que les ranks invalides ("-", "Not ranked", vide).
-  const isUsableRank = (s: unknown): boolean => {
-    if (typeof s !== "string") return false;
-    const t = s.trim();
-    if (!t || t === "-" || t === "—" || t === "...") return false;
-    const low = t.toLowerCase();
-    if (low.includes("not ranked") || low.includes("non class")) return false;
-    return true;
-  };
+  // Enrichissement ranks : merge depuis `v2-pipeline-enrich/<ticker>.ranks.json`
+  // produit par `scripts/enrich-ranks-v2.py` (CONV-MODULE-RANKS-V2, 8 mai 2026).
+  // PRIORITÉ : ranks.json gagne sur v2-pipeline. Raison : les ranks
+  // v2-pipeline sont des extractions LLM des 10-K (texte narratif, ex
+  // "NVDA = ≈ #10 mondial") et sont périmés / faux. Le fichier
+  // ranks.json est calculé à partir du market_cap live yfinance + FX
+  // USD, source objective et fraîche.
   const ranksPath = path.join(
     ROOT,
     "src/data/v2-pipeline-enrich",
@@ -235,7 +229,7 @@ export async function loadV17Company(
   if (ranksEnrich?.ranks) {
     const cur = (data.ranks as Record<string, unknown>) || {};
     for (const k of ["global_world", "global_us", "sector", "subsector"] as const) {
-      if (!isUsableRank(cur[k]) && ranksEnrich.ranks[k]) {
+      if (ranksEnrich.ranks[k]) {
         cur[k] = ranksEnrich.ranks[k];
       }
     }

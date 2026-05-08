@@ -34,6 +34,20 @@ V17 = PROJECT_ROOT / "src/data/v1-7-public.json"
 V2 = PROJECT_ROOT / "src/data/v2-pipeline"
 ENR = PROJECT_ROOT / "src/data/v2-pipeline-enrich"
 
+# Aliases doubles classes (sync avec load-company.ts). Pour le ranking,
+# on garde uniquement le canonical : GOOG/GOOGL = même entité, on
+# n'écrit ranks.json que pour le canonical et on consolide leur MC en
+# prenant le max (yfinance peut différer légèrement entre les classes).
+ALIASES = {
+    "GOOG": "GOOGL",
+    "BRK.A": "BRK-B",
+    "BRK-A": "BRK-B",
+    "BRK.B": "BRK-B",
+    "FOX": "FOXA",
+    "NWSA": "NWS",
+    "UAA": "UA",
+}
+
 
 def load_pipeline(ticker: str):
     p = V2 / f"{ticker.lower()}.json"
@@ -183,8 +197,13 @@ def main():
         sys.exit(1)
 
     v17 = json.loads(V17.read_text())
-    all_tickers = list(v17.keys())
-    print(f"V1.7 Pass 3 strict : {len(all_tickers)} stés")
+    all_tickers_raw = list(v17.keys())
+    # Dédup via alias map : GOOG → GOOGL etc. On ne traite que les
+    # canonicals, et on n'écrit pas de ranks.json pour les alias variants.
+    canonical_set = {ALIASES.get(t, t) for t in all_tickers_raw}
+    aliased_out = [t for t in all_tickers_raw if t in ALIASES and ALIASES[t] in canonical_set]
+    all_tickers = [t for t in all_tickers_raw if t not in aliased_out]
+    print(f"V1.7 Pass 3 strict : {len(all_tickers_raw)} stés -> {len(all_tickers)} après dédup alias ({len(aliased_out)} skipped : {','.join(aliased_out[:10])})")
 
     if args.top30:
         # Force inclure top 30 known + take all 617 to compute correct global ranking
