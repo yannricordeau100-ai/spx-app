@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import type { Company } from "@/lib/data";
@@ -9,6 +9,16 @@ import { DividendAristocratCard } from "@/components/dividend-aristocrat-card";
 import { DividendCalculatorCard } from "@/components/dividend-calculator-card";
 import { DividendSnowballCard } from "@/components/dividend-snowball-card";
 import { useSwipeStories } from "@/lib/hooks/use-swipe-stories";
+import { useLivePrice } from "@/lib/hooks/use-live-price";
+import {
+  type Currency,
+  CURRENCY_SYMBOL,
+  SUPPORTED_CURRENCIES,
+  getExchangeRate,
+  getTickerCurrency,
+  getUserCurrency,
+} from "@/lib/currency";
+import { CurrencyPicker } from "@/components/currency-picker";
 
 /**
  * Bloc Stories Dividendes — séparé du bloc KPI Stories existant.
@@ -66,11 +76,47 @@ export function DividendStories({ company }: { company: Company }) {
 
   // Garde tardive : si on n'est pas sur CAT et data manquante, ne pas afficher.
   if (!isCAT && (!dpsKpi || !capRetKpi || !payoutKpi)) return null;
-  // Cours par défaut : valeur indicative figée pour CAT mai 2026.
-  // Slider permet à l'utilisateur d'ajuster.
-  const defaultPrice = 390;
-  // Yield approximatif basé sur DPS / cours par défaut.
-  const yieldPct = defaultPrice > 0 ? (dpsAnnual / defaultPrice) * 100 : 1.5;
+
+  // === STATES PARTAGÉS pour les 3 cards (centralisés au parent) ===
+  // 1. Cours réel via API live (utilisé par calculator + snowball)
+  const livePrice = useLivePrice(company.ticker);
+  // Fallback : cours figé si l'API n'a rien rendu (ex : CAT mai 2026 ≈ 390)
+  const fallbackPrice = isCAT ? 390 : 100;
+  const effectivePrice = livePrice.price ?? fallbackPrice;
+  const isPriceLive = livePrice.price !== null && !livePrice.loading;
+
+  // 2. Devise centralisée — s'applique à toutes les cards
+  const nativeCurrency: Currency = getTickerCurrency(company.ticker);
+  const [userCurrency, setUserCurrency] = useState<Currency>(nativeCurrency);
+  const [currency, setCurrency] = useState<Currency>(nativeCurrency);
+  const [rate, setRate] = useState<number>(1);
+
+  useEffect(() => {
+    const detected = getUserCurrency();
+    setUserCurrency(detected);
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    getExchangeRate(nativeCurrency, currency).then((r) => {
+      if (!cancelled) setRate(r);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [currency, nativeCurrency]);
+
+  const currencyOptions: Currency[] = useMemo(() => {
+    const list: Currency[] = [nativeCurrency];
+    if (userCurrency !== nativeCurrency) list.push(userCurrency);
+    for (const c of SUPPORTED_CURRENCIES) {
+      if (!list.includes(c)) list.push(c);
+    }
+    return list;
+  }, [nativeCurrency, userCurrency]);
+
+  // Yield basé sur cours live (ou fallback)
+  const yieldPct = effectivePrice > 0 ? (dpsAnnual / effectivePrice) * 100 : 1.5;
 
   const goPrev = () => setActive((prev) => (prev - 1 + total) % total);
   const goNext = () => setActive((prev) => (prev + 1) % total);
@@ -97,14 +143,21 @@ export function DividendStories({ company }: { company: Company }) {
       accent={accent}
       glow={glow}
       dpsAnnual={dpsAnnual}
-      defaultPrice={defaultPrice}
       ticker={company.ticker}
+      price={effectivePrice}
+      isPriceLive={isPriceLive}
+      priceFetchedAt={livePrice.fetchedAt}
+      nativeCurrency={nativeCurrency}
+      currency={currency}
+      rate={rate}
     />,
     <DividendSnowballCard
       key="snow"
       accent={accent}
       glow={glow}
       yieldPct={yieldPct}
+      currency={currency}
+      rate={rate}
     />,
   ];
 
@@ -115,7 +168,7 @@ export function DividendStories({ company }: { company: Company }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <div className="mb-5 flex items-end justify-between">
+      <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
         <div>
           <h2 className="text-[22px] font-semibold text-zinc-50">
             Politique de dividende
@@ -125,9 +178,18 @@ export function DividendStories({ company }: { company: Company }) {
             historique, simulateur de revenu, effet boule de neige sur la durée.
           </p>
         </div>
-        <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-400">
-          {active + 1} / {total}
-        </span>
+        <div className="flex items-center gap-3">
+          {/* Devise centralisée : applique sur les 3 cards en même temps */}
+          <CurrencyPicker
+            value={currency}
+            onChange={setCurrency}
+            options={currencyOptions}
+            accent={accent}
+          />
+          <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-400">
+            {active + 1} / {total}
+          </span>
+        </div>
       </div>
 
       <div className="relative mx-auto" style={{ width: "min(400px, 100%)" }} ref={swipeRef}>

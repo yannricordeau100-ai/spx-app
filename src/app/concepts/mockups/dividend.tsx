@@ -1,13 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { CONCEPT_COMPANIES, getConceptCompany } from "@/lib/concepts-data";
 import { TICKERS } from "@/lib/data";
 import { DividendStories } from "@/components/dividend-stories";
 import { DividendAristocratCard } from "@/components/dividend-aristocrat-card";
 import { DividendCalculatorCard } from "@/components/dividend-calculator-card";
 import { DividendSnowballCard } from "@/components/dividend-snowball-card";
+import { CurrencyPicker } from "@/components/currency-picker";
 import { brand } from "@/lib/brand";
+import { useLivePrice } from "@/lib/hooks/use-live-price";
+import {
+  type Currency,
+  SUPPORTED_CURRENCIES,
+  getExchangeRate,
+  getTickerCurrency,
+  getUserCurrency,
+} from "@/lib/currency";
 
 /**
  * Mockup `Dividende` du hub /concepts.
@@ -92,8 +101,39 @@ export function MockupDividend() {
   const capReturn = Number(capRetKpi?.value) || (isCAT ? 7.9 : 0);
   const capReturnUnit = capRetKpi?.unit || (isCAT ? "$B" : "");
   const payoutRatio = Number(payoutKpi?.value) || (isCAT ? 32 : 0);
-  const defaultPrice = 390;
-  const yieldPct = (dpsAnnual / defaultPrice) * 100;
+  // Cours réel via API live + devise centralisée pour les 3 cards
+  const livePrice = useLivePrice(company.ticker);
+  const fallbackPrice = isCAT ? 390 : 100;
+  const effectivePrice = livePrice.price ?? fallbackPrice;
+  const isPriceLive = livePrice.price !== null && !livePrice.loading;
+
+  const nativeCurrency: Currency = getTickerCurrency(company.ticker);
+  const [userCurrency, setUserCurrency] = useState<Currency>(nativeCurrency);
+  const [currency, setCurrency] = useState<Currency>(nativeCurrency);
+  const [rate, setRate] = useState<number>(1);
+  useEffect(() => {
+    const detected = getUserCurrency();
+    setUserCurrency(detected);
+  }, []);
+  useEffect(() => {
+    let cancelled = false;
+    getExchangeRate(nativeCurrency, currency).then((r) => {
+      if (!cancelled) setRate(r);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [currency, nativeCurrency]);
+  const currencyOptions: Currency[] = useMemo(() => {
+    const list: Currency[] = [nativeCurrency];
+    if (userCurrency !== nativeCurrency) list.push(userCurrency);
+    for (const c of SUPPORTED_CURRENCIES) {
+      if (!list.includes(c)) list.push(c);
+    }
+    return list;
+  }, [nativeCurrency, userCurrency]);
+
+  const yieldPct = (dpsAnnual / effectivePrice) * 100;
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
@@ -156,6 +196,25 @@ export function MockupDividend() {
             })}
           </div>
         </div>
+
+        {/* Devise centralisée pour les 3 cards (s'applique en mode grid B,
+            le carrousel A a son propre picker dans le composant DividendStories) */}
+        {variant === "B_grid" && (
+          <>
+            <span className="text-zinc-600">·</span>
+            <div className="flex items-center gap-2">
+              <span className="font-mono text-[10.5px] uppercase tracking-wider text-zinc-400">
+                Devise
+              </span>
+              <CurrencyPicker
+                value={currency}
+                onChange={setCurrency}
+                options={currencyOptions}
+                accent={accent}
+              />
+            </div>
+          </>
+        )}
       </div>
 
       {/* Titre + sous-titre de la variante */}
@@ -220,8 +279,13 @@ export function MockupDividend() {
                   accent={accent}
                   glow={glow}
                   dpsAnnual={dpsAnnual}
-                  defaultPrice={defaultPrice}
                   ticker={company.ticker}
+                  price={effectivePrice}
+                  isPriceLive={isPriceLive}
+                  priceFetchedAt={livePrice.fetchedAt}
+                  nativeCurrency={nativeCurrency}
+                  currency={currency}
+                  rate={rate}
                 />
               </div>
               <div
@@ -235,6 +299,8 @@ export function MockupDividend() {
                   accent={accent}
                   glow={glow}
                   yieldPct={yieldPct}
+                  currency={currency}
+                  rate={rate}
                 />
               </div>
             </div>

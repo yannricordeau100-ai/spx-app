@@ -3,23 +3,34 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "motion/react";
 import { Crown, TrendingUp } from "lucide-react";
+import { InfoTooltip } from "@/components/info-tooltip";
 
 /**
- * Card 1 du bloc Stories Dividendes : "Aristocrat Streak".
+ * Card 1 : "Aristocrat Streak".
  *
- * Refonte 8 mai 2026 (Yann) :
- *  - "31 ans" en focal central qui s'agrandit au mount (effet "wow")
- *  - Mini-courbe SVG des 5 dernières valeurs DPS, animée au mount (le tracé
- *    se dessine de gauche à droite + dots qui apparaissent un par un)
- *  - NumberTicker sur les 3 mini-blocs DPS / Cap Return / Payout
- *  - Halo violet dynamique au hover (suit la souris)
+ * Refonte 8 mai 2026 (V3) :
+ *  - CAGR multi-périodes : 5 / 10 / 20 / 50 ans (selon historique dispo)
+ *  - Affichage même si stagnation/baisse (juste signe différent)
+ *  - Si versement coupé : indique 1ère année + coupures + raisons (champ
+ *    optionnel `dividend_meta`)
+ *  - Tooltip "i" sur Aristocrat, CAGR, Payout pour expliquer aux débutants
+ *  - Mini-courbe DPS history animée
+ *  - "31 ans" focal animé scale au mount
+ *  - Halo dynamique au hover
  */
+
+export type DividendMeta = {
+  /** Année de premier versement de dividende. */
+  first_year?: number;
+  /** Liste des coupures (interruption ou suppression). */
+  cuts?: Array<{ year: number; reason: string }>;
+};
 
 function NumberTicker({
   value,
   decimals = 0,
   suffix = "",
-  duration = 1200,
+  duration = 1100,
 }: {
   value: number;
   decimals?: number;
@@ -36,7 +47,7 @@ function NumberTicker({
     const tick = (now: number) => {
       const elapsed = now - start;
       const progress = Math.min(1, elapsed / duration);
-      const eased = 1 - Math.pow(1 - progress, 3); // easeOutCubic
+      const eased = 1 - Math.pow(1 - progress, 3);
       setDisplay(value * eased);
       if (progress < 1) raf = requestAnimationFrame(tick);
     };
@@ -54,6 +65,19 @@ function NumberTicker({
   );
 }
 
+/**
+ * CAGR sur N ans depuis la fin de l'historique.
+ * Retourne null si l'historique disponible est trop court pour cette période.
+ */
+function cagrPeriod(history: number[], periodYears: number): number | null {
+  if (history.length < periodYears + 1) return null;
+  const slice = history.slice(history.length - periodYears - 1);
+  const start = slice[0];
+  const end = slice[slice.length - 1];
+  if (start <= 0) return null;
+  return (Math.pow(end / start, 1 / periodYears) - 1) * 100;
+}
+
 export function DividendAristocratCard({
   accent,
   glow,
@@ -64,6 +88,7 @@ export function DividendAristocratCard({
   capReturnUnit,
   payoutRatio,
   yearsStreak = 31,
+  meta,
 }: {
   accent: string;
   glow: string;
@@ -74,18 +99,25 @@ export function DividendAristocratCard({
   capReturnUnit: string;
   payoutRatio: number;
   yearsStreak?: number;
+  /** Historique étendu : 1ère année + coupures éventuelles. */
+  meta?: DividendMeta;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const inView = useInView(containerRef, { once: true, margin: "-10%" });
 
-  // CAGR 5 ans DPS
   const n = dpsHistory.length;
-  const cagr =
+  const cagr5 = cagrPeriod(dpsHistory, 5);
+  const cagr10 = cagrPeriod(dpsHistory, 10);
+  const cagr20 = cagrPeriod(dpsHistory, 20);
+  const cagr50 = cagrPeriod(dpsHistory, 50);
+  // Si pas assez d'historique pour 5 ans : fallback sur le max disponible
+  const cagrFallback =
     n >= 2
       ? (Math.pow(dpsHistory[n - 1] / dpsHistory[0], 1 / (n - 1)) - 1) * 100
       : 0;
+  const cagrShown = cagr5 ?? cagrFallback;
 
-  // Mini-courbe SVG : path normalisé + points
+  // Mini-courbe SVG
   const W = 280;
   const H = 56;
   const PAD = 6;
@@ -101,8 +133,17 @@ export function DividendAristocratCard({
     .map((p, i) => `${i === 0 ? "M" : "L"}${p.x.toFixed(1)},${p.y.toFixed(1)}`)
     .join(" ");
 
-  // Halo qui suit la souris au hover
   const [halo, setHalo] = useState<{ x: number; y: number } | null>(null);
+
+  const cagrLines: Array<{ label: string; value: number | null }> = [
+    { label: "5 ans", value: cagr5 },
+    { label: "10 ans", value: cagr10 },
+    { label: "20 ans", value: cagr20 },
+    { label: "50 ans", value: cagr50 },
+  ];
+
+  const firstYear = meta?.first_year;
+  const cuts = meta?.cuts ?? [];
 
   return (
     <div
@@ -125,7 +166,6 @@ export function DividendAristocratCard({
         className="pointer-events-none absolute -bottom-20 -left-16 size-64 rounded-full blur-3xl"
         style={{ background: `${accent}33` }}
       />
-      {/* Halo dynamique qui suit la souris */}
       {halo && (
         <div
           aria-hidden
@@ -138,32 +178,42 @@ export function DividendAristocratCard({
         />
       )}
 
-      <div className="relative flex h-full flex-col">
-        {/* Badge catégorie en haut à droite */}
+      <div className="relative flex h-full flex-col overflow-y-auto pr-1">
+        {/* Badge "Aristocrat" — UNIFORME À DROITE */}
         <div
           className="ml-auto inline-flex w-fit items-center gap-1 rounded-full border px-2 py-0.5 text-[9.5px] font-semibold uppercase tracking-[0.14em] opacity-90"
           style={{ background: `${accent}14`, color: accent, borderColor: `${accent}40` }}
         >
           <Crown className="size-2.5" />
           Aristocrat
+          <InfoTooltip color={accent} size="sm">
+            <div className="text-zinc-200">
+              <span className="font-semibold">Dividend Aristocrat</span> : société
+              qui a augmenté son dividende chaque année pendant au moins 25 ans
+              consécutifs. Statut rare qui prouve la solidité de la génération
+              de cash sur le long terme et la discipline de retour aux
+              actionnaires.
+            </div>
+          </InfoTooltip>
         </div>
 
-        {/* Titre */}
         <div className="mt-3 text-[20px] font-bold leading-tight text-zinc-50">
           Dividend Aristocrat
         </div>
         <div className="text-[11.5px] italic text-zinc-400">
-          Hausse continue depuis {2025 - yearsStreak + 1}
+          {firstYear
+            ? `Versement depuis ${firstYear} · ${yearsStreak} ans de hausse`
+            : `Hausse continue depuis ${2025 - yearsStreak + 1}`}
         </div>
 
-        {/* Focal central : "31" qui grossit au mount, puis sous-titre */}
+        {/* Focal central : "31" qui grossit */}
         <div className="mt-3 mb-2 flex flex-col items-center">
           <motion.div
             initial={{ scale: 0.4, opacity: 0 }}
             animate={inView ? { scale: 1, opacity: 1 } : {}}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
             className="font-display font-bold leading-none tracking-tight gradient-text"
-            style={{ fontSize: "clamp(72px, 22vw, 120px)" }}
+            style={{ fontSize: "clamp(60px, 18vw, 96px)" }}
           >
             <NumberTicker value={yearsStreak} duration={1100} />
           </motion.div>
@@ -171,33 +221,30 @@ export function DividendAristocratCard({
             initial={{ opacity: 0, y: 10 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.6, duration: 0.5 }}
-            className="mt-1 text-[14px] font-medium text-zinc-200"
+            className="mt-1 text-[13.5px] font-medium text-zinc-200"
           >
             années de hausse consécutive
           </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={inView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ delay: 0.9, duration: 0.4 }}
-            className="mt-2.5 inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-[13px] font-semibold text-emerald-200"
-          >
-            <TrendingUp className="size-3.5" />
-            <span className="font-mono tabular-nums">
-              CAGR <NumberTicker value={cagr} decimals={1} suffix=" % / an" duration={900} />
-            </span>
-            <span className="text-[10.5px] italic text-zinc-400">(5 ans)</span>
-          </motion.div>
         </div>
 
-        {/* Mini-courbe DPS history animée */}
-        <div className="mt-2 rounded-xl border border-white/10 bg-black/40 p-2.5 backdrop-blur">
-          <div className="mb-1 flex items-baseline justify-between">
-            <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-zinc-400">
-              DPS · 5 dernières années
-            </span>
-            <span className="font-mono text-[9.5px] tabular-nums text-zinc-300">
-              {dpsHistory[0].toFixed(2)} → {dpsHistory[n - 1].toFixed(2)} $
+        {/* Mini-courbe DPS history */}
+        <div className="rounded-xl border border-white/10 bg-black/40 p-2.5 backdrop-blur">
+          <div className="mb-1 flex items-baseline justify-between gap-1">
+            <div className="flex items-center gap-1">
+              <span className="text-[10px] font-semibold uppercase tracking-[0.10em] text-zinc-300">
+                DPS · {n} dernières années
+              </span>
+              <InfoTooltip color={accent} size="sm">
+                <div className="text-zinc-200">
+                  <span className="font-semibold">DPS</span> = Dividend Per Share,
+                  c&apos;est-à-dire le montant de dividende par action versé sur
+                  une année. Si tu détiens 100 actions et le DPS est 5 €, tu
+                  reçois 500 € sur l&apos;année.
+                </div>
+              </InfoTooltip>
+            </div>
+            <span className="font-mono text-[10px] tabular-nums text-zinc-300">
+              {dpsHistory[0].toFixed(2)} → {dpsHistory[n - 1].toFixed(2)}
             </span>
           </div>
           <svg viewBox={`0 0 ${W} ${H}`} className="w-full">
@@ -211,7 +258,6 @@ export function DividendAristocratCard({
                 <stop offset="100%" stopColor={accent} stopOpacity="0" />
               </linearGradient>
             </defs>
-            {/* Aire sous la courbe — clip animé */}
             <motion.path
               d={`${pathD} L${W - PAD},${H - PAD} L${PAD},${H - PAD} Z`}
               fill="url(#dps-area)"
@@ -219,7 +265,6 @@ export function DividendAristocratCard({
               animate={inView ? { opacity: 1 } : {}}
               transition={{ delay: 0.7, duration: 0.6 }}
             />
-            {/* Tracé qui se dessine */}
             <motion.path
               d={pathD}
               fill="none"
@@ -231,7 +276,6 @@ export function DividendAristocratCard({
               animate={inView ? { pathLength: 1 } : {}}
               transition={{ delay: 0.5, duration: 1.1, ease: "easeOut" }}
             />
-            {/* Dots */}
             {points.map((p, i) => (
               <motion.circle
                 key={i}
@@ -249,40 +293,132 @@ export function DividendAristocratCard({
           </svg>
         </div>
 
-        {/* Mini-blocs Cap Return / Payout (DPS déjà dans la courbe au-dessus) */}
-        <div className="mt-2 grid grid-cols-2 gap-2">
-          <div className="rounded-xl border border-white/12 bg-black/45 p-2.5 backdrop-blur">
-            <div className="font-mono text-[9.5px] font-semibold uppercase tracking-[0.10em] text-zinc-300">
+        {/* CAGR multi-périodes */}
+        <div className="mt-2 rounded-xl border border-white/10 bg-black/40 p-2.5 backdrop-blur">
+          <div className="mb-1.5 flex items-center gap-1">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.10em] text-zinc-300">
+              CAGR du dividende
+            </span>
+            <InfoTooltip color={accent} size="sm">
+              <div className="text-zinc-200">
+                <span className="font-semibold">CAGR</span> = Compound Annual
+                Growth Rate (taux de croissance annuel composé). Vitesse moyenne
+                à laquelle le dividende a augmenté chaque année, comme si la
+                hausse était régulière.
+              </div>
+            </InfoTooltip>
+          </div>
+          <div className="grid grid-cols-4 gap-1">
+            {cagrLines.map((c) => (
+              <div
+                key={c.label}
+                className="rounded-md border border-white/10 bg-black/40 p-1.5 text-center"
+              >
+                <div className="font-mono text-[9px] uppercase tracking-wider text-zinc-400">
+                  {c.label}
+                </div>
+                <div
+                  className={`mt-0.5 font-display text-[14px] font-bold leading-none tabular-nums ${
+                    c.value == null
+                      ? "text-zinc-600"
+                      : c.value >= 0
+                      ? "text-emerald-300"
+                      : "text-rose-300"
+                  }`}
+                >
+                  {c.value == null ? "—" : `${c.value >= 0 ? "+" : ""}${c.value.toFixed(1)}`}
+                </div>
+                <div className="text-[8.5px] text-zinc-500">
+                  {c.value == null ? "n.d." : "% / an"}
+                </div>
+              </div>
+            ))}
+          </div>
+          {(cagr10 == null || cagr20 == null || cagr50 == null) && (
+            <div className="mt-1 text-[9.5px] italic text-zinc-500">
+              Périodes en grisé : historique dataset trop court (n.d. = non
+              disponible).
+            </div>
+          )}
+        </div>
+
+        {/* Coupures de dividende (si présentes) */}
+        {cuts.length > 0 && (
+          <div className="mt-2 rounded-xl border border-amber-500/30 bg-amber-500/[0.06] p-2.5">
+            <div className="text-[10px] font-semibold uppercase tracking-wider text-amber-300">
+              Coupures historiques
+            </div>
+            <ul className="mt-1 space-y-0.5 text-[11px] text-amber-100/90">
+              {cuts.map((c, i) => (
+                <li key={i}>
+                  <span className="font-mono">{c.year}</span> — {c.reason}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {/* Mini-blocs Cap Return / Payout / DPS YoY */}
+        <div className="mt-2 grid grid-cols-3 gap-2">
+          <div className="rounded-xl border border-white/12 bg-black/45 p-2 backdrop-blur">
+            <div className="text-[9px] font-semibold uppercase tracking-[0.08em] text-zinc-300">
+              DPS
+            </div>
+            <div className="mt-0.5 font-display text-[14px] font-bold leading-none tabular-nums text-zinc-50">
+              <NumberTicker value={dps} decimals={2} />
+            </div>
+            <div className="mt-0.5 text-[9px] text-emerald-300">{dpsYoy}</div>
+          </div>
+          <div className="rounded-xl border border-white/12 bg-black/45 p-2 backdrop-blur">
+            <div className="text-[9px] font-semibold uppercase tracking-[0.08em] text-zinc-300">
               Capital rendu
             </div>
-            <div className="mt-1 font-display text-[16px] font-bold leading-none tabular-nums text-zinc-50">
-              <NumberTicker value={capReturn} decimals={1} duration={900} />
-              <span className="ml-0.5 text-[11px] font-medium text-zinc-300">
+            <div className="mt-0.5 font-display text-[14px] font-bold leading-none tabular-nums text-zinc-50">
+              <NumberTicker value={capReturn} decimals={1} />
+              <span className="ml-0.5 text-[10px] font-medium text-zinc-300">
                 {capReturnUnit === "$B" ? "Mds $" : capReturnUnit}
               </span>
             </div>
-            <div className="mt-0.5 text-[9.5px] italic text-zinc-400">div + rachats</div>
+            <div className="mt-0.5 text-[8.5px] italic text-zinc-400">div + rachats</div>
           </div>
-          <div className="rounded-xl border border-white/12 bg-black/45 p-2.5 backdrop-blur">
-            <div className="font-mono text-[9.5px] font-semibold uppercase tracking-[0.10em] text-zinc-300">
-              Payout
+          <div className="rounded-xl border border-white/12 bg-black/45 p-2 backdrop-blur">
+            <div className="flex items-center gap-1">
+              <span className="text-[9px] font-semibold uppercase tracking-[0.08em] text-zinc-300">
+                Payout
+              </span>
+              <InfoTooltip color={accent} size="sm">
+                <div className="text-zinc-200">
+                  <span className="font-semibold">Payout Ratio</span> = part du
+                  bénéfice net qui est redistribué en dividendes (en %). Sain
+                  entre 30 et 60 % pour une industrielle mature. Trop bas =
+                  société peu généreuse. Trop haut = dividende fragile en cas
+                  de baisse de bénéfice.
+                </div>
+              </InfoTooltip>
             </div>
-            <div className="mt-1 font-display text-[16px] font-bold leading-none tabular-nums text-zinc-50">
-              <NumberTicker value={payoutRatio} decimals={0} duration={900} />
-              <span className="ml-0.5 text-[11px] font-medium text-zinc-300">%</span>
+            <div className="mt-0.5 font-display text-[14px] font-bold leading-none tabular-nums text-zinc-50">
+              <NumberTicker value={payoutRatio} />
+              <span className="ml-0.5 text-[10px] font-medium text-zinc-300">%</span>
             </div>
-            <div className="mt-0.5 text-[9.5px] italic text-zinc-400">
+            <div className="mt-0.5 text-[8.5px] italic text-zinc-400">
               couvert {(100 / payoutRatio).toFixed(1)}×
             </div>
           </div>
         </div>
 
-        {/* Tag YoY DPS — discret */}
-        {dpsYoy && (
-          <div className="mt-1.5 text-center text-[10px] italic text-zinc-500">
-            DPS YoY <span className="font-mono not-italic text-emerald-300">{dpsYoy}</span>
-          </div>
-        )}
+        {/* CAGR principal mis en avant en bas */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={inView ? { opacity: 1, scale: 1 } : {}}
+          transition={{ delay: 0.9, duration: 0.4 }}
+          className="mt-2.5 inline-flex items-center justify-center gap-1.5 self-center rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-[12px] font-semibold text-emerald-200"
+        >
+          <TrendingUp className="size-3.5" />
+          <span className="font-mono tabular-nums">
+            CAGR <NumberTicker value={cagrShown} decimals={1} suffix=" % / an" duration={900} />
+          </span>
+          <span className="text-[10px] italic text-zinc-400">(sur {cagr5 != null ? "5" : n - 1} ans)</span>
+        </motion.div>
       </div>
     </div>
   );

@@ -3,6 +3,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, useInView } from "motion/react";
 import { Snowflake } from "lucide-react";
+import { type Currency, CURRENCY_SYMBOL } from "@/lib/currency";
+import { InfoTooltip } from "@/components/info-tooltip";
 
 /**
  * Card 3 du bloc Stories Dividendes : "Boule de neige composée" (DRIP).
@@ -95,11 +97,18 @@ export function DividendSnowballCard({
   accent,
   glow,
   yieldPct,
+  currency = "USD",
+  rate = 1,
 }: {
   accent: string;
   glow: string;
   yieldPct: number;
+  /** Devise d'affichage centralisée par le parent. */
+  currency?: Currency;
+  /** Taux nativeCurrency → currency (passé du parent). */
+  rate?: number;
 }) {
+  const sym = CURRENCY_SYMBOL[currency];
   const [initial, setInitial] = useState<number>(1000);
   const [years, setYears] = useState<number>(20);
   const [totalReturn, setTotalReturn] = useState<number>(8); // % annuel total action
@@ -202,7 +211,7 @@ export function DividendSnowballCard({
         />
       )}
 
-      <div className="relative flex h-full flex-col">
+      <div className="relative flex h-full flex-col overflow-y-auto pr-1">
         <div
           className="ml-auto inline-flex w-fit items-center gap-1 rounded-full border px-2 py-0.5 text-[9.5px] font-semibold uppercase tracking-[0.14em] opacity-90"
           style={{ background: `${accent}14`, color: accent, borderColor: `${accent}40` }}
@@ -211,8 +220,18 @@ export function DividendSnowballCard({
           Boule de neige
         </div>
 
-        <div className="mt-3 text-[16px] font-bold leading-tight text-zinc-50">
-          Réinvestir tes dividendes (DRIP)
+        <div className="mt-3 flex items-center gap-1.5 text-[16px] font-bold leading-tight text-zinc-50">
+          Réinvestir tes dividendes
+          <span className="text-[12px] font-normal text-zinc-400">(DRIP)</span>
+          <InfoTooltip color={accent} size="sm">
+            <div className="text-zinc-200">
+              <span className="font-semibold">DRIP</span> = Dividend Reinvestment
+              Plan. Au lieu de prendre tes dividendes en cash, tu rachètes
+              automatiquement plus d&apos;actions de la société. Tu touches
+              alors plus de dividendes l&apos;année suivante, qui rachètent
+              plus d&apos;actions, etc. C&apos;est l&apos;effet boule de neige.
+            </div>
+          </InfoTooltip>
         </div>
         <div className="text-[10.5px] italic text-zinc-400">
           Effet boule de neige sur {years} ans, vs {comparePreset.label}
@@ -230,11 +249,11 @@ export function DividendSnowballCard({
             ×<NumberTicker value={finalAction / initial} decimals={1} duration={1000} />
           </motion.div>
           <div className="mt-0.5 text-[12px] font-medium text-zinc-200">
-            {fmtMoney(initial)} $ → <NumberTicker value={finalAction} decimals={0} /> $
+            {fmtMoney(initial * rate)} {sym} → <NumberTicker value={finalAction * rate} decimals={0} /> {sym}
           </div>
           <div className="mt-1 inline-flex items-center gap-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-200">
             <span className="font-mono tabular-nums">
-              + <NumberTicker value={finalIncome} decimals={0} /> $ / an
+              + <NumberTicker value={finalIncome * rate} decimals={0} /> {sym} / an
             </span>
             <span className="text-[9.5px] italic text-zinc-400">de revenu à terme</span>
           </div>
@@ -324,12 +343,12 @@ export function DividendSnowballCard({
             <div className="flex items-center gap-1">
               <span className="inline-block h-[3px] w-3 rounded" style={{ background: accent }} />
               <span className="text-zinc-200">Action {totalReturn} %</span>
-              <span className="text-zinc-300">{fmtMoney(finalAction)} $</span>
+              <span className="text-zinc-300">{fmtMoney(finalAction * rate)} {sym}</span>
             </div>
             <div className="flex items-center gap-1">
               <span className="inline-block h-[2px] w-3 rounded bg-emerald-500" />
               <span className="text-zinc-300">{compareRate} %</span>
-              <span className="text-zinc-400">{fmtMoney(finalAlt)} $</span>
+              <span className="text-zinc-400">{fmtMoney(finalAlt * rate)} {sym}</span>
             </div>
             <div className="flex items-center gap-1">
               <span className="inline-block h-[2px] w-3 rounded border-t border-dashed border-zinc-500" />
@@ -345,7 +364,7 @@ export function DividendSnowballCard({
               className="mt-1.5 rounded-md bg-emerald-500/10 px-2 py-1 text-center text-[10.5px]"
             >
               <span className="text-emerald-200">
-                +{fmtMoney(surplus)} $ vs {comparePreset.label.split(" (")[0]}
+                +{fmtMoney(surplus * rate)} {sym} vs {comparePreset.label.split(" (")[0]}
               </span>
             </motion.div>
           )}
