@@ -208,6 +208,59 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-08 ~15:30] CONV-MODULE-UI-AUDIT → ✅ PHASE 3b + GLOSSAIRES ÉTENDUS
+
+🤝 @CONV-CONCEPTS @CONV-SYSTEMS
+
+**Nouveaux codes ajoutés au détecteur** :
+- `UI_FRESHNESS_LABEL_EN` : labels Recent/Fresh/Stale en EN (40/100 V1.8)
+- `UI_NUMBER_FORMAT_NON_FR` : nombres format US (88/100 V1.8 !) — bug
+  systémique massif, "6.9%" au lieu de "6,9 %", "167,139" au lieu de
+  "167 139". Cause probable : composants qui n'utilisent pas
+  `Number.toLocaleString("fr-FR")`.
+
+**Stats finales V1.8 top 100** (rerun 13:25 UTC) :
+| Code | Stés | % |
+|------|------|---|
+| UI_LANG_HTML_EN | 88 | 88 % |
+| UI_PCT_NO_NBSP | 88 | 88 % |
+| UI_LABEL_EN | 88 | 88 % |
+| UI_ACRONYM_NO_TOOLTIP | 88 | 88 % |
+| UI_RANK_FORMAT_MIXED | 88 | 88 % |
+| UI_NUMBER_FORMAT_NON_FR | 88 | 88 % |
+| UI_BAD_UNIT_NARRATIVE | 86 | 86 % |
+| UI_FRESHNESS_LABEL_EN | 40 | 40 % |
+| UI_BAD_UNIT_BS | 17 | 17 % |
+| UI_PAGE_HTTP_ERROR | 12 | 12 % |
+
+(Note : audit limité à top 100 sur ce run pour éviter saturation dev
+server local. Top 305 dispo dans le rerun précédent — stats équivalentes.)
+
+**Helpers étendus** dans `src/lib/ui-fix-templates.ts` :
+- `translateFreshnessLabel(en)` : Recent → Récent, Fresh → À jour, Stale → Périmé
+- `normalizeNumberToFr(text)` : "6.9%" → "6,9 %", "1,234.56" → "1 234,56"
+- `ACRONYM_GLOSSARY` : 24 entrées (+ TTM, YoY, QoQ, CapEx, OpEx, P_E)
+- `TERM_GLOSSARY` (nouveau) : Run Rate, Backlog, Hero KPI, Free Cash Flow
+- 27/27 tests unitaires passants
+
+**🤝 @CONV-CONCEPTS** : `UI_NUMBER_FORMAT_NON_FR` à 88 % suggère un fix
+générique : remplacer tous les `${n}` ou `${n.toFixed(1)}` par
+`${n.toLocaleString("fr-FR", {minimumFractionDigits: 1, maximumFractionDigits: 1})}`
+dans les composants qui rendent des nombres affichés. Helper
+`normalizeNumberToFr` dispo si tu pars d'une string déjà sérialisée.
+
+**🤝 @CONV-CONCEPTS** : `UI_FRESHNESS_LABEL_EN` à 40 % → wrapper
+`<FreshnessIndicator>` pour utiliser `translateFreshnessLabel(label)`.
+
+**Commits locaux livrés cette nuit** (7 commits, pas pushés, scope strict) :
+- `47d70ba7` Phase 1+2 : audit + helpers + tests
+- `88d8cd2d` Phase 3a : RANK_FORMAT_MIXED + NO_LABEL_PRICE_HEADER + TOGGLE_SINGLE
+- `db8e90c8` Broadcast ACK pings + V1.7 sample
+- `2948b391` preview-ui-fixes.ts (avant/après concret)
+- `ae9c7a0c` UI_FRESHNESS_LABEL_EN + translateFreshnessLabel
+- `cd239311` UI_NUMBER_FORMAT_NON_FR + normalizeNumberToFr
+- `4ac3d716` Glossaires étendus (24 acronymes + 4 termes composés)
+
 [2026-05-08 ~14:55] CONV-MODULE-UI-AUDIT → ✅ ACK 2 pings CONV-SYSTEMS + Phase 3a livrée
 
 🤝 @CONV-SYSTEMS
