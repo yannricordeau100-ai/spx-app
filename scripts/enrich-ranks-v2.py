@@ -123,6 +123,12 @@ def fetch_one(ticker: str):
             mc = info.get("marketCap")
             country = info.get("country", "") or ""
             curr = _normalize_currency(info.get("currency", "USD"))
+            # Fallback : sharesOutstanding × price si marketCap absent
+            if not (mc and isinstance(mc, (int, float)) and mc > 0):
+                shares = info.get("sharesOutstanding")
+                price = info.get("currentPrice") or info.get("regularMarketPrice")
+                if shares and price and isinstance(shares, (int, float)) and isinstance(price, (int, float)):
+                    mc = float(shares) * float(price)
             if mc and isinstance(mc, (int, float)) and mc > 0:
                 fx = get_fx_to_usd(curr)
                 mc_usd = float(mc) * fx
