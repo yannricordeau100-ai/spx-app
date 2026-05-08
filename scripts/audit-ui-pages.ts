@@ -34,9 +34,33 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 const ROOT = resolve(__dirname, "..");
-const TICKERS_PATH = resolve(ROOT, "src/data/v1-8-tickers-sorted.json");
-const OUTPUT_PATH = resolve(ROOT, "src/data/v1-8-ui-audit.json");
-const BASE_URL = "http://127.0.0.1:3000/sandbox/v1-8";
+
+/**
+ * Configuration par version. Permet d'auditer V1.6, V1.7, V1.8 avec le même
+ * script. Exemple : `npx tsx scripts/audit-ui-pages.ts --version v1-7 30`.
+ */
+const VERSION_CONFIG: Record<string, { tickers: string; output: string; base: string }> = {
+  "v1-6": {
+    tickers: "src/data/v1-8-tickers-sorted.json", // V1.6 utilise même base sociétés
+    output: "src/data/v1-6-ui-audit.json",
+    base: "http://127.0.0.1:3000/sandbox/v1-6",
+  },
+  "v1-7": {
+    tickers: "src/data/v1-8-tickers-sorted.json", // V1.7 idem
+    output: "src/data/v1-7-ui-audit.json",
+    base: "http://127.0.0.1:3000/sandbox/v1-7",
+  },
+  "v1-8": {
+    tickers: "src/data/v1-8-tickers-sorted.json",
+    output: "src/data/v1-8-ui-audit.json",
+    base: "http://127.0.0.1:3000/sandbox/v1-8",
+  },
+};
+
+let SELECTED_VERSION = "v1-8";
+let TICKERS_PATH = resolve(ROOT, VERSION_CONFIG[SELECTED_VERSION].tickers);
+let OUTPUT_PATH = resolve(ROOT, VERSION_CONFIG[SELECTED_VERSION].output);
+let BASE_URL = VERSION_CONFIG[SELECTED_VERSION].base;
 
 type DefectCode =
   | "UI_BAD_UNIT_NARRATIVE"
@@ -45,7 +69,9 @@ type DefectCode =
   | "UI_LABEL_EN"
   | "UI_TAGLINE_LONG"
   | "UI_ACRONYM_NO_TOOLTIP"
-  | "UI_RANK_MIX"
+  | "UI_RANK_FORMAT_MIXED"      // ex-UI_RANK_MIX, renommé suite à ping CONV-SYSTEMS (8 mai 16h31)
+  | "UI_NO_LABEL_PRICE_HEADER"  // ajouté suite à ping CONV-SYSTEMS (cas AMAT 8 mai)
+  | "UI_TOGGLE_SINGLE"          // toggle à 1 seul choix (ex : Annuel sans Trimestriel)
   | "UI_LANG_HTML_EN"
   | "UI_PAGE_HTTP_ERROR";
 
@@ -254,15 +280,65 @@ function detectDefects(ticker: string, html: string, status: number): Defect[] {
     });
   }
 
-  // 8. UI_RANK_MIX : présence simultanée de "#XX" et "Top X %"
+  // 8. UI_RANK_FORMAT_MIXED : présence simultanée de "#XX" et "Top X %" sur même page
+  // (renommé sur ping CONV-SYSTEMS 8 mai 16h31, code UI_RANK_FORMAT_MIXED demandé)
   const hashRanks = [...html.matchAll(/#[0-9]{1,4}\b/g)].length;
   const topRel = [...html.matchAll(/Top [0-9]+ %/g)].length;
   if (hashRanks > 0 && topRel > 0) {
     defects.push({
-      code: "UI_RANK_MIX",
+      code: "UI_RANK_FORMAT_MIXED",
       count: hashRanks + topRel,
-      samples: [`${hashRanks}× #XX et ${topRel}× Top X % sur la même page`],
+      samples: [`${hashRanks}× #XX absolu et ${topRel}× Top X % relatif sur la même page`],
+      note: "choisir UNE convention de rang (absolu OU relatif) et la garder",
     });
+  }
+
+  // 9. UI_NO_LABEL_PRICE_HEADER : 3 valeurs chiffrées (capi / variation / prix) côte
+  // à côte sans label sémantique. Heuristique : on cherche dans un même bloc de
+  // ~400 chars, 3 occurrences de valeurs format `<nombre>+<devise/%>`, sans mot
+  // français étiquette ("Capitalisation", "Variation", "Prix", "Cours") entre.
+  // Cas concret AMAT 8 mai : "326 Mds $", "-4,19 %", "410,64 $" sans étiquette.
+  const labelKeywords = /Capitalisation|Variation|Prix|Cours|Capi[. ]/i;
+  // Capture seulement les valeurs AFFICHÉES (entre `>` et `<`), pas dans
+  // les attributs style="width:80%" ou similaires.
+  const valueRe = /(?<=>)\s*[0-9][.,]?[0-9]{0,4}\s?(?:Mds\s\$|Mds\s€|M\s\$|M\s€|\$|€|%)\s*(?=<)/g;
+  const allValues = [...html.matchAll(valueRe)];
+  let priceHeaderHit = false;
+  for (let i = 0; i < allValues.length - 2; i++) {
+    const a = allValues[i];
+    const c = allValues[i + 2];
+    const span = (c.index ?? 0) - (a.index ?? 0);
+    if (span > 0 && span < 400) {
+      const window = html.slice(a.index ?? 0, (c.index ?? 0) + (c[0]?.length ?? 0));
+      // Si le bloc ne contient AUCUN mot-clé étiquette FR → probablement bug
+      if (!labelKeywords.test(window)) {
+        priceHeaderHit = true;
+        defects.push({
+          code: "UI_NO_LABEL_PRICE_HEADER",
+          count: 3,
+          samples: [`${a[0]} ... ${allValues[i + 1][0]} ... ${c[0]} (sans label)`],
+          note: "3 valeurs chiffrées côte à côte sans étiquette Capi/Variation/Prix",
+        });
+        break;
+      }
+    }
+  }
+  void priceHeaderHit; // marker
+
+  // 10. UI_TOGGLE_SINGLE : "Annuel" présent en tant que bouton/onglet, mais pas
+  // "Trimestriel" / "Trim." / "TTM". Heuristique côté SSR : cherche `>Annuel<`
+  // (texte de bouton, pas mention dans phrase) sans `>Trim` / `>TTM` à proximité.
+  const annuelBtn = [...html.matchAll(/>Annuel</g)];
+  if (annuelBtn.length > 0) {
+    const trimBtn = /(>Trim|>TTM|>Trimestriel)/.test(html);
+    if (!trimBtn) {
+      defects.push({
+        code: "UI_TOGGLE_SINGLE",
+        count: 1,
+        samples: ["Annuel présent sans Trimestriel/Trim/TTM"],
+        note: "toggle à 1 seul choix → devrait être hidden ou compléter avec quarterly data",
+      });
+    }
   }
 
   return defects;
@@ -281,9 +357,23 @@ async function auditOne(ticker: string): Promise<TickerAudit> {
 }
 
 async function main() {
-  const args = process.argv.slice(2);
+  let args = process.argv.slice(2);
+  // Parse --version <key>
+  const vIdx = args.indexOf("--version");
+  if (vIdx >= 0) {
+    const v = args[vIdx + 1];
+    if (!VERSION_CONFIG[v]) {
+      console.error(`Version inconnue : ${v}. Choix : ${Object.keys(VERSION_CONFIG).join(", ")}`);
+      process.exit(1);
+    }
+    SELECTED_VERSION = v;
+    TICKERS_PATH = resolve(ROOT, VERSION_CONFIG[v].tickers);
+    OUTPUT_PATH = resolve(ROOT, VERSION_CONFIG[v].output);
+    BASE_URL = VERSION_CONFIG[v].base;
+    args = [...args.slice(0, vIdx), ...args.slice(vIdx + 2)];
+  }
   const tickers = pickTickers(args);
-  console.log(`[audit-ui] ${tickers.length} tickers à auditer · base=${BASE_URL}`);
+  console.log(`[audit-ui] version=${SELECTED_VERSION} · ${tickers.length} tickers à auditer · base=${BASE_URL}`);
 
   const results: TickerAudit[] = [];
   let i = 0;
