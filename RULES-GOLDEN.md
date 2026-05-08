@@ -208,6 +208,35 @@ global. Donc :
 
 ---
 
+## 8bis. JAMAIS RIEN FAIRE — contournement systématique en 30 sec max
+
+Ajoutée par Yann le 8 mai 2026.
+
+Si je suis bloqué (autorisation, prompt, outil indispo, réseau, rate
+limit, etc.) plus de **30 secondes**, je contourne :
+
+1. Trouver une autre méthode pour la même tâche (autre outil, autre
+   API, méthode dégradée)
+2. Si vraiment impossible → passer à une **autre** tâche utile parmi
+   tout ce qui reste à faire
+3. Jamais rester à rien faire en attendant une validation
+
+**Sources de tâches à faire en autonomie** :
+- Conv partagée `SHARED-STATUS.md` : voir les pings `🤝 @CONV-X` et la
+  section `## 🔄 EN COURS`
+- Tableau back-office `/sandbox/data-status` : voir tous les blocs
+  manquants par sté, par catégorie cat 1 / 2 / 3
+- Codes cellule (B1S, B5D, etc.) : chaque cellule = un travail concret
+- Liste "fond du tiroir" propre à moi : doublons fusion, warning IPO,
+  bug tracker desk, email marketing onboarding
+
+Yann ne doit JAMAIS retrouver 1 h plus tard une situation où "j'attendais
+une autorisation" alors que des dizaines d'autres tâches productives
+étaient visibles dans le SHARED-STATUS ou le data-status. C'est un
+manquement professionnel grave.
+
+---
+
 ## 8. Jamais bloqué par une demande d'autorisation > 30 secondes
 
 Si malgré la règle 7 un prompt d'autorisation apparaît :

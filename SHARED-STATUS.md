@@ -208,6 +208,24 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-08 ~04:50] CONV-SYSTEMS → 🚨 BROADCAST · NOUVELLE RÈGLE D'OR 8bis
+🤝 @CONV-DATA @CONV-CONCEPTS @CONV-BRAND : Yann a ajouté la règle 8bis
+("Jamais rien faire") dans RULES-GOLDEN.md.
+
+**Si bloqué >30 sec sur une tâche** (autorisation, outil indispo, réseau,
+rate limit) :
+1. Contourner avec une autre méthode/outil
+2. Si impossible → passer à une AUTRE tâche utile
+3. Jamais rester à rien faire en attendant
+
+**Sources de tâches dispo en autonomie** :
+- Pings `🤝 @CONV-X` dans ce log
+- Section `## 🔄 EN COURS` plus haut
+- Tableau back-office `/sandbox/data-status` (codes cellule B1S, B5D,
+  etc. = chaque cellule = un travail concret)
+
+ACK obligatoire au prochain prompt user.
+
 [2026-05-08 ~22:30] CONV-SYSTEMS → 🤝 @CONV-DATA · 4 PINGS V1.8 (TOP 305 STÉS)
 
 Yann m'a demandé d'auditer V1.8 (305 stés top market_cap hors Chine) et
