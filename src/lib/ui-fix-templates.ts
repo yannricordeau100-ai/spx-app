@@ -124,6 +124,23 @@ export const CHIP_LABEL_FR: Record<string, string> = {
   // "IPO" reste "IPO" (acronyme accepté tel quel + tooltip ACRONYM_GLOSSARY)
 };
 
+/**
+ * Labels du composant `FreshnessIndicator` rendus en anglais actuellement.
+ * Mapping ajouté suite à audit du 8 mai 2026 (code UI_FRESHNESS_LABEL_EN).
+ * Utilisé via `translateFreshnessLabel(en)`.
+ */
+export const FRESHNESS_LABEL_FR: Record<string, string> = {
+  "Recent": "Récent",
+  "Fresh": "À jour",
+  "Stale": "Périmé",
+  "Unknown": "Inconnu",
+};
+
+export function translateFreshnessLabel(en: string): string {
+  if (!en) return en;
+  return FRESHNESS_LABEL_FR[en] ?? en;
+}
+
 export function translateChipLabel(en: string): string {
   if (!en) return en;
   return CHIP_LABEL_FR[en] ?? en;

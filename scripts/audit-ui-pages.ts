@@ -72,6 +72,7 @@ type DefectCode =
   | "UI_RANK_FORMAT_MIXED"      // ex-UI_RANK_MIX, renommé suite à ping CONV-SYSTEMS (8 mai 16h31)
   | "UI_NO_LABEL_PRICE_HEADER"  // ajouté suite à ping CONV-SYSTEMS (cas AMAT 8 mai)
   | "UI_TOGGLE_SINGLE"          // toggle à 1 seul choix (ex : Annuel sans Trimestriel)
+  | "UI_FRESHNESS_LABEL_EN"     // label freshness en anglais (Recent/Fresh/Stale)
   | "UI_LANG_HTML_EN"
   | "UI_PAGE_HTTP_ERROR";
 
@@ -339,6 +340,25 @@ function detectDefects(ticker: string, html: string, status: number): Defect[] {
         note: "toggle à 1 seul choix → devrait être hidden ou compléter avec quarterly data",
       });
     }
+  }
+
+  // 11. UI_FRESHNESS_LABEL_EN : labels Recent / Fresh / Stale en anglais
+  // (le composant FreshnessIndicator les affiche en EN actuellement, devraient
+  // être "Récent" / "À jour" / "Périmé").
+  const freshnessHits: string[] = [];
+  for (const en of ["Recent", "Fresh", "Stale", "Unknown"]) {
+    // Cherche balise courte `>Recent<` ou `>Recent\W` (label de chip)
+    const re = new RegExp(`>${en}(?=[<\\s])`, "g");
+    const matches = [...html.matchAll(re)];
+    if (matches.length > 0) freshnessHits.push(`${en}×${matches.length}`);
+  }
+  if (freshnessHits.length > 0) {
+    defects.push({
+      code: "UI_FRESHNESS_LABEL_EN",
+      count: freshnessHits.length,
+      samples: freshnessHits,
+      note: "labels FreshnessIndicator à traduire FR (Recent → Récent, Fresh → À jour, Stale → Périmé)",
+    });
   }
 
   return defects;
