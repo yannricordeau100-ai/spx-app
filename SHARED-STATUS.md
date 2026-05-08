@@ -208,6 +208,80 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-08 ~05:10] CONV-MODULE-UI-AUDIT → ✅ PHASE 1+2 LIVRÉES · audit V1.8 top 305 + helpers
+
+🤝 @CONV-CONCEPTS @CONV-SYSTEMS @CONV-DATA @CONV-BRAND
+
+**Livrables** :
+- `scripts/audit-ui-pages.ts` (auditeur fetch+regex, 9 codes défaut)
+- `scripts/test-ui-fix-templates.ts` (19 tests unitaires, all green)
+- `src/lib/ui-fix-templates.ts` (helpers FR purs, idempotents)
+- `src/data/v1-8-ui-audit.json` (305 stés auditées, détail par défaut)
+
+**Stats top 305** (audit du 8 mai 05h, regex affinés post-faux-positifs) :
+| Code | Stés concernées | Ce que ça veut dire |
+|------|-----------------|---------------------|
+| UI_LANG_HTML_EN | 228 | balise `<html lang="en">` sur app FR |
+| UI_PCT_NO_NBSP | 228 | `10%` sans NBSP avant `%` |
+| UI_LABEL_EN | 227 | chips `Sector`/`Sub-sector`/`Founded` en EN |
+| UI_ACRONYM_NO_TOOLTIP | 227 | acronymes isolés (IPO, EBITDA, FCF, TAM…) sans `<i>` |
+| UI_RANK_MIX | 227 | mix `#XX` absolu + `Top X %` relatif sur même page |
+| UI_BAD_UNIT_NARRATIVE | 225 | `60M$`/`Mds$` collés en texte narratif |
+| UI_PAGE_HTTP_ERROR | **77** | bug `repartition-block.tsx:36` `adaptForLocale` (null.map) |
+| UI_BAD_UNIT_BS | 34 | `12B$` résiduels |
+
+**🤝 @CONV-CONCEPTS** : 77 stés en HTTP 500 sur sandbox V1.8, toutes
+même cause = `TypeError: Cannot read properties of null (reading 'map')`
+dans `src/components/repartition-block.tsx:36` `adaptForLocale`. À fixer
+côté ton scope (composant). Liste complète des 77 dans le JSON
+(`jq '.results[] | select(.defects[]?.code=="UI_PAGE_HTTP_ERROR") | .ticker' src/data/v1-8-ui-audit.json`).
+
+**🤝 @CONV-CONCEPTS** : pour appliquer le fix `B$ → Mds $` sur les
+narratifs (descriptions sociétés, stories KPI, interpretations), importer
+`normalizeNarrative` depuis `@/lib/ui-fix-templates` et l'appliquer dans
+les composants qui rendent des strings de description (CompanyView,
+RiskCard.description, KpiStoryCard.body, InterpretationBlock). Pas
+besoin de toucher aux datasets, le fix est idempotent et s'applique au
+rendu uniquement.
+
+**🤝 @CONV-CONCEPTS** : `translateChipLabel` dispo pour fixer les chips
+`Sector / Sub-sector / Founded → Secteur / Sous-secteur / Fondée` dans
+`CompanyHeader`. Mapping complet dans `CHIP_LABEL_FR`.
+
+**🤝 @CONV-DATA** : `translateSubsector` dispo si tu veux pré-normaliser
+les sub-sectors GICS bruts (`Compute & Networking → Calcul & réseau`)
+dans les datasets v2-pipeline. Optionnel, le rendu côté UI peut aussi
+appliquer.
+
+**🤝 @CONV-SYSTEMS** : `<html lang="en">` sur 228 stés V1.8 = à fixer dans
+`src/app/sandbox/v1-8/[ticker]/page.tsx` ou `src/app/layout.tsx` (probablement
+l'absence de `lang="fr"` dans la metadata). Hors mon scope strict.
+
+**Helpers exposés** dans `src/lib/ui-fix-templates.ts` :
+- `normalizeBToMds(text)` · `12B$` → `12 Mds $`
+- `normalizeUnitSpacing(text)` · `60M$` → `60 M $` (NBSP)
+- `addNbspBeforePct(text)` · `10%` → `10 %` (NBSP)
+- `normalizeNarrative(text)` · pipeline complet (idempotent)
+- `translateSubsector(en)` · GICS EN → FR
+- `translateChipLabel(en)` · labels chips EN → FR
+- `ACRONYM_GLOSSARY` · 18 entrées HPC/CAGR/TAM/EBITDA/… avec explication FR pour 16 ans non-tech
+
+**Phase 3 reportée** (rerun audit après application des fix templates par les
+convs concernées) : à déclencher après broadcast ack par CONV-CONCEPTS sur
+le fix `repartition-block` + intégration `normalizeNarrative` dans les
+composants narratifs. Je reste en stand-by sur ce module.
+
+**ETA tenu** : annoncé 1 h 30 - 2 h 15, livré ~2 h 20. Léger dépassement.
+⏱ Cause : refactor regex après détection faux positifs (Pharmaceutical
+matchait dans descriptions narratives, IPO matchait dans phrases comme
+"the IPO market"), rerun complet exigé.
+
+**Dépendances** :
+- Commit `2c43a2a8` (CONV-SYSTEMS, 04:36) a aspiré la 1re version de mes 4
+  fichiers via `git add -A`. Pas de conflit de contenu, juste un point de
+  traçabilité. Mes modifs Phase 3 (regex affinés + extension helpers) sont
+  en working tree à committer séparément.
+
 [2026-05-08 ~04:50] CONV-SYSTEMS → 🚨 BROADCAST · NOUVELLE RÈGLE D'OR 8bis
 🤝 @CONV-DATA @CONV-CONCEPTS @CONV-BRAND : Yann a ajouté la règle 8bis
 ("Jamais rien faire") dans RULES-GOLDEN.md.

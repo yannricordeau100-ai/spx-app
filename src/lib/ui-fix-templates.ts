@@ -110,6 +110,26 @@ export function translateSubsector(en: string): string {
 }
 
 /**
+ * Labels des chips affichés dans `CompanyHeader` (sandbox V1.8 actuelle :
+ * `Sector`, `Sub-sector`, `Founded`, `IPO`). Sur app FR ils doivent être en
+ * français. Mapping découvert par audit `npx tsx scripts/audit-ui-pages.ts`
+ * (codes UI_LABEL_EN, audit du 8 mai 2026 : 227/305 stés concernées).
+ */
+export const CHIP_LABEL_FR: Record<string, string> = {
+  "Sector": "Secteur",
+  "Sub-sector": "Sous-secteur",
+  "Founded": "Fondée",
+  "Headquarters": "Siège social",
+  "Tagline": "Accroche",
+  // "IPO" reste "IPO" (acronyme accepté tel quel + tooltip ACRONYM_GLOSSARY)
+};
+
+export function translateChipLabel(en: string): string {
+  if (!en) return en;
+  return CHIP_LABEL_FR[en] ?? en;
+}
+
+/**
  * Glossaire pour acronymes Mettrik. Chaque acronyme a une explication
  * courte FR (1 phrase) à afficher dans le tooltip "i". Liste vivante ;
  * étendue par CONV-MODULE-UI-AUDIT au fil des audits.

@@ -42,7 +42,7 @@ type DefectCode =
   | "UI_BAD_UNIT_NARRATIVE"
   | "UI_BAD_UNIT_BS"
   | "UI_PCT_NO_NBSP"
-  | "UI_SUBSECTOR_EN"
+  | "UI_LABEL_EN"
   | "UI_TAGLINE_LONG"
   | "UI_ACRONYM_NO_TOOLTIP"
   | "UI_RANK_MIX"
@@ -81,19 +81,20 @@ const ACRONYMS = [
   "ADR", "IPO", "GICS", "GMV",
 ];
 
-// Subsectors connus en EN (issus de GICS) qu'on ne veut PAS voir bruts dans l'UI.
-// Liste non-exhaustive, à étendre via audit cumulatif.
-const EN_SUBSECTORS_PATTERNS = [
-  /Compute &amp; Networking/i,
-  /Semiconductors &amp; Semiconductor Equipment/i,
-  /Internet &amp; Direct Marketing Retail/i,
-  /Software &amp; Services/i,
-  /Capital Goods/i,
-  /Health Care Equipment/i,
-  /Pharmaceuticals?[ ,]/i,
-  /Aerospace &amp; Defense/i,
-  /Oil[, ]+Gas &amp; Consumable Fuels/i,
+// Labels chip de la CompanyHeader rendus en EN dans la sandbox V1.8.
+// Doivent être en FR sur l'app FR. On cible le markup `<span class="...">Label[ ...]</span>`.
+const EN_LABEL_PATTERNS: { en: string; fr: string }[] = [
+  { en: "Sector",     fr: "Secteur" },
+  { en: "Sub-sector", fr: "Sous-secteur" },
+  { en: "Founded",    fr: "Fondée" },
+  { en: "Headquarters", fr: "Siège social" },
+  { en: "Tagline",    fr: "Accroche" },
 ];
+function buildLabelRegex(en: string): RegExp {
+  // Cherche `<span ...>Label</span>` ou `<span ...>Label (XXX)</span>`
+  const esc = en.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp(`<span[^>]+>${esc}(?:\\s*\\([^<)]+\\))?</span>`, "g");
+}
 
 function loadTickers(): string[] {
   const raw = readFileSync(TICKERS_PATH, "utf-8");
@@ -191,17 +192,20 @@ function detectDefects(ticker: string, html: string, status: number): Defect[] {
     });
   }
 
-  // 5. UI_SUBSECTOR_EN
-  for (const pat of EN_SUBSECTORS_PATTERNS) {
-    const m = html.match(pat);
-    if (m) {
-      defects.push({
-        code: "UI_SUBSECTOR_EN",
-        count: 1,
-        samples: [m[0].replace(/&amp;/g, "&")],
-      });
-      break; // un seul subsector par sté
-    }
+  // 5. UI_LABEL_EN — labels de chips en anglais (Sector / Sub-sector / Founded …)
+  const labelHits: string[] = [];
+  for (const { en } of EN_LABEL_PATTERNS) {
+    const re = buildLabelRegex(en);
+    const matches = [...html.matchAll(re)];
+    if (matches.length > 0) labelHits.push(`${en}×${matches.length}`);
+  }
+  if (labelHits.length > 0) {
+    defects.push({
+      code: "UI_LABEL_EN",
+      count: labelHits.length,
+      samples: labelHits.slice(0, 5),
+      note: "labels chip à traduire en FR (Sector → Secteur, etc.)",
+    });
   }
 
   // 6. UI_TAGLINE_LONG (heuristique overflow)
@@ -217,24 +221,37 @@ function detectDefects(ticker: string, html: string, status: number): Defect[] {
   }
 
   // 7. UI_ACRONYM_NO_TOOLTIP
-  // Pour chaque acronyme connu présent, on regarde s'il y a un tooltip "i" à proximité
-  // (recherche d'un <sup>, title=, aria-label=, ou <InfoTooltip ... > près de la 1re occurrence)
+  // Détection restrictive : on cherche l'acronyme uniquement en isolation
+  // dans une balise dédiée (chip / dt / span avec class spécifique). Évite
+  // les faux positifs sur le mot "IPO" en plein texte de description.
+  const flagged: string[] = [];
   for (const ac of ACRONYMS) {
-    const re = new RegExp(`>([^<]{0,3})${ac}([^<]{0,3})<`, "g");
+    // Pattern : `>ACRONYM<` ou `>ACRONYM </` (acronyme isolé dans une balise courte).
+    const re = new RegExp(`>(?:\\s)*${ac}(?:\\s)*<`, "g");
     const matches = [...html.matchAll(re)];
     if (matches.length === 0) continue;
-    // Pour la 1ère occurrence, regarde 200 chars autour pour signe de tooltip
-    const m = matches[0];
-    const idx = m.index ?? 0;
-    const around = html.slice(Math.max(0, idx - 200), Math.min(html.length, idx + 200));
-    const hasTooltip = /<sup|title="[^"]+"|aria-label="[^"]+"|InfoTooltip|info-tooltip|tooltip-trigger/.test(around);
-    if (!hasTooltip) {
-      defects.push({
-        code: "UI_ACRONYM_NO_TOOLTIP",
-        count: matches.length,
-        samples: [`${ac} (${matches.length}× sans tooltip détecté)`],
-      });
+    // On ne garde que les occurrences où la balise est étroite (chip, label).
+    // On regarde 80 chars autour de chaque match pour confirmer la présence
+    // d'un tooltip à proximité.
+    let withoutTooltip = 0;
+    for (const m of matches) {
+      const idx = m.index ?? 0;
+      const around = html.slice(Math.max(0, idx - 200), Math.min(html.length, idx + 200));
+      if (!/<sup|title="[^"]+"|aria-label="[^"]+"|InfoTooltip|info-tooltip|tooltip-trigger/.test(around)) {
+        withoutTooltip++;
+      }
     }
+    if (withoutTooltip > 0) {
+      flagged.push(`${ac}×${withoutTooltip}`);
+    }
+  }
+  if (flagged.length > 0) {
+    defects.push({
+      code: "UI_ACRONYM_NO_TOOLTIP",
+      count: flagged.length,
+      samples: flagged.slice(0, 5),
+      note: "acronymes isolés sans tooltip 'i' à proximité",
+    });
   }
 
   // 8. UI_RANK_MIX : présence simultanée de "#XX" et "Top X %"

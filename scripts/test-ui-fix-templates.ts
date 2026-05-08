@@ -18,6 +18,7 @@ import {
   addNbspBeforePct,
   normalizeNarrative,
   translateSubsector,
+  translateChipLabel,
 } from "../src/lib/ui-fix-templates";
 
 const NBSP = " ";
@@ -119,6 +120,12 @@ eq(
   translateSubsector("Asset Management"),
   "Asset Management",
 );
+
+console.log("\n=== translateChipLabel ===");
+eq("Sector → Secteur", translateChipLabel("Sector"), "Secteur");
+eq("Sub-sector → Sous-secteur", translateChipLabel("Sub-sector"), "Sous-secteur");
+eq("Founded → Fondée", translateChipLabel("Founded"), "Fondée");
+eq("IPO non traduit (acronyme conservé)", translateChipLabel("IPO"), "IPO");
 
 console.log(`\n=== ${pass} pass · ${fail} fail ===`);
 process.exit(fail > 0 ? 1 : 0);
