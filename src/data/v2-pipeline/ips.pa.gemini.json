@@ -36,14 +36,15 @@
         "thousands",
         "thousands"
       ],
-      "last_data_date": "2024-12-31",
+      "last_data_date": "2025-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "period_type": "annual"
     },
     {
       "short": "Upheld Outcomes",
-      "name_fr": "Taux de plaintes prises en compte",
+      "name_fr": "Taux de plaintes abouties favorablement",
       "name_en": "Proportion of Complaints with Favourable Outcomes",
       "explanation": "Pourcentage des plaintes ayant abouti à un résultat favorable pour le plaignant.",
       "value": 71,
@@ -63,7 +64,7 @@
       ],
       "last_data_date": "2024-12-31",
       "is_wow": false,
-      "is_generic": true,
+      "is_generic": false,
       "is_short_history": false
     },
     {
@@ -89,7 +90,7 @@
       "last_data_date": "2020-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": true
     },
     {
       "short": "Headcount",
@@ -97,7 +98,7 @@
       "name_en": "Total Employees",
       "explanation": "Nombre de personnes travaillant à IPSO.",
       "value": null,
-      "unit": "K",
+      "unit": "",
       "yoy": "n/a",
       "type": "Investment",
       "nature": "Structurel",
@@ -127,5 +128,27 @@
       "Dialogue avec des journalistes et experts sur l'IA"
     ],
     "source": "IPSO Annual Report 2024"
-  }
+  },
+  "_validation": [
+    "Correction: name_fr KPI 2 changé de 'Taux de plaintes prises en compte' à 'Taux de plaintes abouties favorablement' pour meilleure précision sémantique",
+    "Correction: is_generic KPI 2 changé de true à false car ce KPI n'est pas générique pour IPSO",
+    "Correction: unit KPI 4 changé de 'K' à '' car la valeur est null (unité non applicable)",
+    "Correction: is_short_history KPI 3 changé de false à true car l'historique ne contient qu'une seule valeur (2020)",
+    "Validation: KPI 1 'Complaints' confirmed dans source (thousands per year mentionné p10)",
+    "Validation: KPI 2 'Upheld Outcomes' confirmed dans source (71 per cent over the past three years, p10)",
+    "Validation: KPI 3 'Privacy Notices' confirmed dans source (538 privacy notices en 2020, p5)",
+    "Validation: KPI 4 'Headcount' remains null - aucune donnée dans source"
+  ],
+  "_quarterly_extraction": {
+    "date": "2026-05-06 12:57",
+    "n_periods": 5,
+    "period_type": "annual",
+    "method": "yfinance",
+    "yf_metric": "(none-fallback-existing-history)"
+  },
+  "_fit_for_site": false,
+  "_fit_reasons": [
+    "too_few_kpis_4"
+  ],
+  "next_earnings_date": "2026-02-24"
 }

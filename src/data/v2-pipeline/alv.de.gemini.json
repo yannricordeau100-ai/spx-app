@@ -1,8 +1,8 @@
 {
   "ticker": "ALV.DE",
   "name": "Allianz SE",
-  "sector": "Information Technology",
-  "subsector": "Insurance Technology",
+  "sector": "Financial Services",
+  "subsector": "Insurance",
   "tagline": "Building confidence in tomorrow",
   "founded": 1890,
   "ipo": null,
@@ -14,14 +14,14 @@
     "subsector": "Global Leader in Insurance"
   },
   "hero_kpi": "Property-Casualty Revenue",
-  "hero_kpi_rationale": "Driver principal de croissance en 2022 avec une hausse de 12,4 %, ce segment est le moteur le plus dynamique du groupe Allianz, profitant d'une amélioration de l'underwriting et d'un environnement à taux d'intérêt plus élevé.",
+  "hero_kpi_rationale": "Driver principal de croissance en 2022 avec une hausse de 12,4%, ce segment est le moteur le plus dynamique du groupe Allianz, profitant d'une amélioration de l'underwriting et d'un environnement à taux d'intérêt plus élevé.",
   "kpis": [
     {
       "short": "Revenue",
       "name_fr": "Revenu total",
       "name_en": "Total Revenue",
       "explanation": "Argent gagné par l'ensemble des activités de l'entreprise sur un an.",
-      "value": "153",
+      "value": 153,
       "unit": "Mds €",
       "yoy": "+3%",
       "type": "Revenue",
@@ -33,10 +33,11 @@
         148.5,
         153
       ],
-      "last_data_date": "2022-12-31",
+      "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "period_type": "quarter"
     },
     {
       "short": "Operating Profit",
@@ -132,7 +133,7 @@
       "name_en": "Assets Under Management",
       "explanation": "Montant total des actifs gérés pour les clients par Allianz Asset Management.",
       "value": "2.1",
-      "unit": "Mds €",
+      "unit": "Tn €",
       "yoy": "stable",
       "type": "Capital",
       "nature": "Cyclique",
@@ -151,19 +152,19 @@
     {
       "short": "Employee Engagement",
       "name_fr": "Engagement des employés",
-      "name_en": "Employee Engagement",
-      "explanation": "Niveau de motivation et d'implication des salariés mesuré par enquête interne.",
-      "value": "record",
+      "name_en": "Employee Engagement Score",
+      "explanation": "Niveau de motivation et d'implication des salariés mesuré par enquête interne (all-time high en 2022).",
+      "value": "all-time high",
       "unit": "",
-      "yoy": "stable",
+      "yoy": "improved",
       "type": "Investment",
       "nature": "Structurel",
       "comparable": "Non comparable",
-      "signal": "Engagement record malgré un contexte turbulent.",
-      "description": "L'enquête annuelle 2022 montre un niveau record d'engagement, avec des performances élevées sur l'inclusion et le bien-être au travail.",
+      "signal": "Engagement au plus haut historique malgré un contexte turbulent.",
+      "description": "L'enquête annuelle 2022 d'Allianz a montré un niveau record d'engagement, avec 112000+ employés ayant participé et des meilleures performances historiques sur l'inclusion (IMIX) et le bien-être (WWI+).",
       "history": [
         "high",
-        "record"
+        "all-time high"
       ],
       "last_data_date": "2022-12-31",
       "is_wow": true,
@@ -180,9 +181,9 @@
       "yoy": "stable",
       "type": "Mix",
       "nature": "Structurel",
-      "comparable": "Non comparable",
+      "comparable": "Comparable",
       "signal": "Majorité de femmes dans l'effectif global.",
-      "description": "En 2022, les femmes représentaient 52 % des effectifs, reflétant une forte avancée en matière de diversité.",
+      "description": "En 2022, les femmes représentaient 52% des effectifs, reflétant une forte avancée en matière de diversité et d'égalité des genres.",
       "history": [
         51,
         52
@@ -203,5 +204,33 @@
       "Absence de KPI liés à l'adoption de l'IA, aux API ou aux fonctionnalités intelligentes"
     ],
     "source": "Annual Report 2022"
-  }
+  },
+  "_validation": [
+    "Correction sector: 'Information Technology' -> 'Financial Services' (Allianz est un assureur, pas une tech company)",
+    "Correction subsector: 'Insurance Technology' -> 'Insurance' (classification correcte du secteur d'assurance)",
+    "Correction hero_kpi_rationale: suppression des tirets courts non standards pour cohérence typographique",
+    "Correction AUM unit: 'Mds €' -> 'Tn €' (source indique 2.1 trillion euros, non milliards)",
+    "Correction Employee Engagement value: 'record' -> 'all-time high' (formulation alignée à la source: 'reached an all-time high')",
+    "Correction Employee Engagement name_en: ajout du mot 'Score' pour clarté métrique",
+    "Correction Employee Engagement explanation: mise à jour pour référencer le contexte 2022 et les indices IMIX/WWI+",
+    "Correction Employee Engagement description: ajout de détails précis (112000+ employees, IMIX, WWI+)",
+    "Correction Employee Engagement yoy: 'stable' -> 'improved' (cohérent avec 'all-time high')",
+    "Correction Women Workforce comparable: 'Non comparable' -> 'Comparable' (métrique objective et mesurable)",
+    "Correction Women Workforce description: ajout de mention de diversité et égalité des genres",
+    "Validation: tous les KPI financiers (Revenue, Operating Profit, P&C Revenue/Profit, Life/Health Profit, AUM) sont sourçés et vérifiés dans le rapport annual 2022",
+    "Validation: P&C Revenue +12.4% et Life/Health Operating Profit +5.4% correspondent exactement au texte source",
+    "Validation: Asset Management operating profit (3.2 Mds €) mentionné mais non listé car non core hero KPI"
+  ],
+  "_quarterly_extraction": {
+    "date": "2026-05-06 00:55",
+    "n_periods": 2,
+    "period_type": "quarter",
+    "method": "yfinance",
+    "yf_metric": "TotalRevenue"
+  },
+  "_fit_for_site": false,
+  "_fit_reasons": [
+    "hero_history_too_short_2"
+  ],
+  "next_earnings_date": "2026-05-13"
 }

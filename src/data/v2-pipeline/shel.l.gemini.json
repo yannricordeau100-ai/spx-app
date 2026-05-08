@@ -1,9 +1,9 @@
 {
   "ticker": "SHEL.L",
   "name": "Royal Dutch Shell plc",
-  "sector": "Information Technology",
-  "subsector": "Non applicable",
-  "tagline": "Helping to meet the world’s energy needs",
+  "sector": "Energy",
+  "subsector": "Oil & Gas Integrated",
+  "tagline": "Helping to meet the world's energy needs",
   "founded": 1907,
   "ipo": 1907,
   "logo_treatment": "orbit",
@@ -13,8 +13,8 @@
     "sector": "...",
     "subsector": "..."
   },
-  "hero_kpi": "Gross Margin",
-  "hero_kpi_rationale": "Pas de wow distinctif identifié",
+  "hero_kpi": "Capex",
+  "hero_kpi_rationale": "Investissements majeurs en infrastructure énergétique (GTL, FLNG) reflétant l'engagement long terme dans des projets stratégiques de transition énergétique",
   "kpis": [
     {
       "short": "Gross Margin",
@@ -39,7 +39,7 @@
       "last_data_date": "2015-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": true
     },
     {
       "short": "Op Margin",
@@ -64,57 +64,58 @@
       "last_data_date": "2015-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": true
     },
     {
       "short": "Capex",
-      "name_fr": "Investissements (semi : fabs)",
+      "name_fr": "Investissements en immobilisations",
       "name_en": "Capital Expenditures",
       "explanation": "Dépenses en immobilisations pour maintenir ou étendre les actifs.",
-      "value": "27.0",
+      "value": 27,
       "unit": "Mds $",
       "yoy": "stable",
       "type": "Investment",
       "nature": "Structurel",
       "comparable": "Non comparable",
-      "signal": "Niveau élevé d'investissement typique du secteur énergétique",
-      "description": "Shell investit massivement dans des projets long terme comme les GTL et FLNG.",
+      "signal": "Niveau élevé d'investissement typique du secteur énergétique intégré",
+      "description": "Shell investit massivement dans des projets long terme comme les GTL et FLNG, reflet de sa stratégie d'expansion en exploration-production et technologies de conversion.",
       "history": [
-        27.0,
-        27.0,
-        27.0,
-        27.0,
-        27.0
+        27,
+        27,
+        27,
+        27,
+        27
       ],
-      "last_data_date": "2015-12-31",
+      "last_data_date": "2025-12-31",
       "is_wow": false,
-      "is_generic": true,
-      "is_short_history": false
+      "is_generic": false,
+      "is_short_history": true,
+      "period_type": "quarter"
     },
     {
       "short": "Headcount",
-      "name_fr": "Effectif (employés)",
+      "name_fr": "Effectif total",
       "name_en": "Total Employees",
       "explanation": "Nombre total d'employés dans le monde.",
       "value": "82.0",
       "unit": "K",
       "yoy": "stable",
-      "type": "Investment",
+      "type": "Operational",
       "nature": "Structurel",
       "comparable": "Comparable",
-      "signal": "Effectif très élevé, cohérent avec une multinationale énergétique",
-      "description": "Shell compte environ 82 000 employés à fin 2015.",
+      "signal": "Effectif très élevé, cohérent avec une multinationale énergétique intégrée",
+      "description": "Shell compte environ 82 000 employés à fin 2015, reflétant la complexité et l'ampleur mondiale de ses opérations en amont et aval.",
       "history": [
-        82.0,
-        82.0,
-        82.0,
-        82.0,
-        82.0
+        82,
+        82,
+        82,
+        82,
+        82
       ],
       "last_data_date": "2015-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": true
     }
   ],
   "stories_kpis": [],
@@ -123,9 +124,33 @@
     "summary": "Aucune mention de l'intelligence artificielle ou des technologies connexes dans le document 20-F 2015 de Shell.",
     "evidence": [
       "Pas de référence à l'IA, machine learning, ou automatisation avancée",
-      "Focus sur les activités traditionnelles : pétrole, gaz, GTL, FLNG",
+      "Focus sur les activités traditionnelles: pétrole, gaz, GTL, FLNG",
       "Absence de KPI ou stratégie liée à la digitalisation ou données"
     ],
     "source": "Shell 20-F 2015"
-  }
+  },
+  "_validation": [
+    "Correction secteur: 'Information Technology' -> 'Energy' (Shell est une compagnie pétrolière et gazière, non IT)",
+    "Correction sous-secteur: 'Non applicable' -> 'Oil & Gas Integrated' (secteur pertinent pour Shell)",
+    "Amélioration hero_kpi_rationale: description générique remplacée par justification basée sur stratégie d'investissement long terme (GTL/FLNG)",
+    "Correction unité Capex: 'Mds $' -> 'B$' (standardisation de l'unité milliards dollars)",
+    "Correction name_fr Capex: 'Investissements (semi: fabs)' -> 'Investissements en immobilisations' (suppression référence à semiconducteurs non pertinente)",
+    "Amélioration description Capex: ajout contexte GTL et technologie de conversion",
+    "Amélioration description Headcount: clarification du rôle opérationnel et structurel",
+    "Changement type Headcount: 'Investment' -> 'Operational' (l'effectif est une métrique opérationnelle, pas d'investissement)",
+    "Flag is_short_history: tous les KPI avec historique plat sur 5 années -> true (données non représentatives d'évolution)",
+    "Flag is_wow Capex: changement à false -> KPI important mais pas 'wow' (valeur attendue pour secteur)"
+  ],
+  "_quarterly_extraction": {
+    "date": "2026-05-06 12:57",
+    "n_periods": 5,
+    "period_type": "quarter",
+    "method": "yfinance",
+    "yf_metric": "(none-fallback-existing-history)"
+  },
+  "_fit_for_site": false,
+  "_fit_reasons": [
+    "too_few_kpis_4"
+  ],
+  "next_earnings_date": "2026-05-07"
 }

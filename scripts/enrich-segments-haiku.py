@@ -192,9 +192,10 @@ Renvoie UNIQUEMENT un JSON valide, pas d'autre texte. Format strict :
 
 Règles strictes :
 - Valeurs en milliards USD ($B). Si la sté reporte en autre devise, convertis approximativement (1 USD = 1 EUR pour simplifier ; les chiffres sont des ordres de grandeur).
-- Si pas de breakdown segment dans les extraits → revenue_by_segment: null.
-- Si pas de breakdown geography → revenue_by_geography: null.
-- Au moins 2 slices par breakdown si présent.
+- **Si la sté déclare explicitement "one operating segment" / "single reportable segment" / "we operate as one business" / similar** → revenue_by_segment avec UNE seule slice = total revenue (label = nom du business unique, ex: "Streaming", "Cloud Software", "Search & Advertising"). C'est valide et factuel.
+- Si pas de breakdown segment dans les extraits ET pas de mention mono-segment → revenue_by_segment: null.
+- Si pas de breakdown geography ET pas de mention mono-géographie → revenue_by_geography: null.
+- Si la sté fait l'essentiel de son revenu sur 1 zone (>95 %) avec mention "primarily United States" / "substantially all in country X" → 1 seule slice acceptable.
 - Pas plus de 6 slices (top 5 + "Other" si nécessaire).
 - Labels en anglais (langue d'origine du 10-K).
 - Pas d'invention. Si pas certain, mets null.

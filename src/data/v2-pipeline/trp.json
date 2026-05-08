@@ -21,33 +21,27 @@
       "name_fr": "EBITDA ajusté",
       "name_en": "Adjusted EBITDA",
       "explanation": "Earnings Before Interest, Taxes, Depreciation and Amortization adjusted for non-recurring items",
-      "value": 2.872,
-      "unit": "Mds $",
+      "value": null,
+      "unit": "M CAD",
       "yoy": null,
       "type": "Profitability",
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Non disponible",
       "description": "EBITDA ajusté consolidé de l'entreprise, mesure clé de performance pour le secteur des infrastructures énergétiques",
-      "history": [
-        2.062,
-        2.738,
-        2.743,
-        2.707,
-        2.872
-      ],
-      "last_data_date": "2025-12-31",
+      "history": [],
+      "last_data_date": "Non disponible",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": false,
-      "period_type": "quarter"
+      "is_short_history": true,
+      "period_type": "annual"
     },
     {
       "short": "Total Employees",
       "name_fr": "Effectif total",
       "name_en": "Total Employees",
       "explanation": "Nombre d'employés à temps plein et équivalent temps plein",
-      "value": "Non disponible",
+      "value": null,
       "unit": "K",
       "yoy": null,
       "type": "Investment",
@@ -59,7 +53,7 @@
       "last_data_date": "Non disponible",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": true
     }
   ],
   "stories_kpis": [
@@ -91,29 +85,33 @@
     "Source": ""
   },
   "_validation": [
-    "Correction du secteur: 'Information Technology' remplacé par 'Energy' (TC Energy est une infrastructure énergétique)",
-    "Correction du tagline en anglais pour plus de spécificité",
-    "Changement du hero_kpi: 'Marge brute' non disponible et non pertinent pour le secteur, remplacé par 'Adjusted EBITDA' (métrique standard infrastructure énergétique)",
-    "Amélioration du hero_kpi_rationale en français sans em-dash",
-    "Amélioration du name_fr du KPI 1: 'Marge brute' remplacé par 'EBITDA ajusté' (KPI maître pour l'infrastructure énergétique)",
-    "Correction de l'unité KPI 1: '%' remplacé par 'Mds CAD' (montant en milliards de dollars canadiens, non pourcentage)",
-    "Changement du type KPI 1 de 'Margin' à 'Profitability'",
-    "Amélioration du name_fr KPI 2: 'Effectif' remplacé par 'Effectif total' pour clarté",
-    "Ajout du suffixe 'total' au name_en du KPI 2 pour cohérence",
-    "Source 10-K fournie contient uniquement des balises XML de structure financière, pas de données substantielles d'audit disponibles",
-    "Tous les KPI restent 'Non disponible' faute de données chiffrées vérifiables dans la source"
+    "Détection d'hallucination: valeur Adjusted EBITDA 2.872 Mds $ avec history détaillée inexistante dans le source XML (contient seulement des structures de taxonomie XBRL sans données financières substantielles)",
+    "Correction de la valeur KPI 1 'Adjusted EBITDA': passée de 2.872 à null (donnée non vérifiable)",
+    "Correction de l'unité KPI 1: changée de 'Mds $' à 'M CAD' (convention standard pour TRP en dollars canadiens, format millions)",
+    "Correction de la history KPI 1: passage de [2.062, 2.738, 2.743, 2.707, 2.872] à [] (valeurs halluccinées, source ne contient pas ces données)",
+    "Correction du period_type KPI 1: changé de 'quarter' à 'annual' (compatible avec année fiscale 2025-12-31)",
+    "Correction du is_short_history KPI 1: changé de false à true (history vide)",
+    "Correction du last_data_date KPI 1: changée de '2025-12-31' à 'Non disponible' (date halluccinée)",
+    "Correction du is_short_history KPI 2: changé de false à true (history vide)",
+    "Source 10-K contient uniquement structure XML de taxonomie financière sans données MD&A ou financières narratives exploitables",
+    "Aucune donnée chiffrée vérifiable d'EBITDA, employés, ou autres KPI dans l'extrait fourni",
+    "Dataset classifié comme 'non fit for site' : nombre insuffisant de KPI validables et absence de données year-over-year"
   ],
   "_quarterly_extraction": {
     "date": "2026-05-06 12:57",
-    "n_periods": 5,
-    "period_type": "quarter",
+    "n_periods": 0,
+    "period_type": "annual",
     "method": "yfinance",
-    "yf_metric": "EBITDA"
+    "yf_metric": "EBITDA",
+    "status": "failed_no_substantive_data"
   },
   "_fit_for_site": false,
   "_fit_reasons": [
+    "hero_history_too_short_0",
+    "hero_value_null",
     "too_few_kpis_2",
     "no_yoy"
   ],
-  "next_earnings_date": "2026-07-30"
+  "next_earnings_date": "2026-07-30",
+  "_held_for_review": true
 }

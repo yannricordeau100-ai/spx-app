@@ -121,11 +121,11 @@
         17.12,
         24.05
       ],
-      "last_data_date": "2026-03-31",
+      "last_data_date": "2025-12-31",
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter"
+      "period_type": "annual"
     },
     {
       "short": "Number of Employees",
@@ -153,7 +153,7 @@
       "short": "Number of Branches/Agencies",
       "name_fr": "Nombre d'agences bancaires",
       "name_en": "Number of Branches/Agencies",
-      "explanation": "Nombre total de points de vente physiques pour le CIB et WRB combinés.",
+      "explanation": "Nombre total de points de vente physiques pour le CIB (3 agences) suite à la vente du réseau WRB à FNB Zambia.",
       "value": "3",
       "unit": "count",
       "yoy": "-97.1%",
@@ -161,7 +161,7 @@
       "nature": "Conjoncturel",
       "comparable": "Non comparable",
       "signal": "Réduction drastique du réseau physique suite à la vente du réseau WRB.",
-      "description": "Le nombre d'agences chute à 3 (CIB) contre 104 en 2024 (3 CIB + 93 WRB en 2024, voir note 3/93 dans source), en raison de la vente du réseau WRB à FNB Zambia.",
+      "description": "Le nombre d'agences chute à 3 (CIB uniquement) contre 104 en 2024 (3 CIB + 93 WRB), en raison de la vente du réseau WRB à FNB Zambia.",
       "history": [
         104,
         3
@@ -252,43 +252,34 @@
     "source": "Annual Report 2025"
   },
   "_validation": [
-    "CORRECTION SECTOR: Information Technology remplacé par Financial Services",
-    "CORRECTION HERO_KPI: Changé de Operating Income à Total Capital ratio (signal WOW plus distinctif)",
-    "CORRECTION HERO_KPI_RATIONALE: Réécrit en français sans em-dash, rationnel aligné sur source",
-    "CORRECTION Operating Income VALUE: '1.399' remplacé par '1399' (unité en M, pas Mds)",
-    "CORRECTION Operating Income UNIT: 'Mds ZMW' remplacé par 'M ZMW'",
-    "CORRECTION Operating Income HISTORY: Convertis de 1.53/1.399 à 1530/1399",
-    "CORRECTION Profit after tax VALUE: '0.236' remplacé par '236'",
-    "CORRECTION Profit after tax UNIT: 'Mds ZMW' remplacé par 'M ZMW'",
-    "CORRECTION Profit after tax TYPE: 'Revenue' remplacé par 'Profitability'",
-    "CORRECTION Profit after tax HISTORY: Convertis de 0.247/0.236 à 247/236",
-    "CORRECTION Total Assets VALUE: '16.671' remplacé par '16671'",
-    "CORRECTION Total Assets UNIT: 'Mds ZMW' remplacé par 'M ZMW'",
-    "CORRECTION Total Assets HISTORY: Convertis de 18.479/16.671 à 18479/16671",
-    "CORRECTION Return on equity VALUE: '18%' remplacé par '18' (unité % séparée)",
-    "CORRECTION Total Capital ratio VALUE: '24.05%' remplacé par '24.05'",
-    "CORRECTION Number of Employees UNIT: 'K' remplacé par 'headcount'",
-    "CORRECTION Number of Branches/Agencies UNIT: '' remplacé par 'count'",
-    "CORRECTION Number of Branches/Agencies YOY: 'stable' remplacé par '-97.1%' (104->3)",
-    "CORRECTION Number of Branches/Agencies DESCRIPTION: Clarification ajoutée sur la composition 3 CIB + 93 WRB en 2024",
-    "CORRECTION Total shareholder return VALUE: '18%' remplacé par '18'",
-    "AJOUT KPI Earning per share: Extrait de la source, absent du dataset original",
-    "CORRECTION Diversity women VALUE: '38%' remplacé par '38'",
-    "CORRECTION Diversity women IS_WOW: Changé de true à false (recul, pas signal positif)",
-    "CORRECTION Diversity women IS_GENERIC: Changé de false à true",
-    "CORRECTION AI_POSITIONING SOURCE: Ajout de 'Annual Report 2025'",
-    "NOTE HALLUCINOSE: Aucune valeur KPI hallucinée détectée dans la source fournie"
+    "CORRECTION hero_kpi_rationale: Suppression des em-dash, reformulation claire en français",
+    "CORRECTION Total Capital ratio period_type: Changé de 'quarter' à 'annual' (données au 31.12.2025)",
+    "CORRECTION Number of Branches/Agencies explanation: Clarification ajoutée sur composition 3 CIB uniquement",
+    "CORRECTION Number of Branches/Agencies description: Précision sur la vente du réseau WRB à FNB Zambia",
+    "VALIDATION Operating Income: Valeurs alignées avec source (K1,399m 2025 / K1,530m 2024)",
+    "VALIDATION Profit after tax: Valeurs alignées avec source (K236m 2025 / K247m 2024)",
+    "VALIDATION Total Assets: Valeurs alignées avec source (K16,671m 2025 / K18,479m 2024)",
+    "VALIDATION Return on equity: Valeurs alignées avec source (18% 2025 / 22% 2024)",
+    "VALIDATION Total Capital ratio: Valeurs alignées avec source (24.05% 2025 / 17.12% 2024)",
+    "VALIDATION Number of Employees: Valeurs alignées avec source (270 2025 / 281 2024)",
+    "VALIDATION Number of Branches/Agencies: Valeurs alignées avec source (3 CIB 2025 / 104 total 2024)",
+    "VALIDATION Total shareholder return: Valeurs alignées avec source (18% 2025 / 22% 2024)",
+    "VALIDATION Earning per share: Valeurs alignées avec source (K0.14 2025 / K0.15 2024)",
+    "VALIDATION Diversity women: Valeurs alignées avec source (38% 2025 / 40% 2024)",
+    "VALIDATION ai_positioning: Confirme absence complète de mentions IA dans le rapport annuel 2025",
+    "VALIDATION No hallucinated KPIs detected: Toutes les valeurs sont sourcées directement du Annual Report 2025"
   ],
   "_quarterly_extraction": {
     "date": "2026-05-06 12:57",
     "n_periods": 2,
-    "period_type": "quarter",
-    "method": "yfinance",
+    "period_type": "annual",
+    "method": "annual_report_extraction",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
   "_fit_reasons": [
     "hero_history_too_short_2"
   ],
-  "next_earnings_date": "2026-07-29"
+  "next_earnings_date": "2026-07-29",
+  "_held_for_review": true
 }

@@ -1,7 +1,7 @@
 {
   "ticker": "VWS.CO",
   "name": "Vestas Wind Systems A/S",
-  "sector": "Information Technology",
+  "sector": "Industrials",
   "subsector": "Industrial Machinery & Equipment",
   "tagline": "Powering a sustainable future",
   "founded": 1945,
@@ -21,7 +21,7 @@
       "name_fr": "Marge EBIT avant éléments spéciaux",
       "name_en": "EBIT Margin before Special Items",
       "explanation": "La marge bénéficiaire opérationnelle sans comptabiliser les charges ou gains exceptionnels.",
-      "value": "1.5",
+      "value": 1.5,
       "unit": "%",
       "yoy": "+1.5 pts",
       "type": "Margin",
@@ -170,7 +170,7 @@
   "stories_kpis": [
     {
       "short": "Circular Blade Solution",
-      "name_fr": "Blade circulaire (tonnes évitées)",
+      "name_fr": "Pales circulaires (CO2 évité)",
       "name_en": "Circular Blade Solution (CO2 avoided)",
       "explanation": "Estimation des émissions évitées grâce à l'introduction de pales recyclables.",
       "value": "396",
@@ -180,7 +180,7 @@
       "nature": "Structurel",
       "comparable": "Non comparable",
       "signal": "Innovation clé dans la durabilité des éoliennes.",
-      "description": "Vestas a lancé une solution de pale circulaire en 2023, permettant d'éviter 396 millions de tonnes de CO2 sur le cycle de vie.",
+      "description": "Vestas a lancé une solution de pale circulaire en 2023, permettant d'éviter 396 millions de tonnes de CO2 sur le cycle de vie selon les calculs de l'entreprise.",
       "history": [
         344,
         300,
@@ -195,7 +195,7 @@
     },
     {
       "short": "Offshore Re-entry",
-      "name_fr": "Retour offshore (MW livrés)",
+      "name_fr": "Retour offshore (capacité livrée)",
       "name_en": "Offshore Re-entry (MW delivered)",
       "explanation": "Capacité éolienne offshore livrée, marquant le retour stratégique sur ce segment.",
       "value": "1.5",
@@ -226,5 +226,50 @@
       "Innovation centrée sur le matériel (pales circulaires, turbines offshore)"
     ],
     "source": "Vestas Annual Report 2023"
-  }
+  },
+  "_validation": {
+    "corrections_applied": [
+      {
+        "field": "sector",
+        "original": "Information Technology",
+        "corrected": "Industrials",
+        "reason": "Vestas est un fabricant d'équipements industriels (éoliennes), pas une entreprise IT. Le secteur correct est Industrials."
+      },
+      {
+        "field": "stories_kpis[0].name_fr",
+        "original": "Blade circulaire (tonnes évitées)",
+        "corrected": "Pales circulaires (CO2 évité)",
+        "reason": "Amélioration de la clarté: 'Blade' traduit en 'Pales' et précision que ce sont des tonnes de CO2."
+      },
+      {
+        "field": "stories_kpis[0].description",
+        "original": "Vestas a lancé une solution de pale circulaire en 2023, permettant d'éviter 396 millions de tonnes de CO2 sur le cycle de vie.",
+        "corrected": "Vestas a lancé une solution de pale circulaire en 2023, permettant d'éviter 396 millions de tonnes de CO2 sur le cycle de vie selon les calculs de l'entreprise.",
+        "reason": "Précision ajoutée car la valeur de 396M tonnes CO2 semble être une projection/calcul théorique, non une mesure directe vérifiable dans l'extrait fourni."
+      },
+      {
+        "field": "stories_kpis[1].name_fr",
+        "original": "Retour offshore (MW livrés)",
+        "corrected": "Retour offshore (capacité livrée)",
+        "reason": "Harmonisation terminologique: 'capacité livrée' est plus précis que 'MW livrés' pour correspondre au name_en."
+      }
+    ],
+    "verification_notes": [
+      "La mention '396m tonnes of CO2' apparaît dans l'extrait du rapport (page 3), confirmant la présence de ce KPI.",
+      "Le retour à la rentabilité avec EBIT margin de 1.5% en 2023 est confirmé dans la lettre du CEO.",
+      "L'extrait ne fournit pas les états financiers détaillés, donc les valeurs de Revenue, Gross Margin, Capex, Headcount et Service Revenue n'ont pas pu être directement vérifiées, mais sont cohérentes avec le contexte décrit.",
+      "La valeur de 152 GW mentionnée pour Service suggère que les 3.2 Mds € de Service Revenue sont plausibles.",
+      "L'unité 'Mds €' (milliards d'euros) est correcte et cohérente.",
+      "Les historiques des KPI ne peuvent être validés faute de données financières détaillées dans l'extrait.",
+      "Aucun KPI manifestement halluciné n'a été détecté; tous correspondent au contexte du rapport."
+    ],
+    "warnings": [
+      "L'extrait fourni est limité (lettre du CEO et table des matières), sans états financiers complets. Une validation complète nécessiterait l'accès aux pages financières détaillées.",
+      "La valeur de 396M tonnes CO2 pour Circular Blade Solution pourrait représenter un impact cumulé projeté plutôt qu'une mesure annuelle directe. Classification maintenue comme 'Innovation' story KPI.",
+      "Le doublement offshore (0.75 GW → 1.5 GW) n'est pas directement quantifié dans l'extrait fourni, mais est cohérent avec la mention de 'reinstating ourselves in offshore wind'."
+    ]
+  },
+  "_held_for_review": true,
+  "_fit_for_site": true,
+  "_fit_reasons": []
 }

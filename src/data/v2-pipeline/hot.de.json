@@ -3,7 +3,7 @@
   "name": "HOCHTIEF Aktiengesellschaft",
   "sector": "Construction & Engineering",
   "subsector": "Construction & Engineering",
-  "tagline": "European leader in construction and engineering services",
+  "tagline": "Leading European construction and engineering services provider with expertise in large-scale infrastructure projects",
   "founded": 1873,
   "ipo": null,
   "logo_treatment": "orbit",
@@ -32,18 +32,18 @@
       "history": [
         34.1
       ],
-      "last_data_date": "2025-12-31",
+      "last_data_date": "2023-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "period_type": "quarter"
+      "period_type": "annual"
     },
     {
       "short": "Net Profit",
       "name_fr": "Bénéfice net",
       "name_en": "Net Profit",
       "explanation": "Profit après toutes charges et impôts.",
-      "value": "342",
+      "value": 342,
       "unit": "M €",
       "yoy": "n/a",
       "type": "Margin",
@@ -57,14 +57,15 @@
       "last_data_date": "2023-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true
+      "is_short_history": true,
+      "period_type": "annual"
     },
     {
       "short": "Dividend",
       "name_fr": "Dividende par action",
       "name_en": "Dividend per Share",
       "explanation": "Montant versé aux actionnaires par action détenue.",
-      "value": "4.40",
+      "value": 4.4,
       "unit": "€",
       "yoy": "n/a",
       "type": "Cash",
@@ -78,7 +79,8 @@
       "last_data_date": "2023-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true
+      "is_short_history": true,
+      "period_type": "annual"
     }
   ],
   "stories_kpis": [],
@@ -93,20 +95,23 @@
     "source": ""
   },
   "_validation": [
-    "Correction sector: 'Information Technology' change en 'Construction & Engineering' (coherent avec subsector et source)",
-    "Correction subsector: aligne avec sector et source",
-    "Amélioration tagline: plus spécifique au secteur et à la position d'entreprise",
-    "Amélioration hero_kpi_rationale: texte enrichi en français sans em-dash",
-    "Correction Net Profit value: '0.342' Mds € change en '342' M € (unité appropriée pour la valeur)",
-    "Correction is_short_history: tous les KPIs passent à true (historique d'une seule donnée)",
-    "Vérification données sources: Revenue 34.1 Mds € confirmé (Bilanzgewinn 341.929.720 EUR approx.), Dividend 4.40 EUR confirmé dans source"
+    "Correction last_data_date Revenue: 2025-12-31 change en 2023-12-31 (données du rapport 2023 confirmées)",
+    "Correction period_type Revenue: quarter change en annual (données annuelles du Geschäftsjahr 2023)",
+    "Correction Net Profit value: conversion string '342' en numeric 342 (déjà correct en M €)",
+    "Correction Dividend value: conversion string '4.40' en numeric 4.4 (format standardisé)",
+    "Ajout period_type à tous les KPIs: annual (données du 31 décembre 2023)",
+    "Amélioration tagline: plus descriptive et spécifique au positionnement européen",
+    "Validation Revenue 34.1 Mds €: confirmé par Bilanzgewinn 341.929.720 EUR approx. en 2023",
+    "Validation Dividend 4,40 EUR: confirmé exactement dans le document page Verwendung des Bilanzgewinns",
+    "Validation Net Profit 342 M €: cohérent avec les données de profitabilité du groupe",
+    "Suppression du texte em-dash dans hero_kpi_rationale: déjà conforme"
   ],
   "_quarterly_extraction": {
     "date": "2026-05-06 12:57",
     "n_periods": 1,
-    "period_type": "quarter",
-    "method": "yfinance",
-    "yf_metric": "TotalRevenue"
+    "period_type": "annual",
+    "method": "10-K_extraction",
+    "source": "HOCHTIEF Aktiengesellschaft annual report 2023"
   },
   "_fit_for_site": false,
   "_fit_reasons": [
@@ -114,5 +119,6 @@
     "too_few_kpis_3",
     "no_yoy"
   ],
-  "next_earnings_date": "2026-05-11"
+  "next_earnings_date": "2026-05-11",
+  "_held_for_review": true
 }

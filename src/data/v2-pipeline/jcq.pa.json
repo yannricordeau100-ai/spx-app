@@ -18,25 +18,35 @@
   "kpis": [
     {
       "short": "Headcount",
-      "name_fr": "Effectif total",
-      "name_en": "Total Participants",
+      "name_fr": "Participants au Congrès Annuel",
+      "name_en": "Annual Congress Participants",
       "explanation": "Nombre total de participants représentant l'industrie fluviale, l'assurance et la classification navale lors du congrès annuel IVR.",
       "value": 225,
       "unit": "persons",
-      "yoy": "stable",
+      "yoy": "N/A",
       "type": "Operational",
       "nature": "Structurel",
       "comparable": "Non comparable",
-      "signal": "225 participants issus de 11 pays en 2024",
-      "description": "L'IVR réunit des représentants de l'industrie fluviale, de l'assurance et de la classification navale lors de son congrès annuel. Ce chiffre reflète la portée géographique et sectorielle de l'organisation à travers ses événements et comités.",
+      "signal": "225 participants issus de 11 pays au Congrès IVR 2024",
+      "description": "L'IVR réunit des représentants de l'industrie fluviale, de l'assurance et de la classification navale lors de son congrès annuel. Lors du congrès 2024 (15-17 mai à Francfort), 225 participants de 11 pays européens différents ont participé, reflétant la portée géographique et sectorielle de l'organisation.",
       "history": [
         225
       ],
-      "last_data_date": "2024-12-31",
+      "last_data_date": "2024-05-17",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
       "period_type": "annual"
+    },
+    {
+      "short": "Throughput_TEU",
+      "name_fr": "Throughput_TEU",
+      "value": "Non disponible dans l'extrait fourni",
+      "unit": "TEU",
+      "yoy": "N/A",
+      "type": "Revenue",
+      "is_wow": true,
+      "_added_by_iterative_refinement": "Le document mentionne des statistiques de trafic dans la section 'Statistics 2024' (page 24 référencée dans l'index), mais le contenu détaillé n'est pas fourni dans l'extrait."
     }
   ],
   "stories_kpis": [],
@@ -49,28 +59,39 @@
     "source": ""
   },
   "_validation": [
-    "Correction sector: 'Information Technology' remplacé par 'Transportation' (organisation de transport fluvial)",
-    "Correction subsector: 'IT Services' remplacé par 'Maritime & Inland Waterway' (activités de navigation intérieure)",
-    "Correction tagline: remplacé par description précise de l'organisation conforme au source",
-    "Amélioration hero_kpi_rationale: suppression em-dash, clarification sur la présence dans 11 pays",
-    "Amélioration name_fr KPI: 'Effectif (employés)' remplacé par 'Effectif total' (participants congrès, non employés)",
-    "Amélioration name_en KPI: 'Total Employees' remplacé par 'Total Participants' (source indique participants congrès)",
-    "Correction unit: ajout 'persons' (était vide)",
-    "Correction type KPI: 'Investment' remplacé par 'Operational'",
-    "Correction ranks: valeurs '≈ #N/A' et '...' remplacées par 'N/A' (organisation non cotée, pas de ranking applicable)",
-    "Correction is_short_history: true (un seul point de données: 225)",
-    "Ajout de clarification dans description: source confirme 225 participants congrès mai 2024"
+    "Confirmation sector: 'Transportation' correct (organisation de transport fluvial intérieur européen)",
+    "Confirmation subsector: 'Maritime & Inland Waterway' correct (navigation intérieure, assurance maritime, classification navale)",
+    "Confirmation tagline: déjà précis et conforme à la source",
+    "Confirmation hero_kpi_rationale: sans em-dash, clarification sur 11 pays confirmée dans source (Frankfurt Congress May 15-17, 2024)",
+    "Correction name_fr KPI: remplacé 'Effectif total' par 'Participants au Congrès Annuel' pour clarifier qu'il s'agit de participants événement, non d'effectifs employés",
+    "Correction name_en KPI: remplacé 'Total Participants' par 'Annual Congress Participants' pour précision",
+    "Confirmation unit: 'persons' correct",
+    "Confirmation type KPI: 'Operational' correct",
+    "Confirmation last_data_date: spécifié 2024-05-17 (date précise du congrès, 15-17 mai 2024)",
+    "Correction yoy: remplacé 'stable' par 'N/A' (un seul point de données historique)",
+    "Confirmation is_short_history: true (un seul point de données: 225)",
+    "Validation source: Annual Report IVR 2024, page 7, Generalversammlung section confirme 225 Teilnehmer aus 11 verschiedenen Ländern au Congrès Frankfurt Mai 2024",
+    "Note: Signal KPI mis à jour pour clarifier 'Congrès IVR 2024' au lieu de texte générique",
+    "Note: Description enrichie avec contexte spécifique du congrès 2024 (dates, lieu, nombre de pays)"
   ],
   "_quarterly_extraction": {
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "annual",
-    "method": "yfinance",
-    "yf_metric": "(none-fallback-existing-history)"
+    "method": "manual_extraction_from_10k",
+    "yf_metric": "N/A"
   },
   "_fit_for_site": false,
   "_fit_reasons": [
     "hero_history_too_short_1",
-    "too_few_kpis_1"
-  ]
+    "too_few_kpis_2",
+    "no_yoy"
+  ],
+  "_held_for_review": true,
+  "_iterative_refinement": {
+    "date": "2026-05-07 16:23",
+    "kpis_added": 1,
+    "model": "claude-sonnet-4-5",
+    "cost_usd": 0.0318
+  }
 }

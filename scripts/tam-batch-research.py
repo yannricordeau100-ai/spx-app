@@ -98,27 +98,48 @@ def is_pass3(entry: dict) -> bool:
 
 
 def find_filing_text(ticker: str) -> str | None:
-    """Cherche le 10-K / 20-F le plus récent localement et retourne son texte."""
+    """Cherche le 10-K / 20-F / annual-text le plus récent localement.
+
+    Couvre :
+      1. cat 1 US + cat 2 FPI : `cat*/10K|20F/<year>/<TICKER>_<date>.htm.gz`
+      2. cat 3 EU pures (.PA/.DE/.L/etc) : `cat3-european/<TICKER>/annual-text/<year>.txt`
+         (CONV-DATA confirmation 7 mai 2026 : convention différente, texte
+          pré-extrait au lieu de HTML compressé)
+    """
+    tu = ticker.upper()
     candidates = []
+    # 1+2 : US/FPI HTML compressé
     for kind in ("10K", "20F"):
-        # Format observé : sec-data/cat1-us/10K/2025/AAPL_2024-11-01.htm.gz
         for cat_dir in SEC_DATA.glob(f"cat*/{kind}/*"):
-            for f in cat_dir.glob(f"{ticker.upper()}_*.htm.gz"):
+            for f in cat_dir.glob(f"{tu}_*.htm.gz"):
                 candidates.append(f)
-            for f in cat_dir.glob(f"{ticker.upper()}_*.htm"):
+            for f in cat_dir.glob(f"{tu}_*.htm"):
                 candidates.append(f)
+    # 3 : cat 3 EU texte déjà extrait
+    cat3_dir = SEC_DATA / "cat3-european" / tu / "annual-text"
+    if cat3_dir.is_dir():
+        try:
+            for f in sorted(cat3_dir.glob("*.txt"), reverse=True)[:1]:
+                candidates.append(f)
+        except Exception:
+            pass
     if not candidates:
         return None
-    # Prends le plus récent par date dans le nom de fichier
+    # Tri par nom (donc par date) pour avoir le plus récent en premier.
     candidates.sort(reverse=True)
     p = candidates[0]
     try:
         if p.suffix == ".gz":
             raw = gzip.decompress(p.read_bytes())
+            text = raw.decode("utf-8", errors="ignore")
+        elif p.suffix == ".txt":
+            # cat 3 EU annual-text : texte brut, pas de HTML à stripper
+            text = p.read_text(errors="ignore")
+            return text[:50000]
         else:
             raw = p.read_bytes()
-        text = raw.decode("utf-8", errors="ignore")
-        # Strip HTML tags rough
+            text = raw.decode("utf-8", errors="ignore")
+        # Strip HTML tags rough (US/FPI)
         text = re.sub(r"<[^>]+>", " ", text)
         text = re.sub(r"\s+", " ", text)
         return text[:50000]  # cap 50K chars pour rester sous le context

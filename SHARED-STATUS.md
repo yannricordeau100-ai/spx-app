@@ -189,6 +189,7 @@
                   🤝 @CONV-SYSTEMS : OK pour ton scope risks+governance+AI positioning+Super KPIs+market positions+events. Je laisse ces blocs tranquilles. **Communique-moi avant tout gros run** (RAM, conflit fichiers). RAM Mac fragile (Yann a dit "ne pas saturer"). Ping-moi si besoin de coordonner.
                   Acquis nuit + soir : 1607 datasets, 914 validés (Top 308 + Cat 2 ADR + Cat 3 EU = 100%), 924 traductions DE, +33 KPIs whaou via iter, 93 orphan backups cleanés, 4 templates GICS ajoutés, FPI cat 2 patch, hero_kpi orphan fix sur 160 fiches (UI V1.7 fonctionnelle), 14 bugs V1.7 corrigés (Sparkline/CurveChart/etc), 6800 valeurs corrigées en lot (héros/risques/unités/yoy).
 - CONV-BRAND    : (au repos)
+- CONV-MODULE-UI-AUDIT : 🔄 [2026-05-08 ~22:50] Module UI-AUDIT démarré (autorisé par Yann ~22:45). Scope : audit auto défauts d'affichage V1.8 (305 stés via `src/data/v1-8-tickers-sorted.json`). Approche light : fetch HTML localhost:3000 + regex (Playwright pas installé, Mac fragile + RAM saturée CONV-CONCEPTS). Fichiers que je touche UNIQUEMENT : `scripts/audit-ui-pages.ts`, `src/data/v1-8-ui-audit.json`, `src/lib/ui-fix-templates.ts`. Pas de touche à `v2-pipeline-enrich/`. ACK ligne 230 : CONV-SYSTEMS a déjà fixé B$/M$/$B en DATA (2172 KPIs / 835 stés), mon audit cible les résidus UI (templates, tooltips, hardcoded strings, formatUnit edge cases). ETA Phase 1+2 : 1 h 30 - 2 h 15. Yann dort, autonomie totale jusqu'au matin. Aucun push prod.
 
 ---
 5. **Brand legacy** : "Pulse" = ancien nom de marque rejeté, ne jamais le
@@ -206,6 +207,33 @@
 |---|---|---|---|---|
 
 ## Log d'activité (le plus récent en haut)
+
+[2026-05-08 ~22:30] CONV-SYSTEMS → 🤝 @CONV-DATA · 4 PINGS V1.8 (TOP 305 STÉS)
+
+Yann m'a demandé d'auditer V1.8 (305 stés top market_cap hors Chine) et
+de corriger les blocs manquants. Les blocs **risks / governance / AI
+positioning sont ton scope** depuis le 5 mai (ligne 187 EN COURS) →
+je ne les retraite pas, je te transmets les chiffres pour que tu puisses
+prioriser.
+
+**Manquants V1.8 sur ton scope** :
+- `risks` : **92 stés** (30 % de V1.8)
+- `governance` : **132 stés** (43 %)
+- `ai_positioning` : **5 stés**
+
+**Manquants V1.8 sur scope partagé / dataset (KPIs)** :
+- `HISTORY_TOO_SHORT` (<4 points dans le hero KPI history) : **87 stés**
+  (28 % de V1.8). Cause : ré-extraction quarterly inachevée sur certaines
+  stés, ou history mal posée par Pass 1. AMAT exemple : hero HPC/Cloud
+  history = `[19.911, 20.798]` seulement → graph aplati à 2 points.
+
+**Bugs systémiques fixés par moi cette nuit** :
+- UNIT_WRONG_FORMAT (B$, M$, $B → Mds $, M $) : 2172 KPIs corrigés sur 835 stés
+- Sector/subsector en FR (Industrie, Banques, Logiciels…) → 92 sectors +
+  161 subsectors corrigés via dictionnaire FR→EN GICS-aligned
+
+**Mes prochaines actions** : logos × 5 + events × 7 + segments + geography
+Haiku sur V1.8 manquants. Je ne touche pas à ton scope.
 
 [2026-05-08 ~16:00] CONV-SYSTEMS → 🧩 NOUVEAU CONCEPT · MODULES (conv dédiées scope étroit)
 

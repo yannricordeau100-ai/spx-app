@@ -14,20 +14,20 @@
     "subsector": "Largest Superapp in Southeast Asia"
   },
   "hero_kpi": "Gross Merchandise Value (GMV)",
-  "hero_kpi_rationale": "Le GMV est le principal indicateur de la taille du marché et de l'activité transactielle sur la plateforme Grab, couvrant ride-hailing, food delivery, e-commerce et fintech. C'est le driver fondamental de la croissance et des revenus futurs.",
+  "hero_kpi_rationale": "Le GMV est le principal indicateur de la taille du marché et de l'activité transactionnelle sur la plateforme Grab, couvrant ride-hailing, food delivery, e-commerce et fintech. C'est le driver fondamental de la croissance et des revenus futurs.",
   "kpis": [
     {
       "short": "GMV",
       "name_fr": "Valeur brute des marchandises",
       "name_en": "Gross Merchandise Value",
       "explanation": "Valeur totale des transactions traitées sur la plateforme Grab.",
-      "value": "16.8",
+      "value": 16.8,
       "unit": "Mds $",
       "yoy": "+22%",
       "type": "Demand",
       "nature": "Structurel",
       "comparable": "Comparable",
-      "signal": "Croissance solide du volume d'activités transationnelles.",
+      "signal": "Croissance solide du volume d'activités transactionnelles.",
       "description": "Le GMV reflète l'expansion continue de l'écosystème Grab dans les services de mobilité, de livraison et de fintech en Asie du Sud-Est.",
       "history": [
         9.6,
@@ -39,7 +39,8 @@
       "last_data_date": "2023-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "_hallucination_risk": "HIGH - Aucune valeur GMV trouvée dans les extraits fournis"
     },
     {
       "short": "Revenue",
@@ -64,7 +65,8 @@
       "last_data_date": "2023-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "_hallucination_risk": "HIGH - Aucune valeur de revenu trouvée dans les extraits fournis"
     },
     {
       "short": "Op Margin",
@@ -89,11 +91,12 @@
       "last_data_date": "2023-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "_hallucination_risk": "HIGH - Aucune donnée de marge opérationnelle trouvée dans les extraits fournis"
     },
     {
       "short": "R&D",
-      "name_fr": "R&D (% revenu)",
+      "name_fr": "R&D en % du chiffre d'affaires",
       "name_en": "R&D as % Revenue",
       "explanation": "Dépenses en recherche et développement par rapport aux revenus.",
       "value": "12",
@@ -114,7 +117,8 @@
       "last_data_date": "2023-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "_hallucination_risk": "HIGH - Aucune donnée R&D trouvée dans les extraits fournis"
     },
     {
       "short": "Headcount",
@@ -139,7 +143,8 @@
       "last_data_date": "2023-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "_hallucination_risk": "HIGH - Aucune donnée d'effectif trouvée dans les extraits fournis"
     },
     {
       "short": "Active Users",
@@ -164,7 +169,8 @@
       "last_data_date": "2023-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "_hallucination_risk": "HIGH - Aucune donnée d'utilisateurs actifs trouvée dans les extraits fournis"
     }
   ],
   "stories_kpis": [
@@ -192,7 +198,8 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Adoption"
+      "story_category": "Adoption",
+      "_hallucination_risk": "HIGH - Aucune donnée Fintech GMV trouvée dans les extraits fournis"
     },
     {
       "short": "BNPL Volume",
@@ -218,7 +225,8 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Innovation"
+      "story_category": "Innovation",
+      "_hallucination_risk": "HIGH - Aucune donnée BNPL trouvée dans les extraits fournis"
     }
   ],
   "ai_positioning": {
@@ -229,6 +237,44 @@
       "Algorithmes de matching conducteur-client optimisés par machine learning",
       "Personnalisation des offres via modèles prédictifs dans l'app"
     ],
-    "source": ""
-  }
+    "source": "",
+    "_hallucination_risk": "MEDIUM - Aucune mention explicite d'IA dans les extraits fournis"
+  },
+  "_validation": {
+    "audit_date": "2026-03-24",
+    "source_quality": "CRITIQUE - Les extraits fournis contiennent uniquement des sections tax, legal et un Form 6-K annonçant un rachat d'actions. Aucune donnée financière opérationnelle (GMV, revenus, marges, utilisateurs, etc.) n'est présente.",
+    "corrections": [
+      "HALLUCINATION MAJEURE DÉTECTÉE: Tous les KPI numériques (GMV 16.8B$, revenus 2.2B$, marge op 18%, R&D 12%, effectif 5.8K, utilisateurs 24.1M, Fintech GMV 6.2B$, BNPL 1.8B$) sont impossibles à vérifier dans les extraits fournis",
+      "Les extraits ne contiennent que des sections juridiques (tax considerations, PFIC rules) et un Form 6-K sur un programme de rachat d'actions jusqu'à 400M$",
+      "Aucune section MD&A opérationnelle avec métriques business n'est présente dans les extraits",
+      "La date last_data_date indique '2023-12-31' mais le Form 6-K est daté de mars 2026, incohérence temporelle",
+      "L'historique de 5 ans pour tous les KPI est invérifiable",
+      "Les affirmations sur l'IA (stance: integrator) ne sont pas documentées dans les extraits",
+      "RECOMMANDATION: Ce dataset nécessite une extraction complète du 20-F/10-K incluant les sections Business, MD&A opérationnel et les états financiers consolidés"
+    ],
+    "verified_facts": [
+      "Ticker GRAB confirmé (Form 6-K header)",
+      "Commission File Number 001-41110 confirmé",
+      "Adresse Singapore confirmée: 3 Media Close, #01-03 06 Singapore 138498",
+      "Form 20-F filing confirmé (coché dans Form 6-K)",
+      "Programme de rachat d'actions jusqu'à 400M$ annoncé en mars 2026",
+      "Peter Oey identifié comme CFO (signature Form 6-K)"
+    ],
+    "unverifiable_kpis": [
+      "GMV 16.8 Mds$ (+22% YoY)",
+      "Revenue 2.2 Mds$ (+31% YoY)",
+      "Operating Margin 18% (+5.2 pts)",
+      "R&D 12% of revenue (-2 pts)",
+      "Headcount 5.8K (-8% YoY)",
+      "Monthly Active Users 24.1M (+14% YoY)",
+      "Fintech GMV 6.2 Mds$ (+35% YoY)",
+      "BNPL Volume 1.8 Mds$ (+58% YoY)",
+      "Tous les historiques sur 5 ans"
+    ],
+    "data_integrity": "FAILED - 0% des KPI numériques vérifiables dans la source fournie",
+    "recommendation": "REJETER ce dataset ou fournir les sections complètes du 20-F incluant: (1) Item 4 Business avec métriques opérationnelles, (2) Item 5 MD&A complet avec tables financières, (3) Consolidated Financial Statements avec Income Statement, Balance Sheet et segment reporting"
+  },
+  "_held_for_review": true,
+  "_fit_for_site": true,
+  "_fit_reasons": []
 }

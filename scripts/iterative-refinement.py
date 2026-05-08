@@ -120,6 +120,29 @@ SUBSECTOR_GUESS = {
 
 
 FUZZY_OVERRIDES = {
+    # Subsectors LLM-generated additionnels (top 308 EU + UK)
+    "automotive manufacturing": "automobile manufacturers",
+    "automotive and autonomous driving": "automobile manufacturers",
+    "automotive - tires & related equipment": "tires & rubber",
+    "building materials & fixtures": "building products",
+    "oil & gas integrated": "integrated oil & gas",
+    "household & personal care": "household products",
+    "residential development": "homebuilding",
+    "homebuilders": "homebuilding",
+    "information services": "research & consulting services",
+    "apparel & accessories": "apparel, accessories & luxury goods",
+    "medical devices & wound care": "health care equipment",
+    "luxury goods": "apparel, accessories & luxury goods",
+    "trade association": "research & consulting services",
+    "industry representation": "research & consulting services",
+    "industry association": "research & consulting services",
+    "industry representative organization": "research & consulting services",
+    "association professionnelle": "research & consulting services",
+    "inland waterway transport advocacy": "marine ports & services",
+    "inland waterways & shipping": "marine ports & services",
+    "maritime & inland waterway": "marine ports & services",
+    "transportation infrastructure": "highways & railtracks",
+    # Existants ci-dessous
     # Banks
     "banks": "diversified banks", "banking": "diversified banks", "banques": "diversified banks",
     "banques et services financiers": "diversified banks", "regional banks": "regional banks",
@@ -210,13 +233,18 @@ async def refine_ticker(ticker: str, log) -> dict | None:
         log(f"[SKIP] {ticker}: no sub-industry template")
         return None
 
-    # Charge 10-K text
-    try:
-        docs = pl.gather_docs(ticker, 1)
-        annual = docs.get("annual_text", "")[:30000]
-    except Exception as e:
-        log(f"[ERR] {ticker}: gather_docs fail: {e}")
-        return None
+    # Détecte cat depuis ticker : "." dans tk → cat 3 EU ; sinon cat 1 USA.
+    # FPI ADR pas distinguable par ticker seul, fallback try cat 1 puis cat 2.
+    cats_to_try = [3, 1, 2] if "." in ticker else [1, 2, 3]
+    annual = ""
+    for c in cats_to_try:
+        try:
+            docs = pl.gather_docs(ticker, c)
+            annual = docs.get("annual_text", "")[:30000]
+            if len(annual) >= 5000:
+                break
+        except Exception:
+            continue
     if not annual or len(annual) < 5000:
         log(f"[SKIP] {ticker}: no source")
         return None

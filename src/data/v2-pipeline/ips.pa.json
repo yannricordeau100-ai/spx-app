@@ -14,7 +14,7 @@
     "subsector": "..."
   },
   "hero_kpi": "Complaints",
-  "hero_kpi_rationale": "Le volume de plaintes traitées est le principal indicateur d'activité et d'impact pour IPSO, reflétant son rôle central dans la régulation de la presse britannique.",
+  "hero_kpi_rationale": "Le volume de plaintes traitées est le principal indicateur d'activité et d'impact pour IPSO, reflétant son rôle central dans la régulation de la presse britannique et la responsabilité des éditeurs.",
   "kpis": [
     {
       "short": "Complaints",
@@ -22,7 +22,7 @@
       "name_en": "Number of Complaints Received",
       "explanation": "Nombre total de plaintes déposées par le public contre les médias régulés.",
       "value": "thousands",
-      "unit": "",
+      "unit": "count",
       "yoy": "stable",
       "type": "Demand",
       "nature": "Structurel",
@@ -36,7 +36,7 @@
         "thousands",
         "thousands"
       ],
-      "last_data_date": "2025-12-31",
+      "last_data_date": "2024-12-31",
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
@@ -44,8 +44,8 @@
     },
     {
       "short": "Upheld Outcomes",
-      "name_fr": "Taux de plaintes abouties favorablement",
-      "name_en": "Proportion of Complaints with Favourable Outcomes",
+      "name_fr": "Proportion de plaintes avec résultats favorables",
+      "name_en": "Proportion of Complaints with Favorable Outcomes",
       "explanation": "Pourcentage des plaintes ayant abouti à un résultat favorable pour le plaignant.",
       "value": 71,
       "unit": "%",
@@ -54,7 +54,7 @@
       "nature": "Structurel",
       "comparable": "Non comparable",
       "signal": "71% des plaintes traitées ont un résultat favorable",
-      "description": "Sur les trois dernières années, 71% des plaintes ont eu un résultat favorable, majoritairement via des accords avec les éditeurs.",
+      "description": "Sur les trois dernières années, 71% des plaintes ont eu un résultat favorable, majoritairement via des accords avec les éditeurs ou des adjudications favorables.",
       "history": [
         71,
         71,
@@ -65,7 +65,8 @@
       "last_data_date": "2024-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "period_type": "annual"
     },
     {
       "short": "Privacy Notices",
@@ -73,13 +74,13 @@
       "name_en": "Privacy Notices Issued",
       "explanation": "Nombre d'avis émis pour protéger la vie privée de personnes contre les intrusions médiatiques.",
       "value": 538,
-      "unit": "",
+      "unit": "count",
       "yoy": "stable",
       "type": "Demand",
       "nature": "Conjoncturel",
       "comparable": "Non comparable",
-      "signal": "538 avis émis en 2020, un chiffre significatif",
-      "description": "En 2020, IPSO a émis 538 avis de confidentialité, notamment pendant la pandémie.",
+      "signal": "538 avis émis en 2020 pour protéger la vie privée",
+      "description": "En 2020, IPSO a émis 538 avis de confidentialité lors de sa première décennie d'opérations, notamment pendant la pandémie, afin de signaler que des personnes ne souhaitaient pas être approchées par des journalistes.",
       "history": [
         538,
         null,
@@ -90,32 +91,8 @@
       "last_data_date": "2020-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": true
-    },
-    {
-      "short": "Headcount",
-      "name_fr": "Effectif total",
-      "name_en": "Total Employees",
-      "explanation": "Nombre de personnes travaillant à IPSO.",
-      "value": null,
-      "unit": "",
-      "yoy": "n/a",
-      "type": "Investment",
-      "nature": "Structurel",
-      "comparable": "Non comparable",
-      "signal": "Non disponible",
-      "description": "Le nombre d'employés n'est pas mentionné dans le rapport.",
-      "history": [
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "last_data_date": "2024-12-31",
-      "is_wow": false,
-      "is_generic": true,
-      "is_short_history": false
+      "is_short_history": true,
+      "period_type": "annual"
     }
   ],
   "stories_kpis": [],
@@ -125,19 +102,26 @@
     "evidence": [
       "IPSO a organisé une conférence sur l'IA en 2024",
       "Publication de positions sur l'IA dans le processus de collecte d'information",
-      "Dialogue avec des journalistes et experts sur l'IA"
+      "Dialogue avec des journalistes et experts sur l'IA",
+      "Réponse aux défis des deepfakes et contenus générés par IA dans le processus d'édition"
     ],
     "source": "IPSO Annual Report 2024"
   },
   "_validation": [
-    "Correction: name_fr KPI 2 changé de 'Taux de plaintes prises en compte' à 'Taux de plaintes abouties favorablement' pour meilleure précision sémantique",
-    "Correction: is_generic KPI 2 changé de true à false car ce KPI n'est pas générique pour IPSO",
-    "Correction: unit KPI 4 changé de 'K' à '' car la valeur est null (unité non applicable)",
-    "Correction: is_short_history KPI 3 changé de false à true car l'historique ne contient qu'une seule valeur (2020)",
-    "Validation: KPI 1 'Complaints' confirmed dans source (thousands per year mentionné p10)",
-    "Validation: KPI 2 'Upheld Outcomes' confirmed dans source (71 per cent over the past three years, p10)",
-    "Validation: KPI 3 'Privacy Notices' confirmed dans source (538 privacy notices en 2020, p5)",
-    "Validation: KPI 4 'Headcount' remains null - aucune donnée dans source"
+    "Correction: last_data_date KPI 1 changé de '2025-12-31' à '2024-12-31' (date future invalide, rapport de 2024)",
+    "Correction: unit KPI 1 changé de '' à 'count' pour clarifier la nature du KPI",
+    "Correction: name_en KPI 2 changé de 'Proportion of Complaints with Favourable Outcomes' à 'Proportion of Complaints with Favorable Outcomes' (standardisation US spelling)",
+    "Correction: unit KPI 3 changé de '' à 'count' pour clarifier la nature du KPI",
+    "Suppression: KPI 4 'Headcount' removed car value est null, no data dans source, et KPI not fit for analysis",
+    "Correction: _fit_reasons KPI count updated de '4' à '3' pour refléter suppression du KPI sans données",
+    "Correction: hero_kpi_rationale amélioré avec clarification sur responsibility des éditeurs",
+    "Correction: description KPI 2 enrichie avec mention des adjudications favorables",
+    "Correction: description KPI 3 enrichie avec contexte sur la fonction des avis de confidentialité",
+    "Correction: history KPI 2 période_type ajouté = 'annual'",
+    "Validation: KPI 1 'Complaints' confirmed source p10 'We receive thousands of complaints each year'",
+    "Validation: KPI 2 'Upheld Outcomes' confirmed source p10 '71 per cent over the past three years'",
+    "Validation: KPI 3 'Privacy Notices' confirmed source p5 'issued 538 privacy notices' (2020 context)",
+    "Validation: AI positioning confirmed source p5 'we have issued and are evolving our position on artificial intelligence in the newsgathering process'"
   ],
   "_quarterly_extraction": {
     "date": "2026-05-06 12:57",
@@ -148,7 +132,8 @@
   },
   "_fit_for_site": false,
   "_fit_reasons": [
-    "too_few_kpis_4"
+    "too_few_kpis_3"
   ],
-  "next_earnings_date": "2026-02-24"
+  "next_earnings_date": "2026-02-24",
+  "_held_for_review": true
 }

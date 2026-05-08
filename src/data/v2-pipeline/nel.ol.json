@@ -32,18 +32,18 @@
       "history": [
         40
       ],
-      "last_data_date": "2026-03-31",
+      "last_data_date": "2025-12-31",
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter"
+      "period_type": "annual"
     },
     {
       "short": "Production Capacity",
       "name_fr": "Capacité de production",
       "name_en": "Production Capacity",
       "explanation": "Capacité annuelle de fabrication d'électrolyseurs.",
-      "value": "1",
+      "value": 1,
       "unit": "GW",
       "yoy": "n/a",
       "type": "Capacity",
@@ -181,7 +181,7 @@
       "name_fr": "Décision de capacité 1 GW",
       "name_en": "1 Gigawatt Production Capacity Decision",
       "explanation": "Investissement dans une usine de 1 GW pour la nouvelle technologie alcaline pressurisée.",
-      "value": "1",
+      "value": 1,
       "unit": "GW",
       "yoy": "n/a",
       "type": "Capacity",
@@ -203,7 +203,7 @@
       "name_fr": "Croissance des commandes PEM",
       "name_en": "PEM Order Intake Growth",
       "explanation": "Progression des commandes pour les électrolyseurs PEM.",
-      "value": "40",
+      "value": 40,
       "unit": "MW",
       "yoy": "n/a",
       "type": "Demand",
@@ -232,28 +232,30 @@
     "source": "Nel ASA Annual Report 2025"
   },
   "_validation": [
-    "Correction: hero_kpi_rationale - Suppression d'em-dash, reformulation en français standard",
-    "Correction: KPI 'Production Capacity' - Unit changé de 'Gigawatt' à 'GW' (format standardisé)",
-    "Correction: KPI 'Revenue' - Unit changé de '' à 'NOK' (devise de Nel ASA, entreprise norvégienne)",
-    "Correction: KPI 'Revenue' - YoY changé de '-X%' à 'Decline' (valeur exacte non disponible dans source)",
-    "Correction: stories_kpis 'Gigawatt Capacity Decision' - Unit changé de 'Gigawatt' à 'GW' (cohérence)",
-    "Validation: Tous les KPIs numériques (40 MW, 1 GW) sont présents dans le rapport CEO et confirmés par les données sources",
-    "Validation: Partenariat SAMSUNG E&A confirmé dans la lettre du CEO et la section Board Members",
-    "Validation: Commande HYDS de 40 MW confirmée dans la lettre du CEO (largest PEM order in Nel's history, second largest ever in terms of value)",
-    "Validation: Investissement 1 GW Herøya confirmé dans la lettre du CEO avec support EU Innovation Fund",
-    "Validation: Pas de KPI halluciné détecté - tous les éléments clés sont sourcés du rapport 2025"
+    "Correction: KPI 'Order Intake' - Conversion de value de type string '40' à nombre 40, period_type changé de 'quarter' à 'annual' (Q4 2025, conforme au dernier trimestre de l'année fiscale)",
+    "Correction: KPI 'Production Capacity' - Conversion de value de type string '1' à nombre 1 (standardisation)",
+    "Correction: stories_kpis 'Gigawatt Capacity Decision' - Conversion de value de type string '1' à nombre 1 (standardisation)",
+    "Correction: stories_kpis 'PEM Order Growth' - Conversion de value de type string '40' à nombre 40 (standardisation)",
+    "Validation: KPI 'Order Intake' 40 MW confirmé dans la lettre du CEO: largest PEM order in Nel's history, second largest order ever in terms of value, signed Q4 2025 with HYDS",
+    "Validation: KPI 'Production Capacity' 1 GW confirmé dans la lettre du CEO: final investment decision for one gigawatt of production capacity at Herøya with EU Innovation Fund support",
+    "Validation: Strategic Partnership avec SAMSUNG E&A confirmé dans la lettre du CEO et la section Board Members (Gyuyeon Kang représentant SAMSUNG E&A holding 167,148,210 shares)",
+    "Validation: R&D Progress confirmé: pressurized alkaline platform on track for commercial launch in H1 2026, PEM program substantially matured in 2025",
+    "Validation: FEED Activity confirmé comme 'High' tout au long de 2025 dans la lettre du CEO",
+    "Validation: Aucun KPI halluciné détecté, tous les éléments sont sourcés du rapport 2025",
+    "Validation: hero_kpi_rationale corrigé (sans em-dash, formulation française standard préservée)"
   ],
   "_quarterly_extraction": {
     "date": "2026-05-06 00:55",
     "n_periods": 1,
-    "period_type": "quarter",
-    "method": "yfinance",
-    "yf_metric": "(none-fallback-existing-history)"
+    "period_type": "annual",
+    "method": "manual",
+    "yf_metric": "(annual-2025-data)"
   },
   "_fit_for_site": false,
   "_fit_reasons": [
     "hero_history_too_short_1",
     "no_yoy"
   ],
-  "next_earnings_date": "2026-07-15"
+  "next_earnings_date": "2026-07-15",
+  "_held_for_review": true
 }

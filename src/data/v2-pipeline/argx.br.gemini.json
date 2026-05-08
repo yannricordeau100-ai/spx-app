@@ -23,7 +23,7 @@
       "explanation": "Part des dépenses de recherche et développement par rapport au chiffre d'affaires.",
       "value": "n/a",
       "unit": "%",
-      "yoy": "stable",
+      "yoy": "n/a",
       "type": "Investment",
       "nature": "Structurel",
       "comparable": "Non comparable",
@@ -33,7 +33,7 @@
       "last_data_date": "2024-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": true
     },
     {
       "short": "Op Margin",
@@ -42,7 +42,7 @@
       "explanation": "Bénéfice opérationnel divisé par le chiffre d'affaires.",
       "value": "n/a",
       "unit": "%",
-      "yoy": "stable",
+      "yoy": "n/a",
       "type": "Margin",
       "nature": "Conjoncturel",
       "comparable": "Non comparable",
@@ -52,7 +52,7 @@
       "last_data_date": "2024-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": true
     },
     {
       "short": "Headcount",
@@ -61,7 +61,7 @@
       "explanation": "Nombre total d'employés dans la société.",
       "value": "n/a",
       "unit": "K",
-      "yoy": "stable",
+      "yoy": "n/a",
       "type": "Investment",
       "nature": "Structurel",
       "comparable": "Non comparable",
@@ -71,21 +71,21 @@
       "last_data_date": "2024-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": true
     },
     {
       "short": "Cash",
       "name_fr": "Trésorerie disponible",
       "name_en": "Cash and Cash Equivalents",
       "explanation": "Liquidités et placements à court terme disponibles.",
-      "value": "0.0",
-      "unit": "Mds $",
-      "yoy": "-98%",
+      "value": "0.006",
+      "unit": "M $",
+      "yoy": "-99.98%",
       "type": "Cash",
       "nature": "Conjoncturel",
       "comparable": "Comparable",
       "signal": "Trésorerie quasi nulle en 2024, chute massive vs 2023.",
-      "description": "La trésorerie est tombée à 6K$ en 2024 contre 28,7M$ en 2023, indiquant une forte utilisation de cash pour financer les opérations.",
+      "description": "La trésorerie est tombée à 6k$ en 2024 contre 28,744M$ en 2023, indiquant une forte utilisation de cash pour financer les opérations.",
       "history": [
         28.744,
         0.006
@@ -100,14 +100,14 @@
       "name_fr": "Pertes accumulées",
       "name_en": "Accumulated Losses",
       "explanation": "Total des pertes nettes non compensées depuis la création.",
-      "value": "1.6",
+      "value": "1.572",
       "unit": "Mds $",
-      "yoy": "-35%",
+      "yoy": "-34.66%",
       "type": "Risk",
       "nature": "Structurel",
       "comparable": "Non comparable",
       "signal": "Réduction significative des pertes accumulées grâce à une forte contribution des filiales.",
-      "description": "Les pertes accumulées passent de 2,4Mds$ à 1,6Mds$, une amélioration de 833M$ grâce au résultat des filiales.",
+      "description": "Les pertes accumulées passent de 2,405Mds$ à 1,572Mds$, une amélioration de 833M$ grâce au résultat des filiales.",
       "history": [
         2.405,
         1.572
@@ -122,8 +122,8 @@
       "name_fr": "Résultat des filiales",
       "name_en": "Share in Result of Subsidiaries",
       "explanation": "Contribution bénéficiaire des filiales à la maison mère.",
-      "value": "852.5",
-      "unit": "Mds $",
+      "value": "852.45",
+      "unit": "M $",
       "yoy": "n/a",
       "type": "Revenue",
       "nature": "Structurel",
@@ -132,7 +132,7 @@
       "description": "Inversion spectaculaire du résultat des filiales, clé de la performance 2024 au niveau consolidé.",
       "history": [
         -294.5,
-        852.5
+        852.45
       ],
       "last_data_date": "2024-12-31",
       "is_wow": true,
@@ -150,5 +150,20 @@
       "Focus exclusif sur les anticorps et la biologie, sans mention de digitalisation ou d'outils prédictifs."
     ],
     "source": ""
-  }
+  },
+  "_validation": [
+    "Cash (Short 'Cash'): valeur corrigée de '0.0' à '0.006' (6k$ en milliers = 0.006M$), unité corrigée de 'Mds $' à 'M $', yoy corrigé de '-98%' à '-99.98%' (calcul exact: (0.006-28.744)/28.744)",
+    "Share in Result of Subsidiaries (Short 'Share in Result of Subsidiaries'): valeur corrigée de '852.5' à '852.45' (milliers USD), unité corrigée de 'Mds $' à 'M $' (source montre 852,450 en thousands)",
+    "Accumulated Losses (Short 'Accumulated Losses'): valeur corrigée de '1.6' à '1.572' (source montre 1,571,804 en thousands = 1.571804Mds $), yoy corrigé de '-35%' à '-34.66%' (calcul exact: (1.572-2.405)/2.405)",
+    "R&D (Short 'R&D'): yoy corrigé de 'stable' à 'n/a' (pas de données historiques disponibles), is_short_history marqué comme true",
+    "Op Margin (Short 'Op Margin'): yoy corrigé de 'stable' à 'n/a' (pas de données historiques disponibles), is_short_history marqué comme true",
+    "Headcount (Short 'Headcount'): yoy corrigé de 'stable' à 'n/a' (pas de données dans la source), is_short_history marqué comme true",
+    "Validation finale: Tous les KPI extractables de la source (Cash, Accumulated Losses, Share in Result of Subsidiaries) ont été vérifiés contre le bilan consolidé et P&L. Les trois KPI sans données (R&D %, Op Margin, Headcount) restent en n/a car non disponibles dans l'extrait fourni."
+  ],
+  "_fit_for_site": false,
+  "_fit_reasons": [
+    "hero_history_too_short_0",
+    "no_yoy"
+  ],
+  "next_earnings_date": "2026-05-07"
 }

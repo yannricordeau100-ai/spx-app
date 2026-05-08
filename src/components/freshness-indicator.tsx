@@ -16,7 +16,9 @@ const META: Record<
     explainerKey: "company.fresh_explainer",
   },
   recent: {
-    color: "#a1a1aa",
+    // Avant gris (#a1a1aa) — Yann demande couleur plus vive pour montrer
+    // que la donnée est récente et utilisable, pas un signal négatif.
+    color: "#06b6d4",
     Icon: Clock,
     labelKey: "company.recent",
     explainerKey: "company.recent_explainer",

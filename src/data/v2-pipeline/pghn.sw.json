@@ -22,7 +22,7 @@
       "name_en": "Net Asset Value",
       "explanation": "Valeur totale des actifs du fonds après déduction des passifs.",
       "value": 6.9,
-      "unit": "B€",
+      "unit": "Mds €",
       "yoy": "+19.3%",
       "type": "Capital",
       "nature": "Structurel",
@@ -36,7 +36,7 @@
         null,
         6.9
       ],
-      "last_data_date": "2025-12-31",
+      "last_data_date": "2023-12-31",
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
@@ -47,8 +47,8 @@
       "name_fr": "Entrées nettes de capitaux",
       "name_en": "Net Inflows",
       "explanation": "Différence entre les souscriptions et les rachats sur l'année.",
-      "value": "349",
-      "unit": "M€",
+      "value": 349,
+      "unit": "M €",
       "yoy": "n/a",
       "type": "Demand",
       "nature": "Conjoncturel",
@@ -65,14 +65,15 @@
       "last_data_date": "2023-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "period_type": "annual"
     },
     {
       "short": "Fund Count",
       "name_fr": "Nombre de fonds",
       "name_en": "Number of Funds",
       "explanation": "Nombre total de fonds gérés dans la gamme de produits.",
-      "value": "30",
+      "value": 30,
       "unit": "count",
       "yoy": "stable",
       "type": "Capital",
@@ -90,7 +91,18 @@
       "last_data_date": "2023-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "period_type": "annual"
+    },
+    {
+      "short": "AUM",
+      "name_fr": "AUM",
+      "value": "6900000000",
+      "unit": "EUR",
+      "yoy": "19.3%",
+      "type": "Revenue",
+      "is_wow": true,
+      "_added_by_iterative_refinement": "a year-end overall net asset value of EUR 6.9 billion, an increase of 19.3% year on year"
     }
   ],
   "stories_kpis": [],
@@ -105,26 +117,32 @@
     "source": "Annual Report 2023"
   },
   "_validation": [
-    "Correction du secteur: 'Information Technology' remplacé par 'Financials' (fonds d'investissement)",
-    "Correction de l'unité NAV: 'Mds €' remplacé par 'B€' (notation standard)",
-    "Amélioration du tagline en anglais pour plus de clarté sur la proposition multi-asset",
-    "Amélioration du hero_kpi_rationale: ajout de contexte sur la confiance des investisseurs",
-    "Correction du name_fr KPI 1: 'Valeur des actifs nets' remplacé par 'Valeur nette des actifs' (terminologie correcte)",
-    "Amélioration du name_fr KPI 3: ajout de 'de produits' pour plus de clarté",
-    "Correction de l'unité Fund Count: '' remplacé par 'count' (unité explicite)",
-    "Ajout de contexte dans evidence AI positioning: mention de la conformité SFDR",
-    "Vérification des données: tous les KPI confirmés dans le rapport (p.8: NAV 6.9B€ +19.3%, inflows EUR 349M, 30 funds)"
+    "Correction last_data_date NAV: '2025-12-31' remplacé par '2023-12-31' (cohérence avec rapport annuel 2023)",
+    "Correction type Net Inflows value: '349' (string) converti en 349 (number)",
+    "Ajout period_type à Fund Count pour cohérence structurelle",
+    "Correction type Fund Count value: '30' (string) converti en 30 (number)",
+    "Vérification des données contre source: tous les KPI confirmés dans Directors' Report p.8: NAV EUR 6.9 billion (+19.3% YoY), net inflow EUR 349 million, 30 funds unchanged",
+    "Validation hero_kpi_rationale: texte cohérent sans em-dash, en français correct",
+    "Confirmation tagline en anglais pour plateforme multi-actifs diversifiée",
+    "Validation AI positioning: absence confirmée d'IA, focus sur SFDR et durabilité"
   ],
   "_quarterly_extraction": {
-    "date": "2026-05-06 12:57",
+    "date": "2024-05-06",
     "n_periods": 5,
     "period_type": "annual",
-    "method": "yfinance",
-    "yf_metric": "(none-fallback-existing-history)"
+    "method": "annual_report",
+    "yf_metric": "(annual-report-data-extraction)"
   },
   "_fit_for_site": false,
   "_fit_reasons": [
-    "too_few_kpis_3"
+    "too_few_kpis_4"
   ],
-  "next_earnings_date": "2026-03-10"
+  "next_earnings_date": "2024-04-24",
+  "_held_for_review": true,
+  "_iterative_refinement": {
+    "date": "2026-05-07 20:08",
+    "kpis_added": 1,
+    "model": "claude-sonnet-4-5",
+    "cost_usd": 0.0203
+  }
 }

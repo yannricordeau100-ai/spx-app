@@ -32,18 +32,18 @@
       "history": [
         225
       ],
-      "last_data_date": "2025-12-31",
+      "last_data_date": "2024-05-17",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "period_type": "quarter"
+      "period_type": "annual"
     },
     {
       "short": "Loss Prevention Colloquium Attendance",
       "name_fr": "Participation au colloque de prévention des sinistres",
       "name_en": "Loss Prevention Colloquium Attendance",
-      "explanation": "Nombre de participants au premier colloque annuel de prévention des sinistres organisé par l'IVR.",
-      "value": "80",
+      "explanation": "Nombre de participants au premier colloque annuel de prévention des sinistres organisé par l'IVR, réunissant des professionnels de Belgique, des Pays-Bas et d'Allemagne.",
+      "value": 80,
       "unit": "participants",
       "yoy": "inaugural",
       "type": "Operational",
@@ -57,7 +57,8 @@
       "last_data_date": "2024-11-04",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true
+      "is_short_history": true,
+      "period_type": "annual"
     }
   ],
   "stories_kpis": [],
@@ -70,27 +71,24 @@
     "source": ""
   },
   "_validation": [
-    "Corrected sector from 'Information Technology' to 'Non-profit / Association' - IVR is a trade association, not a tech company",
-    "Corrected subsector from 'IT Services' to 'Trade Association'",
-    "Removed invalid rank values (≈ #N/A, ...) and replaced with 'N/A'",
-    "Changed hero_kpi from 'Headcount' to 'Annual Congress Attendance' - more relevant to an association",
-    "Rewrote hero_kpi_rationale in French without em-dashes, focusing on association relevance",
-    "Replaced hallucinatory KPI 'Effectif (employés)' with verified 'Annual Congress Attendance' based on Frankfurt 2024 Congress text mentioning 225 participants from 11 countries",
-    "Added unit 'participants' to both KPIs (was missing)",
-    "Corrected name_en from 'Total Employees' to 'Annual Congress Attendance'",
-    "Enhanced explanation and description fields with specific sourced details",
-    "Added second verified KPI 'Loss Prevention Colloquium Attendance' (80 participants, Antwerp, Nov 4 2024) from source text",
-    "Set yoy to 'unknown' for first KPI (no prior year data in source) and 'inaugural' for second KPI",
-    "Corrected type from 'Investment' to 'Operational' for both KPIs",
-    "Corrected last_data_date from '2024-05-17' to reflect actual congress dates",
-    "Set is_short_history to true for both (single data point only)",
-    "Removed generic/hallucinated references to 'May 2024' congress in signal field for clarity"
+    "Verified Annual Congress Attendance: 225 participants from 11 countries confirmed in Frankfurt Congress section (May 15-17, 2024)",
+    "Corrected value type from string to integer for Loss Prevention Colloquium (80, not '80')",
+    "Verified Loss Prevention Colloquium Attendance: 80 participants from Belgium, Netherlands, and Germany confirmed in Antwerp section (November 4, 2024)",
+    "Corrected last_data_date for Annual Congress from 2025-12-31 to 2024-05-17 (actual congress date)",
+    "Changed period_type from 'quarter' to 'annual' for both KPIs (congresses are annual events)",
+    "Confirmed no YoY comparison available for Annual Congress (first data point in source)",
+    "Confirmed inaugural status for Loss Prevention Colloquium (explicitly stated as allererste Ausgabe / first edition)",
+    "All KPI values sourced directly from annual report text (no hallucinations detected)",
+    "Explanation field for second KPI enhanced with geographic scope from source",
+    "Hero KPI rationale already properly formatted in French without em-dashes",
+    "All unit corrections verified: both KPIs use 'participants' as appropriate unit",
+    "Organization structure and sector classification (Non-profit/Trade Association) confirmed from governance section"
   ],
   "_quarterly_extraction": {
     "date": "2026-05-06 12:57",
     "n_periods": 1,
-    "period_type": "quarter",
-    "method": "yfinance",
+    "period_type": "annual",
+    "method": "document_extraction",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -98,5 +96,6 @@
     "hero_history_too_short_1",
     "too_few_kpis_2"
   ],
-  "next_earnings_date": "2026-05-10"
+  "next_earnings_date": "2026-05-10",
+  "_held_for_review": true
 }

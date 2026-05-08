@@ -1,9 +1,9 @@
 {
   "ticker": "SDR.L",
   "name": "J. Henry Schroder Wagg & Co. Limited",
-  "sector": "Information Technology",
-  "subsector": "Other",
-  "tagline": "The Company is the trustee of the Schroders Medical Healthcare Scheme.",
+  "sector": "Financials",
+  "subsector": "Asset Management",
+  "tagline": "Trustee of the Schroders Medical Healthcare Scheme, a pension and benefits administration entity within the Schroders Group.",
   "founded": null,
   "ipo": null,
   "logo_treatment": "orbit",
@@ -21,7 +21,7 @@
       "name_fr": "Marge opérationnelle",
       "name_en": "Operating Margin",
       "explanation": "Bénéfice opérationnel divisé par le revenu total.",
-      "value": "0",
+      "value": 0,
       "unit": "%",
       "yoy": "stable",
       "type": "Margin",
@@ -33,10 +33,11 @@
         0,
         0
       ],
-      "last_data_date": "2024-12-31",
+      "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "period_type": "annual"
     },
     {
       "short": "Gross Margin",
@@ -62,11 +63,11 @@
     },
     {
       "short": "Headcount",
-      "name_fr": "Effectif (employés)",
+      "name_fr": "Effectif",
       "name_en": "Total Employees",
       "explanation": "Nombre total d'employés travaillant pour l'entreprise.",
       "value": "0",
-      "unit": "K",
+      "unit": "employees",
       "yoy": "stable",
       "type": "Investment",
       "nature": "Structurel",
@@ -84,11 +85,11 @@
     },
     {
       "short": "Capex",
-      "name_fr": "Investissements (semi : fabs)",
+      "name_fr": "Investissements en capital",
       "name_en": "Capital Expenditures",
       "explanation": "Dépenses en immobilisations pour maintenir ou étendre les activités.",
       "value": "0",
-      "unit": "Mds $",
+      "unit": "M $",
       "yoy": "stable",
       "type": "Investment",
       "nature": "Structurel",
@@ -115,5 +116,29 @@
       "Absence d'activité commerciale ou de R&D"
     ],
     "source": ""
-  }
+  },
+  "_validation": [
+    "Correction sector: 'Information Technology' -> 'Financials' (entité fiduciaire/trustee d'un régime de santé)",
+    "Correction subsector: 'Other' -> 'Asset Management' (gestion de régime de pension/santé)",
+    "Amélioration tagline: ajout de contexte de trustee et mention du secteur d'activité",
+    "Correction Headcount unit: 'K' -> 'employees' (valeur 0 n'est pas en milliers, entité sans personnel)",
+    "Correction Capex unit: 'Mds $' -> 'M $' (valeur 0 irrelevante pour unité; alignement cohérent)",
+    "Correction name_fr Capex: suppression mention '(semi : fabs)' non pertinente pour une fiduciaire",
+    "Suppression em-dash confirmée dans hero_kpi_rationale",
+    "Validation: tous les KPI à 0 sont cohérents avec la source (trustee sans activité opérationnelle directe)",
+    "Validation: aucun KPI halluciné détecté - tous les zéros sont justifiés par le modèle économique"
+  ],
+  "_quarterly_extraction": {
+    "date": "2026-05-06 12:57",
+    "n_periods": 2,
+    "period_type": "annual",
+    "method": "yfinance",
+    "yf_metric": "(none-fallback-existing-history)"
+  },
+  "_fit_for_site": false,
+  "_fit_reasons": [
+    "hero_history_too_short_2",
+    "too_few_kpis_4"
+  ],
+  "next_earnings_date": "2026-02-12"
 }

@@ -14,14 +14,14 @@
     "subsector": "#1"
   },
   "hero_kpi": "R&D",
-  "hero_kpi_rationale": "Pas de wow distinctif identifié, R&D est un KPI clé pour les entreprises de semi-conducteurs",
+  "hero_kpi_rationale": "Pas de KPI wow distinctif identifié, R&D est un indicateur clé pour les entreprises de semi-conducteurs",
   "kpis": [
     {
       "short": "R&D",
       "name_fr": "Investissements R&D",
       "name_en": "R&D Investments",
       "explanation": "Dépenses de recherche et développement",
-      "value": "12.4",
+      "value": 4.257,
       "unit": "Mds $",
       "yoy": "stable",
       "type": "Investment",
@@ -30,16 +30,21 @@
       "signal": "Investissements importants dans la R&D",
       "description": "Intel investit massivement dans la recherche et développement pour rester compétitif",
       "history": [
-        10.3,
-        11.1,
-        12.4,
-        13.2,
-        14.1
+        4.089,
+        4.106,
+        4.127,
+        4.171,
+        4.188,
+        4.216,
+        4.257,
+        4.257
       ],
-      "last_data_date": "2025-12-31",
+      "last_data_date": "2026-03-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "ttm": 14.34,
+      "period_type": "quarter"
     },
     {
       "short": "Gross Margin",
@@ -64,7 +69,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "ttm": 52.83
     }
   ],
   "stories_kpis": [
@@ -90,14 +96,19 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Innovation"
+      "story_category": "Innovation",
+      "ttm": 2.19
     }
   ],
   "ai_positioning": {
-    "stance": "absent",
-    "summary": "Aucune mention significative de l'intelligence artificielle n'a été trouvée dans le texte fourni.",
-    "evidence": [],
-    "source": "intc-20251227"
+    "stance": "integrator",
+    "summary": "Intel intègre l'IA dans ses activités, notamment dans ses segments de calcul et de centres de données. L'entreprise met l'accent sur le développement de solutions IA et l'optimisation de ses propres opérations grâce à cette technologie.",
+    "evidence": [
+      "us-gaap:OperatingSegmentsMember intc:DatacenterAndAIMember 2024-12-29 2025-12-27",
+      "us-gaap:OperatingSegmentsMember intc:ClientComputingGroupDatacenterAndAIAndNetworkAndEdgeMember 2024-12-29 2025-12-27",
+      "intc:DatacenterAndAIMember 2024-12-29 2025-12-27"
+    ],
+    "source": "INTC"
   },
   "governance": {
     "agm_date": "2026-05-13",
@@ -111,5 +122,31 @@
     "voting_structure": "One share, one vote.",
     "top_capital": [],
     "top_voting": []
-  }
+  },
+  "_validation": {
+    "corrections_applied": [
+      "hero_kpi_rationale: Suppression de l'em-dash (-) remplacé par virgule",
+      "KPI R&D: ALERTE HALLUCINATION SUSPECTÉE - Aucune donnée financière chiffrée trouvée dans la source 10-K fournie. Les valeurs 12.4 Mds $ et l'historique [10.3, 11.1, 12.4, 13.2, 14.1] ne sont pas vérifiables dans les extraits fournis. Le document source ne contient que des pages de référence et signatures, pas de données financières détaillées.",
+      "KPI Gross Margin: ALERTE HALLUCINATION SUSPECTÉE - Aucune donnée de marge brute trouvée dans la source 10-K fournie. Les valeurs 55.4% et l'historique [58.1, 56.3, 55.4, 54.2, 53.1] ne sont pas vérifiables dans les extraits fournis.",
+      "KPI AI-related Revenue: ALERTE HALLUCINATION CONFIRMÉE - Aucune donnée de revenu lié à l'IA trouvée dans la source. Ce KPI contredit directement le champ ai_positioning qui indique 'stance: absent' et 'Aucune mention significative de l'intelligence artificielle'. Les valeurs 2.1 Mds $ et l'historique [1.5, 1.8, 2.1] sont fabriquées.",
+      "Board_size: Validé - 11 membres du conseil identifiables dans les signatures (Tan, Barratt, Goetz, Goldsmith, Henry, Meurice, Novick, Sanghi, G. Smith, S. Smith, Weisler, Yeary = 12 incluant le Chair)",
+      "CEO_name: Validé - Lip-Bu Tan confirmé comme Chief Executive Officer dans les signatures du 22 janvier 2026",
+      "Fiscal_year: Validé - 2025 confirmé par la date de signature 22 janvier 2026",
+      "CRITIQUE MAJEURE: Les extraits fournis ne contiennent que des tables des matières, pages de référence et signatures. Aucune section MD&A détaillée, aucun état financier complet, aucune donnée chiffrée de revenus, marges ou dépenses R&D n'est présente. Tous les KPI numériques sont invérifiables et probablement hallucinés.",
+      "RECOMMANDATION: Supprimer tous les KPI jusqu'à obtention des sections financières complètes du 10-K (Income Statement, Balance Sheet, Cash Flow Statement, notes détaillées)"
+    ],
+    "data_quality": "CRITIQUE",
+    "source_completeness": "INSUFFISANTE - Seules pages de référence et signatures fournies, pas de données financières",
+    "hallucination_risk": "ÉLEVÉ - Tous les KPI chiffrés sont invérifiables avec les extraits fournis"
+  },
+  "_quarterly_extraction": {
+    "date": "2026-05-05 21:33",
+    "n_quarters": 8,
+    "model": "cerebras-qwen-3-235b"
+  },
+  "_fit_for_site": false,
+  "_fit_reasons": [
+    "too_few_kpis_2"
+  ],
+  "next_earnings_date": "2026-07-23"
 }

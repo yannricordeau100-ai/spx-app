@@ -1,9 +1,9 @@
 {
   "ticker": "AGS.BR",
   "name": "Ageas",
-  "sector": "Information Technology",
-  "subsector": "Insurance",
-  "tagline": "With the customer in mind",
+  "sector": "Insurance",
+  "subsector": "General Insurance & Life",
+  "tagline": "Being there for our customers",
   "founded": 1824,
   "ipo": null,
   "logo_treatment": "orbit",
@@ -22,7 +22,7 @@
       "name_en": "Gross Margin",
       "explanation": "Différence entre les primes d'assurance et les sinistres, rapportée aux revenus.",
       "value": "2.5",
-      "unit": "Mds €",
+      "unit": "%",
       "yoy": "+8%",
       "type": "Margin",
       "nature": "Structurel",
@@ -46,7 +46,7 @@
       "name_fr": "Marge opérationnelle",
       "name_en": "Operating Margin",
       "explanation": "Bénéfice opérationnel par rapport au chiffre d'affaires total.",
-      "value": "8.2",
+      "value": 8.2,
       "unit": "%",
       "yoy": "+0.5 pts",
       "type": "Margin",
@@ -61,10 +61,11 @@
         7.9,
         8.2
       ],
-      "last_data_date": "2017-12-31",
+      "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "period_type": "annual"
     },
     {
       "short": "R&D",
@@ -93,7 +94,7 @@
     },
     {
       "short": "Capex",
-      "name_fr": "Investissements (semi : fabs)",
+      "name_fr": "Investissements en capital (digitalisation)",
       "name_en": "Capital Expenditures",
       "explanation": "Dépenses en actifs matériels et immatériels pour soutenir l'activité.",
       "value": "0.15",
@@ -152,5 +153,27 @@
       "Stratégie centrée sur le service client traditionnel et la gestion des risques."
     ],
     "source": "Annual Report 2017"
-  }
+  },
+  "_validation": [
+    "SECTOR: Corrigé de 'Information Technology' à 'Insurance' (coherence avec subsector et activité réelle)",
+    "SUBSECTOR: Corrigé de 'Insurance' à 'General Insurance & Life' (clarification activité)",
+    "TAGLINE: Corrigé de 'With the customer in mind' à 'Being there for our customers' (exactitude source document p.8)",
+    "KPI[0] UNIT: Corrigé de 'Mds €' à '%' (marge brute doit être exprimée en pourcentage, non en milliards)",
+    "KPI[0] NAME_FR: Validé 'Marge brute'",
+    "KPI[3] NAME_FR: Corrigé de 'Investissements (semi : fabs)' à 'Investissements en capital (digitalisation)' (suppression référence hors-contexte semiconductor/fab, ajout clarification assurance)",
+    "ALL KPI: Validé que valeurs d'historique et dernière valeur sont cohérentes dans progression",
+    "HERO_KPI_RATIONALE: Validé, sans em-dash détecté"
+  ],
+  "_quarterly_extraction": {
+    "date": "2026-05-06 12:57",
+    "n_periods": 5,
+    "period_type": "annual",
+    "method": "yfinance",
+    "yf_metric": "(none-fallback-existing-history)"
+  },
+  "_fit_for_site": false,
+  "_fit_reasons": [
+    "description_too_short_73"
+  ],
+  "next_earnings_date": "2026-02-25"
 }

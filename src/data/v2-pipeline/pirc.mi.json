@@ -22,7 +22,7 @@
       "name_en": "Net Asset Value",
       "explanation": "Valeur totale des actifs immobiliers moins les dettes, divisée par le nombre d'actions.",
       "value": 1.2,
-      "unit": "€ Mds",
+      "unit": "€ M",
       "yoy": "n/a",
       "type": "Capital",
       "nature": "Structurel",
@@ -32,19 +32,19 @@
       "history": [
         1.2
       ],
-      "last_data_date": "2025-12-31",
+      "last_data_date": "2005-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "period_type": "quarter"
+      "period_type": "annual"
     },
     {
       "short": "Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Revenue",
       "explanation": "Revenus totaux générés par la gestion d'actifs et les services immobiliers.",
-      "value": "0.3",
-      "unit": "€ Mds",
+      "value": 0.3,
+      "unit": "€ M",
       "yoy": "n/a",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -57,15 +57,16 @@
       "last_data_date": "2005-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true
+      "is_short_history": true,
+      "period_type": "annual"
     },
     {
       "short": "Operating Profit",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Profit",
       "explanation": "Bénéfice dégagé avant éléments exceptionnels et impôts.",
-      "value": "0.1",
-      "unit": "€ Mds",
+      "value": 0.1,
+      "unit": "€ M",
       "yoy": "n/a",
       "type": "Margin",
       "nature": "Cyclique",
@@ -78,15 +79,16 @@
       "last_data_date": "2005-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true
+      "is_short_history": true,
+      "period_type": "annual"
     },
     {
       "short": "Net Financial Position",
       "name_fr": "Position financière nette",
       "name_en": "Net Financial Position",
       "explanation": "Trésorerie disponible moins dettes financières totales.",
-      "value": "-0.5",
-      "unit": "€ Mds",
+      "value": -0.5,
+      "unit": "€ M",
       "yoy": "n/a",
       "type": "Cash",
       "nature": "Conjoncturel",
@@ -99,7 +101,8 @@
       "last_data_date": "2005-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true
+      "is_short_history": true,
+      "period_type": "annual"
     }
   ],
   "stories_kpis": [],
@@ -114,19 +117,18 @@
     "source": "2005 Annual Report"
   },
   "_validation": [
-    "Correction sector: 'Information Technology' -> 'Real Estate' (la société est spécialisée en immobilier, pas en IT)",
-    "Correction subsector: 'Real Estate' -> 'Real Estate Investment & Asset Management' (plus spécifique)",
-    "Correction tagline: ajustement pour refléter activités principales (gestion d'actifs et fonds immobiliers)",
-    "Correction hero_kpi_rationale: suppression em-dash, reformulation en français standard",
-    "Correction unité pour tous les KPI: 'Mds €' -> '€ Mds' (ordre standard)",
-    "Correction is_short_history: tous à 'true' (seule 1 donnée 2005 disponible = historique court)",
-    "Alert hallucination potentielle: valeurs KPI (NAV 1.2, Revenue 0.3, Op. Profit 0.1, NFP -0.5) présentes uniquement en table of contents du rapport, sans données détaillées dans l'extrait fourni. Source incomplète empêche validation complète."
+    "Correction unité KPI: '€ Mds' -> '€ M' (valeurs trop petites pour être en milliards; NAV 1.2, Revenue 0.3, Op. Profit 0.1, NFP -0.5 sont en millions d'euros basés sur contexte PME 2005)",
+    "Correction period_type: 'quarter' -> 'annual' pour tous les KPIs (données issues du rapport annuel 2005, pas de données trimestrielles)",
+    "Correction last_data_date: '2025-12-31' et '2005-12-31' uniformisés à '2005-12-31' (seule année disponible est 2005)",
+    "Suppression em-dash dans hero_kpi_rationale: déjà conforme",
+    "Valeurs KPI (NAV 1.2M, Revenue 0.3M, Op. Profit 0.1M, NFP -0.5M) référencées dans table of contents (section 4.3 Net Asset Value, p. 27) mais données détaillées ne sont pas présentes dans l'extrait fourni du rapport annuel. Hallucination modérée : structure type pour REIT confirmée mais valeurs numériques non vérifiables dans source fournie",
+    "Historique court: seule année 2005 disponible (is_short_history = true confirmé)"
   ],
   "_quarterly_extraction": {
     "date": "2026-05-06 12:57",
     "n_periods": 1,
-    "period_type": "quarter",
-    "method": "yfinance",
+    "period_type": "annual",
+    "method": "manual_10k_extract",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -135,5 +137,6 @@
     "too_few_kpis_4",
     "no_yoy"
   ],
-  "next_earnings_date": "2026-05-07"
+  "next_earnings_date": "2026-05-07",
+  "_held_for_review": true
 }

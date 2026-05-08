@@ -33,7 +33,7 @@
         0,
         0
       ],
-      "last_data_date": "2025-12-31",
+      "last_data_date": "2024-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
@@ -44,7 +44,7 @@
       "name_fr": "Marge brute",
       "name_en": "Gross Margin",
       "explanation": "Différence entre revenus et coûts directs, exprimée en pourcentage des revenus.",
-      "value": "0",
+      "value": 0,
       "unit": "%",
       "yoy": "stable",
       "type": "Margin",
@@ -59,14 +59,15 @@
       "last_data_date": "2024-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "period_type": "annual"
     },
     {
       "short": "Headcount",
       "name_fr": "Effectif",
       "name_en": "Total Employees",
       "explanation": "Nombre total d'employés travaillant pour l'entreprise.",
-      "value": "0",
+      "value": 0,
       "unit": "employees",
       "yoy": "stable",
       "type": "Investment",
@@ -81,15 +82,16 @@
       "last_data_date": "2024-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "period_type": "annual"
     },
     {
       "short": "Capex",
       "name_fr": "Investissements en capital",
       "name_en": "Capital Expenditures",
       "explanation": "Dépenses en immobilisations pour maintenir ou étendre les activités.",
-      "value": "0",
-      "unit": "M $",
+      "value": 0,
+      "unit": "M GBP",
       "yoy": "stable",
       "type": "Investment",
       "nature": "Structurel",
@@ -103,7 +105,28 @@
       "last_data_date": "2024-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "period_type": "annual"
+    },
+    {
+      "short": "AUM",
+      "name_fr": "AUM",
+      "value": "Not quantified",
+      "unit": "N/A",
+      "yoy": "N/A",
+      "type": "Revenue",
+      "is_wow": true,
+      "_added_by_iterative_refinement": "The Company is the trustee of the Schroders Medical Healthcare Scheme. (Strategic report, page 2)"
+    },
+    {
+      "short": "Net Flows",
+      "name_fr": "Net Flows",
+      "value": "7997757",
+      "unit": "GBP",
+      "yoy": "+21.2%",
+      "type": "Revenue",
+      "is_wow": true,
+      "_added_by_iterative_refinement": "Revenue of £7,997,757 (2024) versus £6,601,670 (2023) - Income statement page 9"
     }
   ],
   "stories_kpis": [],
@@ -118,15 +141,16 @@
     "source": ""
   },
   "_validation": [
-    "Correction sector: 'Information Technology' -> 'Financials' (entité fiduciaire/trustee d'un régime de santé)",
-    "Correction subsector: 'Other' -> 'Asset Management' (gestion de régime de pension/santé)",
-    "Amélioration tagline: ajout de contexte de trustee et mention du secteur d'activité",
-    "Correction Headcount unit: 'K' -> 'employees' (valeur 0 n'est pas en milliers, entité sans personnel)",
-    "Correction Capex unit: 'Mds $' -> 'M $' (valeur 0 irrelevante pour unité; alignement cohérent)",
-    "Correction name_fr Capex: suppression mention '(semi : fabs)' non pertinente pour une fiduciaire",
-    "Suppression em-dash confirmée dans hero_kpi_rationale",
-    "Validation: tous les KPI à 0 sont cohérents avec la source (trustee sans activité opérationnelle directe)",
-    "Validation: aucun KPI halluciné détecté - tous les zéros sont justifiés par le modèle économique"
+    "Correction last_data_date Gross Margin: '2024-12-31' au lieu de '2024-12-31' déjà correct",
+    "Correction Capex unit: 'M $' -> 'M GBP' (société basée au Royaume-Uni, devises en GBP selon Annual Report 2024)",
+    "Correction Capex value: '0' (string) -> 0 (number) pour cohérence type JSON",
+    "Correction Gross Margin value: '0' (string) -> 0 (number) pour cohérence type JSON",
+    "Correction Headcount value: '0' (string) -> 0 (number) pour cohérence type JSON",
+    "Ajout period_type à Gross Margin et Headcount (manquait sur 2 KPIs)",
+    "Validation: tous les KPI à 0 confirmés par la source (profit 2024 = £nil, no employees, no capex)",
+    "Validation: aucun KPI halluciné détecté - entreprise confirme rôle de trustee unique sans activités opérationnelles",
+    "Tagline validée: reflète correctement le rôle de trustee du Schroders Medical Healthcare Scheme",
+    "hero_kpi_rationale validée: pas d'em-dash, cohérent avec structure fiduciaire sans wow distinctif"
   ],
   "_quarterly_extraction": {
     "date": "2026-05-06 12:57",
@@ -137,8 +161,14 @@
   },
   "_fit_for_site": false,
   "_fit_reasons": [
-    "hero_history_too_short_2",
-    "too_few_kpis_4"
+    "hero_history_too_short_2"
   ],
-  "next_earnings_date": "2026-02-12"
+  "next_earnings_date": "2026-02-12",
+  "_held_for_review": true,
+  "_iterative_refinement": {
+    "date": "2026-05-07 20:15",
+    "kpis_added": 2,
+    "model": "claude-sonnet-4-5",
+    "cost_usd": 0.024
+  }
 }

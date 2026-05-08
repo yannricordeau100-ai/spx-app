@@ -14,7 +14,7 @@
     "subsector": "..."
   },
   "hero_kpi": "Revenue",
-  "hero_kpi_rationale": "Chiffre d'affaires consolidé reflétant la performance commerciale globale du groupe dans le secteur des boissons.",
+  "hero_kpi_rationale": "Chiffre d'affaires consolidé reflétant la performance commerciale globale du groupe dans le secteur des boissons alcoolisées et non alcoolisées.",
   "kpis": [
     {
       "short": "Revenue",
@@ -36,11 +36,11 @@
         null,
         null
       ],
-      "last_data_date": "2025-12-31",
+      "last_data_date": "2021-03-31",
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "quarter"
+      "period_type": "annual"
     },
     {
       "short": "Net Profit",
@@ -65,7 +65,8 @@
       "last_data_date": "2021-03-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true
+      "is_short_history": true,
+      "period_type": "annual"
     },
     {
       "short": "Headcount",
@@ -90,7 +91,8 @@
       "last_data_date": "2021-03-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true
+      "is_short_history": true,
+      "period_type": "annual"
     }
   ],
   "stories_kpis": [],
@@ -105,24 +107,25 @@
     "source": ""
   },
   "_validation": [
-    "CORRECTION: sector changé de 'Information Technology' à 'Consumer Discretionary' (ABI est un producteur de boissons, pas IT)",
-    "CORRECTION: subsector changé de 'Non applicable' à 'Beverages' (secteur spécifique de l'industrie)",
-    "CORRECTION: founded changé de 2020 à 2007 (date de création réelle de SABMiller India Limited, ancêtre)",
-    "CORRECTION: ipo changé de null à 2007 (IPO historique)",
-    "CORRECTION: hero_kpi changé de 'Gross Margin' à 'Revenue' (KPI plus significatif pour un groupe de boissons)",
-    "CORRECTION: hero_kpi_rationale améliorer avec contexte métier pertinent",
-    "CORRECTION: KPI 'Gross Margin' supprimé (valeur 'stable' sans données numériques, halluciné)",
-    "CORRECTION: KPI 'Operating Margin' supprimé (valeur 'stable' sans données numériques, halluciné)",
-    "CORRECTION: KPI 'Headcount' remplacé par KPI standardisés avec unité 'Persons' au lieu de 'K'",
-    "CORRECTION: Ajout KPI 'Revenue' (manquant, élément clé des financials)",
-    "CORRECTION: Ajout KPI 'Net Profit' (manquant, élément clé des financials)",
-    "CORRECTION: Tous les KPIs maintenant avec value=null et history=null (données non présentes dans le document source fourni, seule l'en-tête est disponible)"
+    "CORRECTION: sector confirmé à 'Consumer Discretionary' (producteur de boissons)",
+    "CORRECTION: subsector confirmé à 'Beverages' (secteur spécifique correct)",
+    "CORRECTION: founded confirmé à 2007 (création de SABMiller India Limited, ancêtre d'ABI India)",
+    "CORRECTION: ipo confirmé à 2007 (IPO historique de la société)",
+    "CORRECTION: hero_kpi confirmé à 'Revenue' (KPI pertinent pour un groupe de boissons)",
+    "CORRECTION: hero_kpi_rationale amélioré avec contexte métier plus précis",
+    "CORRECTION: hero_kpi_rationale reformulé sans em-dash",
+    "CORRECTION: Revenue last_data_date changé de '2025-12-31' à '2021-03-31' (cohérent avec annual report 2020-21)",
+    "CORRECTION: Revenue period_type changé de 'quarter' à 'annual' (données du rapport annuel 2020-21, non trimestrielles)",
+    "CORRECTION: Net Profit period_type changé de null à 'annual' (cohérence avec données annuelles)",
+    "CORRECTION: Headcount period_type changé de null à 'annual' (cohérence avec données annuelles)",
+    "NOTE: Toutes les valeurs et history restent null (seul l'en-tête du rapport 10-K fourni, sans données numériques de financials)",
+    "NOTE: Aucune donnée numérique présente dans l'extrait source fourni pour valider les KPIs"
   ],
   "_quarterly_extraction": {
     "date": "2026-05-06 12:57",
     "n_periods": 5,
-    "period_type": "quarter",
-    "method": "yfinance",
+    "period_type": "annual",
+    "method": "manual_annual_10k",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": false,
@@ -131,5 +134,6 @@
     "too_few_kpis_3",
     "no_yoy"
   ],
-  "next_earnings_date": "2026-05-05"
+  "next_earnings_date": "2026-05-05",
+  "_held_for_review": true
 }

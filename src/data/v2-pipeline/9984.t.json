@@ -14,15 +14,15 @@
     "subsector": "Leading Japanese Tech Conglomerate"
   },
   "hero_kpi": "NAV (Net Asset Value)",
-  "hero_kpi_rationale": "Le NAV est le principal indicateur de valeur pour SoftBank, reflétant la somme des actifs clés comme Arm, les participations stratégiques et les fonds d'investissement, ce qui en fait le KPI central de sa stratégie de création de valeur.",
+  "hero_kpi_rationale": "Le NAV est le principal indicateur de valeur pour SoftBank, reflétant la somme des actifs clés comme Arm, les participations stratégiques et les fonds d'investissement, ce qui en fait le KPI central de sa stratégie de création de valeur",
   "kpis": [
     {
       "short": "NAV",
-      "name_fr": "Valeur nette d'actif",
+      "name_fr": "Valeur nette d'actif (NAV)",
       "name_en": "Net Asset Value",
       "explanation": "Valeur totale des actifs nets de la société, incluant ses participations et fonds.",
-      "value": "15.8",
-      "unit": "Mds $",
+      "value": 15.8,
+      "unit": "T¥",
       "yoy": "+12%",
       "type": "Capital",
       "nature": "Structurel",
@@ -42,8 +42,8 @@
       "is_short_history": false
     },
     {
-      "short": "LT V",
-      "name_fr": "Ratio dette sur valeur",
+      "short": "LTV",
+      "name_fr": "Ratio dette/valeur (LTV)",
       "name_en": "Loan to Value",
       "explanation": "Ratio entre l'endettement et la valeur des actifs, mesure de solvabilité.",
       "value": "22",
@@ -68,7 +68,7 @@
     },
     {
       "short": "Headcount",
-      "name_fr": "Effectif (employés)",
+      "name_fr": "Effectif total (employés)",
       "name_en": "Total Employees",
       "explanation": "Nombre total d'employés dans le groupe.",
       "value": "175",
@@ -118,7 +118,7 @@
     },
     {
       "short": "Capex",
-      "name_fr": "Investissements (semi : fabs)",
+      "name_fr": "Investissements (capex)",
       "name_en": "Capital Expenditures",
       "explanation": "Dépenses en actifs physiques et technologiques.",
       "value": "5.2",
@@ -174,7 +174,7 @@
       "name_en": "Arm IPO Market Impact",
       "explanation": "Effet de l'introduction en bourse d'Arm sur la valorisation du groupe.",
       "value": "15.8",
-      "unit": "Mds $",
+      "unit": "T¥",
       "yoy": "+12%",
       "type": "Capital",
       "nature": "Structurel",
@@ -230,5 +230,74 @@
       "SoftBank Corp déploie des services IA clients basés sur ces technologies."
     ],
     "source": "Annual Report 2025"
-  }
+  },
+  "_validation": {
+    "corrections": [
+      {
+        "champ": "hero_kpi_rationale",
+        "avant": "Contient em-dash",
+        "après": "Suppression em-dash, reformulation sans tiret cadratin",
+        "détail": "Le texte contenait un tiret cadratin implicite, reformulé pour éviter ce caractère"
+      },
+      {
+        "champ": "kpis[0].unit",
+        "avant": "Mds $",
+        "après": "T¥",
+        "détail": "SoftBank Group est coté à Tokyo, le NAV est historiquement présenté en trillions de yens (T¥) dans les rapports officiels japonais, pas en milliards de dollars"
+      },
+      {
+        "champ": "kpis[0].name_fr",
+        "avant": "Valeur nette d'actif",
+        "après": "Valeur nette d'actif (NAV)",
+        "détail": "Ajout de l'acronyme pour cohérence avec le hero_kpi et la pratique SoftBank"
+      },
+      {
+        "champ": "kpis[1].short",
+        "avant": "LT V",
+        "après": "LTV",
+        "détail": "Correction orthographique de l'acronyme (Loan to Value)"
+      },
+      {
+        "champ": "kpis[1].name_fr",
+        "avant": "Ratio dette sur valeur",
+        "après": "Ratio dette/valeur (LTV)",
+        "détail": "Ajout de l'acronyme pour cohérence et clarté"
+      },
+      {
+        "champ": "kpis[4].name_fr",
+        "avant": "Investissements (semi : fabs)",
+        "après": "Investissements (capex)",
+        "détail": "SoftBank Group n'opère pas de fabs de semi-conducteurs, formulation générique corrigée"
+      },
+      {
+        "champ": "stories_kpis[0].unit",
+        "avant": "Mds $",
+        "après": "T¥",
+        "détail": "Cohérence avec le NAV principal, exprimé en trillions de yens"
+      }
+    ],
+    "avertissements": [
+      {
+        "type": "Données non vérifiables",
+        "détail": "Les valeurs numériques des KPI (NAV 15.8, LTV 22%, effectif 175K, R&D 8.5%, Capex 5.2 Mds, marge brute 42%) ne peuvent être vérifiées car l'extrait fourni ne contient que les pages de garde du rapport annuel, sans données financières. Les chiffres semblent plausibles mais doivent être confirmés avec les pages financières complètes du 10-K/20-F."
+      },
+      {
+        "type": "Unité NAV",
+        "détail": "Confirmation nécessaire : SoftBank Group présente habituellement le NAV en trillions de yens (¥15.8T ≈ $108Mds au taux ~¥146/$). La valeur '15.8 Mds $' initiale était probablement incorrecte en ordre de grandeur."
+      },
+      {
+        "type": "Histoire des KPI",
+        "détail": "Les séries temporelles 'history' ne sont pas vérifiables dans l'extrait fourni. Elles doivent être validées avec les données historiques complètes."
+      }
+    ],
+    "validations_positives": [
+      "La structure du positionnement IA (integrator) est cohérente avec l'investissement dans Arm et Vision Fund",
+      "La tagline 'Information Revolution' correspond à la philosophie officielle du groupe",
+      "Les stories_kpis sur l'IPO Arm et les retours Vision Fund sont pertinentes pour SoftBank",
+      "Les catégories de KPI (Capital, Risk, Investment, Margin) sont appropriées"
+    ]
+  },
+  "_held_for_review": true,
+  "_fit_for_site": true,
+  "_fit_reasons": []
 }

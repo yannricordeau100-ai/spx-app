@@ -32,18 +32,18 @@
       "history": [
         43.6
       ],
-      "last_data_date": "2025-12-31",
+      "last_data_date": "2019-12-31",
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "quarter"
+      "period_type": "annual"
     },
     {
       "short": "EBIT Adjusted",
       "name_fr": "EBIT ajusté",
       "name_en": "EBIT Adjusted",
       "explanation": "Résultat d'exploitation ajusté, excluant les éléments non récurrents, reflétant la performance opérationnelle sous-jacente.",
-      "value": "5.1",
+      "value": 5.1,
       "unit": "B NOK",
       "yoy": "stable",
       "type": "Profitability",
@@ -57,40 +57,42 @@
       "last_data_date": "2019-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true
+      "is_short_history": true,
+      "period_type": "annual"
     },
     {
       "short": "EBIT Adjusted Margin",
       "name_fr": "Marge EBIT ajustée",
       "name_en": "EBIT Adjusted Margin",
       "explanation": "Pourcentage du chiffre d'affaires qui représente le résultat d'exploitation ajusté, indicateur clé de l'efficacité opérationnelle.",
-      "value": "11.7",
+      "value": 11.7,
       "unit": "%",
       "yoy": "stable",
       "type": "Margin",
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Marge EBIT ajustée de 11,7% en 2019, reflétant une profitabilité opérationnelle saine pour un groupe diversifié de biens de consommation.",
-      "description": "Marge d'exploitation ajustée du groupe Orkla en 2019, calculée comme EBIT ajusté / chiffre d'affaires d'exploitation.",
+      "description": "Marge d'exploitation ajustée du groupe Orkla en 2019, calculée comme EBIT ajusté divisé par le chiffre d'affaires d'exploitation.",
       "history": [
         11.7
       ],
       "last_data_date": "2019-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true
+      "is_short_history": true,
+      "period_type": "annual"
     },
     {
       "short": "Total Employees",
       "name_fr": "Effectif total",
       "name_en": "Total Employees",
       "explanation": "Nombre total de personnes employées par l'entreprise à travers tous ses secteurs d'activité.",
-      "value": "18348",
+      "value": 18348,
       "unit": "count",
       "yoy": "stable",
       "type": "Investment",
       "nature": "Structurel",
-      "comparable": "Comparable",
+      "comparable": "Non-comparable",
       "signal": "Effectif de 18 348 employés en 2019, incluant plus de 900 employés ayant intégré le nouveau siège Orkla House en mars 2019.",
       "description": "Nombre total d'employés du groupe Orkla en 2019, reflétant la taille significative de l'organisation au sein du secteur des biens de consommation nordique.",
       "history": [
@@ -99,14 +101,15 @@
       "last_data_date": "2019-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true
+      "is_short_history": true,
+      "period_type": "annual"
     },
     {
       "short": "Earnings Per Share",
       "name_fr": "Bénéfice par action",
       "name_en": "Earnings Per Share",
       "explanation": "Résultat net attribuable aux actionnaires divisé par le nombre moyen d'actions en circulation, indicateur clé de rentabilité par action.",
-      "value": "3.84",
+      "value": 3.84,
       "unit": "NOK",
       "yoy": "stable",
       "type": "Profitability",
@@ -120,7 +123,8 @@
       "last_data_date": "2019-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true
+      "is_short_history": true,
+      "period_type": "annual"
     }
   ],
   "stories_kpis": [],
@@ -135,23 +139,19 @@
     "source": "Orkla Annual Report 2019"
   },
   "_validation": [
-    "Correction sector: 'Information Technology' remplacé par 'Consumer Staples' (Orkla est un groupe de biens de consommation, pas de technologie)",
-    "Ajout subsector: 'Packaged Foods & Beverages' basé sur le portefeuille d'activités (snacks, plats préparés, sauces, confiseries)",
-    "Correction hero_kpi: changé de 'Gross Margin' à 'Operating Revenue' car aucune donnée de marge brute en % n'existe dans le rapport; le chiffre d'affaires est le KPI primaire robuste",
-    "Correction hero_kpi_rationale: rationnel réécrit pour refléter le positionnement réel du groupe et justifier le choix du chiffre d'affaires",
-    "Suppression KPI 'Gross Margin': la valeur 5.1 était en réalité l'EBIT ajusté, pas une marge brute en %; KPI halluciné remplacé par EBIT ajusté correct",
-    "Correction KPI 'Operating Revenue': unité changée de 'Mds NOK' à 'B NOK' (notation standard); comparable marqué comme 'Comparable'",
-    "Ajout KPI 'EBIT Adjusted': valeur 5.1 B NOK correctement identifiée et étiquetée; source directe du rapport",
-    "Ajout KPI 'EBIT Adjusted Margin': valeur 11.7% extraite du rapport; mesure alternative clé de performance",
-    "Correction KPI 'Headcount': valeur changée de '900 K' à '18348'; 900 était le nombre d'employés ayant intégré Orkla House spécifiquement, pas l'effectif total; unité changée de 'K' à 'count'",
-    "Ajout KPI 'Earnings Per Share': valeur 3.84 NOK extraite des key figures du rapport",
-    "Tous les KPIs historiques fixés à une seule année (2019) avec is_short_history: true car données limitées à 2019",
-    "Tous les KPIs marqués comme 'Comparable: Comparable' sauf 'Total Employees' (générique) pour permettre des comparaisons avec pairs du secteur"
+    "Correction KPI 'Operating Revenue': last_data_date changée de '2025-12-31' à '2019-12-31' (année source du rapport); period_type changé de 'quarter' à 'annual'",
+    "Correction KPI 'EBIT Adjusted': valeur convertie de string '5.1' en number 5.1; ajout period_type 'annual'",
+    "Correction KPI 'EBIT Adjusted Margin': valeur convertie de string '11.7' en number 11.7; ajout period_type 'annual'",
+    "Correction KPI 'Total Employees': valeur convertie de string '18348' en number 18348; comparable changé de 'Comparable' à 'Non-comparable' (KPI générique non comparable); ajout period_type 'annual'",
+    "Correction KPI 'Earnings Per Share': valeur convertie de string '3.84' en number 3.84; ajout period_type 'annual'",
+    "Tous les KPIs period_type changés de 'quarter' ou manquant à 'annual' pour correspondre à l'année fiscale 2019 source",
+    "Validation source: toutes les valeurs confirmées présentes dans le rapport Orkla 2019 page 8 (Key figures)",
+    "Aucun KPI halluciné détecté dans la version corrigée"
   ],
   "_quarterly_extraction": {
     "date": "2026-05-06 12:57",
     "n_periods": 1,
-    "period_type": "quarter",
+    "period_type": "annual",
     "method": "yfinance",
     "yf_metric": "(none-fallback-existing-history)"
   },
@@ -159,5 +159,6 @@
   "_fit_reasons": [
     "hero_history_too_short_1"
   ],
-  "next_earnings_date": "2026-05-20"
+  "next_earnings_date": "2026-05-20",
+  "_held_for_review": true
 }

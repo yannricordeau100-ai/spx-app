@@ -14,7 +14,7 @@
     "subsector": "..."
   },
   "hero_kpi": "Gross Margin",
-  "hero_kpi_rationale": "Aucun KPI distinctif identifié dans les données financières disponibles",
+  "hero_kpi_rationale": "Aucune donnée financière disponible pour identifier un KPI distinctif. Le document source ne contient que des informations de gouvernance d'entreprise sans données de marge brute, marge opérationnelle ou autres métriques financières structurelles.",
   "kpis": [
     {
       "short": "Gross Margin",
@@ -30,7 +30,7 @@
       "signal": "",
       "description": "",
       "history": [],
-      "last_data_date": "2025-12-31",
+      "last_data_date": "2023-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false
@@ -75,7 +75,7 @@
     },
     {
       "short": "Capex",
-      "name_fr": "Investissements (dépenses en capital)",
+      "name_fr": "Investissements en capital",
       "name_en": "Capital Expenditures",
       "explanation": "Dépenses en capital annuelles.",
       "value": null,
@@ -94,9 +94,9 @@
     },
     {
       "short": "Service / ARR",
-      "name_fr": "Revenu récurrent / abonnement",
+      "name_fr": "Revenu récurrent ou abonnement",
       "name_en": "Service / Subscription / ARR Revenue",
-      "explanation": "Revenu récurrent (maintenance, services).",
+      "explanation": "Revenu récurrent provenant de la maintenance et des services.",
       "value": null,
       "unit": "M",
       "yoy": "stable",
@@ -113,9 +113,9 @@
     },
     {
       "short": "Headcount",
-      "name_fr": "Effectif (employés)",
+      "name_fr": "Effectif total",
       "name_en": "Total Employees",
-      "explanation": "Nombre d'employés total.",
+      "explanation": "Nombre total d'employés de l'entreprise.",
       "value": null,
       "unit": "K",
       "yoy": "stable",
@@ -143,18 +143,20 @@
     "source": ""
   },
   "_validation": [
-    "Correction: hero_kpi_rationale - suppression du caractère null et em-dash, remplacé par message français approprié",
-    "Correction: KPI 'R&D' - is_wow changé de true à false (pas de données confirmées dans la source)",
-    "Correction: KPI 'Capex' - unit changé de '$B' à 'M' (source ne confirme pas les milliards); is_wow changé de true à false; nom_fr amélioré; exemple TSM/ASML supprimé de l'explication",
-    "Correction: KPI 'Service/ARR' - unit changé de '$B' à 'M' (source ne confirme pas les milliards); is_wow changé de true à false",
-    "Correction: Tous les KPIs - value null confirme l'absence de données financières dans le document source (rapport de gouvernance uniquement)",
-    "Correction: Tous les KPIs - is_wow standardisé à false, à l'exception de ceux avec données probantes",
-    "Correction: Tous les KPIs - is_generic standardisé à true (données génériques sans mentions spécifiques)"
+    "Correction: hero_kpi_rationale - Amélioration de la rédaction française sans em-dash pour mieux expliquer l'absence de données financières",
+    "Correction: KPI 'Service/ARR' - explanation améliorée pour clarifier la source du revenu récurrent",
+    "Correction: KPI 'Capex' - name_fr simplifié de 'Investissements (dépenses en capital)' à 'Investissements en capital'",
+    "Correction: KPI 'Headcount' - explanation améliorée pour plus de clarté",
+    "Validation: Tous les KPIs - values restent null car le document source est un rapport de gouvernance sans données financières consolidées",
+    "Validation: Tous les KPIs - is_wow maintenu à false (pas de données probantes)",
+    "Validation: Tous les KPIs - is_generic maintenu à true (KPIs génériques standards)",
+    "Validation: last_data_date standardisé à 2023-12-31 (date de référence du rapport source)"
   ],
   "_fit_for_site": false,
   "_fit_reasons": [
     "hero_history_too_short_0",
     "hero_value_null",
     "description_too_short_23"
-  ]
+  ],
+  "_held_for_review": true
 }
