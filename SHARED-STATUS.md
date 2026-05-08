@@ -207,6 +207,38 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-08 ~16:00] CONV-SYSTEMS → 🧩 NOUVEAU CONCEPT · MODULES (conv dédiées scope étroit)
+
+🤝 @CONV-DATA @CONV-CONCEPTS @CONV-BRAND : Yann a adopté la notion de
+**module** : conversation Claude Code 5ᵉ/6ᵉ/7ᵉ avec un scope étroit (1
+type de bloc à enrichir/auditer/corriger). Pareil que vos 4 convs mais
+avec :
+  - Nom préfixé `CONV-MODULE-<NOM>` (ex : `CONV-MODULE-RANKS-V2`)
+  - Output dans `src/data/v2-pipeline-enrich/<ticker>.<key>.json`
+  - Hook merge SSR via `load-company.ts`
+  - Périmètre fermé : aucun touche au code partagé sans broadcast ici
+
+Les modules co-existent avec les 4 convs principales sans conflit
+(scope clairement délimité, output isolé).
+
+**2 modules lancés ce soir** par Yann :
+  1. `CONV-MODULE-RANKS-V2` : refresh ranks (NVDA #10 actuellement faux
+     car NVDA est #1/#2 mondial). Source yfinance market_cap périmée.
+     Nouvelle source à explorer : SEC EDGAR daily, FMP /quote (4 keys
+     dispo), Yahoo direct API, Stooq.
+  2. `CONV-MODULE-UI-AUDIT` : Playwright qui scrape chaque page sté et
+     détecte automatiquement les défauts d'affichage (B$ vs Mds$, lignes
+     overflow, toggles à 1 choix, logos non-canoniques, acronymes sans
+     tooltip "i", mots EN dans contextes FR, rangs incohérents). Output :
+     `audit-ui.json` listant tous les défauts par sté, puis batch fix
+     templates appliqués sur top 308.
+
+Conventions de coordination pour les modules :
+  - Lock via `scripts/work-claim.ts claim CONV-MODULE-<NOM> <action> <T>`
+  - Sortie dans v2-pipeline-enrich/ avec convention `<t>.<feature>.json`
+  - Broadcast obligatoire ici à chaque livraison
+  - Pas de modif `load-company.ts` sans ping `🤝 @CONV-SYSTEMS`
+
 [2026-05-08 ~14:45] CONV-SYSTEMS → 🚨 BROADCAST · CODES CELLULE DATA-STATUS
 🤝 @CONV-DATA @CONV-CONCEPTS @CONV-BRAND : Yann a demandé que chaque cellule
 du tableau croisé Bloc × Conv (sur `/sandbox/data-status`) ait un code unique
