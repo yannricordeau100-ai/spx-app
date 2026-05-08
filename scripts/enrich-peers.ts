@@ -63,6 +63,26 @@ if (!v17) {
   process.exit(1);
 }
 
+// V1.0 stés handcrafted (pas dans v2-pipeline ni v1-7-public). On les
+// charge depuis src/data/<file>.json pour qu'elles aient aussi leurs
+// peers calculés (Yann 8 mai 2026 audit : V1.0 manquait peers).
+const V1_FILES: Record<string, string> = {
+  GOOGL: "google",
+  META: "meta",
+  MSCI: "msci",
+  SPGI: "spgi",
+  CAT: "cat",
+};
+for (const [ticker, file] of Object.entries(V1_FILES)) {
+  if (v17[ticker]) continue; // déjà présent via V1.7 strict
+  try {
+    const d = JSON.parse(readFileSync(path.join(ROOT, "src/data", `${file}.json`), "utf-8")) as AnyRec;
+    v17[ticker] = d;
+  } catch {
+    // skip si fichier absent
+  }
+}
+
 // 1. Build full registry of (ticker, sector, subsector, market_cap)
 const registry: SeInfo[] = [];
 for (const [ticker, e] of Object.entries(v17)) {

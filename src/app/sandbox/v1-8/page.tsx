@@ -1,10 +1,15 @@
 import Link from "next/link";
-import { readFileSync, existsSync } from "fs";
-import path from "path";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { HomeView } from "@/components/home-view";
 import type { Company } from "@/lib/data";
 import V17_PUBLIC from "@/data/v1-7-public.json";
+// Liste pré-calculée par scripts/build-v18-tickers.ts : top 308 par
+// market_cap puis chinoises + doublons retirés. Bundlée au build pour
+// éviter les fs reads runtime sur Vercel (qui ne livre pas par défaut
+// les fichiers v2-pipeline-enrich/ aux fonctions serverless → en prod
+// le filtre échouait avec "150 visibles · 158 stés au total" au lieu
+// de ~305).
+import V18_TICKERS from "@/data/v1-8-tickers-sorted.json";
 
 export const dynamic = "force-dynamic";
 export const metadata = {
@@ -18,78 +23,23 @@ export const metadata = {
  * pour permettre tester ordre / styles / sub-industries.
  *
  * Filtre V1.8 :
- *  1. Top 308 par market_cap (yfinance via enrich/<t>.json snapshot)
+ *  1. Top 308 par market_cap (yfinance)
  *  2. Hors Chine (BABA, NIO, JD, BIDU, PDD, etc retirés)
- *  3. Hors doublons multi-classes (cf HIDDEN_DUPLICATES)
+ *  3. Hors doublons multi-classes (GOOG, NWSA, UAA, etc.)
  *
- * Tri d'affichage : décroissant par market_cap (top 308).
+ * Tri : décroissant par market_cap (top 308). Pré-calculé au build via
+ * scripts/build-v18-tickers.ts.
  */
 function loadDatasets(): Record<string, Company> {
   return V17_PUBLIC as unknown as Record<string, Company>;
 }
 
-const HIDDEN_DUPLICATES = new Set(["GOOG", "BRK-A", "BRK.A", "BRK.B", "FOX", "NWSA", "UAA"]);
-
-const CHINESE_TICKERS = new Set([
-  "BABA", "JD", "BIDU", "NIO", "PDD", "BEKE", "TME", "LI", "XPEV", "TCOM",
-  "VIPS", "YMM", "BILI", "HUYA", "DOYU", "EDU", "TAL", "GOTU", "LU", "RLX",
-  "DIDIY", "TCEHY", "005930.KS",
-]);
-
-/**
- * Lit le market_cap depuis l'enrich file (yfinance). Renvoie 0 si absent.
- */
-function getMarketCap(ticker: string): number {
-  const enrPath = path.join(process.cwd(), "src/data/v2-pipeline-enrich", `${ticker.toLowerCase()}.json`);
-  if (!existsSync(enrPath)) return 0;
-  try {
-    const data = JSON.parse(readFileSync(enrPath, "utf-8"));
-    const mc = data?.financial_snapshot?.market_cap_usd;
-    return typeof mc === "number" ? mc : 0;
-  } catch {
-    return 0;
-  }
-}
-
-/**
- * Lit l'audit blocks pour filtrer V1.8 = stés avec ≤1 défaut.
- * Yann 8 mai 2026 : V1.8 doit montrer UNIQUEMENT les stés vendables client
- * (parfaites ou max 1 bloc à compléter, marqué en rouge dans la fiche).
- */
-function loadAuditDefects(): Record<string, string[]> {
-  const p = path.join(process.cwd(), "src/data/v1-7-blocks-audit.json");
-  if (!existsSync(p)) return {};
-  try {
-    return JSON.parse(readFileSync(p, "utf-8")) as Record<string, string[]>;
-  } catch {
-    return {};
-  }
-}
-
 export default async function SandboxV18HubPage() {
   const datasets = loadDatasets();
-  const audit = loadAuditDefects();
-  // V1.8 strict (Yann 8 mai 2026) :
-  //  1. Filtre doublons + Chine
-  //  2. **Filtre qualité : ≤ 1 défaut** dans l'audit (zéro défaut OU 1 bloc
-  //     manquant à compléter, qui sera marqué en rouge dans la fiche).
-  //     Stés à 2+ défauts sont écartées du hub V1.8 (mais accessibles via
-  //     /sandbox/v1-7/<t> pour le mode dev).
-  //  3. Tri par market_cap décroissant
-  //  4. Top 308 max
-  const ranked = Object.keys(datasets)
-    .filter((t) => !HIDDEN_DUPLICATES.has(t.toUpperCase()))
-    .filter((t) => !CHINESE_TICKERS.has(t.toUpperCase()))
-    .filter((t) => {
-      // ≤1 défaut. Si t pas dans audit = zéro défaut (par construction).
-      const defects = audit[t] || audit[t.toUpperCase()] || [];
-      return defects.length <= 1;
-    })
-    .map((t) => ({ ticker: t, mc: getMarketCap(t) }))
-    .filter((x) => x.mc > 0)
-    .sort((a, b) => b.mc - a.mc)
-    .slice(0, 308);
-  const tickers = ranked.map((x) => x.ticker);
+  // Liste pré-triée + filtrée (V18_TICKERS). Garde uniquement les
+  // tickers présents aussi dans le dataset Pass 3 strict V1.7.
+  const validKeys = new Set(Object.keys(datasets).map((k) => k.toUpperCase()));
+  const tickers = (V18_TICKERS as string[]).filter((t) => validKeys.has(t.toUpperCase()));
 
   return (
     <>
