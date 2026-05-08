@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Manrope, JetBrains_Mono, Bricolage_Grotesque, Sora } from "next/font/google";
+import { Manrope, JetBrains_Mono, Bricolage_Grotesque, Sora, Fraunces } from "next/font/google";
 import { PlausibleScript } from "@/components/analytics/plausible";
 import { I18nProvider } from "@/lib/i18n/provider";
 import { getServerLocale } from "@/lib/i18n/server";
@@ -37,6 +37,17 @@ const sora = Sora({
   subsets: ["latin"],
   display: "swap",
   weight: ["200", "300", "400"],
+});
+
+// Fraunces = display variable serif italique pour le wordmark "Mettrik AI"
+// (BrandWordmark home + chart-mini-logo + maintenance + pages internes).
+// Contraste fort, swashes expressifs en italique 800. Variable.
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500", "600", "700", "800", "900"],
+  style: ["normal", "italic"],
 });
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.mettrik.ai";
@@ -83,7 +94,7 @@ export default async function RootLayout({
       lang={locale}
       data-theme="dark"
       style={{ colorScheme: "dark" }}
-      className={`dark ${sans.variable} ${jetbrains.variable} ${display.variable} ${sora.variable} h-full antialiased`}
+      className={`dark ${sans.variable} ${jetbrains.variable} ${display.variable} ${sora.variable} ${fraunces.variable} h-full antialiased`}
     >
       <head>
         {/* Anti-IA training opt-out (cohérent CGV/CGU). Pas 100 % efficace
