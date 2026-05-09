@@ -582,10 +582,11 @@ export const DICTIONARY: Dict = {
   "senate.declared_within": { fr: "déclaré sous {n} j", en: "filed within {n}d" },
   "senate.late_filing": { fr: "late filing", en: "late filing" },
 
-  // Note langue sur formulaire contact : seuls FR et EN sont supportés.
+  // Note langue sur formulaire contact : FR / EN / DE supportés.
   "contact.lang_notice": {
-    fr: "Discussions traitées uniquement en français ou anglais.",
-    en: "Discussions handled only in French or English.",
+    fr: "Discussions traitées en français, anglais ou allemand.",
+    en: "Discussions handled in French, English or German.",
+    de: "Diskussionen auf Französisch, Englisch oder Deutsch.",
   },
 
   /* ──────────────────────── FAQ HOME ──────────────────────── */
@@ -819,33 +820,36 @@ export const DICTIONARY: Dict = {
   },
 
   // === Contact form ============================================
-  "contact.title": { fr: "Une question ? On répond.", en: "A question? We answer." },
+  "contact.title": { fr: "Une question ? On répond.", en: "A question? We answer.", de: "Eine Frage? Wir antworten." },
   "contact.subtitle": {
     fr: "Vous parlez à des humains, pas à un robot. Un email, une réponse sous 48h ouvrées.",
     en: "You're talking to humans, not bots. One email, one reply within 48 business hours.",
+    de: "Du sprichst mit Menschen, nicht mit Bots. Eine E-Mail, eine Antwort innerhalb 48 Werktagsstunden.",
   },
-  "contact.recipient_label": { fr: "Type de demande", en: "Request type" },
-  "contact.recipient_contact": { fr: "Contact général (commercial, presse, partenariat)", en: "General contact (sales, press, partnership)" },
-  "contact.recipient_support": { fr: "Support technique (bug, problème de compte)", en: "Technical support (bug, account issue)" },
-  "contact.name_label": { fr: "Votre nom", en: "Your name" },
-  "contact.name_placeholder": { fr: "Marie Dupont", en: "Jane Doe" },
-  "contact.email_label": { fr: "Votre email", en: "Your email" },
-  "contact.email_placeholder": { fr: "marie@exemple.com", en: "jane@example.com" },
-  "contact.subject_label": { fr: "Sujet", en: "Subject" },
-  "contact.subject_placeholder": { fr: "Quel est le sujet de votre message ?", en: "What's your message about?" },
-  "contact.body_label": { fr: "Votre message", en: "Your message" },
-  "contact.body_placeholder": { fr: "Écrivez ici. Soyez aussi clair que possible, on lira chaque mot.", en: "Write here. Be as clear as possible, we'll read every word." },
-  "contact.submit": { fr: "Envoyer", en: "Send" },
-  "contact.sending": { fr: "Envoi…", en: "Sending…" },
-  "contact.success_title": { fr: "Message reçu ✓", en: "Message received ✓" },
+  "contact.recipient_label": { fr: "Type de demande", en: "Request type", de: "Anfragetyp" },
+  "contact.recipient_contact": { fr: "Contact général (commercial, presse, partenariat)", en: "General contact (sales, press, partnership)", de: "Allgemein (Vertrieb, Presse, Partnerschaft)" },
+  "contact.recipient_support": { fr: "Support technique (bug, problème de compte)", en: "Technical support (bug, account issue)", de: "Technischer Support (Bug, Kontoproblem)" },
+  "contact.name_label": { fr: "Votre nom", en: "Your name", de: "Dein Name" },
+  "contact.name_placeholder": { fr: "Marie Dupont", en: "Jane Doe", de: "Max Mustermann" },
+  "contact.email_label": { fr: "Votre email", en: "Your email", de: "Deine E-Mail" },
+  "contact.email_placeholder": { fr: "marie@exemple.com", en: "jane@example.com", de: "max@beispiel.de" },
+  "contact.subject_label": { fr: "Sujet", en: "Subject", de: "Betreff" },
+  "contact.subject_placeholder": { fr: "Quel est le sujet de votre message ?", en: "What's your message about?", de: "Worum geht's in deiner Nachricht?" },
+  "contact.body_label": { fr: "Votre message", en: "Your message", de: "Deine Nachricht" },
+  "contact.body_placeholder": { fr: "Écrivez ici. Soyez aussi clair que possible, on lira chaque mot.", en: "Write here. Be as clear as possible, we'll read every word.", de: "Schreib hier. Sei so klar wie möglich, wir lesen jedes Wort." },
+  "contact.submit": { fr: "Envoyer", en: "Send", de: "Senden" },
+  "contact.sending": { fr: "Envoi…", en: "Sending…", de: "Senden…" },
+  "contact.success_title": { fr: "Message reçu ✓", en: "Message received ✓", de: "Nachricht erhalten ✓" },
   "contact.success_body": {
     fr: "On vous répond dans les 48h. Pour aller plus vite : précisez votre besoin dès le sujet.",
     en: "We'll get back within 48h. Pro tip: a clear subject = faster reply.",
+    de: "Antwort innerhalb 48 Std. Tipp: klarer Betreff = schnellere Antwort.",
   },
-  "contact.error": { fr: "Une erreur est survenue. Réessayez ou écrivez à contact@mettrik.ai.", en: "Something went wrong. Try again or email contact@mettrik.ai." },
+  "contact.error": { fr: "Une erreur est survenue. Réessayez ou écrivez à contact@mettrik.ai.", en: "Something went wrong. Try again or email contact@mettrik.ai.", de: "Ein Fehler ist aufgetreten. Versuche es erneut oder schreibe an contact@mettrik.ai." },
   "contact.privacy_note": {
     fr: "On garde votre email uniquement pour vous répondre. Aucun marketing, aucune revente.",
     en: "We keep your email only to reply. No marketing, no resale.",
+    de: "Wir speichern deine E-Mail nur für die Antwort. Kein Marketing, kein Weiterverkauf.",
   },
   "senate.demo_footer": {
     fr: "Données démo : branchement live API Senate Stock Watcher / Capitol Trades en V1.5",
