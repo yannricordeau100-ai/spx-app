@@ -440,15 +440,18 @@ function renderCompanyCard(
 ): React.ReactNode {
   if (!c.kpis || !Array.isArray(c.kpis) || c.kpis.length === 0) return null;
   const hero = getHero(c);
-  if (
-    !hero ||
-    typeof hero.value !== "string" ||
-    typeof hero.yoy !== "string" ||
-    typeof hero.type !== "string" ||
-    typeof hero.unit !== "string" ||
-    typeof hero.short !== "string"
-  )
-    return null;
+  // Coerce string fields (Yann 9 mai 2026 : NVDA/GOOGL/AAPL/MSFT avaient
+  // hero.value en number après extraction LLM, le check strict 'typeof
+  // === "string"' les filtrait silencieusement → 12/305 stés visibles
+  // dans /sandbox/v1-8 au lieu de 305).
+  if (!hero) return null;
+  for (const f of ["value", "yoy", "type", "unit", "short"] as const) {
+    const v = (hero as Record<string, unknown>)[f];
+    if (v === null || v === undefined) return null;
+    if (typeof v !== "string") {
+      (hero as Record<string, unknown>)[f] = String(v);
+    }
+  }
   const tone = yoyTone(hero.yoy, hero.type);
   const yoyColor =
     tone === "pos" ? "#10b981" : tone === "neg" ? "#f43f5e" : "#a1a1aa";
