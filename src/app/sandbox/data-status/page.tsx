@@ -71,6 +71,18 @@ export default async function DataStatusPage() {
         Chaque ligne montre où en est la couverture pour faire grossir V1.7.
       </p>
 
+      <div className="mb-8 flex flex-wrap items-center gap-2 text-[12.5px]">
+        <a
+          href="/desk-mtk9x4kp/data-quality-matrix"
+          className="inline-flex items-center gap-1.5 rounded-lg border border-violet-500/40 bg-violet-500/15 px-3 py-1.5 font-semibold text-violet-100 hover:bg-violet-500/25"
+        >
+          🔬 Matrice qualité données (sé × fonctionnalité)
+        </a>
+        <span className="text-[11px] text-zinc-500">
+          18 colonnes auto-checkées · ✅/❌ humain · 🟢🟡🟠🔴 auto · accès desk requis
+        </span>
+      </div>
+
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {/* ─── Téléchargements sec-data ─────────────────────────────── */}
         <Card title="Téléchargements (sec-data)">
