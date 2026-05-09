@@ -207,14 +207,47 @@ export const DICTIONARY: Dict = {
   "company.ipo_young.label": {
     fr: "IPO récente : {years} ans en bourse ({year})",
     en: "Recent IPO: {years} years public ({year})",
+    de: "Junges Börsenlisting: {years} Jahre ({year})",
   },
   "company.ipo_young.tooltip_title": {
     fr: "Historique court",
     en: "Short history",
+    de: "Kurze Historie",
   },
   "company.ipo_young.tooltip_body": {
     fr: "Société introduite en bourse depuis moins de 6 ans. CAGR 5 ans, comparaisons de pic et signaux long terme à interpréter avec précaution.",
     en: "Company has been public for less than 6 years. 5-year CAGR, peak comparisons and long-term signals should be read with caution.",
+    de: "Unternehmen ist seit weniger als 6 Jahren börsennotiert. 5-Jahres-CAGR, Spitzenvergleiche und Langzeitsignale mit Vorsicht interpretieren.",
+  },
+  "company.ipo_mid.label": {
+    fr: "IPO {year} : historique 10 ans incomplet",
+    en: "IPO {year}: 10y history incomplete",
+    de: "Börsengang {year}: 10-Jahres-Historie unvollständig",
+  },
+  "company.ipo_mid.tooltip_title": {
+    fr: "Graph 10 ans tronqué",
+    en: "10y chart capped",
+    de: "10-Jahres-Chart begrenzt",
+  },
+  "company.ipo_mid.tooltip_body": {
+    fr: "Société introduite en bourse il y a 6 à 10 ans. Le graph 10 ans démarre à l'IPO, pas avant. Comparaisons décennales partielles.",
+    en: "IPO between 6 and 10 years ago. The 10y chart starts at IPO, not before. Decade comparisons are partial.",
+    de: "Börsengang vor 6 bis 10 Jahren. Der 10-Jahres-Chart beginnt mit dem IPO. Dekaden-Vergleiche unvollständig.",
+  },
+  "company.ipo_old.label": {
+    fr: "IPO {year} : historique 20 ans incomplet",
+    en: "IPO {year}: 20y history incomplete",
+    de: "Börsengang {year}: 20-Jahres-Historie unvollständig",
+  },
+  "company.ipo_old.tooltip_title": {
+    fr: "Graph 20 ans tronqué",
+    en: "20y chart capped",
+    de: "20-Jahres-Chart begrenzt",
+  },
+  "company.ipo_old.tooltip_body": {
+    fr: "Société introduite en bourse il y a 11 à 20 ans. Le graph 20 ans démarre à l'IPO. Comparaisons longues partielles.",
+    en: "IPO between 11 and 20 years ago. The 20y chart starts at IPO. Long-term comparisons are partial.",
+    de: "Börsengang vor 11 bis 20 Jahren. Der 20-Jahres-Chart beginnt mit dem IPO. Langfristvergleiche unvollständig.",
   },
 
   // Toggle Trimestriel / Annuel sur le hero chart (6 mai 2026).
