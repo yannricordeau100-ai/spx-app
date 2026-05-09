@@ -52,7 +52,10 @@ export default async function SandboxV18HubPage() {
       </div>
       {/* Bandeau V1.8 : pricing + contact. */}
       <div className="border-b border-violet-500/15 bg-gradient-to-r from-violet-500/[0.05] to-cyan-500/[0.03] backdrop-blur-sm">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-2.5 sm:px-6">
+        {/* Padding-right massif (84 = 336px) pour ne PAS chevaucher la
+            AuthNav (theme + langue + Sign in/up + Mon Compte) qui est en
+            top-right de HomeView. Yann 9 mai 2026. */}
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-2.5 pr-[340px] sm:px-6 sm:pr-[340px]">
           <div className="flex items-center gap-2 text-[12.5px]">
             <Sparkles className="size-3.5 shrink-0 text-violet-300" />
             <span className="text-zinc-300">
