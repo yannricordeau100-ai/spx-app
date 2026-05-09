@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { HomeView } from "@/components/home-view";
+import { AuthNav } from "@/components/auth-nav";
+import { ThemeToggle } from "@/components/theme-toggle";
 import type { Company } from "@/lib/data";
 import V17_PUBLIC from "@/data/v1-7-public.json";
 // Liste pré-calculée par scripts/build-v18-tickers.ts : top 308 par
@@ -43,6 +45,11 @@ export default async function SandboxV18HubPage() {
 
   return (
     <>
+      {/* Top-right : theme toggle + langue + connexion. Même UX que la home /. */}
+      <div className="fixed right-4 top-4 z-50 flex items-center gap-3 sm:right-6 sm:top-6">
+        <ThemeToggle />
+        <AuthNav scope="home" />
+      </div>
       {/* Bandeau V1.8 : pricing + contact. */}
       <div className="border-b border-violet-500/15 bg-gradient-to-r from-violet-500/[0.05] to-cyan-500/[0.03] backdrop-blur-sm">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-2.5 sm:px-6">
