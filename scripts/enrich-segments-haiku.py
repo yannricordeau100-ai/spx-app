@@ -126,8 +126,12 @@ SEGMENT_PATTERNS = [
     r"reportable\s+segments",
     r"operating\s+segments",
     r"disaggregation\s+of\s+revenue",
-    r"revenues?\s+by\s+(segment|category|product)",
-    r"net\s+sales\s+by\s+segment",
+    r"revenues?\s+by\s+(segment|category|product|service)",
+    # Apple-style "Net sales by category" + variantes (Yann 9 mai 2026)
+    r"net\s+sales\s+by\s+(segment|category|product(\s+family)?|service)",
+    r"products?\s+and\s+services\b",  # AAPL 10-K Item 7
+    r"product\s+(family|line)\s+(revenue|sales)",
+    r"revenue\s+by\s+product\s+(family|line)",
     r"sales\s+by\s+geographic",
     r"revenues?\s+by\s+geographic",
     r"geographic\s+information",
@@ -136,25 +140,63 @@ SEGMENT_RE = re.compile("|".join(SEGMENT_PATTERNS), re.IGNORECASE)
 
 
 def extract_segment_context(text: str, max_chars: int = 12000) -> str:
-    """Cherche les sections segment / geographic et concatène le contexte."""
+    """Cherche les sections segment / geographic. Priorise les sections
+    de DISAGGREGATION par produit/catégorie/service (qui sont la vraie
+    valeur PV) AVANT les sections "operating segment" / "geographic"
+    qui prennent toute la place sans donner les détails attendus.
+
+    Yann 9 mai 2026 : bug AAPL — extract prenait "Segments ... geographic"
+    en premier et ratait "Net sales by category" qui contient iPhone/Mac/etc.
+    """
     if not text:
         return ""
-    matches = list(SEGMENT_RE.finditer(text))
-    if not matches:
-        return ""
-    windows: list[tuple[int, int]] = []
+    # Patterns DISAGGREGATION (haute priorité) : on garde leurs windows en
+    # premier dans le budget de chars.
+    HIGH_PRIORITY = re.compile(
+        r"(net\s+sales\s+by\s+(category|product(\s+family)?|service)|"
+        r"products?\s+and\s+services|"
+        r"product\s+(family|line)\s+(revenue|sales)|"
+        r"revenue\s+by\s+product\s+(family|line)|"
+        r"disaggregation\s+of\s+revenue|"
+        r"revenues?\s+by\s+(category|product|service))",
+        re.IGNORECASE,
+    )
+    # Patterns SEGMENT/GEOGRAPHIC (priorité basse) — utilisés en complément
+    # si budget restant.
+    LOW_PRIORITY = re.compile(
+        r"(segment\s+information|reportable\s+segments|operating\s+segments|"
+        r"net\s+sales\s+by\s+segment|"
+        r"sales\s+by\s+geographic|revenues?\s+by\s+geographic|"
+        r"geographic\s+information)",
+        re.IGNORECASE,
+    )
     BEFORE = 200
     AFTER = 2500
-    for m in matches:
-        start = max(0, m.start() - BEFORE)
-        end = min(len(text), m.end() + AFTER)
-        if windows and start <= windows[-1][1]:
-            windows[-1] = (windows[-1][0], max(windows[-1][1], end))
-        else:
-            windows.append((start, end))
-    chunks = []
+
+    def windows_for(rx: re.Pattern) -> list[tuple[int, int]]:
+        ms = list(rx.finditer(text))
+        out: list[tuple[int, int]] = []
+        for m in ms:
+            start = max(0, m.start() - BEFORE)
+            end = min(len(text), m.end() + AFTER)
+            if out and start <= out[-1][1]:
+                out[-1] = (out[-1][0], max(out[-1][1], end))
+            else:
+                out.append((start, end))
+        return out
+
+    high_w = windows_for(HIGH_PRIORITY)
+    low_w = windows_for(LOW_PRIORITY)
+    # Fusion en priorité haute d'abord
+    all_w = high_w + [w for w in low_w if not any(
+        max(w[0], h[0]) < min(w[1], h[1]) for h in high_w
+    )]
+    if not all_w:
+        return ""
+
+    chunks: list[str] = []
     total = 0
-    for s, e in windows:
+    for s, e in all_w:
         chunk = re.sub(r"\s+", " ", text[s:e]).strip()
         chunks.append(chunk)
         total += len(chunk)
@@ -192,8 +234,9 @@ Renvoie UNIQUEMENT un JSON valide, pas d'autre texte. Format strict :
 
 Règles strictes :
 - Valeurs en milliards USD ($B). Si la sté reporte en autre devise, convertis approximativement (1 USD = 1 EUR pour simplifier ; les chiffres sont des ordres de grandeur).
-- **Si la sté déclare explicitement "one operating segment" / "single reportable segment" / "we operate as one business" / similar** → revenue_by_segment avec UNE seule slice = total revenue (label = nom du business unique, ex: "Streaming", "Cloud Software", "Search & Advertising"). C'est valide et factuel.
-- Si pas de breakdown segment dans les extraits ET pas de mention mono-segment → revenue_by_segment: null.
+- **PRIORITÉ ABSOLUE : si la sté publie une "Disaggregation of Revenue" par produit / famille / type de service (Apple iPhone/Mac/Services, Microsoft Productivity/Cloud/More Personal Computing, etc.), TU DOIS l'utiliser PRIORITAIREMENT, MÊME si la sté déclare aussi "one operating segment".** L'investisseur veut voir la répartition concrète, pas le mono-segment technique. Apple = 5 slices (iPhone, Mac, iPad, Wearables, Services), pas 1.
+- Mono-slice acceptable UNIQUEMENT si la sté n'a vraiment qu'un produit / activité (Netflix Streaming, Visa Payment Network, Mastercard Payment Network) ET aucune disaggregation produit / type / canal n'est publiée dans le 10-K.
+- Si pas de breakdown segment ni mono-product clair → revenue_by_segment: null.
 - Si pas de breakdown geography ET pas de mention mono-géographie → revenue_by_geography: null.
 - Si la sté fait l'essentiel de son revenu sur 1 zone (>95 %) avec mention "primarily United States" / "substantially all in country X" → 1 seule slice acceptable.
 - Pas plus de 6 slices (top 5 + "Other" si nécessaire).
