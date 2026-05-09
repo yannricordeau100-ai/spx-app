@@ -35,12 +35,21 @@ import { useT } from "@/lib/i18n/provider";
 function DataFreshnessPill({ locale, freshnessKey }: { locale: string; freshnessKey: string }) {
   const [dateLocal, setDateLocal] = useState<string | null>(null);
   useEffect(() => {
-    // Date "today" dans le timezone du navigateur du visiteur
+    // Date "today" dans le timezone du navigateur du visiteur.
+    // Yann 9 mai 2026 : sur les week-ends, on affiche la date du vendredi
+    // précédent (samedi → vendredi -1 jour, dimanche → vendredi -2 jours).
+    // Les marchés US/EU sont fermés samedi-dimanche, données pas rafraîchies.
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const fmt = new Intl.DateTimeFormat(locale === "fr" ? "fr-FR" : locale === "de" || locale === "de-CH" ? "de-DE" : locale === "nl" ? "nl-NL" : locale === "sv" ? "sv-SE" : locale === "da" ? "da-DK" : locale === "en-GB" ? "en-GB" : "en-US", {
       day: "numeric", month: "long", year: "numeric", timeZone: tz,
     });
-    setDateLocal(fmt.format(new Date()));
+    const now = new Date();
+    const dow = now.getDay(); // 0 = dimanche, 6 = samedi
+    let daysBack = 0;
+    if (dow === 6) daysBack = 1; // samedi → vendredi
+    if (dow === 0) daysBack = 2; // dimanche → vendredi
+    const refDate = new Date(now.getTime() - daysBack * 86400_000);
+    setDateLocal(fmt.format(refDate));
   }, [locale]);
   return (
     <div className="inline-flex items-center gap-1.5 rounded-full border border-[#1f1f1f] bg-[#0a0a0a]/70 px-2.5 py-0.5 backdrop-blur">
