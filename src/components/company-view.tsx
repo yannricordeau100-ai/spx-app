@@ -47,6 +47,7 @@ import { AIPositioningCard } from "@/components/ai-positioning-card";
 import { PageSearch } from "@/components/page-search";
 import { GovernanceCard } from "@/components/governance-card";
 import { RepartitionBlock } from "@/components/repartition-block";
+import { DividendStories } from "@/components/dividend-stories";
 import { FreshnessIndicator } from "@/components/freshness-indicator";
 import { AcronymHover } from "@/components/acronym-hover";
 import { SenateTradesLive } from "@/components/senate-trades-live";
@@ -598,6 +599,12 @@ export function CompanyView({
 
         {/* Répartition CA (géo + segment) — au-dessus de Gouvernance */}
         <RepartitionBlock company={company} />
+
+        {/* Stories Dividendes — réintégré sous Répartition CA pour V1, V1.7
+            et V1.8 (Yann 8 mai 2026). Le composant s'auto-active si la
+            société a DPS + Cap Return + Payout Ratio dans ses KPIs (ou
+            fallback hard-codé pour CAT). Sinon return null = invisible. */}
+        <DividendStories company={company} />
 
         {/* Governance */}
         {company.governance ? (
