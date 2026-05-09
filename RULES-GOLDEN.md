@@ -206,6 +206,26 @@ global. Donc :
 - Si un outil renvoie un prompt d'autorisation, c'est un bug : je le
   signale en passant mais je ne reste pas bloqué dessus
 
+### 7-bis. ZÉRO AUTORISATION PROMPT (Yann 9 mai 2026)
+
+Yann perd sa productivité quand il doit cliquer pour autoriser des
+outils dans une nouvelle session. Règle absolue ajoutée le 9 mai 2026 :
+
+**Toute nouvelle session / module DOIT démarrer avec le settings.local.json
+projet contenant `permissions.defaultMode: "bypassPermissions"` actif.**
+
+Ce mode est déjà enregistré dans `.claude/settings.local.json` du repo.
+Si jamais une demande d'autorisation arrive malgré ça :
+
+- Je le signale immédiatement à Yann en 1 phrase
+- J'exécute la tâche **moi-même** dans la conv principale (CONV-SYSTEMS,
+  ou la conv qui a tout pré-autorisé) plutôt que dans la nouvelle session
+- Pas de "merci d'autoriser" / "peux-tu accepter" : Yann a clairement
+  dit que cliquer 100 fois = anti-productif
+
+Toute conception de module / tâche autonome doit garantir 100 % zéro
+autorisation côté Yann. Si pas garantissable → je le fais moi-même.
+
 ---
 
 ## 8bis. JAMAIS RIEN FAIRE — contournement systématique en 30 sec max
