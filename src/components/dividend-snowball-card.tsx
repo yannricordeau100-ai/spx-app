@@ -213,16 +213,16 @@ export function DividendSnowballCard({
 
       <div className="relative flex h-full flex-col overflow-y-auto pr-1">
         <div
-          className="ml-auto inline-flex w-fit items-center gap-1 rounded-full border px-2 py-0.5 text-[9.5px] font-semibold uppercase tracking-[0.14em] opacity-90"
+          className="ml-auto inline-flex w-fit items-center gap-1 rounded-full border px-2 py-0.5 text-[12px] font-semibold uppercase tracking-[0.14em] opacity-90"
           style={{ background: `${accent}14`, color: accent, borderColor: `${accent}40` }}
         >
-          <Snowflake className="size-2.5" />
+          <Snowflake className="size-3.5" />
           Boule de neige
         </div>
 
-        <div className="mt-3 flex items-center gap-1.5 text-[16px] font-bold leading-tight text-zinc-50">
+        <div className="mt-3 flex items-center gap-1.5 text-[18px] font-bold leading-tight text-zinc-50">
           Réinvestir tes dividendes
-          <span className="text-[12px] font-normal text-zinc-400">(DRIP)</span>
+          <span className="text-[14px] font-normal text-zinc-400">(DRIP)</span>
           <InfoTooltip color={accent} size="sm">
             <div className="text-zinc-200">
               <span className="font-semibold">DRIP</span> = Dividend Reinvestment
@@ -233,7 +233,7 @@ export function DividendSnowballCard({
             </div>
           </InfoTooltip>
         </div>
-        <div className="text-[10.5px] italic text-zinc-400">
+        <div className="text-[13px] italic text-zinc-400">
           Effet boule de neige sur {years} ans, vs {comparePreset.label}
         </div>
 
@@ -248,27 +248,27 @@ export function DividendSnowballCard({
           >
             ×<NumberTicker value={finalAction / initial} decimals={1} duration={1000} />
           </motion.div>
-          <div className="mt-0.5 text-[12px] font-medium text-zinc-200">
+          <div className="mt-0.5 text-[14px] font-medium text-zinc-200">
             {fmtMoney(initial * rate)} {sym} → <NumberTicker value={finalAction * rate} decimals={0} /> {sym}
           </div>
-          <div className="mt-1 inline-flex items-center gap-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-200">
+          <div className="mt-1 inline-flex items-center gap-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-0.5 text-[13px] font-semibold text-emerald-200">
             <span className="font-mono tabular-nums">
               + <NumberTicker value={finalIncome * rate} decimals={0} /> {sym} / an
             </span>
-            <span className="text-[9.5px] italic text-zinc-400">de revenu à terme</span>
+            <span className="text-[12px] italic text-zinc-400">de revenu à terme</span>
           </div>
         </div>
 
         {/* Comparaison : 3 courbes superposées avec légende */}
         <div className="mt-2 rounded-xl border border-white/10 bg-black/30 p-2 backdrop-blur">
           <div className="mb-1 flex items-center justify-between gap-2">
-            <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-zinc-400">
+            <span className="font-mono text-[11.5px] uppercase tracking-[0.12em] text-zinc-400">
               Action vs alternatives
             </span>
             <select
               value={compareKey}
               onChange={(e) => setCompareKey(e.target.value as CompareKey)}
-              className="rounded border border-white/10 bg-black/60 px-1.5 py-0.5 font-mono text-[9px] text-zinc-200 outline-none focus:border-white/30"
+              className="rounded border border-white/10 bg-black/60 px-1.5 py-0.5 font-mono text-[11.5px] text-zinc-200 outline-none focus:border-white/30"
               title="Choisir la référence de comparaison"
             >
               {PRESETS.map((p) => (
@@ -339,7 +339,7 @@ export function DividendSnowballCard({
             />
           </svg>
           {/* Légende */}
-          <div className="mt-1 flex flex-wrap items-center justify-between gap-x-2 gap-y-0.5 text-[9.5px] tabular-nums">
+          <div className="mt-1 flex flex-wrap items-center justify-between gap-x-2 gap-y-0.5 text-[12px] tabular-nums">
             <div className="flex items-center gap-1">
               <span className="inline-block h-[3px] w-3 rounded" style={{ background: accent }} />
               <span className="text-zinc-200">Action {totalReturn} %</span>
@@ -361,7 +361,7 @@ export function DividendSnowballCard({
               initial={{ opacity: 0, y: 6 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 1.7, duration: 0.4 }}
-              className="mt-1.5 rounded-md bg-emerald-500/10 px-2 py-1 text-center text-[10.5px]"
+              className="mt-1.5 rounded-md bg-emerald-500/10 px-2 py-1 text-center text-[13px]"
             >
               <span className="text-emerald-200">
                 +{fmtMoney(surplus * rate)} {sym} vs {comparePreset.label.split(" (")[0]}
@@ -371,10 +371,10 @@ export function DividendSnowballCard({
         </div>
 
         {/* Sliders : mise / durée / rendement */}
-        <div className="mt-2 space-y-1.5 text-[11px]">
+        <div className="mt-2 space-y-1.5 text-[13px]">
           <div className="rounded-lg border border-white/10 bg-black/30 p-1.5 backdrop-blur">
             <div className="flex items-center justify-between">
-              <span className="font-mono text-[9.5px] uppercase tracking-wider text-zinc-400">
+              <span className="font-mono text-[12px] uppercase tracking-wider text-zinc-400">
                 Mise initiale
               </span>
               <input
@@ -383,7 +383,7 @@ export function DividendSnowballCard({
                 step={100}
                 value={initial}
                 onChange={(e) => setInitial(Math.max(100, Number(e.target.value) || 100))}
-                className="w-20 rounded border border-white/10 bg-black/50 px-1 py-0.5 font-mono text-[10.5px] tabular-nums text-zinc-100 outline-none focus:border-white/30"
+                className="w-20 rounded border border-white/10 bg-black/50 px-1 py-0.5 font-mono text-[13px] tabular-nums text-zinc-100 outline-none focus:border-white/30"
               />
             </div>
             <input
@@ -400,7 +400,7 @@ export function DividendSnowballCard({
           <div className="grid grid-cols-2 gap-1.5">
             <div className="rounded-lg border border-white/10 bg-black/30 p-1.5 backdrop-blur">
               <div className="flex items-center justify-between">
-                <span className="font-mono text-[9.5px] uppercase tracking-wider text-zinc-400">
+                <span className="font-mono text-[12px] uppercase tracking-wider text-zinc-400">
                   Durée
                 </span>
                 <span className="font-mono tabular-nums text-zinc-100">{years} ans</span>
@@ -418,7 +418,7 @@ export function DividendSnowballCard({
             </div>
             <div className="rounded-lg border border-white/10 bg-black/30 p-1.5 backdrop-blur">
               <div className="flex items-center justify-between">
-                <span className="font-mono text-[9.5px] uppercase tracking-wider text-zinc-400">
+                <span className="font-mono text-[12px] uppercase tracking-wider text-zinc-400">
                   Rendement
                 </span>
                 <span className="font-mono tabular-nums text-zinc-100">
@@ -439,7 +439,7 @@ export function DividendSnowballCard({
           </div>
         </div>
 
-        <div className="mt-1 text-[9px] italic leading-snug text-zinc-500">
+        <div className="mt-1 text-[11.5px] italic leading-snug text-zinc-500">
           Hypothèses : réinvestissement intégral des dividendes, rendement
           stable. Indicatif. Pays détecté : {country}.
         </div>

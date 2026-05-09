@@ -123,19 +123,19 @@ export function DividendCalculatorCard({
       <div className="relative flex h-full flex-col overflow-y-auto pr-1">
         {/* Badge "Simulateur" — UNIFORME À DROITE pour cohérence avec les autres cards */}
         <div
-          className="ml-auto inline-flex w-fit items-center gap-1 rounded-full border px-2 py-0.5 text-[9.5px] font-semibold uppercase tracking-[0.14em] opacity-90"
+          className="ml-auto inline-flex w-fit items-center gap-1 rounded-full border px-2 py-0.5 text-[12px] font-semibold uppercase tracking-[0.14em] opacity-90"
           style={{ background: `${accent}14`, color: accent, borderColor: `${accent}40` }}
         >
-          <Calculator className="size-2.5" />
+          <Calculator className="size-3.5" />
           Simulateur
         </div>
 
         {/* Titre principal sur 2 lignes */}
         <div className="mt-3">
-          <div className="flex items-center gap-1.5 text-[15px] font-bold leading-tight text-zinc-50">
+          <div className="flex items-center gap-1.5 text-[17px] font-bold leading-tight text-zinc-50">
             Revenu net régulier <span aria-hidden>😎</span>
           </div>
-          <div className="text-[12.5px] leading-snug text-zinc-300">
+          <div className="text-[14px] leading-snug text-zinc-300">
             Combien d&apos;actions {ticker} faut-il détenir&nbsp;?
           </div>
         </div>
@@ -148,19 +148,19 @@ export function DividendCalculatorCard({
           >
             {result.shares.toLocaleString("fr-FR")}
           </div>
-          <div className="mt-0.5 text-[12px] font-medium text-zinc-200">
+          <div className="mt-0.5 text-[14px] font-medium text-zinc-200">
             actions à détenir
           </div>
-          <div className="mt-1.5 inline-flex items-center gap-1 rounded-full border border-white/15 bg-black/45 px-2.5 py-0.5 text-[11px] font-mono tabular-nums text-zinc-200 backdrop-blur">
+          <div className="mt-1.5 inline-flex items-center gap-1 rounded-full border border-white/15 bg-black/45 px-2.5 py-0.5 text-[13px] font-mono tabular-nums text-zinc-200 backdrop-blur">
             capital ≈ {fmtMoney(result.capital)} {sym}
           </div>
         </div>
 
         {/* Inputs : revenu cible + fréquence (1 bloc dense) */}
-        <div className="mt-3 space-y-2 text-[11.5px]">
+        <div className="mt-3 space-y-2 text-[13.5px]">
           <div className="rounded-lg border border-white/10 bg-black/30 p-2 backdrop-blur">
             <div className="mb-1 flex items-center justify-between">
-              <span className="text-[10px] font-semibold uppercase tracking-wider text-zinc-300">
+              <span className="text-[12.5px] font-semibold uppercase tracking-wider text-zinc-300">
                 Revenu cible
               </span>
               <span className="font-mono tabular-nums text-zinc-100">
@@ -173,14 +173,14 @@ export function DividendCalculatorCard({
               step={target < 100 ? 1 : 10}
               value={target}
               onChange={(e) => setTarget(Math.max(1, Number(e.target.value) || 0))}
-              className="w-full rounded-md border border-white/10 bg-black/50 px-2 py-1 font-mono text-[12px] tabular-nums text-zinc-100 outline-none transition-colors focus:border-white/30"
+              className="w-full rounded-md border border-white/10 bg-black/50 px-2 py-1 font-mono text-[14px] tabular-nums text-zinc-100 outline-none transition-colors focus:border-white/30"
             />
             <div className="mt-1.5 flex gap-1">
               {(["day", "week", "month", "year"] as Frequency[]).map((f) => (
                 <button
                   key={f}
                   onClick={() => setFreq(f)}
-                  className="flex-1 rounded border px-1 py-0.5 text-[10px] font-semibold uppercase tracking-wider transition-colors"
+                  className="flex-1 rounded border px-1 py-0.5 text-[12.5px] font-semibold uppercase tracking-wider transition-colors"
                   style={
                     freq === f
                       ? { background: accent, color: "#000", borderColor: accent }
@@ -200,7 +200,7 @@ export function DividendCalculatorCard({
           {/* Imposition */}
           <div className="rounded-lg border border-white/10 bg-black/30 p-2 backdrop-blur">
             <div className="mb-1 flex items-center gap-1">
-              <span className="text-[10px] font-semibold uppercase tracking-wider text-zinc-300">
+              <span className="text-[12.5px] font-semibold uppercase tracking-wider text-zinc-300">
                 Imposition
               </span>
               <InfoTooltip color={accent} size="sm">
@@ -212,7 +212,7 @@ export function DividendCalculatorCard({
                   35 % d&apos;impôt anticipé (récupérable).
                 </div>
               </InfoTooltip>
-              <span className="ml-auto font-mono tabular-nums text-[12px] text-zinc-100">
+              <span className="ml-auto font-mono tabular-nums text-[14px] text-zinc-100">
                 {taxPct} %
               </span>
             </div>
@@ -235,7 +235,7 @@ export function DividendCalculatorCard({
                 onChange={(e) =>
                   setTaxPct(Math.max(0, Math.min(70, Number(e.target.value) || 0)))
                 }
-                className="w-14 rounded border border-white/10 bg-black/50 px-1.5 py-0.5 text-right font-mono text-[11px] tabular-nums text-zinc-100 outline-none focus:border-white/30"
+                className="w-14 rounded border border-white/10 bg-black/50 px-1.5 py-0.5 text-right font-mono text-[13px] tabular-nums text-zinc-100 outline-none focus:border-white/30"
               />
             </div>
           </div>
@@ -243,11 +243,11 @@ export function DividendCalculatorCard({
           {/* Cours actuel — fetch live API, indication date */}
           <div className="rounded-lg border border-white/10 bg-black/30 p-2 backdrop-blur">
             <div className="mb-0.5 flex items-center gap-1">
-              <span className="text-[10px] font-semibold uppercase tracking-wider text-zinc-300">
+              <span className="text-[12.5px] font-semibold uppercase tracking-wider text-zinc-300">
                 Cours {ticker}
               </span>
               {isPriceLive ? (
-                <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 px-1.5 py-0.5 text-[9px] font-semibold text-emerald-300">
+                <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 px-1.5 py-0.5 text-[11.5px] font-semibold text-emerald-300">
                   <span className="size-1.5 rounded-full bg-emerald-400" /> Live
                 </span>
               ) : (
@@ -259,12 +259,12 @@ export function DividendCalculatorCard({
                   </div>
                 </InfoTooltip>
               )}
-              <span className="ml-auto font-mono tabular-nums text-[13px] font-semibold text-zinc-50">
+              <span className="ml-auto font-mono tabular-nums text-[14.5px] font-semibold text-zinc-50">
                 {fmtMoney(priceDisplayed)} {sym}
               </span>
             </div>
             {nativeCurrency !== currency && (
-              <div className="text-[9px] italic text-zinc-500">
+              <div className="text-[11.5px] italic text-zinc-500">
                 Source native : {fmtMoney(price)} {CURRENCY_SYMBOL[nativeCurrency]} ·
                 taux ECB
               </div>
@@ -274,15 +274,15 @@ export function DividendCalculatorCard({
 
         {/* Brut nécessaire */}
         <div className="mt-2 rounded-xl border border-white/10 bg-black/45 p-2.5 backdrop-blur">
-          <div className="flex items-center gap-1.5 text-[11.5px] font-semibold text-zinc-50">
-            <TrendingUp className="size-3" style={{ color: accent }} />
+          <div className="flex items-center gap-1.5 text-[13.5px] font-semibold text-zinc-50">
+            <TrendingUp className="size-4" style={{ color: accent }} />
             Brut nécessaire avant impôt :{" "}
             <span className="font-mono tabular-nums">
               {fmtMoney(result.grossAnnualNative * rate)} {sym}
             </span>{" "}
             / an
           </div>
-          <div className="mt-0.5 text-[9.5px] italic leading-relaxed text-zinc-400">
+          <div className="mt-0.5 text-[12px] italic leading-relaxed text-zinc-400">
             Calcul indicatif. Ne tient pas compte de la croissance future du
             dividende ni des frais de courtage.
           </div>

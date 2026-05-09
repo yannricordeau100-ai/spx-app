@@ -196,10 +196,10 @@ export function DividendAristocratCard({
       <div className="relative flex h-full flex-col overflow-y-auto pr-1">
         {/* Badge "Aristocrat" — UNIFORME À DROITE */}
         <div
-          className="ml-auto inline-flex w-fit items-center gap-1 rounded-full border px-2 py-0.5 text-[9.5px] font-semibold uppercase tracking-[0.14em] opacity-90"
+          className="ml-auto inline-flex w-fit items-center gap-1 rounded-full border px-2 py-0.5 text-[12px] font-semibold uppercase tracking-[0.14em] opacity-90"
           style={{ background: `${accent}14`, color: accent, borderColor: `${accent}40` }}
         >
-          <Crown className="size-2.5" />
+          <Crown className="size-3.5" />
           Aristocrat
           <InfoTooltip color={accent} size="sm">
             <div className="text-zinc-200">
@@ -217,7 +217,7 @@ export function DividendAristocratCard({
             ? "Dividend Aristocrat"
             : "Politique de dividende"}
         </div>
-        <div className="text-[11.5px] italic text-zinc-400">
+        <div className="text-[13.5px] italic text-zinc-400">
           {firstYear && computedStreak != null
             ? `Versement depuis ${firstYear} · ${computedStreak} ans de hausse`
             : firstYear
@@ -244,7 +244,7 @@ export function DividendAristocratCard({
             initial={{ opacity: 0, y: 10 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.6, duration: 0.5 }}
-            className="mt-1 text-[13.5px] font-medium text-zinc-200"
+            className="mt-1 text-[15px] font-medium text-zinc-200"
           >
             années de hausse consécutive
           </motion.div>
@@ -255,7 +255,7 @@ export function DividendAristocratCard({
         <div className="rounded-xl border border-white/10 bg-black/40 p-2.5 backdrop-blur">
           <div className="mb-1 flex items-baseline justify-between gap-1">
             <div className="flex items-center gap-1">
-              <span className="text-[10px] font-semibold uppercase tracking-[0.10em] text-zinc-300">
+              <span className="text-[12.5px] font-semibold uppercase tracking-[0.10em] text-zinc-300">
                 DPS · {n} dernières années
               </span>
               <InfoTooltip color={accent} size="sm">
@@ -267,7 +267,7 @@ export function DividendAristocratCard({
                 </div>
               </InfoTooltip>
             </div>
-            <span className="font-mono text-[10px] tabular-nums text-zinc-300">
+            <span className="font-mono text-[12.5px] tabular-nums text-zinc-300">
               {dpsHistory[0].toFixed(2)} → {dpsHistory[n - 1].toFixed(2)}
             </span>
           </div>
@@ -320,7 +320,7 @@ export function DividendAristocratCard({
         {/* CAGR multi-périodes */}
         <div className="mt-2 rounded-xl border border-white/10 bg-black/40 p-2.5 backdrop-blur">
           <div className="mb-1.5 flex items-center gap-1">
-            <span className="text-[10px] font-semibold uppercase tracking-[0.10em] text-zinc-300">
+            <span className="text-[12.5px] font-semibold uppercase tracking-[0.10em] text-zinc-300">
               CAGR du dividende
             </span>
             <InfoTooltip color={accent} size="sm">
@@ -338,11 +338,11 @@ export function DividendAristocratCard({
                 key={c.label}
                 className="rounded-md border border-white/10 bg-black/40 p-1.5 text-center"
               >
-                <div className="font-mono text-[9px] uppercase tracking-wider text-zinc-400">
+                <div className="font-mono text-[11.5px] uppercase tracking-wider text-zinc-400">
                   {c.label}
                 </div>
                 <div
-                  className={`mt-0.5 font-display text-[14px] font-bold leading-none tabular-nums ${
+                  className={`mt-0.5 font-display text-[16px] font-bold leading-none tabular-nums ${
                     c.value == null
                       ? "text-zinc-600"
                       : c.value >= 0
@@ -352,14 +352,14 @@ export function DividendAristocratCard({
                 >
                   {c.value == null ? "—" : `${c.value >= 0 ? "+" : ""}${c.value.toFixed(1)}`}
                 </div>
-                <div className="text-[8.5px] text-zinc-500">
+                <div className="text-[11px] text-zinc-500">
                   {c.value == null ? "n.d." : "% / an"}
                 </div>
               </div>
             ))}
           </div>
           {(cagr10 == null || cagr20 == null || cagr50 == null) && (
-            <div className="mt-1 text-[9.5px] italic text-zinc-500">
+            <div className="mt-1 text-[12px] italic text-zinc-500">
               Périodes en grisé : historique dataset trop court (n.d. = non
               disponible).
             </div>
@@ -369,10 +369,10 @@ export function DividendAristocratCard({
         {/* Coupures de dividende (si présentes) */}
         {cuts.length > 0 && (
           <div className="mt-2 rounded-xl border border-amber-500/30 bg-amber-500/[0.06] p-2.5">
-            <div className="text-[10px] font-semibold uppercase tracking-wider text-amber-300">
+            <div className="text-[12.5px] font-semibold uppercase tracking-wider text-amber-300">
               Coupures historiques
             </div>
-            <ul className="mt-1 space-y-0.5 text-[11px] text-amber-100/90">
+            <ul className="mt-1 space-y-0.5 text-[13px] text-amber-100/90">
               {cuts.map((c, i) => (
                 <li key={i}>
                   <span className="font-mono">{c.year}</span> — {c.reason}
@@ -385,29 +385,29 @@ export function DividendAristocratCard({
         {/* Mini-blocs Cap Return / Payout / DPS YoY */}
         <div className="mt-2 grid grid-cols-3 gap-2">
           <div className="rounded-xl border border-white/12 bg-black/45 p-2 backdrop-blur">
-            <div className="text-[9px] font-semibold uppercase tracking-[0.08em] text-zinc-300">
+            <div className="text-[11.5px] font-semibold uppercase tracking-[0.08em] text-zinc-300">
               DPS
             </div>
-            <div className="mt-0.5 font-display text-[14px] font-bold leading-none tabular-nums text-zinc-50">
+            <div className="mt-0.5 font-display text-[16px] font-bold leading-none tabular-nums text-zinc-50">
               <NumberTicker value={dps} decimals={2} />
             </div>
-            <div className="mt-0.5 text-[9px] text-emerald-300">{dpsYoy}</div>
+            <div className="mt-0.5 text-[11.5px] text-emerald-300">{dpsYoy}</div>
           </div>
           <div className="rounded-xl border border-white/12 bg-black/45 p-2 backdrop-blur">
-            <div className="text-[9px] font-semibold uppercase tracking-[0.08em] text-zinc-300">
+            <div className="text-[11.5px] font-semibold uppercase tracking-[0.08em] text-zinc-300">
               Capital rendu
             </div>
-            <div className="mt-0.5 font-display text-[14px] font-bold leading-none tabular-nums text-zinc-50">
+            <div className="mt-0.5 font-display text-[16px] font-bold leading-none tabular-nums text-zinc-50">
               <NumberTicker value={capReturn} decimals={1} />
-              <span className="ml-0.5 text-[10px] font-medium text-zinc-300">
+              <span className="ml-0.5 text-[12.5px] font-medium text-zinc-300">
                 {capReturnUnit === "$B" ? "Mds $" : capReturnUnit}
               </span>
             </div>
-            <div className="mt-0.5 text-[8.5px] italic text-zinc-400">div + rachats</div>
+            <div className="mt-0.5 text-[11px] italic text-zinc-400">div + rachats</div>
           </div>
           <div className="rounded-xl border border-white/12 bg-black/45 p-2 backdrop-blur">
             <div className="flex items-center gap-1">
-              <span className="text-[9px] font-semibold uppercase tracking-[0.08em] text-zinc-300">
+              <span className="text-[11.5px] font-semibold uppercase tracking-[0.08em] text-zinc-300">
                 Payout
               </span>
               <InfoTooltip color={accent} size="sm">
@@ -420,11 +420,11 @@ export function DividendAristocratCard({
                 </div>
               </InfoTooltip>
             </div>
-            <div className="mt-0.5 font-display text-[14px] font-bold leading-none tabular-nums text-zinc-50">
+            <div className="mt-0.5 font-display text-[16px] font-bold leading-none tabular-nums text-zinc-50">
               <NumberTicker value={payoutRatio} />
-              <span className="ml-0.5 text-[10px] font-medium text-zinc-300">%</span>
+              <span className="ml-0.5 text-[12.5px] font-medium text-zinc-300">%</span>
             </div>
-            <div className="mt-0.5 text-[8.5px] italic text-zinc-400">
+            <div className="mt-0.5 text-[11px] italic text-zinc-400">
               couvert {(100 / payoutRatio).toFixed(1)}×
             </div>
           </div>
@@ -435,13 +435,13 @@ export function DividendAristocratCard({
           initial={{ opacity: 0, scale: 0.9 }}
           animate={inView ? { opacity: 1, scale: 1 } : {}}
           transition={{ delay: 0.9, duration: 0.4 }}
-          className="mt-2.5 inline-flex items-center justify-center gap-1.5 self-center rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-[12px] font-semibold text-emerald-200"
+          className="mt-2.5 inline-flex items-center justify-center gap-1.5 self-center rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-[14px] font-semibold text-emerald-200"
         >
-          <TrendingUp className="size-3.5" />
+          <TrendingUp className="size-4.5" />
           <span className="font-mono tabular-nums">
             CAGR <NumberTicker value={cagrShown} decimals={1} suffix=" % / an" duration={900} />
           </span>
-          <span className="text-[10px] italic text-zinc-400">(sur {cagr5 != null ? "5" : n - 1} ans)</span>
+          <span className="text-[12.5px] italic text-zinc-400">(sur {cagr5 != null ? "5" : n - 1} ans)</span>
         </motion.div>
       </div>
     </div>
