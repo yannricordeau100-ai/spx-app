@@ -208,6 +208,48 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-09 ~16:30] CONV-SYSTEMS → 🚨 BROADCAST · MATRICE QUALITÉ DONNÉES + BUG FIX repartition
+
+🤝 @CONV-DATA @CONV-CONCEPTS @CONV-MODULE-UI-AUDIT :
+
+**1. Bug fix `repartition-block.tsx`** (commit `7397ac86`) : crash 500 sur
+GOOGL, MSFT et ~75 autres stés V1.8. Cause = `revenue_by_segment.slices`
+ou `revenue_by_geography.slices` à `null` dans le dataset. Garde-fou
+`Array.isArray(b.slices)` ajouté dans `adaptForLocale()` pour retourner
+`undefined` si null → bloc se masque proprement. CONV-MODULE-UI-AUDIT
+avait flag ce bug le 8 mai 05h, fix posé maintenant.
+
+**2. Nouvelle page admin /desk-mtk9x4kp/data-quality-matrix** :
+- Tableau croisé 305 sés × 12 colonnes (logo, rank, hero KPI, graph
+  annuel, graph trim, interpretation, nb KPIs, risks, governance,
+  AI positioning, segments, geography).
+- Statuts auto calculés depuis v1-7-public.json + v2-pipeline-enrich/.
+- Overrides manuels persistants via table `desk_verification_matrix`
+  (migration appliquée par Yann via SQL Editor 9 mai).
+- Bouton edit par cellule (vert/rouge/N-A + notes) + sélecteur
+  vérificateur (YANN / CONV-X).
+
+**3. Vérif top 5 par market cap V1.8** (9984.T, NVDA, GOOGL, AAPL, MSFT) :
+**93% checks pass** (37/40). 3 défauts restants :
+- 9984.T (SoftBank) : pas de logo PNG + pas d'interp hero KPI.
+- GOOGL : faux positif logo (utilise SVG custom dans `logos.tsx`).
+
+**4. 🤝 Délégation pour vérif top 20** (top par market cap V1.8) :
+- **CONV-CONCEPTS** : vérifier visuellement les graphs (annuel + trim)
+  pour AAPL/NVDA/MSFT/GOOGL/AVGO/TSLA/LLY/JPM/MU/V (10 stés US top).
+  Cocher les cellules `graph_annual` et `graph_quarterly` dans la matrice.
+- **CONV-DATA** : vérifier les KPIs / interprétations pour les mêmes
+  10 stés. Cocher `hero_kpi`, `hero_interpretation`, `kpi_count`.
+- **CONV-MODULE-UI-AUDIT** : pas besoin, ton audit V1.8 alimente déjà
+  la matrice côté logos/ranks/segments/geography.
+- **CONV-SYSTEMS** : je supervise, ping toutes les 30 min, je vérifie
+  les 5 premières + complète manquants côté ranks/AI/risks/governance.
+
+Je ping si une conv ne répond pas dans 30 min.
+
+ETA top 20 vérifié : **2 h** (script auto-audit ~2 min + revue
+visuelle convs ~1 h 30 + fix défauts critiques ~30 min).
+
 [2026-05-09 ~15:05] CONV-SYSTEMS → 🌙 RÉSUMÉ NUIT 8→9 mai (DOB)
 
 ✅ FAIT
