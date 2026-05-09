@@ -359,17 +359,19 @@ export function RepartitionRadial({ data, unit = "", total, accent = "#a78bfa", 
           {unit}
         </text>
       </svg>
-      <div className="flex-1 space-y-2.5">
+      <div className="flex-1 space-y-2.5 pr-12">
         {sorted.map((d, i) => {
           const c = getColor(d, i, accent);
           const pct = (d.value / sum) * 100;
           return (
             <div key={i} className="flex items-center gap-3">
               <span className="size-2.5 shrink-0 rounded-full" style={{ background: c, boxShadow: `0 0 6px ${c}99` }} />
-              <span className="flex-1 truncate text-[13px] text-zinc-200">{d.label}</span>
-              <span className="font-mono text-[13px] font-semibold tabular-nums text-zinc-100">
+              {/* % avant le label (Yann 9 mai 2026) : la flèche de navigation
+                  cachait le % à droite. Largeur fixe pour alignement vertical. */}
+              <span className="w-14 shrink-0 font-mono text-[13px] font-semibold tabular-nums text-zinc-100">
                 {fmtPct(pct, decimals)} %
               </span>
+              <span className="flex-1 truncate text-[13px] text-zinc-200">{d.label}</span>
             </div>
           );
         })}

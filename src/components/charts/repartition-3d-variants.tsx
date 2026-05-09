@@ -238,8 +238,10 @@ export function RepartitionIsoDetachedWedges({ data, unit = "", total, accent = 
           return (
             <div key={i} className="inline-flex items-center gap-2">
               <span className="size-2.5 rounded-sm" style={{ background: c }} />
+              {/* % avant le label (Yann 9 mai 2026) : flèche de navigation
+                  cachait le % à droite. */}
+              <span className="font-mono text-[11.5px] font-semibold tabular-nums text-zinc-200">{fmtPct(pct, decimals)} %</span>
               <span className="text-[12px] text-zinc-300">{d.label}</span>
-              <span className="font-mono text-[11.5px] tabular-nums text-zinc-500">{fmtPct(pct, decimals)} %</span>
             </div>
           );
         })}
