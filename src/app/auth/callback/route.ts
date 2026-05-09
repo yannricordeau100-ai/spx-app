@@ -1,5 +1,18 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { enrollUserInOnboarding } from "@/lib/email/onboarding";
+
+/**
+ * Inscrit silencieusement un user dans la séquence onboarding 5 emails
+ * (J+1/J+3/J+7/J+14/J+25). Best-effort : ne bloque jamais le flow auth.
+ */
+async function enrollSilently(email: string, locale: string | null) {
+  try {
+    await enrollUserInOnboarding({ email, locale: locale ?? "fr" });
+  } catch (err) {
+    console.warn("[auth/callback] enrollSilently failed:", err);
+  }
+}
 
 /**
  * Auth callback — terminus du flow OAuth (Google) et magic link.
@@ -51,6 +64,8 @@ export async function GET(request: NextRequest) {
   const next = safeNext(searchParams.get("next"));
   const supabase = await createSupabaseServerClient();
 
+  const cookieLocale = request.cookies.get("NEXT_LOCALE")?.value ?? null;
+
   // Cas 1a : token_hash présent (signup confirmation, magic link, recovery, etc.)
   if (tokenHash && type) {
     const { error } = await supabase.auth.verifyOtp({
@@ -58,6 +73,11 @@ export async function GET(request: NextRequest) {
       token_hash: tokenHash,
     });
     if (!error) {
+      // Onboarding email sequence sur signup uniquement (pas magic link de re-login).
+      if (type === "signup") {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user?.email) await enrollSilently(user.email, cookieLocale);
+      }
       return NextResponse.redirect(`${origin}${next}`);
     }
     // Vérifie si déjà connecté (cas du double-click)
@@ -74,6 +94,15 @@ export async function GET(request: NextRequest) {
   if (code) {
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
+      // OAuth (Google, etc.) : enroll si nouveau compte. La meilleure heuristique
+      // c'est created_at qui correspond à maintenant (à la seconde près).
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user?.email && user.created_at) {
+        const ageMs = Date.now() - new Date(user.created_at).getTime();
+        if (ageMs < 60_000) {
+          await enrollSilently(user.email, cookieLocale);
+        }
+      }
       return NextResponse.redirect(`${origin}${next}`);
     }
 
