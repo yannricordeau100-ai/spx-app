@@ -22,8 +22,12 @@ const STYLES: Style[] = ["treemap", "radial", "iso"];
 
 type Tab = "geo" | "segment";
 
-function adaptForLocale(b: RevenueBreakdown | undefined, locale: Locale) {
+function adaptForLocale(b: RevenueBreakdown | undefined | null, locale: Locale) {
   if (!b) return undefined;
+  // Garde-fou : certaines stés ont `revenue_by_*` présent mais avec
+  // `slices: null` (data partiellement extraite). On retourne undefined
+  // pour que hasGeo/hasSegment soit false et que le bloc se masque.
+  if (!Array.isArray(b.slices)) return undefined;
   return {
     ...b,
     slices: b.slices.map((s) => ({
