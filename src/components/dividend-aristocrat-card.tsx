@@ -87,7 +87,7 @@ export function DividendAristocratCard({
   capReturn,
   capReturnUnit,
   payoutRatio,
-  yearsStreak = 31,
+  yearsStreak,
   meta,
 }: {
   accent: string;
@@ -98,10 +98,25 @@ export function DividendAristocratCard({
   capReturn: number;
   capReturnUnit: string;
   payoutRatio: number;
+  /** Si fourni → utilisé en valeur figée. Sinon calculé depuis meta.first_year. */
   yearsStreak?: number;
   /** Historique étendu : 1ère année + coupures éventuelles. */
   meta?: DividendMeta;
 }) {
+  // yearsStreak dynamique : si non fourni en prop, calculer depuis
+  // meta.first_year (si dispo). Si aucun des deux : null = ne pas afficher
+  // la mention "X ans de hausse" (pas de fallback hardcodé sur des stés
+  // dont on ne sait rien) — règle CONV-DIV 9 mai 2026.
+  const computedStreak: number | null = (() => {
+    if (typeof yearsStreak === "number" && yearsStreak > 0) return yearsStreak;
+    const firstYear = meta?.first_year;
+    if (typeof firstYear === "number" && firstYear > 1900) {
+      const currentYear = new Date().getFullYear();
+      const diff = currentYear - firstYear;
+      return diff > 0 ? diff : null;
+    }
+    return null;
+  })();
   const containerRef = useRef<HTMLDivElement>(null);
   const inView = useInView(containerRef, { once: true, margin: "-10%" });
 
@@ -198,15 +213,23 @@ export function DividendAristocratCard({
         </div>
 
         <div className="mt-3 text-[20px] font-bold leading-tight text-zinc-50">
-          Dividend Aristocrat
+          {computedStreak != null && computedStreak >= 25
+            ? "Dividend Aristocrat"
+            : "Politique de dividende"}
         </div>
         <div className="text-[11.5px] italic text-zinc-400">
-          {firstYear
-            ? `Versement depuis ${firstYear} · ${yearsStreak} ans de hausse`
-            : `Hausse continue depuis ${2025 - yearsStreak + 1}`}
+          {firstYear && computedStreak != null
+            ? `Versement depuis ${firstYear} · ${computedStreak} ans de hausse`
+            : firstYear
+            ? `Versement depuis ${firstYear}`
+            : computedStreak != null
+            ? `Hausse continue depuis ${new Date().getFullYear() - computedStreak + 1}`
+            : "Historique de hausse non documenté"}
         </div>
 
-        {/* Focal central : "31" qui grossit */}
+        {/* Focal central : "X ans" qui grossit, uniquement si on connaît
+            le streak réel. Sinon on cache le focal et on saute aux KPIs. */}
+        {computedStreak != null && (
         <div className="mt-3 mb-2 flex flex-col items-center">
           <motion.div
             initial={{ scale: 0.4, opacity: 0 }}
@@ -215,7 +238,7 @@ export function DividendAristocratCard({
             className="font-display font-bold leading-none tracking-tight gradient-text"
             style={{ fontSize: "clamp(60px, 18vw, 96px)" }}
           >
-            <NumberTicker value={yearsStreak} duration={1100} />
+            <NumberTicker value={computedStreak} duration={1100} />
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -226,6 +249,7 @@ export function DividendAristocratCard({
             années de hausse consécutive
           </motion.div>
         </div>
+        )}
 
         {/* Mini-courbe DPS history */}
         <div className="rounded-xl border border-white/10 bg-black/40 p-2.5 backdrop-blur">

@@ -350,6 +350,29 @@ export async function loadV17Company(
       }));
       data.kpis = [...data.kpis, ...extraStories];
     }
+    // KPIs additionnels (ex : DividendStories CONV-DIV — DPS / Cap Return /
+    // Payout Ratio). APPEND si le `short` n'existe pas déjà dans CONV-DATA.
+    if (Array.isArray(enrich.kpis) && Array.isArray(data.kpis)) {
+      const existingShorts = new Set(
+        (data.kpis as AnyKPI[]).map((k) => k?.short).filter(Boolean),
+      );
+      const extraKpis = (enrich.kpis as AnyKPI[])
+        .filter((k) => k && typeof k === "object" && !existingShorts.has(k.short))
+        .map((k) => ({ ...k, history: normalizeHistory(k.history) }));
+      if (extraKpis.length > 0) {
+        data.kpis = [...data.kpis, ...extraKpis];
+      }
+    }
+    // dividend_meta : propagé tel quel à la company (utilisé par
+    // DividendAristocratCard pour calculer yearsStreak depuis first_year).
+    // CONV-DIV 9 mai 2026.
+    if (
+      enrich.dividend_meta &&
+      typeof enrich.dividend_meta === "object" &&
+      !Array.isArray(enrich.dividend_meta)
+    ) {
+      (data as Record<string, unknown>).dividend_meta = enrich.dividend_meta;
+    }
   }
 
   // Fresh / stale backfill via existing helper

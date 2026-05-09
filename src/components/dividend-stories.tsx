@@ -125,6 +125,14 @@ export function DividendStories({ company }: { company: Company }) {
   const swipeRef = useRef<HTMLDivElement>(null);
   useSwipeStories(swipeRef, { onPrev: goPrev, onNext: goNext });
 
+  // Récupération de meta dividend_meta (extrait par CONV-DIV depuis 10-K).
+  // Champ optionnel : si absent → la card calcule rien, n'affiche pas le focal
+  // "X ans de hausse" (anti-fallback hardcodé sur stés inconnues).
+  // CAT garde son fallback explicite yearsStreak=31 (V1 démo cas connu).
+  type CompanyWithMeta = typeof company & {
+    dividend_meta?: { first_year?: number; cuts?: Array<{ year: number; reason: string }> };
+  };
+  const dividendMeta = (company as CompanyWithMeta).dividend_meta;
   const cards = [
     <DividendAristocratCard
       key="aristocrat"
@@ -136,7 +144,8 @@ export function DividendStories({ company }: { company: Company }) {
       capReturn={capReturn}
       capReturnUnit={capReturnUnit}
       payoutRatio={payoutRatio}
-      yearsStreak={31}
+      yearsStreak={isCAT ? 31 : undefined}
+      meta={dividendMeta}
     />,
     <DividendCalculatorCard
       key="calc"
