@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Check, Sparkles, ArrowRight, Crown } from "lucide-react";
-import { PLANS, monthlyEquivalent, type PlanDisplay } from "@/lib/billing/plans";
+import { PLANS as FALLBACK_PLANS, monthlyEquivalent, type PlanDisplay } from "@/lib/billing/plans";
 
 /**
  * 3-card pricing avec toggle mensuel / annuel.
@@ -21,7 +21,19 @@ import { PLANS, monthlyEquivalent, type PlanDisplay } from "@/lib/billing/plans"
  * redirection Stripe. Le tier `pro_plus` n'est pas encore Stripe-configuré
  * → CTA "Nous contacter" temporairement (mailto).
  */
-export function PricingCards({ ctaTrackingPrefix = "" }: { ctaTrackingPrefix?: string }) {
+export function PricingCards({
+  ctaTrackingPrefix = "",
+  plans: plansProp,
+}: {
+  ctaTrackingPrefix?: string;
+  /**
+   * Plans à afficher. Yann 8 mai 2026 : prop optionnel pour permettre à
+   * la page server de passer les plans depuis la BDD via `loadPricingCatalog()`.
+   * Sans prop, fallback sur les plans hardcodés `plans.ts`.
+   */
+  plans?: PlanDisplay[];
+}) {
+  const PLANS = plansProp && plansProp.length > 0 ? plansProp : FALLBACK_PLANS;
   const [billing, setBilling] = useState<"monthly" | "annual">("annual");
 
   return (

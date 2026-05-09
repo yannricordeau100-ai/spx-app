@@ -1,5 +1,5 @@
 import { Check, Lock, Info } from "lucide-react";
-import { FEATURES, PLANS, type FeatureRow, type PlanTier } from "@/lib/billing/plans";
+import { FEATURES as FALLBACK_FEATURES, PLANS as FALLBACK_PLANS, type FeatureRow, type PlanDisplay, type PlanTier } from "@/lib/billing/plans";
 
 /**
  * Matrice features × plans pour la page tarifs.
@@ -30,7 +30,7 @@ function renderCell(value: string | boolean, accent: string) {
   );
 }
 
-function FeatureCellGroup({ feature }: { feature: FeatureRow }) {
+function FeatureCellGroup({ feature, plans }: { feature: FeatureRow; plans: PlanDisplay[] }) {
   return (
     <div className="grid grid-cols-[1.5fr_1fr_1fr_1fr] items-center gap-3 border-b border-white/[0.04] py-2.5">
       <div className="flex items-center gap-1.5">
@@ -45,16 +45,26 @@ function FeatureCellGroup({ feature }: { feature: FeatureRow }) {
         )}
       </div>
       {(["free", "investisseur", "pro_plus"] as const).map((tier) => {
-        const plan = PLANS.find((p) => p.tier === tier)!;
+        const plan = plans.find((p) => p.tier === tier);
         return (
-          <div key={tier}>{renderCell(feature[tier], plan.accent)}</div>
+          <div key={tier}>{renderCell(feature[tier], plan?.accent ?? "#a78bfa")}</div>
         );
       })}
     </div>
   );
 }
 
-export function PricingMatrix() {
+export function PricingMatrix({
+  plans: plansProp,
+  features: featuresProp,
+}: {
+  /** Plans depuis la BDD via loadPricingCatalog. Fallback hardcoded si absent. */
+  plans?: PlanDisplay[];
+  features?: FeatureRow[];
+} = {}) {
+  const PLANS = plansProp && plansProp.length > 0 ? plansProp : FALLBACK_PLANS;
+  const FEATURES = featuresProp && featuresProp.length > 0 ? featuresProp : FALLBACK_FEATURES;
+
   // Group features by category
   const byCategory = FEATURES.reduce<Record<string, FeatureRow[]>>((acc, f) => {
     if (!acc[f.category]) acc[f.category] = [];
@@ -81,7 +91,7 @@ export function PricingMatrix() {
         <div key={category} className="mt-3">
           <div className="mb-1.5 text-[10.5px] font-semibold uppercase tracking-wider text-zinc-500">{category}</div>
           {rows.map((f) => (
-            <FeatureCellGroup key={f.id} feature={f} />
+            <FeatureCellGroup key={f.id} feature={f} plans={PLANS} />
           ))}
         </div>
       ))}

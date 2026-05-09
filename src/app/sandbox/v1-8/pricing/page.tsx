@@ -3,6 +3,7 @@ import { ArrowLeft, Check, Sparkles, Shield, Zap, Mail } from "lucide-react";
 import { PricingCards } from "@/components/billing/pricing-cards";
 import { PricingMatrix } from "@/components/billing/pricing-matrix";
 import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
+import { loadPricingCatalog } from "@/lib/billing/load-pricing";
 
 /**
  * /sandbox/v1-8/pricing — page tarifs sales-optimized.
@@ -26,7 +27,8 @@ export const metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function V18PricingPage() {
+export default async function V18PricingPage() {
+  const catalog = await loadPricingCatalog();
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#050505]">
       <div
@@ -90,7 +92,7 @@ export default function V18PricingPage() {
 
         {/* PLAN CARDS */}
         <div className="mx-auto mt-14 max-w-5xl">
-          <PricingCards ctaTrackingPrefix="v18_top_" />
+          <PricingCards ctaTrackingPrefix="v18_top_" plans={catalog.plans} />
         </div>
 
         {/* MATRICE FEATURES */}
@@ -103,7 +105,7 @@ export default function V18PricingPage() {
               Toutes les fonctionnalités, en clair, pour décider sans surprise.
             </p>
           </div>
-          <PricingMatrix />
+          <PricingMatrix plans={catalog.plans} features={catalog.features} />
         </section>
 
         {/* TRUST / VALUE */}

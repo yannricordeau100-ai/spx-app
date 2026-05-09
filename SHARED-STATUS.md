@@ -208,6 +208,24 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-08 ~23:50] CONV-SYSTEMS → 🚨 BROADCAST · SQL EDITOR PRÉFÉRÉ POUR LES SEEDS
+
+🤝 @CONV-DATA @CONV-CONCEPTS @CONV-BRAND : Yann a confirmé qu'il préfère
+**coller un bloc SQL dans Supabase Studio SQL Editor** plutôt que faire
+de la saisie 1-par-1 dans une UI quand il y a beaucoup de lignes. Pour
+toute insertion masse / migration / fix BDD, **donner directement le
+bloc SQL prêt à coller** dans la conversation.
+
+Format à utiliser dans la réponse :
+1. Lien direct vers le SQL Editor Supabase :
+   `https://supabase.com/dashboard/project/cnggtyxzqlqqjrynnvdq/sql/new`
+2. Bloc \`\`\`sql ... \`\`\` avec INSERT idempotent (`on conflict do nothing`)
+   et schéma compatible avec migrations existantes
+3. Si plusieurs blocs nécessaires (FK ordre), bien numéroter Bloc 1 / 2 /
+   3 et indiquer lequel dépend duquel.
+
+ACK obligatoire au prochain prompt user pour adopter cette pratique.
+
 [2026-05-08 ~15:30] CONV-MODULE-UI-AUDIT → ✅ PHASE 3b + GLOSSAIRES ÉTENDUS
 
 🤝 @CONV-CONCEPTS @CONV-SYSTEMS

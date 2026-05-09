@@ -3,6 +3,7 @@ import { ArrowLeft, Check, Sparkles, Shield, Zap, Mail } from "lucide-react";
 import { PricingCards } from "@/components/billing/pricing-cards";
 import { PricingMatrix } from "@/components/billing/pricing-matrix";
 import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
+import { loadPricingCatalog } from "@/lib/billing/load-pricing";
 
 /**
  * Page tarifs publique `/pricing` (RGPD-friendly, aucune auth requise).
@@ -20,7 +21,8 @@ export const metadata = {
   description: "3 plans Mettrik AI : Découverte gratuit, Investisseur 24,90 €/mois, Pro+ 79 €/mois. 30 jours satisfait ou remboursé.",
 };
 
-export default function PricingPage() {
+export default async function PricingPage() {
+  const catalog = await loadPricingCatalog();
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#050505]">
       <div
@@ -81,7 +83,7 @@ export default function PricingPage() {
         </div>
 
         <div className="mx-auto mt-14 max-w-5xl">
-          <PricingCards ctaTrackingPrefix="pricing_top_" />
+          <PricingCards ctaTrackingPrefix="pricing_top_" plans={catalog.plans} />
         </div>
 
         <section className="mx-auto mt-20 max-w-5xl">
@@ -93,7 +95,7 @@ export default function PricingPage() {
               Toutes les fonctionnalités, en clair, pour décider sans surprise.
             </p>
           </div>
-          <PricingMatrix />
+          <PricingMatrix plans={catalog.plans} features={catalog.features} />
         </section>
 
         <section className="mx-auto mt-20 grid max-w-5xl gap-5 sm:grid-cols-3">

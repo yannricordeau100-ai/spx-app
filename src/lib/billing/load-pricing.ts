@@ -16,12 +16,21 @@
  * `revalidate` au niveau de la page parente.
  */
 import { createClient } from "@supabase/supabase-js";
-import { PLANS as FALLBACK_PLANS, type PlanDisplay, type PlanTier } from "./plans";
+import { PLANS as FALLBACK_PLANS, FEATURES as FALLBACK_FEATURES, type PlanDisplay, type PlanTier, type FeatureRow } from "./plans";
 import type { Currency, Frequency } from "./admin-types";
 
 export type LoadedPlan = PlanDisplay & {
   /** Prix par devise + fréquence. EUR/monthly utilisé en display par défaut. */
   prices: Record<string, { monthly?: number; annual?: number }>;
+};
+
+/**
+ * Catalog complet : plans + features + valeurs par plan, prêt à consommer
+ * par PricingMatrix et PricingCards.
+ */
+export type LoadedCatalog = {
+  plans: LoadedPlan[];
+  features: FeatureRow[];
 };
 
 export async function loadPricingForPublic(): Promise<LoadedPlan[]> {
@@ -100,4 +109,73 @@ export function priceFor(plan: LoadedPlan, currency: Currency, frequency: Freque
   // Fallback : EUR
   const eur = plan.prices.EUR?.[frequency];
   return typeof eur === "number" ? eur : null;
+}
+
+/**
+ * Charge le catalogue complet (plans + features + valeurs) pour le front.
+ * Idempotent : fallback sur plans.ts hardcoded si BDD vide / inaccessible.
+ */
+export async function loadPricingCatalog(): Promise<LoadedCatalog> {
+  const plans = await loadPricingForPublic();
+
+  // Charge features + plan_features depuis la BDD
+  try {
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    if (!url || !key) throw new Error("Supabase keys missing");
+    const supabase = createClient(url, key, { auth: { autoRefreshToken: false, persistSession: false } });
+
+    const [featRes, pfRes] = await Promise.all([
+      supabase.from("pricing_features").select("*").eq("is_active", true).order("category_order").order("feature_order"),
+      supabase.from("pricing_plan_features").select("*").eq("is_active", true),
+    ]);
+
+    if (featRes.error || !featRes.data || featRes.data.length === 0) {
+      // BDD vide → fallback
+      return { plans, features: FALLBACK_FEATURES };
+    }
+
+    // Mapping {plan_code → {feature_code → value_fr}}
+    const planById = new Map<string, string>(); // id → code
+    // On a besoin du mapping id→code mais loadPricingForPublic ne renvoie pas l'id BDD
+    // → re-query plans pour mapping
+    const { data: dbPlans } = await supabase.from("pricing_plans").select("id, code");
+    if (dbPlans) for (const p of dbPlans) planById.set(p.id, p.code);
+
+    const valuesByCode = new Map<string, Map<string, string>>(); // featureCode → planCode → value
+    const featById = new Map<string, string>();
+    for (const f of featRes.data) featById.set(f.id, f.code);
+
+    for (const pf of pfRes.data ?? []) {
+      const featCode = featById.get(pf.feature_id);
+      const planCode = planById.get(pf.plan_id);
+      if (!featCode || !planCode) continue;
+      if (!valuesByCode.has(featCode)) valuesByCode.set(featCode, new Map());
+      valuesByCode.get(featCode)!.set(planCode, pf.value_fr ?? "");
+    }
+
+    // Construit FeatureRow[] depuis la BDD
+    const features: FeatureRow[] = featRes.data.map((f) => {
+      const vals = valuesByCode.get(f.code) ?? new Map();
+      const get = (planCode: string): string | boolean => {
+        const v = vals.get(planCode);
+        if (v === "true") return true;
+        if (v === "false") return false;
+        return v ?? false;
+      };
+      return {
+        id: f.code,
+        category: f.category as FeatureRow["category"],
+        label: f.label_fr,
+        help: f.help_fr ?? undefined,
+        free: get("decouverte"),
+        investisseur: get("investisseur"),
+        pro_plus: get("pro_plus"),
+      };
+    });
+
+    return { plans, features };
+  } catch {
+    return { plans, features: FALLBACK_FEATURES };
+  }
 }
