@@ -60,13 +60,12 @@ export default async function SandboxV18HubPage() {
               <span className="hidden sm:inline"> — débloque les 1 000+ sociétés, alertes email, comparaisons illimitées</span>
             </span>
           </div>
-          <div className="flex shrink-0 items-center gap-2">
-            <Link
-              href="/sandbox/v1-8/contact"
-              className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[12px] font-semibold text-zinc-200 transition-colors hover:bg-white/[0.07]"
-            >
-              Contact
-            </Link>
+          {/* Bouton Contact retire du bandeau (Yann 9 mai 2026) : il
+              chevauchait visuellement la AuthNav fixée en top-right
+              (Mon Compte / langue / theme toggle). /contact reste
+              accessible via DisclaimerFooter. Ne garder QUE "Voir
+              les plans" (CTA principal du bandeau). */}
+          <div className="flex shrink-0 items-center">
             <Link
               href="/sandbox/v1-8/pricing"
               className="inline-flex items-center gap-1.5 rounded-lg border border-violet-500/40 bg-violet-500/15 px-3 py-1.5 text-[12px] font-bold text-violet-100 transition-colors hover:bg-violet-500/25"
