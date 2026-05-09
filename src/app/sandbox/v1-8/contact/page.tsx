@@ -4,6 +4,7 @@ import { ArrowLeft, Mail, Shield, FileText } from "lucide-react";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getServerLocale } from "@/lib/i18n/server";
 import { translate } from "@/lib/i18n/dictionary";
+import { loadPageContent } from "@/lib/desk/page-content";
 import { ContactV18Client } from "./client";
 
 export const dynamic = "force-dynamic";
@@ -41,6 +42,13 @@ export default async function SandboxV18ContactPage() {
   const t = (k: string) => translate(k, locale);
   const isFr = locale === "fr";
 
+  // Lit le contenu éditable de la page (table desk_page_content). Si une
+  // section n'existe pas en BDD, on utilise le fallback hardcodé. Permet à
+  // Yann d'éditer les textes de la page contact via le back-office sans
+  // recompiler.
+  const cms = await loadPageContent("contact", locale);
+  const txt = (key: string, fallback: string) => cms[key] ?? fallback;
+
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#050505] text-zinc-100">
       <div
@@ -70,12 +78,15 @@ export default async function SandboxV18ContactPage() {
           </span>
           <div>
             <h1 className="font-display text-[28px] font-bold tracking-tight sm:text-[34px]">
-              {isFr ? "Contacte l'équipe" : "Contact the team"}
+              {txt("title", isFr ? "Contacte l'équipe" : "Contact the team")}
             </h1>
             <p className="text-[13px] text-zinc-400">
-              {isFr
-                ? "Réponse sous 24 h ouvrées. Choisis la bonne destination ci-dessous."
-                : "Reply within 24 business hours. Pick the right destination below."}
+              {txt(
+                "subtitle",
+                isFr
+                  ? "Réponse sous 24 h ouvrées. Choisis la bonne destination ci-dessous."
+                  : "Reply within 24 business hours. Pick the right destination below.",
+              )}
             </p>
           </div>
         </div>
