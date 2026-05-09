@@ -47,7 +47,25 @@ export async function getPlan(id: string): Promise<PricingPlan | null> {
 export async function upsertPlan(plan: Partial<PricingPlan>): Promise<PricingPlan> {
   const { data, error } = await adminClient()
     .from("pricing_plans")
-    .upsert(plan)
+    .upsert(plan, { onConflict: "id" })
+    .select()
+    .single();
+  if (error) throw error;
+  return data as PricingPlan;
+}
+
+/**
+ * Update strict (par id) : utilisé pour les PATCH où id est dans l'URL et
+ * non dans le body. Plus prévisible qu'upsert (qui peut INSERT silencieux
+ * si la PK est interprétée bizarrement).
+ */
+export async function updatePlanById(id: string, partial: Partial<PricingPlan>): Promise<PricingPlan> {
+  // Strip id du body pour éviter de se le faire imposer
+  const { id: _ignored, ...rest } = partial as PricingPlan;
+  const { data, error } = await adminClient()
+    .from("pricing_plans")
+    .update(rest)
+    .eq("id", id)
     .select()
     .single();
   if (error) throw error;
@@ -211,7 +229,19 @@ export async function listPromoCodes(): Promise<PricingPromoCode[]> {
 export async function upsertPromoCode(promo: Partial<PricingPromoCode>): Promise<PricingPromoCode> {
   const { data, error } = await adminClient()
     .from("pricing_promo_codes")
-    .upsert(promo)
+    .upsert(promo, { onConflict: "id" })
+    .select()
+    .single();
+  if (error) throw error;
+  return data as PricingPromoCode;
+}
+
+export async function updatePromoCodeById(id: string, partial: Partial<PricingPromoCode>): Promise<PricingPromoCode> {
+  const { id: _ignored, ...rest } = partial as PricingPromoCode;
+  const { data, error } = await adminClient()
+    .from("pricing_promo_codes")
+    .update(rest)
+    .eq("id", id)
     .select()
     .single();
   if (error) throw error;
