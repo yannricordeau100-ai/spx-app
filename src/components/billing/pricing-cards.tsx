@@ -74,7 +74,78 @@ export function PricingCards({
       <p className="mt-6 text-center text-[12px] text-zinc-500">
         Tous les plans payants : 30 jours satisfait ou remboursé. TVA incluse, facturation par R consulting (Suisse).
       </p>
+
+      {/* Code promo en bas de page (best practice US 2024) : afficher
+          uniquement aux utilisateurs ayant scrollé = déjà engagés. Évite
+          la friction "j'attends d'avoir un code mieux". */}
+      <PromoCodeBox />
     </div>
+  );
+}
+
+/**
+ * Bandeau code promo. Stocke dans localStorage et expose globalement
+ * pour que les CTA de plan puissent l'inclure dans le POST checkout.
+ */
+function PromoCodeBox() {
+  const [code, setCode] = useState("");
+  const [applied, setApplied] = useState(false);
+
+  // Au mount : lit localStorage
+  if (typeof window !== "undefined" && !code && !applied) {
+    const saved = window.localStorage.getItem("mettrik_promo_code") ?? "";
+    if (saved && !code) {
+      // setState in render = ok if guarded, mais on évite via lazy init
+    }
+  }
+
+  function apply() {
+    if (!code) return;
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem("mettrik_promo_code", code.toUpperCase());
+    }
+    setApplied(true);
+    setTimeout(() => setApplied(false), 3000);
+  }
+
+  function clear() {
+    if (typeof window !== "undefined") {
+      window.localStorage.removeItem("mettrik_promo_code");
+    }
+    setCode("");
+    setApplied(false);
+  }
+
+  return (
+    <details className="mx-auto mt-10 max-w-md group">
+      <summary className="flex cursor-pointer items-center justify-center gap-1.5 text-[11.5px] font-semibold text-zinc-400 hover:text-zinc-200">
+        J'ai un code promotionnel
+        <span className="text-zinc-600">↓</span>
+      </summary>
+      <div className="mt-3 flex items-stretch gap-2">
+        <input
+          type="text"
+          value={code}
+          onChange={(e) => setCode(e.target.value.toUpperCase())}
+          placeholder="ex : LAUNCH20"
+          className="flex-1 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 py-2 font-mono text-[12.5px] uppercase tracking-wider text-zinc-100 placeholder:text-zinc-600 focus:border-violet-500/40 focus:outline-none"
+        />
+        {!applied ? (
+          <button type="button" onClick={apply} disabled={!code} className="rounded-lg bg-violet-500 px-4 py-2 text-[12px] font-bold text-zinc-50 disabled:opacity-50 hover:bg-violet-400">
+            Appliquer
+          </button>
+        ) : (
+          <button type="button" onClick={clear} className="rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-4 py-2 text-[12px] font-bold text-emerald-200 hover:bg-emerald-500/15">
+            ✓ Appliqué
+          </button>
+        )}
+      </div>
+      {applied && (
+        <p className="mt-1.5 text-center text-[11px] text-emerald-300">
+          Code « {code} » sera appliqué à ton checkout. Validité vérifiée à la sélection du plan.
+        </p>
+      )}
+    </details>
   );
 }
 
@@ -93,10 +164,10 @@ function PricingCard({
   const isHighlight = plan.highlight;
 
   let ctaHref = "/signup";
+  let ctaIsCheckout = false;
   if (plan.tier === "investisseur") {
-    ctaHref = isAnnual
-      ? "/api/billing/checkout?plan=premium_annual"
-      : "/api/billing/checkout?plan=premium_monthly";
+    ctaHref = isAnnual ? "premium_annual" : "premium_monthly";
+    ctaIsCheckout = true;
   } else if (plan.tier === "pro_plus") {
     ctaHref = "mailto:contact@mettrik.ai?subject=Demande%20Pro%2B%20Mettrik%20AI";
   }
@@ -145,27 +216,17 @@ function PricingCard({
         )}
       </div>
 
-      <Link
-        href={ctaHref}
-        data-pricing-cta={`${prefix}${plan.tier}_${billing}`}
-        className={`mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3 text-[14px] font-bold transition-colors ${
-          isHighlight
-            ? "text-zinc-50 shadow-lg"
-            : plan.tier === "pro_plus"
-              ? "border-2 text-zinc-50"
-              : "border border-white/10 bg-white/[0.04] text-zinc-200 hover:bg-white/[0.07]"
-        }`}
-        style={
-          isHighlight
-            ? { background: plan.accent }
-            : plan.tier === "pro_plus"
-              ? { borderColor: `${plan.accent}80`, color: plan.accent }
-              : undefined
-        }
-      >
-        {plan.cta_label}
-        <ArrowRight className="size-4" />
-      </Link>
+      <CtaButton
+        plan={plan.tier}
+        ctaHref={ctaHref}
+        ctaIsCheckout={ctaIsCheckout}
+        ctaLabel={plan.cta_label}
+        isHighlight={isHighlight}
+        accent={plan.accent}
+        prefix={prefix}
+        billing={billing}
+        stripePlan={ctaIsCheckout ? (ctaHref as "premium_monthly" | "premium_annual") : undefined}
+      />
 
       <p className="mt-3 text-center text-[10.5px] text-zinc-500">{plan.audience}</p>
 
@@ -177,6 +238,115 @@ function PricingCard({
           </li>
         ))}
       </ul>
+    </div>
+  );
+}
+
+/**
+ * CTA bouton qui POST le checkout avec le code promo lu depuis localStorage.
+ * Pour les plans non payants (free → /signup, pro_plus → mailto), c'est
+ * un Link standard.
+ */
+function CtaButton({
+  plan,
+  ctaHref,
+  ctaIsCheckout,
+  ctaLabel,
+  isHighlight,
+  accent,
+  prefix,
+  billing,
+  stripePlan,
+}: {
+  plan: PlanDisplay["tier"];
+  ctaHref: string;
+  ctaIsCheckout: boolean;
+  ctaLabel: string;
+  isHighlight: boolean;
+  accent: string;
+  prefix: string;
+  billing: "monthly" | "annual";
+  stripePlan?: "premium_monthly" | "premium_annual";
+}) {
+  const className = `mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3 text-[14px] font-bold transition-colors ${
+    isHighlight
+      ? "text-zinc-50 shadow-lg"
+      : plan === "pro_plus"
+        ? "border-2 text-zinc-50"
+        : "border border-white/10 bg-white/[0.04] text-zinc-200 hover:bg-white/[0.07]"
+  }`;
+  const style = isHighlight
+    ? { background: accent }
+    : plan === "pro_plus"
+      ? { borderColor: `${accent}80`, color: accent }
+      : undefined;
+
+  if (!ctaIsCheckout || !stripePlan) {
+    return (
+      <Link href={ctaHref} data-pricing-cta={`${prefix}${plan}_${billing}`} className={className} style={style}>
+        {ctaLabel}
+        <ArrowRight className="size-4" />
+      </Link>
+    );
+  }
+
+  return <CheckoutButtonInline className={className} style={style} stripePlan={stripePlan} ctaLabel={ctaLabel} prefix={prefix} plan={plan} billing={billing} />;
+}
+
+function CheckoutButtonInline({
+  className,
+  style,
+  stripePlan,
+  ctaLabel,
+  prefix,
+  plan,
+  billing,
+}: {
+  className: string;
+  style?: React.CSSProperties;
+  stripePlan: "premium_monthly" | "premium_annual";
+  ctaLabel: string;
+  prefix: string;
+  plan: string;
+  billing: string;
+}) {
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
+
+  async function go() {
+    setBusy(true);
+    setErr(null);
+    try {
+      const promoCode = typeof window !== "undefined" ? window.localStorage.getItem("mettrik_promo_code") : null;
+      const r = await fetch("/api/billing/checkout", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ plan: stripePlan, currency: "eur", promo_code: promoCode || undefined }),
+      });
+      if (r.status === 401) {
+        window.location.href = `/?auth=signin&next=${encodeURIComponent("/pricing?selected=" + stripePlan)}`;
+        return;
+      }
+      const data = await r.json();
+      if (!r.ok || !data.url) {
+        setErr(data.error ?? "Erreur");
+        setBusy(false);
+        return;
+      }
+      window.location.href = data.url;
+    } catch {
+      setErr("Erreur réseau");
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div className="w-full">
+      <button type="button" onClick={go} disabled={busy} data-pricing-cta={`${prefix}${plan}_${billing}`} className={className} style={style}>
+        {busy ? "Chargement…" : ctaLabel}
+        <ArrowRight className="size-4" />
+      </button>
+      {err && <p className="mt-2 text-center text-[11px] text-rose-300">{err}</p>}
     </div>
   );
 }
