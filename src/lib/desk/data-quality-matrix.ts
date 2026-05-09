@@ -85,6 +85,31 @@ function readEnrich(ticker: string): Record<string, unknown> | null {
   }
 }
 
+/** Lit le dataset complet depuis v2-pipeline/<ticker>.json (= source de
+ *  vérité avec risks / governance / ai_positioning / etc, contrairement
+ *  au V17_PUBLIC bundlé qui est strippé pour le bundle size).
+ *  Yann 9 mai 2026 : matrice affichait tout en KO car V17_PUBLIC ne
+ *  contenait que ticker/name/sector/hero_kpi/kpis, sans risks/gov/ai. */
+function readPipeline(ticker: string): Record<string, unknown> | null {
+  const p = path.join(process.cwd(), "src/data/v2-pipeline", `${ticker.toLowerCase()}.json`);
+  if (!fs.existsSync(p)) return null;
+  try {
+    return JSON.parse(fs.readFileSync(p, "utf8"));
+  } catch {
+    return null;
+  }
+}
+
+function readAiPos(ticker: string): Record<string, unknown> | null {
+  const p = path.join(process.cwd(), "src/data/v2-pipeline-enrich", `${ticker.toLowerCase()}.ai-pos.json`);
+  if (!fs.existsSync(p)) return null;
+  try {
+    return JSON.parse(fs.readFileSync(p, "utf8"));
+  } catch {
+    return null;
+  }
+}
+
 function readRanks(ticker: string): Record<string, unknown> | null {
   const p = path.join(process.cwd(), "src/data/v2-pipeline-enrich", `${ticker.toLowerCase()}.ranks.json`);
   if (!fs.existsSync(p)) return null;
@@ -406,7 +431,35 @@ function buildRow(
   overrides: Map<string, Cell["override"]>,
 ): CompanyRow {
   const dsKey = Object.keys(datasets).find((k) => k.toUpperCase() === ticker.toUpperCase());
-  const ds = (dsKey ? datasets[dsKey] : {}) as Datasets[string];
+  const baseDs = (dsKey ? datasets[dsKey] : {}) as Datasets[string];
+  // Merge enrichments (V17_PUBLIC bundlé est strippé : il manque risks /
+  // governance / ai_positioning / ranks / etc). On lit v2-pipeline/<t>.json
+  // (source de vérité) + v2-pipeline-enrich/<t>.json + .ai-pos.json + .ranks.json
+  // pour donner aux checks la vraie image de ce qui est dispo. Yann 9 mai 2026.
+  const pipeline = readPipeline(ticker) ?? {};
+  const enrich = readEnrich(ticker) ?? {};
+  const aiPos = readAiPos(ticker);
+  const ds = {
+    ...pipeline,
+    ...baseDs,
+    // baseDs (V17_PUBLIC) gagne pour ticker/name/sector/hero_kpi mais
+    // pipeline.kpis (full array) gagne sur baseDs.kpis (1 seul = hero seul,
+    // strippé par build-v17-public). Sans ça checkKpiCount = ko constant.
+    kpis: (pipeline.kpis as unknown[] | undefined) ?? baseDs.kpis,
+    ranks: pipeline.ranks ?? baseDs.ranks,
+    // Champs riches : si manquent dans baseDs/pipeline, fallback enrich
+    risks: baseDs.risks ?? pipeline.risks ?? enrich.risks,
+    governance: baseDs.governance ?? pipeline.governance ?? enrich.governance,
+    ai_positioning: aiPos ?? baseDs.ai_positioning ?? pipeline.ai_positioning ?? enrich.ai_positioning,
+    revenue_by_segment: enrich.revenue_by_segment ?? pipeline.revenue_by_segment,
+    revenue_by_geography: enrich.revenue_by_geography ?? pipeline.revenue_by_geography,
+    market_positions: pipeline.market_positions ?? enrich.market_positions,
+    company_description: enrich.company_description ?? pipeline.company_description,
+    peers: enrich.peers ?? pipeline.peers,
+    super_kpis: enrich.super_kpis ?? pipeline.super_kpis,
+    key_facts: enrich.key_facts ?? pipeline.key_facts,
+    dividend_history: enrich.dividend_history ?? pipeline.dividend_history,
+  } as Datasets[string];
   const auto = computeAutoCells(ticker, ds);
   const cells = {} as Record<ColumnKey, Cell>;
   for (const col of COLUMN_KEYS) {
