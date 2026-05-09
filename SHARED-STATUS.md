@@ -208,6 +208,88 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-09 ~15:05] CONV-SYSTEMS → 🌙 RÉSUMÉ NUIT 8→9 mai (DOB)
+
+✅ FAIT
+- Tâche 1 /pricing public i18n complet FR/EN/DE : 28 strings dictionary, integration loadPricingCatalog, deployed staging
+- Tâche 2 warning IPO étendu 6/11/21 ans : severity young/mid/old/veteran + maxPeriodYears adaptatif graph (5/10/20 ans)
+- Tâche 3 bug tracker desk module V1.8 LIVRÉ : table desk_bugs + lib + 4 endpoints API + page admin /desk-mtk9x4kp/bugs avec filtres status, édition inline, severity/difficulty 1-5
+- Tâche 4 email onboarding J+1/J+3/J+7/J+14/J+25 LIVRÉ : table desk_email_sequences + 5 templates HTML FR/EN/DE + lib enrollUser/processQueue/unsub + API cron /api/cron/email-onboarding + vercel.json cron 9h UTC quotidien + hook callback signup auto-enroll
+- Pricing admin édition inline plans FR/EN/DE + matrice features par cellule
+- Bug PATCH upsert→update.eq strict fixé sur plans + promos
+- Page /contact V1.8 i18n + auth + CG + traductions DE complètes
+- Logo prod /maintenance aligné sur BrandWordmark (sous-titre KPI Intelligence affiché)
+
+❌ PAS FAIT
+- 2 migrations SQL (desk_bugs + email_onboarding) à coller dans SQL Editor au matin (blocs ci-dessous)
+- CRON_SECRET env var Vercel à définir pour activer le cron emails
+- Page admin desk pour visualiser les sequences emails (V2 si Yann veut)
+- Lien désinscription clickable dans les emails (V2, actuellement répondre "stop")
+
+⚠️ PROBLÈMES
+- Aucun bloquant. Tout buildé clean (tsc 0 erreur), 2 commits poussés sur staging (8c5e45e3 bugs + f25cc435 emails), alias mettrik-staging.vercel.app à jour.
+- /api/cron/email-onboarding renverra 401 sans CRON_SECRET défini, c'est l'attendu.
+
+🔧 POUR RÉPARER / CONTINUER
+- Coller bloc SQL 1 (desk_bugs) puis bloc SQL 2 (email_onboarding) dans Supabase Studio SQL Editor
+- Définir CRON_SECRET dans Vercel env vars production + redeploy
+- Tester /desk-mtk9x4kp/bugs en cliquant Nouveau bug pour vérif (300 stés CONV-DATA peuvent commencer à reporter)
+
+**BLOC SQL 1 — desk_bugs** (à coller dans https://supabase.com/dashboard/project/cnggtyxzqlqqjrynnvdq/sql/new) :
+```sql
+create table if not exists desk_bugs (
+  id uuid primary key default gen_random_uuid(),
+  title text not null,
+  description text,
+  severity smallint not null default 3 check (severity between 1 and 5),
+  repair_difficulty smallint not null default 3 check (repair_difficulty between 1 and 5),
+  status text not null default 'open' check (status in ('open', 'in_progress', 'fixed', 'wont_fix', 'duplicate')),
+  tags text, area text, repro_url text,
+  reported_by_conv text, resolution_note text,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  resolved_at timestamptz,
+  created_by uuid references auth.users (id),
+  resolved_by uuid references auth.users (id)
+);
+create index if not exists desk_bugs_status_idx on desk_bugs (status, severity desc, created_at desc);
+create index if not exists desk_bugs_area_idx on desk_bugs (area);
+alter table desk_bugs enable row level security;
+drop policy if exists "service role write bugs" on desk_bugs;
+create policy "service role write bugs" on desk_bugs for all using (auth.role() = 'service_role');
+drop trigger if exists desk_bugs_updated on desk_bugs;
+create trigger desk_bugs_updated before update on desk_bugs
+  for each row execute function tg_set_updated_at();
+```
+
+**BLOC SQL 2 — email onboarding** :
+```sql
+create table if not exists desk_email_sequences (
+  id uuid primary key default gen_random_uuid(),
+  user_email text not null,
+  user_name text,
+  locale text not null default 'fr',
+  sequence_key text not null,
+  day_offset smallint not null,
+  scheduled_for timestamptz not null,
+  sent_at timestamptz,
+  send_status text,
+  resend_id text,
+  unsubscribed_at timestamptz,
+  created_at timestamptz not null default now(),
+  unique (user_email, sequence_key)
+);
+create index if not exists desk_email_sequences_pending_idx on desk_email_sequences (scheduled_for) where sent_at is null and unsubscribed_at is null;
+create index if not exists desk_email_sequences_user_idx on desk_email_sequences (user_email);
+create table if not exists desk_email_unsubscribes (
+  user_email text primary key,
+  unsubscribed_at timestamptz not null default now(),
+  reason text
+);
+alter table desk_email_sequences enable row level security;
+alter table desk_email_unsubscribes enable row level security;
+```
+
 [2026-05-08 ~23:50] CONV-SYSTEMS → 🚨 BROADCAST · SQL EDITOR PRÉFÉRÉ POUR LES SEEDS
 
 🤝 @CONV-DATA @CONV-CONCEPTS @CONV-BRAND : Yann a confirmé qu'il préfère
