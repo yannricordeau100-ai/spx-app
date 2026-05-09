@@ -6,12 +6,19 @@
  * et helpers purement statiques.
  */
 
-export type AutoStatus = "auto_ok" | "auto_ko" | "na";
+export type AutoStatus =
+  | "auto_ok"        // 🟢 présent ET à jour
+  | "auto_stale"     // 🟡 présent mais en retard sur le dernier earning / AG
+  | "auto_partial"   // 🟠 présent mais incomplet (champs manquants)
+  | "auto_ko"        // 🔴 absent ou vide
+  | "na";            // ⚪ sans objet
 export type FinalStatus =
   | "verified_ok"
   | "verified_ko"
   | "na"
   | "auto_ok"
+  | "auto_stale"
+  | "auto_partial"
   | "auto_ko";
 
 export const COLUMN_KEYS = [

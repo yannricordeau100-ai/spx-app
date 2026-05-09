@@ -121,6 +121,24 @@ function checkRank(ticker: string, ds: Datasets[string]): CellAuto {
   return { status: "auto_ko", detail: "Aucun rang renseigné" };
 }
 
+/** Tag avec fraîcheur (à jour / stale) basé sur last_data_date vs next_earnings_date. */
+function freshness(lastDataDate: string | undefined, nextEarning: string | undefined): "fresh" | "stale" | "unknown" {
+  if (!lastDataDate) return "unknown";
+  const last = new Date(lastDataDate);
+  if (isNaN(last.getTime())) return "unknown";
+  // Si on a la date du prochain earning : last_data >= next - 100 jours = à jour
+  if (nextEarning) {
+    const next = new Date(nextEarning);
+    if (!isNaN(next.getTime())) {
+      const cutoff = next.getTime() - 100 * 86400_000;
+      return last.getTime() >= cutoff ? "fresh" : "stale";
+    }
+  }
+  // Sinon : comparer avec maintenant. Si > 6 mois = stale.
+  const ageMs = Date.now() - last.getTime();
+  return ageMs <= 200 * 86400_000 ? "fresh" : "stale";
+}
+
 function checkHeroKpi(ds: Datasets[string]): CellAuto {
   if (!ds.hero_kpi) return { status: "auto_ko", detail: "hero_kpi absent" };
   const kpi = ds.kpis?.find((k) => k.short === ds.hero_kpi);
@@ -128,7 +146,12 @@ function checkHeroKpi(ds: Datasets[string]): CellAuto {
   if (kpi.value === undefined || kpi.value === null || kpi.value === 0) {
     return { status: "auto_ko", detail: "hero KPI sans value valide" };
   }
-  return { status: "auto_ok", hint: `${ds.hero_kpi} = ${String(kpi.value)}` };
+  const lastDate = (kpi as { last_data_date?: string }).last_data_date;
+  const next = (ds as { next_earnings_date?: string }).next_earnings_date;
+  const f = freshness(lastDate, next);
+  if (f === "stale") return { status: "auto_stale", detail: `last_data_date ${lastDate} en retard sur dernier earning`, hint: `${ds.hero_kpi}` };
+  if (f === "unknown") return { status: "auto_partial", detail: "last_data_date manquant", hint: `${ds.hero_kpi}` };
+  return { status: "auto_ok", hint: `${ds.hero_kpi} (${lastDate})` };
 }
 
 function checkGraphAnnual(ds: Datasets[string]): CellAuto {
@@ -188,7 +211,18 @@ function checkGovernance(ds: Datasets[string]): CellAuto {
   if (!gov || typeof gov !== "object") return { status: "auto_ko", detail: "Absent" };
   const keys = Object.keys(gov).filter((k) => gov[k] !== null && gov[k] !== undefined);
   if (keys.length < 3) return { status: "auto_ko", detail: `${keys.length} champs (<3)` };
-  return { status: "auto_ok", hint: `${keys.length} champs` };
+
+  // Fraîcheur : on attend fiscal_year >= currentYear - 1 (ex en mai 2026,
+  // l'exercice 2025 doit être bouclé via le 10-K déposé en fév 2026).
+  const fiscalYear = gov.fiscal_year as number | undefined;
+  const currentYear = new Date().getFullYear();
+  if (typeof fiscalYear !== "number") {
+    return { status: "auto_partial", detail: `${keys.length} champs · fiscal_year manquant`, hint: `${keys.length} champs` };
+  }
+  const lag = currentYear - 1 - fiscalYear; // 0 = à jour ; 1 = 1 an de retard ; etc.
+  if (lag <= 0) return { status: "auto_ok", hint: `Exercice ${fiscalYear} · ${keys.length} champs` };
+  if (lag === 1) return { status: "auto_stale", detail: `Exercice ${fiscalYear} (1 an de retard)`, hint: `Exercice ${fiscalYear}` };
+  return { status: "auto_stale", detail: `Exercice ${fiscalYear} (${lag} ans de retard)`, hint: `Exercice ${fiscalYear}` };
 }
 
 function checkAiPositioning(ticker: string, ds: Datasets[string]): CellAuto {
@@ -235,7 +269,6 @@ function checkTranscript(ticker: string, ds: Datasets[string]): CellAuto {
     const enrich = readEnrich(ticker);
     tr = enrich?.transcript as typeof tr;
   }
-  // Aussi possible : src/data/transcripts/<ticker>.json
   if (!tr) {
     const p = path.join(process.cwd(), "src/data/transcripts", `${ticker.toLowerCase()}.json`);
     if (fs.existsSync(p)) {
@@ -245,7 +278,14 @@ function checkTranscript(ticker: string, ds: Datasets[string]): CellAuto {
     }
   }
   if (!tr || !tr.latest || !tr.latest.content) return { status: "auto_ko", detail: "Aucun transcript" };
-  return { status: "auto_ok", hint: tr.latest.date ?? "présent" };
+  // Fraîcheur : transcript > 6 mois = stale, > 9 mois = très stale.
+  const date = tr.latest.date;
+  if (!date) return { status: "auto_partial", detail: "transcript sans date", hint: "présent" };
+  const ageMs = Date.now() - new Date(date).getTime();
+  const ageMonths = Math.round(ageMs / (30 * 86400_000));
+  if (ageMs > 270 * 86400_000) return { status: "auto_stale", detail: `transcript ${ageMonths} mois`, hint: date };
+  if (ageMs > 180 * 86400_000) return { status: "auto_partial", detail: `transcript ${ageMonths} mois (limite)`, hint: date };
+  return { status: "auto_ok", hint: date };
 }
 
 function checkCompanyProfile(ds: Datasets[string]): CellAuto {

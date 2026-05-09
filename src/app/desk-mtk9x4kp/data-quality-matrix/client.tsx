@@ -16,16 +16,20 @@ const STATUS_GLYPH: Record<FinalStatus, string> = {
   verified_ok: "🟢",
   verified_ko: "🔴",
   na: "⚪",
-  auto_ok: "🟡",
-  auto_ko: "🟠",
+  auto_ok: "🟢",
+  auto_stale: "🟡",
+  auto_partial: "🟠",
+  auto_ko: "🔴",
 };
 
 const STATUS_LABEL: Record<FinalStatus, string> = {
   verified_ok: "Vérifié OK",
   verified_ko: "Vérifié KO",
   na: "Sans objet",
-  auto_ok: "Auto OK (à vérifier)",
-  auto_ko: "Auto KO (manquant)",
+  auto_ok: "À jour",
+  auto_stale: "En retard",
+  auto_partial: "Incomplet",
+  auto_ko: "Manquant",
 };
 
 export function MatrixClient({
@@ -45,17 +49,18 @@ export function MatrixClient({
   const [editingCell, setEditingCell] = useState<{ ticker: string; col: ColumnKey } | null>(null);
   const [draftNote, setDraftNote] = useState("");
 
-  // Stats globales par colonne (% verified vs ko vs auto).
+  // Stats globales par colonne (% à jour / stale / partial / ko).
   const colStats = useMemo(() => {
-    const stats: Record<ColumnKey, { verified: number; auto_ok: number; ko: number; na: number }> = {} as never;
+    const stats: Record<ColumnKey, { ok: number; stale: number; partial: number; ko: number; na: number }> = {} as never;
     for (const col of COLUMN_KEYS) {
-      stats[col] = { verified: 0, auto_ok: 0, ko: 0, na: 0 };
+      stats[col] = { ok: 0, stale: 0, partial: 0, ko: 0, na: 0 };
     }
     for (const row of rows) {
       for (const col of COLUMN_KEYS) {
         const fs = finalStatus(row.cells[col]);
-        if (fs === "verified_ok") stats[col].verified++;
-        else if (fs === "auto_ok") stats[col].auto_ok++;
+        if (fs === "verified_ok" || fs === "auto_ok") stats[col].ok++;
+        else if (fs === "auto_stale") stats[col].stale++;
+        else if (fs === "auto_partial") stats[col].partial++;
         else if (fs === "verified_ko" || fs === "auto_ko") stats[col].ko++;
         else if (fs === "na") stats[col].na++;
       }
@@ -176,9 +181,11 @@ export function MatrixClient({
         >
           <option value="all">Tous</option>
           <option value="verified_ok">🟢 Vérifié OK</option>
+          <option value="auto_ok">🟢 À jour</option>
+          <option value="auto_stale">🟡 En retard</option>
+          <option value="auto_partial">🟠 Incomplet</option>
+          <option value="auto_ko">🔴 Manquant</option>
           <option value="verified_ko">🔴 Vérifié KO</option>
-          <option value="auto_ok">🟡 Auto OK</option>
-          <option value="auto_ko">🟠 Auto KO</option>
           <option value="na">⚪ N/A</option>
         </select>
         <span className="ml-auto inline-flex items-center gap-2 text-zinc-500">
@@ -214,7 +221,7 @@ export function MatrixClient({
                 <th key={col} className="px-2 py-2 text-center font-bold text-zinc-300" title={COLUMN_LABEL[col]}>
                   <div className="text-[10.5px]">{COLUMN_LABEL[col]}</div>
                   <div className="mt-0.5 text-[9px] font-normal text-emerald-400/70">
-                    🟢{colStats[col].verified} 🟡{colStats[col].auto_ok} 🟠{colStats[col].ko}
+                    🟢{colStats[col].ok} 🟡{colStats[col].stale} 🟠{colStats[col].partial} 🔴{colStats[col].ko}
                   </div>
                 </th>
               ))}
@@ -249,8 +256,8 @@ export function MatrixClient({
                         className="inline-flex flex-col items-center text-[14px] hover:scale-110"
                       >
                         <span>{STATUS_GLYPH[fs]}</span>
-                        {cell.hint && fs === "auto_ok" && (
-                          <span className="text-[8px] text-emerald-400/70">{cell.hint.slice(0, 12)}</span>
+                        {cell.hint && (fs === "auto_ok" || fs === "auto_stale") && (
+                          <span className={`text-[8px] ${fs === "auto_stale" ? "text-amber-400/70" : "text-emerald-400/70"}`}>{cell.hint.slice(0, 12)}</span>
                         )}
                       </button>
 
@@ -287,7 +294,7 @@ function CellEditor({
   return (
     <div className="absolute left-1/2 top-full z-50 mt-1 -translate-x-1/2 rounded-xl border border-white/10 bg-zinc-950/95 p-3 text-left text-[11px] shadow-2xl backdrop-blur">
       <div className="mb-2 text-zinc-300">
-        <div><strong>Auto :</strong> {cell.status === "auto_ok" ? "🟡 OK" : cell.status === "auto_ko" ? "🟠 KO" : "⚪"}</div>
+        <div><strong>Auto :</strong> {cell.status === "auto_ok" ? "🟢 À jour" : cell.status === "auto_stale" ? "🟡 En retard" : cell.status === "auto_partial" ? "🟠 Incomplet" : cell.status === "auto_ko" ? "🔴 Manquant" : "⚪ N/A"}</div>
         {cell.detail && <div className="text-zinc-500">{cell.detail}</div>}
         {cell.hint && <div className="text-emerald-400/70">{cell.hint}</div>}
         {cell.override && <div className="mt-1 text-violet-300">Vérifié {cell.override.status} par {cell.override.verified_by}</div>}
