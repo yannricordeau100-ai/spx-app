@@ -35,12 +35,43 @@ const STATUS_LABEL: Record<FinalStatus, string> = {
   auto_ko: "Auto · manquant",
 };
 
+type HistoryPoint = { at: string; ok: number; total: number; pctOk: number };
+type HistoryByCol = Record<string, HistoryPoint[]>;
+
+/**
+ * Sparkline mini-SVG montrant l'évolution % OK sur les derniers snapshots.
+ * Largeur 60 px, hauteur 18 px, 0-100 % sur l'axe Y.
+ */
+function Sparkline({ points }: { points: HistoryPoint[] }) {
+  if (points.length < 2) return <span className="text-[9px] text-zinc-600">—</span>;
+  const W = 60, H = 18;
+  const pcts = points.map((p) => p.pctOk);
+  const minY = Math.min(...pcts, 0);
+  const maxY = Math.max(...pcts, 100);
+  const range = Math.max(1, maxY - minY);
+  const last = pcts[pcts.length - 1];
+  const first = pcts[0];
+  const trend = last - first;
+  const color = trend > 0 ? "#10b981" : trend < 0 ? "#f43f5e" : "#a78bfa";
+  const xs = points.map((_, i) => (i / (points.length - 1)) * W);
+  const ys = pcts.map((p) => H - ((p - minY) / range) * H);
+  const path = xs.map((x, i) => `${i === 0 ? "M" : "L"} ${x.toFixed(1)},${ys[i].toFixed(1)}`).join(" ");
+  return (
+    <svg width={W} height={H} className="inline-block align-middle" aria-label={`Tendance: ${trend > 0 ? "+" : ""}${trend} pts`}>
+      <path d={path} fill="none" stroke={color} strokeWidth="1.4" strokeLinejoin="round" />
+      <circle cx={xs[xs.length - 1]} cy={ys[ys.length - 1]} r="1.6" fill={color} />
+    </svg>
+  );
+}
+
 export function MatrixClient({
   initialSections,
   initialLimit,
+  history = {},
 }: {
   initialSections: MatrixSection[];
   initialLimit: number;
+  history?: HistoryByCol;
 }) {
   const [sections, setSections] = useState(initialSections);
   // rows aplatis (gardés pour les filtres/stats globaux indépendants des sections)
@@ -226,15 +257,32 @@ export function MatrixClient({
         <table className="min-w-full text-[11.5px]">
           <thead className="sticky top-0 z-10 bg-zinc-900/95 backdrop-blur">
             <tr className="border-b border-white/[0.08]">
-              <th className="sticky left-0 z-20 bg-zinc-900/95 px-3 py-2 text-left font-bold text-zinc-300">Sté</th>
-              {COLUMN_KEYS.map((col) => (
-                <th key={col} className="px-2 py-2 text-center font-bold text-zinc-300" title={COLUMN_LABEL[col]}>
-                  <div className="text-[10.5px]">{COLUMN_LABEL[col]}</div>
-                  <div className="mt-0.5 text-[9px] font-normal text-emerald-400/70">
-                    🟢{colStats[col].ok} 🟡{colStats[col].stale} 🟠{colStats[col].partial} 🔴{colStats[col].ko}
-                  </div>
-                </th>
-              ))}
+              <th className="sticky left-0 z-20 bg-zinc-900/95 px-3 py-2 text-left font-bold text-zinc-300">
+                <div>Sté</div>
+                <div className="text-[9px] font-normal text-zinc-500">↓ tendance % OK</div>
+              </th>
+              {COLUMN_KEYS.map((col) => {
+                const points = history[col] ?? [];
+                const lastPct = points.at(-1)?.pctOk;
+                const firstPct = points[0]?.pctOk;
+                const delta = lastPct !== undefined && firstPct !== undefined ? lastPct - firstPct : null;
+                return (
+                  <th key={col} className="px-2 py-2 text-center font-bold text-zinc-300" title={COLUMN_LABEL[col]}>
+                    <div className="text-[10.5px]">{COLUMN_LABEL[col]}</div>
+                    <div className="mt-0.5 text-[9px] font-normal text-emerald-400/70">
+                      🟢{colStats[col].ok} 🟡{colStats[col].stale} 🟠{colStats[col].partial} 🔴{colStats[col].ko}
+                    </div>
+                    <div className="mt-0.5 flex items-center justify-center gap-1">
+                      <Sparkline points={points} />
+                      {delta !== null && (
+                        <span className={`text-[8.5px] font-mono ${delta > 0 ? "text-emerald-400" : delta < 0 ? "text-rose-400" : "text-zinc-500"}`}>
+                          {delta > 0 ? "+" : ""}{delta}
+                        </span>
+                      )}
+                    </div>
+                  </th>
+                );
+              })}
             </tr>
           </thead>
           <tbody>
