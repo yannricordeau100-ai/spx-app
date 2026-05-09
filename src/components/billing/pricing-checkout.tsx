@@ -94,11 +94,15 @@ export function CheckoutButton({
   currency,
   label,
   className,
+  promoCode,
 }: {
   plan: "premium_monthly" | "premium_annual";
   currency: CurrencyCode;
   label: string;
   className?: string;
+  /** Code promo Mettrik à appliquer (table pricing_promo_codes). Si valide,
+   *  Stripe crée le coupon à la volée et l'applique au checkout. */
+  promoCode?: string;
 }) {
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
@@ -111,7 +115,7 @@ export function CheckoutButton({
       const r = await fetch("/api/billing/checkout", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ plan, currency }),
+        body: JSON.stringify({ plan, currency, promo_code: promoCode || undefined }),
       });
       if (r.status === 401) {
         // Pas connecté : redirect vers signup avec memory du plan choisi

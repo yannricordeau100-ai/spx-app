@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getStripe } from "@/lib/billing/stripe";
 import { resolvePriceId, type CurrencyCode } from "@/lib/billing/products";
+import { validatePromoCode, upsertPromoCode } from "@/lib/billing/admin-queries";
 
 /**
  * POST /api/billing/checkout
@@ -83,6 +84,49 @@ export async function POST(req: NextRequest) {
 
     const stripe = getStripe();
 
+    // Code promo Mettrik (table pricing_promo_codes). Validé localement
+    // puis sync à Stripe en lazy (création du coupon si absent).
+    let stripeCouponId: string | null = null;
+    const rawPromo: string | undefined = body.promo_code;
+    let promoError: string | null = null;
+    if (rawPromo && typeof rawPromo === "string" && rawPromo.trim()) {
+      const planCode = (body.plan as string | undefined) ?? "investisseur";
+      const freq = planCode.includes("annual") ? "annual" : "monthly";
+      const validation = await validatePromoCode(rawPromo.trim(), {
+        plan_code: planCode.replace("premium_", ""),
+        currency: currency.toUpperCase() as Parameters<typeof validatePromoCode>[1]["currency"],
+        frequency: freq as "monthly" | "annual",
+        user_id: user.id,
+      });
+      if (!validation.ok) {
+        promoError = validation.reason;
+      } else {
+        const promo = validation.promo;
+        // Ensure coupon Stripe existe. Création lazy si absent.
+        if (!promo.stripe_coupon_id) {
+          const stripeCoupon = await stripe.coupons.create({
+            name: `Mettrik ${promo.code}`,
+            duration: promo.recurring ? "forever" : "once",
+            ...(promo.discount_type === "percent"
+              ? { percent_off: promo.discount_percent ?? 0 }
+              : {
+                  amount_off: Math.round((promo.discount_amount_decimal ?? 0) * 100),
+                  currency: (promo.discount_currency ?? "EUR").toLowerCase(),
+                }),
+            metadata: { mettrik_promo_id: promo.id, mettrik_code: promo.code },
+          });
+          stripeCouponId = stripeCoupon.id;
+          await upsertPromoCode({ id: promo.id, stripe_coupon_id: stripeCouponId });
+        } else {
+          stripeCouponId = promo.stripe_coupon_id;
+        }
+      }
+    }
+
+    if (promoError) {
+      return NextResponse.json({ error: `Code promo : ${promoError}` }, { status: 400 });
+    }
+
     // Cherche un customer existant pour ne pas en créer 2.
     let customerId: string | undefined;
     const { data: sub } = await supabase
@@ -118,7 +162,12 @@ export async function POST(req: NextRequest) {
       locale: "auto",
       success_url: `${origin}/account?billing=success&session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/pricing?billing=cancelled`,
-      allow_promotion_codes: true,
+      // Si l'user a entré un code promo Mettrik valide → on l'applique
+      // directement via discounts. Sinon, allow_promotion_codes ouvre le
+      // champ Stripe pour accepter aussi des codes Stripe natifs.
+      ...(stripeCouponId
+        ? { discounts: [{ coupon: stripeCouponId }] }
+        : { allow_promotion_codes: true }),
       billing_address_collection: "auto",
       metadata: {
         user_id: user.id,
