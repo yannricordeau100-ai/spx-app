@@ -63,6 +63,15 @@ type Datasets = Record<string, {
   ai_positioning?: unknown;
   revenue_by_segment?: unknown;
   revenue_by_geography?: unknown;
+  transcript?: unknown;
+  company_description?: string;
+  founded?: number;
+  ipo?: number;
+  key_facts?: Record<string, unknown>;
+  peers?: unknown[];
+  market_positions?: unknown[];
+  super_kpis?: unknown;
+  dividend_history?: unknown;
 }>;
 
 function readEnrich(ticker: string): Record<string, unknown> | null {
@@ -213,9 +222,77 @@ function checkGeography(ticker: string, ds: Datasets[string]): CellAuto {
     geo = enrich?.revenue_by_geography;
   }
   if (!geo) return { status: "auto_ko", detail: "Absent" };
-  const arr = geo as unknown[];
+  // certaines données ont {slices: [...]} d'autres directement un array
+  const obj = geo as { slices?: unknown[] };
+  const arr = (Array.isArray(geo) ? geo : obj.slices) as unknown[] | undefined;
   if (!Array.isArray(arr) || arr.length === 0) return { status: "auto_ko", detail: "Vide" };
   return { status: "auto_ok", hint: `${arr.length} régions` };
+}
+
+function checkTranscript(ticker: string, ds: Datasets[string]): CellAuto {
+  let tr = ds.transcript as { latest?: { content?: string; date?: string } } | undefined;
+  if (!tr) {
+    const enrich = readEnrich(ticker);
+    tr = enrich?.transcript as typeof tr;
+  }
+  // Aussi possible : src/data/transcripts/<ticker>.json
+  if (!tr) {
+    const p = path.join(process.cwd(), "src/data/transcripts", `${ticker.toLowerCase()}.json`);
+    if (fs.existsSync(p)) {
+      try {
+        tr = JSON.parse(fs.readFileSync(p, "utf8"));
+      } catch {}
+    }
+  }
+  if (!tr || !tr.latest || !tr.latest.content) return { status: "auto_ko", detail: "Aucun transcript" };
+  return { status: "auto_ok", hint: tr.latest.date ?? "présent" };
+}
+
+function checkCompanyProfile(ds: Datasets[string]): CellAuto {
+  const desc = ds.company_description;
+  const founded = ds.founded;
+  const ipo = ds.ipo;
+  const facts = ds.key_facts as Record<string, unknown> | undefined;
+  const filled = [desc && typeof desc === "string" && desc.length > 20, founded, ipo, facts?.hq_city || facts?.hq_country, facts?.employees_count].filter(Boolean).length;
+  if (filled >= 4) return { status: "auto_ok", hint: `${filled}/5 champs` };
+  if (filled >= 2) return { status: "auto_ok", hint: `${filled}/5 (partiel)` };
+  return { status: "auto_ko", detail: `${filled}/5 champs remplis` };
+}
+
+function checkPeers(ds: Datasets[string]): CellAuto {
+  const peers = ds.peers as unknown[] | undefined;
+  if (!Array.isArray(peers) || peers.length === 0) return { status: "auto_ko", detail: "Aucun peer" };
+  if (peers.length < 3) return { status: "auto_ok", hint: `${peers.length} peers (cible >= 3)` };
+  return { status: "auto_ok", hint: `${peers.length} peers` };
+}
+
+function checkMarketPositions(ticker: string, ds: Datasets[string]): CellAuto {
+  let mp = ds.market_positions as unknown[] | undefined;
+  if (!mp) {
+    const enrich = readEnrich(ticker);
+    mp = enrich?.market_positions as unknown[] | undefined;
+  }
+  if (!Array.isArray(mp) || mp.length === 0) return { status: "auto_ko", detail: "Aucune position TAM" };
+  return { status: "auto_ok", hint: `${mp.length} TAM` };
+}
+
+function checkDividend(ds: Datasets[string]): CellAuto {
+  // KPI "DPS" ou "Dividend per share" présent ?
+  const hasDps = ds.kpis?.some((k) => /dividend|dps|dividende/i.test(k.short ?? "") || /dividend|dps|dividende/i.test(k.name_fr ?? ""));
+  if (hasDps) return { status: "auto_ok", hint: "KPI DPS détecté" };
+  return { status: "na", detail: "Sté ne verse pas de dividende (probablement)" };
+}
+
+function checkSuperKpis(ticker: string, ds: Datasets[string]): CellAuto {
+  // Stocké soit directement sur le dataset, soit calculé à la volée par
+  // computeSuperKpis(c). Ici on ne réimplémente pas la logique : on
+  // vérifie uniquement la présence du SECTEUR (sans secteur = pas de
+  // mapping super KPI dans la lib).
+  const sector = (ds as { sector?: string }).sector;
+  if (!sector) return { status: "auto_ko", detail: "Pas de secteur" };
+  const hasKpis = (ds.kpis?.length ?? 0) >= 4;
+  if (!hasKpis) return { status: "auto_ko", detail: "Trop peu de KPIs base pour calculer Super KPIs" };
+  return { status: "auto_ok", hint: `secteur ${sector.slice(0, 20)}` };
 }
 
 /* ============================================================ */
@@ -231,11 +308,17 @@ function computeAutoCells(ticker: string, ds: Datasets[string]): Record<ColumnKe
     graph_quarterly: checkGraphQuarterly(ds),
     hero_interpretation: checkHeroInterpretation(ds),
     kpi_count: checkKpiCount(ds),
+    transcript: checkTranscript(ticker, ds),
+    company_profile: checkCompanyProfile(ds),
     risks: checkRisks(ds),
-    governance: checkGovernance(ds),
-    ai_positioning: checkAiPositioning(ticker, ds),
     segments: checkSegments(ticker, ds),
     geography: checkGeography(ticker, ds),
+    dividend: checkDividend(ds),
+    governance: checkGovernance(ds),
+    ai_positioning: checkAiPositioning(ticker, ds),
+    market_positions: checkMarketPositions(ticker, ds),
+    peers: checkPeers(ds),
+    super_kpis: checkSuperKpis(ticker, ds),
   };
 }
 

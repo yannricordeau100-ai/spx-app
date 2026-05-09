@@ -22,11 +22,17 @@ export const COLUMN_KEYS = [
   "graph_quarterly",
   "hero_interpretation",
   "kpi_count",
+  "transcript",
+  "company_profile",
   "risks",
-  "governance",
-  "ai_positioning",
   "segments",
   "geography",
+  "dividend",
+  "governance",
+  "ai_positioning",
+  "market_positions",
+  "peers",
+  "super_kpis",
 ] as const;
 export type ColumnKey = (typeof COLUMN_KEYS)[number];
 
@@ -38,11 +44,17 @@ export const COLUMN_LABEL: Record<ColumnKey, string> = {
   graph_quarterly: "Graph trim.",
   hero_interpretation: "Interprétation",
   kpi_count: "Nb KPIs",
+  transcript: "Transcript",
+  company_profile: "Profil sté",
   risks: "Risques",
-  governance: "Gouvernance",
-  ai_positioning: "Positionnement IA",
   segments: "Segments",
   geography: "Géographie",
+  dividend: "Dividende",
+  governance: "Gouvernance",
+  ai_positioning: "Position. IA",
+  market_positions: "TAM",
+  peers: "Pairs",
+  super_kpis: "Super KPIs",
 };
 
 export type CellAuto = {
