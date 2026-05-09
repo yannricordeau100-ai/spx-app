@@ -62,7 +62,7 @@ function BrandWordmark({ kpiUnderText }: { kpiUnderText?: string }) {
       <div
         className="relative inline-flex items-baseline leading-none"
         style={{
-          fontFamily: "var(--font-fraunces), Georgia, serif",
+          fontFamily: "var(--font-instrument), 'Bricolage Grotesque', sans-serif",
           fontWeight: 800,
           fontStyle: "italic",
           fontSize: "clamp(56px, 9vw, 110px)",
