@@ -38,36 +38,61 @@ export function PricingCards({
 
   return (
     <div>
-      {/* Toggle mensuel / annuel */}
-      <div className="mb-8 flex items-center justify-center gap-3">
-        <span className={`text-[13px] font-medium ${billing === "monthly" ? "text-zinc-100" : "text-zinc-500"}`}>
-          Mensuel
-        </span>
-        <button
-          type="button"
-          onClick={() => setBilling((b) => (b === "monthly" ? "annual" : "monthly"))}
-          className="relative h-6 w-11 rounded-full bg-violet-500/20 transition-colors"
-          aria-label="Toggle billing period"
+      {/* Toggle mensuel / annuel : pillule double-onglet, beaucoup
+          plus lisible que le slider précédent (la boule sortait
+          visuellement du rail). Centre toujours bien le slider, et
+          marque visuellement quel onglet est actif. */}
+      <div className="mb-3 flex justify-center">
+        <div
+          role="tablist"
+          aria-label="Période de facturation"
+          className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.03] p-1"
         >
-          <span
-            className="absolute top-0.5 size-5 rounded-full bg-violet-400 shadow-md transition-transform"
-            style={{ transform: billing === "annual" ? "translateX(22px)" : "translateX(2px)" }}
-          />
-        </button>
-        <div className="flex items-baseline gap-2">
-          <span className={`text-[13px] font-medium ${billing === "annual" ? "text-zinc-100" : "text-zinc-500"}`}>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={billing === "monthly"}
+            onClick={() => setBilling("monthly")}
+            className={`rounded-full px-4 py-1.5 text-[12.5px] font-semibold transition-colors ${
+              billing === "monthly"
+                ? "bg-violet-500/25 text-zinc-50 shadow-inner"
+                : "text-zinc-400 hover:text-zinc-200"
+            }`}
+          >
+            Mensuel
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={billing === "annual"}
+            onClick={() => setBilling("annual")}
+            className={`inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[12.5px] font-semibold transition-colors ${
+              billing === "annual"
+                ? "bg-violet-500/25 text-zinc-50 shadow-inner"
+                : "text-zinc-400 hover:text-zinc-200"
+            }`}
+          >
             Annuel
-          </span>
-          <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-emerald-300">
-            -33 %
-          </span>
+            <span className="rounded-full bg-emerald-500/20 px-1.5 py-0.5 font-mono text-[9.5px] font-bold uppercase tracking-wider text-emerald-300">
+              -33%
+            </span>
+          </button>
         </div>
       </div>
+      <p className="mb-6 text-center text-[11.5px] text-zinc-500">
+        Les deux prix sont affichés sur chaque plan. Active l'annuel pour passer au tarif réduit.
+      </p>
 
       {/* Cards 3 plans */}
       <div className="grid gap-5 lg:grid-cols-3">
         {PLANS.map((plan) => (
-          <PricingCard key={plan.tier} plan={plan} billing={billing} prefix={ctaTrackingPrefix} />
+          <PricingCard
+            key={plan.tier}
+            plan={plan}
+            billing={billing}
+            onSwitch={setBilling}
+            prefix={ctaTrackingPrefix}
+          />
         ))}
       </div>
 
@@ -152,15 +177,16 @@ function PromoCodeBox() {
 function PricingCard({
   plan,
   billing,
+  onSwitch,
   prefix,
 }: {
   plan: PlanDisplay;
   billing: "monthly" | "annual";
+  /** Callback pour switcher la période depuis l'intérieur de la card. */
+  onSwitch?: (b: "monthly" | "annual") => void;
   prefix: string;
 }) {
   const isAnnual = billing === "annual";
-  const displayPrice = isAnnual ? monthlyEquivalent(plan) : plan.price_monthly_eur;
-  const billedAmount = isAnnual ? plan.price_annual_eur : plan.price_monthly_eur;
   const isHighlight = plan.highlight;
 
   let ctaHref = "/signup";
@@ -198,21 +224,71 @@ function PricingCard({
       <p className="mt-1 text-[13px] leading-relaxed text-zinc-400">{plan.tagline}</p>
 
       <div className="mt-5">
-        <div className="flex items-baseline gap-1.5">
-          <span className="font-display text-[44px] font-bold leading-none tracking-tight text-zinc-50">
-            {displayPrice === 0 ? "0" : displayPrice.toFixed(2).replace(".", ",")}
-          </span>
-          <span className="text-[15px] font-medium text-zinc-400">€</span>
-          <span className="ml-1 text-[12px] text-zinc-500">/mois</span>
-        </div>
-        {plan.price_monthly_eur > 0 && (
-          <div className="mt-1 text-[11.5px] text-zinc-500">
-            {isAnnual ? `Soit ${billedAmount} € facturés annuellement` : "Sans engagement"}
-            {isAnnual && <span className="ml-1 text-emerald-300">· {plan.annual_savings_label}</span>}
-          </div>
-        )}
-        {plan.price_monthly_eur === 0 && (
-          <div className="mt-1 text-[11.5px] text-zinc-500">{plan.annual_savings_label}</div>
+        {plan.price_monthly_eur === 0 ? (
+          <>
+            <div className="flex items-baseline gap-1.5">
+              <span className="font-display text-[44px] font-bold leading-none tracking-tight text-zinc-50">0</span>
+              <span className="text-[15px] font-medium text-zinc-400">€</span>
+              <span className="ml-1 text-[12px] text-zinc-500">/mois</span>
+            </div>
+            <div className="mt-1 text-[11.5px] text-zinc-500">{plan.annual_savings_label}</div>
+          </>
+        ) : (
+          <>
+            {/* Prix principal : celui sélectionné par le toggle (gros caractères) */}
+            <div className="flex items-baseline gap-1.5">
+              <span className="font-display text-[44px] font-bold leading-none tracking-tight text-zinc-50">
+                {(isAnnual ? monthlyEquivalent(plan) : plan.price_monthly_eur).toFixed(2).replace(".", ",")}
+              </span>
+              <span className="text-[15px] font-medium text-zinc-400">€</span>
+              <span className="ml-1 text-[12px] text-zinc-500">/mois</span>
+            </div>
+            <div className="mt-1 text-[11.5px] text-zinc-500">
+              {isAnnual ? (
+                <>
+                  Soit <strong className="text-zinc-300">{plan.price_annual_eur} €</strong> facturés annuellement
+                  <span className="ml-1 text-emerald-300">· {plan.annual_savings_label}</span>
+                </>
+              ) : (
+                <>Sans engagement</>
+              )}
+            </div>
+
+            {/* Comparatif compact : montre l'autre prix barré, donne envie de switcher */}
+            <div className="mt-3 grid grid-cols-2 gap-2 rounded-lg border border-white/[0.06] bg-white/[0.02] p-2 text-[11px]">
+              <button
+                type="button"
+                onClick={() => onSwitch?.("monthly")}
+                className={`rounded-md px-2 py-1.5 text-left transition-colors ${
+                  isAnnual ? "text-zinc-500 hover:bg-white/[0.04]" : "bg-violet-500/15 text-zinc-100"
+                }`}
+                aria-pressed={!isAnnual}
+              >
+                <div className="text-[9.5px] font-bold uppercase tracking-wider opacity-70">Mensuel</div>
+                <div className="font-mono">
+                  <span className={isAnnual ? "" : "font-bold text-zinc-50"}>{plan.price_monthly_eur.toFixed(2).replace(".", ",")} €</span>
+                  <span className="ml-1 opacity-60">/mois</span>
+                </div>
+              </button>
+              <button
+                type="button"
+                onClick={() => onSwitch?.("annual")}
+                className={`rounded-md px-2 py-1.5 text-left transition-colors ${
+                  isAnnual ? "bg-violet-500/15 text-zinc-100" : "text-zinc-500 hover:bg-white/[0.04]"
+                }`}
+                aria-pressed={isAnnual}
+              >
+                <div className="flex items-center gap-1 text-[9.5px] font-bold uppercase tracking-wider opacity-70">
+                  Annuel
+                  <span className="rounded-full bg-emerald-500/20 px-1 font-mono text-[8.5px] text-emerald-300">-33%</span>
+                </div>
+                <div className="font-mono">
+                  <span className={isAnnual ? "font-bold text-zinc-50" : ""}>{monthlyEquivalent(plan).toFixed(2).replace(".", ",")} €</span>
+                  <span className="ml-1 opacity-60">/mois</span>
+                </div>
+              </button>
+            </div>
+          </>
         )}
       </div>
 
