@@ -4,6 +4,8 @@ import { PricingCards } from "@/components/billing/pricing-cards";
 import { PricingMatrix } from "@/components/billing/pricing-matrix";
 import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
 import { loadPricingCatalog } from "@/lib/billing/load-pricing";
+import { getServerLocale } from "@/lib/i18n/server";
+import { translate } from "@/lib/i18n/dictionary";
 
 /**
  * /sandbox/v1-8/pricing — page tarifs sales-optimized.
@@ -29,6 +31,8 @@ export const metadata = {
 
 export default async function V18PricingPage() {
   const catalog = await loadPricingCatalog();
+  const locale = await getServerLocale();
+  const t = (k: string) => translate(k, locale);
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#050505]">
       <div
@@ -64,28 +68,26 @@ export default async function V18PricingPage() {
         {/* HERO */}
         <div className="mx-auto max-w-3xl text-center">
           <span className="inline-block rounded-full border border-violet-500/30 bg-violet-500/10 px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-violet-200">
-            Tarifs simples, accès puissant
+            {t("pricing.eyebrow")}
           </span>
           <h1 className="mt-4 font-display text-4xl font-bold tracking-tight text-zinc-50 sm:text-5xl">
-            Le bon plan pour ta façon d&apos;investir
+            {t("pricing.h1")}
           </h1>
           <p className="mt-4 text-[15.5px] leading-relaxed text-zinc-400">
-            Découvre Mettrik AI gratuitement sur Google et Meta. Quand tu veux
-            aller plus loin, débloque les 1 000 plus grandes sociétés mondiales
-            avec un seul clic.
+            {t("pricing.intro")}
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3 text-[12px] text-zinc-400">
             <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/[0.06] px-3 py-1.5">
               <Shield className="size-3.5 text-emerald-300" />
-              30 jours satisfait ou remboursé
+              {t("pricing.badge_refund")}
             </span>
             <span className="inline-flex items-center gap-1.5 rounded-full border border-cyan-500/20 bg-cyan-500/[0.06] px-3 py-1.5">
               <Zap className="size-3.5 text-cyan-300" />
-              Sans engagement, annulation en 1 clic
+              {t("pricing.badge_no_engagement")}
             </span>
             <span className="inline-flex items-center gap-1.5 rounded-full border border-violet-500/20 bg-violet-500/[0.06] px-3 py-1.5">
               <Sparkles className="size-3.5 text-violet-300" />
-              Tarifs en 7 devises (€/$/£/CHF/SEK/DKK/CAD)
+              {t("pricing.badge_currencies")}
             </span>
           </div>
         </div>
@@ -99,10 +101,10 @@ export default async function V18PricingPage() {
         <section className="mx-auto mt-20 max-w-5xl">
           <div className="mb-6 text-center">
             <h2 className="font-display text-3xl font-bold tracking-tight text-zinc-50">
-              Comparatif détaillé
+              {t("pricing.compare_title")}
             </h2>
             <p className="mt-2 text-[14px] text-zinc-400">
-              Toutes les fonctionnalités, en clair, pour décider sans surprise.
+              {t("pricing.compare_sub")}
             </p>
           </div>
           <PricingMatrix plans={catalog.plans} features={catalog.features} />
@@ -110,46 +112,22 @@ export default async function V18PricingPage() {
 
         {/* TRUST / VALUE */}
         <section className="mx-auto mt-20 grid max-w-5xl gap-5 sm:grid-cols-3">
-          <TrustCard
-            title="Données vérifiées"
-            body="Chaque chiffre vient des documents officiels (10-K, 20-F, transcripts) déposés par les sociétés. Aucune estimation maison."
-          />
-          <TrustCard
-            title="Pas de revente de tes données"
-            body="On ne vend ni ne loue tes données à des tiers. Pas de tracker publicitaire, pas de data broker."
-          />
-          <TrustCard
-            title="Hébergement européen"
-            body="Tes données restent en Europe. Conforme RGPD. Facturation par R consulting (Suisse)."
-          />
+          <TrustCard title={t("pricing.trust1_title")} body={t("pricing.trust1_body")} />
+          <TrustCard title={t("pricing.trust2_title")} body={t("pricing.trust2_body")} />
+          <TrustCard title={t("pricing.trust3_title")} body={t("pricing.trust3_body")} />
         </section>
 
         {/* FAQ */}
         <section className="mx-auto mt-20 max-w-3xl">
           <h2 className="mb-6 text-center font-display text-3xl font-bold tracking-tight text-zinc-50">
-            Questions fréquentes
+            {t("pricing.faq_title")}
           </h2>
           <div className="space-y-3">
-            <FaqItem
-              q="Puis-je tester Mettrik AI sans payer ?"
-              a="Oui, le plan Découverte est gratuit à vie. Tu accèdes à l'intégralité de Google (GOOGL) et Meta (META) sans carte bancaire. C'est suffisant pour évaluer la profondeur de l'analyse avant de décider."
-            />
-            <FaqItem
-              q="Comment annuler mon abonnement ?"
-              a="Depuis ton compte (Mon profil > Facturation), un seul clic. Pas de pénalité, ton accès reste actif jusqu'à la fin de la période payée."
-            />
-            <FaqItem
-              q="Quelle différence entre Investisseur et Pro+ ?"
-              a="Investisseur couvre les besoins d'un particulier qui suit son portefeuille (1 000+ sociétés, 50 favoris, 5 alertes email). Pro+ ajoute l'export PDF/CSV, l'accès API en lecture, l'historique 10 et 20 ans, et un support prioritaire — pensé pour les family offices et conseillers."
-            />
-            <FaqItem
-              q="Puis-je changer de plan plus tard ?"
-              a="Oui, à tout moment. Si tu passes de Investisseur à Pro+, l'écart est facturé au prorata. Si tu downgrade, le changement prend effet à la prochaine échéance."
-            />
-            <FaqItem
-              q="Les prix incluent-ils la TVA ?"
-              a="Oui, les prix affichés sont TTC. La facturation est assurée par R consulting (Kreuzlingen, Suisse) qui n'est pas assujettie à la TVA."
-            />
+            <FaqItem q={t("pricing.faq_q1")} a={t("pricing.faq_a1")} />
+            <FaqItem q={t("pricing.faq_q2")} a={t("pricing.faq_a2")} />
+            <FaqItem q={t("pricing.faq_q3")} a={t("pricing.faq_a3")} />
+            <FaqItem q={t("pricing.faq_q4")} a={t("pricing.faq_a4")} />
+            <FaqItem q={t("pricing.faq_q5")} a={t("pricing.faq_a5")} />
             <FaqItem
               q="Quelles sociétés sont couvertes en Investisseur et Pro+ ?"
               a="Plus de 1 000 sociétés américaines (S&P 500, S&P MidCap 400, Nasdaq) et européennes (CAC 40, DAX, FTSE 100, AEX, etc.). Le catalogue s'étoffe automatiquement chaque mois."
@@ -164,10 +142,10 @@ export default async function V18PricingPage() {
         {/* CTA FINAL */}
         <section className="mx-auto mt-20 max-w-3xl rounded-3xl border border-violet-500/30 bg-gradient-to-br from-violet-500/[0.10] to-cyan-500/[0.05] p-10 text-center">
           <h2 className="font-display text-3xl font-bold tracking-tight text-zinc-50">
-            Prêt à voir tes sociétés sous un autre angle ?
+            {t("pricing.cta_final_title")}
           </h2>
           <p className="mt-3 text-[14.5px] leading-relaxed text-zinc-300">
-            Démarre en 30 secondes, sans carte bancaire. Tu pourras passer en Investisseur ou Pro+ quand tu seras prêt.
+            {t("pricing.cta_final_body")}
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Link
@@ -175,7 +153,7 @@ export default async function V18PricingPage() {
               data-pricing-cta="v18_bottom_signup"
               className="inline-flex items-center gap-2 rounded-xl bg-violet-500 px-6 py-3 text-[14px] font-bold text-zinc-50 transition-colors hover:bg-violet-400"
             >
-              Démarrer gratuitement
+              {t("pricing.cta_final_btn")}
               <Check className="size-4" />
             </Link>
             <a
@@ -183,7 +161,7 @@ export default async function V18PricingPage() {
               className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-6 py-3 text-[14px] font-semibold text-zinc-200 transition-colors hover:bg-white/[0.07]"
             >
               <Mail className="size-4" />
-              Une question ? On est là.
+              {t("pricing.cta_final_email")}
             </a>
           </div>
         </section>

@@ -856,6 +856,153 @@ export const DICTIONARY: Dict = {
     en: "Demo data: live wiring to Senate Stock Watcher / Capitol Trades API in V1.5",
   },
 
+  /* ──────────────────────── PRICING ──────────────────────── */
+  "pricing.eyebrow": {
+    fr: "Tarifs simples, accès puissant",
+    en: "Simple pricing, powerful access",
+    de: "Einfache Tarife, starker Zugang",
+  },
+  "pricing.h1": {
+    fr: "Le bon plan pour ta façon d'investir",
+    en: "The right plan for the way you invest",
+    de: "Der richtige Plan für deine Art zu investieren",
+  },
+  "pricing.intro": {
+    fr: "Découvre Mettrik AI gratuitement sur Google et Meta. Quand tu veux aller plus loin, débloque les 1 000 plus grandes sociétés mondiales avec un seul clic.",
+    en: "Try Mettrik AI for free on Google and Meta. When you want more, unlock the world's top 1,000 companies in one click.",
+    de: "Teste Mettrik AI kostenlos mit Google und Meta. Wenn du mehr willst, schalte die 1 000 größten Unternehmen weltweit mit einem Klick frei.",
+  },
+  "pricing.badge_refund": {
+    fr: "30 jours satisfait ou remboursé",
+    en: "30-day money-back guarantee",
+    de: "30 Tage Geld-zurück-Garantie",
+  },
+  "pricing.badge_no_engagement": {
+    fr: "Sans engagement, annulation en 1 clic",
+    en: "No commitment, cancel in 1 click",
+    de: "Keine Bindung, 1-Klick-Kündigung",
+  },
+  "pricing.badge_currencies": {
+    fr: "Tarifs en 7 devises",
+    en: "Pricing in 7 currencies",
+    de: "Preise in 7 Währungen",
+  },
+  "pricing.compare_title": {
+    fr: "Comparatif détaillé",
+    en: "Detailed comparison",
+    de: "Detaillierter Vergleich",
+  },
+  "pricing.compare_sub": {
+    fr: "Toutes les fonctionnalités, en clair, pour décider sans surprise.",
+    en: "Every feature, in plain words, so you decide with no surprises.",
+    de: "Alle Funktionen, klar erklärt, damit du ohne Überraschungen entscheidest.",
+  },
+  "pricing.trust1_title": {
+    fr: "Données vérifiées",
+    en: "Verified data",
+    de: "Geprüfte Daten",
+  },
+  "pricing.trust1_body": {
+    fr: "Chaque chiffre vient des documents officiels (10-K, 20-F, transcripts) déposés par les sociétés. Aucune estimation maison.",
+    en: "Every number comes from official filings (10-K, 20-F, transcripts) filed by the companies themselves. No in-house estimates.",
+    de: "Jede Zahl stammt aus offiziellen Dokumenten (10-K, 20-F, Transkripte), die von den Unternehmen selbst eingereicht wurden. Keine internen Schätzungen.",
+  },
+  "pricing.trust2_title": {
+    fr: "Pas de revente de tes données",
+    en: "No selling of your data",
+    de: "Kein Verkauf deiner Daten",
+  },
+  "pricing.trust2_body": {
+    fr: "On ne vend ni ne loue tes données à des tiers. Pas de tracker publicitaire, pas de data broker.",
+    en: "We do not sell or rent your data to third parties. No ad trackers, no data brokers.",
+    de: "Wir verkaufen oder vermieten deine Daten nicht an Dritte. Keine Werbetracker, keine Datenhändler.",
+  },
+  "pricing.trust3_title": {
+    fr: "Hébergement européen",
+    en: "European hosting",
+    de: "Europäisches Hosting",
+  },
+  "pricing.trust3_body": {
+    fr: "Tes données restent en Europe. Conforme RGPD. Facturation par R consulting (Suisse).",
+    en: "Your data stays in Europe. GDPR-compliant. Billing by R consulting (Switzerland).",
+    de: "Deine Daten bleiben in Europa. DSGVO-konform. Abrechnung durch R consulting (Schweiz).",
+  },
+  "pricing.faq_title": {
+    fr: "Questions fréquentes",
+    en: "Frequently asked questions",
+    de: "Häufige Fragen",
+  },
+  "pricing.faq_q1": {
+    fr: "Puis-je tester Mettrik AI sans payer ?",
+    en: "Can I try Mettrik AI without paying?",
+    de: "Kann ich Mettrik AI testen, ohne zu zahlen?",
+  },
+  "pricing.faq_a1": {
+    fr: "Oui, le plan Découverte est gratuit à vie. Tu accèdes à l'intégralité de Google (GOOGL) et Meta (META) sans carte bancaire. C'est suffisant pour évaluer la profondeur de l'analyse avant de décider.",
+    en: "Yes, the Discovery plan is free forever. You get full access to Google (GOOGL) and Meta (META) with no credit card. Enough to evaluate the depth before deciding.",
+    de: "Ja, der Entdeckungs-Plan ist lebenslang kostenlos. Du bekommst vollen Zugang zu Google (GOOGL) und Meta (META) ohne Kreditkarte. Genug, um die Tiefe vor der Entscheidung zu prüfen.",
+  },
+  "pricing.faq_q2": {
+    fr: "Comment annuler mon abonnement ?",
+    en: "How do I cancel my subscription?",
+    de: "Wie kündige ich mein Abonnement?",
+  },
+  "pricing.faq_a2": {
+    fr: "Depuis ton compte (Mon profil > Facturation), un seul clic. Pas de pénalité, ton accès reste actif jusqu'à la fin de la période payée.",
+    en: "From your account (My profile > Billing), one click. No penalty, your access stays active until the end of the paid period.",
+    de: "Von deinem Konto (Mein Profil > Abrechnung), ein Klick. Keine Strafe, dein Zugang bleibt bis zum Ende der bezahlten Periode aktiv.",
+  },
+  "pricing.faq_q3": {
+    fr: "Quelle différence entre Investisseur et Pro+ ?",
+    en: "What's the difference between Investor and Pro+?",
+    de: "Was ist der Unterschied zwischen Anleger und Pro+?",
+  },
+  "pricing.faq_a3": {
+    fr: "Investisseur couvre les besoins d'un particulier qui suit son portefeuille (1 000+ sociétés, 50 favoris, 5 alertes email). Pro+ ajoute l'export PDF/CSV, l'accès API en lecture, l'historique 10 et 20 ans, et un support prioritaire — pensé pour les family offices et conseillers.",
+    en: "Investor covers the needs of an individual tracking a portfolio (1,000+ companies, 50 favorites, 5 email alerts). Pro+ adds PDF/CSV export, read-only API access, 10- and 20-year history, and priority support — designed for family offices and advisors.",
+    de: "Anleger deckt die Bedürfnisse eines Privatanlegers ab (1 000+ Unternehmen, 50 Favoriten, 5 E-Mail-Alarme). Pro+ ergänzt PDF/CSV-Export, Lese-API-Zugang, 10- und 20-Jahres-Historie sowie Priority-Support — für Family Offices und Berater.",
+  },
+  "pricing.faq_q4": {
+    fr: "Puis-je changer de plan plus tard ?",
+    en: "Can I change my plan later?",
+    de: "Kann ich später meinen Plan ändern?",
+  },
+  "pricing.faq_a4": {
+    fr: "Oui, à tout moment. Si tu passes de Investisseur à Pro+, l'écart est facturé au prorata. Si tu downgrade, le changement prend effet à la prochaine échéance.",
+    en: "Yes, anytime. Upgrading from Investor to Pro+ is billed pro-rata. Downgrade takes effect at the next renewal.",
+    de: "Ja, jederzeit. Beim Upgrade von Anleger zu Pro+ wird die Differenz anteilig berechnet. Downgrade greift zur nächsten Verlängerung.",
+  },
+  "pricing.faq_q5": {
+    fr: "Les prix incluent-ils la TVA ?",
+    en: "Do prices include VAT?",
+    de: "Sind die Preise inklusive MwSt.?",
+  },
+  "pricing.faq_a5": {
+    fr: "Oui, les prix affichés sont TTC. La facturation est assurée par R consulting (Kreuzlingen, Suisse) qui n'est pas assujettie à la TVA.",
+    en: "Yes, prices shown include all taxes. Billing is handled by R consulting (Kreuzlingen, Switzerland), which is not VAT-registered.",
+    de: "Ja, alle Preise sind inklusive Steuern. Die Abrechnung erfolgt durch R consulting (Kreuzlingen, Schweiz), das nicht mehrwertsteuerpflichtig ist.",
+  },
+  "pricing.cta_final_title": {
+    fr: "Prêt à voir tes sociétés sous un autre angle ?",
+    en: "Ready to see your companies from a new angle?",
+    de: "Bereit, deine Unternehmen aus einer neuen Perspektive zu sehen?",
+  },
+  "pricing.cta_final_body": {
+    fr: "Démarre en 30 secondes, sans carte bancaire. Tu pourras passer en Investisseur ou Pro+ quand tu seras prêt.",
+    en: "Start in 30 seconds, no credit card. Upgrade to Investor or Pro+ whenever you're ready.",
+    de: "Starte in 30 Sekunden, ohne Kreditkarte. Du kannst jederzeit zu Anleger oder Pro+ wechseln, wenn du bereit bist.",
+  },
+  "pricing.cta_final_btn": {
+    fr: "Démarrer gratuitement",
+    en: "Start for free",
+    de: "Kostenlos starten",
+  },
+  "pricing.cta_final_email": {
+    fr: "Une question ? On est là.",
+    en: "Have a question? We're here.",
+    de: "Eine Frage? Wir sind da.",
+  },
+
   /* ──────────────────────── ACCOUNT ──────────────────────── */
   "account.title": { fr: "Mon compte", en: "My account" },
   "account.subtitle": {
