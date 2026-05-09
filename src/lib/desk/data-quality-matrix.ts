@@ -22,68 +22,28 @@ import path from "node:path";
 import { createClient } from "@supabase/supabase-js";
 import V17_PUBLIC from "@/data/v1-7-public.json";
 import V18_TICKERS from "@/data/v1-8-tickers-sorted.json";
+import {
+  COLUMN_KEYS,
+  type CellAuto,
+  type Cell,
+  type ColumnKey,
+  type CompanyRow,
+} from "./data-quality-matrix-types";
 
-export type AutoStatus = "auto_ok" | "auto_ko" | "na";
-export type FinalStatus =
-  | "verified_ok"
-  | "verified_ko"
-  | "na"
-  | "auto_ok"
-  | "auto_ko";
-
-export const COLUMN_KEYS = [
-  "logo",
-  "rank",
-  "hero_kpi",
-  "graph_annual",
-  "graph_quarterly",
-  "hero_interpretation",
-  "kpi_count",
-  "risks",
-  "governance",
-  "ai_positioning",
-  "segments",
-  "geography",
-] as const;
-export type ColumnKey = (typeof COLUMN_KEYS)[number];
-
-export const COLUMN_LABEL: Record<ColumnKey, string> = {
-  logo: "Logo",
-  rank: "Rang",
-  hero_kpi: "Hero KPI",
-  graph_annual: "Graph annuel",
-  graph_quarterly: "Graph trim.",
-  hero_interpretation: "Interprétation",
-  kpi_count: "Nb KPIs",
-  risks: "Risques",
-  governance: "Gouvernance",
-  ai_positioning: "Positionnement IA",
-  segments: "Segments",
-  geography: "Géographie",
-};
-
-export type CellAuto = {
-  status: AutoStatus;
-  detail?: string;
-  /** Valeur brute affichée (ex "12 KPIs", "+42% YoY"). */
-  hint?: string;
-};
-
-export type Cell = CellAuto & {
-  /** Override manuel persistant si présent (gagne sur auto). */
-  override?: {
-    status: "verified_ok" | "verified_ko" | "na";
-    verified_by: string | null;
-    verified_at: string;
-    notes: string | null;
-  };
-};
-
-export type CompanyRow = {
-  ticker: string;
-  name: string;
-  cells: Record<ColumnKey, Cell>;
-};
+// Re-exports pour rester compatibles avec les imports existants côté serveur.
+export {
+  COLUMN_KEYS,
+  COLUMN_LABEL,
+  finalStatus,
+} from "./data-quality-matrix-types";
+export type {
+  AutoStatus,
+  FinalStatus,
+  CellAuto,
+  Cell,
+  ColumnKey,
+  CompanyRow,
+} from "./data-quality-matrix-types";
 
 type Datasets = Record<string, {
   ticker?: string;
@@ -332,11 +292,6 @@ export async function buildMatrix(opts?: { limit?: number }): Promise<CompanyRow
       cells,
     };
   });
-}
-
-export function finalStatus(cell: Cell): FinalStatus {
-  if (cell.override) return cell.override.status;
-  return cell.status;
 }
 
 export async function setOverride(opts: {

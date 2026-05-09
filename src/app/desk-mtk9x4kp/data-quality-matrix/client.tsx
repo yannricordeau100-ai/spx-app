@@ -10,7 +10,7 @@ import {
   type CompanyRow,
   type Cell,
   type FinalStatus,
-} from "@/lib/desk/data-quality-matrix";
+} from "@/lib/desk/data-quality-matrix-types";
 
 const STATUS_GLYPH: Record<FinalStatus, string> = {
   verified_ok: "🟢",
