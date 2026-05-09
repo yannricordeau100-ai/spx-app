@@ -85,6 +85,12 @@ export type CompanyRow = {
   cells: Record<ColumnKey, Cell>;
 };
 
+export type MatrixSection = {
+  key: "v18_top" | "extra";
+  label: string;
+  rows: CompanyRow[];
+};
+
 export function finalStatus(cell: Cell): FinalStatus {
   if (cell.override) return cell.override.status;
   return cell.status;

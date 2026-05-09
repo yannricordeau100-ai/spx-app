@@ -43,6 +43,7 @@ export type {
   Cell,
   ColumnKey,
   CompanyRow,
+  MatrixSection as MatrixSectionType,
 } from "./data-quality-matrix-types";
 
 type Datasets = Record<string, {
@@ -393,28 +394,72 @@ export async function loadOverrides(): Promise<Map<string, Cell["override"]>> {
   return m;
 }
 
-export async function buildMatrix(opts?: { limit?: number }): Promise<CompanyRow[]> {
+export type MatrixSection = {
+  key: "v18_top" | "extra";
+  label: string;
+  rows: CompanyRow[];
+};
+
+function buildRow(
+  ticker: string,
+  datasets: Datasets,
+  overrides: Map<string, Cell["override"]>,
+): CompanyRow {
+  const dsKey = Object.keys(datasets).find((k) => k.toUpperCase() === ticker.toUpperCase());
+  const ds = (dsKey ? datasets[dsKey] : {}) as Datasets[string];
+  const auto = computeAutoCells(ticker, ds);
+  const cells = {} as Record<ColumnKey, Cell>;
+  for (const col of COLUMN_KEYS) {
+    const ov = overrides.get(`${ticker.toUpperCase()}::${col}`);
+    cells[col] = { ...auto[col], override: ov };
+  }
+  return { ticker, name: (ds.name as string) ?? ticker, cells };
+}
+
+/**
+ * Retourne 2 sections triées :
+ *   1. v18_top : top 305 V1.8 (déjà trié par market_cap décroissant
+ *      dans v1-8-tickers-sorted.json)
+ *   2. extra : toutes les autres sés présentes dans le dataset Pass 3
+ *      (cat 1 USA + cat 2 ADR + cat 3 EU générales) qui ne sont pas
+ *      dans le top 305. Triées alphabétiquement.
+ */
+export async function buildMatrix(opts?: { limit?: number }): Promise<MatrixSection[]> {
   const datasets = V17_PUBLIC as unknown as Datasets;
   const validKeys = new Set(Object.keys(datasets).map((k) => k.toUpperCase()));
-  const tickers = (V18_TICKERS as string[]).filter((t) => validKeys.has(t.toUpperCase()));
-  const slice = opts?.limit ? tickers.slice(0, opts.limit) : tickers;
-  const overrides = await loadOverrides();
+  const v18Tickers = (V18_TICKERS as string[]).filter((t) => validKeys.has(t.toUpperCase()));
+  const v18Set = new Set(v18Tickers.map((t) => t.toUpperCase()));
+  const extraTickers = Object.keys(datasets)
+    .filter((k) => !v18Set.has(k.toUpperCase()))
+    .sort();
 
-  return slice.map((ticker) => {
-    const dsKey = Object.keys(datasets).find((k) => k.toUpperCase() === ticker.toUpperCase());
-    const ds = (dsKey ? datasets[dsKey] : {}) as Datasets[string];
-    const auto = computeAutoCells(ticker, ds);
-    const cells = {} as Record<ColumnKey, Cell>;
-    for (const col of COLUMN_KEYS) {
-      const ov = overrides.get(`${ticker.toUpperCase()}::${col}`);
-      cells[col] = { ...auto[col], override: ov };
-    }
-    return {
-      ticker,
-      name: (ds.name as string) ?? ticker,
-      cells,
-    };
-  });
+  // limit ne s'applique qu'à v18_top (les extras ne sont chargés que
+  // si limit >= taille v18Tickers). Permet pagination + chargement
+  // progressif sans envoyer 600 lignes d'un coup côté client.
+  const limit = opts?.limit ?? 50;
+  const v18Slice = v18Tickers.slice(0, limit);
+  const remainingBudget = Math.max(0, limit - v18Tickers.length);
+  const extraSlice = remainingBudget > 0 ? extraTickers.slice(0, remainingBudget) : [];
+
+  const overrides = await loadOverrides();
+  const v18Rows = v18Slice.map((t) => buildRow(t, datasets, overrides));
+  const extraRows = extraSlice.map((t) => buildRow(t, datasets, overrides));
+
+  const sections: MatrixSection[] = [
+    {
+      key: "v18_top",
+      label: `Top 305 V1.8 (par market cap)`,
+      rows: v18Rows,
+    },
+  ];
+  if (extraRows.length > 0 || (opts?.limit ?? 0) >= v18Tickers.length) {
+    sections.push({
+      key: "extra",
+      label: `Sés cat 1 / 2 / 3 hors top 305 (alphabétique)`,
+      rows: extraRows,
+    });
+  }
+  return sections;
 }
 
 export async function setOverride(opts: {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { Fragment, useMemo, useState } from "react";
 import Link from "next/link";
 import {
   COLUMN_KEYS,
@@ -10,11 +10,14 @@ import {
   type CompanyRow,
   type Cell,
   type FinalStatus,
+  type MatrixSection,
 } from "@/lib/desk/data-quality-matrix-types";
 
+// Glyphes distincts entre humain (✅/❌) et auto (🟢/🟡/🟠/🔴) pour
+// éviter toute ambiguïté de lecture. Cf demande Yann 9 mai 2026.
 const STATUS_GLYPH: Record<FinalStatus, string> = {
-  verified_ok: "🟢",
-  verified_ko: "🔴",
+  verified_ok: "✅",
+  verified_ko: "❌",
   na: "⚪",
   auto_ok: "🟢",
   auto_stale: "🟡",
@@ -23,23 +26,25 @@ const STATUS_GLYPH: Record<FinalStatus, string> = {
 };
 
 const STATUS_LABEL: Record<FinalStatus, string> = {
-  verified_ok: "Vérifié OK",
-  verified_ko: "Vérifié KO",
+  verified_ok: "Vérifié OK (humain)",
+  verified_ko: "Vérifié KO (humain)",
   na: "Sans objet",
-  auto_ok: "À jour",
-  auto_stale: "En retard",
-  auto_partial: "Incomplet",
-  auto_ko: "Manquant",
+  auto_ok: "Auto · à jour",
+  auto_stale: "Auto · en retard",
+  auto_partial: "Auto · incomplet",
+  auto_ko: "Auto · manquant",
 };
 
 export function MatrixClient({
-  initialRows,
+  initialSections,
   initialLimit,
 }: {
-  initialRows: CompanyRow[];
+  initialSections: MatrixSection[];
   initialLimit: number;
 }) {
-  const [rows, setRows] = useState(initialRows);
+  const [sections, setSections] = useState(initialSections);
+  // rows aplatis (gardés pour les filtres/stats globaux indépendants des sections)
+  const rows = useMemo(() => sections.flatMap((s) => s.rows), [sections]);
   const [limit] = useState(initialLimit);
   const [filterCol, setFilterCol] = useState<ColumnKey | "all">("all");
   const [filterStatus, setFilterStatus] = useState<FinalStatus | "all">("all");
@@ -68,19 +73,21 @@ export function MatrixClient({
     return stats;
   }, [rows]);
 
-  // Filtrage des lignes selon (col, status).
-  const filtered = useMemo(() => {
-    if (filterCol === "all" && filterStatus === "all") return rows;
-    return rows.filter((row) => {
-      if (filterCol !== "all") {
-        const fs = finalStatus(row.cells[filterCol]);
-        if (filterStatus !== "all" && fs !== filterStatus) return false;
-        if (filterStatus === "all") return true;
-        return true;
-      }
-      return COLUMN_KEYS.some((c) => finalStatus(row.cells[c]) === filterStatus);
-    });
-  }, [rows, filterCol, filterStatus]);
+  // Filtrage section par section (préserve la séparation top305 vs extra).
+  const filteredSections = useMemo(() => {
+    if (filterCol === "all" && filterStatus === "all") return sections;
+    return sections.map((sec) => ({
+      ...sec,
+      rows: sec.rows.filter((row) => {
+        if (filterCol !== "all") {
+          const fs = finalStatus(row.cells[filterCol]);
+          if (filterStatus !== "all" && fs !== filterStatus) return false;
+          return true;
+        }
+        return COLUMN_KEYS.some((c) => finalStatus(row.cells[c]) === filterStatus);
+      }),
+    }));
+  }, [sections, filterCol, filterStatus]);
 
   async function setStatus(ticker: string, col: ColumnKey, status: "verified_ok" | "verified_ko" | "na", notes?: string) {
     setBusy(true);
@@ -96,27 +103,30 @@ export function MatrixClient({
         setMsg(`❌ ${err.error || r.statusText}`);
         return;
       }
-      // Update locale optimiste
-      setRows((cur) =>
-        cur.map((row) =>
-          row.ticker.toUpperCase() === ticker.toUpperCase()
-            ? {
-                ...row,
-                cells: {
-                  ...row.cells,
-                  [col]: {
-                    ...row.cells[col],
-                    override: {
-                      status,
-                      verified_by: verifier,
-                      verified_at: new Date().toISOString(),
-                      notes: notes ?? null,
+      // Update local optimiste (sur toutes les sections)
+      setSections((cur) =>
+        cur.map((sec) => ({
+          ...sec,
+          rows: sec.rows.map((row) =>
+            row.ticker.toUpperCase() === ticker.toUpperCase()
+              ? {
+                  ...row,
+                  cells: {
+                    ...row.cells,
+                    [col]: {
+                      ...row.cells[col],
+                      override: {
+                        status,
+                        verified_by: verifier,
+                        verified_at: new Date().toISOString(),
+                        notes: notes ?? null,
+                      },
                     },
                   },
-                },
-              }
-            : row,
-        ),
+                }
+              : row,
+          ),
+        })),
       );
       setMsg("✅ Sauvegardé");
       setTimeout(() => setMsg(null), 1500);
@@ -228,44 +238,54 @@ export function MatrixClient({
             </tr>
           </thead>
           <tbody>
-            {filtered.map((row) => (
-              <tr key={row.ticker} className="border-b border-white/[0.04] hover:bg-white/[0.02]">
-                <td className="sticky left-0 z-10 bg-zinc-950/80 px-3 py-2 backdrop-blur">
-                  <Link
-                    href={`/sandbox/v1-8/${row.ticker.toLowerCase()}`}
-                    target="_blank"
-                    className="font-mono text-[12px] font-bold text-violet-200 hover:underline"
-                  >
-                    {row.ticker}
-                  </Link>
-                  <div className="text-[10px] text-zinc-500">{row.name.slice(0, 24)}</div>
-                </td>
-                {COLUMN_KEYS.map((col) => {
-                  const cell = row.cells[col];
-                  const fs = finalStatus(cell);
-                  const isEditing = editingCell?.ticker === row.ticker && editingCell?.col === col;
-                  return (
-                    <td key={col} className="relative px-1.5 py-1.5 text-center align-top">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setEditingCell({ ticker: row.ticker, col });
-                          setDraftNote(cell.override?.notes ?? "");
-                        }}
-                        title={`${STATUS_LABEL[fs]}${cell.detail ? ` · ${cell.detail}` : cell.hint ? ` · ${cell.hint}` : ""}${cell.override?.notes ? ` · ${cell.override.notes}` : ""}`}
-                        className="inline-flex flex-col items-center text-[14px] hover:scale-110"
+            {filteredSections.map((sec) => (
+              <Fragment key={sec.key}>
+                {/* Ligne séparateur de section (visible top305 vs extra) */}
+                <tr className="border-y-2 border-violet-500/40 bg-violet-500/[0.07]">
+                  <td colSpan={COLUMN_KEYS.length + 1} className="sticky left-0 px-3 py-1.5 text-[10.5px] font-bold uppercase tracking-wider text-violet-200">
+                    {sec.key === "v18_top" ? "▼" : "▶"} {sec.label} · {sec.rows.length} sés
+                  </td>
+                </tr>
+                {sec.rows.map((row) => (
+                  <tr key={row.ticker} className="border-b border-white/[0.04] hover:bg-white/[0.02]">
+                    <td className="sticky left-0 z-10 bg-zinc-950/80 px-3 py-2 backdrop-blur">
+                      <Link
+                        href={`/sandbox/v1-8/${row.ticker.toLowerCase()}`}
+                        target="_blank"
+                        className="font-mono text-[12px] font-bold text-violet-200 hover:underline"
                       >
-                        <span>{STATUS_GLYPH[fs]}</span>
-                        {cell.hint && (fs === "auto_ok" || fs === "auto_stale") && (
-                          <span className={`text-[8px] ${fs === "auto_stale" ? "text-amber-400/70" : "text-emerald-400/70"}`}>{cell.hint.slice(0, 12)}</span>
-                        )}
-                      </button>
-
-                      {isEditing && <CellEditor cell={cell} verifier={verifier} busy={busy} onSet={(s, notes) => setStatus(row.ticker, col, s, notes)} onCancel={() => { setEditingCell(null); setDraftNote(""); }} draftNote={draftNote} setDraftNote={setDraftNote} />}
+                        {row.ticker}
+                      </Link>
+                      <div className="text-[10px] text-zinc-500">{row.name.slice(0, 24)}</div>
                     </td>
-                  );
-                })}
-              </tr>
+                    {COLUMN_KEYS.map((col) => {
+                      const cell = row.cells[col];
+                      const fs = finalStatus(cell);
+                      const isEditing = editingCell?.ticker === row.ticker && editingCell?.col === col;
+                      return (
+                        <td key={col} className="relative px-1.5 py-1.5 text-center align-top">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setEditingCell({ ticker: row.ticker, col });
+                              setDraftNote(cell.override?.notes ?? "");
+                            }}
+                            title={`${STATUS_LABEL[fs]}${cell.detail ? ` · ${cell.detail}` : cell.hint ? ` · ${cell.hint}` : ""}${cell.override?.notes ? ` · ${cell.override.notes}` : ""}`}
+                            className="inline-flex flex-col items-center text-[14px] hover:scale-110"
+                          >
+                            <span>{STATUS_GLYPH[fs]}</span>
+                            {cell.hint && (fs === "auto_ok" || fs === "auto_stale") && (
+                              <span className={`text-[8px] ${fs === "auto_stale" ? "text-amber-400/70" : "text-emerald-400/70"}`}>{cell.hint.slice(0, 12)}</span>
+                            )}
+                          </button>
+
+                          {isEditing && <CellEditor cell={cell} verifier={verifier} busy={busy} onSet={(s, notes) => setStatus(row.ticker, col, s, notes)} onCancel={() => { setEditingCell(null); setDraftNote(""); }} draftNote={draftNote} setDraftNote={setDraftNote} />}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                ))}
+              </Fragment>
             ))}
           </tbody>
         </table>

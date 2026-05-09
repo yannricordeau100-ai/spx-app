@@ -16,6 +16,6 @@ export default async function DataQualityMatrixPage({
   await requireDeskOwner();
   const params = await searchParams;
   const limit = params.limit ? parseInt(params.limit, 10) : 50;
-  const rows = await buildMatrix({ limit });
-  return <MatrixClient initialRows={rows} initialLimit={limit} />;
+  const sections = await buildMatrix({ limit });
+  return <MatrixClient initialSections={sections} initialLimit={limit} />;
 }
