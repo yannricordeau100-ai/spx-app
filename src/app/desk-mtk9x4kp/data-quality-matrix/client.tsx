@@ -263,9 +263,33 @@ export function MatrixClient({
               </th>
               {COLUMN_KEYS.map((col) => {
                 const points = history[col] ?? [];
-                const lastPct = points.at(-1)?.pctOk;
-                const firstPct = points[0]?.pctOk;
-                const delta = lastPct !== undefined && firstPct !== undefined ? lastPct - firstPct : null;
+                const last = points.at(-1);
+                const first = points[0];
+                const lastPct = last?.pctOk;
+                const firstPct = first?.pctOk;
+                const lastOk = last?.ok ?? 0;
+                const deltaPct = lastPct !== undefined && firstPct !== undefined ? lastPct - firstPct : null;
+
+                // Delta 24 h : compteur OK absolu (∆ stés) entre le dernier
+                // snapshot et le snapshot le plus proche de now - 24 h.
+                let delta24h: number | null = null;
+                if (last && points.length >= 2) {
+                  const target = Date.now() - 24 * 3600_000;
+                  let best = points[0];
+                  let bestDiff = Math.abs(new Date(best.at).getTime() - target);
+                  for (const p of points) {
+                    const d = Math.abs(new Date(p.at).getTime() - target);
+                    if (d < bestDiff) { best = p; bestDiff = d; }
+                  }
+                  // Considérer le delta valide seulement si le snapshot trouvé
+                  // est dans une fenêtre [now-36h ; now-12h] (sinon on a juste
+                  // le 1er snapshot disponible, ce qui n'est pas "24h").
+                  const ageHours = (Date.now() - new Date(best.at).getTime()) / 3600_000;
+                  if (ageHours >= 12 && ageHours <= 36) {
+                    delta24h = lastOk - best.ok;
+                  }
+                }
+
                 return (
                   <th key={col} className="px-2 py-2 text-center font-bold text-zinc-300" title={COLUMN_LABEL[col]}>
                     <div className="text-[10.5px]">{COLUMN_LABEL[col]}</div>
@@ -274,10 +298,20 @@ export function MatrixClient({
                     </div>
                     <div className="mt-0.5 flex items-center justify-center gap-1">
                       <Sparkline points={points} />
-                      {delta !== null && (
-                        <span className={`text-[8.5px] font-mono ${delta > 0 ? "text-emerald-400" : delta < 0 ? "text-rose-400" : "text-zinc-500"}`}>
-                          {delta > 0 ? "+" : ""}{delta}
+                      {deltaPct !== null && (
+                        <span className={`text-[8.5px] font-mono ${deltaPct > 0 ? "text-emerald-400" : deltaPct < 0 ? "text-rose-400" : "text-zinc-500"}`} title="Delta % OK depuis le 1er snapshot">
+                          {deltaPct > 0 ? "+" : ""}{deltaPct}%
                         </span>
+                      )}
+                    </div>
+                    {/* Ligne dédiée au delta 24h en stés (compteur absolu) */}
+                    <div className="mt-0.5 text-[9px] font-mono">
+                      {delta24h !== null ? (
+                        <span className={delta24h > 0 ? "text-emerald-400" : delta24h < 0 ? "text-rose-400" : "text-zinc-500"} title="Stés gagnées sur 24h (snapshot le plus proche de hier)">
+                          24h : {delta24h > 0 ? "+" : ""}{delta24h} sé{Math.abs(delta24h) > 1 ? "s" : ""}
+                        </span>
+                      ) : (
+                        <span className="text-zinc-600" title="Pas encore 24h de données">24h : —</span>
                       )}
                     </div>
                   </th>
