@@ -92,6 +92,11 @@ export const COUNTRY_TO_CURRENCY: Record<string, Currency> = {
   // Océanie
   AU: "AUD", NZ: "AUD", // NZ utilise NZD pas dans nos 10, fallback AUD géo
   CC: "AUD", CX: "AUD", NF: "AUD", KI: "AUD", NR: "AUD", TV: "AUD",
+  // ─── Override Yann 10 mai 2026 : pays à cheval Europe/Asie + Caucase
+  // + Caspienne. Yann tranche : ces pays utilisent EUR malgré leur région
+  // techniquement non-européenne. Cohérent avec une présence
+  // commerciale/touristique forte vers l'Europe.
+  RU: "EUR", TR: "EUR", GE: "EUR", AM: "EUR", AZ: "EUR", KZ: "EUR",
 };
 
 /**
