@@ -200,10 +200,11 @@ function PricingCard({
   const features = topFeatures(plan.tier);
 
   // Yann 9 mai 2026 : prix par jour pour les plans payants (rendre le
-  // tarif plus accessible psychologiquement). 0,82 €/jour parle plus fort
-  // que 24,90 €/mois pour les visiteurs qui hésitent.
-  const monthlyForDayCalc = isAnnual ? monthlyEquivalent(plan) : plan.price_monthly_eur;
-  const dailyPrice = monthlyForDayCalc > 0 ? (monthlyForDayCalc * 12) / 365 : 0;
+  // tarif plus accessible psychologiquement). On calcule TOUJOURS sur
+  // le prix annuel (moins cher), pas sur le prix mensuel courant. C'est
+  // le tarif le plus avantageux et celui qui donne le vrai "argument
+  // par jour" à montrer au visiteur.
+  const dailyPrice = plan.price_annual_eur > 0 ? plan.price_annual_eur / 365 : 0;
 
   return (
     <div
@@ -252,9 +253,12 @@ function PricingCard({
               <span className="text-[15px] font-medium text-zinc-400">€</span>
               <span className="ml-1 text-[12px] text-zinc-500">/mois</span>
             </div>
-            {/* Equivalence prix par jour, immédiatement sous le prix mensuel */}
+            {/* Equivalence prix par jour, calculé sur le tarif annuel
+                (moins cher = plus parlant). Toujours visible quelque
+                soit le toggle pour donner envie de passer à l'annuel. */}
             <div className="mt-0.5 text-[11px] text-zinc-500">
               soit <span className="font-mono text-zinc-300">{dailyPrice.toFixed(2).replace(".", ",")} €</span>/jour
+              <span className="ml-1 text-emerald-300/80">avec l'annuel</span>
             </div>
             <div className="mt-1 text-[11.5px] text-zinc-500">
               {isAnnual ? (
