@@ -120,9 +120,25 @@ export async function listPricesForPlan(planId: string): Promise<PricingPrice[]>
 }
 
 export async function upsertPrice(price: Partial<PricingPrice>): Promise<PricingPrice> {
-  const { data, error } = await adminClient()
+  // Yann 9 mai 2026 : bug "le prix revient à 0" → cause = upsert(price) sans
+  // onConflict, qui partait sur INSERT puis silent-fail sur la contrainte
+  // unique (plan_id, currency, frequency). Fix : si id présent → UPDATE
+  // strict ; sinon → upsert avec onConflict explicite.
+  const supa = adminClient();
+  if (price.id) {
+    const { id: _id, ...rest } = price;
+    const { data, error } = await supa
+      .from("pricing_prices")
+      .update(rest)
+      .eq("id", price.id)
+      .select()
+      .single();
+    if (error) throw error;
+    return data as PricingPrice;
+  }
+  const { data, error } = await supa
     .from("pricing_prices")
-    .upsert(price)
+    .upsert(price, { onConflict: "plan_id,currency,frequency" })
     .select()
     .single();
   if (error) throw error;
@@ -147,13 +163,48 @@ export async function listFeatures(): Promise<PricingFeature[]> {
 }
 
 export async function upsertFeature(feature: Partial<PricingFeature>): Promise<PricingFeature> {
-  const { data, error } = await adminClient()
+  // Yann 9 mai 2026 : même bug que upsertPrice (le upsert sans onConflict
+  // silently fail sur insert quand l'id existe déjà). Fix : update strict
+  // si id présent, insert sinon.
+  const supa = adminClient();
+  if (feature.id) {
+    const { id: _id, ...rest } = feature;
+    const { data, error } = await supa
+      .from("pricing_features")
+      .update(rest)
+      .eq("id", feature.id)
+      .select()
+      .single();
+    if (error) throw error;
+    return data as PricingFeature;
+  }
+  const { data, error } = await supa
     .from("pricing_features")
-    .upsert(feature)
+    .upsert(feature, { onConflict: "code" })
     .select()
     .single();
   if (error) throw error;
   return data as PricingFeature;
+}
+
+/** Swap feature_order entre 2 features (utilisé par les flèches up/down du back office). */
+export async function swapFeatureOrders(idA: string, idB: string): Promise<void> {
+  const supa = adminClient();
+  const { data, error } = await supa
+    .from("pricing_features")
+    .select("id, feature_order")
+    .in("id", [idA, idB]);
+  if (error) throw error;
+  if (!data || data.length !== 2) throw new Error("Features introuvables");
+  const a = data.find((d) => d.id === idA)!;
+  const b = data.find((d) => d.id === idB)!;
+  // Update parallèle
+  const [r1, r2] = await Promise.all([
+    supa.from("pricing_features").update({ feature_order: b.feature_order }).eq("id", a.id),
+    supa.from("pricing_features").update({ feature_order: a.feature_order }).eq("id", b.id),
+  ]);
+  if (r1.error) throw r1.error;
+  if (r2.error) throw r2.error;
 }
 
 export async function deleteFeature(id: string): Promise<void> {

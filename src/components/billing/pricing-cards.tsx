@@ -96,9 +96,8 @@ export function PricingCards({
         ))}
       </div>
 
-      <p className="mt-6 text-center text-[12px] text-zinc-500">
-        Tous les plans payants : 30 jours satisfait ou remboursé. TVA incluse, facturation par R consulting (Suisse).
-      </p>
+      {/* Yann 9 mai 2026 : retire "Tous les plans payants : 30 jours satisfait
+          ou remboursé. TVA incluse, facturation par R consulting (Suisse)." */}
 
       {/* Code promo en bas de page (best practice US 2024) : afficher
           uniquement aux utilisateurs ayant scrollé = déjà engagés. Évite

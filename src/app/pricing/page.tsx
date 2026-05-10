@@ -68,18 +68,12 @@ export default async function PricingPage() {
           <p className="mt-4 text-[15.5px] leading-relaxed text-zinc-400">
             {t("pricing.intro")}
           </p>
+          {/* Yann 9 mai 2026 : retire badges "30 jours satisfait" et
+              "Tarifs en 7 devises". */}
           <div className="mt-6 flex flex-wrap justify-center gap-3 text-[12px] text-zinc-400">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/[0.06] px-3 py-1.5">
-              <Shield className="size-3.5 text-emerald-300" />
-              {t("pricing.badge_refund")}
-            </span>
             <span className="inline-flex items-center gap-1.5 rounded-full border border-cyan-500/20 bg-cyan-500/[0.06] px-3 py-1.5">
               <Zap className="size-3.5 text-cyan-300" />
               {t("pricing.badge_no_engagement")}
-            </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-violet-500/20 bg-violet-500/[0.06] px-3 py-1.5">
-              <Sparkles className="size-3.5 text-violet-300" />
-              {t("pricing.badge_currencies")}
             </span>
           </div>
         </div>

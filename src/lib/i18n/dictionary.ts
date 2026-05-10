@@ -901,9 +901,9 @@ export const DICTIONARY: Dict = {
     de: "Der richtige Plan für deine Art zu investieren",
   },
   "pricing.intro": {
-    fr: "Découvre Mettrik AI gratuitement sur Google et Meta. Quand tu veux aller plus loin, débloque les 1 000 plus grandes sociétés mondiales avec un seul clic.",
-    en: "Try Mettrik AI for free on Google and Meta. When you want more, unlock the world's top 1,000 companies in one click.",
-    de: "Teste Mettrik AI kostenlos mit Google und Meta. Wenn du mehr willst, schalte die 1 000 größten Unternehmen weltweit mit einem Klick frei.",
+    fr: "Découvre Mettrik AI gratuitement avec des fonctionnalités et indicateurs jamais vu ailleurs, rien que ça.",
+    en: "Discover Mettrik AI for free with features and indicators you won't find anywhere else.",
+    de: "Entdecke Mettrik AI kostenlos mit Funktionen und Kennzahlen, die du nirgendwo sonst findest.",
   },
   "pricing.badge_refund": {
     fr: "30 jours satisfait ou remboursé",
@@ -936,9 +936,9 @@ export const DICTIONARY: Dict = {
     de: "Geprüfte Daten",
   },
   "pricing.trust1_body": {
-    fr: "Chaque chiffre vient des documents officiels (10-K, 20-F, transcripts) déposés par les sociétés. Aucune estimation maison.",
-    en: "Every number comes from official filings (10-K, 20-F, transcripts) filed by the companies themselves. No in-house estimates.",
-    de: "Jede Zahl stammt aus offiziellen Dokumenten (10-K, 20-F, Transkripte), die von den Unternehmen selbst eingereicht wurden. Keine internen Schätzungen.",
+    fr: "Chaque chiffre vient des documents ou de communication officielles de la société, nous utilisons plus de 20 sources. Certains KPI majeurs n'étant plus communiqués publiquement par la société en 2026, utilisent des données externes sourcées permettant un calcul des données récentes du KPI. Les KPI non officiels calculés ayant un indice d'incertitude de plus de 5% ne sont pas visible sur mettrik.ai",
+    en: "Every figure comes from official company documents or communications, we use more than 20 sources. Some major KPIs are no longer publicly disclosed by the company in 2026, so we rely on sourced external data to compute the most recent KPI values. Non-official computed KPIs with an uncertainty index above 5% are not displayed on mettrik.ai.",
+    de: "Jede Zahl stammt aus offiziellen Dokumenten oder Mitteilungen des Unternehmens. Wir verwenden über 20 Quellen. Einige wichtige KPIs werden 2026 vom Unternehmen nicht mehr öffentlich kommuniziert. Wir nutzen daher gut belegte externe Daten zur Berechnung der aktuellen Werte. Berechnete nicht-offizielle KPIs mit einem Unsicherheitsindex über 5 % werden auf mettrik.ai nicht angezeigt.",
   },
   "pricing.trust2_title": {
     fr: "Pas de revente de tes données",
@@ -951,14 +951,14 @@ export const DICTIONARY: Dict = {
     de: "Wir verkaufen oder vermieten deine Daten nicht an Dritte. Keine Werbetracker, keine Datenhändler.",
   },
   "pricing.trust3_title": {
-    fr: "Hébergement européen",
-    en: "European hosting",
-    de: "Europäisches Hosting",
+    fr: "Pourquoi le forfait Max ?",
+    en: "Why the Max plan?",
+    de: "Warum das Max-Paket?",
   },
   "pricing.trust3_body": {
-    fr: "Tes données restent en Europe. Conforme RGPD. Facturation par R consulting (Suisse).",
-    en: "Your data stays in Europe. GDPR-compliant. Billing by R consulting (Switzerland).",
-    de: "Deine Daten bleiben in Europa. DSGVO-konform. Abrechnung durch R consulting (Schweiz).",
+    fr: "Vous ferez clairement parti du top 1% des investisseurs qui ont le plus d'informations sur le plus grand nombre de donnée quantifiable disponible, une telle richesse et diversité d'information fiable est-il un avantage compétitifs en tant qu'investisseurs ? Complétement.",
+    en: "You will clearly join the top 1% of investors with the most information across the largest set of quantifiable data available. Is such richness and diversity of reliable information a competitive edge as an investor? Completely.",
+    de: "Sie gehören klar zu den Top 1 % der Investoren mit den meisten Informationen über die größte Menge an verfügbaren quantifizierbaren Daten. Ist eine solche Fülle und Vielfalt zuverlässiger Informationen ein Wettbewerbsvorteil als Investor? Absolut.",
   },
   "pricing.faq_title": {
     fr: "Questions fréquentes",

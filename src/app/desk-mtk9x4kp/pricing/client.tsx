@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { Plus, Copy, Trash2, Star, Save, Eye, EyeOff, Check, X } from "lucide-react";
+import { Plus, Copy, Trash2, Star, Save, Eye, EyeOff, Check, X, ArrowUp, ArrowDown, Pencil } from "lucide-react";
 import {
   CURRENCIES,
   annualSavings,
@@ -528,14 +528,12 @@ function FeaturesSection({
   async function newFeature() {
     const label = prompt("Libellé de la fonctionnalité (FR) :");
     if (!label) return;
-    const category = prompt("Catégorie (Sociétés / Analyse / Suivi / Comparaison / Données / Pro) :", "Analyse");
-    if (!category) return;
     const code = prompt("Code interne (ex 'feature_xyz') :", label.toLowerCase().replace(/[^a-z0-9]+/g, "_"));
     if (!code) return;
     await api("/api/billing/admin/features", "POST", {
       code,
       label_fr: label,
-      category,
+      category: "Général",
       category_order: 99,
       feature_order: features.length + 1,
       is_active: true,
@@ -547,17 +545,43 @@ function FeaturesSection({
     await api(`/api/billing/admin/features/${f.id}`, "DELETE");
     await refresh();
   }
-
-  // Group by category
-  const byCat: Record<string, PricingFeature[]> = {};
-  for (const f of features) {
-    if (!byCat[f.category]) byCat[f.category] = [];
-    byCat[f.category].push(f);
+  async function renameFeature(f: PricingFeature) {
+    const label = prompt("Nouveau libellé (FR) :", f.label_fr);
+    if (!label || label === f.label_fr) return;
+    await api(`/api/billing/admin/features/${f.id}`, "PATCH", { label_fr: label });
+    await refresh();
   }
+  async function setFeatureCategory(f: PricingFeature, category: string) {
+    await api(`/api/billing/admin/features/${f.id}`, "PATCH", { category });
+    await refresh();
+  }
+  async function moveFeature(f: PricingFeature, dir: -1 | 1) {
+    // Liste triée actuelle (ordre d'affichage)
+    const sorted = [...features].sort((a, b) => (a.feature_order ?? 0) - (b.feature_order ?? 0));
+    const idx = sorted.findIndex((x) => x.id === f.id);
+    const swapIdx = idx + dir;
+    if (swapIdx < 0 || swapIdx >= sorted.length) return;
+    const other = sorted[swapIdx];
+    await api("/api/billing/admin/features/swap-order", "POST", { idA: f.id, idB: other.id });
+    await refresh();
+  }
+
+  // Catégories disponibles : toutes les catégories utilisées + "Général"
+  // (toujours présent par défaut). Évite la suppression accidentelle des
+  // catégories saisies par Yann.
+  const categoriesSet = new Set<string>(["Général"]);
+  for (const f of features) if (f.category) categoriesSet.add(f.category);
+  const categories = Array.from(categoriesSet).sort();
+
+  // Liste plate triée par feature_order (ordre choisi par Yann via flèches).
+  const sortedFeatures = [...features].sort((a, b) => (a.feature_order ?? 0) - (b.feature_order ?? 0));
 
   return (
     <div>
-      <div className="mb-3 flex justify-end">
+      <div className="mb-3 flex justify-between items-center">
+        <p className="text-[11px] text-zinc-500">
+          Liste à plat (ordre choisi via flèches). La catégorie est libre par fonctionnalité, modifiable via le menu déroulant.
+        </p>
         <button
           type="button"
           onClick={newFeature}
@@ -574,64 +598,92 @@ function FeaturesSection({
           Aucune fonctionnalité dans le catalogue. Clique « Nouvelle fonctionnalité » pour commencer.
         </div>
       ) : (
-        <div className="space-y-5">
-          {Object.entries(byCat).map(([cat, feats]) => (
-            <div key={cat}>
-              <h3 className="mb-2 text-[10.5px] font-bold uppercase tracking-wider text-zinc-400">{cat}</h3>
-              <div className="overflow-x-auto rounded-xl border border-white/[0.06]">
-                <table className="w-full text-[12px]">
-                  <thead className="bg-white/[0.03]">
-                    <tr>
-                      <th className="px-3 py-2 text-left">Fonctionnalité</th>
-                      {plans.map((p) => (
-                        <th key={p.id} className="px-3 py-2 text-center" style={{ color: p.accent_color }}>{p.name_fr}</th>
+        <div className="overflow-x-auto rounded-xl border border-white/[0.06]">
+          <table className="w-full text-[12px]">
+            <thead className="bg-white/[0.03]">
+              <tr>
+                <th className="px-2 py-2 text-center w-16">Ordre</th>
+                <th className="px-3 py-2 text-left">Fonctionnalité</th>
+                <th className="px-3 py-2 text-left w-40">Catégorie</th>
+                {plans.map((p) => (
+                  <th key={p.id} className="px-3 py-2 text-center" style={{ color: p.accent_color }}>{p.name_fr}</th>
+                ))}
+                <th className="px-3 py-2 text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sortedFeatures.map((f, i) => (
+                <tr key={f.id} className="border-t border-white/[0.04] hover:bg-white/[0.02]">
+                  <td className="px-2 py-2 text-center">
+                    <div className="flex flex-col items-center gap-0.5">
+                      <IconBtn title="Monter" onClick={() => moveFeature(f, -1)} disabled={busy || i === 0}>
+                        <ArrowUp className="size-3 text-zinc-300" />
+                      </IconBtn>
+                      <IconBtn title="Descendre" onClick={() => moveFeature(f, 1)} disabled={busy || i === sortedFeatures.length - 1}>
+                        <ArrowDown className="size-3 text-zinc-300" />
+                      </IconBtn>
+                    </div>
+                  </td>
+                  <td className="px-3 py-2.5">
+                    <div className="flex items-center gap-1.5">
+                      <span className="font-semibold text-zinc-100">{f.label_fr}</span>
+                      <button
+                        type="button"
+                        onClick={() => renameFeature(f)}
+                        disabled={busy}
+                        title="Renommer"
+                        className="rounded p-0.5 text-zinc-500 hover:text-zinc-200"
+                      >
+                        <Pencil className="size-3" />
+                      </button>
+                    </div>
+                    {f.help_fr && <div className="text-[10.5px] text-zinc-500">{f.help_fr}</div>}
+                  </td>
+                  <td className="px-3 py-2">
+                    <select
+                      value={f.category ?? "Général"}
+                      onChange={(e) => setFeatureCategory(f, e.target.value)}
+                      disabled={busy}
+                      className="w-full rounded border border-white/[0.08] bg-white/[0.02] px-2 py-1 text-[11px] text-zinc-200"
+                    >
+                      {categories.map((c) => (
+                        <option key={c} value={c}>{c}</option>
                       ))}
-                      <th className="px-3 py-2 text-right">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {feats.map((f) => (
-                      <tr key={f.id} className="border-t border-white/[0.04]">
-                        <td className="px-3 py-2.5">
-                          <div className="font-semibold text-zinc-100">{f.label_fr}</div>
-                          {f.help_fr && <div className="text-[10.5px] text-zinc-500">{f.help_fr}</div>}
-                        </td>
-                        {plans.map((p) => (
-                          <td key={p.id} className="px-2 py-1.5 text-center">
-                            <ValueCell value={valueFor(p.id, f.id)} onSave={(v) => setValue(p.id, f.id, v)} disabled={busy} />
-                          </td>
-                        ))}
-                        <td className="px-2 py-2 text-right">
-                          <select
-                            defaultValue=""
-                            onChange={(e) => {
-                              if (e.target.value) copyFeatureToOthers(f.id, e.target.value);
-                              e.target.value = "";
-                            }}
-                            disabled={busy}
-                            className="mr-1 rounded border border-white/[0.08] bg-white/[0.02] px-1.5 py-1 text-[10.5px] text-zinc-300"
-                          >
-                            <option value="">Copier depuis…</option>
-                            {plans.map((p) => (
-                              <option key={p.id} value={p.id}>{p.name_fr}</option>
-                            ))}
-                          </select>
-                          <IconBtn title="Supprimer la ligne" onClick={() => deleteFeature(f)} disabled={busy}>
-                            <Trash2 className="size-3 text-rose-300" />
-                          </IconBtn>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          ))}
+                    </select>
+                  </td>
+                  {plans.map((p) => (
+                    <td key={p.id} className="px-2 py-1.5 text-center">
+                      <ValueCell value={valueFor(p.id, f.id)} onSave={(v) => setValue(p.id, f.id, v)} disabled={busy} />
+                    </td>
+                  ))}
+                  <td className="px-2 py-2 text-right">
+                    <select
+                      defaultValue=""
+                      onChange={(e) => {
+                        if (e.target.value) copyFeatureToOthers(f.id, e.target.value);
+                        e.target.value = "";
+                      }}
+                      disabled={busy}
+                      className="mr-1 rounded border border-white/[0.08] bg-white/[0.02] px-1.5 py-1 text-[10.5px] text-zinc-300"
+                    >
+                      <option value="">Copier depuis…</option>
+                      {plans.map((p) => (
+                        <option key={p.id} value={p.id}>{p.name_fr}</option>
+                      ))}
+                    </select>
+                    <IconBtn title="Supprimer la ligne" onClick={() => deleteFeature(f)} disabled={busy}>
+                      <Trash2 className="size-3 text-rose-300" />
+                    </IconBtn>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       )}
 
       <p className="mt-4 text-[10.5px] text-zinc-500">
-        Tape directement dans la cellule pour modifier la valeur affichée. <code>true</code> = ✓ vert, <code>false</code> = cadenas gris, autre texte = affiché tel quel (ex « 5 alertes », « Illimité »).
+        Tape directement dans la cellule pour modifier la valeur affichée. <code>true</code> = ✓ vert, <code>false</code> = cadenas gris, autre texte = affiché tel quel (ex « 5 alertes », « Illimité »). Renommer une ligne avec ✏️. Réorganiser avec ↑↓.
       </p>
     </div>
   );
