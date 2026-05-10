@@ -3,6 +3,7 @@ import { ArrowLeft, Check, Sparkles, Shield, Zap, Mail } from "lucide-react";
 import { PricingCards } from "@/components/billing/pricing-cards";
 import { PricingMatrix } from "@/components/billing/pricing-matrix";
 import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
+import { MettrikWordmark } from "@/components/mettrik-wordmark";
 import { loadPricingCatalog } from "@/lib/billing/load-pricing";
 import { getServerLocale } from "@/lib/i18n/server";
 import { translate } from "@/lib/i18n/dictionary";
@@ -49,7 +50,7 @@ export default async function V18PricingPage() {
           className="group inline-flex items-center gap-2 text-sm text-zinc-400 transition-colors hover:text-zinc-100"
         >
           <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-0.5" />
-          <span className="font-display text-xl tracking-tight text-zinc-100">Mettrik AI</span>
+          <MettrikWordmark size="sm" showRail={false} />
         </Link>
         <div className="flex items-center gap-3">
           <Link href="/login" className="text-sm text-zinc-400 transition-colors hover:text-zinc-100">
