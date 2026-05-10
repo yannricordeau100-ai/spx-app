@@ -186,36 +186,52 @@ export async function resetPassword(formData: FormData) {
 /* ─── Sign out ──────────────────────────────────────────────────────── */
 
 export async function signOut() {
-  const supabase = await createSupabaseServerClient();
-  await supabase.auth.signOut();
-  // Yann 11 mai 2026 : la déconnexion ne fonctionnait toujours pas après
-  // le 1er fix du 10 mai (revalidatePath insuffisant). Cause profonde :
-  // les cookies Supabase (sb-<ref>-auth-token, sb-<ref>-auth-token-code-verifier)
-  // ne sont pas systématiquement supprimés par signOut() côté serveur.
-  // Fix robuste : on supprime EXPLICITEMENT tous les cookies sb-* + on
-  // revalide tous les paths qui rendent l'AuthNav + redirect avec
-  // cache-bust pour forcer un re-render fresh côté client.
+  // Yann 11 mai 2026 : "la déconnexion charge à l'infini". Cause = le
+  // 2e fix utilisait cookieStore.delete() qui peut hang en Next 16 RSC,
+  // + Date.now() dans l'URL rendait le Server Action non-déterministe.
+  //
+  // Fix v3 (robuste) :
+  // 1. supabase.auth.signOut() invalide la session Supabase serveur
+  // 2. Suppression cookies sb-* via .set("", maxAge:0) (standard cookie
+  //    deletion, plus fiable que .delete())
+  // 3. Chaque opération wrappée try/catch indépendante (jamais de hang)
+  // 4. revalidatePath sur les routes critiques
+  // 5. redirect simple SANS cache-bust query string
+  try {
+    const supabase = await createSupabaseServerClient();
+    await supabase.auth.signOut();
+  } catch (e) {
+    console.error("[signOut] supabase signOut failed:", e);
+  }
   try {
     const cookieStore = await cookies();
     for (const c of cookieStore.getAll()) {
       if (c.name.startsWith("sb-") || c.name === "supabase-auth-token") {
-        cookieStore.delete(c.name);
+        try {
+          cookieStore.set(c.name, "", {
+            path: "/",
+            maxAge: 0,
+            expires: new Date(0),
+          });
+        } catch {
+          // ignore par cookie : continue le reste
+        }
       }
     }
-  } catch {
-    // ignore : si on ne peut pas supprimer (RSC context), signOut a
-    // déjà fait le travail via setAll dans createSupabaseServerClient.
+  } catch (e) {
+    console.error("[signOut] cookie cleanup failed:", e);
   }
-  revalidatePath("/", "layout");
-  revalidatePath("/sandbox/v1-8", "layout");
-  revalidatePath("/sandbox/v1-8");
-  revalidatePath("/account");
-  // Cache-bust : ?_=ts force le RSC à re-render même si le path est identique.
+  try {
+    revalidatePath("/", "layout");
+    revalidatePath("/sandbox/v1-8", "layout");
+    revalidatePath("/account");
+  } catch {
+    // ignore : revalidate est best-effort
+  }
   const isStaging =
     process.env.VERCEL_GIT_COMMIT_REF === "staging" ||
     process.env.NEXT_PUBLIC_DEPLOY_TARGET === "staging";
-  const target = isStaging ? "/sandbox/v1-8" : "/";
-  redirect(`${target}?signedout=${Date.now()}`);
+  redirect(isStaging ? "/sandbox/v1-8" : "/");
 }
 
 /* ─── Update password (user déjà connecté) ──────────────────────────── */
