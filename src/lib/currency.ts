@@ -54,6 +54,113 @@ export function getTickerCurrency(ticker: string): Currency {
   return "USD";
 }
 
+/**
+ * Mapping ISO 3166-1 alpha-2 country code → devise supportée par Mettrik.
+ * Utilisé par la détection auto serveur (header `x-vercel-ip-country`).
+ *
+ * Pays avec leur propre devise dans nos 10 supportées : USD, EUR, GBP, CHF,
+ * JPY, CAD, AUD, SEK, DKK, NOK.
+ *
+ * Tout pays NON listé ici tombe sur le fallback continent (cf
+ * getCurrencyForCountry ci-dessous) :
+ *   - Europe → EUR
+ *   - Amérique → USD
+ *   - Asie → USD
+ *   - Océanie → USD
+ *   - Afrique → EUR
+ *   - Moyen-Orient → USD
+ */
+export const COUNTRY_TO_CURRENCY: Record<string, Currency> = {
+  // EUR (zone euro + bonus Vatican / Monaco / etc.)
+  AD: "EUR", AT: "EUR", BE: "EUR", CY: "EUR", DE: "EUR", EE: "EUR",
+  ES: "EUR", FI: "EUR", FR: "EUR", GR: "EUR", IE: "EUR", IT: "EUR",
+  LT: "EUR", LU: "EUR", LV: "EUR", MC: "EUR", MT: "EUR", NL: "EUR",
+  PT: "EUR", SI: "EUR", SK: "EUR", SM: "EUR", VA: "EUR", AX: "EUR",
+  // Pays européens hors zone euro mais avec leur propre devise
+  GB: "GBP", IM: "GBP", JE: "GBP", GG: "GBP", GI: "GBP",
+  CH: "CHF", LI: "CHF",
+  SE: "SEK",
+  DK: "DKK", FO: "DKK",
+  NO: "NOK", SJ: "NOK",
+  // Amérique
+  US: "USD", CA: "CAD",
+  PR: "USD", VI: "USD", GU: "USD", AS: "USD", MP: "USD", // territoires US
+  BM: "USD", BS: "USD", PA: "USD", SV: "USD", EC: "USD", // dollarisés
+  // Asie
+  JP: "JPY",
+  HK: "USD", SG: "USD", // dollarisés / fortement liés
+  // Océanie
+  AU: "AUD", NZ: "AUD", // NZ utilise NZD pas dans nos 10, fallback AUD géo
+  CC: "AUD", CX: "AUD", NF: "AUD", KI: "AUD", NR: "AUD", TV: "AUD",
+};
+
+/**
+ * Détecte la devise à utiliser pour un visiteur selon son code pays ISO.
+ *
+ * Logique :
+ *   1. Si le pays a sa propre devise dans nos 10 supportées → on l'utilise.
+ *   2. Sinon, fallback selon la région :
+ *      - Europe + Afrique → EUR
+ *      - Amérique + Asie + Océanie + Moyen-Orient → USD
+ *
+ * Retourne USD si pays inconnu (fallback global).
+ */
+export function getCurrencyForCountry(country: string | null | undefined): Currency {
+  if (!country) return "USD";
+  const upper = country.toUpperCase();
+  // 1. Mapping pays direct (a sa propre devise)
+  const direct = COUNTRY_TO_CURRENCY[upper];
+  if (direct) return direct;
+  // 2. Fallback par région — import dynamique pour éviter circular dep
+  // (currency.ts ne doit pas dépendre de geo/country-region.ts si le bundle
+  //  l'inclut déjà via i18n)
+  // Inline minimal : on ré-implante le mapping continent ici en simplifié.
+  const EU_PREFIX_NO_OWN = new Set([
+    "AL", "BA", "BG", "BY", "CZ", "HR", "HU", "MD", "MK", "ME", "PL",
+    "RO", "RS", "UA", "XK",
+  ]);
+  if (EU_PREFIX_NO_OWN.has(upper)) return "EUR";
+  const AF_COUNTRIES = new Set([
+    "DZ", "AO", "BJ", "BF", "BI", "CM", "CV", "CF", "TD", "KM", "CD",
+    "CG", "CI", "DJ", "EG", "GQ", "ER", "SZ", "ET", "GA", "GM", "GH",
+    "GN", "GW", "KE", "LS", "LR", "LY", "MG", "MW", "ML", "MA", "MR",
+    "MU", "MZ", "NA", "NE", "NG", "RE", "RW", "ST", "SN", "SC", "SL",
+    "SO", "ZA", "SS", "SD", "TZ", "TG", "TN", "UG", "EH", "YT", "ZM",
+    "ZW", "SH",
+  ]);
+  if (AF_COUNTRIES.has(upper)) return "EUR";
+  // Tout le reste (Asie, Océanie, Amérique latine, Moyen-Orient) → USD
+  return "USD";
+}
+
+/**
+ * Lit la devise persistée dans le cookie `mettrik:currency` (posé par le
+ * proxy serveur via détection IP, ou par le user via le picker).
+ *
+ * Renvoie null si pas de cookie ou si la valeur n'est pas une devise
+ * supportée. Côté client uniquement.
+ */
+export function getCurrencyFromCookie(): Currency | null {
+  if (typeof document === "undefined") return null;
+  const m = document.cookie.match(/(?:^|;\s*)mettrik:currency=([A-Za-z]+)/);
+  if (!m) return null;
+  const v = m[1].toUpperCase();
+  if ((SUPPORTED_CURRENCIES as readonly string[]).includes(v)) {
+    return v as Currency;
+  }
+  return null;
+}
+
+/**
+ * Persiste la devise choisie dans un cookie 1 an. Appelé par le picker
+ * dès qu'un user change manuellement.
+ */
+export function setCurrencyCookie(currency: Currency): void {
+  if (typeof document === "undefined") return;
+  const oneYear = 60 * 60 * 24 * 365;
+  document.cookie = `mettrik:currency=${currency}; path=/; max-age=${oneYear}; samesite=lax`;
+}
+
 /** Devise du pays de l'utilisateur via navigator.language (côté client uniquement). */
 export function getUserCurrency(): Currency {
   if (typeof navigator === "undefined") return "USD";

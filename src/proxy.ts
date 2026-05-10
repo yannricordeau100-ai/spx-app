@@ -90,12 +90,26 @@ export async function proxy(request: NextRequest) {
   const originalPathname = request.nextUrl.pathname;
   const { stripped: routePathname, hadPrefix: isFrLocale } = stripFrPrefix(originalPathname);
 
-  // 1.bis Détection langue automatique par IP (Vercel x-vercel-ip-country).
-  // Si visiteur arrive sur une route SANS préfixe et SANS cookie NEXT_LOCALE,
-  // on regarde son pays via header IP. Si le pays parle FR (FR/BE/LU/MC),
-  // redirect vers /fr/<route>. Sinon laisser passer (EN par défaut).
-  // Exceptions : /api, /auth, /_next, assets.
+  // 1.bis Détection auto LANGUE + DEVISE par IP (header Vercel
+  // `x-vercel-ip-country`, injecté gratuitement par le edge runtime).
+  //
+  // RÈGLES (Yann 10 mai 2026) — visiteur NON CONNECTÉ uniquement :
+  //   - Langue : si pays officiellement francophone → fr ; germanophone →
+  //     de (CH-de → de-CH) ; néerlandophone → nl ; suédophone → sv ;
+  //     danois → da ; pays UK Commonwealth → en-GB ; sinon → en.
+  //   - Devise : si pays a sa devise propre dans nos 10 → utiliser celle-ci ;
+  //     sinon : Europe + Afrique → EUR ; reste → USD.
+  //
+  // Mécanique :
+  //   - On lit le cookie NEXT_LOCALE. S'il existe = pref user déjà set
+  //     (ou login persisté) → on respecte, on touche pas.
+  //   - On lit le cookie mettrik:currency. Idem.
+  //   - Si l'un ou l'autre manque → on pose la valeur déduite via IP.
+  //     Le cookie expire dans 1 an, persiste tant que le visiteur ne change pas.
+  //   - Si user connecté : Supabase user_metadata supplante (géré côté
+  //     provider client + page account).
   const hasLocaleCookie = !!request.cookies.get("NEXT_LOCALE")?.value;
+  const hasCurrencyCookie = !!request.cookies.get("mettrik:currency")?.value;
   const isApiOrAsset =
     originalPathname.startsWith("/api/") ||
     originalPathname.startsWith("/auth/") ||
@@ -103,12 +117,36 @@ export async function proxy(request: NextRequest) {
     originalPathname === "/favicon.ico" ||
     originalPathname === "/robots.txt" ||
     originalPathname === "/sitemap.xml";
-  if (!isFrLocale && !hasLocaleCookie && !isApiOrAsset) {
-    const country = request.headers.get("x-vercel-ip-country") ?? "";
-    // Liste des pays qu'on redirige vers /fr (les seuls actuellement traduits).
-    // Quand DE/NL/SV/DA seront traduits, on étendra cette logique.
-    const FR_COUNTRIES = ["FR", "BE", "LU", "MC"];
-    if (FR_COUNTRIES.includes(country.toUpperCase())) {
+  let detectedLocaleForCookie: string | null = null;
+  let detectedCurrencyForCookie: string | null = null;
+  if (!isApiOrAsset && (!hasLocaleCookie || !hasCurrencyCookie)) {
+    const country = (request.headers.get("x-vercel-ip-country") ?? "").toUpperCase();
+    if (country) {
+      // Imports inline pour éviter d'alourdir le proxy edge bundle. Si le
+      // bundler n'aime pas, fallback sur tables locales minimales (cf
+      // commentaire dans les modules).
+      try {
+        const { COUNTRY_TO_LOCALE, DEFAULT_LOCALE } = await import("./lib/i18n/types");
+        const { getCurrencyForCountry } = await import("./lib/currency");
+        if (!hasLocaleCookie) {
+          detectedLocaleForCookie = COUNTRY_TO_LOCALE[country] ?? DEFAULT_LOCALE;
+        }
+        if (!hasCurrencyCookie) {
+          detectedCurrencyForCookie = getCurrencyForCountry(country);
+        }
+      } catch {
+        // Si erreur d'import edge runtime : skip silencieux, fallback EN/USD.
+      }
+    }
+
+    // FR-only : si pays francophone → redirect vers /fr/<route> pour que
+    // l'URL reflète la langue (cohérence SEO + share). Les autres locales
+    // n'ont pas de préfixe URL aujourd'hui, juste le cookie.
+    if (
+      !isFrLocale &&
+      !hasLocaleCookie &&
+      detectedLocaleForCookie === "fr"
+    ) {
       const url = request.nextUrl.clone();
       url.pathname = "/fr" + (originalPathname === "/" ? "" : originalPathname);
       return NextResponse.redirect(url, 307);
@@ -151,6 +189,26 @@ export async function proxy(request: NextRequest) {
   if (isFrLocale) {
     request.cookies.set("NEXT_LOCALE", "fr");
     response.cookies.set("NEXT_LOCALE", "fr", {
+      maxAge: 60 * 60 * 24 * 365,
+      path: "/",
+      sameSite: "lax",
+    });
+  }
+
+  // Auto-détection IP : si on a pu déduire une locale et/ou devise depuis
+  // le pays et qu'aucun cookie n'existe → on les pose pour que le visiteur
+  // arrive directement dans sa langue + devise. 1 an de durée.
+  if (detectedLocaleForCookie && !isFrLocale) {
+    request.cookies.set("NEXT_LOCALE", detectedLocaleForCookie);
+    response.cookies.set("NEXT_LOCALE", detectedLocaleForCookie, {
+      maxAge: 60 * 60 * 24 * 365,
+      path: "/",
+      sameSite: "lax",
+    });
+  }
+  if (detectedCurrencyForCookie) {
+    request.cookies.set("mettrik:currency", detectedCurrencyForCookie);
+    response.cookies.set("mettrik:currency", detectedCurrencyForCookie, {
       maxAge: 60 * 60 * 24 * 365,
       path: "/",
       sameSite: "lax",

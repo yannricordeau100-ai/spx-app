@@ -53,24 +53,71 @@ export const DEFAULT_LOCALE: Locale = "en";
  *   5. DEFAULT_LOCALE (en)
  */
 export const COUNTRY_TO_LOCALE: Record<string, Locale> = {
-  // Français
-  FR: "fr", BE: "fr", LU: "fr", MC: "fr",
-  // Suisse : franco majoritaire dans région ouest, allemand majoritaire
-  // dans la majorité du pays. On met "de-CH" mais le user peut switcher.
+  // ─── Français : pays officiellement francophones ───
+  FR: "fr", MC: "fr", LU: "fr",
+  // Belgique : co-officielle nl/fr/de — on met "fr" par défaut (règle Yann
+  // 10 mai 2026 : tout pays francophone → fr). User peut switcher.
+  BE: "fr",
+  // Suisse : 4 langues officielles (de, fr, it, rmsh). On met "de-CH" par
+  // défaut (majorité 62 % du pays). User en CH-fr peut switcher en 1 clic.
   CH: "de-CH",
-  // Canada : francophone Québec, mais anglo majoritaire global. EN par défaut.
+  // Canada : officiellement bilingue. Yann a précisé "IP francophone : fr",
+  // mais CA-anglo est majoritaire (~75 %). On met "en" par défaut, QC peut
+  // switcher en 1 clic.
   CA: "en",
-  // Allemand
+  // Pays africains francophones (langue officielle française)
+  BF: "fr", BI: "fr", BJ: "fr", CD: "fr", CF: "fr", CG: "fr", CI: "fr",
+  CM: "fr", DJ: "fr", DZ: "fr", GA: "fr", GN: "fr", GQ: "fr", HT: "fr",
+  KM: "fr", MA: "fr", MG: "fr", ML: "fr", MR: "fr", MU: "fr", NE: "fr",
+  RE: "fr", RW: "fr", SC: "fr", SN: "fr", TD: "fr", TG: "fr", TN: "fr",
+  VU: "fr", YT: "fr", GP: "fr", MQ: "fr", GF: "fr", PM: "fr", PF: "fr",
+  NC: "fr", WF: "fr",
+
+  // ─── Allemand : pays officiellement germanophones ───
   DE: "de", AT: "de", LI: "de",
-  // Néerlandais
+
+  // ─── Néerlandais ───
   NL: "nl",
-  // Suédois
-  SE: "sv", FI: "sv", // Finlande co-officielle SV
-  // Danois
+  // Curaçao + Aruba + Sint Maarten + BES → néerlandais
+  AW: "nl", CW: "nl", SX: "nl", BQ: "nl", SR: "nl",
+
+  // ─── Suédois ───
+  SE: "sv",
+  FI: "sv", // Finlande co-officielle (suédois minoritaire ~5 %, mais
+  // Yann a dit "pays qui a sa propre langue". FI a le finnois mais le
+  // finnois n'est pas dans nos 8. SV est co-officiel donc OK.
+
+  // ─── Danois ───
   DK: "da",
-  // UK English
+  // Groenland + Féroé : co-officiels avec leurs langues respectives mais
+  // utilisent danois en pratique
+  GL: "da", FO: "da",
+
+  // ─── English UK (variante) ───
   GB: "en-GB", IE: "en-GB",
-  // Tout le reste = en (défaut). USA, AU, NZ, IN, etc.
+  IM: "en-GB", JE: "en-GB", GG: "en-GB", GI: "en-GB",
+  // Pays du Commonwealth historique anglo-britannique → variante UK
+  AU: "en-GB", NZ: "en-GB",
+  ZA: "en-GB", IN: "en-GB", PK: "en-GB", BD: "en-GB", LK: "en-GB",
+  MY: "en-GB", SG: "en-GB", HK: "en-GB",
+  // Carraïbes Commonwealth
+  JM: "en-GB", BB: "en-GB", TT: "en-GB", BS: "en-GB", BZ: "en-GB",
+  AG: "en-GB", DM: "en-GB", LC: "en-GB", VC: "en-GB", GD: "en-GB",
+  KN: "en-GB", AI: "en-GB", BM: "en-GB", VG: "en-GB", KY: "en-GB",
+  MS: "en-GB", TC: "en-GB", FK: "en-GB", SH: "en-GB",
+  // Afrique anglo
+  KE: "en-GB", NG: "en-GB", GH: "en-GB", UG: "en-GB", TZ: "en-GB",
+  ZM: "en-GB", ZW: "en-GB", BW: "en-GB", MW: "en-GB", NA: "en-GB",
+  SZ: "en-GB", LS: "en-GB", LR: "en-GB", SL: "en-GB", GM: "en-GB",
+  // Pacifique anglo (note : VU = Vanuatu reste en "fr" plus haut, langue
+  // officielle co-enregistrée avec l'anglais et le bislama)
+  FJ: "en-GB", PG: "en-GB", SB: "en-GB", TO: "en-GB",
+  WS: "en-GB", KI: "en-GB", TV: "en-GB", NR: "en-GB", PW: "en-GB",
+  CK: "en-GB", NU: "en-GB",
+
+  // ─── Tout le reste : en (US par défaut) ───
+  // États-Unis, Asie non-anglophone, Moyen-Orient, Amérique latine,
+  // Russie, Europe de l'Est non couverte ci-dessus, etc.
 };
 
 export const COOKIE_NAME = "NEXT_LOCALE";

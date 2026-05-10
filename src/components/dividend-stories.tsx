@@ -13,6 +13,8 @@ import {
   getExchangeRate,
   getTickerCurrency,
   getUserCurrency,
+  getCurrencyFromCookie,
+  setCurrencyCookie,
 } from "@/lib/currency";
 import { CurrencyPicker } from "@/components/currency-picker";
 
@@ -65,9 +67,24 @@ export function DividendStories({ company }: { company: Company }) {
   const [rate, setRate] = useState<number>(1);
 
   useEffect(() => {
-    const detected = getUserCurrency();
-    setUserCurrency(detected);
+    // Initial : on lit d'abord le cookie posé par le proxy (détection IP
+    // côté serveur). Si présent → c'est lui qui prime. Sinon fallback sur
+    // navigator.language.
+    const cookieCurrency = getCurrencyFromCookie();
+    if (cookieCurrency) {
+      setCurrency(cookieCurrency);
+      setUserCurrency(cookieCurrency);
+    } else {
+      const detected = getUserCurrency();
+      setUserCurrency(detected);
+    }
   }, []);
+
+  // Persistance : à chaque changement manuel de devise, on update le cookie
+  // pour que la préférence survive aux refresh / autres pages.
+  useEffect(() => {
+    setCurrencyCookie(currency);
+  }, [currency]);
 
   useEffect(() => {
     let cancelled = false;
