@@ -14,6 +14,7 @@ import { BackToTop } from "@/components/back-to-top";
 import { StarButton } from "@/components/star-button";
 import { CompanySearch } from "@/components/company-search";
 import { HomeFAQ } from "@/components/home-faq";
+import { SignupGateOverlay } from "@/components/signup-gate-overlay";
 import { useT } from "@/lib/i18n/provider";
 
 /**
@@ -338,19 +339,21 @@ export function HomeView({
   routePrefix,
   showFAQ = true,
   searchScope,
+  topNavLinks,
+  requireSignupGate = false,
+  gatePath = "/",
 }: {
   companies?: Record<string, import("@/lib/data").Company>;
   tickers?: string[];
   routePrefix?: string;
   showFAQ?: boolean;
-  /**
-   * Restreint la barre de recherche à un scope spécifique. Yann le 8 mai
-   * 2026 : "la barre de recherche doit être propre à chaque version".
-   *  - undefined : recherche dans toute la base V1.7 strict (~617)
-   *  - { tickers, total } : recherche dans `tickers` uniquement, compteur
-   *    affiché = `total`. V1.8 = top 308 hors Chine = 306.
-   */
   searchScope?: { tickers: string[]; total: number };
+  /** Yann 10 mai 2026 : liens au-dessus du logo (ex Pricing / Contact). */
+  topNavLinks?: { label: string; href: string }[];
+  /** Si true, tout clic sur la search bar ou une card sté ouvre AuthModal (anonyme). */
+  requireSignupGate?: boolean;
+  /** Page qui monte <AuthModal /> (utilisée pour le redirect signup). */
+  gatePath?: string;
 } = {}) {
   const { t, locale } = useT();
   const COMPANIES_USED = companiesProp ?? COMPANIES;
@@ -367,10 +370,21 @@ export function HomeView({
       <Spotlight className="-top-40 left-0 md:-top-20 md:left-60" />
 
       <div className="relative mx-auto max-w-5xl px-4 pt-6 pb-16 sm:px-6 sm:pt-8">
-        {/* Pill "Données à jour" en haut, taille réduite, libère la place pour le wordmark + sociétés */}
-        <div className="mb-4 flex justify-center">
-          <DataFreshnessPill locale={locale} freshnessKey={t("brand.data_updated")} />
-        </div>
+        {/* Yann 10 mai 2026 : liens top-nav (Pricing / Contact) AU-DESSUS
+            du logo pour faciliter la conversion sans scroll. */}
+        {topNavLinks && topNavLinks.length > 0 && (
+          <nav className="mb-4 flex justify-center gap-2 text-[12.5px]">
+            {topNavLinks.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                className="inline-flex items-center gap-1.5 rounded-full border border-violet-500/25 bg-violet-500/[0.08] px-3.5 py-1.5 font-semibold text-violet-100 transition-colors hover:border-violet-500/45 hover:bg-violet-500/15"
+              >
+                {l.label}
+              </a>
+            ))}
+          </nav>
+        )}
 
         <BrandWordmark
           kpiUnderText={locale === "fr" ? t("brand.kpi_intelligence_under") : undefined}
@@ -397,13 +411,23 @@ export function HomeView({
           )}
         </div>
 
-        {/* Search — pill arrondie qui zoome en modal centrée au clic */}
-        <div className="mx-auto mt-10 flex max-w-2xl justify-center sm:mt-12">
-          <CompanySearch
-            variant="hero"
-            searchableTickers={searchScope?.tickers}
-            totalLabel={searchScope?.total}
-          />
+        {/* Pill "Données à jour" : Yann 10 mai 2026 déplacée ici, entre
+            le bloc texte au-dessus et la barre de recherche. */}
+        <div className="mt-6 flex justify-center sm:mt-8">
+          <DataFreshnessPill locale={locale} freshnessKey={t("brand.data_updated")} />
+        </div>
+
+        {/* Search — pill arrondie qui zoome en modal centrée au clic.
+            Si requireSignupGate=true et user anonyme : tout clic redirige
+            vers signup (intercepté par SignupGateOverlay). */}
+        <div className="mx-auto mt-4 flex max-w-2xl justify-center sm:mt-5">
+          <SignupGateOverlay enabled={requireSignupGate} gatePath={gatePath}>
+            <CompanySearch
+              variant="hero"
+              searchableTickers={searchScope?.tickers}
+              totalLabel={searchScope?.total}
+            />
+          </SignupGateOverlay>
         </div>
 
         {/* Suggestions */}
@@ -415,12 +439,15 @@ export function HomeView({
             {results.map((ticker) => {
               const c = COMPANIES_USED[ticker];
               if (!c) return null;
-              // Render carte avec try/catch global : si le dataset V1.7
-              // est partiellement extrait (champ manquant qui crashe rate(),
-              // formatUnit(), etc.), on skip silencieusement plutôt que
-              // crasher toute la home.
               try {
-                return renderCompanyCard(c, ticker, buildHref, locale, t);
+                // Idem : wrap chaque card société dans le gate signup.
+                const card = renderCompanyCard(c, ticker, buildHref, locale, t);
+                if (!card) return null;
+                return (
+                  <SignupGateOverlay key={ticker} enabled={requireSignupGate} gatePath={gatePath}>
+                    {card}
+                  </SignupGateOverlay>
+                );
               } catch {
                 return null;
               }

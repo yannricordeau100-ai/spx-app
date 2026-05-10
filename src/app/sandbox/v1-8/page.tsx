@@ -1,10 +1,13 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import { ArrowRight, Mail } from "lucide-react";
 import { HomeView } from "@/components/home-view";
 import { AuthNav } from "@/components/auth-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { AuthModal } from "@/components/auth-modal";
 import { PricingCards } from "@/components/billing/pricing-cards";
 import { loadPricingCatalog } from "@/lib/billing/load-pricing";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 import type { Company } from "@/lib/data";
 import V17_PUBLIC from "@/data/v1-7-public.json";
 // Liste pré-calculée par scripts/build-v18-tickers.ts : top 308 par
@@ -46,6 +49,11 @@ export default async function SandboxV18HubPage() {
   const tickers = (V18_TICKERS as string[]).filter((t) => validKeys.has(t.toUpperCase()));
   const catalog = await loadPricingCatalog();
 
+  // Détecte la session pour ne PAS bloquer un user déjà connecté.
+  const supabase = await createSupabaseServerClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  const isAuthed = !!user;
+
   return (
     <>
       {/* Top-right : theme toggle + langue + connexion. Même UX que la home /. */}
@@ -59,7 +67,18 @@ export default async function SandboxV18HubPage() {
         showFAQ={false}
         routePrefix="/sandbox/v1-8"
         searchScope={{ tickers, total: tickers.length }}
+        topNavLinks={[
+          { label: "Pricing", href: "/sandbox/v1-8/pricing" },
+          { label: "Contact", href: "/sandbox/v1-8/contact" },
+        ]}
+        requireSignupGate={!isAuthed}
+        gatePath="/sandbox/v1-8"
       />
+      {/* AuthModal lu via ?auth=signup, monté ici pour que le redirect du
+          SignupGateOverlay l'affiche bien sur la home V1.8. */}
+      <Suspense fallback={null}>
+        <AuthModal />
+      </Suspense>
 
       {/* ─── Section "Plans" inline sur la home V1.8 ───────────────────
           Yann 10 mai 2026 : ajout pricing dans la home pour optimiser la
