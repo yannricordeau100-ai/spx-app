@@ -171,7 +171,7 @@ export function MockupDividend() {
           <div className="inline-flex flex-wrap items-center gap-1 rounded-full border border-white/10 bg-white/[0.03] p-1">
             {(Object.keys(VARIANT_LABELS) as Variant[]).map((v) => {
               const isActive = variant === v;
-              const isAvailable = v === "A_carrousel" || v === "B_grid";
+              const isAvailable = true; // Toutes activées le 10 mai 2026
               return (
                 <button
                   key={v}
@@ -197,9 +197,9 @@ export function MockupDividend() {
           </div>
         </div>
 
-        {/* Devise centralisée pour les 3 cards (s'applique en mode grid B,
+        {/* Devise centralisée pour les 3 cards (s'applique en modes B/C/D,
             le carrousel A a son propre picker dans le composant DividendStories) */}
-        {variant === "B_grid" && (
+        {(variant === "B_grid" || variant === "C_stack" || variant === "D_tabs") && (
           <>
             <span className="text-zinc-600">·</span>
             <div className="flex items-center gap-2">
@@ -306,6 +306,86 @@ export function MockupDividend() {
             </div>
           </div>
         )}
+
+        {/* Variante C : Stack vertical (1 colonne pleine largeur, scroll naturel) */}
+        {variant === "C_stack" && (
+          <div className="space-y-5">
+            <div className="mb-2">
+              <h3 className="text-[20px] font-semibold text-zinc-50">
+                Politique de dividende
+              </h3>
+              <p className="mt-0.5 max-w-2xl text-[13px] text-zinc-300">
+                Les 3 angles empilés verticalement. Idéal lecture mobile et
+                pour scroll naturel.
+              </p>
+            </div>
+            <div
+              className="mx-auto w-full max-w-2xl overflow-hidden rounded-[28px] border border-white/10"
+              style={{ minHeight: 540, boxShadow: `0 30px 80px -20px ${accent}33` }}
+            >
+              <DividendAristocratCard
+                accent={accent}
+                glow={glow}
+                dps={dpsAnnual}
+                dpsYoy={dpsYoy}
+                dpsHistory={dpsHistory}
+                capReturn={capReturn}
+                capReturnUnit={capReturnUnit}
+                payoutRatio={payoutRatio}
+                yearsStreak={31}
+              />
+            </div>
+            <div
+              className="mx-auto w-full max-w-2xl overflow-hidden rounded-[28px] border border-white/10"
+              style={{ minHeight: 540, boxShadow: `0 30px 80px -20px ${accent}33` }}
+            >
+              <DividendCalculatorCard
+                accent={accent}
+                glow={glow}
+                dpsAnnual={dpsAnnual}
+                ticker={company.ticker}
+                price={effectivePrice}
+                isPriceLive={isPriceLive}
+                priceFetchedAt={livePrice.fetchedAt}
+                nativeCurrency={nativeCurrency}
+                currency={currency}
+                rate={rate}
+              />
+            </div>
+            <div
+              className="mx-auto w-full max-w-2xl overflow-hidden rounded-[28px] border border-white/10"
+              style={{ minHeight: 540, boxShadow: `0 30px 80px -20px ${accent}33` }}
+            >
+              <DividendSnowballCard
+                accent={accent}
+                glow={glow}
+                yieldPct={yieldPct}
+                currency={currency}
+                rate={rate}
+              />
+            </div>
+          </div>
+        )}
+
+        {/* Variante D : Onglets (3 boutons cliquables, pas d'autoplay) */}
+        {variant === "D_tabs" && <DividendTabsView
+          accent={accent}
+          glow={glow}
+          dpsAnnual={dpsAnnual}
+          dpsYoy={dpsYoy}
+          dpsHistory={dpsHistory}
+          capReturn={capReturn}
+          capReturnUnit={capReturnUnit}
+          payoutRatio={payoutRatio}
+          ticker={company.ticker}
+          effectivePrice={effectivePrice}
+          isPriceLive={isPriceLive}
+          priceFetchedAt={livePrice.fetchedAt}
+          nativeCurrency={nativeCurrency}
+          currency={currency}
+          rate={rate}
+          yieldPct={yieldPct}
+        />}
       </div>
 
       <div className="mt-6 rounded-xl border border-amber-500/20 bg-amber-500/[0.04] p-4">
@@ -314,10 +394,116 @@ export function MockupDividend() {
         </div>
         <p className="mt-1 text-[12.5px] leading-relaxed text-amber-100/90">
           Cette page est isolée du reste de l&apos;app. Les modifs ici ne
-          touchent pas la V1.7 publique. Pour comparer plusieurs styles,
-          utilise le sélecteur de variante en haut. Pour ajouter une variante
-          C ou D, demande directement.
+          touchent pas la V1.7 publique. Quatre variantes disponibles
+          (carrousel, grille, stack, onglets) pour comparer les styles.
         </p>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================ */
+/* DividendTabsView : Variante D — onglets cliquables, pas d'autoplay */
+/* ============================================================ */
+function DividendTabsView(props: {
+  accent: string;
+  glow: string;
+  dpsAnnual: number;
+  dpsYoy: string;
+  dpsHistory: number[];
+  capReturn: number;
+  capReturnUnit: string;
+  payoutRatio: number;
+  ticker: string;
+  effectivePrice: number;
+  isPriceLive: boolean;
+  priceFetchedAt: string | null;
+  nativeCurrency: Currency;
+  currency: Currency;
+  rate: number;
+  yieldPct: number;
+}) {
+  const [activeTab, setActiveTab] = useState<"aristocrat" | "calc" | "snow">("aristocrat");
+  const tabs = [
+    { id: "aristocrat" as const, label: "🏆 Aristocrat" },
+    { id: "calc" as const, label: "🧮 Simulateur" },
+    { id: "snow" as const, label: "❄️ Boule de neige" },
+  ];
+  return (
+    <div>
+      <div className="mb-4">
+        <h3 className="text-[20px] font-semibold text-zinc-50">
+          Politique de dividende
+        </h3>
+        <p className="mt-0.5 max-w-2xl text-[13px] text-zinc-300">
+          Onglets cliquables. Pas d&apos;autoplay. Choisis ce que tu veux voir.
+        </p>
+      </div>
+      {/* Tabs row */}
+      <div className="mb-5 inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.03] p-1">
+        {tabs.map((t) => {
+          const isActive = activeTab === t.id;
+          return (
+            <button
+              key={t.id}
+              onClick={() => setActiveTab(t.id)}
+              className="rounded-full px-4 py-1.5 text-[12.5px] font-semibold transition-all"
+              style={
+                isActive
+                  ? {
+                      background: props.accent,
+                      color: "#000",
+                      boxShadow: `0 0 12px ${props.accent}55`,
+                    }
+                  : { color: "#a1a1aa", background: "transparent" }
+              }
+            >
+              {t.label}
+            </button>
+          );
+        })}
+      </div>
+      {/* Card active */}
+      <div
+        className="mx-auto w-full max-w-2xl overflow-hidden rounded-[28px] border border-white/10"
+        style={{ minHeight: 540, boxShadow: `0 30px 80px -20px ${props.accent}33` }}
+      >
+        {activeTab === "aristocrat" && (
+          <DividendAristocratCard
+            accent={props.accent}
+            glow={props.glow}
+            dps={props.dpsAnnual}
+            dpsYoy={props.dpsYoy}
+            dpsHistory={props.dpsHistory}
+            capReturn={props.capReturn}
+            capReturnUnit={props.capReturnUnit}
+            payoutRatio={props.payoutRatio}
+            yearsStreak={31}
+          />
+        )}
+        {activeTab === "calc" && (
+          <DividendCalculatorCard
+            accent={props.accent}
+            glow={props.glow}
+            dpsAnnual={props.dpsAnnual}
+            ticker={props.ticker}
+            price={props.effectivePrice}
+            isPriceLive={props.isPriceLive}
+            priceFetchedAt={props.priceFetchedAt}
+            nativeCurrency={props.nativeCurrency}
+            currency={props.currency}
+            rate={props.rate}
+          />
+        )}
+        {activeTab === "snow" && (
+          <DividendSnowballCard
+            accent={props.accent}
+            glow={props.glow}
+            yieldPct={props.yieldPct}
+            currency={props.currency}
+            rate={props.rate}
+          />
+        )}
       </div>
     </div>
   );

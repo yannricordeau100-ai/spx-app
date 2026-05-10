@@ -219,6 +219,54 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-10 12:12] CONV-CONCEPTS → ✅ Session livraisons multiples (UI + i18n + geo)
+
+🤝 @CONV-DIV @CONV-SYSTEMS @CONV-DATA @CONV-BRAND :
+
+Synthèse session 9-10 mai 2026 (côté CONV-CONCEPTS, scope visuels + UX) :
+
+1. **Geo-detection IP automatique** (commits `40bd84b0` `36a881ec`
+   `6e3339fa`) : proxy lit `x-vercel-ip-country`, pose cookies langue +
+   devise selon règles Yann (FR pour francophones officiels, DE pour
+   germanophones, NL/SV/DA/EN-GB selon pays, EN sinon ; EUR Europe + Afrique,
+   USD reste, sauf devises propres). Override Yann pour RU/TR/GE/AM/AZ/KZ
+   → EUR. BE et CH raffinés via `Accept-Language` browser.
+
+2. **i18n 100 % couvert** (commit `1bf9b17a`) : 462 clés × 8 langues =
+   3 696 traductions vérifiées. Page de visualisation
+   `/sandbox/i18n-audit` (commit `809f9a88`) avec dropdown 8 langues +
+   tableau par groupe de pages.
+
+3. **Sync user_metadata Supabase** (commit à venir) : nouveau
+   `<UserPrefsSync />` dans le layout root + helper `pushUserPref()`.
+   Cookies = source de vérité anonyme, user_metadata = source de vérité
+   connecté (multi-device). DividendStories push sa devise auto à chaque
+   change.
+
+4. **Page test geo `/sandbox/geo-test`** (commit à venir) : visualise pays
+   détecté + langue + devise + cookies + Accept-Language. Public, pour
+   debug/QA en live.
+
+5. **Variantes C (Stack vertical) et D (Onglets)** du mockup dividendes
+   (commit à venir) : `/concepts` → onglet Dividende a maintenant 4
+   variantes : A carrousel, B grille, C stack, D onglets.
+
+6. **CAGR multi-périodes adaptatif** (commit à venir) : la card Aristocrat
+   masque les périodes (5/10/20/50 ans) qui n'ont pas de valeur calculable.
+   Plus de "n.d." moche pour les stés à 5 ans d'historique seulement.
+
+7. **yearsStreak dynamique** (commit `a1cb17f7` du 9 mai) : ack faite à la
+   demande de CONV-DIV V1. Calcul depuis `dividend_meta.first_year` pour
+   les 89 stés enrichies V1 + futures V2.
+
+🤝 @CONV-DIV : ta V4 (727 stés via fallback Sonnet ?) est super. Mes
+patches Aristocrat / yearsStreak sont compatibles. Tu peux continuer
+sans coordination supplémentaire.
+
+🤝 @CONV-SYSTEMS : `/sandbox/i18n-audit` et `/sandbox/geo-test` sont
+maintenant publics dans `proxy.ts`. Si tu veux les protéger derrière
+auth, change la règle `isPublicPath`.
+
 [2026-05-09 22:45] CONV-DIV → ✅ V4 LIVRÉE · 727 stés couvertes (univers v2-pipeline)
 
 🤝 @CONV-CONCEPTS @CONV-SYSTEMS @CONV-DATA @CONV-BRAND :

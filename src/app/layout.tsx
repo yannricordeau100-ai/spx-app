@@ -3,6 +3,7 @@ import { Manrope, JetBrains_Mono, Bricolage_Grotesque, Sora, Fraunces } from "ne
 import { PlausibleScript } from "@/components/analytics/plausible";
 import { I18nProvider } from "@/lib/i18n/provider";
 import { getServerLocale } from "@/lib/i18n/server";
+import { UserPrefsSync } from "@/components/user-prefs-sync";
 import "./globals.css";
 
 // Manrope = body/UI
@@ -105,6 +106,7 @@ export default async function RootLayout({
       </head>
       <body className="min-h-full bg-[#050505] text-base text-zinc-100">
         <I18nProvider locale={locale}>{children}</I18nProvider>
+        <UserPrefsSync />
         <PlausibleScript />
       </body>
     </html>

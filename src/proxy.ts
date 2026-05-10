@@ -64,6 +64,9 @@ function isPublicPath(pathname: string): boolean {
   // /sandbox/i18n-audit = audit des traductions par langue (Yann visualise
   // ce qui est couvert et ce qui manque). Pas de PII, public.
   if (pathname === "/sandbox/i18n-audit") return true;
+  // /sandbox/geo-test = page de test détection géographique (visualise pays
+  // détecté + langue + devise déduites). Public, pas de PII.
+  if (pathname === "/sandbox/geo-test") return true;
   return false;
 }
 

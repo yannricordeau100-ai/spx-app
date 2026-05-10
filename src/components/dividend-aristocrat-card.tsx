@@ -150,12 +150,21 @@ export function DividendAristocratCard({
 
   const [halo, setHalo] = useState<{ x: number; y: number } | null>(null);
 
+  // Affichage adaptatif des CAGR multi-périodes : on n'affiche que les
+  // périodes qui ont au moins une valeur calculée. Évite l'effet "3 cases
+  // n.d." pour les stés qui n'ont que 5 ans d'historique. Une période sans
+  // valeur n'est pas grisée — elle est simplement omise. (10 mai 2026)
   const cagrLines: Array<{ label: string; value: number | null }> = [
     { label: "5 ans", value: cagr5 },
     { label: "10 ans", value: cagr10 },
     { label: "20 ans", value: cagr20 },
     { label: "50 ans", value: cagr50 },
-  ];
+  ].filter((c) => c.value != null);
+  // Si AUCUNE CAGR n'est dispo (historique <2 ans), on garde au moins une
+  // case "Total" avec le calcul disponible pour ne pas avoir un bloc vide.
+  if (cagrLines.length === 0 && n >= 2) {
+    cagrLines.push({ label: `${n - 1} ans`, value: cagrFallback });
+  }
 
   const firstYear = meta?.first_year;
   const cuts = meta?.cuts ?? [];
@@ -332,11 +341,19 @@ export function DividendAristocratCard({
               </div>
             </InfoTooltip>
           </div>
-          <div className="grid grid-cols-4 gap-1">
+          <div
+            className="grid gap-1"
+            style={{
+              gridTemplateColumns: `repeat(${Math.max(1, cagrLines.length)}, minmax(0, 1fr))`,
+            }}
+          >
             {cagrLines.map((c) => {
               // Yann 10 mai : périodes > 5 ans en mode flou (preview V2),
-              // 5 ans seul reste net.
-              const isBlurred = c.label !== "5 ans";
+              // 5 ans seul reste net. Affichage adaptatif : on ne montre
+              // que les périodes effectivement calculables (filter null).
+              const isBlurred = c.label !== "5 ans" && c.label.indexOf("ans") !== -1
+                ? !["5 ans"].includes(c.label) && cagrLines.find((x) => x.label === "5 ans") != null
+                : false;
               return (
                 <div
                   key={c.label}

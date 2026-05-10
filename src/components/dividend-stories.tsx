@@ -82,8 +82,11 @@ export function DividendStories({ company }: { company: Company }) {
 
   // Persistance : à chaque changement manuel de devise, on update le cookie
   // pour que la préférence survive aux refresh / autres pages.
+  // Si user connecté : on push aussi vers Supabase user_metadata pour
+  // multi-device (best-effort, silencieux si échec).
   useEffect(() => {
     setCurrencyCookie(currency);
+    void import("@/lib/user-prefs").then((m) => m.pushUserPref("currency", currency));
   }, [currency]);
 
   useEffect(() => {
