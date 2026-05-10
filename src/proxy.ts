@@ -187,16 +187,17 @@ export async function proxy(request: NextRequest) {
   }
 
   // 0. Maintenance mode (cf. règle Yann 3 mai 2026) : sur prod (mettrik.ai),
-  //    SEULE la page /maintenance est accessible. Toute autre URL user-facing
-  //    redirige vers /maintenance, y compris /desk-*, /admin, /whoami qui
-  //    étaient temporairement whitelistés. Quand Yann veut accéder à son
-  //    desk en prod, il désactive MAINTENANCE_MODE depuis Vercel ou bosse
-  //    sur staging (où MAINTENANCE_MODE n'est jamais activé).
-  //    Seules exceptions strictement techniques : assets statiques (favicon,
-  //    robots, sitemap) et endpoints API internes nécessaires au runtime
-  //    Next/Vercel (sans /api Next ne peut pas servir la page).
+  //    SEULE la page /maintenance est accessible. Yann 10 mai 2026 : on
+  //    cible exclusivement le domaine mettrik.ai (apex + www) pour éviter
+  //    que Vercel injecte MAINTENANCE_MODE=on sur les alias staging custom
+  //    (mettrik-staging.vercel.app). La règle est attachée au domaine, pas
+  //    seulement à l'env var.
+  const host = (request.headers.get("host") ?? "").toLowerCase();
+  const isProdDomain = host === "mettrik.ai" || host === "www.mettrik.ai";
   const maintenanceMode = (process.env.MAINTENANCE_MODE ?? "").toLowerCase();
-  const isMaintenanceOn = maintenanceMode === "on" || maintenanceMode === "true" || maintenanceMode === "1";
+  const isMaintenanceOn =
+    isProdDomain &&
+    (maintenanceMode === "on" || maintenanceMode === "true" || maintenanceMode === "1");
   if (isMaintenanceOn) {
     const isMaintenancePage = routePathname === "/maintenance";
     // Strictement les routes techniques nécessaires au rendu du site lui-même.
