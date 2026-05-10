@@ -79,6 +79,14 @@ export function ConceptsClient() {
               <Tag className="size-3.5" />
               Pricing
             </Link>
+            <Link
+              href="/concepts/charts-news"
+              className="inline-flex items-center gap-1.5 rounded-md border border-violet-500/25 bg-violet-500/10 px-2.5 py-1 text-[11.5px] font-medium text-violet-200 transition-colors hover:border-violet-500/45 hover:bg-violet-500/15"
+              title="3 styles charts × NVDA volatile + CAT stable"
+            >
+              <Tag className="size-3.5" />
+              Charts
+            </Link>
           </div>
 
           {/* TAB SWITCHER — 2 groupes : visuels (existants) + mockups (nouveaux) */}
