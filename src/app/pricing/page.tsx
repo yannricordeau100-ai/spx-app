@@ -80,7 +80,7 @@ export default async function PricingPage() {
         </div>
 
         <div className="mx-auto mt-14 max-w-5xl">
-          <PricingCards ctaTrackingPrefix="pricing_top_" plans={catalog.plans} />
+          <PricingCards ctaTrackingPrefix="pricing_top_" plans={catalog.plans} features={catalog.features} />
         </div>
 
         <section className="mx-auto mt-20 max-w-5xl">

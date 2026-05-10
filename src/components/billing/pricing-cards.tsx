@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Check, Sparkles, ArrowRight, Crown } from "lucide-react";
-import { PLANS as FALLBACK_PLANS, monthlyEquivalent, type PlanDisplay } from "@/lib/billing/plans";
+import { PLANS as FALLBACK_PLANS, FEATURES as FALLBACK_FEATURES, monthlyEquivalent, type PlanDisplay, type FeatureRow } from "@/lib/billing/plans";
 
 /**
  * 3-card pricing avec toggle mensuel / annuel.
@@ -24,6 +24,7 @@ import { PLANS as FALLBACK_PLANS, monthlyEquivalent, type PlanDisplay } from "@/
 export function PricingCards({
   ctaTrackingPrefix = "",
   plans: plansProp,
+  features: featuresProp,
 }: {
   ctaTrackingPrefix?: string;
   /**
@@ -32,8 +33,16 @@ export function PricingCards({
    * Sans prop, fallback sur les plans hardcodés `plans.ts`.
    */
   plans?: PlanDisplay[];
+  /**
+   * Liste des features depuis la BDD. Yann 9 mai 2026 : les bullet points
+   * dans les cards doivent venir des fonctionnalités du catalogue (= ce
+   * qui est saisi en back office), pas d'une liste hardcodée. Si non
+   * fourni, fallback sur la liste statique.
+   */
+  features?: FeatureRow[];
 }) {
   const PLANS = plansProp && plansProp.length > 0 ? plansProp : FALLBACK_PLANS;
+  const FEATURES = featuresProp && featuresProp.length > 0 ? featuresProp : FALLBACK_FEATURES;
   const [billing, setBilling] = useState<"monthly" | "annual">("annual");
 
   return (
@@ -92,6 +101,7 @@ export function PricingCards({
             billing={billing}
             onSwitch={setBilling}
             prefix={ctaTrackingPrefix}
+            features={FEATURES}
           />
         ))}
       </div>
@@ -178,12 +188,15 @@ function PricingCard({
   billing,
   onSwitch,
   prefix,
+  features,
 }: {
   plan: PlanDisplay;
   billing: "monthly" | "annual";
   /** Callback pour switcher la période depuis l'intérieur de la card. */
   onSwitch?: (b: "monthly" | "annual") => void;
   prefix: string;
+  /** Catalogue features (BDD ou fallback) pour générer les bullets dynamiquement. */
+  features?: FeatureRow[];
 }) {
   const isAnnual = billing === "annual";
   const isHighlight = plan.highlight;
@@ -197,7 +210,27 @@ function PricingCard({
     ctaHref = "mailto:contact@mettrik.ai?subject=Demande%20Pro%2B%20Mettrik%20AI";
   }
 
-  const features = topFeatures(plan.tier);
+  // Yann 9 mai 2026 : les bullet points doivent venir du catalogue
+  // BDD pricing_features (= ce que Yann édite en back office), pas
+  // d'une liste hardcodée. Pour chaque feature active, on prend la
+  // valeur du plan : true → label seul, "string" → "label : string",
+  // false → on skip. Limite à 8 max pour pas tasser la card.
+  const planFeatures = features && features.length > 0 ? features : [];
+  const bulletFeatures: string[] = planFeatures
+    .map((f) => {
+      const v = f[plan.tier];
+      if (v === false || v === null || v === undefined) return null;
+      if (v === true) return f.label;
+      const sv = String(v).trim();
+      if (!sv || sv === "false") return null;
+      // Si la string commence par un nombre ou ressemble à une quantité,
+      // mettre "label : valeur". Sinon, juste "label" (la valeur EST déjà
+      // une description).
+      return sv.length <= 30 ? `${f.label} : ${sv}` : f.label;
+    })
+    .filter((s): s is string => Boolean(s))
+    .slice(0, 8);
+  const bulletList = bulletFeatures.length > 0 ? bulletFeatures : topFeatures(plan.tier);
 
   // Yann 9 mai 2026 : prix par jour pour les plans payants (rendre le
   // tarif plus accessible psychologiquement). On calcule TOUJOURS sur
@@ -323,10 +356,11 @@ function PricingCard({
 
       <p className="mt-3 text-center text-[10.5px] text-zinc-500">{plan.audience}</p>
 
-      {/* Bullet points features : alignés en haut + une seule ligne par
-          feature (truncate optionnel via leading-snug) pour rester propre. */}
+      {/* Bullet points features : viennent du catalogue BDD
+          pricing_features (édité dans /desk-mtk9x4kp/pricing). Si la
+          BDD est vide, fallback sur la liste statique topFeatures(). */}
       <ul className="mt-5 space-y-2.5 border-t border-white/[0.06] pt-5">
-        {features.map((f, i) => (
+        {bulletList.map((f, i) => (
           <li key={i} className="flex items-start gap-2 text-[12.5px] leading-snug text-zinc-300">
             <Check className="mt-0.5 size-3.5 shrink-0" style={{ color: plan.accent }} strokeWidth={2.5} />
             <span>{f}</span>

@@ -90,7 +90,7 @@ export default async function V18PricingPage() {
 
         {/* PLAN CARDS */}
         <div className="mx-auto mt-14 max-w-5xl">
-          <PricingCards ctaTrackingPrefix="v18_top_" plans={catalog.plans} />
+          <PricingCards ctaTrackingPrefix="v18_top_" plans={catalog.plans} features={catalog.features} />
         </div>
 
         {/* MATRICE FEATURES */}
