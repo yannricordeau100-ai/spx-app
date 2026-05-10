@@ -464,7 +464,7 @@ export function HomeView({
             Si requireSignupGate=true et user anonyme : tout clic redirige
             vers signup (intercepté par SignupGateOverlay). */}
         <div className="mx-auto mt-4 flex max-w-2xl justify-center sm:mt-5">
-          <SignupGateOverlay enabled={requireSignupGate} gatePath={gatePath}>
+          <SignupGateOverlay enabled={requireSignupGate} gatePath={gatePath} initialAuthed={!requireSignupGate}>
             <CompanySearch
               variant="hero"
               searchableTickers={searchScope?.tickers}
@@ -487,7 +487,7 @@ export function HomeView({
                 const card = renderCompanyCard(c, ticker, buildHref, locale, t);
                 if (!card) return null;
                 return (
-                  <SignupGateOverlay key={ticker} enabled={requireSignupGate} gatePath={gatePath}>
+                  <SignupGateOverlay key={ticker} enabled={requireSignupGate} gatePath={gatePath} initialAuthed={!requireSignupGate}>
                     {card}
                   </SignupGateOverlay>
                 );

@@ -277,10 +277,9 @@ export async function proxy(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   // Auth gate : un visiteur non inscrit ne peut voir QUE la home.
-  // Redirige vers `/?next=<chemin>` (SANS `auth=signin`) pour éviter
-  // l'auto-pop de la modal en pleine face. La home affichera un banner
-  // discret invitant à se connecter, et c'est l'user qui déclenche la
-  // modal en cliquant.
+  // Yann (11 mai 2026) : redirige vers `/?auth=signin&next=...` pour
+  // déclencher la pop-up directement. L'ancien comportement avec
+  // simple `?next=` montrait un banner discret que Yann ne voyait pas.
   // NOTE i18n : on check le routePathname (sans préfixe /fr) pour que la
   // gate ait le même comportement quelle que soit la langue. Le `next=`
   // garde le préfixe /fr d'origine pour que le user retombe en FR après login.
@@ -290,7 +289,7 @@ export async function proxy(request: NextRequest) {
     const url = request.nextUrl.clone();
     url.pathname = isFrLocale ? "/fr" : "/";
     const original = originalPathname + (search ?? "");
-    url.search = `?next=${encodeURIComponent(original)}`;
+    url.search = `?auth=signin&next=${encodeURIComponent(original)}`;
     return NextResponse.redirect(url);
   }
 

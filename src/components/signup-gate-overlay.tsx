@@ -25,14 +25,30 @@ export function SignupGateOverlay({
   children,
   gatePath,
   enabled = true,
+  initialAuthed,
 }: {
   children: React.ReactNode;
   /** Chemin de la page qui rend `<AuthModal />` (ex "/sandbox/v1-8"). */
   gatePath: string;
   /** Permet de désactiver le gate (ex : on debug). Default true. */
   enabled?: boolean;
+  /**
+   * État d'auth connu côté serveur (passé en prop pour éviter le délai
+   * de check Supabase côté client ~100ms pendant lequel l'overlay est
+   * absent et un clic rapide passe à travers (Yann 11 mai 2026 : "j'ai
+   * cliqué sur la barre de recherche et il n'y a pas de pop up").
+   * - `false` → on initialise direct en "anon" (overlay actif au 1er render)
+   * - `true`  → on initialise en "authed" (pas d'overlay)
+   * - undefined (legacy) → "checking" puis re-check côté client
+   */
+  initialAuthed?: boolean;
 }) {
-  const [state, setState] = useState<AuthState>("checking");
+  const [state, setState] = useState<AuthState>(() => {
+    if (!enabled) return "authed";
+    if (initialAuthed === false) return "anon";
+    if (initialAuthed === true) return "authed";
+    return "checking";
+  });
 
   useEffect(() => {
     if (!enabled) {
@@ -41,10 +57,13 @@ export function SignupGateOverlay({
     }
     let cancelled = false;
     const supa = createSupabaseBrowserClient();
-    supa.auth.getUser().then(({ data }) => {
-      if (cancelled) return;
-      setState(data.user ? "authed" : "anon");
-    });
+    // Si on n'a pas reçu d'état initial du serveur, on check côté client.
+    if (initialAuthed === undefined) {
+      supa.auth.getUser().then(({ data }) => {
+        if (cancelled) return;
+        setState(data.user ? "authed" : "anon");
+      });
+    }
     const { data: sub } = supa.auth.onAuthStateChange((event, session) => {
       if (event === "SIGNED_IN" && session) setState("authed");
       if (event === "SIGNED_OUT") setState("anon");
@@ -53,12 +72,12 @@ export function SignupGateOverlay({
       cancelled = true;
       sub.subscription.unsubscribe();
     };
-  }, [enabled]);
+  }, [enabled, initialAuthed]);
 
   // Pendant le check initial (~100ms), on rend les children sans overlay
-  // pour éviter un flash bloquant si l'user EST connecté. Le faux positif
-  // si l'user est anonyme et clique très vite reste tolérable (il navigue
-  // alors normalement, atterrit sur la page suivante qui re-check elle-même).
+  // pour éviter un flash bloquant si l'user EST connecté. Mais si on a
+  // initialAuthed=false côté serveur, on est direct en "anon" → pas de
+  // race condition possible.
   if (state === "authed" || state === "checking" || !enabled) {
     return <>{children}</>;
   }
