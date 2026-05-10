@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CreditCard, FlaskConical, Library, Sparkles, Globe2, Database } from "lucide-react";
+import { CreditCard, FlaskConical, Library, Sparkles, Globe2, Database, Tag } from "lucide-react";
 import { CONCEPT_COMPANIES } from "@/lib/concepts-data";
 import { CompanyLogo } from "@/components/logos";
 import { brand } from "@/lib/brand";
@@ -27,6 +27,12 @@ const ITEMS = [
     icon: Library,
     label: "Desk interne",
     desc: "Bureau de travail privé : notes, todos, GICS, pipeline V2, etc. Accès restreint.",
+  },
+  {
+    href: "/desk-mtk9x4kp/pricing",
+    icon: Tag,
+    label: "Réglage pricing",
+    desc: "Back office tarifs : plans, prix multi-devises, fonctionnalités, codes promo, sync Stripe.",
   },
 ];
 
