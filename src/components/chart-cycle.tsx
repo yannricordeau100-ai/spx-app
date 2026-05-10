@@ -33,8 +33,14 @@ const MODES: {
   { id: "panel", labelKey: "company.chart.dashboard", hintKey: "company.chart.dashboard.hint", icon: Grid2X2 },
 ];
 
+// Fallback uniquement utilisé si le KPI n'a pas `last_data_date` ni
+// `period_type` exploitables. On ancre sur l'année DERNIÈRE PUBLIÉE
+// (= année courante - 1) pour éviter d'inclure une période non publiée.
+// Ex : en mai 2026, le dernier exercice fiscal complet publié est 2025
+// (10-K fin février 2026), pas 2026 (en cours).
+// Yann 10 mai 2026 : avant `end = 2025` hardcodé, faux dès qu'on dépasse 2025.
 function defaultLabels(n: number): string[] {
-  const end = 2025;
+  const end = new Date().getUTCFullYear() - 1;
   return Array.from({ length: n }, (_, i) => String(end - n + 1 + i));
 }
 

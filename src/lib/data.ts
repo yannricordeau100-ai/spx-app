@@ -329,6 +329,18 @@ export type Company = {
     source?: string | null; // ex : "Press release", "8-K", "Earnings call"
     fetched_at?: string;
   };
+  /**
+   * Dernier earning publié récupéré depuis SEC EDGAR `submissions/CIK<X>.json`.
+   * Yann (10 mai 2026) : la pill "À jour" doit afficher la date de
+   * PUBLICATION du dernier earning intégré sur la page (pas la fin de
+   * période fiscale). Source : `scripts/fetch-filing-dates.py`.
+   */
+  latest_filing?: {
+    date: string;        // ISO date de filing (publication) ex "2026-04-30"
+    form: string;        // "10-Q" | "10-K" | "20-F" | "6-K" | etc.
+    period_end: string;  // ISO date fin de période fiscale couverte
+    fetched_at?: string;
+  };
 };
 
 export type ProfitWarning = {

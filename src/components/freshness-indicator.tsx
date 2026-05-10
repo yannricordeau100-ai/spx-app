@@ -67,36 +67,52 @@ function quarterFromIso(iso?: string): string | null {
 }
 
 /**
- * Compact freshness pill. Shows nothing when fresh by default (clean UI),
- * appears as a warning when stale.
+ * Compact freshness pill.
+ *
+ * Yann (10 mai 2026) : la pill doit afficher la **date de publication**
+ * du dernier earning (filed_date SEC), pas la fin de période fiscale.
+ * Le tooltip explicite séparément :
+ *   - le trimestre couvert (ex : Q1 2026)
+ *   - la date de publication (ex : 30 avril 2026)
+ *   - le prochain earning attendu (ex : 23 juillet 2026 = Q2 2026)
+ *
+ * Props :
+ *   - publicationDate : date filed SEC (priorité). Si absente, on retombe
+ *     sur lastDate (fin période fiscale, comportement legacy).
+ *   - lastDate : fin de période fiscale (ex : 2026-03-31 pour Q1 2026).
+ *     Sert à calculer le trimestre couvert affiché dans le tooltip.
  */
 export function FreshnessIndicator({
   lastDate,
+  publicationDate,
   nextEarningsDate,
   alwaysShow = false,
   size = "sm",
   tooltipAlign = "left",
 }: {
   lastDate?: string;
+  /** Date de publication SEC (filed_date du 10-Q/10-K). Prioritaire. */
+  publicationDate?: string;
   /** Date approximative des prochains résultats / prochaine donnée. */
   nextEarningsDate?: string;
   alwaysShow?: boolean;
   size?: "sm" | "md";
-  /** Alignement du tooltip "i" — utiliser "right" quand l'indicateur est
-   *  placé en bord-droit d'un petit conteneur (ex : cartes home), sinon
-   *  le tooltip déborde à droite. */
   tooltipAlign?: "left" | "right" | "center";
 }) {
   const { t, locale } = useT();
-  const tier = getFreshness(lastDate);
+  // Freshness tier basé sur la date de publication si dispo, sinon lastDate.
+  const refDate = publicationDate ?? lastDate;
+  const tier = getFreshness(refDate);
   if (tier === "fresh" && !alwaysShow) return null;
 
   const meta = META[tier];
   const Icon = meta.Icon;
   const isSm = size === "sm";
+  const pubFormatted = formatApproxDate(publicationDate, locale);
   const lastFormatted = formatApproxDate(lastDate, locale);
   const lastQuarter = quarterFromIso(lastDate);
   const nextFormatted = formatApproxDate(nextEarningsDate, locale);
+  const nextQuarter = quarterFromIso(nextEarningsDate);
 
   return (
     <span
@@ -113,22 +129,31 @@ export function FreshnessIndicator({
       {t(meta.labelKey)}
       <InfoTooltip color={meta.color} size="sm" align={tooltipAlign}>
         <p className="text-[12px] leading-relaxed text-zinc-200">{t(meta.explainerKey)}</p>
-        {lastQuarter && (
+        {/* Dernier earning publié : trimestre + date de publication */}
+        {(lastQuarter || pubFormatted) && (
           <p className="mt-2 font-mono text-[10.5px] text-zinc-300">
-            {t("company.last_quarter")} <span className="font-bold text-zinc-100">{lastQuarter}</span>
+            Dernier earning publié :{" "}
+            <span className="font-bold text-zinc-100">
+              {lastQuarter ?? "—"}
+              {pubFormatted ? ` (publié le ${pubFormatted})` : ""}
+            </span>
           </p>
         )}
-        {lastFormatted && (
+        {/* Si seulement lastDate (pas de publicationDate), on l'affiche en repli */}
+        {!pubFormatted && lastFormatted && (
           <p className="mt-1 font-mono text-[10.5px] text-zinc-400">
-            {t("company.last_data")} {lastFormatted}
+            Fin de période : {lastFormatted}
           </p>
         )}
+        {/* Prochain earning attendu : trimestre + date prévue */}
         {nextFormatted && (
           <p
             className="mt-1 font-mono text-[10.5px] font-semibold"
             style={{ color: "#facc15" }}
           >
-            {t("company.next_results")} {nextFormatted}
+            Prochain earning : {nextQuarter ? `${nextQuarter} (` : ""}
+            {nextFormatted}
+            {nextQuarter ? ")" : ""}
           </p>
         )}
       </InfoTooltip>

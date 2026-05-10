@@ -313,6 +313,7 @@ export function CompanyView({
                 </span>
                 <FreshnessIndicator
                   lastDate={active.last_data_date ?? "2025-12-31"}
+                  publicationDate={company.latest_filing?.date}
                   nextEarningsDate={company.next_earnings_date}
                   alwaysShow
                   size="sm"

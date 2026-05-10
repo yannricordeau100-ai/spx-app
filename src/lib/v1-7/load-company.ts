@@ -320,6 +320,7 @@ export async function loadV17Company(
       "key_facts",
       "peers",
       "latest_news",
+      "latest_filing",
     ] as const) {
       if (
         enrich[key] !== undefined &&

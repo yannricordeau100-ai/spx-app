@@ -43,12 +43,40 @@ ENR_DIR = ROOT / "src/data/v2-pipeline-enrich"
 V18 = ROOT / "src/data/v1-8-tickers-sorted.json"
 QUOTA_FILE = Path.home() / ".spx-app/gemini-quota.json"
 
-# Limites SAFE (en dessous des limites tier gratuit)
-RPM_PER_KEY = 13  # < 15 RPM (marge)
+# Limites SAFE (en dessous des limites tier gratuit).
+# Yann 10 mai 2026 : 13 RPM trop agressif (429 fréquents), passe à 8 RPM.
+RPM_PER_KEY = 8  # marge confortable sous 15 RPM annoncé
 RPD_PER_KEY = 1450  # < 1500 RPD (marge)
-SECONDS_BETWEEN_CALLS = 60.0 / RPM_PER_KEY  # ~4.6 sec
+SECONDS_BETWEEN_CALLS = 60.0 / RPM_PER_KEY  # ~7.5 sec
 
 NEWS_RECENCY_DAYS = 14  # ne traite que les news < 14 jours
+
+# Patterns titre = clickbait / opinion / liste générale → skip avant Gemini
+import re as _re
+
+CLICKBAIT_PATTERNS = [
+    _re.compile(p, _re.IGNORECASE)
+    for p in [
+        r"\b(10|100|1000)x\b",
+        r"\bbuy\s+(area|zone|now|today)\b",
+        r"\b(top|best|hot)\s+\d+\s+stocks?\b",
+        r"\bstocks?\s+to\s+(buy|watch|own)\b",
+        r"\bshould\s+(buy|own|sell|hold)\b",
+        r"\bcould\s+(make|10x|double|triple)\b",
+        r"\bmillionaire\b",
+        r"\bget\s+rich\b",
+        r"\bdow\s+jones\s+futures?\b",  # bulletin marché général
+        r"\bmarket\s+(today|update|recap|wrap)\b",
+        r"\bpre[\-\s]?market\b.*\b(movers?|gainers?|losers?)\b",
+        r"\b(gainers?|losers?)\s+today\b",
+        r"^\s*\d+\s+reasons?\b",
+        r"\bwall\s+street\s+(thinks?|says?|forecasts?)\b",
+    ]
+]
+
+
+def is_clickbait(headline: str) -> bool:
+    return any(p.search(headline) for p in CLICKBAIT_PATTERNS)
 
 
 def load_quota() -> dict:
@@ -88,13 +116,31 @@ def gemini_summarize(api_key: str, ticker: str, headline: str, body: str) -> str
     """Appel Gemini 2.5 Flash Lite. Renvoie le résumé FR ou None si erreur."""
     import urllib.request
     import urllib.error
+    import ssl
+    try:
+        import certifi  # Mac Python n'a pas les certs root système par défaut
+        _ssl_ctx = ssl.create_default_context(cafile=certifi.where())
+    except ImportError:
+        _ssl_ctx = ssl.create_default_context()
 
+    # Yann (10 mai 2026) : préfère court + PV à long + ennuyant.
     prompt = (
-        f"Résume en 2 ou 3 phrases courtes en français cette actualité de "
-        f"la société {ticker}, pour un investisseur particulier. Reste "
-        f"factuel, pas d'em-dash, pas de superlatifs. Ne pas commencer par "
-        f"\"L'entreprise\" ou \"La société\". Headline : {headline}\n\n"
-        f"Contenu : {body[:2500]}"
+        f"Tu écris pour un investisseur français qui veut comprendre en 5 secondes l'intérêt d'une news.\n\n"
+        f"NEWS supposée sur {ticker} :\n"
+        f"Titre : {headline}\n"
+        f"Contenu : {body[:2500]}\n\n"
+        f"CONSIGNES STRICTES :\n"
+        f"- 1 seule phrase, 25 mots maximum.\n"
+        f"- Donne le signal, le chiffre clé, ou la conséquence pour {ticker} en particulier.\n"
+        f"- Ne répète pas le titre, apporte une info en plus.\n"
+        f"- Pas de \"L'entreprise\", pas de \"La société\", pas d'em-dash, pas de \"potentiellement\".\n\n"
+        f"FILTRE QUALITÉ : réponds exactement SKIP (rien d'autre) si :\n"
+        f"- La news n'est PAS spécifiquement sur {ticker} (mention de passage, liste générale, "
+        f"opinion sur une autre sté qui mentionne {ticker}).\n"
+        f"- C'est du clickbait (\"10X your money\", \"This stock will explode\", prédictions sans base).\n"
+        f"- C'est une simple analyse opinion d'analyste sans nouveau fait corporate.\n"
+        f"- C'est une nomination junior, partenariat marketing flou, sponsoring.\n\n"
+        f"Résumé (ou SKIP) :"
     )
     url = (
         "https://generativelanguage.googleapis.com/v1beta/models/"
@@ -111,7 +157,7 @@ def gemini_summarize(api_key: str, ticker: str, headline: str, body: str) -> str
         method="POST",
     )
     try:
-        with urllib.request.urlopen(req, timeout=30) as resp:
+        with urllib.request.urlopen(req, timeout=30, context=_ssl_ctx) as resp:
             data = json.loads(resp.read().decode("utf-8"))
         cands = data.get("candidates") or []
         if not cands:
@@ -122,6 +168,20 @@ def gemini_summarize(api_key: str, ticker: str, headline: str, body: str) -> str
         return str(parts[0].get("text", "")).strip().replace("—", ":")
     except urllib.error.HTTPError as e:
         body_err = e.read().decode("utf-8", errors="ignore")[:300]
+        # Sur 429 : attendre 30 sec puis retry une fois (per-minute quota).
+        if e.code == 429:
+            print(f"  ⏸ 429 Gemini, attente 35 sec puis retry…", file=sys.stderr)
+            time.sleep(35)
+            try:
+                with urllib.request.urlopen(req, timeout=30, context=_ssl_ctx) as resp:
+                    data = json.loads(resp.read().decode("utf-8"))
+                cands = data.get("candidates") or []
+                if cands:
+                    parts = cands[0].get("content", {}).get("parts") or []
+                    if parts:
+                        return str(parts[0].get("text", "")).strip().replace("—", ":")
+            except Exception:
+                pass
         print(f"  ⚠ Gemini HTTP {e.code} : {body_err}", file=sys.stderr)
         return None
     except Exception as e:
@@ -145,6 +205,7 @@ def fetch_latest_news(ticker: str) -> dict | None:
     cutoff = datetime.now(timezone.utc) - timedelta(days=NEWS_RECENCY_DAYS)
     best = None
     best_dt = None
+    tu = ticker.upper()
     for it in items:
         # yfinance v0.2+ : structure {"content": {...}, ...} ; older : flat
         content = it.get("content") if isinstance(it, dict) else None
@@ -154,13 +215,36 @@ def fetch_latest_news(ticker: str) -> dict | None:
             url = (content.get("canonicalUrl") or {}).get("url") if isinstance(content.get("canonicalUrl"), dict) else None
             summary = content.get("summary") or ""
             provider = (content.get("provider") or {}).get("displayName") if isinstance(content.get("provider"), dict) else None
+            related = content.get("finance", {}).get("stockTickers") if isinstance(content.get("finance"), dict) else None
+            if not isinstance(related, list):
+                related = []
         else:
             ts = it.get("providerPublishTime") or it.get("publishedAt")
             headline = it.get("title")
             url = it.get("link")
             summary = ""
             provider = it.get("publisher")
+            related = it.get("relatedTickers") or []
         if not headline or not ts:
+            continue
+        # Filtre : ne garder que si le ticker est dans la liste relatedTickers
+        # ET en premier OU seul (sinon c'est une news qui mentionne X autres
+        # stés, et notre ticker est marginal). Si pas de relatedTickers, on
+        # accepte mais Gemini fera le filtrage SKIP final.
+        related_syms = []
+        for r in related if isinstance(related, list) else []:
+            if isinstance(r, dict):
+                sym = r.get("symbol") or r.get("ticker") or ""
+            else:
+                sym = str(r)
+            if sym:
+                related_syms.append(sym.upper())
+        if related_syms and tu not in related_syms[:3]:
+            continue
+        if related_syms and len(related_syms) > 6:
+            continue  # trop de tickers = liste générique, on skip
+        # Filtre titre : clickbait / opinion / bulletin marché → skip
+        if is_clickbait(headline):
             continue
         try:
             if isinstance(ts, (int, float)):
@@ -190,11 +274,35 @@ def main() -> int:
     ap.add_argument("--ticker", help="Forcer un seul ticker")
     args = ap.parse_args()
 
-    keys_raw = os.environ.get("GEMINI_API_KEYS") or os.environ.get("GEMINI_API_KEY") or ""
+    # SÉPARATION STRICTE des clés (Yann 10 mai 2026) :
+    # - GEMINI_API_KEY = clé PAYANTE utilisée par pipeline-llm.py (Pass 1+2),
+    #   avec budget cap $48 actif. NE JAMAIS la réutiliser ici.
+    # - GEMINI_API_KEYS_NEWS = clé(s) GRATUITE(S) exclusive(s) au script news,
+    #   tier free strict (jamais de facturation possible).
+    # Pas de fallback : si GEMINI_API_KEYS_NEWS est vide → on s'arrête.
+    keys_raw = os.environ.get("GEMINI_API_KEYS_NEWS") or ""
     keys = [k.strip() for k in keys_raw.split(",") if k.strip()]
     if not keys:
-        print("ERR : env GEMINI_API_KEYS ou GEMINI_API_KEY requis (clé Gemini gratuite, https://aistudio.google.com/app/apikey)", file=sys.stderr)
+        print(
+            "ERR : env GEMINI_API_KEYS_NEWS requis (clé Gemini gratuite dédiée à la news).\n"
+            "  1. Crée une clé sur https://aistudio.google.com/app/apikey (projet SANS billing).\n"
+            "  2. Ajoute dans ~/spx-app/.env.local :\n"
+            "     GEMINI_API_KEYS_NEWS=ta_clef_ici\n"
+            "  3. Multi-clés OK : GEMINI_API_KEYS_NEWS=k1,k2,k3 (rotation).\n"
+            "  Note : GEMINI_API_KEY (payante, Pass 1/2) reste isolée et n'est PAS utilisée ici.",
+            file=sys.stderr,
+        )
         return 2
+    # Garde-fou : si quelqu'un met la clé payante GEMINI_API_KEY dans
+    # GEMINI_API_KEYS_NEWS par erreur, on alerte (collision = risque facturation).
+    paid_key = os.environ.get("GEMINI_API_KEY", "")
+    if paid_key and paid_key in keys:
+        print(
+            "❌ ARRÊT : GEMINI_API_KEYS_NEWS contient la même clé que GEMINI_API_KEY (payante).\n"
+            "Crée une clé Gemini SÉPARÉE pour ce script (projet sans billing).",
+            file=sys.stderr,
+        )
+        return 3
 
     if args.ticker:
         tickers = [args.ticker.upper()]
@@ -252,6 +360,10 @@ def main() -> int:
             last_call_ts = time.time()
         if not summary:
             print(f"  ⚠ {t} : Gemini summary fail", flush=True)
+            continue
+        # Filtre SKIP : Gemini juge la news sans PV → on n'écrit pas, fallback "À propos"
+        if summary.strip().upper().startswith("SKIP"):
+            print(f"  · {t} : news sans PV (skip)", flush=True)
             continue
 
         existing["ticker"] = t
