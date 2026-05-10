@@ -64,7 +64,7 @@ export function DividendCalculatorCard({
 }) {
   const [target, setTarget] = useState<number>(100);
   const [freq, setFreq] = useState<Frequency>("month");
-  const [taxPct, setTaxPct] = useState<number>(30);
+  const [taxPct, setTaxPct] = useState<number>(0);
 
   const result = useMemo(() => {
     // Revenu cible saisi en devise affichée. Conversion → native pour comparer DPS.
@@ -136,7 +136,7 @@ export function DividendCalculatorCard({
             Revenu net régulier <span aria-hidden>😎</span>
           </div>
           <div className="text-[14px] leading-snug text-zinc-300">
-            Combien d&apos;actions {ticker} faut-il détenir&nbsp;?
+            Combien d&apos;actions {ticker}{" "}faut-il détenir&nbsp;?
           </div>
         </div>
 
@@ -152,7 +152,7 @@ export function DividendCalculatorCard({
             actions à détenir
           </div>
           <div className="mt-1.5 inline-flex items-center gap-1 rounded-full border border-white/15 bg-black/45 px-2.5 py-0.5 text-[13px] font-mono tabular-nums text-zinc-200 backdrop-blur">
-            capital ≈ {fmtMoney(result.capital)} {sym}
+            Capital ≈ {fmtMoney(result.capital)} {sym}
           </div>
         </div>
 

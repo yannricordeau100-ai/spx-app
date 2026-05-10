@@ -333,37 +333,48 @@ export function DividendAristocratCard({
             </InfoTooltip>
           </div>
           <div className="grid grid-cols-4 gap-1">
-            {cagrLines.map((c) => (
-              <div
-                key={c.label}
-                className="rounded-md border border-white/10 bg-black/40 p-1.5 text-center"
-              >
-                <div className="font-mono text-[11.5px] uppercase tracking-wider text-zinc-400">
-                  {c.label}
-                </div>
+            {cagrLines.map((c) => {
+              // Yann 10 mai : périodes > 5 ans en mode flou (preview V2),
+              // 5 ans seul reste net.
+              const isBlurred = c.label !== "5 ans";
+              return (
                 <div
-                  className={`mt-0.5 font-display text-[16px] font-bold leading-none tabular-nums ${
-                    c.value == null
-                      ? "text-zinc-600"
-                      : c.value >= 0
-                      ? "text-emerald-300"
-                      : "text-rose-300"
+                  key={c.label}
+                  className={`relative rounded-md border border-white/10 bg-black/40 p-1.5 text-center ${
+                    isBlurred ? "select-none" : ""
                   }`}
+                  title={isBlurred ? "Bientôt disponible (V2)" : undefined}
                 >
-                  {c.value == null ? "—" : `${c.value >= 0 ? "+" : ""}${c.value.toFixed(1)}`}
+                  <div className={`font-mono text-[11.5px] uppercase tracking-wider text-zinc-400 ${isBlurred ? "blur-[3px] opacity-60" : ""}`}>
+                    {c.label}
+                  </div>
+                  <div
+                    className={`mt-0.5 font-display text-[16px] font-bold leading-none tabular-nums ${
+                      isBlurred ? "blur-[3px] opacity-60" : ""
+                    } ${
+                      c.value == null
+                        ? "text-zinc-600"
+                        : c.value >= 0
+                        ? "text-emerald-300"
+                        : "text-rose-300"
+                    }`}
+                  >
+                    {c.value == null ? "—" : `${c.value >= 0 ? "+" : ""}${c.value.toFixed(1)}`}
+                  </div>
+                  <div className={`text-[11px] text-zinc-500 ${isBlurred ? "blur-[3px] opacity-60" : ""}`}>
+                    {c.value == null ? "n.d." : "% / an"}
+                  </div>
+                  {isBlurred && (
+                    <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                      <span className="rounded-full border border-white/15 bg-black/70 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-zinc-300 backdrop-blur">
+                        V2
+                      </span>
+                    </div>
+                  )}
                 </div>
-                <div className="text-[11px] text-zinc-500">
-                  {c.value == null ? "n.d." : "% / an"}
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
-          {(cagr10 == null || cagr20 == null || cagr50 == null) && (
-            <div className="mt-1 text-[12px] italic text-zinc-500">
-              Périodes en grisé : historique dataset trop court (n.d. = non
-              disponible).
-            </div>
-          )}
         </div>
 
         {/* Coupures de dividende (si présentes) */}
