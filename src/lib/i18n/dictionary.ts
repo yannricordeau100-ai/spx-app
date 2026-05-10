@@ -111,7 +111,10 @@ export const DICTIONARY: Dict = {
     en: "At least 8 characters",
   },
   "auth.divider.or": { fr: "ou", en: "or" },
-  "auth.divider.magic_link": { fr: "lien magique", en: "magic link" },
+  "auth.divider.magic_link": {
+    fr: "connexion sans mot de passe",
+    en: "passwordless sign-in",
+  },
   "auth.field.magic_email": {
     fr: "Recevoir un lien par email",
     en: "Get a link by email",

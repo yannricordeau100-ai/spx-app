@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useFormStatus } from "react-dom";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
-import { Mail, Lock, X, Sparkles, ArrowLeft } from "lucide-react";
+import { Mail, Lock, X, Sparkles, ArrowLeft, Loader2 } from "lucide-react";
 import {
   signInWithPassword,
   signUpWithPassword,
@@ -12,6 +13,36 @@ import {
   requestPasswordReset,
 } from "@/app/auth/actions";
 import { useT } from "@/lib/i18n/provider";
+
+/**
+ * Bouton submit avec état "pending" automatique via useFormStatus.
+ * Yann (10 mai 2026) : le bouton "Se connecter" semblait bloqué car aucun
+ * feedback visuel pendant l'attente serveur. Maintenant : spinner +
+ * désactivation pendant le submit, plus de doute pour l'utilisateur.
+ */
+function SubmitButton({
+  children,
+  className = "",
+  variant = "primary",
+}: {
+  children: React.ReactNode;
+  className?: string;
+  variant?: "primary" | "ghost" | "small";
+}) {
+  const { pending } = useFormStatus();
+  const base =
+    variant === "small"
+      ? "ml-2 shrink-0 rounded-md bg-cyan-400/15 px-2.5 py-1 text-[12px] font-semibold text-cyan-200 transition-colors hover:bg-cyan-400/25 disabled:opacity-60"
+      : variant === "ghost"
+        ? "inline-flex w-full items-center justify-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2.5 text-sm font-medium text-zinc-100 transition-colors hover:bg-white/[0.07] disabled:opacity-60"
+        : "mt-1 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-violet-500 px-3 py-2.5 text-sm font-semibold text-white shadow-[0_8px_24px_-10px_rgba(139,92,246,0.7)] transition-colors hover:bg-violet-400 disabled:opacity-70 disabled:cursor-wait";
+  return (
+    <button type="submit" disabled={pending} className={`${base} ${className}`}>
+      {pending && <Loader2 className="size-4 animate-spin" />}
+      {children}
+    </button>
+  );
+}
 
 /**
  * AuthModal — pop-up Sign In / Sign Up / Reset password.
@@ -147,31 +178,34 @@ export function AuthModal() {
               </p>
             </div>
 
-            {/* Tabs (signin/signup uniquement, masqué en reset) */}
+            {/* Tabs (signin/signup uniquement, masqué en reset).
+                Yann 10 mai 2026 : centré au lieu d'aligné gauche. */}
             {mode !== "reset" && (
-              <div className="relative mb-5 inline-flex rounded-full border border-white/10 bg-white/[0.03] p-0.5 text-[12.5px]">
-                <button
-                  type="button"
-                  onClick={() => setMode("signin")}
-                  className={`rounded-full px-3.5 py-1.5 transition-colors ${
-                    mode === "signin"
-                      ? "bg-violet-500/90 text-white"
-                      : "text-zinc-400 hover:text-zinc-200"
-                  }`}
-                >
-                  {t("auth.tab.signin")}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setMode("signup")}
-                  className={`rounded-full px-3.5 py-1.5 transition-colors ${
-                    mode === "signup"
-                      ? "bg-violet-500/90 text-white"
-                      : "text-zinc-400 hover:text-zinc-200"
-                  }`}
-                >
-                  {t("auth.tab.signup")}
-                </button>
+              <div className="relative mb-5 flex justify-center">
+                <div className="inline-flex rounded-full border border-white/10 bg-white/[0.03] p-0.5 text-[12.5px]">
+                  <button
+                    type="button"
+                    onClick={() => setMode("signin")}
+                    className={`rounded-full px-3.5 py-1.5 transition-colors ${
+                      mode === "signin"
+                        ? "bg-violet-500/90 text-white"
+                        : "text-zinc-400 hover:text-zinc-200"
+                    }`}
+                  >
+                    {t("auth.tab.signin")}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setMode("signup")}
+                    className={`rounded-full px-3.5 py-1.5 transition-colors ${
+                      mode === "signup"
+                        ? "bg-violet-500/90 text-white"
+                        : "text-zinc-400 hover:text-zinc-200"
+                    }`}
+                  >
+                    {t("auth.tab.signup")}
+                  </button>
+                </div>
               </div>
             )}
 
@@ -204,12 +238,7 @@ export function AuthModal() {
                       className="w-full bg-transparent text-sm text-zinc-100 outline-none placeholder:text-zinc-500"
                     />
                   </Field>
-                  <button
-                    type="submit"
-                    className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-violet-500 px-3 py-2.5 text-sm font-semibold text-white shadow-[0_8px_24px_-10px_rgba(139,92,246,0.7)] transition-colors hover:bg-violet-400"
-                  >
-                    {t("auth.cta.send_reset")}
-                  </button>
+                  <SubmitButton>{t("auth.cta.send_reset")}</SubmitButton>
                 </form>
                 <button
                   type="button"
@@ -227,13 +256,10 @@ export function AuthModal() {
               <>
                 <form action={signInWithGoogle} className="relative">
                   <input type="hidden" name="next" value={nextParam} />
-                  <button
-                    type="submit"
-                    className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2.5 text-sm font-medium text-zinc-100 transition-colors hover:bg-white/[0.07]"
-                  >
+                  <SubmitButton variant="ghost">
                     <GoogleLogo className="size-4" />
                     {t("auth.cta.google")}
-                  </button>
+                  </SubmitButton>
                 </form>
 
                 <div className="relative my-4 flex items-center gap-3 text-[11px] uppercase tracking-[0.2em] text-zinc-500">
@@ -276,12 +302,9 @@ export function AuthModal() {
                       className="w-full bg-transparent text-sm text-zinc-100 outline-none placeholder:text-zinc-500"
                     />
                   </Field>
-                  <button
-                    type="submit"
-                    className="mt-1 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-violet-500 px-3 py-2.5 text-sm font-semibold text-white shadow-[0_8px_24px_-10px_rgba(139,92,246,0.7)] transition-colors hover:bg-violet-400"
-                  >
+                  <SubmitButton>
                     {mode === "signin" ? t("auth.cta.signin") : t("auth.cta.signup")}
-                  </button>
+                  </SubmitButton>
                 </form>
 
                 {mode === "signin" && (
@@ -300,7 +323,15 @@ export function AuthModal() {
                   <>
                     <div className="relative my-4 flex items-center gap-3 text-[11px] uppercase tracking-[0.2em] text-zinc-500">
                       <span className="h-px flex-1 bg-white/10" />
-                      {t("auth.divider.magic_link")}
+                      <span
+                        className="inline-flex items-center gap-1.5 normal-case tracking-normal"
+                        title="On t'envoie un lien à usage unique par email. Tu cliques dessus, tu es connecté. Pas besoin de mot de passe."
+                      >
+                        {t("auth.divider.magic_link")}
+                        <span className="inline-flex size-3.5 items-center justify-center rounded-full border border-zinc-600 text-[9px] font-semibold text-zinc-500">
+                          i
+                        </span>
+                      </span>
                       <span className="h-px flex-1 bg-white/10" />
                     </div>
                     <form action={signInWithMagicLink} className="relative">
@@ -314,12 +345,9 @@ export function AuthModal() {
                           placeholder={t("auth.field.magic_email")}
                           className="w-full bg-transparent text-sm text-zinc-100 outline-none placeholder:text-zinc-500"
                         />
-                        <button
-                          type="submit"
-                          className="ml-2 shrink-0 rounded-md bg-cyan-400/15 px-2.5 py-1 text-[12px] font-semibold text-cyan-200 transition-colors hover:bg-cyan-400/25"
-                        >
+                        <SubmitButton variant="small">
                           {t("auth.cta.send_magic")}
-                        </button>
+                        </SubmitButton>
                       </Field>
                     </form>
                   </>
