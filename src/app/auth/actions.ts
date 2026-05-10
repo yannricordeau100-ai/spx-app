@@ -188,21 +188,34 @@ export async function resetPassword(formData: FormData) {
 export async function signOut() {
   const supabase = await createSupabaseServerClient();
   await supabase.auth.signOut();
-  // Yann 10 mai 2026 : "je ne peux pas me deconnecter". Cause = sur
-  // staging, "/" redirige automatiquement vers /sandbox/v1-8, mais le
-  // cache RSC de /sandbox/v1-8 (qui rend l'AuthNav avec le statut user)
-  // n'etait pas invalide → l'user voyait toujours son avatar.
-  // Fix : revalider explicitement la route finale ET la layout pour
-  // que tous les server components qui regardent la session soient
-  // re-rendus. Plus redirect direct vers la home staging si applicable.
-  const isStaging =
-    process.env.VERCEL_GIT_COMMIT_REF === "staging" ||
-    process.env.NEXT_PUBLIC_DEPLOY_TARGET === "staging";
+  // Yann 11 mai 2026 : la déconnexion ne fonctionnait toujours pas après
+  // le 1er fix du 10 mai (revalidatePath insuffisant). Cause profonde :
+  // les cookies Supabase (sb-<ref>-auth-token, sb-<ref>-auth-token-code-verifier)
+  // ne sont pas systématiquement supprimés par signOut() côté serveur.
+  // Fix robuste : on supprime EXPLICITEMENT tous les cookies sb-* + on
+  // revalide tous les paths qui rendent l'AuthNav + redirect avec
+  // cache-bust pour forcer un re-render fresh côté client.
+  try {
+    const cookieStore = await cookies();
+    for (const c of cookieStore.getAll()) {
+      if (c.name.startsWith("sb-") || c.name === "supabase-auth-token") {
+        cookieStore.delete(c.name);
+      }
+    }
+  } catch {
+    // ignore : si on ne peut pas supprimer (RSC context), signOut a
+    // déjà fait le travail via setAll dans createSupabaseServerClient.
+  }
   revalidatePath("/", "layout");
   revalidatePath("/sandbox/v1-8", "layout");
   revalidatePath("/sandbox/v1-8");
   revalidatePath("/account");
-  redirect(isStaging ? "/sandbox/v1-8" : "/");
+  // Cache-bust : ?_=ts force le RSC à re-render même si le path est identique.
+  const isStaging =
+    process.env.VERCEL_GIT_COMMIT_REF === "staging" ||
+    process.env.NEXT_PUBLIC_DEPLOY_TARGET === "staging";
+  const target = isStaging ? "/sandbox/v1-8" : "/";
+  redirect(`${target}?signedout=${Date.now()}`);
 }
 
 /* ─── Update password (user déjà connecté) ──────────────────────────── */

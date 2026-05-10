@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { Star, LogOut, User, KeyRound, AtSign, Trash2, CreditCard } from "lucide-react";
+import { Star, User, KeyRound, AtSign, Trash2, CreditCard } from "lucide-react";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import {
   signOut,
@@ -11,6 +11,7 @@ import {
 import { getServerLocale } from "@/lib/i18n/server";
 import { translate } from "@/lib/i18n/dictionary";
 import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
+import { SignOutButton } from "@/components/account/signout-button";
 
 export const dynamic = "force-dynamic";
 
@@ -127,22 +128,7 @@ export default async function AccountPage({
           </a>
 
           <form action={signOut}>
-            <button
-              type="submit"
-              className="flex w-full items-center gap-3 rounded-xl border border-[#1f1f1f] bg-[#0a0a0a] p-4 text-left transition-colors hover:border-rose-400/40"
-            >
-              <span className="inline-flex size-10 items-center justify-center rounded-lg border border-rose-400/30 bg-rose-500/10 text-rose-300">
-                <LogOut className="size-4" />
-              </span>
-              <div>
-                <div className="text-[14px] font-semibold text-zinc-50">
-                  {t("account.signout")}
-                </div>
-                <div className="text-[11.5px] text-zinc-400">
-                  {t("account.signout_sub")}
-                </div>
-              </div>
-            </button>
+            <SignOutButton label={t("account.signout")} sub={t("account.signout_sub")} />
           </form>
         </div>
 
