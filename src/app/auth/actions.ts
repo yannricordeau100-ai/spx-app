@@ -59,6 +59,10 @@ function safeNextParam(raw: FormDataEntryValue | null): string {
 }
 
 export async function signInWithPassword(formData: FormData) {
+  // Yann 11 mai 2026 v4 : retire revalidatePath("layout") qui ralentissait
+  // de 1-3 sec. Les pages cibles (home / sandbox/v1-8 / account) sont
+  // toutes force-dynamic → cache RSC pas à invalider, getUser() refetch
+  // de toute façon. Cible : signin en < 800 ms (vs 2-4 sec avant).
   const email = String(formData.get("email") ?? "");
   const password = String(formData.get("password") ?? "");
   const next = safeNextParam(formData.get("next"));
@@ -67,7 +71,6 @@ export async function signInWithPassword(formData: FormData) {
   if (error) {
     redirect(`/?auth=signin&error=${await authErr(error.message)}`);
   }
-  revalidatePath("/", "layout");
   redirect(next);
 }
 
@@ -186,48 +189,46 @@ export async function resetPassword(formData: FormData) {
 /* ─── Sign out ──────────────────────────────────────────────────────── */
 
 export async function signOut() {
-  // Yann 11 mai 2026 : "la déconnexion charge à l'infini". Cause = le
-  // 2e fix utilisait cookieStore.delete() qui peut hang en Next 16 RSC,
-  // + Date.now() dans l'URL rendait le Server Action non-déterministe.
+  // Yann 11 mai 2026 v4 : "la déconnexion est très très longue".
+  // Cause v3 : revalidatePath("layout") invalidait TOUT le cache RSC
+  // → la page cible se reconstruisait entièrement (300-2000 ms cold).
+  // Or /sandbox/v1-8 et / sont déjà force-dynamic → revalidate inutile.
   //
-  // Fix v3 (robuste) :
-  // 1. supabase.auth.signOut() invalide la session Supabase serveur
-  // 2. Suppression cookies sb-* via .set("", maxAge:0) (standard cookie
-  //    deletion, plus fiable que .delete())
-  // 3. Chaque opération wrappée try/catch indépendante (jamais de hang)
-  // 4. revalidatePath sur les routes critiques
-  // 5. redirect simple SANS cache-bust query string
-  try {
-    const supabase = await createSupabaseServerClient();
-    await supabase.auth.signOut();
-  } catch (e) {
-    console.error("[signOut] supabase signOut failed:", e);
-  }
-  try {
-    const cookieStore = await cookies();
-    for (const c of cookieStore.getAll()) {
-      if (c.name.startsWith("sb-") || c.name === "supabase-auth-token") {
-        try {
-          cookieStore.set(c.name, "", {
-            path: "/",
-            maxAge: 0,
-            expires: new Date(0),
-          });
-        } catch {
-          // ignore par cookie : continue le reste
-        }
+  // Fix v4 (rapide) :
+  // 1. Parallélise supabase signOut + cookie cleanup (Promise.all)
+  // 2. SUPPRIME tous les revalidatePath (force-dynamic suffit)
+  // 3. Redirect direct vers la home cible
+  // Cible : déconnexion en < 500 ms (vs 3-5 sec avant).
+  await Promise.all([
+    (async () => {
+      try {
+        const supabase = await createSupabaseServerClient();
+        await supabase.auth.signOut();
+      } catch (e) {
+        console.error("[signOut] supabase signOut failed:", e);
       }
-    }
-  } catch (e) {
-    console.error("[signOut] cookie cleanup failed:", e);
-  }
-  try {
-    revalidatePath("/", "layout");
-    revalidatePath("/sandbox/v1-8", "layout");
-    revalidatePath("/account");
-  } catch {
-    // ignore : revalidate est best-effort
-  }
+    })(),
+    (async () => {
+      try {
+        const cookieStore = await cookies();
+        for (const c of cookieStore.getAll()) {
+          if (c.name.startsWith("sb-") || c.name === "supabase-auth-token") {
+            try {
+              cookieStore.set(c.name, "", {
+                path: "/",
+                maxAge: 0,
+                expires: new Date(0),
+              });
+            } catch {
+              // ignore par cookie
+            }
+          }
+        }
+      } catch (e) {
+        console.error("[signOut] cookie cleanup failed:", e);
+      }
+    })(),
+  ]);
   const isStaging =
     process.env.VERCEL_GIT_COMMIT_REF === "staging" ||
     process.env.NEXT_PUBLIC_DEPLOY_TARGET === "staging";
