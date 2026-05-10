@@ -19,6 +19,21 @@ import { createClient } from "@supabase/supabase-js";
 import { PLANS as FALLBACK_PLANS, FEATURES as FALLBACK_FEATURES, type PlanDisplay, type PlanTier, type FeatureRow } from "./plans";
 import type { Currency, Frequency } from "./admin-types";
 
+/**
+ * Normalise un code de plan BDD (Yann a renommé les plans : "Free"/"Premium"/
+ * "Max") vers les tiers internes du code TS ("free"/"investisseur"/"pro_plus").
+ * Sans cette normalisation, FeatureRow.free / .investisseur / .pro_plus ne
+ * matchait plus rien et le front tombait sur le fallback hardcoded.
+ */
+function normalizePlanCode(code: string): PlanTier {
+  const c = (code ?? "").toLowerCase();
+  if (c === "free" || c === "gratuit" || c === "decouverte" || c === "découverte") return "free";
+  if (c === "premium" || c === "investisseur" || c === "investor") return "investisseur";
+  if (c === "max" || c === "pro_plus" || c === "pro+") return "pro_plus";
+  // Fallback : si code inconnu, on essaie le slug le plus proche.
+  return c as PlanTier;
+}
+
 export type LoadedPlan = PlanDisplay & {
   /** Prix par devise + fréquence. EUR/monthly utilisé en display par défaut. */
   prices: Record<string, { monthly?: number; annual?: number }>;
@@ -65,7 +80,7 @@ export async function loadPricingForPublic(): Promise<LoadedPlan[]> {
     }
 
     return plans.map((dbPlan): LoadedPlan => {
-      const tier = dbPlan.code as PlanTier;
+      const tier = normalizePlanCode(dbPlan.code);
       const tierPrices = pricesByPlan.get(dbPlan.id) ?? {};
       const eurMonthly = tierPrices.EUR?.monthly ?? 0;
       const eurAnnual = tierPrices.EUR?.annual ?? 0;
@@ -135,40 +150,42 @@ export async function loadPricingCatalog(): Promise<LoadedCatalog> {
       return { plans, features: FALLBACK_FEATURES };
     }
 
-    // Mapping {plan_code → {feature_code → value_fr}}
-    const planById = new Map<string, string>(); // id → code
-    // On a besoin du mapping id→code mais loadPricingForPublic ne renvoie pas l'id BDD
-    // → re-query plans pour mapping
+    // Mapping {plan_id → tier interne normalisé}
+    const tierByPlanId = new Map<string, PlanTier>();
     const { data: dbPlans } = await supabase.from("pricing_plans").select("id, code");
-    if (dbPlans) for (const p of dbPlans) planById.set(p.id, p.code);
+    if (dbPlans) {
+      for (const p of dbPlans) tierByPlanId.set(p.id, normalizePlanCode(p.code));
+    }
 
-    const valuesByCode = new Map<string, Map<string, string>>(); // featureCode → planCode → value
+    // featureCode → tier (free/investisseur/pro_plus) → value_fr
+    const valuesByCode = new Map<string, Map<PlanTier, string>>();
     const featById = new Map<string, string>();
     for (const f of featRes.data) featById.set(f.id, f.code);
 
     for (const pf of pfRes.data ?? []) {
       const featCode = featById.get(pf.feature_id);
-      const planCode = planById.get(pf.plan_id);
-      if (!featCode || !planCode) continue;
+      const tier = tierByPlanId.get(pf.plan_id);
+      if (!featCode || !tier) continue;
       if (!valuesByCode.has(featCode)) valuesByCode.set(featCode, new Map());
-      valuesByCode.get(featCode)!.set(planCode, pf.value_fr ?? "");
+      valuesByCode.get(featCode)!.set(tier, pf.value_fr ?? "");
     }
 
     // Construit FeatureRow[] depuis la BDD
     const features: FeatureRow[] = featRes.data.map((f) => {
-      const vals = valuesByCode.get(f.code) ?? new Map();
-      const get = (planCode: string): string | boolean => {
-        const v = vals.get(planCode);
+      const vals = valuesByCode.get(f.code) ?? new Map<PlanTier, string>();
+      const get = (tier: PlanTier): string | boolean => {
+        const v = vals.get(tier);
         if (v === "true") return true;
         if (v === "false") return false;
-        return v ?? false;
+        if (v === undefined || v === null || v === "") return false;
+        return v;
       };
       return {
         id: f.code,
         category: f.category as FeatureRow["category"],
         label: f.label_fr,
         help: f.help_fr ?? undefined,
-        free: get("decouverte"),
+        free: get("free"),
         investisseur: get("investisseur"),
         pro_plus: get("pro_plus"),
       };

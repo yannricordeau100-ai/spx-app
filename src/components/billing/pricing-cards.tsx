@@ -263,10 +263,9 @@ function PricingCard({
       <p className="mt-1 min-h-[40px] text-[13px] leading-relaxed text-zinc-400">{plan.tagline}</p>
 
       {/* Bloc prix avec min-height pour aligner les CTA des 3 cards
-          horizontalement : la card payante a un comparatif 2 colonnes
-          que la card free n'a pas, donc sans min-h forcé ses CTAs
-          tombaient à des hauteurs différentes. */}
-      <div className="mt-5 min-h-[170px]">
+          horizontalement (le free a juste '0 €' alors que les payants
+          ont prix mensuel + équivalent jour + ligne 'soit X €/an'). */}
+      <div className="mt-5 min-h-[110px]">
         {plan.price_monthly_eur === 0 ? (
           <>
             <div className="flex items-baseline gap-1.5">
@@ -286,12 +285,9 @@ function PricingCard({
               <span className="text-[15px] font-medium text-zinc-400">€</span>
               <span className="ml-1 text-[12px] text-zinc-500">/mois</span>
             </div>
-            {/* Equivalence prix par jour, calculé sur le tarif annuel
-                (moins cher = plus parlant). Toujours visible quelque
-                soit le toggle pour donner envie de passer à l'annuel. */}
+            {/* Equivalence prix par jour, calculé sur le tarif annuel. */}
             <div className="mt-0.5 text-[11px] text-zinc-500">
               soit <span className="font-mono text-zinc-300">{dailyPrice.toFixed(2).replace(".", ",")} €</span>/jour
-              <span className="ml-1 text-emerald-300/80">avec l'annuel</span>
             </div>
             <div className="mt-1 text-[11.5px] text-zinc-500">
               {isAnnual ? (
@@ -303,41 +299,9 @@ function PricingCard({
                 <>Sans engagement</>
               )}
             </div>
-
-            {/* Comparatif compact : montre l'autre prix, donne envie de switcher */}
-            <div className="mt-3 grid grid-cols-2 gap-2 rounded-lg border border-white/[0.06] bg-white/[0.02] p-2 text-[11px]">
-              <button
-                type="button"
-                onClick={() => onSwitch?.("monthly")}
-                className={`rounded-md px-2 py-1.5 text-left transition-colors ${
-                  isAnnual ? "text-zinc-500 hover:bg-white/[0.04]" : "bg-violet-500/15 text-zinc-100"
-                }`}
-                aria-pressed={!isAnnual}
-              >
-                <div className="text-[9.5px] font-bold uppercase tracking-wider opacity-70">Mensuel</div>
-                <div className="font-mono">
-                  <span className={isAnnual ? "" : "font-bold text-zinc-50"}>{plan.price_monthly_eur.toFixed(2).replace(".", ",")} €</span>
-                  <span className="ml-1 opacity-60">/mois</span>
-                </div>
-              </button>
-              <button
-                type="button"
-                onClick={() => onSwitch?.("annual")}
-                className={`rounded-md px-2 py-1.5 text-left transition-colors ${
-                  isAnnual ? "bg-violet-500/15 text-zinc-100" : "text-zinc-500 hover:bg-white/[0.04]"
-                }`}
-                aria-pressed={isAnnual}
-              >
-                <div className="flex items-center gap-1 text-[9.5px] font-bold uppercase tracking-wider opacity-70">
-                  Annuel
-                  <span className="rounded-full bg-emerald-500/20 px-1 font-mono text-[8.5px] text-emerald-300">-33%</span>
-                </div>
-                <div className="font-mono">
-                  <span className={isAnnual ? "font-bold text-zinc-50" : ""}>{monthlyEquivalent(plan).toFixed(2).replace(".", ",")} €</span>
-                  <span className="ml-1 opacity-60">/mois</span>
-                </div>
-              </button>
-            </div>
+            {/* Yann 9 mai 2026 : retire le bi-bloc Mensuel/Annuel a
+                l'interieur des cards (le toggle global au-dessus
+                suffit). */}
           </>
         )}
       </div>
