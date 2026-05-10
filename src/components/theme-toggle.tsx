@@ -7,26 +7,38 @@ import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 /**
  * ThemeToggle — bascule clair/sombre.
  *
- * Logique de persistance :
- *  1. Anonyme : `localStorage["mettrik:theme"]` source de vérité.
- *  2. Connecté : `user_metadata.theme` Supabase = source de vérité ;
+ * Logique de persistance (Yann 10 mai 2026 : reglage auto OS) :
+ *  1. Anonyme : `localStorage["mettrik:theme"]` source de vérité si l'user
+ *     a déjà choisi explicitement (= cliqué sur le toggle).
+ *  2. Sinon, défaut basé sur la PRÉFÉRENCE SYSTÈME de l'OS via
+ *     `matchMedia('(prefers-color-scheme: dark)')`. Marche sur macOS,
+ *     Windows 10+, iOS 13+, Android, etc. (~99,5 % de fiabilité).
+ *     Mise à jour live si l'user change le mode OS pendant la session.
+ *  3. Connecté : `user_metadata.theme` Supabase = source de vérité ;
  *     écrit en parallèle dans localStorage pour éviter le flash au reload.
- *  3. Premier visiteur (pas de localStorage) : défaut basé sur la viewport.
- *      - viewport ≥ 768px (desktop / laptop / tablette) → "light"
- *      - viewport < 768px (mobile)                       → "dark"
  *  4. Au login (event SIGNED_IN), si user_metadata.theme existe → applique-le.
- *     Sinon, migre la valeur localStorage actuelle vers user_metadata.
+ *     Sinon, migre la valeur courante vers user_metadata.
  *  5. Toggle : update localStorage + (si auth) update user_metadata. Le
- *     mode courant survit donc à un sign-out/sign-in.
- *  6. Email templates restent sombres par construction (HTML statique).
+ *     mode courant survit à un sign-out/sign-in.
+ *  6. Fallback ultime (pas de matchMedia, navigateur très vieux) : viewport
+ *     >= 768px → light, sinon dark.
+ *  7. Email templates restent sombres par construction (HTML statique).
  */
 
 const STORAGE_KEY = "mettrik:theme";
 const FILTER_LIGHT = "invert(1) hue-rotate(180deg)";
 type Mode = "light" | "dark";
 
-function defaultByViewport(): Mode {
+/** Préférence système OS (prefers-color-scheme). Fallback viewport si pas de matchMedia. */
+function defaultBySystemPreference(): Mode {
   if (typeof window === "undefined") return "dark";
+  if (typeof window.matchMedia === "function") {
+    const mqDark = window.matchMedia("(prefers-color-scheme: dark)");
+    if (mqDark.matches) return "dark";
+    const mqLight = window.matchMedia("(prefers-color-scheme: light)");
+    if (mqLight.matches) return "light";
+  }
+  // Pas de pref OS détectable → fallback viewport (laptop/desktop = light, mobile = dark)
   return window.innerWidth >= 768 ? "light" : "dark";
 }
 
@@ -49,11 +61,33 @@ export function ThemeToggle() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+    // Flag : l'user a-t-il choisi explicitement via le toggle ? Si oui on
+    // ne suit plus la pref OS (= localStorage prevaut).
+    const explicit = window.localStorage.getItem(`${STORAGE_KEY}:explicit`) === "1";
     const stored = window.localStorage.getItem(STORAGE_KEY) as Mode | null;
-    const initial: Mode = stored ?? defaultByViewport();
+    const sysPref = defaultBySystemPreference();
+    const initial: Mode = explicit && stored ? stored : sysPref;
     setMode(initial);
     applyFilter(initial);
-    if (!stored) window.localStorage.setItem(STORAGE_KEY, initial);
+    window.localStorage.setItem(STORAGE_KEY, initial);
+
+    // Listener OS : si l'user n'a PAS encore cliqué sur le toggle, on
+    // suit la pref système en temps réel (ex : macOS bascule auto à 20h).
+    let mqHandler: ((e: MediaQueryListEvent) => void) | null = null;
+    let mq: MediaQueryList | null = null;
+    if (typeof window.matchMedia === "function") {
+      mq = window.matchMedia("(prefers-color-scheme: dark)");
+      mqHandler = (e: MediaQueryListEvent) => {
+        const userExplicit = window.localStorage.getItem(`${STORAGE_KEY}:explicit`) === "1";
+        if (userExplicit) return;
+        const next: Mode = e.matches ? "dark" : "light";
+        setMode(next);
+        applyFilter(next);
+        window.localStorage.setItem(STORAGE_KEY, next);
+      };
+      if (mq.addEventListener) mq.addEventListener("change", mqHandler);
+      else if (mq.addListener) mq.addListener(mqHandler); // legacy Safari
+    }
 
     // Sync avec Supabase si user connecté.
     const supabase = createSupabaseBrowserClient();
@@ -87,7 +121,7 @@ export function ThemeToggle() {
         window.localStorage.setItem(STORAGE_KEY, remote);
       } else {
         // Pas de pref serveur (1ère co après signup) : push le local actuel.
-        const cur = (window.localStorage.getItem(STORAGE_KEY) as Mode | null) ?? defaultByViewport();
+        const cur = (window.localStorage.getItem(STORAGE_KEY) as Mode | null) ?? defaultBySystemPreference();
         await supabase.auth.updateUser({ data: { theme: cur } });
       }
     });
@@ -95,6 +129,12 @@ export function ThemeToggle() {
     return () => {
       cancelled = true;
       sub.subscription.unsubscribe();
+      if (mq && mqHandler) {
+        if (mq.removeEventListener) mq.removeEventListener("change", mqHandler);
+        else if ((mq as MediaQueryList & { removeListener?: (h: (e: MediaQueryListEvent) => void) => void }).removeListener) {
+          (mq as MediaQueryList & { removeListener: (h: (e: MediaQueryListEvent) => void) => void }).removeListener(mqHandler);
+        }
+      }
     };
   }, []);
 
@@ -103,6 +143,9 @@ export function ThemeToggle() {
     applyFilter(next);
     if (typeof window !== "undefined") {
       window.localStorage.setItem(STORAGE_KEY, next);
+      // Marqueur "choix explicite" : à partir d'ici, on arrête de suivre
+      // la pref OS automatiquement. L'user reprend la main.
+      window.localStorage.setItem(`${STORAGE_KEY}:explicit`, "1");
     }
     // Best-effort : sync vers le compte si connecté.
     void (async () => {

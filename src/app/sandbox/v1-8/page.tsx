@@ -1,6 +1,10 @@
+import Link from "next/link";
+import { ArrowRight, Mail } from "lucide-react";
 import { HomeView } from "@/components/home-view";
 import { AuthNav } from "@/components/auth-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { PricingCards } from "@/components/billing/pricing-cards";
+import { loadPricingCatalog } from "@/lib/billing/load-pricing";
 import type { Company } from "@/lib/data";
 import V17_PUBLIC from "@/data/v1-7-public.json";
 // Liste pré-calculée par scripts/build-v18-tickers.ts : top 308 par
@@ -40,6 +44,7 @@ export default async function SandboxV18HubPage() {
   // tickers présents aussi dans le dataset Pass 3 strict V1.7.
   const validKeys = new Set(Object.keys(datasets).map((k) => k.toUpperCase()));
   const tickers = (V18_TICKERS as string[]).filter((t) => validKeys.has(t.toUpperCase()));
+  const catalog = await loadPricingCatalog();
 
   return (
     <>
@@ -48,8 +53,6 @@ export default async function SandboxV18HubPage() {
         <ThemeToggle />
         <AuthNav scope="home" />
       </div>
-      {/* Bandeau pricing retiré (Yann 9 mai 2026 soir) : encombrait la
-          home, /sandbox/v1-8/pricing reste accessible via DisclaimerFooter. */}
       <HomeView
         companies={datasets}
         tickers={tickers}
@@ -57,6 +60,54 @@ export default async function SandboxV18HubPage() {
         routePrefix="/sandbox/v1-8"
         searchScope={{ tickers, total: tickers.length }}
       />
+
+      {/* ─── Section "Plans" inline sur la home V1.8 ───────────────────
+          Yann 10 mai 2026 : ajout pricing dans la home pour optimiser la
+          conversion. Place strategique = juste apres la grille des stes
+          (visible apres scroll naturel, pas intrusif). Headline travaille
+          le 'prix par jour' (psychologie achat) plutot que le prix
+          mensuel. CTA secondaire vers la page pricing complete pour le
+          comparatif detaille des features. */}
+      <section className="relative mx-auto max-w-6xl px-4 pb-20 pt-10 sm:px-6">
+        <div className="mx-auto max-w-3xl text-center">
+          <span className="inline-block rounded-full border border-emerald-500/30 bg-emerald-500/[0.08] px-3 py-1 font-mono text-[10.5px] uppercase tracking-[0.18em] text-emerald-200">
+            ★ Premium · à partir de 0,68 €/jour
+          </span>
+          <h2 className="mt-4 font-display text-[28px] font-bold tracking-tight text-zinc-50 sm:text-[34px]">
+            Tu utilises déjà 2 sociétés en gratuit. Débloque les 305 autres.
+          </h2>
+          <p className="mt-3 text-[14px] leading-relaxed text-zinc-400">
+            Le tarif annuel revient à moins d'un café par jour. 30 secondes pour souscrire,
+            1 clic pour annuler quand tu veux.
+          </p>
+        </div>
+
+        <div className="mt-10">
+          <PricingCards
+            ctaTrackingPrefix="v18_home_inline_"
+            plans={catalog.plans}
+            features={catalog.features}
+          />
+        </div>
+
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-3 text-[12.5px]">
+          <Link
+            href="/sandbox/v1-8/pricing"
+            data-pricing-cta="v18_home_see_full"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-violet-500/30 bg-violet-500/[0.08] px-3.5 py-2 font-semibold text-violet-100 hover:bg-violet-500/15"
+          >
+            Voir le comparatif détaillé (toutes les fonctionnalités)
+            <ArrowRight className="size-3.5" />
+          </Link>
+          <Link
+            href="/sandbox/v1-8/contact"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.04] px-3.5 py-2 font-semibold text-zinc-200 hover:bg-white/[0.07]"
+          >
+            <Mail className="size-3.5" />
+            Une question ? Nous contacter
+          </Link>
+        </div>
+      </section>
     </>
   );
 }
