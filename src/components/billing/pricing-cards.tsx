@@ -264,8 +264,8 @@ function PricingCard({
 
       {/* Bloc prix avec min-height pour aligner les CTA des 3 cards
           horizontalement (le free a juste '0 €' alors que les payants
-          ont prix mensuel + équivalent jour + ligne 'soit X €/an'). */}
-      <div className="mt-5 min-h-[110px]">
+          ont prix mensuel + pill prix/jour + ligne 'soit X €/an'). */}
+      <div className="mt-5 min-h-[180px]">
         {plan.price_monthly_eur === 0 ? (
           <>
             <div className="flex items-baseline gap-1.5">
@@ -285,15 +285,19 @@ function PricingCard({
               <span className="text-[15px] font-medium text-zinc-400">€</span>
               <span className="ml-1 text-[12px] text-zinc-500">/mois</span>
             </div>
-            {/* Prix par jour mis en avant : pill emerald avec valeur en
-                gros, plus accrocheur que le micro-texte précédent. Yann
-                9 mai 2026 : "met le prix par jour plus en avant". */}
-            <div className="mt-2 inline-flex items-baseline gap-1 rounded-lg border border-emerald-500/30 bg-emerald-500/[0.10] px-2.5 py-1">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-200/80">soit</span>
-              <span className="font-mono text-[16px] font-bold text-emerald-200">
-                {dailyPrice.toFixed(2).replace(".", ",")} €
+            {/* Prix par jour fortement mis en avant : pleine largeur,
+                gradient emerald + glow, chiffre en 28px font-display
+                bold. C'est le vrai argument d'accroche : 0,68 € / jour
+                parle plus fort que 24,90 € / mois. */}
+            <div
+              className="mt-3 flex items-baseline justify-center gap-2 rounded-xl border border-emerald-500/40 bg-gradient-to-r from-emerald-500/[0.18] via-emerald-500/[0.10] to-emerald-500/[0.18] px-4 py-2.5 shadow-[0_0_24px_rgba(16,185,129,0.15)]"
+            >
+              <span className="text-[10.5px] font-bold uppercase tracking-[0.18em] text-emerald-300/80">soit</span>
+              <span className="font-display text-[30px] font-bold leading-none tracking-tight text-emerald-100">
+                {dailyPrice.toFixed(2).replace(".", ",")}
               </span>
-              <span className="text-[11px] font-semibold text-emerald-200/80">/ jour</span>
+              <span className="text-[14px] font-semibold text-emerald-200">€</span>
+              <span className="text-[12px] font-semibold uppercase tracking-wider text-emerald-300/80">/ jour</span>
             </div>
             <div className="mt-1 text-[11.5px] text-zinc-500">
               {isAnnual ? (
