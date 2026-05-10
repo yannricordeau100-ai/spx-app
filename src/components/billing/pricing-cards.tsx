@@ -199,6 +199,12 @@ function PricingCard({
 
   const features = topFeatures(plan.tier);
 
+  // Yann 9 mai 2026 : prix par jour pour les plans payants (rendre le
+  // tarif plus accessible psychologiquement). 0,82 €/jour parle plus fort
+  // que 24,90 €/mois pour les visiteurs qui hésitent.
+  const monthlyForDayCalc = isAnnual ? monthlyEquivalent(plan) : plan.price_monthly_eur;
+  const dailyPrice = monthlyForDayCalc > 0 ? (monthlyForDayCalc * 12) / 365 : 0;
+
   return (
     <div
       className={`relative flex flex-col rounded-2xl p-6 transition-transform hover:scale-[1.01] ${
@@ -220,9 +226,13 @@ function PricingCard({
       <h3 className="font-display text-[22px] font-bold tracking-tight" style={{ color: plan.accent }}>
         {plan.name}
       </h3>
-      <p className="mt-1 text-[13px] leading-relaxed text-zinc-400">{plan.tagline}</p>
+      <p className="mt-1 min-h-[40px] text-[13px] leading-relaxed text-zinc-400">{plan.tagline}</p>
 
-      <div className="mt-5">
+      {/* Bloc prix avec min-height pour aligner les CTA des 3 cards
+          horizontalement : la card payante a un comparatif 2 colonnes
+          que la card free n'a pas, donc sans min-h forcé ses CTAs
+          tombaient à des hauteurs différentes. */}
+      <div className="mt-5 min-h-[170px]">
         {plan.price_monthly_eur === 0 ? (
           <>
             <div className="flex items-baseline gap-1.5">
@@ -242,6 +252,10 @@ function PricingCard({
               <span className="text-[15px] font-medium text-zinc-400">€</span>
               <span className="ml-1 text-[12px] text-zinc-500">/mois</span>
             </div>
+            {/* Equivalence prix par jour, immédiatement sous le prix mensuel */}
+            <div className="mt-0.5 text-[11px] text-zinc-500">
+              soit <span className="font-mono text-zinc-300">{dailyPrice.toFixed(2).replace(".", ",")} €</span>/jour
+            </div>
             <div className="mt-1 text-[11.5px] text-zinc-500">
               {isAnnual ? (
                 <>
@@ -253,7 +267,7 @@ function PricingCard({
               )}
             </div>
 
-            {/* Comparatif compact : montre l'autre prix barré, donne envie de switcher */}
+            {/* Comparatif compact : montre l'autre prix, donne envie de switcher */}
             <div className="mt-3 grid grid-cols-2 gap-2 rounded-lg border border-white/[0.06] bg-white/[0.02] p-2 text-[11px]">
               <button
                 type="button"
@@ -305,6 +319,8 @@ function PricingCard({
 
       <p className="mt-3 text-center text-[10.5px] text-zinc-500">{plan.audience}</p>
 
+      {/* Bullet points features : alignés en haut + une seule ligne par
+          feature (truncate optionnel via leading-snug) pour rester propre. */}
       <ul className="mt-5 space-y-2.5 border-t border-white/[0.06] pt-5">
         {features.map((f, i) => (
           <li key={i} className="flex items-start gap-2 text-[12.5px] leading-snug text-zinc-300">
