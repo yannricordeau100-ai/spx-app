@@ -448,7 +448,7 @@ function topFeatures(tier: PlanDisplay["tier"]): string[] {
     ];
   }
   return [
-    "Tout du plan Investisseur, et :",
+    "Tout du plan Premium, et :",
     "Sociétés favorites illimitées",
     "Alertes email illimitées",
     "Historique 10 ans + 20 ans",

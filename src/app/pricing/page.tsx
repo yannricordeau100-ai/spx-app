@@ -20,7 +20,7 @@ import { translate } from "@/lib/i18n/dictionary";
  */
 export const metadata = {
   title: "Tarifs · Mettrik AI",
-  description: "3 plans Mettrik AI : Découverte gratuit, Investisseur 24,90 €/mois, Pro+ 79 €/mois. 30 jours satisfait ou remboursé.",
+  description: "3 plans Mettrik AI : Découverte gratuit, Premium 24,90 €/mois, Max 79 €/mois.",
 };
 
 export default async function PricingPage() {
@@ -109,7 +109,6 @@ export default async function PricingPage() {
             <FaqItem q={t("pricing.faq_q2")} a={t("pricing.faq_a2")} />
             <FaqItem q={t("pricing.faq_q3")} a={t("pricing.faq_a3")} />
             <FaqItem q={t("pricing.faq_q4")} a={t("pricing.faq_a4")} />
-            <FaqItem q={t("pricing.faq_q5")} a={t("pricing.faq_a5")} />
           </div>
         </section>
 

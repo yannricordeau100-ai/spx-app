@@ -319,6 +319,7 @@ export async function loadV17Company(
       "financial_snapshot",
       "key_facts",
       "peers",
+      "latest_news",
     ] as const) {
       if (
         enrich[key] !== undefined &&
@@ -372,6 +373,43 @@ export async function loadV17Company(
       !Array.isArray(enrich.dividend_meta)
     ) {
       (data as Record<string, unknown>).dividend_meta = enrich.dividend_meta;
+    }
+    // Sync Headcount KPI ↔ key_facts.employees_count (Yann 10 mai 2026).
+    // Bug NVDA : KPI affiche 26.3 K (10-K FY2024) mais "Profil société" via
+    // yfinance dit 42 000 (à jour). On aligne la valeur affichée du KPI sur
+    // la source la plus récente (yfinance/key_facts), en gardant l'history
+    // historique pour le graph.
+    const kf = (data as Record<string, unknown>).key_facts as
+      | { employees_count?: number }
+      | undefined;
+    const empNow = kf?.employees_count;
+    if (typeof empNow === "number" && empNow > 0 && Array.isArray(data.kpis)) {
+      data.kpis = (data.kpis as AnyKPI[]).map((k) => {
+        if (!k || typeof k !== "object") return k;
+        const short = String(k.short ?? "").toLowerCase();
+        const nameFr = String(k.name_fr ?? "").toLowerCase();
+        const isHeadcount =
+          short === "headcount" ||
+          short === "employees" ||
+          nameFr.includes("effectif") ||
+          nameFr.includes("employé");
+        if (!isHeadcount) return k;
+        // Reformater la valeur courante avec la même unité que le KPI existant.
+        const unit = String(k.unit ?? "K");
+        const val = unit === "K" ? (empNow / 1000).toFixed(1) : String(empNow);
+        const hist = Array.isArray(k.history) ? [...(k.history as number[])] : [];
+        const lastHistVal = unit === "K" ? empNow / 1000 : empNow;
+        // Append à l'history seulement si le dernier point diffère significativement
+        if (hist.length === 0 || Math.abs(hist[hist.length - 1] - lastHistVal) / lastHistVal > 0.02) {
+          hist.push(Number(lastHistVal.toFixed(2)));
+        }
+        return {
+          ...k,
+          value: val,
+          history: hist,
+          last_data_date: new Date().toISOString().slice(0, 10),
+        };
+      });
     }
   }
 

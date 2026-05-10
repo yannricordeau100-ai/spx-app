@@ -106,20 +106,97 @@ console.log(`📊 ${registry.length} sés en registry`);
 // 2. Compute peers for each sé
 let written = 0;
 const PEERS_TARGET = 5;
+const PEERS_MIN = 2; // n'écrit le bloc que si au moins 2 vrais pairs sub-sector
+
+// Mapping de normalisation : noms de sub-sector quasi-équivalents → clé canonique.
+// Yann (10 mai 2026) : Apple ne doit JAMAIS apparaître comme peer de Google.
+// Le bug venait du fallback "même sector" qui mélangeait IT / Comm Services.
+// Désormais : match STRICT par sub-sector normalisé, pas de fallback sector.
+const SUBSECTOR_ALIASES: Record<string, string> = {
+  // Internet & ad-tech (GOOGL, META, etc.) — forme canonique GICS sub-industry
+  "internet services": "interactive media & services",
+  "internet services & digital advertising": "interactive media & services",
+  "internet & digital advertising": "interactive media & services",
+  "internet & search": "interactive media & services",
+  "social media & messaging": "interactive media & services",
+  "social media": "interactive media & services",
+  "interactive media": "interactive media & services",
+  "interactive media & services": "interactive media & services",
+  // Semis (NVDA, AVGO, AMD, etc.)
+  "semiconductors": "semiconductors",
+  "semiconductors & software": "semiconductors",
+  "semiconductors & semiconductor equipment": "semiconductors",
+  // Software (MSFT, ORCL, ADBE, etc.)
+  "software & services": "systems software",
+  "systems software": "systems software",
+  "application software": "application software",
+  // Tech hardware (AAPL, HPE, DELL)
+  "technology hardware & equipment": "technology hardware, storage & peripherals",
+  "technology hardware, storage & peripherals": "technology hardware, storage & peripherals",
+};
+
+function normalizeSubsector(s: string): string {
+  const k = s.trim().toLowerCase();
+  return SUBSECTOR_ALIASES[k] ?? k;
+}
+
+// Dédup par "famille" de ticker pour éviter GOOG/GOOGL, BRK.A/BRK.B,
+// FOX/FOXA, NWS/NWSA, etc. comme pairs distincts.
+function tickerFamily(t: string): string {
+  const u = t.toUpperCase();
+  // Alphabet
+  if (u === "GOOG" || u === "GOOGL") return "ALPHABET";
+  // Berkshire
+  if (u === "BRK.A" || u === "BRK.B" || u === "BRK-A" || u === "BRK-B") return "BERKSHIRE";
+  // Fox / News Corp
+  if (u === "FOX" || u === "FOXA") return "FOX";
+  if (u === "NWS" || u === "NWSA") return "NEWSCORP";
+  // Under Armour
+  if (u === "UA" || u === "UAA") return "UNDERARMOUR";
+  // ADR / local share twins (Same company listed both as US ADR and on home exchange)
+  if (u === "ASML" || u === "ASMLF") return "ASML";
+  if (u === "RY" || u === "RY.TO") return "RY";
+  if (u === "TD" || u === "TD.TO") return "TD";
+  if (u === "SHOP" || u === "SHOP.TO") return "SHOP";
+  if (u === "TM" || u === "7203.T") return "TOYOTA";
+  if (u === "SONY" || u === "6758.T") return "SONY";
+  return u;
+}
 
 for (const focal of registry) {
-  // Same sub-sector first
-  let candidates = registry.filter(
-    (r) => r.ticker !== focal.ticker && r.subsector && r.subsector === focal.subsector,
-  );
-  // Fallback : same sector if not enough
-  if (candidates.length < 3) {
-    const more = registry.filter(
-      (r) => r.ticker !== focal.ticker && r.sector && r.sector === focal.sector && r.subsector !== focal.subsector,
-    );
-    candidates = [...candidates, ...more];
+  const focalSub = normalizeSubsector(focal.subsector);
+  if (!focalSub) continue;
+  const focalFamily = tickerFamily(focal.ticker);
+
+  // STRICT : même sub-sector normalisé seulement, jamais fallback sector.
+  const seen = new Set<string>([focalFamily]);
+  const candidates = registry.filter((r) => {
+    if (r.ticker === focal.ticker) return false;
+    if (!r.subsector) return false;
+    if (normalizeSubsector(r.subsector) !== focalSub) return false;
+    const fam = tickerFamily(r.ticker);
+    if (seen.has(fam)) return false;
+    seen.add(fam);
+    return true;
+  });
+  if (candidates.length < PEERS_MIN) {
+    // Pas assez de vrais pairs : on supprime tout peers pré-existant (legacy
+    // bug : Apple peer de Google, etc.). Bloc UI se masque proprement.
+    const outPath = path.join(ENR, `${focal.ticker.toLowerCase()}.json`);
+    if (existsSync(outPath)) {
+      try {
+        const ex = JSON.parse(readFileSync(outPath, "utf-8")) as AnyRec;
+        if (ex.peers) {
+          delete ex.peers;
+          delete ex._peers_computed_at;
+          writeFileSync(outPath, JSON.stringify(ex, null, 2));
+        }
+      } catch {
+        // ignore
+      }
+    }
+    continue;
   }
-  if (candidates.length === 0) continue;
 
   // Sort by market_cap proximity to focal (ratio close to 1 = best peer)
   const focalMc = focal.market_cap_usd ?? 0;

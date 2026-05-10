@@ -1,6 +1,6 @@
 "use client";
 
-import { Building2, Users, Globe, Briefcase, TrendingUp, TrendingDown, ArrowRight, ExternalLink } from "lucide-react";
+import { Building2, Users, Globe, Briefcase, TrendingUp, TrendingDown, ArrowRight, ExternalLink, Newspaper } from "lucide-react";
 import Link from "next/link";
 import type { Company } from "@/lib/data";
 
@@ -28,8 +28,9 @@ export function CompanyProfileCard({ company, accent = "#a78bfa" }: { company: C
   const snap = company.financial_snapshot;
   const facts = company.key_facts;
   const peers = company.peers;
+  const news = company.latest_news;
 
-  const hasAnything = desc || snap || facts || (peers && peers.length > 0);
+  const hasAnything = news || desc || snap || facts || (peers && peers.length > 0);
   if (!hasAnything) return null;
 
   return (
@@ -40,13 +41,42 @@ export function CompanyProfileCard({ company, accent = "#a78bfa" }: { company: C
       </div>
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-        {/* Description (large card 2/3) */}
-        {desc && (
+        {/* Yann 10 mai 2026 : "À propos" remplacé par "Dernière actualité"
+            (résumé Gemini de la news la plus récente avec date). Si pas de
+            news encore enrichie pour cette sé, fallback sur description. */}
+        {news ? (
+          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5 lg:col-span-2">
+            <div className="mb-2 flex items-baseline justify-between gap-3">
+              <h3 className="flex items-center gap-2 font-display text-[14px] font-semibold uppercase tracking-wider text-zinc-300">
+                <Newspaper className="size-3.5" style={{ color: accent }} />
+                Dernière actualité
+              </h3>
+              <span className="font-mono text-[10.5px] uppercase tracking-wider text-zinc-500">
+                {fmtNewsDate(news.date)}
+                {news.source ? ` · ${news.source}` : ""}
+              </span>
+            </div>
+            <p className="mb-2 text-[14px] font-semibold leading-snug text-zinc-100">{news.headline}</p>
+            <p className="text-[13px] leading-relaxed text-zinc-300">{news.summary}</p>
+            {news.url && (
+              <a
+                href={news.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 inline-flex items-center gap-1 text-[12px] underline-offset-2 hover:underline"
+                style={{ color: accent }}
+              >
+                Lire la source
+                <ExternalLink className="size-3" />
+              </a>
+            )}
+          </div>
+        ) : desc ? (
           <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5 lg:col-span-2">
             <h3 className="mb-2 font-display text-[14px] font-semibold uppercase tracking-wider text-zinc-300">À propos</h3>
             <p className="text-[13.5px] leading-relaxed text-zinc-300 line-clamp-[10]">{desc}</p>
           </div>
-        )}
+        ) : null}
 
         {/* Snapshot boursier */}
         {snap && (
@@ -98,7 +128,7 @@ export function CompanyProfileCard({ company, accent = "#a78bfa" }: { company: C
               {facts.exchange && (
                 <li className="flex items-start gap-2">
                   <TrendingUp className="mt-0.5 size-3.5 shrink-0 text-zinc-500" />
-                  <span>Bourse : <span className="text-zinc-100">{facts.exchange}</span></span>
+                  <span>Bourse : <span className="text-zinc-100">{prettyExchange(facts.exchange)}</span></span>
                 </li>
               )}
               {facts.isin && (
@@ -133,7 +163,7 @@ export function CompanyProfileCard({ company, accent = "#a78bfa" }: { company: C
               Sociétés comparables
             </h3>
             <p className="mb-3 text-[11.5px] text-zinc-500">
-              Top {peers.length} sés du même sous-secteur, classées par taille proche de {company.ticker}.
+              {peers.length} sés de la sous-industrie {peers[0]?.subsector || company.subsector}, classées par taille proche de {company.ticker}.
             </p>
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3">
               {peers.map((p) => (
@@ -196,4 +226,65 @@ function fmtPct(n: number | null | undefined): string {
   if (n == null) return "—";
   const sign = n > 0 ? "+" : "";
   return `${sign}${n.toFixed(2).replace(".", ",")} %`;
+}
+
+function fmtNewsDate(iso: string): string {
+  try {
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return iso;
+    return d.toLocaleDateString("fr-FR", { day: "2-digit", month: "short", year: "numeric" });
+  } catch {
+    return iso;
+  }
+}
+
+/**
+ * Mappe les codes exchange yfinance vers des libellés clairs FR.
+ * NMS = NASDAQ Global Select, NGM = NASDAQ Global Market, NCM = NASDAQ Capital Market,
+ * NYQ = NYSE, ASE = NYSE American, PCX = NYSE Arca, BTS = BATS, OQX/OQB = OTC, etc.
+ */
+function prettyExchange(code: string): string {
+  const map: Record<string, string> = {
+    NMS: "NASDAQ",
+    NGM: "NASDAQ",
+    NCM: "NASDAQ",
+    NAS: "NASDAQ",
+    NASDAQ: "NASDAQ",
+    NYQ: "NYSE",
+    NYSE: "NYSE",
+    ASE: "NYSE American",
+    PCX: "NYSE Arca",
+    BTS: "Cboe BZX",
+    OQX: "OTC",
+    OQB: "OTC",
+    PNK: "OTC Pink",
+    LSE: "London Stock Exchange",
+    PAR: "Euronext Paris",
+    AMS: "Euronext Amsterdam",
+    BRU: "Euronext Bruxelles",
+    LIS: "Euronext Lisbonne",
+    GER: "Xetra (Francfort)",
+    FRA: "Bourse de Francfort",
+    SWX: "SIX Suisse",
+    EBS: "SIX Suisse",
+    MIL: "Borsa Italiana",
+    MCE: "BME (Madrid)",
+    STO: "Nasdaq Stockholm",
+    HEL: "Nasdaq Helsinki",
+    CPH: "Nasdaq Copenhague",
+    OSL: "Oslo Børs",
+    TOR: "TSX (Toronto)",
+    TSX: "TSX (Toronto)",
+    JPX: "Bourse de Tokyo",
+    TYO: "Bourse de Tokyo",
+    HKG: "Bourse de Hong Kong",
+    SHH: "Bourse de Shanghai",
+    SHZ: "Bourse de Shenzhen",
+    KSC: "Bourse de Corée",
+    ASX: "ASX (Australie)",
+    TAI: "Bourse de Taïwan",
+    SES: "SGX (Singapour)",
+  };
+  const trimmed = code.trim().toUpperCase();
+  return map[trimmed] ?? code;
 }

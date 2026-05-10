@@ -25,7 +25,7 @@ import { translate } from "@/lib/i18n/dictionary";
  */
 export const metadata = {
   title: "Tarifs · Mettrik AI",
-  description: "3 plans Mettrik AI : Découverte gratuit, Investisseur 24,90 €/mois, Pro+ 79 €/mois. 30 jours satisfait ou remboursé.",
+  description: "3 plans Mettrik AI : Découverte gratuit, Premium 24,90 €/mois, Max 79 €/mois.",
   robots: { index: false, follow: false },
 };
 
@@ -122,15 +122,6 @@ export default async function V18PricingPage() {
             <FaqItem q={t("pricing.faq_q2")} a={t("pricing.faq_a2")} />
             <FaqItem q={t("pricing.faq_q3")} a={t("pricing.faq_a3")} />
             <FaqItem q={t("pricing.faq_q4")} a={t("pricing.faq_a4")} />
-            <FaqItem q={t("pricing.faq_q5")} a={t("pricing.faq_a5")} />
-            <FaqItem
-              q="Quelles sociétés sont couvertes en Investisseur et Pro+ ?"
-              a="Plus de 1 000 sociétés américaines (S&P 500, S&P MidCap 400, Nasdaq) et européennes (CAC 40, DAX, FTSE 100, AEX, etc.). Le catalogue s'étoffe automatiquement chaque mois."
-            />
-            <FaqItem
-              q="Comment fonctionne la garantie 30 jours ?"
-              a="Si Mettrik AI ne te convient pas dans les 30 premiers jours, on te rembourse intégralement, sans question. Un email à contact@mettrik.ai suffit."
-            />
           </div>
         </section>
 

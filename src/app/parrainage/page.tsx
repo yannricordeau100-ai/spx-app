@@ -1,10 +1,12 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { getServerLocale } from "@/lib/i18n/server";
 import { translate } from "@/lib/i18n/dictionary";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { ParrainageClient } from "./client";
 import { DEFAULT_REFERRAL_SETTINGS } from "@/lib/referrals";
+import { isPageDisabled } from "@/lib/disabled-pages";
 
 export const dynamic = "force-dynamic";
 
@@ -18,6 +20,8 @@ export default async function ParrainagePage({
 }: {
   searchParams: Promise<{ code?: string }>;
 }) {
+  // Yann 10 mai 2026 : page désactivée (pas supprimée) via sandbox toggle.
+  if (isPageDisabled("/parrainage")) notFound();
   const locale = await getServerLocale();
   const t = (k: string) => translate(k, locale);
   const sp = await searchParams;

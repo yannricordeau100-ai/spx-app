@@ -47,26 +47,26 @@ export const PLANS: PlanDisplay[] = [
   },
   {
     tier: "investisseur",
-    name: "Investisseur",
+    name: "Premium",
     tagline: "L'essentiel pour suivre ton portefeuille au quotidien.",
     price_monthly_eur: 24.9,
     price_annual_eur: 199, // ≈ 16,6 €/mois facturé annuel = -33 % vs mensuel × 12
     annual_savings_label: "2 mois offerts vs mensuel",
     accent: "#a78bfa",
     highlight: true,
-    cta_label: "Choisir Investisseur",
+    cta_label: "Choisir Premium",
     audience: "Particuliers actifs avec 5 à 50 lignes en portefeuille.",
   },
   {
     tier: "pro_plus",
-    name: "Pro+",
+    name: "Max",
     tagline: "Outils avancés pour family offices, conseillers et fonds.",
     price_monthly_eur: 79,
     price_annual_eur: 699, // ≈ 58 €/mois facturé annuel = -26 % vs mensuel × 12
     annual_savings_label: "2 mois offerts vs mensuel",
     accent: "#22d3ee",
     highlight: false,
-    cta_label: "Passer en Pro+",
+    cta_label: "Passer en Max",
     audience: "Pros de la finance, family offices, gestionnaires de patrimoine.",
   },
 ];

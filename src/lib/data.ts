@@ -315,6 +315,20 @@ export type Company = {
     subsector: string;
     market_cap_usd: number | null;
   }>;
+  /**
+   * Dernière actualité communiquée par la société (PR officiel, ER, 8-K, IR
+   * page) résumée en 2-3 phrases FR via Gemini 2.5 Flash Lite (gratuit).
+   * Remplace le bloc "À propos" sur la fiche société quand présente.
+   * Mise à jour quotidienne via `scripts/enrich-latest-news-gemini.py`.
+   */
+  latest_news?: {
+    date: string; // ISO YYYY-MM-DD
+    headline: string;
+    summary: string; // 2-3 phrases FR
+    url?: string | null;
+    source?: string | null; // ex : "Press release", "8-K", "Earnings call"
+    fetched_at?: string;
+  };
 };
 
 export type ProfitWarning = {
