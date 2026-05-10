@@ -951,14 +951,14 @@ export const DICTIONARY: Dict = {
     de: "Wir verkaufen oder vermieten deine Daten nicht an Dritte. Keine Werbetracker, keine Datenhändler.",
   },
   "pricing.trust3_title": {
-    fr: "Pourquoi le forfait Max ?",
-    en: "Why the Max plan?",
-    de: "Warum das Max-Paket?",
+    fr: "Mises à jour automatiques après chaque earning",
+    en: "Automatic updates after every earnings release",
+    de: "Automatische Aktualisierungen nach jedem Earnings-Release",
   },
   "pricing.trust3_body": {
-    fr: "Vous ferez clairement parti du top 1% des investisseurs qui ont le plus d'informations sur le plus grand nombre de donnée quantifiable disponible, une telle richesse et diversité d'information fiable est-il un avantage compétitifs en tant qu'investisseurs ? Complétement.",
-    en: "You will clearly join the top 1% of investors with the most information across the largest set of quantifiable data available. Is such richness and diversity of reliable information a competitive edge as an investor? Completely.",
-    de: "Sie gehören klar zu den Top 1 % der Investoren mit den meisten Informationen über die größte Menge an verfügbaren quantifizierbaren Daten. Ist eine solche Fülle und Vielfalt zuverlässiger Informationen ein Wettbewerbsvorteil als Investor? Absolut.",
+    fr: "Dès qu'une société publie ses résultats trimestriels, ses KPI sont rafraîchis sur Mettrik. Tu vois directement la nouvelle valeur, le YoY recalculé, et l'impact sur le score qualité. Aucune saisie manuelle de ta part.",
+    en: "As soon as a company publishes its quarterly results, its KPIs are refreshed on Mettrik. You see the new value, the recalculated YoY, and the impact on the quality score. No manual entry on your end.",
+    de: "Sobald ein Unternehmen seine Quartalszahlen veröffentlicht, werden die KPIs auf Mettrik aktualisiert. Du siehst direkt den neuen Wert, das neu berechnete YoY und die Auswirkung auf den Qualitätsscore. Keine manuelle Eingabe deinerseits.",
   },
   "pricing.faq_title": {
     fr: "Questions fréquentes",
@@ -986,14 +986,14 @@ export const DICTIONARY: Dict = {
     de: "Von deinem Konto (Mein Profil > Abrechnung), ein Klick. Keine Strafe, dein Zugang bleibt bis zum Ende der bezahlten Periode aktiv.",
   },
   "pricing.faq_q3": {
-    fr: "Quelle différence entre Investisseur et Pro+ ?",
-    en: "What's the difference between Investor and Pro+?",
-    de: "Was ist der Unterschied zwischen Anleger und Pro+?",
+    fr: "Quelles sociétés sont couvertes en Premium et Max ?",
+    en: "Which companies are covered in Premium and Max?",
+    de: "Welche Unternehmen sind in Premium und Max abgedeckt?",
   },
   "pricing.faq_a3": {
-    fr: "Investisseur couvre les besoins d'un particulier qui suit son portefeuille (1 000+ sociétés, 50 favoris, 5 alertes email). Pro+ ajoute l'export PDF/CSV, l'accès API en lecture, l'historique 10 et 20 ans, et un support prioritaire — pensé pour les family offices et conseillers.",
-    en: "Investor covers the needs of an individual tracking a portfolio (1,000+ companies, 50 favorites, 5 email alerts). Pro+ adds PDF/CSV export, read-only API access, 10- and 20-year history, and priority support — designed for family offices and advisors.",
-    de: "Anleger deckt die Bedürfnisse eines Privatanlegers ab (1 000+ Unternehmen, 50 Favoriten, 5 E-Mail-Alarme). Pro+ ergänzt PDF/CSV-Export, Lese-API-Zugang, 10- und 20-Jahres-Historie sowie Priority-Support — für Family Offices und Berater.",
+    fr: "Bourses américaines : NYSE, NASDAQ (S&P 500, S&P MidCap 400, Nasdaq 100). Bourses européennes : Euronext Paris (CAC 40, SBF 120), Xetra (DAX), Bourse de Londres (FTSE 100), Borsa Italiana, BME Madrid, Euronext Amsterdam, SIX Suisse, Nasdaq Stockholm. Bourses asiatiques (en cours d'ajout) : Bourse de Tokyo (Japon), KRX (Corée), ASX (Australie), TWSE (Taïwan), SGX (Singapour). Le catalogue s'étoffe automatiquement chaque mois.",
+    en: "US exchanges: NYSE, NASDAQ (S&P 500, S&P MidCap 400, Nasdaq 100). European exchanges: Euronext Paris (CAC 40, SBF 120), Xetra (DAX), London Stock Exchange (FTSE 100), Borsa Italiana, BME Madrid, Euronext Amsterdam, SIX Swiss, Nasdaq Stockholm. Asian exchanges (rolling out): Tokyo Stock Exchange (Japan), KRX (Korea), ASX (Australia), TWSE (Taiwan), SGX (Singapore). The catalog grows automatically every month.",
+    de: "US-Börsen: NYSE, NASDAQ (S&P 500, S&P MidCap 400, Nasdaq 100). Europäische Börsen: Euronext Paris (CAC 40, SBF 120), Xetra (DAX), Londoner Börse (FTSE 100), Borsa Italiana, BME Madrid, Euronext Amsterdam, SIX Schweiz, Nasdaq Stockholm. Asiatische Börsen (im Aufbau): Tokioter Börse (Japan), KRX (Korea), ASX (Australien), TWSE (Taiwan), SGX (Singapur). Der Katalog wächst monatlich automatisch.",
   },
   "pricing.faq_q4": {
     fr: "Puis-je changer de plan plus tard ?",
@@ -1001,19 +1001,9 @@ export const DICTIONARY: Dict = {
     de: "Kann ich später meinen Plan ändern?",
   },
   "pricing.faq_a4": {
-    fr: "Oui, à tout moment. Si tu passes de Investisseur à Pro+, l'écart est facturé au prorata. Si tu downgrade, le changement prend effet à la prochaine échéance.",
-    en: "Yes, anytime. Upgrading from Investor to Pro+ is billed pro-rata. Downgrade takes effect at the next renewal.",
-    de: "Ja, jederzeit. Beim Upgrade von Anleger zu Pro+ wird die Differenz anteilig berechnet. Downgrade greift zur nächsten Verlängerung.",
-  },
-  "pricing.faq_q5": {
-    fr: "Les prix incluent-ils la TVA ?",
-    en: "Do prices include VAT?",
-    de: "Sind die Preise inklusive MwSt.?",
-  },
-  "pricing.faq_a5": {
-    fr: "Oui, les prix affichés sont TTC. La facturation est assurée par R consulting (Kreuzlingen, Suisse) qui n'est pas assujettie à la TVA.",
-    en: "Yes, prices shown include all taxes. Billing is handled by R consulting (Kreuzlingen, Switzerland), which is not VAT-registered.",
-    de: "Ja, alle Preise sind inklusive Steuern. Die Abrechnung erfolgt durch R consulting (Kreuzlingen, Schweiz), das nicht mehrwertsteuerpflichtig ist.",
+    fr: "Oui, à tout moment. Si tu passes de Premium à Max, l'écart est facturé au prorata. Si tu downgrade, le changement prend effet à la prochaine échéance.",
+    en: "Yes, anytime. Upgrading from Premium to Max is billed pro-rata. Downgrade takes effect at the next renewal.",
+    de: "Ja, jederzeit. Beim Upgrade von Premium zu Max wird die Differenz anteilig berechnet. Downgrade greift zur nächsten Verlängerung.",
   },
   "pricing.cta_final_title": {
     fr: "Prêt à voir tes sociétés sous un autre angle ?",
