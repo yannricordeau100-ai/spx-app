@@ -59,8 +59,18 @@ export default async function HomePage({
   // depuis Yann le 8 mai 2026 ; V1.7 reste pour le dév général sur tout
   // le pipeline, V1.8 = top 308 hors Chine pour le rendu vitrine).
   // Prod : root '/' = HomeView V1 (5 stés handcrafted).
+  // Yann 10 mai 2026 : on PROPAGE ?auth et ?next dans le redirect staging
+  // pour que /account (qui redirige vers /?auth=signin&next=/account)
+  // ouvre bien la AuthModal sur /sandbox/v1-8 au lieu de perdre les
+  // paramètres.
   if (IS_STAGING) {
-    redirect("/sandbox/v1-8");
+    const params = new URLSearchParams();
+    if (sp.auth) params.set("auth", sp.auth);
+    if (sp.next) params.set("next", sp.next);
+    if (sp.error) params.set("error", sp.error);
+    if (sp.info) params.set("info", sp.info);
+    const qs = params.toString();
+    redirect(qs ? `/sandbox/v1-8?${qs}` : "/sandbox/v1-8");
   }
 
   return (

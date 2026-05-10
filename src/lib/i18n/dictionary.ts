@@ -47,20 +47,25 @@ export const DICTIONARY: Dict = {
     fr: "L'application de KPI de sociétés la plus puissante au monde, tout simplement.",
     en: "",
   },
+  // Format strict (Yann 10 mai 2026, refacto Opus) : "part1 | part2".
+  // Le composant RotatingPunchline split sur ' | ', rend part1 (question /
+  // locuteur 1) en blanc-60 italique, et part2 (réponse / locuteur 2) en
+  // gradient violet→cyan en gras pour la mettre en avant. Saut de ligne
+  // logique avec une flèche cyan ↳ entre les deux parties.
   "home.punchline.1": {
-    fr: "*Conseiller bancaire sérieux* 👨‍💼👔 : vous n'avez rien de plus que les autres pour battre le marché ! *Moi confiant* : moi seul non, mais moi + Mettrik AI si",
+    fr: "*Conseiller bancaire sérieux* 👨‍💼 : « Vous n'avez rien de plus que les autres pour battre le marché. » | *Moi confiant* : Moi seul non. *Moi + Mettrik AI*, si.",
     en: "",
   },
   "home.punchline.2": {
-    fr: "*Conseiller bancaire sérieux* 👨‍💼👔 : vous n'arriverez pas à battre le marché ? *Moi confiant* : Moi seul sans informations non, mais Moi + Mettrik AI si",
+    fr: "*Conseiller bancaire sérieux* 👨‍💼 : « Vous n'arriverez pas à battre le marché. » | *Moi confiant* : Sans information, non. Avec *Mettrik AI*, si.",
     en: "",
   },
   "home.punchline.3": {
-    fr: "📚 📖 Question : Comment avoir un avantage compétitif sur vos collègues à la machine à café ? Réponse : Utiliser Mettrik AI 🤷🏼‍♂️",
+    fr: "📚 *Question* : Comment avoir un avantage compétitif sur vos collègues à la machine à café ? | *Réponse* : Utiliser *Mettrik AI*. 🤷🏼‍♂️",
     en: "",
   },
   "home.punchline.4": {
-    fr: "👦 Dis Papa, comment t'as eu et gardé un avantage compétitif par rapport aux autres ? 👨 J'utilise Mettrik AI mon fils, tout simplement.",
+    fr: "👦 *Le fils* : Dis Papa, comment t'as eu et gardé un avantage compétitif par rapport aux autres ? | 👨 *Le père* : J'utilise *Mettrik AI* mon fils, tout simplement.",
     en: "",
   },
   "brand.data_updated": {

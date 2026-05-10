@@ -188,8 +188,21 @@ export async function resetPassword(formData: FormData) {
 export async function signOut() {
   const supabase = await createSupabaseServerClient();
   await supabase.auth.signOut();
+  // Yann 10 mai 2026 : "je ne peux pas me deconnecter". Cause = sur
+  // staging, "/" redirige automatiquement vers /sandbox/v1-8, mais le
+  // cache RSC de /sandbox/v1-8 (qui rend l'AuthNav avec le statut user)
+  // n'etait pas invalide → l'user voyait toujours son avatar.
+  // Fix : revalider explicitement la route finale ET la layout pour
+  // que tous les server components qui regardent la session soient
+  // re-rendus. Plus redirect direct vers la home staging si applicable.
+  const isStaging =
+    process.env.VERCEL_GIT_COMMIT_REF === "staging" ||
+    process.env.NEXT_PUBLIC_DEPLOY_TARGET === "staging";
   revalidatePath("/", "layout");
-  redirect("/");
+  revalidatePath("/sandbox/v1-8", "layout");
+  revalidatePath("/sandbox/v1-8");
+  revalidatePath("/account");
+  redirect(isStaging ? "/sandbox/v1-8" : "/");
 }
 
 /* ─── Update password (user déjà connecté) ──────────────────────────── */

@@ -53,9 +53,9 @@ function DataFreshnessPill({ locale, freshnessKey }: { locale: string; freshness
     setDateLocal(fmt.format(refDate));
   }, [locale]);
   return (
-    <div className="inline-flex items-center gap-1.5 rounded-full border border-[#1f1f1f] bg-[#0a0a0a]/70 px-2.5 py-0.5 backdrop-blur">
-      <Sparkles className="size-2.5 text-violet-400" />
-      <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-400">
+    <div className="inline-flex items-center gap-1.5 rounded-full border border-[#1f1f1f] bg-[#0a0a0a]/70 px-3 py-1.5 backdrop-blur">
+      <Sparkles className="size-3 shrink-0 text-violet-400" aria-hidden />
+      <span className="font-mono text-[10px] uppercase leading-none tracking-[0.18em] text-zinc-400">
         {freshnessKey}{" "}
         <em className="not-italic font-mono italic text-zinc-200">
           {dateLocal ?? "…"}
@@ -276,44 +276,83 @@ function useLineCount(ref: React.RefObject<HTMLElement | null>, deps: unknown[])
 }
 
 /**
- * Rouleau casino : punchlines rotées aléatoirement. La précédente sort
- * vers le bas, la nouvelle entre par le haut. Durée : 5 s (1 ligne)
- * ou 9 s (2 lignes).
+ * RotatingPunchline (refacto Yann 10 mai 2026, specs Opus) :
+ *
+ * - Format strict : chaque punchline = "part1 | part2".
+ * - part1 (question / locuteur 1) : zinc-400 italique
+ * - part2 (réponse / locuteur 2) : gradient violet→cyan en gras pour
+ *   se démarquer + flèche cyan ↳ devant pour saut de ligne logique
+ * - Si la punchline ne contient pas " | " on la rend en bloc unique
+ *   (rétro-compatibilité)
+ * - Animation : opacity + y + blur avec easing expo-out doux
+ *   (out 600 ms, in 800 ms, durée affichage 6,5 s)
+ * - Part2 entre 120 ms après part1 (effet stagger premium)
  */
 function RotatingPunchline({ items }: { items: string[] }) {
   const [idx, setIdx] = useState(() => Math.floor(Math.random() * items.length));
-  const ref = useRef<HTMLParagraphElement>(null);
-  const lines = useLineCount(ref, [idx]);
 
   useEffect(() => {
     if (items.length <= 1) return;
-    const dur = lines === 1 ? 5000 : 9000;
     const t = setTimeout(() => {
       setIdx((prev) => {
         let next = Math.floor(Math.random() * items.length);
-        // Évite la même punchline 2 fois de suite.
         let safety = 0;
         while (next === prev && safety++ < 8) next = Math.floor(Math.random() * items.length);
         return next;
       });
-    }, dur);
+    }, 6500);
     return () => clearTimeout(t);
-  }, [idx, lines, items.length]);
+  }, [idx, items.length]);
+
+  const raw = items[idx] ?? "";
+  const sepIdx = raw.indexOf(" | ");
+  const part1 = sepIdx > 0 ? raw.slice(0, sepIdx).trim() : raw.trim();
+  const part2 = sepIdx > 0 ? raw.slice(sepIdx + 3).trim() : "";
+
+  const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
   return (
-    <div className="relative mx-auto mt-3 h-[88px] max-w-2xl sm:mt-4 sm:h-[96px]">
+    <div className="relative mx-auto mt-5 min-h-[120px] max-w-3xl sm:mt-6 sm:min-h-[136px]">
       <AnimatePresence mode="wait">
-        <motion.p
+        <motion.div
           key={idx}
-          ref={ref}
-          initial={{ y: -64, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 64, opacity: 0 }}
-          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute inset-x-0 text-balance text-center text-[14px] leading-[1.55] text-zinc-300 sm:text-[16px]"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5, ease }}
+          className="absolute inset-x-0 text-center"
         >
-          {renderPunchline(items[idx])}
-        </motion.p>
+          {/* part1 — question / locuteur 1, retrait visuel */}
+          <motion.p
+            initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            exit={{ opacity: 0, y: -12, filter: "blur(4px)" }}
+            transition={{ duration: 0.6, ease }}
+            className="text-balance font-display text-[18px] italic leading-[1.45] text-zinc-300/80 sm:text-[22px]"
+          >
+            {renderPunchline(part1)}
+          </motion.p>
+
+          {part2 && (
+            <motion.p
+              initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              exit={{ opacity: 0, y: -12, filter: "blur(4px)" }}
+              transition={{ duration: 0.7, ease, delay: 0.12 }}
+              className="mt-2 text-balance font-display text-[20px] font-semibold italic leading-[1.4] sm:mt-2.5 sm:text-[24px]"
+            >
+              <span className="mr-2 inline-block align-middle text-cyan-300/80" aria-hidden>
+                ↳
+              </span>
+              <span
+                className="bg-gradient-to-r from-violet-200 via-violet-100 to-cyan-200 bg-clip-text text-transparent"
+                style={{ WebkitBackgroundClip: "text", backgroundClip: "text" }}
+              >
+                {renderPunchline(part2)}
+              </span>
+            </motion.p>
+          )}
+        </motion.div>
       </AnimatePresence>
     </div>
   );
@@ -371,16 +410,20 @@ export function HomeView({
 
       <div className="relative mx-auto max-w-5xl px-4 pt-6 pb-16 sm:px-6 sm:pt-8">
         {/* Yann 10 mai 2026 : liens top-nav (Pricing / Contact) AU-DESSUS
-            du logo pour faciliter la conversion sans scroll. */}
+            du logo. Style 3D léger inspiré des boutons Connexion/S'inscrire :
+            ombre décalée 2px + bordure blanche subtile + translation -1px
+            au hover (effet "le bouton se rapproche de toi"). */}
         {topNavLinks && topNavLinks.length > 0 && (
-          <nav className="mb-4 flex justify-center gap-2 text-[12.5px]">
+          <nav className="mb-5 flex justify-center gap-3 text-[12.5px]">
             {topNavLinks.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                className="inline-flex items-center gap-1.5 rounded-full border border-violet-500/25 bg-violet-500/[0.08] px-3.5 py-1.5 font-semibold text-violet-100 transition-colors hover:border-violet-500/45 hover:bg-violet-500/15"
-              >
-                {l.label}
+              <a key={l.href} href={l.href} className="group relative inline-block">
+                <span
+                  aria-hidden
+                  className="absolute inset-0 translate-x-[2px] translate-y-[2px] rounded-md border border-white/25 transition-transform duration-200 ease-out group-hover:translate-x-[3px] group-hover:translate-y-[3px]"
+                />
+                <span className="relative z-10 inline-flex items-center gap-1.5 rounded-md border border-white/40 bg-[#0a0a0e]/85 px-3.5 py-1.5 font-semibold tracking-[0.02em] text-zinc-100 transition-transform duration-200 ease-out group-hover:-translate-x-[1px] group-hover:-translate-y-[1px]">
+                  {l.label}
+                </span>
               </a>
             ))}
           </nav>
