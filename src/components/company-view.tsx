@@ -59,7 +59,7 @@ import { CmdFSearch } from "@/components/cmdf-search";
 import { TranscriptStories, type TranscriptDoc } from "@/components/transcript-stories";
 import { V18MissingPlaceholder } from "@/components/v18-missing-placeholder";
 import { YoungIpoWarning } from "@/components/young-ipo-warning";
-import { MettrikWordmark } from "@/components/mettrik-wordmark";
+import { BrandWordmark } from "@/components/brand-wordmark";
 import { CompanyProfileCard } from "@/components/company-profile-card";
 
 const VISIBLE_KPI_COUNT = 6;
@@ -259,7 +259,7 @@ export function CompanyView({
             className="group inline-flex shrink-0 items-center gap-3 transition-opacity hover:opacity-90"
             aria-label={t("nav.home")}
           >
-            <MettrikWordmark size="sm" showRail={false} />
+            <BrandWordmark size="sm" animated={false} showRail={false} />
             <ArrowLeft className="size-4 text-zinc-500 transition-transform group-hover:-translate-x-0.5 group-hover:text-zinc-300" />
           </Link>
           <PageSearch variant="default" />

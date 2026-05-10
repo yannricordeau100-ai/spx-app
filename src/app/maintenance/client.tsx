@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 import type { Locale } from "@/lib/i18n/types";
 import { LocaleFlagsRow } from "@/components/locale-flags-row";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { MettrikWordmark } from "@/components/mettrik-wordmark";
+import { BrandWordmark } from "@/components/brand-wordmark";
 
 type Strings = {
   headline: string;
@@ -59,7 +59,7 @@ export function MaintenanceClient({
         <div className="mb-10">
           {/* Wordmark identique à /sandbox/v1-7 (BrandWordmark home) avec
               sous-titre "KPI Intelligence" + rail iridescent. Yann 8 mai 2026. */}
-          <MettrikWordmark size="lg" showSubtitle />
+          <BrandWordmark size="lg" showSubtitle showRail />
         </div>
 
         {/* Headline */}
