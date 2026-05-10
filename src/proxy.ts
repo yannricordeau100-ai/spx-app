@@ -129,7 +129,34 @@ export async function proxy(request: NextRequest) {
         const { COUNTRY_TO_LOCALE, DEFAULT_LOCALE } = await import("./lib/i18n/types");
         const { getCurrencyForCountry } = await import("./lib/currency");
         if (!hasLocaleCookie) {
-          detectedLocaleForCookie = COUNTRY_TO_LOCALE[country] ?? DEFAULT_LOCALE;
+          let baseLocale = COUNTRY_TO_LOCALE[country] ?? DEFAULT_LOCALE;
+          // ─── Raffinement BE et CH via Accept-Language ───
+          // L'IP donne uniquement le code pays. Pour distinguer les régions
+          // linguistiques de pays multilingues, on lit la pref du navigateur.
+          // Yann 10 mai 2026.
+          if (country === "CH" || country === "BE") {
+            const al = (request.headers.get("accept-language") ?? "").toLowerCase();
+            const first = al.split(",")[0]?.trim() ?? "";
+            if (country === "CH") {
+              // Suisse : 4 langues officielles (de, fr, it, rmsh).
+              //   - browser fr → fr
+              //   - browser it → en (italien pas supporté)
+              //   - sinon → de-CH (majorité 62 %)
+              if (first.startsWith("fr")) baseLocale = "fr";
+              else if (first.startsWith("de")) baseLocale = "de-CH";
+              else if (first.startsWith("it")) baseLocale = "en";
+              else baseLocale = "de-CH";
+            } else if (country === "BE") {
+              // Belgique : 3 langues officielles (nl, fr, de).
+              //   - browser nl → nl
+              //   - browser de → de
+              //   - sinon → fr (cohérent règle générale francophone)
+              if (first.startsWith("nl")) baseLocale = "nl";
+              else if (first.startsWith("de")) baseLocale = "de";
+              else baseLocale = "fr";
+            }
+          }
+          detectedLocaleForCookie = baseLocale;
         }
         if (!hasCurrencyCookie) {
           detectedCurrencyForCookie = getCurrencyForCountry(country);
