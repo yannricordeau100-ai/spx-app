@@ -61,6 +61,9 @@ function isPublicPath(pathname: string): boolean {
   // pipeline, audit V1.7, crédits LLM). Public car Yann le consulte
   // souvent sans vouloir signer. Aucune PII, aucune donnée client.
   if (pathname === "/sandbox/data-status") return true;
+  // /sandbox/i18n-audit = audit des traductions par langue (Yann visualise
+  // ce qui est couvert et ce qui manque). Pas de PII, public.
+  if (pathname === "/sandbox/i18n-audit") return true;
   return false;
 }
 
