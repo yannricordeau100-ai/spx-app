@@ -285,9 +285,15 @@ function PricingCard({
               <span className="text-[15px] font-medium text-zinc-400">€</span>
               <span className="ml-1 text-[12px] text-zinc-500">/mois</span>
             </div>
-            {/* Equivalence prix par jour, calculé sur le tarif annuel. */}
-            <div className="mt-0.5 text-[11px] text-zinc-500">
-              soit <span className="font-mono text-zinc-300">{dailyPrice.toFixed(2).replace(".", ",")} €</span>/jour
+            {/* Prix par jour mis en avant : pill emerald avec valeur en
+                gros, plus accrocheur que le micro-texte précédent. Yann
+                9 mai 2026 : "met le prix par jour plus en avant". */}
+            <div className="mt-2 inline-flex items-baseline gap-1 rounded-lg border border-emerald-500/30 bg-emerald-500/[0.10] px-2.5 py-1">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-200/80">soit</span>
+              <span className="font-mono text-[16px] font-bold text-emerald-200">
+                {dailyPrice.toFixed(2).replace(".", ",")} €
+              </span>
+              <span className="text-[11px] font-semibold text-emerald-200/80">/ jour</span>
             </div>
             <div className="mt-1 text-[11.5px] text-zinc-500">
               {isAnnual ? (
