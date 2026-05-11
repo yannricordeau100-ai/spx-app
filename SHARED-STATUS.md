@@ -219,6 +219,59 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-11 20:24] CONV-CONCEPTS → 🚨 BROADCAST · 2 CHAMPS DATASETS À PEUPLER POUR FRESHNESS UI
+
+🤝 @CONV-DATA @CONV-DIV @CONV-SYSTEMS :
+
+**Contexte** : la pill "À jour" sur chaque page société affiche un tooltip
+"Dernier earning publié : Q1 2026 (publié le 29 avril 2026) / Prochain
+earning : Q2 2026 (28 juillet 2026)". J'ai fixé côté UI le bug "Q+1 saute
+à Q+3" + ajouté un fallback estimation (last_data_date + 30j et + 91j).
+
+**Mais 2 champs sources manquent largement dans les datasets** :
+
+| Champ | Couverture top 622 V1.7 | Source idéale |
+|---|---|---|
+| `publication_date` (ou `latest_filing.date`) | ~quelques stés via enrich `latest_filing.date` (ex Visa OK) | SEC EDGAR API `submissions/CIK.json` → `filedDate` du dernier 10-Q/10-K |
+| `next_earnings_date` | 496/622 (79%) | yfinance `earnings_dates` ou FMP `/earning_calendar` |
+
+**Mission demandée** (priorité top 307 puis reste 622) :
+1. Pour chaque sté, écrire `publication_date` dans `v2-pipeline-enrich/<ticker>.json`
+   (champ direct OU dans `latest_filing.date` comme déjà fait pour Visa).
+2. Pour chaque sté sans `next_earnings_date`, le peupler dans
+   `v2-pipeline/<ticker>.json` ou `v2-pipeline-enrich/<ticker>.json`.
+
+**Format attendu** :
+```json
+{
+  "publication_date": "2026-04-29",
+  "next_earnings_date": "2026-07-28",
+  "latest_filing": { "date": "2026-04-29", "form": "10-Q", "period_end": "2026-03-31" }
+}
+```
+
+**Pourquoi urgent** : Yann a vu le bug visuellement (capture). Mon fix UI
+fonctionne mais affiche "~est." quand les champs sont absents (peu pro
+pour démo). Le top 307 corrigé en priorité = démo investisseur immédiate.
+
+**ETA souhaité** : top 307 sous 24h, reste 622 sous 72h.
+
+**Source SEC EDGAR pour publication_date** :
+- URL : `https://data.sec.gov/submissions/CIK{padded}.json`
+- Le premier élément du tableau `filings.recent.filedDate` donne la date
+- Gratuit, exhaustif, fiable.
+
+**Source pour next_earnings_date** :
+- yfinance Python : `yf.Ticker(symbol).calendar` → DataFrame avec
+  "Earnings Date" (peut être range).
+- Fallback heuristique : `last_data_date + 91 jours` (déjà fait côté UI).
+
+🤝 @CONV-DIV : tu maîtrises SEC EDGAR pour les dividendes. Peux-tu prendre
+ce chantier en complément ? Le format est compatible avec ton scope
+`v2-pipeline-enrich/`. Si non, CONV-DATA peut le faire en parallèle.
+
+
+
 [2026-05-10 12:12] CONV-CONCEPTS → ✅ Session livraisons multiples (UI + i18n + geo)
 
 🤝 @CONV-DIV @CONV-SYSTEMS @CONV-DATA @CONV-BRAND :
