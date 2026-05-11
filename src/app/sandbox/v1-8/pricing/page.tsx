@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { cookies } from "next/headers";
 import { ArrowLeft, Check, Sparkles, Shield, Zap, Mail } from "lucide-react";
 import { PricingCards } from "@/components/billing/pricing-cards";
 import { PricingMatrix } from "@/components/billing/pricing-matrix";
@@ -7,6 +8,19 @@ import { BrandWordmark } from "@/components/brand-wordmark";
 import { loadPricingCatalog } from "@/lib/billing/load-pricing";
 import { getServerLocale } from "@/lib/i18n/server";
 import { translate } from "@/lib/i18n/dictionary";
+
+/**
+ * Lit le cookie `mettrik:currency` posé par proxy.ts selon
+ * x-vercel-ip-country (Yann en CH → CHF, US → USD, etc.). Fallback EUR.
+ */
+async function detectCurrency(): Promise<string> {
+  try {
+    const c = await cookies();
+    const v = c.get("mettrik:currency")?.value?.toUpperCase();
+    if (v && ["EUR", "USD", "GBP", "CHF", "SEK", "DKK", "CAD"].includes(v)) return v;
+  } catch {}
+  return "EUR";
+}
 
 /**
  * /sandbox/v1-8/pricing — page tarifs sales-optimized.
@@ -32,6 +46,7 @@ export const metadata = {
 
 export default async function V18PricingPage() {
   const catalog = await loadPricingCatalog();
+  const currency = await detectCurrency();
   const locale = await getServerLocale();
   const t = (k: string) => translate(k, locale);
   return (
@@ -90,7 +105,7 @@ export default async function V18PricingPage() {
 
         {/* PLAN CARDS */}
         <div className="mx-auto mt-14 max-w-5xl">
-          <PricingCards ctaTrackingPrefix="v18_top_" plans={catalog.plans} features={catalog.features} />
+          <PricingCards ctaTrackingPrefix="v18_top_" plans={catalog.plans} features={catalog.features} currency={currency} />
         </div>
 
         {/* MATRICE FEATURES */}

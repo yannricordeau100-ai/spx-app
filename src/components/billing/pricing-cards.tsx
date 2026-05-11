@@ -33,21 +33,19 @@ export function PricingCards({
   ctaTrackingPrefix = "",
   plans: plansProp,
   features: featuresProp,
+  currency = "EUR",
 }: {
   ctaTrackingPrefix?: string;
-  /**
-   * Plans à afficher. Yann 8 mai 2026 : prop optionnel pour permettre à
-   * la page server de passer les plans depuis la BDD via `loadPricingCatalog()`.
-   * Sans prop, fallback sur les plans hardcodés `plans.ts`.
-   */
   plans?: PricingCardPlan[];
-  /**
-   * Liste des features depuis la BDD. Yann 9 mai 2026 : les bullet points
-   * dans les cards doivent venir des fonctionnalités du catalogue (= ce
-   * qui est saisi en back office), pas d'une liste hardcodée. Si non
-   * fourni, fallback sur la liste statique.
-   */
   features?: FeatureRow[];
+  /**
+   * Devise du visiteur (EUR/USD/GBP/CHF/SEK/DKK/CAD), détectée par le
+   * proxy.ts via x-vercel-ip-country et passée depuis le Server Component
+   * parent (cookie mettrik:currency). Fallback EUR.
+   * Yann (11 mai 2026) : "j'ai activé EUR + CHF mais je vois toujours EUR
+   * depuis ma connexion suisse" — bug = currency hardcodé.
+   */
+  currency?: string;
 }) {
   const PLANS = plansProp && plansProp.length > 0 ? plansProp : FALLBACK_PLANS;
   const FEATURES = featuresProp && featuresProp.length > 0 ? featuresProp : FALLBACK_FEATURES;
@@ -110,6 +108,7 @@ export function PricingCards({
             onSwitch={setBilling}
             prefix={ctaTrackingPrefix}
             features={FEATURES}
+            currency={currency}
           />
         ))}
       </div>
@@ -197,12 +196,13 @@ function PricingCard({
   onSwitch,
   prefix,
   features,
+  currency = "EUR",
 }: {
   plan: PricingCardPlan;
   billing: "monthly" | "annual";
-  /** Callback pour switcher la période depuis l'intérieur de la card. */
   onSwitch?: (b: "monthly" | "annual") => void;
   prefix: string;
+  currency?: string;
   /** Catalogue features (BDD ou fallback) pour générer les bullets dynamiquement. */
   features?: FeatureRow[];
 }) {
@@ -222,9 +222,8 @@ function PricingCard({
   let stripePriceId: string | null = null;
   let currencyActive = true;
   if (!isFreeOrApi) {
-    // Lookup le prix dans la devise courante (EUR par défaut côté SSR,
-    // le proxy a posé le cookie mettrik:currency selon IP).
-    const currency = "EUR"; // TODO côté server : passer en prop pour matcher cookie
+    // Devise du visiteur passée en prop depuis le Server Component
+    // (lecture cookie mettrik:currency posé par proxy selon IP).
     const freqKey = isAnnual ? "annual" : "monthly";
     const entry = plan.prices?.[currency]?.[freqKey];
     if (entry?.stripe_price_id && entry.active) {
@@ -267,12 +266,18 @@ function PricingCard({
     .slice(0, 8);
   const bulletList = bulletFeatures.length > 0 ? bulletFeatures : topFeatures(plan.tier);
 
-  // Yann 9 mai 2026 : prix par jour pour les plans payants (rendre le
-  // tarif plus accessible psychologiquement). On calcule TOUJOURS sur
-  // le prix annuel (moins cher), pas sur le prix mensuel courant. C'est
-  // le tarif le plus avantageux et celui qui donne le vrai "argument
-  // par jour" à montrer au visiteur.
-  const dailyPrice = plan.price_annual_eur > 0 ? plan.price_annual_eur / 365 : 0;
+  // Yann (11 mai 2026) : prix dans la devise du visiteur, pas EUR forcé.
+  // Lookup BDD plan.prices[currency], fallback EUR si pas activé.
+  const currencyMonthly = plan.prices?.[currency]?.monthly?.amount;
+  const currencyAnnual = plan.prices?.[currency]?.annual?.amount;
+  const eurMonthly = plan.prices?.EUR?.monthly?.amount ?? plan.price_monthly_eur;
+  const eurAnnual = plan.prices?.EUR?.annual?.amount ?? plan.price_annual_eur;
+  // Si la devise demandée a un prix actif → l'utiliser, sinon fallback EUR
+  const displayMonthly = (currencyMonthly && currencyMonthly > 0) ? currencyMonthly : eurMonthly;
+  const displayAnnual = (currencyAnnual && currencyAnnual > 0) ? currencyAnnual : eurAnnual;
+  const displayCurrency = (currencyMonthly && currencyMonthly > 0) ? currency : "EUR";
+  const currencySymbol = ({ EUR: "€", USD: "$", GBP: "£", CHF: "CHF", SEK: "kr", DKK: "kr", CAD: "$" } as Record<string, string>)[displayCurrency] ?? displayCurrency;
+  const dailyPrice = displayAnnual > 0 ? displayAnnual / 365 : 0;
 
   return (
     <div
@@ -301,11 +306,11 @@ function PricingCard({
           horizontalement (le free a juste '0 €' alors que les payants
           ont prix mensuel + pill prix/jour + ligne 'soit X €/an'). */}
       <div className="mt-5 min-h-[180px]">
-        {plan.price_monthly_eur === 0 ? (
+        {displayMonthly === 0 ? (
           <>
             <div className="flex items-baseline gap-1.5">
               <span className="font-display text-[44px] font-bold leading-none tracking-tight text-zinc-50">0</span>
-              <span className="text-[15px] font-medium text-zinc-400">€</span>
+              <span className="text-[15px] font-medium text-zinc-400">{currencySymbol}</span>
               <span className="ml-1 text-[12px] text-zinc-500">/mois</span>
             </div>
             <div className="mt-1 text-[11.5px] text-zinc-500">{plan.annual_savings_label}</div>
@@ -315,9 +320,9 @@ function PricingCard({
             {/* Prix principal : celui sélectionné par le toggle (gros caractères) */}
             <div className="flex items-baseline gap-1.5">
               <span className="font-display text-[44px] font-bold leading-none tracking-tight text-zinc-50">
-                {(isAnnual ? monthlyEquivalent(plan) : plan.price_monthly_eur).toFixed(2).replace(".", ",")}
+                {(isAnnual ? (displayAnnual > 0 ? displayAnnual / 12 : 0) : displayMonthly).toFixed(2).replace(".", ",")}
               </span>
-              <span className="text-[15px] font-medium text-zinc-400">€</span>
+              <span className="text-[15px] font-medium text-zinc-400">{currencySymbol}</span>
               <span className="ml-1 text-[12px] text-zinc-500">/mois</span>
             </div>
             {/* Prix par jour fortement mis en avant : pleine largeur,
@@ -331,13 +336,13 @@ function PricingCard({
               <span className="font-display text-[30px] font-bold leading-none tracking-tight text-emerald-100">
                 {dailyPrice.toFixed(2).replace(".", ",")}
               </span>
-              <span className="text-[14px] font-semibold text-emerald-200">€</span>
+              <span className="text-[14px] font-semibold text-emerald-200">{currencySymbol}</span>
               <span className="text-[12px] font-semibold uppercase tracking-wider text-emerald-300/80">/ jour</span>
             </div>
             <div className="mt-1 text-[11.5px] text-zinc-500">
               {isAnnual ? (
                 <>
-                  Soit <strong className="text-zinc-300">{plan.price_annual_eur} €</strong> facturés annuellement
+                  Soit <strong className="text-zinc-300">{displayAnnual} {currencySymbol}</strong> facturés annuellement
                   <span className="ml-1 text-emerald-300">· {plan.annual_savings_label}</span>
                 </>
               ) : (
