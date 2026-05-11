@@ -6,12 +6,12 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import { Mail, Lock, X, Sparkles, ArrowLeft, Loader2 } from "lucide-react";
 import {
-  signInWithPassword,
   signUpWithPassword,
   signInWithMagicLink,
   signInWithGoogle,
   requestPasswordReset,
 } from "@/app/auth/actions";
+import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { useT } from "@/lib/i18n/provider";
 
 /**
@@ -70,6 +70,48 @@ export function AuthModal() {
 
   const [mode, setMode] = useState<Mode>(initialMode);
   const [email, setEmail] = useState("");
+  // Yann (11 mai 2026) : signin client-side direct au lieu de Server Action.
+  // Bénéfice : feedback immédiat, erreur visible, plus de "20 sec et pas
+  // connecté" (cookie posé instantanément côté browser, pas de race condition
+  // avec le redirect serveur).
+  const [signinErr, setSigninErr] = useState<string | null>(null);
+  const [signinBusy, setSigninBusy] = useState(false);
+
+  async function handleSigninClient(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setSigninErr(null);
+    setSigninBusy(true);
+    const fd = new FormData(e.currentTarget);
+    const emailV = String(fd.get("email") ?? "").trim();
+    const passwordV = String(fd.get("password") ?? "");
+    if (!emailV || !passwordV) {
+      setSigninErr("Email + mot de passe requis");
+      setSigninBusy(false);
+      return;
+    }
+    try {
+      const supa = createSupabaseBrowserClient();
+      const { data, error } = await supa.auth.signInWithPassword({ email: emailV, password: passwordV });
+      if (error || !data.session) {
+        setSigninErr(
+          error?.message?.includes("Invalid login")
+            ? "Email ou mot de passe incorrect."
+            : error?.message?.includes("Email not confirmed")
+              ? "Email pas encore confirmé. Vérifie ta boîte mail."
+              : (error?.message ?? "Connexion impossible. Réessaie dans un instant."),
+        );
+        setSigninBusy(false);
+        return;
+      }
+      // Cookie session déjà posé par Supabase JS. Redirige vers next ou home.
+      const target = nextParam && nextParam.startsWith("/") && !nextParam.startsWith("//") ? nextParam : "/";
+      // window.location.href force un round-trip serveur → cookies relus, layout RSC re-render proprement
+      window.location.href = target;
+    } catch (err) {
+      setSigninErr("Erreur réseau. Réessaie.");
+      setSigninBusy(false);
+    }
+  }
   // Conserve le `next` URL pour le passer en hidden input à tous les forms
   // d'auth (password, signup, magic link, Google). Sinon le user atterrit
   // sur /account au lieu de la page d'origine (ex: /parrainage).
@@ -268,44 +310,76 @@ export function AuthModal() {
                   <span className="h-px flex-1 bg-white/10" />
                 </div>
 
-                <form
-                  action={mode === "signin" ? signInWithPassword : signUpWithPassword}
-                  className="relative space-y-2.5"
-                >
-                  <input type="hidden" name="next" value={nextParam} />
-                  <Field icon={<Mail className="size-4" />}>
-                    <input
-                      type="email"
-                      name="email"
-                      required
-                      autoComplete="email"
-                      placeholder={t("auth.field.email")}
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="w-full bg-transparent text-sm text-zinc-100 outline-none placeholder:text-zinc-500"
-                    />
-                  </Field>
-                  <Field icon={<Lock className="size-4" />}>
-                    <input
-                      type="password"
-                      name="password"
-                      required
-                      minLength={mode === "signup" ? 8 : undefined}
-                      autoComplete={
-                        mode === "signin" ? "current-password" : "new-password"
-                      }
-                      placeholder={
-                        mode === "signup"
-                          ? t("auth.field.password_min")
-                          : t("auth.field.password")
-                      }
-                      className="w-full bg-transparent text-sm text-zinc-100 outline-none placeholder:text-zinc-500"
-                    />
-                  </Field>
-                  <SubmitButton>
-                    {mode === "signin" ? t("auth.cta.signin") : t("auth.cta.signup")}
-                  </SubmitButton>
-                </form>
+                {mode === "signin" ? (
+                  // Yann (11 mai 2026) : signin via Supabase JS browser direct.
+                  // Plus rapide + erreur instantanée + cookie posé côté client
+                  // (plus de "20 sec et toujours pas connecté").
+                  <form onSubmit={handleSigninClient} className="relative space-y-2.5">
+                    <Field icon={<Mail className="size-4" />}>
+                      <input
+                        type="email"
+                        name="email"
+                        required
+                        autoComplete="email"
+                        placeholder={t("auth.field.email")}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="w-full bg-transparent text-sm text-zinc-100 outline-none placeholder:text-zinc-500"
+                      />
+                    </Field>
+                    <Field icon={<Lock className="size-4" />}>
+                      <input
+                        type="password"
+                        name="password"
+                        required
+                        autoComplete="current-password"
+                        placeholder={t("auth.field.password")}
+                        className="w-full bg-transparent text-sm text-zinc-100 outline-none placeholder:text-zinc-500"
+                      />
+                    </Field>
+                    {signinErr && (
+                      <div className="rounded-lg border border-rose-500/30 bg-rose-500/10 px-3 py-2 text-[12.5px] text-rose-200">
+                        {signinErr}
+                      </div>
+                    )}
+                    <button
+                      type="submit"
+                      disabled={signinBusy}
+                      className="mt-1 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-violet-500 px-3 py-2.5 text-sm font-semibold text-white shadow-[0_8px_24px_-10px_rgba(139,92,246,0.7)] transition-colors hover:bg-violet-400 disabled:opacity-70 disabled:cursor-wait"
+                    >
+                      {signinBusy && <Loader2 className="size-4 animate-spin" />}
+                      {signinBusy ? "Connexion…" : t("auth.cta.signin")}
+                    </button>
+                  </form>
+                ) : (
+                  <form action={signUpWithPassword} className="relative space-y-2.5">
+                    <input type="hidden" name="next" value={nextParam} />
+                    <Field icon={<Mail className="size-4" />}>
+                      <input
+                        type="email"
+                        name="email"
+                        required
+                        autoComplete="email"
+                        placeholder={t("auth.field.email")}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="w-full bg-transparent text-sm text-zinc-100 outline-none placeholder:text-zinc-500"
+                      />
+                    </Field>
+                    <Field icon={<Lock className="size-4" />}>
+                      <input
+                        type="password"
+                        name="password"
+                        required
+                        minLength={8}
+                        autoComplete="new-password"
+                        placeholder={t("auth.field.password_min")}
+                        className="w-full bg-transparent text-sm text-zinc-100 outline-none placeholder:text-zinc-500"
+                      />
+                    </Field>
+                    <SubmitButton>{t("auth.cta.signup")}</SubmitButton>
+                  </form>
+                )}
 
                 {mode === "signin" && (
                   <div className="relative mt-3 text-right">
