@@ -53,7 +53,8 @@ function formatApproxDate(iso?: string, locale: string = "fr"): string | null {
   }
 }
 
-/** Convertit une date ISO en label trimestre ("Q4 2025"). */
+/** Convertit une date ISO en label trimestre ("Q4 2025").
+ * Utilisé sur la FIN de période fiscale (ex : 2026-03-31 → Q1 2026). */
 function quarterFromIso(iso?: string): string | null {
   if (!iso) return null;
   try {
@@ -64,6 +65,33 @@ function quarterFromIso(iso?: string): string | null {
   } catch {
     return null;
   }
+}
+
+/**
+ * Retourne le trimestre suivant un label "Q{n} YYYY".
+ * Q1 2026 → Q2 2026, Q4 2025 → Q1 2026.
+ *
+ * Yann 11 mai 2026 : règle obligatoire pour le tooltip "À jour".
+ * Le PROCHAIN earning report publiera le trimestre N+1 du DERNIER publié.
+ * Avant ce fix, on calculait le quarter depuis la date de publication
+ * future (ex : juillet → Q3) ce qui sautait un trimestre (Q1 → Q3 au
+ * lieu de Q1 → Q2).
+ *
+ * Source de vérité = dernier 10-Q / 10-K SEC (lastDate = fin de période
+ * fiscale du dernier filing publié). Le prochain = +1 trimestre avec
+ * wrap d'année.
+ */
+function nextQuarterAfter(qLabel: string | null): string | null {
+  if (!qLabel) return null;
+  const m = qLabel.match(/^Q([1-4])\s+(\d{4})$/);
+  if (!m) return null;
+  let q = parseInt(m[1], 10) + 1;
+  let y = parseInt(m[2], 10);
+  if (q > 4) {
+    q = 1;
+    y += 1;
+  }
+  return `Q${q} ${y}`;
 }
 
 /**
@@ -112,7 +140,12 @@ export function FreshnessIndicator({
   const lastFormatted = formatApproxDate(lastDate, locale);
   const lastQuarter = quarterFromIso(lastDate);
   const nextFormatted = formatApproxDate(nextEarningsDate, locale);
-  const nextQuarter = quarterFromIso(nextEarningsDate);
+  // Le prochain trimestre est TOUJOURS celui qui suit le dernier publié,
+  // PAS le trimestre dans lequel tombe la date de publication future
+  // (sinon Q1 publié en avril → next earning en juillet calculait Q3 au
+  // lieu de Q2). Fallback sur quarterFromIso seulement si lastQuarter
+  // est absent (très rare). Yann 11 mai 2026.
+  const nextQuarter = nextQuarterAfter(lastQuarter) ?? quarterFromIso(nextEarningsDate);
 
   return (
     <span
