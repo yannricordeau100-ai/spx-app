@@ -34,9 +34,23 @@ function normalizePlanCode(code: string): PlanTier {
   return c as PlanTier;
 }
 
+/**
+ * Yann (11 mai 2026) : enrichissement pour que pricing-cards lise
+ * directement les stripe_price_id depuis la BDD (plus besoin du JSON
+ * statique stripe-products.json). Inclut aussi `active` par devise ×
+ * fréquence pour griser les CTAs des devises non encore activées.
+ */
+export type PriceEntry = {
+  amount?: number;
+  stripe_price_id?: string | null;
+  active?: boolean;
+};
+
 export type LoadedPlan = PlanDisplay & {
-  /** Prix par devise + fréquence. EUR/monthly utilisé en display par défaut. */
-  prices: Record<string, { monthly?: number; annual?: number }>;
+  /** Code BDD canonique (free, premium, max, …). Utile pour le checkout. */
+  code: string;
+  /** Prix par devise + fréquence avec stripe ID + état actif. */
+  prices: Record<string, { monthly?: PriceEntry; annual?: PriceEntry }>;
 };
 
 /**
@@ -67,25 +81,34 @@ export async function loadPricingForPublic(): Promise<LoadedPlan[]> {
 
     if (plansErr || !plans || plans.length === 0) {
       // Migration pas appliquée OU BDD vide → fallback
-      return FALLBACK_PLANS.map((p) => ({ ...p, prices: defaultPricesForTier(p.tier) }));
+      return FALLBACK_PLANS.map((p) => ({ ...p, code: p.tier, prices: defaultPricesForTier(p.tier) }));
     }
 
-    const { data: prices } = await supabase.from("pricing_prices").select("*").eq("is_active", true);
-    const pricesByPlan = new Map<string, Record<string, { monthly?: number; annual?: number }>>();
+    // Yann (11 mai 2026) : on lit TOUS les prix (actifs ou pas) pour
+    // pouvoir griser les CTAs des devises non encore activées au lieu
+    // de les masquer. Le filtre is_active est appliqué côté front en
+    // lisant `prices[currency].monthly.active`.
+    const { data: prices } = await supabase.from("pricing_prices").select("*");
+    const pricesByPlan = new Map<string, Record<string, { monthly?: PriceEntry; annual?: PriceEntry }>>();
     for (const pr of prices ?? []) {
       if (!pricesByPlan.has(pr.plan_id)) pricesByPlan.set(pr.plan_id, {});
       const byCurrency = pricesByPlan.get(pr.plan_id)!;
       if (!byCurrency[pr.currency]) byCurrency[pr.currency] = {};
-      byCurrency[pr.currency][pr.frequency as "monthly" | "annual"] = Number(pr.amount_decimal);
+      byCurrency[pr.currency][pr.frequency as "monthly" | "annual"] = {
+        amount: Number(pr.amount_decimal),
+        stripe_price_id: pr.stripe_price_id,
+        active: !!pr.is_active,
+      };
     }
 
     return plans.map((dbPlan): LoadedPlan => {
       const tier = normalizePlanCode(dbPlan.code);
-      const tierPrices = pricesByPlan.get(dbPlan.id) ?? {};
-      const eurMonthly = tierPrices.EUR?.monthly ?? 0;
-      const eurAnnual = tierPrices.EUR?.annual ?? 0;
+      const tierPrices = pricesByPlan.get(dbPlan.id) ?? {} as Record<string, { monthly?: PriceEntry; annual?: PriceEntry }>;
+      const eurMonthly = tierPrices.EUR?.monthly?.amount ?? 0;
+      const eurAnnual = tierPrices.EUR?.annual?.amount ?? 0;
       return {
         tier,
+        code: dbPlan.code,
         name: dbPlan.name_fr ?? "",
         tagline: dbPlan.tagline_fr ?? "",
         price_monthly_eur: eurMonthly,
@@ -104,26 +127,45 @@ export async function loadPricingForPublic(): Promise<LoadedPlan[]> {
   } catch {
     // Toute erreur → fallback silencieux (la page front doit toujours
     // marcher, même si la BDD est down).
-    return FALLBACK_PLANS.map((p) => ({ ...p, prices: defaultPricesForTier(p.tier) }));
+    return FALLBACK_PLANS.map((p) => ({ ...p, code: p.tier, prices: defaultPricesForTier(p.tier) }));
   }
 }
 
 /** Prix par défaut (sourcés du plans.ts hardcoded) si BDD vide. */
-function defaultPricesForTier(tier: PlanTier): Record<string, { monthly?: number; annual?: number }> {
+function defaultPricesForTier(tier: PlanTier): Record<string, { monthly?: PriceEntry; annual?: PriceEntry }> {
   const fallback = FALLBACK_PLANS.find((p) => p.tier === tier);
   if (!fallback) return {};
   return {
-    EUR: { monthly: fallback.price_monthly_eur, annual: fallback.price_annual_eur },
+    EUR: {
+      monthly: { amount: fallback.price_monthly_eur, active: true },
+      annual: { amount: fallback.price_annual_eur, active: true },
+    },
   };
 }
 
 /** Helper : prix display pour une devise donnée, avec fallback EUR si absent. */
 export function priceFor(plan: LoadedPlan, currency: Currency, frequency: Frequency): number | null {
-  const v = plan.prices[currency]?.[frequency];
-  if (typeof v === "number") return v;
+  const v = plan.prices[currency]?.[frequency]?.amount;
+  if (typeof v === "number" && v > 0) return v;
   // Fallback : EUR
-  const eur = plan.prices.EUR?.[frequency];
+  const eur = plan.prices.EUR?.[frequency]?.amount;
   return typeof eur === "number" ? eur : null;
+}
+
+/**
+ * Renvoie les infos checkout pour un plan + devise + fréquence :
+ * - stripe_price_id pour passer au /api/billing/checkout
+ * - active : true si la devise est activée par Yann pour ce plan
+ * Si null → pas de checkout possible (CTA grisé "bientôt dispo").
+ */
+export function checkoutInfoFor(
+  plan: LoadedPlan,
+  currency: Currency,
+  frequency: Frequency,
+): { stripe_price_id: string; active: boolean } | null {
+  const entry = plan.prices[currency]?.[frequency];
+  if (!entry?.stripe_price_id) return null;
+  return { stripe_price_id: entry.stripe_price_id, active: !!entry.active };
 }
 
 /**

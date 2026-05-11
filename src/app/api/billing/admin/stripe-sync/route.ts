@@ -47,26 +47,41 @@ export async function POST() {
       });
     }
 
-    for (const pr of prices.filter((p) => p.plan_id === plan.id && p.is_active)) {
-      if (pr.stripe_price_id) {
-        // déjà sync, ignorer (Stripe ne permet pas d'updater un Price)
-        continue;
+    // Yann (11 mai 2026) : on traite TOUS les prix du plan (actifs + inactifs)
+    // pour pouvoir aussi archiver côté Stripe quand Yann désactive une devise.
+    for (const pr of prices.filter((p) => p.plan_id === plan.id && p.amount_decimal > 0)) {
+      if (pr.is_active && !pr.stripe_price_id) {
+        // ACTIF + pas encore sync → créer dans Stripe
+        const unitAmount = Math.round(pr.amount_decimal * 100);
+        const newPrice = await stripe.prices.create({
+          product: productId,
+          unit_amount: unitAmount,
+          currency: pr.currency.toLowerCase(),
+          recurring: { interval: pr.frequency === "monthly" ? "month" : "year" },
+          metadata: {
+            plan_code: plan.code,
+            frequency: pr.frequency,
+            mettrik_price_local_id: pr.id,
+          },
+        });
+        await upsertPrice({ id: pr.id, stripe_price_id: newPrice.id });
+        created++;
+      } else if (!pr.is_active && pr.stripe_price_id) {
+        // INACTIF + déjà sync → archiver côté Stripe (jamais delete)
+        try {
+          await stripe.prices.update(pr.stripe_price_id, { active: false });
+          updated++;
+        } catch {
+          // ignore : Stripe peut refuser si déjà archivé
+        }
+      } else if (pr.is_active && pr.stripe_price_id) {
+        // ACTIF + déjà sync → s'assurer que Stripe le considère actif
+        try {
+          await stripe.prices.update(pr.stripe_price_id, { active: true });
+        } catch {
+          // ignore
+        }
       }
-      // Stripe stocke en cents
-      const unitAmount = Math.round(pr.amount_decimal * 100);
-      const newPrice = await stripe.prices.create({
-        product: productId,
-        unit_amount: unitAmount,
-        currency: pr.currency.toLowerCase(),
-        recurring: { interval: pr.frequency === "monthly" ? "month" : "year" },
-        metadata: {
-          plan_code: plan.code,
-          frequency: pr.frequency,
-          mettrik_price_local_id: pr.id,
-        },
-      });
-      await upsertPrice({ id: pr.id, stripe_price_id: newPrice.id });
-      created++;
     }
   }
 

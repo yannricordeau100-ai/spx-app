@@ -410,8 +410,33 @@ function PricesSection({
       frequency,
       amount_decimal: amount,
       annual_discount_pct: frequency === "annual" ? sav.pct : null,
-      is_active: true,
+      is_active: existing?.is_active ?? false, // par défaut inactif jusqu'au toggle explicite
     });
+    await refresh();
+  }
+
+  /**
+   * Yann (11 mai 2026) : toggle activé/désactivé par devise + sync
+   * automatique Stripe. Au toggle ON sans stripe_price_id → POST
+   * /api/billing/admin/stripe-sync qui crée le product + price. Au
+   * toggle OFF → archive le price Stripe (jamais delete).
+   */
+  async function togglePrice(currency: Currency, frequency: Frequency, active: boolean) {
+    const existing = priceFor(currency, frequency);
+    if (!existing) return;
+    await api("/api/billing/admin/prices", "POST", {
+      id: existing.id,
+      plan_id: existing.plan_id,
+      currency,
+      frequency,
+      amount_decimal: existing.amount_decimal,
+      annual_discount_pct: existing.annual_discount_pct,
+      is_active: active,
+    });
+    if (active) {
+      // Auto-create Stripe product/price si pas déjà fait
+      await api("/api/billing/admin/stripe-sync", "POST");
+    }
     await refresh();
   }
 
@@ -431,13 +456,18 @@ function PricesSection({
           ))}
         </select>
       </div>
+      <div className="mb-3 rounded-lg border border-cyan-500/20 bg-cyan-500/[0.05] px-3 py-2 text-[11.5px] text-cyan-100">
+        💡 Le toggle <strong>Actif</strong> active/désactive cette devise pour ce plan. Au passage à <strong>actif</strong>, le prix est créé automatiquement dans Stripe (product + price). Au passage à <strong>inactif</strong>, le price Stripe est archivé (jamais supprimé). Tu peux donc préparer toutes les devises en avance et n&apos;activer que celles que tu veux ouvrir.
+      </div>
       <div className="overflow-x-auto rounded-xl border border-white/[0.06]">
         <table className="w-full text-[12.5px]">
           <thead className="bg-white/[0.03]">
             <tr>
               <th className="px-3 py-2 text-left">Devise</th>
               <th className="px-3 py-2 text-right">Mensuel</th>
+              <th className="px-3 py-2 text-center">Actif</th>
               <th className="px-3 py-2 text-right">Annuel</th>
+              <th className="px-3 py-2 text-center">Actif</th>
               <th className="px-3 py-2 text-right">Réduction annuelle</th>
             </tr>
           </thead>
@@ -452,8 +482,26 @@ function PricesSection({
                   <td className="px-3 py-2.5 text-right">
                     <PriceInput defaultValue={m?.amount_decimal ?? 0} onSave={(v) => setPrice(c, "monthly", v)} disabled={busy} />
                   </td>
+                  <td className="px-3 py-2.5 text-center">
+                    <ActiveToggle
+                      active={!!m?.is_active}
+                      hasStripeId={!!m?.stripe_price_id}
+                      hasPrice={(m?.amount_decimal ?? 0) > 0}
+                      onToggle={(v) => togglePrice(c, "monthly", v)}
+                      disabled={busy}
+                    />
+                  </td>
                   <td className="px-3 py-2.5 text-right">
                     <PriceInput defaultValue={y?.amount_decimal ?? 0} onSave={(v) => setPrice(c, "annual", v)} disabled={busy} />
+                  </td>
+                  <td className="px-3 py-2.5 text-center">
+                    <ActiveToggle
+                      active={!!y?.is_active}
+                      hasStripeId={!!y?.stripe_price_id}
+                      hasPrice={(y?.amount_decimal ?? 0) > 0}
+                      onToggle={(v) => togglePrice(c, "annual", v)}
+                      disabled={busy}
+                    />
                   </td>
                   <td className="px-3 py-2.5 text-right text-zinc-300">
                     {sav ? (
@@ -471,6 +519,54 @@ function PricesSection({
           </tbody>
         </table>
       </div>
+    </div>
+  );
+}
+
+function ActiveToggle({
+  active,
+  hasStripeId,
+  hasPrice,
+  onToggle,
+  disabled,
+}: {
+  active: boolean;
+  hasStripeId: boolean;
+  hasPrice: boolean;
+  onToggle: (active: boolean) => void;
+  disabled: boolean;
+}) {
+  const canActivate = hasPrice;
+  return (
+    <div className="inline-flex items-center gap-1.5">
+      <button
+        type="button"
+        onClick={() => onToggle(!active)}
+        disabled={disabled || !canActivate}
+        title={
+          !canActivate
+            ? "Renseigne d'abord un prix > 0 pour pouvoir activer cette devise."
+            : active
+              ? "Désactiver cette devise (price Stripe archivé)"
+              : hasStripeId
+                ? "Réactiver cette devise"
+                : "Activer cette devise (price Stripe créé automatiquement)"
+        }
+        className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${
+          active ? "bg-emerald-500/80" : "bg-zinc-700"
+        } ${disabled || !canActivate ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
+      >
+        <span
+          className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+            active ? "translate-x-4" : "translate-x-0.5"
+          }`}
+        />
+      </button>
+      {hasStripeId && (
+        <span className="font-mono text-[9px] text-emerald-300/70" title="Price ID Stripe synchronisé">
+          ✓
+        </span>
+      )}
     </div>
   );
 }

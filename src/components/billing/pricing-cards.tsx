@@ -4,6 +4,14 @@ import Link from "next/link";
 import { useState } from "react";
 import { Check, Sparkles, ArrowRight, Crown } from "lucide-react";
 import { PLANS as FALLBACK_PLANS, FEATURES as FALLBACK_FEATURES, monthlyEquivalent, type PlanDisplay, type FeatureRow } from "@/lib/billing/plans";
+import type { LoadedPlan } from "@/lib/billing/load-pricing";
+
+/**
+ * Plan accepté par PricingCards : soit le legacy `PlanDisplay` (hardcoded
+ * fallback) soit `LoadedPlan` (BDD avec prices). Les champs prices/code
+ * ne sont lus que si présents (chemins optionnels).
+ */
+type PricingCardPlan = PlanDisplay & Partial<Pick<LoadedPlan, "code" | "prices">>;
 
 /**
  * 3-card pricing avec toggle mensuel / annuel.
@@ -32,7 +40,7 @@ export function PricingCards({
    * la page server de passer les plans depuis la BDD via `loadPricingCatalog()`.
    * Sans prop, fallback sur les plans hardcodés `plans.ts`.
    */
-  plans?: PlanDisplay[];
+  plans?: PricingCardPlan[];
   /**
    * Liste des features depuis la BDD. Yann 9 mai 2026 : les bullet points
    * dans les cards doivent venir des fonctionnalités du catalogue (= ce
@@ -190,7 +198,7 @@ function PricingCard({
   prefix,
   features,
 }: {
-  plan: PlanDisplay;
+  plan: PricingCardPlan;
   billing: "monthly" | "annual";
   /** Callback pour switcher la période depuis l'intérieur de la card. */
   onSwitch?: (b: "monthly" | "annual") => void;
@@ -201,13 +209,40 @@ function PricingCard({
   const isAnnual = billing === "annual";
   const isHighlight = plan.highlight;
 
+  // Yann (11 mai 2026) : checkout via stripe_price_id BDD direct.
+  // Plus de mapping hardcoded "premium_monthly|premium_annual", plus de
+  // mailto pour Max. Tous les plans payants (premium + max + futurs)
+  // passent par le même flow checkout dès qu'ils ont au moins une devise
+  // active dans la BDD desk pricing. Si aucune devise active dans la
+  // devise courante du visiteur → CTA grisé "Bientôt dispo dans cette
+  // devise" (Yann active la devise dans /desk-mtk9x4kp/pricing).
+  const isFreeOrApi = plan.tier === "free";
   let ctaHref = "/signup";
   let ctaIsCheckout = false;
-  if (plan.tier === "investisseur") {
-    ctaHref = isAnnual ? "premium_annual" : "premium_monthly";
-    ctaIsCheckout = true;
-  } else if (plan.tier === "pro_plus") {
-    ctaHref = "mailto:contact@mettrik.ai?subject=Demande%20Pro%2B%20Mettrik%20AI";
+  let stripePriceId: string | null = null;
+  let currencyActive = true;
+  if (!isFreeOrApi) {
+    // Lookup le prix dans la devise courante (EUR par défaut côté SSR,
+    // le proxy a posé le cookie mettrik:currency selon IP).
+    const currency = "EUR"; // TODO côté server : passer en prop pour matcher cookie
+    const freqKey = isAnnual ? "annual" : "monthly";
+    const entry = plan.prices?.[currency]?.[freqKey];
+    if (entry?.stripe_price_id && entry.active) {
+      stripePriceId = entry.stripe_price_id;
+      ctaIsCheckout = true;
+      currencyActive = true;
+    } else {
+      // Pas de price actif dans cette devise → on cherche EUR fallback
+      const eurEntry = plan.prices?.EUR?.[freqKey];
+      if (eurEntry?.stripe_price_id && eurEntry.active) {
+        stripePriceId = eurEntry.stripe_price_id;
+        ctaIsCheckout = true;
+        currencyActive = true;
+      } else {
+        // Vraiment rien → CTA grisé
+        currencyActive = false;
+      }
+    }
   }
 
   // Yann 9 mai 2026 : les bullet points doivent venir du catalogue
@@ -320,12 +355,17 @@ function PricingCard({
         plan={plan.tier}
         ctaHref={ctaHref}
         ctaIsCheckout={ctaIsCheckout}
-        ctaLabel={plan.cta_label}
+        ctaLabel={
+          !currencyActive
+            ? "Bientôt dispo dans cette devise"
+            : plan.cta_label
+        }
         isHighlight={isHighlight}
         accent={plan.accent}
         prefix={prefix}
         billing={billing}
-        stripePlan={ctaIsCheckout ? (ctaHref as "premium_monthly" | "premium_annual") : undefined}
+        stripePriceId={ctaIsCheckout && stripePriceId ? stripePriceId : undefined}
+        disabled={!isFreeOrApi && !currencyActive}
       />
 
       <p className="mt-3 text-center text-[10.5px] text-zinc-500">{plan.audience}</p>
@@ -359,7 +399,8 @@ function CtaButton({
   accent,
   prefix,
   billing,
-  stripePlan,
+  stripePriceId,
+  disabled,
 }: {
   plan: PlanDisplay["tier"];
   ctaHref: string;
@@ -369,22 +410,35 @@ function CtaButton({
   accent: string;
   prefix: string;
   billing: "monthly" | "annual";
-  stripePlan?: "premium_monthly" | "premium_annual";
+  stripePriceId?: string;
+  disabled?: boolean;
 }) {
   const className = `mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3 text-[14px] font-bold transition-colors ${
-    isHighlight
-      ? "text-zinc-50 shadow-lg"
-      : plan === "pro_plus"
-        ? "border-2 text-zinc-50"
-        : "border border-white/10 bg-white/[0.04] text-zinc-200 hover:bg-white/[0.07]"
+    disabled
+      ? "border border-white/10 bg-white/[0.02] text-zinc-500 cursor-not-allowed"
+      : isHighlight
+        ? "text-zinc-50 shadow-lg"
+        : plan === "pro_plus"
+          ? "border-2 text-zinc-50"
+          : "border border-white/10 bg-white/[0.04] text-zinc-200 hover:bg-white/[0.07]"
   }`;
-  const style = isHighlight
-    ? { background: accent }
-    : plan === "pro_plus"
-      ? { borderColor: `${accent}80`, color: accent }
-      : undefined;
+  const style = disabled
+    ? undefined
+    : isHighlight
+      ? { background: accent }
+      : plan === "pro_plus"
+        ? { borderColor: `${accent}80`, color: accent }
+        : undefined;
 
-  if (!ctaIsCheckout || !stripePlan) {
+  if (disabled) {
+    return (
+      <button type="button" disabled className={className}>
+        {ctaLabel}
+      </button>
+    );
+  }
+
+  if (!ctaIsCheckout || !stripePriceId) {
     return (
       <Link href={ctaHref} data-pricing-cta={`${prefix}${plan}_${billing}`} className={className} style={style}>
         {ctaLabel}
@@ -393,13 +447,13 @@ function CtaButton({
     );
   }
 
-  return <CheckoutButtonInline className={className} style={style} stripePlan={stripePlan} ctaLabel={ctaLabel} prefix={prefix} plan={plan} billing={billing} />;
+  return <CheckoutButtonInline className={className} style={style} stripePriceId={stripePriceId} ctaLabel={ctaLabel} prefix={prefix} plan={plan} billing={billing} />;
 }
 
 function CheckoutButtonInline({
   className,
   style,
-  stripePlan,
+  stripePriceId,
   ctaLabel,
   prefix,
   plan,
@@ -407,7 +461,7 @@ function CheckoutButtonInline({
 }: {
   className: string;
   style?: React.CSSProperties;
-  stripePlan: "premium_monthly" | "premium_annual";
+  stripePriceId: string;
   ctaLabel: string;
   prefix: string;
   plan: string;
@@ -424,10 +478,10 @@ function CheckoutButtonInline({
       const r = await fetch("/api/billing/checkout", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ plan: stripePlan, currency: "eur", promo_code: promoCode || undefined }),
+        body: JSON.stringify({ priceId: stripePriceId, promo_code: promoCode || undefined }),
       });
       if (r.status === 401) {
-        window.location.href = `/?auth=signin&next=${encodeURIComponent("/pricing?selected=" + stripePlan)}`;
+        window.location.href = `/?auth=signin&next=${encodeURIComponent("/pricing")}`;
         return;
       }
       const data = await r.json();
