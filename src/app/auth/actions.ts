@@ -5,6 +5,24 @@ import { revalidatePath } from "next/cache";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { headers, cookies } from "next/headers";
 import { authErrorParam, type Locale } from "@/lib/auth-errors";
+import { verifyTurnstileToken } from "@/lib/turnstile";
+
+/** Vérifie le token Turnstile présent dans le form. Retourne l'URL d'erreur
+ *  à rediriger si invalide, ou null si valide. */
+async function checkCaptcha(formData: FormData, errorRedirect: string): Promise<string | null> {
+  const token = formData.get("cf-turnstile-response");
+  const ipHeader = (await headers()).get("x-forwarded-for") ?? "";
+  const ip = ipHeader.split(",")[0]?.trim() || null;
+  const result = await verifyTurnstileToken(
+    typeof token === "string" ? token : null,
+    ip,
+  );
+  if (!result.ok) {
+    const msg = "Vérification anti-bot échouée. Recharge la page et réessaie.";
+    return `${errorRedirect}&error=${encodeURIComponent(msg)}`;
+  }
+  return null;
+}
 
 /**
  * Server Actions auth — appelées depuis les forms / boutons des pages
@@ -75,6 +93,10 @@ export async function signInWithPassword(formData: FormData) {
 }
 
 export async function signUpWithPassword(formData: FormData) {
+  // Captcha Turnstile (anti-bot solide, Yann 11 mai 2026).
+  const captchaErr = await checkCaptcha(formData, "/?auth=signup");
+  if (captchaErr) redirect(captchaErr);
+
   const email = String(formData.get("email") ?? "");
   const password = String(formData.get("password") ?? "");
   const supabase = await createSupabaseServerClient();

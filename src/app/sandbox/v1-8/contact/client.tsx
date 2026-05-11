@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { Send, Mail, ChevronDown } from "lucide-react";
 import type { Locale } from "@/lib/i18n/types";
+import { TurnstileWidget } from "@/components/turnstile-widget";
 
 type Strings = {
   recipient_label: string;
@@ -59,6 +60,8 @@ export function ContactV18Client({
   const [done, setDone] = useState(false);
   const [err, setErr] = useState<string | null>(null);
 
+  const formRef = useRef<HTMLFormElement>(null);
+
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     if (!acceptCg) {
@@ -68,6 +71,14 @@ export function ContactV18Client({
     setBusy(true);
     setErr(null);
     try {
+      // Lit le token Turnstile injecté dans le form par le widget
+      const fd = new FormData(formRef.current ?? undefined);
+      const captchaToken = (fd.get("cf-turnstile-response") as string | null) ?? null;
+      if (!captchaToken) {
+        setErr(strings.error);
+        setBusy(false);
+        return;
+      }
       // Recipient "sales" routé sur "contact" côté server (ils traitent
       // tout en un mailbox commercial pour l'instant).
       const apiRecipient = recipient === "sales" ? "contact" : recipient;
@@ -81,6 +92,7 @@ export function ContactV18Client({
           subject: recipient === "sales" ? `[Pro+] ${subject}` : subject,
           body,
           locale,
+          captchaToken,
         }),
       });
       if (!r.ok) {
@@ -116,7 +128,7 @@ export function ContactV18Client({
   }
 
   return (
-    <form onSubmit={submit} className="space-y-4">
+    <form ref={formRef} onSubmit={submit} className="space-y-4">
       {/* Destination */}
       <div>
         <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-wider text-zinc-400">
@@ -211,6 +223,11 @@ export function ContactV18Client({
       </label>
 
       {err && <div className="text-[12px] text-rose-300">{err}</div>}
+
+      {/* Captcha Cloudflare Turnstile (invisible/managed selon config). */}
+      <div className="flex justify-center">
+        <TurnstileWidget theme="dark" />
+      </div>
 
       <button
         type="submit"

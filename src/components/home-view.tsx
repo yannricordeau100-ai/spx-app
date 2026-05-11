@@ -311,49 +311,63 @@ function RotatingPunchline({ items }: { items: string[] }) {
 
   const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
+  // Yann 11 mai 2026 : cadre fixe taille calée sur le plus long texte.
+  // Style identique aux pills Pricing/Contact = bordure blanche 40% +
+  // ombre décalée 2px + bg sombre. Hauteur minimum fixe pour éviter le
+  // décalage de layout quand la punchline change.
   return (
-    <div className="relative mx-auto mt-5 min-h-[120px] max-w-3xl sm:mt-6 sm:min-h-[136px]">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={idx}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.5, ease }}
-          className="absolute inset-x-0 text-center"
-        >
-          {/* part1 — question / locuteur 1, retrait visuel */}
-          <motion.p
-            initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            exit={{ opacity: 0, y: -12, filter: "blur(4px)" }}
-            transition={{ duration: 0.6, ease }}
-            className="text-balance font-display text-[18px] italic leading-[1.45] text-zinc-300/80 sm:text-[22px]"
-          >
-            {renderPunchline(part1)}
-          </motion.p>
-
-          {part2 && (
-            <motion.p
-              initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              exit={{ opacity: 0, y: -12, filter: "blur(4px)" }}
-              transition={{ duration: 0.7, ease, delay: 0.12 }}
-              className="mt-2 text-balance font-display text-[20px] font-semibold italic leading-[1.4] sm:mt-2.5 sm:text-[24px]"
+    <div className="mx-auto mt-6 flex max-w-3xl justify-center sm:mt-7">
+      <div className="group relative inline-block w-full">
+        {/* Ombre 3D décalée (idem boutons Pricing/Contact) */}
+        <span
+          aria-hidden
+          className="absolute inset-0 translate-x-[2px] translate-y-[2px] rounded-xl border border-white/25"
+        />
+        {/* Cadre principal : hauteur fixe min-h calée sur le plus long texte (4 lignes) */}
+        <div className="relative z-10 flex min-h-[148px] items-center justify-center rounded-xl border border-white/40 bg-[#0a0a0e]/85 px-5 py-4 backdrop-blur-sm sm:min-h-[168px]">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5, ease }}
+              className="w-full text-center"
             >
-              <span className="mr-2 inline-block align-middle text-cyan-300/80" aria-hidden>
-                ↳
-              </span>
-              <span
-                className="bg-gradient-to-r from-violet-200 via-violet-100 to-cyan-200 bg-clip-text text-transparent"
-                style={{ WebkitBackgroundClip: "text", backgroundClip: "text" }}
+              {/* part1 — question / locuteur 1, retrait visuel */}
+              <motion.p
+                initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                exit={{ opacity: 0, y: -12, filter: "blur(4px)" }}
+                transition={{ duration: 0.6, ease }}
+                className="text-balance font-display text-[17px] italic leading-[1.4] text-zinc-300/80 sm:text-[20px]"
               >
-                {renderPunchline(part2)}
-              </span>
-            </motion.p>
-          )}
-        </motion.div>
-      </AnimatePresence>
+                {renderPunchline(part1)}
+              </motion.p>
+
+              {part2 && (
+                <motion.p
+                  initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
+                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  exit={{ opacity: 0, y: -12, filter: "blur(4px)" }}
+                  transition={{ duration: 0.7, ease, delay: 0.12 }}
+                  className="mt-2 text-balance font-display text-[18px] font-semibold italic leading-[1.35] sm:mt-2.5 sm:text-[22px]"
+                >
+                  <span className="mr-2 inline-block align-middle text-cyan-300/80" aria-hidden>
+                    ↳
+                  </span>
+                  <span
+                    className="bg-gradient-to-r from-violet-200 via-violet-100 to-cyan-200 bg-clip-text text-transparent"
+                    style={{ WebkitBackgroundClip: "text", backgroundClip: "text" }}
+                  >
+                    {renderPunchline(part2)}
+                  </span>
+                </motion.p>
+              )}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </div>
     </div>
   );
 }

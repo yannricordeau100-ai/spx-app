@@ -888,9 +888,9 @@ export const DICTIONARY: Dict = {
   },
   "contact.error": { fr: "Une erreur est survenue. Réessayez ou écrivez à contact@mettrik.ai.", en: "Something went wrong. Try again or email contact@mettrik.ai.", de: "Ein Fehler ist aufgetreten. Versuche es erneut oder schreibe an contact@mettrik.ai." },
   "contact.privacy_note": {
-    fr: "On garde votre email uniquement pour vous répondre. Aucun marketing, aucune revente.",
-    en: "We keep your email only to reply. No marketing, no resale.",
-    de: "Wir speichern deine E-Mail nur für die Antwort. Kein Marketing, kein Weiterverkauf.",
+    fr: "On garde votre email uniquement pour vous répondre. Aucune revente.",
+    en: "We keep your email only to reply. No resale.",
+    de: "Wir speichern deine E-Mail nur für die Antwort. Kein Weiterverkauf.",
   },
   "senate.demo_footer": {
     fr: "Données démo : branchement live API Senate Stock Watcher / Capitol Trades en V1.5",

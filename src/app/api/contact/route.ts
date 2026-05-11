@@ -1,14 +1,26 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { verifyTurnstileToken } from "@/lib/turnstile";
 
 /**
  * POST /api/contact
- * Body : { recipient: 'contact' | 'support', name, email, subject, body }
+ * Body : { recipient, name, email, subject, body, captchaToken }
  * Insert un message dans desk_contact_messages. Public (pas d'auth requise).
+ * Yann 11 mai 2026 : captcha Turnstile obligatoire (anti-bot solide).
  */
 export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => ({}));
-  const { recipient, name, email, subject, body: msgBody, locale } = body || {};
+  const { recipient, name, email, subject, body: msgBody, locale, captchaToken } = body || {};
+
+  // Anti-bot Turnstile (rejette tout submit sans token valide).
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? null;
+  const captchaResult = await verifyTurnstileToken(captchaToken, ip);
+  if (!captchaResult.ok) {
+    return NextResponse.json(
+      { error: "captcha_failed", reason: captchaResult.reason },
+      { status: 400 },
+    );
+  }
 
   // Validation basique
   if (!recipient || (recipient !== "contact" && recipient !== "support")) {
@@ -26,7 +38,6 @@ export async function POST(req: NextRequest) {
   }
 
   const supabase = await createSupabaseServerClient();
-  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? null;
   const ua = req.headers.get("user-agent") ?? null;
 
   const { error } = await supabase.from("desk_contact_messages").insert({

@@ -13,6 +13,7 @@ import {
 } from "@/app/auth/actions";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { useT } from "@/lib/i18n/provider";
+import { TurnstileWidget } from "@/components/turnstile-widget";
 
 /**
  * Bouton submit avec état "pending" automatique via useFormStatus.
@@ -377,6 +378,11 @@ export function AuthModal() {
                         className="w-full bg-transparent text-sm text-zinc-100 outline-none placeholder:text-zinc-500"
                       />
                     </Field>
+                    {/* Captcha Turnstile : token injecté dans le form en tant
+                        que champ caché 'cf-turnstile-response'. */}
+                    <div className="flex justify-center">
+                      <TurnstileWidget theme="dark" />
+                    </div>
                     <SubmitButton>{t("auth.cta.signup")}</SubmitButton>
                   </form>
                 )}
