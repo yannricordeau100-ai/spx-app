@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { Plus, Copy, Trash2, Star, Save, Eye, EyeOff, Check, X, ArrowUp, ArrowDown, Pencil } from "lucide-react";
+import { Plus, Copy, Trash2, Star, Save, Eye, EyeOff, Check, X, ArrowUp, ArrowDown, Pencil, Move } from "lucide-react";
 import {
   CURRENCIES,
   annualSavings,
@@ -662,6 +662,60 @@ function FeaturesSection({
     await refresh();
   }
 
+  // Yann (11 mai 2026) : drag-and-drop natif + sélection multiple.
+  // Sélectionne via checkbox 1 ou plusieurs lignes, drag handle (Move
+  // icon) pour déplacer le bloc à n'importe quelle position. POST
+  // /reorder en bulk (1 seul roundtrip BDD au lieu de N swaps).
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const [draggingIds, setDraggingIds] = useState<string[] | null>(null);
+  const [dropOverId, setDropOverId] = useState<string | null>(null);
+
+  function toggleSelect(id: string, ev: React.MouseEvent) {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (ev.shiftKey && prev.size > 0) {
+        // Shift+click → select range entre dernier sélectionné et clic
+        const sorted = [...features].sort((a, b) => (a.feature_order ?? 0) - (b.feature_order ?? 0));
+        const lastSelectedIdx = sorted.findIndex((f) => prev.has(f.id));
+        const targetIdx = sorted.findIndex((f) => f.id === id);
+        if (lastSelectedIdx >= 0 && targetIdx >= 0) {
+          const [from, to] = lastSelectedIdx < targetIdx ? [lastSelectedIdx, targetIdx] : [targetIdx, lastSelectedIdx];
+          for (let i = from; i <= to; i++) next.add(sorted[i].id);
+          return next;
+        }
+      }
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }
+
+  function clearSelection() {
+    setSelectedIds(new Set());
+  }
+
+  async function performReorder(targetIdxBefore: number) {
+    const sorted = [...features].sort((a, b) => (a.feature_order ?? 0) - (b.feature_order ?? 0));
+    const movingIds = draggingIds && draggingIds.length > 0 ? draggingIds : Array.from(selectedIds);
+    if (movingIds.length === 0) return;
+    // Liste finale = (lignes non bougées avant la cible) + (movingIds dans leur ordre original) + (lignes non bougées après cible)
+    const movingSet = new Set(movingIds);
+    const movingOrdered = sorted.filter((f) => movingSet.has(f.id)).map((f) => f.id);
+    const remaining = sorted.filter((f) => !movingSet.has(f.id));
+    // Trouve l'index "before" dans remaining (= nb d'items remaining qui sont AVANT la position visuelle cible)
+    const insertAt = Math.min(Math.max(targetIdxBefore, 0), remaining.length);
+    const finalOrder = [
+      ...remaining.slice(0, insertAt).map((f) => f.id),
+      ...movingOrdered,
+      ...remaining.slice(insertAt).map((f) => f.id),
+    ];
+    await api("/api/billing/admin/features/reorder", "POST", { orderedIds: finalOrder });
+    setDraggingIds(null);
+    setDropOverId(null);
+    clearSelection();
+    await refresh();
+  }
+
   // Catégories disponibles : toutes les catégories utilisées + "Général"
   // (toujours présent par défaut). Évite la suppression accidentelle des
   // catégories saisies par Yann.
@@ -675,18 +729,29 @@ function FeaturesSection({
   return (
     <div>
       <div className="mb-3 flex justify-between items-center">
-        <p className="text-[11px] text-zinc-500">
-          Liste à plat (ordre choisi via flèches). La catégorie est libre par fonctionnalité, modifiable via le menu déroulant.
-        </p>
-        <button
-          type="button"
-          onClick={newFeature}
-          disabled={busy}
-          className="inline-flex items-center gap-1.5 rounded-lg border border-violet-500/40 bg-violet-500/15 px-3 py-1.5 text-[12px] font-bold text-violet-100 transition-colors hover:bg-violet-500/25 disabled:opacity-50"
-        >
-          <Plus className="size-3.5" />
-          Nouvelle fonctionnalité
-        </button>
+        <div className="text-[11px] text-zinc-500">
+          <p>Liste à plat (ordre choisi via flèches OU drag & drop).</p>
+          <p className="mt-0.5 text-zinc-400">
+            💡 Coche plusieurs lignes (case à gauche, ou Shift+clic pour range) puis drag la poignée <Move className="inline size-3 -translate-y-0.5" /> de n&apos;importe laquelle pour déplacer le bloc en bloc.
+          </p>
+        </div>
+        <div className="flex items-center gap-2">
+          {selectedIds.size > 0 && (
+            <span className="rounded-full bg-violet-500/15 px-2.5 py-1 text-[11px] font-semibold text-violet-200">
+              {selectedIds.size} ligne{selectedIds.size > 1 ? "s" : ""} sélectionnée{selectedIds.size > 1 ? "s" : ""}
+              <button onClick={clearSelection} className="ml-2 text-violet-300 hover:text-violet-100">×</button>
+            </span>
+          )}
+          <button
+            type="button"
+            onClick={newFeature}
+            disabled={busy}
+            className="inline-flex items-center gap-1.5 rounded-lg border border-violet-500/40 bg-violet-500/15 px-3 py-1.5 text-[12px] font-bold text-violet-100 transition-colors hover:bg-violet-500/25 disabled:opacity-50"
+          >
+            <Plus className="size-3.5" />
+            Nouvelle fonctionnalité
+          </button>
+        </div>
       </div>
 
       {features.length === 0 ? (
@@ -698,7 +763,20 @@ function FeaturesSection({
           <table className="w-full text-[12px]">
             <thead className="bg-white/[0.03]">
               <tr>
-                <th className="px-2 py-2 text-center w-16">Ordre</th>
+                <th className="px-2 py-2 text-center w-8">
+                  <input
+                    type="checkbox"
+                    checked={selectedIds.size === sortedFeatures.length && sortedFeatures.length > 0}
+                    onChange={(e) => {
+                      if (e.target.checked) setSelectedIds(new Set(sortedFeatures.map((f) => f.id)));
+                      else clearSelection();
+                    }}
+                    className="cursor-pointer accent-violet-500"
+                    title="Sélectionner tout"
+                  />
+                </th>
+                <th className="px-1 py-2 text-center w-8" title="Drag pour déplacer"></th>
+                <th className="px-2 py-2 text-center w-12">Ordre</th>
                 <th className="px-3 py-2 text-left">Fonctionnalité</th>
                 <th className="px-3 py-2 text-left w-40">Catégorie</th>
                 {plans.map((p) => (
@@ -708,8 +786,63 @@ function FeaturesSection({
               </tr>
             </thead>
             <tbody>
-              {sortedFeatures.map((f, i) => (
-                <tr key={f.id} className="border-t border-white/[0.04] hover:bg-white/[0.02]">
+              {sortedFeatures.map((f, i) => {
+                const isSelected = selectedIds.has(f.id);
+                const isDragging = draggingIds?.includes(f.id);
+                const isDropOver = dropOverId === f.id;
+                return (
+                <tr
+                  key={f.id}
+                  className={`border-t border-white/[0.04] transition-colors ${
+                    isSelected ? "bg-violet-500/[0.08]" : "hover:bg-white/[0.02]"
+                  } ${isDragging ? "opacity-30" : ""} ${
+                    isDropOver ? "border-t-2 border-t-violet-400" : ""
+                  }`}
+                  onDragOver={(e) => {
+                    if (draggingIds) {
+                      e.preventDefault();
+                      setDropOverId(f.id);
+                    }
+                  }}
+                  onDrop={(e) => {
+                    e.preventDefault();
+                    if (!draggingIds) return;
+                    // Index visuel cible = position de la ligne survolée parmi les non-bougées
+                    const movingSet = new Set(draggingIds);
+                    const remaining = sortedFeatures.filter((x) => !movingSet.has(x.id));
+                    const targetIdx = remaining.findIndex((x) => x.id === f.id);
+                    void performReorder(targetIdx >= 0 ? targetIdx : 0);
+                  }}
+                >
+                  <td className="px-2 py-2 text-center">
+                    <input
+                      type="checkbox"
+                      checked={isSelected}
+                      onClick={(e) => toggleSelect(f.id, e)}
+                      onChange={() => {}}
+                      className="cursor-pointer accent-violet-500"
+                    />
+                  </td>
+                  <td className="px-1 py-2 text-center">
+                    <div
+                      draggable
+                      onDragStart={(e) => {
+                        // Si la ligne fait partie d'une sélection > 1 → on déplace la sélection. Sinon juste cette ligne.
+                        const ids = isSelected && selectedIds.size > 1 ? Array.from(selectedIds) : [f.id];
+                        setDraggingIds(ids);
+                        e.dataTransfer.effectAllowed = "move";
+                        e.dataTransfer.setData("text/plain", ids.join(","));
+                      }}
+                      onDragEnd={() => {
+                        setDraggingIds(null);
+                        setDropOverId(null);
+                      }}
+                      title={isSelected && selectedIds.size > 1 ? `Déplacer ${selectedIds.size} lignes` : "Déplacer cette ligne"}
+                      className="inline-flex cursor-grab items-center justify-center rounded p-1 text-zinc-500 hover:bg-white/5 hover:text-zinc-200 active:cursor-grabbing"
+                    >
+                      <Move className="size-3.5" />
+                    </div>
+                  </td>
                   <td className="px-2 py-2 text-center">
                     <div className="flex flex-col items-center gap-0.5">
                       <IconBtn title="Monter" onClick={() => moveFeature(f, -1)} disabled={busy || i === 0}>
@@ -772,7 +905,8 @@ function FeaturesSection({
                     </IconBtn>
                   </td>
                 </tr>
-              ))}
+                );
+              })}
             </tbody>
           </table>
         </div>

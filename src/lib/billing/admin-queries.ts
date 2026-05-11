@@ -207,6 +207,32 @@ export async function swapFeatureOrders(idA: string, idB: string): Promise<void>
   if (r2.error) throw r2.error;
 }
 
+/**
+ * Yann (11 mai 2026) : reorder en bulk de N features, accepte la liste
+ * complète d'IDs dans le nouvel ordre voulu. Permet drag-and-drop +
+ * sélection multiple. Plus puissant que swap pair-by-pair.
+ */
+export async function reorderFeatures(orderedIds: string[]): Promise<void> {
+  if (!Array.isArray(orderedIds) || orderedIds.length === 0) return;
+  const supa = adminClient();
+  // Update séquentiel (Postgres unique constraint sur feature_order géré
+  // par offset temporaire pour éviter collisions). On commence par
+  // grosser tous les feature_order pour libérer la zone.
+  const offset = orderedIds.length + 100;
+  await Promise.all(
+    orderedIds.map((id, i) =>
+      supa.from("pricing_features").update({ feature_order: offset + i }).eq("id", id),
+    ),
+  );
+  // Puis on remet les bonnes valeurs (1, 2, 3, …)
+  const updates = await Promise.all(
+    orderedIds.map((id, i) =>
+      supa.from("pricing_features").update({ feature_order: i + 1 }).eq("id", id),
+    ),
+  );
+  for (const r of updates) if (r.error) throw r.error;
+}
+
 export async function deleteFeature(id: string): Promise<void> {
   const { error } = await adminClient().from("pricing_features").delete().eq("id", id);
   if (error) throw error;

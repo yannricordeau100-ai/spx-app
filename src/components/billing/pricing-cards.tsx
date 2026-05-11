@@ -222,8 +222,11 @@ function PricingCard({
   let stripePriceId: string | null = null;
   let currencyActive = true;
   if (!isFreeOrApi) {
-    // Devise du visiteur passée en prop depuis le Server Component
-    // (lecture cookie mettrik:currency posé par proxy selon IP).
+    // Devise visiteur passée en prop (cookie mettrik:currency).
+    // Yann (11 mai 2026) : si la devise locale n'est pas activée, on
+    // RETOMBE sur EUR (devise par défaut Mettrik), même si EUR n'est
+    // pas marqué active. Pas de message "Bientôt dispo" : transparence
+    // pour l'utilisateur, EUR par défaut comme s'il était local.
     const freqKey = isAnnual ? "annual" : "monthly";
     const entry = plan.prices?.[currency]?.[freqKey];
     if (entry?.stripe_price_id && entry.active) {
@@ -231,14 +234,14 @@ function PricingCard({
       ctaIsCheckout = true;
       currencyActive = true;
     } else {
-      // Pas de price actif dans cette devise → on cherche EUR fallback
+      // Fallback EUR (peu importe is_active, EUR = devise canonique Mettrik)
       const eurEntry = plan.prices?.EUR?.[freqKey];
-      if (eurEntry?.stripe_price_id && eurEntry.active) {
+      if (eurEntry?.stripe_price_id) {
         stripePriceId = eurEntry.stripe_price_id;
         ctaIsCheckout = true;
         currencyActive = true;
       } else {
-        // Vraiment rien → CTA grisé
+        // Vraiment aucun prix EUR → bouton désactivé (cas marginal)
         currencyActive = false;
       }
     }
