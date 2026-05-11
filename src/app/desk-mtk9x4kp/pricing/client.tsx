@@ -302,6 +302,13 @@ function PlansSection({
                   <FieldRow label="Tagline (EN)" value={d.tagline_en ?? ""} onChange={(v) => setDraft({ ...draft, tagline_en: v })} cols={3} multiline />
                   <FieldRow label="Tagline (DE)" value={d.tagline_de ?? ""} onChange={(v) => setDraft({ ...draft, tagline_de: v })} cols={3} multiline />
 
+                  {/* Yann (11 mai 2026) : "À vie, sans carte bancaire" était
+                      hardcodé. Maintenant éditable par plan + langue. Si vide
+                      → fallback auto (calcul "-X% vs mensuel" pour annuel). */}
+                  <FieldRow label="Mention sous le prix (FR)" value={d.price_caption_fr ?? ""} onChange={(v) => setDraft({ ...draft, price_caption_fr: v })} cols={3} />
+                  <FieldRow label="Mention sous le prix (EN)" value={d.price_caption_en ?? ""} onChange={(v) => setDraft({ ...draft, price_caption_en: v })} cols={3} />
+                  <FieldRow label="Mention sous le prix (DE)" value={d.price_caption_de ?? ""} onChange={(v) => setDraft({ ...draft, price_caption_de: v })} cols={3} />
+
                   <FieldRow label="Audience cible (FR)" value={d.audience_fr ?? ""} onChange={(v) => setDraft({ ...draft, audience_fr: v })} cols={3} />
                   <FieldRow label="Audience (EN)" value={d.audience_en ?? ""} onChange={(v) => setDraft({ ...draft, audience_en: v })} cols={3} />
                   <FieldRow label="Audience (DE)" value={d.audience_de ?? ""} onChange={(v) => setDraft({ ...draft, audience_de: v })} cols={3} />

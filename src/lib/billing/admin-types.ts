@@ -26,6 +26,12 @@ export type PricingPlan = {
   cta_label_fr: string | null;
   cta_label_en: string | null;
   cta_label_de: string | null;
+  /** Yann (11 mai 2026) : mention sous le prix, éditable par plan + langue.
+   *  Ex pour plan gratuit : "À vie, sans carte bancaire". Si null, fallback
+   *  auto (calcul "-X% vs mensuel" pour annuel, vide sinon). */
+  price_caption_fr: string | null;
+  price_caption_en: string | null;
+  price_caption_de: string | null;
   tier_order: number;
   accent_color: string;
   is_highlight: boolean;

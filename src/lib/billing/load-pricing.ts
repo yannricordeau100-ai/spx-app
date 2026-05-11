@@ -106,6 +106,14 @@ export async function loadPricingForPublic(): Promise<LoadedPlan[]> {
       const tierPrices = pricesByPlan.get(dbPlan.id) ?? {} as Record<string, { monthly?: PriceEntry; annual?: PriceEntry }>;
       const eurMonthly = tierPrices.EUR?.monthly?.amount ?? 0;
       const eurAnnual = tierPrices.EUR?.annual?.amount ?? 0;
+      // Yann (11 mai 2026) : si price_caption_fr est rempli côté admin,
+      // on l'utilise tel quel (Yann maître du wording). Sinon fallback auto.
+      const customCaption = (dbPlan as { price_caption_fr?: string | null }).price_caption_fr;
+      const annualSavingsLabel = customCaption && customCaption.trim().length > 0
+        ? customCaption
+        : eurAnnual > 0 && eurMonthly > 0
+          ? `Soit −${Math.round(((eurMonthly * 12 - eurAnnual) / (eurMonthly * 12)) * 100)} % vs mensuel`
+          : "À vie, sans carte bancaire";
       return {
         tier,
         code: dbPlan.code,
@@ -113,10 +121,7 @@ export async function loadPricingForPublic(): Promise<LoadedPlan[]> {
         tagline: dbPlan.tagline_fr ?? "",
         price_monthly_eur: eurMonthly,
         price_annual_eur: eurAnnual,
-        annual_savings_label:
-          eurAnnual > 0 && eurMonthly > 0
-            ? `Soit −${Math.round(((eurMonthly * 12 - eurAnnual) / (eurMonthly * 12)) * 100)} % vs mensuel`
-            : "À vie, sans carte bancaire",
+        annual_savings_label: annualSavingsLabel,
         accent: dbPlan.accent_color ?? "#a78bfa",
         highlight: !!dbPlan.is_highlight,
         cta_label: dbPlan.cta_label_fr ?? "Choisir",
