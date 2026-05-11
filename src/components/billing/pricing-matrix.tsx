@@ -81,8 +81,17 @@ export function PricingMatrix({
           <div key={p.tier} className="text-center">
             <div className="font-display text-[14px] font-bold tracking-tight text-zinc-100">{p.name}</div>
             <div className="mt-0.5 font-mono text-[10px] uppercase tracking-wider" style={{ color: p.accent }}>
-              {p.price_monthly_eur === 0 ? "Gratuit" : `${p.price_monthly_eur.toFixed(2).replace(".", ",")} €/mois`}
+              {p.price_annual_eur === 0
+                ? p.price_monthly_eur === 0
+                  ? "Gratuit"
+                  : `${p.price_monthly_eur.toFixed(2).replace(".", ",")} €/mois`
+                : `${(p.price_annual_eur / 12).toFixed(2).replace(".", ",")} €/mois`}
             </div>
+            {p.price_annual_eur > 0 && (
+              <div className="mt-0.5 text-[9.5px] text-zinc-500">
+                facturation annuelle
+              </div>
+            )}
           </div>
         ))}
       </div>

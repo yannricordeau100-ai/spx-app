@@ -303,7 +303,7 @@ function PricingCard({
       <h3 className="font-display text-[22px] font-bold tracking-tight" style={{ color: plan.accent }}>
         {plan.name}
       </h3>
-      <p className="mt-1 min-h-[40px] text-[13px] leading-relaxed text-zinc-400">{plan.tagline}</p>
+      <p className="mt-1 min-h-[40px] whitespace-pre-line text-[13px] leading-relaxed text-zinc-400">{plan.tagline}</p>
 
       {/* Bloc prix avec min-height pour aligner les CTA des 3 cards
           horizontalement (le free a juste '0 €' alors que les payants
@@ -320,29 +320,37 @@ function PricingCard({
           </>
         ) : (
           <>
-            {/* Prix principal : celui sélectionné par le toggle (gros caractères) */}
-            <div className="flex items-baseline gap-1.5">
-              <span className="font-display text-[44px] font-bold leading-none tracking-tight text-zinc-50">
-                {(isAnnual ? (displayAnnual > 0 ? displayAnnual / 12 : 0) : displayMonthly).toFixed(2).replace(".", ",")}
-              </span>
-              <span className="text-[15px] font-medium text-zinc-400">{currencySymbol}</span>
-              <span className="ml-1 text-[12px] text-zinc-500">/mois</span>
+            {/* Yann (11 mai 2026) : prix /mois et /jour SUR LA MEME LIGNE.
+                Originalité : prix mensuel en gros à gauche, séparé par une
+                barre verticale fine en gradient emerald, prix journalier en
+                pastille discrète à droite avec un signe "=" stylé. Plus
+                compact, plus moderne. */}
+            <div className="flex items-end justify-between gap-3">
+              {/* Prix mensuel (gauche, gros) */}
+              <div className="flex items-baseline gap-1.5">
+                <span className="font-display text-[40px] font-bold leading-none tracking-tight text-zinc-50">
+                  {(isAnnual ? (displayAnnual > 0 ? displayAnnual / 12 : 0) : displayMonthly).toFixed(2).replace(".", ",")}
+                </span>
+                <span className="text-[14px] font-medium text-zinc-400">{currencySymbol}</span>
+                <span className="ml-0.5 text-[11px] text-zinc-500">/mois</span>
+              </div>
+              {/* Séparateur vertical en gradient emerald */}
+              <div className="h-10 w-px self-center bg-gradient-to-b from-transparent via-emerald-500/40 to-transparent" />
+              {/* Prix /jour (droite, pastille) */}
+              <div className="flex flex-col items-end leading-tight">
+                <span className="font-mono text-[9.5px] font-semibold uppercase tracking-[0.18em] text-emerald-400/70">
+                  équivaut à
+                </span>
+                <div className="mt-0.5 flex items-baseline gap-1">
+                  <span className="font-display text-[20px] font-bold leading-none tracking-tight text-emerald-200">
+                    {dailyPrice.toFixed(2).replace(".", ",")}
+                  </span>
+                  <span className="text-[11px] font-semibold text-emerald-300/80">{currencySymbol}</span>
+                  <span className="text-[10px] font-semibold uppercase tracking-wider text-emerald-300/80">/j</span>
+                </div>
+              </div>
             </div>
-            {/* Prix par jour fortement mis en avant : pleine largeur,
-                gradient emerald + glow, chiffre en 28px font-display
-                bold. C'est le vrai argument d'accroche : 0,68 € / jour
-                parle plus fort que 24,90 € / mois. */}
-            <div
-              className="mt-3 flex items-baseline justify-center gap-2 rounded-xl border border-emerald-500/40 bg-gradient-to-r from-emerald-500/[0.18] via-emerald-500/[0.10] to-emerald-500/[0.18] px-4 py-2.5 shadow-[0_0_24px_rgba(16,185,129,0.15)]"
-            >
-              <span className="text-[10.5px] font-bold uppercase tracking-[0.18em] text-emerald-300/80">soit</span>
-              <span className="font-display text-[30px] font-bold leading-none tracking-tight text-emerald-100">
-                {dailyPrice.toFixed(2).replace(".", ",")}
-              </span>
-              <span className="text-[14px] font-semibold text-emerald-200">{currencySymbol}</span>
-              <span className="text-[12px] font-semibold uppercase tracking-wider text-emerald-300/80">/ jour</span>
-            </div>
-            <div className="mt-1 text-[11.5px] text-zinc-500">
+            <div className="mt-2 text-[11.5px] text-zinc-500">
               {isAnnual ? (
                 <>
                   Soit <strong className="text-zinc-300">{displayAnnual} {currencySymbol}</strong> facturés annuellement
