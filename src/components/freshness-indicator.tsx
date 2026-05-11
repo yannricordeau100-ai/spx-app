@@ -95,6 +95,24 @@ function nextQuarterAfter(qLabel: string | null): string | null {
 }
 
 /**
+ * Ajoute N jours à une date ISO (YYYY-MM-DD), renvoie le nouvel ISO.
+ * Utilisé pour estimer publicationDate (= lastDate + 30j typique 10-Q
+ * filing US) et nextEarningsDate (= lastDate + 91j = 1 trimestre).
+ * Renvoie null si entrée invalide.
+ */
+function addDaysIso(iso?: string, days: number = 0): string | null {
+  if (!iso) return null;
+  try {
+    const d = new Date(iso.split("T")[0]);
+    if (Number.isNaN(d.getTime())) return null;
+    d.setUTCDate(d.getUTCDate() + days);
+    return d.toISOString().split("T")[0];
+  } catch {
+    return null;
+  }
+}
+
+/**
  * Compact freshness pill.
  *
  * Yann (10 mai 2026) : la pill doit afficher la **date de publication**
@@ -136,16 +154,31 @@ export function FreshnessIndicator({
   const meta = META[tier];
   const Icon = meta.Icon;
   const isSm = size === "sm";
-  const pubFormatted = formatApproxDate(publicationDate, locale);
+  // Heuristiques de fallback si CONV-DATA n'a pas peuplé les champs :
+  //   - publicationDate manquant → estimation = lastDate + 30 jours
+  //     (fenêtre typique de publication des 10-Q SEC pour US large caps).
+  //   - nextEarningsDate manquant → estimation = lastDate + ~91 jours
+  //     (= 1 trimestre standard).
+  // Ces fallbacks sont marqués "estimation" dans le tooltip pour que
+  // l'utilisateur sache que ce n'est pas la vraie date filed SEC.
+  // Yann 11 mai 2026.
+  const pubEstimated = !publicationDate && lastDate ? addDaysIso(lastDate, 30) : null;
+  const nextEstimated = !nextEarningsDate && lastDate ? addDaysIso(lastDate, 91) : null;
+  const pubResolved = publicationDate ?? pubEstimated ?? undefined;
+  const nextResolved = nextEarningsDate ?? nextEstimated ?? undefined;
+  const pubFormatted = formatApproxDate(pubResolved, locale);
   const lastFormatted = formatApproxDate(lastDate, locale);
   const lastQuarter = quarterFromIso(lastDate);
-  const nextFormatted = formatApproxDate(nextEarningsDate, locale);
+  const nextFormatted = formatApproxDate(nextResolved, locale);
   // Le prochain trimestre est TOUJOURS celui qui suit le dernier publié,
   // PAS le trimestre dans lequel tombe la date de publication future
   // (sinon Q1 publié en avril → next earning en juillet calculait Q3 au
   // lieu de Q2). Fallback sur quarterFromIso seulement si lastQuarter
   // est absent (très rare). Yann 11 mai 2026.
-  const nextQuarter = nextQuarterAfter(lastQuarter) ?? quarterFromIso(nextEarningsDate);
+  const nextQuarter = nextQuarterAfter(lastQuarter) ?? quarterFromIso(nextResolved);
+  // Drapeaux d'estimation pour styler distinctement les valeurs estimées.
+  const isPubEstimated = !publicationDate && !!pubEstimated;
+  const isNextEstimated = !nextEarningsDate && !!nextEstimated;
 
   return (
     <span
@@ -168,7 +201,7 @@ export function FreshnessIndicator({
             Dernier earning publié :{" "}
             <span className="font-bold text-zinc-100">
               {lastQuarter ?? "—"}
-              {pubFormatted ? ` (publié le ${pubFormatted})` : ""}
+              {pubFormatted ? ` (publié le ${pubFormatted}${isPubEstimated ? " ~est." : ""})` : ""}
             </span>
           </p>
         )}
@@ -186,7 +219,16 @@ export function FreshnessIndicator({
           >
             Prochain earning : {nextQuarter ? `${nextQuarter} (` : ""}
             {nextFormatted}
+            {isNextEstimated ? " ~est." : ""}
             {nextQuarter ? ")" : ""}
+          </p>
+        )}
+        {/* Note sur les estimations si l'une des deux n'est pas SEC officielle */}
+        {(isPubEstimated || isNextEstimated) && (
+          <p className="mt-1.5 text-[9.5px] italic leading-snug text-zinc-500">
+            ~est. = estimation calculée à partir de la fin du trimestre
+            fiscal. Les vraies dates SEC arrivent au fur et à mesure de
+            l&apos;enrichissement des données.
           </p>
         )}
       </InfoTooltip>
