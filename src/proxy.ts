@@ -127,49 +127,62 @@ export async function proxy(request: NextRequest) {
   let detectedCurrencyForCookie: string | null = null;
   if (!isApiOrAsset && (!hasLocaleCookie || !hasCurrencyCookie)) {
     const country = (request.headers.get("x-vercel-ip-country") ?? "").toUpperCase();
-    if (country) {
-      // Imports inline pour éviter d'alourdir le proxy edge bundle. Si le
-      // bundler n'aime pas, fallback sur tables locales minimales (cf
-      // commentaire dans les modules).
-      try {
-        const { COUNTRY_TO_LOCALE, DEFAULT_LOCALE } = await import("./lib/i18n/types");
-        const { getCurrencyForCountry } = await import("./lib/currency");
-        if (!hasLocaleCookie) {
-          let baseLocale = COUNTRY_TO_LOCALE[country] ?? DEFAULT_LOCALE;
-          // ─── Raffinement BE et CH via Accept-Language ───
-          // L'IP donne uniquement le code pays. Pour distinguer les régions
-          // linguistiques de pays multilingues, on lit la pref du navigateur.
-          // Yann 10 mai 2026.
+    // Yann 11 mai 2026 : langue OS prioritaire sur géo IP (parité avec le
+    // thème qui utilise prefers-color-scheme). Le navigateur transmet la
+    // langue OS dans Accept-Language (ex "fr-FR,fr;q=0.9,en-US;q=0.8").
+    // Si on match une de nos locales supportées en 1er, on prend.
+    // Fallback : country (Vercel geo IP), puis DEFAULT_LOCALE.
+    const acceptLang = (request.headers.get("accept-language") ?? "").toLowerCase();
+    const osPrimary = acceptLang.split(",")[0]?.trim() ?? "";
+    function localeFromAcceptLang(): string | null {
+      // Ordre de check : codes exacts (fr-FR, en-GB, de-CH) avant codes simples
+      if (osPrimary.startsWith("fr")) return "fr";
+      if (osPrimary === "en-gb" || osPrimary.startsWith("en-gb")) return "en-GB";
+      if (osPrimary === "de-ch" || osPrimary.startsWith("de-ch")) return "de-CH";
+      if (osPrimary.startsWith("de")) return "de";
+      if (osPrimary.startsWith("nl")) return "nl";
+      if (osPrimary.startsWith("sv")) return "sv";
+      if (osPrimary.startsWith("da")) return "da";
+      if (osPrimary.startsWith("en")) return "en";
+      return null;
+    }
+    try {
+      const { COUNTRY_TO_LOCALE, DEFAULT_LOCALE } = await import("./lib/i18n/types");
+      const { getCurrencyForCountry } = await import("./lib/currency");
+      if (!hasLocaleCookie) {
+        // PRIORITÉ 1 : langue OS via Accept-Language
+        const fromOs = localeFromAcceptLang();
+        let baseLocale: string;
+        if (fromOs) {
+          baseLocale = fromOs;
+          // Cas spéciaux multilingues : si on est dans un pays multilingue
+          // ET que la langue OS ne dit rien de plus précis, on garde fromOs
+          // tel quel (déjà mappé sur la bonne variante).
+        } else {
+          // PRIORITÉ 2 : géo IP (pays) si dispo
+          baseLocale = country ? (COUNTRY_TO_LOCALE[country] ?? DEFAULT_LOCALE) : DEFAULT_LOCALE;
+          // Raffinement BE/CH inchangé : pour les pays multilingues, on
+          // utilise la nuance Accept-Language même si OS basique n'a pas matché.
           if (country === "CH" || country === "BE") {
-            const al = (request.headers.get("accept-language") ?? "").toLowerCase();
-            const first = al.split(",")[0]?.trim() ?? "";
             if (country === "CH") {
-              // Suisse : 4 langues officielles (de, fr, it, rmsh).
-              //   - browser fr → fr
-              //   - browser it → en (italien pas supporté)
-              //   - sinon → de-CH (majorité 62 %)
-              if (first.startsWith("fr")) baseLocale = "fr";
-              else if (first.startsWith("de")) baseLocale = "de-CH";
-              else if (first.startsWith("it")) baseLocale = "en";
+              if (osPrimary.startsWith("fr")) baseLocale = "fr";
+              else if (osPrimary.startsWith("de")) baseLocale = "de-CH";
+              else if (osPrimary.startsWith("it")) baseLocale = "en";
               else baseLocale = "de-CH";
             } else if (country === "BE") {
-              // Belgique : 3 langues officielles (nl, fr, de).
-              //   - browser nl → nl
-              //   - browser de → de
-              //   - sinon → fr (cohérent règle générale francophone)
-              if (first.startsWith("nl")) baseLocale = "nl";
-              else if (first.startsWith("de")) baseLocale = "de";
+              if (osPrimary.startsWith("nl")) baseLocale = "nl";
+              else if (osPrimary.startsWith("de")) baseLocale = "de";
               else baseLocale = "fr";
             }
           }
-          detectedLocaleForCookie = baseLocale;
         }
-        if (!hasCurrencyCookie) {
-          detectedCurrencyForCookie = getCurrencyForCountry(country);
-        }
-      } catch {
-        // Si erreur d'import edge runtime : skip silencieux, fallback EN/USD.
+        detectedLocaleForCookie = baseLocale;
       }
+      if (!hasCurrencyCookie && country) {
+        detectedCurrencyForCookie = getCurrencyForCountry(country);
+      }
+    } catch {
+      // Si erreur d'import edge runtime : skip silencieux, fallback EN/USD.
     }
 
     // FR-only : si pays francophone → redirect vers /fr/<route> pour que

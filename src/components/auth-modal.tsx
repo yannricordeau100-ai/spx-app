@@ -281,6 +281,9 @@ export function AuthModal() {
                       className="w-full bg-transparent text-sm text-zinc-100 outline-none placeholder:text-zinc-500"
                     />
                   </Field>
+                  <div className="flex justify-center">
+                    <TurnstileWidget theme="dark" />
+                  </div>
                   <SubmitButton>{t("auth.cta.send_reset")}</SubmitButton>
                 </form>
                 <button
@@ -429,6 +432,9 @@ export function AuthModal() {
                           {t("auth.cta.send_magic")}
                         </SubmitButton>
                       </Field>
+                      <div className="mt-2 flex justify-center">
+                        <TurnstileWidget theme="dark" />
+                      </div>
                     </form>
                   </>
                 )}

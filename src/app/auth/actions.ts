@@ -117,6 +117,10 @@ export async function signUpWithPassword(formData: FormData) {
 /* ─── Magic link ────────────────────────────────────────────────────── */
 
 export async function signInWithMagicLink(formData: FormData) {
+  // Captcha Turnstile (Yann 11 mai 2026 : anti-spam des emails magic link).
+  const captchaErr = await checkCaptcha(formData, "/?auth=signin");
+  if (captchaErr) redirect(captchaErr);
+
   const email = String(formData.get("email") ?? "");
   const next = safeNextParam(formData.get("next"));
   const supabase = await createSupabaseServerClient();
@@ -162,6 +166,10 @@ export async function signInWithGoogle(formData?: FormData) {
 /* ─── Mot de passe oublié — envoie un email de reset ────────────────── */
 
 export async function requestPasswordReset(formData: FormData) {
+  // Captcha Turnstile (Yann 11 mai 2026 : anti-bot enumeration emails).
+  const captchaErr = await checkCaptcha(formData, "/?auth=reset");
+  if (captchaErr) redirect(captchaErr);
+
   const email = String(formData.get("email") ?? "").trim();
   if (!email) {
     redirect(
