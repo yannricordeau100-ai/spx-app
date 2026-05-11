@@ -5,9 +5,11 @@ import { PricingCards } from "@/components/billing/pricing-cards";
 import { PricingMatrix } from "@/components/billing/pricing-matrix";
 import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
 import { BrandWordmark } from "@/components/brand-wordmark";
+import { FloatingLogosBg } from "@/components/billing/floating-logos-bg";
 import { loadPricingCatalog } from "@/lib/billing/load-pricing";
 import { getServerLocale } from "@/lib/i18n/server";
 import { translate } from "@/lib/i18n/dictionary";
+import V18_TICKERS from "@/data/v1-8-tickers-sorted.json";
 
 async function detectCurrency(): Promise<string> {
   try {
@@ -41,6 +43,7 @@ export default async function PricingPage() {
   const t = (k: string) => translate(k, locale);
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#050505]">
+      <FloatingLogosBg tickers={(V18_TICKERS as string[]).slice(0, 50)} />
       <div
         className="pointer-events-none absolute inset-x-0 top-0 h-[700px]"
         style={{

@@ -325,32 +325,18 @@ function PricingCard({
                 barre verticale fine en gradient emerald, prix journalier en
                 pastille discrète à droite avec un signe "=" stylé. Plus
                 compact, plus moderne. */}
-            <div className="flex items-end justify-between gap-3">
-              {/* Prix mensuel (gauche, gros) */}
-              <div className="flex items-baseline gap-1.5">
-                <span className="font-display text-[40px] font-bold leading-none tracking-tight text-zinc-50">
-                  {(isAnnual ? (displayAnnual > 0 ? displayAnnual / 12 : 0) : displayMonthly).toFixed(2).replace(".", ",")}
-                </span>
-                <span className="text-[14px] font-medium text-zinc-400">{currencySymbol}</span>
-                <span className="ml-0.5 text-[11px] text-zinc-500">/mois</span>
-              </div>
-              {/* Séparateur vertical en gradient emerald */}
-              <div className="h-10 w-px self-center bg-gradient-to-b from-transparent via-emerald-500/40 to-transparent" />
-              {/* Prix /jour (droite, pastille) */}
-              <div className="flex flex-col items-end leading-tight">
-                <span className="font-mono text-[9.5px] font-semibold uppercase tracking-[0.18em] text-emerald-400/70">
-                  équivaut à
-                </span>
-                <div className="mt-0.5 flex items-baseline gap-1">
-                  <span className="font-display text-[20px] font-bold leading-none tracking-tight text-emerald-200">
-                    {dailyPrice.toFixed(2).replace(".", ",")}
-                  </span>
-                  <span className="text-[11px] font-semibold text-emerald-300/80">{currencySymbol}</span>
-                  <span className="text-[10px] font-semibold uppercase tracking-wider text-emerald-300/80">/j</span>
-                </div>
-              </div>
+            {/* Yann (11 mai 2026 v2) : prix /jour DÉPLACÉ dans l'espace
+                vide AU-DESSUS du bouton CTA. Plus de pastille à droite
+                du prix mensuel. La card respire et l'argument /jour
+                arrive comme une "carotte" juste avant le clic. */}
+            <div className="flex items-baseline gap-1.5">
+              <span className="font-display text-[44px] font-bold leading-none tracking-tight text-zinc-50">
+                {(isAnnual ? (displayAnnual > 0 ? displayAnnual / 12 : 0) : displayMonthly).toFixed(2).replace(".", ",")}
+              </span>
+              <span className="text-[15px] font-medium text-zinc-400">{currencySymbol}</span>
+              <span className="ml-1 text-[12px] text-zinc-500">/mois</span>
             </div>
-            <div className="mt-2 text-[11.5px] text-zinc-500">
+            <div className="mt-1 text-[11.5px] text-zinc-500">
               {isAnnual ? (
                 <>
                   Soit <strong className="text-zinc-300">{displayAnnual} {currencySymbol}</strong> facturés annuellement
@@ -366,6 +352,27 @@ function PricingCard({
           </>
         )}
       </div>
+
+      {/* Yann (11 mai 2026 v2) : prix /jour + accroche placé JUSTE
+          au-dessus du CTA, dans l'espace qui était vide. Format épuré :
+          le chiffre /jour en gros + accroche concise alignée à droite.
+          Slogan KO : 1 action Coca-Cola ≈ €65, soit 2-3× le prix
+          mensuel de Premium → "moins cher qu'une action Coca-Cola
+          par mois". Honnête, parle à un investisseur. */}
+      {!isFreeOrApi && dailyPrice > 0 && (
+        <div className="mt-4 flex items-center justify-between gap-3 rounded-lg border border-emerald-500/15 bg-emerald-500/[0.04] px-3 py-2">
+          <div className="flex items-baseline gap-1.5">
+            <span className="font-display text-[22px] font-bold leading-none tracking-tight text-emerald-200">
+              {dailyPrice.toFixed(2).replace(".", ",")}
+            </span>
+            <span className="text-[12px] font-semibold text-emerald-300/80">{currencySymbol}</span>
+            <span className="text-[10.5px] font-mono uppercase tracking-[0.12em] text-emerald-300/70">/jour</span>
+          </div>
+          <span className="text-right text-[10.5px] leading-tight text-zinc-400">
+            Soit moins qu&apos;une<br />action <strong className="text-zinc-200">Coca-Cola</strong> par mois
+          </span>
+        </div>
+      )}
 
       <CtaButton
         plan={plan.tier}
