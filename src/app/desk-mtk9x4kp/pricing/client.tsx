@@ -977,61 +977,127 @@ function PromosSection({
   refresh: () => Promise<void>;
   busy: boolean;
 }) {
+  // Yann (11 mai 2026) : refonte complète du back-office promos. UI
+  // avec formulaire détaillé (tous les champs du schéma) + sync auto
+  // Stripe quand le code est créé/modifié.
+  const [editing, setEditing] = useState<Partial<PricingPromoCode> | null>(null);
+
   async function togglePromo(p: PricingPromoCode) {
     await api(`/api/billing/admin/promos/${p.id}`, "PATCH", { is_active: !p.is_active });
+    // Sync Stripe : active le promotion_code OU le désactive
+    await api("/api/billing/admin/promos/stripe-sync", "POST", { promoId: p.id });
     await refresh();
   }
-  async function newPromo() {
-    const code = prompt("Code promo (ex SUMMER2026) :")?.toUpperCase();
-    if (!code) return;
-    await api("/api/billing/admin/promos", "POST", {
-      code,
-      discount_type: "percent",
-      discount_percent: 20,
-      max_redemptions: null,
-      max_per_user: 1,
-      recurring: false,
-      is_active: true,
-    });
+
+  async function savePromo(draft: Partial<PricingPromoCode>) {
+    const isNew = !draft.id;
+    const payload = {
+      ...draft,
+      code: String(draft.code ?? "").toUpperCase().trim(),
+    };
+    if (!payload.code) {
+      alert("Le code est requis (ex : SUMMER2026)");
+      return;
+    }
+    if (payload.discount_type === "percent" && (!payload.discount_percent || payload.discount_percent <= 0 || payload.discount_percent > 100)) {
+      alert("Le pourcentage doit être entre 0 et 100");
+      return;
+    }
+    if (payload.discount_type === "amount" && (!payload.discount_amount_decimal || !payload.discount_currency)) {
+      alert("Pour un montant fixe, renseigne montant + devise");
+      return;
+    }
+    const saved = await api<PricingPromoCode>("/api/billing/admin/promos", "POST", payload);
+    if (saved && payload.is_active) {
+      // Sync auto Stripe au save (create coupon + promotion_code)
+      await api("/api/billing/admin/promos/stripe-sync", "POST", { promoId: saved.id });
+    }
+    setEditing(null);
     await refresh();
+    if (isNew && saved) alert("✅ Code promo créé et synchronisé avec Stripe (test mode)");
   }
+
   async function deletePromo(p: PricingPromoCode) {
-    if (!confirm(`Supprimer le code ${p.code} ?`)) return;
+    if (!confirm(`Supprimer le code ${p.code} ? Le coupon Stripe restera mais sera archivé.`)) return;
+    if (p.stripe_coupon_id) {
+      // Archive côté Stripe avant de delete BDD
+      await api("/api/billing/admin/promos/stripe-sync", "POST", { promoId: p.id });
+    }
     await api(`/api/billing/admin/promos/${p.id}`, "DELETE");
     await refresh();
   }
 
+  function newPromo() {
+    setEditing({
+      code: "",
+      internal_label: null,
+      discount_type: "percent",
+      discount_percent: 20,
+      discount_amount_decimal: null,
+      discount_currency: null,
+      max_redemptions: null,
+      max_per_user: 1,
+      starts_at: null,
+      expires_at: null,
+      recurring: false,
+      applicable_plan_codes: null,
+      applicable_currencies: null,
+      applicable_frequency: null,
+      new_customers_only: false,
+      is_active: true,
+    });
+  }
+
   return (
     <div>
-      <div className="mb-3 flex justify-end">
-        <button type="button" onClick={newPromo} disabled={busy} className="inline-flex items-center gap-1.5 rounded-lg border border-violet-500/40 bg-violet-500/15 px-3 py-1.5 text-[12px] font-bold text-violet-100 transition-colors hover:bg-violet-500/25">
+      <div className="mb-3 flex items-center justify-between">
+        <p className="text-[11px] text-zinc-500">
+          <strong className="text-zinc-200">Tous les réglages disponibles.</strong> Au save, le coupon + promotion_code Stripe (test mode) sont créés / mis à jour automatiquement.
+        </p>
+        <button type="button" onClick={newPromo} disabled={busy || !!editing} className="inline-flex items-center gap-1.5 rounded-lg border border-violet-500/40 bg-violet-500/15 px-3 py-1.5 text-[12px] font-bold text-violet-100 transition-colors hover:bg-violet-500/25 disabled:opacity-50">
           <Plus className="size-3.5" />Nouveau code
         </button>
       </div>
-      <p className="mb-3 text-[11px] text-zinc-500">
-        Réglages par ordre d'importance : <strong>code court mémorable</strong> → <strong>remise (% ou montant)</strong> → <strong>durée</strong> → <strong>usages max global et par utilisateur</strong> → <strong>ciblage plans / devises / fréquence</strong> → <strong>nouveaux clients seulement</strong>.
-      </p>
+
+      {editing && (
+        <PromoEditor
+          draft={editing}
+          plans={[]}
+          onChange={(d) => setEditing(d)}
+          onSave={() => savePromo(editing)}
+          onCancel={() => setEditing(null)}
+          busy={busy}
+        />
+      )}
+
       <div className="overflow-x-auto rounded-xl border border-white/[0.06]">
         <table className="w-full text-[12.5px]">
           <thead className="bg-white/[0.03]">
             <tr>
               <th className="px-3 py-2 text-left">Code</th>
+              <th className="px-3 py-2 text-left">Label interne</th>
               <th className="px-3 py-2 text-right">Remise</th>
+              <th className="px-3 py-2 text-center">Récurrent</th>
               <th className="px-3 py-2 text-right">Usages</th>
               <th className="px-3 py-2 text-right">Expire</th>
+              <th className="px-3 py-2 text-center">Stripe</th>
               <th className="px-3 py-2 text-center">Actif</th>
-              <th className="px-3 py-2"></th>
+              <th className="px-3 py-2 text-right"></th>
             </tr>
           </thead>
           <tbody>
-            {promos.length === 0 && (
-              <tr><td colSpan={6} className="px-3 py-6 text-center text-zinc-500">Aucun code promo. Crée le premier ↑</td></tr>
+            {promos.length === 0 && !editing && (
+              <tr><td colSpan={9} className="px-3 py-6 text-center text-zinc-500">Aucun code promo. Crée le premier ↑</td></tr>
             )}
             {promos.map((p) => (
-              <tr key={p.id} className="border-t border-white/[0.04]">
+              <tr key={p.id} className="border-t border-white/[0.04] hover:bg-white/[0.02]">
                 <td className="px-3 py-2.5 font-mono font-bold text-violet-200">{p.code}</td>
+                <td className="px-3 py-2.5 text-zinc-300">{p.internal_label || "—"}</td>
                 <td className="px-3 py-2.5 text-right text-zinc-200">
-                  {p.discount_type === "percent" ? `${p.discount_percent} %` : `${p.discount_amount_decimal} ${p.discount_currency ?? ""}`}
+                  {p.discount_type === "percent" ? `−${p.discount_percent} %` : `−${p.discount_amount_decimal} ${p.discount_currency ?? ""}`}
+                </td>
+                <td className="px-3 py-2.5 text-center">
+                  {p.recurring ? <span className="rounded-full bg-emerald-500/15 px-1.5 py-0.5 text-[10px] text-emerald-300">à vie</span> : <span className="text-zinc-500">1ère fact.</span>}
                 </td>
                 <td className="px-3 py-2.5 text-right text-zinc-300">
                   {p.redemptions_count}{p.max_redemptions ? ` / ${p.max_redemptions}` : " / ∞"}
@@ -1040,19 +1106,267 @@ function PromosSection({
                   {p.expires_at ? new Date(p.expires_at).toLocaleDateString("fr-FR") : "—"}
                 </td>
                 <td className="px-3 py-2.5 text-center">
-                  <button type="button" onClick={() => togglePromo(p)} disabled={busy}>
+                  {p.stripe_coupon_id ? (
+                    <span title={p.stripe_coupon_id} className="font-mono text-[10px] text-emerald-300">✓ sync</span>
+                  ) : (
+                    <span className="text-[10px] text-zinc-600">non</span>
+                  )}
+                </td>
+                <td className="px-3 py-2.5 text-center">
+                  <button type="button" onClick={() => togglePromo(p)} disabled={busy} title={p.is_active ? "Désactiver" : "Activer"}>
                     {p.is_active ? <Eye className="size-4 text-emerald-300" /> : <EyeOff className="size-4 text-zinc-600" />}
                   </button>
                 </td>
                 <td className="px-3 py-2.5 text-right">
-                  <button type="button" onClick={() => deletePromo(p)} disabled={busy} className="text-rose-300 hover:text-rose-200">
-                    <Trash2 className="size-3.5" />
-                  </button>
+                  <div className="inline-flex gap-2">
+                    <button type="button" onClick={() => setEditing(p)} disabled={busy || !!editing} className="text-violet-300 hover:text-violet-200 disabled:opacity-30" title="Éditer">
+                      <Pencil className="size-3.5" />
+                    </button>
+                    <button type="button" onClick={() => deletePromo(p)} disabled={busy} className="text-rose-300 hover:text-rose-200" title="Supprimer">
+                      <Trash2 className="size-3.5" />
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Formulaire complet d'édition / création d'un code promo.
+ * Tous les champs du schéma BDD pricing_promo_codes.
+ */
+function PromoEditor({
+  draft,
+  onChange,
+  onSave,
+  onCancel,
+  busy,
+}: {
+  draft: Partial<PricingPromoCode>;
+  plans: PricingPlan[];
+  onChange: (d: Partial<PricingPromoCode>) => void;
+  onSave: () => void;
+  onCancel: () => void;
+  busy: boolean;
+}) {
+  const CURR = ["EUR", "USD", "GBP", "CHF", "SEK", "DKK", "CAD"];
+  const set = (patch: Partial<PricingPromoCode>) => onChange({ ...draft, ...patch });
+  return (
+    <div className="mb-4 rounded-xl border border-violet-500/30 bg-violet-500/[0.04] p-5">
+      <div className="mb-4 flex items-center justify-between">
+        <h3 className="font-display text-[15px] font-bold text-violet-100">
+          {draft.id ? `Éditer le code ${draft.code}` : "Nouveau code promo"}
+        </h3>
+        <div className="flex gap-2">
+          <button type="button" onClick={onCancel} disabled={busy} className="rounded-lg border border-white/10 px-3 py-1.5 text-[12px] text-zinc-300 hover:bg-white/5">Annuler</button>
+          <button type="button" onClick={onSave} disabled={busy} className="inline-flex items-center gap-1.5 rounded-lg bg-violet-500 px-3 py-1.5 text-[12px] font-bold text-white hover:bg-violet-400 disabled:opacity-50">
+            <Save className="size-3.5" /> Enregistrer + sync Stripe
+          </button>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        {/* Code public */}
+        <label className="block">
+          <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">Code public</span>
+          <input
+            type="text"
+            value={draft.code ?? ""}
+            onChange={(e) => set({ code: e.target.value.toUpperCase() })}
+            placeholder="SUMMER2026"
+            className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 font-mono text-[14px] font-bold text-violet-200 uppercase outline-none focus:border-violet-500/50"
+          />
+        </label>
+
+        {/* Label interne */}
+        <label className="block">
+          <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">Label interne (notes)</span>
+          <input
+            type="text"
+            value={draft.internal_label ?? ""}
+            onChange={(e) => set({ internal_label: e.target.value || null })}
+            placeholder="Black Friday 2026 / Influenceur X"
+            className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-[12.5px] text-zinc-100 outline-none focus:border-violet-500/50"
+          />
+        </label>
+
+        {/* Type discount */}
+        <label className="block">
+          <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">Type de réduction</span>
+          <select
+            value={draft.discount_type ?? "percent"}
+            onChange={(e) => set({ discount_type: e.target.value as "percent" | "amount" })}
+            className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-[12.5px] text-zinc-100 outline-none focus:border-violet-500/50"
+          >
+            <option value="percent">Pourcentage (%)</option>
+            <option value="amount">Montant fixe</option>
+          </select>
+        </label>
+
+        {/* Valeur discount */}
+        {draft.discount_type === "percent" ? (
+          <label className="block">
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">Pourcentage (0-100)</span>
+            <input
+              type="number"
+              min={0}
+              max={100}
+              step={0.5}
+              value={draft.discount_percent ?? ""}
+              onChange={(e) => set({ discount_percent: e.target.value ? parseFloat(e.target.value) : null })}
+              className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-[14px] font-bold text-emerald-200 outline-none focus:border-violet-500/50"
+            />
+          </label>
+        ) : (
+          <div className="grid grid-cols-2 gap-2">
+            <label className="block">
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">Montant</span>
+              <input
+                type="number"
+                min={0}
+                step={0.01}
+                value={draft.discount_amount_decimal ?? ""}
+                onChange={(e) => set({ discount_amount_decimal: e.target.value ? parseFloat(e.target.value) : null })}
+                className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-[14px] font-bold text-emerald-200 outline-none focus:border-violet-500/50"
+              />
+            </label>
+            <label className="block">
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">Devise</span>
+              <select
+                value={draft.discount_currency ?? "EUR"}
+                onChange={(e) => set({ discount_currency: e.target.value as Currency })}
+                className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-[12.5px] text-zinc-100 outline-none focus:border-violet-500/50"
+              >
+                {CURR.map((c) => <option key={c} value={c}>{c}</option>)}
+              </select>
+            </label>
+          </div>
+        )}
+
+        {/* Durée */}
+        <label className="block">
+          <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">Durée</span>
+          <select
+            value={draft.recurring ? "forever" : "once"}
+            onChange={(e) => set({ recurring: e.target.value === "forever" })}
+            className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-[12.5px] text-zinc-100 outline-none focus:border-violet-500/50"
+          >
+            <option value="once">Première facture seulement</option>
+            <option value="forever">À vie (toutes les factures)</option>
+          </select>
+        </label>
+
+        {/* Max redemptions global */}
+        <label className="block">
+          <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">Usages max (vide = illimité)</span>
+          <input
+            type="number"
+            min={0}
+            value={draft.max_redemptions ?? ""}
+            onChange={(e) => set({ max_redemptions: e.target.value ? parseInt(e.target.value, 10) : null })}
+            placeholder="∞"
+            className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-[13px] text-zinc-100 outline-none focus:border-violet-500/50"
+          />
+        </label>
+
+        {/* Max per user */}
+        <label className="block">
+          <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">Max par utilisateur</span>
+          <input
+            type="number"
+            min={1}
+            value={draft.max_per_user ?? 1}
+            onChange={(e) => set({ max_per_user: e.target.value ? parseInt(e.target.value, 10) : 1 })}
+            className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-[13px] text-zinc-100 outline-none focus:border-violet-500/50"
+          />
+        </label>
+
+        {/* Date de début */}
+        <label className="block">
+          <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">Valide à partir de</span>
+          <input
+            type="datetime-local"
+            value={draft.starts_at ? new Date(draft.starts_at).toISOString().slice(0, 16) : ""}
+            onChange={(e) => set({ starts_at: e.target.value ? new Date(e.target.value).toISOString() : null })}
+            className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-[12.5px] text-zinc-100 outline-none focus:border-violet-500/50"
+          />
+        </label>
+
+        {/* Date d'expiration */}
+        <label className="block">
+          <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">Expire le (vide = jamais)</span>
+          <input
+            type="datetime-local"
+            value={draft.expires_at ? new Date(draft.expires_at).toISOString().slice(0, 16) : ""}
+            onChange={(e) => set({ expires_at: e.target.value ? new Date(e.target.value).toISOString() : null })}
+            className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-[12.5px] text-zinc-100 outline-none focus:border-violet-500/50"
+          />
+        </label>
+
+        {/* Plans applicables */}
+        <label className="block">
+          <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">Plans applicables (vide = tous)</span>
+          <input
+            type="text"
+            value={(draft.applicable_plan_codes ?? []).join(", ")}
+            onChange={(e) => set({ applicable_plan_codes: e.target.value ? e.target.value.split(/[,\s]+/).map((s) => s.trim()).filter(Boolean) : null })}
+            placeholder="premium, max"
+            className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-[12.5px] text-zinc-100 outline-none focus:border-violet-500/50"
+          />
+        </label>
+
+        {/* Devises applicables */}
+        <label className="block">
+          <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">Devises applicables (vide = toutes)</span>
+          <input
+            type="text"
+            value={(draft.applicable_currencies ?? []).join(", ")}
+            onChange={(e) => set({ applicable_currencies: e.target.value ? e.target.value.split(/[,\s]+/).map((s) => s.trim().toUpperCase()).filter(Boolean) : null })}
+            placeholder="EUR, CHF, USD"
+            className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-[12.5px] text-zinc-100 outline-none focus:border-violet-500/50"
+          />
+        </label>
+
+        {/* Fréquence applicable */}
+        <label className="block">
+          <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">Fréquence applicable (vide = les 2)</span>
+          <select
+            value={draft.applicable_frequency ?? ""}
+            onChange={(e) => set({ applicable_frequency: (e.target.value || null) as Frequency | null })}
+            className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-[12.5px] text-zinc-100 outline-none focus:border-violet-500/50"
+          >
+            <option value="">Mensuel + annuel</option>
+            <option value="monthly">Mensuel seulement</option>
+            <option value="annual">Annuel seulement</option>
+          </select>
+        </label>
+
+        {/* Checkboxes */}
+        <div className="md:col-span-2 flex flex-wrap items-center gap-5 pt-2">
+          <label className="inline-flex items-center gap-2 text-[12.5px] text-zinc-300">
+            <input
+              type="checkbox"
+              checked={!!draft.new_customers_only}
+              onChange={(e) => set({ new_customers_only: e.target.checked })}
+              className="size-4 accent-violet-500"
+            />
+            Nouveaux clients seulement
+          </label>
+          <label className="inline-flex items-center gap-2 text-[12.5px] text-zinc-300">
+            <input
+              type="checkbox"
+              checked={draft.is_active ?? true}
+              onChange={(e) => set({ is_active: e.target.checked })}
+              className="size-4 accent-emerald-500"
+            />
+            Actif (sync Stripe au save)
+          </label>
+        </div>
       </div>
     </div>
   );
