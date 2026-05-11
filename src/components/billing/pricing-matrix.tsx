@@ -1,5 +1,8 @@
+"use client";
+
 import { Check, Lock, Info } from "lucide-react";
 import { FEATURES as FALLBACK_FEATURES, PLANS as FALLBACK_PLANS, type FeatureRow, type PlanDisplay, type PlanTier } from "@/lib/billing/plans";
+import { useT } from "@/lib/i18n/provider";
 
 /**
  * Matrice features × plans pour la page tarifs.
@@ -62,6 +65,7 @@ export function PricingMatrix({
   plans?: PlanDisplay[];
   features?: FeatureRow[];
 } = {}) {
+  const { t } = useT();
   const PLANS = plansProp && plansProp.length > 0 ? plansProp : FALLBACK_PLANS;
   const FEATURES = featuresProp && featuresProp.length > 0 ? featuresProp : FALLBACK_FEATURES;
 
@@ -76,20 +80,20 @@ export function PricingMatrix({
     <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6">
       {/* Header colonnes */}
       <div className="grid grid-cols-[1.5fr_1fr_1fr_1fr] gap-3 border-b border-white/[0.08] pb-3">
-        <div className="text-[11px] uppercase tracking-wider text-zinc-500">Fonctionnalité</div>
+        <div className="text-[11px] uppercase tracking-wider text-zinc-500">{t("pricing.matrix.feature_col")}</div>
         {PLANS.map((p) => (
           <div key={p.tier} className="text-center">
             <div className="font-display text-[14px] font-bold tracking-tight text-zinc-100">{p.name}</div>
             <div className="mt-0.5 font-mono text-[10px] uppercase tracking-wider" style={{ color: p.accent }}>
               {p.price_annual_eur === 0
                 ? p.price_monthly_eur === 0
-                  ? "Gratuit"
-                  : `${p.price_monthly_eur.toFixed(2).replace(".", ",")} €/mois`
-                : `${(p.price_annual_eur / 12).toFixed(2).replace(".", ",")} €/mois`}
+                  ? t("pricing.matrix.free")
+                  : `${p.price_monthly_eur.toFixed(2).replace(".", ",")} €${t("pricing.unit.per_month")}`
+                : `${(p.price_annual_eur / 12).toFixed(2).replace(".", ",")} €${t("pricing.unit.per_month")}`}
             </div>
             {p.price_annual_eur > 0 && (
               <div className="mt-0.5 text-[9.5px] text-zinc-500">
-                facturation annuelle
+                {t("pricing.matrix.billed_annually_short")}
               </div>
             )}
           </div>

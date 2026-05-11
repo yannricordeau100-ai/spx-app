@@ -1034,6 +1034,68 @@ export const DICTIONARY: Dict = {
     de: "Eine Frage? Wir sind da.",
   },
 
+  /* ──────── Pricing cards (strings hardcodés migrés 11 mai 2026) ──────── */
+  "pricing.card.recommended": {
+    fr: "Recommandé",
+    en: "Recommended",
+    de: "Empfohlen",
+  },
+  "pricing.unit.per_month": {
+    fr: "/mois",
+    en: "/month",
+    de: "/Monat",
+  },
+  "pricing.unit.per_day": {
+    fr: "/jour",
+    en: "/day",
+    de: "/Tag",
+  },
+  "pricing.card.billed_annually_prefix": {
+    fr: "Soit",
+    en: "i.e.",
+    de: "Also",
+  },
+  "pricing.card.billed_annually_suffix": {
+    fr: "facturés annuellement",
+    en: "billed annually",
+    de: "jährlich abgerechnet",
+  },
+  "pricing.card.no_engagement_short": {
+    fr: "Sans engagement",
+    en: "No commitment",
+    de: "Keine Bindung",
+  },
+  "pricing.card.coffee_slogan_part1": {
+    fr: "Soit moins que le prix d'un café,",
+    en: "Less than the price of a coffee,",
+    de: "Weniger als der Preis eines Kaffees,",
+  },
+  "pricing.card.coffee_slogan_part2": {
+    fr: "mais bien mieux investi !",
+    en: "but a much better investment!",
+    de: "aber viel besser investiert!",
+  },
+  "pricing.card.currency_not_available": {
+    fr: "Bientôt dispo dans cette devise",
+    en: "Coming soon in this currency",
+    de: "Bald in dieser Währung verfügbar",
+  },
+  "pricing.matrix.feature_col": {
+    fr: "Fonctionnalité",
+    en: "Feature",
+    de: "Funktion",
+  },
+  "pricing.matrix.free": {
+    fr: "Gratuit",
+    en: "Free",
+    de: "Kostenlos",
+  },
+  "pricing.matrix.billed_annually_short": {
+    fr: "facturation annuelle",
+    en: "annual billing",
+    de: "jährliche Abrechnung",
+  },
+
   /* ──────────────────────── ACCOUNT ──────────────────────── */
   "account.title": { fr: "Mon compte", en: "My account" },
   "account.subtitle": {

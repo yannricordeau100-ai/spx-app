@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Check, Sparkles, ArrowRight, Crown } from "lucide-react";
 import { PLANS as FALLBACK_PLANS, FEATURES as FALLBACK_FEATURES, monthlyEquivalent, type PlanDisplay, type FeatureRow } from "@/lib/billing/plans";
 import type { LoadedPlan } from "@/lib/billing/load-pricing";
+import { useT } from "@/lib/i18n/provider";
 
 /**
  * Plan accepté par PricingCards : soit le legacy `PlanDisplay` (hardcoded
@@ -50,6 +51,7 @@ export function PricingCards({
   const PLANS = plansProp && plansProp.length > 0 ? plansProp : FALLBACK_PLANS;
   const FEATURES = featuresProp && featuresProp.length > 0 ? featuresProp : FALLBACK_FEATURES;
   const [billing, setBilling] = useState<"monthly" | "annual">("annual");
+  const { t } = useT();
 
   return (
     <div>
@@ -206,6 +208,7 @@ function PricingCard({
   /** Catalogue features (BDD ou fallback) pour générer les bullets dynamiquement. */
   features?: FeatureRow[];
 }) {
+  const { t } = useT();
   const isAnnual = billing === "annual";
   const isHighlight = plan.highlight;
 
@@ -293,7 +296,7 @@ function PricingCard({
     >
       {isHighlight && (
         <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-3 py-1 text-[10.5px] font-bold uppercase tracking-wider text-zinc-50" style={{ background: plan.accent }}>
-          ★ Recommandé
+          ★ {t("pricing.card.recommended")}
         </div>
       )}
       {plan.tier === "pro_plus" && (
@@ -314,7 +317,7 @@ function PricingCard({
             <div className="flex items-baseline gap-1.5">
               <span className="font-display text-[44px] font-bold leading-none tracking-tight text-zinc-50">0</span>
               <span className="text-[15px] font-medium text-zinc-400">{currencySymbol}</span>
-              <span className="ml-1 text-[12px] text-zinc-500">/mois</span>
+              <span className="ml-1 text-[12px] text-zinc-500">{t("pricing.unit.per_month")}</span>
             </div>
             <div className="mt-1 text-[11.5px] text-zinc-500">{plan.annual_savings_label}</div>
           </>
@@ -334,16 +337,16 @@ function PricingCard({
                 {(isAnnual ? (displayAnnual > 0 ? displayAnnual / 12 : 0) : displayMonthly).toFixed(2).replace(".", ",")}
               </span>
               <span className="text-[15px] font-medium text-zinc-400">{currencySymbol}</span>
-              <span className="ml-1 text-[12px] text-zinc-500">/mois</span>
+              <span className="ml-1 text-[12px] text-zinc-500">{t("pricing.unit.per_month")}</span>
             </div>
             <div className="mt-1 text-[11.5px] text-zinc-500">
               {isAnnual ? (
                 <>
-                  Soit <strong className="text-zinc-300">{displayAnnual} {currencySymbol}</strong> facturés annuellement
+                  {t("pricing.card.billed_annually_prefix")} <strong className="text-zinc-300">{displayAnnual} {currencySymbol}</strong> {t("pricing.card.billed_annually_suffix")}
                   <span className="ml-1 text-emerald-300">· {plan.annual_savings_label}</span>
                 </>
               ) : (
-                <>Sans engagement</>
+                <>{t("pricing.card.no_engagement_short")}</>
               )}
             </div>
             {/* Yann 9 mai 2026 : retire le bi-bloc Mensuel/Annuel a
@@ -353,23 +356,39 @@ function PricingCard({
         )}
       </div>
 
-      {/* Yann (11 mai 2026 v2) : prix /jour + accroche placé JUSTE
-          au-dessus du CTA, dans l'espace qui était vide. Format épuré :
-          le chiffre /jour en gros + accroche concise alignée à droite.
-          Slogan KO : 1 action Coca-Cola ≈ €65, soit 2-3× le prix
-          mensuel de Premium → "moins cher qu'une action Coca-Cola
-          par mois". Honnête, parle à un investisseur. */}
+      {/* Yann (11 mai 2026 v3) : alignement horizontal des CTAs entre
+          les 3 cards. Stratégie : bullets avec flex-grow poussent
+          l'ensemble [audience + slogan + CTA] en bas. Tous les CTAs se
+          retrouvent à la même hauteur Y. */}
+
+      {/* Bullet points features : viennent du catalogue BDD
+          pricing_features. flex-grow pour pousser CTA en bas. */}
+      <ul className="mt-5 flex-grow space-y-2.5 border-t border-white/[0.06] pt-5">
+        {bulletList.map((f, i) => (
+          <li key={i} className="flex items-start gap-2 text-[12.5px] leading-snug text-zinc-300">
+            <Check className="mt-0.5 size-3.5 shrink-0" style={{ color: plan.accent }} strokeWidth={2.5} />
+            <span>{f}</span>
+          </li>
+        ))}
+      </ul>
+
+      <p className="mt-4 text-center text-[10.5px] text-zinc-500">{plan.audience}</p>
+
+      {/* Bloc prix /jour + slogan (uniquement plans payants), juste
+          au-dessus du CTA. Slogan Yann (11 mai 2026 v3) : "Soit moins
+          que le prix d'un café, mais bien mieux investi !". */}
       {!isFreeOrApi && dailyPrice > 0 && (
-        <div className="mt-4 flex items-center justify-between gap-3 rounded-lg border border-emerald-500/15 bg-emerald-500/[0.04] px-3 py-2">
+        <div className="mt-3 flex items-center justify-between gap-3 rounded-lg border border-emerald-500/15 bg-emerald-500/[0.04] px-3 py-2">
           <div className="flex items-baseline gap-1.5">
             <span className="font-display text-[22px] font-bold leading-none tracking-tight text-emerald-200">
               {dailyPrice.toFixed(2).replace(".", ",")}
             </span>
             <span className="text-[12px] font-semibold text-emerald-300/80">{currencySymbol}</span>
-            <span className="text-[10.5px] font-mono uppercase tracking-[0.12em] text-emerald-300/70">/jour</span>
+            <span className="text-[10.5px] font-mono uppercase tracking-[0.12em] text-emerald-300/70">{t("pricing.unit.per_day")}</span>
           </div>
-          <span className="text-right text-[10.5px] leading-tight text-zinc-400">
-            Soit moins qu&apos;une<br />action <strong className="text-zinc-200">Coca-Cola</strong> par mois
+          <span className="text-right text-[10.5px] italic leading-tight text-zinc-400">
+            {t("pricing.card.coffee_slogan_part1")}<br />
+            <strong className="not-italic text-zinc-200">{t("pricing.card.coffee_slogan_part2")}</strong>
           </span>
         </div>
       )}
@@ -380,7 +399,7 @@ function PricingCard({
         ctaIsCheckout={ctaIsCheckout}
         ctaLabel={
           !currencyActive
-            ? "Bientôt dispo dans cette devise"
+            ? t("pricing.card.currency_not_available")
             : plan.cta_label
         }
         isHighlight={isHighlight}
@@ -390,20 +409,6 @@ function PricingCard({
         stripePriceId={ctaIsCheckout && stripePriceId ? stripePriceId : undefined}
         disabled={!isFreeOrApi && !currencyActive}
       />
-
-      <p className="mt-3 text-center text-[10.5px] text-zinc-500">{plan.audience}</p>
-
-      {/* Bullet points features : viennent du catalogue BDD
-          pricing_features (édité dans /desk-mtk9x4kp/pricing). Si la
-          BDD est vide, fallback sur la liste statique topFeatures(). */}
-      <ul className="mt-5 space-y-2.5 border-t border-white/[0.06] pt-5">
-        {bulletList.map((f, i) => (
-          <li key={i} className="flex items-start gap-2 text-[12.5px] leading-snug text-zinc-300">
-            <Check className="mt-0.5 size-3.5 shrink-0" style={{ color: plan.accent }} strokeWidth={2.5} />
-            <span>{f}</span>
-          </li>
-        ))}
-      </ul>
     </div>
   );
 }

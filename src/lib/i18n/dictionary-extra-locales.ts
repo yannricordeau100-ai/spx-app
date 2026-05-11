@@ -1543,6 +1543,80 @@ export const EXTRA_LOCALES: Record<string, Partial<Record<LocaleKey, string>>> =
     sv: "Neutral",
     da: "Neutral",
   },
+
+  /* ──── Pricing cards strings (Yann 11 mai 2026 — extra locales) ──── */
+  "pricing.card.recommended": {
+    de: "Empfohlen",
+    nl: "Aanbevolen",
+    sv: "Rekommenderas",
+    da: "Anbefalet",
+  },
+  "pricing.unit.per_month": {
+    de: "/Monat",
+    nl: "/maand",
+    sv: "/månad",
+    da: "/måned",
+  },
+  "pricing.unit.per_day": {
+    de: "/Tag",
+    nl: "/dag",
+    sv: "/dag",
+    da: "/dag",
+  },
+  "pricing.card.billed_annually_prefix": {
+    de: "Also",
+    nl: "Oftewel",
+    sv: "Dvs",
+    da: "Dvs",
+  },
+  "pricing.card.billed_annually_suffix": {
+    de: "jährlich abgerechnet",
+    nl: "jaarlijks gefactureerd",
+    sv: "faktureras årligen",
+    da: "faktureres årligt",
+  },
+  "pricing.card.no_engagement_short": {
+    de: "Keine Bindung",
+    nl: "Geen verplichting",
+    sv: "Ingen bindning",
+    da: "Ingen binding",
+  },
+  "pricing.card.coffee_slogan_part1": {
+    de: "Weniger als der Preis eines Kaffees,",
+    nl: "Minder dan de prijs van een koffie,",
+    sv: "Mindre än priset på en kaffe,",
+    da: "Mindre end prisen på en kaffe,",
+  },
+  "pricing.card.coffee_slogan_part2": {
+    de: "aber viel besser investiert!",
+    nl: "maar veel beter geïnvesteerd!",
+    sv: "men mycket bättre investerade!",
+    da: "men meget bedre investeret!",
+  },
+  "pricing.card.currency_not_available": {
+    de: "Bald in dieser Währung verfügbar",
+    nl: "Binnenkort beschikbaar in deze valuta",
+    sv: "Kommer snart i denna valuta",
+    da: "Snart tilgængelig i denne valuta",
+  },
+  "pricing.matrix.feature_col": {
+    de: "Funktion",
+    nl: "Functie",
+    sv: "Funktion",
+    da: "Funktion",
+  },
+  "pricing.matrix.free": {
+    de: "Kostenlos",
+    nl: "Gratis",
+    sv: "Gratis",
+    da: "Gratis",
+  },
+  "pricing.matrix.billed_annually_short": {
+    de: "jährliche Abrechnung",
+    nl: "jaarlijkse facturatie",
+    sv: "årlig fakturering",
+    da: "årlig fakturering",
+  },
 };
 
 /** Merge les EXTRA_LOCALES dans une entry du DICTIONARY. */
