@@ -81,17 +81,40 @@ function quarterFromIso(iso?: string): string | null {
  * fiscale du dernier filing publié). Le prochain = +1 trimestre avec
  * wrap d'année.
  */
-function nextQuarterAfter(qLabel: string | null): string | null {
+function nextQuarterAfter(qLabel: string | null, increments: number = 1): string | null {
   if (!qLabel) return null;
   const m = qLabel.match(/^Q([1-4])\s+(\d{4})$/);
   if (!m) return null;
-  let q = parseInt(m[1], 10) + 1;
+  let q = parseInt(m[1], 10);
   let y = parseInt(m[2], 10);
-  if (q > 4) {
-    q = 1;
-    y += 1;
+  for (let i = 0; i < increments; i++) {
+    q += 1;
+    if (q > 4) {
+      q = 1;
+      y += 1;
+    }
   }
   return `Q${q} ${y}`;
+}
+
+/**
+ * Estime le nombre de trimestres entre lastDate et nextDate.
+ * Utilisé quand un dataset est en retard : si NFLX a last Q4 2025 mais
+ * une nextEarningsDate au 16 juillet 2026, ça veut dire Q+2 (≈ 197 jours
+ * = 2 trimestres), pas Q+1. Le retour est arrondi au trimestre le plus
+ * proche, minimum 1.
+ */
+function quartersBetween(lastIso?: string, nextIso?: string): number {
+  if (!lastIso || !nextIso) return 1;
+  try {
+    const a = new Date(lastIso.split("T")[0]).getTime();
+    const b = new Date(nextIso.split("T")[0]).getTime();
+    if (Number.isNaN(a) || Number.isNaN(b) || b <= a) return 1;
+    const diffDays = (b - a) / (1000 * 60 * 60 * 24);
+    return Math.max(1, Math.round(diffDays / 91));
+  } catch {
+    return 1;
+  }
 }
 
 /**
@@ -170,12 +193,16 @@ export function FreshnessIndicator({
   const lastFormatted = formatApproxDate(lastDate, locale);
   const lastQuarter = quarterFromIso(lastDate);
   const nextFormatted = formatApproxDate(nextResolved, locale);
-  // Le prochain trimestre est TOUJOURS celui qui suit le dernier publié,
-  // PAS le trimestre dans lequel tombe la date de publication future
-  // (sinon Q1 publié en avril → next earning en juillet calculait Q3 au
-  // lieu de Q2). Fallback sur quarterFromIso seulement si lastQuarter
-  // est absent (très rare). Yann 11 mai 2026.
-  const nextQuarter = nextQuarterAfter(lastQuarter) ?? quarterFromIso(nextResolved);
+  // Le prochain trimestre est calculé depuis lastQuarter + N trimestres,
+  // où N = nb de trimestres entre lastDate et nextResolved (typiquement 1,
+  // mais 2-3 quand le dataset est en retard, ex NFLX last Q4 2025 + next
+  // 16 juillet 2026 = Q2 2026 = Q+2). Fallback sur quarterFromIso si
+  // lastQuarter est absent (très rare).
+  const incrementCount = nextEarningsDate
+    ? quartersBetween(lastDate, nextEarningsDate)
+    : 1;
+  const nextQuarter =
+    nextQuarterAfter(lastQuarter, incrementCount) ?? quarterFromIso(nextResolved);
   // Drapeaux d'estimation pour styler distinctement les valeurs estimées.
   const isPubEstimated = !publicationDate && !!pubEstimated;
   const isNextEstimated = !nextEarningsDate && !!nextEstimated;
