@@ -1,6 +1,6 @@
 "use client";
 
-import { AlertTriangle, CheckCircle2, Clock, HelpCircle } from "lucide-react";
+import { AlertTriangle, CheckCircle2, Clock, HelpCircle, Hourglass } from "lucide-react";
 import { getFreshness, type FreshnessTier } from "@/lib/data";
 import { InfoTooltip } from "@/components/info-tooltip";
 import { useT } from "@/lib/i18n/provider";
@@ -151,10 +151,23 @@ function addDaysIso(iso?: string, days: number = 0): string | null {
  *   - lastDate : fin de période fiscale (ex : 2026-03-31 pour Q1 2026).
  *     Sert à calculer le trimestre couvert affiché dans le tooltip.
  */
+/**
+ * Univers V1.7 où la feature "Earning attendu" est activée.
+ * Yann 12 mai 2026 : on déploie d'abord sur le top 10 pour validation
+ * visuelle, puis on étend à 50, puis à 307, puis 622. Liste statique
+ * mise à jour à la main au fur et à mesure de chaque palier.
+ */
+const EARNING_PENDING_ENABLED_TICKERS = new Set<string>([
+  // Top 10 V1.7 (palier 1, activé 12 mai 2026)
+  "NVDA", "GOOGL", "AAPL", "MSFT", "AVGO",
+  "TSLA", "LLY", "JPM", "MU", "V",
+]);
+
 export function FreshnessIndicator({
   lastDate,
   publicationDate,
   nextEarningsDate,
+  ticker,
   alwaysShow = false,
   size = "sm",
   tooltipAlign = "left",
@@ -164,6 +177,9 @@ export function FreshnessIndicator({
   publicationDate?: string;
   /** Date approximative des prochains résultats / prochaine donnée. */
   nextEarningsDate?: string;
+  /** Ticker de la sté courante. Sert au gate "earning attendu" par
+   *  palier de déploiement. */
+  ticker?: string;
   alwaysShow?: boolean;
   size?: "sm" | "md";
   tooltipAlign?: "left" | "right" | "center";
@@ -172,9 +188,49 @@ export function FreshnessIndicator({
   // Freshness tier basé sur la date de publication si dispo, sinon lastDate.
   const refDate = publicationDate ?? lastDate;
   const tier = getFreshness(refDate);
-  if (tier === "fresh" && !alwaysShow) return null;
 
-  const meta = META[tier];
+  // ===== "Earning attendu" : détection automatique =====
+  // Logique (Yann 12 mai 2026) :
+  //   1. Si la `nextEarningsDate` est dans le passé (> aujourd'hui)
+  //   2. ET le dataset n'a pas été mis à jour (`lastDate` toujours
+  //      antérieur ou égal au trimestre couvert par cette nextEarningsDate)
+  //   → on affiche un badge "Earning attendu" jaune-ambre pour signaler
+  //     que le pipeline n'a pas encore intégré le nouveau 10-Q/10-K.
+  //
+  // Gate : activé uniquement sur les tickers du palier de déploiement
+  // courant (cf EARNING_PENDING_ENABLED_TICKERS).
+  const isEarningPending = (() => {
+    if (!ticker || !EARNING_PENDING_ENABLED_TICKERS.has(ticker.toUpperCase()))
+      return false;
+    if (!nextEarningsDate || !lastDate) return false;
+    try {
+      const nextD = new Date(nextEarningsDate.split("T")[0]);
+      const lastD = new Date(lastDate.split("T")[0]);
+      const today = new Date();
+      today.setUTCHours(0, 0, 0, 0);
+      if (Number.isNaN(nextD.getTime()) || Number.isNaN(lastD.getTime()))
+        return false;
+      // Condition : nextEarningsDate dépassée ET lastDate antérieur à
+      // nextEarningsDate (= le pipeline n'a pas encore reçu le 10-Q/10-K
+      // qui correspond à cette nextEarningsDate).
+      return nextD.getTime() < today.getTime() && lastD.getTime() < nextD.getTime();
+    } catch {
+      return false;
+    }
+  })();
+
+  if (tier === "fresh" && !alwaysShow && !isEarningPending) return null;
+
+  // Si "Earning attendu" est actif, on remplace le tier de freshness par
+  // un état dédié (couleur ambre, icône sablier, label "Earning attendu").
+  const meta = isEarningPending
+    ? {
+        color: "#fbbf24",
+        Icon: Hourglass,
+        labelKey: "company.earning_pending",
+        explainerKey: "company.earning_pending_explainer",
+      }
+    : META[tier];
   const Icon = meta.Icon;
   const isSm = size === "sm";
   // Heuristiques de fallback si CONV-DATA n'a pas peuplé les champs :

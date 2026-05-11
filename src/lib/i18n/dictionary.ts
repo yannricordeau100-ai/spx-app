@@ -160,6 +160,11 @@ export const DICTIONARY: Dict = {
   "company.recent": { fr: "Récent", en: "Recent" },
   "company.stale": { fr: "Données vieillissantes", en: "Stale data" },
   "company.unknown_date": { fr: "Date inconnue", en: "Unknown date" },
+  "company.earning_pending": { fr: "Earning attendu", en: "Earnings pending" },
+  "company.earning_pending_explainer": {
+    fr: "La date d'earning prévue est passée mais les nouveaux chiffres ne sont pas encore intégrés sur le graphique. Mise à jour automatique dès que le 10-Q/10-K est disponible.",
+    en: "The expected earnings date has passed but the new numbers are not yet integrated into the chart. Automatic update as soon as the 10-Q/10-K is available.",
+  },
   "company.next_results": { fr: "Prochains résultats", en: "Next earnings" },
   "company.last_quarter": { fr: "Dernier trimestre couvert", en: "Latest quarter covered" },
   "company.last_data": { fr: "Dernière donnée", en: "Latest data point" },

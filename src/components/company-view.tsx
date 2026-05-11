@@ -57,6 +57,7 @@ import { computeSuperKpis, computeSectorSuperKpis } from "@/lib/super-kpi";
 import { useT } from "@/lib/i18n/provider";
 import { CmdFSearch } from "@/components/cmdf-search";
 import { TranscriptStories, type TranscriptDoc } from "@/components/transcript-stories";
+import { TranscriptBulletsBlock, type TranscriptBulletsSummary } from "@/components/transcript-bullets-block";
 import { V18MissingPlaceholder } from "@/components/v18-missing-placeholder";
 import { YoungIpoWarning } from "@/components/young-ipo-warning";
 import { BrandWordmark } from "@/components/brand-wordmark";
@@ -70,6 +71,7 @@ export function CompanyView({
   hideSenate = false,
   hidePriceBar = false,
   transcript = null,
+  transcriptSummary = null,
   v18Mode = false,
 }: {
   company: Company;
@@ -80,6 +82,8 @@ export function CompanyView({
   hidePriceBar?: boolean;
   /** Dernier earning call transcript (créé par CONV-DATA). Null si pas dispo. */
   transcript?: TranscriptDoc | null;
+  /** Résumé bullets PV-driven du dernier earning call (Yann 11 mai 2026). */
+  transcriptSummary?: TranscriptBulletsSummary | null;
   /** V1.8 : affiche les blocs manquants en placeholder rouge au lieu de
    *  les masquer. Permet à Yann de voir ce qu'il manque sur chaque sté. */
   v18Mode?: boolean;
@@ -315,6 +319,7 @@ export function CompanyView({
                   lastDate={active.last_data_date ?? "2025-12-31"}
                   publicationDate={company.latest_filing?.date}
                   nextEarningsDate={company.next_earnings_date}
+                  ticker={company.ticker}
                   alwaysShow
                   size="sm"
                 />
@@ -580,10 +585,15 @@ export function CompanyView({
             dans /concepts/mockups/dividend.tsx tant que la partie n'est pas
             prête. Plus de déploiement V1 ni V1.7 sur ce bloc. */}
 
-        {/* Transcript Stories — bloc 2 colonnes côte à côte (citations
-            management + chiffres/guidance du dernier earning call). Placé
-            entre Stories KPI et Risks. (5 mai 2026) */}
-        <TranscriptStories ticker={company.ticker} doc={transcript} />
+        {/* Synthèse Earning Call — bullets PV-driven avec tooltip "i" auto
+            sur abréviations / termes techniques. Format unique pour TOUTES
+            les sociétés (Yann 11 mai 2026). Préféré au bloc TranscriptStories
+            quand un résumé est dispo, sinon fallback sur l'ancien. */}
+        {transcriptSummary && transcriptSummary.summary?.bullets?.length ? (
+          <TranscriptBulletsBlock ticker={company.ticker} summary={transcriptSummary} />
+        ) : (
+          <TranscriptStories ticker={company.ticker} doc={transcript} />
+        )}
 
         {/* Profil société & marché — description longue + snapshot
             boursier + faits clés + sés comparables. (7 mai 2026) */}

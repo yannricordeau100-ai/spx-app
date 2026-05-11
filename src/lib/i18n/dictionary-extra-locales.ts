@@ -161,6 +161,18 @@ export const EXTRA_LOCALES: Record<string, Partial<Record<LocaleKey, string>>> =
   "company.recent": { de: "Aktuell", nl: "Recent", sv: "Nyligen", da: "Nyligt" },
   "company.stale": { de: "Veraltete Daten", nl: "Verouderde gegevens", sv: "Föråldrade data", da: "Forældede data" },
   "company.unknown_date": { de: "Unbekanntes Datum", nl: "Onbekende datum", sv: "Okänt datum", da: "Ukendt dato" },
+  "company.earning_pending": {
+    de: "Earnings ausstehend",
+    nl: "Earnings in afwachting",
+    sv: "Resultat väntar",
+    da: "Resultater afventer",
+  },
+  "company.earning_pending_explainer": {
+    de: "Das erwartete Earnings-Datum ist überschritten, aber die neuen Zahlen sind noch nicht in der Grafik integriert. Automatische Aktualisierung, sobald das 10-Q/10-K verfügbar ist.",
+    nl: "De verwachte resultatendatum is verstreken, maar de nieuwe cijfers zijn nog niet in de grafiek opgenomen. Automatische update zodra de 10-Q/10-K beschikbaar is.",
+    sv: "Det förväntade resultatdatumet har passerat men de nya siffrorna är ännu inte integrerade i diagrammet. Automatisk uppdatering så snart 10-Q/10-K är tillgänglig.",
+    da: "Den forventede resultatdato er overskredet, men de nye tal er endnu ikke integreret i grafen. Automatisk opdatering, så snart 10-Q/10-K er tilgængelig.",
+  },
   "company.next_results": { de: "Nächste Ergebnisse", nl: "Volgende resultaten", sv: "Nästa resultat", da: "Næste resultater" },
   "company.last_quarter": { de: "Letztes abgedecktes Quartal", nl: "Laatste gedekte kwartaal", sv: "Senaste täckta kvartal", da: "Seneste dækkede kvartal" },
   "company.last_data": { de: "Letzter Datenpunkt", nl: "Laatste gegevens", sv: "Senaste datapunkt", da: "Seneste datapunkt" },
