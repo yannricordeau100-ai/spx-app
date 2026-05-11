@@ -104,10 +104,29 @@ export function AuthModal() {
         setSigninBusy(false);
         return;
       }
-      // Cookie session déjà posé par Supabase JS. Redirige vers next ou home.
-      const target = nextParam && nextParam.startsWith("/") && !nextParam.startsWith("//") ? nextParam : "/";
-      // window.location.href force un round-trip serveur → cookies relus, layout RSC re-render proprement
-      window.location.href = target;
+      // Yann (12 mai 2026) : fix 404 après login.
+      // Cause : window.location.href = nextParam pouvait pointer sur une
+      // URL fantôme (params de l'ancienne session, page protégée disable,
+      // etc.). Maintenant on redirige TOUJOURS vers une home safe + on
+      // attend 200ms pour laisser le cookie Supabase propager.
+      //
+      // Sur staging : "/sandbox/v1-8" directement (la home staging).
+      // Sur prod : "/" (la home prod).
+      // Si nextParam pointe sur une page sté valide (ex /sandbox/v1-8/nvda)
+      // on l'autorise, sinon fallback safe.
+      const isStaging = typeof window !== "undefined" && window.location.host.includes("staging");
+      const safeHome = isStaging ? "/sandbox/v1-8" : "/";
+      let target = safeHome;
+      if (nextParam && nextParam.startsWith("/") && !nextParam.startsWith("//")) {
+        // Autorise les pages sté V1.8 directement
+        if (nextParam.startsWith("/sandbox/v1-8") || nextParam.startsWith("/sandbox/v1-7") || nextParam.startsWith("/account")) {
+          target = nextParam;
+        }
+      }
+      // 200ms laisse Supabase JS propager le cookie session avant le reload.
+      setTimeout(() => {
+        window.location.href = target;
+      }, 200);
     } catch (err) {
       setSigninErr("Erreur réseau. Réessaie.");
       setSigninBusy(false);
