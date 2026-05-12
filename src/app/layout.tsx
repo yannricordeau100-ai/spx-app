@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Manrope, JetBrains_Mono, Bricolage_Grotesque, Sora, Fraunces } from "next/font/google";
 import { PlausibleScript } from "@/components/analytics/plausible";
 import { I18nProvider } from "@/lib/i18n/provider";
@@ -52,6 +52,20 @@ const fraunces = Fraunces({
 });
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.mettrik.ai";
+
+// Yann 13 mai 2026 : viewport mobile-first. Sans cet export, la barre Safari
+// iPhone reste blanche par défaut et certains téléphones bridgent le layout.
+// theme-color sombre = la barre Safari adopte la couleur de l'app, look "native".
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#06060a" },
+    { media: "(prefers-color-scheme: light)", color: "#06060a" },
+  ],
+  colorScheme: "dark",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

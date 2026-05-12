@@ -36,6 +36,31 @@ html, body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   letter-spacing: -0.005em;
+  /* Yann 13 mai 2026 : mobile UX. Tap highlight gris foncé subtle au lieu
+     du gris iOS par défaut (qui clashe avec le dark). Overscroll bounce
+     conservée sur Safari (effet "natif"). */
+  -webkit-tap-highlight-color: rgba(168, 92, 246, 0.18);
+}
+
+/* iOS auto-zoom sur input < 16px = anti-pattern. Force 16px sur les
+   inputs/textarea pour empêcher Safari de zoomer au focus. */
+input, textarea, select {
+  font-size: 16px;
+}
+
+/* Safe-area iPhone X+ (notch + home indicator). Pad bottom des fixed bars. */
+.safe-area-bottom { padding-bottom: max(0.5rem, env(safe-area-inset-bottom)); }
+.safe-area-top    { padding-top: max(0.5rem, env(safe-area-inset-top)); }
+
+/* Respect du paramètre OS "réduire les animations" (iOS Accessibility +
+   Android Animation Scale = 0). Garde l'app utilisable sans les motions. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 ::selection { background: rgba(139, 92, 246, 0.4); color: #fff; }

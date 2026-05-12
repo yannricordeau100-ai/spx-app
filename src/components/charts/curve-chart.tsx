@@ -328,6 +328,43 @@ export function CurveChart({
           transition={{ duration: 1.4 }}
         />
 
+        {/* Points lumineux glissants le long du trait (Yann 13 mai 2026).
+            3 photons décalés qui parcourent la courbe en boucle, effet "flux
+            de données vivant". SVG <animateMotion> natif → ultra léger CPU. */}
+        <path id={`${idGlow}-motionpath`} d={frontPath} fill="none" stroke="none" />
+        {[0, 0.33, 0.66].map((delay, i) => (
+          <g key={`photon-${i}`}>
+            {/* Halo extérieur du photon */}
+            <circle r={6} fill={color} opacity={0.35} filter={`url(#${idGlow})`}>
+              <animateMotion dur="4s" repeatCount="indefinite" begin={`${delay * 4}s`}>
+                <mpath href={`#${idGlow}-motionpath`} />
+              </animateMotion>
+              <animate
+                attributeName="opacity"
+                values="0;0.4;0.4;0"
+                keyTimes="0;0.1;0.9;1"
+                dur="4s"
+                begin={`${delay * 4}s`}
+                repeatCount="indefinite"
+              />
+            </circle>
+            {/* Core blanc brillant */}
+            <circle r={2} fill="#ffffff">
+              <animateMotion dur="4s" repeatCount="indefinite" begin={`${delay * 4}s`}>
+                <mpath href={`#${idGlow}-motionpath`} />
+              </animateMotion>
+              <animate
+                attributeName="opacity"
+                values="0;1;1;0"
+                keyTimes="0;0.08;0.92;1"
+                dur="4s"
+                begin={`${delay * 4}s`}
+                repeatCount="indefinite"
+              />
+            </circle>
+          </g>
+        ))}
+
         {/* Depth-tick connectors at each data point */}
         {points.map(([x, y], i) => (
           <line
