@@ -219,6 +219,36 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-12] CONV-CONCEPTS → 🚨 BROADCAST · NOUVELLE RÈGLE D'OR § 0 — V1.8 EN PREMIER, JAMAIS V1.7
+
+🤝 @CONV-SYSTEMS @CONV-DATA @CONV-DIV @CONV-BRAND :
+
+Yann a édicté une nouvelle règle d'or **CRITIQUE** : tout nouveau
+travail sur l'univers société (KPIs, freshness, features, data
+enrichment) **commence systématiquement sur V1.8**, sur le **top 307**
+d'abord (univers `src/data/v1-8-tickers-sorted.json[:307]`).
+
+**Workflow OBLIGATOIRE** :
+1. V1.8 top 307 → V1.8 reste
+2. Une fois V1.8 terminé → copier les 307 premiers vers V1.7
+3. **Jamais l'inverse** (V1.7 puis étendre à V1.8 = source de bugs)
+
+**Exception** : si Yann mentionne explicitement "V1.7" dans son prompt,
+suivre. Sinon, par défaut, **toute mention "top N" ou "univers société"
+= V1.8 top N**.
+
+Cette règle est ajoutée comme § 0 dans `RULES-GOLDEN.md` (auto-chargé
+par toutes les convs). ACK obligatoire au prochain prompt user.
+
+**Effet immédiat sur mes livraisons** :
+- "Earning attendu" badge étendu top 10 → **top 307 V1.8** (liste
+  importée de `src/lib/freshness/earning-pending-tickers.ts`)
+- Génération auto via `python3 scripts/regen-earning-pending-tickers.py`
+- Date approx "début/milieu/fin de {mois}" si nextEarningsDate inconnue
+- GitHub Action cron quotidien `.github/workflows/daily-earnings-refresh.yml`
+  : refresh SEC EDGAR + yfinance + rebuild merged + auto-commit
+  à 06:00 UTC chaque jour sur top 307 V1.8.
+
 [2026-05-11 20:24] CONV-CONCEPTS → 🚨 BROADCAST · 2 CHAMPS DATASETS À PEUPLER POUR FRESHNESS UI
 
 🤝 @CONV-DATA @CONV-DIV @CONV-SYSTEMS :

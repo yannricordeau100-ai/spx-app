@@ -4,6 +4,7 @@ import { AlertTriangle, CheckCircle2, Clock, HelpCircle, Hourglass } from "lucid
 import { getFreshness, type FreshnessTier } from "@/lib/data";
 import { InfoTooltip } from "@/components/info-tooltip";
 import { useT } from "@/lib/i18n/provider";
+import { EARNING_PENDING_TICKERS } from "@/lib/freshness/earning-pending-tickers";
 
 const META: Record<
   FreshnessTier,
@@ -136,6 +137,58 @@ function addDaysIso(iso?: string, days: number = 0): string | null {
 }
 
 /**
+ * Ajoute N mois à une date ISO (gère le wrap d'année automatiquement).
+ * Utilisé pour estimer la prochaine date d'earning quand le pipeline n'a
+ * pas encore reçu la vraie nextEarningsDate : on assume +3 mois (= 1 Q).
+ */
+function addMonthsIso(iso?: string, months: number = 0): string | null {
+  if (!iso) return null;
+  try {
+    const d = new Date(iso.split("T")[0]);
+    if (Number.isNaN(d.getTime())) return null;
+    d.setUTCMonth(d.getUTCMonth() + months);
+    return d.toISOString().split("T")[0];
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Convertit une date ISO en libellé "début / milieu / fin de {mois}".
+ * Règle Yann 12 mai 2026 : si on ne connait pas le jour exact du
+ * prochain earning, on indique seulement la zone du mois.
+ *   - jour 1-10  → "début {mois}"
+ *   - jour 11-20 → "milieu {mois}"
+ *   - jour 21-fin → "fin {mois}"
+ */
+function approximateMonthLabel(iso: string | null | undefined, locale: string): string | null {
+  if (!iso) return null;
+  try {
+    const d = new Date(iso.split("T")[0]);
+    if (Number.isNaN(d.getTime())) return null;
+    const day = d.getUTCDate();
+    let zone: "debut" | "milieu" | "fin";
+    if (day <= 10) zone = "debut";
+    else if (day <= 20) zone = "milieu";
+    else zone = "fin";
+    const monthName = new Intl.DateTimeFormat(locale === "fr" ? "fr-FR" : "en-US", {
+      month: "long",
+      year: "numeric",
+    }).format(d);
+    const labels = {
+      fr: { debut: "début", milieu: "milieu", fin: "fin" },
+      en: { debut: "early", milieu: "mid", fin: "late" },
+    };
+    const dict = locale === "fr" ? labels.fr : labels.en;
+    return locale === "fr"
+      ? `${dict[zone]} ${monthName}`
+      : `${dict[zone]} ${monthName}`;
+  } catch {
+    return null;
+  }
+}
+
+/**
  * Compact freshness pill.
  *
  * Yann (10 mai 2026) : la pill doit afficher la **date de publication**
@@ -152,16 +205,13 @@ function addDaysIso(iso?: string, days: number = 0): string | null {
  *     Sert à calculer le trimestre couvert affiché dans le tooltip.
  */
 /**
- * Univers V1.7 où la feature "Earning attendu" est activée.
- * Yann 12 mai 2026 : on déploie d'abord sur le top 10 pour validation
- * visuelle, puis on étend à 50, puis à 307, puis 622. Liste statique
- * mise à jour à la main au fur et à mesure de chaque palier.
+ * Univers V1.8 top 307 où la feature "Earning attendu" est activée.
+ * Liste importée de `@/lib/freshness/earning-pending-tickers` (générée
+ * depuis `src/data/v1-8-tickers-sorted.json[:307]`).
+ * Règle d'or V1.8-first (Yann 12 mai 2026) : V1.8 d'abord, puis V1.7
+ * (snapshot stable). Voir RULES-GOLDEN.md § 0.
  */
-const EARNING_PENDING_ENABLED_TICKERS = new Set<string>([
-  // Top 10 V1.7 (palier 1, activé 12 mai 2026)
-  "NVDA", "GOOGL", "AAPL", "MSFT", "AVGO",
-  "TSLA", "LLY", "JPM", "MU", "V",
-]);
+const EARNING_PENDING_ENABLED_TICKERS = EARNING_PENDING_TICKERS;
 
 export function FreshnessIndicator({
   lastDate,
@@ -236,19 +286,23 @@ export function FreshnessIndicator({
   // Heuristiques de fallback si CONV-DATA n'a pas peuplé les champs :
   //   - publicationDate manquant → estimation = lastDate + 30 jours
   //     (fenêtre typique de publication des 10-Q SEC pour US large caps).
-  //   - nextEarningsDate manquant → estimation = lastDate + ~91 jours
-  //     (= 1 trimestre standard).
-  // Ces fallbacks sont marqués "estimation" dans le tooltip pour que
-  // l'utilisateur sache que ce n'est pas la vraie date filed SEC.
-  // Yann 11 mai 2026.
+  //   - nextEarningsDate manquant → estimation = lastDate + 3 mois (= 1 Q).
+  //     Affichée comme "début/milieu/fin de {mois}" au lieu d'une date
+  //     précise (règle Yann 12 mai 2026 : ne pas inventer un jour exact
+  //     qu'on ne connait pas).
   const pubEstimated = !publicationDate && lastDate ? addDaysIso(lastDate, 30) : null;
-  const nextEstimated = !nextEarningsDate && lastDate ? addDaysIso(lastDate, 91) : null;
+  const nextEstimated = !nextEarningsDate && lastDate ? addMonthsIso(lastDate, 3) : null;
   const pubResolved = publicationDate ?? pubEstimated ?? undefined;
   const nextResolved = nextEarningsDate ?? nextEstimated ?? undefined;
   const pubFormatted = formatApproxDate(pubResolved, locale);
   const lastFormatted = formatApproxDate(lastDate, locale);
   const lastQuarter = quarterFromIso(lastDate);
-  const nextFormatted = formatApproxDate(nextResolved, locale);
+  // nextFormatted : si la vraie date est connue → format date précis.
+  // Si estimation (= jour inventé) → utiliser le format "début/milieu/fin
+  // de {mois}" pour ne pas tromper l'utilisateur sur la précision.
+  const nextFormatted = nextEarningsDate
+    ? formatApproxDate(nextResolved, locale)
+    : approximateMonthLabel(nextResolved, locale);
   // Le prochain trimestre est calculé depuis lastQuarter + N trimestres,
   // où N = nb de trimestres entre lastDate et nextResolved (typiquement 1,
   // mais 2-3 quand le dataset est en retard, ex NFLX last Q4 2025 + next

@@ -10,6 +10,34 @@
 
 ---
 
+## 0. V1.8 EN PREMIER, JAMAIS V1.7 (RÈGLE D'OR ABSOLUE)
+
+Édictée par Yann le 12 mai 2026. Ordre TRÈS important, à appliquer
+dans toutes les conversations (CONCEPTS, SYSTEMS, DATA, DIV, BRAND).
+
+**Règle** : tout nouveau travail sur l'univers société (KPIs, freshness,
+features, data enrichment, etc.) **commence systématiquement sur V1.8**,
+sur le **top 307** d'abord (univers `src/data/v1-8-tickers-sorted.json[:307]`).
+
+**Workflow obligatoire** :
+1. **D'abord** : V1.8 top 307 → V1.8 reste
+2. **Une fois V1.8 terminé** → seulement à ce moment-là, copier les 307
+   premiers vers V1.7 (= mêmes données, mêmes features, version snapshot)
+3. **Jamais l'inverse** : ne pas commencer un chantier sur V1.7 puis
+   l'étendre à V1.8 (= source de bugs et d'incohérences entre les 2
+   versions, observés en pratique)
+
+**Exception explicite** : si Yann mentionne explicitement "V1.7" ou
+"sur les V1.7 seulement" dans son prompt, suivre. Sinon, par défaut,
+**toute mention "top N" ou "univers société" = V1.8 top N**.
+
+**Pourquoi** : V1.7 est la version "snapshot stable" archivée pour la
+démo investisseur. V1.8 est la version active de développement avec
+les dernières features. Travailler dans le mauvais ordre crée des
+discordances UI/data entre les 2 versions et oblige à refaire le boulot.
+
+---
+
 ## 1. LIRE ET FAIRE l'INTÉGRALITÉ du prompt
 
 Chaque prompt Yann se traite dans son ENTIÈRETÉ. Si le prompt contient
