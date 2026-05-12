@@ -42,8 +42,14 @@ export async function verifyTurnstileToken(
   token: string | null | undefined,
   ip?: string | null,
 ): Promise<{ ok: boolean; reason?: string }> {
+  // Yann 12 mai 2026 : URGENCE bug Mac freeze. Le widget Cloudflare ne se
+  // charge pas chez certains users (firewall, adblocker, réseau corp).
+  // En attendant la résolution de la config Cloudflare, on rend le captcha
+  // OPTIONNEL côté serveur : si pas de token, on laisse passer (mode dégradé).
+  // Quand le widget marche → token envoyé → vérifié strictement.
+  // Re-activer le mode strict en supprimant ce bloc dès que Cloudflare est OK.
   if (!token || typeof token !== "string") {
-    return { ok: false, reason: "missing_token" };
+    return { ok: true, reason: "captcha_skipped_widget_unavailable" };
   }
   const secret = process.env.TURNSTILE_SECRET_KEY ?? TEST_SECRET_KEY;
   const body = new URLSearchParams({ secret, response: token });
