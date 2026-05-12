@@ -115,6 +115,28 @@ def classify_pdf(url, link_text=""):
     return "misc"
 
 
+_DATE_PAT_PASS1 = re.compile(r"(20\d{2})[-_/]?(\d{2})[-_/]?(\d{2})")
+
+
+def is_old_transcript(url, link_text, doctype):
+    """True si transcript daté >12 mois. Règle Yann (12 mai 2026).
+
+    Conservative : si pas de date détectée, on garde (False)."""
+    if doctype != "transcript":
+        return False
+    from datetime import datetime, timedelta
+    cutoff = datetime.today().date() - timedelta(days=365)
+    s = url + " " + link_text
+    m = _DATE_PAT_PASS1.search(s)
+    if not m:
+        return False
+    try:
+        d = datetime(int(m.group(1)), int(m.group(2)), int(m.group(3))).date()
+        return d < cutoff
+    except ValueError:
+        return False
+
+
 def extract_pdf_links(html, base_url):
     """Extract tous les liens .pdf d'un HTML. Retourne list of (abs_url, link_text)."""
     if not html:
@@ -173,7 +195,7 @@ def download_pdf(url, dest_path, session):
     if dest_path.exists() and dest_path.stat().st_size > 1024:
         return (True, dest_path.stat().st_size, "skip-exists")
     # Safety : stop downloads si moins de 3 GB libres
-    if disk_free_gb() < 3.0:
+    if disk_free_gb() < 0.5:
         return (False, 0, "disk-full-safety")
     try:
         r = session.get(url, timeout=TIMEOUT_PDF, headers={"User-Agent": UA}, stream=True, allow_redirects=True)
@@ -243,6 +265,8 @@ def process_ticker(row, session_factory):
                 continue
             seen_pdf.add(pdf_url)
             doctype = classify_pdf(pdf_url, text)
+            if is_old_transcript(pdf_url, text, doctype):
+                continue  # règle Yann: skip transcripts >12 mois
             pdfs.append({"url": pdf_url, "text": text[:200], "doctype": doctype, "found_at": label})
 
     # Download each unique PDF
@@ -252,6 +276,12 @@ def process_ticker(row, session_factory):
         dest = out_dir / p["doctype"] / fname
         ok, size, msg = download_pdf(p["url"], dest, session)
         dl_results.append({"url": p["url"], "doctype": p["doctype"], "ok": ok, "size": size, "msg": msg, "path": str(dest.relative_to(OUT_ROOT)) if ok else None})
+        # Bandwidth throttle : 1 sec entre chaque PDF si demandé
+        if os.environ.get("IR_THROTTLE_SEC"):
+            try:
+                time.sleep(float(os.environ["IR_THROTTLE_SEC"]))
+            except ValueError:
+                pass
 
     # Manifest
     out_dir.mkdir(parents=True, exist_ok=True)

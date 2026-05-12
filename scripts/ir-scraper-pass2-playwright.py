@@ -140,6 +140,16 @@ async def scrape_one(row, browser):
                 if href in seen: continue
                 seen.add(href)
                 doctype = classify_pdf(href, a.get("text", ""))
+                # Règle Yann: skip transcripts >12 mois
+                if doctype == "transcript":
+                    from datetime import datetime, timedelta
+                    cutoff = datetime.today().date() - timedelta(days=365)
+                    mm = re.search(r"(20\d{2})[-_/]?(\d{2})[-_/]?(\d{2})", href + " " + a.get("text",""))
+                    if mm:
+                        try:
+                            d = datetime(int(mm.group(1)), int(mm.group(2)), int(mm.group(3))).date()
+                            if d < cutoff: continue
+                        except ValueError: pass
                 pdfs.append({"url": href, "text": a.get("text", "")[:200], "doctype": doctype, "found_at": label})
         except Exception as e:
             errs.append({"label": label, "url": u, "err": str(e)[:100]})
@@ -152,7 +162,7 @@ async def scrape_one(row, browser):
     s = requests.Session()
     dl = []
     for p in pdfs:
-        if disk_free_gb() < 3.0:
+        if disk_free_gb() < 0.5:
             dl.append({"url": p["url"], "ok": False, "msg": "disk-full"})
             continue
         fname = safe_filename(p["url"])
