@@ -65,6 +65,27 @@ import { CompanyProfileCard } from "@/components/company-profile-card";
 
 const VISIBLE_KPI_COUNT = 6;
 
+/**
+ * Yann (12 mai 2026) : le toggle "valeur par seconde / minute / jour /
+ * mois / an" ne fait sens QUE pour certaines familles de KPI :
+ *   - Revenus (tous types) : revenue, sales, cloud, ARR, run rate,
+ *     bookings, backlog, subscriptions, services, products…
+ *   - Marges / bénéfices : margin, profit, income, EPS, EBITDA, FCF…
+ *   - Capex / R&D / dépenses : capex, opex, r&d, expense, capital exp…
+ * Pour Headcount, NPS, subscribers count, etc. → toggle masqué.
+ */
+function isTimeFractionApplicableKpi(kpi?: KPI | null): boolean {
+  if (!kpi) return false;
+  const text = `${kpi.short ?? ""} ${kpi.type ?? ""} ${kpi.name_fr ?? ""}`.toLowerCase();
+  // Revenus
+  if (/revenue|revenu|sales|chiffre.?d.?affaires|cloud|run.?rate|\barr\b|backlog|bookings|subscription|services|product/.test(text)) return true;
+  // Marges / bénéfices
+  if (/margin|marge|profit|b[ée]n[ée]fic|income|eps|ebitda|ebit\b|fcf|cash.?flow|net.?loss|résultat/.test(text)) return true;
+  // Capex / R&D / dépenses
+  if (/capex|capital.?expenditure|opex|operating.?expense|r&?d|recherche.?d|d[ée]penses?|expense|spending|investissement/.test(text)) return true;
+  return false;
+}
+
 export function CompanyView({
   company,
   authSlot,
@@ -460,9 +481,13 @@ export function CompanyView({
                 </InfoTooltip>
               </div>
               {/* TimeFraction toggle visible UNIQUEMENT pour les charts qui ont
-                  du sens à diviser : courbe + barres. Pour variation/dashboard,
-                  on cache (les % de variation ne se divisent pas par seconde). */}
-              {(chartMode === "curve" || chartMode === "bars") && (
+                  du sens à diviser ET pour les KPIs où ça PARLE à un investisseur.
+                  Yann (12 mai 2026) : limité à 3 familles :
+                    - Revenus (revenue, sales, cloud, ARR, run rate, bookings, backlog…)
+                    - Marges / bénéfices (margin, profit, income, EPS, EBITDA, FCF…)
+                    - Capex / R&D / dépenses (capex, opex, r&d, expense…)
+                  Pour Headcount, NPS, subscribers, etc. → toggle masqué. */}
+              {(chartMode === "curve" || chartMode === "bars") && isTimeFractionApplicableKpi(active) && (
                 <div className="mb-2 flex justify-end">
                   <TimeFractionToggle
                     value={timeFraction}

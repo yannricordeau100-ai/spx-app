@@ -49,7 +49,8 @@ export function EventDotsSVG({
   const [open, setOpen] = useState<number | null>(null);
   if (!events.length || xLabels.length < 2) return null;
   const stepX = innerW / (xLabels.length - 1);
-  const dotY = padTop + innerH + 18; // sous l'axe X, juste sous les labels d'années
+  // Yann (12 mai 2026) : les "i" sur l'axe du temps (pas en dessous).
+  const dotY = padTop + innerH;
 
   const positioned = events
     .map((e, i) => {
@@ -61,7 +62,18 @@ export function EventDotsSVG({
         x: padLeft + idx * stepX,
       };
     })
-    .filter((p): p is { i: number; e: CompanyEvent; x: number } => p !== null);
+    .filter((p): p is { i: number; e: CompanyEvent; x: number } => p !== null)
+    // Spread horizontal si plusieurs events proches (même année / même
+    // mois) : on les étale côte à côte avec offset 14px max.
+    .sort((a, b) => a.x - b.x);
+  const SPREAD = 14;
+  for (let i = 1; i < positioned.length; i++) {
+    const prev = positioned[i - 1];
+    const cur = positioned[i];
+    if (cur.x - prev.x < SPREAD) {
+      cur.x = prev.x + SPREAD;
+    }
+  }
 
   return (
     <g>
@@ -140,25 +152,29 @@ export function EventDotsOverlay({
   if (!events.length || xLabels.length < 2) return null;
 
   const stepX = innerW / (xLabels.length - 1);
-  const dotY = padTop + innerH + 18;
+  const dotY = padTop + innerH;
 
-  // Positions en % du viewBox SVG (pour overlay responsive sur SVG width=100%)
-  const positioned = events
+  // Positions en pixels SVG d'abord (pour appliquer spread), puis en %
+  const pxPositioned = events
     .map((e, i) => {
       const idx = eventFractionalIndex(e, xLabels);
       if (idx == null) return null;
-      const x = padLeft + idx * stepX;
-      return {
-        i,
-        e,
-        leftPct: (x / svgW) * 100,
-        topPct: (dotY / svgH) * 100,
-      };
+      return { i, e, x: padLeft + idx * stepX };
     })
-    .filter(
-      (p): p is { i: number; e: CompanyEvent; leftPct: number; topPct: number } =>
-        p !== null
-    );
+    .filter((p): p is { i: number; e: CompanyEvent; x: number } => p !== null)
+    .sort((a, b) => a.x - b.x);
+  const SPREAD = 14;
+  for (let i = 1; i < pxPositioned.length; i++) {
+    if (pxPositioned[i].x - pxPositioned[i - 1].x < SPREAD) {
+      pxPositioned[i].x = pxPositioned[i - 1].x + SPREAD;
+    }
+  }
+  const positioned = pxPositioned.map((p) => ({
+    i: p.i,
+    e: p.e,
+    leftPct: (p.x / svgW) * 100,
+    topPct: (dotY / svgH) * 100,
+  }));
 
   return (
     <>
