@@ -115,28 +115,12 @@ export async function signUpWithPassword(formData: FormData) {
 }
 
 /* ─── Magic link ────────────────────────────────────────────────────── */
+/* RETIRÉ Yann 13 mai 2026 : tout accès doit passer par inscription
+ * email + mot de passe + captcha. Plus de magic link (anti-fraude). */
 
-export async function signInWithMagicLink(formData: FormData) {
-  // Captcha Turnstile (Yann 11 mai 2026 : anti-spam des emails magic link).
-  const captchaErr = await checkCaptcha(formData, "/?auth=signin");
-  if (captchaErr) redirect(captchaErr);
-
-  const email = String(formData.get("email") ?? "");
-  const next = safeNextParam(formData.get("next"));
-  const supabase = await createSupabaseServerClient();
-  const origin = await getOrigin();
-  const callback = next && next !== "/account"
-    ? `${origin}/auth/callback?next=${encodeURIComponent(next)}`
-    : `${origin}/auth/callback`;
-  const { error } = await supabase.auth.signInWithOtp({
-    email,
-    options: { emailRedirectTo: callback },
-  });
-  if (error) {
-    redirect(`/?auth=signin&error=${await authErr(error.message)}`);
-  }
+export async function signInWithMagicLink(_formData: FormData) {
   redirect(
-    `/?auth=signin&info=${encodeURIComponent("Lien magique envoyé. Vérifie ta boîte mail.")}`
+    `/?auth=signin&error=${encodeURIComponent("La connexion par lien magique a été désactivée. Connecte-toi avec ton email et mot de passe.")}`
   );
 }
 

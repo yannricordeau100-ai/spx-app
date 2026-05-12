@@ -421,42 +421,9 @@ export function AuthModal() {
                   </div>
                 )}
 
-                {mode === "signin" && (
-                  <>
-                    <div className="relative my-4 flex items-center gap-3 text-[11px] uppercase tracking-[0.2em] text-zinc-500">
-                      <span className="h-px flex-1 bg-white/10" />
-                      <span
-                        className="inline-flex items-center gap-1.5 normal-case tracking-normal"
-                        title="On t'envoie un lien à usage unique par email. Tu cliques dessus, tu es connecté. Pas besoin de mot de passe."
-                      >
-                        {t("auth.divider.magic_link")}
-                        <span className="inline-flex size-3.5 items-center justify-center rounded-full border border-zinc-600 text-[9px] font-semibold text-zinc-500">
-                          i
-                        </span>
-                      </span>
-                      <span className="h-px flex-1 bg-white/10" />
-                    </div>
-                    <form action={signInWithMagicLink} className="relative">
-                      <input type="hidden" name="next" value={nextParam} />
-                      <Field icon={<Mail className="size-4" />}>
-                        <input
-                          type="email"
-                          name="email"
-                          required
-                          autoComplete="email"
-                          placeholder={t("auth.field.magic_email")}
-                          className="w-full bg-transparent text-sm text-zinc-100 outline-none placeholder:text-zinc-500"
-                        />
-                        <SubmitButton variant="small">
-                          {t("auth.cta.send_magic")}
-                        </SubmitButton>
-                      </Field>
-                      <div className="mt-2 flex justify-center">
-                        <TurnstileWidget theme="dark" />
-                      </div>
-                    </form>
-                  </>
-                )}
+                {/* Magic link RETIRÉ (Yann 13 mai 2026) : tout accès passe
+                    par inscription email + mot de passe + captcha. Pas de
+                    connexion sans signup au préalable. */}
 
                 <p className="relative mt-5 text-center text-[12px] text-zinc-500">
                   {mode === "signin" ? (
