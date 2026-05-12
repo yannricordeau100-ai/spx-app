@@ -7,6 +7,8 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { AuthModal } from "@/components/auth-modal";
 import { PricingCards } from "@/components/billing/pricing-cards";
 import { loadPricingCatalog } from "@/lib/billing/load-pricing";
+import { loadPageContent } from "@/lib/desk/page-content";
+import { getServerLocale } from "@/lib/i18n/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import type { Company } from "@/lib/data";
 import V17_PUBLIC from "@/data/v1-7-public.json";
@@ -48,6 +50,11 @@ export default async function SandboxV18HubPage() {
   const validKeys = new Set(Object.keys(datasets).map((k) => k.toUpperCase()));
   const tickers = (V18_TICKERS as string[]).filter((t) => validKeys.has(t.toUpperCase()));
   const catalog = await loadPricingCatalog();
+  // Yann 12 mai 2026 : textes home éditables via /desk-mtk9x4kp/page-content
+  // avec page_key="home". Sections supportées : tagline_main_1,
+  // tagline_main_2, tagline_sub, kpi_intelligence_under, punchline_1..4.
+  const locale = await getServerLocale();
+  const homeOverrides = await loadPageContent("home", locale);
 
   // Détecte la session pour ne PAS bloquer un user déjà connecté.
   const supabase = await createSupabaseServerClient();
@@ -73,6 +80,7 @@ export default async function SandboxV18HubPage() {
         ]}
         requireSignupGate={!isAuthed}
         gatePath="/sandbox/v1-8"
+        contentOverrides={homeOverrides}
       />
       {/* AuthModal lu via ?auth=signup, monté ici pour que le redirect du
           SignupGateOverlay l'affiche bien sur la home V1.8. */}

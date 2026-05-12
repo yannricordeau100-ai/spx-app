@@ -395,6 +395,7 @@ export function HomeView({
   topNavLinks,
   requireSignupGate = false,
   gatePath = "/",
+  contentOverrides,
 }: {
   companies?: Record<string, import("@/lib/data").Company>;
   tickers?: string[];
@@ -407,8 +408,16 @@ export function HomeView({
   requireSignupGate?: boolean;
   /** Page qui monte <AuthModal /> (utilisée pour le redirect signup). */
   gatePath?: string;
+  /** Yann 12 mai 2026 : textes editables via /desk-mtk9x4kp/page-content.
+   *  Chaque clef de cette map override la valeur i18n correspondante. Clés
+   *  reconnues : tagline_main_1, tagline_main_2, tagline_sub,
+   *  kpi_intelligence_under, punchline_1, punchline_2, punchline_3,
+   *  punchline_4. Si absent : fallback dictionary.ts. */
+  contentOverrides?: Record<string, string>;
 } = {}) {
   const { t, locale } = useT();
+  const tt = (key: string, overrideKey: string) =>
+    (contentOverrides && contentOverrides[overrideKey]?.trim()) || t(key);
   const COMPANIES_USED = companiesProp ?? COMPANIES;
   const results = tickersProp ?? TICKERS;
   const buildHref = (tk: string): string =>
@@ -444,25 +453,25 @@ export function HomeView({
         )}
 
         <BrandWordmark
-          kpiUnderText={locale === "fr" ? t("brand.kpi_intelligence_under") : undefined}
+          kpiUnderText={locale === "fr" ? tt("brand.kpi_intelligence_under", "kpi_intelligence_under") : undefined}
         />
 
         {/* Headline réduite + nouvelle punchline */}
         <div className="text-center animate-fade-up">
           <h1 className="mx-auto max-w-3xl text-balance font-display text-2xl font-semibold leading-[1.1] tracking-tight sm:text-4xl md:text-5xl">
-            <span className="gradient-text">{t("brand.tagline_main_1")}</span>{" "}
-            <span className="gradient-text-violet">{t("brand.tagline_main_2")}</span>
+            <span className="gradient-text">{tt("brand.tagline_main_1", "tagline_main_1")}</span>{" "}
+            <span className="gradient-text-violet">{tt("brand.tagline_main_2", "tagline_main_2")}</span>
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-balance text-[13.5px] leading-relaxed text-zinc-400 sm:text-[15px]">
-            {t("brand.tagline_sub")}
+            {tt("brand.tagline_sub", "tagline_sub")}
           </p>
           {locale === "fr" && (
             <RotatingPunchline
               items={[
-                t("home.punchline.1"),
-                t("home.punchline.2"),
-                t("home.punchline.3"),
-                t("home.punchline.4"),
+                tt("home.punchline.1", "punchline_1"),
+                tt("home.punchline.2", "punchline_2"),
+                tt("home.punchline.3", "punchline_3"),
+                tt("home.punchline.4", "punchline_4"),
               ]}
             />
           )}
