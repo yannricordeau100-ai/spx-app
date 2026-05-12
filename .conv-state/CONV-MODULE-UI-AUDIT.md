@@ -1,9 +1,10 @@
 # CONV-MODULE-UI-AUDIT · État & Plan
 
-> Dernière mise à jour : 2026-05-08 ~15:30 UTC
+> Dernière mise à jour : 2026-05-12 (reprise +30 min)
 > Module au scope étroit (cf concept "modules" SHARED-STATUS ligne 237) :
 > audit automatique des défauts d'affichage sur les pages V1.8.
-> Démarré par Yann ~22:45 du 7 mai 2026, autonomie totale jusqu'au matin.
+> Démarré par Yann ~22:45 du 7 mai 2026, reprise 12 mai après broadcast
+> CONV-SYSTEMS confirmant fix `repartition-block.tsx`.
 
 ---
 
@@ -37,8 +38,9 @@
 
 ---
 
-## 2. Travail livré cette nuit (8 commits locaux)
+## 2. Travail livré (12 commits, tous pushés sur origin/staging)
 
+### Nuit 8 mai (8 commits)
 | # | SHA | Description |
 |---|-----|-------------|
 | 1 | `47d70ba7` | Phase 1+2 : audit V1.8 305 + helpers + 19 tests |
@@ -49,6 +51,14 @@
 | 6 | `cd239311` | UI_NUMBER_FORMAT_NON_FR + normalizeNumberToFr |
 | 7 | `4ac3d716` | Glossaires : 24 acronymes + 4 termes composés |
 | 8 | `5d490be5` | Final rerun V1.8 top 100 + broadcast récap nuit |
+| 9 | `bac3b278` | docs(conv-state) : ce fichier (1ère version 8 mai) |
+
+### Reprise 12 mai (3 commits)
+| # | SHA | Description |
+|---|-----|-------------|
+| 10 | `186744f4` | TRIG-A : rerun top 100 post-fix repartition + ajout 20 acronymes banques |
+| 11 | `685abb72` | Scale top 305 + identification 3 stés HTTP 500 résiduelles |
+| 12 | `b409a0b8` | Broadcast SHARED-STATUS scale top 305 + pings résiduelles |
 
 Pour pull : `git log origin/staging..HEAD --oneline`
 
@@ -56,20 +66,24 @@ Pour pull : `git log origin/staging..HEAD --oneline`
 
 ## 3. Codes défaut produits (10 actuellement)
 
-Détecteur dans `scripts/audit-ui-pages.ts`. Stats V1.8 top 100 (rerun final 13:25 UTC) :
+Détecteur dans `scripts/audit-ui-pages.ts`. Stats V1.8 top 305 (rerun final 12 mai) :
 
-| Code | Stés | % | Note |
-|------|------|---|------|
-| `UI_LANG_HTML_EN` | 88 | 88 % | `<html lang="en">` sur app FR |
-| `UI_PCT_NO_NBSP` | 88 | 88 % | `10%` sans NBSP avant `%` |
-| `UI_LABEL_EN` | 88 | 88 % | chips Sector/Sub-sector/Founded en EN |
-| `UI_ACRONYM_NO_TOOLTIP` | 88 | 88 % | HPC/CAGR/TAM/EBITDA sans `<i>` |
-| `UI_RANK_FORMAT_MIXED` | 88 | 88 % | mix `#XX` et `Top X %` (ex-UI_RANK_MIX) |
-| `UI_NUMBER_FORMAT_NON_FR` | 88 | 88 % | "6.9%" au lieu de "6,9 %" (bug massif) |
-| `UI_BAD_UNIT_NARRATIVE` | 86 | 86 % | "60M$" / "0.06 Mds$" collés en narrative |
-| `UI_FRESHNESS_LABEL_EN` | 40 | 40 % | Recent/Fresh/Stale en EN |
-| `UI_BAD_UNIT_BS` | 17 | 17 % | "B$" résiduel (ex "10.9 B $") |
-| `UI_PAGE_HTTP_ERROR` | 12 | 12 % | bug `repartition-block.tsx:36` (CONV-CONCEPTS) |
+| Code | Stés | % | Δ vs 8 mai | Note |
+|------|------|---|-----|------|
+| `UI_LANG_HTML_EN` | 302 | 99 % | +49 | `<html lang="en">` sur app FR |
+| `UI_PCT_NO_NBSP` | 302 | 99 % | +49 | `10%` sans NBSP avant `%` |
+| `UI_LABEL_EN` | 301 | 99 % | +49 | chips Sector/Sub-sector/Founded en EN |
+| `UI_ACRONYM_NO_TOOLTIP` | 301 | 99 % | +49 | HPC/CAGR/TAM/EBITDA sans `<i>` |
+| `UI_RANK_FORMAT_MIXED` | 301 | 99 % | +49 | mix `#XX` et `Top X %` |
+| `UI_NUMBER_FORMAT_NON_FR` | 301 | 99 % | nouveau | "6.9%" au lieu de "6,9 %" |
+| `UI_BAD_UNIT_NARRATIVE` | 269 | 88 % | +21 | "60M$" / "0.06 Mds$" |
+| `UI_BAD_UNIT_BS` | 47 | 15 % | +11 | "B$" résiduel |
+| `UI_FRESHNESS_LABEL_EN` | 45 | 15 % | helper intégré partiellement | Recent/Fresh/Stale en EN |
+| `UI_PAGE_HTTP_ERROR` | **3** | **1 %** | **-49 ✅** | bug fixé par CONV-SYSTEMS 9 mai |
+
+**3 stés HTTP 500 résiduelles** : GWW, DINO, PAH3.DE.
+Stack : `TypeError: kpi.yoy.toLowerCase is not a function` (kpi.yoy non-string).
+Hors mon scope : ping @CONV-CONCEPTS + @CONV-DATA dans SHARED-STATUS.
 
 Codes prêts mais 0 hit actuel :
 - `UI_NO_LABEL_PRICE_HEADER` : capi/variation/prix sans label (regex strict)
@@ -93,7 +107,7 @@ Tous testés (27/27 pass), idempotents, application 2× ne change rien.
 | `normalizeNumberToFr(text)` | "6.9%" → "6,9 %", "1,234.56" → "1 234,56" |
 
 Glossaires :
-- `ACRONYM_GLOSSARY` : 24 entrées (HPC, CAGR, TAM, EBITDA, ARPP, TAC, ABF, ARR, MRR, GAAP, FCF, ROIC, ROE, NPS, ADR, IPO, GICS, GMV, TTM, YoY, QoQ, CapEx, OpEx, P_E)
+- `ACRONYM_GLOSSARY` : 44 entrées (24 originelles + 20 banques/transcripts ajoutées par autre conv Yann 11 mai : G-SIB, NIM, CET1, ROTE, ROTCE, NII, LCR, NSFR, RWA, CIB, AUM, AUC, SG_A, bp, bps, EPS, DAU, MAU, DAP)
 - `TERM_GLOSSARY` : 4 termes composés (Run Rate, Backlog, Hero KPI, Free Cash Flow)
 - `CHIP_LABEL_FR` : 5 labels (Sector, Sub-sector, Founded, Headquarters, Tagline)
 - `FRESHNESS_LABEL_FR` : 4 labels (Recent, Fresh, Stale, Unknown)
@@ -109,11 +123,20 @@ Glossaires :
 → **BLOCKED ON CONV-DATA**. Détecteur prêt. Rerun automatique dès broadcast fin extraction.
 
 **🤝 CONV-SYSTEMS ping 2 (ligne 232, 8 mai 16h31)** : ajout codes UI_RANK_FORMAT_MIXED + UI_NO_LABEL_PRICE_HEADER.
-→ **TRAITÉ commit 88d8cd2d**. 252/305 stés UI_RANK_FORMAT_MIXED, 0 hit UI_NO_LABEL_PRICE_HEADER (regex strict, bug AMAT apparemment fixé).
+→ **TRAITÉ commit 88d8cd2d**. 301/305 stés UI_RANK_FORMAT_MIXED, 0 hit UI_NO_LABEL_PRICE_HEADER (regex strict, bug AMAT apparemment fixé).
+
+**🤝 CONV-CONCEPTS broadcast 9 mai 17:47** : CONV-DIV créée (5e conv dividendes).
+→ **ACK** (commit b409a0b8). Pas d'impact sur mon scope.
+
+**🤝 CONV-SYSTEMS broadcast 9 mai 16:30 (ligne 699)** : fix `repartition-block.tsx` commit `7397ac86` + matrice qualité.
+→ **TRIG-A confirmé** (commit 186744f4 + 685abb72). 52 → 3 HTTP 500.
+
+**🤝 CONV-CONCEPTS broadcast 12 mai** : règle § 0 V1.8 EN PREMIER.
+→ **ACK** (commit 186744f4). Compatible scope actuel.
 
 ### 5.2 Envoyés à autres convs
 
-**🤝 CONV-CONCEPTS** : fix `repartition-block.tsx:36` (TypeError null.map) = 52 stés en HTTP 500 sur V1.8 305 (12 sur top 100). Liste tickers dispo dans `src/data/v1-8-ui-audit.json`.
+**🤝 CONV-CONCEPTS + CONV-DATA (b409a0b8)** : 3 stés HTTP 500 résiduelles (GWW, DINO, PAH3.DE) avec `TypeError: kpi.yoy.toLowerCase is not a function`. `kpi.yoy` non-string sur ces stés.
 
 **🤝 CONV-CONCEPTS** : intégration `normalizeNumberToFr` ou switch vers `toLocaleString("fr-FR")` dans composants qui rendent des nombres (88 % stés concernées).
 
@@ -141,9 +164,10 @@ V1.7 a 2× plus de pages cassées que V1.8 en proportion. V1.6/V1.7 fetch trop l
 ## 7. Prochaines actions possibles (priorisées)
 
 ### À déclencher sur trigger externe
-- **TRIG-A** : CONV-CONCEPTS broadcast fix repartition-block.tsx → rerun audit V1.8 top 305 (les 52 stés HTTP 500 devraient passer à 0)
-- **TRIG-B** : CONV-CONCEPTS broadcast intégration helpers normalizeNarrative / translateChipLabel / normalizeNumberToFr → rerun pour mesurer baisse %
-- **TRIG-C** : CONV-DATA broadcast fin extraction quarterly top 308 US → rerun UI_TOGGLE_SINGLE (devrait passer 0 → si données client-side, basculer audit sur Playwright avec Yann go)
+- **~~TRIG-A~~** : ✅ FAIT 12 mai. Fix repartition-block → 52 → 3 HTTP 500.
+- **TRIG-B** : CONV-CONCEPTS broadcast intégration helpers normalizeNarrative / translateChipLabel / normalizeNumberToFr → rerun pour mesurer baisse % (6 codes encore à 99 %).
+- **TRIG-C** : CONV-DATA broadcast fin extraction quarterly top 308 US → rerun UI_TOGGLE_SINGLE.
+- **TRIG-D** (nouveau) : fix `kpi.yoy.toLowerCase` sur GWW/DINO/PAH3.DE → rerun pour confirmer 3 → 0 HTTP 500.
 
 ### Si autonomie continue (à prochain réveil)
 1. Étendre `EN_SUBSECTORS_PATTERNS` (43/305 stés sub-sector EN détectés ; vérifier que tous sont mappés dans `SUBSECTOR_FR_MAP`)
