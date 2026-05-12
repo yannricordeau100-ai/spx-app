@@ -272,16 +272,22 @@ function PricingCard({
     .slice(0, 8);
   const bulletList = bulletFeatures.length > 0 ? bulletFeatures : topFeatures(plan.tier);
 
-  // Yann (11 mai 2026) : prix dans la devise du visiteur, pas EUR forcé.
-  // Lookup BDD plan.prices[currency], fallback EUR si pas activé.
+  // Yann (13 mai 2026) : devise UNIFORME pour toute la page. Plus jamais
+  // de mix € / $ sur la même page (cas plan Gratuit qui n'a pas de
+  // prix par devise → tombait sur "0 €" alors que payants affichaient "$").
+  // Maintenant : on garde STRICTEMENT la devise demandée. Pour le plan
+  // gratuit (0 €/0 $/0 £), peu importe la devise puisque le montant est 0.
   const currencyMonthly = plan.prices?.[currency]?.monthly?.amount;
   const currencyAnnual = plan.prices?.[currency]?.annual?.amount;
   const eurMonthly = plan.prices?.EUR?.monthly?.amount ?? plan.price_monthly_eur;
   const eurAnnual = plan.prices?.EUR?.annual?.amount ?? plan.price_annual_eur;
-  // Si la devise demandée a un prix actif → l'utiliser, sinon fallback EUR
-  const displayMonthly = (currencyMonthly && currencyMonthly > 0) ? currencyMonthly : eurMonthly;
-  const displayAnnual = (currencyAnnual && currencyAnnual > 0) ? currencyAnnual : eurAnnual;
-  const displayCurrency = (currencyMonthly && currencyMonthly > 0) ? currency : "EUR";
+  const isFreePlan = (eurMonthly === 0 || !eurMonthly) && (eurAnnual === 0 || !eurAnnual);
+  // Free plan : 0 = 0 dans toute devise → affiche la devise demandée.
+  // Paid plan : si pas de prix dans la devise demandée, fallback EUR.
+  const hasRequestedCurrency = (currencyMonthly && currencyMonthly > 0) || isFreePlan;
+  const displayMonthly = hasRequestedCurrency ? (currencyMonthly ?? 0) : eurMonthly;
+  const displayAnnual = hasRequestedCurrency ? (currencyAnnual ?? 0) : eurAnnual;
+  const displayCurrency = hasRequestedCurrency ? currency : "EUR";
   const currencySymbol = ({ EUR: "€", USD: "$", GBP: "£", CHF: "CHF", SEK: "kr", DKK: "kr", CAD: "$" } as Record<string, string>)[displayCurrency] ?? displayCurrency;
   const dailyPrice = displayAnnual > 0 ? displayAnnual / 365 : 0;
 
