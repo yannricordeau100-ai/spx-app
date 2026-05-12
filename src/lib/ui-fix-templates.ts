@@ -200,6 +200,26 @@ export const ACRONYM_GLOSSARY: Record<string, string> = {
   CapEx: "Capital Expenditure : dépenses d'investissement (machines, usines, R&D capitalisée).",
   OpEx: "Operating Expenses : dépenses opérationnelles courantes (salaires, marketing, R&D non capitalisée).",
   P_E: "Price/Earnings : ratio cours sur bénéfice, mesure la valorisation d'une action.",
+  // Banques + transcripts (Yann 11 mai 2026)
+  "G-SIB": "Global Systemically Important Bank : banque jugée critique pour la stabilité financière mondiale. Soumise à un capital supplémentaire imposé par les régulateurs.",
+  NIM: "Net Interest Margin : marge nette d'intérêt, écart entre intérêts perçus (prêts) et intérêts versés (dépôts).",
+  CET1: "Common Equity Tier 1 : ratio de fonds propres durs (Bâle III).",
+  ROTE: "Return on Tangible Equity : rendement des capitaux propres tangibles, version plus stricte du ROE.",
+  ROTCE: "Return on Tangible Common Equity : rendement des capitaux propres tangibles communs, métrique préférée des banques US.",
+  NII: "Net Interest Income : revenus nets d'intérêt (avant frais).",
+  LCR: "Liquidity Coverage Ratio : ratio de couverture des liquidités à court terme (Bâle III).",
+  NSFR: "Net Stable Funding Ratio : ratio de financement stable à long terme (Bâle III).",
+  RWA: "Risk-Weighted Assets : actifs pondérés par le risque, base de calcul des ratios de capital.",
+  CIB: "Corporate & Investment Banking : banque d'affaires et banque d'investissement.",
+  AUM: "Assets Under Management : encours sous gestion (asset managers).",
+  AUC: "Assets Under Custody : actifs en conservation (banques dépositaires).",
+  SG_A: "Selling, General & Administrative : frais commerciaux, généraux et administratifs.",
+  bp: "Basis Points : points de base, unité égale à 0,01 % (100 bp = 1 %).",
+  bps: "Basis Points : points de base, unité égale à 0,01 % (100 bps = 1 %).",
+  EPS: "Earnings Per Share : bénéfice par action.",
+  DAU: "Daily Active Users : utilisateurs actifs quotidiens.",
+  MAU: "Monthly Active Users : utilisateurs actifs mensuels.",
+  DAP: "Daily Active People : personnes actives quotidiennes (audience effective cross-apps).",
 };
 
 /**
