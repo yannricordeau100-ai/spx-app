@@ -1,0 +1,65 @@
+# Cron quotidien : refresh SEC EDGAR + yfinance + datasets locaux pour
+# détecter les sociétés dont la date d'earning est passée et intégrer
+# les nouveaux 10-Q/10-K dans la foulée. Yann 12 mai 2026.
+#
+# Logique :
+#   1. Récupère le top 307 V1.8 (univers de référence).
+#   2. Pour chaque sté dont `next_earnings_date < today` :
+#      a. Pull les filings SEC EDGAR les plus récents (fetch-filing-dates.py)
+#      b. Update `latest_filing` dans v2-pipeline-enrich/<ticker>.json
+#      c. Met à jour next_earnings_date via yfinance.calendar
+#   3. Régénère _merged.json.
+#   4. Commit + push automatique si des datasets ont changé.
+#
+# Fréquence : tous les jours à 06:00 UTC (= 08:00 Paris, après que les
+# 10-Q US filés la veille soir sont indexés sur SEC EDGAR).
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch: # permet de lancer manuellement depuis GitHub UI
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: staging
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install Python deps
+        run: pip install yfinance pandas
+
+      - name: Refresh SEC EDGAR filing dates (top 307 V1.8)
+        run: python3 scripts/fetch-filing-dates.py --top 307
+        env:
+          PYTHONUNBUFFERED: "1"
+
+      - name: Refresh yfinance next_earnings_date (top 307)
+        run: python3 scripts/earnings-dates-yfinance.py --limit 307 --workers 20
+        env:
+          PYTHONUNBUFFERED: "1"
+
+      - name: Rebuild merged dataset
+        run: npx tsx scripts/build-v2-pipeline-merged.ts
+
+      - name: Commit and push if changed
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions (daily refresh)"
+          git add src/data/v2-pipeline-enrich src/data/v2-pipeline/_merged.json src/data/v2-freshness-audit.json 2>/dev/null || true
+          if git diff --staged --quiet; then
+            echo "Aucun changement détecté, skip commit."
+          else
+            git commit -m "data(freshness): daily refresh top 307 V1.8 (cron $(date -u +%Y-%m-%d))"
+            git push origin staging
+          fi
