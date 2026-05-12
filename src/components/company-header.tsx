@@ -32,7 +32,7 @@ function LogoTilt({ ticker }: { ticker: string }) {
       ref={ref}
       onMouseMove={onMove}
       onMouseLeave={onLeave}
-      className={`h-12 w-16 shrink-0 rounded-xl border p-1.5 transition-shadow duration-300 hover:shadow-[0_8px_32px_rgba(0,0,0,0.6)] sm:h-14 sm:w-20 ${
+      className={`h-9 w-12 shrink-0 rounded-lg border p-1 transition-shadow duration-300 hover:shadow-[0_8px_32px_rgba(0,0,0,0.6)] sm:h-11 sm:w-14 ${
         logoNeedsLightBg(ticker)
           ? "border-[#e5e5e5] bg-[#fafafa]"
           : "border-[#1f1f1f] bg-[#0a0a0a]"

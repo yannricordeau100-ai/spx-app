@@ -577,11 +577,11 @@ function renderCompanyCard(
                       className="pointer-events-none absolute -right-10 -top-10 size-32 rounded-full blur-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
                       style={{ background: `${accent}55` }}
                     />
-                    {/* Yann (12 mai 2026) : médaille 🥇🥈🥉 en absolute top-left
-                        pour les 3 premières stés du ranking (par market cap). */}
+                    {/* Yann (12 mai 2026 v2) : médaille 🥇🥈🥉 en absolute
+                        top-RIGHT (initialement top-left). */}
                     {typeof rankIdx === "number" && rankIdx < 3 && (
                       <div
-                        className="absolute -left-2 -top-2 z-10 flex size-9 items-center justify-center rounded-full text-[18px] shadow-[0_4px_14px_rgba(0,0,0,0.6)]"
+                        className="absolute -right-2 -top-2 z-10 flex size-9 items-center justify-center rounded-full text-[18px] shadow-[0_4px_14px_rgba(0,0,0,0.6)]"
                         style={{
                           background:
                             rankIdx === 0
