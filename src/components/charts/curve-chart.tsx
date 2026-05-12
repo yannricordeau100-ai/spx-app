@@ -11,12 +11,18 @@ import { EventDotsSVG, EventDotsOverlay } from "@/components/charts/event-dots";
 import { downloadSvgAsPng, buildYearGroups } from "@/lib/chart-export";
 import { ChartMiniLogo } from "@/components/charts/chart-mini-logo";
 
+// Yann 13 mai 2026 : labels axe Y monétaires en mot complet
+// ("Millions"/"Milliards") au lieu de l'abréviation "M"/"Mds".
 function axisHeader(unit: string): string {
   switch (unit) {
-    case "$B": return "$ en Mds";
-    case "$M": return "$ en M";
-    case "B": return "en Mds";
-    case "M": return "en M";
+    case "$B": return "$ en Milliards";
+    case "$M": return "$ en Millions";
+    case "B": return "en Milliards";
+    case "M": return "en Millions";
+    case "€B": return "€ en Milliards";
+    case "€M": return "€ en Millions";
+    case "£B": return "£ en Milliards";
+    case "£M": return "£ en Millions";
     case "%": return "%";
     case "% YoY": return "% (YoY)";
     case "$": return "$";

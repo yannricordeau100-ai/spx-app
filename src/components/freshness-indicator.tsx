@@ -5,6 +5,7 @@ import { getFreshness, type FreshnessTier } from "@/lib/data";
 import { InfoTooltip } from "@/components/info-tooltip";
 import { useT } from "@/lib/i18n/provider";
 import { EARNING_PENDING_TICKERS } from "@/lib/freshness/earning-pending-tickers";
+import { fiscalLabelsForTicker } from "@/lib/fiscal-calendar";
 
 const META: Record<
   FreshnessTier,
@@ -235,8 +236,24 @@ export function FreshnessIndicator({
   tooltipAlign?: "left" | "right" | "center";
 }) {
   const { t, locale } = useT();
+
+  // Yann 13 mai 2026 : intégration fiscal calendar SEC EDGAR.
+  // Si ticker présent et qu'on a un fiscal-audit pour lui :
+  //   - on utilise la latestPeriodEnd SEC comme source de vérité (= au lieu
+  //     de la valeur du dataset qui peut être stale)
+  //   - on utilise la latestFilingDate SEC comme publicationDate
+  //   - on étiquette le trimestre en nomenclature fiscale ("FY26 Q3") pour
+  //     les sociétés à exercice décalé
+  const fiscalInfo = ticker ? fiscalLabelsForTicker(ticker, lastDate) : null;
+  const secLastDate = fiscalInfo?.publicationDate
+    ? // si SEC connaît un filing, on prend sa latestPeriodEnd si plus récente
+      // que celle du dataset (audit a écrit dans dataset, mais double secu)
+      lastDate
+    : lastDate;
+  const secPublication = fiscalInfo?.publicationDate ?? publicationDate;
+
   // Freshness tier basé sur la date de publication si dispo, sinon lastDate.
-  const refDate = publicationDate ?? lastDate;
+  const refDate = secPublication ?? secLastDate;
   const tier = getFreshness(refDate);
 
   // ===== "Earning attendu" : détection automatique =====
@@ -290,13 +307,18 @@ export function FreshnessIndicator({
   //     Affichée comme "début/milieu/fin de {mois}" au lieu d'une date
   //     précise (règle Yann 12 mai 2026 : ne pas inventer un jour exact
   //     qu'on ne connait pas).
-  const pubEstimated = !publicationDate && lastDate ? addDaysIso(lastDate, 30) : null;
+  // Estimations gardées en fallback SI fiscalInfo absent (= sté hors top 307
+   // ou foreign ADR sans CIK SEC). Pour les top 307 US, fiscalInfo fournit
+   // les vraies dates SEC → plus jamais de "~est." pour ces stés.
+  const pubEstimated = !secPublication && lastDate ? addDaysIso(lastDate, 30) : null;
   const nextEstimated = !nextEarningsDate && lastDate ? addMonthsIso(lastDate, 3) : null;
-  const pubResolved = publicationDate ?? pubEstimated ?? undefined;
-  const nextResolved = nextEarningsDate ?? nextEstimated ?? undefined;
+  const pubResolved = secPublication ?? pubEstimated ?? undefined;
+  const nextResolved = nextEarningsDate ?? fiscalInfo?.nextPeriodEnd ?? nextEstimated ?? undefined;
   const pubFormatted = formatApproxDate(pubResolved, locale);
   const lastFormatted = formatApproxDate(lastDate, locale);
-  const lastQuarter = quarterFromIso(lastDate);
+  // Libellé du dernier trimestre : fiscal (FY26 Q3) si décalé, sinon
+  // calendrier (Q1 2026). fiscalInfo.lastLabel gère les deux cas.
+  const lastQuarter = fiscalInfo?.lastLabel ?? quarterFromIso(lastDate);
   // nextFormatted : si la vraie date est connue → format date précis.
   // Si estimation (= jour inventé) → utiliser le format "début/milieu/fin
   // de {mois}" pour ne pas tromper l'utilisateur sur la précision.
@@ -311,11 +333,16 @@ export function FreshnessIndicator({
   const incrementCount = nextEarningsDate
     ? quartersBetween(lastDate, nextEarningsDate)
     : 1;
+  // Libellé prochain trimestre : si fiscalInfo dispo, utiliser sa
+  // nomenclature directement. Sinon fallback calendrier.
   const nextQuarter =
-    nextQuarterAfter(lastQuarter, incrementCount) ?? quarterFromIso(nextResolved);
+    fiscalInfo?.nextLabel ??
+    nextQuarterAfter(lastQuarter, incrementCount) ??
+    quarterFromIso(nextResolved);
   // Drapeaux d'estimation pour styler distinctement les valeurs estimées.
-  const isPubEstimated = !publicationDate && !!pubEstimated;
-  const isNextEstimated = !nextEarningsDate && !!nextEstimated;
+  // Si fiscalInfo a fourni les vraies dates SEC, plus rien d'estimé.
+  const isPubEstimated = !secPublication && !!pubEstimated;
+  const isNextEstimated = !nextEarningsDate && !fiscalInfo?.nextPeriodEnd && !!nextEstimated;
 
   return (
     <span
@@ -360,14 +387,11 @@ export function FreshnessIndicator({
             {nextQuarter ? ")" : ""}
           </p>
         )}
-        {/* Note sur les estimations si l'une des deux n'est pas SEC officielle */}
-        {(isPubEstimated || isNextEstimated) && (
-          <p className="mt-1.5 text-[9.5px] italic leading-snug text-zinc-500">
-            ~est. = estimation calculée à partir de la fin du trimestre
-            fiscal. Les vraies dates SEC arrivent au fur et à mesure de
-            l&apos;enrichissement des données.
-          </p>
-        )}
+        {/* Yann 13 mai 2026 : "~est. = estimation..." retiré. Avec le
+            fiscal-audit SEC EDGAR pour les top 307, on connaît les vraies
+            dates → plus besoin du disclaimer. Pour les rares stés sans
+            fiscal info, on garde juste le suffixe "~est." sans paragraphe
+            explicatif (auto-suffisant). */}
       </InfoTooltip>
     </span>
   );

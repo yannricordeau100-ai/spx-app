@@ -15,10 +15,14 @@ import { ChartMiniLogo } from "@/components/charts/chart-mini-logo";
 /** Header d'unité affiché au-dessus du graphe (mêmes mappings que curve-chart). */
 function axisHeader(unit: string): string {
   switch (unit) {
-    case "$B": return "$ en Mds";
-    case "$M": return "$ en M";
-    case "B": return "en Mds";
-    case "M": return "en M";
+    case "$B": return "$ en Milliards";
+    case "$M": return "$ en Millions";
+    case "B": return "en Milliards";
+    case "M": return "en Millions";
+    case "€B": return "€ en Milliards";
+    case "€M": return "€ en Millions";
+    case "£B": return "£ en Milliards";
+    case "£M": return "£ en Millions";
     case "%": return "%";
     case "% YoY": return "% (YoY)";
     case "$": return "$";
