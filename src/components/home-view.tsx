@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import type React from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowRight, Sparkles } from "lucide-react";
@@ -291,6 +292,7 @@ function useLineCount(ref: React.RefObject<HTMLElement | null>, deps: unknown[])
 function RotatingPunchline({ items }: { items: string[] }) {
   const [idx, setIdx] = useState(() => Math.floor(Math.random() * items.length));
 
+  // Yann 12 mai 2026 : délai 10s (était 6.5s) pour laisser le temps de lire.
   useEffect(() => {
     if (items.length <= 1) return;
     const t = setTimeout(() => {
@@ -300,9 +302,32 @@ function RotatingPunchline({ items }: { items: string[] }) {
         while (next === prev && safety++ < 8) next = Math.floor(Math.random() * items.length);
         return next;
       });
-    }, 6500);
+    }, 10000);
     return () => clearTimeout(t);
   }, [idx, items.length]);
+
+  // Avance manuelle (clic chevron desktop ou swipe mobile).
+  const advance = () => {
+    if (items.length <= 1) return;
+    setIdx((prev) => {
+      let next = Math.floor(Math.random() * items.length);
+      let safety = 0;
+      while (next === prev && safety++ < 8) next = Math.floor(Math.random() * items.length);
+      return next;
+    });
+  };
+
+  // Swipe gauche → next (mobile + trackpad).
+  const touchStartX = useRef<number | null>(null);
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0]?.clientX ?? null;
+  };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const dx = (e.changedTouches[0]?.clientX ?? touchStartX.current) - touchStartX.current;
+    if (dx < -40) advance(); // swipe left
+    touchStartX.current = null;
+  };
 
   const raw = items[idx] ?? "";
   const sepIdx = raw.indexOf(" | ");
@@ -343,11 +368,13 @@ function RotatingPunchline({ items }: { items: string[] }) {
         <span aria-hidden className="absolute inset-0 translate-x-[9px] translate-y-[9px] rounded-xl border border-white/5 bg-[#020208]/20" />
         {/* Cadre principal */}
         <div
-          className="relative z-10 flex min-h-[148px] items-center justify-center overflow-hidden rounded-xl border border-white/40 bg-[#0a0a0e]/85 px-5 py-4 backdrop-blur-sm sm:min-h-[168px]"
+          className="relative z-10 flex min-h-[148px] items-center justify-center overflow-hidden rounded-xl border border-white/40 bg-[#0a0a0e]/85 px-5 py-4 pr-12 backdrop-blur-sm sm:min-h-[168px] sm:pr-14"
           style={{
             boxShadow:
               "inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -1px 0 rgba(0,0,0,0.5), 0 18px 40px -12px rgba(139, 92, 246, 0.35), 0 8px 18px -6px rgba(0,0,0,0.6)",
           }}
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
         >
           {/* Catch light en haut (simule éclairage du haut) */}
           <span
@@ -355,6 +382,35 @@ function RotatingPunchline({ items }: { items: string[] }) {
             className="pointer-events-none absolute inset-x-0 top-0 h-px"
             style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent)" }}
           />
+          {/* Hint scroll / swipe à droite : chevron animé (variante A par défaut).
+              Cliquable desktop, swipe gauche sur mobile (touchHandlers ci-dessus). */}
+          <button
+            type="button"
+            onClick={advance}
+            aria-label="Punchline suivante"
+            className="group/hint absolute inset-y-0 right-0 z-20 flex items-center justify-center px-3 transition-opacity hover:opacity-100 sm:px-4"
+            style={{
+              background:
+                "linear-gradient(270deg, rgba(139, 92, 246, 0.18) 0%, rgba(34, 211, 238, 0.08) 60%, transparent 100%)",
+            }}
+          >
+            <motion.span
+              animate={{ x: [0, 5, 0], opacity: [0.7, 1, 0.7] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+              className="flex items-center"
+              style={{ filter: "drop-shadow(0 0 6px rgba(168,85,247,0.6))" }}
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
+                <defs>
+                  <linearGradient id="punchline-chevron-grad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stopColor="#a78bfa" />
+                    <stop offset="100%" stopColor="#22d3ee" />
+                  </linearGradient>
+                </defs>
+                <path d="M9 6l6 6-6 6" stroke="url(#punchline-chevron-grad)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </motion.span>
+          </button>
           <AnimatePresence mode="wait">
             <motion.div
               key={idx}

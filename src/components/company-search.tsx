@@ -299,10 +299,7 @@ export function CompanySearch({
                     </>
                   ) : (
                     <>
-                      {results.length} {locale === "fr" ? "visibles" : "shown"}{" "}
-                      <span className="text-zinc-600">·</span>{" "}
-                      <span className="text-violet-300">{totalCatalog}</span>{" "}
-                      {locale === "fr" ? "stés au total, tape pour filtrer" : "companies total, type to filter"}
+                      {locale === "fr" ? "Tape pour filtrer" : "Type to filter"}
                     </>
                   )}
                 </span>
