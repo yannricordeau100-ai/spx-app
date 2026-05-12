@@ -126,7 +126,7 @@ def has_sec_filing_near(idx, ticker, target_date, sec_forms, window_days=5):
     return None
 
 
-def process_ticker(ticker, sec_idx, dry_run=False):
+def process_ticker(ticker, sec_idx, dry_run=False, delete=True):
     base = SCRAPE / ticker
     if not base.exists(): return None
     mp = base / "_manifest.json"
@@ -137,6 +137,7 @@ def process_ticker(ticker, sec_idx, dry_run=False):
         return None
 
     duplicates = []
+    deleted = 0
     moved = 0
     dup_dir = base / "_duplicates"
 
@@ -160,7 +161,14 @@ def process_ticker(ticker, sec_idx, dry_run=False):
                        "matched_sec_form": form, "matched_sec_date": sec_date,
                        "matched_sec_path": sec_path}
                 duplicates.append(rec)
-                if not dry_run:
+                if dry_run:
+                    pass
+                elif delete:
+                    rec["action"] = "deleted"
+                    f.unlink()
+                    deleted += 1
+                else:
+                    rec["action"] = "moved"
                     dest = dup_dir / doctype / f.name
                     dest.parent.mkdir(parents=True, exist_ok=True)
                     shutil.move(str(f), str(dest))
@@ -171,7 +179,7 @@ def process_ticker(ticker, sec_idx, dry_run=False):
         manifest["dedup_at"] = datetime.utcnow().isoformat() + "Z"
         if not dry_run:
             mp.write_text(json.dumps(manifest, indent=2))
-    return {"ticker": ticker, "duplicates_found": len(duplicates), "moved": moved}
+    return {"ticker": ticker, "duplicates_found": len(duplicates), "deleted": deleted, "moved": moved}
 
 
 def main():
@@ -179,7 +187,8 @@ def main():
     ap.add_argument("--top307", action="store_true")
     ap.add_argument("--all", action="store_true")
     ap.add_argument("--tickers")
-    ap.add_argument("--dry-run", action="store_true", help="détecte sans déplacer")
+    ap.add_argument("--dry-run", action="store_true", help="détecte sans toucher")
+    ap.add_argument("--keep", action="store_true", help="déplace vers _duplicates/ au lieu de supprimer")
     args = ap.parse_args()
 
     if args.tickers:
@@ -201,17 +210,18 @@ def main():
     total_dup = 0
     affected = 0
     for t in tickers:
-        res = process_ticker(t, sec_idx, dry_run=args.dry_run)
+        res = process_ticker(t, sec_idx, dry_run=args.dry_run, delete=not args.keep)
         if not res: continue
         if res["duplicates_found"] > 0:
             affected += 1
             total_dup += res["duplicates_found"]
-            print(f"  {t}: {res['duplicates_found']} doublons {'détectés' if args.dry_run else 'déplacés'}")
+            verb = "détectés" if args.dry_run else ("supprimés" if not args.keep else "déplacés vers _duplicates/")
+            print(f"  {t}: {res['duplicates_found']} doublons {verb}")
 
     print()
     print(f"✅ {total_dup} doublons IR↔SEC trouvés sur {affected} stés.")
     if args.dry_run:
-        print("  (dry-run, aucun fichier déplacé)")
+        print("  (dry-run, aucune action sur fichiers)")
 
 
 if __name__ == "__main__":
