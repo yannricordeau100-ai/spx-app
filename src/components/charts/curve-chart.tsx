@@ -221,11 +221,17 @@ export function CurveChart({
       )}
         <defs>
           <filter id={idGlow} x="-30%" y="-30%" width="160%" height="160%">
-            <feGaussianBlur stdDeviation="6" />
+            <feGaussianBlur stdDeviation="8" />
           </filter>
           <linearGradient id={idWall} x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor={color} stopOpacity="0.35" />
             <stop offset="100%" stopColor={color} stopOpacity="0" />
+          </linearGradient>
+          {/* Gradient horizontal violet → couleur sté → cyan pour le trait principal */}
+          <linearGradient id={`${idGlow}-stroke`} x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor="#a78bfa" />
+            <stop offset="50%" stopColor={color} />
+            <stop offset="100%" stopColor="#22d3ee" />
           </linearGradient>
         </defs>
 
@@ -282,25 +288,41 @@ export function CurveChart({
           transition={{ duration: 1.3 }}
         />
 
-        {/* Front curve — outer color glow */}
+        {/* Front curve — halo coloré large (style ruban holographique, Yann 12 mai 2026) */}
         <motion.path
           d={frontPath}
           fill="none"
           stroke={color}
-          strokeWidth={3}
+          strokeWidth={6}
+          strokeOpacity={0.45}
           strokeLinecap="round"
+          strokeLinejoin="round"
           filter={`url(#${idGlow})`}
           initial={{ pathLength: 0 }}
           animate={{ pathLength: 1 }}
           transition={{ duration: 1.4 }}
         />
-        {/* Front curve — bright white core */}
+        {/* Front curve — trait principal en gradient violet → couleur → cyan */}
+        <motion.path
+          d={frontPath}
+          fill="none"
+          stroke={`url(#${idGlow}-stroke)`}
+          strokeWidth={3.5}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 1.4 }}
+        />
+        {/* Front curve — core blanc fin pour effet "light beam" */}
         <motion.path
           d={frontPath}
           fill="none"
           stroke="#ffffff"
-          strokeWidth={1.5}
+          strokeWidth={1}
           strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeOpacity={0.85}
           initial={{ pathLength: 0 }}
           animate={{ pathLength: 1 }}
           transition={{ duration: 1.4 }}

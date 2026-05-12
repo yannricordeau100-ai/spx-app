@@ -311,20 +311,50 @@ function RotatingPunchline({ items }: { items: string[] }) {
 
   const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
-  // Yann 11 mai 2026 : cadre fixe taille calée sur le plus long texte.
-  // Style identique aux pills Pricing/Contact = bordure blanche 40% +
-  // ombre décalée 2px + bg sombre. Hauteur minimum fixe pour éviter le
-  // décalage de layout quand la punchline change.
+  // Yann 12 mai 2026 v2 : effet 3D nettement plus marqué.
+  // - perspective wrapper + léger tilt rotateX (cadre flotte au-dessus du fond)
+  // - 3 couches d'ombre décalée (effet bloc épais, profondeur réelle)
+  // - halo violet/cyan derrière (lumière émise par le cadre)
+  // - bord supérieur en highlight clair (catch light, simule éclairage du haut)
+  // - bord inférieur en ombre foncée (sol sous le bloc)
+  // - hover : le bloc se redresse et la lumière s'intensifie
   return (
-    <div className="mx-auto mt-6 flex max-w-3xl justify-center sm:mt-7">
-      <div className="group relative inline-block w-full">
-        {/* Ombre 3D décalée (idem boutons Pricing/Contact) */}
+    <div className="mx-auto mt-6 flex max-w-3xl justify-center sm:mt-7" style={{ perspective: "1200px" }}>
+      <motion.div
+        className="group relative inline-block w-full"
+        initial={{ rotateX: 0, y: 0 }}
+        animate={{ rotateX: 6, y: 0 }}
+        transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+        whileHover={{ rotateX: 2, y: -3 }}
+        style={{ transformStyle: "preserve-3d", transformOrigin: "center bottom" }}
+      >
+        {/* Halo violet/cyan derrière (lumière émise) */}
         <span
           aria-hidden
-          className="absolute inset-0 translate-x-[2px] translate-y-[2px] rounded-xl border border-white/25"
+          className="pointer-events-none absolute -inset-6 rounded-2xl opacity-60 blur-2xl transition-opacity duration-500 group-hover:opacity-90"
+          style={{
+            background:
+              "radial-gradient(60% 70% at 50% 50%, rgba(139, 92, 246, 0.35) 0%, rgba(34, 211, 238, 0.18) 45%, transparent 75%)",
+          }}
         />
-        {/* Cadre principal : hauteur fixe min-h calée sur le plus long texte (4 lignes) */}
-        <div className="relative z-10 flex min-h-[148px] items-center justify-center rounded-xl border border-white/40 bg-[#0a0a0e]/85 px-5 py-4 backdrop-blur-sm sm:min-h-[168px]">
+        {/* Ombres 3D décalées en stack (effet bloc épais) */}
+        <span aria-hidden className="absolute inset-0 translate-x-[3px] translate-y-[3px] rounded-xl border border-white/15 bg-[#06060a]/40" />
+        <span aria-hidden className="absolute inset-0 translate-x-[6px] translate-y-[6px] rounded-xl border border-white/8 bg-[#04040a]/30" />
+        <span aria-hidden className="absolute inset-0 translate-x-[9px] translate-y-[9px] rounded-xl border border-white/5 bg-[#020208]/20" />
+        {/* Cadre principal */}
+        <div
+          className="relative z-10 flex min-h-[148px] items-center justify-center overflow-hidden rounded-xl border border-white/40 bg-[#0a0a0e]/85 px-5 py-4 backdrop-blur-sm sm:min-h-[168px]"
+          style={{
+            boxShadow:
+              "inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -1px 0 rgba(0,0,0,0.5), 0 18px 40px -12px rgba(139, 92, 246, 0.35), 0 8px 18px -6px rgba(0,0,0,0.6)",
+          }}
+        >
+          {/* Catch light en haut (simule éclairage du haut) */}
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 top-0 h-px"
+            style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent)" }}
+          />
           <AnimatePresence mode="wait">
             <motion.div
               key={idx}
@@ -367,7 +397,7 @@ function RotatingPunchline({ items }: { items: string[] }) {
             </motion.div>
           </AnimatePresence>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
