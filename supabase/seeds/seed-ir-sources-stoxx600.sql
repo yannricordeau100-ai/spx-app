@@ -368,3 +368,18 @@ ON CONFLICT (ticker) DO UPDATE SET
   regulator_url = EXCLUDED.regulator_url,
   status = EXCLUDED.status,
   updated_at = now();
+
+-- Ajout 3 stés suédoises (Wikipedia lowercase ticker form non matché en dedup initial).
+-- 12 mai 2026.
+INSERT INTO desk_ir_sources (ticker, home_url, ir_home_url, ir_docs_main_url, ir_docs_additional_urls, regulator_url, status) VALUES
+  ('ELUX-B.ST', 'https://www.electroluxgroup.com/en/', 'https://www.electroluxgroup.com/en/category/investor-relations/', 'https://www.electroluxgroup.com/en/financial-data-355/', '["https://www.electroluxgroup.com/en/annual-reports-27641/", "https://www.electroluxgroup.com/en/category/investor-relations/reports-presentations/"]'::jsonb, 'https://www.nasdaqomxnordic.com/aktier/microsite?Instrument=SSE101', 'complete'),
+  ('ERIC-B.ST', 'https://www.ericsson.com/en', 'https://www.ericsson.com/en/investors', 'https://www.ericsson.com/en/investors/financial-reports-and-presentations', '["https://www.ericsson.com/en/investors/financial-reports/interim-reports", "https://www.ericsson.com/en/investors/financial-reports-and-presentations/annual-reports", "https://www.ericsson.com/en/investors/financial-calendar"]'::jsonb, 'https://www.nasdaqomxnordic.com/aktier/microsite?Instrument=SSE101', 'complete'),
+  ('SKF-B.ST', 'https://www.skf.com/group', 'https://investors.skf.com/en', 'https://investors.skf.com/en/quarterly-reports', '["https://investors.skf.com/en/annual-report", "https://investors.skf.com/en/financial-reporting-and-disclosure"]'::jsonb, 'https://www.nasdaqomxnordic.com/aktier/microsite?Instrument=SSE101', 'complete')
+ON CONFLICT (ticker) DO UPDATE SET
+  home_url = EXCLUDED.home_url,
+  ir_home_url = EXCLUDED.ir_home_url,
+  ir_docs_main_url = EXCLUDED.ir_docs_main_url,
+  ir_docs_additional_urls = EXCLUDED.ir_docs_additional_urls,
+  regulator_url = EXCLUDED.regulator_url,
+  status = EXCLUDED.status,
+  updated_at = now();
