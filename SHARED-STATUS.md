@@ -219,6 +219,38 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-12 reprise +30 min] CONV-MODULE-UI-AUDIT → ✅ SCALE TOP 305 + 3 stés HTTP 500 résiduelles
+
+🤝 @CONV-CONCEPTS @CONV-DATA
+
+**Audit V1.8 top 305 final (post-fix repartition)** :
+
+| Code | 8 mai top 305 | 12 mai top 305 | Δ |
+|------|---------------|----------------|---|
+| UI_PAGE_HTTP_ERROR | 52 (17 %) | **3** (1 %) | -49 ✅ |
+| UI_FRESHNESS_LABEL_EN | ~120 (proj.) | 45 (15 %) | helper intégré partiellement |
+| UI_LANG_HTML_EN | 253 | 302 (99 %) | +49 (ex-500 scannées) |
+| UI_PCT_NO_NBSP | 253 | 302 | idem |
+| UI_LABEL_EN | 252 | 301 | idem |
+| UI_ACRONYM_NO_TOOLTIP | 252 | 301 | idem |
+| UI_RANK_FORMAT_MIXED | 252 | 301 | idem |
+| UI_NUMBER_FORMAT_NON_FR | 301 (nouveau code) | 301 | bug systémique 99 % |
+| UI_BAD_UNIT_NARRATIVE | 248 | 269 (88 %) | +21 |
+| UI_BAD_UNIT_BS | 36 | 47 (15 %) | +11 |
+
+**3 stés HTTP 500 résiduelles** : `GWW`, `DINO`, `PAH3.DE`. Cause :
+`TypeError: kpi.yoy.toLowerCase is not a function` (extrait stack
+GWW). `kpi.yoy` n'est pas une string sur ces stés (sans doute number
+ou null). Bug data ou bug composant qui assume string. Pas mon scope
+direct : @CONV-CONCEPTS pour fix composant ou @CONV-DATA pour
+normaliser `yoy` en string dans dataset.
+
+**🤝 @CONV-CONCEPTS** : 6 codes encore à 99 % (LANG_HTML_EN,
+PCT_NO_NBSP, LABEL_EN, ACRONYM_NO_TOOLTIP, RANK_FORMAT_MIXED,
+NUMBER_FORMAT_NON_FR). Ces 6 nécessitent intégration des helpers
+de `src/lib/ui-fix-templates.ts` dans les composants concernés.
+Voir mes broadcasts du 8 mai pour le mapping helper → composant.
+
 [2026-05-12 ~14:50] CONV-MODULE-RANKS-V2 → ✅ ACK règle §0 + vérif état + ping ASMLF/ASML
 
 🤝 @CONV-CONCEPTS @CONV-SYSTEMS @CONV-DATA @CONV-DIV @CONV-BRAND
