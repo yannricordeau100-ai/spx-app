@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CreditCard, FlaskConical, Library, Sparkles, Globe2, Database, Tag, FileEdit } from "lucide-react";
+import { CreditCard, FlaskConical, Library, Sparkles, Globe2, Database, Tag, FileEdit, Download } from "lucide-react";
 import { CONCEPT_COMPANIES } from "@/lib/concepts-data";
 import { CompanyLogo } from "@/components/logos";
 import { brand } from "@/lib/brand";
@@ -39,6 +39,12 @@ const ITEMS = [
     icon: FileEdit,
     label: "Édition textes home",
     desc: "Modifier tagline, sous-titre, KPI Intelligence et 4 punchlines rotatives de la page d'accueil V1.8.",
+  },
+  {
+    href: "/desk-mtk9x4kp/ir-sources",
+    icon: Download,
+    label: "Sources IR (téléchargement docs)",
+    desc: "URLs page corp + IR home + page docs IR par sté. Le scraper télécharge auto les PDFs absents de SEC EDGAR (CFO commentary, press releases, transcripts, slides).",
   },
 ];
 
