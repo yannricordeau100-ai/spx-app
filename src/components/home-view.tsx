@@ -502,12 +502,14 @@ export function HomeView({
             {t("brand.companies_available")}
           </div>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {results.map((ticker) => {
+            {results.map((ticker, idx) => {
               const c = COMPANIES_USED[ticker];
               if (!c) return null;
               try {
                 // Idem : wrap chaque card société dans le gate signup.
-                const card = renderCompanyCard(c, ticker, buildHref, locale, t);
+                // Yann (12 mai 2026) : passer l'idx pour afficher médailles
+                // 🥇🥈🥉 sur les 3 premières du classement.
+                const card = renderCompanyCard(c, ticker, buildHref, locale, t, idx);
                 if (!card) return null;
                 return (
                   <SignupGateOverlay key={ticker} enabled={requireSignupGate} gatePath={gatePath} initialAuthed={!requireSignupGate}>
@@ -538,7 +540,8 @@ function renderCompanyCard(
   ticker: string,
   buildHref: (t: string) => string,
   locale: string,
-  t: (k: string) => string
+  t: (k: string) => string,
+  rankIdx?: number,
 ): React.ReactNode {
   if (!c.kpis || !Array.isArray(c.kpis) || c.kpis.length === 0) return null;
   const hero = getHero(c);
@@ -574,6 +577,26 @@ function renderCompanyCard(
                       className="pointer-events-none absolute -right-10 -top-10 size-32 rounded-full blur-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
                       style={{ background: `${accent}55` }}
                     />
+                    {/* Yann (12 mai 2026) : médaille 🥇🥈🥉 en absolute top-left
+                        pour les 3 premières stés du ranking (par market cap). */}
+                    {typeof rankIdx === "number" && rankIdx < 3 && (
+                      <div
+                        className="absolute -left-2 -top-2 z-10 flex size-9 items-center justify-center rounded-full text-[18px] shadow-[0_4px_14px_rgba(0,0,0,0.6)]"
+                        style={{
+                          background:
+                            rankIdx === 0
+                              ? "linear-gradient(135deg, #fde047, #ca8a04)"
+                              : rankIdx === 1
+                                ? "linear-gradient(135deg, #e5e5e5, #737373)"
+                                : "linear-gradient(135deg, #fdba74, #9a3412)",
+                          border: "2px solid rgba(0,0,0,0.6)",
+                        }}
+                        aria-label={`Rang ${rankIdx + 1}`}
+                        title={`#${rankIdx + 1} par capitalisation`}
+                      >
+                        {rankIdx === 0 ? "🥇" : rankIdx === 1 ? "🥈" : "🥉"}
+                      </div>
+                    )}
                     <div className="relative flex items-start justify-between">
                       <div>
                         <div className="font-mono text-xs" style={{ color: accent }}>
@@ -625,7 +648,9 @@ function renderCompanyCard(
                       <span className="ml-auto">
                         <FreshnessIndicator
                           lastDate={hero.last_data_date ?? "2025-12-31"}
+                          publicationDate={c.latest_filing?.date}
                           nextEarningsDate={c.next_earnings_date}
+                          ticker={ticker}
                           alwaysShow
                           size="sm"
                           tooltipAlign="right"

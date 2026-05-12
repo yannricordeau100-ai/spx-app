@@ -32,7 +32,7 @@ function LogoTilt({ ticker }: { ticker: string }) {
       ref={ref}
       onMouseMove={onMove}
       onMouseLeave={onLeave}
-      className={`h-16 w-24 shrink-0 rounded-2xl border p-2 transition-shadow duration-300 hover:shadow-[0_8px_32px_rgba(0,0,0,0.6)] sm:h-20 sm:w-28 ${
+      className={`h-12 w-16 shrink-0 rounded-xl border p-1.5 transition-shadow duration-300 hover:shadow-[0_8px_32px_rgba(0,0,0,0.6)] sm:h-14 sm:w-20 ${
         logoNeedsLightBg(ticker)
           ? "border-[#e5e5e5] bg-[#fafafa]"
           : "border-[#1f1f1f] bg-[#0a0a0a]"
@@ -83,14 +83,26 @@ function CompanyName({ name, ticker, accent }: { name: string; ticker: string; a
 }
 
 function StatChip({ label, value }: { label: string; value: string }) {
+  // Yann (12 mai 2026) : chips compactes pour tenir tous les rangs sur
+  // 1 ligne horizontale. Labels plus petits, padding réduit.
   return (
-    <span className="inline-flex items-baseline gap-2 rounded-lg border border-[#262626] bg-[#0c0c0c] px-3 py-2">
-      <span className="text-[12px] font-medium text-zinc-300">
+    <span className="inline-flex shrink-0 items-baseline gap-1.5 rounded-lg border border-[#262626] bg-[#0c0c0c] px-2 py-1.5">
+      <span className="text-[10.5px] font-medium uppercase tracking-wide text-zinc-400">
         {label}
       </span>
-      <span className="font-sans text-[14px] font-bold text-zinc-50">{value}</span>
+      <span className="font-sans text-[12.5px] font-bold text-zinc-50">{value}</span>
     </span>
   );
+}
+
+/**
+ * Yann (12 mai 2026) : "Rang USA" doit être masqué pour les sés non-US
+ * (= FPI EU pures avec un `.` dans le ticker : .PA, .L, .DE, .SW, .MI,
+ * .ST, .OL, .HE, .AS, .MC, .CO, .T, etc.). Cat 1 (US sans suffixe) +
+ * cat 2 (FPI ADR sans suffixe, listée US) = on garde la chip.
+ */
+function isUsOrAdr(ticker: string): boolean {
+  return !ticker.includes(".") && !ticker.includes("-");
 }
 
 export function CompanyHeader({
@@ -119,11 +131,16 @@ export function CompanyHeader({
         {!hidePriceBar && <StockPriceBlock company={company} />}
       </div>
 
-      <div className="mt-5 flex flex-wrap items-center gap-2">
+      {/* Yann (12 mai 2026) : tous les rangs sur UNE ligne horizontale.
+          flex-nowrap + overflow-x-auto = scroll discret si overflow petit
+          écran. Rang USA masqué pour les sés non-US (cat 3 EU). */}
+      <div className="mt-5 flex flex-nowrap items-center gap-1.5 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         <StatChip label={t("company.rank_world")} value={company.ranks.global_world} />
-        <StatChip label={t("company.rank_us")} value={company.ranks.global_us} />
-        <StatChip label={`${t("company.sector")} (${company.sector})`} value={company.ranks.sector} />
-        <StatChip label={`${t("company.subsector")} (${company.subsector})`} value={company.ranks.subsector} />
+        {isUsOrAdr(company.ticker) && (
+          <StatChip label={t("company.rank_us")} value={company.ranks.global_us} />
+        )}
+        <StatChip label={company.sector} value={company.ranks.sector} />
+        <StatChip label={company.subsector} value={company.ranks.subsector} />
         <StatChip label={t("company.founded")} value={String(company.founded)} />
         <StatChip label={t("company.ipo")} value={String(company.ipo)} />
       </div>

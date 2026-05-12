@@ -50,13 +50,28 @@ function isPublicPath(pathname: string): boolean {
   if (pathname === "/parrainage") return true;
   // /contact = formulaire de contact public.
   if (pathname === "/contact") return true;
-  // /sandbox/v1-7 et /sandbox/v1-7/<ticker> = hub V1.7 + fiches société
-  // Pass 3 strict, publics (showcase qualité top-top, accessible sans auth
-  // pour démo investisseur). Décision Yann 4 mai 2026.
-  if (pathname === "/sandbox/v1-7" || pathname.startsWith("/sandbox/v1-7/")) return true;
-  // /sandbox/v1-8 et /sandbox/v1-8/<ticker> = même chose mais filtre relaxé
-  // (Pass 3 Sonnet + hero usable). Yann 7 mai 2026 — public.
-  if (pathname === "/sandbox/v1-8" || pathname.startsWith("/sandbox/v1-8/")) return true;
+  // Yann (12 mai 2026) : les HUBS V1.7/V1.8 restent publics, MAIS les
+  // pages société individuelles sont gatées (signup requis). Avant, tout
+  // /sandbox/v1-8/<ticker> était accessible sans compte → Yann a vu un
+  // visiteur déconnecté tout voir sur /sandbox/v1-8/nvda.
+  // → On garde public uniquement la liste/hub + les sous-pages "utilitaires"
+  // (pricing, contact, pages-toggle, etc.), pas les /[ticker].
+  if (pathname === "/sandbox/v1-7") return true;
+  if (pathname === "/sandbox/v1-8") return true;
+  // Sous-routes publiques (sandbox utilitaires) : tout ce qui n'est PAS
+  // une page société (= /sandbox/v1-8/<ticker> où ticker matche /^[a-z0-9-.]+$/).
+  if (pathname.startsWith("/sandbox/v1-7/") || pathname.startsWith("/sandbox/v1-8/")) {
+    const tail = pathname.replace(/^\/sandbox\/v1-[78]\//, "");
+    const firstSeg = tail.split("/")[0] ?? "";
+    // Liste blanche des sous-routes utilitaires (non-tickers)
+    const UTIL_SUBPATHS = new Set([
+      "pricing", "contact", "pages-toggle", "freshness-audit",
+      "i18n-audit", "geo-test", "data-status",
+    ]);
+    if (UTIL_SUBPATHS.has(firstSeg)) return true;
+    // Sinon = page société (ex /sandbox/v1-8/nvda) → AUTH REQUISE
+    return false;
+  }
   // /sandbox/data-status = dashboard interne agrégé (compteurs sec-data,
   // pipeline, audit V1.7, crédits LLM). Public car Yann le consulte
   // souvent sans vouloir signer. Aucune PII, aucune donnée client.
