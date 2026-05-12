@@ -47,8 +47,9 @@ TIMEOUT_HTML = 12
 TIMEOUT_PDF = 60
 MAX_PDF_BYTES = 80 * 1024 * 1024  # 80 MB cap par PDF
 
-# Skip patterns (chinoises connues à exclure)
-CHINESE_SKIP = {"BABA", "BIDU", "JD", "PDD", "NIO", "LI", "XPEV", "TME", "BILI", "TCOM"}
+# Skip patterns — BABA réintégré exceptionnellement par décision Yann (12 mai).
+# Les autres chinois restent exclus tant que pas demandés.
+CHINESE_SKIP = {"BIDU", "JD", "PDD", "NIO", "LI", "XPEV", "TME", "BILI", "TCOM"}
 
 # Classification doctype par mot-clé
 DOCTYPE_PATTERNS = [
@@ -161,10 +162,19 @@ def safe_filename(url):
     return name[:120]  # cap length
 
 
+def disk_free_gb(path=Path("/")):
+    """Retourne l'espace libre en GB."""
+    import shutil
+    return shutil.disk_usage(path).free / (1024**3)
+
+
 def download_pdf(url, dest_path, session):
     """Télécharge un PDF si pas déjà présent. Retourne (ok, bytes, msg)."""
     if dest_path.exists() and dest_path.stat().st_size > 1024:
         return (True, dest_path.stat().st_size, "skip-exists")
+    # Safety : stop downloads si moins de 3 GB libres
+    if disk_free_gb() < 3.0:
+        return (False, 0, "disk-full-safety")
     try:
         r = session.get(url, timeout=TIMEOUT_PDF, headers={"User-Agent": UA}, stream=True, allow_redirects=True)
         if r.status_code != 200:
