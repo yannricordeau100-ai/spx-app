@@ -95,7 +95,9 @@ def check_hero_history(p):
     if not h:
         return False
     hist = h.get("history")
-    if not isinstance(hist, list) or len(hist) < 3:
+    # 2 points = chart OK (line connecte 2 dots, mieux que rien).
+    # <2 points OU flag unverified → KO.
+    if not isinstance(hist, list) or len(hist) < 2:
         return False
     if h.get("_hero_history_unverified") is True:
         return False
