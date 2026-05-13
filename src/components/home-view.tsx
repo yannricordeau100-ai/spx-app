@@ -219,10 +219,23 @@ function BrandWordmark({ kpiUnderText }: { kpiUnderText?: string }) {
 function renderPunchline(text: string): React.ReactNode {
   // 1. Split par italique *...*
   const italicSplit = text.split(/(\*[^*]+\*)/g);
+  // Yann 13 mai 2026 : le PREMIER segment italique = nom de l'interlocuteur,
+  // souligné. Les italiques suivants (ex "Mettrik AI") restent juste italique
+  // sans soulignement.
+  let firstItalicSeen = false;
   return italicSplit.map((seg, i) => {
     if (seg.startsWith("*") && seg.endsWith("*") && seg.length > 2) {
+      const isInterlocutorName = !firstItalicSeen;
+      firstItalicSeen = true;
       return (
-        <em key={i} className="not-italic font-semibold italic text-zinc-200">
+        <em
+          key={i}
+          className={
+            isInterlocutorName
+              ? "not-italic font-semibold italic text-zinc-200 underline decoration-violet-400/70 decoration-[1.5px] underline-offset-[5px]"
+              : "not-italic font-semibold italic text-zinc-200"
+          }
+        >
           {wrapEmojis(seg.slice(1, -1))}
         </em>
       );
@@ -369,6 +382,28 @@ function RotatingPunchline({ items }: { items: string[] }) {
         <span aria-hidden className="absolute inset-0 translate-x-[3px] translate-y-[3px] rounded-xl border border-white/35 bg-[#06060a]/55" />
         <span aria-hidden className="absolute inset-0 translate-x-[6px] translate-y-[6px] rounded-xl border border-white/25 bg-[#04040a]/40" />
         <span aria-hidden className="absolute inset-0 translate-x-[9px] translate-y-[9px] rounded-xl border border-white/18 bg-[#020208]/28" />
+        {/* Badge "Pourquoi utiliser Mettrik AI ?" à cheval sur la bordure
+            supérieure (Yann 13 mai 2026). Style volontairement décalé du
+            reste : police mono uppercase + couleur violet/cyan + bordure
+            arrondie + fond sombre opaque pour casser la ligne de bordure.
+            Positionné absolu, top: 0 + translate -50% = moitié au-dessus,
+            moitié au-dessous de la ligne du cadre. Z-index 30 pour passer
+            au-dessus du frame (z-10) et des shadows (z-0). */}
+        <span
+          aria-hidden
+          className="absolute left-1/2 top-0 z-30 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full border border-violet-400/50 bg-[#06060a] px-3 py-1 font-mono text-[9.5px] font-bold uppercase tracking-[0.22em] sm:text-[10.5px]"
+          style={{
+            boxShadow:
+              "0 0 18px rgba(168, 85, 247, 0.35), inset 0 1px 0 rgba(255,255,255,0.12)",
+          }}
+        >
+          <span
+            className="bg-gradient-to-r from-violet-300 via-cyan-200 to-violet-300 bg-clip-text text-transparent"
+            style={{ WebkitBackgroundClip: "text", backgroundClip: "text" }}
+          >
+            Pourquoi utiliser Mettrik AI ?
+          </span>
+        </span>
         {/* Cadre principal */}
         <div
           className="relative z-10 flex min-h-[148px] items-center justify-center overflow-hidden rounded-xl border border-white/40 bg-[#0a0a0e]/85 px-5 py-4 pr-12 backdrop-blur-sm sm:min-h-[168px] sm:pr-14"
