@@ -119,7 +119,33 @@ def extract_risk_factors(text: str, max_chars: int = 18000) -> str:
         all_rf = list(re.finditer(r"risk\s+factors", text, re.IGNORECASE))
         if not all_rf:
             # Fallback EU multi-langue
-            for kw in [r"facteurs?\s+de\s+risque", r"risikofaktoren", r"fattori\s+di\s+rischio", r"riesgos", r"hoofdrisico"]:
+            for kw in [
+                r"facteurs?\s+de\s+risque", r"risikofaktoren", r"fattori\s+di\s+rischio",
+                r"riesgos", r"hoofdrisico",
+                # UK
+                r"principal\s+risks\s+and\s+uncertainties",
+                r"principal\s+risks",
+                r"key\s+risks",
+                # DE additional
+                r"wesentliche\s+risiken",
+                r"risikomanagement",
+                r"risikolage",
+                # FR additional
+                r"risques\s+principaux",
+                r"facteurs\s+et\s+gestion\s+des\s+risques",
+                # IT additional
+                r"principali\s+rischi",
+                r"gestione\s+dei\s+rischi",
+                # ES additional
+                r"principales\s+riesgos",
+                r"gesti[óo]n\s+de\s+riesgos",
+                # NL additional
+                r"voornaamste\s+risico",
+                r"risicofactoren",
+                # SE/NO
+                r"risker\s+och\s+os[äa]kerheter",
+                r"v[ää]sentliga\s+risker",
+            ]:
                 m = list(re.finditer(kw, text, re.IGNORECASE))
                 if m:
                     cutoff = int(len(text) * 0.05)
