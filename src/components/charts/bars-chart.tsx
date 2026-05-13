@@ -269,10 +269,13 @@ export function BarsChart({
               transition={{ duration: 0.55, delay: 0.07 * i, ease: [0.22, 1, 0.36, 1] }}
               onMouseEnter={() => setHover(i)}
               onMouseLeave={() => setHover(null)}
+              onTouchStart={() => setHover(i)}
+              onClick={() => setHover((prev) => (prev === i ? null : i))}
               style={{
                 opacity: hover === null || isHover ? 1 : 0.5,
                 transition: "opacity 200ms ease-out",
                 cursor: "pointer",
+                touchAction: "manipulation" as const,
               }}
             >
               {isClassic ? (

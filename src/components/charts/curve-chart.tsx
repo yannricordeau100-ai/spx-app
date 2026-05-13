@@ -445,7 +445,9 @@ export function CurveChart({
               key={`n-${i}`}
               onMouseEnter={() => setHover(i)}
               onMouseLeave={() => setHover(null)}
-              style={{ cursor: "pointer", opacity: isTTM ? 0.8 : 1 }}
+              onTouchStart={() => setHover(i)}
+              onClick={() => setHover((prev) => (prev === i ? null : i))}
+              style={{ cursor: "pointer", opacity: isTTM ? 0.8 : 1, touchAction: "manipulation" }}
             >
               {isTTM ? (
                 /* TTM : cercle creux pointillé (vs cercle plein pour années) */
