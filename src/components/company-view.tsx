@@ -400,7 +400,11 @@ export function CompanyView({
                 >
                   {tone === "pos" && <ArrowUpRight className="size-4" />}
                   {tone === "neg" && <ArrowDownRight className="size-4" />}
-                  <span className="font-mono tabular-nums">{active.yoy}</span>
+                  <span className="font-mono tabular-nums">
+                    {typeof active.yoy === "number"
+                      ? `${active.yoy > 0 ? "+" : ""}${active.yoy}%`
+                      : active.yoy}
+                  </span>
                   <span className="text-[11px] italic text-zinc-400">(YoY)</span>
                 </div>
                 <QualityChipOnly rating={heroRating} />
