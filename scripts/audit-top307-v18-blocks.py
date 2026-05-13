@@ -125,7 +125,8 @@ def check_governance(p, e):
 
 
 def check_ai(p, e):
-    """Check both pipeline + enrich, prend le plus complet (max evidence)."""
+    """Check both pipeline + enrich, prend le plus complet (max evidence).
+    Stance 'absent' = AI rule (sté non concernée), OK même avec 0 evidence."""
     candidates = [p.get("ai_positioning"), e.get("ai_positioning")]
     best_ev = 0
     best_stance = None
@@ -140,6 +141,9 @@ def check_ai(p, e):
             best_stance = st
         elif best_stance is None and st:
             best_stance = st
+    # stance "absent" est une réponse valide même sans evidence
+    if best_stance == "absent":
+        return True
     return bool(best_stance) and best_ev >= 1
 
 
