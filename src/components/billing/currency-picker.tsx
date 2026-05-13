@@ -53,20 +53,18 @@ export function CurrencyPicker({ current = "EUR" }: { current?: string }) {
       {open && (
         <ul
           role="listbox"
-          className="absolute right-0 z-50 mt-1 min-w-[160px] rounded-md border border-zinc-700 bg-[#0a0a0e] py-1 shadow-xl"
+          className="absolute right-0 z-50 mt-1 min-w-[220px] whitespace-nowrap rounded-md border border-zinc-700 bg-[#0a0a0e] py-1 shadow-xl"
         >
           {CURRENCIES.map((c) => (
             <li key={c.code}>
               <button
                 type="button"
                 onClick={() => pick(c.code)}
-                className={`flex w-full items-center justify-between px-3 py-1.5 text-left text-[12px] transition-colors hover:bg-violet-500/10 hover:text-violet-100 ${c.code === current ? "text-violet-300" : "text-zinc-300"}`}
+                className={`flex w-full items-center gap-2 px-3 py-1.5 text-left text-[12px] transition-colors hover:bg-violet-500/10 hover:text-violet-100 ${c.code === current ? "text-violet-300" : "text-zinc-300"}`}
               >
-                <span>
-                  <span className="mr-1.5 inline-block w-7 font-mono text-zinc-500">{c.symbol}</span>
-                  {c.code}
-                </span>
-                <span className="text-[10px] text-zinc-500">{c.label}</span>
+                <span className="inline-block w-8 shrink-0 font-mono text-zinc-500">{c.symbol}</span>
+                <span className="w-10 shrink-0 font-semibold">{c.code}</span>
+                <span className="ml-auto text-[10.5px] text-zinc-500">{c.label}</span>
               </button>
             </li>
           ))}
