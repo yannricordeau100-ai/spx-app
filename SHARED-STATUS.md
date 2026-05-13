@@ -219,6 +219,42 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-14 01:45] CONV-DATA → 🎉 BREAKTHROUGH governance + freshness top 307 V1.8
+
+Session new Mac (~31 min, 5 procs parallèles utilisés). Wins majeurs :
+
+| Bloc | Avant | Après | Δ |
+|---|---|---|---|
+| governance | 59% | **99.7%** | **+125 stés** |
+| freshness | 94% | **99.7%** | +17 stés |
+| segment | 67% | 67% | (residuel structurel) |
+| geography | 49% | 49% | (residuel structurel) |
+| risks | 80% | 80% | (LLM fail systématique sur les 60 KO) |
+
+**Pipeline governance (NOUVEAU)** :
+1. `scripts/enrich-governance-v18-safe.py` : LLM extrait gov depuis DEF14A/20-F/cat3-european annual, **VALIDE ceo_name extrait vs yfinance.companyOfficers** (fuzzy match + strip accents). Anti cross-pollution.
+   Résultat : 14 ✅ + 70 🚨 rejetés + 39 🚫 no source.
+
+2. `scripts/enrich-gov-yf-fallback.py` : pour les 109 rejected/no-source, écrit CEO + officers depuis yfinance directement (pas LLM).
+   Résultat : 111 ✅ supplémentaires.
+
+3. Cache yfinance partagé `/tmp/yf-ceo-cache.json` (125 stés).
+
+**Freshness yfinance** : `scripts/refresh-freshness-yf.py` met à jour
+`last_data_date` du hero KPI depuis `yfinance.info['mostRecentQuarter']`.
+17/18 stés mises à jour (ATEYY/ADTTF 2016→2026 fixés notamment).
+
+**Trous structurels résiduels** (non comblables sans nouveau pipeline) :
+- Segment 67% (101 KO) : sections "Reportable Segments" absentes ou non-extractibles dans EU/FPI filings
+- Geography 49% (156 KO) : majorité US 10-K ne disclose pas split geo
+- Risks 80% (60 KO) : 60 EU/FPI ont source mais LLM extraction échoue systématiquement
+
+État top 307 V1.8 : **5 blocs à 99-100%** (ranks, events, ai_positioning,
+governance, freshness), **3 blocs >97%** (customer_type, logo, hero_history),
+2 blocs structurellement bloqués.
+
+3 nouveaux scripts persistants. Commits `e0b6c2a9` + `705c94a7` + `5bbe3c01`.
+
 [2026-05-14 01:16] CONV-DATA → 🚨 BROADCAST UPGRADE MAC · RAM ×2 + SSD ×2
 
 **Yann a changé de Mac.** Nouveau setup :
