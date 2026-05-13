@@ -612,13 +612,19 @@ export function CompanyView({
 
         {/* Synthèse Earning Call — bullets PV-driven avec tooltip "i" auto
             sur abréviations / termes techniques. Format unique pour TOUTES
-            les sociétés (Yann 11 mai 2026). Préféré au bloc TranscriptStories
-            quand un résumé est dispo, sinon fallback sur l'ancien. */}
+            les sociétés (Yann 11 mai 2026). Bloc rendu UNIQUEMENT si bullets
+            dispo. Si pas de bullets et pas de transcript brut : RIEN ne
+            s'affiche (Yann 12 mai 2026 : ex AAPL, ne pas afficher de bloc
+            vide pour les stés sans transcript accessible). */}
         {transcriptSummary && transcriptSummary.summary?.bullets?.length ? (
           <TranscriptBulletsBlock ticker={company.ticker} summary={transcriptSummary} />
-        ) : (
+        ) : transcript && (
+            (transcript.extracts?.quotes && transcript.extracts.quotes.length > 0) ||
+            (transcript.extracts?.figures && transcript.extracts.figures.length > 0) ||
+            (transcript.latest?.content && transcript.latest.content.length > 200)
+          ) ? (
           <TranscriptStories ticker={company.ticker} doc={transcript} />
-        )}
+        ) : null}
 
         {/* Profil société & marché — description longue + snapshot
             boursier + faits clés + sés comparables. (7 mai 2026) */}

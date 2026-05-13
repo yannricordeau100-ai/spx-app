@@ -156,11 +156,15 @@ export function CurveChart({
   const innerH = H - PAD_TOP - PAD_BOTTOM;
 
   // Y-axis adaptive : si toutes les valeurs sont >> 0 (NFLX abonnés
-  // 200-325M), on évite d'ancrer à 0 qui écraserait la lecture du graph.
-  // Heuristique : si dataMin > 30% de dataMax, axe commence proche du min.
-  const dataMaxRaw = Math.max(...allData, 0);
-  const dataMinRaw = Math.min(...allData, 0);
-  const useDataMin = dataMinRaw > 0 && dataMinRaw > dataMaxRaw * 0.3;
+  // 200-325M, BAC encours 1045-1080), on évite d'ancrer à 0 qui écraserait
+  // la lecture du graph.
+  // Heuristique : si dataMin > 50 % de dataMax, axe commence proche du min.
+  // FIX 13 mai 2026 : ne plus inclure 0 dans Math.min(...allData) (sinon
+  // useDataMin était toujours false pour les valeurs positives sans 0 dans
+  // l'historique). Bug observé sur BAC Loan Book 1045-1080 → axe 0-1200.
+  const dataMaxRaw = Math.max(...allData);
+  const dataMinRaw = Math.min(...allData);
+  const useDataMin = dataMinRaw > 0 && dataMinRaw > dataMaxRaw * 0.5;
   const dataMin = useDataMin ? dataMinRaw : Math.min(0, ...allData);
   const dataMax = dataMaxRaw;
   const tickValues = niceTicks(dataMin, dataMax, 5);

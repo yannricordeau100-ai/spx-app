@@ -106,13 +106,14 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
   const isClassic = variant === "classic";
 
   // Y-axis adaptive : si toutes les valeurs sont >> 0 (ex : NFLX abonnés
-  // 200-325M), on évite d'ancrer à 0 qui écraserait la lecture du graph.
-  // Heuristique : si dataMin > 30% de dataMax, on commence l'axe à un seuil
-  // proche du min (rounding par niceTicks) au lieu de forcer 0.
-  // Sinon (valeurs proches de 0 ou negatives), on garde 0 comme baseline.
-  const dataMaxRaw = Math.max(...allData, 0);
-  const dataMinRaw = Math.min(...allData, 0);
-  const useDataMin = dataMinRaw > 0 && dataMinRaw > dataMaxRaw * 0.3;
+  // 200-325M, BAC encours 1045-1080), on évite d'ancrer à 0 qui écraserait
+  // la lecture du graph.
+  // FIX 13 mai 2026 : ne plus forcer 0 dans Math.min(...allData, 0)
+  // (sinon useDataMin était toujours false pour les valeurs positives
+  // sans 0 dans l'historique). Seuil porté à 50 % pour plus de zoom.
+  const dataMaxRaw = Math.max(...allData);
+  const dataMinRaw = Math.min(...allData);
+  const useDataMin = dataMinRaw > 0 && dataMinRaw > dataMaxRaw * 0.5;
   const ticks = niceTicks(useDataMin ? dataMinRaw : 0, dataMaxRaw, 5);
   const max = Math.max(...ticks, ...allData);
   const min = Math.min(...ticks, useDataMin ? dataMinRaw : 0);

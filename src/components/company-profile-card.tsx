@@ -34,7 +34,7 @@ export function CompanyProfileCard({ company, accent = "#a78bfa" }: { company: C
   if (!hasAnything) return null;
 
   return (
-    <section id="sec-profile" className="scroll-mt-24">
+    <section id="sec-profile" className="mt-9 scroll-mt-24">
       <div className="mb-3 flex items-baseline justify-between">
         <h2 className="font-display text-[20px] font-bold tracking-tight text-zinc-100">Profil société &amp; marché</h2>
         <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">Source : yfinance + 10-K</span>

@@ -105,15 +105,25 @@ export function BarsChart({
   const innerW = W - PAD_LEFT - PAD_RIGHT;
   const innerH = H - PAD_TOP - PAD_BOTTOM;
 
-  const dataMin = Math.min(0, ...allData);
-  const dataMax = Math.max(...allData, 0);
-  // Compute "nice" tick values rounded to 1/2/5×magnitude. The chart's actual
-  // scale spans the rounded min..max so the data fits within the gridlines.
+  // Y-axis adaptive (FIX 13 mai 2026, cohérent avec curve-chart).
+  // Si toutes les valeurs sont >> 0 (BAC encours 1045-1080, NFLX abonnés
+  // 200-325M), ancrer à 0 écraserait les barres en lecture (toutes ~98 %
+  // haute, indiscernables). Heuristique : si dataMin > 50 % de dataMax,
+  // on zoome sur la zone réelle. zeroY garde son rôle de baseline visuelle
+  // (= min de l'axe pour les valeurs positives only).
+  const dataMaxRaw = Math.max(...allData);
+  const dataMinRaw = Math.min(...allData);
+  const useDataMin = dataMinRaw > 0 && dataMinRaw > dataMaxRaw * 0.5;
+  const dataMin = useDataMin ? dataMinRaw : Math.min(0, ...allData);
+  const dataMax = dataMaxRaw;
   const tickValues = niceTicks(dataMin, dataMax, 5);
   const min = Math.min(...tickValues, dataMin);
   const max = Math.max(...tickValues, dataMax);
   const range = max - min || 1;
-  const zeroY = PAD_TOP + ((max - 0) / range) * innerH;
+  // baseline visuelle : si on n'ancre pas à 0, baseline = min de l'axe
+  // (= bas de la chart), sinon = position du 0.
+  const baselineValue = useDataMin ? min : 0;
+  const zeroY = PAD_TOP + ((max - baselineValue) / range) * innerH;
 
   const slot = innerW / allData.length;
   const barW = Math.min(slot * 0.42, 56);
@@ -206,8 +216,16 @@ export function BarsChart({
 
         {allData.map((v, i) => {
           const x = PAD_LEFT + slot * i + (slot - barW) / 2;
-          const yTop = PAD_TOP + ((max - Math.max(v, 0)) / range) * innerH;
-          const yBot = PAD_TOP + ((max - Math.min(v, 0)) / range) * innerH;
+          // En mode adaptif (useDataMin=true), les barres partent du bas
+          // de l'axe (= baselineValue = min) jusqu'à la valeur.
+          // En mode normal (anchor 0), comportement classique : bar va de 0
+          // à v si positif, de v à 0 si négatif.
+          const yTop = useDataMin
+            ? PAD_TOP + ((max - v) / range) * innerH
+            : PAD_TOP + ((max - Math.max(v, 0)) / range) * innerH;
+          const yBot = useDataMin
+            ? zeroY
+            : PAD_TOP + ((max - Math.min(v, 0)) / range) * innerH;
           const h = Math.max(2, yBot - yTop);
           const isHover = hover === i;
           const yPct = yoyPct[i];
