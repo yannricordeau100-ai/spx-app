@@ -383,22 +383,21 @@ function RotatingPunchline({ items }: { items: string[] }) {
         <span aria-hidden className="absolute inset-0 translate-x-[6px] translate-y-[6px] rounded-xl border border-white/25 bg-[#04040a]/40" />
         <span aria-hidden className="absolute inset-0 translate-x-[9px] translate-y-[9px] rounded-xl border border-white/18 bg-[#020208]/28" />
         {/* Badge "Pourquoi utiliser Mettrik AI ?" à cheval sur la bordure
-            supérieure (Yann 13 mai 2026). Style volontairement décalé du
-            reste : police mono uppercase + couleur violet/cyan + bordure
-            arrondie + fond sombre opaque pour casser la ligne de bordure.
-            Positionné absolu, top: 0 + translate -50% = moitié au-dessus,
-            moitié au-dessous de la ligne du cadre. Z-index 30 pour passer
-            au-dessus du frame (z-10) et des shadows (z-0). */}
+            supérieure. Yann 13 mai 2026 v2 : agrandi (text-[13px] sm:15px)
+            + padding plus généreux + bordure 1.5px + glow plus marqué pour
+            meilleure visibilité. Style toujours décalé du reste (mono
+            uppercase, gradient violet/cyan, fond opaque casse la bordure). */}
         <span
           aria-hidden
-          className="absolute left-1/2 top-0 z-30 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full border border-violet-400/50 bg-[#06060a] px-3 py-1 font-mono text-[9.5px] font-bold uppercase tracking-[0.22em] sm:text-[10.5px]"
+          className="absolute left-1/2 top-0 z-30 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-[#06060a] px-4 py-1.5 font-mono text-[12px] font-extrabold uppercase tracking-[0.22em] sm:px-5 sm:py-2 sm:text-[14.5px]"
           style={{
+            border: "1.5px solid rgba(168, 85, 247, 0.7)",
             boxShadow:
-              "0 0 18px rgba(168, 85, 247, 0.35), inset 0 1px 0 rgba(255,255,255,0.12)",
+              "0 0 28px rgba(168, 85, 247, 0.55), 0 0 14px rgba(34, 211, 238, 0.35), inset 0 1px 0 rgba(255,255,255,0.18)",
           }}
         >
           <span
-            className="bg-gradient-to-r from-violet-300 via-cyan-200 to-violet-300 bg-clip-text text-transparent"
+            className="bg-gradient-to-r from-violet-200 via-cyan-200 to-violet-200 bg-clip-text text-transparent"
             style={{ WebkitBackgroundClip: "text", backgroundClip: "text" }}
           >
             Pourquoi utiliser Mettrik AI ?

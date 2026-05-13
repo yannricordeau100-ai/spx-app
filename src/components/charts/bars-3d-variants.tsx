@@ -23,6 +23,18 @@ function axisHeader(unit: string): string {
     case "€M": return "€ en Millions";
     case "£B": return "£ en Milliards";
     case "£M": return "£ en Millions";
+    case "Mds $": return "$ en Milliards";
+    case "M $": return "$ en Millions";
+    case "Mds €": return "€ en Milliards";
+    case "M €": return "€ en Millions";
+    case "Mds £": return "£ en Milliards";
+    case "M £": return "£ en Millions";
+    case "Mds CHF": return "CHF en Milliards";
+    case "Mds JPY": return "JPY en Milliards";
+    case "Mds EUR": return "EUR en Milliards";
+    case "Mds DKK": return "DKK en Milliards";
+    case "Mds INR": return "INR en Milliards";
+    case "Mds": return "en Milliards";
     case "%": return "%";
     case "% YoY": return "% (YoY)";
     case "$": return "$";
@@ -105,18 +117,18 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
   const ttmIndex = hasTTM ? allData.length - 1 : -1;
   const isClassic = variant === "classic";
 
-  // Y-axis adaptive : si toutes les valeurs sont >> 0 (ex : NFLX abonnés
-  // 200-325M, BAC encours 1045-1080), on évite d'ancrer à 0 qui écraserait
-  // la lecture du graph.
-  // FIX 13 mai 2026 : ne plus forcer 0 dans Math.min(...allData, 0)
-  // (sinon useDataMin était toujours false pour les valeurs positives
-  // sans 0 dans l'historique). Seuil porté à 50 % pour plus de zoom.
+  // Y-axis adaptive (Yann 13 mai 2026 v2) : heuristique sur `data` SEUL
+  // (sans TTM qui peut être un cumul faussant la range). Zoom si range
+  // < 40 % de dataMax. TTM toujours inclus dans la max pour rester visible.
+  const dataOnlyMax = Math.max(...data);
+  const dataOnlyMin = Math.min(...data);
+  const dataOnlyRange = dataOnlyMax - dataOnlyMin;
+  const useDataMin =
+    dataOnlyMin > 0 && dataOnlyRange < dataOnlyMax * 0.4;
   const dataMaxRaw = Math.max(...allData);
-  const dataMinRaw = Math.min(...allData);
-  const useDataMin = dataMinRaw > 0 && dataMinRaw > dataMaxRaw * 0.5;
-  const ticks = niceTicks(useDataMin ? dataMinRaw : 0, dataMaxRaw, 5);
+  const ticks = niceTicks(useDataMin ? dataOnlyMin : 0, dataMaxRaw, 5);
   const max = Math.max(...ticks, ...allData);
-  const min = Math.min(...ticks, useDataMin ? dataMinRaw : 0);
+  const min = Math.min(...ticks, useDataMin ? dataOnlyMin : 0);
   const range = (max - min) || 1;
   const slot = INNER_W / allData.length;
   const barW = Math.min(slot * 0.42, 56);

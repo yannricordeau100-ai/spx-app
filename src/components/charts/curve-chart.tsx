@@ -11,8 +11,10 @@ import { EventDotsSVG, EventDotsOverlay } from "@/components/charts/event-dots";
 import { downloadSvgAsPng, buildYearGroups } from "@/lib/chart-export";
 import { ChartMiniLogo } from "@/components/charts/chart-mini-logo";
 
-// Yann 13 mai 2026 : labels axe Y monétaires en mot complet
-// ("Millions"/"Milliards") au lieu de l'abréviation "M"/"Mds".
+// Yann 13 mai 2026 v2 : labels axe Y monétaires en mot complet
+// ("Millions"/"Milliards"). Couvre les formats bruts ($B, $M) ET les formats
+// déjà formatés ("Mds $", "M $") car beaucoup de datasets stockent le unit
+// déjà formatté.
 function axisHeader(unit: string): string {
   switch (unit) {
     case "$B": return "$ en Milliards";
@@ -23,6 +25,20 @@ function axisHeader(unit: string): string {
     case "€M": return "€ en Millions";
     case "£B": return "£ en Milliards";
     case "£M": return "£ en Millions";
+    // Format déjà rendu par formatUnit() côté data (= cas le plus fréquent
+    // sur les datasets actuels) :
+    case "Mds $": return "$ en Milliards";
+    case "M $": return "$ en Millions";
+    case "Mds €": return "€ en Milliards";
+    case "M €": return "€ en Millions";
+    case "Mds £": return "£ en Milliards";
+    case "M £": return "£ en Millions";
+    case "Mds CHF": return "CHF en Milliards";
+    case "Mds JPY": return "JPY en Milliards";
+    case "Mds EUR": return "EUR en Milliards";
+    case "Mds DKK": return "DKK en Milliards";
+    case "Mds INR": return "INR en Milliards";
+    case "Mds": return "en Milliards";
     case "%": return "%";
     case "% YoY": return "% (YoY)";
     case "$": return "$";
@@ -30,7 +46,12 @@ function axisHeader(unit: string): string {
   }
 }
 function isCurrencyLike(unit: string): boolean {
-  return ["$B", "$M", "B", "M"].includes(unit);
+  return [
+    "$B", "$M", "B", "M",
+    "€B", "€M", "£B", "£M",
+    "Mds $", "M $", "Mds €", "M €", "Mds £", "M £",
+    "Mds CHF", "Mds JPY", "Mds EUR", "Mds DKK", "Mds INR", "Mds",
+  ].includes(unit);
 }
 function isPercentLike(unit: string): boolean {
   return ["%", "% YoY"].includes(unit);
@@ -155,17 +176,22 @@ export function CurveChart({
   const innerW = W - PAD_LEFT - PAD_RIGHT;
   const innerH = H - PAD_TOP - PAD_BOTTOM;
 
-  // Y-axis adaptive : si toutes les valeurs sont >> 0 (NFLX abonnés
-  // 200-325M, BAC encours 1045-1080), on évite d'ancrer à 0 qui écraserait
-  // la lecture du graph.
-  // Heuristique : si dataMin > 50 % de dataMax, axe commence proche du min.
-  // FIX 13 mai 2026 : ne plus inclure 0 dans Math.min(...allData) (sinon
-  // useDataMin était toujours false pour les valeurs positives sans 0 dans
-  // l'historique). Bug observé sur BAC Loan Book 1045-1080 → axe 0-1200.
+  // Y-axis adaptive (Yann 13 mai 2026 v2) :
+  //   1. La heuristique de zoom est calculée sur `data` SEUL (sans TTM).
+  //      TTM est souvent un cumul (somme 4Q) qui explose la range et fausse
+  //      le calcul. Ex AAPL Services Revenue : data 19-24, ttm 112.
+  //   2. Seuil abaissé : zoom si range < 40 % de dataMax (vs 50 % avant)
+  //      pour montrer la tendance même sur des croissances faibles.
+  //   3. TTM si présent : on l'inclut quand même dans dataMaxRaw POUR
+  //      l'affichage (sinon point hors graph), mais le test de zoom est
+  //      calculé sans lui.
+  const dataOnlyMax = Math.max(...data);
+  const dataOnlyMin = Math.min(...data);
+  const dataOnlyRange = dataOnlyMax - dataOnlyMin;
+  const useDataMin =
+    dataOnlyMin > 0 && dataOnlyRange < dataOnlyMax * 0.4;
   const dataMaxRaw = Math.max(...allData);
-  const dataMinRaw = Math.min(...allData);
-  const useDataMin = dataMinRaw > 0 && dataMinRaw > dataMaxRaw * 0.5;
-  const dataMin = useDataMin ? dataMinRaw : Math.min(0, ...allData);
+  const dataMin = useDataMin ? dataOnlyMin : Math.min(0, ...allData);
   const dataMax = dataMaxRaw;
   const tickValues = niceTicks(dataMin, dataMax, 5);
   const min = Math.min(...tickValues, dataMin);

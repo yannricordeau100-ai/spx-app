@@ -6,8 +6,9 @@ import type { Anomaly } from "@/lib/brand";
 import { AnomalyInfo } from "@/components/anomaly-info";
 import { formatUnit } from "@/lib/data";
 
-// Yann 13 mai 2026 : labels axe Y monétaires en mot complet
-// ("Millions"/"Milliards") au lieu de l'abréviation "M"/"Mds".
+// Yann 13 mai 2026 v2 : labels axe Y monétaires en mot complet.
+// Couvre formats bruts ($B) ET formats déjà formatés ("Mds $") car les
+// datasets stockent les deux selon la source.
 function axisHeader(unit: string): string {
   switch (unit) {
     case "$B": return "$ en Milliards";
@@ -18,6 +19,18 @@ function axisHeader(unit: string): string {
     case "€M": return "€ en Millions";
     case "£B": return "£ en Milliards";
     case "£M": return "£ en Millions";
+    case "Mds $": return "$ en Milliards";
+    case "M $": return "$ en Millions";
+    case "Mds €": return "€ en Milliards";
+    case "M €": return "€ en Millions";
+    case "Mds £": return "£ en Milliards";
+    case "M £": return "£ en Millions";
+    case "Mds CHF": return "CHF en Milliards";
+    case "Mds JPY": return "JPY en Milliards";
+    case "Mds EUR": return "EUR en Milliards";
+    case "Mds DKK": return "DKK en Milliards";
+    case "Mds INR": return "INR en Milliards";
+    case "Mds": return "en Milliards";
     case "%": return "%";
     case "% YoY": return "% (YoY)";
     case "$": return "$";
@@ -25,7 +38,12 @@ function axisHeader(unit: string): string {
   }
 }
 function isCurrencyLike(unit: string): boolean {
-  return ["$B", "$M", "B", "M"].includes(unit);
+  return [
+    "$B", "$M", "B", "M",
+    "€B", "€M", "£B", "£M",
+    "Mds $", "M $", "Mds €", "M €", "Mds £", "M £",
+    "Mds CHF", "Mds JPY", "Mds EUR", "Mds DKK", "Mds INR", "Mds",
+  ].includes(unit);
 }
 
 /**
@@ -105,16 +123,16 @@ export function BarsChart({
   const innerW = W - PAD_LEFT - PAD_RIGHT;
   const innerH = H - PAD_TOP - PAD_BOTTOM;
 
-  // Y-axis adaptive (FIX 13 mai 2026, cohérent avec curve-chart).
-  // Si toutes les valeurs sont >> 0 (BAC encours 1045-1080, NFLX abonnés
-  // 200-325M), ancrer à 0 écraserait les barres en lecture (toutes ~98 %
-  // haute, indiscernables). Heuristique : si dataMin > 50 % de dataMax,
-  // on zoome sur la zone réelle. zeroY garde son rôle de baseline visuelle
-  // (= min de l'axe pour les valeurs positives only).
+  // Y-axis adaptive (Yann 13 mai 2026 v2, cohérent avec curve-chart).
+  // Heuristique calculée sur `data` SEUL (sans TTM qui peut être un cumul
+  // faussant la range). Zoom si range < 40 % de dataMax.
+  const dataOnlyMax = Math.max(...data);
+  const dataOnlyMin = Math.min(...data);
+  const dataOnlyRange = dataOnlyMax - dataOnlyMin;
+  const useDataMin =
+    dataOnlyMin > 0 && dataOnlyRange < dataOnlyMax * 0.4;
   const dataMaxRaw = Math.max(...allData);
-  const dataMinRaw = Math.min(...allData);
-  const useDataMin = dataMinRaw > 0 && dataMinRaw > dataMaxRaw * 0.5;
-  const dataMin = useDataMin ? dataMinRaw : Math.min(0, ...allData);
+  const dataMin = useDataMin ? dataOnlyMin : Math.min(0, ...allData);
   const dataMax = dataMaxRaw;
   const tickValues = niceTicks(dataMin, dataMax, 5);
   const min = Math.min(...tickValues, dataMin);
