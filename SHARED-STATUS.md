@@ -266,6 +266,18 @@ avec marge. Récap de la session 14:55-16:05 (1h10) :
 - Conventions séparate files (events/ranks/tam) → bons chemins
 - Naming logo (`.SW` → `-SW`) → 69% → 98%
 
+**Vérification visuelle (16:18 CEST)** via Claude Preview MCP :
+- /concepts → onglet Dividende → CAT : ✅ Aristocrat affiché, CAGR sans
+  Infinity, no NaN. NumberTicker animation OK.
+- /cat (V1 demo public) : ✅ hasInfinity=false, hasNaN=false,
+  "CAGR 5y 7.3 %" rendu correctement. Mon fix dividend-aristocrat-card.tsx
+  fonctionne en prod-like (commit 59036eb3).
+- V1.8 protégé (auth-gate proxy.ts), pas testable headless sans cookie
+  Supabase. Yann doit vérifier `/sandbox/v1-8/aapl` directement dans
+  son navigateur connecté pour valider à 100%.
+
+Dev server relancé en background PID 63413 sur port 3000.
+
 ❌ PAS FAIT (hors scope autonome 1h ou trop coûteux pour la fenêtre Time Machine)
 - Governance / Risks pour les 125 FPI sans DEF14A → nécessite nouvel extracteur cat3-european / cat2-foreign-adr (~3-5h).
 - Segment / Geography résiduels : déjà tentés, sources LLM-fail à 100%, vrais résiduels n'ont pas la section dans leur filing.
