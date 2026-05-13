@@ -1,0 +1,92 @@
+{
+  "ticker": "LLY",
+  "company": "Eli Lilly and Company",
+  "as_of": "2026-Q1",
+  "hero_current": {
+    "short": "Top Drug",
+    "value": 2.0,
+    "unit": "Mds $",
+    "verdict": "FAKE_OR_STALE",
+    "reason": "Le hero stocke 2.0 Mds $ pour 'Top Drug'. La realite Q1 2026 est tres differente. Mounjaro seul = 8.7 Mds $ trim, Zepbound = 4.1 Mds $ trim. Combine Mounjaro+Zepbound = 12.8 Mds $ au Q1 2026. La valeur 2.0 Mds $ semble correspondre a un trimestre Mounjaro tres ancien (2023). L'historique 0.02 a 2.0 est obsolete."
+  },
+  "hero_corrected": {
+    "short": "Mounjaro+Zepbound",
+    "value": 12.8,
+    "unit": "Mds $",
+    "history_quarterly": [
+      {"period": "Q4 2024", "value": 6.0, "note": "Mounjaro 4.1 + Zepbound 1.9"},
+      {"period": "Q1 2025", "value": 7.3, "note": "Mounjaro 3.84 + Zepbound 2.31 (US 2.3, est ww 3.4)"},
+      {"period": "Q2 2025", "value": 8.57, "note": "Combine ww tirzepatide"},
+      {"period": "Q3 2025", "value": 10.1, "note": "Mounjaro 6.52 + Zepbound 3.59"},
+      {"period": "Q4 2025", "value": 11.6, "note": "Mounjaro 7.4 + Zepbound 4.2"},
+      {"period": "Q1 2026", "value": 12.8, "note": "Mounjaro 8.7 + Zepbound 4.1"}
+    ],
+    "rationale": "Tirzepatide (GLP-1) est le moteur de LLY. Mounjaro+Zepbound > 50% du revenu en Q1 2026 (12.8/19.8). PV=10."
+  },
+  "existing_check": [
+    {"short": "Top Drug", "stored": 2.0, "real_q1_2026_mounjaro": 8.7, "real_q1_2026_combined": 12.8, "status": "STALE_REPLACE"},
+    {"short": "Pipeline", "stored": 16, "comment": "Plausible mais non verifie", "status": "OK_LIKELY"},
+    {"short": "Op Margin", "stored": 39.5, "comment": "Coherent avec FY2025 (~38-40%)", "status": "OK"},
+    {"short": "R&D", "stored": 20.4, "comment": "Coherent", "status": "OK"},
+    {"short": "FCF", "stored": 18.2, "comment": "FY 2025 plausible", "status": "OK"},
+    {"short": "Revenue", "stored": 65.2, "comment": "FY2025 reel ~54-60Mds, guidance 2026 = 82-85Mds. Valeur 65.2 incoherente, peut-etre run rate intermediaire", "status": "VERIFY"}
+  ],
+  "new_pv_ge_7": [
+    {
+      "short": "Mounjaro Revenue",
+      "value": 8.7,
+      "unit": "Mds $",
+      "pv": 10,
+      "period": "Q1 2026",
+      "history": [1.5, 2.3, 3.1, 4.1, 5.2, 6.52, 7.4, 8.7],
+      "rationale": "Moteur principal LLY, blockbuster diabete/obesite."
+    },
+    {
+      "short": "Zepbound Revenue",
+      "value": 4.1,
+      "unit": "Mds $",
+      "pv": 10,
+      "period": "Q1 2026",
+      "history": [0.5, 1.3, 1.9, 2.3, 3.0, 3.59, 4.2, 4.1],
+      "rationale": "Hyper-croissance obesite, +79% YoY US."
+    },
+    {
+      "short": "Tirzepatide Combine",
+      "value": 12.8,
+      "unit": "Mds $",
+      "pv": 10,
+      "period": "Q1 2026",
+      "history": [3.7, 4.33, 6.0, 7.3, 8.57, 10.1, 11.6, 12.8],
+      "rationale": "Vue agregee du moteur GLP-1, 65% du revenu trim."
+    },
+    {
+      "short": "EPS Diluted",
+      "value": 8.26,
+      "unit": "$",
+      "pv": 8,
+      "period": "Q1 2026",
+      "rationale": "+170% YoY, signal de profitabilite explosive."
+    },
+    {
+      "short": "Revenue Trim",
+      "value": 19.8,
+      "unit": "Mds $",
+      "pv": 9,
+      "period": "Q1 2026",
+      "rationale": "+56% YoY, top line confirme momentum."
+    },
+    {
+      "short": "Guidance FY2026",
+      "value": 83.5,
+      "unit": "Mds $ (mid)",
+      "pv": 8,
+      "period": "FY2026E",
+      "rationale": "Range 82-85 Mds, forward view."
+    }
+  ],
+  "evidence": [
+    "https://investor.lilly.com/news-releases/news-release-details/lilly-reports-first-quarter-2026-financial-results-raises-full",
+    "https://investor.lilly.com/node/54176/pdf",
+    "https://www.cnbc.com/2026/04/30/eli-lilly-lly-earnings-q1-2026.html"
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "ticker": "MU",
+  "company": "Micron Technology, Inc.",
+  "as_of": "FY2026 Q2 (fevrier 2026)",
+  "hero_current": {
+    "short": "HPC / Cloud",
+    "value": 13.5,
+    "unit": "Mds $",
+    "verdict": "GENERIC_REPLACE",
+    "reason": "'HPC / Cloud' est un label generique heritage NVDA, pas adapte a MU. Le vrai moteur est HBM (High Bandwidth Memory) et Data Center revenue. Q2 FY2026 revenue total = 23.86 Mds $, dont HBM = multi-milliards (capacite 2026 entierement contractee). Cloud Memory Q1 FY26 = 5.3 Mds (+100% YoY), Core Data Center 2.4 Mds."
+  },
+  "hero_corrected": {
+    "short": "Data Center Revenue",
+    "value": 7.7,
+    "unit": "Mds $",
+    "history_quarterly": [
+      {"period": "Q2 FY25", "value": 2.1, "note": "HBM > 1 Mds + Core DC"},
+      {"period": "Q3 FY25", "value": 3.0},
+      {"period": "Q4 FY25", "value": 4.5},
+      {"period": "Q1 FY26", "value": 7.7, "note": "Cloud Mem 5.3 + Core DC 2.4"},
+      {"period": "Q2 FY26", "value": 11.5, "note": "estime, total revenue 23.86 Mds avec mix HBM dominant"}
+    ],
+    "rationale": "Data Center (Cloud Memory + Core Data Center) = vrai hero MU. Alternative: HBM Revenue isole (PV=10). Reco: garder Data Center mix = 50%+ du revenu trim."
+  },
+  "existing_check": [
+    {"short": "HPC / Cloud", "stored": 13.5, "status": "RELABEL", "note": "Renommer Data Center Revenue, valeur historique annuelle FY25 plausible"},
+    {"short": "Gross Margin", "stored": 40, "real_q2_fy26": 68, "status": "STALE_UPDATE", "note": "GM Q2 FY26 ~68%, guidance Q3 ~81%"},
+    {"short": "Op Margin", "stored": 26, "real_q2_fy26_est": 55, "status": "STALE_UPDATE"},
+    {"short": "R&D", "stored": 10, "status": "VERIFY"},
+    {"short": "Revenue", "stored": 37.4, "real_q1_fy26": 13.6, "real_q2_fy26": 23.86, "status": "STALE_OR_ANNUAL", "note": "Si annuel FY25, plausible (~31-37). FY26 sur-trajectoire 70-90 Mds"},
+    {"short": "Headcount", "stored": 54, "status": "OK_VERIFY"}
+  ],
+  "new_pv_ge_7": [
+    {
+      "short": "HBM Revenue",
+      "value": 6.0,
+      "unit": "Mds $",
+      "pv": 10,
+      "period": "Q2 FY2026 est",
+      "history": [0.0, 0.5, 1.0, 1.5, 2.5, 4.0, 6.0],
+      "rationale": "HBM3E/HBM4 = moteur AI. Supply 2026 entierement contractee. TAM HBM 35 Mds 2025 -> 100 Mds 2028. PV=10."
+    },
+    {
+      "short": "Revenue Trim",
+      "value": 23.86,
+      "unit": "Mds $",
+      "pv": 10,
+      "period": "Q2 FY2026",
+      "history": [5.82, 6.81, 7.75, 8.05, 9.30, 11.32, 13.60, 23.86],
+      "rationale": "Triple YoY, depasse consensus de 25%. Guidance Q3 = 33.5 Mds."
+    },
+    {
+      "short": "Gross Margin",
+      "value": 68,
+      "unit": "%",
+      "pv": 10,
+      "period": "Q2 FY2026",
+      "history": [-9, 22, 40, 55, 68],
+      "rationale": "GM explose grace au mix HBM. Q3 guidance ~81%."
+    },
+    {
+      "short": "Cloud Memory Revenue",
+      "value": 5.3,
+      "unit": "Mds $",
+      "pv": 9,
+      "period": "Q1 FY2026",
+      "rationale": "+100% YoY, segment dedie cloud/AI."
+    },
+    {
+      "short": "Adjusted FCF",
+      "value": 6.9,
+      "unit": "Mds $",
+      "pv": 9,
+      "period": "Q2 FY2026",
+      "rationale": "Cash flow record, signal investissement HBM rentable."
+    },
+    {
+      "short": "EPS Non-GAAP",
+      "value": 12.20,
+      "unit": "$",
+      "pv": 9,
+      "period": "Q2 FY2026",
+      "rationale": "Depasse consensus 9.19 de +33%. Guidance Q3 = 19.15."
+    },
+    {
+      "short": "Capex FY2026",
+      "value": 25,
+      "unit": "Mds $",
+      "pv": 8,
+      "period": "FY2026 guidance",
+      "rationale": "Releve de 20 a 25 Mds, signal extreme demande HBM."
+    },
+    {
+      "short": "DRAM Revenue",
+      "value": 18.0,
+      "unit": "Mds $ est",
+      "pv": 8,
+      "period": "Q2 FY2026",
+      "rationale": "DRAM = bulk MU, record sur ce trimestre."
+    }
+  ],
+  "evidence": [
+    "https://investors.micron.com/news-releases/news-release-details/micron-technology-inc-reports-results-second-quarter-fiscal-2026",
+    "https://investors.micron.com/static-files/e089f8c0-065d-47b8-9d02-bfa863cdb357",
+    "https://www.cnbc.com/2026/03/18/micron-mu-q2-earnings-report-2026.html"
+  ]
+}

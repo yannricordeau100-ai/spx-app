@@ -1,0 +1,101 @@
+{
+  "ticker": "DANSKE.CO",
+  "fetched_at": "2026-05-13T00:00:00Z",
+  "verified_existing": [
+    {
+      "short": "Service / ARR",
+      "stored_value": "1.2 Mds DKK",
+      "real_value": "N/A — Danske Bank n'a PAS de revenus 'Service/ARR' (modèle bancaire)",
+      "correction_needed": true,
+      "evidence": "Danske Bank est une BANQUE — KPI 'ARR' inapproprié. À supprimer ou remplacer par Net Interest Income (9,340 M DKK Q1 2026)."
+    },
+    {
+      "short": "R&D",
+      "stored_value": "7.5%",
+      "real_value": "N/A — secteur bancaire ne publie pas de R&D en %",
+      "correction_needed": true,
+      "evidence": "Aucune ligne R&D dans le rapport Danske Q1 2026 / annual report. KPI sectoriellement incorrect."
+    },
+    {
+      "short": "Gross Margin",
+      "stored_value": "58%",
+      "real_value": "N/A — pas applicable aux banques",
+      "correction_needed": true,
+      "evidence": "Banque commerciale: pas de gross margin. À remplacer par Net Interest Margin (NII as % loans+deposits = 1.29% p.a. Q1 2026)."
+    },
+    {
+      "short": "Capex",
+      "stored_value": "1.8 Mds DKK",
+      "real_value": "Non-significatif pour une banque",
+      "correction_needed": true,
+      "evidence": "Banques ne pilotent pas sur capex industriel. KPI non-pertinent à supprimer."
+    },
+    {
+      "short": "Headcount",
+      "stored_value": "19.5 K",
+      "real_value": "19.7 K (19,724 FTE end-Q1 2026)",
+      "correction_needed": false,
+      "evidence": "Q1 2026 interim report l.72: 'Full-time-equivalent staff (end of period) 19,724'. Stored 19.5K très proche (delta ~1.1%)."
+    },
+    {
+      "short": "Op Margin",
+      "stored_value": "32%",
+      "real_value": "Cost/Income = 45.8% Q1 2026 (inverse), donc 'op margin' ~54%",
+      "correction_needed": true,
+      "evidence": "Q1 2026 l.64: 'Cost/income ratio 45.8'. Pour une banque, le KPI canonique est Cost/Income, pas Op Margin. Stored 32% non documenté."
+    }
+  ],
+  "new_kpis": [
+    {
+      "short": "CET1 Capital Ratio",
+      "name_fr": "Ratio CET1",
+      "value": 17.7,
+      "unit": "%",
+      "yoy": "+0.4 pp vs YE2025 (17.3%)",
+      "history": [17.7, 17.3, 18.4, 18.0, 17.8],
+      "pv_score": 10,
+      "evidence": "Q1 2026 l.68 et l.110: 'CET1 capital ratio was 17.7% (31 December 2025: 17.3%)'. Target 2028 ~16%. KPI réglementaire bancaire clé."
+    },
+    {
+      "short": "Net Interest Income",
+      "name_fr": "Produit net d'intérêts",
+      "value": 9340,
+      "unit": "M DKK (Q1)",
+      "yoy": "+4% vs Q1 2025 (9,020)",
+      "history": [9340, 9453, 9020, 9100, 8950],
+      "pv_score": 10,
+      "evidence": "Q1 2026 interim l.43: 'Net interest income 9,340 (Q1 2025: 9,020, +4%)'. Driver principal du résultat bancaire."
+    },
+    {
+      "short": "Cost/Income Ratio",
+      "name_fr": "Ratio Coûts/Revenus",
+      "value": 45.8,
+      "unit": "%",
+      "yoy": "+0.6 pp vs Q1 2025 (45.2%)",
+      "history": [45.8, 45.0, 45.2, 45.5, 46.1],
+      "pv_score": 10,
+      "evidence": "Q1 2026 l.64: 'Cost/income ratio (C/I), (%) 45.8'. Target 2028 <=43%. KPI d'efficience opérationnelle bancaire."
+    },
+    {
+      "short": "Return on Equity",
+      "name_fr": "Rentabilité des fonds propres",
+      "value": 13.1,
+      "unit": "% p.a.",
+      "yoy": "-0.3 pp vs Q1 2025 (13.4%)",
+      "history": [13.1, 14.1, 13.4, 13.0, 12.8],
+      "pv_score": 10,
+      "evidence": "Q1 2026 l.62: 'Return on avg. total equity 13.1'. Target 2028: >14.5%."
+    },
+    {
+      "short": "Loans Outstanding",
+      "name_fr": "Encours de prêts",
+      "value": 1777,
+      "unit": "Mds DKK",
+      "yoy": "+4% vs Q1 2025 (1,709)",
+      "history": [1777, 1758, 1709, 1680, 1650],
+      "pv_score": 8,
+      "evidence": "Q1 2026 l.45: 'Loans 1,777,104 (Q1 2025: 1,709,470, +4%)'. Indicateur volume d'activité bancaire."
+    }
+  ],
+  "notes": "DANSKE.CO: 5/6 KPIs stockés sont sectoriellement INCORRECTS (Service/ARR, R&D, Gross Margin, Capex, Op Margin) — KPIs tech/industrie appliqués à une banque. Refonte totale nécessaire avec NII, CET1, Cost/Income, ROE, Loans."
+}

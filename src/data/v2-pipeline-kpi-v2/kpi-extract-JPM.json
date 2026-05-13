@@ -1,0 +1,117 @@
+{
+  "ticker": "JPM",
+  "company": "JPMorgan Chase & Co.",
+  "as_of": "2026-Q1",
+  "hero_current": {
+    "short": "Loan Book",
+    "value": 1330.0,
+    "unit": "Mds $",
+    "verdict": "STALE_BUT_PLAUSIBLE",
+    "reason": "Loan Book reel au 31 mars 2026 = $1,503.5 Mds (10-Q p.3, ligne 'Loans'). Stocke = 1330 (1Q26). C'est l'ancien chiffre 1Q24/avant. L'historique stocke (1131-1330) ressemble a 2024 pre-First Republic complet. A actualiser a 1503."
+  },
+  "hero_corrected": {
+    "short": "Loan Book",
+    "value": 1503.5,
+    "unit": "Mds $",
+    "history_quarterly": [
+      {"period": "Q1 2025", "value": 1355.7},
+      {"period": "Q2 2025", "value": 1412.0},
+      {"period": "Q3 2025", "value": 1435.2},
+      {"period": "Q4 2025", "value": 1493.4},
+      {"period": "Q1 2026", "value": 1503.5}
+    ],
+    "rationale": "Vrai hero banque US, retiens Loan Book (OK) mais valeur a corriger. Alt: NII trim 25.4 Mds (annualise ~103 Mds guidance) ou Total Net Revenue trim 49.8 Mds."
+  },
+  "existing_check": [
+    {"short": "Loan Book", "stored": 1330, "real_q1_2026": 1503.5, "status": "STALE_UPDATE"},
+    {"short": "NIM", "stored": 2.45, "real_q1_2026_yield_ex_markets": 3.72, "real_net_yield_fte": 2.50, "status": "CLOSE_OK", "note": "Net yield FTE 2.50% (-8bps YoY), coherent"},
+    {"short": "ROE", "stored": 17.2, "real_q1_2026": 19, "status": "STALE_UPDATE"},
+    {"short": "CET1", "stored": 13.8, "real_q1_2026_standardized": 14.3, "status": "STALE_UPDATE"},
+    {"short": "Cost-Income", "stored": 58.4, "real_q1_2026_overhead": 54, "status": "STALE_UPDATE", "note": "Overhead ratio 54%"},
+    {"short": "Wealth AUM", "stored": 3800, "real_q1_2026_aum": 4800, "status": "STALE_UPDATE", "note": "AWM AUM = $4.8T au Q1 2026"}
+  ],
+  "new_pv_ge_7": [
+    {
+      "short": "Net Interest Income",
+      "value": 25.37,
+      "unit": "Mds $",
+      "pv": 10,
+      "period": "Q1 2026",
+      "history": [22.73, 22.59, 23.27, 23.78, 24.02, 24.83, 25.37],
+      "rationale": "Moteur revenu banque US, guidance FY2026 = 103 Mds. PV=10."
+    },
+    {
+      "short": "Total Net Revenue",
+      "value": 49.84,
+      "unit": "Mds $",
+      "pv": 10,
+      "period": "Q1 2026",
+      "history": [45.31, 44.91, 46.43, 45.80, 49.84],
+      "rationale": "Top line firmewide, +10% YoY."
+    },
+    {
+      "short": "ROTCE",
+      "value": 23,
+      "unit": "%",
+      "pv": 10,
+      "period": "Q1 2026",
+      "history": [21, 21, 20, 18, 23],
+      "rationale": "Return on Tangible Common Equity, KPI cle banques. 23% est exceptionnel."
+    },
+    {
+      "short": "CET1 Standardized",
+      "value": 14.3,
+      "unit": "%",
+      "pv": 9,
+      "period": "Q1 2026",
+      "history": [15.4, 15.1, 14.8, 14.6, 14.3],
+      "rationale": "Solidite capital reglementaire."
+    },
+    {
+      "short": "IB Fees",
+      "value": 2.858,
+      "unit": "Mds $",
+      "pv": 9,
+      "period": "Q1 2026",
+      "rationale": "Investment Banking fees +31% YoY, #1 mondial avec 9.8% wallet share."
+    },
+    {
+      "short": "Markets Revenue",
+      "value": 11.56,
+      "unit": "Mds $",
+      "pv": 9,
+      "period": "Q1 2026",
+      "rationale": "Trading +20% YoY (FICC +21%, Equities +17%)."
+    },
+    {
+      "short": "AWM AUM",
+      "value": 4800,
+      "unit": "Mds $",
+      "pv": 8,
+      "period": "Q1 2026",
+      "rationale": "Asset & Wealth Management AUM +16% YoY."
+    },
+    {
+      "short": "Deposits",
+      "value": 2675.5,
+      "unit": "Mds $",
+      "pv": 8,
+      "period": "Q1 2026",
+      "history": [2495.9, 2562.4, 2548.5, 2559.3, 2675.5],
+      "rationale": "Stabilite franchise + 7% YoY deposit growth."
+    },
+    {
+      "short": "Net Income",
+      "value": 16.49,
+      "unit": "Mds $",
+      "pv": 9,
+      "period": "Q1 2026",
+      "history": [14.64, 14.99, 14.39, 13.03, 16.49],
+      "rationale": "+13% YoY, EPS diluted $5.94."
+    }
+  ],
+  "evidence": [
+    "/Users/yann/Mettrik/sec-data/ir-scrape/JPM/results/corp-q1-2026.pdf (10-Q Q1 2026, pages 3-10)",
+    "/Users/yann/Mettrik/sec-data/ir-scrape/JPM/results/1q26-earnings-transcript.pdf"
+  ]
+}
