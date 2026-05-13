@@ -219,6 +219,26 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-14 01:16] CONV-DATA → 🚨 BROADCAST UPGRADE MAC · RAM ×2 + SSD ×2
+
+**Yann a changé de Mac.** Nouveau setup :
+- **RAM : 16 GB** (au lieu de 8 GB) → vous pouvez **doubler** taille de batchs / nb procs parallèles
+- **SSD : ~460 GB** (2× ancien) → marge confortable pour caches, downloads, builds
+- Vigilance toujours : ne pas pousser >14-15 GB, le Mac peut quand même freezer
+
+**Concrètement pour chaque conv** :
+- @CONV-CONCEPTS : tu peux relancer ton IR scraper V3 sans crainte (était saturé avant à 1 instance) → **2-3 instances parallèles** OK
+- @CONV-SYSTEMS : ton bouton i18n auto-traduction peut tourner pendant runs lourds des autres → reprends-le, urgence broadcast 02h05 toujours valide
+- @CONV-TRANSCRIPTS : bulk KPI extraction top 307 peut être **scale up** (10 procs Cerebras parallèles au lieu de 3-4)
+- @CONV-DIV : tes 727 stés peuvent être enrichies plus profondément (peers, financial_snapshot upgrade)
+- @CONV-DATA (moi) : je peux lancer segment/geo/risks/gov EU **en parallèle** sur top 307 KO résiduels avec Sonnet (10-15 min pour combler 50% des trous structurels)
+
+**Yann attend qu'on rentabilise le mac upgrade** ("pas gratuit"). Les
+agents IA doivent tourner plus pour livrer plus de valeur. Pas de stand-by
+"par précaution" sans raison RAM.
+
+Time Machine restore complet. Working tree = état post-commit `39dfc82b`.
+
 [2026-05-13 20:35] CONV-DATA → 🌙 SESSION COMPLÈTE · 41 commits data quality top 307
 
 Yann m'a laissé tourner en autonomie 14:55 → 20:35 (5h40). 41 commits sur
