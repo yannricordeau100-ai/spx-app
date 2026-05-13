@@ -1,5 +1,80 @@
 # CONV-SYSTEMS — État de session
 
+> 🔁 **REPRISE APRÈS REDÉMARRAGE MAC** (snapshot 13 mai ~03h00)
+>
+> **Dernier commit pushé staging** : `3c1ddedf` (normalizeNarrative market-position).
+> Avant : `1fb29977` ai-positioning, `6562cd08` company-header sector/subsector,
+> `4722668b` kpi-row + kpi-story + risk-stack, `3c8b3017` page /sandbox/ir-coverage,
+> `ddefb863` data ir-coverage-per-ticker.json, `67a972f0` pricing admin Premium/Max fix,
+> `50ad630c` hCaptcha switch, `fd958ff8` SQL combined.
+>
+> **Actions Yann en attente** (à faire de SON côté) :
+> 1. Coller les 7 blocs SQL dans Supabase Studio (migrations + 5 seeds) → débloque
+>    page `/desk-mtk9x4kp/ir-sources` (actuellement crash 500 car table inexistante)
+>    Lien : https://supabase.com/dashboard/project/cnggtyxzqlqqjrynnvdq/sql/new
+>    Fichier combiné : `supabase/seeds/_ALL-IR-SOURCES-COMBINED.sql` (628 KB)
+> 2. Setup hCaptcha (5 min) : dashboard.hcaptcha.com → keys → coller secret dans
+>    Supabase Auth Settings + `NEXT_PUBLIC_HCAPTCHA_SITE_KEY` dans Vercel env
+> 3. Mot de passe admin (DEJA RESET côté Yann le 13 mai)
+>
+> **Mode actuel** : RAM-light autonome. Aucun proc Python actif. Aucun scraper.
+> Yann a demandé "ralentir RAM" plusieurs fois. Travailler séquentiellement.
+>
+> **Cycle en cours** : intégration helpers `ui-fix-templates.ts` dans composants.
+> 4 composants déjà patchés (cycles 1-4). Cycle 5 possible : freshness-indicator,
+> super-kpi-board, transcript-stories-block.
+>
+> **Pipeline IR scraping top 307** : ✅ TERMINÉ. Failure report dans
+> `src/data/ir-scrape-failures.json`. Coverage 344 stés dans
+> `src/data/ir-coverage-per-ticker.json` (visualisable sur `/sandbox/ir-coverage`).
+>
+> **Modifs autres convs détectées** (à NE PAS reverter) :
+> - `src/components/kpi-row.tsx` : Yann a ajouté tolérance `yoy` number/string (ligne 152-178)
+> - `src/proxy.ts` : `/concepts/*` rendu public (ligne 87-88), commentaire `/contact` réécrit
+> - `src/components/kpi-story-card.tsx` : aucune modif autre que la mienne
+>
+> **Pour reprendre** : `cd ~/spx-app && git pull origin staging` puis lire ce
+> bloc + RULES-GOLDEN.md + SHARED-STATUS.md (10 dernières lignes).
+>
+> ---
+
+
+> 🚨 **TÂCHE PRIORITAIRE DEMANDÉE PAR YANN VIA CONV-TRANSCRIPTS (13 mai 2026 ~02h00)**
+>
+> **DEADLINE pour réponse + plan d'exécution : sous 30 min depuis ton prochain prompt.**
+> **DEADLINE pour livraison : 6h max après ton ACK.**
+>
+> **Tâche** : Construire un bouton "Auto-traduire FR → 7 langues" dans le back office desk.
+> Quand Yann clique, le système :
+> 1. Détecte toutes les clés du dictionary.ts où le FR a changé depuis la dernière sync (hash diff)
+> 2. Appelle Groq Llama 3.3 70B free pour traduire vers DE, NL, SV, DA, en-GB, de-CH (avec fallback EN si pas DE)
+> 3. Patche `dictionary.ts` + `dictionary-extra-locales.ts`
+> 4. Stocke le nouveau hash par clé (probablement dans `dictionary-sync-state.json`)
+> 5. Retourne stats : N clés détectées, N traduites, erreurs
+>
+> **De plus, MAJ MANUELLE immédiate** des traductions des pages :
+> - Page d'accueil (home)
+> - /pricing
+> - /contact
+> - Page société (chips, libellés, transcript-bullets-block hardcoded labels)
+> - /account
+> - Tunnel de paiement (checkout)
+>
+> Yann a constaté des libellés FR hardcodés non traduits sur ces pages.
+> Audit a confirmé i18n à 99 % (1 clé manquante par langue + 478 fallbacks en-GB/de-CH normaux).
+>
+> **Mécanisme de suivi** : 
+> - CONV-TRANSCRIPTS a programmé une vérification dans 3h via ScheduleWakeup
+> - SI à ce moment ce bloc est encore présent sans ACK + commit visible
+>   → CONV-TRANSCRIPTS fera elle-même le job (override scope) et signalera à Yann
+> - **NE PAS ignorer cette tâche.** Yann a explicitement dit qu'il en a marre des broadcasts sans suivi.
+>
+> **Référence audit i18n** : `npx tsx scripts/i18n-audit.ts` (à recréer, perdu)
+> **Locales totales** : 8 (en, fr, de, nl, sv, da, en-GB, de-CH) — `LOCALES` dans `src/lib/i18n/types.ts`
+> **Files concernés** : `src/lib/i18n/dictionary.ts` (1226 l) + `dictionary-extra-locales.ts` (1639 l)
+
+---
+
 > **Dernière mise à jour** : 2026-05-13 00:35 (session IR scraper + auth fix + pricing fixes).
 
 ---
