@@ -3,129 +3,105 @@
 > Périmètre : visuels, charts, mockups, `/concepts/*` hors mockups système.
 > Fichiers : `src/app/concepts/`, `src/components/lab/`, `src/components/charts/`,
 > `src/app/chart-lab/`, `src/components/company-view.tsx` (visuels).
->
-> Dernière mise à jour : 2026-05-12 02h30
 
----
+> Mis à jour 13 mai 2026 ~02h10. Si Claude est coupé de force, RELIRE ce
+> fichier AVANT la prochaine action. Reprendre où on en est sans re-questionner
+> Yann.
 
-## 🟢 Livré (12 mai 2026)
+## 🔄 EN COURS — 2026-05-13 ~02h10
 
-| # | Tâche | Commit | État |
-|---|---|---|---|
-| 1 | Règle d'or § 0 V1.8-first dans `RULES-GOLDEN.md` | `3e83c773` | ✅ pushé staging |
-| 2 | `src/lib/freshness/earning-pending-tickers.ts` : centralise top 307 V1.8 | `3e83c773` | ✅ pushé staging |
-| 3 | Badge "Earning attendu" étendu top 10 → top 307 V1.8 | `3e83c773` | ✅ pushé staging |
-| 4 | Date approx "début / milieu / fin de {mois}" si `next_earnings_date` inconnu (+3 mois) | `3e83c773` | ✅ pushé staging |
-| 5 | Workflow cron `daily-earnings-refresh.yml` (06:00 UTC top 307) | `63f26924` (Yann) + `6f1d7eff` (Yann) | ✅ déclenchement demain matin |
-| 6 | Broadcast SHARED-STATUS règle V1.8-first aux 4 autres convs | `3e83c773` | ✅ |
-| 7 | `package.json` name → `mettrik-ai` + README réécrit Mettrik AI | `87a1772a` | ✅ pushé staging |
+**Deploy chain Vercel** (3 deploys empilés, le dernier doit aliaser staging) :
+- `mettrik-hck6no3yl` ✅ Ready — fiscal calendar + Y-axis Millions/Milliards — commit `f74ce228`
+- `mettrik-x2t8xudu3` ⏳ Building — fix label calendrier "Q2 2026" (pas "FY2026 Q2") — commit `69795c7e`
+- `mettrik-lqoj5v0dl` ⏳ Queued — soulignement nom interlocuteur punchline + badge "Pourquoi utiliser Mettrik AI ?" top-border — commit `16db590d`
 
-⚠️ **YAML cron** : ligne `name: Daily earnings refresh` a été supprimée par Yann lors du clean.
-GitHub utilise alors le nom du fichier comme fallback. **Le cron est valide et tournera.**
+**Action à faire dès que les 3 sont Ready** :
+```bash
+vercel alias set https://mettrik-lqoj5v0dl-yannricordeau100-7226s-projects.vercel.app mettrik-staging.vercel.app
+curl -sL https://mettrik-staging.vercel.app/ -H "cookie: NEXT_LOCALE=fr" | grep -o "Pourquoi utiliser" | head -1
+```
 
----
+## ✅ FAIT cette session (13 mai 2026, soirée 12→13)
 
-## 🟡 En attente de décision Yann
+### Chantier fiscal calendar (priorité 1, top 307 V1.8)
+- `scripts/fiscal/audit-fiscal-top307.py` : pull SEC EDGAR submissions API.
+  Sortie `src/data/fiscal-audit.json` avec 211 stés US (90 foreign skip,
+  4 sans CIK).
+- 62 stés à exercice décalé identifiées : MSFT (juin), AAPL (sept),
+  NVDA (jan), ORCL (mai), AVGO (nov), V/QCOM (sept), COST/AZO (août),
+  TGT/ROST (fév), HD/CRM/ADSK/KR (jan), etc.
+- `src/lib/fiscal-calendar.ts` : `fiscalLabelsForTicker(ticker)` →
+  `{ lastLabel: "FY26 Q3", publicationDate, nextLabel: "FY26 Q4", ... }`.
+- `FreshnessIndicator` branché : MSFT affiche "FY26 Q3 (publié le 29 avril
+  2026)" au lieu de calendrier trompeur.
+- Paragraphe "~est. = estimation..." supprimé (plus utile avec SEC dates).
+- `scripts/fiscal/update-data-from-sec-audit.py` créé. SES SORTIES (199
+  v2-pipeline JSON modifiés) sont dans le working tree NON STAGED. Inutile
+  de les pousser : FreshnessIndicator lit fiscal-audit.json directement.
 
-### B. Refonte 3D charts (Bars + Curve + Variation)
+### UI charts
+- Y-axis monétaire : "$ en M/Mds" → **"$ en Millions/Milliards"**.
+  Touché : curve-chart, bars-chart, bars-3d-variants.
+- 3 photons lumineux glissent sur la courbe (SVG animateMotion + mpath, 4s cycle).
+- chart-mini-logo : PNG `/brand-mini-logo.png` rendu transparent (luminance
+  < 25 → alpha 0, conservé via PIL).
 
-**Ce que j'avais proposé** (rejeté par Yann le 12 mai) :
-- Rotation 3D au mount via `motion.div` `rotateX(-16deg) rotateY(20deg)` sur conteneur `preserve-3d`
-- Animation cinématique 1,2s façon CAD qui se tilt
-- Source de l'idée : CLAUDE.md §0 + §7bis
+### Home punchline
+- Rotation auto 6.5s → 10s → **15s** (Yann 3 itérations).
+- Chevron flèche remplacé par **3 barres équaliseur** qui pulsent + label
+  "suivant" mono uppercase.
+- 3 ombres décalées 3/6/9px avec bordures intensifiées (/35 /25 /18).
+- Effet 3D rotateX 6° + perspective 1200px + halo violet/cyan + catch light
+  + inner/outer shadow.
+- Swipe gauche actif sur mobile (touchHandlers).
+- 1er italique de chaque part = nom interlocuteur, **souligné violet-400/70**.
+- Badge **"Pourquoi utiliser Mettrik AI ?"** mono uppercase, gradient
+  violet→cyan→violet, à cheval sur bordure haute du cadre.
+- Variantes A/B/C explorées sur `/concepts/punchline-hint`.
 
-**Ce que Yann veut vraiment** (à clarifier) : il a dit "tu fais fausse route".
-Hypothèses :
-- (a) Abandonner l'effet "camera tilt" global sur les 3 charts
-- (b) Garder le rendu 2D mais corriger uniquement le défaut "liaison pendue" sur Curve
-- (c) Autre direction encore inconnue
+### Search
+- Compteur "X visibles · Y total" → **"Tape pour filtrer"**.
 
-**Sous-tâche définie clairement (Curve uniquement)** :
-- Cause technique du "fil à linge" : `smoothFrom()` ligne 185 utilise `Q midX,prevY → x,y` ce qui crée un plateau au niveau du point précédent puis une chute brutale
-- 3 options proposées à Yann (en attente de choix) :
-  1. **Catmull-Rom** : courbe fluide qui passe par chaque point sans plateau (style Apple Health)
-  2. **Stream ribbon** : courbe lissée + dégradé translucide en dessous, ruban d'énergie
-  3. **Wireframe terrain** : courbe principale + 2-3 courbes fantômes décalées en dessous
+### Mobile
+- `export const viewport` dans `layout.tsx` : device-width, theme-color
+  `#06060a`, colorScheme dark.
+- globals.css : tap-highlight violet subtle, input font-size 16px (no iOS
+  zoom auto), safe-area utilities, respect `prefers-reduced-motion`.
 
-ETA quelle que soit l'option : 30-45 min.
+### Data fix
+- google.json hero Cloud : history fakes `[5.8..9.6]` → réels
+  `[9.57, 10.35, 11.35, 11.96, 12.26, 13.62, 15.16, 17.66, 20.03]`
+  (Q1 2024 → Q1 2026). YoY 22 % → **63.4 %**. Value 9.6 → **20.03 Mds $**.
+  Source : ER ta lib + 10-Q SEC fraîchement téléchargé `goog-20260331.htm`.
 
-### C. Refonte HolographicPie
+## ⏳ EN ATTENTE DE GO YANN
 
-**État actuel** : `src/components/holographic-pie.tsx` (674 lignes), 2 variantes existantes :
-- `chunky` : palette cartoon vive, slices exploded, feel modern-cartoonish
-- `callouts` : disque fin + callout lines vers chaque slice (% + nom)
+Aucun blocage. Yann revoit staging quand le dernier deploy est aliasé.
 
-**Bloquant** : Yann m'avait promis une **image de référence** pour viser le bon style hologramme moderne (Apple Vision / sci-fi). Sans image, je risque de partir loin du goût Yann.
+## 🔮 CHANTIER PROPOSÉ NON DÉMARRÉ — Yann attend go
 
-**Si pas d'image** : je peux proposer 3 variantes sci-fi (ring 3D, dome volumétrique, ribbon orbital) en concept page `/concepts/holographic-pie-v2` sans plug en prod. ETA : 1-2 h.
+**Vraie automatisation SEC EDGAR** (ETA 3-5 jours en autonomie) :
+- Cron quotidien sur top 307 → détection nouveau 10-Q/10-K
+- Download + extraction LLM ciblée sur hero_kpi
+- Validation anti-hallucination (variation > 50 % → flag, pas de publish auto)
+- Rebuild merged + redeploy staging auto
 
----
+Pas encore le go explicite.
 
-## 🟢 Tâche active (12 mai 2026, ordre Yann)
+## 📂 Fichiers de référence
 
-### T1 — Fallback yfinance pour les 91 FPI EU sans SEC EDGAR ✅ TERMINÉ
+- `~/spx-app/CLAUDE.md` — règles + état + vocab
+- `~/spx-app/RULES-GOLDEN.md` — 9+ règles d'or (V1.8-first)
+- `~/spx-app/SHARED-STATUS.md` — coordination 5 convs
+- `~/spx-app/.conv-state/CONV-CONCEPTS.md` (CE FICHIER) — état reprise
 
-- **Statut** : ✅ DONE 12 mai 03h11 (4 min réel, ETA tenu).
-- **Résultat** : **91/91 stés enrichies**, 0 no-data, 0 erreur.
-- **Output** : champ `latest_filing` `{ date, form: "yfinance", period_end, fetched_at }`
-  écrit dans `src/data/v2-pipeline-enrich/<t>.json` (91 fichiers).
-- **Script** : `scripts/fetch-filing-dates-yfinance.py`.
-- **Log final** : `/tmp/fpi-yfinance-bulk.log`.
-- **À déployer** : oui, mais en attente prochain prompt Yann (règle 9 :
-  pas de push staging sans validation).
+## 🔁 PROCÉDURE DE REPRISE après coupure Claude
 
-### T2 — Bulk Cerebras news (STANDBY 2 semaines)
-
-- 277 résumés générés cette nuit, **NON déployés** (Yann standby 2 sem.).
-- À réactiver après le 26 mai 2026.
-- Pour déployer : `git add src/data/v2-pipeline-enrich/*.json && git commit && push && vercel`.
-
-## 🔵 Repoussé
-
-### D. Search bar sur page société
-
-Permet de jumper vers une autre sté sans repasser par home.
-**Décision Yann 12 mai** : repoussé à **dans 2 semaines minimum**.
-
-### F. Renommage `spx-app` → `mettrik-app`
-
-**Décision Yann 12 mai** : oui mais à exécuter en autonomie **après 00h50** (cette nuit ou suivantes), avec extrême prudence.
-
-**Plan d'exécution** :
-1. Renommer dossier disque : `mv ~/spx-app ~/mettrik-app`
-2. Créer symlink rétrocompat : `ln -s ~/mettrik-app ~/spx-app`
-   → tout path absolu qui pointe encore sur `~/spx-app/...` continue de marcher
-3. Renommer repo GitHub via API : `spx-app` → `mettrik-app`
-   → GitHub crée auto une redirection de l'ancienne URL vers la nouvelle
-4. Mettre à jour `git remote set-url origin git@github.com:yannricordeau100-ai/mettrik-app.git`
-5. Mettre à jour Vercel project name dans dashboard (pas le domaine custom mettrik.ai qui reste)
-6. Régression check : `npm run dev` + `curl localhost:3000`, vérif `.vercel/project.json`
-7. Rollback automatique si échec : `mv ~/mettrik-app ~/spx-app` + restore repo + revert remote
-
-**Risques connus** :
-- Configs MCP `.mcp.json` avec paths absolus → grep en pré-flight
-- Cron Vercel pointant sur l'ancien project ID → vérif via Vercel API
-- Scripts Python avec `cd ~/spx-app/...` → grep + sed
-
-ETA : 25-40 min selon nombre de paths à patcher.
-
----
-
-## 📦 Tâches secondaires en attente
-
-- Vérification visuelle screenshot du fix freshness top 10 (règle 0.bis SHARED-STATUS)
-  → ETA 3 min, à faire dès que je touche un autre composant impactant
-- Charts 3D : finaliser variant choisi par Yann puis appliquer Bars + Variation si même direction visuelle
-
----
-
-## 🔌 Coordination autres convs
-
-| Conv | État vu sur SHARED-STATUS |
-|---|---|
-| CONV-SYSTEMS | Au repos après livraison data-quality-matrix le 9 mai |
-| CONV-DATA | Au repos après extraction quarterly massive |
-| CONV-BRAND | Au repos |
-| CONV-DIV | Au repos après livraison V4 727 stés dividendes |
-
-🤝 Aucune coordination active requise sur mes tâches en cours.
+1. Lire ce fichier en entier.
+2. `vercel ls | head -10` — voir si les deploys empilés sont finis.
+3. Aliaser le DERNIER deploy `Ready` à `mettrik-staging.vercel.app`.
+4. `curl -sL https://mettrik-staging.vercel.app/ -H "cookie: NEXT_LOCALE=fr"
+   | grep "Pourquoi utiliser"` — vérifier badge live.
+5. Reprendre la conversation avec Yann en confirmant l'état (live ou pas).
+6. Si chantier "auto SEC EDGAR" lancé entre-temps : `ls scripts/fiscal/` +
+   `git log --oneline -10` pour voir l'avancement.
