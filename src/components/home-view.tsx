@@ -357,7 +357,7 @@ function RotatingPunchline({ items }: { items: string[] }) {
   // - bord inférieur en ombre foncée (sol sous le bloc)
   // - hover : le bloc se redresse et la lumière s'intensifie
   return (
-    <div className="mx-auto mt-6 flex max-w-3xl justify-center sm:mt-7" style={{ perspective: "1200px" }}>
+    <div className="mx-auto mt-14 flex max-w-3xl justify-center sm:mt-20" style={{ perspective: "1200px" }}>
       <motion.div
         className="group relative inline-block w-full"
         initial={{ rotateX: 0, y: 0 }}
