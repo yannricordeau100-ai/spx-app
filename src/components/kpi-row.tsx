@@ -149,7 +149,7 @@ export function KpiRow({
             <span className="ml-1 text-sm font-normal text-zinc-400">{formattedUnit}</span>
           )}
         </div>
-        {kpi.yoy && kpi.yoy.toLowerCase() !== "n/a" && (
+        {kpi.yoy && typeof kpi.yoy === "string" && kpi.yoy.toLowerCase() !== "n/a" && (
           <div
             className="mt-2 inline-flex items-center gap-1 font-mono text-[13px] tabular-nums"
             style={{ color: yoyColor }}
