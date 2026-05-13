@@ -91,15 +91,16 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
   const ttmIndex = hasTTM ? allData.length - 1 : -1;
   const isClassic = variant === "classic";
 
-  // Y-axis adaptive (Yann 13 mai 2026 v2) : heuristique sur `data` SEUL
+  // Y-axis adaptive (Yann 13 mai 2026 v3) : heuristique sur `data` SEUL
   // (sans TTM qui peut être un cumul faussant la range). Zoom si range
-  // < 40 % de dataMax. TTM toujours inclus dans la max pour rester visible.
+  // < 40 % de dataMax. Si TTM outlier (> 2x dataMax), exclu de la max.
   const dataOnlyMax = Math.max(...data);
   const dataOnlyMin = Math.min(...data);
   const dataOnlyRange = dataOnlyMax - dataOnlyMin;
   const useDataMin =
     dataOnlyMin > 0 && dataOnlyRange < dataOnlyMax * 0.4;
-  const dataMaxRaw = Math.max(...allData);
+  const ttmIsOutlier = hasTTM && (ttm as number) > dataOnlyMax * 2;
+  const dataMaxRaw = ttmIsOutlier ? dataOnlyMax : Math.max(...allData);
   const ticks = niceTicks(useDataMin ? dataOnlyMin : 0, dataMaxRaw, 5);
   const max = Math.max(...ticks, ...allData);
   const min = Math.min(...ticks, useDataMin ? dataOnlyMin : 0);

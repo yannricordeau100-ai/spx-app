@@ -90,15 +90,18 @@ export function BarsChart({
   const innerW = W - PAD_LEFT - PAD_RIGHT;
   const innerH = H - PAD_TOP - PAD_BOTTOM;
 
-  // Y-axis adaptive (Yann 13 mai 2026 v2, cohérent avec curve-chart).
+  // Y-axis adaptive (Yann 13 mai 2026 v3, cohérent avec curve-chart).
   // Heuristique calculée sur `data` SEUL (sans TTM qui peut être un cumul
   // faussant la range). Zoom si range < 40 % de dataMax.
+  // Si TTM est outlier (> 2x dataMax), exclu aussi de dataMax pour éviter
+  // un axe Y qui va jusqu'au TTM-cumul (= barres data écrasées).
   const dataOnlyMax = Math.max(...data);
   const dataOnlyMin = Math.min(...data);
   const dataOnlyRange = dataOnlyMax - dataOnlyMin;
   const useDataMin =
     dataOnlyMin > 0 && dataOnlyRange < dataOnlyMax * 0.4;
-  const dataMaxRaw = Math.max(...allData);
+  const ttmIsOutlier = hasTTM && (ttm as number) > dataOnlyMax * 2;
+  const dataMaxRaw = ttmIsOutlier ? dataOnlyMax : Math.max(...allData);
   const dataMin = useDataMin ? dataOnlyMin : Math.min(0, ...allData);
   const dataMax = dataMaxRaw;
   const tickValues = niceTicks(dataMin, dataMax, 5);

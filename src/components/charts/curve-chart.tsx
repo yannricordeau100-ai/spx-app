@@ -141,21 +141,25 @@ export function CurveChart({
   const innerW = W - PAD_LEFT - PAD_RIGHT;
   const innerH = H - PAD_TOP - PAD_BOTTOM;
 
-  // Y-axis adaptive (Yann 13 mai 2026 v2) :
+  // Y-axis adaptive (Yann 13 mai 2026 v3) :
   //   1. La heuristique de zoom est calculée sur `data` SEUL (sans TTM).
   //      TTM est souvent un cumul (somme 4Q) qui explose la range et fausse
   //      le calcul. Ex AAPL Services Revenue : data 19-24, ttm 112.
-  //   2. Seuil abaissé : zoom si range < 40 % de dataMax (vs 50 % avant)
-  //      pour montrer la tendance même sur des croissances faibles.
-  //   3. TTM si présent : on l'inclut quand même dans dataMaxRaw POUR
-  //      l'affichage (sinon point hors graph), mais le test de zoom est
-  //      calculé sans lui.
+  //   2. Seuil abaissé : zoom si range < 40 % de dataMax pour montrer la
+  //      tendance même sur des croissances faibles.
+  //   3. Si TTM est un OUTLIER (> 2x dataMax), on l'EXCLUT aussi du dataMax
+  //      (sinon Y axis irait jusqu'à TTM → graph plat). Le point TTM serait
+  //      alors hors-graph, ce qui est attendu pour les TTM cumul.
+  //   4. Si TTM est dans la range (= vrai dernier quarter), on l'inclut.
   const dataOnlyMax = Math.max(...data);
   const dataOnlyMin = Math.min(...data);
   const dataOnlyRange = dataOnlyMax - dataOnlyMin;
   const useDataMin =
     dataOnlyMin > 0 && dataOnlyRange < dataOnlyMax * 0.4;
-  const dataMaxRaw = Math.max(...allData);
+  // TTM-cumul detection : si TTM > 2x dataMax (= ce n'est pas un point
+  // périodique mais un total), on l'exclut de la range Y.
+  const ttmIsOutlier = hasTTM && (ttm as number) > dataOnlyMax * 2;
+  const dataMaxRaw = ttmIsOutlier ? dataOnlyMax : Math.max(...allData);
   const dataMin = useDataMin ? dataOnlyMin : Math.min(0, ...allData);
   const dataMax = dataMaxRaw;
   const tickValues = niceTicks(dataMin, dataMax, 5);
