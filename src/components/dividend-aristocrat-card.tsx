@@ -125,11 +125,14 @@ export function DividendAristocratCard({
   const cagr10 = cagrPeriod(dpsHistory, 10);
   const cagr20 = cagrPeriod(dpsHistory, 20);
   const cagr50 = cagrPeriod(dpsHistory, 50);
-  // Si pas assez d'historique pour 5 ans : fallback sur le max disponible
+  // Si pas assez d'historique pour 5 ans : fallback sur le max disponible.
+  // Garde-fou : si dpsHistory[0] <= 0 (= sté qui n'a commencé à payer qu'à la
+  // fin de l'historique), Math.pow(end/0, ...) → +Infinity. Yann 13 mai 2026 :
+  // bug AAPL CAGR = "+Infinity % / an" affiché. Retourner null à la place.
   const cagrFallback =
-    n >= 2
+    n >= 2 && dpsHistory[0] > 0
       ? (Math.pow(dpsHistory[n - 1] / dpsHistory[0], 1 / (n - 1)) - 1) * 100
-      : 0;
+      : null;
   const cagrShown = cagr5 ?? cagrFallback;
 
   // Mini-courbe SVG
@@ -458,19 +461,22 @@ export function DividendAristocratCard({
           </div>
         </div>
 
-        {/* CAGR principal mis en avant en bas */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={inView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ delay: 0.9, duration: 0.4 }}
-          className="mt-2.5 inline-flex items-center justify-center gap-1.5 self-center rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-[14px] font-semibold text-emerald-200"
-        >
-          <TrendingUp className="size-4.5" />
-          <span className="font-mono tabular-nums">
-            CAGR <NumberTicker value={cagrShown} decimals={1} suffix=" % / an" duration={900} />
-          </span>
-          <span className="text-[12.5px] italic text-zinc-400">(sur {cagr5 != null ? "5" : n - 1} ans)</span>
-        </motion.div>
+        {/* CAGR principal mis en avant en bas — masqué si pas calculable
+            (ex AAPL dpsHistory[0]=0, ancien bug "+Infinity"). */}
+        {cagrShown != null && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={inView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ delay: 0.9, duration: 0.4 }}
+            className="mt-2.5 inline-flex items-center justify-center gap-1.5 self-center rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-[14px] font-semibold text-emerald-200"
+          >
+            <TrendingUp className="size-4.5" />
+            <span className="font-mono tabular-nums">
+              CAGR <NumberTicker value={cagrShown} decimals={1} suffix=" % / an" duration={900} />
+            </span>
+            <span className="text-[12.5px] italic text-zinc-400">(sur {cagr5 != null ? "5" : n - 1} ans)</span>
+          </motion.div>
+        )}
       </div>
     </div>
   );
