@@ -12,35 +12,9 @@ import { ChartMiniLogo } from "@/components/charts/chart-mini-logo";
  * Drop-in : même API que les autres bars charts.
  */
 
-/** Header d'unité affiché au-dessus du graphe (mêmes mappings que curve-chart). */
-function axisHeader(unit: string): string {
-  switch (unit) {
-    case "$B": return "$ en Milliards";
-    case "$M": return "$ en Millions";
-    case "B": return "en Milliards";
-    case "M": return "en Millions";
-    case "€B": return "€ en Milliards";
-    case "€M": return "€ en Millions";
-    case "£B": return "£ en Milliards";
-    case "£M": return "£ en Millions";
-    case "Mds $": return "$ en Milliards";
-    case "M $": return "$ en Millions";
-    case "Mds €": return "€ en Milliards";
-    case "M €": return "€ en Millions";
-    case "Mds £": return "£ en Milliards";
-    case "M £": return "£ en Millions";
-    case "Mds CHF": return "CHF en Milliards";
-    case "Mds JPY": return "JPY en Milliards";
-    case "Mds EUR": return "EUR en Milliards";
-    case "Mds DKK": return "DKK en Milliards";
-    case "Mds INR": return "INR en Milliards";
-    case "Mds": return "en Milliards";
-    case "%": return "%";
-    case "% YoY": return "% (YoY)";
-    case "$": return "$";
-    default: return unit || "";
-  }
-}
+/** Header d'unité (Yann 13 mai 2026 v4 : centralisé dans chart-axis-header). */
+import { chartAxisHeader } from "@/lib/chart-axis-header";
+const axisHeader = chartAxisHeader;
 
 const W = 920, H = 420;
 // PAD_RIGHT = 95 (vs 70 avant) pour garantir aucun clipping du label TTM

@@ -10,50 +10,14 @@ import type { CompanyEvent } from "@/lib/events";
 import { EventDotsSVG, EventDotsOverlay } from "@/components/charts/event-dots";
 import { downloadSvgAsPng, buildYearGroups } from "@/lib/chart-export";
 import { ChartMiniLogo } from "@/components/charts/chart-mini-logo";
+import { chartAxisHeader, isCurrencyLikeUnit } from "@/lib/chart-axis-header";
 
-// Yann 13 mai 2026 v3 (force-rebuild) : labels axe Y monétaires en mot
-// complet ("Millions"/"Milliards"). Couvre les formats bruts ($B, $M) ET
-// les formats déjà formatés ("Mds $", "M $") car beaucoup de datasets
-// stockent le unit déjà formatté. v3 = force chunk re-hash après que
-// vercel build cache semble bloquer la mise à jour.
-function axisHeader(unit: string): string {
-  switch (unit) {
-    case "$B": return "$ en Milliards";
-    case "$M": return "$ en Millions";
-    case "B": return "en Milliards";
-    case "M": return "en Millions";
-    case "€B": return "€ en Milliards";
-    case "€M": return "€ en Millions";
-    case "£B": return "£ en Milliards";
-    case "£M": return "£ en Millions";
-    // Format déjà rendu par formatUnit() côté data (= cas le plus fréquent
-    // sur les datasets actuels) :
-    case "Mds $": return "$ en Milliards";
-    case "M $": return "$ en Millions";
-    case "Mds €": return "€ en Milliards";
-    case "M €": return "€ en Millions";
-    case "Mds £": return "£ en Milliards";
-    case "M £": return "£ en Millions";
-    case "Mds CHF": return "CHF en Milliards";
-    case "Mds JPY": return "JPY en Milliards";
-    case "Mds EUR": return "EUR en Milliards";
-    case "Mds DKK": return "DKK en Milliards";
-    case "Mds INR": return "INR en Milliards";
-    case "Mds": return "en Milliards";
-    case "%": return "%";
-    case "% YoY": return "% (YoY)";
-    case "$": return "$";
-    default: return unit || "";
-  }
-}
-function isCurrencyLike(unit: string): boolean {
-  return [
-    "$B", "$M", "B", "M",
-    "€B", "€M", "£B", "£M",
-    "Mds $", "M $", "Mds €", "M €", "Mds £", "M £",
-    "Mds CHF", "Mds JPY", "Mds EUR", "Mds DKK", "Mds INR", "Mds",
-  ].includes(unit);
-}
+// Yann 13 mai 2026 v4 : helpers axisHeader/isCurrency centralisés dans
+// `@/lib/chart-axis-header` (DRY, partagés avec bars-chart + bars-3d).
+// Anciennement dupliqués dans 3 fichiers, ce qui causait des oublis lors
+// des updates.
+const axisHeader = chartAxisHeader;
+const isCurrencyLike = isCurrencyLikeUnit;
 function isPercentLike(unit: string): boolean {
   return ["%", "% YoY"].includes(unit);
 }

@@ -5,45 +5,12 @@ import { motion } from "motion/react";
 import type { Anomaly } from "@/lib/brand";
 import { AnomalyInfo } from "@/components/anomaly-info";
 import { formatUnit } from "@/lib/data";
+import { chartAxisHeader, isCurrencyLikeUnit } from "@/lib/chart-axis-header";
 
-// Yann 13 mai 2026 v2 : labels axe Y monétaires en mot complet.
-// Couvre formats bruts ($B) ET formats déjà formatés ("Mds $") car les
-// datasets stockent les deux selon la source.
-function axisHeader(unit: string): string {
-  switch (unit) {
-    case "$B": return "$ en Milliards";
-    case "$M": return "$ en Millions";
-    case "B": return "en Milliards";
-    case "M": return "en Millions";
-    case "€B": return "€ en Milliards";
-    case "€M": return "€ en Millions";
-    case "£B": return "£ en Milliards";
-    case "£M": return "£ en Millions";
-    case "Mds $": return "$ en Milliards";
-    case "M $": return "$ en Millions";
-    case "Mds €": return "€ en Milliards";
-    case "M €": return "€ en Millions";
-    case "Mds £": return "£ en Milliards";
-    case "M £": return "£ en Millions";
-    case "Mds CHF": return "CHF en Milliards";
-    case "Mds JPY": return "JPY en Milliards";
-    case "Mds EUR": return "EUR en Milliards";
-    case "Mds DKK": return "DKK en Milliards";
-    case "Mds INR": return "INR en Milliards";
-    case "Mds": return "en Milliards";
-    case "%": return "%";
-    case "% YoY": return "% (YoY)";
-    case "$": return "$";
-    default: return unit || "";
-  }
-}
+// Yann 13 mai 2026 v4 : helpers axisHeader/isCurrency centralisés.
+const axisHeader = chartAxisHeader;
 function isCurrencyLike(unit: string): boolean {
-  return [
-    "$B", "$M", "B", "M",
-    "€B", "€M", "£B", "£M",
-    "Mds $", "M $", "Mds €", "M €", "Mds £", "M £",
-    "Mds CHF", "Mds JPY", "Mds EUR", "Mds DKK", "Mds INR", "Mds",
-  ].includes(unit);
+  return isCurrencyLikeUnit(unit);
 }
 
 /**
