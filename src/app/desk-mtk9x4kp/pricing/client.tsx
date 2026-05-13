@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, useEffect } from "react";
 import { Plus, Copy, Trash2, Star, Save, Eye, EyeOff, Check, X, ArrowUp, ArrowDown, Pencil, Move } from "lucide-react";
 import {
   CURRENCIES,
@@ -579,7 +579,16 @@ function ActiveToggle({
 }
 
 function PriceInput({ defaultValue, onSave, disabled }: { defaultValue: number; onSave: (v: number) => void; disabled: boolean }) {
+  // Yann 13 mai 2026 : bug "prix à 0 sur Premium/Max après changement de
+  // plan dans le dropdown". Cause = useState initialise une seule fois avec
+  // defaultValue, donc quand l'utilisateur change de plan (selectedPlanId),
+  // les nouveaux prix DB arrivent en prop mais le state local reste sur
+  // l'ancien (le plan initial Free = 0). Fix : sync state ← defaultValue
+  // à chaque changement de prop.
   const [v, setV] = useState(defaultValue.toString());
+  useEffect(() => {
+    setV(defaultValue.toString());
+  }, [defaultValue]);
   return (
     <div className="inline-flex items-center gap-1.5">
       <input type="number" step="0.01" value={v} onChange={(e) => setV(e.target.value)} className="w-24 rounded-lg border border-white/[0.08] bg-white/[0.02] px-2 py-1 text-right text-[12.5px] text-zinc-100" />
