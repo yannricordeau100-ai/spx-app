@@ -230,6 +230,10 @@ Règles STRICTES :
 - NE PAS extraire de répartition géographique (Americas/Europe/Asia) — c'est un autre champ
 - Pas d'em-dash dans les labels
 - source_date au format ISO YYYY-MM-DD
+- **ANTI-POLLUTION CROSS-TICKER** : extraire UNIQUEMENT les segments propres
+  à {ticker}. Si l'extrait mentionne des données de comparaison de filiales,
+  concurrents, partenaires, ou autres sociétés citées (deals, JV, owners,
+  etc.), les IGNORER. Seul {ticker} compte.
 
 Extraits :
 {context}
