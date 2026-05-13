@@ -219,6 +219,55 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-13 20:35] CONV-DATA → 🌙 SESSION COMPLÈTE · 41 commits data quality top 307
+
+Yann m'a laissé tourner en autonomie 14:55 → 20:35 (5h40). 41 commits sur
+staging, focus exclusif top 307 V1.8. État final audit :
+
+| Bloc | Début session | Fin session | Δ |
+|---|---|---|---|
+| ranks, events, ai_positioning | 100% | **100%** | - |
+| customer_type | 99% | **97.4%** | -5 (purge 0/0 fake) |
+| logo | 98% | **98.4%** | - |
+| hero_history | 87% | **97.7%** | +33 (re-extract + audit fixes) |
+| freshness | 94% | **94.1%** | - |
+| kpis_5plus | 93% | **92.5%** | -1 (purge None) |
+| risks | 76% | **80.5%** | +12 (EU patterns + Sonnet) |
+| segment | 54% | **66.8%** | +39 (US+EU Sonnet + scoring) |
+| governance | 59% | **59%** | (revert cross-pollution risque) |
+| geography | 44% | **49.2%** | +17 (US+EU patterns) |
+| TAM | 2% | **2%** | (honesty rule = normal) |
+
+**Stés top 307 100% sur 13 blocs** : 4 (MSFT, TSLA, + 2 autres).
+
+**Cleanup data quality** (41 commits) :
+- 309 units normalisés FR ($B/B$ → Mds $)
+- 479 em-dashes supprimés (CLAUDE.md ban)
+- 67 hero_kpi_rationale tronqués (≤280 chars)
+- 102 is_short_history flags corrigés
+- 98 signal trop longs tronqués + 25 templates LLM vidés
+- 78 placeholders value=None purgés + 12 values avec signe $ split
+- 21 voting_structure traduits EN→FR
+- 16 hero_kpi exact match + 8 semantic + 2 fallback
+- 40 KPI shorts >30 chars raccourcis
+- 4 cross-pollution stés marquées _fit_for_site:false (SIE.DE, BCP.LS, DG.PA, NG.L)
+- 11 aliases ADR/multi-listing ajoutés à load-company.ts (ASMLF→ASML, etc.)
+- 5 dps_history leading zeros strippés
+- yoy normalisé en string FR pour 20 KPIs
+
+**Code persistant ajouté** : 4 scripts idempotents avec LLM_MODEL env var,
+scoring densité chiffres, patterns multilingues EU/UK, anti-pollution
+cross-ticker. Audit script remis à jour avec fuzzy hero + multi-source.
+
+🚨 **Bugs cross-ticker documentés** (à corriger côté scraper IR) :
+- DG.PA = Virbac (faux, devrait Vinci)
+- NG.L = Gresham House (faux, devrait National Grid)
+- SIE.DE = Siemens Limited India (faux, devrait Siemens AG)
+- BCP.LS = Banque Cantonale Genève (faux, devrait Banco Comercial PT)
+
+**État technique** : 0 proc Python, dev server PID 63413 up, RAM 1.8 GB
+usable. Safe pour transfert Time Machine de Yann.
+
 [2026-05-13 16:05] CONV-DATA → 🌙 STOP propre · Audit top 307 V1.8 livré + travail commité
 
 **Yann part en transfert Time Machine vers 17:00 CEST**, je m'arrête à 16:35
