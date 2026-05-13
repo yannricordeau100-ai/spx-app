@@ -13,7 +13,7 @@ import {
 } from "@/app/auth/actions";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { useT } from "@/lib/i18n/provider";
-import { TurnstileWidget } from "@/components/turnstile-widget";
+import { HCaptchaWidget } from "@/components/hcaptcha-widget";
 
 /**
  * Bouton submit avec état "pending" automatique via useFormStatus.
@@ -301,7 +301,7 @@ export function AuthModal() {
                     />
                   </Field>
                   <div className="flex justify-center">
-                    <TurnstileWidget theme="dark" />
+                    <HCaptchaWidget theme="dark" />
                   </div>
                   <SubmitButton>{t("auth.cta.send_reset")}</SubmitButton>
                 </form>
@@ -403,7 +403,7 @@ export function AuthModal() {
                     {/* Captcha Turnstile : token injecté dans le form en tant
                         que champ caché 'cf-turnstile-response'. */}
                     <div className="flex justify-center">
-                      <TurnstileWidget theme="dark" />
+                      <HCaptchaWidget theme="dark" />
                     </div>
                     <SubmitButton>{t("auth.cta.signup")}</SubmitButton>
                   </form>

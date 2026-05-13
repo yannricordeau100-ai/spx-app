@@ -5,20 +5,22 @@ import { revalidatePath } from "next/cache";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { headers, cookies } from "next/headers";
 import { authErrorParam, type Locale } from "@/lib/auth-errors";
-import { verifyTurnstileToken } from "@/lib/turnstile";
+// Captcha hCaptcha : vérification déléguée à Supabase via options.captchaToken.
 
-/** Vérifie le token Turnstile présent dans le form. Retourne l'URL d'erreur
- *  à rediriger si invalide, ou null si valide. */
-async function checkCaptcha(formData: FormData, errorRedirect: string): Promise<string | null> {
-  const token = formData.get("cf-turnstile-response");
-  const ipHeader = (await headers()).get("x-forwarded-for") ?? "";
-  const ip = ipHeader.split(",")[0]?.trim() || null;
-  const result = await verifyTurnstileToken(
-    typeof token === "string" ? token : null,
-    ip,
-  );
-  if (!result.ok) {
-    const msg = "Vérification anti-bot échouée. Recharge la page et réessaie.";
+/** Extrait le token hCaptcha présent dans le form.
+ *  La vérification se fait côté Supabase (option captchaToken sur les
+ *  appels auth, vérifié par Supabase avec le secret configuré dans
+ *  Auth Settings → Bot/Spam protection → hCaptcha). */
+function getCaptchaToken(formData: FormData): string {
+  const token = formData.get("h-captcha-response");
+  return typeof token === "string" ? token : "";
+}
+
+/** Retourne URL d'erreur si pas de token, sinon null. */
+function requireCaptcha(formData: FormData, errorRedirect: string): string | null {
+  const token = getCaptchaToken(formData);
+  if (!token) {
+    const msg = "Vérification anti-bot manquante. Recharge la page et réessaie.";
     return `${errorRedirect}&error=${encodeURIComponent(msg)}`;
   }
   return null;
@@ -93,9 +95,11 @@ export async function signInWithPassword(formData: FormData) {
 }
 
 export async function signUpWithPassword(formData: FormData) {
-  // Captcha Turnstile (anti-bot solide, Yann 11 mai 2026).
-  const captchaErr = await checkCaptcha(formData, "/?auth=signup");
+  // Captcha hCaptcha (Yann 13 mai 2026) — vérifié par Supabase via
+  // options.captchaToken (config secret dans Auth Settings).
+  const captchaErr = requireCaptcha(formData, "/?auth=signup");
   if (captchaErr) redirect(captchaErr);
+  const captchaToken = getCaptchaToken(formData);
 
   const email = String(formData.get("email") ?? "");
   const password = String(formData.get("password") ?? "");
@@ -104,7 +108,7 @@ export async function signUpWithPassword(formData: FormData) {
   const { error } = await supabase.auth.signUp({
     email,
     password,
-    options: { emailRedirectTo: `${origin}/auth/callback` },
+    options: { emailRedirectTo: `${origin}/auth/callback`, captchaToken },
   });
   if (error) {
     redirect(`/?auth=signup&error=${await authErr(error.message)}`);
@@ -150,9 +154,10 @@ export async function signInWithGoogle(formData?: FormData) {
 /* ─── Mot de passe oublié — envoie un email de reset ────────────────── */
 
 export async function requestPasswordReset(formData: FormData) {
-  // Captcha Turnstile (Yann 11 mai 2026 : anti-bot enumeration emails).
-  const captchaErr = await checkCaptcha(formData, "/?auth=reset");
+  // Captcha hCaptcha (Yann 13 mai 2026) — anti-enumeration emails.
+  const captchaErr = requireCaptcha(formData, "/?auth=reset");
   if (captchaErr) redirect(captchaErr);
+  const captchaToken = getCaptchaToken(formData);
 
   const email = String(formData.get("email") ?? "").trim();
   if (!email) {
@@ -164,6 +169,7 @@ export async function requestPasswordReset(formData: FormData) {
   const origin = await getOrigin();
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo: `${origin}/auth/callback?next=/auth/update-password`,
+    captchaToken,
   });
   if (error) {
     redirect(`/?auth=reset&error=${await authErr(error.message)}`);
