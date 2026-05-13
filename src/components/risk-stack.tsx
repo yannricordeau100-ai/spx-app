@@ -21,6 +21,7 @@ import {
 import type { CompanyRisk, ProfitWarning, RiskCategory, RiskTrend } from "@/lib/data";
 import { InfoTooltip } from "@/components/info-tooltip";
 import { useT } from "@/lib/i18n/provider";
+import { normalizeNarrative } from "@/lib/ui-fix-templates";
 
 function formatDate(iso: string, locale: string = "fr"): string {
   try {
@@ -285,7 +286,7 @@ function RiskCard({ risk, index }: { risk: CompanyRisk; index: number }) {
                   {t("risks.score_explainer_title")}
                 </div>
                 <p className="text-[12px] leading-relaxed text-zinc-200">
-                  {risk.score_rationale}
+                  {risk.score_rationale ? normalizeNarrative(risk.score_rationale) : risk.score_rationale}
                 </p>
                 <div className="mt-3 rounded-md border border-[#1f1f1f] bg-[#0c0c0c] p-2">
                   <div className="font-mono text-[10px] uppercase tracking-wider text-zinc-400">

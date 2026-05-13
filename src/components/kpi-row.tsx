@@ -10,6 +10,7 @@ import { InfoTooltip } from "@/components/info-tooltip";
 import { StarButton } from "@/components/star-button";
 import { AcronymHover } from "@/components/acronym-hover";
 import { useT } from "@/lib/i18n/provider";
+import { normalizeNarrative } from "@/lib/ui-fix-templates";
 
 const TYPE_COLOR: Record<string, string> = {
   Revenue: "#a78bfa",
@@ -176,7 +177,7 @@ export function KpiRow({
       <div className="col-span-12 sm:col-span-4">
         <QualityBadge rating={r} size="sm" scope={subsector} layout="stack" />
         <div className="mt-2 line-clamp-2 text-[13px] leading-snug text-zinc-200">
-          {kpi.signal}
+          {kpi.signal ? normalizeNarrative(kpi.signal) : kpi.signal}
         </div>
       </div>
     </div>

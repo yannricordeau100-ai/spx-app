@@ -7,6 +7,7 @@ import type { StorySlide } from "@/lib/kpi-stories-ordering";
 import { formatUnit } from "@/lib/data";
 import { InfoTooltip } from "@/components/info-tooltip";
 import { AcronymHover } from "@/components/acronym-hover";
+import { normalizeNarrative } from "@/lib/ui-fix-templates";
 
 /**
  * Une carte du bloc Stories : soit un KPI short-history, soit une
@@ -116,7 +117,7 @@ function KpiCard({ kpi, accent, glow }: { kpi: KPI; accent: string; glow: string
           <div className="rounded-xl border border-white/10 bg-black/55 p-3 backdrop-blur">
             <div className="flex items-start gap-1.5">
               <div className="flex-1 text-[15px] font-semibold leading-snug text-zinc-50">
-                {kpi.signal}
+                {normalizeNarrative(kpi.signal)}
               </div>
               {kpi.description && (
                 <InfoTooltip color={accent} size="sm" align="right">
@@ -124,7 +125,7 @@ function KpiCard({ kpi, accent, glow }: { kpi: KPI; accent: string; glow: string
                     Détail
                   </div>
                   <div className="text-[12.5px] leading-relaxed text-zinc-200">
-                    {kpi.description}
+                    {normalizeNarrative(kpi.description)}
                   </div>
                 </InfoTooltip>
               )}
