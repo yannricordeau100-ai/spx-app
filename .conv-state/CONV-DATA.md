@@ -2,6 +2,80 @@
 
 ---
 
+## 🔴 SESSION 13 mai 14:55-22:57 CEST (8h) · RÉSUMÉ POUR REPRISE (Mac shutdown imminent)
+
+**Yann éteint le Mac pour transfert disque dur externe.** Reprise possible :
+- Ici (même conv) après redémarrage Mac local
+- OU sur l'autre Mac une fois Time Machine restauré
+
+### État final top 307 V1.8 (audit 22:55 CEST)
+| Bloc | OK | KO | % |
+|---|---|---|---|
+| ranks, events, ai_positioning | 307 | 0 | **100%** |
+| customer_type | 299 | 8 | 97.4% |
+| logo | 302 | 5 | 98.4% |
+| hero_history | 300 | 7 | 97.7% |
+| freshness | 289 | 18 | 94.1% |
+| kpis_5plus | 284 | 23 | 92.5% |
+| risks | 247 | 60 | 80.5% |
+| segment | 205 | 102 | 66.8% |
+| governance | 181 | 126 | 59.0% |
+| geography | 151 | 156 | 49.2% |
+| tam | 7 | 300 | 2.3% (honesty rule = OK) |
+
+### 46 commits aujourd'hui (de `59036eb3` à `c836e066`+)
+
+**Nouveau code persistant** :
+- `scripts/audit-top307-v18-blocks.py` : fuzzy hero + multi-source files + AI absent valid
+- `scripts/reextract-hero-history-v18.py` : modes strict/enhance via REEXTRACT_MODE
+- `scripts/enrich-segment-v18-pipeline.py` : scoring densité chiffres + patterns multilingues + anti-cross-ticker
+- `scripts/enrich-geo-v18-pipeline.py` : idem + patterns US "international/outside US"
+- `scripts/enrich-risks-v18-pipeline.py` : idem + patterns EU (UK/DE/FR/IT/ES/NL/SE)
+- `src/lib/v1-7/load-company.ts` : +11 aliases ADR/multi-listing (ASMLF→ASML, ABBNY→ABBN.SW, etc.)
+
+**Découvertes critiques cross-ticker pollution** (marquées `_fit_for_site:false`):
+- DG.PA = Virbac (au lieu de Vinci)
+- NG.L = Gresham House (au lieu de National Grid)
+- SIE.DE = Siemens India (au lieu de Siemens AG)
+- BCP.LS = Banque Cantonale Genève (au lieu de BCP Portugal)
+
+**Quality cleanup data** : 309 units FR, 479 em-dashes, 67 rationales tronqués,
+102 is_short_history fixés, 159 geo labels EN→FR, 31 segment "Other"→"Autres",
+167 slices triées descending, 273 KPIs auto-classés wow/generic, etc.
+
+### Pour REPRENDRE (TODO résiduels)
+1. **3 customer_type KO** : TD, ABF.L, CHKP (sources insuffisantes, peut tenter Sonnet)
+2. **7 hero_history KO** : BAC, NVS, NOKIA.HE, DANSKE.CO, WWD, GIS (unverified marqués honest) + NESTE.HE (1 valeur seule)
+3. **18 freshness KO** : 9984.T, ABBNY, ABLZF, ATEYY, ADTTF, NG.L, HLN.L, III.L, VWS.CO, PHIA.AS, FORTUM.HE, EDP.LS, GRAB, MAP.MC, YAR.OL, SOON.SW, SPM.MI, SBRY.L
+4. **Segment / Geography / Governance EU/FPI** : trous structurels, nécessitent nouveau pipeline cat3-european multilingue + validation cross-référence CEO via yfinance.info
+5. **TAM 2%** : honesty rule, NE PAS combler
+
+### Commandes utiles pour reprise
+```bash
+cd ~/spx-app
+# Audit état courant
+python3 scripts/audit-top307-v18-blocks.py
+# Re-extract hero hallucinées : modifier TARGETS dans le script
+python3 scripts/reextract-hero-history-v18.py
+# Segment EU avec Sonnet
+LLM_MODEL=claude-sonnet-4-6 python3 scripts/enrich-segment-v18-pipeline.py
+# Rebuild merged après modif
+npx tsx scripts/build-v2-pipeline-merged.ts
+```
+
+### État technique au shutdown
+- 0 proc Python actif
+- next-server dev PID 63424 (mourra avec Mac shutdown, à relancer après)
+- RAM 1.8 GB usable
+- 46 commits sur branche `staging` (locales, pas pushées)
+- Aucun fichier neuf créé après Yann's instruction "no new files"
+
+### Communication avec autres convs
+SHARED-STATUS.md mis à jour à chaque étape clé.
+Bug cross-ticker FPI/EU documenté pour CONV-TRANSCRIPTS / CONV-SYSTEMS.
+
+---
+
 ## 🟢 SESSION 13 mai 14:55-16:20 CEST · RÉSUMÉ POUR REPRISE (Time Machine transfer prévu 17:00)
 
 **Faits accomplis** :
