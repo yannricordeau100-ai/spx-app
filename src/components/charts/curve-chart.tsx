@@ -11,10 +11,11 @@ import { EventDotsSVG, EventDotsOverlay } from "@/components/charts/event-dots";
 import { downloadSvgAsPng, buildYearGroups } from "@/lib/chart-export";
 import { ChartMiniLogo } from "@/components/charts/chart-mini-logo";
 
-// Yann 13 mai 2026 v2 : labels axe Y monétaires en mot complet
-// ("Millions"/"Milliards"). Couvre les formats bruts ($B, $M) ET les formats
-// déjà formatés ("Mds $", "M $") car beaucoup de datasets stockent le unit
-// déjà formatté.
+// Yann 13 mai 2026 v3 (force-rebuild) : labels axe Y monétaires en mot
+// complet ("Millions"/"Milliards"). Couvre les formats bruts ($B, $M) ET
+// les formats déjà formatés ("Mds $", "M $") car beaucoup de datasets
+// stockent le unit déjà formatté. v3 = force chunk re-hash après que
+// vercel build cache semble bloquer la mise à jour.
 function axisHeader(unit: string): string {
   switch (unit) {
     case "$B": return "$ en Milliards";

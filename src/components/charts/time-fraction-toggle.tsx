@@ -13,21 +13,36 @@ import { InfoTooltip } from "@/components/info-tooltip";
  * L'unité est automatiquement rescalée (Md$ -> $ -> ¢) pour garder valeur >= 1.
  */
 
+// Yann 13 mai 2026 v2 : retrait des fractions "exotiques" (S/J/H/m/s).
+// Garde A (année) + M (mois) uniquement. Raison : un investisseur sérieux
+// ne raisonne pas en revenu "par seconde" — ce n'est ni le standard de
+// l'industrie (Bloomberg/FT/WSJ), ni utile pour la décision.
+// Type encore "year" | "month" + valeurs legacy gardées pour rétro-compat
+// (datasets qui pourraient référencer "week", "day", etc.).
 export type TimeFraction = "year" | "month" | "week" | "day" | "hour" | "minute" | "second";
 
 const FRACTIONS: { id: TimeFraction; divisor: number; key: string }[] = [
-  { id: "year",   divisor: 1,                          key: "timefrac.year" },
-  { id: "month",  divisor: 12,                         key: "timefrac.month" },
-  { id: "week",   divisor: 52,                         key: "timefrac.week" },
-  { id: "day",    divisor: 365,                        key: "timefrac.day" },
-  { id: "hour",   divisor: 365 * 24,                   key: "timefrac.hour" },
-  { id: "minute", divisor: 365 * 24 * 60,              key: "timefrac.minute" },
-  { id: "second", divisor: 365 * 24 * 60 * 60,         key: "timefrac.second" },
+  { id: "year",  divisor: 1,  key: "timefrac.year" },
+  { id: "month", divisor: 12, key: "timefrac.month" },
 ];
 
-/** Diviseur pour transformer une valeur annuelle en valeur par fraction. */
+/** Diviseurs legacy (rétro-compat avec datasets/state qui mentionnent
+ *  encore week/day/hour/minute/second). Internalisé, plus exposé en UI. */
+const _LEGACY_DIVISORS: Record<TimeFraction, number> = {
+  year: 1,
+  month: 12,
+  week: 52,
+  day: 365,
+  hour: 365 * 24,
+  minute: 365 * 24 * 60,
+  second: 365 * 24 * 60 * 60,
+};
+
+/** Diviseur pour transformer une valeur annuelle en valeur par fraction.
+ *  Utilise la map legacy pour rester compatible avec d'éventuels états
+ *  utilisateurs (cookie, user_metadata) qui contiendraient "week"/"day"/etc. */
 export function timeFractionDivisor(f: TimeFraction): number {
-  return FRACTIONS.find((x) => x.id === f)?.divisor ?? 1;
+  return _LEGACY_DIVISORS[f] ?? 1;
 }
 
 /** Toggle UI compact (segments cliquables) avec InfoTooltip rich style. */
