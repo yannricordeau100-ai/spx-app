@@ -149,17 +149,33 @@ export function KpiRow({
             <span className="ml-1 text-sm font-normal text-zinc-400">{formattedUnit}</span>
           )}
         </div>
-        {kpi.yoy && typeof kpi.yoy === "string" && kpi.yoy.toLowerCase() !== "n/a" && (
-          <div
-            className="mt-2 inline-flex items-center gap-1 font-mono text-[13px] tabular-nums"
-            style={{ color: yoyColor }}
-          >
-            {tone === "pos" && <ArrowUpRight className="size-3.5" />}
-            {tone === "neg" && <ArrowDownRight className="size-3.5" />}
-            {kpi.yoy}
-            <span className="text-[10.5px] italic text-zinc-400">{t("hero.yoy")}</span>
-          </div>
-        )}
+        {/* Yann 13 mai 2026 : tolère yoy nombre brut (ex GWW yoy=4.5, DINO yoy=-6
+           sortis du pipeline LLM sans formatting) en plus de la string standard
+           ("+4.5%"). Pour les nombres : ajoute le signe + et le %. */}
+        {(() => {
+          if (kpi.yoy == null) return null;
+          let yoyStr: string;
+          if (typeof kpi.yoy === "number") {
+            const sign = kpi.yoy > 0 ? "+" : "";
+            yoyStr = `${sign}${kpi.yoy}%`;
+          } else if (typeof kpi.yoy === "string") {
+            if (kpi.yoy.toLowerCase() === "n/a") return null;
+            yoyStr = kpi.yoy;
+          } else {
+            return null;
+          }
+          return (
+            <div
+              className="mt-2 inline-flex items-center gap-1 font-mono text-[13px] tabular-nums"
+              style={{ color: yoyColor }}
+            >
+              {tone === "pos" && <ArrowUpRight className="size-3.5" />}
+              {tone === "neg" && <ArrowDownRight className="size-3.5" />}
+              {yoyStr}
+              <span className="text-[10.5px] italic text-zinc-400">{t("hero.yoy")}</span>
+            </div>
+          );
+        })()}
         {cagrLabel && (
           <div className="mt-1 font-mono text-[11.5px] tabular-nums text-zinc-400">
             {cagrLabel}
