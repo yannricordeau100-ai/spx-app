@@ -48,8 +48,8 @@ function isPublicPath(pathname: string): boolean {
   if (pathname === "/maintenance") return true;
   // /parrainage = page publique (visible sans compte, propose le sign-in à l'intérieur).
   if (pathname === "/parrainage") return true;
-  // /contact = formulaire de contact public.
-  if (pathname === "/contact") return true;
+  // /contact = formulaire de contact RÉSERVÉ aux comptes inscrits
+  // (Yann 13 mai 2026). Non public, gate auth obligatoire.
   // Yann (12 mai 2026) : les HUBS V1.7/V1.8 restent publics, MAIS les
   // pages société individuelles sont gatées (signup requis). Avant, tout
   // /sandbox/v1-8/<ticker> était accessible sans compte → Yann a vu un
@@ -64,8 +64,9 @@ function isPublicPath(pathname: string): boolean {
     const tail = pathname.replace(/^\/sandbox\/v1-[78]\//, "");
     const firstSeg = tail.split("/")[0] ?? "";
     // Liste blanche des sous-routes utilitaires (non-tickers)
+    // /contact retiré (auth requise, Yann 13 mai 2026).
     const UTIL_SUBPATHS = new Set([
-      "pricing", "contact", "pages-toggle", "freshness-audit",
+      "pricing", "pages-toggle", "freshness-audit",
       "i18n-audit", "geo-test", "data-status",
     ]);
     if (UTIL_SUBPATHS.has(firstSeg)) return true;

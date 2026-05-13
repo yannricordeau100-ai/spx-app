@@ -6,6 +6,8 @@ import { PricingMatrix } from "@/components/billing/pricing-matrix";
 import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
 import { BrandWordmark } from "@/components/brand-wordmark";
 import { FloatingLogosBg } from "@/components/billing/floating-logos-bg";
+import { AuthNav } from "@/components/auth-nav";
+import { CurrencyPicker } from "@/components/billing/currency-picker";
 import { loadPricingCatalog } from "@/lib/billing/load-pricing";
 import { getServerLocale } from "@/lib/i18n/server";
 import { translate } from "@/lib/i18n/dictionary";
@@ -75,15 +77,11 @@ export default async function V18PricingPage() {
           <BrandWordmark size="sm" animated={false} showRail={false} />
         </Link>
         <div className="flex items-center gap-3">
-          <Link href="/login" className="text-sm text-zinc-400 transition-colors hover:text-zinc-100">
-            Se connecter
-          </Link>
-          <Link
-            href="/signup"
-            className="inline-flex items-center gap-1.5 rounded-lg border border-violet-500/30 bg-violet-500/10 px-3.5 py-2 text-sm font-semibold text-violet-200 transition-colors hover:border-violet-500/50 hover:bg-violet-500/15"
-          >
-            S&apos;inscrire
-          </Link>
+          <CurrencyPicker current={currency} />
+          {/* AuthNav réactif : affiche initiales + lien /account si connecté,
+              ou Connexion + S'inscrire en style "Risographe" sinon (même
+              style que la home page). */}
+          <AuthNav scope="home" />
         </div>
       </nav>
 
