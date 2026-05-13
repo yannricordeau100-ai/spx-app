@@ -4,6 +4,7 @@ import { Brain, TrendingUp, Zap, ShieldAlert, MinusCircle } from "lucide-react";
 import { isOfficialSource, type AIPositioning } from "@/lib/data";
 import { brand } from "@/lib/brand";
 import { useT } from "@/lib/i18n/provider";
+import { normalizeNarrative } from "@/lib/ui-fix-templates";
 
 const STANCE_META: Record<
   AIPositioning["stance"],
@@ -93,7 +94,7 @@ export function AIPositioningCard({
         </div>
 
         <p className="mt-4 text-[15px] leading-relaxed text-zinc-100">
-          {effective.summary}
+          {effective.summary ? normalizeNarrative(effective.summary) : effective.summary}
         </p>
 
         {Array.isArray(effective.evidence) && effective.evidence.length > 0 && (
@@ -111,7 +112,7 @@ export function AIPositioningCard({
                     className="mt-0.5 size-3.5 shrink-0"
                     style={{ color: meta.color }}
                   />
-                  {e}
+                  {typeof e === "string" ? normalizeNarrative(e) : e}
                 </li>
               ))}
             </ul>
