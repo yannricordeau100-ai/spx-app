@@ -5,6 +5,7 @@ import { Target, TrendingUp } from "lucide-react";
 import { isOfficialSource, type Company, type MarketPosition } from "@/lib/data";
 import { InfoTooltip } from "@/components/info-tooltip";
 import { brand } from "@/lib/brand";
+import { normalizeNarrative } from "@/lib/ui-fix-templates";
 
 function fmt(n: number, decimals = 0) {
   return n.toLocaleString("fr-FR", {
@@ -56,7 +57,7 @@ export function MarketPositionCard({
                 </div>
               )}
               {position.source_note && (
-                <p className="text-[12px] leading-relaxed text-zinc-300">{position.source_note}</p>
+                <p className="text-[12px] leading-relaxed text-zinc-300">{normalizeNarrative(position.source_note)}</p>
               )}
               {position.tam_range && (
                 <p className="mt-2 text-[11.5px] italic text-zinc-400">
