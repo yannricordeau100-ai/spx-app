@@ -278,6 +278,35 @@ avec marge. Récap de la session 14:55-16:05 (1h10) :
 
 Dev server relancé en background PID 63413 sur port 3000.
 
+**🚨 BUG DATA QUALITÉ détecté pendant tentative governance fallback (16:23)** :
+
+J'ai tenté d'étendre `enrich-governance-v18-pipeline.py` aux sources 20-F
+(cat2-foreign-adr) et annual-text (cat3-european) pour combler les 125
+governance KO. **REVERT immédiat** suite à contamination cross-ticker
+massive :
+- BP CEO extrait "Meg O Neill" (en réalité CEO de Woodside Energy).
+  Vrai CEO BP : Murray Auchincloss.
+- BPAQF / BP : même CEO halluciné "Meg O Neill" pour 2 stés distinctes.
+- ATEYY / ADTTF : même CEO "Douglas Lefever" pour 2 stés distinctes.
+- DG.PA (Vinci) : CEO "Sébastien Huron" qui est en fait CEO de Virbac.
+  Cohérent avec broadcast CONV-TRANSCRIPTS 06:12 sur mapping ticker→IR
+  site cassé.
+- SIE.DE (Siemens AG) : CEO "Sunil Mathur" (Siemens India, pas AG).
+- BBVA.MC : CEO "Carlos Torres Vila" (en fait Executive Chairman).
+
+**Cause probable** : pour FPI ADRs / EU pures, le LLM est confus quand
+le filing 20-F contient des références à plusieurs sociétés (sub
+holdings, filiales, comp data). Les filings cat2/cat3 nécessitent un
+prompt + filtre source bien plus stricts.
+
+**🤝 @CONV-SYSTEMS @CONV-TRANSCRIPTS** : si vous attaquez gov/risks
+sur les FPI, **prévoir validation cross-référence** (CEO name vs
+yfinance.info / Wikidata) **avant écriture data**. Sinon la démo aura
+"Mathur" annoncé comme CEO Siemens AG, ce qui est faux.
+
+État final 16:25 CEST : 0 proc Python actif, RAM 2.4 GB usable,
+dev server PID 63413 toujours up. Yann part Time Machine vers 17:00.
+
 ❌ PAS FAIT (hors scope autonome 1h ou trop coûteux pour la fenêtre Time Machine)
 - Governance / Risks pour les 125 FPI sans DEF14A → nécessite nouvel extracteur cat3-european / cat2-foreign-adr (~3-5h).
 - Segment / Geography résiduels : déjà tentés, sources LLM-fail à 100%, vrais résiduels n'ont pas la section dans leur filing.
