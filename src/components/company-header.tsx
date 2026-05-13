@@ -7,6 +7,7 @@ import { brand } from "@/lib/brand";
 import { CompanyLogo, logoNeedsLightBg } from "@/components/logos";
 import { StockPriceBlock } from "@/components/stock-price-block";
 import { useT } from "@/lib/i18n/provider";
+import { translateSubsector } from "@/lib/ui-fix-templates";
 
 /**
  * 2 different hover effects, applied ONLY on logo + name:
@@ -122,7 +123,7 @@ export function CompanyHeader({
         <div className="min-w-0 flex-1">
           <CompanyName name={company.name} ticker={company.ticker} accent={accent} />
           <div className="mt-1.5 text-[14px] text-zinc-400">
-            {company.sector} <span className="text-zinc-700">·</span> {company.subsector}
+            {translateSubsector(company.sector)} <span className="text-zinc-700">·</span> {translateSubsector(company.subsector)}
           </div>
           <p className="mt-2 max-w-2xl text-[14.5px] italic leading-relaxed text-zinc-400">
             “{company.tagline}”
@@ -139,8 +140,8 @@ export function CompanyHeader({
         {isUsOrAdr(company.ticker) && (
           <StatChip label={t("company.rank_us")} value={company.ranks.global_us} />
         )}
-        <StatChip label={company.sector} value={company.ranks.sector} />
-        <StatChip label={company.subsector} value={company.ranks.subsector} />
+        <StatChip label={translateSubsector(company.sector)} value={company.ranks.sector} />
+        <StatChip label={translateSubsector(company.subsector)} value={company.ranks.subsector} />
         <StatChip label={t("company.founded")} value={String(company.founded)} />
         <StatChip label={t("company.ipo")} value={String(company.ipo)} />
       </div>
