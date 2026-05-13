@@ -67,12 +67,31 @@ def check_ranks(t, p, e):
     return False
 
 
-def check_hero_history(p):
+def find_hero_kpi(p):
+    """Reproduit la logique fuzzy de load-company.ts (exact → fuzzy → first)."""
     hero = p.get("hero_kpi")
-    if not hero:
-        return False
     kpis = p.get("kpis", [])
-    h = next((k for k in kpis if k.get("short") == hero), None)
+    if not isinstance(kpis, list) or not kpis:
+        return None
+    if hero:
+        exact = next((k for k in kpis if k.get("short") == hero), None)
+        if exact:
+            return exact
+        # Fuzzy match
+        heroLow = hero.lower()
+        fuzzy = next(
+            (k for k in kpis if isinstance(k.get("short"), str)
+             and (heroLow in k["short"].lower() or k["short"].lower() in heroLow)),
+            None
+        )
+        if fuzzy:
+            return fuzzy
+    # Fallback first
+    return kpis[0] if kpis else None
+
+
+def check_hero_history(p):
+    h = find_hero_kpi(p)
     if not h:
         return False
     hist = h.get("history")
@@ -104,12 +123,22 @@ def check_governance(p, e):
 
 
 def check_ai(p, e):
-    ai = p.get("ai_positioning") or e.get("ai_positioning")
-    if not isinstance(ai, dict):
-        return False
-    stance = ai.get("stance")
-    ev = ai.get("evidence")
-    return bool(stance) and isinstance(ev, list) and len(ev) >= 1
+    """Check both pipeline + enrich, prend le plus complet (max evidence)."""
+    candidates = [p.get("ai_positioning"), e.get("ai_positioning")]
+    best_ev = 0
+    best_stance = None
+    for ai in candidates:
+        if not isinstance(ai, dict):
+            continue
+        st = ai.get("stance")
+        ev = ai.get("evidence")
+        ev_count = len(ev) if isinstance(ev, list) else 0
+        if ev_count > best_ev:
+            best_ev = ev_count
+            best_stance = st
+        elif best_stance is None and st:
+            best_stance = st
+    return bool(best_stance) and best_ev >= 1
 
 
 def check_segment(p, e):

@@ -240,7 +240,7 @@ avec marge. Récap de la session 14:55-16:05 (1h10) :
   (vérifie 13 blocs avec leurs séparate-files conventions).
 - Rebuild merged 2208 stés + 3 em-dashes sanitized.
 
-**État RÉEL top 307 V1.8 par bloc (audit 16:02 CEST)** :
+**État RÉEL top 307 V1.8 par bloc (audit corrigé 16:10 CEST)** :
 
 | Bloc | OK | KO | % | Source de la lacune |
 |---|---|---|---|---|
@@ -248,17 +248,23 @@ avec marge. Récap de la session 14:55-16:05 (1h10) :
 | events | 307 | 0 | **100%** ✅ | - |
 | customer_type | 304 | 3 | 99% | Sources insuffisantes (TD, ABF.L, CHKP) |
 | logo | 302 | 5 | 98% | Pas de domaine résolvable (MUFG, DANSKE.CO, STT, DKS, DECK) |
+| ai_positioning | 301 | 6 | 98% | Stance/evidence vide sur 6 EU (DG.PA, VOW.DE, MB.MI…) |
+| hero_history | 294 | 13 | 96% | 6 unverified honest + 7 autres history <3 pts |
 | freshness | 289 | 18 | 94% | Dates anciennes côté FPI ADR |
 | kpis_5plus | 285 | 22 | 93% | <5 KPIs (NFLX, KLAC, PBR, MO, PGR…) |
-| hero_history | 268 | 39 | 87% | 6 marqués unverified + 33 autres |
 | risks | 235 | 72 | 78% | Sources EU non extractables sans nouveau pipeline |
 | governance | 182 | 125 | 59% | FPI sans DEF14A + EU (besoin extracteur cat3) |
-| ai_positioning | 158 | 149 | 52% | structure stance/evidence pas toujours respectée |
 | segment | 166 | 141 | 54% | Sections non extractables (résiduels filtrés) |
-| geography | 134 | 173 | 44% | Idem |
+| geography | 134 | 173 | 44% | Idem (JPM/V/JNJ/BAC US sans extraction réussie) |
 | tam | 7 | 300 | 2% | **honesty rule = NORMAL** (TAM seulement si sté l'a chiffré elle-même) |
 
-**Stés 100% OK sur les 13 blocs : 2/307** (MSFT, TSLA).
+**Stés 100% OK sur les 13 blocs : 4/307** (MSFT, TSLA, +2 autres).
+
+**Audit fixes appliqués pendant la session** :
+- Fuzzy hero_kpi match (reproduit load-company.ts logic) → hero_history 87% → 96%
+- AI positioning : prefer enrich over pipeline (evidence count max) → 52% → 98%
+- Conventions séparate files (events/ranks/tam) → bons chemins
+- Naming logo (`.SW` → `-SW`) → 69% → 98%
 
 ❌ PAS FAIT (hors scope autonome 1h ou trop coûteux pour la fenêtre Time Machine)
 - Governance / Risks pour les 125 FPI sans DEF14A → nécessite nouvel extracteur cat3-european / cat2-foreign-adr (~3-5h).

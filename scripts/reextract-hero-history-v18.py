@@ -56,6 +56,20 @@ TARGETS = [
     "GIS", "NOKIA.HE", "NVS", "PANW", "T", "WWD",
 ]
 
+# Enhance-only group : stés top 307 avec hero history courte (1-2 points)
+# mais PAS identifiée fake-linéaire. Logique : enrichir si on trouve plus
+# de points dans le filing, sinon GARDER l'existant (jamais downgrade).
+TARGETS_ENHANCE_ONLY = [
+    "AMAT", "9984.T", "BP.L", "BARC.L", "EIPAF", "DGE.L", "ON", "SHL.DE",
+    "KOG.OL", "VIE.PA", "NTRS", "PHIA.AS", "HEN.DE", "NESTE.HE", "WRB",
+    "CMS", "EDP.LS", "ILMN", "RBA", "MB.MI", "UNI.MI", "BIP", "GRAB",
+    "YAR.OL", "AGN.AS", "MEDP", "ABVX", "PAH3.DE", "RRC", "AOS",
+]
+
+# Mode : "strict" = downgrade fake → 1 point + flag unverified
+#         "enhance" = enrichir seulement, jamais downgrade
+MODE = os.environ.get("REEXTRACT_MODE", "strict")
+
 
 def load_env():
     env = PROJECT_ROOT / ".env.local"
@@ -225,12 +239,17 @@ def process_ticker(ticker, api_key):
         log_line(f"  ⚠ {ticker}: hero_kpi '{hero_short}' introuvable dans kpis[]")
         return False
 
+    existing_hist = hero_kpi.get("history") if isinstance(hero_kpi.get("history"), list) else []
+    enhance_only = MODE == "enhance"
+
     text, source_label = find_filing(ticker)
     if not text:
+        if enhance_only:
+            log_line(f"  ⏭ {ticker}: filing introuvable → skip (enhance mode, garde history existant)")
+            return False
         log_line(f"  🚫 {ticker}: source filing introuvable → mark unverified")
         hero_kpi["_hero_history_unverified"] = True
         hero_kpi["_hero_history_reason"] = "filing introuvable côté sec-data"
-        # Replace synthetic history with just current value
         if "value" in hero_kpi:
             hero_kpi["history"] = [hero_kpi["value"]]
         pipe_path.write_text(json.dumps(data, indent=2, ensure_ascii=False))
@@ -243,6 +262,9 @@ def process_ticker(ticker, api_key):
         hero_kpi.get("name_en", "")
     )
     if not ctx or len(ctx) < 500:
+        if enhance_only:
+            log_line(f"  ⏭ {ticker}: KPI non mentionné → skip (enhance mode)")
+            return False
         log_line(f"  🚫 {ticker}: KPI '{hero_short}' non mentionné dans filing → mark unverified")
         hero_kpi["_hero_history_unverified"] = True
         hero_kpi["_hero_history_reason"] = f"KPI '{hero_short}' non trouvé dans {source_label}"
@@ -262,6 +284,9 @@ def process_ticker(ticker, api_key):
     )
     result = call_haiku(prompt, api_key)
     if not result or not isinstance(result, dict):
+        if enhance_only:
+            log_line(f"  ⏭ {ticker}: LLM fail → skip (enhance mode)")
+            return False
         log_line(f"  ❌ {ticker}: LLM fail → mark unverified")
         hero_kpi["_hero_history_unverified"] = True
         hero_kpi["_hero_history_reason"] = "LLM call failed"
@@ -275,15 +300,28 @@ def process_ticker(ticker, api_key):
     evidence = result.get("evidence", "")
 
     if not found:
+        if enhance_only:
+            log_line(f"  ⏭ {ticker}: history non trouvée → skip (enhance mode)")
+            return False
         log_line(f"  ⚪ {ticker}: history non trouvée → mark unverified ({evidence[:60]})")
         hero_kpi["_hero_history_unverified"] = True
         hero_kpi["_hero_history_reason"] = f"non trouvée dans {source_label}: {evidence[:120]}"
         if "value" in hero_kpi:
             hero_kpi["history"] = [hero_kpi["value"]]
     else:
-        # Filter out nulls, keep only verified values
         verified = [v for v in new_history if isinstance(v, (int, float))]
-        if len(verified) < 2:
+        if enhance_only:
+            # Mode enhance : remplace seulement si plus de points
+            if len(verified) > len(existing_hist):
+                hero_kpi["history"] = verified
+                hero_kpi["_hero_history_source"] = source_label
+                hero_kpi["_hero_history_evidence"] = evidence[:300]
+                hero_kpi["_hero_history_unverified"] = False
+                log_line(f"  ✅ {ticker}: {len(verified)} > {len(existing_hist)} pts → upgrade | {evidence[:60]}")
+            else:
+                log_line(f"  ⏭ {ticker}: {len(verified)} ≤ {len(existing_hist)} pts → skip (garde existant)")
+                return False
+        elif len(verified) < 2:
             log_line(f"  ⚪ {ticker}: <2 valeurs vérifiées → mark unverified")
             hero_kpi["_hero_history_unverified"] = True
             hero_kpi["_hero_history_reason"] = f"<2 valeurs chiffrées vérifiées dans {source_label}"
@@ -308,12 +346,13 @@ def main():
         log_line("❌ ANTHROPIC_API_KEY introuvable")
         sys.exit(1)
 
-    log_line(f"START re-extract hero history : {len(TARGETS)} stés top 307 (sleep {SLEEP_BETWEEN_CALLS}s, 1 proc)")
+    targets = TARGETS_ENHANCE_ONLY if MODE == "enhance" else TARGETS
+    log_line(f"START re-extract hero history MODE={MODE} : {len(targets)} stés top 307 (sleep {SLEEP_BETWEEN_CALLS}s, 1 proc)")
 
     written = 0
     fails = 0
     last_call = 0.0
-    for tk in TARGETS:
+    for tk in targets:
         elapsed = time.time() - last_call
         if elapsed < SLEEP_BETWEEN_CALLS:
             time.sleep(SLEEP_BETWEEN_CALLS - elapsed)
