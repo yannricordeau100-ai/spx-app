@@ -151,7 +151,16 @@ export function fiscalLabelsForTicker(
 
   const cur = fiscalQuarter(periodEnd, fyEndMonth);
   if (!cur) return null;
-  const next = nextFiscalQuarter(cur.fy, cur.q);
+  // Pour les calendriers (fyEndMonth=12), `cur.fy` = année complète (2026) →
+  // libellé prochain = "Q2 2026" pas "FY2026 Q2".
+  const next =
+    fyEndMonth === 12
+      ? (() => {
+          const nq = cur.q < 4 ? cur.q + 1 : 1;
+          const ny = cur.q < 4 ? cur.fy : cur.fy + 1;
+          return { fy: ny, q: nq, label: `Q${nq} ${ny}` };
+        })()
+      : nextFiscalQuarter(cur.fy, cur.q);
   const nextPeriodEnd = estimateNextPeriodEnd(periodEnd);
 
   return {
