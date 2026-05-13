@@ -180,6 +180,18 @@ export async function loadV17Company(
     FOX: "FOXA",
     NWSA: "NWS",
     UAA: "UA",
+    // Top 307 V1.8 doublons ADR/multi-listing (canonical = listing principale)
+    ASMLF: "ASML",
+    ABBNY: "ABBN.SW",
+    ABLZF: "ABBN.SW",
+    DTEGY: "DTEGF",
+    ADTTF: "ATEYY",
+    BPAQF: "BP",
+    "BP.L": "BP",
+    "NDA-DK.CO": "NDA-FI.HE",
+    EDPFY: "EDP.LS",
+    BCLYF: "BARC.L",
+    BBVXF: "BBVA",
   };
   const upper = ticker.toUpperCase();
   const canonical = ALIASES[upper] ?? upper;
@@ -319,7 +331,6 @@ export async function loadV17Company(
       "financial_snapshot",
       "key_facts",
       "peers",
-      "latest_news",
       "latest_filing",
     ] as const) {
       if (
