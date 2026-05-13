@@ -46,6 +46,12 @@ const ITEMS = [
     label: "Sources IR (téléchargement docs)",
     desc: "URLs page corp + IR home + page docs IR par sté. Le scraper télécharge auto les PDFs absents de SEC EDGAR (CFO commentary, press releases, transcripts, slides).",
   },
+  {
+    href: "/sandbox/ir-coverage",
+    icon: Database,
+    label: "Couverture docs par sté",
+    desc: "Bilan SEC EDGAR + IR scraper pour 344 sociétés (top 305 V1.8 + V1 demo). Détail par doc-type pour identifier ce qui manque.",
+  },
 ];
 
 /* ─────────────────────────────────────────────────────────────── */
