@@ -131,6 +131,16 @@ def extract_geo_section(text: str, max_chars: int = 12000) -> str:
         r"revenue\s+disaggregated\s+by\s+geograph",
         r"sales\s+disaggregated\s+by\s+geograph",
         r"information\s+about\s+geographic\s+areas",
+        # Formulations alternatives US (souvent en Notes ou MD&A sans "Geographic")
+        r"outside\s+(?:the\s+)?United\s+States",
+        r"international\s+revenues?",
+        r"international\s+sales",
+        r"domestic\s+and\s+international",
+        r"United\s+States\s+and\s+other\s+countries",
+        r"revenue\s+by\s+country",
+        r"revenues?\s+by\s+geography",  # variant
+        r"foreign\s+operations\s+revenue",
+        r"long-lived\s+assets\s+by\s+geograph",
         # FR/DE/IT/ES
         r"r[ée]partition\s+g[ée]ographique",
         r"chiffre\s+d.affaires\s+par\s+r[ée]gion",
