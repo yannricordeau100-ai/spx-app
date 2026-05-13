@@ -244,6 +244,10 @@ Règles STRICTES :
 - Labels en français si traduction évidente ("Amériques", "Europe", "Asie-Pacifique", "Reste du monde"), sinon EN
 - Pas d'em-dash dans les labels
 - source_date au format ISO YYYY-MM-DD
+- **ANTI-POLLUTION CROSS-TICKER** : extraire UNIQUEMENT le split géographique
+  propre à {ticker}. Si l'extrait mentionne des chiffres de filiales,
+  concurrents, ou autres sociétés citées (deals, comp, JV, owners, etc.),
+  les IGNORER. Seul le CA géographique de {ticker} compte.
 
 Extraits :
 {context}
