@@ -1,8 +1,22 @@
 "use client";
 
 import { useState } from "react";
-import { Building2, Users, Globe, TrendingUp, TrendingDown, ArrowRight, ExternalLink, Newspaper, Sparkles, BookOpen } from "lucide-react";
-import Link from "next/link";
+import {
+  TrendingUp,
+  TrendingDown,
+  ExternalLink,
+  Newspaper,
+  Sparkles,
+  BookOpen,
+  Target,
+  Package,
+  Users as UsersIcon,
+  Trophy,
+  Cpu,
+  Shield,
+  AlertTriangle,
+  MapPin,
+} from "lucide-react";
 import type { Company } from "@/lib/data";
 import { useT } from "@/lib/i18n/provider";
 
@@ -34,14 +48,31 @@ export function CompanyProfileCard({ company, accent = "#a78bfa" }: { company: C
   const mDesc = company.mettrik_description;
   const legacyDesc = company.company_description;
   const snap = company.financial_snapshot;
-  const facts = company.key_facts;
-  const peers = company.peers;
   const news = company.latest_news;
 
   const [descMode, setDescMode] = useState<"simple" | "advanced">("simple");
 
-  const hasAnything = mDesc || news || legacyDesc || snap || facts || (peers && peers.length > 0);
+  // Yann 14 mai 2026 : retrait des blocs "Faits clés" + "Sociétés comparables"
+  // (visuellement trop pauvres, infos déjà disponibles ailleurs : industrie
+  // dans le bandeau ranks haut de page, comparables dans le filtre home).
+  const hasAnything = mDesc || news || legacyDesc || snap;
   if (!hasAnything) return null;
+
+  // Sections de la description (icônes + labels FR)
+  const SIMPLE_SECTIONS = [
+    { key: "activity", label: "Ce qu'elle fait", labelEn: "What it does", labelDe: "Was es macht", Icon: Target },
+    { key: "products", label: "Produits & services", labelEn: "Products & services", labelDe: "Produkte & Services", Icon: Package },
+    { key: "customers", label: "Clients", labelEn: "Customers", labelDe: "Kunden", Icon: UsersIcon },
+    { key: "edge", label: "Sa force", labelEn: "Its edge", labelDe: "Stärken", Icon: Trophy },
+  ] as const;
+  const ADVANCED_SECTIONS = [
+    { key: "positioning", label: "Positionnement", labelEn: "Positioning", labelDe: "Positionierung", Icon: MapPin },
+    { key: "tech_products", label: "Technologies & produits", labelEn: "Tech & products", labelDe: "Technologien & Produkte", Icon: Cpu },
+    { key: "moat", label: "Avantages durables", labelEn: "Moat", labelDe: "Wettbewerbsvorteile", Icon: Shield },
+    { key: "risks", label: "Risques structurels", labelEn: "Structural risks", labelDe: "Strukturelle Risiken", Icon: AlertTriangle },
+  ] as const;
+  const sectionLabel = (s: { label: string; labelEn: string; labelDe: string }) =>
+    lang === "de" ? s.labelDe : lang === "en" ? s.labelEn : s.label;
 
   return (
     <section id="sec-profile" className="mt-9 scroll-mt-24">
@@ -51,53 +82,80 @@ export function CompanyProfileCard({ company, accent = "#a78bfa" }: { company: C
         <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">Source : Mettrik AI + yfinance</span>
       </div>
 
-      {/* Nouveau : Description Mettrik PV (simple / avancée) — toggle */}
-      {mDesc && (
-        <div className="mb-4 rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5">
-          <div className="mb-3 flex items-center justify-between gap-3">
-            <h3 className="flex items-center gap-2 font-display text-[14px] font-semibold uppercase tracking-wider text-zinc-300">
-              <Sparkles className="size-3.5" style={{ color: accent }} />
-              Description Mettrik
-            </h3>
-            {/* Toggle Simple / Avancée */}
-            <div className="inline-flex items-center gap-0.5 rounded-full border border-white/10 bg-white/[0.02] p-0.5">
-              <button
-                type="button"
-                onClick={() => setDescMode("simple")}
-                className={
-                  "rounded-full px-2.5 py-1 text-[10.5px] font-semibold uppercase tracking-wider transition-colors " +
-                  (descMode === "simple"
-                    ? "bg-white/10 text-zinc-100"
-                    : "text-zinc-500 hover:text-zinc-200")
-                }
-              >
-                Simple
-              </button>
-              <button
-                type="button"
-                onClick={() => setDescMode("advanced")}
-                className={
-                  "inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[10.5px] font-semibold uppercase tracking-wider transition-colors " +
-                  (descMode === "advanced"
-                    ? "bg-white/10 text-zinc-100"
-                    : "text-zinc-500 hover:text-zinc-200")
-                }
-              >
-                <BookOpen className="size-3" />
-                Avancée
-              </button>
+      {/* Layout principal : Description Mettrik (2/3) + Snapshot boursier (1/3).
+          Yann 14 mai 2026 v2 : structure sections (~150 mots), look pro. */}
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+        {/* Description Mettrik : 2/3 width, sections nommées avec icônes */}
+        {mDesc && (
+          <div className="rounded-2xl border border-white/[0.06] bg-gradient-to-br from-white/[0.025] to-transparent p-5 lg:col-span-2">
+            <div className="mb-4 flex items-center justify-between gap-3">
+              <h3 className="flex items-center gap-2 font-display text-[14px] font-semibold uppercase tracking-wider text-zinc-200">
+                <Sparkles className="size-3.5" style={{ color: accent }} />
+                Description Mettrik
+              </h3>
+              {/* Toggle Simple / Avancée */}
+              <div className="inline-flex items-center gap-0.5 rounded-full border border-white/10 bg-white/[0.02] p-0.5">
+                <button
+                  type="button"
+                  onClick={() => setDescMode("simple")}
+                  className={
+                    "rounded-full px-3 py-1 text-[10.5px] font-semibold uppercase tracking-wider transition-colors " +
+                    (descMode === "simple"
+                      ? "bg-white/10 text-zinc-100"
+                      : "text-zinc-500 hover:text-zinc-200")
+                  }
+                >
+                  Simple
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setDescMode("advanced")}
+                  className={
+                    "inline-flex items-center gap-1 rounded-full px-3 py-1 text-[10.5px] font-semibold uppercase tracking-wider transition-colors " +
+                    (descMode === "advanced"
+                      ? "bg-white/10 text-zinc-100"
+                      : "text-zinc-500 hover:text-zinc-200")
+                  }
+                >
+                  <BookOpen className="size-3" />
+                  Avancée
+                </button>
+              </div>
+            </div>
+            {/* Sections : 1 colonne sur mobile, 2 sur tablet+. Chaque section
+                = icône + label + texte. Indent visuel avec border-l accent. */}
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-x-5 sm:gap-y-3.5">
+              {(descMode === "simple" ? SIMPLE_SECTIONS : ADVANCED_SECTIONS).map((s) => {
+                const content = (
+                  descMode === "simple"
+                    ? mDesc.simple?.[lang] ?? mDesc.simple?.en
+                    : mDesc.advanced?.[lang] ?? mDesc.advanced?.en
+                ) as Record<string, string> | undefined;
+                const text = content?.[s.key] ?? "";
+                if (!text) return null;
+                return (
+                  <div key={s.key} className="pl-3" style={{ borderLeft: `2px solid ${accent}33` }}>
+                    <div className="mb-1 flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.12em]" style={{ color: accent }}>
+                      <s.Icon className="size-3" />
+                      {sectionLabel(s)}
+                    </div>
+                    <p className="text-[13px] leading-relaxed text-zinc-200">{text}</p>
+                  </div>
+                );
+              })}
             </div>
           </div>
-          <p className="text-[14px] leading-relaxed text-zinc-200">
-            {mDesc[descMode]?.[lang] ?? mDesc[descMode]?.en ?? mDesc.simple?.[lang] ?? ""}
-          </p>
-        </div>
-      )}
+        )}
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-        {/* Dernière actualité (résumé Gemini, si dispo) ou fallback description legacy */}
+        {/* Snapshot boursier : 1/3 width. Mis à jour quotidiennement via
+            cron GitHub Actions (yfinance, gratuit). Yann 14 mai 2026. */}
+        {snap && <SnapshotCard snap={snap} accent={accent} />}
+      </div>
+
+      {/* Dernière actualité — bloc séparé, full-width, conditionnel */}
+      <div className="mt-4">
         {news ? (
-          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5 lg:col-span-2">
+          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5">
             <div className="mb-2 flex items-baseline justify-between gap-3">
               <h3 className="flex items-center gap-2 font-display text-[14px] font-semibold uppercase tracking-wider text-zinc-300">
                 <Newspaper className="size-3.5" style={{ color: accent }} />
@@ -124,118 +182,56 @@ export function CompanyProfileCard({ company, accent = "#a78bfa" }: { company: C
             )}
           </div>
         ) : !mDesc && legacyDesc ? (
-          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5 lg:col-span-2">
+          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5">
             <h3 className="mb-2 font-display text-[14px] font-semibold uppercase tracking-wider text-zinc-300">À propos</h3>
             <p className="text-[13.5px] leading-relaxed text-zinc-300 line-clamp-[10]">{legacyDesc}</p>
           </div>
         ) : null}
-
-        {/* Snapshot boursier */}
-        {snap && (
-          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5">
-            <h3 className="mb-3 font-display text-[14px] font-semibold uppercase tracking-wider text-zinc-300">Snapshot boursier</h3>
-            <div className="grid grid-cols-2 gap-x-4 gap-y-2.5 text-[12.5px]">
-              <SnapRow label="Capitalisation" value={fmtMarketCap(snap.market_cap_usd, snap.currency)} accent={accent} />
-              <SnapRow label="P / E (TTM)" value={fmtNum(snap.pe_ratio, 1)} accent={accent} />
-              <SnapRow label="EPS (TTM)" value={fmtNum(snap.eps_ttm, 2)} accent={accent} />
-              <SnapRow label="Beta" value={fmtNum(snap.beta, 2)} accent={accent} />
-              <SnapRow label="Dividende" value={snap.dividend_yield_pct != null ? `${snap.dividend_yield_pct.toFixed(2)} %` : "—"} accent={accent} />
-              <SnapRow
-                label="Variation jour"
-                value={fmtPct(snap.day_change_pct)}
-                accent={accent}
-                colorize={snap.day_change_pct}
-              />
-              <SnapRow label="Plus-haut 52 sem." value={fmtNum(snap.high_52w, 2)} accent={accent} />
-              <SnapRow label="Plus-bas 52 sem." value={fmtNum(snap.low_52w, 2)} accent={accent} />
-            </div>
-          </div>
-        )}
-      </div>
-
-      <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-3">
-        {/* Faits clés (1/3) — Yann 14 mai 2026 : ligne "Industrie" RETIRÉE
-            (déjà visible dans le bandeau ranks en haut de page sté). */}
-        {facts && (
-          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5">
-            <h3 className="mb-3 font-display text-[14px] font-semibold uppercase tracking-wider text-zinc-300">Faits clés</h3>
-            <ul className="space-y-2 text-[12.5px] text-zinc-300">
-              {facts.hq_city && facts.hq_country && (
-                <li className="flex items-start gap-2">
-                  <Building2 className="mt-0.5 size-3.5 shrink-0 text-zinc-500" />
-                  <span>Siège : <span className="text-zinc-100">{facts.hq_city}, {facts.hq_country}</span></span>
-                </li>
-              )}
-              {typeof facts.employees_count === "number" && facts.employees_count > 0 && (
-                <li className="flex items-start gap-2">
-                  <Users className="mt-0.5 size-3.5 shrink-0 text-zinc-500" />
-                  <span>Employés : <span className="text-zinc-100 tabular-nums">{facts.employees_count.toLocaleString("fr-FR")}</span></span>
-                </li>
-              )}
-              {facts.exchange && (
-                <li className="flex items-start gap-2">
-                  <TrendingUp className="mt-0.5 size-3.5 shrink-0 text-zinc-500" />
-                  <span>Bourse : <span className="text-zinc-100">{prettyExchange(facts.exchange)}</span></span>
-                </li>
-              )}
-              {facts.isin && (
-                <li className="flex items-start gap-2 font-mono text-[11.5px]">
-                  <span className="mt-0.5 size-3.5 shrink-0 text-center text-zinc-500">#</span>
-                  <span>ISIN : <span className="text-zinc-100">{facts.isin}</span></span>
-                </li>
-              )}
-              {facts.website && (
-                <li className="flex items-start gap-2">
-                  <Globe className="mt-0.5 size-3.5 shrink-0 text-zinc-500" />
-                  <a
-                    href={facts.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-zinc-100 underline-offset-2 hover:underline"
-                    style={{ color: accent }}
-                  >
-                    Site officiel
-                    <ExternalLink className="size-3" />
-                  </a>
-                </li>
-              )}
-            </ul>
-          </div>
-        )}
-
-        {/* Peers (2/3) */}
-        {peers && peers.length > 0 && (
-          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5 lg:col-span-2">
-            <h3 className="mb-3 font-display text-[14px] font-semibold uppercase tracking-wider text-zinc-300">
-              Sociétés comparables
-            </h3>
-            <p className="mb-3 text-[11.5px] text-zinc-500">
-              {peers.length} sés de la sous-industrie {peers[0]?.subsector || company.subsector}, classées par taille proche de {company.ticker}.
-            </p>
-            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3">
-              {peers.map((p) => (
-                <Link
-                  key={p.ticker}
-                  href={`/sandbox/v1-7/${p.ticker.toLowerCase()}`}
-                  className="group flex items-center justify-between gap-2 rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 py-2.5 transition-colors hover:border-violet-400/30 hover:bg-white/[0.04]"
-                >
-                  <div className="min-w-0 flex-1">
-                    <div className="font-mono text-[11px] font-bold uppercase tracking-wider" style={{ color: accent }}>
-                      {p.ticker}
-                    </div>
-                    <div className="truncate text-[12px] text-zinc-200">{p.name}</div>
-                    {typeof p.market_cap_usd === "number" && p.market_cap_usd > 0 && (
-                      <div className="font-mono text-[10.5px] text-zinc-500">{fmtMarketCap(p.market_cap_usd)}</div>
-                    )}
-                  </div>
-                  <ArrowRight className="size-3.5 shrink-0 text-zinc-600 transition-colors group-hover:text-violet-400" />
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
     </section>
+  );
+}
+
+/** Yann 14 mai 2026 : carte snapshot boursier extraite en composant
+ *  pour la placer en colonne droite à côté de la description. Mis à jour
+ *  quotidiennement via cron GitHub Actions (yfinance, gratuit). */
+function SnapshotCard({
+  snap,
+  accent,
+}: {
+  snap: NonNullable<Company["financial_snapshot"]>;
+  accent: string;
+}) {
+  return (
+    <div className="rounded-2xl border border-white/[0.06] bg-gradient-to-br from-white/[0.025] to-transparent p-5">
+      <div className="mb-3 flex items-center justify-between">
+        <h3 className="font-display text-[14px] font-semibold uppercase tracking-wider text-zinc-200">
+          Snapshot boursier
+        </h3>
+        <span className="font-mono text-[9px] uppercase tracking-wider text-zinc-500">
+          MAJ quotidienne
+        </span>
+      </div>
+      <div className="grid grid-cols-2 gap-x-4 gap-y-2.5 text-[12.5px]">
+        <SnapRow label="Capitalisation" value={fmtMarketCap(snap.market_cap_usd, snap.currency)} accent={accent} />
+        <SnapRow label="P / E (TTM)" value={fmtNum(snap.pe_ratio, 1)} accent={accent} />
+        <SnapRow label="EPS (TTM)" value={fmtNum(snap.eps_ttm, 2)} accent={accent} />
+        <SnapRow label="Beta" value={fmtNum(snap.beta, 2)} accent={accent} />
+        <SnapRow
+          label="Dividende"
+          value={snap.dividend_yield_pct != null ? `${snap.dividend_yield_pct.toFixed(2)} %` : "—"}
+          accent={accent}
+        />
+        <SnapRow
+          label="Variation jour"
+          value={fmtPct(snap.day_change_pct)}
+          accent={accent}
+          colorize={snap.day_change_pct}
+        />
+        <SnapRow label="Plus-haut 52 sem." value={fmtNum(snap.high_52w, 2)} accent={accent} />
+        <SnapRow label="Plus-bas 52 sem." value={fmtNum(snap.low_52w, 2)} accent={accent} />
+      </div>
+    </div>
   );
 }
 

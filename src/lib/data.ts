@@ -280,15 +280,27 @@ export type Company = {
    */
   company_description?: string;
   /**
-   * Yann 14 mai 2026 : description "PV Mettrik" générée par Gemini 2.5
-   * Flash, en 2 versions × 3 langues. Remplace l'ancienne description
-   * yfinance générique. Vise à donner un angle distinctif (PV) au lieu
-   * d'un résumé Wikipédia. Stockée dans
-   * `v2-pipeline-enrich/<ticker>.description.json` puis mergée ici.
+   * Yann 14 mai 2026 v2 : description "PV Mettrik" structurée par sections
+   * (Gemini 2.5 Flash, 2 versions × 3 langues × 4 sections). Remplace
+   * l'ancienne description yfinance générique. Stockée dans
+   * `v2-pipeline-enrich/<ticker>.description.json`.
+   *
+   * Schéma `v2-sections` :
+   *   - simple : pour débutant. 4 sections (activity, products, customers, edge).
+   *   - advanced : pour investisseur informé. 4 sections (positioning,
+   *     tech_products, moat, risks).
    */
   mettrik_description?: {
-    simple: { fr: string; en: string; de: string };
-    advanced: { fr: string; en: string; de: string };
+    simple: {
+      fr: { activity: string; products: string; customers: string; edge: string };
+      en: { activity: string; products: string; customers: string; edge: string };
+      de: { activity: string; products: string; customers: string; edge: string };
+    };
+    advanced: {
+      fr: { positioning: string; tech_products: string; moat: string; risks: string };
+      en: { positioning: string; tech_products: string; moat: string; risks: string };
+      de: { positioning: string; tech_products: string; moat: string; risks: string };
+    };
   };
   /** Snapshot boursier live (rafraîchi toutes les 14 j via yfinance). */
   financial_snapshot?: {

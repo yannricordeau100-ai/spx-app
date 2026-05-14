@@ -53,44 +53,53 @@ def load_env() -> dict[str, str]:
     return env
 
 
-PROMPT_TEMPLATE = """Tu rédiges DEUX descriptions de la société pour l'app Mettrik AI (KPI Intelligence pour investisseurs).
+PROMPT_TEMPLATE = """Tu rédiges la fiche "Comprendre la société" pour Mettrik AI (KPI Intelligence pour investisseurs).
 
 SOCIÉTÉ :
 - Ticker : {ticker}
 - Nom : {name}
 - Secteur : {sector}
 - Sous-secteur : {subsector}
-- Hero KPI : {hero_kpi}
+- Hero KPI suivi : {hero_kpi}
 - Tagline officielle (EN) : {tagline}
 
-DEUX VERSIONS À PRODUIRE, en 3 langues (fr, en, de) chacune :
+OBJECTIF : produire 2 versions (simple + avancée) × 3 langues (fr, en, de), chacune ORGANISÉE en sections nommées. PAS un pavé en prose, PAS deux pauvres lignes. Une fiche dense, structurée, qui donne envie de lire.
 
 ### VERSION 1 — "simple"
-PUBLIC : investisseur particulier de 16 ans, non-technique.
-OBJECTIF : comprendre en 10 secondes ce que fait la société et sa PV (plus-value distinctive).
-- Longueur : 40-60 mots par langue.
-- Style : mots simples, phrases courtes, pas de jargon.
-- Phrase 1 : ce que fait la société, comme on l'expliquerait à un ado.
-- Phrase 2 : sa PV, son angle distinctif vu de "loin" (= ce que tout le monde devrait savoir).
+PUBLIC : investisseur particulier qui découvre la société, niveau ado 16 ans, non-technique. Mots simples, phrases courtes, pas de jargon.
+Structure : 4 sections, 1-2 phrases courtes chacune (~110-150 mots total par langue).
+- `activity` : Ce que fait la société, en une phrase percutante.
+- `products` : Ses produits ou services principaux concrets (cite 2-4 exemples connus).
+- `customers` : Qui sont ses clients principaux (grand public, entreprises, gouvernement, etc.) et ce qu'ils achètent.
+- `edge` : Ce qui la rend unique/forte vu de loin. Réponse à : pourquoi un débutant devrait-il s'y intéresser ?
 
-### VERSION 2 — "avance"
-PUBLIC : investisseur informé qui connaît déjà le secteur et les concurrents directs.
-OBJECTIF : préciser POURQUOI cette société est différente de ses concurrents directs. NE PAS répéter ce qu'on dirait pour TOUTES les sociétés du sous-secteur. Exemple : pour NVIDIA, mentionner CUDA + architecture Hopper/Blackwell + position datacenter ; pour AMD, mentionner positionnement x86 + Ryzen/EPYC + valeur prix-perf. Pas la même définition générique "fabricant de puces".
-- Longueur : 50-80 mots par langue (un peu plus dense).
-- Style : précis, mention de produits/technos/marchés concrets propres à cette société.
-- Phrase 1 : positionnement précis dans la chaîne de valeur de son sous-secteur.
-- Phrase 2 : 1-2 leviers stratégiques propres à cette société (technos, brevets, marchés captés, intégration verticale, distribution, etc.).
+### VERSION 2 — "advanced"
+PUBLIC : investisseur informé, connaît le secteur, ne veut PAS la même description que tous les concurrents. Précis, factuel, niveau pro.
+Structure : 4 sections, 1-3 phrases chacune (~150-200 mots total par langue).
+- `positioning` : Position précise dans la chaîne de valeur du sous-secteur. Mention des concurrents directs et de la place vs eux.
+- `tech_products` : Technologies, produits, marques concrètes qui distinguent cette sté. Ex NVDA = CUDA + Hopper/Blackwell + DGX. Ex AMD = Ryzen + EPYC + x86. Ex AVGO = Jericho/Tomahawk + VMware. Pas de définition générique.
+- `moat` : Avantages concurrentiels DURABLES (verrous technologiques, brevets, distribution captive, intégration verticale, switching cost). Précis et vérifiable.
+- `risks` : 1-2 faiblesses concurrentielles ou risques structurels propres à CETTE société (pas le risque sectoriel générique). Honnête.
 
-CONTRAINTES STRICTES (les deux versions) :
-- PAS d'em-dash ("—" interdit). Utilise ":" ou phrases courtes séparées.
-- PAS exubérant, PAS original au point de surprendre. Ressembler à du sérieux d'investisseur, pas du marketing.
-- Pas d'éloge gratuite. Si la société a des faiblesses notoires dans son sous-secteur, on les évoque dans la version avancée.
+CONTRAINTES STRICTES (les 2 versions) :
+- PAS d'em-dash ("—" interdit). Utilise ":" ou phrases courtes.
+- PAS marketing exubérant. Ton sérieux, factuel d'investisseur.
+- Pas d'éloge gratuite. La section `edge` (simple) et `moat` (advanced) doit être prouvable.
+- Phrases complètes propres, finit toujours par un point.
 
-FORMAT RÉPONSE : JSON strict, RIEN d'autre. Pas de markdown, pas de ```json. Juste l'objet.
+FORMAT RÉPONSE : JSON strict, RIEN d'autre. Pas de markdown autour, pas de ```json. Juste l'objet ci-dessous.
 
 {{
-  "simple": {{ "fr": "...", "en": "...", "de": "..." }},
-  "advanced": {{ "fr": "...", "en": "...", "de": "..." }}
+  "simple": {{
+    "fr": {{ "activity": "...", "products": "...", "customers": "...", "edge": "..." }},
+    "en": {{ "activity": "...", "products": "...", "customers": "...", "edge": "..." }},
+    "de": {{ "activity": "...", "products": "...", "customers": "...", "edge": "..." }}
+  }},
+  "advanced": {{
+    "fr": {{ "positioning": "...", "tech_products": "...", "moat": "...", "risks": "..." }},
+    "en": {{ "positioning": "...", "tech_products": "...", "moat": "...", "risks": "..." }},
+    "de": {{ "positioning": "...", "tech_products": "...", "moat": "...", "risks": "..." }}
+  }}
 }}
 """
 
@@ -104,7 +113,7 @@ def call_gemini(api_key: str, prompt: str, retries: int = 3) -> dict | None:
         "generationConfig": {
             "responseMimeType": "application/json",
             "temperature": 0.6,
-            "maxOutputTokens": 2000,
+            "maxOutputTokens": 4000,
             "thinkingConfig": {"thinkingBudget": 0},  # désactive thinking (Gemini 2.5)
         },
     }
@@ -117,13 +126,21 @@ def call_gemini(api_key: str, prompt: str, retries: int = 3) -> dict | None:
                 data = json.loads(r.read())
                 content = data["candidates"][0]["content"]["parts"][0]["text"]
                 parsed = json.loads(content)
-                # Validation : simple + advanced, chacun avec fr/en/de
+                # Validation : simple {fr,en,de}{activity,products,customers,edge}
+                # + advanced {fr,en,de}{positioning,tech_products,moat,risks}
                 simple = parsed.get("simple", {})
                 advanced = parsed.get("advanced", {})
-                if (
-                    all(isinstance(simple.get(k), str) and simple[k].strip() for k in ("fr", "en", "de"))
-                    and all(isinstance(advanced.get(k), str) and advanced[k].strip() for k in ("fr", "en", "de"))
-                ):
+                simple_fields = ("activity", "products", "customers", "edge")
+                advanced_fields = ("positioning", "tech_products", "moat", "risks")
+                ok = True
+                for lang in ("fr", "en", "de"):
+                    s = simple.get(lang, {})
+                    a = advanced.get(lang, {})
+                    if not all(isinstance(s.get(f), str) and s[f].strip() for f in simple_fields):
+                        ok = False; break
+                    if not all(isinstance(a.get(f), str) and a[f].strip() for f in advanced_fields):
+                        ok = False; break
+                if ok:
                     return parsed
                 return None
         except urllib.error.HTTPError as e:
@@ -214,24 +231,16 @@ def main() -> None:
 
         payload = {
             "ticker": ticker,
-            "simple": {
-                "fr": result["simple"]["fr"].strip(),
-                "en": result["simple"]["en"].strip(),
-                "de": result["simple"]["de"].strip(),
-            },
-            "advanced": {
-                "fr": result["advanced"]["fr"].strip(),
-                "en": result["advanced"]["en"].strip(),
-                "de": result["advanced"]["de"].strip(),
-            },
+            "simple": result["simple"],
+            "advanced": result["advanced"],
             "_generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
             "_model": "gemini-2.5-flash",
+            "_schema": "v2-sections",
             "_source_fields": ["name", "sector", "subsector", "hero_kpi", "tagline"],
         }
         out_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False))
         ok += 1
-        print(f"  ✓ simple FR: {result['simple']['fr'][:60]}...")
-        print(f"  ✓ avancée FR: {result['advanced']['fr'][:60]}...")
+        print(f"  ✓ simple FR activity: {result['simple']['fr']['activity'][:80]}...")
         time.sleep(args.sleep)
 
     print()
