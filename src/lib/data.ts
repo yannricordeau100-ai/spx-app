@@ -276,9 +276,20 @@ export type Company = {
   /**
    * Description longue de la société (1-3 paragraphes). Source : 10-K
    * Item 1 Business via yfinance `longBusinessSummary`. Affichée dans
-   * le bloc "Profil société".
+   * le bloc "Profil société" (legacy, va être remplacé par mettrik_description).
    */
   company_description?: string;
+  /**
+   * Yann 14 mai 2026 : description "PV Mettrik" générée par Gemini 2.5
+   * Flash, en 2 versions × 3 langues. Remplace l'ancienne description
+   * yfinance générique. Vise à donner un angle distinctif (PV) au lieu
+   * d'un résumé Wikipédia. Stockée dans
+   * `v2-pipeline-enrich/<ticker>.description.json` puis mergée ici.
+   */
+  mettrik_description?: {
+    simple: { fr: string; en: string; de: string };
+    advanced: { fr: string; en: string; de: string };
+  };
   /** Snapshot boursier live (rafraîchi toutes les 14 j via yfinance). */
   financial_snapshot?: {
     market_cap_usd?: number | null;
