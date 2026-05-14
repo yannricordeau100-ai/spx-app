@@ -71,7 +71,18 @@ function parsePct(s: string | null | undefined): number | null {
  * Different rules per type. All percentile thresholds rounded (1, 5, 10, 25, 50).
  */
 export function rate(kpi: KPI): Rating {
-  const yoy = parsePct(kpi.yoy) ?? 0;
+  // Yann 15 mai 2026 : fallback yoy depuis history si kpi.yoy vide/null.
+  // Sinon rate() retourne yoy=0 → "Moyen Top 50%" générique faux sur 22 %
+  // des KPIs secondaires (audit 20 stés top 307 = 51/235 yoy vide).
+  let yoy = parsePct(kpi.yoy);
+  if (yoy === null && Array.isArray(kpi.history) && kpi.history.length >= 2) {
+    const last = kpi.history[kpi.history.length - 1];
+    const prev = kpi.history[kpi.history.length - 2];
+    if (typeof last === "number" && typeof prev === "number" && prev !== 0) {
+      yoy = ((last - prev) / Math.abs(prev)) * 100;
+    }
+  }
+  if (yoy === null) yoy = 0;
   // Garde-fou : value peut être number, null, ou string. Convertir avec sécurité.
   const valueStr = typeof kpi.value === "string" ? kpi.value : (kpi.value != null ? String(kpi.value) : "");
   const value = parseFloat(valueStr.replace(/,/g, ""));

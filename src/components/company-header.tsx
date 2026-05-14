@@ -106,6 +106,29 @@ function isUsOrAdr(ticker: string): boolean {
   return !ticker.includes(".") && !ticker.includes("-");
 }
 
+/**
+ * Yann (15 mai 2026) : les fichiers ranks.json contiennent des strings
+ * type "#37 dans Information Technology" générées côté pipeline FR.
+ * On traduit la préposition au rendu selon la locale active (pas de
+ * re-extraction massive). Tout le reste (rang + secteur) reste inchangé.
+ */
+function translateRankPreposition(value: string, locale: string): string {
+  if (!value || typeof value !== "string") return value;
+  const rankPrepByLocale: Record<string, string> = {
+    "fr": "dans",
+    "en": "in",
+    "en-GB": "in",
+    "de": "in",
+    "de-CH": "in",
+    "nl": "in",
+    "sv": "i",
+    "da": "i",
+  };
+  const target = rankPrepByLocale[locale] ?? rankPrepByLocale.fr;
+  if (target === "dans") return value;
+  return value.replace(/\bdans\b/g, target);
+}
+
 export function CompanyHeader({
   company,
   hidePriceBar = false,
@@ -114,7 +137,7 @@ export function CompanyHeader({
   hidePriceBar?: boolean;
 }) {
   const accent = brand(company.ticker).primary;
-  const { t } = useT();
+  const { t, locale } = useT();
 
   return (
     <div className="mb-8">
@@ -145,8 +168,8 @@ export function CompanyHeader({
         {isUsOrAdr(company.ticker) && (
           <StatChip label={t("company.rank_us")} value={company.ranks.global_us} />
         )}
-        <StatChip label={translateSubsector(company.sector)} value={company.ranks.sector} />
-        <StatChip label={translateSubsector(company.subsector)} value={company.ranks.subsector} />
+        <StatChip label={translateSubsector(company.sector)} value={translateRankPreposition(company.ranks.sector, locale)} />
+        <StatChip label={translateSubsector(company.subsector)} value={translateRankPreposition(company.ranks.subsector, locale)} />
         <StatChip label={t("company.founded")} value={String(company.founded)} />
         <StatChip label={t("company.ipo")} value={String(company.ipo)} />
       </div>

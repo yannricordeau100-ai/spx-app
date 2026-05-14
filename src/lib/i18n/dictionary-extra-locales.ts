@@ -323,7 +323,7 @@ export const EXTRA_LOCALES: Record<string, Partial<Record<LocaleKey, string>>> =
   // ───────────────────────── TIER ─────────────────────────
   "tier.excellent": { de: "Hervorragend", nl: "Uitstekend", sv: "Utmärkt", da: "Fremragende" },
   "tier.bon": { de: "Gut", nl: "Goed", sv: "Bra", da: "God" },
-  "tier.moyen": { de: "Durchschnittlich", nl: "Gemiddeld", sv: "Genomsnittlig", da: "Gennemsnitlig" },
+  "tier.moyen": { de: "Mittel", nl: "Gemiddeld", sv: "Medel", da: "Middel" },
   "tier.faible": { de: "Schwach", nl: "Zwak", sv: "Svag", da: "Svag" },
 
   // ───────────────────────── STOCK ─────────────────────────

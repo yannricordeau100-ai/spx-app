@@ -11,6 +11,7 @@ import { EventDotsSVG, EventDotsOverlay } from "@/components/charts/event-dots";
 import { downloadSvgAsPng, buildYearGroups } from "@/lib/chart-export";
 import { ChartMiniLogo } from "@/components/charts/chart-mini-logo";
 import { chartAxisHeader, isCurrencyLikeUnit } from "@/lib/chart-axis-header";
+import { useT } from "@/lib/i18n/provider";
 
 // Yann 13 mai 2026 v4 : helpers axisHeader/isCurrency centralisés dans
 // `@/lib/chart-axis-header` (DRY, partagés avec bars-chart + bars-3d).
@@ -150,6 +151,8 @@ export function CurveChart({
 }) {
   const [hover, setHover] = useState<number | null>(null);
   const svgRef = useRef<SVGSVGElement>(null);
+  // Yann 15 mai 2026 : axis header locale-aware (DE / NL / SV / DA / EN).
+  const { locale } = useT();
 
   // Garde-fou : si pas de data utilisable, ne rien afficher au lieu de crasher.
   if (!data || !Array.isArray(data) || data.length === 0) {
@@ -205,7 +208,7 @@ export function CurveChart({
   ] as const);
 
   const u = formatUnit(unit);
-  const header = axisHeader(unit);
+  const header = axisHeader(unit, locale);
 
   const ticks = tickValues.map((v) => ({
     v,

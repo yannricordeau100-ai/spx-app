@@ -6,6 +6,7 @@ import type { Anomaly } from "@/lib/brand";
 import { AnomalyInfo } from "@/components/anomaly-info";
 import { formatUnit } from "@/lib/data";
 import { chartAxisHeader, isCurrencyLikeUnit } from "@/lib/chart-axis-header";
+import { useT } from "@/lib/i18n/provider";
 
 // Yann 13 mai 2026 v4 : helpers axisHeader/isCurrency centralisés.
 const axisHeader = chartAxisHeader;
@@ -78,6 +79,8 @@ export function BarsChart({
   variant?: "neon3d" | "classic";
 }) {
   const [hover, setHover] = useState<number | null>(null);
+  // Yann 15 mai 2026 : axis header locale-aware.
+  const { locale } = useT();
 
   // Étend data + labels avec la barre TTM si fournie. La dernière barre
   // est ensuite stylée différemment (pointillé / opacité réduite) pour
@@ -117,7 +120,7 @@ export function BarsChart({
   const barW = Math.min(slot * 0.42, 56);
 
   const u = formatUnit(unit);
-  const header = axisHeader(unit);
+  const header = axisHeader(unit, locale);
   const intTicks = isCurrencyLike(unit);
 
   const yoyPct = allData.map((v, i) => {

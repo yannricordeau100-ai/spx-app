@@ -135,7 +135,7 @@ export function CompanyView({
    *  les masquer. Permet à Yann de voir ce qu'il manque sur chaque sté. */
   v18Mode?: boolean;
 }) {
-  const { t } = useT();
+  const { t, locale } = useT();
   const accent = brand(company.ticker).primary;
   const glow = brand(company.ticker).glow;
 
@@ -307,7 +307,8 @@ export function CompanyView({
   const formattedUnit = formatUnit(displayUnit);
   const heroFormatted = formatHeroValue(scaledValue, displayUnit);
   // CAGR insensible au factor (ratios), donc on garde history brut.
-  const heroCAGR = formatCAGR(active.history, displayUnit, active.period_type ?? "year");
+  // Yann 15 mai 2026 : locale-aware suffix "/ an" → "/ Jahr" / "/ year".
+  const heroCAGR = formatCAGR(active.history, displayUnit, active.period_type ?? "year", locale);
   const interp = useMemo(() => interpretStructured(company, active.short), [company, active.short]);
 
   const comparables = useMemo(

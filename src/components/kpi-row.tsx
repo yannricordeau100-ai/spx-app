@@ -46,7 +46,7 @@ export function KpiRow({
   const accent = TYPE_COLOR[kpi.type] ?? "#a78bfa";
   const r = rate(kpi);
   const formattedUnit = formatUnit(kpi.unit);
-  const cagrLabel = formatCAGR(kpi.history, kpi.unit);
+  const cagrLabel = formatCAGR(kpi.history, kpi.unit, kpi.period_type ?? "year", locale);
 
   return (
     <div

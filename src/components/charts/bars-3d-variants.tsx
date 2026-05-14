@@ -14,6 +14,7 @@ import { ChartMiniLogo } from "@/components/charts/chart-mini-logo";
 
 /** Header d'unité (Yann 13 mai 2026 v4 : centralisé dans chart-axis-header). */
 import { chartAxisHeader } from "@/lib/chart-axis-header";
+import { useT } from "@/lib/i18n/provider";
 const axisHeader = chartAxisHeader;
 
 /** Yann 14 mai 2026 : format label barre ADAPTATIF (bug Tesla 0,41→0). */
@@ -89,6 +90,8 @@ type Props = {
 export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", events = [], ttm = null, ttmLabel = "TTM", variant = "iso3d", exportTitle }: Props) {
   const [hover, setHover] = useState<number | null>(null);
   const svgRef = useRef<SVGSVGElement>(null);
+  // Yann 15 mai 2026 : axis header locale-aware.
+  const { locale } = useT();
 
   // Étend data + labels avec TTM si fourni. Dernière barre stylée distinctement.
   const hasTTM = ttm != null && Number.isFinite(ttm);
@@ -129,7 +132,7 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
   const valueFontSize = isCrowded ? 11 : 15;
   const DX = isClassic ? 0 : 26;
   const DY = isClassic ? 0 : -16;
-  const header = axisHeader(unit);
+  const header = axisHeader(unit, locale);
 
   return (
     <div className="relative w-full">

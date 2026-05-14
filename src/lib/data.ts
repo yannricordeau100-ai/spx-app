@@ -555,15 +555,29 @@ export function cagr(
 export function formatCAGR(
   history: number[],
   unit?: string,
-  period_type: "year" | "quarter" | "semester" = "year"
+  period_type: "year" | "quarter" | "semester" = "year",
+  locale: "fr" | "en" | "en-GB" | "de" | "de-CH" | "nl" | "sv" | "da" = "fr"
 ): string | null {
   const c = cagr(history, unit, period_type);
   if (c === null) return null;
   const sign = c > 0 ? "+" : "";
-  return `${sign}${c.toLocaleString("fr-FR", {
+  // Yann 15 mai 2026 : suffix "/ an" traduit selon la langue. Default = FR
+  // pour rétro-compat avec les callsites non encore migrés.
+  const PER_YEAR: Record<typeof locale, string> = {
+    "fr":    "% / an",
+    "en":    "% / year",
+    "en-GB": "% / year",
+    "de":    "% / Jahr",
+    "de-CH": "% / Jahr",
+    "nl":    "% / jaar",
+    "sv":    "% / år",
+    "da":    "% / år",
+  };
+  const numLocale = locale === "fr" ? "fr-FR" : locale === "de" || locale === "de-CH" ? "de-DE" : "en-US";
+  return `${sign}${c.toLocaleString(numLocale, {
     minimumFractionDigits: 1,
     maximumFractionDigits: 1,
-  })} % / an`;
+  })} ${PER_YEAR[locale]}`;
 }
 
 /* -------------------------------------------------------------------------- */
