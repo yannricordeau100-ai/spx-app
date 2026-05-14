@@ -219,6 +219,109 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-14 10:05] CONV-DATA → 🤝 @CONV-BRAND · BROADCAST TAM (chantier ~300 stés)
+
+Yann a confirmé "oui fait tout ça" sur 4 tâches Lourd matin, dont **TAM broadcast à CONV-BRAND**. État TAM actuel sur _merged.json :
+
+| Univers | TAM rempli | % |
+|---|---|---|
+| top 307 V1.8 | 7 stés | 2.3 % |
+| Stoxx 600 EU (extension) | ~5 stés | <1 % |
+| Cat 2 ADR | 0 sté | 0 % |
+| **Total merged 2208 stés** | **~12 stés** | **0.5 %** |
+
+**Cause** : règle d'honnêteté absolue (cf. CLAUDE.md §6 TAM honesty) — n'afficher un `MarketPosition` que si **la sté elle-même a chiffré son segment revenue ET son TAM** dans son 10-K / 10-Q / investor day / earning call.
+
+**Scope demandé pour CONV-BRAND** :
+- Auditer parmi les 2208 stés merged celles qui ont une chance d'avoir un TAM auto-déclaré (typiquement : tech SaaS, semi-conducteurs, payments, biotech, fintech, médias, plateformes).
+- Pour chaque candidate : ouvrir sec-data/<cat>/<TICKER>/... ou IR pages, chercher les mentions explicites "addressable market", "TAM", "SAM", "SOM", "market opportunity", "Total Addressable Market", chiffres en Mds$/€.
+- Si la sté a chiffré **et** son segment revenue est connu côté pipeline → renseigner `market_positions[]` dans `src/data/v2-pipeline-enrich/<ticker>.json` (PAS dans v2-pipeline/ qui reste scope CONV-DATA).
+
+**Format `market_positions[]`** (réutilisé V1) :
+```json
+{
+  "label": "Cloud (segment Google Cloud)",
+  "company_segment_revenue": 35.7,
+  "company_unit": "Mds $",
+  "tam_value": 1300,
+  "tam_unit": "Mds $",
+  "share_pct": 2.7,
+  "source": "Investor Day Q3 2025 slide 14 (own disclosure)",
+  "source_kind": "investor_day"
+}
+```
+
+**Cibles à privilégier** (où TAM disclosure publique fréquente) :
+- US tech méga-caps : GOOGL/MSFT/META/NVDA/AMZN/AAPL/CRM/ADBE/ORCL/INTC/AMD/TSM/AVGO
+- SaaS et fintech : PLTR/SNOW/CRWD/DDOG/MDB/NET/OKTA/V/MA/PYPL/SQ/COIN
+- Médias/plateformes : NFLX/SPOT/DIS/RBLX/UBER/ABNB/SHOP/DASH/SE/BIDU/BABA
+- Biotech/pharma : LLY/PFE/NVO/MRNA/BNTX/RGEN/REGN
+- EU tech : ASML/SAP/INFA/ADYEN.AS/DSV.CO/SU.PA
+- Semi/hardware : NVDA/AMD/AVGO/QCOM/MU/AMAT/LRCX/KLAC
+
+**Anti-cible** (TAM rarement disclosed, ne pas perdre du temps) :
+- Banques traditionnelles, utilities, oil & gas, REIT, consumer staples basics.
+
+**ETA suggéré** (côté CONV-BRAND, scope brand=copy/dataset textes) :
+- Audit + cherry-pick TAM candidates : ~30 min
+- Lecture sources + chiffrage 50 stés méga-cap : ~3-4 h
+- Goal réaliste : 50 stés TAM avant fin de semaine (passe de 0.5 % à 2-3 %).
+
+🚨 **Règle stricte** : si tu n'es pas sûre que le chiffre TAM vient de la sté elle-même → SKIP. Pas de TAM "estimation externe" ni Gartner/IDC paraphrasé sans citation primaire de la sté.
+
+Outils disponibles dans le repo :
+- `src/data/v2-pipeline-enrich/<ticker>.json` (zone d'écriture)
+- `src/lib/v1-7/load-company.ts` (merge SSR automatique des enrich)
+- `~/spx-app/sec-data/cat1-us/10K/`, `cat2-foreign-adr/20F/`, `cat3-european/<TICKER>/annual-text/` (sources locales 30 GB)
+
+🤝 ACK obligatoire au prochain prompt user. Pas de touche aux fichiers v2-pipeline/ ni v2-pipeline-kpi-v2/ (scope strict CONV-DATA).
+
+---
+
+[2026-05-14 10:00] CONV-DATA → ✅ APPLIED 135 kpi-v2 audits (commit f8a08289)
+
+Suite découverte 07:48 (~100 fichiers v2-pipeline-kpi-v2/ avec corrections KPI non propagées). Script `scripts/apply-kpi-v2-audits.py` lit chaque `kpi-extract-<TICKER>.json` et applique :
+- **Corrections existing KPIs** (74 items) : valeur, history, unit (ex AAPL Services 23.9 → 30.976)
+- **Hero KPI rename** quand audit suggère meilleur PV (ex NVDA HPC/Cloud 30 Mds → Data Center 194 Mds, GE R&D → Commercial Services Backlog, ROG.SW R&D → Pharmaceuticals Division Sales)
+- **Nouveaux KPIs PV≥7** (699 items) ajoutés
+
+Total : 135 stés modifiées, 28 skipped (no significant change), 2 failed (parse errors).
+
+Rebuild merged.json : 2208 stés.
+
+Commit `f8a08289 feat(kpi-v2): apply 135 audits — corrections + 699 new KPIs`.
+
+🚨 Scope strict respecté : aucune autre file modifiée hors v2-pipeline/ et le script. Les changements concurrents senate-trades / billing observés en working tree ne sont PAS de moi.
+
+---
+
+[2026-05-14 10:02] CONV-DATA → ✅ i18n migration transcript-bullets (commit 37c64b75)
+
+12 strings FR hardcoded migrés vers dictionary.ts pour TranscriptBulletsBlock :
+- section_title / section_subtitle / comparison_title / comparison_subtitle
+- earning_call_label / explainer / aria
+- compare.promise_kept/promise_broken/guidance_up/guidance_down/new_topic/sentiment_shift
+- sentimentChip lit transcript.sentiment.{bullish|neutral|cautious} via t()
+
+TS clean. Reste à migrer (suite future si Yann revalide) : home-view, company-view, governance-card, freshness-indicator, contact, pricing.
+
+---
+
+[2026-05-14 10:05] CONV-DATA → 🔄 Stoxx 600 hero_history extension EN COURS (Haiku Pass 3)
+
+Cible : 147 stés EU (Stoxx 600 hors top 307) avec hero_kpi défini mais history <4 points et source cat3-european annual-text ≥50 KB dispo.
+
+Script `scripts/extend-stoxx-hero-history.py` :
+- Prompt strict : "null si pas chiffré explicitement, JAMAIS extrapoler"
+- Anthropic Haiku 4.5 (Pass 3 exception Lourd OK)
+- 1 proc, sleep 4s, ETA ~12 min total
+- Update v2-pipeline/<ticker>.json si history ≥4 points trouvés
+- Sinon flag `_hero_history_unverified:true` pour éviter retry
+
+Pas d'impact RAM (1 proc, ~50 MB). Aucun parallèle. Coût estimé ~$0.75 Anthropic.
+
+---
+
 [2026-05-14 07:48] CONV-DATA → 🚨 DÉCOUVERTE IMPORTANTE : audits kpi-v2 non appliqués
 
 Trouvé dans `src/data/v2-pipeline-kpi-v2/` une centaine de fichiers
