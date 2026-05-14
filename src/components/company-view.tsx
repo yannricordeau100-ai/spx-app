@@ -309,7 +309,7 @@ export function CompanyView({
   // CAGR insensible au factor (ratios), donc on garde history brut.
   // Yann 15 mai 2026 : locale-aware suffix "/ an" → "/ Jahr" / "/ year".
   const heroCAGR = formatCAGR(active.history, displayUnit, active.period_type ?? "year", locale);
-  const interp = useMemo(() => interpretStructured(company, active.short), [company, active.short]);
+  const interp = useMemo(() => interpretStructured(company, active.short, locale), [company, active.short, locale]);
 
   const comparables = useMemo(
     () => findComparable(company.ticker, active.short),

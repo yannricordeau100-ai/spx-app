@@ -3,6 +3,22 @@ import meta from "@/data/meta.json";
 import msci from "@/data/msci.json";
 import spgi from "@/data/spgi.json";
 import cat from "@/data/cat.json";
+import {
+  type InterpLocale,
+  numLocale,
+  perYear,
+  leadSentence,
+  cagrTrendBit,
+  peakTrendBit,
+  joinAnd,
+  trendSignalShortHistory,
+  trendSignalUnknown,
+  trendSignalByCategory,
+  detailPrefix,
+  bulletLabel,
+  bulletBodyKpi,
+  futureBulletBody,
+} from "@/lib/interp-i18n";
 
 export type KPI = {
   /** Short acronym/badge displayed first (e.g. "DAP", "Cloud Rev"). */
@@ -620,34 +636,44 @@ function autoRescaleForInterp(unit: string, allBelowOne: boolean): { unit: strin
   return { unit, factor: 1 };
 }
 
-function computeYoyFromHistory(history: number[] | null | undefined): string {
+function computeYoyFromHistory(
+  history: number[] | null | undefined,
+  locale: InterpLocale = "fr"
+): string {
   if (!history || history.length < 2) return "n/a";
   const last = history[history.length - 1];
   const prev = history[history.length - 2];
   if (typeof last !== "number" || typeof prev !== "number" || prev === 0) return "n/a";
   const pct = ((last - prev) / Math.abs(prev)) * 100;
   const sign = pct > 0 ? "+" : "";
-  return `${sign}${pct.toFixed(1).replace(".", ",")} %`;
+  return `${sign}${pct.toLocaleString(numLocale(locale), {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1,
+  })} %`;
 }
 
-function computeTrendSignal(history: number[] | null | undefined, kpiName: string): { signal: string } {
+function computeTrendSignal(
+  history: number[] | null | undefined,
+  kpiName: string,
+  locale: InterpLocale = "fr"
+): { signal: string } {
   if (!history || history.length < 2) {
-    return { signal: `donnée disponible pour ${kpiName.toLowerCase()}, historique insuffisant pour interpréter la tendance` };
+    return { signal: trendSignalShortHistory(locale, kpiName) };
   }
   const last = history[history.length - 1];
   const first = history[0];
   const prev = history[history.length - 2];
   if (typeof last !== "number" || typeof first !== "number" || typeof prev !== "number") {
-    return { signal: "à analyser" };
+    return { signal: trendSignalUnknown(locale) };
   }
   const totalChange = first !== 0 ? ((last - first) / Math.abs(first)) * 100 : 0;
   const lastChange = prev !== 0 ? ((last - prev) / Math.abs(prev)) * 100 : 0;
-  if (totalChange > 30 && lastChange > 0) return { signal: "tendance haussière soutenue sur la période" };
-  if (totalChange > 10 && lastChange > 0) return { signal: "croissance modérée mais constante" };
-  if (totalChange > 0 && lastChange < -5) return { signal: "ralentissement récent malgré une tendance positive sur la période" };
-  if (totalChange < -10 && lastChange < 0) return { signal: "trajectoire baissière à surveiller" };
-  if (Math.abs(totalChange) < 10) return { signal: "stabilité sur la période, peu de mouvement" };
-  return { signal: "évolution mixte selon la période observée" };
+  if (totalChange > 30 && lastChange > 0) return { signal: trendSignalByCategory(locale, "strong_up") };
+  if (totalChange > 10 && lastChange > 0) return { signal: trendSignalByCategory(locale, "moderate_up") };
+  if (totalChange > 0 && lastChange < -5) return { signal: trendSignalByCategory(locale, "slowdown") };
+  if (totalChange < -10 && lastChange < 0) return { signal: trendSignalByCategory(locale, "downtrend") };
+  if (Math.abs(totalChange) < 10) return { signal: trendSignalByCategory(locale, "stable") };
+  return { signal: trendSignalByCategory(locale, "mixed") };
 }
 
 /**
@@ -656,7 +682,11 @@ function computeTrendSignal(history: number[] | null | undefined, kpiName: strin
  * Sinon (default), parle du hero KPI. Les bullets driver/risk/cash
  * restent contextuels au reste du dataset.
  */
-export function interpretStructured(company: Company, activeShort?: string): InterpretBlock {
+export function interpretStructured(
+  company: Company,
+  activeShort?: string,
+  locale: InterpLocale = "fr"
+): InterpretBlock {
   const heroDefault = getHero(company);
   // Si KPI active fourni et différent du hero, on parle de lui.
   const active = activeShort
@@ -691,9 +721,9 @@ export function interpretStructured(company: Company, activeShort?: string): Int
   const allBelowOne = histNums.length > 0 && histNums.every((v) => Math.abs(v) < 1) && (!Number.isFinite(rawValue) || Math.abs(rawValue) < 1);
   const { unit: scaledUnit, factor: scaleFactor } = autoRescaleForInterp(rawUnit, allBelowOne);
   const heroValue = Number.isFinite(rawValue)
-    ? (rawValue * scaleFactor).toLocaleString("fr-FR", { maximumFractionDigits: 1 })
+    ? (rawValue * scaleFactor).toLocaleString(numLocale(locale), { maximumFractionDigits: 1 })
     : (hero.value ?? "—");
-  const computedYoy = computeYoyFromHistory(hero.history);
+  const computedYoy = computeYoyFromHistory(hero.history, locale);
   const heroYoy = (typeof hero.yoy === "string" && hero.yoy.trim()) ? hero.yoy : computedYoy;
   // Trend : valeurs rescalées pour les comparaisons.
   const scaledHist = histNums.map((v) => v * scaleFactor);
@@ -703,51 +733,70 @@ export function interpretStructured(company: Company, activeShort?: string): Int
   const trendBits: string[] = [];
   if (cagrPct !== null) {
     const s = cagrPct > 0 ? "+" : "";
-    trendBits.push(`croissance composée de <strong>${s}${cagrPct.toFixed(1).replace(".", ",")} % / an</strong> sur la période`);
+    const cagrFormatted = `${s}${cagrPct.toLocaleString(numLocale(locale), {
+      minimumFractionDigits: 1,
+      maximumFractionDigits: 1,
+    })} ${perYear(locale)}`;
+    trendBits.push(cagrTrendBit(locale, cagrFormatted));
   }
   if (peak !== null && last !== null && Math.abs(peak - last) / Math.abs(peak || 1) > 0.1 && peak > last) {
-    trendBits.push(`actuellement <strong>${(((peak - last) / peak) * 100).toFixed(0)} %</strong> sous le pic historique`);
+    const pctBelow = `${(((peak - last) / peak) * 100).toFixed(0)} %`;
+    trendBits.push(peakTrendBit(locale, pctBelow));
   }
-  const richTrend = trendBits.length > 0 ? trendBits.join(" et ") : computeTrendSignal(hero.history, hero.name_fr).signal;
+  const richTrend = trendBits.length > 0
+    ? trendBits.join(joinAnd(locale))
+    : computeTrendSignal(hero.history, hero.name_fr, locale).signal;
   // Signal pré-écrite ignorée si elle ne fait que paraphraser le nom KPI
   // (ex "Croissance des livraisons de véhicules électriques" pour KPI
   // "Ventes de véhicules"). On garde la signal seulement si elle apporte
   // une info chiffrée ou un angle distinctif.
+  // Yann 15 mai 2026 : la `signal` est en FR côté data (chantier CONV-DATA
+  // pour traduction batch). On ne l'inclut que si elle apporte une info
+  // chiffrée distinctive, indépendamment de la locale UI.
   const heroSignalLow = typeof hero.signal === "string" ? hero.signal.toLowerCase() : "";
   const nameNorm = (hero.name_fr ?? "").toLowerCase();
   const signalAddsValue = heroSignalLow.trim().length > 0
     && !nameNorm.split(/\s+/).every((w) => heroSignalLow.includes(w))
     && /\d/.test(heroSignalLow);
-  const tailSignal = signalAddsValue ? ` Détail : <em>${heroSignalLow}</em>` : "";
-  const lead = `Le KPI principal de <strong>${company.name}</strong> est <strong>${hero.name_fr}</strong>, à <strong>${heroValue} ${formatUnit(scaledUnit)}</strong> (${heroYoy} <em>YoY</em>). ${richTrend.charAt(0).toUpperCase() + richTrend.slice(1)}.${tailSignal}`;
+  const tailSignal = signalAddsValue ? detailPrefix(locale, heroSignalLow) : "";
+  const lead = leadSentence(
+    locale,
+    company.name,
+    hero.name_fr,
+    heroValue,
+    formatUnit(scaledUnit),
+    heroYoy,
+    richTrend,
+    tailSignal
+  );
 
   const bullets: InterpretBullet[] = [];
   if (driver && driver.short !== hero.short) {
     bullets.push({
-      label: "Moteur de croissance",
-      body: `<strong>${driver.name_fr}</strong> à ${driver.value} ${formatUnit(driver.unit)} (${driver.yoy}). ${driver.signal}.`,
+      label: bulletLabel(locale, "driver"),
+      body: bulletBodyKpi(locale, driver.name_fr, String(driver.value), formatUnit(driver.unit), String(driver.yoy ?? ""), driver.signal ?? ""),
       tone: "pos",
     });
   }
   if (risk) {
     bullets.push({
-      label: "Point de vigilance",
-      body: `<strong>${risk.name_fr}</strong> à ${risk.value} ${formatUnit(risk.unit)} (${risk.yoy}). ${risk.signal}.`,
+      label: bulletLabel(locale, "risk"),
+      body: bulletBodyKpi(locale, risk.name_fr, String(risk.value), formatUnit(risk.unit), String(risk.yoy ?? ""), risk.signal ?? ""),
       tone: "neg",
     });
   }
   if (cash && cash.short !== hero.short) {
     bullets.push({
-      label: "Génération de cash",
-      body: `<strong>${cash.name_fr}</strong> à ${cash.value} ${formatUnit(cash.unit)} (${cash.yoy}). ${cash.signal}.`,
+      label: bulletLabel(locale, "cash"),
+      body: bulletBodyKpi(locale, cash.name_fr, String(cash.value), formatUnit(cash.unit), String(cash.yoy ?? ""), cash.signal ?? ""),
       tone: "neutral",
     });
   }
 
   // FUTURE bullet — promoted to first-class citizen.
   bullets.push({
-    label: "À surveiller prochainement",
-    body: `Trois scénarios possibles pour <strong>${hero.name_fr}</strong> : (1) <strong>accélération</strong> qui validerait le momentum, (2) <strong>stabilisation</strong> autour du niveau actuel, (3) <strong>retournement</strong> qui casserait la tendance. Le marché ajustera la valorisation en fonction du scénario observé.`,
+    label: bulletLabel(locale, "future"),
+    body: futureBulletBody(locale, hero.name_fr),
     tone: "future",
   });
 
