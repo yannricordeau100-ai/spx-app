@@ -9,6 +9,7 @@ import { PricingCards } from "@/components/billing/pricing-cards";
 import { loadPricingCatalog } from "@/lib/billing/load-pricing";
 import { loadPageContent } from "@/lib/desk/page-content";
 import { getServerLocale } from "@/lib/i18n/server";
+import { translate } from "@/lib/i18n/dictionary";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import type { Company } from "@/lib/data";
 import V17_PUBLIC from "@/data/v1-7-public.json";
@@ -55,6 +56,8 @@ export default async function SandboxV18HubPage() {
   // tagline_main_2, tagline_sub, kpi_intelligence_under, punchline_1..4.
   const locale = await getServerLocale();
   const homeOverrides = await loadPageContent("home", locale);
+  const pricingLabel = translate("nav.pricing", locale);
+  const contactLabel = translate("nav.contact", locale);
 
   // Détecte la session pour ne PAS bloquer un user déjà connecté.
   const supabase = await createSupabaseServerClient();
@@ -75,8 +78,8 @@ export default async function SandboxV18HubPage() {
         routePrefix="/sandbox/v1-8"
         searchScope={{ tickers, total: tickers.length }}
         topNavLinks={[
-          { label: "Pricing", href: "/sandbox/v1-8/pricing" },
-          { label: "Contact", href: "/sandbox/v1-8/contact" },
+          { label: pricingLabel, href: "/sandbox/v1-8/pricing" },
+          { label: contactLabel, href: "/sandbox/v1-8/contact" },
         ]}
         requireSignupGate={!isAuthed}
         gatePath="/sandbox/v1-8"
