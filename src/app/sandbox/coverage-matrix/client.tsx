@@ -1,0 +1,242 @@
+"use client";
+
+import { useMemo, useState } from "react";
+import type { Row } from "./page";
+
+const COLUMNS: Array<{ key: keyof Row; label: string; short?: string }> = [
+  { key: "hero_kpi", label: "Hero KPI", short: "Hero" },
+  { key: "hero_history", label: "Hero history ≥4", short: "Hist" },
+  { key: "kpis_count", label: "KPIs ≥5", short: "KPIs" },
+  { key: "risks", label: "Risks ≥3", short: "Risks" },
+  { key: "governance", label: "Governance CEO", short: "Gov" },
+  { key: "ai_pos", label: "AI stance", short: "AI" },
+  { key: "segment", label: "Revenue segment", short: "Seg" },
+  { key: "geography", label: "Revenue geo", short: "Geo" },
+  { key: "customer_type", label: "Customer type", short: "Cust" },
+  { key: "events", label: "Events ≥2", short: "Evts" },
+  { key: "tam", label: "TAM (honesty)", short: "TAM" },
+  { key: "description", label: "Company desc.", short: "Desc" },
+  { key: "freshness", label: "Last data date", short: "Fresh" },
+  { key: "ranks", label: "Ranks", short: "Rank" },
+  { key: "logo", label: "Logo PNG", short: "Logo" },
+  { key: "transcript", label: "Transcript summ.", short: "Trans" },
+];
+
+function cellColor(v: string) {
+  if (v === "ok" || v === "complete") return { bg: "#10b98122", fg: "#10b981", char: "✓" };
+  if (v === "partial") return { bg: "#f59e0b22", fg: "#f59e0b", char: "~" };
+  return { bg: "#0a0a0a", fg: "#52525b", char: "·" };
+}
+
+export function CoverageClient({ initialRows }: { initialRows: Row[] }) {
+  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState<"all" | "top307" | "v17" | "unfit">("all");
+
+  const filtered = useMemo(() => {
+    let out = initialRows;
+    if (filter === "top307") out = out.filter((r) => r.in_top307);
+    else if (filter === "v17") out = out.filter((r) => r.in_v17);
+    else if (filter === "unfit") out = out.filter((r) => !r.fit);
+    if (search.trim()) {
+      const q = search.toLowerCase();
+      out = out.filter((r) => r.ticker.toLowerCase().includes(q) || r.name.toLowerCase().includes(q));
+    }
+    return out;
+  }, [initialRows, search, filter]);
+
+  // Stats globales
+  const counts = useMemo(() => {
+    const c = {
+      total: initialRows.length,
+      in_v17: initialRows.filter((r) => r.in_v17).length,
+      in_top307: initialRows.filter((r) => r.in_top307).length,
+      unfit: initialRows.filter((r) => !r.fit).length,
+    };
+    return c;
+  }, [initialRows]);
+
+  // Coverage par colonne (sur filtered)
+  const colCoverage = useMemo(() => {
+    return COLUMNS.map(({ key, label }) => {
+      const ok = filtered.filter((r) => r[key] === "ok" || r[key] === "complete").length;
+      const partial = filtered.filter((r) => r[key] === "partial").length;
+      return { key, label, ok, partial, total: filtered.length };
+    });
+  }, [filtered]);
+
+  return (
+    <div className="min-h-screen bg-[#050507] text-zinc-100">
+      <div className="mx-auto max-w-[1600px] px-4 py-6">
+        <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <h1 className="font-display text-[28px] font-bold tracking-tight">
+              Coverage Matrix
+            </h1>
+            <p className="text-[13px] text-zinc-400">
+              État temps réel par sté × bloc. Lecture dynamique de v2-pipeline/_merged.json.
+              Légende : <span className="font-mono text-emerald-400">✓ complet</span>{" "}
+              · <span className="font-mono text-amber-400">~ partiel</span>{" "}
+              · <span className="font-mono text-zinc-500">· manquant</span>
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center gap-2 font-mono text-[11px]">
+            <span className="rounded border border-white/10 bg-white/[0.03] px-2 py-1">
+              Total <b className="text-zinc-50">{counts.total}</b>
+            </span>
+            <span className="rounded border border-emerald-500/40 bg-emerald-500/[0.06] px-2 py-1">
+              V1.7 <b className="text-emerald-300">{counts.in_v17}</b>
+            </span>
+            <span className="rounded border border-violet-500/40 bg-violet-500/[0.06] px-2 py-1">
+              Top 307 <b className="text-violet-300">{counts.in_top307}</b>
+            </span>
+            <span className="rounded border border-red-500/40 bg-red-500/[0.06] px-2 py-1">
+              Unfit <b className="text-red-300">{counts.unfit}</b>
+            </span>
+          </div>
+        </div>
+
+        <div className="mb-3 flex flex-wrap gap-2">
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Filtrer (ticker, nom)…"
+            className="rounded-md border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[13px] outline-none focus:border-violet-500/50"
+          />
+          {([
+            ["all", `Toutes (${initialRows.length})`],
+            ["top307", `Top 307 (${counts.in_top307})`],
+            ["v17", `V1.7 (${counts.in_v17})`],
+            ["unfit", `Unfit (${counts.unfit})`],
+          ] as const).map(([key, label]) => (
+            <button
+              key={key}
+              type="button"
+              onClick={() => setFilter(key)}
+              className={
+                "rounded-md border px-3 py-1.5 text-[12px] transition-colors " +
+                (filter === key
+                  ? "border-violet-500/60 bg-violet-500/15 text-violet-200"
+                  : "border-white/10 bg-white/[0.03] text-zinc-300 hover:bg-white/[0.06]")
+              }
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+
+        {/* Coverage par colonne (header haut) */}
+        <div className="mb-2 grid auto-cols-max grid-flow-col gap-1 overflow-x-auto rounded-md border border-white/10 bg-[#080808] p-2 font-mono text-[10px]">
+          {colCoverage.map((c) => {
+            const pct = c.total > 0 ? Math.round((100 * c.ok) / c.total) : 0;
+            const color = pct >= 80 ? "text-emerald-400" : pct >= 50 ? "text-amber-400" : "text-zinc-500";
+            return (
+              <div key={String(c.key)} className="min-w-[80px] px-1.5 py-0.5 text-center">
+                <div className="text-[9px] uppercase tracking-wider text-zinc-500">{c.label}</div>
+                <div className={`text-[12px] font-bold ${color}`}>{pct}%</div>
+                <div className="text-[9px] text-zinc-500">
+                  {c.ok}/{c.total}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="overflow-x-auto rounded-md border border-white/10 bg-[#080808]">
+          <table className="w-full border-collapse text-[11px]">
+            <thead className="sticky top-0 z-10 bg-[#0c0c0c]">
+              <tr>
+                <th className="border-b border-white/10 px-2 py-2 text-left font-mono uppercase tracking-wider text-zinc-400">
+                  #
+                </th>
+                <th className="sticky left-0 z-20 border-b border-white/10 bg-[#0c0c0c] px-2 py-2 text-left font-mono uppercase tracking-wider text-zinc-400">
+                  Ticker
+                </th>
+                <th className="border-b border-white/10 px-2 py-2 text-left font-mono uppercase tracking-wider text-zinc-400">
+                  Nom
+                </th>
+                <th className="border-b border-white/10 px-2 py-2 text-center font-mono uppercase tracking-wider text-zinc-400">
+                  V1.7
+                </th>
+                {COLUMNS.map((c) => (
+                  <th
+                    key={String(c.key)}
+                    title={c.label}
+                    className="border-b border-l border-white/10 px-1 py-2 text-center font-mono text-[9.5px] uppercase tracking-wider text-zinc-400"
+                  >
+                    {c.short ?? c.label}
+                  </th>
+                ))}
+                <th className="border-b border-l border-white/10 px-1 py-2 text-center font-mono text-[9.5px] uppercase tracking-wider text-zinc-400">
+                  Miss
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {filtered.slice(0, 2500).map((r, i) => (
+                <tr key={r.ticker} className="hover:bg-white/[0.02]">
+                  <td className="border-b border-white/5 px-2 py-1 font-mono text-[9.5px] text-zinc-500">
+                    {i + 1}
+                  </td>
+                  <td className="sticky left-0 z-10 border-b border-white/5 bg-[#080808] px-2 py-1 font-mono text-[11px] font-semibold text-zinc-50">
+                    <a
+                      href={`/sandbox/v1-8/${r.ticker.toLowerCase()}`}
+                      target="_blank"
+                      rel="noopener"
+                      className="hover:text-violet-300"
+                    >
+                      {r.ticker}
+                    </a>
+                    {r.in_top307 ? (
+                      <span className="ml-1 inline-block rounded bg-violet-500/20 px-1 text-[8px] text-violet-300">
+                        307
+                      </span>
+                    ) : null}
+                  </td>
+                  <td className="max-w-[240px] truncate border-b border-white/5 px-2 py-1 text-zinc-300">
+                    {r.name}
+                  </td>
+                  <td className="border-b border-white/5 px-2 py-1 text-center text-[12px]">
+                    {r.in_v17 ? (
+                      <span className="text-emerald-400">✓</span>
+                    ) : (
+                      <span className="text-red-400">✗</span>
+                    )}
+                  </td>
+                  {COLUMNS.map((c) => {
+                    const v = String(r[c.key]);
+                    const cl = cellColor(v);
+                    return (
+                      <td
+                        key={String(c.key)}
+                        title={`${c.label}: ${v}`}
+                        className="border-b border-l border-white/5 px-1 py-1 text-center"
+                        style={{ background: cl.bg, color: cl.fg }}
+                      >
+                        <span className="font-mono text-[12px]">{cl.char}</span>
+                      </td>
+                    );
+                  })}
+                  <td className="border-b border-l border-white/5 px-1 py-1 text-center font-mono text-[10px] text-zinc-400">
+                    {r.missing_count}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {filtered.length > 2500 ? (
+            <div className="border-t border-white/10 px-3 py-2 text-center font-mono text-[10px] text-zinc-500">
+              Affichage limité à 2500 lignes sur {filtered.length}. Affinez le filtre.
+            </div>
+          ) : null}
+        </div>
+
+        <p className="mt-3 text-[11px] text-zinc-500">
+          La page est servie en SSR <code>force-dynamic</code> : chaque refresh navigateur lit
+          les fichiers v2-pipeline à jour. Pas de cache, donc mise à jour temps réel à chaque
+          enrichissement de sté.
+        </p>
+      </div>
+    </div>
+  );
+}

@@ -83,6 +83,9 @@ function isPublicPath(pathname: string): boolean {
   // /sandbox/geo-test = page de test détection géographique (visualise pays
   // détecté + langue + devise déduites). Public, pas de PII.
   if (pathname === "/sandbox/geo-test") return true;
+  // /sandbox/coverage-matrix = matrice temps réel des blocs data par sté.
+  // Lecture dynamique de v2-pipeline. Public pour Yann suivi enrichissement.
+  if (pathname === "/sandbox/coverage-matrix") return true;
   // /concepts/* = prototypes / mockups visuels CONV-CONCEPTS. Public car
   // utilisés pour vérification visuelle (Yann 13 mai 2026, pour chart-test).
   if (pathname === "/concepts" || pathname.startsWith("/concepts/")) return true;
