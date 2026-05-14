@@ -396,6 +396,67 @@ export async function loadV17Company(
         data.kpis = [...data.kpis, ...extraKpis];
       }
     }
+    // KPIs SPÉCIAUX (Yann 14 mai 2026) — fetch BDD desk_special_kpis publiés
+    // pour ce ticker. APPEND comme indicateurs clés ou remplace hero si is_hero.
+    // Convertit le format desk_special_kpis → KPI standard.
+    try {
+      const { listPublishedForTicker } = await import("@/lib/desk/special-kpis");
+      const specials = await listPublishedForTicker(ticker);
+      if (Array.isArray(specials) && specials.length > 0 && Array.isArray(data.kpis)) {
+        const existingShorts = new Set(
+          (data.kpis as AnyKPI[]).map((k) => k?.short).filter(Boolean),
+        );
+        for (const sp of specials) {
+          if (!sp.kpi_short || existingShorts.has(sp.kpi_short)) continue;
+          const pts = sp.data?.values_by_period ?? [];
+          if (pts.length === 0) continue;
+          const latest = pts[pts.length - 1];
+          const history = pts.map((p) => p.value);
+          const periods = pts.map((p) => p.period);
+          const kpi: AnyKPI = {
+            short: sp.kpi_short,
+            name_fr: sp.kpi_name_fr ?? sp.kpi_short,
+            name_en: sp.kpi_name_en ?? sp.kpi_short,
+            value: latest.value,
+            unit: sp.kpi_unit ?? "",
+            yoy: sp.data?.yoy_latest ?? null,
+            type: sp.kpi_category ?? "Volume",
+            nature: "extracted",
+            comparable: false,
+            history,
+            history_periods: periods,
+            period_type: "annual",
+            signal: sp.data?.hero_summary ?? "",
+            description: sp.data?.interpretation ?? "",
+            explanation: sp.kpi_name_fr ?? sp.kpi_short,
+            is_wow: true,
+            is_short_history: pts.length < 5,
+            story_category: sp.story_category ?? undefined,
+            // Incertitudes annotées par point — utilisé par charts pour
+            // afficher un "i" jaune sur les points concernés.
+            uncertainty_by_period: pts
+              .filter((p) => p.uncertainty_pct)
+              .map((p) => ({
+                period: p.period,
+                pct: p.uncertainty_pct,
+                note: p.uncertainty_note,
+                source: p.source,
+              })),
+            _special_kpi_id: sp.id,
+            _data_source: sp.data_source ?? null,
+          } as AnyKPI;
+          data.kpis = [...(data.kpis as AnyKPI[]), kpi];
+          existingShorts.add(sp.kpi_short);
+          // Si is_hero : remplace le hero_kpi de la company.
+          if (sp.is_hero && sp.style === "classique") {
+            (data as Record<string, unknown>).hero_kpi = sp.kpi_short;
+          }
+        }
+      }
+    } catch (err) {
+      // Fail-safe : si BDD inaccessible, on continue sans special KPIs.
+      console.warn(`special_kpis merge failed for ${ticker}:`, err);
+    }
     // dividend_meta : propagé tel quel à la company (utilisé par
     // DividendAristocratCard pour calculer yearsStreak depuis first_year).
     // CONV-DIV 9 mai 2026.
