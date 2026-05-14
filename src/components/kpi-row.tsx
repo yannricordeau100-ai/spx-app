@@ -153,17 +153,25 @@ export function KpiRow({
            sortis du pipeline LLM sans formatting) en plus de la string standard
            ("+4.5%"). Pour les nombres : ajoute le signe + et le %. */}
         {(() => {
-          if (kpi.yoy == null) return null;
-          let yoyStr: string;
-          if (typeof kpi.yoy === "number") {
+          // Yann 14 mai 2026 : fallback calculé depuis history quand kpi.yoy
+          // est vide (1 049 KPIs concernés dans le SP1500). Évite pill vide.
+          let yoyStr: string | null = null;
+          if (typeof kpi.yoy === "number" && Number.isFinite(kpi.yoy)) {
             const sign = kpi.yoy > 0 ? "+" : "";
             yoyStr = `${sign}${kpi.yoy}%`;
-          } else if (typeof kpi.yoy === "string") {
+          } else if (typeof kpi.yoy === "string" && kpi.yoy.trim()) {
             if (kpi.yoy.toLowerCase() === "n/a") return null;
             yoyStr = kpi.yoy;
-          } else {
-            return null;
+          } else if (Array.isArray(kpi.history) && kpi.history.length >= 2) {
+            const last = kpi.history[kpi.history.length - 1];
+            const prev = kpi.history[kpi.history.length - 2];
+            if (typeof last === "number" && typeof prev === "number" && prev !== 0) {
+              const pct = ((last - prev) / Math.abs(prev)) * 100;
+              const sign = pct > 0 ? "+" : "";
+              yoyStr = `${sign}${pct.toFixed(1).replace(".", ",")} %`;
+            }
           }
+          if (!yoyStr) return null;
           return (
             <div
               className="mt-2 inline-flex items-center gap-1 font-mono text-[13px] tabular-nums"
@@ -193,7 +201,25 @@ export function KpiRow({
       <div className="col-span-12 sm:col-span-4">
         <QualityBadge rating={r} size="sm" scope={subsector} layout="stack" />
         <div className="mt-2 line-clamp-2 text-[13px] leading-snug text-zinc-200">
-          {kpi.signal ? normalizeNarrative(kpi.signal) : kpi.signal}
+          {(() => {
+            // Yann 14 mai 2026 : fallback dynamique si signal vide
+            // (1 068 KPIs concernés). Génère depuis trend history.
+            if (kpi.signal && kpi.signal.trim()) return normalizeNarrative(kpi.signal);
+            const h = Array.isArray(kpi.history) ? kpi.history : [];
+            if (h.length < 2) return "";
+            const last = h[h.length - 1];
+            const first = h[0];
+            const prev = h[h.length - 2];
+            if (typeof last !== "number" || typeof first !== "number" || typeof prev !== "number") return "";
+            const totalPct = first !== 0 ? ((last - first) / Math.abs(first)) * 100 : 0;
+            const lastPct = prev !== 0 ? ((last - prev) / Math.abs(prev)) * 100 : 0;
+            if (totalPct > 30 && lastPct > 0) return "Tendance haussière soutenue sur la période.";
+            if (totalPct > 10 && lastPct > 0) return "Croissance modérée mais constante.";
+            if (totalPct > 0 && lastPct < -5) return "Ralentissement récent malgré une tendance positive.";
+            if (totalPct < -10 && lastPct < 0) return "Trajectoire baissière à surveiller.";
+            if (Math.abs(totalPct) < 10) return "Stabilité sur la période, peu de mouvement.";
+            return "Évolution mixte selon la période observée.";
+          })()}
         </div>
       </div>
     </div>

@@ -265,7 +265,7 @@ export function CompanyView({
   const formattedUnit = formatUnit(displayUnit);
   const heroFormatted = formatHeroValue(active.value, displayUnit);
   const heroCAGR = formatCAGR(active.history, displayUnit, active.period_type ?? "year");
-  const interp = useMemo(() => interpretStructured(company), [company]);
+  const interp = useMemo(() => interpretStructured(company, active.short), [company, active.short]);
 
   const comparables = useMemo(
     () => findComparable(company.ticker, active.short),

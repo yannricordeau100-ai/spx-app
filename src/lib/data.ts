@@ -619,8 +619,19 @@ function computeTrendSignal(history: number[] | null | undefined, kpiName: strin
   return { signal: "évolution mixte selon la période observée" };
 }
 
-export function interpretStructured(company: Company): InterpretBlock {
-  const hero = getHero(company);
+/**
+ * Yann 14 mai 2026 v2 : interprétation RÉACTIVE au KPI active.
+ * Si `activeShort` fourni, le lead+future bullet parlent de ce KPI-là.
+ * Sinon (default), parle du hero KPI. Les bullets driver/risk/cash
+ * restent contextuels au reste du dataset.
+ */
+export function interpretStructured(company: Company, activeShort?: string): InterpretBlock {
+  const heroDefault = getHero(company);
+  // Si KPI active fourni et différent du hero, on parle de lui.
+  const active = activeShort
+    ? company.kpis.find((k) => k.short === activeShort) ?? heroDefault
+    : heroDefault;
+  const hero = active;
   // Préférer un KPI sectoriel (Demand/User/Adoption) plutôt que le total revenu
   // pour le bloc "Moteur de croissance" — le revenu n'est pas un moteur,
   // c'est un résultat. Fallback sur Revenue uniquement si aucun segment dispo.
