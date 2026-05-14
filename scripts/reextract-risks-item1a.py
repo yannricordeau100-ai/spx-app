@@ -103,37 +103,67 @@ def find_filing(ticker):
                     with gzip.open(f, "rt", errors="ignore") as g:
                         return _strip(g.read()), f"20-F FY{yr.name}"
                 except: continue
-    # 3) cat3-european annual-text
+    # 3) cat3-european annual-text — take LARGEST file (most content),
+    # not latest year (Yann 14 mai : BARC.L 2025.txt=118KB vs 2024.txt=2.6MB)
     cat3 = SEC / "cat3-european" / tu / "annual-text"
     if cat3.exists():
         try:
-            txt_files = sorted(cat3.glob("*.txt"), reverse=True)
-            for f in txt_files[:1]:
-                return _strip(f.read_text(errors="ignore")), f"Annual {f.stem}"
+            txt_files = list(cat3.glob("*.txt"))
+            if txt_files:
+                largest = max(txt_files, key=lambda f: f.stat().st_size)
+                return _strip(largest.read_text(errors="ignore")), f"Annual {largest.stem}"
         except: pass
     return None, None
 
 def extract_item1a(text, max_chars=25000):
-    """Locate Item 1A section. US 10-K standard format."""
+    """Locate Item 1A or equivalent risk section."""
     if not text: return ""
-    # Item 1A markers (US 10-K, EU adaptations)
     patterns = [
+        # US 10-K standard
         r"item\s*1\s*a\.?\s*risk\s+factors",
         r"item\s*3\.?\s*d?\.?\s*risk\s+factors",  # 20-F Item 3.D
-        r"facteurs\s+de\s+risques?",
         r"risk\s+factors\b",
-        r"hauptrisiken|risikofaktoren",  # DE
-        r"fattori\s+di\s+rischio",  # IT
-        r"factores\s+de\s+riesgo",  # ES
+        # EU UK / multilang
+        r"key\s+risks?\b",
+        r"principal\s+risks?\b",
+        r"main\s+risks?\b",
+        r"material\s+risks?\b",
+        r"risk\s+management\b",
+        # FR
+        r"facteurs\s+de\s+risques?",
+        r"principaux\s+risques?",
+        r"description\s+des\s+risques?",
+        r"cartographie\s+des\s+risques?",
+        # DE
+        r"hauptrisiken|risikofaktoren|wesentliche\s+risiken|risikoinventar",
+        # IT
+        r"fattori\s+di\s+rischio|principali\s+rischi",
+        # ES
+        r"factores\s+de\s+riesgo|principales\s+riesgos",
+        # NL/SV/DA
+        r"belangrijkste\s+risico|risicofactor|huvudsaklig.{0,5}risk",
     ]
     matches = []
     for p in patterns:
         for m in re.finditer(p, text, re.IGNORECASE):
             matches.append(m.start())
     if not matches:
+        # Fallback : cherche dense région "risk" (5+ occurrences en 3000 chars)
+        risk_positions = [m.start() for m in re.finditer(r"\brisks?\b", text, re.IGNORECASE)]
+        if len(risk_positions) >= 10:
+            # Density-based : sliding window
+            best_pos = 0
+            best_count = 0
+            for i in range(len(risk_positions)):
+                end_pos = risk_positions[i] + 3000
+                count = sum(1 for p in risk_positions[i:] if p < end_pos)
+                if count > best_count:
+                    best_count = count
+                    best_pos = risk_positions[i]
+            if best_count >= 5:
+                return re.sub(r"\s+", " ", text[best_pos:best_pos+max_chars])[:max_chars]
         return ""
     matches.sort()
-    # First reasonable match (= start of section), take 25k chars
     start = matches[0]
     return re.sub(r"\s+", " ", text[start:start+max_chars])[:max_chars]
 
