@@ -904,6 +904,7 @@ export const DICTIONARY: Dict = {
 
   // === Contact form ============================================
   "contact.title": { fr: "Une question ? On répond.", en: "A question? We answer.", de: "Eine Frage? Wir antworten." },
+  "contact.back_home": { fr: "Retour à l'accueil", en: "Back to home", de: "Zurück zur Startseite" },
   "contact.subtitle": {
     fr: "Vous parlez à des humains, pas à un robot. Un email, une réponse sous 48h ouvrées.",
     en: "You're talking to humans, not bots. One email, one reply within 48 business hours.",

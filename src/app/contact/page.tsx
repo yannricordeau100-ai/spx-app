@@ -23,7 +23,7 @@ export default async function ContactPage() {
           className="group mb-6 inline-flex items-center gap-2 text-[12px] text-zinc-500 transition-colors hover:text-zinc-200"
         >
           <ArrowLeft className="size-3.5 transition-transform group-hover:-translate-x-0.5" />
-          {locale === "fr" ? "Retour à l'accueil" : "Back to home"}
+          {t("contact.back_home")}
         </Link>
 
         <h1 className="mb-3 font-display text-[36px] font-bold tracking-tight">
