@@ -52,6 +52,12 @@ const ITEMS = [
     label: "Couverture docs par sté",
     desc: "Bilan SEC EDGAR + IR scraper pour 344 sociétés (top 305 V1.8 + V1 demo). Détail par doc-type pour identifier ce qui manque.",
   },
+  {
+    href: "/sandbox/special-kpis",
+    icon: Sparkles,
+    label: "KPIs spéciaux (recherche manuelle)",
+    desc: "Pour les KPIs qui nécessitent recherche manuelle (ex iPhone units, Netflix abonnés) : crée la demande, lance l'extraction (Groq Llama 3.3 70B gratuit OU prompt externe), preview avant publication, push live sur la page sté avec toggle.",
+  },
 ];
 
 /* ─────────────────────────────────────────────────────────────── */
