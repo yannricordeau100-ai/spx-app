@@ -32,7 +32,7 @@ except ImportError:
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 PIPELINE = PROJECT_ROOT / "src/data/v2-pipeline"
 SEC = PROJECT_ROOT / "sec-data"
-PENDING = Path("/tmp/governance-safe-pending.txt")
+PENDING = Path(os.environ.get("PENDING_FILE", "/tmp/governance-safe-pending.txt"))
 CACHE_YF = Path("/tmp/yf-ceo-cache.json")
 LOG = PROJECT_ROOT / ".conv-state/CONV-DATA-gov-safe.log"
 LOG.parent.mkdir(parents=True, exist_ok=True)
@@ -139,18 +139,40 @@ def normalize_name(n):
     return n
 
 
+NICKNAMES = {
+    'tim':'timothy','bill':'william','bob':'robert','rob':'robert','dick':'richard',
+    'rich':'richard','tom':'thomas','tony':'anthony','jim':'james','jimmy':'james',
+    'jamie':'james','dave':'david','mike':'michael','chris':'christopher','steve':'stephen',
+    'stephen':'stephen','phil':'philip','ed':'edward','eddy':'edward','ben':'benjamin',
+    'ron':'ronald','dan':'daniel','danny':'daniel','jeff':'jeffrey','greg':'gregory',
+    'andy':'andrew','sam':'samuel','sandy':'sandra','sue':'susan','liz':'elizabeth',
+    'beth':'elizabeth','meg':'margaret','peggy':'margaret','kate':'katherine','katie':'katherine',
+    'larry':'lawrence','ken':'kenneth','rick':'richard','vinny':'vincent','vince':'vincent',
+}
+
 def name_match(llm_ceo, yf_ceo):
-    """Fuzzy match : sont-ils probably the same person?"""
+    """Fuzzy match : sont-ils probably the same person?
+    Stratégie : compare last name (surname), accepter si identique."""
     if not llm_ceo or not yf_ceo: return False
     n1, n2 = normalize_name(llm_ceo), normalize_name(yf_ceo)
-    # Direct match
     if n1 == n2: return True
-    # Sub-string (one contains other)
     if n1 in n2 or n2 in n1: return True
-    # Word overlap : at least 2 shared distinct words >=3 chars
-    w1 = set(w for w in n1.split() if len(w) >= 3)
-    w2 = set(w for w in n2.split() if len(w) >= 3)
-    if len(w1 & w2) >= 2: return True
+
+    w1 = [w for w in n1.split() if len(w) >= 3 and '.' not in w]
+    w2 = [w for w in n2.split() if len(w) >= 3 and '.' not in w]
+    if not w1 or not w2: return False
+
+    # Last word = surname. If matches → same person.
+    if w1[-1] == w2[-1]:
+        # Check first name (nickname-aware)
+        f1, f2 = w1[0], w2[0]
+        f1_canon = NICKNAMES.get(f1, f1)
+        f2_canon = NICKNAMES.get(f2, f2)
+        if f1_canon == f2_canon or f1_canon.startswith(f2_canon[:3]) or f2_canon.startswith(f1_canon[:3]):
+            return True
+
+    # Word overlap >= 2 (any position)
+    if len(set(w1) & set(w2)) >= 2: return True
     return False
 
 
@@ -277,11 +299,16 @@ def main():
         if not pipe_f.exists():
             log_line(f"  ⚠ {tk}: pipeline file missing"); continue
         d = json.loads(pipe_f.read_text())
-        # Merge keys (don't overwrite existing if newer)
+        # Merge keys : empty list/dict ne doit pas écraser existant
         gov = d.get('governance') or {}
         for k, v in result.items():
-            if v is not None and v != '':
-                gov[k] = v
+            if v is None or v == '': continue
+            # Si liste/dict vide et existing non vide → garder existing
+            if isinstance(v, (list, dict)) and len(v) == 0:
+                existing = gov.get(k)
+                if isinstance(existing, (list, dict)) and len(existing) > 0:
+                    continue
+            gov[k] = v
         d['governance'] = gov
         d['_governance_safe_fetched_at'] = datetime.now(timezone.utc).isoformat()
         d['_governance_yfinance_validated'] = True
