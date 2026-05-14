@@ -16,6 +16,16 @@ import { ChartMiniLogo } from "@/components/charts/chart-mini-logo";
 import { chartAxisHeader } from "@/lib/chart-axis-header";
 const axisHeader = chartAxisHeader;
 
+/** Yann 14 mai 2026 : format label barre ADAPTATIF (bug Tesla 0,41→0). */
+function formatBarLabel(v: number, dataMax: number): string {
+  if (!Number.isFinite(v)) return "—";
+  let decimals: number;
+  if (Math.abs(dataMax) < 1) decimals = 2;
+  else if (Math.abs(dataMax) < 100) decimals = 1;
+  else decimals = 0;
+  return v.toLocaleString("fr-FR", { maximumFractionDigits: decimals, minimumFractionDigits: decimals > 0 ? 1 : 0 });
+}
+
 const W = 920, H = 420;
 // PAD_RIGHT = 95 (vs 70 avant) pour garantir aucun clipping du label TTM
 // horizontal (sinon coupé par le bord droit du SVG en mode crowded).
@@ -249,7 +259,7 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
               fill="#fafafa"
               fontFamily="ui-monospace, monospace"
             >
-              {Math.round(Number(v))}
+              {formatBarLabel(Number(v), dataOnlyMax)}
             </text>
             {/* x label : quarter uniquement (T1/T2/T3/T4) sur ligne 1. Le
                 year apparaît UNE SEULE FOIS par groupe via le year-band

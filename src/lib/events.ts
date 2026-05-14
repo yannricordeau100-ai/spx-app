@@ -27,18 +27,56 @@ export type CompanyEvent = {
  *
  * Retourne `null` si l'année est hors-range.
  */
+/**
+ * Yann 14 mai 2026 : position des "i" évènements sur l'axe X.
+ *
+ * Comportements :
+ *   1. Labels ANNUELS (["2020", "2021", ...]) → l'event d'une année est
+ *      positionné sur la LIMITE entre l'année précédente et celle-ci
+ *      (idx = year - start), donc visuellement "au milieu entre les 2 ans"
+ *      comme demandé. Le mois exact n'est plus pris en compte côté annuel
+ *      (impossible à représenter sans surcharger visuellement).
+ *   2. Labels QUARTERLY (["T4 23", "T1 24", "T2 24", ...]) → on parse le
+ *      trimestre et l'année du label pour caler l'event au bon trimestre.
+ *      Si month connu : on prend le trimestre correspondant. Sinon : Q1.
+ *   3. Multiples events même année : EventDotsSVG les écarte côte à côte
+ *      via SPREAD = 18px (suffisant pour ne pas se chevaucher).
+ */
+function parseQuarterLabel(label: string): { quarter: number; year: number } | null {
+  const m = /^T([1-4])\s+(\d{2,4})$/.exec(label.trim());
+  if (!m) return null;
+  const q = parseInt(m[1]);
+  let y = parseInt(m[2]);
+  if (y < 100) y += 2000;
+  return { quarter: q, year: y };
+}
+
 export function eventFractionalIndex(
   event: CompanyEvent,
   xLabels: string[]
 ): number | null {
+  // Cas quarterly : labels "T1 24" "T2 24" etc.
+  const firstQ = parseQuarterLabel(xLabels[0] ?? "");
+  if (firstQ) {
+    const wantedQ = event.month != null && event.month >= 1 && event.month <= 12
+      ? Math.ceil(event.month / 3)
+      : 1;
+    const idx = xLabels.findIndex((l) => {
+      const p = parseQuarterLabel(l);
+      return p && p.year === event.year && p.quarter === wantedQ;
+    });
+    if (idx === -1) return null;
+    return idx;
+  }
+  // Cas annuel : labels "2020" "2021" etc.
   const start = parseInt(xLabels[0] ?? "");
   const end = parseInt(xLabels[xLabels.length - 1] ?? "");
   if (isNaN(start) || isNaN(end)) return null;
-  const monthOffset =
-    event.month != null && event.month >= 1 && event.month <= 12
-      ? (event.month - 0.5) / 12
-      : 0.5;
-  const idx = event.year - start + monthOffset;
+  // Yann 14 mai 2026 : "au milieu entre les 2 années" = sur la limite,
+  // pas au milieu de l'année. Donc idx = year - start (= position du
+  // label de l'année, ce qui est la frontière entre l'année précédente
+  // et celle-ci sur le year-band).
+  const idx = event.year - start;
   if (idx < 0 || idx > xLabels.length - 1 + 0.001) return null;
   return idx;
 }

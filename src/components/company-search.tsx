@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useRef, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import { Search, X, ArrowRight, ArrowUpRight, ArrowDownRight } from "lucide-react";
 import {
@@ -64,6 +65,7 @@ export function CompanySearch({
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   // ⌘K / Ctrl+K pour ouvrir, ESC pour fermer
   useEffect(() => {
@@ -264,6 +266,19 @@ export function CompanySearch({
                   enterKeyHint="search"
                   data-1p-ignore
                   data-lpignore="true"
+                  onKeyDown={(e) => {
+                    // Yann 14 mai 2026 : Entrée ouvre la sté quand 1 seul
+                    // résultat. Évite de cliquer manuellement.
+                    if (e.key === "Enter" && results.length === 1) {
+                      e.preventDefault();
+                      const r = results[0];
+                      const href = r.source === "v1"
+                        ? `/${r.ticker.toLowerCase()}`
+                        : `/sandbox/v1-8/${r.ticker.toLowerCase()}`;
+                      close();
+                      router.push(href);
+                    }
+                  }}
                   className="flex-1 bg-transparent text-[16px] text-zinc-100 outline-none placeholder:text-zinc-500"
                 />
                 {query && (

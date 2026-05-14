@@ -66,7 +66,7 @@ export function EventDotsSVG({
     // Spread horizontal si plusieurs events proches (même année / même
     // mois) : on les étale côte à côte avec offset 14px max.
     .sort((a, b) => a.x - b.x);
-  const SPREAD = 14;
+  const SPREAD = 18;
   for (let i = 1; i < positioned.length; i++) {
     const prev = positioned[i - 1];
     const cur = positioned[i];
@@ -163,7 +163,7 @@ export function EventDotsOverlay({
     })
     .filter((p): p is { i: number; e: CompanyEvent; x: number } => p !== null)
     .sort((a, b) => a.x - b.x);
-  const SPREAD = 14;
+  const SPREAD = 18;
   for (let i = 1; i < pxPositioned.length; i++) {
     if (pxPositioned[i].x - pxPositioned[i - 1].x < SPREAD) {
       pxPositioned[i].x = pxPositioned[i - 1].x + SPREAD;

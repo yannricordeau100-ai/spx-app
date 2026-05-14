@@ -45,13 +45,39 @@ function niceTicks(min: number, max: number, count = 5): number[] {
 }
 
 /**
+ * Yann 14 mai 2026 : format label des data points ADAPTATIF à la magnitude.
+ *
+ * Bug à corriger : Math.round(0.41) = 0 → tous les points Tesla affichaient
+ * "0" alors que les vraies valeurs étaient 0.3-0.5 (M units / véhicules).
+ *
+ * Règle universelle (marche sur TOUTES les stés actuelles et futures) :
+ *   - dataMax < 1   → 2 décimales (ex Tesla M units 0,41)
+ *   - dataMax < 10  → 1 décimale (ex marges %, ratios)
+ *   - dataMax < 100 → 1 décimale (ex EPS $)
+ *   - dataMax >= 100 → entier (Mds $, revenus)
+ */
+function formatDataPointLabel(v: number, dataMax: number): string {
+  if (!Number.isFinite(v)) return "—";
+  let decimals: number;
+  if (Math.abs(dataMax) < 1) decimals = 2;
+  else if (Math.abs(dataMax) < 100) decimals = 1;
+  else decimals = 0;
+  return v.toLocaleString("fr-FR", { maximumFractionDigits: decimals, minimumFractionDigits: decimals > 0 ? 1 : 0 });
+}
+
+/**
  * Format Y-axis tick value following Mettrik's strict rule (CLAUDE.md §6) :
  *   - currency-like ("$B", "$M", "B", "M") → integer values only, FR locale
  *   - percent-like ("%", "% YoY") → 1 decimal max, FR locale
  *   - other → 1 decimal max, FR locale
  */
 function formatYTick(v: number, unit: string): string {
+  // Yann 14 mai 2026 : fallback adaptatif si la valeur tick est < 1
+  // (ex Tesla M units 0,1 0,2 0,3) on garde la décimale au lieu d'écrire "0".
   if (isCurrencyLike(unit)) {
+    if (Math.abs(v) < 1 && v !== 0) {
+      return (Math.round(v * 100) / 100).toLocaleString("fr-FR", { maximumFractionDigits: 2 });
+    }
     return Math.round(v).toLocaleString("fr-FR");
   }
   if (isPercentLike(unit)) {
@@ -477,7 +503,7 @@ export function CurveChart({
                   fontFamily="ui-monospace, monospace"
                   style={isHover ? { filter: `drop-shadow(0 0 4px ${color})` } : undefined}
                 >
-                  {Math.round(Number(allData[i]))}
+                  {formatDataPointLabel(Number(allData[i]), dataOnlyMax)}
                 </text>
               )}
             </g>
