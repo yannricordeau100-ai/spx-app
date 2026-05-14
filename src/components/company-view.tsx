@@ -73,6 +73,36 @@ const VISIBLE_KPI_COUNT = 6;
  *   - Capex / R&D / dépenses : capex, opex, r&d, expense, capital exp…
  * Pour Headcount, NPS, subscribers count, etc. → toggle masqué.
  */
+/**
+ * Yann 15 mai 2026 : si l'unit dit "M X" / "Mds X" mais TOUTES les valeurs
+ * du KPI sont < 1, on descend d'un cran de magnitude pour ne jamais
+ * afficher "0,4 M unités" alors qu'on a en fait 400 000 unités.
+ *
+ * Marche pour : "M unités", "Mds $", "Mds €", "M €", "Mds GWh", etc.
+ * Retourne { unit: nouvelle unit, factor: multiplicateur des valeurs }.
+ */
+function autoRescaleSmallUnit(unit: string, allBelowOne: boolean): { unit: string; factor: number } {
+  if (!allBelowOne) return { unit, factor: 1 };
+  const u = unit.trim();
+  // "Mds X" → "M X" (×1000)
+  let m = u.match(/^Mds(\s+.+)$/i);
+  if (m) return { unit: `M${m[1]}`, factor: 1000 };
+  m = u.match(/^M(\s+.+)$/i);
+  if (m) {
+    // "M unités" / "M GWh" → unit brute (×1 000 000), affichage en
+    // milliers (k) si le suffixe le permet, sinon unité brute.
+    const tail = m[1].trim();
+    // Pour "$/€/£" on saute à l'unité crue (1 → 1 000 000 → afficher en
+    // unité brute). Pour "unités/GWh/..." idem.
+    return { unit: tail, factor: 1_000_000 };
+  }
+  // Cas Mds standalone "Mds $" déjà traité plus haut. Pour "M $" :
+  if (u === "M $") return { unit: "$", factor: 1_000_000 };
+  if (u === "M €") return { unit: "€", factor: 1_000_000 };
+  if (u === "M £") return { unit: "£", factor: 1_000_000 };
+  return { unit, factor: 1 };
+}
+
 function isTimeFractionApplicableKpi(kpi?: KPI | null): boolean {
   if (!kpi) return false;
   const text = `${kpi.short ?? ""} ${kpi.type ?? ""} ${kpi.name_fr ?? ""}`.toLowerCase();
@@ -217,7 +247,7 @@ export function CompanyView({
   // (last value of each 4-quarter window pour stock, mais la majorité des
   // KPIs avec quarterly history sont stock-like → take last). Pour les
   // KPIs flux trimestriels, sum dans une future itération.
-  const chartHistory = useMemo(() => {
+  const chartHistoryRaw = useMemo(() => {
     if (!active) return [];
     const pt = active.period_type;
     if (graphPeriod !== "year" || (pt !== "quarter" && pt !== "semester")) {
@@ -230,6 +260,9 @@ export function CompanyView({
     for (let i = n - 1; i >= 0; i -= step) out.unshift(h[i]);
     return out;
   }, [active, graphPeriod]);
+  // Yann 15 mai 2026 : applique le scaleFactor au history pour que le
+  // chart affiche en unité descendue (ex 0.41 M → 410 K en unité brute).
+  // scaleFactor est défini plus bas après autoRescaleSmallUnit.
 
   // Ordering : règle Hero / Indicateurs clés / Stories (cf. CLAUDE.md § ORDRE)
   const orderedKpis = useMemo(
@@ -259,11 +292,21 @@ export function CompanyView({
 
   const heroRating = rate(active);
   const anomalies = detectAnomalies(active.history, active.type, active.short);
-  // Yann 14 mai 2026 : unit "GWh deployed" / "M units" → strip "deployed"
-  // anglo-saxon dans l'affichage. On garde l'unité technique (GWh, units, etc.).
-  const displayUnit = String(active.unit ?? "").replace(/\s+deployed$/i, "").replace(/\s+units$/i, " unités");
+  // Yann 14-15 mai 2026 : nettoyage unit + auto-rescale magnitude.
+  //  - strip "deployed"/"units" anglo-saxons
+  //  - si TOUTES les valeurs du history < 1 alors qu'unit dit "M" / "Mds",
+  //    descend d'un cran (Mds → M, M → unités). Évite "0,41 M unités"
+  //    quand on a en fait 410 000 unités.
+  const rawUnit = String(active.unit ?? "").replace(/\s+deployed$/i, "").replace(/\s+units$/i, " unités");
+  const numericValue = typeof active.value === "number" ? active.value : Number(active.value);
+  const hist = Array.isArray(active.history) ? active.history.filter((x): x is number => typeof x === "number") : [];
+  const allBelowOne = (hist.length > 0 && hist.every((v) => Math.abs(v) < 1) && (!Number.isFinite(numericValue) || Math.abs(numericValue) < 1));
+  const { unit: scaledUnit, factor: scaleFactor } = autoRescaleSmallUnit(rawUnit, allBelowOne);
+  const displayUnit = scaledUnit;
+  const scaledValue = Number.isFinite(numericValue) ? numericValue * scaleFactor : active.value;
   const formattedUnit = formatUnit(displayUnit);
-  const heroFormatted = formatHeroValue(active.value, displayUnit);
+  const heroFormatted = formatHeroValue(scaledValue, displayUnit);
+  // CAGR insensible au factor (ratios), donc on garde history brut.
   const heroCAGR = formatCAGR(active.history, displayUnit, active.period_type ?? "year");
   const interp = useMemo(() => interpretStructured(company, active.short), [company, active.short]);
 
@@ -515,7 +558,7 @@ export function CompanyView({
               )}
               <ChartCycle
                 mode={chartMode}
-                data={chartHistory}
+                data={scaleFactor !== 1 ? chartHistoryRaw.map((v) => (typeof v === "number" ? v * scaleFactor : v)) : chartHistoryRaw}
                 labels={chartLabels}
                 unit={displayUnit}
                 color={accent}

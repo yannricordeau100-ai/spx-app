@@ -149,10 +149,16 @@ export function VariationIsoSteps3D({ data, labels, events = [], exportTitle }: 
             {(() => {
               const cx = x + barW / 2 + DX / 2;
               const numTxt = Math.abs(pct).toFixed(1);
-              // 14 (vs 24 avant) = -40 % comme demandé Yann (5 mai 2026)
               const numFz = 14;
               const yPos = (yTop + DY) - 10;       // au-dessus de la barre verte
-              const yNeg = yBot + 22;              // sous la barre rouge, clearance OK
+              // Yann 15 mai 2026 : cap yNeg pour ne JAMAIS empiéter sur les
+              // labels trimestre (T1/T2/T3/T4) placés à H-PAD_BOTTOM+26.
+              // Si la barre descend très bas (ex -19%), on placerait le
+              // label en dessous du quarter → chevauchement. Cap = baseline
+              // chart - 12 px de clearance.
+              const yNegRaw = yBot + 18;
+              const yNegMax = H - PAD_BOTTOM - 12;
+              const yNeg = Math.min(yNegRaw, yNegMax);
               return (
                 <text
                   x={cx}

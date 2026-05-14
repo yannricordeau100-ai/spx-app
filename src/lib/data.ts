@@ -589,6 +589,23 @@ export type InterpretBlock = {
  * Yann 14 mai 2026 : helpers pour générer une interprétation dynamique
  * quand le KPI n'a pas de signal/yoy renseigné dans le dataset.
  */
+/**
+ * Yann 15 mai 2026 : auto-rescale unit pour interpretStructured (server side).
+ * Évite "0,41 M unités" dans le texte d'interprétation → "410 K unités".
+ */
+function autoRescaleForInterp(unit: string, allBelowOne: boolean): { unit: string; factor: number } {
+  if (!allBelowOne) return { unit, factor: 1 };
+  const u = unit.trim();
+  let m = u.match(/^Mds(\s+.+)$/i);
+  if (m) return { unit: `M${m[1]}`, factor: 1000 };
+  m = u.match(/^M(\s+.+)$/i);
+  if (m) return { unit: m[1].trim(), factor: 1_000_000 };
+  if (u === "M $") return { unit: "$", factor: 1_000_000 };
+  if (u === "M €") return { unit: "€", factor: 1_000_000 };
+  if (u === "M £") return { unit: "£", factor: 1_000_000 };
+  return { unit, factor: 1 };
+}
+
 function computeYoyFromHistory(history: number[] | null | undefined): string {
   if (!history || history.length < 2) return "n/a";
   const last = history[history.length - 1];
@@ -650,14 +667,45 @@ export function interpretStructured(company: Company, activeShort?: string): Int
   );
   const cash = company.kpis.find((k) => k.type === "Cash");
 
-  // Yann 14 mai 2026 : fallback dynamique si signal/yoy vide. Garantit que
-  // l'interprétation IA n'est JAMAIS vide sur n'importe quel KPI/sté.
-  const heroValue = hero.value ?? "—";
+  // Yann 14-15 mai 2026 : interprétation IA SUBSTANTIVE.
+  // Pas un copier-coller du nom KPI, mais : valeur rescalée (jamais "0,..."),
+  // YoY chiffré, CAGR sur la période, point haut/bas historique, ralenti
+  // ou pas. La signal pré-écrite reste un complément si non-trivial.
+  const rawValue = typeof hero.value === "number" ? hero.value : Number(hero.value);
+  const rawUnit = String(hero.unit ?? "").replace(/\s+deployed$/i, "").replace(/\s+units$/i, " unités");
+  const histNums = (Array.isArray(hero.history) ? hero.history : []).filter((x): x is number => typeof x === "number");
+  const allBelowOne = histNums.length > 0 && histNums.every((v) => Math.abs(v) < 1) && (!Number.isFinite(rawValue) || Math.abs(rawValue) < 1);
+  const { unit: scaledUnit, factor: scaleFactor } = autoRescaleForInterp(rawUnit, allBelowOne);
+  const heroValue = Number.isFinite(rawValue)
+    ? (rawValue * scaleFactor).toLocaleString("fr-FR", { maximumFractionDigits: 1 })
+    : (hero.value ?? "—");
   const computedYoy = computeYoyFromHistory(hero.history);
   const heroYoy = (typeof hero.yoy === "string" && hero.yoy.trim()) ? hero.yoy : computedYoy;
-  const trend = computeTrendSignal(hero.history, hero.name_fr);
-  const heroSignal = (typeof hero.signal === "string" && hero.signal.trim()) ? hero.signal.toLowerCase() : trend.signal;
-  const lead = `Le KPI principal de <strong>${company.name}</strong> est <strong>${hero.name_fr}</strong>, à <strong>${heroValue} ${formatUnit(hero.unit)}</strong> (${heroYoy} <em>YoY</em>). À retenir : <em>${heroSignal}</em>.`;
+  // Trend : valeurs rescalées pour les comparaisons.
+  const scaledHist = histNums.map((v) => v * scaleFactor);
+  const cagrPct = scaledHist.length >= 2 ? cagr(scaledHist, scaledUnit, hero.period_type ?? "year") : null;
+  const peak = scaledHist.length ? Math.max(...scaledHist) : null;
+  const last = scaledHist.length ? scaledHist[scaledHist.length - 1] : null;
+  const trendBits: string[] = [];
+  if (cagrPct !== null) {
+    const s = cagrPct > 0 ? "+" : "";
+    trendBits.push(`croissance composée de <strong>${s}${cagrPct.toFixed(1).replace(".", ",")} % / an</strong> sur la période`);
+  }
+  if (peak !== null && last !== null && Math.abs(peak - last) / Math.abs(peak || 1) > 0.1 && peak > last) {
+    trendBits.push(`actuellement <strong>${(((peak - last) / peak) * 100).toFixed(0)} %</strong> sous le pic historique`);
+  }
+  const richTrend = trendBits.length > 0 ? trendBits.join(" et ") : computeTrendSignal(hero.history, hero.name_fr).signal;
+  // Signal pré-écrite ignorée si elle ne fait que paraphraser le nom KPI
+  // (ex "Croissance des livraisons de véhicules électriques" pour KPI
+  // "Ventes de véhicules"). On garde la signal seulement si elle apporte
+  // une info chiffrée ou un angle distinctif.
+  const heroSignalLow = typeof hero.signal === "string" ? hero.signal.toLowerCase() : "";
+  const nameNorm = (hero.name_fr ?? "").toLowerCase();
+  const signalAddsValue = heroSignalLow.trim().length > 0
+    && !nameNorm.split(/\s+/).every((w) => heroSignalLow.includes(w))
+    && /\d/.test(heroSignalLow);
+  const tailSignal = signalAddsValue ? ` Détail : <em>${heroSignalLow}</em>` : "";
+  const lead = `Le KPI principal de <strong>${company.name}</strong> est <strong>${hero.name_fr}</strong>, à <strong>${heroValue} ${formatUnit(scaledUnit)}</strong> (${heroYoy} <em>YoY</em>). ${richTrend.charAt(0).toUpperCase() + richTrend.slice(1)}.${tailSignal}`;
 
   const bullets: InterpretBullet[] = [];
   if (driver && driver.short !== hero.short) {

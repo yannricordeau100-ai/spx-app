@@ -21,9 +21,17 @@ import { InfoTooltip } from "@/components/info-tooltip";
 // (datasets qui pourraient référencer "week", "day", etc.).
 export type TimeFraction = "year" | "month" | "week" | "day" | "hour" | "minute" | "second";
 
+// Yann 15 mai 2026 : restaurer S/J/H/m/s. Le toggle n'est affiché que pour
+// les chartes Courbe/Barres avec KPI de type FLUX (isTimeFractionApplicableKpi
+// dans company-view.tsx), donc pas de risque d'afficher "Margin par seconde".
 const FRACTIONS: { id: TimeFraction; divisor: number; key: string }[] = [
-  { id: "year",  divisor: 1,  key: "timefrac.year" },
-  { id: "month", divisor: 12, key: "timefrac.month" },
+  { id: "year",   divisor: 1,                          key: "timefrac.year" },
+  { id: "month",  divisor: 12,                         key: "timefrac.month" },
+  { id: "week",   divisor: 52,                         key: "timefrac.week" },
+  { id: "day",    divisor: 365,                        key: "timefrac.day" },
+  { id: "hour",   divisor: 365 * 24,                   key: "timefrac.hour" },
+  { id: "minute", divisor: 365 * 24 * 60,              key: "timefrac.minute" },
+  { id: "second", divisor: 365 * 24 * 60 * 60,         key: "timefrac.second" },
 ];
 
 /** Diviseurs legacy (rétro-compat avec datasets/state qui mentionnent
