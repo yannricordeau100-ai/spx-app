@@ -119,13 +119,29 @@ function formatDateFR(iso?: string): string {
   }
 }
 
-function quarterLabel(q?: number, y?: number): string {
+function quarterLabel(q?: number, y?: number, ticker?: string): string {
   if (!q || !y) return "Dernier earning call";
+  // Pour les stés à exercice fiscal décalé (NVDA jan, MSFT juin, AAPL sept…),
+  // afficher "FYyy Qq" au lieu de "Tq AAAA" calendaire (Yann 14 mai 2026).
+  if (ticker) {
+    const fyShort = y % 100;
+    // Import lazy pour éviter cycle. Le label fiscal n'est utile que pour les
+    // stés détectées comme "shifted" via fiscal-audit.json.
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      const { isFiscalShifted } = require("@/lib/fiscal-calendar");
+      if (isFiscalShifted(ticker)) {
+        return `FY${fyShort < 10 ? "0" + fyShort : fyShort} Q${q}`;
+      }
+    } catch {
+      /* fallback */
+    }
+  }
   return `T${q} ${y}`;
 }
 
 /** Carte 1 : citations top management (prêt LLM). MVP : preview text. */
-function QuotesCard({ doc, accent }: { doc: TranscriptDoc; accent: string }) {
+function QuotesCard({ doc, accent, ticker }: { doc: TranscriptDoc; accent: string; ticker?: string }) {
   const { t } = useT();
   const quotes = doc.extracts?.quotes ?? [];
   const fallbackPreview = doc.latest?.content
@@ -142,7 +158,7 @@ function QuotesCard({ doc, accent }: { doc: TranscriptDoc; accent: string }) {
           {t("transcript.quotes_title")}
         </span>
         <span className="ml-auto rounded-md border border-white/10 bg-white/[0.03] px-1.5 py-0.5 font-mono text-[10px] text-zinc-400">
-          {quarterLabel(doc.latest?.quarter, doc.latest?.year)}
+          {quarterLabel(doc.latest?.quarter, doc.latest?.year, ticker)}
         </span>
       </div>
       {quotes.length > 0 ? (
@@ -256,13 +272,13 @@ export function TranscriptStories({
           </p>
         </div>
         <span className="font-mono text-[10.5px] uppercase tracking-wider text-zinc-500">
-          {quarterLabel(doc.latest.quarter, doc.latest.year)} · {formatDateFR(doc.latest.date)}
+          {quarterLabel(doc.latest.quarter, doc.latest.year, ticker)} · {formatDateFR(doc.latest.date)}
         </span>
       </div>
       {/* 2 blocs côte à côte qui prennent la largeur de la page (cohérent
           avec les blocs au-dessus / en-dessous). */}
       <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
-        <QuotesCard doc={doc} accent={accent} />
+        <QuotesCard doc={doc} accent={accent} ticker={ticker} />
         <FiguresCard doc={doc} accent={accent} />
       </div>
     </section>
