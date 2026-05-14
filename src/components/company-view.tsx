@@ -50,7 +50,6 @@ import { RepartitionBlock } from "@/components/repartition-block";
 import { DividendStories } from "@/components/dividend-stories";
 import { FreshnessIndicator } from "@/components/freshness-indicator";
 import { AcronymHover } from "@/components/acronym-hover";
-import { SenateTradesLive } from "@/components/senate-trades-live";
 import { CompanyNavChrome } from "@/components/company-nav-chrome";
 import { SuperKpiBoard } from "@/components/super-kpi-board";
 import { computeSuperKpis, computeSectorSuperKpis } from "@/lib/super-kpi";
@@ -89,7 +88,6 @@ function isTimeFractionApplicableKpi(kpi?: KPI | null): boolean {
 export function CompanyView({
   company,
   authSlot,
-  hideSenate = false,
   hidePriceBar = false,
   transcript = null,
   transcriptSummary = null,
@@ -97,8 +95,6 @@ export function CompanyView({
 }: {
   company: Company;
   authSlot?: React.ReactNode;
-  /** Si true, masque le bloc SenateTradesLive (utile pour FPI étrangers V2). */
-  hideSenate?: boolean;
   /** Si true, masque le StockPriceBlock (utile pour datasets V1.6 sans live data). */
   hidePriceBar?: boolean;
   /** Dernier earning call transcript (créé par CONV-DATA). Null si pas dispo. */
@@ -560,21 +556,21 @@ export function CompanyView({
         <section id="sec-kpis" className="mt-9 scroll-mt-24 animate-fade-up-d2">
           <div className="mb-4 flex items-end justify-between">
             <div>
-              <h2 className="text-[22px] font-semibold text-zinc-100">Indicateurs clés</h2>
+              <h2 className="text-[22px] font-semibold text-zinc-100">{t("company.kpi_table.title")}</h2>
               <p className="mt-0.5 text-[13.5px] text-zinc-400">
-                Cliquez sur un indicateur pour le promouvoir en KPI principal.
+                {t("company.kpi_table.subtitle")}
               </p>
             </div>
             <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-500">
-              {company.kpis.length} indicateurs
+              {company.kpis.length} {t("company.kpi_table.count_label")}
             </span>
           </div>
           <div className="overflow-hidden rounded-2xl border border-[#1f1f1f] bg-[#080808]">
             <div className="grid grid-cols-12 gap-3 border-b border-[#1a1a1a] bg-[#0c0c0c] px-5 py-3.5 font-sans text-[11.5px] font-semibold uppercase tracking-[0.12em] text-zinc-300 sm:px-6">
-              <div className="col-span-4">Indicateur</div>
-              <div className="col-span-2">Valeur <span className="ml-0.5 italic text-zinc-400">(YoY)</span></div>
-              <div className="col-span-2">Tendance</div>
-              <div className="col-span-4">Qualité · Signal</div>
+              <div className="col-span-4">{t("company.kpi_table.col_indicator")}</div>
+              <div className="col-span-2">{t("company.kpi_table.col_value")} <span className="ml-0.5 italic text-zinc-400">(YoY)</span></div>
+              <div className="col-span-2">{t("company.kpi_table.col_trend")}</div>
+              <div className="col-span-4">{t("company.kpi_table.col_quality")}</div>
             </div>
             {visibleKpis.map((kpi) => (
               <KpiRow
@@ -674,8 +670,7 @@ export function CompanyView({
           v18Mode && <V18MissingPlaceholder id="sec-ai" label="Positionnement IA" hint="Mentions IA dans 10-K à parser via Cerebras Llama 3.3 70B." />
         )}
 
-        {/* Trades du Sénat US — données LIVE via FMP /stable/senate-trades */}
-        {!hideSenate && <SenateTradesLive ticker={company.ticker} accent={accent} />}
+        {/* Bloc transactions politiciens US retiré (13 mai 2026 par Yann). */}
 
         {/* Super-KPI Mettrik — bloc final, combinaisons composites */}
         <SuperKpiBoard
