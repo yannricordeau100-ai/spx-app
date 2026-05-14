@@ -66,7 +66,13 @@ function hasWeakMarker(v: AnyRecord): boolean {
   // historique reste mais ne doit plus bloquer la fiche. Ex : AMZN "GMV
   // halluciné" → corrigé en "Op Cash Flow", sté affichable. Yann 7 mai 2026.
   if (hasSonnetCorrections(v)) return false;
-  return WEAK_MARKERS.some((m) => txt.includes(m));
+  // Strip phrases positives qui contiennent le marker en négation
+  // (ex: "no hallucinated kpis detected", "no fabricated values").
+  // Sinon AOS et autres bloqués à tort. Yann 14 mai 2026.
+  const cleaned = txt
+    .replace(/\bno\s+(?:hallucinated|fabricated|invented|made[\s-]up)\b[^.]*?(?:\.|$)/gi, " ")
+    .replace(/\bnot\s+(?:hallucinated|fabricated|invented)\b[^.]*?(?:\.|$)/gi, " ");
+  return WEAK_MARKERS.some((m) => cleaned.includes(m));
 }
 
 function kpiQualityLow(v: AnyRecord): boolean {
