@@ -29,6 +29,25 @@ type AnyCo = Record<string, unknown> & {
   _fit_for_site?: boolean;
   _fit_reasons?: string[];
   transcript_summary?: unknown;
+  _extracted_at?: string;
+};
+
+/**
+ * Status par bloc :
+ *  A = "juste" (data structurellement correcte et présente)
+ *  B = "à jour" (data fraîche, last_data_date ou _extracted_at récent)
+ *  C = "visible" (le composant React rendrait effectivement le bloc, càd
+ *      n'a pas de return null à cause de données manquantes)
+ *
+ * Composite :
+ *  "✓" = A+B+C tous OK
+ *  "⚠" = A OK mais B ou C non OK
+ *  "·" = A non OK (data manquante)
+ */
+export type BlockStatus = {
+  a: boolean; // juste
+  b: boolean; // à jour
+  c: boolean; // visible (component would render)
 };
 
 export type Row = {
@@ -36,24 +55,11 @@ export type Row = {
   name: string;
   in_top307: boolean;
   in_v17: boolean;
-  hero_kpi: "ok" | "missing";
-  hero_history: "complete" | "partial" | "missing";
-  kpis_count: "ok" | "partial" | "missing";
-  risks: "ok" | "partial" | "missing";
-  governance: "ok" | "missing";
-  ai_pos: "ok" | "missing";
-  segment: "ok" | "missing";
-  geography: "ok" | "missing";
-  customer_type: "ok" | "missing";
-  events: "ok" | "partial" | "missing";
-  tam: "ok" | "missing";
-  description: "ok" | "missing";
-  freshness: "ok" | "missing";
-  ranks: "ok" | "missing";
-  logo: "ok" | "missing";
-  transcript: "ok" | "missing";
+  blocks: Record<string, BlockStatus>;
   fit: boolean;
   missing_count: number;
+  // Score visuel : combien de blocs ont A+B+C OK
+  good_count: number;
 };
 
 function readJson<T>(p: string): T | null {
@@ -64,9 +70,7 @@ function readJson<T>(p: string): T | null {
   }
 }
 
-function mergeEnrich(base: AnyCo, enrich: AnyCo | null, tam: { market_positions?: unknown } | null, ranks: { ranks?: unknown } | null): AnyCo {
-  // Mimic le merge fait par src/lib/v1-7/load-company.ts pour que le matrix
-  // refléte ce que voit la page sté V1.8.
+function mergeEnrich(base: AnyCo, enrich: AnyCo | null, tam: { market_positions?: unknown } | null, ranksEnrich: { ranks?: unknown } | null): AnyCo {
   const out: AnyCo = { ...base };
   if (enrich) {
     for (const key of [
@@ -86,19 +90,95 @@ function mergeEnrich(base: AnyCo, enrich: AnyCo | null, tam: { market_positions?
         (out as Record<string, unknown>)[key] = enrich[key];
       }
     }
+    // Append KPIs from enrich (CONV-DIV V1 patch)
+    if (Array.isArray(enrich.kpis) && Array.isArray(out.kpis)) {
+      const existingShorts = new Set(out.kpis.map((k) => k?.short));
+      for (const k of enrich.kpis) {
+        if (k?.short && !existingShorts.has(k.short)) out.kpis.push(k);
+      }
+    }
   }
   if (tam && Array.isArray(tam.market_positions) && tam.market_positions.length > 0) {
     if (!Array.isArray(out.market_positions)) {
       (out as Record<string, unknown>).market_positions = tam.market_positions;
     }
   }
-  if (ranks && ranks.ranks) {
+  if (ranksEnrich && ranksEnrich.ranks) {
     const existing = (out as Record<string, unknown>).ranks as Record<string, unknown> | undefined;
     if (!existing || !existing.global_world) {
-      (out as Record<string, unknown>).ranks = ranks.ranks;
+      (out as Record<string, unknown>).ranks = ranksEnrich.ranks;
     }
   }
   return out;
+}
+
+/** Date freshness: <12 mois = ok */
+function isFresh(iso: unknown, maxMonths = 12): boolean {
+  if (!iso || typeof iso !== "string") return false;
+  try {
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return false;
+    const ageMs = Date.now() - d.getTime();
+    return ageMs < maxMonths * 30 * 24 * 3600 * 1000;
+  } catch {
+    return false;
+  }
+}
+
+/** Mimick component-rendering null-checks. Same logic as React components. */
+function computeBlocks(d: AnyCo, ticker: string, logoSet: Set<string>, transcriptSet: Set<string>): Record<string, BlockStatus> {
+  const kpis = Array.isArray(d.kpis) ? d.kpis : [];
+  const heroShort = d.hero_kpi || "";
+  const hero = kpis.find((k) => k && k.short === heroShort) ?? kpis[0];
+  const heroHist = hero && Array.isArray(hero.history) ? hero.history.filter((v) => v != null) : [];
+  const risks = Array.isArray(d.risks) ? d.risks : [];
+  const events = Array.isArray(d.events) ? d.events : [];
+  const gov = (d.governance as Record<string, unknown>) ?? {};
+  const ai = (d.ai_positioning as Record<string, unknown>) ?? {};
+  const ranksObj = (d.ranks as Record<string, unknown>) ?? {};
+  const seg = (d.revenue_by_segment as { slices?: unknown[] }) ?? {};
+  const geo = (d.revenue_by_geography as { slices?: unknown[] }) ?? {};
+  const segOk = Array.isArray(seg.slices) && seg.slices.length >= 2;
+  const geoOk = Array.isArray(geo.slices) && geo.slices.length >= 2;
+  const mp = d.market_positions;
+  const logoSafe = ticker.replace(/\./g, "-").replace(/\//g, "-").toUpperCase();
+  const desc = String(d.company_description || "");
+
+  // Dividend KPI shorts (CONV-DIV V1+V4 logic from dividend-stories.tsx:115)
+  const shorts = new Set(kpis.map((k) => k?.short));
+  const isCat = ticker === "CAT";
+  const dividendVisible = isCat || (shorts.has("DPS") && shorts.has("Cap Return") && shorts.has("Payout Ratio"));
+
+  // last_data_date est stocké sur le KPI hero (et chaque KPI), pas au niveau sté.
+  // Cherche d'abord hero.last_data_date, sinon n'importe quel KPI valide.
+  const heroLastDate = hero?.last_data_date as string | undefined;
+  const anyKpiDate = kpis.find((k) => k?.last_data_date)?.last_data_date as string | undefined;
+  const lastDate = heroLastDate || anyKpiDate || (d.last_data_date as string | undefined);
+  const extractedAt = d._extracted_at as string | undefined;
+  const dataFresh = isFresh(lastDate, 12) || isFresh(extractedAt, 6);
+
+  const heroExtractedAt = hero?._hero_history_extracted_at as string | undefined;
+  const heroFresh = isFresh(heroExtractedAt, 12) || isFresh(lastDate, 12);
+
+  return {
+    hero_kpi: { a: !!(heroShort && hero), b: dataFresh, c: !!(heroShort && hero && hero.value != null) },
+    hero_history: { a: heroHist.length >= 4, b: heroFresh, c: heroHist.length >= 4 },
+    kpis_count: { a: kpis.length >= 5, b: dataFresh, c: kpis.length >= 5 },
+    risks: { a: risks.length >= 3, b: dataFresh, c: risks.length > 0 },
+    governance: { a: !!gov.ceo_name, b: dataFresh, c: !!gov.ceo_name },
+    ai_pos: { a: !!ai.stance, b: dataFresh, c: !!ai.stance },
+    segment: { a: segOk, b: dataFresh, c: segOk || geoOk },
+    geography: { a: geoOk, b: dataFresh, c: segOk || geoOk },
+    customer_type: { a: !!d.customer_type, b: dataFresh, c: !!d.customer_type },
+    events: { a: events.length >= 2, b: isFresh(extractedAt, 1) || dataFresh, c: events.length > 0 },
+    tam: { a: Array.isArray(mp) && mp.length > 0, b: dataFresh, c: Array.isArray(mp) && mp.length > 0 },
+    description: { a: desc.length >= 50, b: dataFresh, c: desc.length >= 50 },
+    freshness: { a: !!lastDate, b: isFresh(lastDate, 3), c: !!lastDate },
+    ranks: { a: !!ranksObj.global_world, b: isFresh(extractedAt, 6), c: !!ranksObj.global_world },
+    logo: { a: logoSet.has(logoSafe), b: true, c: logoSet.has(logoSafe) },
+    transcript: { a: transcriptSet.has(ticker.toUpperCase()), b: true, c: transcriptSet.has(ticker.toUpperCase()) },
+    dividend: { a: dividendVisible, b: dataFresh, c: dividendVisible },
+  };
 }
 
 function buildRows(): Row[] {
@@ -110,21 +190,18 @@ function buildRows(): Row[] {
     ? (top307Raw as string[])
     : ((top307Raw as { tickers?: string[] })?.tickers ?? []);
   const top307 = new Set(top307Arr.slice(0, 307));
-
   const enrichDir = path.join(root, "src/data/v2-pipeline-enrich");
 
-  const logoDir = path.join(root, "public/logos");
   const logoSet = new Set<string>();
   try {
-    for (const f of fs.readdirSync(logoDir)) {
+    for (const f of fs.readdirSync(path.join(root, "public/logos"))) {
       logoSet.add(f.replace(/\.(png|svg)$/i, "").toUpperCase());
     }
   } catch {}
 
-  const transcriptDir = path.join(root, "src/data/transcript-summaries");
   const transcriptSet = new Set<string>();
   try {
-    for (const f of fs.readdirSync(transcriptDir)) {
+    for (const f of fs.readdirSync(path.join(root, "src/data/transcript-summaries"))) {
       if (f.endsWith(".json")) transcriptSet.add(f.replace(/\.json$/i, "").toUpperCase());
     }
   } catch {}
@@ -137,56 +214,30 @@ function buildRows(): Row[] {
     const tam = readJson<{ market_positions?: unknown }>(path.join(enrichDir, `${tkLower}.tam.json`));
     const ranksEnrich = readJson<{ ranks?: unknown }>(path.join(enrichDir, `${tkLower}.ranks.json`));
     const d = mergeEnrich(base, enrich, tam, ranksEnrich);
-    const kpis = Array.isArray(d.kpis) ? d.kpis : [];
-    const heroShort = d.hero_kpi || "";
-    const hero = kpis.find((k) => k && k.short === heroShort) ?? kpis[0];
-    const heroHist = hero && Array.isArray(hero.history) ? hero.history.filter((v) => v != null) : [];
-    const risks = Array.isArray(d.risks) ? d.risks : [];
-    const events = Array.isArray(d.events) ? d.events : [];
-    const gov = (d.governance as Record<string, unknown>) ?? {};
-    const ai = (d.ai_positioning as Record<string, unknown>) ?? {};
-    const ranksObj = (d.ranks as Record<string, unknown>) ?? {};
-    const seg = (d.revenue_by_segment as { slices?: unknown[] }) ?? {};
-    const geo = (d.revenue_by_geography as { slices?: unknown[] }) ?? {};
-    const logoSafe = tk.replace(/\./g, "-").replace(/\//g, "-").toUpperCase();
+    const blocks = computeBlocks(d, tk, logoSet, transcriptSet);
 
-    const row: Row = {
+    let missing = 0;
+    let good = 0;
+    for (const status of Object.values(blocks)) {
+      if (!status.a) missing++;
+      if (status.a && status.b && status.c) good++;
+    }
+
+    rows.push({
       ticker: tk,
       name: String(d.name || tk),
       in_top307: top307.has(tk),
       in_v17: tk in v17,
-      hero_kpi: heroShort && hero ? "ok" : "missing",
-      hero_history: heroHist.length >= 4 ? "complete" : heroHist.length >= 1 ? "partial" : "missing",
-      kpis_count: kpis.length >= 5 ? "ok" : kpis.length >= 1 ? "partial" : "missing",
-      risks: risks.length >= 3 ? "ok" : risks.length >= 1 ? "partial" : "missing",
-      governance: gov.ceo_name ? "ok" : "missing",
-      ai_pos: ai.stance ? "ok" : "missing",
-      segment: Array.isArray(seg.slices) && seg.slices.length >= 2 ? "ok" : "missing",
-      geography: Array.isArray(geo.slices) && geo.slices.length >= 2 ? "ok" : "missing",
-      customer_type: d.customer_type ? "ok" : "missing",
-      events: events.length >= 2 ? "ok" : events.length >= 1 ? "partial" : "missing",
-      tam: Array.isArray(d.market_positions) && d.market_positions.length > 0 ? "ok" : "missing",
-      description: d.company_description && String(d.company_description).length >= 50 ? "ok" : "missing",
-      freshness: d.last_data_date ? "ok" : "missing",
-      ranks: ranksObj.global_world ? "ok" : "missing",
-      logo: logoSet.has(logoSafe) ? "ok" : "missing",
-      transcript: transcriptSet.has(tk.toUpperCase()) ? "ok" : "missing",
+      blocks,
       fit: d._fit_for_site !== false,
-      missing_count: 0,
-    };
-
-    const checks: Array<Row[keyof Row]> = [
-      row.hero_kpi, row.hero_history, row.kpis_count, row.risks, row.governance,
-      row.ai_pos, row.segment, row.geography, row.customer_type, row.events,
-      row.tam, row.description, row.freshness, row.ranks, row.logo, row.transcript,
-    ];
-    row.missing_count = checks.filter((c) => c === "missing" || c === "partial").length;
-    rows.push(row);
+      missing_count: missing,
+      good_count: good,
+    });
   }
 
   rows.sort((a, b) => {
     if (a.in_top307 !== b.in_top307) return a.in_top307 ? -1 : 1;
-    return a.missing_count - b.missing_count;
+    return b.good_count - a.good_count;
   });
   return rows;
 }
