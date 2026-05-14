@@ -49,6 +49,16 @@ jobs:
         env:
           PYTHONUNBUFFERED: "1"
 
+      # Yann 14 mai 2026 : snapshot boursier (market cap, P/E, EPS, beta,
+      # dividende, plus-haut/plus-bas 52 sem, variation jour) actualisé
+      # quotidiennement. Source = yfinance (gratuit). Effet :
+      # `financial_snapshot` à jour chaque jour pour le top 307.
+      - name: Refresh yfinance financial_snapshot (top 307)
+        run: python3 scripts/enrich-company-profile-yfinance.py --limit 307 --force
+        env:
+          PYTHONUNBUFFERED: "1"
+        continue-on-error: true
+
       - name: Rebuild merged dataset
         run: npx tsx scripts/build-v2-pipeline-merged.ts
 
