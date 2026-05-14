@@ -90,6 +90,9 @@ function isPublicPath(pathname: string): boolean {
   // /sandbox/top307-breakdown = tableau top 307 V1.8 avec pays + MC + rangs
   // (monde / US / FR / CH / DE). Public pour Yann.
   if (pathname === "/sandbox/top307-breakdown") return true;
+  // /populaire-investisseurs = actions les plus consultées par langue
+  // (Wikipedia pageviews). Public, top-nav link.
+  if (pathname === "/populaire-investisseurs") return true;
   // /concepts/* = prototypes / mockups visuels CONV-CONCEPTS. Public car
   // utilisés pour vérification visuelle (Yann 13 mai 2026, pour chart-test).
   if (pathname === "/concepts" || pathname.startsWith("/concepts/")) return true;

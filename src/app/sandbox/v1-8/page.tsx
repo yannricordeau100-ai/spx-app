@@ -58,6 +58,7 @@ export default async function SandboxV18HubPage() {
   const homeOverrides = await loadPageContent("home", locale);
   const pricingLabel = translate("nav.pricing", locale);
   const contactLabel = translate("nav.contact", locale);
+  const popularLabel = translate("nav.popular", locale);
 
   // Détecte la session pour ne PAS bloquer un user déjà connecté.
   const supabase = await createSupabaseServerClient();
@@ -78,6 +79,7 @@ export default async function SandboxV18HubPage() {
         routePrefix="/sandbox/v1-8"
         searchScope={{ tickers, total: tickers.length }}
         topNavLinks={[
+          { label: popularLabel, href: "/populaire-investisseurs" },
           { label: pricingLabel, href: "/sandbox/v1-8/pricing" },
           { label: contactLabel, href: "/sandbox/v1-8/contact" },
         ]}
