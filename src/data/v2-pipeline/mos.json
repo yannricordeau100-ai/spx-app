@@ -187,6 +187,72 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet"
+    },
+    {
+      "short": "DPS",
+      "name_fr": "Dividende par action",
+      "name_en": "Dividend Per Share",
+      "value": 0.22,
+      "unit": "$",
+      "yoy": "-75.0%",
+      "history": [
+        0.2,
+        0.275,
+        0.563,
+        1.05,
+        0.84,
+        0.88,
+        0.22
+      ],
+      "type": "Dividende",
+      "nature": "comptable",
+      "comparable": true,
+      "signal": "Dividende par action de 0.22 $ dernière année.",
+      "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
+      "is_generic": true,
+      "_source": "yfinance.dividends"
+    },
+    {
+      "short": "Cap Return",
+      "name_fr": "Capital retourné (dividendes)",
+      "name_en": "Capital Returned (Dividends)",
+      "value": 0.28,
+      "unit": "Mds $",
+      "yoy": "+3.3%",
+      "history": [
+        0.198,
+        0.352,
+        0.271,
+        0.28
+      ],
+      "type": "Cash",
+      "nature": "comptable",
+      "comparable": true,
+      "signal": "Capital retourné aux actionnaires via dividendes de 0.28 Mds $ dernière année.",
+      "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
+      "is_generic": true,
+      "_source": "yfinance.cashflow"
+    },
+    {
+      "short": "Payout Ratio",
+      "name_fr": "Taux de distribution",
+      "name_en": "Payout Ratio",
+      "value": 51.9,
+      "unit": "%",
+      "yoy": "-102.9 pts",
+      "history": [
+        5.5,
+        30.2,
+        154.8,
+        51.9
+      ],
+      "type": "Dividende",
+      "nature": "comptable",
+      "comparable": true,
+      "signal": "Part du résultat net distribué en dividendes : 51.9% dernière année.",
+      "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
+      "is_generic": true,
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
     }
   ],
   "stories_kpis": [],

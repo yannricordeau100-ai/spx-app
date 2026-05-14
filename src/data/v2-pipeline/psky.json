@@ -13,7 +13,7 @@
     "sector": "",
     "subsector": ""
   },
-  "hero_kpi": "Debt Financing Commitment for Warner Bros. Acquisition",
+  "hero_kpi": "Total Revenue",
   "hero_kpi_rationale": "L'engagement de financement par emprunt de 57,5 milliards de dollars pour l'acquisition de Warner Bros. représente un événement transformateur majeur pour l'entreprise, reflétant l'ampleur de la stratégie de croissance ambitieuse et la confiance des financiers dans le projet.",
   "kpis": [
     {
@@ -99,7 +99,7 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 29.21 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt"
     },
@@ -186,6 +186,51 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet"
+    },
+    {
+      "short": "DPS",
+      "name_fr": "Dividende par action",
+      "name_en": "Dividend Per Share",
+      "value": 0.05,
+      "unit": "$",
+      "yoy": "-75.0%",
+      "history": [
+        0.96,
+        0.96,
+        0.96,
+        0.39,
+        0.2,
+        0.2,
+        0.05
+      ],
+      "type": "Dividende",
+      "nature": "comptable",
+      "comparable": true,
+      "signal": "Dividende par action de 0.05 $ dernière année.",
+      "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
+      "is_generic": true,
+      "_source": "yfinance.dividends"
+    },
+    {
+      "short": "Cap Return",
+      "name_fr": "Capital retourné (dividendes)",
+      "name_en": "Capital Returned (Dividends)",
+      "value": 0.168,
+      "unit": "Mds $",
+      "yoy": "-62.4%",
+      "history": [
+        0.647,
+        0.689,
+        0.447,
+        0.168
+      ],
+      "type": "Cash",
+      "nature": "comptable",
+      "comparable": true,
+      "signal": "Capital retourné aux actionnaires via dividendes de 0.168 Mds $ dernière année.",
+      "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
+      "is_generic": true,
+      "_source": "yfinance.cashflow"
     }
   ],
   "stories_kpis": [
@@ -312,11 +357,8 @@
     "CORRECTION: Severity du risque 'Dilution potentielle par warrants' réduite de 3 à 2 (faible mention dans les extraits du 10-K fournis)",
     "CORRECTION: Toutes les rationales de risque révisées pour refléter les éléments du 10-K avec Item references spécifiques"
   ],
-  "_fit_for_site": false,
-  "_fit_reasons": [
-    "hero_history_too_short_0",
-    "no_yoy"
-  ],
+  "_fit_for_site": true,
+  "_fit_reasons": [],
   "next_earnings_date": "2026-08-03",
   "_held_for_review": true,
   "profit_warning": {
@@ -324,5 +366,6 @@
     "score": 3,
     "rationale": "Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
-  }
+  },
+  "_hero_kpi_original": "Debt Financing Commitment for Warner Bros. Acquisition"
 }

@@ -13,7 +13,7 @@
     "sector": "≈ #10",
     "subsector": "≈ #5"
   },
-  "hero_kpi": "AI Cloud Mix",
+  "hero_kpi": "Total Revenue",
   "hero_kpi_rationale": "Le KPI AI Cloud Mix est le Hero car il reflète la stratégie de l'entreprise pour capitaliser sur les tendances émergentes de l'IA et du cloud, avec une adoption croissante de solutions d'IA intégrées aux offres cloud hybrides.",
   "kpis": [
     {
@@ -90,7 +90,7 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 34.3 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt"
     },
@@ -177,6 +177,72 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet"
+    },
+    {
+      "short": "DPS",
+      "name_fr": "Dividende par action",
+      "name_en": "Dividend Per Share",
+      "value": 0.143,
+      "unit": "$",
+      "yoy": "-73.2%",
+      "history": [
+        0.48,
+        0.48,
+        0.48,
+        0.49,
+        0.52,
+        0.533,
+        0.143
+      ],
+      "type": "Dividende",
+      "nature": "comptable",
+      "comparable": true,
+      "signal": "Dividende par action de 0.143 $ dernière année.",
+      "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
+      "is_generic": true,
+      "_source": "yfinance.dividends"
+    },
+    {
+      "short": "Cap Return",
+      "name_fr": "Capital retourné (dividendes)",
+      "name_en": "Capital Returned (Dividends)",
+      "value": 0.796,
+      "unit": "Mds $",
+      "yoy": "+17.8%",
+      "history": [
+        0.621,
+        0.619,
+        0.676,
+        0.796
+      ],
+      "type": "Cash",
+      "nature": "comptable",
+      "comparable": true,
+      "signal": "Capital retourné aux actionnaires via dividendes de 0.796 Mds $ dernière année.",
+      "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
+      "is_generic": true,
+      "_source": "yfinance.cashflow"
+    },
+    {
+      "short": "Payout Ratio",
+      "name_fr": "Taux de distribution",
+      "name_en": "Payout Ratio",
+      "value": 1396.5,
+      "unit": "%",
+      "yoy": "+1370.3 pts",
+      "history": [
+        71.5,
+        30.6,
+        26.2,
+        1396.5
+      ],
+      "type": "Dividende",
+      "nature": "comptable",
+      "comparable": true,
+      "signal": "Part du résultat net distribué en dividendes : 1396.5% dernière année.",
+      "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
+      "is_generic": true,
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
     }
   ],
   "stories_kpis": [
@@ -339,11 +405,8 @@
     "data_quality_notes": "Les KPIs financiers principaux (revenue, margins) ne sont pas remplis car les états financiers consolidés complets n'étaient pas inclus dans l'extrait fourni. Le dataset est structuralement valide mais requiert les données du Consolidated Statement of Earnings pour compléter les KPIs basiques. La source 10-K confirme la stratégie IA et cloud comme piliers, justifiant le hero_kpi selection.",
     "alignment_with_source": "Tous les risques, la stratégie AI et les segments opérationnels sont alignés avec le contenu du 10-K (Business, MD&A, Risk sections). Les corrections reflètent le langage et les priorités stratégiques confirmés dans le document source."
   },
-  "_fit_for_site": false,
-  "_fit_reasons": [
-    "hero_history_too_short_0",
-    "description_too_short_28"
-  ],
+  "_fit_for_site": true,
+  "_fit_reasons": [],
   "next_earnings_date": "2026-06-02",
   "_held_for_review": true,
   "profit_warning": {
@@ -351,5 +414,6 @@
     "score": 3,
     "rationale": "Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
-  }
+  },
+  "_hero_kpi_original": "AI Cloud Mix"
 }

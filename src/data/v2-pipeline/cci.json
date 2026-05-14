@@ -240,6 +240,71 @@
       "is_short_history": false,
       "ttm": 18.5,
       "_validation": "Correction: ajout donnée historique 2023 pour avoir histoire 3 années (16, 18, estimé ~22). Unit 'M $' confirmé MD&A, YoY -11% vérifié [(16-18)/18=-11%], MD&A confirme statut REIT et utilisation des NOLs. Marqué 'Non comparable' en raison de la nature structurelle du statut REIT qui minimise l'impôt."
+    },
+    {
+      "short": "DPS",
+      "name_fr": "Dividende par action",
+      "name_en": "Dividend Per Share",
+      "value": 1.063,
+      "unit": "$",
+      "yoy": "-77.6%",
+      "history": [
+        4.93,
+        5.46,
+        5.975,
+        6.26,
+        6.26,
+        4.754,
+        1.063
+      ],
+      "type": "Dividende",
+      "nature": "comptable",
+      "comparable": true,
+      "signal": "Dividende par action de 1.063 $ dernière année.",
+      "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
+      "is_generic": true,
+      "_source": "yfinance.dividends"
+    },
+    {
+      "short": "Cap Return",
+      "name_fr": "Capital retourné (dividendes)",
+      "name_en": "Capital Returned (Dividends)",
+      "value": 2.08,
+      "unit": "Mds $",
+      "yoy": "-23.8%",
+      "history": [
+        2.602,
+        2.723,
+        2.729,
+        2.08
+      ],
+      "type": "Cash",
+      "nature": "comptable",
+      "comparable": true,
+      "signal": "Capital retourné aux actionnaires via dividendes de 2.08 Mds $ dernière année.",
+      "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
+      "is_generic": true,
+      "_source": "yfinance.cashflow"
+    },
+    {
+      "short": "Payout Ratio",
+      "name_fr": "Taux de distribution",
+      "name_en": "Payout Ratio",
+      "value": 468.5,
+      "unit": "%",
+      "yoy": "+287.2 pts",
+      "history": [
+        155.3,
+        181.3,
+        468.5
+      ],
+      "type": "Dividende",
+      "nature": "comptable",
+      "comparable": true,
+      "signal": "Part du résultat net distribué en dividendes : 468.5% dernière année.",
+      "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 3 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
+      "is_generic": true,
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
     }
   ],
   "_held_for_review": true,

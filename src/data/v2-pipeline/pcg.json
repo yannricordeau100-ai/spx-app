@@ -13,7 +13,7 @@
     "Sector": "...",
     "Subsector": "..."
   },
-  "hero_kpi": "Wildfire Fund Receivable",
+  "hero_kpi": "Total Revenue",
   "hero_kpi_rationale": "Créance du fonds d'incendie de forêt de 851 millions de dollars reçus en 2025, démontrant la capacité de récupération des coûts liés aux catastrophes climatiques et reflétant l'exposition structurelle majeure de PCG aux risques d'incendies de forêt en Californie.",
   "kpis": [
     {
@@ -71,7 +71,7 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 24.93 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt"
     },
@@ -179,6 +179,72 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet"
+    },
+    {
+      "short": "DPS",
+      "name_fr": "Dividende par action",
+      "name_en": "Dividend Per Share",
+      "value": 0.05,
+      "unit": "$",
+      "yoy": "-60.0%",
+      "history": [
+        1.82,
+        1.925,
+        1.55,
+        0.01,
+        0.055,
+        0.125,
+        0.05
+      ],
+      "type": "Dividende",
+      "nature": "comptable",
+      "comparable": true,
+      "signal": "Dividende par action de 0.05 $ dernière année.",
+      "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
+      "is_generic": true,
+      "_source": "yfinance.dividends"
+    },
+    {
+      "short": "Cap Return",
+      "name_fr": "Capital retourné (dividendes)",
+      "name_en": "Capital Returned (Dividends)",
+      "value": 0.317,
+      "unit": "Mds $",
+      "yoy": "+268.6%",
+      "history": [
+        0.0,
+        0.0,
+        0.086,
+        0.317
+      ],
+      "type": "Cash",
+      "nature": "comptable",
+      "comparable": true,
+      "signal": "Capital retourné aux actionnaires via dividendes de 0.317 Mds $ dernière année.",
+      "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
+      "is_generic": true,
+      "_source": "yfinance.cashflow"
+    },
+    {
+      "short": "Payout Ratio",
+      "name_fr": "Taux de distribution",
+      "name_en": "Payout Ratio",
+      "value": 11.7,
+      "unit": "%",
+      "yoy": "+8.3 pts",
+      "history": [
+        0.0,
+        0.0,
+        3.4,
+        11.7
+      ],
+      "type": "Dividende",
+      "nature": "comptable",
+      "comparable": true,
+      "signal": "Part du résultat net distribué en dividendes : 11.7% dernière année.",
+      "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
+      "is_generic": true,
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
     }
   ],
   "stories_kpis": [
@@ -324,11 +390,8 @@
     "model": "claude-sonnet-4-5",
     "cost_usd": 0.0248
   },
-  "_fit_for_site": false,
-  "_fit_reasons": [
-    "hero_history_too_short_0",
-    "no_yoy"
-  ],
+  "_fit_for_site": true,
+  "_fit_reasons": [],
   "next_earnings_date": "2026-04-23",
   "_held_for_review": true,
   "_kpis_cleaned": [
@@ -345,5 +408,6 @@
     "score": 3,
     "rationale": "Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
-  }
+  },
+  "_hero_kpi_original": "Wildfire Fund Receivable"
 }

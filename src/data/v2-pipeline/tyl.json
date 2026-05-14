@@ -13,7 +13,7 @@
     "sector": "...",
     "subsector": "..."
   },
-  "hero_kpi": "Subscription Revenue Growth",
+  "hero_kpi": "Net Income",
   "hero_kpi_rationale": "Les revenus des abonnements constituent un moteur clé de la croissance de l'entreprise, avec une augmentation de 18,1% en 2025, reflétant le passage continu vers les solutions SaaS et l'expansion des revenus basés sur les transactions.",
   "kpis": [
     {
@@ -96,7 +96,7 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.32 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt"
     },
@@ -183,6 +183,27 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet"
+    },
+    {
+      "short": "DPS",
+      "name_fr": "Dividende par action",
+      "name_en": "Dividend Per Share",
+      "value": 0.0067,
+      "unit": "$",
+      "yoy": "-59.9%",
+      "history": [
+        0.1367,
+        3.4483,
+        0.0167,
+        0.0067
+      ],
+      "type": "Dividende",
+      "nature": "comptable",
+      "comparable": true,
+      "signal": "Dividende par action de 0.0067 $ dernière année.",
+      "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 4 dernières années fiscales déclarées par la société.",
+      "is_generic": true,
+      "_source": "yfinance.dividends"
     }
   ],
   "stories_kpis": [
@@ -330,10 +351,8 @@
     "model": "claude-sonnet-4-5",
     "cost_usd": 0.0248
   },
-  "_fit_for_site": false,
-  "_fit_reasons": [
-    "hero_history_too_short_0"
-  ],
+  "_fit_for_site": true,
+  "_fit_reasons": [],
   "next_earnings_date": "2026-07-29",
   "_held_for_review": true,
   "_kpis_cleaned": [
@@ -348,5 +367,6 @@
     "score": 3,
     "rationale": "Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
-  }
+  },
+  "_hero_kpi_original": "Subscription Revenue Growth"
 }

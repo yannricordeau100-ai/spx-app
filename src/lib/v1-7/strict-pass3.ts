@@ -66,12 +66,19 @@ function hasWeakMarker(v: AnyRecord): boolean {
   // historique reste mais ne doit plus bloquer la fiche. Ex : AMZN "GMV
   // halluciné" → corrigé en "Op Cash Flow", sté affichable. Yann 7 mai 2026.
   if (hasSonnetCorrections(v)) return false;
-  // Strip phrases positives qui contiennent le marker en négation
-  // (ex: "no hallucinated kpis detected", "no fabricated values").
-  // Sinon AOS et autres bloqués à tort. Yann 14 mai 2026.
+  // Strip phrases positives ou rapports neutres qui mentionnent le marker
+  // sans qu'il soit un statut effectif. Patterns observés :
+  //  - "no hallucinated kpis detected" (Sonnet rapport négatif)
+  //  - "kpi marqués 'non disponible' car source absente" (Sonnet rapportant
+  //    un état des données, pas posant un verdict)
+  //  - "values marked as 'unknown'" (idem en anglais)
+  // Yann 14 mai 2026 + 14 mai (round 2 sur MCD/SP500).
   const cleaned = txt
     .replace(/\bno\s+(?:hallucinated|fabricated|invented|made[\s-]up)\b[^.]*?(?:\.|$)/gi, " ")
-    .replace(/\bnot\s+(?:hallucinated|fabricated|invented)\b[^.]*?(?:\.|$)/gi, " ");
+    .replace(/\bnot\s+(?:hallucinated|fabricated|invented)\b[^.]*?(?:\.|$)/gi, " ")
+    // Quoted/labeled references to placeholder values (not actual data status)
+    .replace(/['""'`«]\s*(non\s*(?:disponible|spécifié|specifie|fourni)|hallucinatoire|hallucinated)\s*['""'`»]/gi, " ")
+    .replace(/(?:marqu[ée]s?|marked|labeled|noted|flagged)\s+(?:as\s+|comme\s+)?['"`«]?\s*(?:non\s*(?:disponible|spécifié|specifie|fourni)|hallucinated|fabricated)\s*['"`»]?/gi, " ");
   return WEAK_MARKERS.some((m) => cleaned.includes(m));
 }
 

@@ -13,7 +13,7 @@
     "Sector": "...",
     "Subsector": "..."
   },
-  "hero_kpi": "Interest Rate Risk Exposure",
+  "hero_kpi": "Total Revenue",
   "hero_kpi_rationale": "Dominion Energy est confrontée à une exposition significative au risque de taux d'intérêt, avec des dérivés de taux d'une valeur de 10,7 milliards USD et un impact de 459 millions USD sur la juste valeur. Cette exposition est existentielle pour le coût du capital et représente un facteur de risque majeur dans un environnement de taux volatiles.",
   "kpis": [
     {
@@ -109,7 +109,7 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 16.51 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt"
     },
@@ -175,6 +175,72 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet"
+    },
+    {
+      "short": "DPS",
+      "name_fr": "Dividende par action",
+      "name_en": "Dividend Per Share",
+      "value": 0.668,
+      "unit": "$",
+      "yoy": "-75.0%",
+      "history": [
+        3.45,
+        2.52,
+        2.672,
+        2.672,
+        2.672,
+        2.672,
+        0.668
+      ],
+      "type": "Dividende",
+      "nature": "comptable",
+      "comparable": true,
+      "signal": "Dividende par action de 0.668 $ dernière année.",
+      "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
+      "is_generic": true,
+      "_source": "yfinance.dividends"
+    },
+    {
+      "short": "Cap Return",
+      "name_fr": "Capital retourné (dividendes)",
+      "name_en": "Capital Returned (Dividends)",
+      "value": 2.278,
+      "unit": "Mds $",
+      "yoy": "+1.7%",
+      "history": [
+        2.209,
+        2.233,
+        2.239,
+        2.278
+      ],
+      "type": "Cash",
+      "nature": "comptable",
+      "comparable": true,
+      "signal": "Capital retourné aux actionnaires via dividendes de 2.278 Mds $ dernière année.",
+      "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
+      "is_generic": true,
+      "_source": "yfinance.cashflow"
+    },
+    {
+      "short": "Payout Ratio",
+      "name_fr": "Taux de distribution",
+      "name_en": "Payout Ratio",
+      "value": 76.0,
+      "unit": "%",
+      "yoy": "-34.1 pts",
+      "history": [
+        185.5,
+        113.8,
+        110.1,
+        76.0
+      ],
+      "type": "Dividende",
+      "nature": "comptable",
+      "comparable": true,
+      "signal": "Part du résultat net distribué en dividendes : 76.0% dernière année.",
+      "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
+      "is_generic": true,
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
     }
   ],
   "stories_kpis": [
@@ -296,11 +362,8 @@
     "model": "claude-sonnet-4-5",
     "cost_usd": 0.0176
   },
-  "_fit_for_site": false,
-  "_fit_reasons": [
-    "hero_history_too_short_0",
-    "no_yoy"
-  ],
+  "_fit_for_site": true,
+  "_fit_reasons": [],
   "next_earnings_date": "2026-07-30",
   "_held_for_review": true,
   "_kpis_cleaned": [
@@ -316,5 +379,6 @@
     "score": 3,
     "rationale": "Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
-  }
+  },
+  "_hero_kpi_original": "Interest Rate Risk Exposure"
 }
