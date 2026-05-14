@@ -239,15 +239,32 @@ export function CompanyView({
   const visibleKpis = showAll ? orderedKpis : orderedKpis.slice(0, VISIBLE_KPI_COUNT);
   const hiddenCount = orderedKpis.length - VISIBLE_KPI_COUNT;
 
-  const tone = yoyTone(active.yoy, active.type);
+  // Yann 14 mai 2026 : fallback YoY computed from history when dataset
+  // yoy is empty (ex Tesla Energy Storage GWh : yoy='', history dispo).
+  const effectiveYoy: string | number = (() => {
+    if (typeof active.yoy === "string" && active.yoy.trim()) return active.yoy;
+    if (typeof active.yoy === "number" && Number.isFinite(active.yoy)) return active.yoy;
+    const h = Array.isArray(active.history) ? active.history : [];
+    if (h.length < 2) return "";
+    const last = h[h.length - 1];
+    const prev = h[h.length - 2];
+    if (typeof last !== "number" || typeof prev !== "number" || prev === 0) return "";
+    const pct = ((last - prev) / Math.abs(prev)) * 100;
+    const sign = pct > 0 ? "+" : "";
+    return `${sign}${pct.toFixed(1).replace(".", ",")} %`;
+  })();
+  const tone = yoyTone(effectiveYoy, active.type);
   const yoyColor =
     tone === "pos" ? "#10b981" : tone === "neg" ? "#f43f5e" : "#a1a1aa";
 
   const heroRating = rate(active);
   const anomalies = detectAnomalies(active.history, active.type, active.short);
-  const formattedUnit = formatUnit(active.unit);
-  const heroFormatted = formatHeroValue(active.value, active.unit);
-  const heroCAGR = formatCAGR(active.history, active.unit, active.period_type ?? "year");
+  // Yann 14 mai 2026 : unit "GWh deployed" / "M units" → strip "deployed"
+  // anglo-saxon dans l'affichage. On garde l'unité technique (GWh, units, etc.).
+  const displayUnit = String(active.unit ?? "").replace(/\s+deployed$/i, "").replace(/\s+units$/i, " unités");
+  const formattedUnit = formatUnit(displayUnit);
+  const heroFormatted = formatHeroValue(active.value, displayUnit);
+  const heroCAGR = formatCAGR(active.history, displayUnit, active.period_type ?? "year");
   const interp = useMemo(() => interpretStructured(company), [company]);
 
   const comparables = useMemo(
@@ -397,9 +414,9 @@ export function CompanyView({
                   {tone === "pos" && <ArrowUpRight className="size-4" />}
                   {tone === "neg" && <ArrowDownRight className="size-4" />}
                   <span className="font-mono tabular-nums">
-                    {typeof active.yoy === "number"
-                      ? `${active.yoy > 0 ? "+" : ""}${active.yoy}%`
-                      : active.yoy}
+                    {typeof effectiveYoy === "number"
+                      ? `${effectiveYoy > 0 ? "+" : ""}${effectiveYoy}%`
+                      : effectiveYoy || "—"}
                   </span>
                   <span className="text-[11px] italic text-zinc-400">(YoY)</span>
                 </div>
@@ -500,7 +517,7 @@ export function CompanyView({
                 mode={chartMode}
                 data={chartHistory}
                 labels={chartLabels}
-                unit={active.unit}
+                unit={displayUnit}
                 color={accent}
                 anomalies={anomalies}
                 events={(company.events && company.events.length > 0) ? company.events : getCompanyEvents(company.ticker)}
