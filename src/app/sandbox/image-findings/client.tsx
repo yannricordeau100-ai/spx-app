@@ -475,7 +475,7 @@ function RequestForm({
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           rows={3}
-          placeholder={`Ex : "graphs en français sur la part de Google dans l'IA, posts X récents avec image attachée, derniers 6 mois"`}
+          placeholder={'Ex : "graphs en français sur la part de Google dans l’IA, posts X récents avec image attachée, derniers 6 mois"'}
           className="w-full rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 py-2 text-[12.5px] text-zinc-100"
         />
       </label>
