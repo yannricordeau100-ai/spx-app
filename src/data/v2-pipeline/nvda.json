@@ -334,68 +334,68 @@
   ],
   "risks": [
     {
-      "title": "Dépendance critique à TSMC pour la fabrication des puces",
-      "category": "Industriel",
+      "title": "Dépendance à la demande en IA et accélération computing",
+      "category": "Technologie",
       "severity": 5,
-      "score_rationale": "Risque positionné en tête de l'Item 1A dans les 10-K successifs de NVIDIA ; langage intensif ('critical', 'sole source') reflétant une dépendance totale à un fondeur tiers. Tendance haussière avec la montée en complexité des architectures Blackwell/Rubin. Poids catégorie élevé car toute disruption supply chain arrête la production.",
+      "score_rationale": "Risque majeur situé en début d'Item 1A (implicite dans la structure métier). Langage intensif sur la dépendance aux workloads IA/HPC. Tendance croissante avec concentration accrue sur Data Center. Poids catégorique très élevé : >80% du chiffre d'affaires dépend de la demande en accélération IA.",
       "trend": "up",
-      "summary": "NVIDIA ne fabrique pas ses propres puces et dépend quasi-exclusivement de TSMC (Taiwan) pour la production de ses GPU Blackwell et futurs Rubin. Une perturbation géopolitique, une catastrophe naturelle ou une pénurie de capacité chez TSMC pourrait bloquer l'ensemble de la chaîne d'approvisionnement de NVIDIA, comme observé lors des pénuries de 2021-2022."
+      "summary": "NVIDIA dépend fortement de la demande continue en infrastructure IA et accélération computing. Une ralentissement de l'adoption de l'IA générative, une saturation des investissements des hyperscalers (CSPs), ou un changement technologique vers des architectures alternatives (ASICs propriétaires) pourrait réduire drastiquement la demande en GPUs Data Center, représentant la majorité des revenus."
     },
     {
-      "title": "Contrôles export américains limitant les ventes vers la Chine",
-      "category": "Géopolitique",
-      "severity": 5,
-      "score_rationale": "Risque mentionné de façon récurrente et croissante dans les filings récents ; langage très fort ('material adverse effect', 'significant revenue impact'). Tendance nettement haussière avec les nouvelles restrictions BIS de 2023-2024 sur les H100/H20. La Chine représentait ~20% du CA Data Center avant restrictions.",
-      "trend": "up",
-      "summary": "Le gouvernement américain a imposé des licences d'exportation restrictives sur les GPU avancés (H100, A100, puis H20) vers la Chine et d'autres pays. Ces contrôles obligent NVIDIA à concevoir des versions dégradées (H20, L20) pour le marché chinois, réduisant ses revenus potentiels et exposant l'entreprise à des pertes de parts de marché au profit de Huawei (Ascend 910B/C)."
-    },
-    {
-      "title": "Concurrence croissante des ASIC propriétaires des hyperscalers",
+      "title": "Concurrence accrue des ASICs propriétaires des hyperscalers",
       "category": "Concurrence",
-      "severity": 4,
-      "score_rationale": "Risque en forte progression dans les filings récents ; langage alarmant sur la menace des 'custom silicon' développés par Google (TPU), Amazon (Trainium/Inferentia), Microsoft (Maia), Meta (MTIA). Tendance haussière car les CSPs investissent massivement pour réduire leur dépendance à NVIDIA. Poids élevé car les CSPs représentent la majorité du CA Data Center.",
+      "severity": 5,
+      "score_rationale": "Risque métier critique mentionné implicitement via la stratégie NVLink Fusion (FY2026) permettant l'intégration de CPUs/XPUs custom. Langage modéré mais stratégiquement significatif. Tendance en hausse : Google TPU, Amazon Trainium/Inferentia, Meta MTIA représentent une menace croissante. Poids catégorique très élevé pour la pérennité du modèle.",
       "trend": "up",
-      "summary": "Les principaux clients de NVIDIA (Google, Amazon, Microsoft, Meta) développent leurs propres puces d'IA (ASIC) pour réduire leur dépendance aux GPU NVIDIA et diminuer leurs coûts. NVIDIA a d'ailleurs lancé NVLink Fusion pour permettre l'intégration de ces ASIC tiers, reconnaissant implicitement cette menace concurrentielle structurelle."
+      "summary": "Les principaux clients (Google, Amazon, Meta, Microsoft) développent activement leurs propres ASICs (TPU, Trainium, MTIA) pour réduire la dépendance à NVIDIA. Bien que NVIDIA propose NVLink Fusion pour intégrer ces designs, une adoption massive des ASICs propriétaires pourrait éroder significativement la part de marché et les marges dans le Data Center."
     },
     {
-      "title": "Concentration excessive du chiffre d'affaires sur le segment Data Center",
+      "title": "Concentration client extrême auprès des hyperscalers",
+      "category": "Crédit",
+      "severity": 5,
+      "score_rationale": "Risque métier spécifique : texte mentionne explicitement 'all major public and private cloud providers' comme clients directs. Langage intensif sur la dépendance aux CSPs. Tendance stable mais structurellement critique. Poids catégorique très élevé : quelques clients représentent >50% des revenus Data Center.",
+      "trend": "stable",
+      "summary": "NVIDIA est fortement dépendante d'un petit nombre de hyperscalers (Google, Amazon, Microsoft, Meta) pour ses revenus Data Center. Une réduction des investissements IA par ces clients, une consolidation du marché, ou une négociation de prix agressive pourrait impacter gravement la rentabilité et la croissance."
+    },
+    {
+      "title": "Risques géopolitiques et restrictions d'exportation (Chine)",
+      "category": "Géopolitique",
+      "severity": 4,
+      "score_rationale": "Risque métier implicite dans la structure globale (Item 1C Cybersecurity mentionné). Langage modéré mais contexte géopolitique intense (restrictions US-Chine depuis 2023). Tendance en hausse avec nouvelles restrictions attendues. Poids catégorique élevé : Chine représente ~20-25% des revenus historiques.",
+      "trend": "up",
+      "summary": "Les restrictions d'exportation américaines (notamment vers la Chine) limitent la vente de GPUs haute performance. NVIDIA doit développer des variantes dégradées (H20) pour les marchés restreints. Une escalade géopolitique ou des restrictions supplémentaires pourraient réduire l'accès à des marchés clés et forcer des investissements R&D additionnels."
+    },
+    {
+      "title": "Dépendance critique à CUDA et risque de fragmentation écosystème",
+      "category": "Technologie",
+      "severity": 4,
+      "score_rationale": "Risque métier fondamental : CUDA est décrit comme 'foundational platform' et 'essential to modern computing'. Langage très intensif sur l'importance de l'écosystème logiciel. Tendance en hausse : concurrents (AMD, Intel) investissent massivement dans alternatives (ROCm, oneAPI). Poids catégorique très élevé pour la moat compétitive.",
+      "trend": "up",
+      "summary": "CUDA est le cœur de la proposition de valeur NVIDIA, créant un lock-in client. Cependant, les alternatives open-source (PyTorch avec ROCm, OpenXLA) et les efforts de standardisation (SYCL, oneAPI) pourraient réduire la dépendance à CUDA. Une fragmentation de l'écosystème logiciel affaiblirait l'avantage concurrentiel durable."
+    },
+    {
+      "title": "Capacité de production et chaîne d'approvisionnement en semiconducteurs",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Le segment Data Center représente désormais plus de 85% du CA total de NVIDIA (FY2026) ; toute décélération de la demande en IA ou report de commandes crée un risque de volatilité extrême des revenus. Tendance stable mais risque amplifié par la concentration. Langage prudent sur la 'sustainability of demand'.",
+      "score_rationale": "Risque métier implicite : NVIDIA dépend de TSMC pour la fabrication (non mentionné explicitement mais connu). Langage modéré sur la complexité de la supply chain (mention de 'extreme co-design'). Tendance stable mais structurellement critique. Poids catégorique élevé : goulot d'étranglement de production.",
       "trend": "stable",
-      "summary": "La quasi-totalité de la croissance de NVIDIA repose sur la demande en infrastructure IA des hyperscalers et des entreprises. Un ralentissement des dépenses capex en IA, une saturation du marché ou un report de commandes (comme observé avec les délais Blackwell en FY2025) pourrait provoquer une chute brutale des revenus, le segment Gaming ne pouvant compenser."
+      "summary": "NVIDIA dépend entièrement de TSMC pour la fabrication de ses GPUs Blackwell et Rubin. Les contraintes de capacité de TSMC, les tensions géopolitiques affectant Taiwan, ou les défauts de production pourraient limiter la capacité à répondre à la demande explosive en IA, créant des opportunités pour les concurrents."
     },
     {
-      "title": "Risques de propriété intellectuelle et litiges en brevets",
+      "title": "Propriété intellectuelle et risques de contrefaçon/piratage",
       "category": "Litige",
       "severity": 3,
-      "score_rationale": "NVIDIA fait face à des litiges récurrents en matière de brevets (Rambus, Qualcomm, InterDigital historiquement) ; position dans le 10-K stable mais présente. Langage modéré. Risque amplifié par la valeur stratégique de l'architecture CUDA et des innovations Tensor Core, cibles potentielles de revendications concurrentes.",
+      "score_rationale": "Risque métier spécifique : texte mentionne 'inventions that are essential to modern computing' et l'importance de l'IP (GPU, CUDA, Tensor Core). Langage modéré. Tendance stable mais contexte de croissance rapide augmente les risques. Poids catégorique modéré : protection IP critique pour la moat.",
       "trend": "stable",
-      "summary": "En tant que leader technologique, NVIDIA est régulièrement exposée à des actions en contrefaçon de brevets de la part de concurrents ou de patent trolls. La protection de l'écosystème CUDA, des architectures GPU et des innovations en IA (Tensor Cores, NVLink) constitue un enjeu juridique permanent pouvant entraîner des injonctions ou des dommages significatifs."
+      "summary": "NVIDIA possède un portefeuille IP critique (brevets GPU, CUDA, architectures propriétaires). Les risques incluent les contrefaçons en Asie, le piratage de logiciels (CUDA, AI Enterprise), et les litiges de brevets avec concurrents (AMD, Intel). Une violation majeure ou une invalidation de brevets clés pourrait affaiblir la position concurrentielle."
     },
     {
-      "title": "Cybersécurité : vol de propriété intellectuelle et intrusions systèmes",
-      "category": "Cybersécurité",
-      "severity": 4,
-      "score_rationale": "NVIDIA a subi une cyberattaque majeure en mars 2022 (groupe Lapsus$) avec vol de code source DLSS et données employés ; risque désormais traité dans un Item 1C dédié (Cybersecurity). Tendance haussière avec la valeur croissante des actifs logiciels NVIDIA. Langage fort sur les 'material risks to operations and IP'.",
-      "trend": "up",
-      "summary": "NVIDIA détient des actifs logiciels et matériels d'une valeur stratégique extrême (CUDA, architectures GPU, modèles IA). L'attaque Lapsus$ de 2022 a démontré la vulnérabilité de l'entreprise aux intrusions sophistiquées. Un vol de propriété intellectuelle ou une compromission des systèmes de développement pourrait éroder l'avantage concurrentiel de NVIDIA et exposer ses clients."
-    },
-    {
-      "title": "Dépendance à Jensen Huang et concentration du leadership exécutif",
-      "category": "Personne-clé",
+      "title": "Cycles de produit rapides et risque d'obsolescence technologique",
+      "category": "Technologie",
       "severity": 3,
-      "score_rationale": "Jensen Huang, co-fondateur et CEO depuis 1993, est identifié comme risque clé dans le 10-K ; son départ ou incapacité serait considéré comme 'material adverse'. Tendance stable. Son rôle est particulièrement critique dans la vision stratégique IA et les relations avec les grands comptes (hyperscalers, gouvernements).",
-      "trend": "stable",
-      "summary": "Jensen Huang incarne la vision technologique et la crédibilité stratégique de NVIDIA auprès des investisseurs, clients et partenaires. Son départ imprévu pourrait déstabiliser la direction stratégique de l'entreprise, notamment dans la transition vers l'IA agentique et physique, et affecter la confiance des grands clients hyperscalers qui entretiennent des relations directes avec lui."
-    },
-    {
-      "title": "Régulation antitrust sur la position dominante dans les GPU IA",
-      "category": "Régulation",
-      "severity": 4,
-      "score_rationale": "Avec ~80% de part de marché sur les GPU pour l'IA, NVIDIA fait l'objet d'enquêtes antitrust en France (DOJ/FTC aux USA, AMF en Europe) ; risque en forte hausse depuis 2024. Langage prudent mais présent sur les 'regulatory scrutiny' et 'market dominance concerns'. L'échec de l'acquisition ARM (2022) illustre la sensibilité réglementaire.",
+      "score_rationale": "Risque métier implicite : texte mentionne 'fast, yet harmonized, product and technology innovations' et cadence accélérée (Blackwell FY2025, Rubin FY2026, Blackwell Ultra FY2026). Langage modéré mais tendance en hausse. Poids catégorique modéré : innovation rapide est un avantage mais crée aussi des risques de dépréciation d'inventaires.",
       "trend": "up",
-      "summary": "La position quasi-monopolistique de NVIDIA sur les GPU d'entraînement IA (H100/Blackwell) attire l'attention des régulateurs américains et européens. Des enquêtes antitrust portant sur les pratiques de bundling CUDA/logiciels, les clauses d'exclusivité avec les CSPs ou les conditions d'accès aux puces pourraient aboutir à des amendes, des injonctions comportementales ou une obligation de licencier des technologies clés."
+      "summary": "NVIDIA accélère la cadence de lancement de nouvelles architectures (Blackwell, Rubin, Blackwell Ultra en 18 mois). Cela crée des risques de dépréciation rapide des générations antérieures, de surproduction, et de pression sur les marges. Les clients pourraient reporter les achats en attente de nouvelles générations."
     }
   ],
   "governance": {
@@ -437,7 +437,7 @@
   "_governance_fetched_at": "2026-05-13T11:07:44.999872+00:00",
   "_governance_safe_fetched_at": "2026-05-14T01:11:35.789506+00:00",
   "_governance_yfinance_validated": true,
-  "_risks_reextracted_at": "2026-05-14T01:50:10.488315+00:00",
+  "_risks_reextracted_at": "2026-05-14T04:14:35.365879+00:00",
   "_risks_source": "10-K FY2026",
   "profit_warning": {
     "last_date": null,
