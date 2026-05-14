@@ -5,6 +5,7 @@ import { CompanyView } from "@/components/company-view";
 import { AuthNav } from "@/components/auth-nav";
 import type { TranscriptDoc } from "@/components/transcript-stories";
 import { loadV17Company } from "@/lib/v1-7/load-company";
+import { getServerLocale } from "@/lib/i18n/server";
 
 /**
  * Doublons multi-classes : redirect 308 (permanent) vers le canonique pour
@@ -80,7 +81,8 @@ export default async function SandboxV17TickerPage({
   if (aliasTarget && aliasTarget !== ticker.toLowerCase()) {
     redirect(`/sandbox/v1-7-5/${aliasTarget}`);
   }
-  const r = await loadV17Company(ticker);
+  const locale = await getServerLocale();
+  const r = await loadV17Company(ticker, { locale });
   if (r.kind === "missing") notFound();
   if (r.kind === "preparing") {
     return (

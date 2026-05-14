@@ -5,6 +5,7 @@ import { CompanyView } from "@/components/company-view";
 import { AuthNav } from "@/components/auth-nav";
 import type { TranscriptDoc } from "@/components/transcript-stories";
 import { loadV17Company } from "@/lib/v1-7/load-company";
+import { getServerLocale } from "@/lib/i18n/server";
 
 /**
  * Doublons multi-classes : redirect 308 (permanent) vers le canonique pour
@@ -34,8 +35,8 @@ export const dynamic = "force-dynamic";
  *    `src/data/v2-pipeline-enrich/<ticker>(.tam).json`
  *  - applique le filtre admission Pass 3 strict (cf. `strict-pass3.ts`)
  *
- * Un seul chemin de rendu côté UI (pas de hideSenate). Si la sté n'est
- * pas Pass 3 → écran "Fiche en préparation".
+ * Un seul chemin de rendu côté UI. Si la sté n'est pas Pass 3 →
+ * écran "Fiche en préparation".
  */
 
 export async function generateMetadata({
@@ -80,7 +81,8 @@ export default async function SandboxV17TickerPage({
   if (aliasTarget && aliasTarget !== ticker.toLowerCase()) {
     redirect(`/sandbox/v1-7/${aliasTarget}`);
   }
-  const r = await loadV17Company(ticker);
+  const locale = await getServerLocale();
+  const r = await loadV17Company(ticker, { locale });
   if (r.kind === "missing") notFound();
   if (r.kind === "preparing") {
     return (

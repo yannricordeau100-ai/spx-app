@@ -184,7 +184,7 @@ export type LoadOutcome =
  */
 export async function loadV17Company(
   ticker: string,
-  opts: { mode?: "v17" | "v18" } = {}
+  opts: { mode?: "v17" | "v18"; locale?: string } = {}
 ): Promise<LoadOutcome> {
   const ROOT = process.cwd();
   // Résolution doublons multi-classes : GOOG → GOOGL, NWSA → NWS, UAA → UA, etc.
@@ -522,6 +522,100 @@ export async function loadV17Company(
           last_data_date: new Date().toISOString().slice(0, 10),
         };
       });
+    }
+  }
+
+  // Yann 15 mai 2026 : overlay i18n KPI / tagline / risks pour les locales
+  // autres que FR. Lit `src/data/v2-pipeline-i18n/<ticker>.<locale>.json`
+  // produit par `scripts/translate-v17-kpis-to-de.py` (et variantes).
+  // Locale "fr" = pas de merge (les fichiers source sont déjà en FR).
+  // Cas pour les variantes : de-CH → de, en-GB → en, nl/sv/da → leur propre fichier.
+  const requestedLocale = (opts.locale ?? "").toLowerCase();
+  const localeMap: Record<string, string> = {
+    "de": "de",
+    "de-ch": "de",
+    "en": "en",
+    "en-gb": "en",
+    "nl": "nl",
+    "sv": "sv",
+    "da": "da",
+  };
+  const i18nKey = localeMap[requestedLocale];
+  if (i18nKey) {
+    const i18nPath = path.join(
+      ROOT,
+      "src/data/v2-pipeline-i18n",
+      `${ticker.toLowerCase()}.${i18nKey}.json`,
+    );
+    const i18n = await readJsonOrNull<{
+      tagline?: string;
+      hero_kpi_rationale?: string;
+      kpis?: Array<{ short: string; name?: string; explanation?: string; description?: string; signal?: string }>;
+      risks?: Array<{ title?: string; description?: string; score_rationale?: string }>;
+      governance?: { notes?: string };
+      ai_positioning?: { summary?: string; evidence?: Array<{ short?: string; detail?: string; quote?: string }> };
+    }>(i18nPath);
+    if (i18n) {
+      const d = data as Record<string, unknown>;
+      if (i18n.tagline) d.tagline = i18n.tagline;
+      if (i18n.hero_kpi_rationale) d.hero_kpi_rationale = i18n.hero_kpi_rationale;
+      // KPI overlay : remap name_fr / explanation / description / signal
+      // par leur traduction. Match strict sur `short`. name_en intact (sert
+      // de secondary line sur les locales non-EN).
+      if (Array.isArray(i18n.kpis) && Array.isArray(data.kpis)) {
+        const byShort = new Map(
+          i18n.kpis.filter((k) => k.short).map((k) => [k.short, k] as const),
+        );
+        data.kpis = (data.kpis as AnyKPI[]).map((k) => {
+          const tr = byShort.get(String(k.short));
+          if (!tr) return k;
+          return {
+            ...k,
+            name_fr: tr.name || k.name_fr,
+            explanation: tr.explanation || k.explanation,
+            description: tr.description || k.description,
+            signal: tr.signal || k.signal,
+          } as AnyKPI;
+        });
+      }
+      // Risks overlay (match par index, alignment supposé identique).
+      const risks = (data as Record<string, unknown>).risks;
+      if (Array.isArray(i18n.risks) && Array.isArray(risks)) {
+        (data as Record<string, unknown>).risks = (risks as Array<Record<string, unknown>>).map(
+          (r, idx) => {
+            const tr = i18n.risks?.[idx];
+            if (!tr) return r;
+            return {
+              ...r,
+              title: tr.title || r.title,
+              description: tr.description || r.description,
+              score_rationale: tr.score_rationale || r.score_rationale,
+            };
+          },
+        );
+      }
+      // Governance notes
+      const gov = (data as Record<string, unknown>).governance as Record<string, unknown> | undefined;
+      if (gov && i18n.governance?.notes) {
+        gov.notes = i18n.governance.notes;
+      }
+      // AI positioning summary + evidence
+      const ai = (data as Record<string, unknown>).ai_positioning as Record<string, unknown> | undefined;
+      if (ai) {
+        if (i18n.ai_positioning?.summary) ai.summary = i18n.ai_positioning.summary;
+        if (Array.isArray(i18n.ai_positioning?.evidence) && Array.isArray(ai.evidence)) {
+          ai.evidence = (ai.evidence as Array<Record<string, unknown>>).map((ev, idx) => {
+            const tr = i18n.ai_positioning?.evidence?.[idx];
+            if (!tr) return ev;
+            return {
+              ...ev,
+              short: tr.short || ev.short,
+              detail: tr.detail || ev.detail,
+              quote: tr.quote || ev.quote,
+            };
+          });
+        }
+      }
     }
   }
 
