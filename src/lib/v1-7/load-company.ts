@@ -288,6 +288,26 @@ export async function loadV17Company(
   );
   const enrich = await readJsonOrNull<Record<string, unknown>>(enrichPath);
 
+  // Mettrik description (simple + advanced × 3 langues) : fichier séparé
+  // `.description.json` (Yann 14 mai 2026). Gemini 2.5 Flash, distinct
+  // de l'ancienne `company_description` yfinance. Merge dans la company
+  // sous `mettrik_description` (toujours, prioritaire sur yfinance).
+  const descPath = path.join(
+    ROOT,
+    "src/data/v2-pipeline-enrich",
+    `${ticker.toLowerCase()}.description.json`,
+  );
+  const descFile = await readJsonOrNull<{
+    simple?: { fr?: string; en?: string; de?: string };
+    advanced?: { fr?: string; en?: string; de?: string };
+  }>(descPath);
+  if (descFile && descFile.simple && descFile.advanced) {
+    (data as Record<string, unknown>).mettrik_description = {
+      simple: descFile.simple,
+      advanced: descFile.advanced,
+    };
+  }
+
   // AI positioning v2 : fichier séparé .ai-pos.json (Yann 8 mai 2026,
   // process amélioré qui combine 10-K + transcripts + Anthropic Haiku).
   // S'il existe et que le dataset CONV-DATA n'a pas d'ai_positioning ou

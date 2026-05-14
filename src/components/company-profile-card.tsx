@@ -1,8 +1,10 @@
 "use client";
 
-import { Building2, Users, Globe, Briefcase, TrendingUp, TrendingDown, ArrowRight, ExternalLink, Newspaper } from "lucide-react";
+import { useState } from "react";
+import { Building2, Users, Globe, TrendingUp, TrendingDown, ArrowRight, ExternalLink, Newspaper, Sparkles, BookOpen } from "lucide-react";
 import Link from "next/link";
 import type { Company } from "@/lib/data";
+import { useT } from "@/lib/i18n/provider";
 
 /**
  * Bloc "Profil société & marché" — agrège 4 informations de la sé qui
@@ -24,26 +26,76 @@ import type { Company } from "@/lib/data";
  * l'utilisateur qui veut savoir "d'où ça vient".
  */
 export function CompanyProfileCard({ company, accent = "#a78bfa" }: { company: Company; accent?: string }) {
-  const desc = company.company_description;
+  const { locale } = useT();
+  const lang = (locale === "de" ? "de" : locale === "fr" ? "fr" : "en") as "fr" | "en" | "de";
+  // Yann 14 mai 2026 : nouvelle description Gemini "PV" en 2 versions
+  // (simple + avancée), prioritaire sur l'ancienne `company_description`
+  // yfinance qui était générique.
+  const mDesc = company.mettrik_description;
+  const legacyDesc = company.company_description;
   const snap = company.financial_snapshot;
   const facts = company.key_facts;
   const peers = company.peers;
   const news = company.latest_news;
 
-  const hasAnything = news || desc || snap || facts || (peers && peers.length > 0);
+  const [descMode, setDescMode] = useState<"simple" | "advanced">("simple");
+
+  const hasAnything = mDesc || news || legacyDesc || snap || facts || (peers && peers.length > 0);
   if (!hasAnything) return null;
 
   return (
     <section id="sec-profile" className="mt-9 scroll-mt-24">
       <div className="mb-3 flex items-baseline justify-between">
-        <h2 className="font-display text-[20px] font-bold tracking-tight text-zinc-100">Profil société &amp; marché</h2>
-        <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">Source : yfinance + 10-K</span>
+        {/* Yann 14 mai 2026 : "Profil société & marché" → "Comprendre la société" */}
+        <h2 className="font-display text-[20px] font-bold tracking-tight text-zinc-100">Comprendre la société</h2>
+        <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">Source : Mettrik AI + yfinance</span>
       </div>
 
+      {/* Nouveau : Description Mettrik PV (simple / avancée) — toggle */}
+      {mDesc && (
+        <div className="mb-4 rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5">
+          <div className="mb-3 flex items-center justify-between gap-3">
+            <h3 className="flex items-center gap-2 font-display text-[14px] font-semibold uppercase tracking-wider text-zinc-300">
+              <Sparkles className="size-3.5" style={{ color: accent }} />
+              Description Mettrik
+            </h3>
+            {/* Toggle Simple / Avancée */}
+            <div className="inline-flex items-center gap-0.5 rounded-full border border-white/10 bg-white/[0.02] p-0.5">
+              <button
+                type="button"
+                onClick={() => setDescMode("simple")}
+                className={
+                  "rounded-full px-2.5 py-1 text-[10.5px] font-semibold uppercase tracking-wider transition-colors " +
+                  (descMode === "simple"
+                    ? "bg-white/10 text-zinc-100"
+                    : "text-zinc-500 hover:text-zinc-200")
+                }
+              >
+                Simple
+              </button>
+              <button
+                type="button"
+                onClick={() => setDescMode("advanced")}
+                className={
+                  "inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[10.5px] font-semibold uppercase tracking-wider transition-colors " +
+                  (descMode === "advanced"
+                    ? "bg-white/10 text-zinc-100"
+                    : "text-zinc-500 hover:text-zinc-200")
+                }
+              >
+                <BookOpen className="size-3" />
+                Avancée
+              </button>
+            </div>
+          </div>
+          <p className="text-[14px] leading-relaxed text-zinc-200">
+            {mDesc[descMode]?.[lang] ?? mDesc[descMode]?.en ?? mDesc.simple?.[lang] ?? ""}
+          </p>
+        </div>
+      )}
+
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-        {/* Yann 10 mai 2026 : "À propos" remplacé par "Dernière actualité"
-            (résumé Gemini de la news la plus récente avec date). Si pas de
-            news encore enrichie pour cette sé, fallback sur description. */}
+        {/* Dernière actualité (résumé Gemini, si dispo) ou fallback description legacy */}
         {news ? (
           <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5 lg:col-span-2">
             <div className="mb-2 flex items-baseline justify-between gap-3">
@@ -71,10 +123,10 @@ export function CompanyProfileCard({ company, accent = "#a78bfa" }: { company: C
               </a>
             )}
           </div>
-        ) : desc ? (
+        ) : !mDesc && legacyDesc ? (
           <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5 lg:col-span-2">
             <h3 className="mb-2 font-display text-[14px] font-semibold uppercase tracking-wider text-zinc-300">À propos</h3>
-            <p className="text-[13.5px] leading-relaxed text-zinc-300 line-clamp-[10]">{desc}</p>
+            <p className="text-[13.5px] leading-relaxed text-zinc-300 line-clamp-[10]">{legacyDesc}</p>
           </div>
         ) : null}
 
@@ -102,7 +154,8 @@ export function CompanyProfileCard({ company, accent = "#a78bfa" }: { company: C
       </div>
 
       <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-3">
-        {/* Faits clés (1/3) */}
+        {/* Faits clés (1/3) — Yann 14 mai 2026 : ligne "Industrie" RETIRÉE
+            (déjà visible dans le bandeau ranks en haut de page sté). */}
         {facts && (
           <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5">
             <h3 className="mb-3 font-display text-[14px] font-semibold uppercase tracking-wider text-zinc-300">Faits clés</h3>
@@ -117,12 +170,6 @@ export function CompanyProfileCard({ company, accent = "#a78bfa" }: { company: C
                 <li className="flex items-start gap-2">
                   <Users className="mt-0.5 size-3.5 shrink-0 text-zinc-500" />
                   <span>Employés : <span className="text-zinc-100 tabular-nums">{facts.employees_count.toLocaleString("fr-FR")}</span></span>
-                </li>
-              )}
-              {(facts.industry_disp || facts.industry) && (
-                <li className="flex items-start gap-2">
-                  <Briefcase className="mt-0.5 size-3.5 shrink-0 text-zinc-500" />
-                  <span>Industrie : <span className="text-zinc-100">{facts.industry_disp ?? facts.industry}</span></span>
                 </li>
               )}
               {facts.exchange && (
