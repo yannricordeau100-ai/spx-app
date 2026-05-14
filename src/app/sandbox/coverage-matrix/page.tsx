@@ -64,6 +64,43 @@ function readJson<T>(p: string): T | null {
   }
 }
 
+function mergeEnrich(base: AnyCo, enrich: AnyCo | null, tam: { market_positions?: unknown } | null, ranks: { ranks?: unknown } | null): AnyCo {
+  // Mimic le merge fait par src/lib/v1-7/load-company.ts pour que le matrix
+  // refléte ce que voit la page sté V1.8.
+  const out: AnyCo = { ...base };
+  if (enrich) {
+    for (const key of [
+      "events", "revenue_by_segment", "revenue_by_geography",
+      "customer_type", "profit_warning", "company_description",
+      "financial_snapshot", "key_facts", "peers", "latest_filing",
+    ] as const) {
+      if (enrich[key] !== undefined && out[key] === undefined) {
+        (out as Record<string, unknown>)[key] = enrich[key];
+      }
+    }
+    for (const key of ["risks", "governance", "ai_positioning"] as const) {
+      const existing = (out as Record<string, unknown>)[key];
+      const empty = existing === undefined || existing === null
+        || (Array.isArray(existing) && existing.length === 0);
+      if (empty && enrich[key] !== undefined) {
+        (out as Record<string, unknown>)[key] = enrich[key];
+      }
+    }
+  }
+  if (tam && Array.isArray(tam.market_positions) && tam.market_positions.length > 0) {
+    if (!Array.isArray(out.market_positions)) {
+      (out as Record<string, unknown>).market_positions = tam.market_positions;
+    }
+  }
+  if (ranks && ranks.ranks) {
+    const existing = (out as Record<string, unknown>).ranks as Record<string, unknown> | undefined;
+    if (!existing || !existing.global_world) {
+      (out as Record<string, unknown>).ranks = ranks.ranks;
+    }
+  }
+  return out;
+}
+
 function buildRows(): Row[] {
   const root = process.cwd();
   const merged = readJson<Record<string, AnyCo>>(path.join(root, "src/data/v2-pipeline/_merged.json")) ?? {};
@@ -73,6 +110,8 @@ function buildRows(): Row[] {
     ? (top307Raw as string[])
     : ((top307Raw as { tickers?: string[] })?.tickers ?? []);
   const top307 = new Set(top307Arr.slice(0, 307));
+
+  const enrichDir = path.join(root, "src/data/v2-pipeline-enrich");
 
   const logoDir = path.join(root, "public/logos");
   const logoSet = new Set<string>();
@@ -91,8 +130,13 @@ function buildRows(): Row[] {
   } catch {}
 
   const rows: Row[] = [];
-  for (const [tk, d] of Object.entries(merged)) {
-    if (!d || typeof d !== "object") continue;
+  for (const [tk, base] of Object.entries(merged)) {
+    if (!base || typeof base !== "object") continue;
+    const tkLower = tk.toLowerCase();
+    const enrich = readJson<AnyCo>(path.join(enrichDir, `${tkLower}.json`));
+    const tam = readJson<{ market_positions?: unknown }>(path.join(enrichDir, `${tkLower}.tam.json`));
+    const ranksEnrich = readJson<{ ranks?: unknown }>(path.join(enrichDir, `${tkLower}.ranks.json`));
+    const d = mergeEnrich(base, enrich, tam, ranksEnrich);
     const kpis = Array.isArray(d.kpis) ? d.kpis : [];
     const heroShort = d.hero_kpi || "";
     const hero = kpis.find((k) => k && k.short === heroShort) ?? kpis[0];
@@ -101,7 +145,7 @@ function buildRows(): Row[] {
     const events = Array.isArray(d.events) ? d.events : [];
     const gov = (d.governance as Record<string, unknown>) ?? {};
     const ai = (d.ai_positioning as Record<string, unknown>) ?? {};
-    const ranks = (d.ranks as Record<string, unknown>) ?? {};
+    const ranksObj = (d.ranks as Record<string, unknown>) ?? {};
     const seg = (d.revenue_by_segment as { slices?: unknown[] }) ?? {};
     const geo = (d.revenue_by_geography as { slices?: unknown[] }) ?? {};
     const logoSafe = tk.replace(/\./g, "-").replace(/\//g, "-").toUpperCase();
@@ -124,7 +168,7 @@ function buildRows(): Row[] {
       tam: Array.isArray(d.market_positions) && d.market_positions.length > 0 ? "ok" : "missing",
       description: d.company_description && String(d.company_description).length >= 50 ? "ok" : "missing",
       freshness: d.last_data_date ? "ok" : "missing",
-      ranks: ranks.global_world ? "ok" : "missing",
+      ranks: ranksObj.global_world ? "ok" : "missing",
       logo: logoSet.has(logoSafe) ? "ok" : "missing",
       transcript: transcriptSet.has(tk.toUpperCase()) ? "ok" : "missing",
       fit: d._fit_for_site !== false,
