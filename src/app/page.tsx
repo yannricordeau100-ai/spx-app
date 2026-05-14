@@ -7,6 +7,8 @@ import { AuthRequiredBanner } from "@/components/auth-required-banner";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { loadPageContent } from "@/lib/desk/page-content";
+import { getServerLocale } from "@/lib/i18n/server";
 
 export const dynamic = "force-dynamic";
 
@@ -73,13 +75,18 @@ export default async function HomePage({
     redirect(qs ? `/sandbox/v1-8?${qs}` : "/sandbox/v1-8");
   }
 
+  // Yann 14 mai 2026 : home prod lit aussi les overrides desk_page_content
+  // pour page_key="home" → tagline + punchlines éditables depuis le back-office.
+  const locale = await getServerLocale();
+  const homeOverrides = await loadPageContent("home", locale);
+
   return (
     <>
       <div className="fixed right-4 top-4 z-50 flex items-center gap-3 sm:right-6 sm:top-6">
         <ThemeToggle />
         <AuthNav />
       </div>
-      <HomeView />
+      <HomeView contentOverrides={homeOverrides} />
       {!user && (
         <Suspense fallback={null}>
           <AuthRequiredBanner />

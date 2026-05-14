@@ -125,7 +125,12 @@ export function CompanyHeader({
           <div className="mt-1.5 text-[14px] text-zinc-400">
             {translateSubsector(company.sector)} <span className="text-zinc-700">·</span> {translateSubsector(company.subsector)}
           </div>
-          <p className="mt-2 max-w-2xl text-[14.5px] italic leading-relaxed text-zinc-400">
+          {/* Yann 14 mai 2026 : tagline obligatoirement sur 1 ligne (truncate).
+              Évite l'expansion verticale du header quand le slogan dépasse. */}
+          <p
+            className="mt-2 max-w-2xl truncate text-[14.5px] italic leading-relaxed text-zinc-400"
+            title={company.tagline}
+          >
             “{company.tagline}”
           </p>
         </div>
