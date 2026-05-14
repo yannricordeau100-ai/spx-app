@@ -13,7 +13,7 @@
     "sector": "...",
     "subsector": "..."
   },
-  "hero_kpi": "Surfactants Revenue",
+  "hero_kpi": "Total Revenue",
   "hero_kpi_rationale": "Les surfactants représentent 71% des ventes nettes consolidées de l'entreprise en 2025, constituant le segment dominant de l'activité de la Société",
   "kpis": [
     {
@@ -95,7 +95,7 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.33 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.income_stmt"
     },
@@ -316,11 +316,8 @@
     "_validation": "No changes to governance section: governance metrics not disclosed in provided 10-K excerpt"
   },
   "_validation": "MAJOR CORRECTIONS: 1) Sector changed from 'Information Technology' to 'Specialty Chemicals' (company manufactures specialty chemicals, not IT); 2) KPI units corrected from 'Mds $' to 'M $' (no evidence of billions in source); 3) Hallucinated generic 'Cybersecurity' story_kpi replaced with actual cybersecurity governance structure from Item 1C; 4) Added missing Specialty Products segment KPI (4% of 2025 sales); 5) Added Asset Footprint Optimization story KPI from Q4 2025 transactions (Philippines SPQI and Louisiana); 6) Removed em-dashes from hero_kpi_rationale per instructions; 7) Improved all descriptions with actual 2025 segment percentages from MDA; 8) Risk categories refined: 'Industriel' changed to 'Environnement', 'Litige' category validated; 9) is_generic flags corrected from true to false for meaningful business segments; 10) is_short_history set appropriately based on data detail level in source",
-  "_fit_for_site": false,
-  "_fit_reasons": [
-    "hero_history_too_short_0",
-    "no_yoy"
-  ],
+  "_fit_for_site": true,
+  "_fit_reasons": [],
   "next_earnings_date": "2026-07-29",
   "_held_for_review": true,
   "_governance_fetched_at": "2026-05-12T14:02:10.374120+00:00",
@@ -329,5 +326,8 @@
     "score": 3,
     "rationale": "Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
-  }
+  },
+  "_hero_kpi_original": "Surfactants Revenue",
+  "_hero_kpi_swapped_reason": "auto-promotion (original had short history)",
+  "_hero_kpi_swapped_at": "2026-05-14T12:38:00Z"
 }
