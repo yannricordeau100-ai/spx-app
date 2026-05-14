@@ -25,9 +25,15 @@ CHUNK = os.environ.get("CHUNK_NUM","1")
 LOG = PROJECT_ROOT / f".conv-state/CONV-DATA-transcript-summ-{CHUNK}.log"
 LOG.parent.mkdir(parents=True, exist_ok=True)
 
-GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
-MODEL = "llama-3.3-70b-versatile"
-SLEEP = 2.0
+PROVIDER = os.environ.get("PROVIDER", "groq")
+if PROVIDER == "anthropic":
+    GROQ_URL = "https://api.anthropic.com/v1/messages"
+    MODEL = "claude-haiku-4-5"
+    SLEEP = 2.0
+else:
+    GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
+    MODEL = "llama-3.3-70b-versatile"
+    SLEEP = 2.0
 
 def load_env():
     env = PROJECT_ROOT / ".env.local"
@@ -46,16 +52,26 @@ def log_line(msg):
     with open(LOG, "a") as f: f.write(line + "\n")
 
 def call_groq(prompt, key, retries=2):
-    body = json.dumps({"model": MODEL, "messages":[{"role":"user","content":prompt}],
-                       "temperature": 0.0, "max_tokens": 3500,
-                       "response_format":{"type":"json_object"}}).encode()
-    headers = {"Authorization": f"Bearer {key}", "content-type":"application/json","User-Agent":"curl/7.79.1"}
+    if PROVIDER == "anthropic":
+        body = json.dumps({"model": MODEL, "max_tokens": 3500,
+                           "messages":[{"role":"user","content":prompt}],
+                           "temperature": 0.0}).encode()
+        headers = {"x-api-key": key, "anthropic-version":"2023-06-01", "content-type":"application/json"}
+    else:
+        body = json.dumps({"model": MODEL, "messages":[{"role":"user","content":prompt}],
+                           "temperature": 0.0, "max_tokens": 3500,
+                           "response_format":{"type":"json_object"}}).encode()
+        headers = {"Authorization": f"Bearer {key}", "content-type":"application/json","User-Agent":"curl/7.79.1"}
     for _ in range(retries+1):
         try:
             req = urllib.request.Request(GROQ_URL, data=body, headers=headers)
             with urllib.request.urlopen(req, context=SSL_CTX, timeout=120) as r:
                 resp = json.loads(r.read())
-            content = resp["choices"][0]["message"]["content"]
+            if PROVIDER == "anthropic":
+                content = resp.get("content",[{}])[0].get("text","")
+                content = re.sub(r"^```(?:json)?\s*|\s*```$", "", content.strip())
+            else:
+                content = resp["choices"][0]["message"]["content"]
             try: return json.loads(content)
             except:
                 m = re.search(r"\{.*\}", content, re.DOTALL)
@@ -102,9 +118,9 @@ Transcript (extraits) :
 
 def main():
     load_env()
-    api_key = os.environ.get("GROQ_API_KEY")
+    api_key = os.environ.get("ANTHROPIC_API_KEY" if PROVIDER == "anthropic" else "GROQ_API_KEY")
     if not api_key:
-        log_line("❌ NO GROQ_API_KEY"); sys.exit(1)
+        log_line(f"❌ NO KEY {PROVIDER}"); sys.exit(1)
     
     pending = [t for t in PENDING.read_text().splitlines() if t.strip()]
     log_line(f"START transcript-summaries: {len(pending)} stés, model={MODEL}")
