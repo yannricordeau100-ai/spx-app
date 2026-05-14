@@ -585,6 +585,40 @@ export type InterpretBlock = {
   bullets: InterpretBullet[];
 };
 
+/**
+ * Yann 14 mai 2026 : helpers pour générer une interprétation dynamique
+ * quand le KPI n'a pas de signal/yoy renseigné dans le dataset.
+ */
+function computeYoyFromHistory(history: number[] | null | undefined): string {
+  if (!history || history.length < 2) return "n/a";
+  const last = history[history.length - 1];
+  const prev = history[history.length - 2];
+  if (typeof last !== "number" || typeof prev !== "number" || prev === 0) return "n/a";
+  const pct = ((last - prev) / Math.abs(prev)) * 100;
+  const sign = pct > 0 ? "+" : "";
+  return `${sign}${pct.toFixed(1).replace(".", ",")} %`;
+}
+
+function computeTrendSignal(history: number[] | null | undefined, kpiName: string): { signal: string } {
+  if (!history || history.length < 2) {
+    return { signal: `donnée disponible pour ${kpiName.toLowerCase()}, historique insuffisant pour interpréter la tendance` };
+  }
+  const last = history[history.length - 1];
+  const first = history[0];
+  const prev = history[history.length - 2];
+  if (typeof last !== "number" || typeof first !== "number" || typeof prev !== "number") {
+    return { signal: "à analyser" };
+  }
+  const totalChange = first !== 0 ? ((last - first) / Math.abs(first)) * 100 : 0;
+  const lastChange = prev !== 0 ? ((last - prev) / Math.abs(prev)) * 100 : 0;
+  if (totalChange > 30 && lastChange > 0) return { signal: "tendance haussière soutenue sur la période" };
+  if (totalChange > 10 && lastChange > 0) return { signal: "croissance modérée mais constante" };
+  if (totalChange > 0 && lastChange < -5) return { signal: "ralentissement récent malgré une tendance positive sur la période" };
+  if (totalChange < -10 && lastChange < 0) return { signal: "trajectoire baissière à surveiller" };
+  if (Math.abs(totalChange) < 10) return { signal: "stabilité sur la période, peu de mouvement" };
+  return { signal: "évolution mixte selon la période observée" };
+}
+
 export function interpretStructured(company: Company): InterpretBlock {
   const hero = getHero(company);
   // Préférer un KPI sectoriel (Demand/User/Adoption) plutôt que le total revenu
@@ -605,9 +639,13 @@ export function interpretStructured(company: Company): InterpretBlock {
   );
   const cash = company.kpis.find((k) => k.type === "Cash");
 
-  const heroSignal = typeof hero.signal === "string" ? hero.signal.toLowerCase() : "à analyser";
+  // Yann 14 mai 2026 : fallback dynamique si signal/yoy vide. Garantit que
+  // l'interprétation IA n'est JAMAIS vide sur n'importe quel KPI/sté.
   const heroValue = hero.value ?? "—";
-  const heroYoy = hero.yoy ?? "n/a";
+  const computedYoy = computeYoyFromHistory(hero.history);
+  const heroYoy = (typeof hero.yoy === "string" && hero.yoy.trim()) ? hero.yoy : computedYoy;
+  const trend = computeTrendSignal(hero.history, hero.name_fr);
+  const heroSignal = (typeof hero.signal === "string" && hero.signal.trim()) ? hero.signal.toLowerCase() : trend.signal;
   const lead = `Le KPI principal de <strong>${company.name}</strong> est <strong>${hero.name_fr}</strong>, à <strong>${heroValue} ${formatUnit(hero.unit)}</strong> (${heroYoy} <em>YoY</em>). À retenir : <em>${heroSignal}</em>.`;
 
   const bullets: InterpretBullet[] = [];

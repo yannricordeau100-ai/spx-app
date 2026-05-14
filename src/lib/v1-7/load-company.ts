@@ -100,6 +100,25 @@ function sanitizeCompanyData(data: AnyCo): AnyCo {
       } else {
         out.history = [];
       }
+      // Yann 14 mai 2026 : si la direction history first→last contredit
+      // le sign du yoy (ex Tesla Cash [44.1, 36.6] mais yoy +20.54%),
+      // on inverse l'history côté affichage. Bug détecté sur 75/200
+      // stés. Évite le sparkline qui descend alors que yoy monte.
+      const yoyStr = typeof out.yoy === "string" ? out.yoy : "";
+      if (yoyStr && Array.isArray(out.history) && out.history.length >= 2) {
+        const yoyN = Number(yoyStr.replace("%", "").replace(",", ".").replace("+", "").trim());
+        const h = out.history as number[];
+        const first = h[0];
+        const last = h[h.length - 1];
+        if (Number.isFinite(yoyN) && Math.abs(yoyN) > 5 && first > 0 && last > 0) {
+          const trendPct = ((last - first) / Math.abs(first)) * 100;
+          // Disagrément de signe ET amplitude significative ET premier point
+          // est l'inverse du yoy → history en sens inverse → on reverse.
+          if (Math.abs(trendPct) > 5 && (yoyN > 0) !== (trendPct > 0)) {
+            out.history = [...h].reverse();
+          }
+        }
+      }
       return out;
     });
   }

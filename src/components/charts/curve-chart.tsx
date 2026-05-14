@@ -284,7 +284,7 @@ export function CurveChart({
         {ticks.map(({ v, y }, i) => (
           <text
             key={`yn-${i}`}
-            x={PAD_LEFT - 12}
+            x={PAD_LEFT - 20}
             y={y + 5}
             textAnchor="end"
             fontSize={16}
@@ -586,16 +586,10 @@ export function CurveChart({
         color={color}
       />
 
-      {anomalies.length > 0 && (
-        <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 px-1 text-[12px] text-zinc-300">
-          {anomalies.map((a) => (
-            <span key={a.index} className="inline-flex items-center gap-1.5">
-              <span className="font-mono text-zinc-300">{labels[a.index]}</span>
-              <AnomalyInfo anomaly={a} color={color} />
-            </span>
-          ))}
-        </div>
-      )}
+      {/* Yann 14 mai 2026 : bloc anomalies bottom retiré (les 'i' flottants
+          en bas du chart faisaient mauvais effet). Les anomalies restent
+          marquées visuellement par le cercle pointillé autour du point
+          concerné (cf isAnomaly dans points.map). */}
     </div>
   );
 }

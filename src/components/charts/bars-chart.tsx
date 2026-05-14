@@ -399,16 +399,7 @@ export function BarsChart({
         })}
       </svg>
 
-      {anomalies.length > 0 && (
-        <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 px-1 text-[12px] text-zinc-300">
-          {anomalies.map((a) => (
-            <span key={a.index} className="inline-flex items-center gap-1.5">
-              <span className="font-mono text-zinc-300">{labels[a.index]}</span>
-              <AnomalyInfo anomaly={a} color={color} />
-            </span>
-          ))}
-        </div>
-      )}
+      {/* Yann 14 mai 2026 : bloc anomalies retiré (cf curve-chart). */}
     </div>
   );
 }
