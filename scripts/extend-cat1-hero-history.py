@@ -61,7 +61,54 @@ Extrait du 10-K :
 ---"""
 
 HTML_TAG_RE = re.compile(r"<[^>]+>")
+HTML_ENTITY_NAMED_RE = re.compile(r"&[a-zA-Z]+;")
+HTML_ENTITY_NUM_RE = re.compile(r"&#\d+;")
 WHITESPACE_RE = re.compile(r"\s+")
+
+
+def strip_html(html: str) -> str:
+    text = HTML_TAG_RE.sub(" ", html)
+    text = HTML_ENTITY_NAMED_RE.sub(" ", text)
+    text = HTML_ENTITY_NUM_RE.sub(" ", text)
+    text = WHITESPACE_RE.sub(" ", text).strip()
+    return text
+
+
+def find_last_match(text: str, pattern: str):
+    positions = [m.start() for m in re.finditer(pattern, text, re.I)]
+    return positions[-1] if positions else None
+
+
+def extract_key_sections_10k(text: str) -> str:
+    """Renvoie Item 7 MD&A + Item 8 Financials du 10-K, en skippant XBRL header.
+
+    Mimics pipeline-llm.py extract_key_sections() approach.
+    Budget: 18K chars total (MD&A 12K + Financials 6K).
+    """
+    if not text or len(text) < 5000:
+        return text
+
+    chunks = []
+    # Item 7 MD&A (priorité haute, 12K)
+    pos = find_last_match(text, r"item\s+7\.?\s+(?:management.{0,30}discussion|md\s*&\s*a)")
+    if pos is not None:
+        chunks.append(("MDA", pos, 12000))
+
+    # Item 8 Financial Statements (8K)
+    pos = find_last_match(text, r"item\s+8\.?\s+(?:financial\s+statements|consolidated\s+financial)")
+    if pos is not None:
+        chunks.append(("FINANCIALS", pos, 6000))
+
+    if not chunks:
+        # Fallback : milieu du doc (souvent MD&A est milieu)
+        mid = len(text) // 2
+        return text[max(0, mid - 9000): mid + 9000]
+
+    chunks.sort(key=lambda x: x[1])
+    parts = []
+    for kind, start, budget in chunks:
+        parts.append(f"=== {kind} ===\n{text[start:start + budget]}")
+    return "\n\n".join(parts)
 
 
 def log_line(msg):
@@ -128,7 +175,7 @@ def call_haiku(prompt, api_key, retries=2):
 
 
 def find_cat1_source(ticker):
-    """Find latest 10-K for ticker in cat1-us/10K/YEAR/TICKER_*.htm.gz."""
+    """Find latest 10-K for ticker, strip HTML, extract Item 7+8 sections."""
     if not SEC_CAT1.exists():
         return None
     candidates = []
@@ -139,13 +186,12 @@ def find_cat1_source(ticker):
         return None
     largest = max(candidates, key=lambda f: f.stat().st_size)
     try:
-        with gzip.open(largest, "rt", errors="ignore") as g:
-            raw = g.read()
+        with gzip.open(largest, "rb") as g:
+            html = g.read().decode("utf-8", errors="ignore")
     except Exception:
         return None
-    text = HTML_TAG_RE.sub(" ", raw)
-    text = WHITESPACE_RE.sub(" ", text)
-    return text[:CTX_LEN * 4]
+    text = strip_html(html)
+    return extract_key_sections_10k(text)
 
 
 def main():
