@@ -804,6 +804,33 @@ export const DICTIONARY: Dict = {
   "transcript.sentiment.neutral": { fr: "Neutre", en: "Neutral" },
   "transcript.sentiment.cautious": { fr: "Prudent", en: "Cautious" },
 
+  /* Transcript bullets block (Synthèse Earning Call) */
+  "transcript.bullets.section_title": { fr: "Synthèse Earning Call", en: "Earnings Call Summary" },
+  "transcript.bullets.section_subtitle": {
+    fr: "Points clés extraits du dernier transcript management × analystes",
+    en: "Key takeaways extracted from the latest management × analysts transcript",
+  },
+  "transcript.bullets.comparison_title": {
+    fr: "Suivi & comparaison vs trimestre précédent",
+    en: "Tracking & comparison vs previous quarter",
+  },
+  "transcript.bullets.comparison_subtitle": {
+    fr: "Promesses tenues, écarts de guidance et changements de discours",
+    en: "Promises kept, guidance gaps and discourse shifts",
+  },
+  "transcript.bullets.earning_call_label": { fr: "Earning Call", en: "Earnings Call" },
+  "transcript.bullets.earning_call_explainer": {
+    fr: "Conférence téléphonique trimestrielle où la direction d'une société cotée commente ses résultats financiers face aux analystes. On y trouve : chiffres-clés, contexte, perspectives (guidance), réponses aux questions des analystes. C'est l'une des sources les plus riches pour anticiper la trajectoire de la sté.",
+    en: "Quarterly conference call where the management of a listed company comments on its financial results to analysts. Includes: key figures, context, outlook (guidance), Q&A. One of the richest sources to anticipate the company's trajectory.",
+  },
+  "transcript.bullets.earning_call_aria": { fr: "Qu'est-ce qu'un earning call ?", en: "What is an earnings call?" },
+  "transcript.bullets.compare.promise_kept": { fr: "Promesse tenue", en: "Promise kept" },
+  "transcript.bullets.compare.promise_broken": { fr: "Promesse non tenue", en: "Promise broken" },
+  "transcript.bullets.compare.guidance_up": { fr: "Guidance relevée", en: "Guidance raised" },
+  "transcript.bullets.compare.guidance_down": { fr: "Guidance abaissée", en: "Guidance lowered" },
+  "transcript.bullets.compare.new_topic": { fr: "Nouveau sujet", en: "New topic" },
+  "transcript.bullets.compare.sentiment_shift": { fr: "Changement de ton", en: "Tone shift" },
+
   /* Suffix titre du graph "par X" en toutes lettres (fr/en) */
   "timefrac.suffix.year": { fr: "par an", en: "per year" },
   "timefrac.suffix.month": { fr: "par mois", en: "per month" },

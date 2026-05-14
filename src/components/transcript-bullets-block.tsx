@@ -5,6 +5,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { brand } from "@/lib/brand";
 import { ACRONYM_GLOSSARY } from "@/lib/ui-fix-templates";
+import { useT } from "@/lib/i18n/provider";
 
 /**
  * TermSup — mini-tooltip inline pour un terme technique.
@@ -80,18 +81,9 @@ function TermSup({ term, explainer, accent }: { term: string; explainer: string;
   );
 }
 
-const LABELS = {
-  section_title: "Synthèse Earning Call",
-  section_subtitle: "Points clés extraits du dernier transcript management × analystes",
-  sentiment_bullish: "Confiant",
-  sentiment_neutral: "Neutre",
-  sentiment_cautious: "Prudent",
-  comparison_title: "Suivi & comparaison vs trimestre précédent",
-  comparison_subtitle: "Promesses tenues, écarts de guidance et changements de discours",
-};
-
 /** Tooltip "i" qui explique ce qu'est un earning call (pour non-bilingues). */
 function EarningCallInfoTooltip({ accent }: { accent: string }) {
+  const { t } = useT();
   const [open, setOpen] = useState(false);
   const [coords, setCoords] = useState<{ top: number; left: number } | null>(null);
   const triggerRef = useRef<HTMLSpanElement>(null);
@@ -125,7 +117,7 @@ function EarningCallInfoTooltip({ accent }: { accent: string }) {
         }}
         className="ml-1 inline-flex size-5 cursor-help items-center justify-center rounded-full text-[12px] font-bold opacity-70 transition-opacity hover:opacity-100"
         style={{ color: accent, border: `1px solid ${accent}66` }}
-        aria-label="Qu'est-ce qu'un earning call ?"
+        aria-label={t("transcript.bullets.earning_call_aria")}
       >
         i
       </span>
@@ -138,14 +130,10 @@ function EarningCallInfoTooltip({ accent }: { accent: string }) {
           style={{ top: coords.top, left: coords.left, borderColor: `${accent}66` }}
         >
           <div className="mb-1.5 font-mono text-[11.5px] font-semibold uppercase tracking-wider" style={{ color: accent }}>
-            Earning Call
+            {t("transcript.bullets.earning_call_label")}
           </div>
           <p className="text-[14px] text-zinc-200">
-            Conférence téléphonique trimestrielle où la direction d&apos;une
-            société cotée commente ses résultats financiers face aux analystes.
-            On y trouve : chiffres-clés, contexte, perspectives (guidance),
-            réponses aux questions des analystes. C&apos;est l&apos;une des
-            sources les plus riches pour anticiper la trajectoire de la sté.
+            {t("transcript.bullets.earning_call_explainer")}
           </p>
         </div>,
         document.body,
@@ -219,13 +207,13 @@ const TYPE_META: Record<NonNullable<BulletItem["type"]>, { Icon: typeof Trending
   citation: { Icon: Quote, color: "#fbbf24" },
 };
 
-const COMPARISON_META: Record<ComparisonBullet["type"], { Icon: typeof TrendingUp; color: string; label: string }> = {
-  promise_kept: { Icon: CheckCircle2, color: "#10b981", label: "Promesse tenue" },
-  promise_broken: { Icon: XCircle, color: "#f43f5e", label: "Promesse non tenue" },
-  guidance_up: { Icon: TrendingUp, color: "#22d3ee", label: "Guidance relevée" },
-  guidance_down: { Icon: AlertTriangle, color: "#f59e0b", label: "Guidance abaissée" },
-  new_topic: { Icon: Plus, color: "#a78bfa", label: "Nouveau sujet" },
-  sentiment_shift: { Icon: ArrowUpDown, color: "#fbbf24", label: "Changement de ton" },
+const COMPARISON_META: Record<ComparisonBullet["type"], { Icon: typeof TrendingUp; color: string; labelKey: string }> = {
+  promise_kept: { Icon: CheckCircle2, color: "#10b981", labelKey: "transcript.bullets.compare.promise_kept" },
+  promise_broken: { Icon: XCircle, color: "#f43f5e", labelKey: "transcript.bullets.compare.promise_broken" },
+  guidance_up: { Icon: TrendingUp, color: "#22d3ee", labelKey: "transcript.bullets.compare.guidance_up" },
+  guidance_down: { Icon: AlertTriangle, color: "#f59e0b", labelKey: "transcript.bullets.compare.guidance_down" },
+  new_topic: { Icon: Plus, color: "#a78bfa", labelKey: "transcript.bullets.compare.new_topic" },
+  sentiment_shift: { Icon: ArrowUpDown, color: "#fbbf24", labelKey: "transcript.bullets.compare.sentiment_shift" },
 };
 
 /** Construit un regex global qui matche les termes du glossaire dans un texte. */
@@ -261,14 +249,12 @@ function annotateTerms(text: string, accent: string): React.ReactNode {
   return parts;
 }
 
-function sentimentChip(sentiment: "bullish" | "neutral" | "cautious" | undefined) {
+function sentimentChip(sentiment: "bullish" | "neutral" | "cautious" | undefined, t: (k: string) => string) {
   if (!sentiment) return null;
   const c =
     sentiment === "bullish" ? "#10b981" :
     sentiment === "cautious" ? "#f59e0b" : "#a1a1aa";
-  const label =
-    sentiment === "bullish" ? LABELS.sentiment_bullish :
-    sentiment === "cautious" ? LABELS.sentiment_cautious : LABELS.sentiment_neutral;
+  const label = t(`transcript.sentiment.${sentiment}`);
   return (
     <span
       className="inline-flex items-center gap-1 rounded-md border px-2 py-0.5 font-mono text-[10.5px] font-semibold uppercase tracking-wider"
@@ -289,6 +275,7 @@ export function TranscriptBulletsBlock({
   summary: TranscriptBulletsSummary | null;
   quarterLabel?: string;
 }) {
+  const { t } = useT();
   if (!summary?.summary?.bullets || summary.summary.bullets.length === 0) return null;
   const accent = brand(ticker).primary;
   const s = summary.summary;
@@ -303,15 +290,15 @@ export function TranscriptBulletsBlock({
         <div>
           <h2 className="flex items-center gap-3 text-[26px] font-semibold text-zinc-50">
             <MessageSquare className="size-6" style={{ color: accent }} />
-            {LABELS.section_title}
+            {t("transcript.bullets.section_title")}
             <EarningCallInfoTooltip accent={accent} />
           </h2>
           <p className="mt-1 max-w-2xl text-[15px] text-zinc-300">
-            {LABELS.section_subtitle}
+            {t("transcript.bullets.section_subtitle")}
           </p>
         </div>
         <div className="flex items-center gap-2">
-          {sentimentChip(sentiment)}
+          {sentimentChip(sentiment, t)}
           {(quarterLabel || summary.quarter) && (
             <span className="font-mono text-[12px] uppercase tracking-wider text-zinc-400">
               {quarterLabel ?? summary.quarter}
@@ -361,10 +348,10 @@ export function TranscriptBulletsBlock({
             <div>
               <h3 className="flex items-center gap-2.5 text-[20px] font-semibold text-zinc-100">
                 <GitCompare className="size-5" style={{ color: accent }} />
-                {LABELS.comparison_title}
+                {t("transcript.bullets.comparison_title")}
               </h3>
               <p className="mt-1 max-w-2xl text-[14px] text-zinc-400">
-                {LABELS.comparison_subtitle}
+                {t("transcript.bullets.comparison_subtitle")}
               </p>
             </div>
             {summary.comparison.prev_quarter && (
@@ -386,7 +373,7 @@ export function TranscriptBulletsBlock({
                   <Icon className="mt-0.5 size-[18px] shrink-0" style={{ color: meta.color }} />
                   <div className="min-w-0 flex-1">
                     <div className="mb-0.5 font-mono text-[10.5px] font-semibold uppercase tracking-wider" style={{ color: meta.color }}>
-                      {meta.label}
+                      {t(meta.labelKey)}
                     </div>
                     <p className="text-[14.5px] leading-relaxed text-zinc-200">
                       {annotateTerms(b.text, accent)}
