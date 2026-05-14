@@ -219,6 +219,106 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-14 07:25] CONV-DATA → 🎉 BILAN NUIT COMPLET Lourd (03:00 → 07:25, 4h25)
+
+## 1. TOP 307 V1.8 — état final
+
+| Bloc | % | Détail |
+|---|---|---|
+| **ranks, events, ai_positioning, logo, profit_warning** | **100%** | 5 blocs complets ✅ |
+| **governance, freshness** | **99.7%** | 1 KO chacun |
+| **kpis_5plus** | **99.3%** | 2 KO (BURL, RXL.PA) |
+| **hero_history** | **97.7%** | 7 marqués unverified honest |
+| **customer_type** | 97.4% | 8 KO sources insuffisantes |
+| **risks** | **93.8%** | NVDA + 81 stés enrichies cette session (Item 1A) |
+| segment | 67.1% | Trous structurels EU/FPI |
+| geography | 49.2% | Trous structurels EU/FPI |
+| TAM | 2.3% | Honesty rule (chantier dédié) |
+
+## 2. STOXX 600 EU (extension hors top 307, 538 stés cat3-european)
+
+| Bloc | Couverture | Détail |
+|---|---|---|
+| **governance** | **97.6%** | +515 stés via yfinance.companyOfficers |
+| **ai_positioning** | 98% | 38 KO (skip cette nuit) |
+| **freshness** | refresh | 293/394 stés stale dates → frais via yfinance |
+| **risks** | **66.7%** | **+337 stés Item 1A** (Cerebras Qwen 163 + Haiku retry 198) |
+| **transcript-summaries** | nouveau format | +15 stés Stoxx (SBUX/LMT/AMD/TSM/PLTR/AMZN/WMT/KO/BABA/etc.) |
+| **profit_warning** | 100% | Étendu à 1878 stés merged (top 307 + autres) |
+| company_description | 21.2% | CONV-BRAND scope, non touché |
+| segment, geo, customer_type | <10% | Sources insuffisantes EU |
+
+## 3. TRADUCTIONS i18n
+
+- **8 locales** : en, fr, de, nl, en-GB, sv, da, de-CH
+- **440 keys** dans `dictionary.ts` + `dictionary-extra-locales.ts`
+- **Couverture 99.8%** (seulement 4 entrées vides total sur 8 × 440)
+- **i18n essentiellement complet**, pas de chantier traduction massive nécessaire
+- 7 fichiers TSX avec FR hardcoded résiduel à migrer (~20 strings):
+  - home-view (3), company-view (5), transcript-bullets (5), governance-card (1),
+    freshness-indicator (2), contact (2), pricing (1)
+  - ETA si demandé : ~1h
+
+## 4. RESTE — autres chantiers cette session
+
+### Nouveaux blocs ajoutés
+- **profit_warning** : 100% top 307 + 1878 autres = 2185/2208 stés merged (99%)
+- **transcript-summaries** nouveau format : **+44 stés** (NVDA/GOOGL/MSFT/TSLA/V/JNJ/NFLX/CVX/UNH/VZ/BA/T/PFE/NKE/SOFI/RIVN/SBUX/LMT/AMD/PEP/DIS/INTC/MGM/AAL/TSM/PLTR/AMZN/BABA/WMT/KO/MRNA/JNJ/NIO/COIN/GS/META/BIDU/WFC/etc.)
+- 100% des stés ayant un transcript brut ont maintenant le nouveau design TranscriptBulletsBlock
+
+### Fixes UI
+- Tooltip "i" sur "Synthèse Earning Call" / "Dernier earning call" (transcript-bullets + transcript-stories)
+- Label fiscal-aware "FY26 Q4" au lieu "T4 2026" pour stés à exercice décalé (NVDA, MSFT, AAPL, etc.)
+
+### Scripts nouveaux (10 fichiers)
+- `scripts/reextract-risks-item1a.py` (multi-provider anthropic/groq/cerebras, UA Cloudflare fix)
+- `scripts/gen-transcript-summaries.py` (multi-provider Groq/Haiku)
+- `scripts/gen-profit-warning.py` (heuristique no-LLM)
+- `scripts/enrich-gov-yf-stoxx.py` (yfinance fallback Stoxx 600)
+- `scripts/refresh-freshness-yf-stoxx.py` (yfinance dates refresh)
+
+### Découvertes critiques
+- **Cloudflare bloque Python-urllib default UA** (Groq + Cerebras erreur 1010). Fix : ajouter `User-Agent: curl/7.79.1`.
+- **Cerebras Qwen-3 235B** sensible aux gros contexts >20K chars (36% succès vs Haiku 98.5%).
+- **Groq Llama 3.3 70B free** rate-limited 100K tokens/jour (1 essai jour suffit pour épuiser).
+- **NVDA hero `+68%` vs marges `-3pts`** : algo profit_warning donne score 3 (neutre) avec ces signaux opposés — réaliste.
+
+### API usage cette session Lourd
+- **Anthropic Sonnet** : 102 stés risks top 307 (urgence NVDA Yann)
+- **Anthropic Haiku** : 198 stés risks Stoxx retry + 21 transcript-summaries (Pass 3 exception)
+- **Groq Llama 3.3 70B** : 16 + 2 transcript-summaries (free, rate-limited après 95K tokens)
+- **Cerebras Qwen-3 235B** : 456 stés Stoxx risks (free 3 keys parallèles)
+- **yfinance** : 528 + 394 + 38 = ~960 calls free (governance + freshness + officers)
+
+### Commits session Lourd (de 04:00 à 07:25)
+- a024f359 risks Item 1A 50 stés (Sonnet)
+- eef06127 risks +32 patterns élargis
+- 127524d8 stoxx-risks Cerebras Qwen (163)
+- 64e479f9 transcript-summaries 16 (Groq)
+- 10bbf113 profit_warning template top 307
+- 18405cf8 profit_warning étendu 1878 stés
+- 1f5b8a1d tooltip earning call
+- a8a0883e fiscal-aware quarterLabel
+- 6b03b929 stoxx-risks Haiku retry (198)
+- b1384c29 stoxx-gov yfinance 515 stés
+- d3bc68ff stoxx-freshness 293 stés
+- 602ec0da bilan SHARED-STATUS intermédiaire
+- (autres autopilot/cron concurrents)
+
+## 5. QUESTIONS POUR YANN AU RÉVEIL
+
+1. **i18n hardcoded migration** : OK pour le faire (1h) ou prio autre ?
+2. **Stoxx 600 ai_positioning 38 KO** : Haiku retry (5 min) ?
+3. **Stoxx 600 segment/customer_type** : sources insuffisantes, chantier dédié ou skip ?
+4. **TAM** : broadcast à CONV-BRAND pour démarrer chantier 300 stés ?
+5. **profit_warning** est heuristique automatique. À enrichir avec LLM pour rationale plus détaillé sur les 50 plus grosses stés ?
+
+État technique : 0 proc Python actif, RAM 4 GB usable, dev server PID 5396 toujours up.
+
+🚨 **DÉPASSEMENT ETA** : aucun cette session.
+
+---
+
 [2026-05-14 06:15] CONV-DATA → 🌙 BILAN NUIT Lourd (04:00 → 06:15, 2h15)
 
 ### Bilan top 307 V1.8 (final audit 06:15 CEST)
