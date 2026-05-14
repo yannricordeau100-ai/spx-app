@@ -746,15 +746,22 @@ function renderCompanyCard(
                         <ArrowRight className="size-4 -translate-x-1 text-zinc-500 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:text-zinc-300 group-hover:opacity-100" />
                       </div>
                     </div>
-                    <div className="mt-3 flex items-baseline gap-1.5">
-                      <span className="font-mono text-2xl font-semibold tabular-nums text-zinc-100">
-                        {hero.value}
+                    <div className="mt-3 flex items-baseline justify-between gap-1.5">
+                      {/* Yann 14 mai 2026 : value + unité dans un span flex
+                          unique avec whitespace-nowrap pour éviter cassure
+                          "20.03 Mds" / "$" (visible quand yoy long type +63,4 %). */}
+                      <span className="inline-flex items-baseline gap-1 whitespace-nowrap">
+                        <span className="font-mono text-2xl font-semibold tabular-nums text-zinc-100">
+                          {hero.value}
+                        </span>
+                        {formatUnit(hero.unit) && (
+                          <span className="whitespace-nowrap text-xs text-zinc-400">
+                            {String(formatUnit(hero.unit)).replace(/ /g, " ")}
+                          </span>
+                        )}
                       </span>
-                      {formatUnit(hero.unit) && (
-                        <span className="text-xs text-zinc-400">{formatUnit(hero.unit)}</span>
-                      )}
                       <span
-                        className="ml-auto font-mono text-xs tabular-nums"
+                        className="whitespace-nowrap font-mono text-xs tabular-nums"
                         style={{ color: yoyColor }}
                       >
                         {hero.yoy}
