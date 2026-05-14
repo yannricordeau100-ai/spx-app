@@ -1,8 +1,71 @@
 "use client";
 
 import { Quote, TrendingUp, MessageSquare, Sparkles } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { useT } from "@/lib/i18n/provider";
 import { brand } from "@/lib/brand";
+
+/** Tooltip "i" mini qui explique earning call (non-bilingues). */
+function EarningCallInfo({ accent }: { accent: string }) {
+  const [open, setOpen] = useState(false);
+  const [coords, setCoords] = useState<{ top: number; left: number } | null>(null);
+  const triggerRef = useRef<HTMLSpanElement>(null);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    if (!open) return;
+    const compute = () => {
+      const el = triggerRef.current;
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      setCoords({ top: r.bottom + 6, left: r.left });
+    };
+    compute();
+    window.addEventListener("scroll", compute, true);
+    window.addEventListener("resize", compute);
+    return () => {
+      window.removeEventListener("scroll", compute, true);
+      window.removeEventListener("resize", compute);
+    };
+  }, [open]);
+  return (
+    <>
+      <span
+        ref={triggerRef}
+        onMouseEnter={() => setOpen(true)}
+        onMouseLeave={() => setOpen(false)}
+        onClick={(e) => { e.stopPropagation(); setOpen((o) => !o); }}
+        className="ml-1 inline-flex size-4 cursor-help items-center justify-center rounded-full text-[10px] font-bold opacity-70 transition-opacity hover:opacity-100"
+        style={{ color: accent, border: `1px solid ${accent}66` }}
+        aria-label="Qu'est-ce qu'un earning call ?"
+      >
+        i
+      </span>
+      {mounted && coords && open && createPortal(
+        <div
+          role="tooltip"
+          onMouseEnter={() => setOpen(true)}
+          onMouseLeave={() => setOpen(false)}
+          className="pointer-events-auto fixed z-[1000] w-[360px] rounded-lg border bg-[#0a0a0a] p-4 text-[14px] leading-relaxed text-zinc-200 shadow-2xl"
+          style={{ top: coords.top, left: coords.left, borderColor: `${accent}66` }}
+        >
+          <div className="mb-1.5 font-mono text-[11.5px] font-semibold uppercase tracking-wider" style={{ color: accent }}>
+            Earning Call
+          </div>
+          <p className="text-[14px] text-zinc-200">
+            Conférence téléphonique trimestrielle où la direction d&apos;une
+            société cotée commente ses résultats face aux analystes. On y
+            trouve : chiffres-clés, contexte, perspectives (guidance), réponses
+            aux questions. Une des sources les plus riches pour anticiper la
+            trajectoire de la sté.
+          </p>
+        </div>,
+        document.body,
+      )}
+    </>
+  );
+}
 
 /**
  * TranscriptStories — 2 blocs côte à côte (largeur page) qui exposent les
@@ -186,6 +249,7 @@ export function TranscriptStories({
           <h2 className="flex items-center gap-2.5 text-[22px] font-semibold text-zinc-50">
             <MessageSquare className="size-5" style={{ color: accent }} />
             {t("transcript.section_title")}
+            <EarningCallInfo accent={accent} />
           </h2>
           <p className="mt-0.5 max-w-2xl text-[13.5px] text-zinc-300">
             {t("transcript.section_subtitle")}
