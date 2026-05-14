@@ -79,7 +79,7 @@ export function CompanyProfileCard({ company, accent = "#a78bfa" }: { company: C
       <div className="mb-3 flex items-baseline justify-between">
         {/* Yann 14 mai 2026 : "Profil société & marché" → "Comprendre la société" */}
         <h2 className="font-display text-[20px] font-bold tracking-tight text-zinc-100">Comprendre la société</h2>
-        <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">Source : Mettrik AI + yfinance</span>
+        <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">Source : Mettrik AI</span>
       </div>
 
       {/* Layout principal : Description Mettrik (2/3) + Snapshot boursier (1/3).
@@ -204,13 +204,10 @@ function SnapshotCard({
 }) {
   return (
     <div className="rounded-2xl border border-white/[0.06] bg-gradient-to-br from-white/[0.025] to-transparent p-5">
-      <div className="mb-3 flex items-center justify-between">
+      <div className="mb-3">
         <h3 className="font-display text-[14px] font-semibold uppercase tracking-wider text-zinc-200">
           Snapshot boursier
         </h3>
-        <span className="font-mono text-[9px] uppercase tracking-wider text-zinc-500">
-          MAJ quotidienne
-        </span>
       </div>
       <div className="grid grid-cols-2 gap-x-4 gap-y-2.5 text-[12.5px]">
         <SnapRow label="Capitalisation" value={fmtMarketCap(snap.market_cap_usd, snap.currency)} accent={accent} />
