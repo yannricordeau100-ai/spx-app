@@ -104,10 +104,61 @@ FORMAT RÉPONSE : JSON strict, RIEN d'autre. Pas de markdown autour, pas de ```j
 """
 
 
+def call_cerebras(api_key: str, prompt: str, model: str = "llama3.1-8b", retries: int = 3) -> dict | None:
+    """Cerebras fallback quand Gemini 429 daily quota."""
+    url = "https://api.cerebras.ai/v1/chat/completions"
+    payload = {
+        "model": model,
+        "messages": [{"role": "user", "content": prompt}],
+        "max_tokens": 2500,
+        "temperature": 0.6,
+        "response_format": {"type": "json_object"},
+    }
+    body = json.dumps(payload).encode()
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/127.0 Safari/537.36",
+    }
+    for attempt in range(retries):
+        try:
+            req = urllib.request.Request(url, data=body, headers=headers, method="POST")
+            with urllib.request.urlopen(req, timeout=45, context=_SSL_CTX) as r:
+                data = json.loads(r.read())
+                content = data["choices"][0]["message"]["content"]
+                parsed = json.loads(content)
+                simple = parsed.get("simple", {})
+                advanced = parsed.get("advanced", {})
+                sf = ("activity", "products", "customers", "edge")
+                af = ("positioning", "tech_products", "moat", "risks")
+                ok = True
+                for lang in ("fr", "en", "de"):
+                    s = simple.get(lang, {})
+                    a = advanced.get(lang, {})
+                    if not all(isinstance(s.get(f), str) and s[f].strip() for f in sf):
+                        ok = False; break
+                    if not all(isinstance(a.get(f), str) and a[f].strip() for f in af):
+                        ok = False; break
+                if ok:
+                    return parsed
+                return None
+        except urllib.error.HTTPError as e:
+            if e.code == 429:
+                time.sleep(2 ** attempt)
+                continue
+            return None
+        except Exception:
+            time.sleep(1)
+            continue
+    return None
+
+
 def call_gemini(api_key: str, prompt: str, retries: int = 3) -> dict | None:
     """Gemini 2.5 Flash via REST API. Retourne dict {fr,en,de} ou None.
     Free tier : 1500 req/jour/clé. Multilingue natif, fiable."""
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={api_key}"
+    # Yann 14 mai 2026 : gemini-2.5-flash-lite a un RPM bien plus haut sur
+    # free tier (30 vs 10) → drastiquement moins de 429.
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key={api_key}"
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
         "generationConfig": {
@@ -192,10 +243,11 @@ def main() -> None:
 
     env = load_env()
     keys = [env[k] for k in ("GEMINI_API_KEY", "GEMINI_API_KEYS_NEWS") if env.get(k)]
+    cerebras_keys = [env[k] for k in ("CEREBRAS_API_KEY", "CEREBRAS2_API_KEY", "CEREBRAS3_API_KEY") if env.get(k)]
     if not keys:
         print("ERR: aucune clé Gemini dans .env.local")
         sys.exit(1)
-    print(f"Clés Gemini : {len(keys)}")
+    print(f"Clés Gemini : {len(keys)}, Cerebras fallback : {len(cerebras_keys)}")
 
     tickers = json.loads(V18_TICKERS.read_text())
     if args.all:
@@ -224,6 +276,11 @@ def main() -> None:
         key = keys[i % len(keys)]
         print(f"[{i+1}/{len(targets)}] {ticker} : génération...")
         result = call_gemini(key, prompt)
+        # Fallback Cerebras si Gemini 429 daily quota
+        if not result and cerebras_keys:
+            ck = cerebras_keys[i % len(cerebras_keys)]
+            print(f"  ↩ fallback Cerebras llama3.1-8b...")
+            result = call_cerebras(ck, prompt, model="llama3.1-8b")
         if not result:
             fail += 1
             print(f"  ✗ échec")
@@ -234,7 +291,7 @@ def main() -> None:
             "simple": result["simple"],
             "advanced": result["advanced"],
             "_generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-            "_model": "gemini-2.5-flash",
+            "_model": "gemini-2.5-flash-lite",
             "_schema": "v2-sections",
             "_source_fields": ["name", "sector", "subsector", "hero_kpi", "tagline"],
         }
