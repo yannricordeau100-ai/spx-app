@@ -56,6 +56,7 @@ import { computeSuperKpis, computeSectorSuperKpis } from "@/lib/super-kpi";
 import { useT } from "@/lib/i18n/provider";
 import { CmdFSearch } from "@/components/cmdf-search";
 import { TranscriptStories, type TranscriptDoc } from "@/components/transcript-stories";
+import { ImageFindingsBlock, type ImageFindingPublic } from "@/components/image-findings-block";
 import { TranscriptBulletsBlock, type TranscriptBulletsSummary } from "@/components/transcript-bullets-block";
 import { V18MissingPlaceholder } from "@/components/v18-missing-placeholder";
 import { YoungIpoWarning } from "@/components/young-ipo-warning";
@@ -685,6 +686,17 @@ export function CompanyView({
             (transcript.latest?.content && transcript.latest.content.length > 200)
           ) ? (
           <TranscriptStories ticker={company.ticker} doc={transcript} />
+        ) : null}
+
+        {/* Graphiques et Schémas de sources diverses (Yann 15 mai 2026).
+            Images approuvées dans /sandbox/image-findings sont mergées au
+            SSR dans company.image_findings (carrousel sous le hero). */}
+        {Array.isArray((company as Company & { image_findings?: unknown[] }).image_findings) &&
+        ((company as Company & { image_findings?: unknown[] }).image_findings as unknown[]).length > 0 ? (
+          <ImageFindingsBlock
+            findings={(company as Company & { image_findings?: ImageFindingPublic[] }).image_findings ?? []}
+            accent={accent}
+          />
         ) : null}
 
         {/* Profil société & marché — description longue + snapshot

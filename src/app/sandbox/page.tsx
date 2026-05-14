@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CreditCard, FlaskConical, Library, Sparkles, Globe2, Database, Tag, FileEdit, Download } from "lucide-react";
+import { CreditCard, FlaskConical, Library, Sparkles, Globe2, Database, Tag, FileEdit, Download, Image as ImageIcon } from "lucide-react";
 import { CONCEPT_COMPANIES } from "@/lib/concepts-data";
 import { CompanyLogo } from "@/components/logos";
 import { brand } from "@/lib/brand";
@@ -57,6 +57,12 @@ const ITEMS = [
     icon: Sparkles,
     label: "KPIs spéciaux (recherche manuelle)",
     desc: "Pour les KPIs qui nécessitent recherche manuelle (ex iPhone units, Netflix abonnés) : crée la demande, lance l'extraction (Groq Llama 3.3 70B gratuit OU prompt externe), preview avant publication, push live sur la page sté avec toggle.",
+  },
+  {
+    href: "/sandbox/image-findings",
+    icon: ImageIcon,
+    label: "Graphiques et Schémas (sources diverses)",
+    desc: "Recherche manuelle de graphiques/schémas sur X/Twitter via Claude conv MAX 20× (gratuit). Query libre, tickers cibles, langues par défaut. Tu approuves chaque image, elles s'affichent dans un carrousel sous le hero des pages sté.",
   },
 ];
 

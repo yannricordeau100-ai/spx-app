@@ -1,0 +1,552 @@
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import {
+  ArrowLeft,
+  Plus,
+  Play,
+  Trash2,
+  Check,
+  X,
+  ImageIcon,
+  ExternalLink,
+  Sparkles,
+  Search,
+} from "lucide-react";
+import type {
+  ImageFindingRequest,
+  ImageFinding,
+} from "@/lib/desk/image-findings";
+
+const ALL_LOCALES = ["fr", "en", "de", "nl", "sv", "da", "en-GB", "de-CH"] as const;
+type Locale = (typeof ALL_LOCALES)[number];
+
+const STATUS_META: Record<
+  ImageFindingRequest["status"],
+  { label: string; color: string }
+> = {
+  todo: { label: "À configurer", color: "#a1a1aa" },
+  claude_pending: { label: "Attente Claude (tape : lance demande N)", color: "#a78bfa" },
+  in_progress: { label: "Claude en cours", color: "#06b6d4" },
+  pending_review: { label: "À approuver", color: "#f59e0b" },
+  done: { label: "Publié", color: "#10b981" },
+  error: { label: "Erreur", color: "#f43f5e" },
+};
+
+export function ImageFindingsClient({
+  initialRequests,
+  initialFindings,
+}: {
+  initialRequests: ImageFindingRequest[];
+  initialFindings: Record<string, ImageFinding[]>;
+}) {
+  const [requests, setRequests] = useState(initialRequests);
+  const [findings, setFindings] = useState(initialFindings);
+  const [showForm, setShowForm] = useState(false);
+  const [editing, setEditing] = useState<ImageFindingRequest | null>(null);
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+
+  async function refresh() {
+    const r = await fetch("/api/desk/image-findings").then((x) => x.json());
+    setRequests(r.rows);
+    // refresh findings for expanded request only (to save round-trips)
+    if (expandedId) {
+      const f = await fetch(`/api/desk/image-findings/${expandedId}/findings`).then(
+        (x) => x.json(),
+      );
+      setFindings((prev) => ({ ...prev, [expandedId]: f.rows }));
+    }
+  }
+
+  async function upsert(p: Partial<ImageFindingRequest>) {
+    const r = await fetch("/api/desk/image-findings", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(p),
+    });
+    if (!r.ok) alert(`Erreur : ${await r.text()}`);
+    await refresh();
+  }
+
+  async function del(id: string) {
+    if (!confirm("Supprimer cette demande et toutes ses images ?")) return;
+    await fetch("/api/desk/image-findings", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id }),
+    });
+    await refresh();
+  }
+
+  async function launchClaude(id: string) {
+    await fetch("/api/desk/image-findings", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "mark_claude_pending", id }),
+    });
+    await refresh();
+    alert(
+      "Demande marquée. Va dans ta conv Claude MAX 20× et tape :\n\n" +
+        `lance la demande ${
+          requests.find((r) => r.id === id)?.display_number ?? id.slice(0, 8)
+        }\n\nClaude fera la recherche WebSearch X + insérera les images.`,
+    );
+  }
+
+  async function updateFinding(reqId: string, p: Partial<ImageFinding>) {
+    await fetch(`/api/desk/image-findings/${reqId}/findings`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(p),
+    });
+    const f = await fetch(`/api/desk/image-findings/${reqId}/findings`).then((x) => x.json());
+    setFindings((prev) => ({ ...prev, [reqId]: f.rows }));
+    await refresh();
+  }
+
+  return (
+    <div className="relative min-h-screen bg-[#050505] text-zinc-100">
+      <div className="mx-auto max-w-7xl px-6 py-10">
+        <Link
+          href="/sandbox"
+          className="mb-6 inline-flex items-center gap-2 text-sm text-zinc-400 hover:text-zinc-100"
+        >
+          <ArrowLeft className="size-4" /> Retour sandbox
+        </Link>
+
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <h1 className="font-display text-3xl font-semibold">
+              <ImageIcon className="mr-2 inline size-7 text-cyan-400" />
+              Graphiques et Schémas de sources diverses
+            </h1>
+            <p className="mt-2 max-w-3xl text-sm text-zinc-400">
+              Recherche manuelle de graphiques / schémas (principalement X /
+              Twitter) liés à une ou plusieurs sociétés. Tu rédiges une demande
+              avec query libre (ex : "graphs en français sur la part de Google
+              sur l'IA"), Claude conv MAX 20× la lance, tu approuves les images
+              une à une, elles s'affichent ensuite sur les pages sté
+              concernées.
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => {
+              setEditing(null);
+              setShowForm(true);
+            }}
+            className="inline-flex items-center gap-2 rounded-lg border border-cyan-500/40 bg-cyan-500/10 px-3.5 py-2 text-sm font-semibold text-cyan-100 hover:bg-cyan-500/15"
+          >
+            <Plus className="size-4" /> Nouvelle demande
+          </button>
+        </div>
+
+        {showForm && (
+          <RequestForm
+            row={editing}
+            onCancel={() => {
+              setShowForm(false);
+              setEditing(null);
+            }}
+            onSave={async (payload) => {
+              await upsert(payload);
+              setShowForm(false);
+              setEditing(null);
+            }}
+          />
+        )}
+
+        <div className="mt-8 space-y-3">
+          {requests.length === 0 && (
+            <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8 text-center text-[12.5px] text-zinc-500">
+              Aucune demande pour l'instant. Clique "Nouvelle demande" pour
+              démarrer.
+            </div>
+          )}
+          {requests.map((r) => (
+            <RequestRow
+              key={r.id}
+              request={r}
+              findings={findings[r.id] ?? []}
+              expanded={expandedId === r.id}
+              onToggle={() => setExpandedId(expandedId === r.id ? null : r.id)}
+              onLaunch={() => launchClaude(r.id)}
+              onEdit={() => {
+                setEditing(r);
+                setShowForm(true);
+              }}
+              onDelete={() => del(r.id)}
+              onUpdateFinding={(p) => updateFinding(r.id, p)}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Request row + expansion ───────────────────────────────────── */
+function RequestRow({
+  request: r,
+  findings,
+  expanded,
+  onToggle,
+  onLaunch,
+  onEdit,
+  onDelete,
+  onUpdateFinding,
+}: {
+  request: ImageFindingRequest;
+  findings: ImageFinding[];
+  expanded: boolean;
+  onToggle: () => void;
+  onLaunch: () => void;
+  onEdit: () => void;
+  onDelete: () => void;
+  onUpdateFinding: (p: Partial<ImageFinding>) => Promise<void>;
+}) {
+  const st = STATUS_META[r.status];
+
+  return (
+    <div className="overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02]">
+      <div
+        className="flex cursor-pointer flex-wrap items-center gap-3 px-4 py-3 hover:bg-white/[0.02]"
+        onClick={onToggle}
+      >
+        <span className="rounded-full bg-cyan-500/15 px-2 py-0.5 font-mono text-[11.5px] font-bold text-cyan-200">
+          #{r.display_number ?? "—"}
+        </span>
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-2">
+            <Search className="size-3.5 text-zinc-500" />
+            <span className="text-[13.5px] font-medium text-zinc-100">{r.query}</span>
+          </div>
+          <div className="mt-1 flex flex-wrap items-center gap-2 text-[11px] text-zinc-500">
+            <span className="font-mono">
+              Tickers : {r.target_tickers.length > 0 ? r.target_tickers.join(", ") : "(aucun)"}
+            </span>
+            <span>·</span>
+            <span>Langues : {r.languages.join(", ")}</span>
+            <span>·</span>
+            <span>
+              {r.findings_count} images ({r.approved_count} approuvées)
+            </span>
+          </div>
+        </div>
+        <span
+          className="shrink-0 rounded-full px-2.5 py-0.5 text-[10.5px] font-semibold"
+          style={{ color: st.color, background: `${st.color}20` }}
+        >
+          {st.label}
+        </span>
+        <div className="flex shrink-0 items-center gap-1" onClick={(e) => e.stopPropagation()}>
+          <button
+            type="button"
+            onClick={onLaunch}
+            disabled={r.status === "in_progress"}
+            className="inline-flex items-center gap-1 rounded-md border border-violet-500/40 bg-violet-500/10 px-2 py-1 text-[11px] text-violet-100 hover:bg-violet-500/15 disabled:opacity-30"
+            title="Lancer Claude conv MAX 20× (gratuit)"
+          >
+            <Play className="size-3" /> Lancer
+          </button>
+          <button
+            type="button"
+            onClick={onEdit}
+            className="rounded-md p-1.5 text-zinc-300 hover:bg-white/10"
+            title="Éditer"
+          >
+            <Sparkles className="size-3.5" />
+          </button>
+          <button
+            type="button"
+            onClick={onDelete}
+            className="rounded-md p-1.5 text-zinc-300 hover:bg-white/10"
+            title="Supprimer"
+          >
+            <Trash2 className="size-3.5 text-rose-400" />
+          </button>
+        </div>
+      </div>
+
+      {expanded && (
+        <div className="border-t border-white/[0.06] bg-black/30 p-4">
+          {findings.length === 0 ? (
+            <div className="py-8 text-center text-[12px] text-zinc-500">
+              Pas encore d'images. Clique "Lancer" pour démarrer la recherche
+              Claude conv (gratuit, MAX 20×).
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {findings.map((f) => (
+                <FindingCard
+                  key={f.id}
+                  finding={f}
+                  defaultLanguages={r.languages}
+                  defaultTickers={r.target_tickers}
+                  onUpdate={onUpdateFinding}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ─── Finding card with approve/reject + langues per-image ────────── */
+function FindingCard({
+  finding: f,
+  defaultLanguages,
+  defaultTickers,
+  onUpdate,
+}: {
+  finding: ImageFinding;
+  defaultLanguages: string[];
+  defaultTickers: string[];
+  onUpdate: (p: Partial<ImageFinding>) => Promise<void>;
+}) {
+  const [busy, setBusy] = useState(false);
+
+  async function patch(p: Partial<ImageFinding>) {
+    setBusy(true);
+    try {
+      await onUpdate({ ...p, id: f.id });
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div
+      className={`overflow-hidden rounded-xl border ${
+        f.approved
+          ? "border-emerald-500/40 bg-emerald-500/[0.04]"
+          : f.rejected
+            ? "border-rose-500/40 bg-rose-500/[0.04] opacity-60"
+            : "border-white/[0.08] bg-white/[0.02]"
+      }`}
+    >
+      <div className="aspect-video w-full overflow-hidden bg-black/40">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={f.image_url}
+          alt={f.title ?? "graph"}
+          className="size-full object-contain"
+          referrerPolicy="no-referrer"
+        />
+      </div>
+      <div className="space-y-2 p-3">
+        {f.title && (
+          <div className="text-[12.5px] font-semibold text-zinc-100 line-clamp-2">{f.title}</div>
+        )}
+        {f.summary && (
+          <div className="text-[11.5px] text-zinc-400 line-clamp-3">{f.summary}</div>
+        )}
+        {f.source_url && (
+          <a
+            href={f.source_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 text-[10.5px] text-cyan-300 hover:underline"
+          >
+            <ExternalLink className="size-3" />
+            {f.source_handle ? `@${f.source_handle}` : "source"}
+          </a>
+        )}
+
+        {/* Tickers cibles : modifiables par image */}
+        <div className="space-y-1">
+          <div className="text-[10px] uppercase tracking-wider text-zinc-500">Tickers :</div>
+          <input
+            type="text"
+            defaultValue={f.target_tickers.join(", ")}
+            onBlur={(e) =>
+              patch({
+                target_tickers: e.target.value
+                  .split(",")
+                  .map((t) => t.trim().toUpperCase())
+                  .filter(Boolean),
+              })
+            }
+            placeholder={defaultTickers.join(", ") || "AAPL"}
+            className="w-full rounded border border-white/[0.08] bg-black/30 px-2 py-1 font-mono text-[11px] text-zinc-200"
+          />
+        </div>
+
+        {/* Langues : checkboxes per-image */}
+        <div className="space-y-1">
+          <div className="text-[10px] uppercase tracking-wider text-zinc-500">Langues :</div>
+          <div className="flex flex-wrap gap-1">
+            {ALL_LOCALES.map((loc) => {
+              const on = f.languages.includes(loc);
+              const inheritedOn = defaultLanguages.includes(loc);
+              return (
+                <button
+                  key={loc}
+                  type="button"
+                  disabled={busy}
+                  onClick={() => {
+                    const next = on
+                      ? f.languages.filter((l) => l !== loc)
+                      : [...f.languages, loc];
+                    patch({ languages: next });
+                  }}
+                  className={`rounded-md px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide transition-colors ${
+                    on
+                      ? "bg-emerald-500/25 text-emerald-100"
+                      : inheritedOn
+                        ? "bg-zinc-700/40 text-zinc-400 line-through"
+                        : "bg-zinc-800/40 text-zinc-500"
+                  }`}
+                  title={inheritedOn && !on ? "Décochée pour cette image (héritée)" : ""}
+                >
+                  {loc}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Approve / Reject */}
+        <div className="flex gap-2 pt-1">
+          <button
+            type="button"
+            disabled={busy}
+            onClick={() =>
+              patch({ approved: !f.approved, rejected: false, reviewed_at: new Date().toISOString() })
+            }
+            className={`flex-1 inline-flex items-center justify-center gap-1 rounded-md px-2 py-1.5 text-[11.5px] font-semibold ${
+              f.approved
+                ? "bg-emerald-500/40 text-emerald-50"
+                : "border border-emerald-500/30 text-emerald-200 hover:bg-emerald-500/10"
+            }`}
+          >
+            <Check className="size-3.5" />
+            {f.approved ? "Approuvé" : "Approuver"}
+          </button>
+          <button
+            type="button"
+            disabled={busy}
+            onClick={() =>
+              patch({ rejected: !f.rejected, approved: false, reviewed_at: new Date().toISOString() })
+            }
+            className={`flex-1 inline-flex items-center justify-center gap-1 rounded-md px-2 py-1.5 text-[11.5px] font-semibold ${
+              f.rejected
+                ? "bg-rose-500/40 text-rose-50"
+                : "border border-rose-500/30 text-rose-200 hover:bg-rose-500/10"
+            }`}
+          >
+            <X className="size-3.5" />
+            {f.rejected ? "Rejeté" : "Rejeter"}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Request form (create / edit) ──────────────────────────────── */
+function RequestForm({
+  row,
+  onCancel,
+  onSave,
+}: {
+  row: ImageFindingRequest | null;
+  onCancel: () => void;
+  onSave: (p: Partial<ImageFindingRequest>) => Promise<void>;
+}) {
+  const [query, setQuery] = useState(row?.query ?? "");
+  const [tickers, setTickers] = useState((row?.target_tickers ?? []).join(", "));
+  const [langs, setLangs] = useState<Locale[]>(
+    (row?.languages as Locale[]) ?? ["fr", "en"],
+  );
+  const [notes, setNotes] = useState(row?.notes ?? "");
+
+  return (
+    <div className="mt-6 rounded-2xl border border-cyan-500/30 bg-cyan-500/[0.04] p-4">
+      <div className="mb-3 text-[12.5px] font-semibold uppercase tracking-wider text-cyan-200">
+        {row ? `Édition demande #${row.display_number}` : "Nouvelle demande"}
+      </div>
+      <label className="block text-[11.5px]">
+        <div className="mb-1 text-zinc-400">Query libre (ce que Claude doit chercher sur X) *</div>
+        <textarea
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          rows={3}
+          placeholder={`Ex : "graphs en français sur la part de Google dans l'IA, posts X récents avec image attachée, derniers 6 mois"`}
+          className="w-full rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 py-2 text-[12.5px] text-zinc-100"
+        />
+      </label>
+      <label className="mt-3 block text-[11.5px]">
+        <div className="mb-1 text-zinc-400">Tickers cibles (séparés virgule)</div>
+        <input
+          value={tickers}
+          onChange={(e) => setTickers(e.target.value.toUpperCase())}
+          placeholder="GOOGL, META"
+          className="w-full rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 py-2 font-mono text-[12.5px] text-zinc-100"
+        />
+      </label>
+      <div className="mt-3">
+        <div className="mb-1 text-[11.5px] text-zinc-400">Langues d'affichage par défaut :</div>
+        <div className="flex flex-wrap gap-1">
+          {ALL_LOCALES.map((l) => {
+            const on = langs.includes(l);
+            return (
+              <button
+                key={l}
+                type="button"
+                onClick={() =>
+                  setLangs(on ? langs.filter((x) => x !== l) : [...langs, l])
+                }
+                className={`rounded-md px-2 py-1 text-[11px] font-medium uppercase ${
+                  on ? "bg-cyan-500/30 text-cyan-100" : "bg-zinc-800/40 text-zinc-500"
+                }`}
+              >
+                {l}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+      <label className="mt-3 block text-[11.5px]">
+        <div className="mb-1 text-zinc-400">Notes (optionnel)</div>
+        <input
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
+          className="w-full rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 py-2 text-[12.5px] text-zinc-100"
+        />
+      </label>
+      <div className="mt-4 flex justify-end gap-2">
+        <button
+          type="button"
+          onClick={onCancel}
+          className="rounded-lg border border-white/10 px-3 py-1.5 text-[12px] text-zinc-300 hover:bg-white/5"
+        >
+          Annuler
+        </button>
+        <button
+          type="button"
+          disabled={!query.trim()}
+          onClick={() =>
+            onSave({
+              id: row?.id,
+              query: query.trim(),
+              target_tickers: tickers
+                .split(",")
+                .map((t) => t.trim().toUpperCase())
+                .filter(Boolean),
+              languages: langs,
+              notes: notes || null,
+              status: row?.status ?? "todo",
+            })
+          }
+          className="rounded-lg bg-cyan-500/30 px-3 py-1.5 text-[12px] font-semibold text-cyan-100 hover:bg-cyan-500/40 disabled:opacity-30"
+        >
+          Sauvegarder
+        </button>
+      </div>
+    </div>
+  );
+}

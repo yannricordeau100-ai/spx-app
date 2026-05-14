@@ -476,6 +476,28 @@ export async function loadV17Company(
       // Fail-safe : si BDD inaccessible, on continue sans special KPIs.
       console.warn(`special_kpis merge failed for ${ticker}:`, err);
     }
+    // Image findings approuvés (Yann 15 mai 2026) — bloc "Graphiques et
+    // Schémas de sources diverses".
+    try {
+      const { listApprovedForTicker } = await import("@/lib/desk/image-findings");
+      const findings = await listApprovedForTicker(ticker);
+      if (Array.isArray(findings) && findings.length > 0) {
+        (data as Record<string, unknown>).image_findings = findings.map((f) => ({
+          id: f.id,
+          image_url: f.image_url,
+          title: f.title,
+          caption: f.caption,
+          summary: f.summary,
+          source_url: f.source_url,
+          source_author: f.source_author,
+          source_handle: f.source_handle,
+          source_date: f.source_date,
+          source_platform: f.source_platform,
+        }));
+      }
+    } catch (err) {
+      console.warn(`image_findings merge failed for ${ticker}:`, err);
+    }
     // dividend_meta : propagé tel quel à la company (utilisé par
     // DividendAristocratCard pour calculer yearsStreak depuis first_year).
     // CONV-DIV 9 mai 2026.
