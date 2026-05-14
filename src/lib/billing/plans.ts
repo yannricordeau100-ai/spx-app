@@ -46,11 +46,14 @@ export const PLANS: PlanDisplay[] = [
     audience: "Particuliers curieux et étudiants en finance.",
   },
   {
+    // Yann 15 mai 2026 : valeurs FALLBACK alignées sur les valeurs BDD
+    // actuelles. Quand la BDD était inaccessible, le fallback montrait
+    // 24,90 € au lieu de 29,90 € → confusion utilisateur.
     tier: "investisseur",
     name: "Premium",
     tagline: "L'essentiel pour suivre ton portefeuille au quotidien.",
-    price_monthly_eur: 24.9,
-    price_annual_eur: 199, // ≈ 16,6 €/mois facturé annuel = -33 % vs mensuel × 12
+    price_monthly_eur: 29.9,
+    price_annual_eur: 238.8,
     annual_savings_label: "2 mois offerts vs mensuel",
     accent: "#a78bfa",
     highlight: true,
@@ -61,8 +64,8 @@ export const PLANS: PlanDisplay[] = [
     tier: "pro_plus",
     name: "Max",
     tagline: "Outils avancés pour family offices, conseillers et fonds.",
-    price_monthly_eur: 79,
-    price_annual_eur: 699, // ≈ 58 €/mois facturé annuel = -26 % vs mensuel × 12
+    price_monthly_eur: 59.9,
+    price_annual_eur: 478.8,
     annual_savings_label: "2 mois offerts vs mensuel",
     accent: "#22d3ee",
     highlight: false,
@@ -213,15 +216,6 @@ export const FEATURES: FeatureRow[] = [
     pro_plus: true,
   },
   // ─── Données ────────────────────────────────────────────────────────
-  {
-    id: "senate_trades",
-    category: "Données",
-    label: "Transactions du Sénat US (live)",
-    help: "Voir en direct les achats/ventes des sénateurs américains pour chaque société.",
-    free: false,
-    investisseur: true,
-    pro_plus: true,
-  },
   {
     id: "tam",
     category: "Données",

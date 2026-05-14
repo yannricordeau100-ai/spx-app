@@ -144,7 +144,23 @@ export async function proxy(request: NextRequest) {
   //   - Si user connecté : Supabase user_metadata supplante (géré côté
   //     provider client + page account).
   const hasLocaleCookie = !!request.cookies.get("NEXT_LOCALE")?.value;
-  const hasCurrencyCookie = !!request.cookies.get("mettrik:currency")?.value;
+  // Yann 15 mai 2026 : auto-reset cookie devise si USD posé alors que
+  // l'IP est en Europe/Afrique. Plusieurs users ont USD persisté depuis
+  // une session de test ancienne (tunnel US, navigateur partagé, etc.).
+  // Sans ça, ils voient des $ à vie sur une app FR/CH.
+  const currentCurrency = request.cookies.get("mettrik:currency")?.value?.toUpperCase();
+  const country = (request.headers.get("x-vercel-ip-country") ?? "").toUpperCase();
+  const EU_AF_NON_USD = new Set([
+    "CH","FR","DE","IT","ES","BE","LU","NL","SE","DK","NO","FI","PL","AT",
+    "IE","GR","PT","CZ","HU","SK","SI","RO","BG","HR","EE","LT","LV","MT",
+    "CY","IS","LI","MC","AD","SM","VA",
+    // Africa (large EUR-leaning)
+    "MA","DZ","TN","SN","CI","BF","TG","BJ","ML","NE","CM","GA","CG","CD",
+  ]);
+  const wrongCurrencyCookie =
+    currentCurrency === "USD" && country && EU_AF_NON_USD.has(country);
+  const hasCurrencyCookie =
+    !!request.cookies.get("mettrik:currency")?.value && !wrongCurrencyCookie;
   const isApiOrAsset =
     originalPathname.startsWith("/api/") ||
     originalPathname.startsWith("/auth/") ||
@@ -155,7 +171,7 @@ export async function proxy(request: NextRequest) {
   let detectedLocaleForCookie: string | null = null;
   let detectedCurrencyForCookie: string | null = null;
   if (!isApiOrAsset && (!hasLocaleCookie || !hasCurrencyCookie)) {
-    const country = (request.headers.get("x-vercel-ip-country") ?? "").toUpperCase();
+    // country déjà calculé plus haut pour le check wrongCurrencyCookie
     // Yann 11 mai 2026 : langue OS prioritaire sur géo IP (parité avec le
     // thème qui utilise prefers-color-scheme). Le navigateur transmet la
     // langue OS dans Accept-Language (ex "fr-FR,fr;q=0.9,en-US;q=0.8").

@@ -6,6 +6,7 @@ import { PricingMatrix } from "@/components/billing/pricing-matrix";
 import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
 import { BrandWordmark } from "@/components/brand-wordmark";
 import { FloatingLogosBg } from "@/components/billing/floating-logos-bg";
+import { CurrencyPicker } from "@/components/billing/currency-picker";
 import { loadPricingCatalog } from "@/lib/billing/load-pricing";
 import { getServerLocale } from "@/lib/i18n/server";
 import { translate } from "@/lib/i18n/dictionary";
@@ -33,7 +34,7 @@ async function detectCurrency(): Promise<string> {
  */
 export const metadata = {
   title: "Tarifs · Mettrik AI",
-  description: "3 plans Mettrik AI : Découverte gratuit, Premium 24,90 €/mois, Max 79 €/mois.",
+  description: "3 plans Mettrik AI : Découverte gratuit, Premium 29,90 €/mois, Max 59,90 €/mois.",
 };
 
 export default async function PricingPage() {
@@ -60,6 +61,7 @@ export default async function PricingPage() {
           <BrandWordmark size="sm" animated={false} showRail={false} />
         </Link>
         <div className="flex items-center gap-3">
+          <CurrencyPicker current={currency} />
           <Link href="/login" className="text-sm text-zinc-400 transition-colors hover:text-zinc-100">
             Se connecter
           </Link>
