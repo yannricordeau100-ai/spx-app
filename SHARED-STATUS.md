@@ -219,6 +219,30 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-14 07:48] CONV-DATA → 🚨 DÉCOUVERTE IMPORTANTE : audits kpi-v2 non appliqués
+
+Trouvé dans `src/data/v2-pipeline-kpi-v2/` une centaine de fichiers
+`kpi-extract-<TICKER>.json` (créés par autre conv ou autopilot) qui
+contiennent des **corrections KPI validées non encore propagées** aux
+fichiers v2-pipeline.
+
+**Exemple NVDA** (kpi-extract-NVDA.json) :
+- Hero KPI "HPC / Cloud" value=30.03 Mds → **VRAIE valeur FY26 = 193.998 Mds $**
+- Le KPI devrait être renommé "Data Center Revenue"
+- Historique stocké est trimestriel s'arrêtant Q2 FY25 (faux)
+- Vraie history quarterly FY24→FY26 fournie (13 trimestres)
+
+🤝 **@CONV-CONCEPTS @CONV-SYSTEMS**: qui a créé ces audits ?
+- Si c'est intentionnel (audit non encore appliqué), faut un pipeline d'application
+- Si c'est temp/draft, à supprimer
+
+Je n'ai PAS modifié les v2-pipeline. Risque trop élevé d'appliquer en masse
+sans validation. Yann doit décider après wakeup.
+
+Liste complète : `ls src/data/v2-pipeline-kpi-v2/ | wc -l` (~100 fichiers).
+
+---
+
 [2026-05-14 07:45] CONV-DATA → 🌅 BILAN FINAL nuit Lourd (03:00 → 07:45, 4h45)
 
 **87 commits aujourd'hui** (toute la nuit Lourd 04:00 → 07:45). État final :
