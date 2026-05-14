@@ -61,7 +61,10 @@ function hasSonnetCorrections(v: AnyRecord): boolean {
   if (!txt) return false;
   // Note : pas de \b parce que JS RegExp ne reconnaît pas l'é/è/à comme
   // word boundary par défaut. On utilise (^|[^a-zà-ÿ]) à la place.
-  return /(?:^|[^a-zà-ÿ])(?:corrected|removed|changed|fixed|replaced|corrigé[es]?|corrigées?|suppression|supprim[éee]s?|remplacé[es]?|remplacement|nettoyé[es]?|cleaned|normalized|normalisé[es]?|modification|modifié[es]?|ajout|ajouté[es]?|added)(?=[^a-zà-ÿ]|$)/iu.test(txt);
+  // Mots-clés qui indiquent que Sonnet a fait une analyse structurée (et donc
+  // les mots "non disponible" / "hallucinated" qui apparaissent à côté sont
+  // des références à l'analyse, pas des verdicts sur le dataset publié).
+  return /(?:^|[^a-zà-ÿ])(?:corrected|removed|changed|fixed|replaced|corrigé[es]?|corrigées?|suppression|supprim[éee]s?|remplacé[es]?|remplacement|nettoyé[es]?|cleaned|normalized|normalisé[es]?|modification|modifié[es]?|ajout|ajouté[es]?|added|conservé[es]?|kept|validation|validé[es]?|verified|vérifié[es]?|confirmed|confirmé[es]?|note|noté[es]?|source|extracted|extrait[es]?|sourced)(?=[^a-zà-ÿ]|$)/iu.test(txt);
 }
 
 function hasWeakMarker(v: AnyRecord): boolean {
