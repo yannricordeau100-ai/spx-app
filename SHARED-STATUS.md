@@ -219,6 +219,68 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-14 06:15] CONV-DATA → 🌙 BILAN NUIT Lourd (04:00 → 06:15, 2h15)
+
+### Bilan top 307 V1.8 (final audit 06:15 CEST)
+
+| Bloc | % | Détail |
+|---|---|---|
+| ranks, events, ai_positioning, **logo**, **profit_warning** | **100%** | 5 blocs complets ✅ |
+| governance, freshness | **99.7%** | 1 KO chacun |
+| kpis_5plus | **99.3%** | 2 KO (BURL, RXL.PA) |
+| **hero_history** | **97.7%** | 7 KO (6 unverified honest + NESTE.HE) |
+| customer_type | 97.4% | 8 KO (sources insuffisantes) |
+| **risks** | **93.8%** | **+82 stés cette session via Item 1A re-extract** |
+| segment | 67.1% | Trous structurels EU/FPI |
+| geography | 49.2% | Trous structurels EU/FPI |
+| TAM | 2.3% | Honesty rule (chantier dédié) |
+
+### Bilan Stoxx 600 (extension hors top 307)
+- **163 stés EU enrichies risks Item 1A** cette session (Cerebras Qwen-3 235B free)
+- Sources : 20-F (cat2), cat3-european annual-text >50KB
+- Rate succès Cerebras Qwen 36% (sensible large context >20K chars)
+- 176 stés ❌ (LLM fail context overflow) à retry plus tard
+- 106 stés 🚫 (annual-text trop court, pas d'Item 1A extractible)
+
+### Bilan traductions i18n
+- 440 keys dans dictionary-extra-locales.ts (8 locales : en, fr, de, nl, en-GB, sv, da, de-CH)
+- Couverture : 99.8% (4 entrées vides total sur 8 × 440)
+- **i18n est essentiellement complet**, pas besoin de nouvelle traduction massive
+- 7 fichiers ont du FR hardcoded résiduel à migrer dans dictionary :
+  - home-view (3), company-view (5), transcript-bullets (5), governance-card (1),
+    freshness-indicator (2), contact (2), pricing (1)
+  - Soit ~20 strings à extraire + traduire. ETA si demandé : ~1h.
+
+### Bilan reste (autres chantiers cette session)
+**Nouveaux blocs** :
+- **profit_warning** : 307/307 top 307 (heuristique sans LLM)
+- **transcript-summaries** nouveau format : 16 stés (NVDA, GOOGL, MSFT, TSLA, V,
+  JNJ, NFLX, CVX, UNH, VZ, BA, T, PFE, NKE, SOFI, RIVN) - débloque TranscriptBulletsBlock partout
+
+**Fixes UI** :
+- Tooltip "i" sur "Synthèse Earning Call" / "Dernier earning call" (2 composants)
+- Label fiscal-aware "FY26 Q4" au lieu "T4 2026" pour stés à exercice décalé (NVDA, MSFT, AAPL, etc.)
+
+**Scripts nouveaux** :
+- `scripts/reextract-risks-item1a.py` (multi-provider anthropic/groq/cerebras + UA fix Cloudflare 1010)
+- `scripts/gen-transcript-summaries.py` (Groq Llama 3.3 70B free)
+- `scripts/gen-profit-warning.py` (heuristique no-LLM)
+
+**API usage cette session** :
+- Anthropic Sonnet : 102 stés risks top 307 (autorisé par Yann pour urgence NVDA "rien en data")
+- Groq Llama 3.3 70B : 16 transcript-summaries + 1 essai i18n (rate-limited 95K/100K)
+- Cerebras Qwen-3 235B : 456 stés Stoxx (free tier 3 keys parallèles)
+
+🚨 **Points pour Yann au réveil** :
+- Faut-il retry les 176 Cerebras ❌ avec Sonnet payant (urgence) ?
+- Migrer les 20 strings FR hardcoded restants dans dictionary ?
+- Continuer Stoxx 600 extension ou pivot vers cat 2 ADR ?
+- TAM dédié à CONV-BRAND (broadcast à faire) ?
+
+---
+
+[2026-05-14 02:00] CRON-MERGED → ✅ Rebuild horaire : Pass 3 2090 → 2090 (no delta), mais public files V1.6/V1.7 maj (governance/freshness CONV-DATA 01:45). Staging redéployé → mettrik-j7qi1o3f3.
+
 [2026-05-14 01:45] CONV-DATA → 🎉 BREAKTHROUGH governance + freshness top 307 V1.8
 
 Session new Mac (~31 min, 5 procs parallèles utilisés). Wins majeurs :
