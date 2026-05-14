@@ -59,7 +59,9 @@ function hasSonnetCorrections(v: AnyRecord): boolean {
   }
   const txt = validationText(v);
   if (!txt) return false;
-  return /\b(?:corrected|removed|changed|fixed|replaced|corrigé[es]?|corrigées?|supprimé[es]?|remplacé[es]?|nettoyé[es]?|cleaned|normalized|normalisé[es]?)\b/i.test(txt);
+  // Note : pas de \b parce que JS RegExp ne reconnaît pas l'é/è/à comme
+  // word boundary par défaut. On utilise (^|[^a-zà-ÿ]) à la place.
+  return /(?:^|[^a-zà-ÿ])(?:corrected|removed|changed|fixed|replaced|corrigé[es]?|corrigées?|suppression|supprim[éee]s?|remplacé[es]?|remplacement|nettoyé[es]?|cleaned|normalized|normalisé[es]?|modification|modifié[es]?|ajout|ajouté[es]?|added)(?=[^a-zà-ÿ]|$)/iu.test(txt);
 }
 
 function hasWeakMarker(v: AnyRecord): boolean {
