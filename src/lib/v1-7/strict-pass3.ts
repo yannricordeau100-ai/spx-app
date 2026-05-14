@@ -45,17 +45,21 @@ function validationText(v: AnyRecord): string {
   return "";
 }
 
-/** Sonnet a-t-il appliqué des corrections (objet `{ corrected: ... }`) ? */
+/** Sonnet a-t-il appliqué des corrections ? Détecte 2 patterns :
+ *  1. Objet structuré `{ corrected: ... }`
+ *  2. Verbes correctifs dans le texte de validation ("removed", "corrigé",
+ *     "corrected", "changed", "fixed", "replaced") — Sonnet écrit souvent
+ *     ses corrections en langage naturel. */
 function hasSonnetCorrections(v: AnyRecord): boolean {
   const val = v._validation;
-  if (!Array.isArray(val)) return false;
-  return val.some(
-    (x) =>
-      x &&
-      typeof x === "object" &&
-      !Array.isArray(x) &&
-      "corrected" in (x as Record<string, unknown>),
-  );
+  if (!val) return false;
+  if (Array.isArray(val) && val.some((x) =>
+      x && typeof x === "object" && !Array.isArray(x) && "corrected" in (x as Record<string, unknown>))) {
+    return true;
+  }
+  const txt = validationText(v);
+  if (!txt) return false;
+  return /\b(?:corrected|removed|changed|fixed|replaced|corrigé[es]?|corrigées?|supprimé[es]?|remplacé[es]?|nettoyé[es]?|cleaned|normalized|normalisé[es]?)\b/i.test(txt);
 }
 
 function hasWeakMarker(v: AnyRecord): boolean {
