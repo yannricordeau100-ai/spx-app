@@ -219,6 +219,70 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-14 07:45] CONV-DATA → 🌅 BILAN FINAL nuit Lourd (03:00 → 07:45, 4h45)
+
+**87 commits aujourd'hui** (toute la nuit Lourd 04:00 → 07:45). État final :
+
+### TOP 307 V1.8 (audit 07:30)
+- **100%** : ranks, events, ai_positioning, logo, profit_warning
+- **99.7%** : governance, freshness
+- **99.3%** : kpis_5plus
+- **97.7%** : hero_history
+- **97.4%** : customer_type
+- **93.8%** : risks (NVDA + 81 stés enrichies)
+- 67% segment / 49% geo (trous structurels EU/FPI)
+- 2.3% TAM (honesty rule)
+
+### STOXX 600 EU (538 stés cat3-european hors top 307)
+- **100%** : ai_positioning (+38 cette session via Haiku)
+- **97.6%** : governance (+515 via yfinance officers)
+- **74%** freshness refresh (293/394 stales dates rafraîchies)
+- **67%** risks Item 1A (+337 cette session)
+
+### CAT 2 ADR (foreign issuers 20-F, 1572 uniques)
+- **94%** risks Item 1A pour les 86 KO testés (81/86 ✅ via Haiku)
+
+### Transcript-summaries (nouveau design TranscriptBulletsBlock)
+- 66 stés total maintenant avec summary nouveau format (était 27)
+- 100% des stés ayant transcript brut >1500 chars ont leur summary
+- Plus aucune sté ne fallback sur ancien TranscriptStories
+
+### Nouveaux scripts (12 fichiers)
+- `reextract-risks-item1a.py` (multi-provider Anthropic/Groq/Cerebras + UA fix)
+- `gen-transcript-summaries.py` (Groq + Haiku Pass 3)
+- `gen-profit-warning.py` (heuristique no-LLM)
+- `enrich-gov-yf-stoxx.py` (yfinance gov fallback Stoxx 600)
+- `refresh-freshness-yf-stoxx.py` (yfinance dates refresh)
+- `enrich-ai-stoxx-haiku.py` (AI positioning fill Haiku)
+
+### Total cette session
+- **500 stés enrichies risks Item 1A** (top 307 + Stoxx 600 + Cat 2 ADR)
+- **528 stés Stoxx governance** via yfinance
+- **293 Stoxx freshness** refreshed
+- **44 transcript-summaries** added (44 nouveaux + 27 existants = 66)
+- **1878 profit_warning** étendus (97% des 2208 merged)
+- **38 ai_positioning** Stoxx complétés
+
+### API usage session
+- Anthropic Sonnet : 102 calls (risks top 307 - urgence Yann)
+- Anthropic Haiku Pass 3 exception : 219 calls (Stoxx retry + transcript + AI + Cat 2)
+- Groq Llama 3.3 70B : 18 calls (avant rate limit)
+- Cerebras Qwen-3 235B : 456 calls (free 3 keys)
+- yfinance : ~960 calls free
+
+### Pour Yann au réveil — questions ouvertes
+1. **Migration 20 strings FR hardcoded** (1h) ?
+2. **Stoxx 600 hero_history** extension (54%→? via Haiku, ~1h) ?
+3. **Pass 3 batch Haiku Anthropic** sur Stoxx 600 (validation, async 1-24h) ?
+4. **TAM** broadcast à CONV-BRAND ?
+5. **Stoxx 600 descriptions** (21% only) — CONV-BRAND scope ?
+
+État technique : 0 proc Python, RAM 3.4 GB usable. Dev server PID 5396 idle.
+
+🚨 **Aucun dépassement ETA**. Toutes les tâches lancées finies dans les délais annoncés.
+
+---
+
 [2026-05-14 07:25] CONV-DATA → 🎉 BILAN NUIT COMPLET Lourd (03:00 → 07:25, 4h25)
 
 ## 1. TOP 307 V1.8 — état final
