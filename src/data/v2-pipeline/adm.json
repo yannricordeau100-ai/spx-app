@@ -13,7 +13,7 @@
     "sector": "N/A",
     "subsector": "Global leader"
   },
-  "hero_kpi": "Cost Savings Target",
+  "hero_kpi": "Total Revenue",
   "hero_kpi_rationale": "ADM a annoncé en février 2025 un programme cible de plus de 500 millions de dollars d'économies de coûts sur 3 à 5 ans, reflétant une priorité stratégique clé pour optimiser le portefeuille, réduire les dépenses en capital non conformes aux objectifs de rendement, et améliorer la rentabilité dans un contexte d'obsolescence technologique et de compression des marges.",
   "kpis": [
     {
@@ -244,6 +244,56 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+    },
+    {
+      "short": "Total Revenue",
+      "name_fr": "Chiffre d'affaires",
+      "name_en": "Total Revenue",
+      "value": 80.269,
+      "unit": "Mds $",
+      "yoy": "-6.2%",
+      "history": [
+        64.341,
+        64.656,
+        64.355,
+        85.249,
+        101.556,
+        93.935,
+        85.53,
+        80.269
+      ],
+      "type": "Revenue",
+      "nature": "comptable",
+      "comparable": true,
+      "signal": "Chiffre d'affaires de 80.269 Mds $ dernière année.",
+      "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
+      "is_generic": true,
+      "_source": "SEC EDGAR companyfacts XBRL"
+    },
+    {
+      "short": "Net Income",
+      "name_fr": "Résultat net",
+      "name_en": "Net Income",
+      "value": 1.078,
+      "unit": "Mds $",
+      "yoy": "-40.1%",
+      "history": [
+        1.81,
+        1.379,
+        1.772,
+        2.709,
+        4.34,
+        3.483,
+        1.8,
+        1.078
+      ],
+      "type": "Profit",
+      "nature": "comptable",
+      "comparable": true,
+      "signal": "Résultat net de 1.078 Mds $ dernière année.",
+      "description": "Résultat net consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
+      "is_generic": true,
+      "_source": "SEC EDGAR companyfacts XBRL"
     }
   ],
   "stories_kpis": [
@@ -394,11 +444,8 @@
     "method": "yfinance",
     "yf_metric": "(none-fallback-existing-history)"
   },
-  "_fit_for_site": false,
-  "_fit_reasons": [
-    "hero_history_too_short_1",
-    "no_yoy"
-  ],
+  "_fit_for_site": true,
+  "_fit_reasons": [],
   "next_earnings_date": "2026-08-04",
   "_held_for_review": true,
   "_governance_fetched_at": "2026-05-12T12:54:06.972112+00:00",
@@ -408,5 +455,6 @@
     "score": 3,
     "rationale": "Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
-  }
+  },
+  "_hero_kpi_original": "Cost Savings Target"
 }

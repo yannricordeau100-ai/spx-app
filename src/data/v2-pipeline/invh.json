@@ -13,7 +13,7 @@
     "sector": "",
     "subsector": ""
   },
-  "hero_kpi": "Nombre de logements détenus",
+  "hero_kpi": "Total Revenue",
   "hero_kpi_rationale": "Indicateur clé de la taille du portefeuille immobilier et de la capacité opérationnelle de la société en tant que plus grand propriétaire de logements unifamiliaux aux États-Unis",
   "kpis": [
     {
@@ -186,6 +186,54 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet"
+    },
+    {
+      "short": "Total Revenue",
+      "name_fr": "Chiffre d'affaires",
+      "name_en": "Total Revenue",
+      "value": 2.729,
+      "unit": "Mds $",
+      "yoy": "+4.2%",
+      "history": [
+        0.444,
+        1.997,
+        2.238,
+        2.432,
+        2.619,
+        2.729
+      ],
+      "type": "Revenue",
+      "nature": "comptable",
+      "comparable": true,
+      "signal": "Chiffre d'affaires de 2.729 Mds $ dernière année.",
+      "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 6 dernières années fiscales 10-K déclarées.",
+      "is_generic": true,
+      "_source": "SEC EDGAR companyfacts XBRL"
+    },
+    {
+      "short": "Net Income",
+      "name_fr": "Résultat net",
+      "name_en": "Net Income",
+      "value": 0.588,
+      "unit": "Mds $",
+      "yoy": "+29.5%",
+      "history": [
+        -0.105,
+        0.145,
+        0.196,
+        0.261,
+        0.383,
+        0.519,
+        0.454,
+        0.588
+      ],
+      "type": "Profit",
+      "nature": "comptable",
+      "comparable": true,
+      "signal": "Résultat net de 0.588 Mds $ dernière année.",
+      "description": "Résultat net consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
+      "is_generic": true,
+      "_source": "SEC EDGAR companyfacts XBRL"
     }
   ],
   "stories_kpis": [
@@ -295,11 +343,8 @@
     "method": "yfinance",
     "yf_metric": "(none-fallback-existing-history)"
   },
-  "_fit_for_site": false,
-  "_fit_reasons": [
-    "hero_history_too_short_1",
-    "no_yoy"
-  ],
+  "_fit_for_site": true,
+  "_fit_reasons": [],
   "next_earnings_date": "2026-07-29",
   "_held_for_review": true,
   "_governance_fetched_at": "2026-05-12T13:34:27.006396+00:00",
@@ -308,5 +353,6 @@
     "score": 3,
     "rationale": "Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
-  }
+  },
+  "_hero_kpi_original": "Nombre de logements détenus"
 }

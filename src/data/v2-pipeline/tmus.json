@@ -13,7 +13,7 @@
     "sector": "≈ #1",
     "subsector": "≈ #1"
   },
-  "hero_kpi": "Acquisition UScellular",
+  "hero_kpi": "Total Revenue",
   "hero_kpi_rationale": "L'acquisition de UScellular renforce la couverture rurale 5G et la position concurrentielle de T-Mobile, démontrant une stratégie d'expansion agressive et d'intégration pour améliorer le réseau et la portée client.",
   "kpis": [
     {
@@ -271,6 +271,54 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+    },
+    {
+      "short": "Total Revenue",
+      "name_fr": "Chiffre d'affaires",
+      "name_en": "Total Revenue",
+      "value": 40.604,
+      "unit": "Mds $",
+      "yoy": "+9.0%",
+      "history": [
+        4.069,
+        24.42,
+        29.564,
+        32.053,
+        37.242,
+        40.604
+      ],
+      "type": "Revenue",
+      "nature": "comptable",
+      "comparable": true,
+      "signal": "Chiffre d'affaires de 40.604 Mds $ dernière année.",
+      "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 6 dernières années fiscales 10-K déclarées.",
+      "is_generic": true,
+      "_source": "SEC EDGAR companyfacts XBRL"
+    },
+    {
+      "short": "Net Income",
+      "name_fr": "Résultat net",
+      "name_en": "Net Income",
+      "value": 10.992,
+      "unit": "Mds $",
+      "yoy": "-3.1%",
+      "history": [
+        2.888,
+        3.468,
+        3.064,
+        3.024,
+        2.59,
+        8.317,
+        11.339,
+        10.992
+      ],
+      "type": "Profit",
+      "nature": "comptable",
+      "comparable": true,
+      "signal": "Résultat net de 10.992 Mds $ dernière année.",
+      "description": "Résultat net consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
+      "is_generic": true,
+      "_source": "SEC EDGAR companyfacts XBRL"
     }
   ],
   "stories_kpis": [
@@ -427,10 +475,8 @@
     "method": "yfinance",
     "yf_metric": "(none-fallback-existing-history)"
   },
-  "_fit_for_site": false,
-  "_fit_reasons": [
-    "hero_history_too_short_2"
-  ],
+  "_fit_for_site": true,
+  "_fit_reasons": [],
   "next_earnings_date": "2026-07-22",
   "_held_for_review": true,
   "_kpis_cleaned": [
@@ -446,5 +492,6 @@
     "score": 2,
     "rationale": "Hero KPI Acquisition UScellular en croissance soutenue (+912.0%), faible probabilité de profit warning. Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
-  }
+  },
+  "_hero_kpi_original": "Acquisition UScellular"
 }
