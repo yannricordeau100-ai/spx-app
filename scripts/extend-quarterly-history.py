@@ -68,9 +68,9 @@ CEREBRAS_URL = "https://api.cerebras.ai/v1/chat/completions"
 MODEL = "qwen-3-235b-a22b-instruct-2507"
 
 # Min history target avant skip
-MIN_QUARTERS_TARGET = 16  # 4 ans
+MIN_QUARTERS_TARGET = 18  # 4.5 ans (Q1 2021 → Q2 2025 = 18)
 MAX_KPIS_PER_TICKER = 6   # top 6 KPIs visible par sté (limite tokens prompt)
-MAX_DOC_CHARS = 60000     # cap total des docs SEC concaténés
+MAX_DOC_CHARS = 80000     # cap total des docs SEC (élargi pour capturer 10-K + 10-Q 2021-2025)
 SLEEP_BETWEEN_CALLS = 1.0  # 4 workers × 1s = 4 req/s = 240/min total (sous 270/min limit 3 keys)
 
 
@@ -85,7 +85,7 @@ def log(msg):
         pass
 
 
-def find_filings(ticker: str, years=range(2020, 2027)) -> list[Path]:
+def find_filings(ticker: str, years=range(2021, 2027)) -> list[Path]:
     """Tous les 10-K + 10-Q locaux pour un ticker, triés par date asc.
     Yann 15 mai 2026 : élargi aux 3 catégories source (US cat1, FPI ADR cat2,
     EU pure cat3) pour maximiser la couverture top 307 V1.8."""
@@ -234,21 +234,28 @@ def process_ticker(ticker: str, worker_id: int) -> str:
 
     system = (
         "Tu es un analyste financier qui extrait des séries temporelles trimestrielles depuis des filings SEC."
-        " Tu reçois plusieurs 10-Q et 10-K. Tu dois extraire pour chaque KPI demandé l'history trimestrielle"
-        " (16 à 22 trimestres = 4 à 5 ans, du plus ancien au plus récent).\n\n"
+        " Tu reçois plusieurs 10-Q et 10-K. Pour chaque KPI demandé, tu extrais l'history TRIMESTRIELLE"
+        " la PLUS LONGUE POSSIBLE, idéalement Q1 2021 → dernier trimestre disponible (≥16 quarters, viser 20).\n\n"
         "RÈGLES STRICTES :\n"
-        "1. Ordre CHRONOLOGIQUE ASCENDANT (Q1 N-5 → dernier trimestre dispo).\n"
-        "2. Si une valeur trimestrielle n'est PAS explicitement présente dans le filing → omettre l'entrée.\n"
-        "3. JAMAIS extrapoler / interpoler / inventer.\n"
-        "4. Unité : 'Mds $' (milliards USD), 'M $' (millions USD), '%' (pourcentage).\n"
-        "5. period_type='quarter' (sauf si KPI annuel uniquement, alors 'year').\n"
-        "6. last_data_date = fin de période du dernier point (YYYY-MM-DD).\n"
-        "7. Réponse JSON UNIQUEMENT, pas de markdown.\n\n"
+        "1. SOURCES :\n"
+        "   - Les 10-K annuels contiennent un breakdown trimestriel des 4 trimestres de l'année fiscale (table 'Selected Financial Data' ou 'Quarterly results'). Cherche TOUS les Q1/Q2/Q3/Q4 dans chaque 10-K, pas seulement le Q4.\n"
+        "   - Les 10-Q contiennent Q1/Q2/Q3 (Q4 n'est dans le 10-K que pas un 10-Q).\n"
+        "   - Le filing déposé en YYYY couvre l'exercice fiscal YYYY-1 (ex 10-K 2026 = FY2025).\n"
+        "2. PÉRIODES : attribuer chaque chiffre au TRIMESTRE FISCAL concerné, PAS à la date de publication.\n"
+        "3. Ordre CHRONOLOGIQUE ASCENDANT (Q1 2021 → dernier trimestre disponible).\n"
+        "4. Si une valeur trimestrielle n'est PAS explicitement présente dans les docs → omettre l'entrée (PAS d'extrapolation, PAS d'invention).\n"
+        "5. Unité : 'Mds $' (milliards USD), 'M $' (millions USD), '%' (pourcentage). Convertir si nécessaire.\n"
+        "6. period_type='quarter' (sauf si KPI annuel uniquement, alors 'year').\n"
+        "7. last_data_date = fin de période du dernier point (YYYY-MM-DD).\n"
+        "8. Réponse JSON UNIQUEMENT, pas de markdown.\n\n"
         "Format réponse JSON strict :\n"
         '{\n'
         '  "kpis": [\n'
-        '    {"short": "<short donné>", "period_type": "quarter|year", "values": [{"period": "Q1 2021", "value": 12.3, "unit": "Mds $"}, ...], "last_data_date": "YYYY-MM-DD"},\n'
-        '    ...\n'
+        '    {"short": "<short donné>", "period_type": "quarter|year", "values": [\n'
+        '       {"period": "Q1 2021", "value": 5.82, "unit": "Mds $"},\n'
+        '       {"period": "Q2 2021", "value": 6.05, "unit": "Mds $"},\n'
+        '       ... ≥16 entrées idéalement\n'
+        '    ], "last_data_date": "YYYY-MM-DD"}\n'
         '  ]\n'
         '}'
     )
