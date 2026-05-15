@@ -174,7 +174,7 @@ export function StockPriceBlock({ company }: { company: Company }) {
             fontSize: "clamp(14px, 1.6vw, 17px)",
           }}
         >
-          {live.loading ? placeholder : `${isUp ? "+" : ""}${s.deltaPct.toFixed(2)} %`}
+          {live.loading ? placeholder : `${isUp ? "+" : ""}${s.deltaPct.toLocaleString(locale === "fr" ? "fr-FR" : locale === "de" || locale === "de-CH" ? "de-DE" : "en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} %`}
         </span>
       </div>
 
