@@ -303,33 +303,37 @@ export function CurveChart({
         </text>
       )}
       {/* Yann 15 mai 2026 : TTM cumul affiché comme chip séparé en haut à
-          droite du chart, pas sur la courbe (sinon va off-screen). */}
-      {ttmIsCumul && rawHasTTM && (
-        <g>
-          <rect
-            x={W - PAD_RIGHT - 130}
-            y={8}
-            width={120}
-            height={24}
-            rx={6}
-            fill="rgba(255,255,255,0.04)"
-            stroke="rgba(255,255,255,0.12)"
-          />
-          <text
-            x={W - PAD_RIGHT - 122}
-            y={24}
-            fontSize={11}
-            fontFamily="ui-monospace, monospace"
-            fill="#a1a1aa"
-          >
-            TTM&nbsp;
-            <tspan fill="#e4e4e7" fontWeight={600}>
-              {(ttm as number).toLocaleString("fr-FR", { maximumFractionDigits: 1 })}
-            </tspan>
-            <tspan fill="#a1a1aa">&nbsp;{formatUnit(unit)}</tspan>
-          </text>
-        </g>
-      )}
+          droite du chart, pas sur la courbe (sinon va off-screen).
+          Position : haut-gauche si Y axis droit, haut-droite sinon. */}
+      {ttmIsCumul && rawHasTTM && (() => {
+        const chipX = yOnRight ? PAD_LEFT + 180 : W - PAD_RIGHT - 130;
+        return (
+          <g>
+            <rect
+              x={chipX}
+              y={8}
+              width={120}
+              height={24}
+              rx={6}
+              fill="rgba(255,255,255,0.04)"
+              stroke="rgba(255,255,255,0.12)"
+            />
+            <text
+              x={chipX + 8}
+              y={24}
+              fontSize={11}
+              fontFamily="ui-monospace, monospace"
+              fill="#a1a1aa"
+            >
+              TTM&nbsp;
+              <tspan fill="#e4e4e7" fontWeight={600}>
+                {(ttm as number).toLocaleString("fr-FR", { maximumFractionDigits: 1 })}
+              </tspan>
+              <tspan fill="#a1a1aa">&nbsp;{formatUnit(unit)}</tspan>
+            </text>
+          </g>
+        );
+      })()}
         <defs>
           <filter id={idGlow} x="-30%" y="-30%" width="160%" height="160%">
             <feGaussianBlur stdDeviation="8" />
@@ -651,8 +655,14 @@ export function CurveChart({
         })}
 
         {/* Mini-logo Mettrik AI (home-style). Caché à l'export et remplacé
-            par un grand watermark (cf. chart-export.ts). */}
-        <ChartMiniLogo x={W * 0.85} y={PAD_TOP - 18} height={14} />
+            par un grand watermark (cf. chart-export.ts).
+            Yann 15 mai 2026 : déplacé à gauche quand Y axis à droite pour
+            éviter overlap avec les labels Y droits + chip TTM. */}
+        <ChartMiniLogo
+          x={yOnRight ? PAD_LEFT + 70 : W * 0.85}
+          y={PAD_TOP - 18}
+          height={14}
+        />
       </svg>
 
       {/* Bouton download (capture SVG + watermark → PNG) */}
