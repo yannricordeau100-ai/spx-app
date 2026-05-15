@@ -555,7 +555,10 @@ export function CompanyView({
                     {tone === "neg" && <ArrowDownRight className="size-4" />}
                     <span className="font-mono tabular-nums">
                       {typeof effectiveYoy === "number"
-                        ? `${effectiveYoy > 0 ? "+" : ""}${effectiveYoy}%`
+                        ? (() => {
+                            const n = effectiveYoy as number;
+                            return `${n > 0 ? "+" : ""}${n.toLocaleString("fr-FR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} %`;
+                          })()
                         : effectiveYoy}
                     </span>
                     <span className="text-[11px] italic text-zinc-400">(YoY)</span>

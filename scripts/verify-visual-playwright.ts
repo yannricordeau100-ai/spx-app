@@ -478,8 +478,11 @@ async function checkPage(page: Page, ticker: string, locale: string, route: stri
 // ──────────────────────────────────────────────────────────────────────
 
 async function gotoTicker(page: Page, ticker: string, locale: string): Promise<string> {
+  // Audit token bypass (env VISUAL_AUDIT_TOKEN), permet d'auditer sans cookie auth valide.
+  const auditToken = process.env.VISUAL_AUDIT_TOKEN ?? "";
+  const tokenQuery = auditToken ? `?audit_token=${encodeURIComponent(auditToken)}` : "";
   // Try V1.8 sandbox first
-  const v18 = `${BASE}/sandbox/v1-8/${ticker.toLowerCase()}`;
+  const v18 = `${BASE}/sandbox/v1-8/${ticker.toLowerCase()}${tokenQuery}`;
   try {
     await page.goto(v18, { waitUntil: "domcontentloaded", timeout: 25000 });
     // Yann 15 mai 2026 : networkidle inutile (charts SVG bouclent). Wait fixe.
@@ -496,7 +499,7 @@ async function gotoTicker(page: Page, ticker: string, locale: string): Promise<s
   // Fallback V1 demo (5 stés)
   if (V1_DEMO.has(ticker.toUpperCase())) {
     try {
-      await page.goto(`${BASE}/${ticker.toLowerCase()}`, { waitUntil: "domcontentloaded", timeout: 25000 });
+      await page.goto(`${BASE}/${ticker.toLowerCase()}${tokenQuery}`, { waitUntil: "domcontentloaded", timeout: 25000 });
       await page.waitForTimeout(3000);
       if (!page.url().includes("auth=signin")) return "v1-demo";
     } catch {}
