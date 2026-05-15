@@ -48,6 +48,29 @@ export function KpiRow({
   const formattedUnit = formatUnit(kpi.unit);
   const cagrLabel = formatCAGR(kpi.history, kpi.unit, kpi.period_type ?? "year", locale);
 
+  // Yann 15 mai 2026 : valeur formatée selon locale (fix "76.7" → "76,7" en FR/DE).
+  const numLocaleStr = locale === "fr" ? "fr-FR"
+    : locale === "de" || locale === "de-CH" ? "de-DE"
+    : locale === "nl" ? "nl-NL"
+    : locale === "sv" ? "sv-SE"
+    : locale === "da" ? "da-DK"
+    : "en-US";
+  const valueAsNum = typeof kpi.value === "number"
+    ? kpi.value
+    : (typeof kpi.value === "string" ? parseFloat(kpi.value.replace(/,/g, "")) : NaN);
+  const formattedValue = Number.isFinite(valueAsNum)
+    ? valueAsNum.toLocaleString(numLocaleStr, { maximumFractionDigits: 3 })
+    : String(kpi.value ?? "—");
+
+  // Yann 15 mai 2026 : KPI "incomplet" (juste une value, sans history/yoy/signal)
+  // → masque tier/percentile (= rating fallback bidon "Moyen Top 50 %").
+  const isIncompleteKpi = (
+    (!Array.isArray(kpi.history) || kpi.history.length === 0)
+    && !(typeof kpi.yoy === "string" && kpi.yoy.trim())
+    && !(typeof kpi.yoy === "number" && Number.isFinite(kpi.yoy))
+    && !(typeof kpi.signal === "string" && kpi.signal.trim())
+  );
+
   return (
     <div
       onClick={onClick}
@@ -144,7 +167,7 @@ export function KpiRow({
       {/* COL 2 — Valeur · YoY (2 cols) */}
       <div className="col-span-6 sm:col-span-2">
         <div className="font-mono text-[26px] font-semibold tabular-nums leading-none text-zinc-50">
-          {kpi.value}
+          {formattedValue}
           {formattedUnit && (
             <span className="ml-1 text-sm font-normal text-zinc-400">{formattedUnit}</span>
           )}
@@ -199,7 +222,14 @@ export function KpiRow({
 
       {/* COL 4 — Qualité (stacked) + Signal */}
       <div className="col-span-12 sm:col-span-4">
-        <QualityBadge rating={r} size="sm" scope={subsector} layout="stack" />
+        {isIncompleteKpi ? (
+          <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/[0.06] px-2.5 py-0.5 text-[10.5px] font-medium text-amber-400">
+            <span className="size-1.5 rounded-full bg-amber-400" />
+            Données partielles
+          </span>
+        ) : (
+          <QualityBadge rating={r} size="sm" scope={subsector} layout="stack" />
+        )}
         <div className="mt-2 line-clamp-2 text-[13px] leading-snug text-zinc-200">
           {(() => {
             // Yann 14 mai 2026 : fallback dynamique si signal vide

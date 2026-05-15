@@ -292,6 +292,15 @@ export function CompanyView({
     tone === "pos" ? "#10b981" : tone === "neg" ? "#f43f5e" : "#a1a1aa";
 
   const heroRating = rate(active);
+  // Yann 15 mai 2026 : un KPI "incomplet" (juste une value, sans history/yoy/signal)
+  // ne devrait PAS afficher de tier ni de percentile (= fallback bidon "Moyen / Top 50 %"),
+  // ni de signal box vide. On masque tout ce qui n'a pas de sens sur ce KPI-là.
+  const isIncompleteKpi = (
+    (!Array.isArray(active.history) || active.history.length === 0)
+    && !(typeof active.yoy === "string" && active.yoy.trim())
+    && !(typeof active.yoy === "number" && Number.isFinite(active.yoy))
+    && !(typeof active.signal === "string" && active.signal.trim())
+  );
   const anomalies = detectAnomalies(active.history, active.type, active.short);
   // Yann 14-15 mai 2026 : nettoyage unit + auto-rescale magnitude.
   //  - strip "deployed"/"units" anglo-saxons
@@ -448,43 +457,58 @@ export function CompanyView({
               </div>
 
               <div className="mt-3 flex flex-col items-start gap-2">
-                <div
-                  className="inline-flex w-fit items-center gap-1.5 rounded-full border px-3 py-1 text-sm font-medium"
-                  style={{
-                    color: yoyColor,
-                    borderColor: `${yoyColor}40`,
-                    background: `${yoyColor}12`,
-                  }}
-                >
-                  {tone === "pos" && <ArrowUpRight className="size-4" />}
-                  {tone === "neg" && <ArrowDownRight className="size-4" />}
-                  <span className="font-mono tabular-nums">
-                    {typeof effectiveYoy === "number"
-                      ? `${effectiveYoy > 0 ? "+" : ""}${effectiveYoy}%`
-                      : effectiveYoy || "—"}
-                  </span>
-                  <span className="text-[11px] italic text-zinc-400">(YoY)</span>
-                </div>
-                <QualityChipOnly rating={heroRating} />
+                {/* YoY pill : masquée si KPI incomplet (= aucune valeur YoY calculable) */}
+                {!isIncompleteKpi && (effectiveYoy !== "" || typeof effectiveYoy === "number") && (
+                  <div
+                    className="inline-flex w-fit items-center gap-1.5 rounded-full border px-3 py-1 text-sm font-medium"
+                    style={{
+                      color: yoyColor,
+                      borderColor: `${yoyColor}40`,
+                      background: `${yoyColor}12`,
+                    }}
+                  >
+                    {tone === "pos" && <ArrowUpRight className="size-4" />}
+                    {tone === "neg" && <ArrowDownRight className="size-4" />}
+                    <span className="font-mono tabular-nums">
+                      {typeof effectiveYoy === "number"
+                        ? `${effectiveYoy > 0 ? "+" : ""}${effectiveYoy}%`
+                        : effectiveYoy}
+                    </span>
+                    <span className="text-[11px] italic text-zinc-400">(YoY)</span>
+                  </div>
+                )}
+                {/* Quality + percentile chips : masqués si KPI incomplet (= rating bidon "Moyen Top 50 %") */}
+                {!isIncompleteKpi && <QualityChipOnly rating={heroRating} />}
                 {heroCAGR && (
                   <div className="inline-flex w-fit items-center gap-1.5 rounded-full border border-[#262626] bg-[#0d0d0d] px-3 py-1 font-mono text-[12.5px] tabular-nums text-zinc-200">
                     {heroCAGR}
-                    <span className="text-[10.5px] italic text-zinc-400">(CAGR 5 ans)</span>
+                    <span className="text-[10.5px] italic text-zinc-400">{t("hero.cagr_5y")}</span>
                   </div>
                 )}
-                <PercentileChipOnly rating={heroRating} scope={company.subsector} />
+                {!isIncompleteKpi && (
+                  <PercentileChipOnly rating={heroRating} scope={company.subsector} />
+                )}
+                {isIncompleteKpi && (
+                  <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/[0.06] px-3 py-1 text-[11.5px] font-medium text-amber-400">
+                    <span className="size-1.5 rounded-full bg-amber-400" />
+                    Données partielles : historique en cours
+                  </span>
+                )}
                 <YoungIpoWarning ipo={company.ipo} accent={accent} />
               </div>
 
               {/* Signal uniquement (sans description) — Yann 6 mai 2026 :
                   le bloc descriptif sous le signal était trop long et
-                  inutilement verbeux. Le signal seul suffit pour la PV. */}
-              <div className="mt-5 flex max-w-md items-start gap-2.5 rounded-xl border border-[#1a1a1a] bg-[#070707] p-3.5">
-                <Sparkles className="mt-0.5 size-4 shrink-0" style={{ color: accent }} />
-                <div className="text-[14px] font-semibold leading-snug text-zinc-100">
-                  {active.signal}
+                  inutilement verbeux. Le signal seul suffit pour la PV.
+                  Yann 15 mai 2026 : masqué si signal vide (évite box vide). */}
+              {typeof active.signal === "string" && active.signal.trim() && (
+                <div className="mt-5 flex max-w-md items-start gap-2.5 rounded-xl border border-[#1a1a1a] bg-[#070707] p-3.5">
+                  <Sparkles className="mt-0.5 size-4 shrink-0" style={{ color: accent }} />
+                  <div className="text-[14px] font-semibold leading-snug text-zinc-100">
+                    {active.signal}
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
             {/* RIGHT: chart — élargi à 9/12 (était 8) pour plus de place au

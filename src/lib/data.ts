@@ -770,25 +770,32 @@ export function interpretStructured(
     tailSignal
   );
 
+  // Yann 15 mai 2026 : format locale-aware des valeurs bullets (fix "30.976" → "30,976" FR).
+  const fmtVal = (v: unknown): string => {
+    if (v == null) return "—";
+    const n = typeof v === "number" ? v : parseFloat(String(v).replace(/,/g, ""));
+    if (!Number.isFinite(n)) return String(v);
+    return n.toLocaleString(numLocale(locale), { maximumFractionDigits: 3 });
+  };
   const bullets: InterpretBullet[] = [];
   if (driver && driver.short !== hero.short) {
     bullets.push({
       label: bulletLabel(locale, "driver"),
-      body: bulletBodyKpi(locale, driver.name_fr, String(driver.value), formatUnit(driver.unit), String(driver.yoy ?? ""), driver.signal ?? ""),
+      body: bulletBodyKpi(locale, driver.name_fr, fmtVal(driver.value), formatUnit(driver.unit), String(driver.yoy ?? ""), driver.signal ?? ""),
       tone: "pos",
     });
   }
   if (risk) {
     bullets.push({
       label: bulletLabel(locale, "risk"),
-      body: bulletBodyKpi(locale, risk.name_fr, String(risk.value), formatUnit(risk.unit), String(risk.yoy ?? ""), risk.signal ?? ""),
+      body: bulletBodyKpi(locale, risk.name_fr, fmtVal(risk.value), formatUnit(risk.unit), String(risk.yoy ?? ""), risk.signal ?? ""),
       tone: "neg",
     });
   }
   if (cash && cash.short !== hero.short) {
     bullets.push({
       label: bulletLabel(locale, "cash"),
-      body: bulletBodyKpi(locale, cash.name_fr, String(cash.value), formatUnit(cash.unit), String(cash.yoy ?? ""), cash.signal ?? ""),
+      body: bulletBodyKpi(locale, cash.name_fr, fmtVal(cash.value), formatUnit(cash.unit), String(cash.yoy ?? ""), cash.signal ?? ""),
       tone: "neutral",
     });
   }
