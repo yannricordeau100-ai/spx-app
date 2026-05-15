@@ -6,7 +6,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowRight, Sparkles } from "lucide-react";
 
-import { COMPANIES, TICKERS, formatUnit, formatKpiValue, getHero } from "@/lib/data";
+import { COMPANIES, TICKERS, getHero } from "@/lib/data";
+import { prepareHeroDisplay } from "@/lib/format-hero";
 import { yoyTone } from "@/lib/utils";
 import { brand, rate } from "@/lib/brand";
 import { Spotlight } from "@/components/effects/spotlight";
@@ -735,6 +736,22 @@ function renderCompanyCard(
   } catch {
     r = { tier: "moyen" as const, label: "Moyen", percentile: "", color: "#a1a1aa" };
   }
+  // Yann 16 mai 2026 : pipeline hero unifié page sté ↔ home preview.
+  // Couvre autoRescale (TSLA "0,4 M units" → "410 K unités"), normalisation
+  // "B €" → "Mds €" (ASMLF), guard magnitude % aberrante (ASML 32 milliards %).
+  const heroHistory = Array.isArray(hero.history)
+    ? (hero.history.filter((x) => typeof x === "number") as number[])
+    : [];
+  const heroDisplay = prepareHeroDisplay(hero.value, hero.unit, heroHistory);
+  if (heroDisplay.anomaly && typeof console !== "undefined") {
+    console.warn(
+      `[Mettrik] Hero KPI anomaly on ${ticker} / ${hero.short}:`,
+      hero.value,
+      hero.unit,
+      "→",
+      heroDisplay.anomalyReason,
+    );
+  }
               return (
                 <div key={ticker}>
                   <Link
@@ -784,12 +801,15 @@ function renderCompanyCard(
                           unique avec whitespace-nowrap pour éviter cassure
                           "20.03 Mds" / "$" (visible quand yoy long type +63,4 %). */}
                       <span className="inline-flex items-baseline gap-1 whitespace-nowrap">
-                        <span className="font-mono text-2xl font-semibold tabular-nums text-zinc-100">
-                          {formatKpiValue(hero.value, hero.unit)}
+                        <span
+                          className="font-mono text-2xl font-semibold tabular-nums text-zinc-100"
+                          title={heroDisplay.anomaly ? heroDisplay.anomalyReason : undefined}
+                        >
+                          {heroDisplay.value}
                         </span>
-                        {formatUnit(hero.unit) && (
+                        {heroDisplay.unit && (
                           <span className="whitespace-nowrap text-xs text-zinc-400">
-                            {String(formatUnit(hero.unit)).replace(/ /g, " ")}
+                            {heroDisplay.unit.replace(/ /g, " ")}
                           </span>
                         )}
                       </span>

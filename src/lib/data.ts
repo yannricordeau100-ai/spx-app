@@ -458,9 +458,13 @@ export function getHero(company: Company): KPI {
 /*                              Format helpers                                */
 /* -------------------------------------------------------------------------- */
 
-/** Convert "$B" → "Mds $", "B" → "Mds", "$M" → "M $", "%" → "%", etc. */
+/** Convert "$B" → "Mds $", "B" → "Mds", "$M" → "M $", "%" → "%", etc.
+ *  Yann 16 mai 2026 : aussi "B €" → "Mds €", "B £" → "Mds £" (ASMLF
+ *  bookings 26.2 B € affichait "B €" au lieu de "Mds €"). */
 export function formatUnit(unit: string): string {
-  switch (unit) {
+  if (unit == null) return "";
+  const u = String(unit).trim();
+  switch (u) {
     case "$B":
       return "Mds $";
     case "B":
@@ -471,9 +475,13 @@ export function formatUnit(unit: string): string {
       return "M";
     case "% YoY":
       return "%";
-    default:
-      return unit;
   }
+  // Variantes "B X" / "M X" sans normalisation : "B €" / "B £" / "B $" / "M €" etc.
+  const bMatch = u.match(/^B\s+([€£¥$])$/);
+  if (bMatch) return `Mds ${bMatch[1]}`;
+  const mMatch = u.match(/^M\s+([€£¥$])$/);
+  if (mMatch) return `M ${mMatch[1]}`;
+  return u;
 }
 
 /**

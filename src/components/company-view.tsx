@@ -23,6 +23,7 @@ import {
   interpretStructured,
 } from "@/lib/data";
 import { yoyTone } from "@/lib/utils";
+import { autoRescaleSmallUnit, isPercentMagnitudeAnomaly } from "@/lib/format-hero";
 import { brand, rate, detectAnomalies } from "@/lib/brand";
 import { smoothScrollTo } from "@/lib/scroll";
 import { Spotlight } from "@/components/effects/spotlight";
@@ -76,35 +77,10 @@ const VISIBLE_KPI_COUNT = 6;
  *   - Capex / R&D / dépenses : capex, opex, r&d, expense, capital exp…
  * Pour Headcount, NPS, subscribers count, etc. → toggle masqué.
  */
-/**
- * Yann 15 mai 2026 : si l'unit dit "M X" / "Mds X" mais TOUTES les valeurs
- * du KPI sont < 1, on descend d'un cran de magnitude pour ne jamais
- * afficher "0,4 M unités" alors qu'on a en fait 400 000 unités.
- *
- * Marche pour : "M unités", "Mds $", "Mds €", "M €", "Mds GWh", etc.
- * Retourne { unit: nouvelle unit, factor: multiplicateur des valeurs }.
- */
-function autoRescaleSmallUnit(unit: string, allBelowOne: boolean): { unit: string; factor: number } {
-  if (!allBelowOne) return { unit, factor: 1 };
-  const u = unit.trim();
-  // "Mds X" → "M X" (×1000)
-  let m = u.match(/^Mds(\s+.+)$/i);
-  if (m) return { unit: `M${m[1]}`, factor: 1000 };
-  m = u.match(/^M(\s+.+)$/i);
-  if (m) {
-    // "M unités" / "M GWh" → unit brute (×1 000 000), affichage en
-    // milliers (k) si le suffixe le permet, sinon unité brute.
-    const tail = m[1].trim();
-    // Pour "$/€/£" on saute à l'unité crue (1 → 1 000 000 → afficher en
-    // unité brute). Pour "unités/GWh/..." idem.
-    return { unit: tail, factor: 1_000_000 };
-  }
-  // Cas Mds standalone "Mds $" déjà traité plus haut. Pour "M $" :
-  if (u === "M $") return { unit: "$", factor: 1_000_000 };
-  if (u === "M €") return { unit: "€", factor: 1_000_000 };
-  if (u === "M £") return { unit: "£", factor: 1_000_000 };
-  return { unit, factor: 1 };
-}
+// Yann 15 mai 2026 / 16 mai 2026 : helper `autoRescaleSmallUnit` extrait
+// dans `@/lib/format-hero` pour réutilisation entre page sté et home preview
+// (TickerPreviewCard). Voir le fichier lib pour la doc et la suite des
+// helpers (isPercentMagnitudeAnomaly, prepareHeroDisplay).
 
 function isTimeFractionApplicableKpi(kpi?: KPI | null): boolean {
   if (!kpi) return false;
@@ -436,8 +412,18 @@ export function CompanyView({
   const { unit: scaledUnit, factor: scaleFactor } = autoRescaleSmallUnit(rawUnit, allBelowOne);
   const displayUnit = scaledUnit;
   const scaledValue = Number.isFinite(numericValue) ? numericValue * scaleFactor : active.value;
-  const formattedUnit = formatUnit(displayUnit);
-  const heroFormatted = formatHeroValue(scaledValue, displayUnit);
+  // Yann 16 mai 2026 : guard magnitude % aberrante (ex ASML R&D 32 milliards %
+  // = bug data, pas vraie valeur). Affiche "—" avec tooltip + log console.
+  const heroPercentAnomaly = isPercentMagnitudeAnomaly(active.value, rawUnit);
+  if (heroPercentAnomaly && typeof console !== "undefined") {
+    console.warn(
+      `[Mettrik] Hero KPI % anomaly on ${company.ticker} / ${active.short}: value=${active.value}, unit=${rawUnit}`,
+    );
+  }
+  const formattedUnit = heroPercentAnomaly ? "" : formatUnit(displayUnit);
+  const heroFormatted = heroPercentAnomaly
+    ? { value: "—", unit: "" }
+    : formatHeroValue(scaledValue, displayUnit);
   // CAGR insensible au factor (ratios), donc on garde history brut.
   // Yann 15 mai 2026 : locale-aware suffix "/ an" → "/ Jahr" / "/ year".
   const heroCAGR = formatCAGR(active.history, displayUnit, active.period_type ?? "year", locale);
@@ -573,6 +559,7 @@ export function CompanyView({
                     fontSize: "clamp(40px, 7vw, 72px)",
                     wordBreak: "keep-all",
                   }}
+                  title={heroPercentAnomaly ? "Donnée incohérente détectée (magnitude aberrante)" : undefined}
                 >
                   <NumberTicker value={heroFormatted.value} />
                 </div>
