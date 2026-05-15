@@ -87,7 +87,13 @@ export function BarsChart({
   // Étend data + labels avec la barre TTM si fournie. La dernière barre
   // est ensuite stylée différemment (pointillé / opacité réduite) pour
   // qu'on comprenne que c'est "12 derniers mois" et pas une année calendaire.
-  const hasTTM = ttm != null && Number.isFinite(ttm);
+  // Yann 15 mai 2026 : si TTM est un OUTLIER (somme cumulée 4Q >> max
+  // périodes), on ne render PAS la barre TTM ni le label X. Affiché en
+  // chip séparé en haut du chart (cf curve-chart.tsx pour l'implémentation).
+  const rawHasTTM = ttm != null && Number.isFinite(ttm);
+  const dataOnlyMaxRaw = data.length > 0 ? Math.max(...data) : 0;
+  const ttmIsCumul = rawHasTTM && (ttm as number) > dataOnlyMaxRaw * 2;
+  const hasTTM = rawHasTTM && !ttmIsCumul;
   const allData = hasTTM ? [...data, ttm as number] : data;
   const allLabels = hasTTM ? [...labels, ttmLabel] : labels;
   const ttmIndex = hasTTM ? allData.length - 1 : -1;
@@ -177,6 +183,39 @@ export function BarsChart({
             <stop offset="100%" stopColor={color} stopOpacity={0} />
           </linearGradient>
         </defs>
+
+        {/* Yann 15 mai 2026 : TTM cumul affiché comme chip séparé en haut
+            (pas comme barre, sinon écrase l'échelle). Position : haut-gauche
+            si Y axis droite, haut-droite sinon. */}
+        {ttmIsCumul && rawHasTTM && (() => {
+          const chipX = yOnRight ? PAD_LEFT + 180 : W - PAD_RIGHT - 130;
+          return (
+            <g>
+              <rect
+                x={chipX}
+                y={8}
+                width={120}
+                height={24}
+                rx={6}
+                fill="rgba(255,255,255,0.04)"
+                stroke="rgba(255,255,255,0.12)"
+              />
+              <text
+                x={chipX + 8}
+                y={24}
+                fontSize={11}
+                fontFamily="ui-monospace, monospace"
+                fill="#a1a1aa"
+              >
+                TTM&nbsp;
+                <tspan fill="#e4e4e7" fontWeight={600}>
+                  {(ttm as number).toLocaleString("fr-FR", { maximumFractionDigits: 1 })}
+                </tspan>
+                <tspan fill="#a1a1aa">&nbsp;{u}</tspan>
+              </text>
+            </g>
+          );
+        })()}
 
         {/* Y guidelines */}
         {ticks.map(({ y }, i) => (

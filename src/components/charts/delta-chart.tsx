@@ -58,6 +58,8 @@ export function DeltaChart({
   unit: string;
 }) {
   const [hover, setHover] = useState<number | null>(null);
+  // Yann 15 mai 2026 : click sur la zone axe Y → toggle gauche / droite.
+  const [yOnRight, setYOnRight] = useState(false);
 
   const deltas = data.slice(1).map((v, i) => {
     const prev = data[i];
@@ -161,9 +163,9 @@ export function DeltaChart({
         {ticks.map(({ v, y }, i) => (
           <text
             key={`yn-${i}`}
-            x={PAD_LEFT - 12}
+            x={yOnRight ? PAD_LEFT + INNER_W + 12 : PAD_LEFT - 12}
             y={y + 5}
-            textAnchor="end"
+            textAnchor={yOnRight ? "start" : "end"}
             fontSize={16}
             fontWeight={500}
             fill="#e4e4e7"
@@ -173,6 +175,19 @@ export function DeltaChart({
             {(Math.round(v * 10) / 10).toLocaleString("fr-FR", { maximumFractionDigits: 1 })} %
           </text>
         ))}
+
+        {/* Zone cliquable invisible sur l'axe Y. Yann 15 mai 2026. */}
+        <rect
+          x={yOnRight ? PAD_LEFT + INNER_W : 0}
+          y={0}
+          width={yOnRight ? W - (PAD_LEFT + INNER_W) : PAD_LEFT}
+          height={H}
+          fill="transparent"
+          style={{ cursor: "pointer" }}
+          onClick={() => setYOnRight((v) => !v)}
+        >
+          <title>Cliquer pour basculer l&apos;axe Y à {yOnRight ? "gauche" : "droite"}</title>
+        </rect>
 
         {/* Zero line plus marquée */}
         <line

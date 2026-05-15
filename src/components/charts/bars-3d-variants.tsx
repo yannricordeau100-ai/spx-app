@@ -96,7 +96,12 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
   const [yOnRight, setYOnRight] = useState(false);
 
   // Étend data + labels avec TTM si fourni. Dernière barre stylée distinctement.
-  const hasTTM = ttm != null && Number.isFinite(ttm);
+  // Yann 15 mai 2026 : si TTM est un OUTLIER (cumul 4Q >> max périodes),
+  // on ne le render PAS comme barre, mais comme chip séparé en haut.
+  const rawHasTTM = ttm != null && Number.isFinite(ttm);
+  const dataOnlyMaxRaw = data.length > 0 ? Math.max(...data) : 0;
+  const ttmIsCumul = rawHasTTM && (ttm as number) > dataOnlyMaxRaw * 2;
+  const hasTTM = rawHasTTM && !ttmIsCumul;
   const allData = hasTTM ? [...data, ttm as number] : data;
   const allLabels = hasTTM ? [...labels, ttmLabel] : labels;
   // Year groups (visualisation type "bracket" sous l'axe X) : chaque groupe
@@ -164,6 +169,36 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
           {header}
         </text>
       )}
+      {/* Yann 15 mai 2026 : TTM cumul = chip en haut, pas comme barre. */}
+      {ttmIsCumul && rawHasTTM && (() => {
+        const chipX = yOnRight ? PAD_LEFT + 180 : W - PAD_RIGHT - 130;
+        return (
+          <g>
+            <rect
+              x={chipX}
+              y={8}
+              width={120}
+              height={24}
+              rx={6}
+              fill="rgba(255,255,255,0.04)"
+              stroke="rgba(255,255,255,0.12)"
+            />
+            <text
+              x={chipX + 8}
+              y={24}
+              fontSize={11}
+              fontFamily="ui-monospace, monospace"
+              fill="#a1a1aa"
+            >
+              TTM&nbsp;
+              <tspan fill="#e4e4e7" fontWeight={600}>
+                {(ttm as number).toLocaleString("fr-FR", { maximumFractionDigits: 1 })}
+              </tspan>
+              <tspan fill="#a1a1aa">&nbsp;{unit}</tspan>
+            </text>
+          </g>
+        );
+      })()}
       <defs>
         <linearGradient id="b26-front" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor={color} stopOpacity={0.95} />
@@ -385,10 +420,9 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
         );
       })}
 
-      {/* Mini-logo Mettrik AI (italic Fraunces, gradient iridescent) — version
-          home-style miniature. Marqué `data-chart-logo="small"` : caché à
-          l'export et remplacé par un grand watermark (cf. chart-export.ts). */}
-      <ChartMiniLogo x={W * 0.85} y={PAD_TOP - 18} height={14} />
+      {/* Mini-logo Mettrik AI. Yann 15 mai 2026 : déplacé à gauche quand
+          Y axis à droite pour éviter overlap avec labels Y + chip TTM. */}
+      <ChartMiniLogo x={yOnRight ? PAD_LEFT + 70 : W * 0.85} y={PAD_TOP - 18} height={14} />
     </svg>
 
     {/* Bouton download (capture SVG + watermark → PNG) */}
