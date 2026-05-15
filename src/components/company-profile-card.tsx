@@ -162,7 +162,7 @@ export function CompanyProfileCard({ company, accent = "#a78bfa" }: { company: C
                 {t("company.profile.news_title")}
               </h3>
               <span className="font-mono text-[10.5px] uppercase tracking-wider text-zinc-500">
-                {fmtNewsDate(news.date)}
+                {fmtNewsDate(news.date, locale)}
                 {news.source ? ` · ${news.source}` : ""}
               </span>
             </div>
@@ -269,11 +269,12 @@ function fmtPct(n: number | null | undefined): string {
   return `${sign}${n.toFixed(2).replace(".", ",")} %`;
 }
 
-function fmtNewsDate(iso: string): string {
+function fmtNewsDate(iso: string, locale: string = "fr"): string {
   try {
     const d = new Date(iso);
     if (Number.isNaN(d.getTime())) return iso;
-    return d.toLocaleDateString("fr-FR", { day: "2-digit", month: "short", year: "numeric" });
+    const tag = locale === "de" ? "de-DE" : locale === "en" || locale === "en-GB" ? (locale === "en-GB" ? "en-GB" : "en-US") : "fr-FR";
+    return d.toLocaleDateString(tag, { day: "2-digit", month: "short", year: "numeric" });
   } catch {
     return iso;
   }

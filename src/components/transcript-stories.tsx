@@ -106,10 +106,11 @@ export type TranscriptDoc = {
   };
 };
 
-function formatDateFR(iso?: string): string {
+function formatDateFR(iso?: string, locale: string = "fr"): string {
   if (!iso) return "—";
   try {
-    return new Date(iso).toLocaleDateString("fr-FR", {
+    const tag = locale === "de" ? "de-DE" : locale === "en-GB" ? "en-GB" : locale === "en" ? "en-US" : "fr-FR";
+    return new Date(iso).toLocaleDateString(tag, {
       day: "numeric",
       month: "long",
       year: "numeric",
@@ -142,7 +143,7 @@ function quarterLabel(q?: number, y?: number, ticker?: string): string {
 
 /** Carte 1 : citations top management (prêt LLM). MVP : preview text. */
 function QuotesCard({ doc, accent, ticker }: { doc: TranscriptDoc; accent: string; ticker?: string }) {
-  const { t } = useT();
+  const { t, locale } = useT();
   const quotes = doc.extracts?.quotes ?? [];
   const fallbackPreview = doc.latest?.content
     ? doc.latest.content.slice(0, 320).trim() + "…"
@@ -192,7 +193,7 @@ function QuotesCard({ doc, accent, ticker }: { doc: TranscriptDoc; accent: strin
 
 /** Carte 2 : chiffres clés + guidance + sentiment management. */
 function FiguresCard({ doc, accent }: { doc: TranscriptDoc; accent: string }) {
-  const { t } = useT();
+  const { t, locale } = useT();
   const figures = doc.extracts?.figures ?? [];
   const sentiment = doc.extracts?.sentiment;
   return (
@@ -206,7 +207,7 @@ function FiguresCard({ doc, accent }: { doc: TranscriptDoc; accent: string }) {
           {t("transcript.figures_title")}
         </span>
         <span className="ml-auto font-mono text-[10px] text-zinc-500">
-          {formatDateFR(doc.latest?.date)}
+          {formatDateFR(doc.latest?.date, locale)}
         </span>
       </div>
       {figures.length > 0 ? (
@@ -251,7 +252,7 @@ export function TranscriptStories({
   ticker: string;
   doc: TranscriptDoc | null;
 }) {
-  const { t } = useT();
+  const { t, locale } = useT();
   if (!doc || !doc.latest?.content) return null;
   const accent = brand(ticker).primary;
 
@@ -272,7 +273,7 @@ export function TranscriptStories({
           </p>
         </div>
         <span className="font-mono text-[10.5px] uppercase tracking-wider text-zinc-500">
-          {quarterLabel(doc.latest.quarter, doc.latest.year, ticker)} · {formatDateFR(doc.latest.date)}
+          {quarterLabel(doc.latest.quarter, doc.latest.year, ticker)} · {formatDateFR(doc.latest.date, locale)}
         </span>
       </div>
       {/* 2 blocs côte à côte qui prennent la largeur de la page (cohérent
