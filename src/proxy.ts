@@ -84,6 +84,8 @@ function isPublicPath(pathname: string): boolean {
   // /sandbox/geo-test = page de test détection géographique (visualise pays
   // détecté + langue + devise déduites). Public, pas de PII.
   if (pathname === "/sandbox/geo-test") return true;
+  // /sandbox/visual-audit = audit visuel Gemini 2.5 Flash (dashboard défauts UI).
+  if (pathname === "/sandbox/visual-audit") return true;
   // /sandbox/coverage-matrix = matrice temps réel des blocs data par sté.
   // Lecture dynamique de v2-pipeline. Public pour Yann suivi enrichissement.
   if (pathname === "/sandbox/coverage-matrix") return true;
@@ -343,7 +345,13 @@ export async function proxy(request: NextRequest) {
   // garde le préfixe /fr d'origine pour que le user retombe en FR après login.
   const { search } = request.nextUrl;
   const pathname = routePathname;
-  if (!user && !isPublicPath(pathname)) {
+  // Bypass audit visuel : token dans query param ?audit_token=... matche
+  // VISUAL_AUDIT_TOKEN env → laisse passer sans auth pour permettre les
+  // screenshots Gemini (script scripts/visual-audit-gemini.py).
+  const auditToken = request.nextUrl.searchParams.get("audit_token");
+  const expectedAuditToken = process.env.VISUAL_AUDIT_TOKEN;
+  const isAuditBypass = !!(auditToken && expectedAuditToken && auditToken === expectedAuditToken);
+  if (!user && !isPublicPath(pathname) && !isAuditBypass) {
     const url = request.nextUrl.clone();
     url.pathname = isFrLocale ? "/fr" : "/";
     const original = originalPathname + (search ?? "");
