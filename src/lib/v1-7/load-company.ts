@@ -415,6 +415,46 @@ export async function loadV17Company(
         data.kpis = [...data.kpis, ...extraKpis];
       }
     }
+    // Yann 15 mai 2026 : étend l'history quarterly via fichier latéral
+    // .quarterly-history.json produit par scripts/extend-quarterly-history.py.
+    // Merge KPI par `short` : remplace history si l'extension est plus longue.
+    // N'écrase JAMAIS un history quarterly déjà ≥ 16 quarters.
+    const qPath = path.join(
+      ROOT,
+      "src/data/v2-pipeline-enrich",
+      `${ticker.toLowerCase()}.quarterly-history.json`,
+    );
+    const qExt = await readJsonOrNull<{
+      kpis?: Array<{
+        short: string;
+        period_type?: string;
+        history?: number[];
+        history_periods?: string[];
+        last_data_date?: string;
+        unit?: string | null;
+      }>;
+    }>(qPath);
+    if (qExt && Array.isArray(qExt.kpis) && Array.isArray(data.kpis)) {
+      const extByShort = new Map(
+        qExt.kpis.filter((k) => k && k.short).map((k) => [k.short, k] as const),
+      );
+      data.kpis = (data.kpis as AnyKPI[]).map((k) => {
+        const ext = extByShort.get(String(k.short));
+        if (!ext || !Array.isArray(ext.history) || ext.history.length === 0) return k;
+        const curHist = Array.isArray(k.history) ? (k.history as number[]) : [];
+        // On remplace seulement si l'extension est plus longue
+        if (ext.history.length <= curHist.length) return k;
+        return {
+          ...k,
+          history: ext.history,
+          history_periods: ext.history_periods,
+          period_type: ext.period_type ?? k.period_type ?? "quarter",
+          last_data_date: ext.last_data_date ?? k.last_data_date,
+          // Garde l'unité existante si l'extension la met à null
+          unit: ext.unit ?? k.unit,
+        } as AnyKPI;
+      });
+    }
     // KPIs SPÉCIAUX (Yann 14 mai 2026) — fetch BDD desk_special_kpis publiés
     // pour ce ticker. APPEND comme indicateurs clés ou remplace hero si is_hero.
     // Convertit le format desk_special_kpis → KPI standard.
