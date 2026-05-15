@@ -240,8 +240,10 @@ def process_ticker(ticker: str) -> dict | None:
         return None
 
     # Aggregate : member → period → value (last filing wins for same period)
-    # Structure: { "GoogleCloud": { "Q1 2025": {value, end_date, source} } }
+    # Structure quarterly :    { "GoogleCloud": { "Q1 2025": {value, end_date, source} } }
+    # Structure annuel : annual_agg { "GoogleCloud": { 2025: {value, end_date, source} } }
     agg: dict[str, dict[str, dict]] = {}
+    annual_agg: dict[str, dict[int, dict]] = {}
 
     for f in filings:
         text = read_filing(f)
@@ -254,7 +256,6 @@ def process_ticker(ticker: str) -> dict | None:
         if not facts:
             continue
 
-        # On veut les revenue tags avec contexte segment quarterly
         for fact in facts:
             if fact["name_local"] not in REV_TAGS:
                 continue
@@ -262,22 +263,60 @@ def process_ticker(ticker: str) -> dict | None:
             ctx = contexts.get(ctx_id)
             if not ctx:
                 continue
-            # Quarterly preferred; aussi YTD/annual pour Q4 calc
-            if is_quarterly_period(ctx.get("start"), ctx.get("end")):
-                period = date_to_quarter(ctx["end"])
+            member_norm = normalize_member(ctx["member"])
+            start = ctx.get("start")
+            end = ctx.get("end")
+            if is_quarterly_period(start, end):
+                period = date_to_quarter(end)
                 if not period:
                     continue
-                member_norm = normalize_member(ctx["member"])
                 agg.setdefault(member_norm, {})
-                # Last filing wins (most recent end_date for that period)
                 cur = agg[member_norm].get(period)
-                if not cur or ctx["end"] > cur["end"]:
+                if not cur or end > cur["end"]:
                     agg[member_norm][period] = {
                         "value": fact["value"],
-                        "end": ctx["end"],
+                        "end": end,
                         "source": f.name,
                         "tag": fact["name_full"],
                     }
+            elif is_annual_period(start, end):
+                # FY context (Jan 1 - Dec 31, ~365 days)
+                try:
+                    fy = int(end.split("-")[0])
+                except Exception:
+                    continue
+                annual_agg.setdefault(member_norm, {})
+                cur = annual_agg[member_norm].get(fy)
+                if not cur or end > cur["end"]:
+                    annual_agg[member_norm][fy] = {
+                        "value": fact["value"],
+                        "end": end,
+                        "source": f.name,
+                        "tag": fact["name_full"],
+                    }
+
+    # Yann 15 mai 2026 : calcule Q4 = FY − (Q1 + Q2 + Q3) si tous dispo
+    for member, fy_dict in annual_agg.items():
+        for fy, ann in fy_dict.items():
+            q1 = agg.get(member, {}).get(f"Q1 {fy}")
+            q2 = agg.get(member, {}).get(f"Q2 {fy}")
+            q3 = agg.get(member, {}).get(f"Q3 {fy}")
+            if not (q1 and q2 and q3):
+                continue
+            q4_val = ann["value"] - q1["value"] - q2["value"] - q3["value"]
+            if q4_val <= 0:  # safety : valeur négative = pas un Q4 valide
+                continue
+            agg.setdefault(member, {})
+            existing_q4 = agg[member].get(f"Q4 {fy}")
+            # N'override pas si Q4 trouvé dans iXBRL direct (rare mais possible)
+            if existing_q4:
+                continue
+            agg[member][f"Q4 {fy}"] = {
+                "value": q4_val,
+                "end": f"{fy}-12-31",
+                "source": f"calc-{ann['source']}",
+                "tag": ann["tag"],
+            }
 
     if not agg:
         return None
@@ -377,22 +416,44 @@ def merge_into_existing(ticker: str, segment_data: dict):
         existing = {}
 
     existing_kpis = existing.get("kpis") or []
-    existing_shorts = {k.get("short") for k in existing_kpis}
-    new_kpis = [k for k in segment_data["kpis"] if k.get("short") not in existing_shorts]
+    # Yann 15 mai 2026 : si segment KPI déjà présent, REMPLACE par la nouvelle
+    # extraction (qui peut avoir + de quarters via Q4 calculé).
+    new_by_short = {k.get("short"): k for k in segment_data["kpis"]}
+    merged_kpis = []
+    updated_count = 0
+    seen_shorts = set()
+    for k in existing_kpis:
+        s = k.get("short")
+        if s in new_by_short:
+            new_k = new_by_short[s]
+            new_len = len(new_k.get("history") or [])
+            old_len = len(k.get("history") or [])
+            if new_len > old_len:
+                merged_kpis.append(new_k)
+                updated_count += 1
+            else:
+                merged_kpis.append(k)
+            seen_shorts.add(s)
+        else:
+            merged_kpis.append(k)
+    # Ajoute les nouveaux KPIs segment pas encore présents
+    added_count = 0
+    for s, new_k in new_by_short.items():
+        if s not in seen_shorts:
+            merged_kpis.append(new_k)
+            added_count += 1
 
-    if not new_kpis and existing_kpis:
-        # All segment KPIs already present (overlap) — nothing to add
+    if updated_count == 0 and added_count == 0:
         return False
 
     merged = {
         **existing,
         "ticker": ticker,
         "extracted_at": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
-        # Garde method 'xbrl-companyfacts' si existait, ajoute marqueur segment
         "method": existing.get("method") or "xbrl-companyfacts",
         "_segment_method": "xbrl-segment-inline",
-        "n_kpis": len(existing_kpis) + len(new_kpis),
-        "kpis": existing_kpis + new_kpis,
+        "n_kpis": len(merged_kpis),
+        "kpis": merged_kpis,
     }
     out_path.write_text(json.dumps(merged, ensure_ascii=False, indent=2))
     return True
