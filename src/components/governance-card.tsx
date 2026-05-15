@@ -202,7 +202,7 @@ export function GovernanceCard({
   const metrics = [
     {
       Icon: Briefcase,
-      label: `${t("governance.metrics.ceo_comp_label")} (${g.ceo_name})`,
+      label: g.ceo_name ? `${t("governance.metrics.ceo_comp_label")} (${g.ceo_name})` : t("governance.metrics.ceo_comp_label"),
       value: `${fmt(g.ceo_total_comp_m, 1, locale)} ${currency}`,
       color: "#a78bfa",
       tooltip: (

@@ -161,7 +161,18 @@ export function ComparePanel({
               >
                 {tone === "pos" && <ArrowUpRight className="size-3" />}
                 {tone === "neg" && <ArrowDownRight className="size-3" />}
-                {kpi.yoy}
+                {(() => {
+                  // Yann 15 mai 2026 : guard anti-"null" en plein texte.
+                  if (kpi.yoy == null) return null;
+                  if (typeof kpi.yoy === "number" && Number.isFinite(kpi.yoy)) {
+                    const sign = kpi.yoy > 0 ? "+" : "";
+                    return `${sign}${kpi.yoy}%`;
+                  }
+                  if (typeof kpi.yoy === "string" && kpi.yoy.trim() && kpi.yoy.trim().toLowerCase() !== "null") {
+                    return kpi.yoy;
+                  }
+                  return null;
+                })()}
                 <span className="text-[10px] italic text-zinc-400">(YoY)</span>
               </span>
             </div>

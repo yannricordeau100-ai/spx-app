@@ -63,7 +63,18 @@ export function MiniMultiplesChart({
               >
                 {tone === "pos" && <ArrowUpRight className="size-3" />}
                 {tone === "neg" && <ArrowDownRight className="size-3" />}
-                {k.yoy}
+                {(() => {
+                  // Yann 15 mai 2026 : guard anti-"null" en plein texte.
+                  if (k.yoy == null) return null;
+                  if (typeof k.yoy === "number" && Number.isFinite(k.yoy)) {
+                    const sign = k.yoy > 0 ? "+" : "";
+                    return `${sign}${k.yoy}%`;
+                  }
+                  if (typeof k.yoy === "string" && k.yoy.trim() && k.yoy.trim().toLowerCase() !== "null") {
+                    return k.yoy;
+                  }
+                  return null;
+                })()}
               </span>
             </div>
             <div className="mt-2 truncate text-[12px] text-zinc-200">{k.name_fr}</div>

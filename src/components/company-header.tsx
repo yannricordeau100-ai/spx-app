@@ -83,15 +83,23 @@ function CompanyName({ name, ticker, accent }: { name: string; ticker: string; a
   );
 }
 
-function StatChip({ label, value }: { label: string; value: string }) {
+function StatChip({ label, value }: { label: string; value: string | null | undefined }) {
   // Yann (12 mai 2026) : chips compactes pour tenir tous les rangs sur
   // 1 ligne horizontale. Labels plus petits, padding réduit.
+  // Yann (15 mai 2026) : guard anti-"null" en plein texte. Si value est
+  // null / undefined / chaîne "null" / "undefined" / "None", on masque la
+  // chip plutôt que d'afficher "null" visuellement.
+  if (value == null) return null;
+  const v = String(value).trim();
+  if (!v || v.toLowerCase() === "null" || v.toLowerCase() === "undefined" || v === "None") {
+    return null;
+  }
   return (
     <span className="inline-flex shrink-0 items-baseline gap-1.5 rounded-lg border border-[#262626] bg-[#0c0c0c] px-2 py-1.5">
       <span className="text-[10.5px] font-medium uppercase tracking-wide text-zinc-400">
         {label}
       </span>
-      <span className="font-sans text-[12.5px] font-bold text-zinc-50">{value}</span>
+      <span className="font-sans text-[12.5px] font-bold text-zinc-50">{v}</span>
     </span>
   );
 }
@@ -170,8 +178,8 @@ export function CompanyHeader({
         )}
         <StatChip label={translateSubsector(company.sector)} value={translateRankPreposition(company.ranks.sector, locale)} />
         <StatChip label={translateSubsector(company.subsector)} value={translateRankPreposition(company.ranks.subsector, locale)} />
-        <StatChip label={t("company.founded")} value={String(company.founded)} />
-        <StatChip label={t("company.ipo")} value={String(company.ipo)} />
+        <StatChip label={t("company.founded")} value={company.founded != null ? String(company.founded) : null} />
+        <StatChip label={t("company.ipo")} value={company.ipo != null ? String(company.ipo) : null} />
       </div>
 
       <p className="mt-3 max-w-3xl text-[11.5px] italic leading-relaxed text-zinc-500">
