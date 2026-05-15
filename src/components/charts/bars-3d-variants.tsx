@@ -135,6 +135,16 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
   const DX = isClassic ? 0 : 26;
   const DY = isClassic ? 0 : -16;
   const header = axisHeader(unit, locale);
+  // Yann 15 mai 2026 : précision adaptative Y axis pour éviter doublons.
+  const intRounded = ticks.map((v) => Math.round(v));
+  const needsDecimal = new Set(intRounded).size < ticks.length;
+  const formatTick = (v: number): string =>
+    needsDecimal
+      ? (Math.round(v * 10) / 10).toLocaleString("fr-FR", {
+          minimumFractionDigits: 1,
+          maximumFractionDigits: 1,
+        })
+      : (Math.round(v * 10) / 10).toLocaleString("fr-FR");
 
   return (
     <div className="relative w-full">
@@ -192,7 +202,7 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
           fill="#e4e4e7"
           fontFamily="ui-monospace, monospace"
         >
-          {(Math.round(v * 10) / 10).toLocaleString("fr-FR")}
+          {formatTick(v)}
         </text>
       ))}
       {/* Zone cliquable invisible sur l'axe Y. Yann 15 mai 2026. */}

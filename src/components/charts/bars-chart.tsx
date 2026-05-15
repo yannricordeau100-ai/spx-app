@@ -124,6 +124,19 @@ export function BarsChart({
   const u = formatUnit(unit);
   const header = axisHeader(unit, locale);
   const intTicks = isCurrencyLike(unit);
+  // Yann 15 mai 2026 : précision adaptative pour éviter doublons "29, 29".
+  const intRounded = tickValues.map((v) => Math.round(v));
+  const needsDecimal = intTicks && new Set(intRounded).size < tickValues.length;
+  const formatTick = (v: number): string => {
+    if (needsDecimal) {
+      return (Math.round(v * 10) / 10).toLocaleString("fr-FR", {
+        minimumFractionDigits: 1,
+        maximumFractionDigits: 1,
+      });
+    }
+    if (intTicks) return Math.round(v).toLocaleString("fr-FR");
+    return (Math.round(v * 10) / 10).toLocaleString("fr-FR");
+  };
 
   const yoyPct = allData.map((v, i) => {
     if (i === 0) return null;
@@ -191,7 +204,7 @@ export function BarsChart({
             fill="#e4e4e7"
             fontFamily="ui-monospace, monospace"
           >
-            {intTicks ? Math.round(v).toLocaleString("fr-FR") : (Math.round(v * 10) / 10).toLocaleString("fr-FR")}
+            {formatTick(v)}
           </text>
         ))}
 

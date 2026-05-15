@@ -319,6 +319,14 @@ export function CompanyView({
   // CAGR insensible au factor (ratios), donc on garde history brut.
   // Yann 15 mai 2026 : locale-aware suffix "/ an" → "/ Jahr" / "/ year".
   const heroCAGR = formatCAGR(active.history, displayUnit, active.period_type ?? "year", locale);
+  // Yann 15 mai 2026 : label CAGR dynamique selon nombre d'années dans history.
+  // Évite "CAGR 5 ans" trompeur quand history = 2 ans (ex META DAP 8 trimestres).
+  const heroCagrYears = (() => {
+    const h = Array.isArray(active.history) ? active.history.filter((x) => typeof x === "number") : [];
+    if (h.length < 2) return 0;
+    const stepsPerYear = active.period_type === "quarter" ? 4 : active.period_type === "semester" ? 2 : 1;
+    return Math.round(((h.length - 1) / stepsPerYear) * 10) / 10;
+  })();
   const interp = useMemo(() => interpretStructured(company, active.short, locale), [company, active.short, locale]);
 
   const comparables = useMemo(
@@ -482,7 +490,11 @@ export function CompanyView({
                 {heroCAGR && (
                   <div className="inline-flex w-fit items-center gap-1.5 rounded-full border border-[#262626] bg-[#0d0d0d] px-3 py-1 font-mono text-[12.5px] tabular-nums text-zinc-200">
                     {heroCAGR}
-                    <span className="text-[10.5px] italic text-zinc-400">{t("hero.cagr_5y")}</span>
+                    <span className="text-[10.5px] italic text-zinc-400">
+                      {heroCagrYears >= 4.5
+                        ? t("hero.cagr_5y")
+                        : `(CAGR ${heroCagrYears.toLocaleString(locale === "fr" ? "fr-FR" : "en-US")} ${heroCagrYears <= 1 ? (locale === "de" || locale === "de-CH" ? "Jahr" : locale === "fr" ? "an" : "year") : (locale === "de" || locale === "de-CH" ? "Jahre" : locale === "fr" ? "ans" : "years")})`}
+                    </span>
                   </div>
                 )}
                 {!isIncompleteKpi && (
@@ -552,19 +564,27 @@ export function CompanyView({
                     </span>
                   )}
                 </span>
-                <InfoTooltip color={accent}>
-                  <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: accent }}>
-                    Définition
-                  </div>
-                  <div className="text-zinc-200">{active.explanation}</div>
-                  {/* Traduction EN (anciennement affichée inline à côté du
-                      titre, déplacée ici pour épurer le titre. 5 mai 2026). */}
-                  {active.name_en && active.name_en !== active.name_fr && (
-                    <div className="mt-2 border-t border-white/5 pt-2 font-mono text-[11px] italic text-zinc-400">
-                      {active.name_en}
+                {/* Yann 15 mai 2026 : tooltip masqué si pas de contenu (explanation
+                    + name_en tous deux vides → tooltip vide style "DÉFINITION" sans
+                    body). On l'affiche seulement si au moins un des deux est rempli. */}
+                {((typeof active.explanation === "string" && active.explanation.trim())
+                  || (active.name_en && active.name_en !== active.name_fr)) && (
+                  <InfoTooltip color={accent}>
+                    <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: accent }}>
+                      {t("kpi.definition")}
                     </div>
-                  )}
-                </InfoTooltip>
+                    {typeof active.explanation === "string" && active.explanation.trim() && (
+                      <div className="text-zinc-200">{active.explanation}</div>
+                    )}
+                    {/* Traduction EN (anciennement affichée inline à côté du
+                        titre, déplacée ici pour épurer le titre. 5 mai 2026). */}
+                    {active.name_en && active.name_en !== active.name_fr && (
+                      <div className="mt-2 border-t border-white/5 pt-2 font-mono text-[11px] italic text-zinc-400">
+                        {active.name_en}
+                      </div>
+                    )}
+                  </InfoTooltip>
+                )}
               </div>
               {/* TimeFraction toggle visible UNIQUEMENT pour les charts qui ont
                   du sens à diviser ET pour les KPIs où ça PARLE à un investisseur.

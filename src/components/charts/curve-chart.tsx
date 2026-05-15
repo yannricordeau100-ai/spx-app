@@ -71,8 +71,18 @@ function formatDataPointLabel(v: number, dataMax: number): string {
  *   - currency-like ("$B", "$M", "B", "M") → integer values only, FR locale
  *   - percent-like ("%", "% YoY") → 1 decimal max, FR locale
  *   - other → 1 decimal max, FR locale
+ *
+ * Yann 15 mai 2026 : paramètre `decimals` ajouté pour forcer la précision
+ * (utilisé par pickYTickDecimals quand le rounding integer crée des doublons
+ * style "27, 28, 29, 29, 30" sur les ranges étroits).
  */
-function formatYTick(v: number, unit: string): string {
+function formatYTick(v: number, unit: string, decimals?: number): string {
+  if (decimals !== undefined) {
+    return v.toLocaleString("fr-FR", {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals,
+    });
+  }
   // Yann 14 mai 2026 : fallback adaptatif si la valeur tick est < 1
   // (ex Tesla M units 0,1 0,2 0,3) on garde la décimale au lieu d'écrire "0".
   if (isCurrencyLike(unit)) {
@@ -89,6 +99,25 @@ function formatYTick(v: number, unit: string): string {
   return (Math.round(v * 10) / 10).toLocaleString("fr-FR", {
     maximumFractionDigits: 1,
   });
+}
+
+/**
+ * Yann 15 mai 2026 : calcule combien de décimales utiliser pour les ticks Y
+ * afin d'éviter les doublons après rounding. Ex META DAP range [27.4, 29.2]
+ * → ticks [27.5, 28, 28.5, 29, 29.5] → integer = [28, 28, 29, 29, 30] (doublons).
+ * On bascule à 1 décimale dans ce cas → [27,5, 28, 28,5, 29, 29,5].
+ */
+function pickYTickDecimals(tickValues: number[], unit: string): number | undefined {
+  if (!isCurrencyLike(unit)) return undefined; // % et autres gardent leur logique
+  // Test : si arrondi entier crée doublons, on monte à 1 décimale.
+  const intRounded = tickValues.map((v) => Math.round(v));
+  if (new Set(intRounded).size < tickValues.length) {
+    // Test 1 décimale : si toujours doublons, monte à 2 (rare).
+    const d1Rounded = tickValues.map((v) => Math.round(v * 10) / 10);
+    if (new Set(d1Rounded).size < tickValues.length) return 2;
+    return 1;
+  }
+  return undefined; // integer default OK
 }
 
 const W = 920;
@@ -216,6 +245,8 @@ export function CurveChart({
     v,
     y: PAD_TOP + ((max - v) / range) * innerH,
   }));
+  // Yann 15 mai 2026 : précision adaptative pour éviter doublons type "29, 29".
+  const tickDecimals = pickYTickDecimals(tickValues, unit);
 
   // Smoothed paths : front curve and back-offset curve.
   function smoothFrom(pts: readonly (readonly [number, number])[]) {
@@ -307,7 +338,7 @@ export function CurveChart({
             fill="#e4e4e7"
             fontFamily="ui-monospace, monospace"
           >
-            {formatYTick(v, unit)}
+            {formatYTick(v, unit, tickDecimals)}
           </text>
         ))}
 
