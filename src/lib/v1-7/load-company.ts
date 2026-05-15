@@ -621,21 +621,17 @@ export async function loadV17Company(
       if (gov && i18n.governance?.notes) {
         gov.notes = i18n.governance.notes;
       }
-      // AI positioning summary + evidence
+      // AI positioning summary + evidence.
+      // Yann 15 mai 2026 : evidence vient dans 2 formats selon la source
+      // (CONV-DATA enrich = array de strings, CONV-SYSTEMS = array d'objets
+      // {short, detail, quote}). On évite donc le merge field-par-field
+      // (qui crasherait sur string spread) et on remplace simplement par
+      // la version traduite si présente. Même format en entrée et en sortie.
       const ai = (data as Record<string, unknown>).ai_positioning as Record<string, unknown> | undefined;
       if (ai) {
         if (i18n.ai_positioning?.summary) ai.summary = i18n.ai_positioning.summary;
-        if (Array.isArray(i18n.ai_positioning?.evidence) && Array.isArray(ai.evidence)) {
-          ai.evidence = (ai.evidence as Array<Record<string, unknown>>).map((ev, idx) => {
-            const tr = i18n.ai_positioning?.evidence?.[idx];
-            if (!tr) return ev;
-            return {
-              ...ev,
-              short: tr.short || ev.short,
-              detail: tr.detail || ev.detail,
-              quote: tr.quote || ev.quote,
-            };
-          });
+        if (Array.isArray(i18n.ai_positioning?.evidence)) {
+          ai.evidence = i18n.ai_positioning.evidence;
         }
       }
     }
