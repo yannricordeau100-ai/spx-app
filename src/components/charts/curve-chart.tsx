@@ -192,7 +192,14 @@ export function CurveChart({
 
   // Étend data + labels avec TTM si fourni. Le dernier point est rendu
   // en pointillé pour signaler "12 derniers mois" (pas une année calendaire).
-  const hasTTM = ttm != null && Number.isFinite(ttm);
+  // Yann 15 mai 2026 : si TTM est un OUTLIER (somme cumulée 4Q >> max
+  // périodes affichées), on ne le render PAS sur le chart pour éviter la
+  // courbe pointillée qui sort par le haut + le X label "TTM" orphelin.
+  // Le TTM cumul est alors affiché comme chip séparé sous le chart.
+  const rawHasTTM = ttm != null && Number.isFinite(ttm);
+  const dataOnlyMaxRaw = data.length > 0 ? Math.max(...data) : 0;
+  const ttmIsCumul = rawHasTTM && (ttm as number) > dataOnlyMaxRaw * 2;
+  const hasTTM = rawHasTTM && !ttmIsCumul;
   const allData = hasTTM ? [...data, ttm as number] : data;
   const allLabels = hasTTM ? [...labels, ttmLabel] : labels;
   const ttmIndex = hasTTM ? allData.length - 1 : -1;
@@ -294,6 +301,34 @@ export function CurveChart({
         >
           {header}
         </text>
+      )}
+      {/* Yann 15 mai 2026 : TTM cumul affiché comme chip séparé en haut à
+          droite du chart, pas sur la courbe (sinon va off-screen). */}
+      {ttmIsCumul && rawHasTTM && (
+        <g>
+          <rect
+            x={W - PAD_RIGHT - 130}
+            y={8}
+            width={120}
+            height={24}
+            rx={6}
+            fill="rgba(255,255,255,0.04)"
+            stroke="rgba(255,255,255,0.12)"
+          />
+          <text
+            x={W - PAD_RIGHT - 122}
+            y={24}
+            fontSize={11}
+            fontFamily="ui-monospace, monospace"
+            fill="#a1a1aa"
+          >
+            TTM&nbsp;
+            <tspan fill="#e4e4e7" fontWeight={600}>
+              {(ttm as number).toLocaleString("fr-FR", { maximumFractionDigits: 1 })}
+            </tspan>
+            <tspan fill="#a1a1aa">&nbsp;{formatUnit(unit)}</tspan>
+          </text>
+        </g>
       )}
         <defs>
           <filter id={idGlow} x="-30%" y="-30%" width="160%" height="160%">

@@ -56,6 +56,11 @@ export function EventDotsSVG({
     .map((e, i) => {
       const idx = eventFractionalIndex(e, xLabels);
       if (idx == null) return null;
+      // Yann 15 mai 2026 : skip events qui tomberaient HORS de la zone
+      // visible (idx > derniers labels). Évite la grappe de "3 dots" à
+      // droite du chart quand events 2022-2025 mais labels 2024-2026.
+      // Tolérance 0.5 pour mid-year qui peut dépasser légèrement.
+      if (idx < -0.5 || idx > xLabels.length - 0.5) return null;
       return {
         i,
         e,
