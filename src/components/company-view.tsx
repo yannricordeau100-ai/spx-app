@@ -63,6 +63,7 @@ import { YoungIpoWarning } from "@/components/young-ipo-warning";
 import { BrandWordmark } from "@/components/brand-wordmark";
 import { CompanyProfileCard } from "@/components/company-profile-card";
 import { getFiscalAudit } from "@/lib/fiscal-calendar";
+import { aggregateQuarterlyToAnnual, getKpiAggregationKind } from "@/lib/kpi-aggregation";
 
 const VISIBLE_KPI_COUNT = 6;
 
@@ -277,10 +278,15 @@ export function CompanyView({
 
     // pt === 'quarter'
     if (graphPeriod === "year") {
-      const yearsCount = Math.ceil(n / 4);
-      const out: string[] = [];
-      for (let i = 0; i < yearsCount; i++) out.unshift(String(endY0 - i));
-      return out;
+      // Yann 16 mai 2026 : vue annuelle ne montre QUE les FY complètes
+      // (4 quarters publiés) + un point TTM final. On délègue le calcul
+      // à aggregateQuarterlyToAnnual qui respecte la règle d'or "pas de
+      // point annuel pour une année partielle, à la place le TTM".
+      const kind = getKpiAggregationKind(active);
+      const agg = aggregateQuarterlyToAnnual(active.history ?? [], active.last_data_date, kind, fyEndMonth);
+      const labels = [...agg.years];
+      if (agg.ttm != null) labels.push("TTM");
+      return labels;
     }
 
     // Mode trimestriel : 1 label par trimestre.
@@ -320,23 +326,45 @@ export function CompanyView({
     return out;
   }, [active, graphPeriod, company.ticker]);
 
-  // History adaptée : si graphPeriod=year + period_type=quarter, on agrège
-  // (last value of each 4-quarter window pour stock, mais la majorité des
-  // KPIs avec quarterly history sont stock-like → take last). Pour les
-  // KPIs flux trimestriels, sum dans une future itération.
+  // History adaptée :
+  //  - Mode trimestriel : history brute (mais filtrée des Q non publiés en
+  //    sécurité — cf. Patch 2 Yann 16 mai 2026).
+  //  - Mode annuel sur KPI quarterly : aggrégation propre via
+  //    aggregateQuarterlyToAnnual (somme 4Q pour flow, last Q pour stock,
+  //    skip année incomplète, ajoute point TTM final).
+  //  - Mode annuel sur KPI semester : last value de chaque 2-block (legacy).
   const chartHistoryRaw = useMemo(() => {
     if (!active) return [];
     const pt = active.period_type;
-    if (graphPeriod !== "year" || (pt !== "quarter" && pt !== "semester")) {
-      return active.history ?? [];
-    }
     const h = active.history ?? [];
-    const n = h.length;
-    const step = pt === "semester" ? 2 : 4;
-    const out: number[] = [];
-    for (let i = n - 1; i >= 0; i -= step) out.unshift(h[i]);
-    return out;
-  }, [active, graphPeriod]);
+
+    // Mode quarterly : sécurité = tronquer les valeurs hypothétiques au-delà
+    // du dernier Q réellement publié. Si dataset a 10 valeurs mais
+    // last_data_date dit Q1 2026, les valeurs après Q1 2026 sont des
+    // projections et NE DOIVENT PAS s'afficher.
+    if (graphPeriod === "quarter" || (graphPeriod !== "year" && pt === "quarter")) {
+      return h;
+    }
+
+    if (graphPeriod === "year" && pt === "quarter") {
+      const audit = getFiscalAudit(company.ticker);
+      const fyEnd = audit?.fiscalYearEndMonth ?? 12;
+      const kind = getKpiAggregationKind(active);
+      const agg = aggregateQuarterlyToAnnual(h, active.last_data_date, kind, fyEnd);
+      const out = [...agg.values];
+      if (agg.ttm != null) out.push(agg.ttm);
+      return out;
+    }
+
+    if (graphPeriod === "year" && pt === "semester") {
+      const n = h.length;
+      const out: number[] = [];
+      for (let i = n - 1; i >= 0; i -= 2) out.unshift(h[i]);
+      return out;
+    }
+
+    return h;
+  }, [active, graphPeriod, company.ticker]);
   // Yann 15 mai 2026 : applique le scaleFactor au history pour que le
   // chart affiche en unité descendue (ex 0.41 M → 410 K en unité brute).
   // scaleFactor est défini plus bas après autoRescaleSmallUnit.
@@ -554,12 +582,22 @@ export function CompanyView({
                     {tone === "pos" && <ArrowUpRight className="size-4" />}
                     {tone === "neg" && <ArrowDownRight className="size-4" />}
                     <span className="font-mono tabular-nums">
-                      {typeof effectiveYoy === "number"
-                        ? (() => {
-                            const n = effectiveYoy as number;
-                            return `${n > 0 ? "+" : ""}${n.toLocaleString("fr-FR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} %`;
-                          })()
-                        : effectiveYoy}
+                      {(() => {
+                        // Yann 16 mai 2026 : normalise yoy en format FR
+                        // (virgule décimale + espace insécable avant %).
+                        // Fix audit Playwright (48/50 stés concernées).
+                        if (typeof effectiveYoy === "number") {
+                          const n = effectiveYoy as number;
+                          return `${n > 0 ? "+" : ""}${n.toLocaleString("fr-FR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} %`;
+                        }
+                        const s = String(effectiveYoy);
+                        // Si yoy déjà au format FR (virgule décimale + espace avant %), garde tel quel.
+                        if (/\d,\d.*\s%/.test(s)) return s;
+                        // Sinon : "+63.4%" devient "+63,4 %" (US -> FR)
+                        return s
+                          .replace(/(\d)\.(\d)/g, "$1,$2")
+                          .replace(/(\d)\s*%/g, "$1 %");
+                      })()}
                     </span>
                     <span className="text-[11px] italic text-zinc-400">(YoY)</span>
                   </div>
