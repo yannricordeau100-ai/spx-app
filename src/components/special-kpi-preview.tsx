@@ -298,6 +298,30 @@ function BigChart({ kpi, points }: { kpi: SpecialKpi; points: SpecialKpiPoint[] 
     (_, i) => padX + (i * (w - 2 * padX)) / Math.max(1, points.length - 1),
   );
   const ys = values.map((v) => h - padY - ((v - min) / range) * (h - 2 * padY));
+
+  // Yann 15 mai 2026 : calcule la position X des annotations "i" pour
+  // les afficher sur le chart. Period peut être :
+  //   - "FY20" / "2020" → match exact sur points[].period
+  //   - "between:FY20-FY21" / "between:2020-2021" → entre 2 indices
+  type AnnotationMarker = { x: number; ann: typeof kpi.annotations[number] };
+  const annotationMarkers: AnnotationMarker[] = (kpi.annotations ?? [])
+    .map((ann): AnnotationMarker | null => {
+      const period = ann.period ?? "";
+      if (period.startsWith("between:")) {
+        const range = period.replace("between:", "").split("-");
+        if (range.length === 2) {
+          const i1 = points.findIndex((p) => p.period === range[0]);
+          const i2 = points.findIndex((p) => p.period === range[1]);
+          if (i1 >= 0 && i2 >= 0) return { x: (xs[i1] + xs[i2]) / 2, ann };
+        }
+        return null;
+      }
+      const idx = points.findIndex((p) => p.period === period);
+      if (idx < 0) return null;
+      return { x: xs[idx], ann };
+    })
+    .filter((m): m is AnnotationMarker => m !== null);
+
   const path = xs
     .map((x, i) => `${i === 0 ? "M" : "L"}${x.toFixed(2)},${ys[i].toFixed(2)}`)
     .join(" ");
@@ -350,6 +374,7 @@ function BigChart({ kpi, points }: { kpi: SpecialKpi; points: SpecialKpiPoint[] 
             </g>
           );
         })}
+        <AnnotationMarkers markers={annotationMarkers} chartHeight={h} />
       </svg>
     );
   }
@@ -408,7 +433,55 @@ function BigChart({ kpi, points }: { kpi: SpecialKpi; points: SpecialKpiPoint[] 
           </g>
         );
       })}
+      <AnnotationMarkers markers={annotationMarkers} chartHeight={h} />
     </svg>
+  );
+}
+
+/** Marqueurs "i" cliquables / hoverables sur le chart. */
+function AnnotationMarkers({
+  markers,
+  chartHeight,
+}: {
+  markers: { x: number; ann: { period: string; title_i18n: Record<string, string>; text_i18n: Record<string, string> } }[];
+  chartHeight: number;
+}) {
+  if (!markers || markers.length === 0) return null;
+  return (
+    <>
+      {markers.map((m, idx) => {
+        const title = m.ann.title_i18n?.fr || m.ann.title_i18n?.en || "Info";
+        const text = m.ann.text_i18n?.fr || m.ann.text_i18n?.en || "";
+        return (
+          <g key={idx}>
+            <line
+              x1={m.x}
+              y1={6}
+              x2={m.x}
+              y2={chartHeight - 18}
+              stroke="#06b6d4"
+              strokeOpacity={0.25}
+              strokeWidth={1}
+              strokeDasharray="2 3"
+            />
+            <circle cx={m.x} cy={10} r={7} fill="#06b6d4" stroke="#0a0a0a" strokeWidth={1.5}>
+              <title>{title}{"\n\n"}{text}</title>
+            </circle>
+            <text
+              x={m.x}
+              y={13}
+              textAnchor="middle"
+              fontSize="9"
+              fontWeight="bold"
+              fill="#0a0a0a"
+              style={{ pointerEvents: "none" }}
+            >
+              i
+            </text>
+          </g>
+        );
+      })}
+    </>
   );
 }
 

@@ -23,6 +23,8 @@ import type {
   SpecialKpiPoint,
 } from "@/lib/desk/special-kpis";
 import { SpecialKpiPreview } from "@/components/special-kpi-preview";
+import { I18nEditor, type I18nString } from "@/components/desk/i18n-editor";
+import { AnnotationsEditor, type Annotation } from "@/components/desk/annotations-editor";
 
 type Mode = "single" | "multi";
 
@@ -365,6 +367,19 @@ function KpiForm({
   const [storyCat, setStoryCat] = useState(row?.story_category ?? "");
   const [desc, setDesc] = useState(row?.description ?? "");
 
+  // i18n + annotations
+  // Init kpi_name_i18n : si vide mais row.kpi_name_fr/en présents → seed.
+  const initialNameI18n: I18nString = {
+    ...(row?.kpi_name_i18n ?? {}),
+    ...(row?.kpi_name_fr && !row?.kpi_name_i18n?.fr ? { fr: row.kpi_name_fr } : {}),
+    ...(row?.kpi_name_en && !row?.kpi_name_i18n?.en ? { en: row.kpi_name_en } : {}),
+  };
+  const [nameI18n, setNameI18n] = useState<I18nString>(initialNameI18n);
+  const [summaryI18n, setSummaryI18n] = useState<I18nString>(row?.hero_summary_i18n ?? {});
+  const [interpI18n, setInterpI18n] = useState<I18nString>(row?.interpretation_i18n ?? {});
+  const [annotations, setAnnotations] = useState<Annotation[]>(row?.annotations ?? []);
+  const availablePeriods = (row?.data?.values_by_period ?? []).map((p) => p.period);
+
   return (
     <div className="mt-6 rounded-2xl border border-violet-500/30 bg-violet-500/[0.04] p-4">
       <div className="mb-3 text-[12.5px] font-semibold uppercase tracking-wider text-violet-200">
@@ -412,24 +427,20 @@ function KpiForm({
             className="w-full rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 py-2 text-[12.5px] text-zinc-100"
           />
         </label>
-        <label className="text-[11.5px]">
-          <div className="mb-1 text-zinc-400">Nom FR</div>
-          <input
-            value={kpiNameFr}
-            onChange={(e) => setKpiNameFr(e.target.value)}
-            placeholder="Unités iPhone vendues"
-            className="w-full rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 py-2 text-[12.5px] text-zinc-100"
+        <div className="col-span-2 rounded-xl border border-white/[0.06] bg-white/[0.02] p-3">
+          <I18nEditor
+            label="Nom du KPI (8 langues)"
+            value={nameI18n}
+            onChange={(v) => {
+              setNameI18n(v);
+              // Garde la rétro-compat avec kpi_name_fr/en (utilisé par
+              // les pipelines anciens).
+              if (v.fr !== undefined) setKpiNameFr(v.fr ?? "");
+              if (v.en !== undefined) setKpiNameEn(v.en ?? "");
+            }}
+            placeholder="ex Unités iPhone vendues"
           />
-        </label>
-        <label className="text-[11.5px]">
-          <div className="mb-1 text-zinc-400">Nom EN</div>
-          <input
-            value={kpiNameEn}
-            onChange={(e) => setKpiNameEn(e.target.value)}
-            placeholder="iPhone units sold"
-            className="w-full rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 py-2 text-[12.5px] text-zinc-100"
-          />
-        </label>
+        </div>
         <label className="text-[11.5px]">
           <div className="mb-1 text-zinc-400">Unité</div>
           <input
@@ -501,10 +512,37 @@ function KpiForm({
           value={desc}
           onChange={(e) => setDesc(e.target.value)}
           rows={3}
-          placeholder="Ex : trouver les unités d'iPhone vendues par année (5 dernières années). Apple a cessé de publier depuis FY18 → estimer via IDC/Counterpoint et noter incertitude."
+          placeholder="Ex : trouver les unités d'iPhone vendues par année (5 dernières années). Apple a cessé de publier depuis FY18, estimer via IDC/Counterpoint et noter incertitude."
           className="w-full rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 py-2 text-[12.5px] text-zinc-100"
         />
       </label>
+
+      {/* Traductions des libellés affichés (8 langues) */}
+      <div className="mt-4 space-y-4 rounded-xl border border-white/[0.06] bg-white/[0.02] p-3">
+        <I18nEditor
+          label="Hero summary (phrase courte sous le chart, 8 langues)"
+          value={summaryI18n}
+          onChange={setSummaryI18n}
+          multiline
+          placeholder="1 phrase max 18 mots avec la valeur la plus récente."
+        />
+        <I18nEditor
+          label="Interprétation (phrase plus longue, 8 langues)"
+          value={interpI18n}
+          onChange={setInterpI18n}
+          multiline
+          placeholder="2 phrases : drivers + signal pour l'investisseur."
+        />
+      </div>
+
+      {/* Annotations "i" sur le chart */}
+      <div className="mt-4 rounded-xl border border-white/[0.06] bg-white/[0.02] p-3">
+        <AnnotationsEditor
+          annotations={annotations}
+          onChange={setAnnotations}
+          availablePeriods={availablePeriods}
+        />
+      </div>
 
       <div className="mt-4 flex justify-end gap-2">
         <button
@@ -529,8 +567,12 @@ function KpiForm({
                       .filter(Boolean)
                   : [],
               kpi_short: kpiShort,
-              kpi_name_fr: kpiNameFr || null,
-              kpi_name_en: kpiNameEn || null,
+              kpi_name_fr: kpiNameFr || nameI18n.fr || null,
+              kpi_name_en: kpiNameEn || nameI18n.en || null,
+              kpi_name_i18n: nameI18n,
+              hero_summary_i18n: summaryI18n,
+              interpretation_i18n: interpI18n,
+              annotations,
               kpi_unit: kpiUnit || null,
               kpi_category: kpiCat,
               style,
