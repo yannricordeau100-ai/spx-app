@@ -81,6 +81,8 @@ export function BarsChart({
   const [hover, setHover] = useState<number | null>(null);
   // Yann 15 mai 2026 : axis header locale-aware.
   const { locale } = useT();
+  // Yann 15 mai 2026 : click sur la zone axe Y → toggle gauche / droite.
+  const [yOnRight, setYOnRight] = useState(false);
 
   // Étend data + labels avec la barre TTM si fournie. La dernière barre
   // est ensuite stylée différemment (pointillé / opacité réduite) pour
@@ -177,13 +179,13 @@ export function BarsChart({
           />
         ))}
 
-        {/* Y labels — taille agrandie */}
+        {/* Y labels — taille agrandie. Yann 15 mai 2026 : côté toggle. */}
         {ticks.map(({ v, y }, i) => (
           <text
             key={`yn-${i}`}
-            x={PAD_LEFT - 12}
+            x={yOnRight ? PAD_LEFT + innerW + 12 : PAD_LEFT - 12}
             y={y + 5}
-            textAnchor="end"
+            textAnchor={yOnRight ? "start" : "end"}
             fontSize={16}
             fontWeight={500}
             fill="#e4e4e7"
@@ -192,6 +194,20 @@ export function BarsChart({
             {intTicks ? Math.round(v).toLocaleString("fr-FR") : (Math.round(v * 10) / 10).toLocaleString("fr-FR")}
           </text>
         ))}
+
+        {/* Zone cliquable invisible sur l'axe Y pour toggler gauche/droite.
+            Yann 15 mai 2026. */}
+        <rect
+          x={yOnRight ? PAD_LEFT + innerW : 0}
+          y={0}
+          width={yOnRight ? W - (PAD_LEFT + innerW) : PAD_LEFT}
+          height={H}
+          fill="transparent"
+          style={{ cursor: "pointer" }}
+          onClick={() => setYOnRight((v) => !v)}
+        >
+          <title>Cliquer pour basculer l&apos;axe Y à {yOnRight ? "gauche" : "droite"}</title>
+        </rect>
 
         {/* Zero line */}
         {min < 0 && max > 0 && (

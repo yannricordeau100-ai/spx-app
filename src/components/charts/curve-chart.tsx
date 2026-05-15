@@ -153,6 +153,8 @@ export function CurveChart({
   const svgRef = useRef<SVGSVGElement>(null);
   // Yann 15 mai 2026 : axis header locale-aware (DE / NL / SV / DA / EN).
   const { locale } = useT();
+  // Yann 15 mai 2026 : click sur la zone axe Y → toggle gauche / droite.
+  const [yOnRight, setYOnRight] = useState(false);
 
   // Garde-fou : si pas de data utilisable, ne rien afficher au lieu de crasher.
   if (!data || !Array.isArray(data) || data.length === 0) {
@@ -247,9 +249,18 @@ export function CurveChart({
         style={{ display: "block", overflow: "visible" }}
       >
       {/* Header d'unité dans le SVG (au-dessus de l'axe Y) pour qu'il
-          apparaisse aussi dans l'export PNG. Demande Yann 5 mai 2026. */}
+          apparaisse aussi dans l'export PNG. Demande Yann 5 mai 2026.
+          Yann 15 mai 2026 : aligne sur la position de l'axe (gauche/droite). */}
       {header && (
-        <text x={PAD_LEFT} y={22} fontSize={13} fontWeight={600} fill="#e4e4e7" fontFamily="ui-monospace, monospace">
+        <text
+          x={yOnRight ? PAD_LEFT + innerW : PAD_LEFT}
+          y={22}
+          fontSize={13}
+          fontWeight={600}
+          fill="#e4e4e7"
+          fontFamily="ui-monospace, monospace"
+          textAnchor={yOnRight ? "end" : "start"}
+        >
           {header}
         </text>
       )}
@@ -283,13 +294,14 @@ export function CurveChart({
           />
         ))}
 
-        {/* Y-axis labels — strict Mettrik formatting + taille agrandie */}
+        {/* Y-axis labels — strict Mettrik formatting + taille agrandie.
+            Yann 15 mai 2026 : x + textAnchor selon le côté actif. */}
         {ticks.map(({ v, y }, i) => (
           <text
             key={`yn-${i}`}
-            x={PAD_LEFT - 20}
+            x={yOnRight ? PAD_LEFT + innerW + 20 : PAD_LEFT - 20}
             y={y + 5}
-            textAnchor="end"
+            textAnchor={yOnRight ? "start" : "end"}
             fontSize={16}
             fontWeight={500}
             fill="#e4e4e7"
@@ -298,6 +310,20 @@ export function CurveChart({
             {formatYTick(v, unit)}
           </text>
         ))}
+
+        {/* Zone cliquable invisible sur l'axe Y pour toggler gauche/droite.
+            Couvre les ticks labels + le header. Yann 15 mai 2026. */}
+        <rect
+          x={yOnRight ? PAD_LEFT + innerW : 0}
+          y={0}
+          width={yOnRight ? W - (PAD_LEFT + innerW) : PAD_LEFT}
+          height={H}
+          fill="transparent"
+          style={{ cursor: "pointer" }}
+          onClick={() => setYOnRight((v) => !v)}
+        >
+          <title>Cliquer pour basculer l&apos;axe Y à {yOnRight ? "gauche" : "droite"}</title>
+        </rect>
 
         {/* Wall under front curve */}
         <motion.path

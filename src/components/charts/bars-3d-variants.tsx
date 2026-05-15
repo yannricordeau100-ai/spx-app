@@ -92,6 +92,8 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
   const svgRef = useRef<SVGSVGElement>(null);
   // Yann 15 mai 2026 : axis header locale-aware.
   const { locale } = useT();
+  // Yann 15 mai 2026 : click sur la zone axe Y → toggle gauche / droite.
+  const [yOnRight, setYOnRight] = useState(false);
 
   // Étend data + labels avec TTM si fourni. Dernière barre stylée distinctement.
   const hasTTM = ttm != null && Number.isFinite(ttm);
@@ -140,7 +142,15 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
       {/* Header d'unité dans le SVG (au-dessus de l'axe Y) pour qu'il
           apparaisse aussi dans l'export PNG. Demande Yann 5 mai 2026. */}
       {header && (
-        <text x={PAD_LEFT} y={22} fontSize={13} fontWeight={600} fill="#e4e4e7" fontFamily="ui-monospace, monospace">
+        <text
+          x={yOnRight ? PAD_LEFT + INNER_W : PAD_LEFT}
+          y={22}
+          fontSize={13}
+          fontWeight={600}
+          fill="#e4e4e7"
+          fontFamily="ui-monospace, monospace"
+          textAnchor={yOnRight ? "end" : "start"}
+        >
           {header}
         </text>
       )}
@@ -172,11 +182,31 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
           stroke="#1a1a1a" strokeDasharray="3 6" strokeWidth={1} />
       ))}
       {ticks.map((v, i) => (
-        <text key={i} x={PAD_LEFT - 12} y={yFor(v) + 5} textAnchor="end" fontSize={16}
-          fontWeight={500} fill="#e4e4e7" fontFamily="ui-monospace, monospace">
+        <text
+          key={i}
+          x={yOnRight ? PAD_LEFT + INNER_W + 12 : PAD_LEFT - 12}
+          y={yFor(v) + 5}
+          textAnchor={yOnRight ? "start" : "end"}
+          fontSize={16}
+          fontWeight={500}
+          fill="#e4e4e7"
+          fontFamily="ui-monospace, monospace"
+        >
           {(Math.round(v * 10) / 10).toLocaleString("fr-FR")}
         </text>
       ))}
+      {/* Zone cliquable invisible sur l'axe Y. Yann 15 mai 2026. */}
+      <rect
+        x={yOnRight ? PAD_LEFT + INNER_W : 0}
+        y={0}
+        width={yOnRight ? W - (PAD_LEFT + INNER_W) : PAD_LEFT}
+        height={H}
+        fill="transparent"
+        style={{ cursor: "pointer" }}
+        onClick={() => setYOnRight((v) => !v)}
+      >
+        <title>Cliquer pour basculer l&apos;axe Y à {yOnRight ? "gauche" : "droite"}</title>
+      </rect>
       {allData.map((v, i) => {
         const x = PAD_LEFT + slot * i + (slot - barW) / 2;
         const yT = yFor(v);
