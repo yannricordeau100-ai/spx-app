@@ -253,7 +253,8 @@ export function GovernanceCard({
     {
       Icon: Users,
       label: t("governance.metrics.board_size_label"),
-      value: `${g.board_size} ${t("governance.metrics.board_size_unit")}`,
+      // Yann 15 mai 2026 : fmt() pour éviter "undefined membres" si board_size manquant.
+      value: `${fmt(g.board_size, 0, locale)} ${t("governance.metrics.board_size_unit")}`,
       color: "#a78bfa",
       tooltip: g.directors && g.directors.length > 0 ? (
         <>
