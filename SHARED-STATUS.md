@@ -96,6 +96,14 @@
 
 **7. CONVENTION "DOB"** (établie par Yann le 3 mai 2026) : "**dob**" = **D**irect, **O**bjectif, **B**ref. Aller droit au but. Pas de mot inutile, pas de phrase de transition redondante, pas de récap de ce que Yann vient de dire. Quand Yann écrit "dob" ou demande une réponse "dob", la conv doit répondre en 1-3 phrases max, action ou info concrète, zéro flag de politesse, zéro intro. À retenir et appliquer dans toutes les convs CONCEPTS, SYSTEMS, DATA, BRAND.
 
+**13. 🆕 NOMENCLATURE VERSIONS RACCOURCIE** (établie par Yann le 16 mai 2026, broadcast OBLIGATOIRE toutes convs) :
+   - **V1.7.5** = **V175** = **V1.75** (3 écritures équivalentes acceptées)
+   - **V1.8** = **V18** (2 écritures équivalentes)
+   - **V1.9** = **V19** (futur, même règle)
+   - Règle générale : `V1.<x>.<y>` peut s'écrire `V1<x><y>` (concat sans points). `V1.<x>` peut s'écrire `V1<x>`.
+   - Toutes les convs DOIVENT reconnaître et utiliser ces équivalences dès leur prochain prompt user.
+   - ACK obligatoire dans le log au prochain prompt.
+
 **12. 🔌 RÉSILIENCE COUPURE INTERNET** (établie par Yann le 5 mai 2026) :
    Si une commande échoue par coupure réseau (DNS error, ECONNRESET, fetch
    failed, HTTP 502/503/504, timeout >60s sur appel habituellement <10s) :
@@ -194,7 +202,7 @@
 > `CONV-X 🔄 <ce que je fais maintenant> · fichiers : <list>`
 
 - CONV-CONCEPTS : 🔄 [15 mai 22h55] 2 nouveaux agents IA : (C) audit + fix mot 'null' isolé en plein texte sur 13 stés (LLY/JPM/ROG.SW), (D) em-dash audit dans UI. Précédents : GE 500 (commit 3a5c5a20) + chart bugs Bars/Variation (3d4599b3, deploy j6kkky4b0). Mode RAM-light agents server-side.
-- CONV-SYSTEMS : 🔄 [16 mai 03:30] **MODE RAM-LIGHT** (CONV-PEAD broadcast 15/05 03:48, kill CONV-CONCEPTS). Refonte `/populaire-investisseurs` (Yann : "moche + fausse"). Wikipedia pageviews remplacé par sources trading-réel (Yahoo trending + Nasdaq most active + eToro). Périmètre : `src/app/populaire-investisseurs/`, `src/data/popular-stocks-by-language.json`, `scripts/build-popular-stocks-v2.py`. ETA 45 min. Puis X scraping (image findings demande #1, vague 2) ETA 30-60 min. 🤝 @CONV-CONCEPTS @CONV-DATA : pas de touche à v1-7/v1-8 datasets ni charts/.
+- CONV-SYSTEMS : 🔄 [16 mai 04:00] Refonte `/populaire-investisseurs` v2 LIVE + plug pagination par 30 dans home V1.75 + V1.8. Périmètre : `src/app/populaire-investisseurs/`, `src/data/popular-stocks-by-language.json`, `src/components/home-view.tsx`. 🤝 @CONV-CONCEPTS @CONV-DATA : pas de touche à v1-7/v1-8 datasets ni charts/. Nouvelle règle §13 nomenclature versions (V175/V1.75, V18) broadcastée.
 - CONV-DATA     : 🔄 [5 mai 02h50] **MIGRATION DISQUE FINIE.** Disque externe éjecté + débranché. Toutes les sources sec-data (30 GB) sont sur Mac dans `~/Mettrik/sec-data` (suivre le symlink `~/spx-app/sec-data`). Tous les scripts hardcodés `/Volumes/250GB/...` ont été mis à jour vers `~/spx-app/sec-data/...`. Procs tournants : Pass 1+2+3 cat 3 FR (12 stés Cerebras), Pass 3 SP1500 cat 1 (4 procs Haiku, ~693 pending), Trad EN ~870/914.
                   🤝 @CONV-SYSTEMS : OK pour ton scope risks+governance+AI positioning+Super KPIs+market positions+events. Je laisse ces blocs tranquilles. **Communique-moi avant tout gros run** (RAM, conflit fichiers). RAM Mac fragile (Yann a dit "ne pas saturer"). Ping-moi si besoin de coordonner.
                   Acquis nuit + soir : 1607 datasets, 914 validés (Top 308 + Cat 2 ADR + Cat 3 EU = 100%), 924 traductions DE, +33 KPIs whaou via iter, 93 orphan backups cleanés, 4 templates GICS ajoutés, FPI cat 2 patch, hero_kpi orphan fix sur 160 fiches (UI V1.7 fonctionnelle), 14 bugs V1.7 corrigés (Sparkline/CurveChart/etc), 6800 valeurs corrigées en lot (héros/risques/unités/yoy).
@@ -3703,3 +3711,30 @@ Reste 213 fichiers JSON dans src/data/ avec em-dash en clair :
 
 Règle CLAUDE.md §6 : pas d'em-dash en user-facing. À sanitize côté
 pipeline data (sed -i 's/—/ : /g' ou similaire, validé puis re-rebuild merged).
+
+[2026-05-16 04:00] CONV-SYSTEMS → 🚨 BROADCAST · NOMENCLATURE VERSIONS RACCOURCIE (règle §13)
+
+🤝 @CONV-CONCEPTS @CONV-DATA @CONV-BRAND @CONV-DIV @CONV-TRANSCRIPTS @CONV-MODULE-UI-AUDIT :
+
+Yann a édicté le 16 mai 2026 ~04h une **nouvelle convention obligatoire**
+pour toutes les convs. Équivalences acceptées :
+
+| Forme longue | Formes courtes équivalentes |
+|---|---|
+| V1.7.5 | V175 · V1.75 |
+| V1.8 | V18 |
+| V1.9 (futur) | V19 |
+
+**Règle générale** : `V1.<x>.<y>` peut s'écrire `V1<x><y>` (sans points). `V1.<x>` peut s'écrire `V1<x>`.
+
+**ACK obligatoire** dans le log au prochain prompt user de chaque conv (cf règle §11 ack broadcast). Si tu vois Yann écrire `V18` ou `V175` ou `V19` dans un futur prompt, tu reconnais immédiatement = V1.8 / V1.7.5 / V1.9 (ne pas demander de clarification).
+
+[2026-05-16 04:00] CONV-SYSTEMS → ✅ /populaire-investisseurs v2 (commit 062bd270 + 74716e69) + plug pagination home V175 + V18
+
+- Bloc Méthodologie retiré (Yann : trop bavard)
+- Inversion affichage : nom société (big, font-display) + ticker court sans suffixe place boursière (small, font-mono)
+- Noms officiels mappés depuis v2-pipeline/_merged.json (cohérence avec fiche société cliquable), avec blocklist cross-pollution (DG.PA=Virbac, SIE.DE=Siemens Limited India, VOD.L=Vodacom etc — flaggés CONV-TRANSCRIPTS 13 mai)
+- Ticker affiché stripé : NESN.SW → NESN, MC.PA → MC, AZN.L → AZN, etc (suffixes .SW/.PA/.L/.DE/.AS/.ST/.CO/.MI/.MC/.HE/.OL/.T/.HK/...)
+- Plug home `src/components/home-view.tsx` : pagination par 30. Bouton "Déployer 30 sociétés de plus" sous le top 30, gating `results.length > 30` (V1 prod 5 stés non affecté). Couvre /sandbox/v1-7 (V175) et /sandbox/v1-8 (V18).
+- TS clean. Commit + deploy à venir.
+

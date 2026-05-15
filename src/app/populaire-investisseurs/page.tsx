@@ -13,6 +13,8 @@ export const metadata = {
 
 export type PopularRow = {
   ticker: string;
+  /** Ticker affiché (sans suffixe place boursière .SW/.PA/.L/etc). */
+  displayTicker?: string;
   name: string;
   rank: number;
   country?: string;
@@ -25,6 +27,38 @@ export type PopularRow = {
   views?: number;
   total_views?: number;
 };
+
+/** Suffixes de place boursière à retirer pour le ticker affiché. */
+const EXCHANGE_SUFFIXES = [
+  ".SW", ".PA", ".L", ".DE", ".AS", ".ST", ".CO", ".MI", ".MC",
+  ".HE", ".OL", ".T", ".HK", ".TO", ".AX", ".BR", ".LS", ".VI",
+  ".IR", ".SS",
+];
+
+function stripExchangeSuffix(ticker: string): string {
+  const up = ticker.toUpperCase();
+  for (const suf of EXCHANGE_SUFFIXES) {
+    if (up.endsWith(suf)) return up.slice(0, -suf.length);
+  }
+  return up;
+}
+
+/** Charge les noms officiels de la fiche société (v2-pipeline merged). */
+function loadOfficialNames(): Record<string, string> {
+  try {
+    const p = path.join(process.cwd(), "src/data/v2-pipeline/_merged.json");
+    const m = JSON.parse(fs.readFileSync(p, "utf-8")) as Record<string, { name?: string }>;
+    const out: Record<string, string> = {};
+    for (const [t, v] of Object.entries(m)) {
+      if (v && typeof v === "object" && typeof v.name === "string") {
+        out[t.toUpperCase()] = v.name;
+      }
+    }
+    return out;
+  } catch {
+    return {};
+  }
+}
 
 export type PopularData = Record<string, PopularRow[]> & {
   _meta?: {
@@ -73,6 +107,33 @@ export default async function PopulairePage() {
     data = JSON.parse(fs.readFileSync(dataPath, "utf-8")) as PopularData;
   } catch {
     data = {};
+  }
+
+  // Enrichissement : (1) nom officiel depuis la fiche société (v2-pipeline)
+  // pour cohérence avec ce qui est rendu en cliquant ; (2) ticker affiché
+  // sans le suffixe place boursière (.SW/.PA/etc).
+  // Garde-fou : si v2-pipeline est manifestement faux (cross-pollution
+  // documentée dans SHARED-STATUS — ex DG.PA=Virbac, SIE.DE=Siemens Limited
+  // India, VOD.L=Vodacom), on garde le nom curaté du JSON.
+  const CROSS_POLLUTION_BLOCKLIST = new Set([
+    "DG.PA", "SIE.DE", "VOD.L", "BCP.LS", "NG.L", "RMS.PA",
+    "ATEYY", "ADTTF", "BP", "BPAQF", "BBVA.MC",
+  ]);
+  const officialNames = loadOfficialNames();
+  for (const region of Object.keys(data)) {
+    if (region.startsWith("_")) continue;
+    const rows = data[region];
+    if (!Array.isArray(rows)) continue;
+    for (const row of rows) {
+      const t = (row.ticker || "").toUpperCase();
+      row.displayTicker = stripExchangeSuffix(row.ticker);
+      if (!CROSS_POLLUTION_BLOCKLIST.has(t)) {
+        const off = officialNames[t];
+        if (off && typeof off === "string" && off.trim().length > 0) {
+          row.name = off;
+        }
+      }
+    }
   }
 
   const h = await headers();

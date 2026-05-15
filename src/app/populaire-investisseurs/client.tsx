@@ -71,8 +71,12 @@ function PodiumCard({
         <ArrowRight className="size-4 text-zinc-500 transition-all group-hover:translate-x-1 group-hover:text-zinc-200" />
       </div>
       <div className="relative mt-3">
-        <div className="font-mono text-[18px] font-bold text-zinc-50">{row.ticker}</div>
-        <div className="mt-0.5 line-clamp-1 text-[13px] text-zinc-300">{row.name}</div>
+        <div className="line-clamp-2 font-display text-[20px] font-bold leading-tight text-zinc-50">
+          {row.name}
+        </div>
+        <div className="mt-0.5 font-mono text-[12px] uppercase tracking-wider text-zinc-400">
+          {row.displayTicker ?? row.ticker}
+        </div>
       </div>
       <div className="relative mt-4">
         <div className={`font-display text-[26px] font-bold leading-none tracking-tight ${accent.text}`}>
@@ -112,15 +116,19 @@ function StockRow({
         {rank}
       </div>
       <div className="min-w-0 flex-1">
-        <div className="flex items-baseline gap-2">
-          <span className="font-mono text-[14px] font-bold text-zinc-50 sm:text-[15px]">{row.ticker}</span>
+        <div className="line-clamp-1 font-display text-[14px] font-bold text-zinc-50 sm:text-[15px]">
+          {row.name}
+        </div>
+        <div className="mt-0.5 flex items-baseline gap-2">
+          <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-400 sm:text-[12px]">
+            {row.displayTicker ?? row.ticker}
+          </span>
           {row.country && row.country !== "US" && (
             <span className="rounded bg-white/[0.04] px-1.5 py-0.5 font-mono text-[9.5px] uppercase tracking-wider text-zinc-500">
               {row.country}
             </span>
           )}
         </div>
-        <div className="line-clamp-1 text-[12px] text-zinc-400 sm:text-[13px]">{row.name}</div>
         <div className="mt-1.5 h-1 overflow-hidden rounded-full bg-white/[0.04]">
           <div
             className="h-full rounded-full bg-gradient-to-r from-violet-500 to-cyan-400"
@@ -319,44 +327,6 @@ export function PopulaireClient({
           </>
         )}
 
-        {/* Méthodologie */}
-        <div className="rounded-2xl border border-white/[0.06] bg-white/[0.015] p-5 sm:p-6">
-          <div className="mb-2 flex items-center gap-2">
-            <Info className="size-4 text-cyan-300" />
-            <h3 className="text-[13.5px] font-semibold uppercase tracking-wider text-zinc-200">
-              {labels.methodology_title}
-            </h3>
-          </div>
-          <p className="text-[13px] leading-relaxed text-zinc-400">{labels.methodology_body}</p>
-          <div className="mt-4 grid grid-cols-2 gap-3 text-[11.5px] sm:grid-cols-4">
-            <div>
-              <div className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">
-                {labels.source_label}
-              </div>
-              <div className="mt-0.5 text-zinc-200">{data._meta?.source ?? "yfinance"}</div>
-            </div>
-            <div>
-              <div className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">
-                {labels.window_label}
-              </div>
-              <div className="mt-0.5 text-zinc-200">{data._meta?.window ?? "—"}</div>
-            </div>
-            <div>
-              <div className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">
-                {labels.universe_label}
-              </div>
-              <div className="mt-0.5 text-zinc-200">
-                {data._meta?.enriched_size ?? "—"} / {data._meta?.universe_size ?? "—"}
-              </div>
-            </div>
-            <div>
-              <div className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">
-                {labels.country_detected}
-              </div>
-              <div className="mt-0.5 text-zinc-200">{labels.country_label}</div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );
