@@ -62,6 +62,7 @@ import { V18MissingPlaceholder } from "@/components/v18-missing-placeholder";
 import { YoungIpoWarning } from "@/components/young-ipo-warning";
 import { BrandWordmark } from "@/components/brand-wordmark";
 import { CompanyProfileCard } from "@/components/company-profile-card";
+import { getFiscalAudit } from "@/lib/fiscal-calendar";
 
 const VISIBLE_KPI_COUNT = 6;
 
@@ -229,6 +230,13 @@ export function CompanyView({
   // est grand (cf. bug observé sur NFLX 4 mai 2026).
   // Trimestriel : génère "T1 21", "T2 21"... pour 20 trimestres.
   // Annuel : génère "2021", "2022"... pour 5 années (= Q4 de chaque année).
+  //
+  // Yann 15 mai 2026 : pour les stés à exercice fiscal décalé (Apple FY end
+  // sept, Microsoft FY end juin, NVIDIA FY end janvier, etc.), on utilise
+  // les trimestres FISCAUX au lieu des trimestres calendaires. Ex : une
+  // period_end 2024-12-31 sur AAPL = T1 FY25 (= "T1 25"), pas T4 24.
+  // Cohérent avec ce qu'Apple communique dans ses ER + avec les labels
+  // déjà appliqués sur transcript-stories (commit a8a0883e du 14 mai).
   const chartLabels = useMemo(() => {
     if (!active) return undefined;
     const pt = active.period_type;
@@ -242,6 +250,11 @@ export function CompanyView({
     const endMonth = d.getUTCMonth() + 1;
     const endQ0 = Math.floor(d.getUTCMonth() / 3) + 1;
     const endSem0 = endMonth <= 6 ? 1 : 2;
+
+    // Fiscal calendar : si fiscalYearEndMonth ≠ 12, on calcule fy/q fiscaux.
+    const audit = getFiscalAudit(company.ticker);
+    const fyEndMonth = audit?.fiscalYearEndMonth ?? 12;
+    const isFiscalShifted = fyEndMonth !== 12;
 
     if (pt === "semester") {
       if (graphPeriod === "year") {
@@ -269,7 +282,33 @@ export function CompanyView({
       for (let i = 0; i < yearsCount; i++) out.unshift(String(endY0 - i));
       return out;
     }
+
     // Mode trimestriel : 1 label par trimestre.
+    if (isFiscalShifted) {
+      // Fiscal : on parcourt n trimestres en remontant. À chaque step,
+      // on calcule (fy, q) fiscal depuis (calY, calM) calendaire où
+      // calM = mois de FIN de la période trimestrielle.
+      // Pour les fy décalées, calM peut être 1, 4, 7, 10 (NVDA) ou
+      // 3, 6, 9, 12 (AAPL), etc. On utilise endMonth directement
+      // (= mois du last_data_date) plutôt qu'un alignement calendaire.
+      let calY = endY0;
+      let calM = endMonth; // mois 1-12 du end date
+      const out: string[] = [];
+      for (let i = n - 1; i >= 0; i--) {
+        // FY (à 2 chiffres) : si calM > fyEndMonth, on est dans FY de l'année suivante.
+        const fyShort = calM > fyEndMonth ? (calY + 1) % 100 : calY % 100;
+        // Mois dans la FY (1-12). FY commence au mois fyEndMonth+1.
+        const monthInFY = ((calM - fyEndMonth - 1 + 12) % 12) + 1;
+        const q = Math.ceil(monthInFY / 3);
+        out.unshift(`T${q} ${String(fyShort).padStart(2, "0")}`);
+        // Recule de 3 mois.
+        calM -= 3;
+        if (calM <= 0) { calM += 12; calY -= 1; }
+      }
+      return out;
+    }
+
+    // Calendrier (FY end = déc) : comportement original.
     let endQ = endQ0;
     let endY = endY0;
     const out: string[] = [];
@@ -279,7 +318,7 @@ export function CompanyView({
       if (endQ === 0) { endQ = 4; endY -= 1; }
     }
     return out;
-  }, [active, graphPeriod]);
+  }, [active, graphPeriod, company.ticker]);
 
   // History adaptée : si graphPeriod=year + period_type=quarter, on agrège
   // (last value of each 4-quarter window pour stock, mais la majorité des
