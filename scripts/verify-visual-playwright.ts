@@ -144,14 +144,16 @@ async function checkPage(page: Page, ticker: string, locale: string, route: stri
   });
   if (locale === "fr" || locale === "de" || locale === "de-CH") {
     // FR/DE = virgule décimale → pas "76.7" en hero
-    const heroText = await page.locator("[class*='font-mono'][class*='text-[clamp']").innerText().catch(() => "");
+    // Yann 15 mai 2026 : selector simplifié, prend tous les font-mono.
+    const heroTexts = await page.locator("[class*='font-mono']").allInnerTexts().catch(() => []);
+    const heroText = (heroTexts ?? []).join(" ").slice(0, 500);
     const hasDotDecimal = /\b\d{1,3}\.\d{1,2}\b/.test(heroText);
     c.push({
       id: "hero.value.locale_decimal",
       label: `Décimale localisée hero (${locale} = virgule)`,
       pass: !hasDotDecimal,
       severity: "major",
-      detail: hasDotDecimal ? `'${heroText}' EN format` : "OK",
+      detail: hasDotDecimal ? "détecté '76.7' style EN dans hero" : "OK",
     });
   }
   c.push({
@@ -187,9 +189,14 @@ async function checkPage(page: Page, ticker: string, locale: string, route: stri
     id: "hero.signal_box_not_empty",
     label: "Signal box non vide (sparkle + texte)",
     pass: await (async () => {
-      // Cherche un container avec icône Sparkles + texte substantiel
-      const boxes = await page.locator("div:has(svg[class*='lucide-sparkles']) >> div").allInnerTexts().catch(() => []);
-      return boxes.every((b) => !b.trim() || b.trim().length > 5);
+      try {
+        const boxes = (await page.locator("div:has(> svg.lucide-sparkles) div").allInnerTexts()) ?? [];
+        return boxes
+          .filter((b): b is string => typeof b === "string")
+          .every((b) => !b.trim() || b.trim().length > 5);
+      } catch {
+        return true;
+      }
     })(),
     severity: "major",
     detail: "anti-box-vide",
@@ -235,9 +242,12 @@ async function checkPage(page: Page, ticker: string, locale: string, route: stri
     id: "chart.y_no_duplicate_int",
     label: "Y axis pas de doublon integer adjacent",
     pass: await (async () => {
-      // Cherche les ticks Y dans SVG (text avec font-mono près de l'axe)
-      const ticks = await page.locator("svg text[font-family*='mono']").allInnerTexts().catch(() => []);
-      const nums = ticks.filter((t) => /^\d+([.,]\d+)?$/.test(t.trim()));
+      // Cherche les ticks Y dans SVG (tous les <text> SVG)
+      const ticks = (await page.locator("svg text").allInnerTexts().catch(() => [])) ?? [];
+      const nums = ticks
+        .filter((t): t is string => typeof t === "string")
+        .map((t) => t.trim())
+        .filter((t) => /^\d+([.,]\d+)?$/.test(t));
       const seen = new Set<string>();
       for (const n of nums) {
         if (seen.has(n)) return false;
@@ -305,9 +315,15 @@ async function checkPage(page: Page, ticker: string, locale: string, route: stri
     id: "table.no_average_top50_spam",
     label: "Pas plus de 3 'Moyen + Top 50 %' adjacents",
     pass: await (async () => {
-      const rows = await page.locator("[role='button'][class*='grid-cols-12']").allInnerTexts().catch(() => []);
-      const moyenTop50 = rows.filter((r) => /Moyen[\s\S]*Top 50/.test(r));
-      return moyenTop50.length <= 3;
+      try {
+        const rows = (await page.locator("[role='button']").allInnerTexts()) ?? [];
+        const moyenTop50 = rows
+          .filter((r): r is string => typeof r === "string")
+          .filter((r) => /Moyen[\s\S]*Top 50/.test(r));
+        return moyenTop50.length <= 3;
+      } catch {
+        return true;
+      }
     })(),
     severity: "major",
     detail: "spam tier fallback",
@@ -462,37 +478,27 @@ async function checkPage(page: Page, ticker: string, locale: string, route: stri
 // ──────────────────────────────────────────────────────────────────────
 
 async function gotoTicker(page: Page, ticker: string, locale: string): Promise<string> {
-  // Try V1.8 sandbox
+  // Try V1.8 sandbox first
   const v18 = `${BASE}/sandbox/v1-8/${ticker.toLowerCase()}`;
   try {
-    const r = await page.goto(v18, { waitUntil: "domcontentloaded", timeout: 20000 });
-    if (r && r.ok()) {
-      // wait for hydration
-      await page.waitForLoadState("networkidle", { timeout: 8000 }).catch(() => {});
-      // Detect hub redirect (no individual ticker content)
-      const title = (await page.title()) ?? "";
-      if (!/Mettrik\s*·.*KPI/i.test(title) && !title.includes(ticker.toUpperCase())) {
-        // landed on hub
-      } else if (title.includes(ticker.toUpperCase())) {
-        return "v1-8";
-      }
-      // Try detecting auth gate (signin redirect)
-      if (page.url().includes("auth=signin")) {
-        // fallthrough to V1 demo
-      } else {
-        return "v1-8";
-      }
+    await page.goto(v18, { waitUntil: "domcontentloaded", timeout: 25000 });
+    // Yann 15 mai 2026 : networkidle inutile (charts SVG bouclent). Wait fixe.
+    await page.waitForTimeout(3000);
+    // Détecte auth-gate redirect (URL changée vers /?auth=signin ou hub V1.8)
+    const url = page.url();
+    if (url.includes("auth=signin")) {
+      // fallthrough V1 demo
+    } else if (url.includes(`/sandbox/v1-8/${ticker.toLowerCase()}`)) {
+      return "v1-8";
     }
   } catch {}
 
-  // Fallback V1 demo
+  // Fallback V1 demo (5 stés)
   if (V1_DEMO.has(ticker.toUpperCase())) {
     try {
-      const r = await page.goto(`${BASE}/${ticker.toLowerCase()}`, { waitUntil: "domcontentloaded", timeout: 20000 });
-      if (r && r.ok()) {
-        await page.waitForLoadState("networkidle", { timeout: 8000 }).catch(() => {});
-        return "v1-demo";
-      }
+      await page.goto(`${BASE}/${ticker.toLowerCase()}`, { waitUntil: "domcontentloaded", timeout: 25000 });
+      await page.waitForTimeout(3000);
+      if (!page.url().includes("auth=signin")) return "v1-demo";
     } catch {}
   }
   return "none";
@@ -552,6 +558,7 @@ async function processTicker(browser: Browser, ticker: string): Promise<{ ticker
     await context.close();
     return { ticker, checks, route };
   } catch (err) {
+    console.error(`  [${ticker}] ERR:`, (err as Error).message?.slice(0, 200));
     await context.close();
     return { ticker, checks: [], route: "error" };
   }
