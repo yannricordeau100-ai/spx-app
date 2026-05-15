@@ -207,6 +207,13 @@ const TYPE_META: Record<NonNullable<BulletItem["type"]>, { Icon: typeof Trending
   citation: { Icon: Quote, color: "#fbbf24" },
 };
 
+// Yann 15 mai 2026 : fallback défensif si le type sérialisé par le LLM
+// n'est pas dans la table (ex GE = type "guidance" dans summary.comparison
+// alors que COMPARISON_META n'a que guidance_up/guidance_down → crash 500).
+// On évite tout undefined.Icon en mappant le type inconnu sur l'entrée
+// "synthesis" (TYPE_META) ou "new_topic" (COMPARISON_META).
+const TYPE_META_FALLBACK = TYPE_META.synthesis;
+
 const COMPARISON_META: Record<ComparisonBullet["type"], { Icon: typeof TrendingUp; color: string; labelKey: string }> = {
   promise_kept: { Icon: CheckCircle2, color: "#10b981", labelKey: "transcript.bullets.compare.promise_kept" },
   promise_broken: { Icon: XCircle, color: "#f43f5e", labelKey: "transcript.bullets.compare.promise_broken" },
@@ -215,6 +222,8 @@ const COMPARISON_META: Record<ComparisonBullet["type"], { Icon: typeof TrendingU
   new_topic: { Icon: Plus, color: "#a78bfa", labelKey: "transcript.bullets.compare.new_topic" },
   sentiment_shift: { Icon: ArrowUpDown, color: "#fbbf24", labelKey: "transcript.bullets.compare.sentiment_shift" },
 };
+
+const COMPARISON_META_FALLBACK = COMPARISON_META.new_topic;
 
 /** Construit un regex global qui matche les termes du glossaire dans un texte. */
 function buildGlossaryRegex(): RegExp {
@@ -322,7 +331,7 @@ export function TranscriptBulletsBlock({
       {/* Liste de bullets — 2 colonnes sur desktop, 1 sur mobile */}
       <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
         {(s.bullets ?? []).map((b, i) => {
-          const meta = TYPE_META[b.type ?? "synthesis"];
+          const meta = TYPE_META[b.type ?? "synthesis"] ?? TYPE_META_FALLBACK;
           const Icon = meta.Icon;
           return (
             <div
@@ -362,7 +371,7 @@ export function TranscriptBulletsBlock({
           </div>
           <div className="grid grid-cols-1 gap-2.5 lg:grid-cols-2">
             {summary.comparison.bullets.map((b, i) => {
-              const meta = COMPARISON_META[b.type];
+              const meta = COMPARISON_META[b.type] ?? COMPARISON_META_FALLBACK;
               const Icon = meta.Icon;
               return (
                 <div
