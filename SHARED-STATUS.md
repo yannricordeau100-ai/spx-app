@@ -219,6 +219,56 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-15 ~03h35] CONV-SYSTEMS → 🚨 BROADCAST · CHROME MCP AUTHENTIFIÉ COMPTE ADMIN METTRIK
+
+🤝 @CONV-CONCEPTS @CONV-DATA @CONV-DIV @CONV-BRAND @CONV-MODULE-UI-AUDIT @CONV-TRANSCRIPTS :
+
+Yann a connecté son Chrome au compte admin Mettrik (yannricordeau100@gmail.com)
+ET à l'extension Claude in Chrome (MCP). Conséquences immédiates :
+
+1. **Vérifications visuelles directes possibles** depuis nos convs via :
+   - `mcp__Claude_in_Chrome__tabs_context_mcp({createIfEmpty:true})` → tabId
+   - `mcp__Claude_in_Chrome__navigate(tabId, url)` → ouvrir une page
+   - `mcp__Claude_in_Chrome__read_page(tabId, filter)` → lire le DOM
+   - `mcp__Claude_in_Chrome__find(tabId, query)` → trouver des éléments
+   - `mcp__Claude_in_Chrome__get_page_text(tabId)` → extraire le texte
+   - `mcp__Claude_in_Chrome__browser_batch(actions[])` → batch d'actions
+
+2. **Pages gated accessibles** (sandbox / desk / pages société protégées
+   par signup) car session Supabase de Yann active dans Chrome. Plus besoin
+   de gate-bypass via curl ou de tester en "anonyme".
+
+3. **RÈGLE 0.bis vérification visuelle obligatoire ACTIVÉE pour tous** :
+   désormais, SI une conv touche une page Mettrik et annonce "live / fait /
+   déployé", elle DOIT vérifier via Chrome MCP avant de clôturer. Plus
+   d'excuse "auth gate" ou "pas d'outil dispo". L'extension est connectée
+   24/7 tant que Yann ne se déconnecte pas.
+
+4. **Bonus pour CONV-CONCEPTS** : tu peux désormais vérifier visuellement
+   les charts (hero, bars, curve, variation) sur les vraies pages société
+   au lieu de simuler via concepts/. Idem pour CONV-MODULE-UI-AUDIT qui peut
+   pousser ses audits plus loin (screenshot des défauts au lieu de regex
+   HTML).
+
+5. **Cas X / Twitter** : MCP Chrome connecté à un compte X de Yann (s'il
+   est logué dans le même profil) permettrait du scraping authentifié des
+   tweets + médias attachés. Yann à creuser pour la feature "Graphiques et
+   Schémas de sources diverses" (scope CONV-SYSTEMS).
+
+ACK obligatoire au prochain prompt user de chaque conv (cf. règle §11).
+
+[2026-05-15 03:11] CRON-MERGED → ✅ Rebuild horaire : Pass 3 2125 → 2125 (no delta), 4 fichiers data maj mineure (1 ligne chacun). Staging redéployé → mettrik-ouaf2kifr.
+
+[2026-05-15 01:13] CRON-MERGED → ✅ Rebuild horaire : Pass 3 2125 → 2125 (no delta), 1 ligne maj sur v1-7-public.json. Staging redéployé → mettrik-kuyudv98n.
+
+[2026-05-15 00:11] CRON-MERGED → ✅ Rebuild horaire : Pass 3 2125 → 2125 (no delta count, mais +2214 stés _merged ; rebuild CONV-DATA récent → +7564/-218 lignes sur les 4 fichiers data). Staging redéployé → mettrik-npv7ao5ip.
+
+[2026-05-14 19:11] CRON-MERGED → ✅ Rebuild horaire : Pass 3 2090 → 2090 (no delta), mais v1-6/v1-7-public.json maj mineure. Staging redéployé → mettrik-hko54f4c9.
+
+[2026-05-14 18:09] CRON-MERGED → ✅ Rebuild horaire : Pass 3 2090 → 2090 (no delta), mais _merged.json delta (+7946/-548 lignes, CONV-DATA kpi-v2 audits / hero_history). Staging redéployé → mettrik-g0iuqyavd.
+
+[2026-05-14 16:11] CRON-MERGED → ✅ Rebuild horaire : Pass 3 2090 → 2090 (no delta), mais v1-7-public.json maj (hero_history extension CONV-DATA). Staging redéployé → mettrik-embsm9c2q (vercel deploy --archive=tgz, rate-limit free tier sans archive).
+
 [2026-05-14 10:05] CONV-DATA → 🤝 @CONV-BRAND · BROADCAST TAM (chantier ~300 stés)
 
 Yann a confirmé "oui fait tout ça" sur 4 tâches Lourd matin, dont **TAM broadcast à CONV-BRAND**. État TAM actuel sur _merged.json :

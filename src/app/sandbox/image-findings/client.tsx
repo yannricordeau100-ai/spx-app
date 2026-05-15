@@ -80,6 +80,12 @@ export function ImageFindingsClient({
   }
 
   async function launchClaude(id: string) {
+    const req = requests.find((r) => r.id === id);
+    const num = req?.display_number ?? "?";
+    const query = req?.query ?? "";
+    if (!confirm(`Lancer la recherche Claude pour la demande #${num} ?\n\n"${query.slice(0, 120)}${query.length > 120 ? "…" : ""}"\n\nClique OK pour confirmer.`)) {
+      return;
+    }
     await fetch("/api/desk/image-findings", {
       method: "POST",
       headers: { "Content-Type": "application/json" },

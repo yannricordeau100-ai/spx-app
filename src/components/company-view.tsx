@@ -748,6 +748,17 @@ export function CompanyView({
           <KpiStories company={company} />
         )}
 
+        {/* Graphiques et Schémas de sources diverses (Yann 15 mai 2026 v2).
+            Placé SOUS les Stories. Images approuvées dans
+            /sandbox/image-findings mergées au SSR dans company.image_findings. */}
+        {Array.isArray((company as Company & { image_findings?: unknown[] }).image_findings) &&
+        ((company as Company & { image_findings?: unknown[] }).image_findings as unknown[]).length > 0 ? (
+          <ImageFindingsBlock
+            findings={(company as Company & { image_findings?: ImageFindingPublic[] }).image_findings ?? []}
+            accent={accent}
+          />
+        ) : null}
+
         {/* Stories Dividendes — RETIRÉ de company-view le 7 mai 2026.
             Yann a demandé que tout le travail dividende se fasse uniquement
             dans /concepts/mockups/dividend.tsx tant que la partie n'est pas
@@ -769,16 +780,7 @@ export function CompanyView({
           <TranscriptStories ticker={company.ticker} doc={transcript} />
         ) : null}
 
-        {/* Graphiques et Schémas de sources diverses (Yann 15 mai 2026).
-            Images approuvées dans /sandbox/image-findings sont mergées au
-            SSR dans company.image_findings (carrousel sous le hero). */}
-        {Array.isArray((company as Company & { image_findings?: unknown[] }).image_findings) &&
-        ((company as Company & { image_findings?: unknown[] }).image_findings as unknown[]).length > 0 ? (
-          <ImageFindingsBlock
-            findings={(company as Company & { image_findings?: ImageFindingPublic[] }).image_findings ?? []}
-            accent={accent}
-          />
-        ) : null}
+        {/* Bloc Graphiques et Schémas remonté SOUS les Stories (15 mai v2). */}
 
         {/* Profil société & marché — description longue + snapshot
             boursier + faits clés + sés comparables. (7 mai 2026) */}
