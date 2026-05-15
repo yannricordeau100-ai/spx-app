@@ -1,44 +1,49 @@
 {
-  "updated_at": "2026-05-15T02:00:19.360969+00:00",
+  "updated_at": "2026-05-15T02:15:08.415958+00:00",
   "results": {
-    "AAPL": {
-      "ticker": "AAPL",
-      "url": "https://mettrik-staging.vercel.app/sandbox/v1-8/aapl",
-      "error": "gemini_no_response",
-      "ts": "2026-05-15T01:58:53.382879+00:00"
-    },
     "NVDA": {
       "ticker": "NVDA",
-      "url": "https://mettrik-staging.vercel.app/sandbox/v1-8/nvda",
-      "ts": "2026-05-15T01:59:36.231052+00:00",
+      "url": "http://localhost:3000/sandbox/v1-8/nvda?audit_token=phYUd19KP3T_apdLQmugGzF0yEEoAwM6C5JVp9-2z0Y",
+      "ts": "2026-05-15T02:14:18.976049+00:00",
+      "n_fails": 3,
+      "blocker": true,
+      "fails": [
+        {
+          "id": "chips_fr",
+          "severity": 2,
+          "obs": "Chips header contiennent des termes anglais (Information Technology, Semiconductors)."
+        },
+        {
+          "id": "hero_value_plausible",
+          "severity": 5,
+          "obs": "Valeur hero (137,9 Mds $) ≠ valeur dans l'interprétation (194 Mds $)."
+        },
+        {
+          "id": "lang_no_english_leak",
+          "severity": 2,
+          "obs": "Présence de termes anglais (ex: 'Information Technology', 'Gross Margin')."
+        }
+      ]
+    },
+    "MSFT": {
+      "ticker": "MSFT",
+      "url": "http://localhost:3000/sandbox/v1-8/msft?audit_token=phYUd19KP3T_apdLQmugGzF0yEEoAwM6C5JVp9-2z0Y",
+      "ts": "2026-05-15T02:14:41.418462+00:00",
       "n_fails": 1,
       "blocker": false,
       "fails": [
         {
           "id": "lang_no_english_leak",
           "severity": 2,
-          "obs": "Le label 'KPI INTELLIGENCE' est en anglais."
+          "obs": "Le chip 'Software & Services' est en anglais."
         }
       ]
     },
-    "MSFT": {
-      "ticker": "MSFT",
-      "url": "https://mettrik-staging.vercel.app/sandbox/v1-8/msft",
-      "ts": "2026-05-15T02:00:19.360832+00:00",
-      "n_fails": 2,
-      "blocker": false,
-      "fails": [
-        {
-          "id": "logo_readable",
-          "severity": 2,
-          "obs": "Logo Mettrik AI illisible et flou sur fond sombre."
-        },
-        {
-          "id": "lang_no_english_leak",
-          "severity": 2,
-          "obs": "Le titre du modal contient 'KPI INTELLIGENCE' en anglais."
-        }
-      ]
+    "GOOGL": {
+      "ticker": "GOOGL",
+      "url": "http://localhost:3000/sandbox/v1-8/googl?audit_token=phYUd19KP3T_apdLQmugGzF0yEEoAwM6C5JVp9-2z0Y",
+      "error": "gemini_no_response",
+      "ts": "2026-05-15T02:15:08.415908+00:00"
     }
   }
 }

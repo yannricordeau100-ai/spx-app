@@ -101,18 +101,26 @@ CHECKS:
 """
 
 
-def screenshot(url: str, png_path: Path, timeout: int = 30) -> bool:
+def screenshot(url: str, png_path: Path, timeout: int = 45) -> bool:
+    if png_path.exists():
+        png_path.unlink()
     cmd = [
-        CHROME, "--headless=new", "--hide-scrollbars", "--no-sandbox",
+        CHROME, "--headless=new", "--hide-scrollbars",
         "--disable-gpu", "--no-first-run", "--disable-extensions",
         "--window-size=1280,2400",
         f"--screenshot={png_path}",
-        "--virtual-time-budget=8000",
         url,
     ]
     try:
-        subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=timeout, check=False)
-    except subprocess.TimeoutExpired:
+        # Chrome --headless=new exits on its own once page is loaded, but
+        # can hang on slow dev server. Hard kill after `timeout` sec.
+        proc = subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        try:
+            proc.wait(timeout=timeout)
+        except subprocess.TimeoutExpired:
+            proc.kill()
+            proc.wait(timeout=5)
+    except Exception:
         return False
     return png_path.exists() and png_path.stat().st_size > 5000
 
