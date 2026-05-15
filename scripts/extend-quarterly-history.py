@@ -71,7 +71,7 @@ MODEL = "qwen-3-235b-a22b-instruct-2507"
 MIN_QUARTERS_TARGET = 16  # 4 ans
 MAX_KPIS_PER_TICKER = 6   # top 6 KPIs visible par sté (limite tokens prompt)
 MAX_DOC_CHARS = 60000     # cap total des docs SEC concaténés
-SLEEP_BETWEEN_CALLS = 0.5
+SLEEP_BETWEEN_CALLS = 1.0  # 4 workers × 1s = 4 req/s = 240/min total (sous 270/min limit 3 keys)
 
 
 def log(msg):
@@ -86,7 +86,9 @@ def log(msg):
 
 
 def find_filings(ticker: str, years=range(2020, 2027)) -> list[Path]:
-    """Tous les 10-K + 10-Q locaux pour un ticker, triés par date asc."""
+    """Tous les 10-K + 10-Q locaux pour un ticker, triés par date asc.
+    Yann 15 mai 2026 : élargi aux 3 catégories source (US cat1, FPI ADR cat2,
+    EU pure cat3) pour maximiser la couverture top 307 V1.8."""
     out = []
     for ftype in ("10K", "10Q"):
         for year in years:
@@ -95,14 +97,30 @@ def find_filings(ticker: str, years=range(2020, 2027)) -> list[Path]:
                 continue
             for f in d.glob(f"{ticker}_*.htm.gz"):
                 out.append(f)
-    # Fallback FPI ADR (20-F) si pas de 10-K cat1
+    # Fallback 1 : FPI ADR (20-F) si pas de 10-K cat1
     if not out:
         for year in years:
             d = SEC / "cat2-foreign-adr" / "20F" / str(year)
             if d.exists():
                 for f in d.glob(f"{ticker}_*.htm.gz"):
                     out.append(f)
+    # Fallback 2 : EU pure (annual-text dans cat3-european)
+    if not out:
+        d = SEC / "cat3-european" / ticker / "annual-text"
+        if d.exists():
+            for f in sorted(d.glob("*.txt")):
+                out.append(f)
     return sorted(out)
+
+
+def extract_text_cat3(txt_file: Path, max_chars: int = 12000) -> str:
+    """cat3-european stocke en .txt clean, pas en .htm.gz."""
+    try:
+        text = txt_file.read_text(errors="ignore")
+        text = re.sub(r"\s+", " ", text)
+        return text[:max_chars]
+    except Exception:
+        return ""
 
 
 def extract_text(htm_gz: Path, max_chars: int = 12000) -> str:
@@ -117,10 +135,10 @@ def extract_text(htm_gz: Path, max_chars: int = 12000) -> str:
     return text[:max_chars]
 
 
-def call_cerebras(system: str, user: str, key_idx: int = 0) -> dict | None:
+def call_cerebras(system: str, user: str, key_idx: int = 0, max_retries: int = 3) -> dict | None:
+    """Retry sur key différente si fail/rate-limit. Backoff 2s entre tentatives."""
     if not CEREBRAS_KEYS:
         return None
-    key = CEREBRAS_KEYS[key_idx % len(CEREBRAS_KEYS)]
     body = {
         "model": MODEL,
         "messages": [
@@ -131,18 +149,31 @@ def call_cerebras(system: str, user: str, key_idx: int = 0) -> dict | None:
         "response_format": {"type": "json_object"},
         "max_tokens": 4000,
     }
-    try:
-        r = requests.post(
-            CEREBRAS_URL,
-            headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
-            json=body,
-            timeout=120,
-        )
-        if r.status_code != 200:
-            return None
-        return json.loads(r.json()["choices"][0]["message"]["content"])
-    except Exception:
-        return None
+    for attempt in range(max_retries):
+        key = CEREBRAS_KEYS[(key_idx + attempt) % len(CEREBRAS_KEYS)]
+        try:
+            r = requests.post(
+                CEREBRAS_URL,
+                headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+                json=body,
+                timeout=120,
+            )
+            if r.status_code == 429:
+                # Rate limit : attendre puis retry sur clé suivante
+                time.sleep(2 + attempt * 2)
+                continue
+            if r.status_code != 200:
+                time.sleep(1)
+                continue
+            content = r.json().get("choices", [{}])[0].get("message", {}).get("content", "")
+            if not content or content.strip() in ("{}", ""):
+                time.sleep(1)
+                continue
+            return json.loads(content)
+        except Exception:
+            time.sleep(1)
+            continue
+    return None
 
 
 def needs_extension(kpi: dict) -> bool:
@@ -184,7 +215,10 @@ def process_ticker(ticker: str, worker_id: int) -> str:
     chars_per_filing = max(2000, MAX_DOC_CHARS // max(len(filings[-15:]), 1))
     docs_text = []
     for f in filings[-15:]:
-        txt = extract_text(f, max_chars=chars_per_filing)
+        if f.suffix == ".txt":
+            txt = extract_text_cat3(f, max_chars=chars_per_filing)
+        else:
+            txt = extract_text(f, max_chars=chars_per_filing)
         if txt:
             docs_text.append(f"=== {f.name} ===\n{txt}")
     full = "\n\n".join(docs_text)[:MAX_DOC_CHARS]
