@@ -106,14 +106,51 @@ function autoRescaleSmallUnit(unit: string, allBelowOne: boolean): { unit: strin
 
 function isTimeFractionApplicableKpi(kpi?: KPI | null): boolean {
   if (!kpi) return false;
-  const text = `${kpi.short ?? ""} ${kpi.type ?? ""} ${kpi.name_fr ?? ""}`.toLowerCase();
-  // Revenus
-  if (/revenue|revenu|sales|chiffre.?d.?affaires|cloud|run.?rate|\barr\b|backlog|bookings|subscription|services|product/.test(text)) return true;
-  // Marges / bénéfices
-  if (/margin|marge|profit|b[ée]n[ée]fic|income|eps|ebitda|ebit\b|fcf|cash.?flow|net.?loss|résultat/.test(text)) return true;
-  // Capex / R&D / dépenses
-  if (/capex|capital.?expenditure|opex|operating.?expense|r&?d|recherche.?d|d[ée]penses?|expense|spending|investissement/.test(text)) return true;
-  return false;
+
+  // Yann 15 mai 2026 — Template v3 (validé top 10).
+  // Règle : tout KPI dont l'unité est monétaire ($, €, £, ¥) affiche le
+  // toggle "par année / par mois", SAUF s'il appartient à une des
+  // exclusions explicites ci-dessous (stocks, counts, per-share,
+  // one-shots, capital allocation).
+  //
+  // Familles incluses par construction : revenus et assimilé (segment
+  // revenue, bookings, ARR, run rate, op income, net income), marges $ /
+  // cashflow (EBITDA, FCF, OCF), R&D / Capex / Opex / dépenses.
+  // Aussi : flux $ génériques (Payments Volume, Client Incentives,
+  // Wearables/Home/Acc segment) qui n'ont pas de mot-clé évident.
+  //
+  // Pour les unités non-monétaires (%, ratio, GWh, units, $/share),
+  // le KPI reste dans son unité de base et n'est pas divisible par fraction
+  // de temps → toggle masqué.
+
+  const unit = (kpi.unit ?? "").toString();
+  if (!/[$€£¥]/.test(unit)) return false;
+  if (/\/\s*(share|action)/i.test(unit)) return false;
+
+  const text = `${kpi.short ?? ""} ${kpi.name_fr ?? ""} ${kpi.name_en ?? ""}`.toLowerCase();
+
+  // Stocks (bilan, pas flux)
+  if (/\bbacklog\b|\brpo\b/.test(text)) return false;
+  if (/cash\s*(and|et|&)\s*equival|tr[ée]sorerie\s*(et|and|&)\s*[ée]quival|[ée]quivalents?\s*de\s*tr[ée]sorerie|cash.?equival/.test(text)) return false;
+  if (/equity.?invest|capital.?risque|\bventure\b/.test(text)) return false;
+  if (/\bguarantee|\breserves?\b|\binventory\b|deferred\s*revenue/.test(text)) return false;
+  if (/\baum\b|assets?\s*under\s*management|actifs?\s*sous\s*gestion/.test(text)) return false;
+  if (/\bloan\s*book\b|encours\s*(de\s*)?cr[ée]dit|outstanding\s*loans?/.test(text)) return false;
+  if (/litigation\s*provision|provision\s*pour\s*litiges?/.test(text)) return false;
+
+  // Counts / per-unit
+  if (/\beffectif\b|\bheadcount\b|\bemploy[ée]s?\b|\bsubscribers?\b|\babonn[ée]s?\b/.test(text)) return false;
+  if (/par.?action|per.?share|\bdps\b|\beps\b|\bpayout\b/.test(text)) return false;
+
+  // Capital allocation (déjà reporting agrégé annuel)
+  if (/cap.?return|capital.?retourn[eé]|\bbuybacks?\b|rachats?\s*d.?actions?/.test(text)) return false;
+
+  // One-shots / charges exceptionnelles
+  if (/\bacquisition\b|\bm&a\b/.test(text)) return false;
+  if (/\bcharge\b\s*(de\s*)?(d[ée]pr[ée]ciation|exceptionnelle)|d[ée]pr[ée]ciation\s+(charge|exceptionnelle)/.test(text)) return false;
+
+  // Par défaut : flux $ → toggle affiché
+  return true;
 }
 
 export function CompanyView({
