@@ -290,7 +290,7 @@ function capitalIntensity(c: Company): SuperKpi {
   } else {
     tier = "below";
     label = "Sur-investissement";
-    interp = "Capex extraordinaire — la sté finance un pari structurel (IA générative, datacenters, capacités). Risque réel sur le free cash flow à court terme.";
+    interp = "Capex extraordinaire : la sté finance un pari structurel (IA générative, datacenters, capacités). Risque réel sur le free cash flow à court terme.";
   }
   const gauge = Math.min(100, (pct / 50) * 100);
 
@@ -442,7 +442,7 @@ function cloudPerCapex(c: Company): SuperKpi {
     inputs: [`Cloud ${cl.toFixed(1)} Mds`, `Capex ${cx.toFixed(1)} Mds`],
     formula: "Cloud Revenue / Capex (×)",
     benchmark: "> 1 = harvest cloud · 0,5-1 = transition · < 0,5 = pari infra massif (souvent IA)",
-    interpretation: "Mesure la rentabilisation du Capex IA / cloud. Un ratio < 0,5 signale que la sté investit beaucoup plus dans l'infrastructure qu'elle n'en récolte encore en revenus cloud — pari sur l'IA générative.",
+    interpretation: "Mesure la rentabilisation du Capex IA / cloud. Un ratio < 0,5 signale que la sté investit beaucoup plus dans l'infrastructure qu'elle n'en récolte encore en revenus cloud : pari sur l'IA générative.",
   };
 }
 

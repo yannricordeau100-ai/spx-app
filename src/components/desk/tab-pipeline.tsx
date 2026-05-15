@@ -16,7 +16,7 @@ export function TabPipeline() {
     <div>
       <DeskCard className="mb-4">
         <div className="mb-2 flex items-baseline gap-2">
-          <span className="text-[13px] font-medium text-zinc-200">Pipeline V2 — extraction automatisée</span>
+          <span className="text-[13px] font-medium text-zinc-200">Pipeline V2 : extraction automatisée</span>
           <HelpTip>Plan d'extension de Mettrik au-delà des 5 sociétés V1. Stack ciblée : <strong>SEC EDGAR scraper</strong> (Python) → <strong>extraction LLM</strong> (Groq + Llama 3.3 70B, free tier) → <strong>validation humaine</strong> (toi) → publication Supabase. Pour les non-USA, chaque région a son régulateur et son format de rapport, ce qui multiplie le travail d'adaptation.</HelpTip>
         </div>
         <div className="text-[12px] text-zinc-400">

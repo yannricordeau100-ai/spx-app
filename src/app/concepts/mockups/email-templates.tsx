@@ -328,7 +328,7 @@ function designEditorial(tpl: Template, c: typeof TEMPLATE_CONTENT["confirm"]): 
     <p class="outro">${c.outro}</p>
     ${tpl === "welcome" ? `
     <div class="signature">
-      <div class="name">— L'équipe Mettrik AI</div>
+      <div class="name">L'équipe Mettrik AI</div>
       <div style="color: #7c6c58; font-size: 12px;">contact@mettrik.ai</div>
     </div>` : ""}
     <div class="footer">

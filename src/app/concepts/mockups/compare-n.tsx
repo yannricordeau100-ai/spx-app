@@ -30,7 +30,7 @@ export function MockupCompareN() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
       <div className="mb-4 rounded-lg border border-amber-500/20 bg-amber-500/[0.04] p-3 text-[12px] text-amber-200">
-        ⚠️ <strong>Mockup statique</strong> — comparaison 4 sociétés, vue table. Aujourd'hui l'app compare 1-vs-1, cible V2 = jusqu'à 5.
+        ⚠️ <strong>Mockup statique</strong> : comparaison 4 sociétés, vue table. Aujourd'hui l'app compare 1-vs-1, cible V2 = jusqu'à 5.
       </div>
 
       <h2 className="mb-4 font-display text-[24px] font-bold tracking-tight text-zinc-50">
@@ -75,7 +75,7 @@ export function MockupCompareN() {
       </div>
 
       <div className="mt-6 rounded-2xl border border-white/8 bg-white/[0.02] p-5">
-        <h3 className="mb-3 text-[14px] font-semibold text-zinc-100">Vue spider (radar) — alternative</h3>
+        <h3 className="mb-3 text-[14px] font-semibold text-zinc-100">Vue spider (radar) : alternative</h3>
         <div className="flex h-64 items-center justify-center text-[11px] text-zinc-500">
           [ radar chart : 6 axes (Croissance, Marge, ROE, FCF, Risque, Qualité) × 4 polygones colorés ]
         </div>

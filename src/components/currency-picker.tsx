@@ -49,7 +49,7 @@ export function CurrencyPicker({
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-label="Choisir la devise d'affichage"
-        title="Devise — taux de change actualisé via Banque Centrale Européenne"
+        title="Devise : taux de change actualisé via Banque Centrale Européenne"
       >
         <span className="font-semibold">{value}</span>
         <span className="text-zinc-400">{CURRENCY_SYMBOL[value]}</span>

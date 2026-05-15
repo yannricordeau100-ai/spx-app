@@ -27,11 +27,11 @@ export default function PricingDailyVariantsPage() {
         </p>
 
         <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2">
-          <PreviewCard title="V0 — version ancienne (avant fix)" body={<V0Old />} />
-          <PreviewCard title="V1 — DÉPLOYÉ (gradient + grosse valeur)" body={<V1Hero />} note="actuellement en prod" />
-          <PreviewCard title="V2 — Banner stripe horizontal (Linear-style)" body={<V2Banner />} />
-          <PreviewCard title="V3 — Ticket gauche / slogan droite (Notion-style)" body={<V3Ticket />} />
-          <PreviewCard title="V4 — Hero centré avec slogan en haut (Cursor-style)" body={<V4Centered />} />
+          <PreviewCard title="V0 : version ancienne (avant fix)" body={<V0Old />} />
+          <PreviewCard title="V1 : DÉPLOYÉ (gradient + grosse valeur)" body={<V1Hero />} note="actuellement en prod" />
+          <PreviewCard title="V2 : Banner stripe horizontal (Linear-style)" body={<V2Banner />} />
+          <PreviewCard title="V3 : Ticket gauche / slogan droite (Notion-style)" body={<V3Ticket />} />
+          <PreviewCard title="V4 : Hero centré avec slogan en haut (Cursor-style)" body={<V4Centered />} />
         </div>
       </div>
     </div>

@@ -176,7 +176,7 @@ export function PopulaireClient({
           </h2>
           <TableBlock
             title="Top mondial (somme pages vues toutes langues)"
-            subtitle={`Top ${TOP_N} — popularité globale tous Wikipedia`}
+            subtitle={`Top ${TOP_N} : popularité globale tous Wikipedia`}
             rows={(data.world as PopularRow[]) ?? []}
             accent="#06b6d4"
           />
@@ -202,7 +202,7 @@ export function PopulaireClient({
           Pays détecté visiteur : <strong>{labels.country}</strong>.
           Univers : top 307 V1.8 ∪ SP500 (~673 stés). Pages vues = proxy popularité retail
           investors (objectif, multilingue, free). Pas le même que "actions les plus tradées
-          sur les brokers" — c'est une approximation honnête.
+          sur les brokers". C'est une approximation honnête.
         </p>
       </div>
     </div>

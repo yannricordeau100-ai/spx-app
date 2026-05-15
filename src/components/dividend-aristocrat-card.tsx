@@ -408,7 +408,7 @@ export function DividendAristocratCard({
             <ul className="mt-1 space-y-0.5 text-[13px] text-amber-100/90">
               {cuts.map((c, i) => (
                 <li key={i}>
-                  <span className="font-mono">{c.year}</span> — {c.reason}
+                  <span className="font-mono">{c.year}</span> : {c.reason}
                 </li>
               ))}
             </ul>

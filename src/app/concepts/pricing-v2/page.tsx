@@ -23,9 +23,9 @@ import { PLANS, FEATURES, monthlyEquivalent } from "@/lib/billing/plans";
 type Design = "minimal" | "matrix" | "social";
 
 const DESIGNS: { id: Design; label: string; tagline: string }[] = [
-  { id: "minimal", label: "A — Minimal", tagline: "Inspiration Linear / Notion. 3 cards épurées, gros prix, CTA dominant, FAQ courte." },
-  { id: "matrix", label: "B — Comparaison", tagline: "Inspiration Stripe / Vercel. Matrice features dominante, cards compactes en haut." },
-  { id: "social", label: "C — Social proof + urgency", tagline: "Inspiration Webflow / Framer. Témoignages, urgency, plans visuels riches." },
+  { id: "minimal", label: "A : Minimal", tagline: "Inspiration Linear / Notion. 3 cards épurées, gros prix, CTA dominant, FAQ courte." },
+  { id: "matrix", label: "B : Comparaison", tagline: "Inspiration Stripe / Vercel. Matrice features dominante, cards compactes en haut." },
+  { id: "social", label: "C : Social proof + urgency", tagline: "Inspiration Webflow / Framer. Témoignages, urgency, plans visuels riches." },
 ];
 
 export default function PricingConceptsV2Page() {

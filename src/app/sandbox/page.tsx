@@ -116,7 +116,7 @@ export default function SandboxPage() {
         {/* ═══════ DATASETS V1 + V2 ═══════ */}
         <section className="mb-10">
           <h2 className="mb-1 font-display text-[18px] font-bold tracking-tight text-zinc-100">
-            Datasets — V1 actuelle vs V1.5 cat 2 (FPI)
+            Datasets : V1 actuelle vs V1.5 cat 2 (FPI)
           </h2>
           <p className="mb-5 text-[12.5px] text-zinc-400">
             Comparaison des deux datasets : la V1 live (5 sociétés handcrafted depuis 10-K PDF)

@@ -25,7 +25,7 @@ export default function SandboxBillingPage() {
 
       <div className="mx-auto max-w-5xl p-6">
         <div className="mb-6 rounded-xl border border-amber-500/20 bg-amber-500/[0.04] p-4 text-[13px] text-amber-200">
-          <div className="font-semibold">⚠️ Page de test billing — sandbox uniquement</div>
+          <div className="font-semibold">⚠️ Page de test billing : sandbox uniquement</div>
           <p className="mt-1 text-amber-200/80">
             Cette page utilise Stripe en mode <strong>TEST</strong>. Aucun argent réel n'est débité. Pour tester un checkout :
           </p>

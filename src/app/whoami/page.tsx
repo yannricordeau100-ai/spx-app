@@ -35,7 +35,7 @@ export default async function WhoamiPage() {
         <div className="space-y-4 rounded-xl border border-white/10 bg-white/[0.02] p-5">
           <Row label="Email Supabase actuel" value={user?.email ?? "—"} />
           <Row label="Email attendu pour desk" value={expectedOwner} />
-          <Row label="Match desk ?" value={matches ? "✅ OUI — tu peux accéder au desk" : "❌ NON — desk inaccessible"} highlight={matches} />
+          <Row label="Match desk ?" value={matches ? "✅ OUI : tu peux accéder au desk" : "❌ NON : desk inaccessible"} highlight={matches} />
           <Row label="ID utilisateur" value={user?.id ?? "—"} mono />
           <Row label="Provider" value={user?.app_metadata?.provider ?? "—"} />
           <Row label="Email confirmé" value={user?.email_confirmed_at ? `✅ ${new Date(user.email_confirmed_at).toLocaleString("fr-FR")}` : "❌ Non confirmé"} />

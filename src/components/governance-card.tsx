@@ -418,7 +418,7 @@ export function GovernanceCard({
               <div className="mb-2.5 flex items-center gap-2">
                 <Vote className="size-4 text-amber-300" />
                 <span className="font-sans text-[13px] font-semibold uppercase tracking-wider text-zinc-100">
-                  Top {g.top_voting.length} — {t("governance.top_voting")}
+                  Top {g.top_voting.length} : {t("governance.top_voting")}
                 </span>
                 <span className="ml-auto inline-flex items-center gap-1 rounded-md border border-amber-400/30 bg-amber-500/10 px-1.5 py-0.5 text-[10.5px] font-medium uppercase tracking-wider text-amber-200 opacity-0 transition-opacity group-hover:opacity-100">
                   <PieChart className="size-3" />
@@ -440,7 +440,7 @@ export function GovernanceCard({
               <div className="mb-2.5 flex items-center gap-2">
                 <Landmark className="size-4 text-cyan-300" />
                 <span className="font-sans text-[13px] font-semibold uppercase tracking-wider text-zinc-100">
-                  Top {g.top_capital.length} — {t("governance.top_capital")}
+                  Top {g.top_capital.length} : {t("governance.top_capital")}
                 </span>
                 <span className="ml-auto inline-flex items-center gap-1 rounded-md border border-cyan-400/30 bg-cyan-500/10 px-1.5 py-0.5 text-[10.5px] font-medium uppercase tracking-wider text-cyan-200 opacity-0 transition-opacity group-hover:opacity-100">
                   <PieChart className="size-3" />

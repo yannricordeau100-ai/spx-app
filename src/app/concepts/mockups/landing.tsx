@@ -12,7 +12,7 @@ export function MockupLanding() {
     <div className="bg-gradient-to-b from-[#050507] via-[#0a0a14] to-[#050507]">
       <div className="mb-4 mx-auto max-w-7xl px-4 pt-6 sm:px-6">
         <div className="rounded-lg border border-amber-500/20 bg-amber-500/[0.04] p-3 text-[12px] text-amber-200">
-          ⚠️ <strong>Mockup statique</strong> — landing page marketing à intégrer en remplacement de la home actuelle (qui est directement la liste des sociétés).
+          ⚠️ <strong>Mockup statique</strong> : landing page marketing à intégrer en remplacement de la home actuelle (qui est directement la liste des sociétés).
         </div>
       </div>
 
@@ -115,7 +115,7 @@ export function MockupLanding() {
       </section>
 
       <footer className="border-t border-white/5 px-4 py-8 text-center text-[11px] text-zinc-600 sm:px-6">
-        Mettrik AI · KPI Intelligence — Le contenu de ce site ne constitue pas un conseil en investissement.
+        Mettrik AI · KPI Intelligence · Le contenu de ce site ne constitue pas un conseil en investissement.
       </footer>
     </div>
   );

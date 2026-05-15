@@ -89,7 +89,7 @@ export default async function DataStatusPage() {
           <div className="space-y-3">
             <div>
               <div className="mb-1 flex items-center justify-between text-[12px]">
-                <span className="font-medium text-zinc-300">Cat 1 — USA (10-K)</span>
+                <span className="font-medium text-zinc-300">Cat 1 : USA (10-K)</span>
               </div>
               {rowFraction(s.sec_data.cat1_us.downloaded, s.sec_data.cat1_us.target, "#22d3ee")}
               <p className="mt-1 text-[11px] text-zinc-500">
@@ -98,7 +98,7 @@ export default async function DataStatusPage() {
             </div>
             <div>
               <div className="mb-1 flex items-center justify-between text-[12px]">
-                <span className="font-medium text-zinc-300">Cat 2 — ADR étrangers (20-F)</span>
+                <span className="font-medium text-zinc-300">Cat 2 : ADR étrangers (20-F)</span>
               </div>
               {rowFraction(s.sec_data.cat2_adr.downloaded, s.sec_data.cat2_adr.target, "#f59e0b")}
               <p className="mt-1 text-[11px] text-zinc-500">
@@ -107,7 +107,7 @@ export default async function DataStatusPage() {
             </div>
             <div>
               <div className="mb-1 flex items-center justify-between text-[12px]">
-                <span className="font-medium text-zinc-300">Cat 3 — Européennes (rapport annuel)</span>
+                <span className="font-medium text-zinc-300">Cat 3 : Européennes (rapport annuel)</span>
               </div>
               {rowFraction(s.sec_data.cat3_eu.downloaded, s.sec_data.cat3_eu.target, "#10b981")}
               <p className="mt-1 text-[11px] text-zinc-500">
@@ -121,15 +121,15 @@ export default async function DataStatusPage() {
         <Card title="Pipeline LLM (sociétés traitées)">
           <div className="space-y-3">
             <div>
-              <div className="mb-1 text-[12px] font-medium text-zinc-300">Pass 1 — extraction KPI</div>
+              <div className="mb-1 text-[12px] font-medium text-zinc-300">Pass 1 : extraction KPI</div>
               {rowFraction(s.pipeline.pass1, s.pipeline.total, "#a78bfa")}
             </div>
             <div>
-              <div className="mb-1 text-[12px] font-medium text-zinc-300">Pass 2 — risques + gouvernance + IA</div>
+              <div className="mb-1 text-[12px] font-medium text-zinc-300">Pass 2 : risques + gouvernance + IA</div>
               {rowFraction(s.pipeline.pass2, s.pipeline.total, "#a78bfa")}
             </div>
             <div>
-              <div className="mb-1 text-[12px] font-medium text-zinc-300">Pass 3 — validation</div>
+              <div className="mb-1 text-[12px] font-medium text-zinc-300">Pass 3 : validation</div>
               {rowFraction(s.pipeline.pass3, s.pipeline.total, "#a78bfa")}
             </div>
             <div className="rounded-xl border border-white/[0.06] bg-black/20 p-3">
@@ -227,7 +227,7 @@ export default async function DataStatusPage() {
 
       {/* ─── Audit V1.7 par bloc UI ───────────────────────────────────── */}
       <div className="mt-4">
-        <Card title={`Audit V1.7 — qualité des blocs (${auditTotal} sociétés Pass 3 strict)`}>
+        <Card title={`Audit V1.7 : qualité des blocs (${auditTotal} sociétés Pass 3 strict)`}>
           <div className="space-y-2.5">
             {Object.entries(s.v17_audit.missing).map(([code, count]) => {
               const label = BLOCK_LABELS[code] ?? code;
@@ -356,7 +356,7 @@ export default async function DataStatusPage() {
             {(["cat1", "cat2", "cat3"] as const).map((cat) => {
               const data = s.pass3_by_cat[cat];
               const colors: Record<typeof cat, string> = { cat1: "#22d3ee", cat2: "#f59e0b", cat3: "#10b981" };
-              const labels: Record<typeof cat, string> = { cat1: "Cat 1 — USA", cat2: "Cat 2 — ADR foreign", cat3: "Cat 3 — Europe" };
+              const labels: Record<typeof cat, string> = { cat1: "Cat 1 : USA", cat2: "Cat 2 : ADR foreign", cat3: "Cat 3 : Europe" };
               return (
                 <div key={cat} className="rounded-xl border border-white/[0.06] bg-black/20 p-4">
                   <div className="mb-2 flex items-baseline justify-between">

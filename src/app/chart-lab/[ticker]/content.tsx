@@ -307,7 +307,7 @@ export function ChartLabContent({ ticker, showHeader = true, showNavChrome = tru
         {/* STOCK PRICE BLOCK */}
         <section id="sec-stock" className="mt-2 scroll-mt-24">
           <h2 className="mb-2 text-[24px] font-semibold text-zinc-50">
-            <span className="font-mono text-zinc-500">01.</span> Cours de l'action — 14 propositions
+            <span className="font-mono text-zinc-500">01.</span> Cours de l'action : 14 propositions
             <span className="ml-2 text-[13px] font-normal text-violet-300">(S11-S14 = dégradés ultra étalés + variation % à 10 px)</span>
           </h2>
           <p className="mb-5 text-[13px] text-zinc-400">
@@ -334,7 +334,7 @@ export function ChartLabContent({ ticker, showHeader = true, showNavChrome = tru
         {/* RÉPARTITION */}
         <section id="sec-rep" className="mt-12 scroll-mt-24">
           <h2 className="mb-2 text-[24px] font-semibold text-zinc-50">
-            <span className="font-mono text-zinc-500">02.</span> Répartition (géo + segments) — {repStyles.length} styles
+            <span className="font-mono text-zinc-500">02.</span> Répartition (géo + segments) : {repStyles.length} styles
           </h2>
           <p className="mb-5 text-[13px] text-zinc-400">
             Pour 2 KPI spéciaux : géographique + segments produits. Composants déjà placés dans <code className="font-mono text-zinc-300">src/components/charts/</code>.
@@ -360,7 +360,7 @@ export function ChartLabContent({ ticker, showHeader = true, showNavChrome = tru
         {/* BARS */}
         <section id="sec-bars" className="mt-12 scroll-mt-24">
           <h2 className="mb-5 text-[24px] font-semibold text-zinc-50">
-            <span className="font-mono text-zinc-500">03.</span> Bars — {barsStyles.length + barsExtraStyles.length} styles
+            <span className="font-mono text-zinc-500">03.</span> Bars : {barsStyles.length + barsExtraStyles.length} styles
             <span className="ml-2 text-[13px] font-normal text-violet-300">(B26-B27 = nouveaux essais 3D iso freepik)</span>
           </h2>
           <div className="grid gap-4 lg:grid-cols-2">
@@ -380,7 +380,7 @@ export function ChartLabContent({ ticker, showHeader = true, showNavChrome = tru
         {/* CURVE */}
         <section id="sec-curve" className="mt-12 scroll-mt-24">
           <h2 className="mb-5 text-[24px] font-semibold text-zinc-50">
-            <span className="font-mono text-zinc-500">04.</span> Courbe — {curveStyles.length + curveExtraStyles.length} styles
+            <span className="font-mono text-zinc-500">04.</span> Courbe : {curveStyles.length + curveExtraStyles.length} styles
             <span className="ml-2 text-[13px] font-normal text-violet-300">(C14-C15 = nouveaux essais iso freepik)</span>
           </h2>
           <div className="grid gap-4 lg:grid-cols-2">
@@ -400,7 +400,7 @@ export function ChartLabContent({ ticker, showHeader = true, showNavChrome = tru
         {/* VARIATION */}
         <section id="sec-var" className="mt-12 scroll-mt-24">
           <h2 className="mb-5 text-[24px] font-semibold text-zinc-50">
-            <span className="font-mono text-zinc-500">05.</span> Variation — {variationStyles.length + variationExtraStyles.length} styles
+            <span className="font-mono text-zinc-500">05.</span> Variation : {variationStyles.length + variationExtraStyles.length} styles
             <span className="ml-2 text-[13px] font-normal text-violet-300">(V11-V12 = nouveaux essais 3D iso)</span>
           </h2>
           <div className="grid gap-4 lg:grid-cols-2">
@@ -420,7 +420,7 @@ export function ChartLabContent({ ticker, showHeader = true, showNavChrome = tru
         {/* TABLEAU DE BORD */}
         <section id="sec-dash" className="mt-12 scroll-mt-24">
           <h2 className="mb-2 text-[24px] font-semibold text-zinc-50">
-            <span className="font-mono text-zinc-500">06.</span> Tableau de bord — 3 layouts
+            <span className="font-mono text-zinc-500">06.</span> Tableau de bord : 3 layouts
           </h2>
           <p className="mb-5 text-[13px] text-zinc-400">
             Vue panoramique multi-KPI pour le 4e onglet de ChartCycle. À câbler sur <code className="font-mono text-zinc-300">company.kpis</code>.
@@ -441,7 +441,7 @@ export function ChartLabContent({ ticker, showHeader = true, showNavChrome = tru
         {/* NAVIGATION DEMO */}
         <section id="sec-nav" className="mt-12 scroll-mt-24">
           <h2 className="mb-2 text-[24px] font-semibold text-zinc-50">
-            <span className="font-mono text-zinc-500">07.</span> Navigation — bouton remonter + dock-spy 2 designs
+            <span className="font-mono text-zinc-500">07.</span> Navigation : bouton remonter + dock-spy 2 designs
           </h2>
           <p className="mb-5 text-[13px] text-zinc-400">
             Le bouton "remonter" et les 2 dock-spy (N1 gauche, N2 droite) sont actifs sur cette page. Effet Mac Dock.

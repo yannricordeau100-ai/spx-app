@@ -15,7 +15,7 @@ const FILTERS = [
   { label: "Secteur GICS", value: "Technologies de l'information", count: 12 },
   { label: "Sous-secteur", value: "Logiciels", count: 8 },
   { label: "Région", value: "USA + Europe", count: 0 },
-  { label: "Capi (Mds $)", value: "10 — 1 000", count: 0 },
+  { label: "Capi (Mds $)", value: "10 à 1 000", count: 0 },
   { label: "Score qualité KPI", value: "≥ 7 / 10", count: 0 },
   { label: "Score risque global", value: "≤ 3 / 5", count: 0 },
   { label: "Dividende", value: "Toutes", count: 0 },
@@ -34,7 +34,7 @@ export function MockupScreener() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
       <div className="mb-4 rounded-lg border border-amber-500/20 bg-amber-500/[0.04] p-3 text-[12px] text-amber-200">
-        ⚠️ <strong>Mockup statique</strong> — vue conceptuelle de ce que le screener pourrait être (pour V2 quand on aura 30-100+ sociétés). Aucune logique branchée. Tu peux changer la composition / le layout sans risque, c'est juste un brouillon visuel.
+        ⚠️ <strong>Mockup statique</strong> : vue conceptuelle de ce que le screener pourrait être (pour V2 quand on aura 30-100+ sociétés). Aucune logique branchée. Tu peux changer la composition / le layout sans risque, c'est juste un brouillon visuel.
       </div>
 
       <h2 className="mb-4 font-display text-[24px] font-bold tracking-tight text-zinc-50">

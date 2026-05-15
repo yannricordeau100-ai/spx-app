@@ -40,7 +40,7 @@ export default function ContactHomeConceptsPage() {
                   active === v ? "bg-violet-500/20 text-violet-100" : "text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-200"
                 }`}
               >
-                {v === "floating" ? "Option 1 — Bouton flottant" : "Option 2 — Section bandeau"}
+                {v === "floating" ? "Option 1 : Bouton flottant" : "Option 2 : Section bandeau"}
               </button>
             ))}
           </nav>

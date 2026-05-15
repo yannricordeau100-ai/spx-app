@@ -22,7 +22,7 @@ export default function ChartTestPage() {
     <div className="min-h-screen bg-[#06060a] p-8 text-zinc-100">
       <div className="mx-auto max-w-5xl space-y-12">
         <h1 className="font-display text-3xl font-semibold">
-          Chart Test — vérification visuelle 13 mai 2026
+          Chart Test : vérification visuelle 13 mai 2026
         </h1>
         <p className="text-sm text-zinc-400">
           Si tu vois <strong className="text-violet-300">"$ en Milliards"</strong> ou

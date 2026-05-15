@@ -347,7 +347,7 @@ function BigChart({ kpi, points }: { kpi: SpecialKpi; points: SpecialKpiPoint[] 
               >
                 <title>
                   {p.period}: {fmt(p.value)} {kpi.kpi_unit ?? ""}
-                  {isUnc ? ` (±${p.uncertainty_pct}% — ${p.uncertainty_note ?? "estimation"})` : ""}
+                  {isUnc ? ` (±${p.uncertainty_pct}% : ${p.uncertainty_note ?? "estimation"})` : ""}
                   {p.source ? `\nSource: ${p.source}` : ""}
                 </title>
               </rect>
@@ -406,7 +406,7 @@ function BigChart({ kpi, points }: { kpi: SpecialKpi; points: SpecialKpiPoint[] 
             >
               <title>
                 {p.period}: {fmt(p.value)} {kpi.kpi_unit ?? ""}
-                {isUnc ? ` (±${p.uncertainty_pct}% — ${p.uncertainty_note ?? "estimation"})` : ""}
+                {isUnc ? ` (±${p.uncertainty_pct}% : ${p.uncertainty_note ?? "estimation"})` : ""}
                 {p.source ? `\nSource: ${p.source}` : ""}
               </title>
             </circle>

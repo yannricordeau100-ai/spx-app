@@ -43,7 +43,7 @@ export function MockupOnboarding() {
     <div className="min-h-screen bg-[#050507]">
       <div className="mb-4 mx-auto max-w-7xl px-4 pt-6 sm:px-6">
         <div className="rounded-lg border border-amber-500/20 bg-amber-500/[0.04] p-3 text-[12px] text-amber-200">
-          ⚠️ <strong>Mockup interactif</strong> — flow d'onboarding 4 étapes après signup. Click sur les flèches pour naviguer.
+          ⚠️ <strong>Mockup interactif</strong> : flow d'onboarding 4 étapes après signup. Click sur les flèches pour naviguer.
         </div>
       </div>
 

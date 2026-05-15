@@ -263,7 +263,7 @@ export function MockupHeaderBarRedesign({ company }: { company: Company }) {
     <div className="space-y-10">
       <div>
         <h2 className="font-display text-[20px] font-bold tracking-tight text-zinc-100">
-          Barre header — réduction de la variation %
+          Barre header : réduction de la variation %
         </h2>
         <p className="mt-1 text-[13px] text-zinc-400">
           Copie de la barre header live (logo + nom + capitalisation + variation + prix). 4 versions

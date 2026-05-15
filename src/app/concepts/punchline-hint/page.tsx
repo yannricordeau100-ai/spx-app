@@ -179,7 +179,7 @@ export default function PunchlineHintConcepts() {
     <div className="min-h-screen bg-[#06060a] py-16 text-zinc-100">
       <div className="mx-auto max-w-5xl px-6">
         <h1 className="text-center font-display text-3xl font-semibold">
-          Punchline hint — 3 propositions
+          Punchline hint : 3 propositions
         </h1>
         <p className="mt-2 text-center text-sm text-zinc-400">
           Auto-rotation 10 s. Clic ou swipe gauche pour avancer manuellement.

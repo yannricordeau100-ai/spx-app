@@ -105,7 +105,7 @@ export const EVENTS: Record<string, CompanyEvent[]> = {
     {
       year: 2024,
       title: "AI Overviews dans Search",
-      body: "Déploiement d'AI Overviews dans Search aux US — premier grand changement de l'expérience Search depuis 10 ans.",
+      body: "Déploiement d'AI Overviews dans Search aux US : premier grand changement de l'expérience Search depuis 10 ans.",
     },
     {
       year: 2025,

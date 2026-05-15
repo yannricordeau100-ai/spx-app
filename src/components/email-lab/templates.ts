@@ -129,7 +129,7 @@ const magazine: EmailTemplate = {
 <div style="height:2px;background:#c9a86a;margin:14px 0 0;"></div>
 </td></tr>
 <tr><td style="padding:60px 28px 30px;">
-<p style="margin:0 0 18px;font-size:11px;letter-spacing:0.32em;color:#c9a86a;text-transform:uppercase;font-weight:700;">— ${c.badge} —</p>
+<p style="margin:0 0 18px;font-size:11px;letter-spacing:0.32em;color:#c9a86a;text-transform:uppercase;font-weight:700;">· ${c.badge} ·</p>
 <h1 style="margin:0;font-family:${serif};font-size:54px;line-height:0.98;font-weight:900;letter-spacing:-0.025em;color:#fff;">${c.h1Line1}<br><em style="font-weight:400;color:#c9a86a;">${c.h1Line2}</em></h1>
 </td></tr>
 <tr><td style="padding:0 28px 24px;"><div style="width:80px;height:1px;background:#c9a86a;margin:8px 0 24px;"></div>

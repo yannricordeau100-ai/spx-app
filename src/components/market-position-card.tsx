@@ -61,7 +61,7 @@ export function MarketPositionCard({
               )}
               {position.tam_range && (
                 <p className="mt-2 text-[11.5px] italic text-zinc-400">
-                  Fourchette du marché total : {fmt(position.tam_range[0])} — {fmt(position.tam_range[1])} {unitLabel(position.tam_unit)}.
+                  Fourchette du marché total : {fmt(position.tam_range[0])} à {fmt(position.tam_range[1])} {unitLabel(position.tam_unit)}.
                 </p>
               )}
             </InfoTooltip>
