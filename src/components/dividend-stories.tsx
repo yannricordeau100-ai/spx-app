@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import type { Company } from "@/lib/data";
 import { brand } from "@/lib/brand";
+import { useT } from "@/lib/i18n/provider";
 import { DividendAristocratCard } from "@/components/dividend-aristocrat-card";
 import { DividendCalculatorCard } from "@/components/dividend-calculator-card";
 import { DividendSnowballCard } from "@/components/dividend-snowball-card";
@@ -30,6 +31,7 @@ import { CurrencyPicker } from "@/components/currency-picker";
  * minimum (DPS + Cap Return + Payout). Pour la V1 démo : limité à CAT.
  */
 export function DividendStories({ company }: { company: Company }) {
+  const { t } = useT();
   const accent = brand(company.ticker).primary;
   const glow = brand(company.ticker).glow;
 
@@ -167,11 +169,10 @@ export function DividendStories({ company }: { company: Company }) {
       <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
         <div>
           <h2 className="text-[22px] font-semibold text-zinc-50">
-            Politique de dividende
+            {t("div.stories.title")}
           </h2>
           <p className="mt-0.5 max-w-2xl text-[13.5px] text-zinc-300">
-            Trois angles pour visualiser le retour aux actionnaires : statut
-            historique, simulateur de revenu, effet boule de neige sur la durée.
+            {t("div.stories.subtitle")}
           </p>
         </div>
         <div className="flex items-center gap-3">

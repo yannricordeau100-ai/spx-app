@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "motion/react";
 import { Crown, TrendingUp } from "lucide-react";
 import { InfoTooltip } from "@/components/info-tooltip";
+import { useT } from "@/lib/i18n/provider";
 
 /**
  * Card 1 : "Aristocrat Streak".
@@ -103,6 +104,7 @@ export function DividendAristocratCard({
   /** Historique étendu : 1ère année + coupures éventuelles. */
   meta?: DividendMeta;
 }) {
+  const { t } = useT();
   // yearsStreak dynamique : si non fourni en prop, calculer depuis
   // meta.first_year (si dispo). Si aucun des deux : null = ne pas afficher
   // la mention "X ans de hausse" (pas de fallback hardcodé sur des stés
@@ -227,7 +229,7 @@ export function DividendAristocratCard({
         <div className="mt-3 text-[20px] font-bold leading-tight text-zinc-50">
           {computedStreak != null && computedStreak >= 25
             ? "Dividend Aristocrat"
-            : "Politique de dividende"}
+            : t("div.aristocrat.title")}
         </div>
         <div className="text-[13.5px] italic text-zinc-400">
           {firstYear && computedStreak != null
@@ -258,7 +260,7 @@ export function DividendAristocratCard({
             transition={{ delay: 0.6, duration: 0.5 }}
             className="mt-1 text-[15px] font-medium text-zinc-200"
           >
-            années de hausse consécutive
+            {t("div.aristocrat.streak_label")}
           </motion.div>
         </div>
         )}
@@ -333,7 +335,7 @@ export function DividendAristocratCard({
         <div className="mt-2 rounded-xl border border-white/10 bg-black/40 p-2.5 backdrop-blur">
           <div className="mb-1.5 flex items-center gap-1">
             <span className="text-[12.5px] font-semibold uppercase tracking-[0.10em] text-zinc-300">
-              CAGR du dividende
+              {t("div.aristocrat.cagr_label")}
             </span>
             <InfoTooltip color={accent} size="sm">
               <div className="text-zinc-200">
@@ -426,7 +428,7 @@ export function DividendAristocratCard({
           </div>
           <div className="rounded-xl border border-white/12 bg-black/45 p-2 backdrop-blur">
             <div className="text-[11.5px] font-semibold uppercase tracking-[0.08em] text-zinc-300">
-              Capital rendu
+              {t("div.aristocrat.cap_return_label")}
             </div>
             <div className="mt-0.5 font-display text-[16px] font-bold leading-none tabular-nums text-zinc-50">
               <NumberTicker value={capReturn} decimals={1} />
@@ -434,12 +436,12 @@ export function DividendAristocratCard({
                 {capReturnUnit === "$B" ? "Mds $" : capReturnUnit}
               </span>
             </div>
-            <div className="mt-0.5 text-[11px] italic text-zinc-400">div + rachats</div>
+            <div className="mt-0.5 text-[11px] italic text-zinc-400">{t("div.aristocrat.cap_return_detail")}</div>
           </div>
           <div className="rounded-xl border border-white/12 bg-black/45 p-2 backdrop-blur">
             <div className="flex items-center gap-1">
               <span className="text-[11.5px] font-semibold uppercase tracking-[0.08em] text-zinc-300">
-                Payout
+                {t("div.aristocrat.payout_label")}
               </span>
               <InfoTooltip color={accent} size="sm">
                 <div className="text-zinc-200">

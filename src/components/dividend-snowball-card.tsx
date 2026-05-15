@@ -5,6 +5,7 @@ import { motion, useInView } from "motion/react";
 import { Snowflake } from "lucide-react";
 import { type Currency, CURRENCY_SYMBOL } from "@/lib/currency";
 import { InfoTooltip } from "@/components/info-tooltip";
+import { useT } from "@/lib/i18n/provider";
 
 /**
  * Card 3 du bloc Stories Dividendes : "Boule de neige composée" (DRIP).
@@ -108,6 +109,7 @@ export function DividendSnowballCard({
   /** Taux nativeCurrency → currency (passé du parent). */
   rate?: number;
 }) {
+  const { t } = useT();
   const sym = CURRENCY_SYMBOL[currency];
   const [initial, setInitial] = useState<number>(1000);
   const [years, setYears] = useState<number>(20);
@@ -217,11 +219,11 @@ export function DividendSnowballCard({
           style={{ background: `${accent}14`, color: accent, borderColor: `${accent}40` }}
         >
           <Snowflake className="size-3.5" />
-          Boule de neige
+          {t("div.snowball.badge")}
         </div>
 
         <div className="mt-3 flex items-center gap-1.5 text-[18px] font-bold leading-tight text-zinc-50">
-          Réinvestir tes dividendes
+          {t("div.snowball.title")}
           <span className="text-[14px] font-normal text-zinc-400">(DRIP)</span>
           <InfoTooltip color={accent} size="sm">
             <div className="text-zinc-200">

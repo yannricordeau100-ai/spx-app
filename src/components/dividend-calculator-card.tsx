@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { Calculator, TrendingUp, Info } from "lucide-react";
 import { type Currency, CURRENCY_SYMBOL } from "@/lib/currency";
 import { InfoTooltip } from "@/components/info-tooltip";
+import { useT } from "@/lib/i18n/provider";
 
 /**
  * Card 2 : "Calculateur de revenu dividendes" — interactif.
@@ -62,6 +63,7 @@ export function DividendCalculatorCard({
   /** Taux nativeCurrency → currency. */
   rate: number;
 }) {
+  const { t } = useT();
   const [target, setTarget] = useState<number>(100);
   const [freq, setFreq] = useState<Frequency>("month");
   const [taxPct, setTaxPct] = useState<number>(0);
@@ -127,16 +129,16 @@ export function DividendCalculatorCard({
           style={{ background: `${accent}14`, color: accent, borderColor: `${accent}40` }}
         >
           <Calculator className="size-3.5" />
-          Simulateur
+          {t("div.calc.badge_simulator")}
         </div>
 
         {/* Titre principal sur 2 lignes */}
         <div className="mt-3">
           <div className="flex items-center gap-1.5 text-[17px] font-bold leading-tight text-zinc-50">
-            Revenu net régulier <span aria-hidden>😎</span>
+            {t("div.calc.subtitle_regular_income")} <span aria-hidden>😎</span>
           </div>
           <div className="text-[14px] leading-snug text-zinc-300">
-            Combien d&apos;actions {ticker}{" "}faut-il détenir&nbsp;?
+            {t("div.calc.question_shares").replace("{ticker}", ticker)}
           </div>
         </div>
 
@@ -149,10 +151,10 @@ export function DividendCalculatorCard({
             {result.shares.toLocaleString("fr-FR")}
           </div>
           <div className="mt-0.5 text-[14px] font-medium text-zinc-200">
-            actions à détenir
+            {t("div.calc.shares_to_hold")}
           </div>
           <div className="mt-1.5 inline-flex items-center gap-1 rounded-full border border-white/15 bg-black/45 px-2.5 py-0.5 text-[13px] font-mono tabular-nums text-zinc-200 backdrop-blur">
-            Capital ≈ {fmtMoney(result.capital)} {sym}
+            {t("div.calc.capital_approx")} {fmtMoney(result.capital)} {sym}
           </div>
         </div>
 

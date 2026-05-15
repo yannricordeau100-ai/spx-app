@@ -1298,6 +1298,11 @@ export const DICTIONARY: Dict = {
     en: "years of consecutive increases",
     de: "Jahre Dividendensteigerung in Folge",
   },
+    "div.aristocrat.cagr_label": {
+    fr: "CAGR du dividende",
+    en: "Dividend CAGR",
+    de: "CAGR der Dividende",
+  },
   "div.aristocrat.cagr_per_year": {
     fr: "CAGR {value} % / an",
     en: "CAGR {value} % / year",
