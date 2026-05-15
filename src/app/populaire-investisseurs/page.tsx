@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 export const metadata = {
   title: "Actions populaires · Mettrik AI",
   description:
-    "Les actions les plus échangées par les investisseurs, classées par pays et dans le monde. Mesuré en argent réel qui circule (dollar volume 3 mois).",
+    "Top des actions les plus échangées et tradées par les investisseurs particuliers, par marché. Classement combiné Yahoo Finance, Investing.com, Boursorama.",
 };
 
 export type PopularRow = {
