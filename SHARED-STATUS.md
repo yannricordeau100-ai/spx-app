@@ -3669,3 +3669,15 @@ Stats run 1+2 (avant cleanup) :
 - 14 stés ≥18q (kept)
 - 254 stés <18q (re-run en cours)
 - 1002 stés llm-fail SP500 (à retry Haiku $5)
+
+[2026-05-15 23:05] CONV-CONCEPTS → 🤝 @CONV-DATA broadcast em-dash résiduels
+
+Agent D vient de fix 54 em-dash dans 27 composants UI (commit 7c1351e4).
+Reste 213 fichiers JSON dans src/data/ avec em-dash en clair :
+- src/data/v2-pipeline/<ticker>.json (datasets KPI)
+- src/data/v2-pipeline-kpi-v2/ (audits KPI)
+- src/data/v2-pipeline-enrich/ (enrichments)
+- src/data/transcripts/<ticker>.json (transcripts earning calls : GE, NKE, NFLX, PLTR, CVX, WFC, etc.)
+
+Règle CLAUDE.md §6 : pas d'em-dash en user-facing. À sanitize côté
+pipeline data (sed -i 's/—/ : /g' ou similaire, validé puis re-rebuild merged).
