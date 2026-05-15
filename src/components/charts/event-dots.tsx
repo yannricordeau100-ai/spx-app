@@ -52,15 +52,20 @@ export function EventDotsSVG({
   // Yann (12 mai 2026) : les "i" sur l'axe du temps (pas en dessous).
   const dotY = padTop + innerH;
 
+  // Yann 16 mai 2026 : filtre strict — un event ne s'affiche QUE si son
+  // année correspond à un label réel du chart (pas un "TTM" ni hors
+  // période plotted). En particulier, jamais d'event mappé à l'index du
+  // dernier label si celui-ci est "TTM" (= synthétique, pas une année).
+  const lastIdx = xLabels.length - 1;
+  const lastLabel = xLabels[lastIdx] ?? "";
+  const lastIdxAllowed = /^TTM$/i.test(lastLabel) ? lastIdx - 1 : lastIdx;
   const positioned = events
     .map((e, i) => {
       const idx = eventFractionalIndex(e, xLabels);
       if (idx == null) return null;
-      // Yann 15 mai 2026 : skip events qui tomberaient HORS de la zone
-      // visible (idx > derniers labels). Évite la grappe de "3 dots" à
-      // droite du chart quand events 2022-2025 mais labels 2024-2026.
-      // Tolérance 0.5 pour mid-year qui peut dépasser légèrement.
-      if (idx < -0.5 || idx > xLabels.length - 0.5) return null;
+      // Skip events hors zone plotted (avant 1er label OU après le dernier
+      // label hors TTM).
+      if (idx < -0.5 || idx > lastIdxAllowed + 0.5) return null;
       return {
         i,
         e,
@@ -159,11 +164,17 @@ export function EventDotsOverlay({
   const stepX = innerW / (xLabels.length - 1);
   const dotY = padTop + innerH;
 
+  // Yann 16 mai 2026 : même filtre strict que EventDotsSVG — skip events
+  // mappés au label "TTM" (synthétique, pas une année réelle).
+  const lastIdx = xLabels.length - 1;
+  const lastLabel = xLabels[lastIdx] ?? "";
+  const lastIdxAllowed = /^TTM$/i.test(lastLabel) ? lastIdx - 1 : lastIdx;
   // Positions en pixels SVG d'abord (pour appliquer spread), puis en %
   const pxPositioned = events
     .map((e, i) => {
       const idx = eventFractionalIndex(e, xLabels);
       if (idx == null) return null;
+      if (idx < -0.5 || idx > lastIdxAllowed + 0.5) return null;
       return { i, e, x: padLeft + idx * stepX };
     })
     .filter((p): p is { i: number; e: CompanyEvent; x: number } => p !== null)

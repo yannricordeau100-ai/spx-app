@@ -29,9 +29,13 @@ export function enhanceFreshness<T extends Company & Record<string, unknown>>(da
   ].filter((d): d is string => typeof d === "string" && /^\d{4}-\d{2}-\d{2}$/.test(d));
   allDates.push(...topLevelCandidates);
   const maxDate = allDates.length > 0 ? allDates.sort().slice(-1)[0] : "2025-12-31";
+  // Yann 16 mai 2026 : NE PAS écraser le last_data_date propre d'un KPI
+  // par la date max du dataset. Sinon l'aggrégation annuelle (cf.
+  // aggregateQuarterlyToAnnual) calcule les FY à partir d'une mauvaise
+  // borne (Headcount yfinance = aujourd'hui → décalait les sommes par
+  // 1-2 trimestres). On backfill UNIQUEMENT les KPIs sans date.
   data.kpis = kpis.map((k) => {
-    const own = k.last_data_date;
-    if (!own || own < maxDate) return { ...k, last_data_date: maxDate };
+    if (!k.last_data_date) return { ...k, last_data_date: maxDate };
     return k;
   }) as Company["kpis"];
   return data;

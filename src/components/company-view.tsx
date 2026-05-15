@@ -278,15 +278,11 @@ export function CompanyView({
 
     // pt === 'quarter'
     if (graphPeriod === "year") {
-      // Yann 16 mai 2026 : vue annuelle ne montre QUE les FY complètes
-      // (4 quarters publiés) + un point TTM final. On délègue le calcul
-      // à aggregateQuarterlyToAnnual qui respecte la règle d'or "pas de
-      // point annuel pour une année partielle, à la place le TTM".
+      // Yann 16 mai 2026 : vue annuelle = uniquement FY complètes. Le label
+      // "TTM" sera AJOUTÉ par le chart côté allLabels via ttmLabel.
       const kind = getKpiAggregationKind(active);
       const agg = aggregateQuarterlyToAnnual(active.history ?? [], active.last_data_date, kind, fyEndMonth);
-      const labels = [...agg.years];
-      if (agg.ttm != null) labels.push("TTM");
-      return labels;
+      return [...agg.years];
     }
 
     // Mode trimestriel : 1 label par trimestre.
@@ -351,9 +347,7 @@ export function CompanyView({
       const fyEnd = audit?.fiscalYearEndMonth ?? 12;
       const kind = getKpiAggregationKind(active);
       const agg = aggregateQuarterlyToAnnual(h, active.last_data_date, kind, fyEnd);
-      const out = [...agg.values];
-      if (agg.ttm != null) out.push(agg.ttm);
-      return out;
+      return [...agg.values];
     }
 
     if (graphPeriod === "year" && pt === "semester") {
@@ -364,6 +358,30 @@ export function CompanyView({
     }
 
     return h;
+  }, [active, graphPeriod, company.ticker]);
+
+  // Yann 16 mai 2026 : TTM = somme des 4 derniers Q publiés (pour flow)
+  // ou dernier Q (pour stock), calculé dynamiquement depuis l'history.
+  // Ne plus se reposer sur active.ttm stocké (souvent périmé ou
+  // recalculé sur un sous-ensemble obsolète).
+  // En mode trimestriel ou semestriel, on n'affiche pas de barre TTM
+  // (pic vertical artificiel à côté de points trimestriels).
+  const chartTTM = useMemo<number | null>(() => {
+    if (!active || graphPeriod !== "year") return null;
+    const pt = active.period_type;
+    const h = Array.isArray(active.history) ? active.history.filter((x): x is number => typeof x === "number") : [];
+    if (pt === "quarter" && h.length >= 4) {
+      const kind = getKpiAggregationKind(active);
+      const audit = getFiscalAudit(company.ticker);
+      const fyEnd = audit?.fiscalYearEndMonth ?? 12;
+      const agg = aggregateQuarterlyToAnnual(h, active.last_data_date, kind, fyEnd);
+      if (agg.ttm != null) return agg.ttm;
+      // Si TTM = dernière FY complète, agg.ttm = null (caché par dédup).
+      // Pas de TTM affiché dans ce cas.
+      return null;
+    }
+    // Pas de TTM en semester / annual native.
+    return null;
   }, [active, graphPeriod, company.ticker]);
   // Yann 15 mai 2026 : applique le scaleFactor au history pour que le
   // chart affiche en unité descendue (ex 0.41 M → 410 K en unité brute).
@@ -730,15 +748,7 @@ export function CompanyView({
                 company={company}
                 activeShort={active.short}
                 onPickKpi={handleKpiClick}
-                ttm={
-                  // Bug fix template Yann 7 mai 2026 : ne PAS afficher la
-                  // barre TTM en mode trimestriel (la TTM est une somme 12
-                  // mois, ~4× un trimestre, donc visuellement choquante à
-                  // côté de points trimestriels — pic vertical artificiel).
-                  // En annuel, la TTM reste cohérente avec les annuels.
-                  // En semestriel, idem : TTM = 12 mois ≠ semestre.
-                  graphPeriod === "year" ? (active.ttm ?? null) : null
-                }
+                ttm={chartTTM}
                 barsVariant={barsVariant}
                 timeFraction={timeFraction}
                 exportTitle={`${active.name_fr}${

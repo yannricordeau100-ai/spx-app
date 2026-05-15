@@ -302,11 +302,14 @@ export function CurveChart({
           {header}
         </text>
       )}
-      {/* Yann 15 mai 2026 : TTM cumul affiché comme chip séparé en haut à
-          droite du chart, pas sur la courbe (sinon va off-screen).
-          Position : haut-gauche si Y axis droit, haut-droite sinon. */}
+      {/* Yann 16 mai 2026 : TTM cumul affiché comme chip séparé.
+          Position OPPOSÉE au mini-logo MettrikAI (qui est top-right par
+          défaut, top-left si yOnRight). Évite la superposition observée
+          quand TTM-cumul et mini-logo se chevauchaient. */}
       {ttmIsCumul && rawHasTTM && (() => {
-        const chipX = yOnRight ? PAD_LEFT + 180 : W - PAD_RIGHT - 130;
+        // yOnRight=false → mini-logo top-right → TTM chip top-LEFT
+        // yOnRight=true  → mini-logo top-left  → TTM chip top-RIGHT
+        const chipX = yOnRight ? W - PAD_RIGHT - 130 : PAD_LEFT + 10;
         return (
           <g>
             <rect
