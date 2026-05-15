@@ -214,7 +214,7 @@ export function HolographicPie({
                           </div>
                         </div>
                         <span className="shrink-0 whitespace-nowrap font-mono text-[19px] font-bold leading-tight tabular-nums text-zinc-50">
-                          {s.stake_pct.toFixed(1)}&nbsp;%
+                          {s.stake_pct.toFixed(1).replace(".", ",")}&nbsp;%
                         </span>
                       </div>
                     </div>
@@ -237,7 +237,7 @@ export function HolographicPie({
                   Top {arcs.length} represente
                 </span>
                 <span className="whitespace-nowrap font-mono text-[12px] font-semibold uppercase tracking-wider tabular-nums text-zinc-100">
-                  {namedTotal.toFixed(1)}&nbsp;%
+                  {namedTotal.toFixed(1).replace(".", ",")}&nbsp;%
                 </span>
                 <span className="font-mono text-[12px] uppercase tracking-wider text-zinc-300">
                   du capital total
@@ -248,7 +248,7 @@ export function HolographicPie({
                   Reste du capital (flottant)
                 </span>
                 <span className="whitespace-nowrap font-mono text-[12px] font-semibold uppercase tracking-wider tabular-nums text-zinc-100">
-                  {flottantPct.toFixed(1)}&nbsp;%
+                  {flottantPct.toFixed(1).replace(".", ",")}&nbsp;%
                 </span>
               </div>
             </div>
@@ -416,7 +416,7 @@ function PieChunky({
                 fontFamily="ui-monospace, monospace"
                 style={{ textShadow: "0 1px 3px rgba(0,0,0,0.95)", pointerEvents: "none" }}
               >
-                {s.stake_pct.toFixed(1)} %
+                {s.stake_pct.toFixed(1).replace(".", ",")} %
               </text>
             )}
           </motion.g>
@@ -648,7 +648,7 @@ function PieCallouts({
                 fontFamily="ui-monospace, monospace"
                 style={{ textShadow: "0 1px 4px rgba(0,0,0,0.85)" }}
               >
-                {s.stake_pct.toFixed(1)}
+                {s.stake_pct.toFixed(1).replace(".", ",")}
                 <tspan fontSize="12" dx="1">
                   %
                 </tspan>

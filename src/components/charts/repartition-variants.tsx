@@ -37,9 +37,9 @@ export type RepartitionProps = {
   decimals?: number;
 };
 
-/** Format pourcentage avec un nombre de décimales fixe. */
+/** Format pourcentage avec un nombre de décimales fixe (locale FR : virgule décimale). */
 export function fmtPct(p: number, decimals = 1): string {
-  return p.toFixed(decimals);
+  return p.toFixed(decimals).replace(".", ",");
 }
 
 const PALETTE_BASE = ["#22d3ee", "#fb7185", "#facc15", "#a3e635", "#c084fc", "#f97316"];

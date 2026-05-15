@@ -282,7 +282,7 @@ export function DividendAristocratCard({
               </InfoTooltip>
             </div>
             <span className="font-mono text-[12.5px] tabular-nums text-zinc-300">
-              {dpsHistory[0].toFixed(2)} → {dpsHistory[n - 1].toFixed(2)}
+              {dpsHistory[0].toFixed(2).replace(".", ",")} → {dpsHistory[n - 1].toFixed(2).replace(".", ",")}
             </span>
           </div>
           <svg viewBox={`0 0 ${W} ${H}`} className="w-full">
@@ -381,7 +381,7 @@ export function DividendAristocratCard({
                         : "text-rose-300"
                     }`}
                   >
-                    {c.value == null ? "—" : `${c.value >= 0 ? "+" : ""}${c.value.toFixed(1)}`}
+                    {c.value == null ? "—" : `${c.value >= 0 ? "+" : ""}${c.value.toFixed(1).replace(".", ",")}`}
                   </div>
                   <div className={`text-[11px] text-zinc-500 ${isBlurred ? "blur-[3px] opacity-60" : ""}`}>
                     {c.value == null ? "n.d." : "% / an"}
@@ -458,7 +458,7 @@ export function DividendAristocratCard({
               <span className="ml-0.5 text-[12.5px] font-medium text-zinc-300">%</span>
             </div>
             <div className="mt-0.5 text-[11px] italic text-zinc-400">
-              couvert {(100 / payoutRatio).toFixed(1)}×
+              couvert {(100 / payoutRatio).toFixed(1).replace(".", ",")}×
             </div>
           </div>
         </div>

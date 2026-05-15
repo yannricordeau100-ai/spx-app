@@ -208,7 +208,7 @@ function MarketPositionStoryCard({
                 className="font-display font-bold leading-none tracking-tight gradient-text"
                 style={{ fontSize: "clamp(72px, 25vw, 120px)" }}
               >
-                {sharePct.toFixed(1)}&nbsp;%
+                {sharePct.toFixed(1).replace(".", ",")}&nbsp;%
               </div>
               <div className="mt-2 text-[18px] font-semibold text-zinc-100">part de marché</div>
             </>
@@ -281,7 +281,7 @@ function MarketPositionStoryCard({
           <div className="mt-2.5 inline-flex items-center gap-1 text-[12px] text-zinc-300">
             <span>CAGR marché attendu :</span>
             <span className="font-mono font-bold text-zinc-50">
-              +{mp.market_cagr.toFixed(1)} % / an
+              +{mp.market_cagr.toFixed(1).replace(".", ",")} % / an
             </span>
             <InfoTooltip color={accent} size="sm">
               <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: accent }}>

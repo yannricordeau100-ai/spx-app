@@ -575,7 +575,7 @@ export async function loadV17Company(
         if (!isHeadcount) return k;
         // Reformater la valeur courante avec la même unité que le KPI existant.
         const unit = String(k.unit ?? "K");
-        const val = unit === "K" ? (empNow / 1000).toFixed(1) : String(empNow);
+        const val = unit === "K" ? (empNow / 1000).toFixed(1).replace(".", ",") : String(empNow);
         const hist = Array.isArray(k.history) ? [...(k.history as number[])] : [];
         const lastHistVal = unit === "K" ? empNow / 1000 : empNow;
         // Append à l'history seulement si le dernier point diffère significativement

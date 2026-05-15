@@ -148,7 +148,7 @@ export function VariationIsoSteps3D({ data, labels, events = [], exportTitle }: 
                 signe + %. Décision Yann 5 mai 2026. */}
             {(() => {
               const cx = x + barW / 2 + DX / 2;
-              const numTxt = Math.abs(pct).toFixed(1);
+              const numTxt = Math.abs(pct).toFixed(1).replace(".", ",");
               const numFz = 14;
               const yPos = (yTop + DY) - 10;       // au-dessus de la barre verte
               // Yann 15 mai 2026 : cap yNeg pour ne JAMAIS empiéter sur les
