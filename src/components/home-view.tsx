@@ -6,7 +6,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowRight, Sparkles } from "lucide-react";
 
-import { COMPANIES, TICKERS, formatUnit, getHero } from "@/lib/data";
+import { COMPANIES, TICKERS, formatUnit, formatKpiValue, getHero } from "@/lib/data";
 import { yoyTone } from "@/lib/utils";
 import { brand, rate } from "@/lib/brand";
 import { Spotlight } from "@/components/effects/spotlight";
@@ -752,7 +752,7 @@ function renderCompanyCard(
                           "20.03 Mds" / "$" (visible quand yoy long type +63,4 %). */}
                       <span className="inline-flex items-baseline gap-1 whitespace-nowrap">
                         <span className="font-mono text-2xl font-semibold tabular-nums text-zinc-100">
-                          {hero.value}
+                          {formatKpiValue(hero.value, hero.unit)}
                         </span>
                         {formatUnit(hero.unit) && (
                           <span className="whitespace-nowrap text-xs text-zinc-400">

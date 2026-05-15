@@ -4,7 +4,7 @@ import { Sparkles, TrendingUp, Building2 } from "lucide-react";
 import type { KPI, MarketPosition } from "@/lib/data";
 import { brand } from "@/lib/brand";
 import type { StorySlide } from "@/lib/kpi-stories-ordering";
-import { formatUnit } from "@/lib/data";
+import { formatUnit, formatKpiValue } from "@/lib/data";
 import { InfoTooltip } from "@/components/info-tooltip";
 import { AcronymHover } from "@/components/acronym-hover";
 import { normalizeNarrative } from "@/lib/ui-fix-templates";
@@ -94,7 +94,7 @@ function KpiCard({ kpi, accent, glow }: { kpi: KPI; accent: string; glow: string
             className="font-display font-bold leading-none tracking-tight gradient-text"
             style={{ fontSize: "clamp(64px, 22vw, 110px)" }}
           >
-            {kpi.value}
+            {formatKpiValue(kpi.value, kpi.unit)}
           </div>
           {formatUnit(kpi.unit) && (
             <div className="mt-2 text-[20px] font-semibold text-zinc-100">

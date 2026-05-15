@@ -485,8 +485,46 @@ export function formatUnit(unit: string): string {
  * Évite que le chiffre + unité passe sur 2 lignes quand la colonne hero
  * est étroite (cas "3,302 M $" → "3,3 Mds $" plus court).
  */
+/**
+ * Décide du nombre de décimales selon la règle Yann (15 mai 2026,
+ * applicable PARTOUT dans l'app) :
+ *   - Si valeur entre 1 et 10 (exclu)        → 2 décimales
+ *   - Sinon (≥ 10 ou < 1)                    → 1 décimale
+ *   - Si l'unité contient une magnitude (Mds, M, K) et valeur ≥ 100
+ *     → max 1 décimale (jamais "193,998 Mds")
+ *   - Si valeur exacte (.0)                  → pas de décimale superflue (rendu via locale)
+ *
+ * Centralisé ici pour que toute la stack (hero, KPI row, story, home,
+ * snapshot, comparaisons, exports PNG) applique la même règle.
+ */
+export function decimalsForValue(num: number, unit?: string): number {
+  if (!Number.isFinite(num)) return 1;
+  const abs = Math.abs(num);
+  const hasMagnitude = !!unit && /\b(Mds|M|K|B)\b/i.test(unit);
+  // Règle Yann : magnitude OU >= 10 → 1 décimale max. Entre 1 et 10 → 2.
+  if (abs >= 1 && abs < 10) return 2;
+  if (abs >= 10 || hasMagnitude) return 1;
+  return 1;
+}
+
+/**
+ * Format un kpi.value (string ou number) en respectant la règle Yann
+ * (1 décimale par défaut, 2 décimales si valeur entre 1 et 10).
+ * Utilisé partout : KPI row, story card, compare panel, home preview.
+ */
+export function formatKpiValue(value: string | number | null | undefined, unit?: string): string {
+  if (value == null) return "—";
+  const s = typeof value === "string" ? value.replace(/,/g, "").trim() : String(value);
+  const num = parseFloat(s);
+  if (!Number.isFinite(num)) return typeof value === "string" ? value : "—";
+  const dec = decimalsForValue(num, unit);
+  return num.toLocaleString("fr-FR", {
+    minimumFractionDigits: dec,
+    maximumFractionDigits: dec,
+  });
+}
+
 export function formatHeroValue(value: string | number | null | undefined, unit: string): { value: string; unit: string } {
-  // Garde-fou : value peut être null, undefined, ou un number
   const valueStr = typeof value === "string" ? value : (value != null ? String(value) : "");
   const cleaned = valueStr.replace(/,/g, "").trim();
   const num = parseFloat(cleaned);
@@ -502,8 +540,11 @@ export function formatHeroValue(value: string | number | null | undefined, unit:
     displayUnit = unit === "$M" ? "Mds $" : "Mds";
   }
 
+  // Règle Yann 15 mai 2026 : nb de décimales déterminé par decimalsForValue.
+  const dec = decimalsForValue(displayNum, displayUnit);
   const formatted = displayNum.toLocaleString("fr-FR", {
-    maximumFractionDigits: 2,
+    minimumFractionDigits: dec,
+    maximumFractionDigits: dec,
   });
   return { value: formatted, unit: displayUnit };
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowDownRight, ArrowUpRight, Check } from "lucide-react";
-import { type KPI, formatCAGR, formatUnit } from "@/lib/data";
+import { type KPI, formatCAGR, formatUnit, formatKpiValue } from "@/lib/data";
 import { cn, yoyTone } from "@/lib/utils";
 import { rate } from "@/lib/brand";
 import { Sparkline } from "@/components/effects/sparkline";
@@ -58,8 +58,13 @@ export function KpiRow({
   const valueAsNum = typeof kpi.value === "number"
     ? kpi.value
     : (typeof kpi.value === "string" ? parseFloat(kpi.value.replace(/,/g, "")) : NaN);
+  // Yann 15 mai 2026 : règle décimales unifiée via formatKpiValue.
+  // En FR utilise la règle 1-2 décimales selon magnitude. Pour les autres
+  // locales, garde toLocaleString natif (mais en cappant à 2 max).
   const formattedValue = Number.isFinite(valueAsNum)
-    ? valueAsNum.toLocaleString(numLocaleStr, { maximumFractionDigits: 3 })
+    ? locale === "fr"
+      ? formatKpiValue(valueAsNum, kpi.unit)
+      : valueAsNum.toLocaleString(numLocaleStr, { maximumFractionDigits: 2 })
     : String(kpi.value ?? "—");
 
   // Yann 15 mai 2026 : KPI "incomplet" (juste une value, sans history/yoy/signal)

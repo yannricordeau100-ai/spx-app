@@ -16,6 +16,7 @@ import {
   type KPI,
   COMPANIES,
   formatUnit,
+  formatKpiValue,
   getHero,
 } from "@/lib/data";
 import { yoyTone } from "@/lib/utils";
@@ -149,7 +150,7 @@ export function ComparePanel({
             </div>
             <div className="mt-3 flex items-baseline gap-2">
               <span className="font-mono text-3xl font-semibold tabular-nums text-zinc-50">
-                {kpi.value}
+                {formatKpiValue(kpi.value, kpi.unit)}
               </span>
               {formatUnit(kpi.unit) && (
                 <span className="text-sm text-zinc-300">{formatUnit(kpi.unit)}</span>

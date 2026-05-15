@@ -11,6 +11,7 @@ import {
   TICKER_ALIASES,
   getHero,
   formatUnit,
+  formatKpiValue,
 } from "@/lib/data";
 import { brand } from "@/lib/brand";
 import { yoyTone } from "@/lib/utils";
@@ -425,7 +426,7 @@ function ResultCard({
           </div>
         </AcronymHover>
         <div className="mt-0.5 font-mono text-[15px] font-semibold tabular-nums text-zinc-50">
-          {hero.value}
+          {formatKpiValue(hero.value, hero.unit)}
           {heroUnit && (
             <span className="ml-1 text-[10.5px] font-normal text-zinc-400">
               {heroUnit}
