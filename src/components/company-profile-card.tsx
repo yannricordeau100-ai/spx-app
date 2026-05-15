@@ -217,7 +217,7 @@ function SnapshotCard({
         <SnapRow label={t("company.snapshot.beta")} value={fmtNum(snap.beta, 2)} accent={accent} />
         <SnapRow
           label={t("company.snapshot.dividend")}
-          value={snap.dividend_yield_pct != null ? `${snap.dividend_yield_pct.toFixed(2)} %` : "—"}
+          value={snap.dividend_yield_pct != null ? `${snap.dividend_yield_pct.toFixed(2).replace(".", ",")} %` : "—"}
           accent={accent}
         />
         <SnapRow
