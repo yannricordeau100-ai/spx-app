@@ -298,16 +298,18 @@ export const DICTIONARY: Dict = {
   "company.compare.direct": { fr: "Direct", en: "Direct" },
   "company.compare.connex": { fr: "Connexe", en: "Related" },
   "company.save.button": { fr: "Enregistrer", en: "Save" },
-  "company.kpi_table.title": { fr: "Indicateurs clés", en: "Key indicators" },
+  "company.kpi_table.title": { fr: "Indicateurs clés", en: "Key indicators", de: "Schlüsselindikatoren" },
   "company.kpi_table.subtitle": {
     fr: "Cliquez sur un indicateur pour le promouvoir en KPI principal.",
     en: "Click an indicator to promote it to the main KPI.",
+  
+    de: "Klicken Sie auf einen Indikator, um ihn zum wichtigsten KPI hochzustufen.",
   },
-  "company.kpi_table.count_label": { fr: "indicateurs", en: "indicators" },
-  "company.kpi_table.col_indicator": { fr: "Indicateur", en: "Indicator" },
-  "company.kpi_table.col_value": { fr: "Valeur", en: "Value" },
-  "company.kpi_table.col_trend": { fr: "Tendance", en: "Trend" },
-  "company.kpi_table.col_quality": { fr: "Qualité · Signal", en: "Quality · Signal" },
+  "company.kpi_table.count_label": { fr: "indicateurs", en: "indicators", de: "Indikatoren" },
+  "company.kpi_table.col_indicator": { fr: "Indicateur", en: "Indicator", de: "Indikator" },
+  "company.kpi_table.col_value": { fr: "Valeur", en: "Value", de: "Wert" },
+  "company.kpi_table.col_trend": { fr: "Tendance", en: "Trend", de: "Trend" },
+  "company.kpi_table.col_quality": { fr: "Qualité · Signal", en: "Quality · Signal", de: "Qualität · Signal" },
   "company.kpi_table.show_more": { fr: "Voir tous les indicateurs", en: "Show all indicators" },
   "company.kpi_table.show_less": { fr: "Masquer", en: "Hide" },
   "company.kpi_table.collapse": { fr: "Réduire", en: "Collapse" },
@@ -815,31 +817,39 @@ export const DICTIONARY: Dict = {
   "transcript.sentiment.cautious": { fr: "Prudent", en: "Cautious" },
 
   /* Transcript bullets block (Synthèse Earning Call) */
-  "transcript.bullets.section_title": { fr: "Synthèse Earning Call", en: "Earnings Call Summary" },
+  "transcript.bullets.section_title": { fr: "Synthèse Earning Call", en: "Earnings Call Summary", de: "Zusammenfassung Earning Call" },
   "transcript.bullets.section_subtitle": {
     fr: "Points clés extraits du dernier transcript management × analystes",
     en: "Key takeaways extracted from the latest management × analysts transcript",
+  
+    de: "Wichtigste Punkte aus dem neuesten Management-Analysten-Transkript",
   },
   "transcript.bullets.comparison_title": {
     fr: "Suivi & comparaison vs trimestre précédent",
     en: "Tracking & comparison vs previous quarter",
+  
+    de: "Tracking & Vergleich ggü. vorherigem Quartal",
   },
   "transcript.bullets.comparison_subtitle": {
     fr: "Promesses tenues, écarts de guidance et changements de discours",
     en: "Promises kept, guidance gaps and discourse shifts",
+  
+    de: "Eingehaltene Versprechen, Guidance-Abweichungen und Diskurswechsel",
   },
-  "transcript.bullets.earning_call_label": { fr: "Earning Call", en: "Earnings Call" },
+  "transcript.bullets.earning_call_label": { fr: "Earning Call", en: "Earnings Call", de: "Earnings Call" },
   "transcript.bullets.earning_call_explainer": {
     fr: "Conférence téléphonique trimestrielle où la direction d'une société cotée commente ses résultats financiers face aux analystes. On y trouve : chiffres-clés, contexte, perspectives (guidance), réponses aux questions des analystes. C'est l'une des sources les plus riches pour anticiper la trajectoire de la sté.",
     en: "Quarterly conference call where the management of a listed company comments on its financial results to analysts. Includes: key figures, context, outlook (guidance), Q&A. One of the richest sources to anticipate the company's trajectory.",
+  
+    de: "Vierteljährliche Telefonkonferenz, bei der das Management eines börsennotierten Unternehmens seine Finanzergebnisse gegenüber Analysten erläutert. Sie enthält: Schlüsselzahlen, Kontext, Ausblick (Guidance), Antworten auf Fragen der Analysten. Sie ist eine der reichhaltigsten Quellen, um die Entwicklungsbahn des Unternehmens vorherzusehen.",
   },
-  "transcript.bullets.earning_call_aria": { fr: "Qu'est-ce qu'un earning call ?", en: "What is an earnings call?" },
-  "transcript.bullets.compare.promise_kept": { fr: "Promesse tenue", en: "Promise kept" },
-  "transcript.bullets.compare.promise_broken": { fr: "Promesse non tenue", en: "Promise broken" },
-  "transcript.bullets.compare.guidance_up": { fr: "Guidance relevée", en: "Guidance raised" },
-  "transcript.bullets.compare.guidance_down": { fr: "Guidance abaissée", en: "Guidance lowered" },
-  "transcript.bullets.compare.new_topic": { fr: "Nouveau sujet", en: "New topic" },
-  "transcript.bullets.compare.sentiment_shift": { fr: "Changement de ton", en: "Tone shift" },
+  "transcript.bullets.earning_call_aria": { fr: "Qu'est-ce qu'un earning call ?", en: "What is an earnings call?", de: "Was ist ein Earnings Call?" },
+  "transcript.bullets.compare.promise_kept": { fr: "Promesse tenue", en: "Promise kept", de: "Eingehaltenes Versprechen" },
+  "transcript.bullets.compare.promise_broken": { fr: "Promesse non tenue", en: "Promise broken", de: "Uneingelöstes Versprechen" },
+  "transcript.bullets.compare.guidance_up": { fr: "Guidance relevée", en: "Guidance raised", de: "Prognose angehoben" },
+  "transcript.bullets.compare.guidance_down": { fr: "Guidance abaissée", en: "Guidance lowered", de: "Prognose gesenkt" },
+  "transcript.bullets.compare.new_topic": { fr: "Nouveau sujet", en: "New topic", de: "Neues Thema" },
+  "transcript.bullets.compare.sentiment_shift": { fr: "Changement de ton", en: "Tone shift", de: "Tonwechsel" },
 
   /* Suffix titre du graph "par X" en toutes lettres (fr/en) */
   "timefrac.suffix.year": { fr: "par an", en: "per year" },
@@ -1231,6 +1241,258 @@ export const DICTIONARY: Dict = {
   "lang.fr_label": { fr: "Français", en: "French" },
   "lang.en_label": { fr: "Anglais", en: "English" },
   "lang.switch_label": { fr: "Changer de langue", en: "Switch language" },
+
+  // Dividend block (Yann 15 mai 2026 — extraction via Task agent)
+  "div.stories.title": {
+    fr: "Politique de dividende",
+    en: "Dividend policy",
+    de: "Dividendenpolitik",
+  },
+  "div.stories.subtitle": {
+    fr: "Trois angles pour visualiser le retour aux actionnaires : statut historique, simulateur de revenu, effet boule de neige sur la durée.",
+    en: "Three angles to visualize shareholder returns: historical status, income simulator, long-run snowball effect.",
+    de: "Drei Blickwinkel auf die Aktionärsrendite: historischer Status, Einkommensrechner, langfristiger Schneeballeffekt.",
+  },
+  "div.stories.prev": {
+    fr: "Précédent",
+    en: "Previous",
+    de: "Zurück",
+  },
+  "div.stories.next": {
+    fr: "Suivant",
+    en: "Next",
+    de: "Weiter",
+  },
+  "div.stories.pause": {
+    fr: "Pause",
+    en: "Pause",
+    de: "Pause",
+  },
+  "div.stories.resume": {
+    fr: "Reprendre",
+    en: "Resume",
+    de: "Fortsetzen",
+  },
+  "div.stories.go_to_slide": {
+    fr: "Aller à la fenêtre {n}",
+    en: "Go to slide {n}",
+    de: "Zu Fenster {n} wechseln",
+  },
+  "div.aristocrat.badge": {
+    fr: "Aristocrat",
+    en: "Aristocrat",
+    de: "Aristocrat",
+  },
+  "div.aristocrat.title": {
+    fr: "Dividend Aristocrat",
+    en: "Dividend Aristocrat",
+    de: "Dividend Aristocrat",
+  },
+  "div.aristocrat.subtitle_since": {
+    fr: "Hausse continue depuis {year}",
+    en: "Uninterrupted increases since {year}",
+    de: "Ununterbrochene Steigerungen seit {year}",
+  },
+  "div.aristocrat.streak_label": {
+    fr: "années de hausse consécutive",
+    en: "years of consecutive increases",
+    de: "Jahre Dividendensteigerung in Folge",
+  },
+  "div.aristocrat.cagr_per_year": {
+    fr: "CAGR {value} % / an",
+    en: "CAGR {value} % / year",
+    de: "CAGR {value} % / Jahr",
+  },
+  "div.aristocrat.cagr_period": {
+    fr: "(5 ans)",
+    en: "(5 years)",
+    de: "(5 Jahre)",
+  },
+  "div.aristocrat.dps_label": {
+    fr: "DPS",
+    en: "DPS",
+    de: "DPS",
+  },
+  "div.aristocrat.cap_return_label": {
+    fr: "Capital rendu",
+    en: "Capital returned",
+    de: "Zurückgeführtes Kapital",
+  },
+  "div.aristocrat.cap_return_detail": {
+    fr: "div + rachats",
+    en: "div + buybacks",
+    de: "Dividende + Rückkäufe",
+  },
+  "div.aristocrat.payout_label": {
+    fr: "Payout",
+    en: "Payout",
+    de: "Ausschüttung",
+  },
+  "div.aristocrat.payout_coverage": {
+    fr: "couvert {value}×",
+    en: "covered {value}×",
+    de: "Deckung {value}×",
+  },
+  "div.aristocrat.signal_title": {
+    fr: "Politique de retour aux actionnaires constante",
+    en: "Consistent capital return policy",
+    de: "Konstante Kapitalrückführungspolitik",
+  },
+  "div.aristocrat.signal_body": {
+    fr: "Objectif management : plus de 50 % du free cash flow ME&T redistribué chaque année, marge de sécurité solide même en bas de cycle.",
+    en: "Management target: more than 50 % of ME&T free cash flow returned every year, solid safety buffer even at cycle lows.",
+    de: "Managementziel: mehr als 50 % des ME&T-Free-Cashflow werden jedes Jahr ausgeschüttet, robuste Sicherheitsmarge auch am Zyklustief.",
+  },
+  "div.calc.freq_day_long": {
+    fr: "/ jour",
+    en: "/ day",
+    de: "/ Tag",
+  },
+  "div.calc.freq_week_long": {
+    fr: "/ semaine",
+    en: "/ week",
+    de: "/ Woche",
+  },
+  "div.calc.freq_month_long": {
+    fr: "/ mois",
+    en: "/ month",
+    de: "/ Monat",
+  },
+  "div.calc.freq_year_long": {
+    fr: "/ an",
+    en: "/ year",
+    de: "/ Jahr",
+  },
+  "div.calc.freq_day_short": {
+    fr: "j",
+    en: "d",
+    de: "T",
+  },
+  "div.calc.freq_week_short": {
+    fr: "s",
+    en: "w",
+    de: "W",
+  },
+  "div.calc.freq_month_short": {
+    fr: "m",
+    en: "m",
+    de: "M",
+  },
+  "div.calc.freq_year_short": {
+    fr: "a",
+    en: "y",
+    de: "J",
+  },
+  "div.calc.badge_simulator": {
+    fr: "Simulateur",
+    en: "Simulator",
+    de: "Simulator",
+  },
+  "div.calc.question_shares": {
+    fr: "Combien d'actions {ticker} ?",
+    en: "How many {ticker} shares?",
+    de: "Wie viele {ticker}-Aktien?",
+  },
+  "div.calc.subtitle_regular_income": {
+    fr: "Pour viser un revenu net régulier",
+    en: "To target a regular net income",
+    de: "Für ein regelmäßiges Nettoeinkommen",
+  },
+  "div.calc.currency_title": {
+    fr: "Devise d'affichage (taux de change live)",
+    en: "Display currency (live exchange rate)",
+    de: "Anzeigewährung (Live-Wechselkurs)",
+  },
+  "div.calc.shares_to_hold": {
+    fr: "actions à détenir",
+    en: "shares to hold",
+    de: "zu haltende Aktien",
+  },
+  "div.calc.capital_approx": {
+    fr: "capital ≈",
+    en: "capital ≈",
+    de: "Kapital ≈",
+  },
+  "div.calc.target_income": {
+    fr: "Revenu cible",
+    en: "Target income",
+    de: "Zieleinkommen",
+  },
+  "div.calc.taxation": {
+    fr: "Imposition",
+    en: "Taxation",
+    de: "Besteuerung",
+  },
+  "div.calc.price_estimate": {
+    fr: "Cours estimé ({sym})",
+    en: "Estimated price ({sym})",
+    de: "Geschätzter Kurs ({sym})",
+  },
+  "div.calc.gross_required": {
+    fr: "Brut nécessaire :",
+    en: "Gross required:",
+    de: "Bruttobetrag nötig:",
+  },
+  "div.calc.per_year": {
+    fr: "/ an",
+    en: "/ year",
+    de: "/ Jahr",
+  },
+  "div.calc.disclaimer": {
+    fr: "Cours et dividende dans la devise affichée. Taux change ECB live. Calcul indicatif sans frais ni croissance future du dividende.",
+    en: "Price and dividend in the displayed currency. Live ECB exchange rate. Indicative calculation, excluding fees and future dividend growth.",
+    de: "Kurs und Dividende in der angezeigten Währung. Live-EZB-Wechselkurs. Richtwertberechnung, ohne Gebühren und ohne künftiges Dividendenwachstum.",
+  },
+  "div.snowball.badge": {
+    fr: "Boule de neige",
+    en: "Snowball",
+    de: "Schneeball",
+  },
+  "div.snowball.title": {
+    fr: "Réinvestir tes dividendes (DRIP)",
+    en: "Reinvest your dividends (DRIP)",
+    de: "Dividenden reinvestieren (DRIP)",
+  },
+  "div.snowball.subtitle_years": {
+    fr: "Effet boule de neige sur {years} ans",
+    en: "Snowball effect over {years} years",
+    de: "Schneeballeffekt über {years} Jahre",
+  },
+  "div.snowball.income_term": {
+    fr: "de revenu à terme",
+    en: "of income at term",
+    de: "Einkommen am Ende",
+  },
+  "div.snowball.initial_stake": {
+    fr: "Mise initiale",
+    en: "Initial stake",
+    de: "Anfangseinsatz",
+  },
+  "div.snowball.duration": {
+    fr: "Durée",
+    en: "Duration",
+    de: "Laufzeit",
+  },
+  "div.snowball.duration_years": {
+    fr: "{years} ans",
+    en: "{years} yrs",
+    de: "{years} J.",
+  },
+  "div.snowball.return": {
+    fr: "Rendement",
+    en: "Return",
+    de: "Rendite",
+  },
+  "div.snowball.return_per_year": {
+    fr: "{value}% / an",
+    en: "{value}% / year",
+    de: "{value}% / Jahr",
+  },
+  "div.snowball.disclaimer": {
+    fr: "Hypothèse : tu réinvestis chaque dividende reçu. Le rendement combine yield + appréciation du cours, supposé stable. Indicatif.",
+    en: "Assumption: every dividend received is reinvested. Return combines yield and price appreciation, assumed stable. Indicative.",
+    de: "Annahme: jede erhaltene Dividende wird reinvestiert. Die Rendite kombiniert Dividendenrendite und Kursanstieg, als konstant unterstellt. Richtwert.",
+  },
 };
 
 /**
