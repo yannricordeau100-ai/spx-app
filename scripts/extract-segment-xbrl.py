@@ -176,11 +176,17 @@ def parse_facts(text: str) -> list[dict]:
 
 
 def normalize_member(member: str) -> str:
-    """goog:GoogleCloudMember → GoogleCloud (strip namespace + 'Member' suffix)."""
+    """goog:GoogleCloudMember → GoogleCloud
+       goog:GoogleCloudSegmentMember → GoogleCloud
+       aapl:AmericasSegmentMember → Americas
+    Yann 15 mai 2026 : strip 'Segment' suffix aussi pour merger les variantes
+    historiques (Google a renommé 'GoogleCloudSegmentMember' → 'GoogleCloudMember' en 2022)."""
     if ":" in member:
         member = member.split(":", 1)[1]
     if member.endswith("Member"):
         member = member[:-6]
+    if member.endswith("Segment"):
+        member = member[:-7]
     return member
 
 
