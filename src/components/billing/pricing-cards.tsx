@@ -358,6 +358,24 @@ function PricingCard({
             {/* Yann 9 mai 2026 : retire le bi-bloc Mensuel/Annuel a
                 l'interieur des cards (le toggle global au-dessus
                 suffit). */}
+            {/* Yann 15 mai 2026 : bloc prix/jour remonté ici, entre
+                "Soit X facturés annuellement" et les bullet points
+                (occupe le grand vide blanc). */}
+            {!isFreeOrApi && dailyPrice > 0 && (
+              <div className="mt-4 flex items-center justify-between gap-3 rounded-lg border border-emerald-500/15 bg-emerald-500/[0.04] px-3 py-2">
+                <div className="flex items-baseline gap-1.5">
+                  <span className="font-display text-[22px] font-bold leading-none tracking-tight text-emerald-200">
+                    {dailyPrice.toFixed(2).replace(".", ",")}
+                  </span>
+                  <span className="text-[12px] font-semibold text-emerald-300/80">{currencySymbol}</span>
+                  <span className="text-[10.5px] font-mono uppercase tracking-[0.12em] text-emerald-300/70">{t("pricing.unit.per_day")}</span>
+                </div>
+                <span className="text-right text-[10.5px] italic leading-tight text-zinc-400">
+                  {t("pricing.card.coffee_slogan_part1")}<br />
+                  <strong className="not-italic text-zinc-200">{t("pricing.card.coffee_slogan_part2")}</strong>
+                </span>
+              </div>
+            )}
           </>
         )}
       </div>
@@ -380,24 +398,8 @@ function PricingCard({
 
       <p className="mt-4 text-center text-[10.5px] text-zinc-500">{plan.audience}</p>
 
-      {/* Bloc prix /jour + slogan (uniquement plans payants), juste
-          au-dessus du CTA. Slogan Yann (11 mai 2026 v3) : "Soit moins
-          que le prix d'un café, mais bien mieux investi !". */}
-      {!isFreeOrApi && dailyPrice > 0 && (
-        <div className="mt-3 flex items-center justify-between gap-3 rounded-lg border border-emerald-500/15 bg-emerald-500/[0.04] px-3 py-2">
-          <div className="flex items-baseline gap-1.5">
-            <span className="font-display text-[22px] font-bold leading-none tracking-tight text-emerald-200">
-              {dailyPrice.toFixed(2).replace(".", ",")}
-            </span>
-            <span className="text-[12px] font-semibold text-emerald-300/80">{currencySymbol}</span>
-            <span className="text-[10.5px] font-mono uppercase tracking-[0.12em] text-emerald-300/70">{t("pricing.unit.per_day")}</span>
-          </div>
-          <span className="text-right text-[10.5px] italic leading-tight text-zinc-400">
-            {t("pricing.card.coffee_slogan_part1")}<br />
-            <strong className="not-italic text-zinc-200">{t("pricing.card.coffee_slogan_part2")}</strong>
-          </span>
-        </div>
-      )}
+      {/* Bloc prix /jour DÉPLACÉ vers le haut (au-dessus des bullets,
+          Yann 15 mai 2026). Plus de doublon ici. */}
 
       <CtaButton
         plan={plan.tier}
