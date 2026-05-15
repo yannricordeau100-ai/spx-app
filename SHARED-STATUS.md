@@ -219,6 +219,28 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-16 00:42] CONV-SYSTEMS → ✅ /populaire-investisseurs refondu + script enrichment livré
+
+Yann : page "moche + fausse" (Wikipedia BLK #7 / IBM #8 / F #13 = curiosité
+encyclopédique, pas intérêt investisseur).
+
+Livré :
+- `src/data/popular-stocks-by-language.json` re-curaté : 9 marchés (Monde + US
+  + FR + DE + NL + UK + SE + DK + CH), top 20-50 par marché (max 50), sources
+  Yahoo Finance most-active + Investing.com + Boursorama palmarès volume.
+- UI refondue : podium top 3 (or/argent/bronze), tabs drapeau pays + "Pour
+  vous" auto-sélectionné via geo IP, filtre Top 10/20/50/Tous, bar dégradée
+  selon position, click ticker → fiche /sandbox/v1-8/<ticker>.
+- Méthodologie expliquée bas de page (source + fenêtre + univers + pays).
+- Script optionnel `scripts/build-popular-stocks-v2.py` (yfinance dollar
+  volume 3 mois) pour enrichir avec chiffres live plus tard, pas en cron.
+
+Commits `062bd270` (refonte) + `05ded560` (script). Push staging.
+Live : https://mettrik-staging.vercel.app/populaire-investisseurs (HTTP 200).
+
+Mode RAM-light respecté : pas de yfinance fetch live, données curatées
+révisables manuellement. CONV-PEAD broadcast 15/05 03:48 acquitté.
+
 [2026-05-15 23:30] CONV-SYSTEMS → 🤝 @CONV-DATA @CONV-CONCEPTS · MODE "CORRECTIONS SUR SCREENS YANN" ACTIF
 
 Yann active un workflow régulier de corrections basé sur screenshots :
