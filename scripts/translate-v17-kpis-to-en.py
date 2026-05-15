@@ -152,14 +152,23 @@ def translate_payload(payload: dict[str, Any], ticker: str) -> dict[str, Any] | 
         "response_format": {"type": "json_object"},
         "max_tokens": 4000,
     }
-    try:
-        r = requests.post(CEREBRAS_URL, headers=headers, json=body, timeout=120)
-        r.raise_for_status()
-        text = r.json()["choices"][0]["message"]["content"]
-        return json.loads(text)
-    except Exception as e:
-        print(f"[err] {ticker}: {e}")
-        return None
+    for attempt in range(4):
+        try:
+            r = requests.post(CEREBRAS_URL, headers=headers, json=body, timeout=120)
+            if r.status_code == 429:
+                wait = 5 + attempt * 5
+                print(f"[429] {ticker}: rate-limited, wait {wait}s")
+                time.sleep(wait)
+                continue
+            r.raise_for_status()
+            text = r.json()["choices"][0]["message"]["content"]
+            return json.loads(text)
+        except Exception as e:
+            if attempt == 3:
+                print(f"[err] {ticker}: {e}")
+                return None
+            time.sleep(2 + attempt * 2)
+    return None
 
 
 def main():
@@ -170,6 +179,8 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--limit", type=int, default=0, help="Translate only N stés (0 = all)")
     parser.add_argument("--ticker", type=str, default="", help="Translate only this ticker")
+    parser.add_argument("--offset", type=int, default=0)
+    parser.add_argument("--stride", type=int, default=1)
     parser.add_argument("--skip-existing", action="store_true", help="Skip stés already translated")
     args = parser.parse_args()
 
@@ -178,7 +189,7 @@ def main():
     if args.ticker:
         pass3 = {args.ticker.upper(): pass3.get(args.ticker.upper())} if args.ticker.upper() in pass3 else {}
 
-    items = list(pass3.items())
+    items = [(t,e) for i,(t,e) in enumerate(pass3.items()) if i % args.stride == args.offset]
     if args.limit > 0:
         items = items[: args.limit]
 
@@ -206,7 +217,7 @@ def main():
             rate = done / elapsed if elapsed else 0
             eta = (len(items) - done - skipped) / rate if rate else 0
             print(f"[progress] {done} done · {skipped} skipped · {failed} failed · ETA {eta/60:.1f} min")
-        time.sleep(0.2)  # Cerebras rate limit gentle
+        time.sleep(1.5)  # Cerebras rate limit gentle
 
     print(f"[end] {done} translated · {skipped} skipped · {failed} failed · {(time.time()-t0)/60:.1f} min")
 

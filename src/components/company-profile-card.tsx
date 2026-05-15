@@ -40,7 +40,7 @@ import { useT } from "@/lib/i18n/provider";
  * l'utilisateur qui veut savoir "d'où ça vient".
  */
 export function CompanyProfileCard({ company, accent = "#a78bfa" }: { company: Company; accent?: string }) {
-  const { locale } = useT();
+  const { locale, t } = useT();
   const lang = (locale === "de" ? "de" : locale === "fr" ? "fr" : "en") as "fr" | "en" | "de";
   // Yann 14 mai 2026 : nouvelle description Gemini "PV" en 2 versions
   // (simple + avancée), prioritaire sur l'ancienne `company_description`
@@ -78,8 +78,8 @@ export function CompanyProfileCard({ company, accent = "#a78bfa" }: { company: C
     <section id="sec-profile" className="mt-9 scroll-mt-24">
       <div className="mb-3 flex items-baseline justify-between">
         {/* Yann 14 mai 2026 : "Profil société & marché" → "Comprendre la société" */}
-        <h2 className="font-display text-[20px] font-bold tracking-tight text-zinc-100">Comprendre la société</h2>
-        <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">Source : Mettrik AI</span>
+        <h2 className="font-display text-[20px] font-bold tracking-tight text-zinc-100">{t("company.profile.section_title")}</h2>
+        <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">{t("company.profile.source")}</span>
       </div>
 
       {/* Layout principal : Description Mettrik (2/3) + Snapshot boursier (1/3).
@@ -91,7 +91,7 @@ export function CompanyProfileCard({ company, accent = "#a78bfa" }: { company: C
             <div className="mb-4 flex items-center justify-between gap-3">
               <h3 className="flex items-center gap-2 font-display text-[14px] font-semibold uppercase tracking-wider text-zinc-200">
                 <Sparkles className="size-3.5" style={{ color: accent }} />
-                Description Mettrik
+                {t("company.profile.desc_title")}
               </h3>
               {/* Toggle Simple / Avancée */}
               <div className="inline-flex items-center gap-0.5 rounded-full border border-white/10 bg-white/[0.02] p-0.5">
@@ -105,7 +105,7 @@ export function CompanyProfileCard({ company, accent = "#a78bfa" }: { company: C
                       : "text-zinc-500 hover:text-zinc-200")
                   }
                 >
-                  Simple
+                  {t("company.profile.toggle_simple")}
                 </button>
                 <button
                   type="button"
@@ -118,7 +118,7 @@ export function CompanyProfileCard({ company, accent = "#a78bfa" }: { company: C
                   }
                 >
                   <BookOpen className="size-3" />
-                  Avancée
+                  {t("company.profile.toggle_advanced")}
                 </button>
               </div>
             </div>
@@ -159,7 +159,7 @@ export function CompanyProfileCard({ company, accent = "#a78bfa" }: { company: C
             <div className="mb-2 flex items-baseline justify-between gap-3">
               <h3 className="flex items-center gap-2 font-display text-[14px] font-semibold uppercase tracking-wider text-zinc-300">
                 <Newspaper className="size-3.5" style={{ color: accent }} />
-                Dernière actualité
+                {t("company.profile.news_title")}
               </h3>
               <span className="font-mono text-[10.5px] uppercase tracking-wider text-zinc-500">
                 {fmtNewsDate(news.date)}
@@ -202,31 +202,32 @@ function SnapshotCard({
   snap: NonNullable<Company["financial_snapshot"]>;
   accent: string;
 }) {
+  const { t } = useT();
   return (
     <div className="rounded-2xl border border-white/[0.06] bg-gradient-to-br from-white/[0.025] to-transparent p-5">
       <div className="mb-3">
         <h3 className="font-display text-[14px] font-semibold uppercase tracking-wider text-zinc-200">
-          Snapshot boursier
+          {t("company.snapshot.title")}
         </h3>
       </div>
       <div className="grid grid-cols-2 gap-x-4 gap-y-2.5 text-[12.5px]">
-        <SnapRow label="Capitalisation" value={fmtMarketCap(snap.market_cap_usd, snap.currency)} accent={accent} />
-        <SnapRow label="P / E (TTM)" value={fmtNum(snap.pe_ratio, 1)} accent={accent} />
-        <SnapRow label="EPS (TTM)" value={fmtNum(snap.eps_ttm, 2)} accent={accent} />
-        <SnapRow label="Beta" value={fmtNum(snap.beta, 2)} accent={accent} />
+        <SnapRow label={t("company.snapshot.market_cap")} value={fmtMarketCap(snap.market_cap_usd, snap.currency)} accent={accent} />
+        <SnapRow label={t("company.snapshot.pe_ttm")} value={fmtNum(snap.pe_ratio, 1)} accent={accent} />
+        <SnapRow label={t("company.snapshot.eps_ttm")} value={fmtNum(snap.eps_ttm, 2)} accent={accent} />
+        <SnapRow label={t("company.snapshot.beta")} value={fmtNum(snap.beta, 2)} accent={accent} />
         <SnapRow
-          label="Dividende"
+          label={t("company.snapshot.dividend")}
           value={snap.dividend_yield_pct != null ? `${snap.dividend_yield_pct.toFixed(2)} %` : "—"}
           accent={accent}
         />
         <SnapRow
-          label="Variation jour"
+          label={t("company.snapshot.day_change")}
           value={fmtPct(snap.day_change_pct)}
           accent={accent}
           colorize={snap.day_change_pct}
         />
-        <SnapRow label="Plus-haut 52 sem." value={fmtNum(snap.high_52w, 2)} accent={accent} />
-        <SnapRow label="Plus-bas 52 sem." value={fmtNum(snap.low_52w, 2)} accent={accent} />
+        <SnapRow label={t("company.snapshot.high_52w")} value={fmtNum(snap.high_52w, 2)} accent={accent} />
+        <SnapRow label={t("company.snapshot.low_52w")} value={fmtNum(snap.low_52w, 2)} accent={accent} />
       </div>
     </div>
   );

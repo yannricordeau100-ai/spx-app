@@ -1493,6 +1493,148 @@ export const DICTIONARY: Dict = {
     en: "Assumption: every dividend received is reinvested. Return combines yield and price appreciation, assumed stable. Indicative.",
     de: "Annahme: jede erhaltene Dividende wird reinvestiert. Die Rendite kombiniert Dividendenrendite und Kursanstieg, als konstant unterstellt. Richtwert.",
   },
+
+  // i18n batch UI (Yann 15 mai 2026 — Phase A1 snapshot + super-KPI + profile)
+  "company.profile.section_title": {
+    fr: "Comprendre la société",
+    en: "About the company",
+    de: "Unternehmen verstehen",
+  },
+  "company.profile.source": {
+    fr: "Source : Mettrik AI",
+    en: "Source: Mettrik AI",
+    de: "Quelle: Mettrik AI",
+  },
+  "company.profile.desc_title": {
+    fr: "Description Mettrik",
+    en: "Mettrik Description",
+    de: "Mettrik Beschreibung",
+  },
+  "company.profile.toggle_simple": {
+    fr: "Simple",
+    en: "Simple",
+    de: "Einfach",
+  },
+  "company.profile.toggle_advanced": {
+    fr: "Avancée",
+    en: "Advanced",
+    de: "Erweitert",
+  },
+  "company.profile.news_title": {
+    fr: "Dernière actualité",
+    en: "Latest news",
+    de: "Aktuelle Nachrichten",
+  },
+  "company.snapshot.title": {
+    fr: "Snapshot boursier",
+    en: "Market snapshot",
+    de: "Börsen-Snapshot",
+  },
+  "company.snapshot.market_cap": {
+    fr: "Capitalisation",
+    en: "Market cap",
+    de: "Marktkapitalisierung",
+  },
+  "company.snapshot.pe_ttm": {
+    fr: "P / E (TTM)",
+    en: "P / E (TTM)",
+    de: "P / E (TTM)",
+  },
+  "company.snapshot.eps_ttm": {
+    fr: "EPS (TTM)",
+    en: "EPS (TTM)",
+    de: "EPS (TTM)",
+  },
+  "company.snapshot.beta": {
+    fr: "Beta",
+    en: "Beta",
+    de: "Beta",
+  },
+  "company.snapshot.dividend": {
+    fr: "Dividende",
+    en: "Dividend",
+    de: "Dividende",
+  },
+  "company.snapshot.day_change": {
+    fr: "Variation jour",
+    en: "Day change",
+    de: "Tagesveränderung",
+  },
+  "company.snapshot.high_52w": {
+    fr: "Plus-haut 52 sem.",
+    en: "52w high",
+    de: "52W-Hoch",
+  },
+  "company.snapshot.low_52w": {
+    fr: "Plus-bas 52 sem.",
+    en: "52w low",
+    de: "52W-Tief",
+  },
+  "superkpi.title": {
+    fr: "Super-KPI Mettrik",
+    en: "Mettrik Super KPI",
+    de: "Mettrik Super-KPI",
+  },
+  "superkpi.subtitle": {
+    fr: "Combinaisons d'au moins 2 indicateurs bruts pour révéler des dimensions composites qu'aucun KPI seul ne capture. La majorité sont des standards adoptés par les pros de la finance ; le Mettrik Profit Power Index est une signature Mettrik propriétaire (clairement marquée).",
+    en: "Combinations of at least 2 raw indicators to reveal composite dimensions no single KPI captures. Most are standards adopted by finance pros; the Mettrik Profit Power Index is a proprietary Mettrik signature (clearly marked).",
+    de: "Kombinationen aus mindestens 2 Rohindikatoren, um zusammengesetzte Dimensionen aufzuzeigen, die kein einzelner KPI erfasst. Die meisten sind von Finanzprofis übernommene Standards; der Mettrik Profit Power Index ist eine proprietäre Mettrik-Signatur (deutlich gekennzeichnet).",
+  },
+  "superkpi.composite_signature": {
+    fr: "Composite signature Mettrik",
+    en: "Mettrik composite signature",
+    de: "Mettrik-Composite-Signatur",
+  },
+  "superkpi.profit_power_index": {
+    fr: "Mettrik Profit Power Index",
+    en: "Mettrik Profit Power Index",
+    de: "Mettrik Profit Power Index",
+  },
+  "superkpi.data_unavailable": {
+    fr: "Données nécessaires non disponibles pour cette société.",
+    en: "Required data not available for this company.",
+    de: "Erforderliche Daten für dieses Unternehmen nicht verfügbar.",
+  },
+  "superkpi.suffix_specific": {
+    fr: "spécifiques",
+    en: "specific",
+    de: "spezifisch",
+  },
+  "superkpi.kpi_rule_of_40": {
+    fr: "Rule of 40",
+    en: "Rule of 40",
+    de: "Rule of 40",
+  },
+  "superkpi.kpi_marge": {
+    fr: "Marge",
+    en: "Margin",
+    de: "Marge",
+  },
+  "superkpi.kpi_concentration": {
+    fr: "Concentration",
+    en: "Concentration",
+    de: "Konzentration",
+  },
+  "superkpi.kpi_margin_trend": {
+    fr: "Tendance marge YoY",
+    en: "Margin trend YoY",
+    de: "Margen-Trend YoY",
+  },
+  "superkpi.kpi_growth": {
+    fr: "Croissance",
+    en: "Growth",
+    de: "Wachstum",
+  },
+  "superkpi.kpi_composite": {
+    fr: "Composite",
+    en: "Composite",
+    de: "Composite",
+  },
+  "superkpi.kpi_quality_compounding": {
+    fr: "Quality of Compounding",
+    en: "Quality of Compounding",
+    de: "Qualität der Compoundierung",
+  },
 };
 
 /**

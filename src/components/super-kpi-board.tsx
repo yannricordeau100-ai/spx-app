@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import { useT } from "@/lib/i18n/provider";
 import { Sparkles, ArrowRight, Crown } from "lucide-react";
 import { InfoTooltip } from "@/components/info-tooltip";
 import { StarButton } from "@/components/star-button";
@@ -134,6 +135,7 @@ function SuperKpiCard({ kpi, accent, ticker }: { kpi: SuperKpi; accent: string; 
 
 /** Carte signature large (Mettrik Profit Power Index) — full width, jauge circulaire. */
 function SignatureCard({ kpi }: { kpi: SuperKpi }) {
+  const { t } = useT();
   const isNA = kpi.tier === "na";
   // Jauge circulaire (SVG)
   const RADIUS = 70;
@@ -237,7 +239,7 @@ function SignatureCard({ kpi }: { kpi: SuperKpi }) {
               className="font-mono text-[10.5px] font-semibold uppercase tracking-[0.18em]"
               style={{ color: kpi.color }}
             >
-              Composite signature Mettrik
+              {t("superkpi.composite_signature")}
             </span>
             <InfoTooltip color={kpi.color} align="right">
               <div className="mb-1.5 font-mono text-[10px] uppercase tracking-wider" style={{ color: kpi.color }}>
@@ -290,6 +292,7 @@ export function SuperKpiBoard({
   ticker?: string;
   accent?: string;
 }) {
+  const { t } = useT();
   if (!kpis || kpis.length === 0) return null;
   const signature = kpis.find((k) => k.id === "ppi");
   const others = kpis.filter((k) => k.id !== "ppi");
@@ -303,13 +306,10 @@ export function SuperKpiBoard({
         <div>
           <h2 className="flex items-center gap-2.5 text-[22px] font-semibold text-zinc-50">
             <Sparkles className="size-5" style={{ color: accent }} />
-            Super-KPI Mettrik
+            {t("superkpi.title")}
           </h2>
           <p className="mt-0.5 max-w-2xl text-[13.5px] text-zinc-300">
-            Combinaisons d'au moins 2 indicateurs bruts pour révéler des dimensions
-            composites qu'aucun KPI seul ne capture. La majorité sont des standards
-            adoptés par les pros de la finance ; le Mettrik Profit Power Index est
-            une signature Mettrik propriétaire (clairement marquée).
+            {t("superkpi.subtitle")}
           </p>
         </div>
       </div>
@@ -329,7 +329,7 @@ export function SuperKpiBoard({
         <div className="mt-7 border-t border-[#1f1f1f] pt-5">
           <h3 className="mb-3 flex items-center gap-2 text-[16px] font-semibold text-zinc-50">
             <Sparkles className="size-4" style={{ color: accent }} />
-            Super-KPI Mettrik · {companyName ?? "spécifiques"}
+            {t("superkpi.title")} · {companyName ?? t("superkpi.suffix_specific")}
             <span
               className="font-mono text-[10px] font-medium uppercase tracking-wider text-zinc-400"
             >
