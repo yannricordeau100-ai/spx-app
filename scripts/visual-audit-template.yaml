@@ -1,172 +1,180 @@
 # Mettrik visual audit template — Gemini 2.5 Flash
-# Each check produces: { id, pass: bool, severity: 1-5, observation: str }
-# Used by scripts/visual-audit-gemini.py to build the prompt + parse response.
-# Reviewed: 2026-05-15
+# IDs ALIGNÉS sur src/lib/quality-tree.ts (Quality Registry unique).
+# Chaque check produit: { id, pass: bool, severity: 1-5, observation: str }
+# Yann 16 mai 2026 — Phase 4 chantier Quality Registry.
 
-version: 1
+version: 2
 
 categories:
   - id: header
-    label: Header (logo + chips)
+    label: Header (logo + chips + tagline)
     checks:
-      - id: logo_real
+      - id: header.logo.real_brand
         question: "Le logo en haut à gauche est-il un vrai logo de marque (pas un cercle gradient violet/cyan avec 1-3 lettres = fallback monogramme) ?"
         severity_if_fail: 3
-      - id: logo_readable
+      - id: header.logo.readable_on_dark
         question: "Le logo est-il lisible sur fond sombre (contraste suffisant, ratio non écrasé) ?"
         severity_if_fail: 2
-      - id: chips_complete
+      - id: header.chips.all_filled
         question: "Les 6 chips header sont-ils tous présents et remplis : Rang mondial, Rang USA, Secteur, Sous-secteur, Fondée, IPO ?"
         severity_if_fail: 3
-      - id: chips_fr
+      - id: header.chips.labels_fr
         question: "Les labels des chips sont-ils en français (Secteur / Sous-secteur / Fondée), pas en anglais (Sector / Sub-sector / Founded) ?"
         severity_if_fail: 2
-      - id: rank_format_uniform
+      - id: header.chips.rank_format_uniform
         question: "Les rangs utilisent-ils un seul format cohérent (tous en '#N' OU tous en 'Top N %'), pas un mix sur la même page ?"
         severity_if_fail: 2
 
   - id: hero
-    label: Hero KPI + chart
+    label: Hero (sidebar + chart + interpretation)
     checks:
-      - id: hero_value_plausible
+      - id: hero.sidebar.value_plausible
         question: "La grosse valeur hero (chiffre central) a-t-elle une magnitude plausible pour cette société et ce KPI (pas 30 alors qu'on attend 194, pas 0, pas négatif si ça n'a pas de sens) ?"
         severity_if_fail: 5
-      - id: hero_unit_visible
+      - id: hero.sidebar.unit_visible
         question: "L'unité du hero KPI est-elle affichée clairement à côté de la valeur (Mds $, $, %, M, ans) ?"
         severity_if_fail: 4
-      - id: hero_yoy_color
+      - id: hero.sidebar.yoy_color_arrow
         question: "La pill YoY a-t-elle la bonne couleur (vert si positif, rouge si négatif) et une flèche cohérente ?"
         severity_if_fail: 3
-      - id: hero_cagr_clean
+      - id: hero.sidebar.cagr_no_infinity
         question: "Le badge CAGR n'affiche pas 'Infinity', 'NaN', '−Infinity' ni '+∞ %' ?"
         severity_if_fail: 5
-      - id: chart_axis_label
+      - id: hero.chart.y_axis.unit_label
         question: "L'axe Y du chart a-t-il un label d'unité explicite (ex '$ en Milliards', '$ en Millions', '%', 'Nombre') ?"
         severity_if_fail: 3
-      - id: chart_not_linear_fake
+      - id: hero.chart.y_axis.no_overlap_with_tabs
+        question: "L'axe Y (s'il est à droite) ne chevauche-t-il pas les onglets de personnalisation (period toggle / sub-toggle 2D-3D) ?"
+        severity_if_fail: 3
+      - id: hero.chart.no_linear_synthetic
         question: "Le sparkline / chart hero ne montre PAS une suite parfaitement linéaire (ex +5 chaque période × 8 = signature LLM fabriquée). Une vraie history a du bruit."
         severity_if_fail: 5
-      - id: chart_min4_points
-        question: "Le chart hero a au moins 4 points visibles (pas une fiche 1-point ou 2-points avec ligne plate) ?"
-        severity_if_fail: 4
-      - id: ttm_padding
-        question: "Si un point TTM est affiché à droite (pointillé), il n'est pas coupé par le bord du chart ?"
+      - id: hero.chart.no_partial_year
+        question: "Le chart annuel ne montre AUCUN point pour une année incomplète. Si l'année courante n'a pas tous ses quarters publiés, elle ne doit PAS être plottée."
+        severity_if_fail: 5
+      - id: hero.chart.no_phantom_quarter
+        question: "Le chart trimestriel ne montre AUCUN trimestre futur (au-delà du last_data_date). Pas de T2 2026 si on est en mai 2026."
+        severity_if_fail: 5
+      - id: hero.chart.ttm_visible
+        question: "Si TTM existe (point pointillé à droite), sa valeur numérique est-elle affichée à côté (en italique gris distinct des points FY) ?"
+        severity_if_fail: 3
+      - id: hero.chart.events_dots.no_cluster_right
+        question: "Les event dots (timeline) sont-ils espacés normalement le long de l'axe X, sans grappe à l'extrémité droite ?"
         severity_if_fail: 2
+      - id: hero.chart.watermark.no_overlap_ttm_badge
+        question: "Le watermark 'MettrikAI' ne se superpose pas avec le TTM badge ni avec d'autres labels du chart ?"
+        severity_if_fail: 3
+      - id: hero.chart.x_axis.no_overflow_right
+        question: "Aucun label X ou point TTM n'est coupé par le bord droit du chart ?"
+        severity_if_fail: 3
 
   - id: kpis_table
-    label: Indicateurs clés (KPI table)
+    label: Tableau Indicateurs clés
     checks:
-      - id: kpi_count_5plus
+      - id: kpis_table.count_5plus
         question: "La fiche affiche au moins 5 KPIs dans le tableau Indicateurs clés ?"
         severity_if_fail: 4
-      - id: kpi_units_homogeneous
-        question: "Les unités sont-elles cohérentes : 'Mds $' partout (pas un mix 'B$', '$B', 'Mds$', 'M$ ' collé) ?"
+      - id: global.units.consistent_across_blocs
+        question: "Les unités sont-elles cohérentes entre tous les blocs : 'Mds $' partout (pas un mix 'B$', '$B', 'Mds$', 'M$ ' collé) ?"
         severity_if_fail: 3
-      - id: kpi_pct_nbsp
+      - id: global.typography.nbsp_before_pct
         question: "Les pourcentages utilisent un espace insécable avant '%' (ex '6,9 %', pas '6.9%' format US) ?"
         severity_if_fail: 2
-      - id: numbers_fr_format
+      - id: global.typography.fr_number_format
         question: "Les nombres sont au format FR ('1 234,56' / '6,9 %'), pas US ('1,234.56' / '6.9%') ?"
         severity_if_fail: 3
-      - id: acronyms_tooltip
+      - id: kpis_table.acronyms_tooltip
         question: "Les acronymes (DAP, EBITDA, TAC, ARR, CAGR, ROIC, etc.) ont-ils un tooltip 'i' à côté pour expliquer ?"
         severity_if_fail: 2
-      - id: short_labels_clean
+      - id: kpis_table.short_label_oneline
         question: "Les labels short de chaque KPI tiennent sur 1 ligne (pas tronqué, pas wrap moche, ≤30 chars) ?"
         severity_if_fail: 2
 
   - id: stories
     label: Stories carrousel
     checks:
-      - id: stories_visible
+      - id: stories.visible_at_least_3
         question: "Le bloc Stories (carrousel autoplay) est-il présent et affiche au moins 1 card story ?"
         severity_if_fail: 3
-      - id: stories_quality
+      - id: stories.no_template_llm
         question: "Les cards Stories ont du contenu concret (nom KPI + valeur + contexte), pas un template LLM vide ou 'Voir ci-dessous' ?"
         severity_if_fail: 3
 
   - id: risks
     label: Facteurs de risque
     checks:
-      - id: risks_count
+      - id: risks.count_3plus
         question: "Le bloc Risques affiche au moins 3 cards de risques ?"
         severity_if_fail: 3
-      - id: risks_severity_chip
+      - id: risks.severity_score
         question: "Chaque risque a-t-il un score severity 1-5 visible (chip ou étoiles) ?"
         severity_if_fail: 2
-      - id: risks_trend_chip
+      - id: risks.trend_chip
         question: "Chaque risque a un chip de trend (Nouveau / En hausse / Stable / En baisse / Retiré) ?"
         severity_if_fail: 1
 
   - id: governance
     label: Gouvernance & rémunération
     checks:
-      - id: governance_ceo_present
-        question: "Le bloc Gouvernance affiche un nom de CEO non vide ?"
+      - id: governance.ceo_name_correct
+        question: "Le bloc Gouvernance affiche un nom de CEO non vide (et pas un nom évidemment faux comme un CEO de filiale ou d'une autre sté) ?"
         severity_if_fail: 3
-      - id: governance_voting
-        question: "La structure de vote (Top 3 Droits de vote OU Top 3 Capital) est-elle affichée si applicable ?"
-        severity_if_fail: 1
 
   - id: ai_positioning
     label: Positionnement IA
     checks:
-      - id: ai_stance_present
+      - id: ai_positioning.stance_present
         question: "Le bloc Positionnement IA affiche une stance (leader / integrator / cautious / absent) ?"
         severity_if_fail: 2
-      - id: ai_evidence_count
+      - id: ai_positioning.evidence_min_2
         question: "Le bloc Positionnement IA liste au moins 2 evidences concrètes (pas juste un placeholder) ?"
         severity_if_fail: 2
 
   - id: repartition
     label: Répartition revenu (segment / geo)
     checks:
-      - id: segment_chart
+      - id: repartition.segment_slices_2plus
         question: "Le bloc Répartition par segment affiche un pie/donut avec au moins 2 slices nommées ?"
         severity_if_fail: 2
-      - id: geo_chart
+      - id: repartition.geo_slices_2plus
         question: "Le bloc Répartition par géographie affiche un pie/donut avec au moins 2 slices nommées ?"
         severity_if_fail: 2
-      - id: slices_percent_total
+      - id: repartition.pct_sums_100
         question: "Les pourcentages des slices totalisent ~100 % (pas 30 % ou 200 %) ?"
         severity_if_fail: 3
 
   - id: freshness
     label: Fraîcheur / earning
     checks:
-      - id: freshness_label_fr
+      - id: freshness.label_fr
         question: "Le label de fraîcheur est en français (À jour / Récent / Périmé), pas en anglais (Fresh / Recent / Stale) ?"
         severity_if_fail: 2
-      - id: freshness_pill_color
-        question: "La pill de fraîcheur a une couleur cohérente (vert si fresh, orange si stale, gris si unknown) ?"
-        severity_if_fail: 1
 
-  - id: language
-    label: Cohérence langue (page FR)
+  - id: global
+    label: Cohérence langue + typographie (page FR)
     checks:
-      - id: lang_no_english_leak
+      - id: global.lang.no_english_leak
         question: "Aucun mot anglais user-facing parasite (Industry, Sector, Founded, Read more, Loading, etc.) sur une page supposée FR ?"
         severity_if_fail: 2
-      - id: no_em_dash
+      - id: global.typography.no_em_dash
         question: "Aucun em-dash '—' user-facing dans les textes ? (Mettrik bannit les em-dashes.)"
         severity_if_fail: 1
-      - id: no_curly_brace
-        question: "Aucun {placeholder} non remplacé ni 'undefined' ni '[object Object]' visible ?"
-        severity_if_fail: 5
+      - id: global.units.mds_not_b
+        question: "Aucun format unité bâclé : pas de '12B$', pas de '60M$' collé, jamais '$B' ?"
+        severity_if_fail: 2
 
   - id: layout
     label: Layout / rendu
     checks:
-      - id: no_overflow
+      - id: layout.no_horizontal_scroll
         question: "Aucun bloc ne déborde de son conteneur (pas de scroll horizontal de page, pas de texte qui sort de sa card) ?"
         severity_if_fail: 3
-      - id: no_broken_image
+      - id: layout.no_broken_image
         question: "Aucune image cassée (icône broken-image, fond gris vide là où devrait être un logo / chart) ?"
         severity_if_fail: 4
-      - id: no_500_error
+      - id: layout.no_500_error
         question: "La page n'affiche pas une erreur (500, 404, 'Quelque chose s'est mal passé', stack trace) ?"
         severity_if_fail: 5
 
 global_pass_threshold:
-  # Une fiche est "OK" si elle a zéro fail de severity >= 4
   blocker_severity: 4
