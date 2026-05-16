@@ -571,6 +571,25 @@ export async function loadV17Company(
     } catch (err) {
       console.warn(`image_findings merge failed for ${ticker}:`, err);
     }
+    // Exhaustive extract (CONV-DEPAN 16 mai 2026) : merge le JSON
+    // 18-domaines `v2-pipeline-exhaustive/<ticker>.json` (Haiku/Sonnet)
+    // dans `company.exhaustive`. Les nouveaux blocs UI peuvent consommer
+    // financials.balance_sheet, segments[].growth_yoy, events_milestones,
+    // kpis_proprietary, esg structuré, etc. sans nouveau Pass LLM.
+    // Optionnel : ne casse rien si fichier absent.
+    try {
+      const exhaustivePath = path.join(
+        process.cwd(),
+        "src/data/v2-pipeline-exhaustive",
+        `${ticker.toLowerCase()}.json`,
+      );
+      const exhaustive = await readJsonOrNull<Record<string, unknown>>(exhaustivePath);
+      if (exhaustive && typeof exhaustive === "object") {
+        (data as Record<string, unknown>).exhaustive = exhaustive;
+      }
+    } catch (err) {
+      console.warn(`exhaustive merge failed for ${ticker}:`, err);
+    }
     // dividend_meta : propagé tel quel à la company (utilisé par
     // DividendAristocratCard pour calculer yearsStreak depuis first_year).
     // CONV-DIV 9 mai 2026.
