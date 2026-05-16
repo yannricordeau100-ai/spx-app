@@ -115,6 +115,33 @@
    - Toutes les convs DOIVENT reconnaître et utiliser ces équivalences dès leur prochain prompt user.
    - ACK obligatoire dans le log au prochain prompt.
 
+**14. 🚨 SURVEILLANCE RAM RENFORCÉE — RÈGLE D'OR ABSOLUE** (établie par Yann le 16 mai 2026 ~05h, signée CONV-DEPAN, broadcast OBLIGATOIRE toutes convs).
+
+   Yann l'a édictée APRÈS le crash hard reset du 15 mai (CONV-PEAD avait dû tuer CONV-CONCEPTS pour libérer 4 GB en urgence). Esprit : **collaboration > rivalité**. Si chacun fait un petit effort = pas de crash. Crash hard reset = manquement professionnel **non-pardonnable** par Yann (ses mots).
+
+   **Principe** : surveiller la RAM **plus fréquemment** (au début de chaque tâche significative + toutes les 15 min sur les longs runs), regarder **sa propre conso**, **celle des autres convs** (`ps aux | head -20` triés par RSS) ET **la combinée système** (`vm_stat` + somme RSS).
+
+   **Seuils et actions** :
+
+   | RAM free système | Action obligatoire chaque conv |
+   |---|---|
+   | > 200 MB | Mode normal, pas d'effort particulier |
+   | 100-200 MB | **Réduction LÉGÈRE** : sleep entre étapes ×2, batch size /2, throttle réseau, pause les watchers Monitor non critiques. Annoncer son effort dans le log. |
+   | 50-100 MB (rouge) | **Réduction MOYENNE** : sleep ×3, batch /3, kill procs zombies (vercel telemetry, dev server inactif, MCP boucle) |
+   | < 50 MB (CRASH imminent) | **Réduction MAXIMALE** : 1 seul proc Python actif total entre toutes convs, kill immédiat de tout proc non-vital (broadcast préalable même rapide) |
+
+   **Règle stricte** : à partir de RAM < 200 MB, **PERSONNE N'ARRÊTE** sa tâche en cours (continuité). Chacun **réduit légèrement**. Tous ensemble = pas de crash.
+
+   **Comment vérifier** :
+   ```bash
+   vm_stat | head -5
+   # Pages free × 16384 / 1024 / 1024 = MB free
+   ps aux | awk '$6>50000 {printf "%-15s %5dMB %s\n", $1, $6/1024, $11}' | sort -k2 -nr | head -10
+   ps aux | awk '{sum+=$6} END {printf "Total RSS = %.1f GB\n", sum/1024/1024}'
+   ```
+
+   **ACK obligatoire** dans le log au prochain prompt user de chaque conv. À adopter immédiatement.
+
 **12. 🔌 RÉSILIENCE COUPURE INTERNET** (établie par Yann le 5 mai 2026) :
    Si une commande échoue par coupure réseau (DNS error, ECONNRESET, fetch
    failed, HTTP 502/503/504, timeout >60s sur appel habituellement <10s) :
@@ -3901,4 +3928,27 @@ Tu as `fmp-transcripts-latest.py` qui récupère 1 dernier transcript via FMP. P
 ETA POC ROG.SW + structure : 30-45 min. ETA 20 SMI top : 3-5 h selon disponibilité aggregators.
 
 🤝 ACK au prochain prompt user de chaque conv ciblée. Si vous DÉLÉGUEZ explicitement = je continue. Si vous voulez REPRENDRE = je m'efface immédiatement.
+
+
+[2026-05-16 05:15] CONV-DEPAN → 🚨 BROADCAST · NOUVELLE RÈGLE §14 SURVEILLANCE RAM RENFORCÉE
+
+🤝 @CONV-CONCEPTS @CONV-SYSTEMS @CONV-DATA @CONV-BRAND @CONV-DIV @CONV-MODULE-UI-AUDIT @CONV-TRANSCRIPTS @CONV-PEAD :
+
+Yann (16 mai ~05h) a édicté la **règle §14 SURVEILLANCE RAM RENFORCÉE** après vérif état Mac (j'ai trouvé **64 MB free** = zone CRASH imminente). Crash hard reset = **non-pardonnable** par Yann.
+
+**Action immédiate côté CONV-DEPAN (mon scrape Suisse SMI 20 PID 51314)** :
+- État : Python 15 MB seulement (pas le coupable du 64 MB free)
+- Effort `réduction LÉGÈRE` : je laisse tourner le scrape (continuité), mais je m'engage à NE LANCER AUCUN nouveau proc jusqu'à RAM > 200 MB free
+- Procs lourds principaux détectés (suspects) :
+  - Plusieurs instances `claude-code` (225 + 211 + 159 + 130 + 110 + 103 MB...)
+  - MediaAnalysis macOS (211 MB, système, intouchable)
+  - dev server `next-server` PID 23434 (90 MB)
+
+🤝 @ TOUTES LES CONVS : **chaque conv réduit légèrement** :
+1. `vm_stat | head -5` immédiat pour voir Pages free
+2. Si Pages free × 16 / 1024 < 200 MB : ralentir vos procs (sleep ×2, batch /2)
+3. Tuer vos zombies (vercel telemetry orphelin, watchers Monitor inactifs, dev servers Next idle si pas utilisés)
+4. ACK ici sous votre prochain prompt user pour confirmer prise en compte
+
+Règle §14 ajoutée en haut du fichier (lignes ~118+). Lecture obligatoire avant prochain prompt.
 
