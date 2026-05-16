@@ -338,6 +338,57 @@ export async function proxy(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
+  // ────────────────────────────────────────────────────────────────────
+  // ARCHITECTURE 3 NIVEAUX (Yann 16 mai 2026)
+  //  - LIVE : www.mettrik.ai / mettrik.ai → public
+  //  - PRE-LIVE : pre.mettrik.ai → gated admin (compte Yann uniquement)
+  //  - DEV : staging.mettrik.ai / mettrik-staging.vercel.app / localhost → gated admin
+  // Niveau détecté depuis le hostname. Yann a explicitement demandé que
+  // pre + dev soient fermés au grand public.
+  // ────────────────────────────────────────────────────────────────────
+  const adminEmail = (process.env.DESK_OWNER_EMAIL ?? "yannricordeau100@gmail.com")
+    .toLowerCase()
+    .trim();
+  const isLiveHost = host === "www.mettrik.ai" || host === "mettrik.ai";
+  const isPreLiveHost = host === "pre.mettrik.ai";
+  const isDevHost = !isLiveHost && !isPreLiveHost;
+  const currentLevel = isLiveHost ? "live" : isPreLiveHost ? "pre-live" : "dev";
+
+  // Gate admin pour pre-live + dev : route gated par email admin uniquement
+  // (excepté : /api/version qui doit répondre sans auth pour health checks).
+  // En dev : on autorise localhost + mettrik-staging.vercel.app sans gate pour
+  // permettre les previews Vercel et le dev local.
+  const isPreLiveOrCustomDev =
+    isPreLiveHost ||
+    host === "staging.mettrik.ai" ||
+    host === "dev.mettrik.ai";
+  if (isPreLiveOrCustomDev) {
+    const userEmail = (user?.email ?? "").toLowerCase().trim();
+    const isAdmin = !!user && userEmail === adminEmail;
+    // Bypass pour les routes techniques absolument nécessaires
+    const isTechRoute =
+      routePathname === "/api/version" ||
+      routePathname === "/favicon.ico" ||
+      routePathname === "/robots.txt" ||
+      routePathname === "/sitemap.xml" ||
+      routePathname.startsWith("/_next/");
+    if (!isAdmin && !isTechRoute) {
+      const reqSearch = request.nextUrl.search;
+      // Si pas connecté → renvoyer vers la home avec auth=signin
+      if (!user) {
+        const url = request.nextUrl.clone();
+        url.pathname = isFrLocale ? "/fr" : "/";
+        const original = originalPathname + (reqSearch ?? "");
+        url.search = `?auth=signin&next=${encodeURIComponent(original)}`;
+        return NextResponse.redirect(url);
+      }
+      // Connecté mais pas admin → 404 silencieux
+      const url = request.nextUrl.clone();
+      url.pathname = "/_not-found-desk";
+      return NextResponse.rewrite(url);
+    }
+  }
+
   // Auth gate : un visiteur non inscrit ne peut voir QUE la home.
   // Yann (11 mai 2026) : redirige vers `/?auth=signin&next=...` pour
   // déclencher la pop-up directement. L'ancien comportement avec
@@ -385,6 +436,17 @@ export async function proxy(request: NextRequest) {
     }
   }
 
+  // Header X-Mettrik-Version (Yann 16 mai 2026, archi 3 niveaux) :
+  // injecté sur TOUTES les réponses, invisible côté HTML public mais
+  // visible via curl ou DevTools Network tab. Permet de tracer quelle
+  // version est servie + quel niveau (live / pre-live / dev).
+  // Mode léger (lit env var) pour éviter un appel BDD à chaque request.
+  // La vraie source de vérité reste desk_releases en BDD.
+  const buildVersion = process.env.NEXT_PUBLIC_BUILD_VERSION ?? "dev";
+  const headerValue = `${currentLevel}/${buildVersion}`;
+  response.headers.set("x-mettrik-version", headerValue);
+  response.headers.set("x-mettrik-level", currentLevel);
+
   // i18n : si on est sur /fr/*, on REWRITE vers /<route> pour que Next
   // résolve le bon segment d'app. URL visible côté browser reste /fr/<route>.
   // Le cookie NEXT_LOCALE=fr posé plus haut fait que la page rend en FR.
@@ -396,6 +458,8 @@ export async function proxy(request: NextRequest) {
     response.cookies.getAll().forEach((c) => {
       rewriteResponse.cookies.set(c.name, c.value, c);
     });
+    rewriteResponse.headers.set("x-mettrik-version", headerValue);
+    rewriteResponse.headers.set("x-mettrik-level", currentLevel);
     return rewriteResponse;
   }
 
