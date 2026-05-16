@@ -209,7 +209,9 @@ def main():
     pass3 = {t: e for t, e in merged.items() if isinstance(e, dict) and is_pass3(e)}
     if args.tickers:
         tk_list = [x.strip().upper() for x in args.tickers.split(",") if x.strip()]
-        pass3 = {t: pass3[t] for t in tk_list if t in pass3}
+        # Yann 16 mai 2026 : bypass is_pass3 filter pour traduction forcée des stés
+        # non-Pass3 (data existe dans merged mais quality bar non atteinte).
+        pass3 = {t: merged[t] for t in tk_list if t in merged and isinstance(merged[t], dict)}
     elif args.ticker:
         pass3 = {args.ticker.upper(): pass3.get(args.ticker.upper())} if args.ticker.upper() in pass3 else {}
 
