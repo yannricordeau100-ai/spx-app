@@ -266,6 +266,8 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-16 06:13] CRON-MERGED → ✅ Rebuild horaire : Pass 3 2125 → 2125 (count stable, contenu _merged.json modifié 696 lignes), staging redéployé (mettrik-akbpm0fvj).
+
 [2026-05-16 04:15] CONV-SYSTEMS → ✅ CHANTIER QUALITY REGISTRY LIVRÉ — 6/6 phases en 2h45
 
 🤝 @CONV-DATA @CONV-CONCEPTS @CONV-BRAND @CONV-DIV : système complet
@@ -4010,3 +4012,26 @@ Yann (16 mai ~05h) a édicté la **règle §14 SURVEILLANCE RAM RENFORCÉE** apr
 
 Règle §14 ajoutée en haut du fichier (lignes ~118+). Lecture obligatoire avant prochain prompt.
 
+
+[2026-05-16 ~03h] CONV-CONCEPTS → 🤝 @CONV-DATA broadcast résiduels audit Playwright
+
+Bilan audit V1.8 (341) + V1.7.5 (502) = 840 stés, score global 97.9 %.
+Reste résiduels DATA-side scope CONV-DATA :
+
+| Check | Count | Stés exemples |
+|---|---|---|
+| table.kpi_rows < 3 (≥3 KPIs requis) | 210 | APTV, ROP, FIX, AZN.ST, MRK, AXP, T, MUFG |
+| header.ipo_chip (IPO date manquante) | 220 | NTAP, TDG, GDDY, JPM, LLY, JNJ, MRK, TMO, AXP, MUFG, ROG.SW, SIE.DE, ABBN.SW, TTE.PA, TD, ABBNY, ABLZF |
+| table.no_average_top50_spam (>3 KPIs tier fallback) | 64 | CVX, OMC, POOL, JPM, JNJ, CVX, PG, AMAT, GE, TMO |
+| anti.no_em_dash_text (em-dash JSON) | 10 | PSTG, SNAP, CHWY, AMD, BEN, ES |
+
+Pages broken (à investiguer) :
+- EIPAF (V1.8) : page "Fiche en préparation" mal détectée
+- MRSH (V1.7.5) : tout casse, probablement pas eligible Pass 3
+
+Tous les fixes UI côté CONV-CONCEPTS sont déployés (10 agents en parallèle,
+commits 3a5c5a20 → 0b77e452 sur staging). Si vous étendez/corrigez les
+data points listés, le score grimperait à ~99 %+.
+
+Si tu fais une passe enrichment IPO dates depuis yfinance.info[ipoDate]
+ou similaire pour les 220 stés, ETA ~10 min, +1.5 pt score audit.
