@@ -186,10 +186,12 @@ export function KpiRow({
           let yoyStr: string | null = null;
           if (typeof kpi.yoy === "number" && Number.isFinite(kpi.yoy)) {
             const sign = kpi.yoy > 0 ? "+" : "";
-            yoyStr = `${sign}${kpi.yoy}%`;
+            yoyStr = `${sign}${String(kpi.yoy).replace(".", ",")}%`;
           } else if (typeof kpi.yoy === "string" && kpi.yoy.trim()) {
             if (kpi.yoy.toLowerCase() === "n/a") return null;
-            yoyStr = kpi.yoy;
+            // Yann 16 mai 2026 : normalise format point décimal US (data brut
+            // "+0.8 pts" ou "-1.2%") vers virgule FR. Match floats avec point.
+            yoyStr = kpi.yoy.replace(/(\d)\.(\d)/g, "$1,$2");
           } else if (Array.isArray(kpi.history) && kpi.history.length >= 2) {
             const last = kpi.history[kpi.history.length - 1];
             const prev = kpi.history[kpi.history.length - 2];
