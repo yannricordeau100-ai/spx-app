@@ -102,48 +102,51 @@ export function getKpiAggregationKind(kpi: AggKpi): KpiAggregationKind {
  * @param lastDataDate ISO date of the last published quarter end
  * @param kind flow | stock
  * @param fiscalYearEndMonth 12 par défaut (calendrier), sinon NVDA=1, AAPL=9, etc.
+ * @param historyPeriods Optional: explicit period labels per index (ex ["Q1 2024", "Q2 2024", ...]).
+ *                       Si fourni : utilisé comme vérité absolue (gère history non-contigu,
+ *                       ex NVDA XBRL où Q1 de chaque calendar year est manquant).
+ *                       Si absent : fallback walking-back contigu depuis lastDataDate.
  */
 export function aggregateQuarterlyToAnnual(
   history: number[],
   lastDataDate: string | null | undefined,
   kind: KpiAggregationKind,
   fiscalYearEndMonth: number = 12,
+  historyPeriods?: string[] | null,
 ): { years: string[]; values: number[]; ttm: number | null } {
   if (!Array.isArray(history) || history.length === 0) {
     return { years: [], values: [], ttm: null };
   }
 
-  // Pas de date → fallback ancien comportement (last value of each 4-block)
-  const d = lastDataDate ? new Date(lastDataDate) : null;
-  if (!d || Number.isNaN(d.getTime())) {
-    const out: number[] = [];
-    for (let i = history.length - 1; i >= 0; i -= 4) out.unshift(history[i]);
-    return { years: out.map((_, i) => String(2026 - out.length + i + 1)), values: out, ttm: null };
-  }
-
-  // Calcule la FY et le Q fiscaux du DERNIER quarter publié.
-  // Pour FY end = 12 (calendrier) : Q1 jan-mar, Q2 avr-juin, Q3 juil-sept, Q4 oct-dec
-  // Pour FY end = 1 (NVDA) : FY commence en fév. Q1 fév-avr, ...
-  const calY = d.getUTCFullYear();
-  const calM = d.getUTCMonth() + 1; // 1-12
-  // FY label : si calM > fyEndMonth (cas calendrier décembre), FY = calY + 1
-  // Ex NVDA d=2026-04-30 calM=4, fyEnd=1 → 4>1 donc fyOfLastQ = 2026+1 = 2027 (FY27)
-  // Ex AAPL d=2025-09-28 calM=9, fyEnd=9 → 9>9 false → fyOfLastQ = 2025 (FY25, qui se termine en sept 2025)
-  // Ex GOOGL d=2026-03-31 calM=3, fyEnd=12 → 3>12 false → fyOfLastQ = 2026
-  const fyOfLastQ = calM > fiscalYearEndMonth ? calY + 1 : calY;
-  // Q dans la FY (1-4) : (monthInFY-1) // 3 + 1 où monthInFY = ((calM - fyEnd - 1) mod 12) + 1
-  const monthInFY = ((calM - fiscalYearEndMonth - 1 + 12) % 12) + 1;
-  const qOfLastQ = Math.ceil(monthInFY / 3);
-
-  // Marche en arrière depuis le dernier Q pour assigner chaque history[i] à
-  // (fy, q). On suppose history est consécutif sans trou.
+  // Strategy A : history_periods fourni → on parse les labels et on
+  // dérive (fy, q) fiscal de chaque index. Robust à history non-contigu.
   const stamps: Array<{ fy: number; q: number; v: number }> = [];
-  let fy = fyOfLastQ;
-  let q = qOfLastQ;
-  for (let i = history.length - 1; i >= 0; i--) {
-    stamps.unshift({ fy, q, v: history[i] });
-    q -= 1;
-    if (q === 0) { q = 4; fy -= 1; }
+  if (Array.isArray(historyPeriods) && historyPeriods.length === history.length) {
+    for (let i = 0; i < history.length; i++) {
+      const parsed = parsePeriodLabel(historyPeriods[i], fiscalYearEndMonth);
+      if (!parsed) continue;
+      stamps.push({ fy: parsed.fy, q: parsed.q, v: history[i] });
+    }
+  } else {
+    // Strategy B : fallback walking-back contigu depuis lastDataDate.
+    const d = lastDataDate ? new Date(lastDataDate) : null;
+    if (!d || Number.isNaN(d.getTime())) {
+      const out: number[] = [];
+      for (let i = history.length - 1; i >= 0; i -= 4) out.unshift(history[i]);
+      return { years: out.map((_, i) => String(2026 - out.length + i + 1)), values: out, ttm: null };
+    }
+    const calY = d.getUTCFullYear();
+    const calM = d.getUTCMonth() + 1;
+    const fyOfLastQ = calM > fiscalYearEndMonth ? calY + 1 : calY;
+    const monthInFY = ((calM - fiscalYearEndMonth - 1 + 12) % 12) + 1;
+    const qOfLastQ = Math.ceil(monthInFY / 3);
+    let fy = fyOfLastQ;
+    let q = qOfLastQ;
+    for (let i = history.length - 1; i >= 0; i--) {
+      stamps.unshift({ fy, q, v: history[i] });
+      q -= 1;
+      if (q === 0) { q = 4; fy -= 1; }
+    }
   }
 
   // Grouper par FY ; ne garder que les FY avec 4 quarters
@@ -159,7 +162,7 @@ export function aggregateQuarterlyToAnnual(
   const years = completeFys.map(([fy]) => String(fy));
   const values = completeFys.map(([, qs]) => {
     if (kind === "flow") return qs.reduce((a, b) => a + b, 0);
-    return qs[qs.length - 1]; // stock : Q4 / dernier Q de la FY
+    return qs[qs.length - 1];
   });
 
   // TTM : somme des 4 derniers Q publiés (flow) ou dernier Q (stock)
@@ -170,10 +173,43 @@ export function aggregateQuarterlyToAnnual(
     ttm = history[history.length - 1];
   }
 
-  // Si le TTM == dernière FY complète, ne pas l'afficher en double
+  // Dédup TTM == dernière FY
   if (ttm != null && values.length > 0 && Math.abs(values[values.length - 1] - ttm) < 0.01) {
     ttm = null;
   }
 
   return { years, values, ttm };
+}
+
+/**
+ * Parse un label de période XBRL ("Q1 2024", "Q3 FY25", "FY24 Q2") en
+ * coordonnées (fy fiscale, q dans la fy). Retourne null si non parsable.
+ *
+ * Convention NVDA-like (XBRL labels = calendar quarter de la PÉRIODE
+ * d'END) : "Q3 2024" = period ending Oct 2024 = NVDA FY25 Q3.
+ * On convertit toujours en (fy fiscale, q fiscal).
+ */
+function parsePeriodLabel(label: string, fiscalYearEndMonth: number): { fy: number; q: number } | null {
+  // Format "Q1 2024" / "Q1 24" (calendar quarter + calendar year)
+  let m = label.match(/^Q([1-4])\s+(20\d{2}|\d{2})$/i);
+  if (m) {
+    const calQ = Number(m[1]);
+    let calY = Number(m[2]);
+    if (calY < 100) calY += 2000;
+    // calM = mois de fin du calendar quarter
+    const calM = calQ * 3; // 3, 6, 9, 12
+    const fy = calM > fiscalYearEndMonth ? calY + 1 : calY;
+    const monthInFY = ((calM - fiscalYearEndMonth - 1 + 12) % 12) + 1;
+    const q = Math.ceil(monthInFY / 3);
+    return { fy, q };
+  }
+  // Format "FY24 Q3" or "Q3 FY24"
+  m = label.match(/FY\s*(\d{2,4}).*Q([1-4])/i) || label.match(/Q([1-4]).*FY\s*(\d{2,4})/i);
+  if (m) {
+    let fy = Number(m[1]?.length === 2 ? `20${m[1]}` : m[1]);
+    const q = Number(m[2]);
+    if (fy < 100) fy += 2000;
+    return { fy, q };
+  }
+  return null;
 }

@@ -65,6 +65,8 @@ import { BrandWordmark } from "@/components/brand-wordmark";
 import { CompanyProfileCard } from "@/components/company-profile-card";
 import { getFiscalAudit } from "@/lib/fiscal-calendar";
 import { aggregateQuarterlyToAnnual, getKpiAggregationKind } from "@/lib/kpi-aggregation";
+import { buildChartSpec } from "@/lib/chart-template";
+import { verifyAndFix } from "@/lib/chart-spec-verify";
 
 const VISIBLE_KPI_COUNT = 6;
 
@@ -322,7 +324,8 @@ export function CompanyView({
       const audit = getFiscalAudit(company.ticker);
       const fyEnd = audit?.fiscalYearEndMonth ?? 12;
       const kind = getKpiAggregationKind(active);
-      const agg = aggregateQuarterlyToAnnual(h, active.last_data_date, kind, fyEnd);
+      const hp = (active as { history_periods?: string[] }).history_periods;
+      const agg = aggregateQuarterlyToAnnual(h, active.last_data_date, kind, fyEnd, hp);
       return [...agg.values];
     }
 
@@ -336,29 +339,27 @@ export function CompanyView({
     return h;
   }, [active, graphPeriod, company.ticker]);
 
-  // Yann 16 mai 2026 : TTM = somme des 4 derniers Q publiés (pour flow)
-  // ou dernier Q (pour stock), calculé dynamiquement depuis l'history.
-  // Ne plus se reposer sur active.ttm stocké (souvent périmé ou
-  // recalculé sur un sous-ensemble obsolète).
-  // En mode trimestriel ou semestriel, on n'affiche pas de barre TTM
-  // (pic vertical artificiel à côté de points trimestriels).
-  const chartTTM = useMemo<number | null>(() => {
-    if (!active || graphPeriod !== "year") return null;
-    const pt = active.period_type;
-    const h = Array.isArray(active.history) ? active.history.filter((x): x is number => typeof x === "number") : [];
-    if (pt === "quarter" && h.length >= 4) {
-      const kind = getKpiAggregationKind(active);
-      const audit = getFiscalAudit(company.ticker);
-      const fyEnd = audit?.fiscalYearEndMonth ?? 12;
-      const agg = aggregateQuarterlyToAnnual(h, active.last_data_date, kind, fyEnd);
-      if (agg.ttm != null) return agg.ttm;
-      // Si TTM = dernière FY complète, agg.ttm = null (caché par dédup).
-      // Pas de TTM affiché dans ce cas.
-      return null;
+  // Yann 16 mai 2026 — RECETTE CANONIQUE (cf. docs/CHART-RECIPE.md).
+  //
+  // Toute la logique chart (agg flow/stock, fiscal-aware labels, TTM
+  // dynamique, anti-patterns, auto-fixes) est consolidée dans
+  // `buildChartSpec()` + `verifyAndFix()`. Source de vérité unique.
+  //
+  // Note : les useMemos `chartLabels` et `chartHistoryRaw` ci-dessus
+  // sont volontairement conservés en parallèle pendant la migration
+  // (preset v1-legacy). Si chartSpec diverge des valeurs précédentes,
+  // les warnings sont loggés en dev console.
+  const chartSpec = useMemo(() => {
+    if (!active) return null;
+    const raw = buildChartSpec(active, company.ticker, graphPeriod);
+    const { spec, warnings } = verifyAndFix(raw);
+    if (typeof window !== "undefined" && warnings.length > 0 && process.env.NODE_ENV !== "production") {
+      // eslint-disable-next-line no-console
+      console.debug(`[chartSpec ${company.ticker}/${active.short}]`, warnings);
     }
-    // Pas de TTM en semester / annual native.
-    return null;
+    return spec;
   }, [active, graphPeriod, company.ticker]);
+  const chartTTM = chartSpec?.ttm ?? null;
   // Yann 15 mai 2026 : applique le scaleFactor au history pour que le
   // chart affiche en unité descendue (ex 0.41 M → 410 K en unité brute).
   // scaleFactor est défini plus bas après autoRescaleSmallUnit.
