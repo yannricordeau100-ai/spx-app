@@ -45,7 +45,10 @@ const BATCH_META: Record<
 > = {
   web: { label: "Web (recherche libre)", short: "Web", color: "#10b981" },
   "x-anon": { label: "X anonyme (sans compte)", short: "X anon", color: "#f59e0b" },
-  "x-authed": { label: "X avec compte", short: "X compte", color: "#06b6d4" },
+  "x-authed-en": { label: "X compte · recherche EN", short: "X EN", color: "#06b6d4" },
+  "x-authed-fr": { label: "X compte · recherche FR", short: "X FR", color: "#3b82f6" },
+  "x-authed": { label: "X compte (legacy)", short: "X compte", color: "#06b6d4" },
+  reddit: { label: "Reddit (r/dataisbeautiful, r/singularity)", short: "Reddit", color: "#fb923c" },
   x: { label: "X (legacy)", short: "X", color: "#a78bfa" },
 };
 
