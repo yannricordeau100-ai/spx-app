@@ -16,7 +16,7 @@ categories:
         question: "Le logo est-il lisible sur fond sombre (contraste suffisant, ratio non écrasé) ?"
         severity_if_fail: 2
       - id: header.chips.all_filled
-        question: "Les 6 chips header sont-ils tous présents et remplis : Rang mondial, Rang USA, Secteur, Sous-secteur, Fondée, IPO ?"
+        question: "Les 6 CHIPS sous le nom de la sté (Rang mondial / Rang USA / TECHNOLOGIE / SOUS-SECTEUR / FONDÉE / IPO) sont-ils tous présents et remplis ? NE PAS confondre avec le bloc 'Capitalisation Boursière' à droite (qui est un bloc séparé, hors chips header). Pass=true même si la capi boursière est vide, tant que les 6 chips ci-dessus sont remplis."
         severity_if_fail: 3
       - id: header.chips.labels_fr
         question: "Les labels des chips sont-ils en français (Secteur / Sous-secteur / Fondée), pas en anglais (Sector / Sub-sector / Founded) ?"
@@ -50,13 +50,13 @@ categories:
         question: "Le sparkline / chart hero ne montre PAS une suite parfaitement linéaire (ex +5 chaque période × 8 = signature LLM fabriquée). Une vraie history a du bruit."
         severity_if_fail: 5
       - id: hero.chart.no_partial_year
-        question: "Le chart annuel ne montre AUCUN point pour une année incomplète. Si l'année courante n'a pas tous ses quarters publiés, elle ne doit PAS être plottée."
+        question: "Le chart EN VUE ANNUELLE (toggle 'Annuel' actif) ne montre AUCUN point d'année incomplète. Si la vue active est 'Trimestriel', skip ce check (pass=true)."
         severity_if_fail: 5
       - id: hero.chart.no_phantom_quarter
-        question: "Le chart trimestriel ne montre AUCUN trimestre futur (au-delà du last_data_date). Pas de T2 2026 si on est en mai 2026."
+        question: "ATTENTION : la BANDE D'ANNÉES sous l'axe X (ex '2024', '2025', '2026') est un LABEL DE REGROUPEMENT, pas un point de données. Vérifier UNIQUEMENT que les POINTS PLOTTÉS (cercles bleus avec valeurs numériques au-dessus) ne dépassent pas le dernier trimestre publié. Si tu vois T1, T2, T3, T4 sous le label '2026' mais SANS valeur numérique au-dessus → ce sont des labels vides (FUTURS, pas affichés), donc PASS=true. Si tu vois 4 valeurs réelles plottées sous '2026', FAIL."
         severity_if_fail: 5
       - id: hero.chart.ttm_visible
-        question: "Si TTM existe (point pointillé à droite), sa valeur numérique est-elle affichée à côté (en italique gris distinct des points FY) ?"
+        question: "TTM s'affiche UNIQUEMENT en VUE ANNUELLE. Si la vue active est 'Trimestriel' OU 'Semestriel', skip ce check (pass=true). En vue annuelle : si un point pointillé existe à droite du dernier point FY plein, sa valeur numérique doit être affichée en italique gris au-dessus."
         severity_if_fail: 3
       - id: hero.chart.events_dots.no_cluster_right
         question: "Les event dots (timeline) sont-ils espacés normalement le long de l'axe X, sans grappe à l'extrémité droite ?"

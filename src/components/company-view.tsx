@@ -606,7 +606,7 @@ export function CompanyView({
                           .replace(/(\d)\s*%/g, "$1 %");
                       })()}
                     </span>
-                    <span className="text-[11px] italic text-zinc-400">(YoY)</span>
+                    <span className="text-[11px] italic text-zinc-400" title="Year-on-Year : variation vs même période l'an dernier">(vs N-1)</span>
                   </div>
                 )}
                 {/* Quality + percentile chips : masqués si KPI incomplet (= rating bidon "Moyen Top 50 %") */}
@@ -790,7 +790,7 @@ export function CompanyView({
           <div className="overflow-hidden rounded-2xl border border-[#1f1f1f] bg-[#080808]">
             <div className="grid grid-cols-12 gap-3 border-b border-[#1a1a1a] bg-[#0c0c0c] px-5 py-3.5 font-sans text-[11.5px] font-semibold uppercase tracking-[0.12em] text-zinc-300 sm:px-6">
               <div className="col-span-4">{t("company.kpi_table.col_indicator")}</div>
-              <div className="col-span-2">{t("company.kpi_table.col_value")} <span className="ml-0.5 italic text-zinc-400">(YoY)</span></div>
+              <div className="col-span-2">{t("company.kpi_table.col_value")} <span className="ml-0.5 italic text-zinc-400" title="Year-on-Year : variation vs même période l'an dernier">(vs N-1)</span></div>
               <div className="col-span-2">{t("company.kpi_table.col_trend")}</div>
               <div className="col-span-4">{t("company.kpi_table.col_quality")}</div>
             </div>
