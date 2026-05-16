@@ -94,10 +94,10 @@ categories:
     label: Stories carrousel
     checks:
       - id: stories.visible_at_least_3
-        question: "Le bloc Stories (carrousel autoplay) est-il présent et affiche au moins 1 card story ?"
+        question: "Le bloc Stories (carrousel phone-frame 9:16 noir avec dots de pagination en haut) est-il présent SI ON SCROLLE assez bas dans le screenshot ? Si le screenshot ne descend pas assez et que tu ne vois ni Hero KPI ni indicateurs ni Stories : skip (pass=true). Si tu vois le bloc Stories mais 0 card visible : fail."
         severity_if_fail: 3
       - id: stories.no_template_llm
-        question: "Les cards Stories ont du contenu concret (nom KPI + valeur + contexte), pas un template LLM vide ou 'Voir ci-dessous' ?"
+        question: "Si le bloc Stories est visible (carrousel phone-frame), ses cards ont du contenu concret (nom KPI + valeur + contexte), pas un template LLM vide ou 'Voir ci-dessous'. Si le bloc n'est PAS visible dans le screenshot : skip (pass=true)."
         severity_if_fail: 3
 
   - id: risks

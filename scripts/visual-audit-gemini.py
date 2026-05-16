@@ -107,7 +107,7 @@ def screenshot(url: str, png_path: Path, timeout: int = 45) -> bool:
     cmd = [
         CHROME, "--headless=new", "--hide-scrollbars",
         "--disable-gpu", "--no-first-run", "--disable-extensions",
-        "--window-size=1280,2400",
+        "--window-size=1280,4500",
         f"--screenshot={png_path}",
         url,
     ]
