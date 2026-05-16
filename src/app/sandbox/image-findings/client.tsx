@@ -450,6 +450,7 @@ function ExpandedFindings({
               defaultLanguages={defaultLanguages}
               defaultTickers={defaultTickers}
               onUpdate={onUpdateFinding}
+              allLocales={ALL_LOCALES}
             />
           ))}
         </div>
@@ -459,18 +460,39 @@ function ExpandedFindings({
 }
 
 /* ─── Finding card with approve/reject + langues per-image ────────── */
+/**
+ * Détermine le chemin du JPEG source (fallback) à partir d'un image_url SVG.
+ * Convention de naming : `<base>-dark.svg` → `<base>.jpg` (raw originel).
+ * Pour wave 1 (img-N.svg sans JPEG source) on retourne null (pas de fallback).
+ */
+function jpegFallbackPath(svgPath: string): string | null {
+  if (!svgPath) return null;
+  // Ne fallback que pour les SVG dans les dossiers wave-2X-raw/
+  if (!svgPath.includes("-raw/")) return null;
+  const m = svgPath.match(/^(.*?)-(dark|light)\.svg$/);
+  if (!m) return null;
+  return `${m[1]}.jpg`;
+}
+
+function isLowConfidence(notes: string | null): boolean {
+  return !!(notes && notes.includes("[FLAG:LOW]"));
+}
+
 function FindingCard({
   finding: f,
   defaultLanguages,
   defaultTickers,
   onUpdate,
+  allLocales,
 }: {
   finding: ImageFinding;
   defaultLanguages: string[];
   defaultTickers: string[];
   onUpdate: (p: Partial<ImageFinding>) => Promise<void>;
+  allLocales: readonly string[];
 }) {
   const [busy, setBusy] = useState(false);
+  const [imgFailed, setImgFailed] = useState(false);
 
   async function patch(p: Partial<ImageFinding>) {
     setBusy(true);
@@ -482,6 +504,10 @@ function FindingCard({
   }
 
   const batch = batchOf(f.source_platform);
+  const fallback = jpegFallbackPath(f.image_url);
+  const displaySrc = imgFailed && fallback ? fallback : f.image_url;
+  const isLow = isLowConfidence(f.reviewer_notes);
+  const allLangsActive = allLocales.every((l) => f.languages.includes(l));
 
   return (
     <div
@@ -496,10 +522,13 @@ function FindingCard({
       <div className="relative aspect-video w-full overflow-hidden bg-black/40">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={f.image_url}
+          src={displaySrc}
           alt={f.title ?? "graph"}
           className="size-full object-contain"
           referrerPolicy="no-referrer"
+          onError={() => {
+            if (!imgFailed && fallback) setImgFailed(true);
+          }}
         />
         <span
           className="absolute left-2 top-2 rounded-md px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider ring-1"
@@ -508,10 +537,27 @@ function FindingCard({
         >
           {batch.short}
         </span>
+        {imgFailed && fallback && (
+          <span
+            className="absolute right-2 top-2 rounded-md bg-amber-500/30 px-1.5 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wider text-amber-200 ring-1 ring-amber-500/50"
+            title="Le SVG vectoriel n'a pas pu charger, image originale (JPEG) affichée"
+          >
+            fallback
+          </span>
+        )}
       </div>
       <div className="space-y-2 p-3">
         {f.title && (
-          <div className="text-[12.5px] font-semibold text-zinc-100 line-clamp-2">{f.title}</div>
+          <div
+            className={`text-[12.5px] font-semibold line-clamp-2 ${
+              isLow
+                ? "text-rose-300 underline decoration-rose-400 decoration-wavy underline-offset-4"
+                : "text-zinc-100"
+            }`}
+            title={isLow ? "Pertinence incertaine — relis bien" : undefined}
+          >
+            {f.title}
+          </div>
         )}
         {f.summary && (
           <div className="text-[11.5px] text-zinc-400 line-clamp-3">{f.summary}</div>
@@ -547,9 +593,30 @@ function FindingCard({
           />
         </div>
 
-        {/* Langues : checkboxes per-image */}
+        {/* Langues : checkboxes per-image + bouton "toutes" */}
         <div className="space-y-1">
-          <div className="text-[10px] uppercase tracking-wider text-zinc-500">Langues :</div>
+          <div className="flex items-center justify-between">
+            <div className="text-[10px] uppercase tracking-wider text-zinc-500">Langues :</div>
+            <button
+              type="button"
+              disabled={busy}
+              onClick={() => {
+                if (allLangsActive) {
+                  patch({ languages: defaultLanguages });
+                } else {
+                  patch({ languages: [...allLocales] });
+                }
+              }}
+              className={`rounded px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider transition-colors ${
+                allLangsActive
+                  ? "bg-emerald-500/40 text-emerald-50"
+                  : "border border-emerald-500/40 text-emerald-200 hover:bg-emerald-500/15"
+              }`}
+              title={allLangsActive ? "Revenir aux langues par défaut" : "Activer les 8 langues du site"}
+            >
+              {allLangsActive ? "✓ Toutes" : "+ Toutes"}
+            </button>
+          </div>
           <div className="flex flex-wrap gap-1">
             {ALL_LOCALES.map((loc) => {
               const on = f.languages.includes(loc);
