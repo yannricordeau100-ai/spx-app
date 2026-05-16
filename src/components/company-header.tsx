@@ -74,11 +74,11 @@ function CompanyName({ name, ticker, accent }: { name: string; ticker: string; a
   return (
     <div className="group/name flex flex-nowrap items-baseline gap-x-3 min-w-0">
       <h1
-        className={`relative ${fontSize} font-bold tracking-tight text-zinc-50 whitespace-nowrap overflow-hidden text-ellipsis min-w-0`}
-        style={{ lineHeight: 1.05 }}
+        className={`relative ${fontSize} font-bold tracking-tight text-zinc-50 whitespace-nowrap overflow-x-hidden overflow-y-visible text-ellipsis min-w-0`}
+        style={{ lineHeight: 1.2 }}
         title={name}
       >
-        <span className="relative inline-block max-w-full overflow-hidden text-ellipsis whitespace-nowrap align-bottom">
+        <span className="relative inline-block max-w-full overflow-x-hidden overflow-y-visible text-ellipsis whitespace-nowrap align-bottom">
           {name}
           <span
             className="pointer-events-none absolute -bottom-1 left-0 h-[3px] w-0 rounded-full transition-[width] duration-500 ease-out group-hover/name:w-full"
