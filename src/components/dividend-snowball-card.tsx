@@ -275,7 +275,7 @@ export function DividendSnowballCard({
             >
               {PRESETS.map((p) => (
                 <option key={p.key} value={p.key} className="bg-black">
-                  {p.label} · {p.rate} %
+                  {p.label} · {p.rate.toString().replace(".", ",")} %
                 </option>
               ))}
             </select>
