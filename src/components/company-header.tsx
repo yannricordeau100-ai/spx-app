@@ -6,6 +6,7 @@ import { TICKER_ALIASES } from "@/lib/data";
 import { brand } from "@/lib/brand";
 import { CompanyLogo, logoNeedsLightBg } from "@/components/logos";
 import { StockPriceBlock } from "@/components/stock-price-block";
+import { InfoTooltip } from "@/components/info-tooltip";
 import { useT } from "@/lib/i18n/provider";
 import { translateSubsector } from "@/lib/ui-fix-templates";
 
@@ -57,16 +58,19 @@ function CompanyName({ name, ticker, accent }: { name: string; ticker: string; a
   const aliases = Object.entries(TICKER_ALIASES)
     .filter(([, target]) => target === ticker)
     .map(([alias]) => alias);
-  // Yann 16 mai 2026 : font-size adaptative selon longueur du nom pour
-  // garantir 1 seule ligne. Seuils : court ≤ 22 char (≥2.1rem), moyen
-  // ≤ 32 char (≈1.75rem), long > 32 char (≈1.35rem). Ex "Banco Bilbao
-  // Vizcaya Argentaria, S.A." 40 char → 1.35rem.
+  // Yann 16 mai 2026 (v2, post-BABA overflow) : seuils plus serrés pour
+  // que les noms longs (~29 char comme "Alibaba Group Holding Limited")
+  // tiennent en 1 ligne sans dépasser. Court ≤ 18 → 1.9rem/2.3rem,
+  // moyen ≤ 26 → 1.5rem/1.8rem, long ≤ 34 → 1.2rem/1.45rem (BABA ici),
+  // très long > 34 → 1.0rem/1.25rem.
   const len = name.length;
-  const fontSize = len <= 22
-    ? "text-[2.1rem] sm:text-[2.6rem]"
-    : len <= 32
-      ? "text-[1.75rem] sm:text-[2.1rem]"
-      : "text-[1.35rem] sm:text-[1.6rem]";
+  const fontSize = len <= 18
+    ? "text-[1.9rem] sm:text-[2.3rem]"
+    : len <= 26
+      ? "text-[1.5rem] sm:text-[1.8rem]"
+      : len <= 34
+        ? "text-[1.2rem] sm:text-[1.45rem]"
+        : "text-[1rem] sm:text-[1.25rem]";
   return (
     <div className="group/name flex flex-nowrap items-baseline gap-x-3 min-w-0">
       <h1
@@ -170,13 +174,33 @@ export function CompanyHeader({
             {translateSubsector(company.sector)} <span className="text-zinc-700">·</span> {translateSubsector(company.subsector)}
           </div>
           {/* Yann 14 mai 2026 : tagline obligatoirement sur 1 ligne (truncate).
-              Évite l'expansion verticale du header quand le slogan dépasse. */}
-          <p
-            className="mt-2 max-w-2xl truncate text-[14.5px] italic leading-relaxed text-zinc-400"
-            title={company.tagline}
-          >
-            “{company.tagline}”
-          </p>
+              Yann 16 mai 2026 (v2) : tagline garde la langue d'origine (EN
+              per CLAUDE.md §6). Si la langue de la page diffère ET qu'une
+              traduction existe dans `tagline_i18n[locale]`, afficher un "i"
+              à côté avec la traduction. Sinon pas de "i". */}
+          {(() => {
+            const isPageEn = locale === "en" || locale === "en-GB";
+            const translation = !isPageEn
+              ? (company as Company & { tagline_i18n?: Record<string, string> }).tagline_i18n?.[locale]
+              : undefined;
+            return (
+              <div className="mt-2 flex max-w-2xl items-center gap-1.5">
+                <p
+                  className="truncate text-[14.5px] italic leading-relaxed text-zinc-400"
+                  title={company.tagline}
+                >
+                  “{company.tagline}”
+                </p>
+                {translation && (
+                  <InfoTooltip align="left" size="sm">
+                    <div className="text-[13px] italic leading-relaxed text-zinc-200">
+                      “{translation}”
+                    </div>
+                  </InfoTooltip>
+                )}
+              </div>
+            );
+          })()}
         </div>
         {!hidePriceBar && <StockPriceBlock company={company} />}
       </div>
