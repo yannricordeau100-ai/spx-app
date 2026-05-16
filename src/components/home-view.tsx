@@ -16,6 +16,7 @@ import { BackToTop } from "@/components/back-to-top";
 import { StarButton } from "@/components/star-button";
 import { CompanySearch } from "@/components/company-search";
 import { HomeFAQ } from "@/components/home-faq";
+import { HomePopularBlock } from "@/components/home-popular-block";
 import { SignupGateOverlay } from "@/components/signup-gate-overlay";
 import { useT } from "@/lib/i18n/provider";
 
@@ -667,23 +668,31 @@ export function HomeView({
           </div>
 
           {/* Pagination par paquet de 30 (Yann 16 mai 2026).
-              Label volontairement minimaliste : "More ↓" = 1 mot anglais
-              ultra-universel, compréhensible sans formation linguistique.
-              Pas de nombre ni de mot "déployer" (Yann 16 mai 04h45). */}
+              Label "Montre-moi les 30 suivantes ↓" multilingue, ton léger
+              (Yann 16 mai 04h45 : "More" cheap, prefère phrase complète). */}
           {hasMore && (
             <div className="mt-6 flex justify-center">
               <button
                 type="button"
                 onClick={() => setVisibleCount((c) => c + PAGE_SIZE)}
-                aria-label="Show more companies"
-                className="group inline-flex items-center gap-2 rounded-xl border border-violet-500/30 bg-violet-500/[0.06] px-6 py-3 text-[14px] font-semibold tracking-wide text-violet-100 transition-all hover:scale-[1.02] hover:border-violet-500/50 hover:bg-violet-500/[0.12]"
+                aria-label={t("home.show_next_30")}
+                className="group inline-flex items-center gap-2.5 rounded-xl border border-violet-500/30 bg-violet-500/[0.06] px-6 py-3 text-[14px] font-medium tracking-wide text-violet-100 transition-all hover:scale-[1.02] hover:border-violet-500/50 hover:bg-violet-500/[0.12]"
               >
-                <span>More</span>
+                <span>{t("home.show_next_30")}</span>
                 <span aria-hidden className="inline-block text-[16px] transition-transform group-hover:translate-y-0.5">
                   ↓
                 </span>
               </button>
             </div>
+          )}
+
+          {/* Bloc "Actions les plus populaires" intégré sous le top 30
+              (Yann 16 mai 2026 04h45 : remet la "partie populaire" + seules
+              les 30 premières ont l'aperçu de base, le reste via bouton).
+              Affiché uniquement si results.length > 30 (= sandbox V175/V18,
+              pas la home V1 demo 5 stés). */}
+          {results.length > PAGE_SIZE && (
+            <HomePopularBlock locale={locale} routePrefix={routePrefix} t={t} />
           )}
         </div>
 
