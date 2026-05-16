@@ -449,13 +449,38 @@ export async function loadV17Company(
         const ext = extByShort.get(String(k.short));
         if (!ext || !Array.isArray(ext.history) || ext.history.length === 0) return k;
         const curHist = Array.isArray(k.history) ? (k.history as number[]) : [];
-        if (ext.history.length <= curHist.length) return k;
+        // Yann 16 mai 2026 : merge intelligent.
+        // Si ext (XBRL) > cur (CONV-DATA) : prend ext comme base.
+        // PUIS si CONV-DATA a un last_data_date plus récent ET des quarters
+        // au-delà de ext.last_data_date, on les APPEND. Évite de perdre
+        // Q1 2026 quand l'extracteur XBRL s'arrête à Q4 2025 alors que la
+        // sté a déjà publié Q1 2026 via 10-Q.
+        const useExt = ext.history.length > curHist.length;
+        const baseHist = useExt ? ext.history : curHist;
+        const baseLast = useExt ? ext.last_data_date : (k as AnyKPI & { last_data_date?: string }).last_data_date;
+        const otherLast = useExt ? (k as AnyKPI & { last_data_date?: string }).last_data_date : ext.last_data_date;
+        const otherHist = useExt ? curHist : ext.history;
+        let mergedHist = [...baseHist];
+        let mergedLast = baseLast;
+        const baseDate = typeof baseLast === "string" ? new Date(baseLast) : null;
+        const otherDate = typeof otherLast === "string" ? new Date(otherLast) : null;
+        if (baseDate && otherDate && !Number.isNaN(baseDate.getTime()) && !Number.isNaN(otherDate.getTime()) && otherDate > baseDate) {
+          // Combien de quarters between baseDate (exclu) et otherDate (inclus) ?
+          const monthsDiff = (otherDate.getUTCFullYear() - baseDate.getUTCFullYear()) * 12 + (otherDate.getUTCMonth() - baseDate.getUTCMonth());
+          const qDiff = Math.max(0, Math.round(monthsDiff / 3));
+          if (qDiff > 0 && otherHist.length >= qDiff) {
+            const tail = otherHist.slice(-qDiff);
+            mergedHist = [...baseHist, ...tail];
+            mergedLast = otherLast;
+          }
+        }
+        if (!useExt && mergedHist === baseHist) return k;
         return {
           ...k,
-          history: ext.history,
+          history: mergedHist,
           history_periods: ext.history_periods,
           period_type: ext.period_type ?? k.period_type ?? "quarter",
-          last_data_date: ext.last_data_date ?? k.last_data_date,
+          last_data_date: mergedLast ?? k.last_data_date,
           unit: ext.unit ?? k.unit,
         } as AnyKPI;
       });

@@ -593,15 +593,19 @@ export function CurveChart({
                 );
               })()}
               {/* Valeur au-dessus de CHAQUE point (toujours visible). En mode
-                  crowded on alterne up/down pour éviter chevauchements. */}
-              {!isTTM && (
+                  crowded on alterne up/down pour éviter chevauchements.
+                  Yann 16 mai 2026 : TTM aussi affiche sa valeur (gris italique
+                  pour rester visuellement distinct des points FY) — sinon
+                  l'investisseur ne sait pas combien vaut le TTM. */}
+              {(
                 <text
                   x={x}
                   y={isCrowded ? (i % 2 === 0 ? y - 14 : y - 26) : y - 18}
                   textAnchor="middle"
                   fontSize={isCrowded ? 11 : 14}
-                  fontWeight={isHover ? 800 : 600}
-                  fill={isHover ? "#fafafa" : "#d4d4d8"}
+                  fontWeight={isTTM ? 500 : (isHover ? 800 : 600)}
+                  fill={isTTM ? "#a1a1aa" : (isHover ? "#fafafa" : "#d4d4d8")}
+                  fontStyle={isTTM ? "italic" : "normal"}
                   fontFamily="ui-monospace, monospace"
                   style={isHover ? { filter: `drop-shadow(0 0 4px ${color})` } : undefined}
                 >
