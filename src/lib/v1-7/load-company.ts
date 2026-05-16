@@ -558,6 +558,9 @@ export async function loadV17Company(
           title: f.title,
           caption: f.caption,
           summary: f.summary,
+          // i18n (FR/EN/DE) — picked côté UI selon locale active
+          title_i18n: f.title_i18n,
+          summary_i18n: f.summary_i18n,
           source_url: f.source_url,
           source_author: f.source_author,
           source_handle: f.source_handle,

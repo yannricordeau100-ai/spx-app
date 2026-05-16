@@ -49,6 +49,9 @@ const BATCH_META: Record<
   "x-authed-fr": { label: "X compte · recherche FR", short: "X FR", color: "#3b82f6" },
   "x-authed": { label: "X compte (legacy)", short: "X compte", color: "#06b6d4" },
   reddit: { label: "Reddit (r/dataisbeautiful, r/singularity)", short: "Reddit", color: "#fb923c" },
+  substack: { label: "Substack analystes (Stratechery, Sherwood News, Big Technology…)", short: "Substack", color: "#ef4444" },
+  "bing-images": { label: "Bing Images API (meta-search web)", short: "Bing", color: "#0ea5e9" },
+  huggingface: { label: "Hugging Face leaderboards (benchmarks IA)", short: "HF", color: "#facc15" },
   x: { label: "X (legacy)", short: "X", color: "#a78bfa" },
 };
 

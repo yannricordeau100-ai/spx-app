@@ -37,6 +37,8 @@ export type ImageFindingRequest = {
   updated_at: string;
 };
 
+export type LocalizedString = Partial<Record<string, string>>;
+
 export type ImageFinding = {
   id: string;
   request_id: string;
@@ -52,6 +54,10 @@ export type ImageFinding = {
   title: string | null;
   caption: string | null;
   summary: string | null;
+  /** i18n title : { fr: "...", en: "...", de: "..." } — fallback sur title si vide. */
+  title_i18n?: LocalizedString;
+  /** i18n summary (= bloc "Lecture") : { fr, en, de } — fallback sur summary si vide. */
+  summary_i18n?: LocalizedString;
   detected_kpi_topics: string[];
   approved: boolean;
   rejected: boolean;
@@ -61,6 +67,30 @@ export type ImageFinding = {
   created_at: string;
   updated_at: string;
 };
+
+/**
+ * Sélectionne la version localisée d'un champ i18n, avec fallback intelligent :
+ * locale exacte → fr → en → premier dispo → fallback final.
+ */
+export function pickI18n(
+  i18n: LocalizedString | null | undefined,
+  locale: string,
+  fallback: string | null,
+): string | null {
+  if (!i18n || typeof i18n !== "object") return fallback;
+  // Locale exacte
+  if (i18n[locale]) return i18n[locale]!;
+  // Variantes (en-GB → en, de-CH → de)
+  const base = locale.split("-")[0];
+  if (i18n[base]) return i18n[base]!;
+  // Fallback FR puis EN
+  if (i18n.fr) return i18n.fr;
+  if (i18n.en) return i18n.en;
+  // Premier dispo
+  const keys = Object.keys(i18n).filter((k) => !!i18n[k]);
+  if (keys.length > 0) return i18n[keys[0]]!;
+  return fallback;
+}
 
 function admin() {
   return createClient(

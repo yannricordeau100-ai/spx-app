@@ -835,6 +835,7 @@ export function CompanyView({
           <ImageFindingsBlock
             findings={(company as Company & { image_findings?: ImageFindingPublic[] }).image_findings ?? []}
             accent={accent}
+            locale={locale}
           />
         ) : null}
 
