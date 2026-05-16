@@ -566,8 +566,6 @@ export function HomeView({
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const visibleResults = results.length > PAGE_SIZE ? results.slice(0, visibleCount) : results;
   const hasMore = results.length > visibleCount;
-  const remainingCount = results.length - visibleCount;
-  const nextBatchSize = Math.min(PAGE_SIZE, remainingCount);
   // Note : la date "Données à jour au X" est désormais rendue côté client
   // via <DataFreshnessPill /> pour utiliser le timezone du visiteur.
 
@@ -668,23 +666,20 @@ export function HomeView({
             })}
           </div>
 
-          {/* Pagination par paquet de 30 (Yann 16 mai 2026) */}
+          {/* Pagination par paquet de 30 (Yann 16 mai 2026).
+              Label volontairement minimaliste : "More ↓" = 1 mot anglais
+              ultra-universel, compréhensible sans formation linguistique.
+              Pas de nombre ni de mot "déployer" (Yann 16 mai 04h45). */}
           {hasMore && (
             <div className="mt-6 flex justify-center">
               <button
                 type="button"
                 onClick={() => setVisibleCount((c) => c + PAGE_SIZE)}
-                className="group inline-flex items-center gap-2 rounded-xl border border-violet-500/30 bg-violet-500/[0.06] px-5 py-3 text-[13.5px] font-medium text-violet-100 transition-all hover:scale-[1.02] hover:border-violet-500/50 hover:bg-violet-500/[0.12]"
+                aria-label="Show more companies"
+                className="group inline-flex items-center gap-2 rounded-xl border border-violet-500/30 bg-violet-500/[0.06] px-6 py-3 text-[14px] font-semibold tracking-wide text-violet-100 transition-all hover:scale-[1.02] hover:border-violet-500/50 hover:bg-violet-500/[0.12]"
               >
-                <span>
-                  {locale === "fr"
-                    ? `Déployer ${nextBatchSize} sociétés de plus`
-                    : `Show ${nextBatchSize} more companies`}
-                </span>
-                <span className="font-mono text-[11.5px] text-violet-300/80">
-                  ({visibleCount} / {results.length})
-                </span>
-                <span aria-hidden className="inline-block transition-transform group-hover:translate-y-0.5">
+                <span>More</span>
+                <span aria-hidden className="inline-block text-[16px] transition-transform group-hover:translate-y-0.5">
                   ↓
                 </span>
               </button>
