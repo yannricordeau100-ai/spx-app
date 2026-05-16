@@ -16,6 +16,40 @@ import { createClient } from "@supabase/supabase-js";
 export type ReleaseLevel = "live" | "pre-live" | "dev";
 export type ReleaseStatus = "current" | "archived" | "failed" | "pending";
 
+/**
+ * Versions utilisateur sur chaque niveau (Yann 17 mai 2026).
+ * Le niveau 0 LIVE expose 4 versions distinctes :
+ *   - visitor : non inscrit (rendu via isPublicPath dans proxy.ts)
+ *   - free / premium / max : inscrit avec plan correspondant
+ * Chaque version a sa propre matrice langues × pays.
+ */
+export type UserVariant = "visitor" | "free" | "premium" | "max";
+
+export const ALL_USER_VARIANTS: readonly UserVariant[] = [
+  "visitor",
+  "free",
+  "premium",
+  "max",
+] as const;
+
+export const VARIANT_LABELS: Record<UserVariant, string> = {
+  visitor: "Visiteur (non inscrit)",
+  free: "Free (inscrit)",
+  premium: "Premium",
+  max: "Max",
+};
+
+/**
+ * Structure type pour `variants_meta` d'une release.
+ * Décrit quelles versions × langues × pays sont effectivement actives.
+ */
+export type VariantsMeta = {
+  variants?: UserVariant[];          // versions actives (subset de ALL_USER_VARIANTS)
+  locales?: string[];                // langues actives (subset de fr/en/de/nl/sv/da/en-GB/de-CH)
+  country_overrides?: string[];      // pays avec variant pays-spécifique
+  notes?: string;
+};
+
 export type Release = {
   id: string;
   level: ReleaseLevel;

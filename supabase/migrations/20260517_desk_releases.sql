@@ -51,6 +51,16 @@ create policy "public read current live release" on desk_releases
   for select using (level = 'live' and status = 'current');
 
 -- Seed initial : on note la version actuelle staging comme "dev v0.1.0"
-insert into desk_releases (level, version, status, notes, deployed_by)
-values ('dev', '0.1.0', 'current', 'Bootstrap initial — architecture 3 niveaux mise en place 17 mai 2026', 'yannricordeau100@gmail.com')
+-- variants_meta : 4 versions utilisateur (visitor + free + premium + max),
+-- 3 langues officielles FR/EN/DE au démarrage (les autres FR/EN/DE/nl/sv/da
+-- existent en code mais ne sont pas part des versions "officielles" niveau 0).
+insert into desk_releases (level, version, status, notes, variants_meta, deployed_by)
+values (
+  'dev',
+  '0.1.0',
+  'current',
+  'Bootstrap initial — architecture 3 niveaux mise en place 17 mai 2026',
+  '{"variants":["visitor","free","premium","max"],"locales":["fr","en","de"],"notes":"4 versions utilisateur × 3 langues officielles"}'::jsonb,
+  'yannricordeau100@gmail.com'
+)
 on conflict do nothing;

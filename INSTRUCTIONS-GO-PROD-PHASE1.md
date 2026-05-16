@@ -3,6 +3,22 @@
 > Mise en place architecture 3 niveaux (Yann 16-17 mai 2026).
 > Code prêt côté repo (commit `3afe292f`). À toi de cliquer dans les UIs des prestataires.
 
+## Architecture cible (3 niveaux × 4 versions)
+
+| Niveau | URL | Auth |
+|---|---|---|
+| 0 LIVE | `www.mettrik.ai` | Public (visiteur + 3 plans inscrits) |
+| 1 PRE-LIVE | `pre.mettrik.ai` | Compte admin uniquement (404 silencieux sinon) |
+| 2 DEV | `staging.mettrik.ai` | Compte admin uniquement (404 silencieux sinon) |
+
+**Niveau 0 LIVE expose 4 versions utilisateur** :
+- **Visiteur** (non inscrit) : voit homepage + pricing + legal + maintenance + /sandbox utilitaires publics (cf `isPublicPath` dans proxy.ts)
+- **Free** (inscrit, plan gratuit)
+- **Premium** (inscrit, plan 29.90 €/mois)
+- **Max** (inscrit, plan 59.90 €/mois)
+
+Chaque version × 3 langues officielles (FR/EN/DE) × variantes pays (CH/FR/UE/US, prix locaux, juridiction, etc.).
+
 ---
 
 ## 1. Coller le SQL Supabase (2 min)

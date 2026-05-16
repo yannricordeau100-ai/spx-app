@@ -341,8 +341,14 @@ export async function proxy(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   // ────────────────────────────────────────────────────────────────────
-  // ARCHITECTURE 3 NIVEAUX (Yann 16 mai 2026)
+  // ARCHITECTURE 3 NIVEAUX (Yann 16-17 mai 2026)
   //  - LIVE : www.mettrik.ai / mettrik.ai → public
+  //      4 versions utilisateur :
+  //        * visitor (non inscrit) → routes whitelistées par isPublicPath
+  //        * free (inscrit plan Free)
+  //        * premium (plan Premium)
+  //        * max (plan Max)
+  //      Chaque version × 3 langues × variantes pays
   //  - PRE-LIVE : pre.mettrik.ai → gated admin (compte Yann uniquement)
   //  - DEV : staging.mettrik.ai / mettrik-staging.vercel.app / localhost → gated admin
   // Niveau détecté depuis le hostname. Yann a explicitement demandé que

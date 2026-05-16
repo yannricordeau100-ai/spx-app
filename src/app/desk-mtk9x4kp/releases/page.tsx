@@ -1,6 +1,27 @@
 import Link from "next/link";
-import { ArrowLeft, Layers, Globe, FlaskConical, Wrench } from "lucide-react";
-import { listReleases, type Release, type ReleaseLevel } from "@/lib/releases";
+import { ArrowLeft, Layers, Globe, FlaskConical, Wrench, UserX, User, Crown, Sparkles } from "lucide-react";
+import {
+  listReleases,
+  VARIANT_LABELS,
+  ALL_USER_VARIANTS,
+  type Release,
+  type ReleaseLevel,
+  type UserVariant,
+  type VariantsMeta,
+} from "@/lib/releases";
+
+const VARIANT_ICON: Record<UserVariant, typeof User> = {
+  visitor: UserX,
+  free: User,
+  premium: Sparkles,
+  max: Crown,
+};
+const VARIANT_COLOR: Record<UserVariant, string> = {
+  visitor: "#a1a1aa",
+  free: "#06b6d4",
+  premium: "#a78bfa",
+  max: "#f59e0b",
+};
 
 export const dynamic = "force-dynamic";
 export const metadata = {
@@ -58,12 +79,39 @@ export default async function ReleasesPage() {
           <h1 className="font-display text-3xl font-semibold">Releases · Architecture 3 niveaux</h1>
         </div>
 
-        <p className="mb-8 max-w-3xl text-[13.5px] leading-relaxed text-zinc-400">
+        <p className="mb-4 max-w-3xl text-[13.5px] leading-relaxed text-zinc-400">
           Historique versionné des push par niveau. Numéro de version invisible
           côté HTML public, exposé via header HTTP <code className="rounded bg-white/[0.05] px-1.5 py-0.5 font-mono text-[12px]">X-Mettrik-Version</code> et
           endpoint <code className="rounded bg-white/[0.05] px-1.5 py-0.5 font-mono text-[12px]">/api/version</code>.
-          Chaque niveau garde l'historique de ses releases passées.
         </p>
+
+        {/* Matrice des 4 versions utilisateur (Yann 17 mai 2026) */}
+        <div className="mb-8 rounded-2xl border border-white/[0.06] bg-white/[0.015] p-5">
+          <div className="mb-3 text-[12px] font-semibold uppercase tracking-wider text-zinc-200">
+            4 versions utilisateur par niveau
+          </div>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {ALL_USER_VARIANTS.map((v) => {
+              const Icon = VARIANT_ICON[v];
+              const color = VARIANT_COLOR[v];
+              return (
+                <div
+                  key={v}
+                  className="flex items-center gap-2 rounded-lg border px-3 py-2"
+                  style={{ borderColor: `${color}40`, background: `${color}10` }}
+                >
+                  <Icon className="size-4" style={{ color }} />
+                  <span className="text-[12px] font-medium text-zinc-100">{VARIANT_LABELS[v]}</span>
+                </div>
+              );
+            })}
+          </div>
+          <p className="mt-3 text-[11.5px] text-zinc-500">
+            Chaque version × 3 langues (FR/EN/DE) × variantes pays (CH/FR/UE/US...).
+            La version <strong className="text-zinc-300">Visiteur</strong> est rendue
+            sans authentification via les routes whitelistées par <code className="font-mono">isPublicPath</code> dans proxy.ts.
+          </p>
+        </div>
 
         {(Object.keys(byLevel) as ReleaseLevel[]).map((lvl) => {
           const meta = LEVEL_META[lvl];
@@ -111,6 +159,35 @@ export default async function ReleasesPage() {
                   {current.notes && (
                     <p className="mb-1 text-[12.5px] text-zinc-200">{current.notes}</p>
                   )}
+                  {/* Versions actives de cette release */}
+                  {(() => {
+                    const m = (current.variants_meta ?? {}) as VariantsMeta;
+                    if (!m.variants && !m.locales) return null;
+                    return (
+                      <div className="mb-2 flex flex-wrap gap-1.5">
+                        {m.variants?.map((v) => (
+                          <span
+                            key={v}
+                            className="rounded px-1.5 py-0.5 font-mono text-[10px] font-semibold"
+                            style={{
+                              background: `${VARIANT_COLOR[v]}30`,
+                              color: VARIANT_COLOR[v],
+                            }}
+                          >
+                            {v}
+                          </span>
+                        ))}
+                        {m.locales?.map((loc) => (
+                          <span
+                            key={loc}
+                            className="rounded bg-white/[0.04] px-1.5 py-0.5 font-mono text-[10px] uppercase text-zinc-400"
+                          >
+                            {loc}
+                          </span>
+                        ))}
+                      </div>
+                    );
+                  })()}
                   <div className="text-[11px] text-zinc-500">
                     Déployé le{" "}
                     {new Date(current.deployed_at).toLocaleString("fr-FR", {
