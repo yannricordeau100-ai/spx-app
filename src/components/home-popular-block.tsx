@@ -125,7 +125,8 @@ export function HomePopularBlock({
   const rows = useMemo<PopularRow[]>(() => {
     if (!data) return [];
     const list = data[activeTab];
-    return Array.isArray(list) ? list.slice(0, 10) : [];
+    // Yann 16 mai 2026 : top 20 (au lieu de top 10) sur la home.
+    return Array.isArray(list) ? list.slice(0, 20) : [];
   }, [data, activeTab]);
 
   if (!data || rows.length === 0) return null;

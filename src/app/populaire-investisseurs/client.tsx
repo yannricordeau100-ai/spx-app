@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { ArrowRight, Crown, Download, Info, Sparkles, TrendingUp } from "lucide-react";
+import { ArrowRight, Crown, Download, Sparkles, TrendingUp } from "lucide-react";
 import type { PopularData, PopularRow } from "./page";
 
 type Tab = { key: string; label: string; flag: string; country: string };
@@ -292,20 +292,34 @@ export function PopulaireClient({
                 {rows.length} action{rows.length > 1 ? "s" : ""} sur {allRows.length} disponible{allRows.length > 1 ? "s" : ""}
               </div>
               <div className="inline-flex gap-1 rounded-lg border border-white/[0.08] bg-white/[0.02] p-1">
-                {[10, 20, 50, 9999].map((n) => (
-                  <button
-                    key={n}
-                    type="button"
-                    onClick={() => setTopN(n as TopN)}
-                    className={`rounded-md px-2.5 py-1 text-[11.5px] font-medium transition-all ${
-                      topN === n
-                        ? "bg-violet-500/20 text-violet-100 ring-1 ring-violet-500/30"
-                        : "text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-200"
-                    }`}
-                  >
-                    {n === 9999 ? labels.rank : `Top ${n}`}
-                  </button>
-                ))}
+                {[10, 20, 50, 9999].map((n) => {
+                  // Yann 16 mai 2026 : masquer les boutons "Top N" qui
+                  // donnent un résultat IDENTIQUE au plus petit déjà
+                  // affichable. Ex : Suisse a 20 stés → Top 50 et "Tous"
+                  // donnent même chose que Top 20 → on les masque pour
+                  // éviter le faux bug "rien ne se passe".
+                  const cap = Math.min(n, allRows.length);
+                  // Si la valeur "n" actuelle donne le même nombre de rows
+                  // qu'un bouton plus petit déjà visible, on masque.
+                  const isRedundant =
+                    n > allRows.length &&
+                    [10, 20, 50].some((m) => m < n && Math.min(m, allRows.length) === cap);
+                  if (isRedundant) return null;
+                  return (
+                    <button
+                      key={n}
+                      type="button"
+                      onClick={() => setTopN(n as TopN)}
+                      className={`rounded-md px-2.5 py-1 text-[11.5px] font-medium transition-all ${
+                        topN === n
+                          ? "bg-violet-500/20 text-violet-100 ring-1 ring-violet-500/30"
+                          : "text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-200"
+                      }`}
+                    >
+                      {n === 9999 ? labels.rank : `Top ${n}`}
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
