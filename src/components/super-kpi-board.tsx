@@ -211,7 +211,7 @@ function SignatureCard({ kpi }: { kpi: SuperKpi }) {
               fontWeight="800"
               fill={isNA ? "#71717a" : "#fafafa"}
             >
-              {isNA ? "—" : Math.round(kpi.value ?? 0)}
+              {isNA ? "n.d." : Math.round(kpi.value ?? 0)}
             </text>
             <text
               x="90"

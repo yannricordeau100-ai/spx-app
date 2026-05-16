@@ -103,18 +103,31 @@ async function checkPage(page: Page, ticker: string, locale: string, route: stri
   });
   c.push({
     id: "header.ipo_chip",
-    label: "Chip IPO présent",
-    pass: has(/\bIPO\b/),
-    severity: "minor",
-    detail: "label IPO",
+    label: "Chip IPO présent (si data IPO disponible)",
+    // Yann 16 mai 2026 : calibration audit. Beaucoup de stés très
+    // anciennes (JPM, LLY, JNJ, MRK, TMO, ...) n'ont pas de date IPO
+    // dans les datasets (StatChip retourne null). Le composant masque
+    // donc volontairement la chip. C'est un comportement correct, pas
+    // un bug UI. Info-only.
+    pass: has(/\bIPO\b/) || has(/\bFondée\b|\bFounded\b/),
+    severity: "info",
+    detail: "label IPO ou Fondée (fallback ancien)",
   });
   c.push({
     id: "header.subsector_visible",
-    label: "Sous-secteur visible",
+    label: "Sous-secteur visible (texte ou chip rang sous-secteur)",
+    // Yann 16 mai 2026 : calibration audit. Le composant CompanyHeader
+    // n'écrit jamais le mot "Sous-secteur" : le label de chip est
+    // directement le NOM du sous-secteur (ex "Internet & Services"). Le
+    // chip de rang dans ce sous-secteur affiche "#X dans <subsector>".
+    // On détecte donc la présence d'une chip rang sous-secteur ("dans <X>")
+    // OU explicitement le mot Sous-secteur / Sub-sector.
     pass: has(/Sous-secteur|Sub-?sector|Teilbranche|Industria/i)
+      || /\bdans\s+[A-Z][A-Za-zÀ-ÿ&]/.test(text)
+      || /\bin\s+[A-Z][A-Za-z&]/.test(text)
       || (await count("[class*='subsector']")) > 0,
     severity: "minor",
-    detail: "label subsector",
+    detail: "label subsector ou chip rang",
   });
 
   // ════════════ FRESHNESS ════════════
@@ -233,10 +246,21 @@ async function checkPage(page: Page, ticker: string, locale: string, route: stri
   });
   c.push({
     id: "chart.y_axis_header",
-    label: "Y axis header (Milliards/Millions/etc) si KPI currency",
-    pass: has(/en Milliards|en Millions|in Milliarden|in Millionen|in Billions/i),
+    label: "Y axis header (Milliards/Millions/etc) si HERO KPI en devise",
+    // Yann 16 mai 2026 : calibration audit. Le check ne s'applique que
+    // si le HERO KPI est exprimé en devise (Mds $, Mds €, M $, M €).
+    // Pour les heros en %, unités, abonnés, ratios, etc., l'axis
+    // header n'a aucun sens. On extrait la value hero depuis le pattern
+    // "KPI principal de <name> est <kpi>, à <value>" et on vérifie son unité.
+    pass: await (async () => {
+      const m = text.match(/KPI principal[^,]+,\s*à\s+([\d\s,.]+)\s*(Mds\s*[\$€]|M\s*[\$€]|%|pts|units?|unités?|\w+)/i);
+      const heroUnit = m?.[2]?.trim() ?? "";
+      const heroIsCurrency = /^Mds|^M\s*[\$€]/.test(heroUnit);
+      if (!heroIsCurrency) return true; // skip si non-devise
+      return /en Milliards|en Millions|in Milliarden|in Millionen|in Billions/i.test(text);
+    })(),
     severity: "minor",
-    detail: "axis header localisé",
+    detail: "axis header localisé (si hero en devise)",
   });
   c.push({
     id: "chart.y_no_duplicate_int",
