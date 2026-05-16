@@ -5,12 +5,16 @@ import { useT } from "@/lib/i18n/provider";
 import { Sparkles, ArrowRight, Crown } from "lucide-react";
 import { InfoTooltip } from "@/components/info-tooltip";
 import { StarButton } from "@/components/star-button";
+import { AcronymHover } from "@/components/acronym-hover";
+import { TERM_GLOSSARY } from "@/lib/ui-fix-templates";
 import type { SuperKpi } from "@/lib/super-kpi";
 
 function CategoryChip({ category, color }: { category: SuperKpi["category"]; color: string }) {
-  return (
+  // Tooltip explicatif pour chaque catégorie (Yann 16 mai 2026).
+  const tooltip = TERM_GLOSSARY[category];
+  const chip = (
     <span
-      className="inline-flex items-center rounded-md px-1.5 py-0.5 font-mono text-[9.5px] font-semibold uppercase tracking-wider"
+      className="inline-flex items-center rounded-md px-1.5 py-0.5 font-mono text-[9.5px] font-semibold uppercase tracking-wider cursor-help"
       style={{
         background: `${color}1a`,
         color,
@@ -20,6 +24,7 @@ function CategoryChip({ category, color }: { category: SuperKpi["category"]; col
       {category}
     </span>
   );
+  return tooltip ? <AcronymHover label={tooltip} align="left">{chip}</AcronymHover> : chip;
 }
 
 function TierBadge({ tier, label, color }: { tier: SuperKpi["tier"]; label: string; color: string }) {

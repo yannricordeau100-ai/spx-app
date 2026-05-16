@@ -93,6 +93,7 @@ const SUBSECTOR_FR_MAP: Record<string, string> = {
   "Semiconductors &amp; Semiconductor Equipment": "Semi & équipements",
   "Internet & Direct Marketing Retail": "Internet & vente directe",
   "Internet &amp; Direct Marketing Retail": "Internet & vente directe",
+  "Internet & Services": "Internet & services",
   "Software & Services": "Logiciels & services",
   "Software &amp; Services": "Logiciels & services",
   "Capital Goods": "Biens d'équipement",
@@ -102,6 +103,23 @@ const SUBSECTOR_FR_MAP: Record<string, string> = {
   "Oil, Gas & Consumable Fuels": "Pétrole & gaz",
   "Oil, Gas &amp; Consumable Fuels": "Pétrole & gaz",
   "Pharmaceuticals": "Pharmaceutique",
+  // Yann 16 mai 2026 (audit Gemini META / NVDA / AAPL) :
+  "Communication Services": "Services de communication",
+  "Social Media & Messaging": "Réseaux sociaux & messagerie",
+  "Social Media &amp; Messaging": "Réseaux sociaux & messagerie",
+  "Technology": "Technologie",
+  "Technology Hardware & Equipment": "Matériel & équipements technologiques",
+  "Technology Hardware &amp; Equipment": "Matériel & équipements technologiques",
+  "Information Technology": "Technologies de l'information",
+  "Consumer Discretionary": "Biens de consommation discrétionnaires",
+  "Consumer Staples": "Biens de consommation de base",
+  "Health Care": "Santé",
+  "Financials": "Services financiers",
+  "Industrials": "Industriels",
+  "Energy": "Énergie",
+  "Utilities": "Services aux collectivités",
+  "Materials": "Matériaux",
+  "Real Estate": "Immobilier",
 };
 
 export function translateSubsector(en: string): string {
@@ -273,6 +291,12 @@ export const TERM_GLOSSARY: Record<string, string> = {
   "Headcount": "Effectif : nombre total d'employés de la société. Indicateur de taille et d'évolution des coûts salariaux.",
   "Bookings": "Commandes prises : valeur des nouveaux contrats signés sur la période, avant facturation. Indicateur avancé du revenu futur.",
   "Total Revenue": "Chiffre d'affaires total : revenu total généré par la société sur la période (tous segments confondus).",
+  // Super-KPI categories (Yann 16 mai 2026)
+  "Croissance": "Catégorie Croissance : Super-KPI qui mesurent la vitesse d'expansion de la société (croissance du revenu, des utilisateurs, du marché).",
+  "Profitabilité": "Catégorie Profitabilité : Super-KPI qui mesurent l'efficacité avec laquelle la société transforme son revenu en bénéfice.",
+  "Risque": "Catégorie Risque : Super-KPI qui mesurent la solidité financière et les risques structurels (concentration clients, dette, dépendances).",
+  "Stratégie": "Catégorie Stratégie : Super-KPI qui mesurent les choix d'allocation du capital (R&D, M&A, dividendes, rachats) et leur cohérence.",
+  "Composite": "Catégorie Composite : Super-KPI qui combinent plusieurs indicateurs bruts pour donner une vision synthétique (ex : Profit Power Index).",
 };
 
 /**
