@@ -86,6 +86,8 @@ function isPublicPath(pathname: string): boolean {
   if (pathname === "/sandbox/geo-test") return true;
   // /sandbox/visual-audit = audit visuel Gemini 2.5 Flash (dashboard défauts UI).
   if (pathname === "/sandbox/visual-audit") return true;
+  // /sandbox/quality-tree = registry unique des éléments contrôlables (IDs stables).
+  if (pathname === "/sandbox/quality-tree") return true;
   // /sandbox/coverage-matrix = matrice temps réel des blocs data par sté.
   // Lecture dynamique de v2-pipeline. Public pour Yann suivi enrichissement.
   if (pathname === "/sandbox/coverage-matrix") return true;
