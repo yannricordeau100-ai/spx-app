@@ -34,6 +34,41 @@ const STATUS_META: Record<
   error: { label: "Erreur", color: "#f43f5e" },
 };
 
+/**
+ * Méta batch (source_platform) : permet de tagger d'où vient chaque image
+ * (recherche web, X anonyme, X loggé) et de comparer les 3 voies sur la
+ * même demande.
+ */
+const BATCH_META: Record<
+  string,
+  { label: string; short: string; color: string }
+> = {
+  web: { label: "Web (recherche libre)", short: "Web", color: "#10b981" },
+  "x-anon": { label: "X anonyme (sans compte)", short: "X anon", color: "#f59e0b" },
+  "x-authed": { label: "X avec compte", short: "X compte", color: "#06b6d4" },
+  x: { label: "X (legacy)", short: "X", color: "#a78bfa" },
+};
+
+function batchOf(platform: string | null | undefined) {
+  if (!platform) return BATCH_META.web;
+  return BATCH_META[platform] ?? { label: platform, short: platform, color: "#a1a1aa" };
+}
+
+/**
+ * Parse les batches actifs depuis request.notes. Format attendu :
+ * "ACTIVE_BATCHES: x-anon,x-authed | ... reste libre"
+ * Retourne la liste des batches en cours (vide si aucun).
+ */
+function parseActiveBatches(notes: string | null): string[] {
+  if (!notes) return [];
+  const m = notes.match(/ACTIVE_BATCHES:\s*([^|\n]+)/);
+  if (!m) return [];
+  return m[1]
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
 export function ImageFindingsClient({
   initialRequests,
   initialFindings,
@@ -276,25 +311,144 @@ function RequestRow({
       </div>
 
       {expanded && (
-        <div className="border-t border-white/[0.06] bg-black/30 p-4">
-          {findings.length === 0 ? (
-            <div className="py-8 text-center text-[12px] text-zinc-500">
-              Pas encore d'images. Clique "Lancer" pour démarrer la recherche
-              Claude conv (gratuit, MAX 20×).
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {findings.map((f) => (
-                <FindingCard
-                  key={f.id}
-                  finding={f}
-                  defaultLanguages={r.languages}
-                  defaultTickers={r.target_tickers}
-                  onUpdate={onUpdateFinding}
-                />
-              ))}
-            </div>
-          )}
+        <ExpandedFindings
+          findings={findings}
+          activeBatches={parseActiveBatches(r.notes)}
+          defaultLanguages={r.languages}
+          defaultTickers={r.target_tickers}
+          onUpdateFinding={onUpdateFinding}
+        />
+      )}
+    </div>
+  );
+}
+
+/* ─── Findings section with batch filter + in-progress banners ───── */
+function ExpandedFindings({
+  findings,
+  activeBatches,
+  defaultLanguages,
+  defaultTickers,
+  onUpdateFinding,
+}: {
+  findings: ImageFinding[];
+  activeBatches: string[];
+  defaultLanguages: string[];
+  defaultTickers: string[];
+  onUpdateFinding: (p: Partial<ImageFinding>) => Promise<void>;
+}) {
+  const [batchFilter, setBatchFilter] = useState<string>("all");
+
+  // Buckets par batch (source_platform).
+  const buckets: Record<string, ImageFinding[]> = {};
+  for (const f of findings) {
+    const k = f.source_platform || "web";
+    (buckets[k] ??= []).push(f);
+  }
+  const allBatchKeys = Array.from(
+    new Set([...Object.keys(buckets), ...activeBatches]),
+  );
+
+  const filtered =
+    batchFilter === "all" ? findings : (buckets[batchFilter] ?? []);
+
+  return (
+    <div className="border-t border-white/[0.06] bg-black/30 p-4">
+      {/* Bandeaux "recherche en cours" par batch actif */}
+      {activeBatches.length > 0 && (
+        <div className="mb-3 space-y-1.5">
+          {activeBatches.map((b) => {
+            const meta = batchOf(b);
+            const count = (buckets[b] ?? []).length;
+            return (
+              <div
+                key={b}
+                className="flex items-center gap-2 rounded-lg border px-3 py-2 text-[12px]"
+                style={{
+                  background: `${meta.color}10`,
+                  borderColor: `${meta.color}44`,
+                  color: meta.color,
+                }}
+              >
+                <span className="relative flex size-2">
+                  <span
+                    className="absolute inline-flex size-full animate-ping rounded-full opacity-75"
+                    style={{ background: meta.color }}
+                  />
+                  <span
+                    className="relative inline-flex size-2 rounded-full"
+                    style={{ background: meta.color }}
+                  />
+                </span>
+                <span className="font-semibold">{meta.label}</span>
+                <span className="text-zinc-400">
+                  · recherche en cours · {count} images déjà trouvées
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Filtre batch */}
+      {allBatchKeys.length > 1 && (
+        <div className="mb-3 flex flex-wrap items-center gap-1.5">
+          <span className="mr-1 text-[10.5px] uppercase tracking-wider text-zinc-500">
+            Filtrer par batch :
+          </span>
+          <button
+            type="button"
+            onClick={() => setBatchFilter("all")}
+            className={`rounded-md px-2 py-1 text-[10.5px] font-semibold transition-colors ${
+              batchFilter === "all"
+                ? "bg-zinc-100 text-zinc-900"
+                : "bg-white/[0.04] text-zinc-300 hover:bg-white/[0.08]"
+            }`}
+          >
+            Tout ({findings.length})
+          </button>
+          {allBatchKeys.map((b) => {
+            const meta = batchOf(b);
+            const count = (buckets[b] ?? []).length;
+            const active = batchFilter === b;
+            return (
+              <button
+                key={b}
+                type="button"
+                onClick={() => setBatchFilter(b)}
+                className={`rounded-md px-2 py-1 text-[10.5px] font-semibold transition-colors ${
+                  active ? "text-white" : "text-zinc-300"
+                }`}
+                style={
+                  active
+                    ? { background: meta.color }
+                    : { background: `${meta.color}1a` }
+                }
+              >
+                {meta.short} ({count})
+              </button>
+            );
+          })}
+        </div>
+      )}
+
+      {filtered.length === 0 ? (
+        <div className="py-8 text-center text-[12px] text-zinc-500">
+          {findings.length === 0
+            ? 'Pas encore d\'images. Clique "Lancer" pour démarrer la recherche Claude conv (gratuit, MAX 20×).'
+            : "Aucune image dans ce batch pour l'instant."}
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {filtered.map((f) => (
+            <FindingCard
+              key={f.id}
+              finding={f}
+              defaultLanguages={defaultLanguages}
+              defaultTickers={defaultTickers}
+              onUpdate={onUpdateFinding}
+            />
+          ))}
         </div>
       )}
     </div>
@@ -324,6 +478,8 @@ function FindingCard({
     }
   }
 
+  const batch = batchOf(f.source_platform);
+
   return (
     <div
       className={`overflow-hidden rounded-xl border ${
@@ -334,7 +490,7 @@ function FindingCard({
             : "border-white/[0.08] bg-white/[0.02]"
       }`}
     >
-      <div className="aspect-video w-full overflow-hidden bg-black/40">
+      <div className="relative aspect-video w-full overflow-hidden bg-black/40">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={f.image_url}
@@ -342,6 +498,13 @@ function FindingCard({
           className="size-full object-contain"
           referrerPolicy="no-referrer"
         />
+        <span
+          className="absolute left-2 top-2 rounded-md px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider ring-1"
+          style={{ background: `${batch.color}30`, color: batch.color, borderColor: `${batch.color}66`, ringColor: `${batch.color}66` } as React.CSSProperties}
+          title={batch.label}
+        >
+          {batch.short}
+        </span>
       </div>
       <div className="space-y-2 p-3">
         {f.title && (
