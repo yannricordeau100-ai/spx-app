@@ -51,6 +51,7 @@ import { RepartitionBlock } from "@/components/repartition-block";
 import { DividendStories } from "@/components/dividend-stories";
 import { FreshnessIndicator } from "@/components/freshness-indicator";
 import { AcronymHover } from "@/components/acronym-hover";
+import { ACRONYM_GLOSSARY, TERM_GLOSSARY } from "@/lib/ui-fix-templates";
 import { CompanyNavChrome } from "@/components/company-nav-chrome";
 import { SuperKpiBoard } from "@/components/super-kpi-board";
 import { computeSuperKpis, computeSectorSuperKpis } from "@/lib/super-kpi";
@@ -533,11 +534,11 @@ export function CompanyView({
               <div className="mt-1 flex items-center gap-2.5">
                 <AcronymHover
                   align="left"
-                  label={`${active.name_fr}${
-                    active.name_en && active.name_en !== active.name_fr
-                      ? ` (${active.name_en})`
-                      : ""
-                  }`}
+                  label={(() => {
+                    const base = `${active.name_fr}${active.name_en && active.name_en !== active.name_fr ? ` (${active.name_en})` : ""}`;
+                    const gloss = ACRONYM_GLOSSARY[active.short] ?? TERM_GLOSSARY[active.short] ?? TERM_GLOSSARY[active.name_fr];
+                    return gloss ? `${base} — ${gloss}` : base;
+                  })()}
                 >
                   <span
                     className="cursor-help rounded-md px-1.5 py-0.5 font-mono text-[12px] font-bold uppercase tracking-wider"

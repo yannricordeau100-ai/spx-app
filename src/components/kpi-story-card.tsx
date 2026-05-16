@@ -7,6 +7,7 @@ import type { StorySlide } from "@/lib/kpi-stories-ordering";
 import { formatUnit, formatKpiValue } from "@/lib/data";
 import { InfoTooltip } from "@/components/info-tooltip";
 import { AcronymHover } from "@/components/acronym-hover";
+import { ACRONYM_GLOSSARY, TERM_GLOSSARY } from "@/lib/ui-fix-templates";
 import { normalizeNarrative } from "@/lib/ui-fix-templates";
 
 /**
@@ -57,7 +58,7 @@ function KpiCard({ kpi, accent, glow }: { kpi: KPI; accent: string; glow: string
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-1.5">
-              <AcronymHover label={kpi.short} align="left">
+              <AcronymHover label={ACRONYM_GLOSSARY[kpi.short] ?? TERM_GLOSSARY[kpi.short] ?? kpi.short} align="left">
                 <span
                   className="rounded px-1.5 py-0.5 font-mono text-[11px] font-bold uppercase tracking-wider"
                   style={{ background: `${accent}1a`, color: accent, border: `1px solid ${accent}33` }}

@@ -10,7 +10,7 @@ import { InfoTooltip } from "@/components/info-tooltip";
 import { StarButton } from "@/components/star-button";
 import { AcronymHover } from "@/components/acronym-hover";
 import { useT } from "@/lib/i18n/provider";
-import { normalizeNarrative } from "@/lib/ui-fix-templates";
+import { normalizeNarrative, ACRONYM_GLOSSARY, TERM_GLOSSARY } from "@/lib/ui-fix-templates";
 
 const TYPE_COLOR: Record<string, string> = {
   Revenue: "#a78bfa",
@@ -123,9 +123,13 @@ export function KpiRow({
         <div className="flex items-center gap-2.5">
           <AcronymHover
             align="left"
-            label={`${kpi.name_fr}${
-              kpi.name_en && kpi.name_en !== kpi.name_fr ? ` (${kpi.name_en})` : ""
-            }`}
+            label={(() => {
+              const base = `${kpi.name_fr}${kpi.name_en && kpi.name_en !== kpi.name_fr ? ` (${kpi.name_en})` : ""}`;
+              // Enrichi glossaire (Yann 16 mai 2026) : si le short ou le name_fr matche un glossaire,
+              // ajoute l'explication courte néophyte-friendly à la suite.
+              const glossEntry = ACRONYM_GLOSSARY[kpi.short] ?? TERM_GLOSSARY[kpi.short] ?? TERM_GLOSSARY[kpi.name_fr];
+              return glossEntry ? `${base} — ${glossEntry}` : base;
+            })()}
           >
             <span
               className="cursor-help rounded-md px-1.5 py-0.5 font-mono text-[11px] font-bold uppercase tracking-wider"
