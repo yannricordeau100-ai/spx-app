@@ -78,6 +78,8 @@ export function normalizeNarrative(text: string): string {
   let out = normalizeBToMds(text);
   out = normalizeUnitSpacing(out);
   out = addNbspBeforePct(out);
+  // Yann 16 mai 2026 : YoY → vs N-1 (convention FR Mettrik).
+  out = out.replace(/\bYoY\b/g, "vs N-1");
   return out;
 }
 

@@ -1017,7 +1017,7 @@ export const DICTIONARY: Dict = {
     de: "Automatische Aktualisierungen nach jedem Earnings-Release",
   },
   "pricing.trust3_body": {
-    fr: "Dès qu'une société publie ses résultats trimestriels, ses KPI sont rafraîchis sur Mettrik. Tu vois directement la nouvelle valeur, le YoY recalculé, et l'impact sur le score qualité. Aucune saisie manuelle de ta part.",
+    fr: "Dès qu'une société publie ses résultats trimestriels, ses KPI sont rafraîchis sur Mettrik. Tu vois directement la nouvelle valeur, la variation vs N-1 recalculée, et l'impact sur le score qualité. Aucune saisie manuelle de ta part.",
     en: "As soon as a company publishes its quarterly results, its KPIs are refreshed on Mettrik. You see the new value, the recalculated YoY, and the impact on the quality score. No manual entry on your end.",
     de: "Sobald ein Unternehmen seine Quartalszahlen veröffentlicht, werden die KPIs auf Mettrik aktualisiert. Du siehst direkt den neuen Wert, das neu berechnete YoY und die Auswirkung auf den Qualitätsscore. Keine manuelle Eingabe deinerseits.",
   },
@@ -1664,7 +1664,7 @@ export const DICTIONARY: Dict = {
     de: "Konzentration",
   },
   "superkpi.kpi_margin_trend": {
-    fr: "Tendance marge YoY",
+    fr: "Tendance marge vs N-1",
     en: "Margin trend YoY",
     de: "Margen-Trend YoY",
   },

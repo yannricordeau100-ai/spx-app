@@ -2,6 +2,7 @@
 
 import { Sparkles, ArrowUpRight, AlertTriangle, Coins, Telescope } from "lucide-react";
 import type { InterpretBlock, InterpretTone } from "@/lib/data";
+import { normalizeNarrative } from "@/lib/ui-fix-templates";
 
 const TONE: Record<
   InterpretTone,
@@ -31,7 +32,7 @@ export function InterpretationBlock({
 
       <p
         className="text-[15.5px] leading-relaxed text-zinc-100 [&_em]:italic [&_em]:text-zinc-200 [&_strong]:font-semibold [&_strong]:text-zinc-50"
-        dangerouslySetInnerHTML={{ __html: block.lead }}
+        dangerouslySetInnerHTML={{ __html: normalizeNarrative(block.lead) }}
       />
 
       <ul className="mt-5 grid gap-3">
@@ -69,7 +70,7 @@ export function InterpretationBlock({
                 </div>
                 <p
                   className="mt-1.5 text-[14.5px] leading-relaxed text-zinc-200 [&_em]:italic [&_em]:text-zinc-100 [&_strong]:font-semibold [&_strong]:text-zinc-50"
-                  dangerouslySetInnerHTML={{ __html: b.body }}
+                  dangerouslySetInnerHTML={{ __html: normalizeNarrative(b.body) }}
                 />
               </div>
             </li>
