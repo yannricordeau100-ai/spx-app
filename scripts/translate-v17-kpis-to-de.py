@@ -153,14 +153,14 @@ def translate_payload(payload: dict[str, Any], ticker: str) -> dict[str, Any] | 
         ],
         "temperature": 0.1,
         "response_format": {"type": "json_object"},
-        "max_tokens": 4000,
+        "max_tokens": 8000,
     }
     if USE_ANTHROPIC and ANTHROPIC_API_KEY:
         headers = {"x-api-key": ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01", "content-type": "application/json"}
         try:
             r = requests.post(ANTHROPIC_URL, headers=headers, json={
                 "model": "claude-haiku-4-5",
-                "max_tokens": 4000,
+                "max_tokens": 8000,
                 "system": body["messages"][0]["content"],
                 "messages": [{"role": "user", "content": body["messages"][1]["content"]}],
             }, timeout=120)
