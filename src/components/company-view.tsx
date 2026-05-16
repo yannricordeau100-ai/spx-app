@@ -64,7 +64,7 @@ import { V18MissingPlaceholder } from "@/components/v18-missing-placeholder";
 import { YoungIpoWarning } from "@/components/young-ipo-warning";
 import { BrandWordmark } from "@/components/brand-wordmark";
 import { CompanyProfileCard } from "@/components/company-profile-card";
-import { getFiscalAudit } from "@/lib/fiscal-calendar";
+import { getFiscalAudit, isFiscalShifted, fiscalLabelsForTicker } from "@/lib/fiscal-calendar";
 import { aggregateQuarterlyToAnnual, getKpiAggregationKind } from "@/lib/kpi-aggregation";
 import { buildChartSpec } from "@/lib/chart-template";
 import { verifyAndFix } from "@/lib/chart-spec-verify";
@@ -709,6 +709,45 @@ export function CompanyView({
                     )}
                   </InfoTooltip>
                 )}
+                {/* Yann 17 mai 2026 : tooltip "i" fiscal-shifted explicatif.
+                    Affiché UNIQUEMENT pour les stés à exercice fiscal décalé
+                    (Apple FY end sept, Microsoft juin, NVIDIA jan, etc.) ET
+                    quand le hero KPI est trimestriel.
+                    But : éviter que l'investisseur pense que Mettrik AI ment
+                    quand il voit "T2 2026" alors qu'on est encore en mai. */}
+                {active.period_type === "quarter" && isFiscalShifted(company.ticker) && (() => {
+                  const fl = fiscalLabelsForTicker(company.ticker, active.last_data_date);
+                  if (!fl) return null;
+                  const fyEndMonthFr = [
+                    "", "janvier", "février", "mars", "avril", "mai", "juin",
+                    "juillet", "août", "septembre", "octobre", "novembre", "décembre",
+                  ][fl.fiscalYearEndMonth] ?? "?";
+                  return (
+                    <InfoTooltip color="#f59e0b">
+                      <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: "#f59e0b" }}>
+                        Exercice fiscal décalé
+                      </div>
+                      <div className="text-zinc-200 text-[12.5px] leading-relaxed">
+                        <strong>{company.name}</strong> a un exercice fiscal qui se termine en{" "}
+                        <strong>{fyEndMonthFr}</strong> (pas en décembre comme le calendrier).
+                        <br /><br />
+                        Sur le graph, <strong>« T{(fl.lastLabel.match(/Q(\d)/)?.[1] ?? "?")} {fl.lastLabel.match(/(\d{4})/)?.[1] ?? ""} »</strong> correspond
+                        au trimestre fiscal {fl.lastLabel}, et non au trimestre calendaire.
+                        {fl.publicationDate && (
+                          <>
+                            <br /><br />
+                            <span className="text-zinc-400">
+                              Dernier trimestre publié officiellement le{" "}
+                              {new Date(fl.publicationDate).toLocaleDateString("fr-FR", {
+                                day: "numeric", month: "long", year: "numeric",
+                              })}.
+                            </span>
+                          </>
+                        )}
+                      </div>
+                    </InfoTooltip>
+                  );
+                })()}
               </div>
               {/* TimeFraction toggle visible UNIQUEMENT pour les charts qui ont
                   du sens à diviser ET pour les KPIs où ça PARLE à un investisseur.
