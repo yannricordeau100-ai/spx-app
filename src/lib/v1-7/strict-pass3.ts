@@ -132,12 +132,20 @@ function heroKpiUsable(v: AnyRecord): boolean {
   }
   // value et yoy : accepter string OU number. Reject si null/undefined ou
   // string placeholder.
-  for (const f of ["value", "yoy"] as const) {
-    const raw = hero[f];
-    if (raw === undefined || raw === null) return false;
-    if (typeof raw === "string" && PLACEHOLDER_VALUES.test(raw.trim())) return false;
-    if (typeof raw !== "string" && typeof raw !== "number") return false;
-  }
+  // Yann 16 mai 2026 : tolérer yoy="N/A" quand value est number (KPIs
+  // one-off / événementiels comme HSIC Cyber Incident Cost, ELAN Q-only,
+  // ABVX biotech, etc.). Le YoY n'a parfois pas de sens (one-time event).
+  const rawValue = hero.value;
+  if (rawValue === undefined || rawValue === null) return false;
+  if (typeof rawValue === "string" && PLACEHOLDER_VALUES.test(rawValue.trim())) return false;
+  if (typeof rawValue !== "string" && typeof rawValue !== "number") return false;
+
+  const rawYoy = hero.yoy;
+  if (rawYoy === undefined || rawYoy === null) return false;
+  // yoy "N/A" toléré si value est number → KPI one-off valide
+  const yoyIsPlaceholder = typeof rawYoy === "string" && PLACEHOLDER_VALUES.test(rawYoy.trim());
+  if (yoyIsPlaceholder && typeof rawValue !== "number") return false;
+  if (typeof rawYoy !== "string" && typeof rawYoy !== "number") return false;
   return true;
 }
 

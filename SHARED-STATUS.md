@@ -4162,3 +4162,93 @@ CONV-SYSTEMS (i18n + deploy), CONV-CONCEPTS (UI, ici).
 
 CONV-CONCEPTS engagement perso : pas de nouveaux agents IA, pas de scripts
 Python tant que Yann n'en demande pas. RAM ~200 MB stable.
+
+[2026-05-16 ~03h25] CONV-CONCEPTS → 🤝 BROADCAST DÉTAILLÉ CONV-DATA — fixs à faire
+
+Audit Playwright complet V1.8 + V1.7.5 (840 stés) score 97.9 %. Résiduels
+SCOPE CONV-DATA (data missing, hors UI/template) :
+
+## 1. KPIs < 3 (213 stés) — table.kpi_rows
+
+**Problème** : 213 stés affichent moins de 3 lignes dans le tableau KPI.
+Selon Yann (16 mai), certaines de ces stés ont en réalité BEAUCOUP de KPIs
+disponibles dans leurs documents — il y a eu un mauvais traitement à
+l'extraction.
+
+**Demande** : pour chaque sté de la liste ci-dessous, vérifier dans l'ordre :
+  a) PDFs sources bien téléchargés dans sec-data/ (10-K, 10-Q, ERs)
+  b) Extraction Pass 1 a bien tourné dessus → résultats dans v2-pipeline/<t>.json
+  c) Si Pass 1 a renvoyé < 3 KPIs : pourquoi ? prompt trop strict ?
+     source partielle ? sté FPI ADR sans 10-K ?
+  d) Re-extraire si nécessaire en augmentant le scope (PDFs + prompt)
+
+Stés concernées (213) :
+APTV, ROP, FIX, AZN.ST, MRK, AXP, MUFG, T, BUD, BBVXF, ISP.MI, SYK, CVS,
+MDT, NG.L, BSX, ABNB, EIPAF, ROST, CRWV, HOOD, NDA-FI.HE, NDA-DK.CO, AJG,
+ADYEN.AS, KER.PA, RDDT, MTB, HUBB, NESTE.HE, PHM, CLNX.MC, SOFI, BURL,
+CHRW, MRNA, MB.MI, CF, FLTR.L, NVR, NBIX, YAR.OL, ONTO, BVI.PA, TEL2-B.ST,
+UNM, DINO, GL, MEDP, NTNX, WMS, ZBRA, SCI, JEF, BMRN, CGNX, AKZA.AS, BSY,
+AOS, RRC, AMZN, HSIC, LEN, MRSH, XEL, HAL, DGX, ZTS, KMI, CSX, EPAM, NXPI,
+BAX, DRI, TFC, TAP, CSGP, ACGL, RCL, GD, FCX, CTSH, ORLY, FANG, FRT, SATS,
+CDNS, STLD, WMT, KEYS, UHS, ANET, MET, VEEV, LH, FFIV, FTV, CNC, BF.B,
+DASH, CBRE, UAL, PEG, TDY, CBOE, PNW, PCAR, ICE, BK, SMCI, EQR, SRE, COO,
+PRU, CPAY, SLB, UBER, DUK, ELV, FAST, INCY, MDLZ, IEX, NEM, WMB, PLTR,
+EXC, SPG, ROL, PH, TRMB, TTWO, HST, BLDR, RTX, SW, CMI, NDSN, DOC, BX,
+BALL, LIN, EA, IT, SNPS, YUM, EBAY, TTD, CMG, EOG, STX, CARR, MGM, BIIB,
+AMT, RSG, ABT, CHTR, BG, IDXX, KLAC, AMGN, ETR, IVZ, PM, HCA, INTC, CRL,
+EXR, GLW, DTE, GILD, ATO, CPRT, DDOG, DVA, WDAY, LNT, SCHW, TKO, CB, FITB,
+GNRC, NDAQ, LHX, CPT, VRSN, COHR, FTNT
+
+## 2. IPO dates manquantes (220 stés) — header.ipo_chip
+
+Yfinance.info.firstTradeDateEpochUtc OU manuel via Wikipedia OK.
+
+Stés concernées (220) : LLY, JPM, ROG.SW, NTAP, TDG, GDDY, MRK, JNJ, TMO,
+AXP, MUFG, SIE.DE, ABBN.SW, TTE.PA, TD, ABBNY, ABLZF, ... (cf
+visual-playwright-v18.json + v175.json pour liste complète).
+
+## 3. Tier fallback "Moyen + Top 50%" (139 stés)
+
+`rate()` retourne fallback générique pour KPIs sans yoy fiable. À refaire
+le pipeline tier/percentile avec données plus complètes.
+
+Stés concernées (139) : JPM, JNJ, CVX, PG, AMAT, GE, TMO, UL, MO, PGR, CS.PA,
+MAR, NOW, GLEN.L, DG.PA, EMR, BARC.L, BCLYF, SHW, AEP, NOKIA.HE, CTAS,
+MUV2.DE, NDA-SE.ST, ... (cf JSON pour liste complète).
+
+## 4. Em-dash JSON résiduels (45 stés)
+
+Règle CLAUDE.md §6 : pas d'em-dash en user-facing. Stés :
+CRWV, WBD, MSTR, III.L, KHC, PSTG, MRNA, RIVN, FLTR.L, NBIX, ONTO, NYT,
+ELAN, CNA.L, VIAV, BJ, SMTC, SNAP, CHWY, ABVX, AMZN, ES, BEN, IRM, CL,
+HON, AMD, MTD, NOC, SMCI, DPZ, KHC, DD, WDC, META, MGM, ADM, HUM, WBD,
+HRL, SPGI.
+
+Sed bulk : `sed -i 's/—/ : /g' src/data/v2-pipeline/<t>.json` (à valider par sté).
+
+## 5. EIPAF + MRSH 500 SSR crash (à investiguer ensemble)
+
+Données data OK (validation, hero_kpi présent, KPIs visibles). Mais SSR
+crash. Possible cause : un composant React (CompanyView ou enfant) crashe
+sur un champ data spécifique à ces stés. Symptôme : HTTP 500 sur
+/sandbox/v1-8/eipaf et /sandbox/v1-8/mrsh même avec audit_token.
+
+Investigation suggérée : (a) vérifier vercel logs runtime, (b) rendre la
+page localement avec npm run dev pour avoir le stack trace exact, (c) bisect
+en commentant les composants enfants de CompanyView.
+
+## 6. Hors-scope / FPI ADR
+
+Stés multi-listing alias (ASMLF, ABLZF, ABBNY, DTEGY, ADTTF, BPAQF, BP.L,
+BCLYF, NDA-DK.CO, EDPFY) → meta.title_with_company fail car le title
+contient le nom de l'alias canonique, pas du ticker visité. C'est un
+comportement attendu (load-company.ts ALIASES redirige). Non bloquant.
+
+## Fixes UI déployés par CONV-CONCEPTS (16 mai)
+
+- heroKpiUsable tolère yoy="N/A" si value=number (HSIC Cyber Incident OK)
+- Bot subsector calibration v3 (pattern LABEL UPPERCASE #N)
+- (commit à venir)
+
+Si CONV-DATA peut traiter les 6 points ci-dessus, score audit grimperait
+à ~99.5 %. Le reste = bord de cas FPI ADR.

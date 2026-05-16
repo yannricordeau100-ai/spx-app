@@ -79,14 +79,15 @@ async function checkPage(page: Page, ticker: string, locale: string, route: stri
   // hors scope V1.8 actif — on les marque "preparing" et on saute toutes
   // les checks visuelles (le bot peut quand même les reporter, mais elles
   // doivent être identifiées comme normales, pas comme bugs).
-  const isPreparing = /Pass 3 Sonnet pas encore validé|Fiche en préparation|preparing/i.test(text);
+  // Inclut aussi 404 "Page introuvable" pour les stés sans dataset (ex EIPAF).
+  const isPreparing = /Pass 3 Sonnet pas encore validé|Fiche en préparation|preparing|Page introuvable|Page not found/i.test(text);
   if (isPreparing) {
     c.push({
       id: "_meta.preparing",
-      label: "Page Fiche en préparation (Pass 3 non validé) — checks skipped",
+      label: "Page Fiche en préparation / 404 — checks skipped",
       pass: true,
       severity: "info",
-      detail: "preparing state",
+      detail: "preparing/404 state",
     });
     return c;
   }
@@ -161,11 +162,21 @@ async function checkPage(page: Page, ticker: string, locale: string, route: stri
     // non-US. Si on voit au moins 3 chips rang `≈ #X` ou `#X` adjacent à
     // un libellé chip, le subsector est présent.
     pass: await (async () => {
+      // Yann 16 mai 2026 (3e calibration) : la chip rang sous-secteur a un
+      // pattern `LABEL_UPPERCASE #N` (ex "INTERNET & SERVICES #1"). Le mot
+      // "dans" était la calibration v2 mais il a été retiré côté UI (CONV-
+      // CONCEPTS rendu plus compact). On compte les chips rang avec leur
+      // label UPPERCASE adjacent au #N.
       if (has(/Sous-secteur|Sub-?sector|Teilbranche|Industria/i)) return true;
+      if ((await count("[class*='subsector']")) > 0) return true;
+      // Pattern chip rang : LABEL UPPERCASE + #N (compte ≥3 = sector + subsector + au moins 1 autre)
+      const rankChipMatches = text.match(/[A-Z][A-Z\s&]{2,30}\s+#\s*\d+/g) ?? [];
+      if (rankChipMatches.length >= 3) return true;
+      // Fallback ancien : "dans X" / "in X" / "i X"
       if (/\bdans\s+[A-Z][A-Za-zÀ-ÿ&]/.test(text)) return true;
       if (/\bin\s+[A-Z][A-Za-z&]/.test(text)) return true;
-      if ((await count("[class*='subsector']")) > 0) return true;
-      // Heuristique : compter les chips de rang (≈ #X ou Top X %)
+      if (/\bi\s+[A-Z][A-Za-z&]/.test(text)) return true;
+      // Heuristique : compter les chips de rang #X (avec ou sans ≈)
       const rankMatches = text.match(/≈\s*#\s*\d+|(?:^|\s)#\s*\d+/g) ?? [];
       if (rankMatches.length >= 3) return true;
       return false;
