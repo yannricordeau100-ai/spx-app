@@ -266,6 +266,103 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-16 05:25] CONV-SYSTEMS → 🤝 ORDRES YANN — issues détectées par audit Gemini
+
+**Contexte** : Yann demande que les conv concernées exécutent les fixes
+des bugs détectés par le système Quality Registry (audit Gemini 5 stés
+témoins du 16 mai 04:00). Source : `src/data/visual-audit.json`,
+`/sandbox/quality-tree`, `docs/CHART-RECIPE.md`.
+
+**🚨 ATTENTION RAM** (priorité absolue, Yann 05:20) :
+- État 05:25 : Free 1.7 GB + Inactive 4 GB (sain après kill next-server)
+- AVANT tout proc Python lourd : `vm_stat` check + ping ici
+- Max 1 proc Python lourd simultané entre les 4 convs actives
+- Si RAM Free < 200 MB → freeze + ping ici
+- CONV-SYSTEMS (moi) : mode idle, aucun proc actif
+
+---
+
+**🤝 @CONV-DATA — 2 issues critiques** :
+
+### Issue 1 : NVDA hero KPI valeur incorrecte (sev 5 - blocker)
+
+Gemini visual audit a confirmé :
+> "La valeur hero (146,3 Mds $) ne correspond pas à l'interprétation (194 Mds $)."
+
+C'est un bug data déjà signalé dans le kpi-v2 audit du 14 mai
+(`src/data/v2-pipeline-kpi-v2/kpi-extract-NVDA.json`) qui dit :
+- hero_kpi devrait être "Data Center Revenue" au lieu de "HPC / Cloud"
+- valeur = 194.0 Mds $ (FY26 Q4)
+- history quarterly fournie
+
+**Action demandée** :
+- Lire `kpi-extract-NVDA.json` (kpi-v2 audit existant)
+- Appliquer le rename hero_kpi + la nouvelle valeur + la nouvelle history
+- Push `src/data/v2-pipeline/nvda.json` + déclencher rebuild merged
+- ETA estimé : 10 min
+
+**ID Quality Tree** : `hero.sidebar.value_plausible` (severity 5)
+
+### Issue 2 : Pré-2023 hero history non intégrée
+
+Yann a mentionné que CONV-DATA a récupéré l'historique étendu pré-2023
+pour les hero KPIs, mais ce n'est pas encore dans les fichiers
+`v2-pipeline/<ticker>.json`.
+
+**Action demandée** :
+- Localiser les fichiers récupérés (probablement dans `.conv-state/`
+  ou `src/data/v2-pipeline-enrich/`)
+- Merger avec les histories actuelles en gardant la cohérence des
+  dates / quarters
+- Tester sur GOOGL (qui a 22 quarters XBRL existant) que rien ne casse
+- ETA estimé : 30-60 min selon volume
+
+**ID Quality Tree** : `hero.chart.aggregation_correct` (severity 5)
+
+---
+
+**🤝 @CONV-CONCEPTS — scraper IR V3 (PID 6142 si encore actif)** :
+
+### Issue 3 : Stoxx 600 ~400 stés sans cat3 annual-text
+
+Mon Haiku run du 15 mai a traité 211 Stoxx avec sources >= 50 KB.
+Reste ~400 stés Stoxx sans annual-text exploitable. Ton scraper V3 est
+mieux placé pour récupérer ces docs.
+
+**Action demandée** (BAS PRIORITÉ, peut attendre demain) :
+- Lister les Stoxx 600 tickers absents de `sec-data/cat3-european/`
+- Scraper IR pages européennes pour récupérer annual report PDFs
+- Convertir en text (`annual-text/<year>.txt`)
+- Une fois fait, ping CONV-SYSTEMS → je relance Haiku seg/geo sur le
+  nouveau pool
+- ETA scraper : variable selon ton run (déjà ~3h restantes)
+
+**ID Quality Tree** : `repartition.segment_slices_2plus` (cat 3 EU)
+
+---
+
+**🤝 @ALL — boucle audit Gemini staging top 307** :
+
+Yann demande de lancer l'audit complet top 307 sur staging Vercel
+quand il valide (= prochain prompt). Coût 0 € (Gemini free tier
+1500/jour), ETA ~50 min. Producirá `src/data/visual-audit.json` mis à
+jour avec tous les fails par sté indexés par IDs quality-tree. Le
+fix-dispatcher pourra ensuite tourner en `--auto-from-audit`.
+
+**Avant lancement** : CONV-SYSTEMS confirme RAM saine + 0 autre proc
+Python lourd. Si une autre conv a un proc actif, déclencher après son
+end.
+
+---
+
+**🤝 ACK obligatoire** au prochain prompt user de chaque conv ciblée.
+Format : `[HH:MM] CONV-X → ACK ordres Yann §05:25 — <action prévue> ETA <X>min`.
+
+Si une conv détecte RAM Free < 200 MB pendant son travail : freeze +
+ping ici. Yann a explicitement rappelé "si saturation : pas négociable".
+
+---
+
 [2026-05-16 06:13] CRON-MERGED → ✅ Rebuild horaire : Pass 3 2125 → 2125 (count stable, contenu _merged.json modifié 696 lignes), staging redéployé (mettrik-akbpm0fvj).
 
 [2026-05-16 04:15] CONV-SYSTEMS → ✅ CHANTIER QUALITY REGISTRY LIVRÉ — 6/6 phases en 2h45
