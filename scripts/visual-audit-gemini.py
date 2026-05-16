@@ -137,7 +137,10 @@ def call_gemini(prompt: str, image_path: Path, api_key: str, retries: int = 2):
         "generationConfig": {
             "temperature": 0.0,
             "response_mime_type": "application/json",
-            "max_output_tokens": 4096,
+            "max_output_tokens": 8192,
+            # Yann 16 mai 2026 : disable "thinking mode" qui consomme tous
+            # les output tokens (gemini-2.5-flash thinking par défaut).
+            "thinkingConfig": {"thinkingBudget": 0},
         },
     }
     data = json.dumps(body).encode()

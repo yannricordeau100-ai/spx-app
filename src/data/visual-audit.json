@@ -1,49 +1,235 @@
 {
-  "updated_at": "2026-05-15T02:15:08.415958+00:00",
+  "updated_at": "2026-05-16T03:24:37.801652+00:00",
   "results": {
-    "NVDA": {
-      "ticker": "NVDA",
-      "url": "http://localhost:3000/sandbox/v1-8/nvda?audit_token=phYUd19KP3T_apdLQmugGzF0yEEoAwM6C5JVp9-2z0Y",
-      "ts": "2026-05-15T02:14:18.976049+00:00",
-      "n_fails": 3,
-      "blocker": true,
-      "fails": [
-        {
-          "id": "chips_fr",
-          "severity": 2,
-          "obs": "Chips header contiennent des termes anglais (Information Technology, Semiconductors)."
-        },
-        {
-          "id": "hero_value_plausible",
-          "severity": 5,
-          "obs": "Valeur hero (137,9 Mds $) ≠ valeur dans l'interprétation (194 Mds $)."
-        },
-        {
-          "id": "lang_no_english_leak",
-          "severity": 2,
-          "obs": "Présence de termes anglais (ex: 'Information Technology', 'Gross Margin')."
-        }
-      ]
-    },
-    "MSFT": {
-      "ticker": "MSFT",
-      "url": "http://localhost:3000/sandbox/v1-8/msft?audit_token=phYUd19KP3T_apdLQmugGzF0yEEoAwM6C5JVp9-2z0Y",
-      "ts": "2026-05-15T02:14:41.418462+00:00",
-      "n_fails": 1,
-      "blocker": false,
-      "fails": [
-        {
-          "id": "lang_no_english_leak",
-          "severity": 2,
-          "obs": "Le chip 'Software & Services' est en anglais."
-        }
-      ]
-    },
     "GOOGL": {
       "ticker": "GOOGL",
       "url": "http://localhost:3000/sandbox/v1-8/googl?audit_token=phYUd19KP3T_apdLQmugGzF0yEEoAwM6C5JVp9-2z0Y",
-      "error": "gemini_no_response",
-      "ts": "2026-05-15T02:15:08.415908+00:00"
+      "ts": "2026-05-16T03:22:06.238048+00:00",
+      "n_fails": 6,
+      "blocker": true,
+      "fails": [
+        {
+          "id": "header.chips.all_filled",
+          "severity": 3,
+          "obs": "La capitalisation boursière n'est pas remplie."
+        },
+        {
+          "id": "hero.chart.no_linear_synthetic",
+          "severity": 5,
+          "obs": "Le graphique montre une croissance trop linéaire, suspecte."
+        },
+        {
+          "id": "hero.chart.no_phantom_quarter",
+          "severity": 5,
+          "obs": "Le graphique affiche des trimestres futurs (T2, T3, T4 2026)."
+        },
+        {
+          "id": "hero.chart.ttm_visible",
+          "severity": 3,
+          "obs": "Le TTM n'est pas visible sur le graphique."
+        },
+        {
+          "id": "global.units.consistent_across_blocs",
+          "severity": 3,
+          "obs": "Mix d'unités 'Mds $' et 'K' pour les effectifs."
+        },
+        {
+          "id": "global.lang.no_english_leak",
+          "severity": 2,
+          "obs": "Le label 'YoY' est en anglais dans l'interprétation."
+        }
+      ]
+    },
+    "NVDA": {
+      "ticker": "NVDA",
+      "url": "http://localhost:3000/sandbox/v1-8/nvda?audit_token=phYUd19KP3T_apdLQmugGzF0yEEoAwM6C5JVp9-2z0Y",
+      "ts": "2026-05-16T03:23:52.787078+00:00",
+      "n_fails": 7,
+      "blocker": true,
+      "fails": [
+        {
+          "id": "header.chips.all_filled",
+          "severity": 3,
+          "obs": "Les chips 'Fondée' et 'IPO' sont présents mais non remplis."
+        },
+        {
+          "id": "header.chips.labels_fr",
+          "severity": 2,
+          "obs": "Les labels des chips sont en anglais (Technology, Founded, IPO)."
+        },
+        {
+          "id": "hero.sidebar.value_plausible",
+          "severity": 5,
+          "obs": "La valeur hero (146,3 Mds $) ne correspond pas à l'interprétation (194 Mds $)."
+        },
+        {
+          "id": "hero.chart.no_phantom_quarter",
+          "severity": 5,
+          "obs": "Le graphique trimestriel affiche des trimestres futurs (T2, T3, T4 2026)."
+        },
+        {
+          "id": "hero.chart.ttm_visible",
+          "severity": 3,
+          "obs": "Le TTM (points pointillés à droite) n'affiche pas sa valeur numérique."
+        },
+        {
+          "id": "stories.visible_at_least_3",
+          "severity": 3,
+          "obs": "Le bloc Stories n'est pas visible sur la capture d'écran."
+        },
+        {
+          "id": "global.lang.no_english_leak",
+          "severity": 2,
+          "obs": "Des mots anglais sont présents (Technology, Founded, IPO, Data Center)."
+        }
+      ]
+    },
+    "AAPL": {
+      "ticker": "AAPL",
+      "url": "http://localhost:3000/sandbox/v1-8/aapl?audit_token=phYUd19KP3T_apdLQmugGzF0yEEoAwM6C5JVp9-2z0Y",
+      "ts": "2026-05-16T03:24:08.757643+00:00",
+      "n_fails": 5,
+      "blocker": true,
+      "fails": [
+        {
+          "id": "header.chips.all_filled",
+          "severity": 3,
+          "obs": "La chip 'IPO' est vide."
+        },
+        {
+          "id": "hero.chart.no_phantom_quarter",
+          "severity": 5,
+          "obs": "Le graphique trimestriel affiche T3 et T4 2026 qui sont des trimestres futurs."
+        },
+        {
+          "id": "hero.chart.ttm_visible",
+          "severity": 3,
+          "obs": "La valeur numérique du TTM n'est pas affichée à côté du point."
+        },
+        {
+          "id": "stories.visible_at_least_3",
+          "severity": 3,
+          "obs": "Le bloc Stories n'est pas visible sur la capture."
+        },
+        {
+          "id": "global.lang.no_english_leak",
+          "severity": 2,
+          "obs": "Le label 'Technology Hardware & Equipment' est en anglais."
+        }
+      ]
+    },
+    "CAT": {
+      "ticker": "CAT",
+      "url": "http://localhost:3000/sandbox/v1-8/cat?audit_token=phYUd19KP3T_apdLQmugGzF0yEEoAwM6C5JVp9-2z0Y",
+      "ts": "2026-05-16T03:24:22.775183+00:00",
+      "n_fails": 15,
+      "blocker": false,
+      "fails": [
+        {
+          "id": "header.chips.all_filled",
+          "severity": 3,
+          "obs": "Les chips 'Secteur' et 'Sous-secteur' sont manquants."
+        },
+        {
+          "id": "hero.chart.ttm_visible",
+          "severity": 3,
+          "obs": "Le point TTM est visible mais sa valeur numérique n'est pas affichée."
+        },
+        {
+          "id": "global.units.consistent_across_blocs",
+          "severity": 3,
+          "obs": "Mix d'unités 'Mds $' et 'Mds €' dans le tableau des indicateurs clés."
+        },
+        {
+          "id": "stories.visible_at_least_3",
+          "severity": 3,
+          "obs": "Le bloc Stories n'est pas visible sur la capture d'écran."
+        },
+        {
+          "id": "stories.no_template_llm",
+          "severity": 3,
+          "obs": "Le bloc Stories n'est pas visible sur la capture d'écran."
+        },
+        {
+          "id": "risks.count_3plus",
+          "severity": 3,
+          "obs": "Le bloc Risques n'est pas visible sur la capture d'écran."
+        },
+        {
+          "id": "risks.severity_score",
+          "severity": 2,
+          "obs": "Le bloc Risques n'est pas visible sur la capture d'écran."
+        },
+        {
+          "id": "risks.trend_chip",
+          "severity": 1,
+          "obs": "Le bloc Risques n'est pas visible sur la capture d'écran."
+        },
+        {
+          "id": "governance.ceo_name_correct",
+          "severity": 3,
+          "obs": "Le bloc Gouvernance n'est pas visible sur la capture d'écran."
+        },
+        {
+          "id": "ai_positioning.stance_present",
+          "severity": 2,
+          "obs": "Le bloc Positionnement IA n'est pas visible sur la capture d'écran."
+        },
+        {
+          "id": "ai_positioning.evidence_min_2",
+          "severity": 2,
+          "obs": "Le bloc Positionnement IA n'est pas visible sur la capture d'écran."
+        },
+        {
+          "id": "repartition.segment_slices_2plus",
+          "severity": 2,
+          "obs": "Le bloc Répartition par segment n'est pas visible sur la capture d'écran."
+        },
+        {
+          "id": "repartition.geo_slices_2plus",
+          "severity": 2,
+          "obs": "Le bloc Répartition par géographie n'est pas visible sur la capture d'écran."
+        },
+        {
+          "id": "repartition.pct_sums_100",
+          "severity": 3,
+          "obs": "Le bloc Répartition n'est pas visible sur la capture d'écran."
+        },
+        {
+          "id": "global.lang.no_english_leak",
+          "severity": 2,
+          "obs": "Le label 'Heavy Machinery & Equipment' est en anglais."
+        }
+      ]
+    },
+    "META": {
+      "ticker": "META",
+      "url": "http://localhost:3000/sandbox/v1-8/meta?audit_token=phYUd19KP3T_apdLQmugGzF0yEEoAwM6C5JVp9-2z0Y",
+      "ts": "2026-05-16T03:24:37.801482+00:00",
+      "n_fails": 4,
+      "blocker": false,
+      "fails": [
+        {
+          "id": "header.chips.all_filled",
+          "severity": 3,
+          "obs": "Capitalisation boursière est vide."
+        },
+        {
+          "id": "header.chips.labels_fr",
+          "severity": 2,
+          "obs": "Les labels des chips sont en anglais: 'Communication Services', 'Social Media & Messaging'."
+        },
+        {
+          "id": "hero.chart.ttm_visible",
+          "severity": 3,
+          "obs": "Le point TTM est visible mais sa valeur numérique n'est pas affichée."
+        },
+        {
+          "id": "global.lang.no_english_leak",
+          "severity": 2,
+          "obs": "Des mots anglais sont présents: 'Communication Services', 'Social Media & Messaging'."
+        }
+      ]
     }
   }
 }
