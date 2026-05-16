@@ -67,6 +67,9 @@ OUT_DIR = ROOT / "src/data/v2-pipeline-i18n"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 CEREBRAS_API_KEY = os.environ.get("CEREBRAS_API_KEY", "")
+USE_ANTHROPIC = os.environ.get("USE_ANTHROPIC", "0") == "1"
+ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
+ANTHROPIC_URL = "https://api.anthropic.com/v1/messages"
 CEREBRAS_URL = "https://api.cerebras.ai/v1/chat/completions"
 MODEL = "qwen-3-235b-a22b-instruct-2507"
 
@@ -152,6 +155,23 @@ def translate_payload(payload: dict[str, Any], ticker: str) -> dict[str, Any] | 
         "response_format": {"type": "json_object"},
         "max_tokens": 4000,
     }
+    if USE_ANTHROPIC and ANTHROPIC_API_KEY:
+        headers = {"x-api-key": ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01", "content-type": "application/json"}
+        try:
+            r = requests.post(ANTHROPIC_URL, headers=headers, json={
+                "model": "claude-haiku-4-5",
+                "max_tokens": 4000,
+                "system": body["messages"][0]["content"],
+                "messages": [{"role": "user", "content": body["messages"][1]["content"]}],
+            }, timeout=120)
+            r.raise_for_status()
+            text = r.json()["content"][0]["text"].strip()
+            if text.startswith("```"):
+                text = text.split("```")[1].lstrip("json").strip()
+            return json.loads(text)
+        except Exception as e:
+            print(f"[anthropic-err] {ticker}: {e}")
+            return None
     for attempt in range(4):
         try:
             r = requests.post(CEREBRAS_URL, headers=headers, json=body, timeout=120)
@@ -172,13 +192,14 @@ def translate_payload(payload: dict[str, Any], ticker: str) -> dict[str, Any] | 
 
 
 def main():
-    if not CEREBRAS_API_KEY:
+    if not USE_ANTHROPIC and not CEREBRAS_API_KEY:
         print("[fatal] CEREBRAS_API_KEY missing", file=sys.stderr)
         sys.exit(1)
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--limit", type=int, default=0, help="Translate only N stés (0 = all)")
     parser.add_argument("--ticker", type=str, default="", help="Translate only this ticker")
+    parser.add_argument("--tickers", type=str, default="")
     parser.add_argument("--offset", type=int, default=0)
     parser.add_argument("--stride", type=int, default=1)
     parser.add_argument("--skip-existing", action="store_true", help="Skip stés already translated")
@@ -186,7 +207,10 @@ def main():
 
     merged = json.loads(MERGED_PATH.read_text())
     pass3 = {t: e for t, e in merged.items() if isinstance(e, dict) and is_pass3(e)}
-    if args.ticker:
+    if args.tickers:
+        tk_list = [x.strip().upper() for x in args.tickers.split(",") if x.strip()]
+        pass3 = {t: merged[t] for t in tk_list if t in merged and isinstance(merged[t], dict)}
+    elif args.ticker:
         pass3 = {args.ticker.upper(): pass3.get(args.ticker.upper())} if args.ticker.upper() in pass3 else {}
 
     items = [(t,e) for i,(t,e) in enumerate(pass3.items()) if i % args.stride == args.offset]
