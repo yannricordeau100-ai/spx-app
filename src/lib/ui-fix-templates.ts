@@ -220,6 +220,27 @@ export const ACRONYM_GLOSSARY: Record<string, string> = {
   DAU: "Daily Active Users : utilisateurs actifs quotidiens.",
   MAU: "Monthly Active Users : utilisateurs actifs mensuels.",
   DAP: "Daily Active People : personnes actives quotidiennes (audience effective cross-apps).",
+  // Dividendes & retour aux actionnaires (Yann 16 mai 2026)
+  DPS: "Dividend Per Share : dividende par action. Montant que reçoit chaque actionnaire pour 1 action détenue sur l'année.",
+  DRIP: "Dividend Reinvestment Plan : plan où les dividendes sont automatiquement réinvestis pour racheter plus d'actions (effet boule de neige).",
+  // Marges & profits (acronymes fréquents)
+  OCF: "Operating Cash Flow : flux de trésorerie d'exploitation, cash généré par l'activité courante avant investissements.",
+  FCFF: "Free Cash Flow to Firm : flux de trésorerie libre disponible pour tous les financeurs (actionnaires + créanciers).",
+  FCFE: "Free Cash Flow to Equity : flux de trésorerie libre disponible pour les actionnaires uniquement (après remboursement de dette).",
+  PEG: "Price/Earnings to Growth : ratio P/E divisé par la croissance des bénéfices, sert à comparer valorisation et croissance.",
+  EV: "Enterprise Value : valeur d'entreprise = capitalisation boursière + dette nette. Mesure le coût réel d'acquisition d'une société.",
+  // Métriques SaaS / tech
+  LTV: "Lifetime Value : valeur totale qu'un client génère sur toute la durée de la relation commerciale.",
+  CAC: "Customer Acquisition Cost : coût moyen pour acquérir un nouveau client.",
+  ARPU: "Average Revenue Per User : revenu moyen par utilisateur.",
+  COGS: "Cost of Goods Sold : coût des biens vendus, coûts directs de production.",
+  // Comptable
+  NRR: "Net Revenue Retention : rétention nette du revenu, indique si les clients existants rapportent plus ou moins d'une année sur l'autre.",
+  GRR: "Gross Revenue Retention : rétention brute du revenu hors upsell, indique le taux de fidélité pure des clients.",
+  // Stratégie / M&A
+  "M&A": "Mergers & Acquisitions : fusions et acquisitions, opérations de rachat ou rapprochement entre sociétés.",
+  ESG: "Environmental, Social & Governance : critères environnementaux, sociaux et de gouvernance utilisés pour évaluer la responsabilité d'une société.",
+  RPO: "Remaining Performance Obligations : engagements contractuels restant à honorer, équivalent du backlog pour les éditeurs logiciels et SaaS.",
 };
 
 /**
@@ -232,6 +253,26 @@ export const TERM_GLOSSARY: Record<string, string> = {
   "Backlog": "Carnet de commandes : valeur des commandes déjà signées mais pas encore livrées. Donne de la visibilité sur les revenus futurs (6-18 mois).",
   "Hero KPI": "Indicateur principal d'une société : celui qui résume le mieux sa performance et que les investisseurs suivent en priorité.",
   "Free Cash Flow": "Trésorerie libre : cash dispo après dépenses d'investissement. Permet de payer dividendes / racheter actions / réduire dette.",
+  // Dividendes (Yann 16 mai 2026)
+  "Cap Return": "Capital retourné : total des dividendes versés + rachats d'actions effectués par la société sur la période. Indicateur clé du retour aux actionnaires.",
+  "Capital Retourné": "Capital retourné : total des dividendes versés + rachats d'actions effectués par la société sur la période. Indicateur clé du retour aux actionnaires.",
+  "Payout Ratio": "Taux de distribution : part du bénéfice net redistribuée en dividendes (en %). Entre 30 et 60 % est sain pour une industrielle mature.",
+  "Dividend Aristocrat": "Société qui a augmenté son dividende chaque année pendant au moins 25 ans consécutifs. Statut rare qui prouve la solidité de la génération de cash sur le long terme.",
+  // Marges & profits
+  "Op Margin": "Marge opérationnelle : résultat opérationnel divisé par le chiffre d'affaires. Mesure la rentabilité du cœur de métier avant charges financières et impôts.",
+  "Operating Margin": "Marge opérationnelle : résultat opérationnel divisé par le chiffre d'affaires. Mesure la rentabilité du cœur de métier avant charges financières et impôts.",
+  "Gross Margin": "Marge brute : (revenu - coût des biens vendus) / revenu. Mesure ce qui reste après les coûts directs de production.",
+  "Net Income": "Bénéfice net : profit final après tous les coûts, impôts et charges financières. C'est ce qui revient aux actionnaires.",
+  "Operating Income": "Résultat opérationnel : bénéfice du cœur de métier, avant charges financières et impôts.",
+  "Operating Cash Flow": "Flux de trésorerie d'exploitation : cash réellement généré par l'activité courante, avant investissements et financement.",
+  // Super-KPI Mettrik
+  "Rule of 40": "Règle des 40 : croissance du revenu + marge opérationnelle. Référence Saas/tech : si ≥ 40, la société combine bien croissance et rentabilité.",
+  "Quality of Compounding": "Qualité de la composition : combien d'années consécutives la société compose ses revenus et marges sans accroc. Mesure la régularité de la performance.",
+  "Profit Power Index": "Indice de puissance bénéficiaire Mettrik : composite propriétaire combinant Rule of 40, marge, concentration revenus, tendance marge. Signature Mettrik.",
+  // Autres
+  "Headcount": "Effectif : nombre total d'employés de la société. Indicateur de taille et d'évolution des coûts salariaux.",
+  "Bookings": "Commandes prises : valeur des nouveaux contrats signés sur la période, avant facturation. Indicateur avancé du revenu futur.",
+  "Total Revenue": "Chiffre d'affaires total : revenu total généré par la société sur la période (tous segments confondus).",
 };
 
 /**
