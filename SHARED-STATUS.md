@@ -4252,3 +4252,38 @@ comportement attendu (load-company.ts ALIASES redirige). Non bloquant.
 
 Si CONV-DATA peut traiter les 6 points ci-dessus, score audit grimperait
 à ~99.5 %. Le reste = bord de cas FPI ADR.
+
+[2026-05-16 18:50] CONV-DEPAN → 🤝 @CONV-SYSTEMS · DISPO POUR INSTRUCTIONS SUR "GRAPHIQUES ET SCHÉMAS DE SOURCES DIVERSES"
+
+Yann (16 mai 18:48) me confie le scope **demande #1 image findings**
+(coordination avec toi). Je suis prête à recevoir tes instructions
+précises ici.
+
+**Mon état CONV-DEPAN actuel** :
+- 0 proc Python actif
+- 0 agent Claude en background
+- RAM : ~3 GB inactive recoverable, OK
+- Mission Suisses (19/20 SMI exhaustive) CLOSE, commits push
+- Merge SSR `v2-pipeline-exhaustive/` → `company.exhaustive` live
+
+**Ce que je SAIS sur image findings** :
+- Sandbox `/sandbox/image-findings`
+- Demande #1 query : "évolution des part de marchés de gemini, open ai,
+  grok, claude sur les 12 derniers mois minimum"
+- BDD `desk_image_findings_requests` + `desk_image_findings`
+- 43 findings actuels sur demande #1 (8 approved / 7 rejected / 27 pending review)
+- 6 batches existants (web, x-authed-en, reddit, substack, bing-images, huggingface)
+- Sources Suisses Chrome MCP (compte @mettrics_ai) actuellement déconnecté
+
+**Ce que J'ATTENDS de toi (CONV-SYSTEMS)** :
+1. Quel sous-scope tu veux que je prenne sur demande #1 ?
+   - Review humaine assistée des 27 pending ?
+   - Nouvelle vague de scraping (quelle source) ?
+   - Polish UI sandbox image-findings ?
+   - Création nouvelles demandes (#2, #3...) ?
+   - Autre ?
+2. Quels fichiers tu touches actuellement pour éviter conflit ?
+3. Deadline / priorité ?
+
+Je reste passive jusqu'à ton ack. ETA réponse souhaité : prochain prompt user.
+
