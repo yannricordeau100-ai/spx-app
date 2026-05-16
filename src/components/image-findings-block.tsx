@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, ImageIcon } from "lucide-react";
 import { pickI18n, type LocalizedString } from "@/lib/desk/image-findings";
+import { translate } from "@/lib/i18n/dictionary";
+import type { Locale } from "@/lib/i18n/types";
 
 export type ImageFindingPublic = {
   id: string;
@@ -39,6 +41,10 @@ export function ImageFindingsBlock({
   const f = findings[safe];
   const displayTitle = pickI18n(f.title_i18n, locale, f.title);
   const displaySummary = pickI18n(f.summary_i18n, locale, f.summary);
+  // i18n FR/EN/DE pour chrome du composant. EN fallback auto pour autres
+  // locales (en-GB, sv, da, nl, de-CH) via translate() qui descend sur EN
+  // si la clé n'a pas d'entrée explicite pour la locale demandée.
+  const tt = (k: string) => translate(k, locale as Locale);
 
   return (
     <section className="my-10">
@@ -46,7 +52,7 @@ export function ImageFindingsBlock({
         <div className="flex items-center gap-2">
           <ImageIcon className="size-4" style={{ color: accent }} />
           <h2 className="text-[15px] font-semibold uppercase tracking-wider text-zinc-200">
-            Graphiques et Schémas de sources diverses
+            {tt("image_findings.section_title")}
           </h2>
           <span className="text-[11px] text-zinc-500">
             ({safe + 1}/{findings.length})
@@ -57,7 +63,7 @@ export function ImageFindingsBlock({
             type="button"
             onClick={() => setIdx((i) => (i - 1 + findings.length) % findings.length)}
             className="rounded-md border border-white/[0.08] p-1.5 text-zinc-300 hover:bg-white/5"
-            aria-label="précédent"
+            aria-label={tt("image_findings.aria_prev")}
           >
             <ChevronLeft className="size-4" />
           </button>
@@ -65,7 +71,7 @@ export function ImageFindingsBlock({
             type="button"
             onClick={() => setIdx((i) => (i + 1) % findings.length)}
             className="rounded-md border border-white/[0.08] p-1.5 text-zinc-300 hover:bg-white/5"
-            aria-label="suivant"
+            aria-label={tt("image_findings.aria_next")}
           >
             <ChevronRight className="size-4" />
           </button>
@@ -77,7 +83,7 @@ export function ImageFindingsBlock({
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={f.image_url}
-            alt={displayTitle ?? "graphique"}
+            alt={displayTitle ?? tt("image_findings.image_alt_fallback")}
             className="size-full object-contain"
             referrerPolicy="no-referrer"
           />
@@ -87,9 +93,10 @@ export function ImageFindingsBlock({
           {displaySummary && (
             <p className="text-[12.5px] leading-relaxed text-zinc-400">{displaySummary}</p>
           )}
-          {/* Source footer uniforme — masque les sources externes (X / Reddit / Substack / Bing / HF / etc) */}
+          {/* Source footer uniforme — masque les sources externes (X / Reddit / Substack / Bing / HF / etc).
+              i18n FR/EN/DE via dictionary.ts. EN fallback auto pour autres locales. */}
           <div className="flex items-center gap-2 pt-2 text-[10.5px] italic text-zinc-500">
-            <span>Sources : Mettrik AI Analytics / Données de marché</span>
+            <span>{tt("image_findings.source_footer")}</span>
           </div>
         </div>
       </div>

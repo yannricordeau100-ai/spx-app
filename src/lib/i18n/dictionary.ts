@@ -81,6 +81,36 @@ export const DICTIONARY: Dict = {
     en: "Mettrik AI · KPI Intelligence for investors.",
   },
 
+  /* ──────────────────────── IMAGE FINDINGS BLOCK ──────────────────────── */
+  // Bloc "Graphiques et Schémas de sources diverses" sur les fiches sté.
+  // i18n FR/EN/DE. EN sert de fallback automatique pour autres locales
+  // (en-GB, sv, da, nl, de-CH) via le helper translate() dictionary.
+  "image_findings.section_title": {
+    fr: "Graphiques et Schémas de sources diverses",
+    en: "Charts & visuals from various sources",
+    de: "Diagramme und Schemata aus verschiedenen Quellen",
+  },
+  "image_findings.source_footer": {
+    fr: "Sources : Mettrik AI Analytics / Données de marché",
+    en: "Sources: Mettrik AI Analytics / Market data",
+    de: "Quellen: Mettrik AI Analytics / Marktdaten",
+  },
+  "image_findings.aria_prev": {
+    fr: "précédent",
+    en: "previous",
+    de: "vorheriges",
+  },
+  "image_findings.aria_next": {
+    fr: "suivant",
+    en: "next",
+    de: "nächstes",
+  },
+  "image_findings.image_alt_fallback": {
+    fr: "graphique",
+    en: "chart",
+    de: "Diagramm",
+  },
+
   /* ──────────────────────── AUTH ──────────────────────── */
   "auth.signin.title": { fr: "Connexion", en: "Sign in" },
   "auth.signup.title": { fr: "Créer un compte", en: "Create account" },
