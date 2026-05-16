@@ -266,6 +266,72 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-17 ~00:30] CONV-SYSTEMS → 🤝 @CONV-DATA — 3 ORDRES YANN
+
+🚨 **CONSIGNE RAM CRITIQUE** (Yann 17 mai) :
+- État actuel : Free ~50 MB + Inactive 3.1 GB (très tendu)
+- TOUT proc Python lourd doit être **1 seul à la fois** entre les 4 convs
+- API calls (Cerebras / Haiku / Gemini) = remote, ~50 MB local par proc OK
+- AVANT lancement : `vm_stat` check + ping ici. Si Free < 200 MB → freeze.
+
+### Ordre 1 : Continuer Pass 1/2/3 manquants
+
+Yann veut compléter top 307 + SP500 + Stoxx 600 + SMI Suisse + cat 2 ADR top 50 + SP1500.
+
+Source des manquants : `/sandbox/coverage-matrix` (vue blocs par sté) +
+v1-7-blocks-audit.json (déjà à 99.7% gov etc. sur top 307 mais résiduels).
+
+Stés à PRIO :
+- BABA (cf ordre 2 ci-dessous) + autres ADR Chinois sans DEF14A
+- Stoxx 600 hors top 307 (~280 stés cat3 EU annual-text disponible)
+- Cat 2 ADR top 50 (TSM, NVO, ASML.AS variantes, etc.)
+
+ETA estimé selon volume : Cerebras free + 1 proc + sleep 4s = ~10 stés/min.
+
+### Ordre 2 : BABA "bloc rouge entouré"
+
+Yann a signalé un "bloc rouge entouré" sur BABA. Vérification CONV-SYSTEMS :
+- BABA `governance: false` → bloc Governance VIDE = rouge sur coverage-matrix
+- BABA `country: null` → pas de pays détecté
+- BABA `_validation_global: false` (mais `_validation: true`)
+
+Action demandée :
+- Extraire governance BABA depuis 20-F SEC EDGAR (CIK 0001577552) OU
+  cat3 chinois / 6-K. Si pas extractible → marquer
+  `_governance_unavailable: true` avec raison (ADR Chinois sans DEF14A).
+- Renseigner `country: "CN"`.
+
+ETA : 5 min (1 sté).
+
+### Ordre 3 : Marquer les ADR duplicates pour masking côté frontend
+
+Yann veut MASQUER les ADR US qui doublent leur version d'origine
+(ex BABA ADR vs 9988.HK, BIDU vs 9888.HK, etc.). CONV-SYSTEMS implémente
+le filtre frontend mais a besoin d'un **registry** côté data.
+
+Action demandée :
+- Lister les ADR Chinois/HK ayant un doublon dans cat3 ou un autre listing
+- Pour chaque ADR US : poser `_adr_duplicate_of: "<canonical_ticker>"` dans
+  v2-pipeline-enrich/<adr>.json (ex BABA → `_adr_duplicate_of: "9988.HK"`)
+- Si le canonical n'est pas dans v1-7-public.json (pas encore enrichi) :
+  laisser ADR visible jusqu'à ce que la version origine soit Pass 3.
+
+Liste typique à investiguer : BABA, BIDU, JD, PDD, NIO, NTES, TCEHY,
+TME, BILI, IQ, ZTO, EDU, TAL, YMM, LI, XPEV, BEKE, KE, etc.
+
+ETA : 30-45 min (recherche + tag + commit).
+
+---
+
+**🤝 CONV-SYSTEMS de mon côté** (en parallèle, low-RAM) :
+- Page `/sandbox/ready-by-category` (counts par cat + par pays, SSR, ~0 RAM)
+- Implémentation filtre frontend ADR duplicates (skip côté hub + page sté,
+  affichage barré sur coverage-matrix)
+
+ACK obligatoire au prochain prompt user.
+
+---
+
 [2026-05-16 05:25] CONV-SYSTEMS → 🤝 ORDRES YANN — issues détectées par audit Gemini
 
 **Contexte** : Yann demande que les conv concernées exécutent les fixes

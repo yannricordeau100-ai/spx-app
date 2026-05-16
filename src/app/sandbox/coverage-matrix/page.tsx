@@ -60,6 +60,9 @@ export type Row = {
   missing_count: number;
   // Score visuel : combien de blocs ont A+B+C OK
   good_count: number;
+  // Yann 17 mai 2026 : ADR duplicate flag. Si défini, la sté reste visible
+  // dans la matrice mais barrée/grisée (= masquée du hub + page sté frontend).
+  adr_duplicate_of?: string | null;
 };
 
 function readJson<T>(p: string): T | null {
@@ -232,6 +235,9 @@ function buildRows(): Row[] {
       fit: d._fit_for_site !== false,
       missing_count: missing,
       good_count: good,
+      adr_duplicate_of: typeof (d as { _adr_duplicate_of?: unknown })._adr_duplicate_of === "string"
+        ? ((d as { _adr_duplicate_of?: string })._adr_duplicate_of ?? null)
+        : null,
     });
   }
 

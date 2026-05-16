@@ -161,15 +161,22 @@ export function CoverageClient({ initialRows }: { initialRows: Row[] }) {
             </thead>
             <tbody>
               {filtered.slice(0, 2500).map((r, i) => (
-                <tr key={r.ticker} className="hover:bg-white/[0.02]">
+                <tr key={r.ticker} className={`hover:bg-white/[0.02] ${r.adr_duplicate_of ? "opacity-50" : ""}`}>
                   <td className="border-b border-white/5 px-2 py-1 font-mono text-[9.5px] text-zinc-500">{i + 1}</td>
                   <td className="sticky left-0 z-10 border-b border-white/5 bg-[#080808] px-2 py-1 font-mono text-[11px] font-semibold text-zinc-50">
-                    <a href={`/sandbox/v1-8/${r.ticker.toLowerCase()}`} target="_blank" rel="noopener" className="hover:text-violet-300">
+                    <a
+                      href={`/sandbox/v1-8/${r.ticker.toLowerCase()}`}
+                      target="_blank"
+                      rel="noopener"
+                      className={`hover:text-violet-300 ${r.adr_duplicate_of ? "text-zinc-500 line-through" : ""}`}
+                      title={r.adr_duplicate_of ? `ADR doublon de ${r.adr_duplicate_of} — masqué du frontend` : undefined}
+                    >
                       {r.ticker}
                     </a>
                     {r.in_top307 ? <span className="ml-1 inline-block rounded bg-violet-500/20 px-1 text-[8px] text-violet-300">307</span> : null}
+                    {r.adr_duplicate_of ? <span className="ml-1 inline-block rounded bg-zinc-700/40 px-1 text-[8px] text-zinc-400" title={`ADR doublon de ${r.adr_duplicate_of}`}>ADR→{r.adr_duplicate_of}</span> : null}
                   </td>
-                  <td className="max-w-[240px] truncate border-b border-white/5 px-2 py-1 text-zinc-300">{r.name}</td>
+                  <td className={`max-w-[240px] truncate border-b border-white/5 px-2 py-1 ${r.adr_duplicate_of ? "text-zinc-600 line-through" : "text-zinc-300"}`}>{r.name}</td>
                   <td className="border-b border-white/5 px-2 py-1 text-center text-[12px]">
                     {r.in_v17 ? <span className="text-emerald-400">✓</span> : <span className="text-red-400">✗</span>}
                   </td>

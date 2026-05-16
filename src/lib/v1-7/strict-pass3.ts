@@ -166,6 +166,11 @@ export function isStrictPass3(v: unknown): boolean {
   if (!v || typeof v !== "object") return false;
   const obj = v as AnyRecord;
   if ((obj._fit_for_site as boolean | undefined) === false) return false;
+  // Yann 17 mai 2026 : ADR duplicate filter — masque la fiche ADR US si
+  // elle est marquée comme doublon de sa version d'origine (ex BABA → 9988.HK).
+  // La sté reste dans v2-pipeline/_merged.json (visible dans le back-office
+  // /sandbox/coverage-matrix barrée), mais exclue du hub + page société.
+  if (typeof obj._adr_duplicate_of === "string" && obj._adr_duplicate_of.length > 0) return false;
   if (!(obj._validation || obj._validation_global)) return false;
   if (hasWeakMarker(obj)) return false;
   if (kpiQualityLow(obj)) return false;
@@ -194,6 +199,8 @@ export function isV18Eligible(v: unknown): boolean {
   if (!v || typeof v !== "object") return false;
   const obj = v as AnyRecord;
   if ((obj._fit_for_site as boolean | undefined) === false) return false;
+  // Yann 17 mai 2026 : ADR duplicate filter (cf. isStrictPass3).
+  if (typeof obj._adr_duplicate_of === "string" && obj._adr_duplicate_of.length > 0) return false;
   if (!(obj._validation || obj._validation_global)) return false;
   if (!heroKpiUsable(obj)) return false;
   return true;
