@@ -215,7 +215,9 @@ export const DICTIONARY: Dict = {
   "company.period.5y": { fr: "5 ans", en: "5y" },
   "company.period.10y": { fr: "10 ans", en: "10y" },
   "company.period.20y": { fr: "20 ans", en: "20y" },
+  "company.period.max": { fr: "MAX", en: "MAX" },
   "company.period.locked": { fr: "Disponible en V2", en: "Available in V2" },
+  "company.period.max_locked": { fr: "Réservé au plan MAX", en: "MAX plan only" },
 
   "company.ipo_young.label": {
     fr: "IPO récente : {years} ans en bourse ({year})",

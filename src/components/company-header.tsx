@@ -57,13 +57,24 @@ function CompanyName({ name, ticker, accent }: { name: string; ticker: string; a
   const aliases = Object.entries(TICKER_ALIASES)
     .filter(([, target]) => target === ticker)
     .map(([alias]) => alias);
+  // Yann 16 mai 2026 : font-size adaptative selon longueur du nom pour
+  // garantir 1 seule ligne. Seuils : court ≤ 22 char (≥2.1rem), moyen
+  // ≤ 32 char (≈1.75rem), long > 32 char (≈1.35rem). Ex "Banco Bilbao
+  // Vizcaya Argentaria, S.A." 40 char → 1.35rem.
+  const len = name.length;
+  const fontSize = len <= 22
+    ? "text-[2.1rem] sm:text-[2.6rem]"
+    : len <= 32
+      ? "text-[1.75rem] sm:text-[2.1rem]"
+      : "text-[1.35rem] sm:text-[1.6rem]";
   return (
-    <div className="group/name inline-flex flex-wrap items-baseline gap-x-3 gap-y-1">
+    <div className="group/name flex flex-nowrap items-baseline gap-x-3 min-w-0">
       <h1
-        className="relative text-[2.1rem] font-bold tracking-tight text-zinc-50 sm:text-[2.6rem]"
+        className={`relative ${fontSize} font-bold tracking-tight text-zinc-50 whitespace-nowrap overflow-hidden text-ellipsis min-w-0`}
         style={{ lineHeight: 1.05 }}
+        title={name}
       >
-        <span className="relative inline-block">
+        <span className="relative inline-block max-w-full overflow-hidden text-ellipsis whitespace-nowrap align-bottom">
           {name}
           <span
             className="pointer-events-none absolute -bottom-1 left-0 h-[3px] w-0 rounded-full transition-[width] duration-500 ease-out group-hover/name:w-full"
@@ -73,7 +84,7 @@ function CompanyName({ name, ticker, accent }: { name: string; ticker: string; a
           />
         </span>
       </h1>
-      <span className="font-mono text-lg font-semibold sm:text-xl" style={{ color: accent }}>
+      <span className="font-mono text-lg font-semibold sm:text-xl whitespace-nowrap shrink-0" style={{ color: accent }}>
         {ticker}
         {aliases.length > 0 && (
           <span className="ml-1 text-[0.75em] font-medium text-zinc-400">

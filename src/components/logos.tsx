@@ -7,7 +7,7 @@
 
 export function LogoGOOGL() {
   return (
-    <svg viewBox="0 0 56 56" className="size-full">
+    <svg viewBox="0 0 56 56" className="size-full" data-logo="true">
       <defs>
         <clipPath id="g-clip">
           <path d="M28 13 a15 15 0 1 0 14.5 18.5 H28 v-6 h21 a15 15 0 0 1 -21 14.5 a15 15 0 0 1 0 -27 z" />
@@ -26,7 +26,7 @@ export function LogoGOOGL() {
 
 export function LogoMETA() {
   return (
-    <svg viewBox="0 0 56 56" className="size-full">
+    <svg viewBox="0 0 56 56" className="size-full" data-logo="true">
       <defs>
         <linearGradient id="meta-g" x1="0" y1="0" x2="1" y2="0">
           <stop offset="0%" stopColor="#0064E1"/>
@@ -49,7 +49,7 @@ export function LogoMETA() {
 
 export function LogoMSCI() {
   return (
-    <svg viewBox="0 0 80 56" className="size-full">
+    <svg viewBox="0 0 80 56" className="size-full" data-logo="true">
       {/* MSCI wordmark — bleu corporate MSCI, sans box, comme l'identité officielle */}
       <text
         x="40"
@@ -69,7 +69,7 @@ export function LogoMSCI() {
 
 export function LogoSPGI() {
   return (
-    <svg viewBox="0 0 80 56" className="size-full">
+    <svg viewBox="0 0 80 56" className="size-full" data-logo="true">
       {/* S&P Global — carré rouge S&P + wordmark Global, identité corporate */}
       <rect x="2" y="14" width="28" height="28" rx="2" fill="#E31837" />
       <text
@@ -101,7 +101,7 @@ export function LogoSPGI() {
 
 export function LogoCAT() {
   return (
-    <svg viewBox="0 0 80 56" className="size-full">
+    <svg viewBox="0 0 80 56" className="size-full" data-logo="true">
       {/* Caterpillar — wordmark CAT noir + triangle jaune iconique sous le A */}
       <text
         x="40"
