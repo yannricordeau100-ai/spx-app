@@ -28,6 +28,7 @@ import path from "node:path";
 import { chromium, type Browser, type BrowserContext, type Page } from "playwright";
 
 import V18 from "../src/data/v1-8-tickers-sorted.json";
+import V175 from "../src/data/v1-7-5-public.json";
 
 const BASE = process.env.STAGING_URL ?? "https://mettrik-staging.vercel.app";
 const N = parseInt(process.env.TOP_N ?? "10", 10);
@@ -35,7 +36,19 @@ const LOCALE = process.env.LOCALE ?? "fr";
 const PARALLEL = parseInt(process.env.PARALLEL ?? "5", 10);
 const AUTH_COOKIE = process.env.AUTH_COOKIE ?? null;
 const SHOTS = process.env.SHOTS === "1";
-const TICKERS = (V18 as string[]).slice(0, N);
+// Yann 16 mai 2026 : support UNIVERSE env var pour étendre l'audit
+// au-delà du top V1.8. v18 (default), v175, both.
+const UNIVERSE = (process.env.UNIVERSE ?? "v18").toLowerCase();
+function buildTickers(): string[] {
+  const v18Arr = V18 as string[];
+  const v175Arr = Object.keys(V175 as Record<string, unknown>);
+  let pool: string[];
+  if (UNIVERSE === "v175") pool = v175Arr;
+  else if (UNIVERSE === "both") pool = Array.from(new Set([...v18Arr, ...v175Arr]));
+  else pool = v18Arr;
+  return N > 0 ? pool.slice(0, N) : pool;
+}
+const TICKERS = buildTickers();
 
 const V1_DEMO = new Set(["GOOGL", "META", "MSCI", "SPGI", "CAT", "GOOG"]);
 const SHOTS_DIR = "/tmp/mettrik-qa-shots";
@@ -60,6 +73,24 @@ async function checkPage(page: Page, ticker: string, locale: string, route: stri
     .replace(/\s+/g, " "); // collapse whitespace
   const upper = ticker.toUpperCase();
 
+  // Yann 16 mai 2026 : détection page "Fiche en préparation" (Pass 3 non
+  // validé pour cette sté). Le composant CompanyView renvoie un placeholder
+  // statique sans hero, charts, blocs, etc. Ces stés sont volontairement
+  // hors scope V1.8 actif — on les marque "preparing" et on saute toutes
+  // les checks visuelles (le bot peut quand même les reporter, mais elles
+  // doivent être identifiées comme normales, pas comme bugs).
+  const isPreparing = /Pass 3 Sonnet pas encore validé|Fiche en préparation|preparing/i.test(text);
+  if (isPreparing) {
+    c.push({
+      id: "_meta.preparing",
+      label: "Page Fiche en préparation (Pass 3 non validé) — checks skipped",
+      pass: true,
+      severity: "info",
+      detail: "preparing state",
+    });
+    return c;
+  }
+
   function has(re: RegExp | string): boolean {
     if (typeof re === "string") return text.includes(re);
     return re.test(text);
@@ -75,8 +106,12 @@ async function checkPage(page: Page, ticker: string, locale: string, route: stri
   c.push({
     id: "header.logo_present",
     label: "Logo (img ou svg) présent",
+    // Yann 16 mai 2026 : ajout selectors [data-logo], [aria-label*='logo'],
+    // [class*='Monogram'] pour couvrir les logos SVG hardcodés (GOOGL,
+    // META, MSCI, SPGI, CAT) et le wrapper LogoTilt.
     pass: (await count("img[alt*='logo' i], img[src*='/logos/'], svg[class*='logo' i]")) > 0
-      || (await count("[class*='Logo'], [class*='logo']")) > 0,
+      || (await count("[data-logo='true'], [aria-label*='logo' i]")) > 0
+      || (await count("[class*='Logo'], [class*='logo'], [class*='Monogram']")) > 0,
     severity: "major",
     detail: "logo détecté",
   });
@@ -116,16 +151,25 @@ async function checkPage(page: Page, ticker: string, locale: string, route: stri
   c.push({
     id: "header.subsector_visible",
     label: "Sous-secteur visible (texte ou chip rang sous-secteur)",
-    // Yann 16 mai 2026 : calibration audit. Le composant CompanyHeader
-    // n'écrit jamais le mot "Sous-secteur" : le label de chip est
-    // directement le NOM du sous-secteur (ex "Internet & Services"). Le
-    // chip de rang dans ce sous-secteur affiche "#X dans <subsector>".
-    // On détecte donc la présence d'une chip rang sous-secteur ("dans <X>")
-    // OU explicitement le mot Sous-secteur / Sub-sector.
-    pass: has(/Sous-secteur|Sub-?sector|Teilbranche|Industria/i)
-      || /\bdans\s+[A-Z][A-Za-zÀ-ÿ&]/.test(text)
-      || /\bin\s+[A-Z][A-Za-z&]/.test(text)
-      || (await count("[class*='subsector']")) > 0,
+    // Yann 16 mai 2026 (2e calibration) : le label de chip subsector EST le
+    // nom du subsector (ex "Banking", "Internet & Services") sans le mot
+    // "Sous-secteur" ni "dans". Quand la page est rendue en allemand, le
+    // mot "dans" n'apparaît pas. Pour détecter de façon robuste qu'une
+    // chip subsector est rendue, on compte les chips rang dans le header :
+    // V1.8 affiche 4 chips rang (mondial, US, sector, subsector) pour les
+    // stés US, ou 3 chips rang (mondial, sector, subsector) pour les
+    // non-US. Si on voit au moins 3 chips rang `≈ #X` ou `#X` adjacent à
+    // un libellé chip, le subsector est présent.
+    pass: await (async () => {
+      if (has(/Sous-secteur|Sub-?sector|Teilbranche|Industria/i)) return true;
+      if (/\bdans\s+[A-Z][A-Za-zÀ-ÿ&]/.test(text)) return true;
+      if (/\bin\s+[A-Z][A-Za-z&]/.test(text)) return true;
+      if ((await count("[class*='subsector']")) > 0) return true;
+      // Heuristique : compter les chips de rang (≈ #X ou Top X %)
+      const rankMatches = text.match(/≈\s*#\s*\d+|(?:^|\s)#\s*\d+/g) ?? [];
+      if (rankMatches.length >= 3) return true;
+      return false;
+    })(),
     severity: "minor",
     detail: "label subsector ou chip rang",
   });
@@ -476,10 +520,20 @@ async function checkPage(page: Page, ticker: string, locale: string, route: stri
   });
   c.push({
     id: "anti.no_pulse_brand",
-    label: "Branding 'Mettrik AI' (pas 'Pulse')",
-    pass: has(/Mettrik/) && !/\bPulse\b/.test(text),
+    label: "Branding 'Mettrik AI' (pas 'Pulse' comme nom marque)",
+    // Yann 16 mai 2026 : raffinage. "Pulse" peut apparaître comme nom de
+    // PRODUIT TIERS dans une analyse (ex Flutter Entertainment a un modèle
+    // IA appelé "Pulse" pour détecter les risques clients) — ce n'est pas
+    // un reliquat de l'ancien brand Mettrik. On distingue :
+    //   1) Brand Mettrik OK = présence du mot "Mettrik".
+    //   2) Pulse comme brand legacy = "Mettrik Pulse" ou "Pulse Mettrik"
+    //      ou logo wordmark contenant Pulse seul (rare).
+    //   3) Pulse comme produit tiers = phrase narrative ("le modèle Pulse",
+    //      "Pulse, my Spend", etc.) — pas un bug.
+    pass: has(/Mettrik/)
+      && !/Mettrik\s+Pulse|Pulse\s+Mettrik|\bPulse\s+AI\b|\bKPI\s+Pulse\b/.test(text),
     severity: "critical",
-    detail: "brand correct",
+    detail: "brand correct (mention Pulse tiers tolérée)",
   });
 
   // ════════════ HTTP / META ════════════

@@ -749,10 +749,34 @@ export function interpretStructured(
     ["Demand", "User", "Adoption"].includes(k.type)
   );
   const revenueDrivers = company.kpis.filter((k) => k.type === "Revenue");
+  // Yann 16 mai 2026 : élargir les types acceptés pour driver — si une sté
+  // n'a pas de KPI Demand/User/Adoption/Revenue, fallback sur Volume,
+  // Pricing, Growth, Engagement, Capacity, Productivity, puis sur le
+  // premier KPI non-hero. Évite l'absence du bullet "Moteur de croissance"
+  // sur 39+ stés (sectorielles non-revenue, financières, etc.).
+  const extendedDrivers = company.kpis.filter((k) =>
+    [
+      "Volume",
+      "Pricing",
+      "Growth",
+      "Engagement",
+      "Capacity",
+      "Productivity",
+      "Operations",
+      "Production",
+      "Quality",
+      "Innovation",
+    ].includes(k.type)
+  );
+  const firstNonHero = company.kpis.find(
+    (k) => k.short !== hero.short && !["Cost", "Margin", "Cash"].includes(k.type)
+  );
   const driver =
     segmentDrivers.find((d) => d.short !== hero.short) ??
     revenueDrivers.find((d) => d.short !== hero.short) ??
-    segmentDrivers[0];
+    extendedDrivers.find((d) => d.short !== hero.short) ??
+    segmentDrivers[0] ??
+    firstNonHero;
   const risk = company.kpis.find(
     (k) =>
       (k.type === "Cost" && typeof k.yoy === "string" && !k.yoy.startsWith("-")) ||

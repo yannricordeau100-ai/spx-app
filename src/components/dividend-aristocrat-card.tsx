@@ -457,9 +457,11 @@ export function DividendAristocratCard({
               <NumberTicker value={payoutRatio} />
               <span className="ml-0.5 text-[12.5px] font-medium text-zinc-300">%</span>
             </div>
-            <div className="mt-0.5 text-[11px] italic text-zinc-400">
-              couvert {(100 / payoutRatio).toFixed(1).replace(".", ",")}×
-            </div>
+            {payoutRatio > 0 && Number.isFinite(payoutRatio) && (
+              <div className="mt-0.5 text-[11px] italic text-zinc-400">
+                couvert {(100 / payoutRatio).toFixed(1).replace(".", ",")}×
+              </div>
+            )}
           </div>
         </div>
 
