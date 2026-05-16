@@ -179,7 +179,7 @@ def call_anthropic(messages, model: str, max_tokens: int = 16000) -> tuple[str, 
             "content-type": "application/json",
         }
     )
-    with urllib.request.urlopen(req, timeout=300, context=SSL_CTX) as r:
+    with urllib.request.urlopen(req, timeout=600, context=SSL_CTX) as r:
         body = r.read()
     obj = json.loads(body)
     text = obj["content"][0]["text"]
