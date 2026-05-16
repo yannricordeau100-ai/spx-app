@@ -692,7 +692,13 @@ export function HomeView({
               Affiché uniquement si results.length > 30 (= sandbox V175/V18,
               pas la home V1 demo 5 stés). */}
           {results.length > PAGE_SIZE && (
-            <HomePopularBlock locale={locale} routePrefix={routePrefix} t={t} />
+            <HomePopularBlock
+              locale={locale}
+              routePrefix={routePrefix}
+              t={t}
+              requireSignupGate={requireSignupGate}
+              gatePath={gatePath}
+            />
           )}
         </div>
 

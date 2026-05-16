@@ -1,7 +1,15 @@
 import fs from "node:fs";
 import path from "node:path";
+import { Suspense } from "react";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import { headers } from "next/headers";
 import { getServerLocale } from "@/lib/i18n/server";
+import { AuthNav } from "@/components/auth-nav";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { AuthModal } from "@/components/auth-modal";
+import { AuthRequiredBanner } from "@/components/auth-required-banner";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { PopulaireClient } from "./client";
 
 export const dynamic = "force-dynamic";
@@ -164,9 +172,30 @@ export default async function PopulairePage() {
   const locale = await getServerLocale();
   const isFr = locale === "fr";
 
+  // Top-bar globale (back + theme + auth/lang) + auth-gate, comme la home.
+  const supabase = await createSupabaseServerClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   return (
-    <PopulaireClient
-      data={data}
+    <>
+      <div className="fixed left-4 top-4 z-50 sm:left-6 sm:top-6">
+        <Link
+          href="/"
+          aria-label={isFr ? "Retour" : "Back"}
+          className="group inline-flex items-center gap-1.5 rounded-lg border border-white/15 bg-[#0a0a0e]/85 px-3 py-1.5 text-[12.5px] font-medium text-zinc-200 transition-all hover:border-white/30 hover:bg-[#0a0a0e]"
+        >
+          <ArrowLeft className="size-3.5 transition-transform group-hover:-translate-x-0.5" />
+          {isFr ? "Retour" : "Back"}
+        </Link>
+      </div>
+      <div className="fixed right-4 top-4 z-50 flex items-center gap-3 sm:right-6 sm:top-6">
+        <ThemeToggle />
+        <AuthNav />
+      </div>
+      <PopulaireClient
+        data={data}
       tabs={TABS.map((t) => ({
         key: t.key,
         label: isFr ? t.label_fr : t.label_en,
@@ -200,7 +229,14 @@ export default async function PopulairePage() {
         methodology_body: isFr
           ? "Classement combiné depuis Yahoo Finance (most-active), Investing.com (most-active US) et Boursorama (palmarès volume échangé France/Europe). Mesure le volume échangé + la popularité chez les investisseurs particuliers, pas les pageviews Wikipedia. Univers Mettrik : top 300 sociétés mondiales + extensions par marché."
           : "Combined ranking from Yahoo Finance (most-active), Investing.com (most-active US) and Boursorama (most-traded France/Europe rankings). Measures trading volume + retail investor popularity, not Wikipedia pageviews. Mettrik universe: top 300 global + per-market extensions.",
-      }}
-    />
+        }}
+      />
+      {!user && (
+        <Suspense fallback={null}>
+          <AuthRequiredBanner />
+          <AuthModal />
+        </Suspense>
+      )}
+    </>
   );
 }

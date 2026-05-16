@@ -2,19 +2,20 @@
 
 /**
  * Bloc "Actions les plus populaires" intégré sous le grid principal de la
- * home V175/V18 (Yann 16 mai 2026 04h45).
+ * home V175/V18 (Yann 16 mai 2026 04h45, refonte 17 mai 2026).
  *
- * Version compacte de la page /populaire-investisseurs :
- *   - mini-tabs marchés (drapeaux uniquement, sticky horizontal scroll)
- *   - top 10 du marché actif en cards compactes 2 colonnes
- *   - CTA "Voir tout le classement →" → /populaire-investisseurs
+ * Reprend le même visuel que /populaire-investisseurs :
+ *   - tabs pays (drapeau + label)
+ *   - podium top 3 (or/argent/bronze, PodiumCard)
+ *   - liste cards rang+barre violet→cyan (StockRow)
+ *   - CTA "Voir tout le classement →"
  *
- * Données chargées côté client depuis /api/popular-stocks (plus léger
- * qu'embarquer le JSON entier). Si l'endpoint n'existe pas encore, on
- * fallback sur fetch direct du JSON public.
+ * Chaque lien sté est wrappé dans SignupGateOverlay si requireSignupGate.
+ * Données : /api/popular-stocks (JSON serveur, léger côté client).
  */
 import { useEffect, useMemo, useState } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Crown } from "lucide-react";
+import { SignupGateOverlay } from "@/components/signup-gate-overlay";
 
 type PopularRow = {
   ticker: string;
@@ -70,9 +71,6 @@ const EXCHANGE_SUFFIXES = [
   ".IR", ".SS",
 ];
 
-/** Tickers gardent leur suffixe pour éviter conflits homonymes
- *  cross-marché : CFR.SW (Richemont) vs CFR US (Cullen/Frost Bankers),
- *  ROG.SW (Roche) vs ROG US (Rogers Corp). */
 const PRESERVE_SUFFIX = new Set(["CFR.SW", "ROG.SW"]);
 
 function stripSuffix(ticker: string): string {
@@ -84,35 +82,141 @@ function stripSuffix(ticker: string): string {
   return up;
 }
 
+function rankBarPct(rank: number, totalShown: number): number {
+  if (totalShown <= 1) return 100;
+  const pct = 100 - ((rank - 1) / Math.max(totalShown - 1, 1)) * 90;
+  return Math.max(pct, 8);
+}
+
+function PodiumCard({
+  row,
+  rank,
+  totalShown,
+  buildHref,
+}: {
+  row: PopularRow;
+  rank: number;
+  totalShown: number;
+  buildHref: (t: string) => string;
+}) {
+  const pct = rankBarPct(rank, totalShown);
+  const accent =
+    rank === 1
+      ? { bg: "from-amber-500/20 via-amber-500/8 to-transparent", border: "border-amber-500/40", text: "text-amber-200", chip: "bg-amber-500/15 text-amber-200 ring-amber-500/30" }
+      : rank === 2
+        ? { bg: "from-zinc-300/15 via-zinc-300/5 to-transparent", border: "border-zinc-400/30", text: "text-zinc-200", chip: "bg-zinc-400/15 text-zinc-200 ring-zinc-400/30" }
+        : { bg: "from-orange-700/20 via-orange-700/8 to-transparent", border: "border-orange-600/30", text: "text-orange-200", chip: "bg-orange-700/15 text-orange-200 ring-orange-600/30" };
+
+  return (
+    <a
+      href={buildHref(row.ticker)}
+      className={`group relative overflow-hidden rounded-2xl border ${accent.border} bg-gradient-to-br ${accent.bg} p-4 transition-all hover:scale-[1.02] hover:shadow-lg`}
+    >
+      <div className="absolute -top-10 -right-10 size-32 rounded-full bg-white/[0.03] blur-3xl" />
+      <div className="relative flex items-start justify-between">
+        <div className="flex items-center gap-2">
+          {rank === 1 && <Crown className="size-4 text-amber-300" />}
+          <span className={`inline-flex items-center rounded-md ${accent.chip} px-2 py-0.5 font-mono text-[10.5px] font-bold ring-1`}>
+            #{rank}
+          </span>
+        </div>
+        <ArrowRight className="size-3.5 text-zinc-500 transition-all group-hover:translate-x-1 group-hover:text-zinc-200" />
+      </div>
+      <div className="relative mt-3">
+        <div className="line-clamp-2 font-display text-[15px] font-bold leading-tight text-zinc-50">
+          {row.name}
+        </div>
+        <div className="mt-0.5 font-mono text-[11px] uppercase tracking-wider text-zinc-400">
+          {row.displayTicker ?? stripSuffix(row.ticker)}
+        </div>
+      </div>
+      <div className="relative mt-3">
+        <div className={`font-display text-[18px] font-bold leading-none tracking-tight ${accent.text}`}>
+          {rank === 1 ? "🥇" : rank === 2 ? "🥈" : "🥉"} Top {rank}
+        </div>
+      </div>
+      <div className="relative mt-3 h-1 overflow-hidden rounded-full bg-white/[0.04]">
+        <div
+          className={`h-full rounded-full ${rank === 1 ? "bg-amber-400" : rank === 2 ? "bg-zinc-300" : "bg-orange-500"}`}
+          style={{ width: `${pct}%` }}
+        />
+      </div>
+    </a>
+  );
+}
+
+function StockRow({
+  row,
+  rank,
+  totalShown,
+  buildHref,
+}: {
+  row: PopularRow;
+  rank: number;
+  totalShown: number;
+  buildHref: (t: string) => string;
+}) {
+  const pct = rankBarPct(rank, totalShown);
+  return (
+    <a
+      href={buildHref(row.ticker)}
+      className="group relative flex items-center gap-3 rounded-xl border border-white/[0.06] bg-white/[0.015] p-2.5 transition-all hover:border-violet-500/30 hover:bg-violet-500/[0.04]"
+    >
+      <div className="grid size-9 shrink-0 place-items-center rounded-lg bg-white/[0.04] font-mono text-[12px] font-bold text-zinc-300">
+        {rank}
+      </div>
+      <div className="min-w-0 flex-1">
+        <div className="line-clamp-1 font-display text-[13.5px] font-bold text-zinc-50">
+          {row.name}
+        </div>
+        <div className="mt-0.5 flex items-baseline gap-2">
+          <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-400">
+            {row.displayTicker ?? stripSuffix(row.ticker)}
+          </span>
+          {row.country && row.country !== "US" && (
+            <span className="rounded bg-white/[0.04] px-1.5 py-0.5 font-mono text-[9.5px] uppercase tracking-wider text-zinc-500">
+              {row.country}
+            </span>
+          )}
+        </div>
+        <div className="mt-1.5 h-1 overflow-hidden rounded-full bg-white/[0.04]">
+          <div
+            className="h-full rounded-full bg-gradient-to-r from-violet-500 to-cyan-400"
+            style={{ width: `${Math.max(pct, 2)}%` }}
+          />
+        </div>
+      </div>
+      <ArrowRight className="hidden size-3.5 shrink-0 text-zinc-600 transition-all group-hover:translate-x-1 group-hover:text-violet-300 sm:block" />
+    </a>
+  );
+}
+
 export function HomePopularBlock({
   locale,
   routePrefix,
   t,
+  requireSignupGate = false,
+  gatePath = "/",
 }: {
   locale: string;
   routePrefix?: string;
   t: (k: string) => string;
+  requireSignupGate?: boolean;
+  gatePath?: string;
 }) {
   const [data, setData] = useState<PopularData | null>(null);
   const [activeTab, setActiveTab] = useState<string>("world");
 
-  // Fetch JSON public au mount.
   useEffect(() => {
     let cancel = false;
     (async () => {
       try {
-        // Le JSON est dans src/data/ — pas dans /public. On passe par
-        // l'API populaire-investisseurs page côté SSR habituellement,
-        // mais ici on a besoin client-side. On expose donc le JSON
-        // via un fetch sur /populaire-investisseurs.json (à créer)
-        // ou via une copie dans /public/data/.
-        // Quick path : utiliser l'API JSON simple créée pour ce besoin.
         const r = await fetch("/api/popular-stocks", { cache: "no-store" });
         if (!r.ok) return;
         const j = (await r.json()) as PopularData;
         if (!cancel) setData(j);
       } catch {
-        // silencieux : le bloc se masque si pas de data
+        // silencieux
       }
     })();
     return () => {
@@ -120,7 +224,6 @@ export function HomePopularBlock({
     };
   }, []);
 
-  // Auto-select onglet visiteur depuis la locale (FR → fr, EN → en, etc).
   useEffect(() => {
     const visitorTab = TABS.find((tb) => tb.key === locale)?.key ?? "world";
     setActiveTab(visitorTab);
@@ -131,7 +234,6 @@ export function HomePopularBlock({
   const rows = useMemo<PopularRow[]>(() => {
     if (!data) return [];
     const list = data[activeTab];
-    // Yann 16 mai 2026 : top 20 (au lieu de top 10) sur la home.
     return Array.isArray(list) ? list.slice(0, 20) : [];
   }, [data, activeTab]);
 
@@ -141,18 +243,30 @@ export function HomePopularBlock({
     return routePrefix ? `${routePrefix}/${ticker.toLowerCase()}` : `/${ticker.toLowerCase()}`;
   };
 
+  const podium = rows.slice(0, 3);
+  const rest = rows.slice(3);
+  const totalShown = rows.length;
+
+  const wrapGate = (key: string, child: React.ReactNode) =>
+    requireSignupGate ? (
+      <SignupGateOverlay key={key} enabled={requireSignupGate} gatePath={gatePath} initialAuthed={!requireSignupGate}>
+        {child}
+      </SignupGateOverlay>
+    ) : (
+      <div key={key}>{child}</div>
+    );
+
   return (
     <section className="mx-auto mt-16 max-w-3xl sm:mt-20">
-      <div className="mb-4 text-center font-mono text-[11px] uppercase tracking-[0.15em] text-zinc-500">
+      <div className="mb-3 text-center font-mono text-[11px] uppercase tracking-[0.15em] text-zinc-500">
         {t("home.popular.title")}
       </div>
       <p className="mb-6 text-center text-[13px] leading-relaxed text-zinc-400">
         {t("home.popular.subtitle")}
       </p>
 
-      {/* Tabs marchés (compact, scroll horizontal mobile) */}
       <div className="mb-5 overflow-x-auto pb-1">
-        <div className="inline-flex min-w-full justify-center gap-1.5">
+        <div className="inline-flex min-w-full justify-center gap-1.5 rounded-xl border border-white/[0.06] bg-white/[0.02] p-1.5">
           {TABS.map((tb) => {
             const isActive = tb.key === activeTab;
             return (
@@ -160,9 +274,9 @@ export function HomePopularBlock({
                 key={tb.key}
                 type="button"
                 onClick={() => setActiveTab(tb.key)}
-                className={`whitespace-nowrap rounded-lg px-3 py-1.5 text-[12px] font-medium transition-all ${
+                className={`whitespace-nowrap rounded-lg px-2.5 py-1.5 text-[12px] font-medium transition-all ${
                   isActive
-                    ? "bg-gradient-to-br from-violet-500/20 to-cyan-500/10 text-zinc-50 ring-1 ring-violet-500/30"
+                    ? "bg-gradient-to-br from-violet-500/25 to-cyan-500/15 text-zinc-50 ring-1 ring-violet-500/30"
                     : "text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-200"
                 }`}
               >
@@ -174,32 +288,21 @@ export function HomePopularBlock({
         </div>
       </div>
 
-      {/* Top 10 cards compactes 2 colonnes */}
-      <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-        {rows.map((r) => (
-          <a
-            key={r.ticker}
-            href={buildCompanyHref(r.ticker)}
-            className="group flex items-center gap-3 rounded-lg border border-white/[0.06] bg-white/[0.015] p-2.5 transition-all hover:border-violet-500/30 hover:bg-violet-500/[0.04]"
-          >
-            <div className="grid size-8 shrink-0 place-items-center rounded-md bg-white/[0.04] font-mono text-[11px] font-bold text-zinc-300">
-              {r.rank}
-            </div>
-            <div className="min-w-0 flex-1">
-              <div className="line-clamp-1 font-display text-[13px] font-semibold text-zinc-50">
-                {r.name}
-              </div>
-              <div className="mt-0.5 font-mono text-[10px] uppercase tracking-wider text-zinc-500">
-                {r.displayTicker ?? stripSuffix(r.ticker)}
-              </div>
-            </div>
-            <ArrowRight className="hidden size-3.5 shrink-0 text-zinc-600 transition-all group-hover:translate-x-1 group-hover:text-violet-300 sm:block" />
-          </a>
-        ))}
+      {podium.length === 3 && (
+        <div className="mb-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
+          {podium.map((r, i) =>
+            wrapGate(r.ticker, <PodiumCard row={r} rank={i + 1} totalShown={totalShown} buildHref={buildCompanyHref} />),
+          )}
+        </div>
+      )}
+
+      <div className="space-y-2">
+        {rest.map((r, i) =>
+          wrapGate(r.ticker, <StockRow row={r} rank={i + 4} totalShown={totalShown} buildHref={buildCompanyHref} />),
+        )}
       </div>
 
-      {/* CTA voir tout le classement */}
-      <div className="mt-5 flex justify-center">
+      <div className="mt-6 flex justify-center">
         <a
           href="/populaire-investisseurs"
           className="group inline-flex items-center gap-1.5 rounded-lg border border-violet-500/30 bg-violet-500/[0.06] px-3.5 py-2 text-[12.5px] font-medium text-violet-100 transition-all hover:bg-violet-500/15"
