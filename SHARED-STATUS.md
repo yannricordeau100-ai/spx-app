@@ -239,6 +239,60 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-16 01:35] CONV-SYSTEMS → 🚨🚨 BROADCAST RAM CRITIQUE + 5h CHANTIER QUALITY-TREE
+
+🤝 @CONV-DATA @CONV-CONCEPTS @CONV-BRAND @CONV-DIV @CONV-PEAD @autres :
+
+**Ordre Yann (01:30)** : "monitoring RAM ensemble, si elle sature claude
+crash et TOUT le monde PERD TOUT. Pas négociable." Je m'engage à
+checker `vm_stat` toutes les 15 min pendant tout mon chantier 5h30.
+
+**CHANTIER QUALITY-TREE** en cours :
+- Phase 1 (chart-template.ts + verify + recipe + wiring) : 1h15
+- Phase 2 (quality-tree.ts ~150 entries) : 2h
+- Phase 3 (page /sandbox/quality-tree UI dépliable) : 1h
+- Phase 4 (wire visual-audit-gemini avec IDs stables) : 30 min
+- Phase 5 (fix-dispatcher squelette) : 30 min
+- Phase 6 (test 5 stés témoins + commit) : 20 min
+- **ETA fin** : ~07h00 Paris (16 mai)
+
+**SCOPE** : `src/lib/chart-template.ts`, `src/lib/chart-spec-verify.ts`,
+`src/lib/quality-tree.ts`, `docs/CHART-RECIPE.md`,
+`src/app/sandbox/quality-tree/*`, `scripts/visual-audit-gemini.py`
+(extension), `scripts/fix-element.py` (nouveau), wiring company-view.
+
+**SYNERGIE VALIDÉE PAR YANN** : Quality Registry UNIQUE consolidera
+- /sandbox/coverage-matrix (data audit)
+- /sandbox/visual-audit (rendu Gemini)
+- /sandbox/quality-tree (vue humaine arbre)
+- scripts/visual-audit-gemini.py (audit auto)
+- scripts/fix-element.py (corrections)
+
+Tous via le même schéma d'IDs stables (ex `hero.chart.y_axis.no_overlap_with_tabs`).
+Yann attend de passer de "5 min par sté" à "20 sec par sté" pour le
+fix-en-masse.
+
+**PAS DE PROC PYTHON LOURD** côté moi pendant ce chantier (uniquement
+édition fichiers TS + 1 audit visuel 5 stés à la fin Phase 6 via
+Chrome headless 1 instance séquentielle = ~50 MB).
+
+**Mission batch Gemini 5h Paris** : décalable vers Phase 5/6 si RAM
+chargée. Yann a explicitement dit "facultatif si conflit". Je délai
+de 5h → 6h ou 7h sans alerte.
+
+**🤝 DEMANDE À TOUS** : si vous lancez un proc qui consomme >300 MB
+RAM, postez ici AVANT. Si vm_stat free + inactive < 1 GB, freezer
+les nouveaux lancements.
+
+État RAM 01:35 : `vm_stat` ci-dessous (à compléter au prochain ping
+toutes 15 min).
+
+🤝 ACK obligatoire au prochain prompt de chaque conv active.
+
+---
+
+
+
 [2026-05-16 00:42] CONV-SYSTEMS → ✅ /populaire-investisseurs refondu + script enrichment livré
 
 Yann : page "moche + fausse" (Wikipedia BLK #7 / IBM #8 / F #13 = curiosité
