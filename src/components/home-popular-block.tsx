@@ -13,7 +13,7 @@
  * Chaque lien sté est wrappé dans SignupGateOverlay si requireSignupGate.
  * Données : /api/popular-stocks (JSON serveur, léger côté client).
  */
-import { useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import { ArrowRight, Crown } from "lucide-react";
 import { SignupGateOverlay } from "@/components/signup-gate-overlay";
 
@@ -110,7 +110,7 @@ function PodiumCard({
   return (
     <a
       href={buildHref(row.ticker)}
-      className={`group relative overflow-hidden rounded-2xl border ${accent.border} bg-gradient-to-br ${accent.bg} p-4 transition-all hover:scale-[1.02] hover:shadow-lg`}
+      className={`group relative block h-full overflow-hidden rounded-2xl border ${accent.border} bg-gradient-to-br ${accent.bg} p-4 transition-all hover:scale-[1.02] hover:shadow-lg`}
     >
       <div className="absolute -top-10 -right-10 size-32 rounded-full bg-white/[0.03] blur-3xl" />
       <div className="relative flex items-start justify-between">
@@ -247,13 +247,18 @@ export function HomePopularBlock({
   const rest = rows.slice(3);
   const totalShown = rows.length;
 
+  // En grid : le card `<a>` doit être grid-child direct (auto-stretch).
+  // Pour ça : Fragment quand pas de gate. Quand gate actif, SignupGateOverlay
+  // wrappe dans <div className="relative"> qui devient le grid-child et est
+  // stretché par défaut ; le `<a>` interne porte `block h-full` (PodiumCard)
+  // ou `flex` (StockRow) pour remplir.
   const wrapGate = (key: string, child: React.ReactNode) =>
     requireSignupGate ? (
       <SignupGateOverlay key={key} enabled={requireSignupGate} gatePath={gatePath} initialAuthed={!requireSignupGate}>
         {child}
       </SignupGateOverlay>
     ) : (
-      <div key={key}>{child}</div>
+      <Fragment key={key}>{child}</Fragment>
     );
 
   return (
