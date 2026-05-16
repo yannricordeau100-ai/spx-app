@@ -333,7 +333,7 @@ export const DICTIONARY: Dict = {
 
   /* Hero number */
   "hero.cagr_5y": { fr: "(CAGR 5 ans)", en: "(5y CAGR)" },
-  "hero.yoy": { fr: "(YoY)", en: "(YoY)" },
+  "hero.yoy": { fr: "(vs N-1)", en: "(YoY)" },
   "hero.percentile_top": { fr: "Top", en: "Top" },
   "kpi.active": { fr: "Actif", en: "Active" },
   "kpi.definition": { fr: "Définition", en: "Definition" },

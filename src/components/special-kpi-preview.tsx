@@ -97,7 +97,7 @@ function HeroView({ kpi }: { kpi: SpecialKpi }) {
             <div className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-emerald-500/40 bg-emerald-500/15 px-3 py-1 text-[13px] font-bold text-emerald-200">
               <TrendingUp className="size-3.5" />
               {kpi.data.yoy_latest}
-              <span className="text-[10px] italic text-zinc-400">YoY</span>
+              <span className="text-[10px] italic text-zinc-400" title="Year-on-Year">vs N-1</span>
             </div>
           )}
           {kpi.data.cagr_5y_pct != null && (
@@ -187,7 +187,7 @@ function ClassiqueRow({ kpi }: { kpi: SpecialKpi }) {
             >
               <TrendingUp className="size-3.5" />
               {yoy}
-              <span className="text-[10.5px] italic text-zinc-400">YoY</span>
+              <span className="text-[10.5px] italic text-zinc-400" title="Year-on-Year">vs N-1</span>
             </div>
           )}
         </div>
@@ -261,7 +261,7 @@ function StoryView({ kpi }: { kpi: SpecialKpi }) {
                 <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-emerald-500/40 bg-emerald-500/15 px-3 py-1 text-[14px] font-bold text-emerald-200">
                   <TrendingUp className="size-3.5" />
                   {kpi.data.yoy_latest}
-                  <span className="text-[11px] italic text-zinc-400">YoY</span>
+                  <span className="text-[11px] italic text-zinc-400" title="Year-on-Year">vs N-1</span>
                 </div>
               )}
             </div>

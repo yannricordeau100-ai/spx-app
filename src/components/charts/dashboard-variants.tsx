@@ -78,7 +78,7 @@ export function DashboardCardGrid({ kpis, accent = "#a78bfa" }: DashProps) {
             {k.delta != null && (
               <div className="mt-1 inline-flex items-center gap-1 font-mono text-[11.5px] font-bold tabular-nums" style={{ color: tone }}>
                 {k.delta >= 0 ? "▲" : "▼"} {k.delta >= 0 ? "+" : ""}{k.delta.toFixed(1)} %
-                <span className="text-[10px] font-normal text-zinc-500">YoY</span>
+                <span className="text-[10px] font-normal text-zinc-500" title="Year-on-Year">vs N-1</span>
               </div>
             )}
             {k.history && (

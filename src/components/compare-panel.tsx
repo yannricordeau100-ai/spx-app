@@ -173,7 +173,7 @@ export function ComparePanel({
                   }
                   return null;
                 })()}
-                <span className="text-[10px] italic text-zinc-400">(YoY)</span>
+                <span className="text-[10px] italic text-zinc-400" title="Year-on-Year">(vs N-1)</span>
               </span>
             </div>
 
