@@ -35,8 +35,16 @@ const EXCHANGE_SUFFIXES = [
   ".IR", ".SS",
 ];
 
+/** Exceptions : tickers Suisses qui entrent en conflit avec un ticker
+ *  identique sur un autre marché. On garde le suffixe pour éviter
+ *  l'ambiguïté avec la sté homonyme.
+ *  - CFR.SW (Richemont) vs CFR (Cullen/Frost Bankers, US)
+ *  - ROG.SW (Roche) vs ROG (Rogers Corporation, US) */
+const PRESERVE_SUFFIX = new Set(["CFR.SW", "ROG.SW"]);
+
 function stripExchangeSuffix(ticker: string): string {
   const up = ticker.toUpperCase();
+  if (PRESERVE_SUFFIX.has(up)) return up;
   for (const suf of EXCHANGE_SUFFIXES) {
     if (up.endsWith(suf)) return up.slice(0, -suf.length);
   }

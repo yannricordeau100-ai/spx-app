@@ -20,8 +20,14 @@ const EXCHANGE_SUFFIXES = [
   ".IR", ".SS",
 ];
 
+/** Tickers gardent leur suffixe pour éviter conflits homonymes
+ *  cross-marché (CFR.SW Richemont vs CFR US Cullen/Frost Bankers,
+ *  ROG.SW Roche vs ROG US Rogers Corp). */
+const PRESERVE_SUFFIX = new Set(["CFR.SW", "ROG.SW"]);
+
 function stripExchangeSuffix(ticker: string): string {
   const up = ticker.toUpperCase();
+  if (PRESERVE_SUFFIX.has(up)) return up;
   for (const suf of EXCHANGE_SUFFIXES) {
     if (up.endsWith(suf)) return up.slice(0, -suf.length);
   }
