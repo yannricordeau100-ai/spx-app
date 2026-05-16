@@ -5,6 +5,47 @@
 
 ---
 
+## ⚠️ CADRAGE STRICT DE TON PÉRIMÈTRE (fork)
+
+**Yann a explicitement confirmé le 16 mai à 18h :**
+
+### ✅ TON SCOPE (fork)
+
+Tu reprends UNIQUEMENT :
+- **Module "Graphiques et Schémas de sources diverses"** (image-findings demande #1 + futures demandes)
+- **Sujets secondaires** déjà traités dans la conv origine : populaire-investisseurs, nettoyage RAM, refactor V1.7.5/V1.8 archi BDD dynamique (si Yann te le confirme)
+- **Toute autre demande de Yann hors go-prod** qu'il t'enverra explicitement à toi (fork)
+
+### ❌ HORS DE TON SCOPE
+
+**NE TOUCHE PAS** au chantier **mise en place du système de transfer staging → prod (www.mettrik.ai)**.
+
+Ce gros chantier reste **EXCLUSIVEMENT géré par CONV-SYSTEMS origine** (= l'autre conv, pas toi).
+
+Donc si Yann te demande quelque chose qui touche :
+- Déploiement Vercel prod (vs staging)
+- DNS Spaceship vers `mettrik.ai`
+- Stripe live mode
+- Page maintenance / `MAINTENANCE_MODE`
+- Email SMTP live Resend
+- Webhooks Stripe live
+- Backups automatisés cron
+- Sécurité prod / Sentry
+- Cookies GDPR banner
+- Branche `production` séparée
+
+→ **Réponds-lui** : "Ce chantier est exclusivement scope de CONV-SYSTEMS (origine). Je suis CONV-SYSTEMS (fork), je ne le traite pas. Bascule sur l'autre conv pour ça."
+
+### Coordination entre les 2 convs SYSTEMS
+
+- Vous partagez SHARED-STATUS.md → signe-toi `CONV-SYSTEMS-FORK` pour distinguer
+- Si tu as besoin de quelque chose côté infra/prod pour ton scope (ex : une nouvelle ENV var, un nouveau endpoint API), tu pingues `🤝 @CONV-SYSTEMS` dans SHARED-STATUS et tu attends la livraison côté origine
+- Si jamais Yann demande quelque chose d'ambigu, **demande clarification** avant d'exécuter
+
+---
+
+---
+
 ## TABLE DES MATIÈRES
 
 1. Contexte projet
@@ -490,9 +531,13 @@ d44b1206  shared-status: log refonte populaire-investisseurs (CONV-SYSTEMS)
 
 ---
 
-## 13. MISSION GO-PROD (raison du fork)
+## 13. MISSION GO-PROD (CE N'EST PAS TON SCOPE)
 
-### Contexte
+⚠️ **RAPPEL** : ce chantier est **EXCLUSIVEMENT** géré par CONV-SYSTEMS (origine). Tu ne le traites PAS.
+
+Cette section est documentée ici uniquement pour que tu comprennes le contexte global du projet et puisses redirigier Yann vers l'autre conv si jamais il te le demande par erreur.
+
+### Contexte (pour info, pas pour exécution)
 
 Yann veut mettre `www.mettrik.ai` en ligne (public). Aujourd'hui = staging only, prod = page maintenance.
 
@@ -587,7 +632,13 @@ Yann veut mettre `www.mettrik.ai` en ligne (public). Aujourd'hui = staging only,
 
 ## 16. PREMIÈRE INSTRUCTION SUGGÉRÉE POUR LA CONV FORK
 
-> "Salut. Je suis la conv 'KPI test et intégration - Système (fork)'. Je reprends de CONV-SYSTEMS (origine) via le handoff `HANDOFF-CONV-SYSTEMS-2026-05-16.md`. Lis-le **intégralement** (sections 1 à 15) puis confirme que tu es prêt à démarrer la mission **mise en place du système de transfer staging → prod (www.mettrik.ai)**. Lis aussi `CLAUDE.md`, `RULES-GOLDEN.md`, `SHARED-STATUS.md`, `RECOVERY-KIT.md`, `VERCEL-DEPLOY.md`. Pose-moi les 13 questions de clarification listées §13 avant d'exécuter quoi que ce soit."
+> "Salut. Je suis la conv 'KPI test et intégration - Système (fork)'. Je reprends de CONV-SYSTEMS (origine) via le handoff `HANDOFF-CONV-SYSTEMS-2026-05-16.md`. Lis-le **intégralement** (sections 1 à 15) en commençant par la section **⚠️ CADRAGE STRICT DE TON PÉRIMÈTRE** tout en haut. Lis aussi `CLAUDE.md`, `RULES-GOLDEN.md`, `SHARED-STATUS.md`.
+>
+> Ton scope : module **image-findings** + sujets secondaires (populaire-investisseurs, refactor V1.7.5/V1.8 archi BDD si confirmé).
+>
+> HORS scope : tout ce qui touche le **go-prod / transfer staging → www.mettrik.ai** = exclusivement géré par CONV-SYSTEMS (origine).
+>
+> Confirme que tu es prêt à reprendre image-findings + sujets secondaires, et que tu rediriges Yann vers l'autre conv si jamais il te parle go-prod par erreur. Puis attends ses instructions."
 
 ---
 
