@@ -11,9 +11,17 @@ name: VIP Inspection Worker
 
 on:
   schedule:
-    # Toutes les 15 minutes (GitHub minimum 5 min, on prend 15 pour
-    # économiser la quota Action gratuite : 2000 min/mois).
-    - cron: '*/15 * * * *'
+    # Cron de filet de sécurité : 1×/h. Yann 17 mai 2026 : repo privé,
+    # quota 2000 min/mois. Calcul : 24 skips/jour × 1.5 min = ~1080 min/mois
+    # rien qu'en skips, laisse ~920 min pour les inspections réelles
+    # (~60 inspections/mois = ~2 stés/jour).
+    # Le déclencheur principal = repository_dispatch (webhook depuis Vercel
+    # API quand l'user clique "Lancer" UI → 0 skip, ~150 stés/mois possible).
+    - cron: '0 * * * *'
+  repository_dispatch:
+    # Déclenché par /api/vip-inspection POST action=launch via GitHub API.
+    # Type d'event = 'vip-inspection-launch'.
+    types: [vip-inspection-launch]
   workflow_dispatch: # bouton manuel "Run workflow" depuis l'UI Actions
     inputs:
       ticker:
@@ -69,7 +77,8 @@ jobs:
           # Chrome préinstallé sur ubuntu-latest = /usr/bin/google-chrome
           export CHROME=/usr/bin/google-chrome
           # Si --ticker fourni manuellement via workflow_dispatch
-          TICKER="${{ github.event.inputs.ticker }}"
+          # Source ticker possible : (1) workflow_dispatch input, (2) repository_dispatch payload, (3) all-queued
+          TICKER="${{ github.event.inputs.ticker || github.event.client_payload.ticker }}"
           if [ -n "$TICKER" ]; then
             python3 scripts/vip-deep-inspection.py --ticker "$TICKER"
           else

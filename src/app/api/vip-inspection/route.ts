@@ -111,7 +111,7 @@ export async function POST(req: Request) {
   }
 
   if (body.action === "launch") {
-    // Marque le statut "running" — un script Python en CLI/cron prendra le relais.
+    // 1. Marque state='running' en BDD
     const { error } = await supa
       .from("vip_inspection_status")
       .upsert(
@@ -124,9 +124,42 @@ export async function POST(req: Request) {
         { onConflict: "ticker" },
       );
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+
+    // 2. Déclenche le worker GitHub Action via repository_dispatch (= 0 skip,
+    //    inspection démarrée en <5s au lieu d'attendre le prochain cron).
+    //    Nécessite secret env Vercel : GITHUB_DISPATCH_TOKEN (PAT avec scope repo).
+    let webhook_hint = "Le worker GitHub Action exécutera l'inspection au prochain cron (max 1 heure).";
+    const ghToken = process.env.GITHUB_DISPATCH_TOKEN;
+    if (ghToken) {
+      try {
+        const resp = await fetch(
+          "https://api.github.com/repos/yannricordeau100-ai/spx-app/dispatches",
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${ghToken}`,
+              Accept: "application/vnd.github+json",
+              "X-GitHub-Api-Version": "2022-11-28",
+            },
+            body: JSON.stringify({
+              event_type: "vip-inspection-launch",
+              client_payload: { ticker: tk },
+            }),
+          },
+        );
+        if (resp.ok) {
+          webhook_hint = `Worker GitHub Action déclenché immédiatement (event vip-inspection-launch, ticker=${tk}). Inspection démarre en ~30s.`;
+        } else {
+          webhook_hint = `Webhook GitHub fail (${resp.status}). Fallback : cron hourly.`;
+        }
+      } catch (e) {
+        webhook_hint = `Webhook GitHub error: ${String(e).slice(0, 80)}. Fallback : cron hourly.`;
+      }
+    }
+
     return NextResponse.json({
       ok: true,
-      hint: `État '${tk}' mis à 'running'. Lance le script CLI : python3 scripts/vip-deep-inspection.py --ticker ${tk} (ou attend qu'il tourne en cron).`,
+      hint: `État '${tk}' mis à 'running'. ${webhook_hint}`,
     });
   }
 
