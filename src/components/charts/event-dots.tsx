@@ -124,11 +124,47 @@ const MONTH_FR = [
 ];
 
 /**
+ * Convertit une position fractionnaire idx (ex 2.5 = entre label idx=2 et 3)
+ * en coordonnée X dans le viewBox du chart parent.
+ *
+ * Yann 17 mai 2026 : 2 modes pour aligner les dots SOUS le centre du label
+ * année / quarter selon le type de chart parent.
+ *  - "step" (curve charts) : data points à `padLeft + i * innerW/(N-1)`.
+ *  - "slot" (bars charts)  : barres centrées à
+ *      `padLeft + slot*i + slot/2 + slotOffsetX` avec slot = innerW/N.
+ *      slotOffsetX = DX/2 pour bars 3D, 0 pour bars 2D.
+ *
+ * Sans cette distinction, les EventDots étaient calés sur "step" tandis que
+ * les barres / labels année utilisaient "slot" → décalage visible à droite
+ * sous le label année en mode bars.
+ */
+function fractionalIdxToX(
+  pos: number,
+  padLeft: number,
+  innerW: number,
+  N: number,
+  xMode: "step" | "slot",
+  slotOffsetX: number
+): number {
+  if (xMode === "slot") {
+    const slot = innerW / Math.max(N, 1);
+    return padLeft + slot * pos + slot / 2 + slotOffsetX;
+  }
+  // step (curve) : N points, écart = innerW / (N-1)
+  const stepX = innerW / Math.max(N - 1, 1);
+  return padLeft + pos * stepX;
+}
+
+/**
  * SVG fragment : dots groupés par année (1 cercle par année, peu importe
  * le nombre d'events). Inclure dans le <svg> parent juste avant fermeture.
  *
  * Note : le popover HTML est rendu par EventDotsOverlay (en sibling du svg).
  * EventDotsSVG ne dessine que les cercles (interaction = via overlay).
+ *
+ * Yann 17 mai 2026 : nouveaux props xMode + slotOffsetX pour ALIGNER les
+ * dots avec les centres de barres/labels selon le type de chart parent.
+ * Default = "step" (compat curve charts).
  */
 export function EventDotsSVG({
   events,
@@ -138,6 +174,8 @@ export function EventDotsSVG({
   padTop,
   innerH,
   color = "#a78bfa",
+  xMode = "step",
+  slotOffsetX = 0,
 }: {
   events: CompanyEvent[];
   xLabels: string[];
@@ -146,44 +184,50 @@ export function EventDotsSVG({
   padTop: number;
   innerH: number;
   color?: string;
+  /** "step" pour curve charts, "slot" pour bars charts. Default "step". */
+  xMode?: "step" | "slot";
+  /** Offset horizontal additionnel (= DX/2 pour bars 3D). Ignoré si xMode="step". */
+  slotOffsetX?: number;
 }) {
   if (!events.length || xLabels.length < 2) return null;
-  const stepX = innerW / (xLabels.length - 1);
   const dotY = padTop + innerH;
   const groups = groupEventsByYear(events, xLabels);
   if (groups.length === 0) return null;
 
   return (
     <g>
-      {groups.map(({ year, x }) => (
-        <g key={year} style={{ pointerEvents: "none" }}>
-          {/* Halo pulse */}
-          <circle
-            cx={padLeft + x * stepX}
-            cy={dotY}
-            r={5}
-            fill={color}
-            opacity={0.18}
-          >
-            <animate
-              attributeName="r"
-              values="4;6;4"
-              dur="2.4s"
-              repeatCount="indefinite"
+      {groups.map(({ year, x }) => {
+        const cx = fractionalIdxToX(x, padLeft, innerW, xLabels.length, xMode, slotOffsetX);
+        return (
+          <g key={year} style={{ pointerEvents: "none" }}>
+            {/* Halo pulse */}
+            <circle
+              cx={cx}
+              cy={dotY}
+              r={5}
+              fill={color}
+              opacity={0.18}
+            >
+              <animate
+                attributeName="r"
+                values="4;6;4"
+                dur="2.4s"
+                repeatCount="indefinite"
+              />
+            </circle>
+            {/* Point central */}
+            <circle
+              cx={cx}
+              cy={dotY}
+              r={3.5}
+              fill={color}
+              stroke="#fff"
+              strokeWidth={1}
+              opacity={0.85}
             />
-          </circle>
-          {/* Point central */}
-          <circle
-            cx={padLeft + x * stepX}
-            cy={dotY}
-            r={3.5}
-            fill={color}
-            stroke="#fff"
-            strokeWidth={1}
-            opacity={0.85}
-          />
-        </g>
-      ))}
+          </g>
+        );
+      })}
     </g>
   );
 }
@@ -203,6 +247,8 @@ export function EventDotsOverlay({
   padTop,
   innerH,
   color = "#a78bfa",
+  xMode = "step",
+  slotOffsetX = 0,
 }: {
   events: CompanyEvent[];
   xLabels: string[];
@@ -213,10 +259,13 @@ export function EventDotsOverlay({
   padTop: number;
   innerH: number;
   color?: string;
+  /** Cf EventDotsSVG : "slot" pour bars, "step" pour curve. Default "step". */
+  xMode?: "step" | "slot";
+  /** Offset horizontal additionnel (= DX/2 pour bars 3D). Ignoré si xMode="step". */
+  slotOffsetX?: number;
 }) {
   const [open, setOpen] = useState<number | null>(null);
   if (!events.length || xLabels.length < 2) return null;
-  const stepX = innerW / (xLabels.length - 1);
   const dotY = padTop + innerH;
   const groups = groupEventsByYear(events, xLabels);
   if (groups.length === 0) return null;
@@ -226,7 +275,7 @@ export function EventDotsOverlay({
       <div className="pointer-events-none absolute inset-0">
         {groups.map(({ year, x, events: evs }) => {
           const isOpen = open === year;
-          const pxX = padLeft + x * stepX;
+          const pxX = fractionalIdxToX(x, padLeft, innerW, xLabels.length, xMode, slotOffsetX);
           const leftPct = (pxX / svgW) * 100;
           const topPct = (dotY / svgH) * 100;
           return (

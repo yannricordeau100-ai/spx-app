@@ -757,7 +757,10 @@ export function CompanyView({
                     - Capex / R&D / dépenses (capex, opex, r&d, expense…)
                   Pour Headcount, NPS, subscribers, etc. → toggle masqué. */}
               {(chartMode === "curve" || chartMode === "bars") && isTimeFractionApplicableKpi(active) && (
-                <div className="mb-2 flex justify-end">
+                // Yann 17 mai 2026 : mb-2 → mb-4 pour aérer la zone entre le
+                // toggle Y/M/W/D/H/m/s et le SVG du chart (sinon trop collé
+                // au header d'unité + mini-logo au top du SVG).
+                <div className="mb-4 flex justify-end">
                   <TimeFractionToggle
                     value={timeFraction}
                     onChange={setTimeFraction}

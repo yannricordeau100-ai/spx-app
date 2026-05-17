@@ -384,6 +384,8 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
         padTop={PAD_TOP}
         innerH={INNER_H}
         color={color}
+        xMode="slot"
+        slotOffsetX={isClassic ? 0 : DX / 2}
       />
 
       {/* Year band : 1 année = 1 bracket horizontal sous l'axe X. Au lieu de
@@ -424,9 +426,11 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
         );
       })}
 
-      {/* Mini-logo Mettrik AI. Yann 15 mai 2026 : déplacé à gauche quand
-          Y axis à droite pour éviter overlap avec labels Y + chip TTM. */}
-      <ChartMiniLogo x={yOnRight ? PAD_LEFT + 70 : W * 0.85} y={PAD_TOP - 18} height={14} />
+      {/* Mini-logo Mettrik AI. Yann 17 mai 2026 : centré horizontalement
+          dans le viewBox (au-dessus de la chart area, y=PAD_TOP-18=22).
+          Évite overlap avec toggle Y/M/W/D/H/m/s + 5y/MAX + download au
+          top-right, et avec chip TTM ou Y-axis selon le côté. */}
+      <ChartMiniLogo x={W / 2 + (14 * 1424) / 270 / 2} y={PAD_TOP - 18} height={14} />
     </svg>
 
     {/* Bouton download (capture SVG + watermark → PNG) */}
@@ -452,6 +456,8 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
       padTop={PAD_TOP}
       innerH={INNER_H}
       color={color}
+      xMode="slot"
+      slotOffsetX={isClassic ? 0 : DX / 2}
     />
     </div>
   );

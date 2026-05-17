@@ -193,6 +193,8 @@ export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, ex
         padTop={PAD_TOP}
         innerH={INNER_H}
         color="#a78bfa"
+        xMode="slot"
+        slotOffsetX={DX / 2}
       />
 
       {/* Year band : 1 année = 1 bracket sous l'axe X. */}
@@ -221,8 +223,9 @@ export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, ex
       })}
 
       {/* Mini-logo Mettrik AI (home-style). Caché à l'export, remplacé
-          par un grand watermark (cf. chart-export.ts). */}
-      <ChartMiniLogo x={W * 0.85} y={PAD_TOP - 18} height={14} />
+          par un grand watermark (cf. chart-export.ts).
+          Yann 17 mai 2026 : centré horizontalement, position top conservée. */}
+      <ChartMiniLogo x={W / 2 + (14 * 1424) / 270 / 2} y={PAD_TOP - 18} height={14} />
     </svg>
 
     {/* Bouton download */}
@@ -246,6 +249,8 @@ export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, ex
       padTop={PAD_TOP}
       innerH={INNER_H}
       color="#a78bfa"
+      xMode="slot"
+      slotOffsetX={DX / 2}
     />
     </div>
   );

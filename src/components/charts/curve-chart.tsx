@@ -668,10 +668,15 @@ export function CurveChart({
 
         {/* Mini-logo Mettrik AI (home-style). Caché à l'export et remplacé
             par un grand watermark (cf. chart-export.ts).
-            Yann 15 mai 2026 : déplacé à gauche quand Y axis à droite pour
-            éviter overlap avec les labels Y droits + chip TTM. */}
+            Yann 17 mai 2026 : centré horizontalement dans le viewBox au-dessus
+            de la chart area (zone marge top, y=22 = sous le bord supérieur du
+            SVG). ChartMiniLogo prend `x` = bord droit du logo, donc pour
+            centrer on pousse à `W/2 + w/2` (w = height * 5.27). Position
+            top-vertical conservée pour rester au-dessus de toute chart
+            content (curve, bars, variation). Évite l'overlap historique avec
+            toggle Y/M/W/D/H/m/s + 5y/MAX + download button au top-right. */}
         <ChartMiniLogo
-          x={yOnRight ? PAD_LEFT + 70 : W * 0.85}
+          x={W / 2 + (14 * 1424) / 270 / 2}
           y={PAD_TOP - 18}
           height={14}
         />
