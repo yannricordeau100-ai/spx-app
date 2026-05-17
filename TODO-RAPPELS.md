@@ -6,27 +6,35 @@
 
 ---
 
-## 📅 18 mai 2026 05h40 — Wakeup session autonome auto-régulée RAM
+## 📅 18 mai 2026 05h40 — Wakeup session autonome MAC-PROTECTION-FIRST
 
-**Programmé le** : 17 mai 2026 22h (annule l'ancien rappel 19 mai 14h23)  
-**CronCreate id** : `97d43e23` (session-only, lundi 18 mai 05h40)  
+**Programmé le** : 17 mai 2026 22h, MAJ 17 mai 23h (priorité absolue : pas crasher Mac)  
+**CronCreate id** : `474f204e` (session-only, lundi 18 mai 05h40)  
 **Statut** : en attente
 
-**Contexte** : Yann probablement endormi, ordinateur laissé open. Mission travail nuit : continuer ce qui est utile sur les sujets connus (Phase 2 go-prod si Phase 1 confirmée OK, ou autre tâche en attente). Auto-régulation RAM chaque minute obligatoire (cf prompt complet du cron).
+**Contexte** : Yann probablement endormi, ordinateur laissé open. Possiblement d'autres convs encore actives (terminant tâches nuit). PRIORITÉ ABSOLUE : pas crasher Mac (crash hard reset nuit précédente).
 
-**Règles RAM** :
-- > 5 GB dispo : 3 agents max en parallèle
-- 3-5 GB : 2 agents max
-- 1.5-3 GB : 1 agent max
-- < 1.5 GB : STOP, attendre 2 min, re-checker
+**Protocole démarrage progressif** :
+- Démarrer LENTEMENT, vérifier RAM AVANT toute action
+- Attendre que les autres convs terminent si saturation
+- Augmenter graduellement quand RAM remonte
+- Re-check RAM chaque minute
+
+**Règles RAM (free + inactive recoverable)** :
+- < 1.5 GB : ⏸ ATTENDRE 5 min, re-checker. Rien ne lance.
+- 1.5-3 GB : ⚡ Lent — pas d'agent, edits + commits perso. Sleep 5s.
+- 3-5 GB : ⚙️ Normal — max 1 agent. Sleep 3s.
+- > 5 GB : 🚀 Plein régime — max 2 agents en //. Sleep 1-2s.
 
 **Objectifs priorisés (selon RAM dispo)** :
-1. Vérifier SQL desk_releases collé par Yann + écrire release dev v0.1.1
-2. Phase 2 go-prod si Yann a validé Phase 1 (CI/CD + bouton Push to live + snapshot tagging)
-3. Reviewer les 27 image-findings demande #1 pending
-4. Nettoyage cache RAM si besoin
+1. Confirmer SQL desk_releases collé (table existe + seed dev v0.1.0)
+2. Écrire release dev v0.1.1 avec git_sha = b03645d0
+3. Phase 2 go-prod (si RAM > 3GB) : endpoint promote + bouton Push to live + snapshot tagging
+4. Reviewer 27 image-findings demande #1 pending
+5. Test endpoints /api/version sur 3 niveaux staging
+6. Nettoyage /tmp > 60 min si tout OK
 
-**Bilan attendu** : au réveil de Yann, format DOB : ✅FAIT / ❌PAS FAIT / ⚠️PROBLÈMES / 🔧POUR RÉPARER.
+**Bilan attendu** : au réveil Yann, format DOB ✅FAIT / ❌PAS FAIT / ⚠️PROBLÈMES / 🔧POUR RÉPARER.
 
 ---
 
