@@ -16,8 +16,10 @@ export type KpiRequestRow = {
 
 export function KpiBuilderClient({
   initialRows,
+  initialRequests,
 }: {
-  initialRows: KpiRequestRow[];
+  initialRows?: KpiRequestRow[];
+  initialRequests?: KpiRequestRow[];
 }) {
   return (
     <div className="min-h-screen bg-[#050507] p-6 text-zinc-100">
@@ -27,7 +29,7 @@ export function KpiBuilderClient({
         débloquer build). Le vrai client.tsx doit être créé par CONV-DATA.
       </p>
       <p className="mt-2 text-[12px] text-zinc-500">
-        {initialRows?.length ?? 0} ligne(s) initiale(s) reçue(s).
+        {(initialRows ?? initialRequests ?? []).length} ligne(s) initiale(s) reçue(s).
       </p>
     </div>
   );
