@@ -1725,6 +1725,18 @@ export const DICTIONARY: Dict = {
     en: "Quality of Compounding",
     de: "Qualität der Compoundierung",
   },
+
+  // Interpretation block header (Yann 17 mai 2026)
+  "interpretation.header": {
+    fr: "Interprétation",
+    en: "Interpretation",
+    de: "Interpretation",
+    nl: "Interpretatie",
+    sv: "Tolkning",
+    da: "Fortolkning",
+    "en-GB": "Interpretation",
+    "de-CH": "Interpretation",
+  },
 };
 
 /**

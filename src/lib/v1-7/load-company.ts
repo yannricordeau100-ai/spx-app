@@ -656,62 +656,93 @@ export async function loadV17Company(
   };
   const i18nKey = localeMap[requestedLocale];
   if (i18nKey) {
+    type I18nKpiTr = { short: string; name?: string; explanation?: string; description?: string; signal?: string };
+    type I18nFile = {
+      tagline?: string;
+      hero_kpi_rationale?: string;
+      kpis?: Array<I18nKpiTr>;
+      risks?: Array<{ title?: string; description?: string; score_rationale?: string }>;
+      governance?: { notes?: string };
+      ai_positioning?: { summary?: string; evidence?: Array<{ short?: string; detail?: string; quote?: string }> };
+    };
     const i18nPath = path.join(
       ROOT,
       "src/data/v2-pipeline-i18n",
       `${ticker.toLowerCase()}.${i18nKey}.json`,
     );
-    const i18n = await readJsonOrNull<{
-      tagline?: string;
-      hero_kpi_rationale?: string;
-      kpis?: Array<{ short: string; name?: string; explanation?: string; description?: string; signal?: string }>;
-      risks?: Array<{ title?: string; description?: string; score_rationale?: string }>;
-      governance?: { notes?: string };
-      ai_positioning?: { summary?: string; evidence?: Array<{ short?: string; detail?: string; quote?: string }> };
-    }>(i18nPath);
-    if (i18n) {
+    const i18n = await readJsonOrNull<I18nFile>(i18nPath);
+    // Yann 17 mai 2026 : fallback EN si la locale demandée n'est pas EN et
+    // que le KPI/tagline/etc n'a pas de traduction dans le fichier locale-
+    // specific. Évite l'affichage de FR sur les pages DE/NL/SV/DA/de-CH
+    // pour les contenus pas encore traduits dans cette langue (typiquement
+    // les KPIs enrich Cap Return / DPS / Payout qui n'étaient pas dans
+    // _merged.json au moment du run des scripts trad).
+    let enFallback: I18nFile | null = null;
+    if (i18nKey !== "en") {
+      const enPath = path.join(
+        ROOT,
+        "src/data/v2-pipeline-i18n",
+        `${ticker.toLowerCase()}.en.json`,
+      );
+      enFallback = await readJsonOrNull<I18nFile>(enPath);
+    }
+    if (i18n || enFallback) {
       const d = data as Record<string, unknown>;
-      if (i18n.tagline) d.tagline = i18n.tagline;
-      if (i18n.hero_kpi_rationale) d.hero_kpi_rationale = i18n.hero_kpi_rationale;
-      // KPI overlay : remap name_fr / explanation / description / signal
-      // par leur traduction. Match strict sur `short`. name_en intact (sert
-      // de secondary line sur les locales non-EN).
-      if (Array.isArray(i18n.kpis) && Array.isArray(data.kpis)) {
-        const byShort = new Map(
-          i18n.kpis.filter((k) => k.short).map((k) => [k.short, k] as const),
+      if (i18n?.tagline) d.tagline = i18n.tagline;
+      else if (enFallback?.tagline) d.tagline = enFallback.tagline;
+      if (i18n?.hero_kpi_rationale) d.hero_kpi_rationale = i18n.hero_kpi_rationale;
+      else if (enFallback?.hero_kpi_rationale) d.hero_kpi_rationale = enFallback.hero_kpi_rationale;
+      // KPI overlay : locale-specific d'abord, fallback EN par KPI manquant.
+      if (Array.isArray(data.kpis)) {
+        const byShortLocale = new Map(
+          (i18n?.kpis ?? []).filter((k) => k.short).map((k) => [k.short, k] as const),
+        );
+        const byShortEn = new Map(
+          (enFallback?.kpis ?? []).filter((k) => k.short).map((k) => [k.short, k] as const),
         );
         data.kpis = (data.kpis as AnyKPI[]).map((k) => {
-          const tr = byShort.get(String(k.short));
-          if (!tr) return k;
+          const trLocale = byShortLocale.get(String(k.short));
+          const trEn = byShortEn.get(String(k.short));
+          // Pour chaque champ : locale > EN > original.
+          const name = trLocale?.name || trEn?.name || k.name_fr;
+          const explanation = trLocale?.explanation || trEn?.explanation || k.explanation;
+          const description = trLocale?.description || trEn?.description || k.description;
+          const signal = trLocale?.signal || trEn?.signal || k.signal;
+          if (!trLocale && !trEn) return k;
           return {
             ...k,
-            name_fr: tr.name || k.name_fr,
-            explanation: tr.explanation || k.explanation,
-            description: tr.description || k.description,
-            signal: tr.signal || k.signal,
+            name_fr: name,
+            explanation,
+            description,
+            signal,
           } as AnyKPI;
         });
       }
       // Risks overlay (match par index, alignment supposé identique).
+      // Yann 17 mai 2026 : fallback EN par index si locale-specific manque.
       const risks = (data as Record<string, unknown>).risks;
-      if (Array.isArray(i18n.risks) && Array.isArray(risks)) {
+      const localeRisks = i18n?.risks ?? [];
+      const enRisks = enFallback?.risks ?? [];
+      if ((localeRisks.length > 0 || enRisks.length > 0) && Array.isArray(risks)) {
         (data as Record<string, unknown>).risks = (risks as Array<Record<string, unknown>>).map(
           (r, idx) => {
-            const tr = i18n.risks?.[idx];
-            if (!tr) return r;
+            const tr = localeRisks[idx];
+            const trEn = enRisks[idx];
+            if (!tr && !trEn) return r;
             return {
               ...r,
-              title: tr.title || r.title,
-              description: tr.description || r.description,
-              score_rationale: tr.score_rationale || r.score_rationale,
+              title: tr?.title || trEn?.title || r.title,
+              description: tr?.description || trEn?.description || r.description,
+              score_rationale: tr?.score_rationale || trEn?.score_rationale || r.score_rationale,
             };
           },
         );
       }
       // Governance notes
       const gov = (data as Record<string, unknown>).governance as Record<string, unknown> | undefined;
-      if (gov && i18n.governance?.notes) {
-        gov.notes = i18n.governance.notes;
+      if (gov) {
+        if (i18n?.governance?.notes) gov.notes = i18n.governance.notes;
+        else if (enFallback?.governance?.notes) gov.notes = enFallback.governance.notes;
       }
       // AI positioning summary + evidence.
       // Yann 15 mai 2026 : evidence vient dans 2 formats selon la source
@@ -719,11 +750,15 @@ export async function loadV17Company(
       // {short, detail, quote}). On évite donc le merge field-par-field
       // (qui crasherait sur string spread) et on remplace simplement par
       // la version traduite si présente. Même format en entrée et en sortie.
+      // Yann 17 mai 2026 : fallback EN.
       const ai = (data as Record<string, unknown>).ai_positioning as Record<string, unknown> | undefined;
       if (ai) {
-        if (i18n.ai_positioning?.summary) ai.summary = i18n.ai_positioning.summary;
-        if (Array.isArray(i18n.ai_positioning?.evidence)) {
-          ai.evidence = i18n.ai_positioning.evidence;
+        if (i18n?.ai_positioning?.summary) ai.summary = i18n.ai_positioning.summary;
+        else if (enFallback?.ai_positioning?.summary) ai.summary = enFallback.ai_positioning.summary;
+        if (Array.isArray(i18n?.ai_positioning?.evidence)) {
+          ai.evidence = i18n!.ai_positioning!.evidence;
+        } else if (Array.isArray(enFallback?.ai_positioning?.evidence)) {
+          ai.evidence = enFallback!.ai_positioning!.evidence;
         }
       }
     }

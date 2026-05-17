@@ -3,6 +3,7 @@
 import { Sparkles, ArrowUpRight, AlertTriangle, Coins, Telescope } from "lucide-react";
 import type { InterpretBlock, InterpretTone } from "@/lib/data";
 import { normalizeNarrative } from "@/lib/ui-fix-templates";
+import { useT } from "@/lib/i18n/provider";
 
 const TONE: Record<
   InterpretTone,
@@ -21,12 +22,13 @@ export function InterpretationBlock({
   block: InterpretBlock;
   accent?: string;
 }) {
+  const { t } = useT();
   return (
     <div className="rounded-xl border border-[#1a1a1a] bg-[#080808] p-6">
       <div className="mb-4 flex items-center gap-2.5">
         <Sparkles className="size-4" style={{ color: accent }} />
         <span className="font-sans text-[13px] font-semibold uppercase tracking-[0.12em] text-zinc-200">
-          Interprétation
+          {t("interpretation.header")}
         </span>
       </div>
 
