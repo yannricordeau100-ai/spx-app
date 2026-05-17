@@ -36,24 +36,21 @@ concurrency:
 
 jobs:
   inspect:
-    runs-on: ubuntu-latest
-    timeout-minutes: 12 # éviter de bouffer la quota si bloqué
+    # Self-hosted Mac runner Yann (gratuit, illimité, Mac doit être allumé).
+    # Yann 17 mai 2026.
+    runs-on: [self-hosted, macOS, arm64]
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
+      # Python 3.12 + Node 22 déjà installés sur le Mac Yann (vérifié).
+      # On skip setup-python/setup-node = gain temps + RAM.
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
+      - name: Install Python deps (certifi only)
+        run: pip3 install --user --quiet certifi || true
 
-      - name: Install Python deps
-        run: pip install certifi
-
-      - name: Install Node deps (Supabase client only)
-        run: npm install --no-save @supabase/supabase-js
+      - name: Install Node deps (Supabase client only, no-save)
+        run: npm install --no-save --silent @supabase/supabase-js
 
       - name: Sync Supabase → JSON local
         env:
@@ -74,8 +71,8 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
-          # Chrome préinstallé sur ubuntu-latest = /usr/bin/google-chrome
-          export CHROME=/usr/bin/google-chrome
+          # Chrome path Mac Yann (self-hosted runner)
+          export CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
           # Si --ticker fourni manuellement via workflow_dispatch
           # Source ticker possible : (1) workflow_dispatch input, (2) repository_dispatch payload, (3) all-queued
           TICKER="${{ github.event.inputs.ticker || github.event.client_payload.ticker }}"
