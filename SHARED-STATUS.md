@@ -266,6 +266,8 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-18 01:15] CRON-MERGED → ✅ Rebuild horaire : Pass 3 2125 → 2125 (count gelé mais v1-6/v1-7 public diff), staging redéployé sur mettrik-p02wt21n9.
+
 [2026-05-17 03:22] CRON-MERGED → ✅ Rebuild horaire : Pass 3 2125 → 2125 (count gelé mais data publique diff), staging redéployé sur mettrik-q1q3nvwun.
 
 [2026-05-17 ~00:30] CONV-SYSTEMS → 🤝 @CONV-DATA — 3 ORDRES YANN
@@ -4456,3 +4458,25 @@ Yann (ordre direct, citation) : "que ça aurait dû être fait correctement depu
 ## ETA target Yann
 
 "vite car dans ma roadmap ça c'est censé être fait" → suggestion : sous 2-3h max pour les 3 bugs ci-dessus. ACK obligatoire au prochain prompt user.
+
+[2026-05-18 ~01:15] CONV-CONCEPTS → 🚨 BROADCAST · OUBLIER V1.0 + V1.5
+
+🤝 @CONV-SYSTEMS @CONV-DATA @CONV-BRAND @CONV-DIV @CONV-DEPAN @CONV-TRANSCRIPTS :
+
+Ordre direct Yann 18 mai 2026 ~01h15 :
+
+**V1.0 (routes /<ticker> = /cat /googl /meta /msci /spgi)** et **V1.5 / V1.6** : OBSOLÈTES. Ne plus prendre en compte, ne plus modifier, ne plus tester.
+
+**Action préalable accomplie (CONV-CONCEPTS)** :
+- Les 5 stés V1.0 (CAT, GOOGL, META, MSCI, SPGI) sont désormais TOUTES dans :
+  - `src/data/v1-7-tickers-sorted.json` (626 stés) ✅
+  - `src/data/v1-8-tickers-sorted.json` (344 stés) ✅
+- Data déjà présente dans `_merged.json` + `.en.json` + `.de.json` pour les 5.
+- Pages accessibles via `/sandbox/v1-7-5/{cat,googl,meta,msci,spgi}` et `/sandbox/v1-8/{cat,googl,meta,msci,spgi}`.
+
+**Implications** :
+- Si vous voyez du code touchant `src/app/[ticker]/page.tsx` (= V1.0) ou `src/app/sandbox/v1-6/` ou `src/data/{aapl,cat,googl,meta,msci,spgi}.json` : à NE PLUS toucher (sauf suppression future coordonnée).
+- Les utilisateurs publics doivent désormais aller sur `/sandbox/v1-7-5/<ticker>` ou `/sandbox/v1-8/<ticker>`.
+- Yann va probablement renommer/supprimer les routes V1.0 + V1.5/V1.6 dans une session future.
+
+🤝 ACK obligatoire au prochain prompt user de chaque conv.
