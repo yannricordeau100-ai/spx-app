@@ -13,7 +13,7 @@ import {
   Eye,
   EyeOff,
 } from "lucide-react";
-import type { Company } from "@/lib/data";
+import { formatUnit, type Company } from "@/lib/data";
 import { brand } from "@/lib/brand";
 import { CompanyLogo } from "@/components/logos";
 
@@ -505,7 +505,7 @@ function CompanyMockPreview({
             </span>
             {hero?.unit && (
               <span className={`text-[14px] text-zinc-400 ${blurClass}`}>
-                {hero.unit === "$B" ? "Mds $" : hero.unit}
+                {formatUnit(hero.unit)}
               </span>
             )}
           </div>
@@ -569,7 +569,7 @@ function CompanyMockPreview({
               </div>
               <div className={`col-span-3 font-mono text-[12.5px] font-bold tabular-nums text-zinc-100 ${blurClass}`}>
                 {k.value}
-                {k.unit && <span className="ml-1 text-[10px] text-zinc-500">{k.unit === "$B" ? "Mds $" : k.unit}</span>}
+                {k.unit && <span className="ml-1 text-[10px] text-zinc-500">{formatUnit(k.unit)}</span>}
               </div>
               <div className={`col-span-2 font-mono text-[12px] font-bold tabular-nums text-emerald-300 ${blurClass}`}>
                 {k.yoy}

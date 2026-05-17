@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "motion/react";
 import { Crown, TrendingUp } from "lucide-react";
 import { InfoTooltip } from "@/components/info-tooltip";
+import { formatUnit } from "@/lib/data";
 import { useT } from "@/lib/i18n/provider";
 
 /**
@@ -433,7 +434,7 @@ export function DividendAristocratCard({
             <div className="mt-0.5 font-display text-[16px] font-bold leading-none tabular-nums text-zinc-50">
               <NumberTicker value={capReturn} decimals={1} />
               <span className="ml-0.5 text-[12.5px] font-medium text-zinc-300">
-                {capReturnUnit === "$B" ? "Mds $" : capReturnUnit}
+                {formatUnit(capReturnUnit)}
               </span>
             </div>
             <div className="mt-0.5 text-[11px] italic text-zinc-400">{t("div.aristocrat.cap_return_detail")}</div>

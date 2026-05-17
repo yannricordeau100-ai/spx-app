@@ -543,9 +543,19 @@ export function formatHeroValue(value: string | number | null | undefined, unit:
   let displayNum = num;
   let displayUnit = formatUnit(unit);
 
-  if ((unit === "M" || unit === "$M") && Math.abs(num) >= 1000) {
+  // Yann 17 mai 2026 : rescale M → Mds quand |valeur| >= 1000.
+  // Avant : test strict `unit === "M" || unit === "$M"` — manquait
+  // "$M" (déjà géré), "M $" (FR formaté), "M €", "M £" (1500+ stés).
+  const RESCALE_M_TO_MDS: Record<string, string> = {
+    "M": "Mds",
+    "$M": "Mds $",
+    "M $": "Mds $",
+    "M €": "Mds €",
+    "M £": "Mds £",
+  };
+  if (RESCALE_M_TO_MDS[unit] && Math.abs(num) >= 1000) {
     displayNum = num / 1000;
-    displayUnit = unit === "$M" ? "Mds $" : "Mds";
+    displayUnit = RESCALE_M_TO_MDS[unit];
   }
 
   // Règle Yann 15 mai 2026 : nb de décimales déterminé par decimalsForValue.

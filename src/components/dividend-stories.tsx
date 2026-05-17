@@ -51,7 +51,10 @@ export function DividendStories({ company }: { company: Company }) {
     (dpsKpi?.history as number[]) ||
     (isCAT ? [4.32, 4.5, 4.78, 5.04, 5.4] : []);
   const capReturn = Number(capRetKpi?.value) || (isCAT ? 7.9 : 0);
-  const capReturnUnit = capRetKpi?.unit || (isCAT ? "$B" : "");
+  // Yann 17 mai 2026 : fallback "Mds $" (FR formaté) au lieu de "$B" brut,
+  // cohérent avec dataset 2026 majoritaire et évite bug rescale latent
+  // côté DividendAristocratCard qui ne reconnaissait que "$B".
+  const capReturnUnit = capRetKpi?.unit || (isCAT ? "Mds $" : "");
   const payoutRatio = Number(payoutKpi?.value) || (isCAT ? 32 : 0);
 
   // === STATES PARTAGÉS pour les 3 cards (centralisés au parent) ===

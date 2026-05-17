@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 import { Target, TrendingUp } from "lucide-react";
-import { isOfficialSource, type Company, type MarketPosition } from "@/lib/data";
+import { formatUnit, isOfficialSource, type Company, type MarketPosition } from "@/lib/data";
 import { InfoTooltip } from "@/components/info-tooltip";
 import { brand } from "@/lib/brand";
 import { normalizeNarrative } from "@/lib/ui-fix-templates";
@@ -13,10 +13,19 @@ function fmt(n: number, decimals = 0) {
     maximumFractionDigits: decimals,
   });
 }
+/**
+ * Format l'unité pour affichage compact "Md $" (au lieu de "Mds $" long).
+ * Yann 17 mai 2026 : avant, conditionnelle stricte `$B → "Md $"` ratait
+ * "Mds $" (2173 stés), "B $" mixte (270 stés), "Mds €" (1604 stés).
+ * Fix : passer par formatUnit puis raccourcir "Mds X" → "Md X".
+ */
 function unitLabel(unit: string) {
-  if (unit === "$B") return "Md $";
-  if (unit === "$M") return "M $";
-  return unit;
+  const normalized = formatUnit(unit);
+  // Raccourcir "Mds $" → "Md $", "Mds €" → "Md €", etc, pour cohérence
+  // avec l'ancien label court de la card market-position.
+  const match = normalized.match(/^Mds(\s+\S+)?$/);
+  if (match) return `Md${match[1] ?? ""}`;
+  return normalized;
 }
 
 export function MarketPositionCard({
