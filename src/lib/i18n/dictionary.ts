@@ -1763,6 +1763,48 @@ export const DICTIONARY: Dict = {
     "en-GB": "Interpretation",
     "de-CH": "Interpretation",
   },
+
+  // Super-KPI board residual labels (Yann 17 mai 2026 — i18n résiduel)
+  "superkpi.methodology": {
+    fr: "Méthodologie",
+    en: "Methodology",
+    de: "Methodik",
+  },
+  "superkpi.formula_label": {
+    fr: "Formule",
+    en: "Formula",
+    de: "Formel",
+  },
+  "superkpi.formula_normalized_label": {
+    fr: "Formule normalisée",
+    en: "Normalized formula",
+    de: "Normalisierte Formel",
+  },
+  "superkpi.benchmark_label": {
+    fr: "Benchmark",
+    en: "Benchmark",
+    de: "Benchmark",
+  },
+  "superkpi.scale_label": {
+    fr: "Échelle",
+    en: "Scale",
+    de: "Skala",
+  },
+  "superkpi.weighting_note": {
+    fr: "Pondération choisie pour donner le poids maximal à la qualité du couple croissance/marge (Rule of 40), sans négliger la diversification ni la trajectoire de marges.",
+    en: "Weighting chosen to give maximum weight to the quality of the growth/margin pair (Rule of 40), without neglecting diversification or margin trajectory.",
+    de: "Gewichtung so gewählt, dass die Qualität des Wachstums-/Margen-Paars (Rule of 40) maximales Gewicht erhält, ohne Diversifikation oder Margenentwicklung zu vernachlässigen.",
+  },
+  "superkpi.business_model_calibrated": {
+    fr: "calibrés sur le business model",
+    en: "calibrated on the business model",
+    de: "auf das Geschäftsmodell kalibriert",
+  },
+  "superkpi.nd_short": {
+    fr: "n.d.",
+    en: "n/a",
+    de: "n.v.",
+  },
 };
 
 /**

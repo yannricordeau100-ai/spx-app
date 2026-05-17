@@ -57,6 +57,7 @@ function Gauge({ pct, color }: { pct: number; color: string }) {
 /** Carte standard pour un super-KPI (hors signature). */
 function SuperKpiCard({ kpi, accent, ticker }: { kpi: SuperKpi; accent: string; ticker?: string }) {
   void accent;
+  const { t } = useT();
   const isNA = kpi.tier === "na";
   return (
     <div
@@ -88,13 +89,13 @@ function SuperKpiCard({ kpi, accent, ticker }: { kpi: SuperKpi; accent: string; 
             <div className="text-[14.5px] font-semibold text-zinc-50">{kpi.name}</div>
             <InfoTooltip color={kpi.color}>
               <div className="mb-1.5 font-mono text-[10px] uppercase tracking-wider" style={{ color: kpi.color }}>
-                Méthodologie
+                {t("superkpi.methodology")}
               </div>
               <p className="text-[12px] leading-relaxed text-zinc-200">{kpi.interpretation}</p>
               <div className="mt-2.5 rounded-md border border-[#1f1f1f] bg-[#0c0c0c] p-2">
-                <div className="font-mono text-[9.5px] uppercase tracking-wider text-zinc-400">Formule</div>
+                <div className="font-mono text-[9.5px] uppercase tracking-wider text-zinc-400">{t("superkpi.formula_label")}</div>
                 <div className="mt-0.5 font-mono text-[11px] text-zinc-100">{kpi.formula}</div>
-                <div className="mt-2 font-mono text-[9.5px] uppercase tracking-wider text-zinc-400">Benchmark</div>
+                <div className="mt-2 font-mono text-[9.5px] uppercase tracking-wider text-zinc-400">{t("superkpi.benchmark_label")}</div>
                 <div className="mt-0.5 text-[11px] text-zinc-200">{kpi.benchmark}</div>
               </div>
             </InfoTooltip>
@@ -216,7 +217,7 @@ function SignatureCard({ kpi }: { kpi: SuperKpi }) {
               fontWeight="800"
               fill={isNA ? "#71717a" : "#fafafa"}
             >
-              {isNA ? "n.d." : Math.round(kpi.value ?? 0)}
+              {isNA ? t("superkpi.nd_short") : Math.round(kpi.value ?? 0)}
             </text>
             <text
               x="90"
@@ -248,16 +249,16 @@ function SignatureCard({ kpi }: { kpi: SuperKpi }) {
             </span>
             <InfoTooltip color={kpi.color} align="right">
               <div className="mb-1.5 font-mono text-[10px] uppercase tracking-wider" style={{ color: kpi.color }}>
-                Méthodologie
+                {t("superkpi.methodology")}
               </div>
               <p className="text-[12px] leading-relaxed text-zinc-200">{kpi.interpretation}</p>
               <div className="mt-2.5 rounded-md border border-[#1f1f1f] bg-[#0c0c0c] p-2">
-                <div className="font-mono text-[9.5px] uppercase tracking-wider text-zinc-400">Formule normalisée</div>
+                <div className="font-mono text-[9.5px] uppercase tracking-wider text-zinc-400">{t("superkpi.formula_normalized_label")}</div>
                 <div className="mt-0.5 font-mono text-[11px] text-zinc-100">{kpi.formula}</div>
-                <div className="mt-2 font-mono text-[9.5px] uppercase tracking-wider text-zinc-400">Échelle</div>
+                <div className="mt-2 font-mono text-[9.5px] uppercase tracking-wider text-zinc-400">{t("superkpi.scale_label")}</div>
                 <div className="mt-0.5 text-[11px] text-zinc-200">{kpi.benchmark}</div>
                 <p className="mt-2 text-[11px] italic text-zinc-400">
-                  Pondération choisie pour donner le poids maximal à la qualité du couple croissance/marge (Rule of 40), sans négliger la diversification ni la trajectoire de marges.
+                  {t("superkpi.weighting_note")}
                 </p>
               </div>
             </InfoTooltip>
@@ -338,7 +339,7 @@ export function SuperKpiBoard({
             <span
               className="font-mono text-[10px] font-medium uppercase tracking-wider text-zinc-400"
             >
-              calibrés sur le business model
+              {t("superkpi.business_model_calibrated")}
             </span>
           </h3>
           <div className="grid gap-3 sm:grid-cols-2">

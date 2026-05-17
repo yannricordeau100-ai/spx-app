@@ -952,8 +952,8 @@ export function CompanyView({
 
         {/* Super-KPI Mettrik — bloc final, combinaisons composites */}
         <SuperKpiBoard
-          kpis={computeSuperKpis(company)}
-          sectorKpis={computeSectorSuperKpis(company)}
+          kpis={computeSuperKpis(company, locale)}
+          sectorKpis={computeSectorSuperKpis(company, locale)}
           companyName={company.name}
           ticker={company.ticker}
           accent={accent}
