@@ -21,6 +21,25 @@ import { isStrictPass3 } from "../src/lib/v1-7/strict-pass3";
 const ROOT = path.resolve(__dirname, "..");
 const SRC = path.join(ROOT, "src/data/v2-pipeline/_merged.json");
 const DST = path.join(ROOT, "src/data/v1-7-public.json");
+const ENRICH_DIR = path.join(ROOT, "src/data/v2-pipeline-enrich");
+
+/**
+ * Yann 17 mai 2026 : injecte le flag `_adr_duplicate_of` depuis l'enrich
+ * file dans la sté avant le check isStrictPass3. Ça permet de masquer
+ * les ADR US doublons (ex BABA → 9988.HK) du hub sans toucher au merged
+ * principal.
+ */
+function injectEnrichFlags(ticker: string, base: AnyCo): AnyCo {
+  const enrichPath = path.join(ENRICH_DIR, `${ticker.toLowerCase()}.json`);
+  if (!fs.existsSync(enrichPath)) return base;
+  try {
+    const e = JSON.parse(fs.readFileSync(enrichPath, "utf-8")) as Record<string, unknown>;
+    if (typeof e._adr_duplicate_of === "string") {
+      return { ...base, _adr_duplicate_of: e._adr_duplicate_of };
+    }
+  } catch {}
+  return base;
+}
 
 type AnyKPI = Record<string, unknown>;
 type AnyCo = Record<string, unknown> & {
@@ -39,7 +58,8 @@ const out: Record<string, unknown> = {};
 let kept = 0;
 let skipped = 0;
 
-for (const [t, v] of Object.entries(merged)) {
+for (const [t, vRaw] of Object.entries(merged)) {
+  const v = injectEnrichFlags(t, vRaw);
   if (!isStrictPass3(v)) {
     skipped++;
     continue;
