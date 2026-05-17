@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 
 type ListEntry = { ticker: string; added_at: string; note?: string; scheduled_at?: string };
 type ListFile = { updated_at: string; tickers: ListEntry[] };
@@ -37,6 +37,10 @@ export function VipInspectionClient({
   const [newNote, setNewNote] = useState("");
   const [isPending, startTransition] = useTransition();
   const [msg, setMsg] = useState<string>("");
+  // Notification "Terminé" quand un ticker passe de running → done
+  // (Yann 17 mai 2026 : "j'ai besoin que ça indique terminé").
+  const [doneNotif, setDoneNotif] = useState<string | null>(null);
+  const prevStatesRef = useRef<Record<string, string>>({});
 
   async function api(action: string, ticker: string, note?: string) {
     setMsg("…");
@@ -58,6 +62,35 @@ export function VipInspectionClient({
     if (j.status) setStatus(j.status);
   }
 
+  // Auto-refresh : si au moins 1 ticker en running → poll toutes les 15s
+  // pour récupérer le résultat dès qu'il arrive (sans rafraîchir manuellement).
+  useEffect(() => {
+    const anyRunning = Object.values(status.results || {}).some((s) => s?.state === "running");
+    if (!anyRunning) return;
+    const id = setInterval(() => { void refresh(); }, 15000);
+    return () => clearInterval(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [status]);
+
+  // Detection transition running → done (notification flash 8s en haut).
+  useEffect(() => {
+    const newStates: Record<string, string> = {};
+    for (const [tk, s] of Object.entries(status.results || {})) {
+      newStates[tk] = s?.state || "idle";
+      const prev = prevStatesRef.current[tk];
+      if (prev === "running" && s?.state === "done") {
+        const d = s.defects || [];
+        const fixed = d.filter((x) => x.corrected).length;
+        setDoneNotif(`✓ Inspection ${tk} TERMINÉE · ${d.length} défauts détectés · ${fixed} corrigés`);
+        setTimeout(() => setDoneNotif(null), 8000);
+      } else if (prev === "running" && s?.state === "error") {
+        setDoneNotif(`⚠ Inspection ${tk} ÉCHEC : ${s.error || "erreur inconnue"}`);
+        setTimeout(() => setDoneNotif(null), 8000);
+      }
+    }
+    prevStatesRef.current = newStates;
+  }, [status]);
+
   function handleAdd(e: React.FormEvent) {
     e.preventDefault();
     if (!newTicker.trim()) return;
@@ -70,6 +103,12 @@ export function VipInspectionClient({
 
   return (
     <div className="min-h-screen bg-[#050507] text-zinc-100">
+      {/* Notification flash "Terminé" en haut quand inspection done */}
+      {doneNotif && (
+        <div className="fixed top-4 left-1/2 z-50 -translate-x-1/2 rounded-lg border border-emerald-500/50 bg-emerald-500/15 px-4 py-2 text-[13.5px] font-medium text-emerald-100 backdrop-blur shadow-lg">
+          {doneNotif}
+        </div>
+      )}
       <div className="mx-auto max-w-5xl px-4 py-8">
         <header className="mb-6">
           <h1 className="font-display text-[30px] font-bold tracking-tight">VIP Inspection</h1>
