@@ -23,6 +23,7 @@ import {
   type KpiAggregationKind,
 } from "@/lib/kpi-aggregation";
 import { getFiscalAudit } from "@/lib/fiscal-calendar";
+import { autoRescaleSmallUnit } from "@/lib/format-hero";
 
 export type GraphPeriod = "year" | "quarter" | "semester";
 
@@ -359,24 +360,6 @@ function buildSemesterLabels(lastDataDate: string | null, n: number): string[] {
   return out;
 }
 
-/**
- * Rescale auto : si toutes les valeurs < 1 alors qu'unit = "Mds X" / "M X",
- * descend d'un cran de magnitude. Ex "0.41 M unités" → "410 K unités".
- *
- * Retourne {unit: nouvelle unit, factor: multiplicateur à appliquer aux values}.
- */
-export function autoRescaleSmallUnit(unit: string, allBelowOne: boolean): { unit: string; factor: number } {
-  if (!allBelowOne) return { unit, factor: 1 };
-  const u = unit.trim();
-  let m = u.match(/^Mds(\s+.+)$/i);
-  if (m) return { unit: `M${m[1]}`, factor: 1000 };
-  m = u.match(/^M(\s+.+)$/i);
-  if (m) {
-    const tail = m[1].trim();
-    return { unit: tail, factor: 1_000_000 };
-  }
-  if (u === "M $") return { unit: "$", factor: 1_000_000 };
-  if (u === "M €") return { unit: "€", factor: 1_000_000 };
-  if (u === "M £") return { unit: "£", factor: 1_000_000 };
-  return { unit, factor: 1 };
-}
+// `autoRescaleSmallUnit` est importé depuis `@/lib/format-hero` (source de
+// vérité unique, cf. extraction Yann 15 mai 2026). La copie locale a été
+// supprimée le 17 mai 2026 (chantier D4 dédup) pour éviter le drift.

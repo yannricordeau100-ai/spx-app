@@ -45,6 +45,31 @@ function defaultLabels(n: number): string[] {
 }
 
 /**
+ * Yann 17 mai 2026 — D1 fix cascade.
+ * `rescaleForReadability` retourne toujours en RAW USD ($T/$B/$M/$K/$) car
+ * les facteurs (1e9/1e6/1e3) sont identiques quelle que soit la devise.
+ * Pour préserver la devise à l'affichage de l'axe Y sur les stés non-USD
+ * (1604 Mds €, 43 Mds £, ~168 Mds CHF/JPY/DKK/INR/etc), on restitue le
+ * symbole d'origine ici. ChartAxisHeader gère "€B", "€M", "£B", "£M",
+ * "Mds CHF", "Mds JPY", "M CHF", etc.
+ */
+function preserveOriginalCurrency(inputUnit: string, rawNewUnit: string): string {
+  if (!rawNewUnit.startsWith("$")) return rawNewUnit; // non-monetary
+  const u = String(inputUnit).trim();
+  if (/€|\bEUR\b/i.test(u)) return rawNewUnit.replace("$", "€"); // "$B" → "€B"
+  if (/£|\bGBP\b/i.test(u)) return rawNewUnit.replace("$", "£");
+  const iso = u.match(/\b(CHF|JPY|DKK|INR|NOK|SEK|KRW|CAD|AUD|HKD|CNY|BRL|MXN|PLN|ZAR)\b/i);
+  if (iso) {
+    const code = iso[1].toUpperCase();
+    if (rawNewUnit === "$T" || rawNewUnit === "$B") return `Mds ${code}`;
+    if (rawNewUnit === "$M") return `M ${code}`;
+    if (rawNewUnit === "$K") return `K ${code}`;
+    return code;
+  }
+  return rawNewUnit; // default = USD raw, ex "$B"
+}
+
+/**
  * Sélecteur du mode de chart, exporté à part pour pouvoir le placer dans
  * le toolbar du HERO (à gauche du PeriodToggle "5 / 10 / 20 ans") au
  * lieu de l'avoir au-dessus du graph.
@@ -253,52 +278,38 @@ export function ChartCycle({
   const divisor = timeFractionDivisor(timeFraction);
 
   // Rescale auto de l'unité pour TOUJOURS garder le MAX value ∈ [1, 999].
-  // Yann 17 mai 2026 (v3) : FIX — le dataset peut envoyer unit déjà formaté FR
-  // ("Mds $", "M $", "Mds €", etc) plutôt que brut ($B, $M). Sans normalisation,
-  // isMoneyUnit("Mds $") renvoie false → toAbsolute ne convertit pas → rescale skip
-  // silencieusement. C'est ce qui faisait que /jour /minute ne bougeaient pas les
-  // valeurs sur GOOGL Cloud (unit dataset="Mds $").
-  // Solution : on normalise en RAW au début, on fait toute la rescale en RAW, et
-  // l'output est en RAW aussi ("$M" etc). chartAxisHeader gère raw → display FR.
-  const RAW_NORMALIZE: Record<string, string> = {
-    "Mds $": "$B", "Mds €": "€B", "Mds £": "£B",
-    "M $": "$M", "M €": "€M", "M £": "£M",
-    // Devises non-USD : on mappe sur le suffixe brut pour que toAbsolute /
-    // rescaleForReadability tournent (les facteurs 1e9/1e6 sont identiques
-    // quelle que soit la devise). chartAxisHeader emit "EUR/CHF/etc en Millions".
-    "Mds CHF": "$B", "Mds JPY": "$B", "Mds EUR": "$B",
-    "Mds DKK": "$B", "Mds INR": "$B", "Mds NOK": "$B",
-    "Mds SEK": "$B", "Mds KRW": "$B", "Mds CAD": "$B",
-    "Mds AUD": "$B", "Mds HKD": "$B", "Mds CNY": "$B",
-    "Mds BRL": "$B", "Mds MXN": "$B", "Mds PLN": "$B",
-    "Mds ZAR": "$B",
-    "Mds": "B", "M": "M",
-  };
-  const rawInputUnit = RAW_NORMALIZE[String(unit).trim()] ?? unit;
-
+  // Yann 17 mai 2026 (Phase 2 D1) : normalisation RAW_UNIT_NORMALIZE
+  // centralisée dans `src/lib/format.ts`. `toAbsolute` et
+  // `rescaleForReadability` gèrent maintenant les units formatés FR
+  // ("Mds $", "M €", etc) automatiquement → plus de double-mapping ici.
   let scaledData = data;
   let scaledTtm = ttm;
   let displayUnit = unit;
 
   // Convertir chaque value de history en valeur absolue (unité de base)
-  const absData = safeData.map((v) => toAbsolute(v, rawInputUnit) / divisor);
-  const absTtm = ttm == null ? null : toAbsolute(ttm, rawInputUnit) / divisor;
+  const absData = safeData.map((v) => toAbsolute(v, unit) / divisor);
+  const absTtm = ttm == null ? null : toAbsolute(ttm, unit) / divisor;
   // Trouver le MAX absolu (positif) pour décider de l'unité commune
   const allAbs = [...absData, ...(absTtm != null ? [absTtm] : [])].filter(Number.isFinite);
   const maxAbs = allAbs.length > 0 ? Math.max(...allAbs.map((v) => Math.abs(v))) : 0;
-  const { unit: newUnit } = rescaleForReadability(maxAbs, rawInputUnit);
-  // Trouver le facteur de conversion entre l'unité de base et la nouvelle unité
+  const { unit: newUnit } = rescaleForReadability(maxAbs, unit);
+  // Trouver le facteur de conversion entre l'unité de base et la nouvelle unité.
+  // newUnit est TOUJOURS en RAW ($T/$B/$M/$K ou T/B/M/K) — cf. rescaleForReadability.
   const factorPerUnit: Record<string, number> = {
     "$T": 1e12, "$B": 1e9, "$M": 1e6, "$K": 1e3, "$": 1, "$¢": 0.01,
     "T": 1e12, "B": 1e9, "M": 1e6, "K": 1e3, "": 1,
-    "€T": 1e12, "€B": 1e9, "€M": 1e6, "€K": 1e3,
-    "£T": 1e12, "£B": 1e9, "£M": 1e6, "£K": 1e3,
   };
   const newFactor = factorPerUnit[newUnit];
-  if (newFactor != null && (newUnit !== rawInputUnit || divisor !== 1)) {
+  if (newFactor != null && (newUnit !== unit || divisor !== 1)) {
     scaledData = absData.map((v) => v / newFactor);
     scaledTtm = absTtm == null ? null : absTtm / newFactor;
-    displayUnit = newUnit;
+    // Yann 17 mai 2026 (D1 fix cascade) : rescaleForReadability retourne
+    // TOUJOURS en RAW USD ($B/$M/$K) car les facteurs sont identiques quelle
+    // que soit la devise. Mais pour préserver la devise à l'affichage axe Y
+    // sur les stés EU/CH/UK (1604 stés Mds €, 43 stés Mds £, etc), on
+    // restitue le symbole d'origine ici. ChartAxisHeader gère "€B", "€M",
+    // "£B", "£M", "Mds CHF", "Mds JPY", "M CHF", etc.
+    displayUnit = preserveOriginalCurrency(unit, newUnit);
   }
 
   return (

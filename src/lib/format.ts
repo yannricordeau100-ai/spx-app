@@ -37,8 +37,46 @@ const COUNT_SCALE = [
   { unit: "",    factor: 1 },
 ] as const;
 
+/**
+ * Yann 17 mai 2026 (Phase 2 D1) : normalisation centrale unités formatées
+ * (FR / EU) vers RAW ($T/$B/$M/$K). Avant ce mapping, `isMoneyUnit("Mds $")`
+ * renvoyait false → `toAbsolute`/`rescaleForReadability` retournaient la
+ * value/unit unchanged silencieusement, ce qui faisait que /jour /minute
+ * sur GOOGL Cloud (unit dataset="Mds $") ne bougeait pas les valeurs.
+ *
+ * Toutes les devises non-USD sont mappées vers les bruts $T/$B/$M/$K
+ * (treating all currencies as numeric magnitudes) — les facteurs 1e9/1e6
+ * sont identiques quelle que soit la devise. Le caller (chart-cycle) garde
+ * l'unité d'affichage display via chartAxisHeader ("Mds $", "Mds €", etc).
+ */
+const RAW_UNIT_NORMALIZE: Record<string, string> = {
+  // USD / EUR / GBP formatés
+  "Mds $": "$B", "Mds €": "$B", "Mds £": "$B",
+  "M $":   "$M", "M €":   "$M", "M £":   "$M",
+  "K $":   "$K", "K €":   "$K", "K £":   "$K",
+  // 16 devises non-USD/EUR/GBP supplémentaires
+  "Mds CHF": "$B", "Mds JPY": "$B", "Mds EUR": "$B",
+  "Mds DKK": "$B", "Mds INR": "$B", "Mds NOK": "$B",
+  "Mds SEK": "$B", "Mds KRW": "$B", "Mds CAD": "$B",
+  "Mds AUD": "$B", "Mds HKD": "$B", "Mds CNY": "$B",
+  "Mds BRL": "$B", "Mds MXN": "$B", "Mds PLN": "$B",
+  "Mds ZAR": "$B",
+  // Magnitudes pures
+  "Mds": "B",
+  // "M" → "M" identité (déjà raw côté COUNT_SCALE)
+};
+
+/** Helper interne : normalise une unité formatée FR vers la version brute
+ *  pour lookup dans MONEY_SCALE / COUNT_SCALE. Identité si pas matchée. */
+function toRawUnit(u: string): string {
+  if (u == null) return u;
+  return RAW_UNIT_NORMALIZE[String(u).trim()] ?? u;
+}
+
 function isMoneyUnit(u: string): boolean {
-  return /^\$/.test(u);
+  if (u == null) return false;
+  const trimmed = String(u).trim();
+  return /^\$/.test(trimmed) || trimmed in RAW_UNIT_NORMALIZE;
 }
 function isCountUnit(u: string): boolean {
   return ["B", "M", "K", "T"].includes(u);
@@ -56,12 +94,13 @@ function findInScale(scale: readonly { unit: string; factor: number }[], u: stri
  *      (32, "%")     -> 32 (% reste tel quel)
  */
 export function toAbsolute(value: number, unit: string): number {
-  if (isMoneyUnit(unit)) {
-    const m = findInScale(MONEY_SCALE, unit);
+  const raw = toRawUnit(unit);
+  if (isMoneyUnit(raw)) {
+    const m = findInScale(MONEY_SCALE, raw);
     return m ? value * m.factor : value;
   }
-  if (isCountUnit(unit)) {
-    const m = findInScale(COUNT_SCALE, unit);
+  if (isCountUnit(raw)) {
+    const m = findInScale(COUNT_SCALE, raw);
     return m ? value * m.factor : value;
   }
   return value;
@@ -81,9 +120,14 @@ export function rescaleForReadability(absoluteValue: number, originalUnit: strin
   }
   const sign = absoluteValue < 0 ? -1 : 1;
   const abs = Math.abs(absoluteValue);
+  // Yann 17 mai 2026 : on normalise l'unit en RAW pour le lookup, mais on
+  // retourne TOUJOURS en RAW ($T/$B/$M/$K ou T/B/M/K). Le caller décide du
+  // formatage display (chartAxisHeader / formatUnit en data.ts gèrent raw
+  // → display FR "Mds $", "Mds €", etc).
+  const raw = toRawUnit(originalUnit);
 
   // Pour units argent
-  if (isMoneyUnit(originalUnit)) {
+  if (isMoneyUnit(raw)) {
     for (const s of MONEY_SCALE) {
       const scaled = abs / s.factor;
       if (scaled >= 1) return { value: sign * scaled, unit: s.unit };
@@ -93,7 +137,7 @@ export function rescaleForReadability(absoluteValue: number, originalUnit: strin
     return { value: sign * (abs / last.factor), unit: last.unit };
   }
   // Pour units count
-  if (isCountUnit(originalUnit)) {
+  if (isCountUnit(raw)) {
     for (const s of COUNT_SCALE) {
       const scaled = abs / s.factor;
       if (scaled >= 1) return { value: sign * scaled, unit: s.unit };

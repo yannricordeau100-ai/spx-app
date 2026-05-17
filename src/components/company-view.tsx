@@ -929,7 +929,7 @@ export function CompanyView({
         {/* Governance */}
         {company.governance ? (
           <div id="sec-governance" className="scroll-mt-24">
-            <GovernanceCard governance={company.governance} ticker={company.ticker} />
+            <GovernanceCard governance={company.governance} ticker={company.ticker} company={company} />
           </div>
         ) : (
           v18Mode && <V18MissingPlaceholder id="sec-governance" label="Gouvernance & rémunération" hint="DEF14A (cat 1) ou rapport annuel à extraire." />

@@ -3,7 +3,7 @@
  * No UI, no opinions. Returns numbers + structured "reading" blocks
  * the UI can present. No investment advice — only descriptive analysis.
  */
-import type { KPI } from "./data";
+import { formatUnit, type KPI } from "./data";
 
 export type Stats = {
   /** First / last value of history. */
@@ -157,7 +157,10 @@ export function buildCompareAnalysis(
       : "connexe";
 
   const pos = relativePosition(a, b);
-  const sameUnit = source.kpi.unit === target.kpi.unit;
+  // Normalisation unit pour comparaison : "$B" et "Mds $" sont sémantiquement
+  // identiques mais raw différents (CONV-DATA vs CONV-SYSTEMS enrich). formatUnit
+  // canonical-ise vers la forme FR-formatée.
+  const sameUnit = formatUnit(source.kpi.unit) === formatUnit(target.kpi.unit);
 
   // ---------- Headline ----------
   const headline =
@@ -185,7 +188,7 @@ export function buildCompareAnalysis(
       } devant <strong>${pos.behind}</strong> sur le dernier exercice : facteur ×${fr(
         pos.ratio,
         pos.ratio < 2 ? 2 : 1
-      )}, soit un écart absolu de ${fr(Math.abs(pos.gap), 2)} ${source.kpi.unit}.`,
+      )}, soit un écart absolu de ${fr(Math.abs(pos.gap), 2)} ${formatUnit(source.kpi.unit)}.`,
       tone: "leader",
     });
   }
@@ -283,7 +286,7 @@ export function buildCompareAnalysis(
   }
   if (!sameUnit) {
     watch.push(
-      `Unités différentes (${source.kpi.unit} vs ${target.kpi.unit}) : la comparaison de valeurs absolues n'a pas de sens, seules les dynamiques sont comparables.`
+      `Unités différentes (${formatUnit(source.kpi.unit)} vs ${formatUnit(target.kpi.unit)}) : la comparaison de valeurs absolues n'a pas de sens, seules les dynamiques sont comparables.`
     );
   }
 

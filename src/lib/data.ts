@@ -465,22 +465,55 @@ export function formatUnit(unit: string): string {
   if (unit == null) return "";
   const u = String(unit).trim();
   switch (u) {
+    // Bruts USD
+    case "$T":
+      return "Bn $";
     case "$B":
       return "Mds $";
-    case "B":
-      return "Mds";
     case "$M":
       return "M $";
+    case "$K":
+      return "K $";
+    case "$":
+      return "$";
+    // Bruts magnitudes
+    case "T":
+      return "Bn";
+    case "B":
+      return "Mds";
     case "M":
       return "M";
+    case "K":
+      return "K";
+    // % variants
     case "% YoY":
       return "%";
+    // Pass-through variantes plain FR
+    case "Milliards":
+    case "Mds":
+      return "Mds";
+    case "Millions":
+      return "M";
+    // Pass-through variantes déjà formatées : on les laisse intactes
+    case "Mds $":
+    case "Mds €":
+    case "Mds £":
+    case "M $":
+    case "M €":
+    case "M £":
+    case "K $":
+    case "K €":
+    case "K £":
+      return u;
   }
   // Variantes "B X" / "M X" sans normalisation : "B €" / "B £" / "B $" / "M €" etc.
   const bMatch = u.match(/^B\s+([€£¥$])$/);
   if (bMatch) return `Mds ${bMatch[1]}`;
   const mMatch = u.match(/^M\s+([€£¥$])$/);
   if (mMatch) return `M ${mMatch[1]}`;
+  // Pass-through "Mds CHF" / "Mds JPY" / etc — déjà formatées correctement
+  const mdsDevise = u.match(/^Mds\s+[A-Z]{3}$/);
+  if (mdsDevise) return u;
   return u;
 }
 

@@ -14,7 +14,7 @@ import {
   Landmark,
   PieChart,
 } from "lucide-react";
-import type { Governance, PeerRank, Shareholder } from "@/lib/data";
+import type { Company, Governance, PeerRank, Shareholder } from "@/lib/data";
 import { brand } from "@/lib/brand";
 import { InfoTooltip } from "@/components/info-tooltip";
 import { HolographicPie } from "@/components/holographic-pie";
@@ -184,18 +184,75 @@ function detectDualClass(
   return overlap < Math.min(voting.length, capital.length) / 2;
 }
 
+/**
+ * Extrait le symbole devise depuis un libellé d'unité KPI (ex "Mds $",
+ * "Mds €", "M £", "Mds CHF"). Retourne le symbole canonique ou null si
+ * indétectable. Ajouté 17 mai 2026 pour fixer le bug "M $" hardcodé sur
+ * les stés cotées € / £ / CHF (1604 stés Mds €, 43 stés Mds £ dans le
+ * dataset).
+ */
+function extractCurrencySymbol(unit?: string | null): string | null {
+  if (!unit) return null;
+  // Devises à symbole direct ($, €, £, ¥)
+  const symMatch = unit.match(/[$€£¥]/);
+  if (symMatch) return symMatch[0];
+  // Codes ISO (CHF, JPY, EUR, USD, GBP, DKK, SEK, NOK, CAD, AUD, HKD, CNY, ...)
+  const codeMatch = unit.match(/\b(CHF|JPY|EUR|USD|GBP|DKK|SEK|NOK|CAD|AUD|HKD|CNY|SGD|INR|BRL|MXN|ZAR|TRY|PLN|RUB|KRW)\b/);
+  if (codeMatch) {
+    const code = codeMatch[1];
+    // Mapping vers symbole d'affichage si pertinent (sinon retourne le code).
+    if (code === "EUR") return "€";
+    if (code === "USD") return "$";
+    if (code === "GBP") return "£";
+    if (code === "JPY") return "¥";
+    return code;
+  }
+  return null;
+}
+
+/**
+ * Détecte la devise principale d'affichage pour la rémunération CEO :
+ *  - Plan A : company.financial_snapshot.currency (code ISO yfinance)
+ *  - Plan B : extraction depuis l'unité du KPI hero (ou premier KPI
+ *    avec une devise détectable dans unit)
+ *  - Plan C fallback : "$" (US par défaut)
+ */
+function detectCompanyCurrencySymbol(company?: Company | null): string {
+  if (!company) return "$";
+  // Plan A : financial_snapshot.currency (code ISO 3 lettres)
+  const fsCurrency = company.financial_snapshot?.currency;
+  if (fsCurrency) {
+    const sym = extractCurrencySymbol(fsCurrency);
+    if (sym) return sym;
+  }
+  // Plan B : hero KPI unit, sinon premier KPI avec devise détectable
+  const heroKpi = company.kpis?.find((k) => k.short === company.hero_kpi);
+  const heroSym = extractCurrencySymbol(heroKpi?.unit);
+  if (heroSym) return heroSym;
+  for (const k of company.kpis ?? []) {
+    const sym = extractCurrencySymbol(k.unit);
+    if (sym) return sym;
+  }
+  // Plan C : fallback US
+  return "$";
+}
+
 export function GovernanceCard({
   governance,
   ticker,
+  company,
 }: {
   governance: Governance;
   ticker: string;
+  company?: Company | null;
 }) {
   const { t, locale } = useT();
   const accent = brand(ticker).primary;
   const g = governance;
   const [pieOpen, setPieOpen] = useState<"voting" | "capital" | null>(null);
-  const currency = locale === "fr" ? "M $" : "M$";
+  // Devise dynamique : ASML → €, AAPL → $, ARM → £, NESN.SW → CHF.
+  const currencySymbol = detectCompanyCurrencySymbol(company);
+  const currency = locale === "fr" ? `M ${currencySymbol}` : `M${currencySymbol}`;
   const yearsUnit = t("governance.metrics.tenure_unit");
 
   // Color seeds for each metric (independent of peer rank — peer rank shown separately)
