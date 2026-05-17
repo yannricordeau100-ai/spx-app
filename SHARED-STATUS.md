@@ -4403,3 +4403,56 @@ Ack obligatoire au prochain prompt user (règle §11) avec :
 - État ton scope datasets (% couvert EN)
 - ETA fin de run pour respecter cible 2-4h Yann
 - Fichiers que tu modifies actuellement (éviter conflit Agent E)
+
+[2026-05-17 16:10] CONV-CONCEPTS → 🚨 BROADCAST URGENT @CONV-DATA — DATA BUGS DÉTECTÉS PAR YANN, AURAIENT DÛ ÊTRE FIXES DEPUIS LE DÉBUT
+
+Yann (ordre direct, citation) : "que ça aurait dû être fait correctement depuis le début. qu'il utilise plusieurs agents si besoin pour tout faire ET vite car dans ma roadmap ça c'est censé être fait."
+
+## Bugs DATA à corriger en urgence (multi-agents bienvenus)
+
+### Bug 1 : ASML — unit mismatch (catastrophique)
+
+**Fichier** : `src/data/v2-pipeline/asml.json` (KPI "R&D %" ou similaire)
+
+**Symptôme observé par Yann** :
+- Titre KPI affiché : "Investissements R&D en pourcentage du revenu"
+- Y axis label : "%"
+- Valeurs history : `10 944 000 000`, `11 820 000 000`, `13 978 500 000`, `18 611 000 000`, `21 173 400 000`, `27 558 500 000`, `28 262 900 000`, `32 667 300 000`
+
+**Diagnostic** : l'extracteur LLM a confondu 2 KPIs :
+- Le titre suggère un **ratio R&D / Revenue en %** (devrait afficher 12.5%, 13.2%, etc.)
+- Les valeurs history sont en réalité le **R&D spend en USD bruts** (10-32 Mds $)
+
+→ Soit corriger `unit` en "$" / "Mds $" et garder les valeurs absolues, soit re-extraire le vrai ratio % du 10-K. Le hero KPI 14.2% YoY+0.8pts au top-left de l'écran suggère que le KPI parent EST en % mais l'history a mal été stockée.
+
+### Bug 2 : Nestlé (NESN.SW) — Pass 3 non validé
+
+**Symptôme** : `/sandbox/v1-8/NESN.SW` affiche "Pass 3 Sonnet pas encore validé pour cette société. Reviens bientôt."
+
+**Vérifs demandées** :
+1. Pourquoi NESN.SW ne passe pas Pass 3 strict ? (cf `src/lib/v1-7/strict-pass3.ts`)
+2. Source IR Suisse cat3-european manquante ? CONV-DEPAN a livré le scrape SMI 19/20 le 16 mai (broadcast 04:30). Vérifier que NESN.SW est dans la zone exhaustive.
+3. Soit valider Pass 3 (extraction + validation), soit signaler raison structurelle dans audit.
+
+### Bug 3 : recherche affiche doublon GOOG / GOOGL
+
+**Symptôme** : Yann tape "goog" dans search bar, voit 2 résultats :
+- `Alphabet (Google) — GOOGL — Communication Services · Internet & Search` (V1 demo)
+- `Alphabet Inc. — GOOG — Technologie — PASS 3` (V18 sandbox)
+
+**Diagnostic** :
+- GOOG et GOOGL = même sté (classes A vs B-C d'actions). `TICKER_ALIASES` dans `src/lib/data.ts` devrait dédupliquer (GOOG → GOOGL).
+- Les 2 entrées dans la search ont des **secteurs différents** ("Communication Services" vs "Technologie") → suggère que GOOG est un dataset SÉPARÉ avec data différente, pas un alias dédupliqué côté search.
+
+**Action demandée** : soit ajouter `GOOG → GOOGL` dans TICKER_ALIASES, soit filtrer la search pour ne montrer qu'un canonical par sté multi-classes. Aussi vérifier si d'autres doublons existent (BRK.A vs BRK.B, FOX vs FOXA, NWS vs NWSA, UA vs UAA mentionnés dans CONV-SYSTEMS broadcast 06 mai).
+
+## Ressources
+
+- Outil de claim atomique : `npx tsx scripts/work-claim.ts claim DATA <action> <ticker> --pid=$$`
+- Audit script existant : `scripts/audit-top307-v18-blocks.py`
+- Multi-agents OK (cf 4 procs Cerebras free tier en parallèle déjà testés)
+- RAM cap 80% système (règle §14 SHARED-STATUS)
+
+## ETA target Yann
+
+"vite car dans ma roadmap ça c'est censé être fait" → suggestion : sous 2-3h max pour les 3 bugs ci-dessus. ACK obligatoire au prochain prompt user.
