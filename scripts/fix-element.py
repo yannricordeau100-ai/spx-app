@@ -132,13 +132,104 @@ def fix_repartition_no_null_slices(ticker: str) -> tuple[bool, str]:
     return False, "rien à nettoyer"
 
 
+def fix_repartition_pct_sums_100(ticker: str) -> tuple[bool, str]:
+    """Recompute slices.pct depuis values pour totaliser 100%. Si values
+    absents ou sum=0, no-op."""
+    pipeline = ROOT / "src/data/v2-pipeline" / f"{ticker.lower()}.json"
+    if not pipeline.exists():
+        return False, "pipeline file not found"
+    d = json.loads(pipeline.read_text())
+    changed = 0
+    for key in ("revenue_by_segment", "revenue_by_geography"):
+        block = d.get(key)
+        if not isinstance(block, dict): continue
+        slices = block.get("slices")
+        if not isinstance(slices, list) or len(slices) < 2: continue
+        total = sum(s.get("value", 0) for s in slices if isinstance(s.get("value"), (int, float)))
+        if total <= 0: continue
+        cur_sum = sum(s.get("pct", 0) for s in slices if isinstance(s.get("pct"), (int, float)))
+        if abs(cur_sum - 100) < 2: continue  # already ok
+        for s in slices:
+            v = s.get("value")
+            if isinstance(v, (int, float)):
+                s["pct"] = round(100 * v / total, 1)
+        changed += 1
+    if changed:
+        pipeline.write_text(json.dumps(d, indent=2, ensure_ascii=False))
+        return True, f"{changed} bloc(s) pct recalculé"
+    return False, "rien à recalculer"
+
+
+def fix_header_chips_all_filled(ticker: str) -> tuple[bool, str]:
+    """Backfill chips manquants depuis enrich si dispo : country (= chip Fondée
+    contexte) + ipo. Limité aux infos extractibles via yfinance API offline (= 0 RAM,
+    pas d'appel)."""
+    enrich = ROOT / "src/data/v2-pipeline-enrich" / f"{ticker.lower()}.json"
+    pipeline = ROOT / "src/data/v2-pipeline" / f"{ticker.lower()}.json"
+    if not pipeline.exists():
+        return False, "pipeline file not found"
+    d = json.loads(pipeline.read_text())
+    # Check what's missing
+    missing = []
+    if not d.get("founded"): missing.append("founded")
+    if not d.get("ipo"): missing.append("ipo")
+    if not d.get("country"): missing.append("country")
+    if not missing:
+        return False, "all chips already filled"
+    # Try to backfill from enrich file
+    if enrich.exists():
+        try:
+            e = json.loads(enrich.read_text())
+            updated = []
+            for f in missing:
+                if e.get(f):
+                    d[f] = e[f]
+                    updated.append(f)
+            if updated:
+                pipeline.write_text(json.dumps(d, indent=2, ensure_ascii=False))
+                return True, f"backfilled {','.join(updated)} from enrich"
+        except: pass
+    return False, f"missing {','.join(missing)} (no enrich data)"
+
+
+def fix_units_consistent_across_blocs(ticker: str) -> tuple[bool, str]:
+    """Si hero KPI = Mds $ mais d'autres KPIs = M $ ou B$, normalise."""
+    pipeline = ROOT / "src/data/v2-pipeline" / f"{ticker.lower()}.json"
+    if not pipeline.exists():
+        return False, "pipeline file not found"
+    d = json.loads(pipeline.read_text())
+    kpis = d.get("kpis") or []
+    if not kpis: return False, "no kpis"
+    changed = 0
+    for k in kpis:
+        if not isinstance(k, dict): continue
+        unit = (k.get("unit") or "").strip()
+        new = unit
+        # Normalise les patterns connus
+        new = re.sub(r"\bB\s*\$", "Mds $", new)
+        new = re.sub(r"\$\s*B\b", "Mds $", new)
+        new = re.sub(r"\bM\s*\$([^a-zA-Z]|$)", r"M $\1", new)
+        new = re.sub(r"Mds\$", "Mds $", new)
+        new = re.sub(r"\s+", " ", new).strip()
+        if new != unit:
+            k["unit"] = new
+            changed += 1
+    if changed:
+        pipeline.write_text(json.dumps(d, indent=2, ensure_ascii=False))
+        return True, f"{changed} units normalisées"
+    return False, "units déjà cohérentes"
+
+
 # Registry des fixes auto-applicables. Clé = ID quality-tree, valeur = fonction.
 FIXES = {
     "global.units.mds_not_b": fix_global_units_mds_not_b,
+    "global.units.consistent_across_blocs": fix_units_consistent_across_blocs,
     "global.typography.no_em_dash": fix_global_typography_no_em_dash,
     "freshness.label_fr": fix_freshness_label_fr,
     "hero.chart.no_linear_synthetic": fix_chart_history_linear_synthetic,
     "repartition.no_null_slices": fix_repartition_no_null_slices,
+    "repartition.pct_sums_100": fix_repartition_pct_sums_100,
+    "header.chips.all_filled": fix_header_chips_all_filled,
 }
 
 
