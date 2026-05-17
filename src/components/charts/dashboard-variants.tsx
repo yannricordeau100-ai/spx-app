@@ -119,7 +119,7 @@ export function DashboardHeroSecondaries({ kpis, accent = "#a78bfa" }: DashProps
         {hero.delta != null && (
           <div className="mt-2 inline-flex items-center gap-1.5 rounded-md px-2 py-0.5 font-mono text-[14px] font-bold tabular-nums"
             style={{ color: heroTone, background: `${heroTone}1a`, border: `1px solid ${heroTone}55` }}>
-            {hero.delta >= 0 ? "▲" : "▼"} {hero.delta >= 0 ? "+" : ""}{hero.delta.toFixed(2)} % YoY
+            {hero.delta >= 0 ? "▲" : "▼"} {hero.delta >= 0 ? "+" : ""}{hero.delta.toFixed(2)} %
           </div>
         )}
         {hero.history && (

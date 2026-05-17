@@ -249,7 +249,7 @@ export const DICTIONARY: Dict = {
   "story.expected_market_cagr": { fr: "CAGR marché attendu", en: "Expected market CAGR" },
   "story.per_year": { fr: " / an", en: " / year" },
   "story.source": { fr: "Source", en: "Source" },
-  "story.vs_n1": { fr: "(vs N-1)", en: "(YoY)" },
+  "story.vs_n1": { fr: "(vs N-1)", en: "(YoY)", de: "(ggü VJ)", nl: "(jij)", sv: "(åa)", da: "(å.å.)", "en-GB": "(YoY)", "de-CH": "(ggü VJ)" },
 
   "company.rank_world": { fr: "Rang mondial", en: "Global rank" },
   "company.rank_us": { fr: "Rang USA", en: "US rank" },
@@ -401,7 +401,9 @@ export const DICTIONARY: Dict = {
 
   /* Hero number */
   "hero.cagr_5y": { fr: "(CAGR 5 ans)", en: "(5y CAGR)" },
-  "hero.yoy": { fr: "(vs N-1)", en: "(YoY)" },
+  "hero.yoy": { fr: "(vs N-1)", en: "(YoY)", de: "(ggü VJ)", nl: "(jij)", sv: "(åa)", da: "(å.å.)", "en-GB": "(YoY)", "de-CH": "(ggü VJ)" },
+  "kpi.partial_data": { fr: "Données partielles", en: "Partial data", de: "Teildaten", nl: "Onvolledige data", sv: "Partiella data", da: "Delvise data", "en-GB": "Partial data", "de-CH": "Teildaten" },
+  "kpi.partial_data_full": { fr: "Données partielles : historique en cours", en: "Partial data: history pending", de: "Teildaten: Historie in Arbeit", nl: "Onvolledige data: historie in behandeling", sv: "Partiella data: historik pågår", da: "Delvise data: historik i gang", "en-GB": "Partial data: history pending", "de-CH": "Teildaten: Historie in Arbeit" },
   "hero.percentile_top": { fr: "Top", en: "Top" },
   "kpi.active": { fr: "Actif", en: "Active" },
   "kpi.definition": { fr: "Définition", en: "Definition" },

@@ -130,6 +130,78 @@ export function translateSubsector(en: string): string {
 }
 
 /**
+ * Yann 18 mai 2026 (audit ASML DE) : version locale-aware. Permet aux pages DE
+ * d'afficher "Halbleiter" au lieu de "Semi-conducteurs" (FR fallback).
+ * Pour les locales non couvertes (sv/da/nl/etc.) → fallback EN puis FR.
+ */
+const SUBSECTOR_DE_MAP: Record<string, string> = {
+  "Semi-conducteurs": "Halbleiter",
+  "Semiconductors": "Halbleiter",
+  "Semi & équipements": "Halbleiter & Ausrüstung",
+  "Semiconductors & Semiconductor Equipment": "Halbleiter & Ausrüstung",
+  "Internet & services": "Internet & Dienste",
+  "Internet & Services": "Internet & Dienste",
+  "Logiciels & services": "Software & Dienste",
+  "Software & Services": "Software & Dienste",
+  "Technologie": "Technologie",
+  "Technology": "Technologie",
+  "Technologies de l'information": "Informationstechnologie",
+  "Information Technology": "Informationstechnologie",
+  "Services de communication": "Kommunikationsdienste",
+  "Communication Services": "Kommunikationsdienste",
+  "Réseaux sociaux & messagerie": "Soziale Netzwerke & Messaging",
+  "Social Media & Messaging": "Soziale Netzwerke & Messaging",
+  "Biens d'équipement": "Investitionsgüter",
+  "Capital Goods": "Investitionsgüter",
+  "Équipements de santé": "Medizintechnik",
+  "Health Care Equipment": "Medizintechnik",
+  "Aérospatiale & défense": "Luft- & Raumfahrt & Verteidigung",
+  "Aerospace & Defense": "Luft- & Raumfahrt & Verteidigung",
+  "Pétrole & gaz": "Öl & Gas",
+  "Oil, Gas & Consumable Fuels": "Öl & Gas",
+  "Pharmaceutique": "Pharmaindustrie",
+  "Pharmaceuticals": "Pharmaindustrie",
+  "Biens de consommation discrétionnaires": "Nicht-zyklische Konsumgüter",
+  "Consumer Discretionary": "Nicht-zyklische Konsumgüter",
+  "Biens de consommation de base": "Basiskonsumgüter",
+  "Consumer Staples": "Basiskonsumgüter",
+  "Santé": "Gesundheitswesen",
+  "Health Care": "Gesundheitswesen",
+  "Services financiers": "Finanzdienste",
+  "Financials": "Finanzdienste",
+  "Industriels": "Industrie",
+  "Industrials": "Industrie",
+  "Énergie": "Energie",
+  "Energy": "Energie",
+  "Services aux collectivités": "Versorgungsunternehmen",
+  "Utilities": "Versorgungsunternehmen",
+  "Matériaux": "Werkstoffe",
+  "Materials": "Werkstoffe",
+  "Immobilier": "Immobilien",
+  "Real Estate": "Immobilien",
+};
+
+export function translateSubsectorLocale(s: string, locale: string = "fr"): string {
+  if (!s) return s;
+  // FR : utilise SUBSECTOR_FR_MAP (déjà existant)
+  if (locale.startsWith("fr")) return SUBSECTOR_FR_MAP[s] ?? s;
+  // DE : convertit d'abord en FR si EN, puis FR → DE
+  if (locale.startsWith("de")) {
+    const fr = SUBSECTOR_FR_MAP[s] ?? s; // EN → FR si applicable
+    return SUBSECTOR_DE_MAP[fr] ?? SUBSECTOR_DE_MAP[s] ?? fr;
+  }
+  // EN : on garde la version originale ou on revert FR → EN si possible
+  if (locale.startsWith("en")) {
+    // Si on a un FR (depuis dataset), chercher la clé EN correspondante
+    const reverseMap = Object.entries(SUBSECTOR_FR_MAP).find(([, fr]) => fr === s);
+    if (reverseMap) return reverseMap[0];
+    return s;
+  }
+  // Fallback : FR
+  return SUBSECTOR_FR_MAP[s] ?? s;
+}
+
+/**
  * Labels des chips affichés dans `CompanyHeader` (sandbox V1.8 actuelle :
  * `Sector`, `Sub-sector`, `Founded`, `IPO`). Sur app FR ils doivent être en
  * français. Mapping découvert par audit `npx tsx scripts/audit-ui-pages.ts`

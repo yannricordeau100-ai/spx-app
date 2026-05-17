@@ -236,7 +236,7 @@ export function KpiRow({
         {isIncompleteKpi ? (
           <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/[0.06] px-2.5 py-0.5 text-[10.5px] font-medium text-amber-400">
             <span className="size-1.5 rounded-full bg-amber-400" />
-            Données partielles
+            {t("kpi.partial_data")}
           </span>
         ) : (
           <QualityBadge rating={r} size="sm" scope={subsector} layout="stack" />

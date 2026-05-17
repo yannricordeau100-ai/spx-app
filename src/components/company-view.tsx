@@ -627,7 +627,7 @@ export function CompanyView({
                 {isIncompleteKpi && (
                   <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/[0.06] px-3 py-1 text-[11.5px] font-medium text-amber-400">
                     <span className="size-1.5 rounded-full bg-amber-400" />
-                    Données partielles : historique en cours
+                    {t("kpi.partial_data_full")}
                   </span>
                 )}
                 <YoungIpoWarning ipo={company.ipo} accent={accent} />
