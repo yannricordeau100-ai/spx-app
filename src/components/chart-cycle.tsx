@@ -289,13 +289,13 @@ export function ChartCycle({
           transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
         >
           {mode === "curve" && (
-            <CurveChart data={scaledData} labels={xLabels} unit={displayUnit} color={color} anomalies={anomalies} events={events} ttm={scaledTtm} exportTitle={exportTitle} />
+            <CurveChart data={scaledData} labels={xLabels} unit={displayUnit} color={color} anomalies={anomalies} events={events} ttm={scaledTtm} exportTitle={exportTitle} exportTicker={company?.ticker} />
           )}
           {mode === "bars" && (
-            <BarsIso3DStack data={scaledData} labels={xLabels} unit={displayUnit} color={color} events={events} ttm={scaledTtm} variant={barsVariant} exportTitle={exportTitle} />
+            <BarsIso3DStack data={scaledData} labels={xLabels} unit={displayUnit} color={color} events={events} ttm={scaledTtm} variant={barsVariant} exportTitle={exportTitle} exportTicker={company?.ticker} />
           )}
           {mode === "delta" && (
-            <VariationIsoSteps3D data={scaledData} labels={xLabels} events={events} exportTitle={exportTitle} />
+            <VariationIsoSteps3D data={scaledData} labels={xLabels} events={events} exportTitle={exportTitle} exportTicker={company?.ticker} />
           )}
           {mode === "panel" && company && activeShort && onPickKpi && (
             <MiniMultiplesChart

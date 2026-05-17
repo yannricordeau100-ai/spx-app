@@ -163,7 +163,9 @@ export function BarsChart({
 
   return (
     <div className="relative w-full">
-      <div className="mb-2 flex items-center justify-start">
+      {/* Yann 17 mai 2026 : margin-bottom augmenté (mb-2 → mb-4) pour
+          aérer la zone entre le label et le tick Y le plus haut. */}
+      <div className="mb-4 flex items-center justify-start">
         <span className="font-mono text-[12px] font-semibold text-zinc-200">{header}</span>
       </div>
 

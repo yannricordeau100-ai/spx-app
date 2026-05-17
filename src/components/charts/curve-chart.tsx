@@ -165,6 +165,7 @@ export function CurveChart({
   ttm = null,
   ttmLabel = "TTM",
   exportTitle,
+  exportTicker,
 }: {
   data: number[];
   labels: string[];
@@ -177,6 +178,8 @@ export function CurveChart({
   ttmLabel?: string;
   /** Titre injecté DANS le PNG exporté (KPI name_fr). Pas affiché live (= titre HTML déjà visible côté parent). */
   exportTitle?: string;
+  /** Ticker injecté dans le PNG exporté → logo société à droite du titre. */
+  exportTicker?: string;
 }) {
   const [hover, setHover] = useState<number | null>(null);
   const svgRef = useRef<SVGSVGElement>(null);
@@ -289,10 +292,12 @@ export function CurveChart({
       {/* Header d'unité dans le SVG (au-dessus de l'axe Y) pour qu'il
           apparaisse aussi dans l'export PNG. Demande Yann 5 mai 2026.
           Yann 15 mai 2026 : aligne sur la position de l'axe (gauche/droite). */}
+      {/* Yann 17 mai 2026 : label décalé vers le haut (y=22 → y=10) pour
+          aérer la zone entre le label et le tick Y le plus haut. */}
       {header && (
         <text
           x={yOnRight ? PAD_LEFT + innerW : PAD_LEFT}
-          y={22}
+          y={10}
           fontSize={13}
           fontWeight={600}
           fill="#e4e4e7"
@@ -677,7 +682,7 @@ export function CurveChart({
         type="button"
         onClick={() => {
           if (svgRef.current) {
-            downloadSvgAsPng(svgRef.current, `mettrik-curve-${Date.now()}.png`, { title: exportTitle });
+            downloadSvgAsPng(svgRef.current, `mettrik-curve-${Date.now()}.png`, { title: exportTitle, ticker: exportTicker });
           }
         }}
         aria-label="Télécharger le graphique"

@@ -80,6 +80,8 @@ type Props = {
   variant?: "iso3d" | "classic";
   /** Titre injecté DANS le PNG exporté (KPI name_fr). */
   exportTitle?: string;
+  /** Ticker injecté dans le PNG exporté → logo société à droite du titre. */
+  exportTicker?: string;
 };
 
 /* ============================================================ */
@@ -87,7 +89,7 @@ type Props = {
 /* Avec support TTM (barre supplémentaire pointillée) et variant   */
 /* "classic" pour basculer en 2D flat.                             */
 /* ============================================================ */
-export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", events = [], ttm = null, ttmLabel = "TTM", variant = "iso3d", exportTitle }: Props) {
+export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", events = [], ttm = null, ttmLabel = "TTM", variant = "iso3d", exportTitle, exportTicker }: Props) {
   const [hover, setHover] = useState<number | null>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   // Yann 15 mai 2026 : axis header locale-aware.
@@ -155,11 +157,13 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
     <div className="relative w-full">
     <svg ref={svgRef} width="100%" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" style={{ overflow: "visible" }}>
       {/* Header d'unité dans le SVG (au-dessus de l'axe Y) pour qu'il
-          apparaisse aussi dans l'export PNG. Demande Yann 5 mai 2026. */}
+          apparaisse aussi dans l'export PNG. Demande Yann 5 mai 2026.
+          Yann 17 mai 2026 : label décalé vers le haut (y=22 → y=10) pour
+          aérer la zone entre le label et le tick Y le plus haut. */}
       {header && (
         <text
           x={yOnRight ? PAD_LEFT + INNER_W : PAD_LEFT}
-          y={22}
+          y={10}
           fontSize={13}
           fontWeight={600}
           fill="#e4e4e7"
@@ -430,7 +434,7 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
       type="button"
       onClick={() => {
         if (svgRef.current) {
-          downloadSvgAsPng(svgRef.current, `mettrik-bars-${Date.now()}.png`, { title: exportTitle });
+          downloadSvgAsPng(svgRef.current, `mettrik-bars-${Date.now()}.png`, { title: exportTitle, ticker: exportTicker });
         }
       }}
       aria-label="Télécharger le graphique"
