@@ -362,17 +362,19 @@ export function FreshnessIndicator({
         {/* Dernier earning publié : trimestre + date de publication */}
         {(lastQuarter || pubFormatted) && (
           <p className="mt-2 font-mono text-[10.5px] text-zinc-300">
-            Dernier earning publié :{" "}
+            {t("freshness.last_earning_published")} :{" "}
             <span className="font-bold text-zinc-100">
               {lastQuarter ?? "—"}
-              {pubFormatted ? ` (publié le ${pubFormatted}${isPubEstimated ? " ~est." : ""})` : ""}
+              {pubFormatted
+                ? ` (${t("freshness.published_on")} ${pubFormatted}${isPubEstimated ? t("freshness.estimated_suffix") : ""})`
+                : ""}
             </span>
           </p>
         )}
         {/* Si seulement lastDate (pas de publicationDate), on l'affiche en repli */}
         {!pubFormatted && lastFormatted && (
           <p className="mt-1 font-mono text-[10.5px] text-zinc-400">
-            Fin de période : {lastFormatted}
+            {t("freshness.period_end")} : {lastFormatted}
           </p>
         )}
         {/* Prochain earning attendu : trimestre + date prévue */}
@@ -381,9 +383,9 @@ export function FreshnessIndicator({
             className="mt-1 font-mono text-[10.5px] font-semibold"
             style={{ color: "#facc15" }}
           >
-            Prochain earning : {nextQuarter ? `${nextQuarter} (` : ""}
+            {t("freshness.next_earning")} : {nextQuarter ? `${nextQuarter} (` : ""}
             {nextFormatted}
-            {isNextEstimated ? " ~est." : ""}
+            {isNextEstimated ? t("freshness.estimated_suffix") : ""}
             {nextQuarter ? ")" : ""}
           </p>
         )}

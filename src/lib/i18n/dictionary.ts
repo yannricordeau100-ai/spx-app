@@ -225,6 +225,32 @@ export const DICTIONARY: Dict = {
     en: "No date associated with this data point.",
   },
 
+  // Freshness tooltip (Yann 17 mai 2026 : étape EN-canonical) :
+  "freshness.last_earning_published": {
+    fr: "Dernier earning publié",
+    en: "Latest earning published",
+  },
+  "freshness.published_on": { fr: "publié le", en: "published on" },
+  "freshness.period_end": { fr: "Fin de période", en: "Period end" },
+  "freshness.next_earning": { fr: "Prochain earning", en: "Next earning" },
+  "freshness.estimated_suffix": { fr: " ~est.", en: " ~est." },
+
+  // Story card (KPI / MarketPosition) hardcoded labels (Yann 17 mai 2026) :
+  "story.detail": { fr: "Détail", en: "Detail" },
+  "story.market_chip": { fr: "Marché", en: "Market" },
+  "story.market_share": { fr: "part de marché", en: "market share" },
+  "story.segment_revenue": { fr: "Revenu segment", en: "Segment revenue" },
+  "story.segment_revenue_label": { fr: "revenu du segment", en: "segment revenue" },
+  "story.tam_not_disclosed": {
+    fr: "Taille de marché non publiée par la société",
+    en: "Market size not disclosed by the company",
+  },
+  "story.not_published": { fr: "non publié", en: "not disclosed" },
+  "story.expected_market_cagr": { fr: "CAGR marché attendu", en: "Expected market CAGR" },
+  "story.per_year": { fr: " / an", en: " / year" },
+  "story.source": { fr: "Source", en: "Source" },
+  "story.vs_n1": { fr: "(vs N-1)", en: "(YoY)" },
+
   "company.rank_world": { fr: "Rang mondial", en: "Global rank" },
   "company.rank_us": { fr: "Rang USA", en: "US rank" },
   "company.sector": { fr: "Secteur", en: "Sector" },

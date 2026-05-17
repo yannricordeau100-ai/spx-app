@@ -2,6 +2,7 @@
 
 import type { Rating } from "@/lib/brand";
 import { Crown, TrendingUp, Trophy } from "lucide-react";
+import { useT } from "@/lib/i18n/provider";
 
 /**
  * Quality + percentile badge (V4) :
@@ -21,6 +22,7 @@ export function QualityBadge({
   /** "stack" = badge then percentile underneath. "inline" = side by side. */
   layout?: "stack" | "inline";
 }) {
+  const { t } = useT();
   const isSm = size === "sm";
   const isTop1 = rating.percentile.includes("Top 1 ");
   const isTop5 = rating.percentile.includes("Top 5 ");
@@ -29,6 +31,10 @@ export function QualityBadge({
 
   const Icon = isTop1 ? Crown : isTop5 ? Trophy : isTop10 ? TrendingUp : null;
   const topColor = isTop1 ? "#FFD700" : isTop5 ? "#FFC03A" : "#F59E0B";
+  // Yann 17 mai 2026 : tier label via i18n (FR par défaut, EN/DE/etc via t()).
+  // `rating.label` reste FR-canonical pour back-compat (brand.ts), mais
+  // l'affichage UI privilégie systématiquement la version traduite.
+  const tierLabel = t(`tier.${rating.tier}`);
 
   const QualityChip = (
     <span
@@ -38,7 +44,7 @@ export function QualityBadge({
       style={{ background: `${rating.color}1f`, color: rating.color }}
     >
       <span className="size-1.5 rounded-full" style={{ background: rating.color }} />
-      {rating.label}
+      {tierLabel}
     </span>
   );
 
@@ -81,7 +87,9 @@ export function QualityBadge({
 
 /** Exported parts so callers can interleave other chips (e.g. CAGR) between them. */
 export function QualityChipOnly({ rating, size = "md" }: { rating: Rating; size?: "sm" | "md" }) {
+  const { t } = useT();
   const isSm = size === "sm";
+  const tierLabel = t(`tier.${rating.tier}`);
   return (
     <span
       className={`inline-flex items-center gap-1.5 rounded-md font-medium ${
@@ -90,7 +98,7 @@ export function QualityChipOnly({ rating, size = "md" }: { rating: Rating; size?
       style={{ background: `${rating.color}1f`, color: rating.color }}
     >
       <span className="size-1.5 rounded-full" style={{ background: rating.color }} />
-      {rating.label}
+      {tierLabel}
     </span>
   );
 }

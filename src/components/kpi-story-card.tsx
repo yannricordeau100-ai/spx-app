@@ -9,6 +9,7 @@ import { InfoTooltip } from "@/components/info-tooltip";
 import { AcronymHover } from "@/components/acronym-hover";
 import { ACRONYM_GLOSSARY, TERM_GLOSSARY } from "@/lib/ui-fix-templates";
 import { normalizeNarrative } from "@/lib/ui-fix-templates";
+import { useT } from "@/lib/i18n/provider";
 
 /**
  * Une carte du bloc Stories : soit un KPI short-history, soit une
@@ -36,6 +37,7 @@ export function KpiStoryCard({ slide, ticker }: { slide: StorySlide; ticker: str
 
 /* -------- KPI card (short-history) — format portrait mobile 9:16 -------- */
 function KpiCard({ kpi, accent, glow }: { kpi: KPI; accent: string; glow: string }) {
+  const { t } = useT();
   return (
     <div
       className="relative flex h-full flex-col overflow-hidden rounded-[36px] bg-gradient-to-br from-[#101015] via-[#0a0a0e] to-[#060608] px-5 pb-4 pt-11"
@@ -106,7 +108,7 @@ function KpiCard({ kpi, accent, glow }: { kpi: KPI; accent: string; glow: string
             <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-emerald-500/40 bg-emerald-500/15 px-3.5 py-1.5 text-[16px] font-bold text-emerald-200">
               <TrendingUp className="size-4" />
               <span className="font-mono tabular-nums">{kpi.yoy.replace(/(\d)\.(\d)/g, "$1,$2")}</span>
-              <span className="text-[12px] font-medium italic text-zinc-400" title="Year-on-Year">(vs N-1)</span>
+              <span className="text-[12px] font-medium italic text-zinc-400" title="Year-on-Year">{t("story.vs_n1")}</span>
             </div>
           )}
         </div>
@@ -123,7 +125,7 @@ function KpiCard({ kpi, accent, glow }: { kpi: KPI; accent: string; glow: string
               {kpi.description && (
                 <InfoTooltip color={accent} size="sm" align="right">
                   <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: accent }}>
-                    Détail
+                    {t("story.detail")}
                   </div>
                   <div className="text-[12.5px] leading-relaxed text-zinc-200">
                     {normalizeNarrative(kpi.description)}
@@ -158,6 +160,7 @@ function MarketPositionStoryCard({
   accent: string;
   glow: string;
 }) {
+  const { t } = useT();
   // Yann 8 mai 2026 : si TAM=null (honesty rule, sté n'a pas publié),
   // segment_revenue/null = NaN/Infinity. On affiche un placeholder propre
   // au lieu d'un chiffre absurde (ex : "Infinity %" sur Apple Services).
@@ -195,7 +198,7 @@ function MarketPositionStoryCard({
             style={{ background: `${accent}10`, color: accent, borderColor: `${accent}33` }}
           >
             <Building2 className="size-2.5" />
-            Marché
+            {t("story.market_chip")}
           </div>
         </div>
 
@@ -211,7 +214,7 @@ function MarketPositionStoryCard({
               >
                 {sharePct.toFixed(1).replace(".", ",")}&nbsp;%
               </div>
-              <div className="mt-2 text-[18px] font-semibold text-zinc-100">part de marché</div>
+              <div className="mt-2 text-[18px] font-semibold text-zinc-100">{t("story.market_share")}</div>
             </>
           ) : (
             <>
@@ -221,9 +224,9 @@ function MarketPositionStoryCard({
               >
                 {mp.segment_revenue} <span className="text-[0.5em] font-medium text-zinc-300">{formatUnit(mp.segment_unit)}</span>
               </div>
-              <div className="mt-2 text-[16px] font-semibold text-zinc-100">revenu du segment</div>
+              <div className="mt-2 text-[16px] font-semibold text-zinc-100">{t("story.segment_revenue_label")}</div>
               <div className="mt-2 text-[12px] italic text-zinc-400">
-                Taille de marché non publiée par la société
+                {t("story.tam_not_disclosed")}
               </div>
             </>
           )}
@@ -235,7 +238,7 @@ function MarketPositionStoryCard({
         <div className="grid grid-cols-2 gap-2.5">
           <div className="rounded-xl border border-white/12 bg-black/45 p-3 backdrop-blur">
             <div className="font-mono text-[10.5px] font-semibold uppercase tracking-[0.12em] text-zinc-300">
-              Revenu segment
+              {t("story.segment_revenue")}
             </div>
             <div className="mt-1.5 font-display text-[20px] font-bold leading-none tabular-nums text-zinc-50">
               {mp.segment_revenue}
@@ -271,7 +274,7 @@ function MarketPositionStoryCard({
                 </>
               ) : (
                 <span className="text-[14px] font-medium italic text-zinc-400">
-                  non publié
+                  {t("story.not_published")}
                 </span>
               )}
             </div>
@@ -280,9 +283,9 @@ function MarketPositionStoryCard({
 
         {mp.market_cagr != null && (
           <div className="mt-2.5 inline-flex items-center gap-1 text-[12px] text-zinc-300">
-            <span>CAGR marché attendu :</span>
+            <span>{t("story.expected_market_cagr")} :</span>
             <span className="font-mono font-bold text-zinc-50">
-              +{mp.market_cagr.toFixed(1).replace(".", ",")} % / an
+              +{mp.market_cagr.toFixed(1).replace(".", ",")} %{t("story.per_year")}
             </span>
             <InfoTooltip color={accent} size="sm">
               <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: accent }}>
@@ -304,10 +307,10 @@ function MarketPositionStoryCard({
         <div className="mt-auto pt-3">
           {sourceIsLong ? (
             <div className="inline-flex items-center gap-1 text-[10.5px] italic text-zinc-400">
-              <span>Source</span>
+              <span>{t("story.source")}</span>
               <InfoTooltip color={accent} size="sm">
                 <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: accent }}>
-                  Source
+                  {t("story.source")}
                 </div>
                 <div className="not-italic text-zinc-200">{mp.source}</div>
                 {mp.source_note && (
@@ -319,7 +322,7 @@ function MarketPositionStoryCard({
             </div>
           ) : (
             <div className="text-[10.5px] italic leading-snug text-zinc-400">
-              Source : {mp.source}
+              {t("story.source")} : {mp.source}
               {mp.source_note && <> · {mp.source_note}</>}
             </div>
           )}
