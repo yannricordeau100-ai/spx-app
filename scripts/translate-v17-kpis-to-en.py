@@ -63,6 +63,34 @@ except ImportError:
 
 ROOT = Path(__file__).parent.parent
 MERGED_PATH = ROOT / "src/data/v2-pipeline/_merged.json"
+
+ENRICH_DIR = ROOT / "src/data/v2-pipeline-enrich"
+
+def merge_enrich_kpis(ticker: str, entry: dict) -> dict:
+    """Merge KPIs from enrich file (dividend KPIs like Cap Return, DPS,
+    Payout Ratio added by CONV-DIV). These are NOT in _merged.json but
+    are loaded at SSR time by load-company.ts. Yann 17 mai 2026."""
+    slug = ticker.lower()
+    enrich_path = ENRICH_DIR / f"{slug}.json"
+    if not enrich_path.exists():
+        return entry
+    try:
+        enrich = json.loads(enrich_path.read_text())
+    except Exception:
+        return entry
+    enrich_kpis = enrich.get("kpis")
+    if not isinstance(enrich_kpis, list) or not enrich_kpis:
+        return entry
+    existing = entry.get("kpis") or []
+    existing_shorts = {k.get("short") for k in existing if isinstance(k, dict)}
+    # Append enrich kpis that aren't already in main kpis
+    extra = [k for k in enrich_kpis if isinstance(k, dict) and k.get("short") not in existing_shorts]
+    if not extra:
+        return entry
+    merged_entry = dict(entry)
+    merged_entry["kpis"] = list(existing) + list(extra)
+    return merged_entry
+
 OUT_DIR = ROOT / "src/data/v2-pipeline-i18n"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -229,6 +257,7 @@ def main():
         if args.skip_existing and out_path.exists():
             skipped += 1
             continue
+        entry = merge_enrich_kpis(ticker, entry)
         payload = build_translation_payload(entry)
         translated = translate_payload(payload, ticker)
         if translated is None:
