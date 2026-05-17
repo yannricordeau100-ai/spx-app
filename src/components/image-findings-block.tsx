@@ -46,19 +46,28 @@ export function ImageFindingsBlock({
   // si la clé n'a pas d'entrée explicite pour la locale demandée.
   const tt = (k: string) => translate(k, locale as Locale);
 
+  // Toggle "afficher la lecture" sous le graph (Yann 17 mai 2026 demande #3).
+  // Local state, persiste pas après refresh — UX rapide pour ouvrir/fermer.
+  const [showRead, setShowRead] = useState(true);
+
   return (
     <section className="my-10">
-      <div className="mb-3 flex items-center justify-between gap-3">
-        <div className="flex items-center gap-2">
-          <ImageIcon className="size-4" style={{ color: accent }} />
-          <h2 className="text-[15px] font-semibold uppercase tracking-wider text-zinc-200">
-            {tt("image_findings.section_title")}
-          </h2>
-          <span className="text-[11px] text-zinc-500">
+      <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between sm:gap-4">
+        <div>
+          <div className="flex items-center gap-2">
+            <ImageIcon className="size-5" style={{ color: accent }} />
+            <h2 className="text-[22px] font-semibold leading-tight text-zinc-50">
+              {tt("image_findings.section_title")}
+            </h2>
+          </div>
+          <p className="mt-0.5 max-w-2xl text-[13.5px] text-zinc-300">
+            {tt("image_findings.section_subtitle")}
+          </p>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <span className="mr-1 text-[12px] text-zinc-500">
             ({safe + 1}/{findings.length})
           </span>
-        </div>
-        <div className="flex items-center gap-1">
           <button
             type="button"
             onClick={() => setIdx((i) => (i - 1 + findings.length) % findings.length)}
@@ -90,14 +99,25 @@ export function ImageFindingsBlock({
         </div>
         <div className="mt-3 space-y-1.5">
           {displayTitle && <div className="text-[14px] font-semibold text-zinc-100">{displayTitle}</div>}
+          {/* Toggle "afficher/masquer la lecture" — Yann 17 mai 2026 demande #3 */}
           {displaySummary && (
-            <p className="text-[12.5px] leading-relaxed text-zinc-400">{displaySummary}</p>
+            <>
+              <button
+                type="button"
+                onClick={() => setShowRead((s) => !s)}
+                className="inline-flex items-center gap-1 rounded-md border border-white/[0.08] px-2 py-0.5 text-[10px] uppercase tracking-wider text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-200"
+                aria-pressed={showRead}
+              >
+                {showRead ? tt("image_findings.toggle_read_hide") : tt("image_findings.toggle_read_show")}
+              </button>
+              {showRead && (
+                <p className="text-[12.5px] leading-relaxed text-zinc-400">{displaySummary}</p>
+              )}
+            </>
           )}
-          {/* Source footer uniforme — masque les sources externes (X / Reddit / Substack / Bing / HF / etc).
-              i18n FR/EN/DE via dictionary.ts. EN fallback auto pour autres locales. */}
-          <div className="flex items-center gap-2 pt-2 text-[10.5px] italic text-zinc-500">
-            <span>{tt("image_findings.source_footer")}</span>
-          </div>
+          {/* Source footer retiré : la source "Mettrik AI Analytics / Données de
+              marché" est désormais intégrée dans le titre principal du bloc
+              (Yann 17 mai 2026 demande #2). */}
         </div>
       </div>
 

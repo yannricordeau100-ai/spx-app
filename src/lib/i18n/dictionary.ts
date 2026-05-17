@@ -86,14 +86,24 @@ export const DICTIONARY: Dict = {
   // i18n FR/EN/DE. EN sert de fallback automatique pour autres locales
   // (en-GB, sv, da, nl, de-CH) via le helper translate() dictionary.
   "image_findings.section_title": {
-    fr: "Graphiques et Schémas de sources diverses",
-    en: "Charts & visuals from various sources",
-    de: "Diagramme und Schemata aus verschiedenen Quellen",
+    fr: "Graphiques et Schémas - Mettrik AI Analytics / Données de marché",
+    en: "Charts & Visuals - Mettrik AI Analytics / Market data",
+    de: "Diagramme und Schemata - Mettrik AI Analytics / Marktdaten",
   },
-  "image_findings.source_footer": {
-    fr: "Sources : Mettrik AI Analytics / Données de marché",
-    en: "Sources: Mettrik AI Analytics / Market data",
-    de: "Quellen: Mettrik AI Analytics / Marktdaten",
+  "image_findings.section_subtitle": {
+    fr: "Sources variées agrégées et synthétisées pour analyse rapide.",
+    en: "Various sources aggregated and synthesized for quick analysis.",
+    de: "Verschiedene Quellen aggregiert und für eine schnelle Analyse synthetisiert.",
+  },
+  "image_findings.toggle_read_show": {
+    fr: "Afficher la lecture",
+    en: "Show description",
+    de: "Beschreibung anzeigen",
+  },
+  "image_findings.toggle_read_hide": {
+    fr: "Masquer la lecture",
+    en: "Hide description",
+    de: "Beschreibung ausblenden",
   },
   "image_findings.aria_prev": {
     fr: "précédent",
