@@ -247,6 +247,10 @@ export type Company = {
    */
   hero_kpi_rationale?: string;
   tagline: string;
+  /** Traduction tagline par locale, affichée dans tooltip "i" sur les pages non-EN.
+   *  Tagline EN original reste affichée principal (CLAUDE.md §6). Mappé par
+   *  load-company.ts depuis les fichiers .{locale}.json. Yann 18 mai 2026. */
+  tagline_i18n?: Record<string, string>;
   founded: number;
   ipo: number;
   ranks: Ranks;
