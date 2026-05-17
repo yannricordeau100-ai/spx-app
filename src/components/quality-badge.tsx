@@ -3,6 +3,7 @@
 import type { Rating } from "@/lib/brand";
 import { Crown, TrendingUp, Trophy } from "lucide-react";
 import { useT } from "@/lib/i18n/provider";
+import { translateSubsectorLocale } from "@/lib/ui-fix-templates";
 
 /**
  * Quality + percentile badge (V4) :
@@ -22,7 +23,7 @@ export function QualityBadge({
   /** "stack" = badge then percentile underneath. "inline" = side by side. */
   layout?: "stack" | "inline";
 }) {
-  const { t } = useT();
+  const { t, locale } = useT();
   const isSm = size === "sm";
   const isTop1 = rating.percentile.includes("Top 1 ");
   const isTop5 = rating.percentile.includes("Top 5 ");
@@ -35,6 +36,8 @@ export function QualityBadge({
   // `rating.label` reste FR-canonical pour back-compat (brand.ts), mais
   // l'affichage UI privilégie systématiquement la version traduite.
   const tierLabel = t(`tier.${rating.tier}`);
+  // Yann 18 mai 2026 : scope = subsector traduit locale-aware (Halbleiter sur DE).
+  const scopeLocalized = translateSubsectorLocale(scope, locale);
 
   const QualityChip = (
     <span
@@ -63,7 +66,7 @@ export function QualityBadge({
       {Icon && <Icon className={isSm ? "size-3" : "size-3.5"} />}
       {rating.percentile}
       <span className="font-sans normal-case tracking-normal text-zinc-400">
-        · {scope}
+        · {scopeLocalized}
       </span>
     </span>
   );
@@ -112,6 +115,7 @@ export function PercentileChipOnly({
   scope: string;
   size?: "sm" | "md";
 }) {
+  const { locale } = useT();
   const isSm = size === "sm";
   const isTop1 = rating.percentile.includes("Top 1 ");
   const isTop5 = rating.percentile.includes("Top 5 ");
@@ -119,6 +123,8 @@ export function PercentileChipOnly({
   const isTopTier = isTop1 || isTop5 || isTop10;
   const Icon = isTop1 ? Crown : isTop5 ? Trophy : isTop10 ? TrendingUp : null;
   const topColor = isTop1 ? "#FFD700" : isTop5 ? "#FFC03A" : "#F59E0B";
+  // Yann 18 mai 2026 : scope locale-aware (Halbleiter sur DE).
+  const scopeLocalized = translateSubsectorLocale(scope, locale);
 
   return (
     <span
@@ -135,7 +141,7 @@ export function PercentileChipOnly({
       {Icon && <Icon className={isSm ? "size-3" : "size-3.5"} />}
       {rating.percentile}
       <span className="font-sans normal-case tracking-normal text-zinc-400">
-        · {scope}
+        · {scopeLocalized}
       </span>
     </span>
   );

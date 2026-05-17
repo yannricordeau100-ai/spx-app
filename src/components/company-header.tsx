@@ -8,7 +8,7 @@ import { CompanyLogo, logoNeedsLightBg } from "@/components/logos";
 import { StockPriceBlock } from "@/components/stock-price-block";
 import { InfoTooltip } from "@/components/info-tooltip";
 import { useT } from "@/lib/i18n/provider";
-import { translateSubsector } from "@/lib/ui-fix-templates";
+import { translateSubsector, translateSubsectorLocale } from "@/lib/ui-fix-templates";
 
 /**
  * 2 different hover effects, applied ONLY on logo + name:
@@ -171,7 +171,7 @@ export function CompanyHeader({
         <div className="min-w-0 flex-1">
           <CompanyName name={company.name} ticker={company.ticker} accent={accent} />
           <div className="mt-1.5 text-[14px] text-zinc-400">
-            {translateSubsector(company.sector)} <span className="text-zinc-700">·</span> {translateSubsector(company.subsector)}
+            {translateSubsectorLocale(company.sector, locale)} <span className="text-zinc-700">·</span> {translateSubsectorLocale(company.subsector, locale)}
           </div>
           {/* Yann 14 mai 2026 : tagline obligatoirement sur 1 ligne (truncate).
               Yann 16 mai 2026 (v2) : tagline garde la langue d'origine (EN
@@ -213,8 +213,8 @@ export function CompanyHeader({
         {isUsOrAdr(company.ticker) && (
           <StatChip label={t("company.rank_us")} value={company.ranks.global_us} />
         )}
-        <StatChip label={translateSubsector(company.sector)} value={translateRankPreposition(company.ranks.sector, locale)} />
-        <StatChip label={translateSubsector(company.subsector)} value={translateRankPreposition(company.ranks.subsector, locale)} />
+        <StatChip label={translateSubsectorLocale(company.sector, locale)} value={translateRankPreposition(company.ranks.sector, locale)} />
+        <StatChip label={translateSubsectorLocale(company.subsector, locale)} value={translateRankPreposition(company.ranks.subsector, locale)} />
         <StatChip label={t("company.founded")} value={company.founded != null ? String(company.founded) : null} />
         <StatChip label={t("company.ipo")} value={company.ipo != null ? String(company.ipo) : null} />
       </div>
