@@ -72,6 +72,9 @@ jobs:
         if: steps.check.outputs.running_tickers != ''
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          # Yann 18 mai 2026 : token bypass auth gate pour Chrome headless
+          # visiter les pages staging /sandbox/v1-8/<ticker>?audit_token=...
+          VISUAL_AUDIT_TOKEN: ${{ secrets.VISUAL_AUDIT_TOKEN }}
         run: |
           # Chrome path Mac Yann (self-hosted runner)
           export CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
