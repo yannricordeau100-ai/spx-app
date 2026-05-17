@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CreditCard, FlaskConical, Library, Sparkles, Globe2, Database, Tag, FileEdit, Download, Image as ImageIcon } from "lucide-react";
+import { CreditCard, FlaskConical, Library, Sparkles, Globe2, Database, Tag, FileEdit, Download, Image as ImageIcon, Crown, Eye, TreePine, Users } from "lucide-react";
 import { CONCEPT_COMPANIES } from "@/lib/concepts-data";
 import { CompanyLogo } from "@/components/logos";
 import { brand } from "@/lib/brand";
@@ -63,6 +63,30 @@ const ITEMS = [
     icon: ImageIcon,
     label: "Graphiques et Schémas (sources diverses)",
     desc: "Recherche manuelle de graphiques/schémas sur X/Twitter via Claude conv MAX 20× (gratuit). Query libre, tickers cibles, langues par défaut. Tu approuves chaque image, elles s'affichent dans un carrousel sous le hero des pages sté.",
+  },
+  {
+    href: "/sandbox/vip-inspection",
+    icon: Crown,
+    label: "👑 VIP Inspection",
+    desc: "Liste des stés où tout doit être PARFAIT. Inspection visuelle approfondie multi-mode chart, multi-temporalité, download + audit Gemini, auto-fix loop + re-vérif. BABA déjà en liste, inspection auto à 7h Paris.",
+  },
+  {
+    href: "/sandbox/visual-audit",
+    icon: Eye,
+    label: "👁 Visual Audit (Gemini 2.5 Flash)",
+    desc: "Dashboard des défauts visuels détectés par Gemini sur chaque page sté. 31 checks par défaut (chart, header, KPI table, stories, risks, gov, etc.). Filtres severity / blocker / OK. Top 307 audité.",
+  },
+  {
+    href: "/sandbox/quality-tree",
+    icon: TreePine,
+    label: "🌳 Quality Tree (registry)",
+    desc: "Arbre dépliable des 101 éléments contrôlables d'une page sté avec IDs stables. Source unique consolidée pour audit Gemini + coverage-matrix + fix-dispatcher. Filtres par auditeur, sévérité, variante.",
+  },
+  {
+    href: "/sandbox/ready-by-category",
+    icon: Users,
+    label: "📊 Stés prêtes par catégorie & pays",
+    desc: "Counts \"complètement prêtes\" par catégorie (Top 307 / SP500 / SP1500 / Stoxx 600 / SMI Suisse / Cat 2 ADR) et par pays (ordre décroissant). Liste des ADR duplicates masqués au profit du listing d'origine.",
   },
 ];
 
