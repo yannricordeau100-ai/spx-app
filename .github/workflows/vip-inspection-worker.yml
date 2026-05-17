@@ -29,9 +29,11 @@ on:
         required: false
         type: string
 
-# Permet plusieurs runs en parallèle si besoin (max 1 grâce au lock)
+# Yann 18 mai 2026 : jusqu'à 5 inspections parallèles (concurrency par ticker).
+# RAM impact estimé : 5 × ~250 MB Chrome headless = ~1,25 GB + 5 × ~50 MB
+# Python = ~1,5 GB total côté Mac runner self-hosted.
 concurrency:
-  group: vip-inspection-worker
+  group: vip-inspection-${{ github.event.client_payload.ticker || github.event.inputs.ticker || 'all-queued' }}
   cancel-in-progress: false
 
 jobs:

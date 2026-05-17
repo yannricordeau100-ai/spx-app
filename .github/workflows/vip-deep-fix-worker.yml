@@ -1,0 +1,73 @@
+name: VIP Deep Fix Worker
+
+# Pipeline 2e étage : tente de corriger les defects que vip-deep-inspection
+# n'a pas pu auto-fixer (auto-fixes UI simples seulement). Lance Claude
+# Sonnet + sources sourcées pour data gaps complexes (governance, segments,
+# geography, risks, ai_positioning).
+#
+# Yann 18 mai 2026 : objectif "PARFAIT".
+#
+# Triggers :
+#   - workflow_run : après vip-inspection-worker SUCCESS, chain auto
+#   - repository_dispatch (event_type=vip-deep-fix-launch) : manuel via API
+#   - workflow_dispatch : bouton manuel
+
+on:
+  workflow_run:
+    workflows: ["VIP Inspection Worker"]
+    types: [completed]
+  repository_dispatch:
+    types: [vip-deep-fix-launch]
+  workflow_dispatch:
+    inputs:
+      ticker:
+        description: 'Ticker à deep-fix (optionnel, sinon --all-pending)'
+        required: false
+        type: string
+
+concurrency:
+  group: vip-deep-fix-${{ github.event.client_payload.ticker || github.event.inputs.ticker || 'all-pending' }}
+  cancel-in-progress: false
+
+jobs:
+  deepfix:
+    # Skip si vip-inspection-worker a échoué (pas la peine de deep-fix
+    # un truc qui n'a même pas pu être inspecté).
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: [self-hosted, macOS, arm64]
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # pour git commit/push après patch
+
+      - name: Install Python deps
+        run: pip3 install --user --quiet certifi || true
+
+      - name: Run deep-fix (Sonnet + sources)
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GITHUB_DISPATCH_TOKEN: ${{ secrets.GITHUB_DISPATCH_TOKEN }}
+        run: |
+          TICKER="${{ github.event.inputs.ticker || github.event.client_payload.ticker }}"
+          if [ -n "$TICKER" ]; then
+            python3 scripts/vip-deep-fix.py --ticker "$TICKER"
+          else
+            python3 scripts/vip-deep-fix.py --all-pending
+          fi
+
+      - name: Commit & push data updates (if any)
+        run: |
+          git config user.email "vip-deep-fix@mettrik.ai"
+          git config user.name "VIP Deep-Fix Worker"
+          # Stage only v2-pipeline changes (data updates)
+          git add src/data/v2-pipeline/*.json 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No data changes to commit."
+          else
+            git commit -m "data(vip-deep-fix): auto-patch via Sonnet [skip ci]" || true
+            git push origin HEAD 2>&1 || true
+          fi
