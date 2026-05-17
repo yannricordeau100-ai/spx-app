@@ -175,17 +175,40 @@ export function computeDataStatus(): DataStatusSnapshot {
   // Charge les paths à runtime, JAMAIS en const top-level (cf. comment paths()).
   const { SEC, META, PIPELINE_MERGED, V17_PUBLIC, AUDIT, LOGOS } = paths();
   // ─── sec-data download counts ─────────────────────────────────────
-  const cat1Tickers = uniqueTickersDownloaded(path.join(SEC, "cat1-us/10K"));
-  const cat2Tickers = uniqueTickersDownloaded(path.join(SEC, "cat2-foreign-adr/20F"));
-  // Pour cat 1 incluse aussi 10-Q et 8-K, mais le 10-K est le marqueur "à jour"
-  const cat3Tickers = new Set<string>();
-  if (existsSync(path.join(SEC, "cat3-european"))) {
-    try {
-      for (const d of readdirSync(path.join(SEC, "cat3-european"))) {
-        if (statSync(path.join(SEC, "cat3-european", d)).isDirectory()) cat3Tickers.add(d);
+  // Sur Vercel, sec-data n'est PAS dans le bundle (30 GB, fs read-only).
+  // On lit le snapshot pré-calculé par scripts/build-sec-data-counts.py
+  // qui doit être committé dans src/data/sec-data-counts.json avant push.
+  // Fallback : scan filesystem en local (dev) si le snapshot est absent.
+  // Yann 17 mai 2026.
+  let cat1Tickers: Set<string>;
+  let cat2Tickers: Set<string>;
+  let cat3Tickers: Set<string>;
+  const countsSnap = safeJson<{
+    cat1?: { tickers_downloaded?: number };
+    cat2?: { tickers_downloaded?: number };
+    cat3?: { tickers_dirs?: number };
+  }>(path.join(process.cwd(), "src/data/sec-data-counts.json"));
+  if (countsSnap && (countsSnap.cat1 || countsSnap.cat2 || countsSnap.cat3)) {
+    // Synthétise des Sets "fictifs" de la bonne taille (size = ce qui
+    // intéresse l'UI). On utilise des IDs séquentiels pour rester compatible
+    // avec les usages aval (size only).
+    const mk = (n: number, prefix: string) => new Set(Array.from({ length: n }, (_, i) => `${prefix}${i}`));
+    cat1Tickers = mk(countsSnap.cat1?.tickers_downloaded ?? 0, "c1-");
+    cat2Tickers = mk(countsSnap.cat2?.tickers_downloaded ?? 0, "c2-");
+    cat3Tickers = mk(countsSnap.cat3?.tickers_dirs ?? 0, "c3-");
+  } else {
+    // Dev local : scan filesystem
+    cat1Tickers = uniqueTickersDownloaded(path.join(SEC, "cat1-us/10K"));
+    cat2Tickers = uniqueTickersDownloaded(path.join(SEC, "cat2-foreign-adr/20F"));
+    cat3Tickers = new Set<string>();
+    if (existsSync(path.join(SEC, "cat3-european"))) {
+      try {
+        for (const d of readdirSync(path.join(SEC, "cat3-european"))) {
+          if (statSync(path.join(SEC, "cat3-european", d)).isDirectory()) cat3Tickers.add(d);
+        }
+      } catch {
+        // skip
       }
-    } catch {
-      // skip
     }
   }
 
