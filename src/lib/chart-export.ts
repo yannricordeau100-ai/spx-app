@@ -72,6 +72,26 @@ export async function downloadSvgAsPng(
       }
     });
   }
+  // Yann 17 mai 2026 (v4) : defensive — supprime aussi tout <image> dont
+  // href contient "brand-mini-logo" ou "mini-logo" (au cas où un wrapper
+  // <g data-chart-logo> manquerait sur une variante future de chart).
+  // Le ChartMiniLogo top-left (visible dans certaines screenshots Yann)
+  // doit absolument disparaitre du PNG.
+  clone.querySelectorAll("image").forEach((img) => {
+    const href =
+      img.getAttribute("href") ||
+      img.getAttribute("xlink:href") ||
+      "";
+    if (/brand-mini-logo|\/mini-logo/i.test(href)) {
+      // Si l'image est dans un wrapper <g>, retire le wrapper entier.
+      const wrapper = img.closest("g");
+      if (wrapper && wrapper.parentNode) {
+        wrapper.parentNode.removeChild(wrapper);
+      } else if (img.parentNode) {
+        img.parentNode.removeChild(img);
+      }
+    }
+  });
 
   // Récupère le viewBox actuel.
   const vb = svg.viewBox.baseVal;
@@ -105,55 +125,22 @@ export async function downloadSvgAsPng(
   bg.setAttribute("fill", bgColor);
   clone.insertBefore(bg, clone.firstChild);
 
-  // ── <defs> isolé pour les filtres monochromes ──
-  // Si le SVG live a déjà un <defs>, on en crée un NOUVEAU séparé (pas de
-  // conflit d'ID tant que nos IDs sont uniques : mettrik-mono-light /
-  // mettrik-mono-dark sont nos namespacing).
-  // matrix 4x5 : 3 premières lignes mappent RGB sur 0 (clair) ou 1 (sombre),
-  // dernière colonne = offset, dernière ligne préserve alpha.
-  const defsEl = document.createElementNS(NS, "defs");
+  // Yann 17 mai 2026 (v4) : filtres monochromes supprimés (logo sté en
+  // couleur d'origine = copier-coller du logo page sté). Le watermark
+  // "Powered by Mettrik AI" est déjà en text inline monochrome via fill.
 
-  const filterLight = document.createElementNS(NS, "filter");
-  filterLight.setAttribute("id", "mettrik-mono-light");
-  // mono-light : tout en noir (R=G=B=0, alpha préservé)
-  const matrixLight = document.createElementNS(NS, "feColorMatrix");
-  matrixLight.setAttribute("type", "matrix");
-  matrixLight.setAttribute(
-    "values",
-    "0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0"
-  );
-  filterLight.appendChild(matrixLight);
-
-  const filterDark = document.createElementNS(NS, "filter");
-  filterDark.setAttribute("id", "mettrik-mono-dark");
-  // mono-dark : tout en blanc (R=G=B=1, alpha préservé)
-  const matrixDark = document.createElementNS(NS, "feColorMatrix");
-  matrixDark.setAttribute("type", "matrix");
-  matrixDark.setAttribute(
-    "values",
-    "0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1 0"
-  );
-  filterDark.appendChild(matrixDark);
-
-  defsEl.appendChild(filterLight);
-  defsEl.appendChild(filterDark);
-  // Insère après le bg rect (= 2e position pour ne pas être recouvert).
-  clone.insertBefore(defsEl, bg.nextSibling);
-
-  const monoFilterId = isLight ? "mettrik-mono-light" : "mettrik-mono-dark";
-
-  // ── Watermark "Powered by Mettrik" texte SVG inline (v3, 17 mai 2026) ──
+  // ── Watermark "Powered by Mettrik AI" texte SVG inline (v4, 17 mai 2026) ──
   // Plus de fetch PNG, plus d'<image>. Deux <text> côte-à-côte centrés.
   // Position verticale : juste au-dessus de la ligne axe X (zone plot).
   const logoCy = origY + origH * 0.78;
 
   // Tailles approximatives pour centrer le bloc complet.
   // Manrope 500 13px : ~6.5 px/char × "Powered by" (10 chars) ≈ 65 px
-  // Fraunces 600 italic 13px : ~6.5 px/char × "Mettrik" (7 chars) ≈ 46 px
-  // Gap entre les deux : 4 px (caractères ont déjà padding visuel).
+  // Fraunces 600 italic 13px : ~6.5 px/char × "Mettrik AI" (10 chars) ≈ 65 px
+  // Gap entre les deux : 2 px (très serré, comme demandé Yann 17 mai v4).
   const POWERED_BY_TEXT_W = 65;
-  const METTRIK_TEXT_W = 46;
-  const WM_GAP = 4;
+  const METTRIK_TEXT_W = 65;
+  const WM_GAP = 2;
   const wmTotalW = POWERED_BY_TEXT_W + WM_GAP + METTRIK_TEXT_W;
   const wmStartX = origX + origW / 2 - wmTotalW / 2;
   const wmPoweredByCenterX = wmStartX + POWERED_BY_TEXT_W / 2;
@@ -188,7 +175,7 @@ export async function downloadSvgAsPng(
   wmMettrikEl.setAttribute("font-style", "italic");
   wmMettrikEl.setAttribute("fill", titleColor);
   wmMettrikEl.setAttribute("opacity", "0.8");
-  wmMettrikEl.textContent = "Mettrik";
+  wmMettrikEl.textContent = "Mettrik AI";
   clone.appendChild(wmMettrikEl);
 
   // Embed les @font-face du document parent dans la balise <style> du SVG
@@ -224,14 +211,20 @@ export async function downloadSvgAsPng(
   // letter-spacing tighter (-0.025em), fintech editorial moderne premium.
   // Disposition : si options.title contient " · ", split en 2 parties avec
   // logo sté COMME SÉPARATEUR central. Sinon fallback rendu monolithique.
-  const TITLE_FONT_SIZE = 24;
-  const TITLE_CHAR_WIDTH = 12; // estimation Bricolage 700 24px
+  // Yann 17 mai 2026 (v4) : Bricolage v3 paraissait encore ringard parce
+  // que le var était FAUX (`--font-bricolage` n'existe pas, le vrai est
+  // `--font-instrument`) → titre rendu en system-ui fallback. v4 : pivot
+  // vers Fraunces 800 NON-italique (le serif premium du brand wordmark
+  // home, mais en weight max + droit) → magazine luxe, "wow + sérieux".
+  // Gap séparateur réduit de 14 → 4 (à peine plus qu'un tab) cf Yann v4.
+  const TITLE_FONT_SIZE = 26;
+  const TITLE_CHAR_WIDTH = 13; // estimation Fraunces 800 26px
   const TITLE_Y = origY - PAD_TOP + 36;
   const TITLE_LOGO_SIZE = 32; // séparateur visuel
-  const TITLE_LOGO_GAP = 14; // gap de chaque côté du logo
+  const TITLE_LOGO_GAP = 4; // gap mini de chaque côté du logo (v4)
 
   const titleFontFamily =
-    "var(--font-bricolage), 'Bricolage Grotesque', system-ui, sans-serif";
+    "var(--font-fraunces), Fraunces, Georgia, 'Times New Roman', serif";
 
   if (options.title) {
     // Tente split sur " · " (espace point milieu espace).
@@ -334,18 +327,17 @@ export async function downloadSvgAsPng(
       kpiEl.setAttribute("y", String(TITLE_Y));
       kpiEl.setAttribute("text-anchor", "middle");
       kpiEl.setAttribute("font-family", titleFontFamily);
-      kpiEl.setAttribute("font-weight", "700");
+      kpiEl.setAttribute("font-weight", "800");
       kpiEl.setAttribute("font-style", "normal");
       kpiEl.setAttribute("font-size", String(TITLE_FONT_SIZE));
-      kpiEl.setAttribute("letter-spacing", "-0.025em");
+      kpiEl.setAttribute("letter-spacing", "-0.02em");
       kpiEl.setAttribute("fill", titleColor);
       kpiEl.textContent = kpiText;
       clone.appendChild(kpiEl);
 
-      // Logo sté (séparateur central, monochrome via filter)
+      // Logo sté (séparateur central). Yann 17 mai 2026 (v4) : en COULEUR
+      // d'origine (copier-coller du logo page sté), plus de filter mono.
       if (hasLogo && stéLogoDataUrl) {
-        const logoG = document.createElementNS(NS, "g");
-        logoG.setAttribute("filter", `url(#${monoFilterId})`);
         const stéImgEl = document.createElementNS(NS, "image");
         stéImgEl.setAttribute("href", stéLogoDataUrl);
         stéImgEl.setAttribute("x", String(logoCenterX - TITLE_LOGO_SIZE / 2));
@@ -356,8 +348,7 @@ export async function downloadSvgAsPng(
         stéImgEl.setAttribute("width", String(TITLE_LOGO_SIZE));
         stéImgEl.setAttribute("height", String(TITLE_LOGO_SIZE));
         stéImgEl.setAttribute("preserveAspectRatio", "xMidYMid meet");
-        logoG.appendChild(stéImgEl);
-        clone.appendChild(logoG);
+        clone.appendChild(stéImgEl);
       }
 
       // Texte sté (droite)
@@ -366,10 +357,10 @@ export async function downloadSvgAsPng(
       stéEl.setAttribute("y", String(TITLE_Y));
       stéEl.setAttribute("text-anchor", "middle");
       stéEl.setAttribute("font-family", titleFontFamily);
-      stéEl.setAttribute("font-weight", "700");
+      stéEl.setAttribute("font-weight", "800");
       stéEl.setAttribute("font-style", "normal");
       stéEl.setAttribute("font-size", String(TITLE_FONT_SIZE));
-      stéEl.setAttribute("letter-spacing", "-0.025em");
+      stéEl.setAttribute("letter-spacing", "-0.02em");
       stéEl.setAttribute("fill", titleColor);
       stéEl.textContent = stéText;
       clone.appendChild(stéEl);
@@ -380,20 +371,18 @@ export async function downloadSvgAsPng(
       titleEl.setAttribute("y", String(TITLE_Y));
       titleEl.setAttribute("text-anchor", "middle");
       titleEl.setAttribute("font-family", titleFontFamily);
-      titleEl.setAttribute("font-weight", "700");
+      titleEl.setAttribute("font-weight", "800");
       titleEl.setAttribute("font-style", "normal");
       titleEl.setAttribute("font-size", String(TITLE_FONT_SIZE));
-      titleEl.setAttribute("letter-spacing", "-0.025em");
+      titleEl.setAttribute("letter-spacing", "-0.02em");
       titleEl.setAttribute("fill", titleColor);
       titleEl.textContent = options.title;
       clone.appendChild(titleEl);
 
-      // Si logo sté dispo en mode monolithique : ajouter à droite (legacy behavior).
+      // Si logo sté dispo en mode monolithique : ajouter à droite, en COULEUR (v4).
       if (stéLogoDataUrl) {
         const titleWidth = options.title.length * TITLE_CHAR_WIDTH;
         const titleEnd = origX + origW / 2 + titleWidth / 2 + 12;
-        const logoG = document.createElementNS(NS, "g");
-        logoG.setAttribute("filter", `url(#${monoFilterId})`);
         const stéImgEl = document.createElementNS(NS, "image");
         stéImgEl.setAttribute("href", stéLogoDataUrl);
         stéImgEl.setAttribute("x", String(titleEnd));
@@ -404,8 +393,7 @@ export async function downloadSvgAsPng(
         stéImgEl.setAttribute("width", String(TITLE_LOGO_SIZE));
         stéImgEl.setAttribute("height", String(TITLE_LOGO_SIZE));
         stéImgEl.setAttribute("preserveAspectRatio", "xMidYMid meet");
-        logoG.appendChild(stéImgEl);
-        clone.appendChild(logoG);
+        clone.appendChild(stéImgEl);
       }
     }
   }
