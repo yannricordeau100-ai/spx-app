@@ -14,7 +14,7 @@ import {
   type Frequency,
 } from "@/lib/billing/admin-types";
 
-type Tab = "plans" | "prices" | "features" | "promos" | "stripe";
+type Tab = "plans" | "prices" | "features" | "promos" | "stripe" | "taglines";
 
 /**
  * Back-office pricing UI complet — Yann saisit TOUT depuis ici, jamais
@@ -104,7 +104,7 @@ export function PricingAdminClient({
       </p>
 
       <div className="mb-6 flex flex-wrap gap-1.5 rounded-xl border border-white/[0.08] bg-white/[0.02] p-1">
-        {(["plans", "prices", "features", "promos", "stripe"] as Tab[]).map((t) => (
+        {(["plans", "prices", "features", "promos", "stripe", "taglines"] as Tab[]).map((t) => (
           <button
             key={t}
             type="button"
@@ -150,12 +150,18 @@ export function PricingAdminClient({
         <PromosSection promos={promoCodes} api={api} refresh={refreshAll} busy={busy} />
       )}
       {tab === "stripe" && <StripeSection plans={plans} prices={prices} api={api} busy={busy} />}
+      {tab === "taglines" && <TaglinesSection plans={plans} busy={busy} />}
     </main>
   );
 }
 
 function labelOfTab(t: Tab): string {
-  return t === "plans" ? "Plans" : t === "prices" ? "Prix" : t === "features" ? "Fonctionnalités" : t === "promos" ? "Codes promo" : "Stripe sync";
+  return t === "plans" ? "Plans"
+    : t === "prices" ? "Prix"
+    : t === "features" ? "Fonctionnalités"
+    : t === "promos" ? "Codes promo"
+    : t === "stripe" ? "Stripe sync"
+    : "Taglines";
 }
 
 type ApiFn = <T>(path: string, method: string, body?: unknown, opts?: { silent?: boolean }) => Promise<T | null>;
@@ -657,15 +663,12 @@ function FeaturesSection({
     await api(`/api/billing/admin/features/${f.id}`, "DELETE");
     await refresh();
   }
-  async function renameFeature(f: PricingFeature) {
-    const label = prompt("Nouveau libellé (FR) :", f.label_fr);
-    if (!label || label === f.label_fr) return;
-    await api(`/api/billing/admin/features/${f.id}`, "PATCH", { label_fr: label });
+  async function patchFeature(f: PricingFeature, patch: Partial<PricingFeature>) {
+    await api(`/api/billing/admin/features/${f.id}`, "PATCH", patch);
     await refresh();
   }
   async function setFeatureCategory(f: PricingFeature, category: string) {
-    await api(`/api/billing/admin/features/${f.id}`, "PATCH", { category });
-    await refresh();
+    await patchFeature(f, { category });
   }
   async function moveFeature(f: PricingFeature, dir: -1 | 1) {
     // Liste triée actuelle (ordre d'affichage)
@@ -685,6 +688,10 @@ function FeaturesSection({
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [draggingIds, setDraggingIds] = useState<string[] | null>(null);
   const [dropOverId, setDropOverId] = useState<string | null>(null);
+  // Yann (17 mai 2026) : afficher les colonnes EN / DE pour éditer les
+  // traductions des features (label + help) directement depuis l'admin.
+  // Par défaut masqué (la FR suffit pour le quotidien).
+  const [showLocales, setShowLocales] = useState(false);
 
   function toggleSelect(id: string, ev: React.MouseEvent) {
     setSelectedIds((prev) => {
@@ -760,6 +767,19 @@ function FeaturesSection({
           )}
           <button
             type="button"
+            onClick={() => setShowLocales((v) => !v)}
+            disabled={busy}
+            className={`inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-[12px] font-semibold transition-colors disabled:opacity-50 ${
+              showLocales
+                ? "border-cyan-500/50 bg-cyan-500/15 text-cyan-100 hover:bg-cyan-500/25"
+                : "border-white/[0.08] bg-white/[0.02] text-zinc-300 hover:bg-white/[0.05]"
+            }`}
+            title="Afficher / masquer les colonnes EN et DE"
+          >
+            {showLocales ? "Masquer EN/DE" : "Afficher EN/DE"}
+          </button>
+          <button
+            type="button"
             onClick={newFeature}
             disabled={busy}
             className="inline-flex items-center gap-1.5 rounded-lg border border-violet-500/40 bg-violet-500/15 px-3 py-1.5 text-[12px] font-bold text-violet-100 transition-colors hover:bg-violet-500/25 disabled:opacity-50"
@@ -793,7 +813,9 @@ function FeaturesSection({
                 </th>
                 <th className="px-1 py-2 text-center w-8" title="Drag pour déplacer"></th>
                 <th className="px-2 py-2 text-center w-12">Ordre</th>
-                <th className="px-3 py-2 text-left">Fonctionnalité</th>
+                <th className="px-3 py-2 text-left">Fonctionnalité (FR)</th>
+                {showLocales && <th className="px-3 py-2 text-left w-56">Anglais (EN)</th>}
+                {showLocales && <th className="px-3 py-2 text-left w-56">Allemand (DE)</th>}
                 <th className="px-3 py-2 text-left w-40">Catégorie</th>
                 {plans.map((p) => (
                   <th key={p.id} className="px-3 py-2 text-center" style={{ color: p.accent_color }}>{p.name_fr}</th>
@@ -869,22 +891,57 @@ function FeaturesSection({
                       </IconBtn>
                     </div>
                   </td>
-                  <td className="px-3 py-2.5">
-                    <div className="flex items-center gap-1.5">
-                      <span className="font-semibold text-zinc-100">{f.label_fr}</span>
-                      <button
-                        type="button"
-                        onClick={() => renameFeature(f)}
-                        disabled={busy}
-                        title="Renommer"
-                        className="rounded p-0.5 text-zinc-500 hover:text-zinc-200"
-                      >
-                        <Pencil className="size-3" />
-                      </button>
-                    </div>
-                    {f.help_fr && <div className="text-[10.5px] text-zinc-500">{f.help_fr}</div>}
+                  <td className="px-3 py-2.5 align-top">
+                    <InlineFeatureField
+                      value={f.label_fr ?? ""}
+                      onSave={(v) => patchFeature(f, { label_fr: v })}
+                      disabled={busy}
+                      placeholder="Libellé FR"
+                      bold
+                    />
+                    <InlineFeatureField
+                      value={f.help_fr ?? ""}
+                      onSave={(v) => patchFeature(f, { help_fr: v || null })}
+                      disabled={busy}
+                      placeholder="+ aide / tooltip FR (optionnel)"
+                      muted
+                    />
                   </td>
-                  <td className="px-3 py-2">
+                  {showLocales && (
+                    <td className="px-3 py-2.5 align-top">
+                      <InlineFeatureField
+                        value={f.label_en ?? ""}
+                        onSave={(v) => patchFeature(f, { label_en: v || null })}
+                        disabled={busy}
+                        placeholder="Libellé EN"
+                      />
+                      <InlineFeatureField
+                        value={f.help_en ?? ""}
+                        onSave={(v) => patchFeature(f, { help_en: v || null })}
+                        disabled={busy}
+                        placeholder="+ aide EN"
+                        muted
+                      />
+                    </td>
+                  )}
+                  {showLocales && (
+                    <td className="px-3 py-2.5 align-top">
+                      <InlineFeatureField
+                        value={f.label_de ?? ""}
+                        onSave={(v) => patchFeature(f, { label_de: v || null })}
+                        disabled={busy}
+                        placeholder="Libellé DE"
+                      />
+                      <InlineFeatureField
+                        value={f.help_de ?? ""}
+                        onSave={(v) => patchFeature(f, { help_de: v || null })}
+                        disabled={busy}
+                        placeholder="+ aide DE"
+                        muted
+                      />
+                    </td>
+                  )}
+                  <td className="px-3 py-2 align-top">
                     <select
                       value={f.category ?? "Général"}
                       onChange={(e) => setFeatureCategory(f, e.target.value)}
@@ -929,9 +986,89 @@ function FeaturesSection({
       )}
 
       <p className="mt-4 text-[10.5px] text-zinc-500">
-        Tape directement dans la cellule pour modifier la valeur affichée. <code>true</code> = ✓ vert, <code>false</code> = cadenas gris, autre texte = affiché tel quel (ex « 5 alertes », « Illimité »). Renommer une ligne avec ✏️. Réorganiser avec ↑↓.
+        Clique sur le libellé ou l&apos;aide pour le modifier en ligne (Entrée pour valider, Échap pour annuler). Tape directement dans une cellule plan pour modifier la valeur affichée. <code>true</code> = ✓ vert, <code>false</code> = cadenas gris, autre texte = affiché tel quel (ex « 5 alertes », « Illimité »). Réorganiser avec ↑↓ ou drag.
       </p>
     </div>
+  );
+}
+
+/**
+ * Champ texte éditable inline (label / help d'une feature). Click pour
+ * ouvrir, Entrée pour sauver, Échap pour annuler, blur pour sauver.
+ * Yann (17 mai 2026) : édition feature par feature (label + help en FR,
+ * EN, DE) sans passer par prompt() JS basique.
+ */
+function InlineFeatureField({
+  value,
+  onSave,
+  disabled,
+  placeholder,
+  bold,
+  muted,
+}: {
+  value: string;
+  onSave: (v: string) => void;
+  disabled: boolean;
+  placeholder?: string;
+  bold?: boolean;
+  muted?: boolean;
+}) {
+  const [v, setV] = useState(value);
+  const [edit, setEdit] = useState(false);
+
+  // Sync prop value -> local state quand la valeur change côté parent
+  // (par exemple refresh après save d'un autre champ).
+  useEffect(() => {
+    if (!edit) setV(value);
+  }, [value, edit]);
+
+  function commit() {
+    if (v.trim() !== (value ?? "").trim()) onSave(v.trim());
+    setEdit(false);
+  }
+  function cancel() {
+    setV(value);
+    setEdit(false);
+  }
+
+  const baseDisplayCls = bold
+    ? "font-semibold text-zinc-100"
+    : muted
+      ? "text-[10.5px] text-zinc-500"
+      : "text-zinc-200";
+
+  if (!edit) {
+    return (
+      <button
+        type="button"
+        onClick={() => setEdit(true)}
+        disabled={disabled}
+        className={`group block w-full rounded px-1.5 py-0.5 text-left hover:bg-violet-500/10 ${baseDisplayCls}`}
+        title="Cliquer pour modifier"
+      >
+        {value && value.trim().length > 0 ? (
+          value
+        ) : (
+          <span className="italic text-zinc-600 group-hover:text-zinc-400">
+            {placeholder ?? "cliquer pour ajouter"}
+          </span>
+        )}
+      </button>
+    );
+  }
+  return (
+    <input
+      autoFocus
+      type="text"
+      value={v}
+      onChange={(e) => setV(e.target.value)}
+      onBlur={commit}
+      onKeyDown={(e) => { if (e.key === "Enter") commit(); if (e.key === "Escape") cancel(); }}
+      placeholder={placeholder}
+      className={`w-full rounded border border-violet-500/40 bg-white/[0.02] px-1.5 py-0.5 text-zinc-100 ${
+        bold ? "text-[12.5px] font-semibold" : muted ? "text-[10.5px]" : "text-[11px]"
+      }`}
+    />
   );
 }
 
@@ -1425,6 +1562,193 @@ function Stat({ label, value, accent = "#a78bfa" }: { label: string; value: numb
     <div className="rounded-xl border border-white/[0.06] bg-black/20 p-3">
       <div className="font-mono text-[22px] font-bold tabular-nums" style={{ color: accent }}>{value}</div>
       <div className="text-[10px] uppercase tracking-wider text-zinc-500">{label}</div>
+    </div>
+  );
+}
+
+/* ─── Taglines tab : édition du tagline /jour + autotrad 7 langues ───── */
+
+type TaglineRow = {
+  plan_key: string;
+  tagline_fr: string;
+  tagline_fr_hash: string | null;
+  tagline_i18n: Record<string, string>;
+  updated_at: string;
+};
+
+/** Locales autotrad cibles. Drapeau + nom (cf src/lib/i18n/types.ts). */
+const TAGLINE_LOCALES: Array<{ code: string; flag: string; name: string }> = [
+  { code: "en",    flag: "🇺🇸", name: "English (US)" },
+  { code: "en-GB", flag: "🇬🇧", name: "English (UK)" },
+  { code: "de",    flag: "🇩🇪", name: "Deutsch" },
+  { code: "de-CH", flag: "🇨🇭", name: "Schweizerdeutsch" },
+  { code: "nl",    flag: "🇳🇱", name: "Nederlands" },
+  { code: "sv",    flag: "🇸🇪", name: "Svenska" },
+  { code: "da",    flag: "🇩🇰", name: "Dansk" },
+];
+
+/** Plans pour lesquels on édite un tagline. "free" exclu (non pertinent). */
+const TAGLINE_PLAN_KEYS = ["premium", "max"] as const;
+
+function TaglinesSection({ plans, busy: parentBusy }: { plans: PricingPlan[]; busy: boolean }) {
+  const [taglines, setTaglines] = useState<Record<string, TaglineRow>>({});
+  const [drafts, setDrafts] = useState<Record<string, string>>({});
+  const [loading, setLoading] = useState(true);
+  const [savingKey, setSavingKey] = useState<string | null>(null);
+  const [localMsg, setLocalMsg] = useState<{ type: "ok" | "err"; text: string } | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const r = await fetch("/api/desk-mtk9x4kp/taglines", { method: "GET" });
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        const data = (await r.json()) as Record<string, TaglineRow>;
+        if (cancelled) return;
+        setTaglines(data);
+        const d: Record<string, string> = {};
+        for (const k of TAGLINE_PLAN_KEYS) {
+          d[k] = data[k]?.tagline_fr ?? "";
+        }
+        setDrafts(d);
+      } catch (e) {
+        if (!cancelled) {
+          setLocalMsg({ type: "err", text: `❌ Chargement taglines : ${(e as Error).message}` });
+        }
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  async function save(planKey: string, force: boolean) {
+    setSavingKey(planKey);
+    setLocalMsg(null);
+    try {
+      const taglineFr = drafts[planKey] ?? "";
+      const r = await fetch("/api/desk-mtk9x4kp/taglines", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ plan_key: planKey, tagline_fr: taglineFr, force_retranslate: force }),
+      });
+      if (!r.ok) {
+        const err = await r.json().catch(() => ({ error: r.statusText }));
+        throw new Error(err.error || r.statusText);
+      }
+      const updated = (await r.json()) as TaglineRow & { translated_count: number; hash_changed: boolean };
+      setTaglines((prev) => ({ ...prev, [planKey]: updated }));
+      setLocalMsg({
+        type: "ok",
+        text: `✅ Sauvegardé · ${updated.translated_count}/7 traductions${force ? " (re-traduction forcée)" : ""}`,
+      });
+      setTimeout(() => setLocalMsg(null), 3500);
+    } catch (e) {
+      setLocalMsg({ type: "err", text: `❌ ${(e as Error).message}` });
+    } finally {
+      setSavingKey(null);
+    }
+  }
+
+  return (
+    <div className="space-y-5">
+      <div className="rounded-xl border border-violet-500/15 bg-violet-500/[0.05] px-4 py-3 text-[12px] text-violet-100">
+        <strong>Tagline /jour :</strong> phrase affichée à droite du prix par jour
+        sur la card pricing publique. Édite en FR, l&apos;autotrad Groq Llama 3.3 70B
+        traduit automatiquement en 7 langues (en, en-GB, de, de-CH, nl, sv, da).
+        Re-traduit uniquement si la phrase FR change (hash-diff).
+      </div>
+
+      {localMsg && (
+        <div className={`rounded-lg border px-3 py-2 text-[12px] ${
+          localMsg.type === "ok"
+            ? "border-emerald-500/20 bg-emerald-500/[0.05] text-emerald-200"
+            : "border-rose-500/30 bg-rose-500/[0.05] text-rose-200"
+        }`}>{localMsg.text}</div>
+      )}
+
+      {loading && <div className="text-[12px] text-zinc-500">Chargement…</div>}
+
+      {!loading && TAGLINE_PLAN_KEYS.map((planKey) => {
+        const planMeta = plans.find((p) => p.code?.toLowerCase() === planKey);
+        const planLabel = planMeta?.name_fr ?? planKey;
+        const row = taglines[planKey];
+        const draft = drafts[planKey] ?? "";
+        const isDirty = (row?.tagline_fr ?? "") !== draft;
+        const i18n = row?.tagline_i18n ?? {};
+        const isSaving = savingKey === planKey;
+
+        return (
+          <div key={planKey} className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-5">
+            <div className="mb-3 flex items-baseline justify-between">
+              <h3 className="font-display text-[16px] font-bold tracking-tight text-zinc-100">
+                Plan : <span style={{ color: planMeta?.accent_color ?? "#a78bfa" }}>{planLabel}</span>
+              </h3>
+              <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">
+                {row?.updated_at ? `Maj : ${new Date(row.updated_at).toLocaleString("fr-FR")}` : "Jamais sauvegardé"}
+              </span>
+            </div>
+
+            <label className="mb-1 block text-[10.5px] font-semibold uppercase tracking-wider text-zinc-500">
+              Tagline FR (source)
+            </label>
+            <textarea
+              value={draft}
+              onChange={(e) => setDrafts((prev) => ({ ...prev, [planKey]: e.target.value }))}
+              rows={2}
+              placeholder="Ex : Soit moins que le prix d'un café, mais bien mieux investi !"
+              className="w-full resize-none rounded-lg border border-white/[0.08] bg-black/30 px-3 py-2 text-[13px] text-zinc-100 placeholder:text-zinc-600 focus:border-violet-500/40 focus:outline-none"
+              disabled={isSaving || parentBusy}
+            />
+
+            <div className="mt-2 flex flex-wrap items-center gap-2">
+              <button
+                type="button"
+                onClick={() => save(planKey, false)}
+                disabled={isSaving || parentBusy || !isDirty}
+                className="rounded-lg border border-violet-500/40 bg-violet-500/15 px-3 py-1.5 text-[12px] font-semibold text-violet-100 transition-colors hover:bg-violet-500/25 disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                {isSaving ? "Sauvegarde…" : "Save FR + autotrad"}
+              </button>
+              <button
+                type="button"
+                onClick={() => save(planKey, true)}
+                disabled={isSaving || parentBusy || !row?.tagline_fr}
+                className="rounded-lg border border-white/[0.10] bg-white/[0.03] px-3 py-1.5 text-[12px] font-semibold text-zinc-300 transition-colors hover:bg-white/[0.06] disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                Re-traduire (force)
+              </button>
+              {isDirty && (
+                <span className="text-[11px] text-amber-300">● Modifications non sauvegardées</span>
+              )}
+            </div>
+
+            <div className="mt-4 border-t border-white/[0.06] pt-3">
+              <div className="mb-2 text-[10.5px] font-semibold uppercase tracking-wider text-zinc-500">
+                Traductions actuelles (read-only)
+              </div>
+              <div className="space-y-1.5">
+                {TAGLINE_LOCALES.map((loc) => {
+                  const text = i18n[loc.code];
+                  return (
+                    <div key={loc.code} className="flex items-baseline gap-2 text-[12px]">
+                      <span className="w-6 shrink-0 text-[14px]">{loc.flag}</span>
+                      <span className="w-32 shrink-0 font-mono text-[10.5px] uppercase tracking-wider text-zinc-500">
+                        {loc.code}
+                      </span>
+                      <span className={text ? "text-zinc-200" : "italic text-zinc-600"}>
+                        {text || "— (pas encore traduit)"}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }

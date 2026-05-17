@@ -6,6 +6,7 @@ import { Check, Sparkles, ArrowRight, Crown } from "lucide-react";
 import { PLANS as FALLBACK_PLANS, FEATURES as FALLBACK_FEATURES, monthlyEquivalent, type PlanDisplay, type FeatureRow } from "@/lib/billing/plans";
 import type { LoadedPlan } from "@/lib/billing/load-pricing";
 import { useT } from "@/lib/i18n/provider";
+import { getPricingTagline, type PricingTaglineRow } from "@/lib/billing/pricing-taglines";
 
 /**
  * Plan accepté par PricingCards : soit le legacy `PlanDisplay` (hardcoded
@@ -35,6 +36,7 @@ export function PricingCards({
   plans: plansProp,
   features: featuresProp,
   currency = "EUR",
+  taglines,
 }: {
   ctaTrackingPrefix?: string;
   plans?: PricingCardPlan[];
@@ -47,6 +49,12 @@ export function PricingCards({
    * depuis ma connexion suisse" — bug = currency hardcodé.
    */
   currency?: string;
+  /**
+   * Taglines éditables par plan affichés à droite du prix /jour.
+   * Map plan_key → row BDD. Si absent, fallback i18n hardcodé (phrase café).
+   * Édité depuis /desk-mtk9x4kp/pricing onglet "Taglines".
+   */
+  taglines?: Record<string, PricingTaglineRow>;
 }) {
   const PLANS = plansProp && plansProp.length > 0 ? plansProp : FALLBACK_PLANS;
   const FEATURES = featuresProp && featuresProp.length > 0 ? featuresProp : FALLBACK_FEATURES;
@@ -111,6 +119,7 @@ export function PricingCards({
             prefix={ctaTrackingPrefix}
             features={FEATURES}
             currency={currency}
+            taglines={taglines}
           />
         ))}
       </div>
@@ -199,6 +208,7 @@ function PricingCard({
   prefix,
   features,
   currency = "EUR",
+  taglines,
 }: {
   plan: PricingCardPlan;
   billing: "monthly" | "annual";
@@ -207,8 +217,10 @@ function PricingCard({
   currency?: string;
   /** Catalogue features (BDD ou fallback) pour générer les bullets dynamiquement. */
   features?: FeatureRow[];
+  /** Taglines BDD éditables (map plan_key → row). */
+  taglines?: Record<string, PricingTaglineRow>;
 }) {
-  const { t } = useT();
+  const { t, locale } = useT();
   const isAnnual = billing === "annual";
   const isHighlight = plan.highlight;
 
@@ -375,8 +387,26 @@ function PricingCard({
                     </div>
                   </div>
                   <span className="text-right text-[12px] italic leading-tight text-zinc-300">
-                    {t("pricing.card.coffee_slogan_part1")}<br />
-                    <strong className="not-italic text-emerald-100">{t("pricing.card.coffee_slogan_part2")}</strong>
+                    {(() => {
+                      // Yann 17 mai 2026 : tagline /jour éditable via
+                      // /desk-mtk9x4kp/pricing onglet "Taglines". Lit BDD
+                      // pour le plan + locale courant. Fallback : phrase
+                      // café i18n hardcodée (préserve l'affichage si BDD
+                      // vide ou clé absente). plan.code = "premium" | "max".
+                      const planKey = (plan.code ?? plan.tier ?? "").toLowerCase();
+                      if (taglines && taglines[planKey]) {
+                        const text = getPricingTagline(taglines, planKey, locale);
+                        if (text && text.trim().length > 0) {
+                          return <strong className="not-italic text-emerald-100">{text}</strong>;
+                        }
+                      }
+                      return (
+                        <>
+                          {t("pricing.card.coffee_slogan_part1")}<br />
+                          <strong className="not-italic text-emerald-100">{t("pricing.card.coffee_slogan_part2")}</strong>
+                        </>
+                      );
+                    })()}
                   </span>
                 </div>
               </div>

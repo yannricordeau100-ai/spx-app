@@ -9,6 +9,7 @@ import { FloatingLogosBg } from "@/components/billing/floating-logos-bg";
 import { AuthNav } from "@/components/auth-nav";
 import { CurrencyPicker } from "@/components/billing/currency-picker";
 import { loadPricingCatalog } from "@/lib/billing/load-pricing";
+import { loadAllTaglines } from "@/lib/billing/pricing-taglines";
 import { getServerLocale } from "@/lib/i18n/server";
 import { translate } from "@/lib/i18n/dictionary";
 import V18_TICKERS from "@/data/v1-8-tickers-sorted.json";
@@ -52,6 +53,7 @@ export default async function V18PricingPage() {
   const catalog = await loadPricingCatalog();
   const currency = await detectCurrency();
   const locale = await getServerLocale();
+  const taglines = await loadAllTaglines();
   const t = (k: string) => translate(k, locale);
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#050505]">
@@ -110,7 +112,7 @@ export default async function V18PricingPage() {
 
         {/* PLAN CARDS */}
         <div className="mx-auto mt-14 max-w-5xl">
-          <PricingCards ctaTrackingPrefix="v18_top_" plans={catalog.plans} features={catalog.features} currency={currency} />
+          <PricingCards ctaTrackingPrefix="v18_top_" plans={catalog.plans} features={catalog.features} currency={currency} taglines={taglines} />
         </div>
 
         {/* MATRICE FEATURES */}

@@ -7,6 +7,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { AuthModal } from "@/components/auth-modal";
 import { PricingCards } from "@/components/billing/pricing-cards";
 import { loadPricingCatalog } from "@/lib/billing/load-pricing";
+import { loadAllTaglines } from "@/lib/billing/pricing-taglines";
 import { loadPageContent } from "@/lib/desk/page-content";
 import { getServerLocale } from "@/lib/i18n/server";
 import { translate } from "@/lib/i18n/dictionary";
@@ -51,6 +52,7 @@ export default async function SandboxV18HubPage() {
   const validKeys = new Set(Object.keys(datasets).map((k) => k.toUpperCase()));
   const tickers = (V18_TICKERS as string[]).filter((t) => validKeys.has(t.toUpperCase()));
   const catalog = await loadPricingCatalog();
+  const taglines = await loadAllTaglines();
   // Yann 12 mai 2026 : textes home éditables via /desk-mtk9x4kp/page-content
   // avec page_key="home". Sections supportées : tagline_main_1,
   // tagline_main_2, tagline_sub, kpi_intelligence_under, punchline_1..4.
@@ -119,6 +121,7 @@ export default async function SandboxV18HubPage() {
             ctaTrackingPrefix="v18_home_inline_"
             plans={catalog.plans}
             features={catalog.features}
+            taglines={taglines}
           />
         </div>
 
