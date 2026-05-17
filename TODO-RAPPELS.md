@@ -6,17 +6,36 @@
 
 ---
 
-## 📅 19 mai 2026 — Séparation DB Supabase par niveau
+## 📅 18 mai 2026 05h40 — Wakeup session autonome auto-régulée RAM
 
-**Programmé le** : 16 mai 2026  
-**CronCreate id** : `3645b6ca` (session-only, à 14h23 le 19 mai)  
+**Programmé le** : 17 mai 2026 22h (annule l'ancien rappel 19 mai 14h23)  
+**CronCreate id** : `97d43e23` (session-only, lundi 18 mai 05h40)  
 **Statut** : en attente
 
-**Contexte** : architecture 3 niveaux (Live www.mettrik.ai / Pré-live pre.mettrik.ai / Dev staging.mettrik.ai) mise en place le 16 mai avec 1 SEULE DB Supabase partagée au début pour vélocité. Yann a dit : "fait au mieux, si la vraie architecture doit être faite/modifier plus tard moi je n'y penserai pas, peux-tu mettre un rappel ?"
+**Contexte** : Yann probablement endormi, ordinateur laissé open. Mission travail nuit : continuer ce qui est utile sur les sujets connus (Phase 2 go-prod si Phase 1 confirmée OK, ou autre tâche en attente). Auto-régulation RAM chaque minute obligatoire (cf prompt complet du cron).
 
-**Action attendue le 19 mai** :
-- Vérifier si le site live a été lancé et stabilisé
-- Si oui : proposer de créer 2 nouvelles instances Supabase (`mettrik-prod` et `mettrik-pre`) + migration sélective des tables (users, plans, etc.) + isolation production complète
-- Si non encore lancé : reporter le rappel à 3-4 jours plus tard
+**Règles RAM** :
+- > 5 GB dispo : 3 agents max en parallèle
+- 3-5 GB : 2 agents max
+- 1.5-3 GB : 1 agent max
+- < 1.5 GB : STOP, attendre 2 min, re-checker
+
+**Objectifs priorisés (selon RAM dispo)** :
+1. Vérifier SQL desk_releases collé par Yann + écrire release dev v0.1.1
+2. Phase 2 go-prod si Yann a validé Phase 1 (CI/CD + bouton Push to live + snapshot tagging)
+3. Reviewer les 27 image-findings demande #1 pending
+4. Nettoyage cache RAM si besoin
+
+**Bilan attendu** : au réveil de Yann, format DOB : ✅FAIT / ❌PAS FAIT / ⚠️PROBLÈMES / 🔧POUR RÉPARER.
+
+---
+
+## 📅 (REPORTÉ) Séparation DB Supabase par niveau
+
+**Programmé initial le 16 mai pour 19 mai 14h23** : annulé le 17 mai à la demande de Yann (priorité au wakeup 18 mai).
+
+**À reprogrammer** : à voir avec Yann selon état stabilisation site live (probablement vers fin mai 2026 si tout va bien).
+
+**Action attendue** : créer 2 nouvelles instances Supabase (`mettrik-prod` + `mettrik-pre`) + migration sélective des tables (users, plans, etc.) + isolation production complète.
 
 ---
