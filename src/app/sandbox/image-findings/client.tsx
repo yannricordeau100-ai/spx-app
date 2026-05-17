@@ -651,6 +651,22 @@ function FindingCard({
           </div>
         </div>
 
+        {/* Toggle "Afficher la lecture sur la fiche société" (Yann 17 mai
+            2026) : default true ; si décoché, le summary est masqué sur
+            ImageFindingsBlock public. Persiste en BDD via show_summary. */}
+        <label className="flex items-center gap-1.5 cursor-pointer select-none pt-1">
+          <input
+            type="checkbox"
+            checked={f.show_summary !== false}
+            disabled={busy}
+            onChange={(e) => patch({ show_summary: e.target.checked })}
+            className="size-3.5 rounded border-white/[0.15] bg-black/40 text-emerald-500"
+          />
+          <span className="text-[10.5px] uppercase tracking-wider text-zinc-400">
+            Afficher la lecture sur la fiche société
+          </span>
+        </label>
+
         {/* Approve / Reject */}
         <div className="flex gap-2 pt-1">
           <button

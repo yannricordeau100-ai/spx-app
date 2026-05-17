@@ -61,6 +61,10 @@ export type ImageFinding = {
   detected_kpi_topics: string[];
   approved: boolean;
   rejected: boolean;
+  /** Yann 17 mai 2026 : toggle sandbox admin "afficher la lecture sur la
+   *  fiche société publique". Default true. Si false → ImageFindingsBlock
+   *  masque le summary sous le graph. */
+  show_summary?: boolean;
   reviewed_at: string | null;
   reviewer_notes: string | null;
   display_order: number;

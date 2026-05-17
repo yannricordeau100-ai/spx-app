@@ -19,6 +19,9 @@ export type ImageFindingPublic = {
   source_handle: string | null;
   source_date: string | null;
   source_platform: string | null;
+  /** Toggle sandbox admin : si false, masque la lecture (summary) sur la
+   *  fiche société publique (Yann 17 mai 2026). Default true. */
+  show_summary?: boolean;
 };
 
 /**
@@ -45,10 +48,6 @@ export function ImageFindingsBlock({
   // locales (en-GB, sv, da, nl, de-CH) via translate() qui descend sur EN
   // si la clé n'a pas d'entrée explicite pour la locale demandée.
   const tt = (k: string) => translate(k, locale as Locale);
-
-  // Toggle "afficher la lecture" sous le graph (Yann 17 mai 2026 demande #3).
-  // Local state, persiste pas après refresh — UX rapide pour ouvrir/fermer.
-  const [showRead, setShowRead] = useState(true);
 
   return (
     <section className="my-10">
@@ -88,6 +87,14 @@ export function ImageFindingsBlock({
       </div>
 
       <div className="rounded-2xl border border-white/[0.08] bg-[#0a0a0a] p-4">
+        {/* Titre du graph AU-DESSUS (Yann 17 mai 2026 : remettre comme avant).
+            Le SVG n'a plus son titre rasterisé (strip), donc on l'affiche en
+            HTML i18n FR/EN/DE pour avoir des titres traduits propres. */}
+        {displayTitle && (
+          <h3 className="mb-3 text-center text-[15px] font-semibold leading-snug text-zinc-100">
+            {displayTitle}
+          </h3>
+        )}
         <div className="aspect-video w-full overflow-hidden rounded-xl bg-black/60">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -97,28 +104,12 @@ export function ImageFindingsBlock({
             referrerPolicy="no-referrer"
           />
         </div>
-        <div className="mt-3 space-y-1.5">
-          {displayTitle && <div className="text-[14px] font-semibold text-zinc-100">{displayTitle}</div>}
-          {/* Toggle "afficher/masquer la lecture" — Yann 17 mai 2026 demande #3 */}
-          {displaySummary && (
-            <>
-              <button
-                type="button"
-                onClick={() => setShowRead((s) => !s)}
-                className="inline-flex items-center gap-1 rounded-md border border-white/[0.08] px-2 py-0.5 text-[10px] uppercase tracking-wider text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-200"
-                aria-pressed={showRead}
-              >
-                {showRead ? tt("image_findings.toggle_read_hide") : tt("image_findings.toggle_read_show")}
-              </button>
-              {showRead && (
-                <p className="text-[12.5px] leading-relaxed text-zinc-400">{displaySummary}</p>
-              )}
-            </>
-          )}
-          {/* Source footer retiré : la source "Mettrik AI Analytics / Données de
-              marché" est désormais intégrée dans le titre principal du bloc
-              (Yann 17 mai 2026 demande #2). */}
-        </div>
+        {/* Lecture toujours visible (Yann 17 mai 2026 : remettre comme avant).
+            Le toggle "masquer la lecture" est désormais dans la sandbox admin
+            (per finding). Ici on respecte le flag f.show_summary !== false. */}
+        {displaySummary && f.show_summary !== false && (
+          <p className="mt-3 text-[12.5px] leading-relaxed text-zinc-400">{displaySummary}</p>
+        )}
       </div>
 
       {/* Dots indicators */}

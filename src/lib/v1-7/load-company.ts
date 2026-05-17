@@ -566,6 +566,8 @@ export async function loadV17Company(
           source_handle: f.source_handle,
           source_date: f.source_date,
           source_platform: f.source_platform,
+          // Toggle sandbox admin (Yann 17 mai 2026) : default true.
+          show_summary: f.show_summary !== false,
         }));
       }
     } catch (err) {
