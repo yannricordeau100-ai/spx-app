@@ -253,33 +253,49 @@ export function ChartCycle({
   const divisor = timeFractionDivisor(timeFraction);
 
   // Rescale auto de l'unité pour TOUJOURS garder le MAX value ∈ [1, 999].
-  // Yann 17 mai 2026 (v2) : rescale appliqué AUSSI pour /year (divisor=1), pour
-  // capturer les KPI dont le dataset est en mauvaise unité (ex : valeur 0,5 Md$
-  // doit s'afficher 500 M$). Avant : rescale seulement si divisor !== 1 → laisse
-  // passer des valeurs < 1 ou > 999 en /year.
-  // Ex : Cloud GOOGL 58.71 Md$ /an → /seconde = 1.86 $/s (unit Md$ → $)
-  // On bosse en valeur ABSOLUE puis on retrouve l'unité optimale basée sur le MAX.
+  // Yann 17 mai 2026 (v3) : FIX — le dataset peut envoyer unit déjà formaté FR
+  // ("Mds $", "M $", "Mds €", etc) plutôt que brut ($B, $M). Sans normalisation,
+  // isMoneyUnit("Mds $") renvoie false → toAbsolute ne convertit pas → rescale skip
+  // silencieusement. C'est ce qui faisait que /jour /minute ne bougeaient pas les
+  // valeurs sur GOOGL Cloud (unit dataset="Mds $").
+  // Solution : on normalise en RAW au début, on fait toute la rescale en RAW, et
+  // l'output est en RAW aussi ("$M" etc). chartAxisHeader gère raw → display FR.
+  const RAW_NORMALIZE: Record<string, string> = {
+    "Mds $": "$B", "Mds €": "€B", "Mds £": "£B",
+    "M $": "$M", "M €": "€M", "M £": "£M",
+    // Devises non-USD : on mappe sur le suffixe brut pour que toAbsolute /
+    // rescaleForReadability tournent (les facteurs 1e9/1e6 sont identiques
+    // quelle que soit la devise). chartAxisHeader emit "EUR/CHF/etc en Millions".
+    "Mds CHF": "$B", "Mds JPY": "$B", "Mds EUR": "$B",
+    "Mds DKK": "$B", "Mds INR": "$B", "Mds NOK": "$B",
+    "Mds SEK": "$B", "Mds KRW": "$B", "Mds CAD": "$B",
+    "Mds AUD": "$B", "Mds HKD": "$B", "Mds CNY": "$B",
+    "Mds BRL": "$B", "Mds MXN": "$B", "Mds PLN": "$B",
+    "Mds ZAR": "$B",
+    "Mds": "B", "M": "M",
+  };
+  const rawInputUnit = RAW_NORMALIZE[String(unit).trim()] ?? unit;
+
   let scaledData = data;
   let scaledTtm = ttm;
   let displayUnit = unit;
 
   // Convertir chaque value de history en valeur absolue (unité de base)
-  const absData = safeData.map((v) => toAbsolute(v, unit) / divisor);
-  const absTtm = ttm == null ? null : toAbsolute(ttm, unit) / divisor;
+  const absData = safeData.map((v) => toAbsolute(v, rawInputUnit) / divisor);
+  const absTtm = ttm == null ? null : toAbsolute(ttm, rawInputUnit) / divisor;
   // Trouver le MAX absolu (positif) pour décider de l'unité commune
   const allAbs = [...absData, ...(absTtm != null ? [absTtm] : [])].filter(Number.isFinite);
   const maxAbs = allAbs.length > 0 ? Math.max(...allAbs.map((v) => Math.abs(v))) : 0;
-  const { unit: newUnit } = rescaleForReadability(maxAbs, unit);
+  const { unit: newUnit } = rescaleForReadability(maxAbs, rawInputUnit);
   // Trouver le facteur de conversion entre l'unité de base et la nouvelle unité
   const factorPerUnit: Record<string, number> = {
     "$T": 1e12, "$B": 1e9, "$M": 1e6, "$K": 1e3, "$": 1, "$¢": 0.01,
     "T": 1e12, "B": 1e9, "M": 1e6, "K": 1e3, "": 1,
+    "€T": 1e12, "€B": 1e9, "€M": 1e6, "€K": 1e3,
+    "£T": 1e12, "£B": 1e9, "£M": 1e6, "£K": 1e3,
   };
-  // Si l'unit est non-monétaire (% / ratio / texte), rescaleForReadability
-  // renvoie l'unit d'origine et factorPerUnit ne la connait pas → newFactor=1
-  // et on ne change pas scaledData. Idem pour units inconnues : on garde data.
   const newFactor = factorPerUnit[newUnit];
-  if (newFactor != null && (newUnit !== unit || divisor !== 1)) {
+  if (newFactor != null && (newUnit !== rawInputUnit || divisor !== 1)) {
     scaledData = absData.map((v) => v / newFactor);
     scaledTtm = absTtm == null ? null : absTtm / newFactor;
     displayUnit = newUnit;
