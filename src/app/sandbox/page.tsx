@@ -65,6 +65,12 @@ const ITEMS = [
     desc: "Recherche manuelle de graphiques/schémas sur X/Twitter via Claude conv MAX 20× (gratuit). Query libre, tickers cibles, langues par défaut. Tu approuves chaque image, elles s'affichent dans un carrousel sous le hero des pages sté.",
   },
   {
+    href: "/sandbox/kpi-builder",
+    icon: Sparkles,
+    label: "Ajouter un KPI multi-stés",
+    desc: "Crée une demande d'extraction d'un nouveau KPI sur plusieurs sociétés à la fois (ex : RPO sur les méga-cap cloud/IA). Décris en langage naturel, Claude suggère les tickers, tu ajustes, tu définis le KPI (short / nom EN / explication / type / unité / prompt extraction), tu lances. Auto-traduction FR via Groq si nom FR vide.",
+  },
+  {
     href: "/sandbox/vip-inspection",
     icon: Crown,
     label: "👑 VIP Inspection",
