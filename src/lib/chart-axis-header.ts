@@ -22,15 +22,17 @@
  */
 type AxisLocale = "fr" | "en" | "en-GB" | "de" | "de-CH" | "nl" | "sv" | "da";
 
-const SCALE_WORDS: Record<AxisLocale, { B: string; M: string }> = {
-  "fr":    { B: "en Milliards",  M: "en Millions" },
-  "en":    { B: "in Billions",   M: "in Millions" },
-  "en-GB": { B: "in Billions",   M: "in Millions" },
-  "de":    { B: "in Milliarden", M: "in Millionen" },
-  "de-CH": { B: "in Milliarden", M: "in Millionen" },
-  "nl":    { B: "in miljarden",  M: "in miljoenen" },
-  "sv":    { B: "i miljarder",   M: "i miljoner" },
-  "da":    { B: "i milliarder",  M: "i millioner" },
+// Yann 17 mai 2026 (v2) : ajout T (Trillions) et K (Milliers) pour couvrir
+// les rescales d'unité time-fraction (ex /minute = $K, /year d'une méga-sté = $T).
+const SCALE_WORDS: Record<AxisLocale, { T: string; B: string; M: string; K: string }> = {
+  "fr":    { T: "en Billions",    B: "en Milliards",  M: "en Millions",  K: "en Milliers" },
+  "en":    { T: "in Trillions",   B: "in Billions",   M: "in Millions",  K: "in Thousands" },
+  "en-GB": { T: "in Trillions",   B: "in Billions",   M: "in Millions",  K: "in Thousands" },
+  "de":    { T: "in Billionen",   B: "in Milliarden", M: "in Millionen", K: "in Tausend" },
+  "de-CH": { T: "in Billionen",   B: "in Milliarden", M: "in Millionen", K: "in Tausend" },
+  "nl":    { T: "in biljoenen",   B: "in miljarden",  M: "in miljoenen", K: "in duizenden" },
+  "sv":    { T: "i biljoner",     B: "i miljarder",   M: "i miljoner",   K: "i tusentals" },
+  "da":    { T: "i billioner",    B: "i milliarder",  M: "i millioner",  K: "i tusinder" },
 };
 
 export function chartAxisHeader(unit: string, locale: AxisLocale = "fr"): string {
@@ -66,10 +68,15 @@ export function chartAxisHeader(unit: string, locale: AxisLocale = "fr"): string
   };
   const u = map[normalized] ?? normalized;
   switch (u) {
-    // Formats bruts (rare, vient des datasets non encore traités par formatUnit)
+    // Formats bruts (rare, vient des datasets non encore traités par formatUnit
+    // OU sortie de rescaleForReadability quand time-fraction change l'unité).
+    case "$T": return `$ ${w.T}`;
     case "$B": return `$ ${w.B}`;
     case "$M": return `$ ${w.M}`;
+    case "$K": return `$ ${w.K}`;
+    case "T":  return w.T;
     case "B":  return w.B;
+    case "K":  return w.K;
     case "€B": return `€ ${w.B}`;
     case "€M": return `€ ${w.M}`;
     case "£B": return `£ ${w.B}`;
@@ -111,7 +118,7 @@ export function chartAxisHeader(unit: string, locale: AxisLocale = "fr"): string
 export function isCurrencyLikeUnit(unit: string): boolean {
   const n = unit?.trim() ?? "";
   return [
-    "$B", "$M", "B", "M",
+    "$T", "$B", "$M", "$K", "$", "T", "B", "M", "K",
     "€B", "€M", "£B", "£M",
     "Mds $", "M $", "Mds €", "M €", "Mds £", "M £",
     "Mds CHF", "Mds JPY", "Mds EUR", "Mds DKK", "Mds INR",

@@ -103,7 +103,11 @@ export async function downloadSvgAsPng(
   const POWERED_BY_TEXT_W = 60;
   const GAP = 6;
   const logoCx = origX + origW / 2 + (POWERED_BY_TEXT_W + GAP) / 2;
-  const logoCy = origY + origH - 14;
+  // Yann 17 mai 2026 (v2) : placer JUSTE au-dessus de la ligne axe X (= dans la
+  // zone de plot, pas sous les labels d'années). 78 % de la hauteur du viewBox
+  // tombe ~10-15 px au-dessus de l'axe X pour la plupart des charts (h=360
+  // → y=281). Si chart a un origY non-nul, on intègre via origY+origH*0.78.
+  const logoCy = origY + origH * 0.78;
 
   try {
     const logoBlob = await fetch("/brand-mini-logo.png").then((r) => r.blob());
@@ -193,18 +197,67 @@ export async function downloadSvgAsPng(
   }
 
   // Logo société optionnel à droite du titre, si `options.ticker` fourni.
-  // Source : `/logos/<TICKER>.png` (hardcodés top market cap dans /public/logos/).
-  // Fallback silencieux si fetch fail (sté sans logo dispo).
+  // Yann 17 mai 2026 (v2) : priorité au logo affiché dans la page live
+  // (CompanyHeader → `[data-logo="true"]`) pour garantir IDENTITÉ visuelle
+  // avec ce que voit le user. Fallback : /logos/<TICKER>.png (favicon 16x16
+  // basse résolution, souvent moche). Si rien, skip.
   if (options.ticker && titleEl) {
     try {
-      const stéLogoBlob = await fetch(`/logos/${options.ticker.toUpperCase()}.png`)
-        .then((r) => (r.ok ? r.blob() : Promise.reject()));
-      const stéLogoDataUrl: string = await new Promise((resolve, reject) => {
-        const fr = new FileReader();
-        fr.onload = () => resolve(fr.result as string);
-        fr.onerror = reject;
-        fr.readAsDataURL(stéLogoBlob);
-      });
+      let stéLogoDataUrl: string | null = null;
+
+      // 1) Tentative DOM : SVG inline ou img de CompanyHeader.
+      const logoWrapper = document.querySelector('[data-logo="true"]');
+      if (logoWrapper) {
+        const svg = logoWrapper.querySelector("svg");
+        const img = logoWrapper.querySelector("img");
+        if (svg) {
+          // Sérialise le SVG en data URL.
+          const svgClone = svg.cloneNode(true) as SVGElement;
+          if (!svgClone.getAttribute("xmlns")) {
+            svgClone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+          }
+          const svgXml = new XMLSerializer().serializeToString(svgClone);
+          stéLogoDataUrl =
+            "data:image/svg+xml;base64," +
+            btoa(unescape(encodeURIComponent(svgXml)));
+        } else if (img instanceof HTMLImageElement && img.naturalWidth >= 32) {
+          // Convertit l'img via canvas (skip si trop basse résolution = favicon).
+          const canvas = document.createElement("canvas");
+          canvas.width = img.naturalWidth;
+          canvas.height = img.naturalHeight;
+          const ctx = canvas.getContext("2d");
+          if (ctx) {
+            ctx.drawImage(img, 0, 0);
+            stéLogoDataUrl = canvas.toDataURL("image/png");
+          }
+        }
+      }
+
+      // 2) Fallback : /logos/<TICKER>.png, mais skip si trop basse résolution.
+      if (!stéLogoDataUrl) {
+        const stéLogoBlob = await fetch(`/logos/${options.ticker.toUpperCase()}.png`)
+          .then((r) => (r.ok ? r.blob() : Promise.reject()));
+        // Vérifier la résolution avant d'embed : on charge dans un Image
+        // pour skip les favicons 16x16 qui s'affichent en bouillie.
+        const tempDataUrl: string = await new Promise((resolve, reject) => {
+          const fr = new FileReader();
+          fr.onload = () => resolve(fr.result as string);
+          fr.onerror = reject;
+          fr.readAsDataURL(stéLogoBlob);
+        });
+        const probe = await new Promise<HTMLImageElement>((resolve, reject) => {
+          const im = new Image();
+          im.onload = () => resolve(im);
+          im.onerror = reject;
+          im.src = tempDataUrl;
+        });
+        if (probe.naturalWidth >= 32) {
+          stéLogoDataUrl = tempDataUrl;
+        }
+      }
+
+      if (!stéLogoDataUrl) throw new Error("logo unavailable");
+
       const stéLogoSize = 28;
       // getComputedTextLength() ne marche pas sur SVG cloné détaché du DOM.
       // Fallback : estimation char-width (Fraunces 600 italic 22px ≈ 10.5 px / char).

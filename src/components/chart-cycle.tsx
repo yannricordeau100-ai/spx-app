@@ -252,27 +252,34 @@ export function ChartCycle({
   // Diviseur appliqué aux valeurs (data + ttm) pour le mode "par jour", "par seconde", etc.
   const divisor = timeFractionDivisor(timeFraction);
 
-  // Rescale auto de l'unité pour garder valeur >= 1 quand on divise.
+  // Rescale auto de l'unité pour TOUJOURS garder le MAX value ∈ [1, 999].
+  // Yann 17 mai 2026 (v2) : rescale appliqué AUSSI pour /year (divisor=1), pour
+  // capturer les KPI dont le dataset est en mauvaise unité (ex : valeur 0,5 Md$
+  // doit s'afficher 500 M$). Avant : rescale seulement si divisor !== 1 → laisse
+  // passer des valeurs < 1 ou > 999 en /year.
   // Ex : Cloud GOOGL 58.71 Md$ /an → /seconde = 1.86 $/s (unit Md$ → $)
   // On bosse en valeur ABSOLUE puis on retrouve l'unité optimale basée sur le MAX.
   let scaledData = data;
   let scaledTtm = ttm;
   let displayUnit = unit;
 
-  if (divisor !== 1) {
-    // Convertir chaque value de history en valeur absolue (unité de base)
-    const absData = safeData.map((v) => toAbsolute(v, unit) / divisor);
-    const absTtm = ttm == null ? null : toAbsolute(ttm, unit) / divisor;
-    // Trouver le MAX absolu (positif) pour décider de l'unité commune
-    const allAbs = [...absData, ...(absTtm != null ? [absTtm] : [])].filter(Number.isFinite);
-    const maxAbs = Math.max(...allAbs.map((v) => Math.abs(v)));
-    const { unit: newUnit } = rescaleForReadability(maxAbs, unit);
-    // Trouver le facteur de conversion entre l'unité de base et la nouvelle unité
-    const factorPerUnit: Record<string, number> = {
-      "$T": 1e12, "$B": 1e9, "$M": 1e6, "$K": 1e3, "$": 1, "$¢": 0.01,
-      "T": 1e12, "B": 1e9, "M": 1e6, "K": 1e3, "": 1,
-    };
-    const newFactor = factorPerUnit[newUnit] ?? 1;
+  // Convertir chaque value de history en valeur absolue (unité de base)
+  const absData = safeData.map((v) => toAbsolute(v, unit) / divisor);
+  const absTtm = ttm == null ? null : toAbsolute(ttm, unit) / divisor;
+  // Trouver le MAX absolu (positif) pour décider de l'unité commune
+  const allAbs = [...absData, ...(absTtm != null ? [absTtm] : [])].filter(Number.isFinite);
+  const maxAbs = allAbs.length > 0 ? Math.max(...allAbs.map((v) => Math.abs(v))) : 0;
+  const { unit: newUnit } = rescaleForReadability(maxAbs, unit);
+  // Trouver le facteur de conversion entre l'unité de base et la nouvelle unité
+  const factorPerUnit: Record<string, number> = {
+    "$T": 1e12, "$B": 1e9, "$M": 1e6, "$K": 1e3, "$": 1, "$¢": 0.01,
+    "T": 1e12, "B": 1e9, "M": 1e6, "K": 1e3, "": 1,
+  };
+  // Si l'unit est non-monétaire (% / ratio / texte), rescaleForReadability
+  // renvoie l'unit d'origine et factorPerUnit ne la connait pas → newFactor=1
+  // et on ne change pas scaledData. Idem pour units inconnues : on garde data.
+  const newFactor = factorPerUnit[newUnit];
+  if (newFactor != null && (newUnit !== unit || divisor !== 1)) {
     scaledData = absData.map((v) => v / newFactor);
     scaledTtm = absTtm == null ? null : absTtm / newFactor;
     displayUnit = newUnit;
