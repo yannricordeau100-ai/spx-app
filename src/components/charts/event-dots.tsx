@@ -54,39 +54,36 @@ function parseAnnualLabel(label: string): number | null {
  * (sans le +0.5 pour ne pas dépasser le bord droit du chart).
  */
 function yearToFractionalIdx(xLabels: string[]): Map<number, number> {
-  // Yann 17 mai 2026 (fix alignement Google) : la position fractionnaire
-  // d'un event d'année X doit pointer le MIDPOINT des labels appartenant à
-  // X (= directement sous le label année "X"), pas `lastIdx + 0.5` qui
-  // tombait à la frontière entre X et X+1.
+  // Yann 17 mai 2026 — règle EXPLICITE confirmée par Yann :
+  // L'event dot d'une année X apparait ENTRE le label année X et X+1.
+  // = position fractionnaire `lastIdxOfYear + 0.5` (à droite du dernier
+  //   data point de l'année X, juste avant le premier data point de X+1).
   //
-  // Trimestriel : year 2021 (T1-T4 aux idx 0-3) → midpoint = 1.5 (=
-  // centre du bracket "2021" rendu par yearGroups.map).
-  // Annuel : year 2021 (idx 0 unique) → pos = 0 = sous le data point /
-  // label "2021".
+  // Trimestriel : year 2023 (T1-T4 aux idx 8-11) → pos = 11.5 (entre T4 2023
+  // et T1 2024 = entre label "2023" et "2024").
+  // Annuel : year 2023 (idx 2 unique dans [2021..2026]) → pos = 2.5 (entre
+  // data point 2023 et 2024).
+  //
+  // Cas particulier : si l'année est la DERNIÈRE plottée, on cap à
+  // lastIdxAllowed (sinon le dot sortirait du chart).
   const firstQ = parseQuarterLabel(xLabels[0] ?? "");
   const firstS = parseSemesterLabel(xLabels[0] ?? "");
-  const yearFirstIdx = new Map<number, number>();
   const yearLastIdx = new Map<number, number>();
-
-  const recordYear = (year: number, idx: number) => {
-    if (!yearFirstIdx.has(year)) yearFirstIdx.set(year, idx);
-    yearLastIdx.set(year, idx);
-  };
 
   if (firstQ) {
     xLabels.forEach((l, idx) => {
       const p = parseQuarterLabel(l);
-      if (p) recordYear(p.year, idx);
+      if (p) yearLastIdx.set(p.year, idx);
     });
   } else if (firstS) {
     xLabels.forEach((l, idx) => {
       const p = parseSemesterLabel(l);
-      if (p) recordYear(p.year, idx);
+      if (p) yearLastIdx.set(p.year, idx);
     });
   } else {
     xLabels.forEach((l, idx) => {
       const y = parseAnnualLabel(l);
-      if (y != null) recordYear(y, idx);
+      if (y != null) yearLastIdx.set(y, idx);
     });
   }
 
@@ -96,13 +93,10 @@ function yearToFractionalIdx(xLabels: string[]): Map<number, number> {
   const lastIdxAllowed = /^TTM$/i.test(lastLabel) ? lastIdx - 1 : lastIdx;
 
   const out = new Map<number, number>();
-  for (const [year, last] of yearLastIdx.entries()) {
-    const first = yearFirstIdx.get(year) ?? last;
-    const cappedLast = Math.min(last, lastIdxAllowed);
-    if (first > lastIdxAllowed) continue;
-    const cappedFirst = Math.min(first, lastIdxAllowed);
-    const mid = (cappedFirst + cappedLast) / 2;
-    out.set(year, mid);
+  for (const [year, idx] of yearLastIdx.entries()) {
+    if (idx > lastIdxAllowed) continue;
+    const pos = idx + 0.5;
+    out.set(year, Math.min(pos, lastIdxAllowed));
   }
   return out;
 }
