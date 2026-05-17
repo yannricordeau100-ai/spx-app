@@ -288,12 +288,6 @@ export function CurveChart({
         viewBox={`0 0 ${W} ${H}`}
         preserveAspectRatio="xMidYMid meet"
         style={{ display: "block", overflow: "visible" }}
-        data-debug-unit={unit}
-        data-debug-data-first={data[0]}
-        data-debug-data-last={data[data.length - 1]}
-        data-debug-data-max={Math.max(...data)}
-        data-debug-data-min={Math.min(...data)}
-        data-debug-data-len={data.length}
       >
       {/* Header d'unité dans le SVG (au-dessus de l'axe Y) pour qu'il
           apparaisse aussi dans l'export PNG. Demande Yann 5 mai 2026.
