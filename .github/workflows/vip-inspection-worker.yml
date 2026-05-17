@@ -1,0 +1,92 @@
+name: VIP Inspection Worker
+
+# Yann 17 mai 2026 : worker GitHub Action qui exécute automatiquement
+# vip-deep-inspection.py pour les tickers que l'utilisateur a "lancé"
+# depuis /sandbox/vip-inspection (state='running' dans Supabase).
+#
+# Sécurité : utilise 3 secrets GitHub repo settings :
+#   - SUPABASE_URL                (= NEXT_PUBLIC_SUPABASE_URL)
+#   - SUPABASE_SERVICE_ROLE_KEY
+#   - GEMINI_API_KEY              (pour Gemini 2.5 Flash)
+
+on:
+  schedule:
+    # Toutes les 15 minutes (GitHub minimum 5 min, on prend 15 pour
+    # économiser la quota Action gratuite : 2000 min/mois).
+    - cron: '*/15 * * * *'
+  workflow_dispatch: # bouton manuel "Run workflow" depuis l'UI Actions
+    inputs:
+      ticker:
+        description: 'Ticker spécifique (optionnel, sinon tous les running)'
+        required: false
+        type: string
+
+# Permet plusieurs runs en parallèle si besoin (max 1 grâce au lock)
+concurrency:
+  group: vip-inspection-worker
+  cancel-in-progress: false
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12 # éviter de bouffer la quota si bloqué
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Python deps
+        run: pip install certifi
+
+      - name: Install Node deps (Supabase client only)
+        run: npm install --no-save @supabase/supabase-js
+
+      - name: Sync Supabase → JSON local
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: node scripts/vip-worker-sync-down.js
+
+      - name: Check if any running tickers
+        id: check
+        run: |
+          RUNNING=$(node -e "const j=require('./src/data/vip-inspection-status.json'); console.log(Object.values(j.results||{}).filter(s=>s.state==='running').map(s=>s.ticker).join(' '))")
+          echo "running_tickers=$RUNNING" >> $GITHUB_OUTPUT
+          if [ -z "$RUNNING" ]; then echo "✅ Aucun ticker à inspecter. Skip."; fi
+
+      - name: Run VIP inspection (Chrome headless + Gemini)
+        if: steps.check.outputs.running_tickers != ''
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          # Chrome préinstallé sur ubuntu-latest = /usr/bin/google-chrome
+          export CHROME=/usr/bin/google-chrome
+          # Si --ticker fourni manuellement via workflow_dispatch
+          TICKER="${{ github.event.inputs.ticker }}"
+          if [ -n "$TICKER" ]; then
+            python3 scripts/vip-deep-inspection.py --ticker "$TICKER"
+          else
+            python3 scripts/vip-deep-inspection.py --all-queued
+          fi
+
+      - name: Sync JSON local → Supabase (results)
+        if: steps.check.outputs.running_tickers != ''
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: node scripts/vip-worker-sync-up.js
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "## VIP Inspection Worker Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- Running tickers : ${{ steps.check.outputs.running_tickers }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Triggered at : $(date -u +%Y-%m-%dT%H:%M:%SZ)" >> $GITHUB_STEP_SUMMARY
