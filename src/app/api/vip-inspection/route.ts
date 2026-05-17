@@ -125,15 +125,16 @@ export async function POST(req: Request) {
       );
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
-    // 2. Déclenche le worker GitHub Action via repository_dispatch (= 0 skip,
-    //    inspection démarrée en <5s au lieu d'attendre le prochain cron).
-    //    Nécessite secret env Vercel : GITHUB_DISPATCH_TOKEN (PAT avec scope repo).
+    // 2. Déclenche le worker GitHub Action via workflow_dispatch (utilise
+    //    le yaml file directement, plus fiable que repository_dispatch qui
+    //    ne semble pas déclencher correctement avec self-hosted runner).
+    //    Yann 18 mai 2026 : switch repository_dispatch → workflow_dispatch.
     let webhook_hint = "Le worker GitHub Action exécutera l'inspection au prochain cron (max 1 heure).";
     const ghToken = process.env.GITHUB_DISPATCH_TOKEN;
     if (ghToken) {
       try {
         const resp = await fetch(
-          "https://api.github.com/repos/yannricordeau100-ai/spx-app/dispatches",
+          "https://api.github.com/repos/yannricordeau100-ai/spx-app/actions/workflows/vip-inspection-worker.yml/dispatches",
           {
             method: "POST",
             headers: {
@@ -142,15 +143,16 @@ export async function POST(req: Request) {
               "X-GitHub-Api-Version": "2022-11-28",
             },
             body: JSON.stringify({
-              event_type: "vip-inspection-launch",
-              client_payload: { ticker: tk },
+              ref: "main",
+              inputs: { ticker: tk },
             }),
           },
         );
         if (resp.ok) {
-          webhook_hint = `Worker GitHub Action déclenché immédiatement (event vip-inspection-launch, ticker=${tk}). Inspection démarre en ~30s.`;
+          webhook_hint = `Worker GitHub Action déclenché immédiatement (workflow_dispatch, ticker=${tk}). Inspection démarre en ~30s.`;
         } else {
-          webhook_hint = `Webhook GitHub fail (${resp.status}). Fallback : cron hourly.`;
+          const body = await resp.text().catch(() => "");
+          webhook_hint = `Webhook GitHub fail (HTTP ${resp.status}: ${body.slice(0, 100)}). Fallback : cron hourly.`;
         }
       } catch (e) {
         webhook_hint = `Webhook GitHub error: ${String(e).slice(0, 80)}. Fallback : cron hourly.`;
