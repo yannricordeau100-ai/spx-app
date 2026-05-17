@@ -1,33 +1,37 @@
 /**
  * Export d'un SVG chart vers PNG côté client.
  *
- * Spec Yann (6 mai 2026, refonte 17 mai 2026) :
+ * Spec Yann (6 mai 2026, refonte 17 mai 2026, refonte v3 17 mai 2026) :
  *  - Le PNG doit ressembler PRESQUE au live (mêmes couleurs, mêmes courbes).
- *  - Le mini-logo "Mettrik AI" est désormais positionné **bottom-center**
- *    du graph (juste au-dessus de l'axe X), précédé d'un texte "Powered by"
- *    discret. L'ancien placement top-right chevauchait les data : grossière
- *    erreur corrigée. Taille réduite (height 16 px).
- *  - Le TITRE du KPI est injecté en haut du PNG. Police = **Fraunces 600
- *    italic** (au lieu de Manrope) : rendu éditorial classe + wow.
- *  - Logo société optionnel à droite du titre, si `options.ticker` fourni
- *    (PNG sourcé depuis `/logos/<TICKER>.png`). Fallback silencieux si
- *    fetch échoue.
+ *  - Le watermark "Powered by Mettrik" est désormais **texte SVG inline**
+ *    (zéro fetch PNG). Deux mots cote-à-cote :
+ *      • "Powered by" en Manrope 500 (theme-aware)
+ *      • "Mettrik"    en Fraunces 600 italic (theme-aware, MÊME taille)
+ *    Positionné bottom-center juste au-dessus de l'axe X.
+ *  - Le TITRE du KPI est en **Bricolage Grotesque 700** (24px, letter-spacing
+ *    -0.025em, NON italic). Disposition : "Revenus Google Cloud [LOGO]
+ *    Alphabet Inc." avec logo sté COMME SÉPARATEUR central entre les 2 parties
+ *    si options.title contient " · " (espace point milieu espace).
+ *  - Logo sté monochrome (filter feColorMatrix) : noir en thème clair, blanc
+ *    en thème sombre. Même tonalité que titleColor.
+ *  - Suppression DOM complète (removeChild) de tout élément `[data-chart-logo]`,
+ *    `[data-chart-watermark]`, `[data-export-hide="true"]` dans le clone pour
+ *    garantir aucun résidu visuel non désiré.
  *  - Plus d'espace vide autour du graph (padding 36 px de chaque côté +
  *    52 px en haut pour titre + watermark).
- *  - Si le site est en thème clair (data-theme="light" sur <html>), le PNG
- *    sort en thème clair (background blanc, texte sombre).
- *  - JAMAIS d'icône "télécharger" dans le PNG (le bouton est HTML, pas SVG,
- *    donc déjà exclu par capture).
- *  - Les onglets de fréquence (A M S J H m s) sont en HTML, pas dans le
- *    SVG, donc absents du PNG par construction.
+ *  - Si le site est en thème clair, le PNG sort en thème clair.
+ *  - JAMAIS d'icône "télécharger" dans le PNG.
  *
  * Workflow :
  *  1. Cloner le SVG.
- *  2. Étendre le viewBox top/sides pour le titre + le padding.
- *  3. Insérer un rect background (couleur selon thème).
- *  4. Insérer "Powered by" + mini-logo Mettrik en bas, centrés.
- *  5. Injecter le titre KPI au top (Fraunces italic) + logo sté optionnel.
- *  6. Sérialiser via XMLSerializer → <Image> → <canvas> 2× → blob → download.
+ *  2. Supprimer les éléments marqués `[data-chart-logo|watermark|export-hide]`.
+ *  3. Étendre le viewBox top/sides pour le titre + le padding.
+ *  4. Insérer un rect background (couleur selon thème).
+ *  5. Insérer <defs> avec filtres monochromes.
+ *  6. Insérer watermark "Powered by Mettrik" texte SVG inline en bas.
+ *  7. Injecter le titre KPI au top (Bricolage 700 24px) + logo sté monochrome
+ *     en séparateur central si options.title contient " · ".
+ *  8. Sérialiser via XMLSerializer → <Image> → <canvas> 2× → blob → download.
  */
 export async function downloadSvgAsPng(
   svg: SVGSVGElement,
@@ -48,6 +52,26 @@ export async function downloadSvgAsPng(
   // Clone pour pouvoir injecter / modifier sans toucher au DOM live.
   const clone = svg.cloneNode(true) as SVGSVGElement;
   clone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+
+  // ── Suppression DOM des éléments marqués pour exclusion export ──
+  // Yann 17 mai 2026 (v3) : `display:none` ne suffit pas — certains
+  // navigateurs / serializers gardent l'élément en pixel data. Solution
+  // robuste : retrait DOM complet via removeChild. Sélecteur élargi pour
+  // futures extensibilité (any [data-chart-logo], [data-chart-watermark],
+  // [data-export-hide="true"]).
+  const removeSelectors = [
+    "[data-chart-logo]",
+    "[data-chart-watermark]",
+    '[data-export-hide="true"]',
+  ];
+  for (const sel of removeSelectors) {
+    const nodes = clone.querySelectorAll(sel);
+    nodes.forEach((node) => {
+      if (node.parentNode) {
+        node.parentNode.removeChild(node);
+      }
+    });
+  }
 
   // Récupère le viewBox actuel.
   const vb = svg.viewBox.baseVal;
@@ -81,83 +105,104 @@ export async function downloadSvgAsPng(
   bg.setAttribute("fill", bgColor);
   clone.insertBefore(bg, clone.firstChild);
 
-  // ── Mini-logo Mettrik : repositionné bottom-center (17 mai 2026) ──
-  // Avant : top-right, chevauchait les data → grossière erreur signalée.
-  // Maintenant : juste au-dessus de l'axe X, centré horizontalement,
-  // précédé d'un texte "Powered by" discret. Taille réduite (height 16 px).
-  // Le ChartMiniLogo SVG live reste pour le rendu écran ; ici on le
-  // CACHE et on insère <image> au nouveau placement pour le PNG exporté.
-  const logoEl = clone.querySelector('[data-chart-logo="small"]') as SVGElement | null;
-  if (logoEl) {
-    logoEl.setAttribute("display", "none");
-  }
+  // ── <defs> isolé pour les filtres monochromes ──
+  // Si le SVG live a déjà un <defs>, on en crée un NOUVEAU séparé (pas de
+  // conflit d'ID tant que nos IDs sont uniques : mettrik-mono-light /
+  // mettrik-mono-dark sont nos namespacing).
+  // matrix 4x5 : 3 premières lignes mappent RGB sur 0 (clair) ou 1 (sombre),
+  // dernière colonne = offset, dernière ligne préserve alpha.
+  const defsEl = document.createElementNS(NS, "defs");
 
-  // Aspect ratio image = 1424:270 ≈ 5.27. Hauteur cible = 16 px (discret),
-  // largeur ≈ 84 px. Position : bottom-center, ~14 px au-dessus de l'axe X.
-  const logoH = 16;
-  const logoW = logoH * (1424 / 270); // ≈ 84 px
-  // Centrage du bloc "Powered by [gap 6] [logo]" :
-  // textWidth_approx ≈ 60 px pour "Powered by" en font 11/500
-  // total_width = 60 + 6 + logoW ≈ 150 px
-  // logoCx (centre du logo) = origX + origW/2 + (60 + 6)/2 = +33 décalage à droite
-  const POWERED_BY_TEXT_W = 60;
-  const GAP = 6;
-  const logoCx = origX + origW / 2 + (POWERED_BY_TEXT_W + GAP) / 2;
-  // Yann 17 mai 2026 (v2) : placer JUSTE au-dessus de la ligne axe X (= dans la
-  // zone de plot, pas sous les labels d'années). 78 % de la hauteur du viewBox
-  // tombe ~10-15 px au-dessus de l'axe X pour la plupart des charts (h=360
-  // → y=281). Si chart a un origY non-nul, on intègre via origY+origH*0.78.
+  const filterLight = document.createElementNS(NS, "filter");
+  filterLight.setAttribute("id", "mettrik-mono-light");
+  // mono-light : tout en noir (R=G=B=0, alpha préservé)
+  const matrixLight = document.createElementNS(NS, "feColorMatrix");
+  matrixLight.setAttribute("type", "matrix");
+  matrixLight.setAttribute(
+    "values",
+    "0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0"
+  );
+  filterLight.appendChild(matrixLight);
+
+  const filterDark = document.createElementNS(NS, "filter");
+  filterDark.setAttribute("id", "mettrik-mono-dark");
+  // mono-dark : tout en blanc (R=G=B=1, alpha préservé)
+  const matrixDark = document.createElementNS(NS, "feColorMatrix");
+  matrixDark.setAttribute("type", "matrix");
+  matrixDark.setAttribute(
+    "values",
+    "0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1 0"
+  );
+  filterDark.appendChild(matrixDark);
+
+  defsEl.appendChild(filterLight);
+  defsEl.appendChild(filterDark);
+  // Insère après le bg rect (= 2e position pour ne pas être recouvert).
+  clone.insertBefore(defsEl, bg.nextSibling);
+
+  const monoFilterId = isLight ? "mettrik-mono-light" : "mettrik-mono-dark";
+
+  // ── Watermark "Powered by Mettrik" texte SVG inline (v3, 17 mai 2026) ──
+  // Plus de fetch PNG, plus d'<image>. Deux <text> côte-à-côte centrés.
+  // Position verticale : juste au-dessus de la ligne axe X (zone plot).
   const logoCy = origY + origH * 0.78;
 
-  try {
-    const logoBlob = await fetch("/brand-mini-logo.png").then((r) => r.blob());
-    const logoDataUrl: string = await new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(reader.result as string);
-      reader.onerror = reject;
-      reader.readAsDataURL(logoBlob);
-    });
+  // Tailles approximatives pour centrer le bloc complet.
+  // Manrope 500 13px : ~6.5 px/char × "Powered by" (10 chars) ≈ 65 px
+  // Fraunces 600 italic 13px : ~6.5 px/char × "Mettrik" (7 chars) ≈ 46 px
+  // Gap entre les deux : 4 px (caractères ont déjà padding visuel).
+  const POWERED_BY_TEXT_W = 65;
+  const METTRIK_TEXT_W = 46;
+  const WM_GAP = 4;
+  const wmTotalW = POWERED_BY_TEXT_W + WM_GAP + METTRIK_TEXT_W;
+  const wmStartX = origX + origW / 2 - wmTotalW / 2;
+  const wmPoweredByCenterX = wmStartX + POWERED_BY_TEXT_W / 2;
+  const wmMettrikCenterX =
+    wmStartX + POWERED_BY_TEXT_W + WM_GAP + METTRIK_TEXT_W / 2;
 
-    // "Powered by" text à gauche du logo (insérer AVANT le logo pour z-order).
-    const poweredByEl = document.createElementNS(NS, "text");
-    poweredByEl.setAttribute("x", String(logoCx - logoW / 2 - GAP));
-    poweredByEl.setAttribute("y", String(logoCy + 4)); // baseline align approx
-    poweredByEl.setAttribute("text-anchor", "end");
-    poweredByEl.setAttribute(
-      "font-family",
-      "var(--font-manrope), Manrope, system-ui, sans-serif"
-    );
-    poweredByEl.setAttribute("font-size", "11");
-    poweredByEl.setAttribute("font-weight", "500");
-    poweredByEl.setAttribute("fill", isLight ? "#666" : "#888");
-    poweredByEl.setAttribute("opacity", "0.85");
-    poweredByEl.textContent = "Powered by";
-    clone.appendChild(poweredByEl);
+  const wmPoweredByEl = document.createElementNS(NS, "text");
+  wmPoweredByEl.setAttribute("x", String(wmPoweredByCenterX));
+  wmPoweredByEl.setAttribute("y", String(logoCy + 4));
+  wmPoweredByEl.setAttribute("text-anchor", "middle");
+  wmPoweredByEl.setAttribute(
+    "font-family",
+    "var(--font-manrope), Manrope, system-ui, sans-serif"
+  );
+  wmPoweredByEl.setAttribute("font-size", "13");
+  wmPoweredByEl.setAttribute("font-weight", "500");
+  wmPoweredByEl.setAttribute("fill", titleColor);
+  wmPoweredByEl.setAttribute("opacity", "0.8");
+  wmPoweredByEl.textContent = "Powered by";
+  clone.appendChild(wmPoweredByEl);
 
-    const imgEl = document.createElementNS(NS, "image");
-    imgEl.setAttribute("href", logoDataUrl);
-    imgEl.setAttribute("x", String(logoCx - logoW / 2));
-    imgEl.setAttribute("y", String(logoCy - logoH / 2));
-    imgEl.setAttribute("width", String(logoW));
-    imgEl.setAttribute("height", String(logoH));
-    imgEl.setAttribute("preserveAspectRatio", "xMidYMid meet");
-    clone.appendChild(imgEl);
-  } catch {
-    // Fallback : si le fetch échoue, on retire le `display:none` pour
-    // remettre le ChartMiniLogo SVG visible (vaut mieux que pas de logo).
-    if (logoEl) logoEl.removeAttribute("display");
-  }
+  const wmMettrikEl = document.createElementNS(NS, "text");
+  wmMettrikEl.setAttribute("x", String(wmMettrikCenterX));
+  wmMettrikEl.setAttribute("y", String(logoCy + 4));
+  wmMettrikEl.setAttribute("text-anchor", "middle");
+  wmMettrikEl.setAttribute(
+    "font-family",
+    "var(--font-fraunces), Fraunces, Georgia, 'Times New Roman', serif"
+  );
+  wmMettrikEl.setAttribute("font-size", "13");
+  wmMettrikEl.setAttribute("font-weight", "600");
+  wmMettrikEl.setAttribute("font-style", "italic");
+  wmMettrikEl.setAttribute("fill", titleColor);
+  wmMettrikEl.setAttribute("opacity", "0.8");
+  wmMettrikEl.textContent = "Mettrik";
+  clone.appendChild(wmMettrikEl);
 
   // Embed les @font-face du document parent dans la balise <style> du SVG
-  // cloné, pour que Fraunces (titre) et Manrope (watermark) rendent
-  // identiquement entre live et PNG. Sans ça, var(--font-fraunces) ne
-  // résoud pas dans le contexte SVG → fallback Georgia → rendu différent
-  // de ce que voit l'utilisateur.
+  // cloné, pour que Bricolage Grotesque (titre), Fraunces (watermark) et
+  // Manrope (watermark) rendent identiquement entre live et PNG.
   const fontFaceCss: string[] = [];
   try {
     for (const sheet of Array.from(document.styleSheets)) {
       let rules: CSSRuleList | null = null;
-      try { rules = sheet.cssRules; } catch { rules = null; }
+      try {
+        rules = sheet.cssRules;
+      } catch {
+        rules = null;
+      }
       if (!rules) continue;
       for (const rule of Array.from(rules)) {
         if ((rule as CSSRule).constructor.name === "CSSFontFaceRule") {
@@ -174,110 +219,194 @@ export async function downloadSvgAsPng(
     clone.insertBefore(styleEl, clone.firstChild);
   }
 
-  // Titre KPI en haut du PNG (centré horizontalement au-dessus du graph).
-  // Police = Fraunces 600 italic (serif moderne haut de gamme, déjà utilisée
-  // pour BrandWordmark home). Rendu éditorial "class + wow".
-  let titleEl: SVGTextElement | null = null;
+  // ── Titre KPI en haut du PNG (Bricolage Grotesque 700, 24px) ──
+  // Yann 17 mai 2026 (v3) : Fraunces "pas sexy ni sérieux" → Bricolage 700,
+  // letter-spacing tighter (-0.025em), fintech editorial moderne premium.
+  // Disposition : si options.title contient " · ", split en 2 parties avec
+  // logo sté COMME SÉPARATEUR central. Sinon fallback rendu monolithique.
+  const TITLE_FONT_SIZE = 24;
+  const TITLE_CHAR_WIDTH = 12; // estimation Bricolage 700 24px
+  const TITLE_Y = origY - PAD_TOP + 36;
+  const TITLE_LOGO_SIZE = 32; // séparateur visuel
+  const TITLE_LOGO_GAP = 14; // gap de chaque côté du logo
+
+  const titleFontFamily =
+    "var(--font-bricolage), 'Bricolage Grotesque', system-ui, sans-serif";
+
   if (options.title) {
-    titleEl = document.createElementNS(NS, "text");
-    titleEl.setAttribute("x", String(origX + origW / 2));
-    titleEl.setAttribute("y", String(origY - PAD_TOP + 36));
-    titleEl.setAttribute("text-anchor", "middle");
-    titleEl.setAttribute(
-      "font-family",
-      "var(--font-fraunces), Fraunces, Georgia, 'Times New Roman', serif"
-    );
-    titleEl.setAttribute("font-weight", "600");
-    titleEl.setAttribute("font-style", "italic");
-    titleEl.setAttribute("font-size", "22");
-    titleEl.setAttribute("letter-spacing", "-0.01em");
-    titleEl.setAttribute("fill", titleColor);
-    titleEl.textContent = options.title;
-    clone.appendChild(titleEl);
-  }
+    // Tente split sur " · " (espace point milieu espace).
+    const SEPARATOR = " · ";
+    const sepIdx = options.title.indexOf(SEPARATOR);
+    const hasSeparator = sepIdx > 0;
 
-  // Logo société optionnel à droite du titre, si `options.ticker` fourni.
-  // Yann 17 mai 2026 (v2) : priorité au logo affiché dans la page live
-  // (CompanyHeader → `[data-logo="true"]`) pour garantir IDENTITÉ visuelle
-  // avec ce que voit le user. Fallback : /logos/<TICKER>.png (favicon 16x16
-  // basse résolution, souvent moche). Si rien, skip.
-  if (options.ticker && titleEl) {
-    try {
-      let stéLogoDataUrl: string | null = null;
+    // Récupère le logo sté si dispo (DOM ou fallback). Nécessaire pour
+    // décider du layout (avec ou sans logo séparateur).
+    let stéLogoDataUrl: string | null = null;
 
-      // 1) Tentative DOM : SVG inline ou img de CompanyHeader.
-      const logoWrapper = document.querySelector('[data-logo="true"]');
-      if (logoWrapper) {
-        const svg = logoWrapper.querySelector("svg");
-        const img = logoWrapper.querySelector("img");
-        if (svg) {
-          // Sérialise le SVG en data URL.
-          const svgClone = svg.cloneNode(true) as SVGElement;
-          if (!svgClone.getAttribute("xmlns")) {
-            svgClone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-          }
-          const svgXml = new XMLSerializer().serializeToString(svgClone);
-          stéLogoDataUrl =
-            "data:image/svg+xml;base64," +
-            btoa(unescape(encodeURIComponent(svgXml)));
-        } else if (img instanceof HTMLImageElement && img.naturalWidth >= 32) {
-          // Convertit l'img via canvas (skip si trop basse résolution = favicon).
-          const canvas = document.createElement("canvas");
-          canvas.width = img.naturalWidth;
-          canvas.height = img.naturalHeight;
-          const ctx = canvas.getContext("2d");
-          if (ctx) {
-            ctx.drawImage(img, 0, 0);
-            stéLogoDataUrl = canvas.toDataURL("image/png");
+    if (options.ticker) {
+      try {
+        // 1) Tentative DOM : SVG inline ou img de CompanyHeader.
+        const logoWrapper = document.querySelector('[data-logo="true"]');
+        if (logoWrapper) {
+          const innerSvg = logoWrapper.querySelector("svg");
+          const innerImg = logoWrapper.querySelector("img");
+          if (innerSvg) {
+            const svgClone = innerSvg.cloneNode(true) as SVGElement;
+            if (!svgClone.getAttribute("xmlns")) {
+              svgClone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+            }
+            const svgXml = new XMLSerializer().serializeToString(svgClone);
+            stéLogoDataUrl =
+              "data:image/svg+xml;base64," +
+              btoa(unescape(encodeURIComponent(svgXml)));
+          } else if (
+            innerImg instanceof HTMLImageElement &&
+            innerImg.naturalWidth >= 32
+          ) {
+            const canvas = document.createElement("canvas");
+            canvas.width = innerImg.naturalWidth;
+            canvas.height = innerImg.naturalHeight;
+            const ctx = canvas.getContext("2d");
+            if (ctx) {
+              ctx.drawImage(innerImg, 0, 0);
+              stéLogoDataUrl = canvas.toDataURL("image/png");
+            }
           }
         }
-      }
 
-      // 2) Fallback : /logos/<TICKER>.png, mais skip si trop basse résolution.
-      if (!stéLogoDataUrl) {
-        const stéLogoBlob = await fetch(`/logos/${options.ticker.toUpperCase()}.png`)
-          .then((r) => (r.ok ? r.blob() : Promise.reject()));
-        // Vérifier la résolution avant d'embed : on charge dans un Image
-        // pour skip les favicons 16x16 qui s'affichent en bouillie.
-        const tempDataUrl: string = await new Promise((resolve, reject) => {
-          const fr = new FileReader();
-          fr.onload = () => resolve(fr.result as string);
-          fr.onerror = reject;
-          fr.readAsDataURL(stéLogoBlob);
-        });
-        const probe = await new Promise<HTMLImageElement>((resolve, reject) => {
-          const im = new Image();
-          im.onload = () => resolve(im);
-          im.onerror = reject;
-          im.src = tempDataUrl;
-        });
-        if (probe.naturalWidth >= 32) {
-          stéLogoDataUrl = tempDataUrl;
+        // 2) Fallback : /logos/<TICKER>.png, mais skip si trop basse résolution.
+        if (!stéLogoDataUrl) {
+          const stéLogoBlob = await fetch(
+            `/logos/${options.ticker.toUpperCase()}.png`
+          ).then((r) => (r.ok ? r.blob() : Promise.reject()));
+          const tempDataUrl: string = await new Promise((resolve, reject) => {
+            const fr = new FileReader();
+            fr.onload = () => resolve(fr.result as string);
+            fr.onerror = reject;
+            fr.readAsDataURL(stéLogoBlob);
+          });
+          const probe = await new Promise<HTMLImageElement>(
+            (resolve, reject) => {
+              const im = new Image();
+              im.onload = () => resolve(im);
+              im.onerror = reject;
+              im.src = tempDataUrl;
+            }
+          );
+          if (probe.naturalWidth >= 32) {
+            stéLogoDataUrl = tempDataUrl;
+          }
         }
+      } catch {
+        /* skip silencieux si logo sté indispo */
+        stéLogoDataUrl = null;
+      }
+    }
+
+    if (hasSeparator) {
+      const kpiText = options.title.slice(0, sepIdx);
+      const stéText = options.title.slice(sepIdx + SEPARATOR.length);
+
+      const kpiW = kpiText.length * TITLE_CHAR_WIDTH;
+      const stéW = stéText.length * TITLE_CHAR_WIDTH;
+
+      // Layout : kpiText [gap] (logo si dispo) [gap] stéText, centré.
+      const hasLogo = !!stéLogoDataUrl;
+      const totalW = hasLogo
+        ? kpiW + TITLE_LOGO_GAP + TITLE_LOGO_SIZE + TITLE_LOGO_GAP + stéW
+        : kpiW + TITLE_LOGO_GAP + stéW;
+
+      const midX = origX + origW / 2;
+      const startX = midX - totalW / 2;
+
+      const kpiCenterX = startX + kpiW / 2;
+      const logoCenterX = hasLogo
+        ? startX + kpiW + TITLE_LOGO_GAP + TITLE_LOGO_SIZE / 2
+        : 0;
+      const stéCenterX = hasLogo
+        ? startX + kpiW + TITLE_LOGO_GAP + TITLE_LOGO_SIZE + TITLE_LOGO_GAP +
+          stéW / 2
+        : startX + kpiW + TITLE_LOGO_GAP + stéW / 2;
+
+      // Texte KPI (gauche)
+      const kpiEl = document.createElementNS(NS, "text");
+      kpiEl.setAttribute("x", String(kpiCenterX));
+      kpiEl.setAttribute("y", String(TITLE_Y));
+      kpiEl.setAttribute("text-anchor", "middle");
+      kpiEl.setAttribute("font-family", titleFontFamily);
+      kpiEl.setAttribute("font-weight", "700");
+      kpiEl.setAttribute("font-style", "normal");
+      kpiEl.setAttribute("font-size", String(TITLE_FONT_SIZE));
+      kpiEl.setAttribute("letter-spacing", "-0.025em");
+      kpiEl.setAttribute("fill", titleColor);
+      kpiEl.textContent = kpiText;
+      clone.appendChild(kpiEl);
+
+      // Logo sté (séparateur central, monochrome via filter)
+      if (hasLogo && stéLogoDataUrl) {
+        const logoG = document.createElementNS(NS, "g");
+        logoG.setAttribute("filter", `url(#${monoFilterId})`);
+        const stéImgEl = document.createElementNS(NS, "image");
+        stéImgEl.setAttribute("href", stéLogoDataUrl);
+        stéImgEl.setAttribute("x", String(logoCenterX - TITLE_LOGO_SIZE / 2));
+        stéImgEl.setAttribute(
+          "y",
+          String(TITLE_Y - TITLE_LOGO_SIZE * 0.75)
+        );
+        stéImgEl.setAttribute("width", String(TITLE_LOGO_SIZE));
+        stéImgEl.setAttribute("height", String(TITLE_LOGO_SIZE));
+        stéImgEl.setAttribute("preserveAspectRatio", "xMidYMid meet");
+        logoG.appendChild(stéImgEl);
+        clone.appendChild(logoG);
       }
 
-      if (!stéLogoDataUrl) throw new Error("logo unavailable");
+      // Texte sté (droite)
+      const stéEl = document.createElementNS(NS, "text");
+      stéEl.setAttribute("x", String(stéCenterX));
+      stéEl.setAttribute("y", String(TITLE_Y));
+      stéEl.setAttribute("text-anchor", "middle");
+      stéEl.setAttribute("font-family", titleFontFamily);
+      stéEl.setAttribute("font-weight", "700");
+      stéEl.setAttribute("font-style", "normal");
+      stéEl.setAttribute("font-size", String(TITLE_FONT_SIZE));
+      stéEl.setAttribute("letter-spacing", "-0.025em");
+      stéEl.setAttribute("fill", titleColor);
+      stéEl.textContent = stéText;
+      clone.appendChild(stéEl);
+    } else {
+      // Fallback monolithique (pas de séparateur " · " trouvé).
+      const titleEl = document.createElementNS(NS, "text");
+      titleEl.setAttribute("x", String(origX + origW / 2));
+      titleEl.setAttribute("y", String(TITLE_Y));
+      titleEl.setAttribute("text-anchor", "middle");
+      titleEl.setAttribute("font-family", titleFontFamily);
+      titleEl.setAttribute("font-weight", "700");
+      titleEl.setAttribute("font-style", "normal");
+      titleEl.setAttribute("font-size", String(TITLE_FONT_SIZE));
+      titleEl.setAttribute("letter-spacing", "-0.025em");
+      titleEl.setAttribute("fill", titleColor);
+      titleEl.textContent = options.title;
+      clone.appendChild(titleEl);
 
-      const stéLogoSize = 28;
-      // getComputedTextLength() ne marche pas sur SVG cloné détaché du DOM.
-      // Fallback : estimation char-width (Fraunces 600 italic 22px ≈ 10.5 px / char).
-      const measuredWidth = titleEl.getComputedTextLength?.() ?? 0;
-      const estimatedWidth = (options.title?.length ?? 0) * 10.5;
-      const titleWidth = measuredWidth > 0 ? measuredWidth : estimatedWidth;
-      const titleEnd = origX + origW / 2 + titleWidth / 2 + 12;
-      const stéImgEl = document.createElementNS(NS, "image");
-      stéImgEl.setAttribute("href", stéLogoDataUrl);
-      stéImgEl.setAttribute("x", String(titleEnd));
-      stéImgEl.setAttribute(
-        "y",
-        String(origY - PAD_TOP + 36 - stéLogoSize * 0.75)
-      );
-      stéImgEl.setAttribute("width", String(stéLogoSize));
-      stéImgEl.setAttribute("height", String(stéLogoSize));
-      stéImgEl.setAttribute("preserveAspectRatio", "xMidYMid meet");
-      clone.appendChild(stéImgEl);
-    } catch {
-      /* skip silencieux si logo sté indispo */
+      // Si logo sté dispo en mode monolithique : ajouter à droite (legacy behavior).
+      if (stéLogoDataUrl) {
+        const titleWidth = options.title.length * TITLE_CHAR_WIDTH;
+        const titleEnd = origX + origW / 2 + titleWidth / 2 + 12;
+        const logoG = document.createElementNS(NS, "g");
+        logoG.setAttribute("filter", `url(#${monoFilterId})`);
+        const stéImgEl = document.createElementNS(NS, "image");
+        stéImgEl.setAttribute("href", stéLogoDataUrl);
+        stéImgEl.setAttribute("x", String(titleEnd));
+        stéImgEl.setAttribute(
+          "y",
+          String(TITLE_Y - TITLE_LOGO_SIZE * 0.75)
+        );
+        stéImgEl.setAttribute("width", String(TITLE_LOGO_SIZE));
+        stéImgEl.setAttribute("height", String(TITLE_LOGO_SIZE));
+        stéImgEl.setAttribute("preserveAspectRatio", "xMidYMid meet");
+        logoG.appendChild(stéImgEl);
+        clone.appendChild(logoG);
+      }
     }
   }
 
