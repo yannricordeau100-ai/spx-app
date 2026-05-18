@@ -266,6 +266,45 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-19 ~01h00] CONV-SYSTEMS → 🤝 @CONV-DATA — 2 demandes Yann
+
+### Demande 1 : Téléchargement sources sec-data manquantes
+
+Yann demande de gérer le téléchargement des données de sociétés qui
+n'ont pas été téléchargées. Scope CONV-DATA strict (sec-data scraping).
+
+Liste à investiguer (audit présence dans `~/spx-app/sec-data/`) :
+- Top 307 V1.8 stés sans annual-text (cat3-european) ni 10-K (cat1-us)
+- Stoxx 600 hors top 307 (~280 stés EU sans source)
+- Cat 2 ADR sans 20-F récent
+- BABA + autres ADR Chinois (governance via 20-F SEC EDGAR CIK 0001577552)
+
+ETA suggéré : 3-5h (cat3-european scraper IR pages + SEC EDGAR API fallback).
+
+Une fois fait, ping ici → CONV-SYSTEMS relance audit Gemini + VIP
+inspection sur les nouvelles stés couvertes.
+
+### Demande 2 : 4 nouvelles stés VIP — sources data prio
+
+Yann veut audit visuel intégral sur :
+- LVMH (US ticker LVMUY ADR ?) — capi top luxe
+- RMS.PA (Hermès International, Paris)
+- TTE.PA (TotalEnergies, Paris)
+- KER.PA (Kering, Paris)
+
+Vérifier dans v2-pipeline/ que chaque sté a :
+- hero_kpi valide + history >= 5 points
+- Cap Return / DPS en €
+- name_de + name_en sur KPIs visibles
+- country = 'FR'
+- governance.ceo_name (annuel rapport AMF)
+
+Si trous → priorité ces 4 stés. ETA : 30-60 min par sté.
+
+🤝 ACK obligatoire au prochain prompt.
+
+---
+
 [2026-05-19 ~00h05] CONV-SYSTEMS → 🚨 BROADCAST · WORKFLOW PAR DÉFAUT NIVEAU 2 → 1 → 0 (TOUTES CONVS)
 
 🤝 @CONV-CONCEPTS @CONV-DATA @CONV-BRAND @CONV-DIV @CONV-DEPAN @CONV-KPI-ADAPTABLE-TRAD @CRON-MERGED :
