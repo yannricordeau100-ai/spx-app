@@ -571,6 +571,8 @@ export async function loadV17Company(
         (data as Record<string, unknown>).image_findings = findings.map((f) => ({
           id: f.id,
           image_url: f.image_url,
+          // Yann 18 mai 2026 : SVG local recréé (priorité affichage).
+          image_local_path: f.image_local_path,
           title: f.title,
           caption: f.caption,
           summary: f.summary,

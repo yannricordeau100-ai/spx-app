@@ -38,6 +38,7 @@ _SSL_CTX.verify_mode = ssl.CERT_NONE
 
 ROOT = Path(__file__).resolve().parent.parent
 V18_TICKERS = ROOT / "src/data/v1-8-tickers-sorted.json"
+V17_PUBLIC = ROOT / "src/data/v1-7-public.json"
 PIPELINE_DIR = ROOT / "src/data/v2-pipeline"
 ENRICH_DIR = ROOT / "src/data/v2-pipeline-enrich"
 ENV_FILE = ROOT / ".env.local"
@@ -239,6 +240,8 @@ def main() -> None:
     ap.add_argument("--force", action="store_true", help="Re-générer même si déjà fait")
     ap.add_argument("--sleep", type=float, default=4.0)
     ap.add_argument("--start-from", type=int, default=0, help="Offset")
+    ap.add_argument("--source", choices=["v18", "v17"], default="v18",
+                    help="v18 = top 307 (default), v17 = univers complet 1597 stés Pass 3")
     args = ap.parse_args()
 
     env = load_env()
@@ -249,9 +252,16 @@ def main() -> None:
         sys.exit(1)
     print(f"Clés Gemini : {len(keys)}, Cerebras fallback : {len(cerebras_keys)}")
 
-    tickers = json.loads(V18_TICKERS.read_text())
+    if args.source == "v17":
+        # Univers V1.7 Pass 3 strict (1597 stés actuellement)
+        v17 = json.loads(V17_PUBLIC.read_text())
+        tickers = list(v17.keys())
+        print(f"Source : V1.7 public ({len(tickers)} stés Pass 3)")
+    else:
+        tickers = json.loads(V18_TICKERS.read_text())
+        print(f"Source : V1.8 top ({len(tickers)} stés)")
     if args.all:
-        targets = tickers[:307]
+        targets = tickers if args.source == "v17" else tickers[:307]
     else:
         targets = tickers[args.start_from:args.start_from + args.top]
 

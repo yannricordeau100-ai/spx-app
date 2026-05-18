@@ -105,6 +105,8 @@ const SUBSECTOR_FR_MAP: Record<string, string> = {
   "Oil, Gas & Consumable Fuels": "Pétrole & gaz",
   "Oil, Gas &amp; Consumable Fuels": "Pétrole & gaz",
   "Pharmaceuticals": "Pharmaceutique",
+  "Semiconductors": "Semi-conducteurs",
+  "Information Technology": "Technologies de l'information",
   // Yann 16 mai 2026 (audit Gemini META / NVDA / AAPL) :
   "Communication Services": "Services de communication",
   "Social Media & Messaging": "Réseaux sociaux & messagerie",

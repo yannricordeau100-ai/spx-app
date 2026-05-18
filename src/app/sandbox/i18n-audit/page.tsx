@@ -61,7 +61,7 @@ const LOCALES = ["fr", "en", "de", "nl", "sv", "da", "en-GB", "de-CH"] as const;
 
 const GROUPS: Array<{ id: string; label: string; prefixes: string[] }> = [
   { id: "home", label: "Home", prefixes: ["home.", "brand."] },
-  { id: "company", label: "Page société", prefixes: ["company.", "kpi.", "stories.", "hero.", "anomaly.", "freshness.", "transcript.", "timefrac.", "senate."] },
+  { id: "company", label: "Page société", prefixes: ["company.", "kpi.", "stories.", "hero.", "anomaly.", "freshness.", "transcript.", "timefrac."] },
   { id: "account", label: "Mon compte", prefixes: ["account.", "auth.", "billing.", "compte."] },
   { id: "contact", label: "Contact", prefixes: ["contact.", "legal.contact"] },
   { id: "faq", label: "FAQ", prefixes: ["faq."] },

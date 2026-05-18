@@ -53,5 +53,5 @@ export default async function SandboxV16TickerPage({
 
   // Décision Yann 4 mai 2026 : V1.6 ticker = même rendu que /<ticker> V1,
   // sans bandeau sandbox. Seul le dataset change (lit dans v2-pipeline/).
-  return <CompanyView company={company} authSlot={null} hideSenate hidePriceBar />;
+  return <CompanyView company={company} authSlot={null} hidePriceBar />;
 }

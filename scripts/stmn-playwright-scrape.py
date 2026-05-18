@@ -75,9 +75,35 @@ async def scrape():
             except Exception as e:
                 print(f"  ❌ goto fail : {e}", flush=True)
                 continue
-            # Récupère tous les liens *.pdf
-            hrefs = await page.evaluate("""() => Array.from(document.querySelectorAll('a[href*=".pdf"]')).map(a => a.href)""")
-            print(f"  → {len(hrefs)} PDF links trouvés", flush=True)
+            # Récupère TOUS les liens (pour debug + matcher patterns Adobe AEM
+            # ex /content/dam/... ou data-href ou onclick download).
+            all_links = await page.evaluate("""() => Array.from(document.querySelectorAll('a, button[onclick], [data-href]')).map(el => ({
+              href: el.href || el.getAttribute('data-href') || '',
+              onclick: el.getAttribute('onclick') || '',
+              text: (el.textContent || '').trim().slice(0, 80),
+            }))""")
+            # Filtre links qui ressemblent à un PDF (pas juste .pdf direct)
+            hrefs = []
+            for link in all_links:
+                target = link.get("href") or ""
+                onclick = link.get("onclick") or ""
+                text = link.get("text") or ""
+                # Match : .pdf direct OR /content/dam/ (Adobe AEM) OR onclick download
+                if (".pdf" in target.lower() or
+                    "/content/dam/" in target.lower() or
+                    "download" in onclick.lower() and ".pdf" in onclick.lower()):
+                    if target:
+                        hrefs.append(target)
+                    # Extract URL from onclick if needed
+                    pdf_match = re.search(r'["\']([^"\']+\.pdf[^"\']*)["\']', onclick)
+                    if pdf_match:
+                        hrefs.append(pdf_match.group(1))
+            print(f"  → {len(all_links)} liens totaux · {len(hrefs)} PDF candidates", flush=True)
+            # Debug : sample 3 premiers links pour comprendre la structure
+            if len(hrefs) == 0 and len(all_links) > 0:
+                print(f"  ⚠ DEBUG : sample 5 links :", flush=True)
+                for link in all_links[:5]:
+                    print(f"     href={(link.get('href') or '')[:80]} | text='{link.get('text','')[:40]}'", flush=True)
             for h in hrefs:
                 if h not in all_pdfs and is_english(h):
                     all_pdfs.add(h)

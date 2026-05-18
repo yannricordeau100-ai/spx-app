@@ -507,8 +507,14 @@ function FindingCard({
   }
 
   const batch = batchOf(f.source_platform);
+  // Yann 18 mai 2026 : priorité au SVG local recréé (`image_local_path`),
+  // car `image_url` = URL externe vers la source (PDF / article) et le
+  // navigateur affiche la 1re page du PDF ou autre contenu non pertinent.
+  // Fallback `image_url` uniquement si pas de SVG local. JPEG fallback en
+  // dernier recours pour les batches wave-2X-raw/.
   const fallback = jpegFallbackPath(f.image_url);
-  const displaySrc = imgFailed && fallback ? fallback : f.image_url;
+  const primarySrc = f.image_local_path || f.image_url;
+  const displaySrc = imgFailed && fallback ? fallback : primarySrc;
   const isLow = isLowConfidence(f.reviewer_notes);
   const allLangsActive = allLocales.every((l) => f.languages.includes(l));
 

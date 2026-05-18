@@ -1,5 +1,7 @@
 import { HomeView } from "@/components/home-view";
 import type { Company } from "@/lib/data";
+import { getServerLocale } from "@/lib/i18n/server";
+import { translate } from "@/lib/i18n/dictionary";
 // Pré-filtré au build (300KB) : src/data/v1-7-5-public.json. Régénéré
 // par scripts/build-v17-public.ts.
 import V17_PUBLIC from "@/data/v1-7-5-public.json";
@@ -34,6 +36,10 @@ const HIDDEN_DUPLICATES = new Set(["GOOG", "BRK-A", "BRK.A", "BRK.B", "FOX", "NW
 
 export default async function SandboxV17HubPage() {
   const datasets = loadValidatedDatasets();
+  const locale = await getServerLocale();
+  const popularLabel = translate("nav.popular", locale);
+  const pricingLabel = translate("nav.pricing", locale);
+  const contactLabel = translate("nav.contact", locale);
   // Yann 8 mai 2026 : V1.7 garde TOUTES les stés Pass 3 strict (dév général).
   // Tri d'affichage pré-calculé (cf scripts/build-v18-tickers.ts) :
   //  1. Top 308 par market_cap décroissant
@@ -51,6 +57,11 @@ export default async function SandboxV17HubPage() {
       showFAQ={false}
       routePrefix="/sandbox/v1-7-5"
       searchScope={{ tickers, total: tickers.length }}
+      topNavLinks={[
+        { label: popularLabel, href: "/populaire-investisseurs" },
+        { label: pricingLabel, href: "/sandbox/v1-8/pricing" },
+        { label: contactLabel, href: "/sandbox/v1-8/contact" },
+      ]}
     />
   );
 }

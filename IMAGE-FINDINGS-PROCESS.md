@@ -6,6 +6,49 @@
 
 ---
 
+## 🚨 RÈGLE D'OR — Contenu accepté (édictée par Yann le 18 mai 2026)
+
+**UNIQUEMENT** des graphiques et schémas data-driven :
+- ✅ Charts barres, lignes, donut, scatter, area, sankey, treemap
+- ✅ Schémas comparatifs avec valeurs chiffrées
+- ✅ Heat maps, geo maps avec data
+- ✅ Diagrammes flow avec métriques
+
+**INTERDIT** (skip + n'insère PAS) :
+- ❌ Slides de titre / cover pages (ex "ASML reports €32.7B in 2025")
+- ❌ Pages de texte (paragraphes, bullets, citations)
+- ❌ Tableaux purs sans visualisation
+- ❌ Logos / branding / photos / portraits
+- ❌ Captures d'écran d'UI / interfaces software
+- ❌ Mèmes / images humoristiques
+
+Si l'agent inspecte une source et n'y trouve **AUCUN vrai graphique** :
+il SKIP (ne crée pas de finding bidon).
+
+## 🚨 RÈGLE — Rendu côté frontend
+
+Le composant `<FindingCard>` (sandbox) et `<ImageFindingsBlock>` (public
+fiches sté) affichent le SVG **local recréé** (`image_local_path`),
+**JAMAIS** l'image source externe (`image_url`).
+
+L'agent doit **TOUJOURS** remplir `image_local_path` avec le chemin SVG
+qu'il a créé dans `/findings/demande-N/...`. Sinon le finding est invalide.
+
+`image_url` sert uniquement comme lien "Source" (traçabilité, clic →
+ouvre la page d'origine pour vérification).
+
+## 🚨 Validation SVG avant insertion BDD
+
+Pour chaque SVG créé, vérifier :
+- XML bien formé (`xmllint --noout fichier.svg` → exit 0)
+- viewBox défini
+- Caractères spéciaux échappés (`&` → `&amp;`, `<` → `&lt;`)
+- Taille < 50 KB
+
+Si validation échoue → refaire ou skip.
+
+---
+
 ## Sources standard à utiliser pour CHAQUE demande
 
 À chaque demande "Graphiques et Schémas de sources diverses", utiliser

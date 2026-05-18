@@ -52,7 +52,7 @@ export default async function SandboxV2TickerPage({
         </div>
       </div>
 
-      <CompanyView company={company} authSlot={null} hideSenate />
+      <CompanyView company={company} authSlot={null} />
     </>
   );
 }

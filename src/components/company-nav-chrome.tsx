@@ -7,7 +7,6 @@ import {
   AlertTriangle,
   Building2,
   Brain,
-  Landmark,
   Sparkles,
 } from "lucide-react";
 import { DockSpyLeft, type DockSpySection } from "@/components/dock-spy";
@@ -23,7 +22,6 @@ export function CompanyNavChrome() {
     { id: "sec-risks", label: t("nav.risks"), Icon: AlertTriangle },
     { id: "sec-governance", label: t("nav.governance"), Icon: Building2 },
     { id: "sec-ai", label: t("nav.ai"), Icon: Brain },
-    { id: "sec-senate", label: t("nav.senate"), Icon: Landmark },
     { id: "sec-super", label: t("nav.super_kpi"), Icon: Sparkles },
   ];
   return (

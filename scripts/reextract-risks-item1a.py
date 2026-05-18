@@ -39,21 +39,22 @@ LOG = PROJECT_ROOT / f".conv-state/CONV-DATA-risks-{CHUNK}.log"
 LOG.parent.mkdir(parents=True, exist_ok=True)
 
 PROVIDER = os.environ.get("PROVIDER", "anthropic")
+MODEL_OVERRIDE = os.environ.get("LLM_MODEL")
 if PROVIDER == "anthropic":
     API_URL = "https://api.anthropic.com/v1/messages"
     KEY_ENV = "ANTHROPIC_API_KEY"
-    MODEL = "claude-sonnet-4-6"
-    SLEEP = 3.0
+    MODEL = MODEL_OVERRIDE or "claude-sonnet-4-6"
+    SLEEP = 3.0 if "sonnet" in MODEL else 2.0
 elif PROVIDER == "groq":
     API_URL = "https://api.groq.com/openai/v1/chat/completions"
     KEY_ENV = "GROQ_API_KEY"
     MODEL = "llama-3.3-70b-versatile"
     SLEEP = 2.0
-else:
+else:  # cerebras
     API_URL = "https://api.cerebras.ai/v1/chat/completions"
-    KEY_ENV = f"CEREBRAS{('' if CHUNK=='1' else CHUNK)}_API_KEY"
-    MODEL = "llama-3.3-70b"
-    SLEEP = 1.5
+    KEY_ENV = f"CEREBRAS{('' if CHUNK in ('1','stoxx-1') else (CHUNK if CHUNK in ('2','3') else CHUNK.split('-')[-1]))}_API_KEY"
+    MODEL = "qwen-3-235b-a22b-instruct-2507"
+    SLEEP = 1.2
 
 def load_env():
     env = PROJECT_ROOT / ".env.local"
@@ -172,13 +173,13 @@ def call_llm(prompt, key, retries=2):
         body = json.dumps({"model": MODEL, "max_tokens": 4000,
                            "messages":[{"role":"user","content":prompt}],
                            "temperature": 0.0}).encode()
-        headers = {"x-api-key": key, "anthropic-version":"2023-06-01", "content-type":"application/json"}
+        headers = {"x-api-key": key, "anthropic-version":"2023-06-01", "content-type":"application/json","User-Agent":"curl/7.79.1"}
     else:
         body = json.dumps({"model": MODEL,
                            "messages":[{"role":"user","content":prompt}],
                            "temperature": 0.0, "max_tokens": 3500,
                            "response_format":{"type":"json_object"}}).encode()
-        headers = {"Authorization": f"Bearer {key}", "content-type":"application/json"}
+        headers = {"Authorization": f"Bearer {key}", "content-type":"application/json","User-Agent":"curl/7.79.1"}
     for _ in range(retries+1):
         try:
             req = urllib.request.Request(API_URL, data=body, headers=headers)

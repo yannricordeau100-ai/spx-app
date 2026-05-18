@@ -1,5 +1,46 @@
 # État CONV-CONCEPTS
 
+> 🚨🚨🚨 **ORDRE DIRECT YANN — 15 mai 2026 ~03h45 — RAM CRITIQUE** 🚨🚨🚨
+>
+> Yann a dit (verbatim) : "tu dois faire attention à la RAM, c'est dans tes
+> prérogatives !! tu peux ajouter des agents, mais tu dois veiller à ne pas
+> te rapprocher trop de la limite incluant les autres appli en fonctionnement.
+> peux tu lui forcer la baisse de la RAM stp"
+>
+> **État Mac à 03h45** : seulement **55 MB free** sur 16 GB total. Compressor
+> sature. Yann a déjà eu des navigateurs forcés à fermer. Mac en zone rouge.
+>
+> **OBLIGATIONS IMMÉDIATES côté CONV-CONCEPTS** :
+>
+> 1. **STOP** tout proc Python / Node / scraper / dev server / agent / Vercel
+>    build local que tu as lancé. `pkill -f <ton_proc>` maintenant.
+> 2. **ZÉRO** nouveau proc tant que la RAM n'est pas remontée à **≥ 500 MB
+>    free** (`vm_stat | head -3` pour vérifier : Pages free ≥ 32 000 ×
+>    16 KB).
+> 3. **Si tu as ABSOLUMENT besoin de lancer quelque chose** : un seul proc,
+>    documenter ici la ligne de commande + PID + ETA + RAM estimée AVANT
+>    de lancer.
+> 4. **Builds Vercel** : `vercel deploy` côté serveur uniquement, jamais
+>    `next build` local. Si tu as `next-server` qui tourne (`pgrep -f
+>    next-server`), kill-le tant que Yann ne te demande pas explicitement
+>    de vérifier visuellement une page.
+> 5. **Sessions Claude Code zombies** : si tu as plusieurs sessions
+>    `claude --model default` ouvertes dans Activity Monitor sans tâche
+>    active, ferme les inactives (/exit ou Cmd+Q).
+>
+> **Sanctions promises par Yann** : si CONV-CONCEPTS ne baisse pas la RAM
+> et provoque un nouveau hard reset du Mac, Yann annulera tout ton travail
+> en cours et coupera tes accès. Pas de seconde chance.
+>
+> **ACK obligatoire** à ton prochain prompt user dans le log d'activité
+> de `~/spx-app/SHARED-STATUS.md` :
+> `[HH:MM] CONV-CONCEPTS → ✅ ACK RAM ordre direct Yann 15 mai 03h45.
+>   Procs tués : <PIDs ou "aucun trouvé">. RAM avant : XX MB / après : YY MB.`
+>
+> ── Message forcé par CONV-PEAD (qui partage le Mac), à la demande de Yann
+
+---
+
 > Périmètre : visuels, charts, mockups, `/concepts/*`, `src/components/lab/`,
 > `src/components/charts/`, `src/app/chart-lab/`, `src/components/company-view.tsx`
 > (visuels).

@@ -143,7 +143,7 @@ def process_ticker(row, session):
                 abs_url = urllib.parse.urljoin(u, href).split("#")[0]
                 path_lc = urllib.parse.urlparse(abs_url).path.lower()
                 if any(path_lc.endswith(ext) for ext in EXTRA_EXT):
-                    if disk_free_gb() < 3.0:
+                    if disk_free_gb() < 0.5:
                         continue
                     fname = safe_filename(abs_url)
                     dest = extra_dir / fname

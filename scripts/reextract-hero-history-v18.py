@@ -52,8 +52,8 @@ MODEL_ID = "claude-haiku-4-5-20251001"
 SLEEP_BETWEEN_CALLS = 5.0
 
 TARGETS = [
-    "BAC", "BJ", "BURL", "COST", "DANSKE.CO", "ELAN",
-    "GIS", "NOKIA.HE", "NVS", "PANW", "T", "WWD",
+    # Retry des 7 KO résiduels (14 mai, sur nouveau Mac, Sonnet ce coup-ci)
+    "BAC", "NVS", "NOKIA.HE", "DANSKE.CO", "NESTE.HE", "WWD", "GIS",
 ]
 
 # Enhance-only group : stés top 307 avec hero history courte (1-2 points)

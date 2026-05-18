@@ -24,8 +24,11 @@
 import fs from "node:fs";
 import path from "node:path";
 
+import V18 from "../src/data/v1-8-tickers-sorted.json";
+
 const BASE = process.env.STAGING_URL ?? "https://mettrik-staging.vercel.app";
-const TICKERS = ["9984.T", "NVDA", "GOOGL", "AAPL", "MSFT"];
+const N = parseInt(process.env.TOP_N ?? "10", 10);
+const TICKERS = (V18 as string[]).slice(0, N);
 
 type Check = {
   column: string;
@@ -82,16 +85,16 @@ function checkPage(html: string, ticker: string): Check[] {
   const hasInterp = /Moteur de croissance|Point de vigilance|Génération de cash/i.test(html);
   checks.push({ column: "hero_interpretation", pass: hasInterp, detail: hasInterp ? "bloc interp détecté" : "pas de bloc interp" });
 
-  // Risks
-  const hasRisks = html.includes("Facteurs de risque") || html.includes("Risques");
+  // Risks : check id sec-risks ou bloc avec items
+  const hasRisks = html.includes("sec-risks") || /Facteur[s]?\s+de\s+risque|Risques/i.test(html);
   checks.push({ column: "risks", pass: hasRisks, detail: hasRisks ? "bloc Risques" : "absent" });
 
-  // Governance
-  const hasGov = html.includes("Gouvernance") || html.includes("gouvernance");
+  // Governance : check id sec-governance ou label
+  const hasGov = html.includes("sec-governance") || /Gouvernance/i.test(html);
   checks.push({ column: "governance", pass: hasGov, detail: hasGov ? "bloc Gouvernance" : "absent" });
 
-  // AI positioning
-  const hasAi = html.includes("Positionnement IA") || html.includes("AI positioning");
+  // AI positioning : check id sec-ai ou label
+  const hasAi = html.includes("sec-ai") || /Positionnement\s+IA|AI\s+positioning/i.test(html);
   checks.push({ column: "ai_positioning", pass: hasAi, detail: hasAi ? "bloc IA" : "absent" });
 
   return checks;
