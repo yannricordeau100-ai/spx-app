@@ -1,6 +1,11 @@
 "use client";
 
 /**
+ * @deprecated Remplacé par AdminFloatingPanel (bottom-right de l'app). Ce composant
+ * n'est plus utilisé dans desk-mtk9x4kp/client.tsx depuis le 19 mai 2026. Conservé
+ * temporairement comme référence pour la logique de detection de niveau / cookies.
+ * À supprimer une fois AdminFloatingPanel stable.
+ *
  * SimulateTierBar — toggle admin "view as" un autre tier (Yann 18 mai 2026).
  *
  * Affichée en haut de /desk-mtk9x4kp uniquement en niveau 1/2/3 (cachée

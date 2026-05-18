@@ -15,6 +15,31 @@ function KeepAlive({ active, id, children }: { active: string; id: string; child
   if (!wasActive.current) return null; // pas encore visité, pas monté
   return <div style={{ display: isActive ? "block" : "none" }}>{children}</div>;
 }
+
+/**
+ * AdminPanelReminder : petit rappel informatif (remplace l'ancienne SimulateTierBar).
+ * Visible uniquement en niveau 1/2/3, caché en niveau 0 (prod).
+ * Renvoie vers le panel admin floating bottom-right qui contient les vrais switches.
+ */
+function AdminPanelReminder() {
+  const [level, setLevel] = useState<0 | 1 | 2 | 3>(0);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const h = window.location.hostname.toLowerCase();
+    if (h === "localhost" || h === "127.0.0.1" || h.endsWith(".local")) setLevel(3);
+    else if (h === "mettrik.ai" || h === "www.mettrik.ai") setLevel(0);
+    else if (h.startsWith("mettrik-niveau1") || h.startsWith("niveau1.")) setLevel(1);
+    else if (h.endsWith(".vercel.app")) setLevel(2);
+    else setLevel(0);
+  }, []);
+  if (level === 0) return null;
+  return (
+    <div className="mb-3 rounded-lg border border-violet-500/30 bg-violet-500/[0.05] px-3 py-2 text-[12px] leading-relaxed text-violet-100/90">
+      💡 Le panel admin (bottom-right de l&apos;app) permet de switcher entre tier simulé
+      (Anonyme / Gratuit / Premium / Max), version de l&apos;app (V1.7.5 / V1.8) et niveau d&apos;infra (1 / 2).
+    </div>
+  );
+}
 import {
   FileText, ListTodo, Library, FolderOpen, Calendar, Bookmark, Cpu, Lightbulb,
   Link as LinkIcon, ImageIcon, BarChart3, MessageSquare, Target, Map, Info, Gift,
@@ -36,7 +61,6 @@ import { TabMessages } from "@/components/desk/tab-messages";
 import { TabDrafts } from "@/components/desk/tab-drafts";
 import { TabPitch } from "@/components/desk/tab-pitch";
 import { TabRoadmap } from "@/components/desk/tab-roadmap";
-import { SimulateTierBar } from "@/components/desk/simulate-tier-bar";
 
 type TabId =
   | "notes" | "todos" | "roadmap"
@@ -223,8 +247,8 @@ export function DeskClient({ ownerEmail }: { ownerEmail: string }) {
           </header>
 
           <div className="mx-auto max-w-5xl p-6">
-            {/* Barre admin "view as" (caché en niveau 0 prod, visible niveau 1/2/3) */}
-            <SimulateTierBar />
+            {/* Rappel informatif : le panel admin (bottom-right) remplace l'ancienne SimulateTierBar */}
+            <AdminPanelReminder />
 
             {/* PERF : keep-alive lazy mount.
                 Chaque tab visité reste monté en mémoire (cache local) puis caché

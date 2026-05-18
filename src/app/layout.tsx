@@ -5,7 +5,7 @@ import { I18nProvider } from "@/lib/i18n/provider";
 import { getServerLocale } from "@/lib/i18n/server";
 import { UserPrefsSync } from "@/components/user-prefs-sync";
 import { GlobalSocialBar } from "@/components/global-social-bar";
-import { LevelBadgeSSR } from "@/components/level-badge";
+import { AdminFloatingPanel } from "@/components/admin-floating-panel";
 import "./globals.css";
 
 // Manrope = body/UI
@@ -129,10 +129,11 @@ export default async function RootLayout({
         </I18nProvider>
         <UserPrefsSync />
         <PlausibleScript />
-        {/* Badge permanent indiquant le niveau d'environnement (1/2/3).
-            Masqué automatiquement en niveau 0 (prod publique). Lit
-            process.env.NEXT_PUBLIC_NIVEAU côté serveur (pas de flash). */}
-        <LevelBadgeSSR />
+        {/* Panel admin bottom-right (niveaux 1/2/3 uniquement). Intègre
+            l'indicateur de niveau (orange/violet/gris) + 3 dropdowns :
+            simulation tier, switch version (V1.7/V1.7.5/V1.8), switch
+            niveau (1 ↔ 2). Masqué automatiquement en niveau 0 prod. */}
+        <AdminFloatingPanel />
       </body>
     </html>
   );
