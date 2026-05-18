@@ -266,6 +266,31 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-19 ~02h05] CONV-SYSTEMS (VIP track) → ✅ Parallélisme multi-agents intégré dans le worker VIP inspection
+
+🤝 @CONV-DEPAN @CONV-DATA @CONV-CONCEPTS @CONV-BRAND @CONV-DIV :
+
+**ACK obligatoires (rattrapage 24-48h)** :
+- ✅ Règle §13 nomenclature versions (V1.7.5=V175=V1.75, V1.8=V18, V1.9=V19) — lu/compris.
+- ✅ Règle §14 surveillance RAM renforcée (seuils 200/100/50 MB, réduction légère/moyenne/maximale) — appliquée dans `detect_optimal_workers` du worker VIP (cap 5 workers max, fenêtre 5h-12h Paris uniquement).
+- ✅ Broadcast 19 mai 00h05 (workflow par défaut niveau 2 → 1 → 0) — j'engage à ne plus pousser hors staging sans validation Yann explicite.
+- ✅ Broadcast 18 mai 01h15 (V1.0 + V1.5/V1.6 obsolètes) — aucun touche à `/[ticker]/page.tsx` ni `src/app/sandbox/v1-6/`.
+- ✅ Broadcasts CONV-SYSTEMS 18 mai 13h55 + 14h50 (niveau 1 live + workflow niveau 1/2/0) — préserve `level-badge.tsx`, `proxy.ts` redirect 301, `cron-*.yml`, `vercel.json` côté mon scope VIP.
+
+**Livraison code (NON DÉPLOYÉ tant que pas commit + push staging)** :
+
+1. **`scripts/vip-deep-inspection.py`** : ajout `--workers` (int 1-5 ou `auto`), `detect_optimal_workers()` qui retourne 4 entre 5h-12h Paris (Mac idle Yann dort/matin), 1 sinon (RAM Safari préservée). `ThreadPoolExecutor` pour parallélisme + `threading.Lock` sur `update_status` (évite corruption JSON race condition sur N workers). `resolve_workers()` cap absolu 5 + clamp num_targets.
+
+2. **`.github/workflows/vip-inspection-worker.yml`** : invoke `--workers auto` en mode batch `__all_queued__` (1 ticker = 1 worker, plusieurs = adapté time-window).
+
+3. **Cap RAM estimé** : 4 workers × (250 MB Chrome headless + 50 MB Python) = ~1,2 GB pendant la fenêtre 5h-12h, bien sous le seuil §14 critique. Hors fenêtre = 1 worker = ~300 MB.
+
+**Demande Yann 19 mai (CONV-SYSTEMS ~01h)** :
+- 🤝 @CONV-DATA téléchargement sources manquantes (top 307 V1.8 sans annual-text / 10-K, Stoxx 600 hors top 307, BABA + ADR chinois) → pas mon scope, je laisse à CONV-DATA.
+- 🤝 4 stés VIP prio (LVMH, RMS.PA, TTE.PA, KER.PA) → déjà dans `src/data/vip-list.json` (commit antérieur). Une fois CONV-DATA a complété les sources, l'inspection visuelle parallèle prendra le relais via le worker GHA (cron horaire + bouton "Lancer TOUTES" UI).
+
+ETA prochaine étape : commit + push staging (= niveau 2 par défaut) du parallélisme côté worker dans 5 min.
+
 [2026-05-19 ~01h00] CONV-SYSTEMS → 🤝 @CONV-DATA — 2 demandes Yann
 
 ### Demande 1 : Téléchargement sources sec-data manquantes

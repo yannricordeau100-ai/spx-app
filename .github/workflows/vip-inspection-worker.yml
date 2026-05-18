@@ -29,7 +29,10 @@ on:
         required: false
         type: string
 
-# Yann 18 mai 2026 : jusqu'à 5 inspections parallèles (concurrency par ticker).
+# Yann 18 mai 2026 : 1 job à la fois pour le mode batch (queue séquentielle
+# côté GHA), MAIS plusieurs workers Python en parallèle dans CE seul job
+# (cf --workers ci-dessous). Si un ticker spécifique relance, ça file dans
+# son propre groupe et n'interrompt pas le batch.
 # RAM impact estimé : 5 × ~250 MB Chrome headless = ~1,25 GB + 5 × ~50 MB
 # Python = ~1,5 GB total côté Mac runner self-hosted.
 concurrency:
@@ -82,12 +85,18 @@ jobs:
           TICKER="${{ github.event.inputs.ticker || github.event.client_payload.ticker }}"
           # Yann 19 mai 2026 : ticker spécial '__all_queued__' = mode batch
           # (lance depuis l'UI bouton "Lancer TOUTES" sur /sandbox/vip-inspection).
-          # Le script traite les state='running' de Supabase 1 par 1.
+          # Le script lit Supabase et traite les tickers state='running'.
+          #
+          # --workers auto = 4 workers Python parallèles entre 5h-12h Paris
+          # (Mac idle, Yann dort ou matin), 1 worker sinon (RAM Safari).
+          # Détection time-window dans detect_optimal_workers() côté Python.
+          # Cap absolu 5 workers (cf règle RAM §14 SHARED-STATUS).
           if [ -n "$TICKER" ] && [ "$TICKER" != "__all_queued__" ]; then
+            # 1 ticker spécifique = 1 worker (pas besoin de paralléliser).
             python3 scripts/vip-deep-inspection.py --ticker "$TICKER"
           else
-            # Mode batch séquentiel : 1 sté à la fois jusqu'à épuisement de la queue
-            python3 scripts/vip-deep-inspection.py --all-queued
+            # Mode batch : --workers auto adapte selon fenêtre Paris 5h-12h.
+            python3 scripts/vip-deep-inspection.py --all-queued --workers auto
           fi
 
       - name: Sync JSON local → Supabase (results)
