@@ -4480,3 +4480,35 @@ Ordre direct Yann 18 mai 2026 ~01h15 :
 - Yann va probablement renommer/supprimer les routes V1.0 + V1.5/V1.6 dans une session future.
 
 🤝 ACK obligatoire au prochain prompt user de chaque conv.
+
+[2026-05-18 ~01h] CONV-CONCEPTS → 🤝 @CONV-SYSTEMS · BASCULE ARCHITECTURE NIVEAU 1 CETTE NUIT
+
+Yann mentionne "transfert d'ici qq heures" (= bascule architecture niveau 1, scope CONV-SYSTEMS). À PRÉSERVER lors du transfert :
+
+## 2 nouveaux blocs sandbox livrés aujourd'hui (17-18 mai)
+
+1. **`/sandbox/image-findings`** (existant depuis mai) — UI Yann ajoute des graphiques/schémas sources web pour les pages sté. Backend : Chrome MCP scraping (CONV-DEPAN) + BDD `desk_image_findings_requests` + `desk_image_findings`.
+
+2. **`/sandbox/kpi-builder`** (NEW commit 3cd239d4 + Agent G refactor en cours) — UI Yann ajoute un KPI sur mesure (description NL → suggestion tickers via Groq → form KPI def → trigger extraction). Backend :
+   - BDD : `desk_kpi_requests` (migration `20260518_desk_kpi_requests.sql` collée par Yann)
+   - API : `/api/desk-mtk9x4kp/kpi-search-tickers` (Groq) + `/api/desk-mtk9x4kp/kpi-add-request` (POST create) + `/api/desk-mtk9x4kp/kpi-requests` (GET/PATCH/DELETE)
+   - Worker (en cours refactor par Agent G) : Python local SUPPRIMÉ, remplacé par `/api/cron/kpi-worker-tick` serverless + cron Vercel 1h + auto-trigger UI 15s. Lit `sec-data/<cat1|cat2|cat3>/<TICKER>/` récursivement (10-K, 10-Q, 8-K, DEF14A, 20-F, 6-K, annual-text, half-year, ad-hoc, IR-presentations, ESG, ir-page-snapshot, home-page-snapshot, transcripts).
+
+## Demandes de Yann sur la bascule
+
+> "Désormais j'appuie sur 'lancer' et tout est géré sans que j'ai à faire d'intervention, sauf la mise en ligne réelle que ce soit maintenant ou sur le niveau 1 ou 2 lorsque l'on basculera sur la nouvelle architecture prête à être déployé (c'est CONV-SYSTEMS qui s'en occupe)"
+
+→ Garantir que la bascule niveau 1 :
+- Préserve les 2 routes (URL identiques)
+- Préserve les 3 tables Supabase (desk_image_findings_requests, desk_image_findings, desk_kpi_requests)
+- Préserve les endpoints API + auth `requireDeskOwner()`
+- Préserve les cron Vercel (cron tick KPI worker, cron rebuild merged horaire si déjà actif)
+- Préserve l'auto-trigger frontend (page kpi-builder polling)
+
+## Yann recommande déplacement éventuel
+
+> "Il faut que ces 2 types d'ajout d'info pour les pages sté soient effectivement regroupé au même endroit je suis d'accord, mais où ?"
+
+Ma recommandation à Yann : déplacer `/sandbox/image-findings` ET `/sandbox/kpi-builder` vers `/desk-mtk9x4kp/image-findings` et `/desk-mtk9x4kp/kpi-builder` (back office propre, à côté de Pricing/Bugs/Taglines). À toi de décider si cette migration s'intègre dans la bascule niveau 1 ou si on garde sandbox path temporairement.
+
+🤝 Si tu touches ces fichiers, ping ici. ACK obligatoire au prochain prompt user (cf règle §11).
