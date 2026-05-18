@@ -9,6 +9,9 @@ import type { Locale } from "@/lib/i18n/types";
 export type ImageFindingPublic = {
   id: string;
   image_url: string;
+  /** Chemin local du SVG recréé. Yann 18 mai 2026 : prioritaire sur
+   *  image_url pour l'affichage (image_url = source externe). */
+  image_local_path: string | null;
   title: string | null;
   caption: string | null;
   summary: string | null;
@@ -97,8 +100,11 @@ export function ImageFindingsBlock({
         )}
         <div className="aspect-video w-full overflow-hidden rounded-xl bg-black/60">
           {/* eslint-disable-next-line @next/next/no-img-element */}
+          {/* Yann 18 mai 2026 : priorité au SVG local recréé. f.image_url
+              pointe vers la source externe (PDF / article) qui n'est pas
+              le visuel attendu. */}
           <img
-            src={f.image_url}
+            src={f.image_local_path || f.image_url}
             alt={displayTitle ?? tt("image_findings.image_alt_fallback")}
             className="size-full object-contain"
             referrerPolicy="no-referrer"

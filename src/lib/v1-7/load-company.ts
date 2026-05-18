@@ -25,6 +25,22 @@ import type { Company, CompanyRisk } from "@/lib/data";
 import { enhanceFreshness } from "@/lib/v1-7/enhance-freshness";
 import { isStrictPass3, isV18Eligible } from "@/lib/v1-7/strict-pass3";
 
+// Yann 18 mai 2026 : carte globale EN tagline → FR translation. Chargée
+// lazy-une-fois par process. Utilisée pour peupler tagline_i18n.fr.
+let TAGLINES_FR_CACHE: Record<string, string> | null = null;
+async function loadTaglinesFr(): Promise<Record<string, string>> {
+  if (TAGLINES_FR_CACHE) return TAGLINES_FR_CACHE;
+  try {
+    const fp = path.join(process.cwd(), "src/data/taglines-fr.json");
+    const raw = await fs.readFile(fp, "utf-8");
+    TAGLINES_FR_CACHE = JSON.parse(raw);
+    return TAGLINES_FR_CACHE!;
+  } catch {
+    TAGLINES_FR_CACHE = {};
+    return {};
+  }
+}
+
 type AnyKPI = Record<string, unknown>;
 type AnyCo = Record<string, unknown>;
 
@@ -555,6 +571,8 @@ export async function loadV17Company(
         (data as Record<string, unknown>).image_findings = findings.map((f) => ({
           id: f.id,
           image_url: f.image_url,
+          // Yann 18 mai 2026 : SVG local recréé (priorité affichage).
+          image_local_path: f.image_local_path,
           title: f.title,
           caption: f.caption,
           summary: f.summary,
@@ -690,8 +708,17 @@ export async function loadV17Company(
     }
     if (i18n || enFallback) {
       const d = data as Record<string, unknown>;
-      if (i18n?.tagline) d.tagline = i18n.tagline;
-      else if (enFallback?.tagline) d.tagline = enFallback.tagline;
+      // Yann 18 mai 2026 : tagline garde la langue d'origine (EN, CLAUDE.md §6).
+      // On stocke la traduction localisée dans `tagline_i18n[locale]` pour
+      // que le composant CompanyHeader affiche un tooltip "i" avec la trad.
+      // Le tagline EN original reste affiché.
+      if (i18n?.tagline) {
+        const taglineI18n = (d.tagline_i18n as Record<string, string>) || {};
+        taglineI18n[requestedLocale] = i18n.tagline;
+        d.tagline_i18n = taglineI18n;
+      }
+      if (i18n?.hero_kpi_rationale) d.hero_kpi_rationale = i18n.hero_kpi_rationale;
+      else if (enFallback?.hero_kpi_rationale) d.hero_kpi_rationale = enFallback.hero_kpi_rationale;
       if (i18n?.hero_kpi_rationale) d.hero_kpi_rationale = i18n.hero_kpi_rationale;
       else if (enFallback?.hero_kpi_rationale) d.hero_kpi_rationale = enFallback.hero_kpi_rationale;
       // KPI overlay : locale-specific d'abord, fallback EN par KPI manquant.
@@ -773,6 +800,20 @@ export async function loadV17Company(
   // laisse RiskStack rendre quand même mais sans le tooltip.
   if (Array.isArray(company.risks)) {
     company.risks = company.risks.map((r: CompanyRisk) => ({ ...r }));
+  }
+
+  // Yann 18 mai 2026 : injecte traduction FR du tagline depuis le fichier
+  // global taglines-fr.json. Source tagline = EN (CLAUDE.md §6). Pour les
+  // pages FR, le composant CompanyHeader affiche l'EN + tooltip "i" FR.
+  if (company.tagline) {
+    const taglineMap = await loadTaglinesFr();
+    const frTr = taglineMap[company.tagline];
+    if (frTr) {
+      (company as Company & { tagline_i18n?: Record<string, string> }).tagline_i18n = {
+        ...((company as Company & { tagline_i18n?: Record<string, string> }).tagline_i18n || {}),
+        fr: frTr,
+      };
+    }
   }
 
   return { kind: "ready", company };
