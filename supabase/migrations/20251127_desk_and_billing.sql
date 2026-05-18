@@ -224,7 +224,9 @@ BEGIN
   FOR t IN SELECT unnest(ARRAY[
     'desk_notes', 'desk_todos', 'desk_bookmarks', 'desk_calendar',
     'desk_ideas', 'desk_links', 'desk_drafts', 'desk_pitch_notes',
-    'desk_inspiration', 'desk_pipeline'
+    'desk_inspiration'
+    -- 'desk_pipeline' retirée volontairement : pas de colonne owner_email
+    -- (voir traitement séparé ci-dessous).
   ])
   LOOP
     EXECUTE format('ALTER TABLE public.%I ENABLE ROW LEVEL SECURITY;', t);
@@ -238,15 +240,21 @@ BEGIN
     $p$, t || '_owner_policy', t);
   END LOOP;
 
-  -- desk_pipeline n'a pas owner_email (table partagée pour pipeline V2)
-  -- on l'autorise en lecture pour tous les authentifiés, en écriture pour
-  -- l'admin uniquement (via service role key côté serveur).
-  EXECUTE 'DROP POLICY IF EXISTS desk_pipeline_owner_policy ON public.desk_pipeline';
-  EXECUTE 'CREATE POLICY desk_pipeline_read ON public.desk_pipeline FOR SELECT TO authenticated USING (true)';
 EXCEPTION WHEN duplicate_object THEN
   -- policies déjà créées, on ignore
   NULL;
 END $$;
+
+-- desk_pipeline traitée séparément : pas de owner_email (table partagée
+-- pour pipeline V2). Lecture autorisée à tout authentifié, écriture
+-- réservée au service role.
+ALTER TABLE public.desk_pipeline ENABLE ROW LEVEL SECURITY;
+DO $$ BEGIN
+  DROP POLICY IF EXISTS desk_pipeline_owner_policy ON public.desk_pipeline;
+  DROP POLICY IF EXISTS desk_pipeline_read ON public.desk_pipeline;
+  CREATE POLICY desk_pipeline_read ON public.desk_pipeline
+    FOR SELECT TO authenticated USING (true);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
 -- Subscriptions : RLS — un user voit uniquement la sienne
 ALTER TABLE public.subscriptions ENABLE ROW LEVEL SECURITY;
