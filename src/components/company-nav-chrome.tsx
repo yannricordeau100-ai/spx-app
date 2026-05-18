@@ -26,7 +26,7 @@ export function CompanyNavChrome() {
   ];
   return (
     <>
-      <DockSpyLeft sections={sections} />
+      <DockSpyLeft sections={sections} showSocial />
       <BackToTop />
     </>
   );

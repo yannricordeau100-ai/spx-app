@@ -658,7 +658,16 @@ export function CompanyView({
               {/* Toolbar onglets graph (abaissé) → titre KPI (agrandi) →
                   graph. Les contrôles sont placés EN PREMIER pour pousser le
                   titre vers le bas, puis le graph vient juste sous le titre. */}
-              <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+              {/* Yann 19 mai 2026 : toggles TOUJOURS centrés.
+                  Avant : `justify-between` poussait ChartCycleControls à
+                  gauche + PeriodToggle à droite → quand l'un des deux
+                  était caché (ex : sté sans quarterly history), le reste
+                  flottait collé sur sa bordure (très moche).
+                  Après : `justify-center` + gap. Les groupes restent
+                  centrés ensemble, séparés par un petit dot iridescent
+                  pour différentier visuellement les 2 familles d'onglets
+                  (modes graph + période vs fenêtre 5/10/20 ans). */}
+              <div className="mb-3 flex flex-wrap items-center justify-center gap-3">
                 <ChartCycleControls
                   mode={chartMode}
                   onChange={setChartMode}
@@ -675,6 +684,11 @@ export function CompanyView({
                     semester: active.period_type === "semester",
                   }}
                 />
+                {/* Séparateur décoratif : visible uniquement si les 2 groupes
+                    sont rendus simultanément (rare PeriodToggle soit caché,
+                    on garde par sécurité un :only-child:hidden CSS-like via
+                    le `gap-3` qui gère naturellement le cas seul). */}
+                <span aria-hidden className="size-1 rounded-full bg-violet-400/40" />
                 <PeriodToggle accent={accent} />
               </div>
               <div className="mb-3 flex flex-wrap items-baseline justify-center gap-2.5 text-center">
