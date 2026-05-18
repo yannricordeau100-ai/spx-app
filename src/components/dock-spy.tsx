@@ -111,17 +111,22 @@ function DockButton({
 
 /**
  * Compute scale per item — Mac Dock magnify behavior:
- *  - active item gets a permanent boost (visible scroll position)
+ *  - active item gets a SUBTLE permanent boost (visible scroll position)
  *  - on hover : the hovered item magnifies AND its neighbors slightly
- *  - when ANY hover is active, the active item gets an EXTRA boost so it
+ *  - when ANY hover is active, the active item gets EXTRA boost so it
  *    stays the biggest (rappel visuel "tu es ici")
+ *
+ * Yann 19 mai 2026 : `activeBoost` réduit (0.5 → 0.18, et 0.85 → 0.45
+ * quand un autre item est survolé) pour que le rond coloré de la section
+ * active ne déborde plus du tube ovale en rounded-full p-2. La loupe
+ * (hoverBoost jusqu'à 0.45) est conservée intacte sur le hover.
  */
 function scaleFor(i: number, hoverIdx: number | null, isActive: boolean): number {
   const dist = hoverIdx === null ? Infinity : Math.abs(i - hoverIdx);
   const hoverBoost = Math.max(0, 1 - dist / 2.5) * 0.45;
   const isAnyHover = hoverIdx !== null;
-  const activeBoost = isActive ? (isAnyHover ? 0.85 : 0.5) : 0;
-  return Math.min(2.0, 1 + hoverBoost + activeBoost);
+  const activeBoost = isActive ? (isAnyHover ? 0.45 : 0.18) : 0;
+  return Math.min(1.7, 1 + hoverBoost + activeBoost);
 }
 
 function useDockNav(sections: DockSpySection[]) {

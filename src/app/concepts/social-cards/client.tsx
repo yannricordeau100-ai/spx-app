@@ -299,6 +299,10 @@ function VariantContextCompose({ ticker = "NVDA" }: { ticker?: string }) {
 
 // ───────────────────────────────────────────────
 // V5 — STICKY VERTICAL RAIL : barre fixe à droite avec icônes + actions rapides
+// Yann 19 mai 2026 : ajout effet "shining multicouleur" toutes les 10 s.
+// CSS-only (keyframes Tailwind arbitraire) : un dégradé vertical
+// violet→cyan→pink passe rapidement de haut en bas du rail puis disparaît.
+// Apparition visible ~1.5 s, cycle de 10 s, animation pause-then-flash.
 // ───────────────────────────────────────────────
 function VariantStickyRail() {
   return (
@@ -306,47 +310,82 @@ function VariantStickyRail() {
       <div className="absolute inset-0 flex items-center justify-center text-[11px] text-zinc-500">
         Aperçu page (zone contenu)
       </div>
-      <div className="absolute right-4 top-1/2 flex -translate-y-1/2 flex-col gap-2 rounded-full border border-white/10 bg-zinc-950/80 p-2 backdrop-blur-md">
-        <a
-          href={X_WEB}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="X"
-          className="group grid size-9 place-items-center rounded-full border border-white/10 transition-all hover:border-violet-400/60 hover:bg-violet-500/15"
-        >
-          <XLogoSvg className="size-3.5 text-zinc-300 group-hover:text-violet-200" />
-        </a>
-        <a
-          href={IG_WEB}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Instagram"
-          className="group grid size-9 place-items-center rounded-full border border-white/10 transition-all hover:border-pink-400/60 hover:bg-pink-500/15"
-        >
-          <InstagramSvg className="size-3.5 text-zinc-300 group-hover:text-pink-200" />
-        </a>
-        <div className="h-px w-full bg-white/[0.08]" />
-        <button
-          onClick={() => {
-            navigator.clipboard?.writeText(`@${X_HANDLE}`);
-          }}
-          aria-label="Copier @"
-          className="group grid size-9 place-items-center rounded-full border border-white/10 transition-all hover:border-cyan-400/60 hover:bg-cyan-500/15"
-        >
-          <Copy className="size-3.5 text-zinc-300 group-hover:text-cyan-200" />
-        </button>
-        <button
-          onClick={() => {
-            if (navigator.share) {
-              navigator.share({ title: "Mettrik AI", url: "https://www.mettrik.ai" });
-            }
-          }}
-          aria-label="Partager"
-          className="group grid size-9 place-items-center rounded-full border border-white/10 transition-all hover:border-emerald-400/60 hover:bg-emerald-500/15"
-        >
-          <Share2 className="size-3.5 text-zinc-300 group-hover:text-emerald-200" />
-        </button>
+      {/* Conteneur rail avec overflow-hidden pour clipper l'effet shine */}
+      <div className="absolute right-4 top-1/2 -translate-y-1/2 overflow-hidden rounded-full border border-white/10 bg-zinc-950/80 p-2 backdrop-blur-md">
+        {/* Shine sweep — passe toutes les 10 s. animation pause + flash. */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 top-0 h-[50%] -translate-y-full bg-gradient-to-b from-transparent via-violet-400/50 via-50% to-transparent opacity-0 mix-blend-screen blur-md"
+          style={{ animation: "rail-shine 10s ease-in-out infinite" }}
+        />
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 top-0 h-[40%] -translate-y-full bg-gradient-to-b from-transparent via-cyan-300/45 via-50% to-transparent opacity-0 mix-blend-screen blur-md"
+          style={{ animation: "rail-shine 10s ease-in-out infinite", animationDelay: "0.15s" }}
+        />
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 top-0 h-[35%] -translate-y-full bg-gradient-to-b from-transparent via-pink-400/45 via-50% to-transparent opacity-0 mix-blend-screen blur-md"
+          style={{ animation: "rail-shine 10s ease-in-out infinite", animationDelay: "0.3s" }}
+        />
+        <div className="relative flex flex-col gap-2">
+          <a
+            href={X_WEB}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="X"
+            className="group grid size-9 place-items-center rounded-full border border-white/10 transition-all hover:border-violet-400/60 hover:bg-violet-500/15"
+          >
+            <XLogoSvg className="size-3.5 text-zinc-300 group-hover:text-violet-200" />
+          </a>
+          <a
+            href={IG_WEB}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+            className="group grid size-9 place-items-center rounded-full border border-white/10 transition-all hover:border-pink-400/60 hover:bg-pink-500/15"
+          >
+            <InstagramSvg className="size-3.5 text-zinc-300 group-hover:text-pink-200" />
+          </a>
+          <div className="h-px w-full bg-white/[0.08]" />
+          <button
+            onClick={() => {
+              navigator.clipboard?.writeText(`@${X_HANDLE}`);
+            }}
+            aria-label="Copier @"
+            className="group grid size-9 place-items-center rounded-full border border-white/10 transition-all hover:border-cyan-400/60 hover:bg-cyan-500/15"
+          >
+            <Copy className="size-3.5 text-zinc-300 group-hover:text-cyan-200" />
+          </button>
+          <button
+            onClick={() => {
+              if (navigator.share) {
+                navigator.share({ title: "Mettrik AI", url: "https://www.mettrik.ai" });
+              }
+            }}
+            aria-label="Partager"
+            className="group grid size-9 place-items-center rounded-full border border-white/10 transition-all hover:border-emerald-400/60 hover:bg-emerald-500/15"
+          >
+            <Share2 className="size-3.5 text-zinc-300 group-hover:text-emerald-200" />
+          </button>
+        </div>
       </div>
+      {/* Keyframes locales — `prefers-reduced-motion` respecté.
+          0–80 % du cycle : rien (pause).
+          80–98 % : flash multicouleur passe de haut en bas (~2 s).
+          98–100 % : retour pause. */}
+      <style>{`
+        @keyframes rail-shine {
+          0%, 80% { transform: translateY(-110%); opacity: 0; }
+          82% { opacity: 0.95; }
+          92% { opacity: 0.95; }
+          98% { transform: translateY(110%); opacity: 0; }
+          100% { transform: translateY(110%); opacity: 0; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          [style*="rail-shine"] { animation: none !important; }
+        }
+      `}</style>
     </div>
   );
 }
