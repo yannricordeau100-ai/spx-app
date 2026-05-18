@@ -151,9 +151,78 @@ Vercel n'est PAS connecté à GitHub. Donc **aucun push staging ne déclenche un
 
 ---
 
+## Système "View As" (simulation des 4 types de session)
+
+Yann 18 mai 2026 : pouvoir développer/tester chacun des 4 types de session indépendamment.
+
+### Les 4 sessions simulables
+
+| Tier | Ce que tu vois | Quand l'utiliser |
+|---|---|---|
+| **Anonymous** (visiteur non connecté) | UI comme première visite | Tester landing + sign-in flow |
+| **Gratuit** | UI utilisateur Free | Tester limitations + nudges upgrade |
+| **Premium** | UI utilisateur Premium | Tester features standard |
+| **Max** | UI utilisateur Max | Tester features avancées |
+
+### Comment activer une simulation
+
+1. Va sur https://mettrik-niveau1.vercel.app/desk-mtk9x4kp (connecté avec ton compte admin)
+2. En haut de la page, barre violette "Voir l'app comme :" avec dropdown
+3. Choisis le tier à simuler
+4. La page se recharge automatiquement → tu vois l'app comme un user de ce tier
+5. **Indicateur** : un mini-badge violet "Sim : Premium" apparaît sous le LevelBadge bottom-right sur toutes les pages
+6. Pour désactiver : retour au desk + bouton "Désactiver" OU dropdown sur "(moi-même = admin réel)"
+
+### Garanties
+
+- **Niveau 0 (prod) ignore le cookie** : même si quelqu'un pose manuellement le cookie sur www.mettrik.ai, le helper serveur retourne toujours le tier réel. Aucun risque que la simulation fuie en prod.
+- **Cookie par onglet** : tu peux ouvrir 4 onglets niveau 1 simultanément, chacun simulant un tier différent. Très pratique pour comparer côte à côte.
+- **Persistance** : le cookie dure 30 jours. Pour le supprimer : bouton "Désactiver" ou DevTools.
+- **Admin only** : la barre simulate-tier n'apparaît que sur `/desk-mtk9x4kp` (gate auth DESK_OWNER_EMAIL).
+
+### Comment l'utiliser pour développer une feature spécifique à un tier
+
+Exemple : tu veux développer une feature pour Max uniquement.
+
+1. **Code** : dans le composant, gate `if (effectiveTier === "max") { ... feature ... }`
+   - Côté server : `const tier = computeEffectiveTier(realTier, await readSimulateTier())`
+   - Côté client : `const tier = useEffectiveTier(realTier)`
+2. **Test** : sur niveau 1, active simulation Max → tu vois la feature
+3. **Push code** : `vercel deploy --prod` quand validé
+   - Les Free/Premium ne verront PAS la feature (gate exclut)
+   - Seuls les Max la verront en prod
+4. **Aucune migration nécessaire** : pas de fork par tier, code unique pour tout
+
+### Architecture vs autres SaaS (Linear / Notion / Vercel / Stripe)
+
+Approche standard adoptée :
+- ✅ Code unique déployé sur tous les environnements
+- ✅ Gating par tier centralisé (`useEffectiveTier()` partout)
+- ✅ Mode "View as" admin pour simuler n'importe quel tier
+- ✅ Cookie par onglet pour comparer plusieurs tiers en parallèle
+
+Pas adopté (over-engineering pour 1 admin) :
+- ❌ Feature flags par cohorte (LaunchDarkly)
+- ❌ Multi-tenant scoping (pour B2B SaaS multi-clients, pas notre cas)
+
+---
+
+## Labels customs des catégories To-do
+
+Yann 18 mai 2026, option C : migration localStorage → Supabase BDD.
+
+- **Stockage source** : table `desk_user_preferences.todo_category_labels` (JSONB)
+- **Cache local** : `mettrik.todo.categories.v1` dans localStorage pour rendu instantané
+- **API** : `/api/desk/user-preferences` (GET/PATCH)
+- **Hydration au mount** : composant tab-todos lit cache + fetch BDD en arrière-plan + écrase cache
+- **Avantage** : survit à tous les changements de domaine (prod/niveau1/niveau2). Tes 5 labels customs sont disponibles partout dès que tu te connectes.
+
+---
+
 ## Historique
 
 | Date | Quoi |
 |---|---|
 | 18 mai 2026 | Création architecture multi-niveaux + bascule niveau 1 (CONV-SYSTEMS) |
 | 18 mai 2026 | Setup niveau 2 alias + script db-sync-n1-to-prod (CONV-SYSTEMS) |
+| 18 mai 2026 | Système "View As" 4 sessions + migration labels todo en BDD (CONV-SYSTEMS) |

@@ -36,6 +36,7 @@ import { TabMessages } from "@/components/desk/tab-messages";
 import { TabDrafts } from "@/components/desk/tab-drafts";
 import { TabPitch } from "@/components/desk/tab-pitch";
 import { TabRoadmap } from "@/components/desk/tab-roadmap";
+import { SimulateTierBar } from "@/components/desk/simulate-tier-bar";
 
 type TabId =
   | "notes" | "todos" | "roadmap"
@@ -222,6 +223,9 @@ export function DeskClient({ ownerEmail }: { ownerEmail: string }) {
           </header>
 
           <div className="mx-auto max-w-5xl p-6">
+            {/* Barre admin "view as" (caché en niveau 0 prod, visible niveau 1/2/3) */}
+            <SimulateTierBar />
+
             {/* PERF : keep-alive lazy mount.
                 Chaque tab visité reste monté en mémoire (cache local) puis caché
                 via CSS quand on en change. 1er click sur un tab = fetch normal,

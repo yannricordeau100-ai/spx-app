@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { SIMULATE_COOKIE, type EffectiveTier } from "@/lib/desk/effective-tier-shared";
 
 /**
  * LevelBadge : indicateur permanent du niveau d'environnement (1/2/3).
@@ -83,30 +84,63 @@ function readLevelEnv(): Level | null {
   return null;
 }
 
+function readSimulateCookieClient(): EffectiveTier | null {
+  if (typeof document === "undefined") return null;
+  const match = document.cookie
+    .split(";")
+    .map((s) => s.trim())
+    .find((s) => s.startsWith(`${SIMULATE_COOKIE}=`));
+  if (!match) return null;
+  const raw = decodeURIComponent(match.slice(SIMULATE_COOKIE.length + 1));
+  if (raw === "anonymous" || raw === "free" || raw === "premium" || raw === "max") return raw;
+  return null;
+}
+
+const SIM_LABELS: Record<EffectiveTier, string> = {
+  anonymous: "Anonyme",
+  free: "Gratuit",
+  premium: "Premium",
+  max: "Max",
+};
+
 export function LevelBadge() {
   const [level, setLevel] = useState<Level | null>(null);
   const [collapsed, setCollapsed] = useState(false);
+  const [sim, setSim] = useState<EffectiveTier | null>(null);
 
   useEffect(() => {
     const envLevel = readLevelEnv();
-    setLevel(envLevel ?? detectLevelFromHost());
+    const l = envLevel ?? detectLevelFromHost();
+    setLevel(l);
+    if (l !== 0) setSim(readSimulateCookieClient());
   }, []);
 
   if (level === null || level === 0) return null;
   const meta = LEVEL_META[level];
 
   return (
-    <button
-      type="button"
-      onClick={() => setCollapsed((c) => !c)}
-      title={meta.tooltip}
-      aria-label={meta.label}
-      className={`fixed bottom-3 right-3 z-[9999] inline-flex items-center gap-1.5 rounded-full border ${meta.borderClass} ${meta.bgClass} ${meta.textClass} px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.18em] backdrop-blur-md transition-all hover:scale-105 hover:shadow-lg`}
-      style={{ WebkitBackdropFilter: "blur(8px)" }}
-    >
-      <span aria-hidden className={`h-1.5 w-1.5 rounded-full ${meta.dotClass}`} />
-      <span>{collapsed ? meta.shortLabel : meta.label}</span>
-    </button>
+    <div className="fixed bottom-3 right-3 z-[9999] flex flex-col items-end gap-1">
+      <button
+        type="button"
+        onClick={() => setCollapsed((c) => !c)}
+        title={meta.tooltip}
+        aria-label={meta.label}
+        className={`inline-flex items-center gap-1.5 rounded-full border ${meta.borderClass} ${meta.bgClass} ${meta.textClass} px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.18em] backdrop-blur-md transition-all hover:scale-105 hover:shadow-lg`}
+        style={{ WebkitBackdropFilter: "blur(8px)" }}
+      >
+        <span aria-hidden className={`h-1.5 w-1.5 rounded-full ${meta.dotClass}`} />
+        <span>{collapsed ? meta.shortLabel : meta.label}</span>
+      </button>
+      {sim && (
+        <span
+          title={`Simulation tier active : tu vois l'app comme un user ${SIM_LABELS[sim]}. Désactivable depuis /desk-mtk9x4kp.`}
+          className="inline-flex items-center gap-1 rounded-full border border-violet-400/50 bg-violet-500/15 px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.16em] text-violet-100 backdrop-blur-md"
+        >
+          <span aria-hidden className="h-1 w-1 rounded-full bg-violet-300 shadow-[0_0_4px_rgba(167,139,250,0.8)]" />
+          Sim : {SIM_LABELS[sim]}
+        </span>
+      )}
+    </div>
   );
 }
 

@@ -6,6 +6,7 @@ import { DeskCard, Empty, HelpTip, Input, PrimaryButton } from "./ui";
 import {
   DEFAULT_CATEGORY_LABELS,
   readCategoryLabels,
+  fetchCategoryLabels,
   writeCategoryLabels,
   resetCategoryLabels,
   type CategoryLabels,
@@ -73,11 +74,17 @@ export function TabTodos({ ownerEmail: _ownerEmail }: { ownerEmail: string }) {
   const [filter, setFilter] = useState<FilterValue>("all");
   const [showDone, setShowDone] = useState(false);
 
-  // Labels personnalisables (localStorage). Init avec défauts pour SSR-safe.
+  // Labels personnalisables (BDD via API + cache localStorage).
+  // Init avec défauts pour SSR-safe.
   const [labels, setLabels] = useState<CategoryLabels>(DEFAULT_CATEGORY_LABELS);
   const [editingLabels, setEditingLabels] = useState(false);
-  // Hydrate les labels depuis localStorage au mount (côté client uniquement).
-  useEffect(() => { setLabels(readCategoryLabels()); }, []);
+  // Hydrate les labels au mount : (a) lecture immédiate du cache localStorage
+  // pour un rendu instantané, (b) fetch BDD en arrière-plan pour la vraie
+  // source de vérité (survit aux changements de domaine).
+  useEffect(() => {
+    setLabels(readCategoryLabels());
+    fetchCategoryLabels().then(setLabels).catch(() => {});
+  }, []);
 
   const categories = useMemo(() => buildCategories(labels), [labels]);
   const categoryById = useMemo(

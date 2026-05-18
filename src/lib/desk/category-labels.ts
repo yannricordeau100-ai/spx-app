@@ -1,13 +1,17 @@
 /**
- * Labels personnalisables pour les 4 catégories de to-dos.
+ * Labels personnalisables pour les 5 catégories de to-dos.
  *
  * IMPORTANT : ces labels sont uniquement de l'affichage. Les VALEURS en
  * BDD (champ `priority` de `desk_todos`) restent figées (`urgent`, `high`,
- * `normal`, `low`) pour ne jamais casser les tâches existantes. Le mapping
- * label → valeur DB est figé. Seul le texte affiché est customisable.
+ * `normal`, `low`, `extra`) pour ne jamais casser les tâches existantes.
+ * Le mapping label → valeur DB est figé. Seul le texte affiché est
+ * customisable.
  *
- * Stockage : localStorage navigateur (clé `mettrik.todo.categories.v1`).
- * Fallback : labels par défaut si aucune customisation.
+ * Stockage v2 (Yann 18 mai 2026, bascule niveau 1) :
+ *   - SOURCE DE VÉRITÉ : table Supabase `desk_user_preferences.todo_category_labels`
+ *     (survit aux changements de domaine prod / niveau1 / niveau2)
+ *   - CACHE local navigateur : `mettrik.todo.categories.v1` (lecture instantanée
+ *     au mount avant que l'API renvoie). Synchronisé en arrière-plan.
  */
 
 export type DbValue = "urgent" | "high" | "normal" | "low" | "extra";
@@ -30,41 +34,91 @@ export const DEFAULT_CATEGORY_LABELS: CategoryLabels = {
 
 const STORAGE_KEY = "mettrik.todo.categories.v1";
 
-/** Lit les labels depuis localStorage. Retourne les défauts si absent ou corrompu. */
+/** Merge un partial avec les défauts pour gérer les clés manquantes. */
+function mergeWithDefaults(parsed: Partial<CategoryLabels>): CategoryLabels {
+  return {
+    urgent: parsed.urgent || DEFAULT_CATEGORY_LABELS.urgent,
+    high: parsed.high || DEFAULT_CATEGORY_LABELS.high,
+    normal: parsed.normal || DEFAULT_CATEGORY_LABELS.normal,
+    low: parsed.low || DEFAULT_CATEGORY_LABELS.low,
+    extra: parsed.extra || DEFAULT_CATEGORY_LABELS.extra,
+  };
+}
+
+/**
+ * Lit les labels depuis le cache localStorage (instantané). Si rien en cache,
+ * retourne les défauts. La vraie source de vérité est en BDD via API ;
+ * l'appelant doit aussi appeler `fetchCategoryLabels()` au mount pour
+ * synchroniser et écraser le cache.
+ */
 export function readCategoryLabels(): CategoryLabels {
   if (typeof window === "undefined") return DEFAULT_CATEGORY_LABELS;
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     if (!raw) return DEFAULT_CATEGORY_LABELS;
     const parsed = JSON.parse(raw) as Partial<CategoryLabels>;
-    // Toujours merge avec les défauts pour gérer les nouvelles clés
-    return {
-      urgent: parsed.urgent || DEFAULT_CATEGORY_LABELS.urgent,
-      high: parsed.high || DEFAULT_CATEGORY_LABELS.high,
-      normal: parsed.normal || DEFAULT_CATEGORY_LABELS.normal,
-      low: parsed.low || DEFAULT_CATEGORY_LABELS.low,
-      extra: parsed.extra || DEFAULT_CATEGORY_LABELS.extra,
-    };
+    return mergeWithDefaults(parsed);
   } catch {
     return DEFAULT_CATEGORY_LABELS;
   }
 }
 
-/** Persiste les labels dans localStorage. Retourne true si OK, false si échec. */
-export function writeCategoryLabels(labels: CategoryLabels): boolean {
+/**
+ * Fetch les labels depuis la BDD (source de vérité). Met à jour le cache
+ * localStorage. À appeler au mount du composant todos.
+ */
+export async function fetchCategoryLabels(): Promise<CategoryLabels> {
+  if (typeof window === "undefined") return DEFAULT_CATEGORY_LABELS;
+  try {
+    const res = await fetch("/api/desk/user-preferences", { credentials: "include" });
+    if (!res.ok) return readCategoryLabels(); // fallback cache
+    const data = (await res.json()) as { todo_category_labels?: Partial<CategoryLabels> };
+    const labels = mergeWithDefaults(data.todo_category_labels ?? {});
+    // Mise à jour du cache
+    try {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(labels));
+    } catch {}
+    return labels;
+  } catch {
+    return readCategoryLabels();
+  }
+}
+
+/**
+ * Persiste les labels en BDD + cache local. Retourne true si OK.
+ */
+export async function writeCategoryLabels(labels: CategoryLabels): Promise<boolean> {
   if (typeof window === "undefined") return false;
+  // Optimistic local write
   try {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(labels));
-    return true;
+  } catch {}
+  // Sync vers BDD (best-effort)
+  try {
+    const res = await fetch("/api/desk/user-preferences", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ todo_category_labels: labels }),
+    });
+    return res.ok;
   } catch {
     return false;
   }
 }
 
-/** Reset les labels aux défauts. */
-export function resetCategoryLabels(): void {
+/** Reset les labels aux défauts (en BDD + cache local). */
+export async function resetCategoryLabels(): Promise<void> {
   if (typeof window === "undefined") return;
   try {
     window.localStorage.removeItem(STORAGE_KEY);
+  } catch {}
+  try {
+    await fetch("/api/desk/user-preferences", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ todo_category_labels: {} }),
+    });
   } catch {}
 }
