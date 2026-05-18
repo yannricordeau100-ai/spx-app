@@ -270,27 +270,33 @@ export function HomePopularBlock({
         {t("home.popular.subtitle")}
       </p>
 
-      <div className="mb-5 overflow-x-auto pb-1">
-        <div className="inline-flex min-w-full justify-center gap-1.5 rounded-xl border border-white/[0.06] bg-white/[0.02] p-1.5">
-          {TABS.map((tb) => {
-            const isActive = tb.key === activeTab;
-            return (
-              <button
-                key={tb.key}
-                type="button"
-                onClick={() => setActiveTab(tb.key)}
-                className={`whitespace-nowrap rounded-lg px-2.5 py-1.5 text-[12px] font-medium transition-all ${
-                  isActive
-                    ? "bg-gradient-to-br from-violet-500/25 to-cyan-500/15 text-zinc-50 ring-1 ring-violet-500/30"
-                    : "text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-200"
-                }`}
-              >
-                <span className="mr-1.5 text-[12.5px]">{tb.flag}</span>
-                {labels[tb.key] || tb.key}
-              </button>
-            );
-          })}
-        </div>
+      {/* Yann 18 mai 2026 : zones géo visibles sans scroll latéral.
+          Avant : `overflow-x-auto` + `inline-flex min-w-full` → 9 tabs
+          forçaient le scroll en max-w-3xl (768px).
+          Après : `flex flex-wrap justify-center` → 1 ligne quand assez
+          large, sinon wrap propre sur 2 lignes centrées. Padding et
+          tailles resserrés pour maximiser la chance de tenir sur 1 ligne
+          tout en gardant la cible cliquable confortable (>32px). */}
+      <div className="mb-5 flex flex-wrap justify-center gap-1 rounded-xl border border-white/[0.06] bg-white/[0.02] p-1.5">
+        {TABS.map((tb) => {
+          const isActive = tb.key === activeTab;
+          return (
+            <button
+              key={tb.key}
+              type="button"
+              onClick={() => setActiveTab(tb.key)}
+              className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg px-2 py-1.5 text-[11.5px] font-medium leading-none transition-all ${
+                isActive
+                  ? "bg-gradient-to-br from-violet-500/25 to-cyan-500/15 text-zinc-50 ring-1 ring-violet-500/30"
+                  : "text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-200"
+              }`}
+              aria-label={labels[tb.key] || tb.key}
+            >
+              <span className="text-[13px]">{tb.flag}</span>
+              <span>{labels[tb.key] || tb.key}</span>
+            </button>
+          );
+        })}
       </div>
 
       {podium.length === 3 && (
