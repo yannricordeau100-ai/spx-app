@@ -65,6 +65,22 @@ export type ImageFinding = {
    *  fiche société publique". Default true. Si false → ImageFindingsBlock
    *  masque le summary sous le graph. */
   show_summary?: boolean;
+  /** Yann 18 mai 2026 : pour les findings `source_platform=company_docs`,
+   *  vérification auto si les data peuvent constituer un KPI normal. */
+  convertible_to_kpi?: boolean;
+  /** Yann 18 mai 2026 : KPI draft prêt à insérer dans company.kpis[]. */
+  kpi_draft?: {
+    short: string;
+    name_en: string;
+    name_fr?: string;
+    name_de?: string;
+    value: number;
+    unit: string;
+    history: number[];
+    yoy?: string;
+    type?: string;
+    signal?: string;
+  } | null;
   reviewed_at: string | null;
   reviewer_notes: string | null;
   display_order: number;
