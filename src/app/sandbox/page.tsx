@@ -25,6 +25,7 @@ import {
   Palette,
   ImagePlus,
   HelpCircle,
+  ScrollText,
 } from "lucide-react";
 import { CONCEPT_COMPANIES } from "@/lib/concepts-data";
 import { CompanyLogo } from "@/components/logos";
@@ -227,6 +228,12 @@ const SECTIONS: SandboxSection[] = [
         icon: Tag,
         label: "Réglage pricing",
         desc: "Back office tarifs : plans, prix multi-devises, fonctionnalités, codes promo, sync Stripe.",
+      },
+      {
+        href: "/sandbox/legal-editor",
+        icon: ScrollText,
+        label: "Legal editor (CGU/CGV)",
+        desc: "Édition Markdown FR + EN des Conditions générales. Upload PDF, modification textarea, publication directe sur /legal/conditions.",
       },
     ],
   },
