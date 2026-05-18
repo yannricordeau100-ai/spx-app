@@ -146,7 +146,7 @@ CREATE TABLE IF NOT EXISTS public.desk_pitch_notes (
   owner_email text NOT NULL,
   title       text NOT NULL,
   body        text DEFAULT '',
-  audience    text DEFAULT '' COMMENT IS 'Ex: baggr.fr, iq-invest, family office',
+  audience    text DEFAULT '',
   status      text DEFAULT 'draft',
   created_at  timestamptz NOT NULL DEFAULT now(),
   updated_at  timestamptz NOT NULL DEFAULT now()
