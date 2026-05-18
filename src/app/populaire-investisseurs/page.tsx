@@ -10,6 +10,8 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { AuthModal } from "@/components/auth-modal";
 import { AuthRequiredBanner } from "@/components/auth-required-banner";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { rate } from "@/lib/brand";
+import type { KPI } from "@/lib/data";
 import { PopulaireClient } from "./client";
 
 export const dynamic = "force-dynamic";
@@ -34,6 +36,13 @@ export type PopularRow = {
   market_cap_usd?: number;
   views?: number;
   total_views?: number;
+  // Yann 18 mai 2026 — PV ajoutée depuis _merged.json côté SSR
+  /** YoY brut du Hero KPI Mettrik (ex "+18%", "-4.2%"). */
+  hero_yoy?: string;
+  /** Label court du Hero KPI (ex "Data Center", "Mobility"). */
+  hero_short?: string;
+  /** Tier qualité Mettrik (excellent/bon/moyen/faible). */
+  tier?: "excellent" | "bon" | "moyen" | "faible";
 };
 
 /** Suffixes de place boursière à retirer pour le ticker affiché. */
@@ -59,16 +68,49 @@ function stripExchangeSuffix(ticker: string): string {
   return up;
 }
 
-/** Charge les noms officiels de la fiche société (v2-pipeline merged). */
-function loadOfficialNames(): Record<string, string> {
+/**
+ * Charge les noms officiels + données enrichies depuis la fiche société
+ * (v2-pipeline merged) : nom canonique + Hero KPI (short + yoy + tier).
+ * Yann 18 mai 2026 — pour afficher la PV Mettrik à côté du rang popularité.
+ */
+type MergedEntry = {
+  name?: string;
+  hero_kpi?: string;
+  kpis?: KPI[];
+};
+type EnrichInfo = {
+  name?: string;
+  hero_short?: string;
+  hero_yoy?: string;
+  tier?: "excellent" | "bon" | "moyen" | "faible";
+};
+function loadMergedEnrichments(): Record<string, EnrichInfo> {
   try {
     const p = path.join(process.cwd(), "src/data/v2-pipeline/_merged.json");
-    const m = JSON.parse(fs.readFileSync(p, "utf-8")) as Record<string, { name?: string }>;
-    const out: Record<string, string> = {};
+    const m = JSON.parse(fs.readFileSync(p, "utf-8")) as Record<string, MergedEntry>;
+    const out: Record<string, EnrichInfo> = {};
     for (const [t, v] of Object.entries(m)) {
-      if (v && typeof v === "object" && typeof v.name === "string") {
-        out[t.toUpperCase()] = v.name;
+      if (!v || typeof v !== "object") continue;
+      const info: EnrichInfo = {};
+      if (typeof v.name === "string") info.name = v.name;
+      const heroShort = v.hero_kpi;
+      const kpis = Array.isArray(v.kpis) ? v.kpis : [];
+      const hero = heroShort
+        ? kpis.find((k) => k && k.short === heroShort) ?? kpis[0]
+        : kpis[0];
+      if (hero) {
+        info.hero_short = hero.short;
+        if (typeof hero.yoy === "string" && hero.yoy.trim()) {
+          info.hero_yoy = hero.yoy.trim();
+        }
+        try {
+          const r = rate(hero);
+          info.tier = r.tier;
+        } catch {
+          // skip tier if rate() crashes (KPI mal formé)
+        }
       }
+      out[t.toUpperCase()] = info;
     }
     return out;
   } catch {
@@ -135,7 +177,7 @@ export default async function PopulairePage() {
     "DG.PA", "SIE.DE", "VOD.L", "BCP.LS", "NG.L", "RMS.PA",
     "ATEYY", "ADTTF", "BP", "BPAQF", "BBVA.MC",
   ]);
-  const officialNames = loadOfficialNames();
+  const enrichments = loadMergedEnrichments();
   for (const region of Object.keys(data)) {
     if (region.startsWith("_")) continue;
     const rows = data[region];
@@ -143,11 +185,18 @@ export default async function PopulairePage() {
     for (const row of rows) {
       const t = (row.ticker || "").toUpperCase();
       row.displayTicker = stripExchangeSuffix(row.ticker);
-      if (!CROSS_POLLUTION_BLOCKLIST.has(t)) {
-        const off = officialNames[t];
-        if (off && typeof off === "string" && off.trim().length > 0) {
-          row.name = off;
+      const enrich = enrichments[t];
+      if (enrich) {
+        if (
+          enrich.name &&
+          !CROSS_POLLUTION_BLOCKLIST.has(t) &&
+          enrich.name.trim().length > 0
+        ) {
+          row.name = enrich.name;
         }
+        if (enrich.hero_short) row.hero_short = enrich.hero_short;
+        if (enrich.hero_yoy) row.hero_yoy = enrich.hero_yoy;
+        if (enrich.tier) row.tier = enrich.tier;
       }
     }
   }

@@ -34,6 +34,49 @@ function rankBarPct(rank: number, totalShown: number): number {
   return Math.max(pct, 8);
 }
 
+/**
+ * Yann 18 mai 2026 — pill YoY colorée (vert/rouge/neutre).
+ * Source : yoy du Hero KPI Mettrik issu de _merged.json (= la PV unique
+ * Mettrik par rapport à un simple ranking de popularité brut Yahoo).
+ */
+function HeroYoyPill({ yoy, label }: { yoy: string; label?: string }) {
+  const num = parseFloat(yoy.replace(/[+,\s%]/g, "").replace(/^-/, "-"));
+  const tone =
+    Number.isFinite(num) && num > 0
+      ? { bg: "bg-emerald-500/15", text: "text-emerald-300", ring: "ring-emerald-500/30" }
+      : Number.isFinite(num) && num < 0
+        ? { bg: "bg-rose-500/15", text: "text-rose-300", ring: "ring-rose-500/30" }
+        : { bg: "bg-zinc-500/15", text: "text-zinc-300", ring: "ring-zinc-500/30" };
+  return (
+    <span
+      className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 font-mono text-[11px] font-semibold ring-1 ${tone.bg} ${tone.text} ${tone.ring}`}
+      title={label ? `Croissance YoY du KPI principal Mettrik : ${label}` : "Croissance YoY du KPI principal Mettrik"}
+    >
+      {yoy.startsWith("+") || yoy.startsWith("-") ? yoy : `+${yoy}`}
+    </span>
+  );
+}
+
+const TIER_STYLE = {
+  excellent: { label: "Excellent", bg: "bg-emerald-500/12", text: "text-emerald-300", ring: "ring-emerald-500/25" },
+  bon:       { label: "Bon",       bg: "bg-lime-500/12",    text: "text-lime-300",    ring: "ring-lime-500/25" },
+  moyen:     { label: "Moyen",     bg: "bg-amber-500/12",   text: "text-amber-300",   ring: "ring-amber-500/25" },
+  faible:    { label: "Faible",    bg: "bg-rose-500/12",    text: "text-rose-300",    ring: "ring-rose-500/25" },
+} as const;
+
+function TierBadge({ tier }: { tier: "excellent" | "bon" | "moyen" | "faible" }) {
+  const s = TIER_STYLE[tier];
+  return (
+    <span
+      className={`inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-medium ring-1 ${s.bg} ${s.text} ${s.ring}`}
+      title="Qualité Mettrik du KPI principal"
+    >
+      <span className="size-1 rounded-full bg-current opacity-80" />
+      {s.label}
+    </span>
+  );
+}
+
 function PodiumCard({
   row,
   rank,
@@ -84,7 +127,23 @@ function PodiumCard({
         </div>
         <div className="mt-0.5 text-[11px] text-zinc-400">{scopeLabel}</div>
       </div>
-      <div className="relative mt-4 h-1.5 overflow-hidden rounded-full bg-white/[0.04]">
+      {/* PV Mettrik : YoY Hero KPI + tier qualité. Yann 18 mai 2026 :
+          remplace l'ancienne barre purement décorative qui n'avait aucune
+          info (juste un dégradé fonction du rang). */}
+      {(row.hero_yoy || row.tier) && (
+        <div className="relative mt-3 flex items-center gap-2">
+          {row.hero_yoy && <HeroYoyPill yoy={row.hero_yoy} label={row.hero_short} />}
+          {row.tier && <TierBadge tier={row.tier} />}
+        </div>
+      )}
+      {row.hero_short && (
+        <div className="relative mt-1 truncate text-[10.5px] text-zinc-500" title={row.hero_short}>
+          KPI principal : {row.hero_short}
+        </div>
+      )}
+      {/* Barre rang popularité (signal visuel décroissant). Conservée
+          comme indication secondaire, mais reléguée au second plan. */}
+      <div className="relative mt-3 h-1 overflow-hidden rounded-full bg-white/[0.04]">
         <div
           className={`h-full rounded-full ${rank === 1 ? "bg-amber-400" : rank === 2 ? "bg-zinc-300" : "bg-orange-500"}`}
           style={{ width: `${pct}%` }}
@@ -119,13 +178,19 @@ function StockRow({
         <div className="line-clamp-1 font-display text-[14px] font-bold text-zinc-50 sm:text-[15px]">
           {row.name}
         </div>
-        <div className="mt-0.5 flex items-baseline gap-2">
+        <div className="mt-0.5 flex flex-wrap items-baseline gap-x-2 gap-y-1">
           <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-400 sm:text-[12px]">
             {row.displayTicker ?? row.ticker}
           </span>
           {row.country && row.country !== "US" && (
             <span className="rounded bg-white/[0.04] px-1.5 py-0.5 font-mono text-[9.5px] uppercase tracking-wider text-zinc-500">
               {row.country}
+            </span>
+          )}
+          {row.tier && <TierBadge tier={row.tier} />}
+          {row.hero_short && (
+            <span className="truncate text-[10.5px] text-zinc-500" title={`KPI principal Mettrik : ${row.hero_short}`}>
+              {row.hero_short}
             </span>
           )}
         </div>
@@ -136,15 +201,15 @@ function StockRow({
           />
         </div>
       </div>
-      <div className="hidden text-right sm:block">
-        <div className="font-mono text-[14px] font-semibold tabular-nums text-zinc-100">
-          #{rank}
-        </div>
-        <div className="text-[10.5px] text-zinc-500">popularité</div>
-      </div>
-      <div className="text-right sm:hidden">
-        <div className="font-mono text-[12px] font-semibold tabular-nums text-zinc-200">
-          #{rank}
+      <div className="flex flex-col items-end gap-1">
+        {row.hero_yoy && (
+          <HeroYoyPill yoy={row.hero_yoy} label={row.hero_short} />
+        )}
+        <div className="text-right">
+          <div className="font-mono text-[13px] font-semibold tabular-nums text-zinc-100 sm:text-[14px]">
+            #{rank}
+          </div>
+          <div className="hidden text-[10px] text-zinc-500 sm:block">popularité</div>
         </div>
       </div>
       <ArrowRight className="hidden size-4 shrink-0 text-zinc-600 transition-all group-hover:translate-x-1 group-hover:text-violet-300 sm:block" />
@@ -248,9 +313,12 @@ export function PopulaireClient({
           </button>
         </div>
 
-        {/* Tabs pays */}
-        <div className="mb-8 overflow-x-auto">
-          <div className="inline-flex min-w-full gap-1.5 rounded-xl border border-white/[0.06] bg-white/[0.02] p-1.5">
+        {/* Tabs pays — Yann 18 mai 2026 : suppression scroll latéral.
+            Toutes les zones géo visibles d'un coup (flex-wrap), padding
+            compact, badge "Pour vous" condensé pour ne pas casser la
+            largeur. Mobile : 3-4 chips par ligne automatique. */}
+        <div className="mb-8">
+          <div className="flex flex-wrap gap-1 rounded-xl border border-white/[0.06] bg-white/[0.02] p-1.5">
             {tabs.map((t) => {
               const isActive = t.key === activeTab;
               const isForYou = t.country === country && t.country !== "";
@@ -259,17 +327,22 @@ export function PopulaireClient({
                   key={t.key}
                   type="button"
                   onClick={() => setActiveTab(t.key)}
-                  className={`relative whitespace-nowrap rounded-lg px-3 py-2 text-[12.5px] font-medium transition-all sm:px-4 sm:py-2.5 sm:text-[13px] ${
+                  className={`relative inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg px-2.5 py-1.5 text-[12px] font-medium transition-all sm:text-[12.5px] ${
                     isActive
                       ? "bg-gradient-to-br from-violet-500/25 to-cyan-500/15 text-zinc-50 shadow-inner ring-1 ring-violet-500/30"
                       : "text-zinc-400 hover:bg-white/[0.03] hover:text-zinc-200"
                   }`}
+                  aria-label={t.label}
                 >
-                  <span className="mr-1.5 text-[13px]">{t.flag}</span>
-                  {t.label}
+                  <span className="text-[13px] leading-none">{t.flag}</span>
+                  <span>{t.label}</span>
                   {isForYou && (
-                    <span className="ml-1.5 inline-flex items-center rounded-full bg-violet-500/20 px-1.5 py-0 text-[9px] font-bold uppercase tracking-wider text-violet-200">
-                      <Sparkles className="mr-0.5 size-2.5" /> {labels.for_you}
+                    <span
+                      className="ml-0.5 inline-flex size-4 items-center justify-center rounded-full bg-violet-500/20 text-violet-200"
+                      title={labels.for_you}
+                      aria-label={labels.for_you}
+                    >
+                      <Sparkles className="size-2.5" />
                     </span>
                   )}
                 </button>
