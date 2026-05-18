@@ -112,8 +112,48 @@ Pour réactiver un cron sur Vercel (upgrade Pro plan future) : voir `vercel.json
 - "niveau" en minuscule dans le code (cohérent FR Mettrik).
 - Badge en MAJUSCULE en UI pour la lisibilité.
 
+## Workflow modification des 4 tiers d'app (New / Free / Premium / Max)
+
+Question Yann : "comment gérer de façon 100 % sans risquer de pousser en prod par mégarde, le fait que je veux modifier les 4 niveaux de l'app public ?"
+
+### Garde-fou structurel
+
+Vercel n'est PAS connecté à GitHub. Donc **aucun push staging ne déclenche un build prod**. Tout déploiement (preview ou prod) passe par la commande explicite `vercel deploy` (preview) ou `vercel deploy --prod` (prod) que je lance manuellement.
+
+→ **Sécurité 100 % par construction.** Tu peux faire autant de modifs niveau 1 que tu veux sans crainte.
+
+### Workflow par type de modif
+
+| Type | Tu fais où | Tu testes où | Promotion prod |
+|---|---|---|---|
+| **Data pricing** (4 plans, prix, features FR/EN/DE) | `/desk-mtk9x4kp/pricing` sur **niveau 1** | `/pricing` sur niveau 1 + checkout test card | Commande : `node scripts/db-sync-n1-to-prod.mjs --tables pricing_plans,pricing_prices,pricing_features,pricing_plan_features` (avec confirmation OUI) |
+| **Copy / texte / taglines** | `/desk-mtk9x4kp/page-content` ou desk-mtk9x4kp/pricing-taglines sur niveau 1 | navigation niveau 1 | Idem, `--tables desk_page_content,desk_pricing_taglines` |
+| **Code gating** (qui voit quoi New/Free/Premium/Max) | Branche locale + push staging | `vercel deploy` que je lance → re-alias niveau 1 | `vercel deploy --prod` que je lance sur ton OK explicite |
+| **Composant UI** | Idem code | Idem | Idem |
+
+### Étape par étape (cas concret : tu veux changer les prix Free/Premium)
+
+1. Ouvres https://mettrik-niveau1.vercel.app/desk-mtk9x4kp/pricing
+2. Modifies les 4 cards (Découverte / Free / Premium / Max) : prix, mentions, features
+3. Save (écrit dans Supabase niveau 1)
+4. Vas voir https://mettrik-niveau1.vercel.app/pricing → vérifies user-side
+5. Cliques "Souscrire" sur Premium → Stripe te demande carte test (`4242 4242 4242 4242`) → vérifies parcours checkout complet
+6. Si OK → tu me dis "promote pricing → prod"
+7. Je lance `node scripts/db-sync-n1-to-prod.mjs --tables pricing_plans,pricing_prices,pricing_features,pricing_plan_features` avec confirmation manuelle
+8. Je te confirme + curl test sur www.mettrik.ai/pricing pour vérifier que les nouveaux prix sont visibles
+
+### Script reverse (db-sync-n1-to-prod.mjs)
+
+- Liste blanche stricte : seules les tables `pricing_*` + `desk_page_content` + `desk_pricing_taglines` sont autorisées
+- Tables sensibles **bloquées** par défaut : `auth.users`, `billing_*`, `subscriptions`, `desk_todos`, `desk_notes`, `desk_email_sequences`, etc.
+- Confirmation interactive obligatoire (tape `OUI` majuscules) sauf flag `--yes`
+- Source = Supabase niveau 1 (hardcoded), Target = Supabase prod (.env.local)
+
+---
+
 ## Historique
 
 | Date | Quoi |
 |---|---|
 | 18 mai 2026 | Création architecture multi-niveaux + bascule niveau 1 (CONV-SYSTEMS) |
+| 18 mai 2026 | Setup niveau 2 alias + script db-sync-n1-to-prod (CONV-SYSTEMS) |
