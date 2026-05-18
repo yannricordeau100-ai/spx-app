@@ -545,7 +545,21 @@ export function formatUnit(unit: string): string {
 export function decimalsForValue(num: number, unit?: string): number {
   if (!Number.isFinite(num)) return 1;
   const abs = Math.abs(num);
-  const hasMagnitude = !!unit && /\b(Mds|M|K|B)\b/i.test(unit);
+  const u = (unit ?? "").trim();
+  const hasMagnitude = !!u && /\b(Mds|M|K|B)\b/i.test(u);
+  // Yann 18 mai 2026 : unités de comptage entières (unités, units,
+  // employés, employees, stores, magasins, véhicules, vehicles, abonnés,
+  // subscribers, contrats, contracts, etc.) sans préfixe de magnitude
+  // (Mds/M/K) ne doivent JAMAIS afficher de décimale, sinon on a
+  // "410 000,0 unités" pour TSLA (absurde, observé 18 mai). Test : unit
+  // ne contient ni symbole monétaire, ni %, ni magnitude, ET la valeur
+  // est >= 100 (rare d'avoir un count fractionnaire en-dessous).
+  const isCountUnit =
+    !!u &&
+    !hasMagnitude &&
+    !/[$€£¥%]/.test(u) &&
+    /^[A-Za-zÀ-ÿ\s.\-/()]+$/.test(u);
+  if (isCountUnit && abs >= 100) return 0;
   // Règle Yann : magnitude OU >= 10 → 1 décimale max. Entre 1 et 10 → 2.
   if (abs >= 1 && abs < 10) return 2;
   if (abs >= 10 || hasMagnitude) return 1;

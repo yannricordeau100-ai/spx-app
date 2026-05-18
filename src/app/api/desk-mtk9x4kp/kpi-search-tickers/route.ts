@@ -25,6 +25,12 @@ const GROQ_URL = "https://api.groq.com/openai/v1/chat/completions";
 const GROQ_MODEL = "llama-3.3-70b-versatile";
 const CACHE_TTL_MS = 60 * 60 * 1000; // 1h
 const MAX_TICKERS_RETURNED = 50;
+// Yann 18 mai 2026 : cap univers envoyé au LLM. Groq Llama 3.3 free tier
+// = 12000 TPM (tokens per minute). Avec 2200 tickers × "ticker | nom |
+// secteur" = ~30k tokens → HTTP 413 immédiat. Cap à 700 (V18 top 307
+// d'abord, puis _tickers-index par market cap) + ticker+nom uniquement
+// = ~7-8k tokens, marge confortable.
+const MAX_UNIVERSE_SIZE = 700;
 
 type CacheEntry = {
   expiresAt: number;
@@ -46,33 +52,12 @@ async function loadUniverse(): Promise<UniverseEntry[]> {
   const root = process.cwd();
   const byTicker = new Map<string, UniverseEntry>();
 
-  // 1. v2-pipeline/_tickers-index.json (univers exhaustif ~2200 stés)
-  try {
-    const raw = await fs.readFile(
-      path.join(root, "src/data/v2-pipeline/_tickers-index.json"),
-      "utf8",
-    );
-    const arr = JSON.parse(raw) as Array<{
-      ticker: string;
-      name?: string;
-      sector?: string;
-    }>;
-    for (const e of arr) {
-      if (!e?.ticker) continue;
-      const key = e.ticker.toUpperCase();
-      if (!byTicker.has(key)) {
-        byTicker.set(key, {
-          ticker: e.ticker,
-          name: e.name ?? undefined,
-          sector: e.sector ?? undefined,
-        });
-      }
-    }
-  } catch {
-    // best effort, fallback v1-8
-  }
+  // Yann 18 mai 2026 : on charge en PRIORITÉ V18 top 307 (déjà trié par
+  // capitalisation), PUIS _tickers-index.json pour combler jusqu'au cap.
+  // L'ordre garantit que les stés majeures (NVDA, AAPL, MSFT, etc.) sont
+  // toujours dans le contexte LLM même si l'univers est tronqué.
 
-  // 2. v1-8-tickers-sorted.json (top 307 V18, ajoute tickers non vus)
+  // 1. v1-8-tickers-sorted.json (top 307 V18, en priorité)
   try {
     const raw = await fs.readFile(
       path.join(root, "src/data/v1-8-tickers-sorted.json"),
@@ -90,24 +75,60 @@ async function loadUniverse(): Promise<UniverseEntry[]> {
     // best effort
   }
 
-  // 3. sp500-tickers.json (pour résilience si _tickers-index vide)
+  // 2. v2-pipeline/_tickers-index.json (complète avec nom + secteur)
   try {
     const raw = await fs.readFile(
-      path.join(root, "src/data/sp500-tickers.json"),
+      path.join(root, "src/data/v2-pipeline/_tickers-index.json"),
       "utf8",
     );
-    const arr = JSON.parse(raw) as Array<string | { ticker: string }>;
+    const arr = JSON.parse(raw) as Array<{
+      ticker: string;
+      name?: string;
+      sector?: string;
+    }>;
     for (const e of arr) {
-      const t = typeof e === "string" ? e : e?.ticker;
-      if (!t) continue;
-      const key = t.toUpperCase();
-      if (!byTicker.has(key)) byTicker.set(key, { ticker: t });
+      if (!e?.ticker) continue;
+      const key = e.ticker.toUpperCase();
+      // Enrichit l'entrée V18 existante avec nom/secteur, ou ajoute si nouvelle
+      const existing = byTicker.get(key);
+      if (existing) {
+        if (!existing.name && e.name) existing.name = e.name;
+        if (!existing.sector && e.sector) existing.sector = e.sector;
+      } else if (byTicker.size < MAX_UNIVERSE_SIZE) {
+        byTicker.set(key, {
+          ticker: e.ticker,
+          name: e.name ?? undefined,
+          sector: e.sector ?? undefined,
+        });
+      }
     }
   } catch {
     // best effort
   }
 
-  const result = Array.from(byTicker.values());
+  // 3. sp500-tickers.json (résilience si _tickers-index vide)
+  if (byTicker.size < MAX_UNIVERSE_SIZE) {
+    try {
+      const raw = await fs.readFile(
+        path.join(root, "src/data/sp500-tickers.json"),
+        "utf8",
+      );
+      const arr = JSON.parse(raw) as Array<string | { ticker: string }>;
+      for (const e of arr) {
+        const t = typeof e === "string" ? e : e?.ticker;
+        if (!t) continue;
+        const key = t.toUpperCase();
+        if (!byTicker.has(key) && byTicker.size < MAX_UNIVERSE_SIZE) {
+          byTicker.set(key, { ticker: t });
+        }
+      }
+    } catch {
+      // best effort
+    }
+  }
+
+  // Cap final au MAX_UNIVERSE_SIZE (premières entrées prioritaires = V18)
+  const result = Array.from(byTicker.values()).slice(0, MAX_UNIVERSE_SIZE);
   cachedUniverse = result;
   cachedUniverseAt = now;
   return result;
@@ -118,19 +139,17 @@ function normalizeDescription(input: string): string {
 }
 
 function buildPrompt(description: string, universe: UniverseEntry[]): string {
-  // Limite contexte LLM : on envoie ticker + name (+ sector si court).
-  // Universe ~2200 stés × ~60 chars ≈ ~130 KB texte. Llama 3.3 accepte 128k
-  // tokens donc on tient large.
-  const lines = universe.map((e) => {
-    const parts: string[] = [e.ticker];
-    if (e.name) parts.push(e.name);
-    if (e.sector) parts.push(e.sector);
-    return parts.join(" | ");
-  });
+  // Yann 18 mai 2026 : prompt compact pour respecter Groq free tier 12k TPM.
+  // ticker + nom uniquement (secteur retiré, le LLM l'infère du nom).
+  // Universe cappé à 700 stés (cf MAX_UNIVERSE_SIZE) × ~40 chars =
+  // ~28 KB texte ≈ 7-8k tokens. Marge confortable sous le cap free tier.
+  const lines = universe.map((e) =>
+    e.name ? `${e.ticker} | ${e.name}` : e.ticker,
+  );
   return `Tu es un analyste financier. Voici une demande utilisateur :
 """${description}"""
 
-Voici la liste des tickers disponibles (format ticker | nom | secteur) :
+Voici la liste des tickers disponibles (format ticker | nom) :
 ${lines.join("\n")}
 
 Retourne UNIQUEMENT un JSON valide avec exactement cette structure :
