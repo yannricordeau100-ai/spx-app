@@ -15,6 +15,43 @@
 export type Locale = "en" | "en-GB" | "fr" | "de" | "de-CH" | "nl" | "sv" | "da";
 
 /**
+ * Familles linguistiques pour le regroupement visuel du LanguageDropdown
+ * (règle Yann 17 mai 2026 nuit) :
+ *
+ *   "english"     : EN-US + EN-GB (variantes anglaises)
+ *   "romance"     : FR (et toute autre langue romane future)
+ *   "germanic"    : DE + DE-CH + NL (NL est germanique occidental, cousine
+ *                   directe de l'allemand → groupée avec)
+ *   "scandinavian": SV + DA (langues nord-germaniques, mutuellement
+ *                   intelligibles à l'écrit)
+ *
+ * Template pour ajout futur d'une langue : DOIT inclure une `family` dans
+ * LOCALE_META + figurer dans la const LOCALE_FAMILIES_ORDER ci-dessous.
+ * Le LanguageDropdown applique le regroupement automatiquement.
+ */
+export type LocaleFamily = "english" | "romance" | "germanic" | "scandinavian";
+
+/**
+ * Ordre d'affichage des familles dans le dropdown (haut → bas).
+ * EN d'abord car défaut international, puis FR (audience principale Yann),
+ * puis germanique, puis scandinave.
+ */
+export const LOCALE_FAMILIES_ORDER: LocaleFamily[] = [
+  "english",
+  "romance",
+  "germanic",
+  "scandinavian",
+];
+
+/** Libellés FR très courts des familles, affichés en header de groupe. */
+export const LOCALE_FAMILY_LABEL: Record<LocaleFamily, string> = {
+  english: "English",
+  romance: "Romance",
+  germanic: "Germanique",
+  scandinavian: "Scandinave",
+};
+
+/**
  * Liste ordonnée par population du pays principal (approx 2025) :
  *   EN-US   : 335M
  *   FR      : 305M (FR + BE + CH + CA-fr + LU + MC + Afrique)
@@ -24,19 +61,34 @@ export type Locale = "en" | "en-GB" | "fr" | "de" | "de-CH" | "nl" | "sv" | "da"
  *   SV      : 10M (SE)
  *   DA      : 6M (DK)
  *   DE-CH   : 5M (CH-de)
+ *
+ * Cet ordre est utilisé pour les fallbacks et la priorité de détection
+ * automatique. L'affichage visuel du dropdown est lui regroupé par famille
+ * linguistique (cf LOCALE_FAMILIES_ORDER ci-dessus).
  */
 export const LOCALES: Locale[] = ["en", "fr", "de", "nl", "en-GB", "sv", "da", "de-CH"];
 
-/** Métadonnées d'affichage (drapeau emoji + nom dans la langue). */
-export const LOCALE_META: Record<Locale, { flag: string; nativeName: string; populationOrder: number }> = {
-  "en":    { flag: "🇺🇸", nativeName: "English",        populationOrder: 1 },
-  "fr":    { flag: "🇫🇷", nativeName: "Français",       populationOrder: 2 },
-  "de":    { flag: "🇩🇪", nativeName: "Deutsch",        populationOrder: 3 },
-  "nl":    { flag: "🇳🇱", nativeName: "Nederlands",     populationOrder: 4 },
-  "en-GB": { flag: "🇬🇧", nativeName: "English (UK)",   populationOrder: 5 },
-  "sv":    { flag: "🇸🇪", nativeName: "Svenska",        populationOrder: 6 },
-  "da":    { flag: "🇩🇰", nativeName: "Dansk",          populationOrder: 7 },
-  "de-CH": { flag: "🇨🇭", nativeName: "Schweizerdeutsch", populationOrder: 8 },
+/** Métadonnées d'affichage (drapeau emoji + nom dans la langue + famille). */
+export const LOCALE_META: Record<Locale, { flag: string; nativeName: string; populationOrder: number; family: LocaleFamily }> = {
+  "en":    { flag: "🇺🇸", nativeName: "English",          populationOrder: 1, family: "english" },
+  "en-GB": { flag: "🇬🇧", nativeName: "English (UK)",     populationOrder: 5, family: "english" },
+  "fr":    { flag: "🇫🇷", nativeName: "Français",         populationOrder: 2, family: "romance" },
+  "de":    { flag: "🇩🇪", nativeName: "Deutsch",          populationOrder: 3, family: "germanic" },
+  "de-CH": { flag: "🇨🇭", nativeName: "Schweizerdeutsch", populationOrder: 8, family: "germanic" },
+  "nl":    { flag: "🇳🇱", nativeName: "Nederlands",       populationOrder: 4, family: "germanic" },
+  "sv":    { flag: "🇸🇪", nativeName: "Svenska",          populationOrder: 6, family: "scandinavian" },
+  "da":    { flag: "🇩🇰", nativeName: "Dansk",            populationOrder: 7, family: "scandinavian" },
+};
+
+/**
+ * Ordre intra-famille pour l'affichage (utilisé par le LanguageDropdown).
+ * Modifie cet array si tu ajoutes une variante (ex: en-AU dans english).
+ */
+export const LOCALES_BY_FAMILY: Record<LocaleFamily, Locale[]> = {
+  english: ["en", "en-GB"],
+  romance: ["fr"],
+  germanic: ["de", "de-CH", "nl"],
+  scandinavian: ["sv", "da"],
 };
 
 export const DEFAULT_LOCALE: Locale = "en";
