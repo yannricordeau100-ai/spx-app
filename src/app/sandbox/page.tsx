@@ -1,5 +1,31 @@
 import Link from "next/link";
-import { CreditCard, FlaskConical, Library, Sparkles, Globe2, Database, Tag, FileEdit, Download, Image as ImageIcon, Crown, Eye, TreePine, Users } from "lucide-react";
+import {
+  CreditCard,
+  FlaskConical,
+  Library,
+  Sparkles,
+  Globe2,
+  Database,
+  Tag,
+  FileEdit,
+  Download,
+  Image as ImageIcon,
+  Crown,
+  Eye,
+  TreePine,
+  Users,
+  Compass,
+  Layers,
+  TableProperties,
+  Activity,
+  BarChart3,
+  Languages,
+  MapPin,
+  Wrench,
+  Palette,
+  ImagePlus,
+  HelpCircle,
+} from "lucide-react";
 import { CONCEPT_COMPANIES } from "@/lib/concepts-data";
 import { CompanyLogo } from "@/components/logos";
 import { brand } from "@/lib/brand";
@@ -9,90 +35,225 @@ export const metadata = {
   robots: { index: false, follow: false },
 };
 
-const ITEMS = [
+type SandboxItem = {
+  href: string;
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+  desc: string;
+  soon?: boolean;
+};
+
+type SandboxSection = {
+  id: string;
+  title: string;
+  description?: string;
+  items: SandboxItem[];
+};
+
+// Sections triées par priorité Yann. À l'intérieur de chaque section,
+// l'ordre alphabétique des labels FR est respecté.
+const SECTIONS: SandboxSection[] = [
   {
-    href: "/sandbox/billing",
-    icon: CreditCard,
-    label: "Billing test",
-    desc: "Test du flow Stripe Checkout en mode test (carte 4242…). Webhook + table subscriptions internes.",
+    id: "univers",
+    title: "🧭 Univers société",
+    description:
+      "Hubs principaux des fiches sté et leurs sous-pages dynamiques [ticker].",
+    items: [
+      {
+        href: "/sandbox/v1-7",
+        icon: Compass,
+        label: "V1.7 (Pass 3 strict)",
+        desc: "Hub des fiches société Pass 3 validées en stricte conformité.",
+      },
+      {
+        href: "/sandbox/v1-7-5",
+        icon: Layers,
+        label: "V1.7.5 (snapshot étendu)",
+        desc: "Version snapshot stable archivée pour la démo investisseur.",
+      },
+      {
+        href: "/sandbox/v1-8",
+        icon: Sparkles,
+        label: "V1.8 (dev actif)",
+        desc: "Version active de développement, top 307 prioritaire et reste en cours.",
+      },
+    ],
   },
   {
-    href: "/concepts",
-    icon: FlaskConical,
-    label: "Concepts (visuels)",
-    desc: "Hub des prototypes visuels : Email lab, Chart lab, modes Clair 1/2/3.",
+    id: "data-quality",
+    title: "📊 Data quality & qualité",
+    description:
+      "Audits, couvertures, statuts et outils de qualité sur les datasets sté.",
+    items: [
+      {
+        href: "/sandbox/coverage-matrix",
+        icon: TableProperties,
+        label: "Coverage matrix",
+        desc: "Vue par blocs et par sté : ce qui est rempli, ce qui manque, codes couleur.",
+      },
+      {
+        href: "/sandbox/ir-coverage",
+        icon: Database,
+        label: "Couverture docs par sté",
+        desc: "Bilan SEC EDGAR et IR scraper pour 344 stés (top 305 V1.8 et V1 demo). Détail par doc-type.",
+      },
+      {
+        href: "/sandbox/data-status",
+        icon: Activity,
+        label: "Statut des données",
+        desc: "Qui fait quoi, Pass 3 par catégorie, audit transverse cat 1 / 2 / 3.",
+      },
+      {
+        href: "/sandbox/kpi-builder",
+        icon: Wrench,
+        label: "KPI builder (sur mesure)",
+        desc: "Ajout d'un KPI sur mesure : description NL, suggestion tickers, déclenchement extraction.",
+      },
+      {
+        href: "/sandbox/special-kpis",
+        icon: Sparkles,
+        label: "KPIs spéciaux (recherche manuelle)",
+        desc: "KPIs qui nécessitent recherche manuelle (iPhone units, abonnés Netflix). Demande, extraction, preview, push live.",
+      },
+      {
+        href: "/sandbox/quality-tree",
+        icon: TreePine,
+        label: "Quality tree (registry)",
+        desc: "Arbre dépliable des 101 éléments contrôlables d'une page sté. Source consolidée audit, coverage, fix dispatcher.",
+      },
+      {
+        href: "/sandbox/ready-by-category",
+        icon: Users,
+        label: "Stés prêtes par catégorie et pays",
+        desc: "Counts par catégorie (Top 307, SP500, SP1500, Stoxx 600, SMI Suisse, Cat 2 ADR) et par pays. Masque les ADR doublons.",
+      },
+      {
+        href: "/sandbox/top307-breakdown",
+        icon: BarChart3,
+        label: "Top 307 breakdown",
+        desc: "Décomposition complète du top 307 V1.8 par bloc, statut Pass 3, et indicateurs qualité.",
+      },
+      {
+        href: "/sandbox/vip-inspection",
+        icon: Crown,
+        label: "VIP inspection",
+        desc: "Liste des stés où tout doit être parfait. Inspection visuelle multi-mode, audit Gemini, auto-fix loop.",
+      },
+      {
+        href: "/sandbox/visual-audit",
+        icon: Eye,
+        label: "Visual audit (Gemini 2.5 Flash)",
+        desc: "Dashboard des défauts visuels détectés par Gemini sur chaque page sté. 31 checks, filtres severity et blocker.",
+      },
+    ],
   },
   {
-    href: "/desk-mtk9x4kp",
-    icon: Library,
-    label: "Desk interne",
-    desc: "Bureau de travail privé : notes, todos, GICS, pipeline V2, etc. Accès restreint.",
+    id: "ui",
+    title: "🎨 UI & visuels",
+    description: "Visuels, graphiques externes, expérimentations branding.",
+    items: [
+      {
+        href: "/sandbox/image-findings",
+        icon: ImageIcon,
+        label: "Graphiques et schémas (sources diverses)",
+        desc: "Recherche manuelle de graphiques et schémas via Claude conv MAX 20×. Approbation Yann, carrousel sous le hero des pages sté.",
+      },
+      {
+        href: "/sandbox/logo-lab",
+        icon: Palette,
+        label: "Logo lab",
+        desc: "Atelier de génération et validation de logos sté (à venir, pas encore live).",
+        soon: true,
+      },
+      {
+        href: "/sandbox/v2",
+        icon: ImagePlus,
+        label: "V2 (50 stés DRAFT seed)",
+        desc: "Prototype visuel V1.5 cat 2 (FPI étrangères), 50 stés seed pour tests.",
+      },
+    ],
   },
   {
-    href: "/desk-mtk9x4kp/pricing",
-    icon: Tag,
-    label: "Réglage pricing",
-    desc: "Back office tarifs : plans, prix multi-devises, fonctionnalités, codes promo, sync Stripe.",
+    id: "i18n",
+    title: "🌍 i18n & locales",
+    description: "Couverture des traductions et test de géolocalisation.",
+    items: [
+      {
+        href: "/sandbox/geo-test",
+        icon: MapPin,
+        label: "Geo test",
+        desc: "Visualise pays détecté, langue, devise, cookies et Accept-Language. Debug et QA en live.",
+      },
+      {
+        href: "/sandbox/i18n-audit",
+        icon: Languages,
+        label: "i18n audit",
+        desc: "Visualisation 462 clés × 8 langues. Dropdown locale et tableau par groupe de pages.",
+      },
+    ],
   },
   {
-    href: "/desk-mtk9x4kp/page-content?page=home",
-    icon: FileEdit,
-    label: "Édition textes home",
-    desc: "Modifier tagline, sous-titre, KPI Intelligence et 4 punchlines rotatives de la page d'accueil V1.8.",
+    id: "billing-admin",
+    title: "💳 Billing & admin",
+    description:
+      "Tests paiement, back office desk, réglages tarifs et contenus.",
+    items: [
+      {
+        href: "/sandbox/billing",
+        icon: CreditCard,
+        label: "Billing test",
+        desc: "Test du flow Stripe Checkout en mode test (carte 4242…). Webhook et table subscriptions internes.",
+      },
+      {
+        href: "/desk-mtk9x4kp",
+        icon: Library,
+        label: "Desk interne",
+        desc: "Bureau de travail privé : notes, todos, GICS, pipeline V2. Accès restreint.",
+      },
+      {
+        href: "/desk-mtk9x4kp/page-content?page=home",
+        icon: FileEdit,
+        label: "Édition textes home",
+        desc: "Modifier tagline, sous-titre, KPI Intelligence et 4 punchlines rotatives de la page d'accueil V1.8.",
+      },
+      {
+        href: "/desk-mtk9x4kp/ir-sources",
+        icon: Download,
+        label: "Sources IR (téléchargement docs)",
+        desc: "URLs page corp, IR home et docs IR par sté. Le scraper télécharge auto les PDFs absents de SEC EDGAR.",
+      },
+      {
+        href: "/desk-mtk9x4kp/pricing",
+        icon: Tag,
+        label: "Réglage pricing",
+        desc: "Back office tarifs : plans, prix multi-devises, fonctionnalités, codes promo, sync Stripe.",
+      },
+    ],
   },
   {
-    href: "/desk-mtk9x4kp/ir-sources",
-    icon: Download,
-    label: "Sources IR (téléchargement docs)",
-    desc: "URLs page corp + IR home + page docs IR par sté. Le scraper télécharge auto les PDFs absents de SEC EDGAR (CFO commentary, press releases, transcripts, slides).",
+    id: "aide",
+    title: "🆘 Aide & FAQ interne",
+    items: [
+      {
+        href: "/sandbox/aide",
+        icon: HelpCircle,
+        label: "Aide & FAQ interne",
+        desc: "12 URLs canoniques et 14 fiches problèmes searchable par alias.",
+      },
+    ],
   },
   {
-    href: "/sandbox/ir-coverage",
-    icon: Database,
-    label: "Couverture docs par sté",
-    desc: "Bilan SEC EDGAR + IR scraper pour 344 sociétés (top 305 V1.8 + V1 demo). Détail par doc-type pour identifier ce qui manque.",
-  },
-  {
-    href: "/sandbox/special-kpis",
-    icon: Sparkles,
-    label: "KPIs spéciaux (recherche manuelle)",
-    desc: "Pour les KPIs qui nécessitent recherche manuelle (ex iPhone units, Netflix abonnés) : crée la demande, lance l'extraction (Groq Llama 3.3 70B gratuit OU prompt externe), preview avant publication, push live sur la page sté avec toggle.",
-  },
-  {
-    href: "/sandbox/image-findings",
-    icon: ImageIcon,
-    label: "Graphiques et Schémas (sources diverses)",
-    desc: "Recherche manuelle de graphiques/schémas sur X/Twitter via Claude conv MAX 20× (gratuit). Query libre, tickers cibles, langues par défaut. Tu approuves chaque image, elles s'affichent dans un carrousel sous le hero des pages sté.",
-  },
-  {
-    href: "/sandbox/kpi-builder",
-    icon: Sparkles,
-    label: "Ajouter un KPI multi-stés",
-    desc: "Crée une demande d'extraction d'un nouveau KPI sur plusieurs sociétés à la fois (ex : RPO sur les méga-cap cloud/IA). Décris en langage naturel, Claude suggère les tickers, tu ajustes, tu définis le KPI (short / nom EN / explication / type / unité / prompt extraction), tu lances. Auto-traduction FR via Groq si nom FR vide.",
-  },
-  {
-    href: "/sandbox/vip-inspection",
-    icon: Crown,
-    label: "👑 VIP Inspection",
-    desc: "Liste des stés où tout doit être PARFAIT. Inspection visuelle approfondie multi-mode chart, multi-temporalité, download + audit Gemini, auto-fix loop + re-vérif. BABA déjà en liste, inspection auto à 7h Paris.",
-  },
-  {
-    href: "/sandbox/visual-audit",
-    icon: Eye,
-    label: "👁 Visual Audit (Gemini 2.5 Flash)",
-    desc: "Dashboard des défauts visuels détectés par Gemini sur chaque page sté. 31 checks par défaut (chart, header, KPI table, stories, risks, gov, etc.). Filtres severity / blocker / OK. Top 307 audité.",
-  },
-  {
-    href: "/sandbox/quality-tree",
-    icon: TreePine,
-    label: "🌳 Quality Tree (registry)",
-    desc: "Arbre dépliable des 101 éléments contrôlables d'une page sté avec IDs stables. Source unique consolidée pour audit Gemini + coverage-matrix + fix-dispatcher. Filtres par auditeur, sévérité, variante.",
-  },
-  {
-    href: "/sandbox/ready-by-category",
-    icon: Users,
-    label: "📊 Stés prêtes par catégorie & pays",
-    desc: "Counts \"complètement prêtes\" par catégorie (Top 307 / SP500 / SP1500 / Stoxx 600 / SMI Suisse / Cat 2 ADR) et par pays (ordre décroissant). Liste des ADR duplicates masqués au profit du listing d'origine.",
+    id: "lab",
+    title: "🧪 Lab & expérimentations",
+    description: "Prototypes visuels et bacs à sable hors scope produit.",
+    items: [
+      {
+        href: "/concepts",
+        icon: FlaskConical,
+        label: "Concepts (visuels)",
+        desc: "Hub des prototypes visuels : Email lab, Chart lab, modes Clair 1/2/3.",
+      },
+    ],
   },
 ];
 
@@ -315,26 +476,77 @@ export default function SandboxPage() {
           </div>
         </section>
 
-        {/* ═══════ ITEMS EXISTANTS ═══════ */}
+        {/* ═══════ OUTILS SANDBOX PAR CATÉGORIE ═══════ */}
         <section className="mb-10">
-          <h2 className="mb-3 font-display text-[15.5px] font-bold tracking-tight text-zinc-100">
+          <h2 className="mb-2 font-display text-[18px] font-bold tracking-tight text-zinc-100">
             Outils sandbox
           </h2>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {ITEMS.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="group flex items-start gap-4 rounded-xl border border-white/10 bg-white/[0.02] p-5 transition-colors hover:border-violet-500/30 hover:bg-white/[0.04]"
+          <p className="mb-5 text-[12.5px] text-zinc-400">
+            Tous les modules internes regroupés par thématique. Aucune entrée n&apos;est supprimée :
+            les outils sont juste rangés pour s&apos;y retrouver plus vite.
+          </p>
+
+          <div className="space-y-10">
+            {SECTIONS.map((section, sectionIdx) => (
+              <div
+                key={section.id}
+                className={
+                  sectionIdx === 0
+                    ? "pt-0"
+                    : "border-t border-white/5 pt-8"
+                }
               >
-                <div className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-violet-500/30 bg-violet-500/10 text-violet-300">
-                  <item.icon className="size-5" />
+                <h3 className="mb-1 font-display text-[16px] font-bold tracking-tight text-zinc-100">
+                  {section.title}
+                </h3>
+                {section.description && (
+                  <p className="mb-4 text-[12px] text-zinc-500">{section.description}</p>
+                )}
+
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {section.items.map((item) => {
+                    const Icon = item.icon;
+                    const cardClass = item.soon
+                      ? "group flex items-start gap-4 rounded-xl border border-white/5 bg-white/[0.01] p-5 opacity-60"
+                      : "group flex items-start gap-4 rounded-xl border border-white/10 bg-white/[0.02] p-5 transition-colors hover:border-violet-500/30 hover:bg-white/[0.04]";
+
+                    const content = (
+                      <>
+                        <div className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-violet-500/30 bg-violet-500/10 text-violet-300">
+                          <Icon className="size-5" />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center gap-2">
+                            <h4 className="text-[15px] font-semibold text-zinc-50 group-hover:text-violet-200">
+                              {item.label}
+                            </h4>
+                            {item.soon && (
+                              <span className="rounded-full bg-amber-500/15 px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider text-amber-200">
+                                à venir
+                              </span>
+                            )}
+                          </div>
+                          <p className="mt-1 text-[12.5px] text-zinc-400">{item.desc}</p>
+                        </div>
+                      </>
+                    );
+
+                    if (item.soon) {
+                      return (
+                        <div key={item.href} className={cardClass} aria-disabled="true">
+                          {content}
+                        </div>
+                      );
+                    }
+
+                    return (
+                      <Link key={item.href} href={item.href} className={cardClass}>
+                        {content}
+                      </Link>
+                    );
+                  })}
                 </div>
-                <div className="min-w-0 flex-1">
-                  <h3 className="text-[15px] font-semibold text-zinc-50 group-hover:text-violet-200">{item.label}</h3>
-                  <p className="mt-1 text-[12.5px] text-zinc-400">{item.desc}</p>
-                </div>
-              </Link>
+              </div>
             ))}
           </div>
         </section>
