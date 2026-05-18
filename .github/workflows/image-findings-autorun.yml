@@ -1,0 +1,94 @@
+name: Image Findings Autorun
+
+# Yann 18 mai 2026 : worker GitHub Action qui exécute automatiquement
+# le scraping image-findings pour les demandes que l'utilisateur a "lancé"
+# depuis /sandbox/image-findings (status='claude_pending' dans Supabase).
+#
+# Calqué sur vip-inspection-worker.yml. Self-hosted Mac runner gratuit
+# illimité. Zéro coût API : Gemini 2.5 Flash free tier + Cerebras Qwen-3
+# free pour l'orchestration scraping.
+#
+# Secrets repo settings :
+#   - SUPABASE_URL                (= NEXT_PUBLIC_SUPABASE_URL)
+#   - SUPABASE_SERVICE_ROLE_KEY
+#   - GEMINI_API_KEY              (Gemini 2.5 Flash free tier 1500/jour)
+#   - ANTHROPIC_API_KEY           (fallback Haiku si nécessaire)
+#   - GITHUB_DISPATCH_TOKEN       (pour le webhook depuis Vercel API)
+
+on:
+  schedule:
+    # Filet de sécurité 2h : récupère les claude_pending au cas où le
+    # webhook depuis Vercel API fail. Yann 18 mai 2026.
+    - cron: '0 */2 * * *'
+  repository_dispatch:
+    # Déclenché par /api/desk/image-findings POST action=mark_claude_pending
+    # via GitHub API. Type d'event = 'image-findings-launch'.
+    types: [image-findings-launch]
+  workflow_dispatch: # bouton manuel "Run workflow" depuis l'UI Actions
+    inputs:
+      request_id:
+        description: 'UUID demande (sinon traite tous les claude_pending)'
+        required: false
+        type: string
+
+# Yann 18 mai 2026 : concurrency group par request_id, jamais cancel
+# (chaque demande doit aller au bout, sinon findings perdus).
+concurrency:
+  group: image-findings-${{ github.event.client_payload.request_id || github.event.inputs.request_id || 'all-pending' }}
+  cancel-in-progress: false
+
+jobs:
+  autorun:
+    # Self-hosted Mac runner Yann (gratuit, illimité, Mac doit être allumé).
+    runs-on: [self-hosted, macOS, arm64]
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      # Python 3.12 + Node 22 déjà installés sur le Mac Yann (vérifié).
+
+      - name: Install Python deps
+        run: pip3 install --user --quiet anthropic google-generativeai requests beautifulsoup4 lxml || true
+
+      - name: Install Node deps (Supabase client only, no-save)
+        run: npm install --no-save --silent @supabase/supabase-js
+
+      - name: Sync Supabase → JSON local (claude_pending requests)
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: node scripts/image-findings-sync-down.js
+
+      - name: Check if any pending requests
+        id: check
+        run: |
+          PENDING=$(node -e "try{const j=require('./src/data/image-findings-pending.json');console.log((j.requests||[]).map(r=>r.id).join(' '))}catch(e){console.log('')}")
+          echo "pending_ids=$PENDING" >> $GITHUB_OUTPUT
+          if [ -z "$PENDING" ] && [ -z "${{ github.event.inputs.request_id }}${{ github.event.client_payload.request_id }}" ]; then
+            echo "Aucune demande à traiter. Skip."
+          fi
+
+      - name: Run image findings autorun
+        if: steps.check.outputs.pending_ids != '' || github.event.inputs.request_id != '' || github.event.client_payload.request_id != ''
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          REQUEST_ID="${{ github.event.inputs.request_id || github.event.client_payload.request_id }}"
+          if [ -n "$REQUEST_ID" ]; then
+            python3 scripts/image-findings-autorun.py --request-id "$REQUEST_ID"
+          else
+            python3 scripts/image-findings-autorun.py --all-pending
+          fi
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "## Image Findings Autorun Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- Pending requests : ${{ steps.check.outputs.pending_ids }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Explicit request_id : ${{ github.event.inputs.request_id || github.event.client_payload.request_id }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Triggered at : $(date -u +%Y-%m-%dT%H:%M:%SZ)" >> $GITHUB_STEP_SUMMARY
