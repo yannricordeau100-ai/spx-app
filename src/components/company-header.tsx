@@ -221,7 +221,7 @@ export function CompanyHeader({
           écran. Rang USA masqué pour les sés non-US (cat 3 EU). */}
       <div className="mt-5 flex flex-nowrap items-center gap-1.5 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         <StatChip label={t("company.rank_world")} value={company.ranks.global_world} />
-        {isUsOrAdr(company.ticker) && (
+        {isUsOrAdr(company.ticker) && company.ranks.global_us && company.ranks.global_us.trim() !== "" && company.ranks.global_us !== "-" && (
           <StatChip label={t("company.rank_us")} value={company.ranks.global_us} />
         )}
         <StatChip label={translateSubsectorLocale(company.sector, locale)} value={translateRankPreposition(company.ranks.sector, locale)} />
