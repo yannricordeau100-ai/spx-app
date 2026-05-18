@@ -36,13 +36,41 @@ type AnyCo = Record<string, unknown> & {
   _fit_for_site?: boolean;
 };
 
+export type UniverseFlags = {
+  cat1: boolean;
+  cat2: boolean;
+  cat3: boolean;
+  top307: boolean;
+  sp500: boolean;
+  sp1500: boolean;
+  stoxx600: boolean;
+  cac40: boolean;
+  dax40: boolean;
+  ftse100: boolean;
+  ftse_mib: boolean;
+  ibex35: boolean;
+  smi20: boolean;
+  aex25: boolean;
+  bel20: boolean;
+  omx_stockholm30: boolean;
+  omx_copenhagen25: boolean;
+};
+
 export type CurationRow = {
   ticker: string;
   name: string;
   in_top307: boolean;
   in_v17: boolean;
   score: CurationScore;
+  flags: UniverseFlags;
 };
+
+const EU_SUFFIXES = [".PA", ".DE", ".L", ".SW", ".MI", ".AS", ".ST", ".CO", ".BR", ".MC", ".HE", ".OL"] as const;
+
+function hasEuSuffix(ticker: string): boolean {
+  const upper = ticker.toUpperCase();
+  return EU_SUFFIXES.some((s) => upper.endsWith(s));
+}
 
 function readJson<T>(p: string): T | null {
   try {
@@ -133,6 +161,44 @@ function buildRows(): CurationRow[] {
   const top307 = new Set(top307Arr.slice(0, 307));
   const enrichDir = path.join(root, "src/data/v2-pipeline-enrich");
 
+  // SP500 tickers
+  const sp500Raw = readJson<unknown>(path.join(root, "src/data/sp500-tickers.json"));
+  const sp500Set = new Set<string>(
+    Array.isArray(sp500Raw) ? (sp500Raw as string[]).map((t) => t.toUpperCase()) : []
+  );
+
+  // Exchange indices (peut ne pas exister encore)
+  type ExchangeIndices = {
+    indices?: Record<string, { tickers?: string[] }>;
+  };
+  const exchangeIndices = readJson<ExchangeIndices>(
+    path.join(root, "src/data/exchange-indices.json")
+  );
+  const indicesMap = exchangeIndices?.indices ?? {};
+  const tickersOfIndex = (key: string): Set<string> => {
+    const arr = indicesMap[key]?.tickers ?? [];
+    return new Set(arr.map((t) => t.toUpperCase()));
+  };
+  const cac40Set = tickersOfIndex("cac40");
+  const dax40Set = tickersOfIndex("dax40");
+  const ftse100Set = tickersOfIndex("ftse100");
+  const ftseMibSet = tickersOfIndex("ftse_mib");
+  const ibex35Set = tickersOfIndex("ibex35");
+  const smi20Set = tickersOfIndex("smi20");
+  const aex25Set = tickersOfIndex("aex25");
+  const bel20Set = tickersOfIndex("bel20");
+  const omxStockholm30Set = tickersOfIndex("omx_stockholm30");
+  const omxCopenhagen25Set = tickersOfIndex("omx_copenhagen25");
+
+  // FPI tickers (cat 2)
+  type FpiData = { tickers?: Array<{ ticker?: string }> };
+  const fpiRaw = readJson<FpiData>(path.join(root, "sec-data/_meta/fpi-tickers.json"));
+  const fpiSet = new Set<string>(
+    (fpiRaw?.tickers ?? [])
+      .map((e) => (e?.ticker ? e.ticker.toUpperCase() : ""))
+      .filter((t) => t.length > 0)
+  );
+
   // Visual audit fails par ticker
   type VARaw = { ticker?: string; fails?: VisualFail[]; n_fails?: number };
   const va = readJson<{ results?: Record<string, VARaw> }>(path.join(root, "src/data/visual-audit.json"));
@@ -161,12 +227,56 @@ function buildRows(): CurationRow[] {
 
     const score = computeCurationScore({ blocks, visualFails, visualAuditMissing });
 
+    const tkU = tkUpper;
+    const isCat2 = fpiSet.has(tkU);
+    const isCat3 = !isCat2 && hasEuSuffix(tkU);
+    const isCat1 = !isCat2 && !isCat3 && !tkU.includes(".");
+
+    const inSp500 = sp500Set.has(tkU);
+    const inTop307 = top307.has(tk);
+    const inCac40 = cac40Set.has(tkU);
+    const inDax40 = dax40Set.has(tkU);
+    const inFtse100 = ftse100Set.has(tkU);
+    const inFtseMib = ftseMibSet.has(tkU);
+    const inIbex35 = ibex35Set.has(tkU);
+    const inSmi20 = smi20Set.has(tkU);
+    const inAex25 = aex25Set.has(tkU);
+    const inBel20 = bel20Set.has(tkU);
+    const inOmxSto30 = omxStockholm30Set.has(tkU);
+    const inOmxCop25 = omxCopenhagen25Set.has(tkU);
+
+    // Stoxx 600 approx : tous tickers avec suffixe européen
+    const inStoxx600 = isCat3;
+    // SP1500 approx : tous tickers US (cat 1) présents top307 OU SP500
+    const inSp1500 = isCat1 && (inTop307 || inSp500);
+
+    const flags: UniverseFlags = {
+      cat1: isCat1,
+      cat2: isCat2,
+      cat3: isCat3,
+      top307: inTop307,
+      sp500: inSp500,
+      sp1500: inSp1500,
+      stoxx600: inStoxx600,
+      cac40: inCac40,
+      dax40: inDax40,
+      ftse100: inFtse100,
+      ftse_mib: inFtseMib,
+      ibex35: inIbex35,
+      smi20: inSmi20,
+      aex25: inAex25,
+      bel20: inBel20,
+      omx_stockholm30: inOmxSto30,
+      omx_copenhagen25: inOmxCop25,
+    };
+
     rows.push({
       ticker: tk,
       name: String(d.name || tk),
-      in_top307: top307.has(tk),
+      in_top307: inTop307,
       in_v17: tk in v17,
       score,
+      flags,
     });
   }
 

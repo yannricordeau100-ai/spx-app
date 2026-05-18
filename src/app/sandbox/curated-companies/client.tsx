@@ -2,7 +2,49 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { COLOR_META, COLOR_CRITERIA, type CurationScore } from "@/lib/desk/curation-score";
-import type { CurationRow } from "./page";
+import type { CurationRow, UniverseFlags } from "./page";
+
+type UniverseFilterKey = keyof UniverseFlags;
+
+type UniverseFilterDef = { key: UniverseFilterKey; label: string };
+
+const UNIVERSE_GROUPS: Array<{ title: string; filters: UniverseFilterDef[] }> = [
+  {
+    title: "Catégorie SEC",
+    filters: [
+      { key: "cat1", label: "Cat 1 (US natifs)" },
+      { key: "cat2", label: "Cat 2 (FPI ADR)" },
+      { key: "cat3", label: "Cat 3 (EU pures)" },
+    ],
+  },
+  {
+    title: "Univers Mettrik",
+    filters: [{ key: "top307", label: "Top 307" }],
+  },
+  {
+    title: "Indices US",
+    filters: [
+      { key: "sp500", label: "SP500" },
+      { key: "sp1500", label: "SP1500" },
+    ],
+  },
+  {
+    title: "Indices européens",
+    filters: [
+      { key: "stoxx600", label: "Stoxx 600" },
+      { key: "cac40", label: "CAC 40" },
+      { key: "dax40", label: "DAX 40" },
+      { key: "ftse100", label: "FTSE 100" },
+      { key: "ftse_mib", label: "FTSE MIB" },
+      { key: "ibex35", label: "IBEX 35" },
+      { key: "smi20", label: "SMI 20" },
+      { key: "aex25", label: "AEX 25" },
+      { key: "bel20", label: "BEL 20" },
+      { key: "omx_stockholm30", label: "OMX Sto 30" },
+      { key: "omx_copenhagen25", label: "OMX Cop 25" },
+    ],
+  },
+];
 
 type MinPlan = "free" | "premium" | "max" | "hidden";
 
@@ -28,6 +70,16 @@ export function CuratedCompaniesClient({ rows }: { rows: CurationRow[] }) {
   const [filterPlan, setFilterPlan] = useState<"all" | MinPlan>("all");
   const [search, setSearch] = useState("");
   const [showHelp, setShowHelp] = useState(false);
+  const [universeFilters, setUniverseFilters] = useState<Set<UniverseFilterKey>>(new Set());
+
+  function toggleUniverseFilter(key: UniverseFilterKey) {
+    setUniverseFilters((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      return next;
+    });
+  }
 
   useEffect(() => {
     fetch("/api/desk/curated-companies", { credentials: "include" })
@@ -65,14 +117,35 @@ export function CuratedCompaniesClient({ rows }: { rows: CurationRow[] }) {
 
   const filtered = useMemo(() => {
     const q = search.trim().toUpperCase();
+    const activeFilters = Array.from(universeFilters);
     return rows.filter((r) => {
       if (filterColor !== "all" && r.score.color !== filterColor) return false;
       const plan = curationMap.get(r.ticker.toUpperCase()) ?? "hidden";
       if (filterPlan !== "all" && plan !== filterPlan) return false;
       if (q && !r.ticker.toUpperCase().includes(q) && !r.name.toUpperCase().includes(q)) return false;
+      if (activeFilters.length > 0) {
+        // OR logic : garder si la sté matche au moins un filtre actif
+        const matches = activeFilters.some((k) => r.flags[k]);
+        if (!matches) return false;
+      }
       return true;
     });
-  }, [rows, filterColor, filterPlan, search, curationMap]);
+  }, [rows, filterColor, filterPlan, search, curationMap, universeFilters]);
+
+  const universeCounts = useMemo(() => {
+    const counts: Record<UniverseFilterKey, number> = {
+      cat1: 0, cat2: 0, cat3: 0, top307: 0, sp500: 0, sp1500: 0,
+      stoxx600: 0, cac40: 0, dax40: 0, ftse100: 0, ftse_mib: 0,
+      ibex35: 0, smi20: 0, aex25: 0, bel20: 0,
+      omx_stockholm30: 0, omx_copenhagen25: 0,
+    };
+    for (const r of rows) {
+      for (const k of Object.keys(counts) as UniverseFilterKey[]) {
+        if (r.flags[k]) counts[k]++;
+      }
+    }
+    return counts;
+  }, [rows]);
 
   const stats = useMemo(() => {
     const byColor: Record<CurationScore["color"], number> = { green: 0, yellow: 0, orange: 0, red: 0 };
@@ -165,6 +238,61 @@ export function CuratedCompaniesClient({ rows }: { rows: CurationRow[] }) {
               <div className="font-mono text-[18px]">{stats.byPlan[p.value]}</div>
             </button>
           ))}
+        </div>
+
+        {/* Filtres univers */}
+        <div className="mb-4 rounded-lg border border-white/10 bg-white/[0.02] p-3">
+          <div className="mb-2 flex items-center justify-between">
+            <h2 className="text-[11px] uppercase tracking-wider text-zinc-400">
+              Filtres univers
+              {universeFilters.size > 0 && (
+                <span className="ml-2 text-violet-300">
+                  · {universeFilters.size} actif{universeFilters.size > 1 ? "s" : ""} (OR)
+                </span>
+              )}
+            </h2>
+            {universeFilters.size > 0 && (
+              <button
+                type="button"
+                onClick={() => setUniverseFilters(new Set())}
+                className="rounded-md border border-white/15 bg-white/[0.04] px-2 py-1 text-[11px] text-zinc-300 hover:border-white/30"
+              >
+                Reset univers
+              </button>
+            )}
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {UNIVERSE_GROUPS.map((group) => (
+              <div key={group.title}>
+                <div className="mb-1.5 text-[10px] uppercase tracking-wider text-zinc-500">
+                  {group.title}
+                </div>
+                <div className="flex flex-wrap gap-1">
+                  {group.filters.map((f) => {
+                    const active = universeFilters.has(f.key);
+                    const count = universeCounts[f.key];
+                    return (
+                      <button
+                        key={f.key}
+                        type="button"
+                        onClick={() => toggleUniverseFilter(f.key)}
+                        className={`rounded-md border px-2 py-1 text-[11px] transition-colors ${
+                          active
+                            ? "border-violet-400/60 bg-violet-500/20 text-violet-100"
+                            : "border-white/10 bg-white/[0.02] text-zinc-400 hover:border-white/25 hover:text-zinc-200"
+                        }`}
+                      >
+                        {f.label}
+                        <span className={`ml-1 font-mono text-[10px] ${active ? "text-violet-200" : "text-zinc-500"}`}>
+                          {count}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Search + reset */}

@@ -26,6 +26,7 @@ import {
   ImagePlus,
   HelpCircle,
   ScrollText,
+  ListChecks,
 } from "lucide-react";
 import { CONCEPT_COMPANIES } from "@/lib/concepts-data";
 import { CompanyLogo } from "@/components/logos";
@@ -145,6 +146,12 @@ const SECTIONS: SandboxSection[] = [
         icon: Eye,
         label: "Visual audit (Gemini 2.5 Flash)",
         desc: "Dashboard des défauts visuels détectés par Gemini sur chaque page sté. 31 checks, filtres severity et blocker.",
+      },
+      {
+        href: "/sandbox/curated-companies",
+        icon: ListChecks,
+        label: "Curated companies (sés en prod par plan)",
+        desc: "Sélection manuelle des sés visibles en prod (niveau 0+1) par plan tier. Score 4 couleurs basé sur coverage-matrix + visual-audit Gemini.",
       },
     ],
   },
