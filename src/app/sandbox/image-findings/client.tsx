@@ -13,6 +13,8 @@ import {
   ExternalLink,
   Sparkles,
   Search,
+  Bell,
+  RotateCw,
 } from "lucide-react";
 import type {
   ImageFindingRequest,
@@ -92,6 +94,13 @@ export function ImageFindingsClient({
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState<ImageFindingRequest | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  // Yann 18 mai 2026 : cloche notification erreur. Compteur badge rouge =
+  // demandes avec error_msg non null OU status "error" en BDD.
+  const [showNotifPopup, setShowNotifPopup] = useState(false);
+
+  const errorRequests = requests.filter(
+    (r) => r.error_msg != null || r.status === "error",
+  );
 
   async function refresh() {
     const r = await fetch("/api/desk/image-findings").then((x) => x.json());
@@ -146,6 +155,26 @@ export function ImageFindingsClient({
     );
   }
 
+  async function retriggerRequest(id: string) {
+    // Re-lance la demande en repassant en claude_pending pour retrigger
+    // le worker autonome (cf workflow image-findings-autorun.yml).
+    await fetch("/api/desk/image-findings", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "mark_claude_pending", id }),
+    });
+    await refresh();
+  }
+
+  function scrollToRequest(id: string) {
+    setShowNotifPopup(false);
+    setExpandedId(id);
+    setTimeout(() => {
+      const el = document.getElementById(`req-row-${id}`);
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 50);
+  }
+
   async function updateFinding(reqId: string, p: Partial<ImageFinding>) {
     await fetch(`/api/desk/image-findings/${reqId}/findings`, {
       method: "PATCH",
@@ -182,16 +211,30 @@ export function ImageFindingsClient({
               concernées.
             </p>
           </div>
-          <button
-            type="button"
-            onClick={() => {
-              setEditing(null);
-              setShowForm(true);
-            }}
-            className="inline-flex items-center gap-2 rounded-lg border border-cyan-500/40 bg-cyan-500/10 px-3.5 py-2 text-sm font-semibold text-cyan-100 hover:bg-cyan-500/15"
-          >
-            <Plus className="size-4" /> Nouvelle demande
-          </button>
+          <div className="relative flex shrink-0 items-center gap-2">
+            <NotifBell
+              count={errorRequests.length}
+              onClick={() => setShowNotifPopup((v) => !v)}
+            />
+            <button
+              type="button"
+              onClick={() => {
+                setEditing(null);
+                setShowForm(true);
+              }}
+              className="inline-flex items-center gap-2 rounded-lg border border-cyan-500/40 bg-cyan-500/10 px-3.5 py-2 text-sm font-semibold text-cyan-100 hover:bg-cyan-500/15"
+            >
+              <Plus className="size-4" /> Nouvelle demande
+            </button>
+            {showNotifPopup && (
+              <NotifPopup
+                errors={errorRequests}
+                onClose={() => setShowNotifPopup(false)}
+                onGoTo={scrollToRequest}
+                onRetrigger={retriggerRequest}
+              />
+            )}
+          </div>
         </div>
 
         {showForm && (
@@ -219,6 +262,7 @@ export function ImageFindingsClient({
           {requests.map((r) => (
             <RequestRow
               key={r.id}
+              id={`req-row-${r.id}`}
               request={r}
               findings={findings[r.id] ?? []}
               expanded={expandedId === r.id}
@@ -240,6 +284,7 @@ export function ImageFindingsClient({
 
 /* ─── Request row + expansion ───────────────────────────────────── */
 function RequestRow({
+  id,
   request: r,
   findings,
   expanded,
@@ -249,6 +294,7 @@ function RequestRow({
   onDelete,
   onUpdateFinding,
 }: {
+  id?: string;
   request: ImageFindingRequest;
   findings: ImageFinding[];
   expanded: boolean;
@@ -261,7 +307,7 @@ function RequestRow({
   const st = STATUS_META[r.status];
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02]">
+    <div id={id} className="overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02]">
       <div
         className="flex cursor-pointer flex-wrap items-center gap-3 px-4 py-3 hover:bg-white/[0.02]"
         onClick={onToggle}
@@ -826,6 +872,110 @@ function RequestForm({
         >
           Sauvegarder
         </button>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Cloche notification erreur (Yann 18 mai 2026) ─────────────── */
+function NotifBell({ count, onClick }: { count: number; onClick: () => void }) {
+  const hasErrors = count > 0;
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`relative inline-flex size-9 items-center justify-center rounded-lg border transition-colors ${
+        hasErrors
+          ? "border-rose-500/40 bg-rose-500/10 text-rose-200 hover:bg-rose-500/15"
+          : "border-white/10 bg-white/[0.03] text-zinc-400 hover:bg-white/[0.06]"
+      }`}
+      title={hasErrors ? `${count} demande(s) en erreur` : "Aucune erreur"}
+    >
+      <Bell className="size-5" style={{ width: 20, height: 20 }} />
+      {hasErrors && (
+        <span className="absolute -right-1 -top-1 inline-flex min-w-[18px] items-center justify-center rounded-full bg-rose-500 px-1 text-[10px] font-bold leading-[18px] text-white ring-2 ring-[#050505]">
+          {count}
+        </span>
+      )}
+    </button>
+  );
+}
+
+function NotifPopup({
+  errors,
+  onClose,
+  onGoTo,
+  onRetrigger,
+}: {
+  errors: ImageFindingRequest[];
+  onClose: () => void;
+  onGoTo: (id: string) => void;
+  onRetrigger: (id: string) => Promise<void>;
+}) {
+  return (
+    <div className="absolute right-0 top-full z-50 mt-2 w-[420px] overflow-hidden rounded-xl border border-rose-500/30 bg-[#0a0a0a] shadow-2xl shadow-rose-900/30">
+      <div className="flex items-center justify-between border-b border-white/[0.06] bg-rose-500/10 px-3 py-2">
+        <div className="flex items-center gap-2 text-[12px] font-semibold text-rose-100">
+          <Bell className="size-4" />
+          Demandes en erreur ({errors.length})
+        </div>
+        <button
+          type="button"
+          onClick={onClose}
+          className="rounded p-1 text-zinc-400 hover:bg-white/10 hover:text-zinc-100"
+          title="Fermer"
+        >
+          <X className="size-4" />
+        </button>
+      </div>
+      <div className="max-h-[60vh] overflow-y-auto">
+        {errors.length === 0 ? (
+          <div className="px-3 py-6 text-center text-[12px] text-zinc-500">
+            Aucune demande en erreur.
+          </div>
+        ) : (
+          <ul className="divide-y divide-white/[0.04]">
+            {errors.map((r) => {
+              const query = r.query.length > 80 ? r.query.slice(0, 80) + "…" : r.query;
+              const msg = r.error_msg
+                ? r.error_msg.length > 500
+                  ? r.error_msg.slice(0, 500) + "…"
+                  : r.error_msg
+                : "(status error, pas de message détaillé)";
+              return (
+                <li key={r.id} className="px-3 py-2.5 hover:bg-white/[0.02]">
+                  <button
+                    type="button"
+                    onClick={() => onGoTo(r.id)}
+                    className="block w-full text-left"
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="rounded-full bg-rose-500/20 px-1.5 py-0.5 font-mono text-[10.5px] font-bold text-rose-200">
+                        #{r.display_number ?? "—"}
+                      </span>
+                      <span className="line-clamp-1 text-[12px] font-medium text-zinc-100">
+                        {query}
+                      </span>
+                    </div>
+                    <div className="mt-1 whitespace-pre-wrap break-words text-[11px] text-rose-300/90">
+                      {msg}
+                    </div>
+                  </button>
+                  <div className="mt-2 flex justify-end">
+                    <button
+                      type="button"
+                      onClick={() => onRetrigger(r.id)}
+                      className="inline-flex items-center gap-1 rounded-md border border-violet-500/40 bg-violet-500/10 px-2 py-1 text-[10.5px] font-semibold text-violet-100 hover:bg-violet-500/15"
+                      title="Repasse la demande en claude_pending pour retrigger le worker"
+                    >
+                      <RotateCw className="size-3" /> Re-lancer
+                    </button>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        )}
       </div>
     </div>
   );
