@@ -53,6 +53,9 @@ export function DividendStories({
   const dpsKpi = company.kpis.find((k) => k.short === "DPS");
   const capRetKpi = company.kpis.find((k) => k.short === "Cap Return");
   const payoutKpi = company.kpis.find((k) => k.short === "Payout Ratio");
+  // EPS optionnel (extrait par CONV-DIV via yfinance, 21 mai 2026).
+  // Si présent : superposé à la mini-courbe DPS pour visualiser le gap.
+  const epsKpi = company.kpis.find((k) => k.short === "EPS");
 
   // Fallback CAT hard-codé pour les routes V1.7 où le dataset
   // `src/data/v2-pipeline/cat.json` ne contient pas encore les KPIs dividendes
@@ -154,6 +157,13 @@ export function DividendStories({
       payoutRatio={payoutRatio}
       yearsStreak={isCAT ? 31 : undefined}
       meta={dividendMeta}
+      epsHistory={
+        Array.isArray(epsKpi?.history) &&
+        epsKpi.history.length === dpsHistory.length
+          ? (epsKpi.history as number[])
+          : undefined
+      }
+      epsUnit={epsKpi?.unit || undefined}
     />,
     <DividendCalculatorCard
       key="calc"

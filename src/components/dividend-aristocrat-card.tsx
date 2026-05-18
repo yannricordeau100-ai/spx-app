@@ -91,6 +91,8 @@ export function DividendAristocratCard({
   payoutRatio,
   yearsStreak,
   meta,
+  epsHistory,
+  epsUnit,
 }: {
   accent: string;
   glow: string;
@@ -104,6 +106,12 @@ export function DividendAristocratCard({
   yearsStreak?: number;
   /** Historique étendu : 1ère année + coupures éventuelles. */
   meta?: DividendMeta;
+  /** Yann 21 mai 2026 : EPS Diluted history pour superposer à la mini-courbe DPS.
+   *  Permet de visualiser le payout (gap DPS-EPS = bénéfice non distribué).
+   *  Si absent : seule la courbe DPS est affichée. */
+  epsHistory?: number[];
+  /** Devise EPS (par défaut même que DPS unit). */
+  epsUnit?: string;
 }) {
   const { t } = useT();
   // yearsStreak dynamique : si non fourni en prop, calculer depuis
@@ -142,8 +150,16 @@ export function DividendAristocratCard({
   const W = 280;
   const H = 56;
   const PAD = 6;
-  const minV = Math.min(...dpsHistory);
-  const maxV = Math.max(...dpsHistory);
+  // Si epsHistory fourni : on aligne le range Y sur le MAX(DPS, EPS) pour
+  // garder les 2 courbes à l'échelle relative correcte (visu directe du gap
+  // EPS - DPS = bénéfice non distribué = inverse du payout ratio).
+  const hasEps =
+    Array.isArray(epsHistory) &&
+    epsHistory.length === dpsHistory.length &&
+    epsHistory.every((v) => typeof v === "number" && Number.isFinite(v));
+  const allValues = hasEps ? [...dpsHistory, ...epsHistory!] : dpsHistory;
+  const minV = Math.min(...allValues);
+  const maxV = Math.max(...allValues);
   const range = maxV - minV || 1;
   const points = dpsHistory.map((v, i) => {
     const x = PAD + (i / (n - 1 || 1)) * (W - 2 * PAD);
@@ -151,6 +167,16 @@ export function DividendAristocratCard({
     return { x, y, v };
   });
   const pathD = points
+    .map((p, i) => `${i === 0 ? "M" : "L"}${p.x.toFixed(1)},${p.y.toFixed(1)}`)
+    .join(" ");
+  const epsPoints = hasEps
+    ? epsHistory!.map((v, i) => {
+        const x = PAD + (i / (n - 1 || 1)) * (W - 2 * PAD);
+        const y = H - PAD - ((v - minV) / range) * (H - 2 * PAD);
+        return { x, y, v };
+      })
+    : [];
+  const epsPathD = epsPoints
     .map((p, i) => `${i === 0 ? "M" : "L"}${p.x.toFixed(1)},${p.y.toFixed(1)}`)
     .join(" ");
 
@@ -266,19 +292,29 @@ export function DividendAristocratCard({
         </div>
         )}
 
-        {/* Mini-courbe DPS history */}
+        {/* Mini-courbe DPS history (+ EPS superposé si dispo) */}
         <div className="rounded-xl border border-white/10 bg-black/40 p-2.5 backdrop-blur">
           <div className="mb-1 flex items-baseline justify-between gap-1">
             <div className="flex items-center gap-1">
               <span className="text-[12.5px] font-semibold uppercase tracking-[0.10em] text-zinc-300">
-                DPS · {n} dernières années
+                {hasEps ? `DPS vs EPS · ${n} ans` : `DPS · ${n} dernières années`}
               </span>
               <InfoTooltip color={accent} size="sm">
                 <div className="text-zinc-200">
                   <span className="font-semibold">DPS</span> = Dividend Per Share,
                   c&apos;est-à-dire le montant de dividende par action versé sur
-                  une année. Si tu détiens 100 actions et le DPS est 5 €, tu
-                  reçois 500 € sur l&apos;année.
+                  une année.{hasEps ? (
+                    <>
+                      {" "}<span className="font-semibold">EPS</span> = Earnings
+                      Per Share (bénéfice par action). L&apos;écart entre les
+                      deux courbes correspond au bénéfice non distribué,
+                      c&apos;est-à-dire ce qui reste dans l&apos;entreprise
+                      pour réinvestir. Si DPS devient supérieur à EPS : danger
+                      (dividende non couvert par les bénéfices).
+                    </>
+                  ) : (
+                    " Si tu détiens 100 actions et le DPS est 5 €, tu reçois 500 € sur l'année."
+                  )}
                 </div>
               </InfoTooltip>
             </div>
@@ -286,6 +322,21 @@ export function DividendAristocratCard({
               {dpsHistory[0].toFixed(2).replace(".", ",")} → {dpsHistory[n - 1].toFixed(2).replace(".", ",")}
             </span>
           </div>
+          {hasEps && (
+            <div className="mb-1 flex items-center gap-3 text-[11px] text-zinc-400">
+              <span className="inline-flex items-center gap-1">
+                <span className="inline-block h-[2px] w-3 rounded" style={{ background: accent }} />
+                DPS
+              </span>
+              <span className="inline-flex items-center gap-1">
+                <span className="inline-block h-[2px] w-3 rounded border-t-2 border-dashed border-zinc-400" />
+                EPS
+              </span>
+              <span className="ml-auto font-mono tabular-nums text-zinc-300">
+                EPS {epsHistory![n - 1].toFixed(2).replace(".", ",")} {epsUnit ?? ""}
+              </span>
+            </div>
+          )}
           <svg viewBox={`0 0 ${W} ${H}`} className="w-full">
             <defs>
               <linearGradient id="dps-grad" x1="0" y1="0" x2="1" y2="0">
@@ -329,6 +380,37 @@ export function DividendAristocratCard({
                 transition={{ delay: 0.7 + i * 0.12, duration: 0.3 }}
               />
             ))}
+            {/* Courbe EPS superposée (pointillé, gris clair) si dispo */}
+            {hasEps && (
+              <>
+                <motion.path
+                  d={epsPathD}
+                  fill="none"
+                  stroke="rgba(228, 228, 231, 0.85)"
+                  strokeWidth={1.8}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeDasharray="4 3"
+                  initial={{ pathLength: 0 }}
+                  animate={inView ? { pathLength: 1 } : {}}
+                  transition={{ delay: 0.7, duration: 1.1, ease: "easeOut" }}
+                />
+                {epsPoints.map((p, i) => (
+                  <motion.circle
+                    key={`eps-${i}`}
+                    cx={p.x}
+                    cy={p.y}
+                    r={2}
+                    fill="#e4e4e7"
+                    stroke="#a1a1aa"
+                    strokeWidth={1}
+                    initial={{ scale: 0, opacity: 0 }}
+                    animate={inView ? { scale: 1, opacity: 0.9 } : {}}
+                    transition={{ delay: 0.9 + i * 0.12, duration: 0.3 }}
+                  />
+                ))}
+              </>
+            )}
           </svg>
         </div>
 
