@@ -19,7 +19,12 @@ import type {
   ImageFinding,
 } from "@/lib/desk/image-findings";
 
-const ALL_LOCALES = ["fr", "en", "de", "nl", "sv", "da", "en-GB", "de-CH"] as const;
+// Yann 18 mai 2026 : EN = langue canonique du site, affichée en premier
+// (encadrée comme langue active du visiteur par défaut). FR + DE ensuite,
+// autres locales en fallback EN.
+const ALL_LOCALES = ["en", "fr", "de", "en-GB", "de-CH", "nl", "sv", "da"] as const;
+// Langue canonique encadrée comme "active" dans les chips per-finding.
+const CANONICAL_LOCALE = "en";
 type Locale = (typeof ALL_LOCALES)[number];
 
 const STATUS_META: Record<
@@ -630,6 +635,7 @@ function FindingCard({
             {ALL_LOCALES.map((loc) => {
               const on = f.languages.includes(loc);
               const inheritedOn = defaultLanguages.includes(loc);
+              const isCanonical = loc === CANONICAL_LOCALE;
               return (
                 <button
                   key={loc}
@@ -642,13 +648,23 @@ function FindingCard({
                     patch({ languages: next });
                   }}
                   className={`rounded-md px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide transition-colors ${
-                    on
-                      ? "bg-emerald-500/25 text-emerald-100"
-                      : inheritedOn
-                        ? "bg-zinc-700/40 text-zinc-400 line-through"
-                        : "bg-zinc-800/40 text-zinc-500"
+                    isCanonical
+                      ? on
+                        ? "bg-cyan-500/30 text-cyan-50 ring-1 ring-cyan-400/70 shadow-[0_0_8px_rgba(34,211,238,0.25)]"
+                        : "bg-cyan-500/10 text-cyan-200 ring-1 ring-cyan-400/40"
+                      : on
+                        ? "bg-emerald-500/25 text-emerald-100"
+                        : inheritedOn
+                          ? "bg-zinc-700/40 text-zinc-400 line-through"
+                          : "bg-zinc-800/40 text-zinc-500"
                   }`}
-                  title={inheritedOn && !on ? "Décochée pour cette image (héritée)" : ""}
+                  title={
+                    isCanonical
+                      ? "Langue canonique (EN) — affichée par défaut aux visiteurs sans traduction dans leur locale"
+                      : inheritedOn && !on
+                        ? "Décochée pour cette image (héritée)"
+                        : ""
+                  }
                 >
                   {loc}
                 </button>

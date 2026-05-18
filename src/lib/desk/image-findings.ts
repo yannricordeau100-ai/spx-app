@@ -73,8 +73,10 @@ export type ImageFinding = {
 };
 
 /**
- * Sélectionne la version localisée d'un champ i18n, avec fallback intelligent :
- * locale exacte → fr → en → premier dispo → fallback final.
+ * Sélectionne la version localisée d'un champ i18n, avec fallback intelligent.
+ * Yann 18 mai 2026 : EN devient langue canonique (par défaut du site).
+ * Ordre : locale exacte → base locale (en-GB → en, de-CH → de) → EN → FR
+ *        → premier dispo → fallback final.
  */
 export function pickI18n(
   i18n: LocalizedString | null | undefined,
@@ -84,12 +86,12 @@ export function pickI18n(
   if (!i18n || typeof i18n !== "object") return fallback;
   // Locale exacte
   if (i18n[locale]) return i18n[locale]!;
-  // Variantes (en-GB → en, de-CH → de)
+  // Variantes (en-GB → en, de-CH → de, fr-CA → fr)
   const base = locale.split("-")[0];
   if (i18n[base]) return i18n[base]!;
-  // Fallback FR puis EN
-  if (i18n.fr) return i18n.fr;
+  // Fallback EN (canonique) puis FR
   if (i18n.en) return i18n.en;
+  if (i18n.fr) return i18n.fr;
   // Premier dispo
   const keys = Object.keys(i18n).filter((k) => !!i18n[k]);
   if (keys.length > 0) return i18n[keys[0]]!;
