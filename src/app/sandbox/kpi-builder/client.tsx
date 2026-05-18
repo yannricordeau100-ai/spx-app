@@ -150,6 +150,41 @@ export function KpiBuilderClient({
     return () => clearInterval(id);
   }, []);
 
+  /* ─── Auto-trigger worker toutes les 15s quand pending/processing ─ */
+  const [tickRunning, setTickRunning] = useState(false);
+  const hasActive = useMemo(
+    () =>
+      requests.some(
+        (r) => r.status === "pending" || r.status === "processing",
+      ),
+    [requests],
+  );
+
+  async function triggerWorkerTick() {
+    if (tickRunning) return;
+    setTickRunning(true);
+    try {
+      await fetch("/api/cron/kpi-worker-tick", {
+        method: "POST",
+        headers: { "x-trigger": "frontend" },
+        cache: "no-store",
+      });
+    } catch {
+      // ignore : tick non bloquant
+    } finally {
+      setTickRunning(false);
+    }
+  }
+
+  useEffect(() => {
+    if (!hasActive) return;
+    // tick immédiat au mount/changement
+    triggerWorkerTick();
+    const id = setInterval(triggerWorkerTick, 15_000);
+    return () => clearInterval(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hasActive]);
+
   /* ─── Tickers : suggestion via API ─────────────────────────────── */
   async function suggestTickers() {
     if (!description.trim()) return;
@@ -631,11 +666,27 @@ export function KpiBuilderClient({
 
         {/* ════════ LISTE DES DEMANDES ════════ */}
         <section className="mt-10">
-          <h2 className="mb-3 font-display text-[16px] font-bold tracking-tight text-zinc-100">
+          <h2 className="mb-3 flex items-center gap-3 font-display text-[16px] font-bold tracking-tight text-zinc-100">
             Demandes existantes
-            <span className="ml-2 font-mono text-[10.5px] uppercase tracking-wider text-zinc-500">
+            <span className="font-mono text-[10.5px] uppercase tracking-wider text-zinc-500">
               auto-refresh 10s
             </span>
+            {hasActive && (
+              <button
+                type="button"
+                onClick={triggerWorkerTick}
+                disabled={tickRunning}
+                className="ml-auto inline-flex items-center gap-1.5 rounded-md border border-cyan-500/40 bg-cyan-500/10 px-2.5 py-1 text-[11px] font-semibold text-cyan-100 hover:bg-cyan-500/15 disabled:opacity-30"
+                title="Forcer un tick worker maintenant"
+              >
+                {tickRunning ? (
+                  <Loader2 className="size-3 animate-spin" />
+                ) : (
+                  <Play className="size-3" />
+                )}
+                Lancer maintenant
+              </button>
+            )}
           </h2>
 
           {requests.length === 0 ? (
