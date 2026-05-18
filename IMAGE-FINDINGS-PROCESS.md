@@ -37,6 +37,62 @@ qu'il a créé dans `/findings/demande-N/...`. Sinon le finding est invalide.
 `image_url` sert uniquement comme lien "Source" (traçabilité, clic →
 ouvre la page d'origine pour vérification).
 
+## 🚨 RÈGLE — Langues (édictée par Yann le 18 mai 2026)
+
+**Langue canonique : EN** (anglais) — c'est la langue **par défaut** du site
+quand le visiteur n'a pas de traduction dans sa locale.
+
+**3 langues obligatoires** pour chaque finding (créer dans cet ordre) :
+1. **EN** (créé en premier, version canonique)
+2. **DE** (traduit depuis EN)
+3. **FR** (traduit depuis EN)
+
+Champs i18n à remplir : `title_i18n`, `summary_i18n`, et `caption` doit être
+en EN par défaut.
+
+**Mapping locale visiteur → langue finding** (côté frontend) :
+- `en`, `en-GB`, `en-US`, `en-AU`, etc. → **EN**
+- `fr`, `fr-FR`, `fr-CA`, etc. → **FR**
+- `de`, `de-CH` (suisse allemand), `de-AT` → **DE**
+- TOUTES les autres locales (sv, da, nl, it, es, pt, ja, zh, etc.) → **EN** (fallback)
+
+Tout SVG créé doit avoir le texte en **EN** par défaut. Pour servir un
+visuel en DE/FR, l'agent crée 3 versions du SVG :
+- `finding-XX-en-dark.svg` + `finding-XX-en-light.svg` (canonique)
+- `finding-XX-de-dark.svg` + `finding-XX-de-light.svg`
+- `finding-XX-fr-dark.svg` + `finding-XX-fr-light.svg`
+
+Si l'agent ne crée qu'une seule version SVG (gain de temps) : EN
+obligatoire, et les autres locales tomberont sur EN au rendu.
+
+## 🚨 RÈGLE — Findings depuis docs sté (`source_platform=company_docs`)
+
+Pour chaque finding extrait d'un document officiel d'une société
+(Q earnings, Investor Day, ESG report, etc.), l'agent doit ÉGALEMENT :
+1. Inspecter si les données affichées dans le graph peuvent constituer
+   un **KPI normal** (= un KPI avec `value` actuelle, `history` ≥ 4 points,
+   `unit`, `yoy`).
+2. Si oui : tag le finding avec `convertible_to_kpi: true` + remplir le
+   champ `kpi_draft` (objet JSON KPI prêt à insérer dans `company.kpis[]`).
+3. Yann reviewera dans la sandbox et pourra décider de créer le KPI
+   officiel d'un clic.
+
+Exemple : graph "ASML revenus 2021-2025" → `convertible_to_kpi: true`
++ `kpi_draft: { short: "Net Sales", name_en: "Net Sales", value: 32.7,
+unit: "Mds €", history: [18.6, 21.2, 27.6, 28.3, 32.7], ... }`.
+
+## 🚨 Workflow autonome (édicté par Yann le 18 mai 2026)
+
+Quand l'utilisateur clique "Lancer" sur une demande dans la sandbox :
+- L'app trigger un worker GitHub Action `image-findings-autorun.yml`
+  via `workflow_dispatch` (comme VIP Inspection).
+- Le worker exécute le scraping autonome (9 sources, agents Claude).
+- **AUCUNE intervention manuelle** dans une conv Claude n'est plus
+  nécessaire pour démarrer une demande.
+- Si une erreur survient : `error_msg` rempli en BDD → UI affiche une
+  **cloche de notification** dans `/sandbox/image-findings` avec popup
+  descriptif (clic → détail de l'erreur).
+
 ## 🚨 Validation SVG avant insertion BDD
 
 Pour chaque SVG créé, vérifier :
