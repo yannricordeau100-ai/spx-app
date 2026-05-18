@@ -26,7 +26,7 @@ export default function SocialCardsConceptPage() {
           <ArrowLeft className="size-4" /> Retour concepts
         </Link>
         <h1 className="font-display text-[32px] font-bold tracking-tight">
-          Cards Réseaux Sociaux · 7 variants
+          Cards Réseaux Sociaux · 16 variants
         </h1>
         <p className="mt-2 max-w-3xl text-[13.5px] leading-relaxed text-zinc-400">
           Chaque variant a un <strong className="text-zinc-200">double ou triple usage</strong>
