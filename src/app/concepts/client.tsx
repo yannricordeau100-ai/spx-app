@@ -87,6 +87,14 @@ export function ConceptsClient() {
               <Tag className="size-3.5" />
               Charts
             </Link>
+            <Link
+              href="/concepts/logos"
+              className="inline-flex items-center gap-1.5 rounded-md border border-cyan-500/25 bg-cyan-500/10 px-2.5 py-1 text-[11.5px] font-medium text-cyan-200 transition-colors hover:border-cyan-500/45 hover:bg-cyan-500/15"
+              title="8 protos logos Mettrik (horizontal + carré)"
+            >
+              <Tag className="size-3.5" />
+              Logos
+            </Link>
           </div>
 
           {/* TAB SWITCHER — 2 groupes : visuels (existants) + mockups (nouveaux) */}
