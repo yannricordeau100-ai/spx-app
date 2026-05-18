@@ -266,6 +266,53 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-19 ~02h45] CONV-SYSTEMS (VIP track) → 🤝 HANDOFF VIP → CONV-KPI-VERIF (validé par Yann)
+
+🤝 @CONV-KPI-VERIF (nom interne probable, à confirmer par toi à ton prochain ACK) :
+
+Yann te confie désormais TOUT le scope **vérification visuelle** (VIP inspection deep + visual audit Gemini Flash). Je passe en repos VIP dès ton ACK.
+
+**État livré côté code (tout commit staging, 0 WIP local)** :
+
+| Fichier | Rôle | Dernier commit |
+|---|---|---|
+| `scripts/vip-deep-inspection.py` | Parallélisme `--workers auto` (4 workers entre 5h-12h Paris, 1 sinon, cap 5 §RAM). ThreadPoolExecutor + Lock thread-safe. | `22744fd8` |
+| `.github/workflows/vip-inspection-worker.yml` | Workflow GHA self-hosted Mac, invoke `--workers auto` en batch. | `22744fd8` |
+| `scripts/visual-audit-gemini.py` | Subset rapide (1-shot Gemini, pas de fix loop). | antérieur |
+| `scripts/fix-element.py` | Dispatcher auto-fixes par ID quality-tree. | antérieur |
+| `src/app/sandbox/vip-inspection/` | UI principale VIP. | antérieur |
+| `src/app/sandbox/visual-audit/` | UI subset rapide. | antérieur |
+| `src/app/sandbox/quality-tree/` | UI registry IDs défauts. | antérieur |
+| `src/app/api/vip-inspection/route.ts` | API REST add/remove/launch/add_group/launch_group. | antérieur |
+| `src/data/vip-list.json` | Liste VIP (5 stés : BABA done + LVMH/RMS.PA/TTE.PA/KER.PA idle). | `8e657a34` |
+| Tables Supabase | `vip_inspection_list` + `vip_inspection_status`. | live |
+
+**État Supabase à l'heure du handoff** :
+- BABA : state=done, 9 défauts, last_run 17 mai 01:35 UTC
+- LVMH, RMS.PA, TTE.PA, KER.PA : pas encore lancées (idle)
+- AAPL : state=running depuis 18 mai 23:24 UTC, **bloquée** car webhook GHA non déclenché (cf ci-dessous)
+
+**Bug en cours géré par CONV-SYSTEMS (ne touche PAS l'infra)** :
+- "Lancer X" → message "max 1 heure" → rien ne se passe.
+- Cause = `GITHUB_DISPATCH_TOKEN` absent côté Vercel env vars (vérifié `npx vercel env ls`).
+- CONV-SYSTEMS s'occupe de : création PAT GitHub par Yann, ajout env var Vercel, redeploy, switch `ref: "main"→"staging"` dans `route.ts:232`. **Scope exclusif CONV-SYSTEMS — ne pas dupliquer.**
+
+**Question ouverte (Yann)** :
+- Doublon partiel entre `visual-audit-gemini.py` (subset rapide, 10s/sté en parallèle, ~50 min/100 stés) et `vip-deep-inspection.py` (deep multi-mode + fix loop + re-vérif, 60-90s/sté).
+- Yann propose mettre visual-audit en sommeil, **PAS supprimer sans son accord**.
+- À toi : décide si tu gardes les 2 backends avec 1 UI unique (sélecteur mode quick/deep) ou tu consolides plus tard. Ne supprime rien sans Yann.
+
+**Action prioritaire pour toi (3 étapes)** :
+1. ACK ce handoff dans SHARED-STATUS avec ton ID conv exact + 1 ligne ce que tu prends.
+2. Attendre que CONV-SYSTEMS débloque AAPL (PAT GitHub + redeploy Vercel). Quand AAPL passe state='done' → infra OK.
+3. Lancer batch sur les 4 stés EU prio (LVMH/RMS.PA/TTE.PA/KER.PA) via UI `/sandbox/vip-inspection` bouton "Lancer TOUTES".
+
+**Coordination warning** : Yann m'a dit qu'il t'a peut-être parlé en // sans le faire exprès. Si tu as déjà touché quelque chose VIP, signale immédiatement pour éviter conflit.
+
+🤝 ACK obligatoire au prochain prompt user (règle §11). À partir de ton ACK, je suis en repos complet sur VIP.
+
+---
+
 [2026-05-19 ~02h35] CONV-SYSTEMS (niveau 1/curation track) → 🚨 ANTI-CANNIBALISATION · TAM cleanup + page curated-companies
 
 🤝 @CONV-DATA : Yann a alerté qu'il t'a donné des consignes similaires aux miennes sans le faire exprès. Voici **précisément** ce que j'ai déjà fait dans les ~2h pour éviter qu'on se cannibalise :
