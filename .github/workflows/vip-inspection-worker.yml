@@ -78,12 +78,15 @@ jobs:
         run: |
           # Chrome path Mac Yann (self-hosted runner)
           export CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
-          # Si --ticker fourni manuellement via workflow_dispatch
           # Source ticker possible : (1) workflow_dispatch input, (2) repository_dispatch payload, (3) all-queued
           TICKER="${{ github.event.inputs.ticker || github.event.client_payload.ticker }}"
-          if [ -n "$TICKER" ]; then
+          # Yann 19 mai 2026 : ticker spécial '__all_queued__' = mode batch
+          # (lance depuis l'UI bouton "Lancer TOUTES" sur /sandbox/vip-inspection).
+          # Le script traite les state='running' de Supabase 1 par 1.
+          if [ -n "$TICKER" ] && [ "$TICKER" != "__all_queued__" ]; then
             python3 scripts/vip-deep-inspection.py --ticker "$TICKER"
           else
+            # Mode batch séquentiel : 1 sté à la fois jusqu'à épuisement de la queue
             python3 scripts/vip-deep-inspection.py --all-queued
           fi
 

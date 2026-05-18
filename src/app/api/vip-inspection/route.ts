@@ -79,13 +79,98 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-  let body: { action?: string; ticker?: string; note?: string } = {};
+  let body: { action?: string; ticker?: string; tickers?: string[]; note?: string } = {};
   try { body = await req.json(); } catch {}
-  if (!body.action || !body.ticker) {
-    return NextResponse.json({ error: "action + ticker required" }, { status: 400 });
+  if (!body.action) {
+    return NextResponse.json({ error: "action required" }, { status: 400 });
+  }
+  const supa = admin();
+
+  // Yann 19 mai 2026 : actions de groupe (add_group + launch_group).
+  // Permet d'ajouter plusieurs tickers d'un coup et de lancer une inspection
+  // en série (1 par 1, séquentiel — le worker GitHub Action traite les
+  // tickers en state='running' en boucle).
+  if (body.action === "add_group") {
+    const tickers = Array.isArray(body.tickers) ? body.tickers : [];
+    const cleaned = tickers
+      .map((t) => String(t).toUpperCase().trim())
+      .filter((t) => t.length > 0 && t.length <= 12);
+    if (cleaned.length === 0) {
+      return NextResponse.json({ error: "tickers[] required (non-empty)" }, { status: 400 });
+    }
+    const rows = cleaned.map((tk) => ({
+      ticker: tk,
+      note: body.note ?? null,
+      added_at: new Date().toISOString(),
+    }));
+    const { error } = await supa
+      .from("vip_inspection_list")
+      .upsert(rows, { onConflict: "ticker", ignoreDuplicates: true });
+    if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+    const list = await loadList();
+    return NextResponse.json({
+      ok: true,
+      list,
+      hint: `${cleaned.length} ticker(s) ajouté(s) au VIP : ${cleaned.join(", ")}`,
+    });
+  }
+
+  if (body.action === "launch_group") {
+    // Lance toutes les stés VIP non-done en passant chacune à state='running'.
+    // Le worker GitHub Action picks one-by-one les 'running' et exécute
+    // l'inspection séquentiellement.
+    const list = await loadList();
+    const all = list.tickers.map((t) => t.ticker.toUpperCase());
+    const filter = Array.isArray(body.tickers) && body.tickers.length > 0
+      ? new Set(body.tickers.map((t) => String(t).toUpperCase().trim()))
+      : null;
+    const targets = filter ? all.filter((t) => filter.has(t)) : all;
+    if (targets.length === 0) {
+      return NextResponse.json({ error: "aucun ticker à lancer" }, { status: 400 });
+    }
+    const rows = targets.map((tk) => ({
+      ticker: tk,
+      state: "running" as const,
+      last_run_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    }));
+    const { error } = await supa
+      .from("vip_inspection_status")
+      .upsert(rows, { onConflict: "ticker" });
+    if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+    // Trigger 1 seul workflow_dispatch (le worker traite les 'running' un par un)
+    let webhook_hint = `${targets.length} sté(s) mises à 'running'. Le worker GHA traite séquentiellement (cron horaire max).`;
+    const ghToken = process.env.GITHUB_DISPATCH_TOKEN;
+    if (ghToken) {
+      try {
+        const resp = await fetch(
+          "https://api.github.com/repos/yannricordeau100-ai/spx-app/actions/workflows/vip-inspection-worker.yml/dispatches",
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${ghToken}`,
+              Accept: "application/vnd.github+json",
+              "X-GitHub-Api-Version": "2022-11-28",
+            },
+            body: JSON.stringify({
+              ref: "main",
+              inputs: { ticker: "__all_queued__" },
+            }),
+          },
+        );
+        if (resp.ok) {
+          webhook_hint = `${targets.length} sté(s) en queue. Worker GHA déclenché en mode batch (séquentiel 1 par 1).`;
+        }
+      } catch {}
+    }
+    return NextResponse.json({ ok: true, hint: webhook_hint, count: targets.length, tickers: targets });
+  }
+
+  // Actions per-ticker (legacy)
+  if (!body.ticker) {
+    return NextResponse.json({ error: "ticker required for action " + body.action }, { status: 400 });
   }
   const tk = body.ticker.toUpperCase().trim();
-  const supa = admin();
 
   if (body.action === "add") {
     // Upsert : ajoute si pas présent, sinon ignore

@@ -35,6 +35,8 @@ export function VipInspectionClient({
   const [status, setStatus] = useState(initialStatus);
   const [newTicker, setNewTicker] = useState("");
   const [newNote, setNewNote] = useState("");
+  const [groupInput, setGroupInput] = useState("");
+  const [groupNote, setGroupNote] = useState("");
   const [isPending, startTransition] = useTransition();
   const [msg, setMsg] = useState<string>("");
   // Notification "Terminé" quand un ticker passe de running → done
@@ -53,6 +55,28 @@ export function VipInspectionClient({
     if (j.list) setList(j.list);
     setMsg(j.hint || (j.ok ? "✓" : j.error || "?"));
     setTimeout(() => setMsg(""), 4000);
+  }
+
+  // Yann 19 mai 2026 : action groupe (add_group + launch_group).
+  async function apiGroup(action: "add_group" | "launch_group", tickers: string[], note?: string) {
+    setMsg("…");
+    const r = await fetch("/api/vip-inspection", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ action, tickers, note }),
+    });
+    const j = await r.json();
+    if (j.list) setList(j.list);
+    setMsg(j.hint || (j.ok ? "✓" : j.error || "?"));
+    setTimeout(() => setMsg(""), 6000);
+    void refresh();
+  }
+
+  function parseTickers(raw: string): string[] {
+    return raw
+      .split(/[\s,;\n]+/)
+      .map((t) => t.trim().toUpperCase())
+      .filter((t) => t.length > 0 && t.length <= 12);
   }
 
   async function refresh() {
@@ -153,6 +177,82 @@ export function VipInspectionClient({
           </div>
           {msg ? <p className="mt-2 text-[11.5px] text-violet-300">{msg}</p> : null}
         </form>
+
+        {/* Yann 19 mai 2026 : Ajout par GROUPE de tickers + lancement multiple.
+            Coller une liste séparée par virgules / espaces / sauts de ligne. */}
+        <div className="mb-6 rounded-md border border-cyan-500/30 bg-cyan-500/[0.04] p-3">
+          <div className="mb-2 font-mono text-[10.5px] uppercase tracking-wider text-cyan-300">
+            Mode groupe (multi-tickers, inspection séquentielle 1 par 1)
+          </div>
+          <div className="flex flex-wrap items-start gap-2">
+            <textarea
+              placeholder="LVMH, RMS.PA, TTE.PA, KER.PA, NESN.SW … (séparés par virgule / espace / saut de ligne)"
+              value={groupInput}
+              onChange={(e) => setGroupInput(e.target.value)}
+              className="min-h-[60px] flex-1 min-w-[280px] rounded-md border border-white/10 bg-white/[0.03] px-3 py-1.5 font-mono text-[12px] uppercase tracking-wider text-zinc-100 focus:border-cyan-500/50 focus:outline-none"
+              rows={2}
+            />
+            <input
+              type="text"
+              placeholder="Note groupe (optionnel)"
+              value={groupNote}
+              onChange={(e) => setGroupNote(e.target.value)}
+              className="w-[200px] rounded-md border border-white/10 bg-white/[0.03] px-3 py-1.5 text-[13px] text-zinc-100"
+            />
+          </div>
+          <div className="mt-2 flex flex-wrap items-center gap-2">
+            <button
+              type="button"
+              onClick={() => {
+                const tk = parseTickers(groupInput);
+                if (tk.length === 0) { setMsg("⚠ aucun ticker valide détecté"); return; }
+                startTransition(async () => {
+                  await apiGroup("add_group", tk, groupNote || undefined);
+                  setGroupInput("");
+                  setGroupNote("");
+                });
+              }}
+              disabled={isPending}
+              className="rounded-md border border-cyan-500/40 bg-cyan-500/[0.08] px-3 py-1.5 text-[12px] text-cyan-100 hover:bg-cyan-500/15 disabled:opacity-40"
+            >
+              ➕ Ajouter le groupe
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                const tk = parseTickers(groupInput);
+                if (tk.length === 0) { setMsg("⚠ groupe vide — ajoute des tickers d'abord"); return; }
+                startTransition(async () => {
+                  // 1) ajoute si pas déjà présents
+                  await apiGroup("add_group", tk, groupNote || undefined);
+                  // 2) lance l'inspection en série
+                  await apiGroup("launch_group", tk);
+                });
+              }}
+              disabled={isPending}
+              className="rounded-md border border-violet-500/50 bg-violet-500/15 px-3 py-1.5 text-[12px] font-semibold text-violet-100 hover:bg-violet-500/25 disabled:opacity-40"
+            >
+              ▶▶ Ajouter + Inspecter ce groupe
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                startTransition(async () => {
+                  // Lance toutes les stés VIP non-running
+                  await apiGroup("launch_group", []);
+                });
+              }}
+              disabled={isPending || list.tickers.length === 0}
+              className="rounded-md border border-amber-500/40 bg-amber-500/[0.08] px-3 py-1.5 text-[12px] text-amber-100 hover:bg-amber-500/15 disabled:opacity-40"
+            >
+              ⚡ Lancer TOUTES les stés VIP (en série)
+            </button>
+          </div>
+          <p className="mt-2 text-[10.5px] text-zinc-500">
+            Les stés sont inspectées <strong>séquentiellement</strong> (1 par 1) par le worker
+            GitHub Action sur le Mac runner. Chaque inspection = audit visuel Gemini + auto-fixes + re-vérif.
+          </p>
+        </div>
 
         {/* List + status */}
         {list.tickers.length === 0 ? (
