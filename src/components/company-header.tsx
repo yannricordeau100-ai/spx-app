@@ -150,8 +150,19 @@ function translateRankPreposition(value: string, locale: string): string {
     "da": "i",
   };
   const target = rankPrepByLocale[locale] ?? rankPrepByLocale.fr;
-  if (target === "dans") return value;
-  return value.replace(/\bdans\b/g, target);
+  // 1. Translate prepostion FR → locale
+  let out = target === "dans" ? value : value.replace(/\bdans\b/g, target);
+  // 2. Yann 18 mai 2026 : also translate the sector NAME in "#7 dans/in X"
+  // → translateSubsectorLocale applied to the trailing sector name.
+  const sep = target === "i" ? " i " : target === "in" ? " in " : " dans ";
+  const idx = out.indexOf(sep);
+  if (idx > -1) {
+    const prefix = out.slice(0, idx + sep.length);
+    const sector = out.slice(idx + sep.length).trim();
+    const translated = translateSubsectorLocale(sector, locale);
+    out = prefix + translated;
+  }
+  return out;
 }
 
 export function CompanyHeader({
