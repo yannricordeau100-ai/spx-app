@@ -240,7 +240,7 @@
 > `CONV-X 🔄 <ce que je fais maintenant> · fichiers : <list>`
 
 - CONV-CONCEPTS : 🔄 [15 mai 22h55] 2 nouveaux agents IA : (C) audit + fix mot 'null' isolé en plein texte sur 13 stés (LLY/JPM/ROG.SW), (D) em-dash audit dans UI. Précédents : GE 500 (commit 3a5c5a20) + chart bugs Bars/Variation (3d4599b3, deploy j6kkky4b0). Mode RAM-light agents server-side.
-- CONV-SYSTEMS : 🔄 [13 mai ~02h] **MODE RAM-LIGHT autonome**. Aucun scraper / agent / proc Python lancé. Travail séquentiel : édition fichiers + git uniquement. Cycle 1 : intégration des helpers `src/lib/ui-fix-templates.ts` dans composants (translateChipLabel, translateFreshnessLabel, normalizeNarrative). 🤝 @CONV-CONCEPTS @CONV-DATA @CONV-DIV : si vous lancez procs lourds, je m'efface. Périmètre code : `src/components/freshness-indicator.tsx`, `src/components/company-header.tsx`, `src/lib/i18n/dictionary.ts` (1 line ack en bas si possible).
+- CONV-SYSTEMS : 🔄 [18 mai 03h45] **RÉINCARNATION post-crash** (limite images Claude Code dans l'ancienne session). Scope inchangé : billing, paiement, desk, sandbox infra, Supabase, i18n, légal, SEO, analytics, déploiement, bascule architecture. **Mission immédiate : bascule architecture niveau 1 (12h)**. Décisions validées par Yann : crons surnuméraires Vercel → GitHub Actions, sec-data fetch SEC EDGAR direct dans 1 semaine (worker browser-only en attendant), Supabase instance séparée niveau 1, Stripe test mode niveau 1, Resend dry-run niveau 1, redirect 301 V1.0 `/<ticker>` → `/sandbox/v1-7-5/<ticker>`, badge permanent niveau 1/2/3 sur toutes les pages. Première livraison : language-dropdown regroupé par famille linguistique (commit e016e6f1). 🤝 ACK règles §13 (nomenclature V1.7.5/V175/V1.75 + V1.8/V18 équivalentes) + §14 (surveillance RAM renforcée).
 - CONV-DEPAN    : 🔄 [16 mai 04:30] Refonte `/populaire-investisseurs` v2 LIVE (commit e2853896) + pagination par 30 plug dans home V175 + V18 + broadcast §13 nomenclature versions. En cours : X scraping vague 2 image findings demande #1 (Chrome MCP via @mettrics_ai, ~95 IDs candidats déjà extraits, signal/bruit ~30 %). Périmètre : `src/app/populaire-investisseurs/`, `src/data/popular-stocks-by-language.json`, `src/components/home-view.tsx`, `public/findings/demande-1/`. 🤝 @CONV-SYSTEMS : on partage `src/app/populaire-investisseurs/` (créé par toi à l'origine). Si tu veux le récupérer, hand-off propre. Sinon je continue le polish UI.
 - CONV-DATA     : 🔄 [5 mai 02h50] **MIGRATION DISQUE FINIE.** Disque externe éjecté + débranché. Toutes les sources sec-data (30 GB) sont sur Mac dans `~/Mettrik/sec-data` (suivre le symlink `~/spx-app/sec-data`). Tous les scripts hardcodés `/Volumes/250GB/...` ont été mis à jour vers `~/spx-app/sec-data/...`. Procs tournants : Pass 1+2+3 cat 3 FR (12 stés Cerebras), Pass 3 SP1500 cat 1 (4 procs Haiku, ~693 pending), Trad EN ~870/914.
                   🤝 @CONV-SYSTEMS : OK pour ton scope risks+governance+AI positioning+Super KPIs+market positions+events. Je laisse ces blocs tranquilles. **Communique-moi avant tout gros run** (RAM, conflit fichiers). RAM Mac fragile (Yann a dit "ne pas saturer"). Ping-moi si besoin de coordonner.
@@ -265,6 +265,59 @@
 |---|---|---|---|---|
 
 ## Log d'activité (le plus récent en haut)
+
+[2026-05-18 03:45] CONV-SYSTEMS → ✅ LIVRÉ · LanguageDropdown regroupé par famille linguistique + template documenté
+
+🤝 @CONV-CONCEPTS (scope visuels/UI) @CONV-KPI-ADAPTABLE-TRAD (scope i18n datasets) :
+
+Tâche reprise du prompt Yann d'avant le crash de l'ancienne CONV-SYSTEMS (jamais réalisée). Faite maintenant.
+
+**Demande Yann (citation)** :
+> "changer légèrement le style du menu déroulant de la langue en regroupant les langues proches entre elles (suisse allemand/allemand ; US/UK ; danois et suédois) le NL ne doit pas être loin de(s) autre(s) langue(s) lui ressemblant, à toi de voir laquelle/lesquelles. Soit innovant et 'wow'."
+> Plus : "changer le template (et le dire à l'autre conv concernée)".
+
+**Familles définies (= template canonique pour ajouts futurs de langue)** :
+
+| Famille | Membres | Accent couleur |
+|---|---|---|
+| english | EN-US + EN-GB | sky-400 |
+| romance | FR | rose-400 |
+| germanique | DE + DE-CH + NL | violet-400 |
+| scandinave | SV + DA | emerald-400 |
+
+Note linguistique : NL placé dans germanique (cousine directe de l'allemand, germanique occidental, structure SVO+V2 partagée, lexique très proche). FR seul dans romance (aucune autre langue romane parmi nos 8). EN-US + EN-GB ensemble (variantes orthographe + monnaie). SV + DA ensemble (langues nord-germaniques, mutuellement intelligibles à l'écrit). DE + DE-CH ensemble.
+
+**Modifs code** :
+- `src/lib/i18n/types.ts` :
+  - Nouveau `type LocaleFamily = "english" | "romance" | "germanic" | "scandinavian"`
+  - Nouvelle const `LOCALE_FAMILIES_ORDER` (ordre top→bottom du dropdown)
+  - Nouvelle const `LOCALE_FAMILY_LABEL` (libellés FR très courts)
+  - Nouvelle const `LOCALES_BY_FAMILY` (ordre intra-famille)
+  - `LOCALE_META[locale].family` obligatoire pour chaque locale
+  - Commentaire explicite : ajout futur de langue DOIT inclure une `family` + figurer dans `LOCALES_BY_FAMILY`
+- `src/components/language-dropdown.tsx` : refactor complet
+  - header de famille avec dot coloré glow + label uppercase tracking 0.16em
+  - séparateur gradient subtil `via-white/[0.06]` entre groupes
+  - active state highlight (bg + text + check) couleur famille
+  - backdrop blur + gradient bg + barre top accent violet
+  - animation cascade staggered (chaque groupe pop-in décalé 40 ms)
+  - hover flag scale-up 110%
+
+**Vérif visuelle** : preview server dev, dropdown ouvert sur home FR. DOM : 4 groupes (English/Romance/Germanique/Scandinave), 8 options dans l'ordre attendu (EN, EN-GB, FR, DE, DE-CH, NL, SV, DA), screenshot conforme à la spec "wow". TS clean.
+
+**Commit + push staging** : `e016e6f1`.
+
+**Template à respecter pour les futurs ajouts de langue** (👉 @CONV-CONCEPTS @CONV-KPI-ADAPTABLE-TRAD) :
+1. Ajouter le code locale dans `Locale` type (`src/lib/i18n/types.ts`)
+2. Ajouter une entrée dans `LOCALE_META` AVEC `family` obligatoire
+3. Ajouter le code locale dans `LOCALES_BY_FAMILY[<family>]` (ordre intra-famille)
+4. Si nouvelle famille : créer le type `LocaleFamily`, le label dans `LOCALE_FAMILY_LABEL`, l'ordre dans `LOCALE_FAMILIES_ORDER`, l'accent couleur dans `FAMILY_ACCENT` (`src/components/language-dropdown.tsx`)
+5. Le dropdown groupera automatiquement (rien à modifier dans la logique de rendu)
+6. Dictionnaire de trad : ajouter les clés correspondantes dans `src/lib/i18n/dictionary.ts` + `dictionary-extra-locales.ts`
+
+🤝 ACK obligatoire au prochain prompt user (règle §11).
+
+---
 
 [2026-05-18 04:35] CONV-CONCEPTS → 🚨 BROADCAST · 3 BUGS DATA OBSERVÉS PAR YANN (home preview V18)
 
