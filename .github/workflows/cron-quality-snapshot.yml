@@ -1,0 +1,37 @@
+# Cron migré de Vercel → GitHub Actions (Yann 18 mai 2026, bascule
+# niveau 1). Raison : Vercel Hobby tier limite 2 crons simultanés.
+#
+# Étiquette pour réassociation Vercel (si upgrade Pro plan future) :
+# vercel.json.crons.quality-snapshot (commenté actuellement).
+#
+# Fréquence : tous les jours à 21:00 UTC. Identique à l'ancien
+# schedule Vercel.
+#
+# Mécanique : ping l'endpoint API existant `/api/cron/quality-snapshot`
+# qui exécute l'audit Quality Tree quotidien (visual-audit.json
+# régénéré pour les 5 stés témoins GOOGL/NVDA/AAPL/CAT/META via Gemini
+# 2.5 Flash free tier 1500/jour).
+on:
+  schedule:
+    - cron: "0 21 * * *"
+  workflow_dispatch:
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Ping quality-snapshot endpoint
+        env:
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+          BASE_URL: ${{ vars.MAIN_BASE_URL || 'https://mettrik-staging.vercel.app' }}
+        run: |
+          set -euo pipefail
+          curl -sS -X POST "$BASE_URL/api/cron/quality-snapshot" \
+            -H "Authorization: Bearer $CRON_SECRET" \
+            -H "Content-Type: application/json" \
+            --max-time 3000 \
+            --retry 2 --retry-delay 60 \
+            -o response.json -w "HTTP %{http_code}\n"
+          cat response.json
+          echo "✅ quality-snapshot cron OK"

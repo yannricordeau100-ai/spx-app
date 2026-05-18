@@ -46,6 +46,27 @@ export async function sendEmail(params: SendEmailParams): Promise<{ ok: boolean;
     return { ok: false, error: "RESEND_API_KEY not configured" };
   }
 
+  // ─────────────────────────────────────────────────────────────
+  // DRY-RUN MODE (Yann 18 mai 2026, bascule niveau 1)
+  //   - En niveau 1 (shadow prod) on NE DOIT PAS envoyer des emails à
+  //     de vrais comptes (la Supabase niveau 1 est séparée mais on veut
+  //     une garantie supplémentaire).
+  //   - Mode déclenché par `EMAIL_DRY_RUN=1` (env var serveur). Mettre
+  //     sur niveau 1 ; laisser unset en niveau 0 (prod publique).
+  //   - Comportement : log l'email (to, subject, from, tag) côté console
+  //     + table Supabase `desk_email_dry_run_log` (si elle existe), ne
+  //     fait AUCUN appel à api.resend.com. Renvoie { ok: true } pour ne
+  //     pas casser les flux d'inscription.
+  // ─────────────────────────────────────────────────────────────
+  const dryRun = process.env.EMAIL_DRY_RUN === "1" || process.env.EMAIL_DRY_RUN === "true";
+  if (dryRun) {
+    const recipients = Array.isArray(params.to) ? params.to.join(", ") : params.to;
+    console.log(
+      `[Resend DRY-RUN] from=${FROM_MAP[params.from]} to=${recipients} subject="${params.subject}" tag=${params.tag ?? "-"}`,
+    );
+    return { ok: true, id: `dryrun_${Date.now()}` };
+  }
+
   try {
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",

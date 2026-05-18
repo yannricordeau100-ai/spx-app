@@ -5,6 +5,7 @@ import { I18nProvider } from "@/lib/i18n/provider";
 import { getServerLocale } from "@/lib/i18n/server";
 import { UserPrefsSync } from "@/components/user-prefs-sync";
 import { GlobalSocialBar } from "@/components/global-social-bar";
+import { LevelBadgeSSR } from "@/components/level-badge";
 import "./globals.css";
 
 // Manrope = body/UI
@@ -128,6 +129,10 @@ export default async function RootLayout({
         </I18nProvider>
         <UserPrefsSync />
         <PlausibleScript />
+        {/* Badge permanent indiquant le niveau d'environnement (1/2/3).
+            Masqué automatiquement en niveau 0 (prod publique). Lit
+            process.env.NEXT_PUBLIC_NIVEAU côté serveur (pas de flash). */}
+        <LevelBadgeSSR />
       </body>
     </html>
   );

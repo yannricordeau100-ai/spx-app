@@ -1,0 +1,39 @@
+# Cron migré de Vercel → GitHub Actions (Yann 18 mai 2026, bascule
+# niveau 1). Raison : Vercel Hobby tier limite 2 crons simultanés, et
+# nous gardons `kpi-worker-tick` sur Vercel (nécessite filesystem
+# serverless). On migre `email-onboarding` ici (juste API call à Resend).
+#
+# Étiquette pour réassociation Vercel (si upgrade Pro plan future) :
+# vercel.json.crons.email-onboarding (commenté actuellement).
+#
+# Fréquence : tous les jours à 09:00 UTC (= 11:00 Paris). Identique
+# à l'ancien schedule Vercel.
+#
+# Mécanique : ping l'endpoint API existant `/api/cron/email-onboarding`
+# sur staging (où le code est déjà déployé), avec header Authorization
+# Bearer CRON_SECRET. L'endpoint envoie les emails J+1/J+3/J+7/J+14/J+25
+# aux users onboarded via Resend.
+on:
+  schedule:
+    - cron: "0 9 * * *"
+  workflow_dispatch:
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Ping email-onboarding endpoint
+        env:
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+          BASE_URL: ${{ vars.MAIN_BASE_URL || 'https://mettrik-staging.vercel.app' }}
+        run: |
+          set -euo pipefail
+          curl -sS -X POST "$BASE_URL/api/cron/email-onboarding" \
+            -H "Authorization: Bearer $CRON_SECRET" \
+            -H "Content-Type: application/json" \
+            --max-time 240 \
+            --retry 3 --retry-delay 30 \
+            -o response.json -w "HTTP %{http_code}\n"
+          cat response.json
+          echo "✅ email-onboarding cron OK"
