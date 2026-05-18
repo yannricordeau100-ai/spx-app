@@ -207,7 +207,7 @@ function PlansSection({
     await refresh();
   }
   async function dup(p: PricingPlan) {
-    const code = prompt(`Code interne du nouveau plan (ex "investisseur_pro") :`);
+    const code = prompt(`Code interne du nouveau plan (ex "premium_v2") :`);
     if (!code) return;
     const name = prompt("Nom affiché en français :", `${p.name_fr} (copie)`);
     if (!name) return;

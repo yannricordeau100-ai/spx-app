@@ -129,7 +129,7 @@ function ContactFloatingButton() {
             />
             <ContactOption
               icon={<Phone className="size-4 text-emerald-300" />}
-              title="Pro+ / Family Office"
+              title="Max / Family Office"
               body="Devis personnalisé, démo live"
               href="/sandbox/v1-8/contact?dest=sales"
             />
@@ -169,7 +169,7 @@ function ContactSectionBanner() {
             Tu hésites ? <span className="bg-gradient-to-br from-violet-300 to-cyan-300 bg-clip-text text-transparent">Parle-nous.</span>
           </h2>
           <p className="mt-3 max-w-md text-[14px] leading-relaxed text-zinc-300">
-            Question pricing, démo Pro+, intégration API : on prend 15 min pour répondre.
+            Question pricing, démo Max, intégration API : on prend 15 min pour répondre.
             Pas de pitch commercial, juste une vraie conversation avec l'équipe.
           </p>
           <div className="mt-5 flex flex-wrap gap-3">
@@ -193,7 +193,7 @@ function ContactSectionBanner() {
         <div className="grid gap-3">
           <BadgeRow icon={<Clock className="size-4 text-emerald-300" />} title="Réponse < 24 h" sub="Jours ouvrés, équipe en France et Suisse" />
           <BadgeRow icon={<Shield className="size-4 text-cyan-300" />} title="Données privées" sub="On ne revend rien, anti-spam strict" />
-          <BadgeRow icon={<Phone className="size-4 text-violet-300" />} title="Pro+ : appel direct" sub="Démo personnalisée pour les family offices" />
+          <BadgeRow icon={<Phone className="size-4 text-violet-300" />} title="Max : appel direct" sub="Démo personnalisée pour les family offices" />
         </div>
       </div>
     </section>

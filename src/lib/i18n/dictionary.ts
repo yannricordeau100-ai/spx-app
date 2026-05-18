@@ -1102,7 +1102,7 @@ export const DICTIONARY: Dict = {
     de: "Kann ich Mettrik AI testen, ohne zu zahlen?",
   },
   "pricing.faq_a1": {
-    fr: "Oui, le plan Découverte est gratuit à vie. Tu accèdes à l'intégralité de Google (GOOGL) et Meta (META) sans carte bancaire. C'est suffisant pour évaluer la profondeur de l'analyse avant de décider.",
+    fr: "Oui, le plan Gratuit est gratuit à vie. Tu accèdes à l'intégralité de Google (GOOGL) et Meta (META) sans carte bancaire. C'est suffisant pour évaluer la profondeur de l'analyse avant de décider.",
     en: "Yes, the Discovery plan is free forever. You get full access to Google (GOOGL) and Meta (META) with no credit card. Enough to evaluate the depth before deciding.",
     de: "Ja, der Entdeckungs-Plan ist lebenslang kostenlos. Du bekommst vollen Zugang zu Google (GOOGL) und Meta (META) ohne Kreditkarte. Genug, um die Tiefe vor der Entscheidung zu prüfen.",
   },
@@ -1142,9 +1142,9 @@ export const DICTIONARY: Dict = {
     de: "Bereit, deine Unternehmen aus einer neuen Perspektive zu sehen?",
   },
   "pricing.cta_final_body": {
-    fr: "Démarre en 30 secondes, sans carte bancaire. Tu pourras passer en Investisseur ou Pro+ quand tu seras prêt.",
-    en: "Start in 30 seconds, no credit card. Upgrade to Investor or Pro+ whenever you're ready.",
-    de: "Starte in 30 Sekunden, ohne Kreditkarte. Du kannst jederzeit zu Anleger oder Pro+ wechseln, wenn du bereit bist.",
+    fr: "Démarre en 30 secondes, sans carte bancaire. Tu pourras passer en Premium ou Max quand tu seras prêt.",
+    en: "Start in 30 seconds, no credit card. Upgrade to Premium or Max whenever you're ready.",
+    de: "Starte in 30 Sekunden, ohne Kreditkarte. Du kannst jederzeit zu Premium oder Max wechseln, wenn du bereit bist.",
   },
   "pricing.cta_final_btn": {
     fr: "Démarrer gratuitement",

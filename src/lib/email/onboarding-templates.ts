@@ -191,7 +191,7 @@ const DAY25: OnboardingTemplate = {
 <p>Tu utilises Mettrik AI depuis presque un mois. Si tu veux passer à la vitesse supérieure :</p>
 <ul>
   <li><strong>Pro</strong> : accès aux 1500+ stés (vs 300 en gratuit), comparaisons multi-sociétés, alertes earning dates.</li>
-  <li><strong>Investisseur</strong> : tout Pro + export PDF des fiches, watchlists illimitées, données trimestrielles complètes.</li>
+  <li><strong>Premium</strong> : tout Pro + export PDF des fiches, watchlists illimitées, données trimestrielles complètes.</li>
 </ul>
 <p><a href="https://www.mettrik.ai/pricing" style="color:#7c3aed;text-decoration:underline">Voir les plans →</a></p>
 <p>Si tu restes en gratuit, aucun souci : la base que tu as suffit pour un usage sérieux. Ce mail est juste pour information.</p>`,
@@ -203,7 +203,7 @@ const DAY25: OnboardingTemplate = {
 <p>You've been using Mettrik AI for almost a month. If you want to step it up:</p>
 <ul>
   <li><strong>Pro</strong>: access to all 1500+ companies (vs 300 on free), multi-company comparisons, earnings date alerts.</li>
-  <li><strong>Investor</strong>: everything in Pro + PDF export of profiles, unlimited watchlists, full quarterly data.</li>
+  <li><strong>Premium</strong>: everything in Pro + PDF export of profiles, unlimited watchlists, full quarterly data.</li>
 </ul>
 <p><a href="https://www.mettrik.ai/pricing" style="color:#7c3aed;text-decoration:underline">See the plans →</a></p>
 <p>If you stay on free, no worries: the base you have is enough for serious usage. This email is for info only.</p>`,
@@ -215,7 +215,7 @@ const DAY25: OnboardingTemplate = {
 <p>Sie nutzen Mettrik AI seit fast einem Monat. Wenn Sie einen Schritt weitergehen möchten:</p>
 <ul>
   <li><strong>Pro</strong>: Zugriff auf alle 1500+ Unternehmen (vs 300 in der kostenlosen Version), Multi-Unternehmens-Vergleiche, Earnings-Date-Alerts.</li>
-  <li><strong>Investor</strong>: Alles aus Pro + PDF-Export der Profile, unbegrenzte Watchlists, vollständige Quartalsdaten.</li>
+  <li><strong>Premium</strong>: Alles aus Pro + PDF-Export der Profile, unbegrenzte Watchlists, vollständige Quartalsdaten.</li>
 </ul>
 <p><a href="https://www.mettrik.ai/pricing" style="color:#7c3aed;text-decoration:underline">Pläne ansehen →</a></p>
 <p>Wenn Sie kostenlos bleiben, kein Problem: Die Basis, die Sie haben, reicht für ernsthafte Nutzung. Diese E-Mail dient nur zur Information.</p>`,

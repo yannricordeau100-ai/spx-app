@@ -20,17 +20,20 @@ import { PLANS as FALLBACK_PLANS, FEATURES as FALLBACK_FEATURES, type PlanDispla
 import type { Currency, Frequency } from "./admin-types";
 
 /**
- * Normalise un code de plan BDD (Yann a renommé les plans : "Free"/"Premium"/
- * "Max") vers les tiers internes du code TS ("free"/"investisseur"/"pro_plus").
- * Sans cette normalisation, FeatureRow.free / .investisseur / .pro_plus ne
- * matchait plus rien et le front tombait sur le fallback hardcoded.
+ * Normalise un code de plan BDD vers les tiers internes du code TS.
+ * BDD : "Free" / "Premium" / "Max" (canonicaux).
+ * Code TS : "free" / "premium" / "max" (lowercase).
+ *
+ * Note (Yann 18 mai 2026) : tous les anciens noms (decouverte / investisseur /
+ * pro_plus / investor / pro+) ont été retirés. Le BO ne propose plus que
+ * les 3 codes canoniques + la possibilité d'un "api" plan avec is_api_only.
  */
 function normalizePlanCode(code: string): PlanTier {
   const c = (code ?? "").toLowerCase();
-  if (c === "free" || c === "gratuit" || c === "decouverte" || c === "découverte") return "free";
-  if (c === "premium" || c === "investisseur" || c === "investor") return "investisseur";
-  if (c === "max" || c === "pro_plus" || c === "pro+") return "pro_plus";
-  // Fallback : si code inconnu, on essaie le slug le plus proche.
+  if (c === "free" || c === "gratuit") return "free";
+  if (c === "premium") return "premium";
+  if (c === "max") return "max";
+  // Fallback : si code inconnu (ex : futur plan "api"), retourne tel quel.
   return c as PlanTier;
 }
 
@@ -204,7 +207,7 @@ export async function loadPricingCatalog(): Promise<LoadedCatalog> {
       for (const p of dbPlans) tierByPlanId.set(p.id, normalizePlanCode(p.code));
     }
 
-    // featureCode → tier (free/investisseur/pro_plus) → value_fr
+    // featureCode → tier (free/premium/max) → value_fr
     const valuesByCode = new Map<string, Map<PlanTier, string>>();
     const featById = new Map<string, string>();
     for (const f of featRes.data) featById.set(f.id, f.code);
@@ -233,8 +236,8 @@ export async function loadPricingCatalog(): Promise<LoadedCatalog> {
         label: f.label_fr,
         help: f.help_fr ?? undefined,
         free: get("free"),
-        investisseur: get("investisseur"),
-        pro_plus: get("pro_plus"),
+        premium: get("premium"),
+        max: get("max"),
       };
     });
 

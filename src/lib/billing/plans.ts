@@ -9,7 +9,7 @@
  * paywall, dashboard).
  */
 
-export type PlanTier = "free" | "investisseur" | "pro_plus";
+export type PlanTier = "free" | "premium" | "max";
 
 /** Métadonnées display d'un plan (pricing page). */
 export type PlanDisplay = {
@@ -35,7 +35,7 @@ export type PlanDisplay = {
 export const PLANS: PlanDisplay[] = [
   {
     tier: "free",
-    name: "Découverte",
+    name: "Gratuit",
     tagline: "Teste la profondeur de Mettrik sur les 2 GAFA les plus suivies.",
     price_monthly_eur: 0,
     price_annual_eur: 0,
@@ -49,7 +49,7 @@ export const PLANS: PlanDisplay[] = [
     // Yann 15 mai 2026 : valeurs FALLBACK alignées sur les valeurs BDD
     // actuelles. Quand la BDD était inaccessible, le fallback montrait
     // 24,90 € au lieu de 29,90 € → confusion utilisateur.
-    tier: "investisseur",
+    tier: "premium",
     name: "Premium",
     tagline: "L'essentiel pour suivre ton portefeuille au quotidien.",
     price_monthly_eur: 29.9,
@@ -61,7 +61,7 @@ export const PLANS: PlanDisplay[] = [
     audience: "Particuliers actifs avec 5 à 50 lignes en portefeuille.",
   },
   {
-    tier: "pro_plus",
+    tier: "max",
     name: "Max",
     tagline: "Outils avancés pour family offices, conseillers et fonds.",
     price_monthly_eur: 59.9,
@@ -83,8 +83,8 @@ export type FeatureRow = {
   /** Aide tooltip (1 phrase). */
   help?: string;
   free: string | boolean;
-  investisseur: string | boolean;
-  pro_plus: string | boolean;
+  premium: string | boolean;
+  max: string | boolean;
 };
 
 export const FEATURES: FeatureRow[] = [
@@ -95,24 +95,24 @@ export const FEATURES: FeatureRow[] = [
     label: "Sociétés accessibles",
     help: "Nombre de fiches société consultables en intégralité.",
     free: "2 (Google + Meta)",
-    investisseur: "1 000+ américaines & européennes",
-    pro_plus: "1 000+ + ajouts mensuels",
+    premium: "1 000+ américaines & européennes",
+    max: "1 000+ + ajouts mensuels",
   },
   {
     id: "logo_pages",
     category: "Sociétés",
     label: "Logos officiels + identité visuelle",
     free: true,
-    investisseur: true,
-    pro_plus: true,
+    premium: true,
+    max: true,
   },
   {
     id: "ranks",
     category: "Sociétés",
     label: "Rangs mondial / USA / secteur",
     free: false,
-    investisseur: true,
-    pro_plus: true,
+    premium: true,
+    max: true,
   },
   // ─── Analyse ────────────────────────────────────────────────────────
   {
@@ -120,8 +120,8 @@ export const FEATURES: FeatureRow[] = [
     category: "Analyse",
     label: "Indicateurs clés (KPI principaux + secondaires)",
     free: "Limité à Google + Meta",
-    investisseur: true,
-    pro_plus: true,
+    premium: true,
+    max: true,
   },
   {
     id: "stories_kpis",
@@ -129,40 +129,40 @@ export const FEATURES: FeatureRow[] = [
     label: "Histoires clés (carrousel KPI nouveaux)",
     help: "KPI émergents propres à chaque société (ex : adoption IA, expansion géo).",
     free: false,
-    investisseur: true,
-    pro_plus: true,
+    premium: true,
+    max: true,
   },
   {
     id: "transcripts",
     category: "Analyse",
     label: "Citations dirigeants (dernier appel résultats)",
     free: false,
-    investisseur: true,
-    pro_plus: true,
+    premium: true,
+    max: true,
   },
   {
     id: "risks",
     category: "Analyse",
     label: "Facteurs de risque scorés 1 à 5",
     free: false,
-    investisseur: true,
-    pro_plus: true,
+    premium: true,
+    max: true,
   },
   {
     id: "governance",
     category: "Analyse",
     label: "Gouvernance + rémunération dirigeants",
     free: false,
-    investisseur: true,
-    pro_plus: true,
+    premium: true,
+    max: true,
   },
   {
     id: "ai_positioning",
     category: "Analyse",
     label: "Positionnement IA (leader / intégrateur / prudent)",
     free: false,
-    investisseur: true,
-    pro_plus: true,
+    premium: true,
+    max: true,
   },
   // ─── Suivi ──────────────────────────────────────────────────────────
   {
@@ -170,8 +170,8 @@ export const FEATURES: FeatureRow[] = [
     category: "Suivi",
     label: "Sociétés favorites",
     free: "2 max",
-    investisseur: "50 max",
-    pro_plus: "Illimité",
+    premium: "50 max",
+    max: "Illimité",
   },
   {
     id: "alerts_email",
@@ -179,16 +179,16 @@ export const FEATURES: FeatureRow[] = [
     label: "Alertes par email sur seuils KPI",
     help: "Reçois un email quand un KPI franchit un seuil que tu as fixé.",
     free: false,
-    investisseur: "5 alertes",
-    pro_plus: "Illimité",
+    premium: "5 alertes",
+    max: "Illimité",
   },
   {
     id: "earnings_calendar",
     category: "Suivi",
     label: "Calendrier des résultats à venir",
     free: false,
-    investisseur: true,
-    pro_plus: true,
+    premium: true,
+    max: true,
   },
   // ─── Comparaison ────────────────────────────────────────────────────
   {
@@ -196,24 +196,24 @@ export const FEATURES: FeatureRow[] = [
     category: "Comparaison",
     label: "Comparaison 2 sociétés",
     free: "Google ↔ Meta",
-    investisseur: true,
-    pro_plus: true,
+    premium: true,
+    max: true,
   },
   {
     id: "compare_basket",
     category: "Comparaison",
     label: "Panier de comparaison (3+ sociétés)",
     free: false,
-    investisseur: "3 sociétés",
-    pro_plus: "Jusqu'à 10",
+    premium: "3 sociétés",
+    max: "Jusqu'à 10",
   },
   {
     id: "sector_compare",
     category: "Comparaison",
     label: "Comparaison sectorielle (vs pairs)",
     free: false,
-    investisseur: true,
-    pro_plus: true,
+    premium: true,
+    max: true,
   },
   // ─── Données ────────────────────────────────────────────────────────
   {
@@ -221,40 +221,40 @@ export const FEATURES: FeatureRow[] = [
     category: "Données",
     label: "Taille de marché (TAM) déclarée par la société",
     free: false,
-    investisseur: true,
-    pro_plus: true,
+    premium: true,
+    max: true,
   },
   {
     id: "segments",
     category: "Données",
     label: "Répartition CA par segment & géographie",
     free: false,
-    investisseur: true,
-    pro_plus: true,
+    premium: true,
+    max: true,
   },
   {
     id: "history_5y",
     category: "Données",
     label: "Historique 5 ans",
     free: "Sur Google + Meta",
-    investisseur: true,
-    pro_plus: true,
+    premium: true,
+    max: true,
   },
   {
     id: "history_10y",
     category: "Données",
     label: "Historique 10 ans",
     free: false,
-    investisseur: false,
-    pro_plus: true,
+    premium: false,
+    max: true,
   },
   {
     id: "history_20y",
     category: "Données",
     label: "Historique 20 ans",
     free: false,
-    investisseur: false,
-    pro_plus: true,
+    premium: false,
+    max: true,
   },
   // ─── Pro ────────────────────────────────────────────────────────────
   {
@@ -262,16 +262,16 @@ export const FEATURES: FeatureRow[] = [
     category: "Pro",
     label: "Export PDF des fiches société",
     free: false,
-    investisseur: false,
-    pro_plus: true,
+    premium: false,
+    max: true,
   },
   {
     id: "export_csv",
     category: "Pro",
     label: "Export CSV des données",
     free: false,
-    investisseur: false,
-    pro_plus: true,
+    premium: false,
+    max: true,
   },
   {
     id: "api_access",
@@ -279,24 +279,24 @@ export const FEATURES: FeatureRow[] = [
     label: "Accès API (lecture)",
     help: "Endpoints REST pour intégrer les données Mettrik dans tes outils.",
     free: false,
-    investisseur: false,
-    pro_plus: true,
+    premium: false,
+    max: true,
   },
   {
     id: "priority_support",
     category: "Pro",
     label: "Support prioritaire (réponse < 24 h)",
     free: false,
-    investisseur: "Email",
-    pro_plus: "Email + appel mensuel",
+    premium: "Email",
+    max: "Email + appel mensuel",
   },
   {
     id: "early_access",
     category: "Pro",
     label: "Accès anticipé aux nouvelles fonctions",
     free: false,
-    investisseur: false,
-    pro_plus: true,
+    premium: false,
+    max: true,
   },
 ];
 

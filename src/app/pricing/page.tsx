@@ -26,7 +26,7 @@ async function detectCurrency(): Promise<string> {
  * Page tarifs publique `/pricing` (RGPD-friendly, aucune auth requise).
  *
  * Refonte 7 mai 2026 : abandon du squelette ad-hoc, alignement sur le
- * nouveau modèle 3 plans (Découverte / Investisseur / Pro+) défini dans
+ * nouveau modèle 3 plans (Gratuit / Premium / Max) défini dans
  * `src/lib/billing/plans.ts`. Une seule source de vérité partagée avec
  * `/sandbox/v1-8/pricing`.
  *
@@ -35,7 +35,7 @@ async function detectCurrency(): Promise<string> {
  */
 export const metadata = {
   title: "Tarifs · Mettrik AI",
-  description: "3 plans Mettrik AI : Découverte gratuit, Premium 29,90 €/mois, Max 59,90 €/mois.",
+  description: "3 plans Mettrik AI : Gratuit gratuit, Premium 29,90 €/mois, Max 59,90 €/mois.",
 };
 
 export default async function PricingPage() {

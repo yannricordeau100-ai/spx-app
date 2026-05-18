@@ -38,7 +38,7 @@ type Recipient = "contact" | "support" | "sales";
  * Formulaire contact V1.8 (Yann 8 mai 2026) :
  *  - Auth requise (gérée côté server, l'email est pré-rempli depuis user)
  *  - Acceptation CG OBLIGATOIRE (checkbox)
- *  - 3 destinations : contact général, support technique, commercial / Pro+
+ *  - 3 destinations : contact général, support technique, commercial / Max
  *  - Submit appelle /api/contact (route existante)
  */
 export function ContactV18Client({
@@ -89,7 +89,7 @@ export function ContactV18Client({
           recipient: apiRecipient,
           name,
           email,
-          subject: recipient === "sales" ? `[Pro+] ${subject}` : subject,
+          subject: recipient === "sales" ? `[Max] ${subject}` : subject,
           body,
           locale,
           captchaToken,

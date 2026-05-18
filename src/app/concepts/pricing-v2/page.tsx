@@ -173,7 +173,7 @@ function DesignMatrix() {
             {feats.map((f) => (
               <div key={f.id} className="grid grid-cols-[2fr_1fr_1fr_1fr] items-center border-b border-white/[0.04] px-4 py-2.5 text-[12px]">
                 <span className="text-zinc-200">{f.label}</span>
-                {(["free", "investisseur", "pro_plus"] as const).map((tier) => {
+                {(["free", "premium", "max"] as const).map((tier) => {
                   const v = f[tier];
                   return (
                     <span key={tier} className="text-center">
@@ -274,7 +274,7 @@ function DesignSocial() {
         {[
           { name: "Marc D.", role: "Family Office, Lyon", quote: "Mettrik m'a fait gagner 4h par semaine sur le scoring de mes lignes." },
           { name: "Sarah L.", role: "Conseillère patrimoniale", quote: "Enfin un outil qui me dit ce que je dois savoir sans noyer dans les chiffres." },
-          { name: "Antoine R.", role: "Investisseur particulier", quote: "Les alertes de risque m'ont sauvé 8000 € en 6 mois." },
+          { name: "Antoine R.", role: "Premium particulier", quote: "Les alertes de risque m'ont sauvé 8000 € en 6 mois." },
         ].map((t) => (
           <div key={t.name} className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-4">
             <div className="mb-2 flex gap-0.5 text-amber-300">
@@ -300,10 +300,10 @@ function TrustBadge({ icon, label }: { icon: React.ReactNode; label: string }) {
   );
 }
 
-function topFeatures(tier: "free" | "investisseur" | "pro_plus"): string[] {
+function topFeatures(tier: "free" | "premium" | "max"): string[] {
   if (tier === "free") return ["Google + Meta accès complet", "Comparaison Google ↔ Meta", "Tous les indicateurs", "2 favoris", "Sans CB"];
-  if (tier === "investisseur") return ["1 000+ sociétés", "Citations dirigeants", "Risques + gouvernance + IA", "Calendrier résultats", "5 alertes email"];
-  return ["Tout Investisseur, et :", "Favoris illimités", "Alertes illimitées", "Historique 10 + 20 ans", "Export PDF + CSV", "Accès API"];
+  if (tier === "premium") return ["1 000+ sociétés", "Citations dirigeants", "Risques + gouvernance + IA", "Calendrier résultats", "5 alertes email"];
+  return ["Tout Premium, et :", "Favoris illimités", "Alertes illimitées", "Historique 10 + 20 ans", "Export PDF + CSV", "Accès API"];
 }
 
 /**
@@ -337,7 +337,7 @@ function PromoCodeBanner() {
 function FaqShort() {
   const items = [
     { q: "Comment annuler ?", a: "1 clic depuis ton compte, à tout moment, sans question." },
-    { q: "Y a-t-il un essai gratuit ?", a: "Le plan Découverte est gratuit à vie, sans CB. C'est mieux qu'un essai limité." },
+    { q: "Y a-t-il un essai gratuit ?", a: "Le plan Gratuit est gratuit à vie, sans CB. C'est mieux qu'un essai limité." },
     { q: "Puis-je changer de plan ?", a: "Oui à tout moment, prorata calculé automatiquement." },
     { q: "TVA incluse ?", a: "Oui, prix TTC, facturé par R consulting (Suisse, hors TVA)." },
   ];

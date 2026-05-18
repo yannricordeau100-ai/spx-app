@@ -30,12 +30,12 @@ async function detectCurrency(): Promise<string> {
 /**
  * /sandbox/v1-8/pricing — page tarifs sales-optimized.
  *
- * 3 plans : Découverte (gratuit), Investisseur (recommandé), Pro+.
+ * 3 plans : Gratuit (gratuit), Premium (recommandé), Max.
  * Layout : hero + cards + matrice features + trust + FAQ + CTA final.
  *
  * Optimisations vente :
  *  - Annuel par défaut + chip -33 % (ancrage prix bas)
- *  - Carte Investisseur visuellement dominante
+ *  - Carte Premium visuellement dominante
  *  - 3 garanties dans le hero (sans engagement, satisfait/remboursé, sans
  *    carte pour Free)
  *  - Matrice features détaillée → réduit la friction "qu'est-ce que je
@@ -45,7 +45,7 @@ async function detectCurrency(): Promise<string> {
  */
 export const metadata = {
   title: "Tarifs · Mettrik AI",
-  description: "3 plans Mettrik AI : Découverte gratuit, Premium 24,90 €/mois, Max 79 €/mois.",
+  description: "3 plans Mettrik AI : Gratuit gratuit, Premium 24,90 €/mois, Max 79 €/mois.",
   robots: { index: false, follow: false },
 };
 

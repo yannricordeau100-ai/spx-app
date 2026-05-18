@@ -19,16 +19,16 @@ type PricingCardPlan = PlanDisplay & Partial<Pick<LoadedPlan, "code" | "prices">
  * 3-card pricing avec toggle mensuel / annuel.
  *
  * Sales-optimized :
- *  - Carte centrale (Investisseur) mise en avant : highlight=true → bordure
+ *  - Carte centrale (Premium) mise en avant : highlight=true → bordure
  *    couleur, badge "Recommandé", scale légèrement + sombre.
  *  - Annuel par défaut (économies visibles immédiatement, ancrage prix bas).
  *  - Mention "2 mois offerts" en chip.
- *  - CTA contrasté (violet sur Investisseur, cyan sur Pro+, neutre sur Free).
+ *  - CTA contrasté (violet sur Premium, cyan sur Max, neutre sur Free).
  *  - Sous chaque CTA : "30 jours satisfait ou remboursé" → confiance.
  *
- * Cible le signup → checkout flow. Le clic CTA Investisseur / Pro+ part sur
+ * Cible le signup → checkout flow. Le clic CTA Premium / Max part sur
  * `/api/billing/checkout?plan=premium_monthly|premium_annual` qui gère la
- * redirection Stripe. Le tier `pro_plus` n'est pas encore Stripe-configuré
+ * redirection Stripe. Le tier `max` n'est pas encore Stripe-configuré
  * → CTA "Nous contacter" temporairement (mailto).
  */
 export function PricingCards({
@@ -317,7 +317,7 @@ function PricingCard({
           ★ {t("pricing.card.recommended")}
         </div>
       )}
-      {plan.tier === "pro_plus" && (
+      {plan.tier === "max" && (
         <Crown className="absolute right-5 top-5 size-4" style={{ color: plan.accent }} />
       )}
 
@@ -458,7 +458,7 @@ function PricingCard({
 
 /**
  * CTA bouton qui POST le checkout avec le code promo lu depuis localStorage.
- * Pour les plans non payants (free → /signup, pro_plus → mailto), c'est
+ * Pour les plans non payants (free → /signup, max → mailto), c'est
  * un Link standard.
  */
 function CtaButton({
@@ -489,7 +489,7 @@ function CtaButton({
       ? "border border-white/10 bg-white/[0.02] text-zinc-500 cursor-not-allowed"
       : isHighlight
         ? "text-zinc-50 shadow-lg"
-        : plan === "pro_plus"
+        : plan === "max"
           ? "border-2 text-zinc-50"
           : "border border-white/10 bg-white/[0.04] text-zinc-200 hover:bg-white/[0.07]"
   }`;
@@ -497,7 +497,7 @@ function CtaButton({
     ? undefined
     : isHighlight
       ? { background: accent }
-      : plan === "pro_plus"
+      : plan === "max"
         ? { borderColor: `${accent}80`, color: accent }
         : undefined;
 
@@ -590,7 +590,7 @@ function topFeatures(tier: PlanDisplay["tier"]): string[] {
       "Sans carte bancaire requise",
     ];
   }
-  if (tier === "investisseur") {
+  if (tier === "premium") {
     return [
       "1 000+ sociétés américaines & européennes",
       "Citations dirigeants (transcripts)",

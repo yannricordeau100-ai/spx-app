@@ -12,7 +12,7 @@ export const dynamic = "force-dynamic";
 export const metadata = {
   title: "Contact · Mettrik AI",
   description:
-    "Contacte l'équipe Mettrik AI : support technique, questions commerciales, demandes Pro+.",
+    "Contacte l'équipe Mettrik AI : support technique, questions commerciales, demandes Max.",
   robots: { index: false, follow: false },
 };
 
@@ -116,7 +116,7 @@ export default async function SandboxV18ContactPage() {
             recipient_label: t("contact.recipient_label"),
             recipient_contact: t("contact.recipient_contact"),
             recipient_support: t("contact.recipient_support"),
-            recipient_sales: isFr ? "Commercial / Pro+" : "Sales / Pro+",
+            recipient_sales: isFr ? "Commercial / Max" : "Sales / Max",
             name_label: t("contact.name_label"),
             name_placeholder: t("contact.name_placeholder"),
             email_label: t("contact.email_label"),

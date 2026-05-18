@@ -47,7 +47,7 @@ function FeatureCellGroup({ feature, plans }: { feature: FeatureRow; plans: Plan
           </span>
         )}
       </div>
-      {(["free", "investisseur", "pro_plus"] as const).map((tier) => {
+      {(["free", "premium", "max"] as const).map((tier) => {
         const plan = plans.find((p) => p.tier === tier);
         return (
           <div key={tier}>{renderCell(feature[tier], plan?.accent ?? "#a78bfa")}</div>

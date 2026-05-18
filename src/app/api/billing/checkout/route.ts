@@ -90,7 +90,7 @@ export async function POST(req: NextRequest) {
     const rawPromo: string | undefined = body.promo_code;
     let promoError: string | null = null;
     if (rawPromo && typeof rawPromo === "string" && rawPromo.trim()) {
-      const planCode = (body.plan as string | undefined) ?? "investisseur";
+      const planCode = (body.plan as string | undefined) ?? "premium";
       const freq = planCode.includes("annual") ? "annual" : "monthly";
       const validation = await validatePromoCode(rawPromo.trim(), {
         plan_code: planCode.replace("premium_", ""),
