@@ -266,6 +266,41 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-18 04:35] CONV-CONCEPTS → 🚨 BROADCAST · 3 BUGS DATA OBSERVÉS PAR YANN (home preview V18)
+
+🤝 @CONV-DATA : Yann (18 mai 04:30) a screenshot 6 cards home, 3 chiffres aberrants (vraisemblablement extraction LLM mauvais champ ou mauvais scope). En complément du broadcast 17 mai 16:10 (NVDA hero + IPO dates + pré-2023 history). À fixer en parallèle du chantier 3 bugs déjà ouvert.
+
+### Bug A — MSFT "Revenu Microsoft Cloud" : 335,2 Mds $ +23 %
+
+- Affiché sur card V18 home preview
+- Microsoft Cloud annualisé FY25 = ~165 Mds $ (Q4 FY25 ~40 Mds × 4). 335 Mds = revenu TOTAL Microsoft FY25 (= 265 Mds + projection FY26).
+- Soit le KPI a confondu "Revenu Microsoft Cloud" avec "Total Revenue", soit la value/history n'est plus le bon champ.
+- Fichier : `src/data/v2-pipeline/msft.json` (hero_kpi="Microsoft Cloud Revenue" ?). Re-extract 10-K FY25 + dernier 10-Q.
+
+### Bug B — LLY "Revenu du médicament principal" : 2,00 Mds $ +65 %
+
+- LLY hero KPI catastrophique : 2 Mds $ pour "médicament principal" alors que Mounjaro seul est à ~11 Mds $ annualisé Q4 2025.
+- Possible cause : confusion avec un trimestre unique d'un autre médicament (Verzenio ~2 Mds annualisé), ou prompt LLM ambigu sur "principal" en français.
+- Fichier : `src/data/v2-pipeline/lly.json`. À re-extract avec prompt strict "hero_kpi = revenu Mounjaro FY25 ou Trulicity FY25, pas une approximation".
+
+### Bug C — AVGO "Revenu solutions réseau IA" : 3,10 Mds $ +220 %
+
+- AVGO AI networking revenue Q4 FY25 = ~5.5 Mds $, annualisé FY25 = ~12 Mds $.
+- "3,10" suspect : soit chiffre trimestriel ancien (Q1 FY24), soit unit mismatch (3.10 en réalité $3.10B au Q1 FY24).
+- Le +220 % YoY est plausible si on compare un trimestre lointain à un trimestre récent, mais inconsistant si value reflète un FY récent.
+- Fichier : `src/data/v2-pipeline/avgo.json`. Re-extract avec source Q4 FY25 + cohérence value/history annuel ou trimestriel exclusif.
+
+## Fixes UI déjà appliqués côté CONV-CONCEPTS (commit `84737383`)
+
+- Bug TSLA "410 000,0 unités" (virgule sur entier) : `decimalsForValue` → 0 décimale pour count units sans magnitude. Maintenant "410 000 unités".
+- Bug Groq HTTP 413 sur `/sandbox/kpi-builder` : univers LLM cappé à 700 stés (V18 d'abord) + drop sector, prompt ~7-8k tokens (sous cap Groq free tier 12k TPM).
+
+## ETA souhaité
+
+Yann a mis l'urgence sur la confiance ("combien de temps dois-je répéter la même chose"). Les bugs DATA récurrents sur les majors (MSFT, LLY, NVDA, AVGO) tuent la démo investisseur. Suggestion : passer ces 4+ majors en validation manuelle par CONV-DATA avant cron rebuild, avec script de cross-check yfinance trailing 4Q vs value affichée (alerte si écart > 30 %).
+
+🤝 ACK obligatoire au prochain prompt user CONV-DATA. État RAM côté CONV-CONCEPTS : 0 proc Python actif, juste deploy Vercel en cours.
+
 [2026-05-18 01:15] CRON-MERGED → ✅ Rebuild horaire : Pass 3 2125 → 2125 (count gelé mais v1-6/v1-7 public diff), staging redéployé sur mettrik-p02wt21n9.
 
 [2026-05-17 03:22] CRON-MERGED → ✅ Rebuild horaire : Pass 3 2125 → 2125 (count gelé mais data publique diff), staging redéployé sur mettrik-q1q3nvwun.
