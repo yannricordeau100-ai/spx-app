@@ -780,3 +780,455 @@ export function WordmarkV2Square({ theme }: ThemeProp) {
     </svg>
   );
 }
+
+/* ════════════════════════════════════════════════════════════
+ *  NOUVELLES CRÉATIONS · CubeStack + M de Mettrik AI
+ *  ────────────────────────────────────────────────────────────
+ *  Yann 18 mai 2026 : variantes 3D à partir de CubeStack avec
+ *  intégration du "M" pour usage profile picture + association
+ *  systématique au nom complet "Mettrik AI".
+ *  ════════════════════════════════════════════════════════════ */
+
+/* ────────────────────────────────────────────────────────────
+ * 09. CUBE M · MONOGRAM — un gros cube iso avec M gravé sur top
+ * ──────────────────────────────────────────────────────────── */
+
+export function CubeMMonogramHorizontal({ theme }: ThemeProp) {
+  const fg = textColor(theme);
+  return (
+    <svg viewBox="0 0 320 64" xmlns="http://www.w3.org/2000/svg" className="h-14 w-auto">
+      <defs>
+        <linearGradient id="cmm-top" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="#a855f7" />
+          <stop offset="100%" stopColor="#22d3ee" />
+        </linearGradient>
+        <linearGradient id="cmm-m" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#fafafa" />
+          <stop offset="100%" stopColor="#e4e4e7" />
+        </linearGradient>
+      </defs>
+      <g transform="translate(8, 12)">
+        <IsoCubeWithM
+          size={20}
+          colorTop="url(#cmm-top)"
+          colorLeft="#7c3aed"
+          colorRight="#0891b2"
+          letterFill="url(#cmm-m)"
+        />
+      </g>
+      <text
+        x="70"
+        y="40"
+        fill={fg}
+        style={{ fontFamily: FONT_WORDMARK, fontWeight: 600, fontSize: 28, letterSpacing: "-0.02em" }}
+      >
+        Mettrik
+      </text>
+      <text
+        x="217"
+        y="40"
+        fill={subColor(theme)}
+        style={{ fontFamily: FONT_WORDMARK, fontWeight: 500, fontSize: 14, letterSpacing: "0.12em" }}
+      >
+        AI
+      </text>
+    </svg>
+  );
+}
+
+export function CubeMMonogramSquare({ theme: _theme }: ThemeProp) {
+  return (
+    <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg" className="h-full w-full">
+      <defs>
+        <linearGradient id="cmm-sq-top" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="#a855f7" />
+          <stop offset="100%" stopColor="#22d3ee" />
+        </linearGradient>
+        <linearGradient id="cmm-sq-m" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#fafafa" />
+          <stop offset="100%" stopColor="#e4e4e7" />
+        </linearGradient>
+      </defs>
+      <g transform="translate(14, 18)">
+        <IsoCubeWithM
+          size={50}
+          colorTop="url(#cmm-sq-top)"
+          colorLeft="#7c3aed"
+          colorRight="#0891b2"
+          letterFill="url(#cmm-sq-m)"
+        />
+      </g>
+    </svg>
+  );
+}
+
+/**
+ * IsoCubeWithM : cube isométrique avec lettre M dessinée sur la face top
+ * (face losange supérieur). La M est en deux jambes + V central, tracée
+ * dans le plan iso pour rester lisible.
+ */
+function IsoCubeWithM({
+  size,
+  colorTop,
+  colorLeft,
+  colorRight,
+  letterFill,
+}: {
+  size: number;
+  colorTop: string;
+  colorLeft: string;
+  colorRight: string;
+  letterFill: string;
+}) {
+  const s = size;
+  const h = s * 0.5;
+  return (
+    <g>
+      {/* Cube iso (3 faces) */}
+      <polygon points={`0,${h} ${s},0 ${s * 2},${h} ${s},${s}`} fill={colorTop} />
+      <polygon points={`0,${h} ${s},${s} ${s},${s * 2} 0,${s * 1.5}`} fill={colorLeft} />
+      <polygon points={`${s},${s} ${s * 2},${h} ${s * 2},${s * 1.5} ${s},${s * 2}`} fill={colorRight} />
+      {/* M en relief sur la face top (face losange supérieur)
+          Tracé épais, suivant l'inclinaison iso. */}
+      <g fill={letterFill} stroke={letterFill} strokeWidth={s * 0.04} strokeLinejoin="round">
+        {/* Jambe gauche du M (parallélogramme iso) */}
+        <polygon
+          points={`${s * 0.28},${h * 0.85} ${s * 0.46},${h * 0.39} ${s * 0.58},${h * 0.50} ${s * 0.40},${h * 0.96}`}
+        />
+        {/* Jambe droite du M */}
+        <polygon
+          points={`${s * 1.42},${h * 0.39} ${s * 1.60},${h * 0.85} ${s * 1.48},${h * 0.96} ${s * 1.30},${h * 0.50}`}
+        />
+        {/* V central du M (deux segments qui plongent) */}
+        <polygon
+          points={`${s * 0.46},${h * 0.39} ${s * 0.58},${h * 0.50} ${s * 1.00},${h * 0.92} ${s * 0.88},${h * 1.04}`}
+        />
+        <polygon
+          points={`${s * 1.42},${h * 0.39} ${s * 1.30},${h * 0.50} ${s * 0.88},${h * 1.04} ${s * 1.00},${h * 0.92}`}
+        />
+      </g>
+    </g>
+  );
+}
+
+/* ────────────────────────────────────────────────────────────
+ * 10. CUBE M · ARCH — 5 cubes formant la silhouette d'un M
+ * ──────────────────────────────────────────────────────────── */
+
+export function CubeMArchHorizontal({ theme }: ThemeProp) {
+  const fg = textColor(theme);
+  return (
+    <svg viewBox="0 0 320 64" xmlns="http://www.w3.org/2000/svg" className="h-14 w-auto">
+      <defs>
+        <linearGradient id="cma-top" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="#a855f7" />
+          <stop offset="100%" stopColor="#22d3ee" />
+        </linearGradient>
+      </defs>
+      <g transform="translate(2, 4)">
+        {/* 5 cubes formant un M iso :
+            base gauche (bas), pic gauche (haut), centre (mid),
+            pic droit (haut), base droite (bas) */}
+        <IsoCube x={0} y={28} size={8} colorTop="url(#cma-top)" colorLeft="#7c3aed" colorRight="#0891b2" opacity={0.95} />
+        <IsoCube x={6} y={14} size={8} colorTop="url(#cma-top)" colorLeft="#7c3aed" colorRight="#0891b2" />
+        <IsoCube x={20} y={24} size={8} colorTop="url(#cma-top)" colorLeft="#7c3aed" colorRight="#0891b2" opacity={0.85} />
+        <IsoCube x={34} y={14} size={8} colorTop="url(#cma-top)" colorLeft="#7c3aed" colorRight="#0891b2" />
+        <IsoCube x={40} y={28} size={8} colorTop="url(#cma-top)" colorLeft="#7c3aed" colorRight="#0891b2" opacity={0.95} />
+      </g>
+      <text
+        x="76"
+        y="40"
+        fill={fg}
+        style={{ fontFamily: FONT_WORDMARK, fontWeight: 600, fontSize: 28, letterSpacing: "-0.02em" }}
+      >
+        Mettrik
+      </text>
+      <text
+        x="223"
+        y="40"
+        fill={subColor(theme)}
+        style={{ fontFamily: FONT_WORDMARK, fontWeight: 500, fontSize: 14, letterSpacing: "0.12em" }}
+      >
+        AI
+      </text>
+    </svg>
+  );
+}
+
+export function CubeMArchSquare({ theme: _theme }: ThemeProp) {
+  return (
+    <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg" className="h-full w-full">
+      <defs>
+        <linearGradient id="cma-sq-top" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="#a855f7" />
+          <stop offset="100%" stopColor="#22d3ee" />
+        </linearGradient>
+      </defs>
+      <g transform="translate(8, 20)">
+        <IsoCube x={0} y={56} size={18} colorTop="url(#cma-sq-top)" colorLeft="#7c3aed" colorRight="#0891b2" opacity={0.95} />
+        <IsoCube x={14} y={26} size={18} colorTop="url(#cma-sq-top)" colorLeft="#7c3aed" colorRight="#0891b2" />
+        <IsoCube x={44} y={48} size={18} colorTop="url(#cma-sq-top)" colorLeft="#7c3aed" colorRight="#0891b2" opacity={0.85} />
+        <IsoCube x={74} y={26} size={18} colorTop="url(#cma-sq-top)" colorLeft="#7c3aed" colorRight="#0891b2" />
+        <IsoCube x={88} y={56} size={18} colorTop="url(#cma-sq-top)" colorLeft="#7c3aed" colorRight="#0891b2" opacity={0.95} />
+      </g>
+    </svg>
+  );
+}
+
+/* ────────────────────────────────────────────────────────────
+ * 11. CUBE M · VOXEL — M en pixel-art, face vue de front + relief iso
+ * ──────────────────────────────────────────────────────────── */
+
+export function CubeMVoxelHorizontal({ theme }: ThemeProp) {
+  const fg = textColor(theme);
+  return (
+    <svg viewBox="0 0 320 64" xmlns="http://www.w3.org/2000/svg" className="h-14 w-auto">
+      <defs>
+        <linearGradient id="cmv-grad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#a855f7" />
+          <stop offset="100%" stopColor="#22d3ee" />
+        </linearGradient>
+      </defs>
+      <g transform="translate(8, 12)">
+        <VoxelM size={8} fill="url(#cmv-grad)" />
+      </g>
+      <text
+        x="68"
+        y="40"
+        fill={fg}
+        style={{ fontFamily: FONT_WORDMARK, fontWeight: 600, fontSize: 28, letterSpacing: "-0.02em" }}
+      >
+        Mettrik
+      </text>
+      <text
+        x="215"
+        y="40"
+        fill={subColor(theme)}
+        style={{ fontFamily: FONT_WORDMARK, fontWeight: 500, fontSize: 14, letterSpacing: "0.12em" }}
+      >
+        AI
+      </text>
+    </svg>
+  );
+}
+
+export function CubeMVoxelSquare({ theme: _theme }: ThemeProp) {
+  return (
+    <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg" className="h-full w-full">
+      <defs>
+        <linearGradient id="cmv-sq-grad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#a855f7" />
+          <stop offset="100%" stopColor="#22d3ee" />
+        </linearGradient>
+      </defs>
+      <g transform="translate(16, 22)">
+        <VoxelM size={16} fill="url(#cmv-sq-grad)" />
+      </g>
+    </svg>
+  );
+}
+
+/**
+ * VoxelM : M dessiné par 11 voxels (cubes iso). Grille 5 colonnes × 4
+ * rangées. Chaque cube a légère ombre droite pour relief 3D.
+ */
+function VoxelM({ size, fill }: { size: number; fill: string }) {
+  // Pattern M en grille (5 cols × 4 rows). 1 = voxel présent.
+  const pattern = [
+    [1, 0, 0, 0, 1],
+    [1, 1, 0, 1, 1],
+    [1, 0, 1, 0, 1],
+    [1, 0, 0, 0, 1],
+  ];
+  const voxels: { x: number; y: number }[] = [];
+  pattern.forEach((row, r) =>
+    row.forEach((v, c) => {
+      if (v) voxels.push({ x: c * size, y: r * size });
+    }),
+  );
+  return (
+    <g>
+      {voxels.map((v, i) => (
+        <g key={i} transform={`translate(${v.x}, ${v.y})`}>
+          {/* Face avant */}
+          <rect x="0" y="0" width={size} height={size} fill={fill} />
+          {/* Ombre droite (face latérale relief) */}
+          <polygon
+            points={`${size},0 ${size + size * 0.25},${-size * 0.25} ${size + size * 0.25},${size - size * 0.25} ${size},${size}`}
+            fill="#7c3aed"
+            opacity="0.7"
+          />
+          {/* Ombre haut */}
+          <polygon
+            points={`0,0 ${size * 0.25},${-size * 0.25} ${size + size * 0.25},${-size * 0.25} ${size},0`}
+            fill="#0891b2"
+            opacity="0.55"
+          />
+        </g>
+      ))}
+    </g>
+  );
+}
+
+/* ────────────────────────────────────────────────────────────
+ * 12. CUBE M · TRIPTYCH — 3 cubes côte à côte formant un M minimaliste
+ * ──────────────────────────────────────────────────────────── */
+
+export function CubeMTriptychHorizontal({ theme }: ThemeProp) {
+  const fg = textColor(theme);
+  return (
+    <svg viewBox="0 0 320 64" xmlns="http://www.w3.org/2000/svg" className="h-14 w-auto">
+      <defs>
+        <linearGradient id="cmt-top" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="#a855f7" />
+          <stop offset="100%" stopColor="#22d3ee" />
+        </linearGradient>
+      </defs>
+      <g transform="translate(4, 12)">
+        {/* 3 cubes : haut-gauche, bas-centre (petit), haut-droit */}
+        <IsoCube x={0} y={4} size={11} colorTop="url(#cmt-top)" colorLeft="#7c3aed" colorRight="#0891b2" />
+        <IsoCube x={18} y={20} size={8} colorTop="url(#cmt-top)" colorLeft="#7c3aed" colorRight="#0891b2" opacity={0.85} />
+        <IsoCube x={30} y={4} size={11} colorTop="url(#cmt-top)" colorLeft="#7c3aed" colorRight="#0891b2" />
+      </g>
+      <text
+        x="74"
+        y="40"
+        fill={fg}
+        style={{ fontFamily: FONT_WORDMARK, fontWeight: 600, fontSize: 28, letterSpacing: "-0.02em" }}
+      >
+        Mettrik
+      </text>
+      <text
+        x="221"
+        y="40"
+        fill={subColor(theme)}
+        style={{ fontFamily: FONT_WORDMARK, fontWeight: 500, fontSize: 14, letterSpacing: "0.12em" }}
+      >
+        AI
+      </text>
+    </svg>
+  );
+}
+
+export function CubeMTriptychSquare({ theme: _theme }: ThemeProp) {
+  return (
+    <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg" className="h-full w-full">
+      <defs>
+        <linearGradient id="cmt-sq-top" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="#a855f7" />
+          <stop offset="100%" stopColor="#22d3ee" />
+        </linearGradient>
+      </defs>
+      <g transform="translate(8, 20)">
+        <IsoCube x={0} y={6} size={26} colorTop="url(#cmt-sq-top)" colorLeft="#7c3aed" colorRight="#0891b2" />
+        <IsoCube x={42} y={42} size={20} colorTop="url(#cmt-sq-top)" colorLeft="#7c3aed" colorRight="#0891b2" opacity={0.85} />
+        <IsoCube x={72} y={6} size={26} colorTop="url(#cmt-sq-top)" colorLeft="#7c3aed" colorRight="#0891b2" />
+      </g>
+    </svg>
+  );
+}
+
+/* ────────────────────────────────────────────────────────────
+ * 13. CUBE M · EMBOSSED — cube unique avec M extrudé en relief
+ * ──────────────────────────────────────────────────────────── */
+
+export function CubeMEmbossedHorizontal({ theme }: ThemeProp) {
+  const fg = textColor(theme);
+  return (
+    <svg viewBox="0 0 320 64" xmlns="http://www.w3.org/2000/svg" className="h-14 w-auto">
+      <defs>
+        <linearGradient id="cme-face" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#a855f7" />
+          <stop offset="100%" stopColor="#22d3ee" />
+        </linearGradient>
+      </defs>
+      <g transform="translate(6, 10)">
+        <CubeFrontWithM size={42} faceFill="url(#cme-face)" />
+      </g>
+      <text
+        x="70"
+        y="40"
+        fill={fg}
+        style={{ fontFamily: FONT_WORDMARK, fontWeight: 600, fontSize: 28, letterSpacing: "-0.02em" }}
+      >
+        Mettrik
+      </text>
+      <text
+        x="217"
+        y="40"
+        fill={subColor(theme)}
+        style={{ fontFamily: FONT_WORDMARK, fontWeight: 500, fontSize: 14, letterSpacing: "0.12em" }}
+      >
+        AI
+      </text>
+    </svg>
+  );
+}
+
+export function CubeMEmbossedSquare({ theme: _theme }: ThemeProp) {
+  return (
+    <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg" className="h-full w-full">
+      <defs>
+        <linearGradient id="cme-sq-face" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#a855f7" />
+          <stop offset="100%" stopColor="#22d3ee" />
+        </linearGradient>
+      </defs>
+      <g transform="translate(12, 14)">
+        <CubeFrontWithM size={100} faceFill="url(#cme-sq-face)" />
+      </g>
+    </svg>
+  );
+}
+
+/**
+ * CubeFrontWithM : cube vu en perspective légère (face avant + faces
+ * top/right en biseau), avec un M massif typographique extrudé en
+ * relief sur la face avant. Le M est tracé en blanc cassé avec ombre
+ * portée subtile pour effet 3D.
+ */
+function CubeFrontWithM({ size, faceFill }: { size: number; faceFill: string }) {
+  const s = size;
+  const d = s * 0.18; // profondeur perspective
+  return (
+    <g>
+      {/* Face top biseau */}
+      <polygon points={`0,0 ${s},0 ${s + d},${-d} ${d},${-d}`} fill="#0891b2" opacity="0.85" />
+      {/* Face droite biseau */}
+      <polygon points={`${s},0 ${s + d},${-d} ${s + d},${s - d} ${s},${s}`} fill="#7c3aed" opacity="0.9" />
+      {/* Face avant principale */}
+      <rect x="0" y="0" width={s} height={s} fill={faceFill} />
+      {/* M extrudé en relief : ombre sous le M */}
+      <text
+        x={s * 0.5}
+        y={s * 0.74}
+        textAnchor="middle"
+        fill="#000000"
+        opacity="0.18"
+        style={{
+          fontFamily: FONT_WORDMARK,
+          fontWeight: 800,
+          fontSize: s * 0.78,
+          letterSpacing: "-0.06em",
+        }}
+      >
+        M
+      </text>
+      {/* M principal (blanc cassé pour relief) */}
+      <text
+        x={s * 0.5}
+        y={s * 0.72}
+        textAnchor="middle"
+        fill="#fafafa"
+        style={{
+          fontFamily: FONT_WORDMARK,
+          fontWeight: 800,
+          fontSize: s * 0.78,
+          letterSpacing: "-0.06em",
+        }}
+      >
+        M
+      </text>
+    </g>
+  );
+}

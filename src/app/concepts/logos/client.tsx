@@ -19,6 +19,16 @@ import {
   MonolithSquare,
   WordmarkV2Horizontal,
   WordmarkV2Square,
+  CubeMMonogramHorizontal,
+  CubeMMonogramSquare,
+  CubeMArchHorizontal,
+  CubeMArchSquare,
+  CubeMVoxelHorizontal,
+  CubeMVoxelSquare,
+  CubeMTriptychHorizontal,
+  CubeMTriptychSquare,
+  CubeMEmbossedHorizontal,
+  CubeMEmbossedSquare,
 } from "./logo-protos";
 
 /**
@@ -41,7 +51,7 @@ type Proto = {
   Square: React.ComponentType<{ theme: "dark" | "light" }>;
 };
 
-const PROTOS: Proto[] = [
+const PROTOS_OLD: Proto[] = [
   {
     id: "pulse-signal",
     name: "Pulse Signal",
@@ -116,6 +126,58 @@ const PROTOS: Proto[] = [
   },
 ];
 
+// Yann 18 mai 2026 : nouvelles variantes 3D basées sur Cube Stack, avec
+// intégration du M de "Mettrik AI" pour usage profile picture +
+// association systématique au nom complet en horizontal.
+const PROTOS_NEW: Proto[] = [
+  {
+    id: "cube-m-monogram",
+    name: "Cube M · Monogram",
+    tagline: "Cube iso avec M gravé sur la face top",
+    rationale:
+      "Un seul gros cube isométrique, M typographique en relief sur la face supérieure (suit l'inclinaison iso). Lecture immédiate du M même en favicon 32×32. Profile picture native carrée.",
+    Horizontal: CubeMMonogramHorizontal,
+    Square: CubeMMonogramSquare,
+  },
+  {
+    id: "cube-m-arch",
+    name: "Cube M · Arch",
+    tagline: "5 cubes formant la silhouette d'un M",
+    rationale:
+      "Cinq cubes iso disposés en zigzag (bas-haut-mid-haut-bas) qui dessinent un M architectural. Effet escalier 3D distinctif, garde l'ADN CubeStack mais signe la lettre.",
+    Horizontal: CubeMArchHorizontal,
+    Square: CubeMArchSquare,
+  },
+  {
+    id: "cube-m-voxel",
+    name: "Cube M · Voxel",
+    tagline: "M pixel-art avec relief 3D droit",
+    rationale:
+      "M dessiné par 11 voxels en grille 5×4, chaque pixel avec biseau iso (top + droite). Vibe gaming / tech / data-cube, parfait pour avatar de jeu d'analystes premium.",
+    Horizontal: CubeMVoxelHorizontal,
+    Square: CubeMVoxelSquare,
+  },
+  {
+    id: "cube-m-triptych",
+    name: "Cube M · Triptych",
+    tagline: "3 cubes en M minimaliste",
+    rationale:
+      "Deux cubes hauts encadrent un cube central abaissé : silhouette de M épurée en seulement trois pièces. Très lisible en miniature, plus économe visuellement que l'Arch.",
+    Horizontal: CubeMTriptychHorizontal,
+    Square: CubeMTriptychSquare,
+  },
+  {
+    id: "cube-m-embossed",
+    name: "Cube M · Embossed",
+    tagline: "Cube perspective avec M extrudé",
+    rationale:
+      "Cube en perspective légère (top + droite biseautées), M typographique massif blanc cassé extrudé sur la face avant. Le plus 'profile picture' du lot : M domine, cube renforce.",
+    Horizontal: CubeMEmbossedHorizontal,
+    Square: CubeMEmbossedSquare,
+  },
+];
+
+
 export default function LogosClient() {
   const [activeTheme, setActiveTheme] = useState<"both" | "dark" | "light">(
     "both",
@@ -172,12 +234,45 @@ export default function LogosClient() {
       </header>
 
       <main className="mx-auto max-w-6xl px-6 py-10">
+        {/* Anciennes créations */}
+        <div className="mb-6 flex items-center gap-4">
+          <div className="h-px flex-1 bg-white/10" />
+          <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-zinc-500">
+            Anciennes créations · 8 protos initiaux
+          </div>
+          <div className="h-px flex-1 bg-white/10" />
+        </div>
         <div className="space-y-12">
-          {PROTOS.map((proto, idx) => (
+          {PROTOS_OLD.map((proto, idx) => (
             <ProtoRow
               key={proto.id}
               proto={proto}
               index={idx + 1}
+              activeTheme={activeTheme}
+            />
+          ))}
+        </div>
+
+        {/* Séparateur fort entre anciennes et nouvelles */}
+        <div className="my-16 flex items-center gap-4">
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-violet-500/50 to-violet-500/50" />
+          <div className="rounded-full border border-violet-500/30 bg-violet-500/10 px-4 py-1.5 font-mono text-[10px] uppercase tracking-[0.25em] text-violet-200">
+            Nouvelles créations · CubeStack + M de Mettrik AI
+          </div>
+          <div className="h-px flex-1 bg-gradient-to-l from-transparent via-violet-500/50 to-violet-500/50" />
+        </div>
+        <p className="mb-8 max-w-3xl text-sm leading-relaxed text-zinc-400">
+          Cinq variantes 3D inspirées du proto Cube Stack, chacune intégrant
+          le M de Mettrik. Toutes sont pensées pour fonctionner en photo de
+          profil (carré 1:1, lisible jusqu'au favicon 32×32) tout en
+          gardant le nom complet « Mettrik AI » en horizontal.
+        </p>
+        <div className="space-y-12">
+          {PROTOS_NEW.map((proto, idx) => (
+            <ProtoRow
+              key={proto.id}
+              proto={proto}
+              index={PROTOS_OLD.length + idx + 1}
               activeTheme={activeTheme}
             />
           ))}
