@@ -30,7 +30,21 @@ import { CurrencyPicker } from "@/components/currency-picker";
  * Activé uniquement pour les sociétés versant un dividende ET ayant le data
  * minimum (DPS + Cap Return + Payout). Pour la V1 démo : limité à CAT.
  */
-export function DividendStories({ company }: { company: Company }) {
+export function DividendStories({
+  company,
+  showCurrencyPicker = false,
+}: {
+  company: Company;
+  /**
+   * Yann 18 mai 2026 : la devise picker doit être MASQUÉE par défaut sur
+   * le front office public (page société). Le composant continue de
+   * détecter la devise native + override via cookie (proxy geo-IP) mais
+   * l'utilisateur final ne voit plus le menu déroulant. Yann le
+   * rallumera explicitement si besoin (concepts/mockups peut passer
+   * `showCurrencyPicker={true}` pour le test interne).
+   */
+  showCurrencyPicker?: boolean;
+}) {
   const { t } = useT();
   const accent = brand(company.ticker).primary;
   const glow = brand(company.ticker).glow;
@@ -178,15 +192,20 @@ export function DividendStories({ company }: { company: Company }) {
             {t("div.stories.subtitle")}
           </p>
         </div>
-        <div className="flex items-center gap-3">
-          {/* Devise centralisée : applique sur les 3 cards en même temps */}
-          <CurrencyPicker
-            value={currency}
-            onChange={setCurrency}
-            options={currencyOptions}
-            accent={accent}
-          />
-        </div>
+        {showCurrencyPicker && (
+          <div className="flex items-center gap-3">
+            {/* Devise centralisée : applique sur les 3 cards en même temps.
+                Masquée par défaut sur front office (Yann 18 mai 2026) :
+                la détection devise native + override geo-IP via cookie
+                continue, mais le picker n'est plus visible publiquement. */}
+            <CurrencyPicker
+              value={currency}
+              onChange={setCurrency}
+              options={currencyOptions}
+              accent={accent}
+            />
+          </div>
+        )}
       </div>
 
       {/* Layout : 3 cards côte à côte sans défilement (Yann 9 mai 23h00).
