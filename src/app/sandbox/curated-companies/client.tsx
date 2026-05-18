@@ -1,8 +1,26 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { COLOR_META, COLOR_CRITERIA, type CurationScore } from "@/lib/desk/curation-score";
+import { COLOR_META, COLOR_CRITERIA, computeCurationScore, type CurationScore } from "@/lib/desk/curation-score";
 import type { CurationRow, UniverseFlags } from "./page";
+
+const IGNORED_BLOCKS_KEY = "mettrik.curated.ignored-blocks.v1";
+
+/** Étiquettes lisibles des blocs (sinon key technique affichée). */
+const BLOCK_LABELS: Record<string, string> = {
+  hero_kpi: "Hero KPI",
+  hero_history: "Historique hero",
+  kpis_count: "Nb KPIs ≥5",
+  risks: "Risks",
+  governance: "Governance",
+  ai_pos: "AI Positioning",
+  segment: "Segments",
+  geography: "Géographie",
+  events: "Events timeline",
+  tam: "TAM (market positions)",
+  ranks: "Rangs",
+  logo: "Logo",
+};
 
 type UniverseFilterKey = keyof UniverseFlags;
 
@@ -71,6 +89,12 @@ export function CuratedCompaniesClient({ rows }: { rows: CurationRow[] }) {
   const [search, setSearch] = useState("");
   const [showHelp, setShowHelp] = useState(false);
   const [universeFilters, setUniverseFilters] = useState<Set<UniverseFilterKey>>(new Set());
+  /** Blocs à ignorer dans le calcul du score 4 couleurs.
+   *  Persistance localStorage : si tu coches "TAM", il ne compte plus dans
+   *  le score "≥95% blocs OK" et n'apparaît plus dans "détail blocs en
+   *  défaut". Recalcul live sur tous les rows. */
+  const [ignoredBlocks, setIgnoredBlocks] = useState<Set<string>>(new Set());
+  const [showBlockSettings, setShowBlockSettings] = useState(false);
 
   function toggleUniverseFilter(key: UniverseFilterKey) {
     setUniverseFilters((prev) => {
@@ -80,6 +104,66 @@ export function CuratedCompaniesClient({ rows }: { rows: CurationRow[] }) {
       return next;
     });
   }
+
+  function toggleIgnoredBlock(blockKey: string) {
+    setIgnoredBlocks((prev) => {
+      const next = new Set(prev);
+      if (next.has(blockKey)) next.delete(blockKey);
+      else next.add(blockKey);
+      // Persist localStorage
+      try {
+        if (typeof window !== "undefined") {
+          window.localStorage.setItem(
+            IGNORED_BLOCKS_KEY,
+            JSON.stringify(Array.from(next)),
+          );
+        }
+      } catch {}
+      return next;
+    });
+  }
+
+  // Hydrate ignoredBlocks depuis localStorage au mount
+  useEffect(() => {
+    try {
+      if (typeof window === "undefined") return;
+      const raw = window.localStorage.getItem(IGNORED_BLOCKS_KEY);
+      if (!raw) return;
+      const parsed = JSON.parse(raw) as unknown;
+      if (Array.isArray(parsed)) {
+        setIgnoredBlocks(new Set(parsed.filter((s): s is string => typeof s === "string")));
+      }
+    } catch {}
+  }, []);
+
+  // Liste de toutes les block keys vues dans le dataset
+  const allBlockKeys = useMemo(() => {
+    const s = new Set<string>();
+    for (const r of rows) {
+      for (const k of Object.keys(r.rawBlocks)) s.add(k);
+    }
+    return Array.from(s).sort();
+  }, [rows]);
+
+  /** Rows avec score RECALCULÉ selon les blocs ignorés.
+   *  Si aucun bloc ignoré : on garde le score SSR original (gain perf).
+   *  Sinon : on filtre les rawBlocks et on appelle computeCurationScore
+   *  côté client. */
+  const effectiveRows = useMemo(() => {
+    if (ignoredBlocks.size === 0) return rows;
+    return rows.map((r) => {
+      const filteredBlocks: Record<string, typeof r.rawBlocks[string]> = {};
+      for (const [k, v] of Object.entries(r.rawBlocks)) {
+        if (!ignoredBlocks.has(k)) filteredBlocks[k] = v;
+      }
+      const newScore = computeCurationScore({
+        blocks: filteredBlocks,
+        visualFails: r.visualFails,
+        visualAuditMissing: r.visualAuditMissing,
+      });
+      return { ...r, score: newScore };
+    });
+  }, [rows, ignoredBlocks]);
 
   useEffect(() => {
     fetch("/api/desk/curated-companies", { credentials: "include" })
@@ -118,7 +202,7 @@ export function CuratedCompaniesClient({ rows }: { rows: CurationRow[] }) {
   const filtered = useMemo(() => {
     const q = search.trim().toUpperCase();
     const activeFilters = Array.from(universeFilters);
-    return rows.filter((r) => {
+    return effectiveRows.filter((r) => {
       if (filterColor !== "all" && r.score.color !== filterColor) return false;
       const plan = curationMap.get(r.ticker.toUpperCase()) ?? "hidden";
       if (filterPlan !== "all" && plan !== filterPlan) return false;
@@ -130,7 +214,7 @@ export function CuratedCompaniesClient({ rows }: { rows: CurationRow[] }) {
       }
       return true;
     });
-  }, [rows, filterColor, filterPlan, search, curationMap, universeFilters]);
+  }, [effectiveRows, filterColor, filterPlan, search, curationMap, universeFilters]);
 
   const universeCounts = useMemo(() => {
     const counts: Record<UniverseFilterKey, number> = {
@@ -150,13 +234,13 @@ export function CuratedCompaniesClient({ rows }: { rows: CurationRow[] }) {
   const stats = useMemo(() => {
     const byColor: Record<CurationScore["color"], number> = { green: 0, yellow: 0, orange: 0, red: 0 };
     const byPlan: Record<MinPlan, number> = { free: 0, premium: 0, max: 0, hidden: 0 };
-    for (const r of rows) {
+    for (const r of effectiveRows) {
       byColor[r.score.color]++;
       const plan = curationMap.get(r.ticker.toUpperCase()) ?? "hidden";
       byPlan[plan]++;
     }
-    return { byColor, byPlan, total: rows.length };
-  }, [rows, curationMap]);
+    return { byColor, byPlan, total: effectiveRows.length };
+  }, [effectiveRows, curationMap]);
 
   return (
     <div className="min-h-screen bg-[#050507] text-zinc-100">
@@ -192,6 +276,66 @@ export function CuratedCompaniesClient({ rows }: { rows: CurationRow[] }) {
                   </div>
                 );
               })}
+            </div>
+          )}
+
+          {/* Settings : blocs à ignorer dans le score */}
+          <button
+            type="button"
+            onClick={() => setShowBlockSettings((v) => !v)}
+            className="mt-2 ml-3 text-[12px] text-amber-300 hover:text-amber-100"
+          >
+            {showBlockSettings ? "Masquer" : "Configurer"} les blocs comptés dans le score
+            {ignoredBlocks.size > 0 && (
+              <span className="ml-1.5 rounded-sm border border-amber-500/30 bg-amber-500/10 px-1 py-px text-[10px] uppercase">
+                {ignoredBlocks.size} ignoré{ignoredBlocks.size > 1 ? "s" : ""}
+              </span>
+            )}
+          </button>
+          {showBlockSettings && (
+            <div className="mt-3 rounded-lg border border-amber-500/30 bg-amber-500/[0.03] p-4">
+              <div className="mb-2 flex items-center justify-between gap-2">
+                <span className="text-[12px] text-zinc-300">
+                  Décocher un bloc pour qu&apos;il <strong>ne soit plus compté</strong> dans le score 4 couleurs ni le détail blocs en défaut. Sauvegardé dans ce navigateur (localStorage). Recalcul live sur les {rows.length} sés.
+                </span>
+                {ignoredBlocks.size > 0 && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIgnoredBlocks(new Set());
+                      try { if (typeof window !== "undefined") window.localStorage.removeItem(IGNORED_BLOCKS_KEY); } catch {}
+                    }}
+                    className="rounded-md border border-white/15 bg-white/[0.04] px-2 py-1 text-[11px] text-zinc-300 hover:border-white/30"
+                  >
+                    Tout réactiver
+                  </button>
+                )}
+              </div>
+              <div className="grid gap-1.5 sm:grid-cols-2 lg:grid-cols-3">
+                {allBlockKeys.map((k) => {
+                  const ignored = ignoredBlocks.has(k);
+                  const label = BLOCK_LABELS[k] ?? k;
+                  return (
+                    <label
+                      key={k}
+                      className={`flex cursor-pointer items-center gap-2 rounded-md border px-2 py-1.5 text-[12px] transition-colors ${
+                        ignored
+                          ? "border-zinc-500/30 bg-white/[0.02] text-zinc-500 line-through"
+                          : "border-emerald-500/30 bg-emerald-500/[0.05] text-emerald-100 hover:border-emerald-400/50"
+                      }`}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={!ignored}
+                        onChange={() => toggleIgnoredBlock(k)}
+                        className="size-3.5 cursor-pointer accent-emerald-500"
+                      />
+                      <span className="font-medium">{label}</span>
+                      <span className="ml-auto text-[10px] text-zinc-500 font-mono">{k}</span>
+                    </label>
+                  );
+                })}
+              </div>
             </div>
           )}
         </header>

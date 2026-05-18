@@ -8,6 +8,9 @@ import {
   type CurationScore,
 } from "@/lib/desk/curation-score";
 
+// Re-export pour le client
+export type { BlockStatus, VisualFail } from "@/lib/desk/curation-score";
+
 export const dynamic = "force-dynamic";
 
 export const metadata = {
@@ -63,6 +66,12 @@ export type CurationRow = {
   in_v17: boolean;
   score: CurationScore;
   flags: UniverseFlags;
+  /** Raw blocks pour permettre au client de recalculer le score selon
+   *  les blocs ignorés (toggle interactif côté UI). */
+  rawBlocks: Record<string, BlockStatus>;
+  /** Raw visual audit fails pour idem. */
+  visualFails: VisualFail[];
+  visualAuditMissing: boolean;
 };
 
 const EU_SUFFIXES = [".PA", ".DE", ".L", ".SW", ".MI", ".AS", ".ST", ".CO", ".BR", ".MC", ".HE", ".OL"] as const;
@@ -277,6 +286,9 @@ function buildRows(): CurationRow[] {
       in_v17: tk in v17,
       score,
       flags,
+      rawBlocks: blocks,
+      visualFails,
+      visualAuditMissing,
     });
   }
 
