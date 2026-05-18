@@ -103,16 +103,42 @@ const SIM_LABELS: Record<EffectiveTier, string> = {
   max: "Max",
 };
 
+/**
+ * Détecte la "version" actuellement consultée à partir de l'URL.
+ * Sert d'indicateur sur niveau 2 (preview branches) pour savoir si on est
+ * en train de tester V17, V18, V175, etc.
+ */
+function detectVersionFromPath(pathname: string): string | null {
+  if (pathname.startsWith("/sandbox/v1-8")) return "V1.8";
+  if (pathname.startsWith("/sandbox/v1-7-5")) return "V1.7.5";
+  if (pathname.startsWith("/sandbox/v1-7")) return "V1.7";
+  if (pathname.startsWith("/sandbox/v1-6")) return "V1.6";
+  if (pathname.startsWith("/sandbox/v2")) return "V2";
+  return null;
+}
+
 export function LevelBadge() {
   const [level, setLevel] = useState<Level | null>(null);
   const [collapsed, setCollapsed] = useState(false);
   const [sim, setSim] = useState<EffectiveTier | null>(null);
+  const [version, setVersion] = useState<string | null>(null);
 
   useEffect(() => {
     const envLevel = readLevelEnv();
     const l = envLevel ?? detectLevelFromHost();
     setLevel(l);
-    if (l !== 0) setSim(readSimulateCookieClient());
+    if (l !== 0) {
+      setSim(readSimulateCookieClient());
+      // Indicateur version : utile surtout en niveau 2 (preview) pour
+      // savoir si on regarde V1.7, V1.8, etc. Affiché aussi en niveau 1/3
+      // pour transparence.
+      const updateVersion = () => setVersion(detectVersionFromPath(window.location.pathname));
+      updateVersion();
+      // Re-évalue à chaque navigation (Next router events)
+      const onNav = () => updateVersion();
+      window.addEventListener("popstate", onNav);
+      return () => window.removeEventListener("popstate", onNav);
+    }
   }, []);
 
   if (level === null || level === 0) return null;
@@ -131,6 +157,15 @@ export function LevelBadge() {
         <span aria-hidden className={`h-1.5 w-1.5 rounded-full ${meta.dotClass}`} />
         <span>{collapsed ? meta.shortLabel : meta.label}</span>
       </button>
+      {version && (
+        <span
+          title={`Tu consultes l'univers ${version}. Indicateur visible en niveau 1/2/3, surtout utile en preview pour distinguer les versions en cours de test.`}
+          className="inline-flex items-center gap-1 rounded-full border border-sky-400/40 bg-sky-500/12 px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.16em] text-sky-100 backdrop-blur-md"
+        >
+          <span aria-hidden className="h-1 w-1 rounded-full bg-sky-300 shadow-[0_0_4px_rgba(125,211,252,0.8)]" />
+          Univers : {version}
+        </span>
+      )}
       {sim && (
         <span
           title={`Simulation tier active : tu vois l'app comme un user ${SIM_LABELS[sim]}. Désactivable depuis /desk-mtk9x4kp.`}

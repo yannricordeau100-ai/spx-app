@@ -207,6 +207,42 @@ Pas adopté (over-engineering pour 1 admin) :
 
 ---
 
+## Curation des sés visibles en prod (niveau 0 + 1)
+
+Yann 18 mai 2026 : sélection manuelle des sés qui doivent apparaître côté front public (niveau 0) et son shadow (niveau 1). Niveau 2/3 ignore ce filtre (toutes les sés visibles pour le dev).
+
+### Modèle cumulatif (`min_plan`)
+
+| min_plan | Visible par |
+|---|---|
+| `free` | Free + Premium + Max |
+| `premium` | Premium + Max |
+| `max` | Max uniquement |
+| `hidden` (défaut) | Personne en public |
+
+### Outil de curation
+
+URL : `/sandbox/curated-companies` (admin, gate auth)
+
+- Tableau croisé sés × statut
+- Recherche + filtres par couleur et par plan
+- Score à 4 couleurs basé sur 2 sources combinées (coverage-matrix data + visual-audit Gemini) :
+  - 🟢 **Vert / Prêt prod** : ≥80% blocs data OK + 0 fail Gemini sévérité ≥3 + Hero KPI présent
+  - 🟡 **Jaune / Quasi prêt** : 50-79% blocs OK · OU 1+ fail Gemini sévérité ≥3 · Pas de blocker hero
+  - 🟠 **Orange / Incomplet** : <50% blocs OK · Hero KPI présent
+  - 🔴 **Rouge / Bloquant** : Hero KPI manquant · OU 1+ fail Gemini sévérité 5
+- Liste explicite des blocs en défaut par sté
+- Persistance immédiate en BDD (table `desk_curated_companies`)
+- Effet immédiat sur les filtres niveau 0/1
+
+### Indicateurs visuels (LevelBadge bottom-right)
+
+- 🟢 **NIVEAU 1 SHADOW PROD** (orange) ou similaire selon niveau
+- 🔵 **Univers : V1.8** (sky) : version actuellement consultée (utile en niveau 2 pour distinguer V1.7 / V1.8 / V1.7.5 etc.)
+- 🟣 **Sim : Premium** (violet) : simulation tier active
+
+---
+
 ## Labels customs des catégories To-do
 
 Yann 18 mai 2026, option C : migration localStorage → Supabase BDD.
@@ -226,3 +262,4 @@ Yann 18 mai 2026, option C : migration localStorage → Supabase BDD.
 | 18 mai 2026 | Création architecture multi-niveaux + bascule niveau 1 (CONV-SYSTEMS) |
 | 18 mai 2026 | Setup niveau 2 alias + script db-sync-n1-to-prod (CONV-SYSTEMS) |
 | 18 mai 2026 | Système "View As" 4 sessions + migration labels todo en BDD (CONV-SYSTEMS) |
+| 18 mai 2026 | Curation sés `/sandbox/curated-companies` + indicateur version + filter niveau 0/1 (CONV-SYSTEMS) |
