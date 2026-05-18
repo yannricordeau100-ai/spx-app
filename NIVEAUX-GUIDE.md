@@ -227,8 +227,8 @@ URL : `/sandbox/curated-companies` (admin, gate auth)
 - Tableau croisé sés × statut
 - Recherche + filtres par couleur et par plan
 - Score à 4 couleurs basé sur 2 sources combinées (coverage-matrix data + visual-audit Gemini) :
-  - 🟢 **Vert / Prêt prod** : ≥80% blocs data OK + 0 fail Gemini sévérité ≥3 + Hero KPI présent
-  - 🟡 **Jaune / Quasi prêt** : 50-79% blocs OK · OU 1+ fail Gemini sévérité ≥3 · Pas de blocker hero
+  - 🟢 **Vert / Prêt prod** : ≥95% blocs data OK + 0 fail Gemini sévérité ≥3 + Hero KPI présent
+  - 🟡 **Jaune / Quasi prêt** : 50-94% blocs OK · OU 1+ fail Gemini sévérité ≥3 · Pas de blocker hero
   - 🟠 **Orange / Incomplet** : <50% blocs OK · Hero KPI présent
   - 🔴 **Rouge / Bloquant** : Hero KPI manquant · OU 1+ fail Gemini sévérité 5
 - Liste explicite des blocs en défaut par sté

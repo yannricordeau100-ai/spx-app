@@ -69,8 +69,8 @@ function isHeroOk(blocks: Record<string, BlockStatus>): boolean {
  * Règles (ordre d'évaluation) :
  *   ROUGE   : hero KPI manquant (data) OU ≥1 fail Gemini severity 5 (blocker)
  *   ORANGE  : <50% des blocs A+B+C OK
- *   JAUNE   : 50-79% blocs A+B+C OK, OU ≥1 fail Gemini severity ≥3 (mais 0 blocker)
- *   VERT    : ≥80% blocs A+B+C OK + 0 fail Gemini severity ≥3
+ *   JAUNE   : 50-94% blocs A+B+C OK, OU ≥1 fail Gemini severity ≥3 (mais 0 blocker)
+ *   VERT    : ≥95% blocs A+B+C OK + 0 fail Gemini severity ≥3
  */
 export function computeCurationScore(input: CurationInput): CurationScore {
   const { blocks, visualFails, visualAuditMissing } = input;
@@ -129,7 +129,7 @@ export function computeCurationScore(input: CurationInput): CurationScore {
     };
   }
   // JAUNE
-  if (ratio < 0.8 || visualMajorFails > 0) {
+  if (ratio < 0.95 || visualMajorFails > 0) {
     return {
       color: "yellow",
       blocksGood,
@@ -139,8 +139,8 @@ export function computeCurationScore(input: CurationInput): CurationScore {
       visualMajorFails,
       visualBlockerFails,
       reason:
-        ratio < 0.8
-          ? `${blocksGood}/${blocksTotal} blocs OK (sous 80%)`
+        ratio < 0.95
+          ? `${blocksGood}/${blocksTotal} blocs OK (sous 95%)`
           : `${visualMajorFails} fail(s) Gemini sévérité ≥3`,
     };
   }
@@ -199,9 +199,9 @@ export const COLOR_META: Record<
 /** Critères affichables à l'utilisateur (légende). */
 export const COLOR_CRITERIA: Record<CurationScore["color"], string> = {
   green:
-    "≥80% des blocs (a+b+c) OK · 0 fail Gemini sévérité ≥3 · Hero KPI présent",
+    "≥95% des blocs (a+b+c) OK · 0 fail Gemini sévérité ≥3 · Hero KPI présent",
   yellow:
-    "50-79% des blocs OK · OU 1+ fail Gemini sévérité ≥3 · Pas de blocker hero",
+    "50-94% des blocs OK · OU 1+ fail Gemini sévérité ≥3 · Pas de blocker hero",
   orange: "Moins de 50% des blocs OK · Hero KPI présent",
   red: "Hero KPI manquant · OU 1+ fail Gemini sévérité 5 (blocker)",
 };
