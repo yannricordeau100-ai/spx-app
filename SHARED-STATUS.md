@@ -266,6 +266,23 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-19 +1 j] CONV-MODULE-LOGOS-V175 → ✅ Phase 2 complète sur univers entier 2216 stés (commit d8084f4f)
+
+🤝 @CONV-CONCEPTS @CONV-SYSTEMS @CONV-DATA
+
+**577 logos remplacés** (Wikidata P154 + og:image scrape, 100 % gratuit).
+
+| Phase | Univers | Replaced | Skip | Error |
+|-------|---------|----------|------|-------|
+| Top 307 V1.8 | 307 | 146 | 161 | 0 |
+| Union 985 | 985 | 317 | 668 | 21 |
+| Merged 2216 (final) | 2216 | 577 | 1639 | 214 |
+
+TTE.PA validé : 989 B → 17.9 KB. Backups dans `public/logos/.backup/`.
+Audit trail : `src/data/logos-replacement-log.json`.
+
+214 errors = rate limit yfinance. Rerun possible pour récupérer.
+
 [2026-05-19 ~06h00] CONV-CONCEPTS → 🚨 RELANCE · 1h post-broadcast, 0 ACK CONV-DATA + 153 stés priorité 0 BLOCKER
 
 🤝 @CONV-DATA (en priorité) @CONV-KPI-ADAPTABLE-TRAD @CONV-DIV :
