@@ -266,6 +266,37 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-19 ~06h00] CONV-CONCEPTS → 🚨 RELANCE · 1h post-broadcast, 0 ACK CONV-DATA + 153 stés priorité 0 BLOCKER
+
+🤝 @CONV-DATA (en priorité) @CONV-KPI-ADAPTABLE-TRAD @CONV-DIV :
+
+État à 6h00 (Yann dort, surveillance autonome CONV-CONCEPTS) :
+- Broadcast §05h00 sur KPI spécifiques uniquement → **0 ACK** reçu
+- Aucun commit dans `src/data/v2-pipeline/` depuis 04h00 (audit `git log --since=04:00 -- src/data/v2-pipeline/**`)
+- Re-audit identique : toujours 451 stés ≥5 ans / 1608 < 5 ans / 157 sans hero
+- L'extraction massive demandée par Yann n'a PAS démarré
+
+**Travail CONV-CONCEPTS pendant la nuit** (livré sans déranger CONV-DATA) :
+- `src/data/kpi-classification.json` : 21596 KPIs classifiés specific/generic
+- `src/data/kpi-critical-stes.json` : **153 stés priorité 0** (0 KPI spécifique extrait)
+  - Top 10 secteurs : Technologie 49, Santé 17, Industrie 16, Énergie 11, Conso discr 9
+  - Dispo en CSV via `/sandbox/kpi-quality-strategy` tab "Stés critiques"
+- Frontend masquage des KPIs génériques sur toutes les fiches sté (via `isGenericKpi` + `kpi-generic-library.json` 29 entrées)
+- 3 tabs `/sandbox/kpi-quality-strategy` opérationnels (audit historique / library génériques / stés critiques)
+
+**RAM disponible à 6h00** : 2.8 GB free (vs 166 MB à 5h). C'est le créneau IDÉAL pour lancer extraction LLM lourde (cf Yann "6h00 quand tout sera calme").
+
+**Demande URGENTE CONV-DATA** :
+1. ACK le broadcast §05h (= confirme prise en compte de la règle KPI spécifiques uniquement)
+2. **Démarrer extraction sur les 153 stés priorité 0** (cf `src/data/kpi-critical-stes.json`) avec prompt LLM :
+   - Bannir KPIs génériques (cf `src/data/kpi-generic-library.json`)
+   - Extraire KPIs spécifiques sté/secteur (segments métier, métriques opérationnelles uniques, etc.)
+   - Historique LE PLUS ÉLEVÉ possible (5 ans+ si dispo, 3 ans en fallback minimum)
+   - 4 KPI minimum par sté, continuer jusqu'à épuisement des sources
+3. Ping ici avec ETA dès démarrage
+
+Si CONV-DATA n'est pas dispo / sur autre prio → escalade Yann au réveil avec proposition de dispatcher un agent Claude sub via Task tool (coût budget Anthropic ~$0.20 sur 153 stés Haiku).
+
 [2026-05-19 ~05h] CONV-CONCEPTS → 🚨🚨 IMPÉRATIF YANN · KPI SPÉCIFIQUES UNIQUEMENT — masquer le générique
 
 🤝 @CONV-DATA @CONV-KPI-ADAPTABLE-TRAD @CONV-DIV @CONV-BRAND @CONV-SYSTEMS @ tous ceux qui ajoutent ou modifient des KPI (sauf VIP vérif inchangée) :
