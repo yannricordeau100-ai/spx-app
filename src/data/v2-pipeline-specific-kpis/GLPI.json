@@ -1,17 +1,97 @@
 {
   "ticker": "GLPI",
-  "extracted_at": "2026-05-19T16:05:00Z",
-  "extracted_by": "Agent-Ext-B CONV-CONCEPTS",
-  "sources_used": ["sec-data/cat1-us/10K/2025/GLPI_2025-02-20.htm.gz"],
+  "_extracted_at": "2026-05-19T22:45:00Z",
+  "_extracted_by": "subagent-vagueB-kpi5",
+  "_fit_for_site": true,
+  "sources_used": [
+    "sec-data/cat1-us/10K/2026/GLPI_2026-02-19.htm.gz",
+    "sec-data/cat1-us/10K/2024/GLPI_*.htm.gz",
+    "sec-data/cat1-us/10K/2022/GLPI_*.htm.gz"
+  ],
   "kpis": [
-    {"short": "AFFO per Share", "name_fr": "AFFO par action", "name_en": "AFFO per Share", "value": 3.78, "unit": "$", "yoy": "+5%", "history": [3.13, 3.30, 3.48, 3.60, 3.78], "period_type": "year", "description_fr": "AFFO per share FY24. KPI #1 REIT gaming. Croissance régulière, gestion conservative. Vs VICI proche en multiples.", "description_en": "FY24 AFFO per share. #1 gaming REIT KPI. Steady growth, conservative management. Vs VICI close multiples.", "_specific_to": "Gaming REIT distributable cash"},
-    {"short": "Properties", "name_fr": "Propriétés détenues", "name_en": "Properties Owned", "value": 68, "unit": "biens", "yoy": "+3", "history": [54, 56, 59, 65, 68], "period_type": "year", "description_fr": "Propriétés gaming + hospitality FY24. 18 États. Tenants : Penn Entertainment (35 properties), Boyd Gaming, Bally's, Caesars. Long-term triple-net leases.", "description_en": "FY24 gaming + hospitality properties. 18 states. Tenants: Penn Entertainment (35 properties), Boyd Gaming, Bally's, Caesars. Long-term triple-net leases.", "_specific_to": "GLPI portfolio scale"},
-    {"short": "Weighted Avg Lease Term", "name_fr": "Durée moyenne pondérée des baux", "name_en": "Weighted Avg Lease Term", "value": 17, "unit": "années", "yoy": "+0.5", "history": [11, 12, 14, 16, 17], "period_type": "year", "description_fr": "Durée moyenne pondérée baux restants FY24 (avec options). Plus court que VICI (40+) mais reasonable visibility.", "description_en": "FY24 weighted avg remaining lease term (with options). Shorter than VICI (40+) but reasonable visibility.", "_specific_to": "GLPI lease duration"},
-    {"short": "Annualized Cash Rent", "name_fr": "Loyer cash annualisé", "name_en": "Annualized Cash Rent", "value": 1.45, "unit": "Bn $", "yoy": "+5%", "history": [1.20, 1.25, 1.32, 1.38, 1.45], "period_type": "year", "description_fr": "Loyer cash annualisé contractuel FY24. Escalators inclus dans baux (% ou CPI). Foundation prévisible du dividende.", "description_en": "FY24 contractual annualized cash rent. Lease-embedded escalators (% or CPI). Predictable dividend foundation.", "_specific_to": "GLPI contractual rent base"},
-    {"short": "Tenant Coverage", "name_fr": "Coverage ratio operators", "name_en": "Operator Coverage Ratio", "value": 2.1, "unit": "x", "yoy": "stable", "history": [1.9, 2.0, 2.1, 2.1, 2.1], "period_type": "year", "description_fr": "Coverage ratio operators FY24. Capacité tenants à payer loyer (rent coverage). Solide, surveiller Penn evolution (online gaming pressure).", "description_en": "FY24 operator coverage ratio. Tenants rent-paying capacity. Solid, monitor Penn evolution (online gaming pressure).", "_specific_to": "GLPI tenant health"}
-  ],
-  "kpis_story": [
-    {"short": "Bally's Acquisitions", "name_fr": "Acquisitions Bally's (sale-leaseback)", "name_en": "Bally's Sale-Leaseback", "value": null, "unit": "qualitative", "yoy": null, "history": [], "period_type": "year", "is_short_history": true, "story_category": "Capacité", "description_fr": "Bally's portfolio sale-leaseback 2024 ($1.59Md, 6 propriétés). Diversification tenants. GLPI capture nouvelle relationship Bally's. Stratégie continue M&A REIT gaming.", "description_en": "2024 Bally's portfolio sale-leaseback ($1.59Bn, 6 properties). Tenant diversification. GLPI captures new Bally's relationship. Continued gaming REIT M&A strategy.", "_specific_to": "GLPI capital allocation"}
-  ],
-  "_notes": "First gaming REIT (spun off Penn 2013). Source: 10-K FY24 filed Feb 2025."
+    {
+      "short": "Rental Income",
+      "name_fr": "Revenu locatif (Rental Income)",
+      "name_en": "Rental Income",
+      "value": 1368,
+      "unit": "M $",
+      "yoy": "+3%",
+      "history": [1031, 1107, 1286, 1331, 1368],
+      "period_type": "annual",
+      "description": "Loyer de base + percentage rent perçu des opérateurs casino. Coeur du business REIT gaming.",
+      "signal": "Croissance régulière + 3-4% / an : escalators contractuels + acquisitions.",
+      "quality": "Excellent",
+      "_specific_to": "GLPI base rent"
+    },
+    {
+      "short": "Total Income from Real Estate",
+      "name_fr": "Revenu total immobilier",
+      "name_en": "Total Income from Real Estate",
+      "value": 1595,
+      "unit": "M $",
+      "yoy": "+4%",
+      "history": [1103, 1216, 1440, 1532, 1595],
+      "period_type": "annual",
+      "description": "Total income from real estate (rental income + financing leases + sales type leases + interest income on real estate loans).",
+      "signal": "Croissance + 4% : diversification des structures de financement (financing leases, real estate loans).",
+      "quality": "Excellent",
+      "_specific_to": "GLPI diversified revenue streams"
+    },
+    {
+      "short": "Income from Investment in Leases",
+      "name_fr": "Revenu investissement leases",
+      "name_en": "Income from Investment in Leases (Financing)",
+      "value": 196,
+      "unit": "M $",
+      "yoy": "+5%",
+      "history": [0, 30, 100, 185, 196],
+      "period_type": "annual",
+      "description": "Revenu issu des financing leases classés selon ASC 842 : composante en forte hausse via les acquisitions récentes structurées en financing leases.",
+      "signal": "Bond suite acquisitions 2023-2024 (Hard Rock Rockford, Tioga Downs, etc.) en financing lease.",
+      "quality": "Excellent",
+      "_specific_to": "GLPI lease structure innovation"
+    },
+    {
+      "short": "Gaming Properties Count",
+      "name_fr": "Nombre de propriétés gaming",
+      "name_en": "Gaming Properties Owned",
+      "value": 69,
+      "unit": "biens",
+      "yoy": "+3",
+      "history": [54, 57, 59, 66, 69],
+      "period_type": "annual",
+      "description": "Nombre de propriétés gaming et établissements liés possédés. Diversification géographique sur 20 États.",
+      "signal": "Croissance régulière par acquisitions + extensions : 3 nouveaux établissements en 2025.",
+      "quality": "Excellent",
+      "_specific_to": "GLPI portfolio scale"
+    },
+    {
+      "short": "Real Estate Loans Interest Income",
+      "name_fr": "Intérêts prêts immobilier",
+      "name_en": "Interest Income from Real Estate Loans",
+      "value": 16,
+      "unit": "M $",
+      "yoy": "+53%",
+      "history": [0, 0, 1, 10, 16],
+      "period_type": "annual",
+      "description": "Intérêts perçus sur les prêts immobiliers consentis aux opérateurs (Bally's Chicago, Bally's NYC, Tropicana Las Vegas, etc.).",
+      "signal": "Nouvelle ligne de revenu en forte croissance : GLPI devient financier immobilier en plus de bailleur.",
+      "quality": "Excellent",
+      "_specific_to": "GLPI loan-to-own strategy"
+    },
+    {
+      "short": "Income from Sales-Type Leases",
+      "name_fr": "Revenu sales-type leases",
+      "name_en": "Income from Sales-Type Leases",
+      "value": 15,
+      "unit": "M $",
+      "yoy": "+202%",
+      "history": [0, 0, 0, 5, 15],
+      "period_type": "annual",
+      "description": "Revenu des sales-type leases (Boyd Belterra, Strategic Gaming) : structure de propriété hybride.",
+      "signal": "Croissance forte : Boyd Belterra + structure spécifique 2024-2025 ramp-up.",
+      "quality": "Bon",
+      "_specific_to": "GLPI sales-type lease portfolio"
+    }
+  ]
 }

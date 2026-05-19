@@ -1,9 +1,97 @@
 {
   "ticker": "SHOP",
-  "_extracted_at": "2026-05-19T17:14:26Z",
-  "_extracted_by": "sub-agent-batch-5",
-  "_no_source": true,
-  "_fit_for_site": false,
-  "_reason": "Pas de 10-K / 20-F / annual-text disponible dans sec-data (seuls page snapshots scrapés)",
-  "kpis": []
+  "_extracted_at": "2026-05-19T22:20:00Z",
+  "_extracted_by": "subagent-vagueB-kpi5",
+  "_fit_for_site": true,
+  "sources_used": [
+    "sec-data/cat1-us/10K/2026/SHOP_2026-02-11.htm.gz",
+    "sec-data/cat1-us/10K/2025/SHOP_2025-02-11.htm.gz"
+  ],
+  "kpis": [
+    {
+      "short": "GMV",
+      "name_fr": "Volume marchand brut (GMV)",
+      "name_en": "Gross Merchandise Volume",
+      "value": 378441,
+      "unit": "M $",
+      "yoy": "+29%",
+      "history": [197167, 235910, 292275, 378441],
+      "period_type": "annual",
+      "description": "Valeur totale des commandes traitées sur Shopify : indicateur clé d'échelle de l'écosystème marchand.",
+      "signal": "Accélération continue : pénétration commerce mondiale du noyau e-commerce + Shopify Payments.",
+      "quality": "Excellent",
+      "_specific_to": "SHOP commerce platform scale"
+    },
+    {
+      "short": "Subscription Solutions Rev",
+      "name_fr": "Revenu Subscription Solutions",
+      "name_en": "Subscription Solutions Revenue",
+      "value": 2752,
+      "unit": "M $",
+      "yoy": "+17%",
+      "history": [1488, 1837, 2350, 2752],
+      "period_type": "annual",
+      "description": "Revenu récurrent des abonnements plans Basic/Shopify/Advanced/Plus : socle SaaS de la fiche P&L.",
+      "signal": "Croissance régulière > 17% : hausse tarifs Plus + adoption enterprise.",
+      "quality": "Excellent",
+      "_specific_to": "SHOP SaaS recurring base"
+    },
+    {
+      "short": "Merchant Solutions Rev",
+      "name_fr": "Revenu Merchant Solutions",
+      "name_en": "Merchant Solutions Revenue",
+      "value": 8804,
+      "unit": "M $",
+      "yoy": "+35%",
+      "history": [4112, 5223, 6530, 8804],
+      "period_type": "annual",
+      "description": "Revenu Payments (Shop Pay), Shipping, Capital, Markets : monétisation flux marchands au-delà de l'abonnement.",
+      "signal": "Croissance 35% portée par Shopify Payments attach rate + Shop Pay international.",
+      "quality": "Excellent",
+      "_specific_to": "SHOP take-rate flywheel"
+    },
+    {
+      "short": "MRR",
+      "name_fr": "Revenu mensuel récurrent (MRR)",
+      "name_en": "Monthly Recurring Revenue",
+      "value": 205,
+      "unit": "M $",
+      "yoy": "+15%",
+      "history": [109, 144, 178, 205],
+      "period_type": "annual",
+      "description": "Somme des abonnements mensuels au 31 décembre : prédicteur direct du revenu Subscription Solutions.",
+      "signal": "Croissance MRR + 15% : pricing + mix Plus.",
+      "quality": "Excellent",
+      "_specific_to": "SHOP merchant subscription quality"
+    },
+    {
+      "short": "Subscription Gross Margin",
+      "name_fr": "Marge brute Subscription Solutions",
+      "name_en": "Subscription Solutions Gross Margin",
+      "value": 81.1,
+      "unit": "%",
+      "yoy": "-0.4pt",
+      "history": [77.7, 80.7, 81.5, 81.1],
+      "period_type": "annual",
+      "description": "Marge brute du segment abonnements : (Rev - Coût rev) / Rev. Qualité du SaaS pur.",
+      "signal": "Marge > 80% stabilisée : confirme structure SaaS premium.",
+      "quality": "Excellent",
+      "_specific_to": "SHOP SaaS economics"
+    },
+    {
+      "short": "Merchant Solutions Gross Margin",
+      "name_fr": "Marge brute Merchant Solutions",
+      "name_en": "Merchant Solutions Gross Margin",
+      "value": 37.7,
+      "unit": "%",
+      "yoy": "-1.4pt",
+      "history": [38.8, 38.9, 39.1, 37.7],
+      "period_type": "annual",
+      "description": "Marge brute des solutions marchandes (Payments + Capital + Shipping) : compresse avec montée Payments international.",
+      "signal": "Compression 1.4pt : mix Payments international (interchange + FX) plus dilutif.",
+      "quality": "Bon",
+      "_specific_to": "SHOP payment take-rate"
+    }
+  ],
+  "_note": "History 4y (2022-2025) au lieu de 5y. Le 10-K plus ancien (FY2021) n'est pas dans sec-data local. Pour respecter règle anti-hallucination, on n'extrapole pas 2021."
 }
