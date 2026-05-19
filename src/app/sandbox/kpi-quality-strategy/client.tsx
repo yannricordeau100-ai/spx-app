@@ -1,10 +1,10 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Download, Filter } from "lucide-react";
-import type { HistEntry, GenericKpiEntry } from "./page";
+import { Download, Filter, AlertTriangle } from "lucide-react";
+import type { HistEntry, GenericKpiEntry, CriticalEntry } from "./page";
 
-type Tab = "audit" | "generic";
+type Tab = "audit" | "generic" | "critical";
 type AuditFilter = "geq5" | "under5";
 
 const CATEGORIES = [
@@ -44,10 +44,12 @@ export function KpiQualityStrategyClient({
   geq5,
   under5,
   generic,
+  critical,
 }: {
   geq5: HistEntry[];
   under5: HistEntry[];
   generic: GenericKpiEntry[];
+  critical: CriticalEntry[];
 }) {
   const [tab, setTab] = useState<Tab>("audit");
   const [auditFilter, setAuditFilter] = useState<AuditFilter>("geq5");
@@ -100,6 +102,17 @@ export function KpiQualityStrategyClient({
         >
           Library KPI génériques ({generic.length})
         </button>
+        <button
+          onClick={() => setTab("critical")}
+          className={`inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-[12.5px] font-medium transition-colors ${
+            tab === "critical"
+              ? "bg-rose-500/20 text-rose-100 ring-1 ring-rose-500/30"
+              : "text-zinc-400 hover:text-zinc-200"
+          }`}
+        >
+          <AlertTriangle className="size-3.5" />
+          Stés critiques ({critical.length})
+        </button>
       </div>
 
       {tab === "audit" && (
@@ -120,6 +133,130 @@ export function KpiQualityStrategyClient({
           onToggle={toggleGeneric}
         />
       )}
+      {tab === "critical" && <CriticalPanel critical={critical} />}
+    </div>
+  );
+}
+
+function CriticalPanel({ critical }: { critical: CriticalEntry[] }) {
+  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState<"all" | "top307">("all");
+  const filtered = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    return critical.filter((c) => {
+      if (filter === "top307" && !c.in_top307_v18) return false;
+      if (!q) return true;
+      return (
+        c.ticker.toLowerCase().includes(q) ||
+        c.name.toLowerCase().includes(q) ||
+        c.sector.toLowerCase().includes(q) ||
+        c.country.toLowerCase().includes(q)
+      );
+    });
+  }, [critical, filter, search]);
+
+  // Top sectors among critical
+  const sectorCounts = useMemo(() => {
+    const m = new Map<string, number>();
+    for (const c of critical) {
+      const s = c.sector || "?";
+      m.set(s, (m.get(s) || 0) + 1);
+    }
+    return Array.from(m.entries()).sort((a, b) => b[1] - a[1]);
+  }, [critical]);
+
+  return (
+    <div>
+      <div className="mb-4 rounded-xl border border-rose-500/20 bg-rose-500/[0.04] p-4">
+        <div className="mb-2 flex items-center gap-2 font-display text-[14px] font-semibold text-rose-200">
+          <AlertTriangle className="size-4" />
+          Stés priorité 0 BLOCKER (153 stés)
+        </div>
+        <p className="text-[12px] leading-relaxed text-rose-100/80">
+          Ces stés ont <strong>0 KPI spécifique extrait</strong> — tout est
+          générique (Revenue, Op Margin, EPS, EBITDA, etc.). Après filtrage
+          frontend, elles auront <strong>0 KPI affichable</strong> dans les
+          Indicateurs clés. Re-extraction CONV-DATA en{" "}
+          <strong>priorité 0 immédiate</strong> (tous les docs disponibles
+          pour trouver des KPIs spécifiques sté ou secteur).
+        </p>
+      </div>
+
+      <div className="mb-4 grid grid-cols-2 gap-2 sm:grid-cols-5">
+        {sectorCounts.slice(0, 10).map(([sector, count]) => (
+          <div key={sector} className="rounded-lg border border-white/[0.06] bg-white/[0.02] p-2.5">
+            <div className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">{sector}</div>
+            <div className="mt-0.5 font-display text-[18px] font-bold text-rose-200">{count}</div>
+          </div>
+        ))}
+      </div>
+
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+        <div className="inline-flex rounded-lg border border-white/[0.08] bg-white/[0.02] p-1">
+          <button
+            onClick={() => setFilter("all")}
+            className={`rounded-md px-3 py-1.5 text-[12px] font-medium transition-colors ${filter === "all" ? "bg-rose-500/15 text-rose-200 ring-1 ring-rose-500/25" : "text-zinc-400 hover:text-zinc-200"}`}
+          >
+            Toutes ({critical.length})
+          </button>
+          <button
+            onClick={() => setFilter("top307")}
+            className={`rounded-md px-3 py-1.5 text-[12px] font-medium transition-colors ${filter === "top307" ? "bg-rose-500/15 text-rose-200 ring-1 ring-rose-500/25" : "text-zinc-400 hover:text-zinc-200"}`}
+          >
+            Top 307 V1.8 uniquement
+          </button>
+        </div>
+        <div className="flex flex-wrap items-center gap-2">
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Filtrer (ticker, nom, secteur, pays)…"
+            className="w-64 rounded-md border border-white/10 bg-white/[0.02] px-3 py-1.5 text-[12.5px] text-zinc-100 placeholder-zinc-500 outline-none transition-colors focus:border-rose-400/50"
+          />
+          <button
+            onClick={() => downloadCsv(filtered as unknown as Record<string, unknown>[], `mettrik-kpi-critical-${new Date().toISOString().slice(0, 10)}.csv`)}
+            className="inline-flex items-center gap-1.5 rounded-md border border-rose-500/30 bg-rose-500/[0.06] px-3 py-1.5 text-[12px] font-medium text-rose-200 transition-colors hover:bg-rose-500/15"
+          >
+            <Download className="size-3.5" />
+            Export CSV ({filtered.length})
+          </button>
+        </div>
+      </div>
+
+      <div className="overflow-x-auto rounded-xl border border-white/[0.06]">
+        <table className="w-full text-[12px]">
+          <thead className="bg-white/[0.02] text-left font-mono text-[10.5px] uppercase tracking-wider text-zinc-500">
+            <tr>
+              <th className="px-3 py-2">Ticker</th>
+              <th className="px-3 py-2">Nom</th>
+              <th className="px-3 py-2">Pays</th>
+              <th className="px-3 py-2">Secteur</th>
+              <th className="px-3 py-2">Top 307</th>
+              <th className="px-3 py-2">KPIs extraits (tous génériques)</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-white/[0.04]">
+            {filtered.slice(0, 500).map((c) => (
+              <tr key={c.ticker} className="hover:bg-white/[0.02]">
+                <td className="px-3 py-1.5 font-mono text-violet-300">{c.ticker}</td>
+                <td className="px-3 py-1.5 text-zinc-100">{c.name}</td>
+                <td className="px-3 py-1.5 text-zinc-400">{c.country}</td>
+                <td className="px-3 py-1.5 text-zinc-400">{c.sector}</td>
+                <td className="px-3 py-1.5">{c.in_top307_v18 ? "✅" : "—"}</td>
+                <td className="px-3 py-1.5 text-[11px] text-zinc-500">
+                  {(c.kpis_extracted || []).join(", ")}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        {filtered.length > 500 && (
+          <div className="border-t border-white/[0.06] bg-white/[0.02] px-3 py-2 text-center text-[11px] text-zinc-500">
+            500 premières affichées sur {filtered.length}. Export CSV pour la liste complète.
+          </div>
+        )}
+      </div>
     </div>
   );
 }

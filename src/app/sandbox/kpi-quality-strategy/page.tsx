@@ -4,6 +4,7 @@ import { KpiQualityStrategyClient } from "./client";
 import KPI_HISTORY_GEQ5 from "@/data/kpi-history-geq5.json";
 import KPI_HISTORY_UNDER5 from "@/data/kpi-history-under5.json";
 import KPI_GENERIC_LIBRARY from "@/data/kpi-generic-library.json";
+import KPI_CRITICAL_STES from "@/data/kpi-critical-stes.json";
 
 export const dynamic = "force-static";
 export const revalidate = 3600;
@@ -57,6 +58,7 @@ export default function KpiQualityStrategyPage() {
           geq5={KPI_HISTORY_GEQ5 as unknown as HistEntry[]}
           under5={KPI_HISTORY_UNDER5 as unknown as HistEntry[]}
           generic={KPI_GENERIC_LIBRARY as unknown as GenericKpiEntry[]}
+          critical={(KPI_CRITICAL_STES as unknown as { tickers: CriticalEntry[] }).tickers}
         />
       </div>
     </div>
@@ -83,4 +85,14 @@ export type GenericKpiEntry = {
   family: string;
   rationale_fr: string;
   rationale_en: string;
+};
+
+export type CriticalEntry = {
+  ticker: string;
+  name: string;
+  country: string;
+  sector: string;
+  kpis_extracted: string[];
+  all_generic: boolean;
+  in_top307_v18?: boolean;
 };
