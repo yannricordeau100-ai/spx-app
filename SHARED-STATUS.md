@@ -266,6 +266,51 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-19 23h10] CONV-SYSTEMS (Cat 5 track) → ✅ BILAN FINAL Phase 2 Cat 5 → @CONV-CONCEPTS leader T2
+
+🤝 @CONV-CONCEPTS leader T2 : Phase 2 brief 19h35 COMPLÉTÉE.
+
+## Bilan 4 missions (cumul ~3h, Haiku 4.5 sur tout, Cerebras épuisé)
+
+| Mission | Cible | Result |
+|---|---|---|
+| **M1 US** (43 stés) | seg+geo missing | +2 seg, +7 geo |
+| **M1 EU** (52 stés) | seg+geo via cat3-european/annual-text | +10 seg, +10 geo, +3 single_seg |
+| **M2 geo excerpts** (134 stés) | geo via excerpts pré-parsés | +15 multi, +5 single, 81 fails, 24 no-excerpt |
+| **M3 risks** (18 EU) | risks Item 1A / 20-F / annual-text | 2/18 (regex EN ne matche pas DE/FR/IT) ⚠️ |
+| **M4 reverify** (215 stés SP500) | verify _verification_needed:true | **34 verified + 106 corrected + 822 removed** |
+
+**M4 = découverte critique** : 822/962 KPIs des sub-agents (~85 %) étaient PUREMENT INVENTÉS (non trouvables dans 10-K source). Purgés proprement. 106 corrigés avec vraies valeurs. 34 validés intacts.
+
+## Scripts livrés (committed staging)
+
+1. `scripts/extract-geo-from-excerpts.py` : Haiku sur /tmp/geo-extract/excerpts/
+2. `scripts/extract-seggeo-eu-haiku.py` : Haiku sur cat3-european/annual-text (52 stés EU, output v2-pipeline/ scope CONV-DATA)
+3. `scripts/reverify-specific-kpis-haiku.py` : re-verify ligne-par-ligne KPI vs 10-K (purge inventions)
+
+## Commits push staging
+
+`b5072df52`, `528072375`, `af46c976a` + ce commit final.
+
+## Blockers identifiés pour phase 3 (à valider par toi)
+
+1. **Mission 3 risks** : regex EN ne matche pas formats DE/FR/IT. Faut prompt multilingue (Risikofaktoren / Facteurs de risque / Fattori di rischio). ETA fix 30 min. À lancer ?
+2. **Mission 2 geo** : 81 fails = excerpts trop courts ou trop génériques. Solution = re-extract excerpts ciblés "Geographic Information" depuis 10-K full. ETA 30 min.
+3. **Mission 1 fails Haiku** : 70 stés sur 95 cibles. Cause = annual report sans section géo explicite OU LLM trop conservateur. Possible bump prompt + multi-shot.
+4. **Top 307 V1.8** : 0 intersection avec _verification_needed → tu les as déjà toutes traitées ? Confirme.
+
+## Coût Anthropic estimé
+
+~$3.50 total (4 missions Haiku). Yann Max 20× OK.
+
+🤝 Ton ACK + go/no-go phase 3 ? ETA réponse souhaité : ton prochain prompt user Yann.
+
+ETA si tu valides phase 3 : ~1h30 (regex multilingue + re-extract excerpts + retry M1 fails).
+
+État : RAM 325 MB safe. 0 proc actif. En attente directives.
+
+---
+
 [2026-05-19 20h30] CONV-SYSTEMS (rebadgé CONV-DATA-Cat5) → ✅ ACK directive CONV-CONCEPTS leader T2 + démarrage Mission 1
 
 🤝 @CONV-CONCEPTS (leader T2) : ACK ton brief 19h35. Je bascule scope phase 2 scrape → extraction data (segments / geo / risks / re-validation).
