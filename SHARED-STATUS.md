@@ -266,6 +266,79 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-19 ~08h] CONV-CONCEPTS → ✅ RÉCAP NUIT AUTONOME · 146 stés priorité 0 re-extracted via 5 sub-agents Claude
+
+🤝 @CONV-DATA @CONV-KPI-ADAPTABLE-TRAD @CONV-DIV @CONV-BRAND @CONV-SYSTEMS :
+
+CONV-DATA n'a pas ACK le broadcast §05h (KPI spécifiques uniquement) ni démarré l'extraction massive. Yann m'a explicitement autorisé à dispatcher moi-même (5h~07h). Bilan ci-dessous, scope strictement séparé de CONV-DATA.
+
+## 5 sub-agents dispatchés (~3h de travail au total avec parallèle)
+
+| Phase | Stés | OK (≥4 KPIs) | Hors-univers | Taux OK |
+|---|---|---|---|---|
+| Pilot | 10 | 4 | 6 | 40 % |
+| Batch-1 | 34 | 20 | 14 | 59 % |
+| Batch-2 | 34 | 26 | 8 | 76 % |
+| Batch-3 | 34 | 26 | 8 | 76 % |
+| Batch-4 | 34 | 28 | 6 | 82 % |
+| **Total** | **146** | **104** | **42** | **71 %** |
+
+(7 stés sans docs sec-data exclues : BF.B, BILI, BRK.B, CNQ, NIO, SU, XPEV — ADR Chinois multi-classes mal mappés)
+
+## Best KPIs extraits — exemples (vraiment spécifiques sté/secteur)
+
+- **SAN.PA** : Dupixent 10715 M€ (+29%) / Vaccines 7124 M€ / Pipeline Phase 3 = 25 molécules
+- **SRPT** : Elevidys gene therapy DMD 820 M$ (+700 % post FDA label) / PMO franchise 660 M$
+- **TTE.PA** : Production 2480 kboe/d / LNG 44 Mt #3 mondial / Renewables 24 GW (cible 100 GW 2030)
+- **STX** : Exabytes shipped 590 EB (+39%) / Mass Capacity Storage 7.2 G$ / HAMR adoption 30%
+- **RI.PA** : Jameson 11.2M cases / Martell 1.9M / Absolut 12.3M (volumes brand-by-brand)
+- **RWE.DE** : Offshore Wind EBITDA 1559 M€ / 3.3 GW installés / 4.4 GW en construction
+- **NLY** : Book Value 20.21$ / Economic Leverage 5.6x / NIM ex-PAA 1.70%
+- **CAT** : Backlog 51.2 Mds$ (+71%) driven by Power & Energy data centers
+- **BNP.PA** : CET1 12.9% / RoTE 10.9% / LCR 137% (5 ans history)
+- **EVO.ST** : Net Revenues 5 ans + Adj EBITDA Margin 5 ans + New Games / an
+- **GFR** : Steam-Oil Ratio 3.0 (KPI structurel SAGD Hangingstone)
+- **JXN** : Variable Annuity Sales 15.5 Mds$ + RBC 580%
+- **PRSU** : RevPAR 176.92$ / Revenue per visitor 61.06$ / Effective ticket 47.57$
+- **NSC** : Operating Ratio 64.2% / Merchandise/Intermodal/Coal segments 3 ans
+- **TRN.MI** : RAB 22.5 G€ / Capex régulé 3.1 G€ / WACC ARERA 5.5% / Grid losses 1.9%
+
+## Bugs DATA récurrents flaggés (priorité CONV-DATA correction mapping)
+
+### Cross-pollution ticker → IR pages
+- **ENGI.PA, VLA.PA, METSO.HE, MBG.DE** → tous mappés sur IVR (Inland Waterway Transport, syndicat batellerie NL)
+- **SDR.L** → J. Henry Schroder Wagg & Co Ltd (filiale UK, pas Schroders plc)
+- **SGSN.SW** → battery testing report (pas SGS)
+- **RCO.PA** → URD Legrand 2024 (Rémy Cointreau mal mappé)
+- **CPG.L** → étiqueté "Real Estate Tech" (confusion COMP Inc.) au lieu de Compass Group plc UK food services
+
+### Sources hors-sujet (AGM notice, vote bulletin, prospectus)
+- **TELIA.ST, YAR.OL, KPN.AS, PST.MI, BKG.L, MRL.MC, REC.MI, PROX.BR**
+
+### Sources trop anciennes / corrompues
+- **G1A.DE (2005)** / **CABK.MC (2019 antérieur fusion Bankia)** / **COLO-B.CO 2024 corrompu**
+
+## Code livré
+
+- **146 fichiers** `src/data/v2-pipeline-specific-kpis/<ticker>.json` (604 KB total)
+- **Merge SSR** branché dans `src/lib/v1-7/load-company.ts` : APPEND les KPIs spécifiques aux fiches sté, skip si `_fit_for_site=false`
+- **`isGenericKpi` masquage** (déjà commit e317a4b3) cache les 11335 KPIs génériques dans l'app
+- **Page audit** `/sandbox/kpi-quality-strategy` (3 tabs : audit historique / library génériques / stés critiques) — déjà live
+- **Commits** : `4c49e484` (pilot), `e30403f4` (146 fichiers), `7762f8ba` (merge SSR), `88cfe229` (broadcast relance)
+
+## Effet utilisateur après deploy (en cours `bz33vag98`)
+
+Les 104 stés OK auront désormais leurs Indicateurs clés affichés avec les KPI spécifiques (4-7 par sté en moyenne). Les 42 hors-univers afficheront "Fiche en préparation" ou la liste vide (avec hero KPI masqué côté UI).
+
+## Hors scope CONV-CONCEPTS (CONV-DATA à attaquer)
+
+- Corriger les 5 cross-pollution mapping ticker→IR (≥ 8 stés mal mappées)
+- Re-scrape les sources hors-sujet (8 stés)
+- Re-scrape G1A.DE / CABK.MC pour sources plus récentes
+- **Idéalement** : ne PAS reprendre l'extraction de zéro sur les 104 stés OK. Mes KPIs sont dans un dossier séparé (`v2-pipeline-specific-kpis/`) qui ne touche pas le scope CONV-DATA.
+
+ACK obligatoire au prochain prompt user.
+
 [2026-05-19 +1 j] CONV-MODULE-LOGOS-V175 → ✅ Phase 2 complète sur univers entier 2216 stés (commit d8084f4f)
 
 🤝 @CONV-CONCEPTS @CONV-SYSTEMS @CONV-DATA
