@@ -8,6 +8,11 @@ import type { TranscriptBulletsSummary } from "@/components/transcript-bullets-b
 import { loadV17Company } from "@/lib/v1-7/load-company";
 import { getServerLocale } from "@/lib/i18n/server";
 import V19_UNIVERSE from "@/data/v1-9-universe.json";
+import V19_STRICTLY_COMPLETE from "@/data/v1-9-strictly-complete.json";
+
+const STRICTLY_COMPLETE = new Set(
+  (V19_STRICTLY_COMPLETE as { tickers: string[] }).tickers.map((t) => t.toUpperCase()),
+);
 
 // Set des tickers V1.9 pour différencier "fiche en préparation" (sté
 // connue de notre univers, scrape data CONV-DATA en cours) vs notFound()
@@ -211,6 +216,32 @@ export default async function SandboxV19TickerPage({
         <h1 className="text-2xl font-semibold text-zinc-100">{r.company.name}</h1>
         <p className="mt-3 text-zinc-400">
           Pass 3 Sonnet pas encore validé pour cette société. Reviens bientôt.
+        </p>
+      </div>
+    );
+  }
+  // Yann 19 mai 2026 ~22h : filtre admission strict 11/11 critères
+  // (hero spécifique + 5+ KPIs spec history 5+ ans + 8 autres blocs).
+  // Les stés non strictement complètes affichent "Fiche en préparation"
+  // plutôt qu'une page mal remplie (ex MDT avec hero R&D history 3 mois).
+  if (!STRICTLY_COMPLETE.has(ticker.toUpperCase())) {
+    const isFr = locale === "fr";
+    return (
+      <div className="mx-auto max-w-2xl px-4 py-20 text-center">
+        <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/[0.08] px-3 py-1 text-[11px] uppercase tracking-wider text-amber-200">
+          <span className="size-1.5 rounded-full bg-amber-400" />
+          {isFr ? "Fiche en préparation" : "Profile being prepared"}
+        </div>
+        <h1 className="font-display text-3xl font-bold text-zinc-50">
+          {r.company.name}
+        </h1>
+        <div className="mt-1 font-mono text-[13px] uppercase tracking-wider text-zinc-500">
+          {r.company.ticker}
+        </div>
+        <p className="mt-6 max-w-md mx-auto text-[14px] leading-relaxed text-zinc-400">
+          {isFr
+            ? "Cette société a une fiche partielle dans notre pipeline mais ne respecte pas encore tous les critères de qualité Mettrik AI (hero KPI spécifique avec 5+ ans d'historique, 5+ indicateurs métier, segments, géographie, gouvernance, risques, IA, événements, description). Notre pipeline complète activement les données manquantes. Reviens dans quelques heures."
+            : "This company has a partial profile in our pipeline but does not yet meet all Mettrik AI quality criteria (specific hero KPI with 5+ years of history, 5+ business indicators, segments, geography, governance, risks, AI, events, description). Our pipeline is actively completing missing data. Check back in a few hours."}
         </p>
       </div>
     );
