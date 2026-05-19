@@ -431,6 +431,46 @@ export async function loadV17Company(
         data.kpis = [...data.kpis, ...extraKpis];
       }
     }
+    // Yann 19 mai 2026 : KPI SPÉCIFIQUES dispatchés par sub-agents Claude
+    // (146 stés priorité 0 re-extracted, scope CONV-CONCEPTS).
+    // Source : `src/data/v2-pipeline-specific-kpis/<ticker>.json`.
+    // Format : { kpis: [...] } avec champs short/name/value/unit/yoy/
+    // history/period_type/description_fr/en/_specific_to.
+    // Si `_fit_for_site: false` → sté marquée non-publishable (skip merge).
+    try {
+      const specificPath = path.join(
+        ROOT,
+        "src/data/v2-pipeline-specific-kpis",
+        `${ticker.toLowerCase()}.json`,
+      );
+      const specificData = await readJsonOrNull<{
+        kpis?: AnyKPI[];
+        _fit_for_site?: boolean;
+      }>(specificPath);
+      if (
+        specificData
+        && specificData._fit_for_site !== false
+        && Array.isArray(specificData.kpis)
+        && Array.isArray(data.kpis)
+      ) {
+        const existingShorts = new Set(
+          (data.kpis as AnyKPI[]).map((k) => k?.short).filter(Boolean),
+        );
+        const extraSpecific = specificData.kpis
+          .filter((k) => k && typeof k === "object" && !existingShorts.has(k.short))
+          .map((k) => ({
+            ...k,
+            history: normalizeHistory(k.history),
+            // Tag pour traçabilité côté UI (debug / audit)
+            _source: "v2-pipeline-specific-kpis",
+          }));
+        if (extraSpecific.length > 0) {
+          data.kpis = [...data.kpis, ...extraSpecific];
+        }
+      }
+    } catch {
+      // best effort, silent fail si le fichier n'existe pas pour ce ticker
+    }
     // Yann 15 mai 2026 v2 : RÉACTIVÉ avec contrainte stricte.
     // Le merge accepte SEULEMENT les fichiers .quarterly-history.json
     // marqués method="xbrl-companyfacts" (extraction directe XBRL SEC EDGAR,
