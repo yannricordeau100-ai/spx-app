@@ -266,6 +266,159 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-19 ~03h15] CONV-SYSTEMS (VIP track) → 🤝 EXTENSION HANDOFF VIP · 3 améliorations V2 + 15 nouveaux checks + format report exportable
+
+🤝 @CONV-KPI-VERIF : complète mon handoff précédent (`[~02h45]`). Yann a posé 3 questions techniques + ajouté 15 nouveaux points de vérif spécifiques. Voici le brief complet.
+
+---
+
+## A. Améliorations V2 du pipeline (validées par Yann)
+
+### A.1 Super-pipeline en 3 étapes (= fusion audit + VIP)
+
+Plus de doublon : 1 seul orchestrateur, Gemini en step 1 (filtrage) + step 3 (validation).
+
+1. **Scan rapide Gemini** sur N stés (~10s/sté en parallèle) → catégorise défauts par ID quality-tree, filtre par sévérité.
+2. **VIP deep** déclenché UNIQUEMENT sur les stés avec défauts auto-fixables : multi-mode + multi-tuiles + auto-fix loop.
+3. **Re-vérif Gemini** après fix → marque corrigé/re-vérifié.
+
+Économie : sur 600 stés, deep loop ne tourne que sur ~200 (les autres = clean dès step 1).
+
+### A.2 Tuiles ciblées par section (pas 1 grosse photo)
+
+**Diagnostic** : `vip-deep-inspection.py:113` capture `--window-size=1280,4500` = 1 PNG géant. Gemini downscale (limite ~2000px width) → flou sur petits éléments (axe Y chart, chips, tooltips "i", labels rangs `#XX`).
+
+**Fix** : capture **~10 tuiles** par sté à résolution native + 1 prompt ciblé par bloc :
+
+| Tuile | Dim | Bloc visible |
+|---|---|---|
+| `hero` | 1280×800 | logo + KPI principal + chart |
+| `chart-modes` | 1280×600 | barre de toggles Annuel/Trim + boutons type chart |
+| `kpis` | 1280×900 | tableau indicateurs clés (déroulé) |
+| `stories` | 1280×600 | carrousel stories |
+| `earning` | 1280×500 | bloc earning call (badge année+trim haut droite) |
+| `comprendre` | 1280×600 | "Comprendre la société" onglets Simple + Avancée |
+| `risks` | 1280×700 | facteurs de risque + profit warning |
+| `repartition` | 1280×600 | répartition CA segments + géo |
+| `gov` | 1280×700 | gouvernance + rémunération + top 3 voting/capital |
+| `ai` | 1280×500 | positionnement IA |
+
+Coût Gemini : 10× plus d'appels par sté mais Flash free = 1500/jour → 150 stés/jour gratuit, illimité en payé. Vitesse OK (Gemini Flash thinkingBudget=0 → ~3-5s/call).
+
+### A.3 Multi-mode chart via URL params Next.js
+
+**Diagnostic** : `vip-deep-inspection.py:226` `continue # skip pour v1` → mode annuel jamais capturé. Bug critique.
+
+**Fix** : 2 chantiers (à toi de prendre) :
+1. **URL params côté chart-cycle.tsx + composants enfants** : lire `useSearchParams()` pour pre-init le state :
+   - `?period=year|quarter|semester`
+   - `?chart=curve|bars-2d|bars-3d|variation|dashboard`
+   - `?time_fraction=year|month`
+   - `?expanded=1` (déroulement "Voir tous les indicateurs")
+   - `?tab_understand=simple|advanced`
+2. **Script Python** : boucle sur ~10-15 combinaisons par sté pour générer un screenshot par mode + capturer un défaut visible uniquement dans certaines combinaisons.
+
+---
+
+## B. 15 nouveaux checks à ajouter au YAML template (verbatim Yann)
+
+À intégrer dans `scripts/visual-audit-template.yaml` + créer IDs quality-tree correspondants dans `src/lib/quality-tree.ts`. **Le YAML reste éditable par Yann à tout moment** (= source de vérité, modifiable sans toucher Python).
+
+| ID quality-tree | Check (FR) | Sévérité | Scope pays | Tuile |
+|---|---|---|---|---|
+| `hero.chart.i_position` | Les "i" bleu sur graph annuel/trim sont bien SOUS le texte des années (pas chevauchement) | 3 | all | hero |
+| `hero.sidebar.plus_value` | Le mini bloc à gauche du graph apporte une plus-value (contenu non vide, infos pertinentes : tier, percentile, CAGR…) | 4 | all | hero |
+| `kpis.table.count_5` | Il y a bien **5 indicateurs clés** listés (= 5 lignes visibles avant déroulement) | 4 | all | kpis |
+| `kpis.row.complete` | Chaque ligne KPI a : 3 valeurs (principale + 2 variations) + mini graph + "QUALITÉ · SIGNAL" complété | 5 | all | kpis |
+| `kpis.counter.match` | Le compteur en haut à droite ("Cliquez sur un indicateur…") = nb total de lignes (visibles + cachées dans déroulant). Tester `?expanded=1` | 3 | all | kpis |
+| `kpis.column.same_lang` | Toutes les colonnes en français OU anglais (acronymes techniques tolérés). Indulgent sur colonne "Indicateur" | 3 | all | kpis |
+| `stories.count.match` | Nombre de stories annoncé = nombre affiché en naviguant via flèches | 3 | all | stories |
+| `stories.content.fr` | Contenu de chaque story en français (indulgent sur "catégorie" qui peut être EN) | 3 | all | stories |
+| `earning.label.correct` | Badge année+trimestre en haut droite earning call = dernière présentation réelle (cross-check `last_data_date` + `fiscal_calendar`). i orange si exercice décalé | 4 | all | earning |
+| `comprendre.simple.fr` | Onglet "Simple" de "Comprendre la société" : FR + visuellement correct | 3 | all | comprendre |
+| `comprendre.advanced.fr` | Onglet "Avancée" de "Comprendre la société" : FR + visuellement correct | 3 | all | comprendre |
+| `risks.complete` | Bloc "Facteurs de risque" entièrement complété (3+ risques, sévérité, catégorie) **+ profit warning (dernier mini bloc) présent** | 5 | all | risks |
+| `repartition.fr_and_complete` | Répartition CA : noms de zones géo en français, segments + géo affichés avec nom + pourcentage | 4 | all | repartition |
+| `numbers.format` | Tous les chiffres entre 1 et 999 avec bonne unité (pas de "32 milliards %" ni "0.00045 Mds $", pas de raw EUR sur axe %) | 5 | all | hero, kpis |
+| `gov.complete` | "Gouvernance & rémunération" entièrement remplie (CEO name, salary, board, peer comp…) | 4 | **US only** | gov |
+| `gov.top3.coherent` | Blocs "Droits de vote" + "Capital détenu" : top 3 complétés avec chiffres cohérents (somme proche 100%, pas de % > 100) | 3 | all | gov |
+| `ai.coherent_with_company` | "Positionnement de <ticker> sur l'IA" : contenu spécifique à la sté (cite produits/services réels, pas générique). Ex Apple → Apple Intelligence, Vision Pro, M-series | 4 | all | ai |
+
+**Adaptation par pays** :
+- `gov.complete` ne s'applique QUE si `country === "US"` (lecture depuis `v2-pipeline-enrich/<ticker>.json` ou `_merged.json`).
+- Ajouter d'autres conditions `scope: us|eu|all` dans le YAML pour adapter facilement.
+
+---
+
+## C. Format export tabulaire post-audit (validé par Yann)
+
+Yann veut **après audit + fix + re-vérif** un tableau exportable + lisible par conv pour automatiser la recherche des docs manquants.
+
+**Format recommandé : double sortie** (1 JSON canonical + 1 CSV exportable) :
+
+### `src/data/vip-defects-remaining.json` (canonical, lisible par conv)
+
+```json
+{
+  "generated_at": "2026-05-19T03:00:00Z",
+  "stes_inspected": 200,
+  "stes_clean": 150,
+  "stes_with_defects": 50,
+  "rows": [
+    {
+      "ticker": "LVMH",
+      "country": "FR",
+      "fiche_state": "done_with_defects",
+      "defects_remaining": [
+        {
+          "id": "gov.top3.coherent",
+          "severity": 3,
+          "tuile": "gov",
+          "obs": "Top 3 capital total = 8% (familles Arnault non listées)",
+          "block_source": "v2-pipeline-enrich/lvmh.json",
+          "missing_doc_hint": "Annexe AMF rapport annuel 2024 p.42-45 (actionnariat)",
+          "auto_fixable": false,
+          "n_attempts": 2,
+          "last_attempt_at": "2026-05-19T02:50:00Z"
+        }
+      ]
+    }
+  ]
+}
+```
+
+### `src/data/vip-defects-remaining.csv` (export auto pour Yann)
+
+| ticker | country | section | check_id | severity | obs | doc_hint |
+|---|---|---|---|---|---|---|
+| LVMH | FR | gov | gov.top3.coherent | 3 | Top 3 capital = 8% (familles Arnault) | Annexe AMF rapport annuel 2024 p.42-45 |
+
+**Pourquoi double format** :
+- JSON = source de vérité, lisible par conv (CONV-DATA peut parser pour trigger scraping ciblé)
+- CSV = lisible par Yann dans Excel/Numbers, modifiable manuellement
+- 1 seul build script : `scripts/build-vip-defects-export.ts` (génère les 2 depuis Supabase `vip_inspection_status`)
+
+**Optionnel V3** : UI `/sandbox/vip-defects` (table sortable + filtrable + bouton "trigger scraping" qui ping CONV-DATA via Supabase queue).
+
+---
+
+## D. Ordre suggéré
+
+1. ACK ce broadcast (ton prochain prompt user Yann max).
+2. Attendre fix infra CONV-SYSTEMS (PAT GitHub + env Vercel + ref branch) pour débloquer AAPL.
+3. Étendre `scripts/visual-audit-template.yaml` avec les 15 nouveaux checks (1h).
+4. Ajouter IDs quality-tree dans `src/lib/quality-tree.ts` (30 min).
+5. Refactor `vip-deep-inspection.py` : multi-tuiles + multi-mode via URL params + super-pipeline 3 étapes (2-3h).
+6. Next.js : `useSearchParams()` dans `chart-cycle.tsx` + composants enfants (1h).
+7. Build export script `scripts/build-vip-defects-export.ts` (1h).
+8. Run batch test sur les 4 stés EU (LVMH/RMS.PA/TTE.PA/KER.PA) + AAPL une fois débloquée.
+
+ETA total : ~8-10h pire cas, ~4-5h si plusieurs agents IA en // (fenêtre 5h-12h Paris idéale, cf §A2 ci-dessus + parallélisme livré commit 22744fd8).
+
+🤝 ACK obligatoire au prochain prompt user (règle §11). Coordination warning : Yann a probablement parlé en // avec toi, signale immédiatement si conflit.
+
+---
+
 [2026-05-19 +30 min] CONV-MODULE-LOGOS-V175 → ✅ Phase 1 audit + sourcing tests (commit bba4d8e3)
 
 🤝 @CONV-CONCEPTS @CONV-SYSTEMS @CONV-DATA @YANN (décision sourcing)
