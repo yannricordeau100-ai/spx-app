@@ -127,22 +127,8 @@ function PodiumCard({
         </div>
         <div className="mt-0.5 text-[11px] text-zinc-400">{scopeLabel}</div>
       </div>
-      {/* PV Mettrik : YoY Hero KPI + tier qualité. Yann 18 mai 2026 :
-          remplace l'ancienne barre purement décorative qui n'avait aucune
-          info (juste un dégradé fonction du rang). */}
-      {(row.hero_yoy || row.tier) && (
-        <div className="relative mt-3 flex items-center gap-2">
-          {row.hero_yoy && <HeroYoyPill yoy={row.hero_yoy} label={row.hero_short} />}
-          {row.tier && <TierBadge tier={row.tier} />}
-        </div>
-      )}
-      {row.hero_short && (
-        <div className="relative mt-1 truncate text-[10.5px] text-zinc-500" title={row.hero_short}>
-          KPI principal : {row.hero_short}
-        </div>
-      )}
-      {/* Barre rang popularité (signal visuel décroissant). Conservée
-          comme indication secondaire, mais reléguée au second plan. */}
+      {/* Yann 19 mai 2026 : KPI YoY pill + tier + label retirés du
+          PodiumCard (focus pure popularité). */}
       <div className="relative mt-3 h-1 overflow-hidden rounded-full bg-white/[0.04]">
         <div
           className={`h-full rounded-full ${rank === 1 ? "bg-amber-400" : rank === 2 ? "bg-zinc-300" : "bg-orange-500"}`}
@@ -187,12 +173,7 @@ function StockRow({
               {row.country}
             </span>
           )}
-          {row.tier && <TierBadge tier={row.tier} />}
-          {row.hero_short && (
-            <span className="truncate text-[10.5px] text-zinc-500" title={`KPI principal Mettrik : ${row.hero_short}`}>
-              {row.hero_short}
-            </span>
-          )}
+          {/* Yann 19 mai 2026 : tier + KPI label retirés. */}
         </div>
         <div className="mt-1.5 h-1 overflow-hidden rounded-full bg-white/[0.04]">
           <div
@@ -202,9 +183,7 @@ function StockRow({
         </div>
       </div>
       <div className="flex flex-col items-end gap-1">
-        {row.hero_yoy && (
-          <HeroYoyPill yoy={row.hero_yoy} label={row.hero_short} />
-        )}
+        {/* Yann 19 mai 2026 : HeroYoyPill retirée. */}
         <div className="text-right">
           <div className="font-mono text-[13px] font-semibold tabular-nums text-zinc-100 sm:text-[14px]">
             #{rank}

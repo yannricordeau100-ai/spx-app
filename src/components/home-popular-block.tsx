@@ -178,17 +178,9 @@ function PodiumCard({
           {row.displayTicker ?? stripSuffix(row.ticker)}
         </div>
       </div>
-      {(row.hero_yoy || row.tier) && (
-        <div className="relative mt-3 flex flex-wrap items-center gap-1.5">
-          {row.hero_yoy && <HeroYoyPill yoy={row.hero_yoy} label={row.hero_short} size="xs" />}
-          {row.tier && <TierBadge tier={row.tier} />}
-        </div>
-      )}
-      {row.hero_short && (
-        <div className="relative mt-1 truncate text-[10px] text-zinc-500" title={row.hero_short}>
-          KPI : {row.hero_short}
-        </div>
-      )}
+      {/* Yann 19 mai 2026 : KPI pill/tier/label retirés du bloc populaire
+          (focus ranking pur). HeroYoyPill et TierBadge restent définis
+          pour usage éventuel ailleurs (preview hover, etc.). */}
       <div className="relative mt-3 h-1 overflow-hidden rounded-full bg-white/[0.04]">
         <div
           className={`h-full rounded-full ${rank === 1 ? "bg-amber-400" : rank === 2 ? "bg-zinc-300" : "bg-orange-500"}`}
@@ -232,12 +224,7 @@ function StockRow({
               {row.country}
             </span>
           )}
-          {row.tier && <TierBadge tier={row.tier} />}
-          {row.hero_short && (
-            <span className="truncate text-[10px] text-zinc-500" title={`KPI principal Mettrik : ${row.hero_short}`}>
-              · {row.hero_short}
-            </span>
-          )}
+          {/* Yann 19 mai 2026 : tier + KPI label retirés (focus ranking). */}
         </div>
         <div className="mt-1.5 h-1 overflow-hidden rounded-full bg-white/[0.04]">
           <div
@@ -247,7 +234,7 @@ function StockRow({
         </div>
       </div>
       <div className="flex shrink-0 flex-col items-end gap-1">
-        {row.hero_yoy && <HeroYoyPill yoy={row.hero_yoy} label={row.hero_short} />}
+        {/* Yann 19 mai 2026 : HeroYoyPill retirée du StockRow populaire. */}
         <ArrowRight className="hidden size-3.5 text-zinc-600 transition-all group-hover:translate-x-1 group-hover:text-violet-300 sm:block" />
       </div>
     </a>
@@ -290,7 +277,7 @@ function TabHoverPreview({
                 <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">
                   {r.displayTicker ?? stripSuffix(r.ticker)}
                 </span>
-                {r.hero_yoy && <HeroYoyPill yoy={r.hero_yoy} label={r.hero_short} size="xs" />}
+                {/* Yann 19 mai 2026 : HeroYoyPill retirée du hover preview. */}
               </div>
             </div>
           </a>
