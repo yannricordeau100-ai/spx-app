@@ -292,6 +292,10 @@ def main():
     elif args.tickers == "all":
         targets = union
         label = "union 985"
+    elif args.tickers == "merged":
+        merged_all = json.loads((ROOT / "src/data/v2-pipeline/_merged.json").read_text())
+        targets = sorted(merged_all.keys())
+        label = f"merged {len(targets)}"
     elif "," in args.tickers or len(args.tickers) <= 12:
         targets = args.tickers.split(",") if "," in args.tickers else [args.tickers]
         label = f"custom {len(targets)}"
