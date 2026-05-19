@@ -31,10 +31,40 @@ function loadAllEnrichFor(ticker) {
   // Main enrich
   out.main = readJsonOrNull(path.join(dir, `${lower}.json`));
   // Side files
-  for (const suffix of ["ranks", "events", "ai-pos", "tam", "description", "quarterly-history"]) {
+  for (const suffix of ["ranks", "events", "ai-pos", "tam", "description", "quarterly-history", "risks", "governance"]) {
     out[suffix] = readJsonOrNull(path.join(dir, `${lower}.${suffix}.json`));
   }
   return out;
+}
+
+// Prefer the richer of two ai_positioning objects (non-empty evidence wins)
+function pickAiPos(...candidates) {
+  const valid = candidates.filter(c => c && typeof c === "object" && c.stance);
+  if (valid.length === 0) return null;
+  // Sort: prefer (evidence.length > 0), then longer summary
+  valid.sort((a, b) => {
+    const aE = Array.isArray(a.evidence) ? a.evidence.length : 0;
+    const bE = Array.isArray(b.evidence) ? b.evidence.length : 0;
+    if (aE !== bE) return bE - aE;
+    return (String(b.summary || "").length) - (String(a.summary || "").length);
+  });
+  return valid[0];
+}
+
+// Prefer the segments/geo object with the most slices
+function pickByMostSlices(...candidates) {
+  const valid = candidates.filter(c => c && typeof c === "object" && Array.isArray(c.slices) && c.slices.length > 0);
+  if (valid.length === 0) return null;
+  valid.sort((a, b) => b.slices.length - a.slices.length);
+  return valid[0];
+}
+
+// Prefer non-empty array (most items wins on tie)
+function pickByLongest(...arrays) {
+  const valid = arrays.filter(a => Array.isArray(a) && a.length > 0);
+  if (valid.length === 0) return [];
+  valid.sort((a, b) => b.length - a.length);
+  return valid[0];
 }
 
 const stats = {
@@ -71,14 +101,14 @@ for (const entry of V19_UNIVERSE) {
       ...(Array.isArray(specific?.kpis) ? specific.kpis : []),
     ],
     kpis_story: Array.isArray(specific?.kpis_story) ? specific.kpis_story : [],
-    governance: v2.governance || enrich.main?.governance || null,
-    revenue_by_segment: v2.revenue_by_segment || enrich.main?.revenue_by_segment || null,
-    revenue_by_geography: v2.revenue_by_geography || enrich.main?.revenue_by_geography || null,
-    risks: Array.isArray(v2.risks) && v2.risks.length > 0 ? v2.risks : (Array.isArray(enrich.main?.risks) ? enrich.main.risks : []),
-    ai_positioning: v2.ai_positioning || enrich.main?.ai_positioning || enrich["ai-pos"] || null,
-    market_positions: v2.market_positions || enrich.tam?.market_positions || [],
-    events: Array.isArray(v2.events) ? v2.events : (enrich.events?.events || []),
-    ranks: v2.ranks || enrich.ranks?.ranks || {},
+    governance: enrich.governance?.governance || enrich.governance || enrich.main?.governance || v2.governance || null,
+    revenue_by_segment: pickByMostSlices(enrich.main?.revenue_by_segment, v2.revenue_by_segment),
+    revenue_by_geography: pickByMostSlices(enrich.main?.revenue_by_geography, v2.revenue_by_geography),
+    risks: pickByLongest(enrich.risks?.risks, enrich.risks, enrich.main?.risks, v2.risks),
+    ai_positioning: pickAiPos(enrich["ai-pos"], enrich.main?.ai_positioning, v2.ai_positioning),
+    market_positions: enrich.tam?.market_positions || v2.market_positions || [],
+    events: pickByLongest(enrich.events?.events, enrich.events, v2.events),
+    ranks: (enrich.ranks?.ranks && Object.keys(enrich.ranks.ranks).length > 0) ? enrich.ranks.ranks : (v2.ranks || {}),
     latest_filing: v2.latest_filing || null,
     next_earnings_date: v2.next_earnings_date || null,
     publication_date: v2.publication_date || null,

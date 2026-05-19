@@ -377,6 +377,22 @@ export async function loadV17Company(
     }
   }
   if (enrich) {
+    // Helper : "vide" = undefined, null, [], {} sans slices, {} sans champs significatifs
+    const isBlockEmpty = (val: unknown): boolean => {
+      if (val === undefined || val === null) return true;
+      if (Array.isArray(val)) return val.length === 0;
+      if (typeof val === "object") {
+        const v = val as Record<string, unknown>;
+        // Cas revenue_by_segment / revenue_by_geography : slices vides = vide
+        if ("slices" in v) {
+          return !Array.isArray(v.slices) || (v.slices as unknown[]).length === 0;
+        }
+        // Cas financial_snapshot / key_facts / peers / events : objet sans clés
+        return Object.keys(v).length === 0;
+      }
+      if (typeof val === "string") return val.length === 0;
+      return false;
+    };
     for (const key of [
       "events",
       "revenue_by_segment",
@@ -390,7 +406,8 @@ export async function loadV17Company(
     ] as const) {
       if (
         enrich[key] !== undefined &&
-        (data as Record<string, unknown>)[key] === undefined
+        !isBlockEmpty(enrich[key]) &&
+        isBlockEmpty((data as Record<string, unknown>)[key])
       ) {
         (data as Record<string, unknown>)[key] = enrich[key];
       }
