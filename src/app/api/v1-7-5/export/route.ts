@@ -1,19 +1,22 @@
 /**
- * GET /api/v1-7-5/export.csv
+ * GET /api/v1-7-5/export
  *
- * Export CSV de toutes les sociétés V1.7.5 publiables (502 stés Pass 3
- * strict). Yann 19 mai 2026.
+ * Export CSV de toutes les sociétés V1.7.5 (univers brut 626 stés, sorted
+ * by market cap décroissant). Yann 19 mai 2026 (v2 simplifié).
  *
- * Colonnes : ticker, name, sector, subsector, country, hero_kpi,
- *   hero_value, hero_unit, hero_yoy, hero_period_type, hero_history_len,
- *   next_earnings_date.
+ * Colonnes : rank, ticker, name, sector, subsector, publishable.
+ *  - publishable=true → sté Pass 3 strict (502 stés visibles sur
+ *    /sandbox/v1-7-5)
+ *  - publishable=false → sté brute pas encore validée (124 stés)
  *
  * Format : RFC 4180, BOM UTF-8 pour Excel, quoted strings.
  * Cliquer le lien dans le navigateur déclenche le download.
  */
 import { NextResponse } from "next/server";
 import V17_PUBLIC from "@/data/v1-7-5-public.json";
-import type { Company, KPI } from "@/lib/data";
+import V17_SORTED from "@/data/v1-7-tickers-sorted.json";
+import MERGED from "@/data/v2-pipeline/_merged.json";
+import type { Company } from "@/lib/data";
 
 export const dynamic = "force-static";
 export const revalidate = 3600; // 1 h
@@ -28,51 +31,38 @@ function csvEscape(v: unknown): string {
 }
 
 export function GET() {
-  const datasets = V17_PUBLIC as unknown as Record<string, Company>;
-  const headers = [
-    "ticker",
-    "name",
-    "sector",
-    "subsector",
-    "country",
-    "hero_kpi",
-    "hero_value",
-    "hero_unit",
-    "hero_yoy",
-    "hero_period_type",
-    "hero_history_len",
-    "next_earnings_date",
-  ];
+  const publicDatasets = V17_PUBLIC as unknown as Record<string, Company>;
+  const merged = MERGED as unknown as Record<string, Company>;
+  const sorted = V17_SORTED as string[];
+  const publishableSet = new Set(
+    Object.keys(publicDatasets).map((k) => k.toUpperCase()),
+  );
+
+  const headers = ["rank", "ticker", "name", "sector", "subsector", "publishable"];
   const rows: string[] = [headers.join(",")];
 
-  for (const [ticker, c] of Object.entries(datasets)) {
-    if (!c || typeof c !== "object") continue;
-    const hero =
-      (c.kpis ?? []).find((k: KPI) => k && k.short === c.hero_kpi) ??
-      (c.kpis ?? [])[0];
-    const country = (c as Company & { country?: string }).country ?? "";
-    const nextEarnings =
-      (c as Company & { next_earnings_date?: string }).next_earnings_date ?? "";
-    const historyLen = Array.isArray(hero?.history) ? hero.history.length : 0;
+  sorted.forEach((ticker, idx) => {
+    const up = ticker.toUpperCase();
+    // Prend les données depuis publishable d'abord (canonique), fallback merged
+    const c =
+      publicDatasets[ticker] ??
+      publicDatasets[up] ??
+      merged[ticker] ??
+      merged[up];
+    if (!c || typeof c !== "object") return;
     rows.push(
       [
+        idx + 1,
         ticker,
         c.name ?? "",
         c.sector ?? "",
         c.subsector ?? "",
-        country,
-        hero?.short ?? "",
-        hero?.value ?? "",
-        hero?.unit ?? "",
-        hero?.yoy ?? "",
-        hero?.period_type ?? "",
-        historyLen,
-        nextEarnings,
+        publishableSet.has(up) ? "true" : "false",
       ]
         .map(csvEscape)
         .join(","),
     );
-  }
+  });
 
   // BOM UTF-8 pour Excel + LF Unix
   const body = "﻿" + rows.join("\n") + "\n";
