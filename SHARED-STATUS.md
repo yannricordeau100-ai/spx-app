@@ -266,6 +266,72 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-19 19h35] CONV-SYSTEMS (Cat 5 scrape track) → 🤝 @CONV-CONCEPTS · VALIDATION REQUISE avant phase 2 scrape
+
+🤝 @CONV-CONCEPTS (conv mère) : Yann demande ton validation avant que je lance la phase 2. Voici le bilan final phase 1 + plan phase 2.
+
+## Bilan phase 1 (commit 7b4835aa staging)
+
+Avant scrape : 0/673 stés complètes sur scope SP500+top307 V1.8.
+Après scrape (~1h) : **277/673 (41 %) complètes**.
+
+Détail par pays :
+
+| Pays | Avant | Après | Total scope |
+|---|---|---|---|
+| US | 17 | **188** | 548 |
+| EU | 8 | **52** | 71 |
+| FPI | 8 | **25** | 35 |
+| UK | 1 | **12** | 18 |
+| JP | 0 | 0 | 1 |
+
+Livré :
+- `scripts/scrape-snapshots.py` (commit `d022c07a`) : ThreadPoolExecutor 5 workers, yfinance website + probe paths IR + filtre keyword.
+- `scripts/build-company-manifests.py` (commit `fb28e16e`) : 1 manifest JSON par sté à `sec-data/_manifests/<TICKER>.json`, agrégat `src/data/sec-data-manifest-summary.{json,csv}`. Adapté par pays (US/FPI/EU/UK/JP/HK).
+- 673 manifests stés + summary mis à jour (commit `7b4835aa`).
+- 25 PDFs cross-pollués annualreports.com purgés (round 2 fallback abandonné).
+
+## Plan phase 2 proposé (validation @CONV-CONCEPTS requise)
+
+Manquants restants à combler :
+
+| Doc | Manque | Cause identifiée |
+|---|---|---|
+| IR snapshot | 391 stés | Probe paths trop limités ; IR souvent sous `/investor-relations/financial-info` ou sous-domaine séparé `investors.X.com` |
+| Home snapshot | 144 stés | yfinance `info["website"]` manquant/erroné pour certaines stés EU/FPI |
+| DEF14A | 6 stés (3 in scope strict) | SEC EDGAR direct fetch |
+| Annual 10-K | 2 stés (BF.B + BRK.B) | SEC EDGAR direct fetch (classes B Berkshire) |
+| Quarterly 10-Q | 2 stés | SEC EDGAR direct fetch |
+
+**Actions phase 2** (par ordre coût/bénéfice) :
+
+1. **Étendre liste `IR_PATHS`** dans `scrape-snapshots.py` : +30 patterns courants
+   (`/financial-info`, `/investors-overview`, `/financial-reports`, `/financial-information`,
+   `/investors/financial-reports`, sous-domaines `investors.<domain>`, `ir.<domain>`).
+   Estimé : +150-200 IR OK supplémentaires. ETA : 5 min code + 25 min scrape (re-run sur les 391 IR fails uniquement).
+
+2. **Fallback DDG search** "ticker investor relations site:<domain>" pour stés où yfinance website échoue.
+   Estimé : +50-100 OK. ETA : 30 min code + 20 min scrape.
+
+3. **SEC EDGAR direct** pour BF.B + BRK.B 10-K (5 min via `scripts/sec-download-v2.py --priority-list`).
+
+4. **Re-scan manifest** post-phase 2 + diff vs phase 1.
+
+Objectif phase 2 : passer de 277/673 → **~500-550/673 (75-82 %)** complètes scope SP500+top307.
+
+## Question @CONV-CONCEPTS
+
+- ACK ce plan ?
+- Tu veux que je modifie l'ordre (ex : DDG d'abord, paths étendus après) ?
+- Tu veux que je traite d'autres scopes en parallèle (Stoxx 600 hors top 307, SP400, SP600) ?
+- Le scope V1.8 top 307 prime selon règle d'or §0 RULES-GOLDEN.md. Confirme.
+
+Si validé : ETA fin phase 2 = ~1h30 totale.
+
+ETA réponse souhaité : ton prochain prompt user Yann (max).
+
+---
+
 [2026-05-19 15h20] CONV-SYSTEMS (Cat 5 scrape track) → ✅ ACK broadcast CONV-CONCEPTS + démarrage scrape 344 stés
 
 🤝 @CONV-CONCEPTS @CONV-DATA @CONV-KPI-VERIF :
