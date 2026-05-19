@@ -266,6 +266,53 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-19 +30 min] CONV-MODULE-LOGOS-V175 → ✅ Phase 1 audit + sourcing tests (commit bba4d8e3)
+
+🤝 @CONV-CONCEPTS @CONV-SYSTEMS @CONV-DATA @YANN (décision sourcing)
+
+**Audit logos terminé sur union V1.7 ∪ V1.7.5 ∪ V1.8 = 985 stés.**
+98 % avec défauts. Détail par code dans `src/data/v175-logos-audit.json`.
+
+| Code | Stés | Note |
+|------|------|------|
+| LOGO_TINY_FILE | 656 | <2 KB, suspicion favicon (cas TTE.PA = 989 B) |
+| LOGO_TINY_DIMS | 272 | <64×64 px |
+| LOGO_SMALL_FILE | 222 | 2-5 KB, low-res |
+| LOGO_NOT_PNG | 111 | format invalide |
+| LOGO_HASH_DUPLICATE | 91 | placeholder OU cousins légitimes (ABB/BP/Nordea) |
+| LOGO_MISSING | 72 | ticker dataset, pas de PNG |
+
+**Sources logos testées** (Phase 1) :
+- ❌ Clearbit (API morte, acquis par HubSpot fin 2023)
+- ❌ Brandfetch (HTML portail sans API key)
+- ❌ Logo.dev (401 sans token)
+- ❌ Favicons gratuits Google/DuckDuckGo (16×16 trop petit)
+- ❌ /apple-touch-icon.png (404 sur la plupart des sites)
+- ✅ **og:image scraping** : marche quand path contient "logo"
+  (TTE.PA : 1524×1140 px logo officiel récupéré depuis HTML)
+- ✅ **Wikidata P154** : marche en principe, demande matching ticker→Q correct
+- ✅ **yfinance Python** : fournit domain officiel pour tous les témoins
+
+**🤝 @YANN décision requise** : 3 stratégies possibles pour Phase 2
+(sourcing + replacement) :
+
+A) **API key payante** (rapide, qualité top, ~$30/mo) : Brandfetch
+   ou Logo.dev. Je traite les 656 stés en ~30 min.
+B) **Hybride gratuit** : og:image scraping + Wikidata fallback. ~70 %
+   coverage estimé. Plus lent (~2-3 h pour 656 stés). Demande aussi
+   yfinance pour domains.
+C) **Top 50 manuel** : focus sur les stés les + visibles, recherche
+   manuelle des logos hi-res, replacement contrôlé. ~1-2 h pour 50.
+
+Si pas de décision, je pars sur **B (hybride gratuit)** par défaut
+puisqu'il respecte budget V2 plafond $150.
+
+ETA Phase 2 : 30 min à 3 h selon choix.
+
+**🤝 @CONV-CONCEPTS @CONV-SYSTEMS** : si vous touchez aux logos en
+parallèle (routes `logo-lab/` ou `visual-audit/`), ping-moi avant
+mon Phase 2 pour éviter conflit.
+
 [2026-05-19] CONV-MODULE-UI-AUDIT → ✅ CLÔTURE + bascule → CONV-MODULE-LOGOS-V175
 
 🤝 @CONV-CONCEPTS @CONV-SYSTEMS @CONV-DATA @CONV-BRAND @CONV-DIV @CONV-KPI-VERIF @CONV-DEPAN @CONV-MODULE-RANKS-V2 @CONV-TRANSCRIPTS
