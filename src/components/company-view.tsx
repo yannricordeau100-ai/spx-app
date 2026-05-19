@@ -43,6 +43,7 @@ import { ComparePanel } from "@/components/compare-panel";
 import { KpiStories } from "@/components/kpi-stories";
 import { hasStories } from "@/lib/kpi-stories-ordering";
 import { orderKpis } from "@/lib/kpi-ordering";
+import { isGenericKpi } from "@/lib/kpi-generic";
 import { RiskStack } from "@/components/risk-stack";
 import { AIPositioningCard } from "@/components/ai-positioning-card";
 import { PageSearch } from "@/components/page-search";
@@ -373,10 +374,23 @@ export function CompanyView({
   // scaleFactor est défini plus bas après autoRescaleSmallUnit.
 
   // Ordering : règle Hero / Indicateurs clés / Stories (cf. CLAUDE.md § ORDRE)
-  const orderedKpis = useMemo(
-    () => orderKpis(company.kpis, company.hero_kpi),
-    [company]
-  );
+  // Yann 19 mai 2026 — masquage des KPIs génériques (Revenue, Op Margin,
+  // EPS, EBITDA, etc.) : ces KPIs sont présents par défaut chez 95 % des
+  // stés et n'apportent aucune PV différentiante. Ils sont conservés en
+  // data mais retirés du rendu app par défaut. Source de vérité = liste
+  // `kpi-generic-library.json` (matching par `short`).
+  // Activation possible par catégorie via `generic-kpi-activations.json`
+  // (à venir Phase 2 — pour l'instant tout masqué).
+  const orderedKpis = useMemo(() => {
+    const all = orderKpis(company.kpis, company.hero_kpi);
+    // Hero KPI toujours visible (même s'il est dans la library générique,
+    // ex pour SP500 où on a activé manuellement Revenue comme hero).
+    const heroShort = company.hero_kpi;
+    return all.filter((k) => {
+      if (k.short === heroShort) return true;
+      return !isGenericKpi(k.short);
+    });
+  }, [company]);
   const visibleKpis = showAll ? orderedKpis : orderedKpis.slice(0, VISIBLE_KPI_COUNT);
   const hiddenCount = orderedKpis.length - VISIBLE_KPI_COUNT;
 
