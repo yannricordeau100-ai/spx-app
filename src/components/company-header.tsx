@@ -137,6 +137,24 @@ function isUsOrAdr(ticker: string): boolean {
  * On traduit la préposition au rendu selon la locale active (pas de
  * re-extraction massive). Tout le reste (rang + secteur) reste inchangé.
  */
+/**
+ * Yann 19 mai 2026 : retire le suffixe " dans/in/i <sector_name>" du
+ * rank value pour les chips où le label affiche DÉJÀ le secteur. Garde
+ * uniquement le numéro de rang ("#3", "Top 5%", "≈ #150", etc.).
+ *
+ * Avant : "TECHNOLOGIE | #3 dans Technologies de l'information"
+ * Après : "TECHNOLOGIE | #3"
+ */
+function stripRankSuffix(value: string): string {
+  if (!value || typeof value !== "string") return value;
+  // Coupe à la 1re occurrence de " dans ", " in ", ou " i " (locale-aware).
+  for (const sep of [" dans ", " in ", " i "]) {
+    const idx = value.indexOf(sep);
+    if (idx > 0) return value.slice(0, idx).trim();
+  }
+  return value;
+}
+
 function translateRankPreposition(value: string, locale: string): string {
   if (!value || typeof value !== "string") return value;
   const rankPrepByLocale: Record<string, string> = {
@@ -224,8 +242,12 @@ export function CompanyHeader({
         {isUsOrAdr(company.ticker) && company.ranks.global_us && company.ranks.global_us.trim() !== "" && company.ranks.global_us !== "-" && (
           <StatChip label={t("company.rank_us")} value={company.ranks.global_us} />
         )}
-        <StatChip label={translateSubsectorLocale(company.sector, locale)} value={translateRankPreposition(company.ranks.sector, locale)} />
-        <StatChip label={translateSubsectorLocale(company.subsector, locale)} value={translateRankPreposition(company.ranks.subsector, locale)} />
+        {/* Yann 19 mai 2026 : strip le suffixe "dans <sector_name>" sur les
+            chips sector + subsector car le label affiche DÉJÀ le nom du
+            secteur. Évite la redondance "TECHNOLOGIE #3 dans Technologies
+            de l'information" (= "Technology" répété 2 fois dans 1 chip). */}
+        <StatChip label={translateSubsectorLocale(company.sector, locale)} value={stripRankSuffix(translateRankPreposition(company.ranks.sector, locale))} />
+        <StatChip label={translateSubsectorLocale(company.subsector, locale)} value={stripRankSuffix(translateRankPreposition(company.ranks.subsector, locale))} />
         <StatChip label={t("company.founded")} value={company.founded != null ? String(company.founded) : null} />
         <StatChip label={t("company.ipo")} value={company.ipo != null ? String(company.ipo) : null} />
       </div>

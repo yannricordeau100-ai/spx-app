@@ -484,10 +484,35 @@ export async function loadV17Company(
           // Combien de quarters between baseDate (exclu) et otherDate (inclus) ?
           const monthsDiff = (otherDate.getUTCFullYear() - baseDate.getUTCFullYear()) * 12 + (otherDate.getUTCMonth() - baseDate.getUTCMonth());
           const qDiff = Math.max(0, Math.round(monthsDiff / 3));
-          if (qDiff > 0 && otherHist.length >= qDiff) {
-            const tail = otherHist.slice(-qDiff);
-            mergedHist = [...baseHist, ...tail];
-            mergedLast = otherLast;
+          // Yann 19 mai 2026 : `otherHist.slice(-qDiff)` faisait l'hypothèse
+          // que les dernières N valeurs de l'history LLM main.kpis sont les
+          // quarters les plus récents. Or pour AAPL (et d'autres), main.kpi
+          // .history est désuète (10 quarters Q1 FY24 → Q2 FY26 = 23.9 last)
+          // alors que main.kpi.value = 30.976 = Q2 FY26 canonique. Append
+          // de 23.9 créait un faux drop visible sur le chart (30 → 23.9).
+          //
+          // Fix : préférer `main.kpi.value` (canonique = dernier quarter
+          // publié) au lieu de la queue history. Plus fiable parce que
+          // CONV-DATA rafraîchit `value` à chaque earnings mais pas
+          // toujours `history`.
+          if (qDiff > 0) {
+            // qDiff = 1 → append le seul main.kpi.value
+            // qDiff > 1 → append (qDiff-1) tail values + main.kpi.value en dernier
+            const mainValue = typeof (k as AnyKPI).value === "number"
+              ? ((k as AnyKPI).value as number)
+              : Number((k as AnyKPI).value);
+            if (Number.isFinite(mainValue)) {
+              const padding = qDiff > 1 && otherHist.length >= qDiff - 1
+                ? otherHist.slice(-(qDiff - 1), -1)
+                : [];
+              mergedHist = [...baseHist, ...padding, mainValue];
+              mergedLast = otherLast;
+            } else if (otherHist.length >= qDiff) {
+              // Fallback ancien comportement si main.kpi.value invalide
+              const tail = otherHist.slice(-qDiff);
+              mergedHist = [...baseHist, ...tail];
+              mergedLast = otherLast;
+            }
           }
         }
         if (!useExt && mergedHist === baseHist) return k;
