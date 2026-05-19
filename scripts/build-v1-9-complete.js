@@ -94,7 +94,7 @@ for (const entry of V19_UNIVERSE) {
     founded: v2.founded,
     ipo: v2.ipo,
     tagline: v2.tagline,
-    hero_kpi: v2.hero_kpi,
+    hero_kpi: enrich.main?.hero_kpi_override || v2.hero_kpi,
     hero_kpi_rationale: v2.hero_kpi_rationale,
     kpis: [
       ...(Array.isArray(v2.kpis) ? v2.kpis : []),
