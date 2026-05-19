@@ -23,9 +23,9 @@ import { InfoTooltip } from "@/components/info-tooltip";
 type Severity = "young" | "mid" | "old" | "veteran";
 
 function severityFor(yearsListed: number): Severity {
-  if (yearsListed < 6) return "young";
-  if (yearsListed < 11) return "mid";
-  if (yearsListed < 21) return "old";
+  // Yann 19 mai 2026 ~22h30 : seuil simplifié à < 5 ans uniquement.
+  // Au-dessus, pas de mention IPO (les paliers 10y et 20y sont retirés).
+  if (yearsListed < 5) return "young";
   return "veteran";
 }
 
