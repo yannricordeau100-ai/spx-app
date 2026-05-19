@@ -45,11 +45,43 @@ LOGOS_DIR = ROOT / "public" / "logos"
 BACKUP_DIR = LOGOS_DIR / ".backup"
 BACKUP_DIR.mkdir(parents=True, exist_ok=True)
 LOG_PATH = ROOT / "src" / "data" / "logos-replacement-log.json"
+CACHE_DIR = ROOT / "src" / "data" / ".cache"
+CACHE_DIR.mkdir(parents=True, exist_ok=True)
+YF_CACHE = CACHE_DIR / "yf-domains.json"
+WD_CACHE = CACHE_DIR / "wikidata-q.json"
 
 HEADERS = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Mettrik-Logo-Fetch/1.0"}
 TIMEOUT = 15
 MIN_GOOD_SIZE = 5000  # bytes
 MIN_GOOD_DIM = 128
+
+# Session HTTP réutilisable (connection pooling, gain perf)
+SESSION = requests.Session()
+SESSION.headers.update(HEADERS)
+
+# Cache mémoire (chargés depuis disque au démarrage)
+_yf_cache: dict[str, str | None] = {}
+_wd_cache: dict[str, str | None] = {}
+_rate_limit_pause = 0.0  # secondes additionnelles si rate limit détecté
+
+
+def load_caches():
+    global _yf_cache, _wd_cache
+    if YF_CACHE.exists():
+        try:
+            _yf_cache = json.loads(YF_CACHE.read_text())
+        except Exception:
+            _yf_cache = {}
+    if WD_CACHE.exists():
+        try:
+            _wd_cache = json.loads(WD_CACHE.read_text())
+        except Exception:
+            _wd_cache = {}
+
+
+def save_caches():
+    YF_CACHE.write_text(json.dumps(_yf_cache, indent=2))
+    WD_CACHE.write_text(json.dumps(_wd_cache, indent=2))
 
 
 def ticker_to_filename(ticker: str) -> str:
@@ -64,19 +96,36 @@ def load_union_tickers():
 
 
 def get_yf_website(ticker: str) -> str | None:
+    global _rate_limit_pause
+    # Cache hit (incluant cache de None pour éviter retries)
+    if ticker in _yf_cache:
+        return _yf_cache[ticker]
+    # Backoff exponential si rate limit détecté précédemment
+    if _rate_limit_pause > 0:
+        time.sleep(_rate_limit_pause)
     try:
         info = yf.Ticker(ticker).info
+        if not info or not isinstance(info, dict):
+            _yf_cache[ticker] = None
+            return None
         url = info.get("website") or info.get("websiteUrl")
-        if url:
-            return url.rstrip("/")
-    except Exception:
-        pass
-    return None
+        result = url.rstrip("/") if (url and isinstance(url, str)) else None
+        _yf_cache[ticker] = result
+        # Succès : réduit la pause progressivement
+        if _rate_limit_pause > 0:
+            _rate_limit_pause = max(0, _rate_limit_pause - 1)
+        return result
+    except Exception as e:
+        msg = str(e).lower()
+        if "too many requests" in msg or "rate" in msg or "429" in msg:
+            _rate_limit_pause = min(30, _rate_limit_pause * 2 + 2)  # 2, 6, 14, 30 max
+        # Ne pas cache les errors (peut retry après backoff)
+        return None
 
 
 def fetch_image(url: str) -> bytes | None:
     try:
-        r = requests.get(url, headers=HEADERS, timeout=TIMEOUT, allow_redirects=True)
+        r = SESSION.get(url, timeout=TIMEOUT, allow_redirects=True)
         if r.status_code == 200 and len(r.content) > 200:
             ctype = r.headers.get("Content-Type", "").lower()
             if "image" in ctype or url.lower().endswith((".png", ".jpg", ".jpeg", ".svg", ".webp")):
@@ -91,7 +140,7 @@ def try_wikidata(ticker: str, name: str) -> bytes | None:
     try:
         # Search by name
         q = urllib.parse.quote(name)
-        r = requests.get(
+        r = SESSION.get(
             f"https://www.wikidata.org/w/api.php?action=wbsearchentities&search={q}&language=en&format=json&type=item",
             headers=HEADERS,
             timeout=TIMEOUT,
@@ -125,7 +174,7 @@ def try_wikidata(ticker: str, name: str) -> bytes | None:
 def try_og_image(domain_url: str) -> bytes | None:
     """Scrape la home page, prend og:image si path contient 'logo' ou apple-touch-icon."""
     try:
-        r = requests.get(domain_url, headers=HEADERS, timeout=TIMEOUT)
+        r = SESSION.get(domain_url, headers=HEADERS, timeout=TIMEOUT)
         if r.status_code != 200:
             return None
         soup = BeautifulSoup(r.text, "html.parser")
@@ -176,7 +225,15 @@ def image_quality_score(img_bytes: bytes) -> dict | None:
 
 
 def to_png_512(img_bytes: bytes) -> bytes | None:
-    """Convert any image (SVG via cairo not installed, so PNG/JPG/WEBP only) to PNG 512px max side."""
+    """Convert PNG/JPG/WEBP/SVG to PNG 512px max side."""
+    # Détection SVG (texte XML qui commence par <svg ou <?xml)
+    head = img_bytes[:200].lower()
+    if b"<svg" in head or (b"<?xml" in head and b"svg" in img_bytes[:500].lower()):
+        try:
+            import cairosvg
+            img_bytes = cairosvg.svg2png(bytestring=img_bytes, output_width=512)
+        except Exception:
+            return None
     try:
         im = Image.open(BytesIO(img_bytes))
         if im.mode != "RGBA":
@@ -282,6 +339,7 @@ def main():
     p.add_argument("--tickers", default="307", help="307 | 1500 | 600 | all | <ticker,ticker>")
     p.add_argument("--limit", type=int, default=0, help="cap number")
     p.add_argument("--throttle", type=float, default=0.8, help="seconds between tickers")
+    p.add_argument("--retry-failed", action="store_true", help="retry only tickers not yet replaced")
     args = p.parse_args()
 
     v17, v18, v175, union = load_union_tickers()
@@ -303,6 +361,12 @@ def main():
         targets = v18[:307]
         label = "top 307 V1.8 (default)"
 
+    if args.retry_failed and LOG_PATH.exists():
+        prev = json.loads(LOG_PATH.read_text()).get("logs", [])
+        replaced_set = {l["ticker"] for l in prev if l.get("action") == "replaced"}
+        targets = [t for t in targets if t not in replaced_set]
+        label += f" retry-failed ({len(targets)} not yet replaced)"
+
     if args.limit:
         targets = targets[: args.limit]
 
@@ -316,7 +380,8 @@ def main():
     except Exception:
         pass
 
-    print(f"[fetch-logos] {len(targets)} tickers, {label}, throttle={args.throttle}s")
+    load_caches()
+    print(f"[fetch-logos] {len(targets)} tickers, {label}, throttle={args.throttle}s, yf-cache={len(_yf_cache)}, wd-cache={len(_wd_cache)}")
 
     # Load existing log (resume support)
     existing_logs = []
@@ -325,7 +390,10 @@ def main():
         try:
             existing = json.loads(LOG_PATH.read_text())
             existing_logs = existing.get("logs", [])
-            done_set = {l["ticker"] for l in existing_logs if l["action"] == "replaced"}
+            done_set = {l["ticker"] for l in existing_logs if l.get("action") == "replaced"}
+            # En mode retry-failed, on garde uniquement les entries replaced (les autres seront retentées)
+            if args.retry_failed:
+                existing_logs = [l for l in existing_logs if l.get("action") == "replaced"]
         except Exception:
             pass
 
@@ -348,6 +416,12 @@ def main():
             new_logs.append({"ticker": t, "action": "error", "reason": str(e)[:120]})
             print(f"  [{i}/{len(targets)}] {t:14s} ❌ {e}")
         time.sleep(args.throttle)
+        # Sauvegarde des caches toutes les 50 stés (résilience crash)
+        if i % 50 == 0:
+            save_caches()
+            LOG_PATH.write_text(json.dumps({"generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), "logs": existing_logs + new_logs}, indent=2))
+
+    save_caches()
 
     # Save log
     all_logs = existing_logs + new_logs
