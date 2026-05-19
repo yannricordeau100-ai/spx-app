@@ -105,7 +105,14 @@ function isTimeFractionApplicableKpi(kpi?: KPI | null): boolean {
   // de temps → toggle masqué.
 
   const unit = (kpi.unit ?? "").toString();
-  if (!/[$€£¥]/.test(unit)) return false;
+  // Yann 19 mai 2026 : ajout des codes devise texte (EUR, USD, GBP, etc.)
+  // en plus des symboles ($, €, £, ¥). Le pipeline LLM peut sortir l'un
+  // ou l'autre format. Ex NESTE.HE Revenue unité = "M EUR" (texte) →
+  // sans cette extension, le toggle par jour/semaine/mois était masqué.
+  const isMonetary =
+    /[$€£¥]/.test(unit) ||
+    /\b(EUR|USD|GBP|CHF|JPY|CAD|AUD|DKK|SEK|NOK|HKD|CNY|INR|BRL|MXN|ZAR|KRW|PLN)\b/i.test(unit);
+  if (!isMonetary) return false;
   if (/\/\s*(share|action)/i.test(unit)) return false;
 
   const text = `${kpi.short ?? ""} ${kpi.name_fr ?? ""} ${kpi.name_en ?? ""}`.toLowerCase();

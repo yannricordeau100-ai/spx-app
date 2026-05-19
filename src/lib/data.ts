@@ -595,14 +595,33 @@ export function formatHeroValue(value: string | number | null | undefined, unit:
   let displayUnit = formatUnit(unit);
 
   // Yann 17 mai 2026 : rescale M → Mds quand |valeur| >= 1000.
-  // Avant : test strict `unit === "M" || unit === "$M"` — manquait
-  // "$M" (déjà géré), "M $" (FR formaté), "M €", "M £" (1500+ stés).
+  // Yann 19 mai 2026 : étendu aux formats "M XXX" (code devise texte,
+  // ex "M EUR" pour NESTE.HE Revenue 20635 → 20.6 Mds EUR au lieu de
+  // l'affichage brut "20 635 M EUR" qui sortait du scope de RESCALE).
   const RESCALE_M_TO_MDS: Record<string, string> = {
     "M": "Mds",
     "$M": "Mds $",
     "M $": "Mds $",
     "M €": "Mds €",
     "M £": "Mds £",
+    "M EUR": "Mds EUR",
+    "M USD": "Mds USD",
+    "M GBP": "Mds GBP",
+    "M CHF": "Mds CHF",
+    "M JPY": "Mds JPY",
+    "M CAD": "Mds CAD",
+    "M AUD": "Mds AUD",
+    "M DKK": "Mds DKK",
+    "M SEK": "Mds SEK",
+    "M NOK": "Mds NOK",
+    "M HKD": "Mds HKD",
+    "M CNY": "Mds CNY",
+    "M INR": "Mds INR",
+    "M BRL": "Mds BRL",
+    "M MXN": "Mds MXN",
+    "M ZAR": "Mds ZAR",
+    "M KRW": "Mds KRW",
+    "M PLN": "Mds PLN",
   };
   if (RESCALE_M_TO_MDS[unit] && Math.abs(num) >= 1000) {
     displayNum = num / 1000;
