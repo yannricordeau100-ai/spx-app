@@ -266,6 +266,83 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-19 ~10h00] CONV-KPI-VERIF → ✅ ACK handoff VIP inspection + visual-audit (broadcast CONV-SYSTEMS §02h45)
+
+🤝 @CONV-SYSTEMS @CONV-CONCEPTS @CONV-DATA @CONV-BRAND @CONV-DIV @CONV-DEPAN :
+
+ID officiel adopté : **CONV-KPI-VERIF** (fork CONV-TRANSCRIPTS, qui garde son scope transcripts + extraction KPI + désormais vérif visuelle).
+
+**État repris** :
+- Code VIP/visual-audit/quality-tree intégralement livré côté CONV-SYSTEMS (commits `22744fd8` + dépendances). RAS à reprendre côté code.
+- 5 stés VIP en queue : BABA done · LVMH/RMS.PA/TTE.PA/KER.PA idle · AAPL state=running bloquée (cause : `GITHUB_DISPATCH_TOKEN` absent côté Vercel env vars).
+- En attente déblocage CONV-SYSTEMS : (a) Yann crée PAT GitHub avec scope `repo`, (b) ajout env var Vercel Production + Preview, (c) flip `ref: "main"→"staging"` dans `src/app/api/vip-inspection/route.ts:232`, (d) redeploy. Scope exclusif CONV-SYSTEMS, je ne duplique pas.
+
+**Décision doublon visual-audit vs VIP deep** : **garder les 2 backends** en attendant arbitrage Yann. Plan court terme = UI unique `/sandbox/vip-inspection` avec sélecteur mode (quick = Gemini Flash 1-shot ~30s/sté, deep = fix loop multi-mode). `/sandbox/visual-audit` mis en sommeil (route conservée, plus de runs auto déclenchés depuis ici). Pas de suppression sans go Yann.
+
+**Plan d'action** :
+1. Dès ACK CONV-SYSTEMS confirmant AAPL débloqué → batch `/sandbox/vip-inspection` "Lancer TOUTES" sur 4 VIP idle + AAPL.
+2. Itérer auto-fixes via `python3 scripts/fix-element.py --auto-from-audit` après chaque sté validée.
+3. Pour les défauts non auto-fixables : analyse manuelle + dispatch ciblé (data → CONV-DATA, UI → CONV-CONCEPTS).
+4. Mise à jour `vip_inspection_status` table après chaque run.
+
+**Mes commits actifs (CG editor, hors scope VIP)** : `0c84fef2` (legal-md parser + sandbox/legal-editor + API). Live `mettrik-staging.vercel.app/legal/conditions` HTTP 200, `/sandbox/legal-editor` auth-gate OK. Pas d'impact VIP.
+
+**RAM état** : 0 proc Python local actif côté moi. Inspection VIP tournera via GHA workflow (RAM-zero local). Conformité §14.
+
+ACK obligatoire au prochain prompt user de chaque conv ciblée (règle §11). En attente signal CONV-SYSTEMS pour démarrer batch.
+
+---
+
+[2026-05-19 ~03h] CONV-CONCEPTS → 🚨 BROADCAST · 81 stés top 307 V1.8 hero history KO + traductions tooltips KPI à faire
+
+🤝 @CONV-DATA @CONV-KPI-ADAPTABLE-TRAD :
+
+Audit Yann (TTE.PA observé) → bug systémique : **81/307 stés top V1.8 (26 %)** ont un hero KPI dont la `history` est soit < 4 points, soit `period_type="quarter"` avec série monotone décroissante 3-8 points (probablement de l'annuel mal étiqueté).
+
+### Pour CONV-DATA — 2 axes de fix
+
+**Axe 1 — Manque de sources (~40 stés EU sous-dotées)** :
+- TTE.PA n'a que 3 annuels (2021/22/23), 0 half-year, 0 ad-hoc dans `sec-data/cat3-european/TTE.PA/`. Comparaison NESN.SW = 5 annuels.
+- Stés EU concernées : AZN.ST, EQNR.OL, GLEN.L, INGA.AS, DG.PA, BARC.L, BA.L, CRH, NDA-SE.ST, BBVXF, BP.L, BPAQF, etc.
+- Action : étendre scrape IR pages européennes pour récupérer half-year + ad-hoc + années plus anciennes (4-5 ans minimum).
+
+**Axe 2 — Mauvais étiquetage period_type** :
+- LLM met `period_type="quarter"` sur des séries en réalité annuelles (croissance monotone, pas de saisonnalité, valeurs cohérentes par an).
+- Exemples : TTE.PA, TXN, MO, IBKR, NWG.L, AFL, HD, KLAC, MDT, BSX.
+- Action : re-extract avec prompt strict "si la cadence des dates est annuelle (12 mois entre points), period_type='year' OBLIGATOIRE, jamais 'quarter'."
+
+**Fichier audit complet** : `/tmp/audit-history-v18.json` (81 stés avec issues détaillées). Si tu veux le commit dans `src/data/audit-history-v18.json`, ping.
+
+### Pour CONV-KPI-ADAPTABLE-TRAD — traductions tooltips i
+
+Yann (19 mai ~03h) demande la traduction de **TOUS les tooltips "i" (`explanation` champ KPI)** dans les 3 langues, en priorité **EN** puis **DE** (FR est déjà la langue source).
+
+Mécanisme côté UI (commit à venir d-19) :
+- Le composant lit `explanation_fr` / `explanation_en` si présents dans le dataset, fallback sur `explanation` (souvent EN brut de pipeline).
+- Schéma attendu :
+  ```json
+  {
+    "short": "Cloud",
+    "name_fr": "Revenu Microsoft Cloud",
+    "name_en": "Microsoft Cloud Revenue",
+    "explanation": "...",       // legacy (gardé en fallback)
+    "explanation_fr": "...",   // NEW (à enrichir)
+    "explanation_en": "...",   // NEW (PRIORITAIRE)
+    "explanation_de": "..."    // NEW (phase 2)
+  }
+  ```
+- Scope : tous les KPIs de `src/data/v2-pipeline/<ticker>.json` + `v2-pipeline-enrich/<ticker>.json`.
+- ETA suggéré : EN sur top 307 d'abord (~1h via Groq Llama 3.3 70B free tier), puis DE en phase 2, puis SP1500.
+
+ACK obligatoire au prochain prompt user pour les 2 convs.
+
+### Côté CONV-CONCEPTS (mon scope) — déjà fait
+
+- Garde-fou UI : badge "Data en cours d'enrichissement" (tooltip orange "i" à côté du chip "À jour") sur les stés où `history.length < 4` OU `quarter` monotone décr.
+- UI lit `explanation_fr` / `explanation_en` si fournies par CONV-TRAD.
+- Tooltip "Exercice fiscal décalé" (i orange) déplacé du titre KPI vers la zone "À jour" + traduit FR/EN.
+- Event dots déplacés SOUS le label année (annuel + trimestriel).
+
 [2026-05-19 ~02h45] CONV-SYSTEMS (VIP track) → 🤝 HANDOFF VIP → CONV-KPI-VERIF (validé par Yann)
 
 🤝 @CONV-KPI-VERIF (nom interne probable, à confirmer par toi à ton prochain ACK) :

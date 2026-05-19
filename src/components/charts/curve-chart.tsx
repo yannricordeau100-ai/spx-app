@@ -621,7 +621,10 @@ export function CurveChart({
           );
         })}
 
-        {/* Points de curiosité (événements clefs) sur l'axe X */}
+        {/* Points de curiosité (événements clefs) sur l'axe X.
+            Yann 19 mai 2026 : dotYOffset positif → dot SOUS le label année
+            (yText = H - PAD_BOTTOM + 60 dans curve, donc offset 72 met le
+            dot ~12 px sous le texte de l'année). Annuel + trimestriel. */}
         <EventDotsSVG
           events={events}
           xLabels={labels}
@@ -630,6 +633,7 @@ export function CurveChart({
           padTop={PAD_TOP}
           innerH={innerH}
           color={color}
+          dotYOffset={72}
         />
 
         {/* Year band : 1 année = 1 bracket sous l'axe X. L'année apparaît
@@ -706,6 +710,7 @@ export function CurveChart({
         padTop={PAD_TOP}
         innerH={innerH}
         color={color}
+        dotYOffset={72}
       />
 
       {/* Yann 14 mai 2026 : bloc anomalies bottom retiré (les 'i' flottants

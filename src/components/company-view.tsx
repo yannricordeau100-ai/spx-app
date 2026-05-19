@@ -529,6 +529,102 @@ export function CompanyView({
                   alwaysShow
                   size="sm"
                 />
+                {/* Yann 19 mai 2026 : garde-fou data — affiche un badge
+                    "Data en cours" si le hero KPI a une history < 4 points
+                    OU period_type=quarter avec une série monotone décr 3-5
+                    pts (= probablement de l'annuel mal étiqueté, cf audit
+                    81/307 stés top V1.8). Signal honnête pour l'investisseur
+                    + ping CONV-DATA pour enrichissement. */}
+                {(() => {
+                  const h = Array.isArray(active.history) ? active.history : [];
+                  const tooShort = h.length > 0 && h.length < 4;
+                  const looksAnnualMislabel =
+                    active.period_type === "quarter" &&
+                    h.length >= 3 &&
+                    h.length <= 8 &&
+                    h.every((v, i) => i === 0 || (typeof v === "number" && typeof h[i - 1] === "number" && v <= (h[i - 1] as number)));
+                  if (!tooShort && !looksAnnualMislabel) return null;
+                  const isFr = locale === "fr";
+                  return (
+                    <InfoTooltip color="#fb923c">
+                      <div className="mb-1 font-mono text-[10px] uppercase tracking-wider text-orange-400">
+                        {isFr ? "Data en cours d'enrichissement" : "Data being enriched"}
+                      </div>
+                      <div className="text-zinc-200 text-[12.5px] leading-relaxed">
+                        {isFr ? (
+                          <>
+                            L&apos;historique de ce KPI sur cette société est{" "}
+                            {tooShort ? <>limité à <strong>{h.length} points</strong></> : <>peut-être mal étiqueté en trimestriel</>}.
+                            Le pipeline d&apos;extraction Mettrik continue d&apos;enrichir les sources publiques pour cette société.
+                            Les chiffres affichés restent fidèles aux dépôts officiels disponibles.
+                          </>
+                        ) : (
+                          <>
+                            The history of this KPI for this company is{" "}
+                            {tooShort ? <>limited to <strong>{h.length} data points</strong></> : <>possibly mislabeled as quarterly</>}.
+                            Mettrik&apos;s extraction pipeline continues to enrich public sources for this company.
+                            Displayed values remain faithful to available official filings.
+                          </>
+                        )}
+                      </div>
+                    </InfoTooltip>
+                  );
+                })()}
+                {/* Yann 19 mai 2026 : tooltip "Exercice fiscal décalé"
+                    (i orange) déplacé du titre KPI vers la zone "À jour"
+                    pour ne pas polluer visuellement le titre + cohérence
+                    avec les autres infos meta de cette zone (date
+                    fraîcheur, fréquence). */}
+                {active.period_type === "quarter" && isFiscalShifted(company.ticker) && (() => {
+                  const fl = fiscalLabelsForTicker(company.ticker, active.last_data_date);
+                  if (!fl) return null;
+                  const fyEndMonthFr = [
+                    "", "janvier", "février", "mars", "avril", "mai", "juin",
+                    "juillet", "août", "septembre", "octobre", "novembre", "décembre",
+                  ][fl.fiscalYearEndMonth] ?? "?";
+                  const fyEndMonthEn = [
+                    "", "January", "February", "March", "April", "May", "June",
+                    "July", "August", "September", "October", "November", "December",
+                  ][fl.fiscalYearEndMonth] ?? "?";
+                  const isFr = locale === "fr";
+                  return (
+                    <InfoTooltip color="#f59e0b">
+                      <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: "#f59e0b" }}>
+                        {isFr ? "Exercice fiscal décalé" : "Shifted fiscal year"}
+                      </div>
+                      <div className="text-zinc-200 text-[12.5px] leading-relaxed">
+                        {isFr ? (
+                          <>
+                            <strong>{company.name}</strong> a un exercice fiscal qui se termine en{" "}
+                            <strong>{fyEndMonthFr}</strong> (pas en décembre comme le calendrier).
+                            <br /><br />
+                            Sur le graph, <strong>« T{(fl.lastLabel.match(/Q(\d)/)?.[1] ?? "?")} {fl.lastLabel.match(/(\d{4})/)?.[1] ?? ""} »</strong> correspond
+                            au trimestre fiscal {fl.lastLabel}, et non au trimestre calendaire.
+                          </>
+                        ) : (
+                          <>
+                            <strong>{company.name}</strong>&apos;s fiscal year ends in{" "}
+                            <strong>{fyEndMonthEn}</strong> (not December like the calendar year).
+                            <br /><br />
+                            On the chart, <strong>&quot;Q{(fl.lastLabel.match(/Q(\d)/)?.[1] ?? "?")} {fl.lastLabel.match(/(\d{4})/)?.[1] ?? ""}&quot;</strong> refers
+                            to the fiscal quarter {fl.lastLabel}, not the calendar quarter.
+                          </>
+                        )}
+                        {fl.publicationDate && (
+                          <>
+                            <br /><br />
+                            <span className="text-zinc-400">
+                              {isFr ? "Dernier trimestre publié officiellement le " : "Latest quarter officially published on "}
+                              {new Date(fl.publicationDate).toLocaleDateString(isFr ? "fr-FR" : "en-US", {
+                                day: "numeric", month: "long", year: "numeric",
+                              })}.
+                            </span>
+                          </>
+                        )}
+                      </div>
+                    </InfoTooltip>
+                  );
+                })()}
               </div>
 
               <div className="mt-1 flex items-center gap-2.5">
@@ -702,66 +798,41 @@ export function CompanyView({
                     </span>
                   )}
                 </span>
-                {/* Yann 15 mai 2026 : tooltip masqué si pas de contenu (explanation
-                    + name_en tous deux vides → tooltip vide style "DÉFINITION" sans
-                    body). On l'affiche seulement si au moins un des deux est rempli. */}
-                {((typeof active.explanation === "string" && active.explanation.trim())
-                  || (active.name_en && active.name_en !== active.name_fr)) && (
-                  <InfoTooltip color={accent}>
-                    <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: accent }}>
-                      {t("kpi.definition")}
-                    </div>
-                    {typeof active.explanation === "string" && active.explanation.trim() && (
-                      <div className="text-zinc-200">{active.explanation}</div>
-                    )}
-                    {/* Traduction EN (anciennement affichée inline à côté du
-                        titre, déplacée ici pour épurer le titre. 5 mai 2026). */}
-                    {active.name_en && active.name_en !== active.name_fr && (
-                      <div className="mt-2 border-t border-white/5 pt-2 font-mono text-[11px] italic text-zinc-400">
-                        {active.name_en}
-                      </div>
-                    )}
-                  </InfoTooltip>
-                )}
-                {/* Yann 17 mai 2026 : tooltip "i" fiscal-shifted explicatif.
-                    Affiché UNIQUEMENT pour les stés à exercice fiscal décalé
-                    (Apple FY end sept, Microsoft juin, NVIDIA jan, etc.) ET
-                    quand le hero KPI est trimestriel.
-                    But : éviter que l'investisseur pense que Mettrik AI ment
-                    quand il voit "T2 2026" alors qu'on est encore en mai. */}
-                {active.period_type === "quarter" && isFiscalShifted(company.ticker) && (() => {
-                  const fl = fiscalLabelsForTicker(company.ticker, active.last_data_date);
-                  if (!fl) return null;
-                  const fyEndMonthFr = [
-                    "", "janvier", "février", "mars", "avril", "mai", "juin",
-                    "juillet", "août", "septembre", "octobre", "novembre", "décembre",
-                  ][fl.fiscalYearEndMonth] ?? "?";
+                {/* Yann 15 mai 2026 : tooltip masqué si pas de contenu.
+                    Yann 19 mai 2026 : prise en compte des champs i18n
+                    `explanation_fr` / `explanation_en` si présents dans le
+                    dataset (CONV-TRAD enrichira progressivement). Fallback
+                    sur `active.explanation` (souvent EN brut de pipeline). */}
+                {(() => {
+                  type WithI18n = typeof active & { explanation_fr?: string; explanation_en?: string };
+                  const a = active as WithI18n;
+                  const isFr = locale === "fr";
+                  const localExplanation = isFr
+                    ? (a.explanation_fr || a.explanation || "")
+                    : (a.explanation_en || a.explanation || "");
+                  const hasContent =
+                    (localExplanation && localExplanation.trim()) ||
+                    (active.name_en && active.name_en !== active.name_fr);
+                  if (!hasContent) return null;
                   return (
-                    <InfoTooltip color="#f59e0b">
-                      <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: "#f59e0b" }}>
-                        Exercice fiscal décalé
+                    <InfoTooltip color={accent}>
+                      <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: accent }}>
+                        {t("kpi.definition")}
                       </div>
-                      <div className="text-zinc-200 text-[12.5px] leading-relaxed">
-                        <strong>{company.name}</strong> a un exercice fiscal qui se termine en{" "}
-                        <strong>{fyEndMonthFr}</strong> (pas en décembre comme le calendrier).
-                        <br /><br />
-                        Sur le graph, <strong>« T{(fl.lastLabel.match(/Q(\d)/)?.[1] ?? "?")} {fl.lastLabel.match(/(\d{4})/)?.[1] ?? ""} »</strong> correspond
-                        au trimestre fiscal {fl.lastLabel}, et non au trimestre calendaire.
-                        {fl.publicationDate && (
-                          <>
-                            <br /><br />
-                            <span className="text-zinc-400">
-                              Dernier trimestre publié officiellement le{" "}
-                              {new Date(fl.publicationDate).toLocaleDateString("fr-FR", {
-                                day: "numeric", month: "long", year: "numeric",
-                              })}.
-                            </span>
-                          </>
-                        )}
-                      </div>
+                      {localExplanation && localExplanation.trim() && (
+                        <div className="text-zinc-200">{localExplanation}</div>
+                      )}
+                      {active.name_en && active.name_en !== active.name_fr && (
+                        <div className="mt-2 border-t border-white/5 pt-2 font-mono text-[11px] italic text-zinc-400">
+                          {active.name_en}
+                        </div>
+                      )}
                     </InfoTooltip>
                   );
                 })()}
+                {/* Yann 19 mai 2026 : ancien tooltip orange "Exercice fiscal
+                    décalé" DÉPLACÉ vers la zone "À jour" (col gauche) pour
+                    ne pas surcharger le titre KPI. Voir code ~ligne 535. */}
               </div>
               {/* TimeFraction toggle visible UNIQUEMENT pour les charts qui ont
                   du sens à diviser ET pour les KPIs où ça PARLE à un investisseur.

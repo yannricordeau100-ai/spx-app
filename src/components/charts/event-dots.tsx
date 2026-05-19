@@ -184,6 +184,7 @@ export function EventDotsSVG({
   color = "#a78bfa",
   xMode = "step",
   slotOffsetX = 0,
+  dotYOffset = 0,
 }: {
   events: CompanyEvent[];
   xLabels: string[];
@@ -196,9 +197,15 @@ export function EventDotsSVG({
   xMode?: "step" | "slot";
   /** Offset horizontal additionnel (= DX/2 pour bars 3D). Ignoré si xMode="step". */
   slotOffsetX?: number;
+  /**
+   * Offset vertical additionnel pour positionner le dot SOUS le texte de
+   * l'année (Yann 19 mai 2026, demandé "plein de fois"). Default 0 (dot
+   * sur l'axe X). Passer ~22-28 pour le placer sous le label année.
+   */
+  dotYOffset?: number;
 }) {
   if (!events.length || xLabels.length < 2) return null;
-  const dotY = padTop + innerH;
+  const dotY = padTop + innerH + dotYOffset;
   const groups = groupEventsByYear(events, xLabels);
   if (groups.length === 0) return null;
 
@@ -257,6 +264,7 @@ export function EventDotsOverlay({
   color = "#a78bfa",
   xMode = "step",
   slotOffsetX = 0,
+  dotYOffset = 0,
 }: {
   events: CompanyEvent[];
   xLabels: string[];
@@ -271,10 +279,12 @@ export function EventDotsOverlay({
   xMode?: "step" | "slot";
   /** Offset horizontal additionnel (= DX/2 pour bars 3D). Ignoré si xMode="step". */
   slotOffsetX?: number;
+  /** Cf EventDotsSVG.dotYOffset : positionne le hit-target sous le label année. */
+  dotYOffset?: number;
 }) {
   const [open, setOpen] = useState<number | null>(null);
   if (!events.length || xLabels.length < 2) return null;
-  const dotY = padTop + innerH;
+  const dotY = padTop + innerH + dotYOffset;
   const groups = groupEventsByYear(events, xLabels);
   if (groups.length === 0) return null;
 

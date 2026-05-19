@@ -195,6 +195,7 @@ export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, ex
         color="#a78bfa"
         xMode="slot"
         slotOffsetX={DX / 2}
+        dotYOffset={72}
       />
 
       {/* Year band : 1 année = 1 bracket sous l'axe X. */}
@@ -251,6 +252,7 @@ export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, ex
       color="#a78bfa"
       xMode="slot"
       slotOffsetX={DX / 2}
+      dotYOffset={72}
     />
     </div>
   );
