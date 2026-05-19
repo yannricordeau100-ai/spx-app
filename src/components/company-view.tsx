@@ -267,8 +267,15 @@ export function CompanyView({
     if (graphPeriod === "year") {
       // Yann 16 mai 2026 : vue annuelle = uniquement FY complètes. Le label
       // "TTM" sera AJOUTÉ par le chart côté allLabels via ttmLabel.
+      // Yann 19 mai 2026 ~22h : si fiscal shifted, préfixer "FY" sur axe X.
       const kind = getKpiAggregationKind(active);
       const agg = aggregateQuarterlyToAnnual(active.history ?? [], active.last_data_date, kind, fyEndMonth);
+      if (isFiscalShifted) {
+        return agg.years.map((y) => {
+          const short = String(y).slice(-2);
+          return `FY${short}`;
+        });
+      }
       return [...agg.years];
     }
 
@@ -596,7 +603,7 @@ export function CompanyView({
                     pour ne pas polluer visuellement le titre + cohérence
                     avec les autres infos meta de cette zone (date
                     fraîcheur, fréquence). */}
-                {active.period_type === "quarter" && isFiscalShifted(company.ticker) && (() => {
+                {isFiscalShifted(company.ticker) && (() => {
                   const fl = fiscalLabelsForTicker(company.ticker, active.last_data_date);
                   if (!fl) return null;
                   const fyEndMonthFr = [
