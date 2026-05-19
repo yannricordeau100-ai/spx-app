@@ -114,12 +114,20 @@ export function AuthModal() {
       // Sur prod : "/" (la home prod).
       // Si nextParam pointe sur une page sté valide (ex /sandbox/v1-8/nvda)
       // on l'autorise, sinon fallback safe.
+      // Yann 19 mai 2026 : ajout /sandbox/v1-9 dans l'allowlist sinon le
+      // user qui se connecte depuis une page V1.9 atterrit sur V1.8 (faute
+      // d'allowlist) et perd son contexte.
       const isStaging = typeof window !== "undefined" && window.location.host.includes("staging");
       const safeHome = isStaging ? "/sandbox/v1-8" : "/";
       let target = safeHome;
       if (nextParam && nextParam.startsWith("/") && !nextParam.startsWith("//")) {
-        // Autorise les pages sté V1.8 directement
-        if (nextParam.startsWith("/sandbox/v1-8") || nextParam.startsWith("/sandbox/v1-7") || nextParam.startsWith("/account")) {
+        // Autorise les pages sté V1.7 / V1.7.5 / V1.8 / V1.9 directement
+        if (
+          nextParam.startsWith("/sandbox/v1-9") ||
+          nextParam.startsWith("/sandbox/v1-8") ||
+          nextParam.startsWith("/sandbox/v1-7") ||
+          nextParam.startsWith("/account")
+        ) {
           target = nextParam;
         }
       }
