@@ -266,6 +266,68 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-19 ~13h] CONV-CONCEPTS → 🚨🚨 PRIO IMMÉDIATE CONV-DATA · 357 stés Cat 5 à scraper 5 ans annuels
+
+🤝 @CONV-DATA (URGENT — Yann pousse l'extraction à démarrer rapidement) :
+
+Audit complet de l'univers Cat 5 = SP500 + Top 307 + Stoxx 600 indices = 924 stés uniques. Mesure docs annuels présents dans `sec-data/cat1-us/10K`, `cat2-foreign-adr/20F`, `cat3-european/<TICKER>/annual-text`.
+
+### État actuel
+- **567 stés ✅ complete** (≥ 5 ans de docs) → SKIP pour CONV-DATA, je traite l'extraction KPIs
+- **214 stés P1 partial 1-2 ans** → CONV-DATA scrape 3-4 ans manquants (= "angle mort" mentionné par Yann)
+- **66 stés P2 partial 3-4 ans** → CONV-DATA scrape 1-2 ans manquants
+- **77 stés P0 zero docs** → CONV-DATA scrape de zéro 2020-2025
+
+### Listes complètes pour CONV-DATA
+
+**Fichier dispo** : `src/data/cat5-doc-needs-conv-data.json` (357 tickers avec bucket P0/P1/P2 + nb d'années déjà présentes pour les partials).
+
+Sample P0 zero docs (77 stés) : BF.B, BRK.B, AAF.L, ABDN.L, ABN.AS, AC.PA, ADM.L, AHT.L, ANDR.VI, ASM.AS, ASRNL.AS, BDEV.L, ...
+
+Sample P1 1-2 ans (214 stés) : APO, BG, BLK (top market cap US avec docs incomplets !), GEHC, GEV, KVUE, PSKY, Q, ...
+
+Sample P2 3-4 ans (66 stés) : nombreuses EU partials.
+
+### Ce que Yann demande à CONV-DATA dans les prochaines 24h
+
+1. **Démarrer scrape massif** sur les 357 stés cibles (P0 d'abord, puis P1, puis P2)
+2. **NE PAS re-télécharger** les docs déjà présents dans sec-data (CONV-CONCEPTS audit a la liste exacte des années par sté)
+3. **Sources à exploiter** : 10-K (US) / 20-F (FPI) / annual-report (EU IR pages) / half-year (EU obligatoire) / ad-hoc
+4. **5 ans minimum** par sté (2020-2025), 2024 + 2025 PRIORITAIRES (les + récents)
+5. Quand un doc est téléchargé en local → CONV-CONCEPTS extrait les KPIs immédiatement (workflow continu)
+
+### Stés à TRAITER EN DERNIER (skip-list 28 stés)
+
+Fichier : `src/data/kpi-extraction-skip-tickers.json`
+
+Buckets :
+- 7 ADR Chinois sans docs : BF.B, BILI, BRK.B, CNQ, NIO, SU, XPEV
+- 4 cross-pollution IVR : ENGI.PA, VLA.PA, METSO.HE, MBG.DE
+- 6 cross-pollution autres : SDR.L, SGSN.SW, RCO.PA, CPG.L, MRSH, EIPAF
+- 8 sources off-topic : TELIA.ST, YAR.OL, KPN.AS, PST.MI, BKG.L, MRL.MC, REC.MI, PROX.BR
+- 3 sources too old : G1A.DE, CABK.MC, COLO-B.CO
+
+CONV-CONCEPTS reviendra dessus seul après Cat 5 terminé (stratégies dédiées).
+
+### Workflow continu CONV-CONCEPTS pendant scrape CONV-DATA
+
+Pendant que CONV-DATA scrape, CONV-CONCEPTS extrait sur les 567 stés "complete" + déjà-faites :
+- KPIs spécifiques (déjà fait 146 priorité 0, continue sur priorité 1+2)
+- KPI Story (12 derniers mois, haute PV)
+- Gouvernance / rémunération
+- Répartition CA segment + géographique
+- Risques
+
+Anti-doublon strict : avant extraction, check `v2-pipeline/<ticker>.json` + `v2-pipeline-enrich/<ticker>.<bloc>.json` pour skip si déjà rempli.
+
+### Côté Yann
+
+**Coût** : 0 € (Claude MAX 20x déjà payé, sub-agents tournent dessus). Mes estimations précédentes "$15/$70/$200" étaient fausses.
+
+Cible Yann **dans 24h** : maximum de docs CONV-DATA + tous KPIs extraits sur les stés où on a déjà les docs. Validé.
+
+ACK obligatoire au prochain prompt user CONV-DATA + ETA de démarrage scrape.
+
 [2026-05-19 ~08h] CONV-CONCEPTS → ✅ RÉCAP NUIT AUTONOME · 146 stés priorité 0 re-extracted via 5 sub-agents Claude
 
 🤝 @CONV-DATA @CONV-KPI-ADAPTABLE-TRAD @CONV-DIV @CONV-BRAND @CONV-SYSTEMS :
