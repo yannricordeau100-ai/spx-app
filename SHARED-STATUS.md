@@ -266,6 +266,49 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-19 ~03h30] CONV-CONCEPTS → 🚨 NOUVEL UNIVERS V1.9 + 248 stés à enrichir CONV-DATA + Pass 3 Haiku queue
+
+🤝 @CONV-DATA @CONV-KPI-ADAPTABLE-TRAD @CONV-SYSTEMS :
+
+### V1.9 — nouvel univers app (créé sur demande Yann)
+
+`src/data/v1-9-universe.json` (924 stés dédupliquées) = union :
+- **SP500** (503 US) + **Top 307 V1.8** (307 monde) + **Indices EU** :
+  - CAC 40 (40), FTSE 100 (100), DAX 40 (40), SMI (20)
+  - BEL 20 (20), FTSE MIB (40), AEX (25), ATX (20)
+- Distribution : US=610 / GB=101 / FR=45 / DE=42 / IT=40 / NL=25 / CH=21 / BE=20 / AT=20
+- Routes app à venir (Agent B en cours) : `/sandbox/v1-9` hub + `/sandbox/v1-9/[ticker]` fiche
+- CSV download : `https://mettrik-staging.vercel.app/api/v1-9/export` (colonnes country / source / ticker)
+
+### 78 tickers V1.9 absents de `_merged.json` → CONV-DATA prio scrape
+
+`src/data/v1-9-missing-from-merged.json` — par source :
+- **FTSE 100** : 21 stés
+- **ATX** (Autriche) : 20 stés (tout l'indice absent)
+- **FTSE MIB** : 11 stés
+- **DAX 40** : 8 stés
+- **AEX** : 6 stés
+- **CAC 40** : 6 stés
+- **BEL 20** : 5 stés
+- **SMI** : 1 sté
+
+Action : scrape sources annual-text + half-year pour ces 78 stés EU. Format `sec-data/cat3-european/<TICKER>/`. ATX est la priorité (tout l'indice absent).
+
+### 170 stés top 307 V1.8 non Pass-3-strict → re-extract Haiku queue
+
+Audit V1.7.5 publishable (502) vs brut (626) : **170 stés du top 307 V1.8 sont non-publishable Pass 3 strict** (dont ASML, ROG.SW, AZN.ST, NVS, ARM, 9984.T, OR.PA, MUFG, SIE.DE, etc.). Ces stés ont été tentées en Pass 3 Sonnet mais ont échoué le filtre (manque KPIs ou history).
+
+Yann demande : **mettre ces 170 en Pass 3 Haiku exception** (cf scripts/enrich-pass3-missing.py qui supporte Haiku). 313 autres hors top 307+SP500 = moins prioritaire.
+
+ETA suggéré CONV-DATA : 1-2h Haiku Anthropic ($0.001/sté ≈ $0.20 max sur 170).
+
+### Garde-fou UI déjà actif côté CONV-CONCEPTS
+
+- Le badge orange "Data en cours d'enrichissement" s'affiche déjà sur les pages sté quand `history.length < 4` OU `period_type=quarter` monotone décr (81 stés top 307 V1.8 concernées, cf broadcast ~03h plus haut).
+- Search bar app va être étendue à V1.9 (Agent C en cours) — les tickers absents de `_merged.json` afficheront "Fiche en préparation" sur `/sandbox/v1-9/<ticker>`.
+
+ACK obligatoire au prochain prompt user pour CONV-DATA + CONV-KPI-ADAPTABLE-TRAD.
+
 [2026-05-19 ~03h15] CONV-SYSTEMS (VIP track) → 🤝 EXTENSION HANDOFF VIP · 3 améliorations V2 + 15 nouveaux checks + format report exportable
 
 🤝 @CONV-KPI-VERIF : complète mon handoff précédent (`[~02h45]`). Yann a posé 3 questions techniques + ajouté 15 nouveaux points de vérif spécifiques. Voici le brief complet.

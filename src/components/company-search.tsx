@@ -21,8 +21,12 @@ import { useT } from "@/lib/i18n/provider";
 import {
   V17_SEARCH_INDEX,
   V17_SEARCH_BY_TICKER,
+  V19_SEARCH_INDEX,
+  V19_SEARCH_BY_TICKER,
   type V17SearchEntry,
+  type V19SearchEntry,
 } from "@/lib/v1-7/tickers-search-index";
+import v19UniverseJson from "@/data/v1-9-universe.json";
 
 /**
  * CompanySearch — barre de recherche unifiée, utilisée :
@@ -95,19 +99,34 @@ export function CompanySearch({
   }, [open]);
 
   /**
-   * Résultats unifiés V1 + V1.7. On filtre les 1607 entrées V1.7 puis on
-   * priorise les 5 V1 en tête (plus riches : hero KPI, secteur, etc.).
-   * Chaque résultat carry son origine ("v1" | "v17") pour que ResultCard
-   * route correctement (`/<ticker>` vs `/sandbox/v1-7/<ticker>`).
+   * Résultats unifiés V1 + V1.7 + V1.9. On filtre les entrées de chaque
+   * source puis on priorise les 5 V1 en tête (plus riches : hero KPI,
+   * secteur, etc.). Chaque résultat porte son origine ("v1" | "v17" | "v19")
+   * pour que ResultCard route correctement :
+   *   - v1    → `/<ticker>` (5 stés démo V1)
+   *   - v17   → `/sandbox/v1-7-5/<ticker>` si Pass 3 validé, sinon
+   *             `/sandbox/v1-8/<ticker>` (V1.8 relâché)
+   *   - v19   → `/sandbox/v1-9/<ticker>` (fiche "en préparation" pour
+   *             les 78 tickers EU absents de `_merged.json`)
    *
    * Sans query : on affiche 5 V1 + premier slice V1.7 (top alphabétique).
    *              Évite de charger 1607 cards à l'ouverture.
    * Avec query : on filtre toutes les sources, cap visuel 60 résultats.
    */
-  const results = useMemo<{ ticker: string; source: "v1" | "v17" }[]>(() => {
+  // Set des 924 tickers V1.9 (union pour permettre de cherche les non-Pass3
+  // qui sont dans V1.9 et router vers V1.8). Mémoïsé hors useMemo (constant).
+  const v19UniverseSet = useMemo(() => {
+    const u = v19UniverseJson as { ticker: string }[];
+    return new Set(u.map((x) => x.ticker.toUpperCase()));
+  }, []);
+
+  const results = useMemo<
+    { ticker: string; source: "v1" | "v17" | "v19" }[]
+  >(() => {
     const q = query.trim().toLowerCase();
     const v1Out: { ticker: string; source: "v1" }[] = [];
     const v17Out: { ticker: string; source: "v17" }[] = [];
+    const v19Out: { ticker: string; source: "v19" }[] = [];
 
     // V1 (5 stés, riches)
     for (const t of TICKERS) {
@@ -124,21 +143,26 @@ export function CompanySearch({
       if (matches) v1Out.push({ ticker: t, source: "v1" });
     }
 
-    // V1.7 strict (Pass 3 validées uniquement = `validated: true`). Décision
-    // Yann 4 mai 2026 : la search ne montre QUE les stés qu'on a sur V1.7
-    // (cohérence avec le hub /sandbox/v1-7). Les stés Pass 1/2 du V1.6 ne
-    // sont PAS searchables (browse exhaustif réservé au hub V1.6).
-    // Skip aussi ceux déjà présents en V1 (évite doublon).
-    // Yann 8 mai 2026 : si `searchableTickers` est fourni, on restreint le
-    // scope (ex V1.8 = top 308 hors Chine = 306 stés).
+    // V1.7 : Pass 3 validées (route /sandbox/v1-7-5/<ticker>) + non-validées
+    // PRÉSENTES DANS V1.9 (route /sandbox/v1-8/<ticker>). Décision Yann
+    // 19 mai 2026 : la search V1.9 doit pouvoir trouver TOUS les tickers
+    // de l'univers V1.9, y compris ceux dont l'extraction n'a pas été
+    // validée Pass 3 (ils tomberont sur la fiche V1.8 relâchée).
+    // Skip ceux déjà présents en V1 (évite doublon).
+    // Si `searchableTickers` est fourni, on restreint le scope (ex V1.8
+    // = top 308 hors Chine = 306 stés).
     const v1Set = new Set(TICKERS.map((t) => t.toUpperCase()));
     const scopeSet = searchableTickers
       ? new Set(searchableTickers.map((t) => t.toUpperCase()))
       : null;
     for (const e of V17_SEARCH_INDEX) {
-      if (!e.validated) continue;
-      if (v1Set.has(e.ticker.toUpperCase())) continue;
-      if (scopeSet && !scopeSet.has(e.ticker.toUpperCase())) continue;
+      const upper = e.ticker.toUpperCase();
+      if (v1Set.has(upper)) continue;
+      if (scopeSet && !scopeSet.has(upper)) continue;
+      // Si pas Pass 3 validé : on l'inclut seulement s'il est dans l'univers
+      // V1.9 (extension recherche EU). Comportement historique préservé pour
+      // les non-V1.9 (non searchables).
+      if (!e.validated && !v19UniverseSet.has(upper)) continue;
       const matches =
         !q ||
         e.ticker.toLowerCase().includes(q) ||
@@ -147,8 +171,22 @@ export function CompanySearch({
       if (matches) v17Out.push({ ticker: e.ticker, source: "v17" });
     }
 
-    return [...v1Out, ...v17Out];
-  }, [query, searchableTickers]);
+    // V1.9 missing : 78 tickers EU dans `v1-9-universe.json` MAIS absents
+    // de `_merged.json`. Route /sandbox/v1-9/<ticker> ("Fiche en préparation").
+    // Pas de filtrage scopeSet ici : V1.9 missing = scope dédié.
+    for (const e of V19_SEARCH_INDEX) {
+      const upper = e.ticker.toUpperCase();
+      if (v1Set.has(upper)) continue;
+      const matches =
+        !q ||
+        e.ticker.toLowerCase().includes(q) ||
+        e.name.toLowerCase().includes(q) ||
+        (e.country?.toLowerCase().includes(q) ?? false);
+      if (matches) v19Out.push({ ticker: e.ticker, source: "v19" });
+    }
+
+    return [...v1Out, ...v17Out, ...v19Out];
+  }, [query, searchableTickers, v19UniverseSet]);
 
   // Compteur "X stés au total" : override fourni en prop, sinon V1 (5) +
   // V1.7 Pass 3 validées (le défaut historique).
@@ -273,9 +311,19 @@ export function CompanySearch({
                     if (e.key === "Enter" && results.length === 1) {
                       e.preventDefault();
                       const r = results[0];
-                      const href = r.source === "v1"
-                        ? `/${r.ticker.toLowerCase()}`
-                        : `/sandbox/v1-8/${r.ticker.toLowerCase()}`;
+                      const lower = r.ticker.toLowerCase();
+                      let href: string;
+                      if (r.source === "v1") {
+                        href = `/${lower}`;
+                      } else if (r.source === "v19") {
+                        href = `/sandbox/v1-9/${lower}`;
+                      } else {
+                        // v17 : route Pass 3 → v1-7-5, sinon v1-8
+                        const entry = V17_SEARCH_BY_TICKER[r.ticker.toUpperCase()];
+                        href = entry?.validated
+                          ? `/sandbox/v1-7-5/${lower}`
+                          : `/sandbox/v1-8/${lower}`;
+                      }
                       close();
                       router.push(href);
                     }
@@ -339,6 +387,8 @@ export function CompanySearch({
                       <li key={`${r.source}-${r.ticker}`}>
                         {r.source === "v1" ? (
                           <ResultCard ticker={r.ticker} onSelect={close} />
+                        ) : r.source === "v19" ? (
+                          <ResultCardV19 ticker={r.ticker} onSelect={close} />
                         ) : (
                           <ResultCardV17 ticker={r.ticker} onSelect={close} />
                         )}
@@ -467,11 +517,12 @@ function ResultCardV17({
   const e = V17_SEARCH_BY_TICKER[ticker.toUpperCase()];
   const accent = brand(ticker).primary;
   if (!e) return null;
-  // Routing (Yann 8 mai 2026) : V1.8 par défaut (filtre relaxé + bordures
-  // rouges sur blocs manquants). V1.7 strict était trop restrictif côté UX.
-  // Les fiches non-validées tombent sur "Fiche en préparation" via le filtre
-  // V1.8 lui-même, donc plus besoin de scinder vers /sandbox/v1-6.
-  const href = `/sandbox/v1-8/${ticker.toLowerCase()}`;
+  // Routing (Yann 19 mai 2026) : Pass 3 validé → /sandbox/v1-7-5/<ticker>
+  // (route canonique de meilleure qualité), sinon → /sandbox/v1-8/<ticker>
+  // (V1.8 relâché avec filtre permissif, bordures rouges sur blocs manquants).
+  const href = e.validated
+    ? `/sandbox/v1-7-5/${ticker.toLowerCase()}`
+    : `/sandbox/v1-8/${ticker.toLowerCase()}`;
   return (
     <Link
       href={href}
@@ -518,6 +569,72 @@ function ResultCardV17({
         </div>
         <div className="mt-0.5 truncate text-[11.5px] text-zinc-400">
           {e.sector || "-"}
+        </div>
+      </div>
+
+      <ArrowRight className="size-4 shrink-0 -translate-x-1 text-zinc-600 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:text-zinc-300 group-hover:opacity-100" />
+    </Link>
+  );
+}
+
+/* ─── Carte résultat V1.9 (sté EU non encore extraite) ──────────────── */
+/**
+ * Variante de ResultCard pour les 78 stés V1.9 absentes de `_merged.json`.
+ * On n'a aucune donnée pipeline encore (pas de sector, pas de hero), juste
+ * un nom (Wikipedia) + un pays. Route vers `/sandbox/v1-9/<ticker>` (page
+ * "Fiche en préparation" gérée par Agent B).
+ */
+function ResultCardV19({
+  ticker,
+  onSelect,
+}: {
+  ticker: string;
+  onSelect: () => void;
+}) {
+  const e = V19_SEARCH_BY_TICKER[ticker.toUpperCase()];
+  const accent = brand(ticker).primary;
+  if (!e) return null;
+  const href = `/sandbox/v1-9/${ticker.toLowerCase()}`;
+  return (
+    <Link
+      href={href}
+      onClick={onSelect}
+      className="group relative flex items-center gap-4 overflow-hidden rounded-2xl border border-white/8 bg-white/[0.02] p-3 transition-all hover:border-white/20 hover:bg-white/[0.05]"
+    >
+      <span
+        aria-hidden
+        className="absolute left-0 top-0 h-full w-[3px] origin-bottom scale-y-0 transition-transform duration-300 group-hover:scale-y-100"
+        style={{ background: accent }}
+      />
+
+      <div
+        className={`size-12 shrink-0 rounded-xl border p-1.5 transition-transform duration-300 group-hover:scale-105 ${
+          logoNeedsLightBg(ticker)
+            ? "border-[#e5e5e5] bg-[#fafafa]"
+            : "border-[#1f1f1f] bg-[#0a0a0a]"
+        }`}
+      >
+        <CompanyLogo ticker={ticker} />
+      </div>
+
+      <div className="min-w-0 flex-1">
+        <div className="flex items-baseline gap-2">
+          <span className="truncate text-[14.5px] font-semibold text-zinc-50">
+            {e.name}
+          </span>
+          <span
+            className="font-mono text-[11px] font-bold tracking-wider"
+            style={{ color: accent }}
+          >
+            {ticker}
+          </span>
+          <span className="rounded-md border border-zinc-500/40 bg-zinc-500/10 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-zinc-300">
+            V1.9
+          </span>
+        </div>
+        <div className="mt-0.5 truncate text-[11.5px] text-zinc-500">
+          Fiche en préparation
+          {e.country ? <span className="ml-1 text-zinc-600">· {e.country}</span> : null}
         </div>
       </div>
 

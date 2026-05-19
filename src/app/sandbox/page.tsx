@@ -79,6 +79,12 @@ const SECTIONS: SandboxSection[] = [
         label: "V1.8 (dev actif)",
         desc: "Version active de développement, top 307 prioritaire et reste en cours.",
       },
+      {
+        href: "/sandbox/v1-9",
+        icon: Globe2,
+        label: "V1.9 · SP500 + Top 307 + Indices EU",
+        desc: "924 stés. Univers étendu : SP500 + Top 307 + CAC 40 + FTSE 100 + DAX 40 + SMI + BEL 20 + FTSE MIB + AEX + ATX.",
+      },
     ],
   },
   {
@@ -476,6 +482,13 @@ export default function SandboxPage() {
                   className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-rose-500/50 bg-rose-500/15 px-4 py-2.5 font-mono text-[11.5px] font-semibold uppercase tracking-wider text-rose-100 transition-all hover:border-rose-500/80 hover:bg-rose-500/25"
                 >
                   Ouvrir 1.8 (Pass 3 + blocs manquants en rouge)
+                  <span className="text-base">→</span>
+                </Link>
+                <Link
+                  href="/sandbox/v1-9"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-cyan-500/50 bg-cyan-500/15 px-4 py-2.5 font-mono text-[11.5px] font-semibold uppercase tracking-wider text-cyan-100 transition-all hover:border-cyan-500/80 hover:bg-cyan-500/25"
+                >
+                  Ouvrir 1.9 · SP500 + Top 307 + Indices EU (924 stés)
                   <span className="text-base">→</span>
                 </Link>
                 <Link

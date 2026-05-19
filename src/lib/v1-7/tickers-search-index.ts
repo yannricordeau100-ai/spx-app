@@ -19,6 +19,7 @@
  *     ensure_ascii=False, separators=(',',':'))
  */
 import indexJson from "@/data/v2-pipeline/_tickers-index.json";
+import v19MissingJson from "@/data/v1-9-missing-from-merged.json";
 
 export type V17SearchEntry = {
   ticker: string;
@@ -43,3 +44,44 @@ export const V17_SEARCH_INDEX: V17SearchEntry[] = indexJson as V17SearchEntry[];
  */
 export const V17_SEARCH_BY_TICKER: Record<string, V17SearchEntry> =
   Object.fromEntries(V17_SEARCH_INDEX.map((e) => [e.ticker.toUpperCase(), e]));
+
+/**
+ * V1.9 search entries : tickers présents dans l'univers V1.9 (924 stés EU+US,
+ * cf `src/data/v1-9-universe.json`) MAIS absents de `_merged.json` (= pas
+ * encore extraits par le pipeline data). Source : `v1-9-missing-from-merged.json`.
+ *
+ * Format aligné sur V17SearchEntry pour réutiliser la même `ResultCard`.
+ * `sector` est laissé vide (pas encore extrait), `validated=false` pour
+ * forcer le routing vers `/sandbox/v1-9/<ticker>` (page "Fiche en préparation"
+ * gérée par Agent B). `name_wikipedia` est mappé sur `name`.
+ */
+type V19MissingRaw = {
+  ticker: string;
+  country: string;
+  sources: string[];
+  name_wikipedia?: string;
+};
+
+type V19MissingFile = {
+  generated_at?: string;
+  total_universe?: number;
+  total_missing_from_merged?: number;
+  missing: V19MissingRaw[];
+};
+
+export type V19SearchEntry = V17SearchEntry & {
+  country?: string;
+};
+
+export const V19_SEARCH_INDEX: V19SearchEntry[] = (
+  v19MissingJson as V19MissingFile
+).missing.map((m) => ({
+  ticker: m.ticker,
+  name: m.name_wikipedia || m.ticker,
+  sector: "",
+  validated: false,
+  country: m.country,
+}));
+
+export const V19_SEARCH_BY_TICKER: Record<string, V19SearchEntry> =
+  Object.fromEntries(V19_SEARCH_INDEX.map((e) => [e.ticker.toUpperCase(), e]));
