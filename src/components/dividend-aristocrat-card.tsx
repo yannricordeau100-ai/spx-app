@@ -22,10 +22,16 @@ import { useT } from "@/lib/i18n/provider";
  */
 
 export type DividendMeta = {
-  /** Année de premier versement de dividende. */
+  /** Année de premier versement de dividende (narratif 10-K). */
   first_year?: number;
+  /** Année du premier point dans le flux XBRL SEC (≥ 2008 typiquement). */
+  first_year_xbrl?: number;
   /** Liste des coupures (interruption ou suppression). */
   cuts?: Array<{ year: number; reason: string }>;
+  /** Streak XBRL : nombre d'années consécutives strictement croissantes. */
+  years_streak_increases?: number;
+  /** Historique XBRL DPS année par année (clés string YYYY, valeurs USD/action). */
+  dps_xbrl_history?: Record<string, number>;
 };
 
 function NumberTicker({
@@ -132,14 +138,80 @@ export function DividendAristocratCard({
   const inView = useInView(containerRef, { once: true, margin: "-10%" });
 
   const n = dpsHistory.length;
-  const cagr5 = cagrPeriod(dpsHistory, 5);
-  const cagr10 = cagrPeriod(dpsHistory, 10);
-  const cagr20 = cagrPeriod(dpsHistory, 20);
-  const cagr50 = cagrPeriod(dpsHistory, 50);
-  // Si pas assez d'historique pour 5 ans : fallback sur le max disponible.
-  // Garde-fou : si dpsHistory[0] <= 0 (= sté qui n'a commencé à payer qu'à la
-  // fin de l'historique), Math.pow(end/0, ...) → +Infinity. Yann 13 mai 2026 :
-  // bug AAPL CAGR = "+Infinity % / an" affiché. Retourner null à la place.
+
+  // ─────── CAGR multi-périodes (Yann 19 mai 2026) ───────
+  // Étend le calcul au-delà des 5 ans de `dpsHistory` en utilisant l'historique
+  // XBRL SEC stocké dans `meta.dps_xbrl_history` (jusqu'à ~18 ans pour stés US).
+  // Périodes affichées : 5 / 10 / 20 ans + "depuis création" (= depuis
+  // `meta.first_year` ou première année avec data XBRL).
+  // Compute "extended history" : merge dpsHistory (5 ans) avec XBRL
+  // (year→value) dict. Le dpsHistory récent reste la source de vérité pour les
+  // 5 derniers points (le XBRL peut être partiel pour l'année en cours).
+  const xbrlHist = meta?.dps_xbrl_history;
+  const extendedByYear: Record<number, number> = {};
+  if (xbrlHist) {
+    for (const [k, v] of Object.entries(xbrlHist)) {
+      const y = parseInt(k, 10);
+      if (Number.isFinite(y) && typeof v === "number" && v > 0) {
+        extendedByYear[y] = v;
+      }
+    }
+  }
+  // Le dernier point du dpsHistory représente l'année la plus récente. On
+  // tente de retrouver l'année via meta ou via le max XBRL year + 1 si le
+  // XBRL est en retard. Fallback : on prend l'année courante.
+  const xbrlYears = Object.keys(extendedByYear).map(Number).sort((a, b) => a - b);
+  const xbrlMaxYear = xbrlYears.length > 0 ? xbrlYears[xbrlYears.length - 1] : null;
+  const currentYear = new Date().getFullYear();
+  // Année du dernier point dpsHistory : on aligne sur xbrlMaxYear si proche,
+  // sinon on prend currentYear - 1 (FY clos).
+  const lastDpsYear =
+    xbrlMaxYear !== null && xbrlMaxYear >= currentYear - 2
+      ? xbrlMaxYear
+      : currentYear - 1;
+  // Inject les 5 ans dpsHistory dans extendedByYear (override XBRL si conflit).
+  // L'alignement : dpsHistory[n-1] = lastDpsYear, dpsHistory[0] = lastDpsYear - (n-1).
+  if (n >= 2) {
+    for (let i = 0; i < n; i++) {
+      const y = lastDpsYear - (n - 1 - i);
+      const v = dpsHistory[i];
+      if (typeof v === "number" && v > 0) extendedByYear[y] = v;
+    }
+  }
+  const allYears = Object.keys(extendedByYear).map(Number).sort((a, b) => a - b);
+  const lastYear = allYears.length > 0 ? allYears[allYears.length - 1] : lastDpsYear;
+  const firstYearAvail = allYears.length > 0 ? allYears[0] : lastYear;
+
+  /** Compute CAGR over N years ending at lastYear, using extendedByYear. */
+  function cagrYears(periodYears: number): number | null {
+    const startYear = lastYear - periodYears;
+    const start = extendedByYear[startYear];
+    const end = extendedByYear[lastYear];
+    if (!start || !end || start <= 0) return null;
+    return (Math.pow(end / start, 1 / periodYears) - 1) * 100;
+  }
+  /** CAGR "depuis création" : prend le premier point dispo dans extendedByYear. */
+  function cagrSinceFirst(): { value: number | null; years: number; from: number } {
+    const start = extendedByYear[firstYearAvail];
+    const end = extendedByYear[lastYear];
+    const years = lastYear - firstYearAvail;
+    if (!start || !end || start <= 0 || years < 1) {
+      return { value: null, years, from: firstYearAvail };
+    }
+    return {
+      value: (Math.pow(end / start, 1 / years) - 1) * 100,
+      years,
+      from: firstYearAvail,
+    };
+  }
+
+  const cagr5 = cagrYears(5);
+  const cagr10 = cagrYears(10);
+  const cagr20 = cagrYears(20);
+  const cagrSince = cagrSinceFirst();
+
+  // Fallback ancien comportement pour la "shoulder" en bas — utilisée par les
+  // anciennes stés sans XBRL extended.
   const cagrFallback =
     n >= 2 && dpsHistory[0] > 0
       ? (Math.pow(dpsHistory[n - 1] / dpsHistory[0], 1 / (n - 1)) - 1) * 100
@@ -182,24 +254,63 @@ export function DividendAristocratCard({
 
   const [halo, setHalo] = useState<{ x: number; y: number } | null>(null);
 
-  // Affichage adaptatif des CAGR multi-périodes : on n'affiche que les
-  // périodes qui ont au moins une valeur calculée. Évite l'effet "3 cases
-  // n.d." pour les stés qui n'ont que 5 ans d'historique. Une période sans
-  // valeur n'est pas grisée — elle est simplement omise. (10 mai 2026)
-  const cagrLines: Array<{ label: string; value: number | null }> = [
-    { label: "5 ans", value: cagr5 },
-    { label: "10 ans", value: cagr10 },
-    { label: "20 ans", value: cagr20 },
-    { label: "50 ans", value: cagr50 },
-  ].filter((c) => c.value != null);
+  // Affichage adaptatif des CAGR multi-périodes (Yann 19 mai 2026) :
+  //  - 5 ans, 10 ans, 20 ans (depuis le pipeline XBRL SEC quand dispo)
+  //  - "depuis création" du dividende (label "Depuis YYYY" basé sur
+  //    meta.first_year si fourni, sinon firstYearAvail XBRL)
+  // Une période sans valeur n'est pas grisée — elle est simplement omise.
+  // Dédup : si "20 ans" et "depuis création" couvrent ≈ la même période,
+  // on ne montre que la plus longue avec le label le plus parlant.
+  const sinceLabel =
+    meta?.first_year && meta.first_year < firstYearAvail
+      ? `Depuis ${meta.first_year}`
+      : `Depuis ${firstYearAvail}`;
+  // Important : on récupère le firstYear "humain" (narratif 10-K) pour la
+  // mention "Versement depuis YYYY" plus haut dans la card. Différent du
+  // firstYearAvail qui est limité par la couverture XBRL.
+  const firstYear = meta?.first_year ?? firstYearAvail;
+
+  const rawCagrLines: Array<{ label: string; value: number | null; years?: number }> = [
+    { label: "5 ans", value: cagr5, years: 5 },
+    { label: "10 ans", value: cagr10, years: 10 },
+    { label: "20 ans", value: cagr20, years: 20 },
+    { label: sinceLabel, value: cagrSince.value, years: cagrSince.years },
+  ];
+  // Filter null + dédup si "X ans" et "Depuis YYYY" représentent le même delta.
+  const cagrLines: Array<{ label: string; value: number | null }> = [];
+  const seenYears = new Set<number>();
+  for (const c of rawCagrLines) {
+    if (c.value == null) continue;
+    if (c.years && seenYears.has(c.years)) continue;
+    if (c.years) seenYears.add(c.years);
+    cagrLines.push({ label: c.label, value: c.value });
+  }
   // Si AUCUNE CAGR n'est dispo (historique <2 ans), on garde au moins une
   // case "Total" avec le calcul disponible pour ne pas avoir un bloc vide.
   if (cagrLines.length === 0 && n >= 2) {
     cagrLines.push({ label: `${n - 1} ans`, value: cagrFallback });
   }
 
-  const firstYear = meta?.first_year;
   const cuts = meta?.cuts ?? [];
+  /** Détecte coupure : présent dans meta.cuts OU baisse stricte d'une année
+   *  à l'autre dans l'historique XBRL. Source de vérité pour la mention au
+   *  bas de la card. */
+  function detectCut(): { cut: boolean; year?: number; reason?: string } {
+    if (cuts && cuts.length > 0) {
+      const last = cuts[cuts.length - 1];
+      return { cut: true, year: last.year, reason: last.reason };
+    }
+    // Heuristique XBRL : DPS d'une année strictement < DPS de l'année précédente.
+    for (let i = 1; i < allYears.length; i++) {
+      const cur = extendedByYear[allYears[i]];
+      const prev = extendedByYear[allYears[i - 1]];
+      if (cur != null && prev != null && cur < prev * 0.95) {
+        return { cut: true, year: allYears[i] };
+      }
+    }
+    return { cut: false };
+  }
+  const cutInfo = detectCut();
 
   return (
     <div
@@ -436,27 +547,18 @@ export function DividendAristocratCard({
             }}
           >
             {cagrLines.map((c) => {
-              // Yann 10 mai : périodes > 5 ans en mode flou (preview V2),
-              // 5 ans seul reste net. Affichage adaptatif : on ne montre
-              // que les périodes effectivement calculables (filter null).
-              const isBlurred = c.label !== "5 ans" && c.label.indexOf("ans") !== -1
-                ? !["5 ans"].includes(c.label) && cagrLines.find((x) => x.label === "5 ans") != null
-                : false;
+              // Yann 19 mai 2026 : toutes les périodes sont maintenant
+              // calculées avec données XBRL SEC réelles (plus de flou V2).
               return (
                 <div
                   key={c.label}
-                  className={`relative rounded-md border border-white/10 bg-black/40 p-1.5 text-center ${
-                    isBlurred ? "select-none" : ""
-                  }`}
-                  title={isBlurred ? "Bientôt disponible (V2)" : undefined}
+                  className="relative rounded-md border border-white/10 bg-black/40 p-1.5 text-center"
                 >
-                  <div className={`font-mono text-[11.5px] uppercase tracking-wider text-zinc-400 ${isBlurred ? "blur-[3px] opacity-60" : ""}`}>
+                  <div className="font-mono text-[11.5px] uppercase tracking-wider text-zinc-400">
                     {c.label}
                   </div>
                   <div
                     className={`mt-0.5 font-display text-[16px] font-bold leading-none tabular-nums ${
-                      isBlurred ? "blur-[3px] opacity-60" : ""
-                    } ${
                       c.value == null
                         ? "text-zinc-600"
                         : c.value >= 0
@@ -466,16 +568,9 @@ export function DividendAristocratCard({
                   >
                     {c.value == null ? "—" : `${c.value >= 0 ? "+" : ""}${c.value.toFixed(1).replace(".", ",")}`}
                   </div>
-                  <div className={`text-[11px] text-zinc-500 ${isBlurred ? "blur-[3px] opacity-60" : ""}`}>
+                  <div className="text-[11px] text-zinc-500">
                     {c.value == null ? "n.d." : "% / an"}
                   </div>
-                  {isBlurred && (
-                    <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-                      <span className="rounded-full border border-white/15 bg-black/70 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-zinc-300 backdrop-blur">
-                        V2
-                      </span>
-                    </div>
-                  )}
                 </div>
               );
             })}
@@ -548,6 +643,23 @@ export function DividendAristocratCard({
           </div>
         </div>
 
+        {/* Mention coupure du dividende (Yann 19 mai 2026), juste au-dessus du
+            chip CAGR : "Dividende jamais coupé" ou "Dividende coupé en YYYY". */}
+        <motion.div
+          initial={{ opacity: 0, y: 6 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.85, duration: 0.4 }}
+          className={`mt-2.5 self-center text-[12px] font-medium ${
+            cutInfo.cut ? "text-amber-300" : "text-emerald-300/90"
+          }`}
+        >
+          {cutInfo.cut
+            ? `⚠ Dividende coupé${cutInfo.year ? ` en ${cutInfo.year}` : ""}${
+                cutInfo.reason ? ` : ${cutInfo.reason}` : ""
+              }`
+            : "✓ Dividende jamais coupé sur la période disponible"}
+        </motion.div>
+
         {/* CAGR principal mis en avant en bas — masqué si pas calculable
             (ex AAPL dpsHistory[0]=0, ancien bug "+Infinity"). */}
         {cagrShown != null && (
@@ -555,7 +667,7 @@ export function DividendAristocratCard({
             initial={{ opacity: 0, scale: 0.9 }}
             animate={inView ? { opacity: 1, scale: 1 } : {}}
             transition={{ delay: 0.9, duration: 0.4 }}
-            className="mt-2.5 inline-flex items-center justify-center gap-1.5 self-center rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-[14px] font-semibold text-emerald-200"
+            className="mt-1.5 inline-flex items-center justify-center gap-1.5 self-center rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-[14px] font-semibold text-emerald-200"
           >
             <TrendingUp className="size-4.5" />
             <span className="font-mono tabular-nums">

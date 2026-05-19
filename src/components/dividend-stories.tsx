@@ -141,7 +141,13 @@ export function DividendStories({
   // "X ans de hausse" (anti-fallback hardcodé sur stés inconnues).
   // CAT garde son fallback explicite yearsStreak=31 (V1 démo cas connu).
   type CompanyWithMeta = typeof company & {
-    dividend_meta?: { first_year?: number; cuts?: Array<{ year: number; reason: string }> };
+    dividend_meta?: {
+      first_year?: number;
+      first_year_xbrl?: number;
+      cuts?: Array<{ year: number; reason: string }>;
+      years_streak_increases?: number;
+      dps_xbrl_history?: Record<string, number>;
+    };
   };
   const dividendMeta = (company as CompanyWithMeta).dividend_meta;
   const cards = [
