@@ -86,11 +86,13 @@ const TIER_OPTIONS: Array<{ value: EffectiveTier; label: string }> = [
   { value: "max", label: "Max" },
 ];
 
-// Versions disponibles (hardcodé, à mettre à jour quand on ajoute V1.9 / V2.0)
+// Versions disponibles (hardcodé). Yann 19 mai 2026 : ajout V1.9
+// (univers SP500 + Top 307 + 8 indices EU, 924 stés).
 const VERSION_OPTIONS: Array<{ slug: string; label: string }> = [
   { slug: "v1-7", label: "V1.7" },
   { slug: "v1-7-5", label: "V1.7.5" },
   { slug: "v1-8", label: "V1.8" },
+  { slug: "v1-9", label: "V1.9" },
 ];
 
 const VERSION_COOKIE = "mettrik:version";
@@ -114,7 +116,9 @@ function readLevelEnv(): Level | null {
 }
 
 function detectVersionFromPath(pathname: string): string | null {
-  // Ordre : v1-8 avant v1-7 pour éviter "v1-7" qui match "v1-7-5"
+  // Ordre : versions hautes avant basses pour éviter les matches partiels
+  // (ex "v1-7" match dans "v1-7-5"). Yann 19 mai 2026 : ajout v1-9.
+  if (pathname.startsWith("/sandbox/v1-9")) return "v1-9";
   if (pathname.startsWith("/sandbox/v1-8")) return "v1-8";
   if (pathname.startsWith("/sandbox/v1-7-5")) return "v1-7-5";
   if (pathname.startsWith("/sandbox/v1-7")) return "v1-7";

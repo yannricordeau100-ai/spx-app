@@ -59,10 +59,16 @@ function isPublicPath(pathname: string): boolean {
   if (pathname === "/sandbox/v1-7") return true;
   if (pathname === "/sandbox/v1-7-5") return true;
   if (pathname === "/sandbox/v1-8") return true;
+  if (pathname === "/sandbox/v1-9") return true; // Yann 19 mai 2026 — V1.9
   // Sous-routes publiques (sandbox utilitaires) : tout ce qui n'est PAS
   // une page société (= /sandbox/v1-8/<ticker> où ticker matche /^[a-z0-9-.]+$/).
-  if (pathname.startsWith("/sandbox/v1-7/") || pathname.startsWith("/sandbox/v1-7-5/") || pathname.startsWith("/sandbox/v1-8/")) {
-    const tail = pathname.replace(/^\/sandbox\/v1-[78]\//, "");
+  if (
+    pathname.startsWith("/sandbox/v1-7/") ||
+    pathname.startsWith("/sandbox/v1-7-5/") ||
+    pathname.startsWith("/sandbox/v1-8/") ||
+    pathname.startsWith("/sandbox/v1-9/")
+  ) {
+    const tail = pathname.replace(/^\/sandbox\/v1-[789](-5)?\//, "");
     const firstSeg = tail.split("/")[0] ?? "";
     // Liste blanche des sous-routes utilitaires (non-tickers)
     // /contact retiré (auth requise, Yann 13 mai 2026).
