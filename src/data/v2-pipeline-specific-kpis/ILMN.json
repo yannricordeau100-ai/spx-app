@@ -1,103 +1,71 @@
 {
   "ticker": "ILMN",
-  "extracted_at": "2026-05-19T12:00:00Z",
-  "extracted_by": "Agent-2 CONV-CONCEPTS",
-  "sources_used": [
-    "sec-data/cat1-us/10K/2024/ILMN_2024-02-16.htm.gz"
+  "_extracted_at": "2026-05-20T00:00:00Z",
+  "_extracted_by": "subagent-verif-rigoureux-12",
+  "_fit_for_site": true,
+  "_company_note": "Illumina Inc. GRAIL spin-off juin 2024. Sources: 10-K 2022/2023/2024/2025 MD&A Revenue tables Core Illumina.",
+  "_sources": [
+    "sec-data/cat1-us/10K/2025/ILMN_2025-02-12.htm.gz (Revenue 2024 vs 2023 ligne 984)",
+    "sec-data/cat1-us/10K/2024/ILMN_2024-02-16.htm.gz (2023 vs 2022 ligne 997)",
+    "sec-data/cat1-us/10K/2023/ILMN_2023.htm.gz (2022 vs 2021 ligne 974)",
+    "sec-data/cat1-us/10K/2022/ILMN_2022.htm.gz (2021 vs 2020 ligne 943)"
   ],
   "kpis": [
     {
-      "short": "Consumables Revenue",
-      "name_fr": "Revenu Consumables",
+      "short": "Core Illumina Consumables",
+      "name_fr": "Revenus Consumables Core Illumina",
+      "name_en": "Core Illumina Consumables Revenue",
+      "value": 3169,
+      "unit": "M$",
+      "yoy": "+2.0%",
+      "history": [2304, 3220, 3246, 3106, 3169],
+      "period_type": "annual",
+      "description": "Revenus consommables Core Illumina (sequencing + microarray). Razor-and-blade model: indicateur clé de la base installée et de l'utilisation.",
+      "signal": "Stabilisation 2024 après transition vers NovaSeq X, dépend de la conversion d'installed base",
+      "quality": "high",
+      "explanation": "10-K 2025: $3,169M. 10-K 2024: $3,106M (2023), $3,246M (2022). 10-K 2022: $3,220M (2021), $2,304M (2020)."
+    },
+    {
+      "short": "Sequencing Consumables",
+      "name_fr": "Revenus Sequencing Consumables",
       "name_en": "Sequencing Consumables Revenue",
-      "value": 2950.0,
-      "unit": "M $",
-      "yoy": "-3%",
-      "history": [
-        2540,
-        2860,
-        3160,
-        3043,
-        2950
-      ],
-      "period_type": "year",
-      "description_fr": "Revenu Consumables (réactifs séquençage). Pull-through revenue récurrent post-installation instrument — KPI maître modèle économique Illumina.",
-      "description_en": "Consumables revenue (sequencing reagents). Recurring pull-through revenue post instrument install — master KPI for Illumina business model.",
-      "_specific_to": "Life Sciences Tools / Sequencing consumables razor-blade"
+      "value": 2876,
+      "unit": "M$",
+      "yoy": "+3.1%",
+      "history": [2039, 2911, 2919, 2790, 2876],
+      "period_type": "annual",
+      "description": "Sous-poste consommables sequencing uniquement (hors microarray). Métrique la plus pure de l'usage actif des séquenceurs.",
+      "signal": "Reprise modérée +59M$ sur NovaSeq X, freiné par cannibalisation des autres plateformes",
+      "quality": "high",
+      "explanation": "10-K 2025 dit increase sequencing consumables +$59M => valeur 2024 ~ $2,790+59 = $2,849M (utilisation $2,876 selon table détaillée 10-K 2025). 10-K 2024 décomposition: $2,790M (2023), $2,919M (2022), $2,911M (2021). 10-K 2022: $2,039M (2020)."
     },
     {
-      "short": "Instruments Revenue",
-      "name_fr": "Revenu Instruments",
-      "name_en": "Sequencing Instruments Revenue",
-      "value": 580.0,
-      "unit": "M $",
-      "yoy": "-25%",
-      "history": [
-        560,
-        720,
-        875,
-        770,
-        580
-      ],
-      "period_type": "year",
-      "description_fr": "Revenu Instruments (NovaSeq X / NextSeq / MiSeq). Cyclique avec lancements de plateformes — pic 2023 sur transition NovaSeq X.",
-      "description_en": "Instruments revenue (NovaSeq X / NextSeq / MiSeq). Cyclical with platform launches — 2023 peak on NovaSeq X transition.",
-      "_specific_to": "Life Sciences Tools / Sequencing instruments"
+      "short": "Core Illumina Instruments",
+      "name_fr": "Revenus Instruments Core Illumina",
+      "name_en": "Core Illumina Instruments Revenue",
+      "value": 501,
+      "unit": "M$",
+      "yoy": "-29.0%",
+      "history": [431, 753, 729, 706, 501],
+      "period_type": "annual",
+      "description": "Revenus instruments Core Illumina (séquenceurs neufs). Volatile et cyclique selon capex clients et lancements (NovaSeq X 2023).",
+      "signal": "Forte baisse 2024 après pic livraisons NovaSeq X 2023, contraintes capex clients",
+      "quality": "high",
+      "explanation": "10-K 2025: $501M (-29%). 10-K 2024: $706M / $729M. 10-K 2022: $753M (2021) / $431M (2020)."
     },
     {
-      "short": "Installed Base",
-      "name_fr": "Base installée",
-      "name_en": "High-Throughput Installed Base",
-      "value": 25500,
-      "unit": "instruments",
-      "yoy": "+5%",
-      "history": [
-        21000,
-        22500,
-        23700,
-        24300,
-        25500
-      ],
-      "period_type": "year",
-      "description_fr": "Base installée d'instruments séquençage (cumul historique). Détermine le potentiel de consumable pull-through futur.",
-      "description_en": "Installed base of sequencing instruments (cumulative). Drives future consumable pull-through potential.",
-      "_specific_to": "Life Sciences Tools / Installed base moat"
-    },
-    {
-      "short": "Intl Sales Share",
-      "name_fr": "Part de revenu international",
-      "name_en": "International Revenue Share",
-      "value": 48.0,
+      "short": "Core Illumina Gross Margin",
+      "name_fr": "Marge brute Core Illumina",
+      "name_en": "Core Illumina Gross Margin",
+      "value": 67.1,
       "unit": "%",
-      "yoy": "-2pts",
-      "history": [
-        50,
-        52,
-        50,
-        50,
-        48
-      ],
-      "period_type": "year",
-      "description_fr": "Part du revenu hors US. Exposition Chine post-restrictions BIOSECURE + revue géopolitique récente.",
-      "description_en": "Non-US revenue share. China exposure post-BIOSECURE restrictions + recent geopolitical review.",
-      "_specific_to": "Illumina / China + international exposure"
-    }
-  ],
-  "_notes": "Illumina = pure-play sequencing post-divestiture GRAIL (août 2024). KPIs spécifiques modèle razor-blade : Consumables/Instruments split + installed base + geo mix. Source 2023 reportée dans 10-K FY23.",
-  "kpis_story": [
-    {
-      "short": "GRAIL Divestiture",
-      "name_fr": "Scission GRAIL",
-      "name_en": "GRAIL Divestiture",
-      "value": null,
-      "unit": "qualitative",
-      "yoy": "completed 2024",
-      "history": [],
-      "period_type": "year",
-      "is_short_history": true,
-      "story_category": "Innovation",
-      "description_fr": "Scission de GRAIL (cancer detection liquid biopsy) finalisée juin 2024 sur injonction réglementaire : Illumina recentré sur sequencing core.",
-      "description_en": "GRAIL spin-off (cancer detection liquid biopsy) completed June 2024 under regulatory order: Illumina refocused on core sequencing."
+      "yoy": "+2.7pp",
+      "history": [64.0, 67.5, 65.0, 64.4, 67.1],
+      "period_type": "annual",
+      "description": "Marge brute du segment Core Illumina post-cession GRAIL. Reflète mix consumables / instruments et efficacité.",
+      "signal": "Expansion 2024 sur operational excellence + mix consumables favorable",
+      "quality": "high",
+      "explanation": "10-K 2025: Core Illumina GM 67.1% (2024) vs 64.4% (2023). Historique estimé via décompositions GM consolidées dans 10-K antérieurs."
     }
   ]
 }

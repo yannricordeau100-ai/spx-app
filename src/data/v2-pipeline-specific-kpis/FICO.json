@@ -1,20 +1,70 @@
 {
   "ticker": "FICO",
-  "extracted_at": "2026-05-19T15:06:00Z",
-  "extracted_by": "Agent-Ext-Pilot CONV-CONCEPTS",
-  "sources_used": ["sec-data/cat1-us/10K/2025/FICO_*.htm.gz"],
+  "_extracted_at": "2026-05-20T00:00:00Z",
+  "_extracted_by": "subagent-verif-rigoureux-12",
+  "_fit_for_site": true,
+  "_company_note": "Fair Isaac Corporation. FY se termine 30 septembre. Sources: 10-K 2023/2024/2025 sections Segment Information + MD&A.",
+  "_sources": [
+    "sec-data/cat1-us/10K/2025/FICO_2025-11-07.htm.gz (Note 15 Segment Information, ligne 1174)",
+    "sec-data/cat1-us/10K/2024/FICO_2024-11-06.htm.gz (ligne 1143)",
+    "sec-data/cat1-us/10K/2023/FICO_2023.htm.gz (ligne 1017)"
+  ],
   "kpis": [
-    {"short": "Scores Revenue", "name_fr": "Revenu Scores", "name_en": "Scores Revenue", "value": 1.18, "unit": "Mds $", "yoy": "+35%", "history": [0.55, 0.62, 0.75, 0.87, 1.18], "period_type": "year", "description_fr": "Revenu Scores (B2B + B2C). KPI star FICO : hausses pricing massives 2022-2025 sur mortgage + auto + card scores.", "description_en": "Scores revenue (B2B + B2C). FICO star KPI: massive 2022-2025 pricing hikes on mortgage + auto + card scores.", "_specific_to": "FICO pricing monopoly"},
-    {"short": "B2B Scores Revenue", "name_fr": "Revenu Scores B2B", "name_en": "B2B Scores Revenue", "value": 920, "unit": "M $", "yoy": "+45%", "history": [400, 450, 555, 635, 920], "period_type": "year", "description_fr": "Scores B2B (mortgage + auto + card). Hausse mortgage score $3.50 par tirage 2024 = +30-40% YoY impact direct.", "description_en": "B2B scores (mortgage + auto + card). $3.50 mortgage score hike per pull 2024 = direct +30-40% YoY impact.", "_specific_to": "FICO mortgage repricing"},
-    {"short": "Software Revenue", "name_fr": "Revenu Software (FICO Platform)", "name_en": "Software Revenue", "value": 700, "unit": "M $", "yoy": "+8%", "history": [550, 600, 615, 650, 700], "period_type": "year", "description_fr": "Software (FICO Platform : décision management, fraud, originations). Croissance modeste mais récurrent SaaS.", "description_en": "Software (FICO Platform: decision management, fraud, originations). Modest growth but recurring SaaS.", "_specific_to": "FICO Software franchise"},
-    {"short": "Mortgage Score Price", "name_fr": "Prix mortgage score (B2B)", "name_en": "Mortgage Score Wholesale Price", "value": 4.95, "unit": "$/pull", "yoy": "+41%", "history": [0.60, 1.85, 2.50, 3.50, 4.95], "period_type": "year", "description_fr": "Prix wholesale FICO mortgage score 2025. Hausse historique de $0.60→$4.95 en 5 ans, ~8x. Monopole demonstrate.", "description_en": "FICO mortgage score wholesale price 2025. Historical hike $0.60→$4.95 in 5 years, ~8x. Monopoly displayed.", "_specific_to": "FICO pricing power"}
-  ],
-  "kpis_story": [
-    {"short": "Mortgage Recovery Cycle Tailwind", "name_fr": "Tailwind reprise mortgage 2025-2026", "name_en": "Mortgage Recovery Cycle Tailwind", "value": null, "unit": "qualitative", "yoy": null, "history": [], "period_type": "year", "is_short_history": true, "story_category": "Marché", "description_fr": "Reprise mortgage origination 2025-2026 = volume + pricing tailwind majeur sur Scores. Doublement EPS possible si Fed Cuts.", "description_en": "Mortgage origination recovery 2025-2026 = major volume + pricing Scores tailwind. EPS doubling possible if Fed cuts.", "_specific_to": "FICO mortgage cyclical play"}
-  ],
-  "governance_extras": {},
-  "revenue_by_segment_extras": {},
-  "revenue_by_geography_extras": {},
-  "risks_extras": [],
-  "_notes": "Gov + seg + 6 risks couverts. 4 KPIs FICO spec + 1 story mortgage recovery."
+    {
+      "short": "Scores Segment Rev",
+      "name_fr": "Revenus segment Scores",
+      "name_en": "Scores Segment Revenue",
+      "value": 1168.6,
+      "unit": "M$",
+      "yoy": "+27.1%",
+      "history": [654.1, 706.6, 773.8, 919.7, 1168.6],
+      "period_type": "annual",
+      "description": "Revenus segment Scores FICO (B2B scores credit + B2C myFICO). Coeur de la franchise FICO Score quasi-monopole credit scoring US.",
+      "signal": "Forte accélération +27% en FY25 sur hausse de prix B2B (mortgage scores) et volumes",
+      "quality": "high",
+      "explanation": "10-K FY25: Scores $1,168.6M. 10-K FY24: $919.7M (FY24) et $773.8M (FY23). 10-K FY23: $773.8M (FY23), $706.6M (FY22), $654.1M (FY21)."
+    },
+    {
+      "short": "Software Segment Rev",
+      "name_fr": "Revenus segment Software",
+      "name_en": "Software Segment Revenue",
+      "value": 822.3,
+      "unit": "M$",
+      "yoy": "+3.1%",
+      "history": [662.4, 670.6, 739.7, 797.9, 822.3],
+      "period_type": "annual",
+      "description": "Revenus segment Software (Decision Management, FICO Platform, Falcon, SaaS).",
+      "signal": "Croissance modeste 3% mais marges en hausse via mix SaaS croissant",
+      "quality": "high",
+      "explanation": "10-K FY25: Software $822.3M. 10-K FY24: $797.9M / FY23 $739.7M. 10-K FY23: FY21 $662.4M, FY22 $670.6M."
+    },
+    {
+      "short": "B2B Scores Rev",
+      "name_fr": "Revenus B2B Scores",
+      "name_en": "Business-to-Business Scores Revenue",
+      "value": 948.6,
+      "unit": "M$",
+      "yoy": "+33.3%",
+      "history": [446.5, 475.4, 561.0, 711.8, 948.6],
+      "period_type": "annual",
+      "description": "Sous-segment B2B des Scores (vendu via 3 credit bureaus Equifax/Experian/TransUnion à banques, originators, etc.).",
+      "signal": "Accélération drivée par hausses tarifs mortgage scores 2024-2025",
+      "quality": "high",
+      "explanation": "10-K FY25: B2B $948.6M (81% des Scores). 10-K FY24: $711.8M FY24, $561.0M FY23. 10-K FY23: FY21 $446.5M, FY22 $475.4M, FY23 $561.0M."
+    },
+    {
+      "short": "Scores Segment Op Income",
+      "name_fr": "Résultat opérationnel segment Scores",
+      "name_en": "Scores Segment Operating Income",
+      "value": 1026.2,
+      "unit": "M$",
+      "yoy": "+26.2%",
+      "history": [563.6, 619.4, 681.1, 813.4, 1026.2],
+      "period_type": "annual",
+      "description": "Résultat opérationnel segment Scores. Levier opérationnel quasi total: revenue marginal flow-through ~88% en operating income.",
+      "signal": "Marge segment Scores ~88% en FY25, économie unitaire exceptionnelle",
+      "quality": "high",
+      "explanation": "10-K FY25 Note Segment Information row Scores Op Income $1,026.2M (88% margin). 10-K FY24: $813.4M FY24, $681.1M FY23. 10-K FY23: FY21 $563.6M, FY22 $619.4M."
+    }
+  ]
 }

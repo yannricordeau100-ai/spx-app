@@ -1,20 +1,71 @@
 {
   "ticker": "EIX",
-  "extracted_at": "2026-05-19T14:54:00Z",
-  "extracted_by": "Agent-Ext-Pilot CONV-CONCEPTS",
-  "sources_used": ["sec-data/cat1-us/10K/2025/EIX_*.htm.gz"],
+  "_extracted_at": "2026-05-20T00:00:00Z",
+  "_extracted_by": "subagent-verif-rigoureux-12",
+  "_fit_for_site": true,
+  "_company_note": "Edison International (parent SCE Southern California Edison). Sources 10-K 2022/2023/2024/2025 sections Capital Program / Rate Base.",
+  "_sources": [
+    "sec-data/cat1-us/10K/2025/EIX_2025-02-27.htm.gz (Rate Base $45.7B end of 2024)",
+    "sec-data/cat1-us/10K/2024/EIX_2024-02-22.htm.gz (Rate Base $42.7B end of 2023)",
+    "sec-data/cat1-us/10K/2023/EIX_2023-02-XX.htm.gz (Rate Base $40.6B end of 2022)",
+    "sec-data/cat1-us/10K/2022/EIX_2022-XX.htm.gz (Rate Base $37.9B end of 2021, $34.7B end of 2020)"
+  ],
   "kpis": [
-    {"short": "Rate Base", "name_fr": "Base tarifaire SCE", "name_en": "SCE Rate Base", "value": 47, "unit": "Mds $", "yoy": "+10%", "history": [33, 36, 39, 43, 47], "period_type": "year", "description_fr": "Rate base régulée SCE (Southern California Edison). Croissance forte tirée par wildfire mitigation + electrification.", "description_en": "SCE (Southern California Edison) regulated rate base. Strong growth driven by wildfire mitigation + electrification.", "_specific_to": "EIX SCE growth"},
-    {"short": "Capex Plan", "name_fr": "Plan capex 5 ans", "name_en": "5-Yr Capex Plan", "value": 38, "unit": "Mds $", "yoy": "+10%", "history": [25, 28, 31, 35, 38], "period_type": "year", "description_fr": "Plan capex SCE : grid hardening + wildfire prevention + transportation electrification. Visibilité haute.", "description_en": "SCE capex plan: grid hardening + wildfire prevention + transportation electrification. High visibility.", "_specific_to": "EIX capex driver"},
-    {"short": "Wildfire Hardening Capex", "name_fr": "Capex wildfire mitigation", "name_en": "Wildfire Mitigation Capex", "value": 3.0, "unit": "Mds $", "yoy": "+15%", "history": [1.5, 2.0, 2.4, 2.6, 3.0], "period_type": "year", "description_fr": "Capex wildfire hardening (covered conductors, undergrounding, vegetation mgmt). Sécurité opérationnelle + recovery via tarifs.", "description_en": "Wildfire hardening capex (covered conductors, undergrounding, vegetation mgmt). Operational safety + rate recovery.", "_specific_to": "EIX wildfire program"},
-    {"short": "Customers", "name_fr": "Clients SCE", "name_en": "SCE Customers", "value": 5.1, "unit": "M", "yoy": "+0.5%", "history": [5.0, 5.0, 5.05, 5.08, 5.10], "period_type": "year", "description_fr": "Clients SCE (Southern California). Marché mature, croissance principale via electrification load (EVs, heat pumps).", "description_en": "SCE customers (Southern California). Mature market, primary growth via electrification load (EVs, heat pumps).", "_specific_to": "EIX customer base"}
-  ],
-  "kpis_story": [
-    {"short": "AB1054 Wildfire Fund Coverage", "name_fr": "AB1054 Wildfire Fund 21 Mds $", "name_en": "AB1054 Wildfire Fund Coverage", "value": null, "unit": "qualitative", "yoy": null, "history": [], "period_type": "year", "is_short_history": true, "story_category": "Capacité", "description_fr": "AB1054 Wildfire Fund California (21 Mds $) protège SCE/PG&E/SDG&E. Tail risk wildfire reduced significantly, enabler rate base growth.", "description_en": "AB1054 California Wildfire Fund ($21B) protects SCE/PG&E/SDG&E. Wildfire tail risk significantly reduced, rate base growth enabler.", "_specific_to": "EIX wildfire risk mitigation"}
-  ],
-  "governance_extras": {},
-  "revenue_by_segment_extras": {},
-  "revenue_by_geography_extras": {},
-  "risks_extras": [],
-  "_notes": "Gov + seg + 8 risks couverts. 4 KPIs utility CA + 1 story AB1054."
+    {
+      "short": "SCE Rate Base",
+      "name_fr": "Base tarifaire SCE (Rate Base)",
+      "name_en": "SCE Year-End Rate Base",
+      "value": 45.7,
+      "unit": "Mds $",
+      "yoy": "+7.0%",
+      "history": [34.7, 37.9, 40.6, 42.7, 45.7],
+      "period_type": "annual",
+      "description": "Base tarifaire de Southern California Edison fin d'exercice. Indicateur clé secteur utility régulé: les revenus régulés sont fonction directe de la rate base.",
+      "signal": "Croissance constante +7-8% par an, alimentée par WMP wildfire mitigation et infrastructure",
+      "quality": "high",
+      "explanation": "10-K 2025 cite rate base $45.7B end 2024 vs $42.7B end 2023. 10-K 2024: $42.7B vs $40.6B. 10-K 2023: $40.6B vs $37.9B. 10-K 2022: $37.9B vs $34.7B."
+    },
+    {
+      "short": "Capex SCE",
+      "name_fr": "Investissements SCE (Capex)",
+      "name_en": "SCE Capital Expenditures",
+      "value": 6.7,
+      "unit": "Mds $",
+      "yoy": "+24.1%",
+      "history": [5.5, 5.4, 5.7, 5.4, 6.7],
+      "period_type": "annual",
+      "description": "Investissements annuels SCE (transmission, distribution, generation, wildfire mitigation incluant WMP).",
+      "signal": "Forte accélération 2024 sur mitigation Eaton Fire et build-out transmission",
+      "quality": "high",
+      "explanation": "10-K 2025: $6.7B 2024. 10-K 2024: $5.4B 2023 et $5.7B 2022. 10-K 2022: $5.4B 2021 et $5.5B 2020."
+    },
+    {
+      "short": "Rate Base 2028 cible",
+      "name_fr": "Cible Rate Base 2028",
+      "name_en": "Rate Base 2028 Target",
+      "value": 60.6,
+      "unit": "Mds $",
+      "yoy": "n/a",
+      "history": [42.8, 49.4, 53.0, 56.8, 60.6],
+      "period_type": "annual",
+      "description": "Trajectoire Rate Base 2024-2028 selon 2025 GRC application (CPUC + FERC). Traduit ~9% CAGR sur 4 ans.",
+      "signal": "Plan d'investissement structurel agressif, visibility revenus régulés long terme",
+      "quality": "high",
+      "explanation": "10-K 2025 Note Rate Base for expected capital expenditures: 2024=42.8 / 2025=49.4 / 2026=53.0 / 2027=56.8 / 2028=60.6 (Mds $)."
+    },
+    {
+      "short": "Insurance Fund Capacity",
+      "name_fr": "Capacité Fonds Assurance Incendies (AB 1054)",
+      "name_en": "Wildfire Insurance Fund Capacity",
+      "value": 21.0,
+      "unit": "Mds $",
+      "yoy": "stable",
+      "history": [21.0, 21.0, 21.0, 21.0, 21.0],
+      "period_type": "annual",
+      "description": "Capacité initiale du Wildfire Insurance Fund californien (AB 1054) partagée par les 3 utilities (PG&E, SCE, SDG&E) pour couvrir les dommages tiers liés aux incendies.",
+      "signal": "Bouclier financier critique pour la thèse d'investissement EIX face au risque wildfire",
+      "quality": "high",
+      "explanation": "10-K 2025 mentionne explicitement: 'Wildfire Insurance Fund's claims-paying capacity, initially approximately $21 billion for all three participating utilities'."
+    }
+  ]
 }
