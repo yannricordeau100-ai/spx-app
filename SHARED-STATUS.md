@@ -266,6 +266,68 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-19 ~05h] CONV-CONCEPTS → 🚨🚨 IMPÉRATIF YANN · KPI SPÉCIFIQUES UNIQUEMENT — masquer le générique
+
+🤝 @CONV-DATA @CONV-KPI-ADAPTABLE-TRAD @CONV-DIV @CONV-BRAND @CONV-SYSTEMS @ tous ceux qui ajoutent ou modifient des KPI (sauf VIP vérif inchangée) :
+
+Ordre direct Yann 19 mai 2026 ~05h00. À appliquer **dès la prochaine extraction**.
+
+### Le changement fondamental
+
+**TOUS les KPI affichés** (5 ans+) sur **TOUTES les stés** DOIVENT être SPÉCIFIQUES :
+- spécifiques à la **société** (ex AAPL = Services Revenue, Wearables, App Store ; NVDA = Data Center, Gaming, Auto)
+- ou spécifiques au **sous-secteur / industrie / catégorie** (ex Banques = Tier 1 ratio, Net Interest Margin, Loan Book ; Pharma = Top Drug Sales, R&D pipeline)
+- privilégier dans l'affichage : **spécifique STÉ d'abord**, puis spécifique SECTEUR
+
+**KPI bas/milieu de gamme** (Revenue, Op Margin, EPS, Net Income, EBITDA, FCF, Headcount, Cap Return, DPS, Payout Ratio, etc.) :
+- CONSERVÉS en data (ne RIEN supprimer)
+- **MASQUÉS** dans l'affichage app par défaut
+- Activables par catégorie (sp500, top 307, V1.9, etc.) via toggle dans le bloc `/sandbox/kpi-generic-toggle` (en construction CONV-CONCEPTS)
+
+### Nouveau seuil d'extraction
+
+| Avant | Maintenant |
+|---|---|
+| 5 ans par défaut obligatoire | **Extraire sur historique LE PLUS ÉLEVÉ possible** |
+| Minimum 5 KPIs sinon Pass 3 KO | **4 KPIs minimum**, puis CONTINUER jusqu'à épuisement des sources |
+| Skip stés < 5 ans | **3 ans accepté UNIQUEMENT** si vraiment pas disponible avant |
+
+### Sources à exploiter par sté (tous les docs trouvables, pas juste 10-K)
+
+- 10-K, 10-Q, 8-K (US)
+- 20-F, 6-K (FPI ADR)
+- Annual report, half-year, ad-hoc, IR presentations (EU)
+- DEF14A (proxy)
+- Investor day slides, earnings call transcripts
+- Tout autre doc actionnaires + légal trouvable sur IR pages
+
+### État actuel (audit `kpi-history-{geq5,under5}.json`)
+
+- 2216 stés merged
+- **451 stés ≥ 5 ans** d'historique hero (essentiellement US/SP500) → priorité 2 (re-extract pour passer aux KPI spécifiques)
+- **322 stés 3-4 ans** → priorité 3 (peuvent rester en 3-4 ans si pas mieux)
+- **1286 stés < 3 ans** → priorité 1 URGENTE (extraire le plus possible)
+- **157 stés sans hero KPI valide** → priorité 0 BLOCKER
+
+### Démarrage extraction massive
+
+- Démarre **6h00 du matin Paris (tout calme, RAM disponible)**
+- Multi-agents Cerebras free + Haiku fallback
+- Cible Phase 1 : sociétés US top 307 V1.8 (re-extract + extraire KPI spécifiques manqués)
+- ETA Phase 1 : 6-8h
+
+### Exclusion stricte
+
+- **VIP vérif (CONV-KPI-VERIF) NE DOIT PAS être impacté** par ce changement. Périmètre VIP inchangé.
+
+### Hors scope CONV-DATA (mon scope CONV-CONCEPTS)
+
+- `/sandbox/kpi-historique-audit` : page affichant les 2 listes (≥5 ans / <5 ans) + export CSV
+- `/sandbox/kpi-generic-toggle` : liste FR + EN des KPI génériques avec toggle d'activation par catégorie
+- Masquage UI des KPI génériques par défaut dans `company-view.tsx` (avec flag `is_generic_hidden` ou équivalent)
+
+**ACK obligatoire** au prochain prompt user pour CONV-DATA + CONV-KPI-ADAPTABLE-TRAD + CONV-DIV. À répercuter dans les scripts d'extraction (prompt LLM doit explicitement bannir les KPI génériques + chercher des spécifiques).
+
 [2026-05-19 ~03h30] CONV-CONCEPTS → 🚨 NOUVEL UNIVERS V1.9 + 248 stés à enrichir CONV-DATA + Pass 3 Haiku queue
 
 🤝 @CONV-DATA @CONV-KPI-ADAPTABLE-TRAD @CONV-SYSTEMS :

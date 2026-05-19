@@ -148,6 +148,12 @@ const SECTIONS: SandboxSection[] = [
         desc: "Liste des stés où tout doit être parfait. Inspection visuelle multi-mode, audit Gemini, auto-fix loop.",
       },
       {
+        href: "/sandbox/kpi-quality-strategy",
+        icon: Sparkles,
+        label: "KPI Quality Strategy",
+        desc: "Audit historique hero KPI (451 stés ≥5 ans / 1608 stés <5 ans) + Library KPI génériques (Revenue, EBITDA, EPS, etc.) avec toggle activation par catégorie. Yann 19 mai 2026.",
+      },
+      {
         href: "/sandbox/visual-audit",
         icon: Eye,
         label: "Visual audit (Gemini 2.5 Flash)",
