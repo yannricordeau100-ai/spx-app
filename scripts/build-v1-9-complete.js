@@ -112,7 +112,16 @@ for (const entry of V19_UNIVERSE) {
     latest_filing: v2.latest_filing || null,
     next_earnings_date: v2.next_earnings_date || null,
     publication_date: v2.publication_date || null,
-    company_description: v2.company_description || enrich.description?.simple || null,
+    company_description: (() => {
+      const candidates = [
+        enrich.main?.company_description,
+        enrich.description?.simple,
+        v2.company_description,
+      ].filter(c => typeof c === "string" && c.length >= 100);
+      // Prefer longest
+      candidates.sort((a, b) => b.length - a.length);
+      return candidates[0] || v2.company_description || null;
+    })(),
     _specific_fit_for_site: specific?._fit_for_site,
     _built_at: new Date().toISOString(),
   };
