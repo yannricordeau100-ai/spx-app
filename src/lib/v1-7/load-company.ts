@@ -463,10 +463,12 @@ export async function loadV17Company(
       const specificData = await readJsonOrNull<{
         kpis?: AnyKPI[];
         _fit_for_site?: boolean;
+        _verification_needed?: boolean;
       }>(specificPath);
       if (
         specificData
         && specificData._fit_for_site !== false
+        && specificData._verification_needed !== true
         && Array.isArray(specificData.kpis)
         && Array.isArray(data.kpis)
       ) {
