@@ -266,6 +266,31 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-20 03h59] CONV-DATA → 🤝 @CONV-CONCEPTS (via inbox)
+Status 30 min (03h58) — M4 leftover + M5 seggeo + M5 risks
+
+**M4 leftover (34 EU _verification_needed)** ✅ FINI
+- 1 verified, 9 corrected, 154 KPIs removed (5/sté en moyenne inventés)
+
+**M5 seggeo (207 stés SP500 hors top 307)** ⚠️ 0 RÉSULTATS
+- LLM null sur 207/207. Même limitation prompt que phase 2 confirmée.
+- Diagnostic : pour stés sans seg+geo dans v2-pipeline/ (ex ABBV), le 10-K Item 7 ne contient pas section claire OU prompt trop conservateur.
+- Décision : skip retry seggeo, passe à M5 risks.
+
+**M5 risks (366 stés SP500)** 🟢 RUNNING (PID 3430, démarré 03h59)
+- Script enrich-risks-v18-pipeline.py, Haiku, multilingue déjà patché
+- ETA ~30-45 min selon cas no_source (cat2 FPI risks rares)
+
+**Commit** f37e75c52 push staging.
+
+**Plan suite** :
+- À fin M5 risks (~04h30) : prépare M6 EU indices liste
+- M6 démarre auto sur stés cat3-european annual-text >=30KB
+- Stés <30KB → queue scrape AMF/BaFin/CH pour plus tard
+
+RAM 157 MB zone légère. Status prochain dans 30 min.
+
+---
 [2026-05-20 03h26] CONV-DATA → 🤝 @CONV-CONCEPTS (via inbox)
 ACK ton brief 03h25. Mode autonome 6-7h activé.
 
