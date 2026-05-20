@@ -80,9 +80,6 @@ export function KpiStories({ company }: { company: Company }) {
       <div className="mb-5 flex items-end justify-between">
         <div>
           <h2 className="text-[22px] font-semibold text-zinc-50">{t("stories.title")}</h2>
-          <p className="mt-0.5 max-w-2xl text-[13.5px] text-zinc-300">
-            {t("stories.subtitle")}
-          </p>
         </div>
         <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-400">
           {active + 1} / {total} {currentCategory && <>· {t(`stories.cat.${currentCategory}`)}</>}
@@ -116,11 +113,13 @@ export function KpiStories({ company }: { company: Company }) {
           {/* Notch décorative en haut (vraie ambiance smartphone) */}
           <div
             aria-hidden
-            className="absolute left-1/2 top-2 z-30 h-5 w-24 -translate-x-1/2 rounded-full bg-black"
+            className="absolute left-1/2 top-1.5 z-30 h-5 w-24 -translate-x-1/2 rounded-full bg-black"
           />
 
-          {/* Timeline segments collée tout en haut INSIDE la frame, sous la notch */}
-          <div className="absolute inset-x-3 top-3 z-20 flex gap-1">
+          {/* Timeline segments + temps de défilement : Yann 21 mai 2026 →
+              DESCENDUS sous la notch (top:2 → top:9 = 36px depuis le haut)
+              pour ne plus chevaucher l'encoche. */}
+          <div className="absolute inset-x-3 top-9 z-20 flex gap-1">
             {slides.map((_, i) => (
               <div
                 key={i}
@@ -147,10 +146,11 @@ export function KpiStories({ company }: { company: Company }) {
             ))}
           </div>
 
-          {/* Pause/Play toggle (top-right inside) */}
+          {/* Pause/Play toggle (top-right inside) — descendu pour ne plus
+              recouvrir le pin de l'encoche (Yann 21 mai 2026). */}
           <button
             onClick={() => setPaused((p) => !p)}
-            className="absolute right-3 top-7 z-30 inline-flex size-7 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur transition-colors hover:bg-black/60"
+            className="absolute right-3 top-12 z-30 inline-flex size-7 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur transition-colors hover:bg-black/60"
             aria-label={paused ? t("stories.aria_resume") : t("stories.aria_pause")}
           >
             {paused ? <Play className="size-3" /> : <Pause className="size-3" />}
@@ -172,18 +172,19 @@ export function KpiStories({ company }: { company: Company }) {
             </AnimatePresence>
           </div>
 
-          {/* Tap-zones invisibles : moitié gauche = prev, moitié droite = next.
-              Comme sur Instagram. */}
+          {/* Tap-zones invisibles : Yann 21 mai 2026 → réduites à 80px sur
+              chaque bord pour ne plus capturer les clics sur la zone centrale
+              (sinon "i" tooltips et autres éléments interactifs bloqués). */}
           {total > 1 && (
             <>
               <button
                 onClick={goPrev}
-                className="absolute inset-y-0 left-0 z-10 w-1/2"
+                className="absolute inset-y-0 left-0 z-10 w-20"
                 aria-label={t("stories.aria_prev")}
               />
               <button
                 onClick={goNext}
-                className="absolute inset-y-0 right-0 z-10 w-1/2"
+                className="absolute inset-y-0 right-0 z-10 w-20"
                 aria-label={t("stories.aria_next")}
               />
             </>

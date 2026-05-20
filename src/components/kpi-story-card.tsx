@@ -107,6 +107,14 @@ function KpiCard({ kpi, accent, glow, ticker }: { kpi: KPI; accent: string; glow
             <div className="mt-1 text-[22px] font-bold leading-tight text-zinc-50">
               {kpi.name_fr}
             </div>
+            {/* Yann 21 mai 2026 : période d'analyse JUSTE SOUS le titre du
+                KPI (et non plus sous le chip CAGR/YoY). Format "En 2025" /
+                "Fiscal year 2025" selon calendrier fiscal. */}
+            {periodLabel && (
+              <div className="mt-1 text-[12.5px] font-medium text-zinc-400">
+                {periodLabel}
+              </div>
+            )}
           </div>
           <div
             className="shrink-0 inline-flex items-center gap-1 rounded-full border px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.14em] opacity-70"
@@ -127,7 +135,7 @@ function KpiCard({ kpi, accent, glow, ticker }: { kpi: KPI; accent: string; glow
             {formatKpiValue(kpi.value, kpi.unit)}
           </div>
           {formatUnit(kpi.unit) && (
-            <div className="mt-2 text-[20px] font-semibold text-zinc-100">
+            <div className="mt-2 text-[32px] font-bold text-zinc-100">
               {formatUnit(kpi.unit)}
             </div>
           )}
@@ -136,11 +144,6 @@ function KpiCard({ kpi, accent, glow, ticker }: { kpi: KPI; accent: string; glow
               <TrendingUp className="size-4" />
               <span className="font-mono tabular-nums">{kpi.yoy.replace(/(\d)\.(\d)/g, "$1,$2")}</span>
               <span className="text-[12px] font-medium italic text-zinc-400" title="Year-on-Year">{t("story.vs_n1")}</span>
-            </div>
-          )}
-          {periodLabel && (
-            <div className="mt-2 text-[13px] font-normal text-zinc-400">
-              {periodLabel}
             </div>
           )}
         </div>

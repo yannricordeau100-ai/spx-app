@@ -416,8 +416,8 @@ export const DICTIONARY: Dict = {
   "stories.aria_jump": { fr: "Aller à la story", en: "Go to story" },
   "stories.title": { fr: "Stories", en: "Stories" },
   "stories.subtitle": {
-    fr: "KPIs ciblés (historique court ou unique) et positions marché. Format mobile : lecture auto 5 s par carte, flèches pour naviguer, survol pour mettre en pause.",
-    en: "Focused KPIs (short or one-off history) and market positions. Mobile format: auto-play 5s per card, arrows to navigate, hover to pause.",
+    fr: "",
+    en: "",
   },
   "stories.market_position": { fr: "Marché · TAM", en: "Market · TAM" },
   "stories.cat.Marché": { fr: "Marché", en: "Market" },
