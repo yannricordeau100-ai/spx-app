@@ -1,7 +1,10 @@
 {
   "ticker": "ENGI.PA",
   "_fit_for_site": false,
-  "_reason": "🚨 BUG SOURCE : le fichier sec-data/cat3-european/ENGI.PA/annual-text/2025.txt contient le rapport annuel d'IVR (Internationale Vereniging für Rheinschifffahrt, syndicat inland shipping européen), PAS celui d'Engie SA. Même problème de mauvais mapping ticker → IR source déjà flaggé par CONV-TRANSCRIPTS le 13 mai (DG.PA→Virbac, NG.L→Gresham House, SIE.DE→Siemens India, BP→Woodside Energy). À re-scraper depuis engie.com IR pages. KPIs Utility renewables Engie (GW installés, mix gaz/élec/renewables, production TWh) non extractibles avec cette mauvaise source.",
-  "extracted_at": "2026-05-19T06:30:00Z",
-  "extracted_by": "Agent-1 CONV-CONCEPTS"
+  "_extracted_at": "2026-05-20T18:08:00Z",
+  "_extracted_by": "CONV-DATA-fix-spec-lt3-2026-05-20",
+  "_reason": "CROSS-POLLUTION CONFIRMED: sec-data/cat3-european/ENGI.PA/annual-text/2025.txt = IVR Inland Waterway Transport Annual Report NL (Geschäftsbericht IVR Pan-European inland shipping insurance association) - PAS Engie SA (énergéticien français CAC40). Bug scraper IR documenté multiple fois dans SHARED-STATUS (MD5 174306 bytes même fichier pour DHL.DE, AUTO.L, ENGI.PA, MBG.DE, SN.L, STMMI.MI, TEN.MI, EDEN.PA, EN.PA, HEI.DE, HNR1.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR). Re-scrape requis via amf.fr URD Engie ou engie.com/investisseurs.",
+  "kpis": [],
+  "_blocker": "cross-pollution-IVR-scraper-bug",
+  "_action_required": "re-scrape Engie URD AMF (Document d'Enregistrement Universel) ou engie.com/finance/publications-financieres"
 }
