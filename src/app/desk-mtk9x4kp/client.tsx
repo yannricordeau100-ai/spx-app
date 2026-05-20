@@ -180,6 +180,16 @@ export function DeskClient({ ownerEmail }: { ownerEmail: string }) {
             <div className="mt-1 truncate font-mono text-[10.5px] text-zinc-500">
               {ownerEmail}
             </div>
+            {/* Yann 20 mai 2026 : retour rapide vers sandbox (hub V1.8 /
+                V1.7.5 / V1.9 + outils admin). Évite de retaper l'URL. */}
+            <a
+              href="/sandbox"
+              className="mt-3 inline-flex items-center gap-1.5 rounded-md border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[11.5px] text-zinc-300 transition-colors hover:border-violet-400/50 hover:bg-violet-500/[0.08] hover:text-violet-100"
+              aria-label="Retour au sandbox"
+            >
+              <span aria-hidden="true">←</span>
+              <span>Retour sandbox</span>
+            </a>
           </div>
 
           <nav className="space-y-5 p-3">
