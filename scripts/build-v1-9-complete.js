@@ -51,12 +51,22 @@ function pickAiPos(...candidates) {
   return valid[0];
 }
 
-// Prefer the segments/geo object with the most slices
+// Prefer the segments/geo object with the most slices.
+// Yann 20 mai 2026 13h : accepter aussi single_region:true / single_segment:true /
+// _no_geo_source:true comme valides (= flag confirmé honnête, pas de slices nécessaire).
 function pickByMostSlices(...candidates) {
-  const valid = candidates.filter(c => c && typeof c === "object" && Array.isArray(c.slices) && c.slices.length > 0);
-  if (valid.length === 0) return null;
-  valid.sort((a, b) => b.slices.length - a.slices.length);
-  return valid[0];
+  const validWithSlices = candidates.filter(c => c && typeof c === "object" && Array.isArray(c.slices) && c.slices.length > 0);
+  if (validWithSlices.length > 0) {
+    validWithSlices.sort((a, b) => b.slices.length - a.slices.length);
+    return validWithSlices[0];
+  }
+  // Fallback : flags single_region / single_segment / _no_geo_source / _no_source
+  const validFlag = candidates.filter(c => c && typeof c === "object" && (
+    c.single_region === true || c.single_segment === true ||
+    c._no_geo_source === true || c._no_source === true
+  ));
+  if (validFlag.length > 0) return validFlag[0];
+  return null;
 }
 
 // Prefer non-empty array (most items wins on tie)

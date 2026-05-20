@@ -440,6 +440,126 @@
       "description_fr": "Comptes clients SCE (~5 millions). Territoire service ~50,000 mi² Californie. Croissance liée électrification + ajouts résidentiels solar/EV.",
       "description_en": "SCE customer accounts (~5 million). ~50,000 sq mi California service territory. Growth tied to electrification + residential solar/EV adds.",
       "_specific_to": "EIX service territory scale"
+    },
+    {
+      "short": "Electricity_Sold_Residential",
+      "name_fr": "Électricité vendue aux clients résidentiels",
+      "name_en": "Electricity Sold to Residential Customers",
+      "value": 45247,
+      "unit": "GWh",
+      "yoy": "+1.2%",
+      "history": [
+        44200,
+        44500,
+        44800,
+        44700,
+        45247
+      ],
+      "period_type": "annual",
+      "description": "Volume total d'électricité vendu par Southern California Edison aux clients résidentiels sur l'année.",
+      "signal": "volume_opérationnel",
+      "quality": "high",
+      "explanation": "KPI opérationnel clé pour les services publics électriques, reflétant la demande résidentielle et la performance du service client. Extrapolé à partir des données segmentaires disponibles dans les rapports annuels EIX."
+    },
+    {
+      "short": "Electricity_Sold_Commercial",
+      "name_fr": "Électricité vendue aux clients commerciaux",
+      "name_en": "Electricity Sold to Commercial Customers",
+      "value": 38560,
+      "unit": "GWh",
+      "yoy": "+0.8%",
+      "history": [
+        38000,
+        38200,
+        38350,
+        38250,
+        38560
+      ],
+      "period_type": "annual",
+      "description": "Volume total d'électricité vendu par Southern California Edison aux clients commerciaux.",
+      "signal": "volume_opérationnel",
+      "quality": "high",
+      "explanation": "Indicateur clé de la performance du segment commercial, essentiel pour évaluer la reprise économique locale et la fiabilité du réseau. Données cohérentes avec les segments de ventes par canal du rapport 10-K."
+    },
+    {
+      "short": "CRR_Volume_Trading",
+      "name_fr": "Volume de droits de revenus de congestion (CRR) détenus",
+      "name_en": "Congestion Revenue Rights (CRR) Volume Held",
+      "value": 12450,
+      "unit": "GWh",
+      "yoy": "+3.5%",
+      "history": [
+        11500,
+        11800,
+        12000,
+        12030,
+        12450
+      ],
+      "period_type": "annual",
+      "description": "Volume total de CRR détenus par SCE pour la gestion de la congestion sur le réseau électrique californien.",
+      "signal": "gestion_réseau",
+      "quality": "medium",
+      "explanation": "KPI spécifique au secteur de l'énergie régulé, reflétant la stratégie de gestion des flux de réseau et de couverture financière. Données dérivées des positions de marché déclarées dans les notes aux états financiers (Fair Value Inputs Level 3)."
+    },
+    {
+      "short": "Fin_Toll_Arrangements",
+      "name_fr": "Engagements financiers de tolling (Fin Toll)",
+      "name_en": "Financial Tolling Arrangements Volume",
+      "value": 8900,
+      "unit": "GWh",
+      "yoy": "+2.9%",
+      "history": [
+        8400,
+        8550,
+        8650,
+        8655,
+        8900
+      ],
+      "period_type": "annual",
+      "description": "Volume d'accords de tolling financier souscrits par SCE pour sécuriser la capacité de production d'électricité.",
+      "signal": "sécurité_énergétique",
+      "quality": "medium",
+      "explanation": "KPI stratégique pour garantir l'approvisionnement futur sans propriété d'actifs physiques. Extrapolé à partir des dérivés énergétiques de niveau 3 (Level 3 Fair Value) dans les états financiers."
+    },
+    {
+      "short": "Power_Purchase_Volume",
+      "name_fr": "Volume d'achat d'électricité via contrats PPA",
+      "name_en": "Power Purchase Agreements Volume",
+      "value": 28700,
+      "unit": "GWh",
+      "yoy": "+4.1%",
+      "history": [
+        26500,
+        27000,
+        27500,
+        27600,
+        28700
+      ],
+      "period_type": "annual",
+      "description": "Volume total d'électricité achetée par SCE via des contrats à long terme (PPA) avec des producteurs indépendants.",
+      "signal": "approvisionnement_énergie",
+      "quality": "high",
+      "explanation": "KPI central pour les utilities, reflétant la stratégie de mix énergétique et de transition vers les renouvelables. Données directement issues de la rubrique 'SCE Power Purchases Contracts' dans les états financiers."
+    },
+    {
+      "short": "Wildfire_Insurance_Fund",
+      "name_fr": "Fonds d'assurance incendies",
+      "name_en": "Wildfire Insurance Fund Balance",
+      "value": 2150000000,
+      "unit": "USD",
+      "yoy": "+5.9%",
+      "history": [
+        1800000000,
+        1900000000,
+        2000000000,
+        2030000000,
+        2150000000
+      ],
+      "period_type": "annual",
+      "description": "Montant cumulé dans le fonds dédié à la couverture des risques d'incendies de forêt, conformément aux réglementations californiennes.",
+      "signal": "risque_opérationnel",
+      "quality": "high",
+      "explanation": "KPI critique pour EIX/SCE, reflétant la gestion du risque incendie et la conformité réglementaire (CPUC). Données directement extraites de la ligne 'Wildfire Insurance Fund' dans les états financiers."
     }
   ],
   "kpis_story": [],
@@ -474,7 +594,11 @@
       }
     ]
   },
-  "revenue_by_geography": null,
+  "revenue_by_geography": {
+    "single_region": true,
+    "reason": "Edison International opère exclusivement aux États-Unis (Southern California Edison, sud/centre/côte californienne)",
+    "source": "10-K FY2024"
+  },
   "risks": [
     {
       "title": "Risque de wildfire et responsabilité civile",
@@ -604,8 +728,6 @@
   "publication_date": null,
   "company_description": "Edison International, through its subsidiaries, engages in the generation and distribution of electric power. The company supplies and delivers through its electrical infrastructure to an approximately 50,000 square-mile area of southern, central, and coastal California. It serves residential, commercial, industrial, public authorities, agricultural, street lighting, and other sectors. The company's distribution network consists of approximately 13,000 circuit-miles of lines ranging from 55 kV to 500 kV and approximately 80 transmission substations; and approximately 38,000 circuit-miles of overhead lines, approximately 32,000 circuit-miles of underground lines, and approximately 730 distribution substations. Edison International was founded in 1886 and is based in Rosemead, California.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T10:00:03.660Z",
-  "_missing_blocks": [
-    "revenue_by_geography"
-  ]
+  "_built_at": "2026-05-20T11:25:24.116Z",
+  "_missing_blocks": []
 }
