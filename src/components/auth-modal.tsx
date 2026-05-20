@@ -92,7 +92,13 @@ export function AuthModal() {
     }
     try {
       const supa = createSupabaseBrowserClient();
-      const { data, error } = await supa.auth.signInWithPassword({ email: emailV, password: passwordV });
+      // Yann 20 mai 14h55 : timeout 15s pour éviter hang infini si Supabase
+      // (ou réseau) ne répond pas. Sinon le bouton reste en spinner indéfini.
+      const signinPromise = supa.auth.signInWithPassword({ email: emailV, password: passwordV });
+      const timeoutPromise = new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error("timeout")), 15000),
+      );
+      const { data, error } = await Promise.race([signinPromise, timeoutPromise]) as Awaited<typeof signinPromise>;
       if (error || !data.session) {
         setSigninErr(
           error?.message?.includes("Invalid login")
@@ -126,7 +132,9 @@ export function AuthModal() {
           nextParam.startsWith("/sandbox/v1-9") ||
           nextParam.startsWith("/sandbox/v1-8") ||
           nextParam.startsWith("/sandbox/v1-7") ||
-          nextParam.startsWith("/account")
+          nextParam.startsWith("/account") ||
+          nextParam.startsWith("/desk-mtk9x4kp") ||
+          nextParam.startsWith("/sandbox")
         ) {
           target = nextParam;
         }
@@ -137,7 +145,10 @@ export function AuthModal() {
       // Navigation immédiate = -200ms perçu par l'utilisateur.
       window.location.href = target;
     } catch (err) {
-      setSigninErr("Erreur réseau. Réessaie.");
+      const msg = err instanceof Error && err.message === "timeout"
+        ? "Connexion trop longue (15s). Vérifie ton réseau et réessaie."
+        : "Erreur réseau. Réessaie.";
+      setSigninErr(msg);
       setSigninBusy(false);
     }
   }
