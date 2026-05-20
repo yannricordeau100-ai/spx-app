@@ -113,7 +113,50 @@ for (const entry of V19_UNIVERSE) {
       const specKpis = Array.isArray(specific?.kpis) ? specific.kpis : [];
       const specShorts = new Set(specKpis.filter(k => k && k.short).map(k => k.short));
       const v2Filtered = v2Kpis.filter(k => !k || !k.short || !specShorts.has(k.short));
-      return [...specKpis, ...v2Filtered];
+      let merged = [...specKpis, ...v2Filtered];
+      // Yann 20 mai : EXTENSION HERO HISTORY (mission CONV-CONCEPTS)
+      // Applique _hero_history_extension du fichier enrich main : étend le
+      // history du hero KPI si l'extension a ≥3 points ET si le short matche
+      // (exact ou substring tolérant) le hero_kpi de la sté.
+      const ext = enrich.main?._hero_history_extension;
+      if (ext && Array.isArray(ext.history) && ext.history.length >= 3 && ext.hero_kpi_short) {
+        const heroShort = String(enrich.main?.hero_kpi_override || v2.hero_kpi || "").toLowerCase();
+        const extShortLow = String(ext.hero_kpi_short).toLowerCase();
+        // Match strict : KPI dont le short = ext.hero_kpi_short OU = hero_kpi de la sté
+        let matched = false;
+        merged = merged.map((k) => {
+          if (!k || typeof k !== "object" || !k.short) return k;
+          const s = String(k.short).toLowerCase();
+          const isHero = s === extShortLow || (heroShort && s === heroShort);
+          if (!isHero) return k;
+          matched = true;
+          const currentLen = Array.isArray(k.history) ? k.history.length : 0;
+          if (ext.history.length > currentLen) {
+            return { ...k, history: ext.history, is_short_history: false };
+          }
+          return k;
+        });
+        // Si aucun KPI ne matche, on CRÉE le KPI hero à partir de l'extension
+        if (!matched) {
+          const newHero = {
+            short: ext.hero_kpi_short,
+            name_fr: ext.hero_kpi_short,
+            name_en: ext.hero_kpi_short,
+            value: ext.history[ext.history.length - 1],
+            unit: ext.unit || null,
+            yoy: null,
+            history: ext.history,
+            is_short_history: false,
+            is_wow: true,
+            is_generic: false,
+            period_type: "year",
+            _source: "hero_history_extension",
+            explanation: `KPI hero spécifique extrait du Segment Reporting (10-K). Source : ${ext._source || "10-K Segment Reporting"}`,
+          };
+          merged = [newHero, ...merged];
+        }
+      }
+      return merged;
     })(),
     kpis_story: Array.isArray(specific?.kpis_story) ? specific.kpis_story : [],
     governance: enrich.governance?.governance || enrich.governance || enrich.main?.governance || v2.governance || null,

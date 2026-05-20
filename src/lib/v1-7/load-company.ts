@@ -490,6 +490,46 @@ export async function loadV17Company(
     } catch {
       // best effort, silent fail si le fichier n'existe pas pour ce ticker
     }
+    // Yann 20 mai 2026 : EXTENSION HERO HISTORY (mission CONV-CONCEPTS).
+    // Pour les ~28 stés US où le hero_kpi est SPÉCIFIQUE mais history <3 ans
+    // (bloquait publishable), extraction multi-année 10-K Segment Reporting.
+    // Source : `_hero_history_extension` dans v2-pipeline-enrich/<ticker>.json.
+    // Format : { hero_kpi_short, history: number[], _source, _extracted_at }.
+    // Le merge étend la `history` du hero KPI si l'extension a ≥3 points
+    // ET si le short matche le hero_kpi actuel (exact ou substring tolérant).
+    if (
+      enrich._hero_history_extension
+      && typeof enrich._hero_history_extension === "object"
+    ) {
+      const ext = enrich._hero_history_extension as {
+        hero_kpi_short?: string;
+        history?: unknown;
+      };
+      const extHist = Array.isArray(ext.history)
+        ? (ext.history as unknown[]).filter((v): v is number => typeof v === "number" && Number.isFinite(v))
+        : [];
+      if (extHist.length >= 3 && ext.hero_kpi_short && Array.isArray(data.kpis)) {
+        const heroShort = data.hero_kpi as string | undefined;
+        const extShortLow = ext.hero_kpi_short.toLowerCase();
+        // Trouve le KPI hero (par hero_kpi field, sinon fuzzy match)
+        const heroKpi = (data.kpis as AnyKPI[]).find((k) => {
+          if (!k || typeof k !== "object") return false;
+          const s = (typeof k.short === "string" ? k.short : "").toLowerCase();
+          if (heroShort && s === heroShort.toLowerCase()) return true;
+          return s === extShortLow || s.includes(extShortLow) || extShortLow.includes(s);
+        });
+        if (heroKpi) {
+          const currentLen = Array.isArray(heroKpi.history) ? heroKpi.history.length : 0;
+          if (extHist.length > currentLen) {
+            heroKpi.history = extHist;
+            // Désactive le flag is_short_history si on dépasse 3 points
+            if (extHist.length >= 3) {
+              heroKpi.is_short_history = false;
+            }
+          }
+        }
+      }
+    }
     // Yann 15 mai 2026 v2 : RÉACTIVÉ avec contrainte stricte.
     // Le merge accepte SEULEMENT les fichiers .quarterly-history.json
     // marqués method="xbrl-companyfacts" (extraction directe XBRL SEC EDGAR,
