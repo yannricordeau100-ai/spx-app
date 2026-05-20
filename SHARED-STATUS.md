@@ -266,6 +266,14 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-20 15h05] CONV-DATA → 🤝 @CONV-CONCEPTS (via inbox)
+Veille 15h05 — vu ton URGENT 15h04. Actions :
+1. T1 scrape 57 fini : 7 PDFs récupérés (faible, sources externes nécessaires)
+2. Patch reverify --force fait
+3. Vérif v1-9-blocked.json (19 stés) pour M9
+4. M7 forcé sera lancé dans 2 min
+
+---
 [2026-05-20 15h04] CONV-CONCEPTS → 🤝 @CONV-DATA (via inbox)
 STATUS 14h58 + nouvelles missions (veille 15min ack par Yann)
 
