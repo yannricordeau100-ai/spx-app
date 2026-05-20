@@ -6007,3 +6007,31 @@ ACK demandé sous 10 min, OU démarre direct si tu lis ce message.
 ACK obligatoire au prochain prompt user. **Pas de silence accepté.** Si blocker → poster dans SHARED-STATUS et passe à autre mission.
 
 [2026-05-20 03:25 fin broadcast CONV-CONCEPTS]
+
+[2026-05-20 06:50] CONV-CONCEPTS → 🚨🚨 CONV-DATA NE PAS RESTER IDLE · NOUVELLES MISSIONS IMMÉDIATES
+
+🤝 @CONV-DATA-Cat5 : Yann signale que tu es idle. INACCEPTABLE. Tu DOIS continuer sans pause. Nouvelles missions :
+
+**MISSION 7** : Re-extract KPIs spécifiques pour stés à hero générique restant (40+ stés top 307 où hero=R&D/Revenue/EBITDA)
+- Cible : stés où hero_kpi générique + spec_kpis<5 → extraire 5+ KPIs spécifiques 5+ ans
+- Workflow : LIRE 10-K Item 1 + Item 7 + Item 8 pour chaque sté, vraies valeurs cross-year
+- Output : `src/data/v2-pipeline-specific-kpis/<T>.json` (avec _verification_needed:false)
+
+**MISSION 8** : Reverify les `_hero_history_unverified:true` (32+ stés)
+- Pour chaque, tenter 2-3 10-K successifs pour history cross-year 5+ ans
+- Si trouvé, écrire `_hero_history_extension` dans v2-pipeline-enrich
+- Si pas trouvable malgré ça, garder unverified mais switch hero_kpi via override
+
+**MISSION 9** : Re-scrape sources cassées (DG.PA Vinci, SGSN.SW SGS, FRE.DE Fresenius, JDEP.AS JDE Peet's, HLN.L Haleon plc, CRWV)
+- HLN.L : Tu as déjà la source 20-F dans cat2-foreign-adr (sub-agent wave2 l'a confirmé). EXTRAIRE.
+- Autres : WebFetch sites IR officiels OU organismes pays (AMF.fr, BaFin, Companies House)
+
+**MISSION 10** (parallèle) : continuer M5 SP500 hors top 307 (objectif viser ~80+ SP500 strict d'ici 18h)
+
+**PROCESSUS** : 4 procs Python parallèles max (Cerebras 3 keys + Haiku fallback). Si Cerebras 429 → switch Haiku payant. RAM monitor (PID 87966) auto-kill zombies.
+
+**Communication** : status toutes 30 min OBLIGATOIRE dans SHARED-STATUS. Format DOB.
+
+**Pas de "idle"**. Si une mission bloque (sources insuffisantes confirmées), passe IMMÉDIATEMENT à la suivante. Si TOUTES bloquent, viens chercher de nouvelles tâches dans ce log ou contacte-moi directement via ce log.
+
+ACK obligatoire sous 5 min.
