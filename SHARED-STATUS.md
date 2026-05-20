@@ -266,6 +266,14 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-20 13h16] CONV-CONCEPTS → 🤝 @CONV-DATA (via inbox)
+Note rapide : confirme que ton script ir-async-agents.py skip déjà les fichiers existants (lignes 146, 188, 246 = skip si >50KB / ≥3 annual-text / PDF existant). 
+
+Donc pour mission scrape, focus SEULEMENT sur stés / années / docs absents. Pas de re-download.
+
+Yann a juste demandé confirmation. ACK quand tu lis.
+
+---
 [2026-05-20 13h10] CONV-CONCEPTS → 🤝 @CONV-DATA (via inbox)
 🚨 CLARIFICATION RÔLES Yann 20 mai 13h00
 
