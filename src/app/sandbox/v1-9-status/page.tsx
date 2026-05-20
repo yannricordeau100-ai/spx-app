@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import EXTENDED from "@/data/v1-9-status-extended.json";
+import DETAILS from "@/data/v1-9-not-publishable-details.json";
 
 export const dynamic = "force-static";
 export const revalidate = 3600;
@@ -24,18 +25,25 @@ type ExtendedJson = {
 
 const data = EXTENDED as ExtendedJson;
 
+type DetailItem = { ticker: string; name: string | null; country: string | null; reason: string };
+const DETAILS_TYPED = DETAILS as {
+  scopes: { top307: DetailItem[]; sp500: DetailItem[]; indices_eu: DetailItem[] };
+};
+
 function ScopeSection({
   title,
   icon,
   stat,
   difficileTooltip,
   impossibleTooltip,
+  details,
 }: {
   title: string;
   icon: string;
   stat: ScopeStat;
   difficileTooltip: string;
   impossibleTooltip: string;
+  details: DetailItem[];
 }) {
   const pubPct = Math.round((100 * stat.publishable) / stat.total);
   return (
@@ -83,25 +91,35 @@ function ScopeSection({
         </div>
       </div>
 
-      {stat.difficile.length > 0 && (
-        <div className="mt-4 rounded-xl border border-amber-500/20 bg-amber-500/[0.02] p-4">
-          <div className="mb-2 font-mono text-[10.5px] uppercase tracking-wider text-amber-400">
-            Difficiles ({stat.difficile.length}) — docs locaux, extraction KPI manquante
+      {details.length > 0 && (
+        <div className="mt-4 overflow-hidden rounded-xl border border-amber-500/20">
+          <div className="border-b border-amber-500/20 bg-amber-500/[0.04] px-4 py-2 font-mono text-[10.5px] uppercase tracking-wider text-amber-300">
+            Stés non publiables ({details.length}) — détail + justification
           </div>
-          <div className="flex flex-wrap gap-1.5">
-            {stat.difficile.map((t) => (
-              <span
-                key={t}
-                className="rounded-md border border-amber-500/20 bg-amber-500/[0.04] px-2 py-0.5 font-mono text-[11px] text-amber-200"
-              >
-                {t}
-              </span>
-            ))}
-          </div>
+          <table className="w-full text-[12px]">
+            <thead className="bg-amber-500/[0.02] text-[10px] uppercase tracking-wider text-amber-400/80">
+              <tr>
+                <th className="px-3 py-1.5 text-left">Ticker</th>
+                <th className="px-3 py-1.5 text-left">Nom</th>
+                <th className="px-3 py-1.5 text-left">Pays</th>
+                <th className="px-3 py-1.5 text-left">Raison</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-amber-500/10">
+              {details.map((d) => (
+                <tr key={d.ticker} className="hover:bg-amber-500/[0.02]">
+                  <td className="px-3 py-1.5 font-mono text-amber-200">{d.ticker}</td>
+                  <td className="px-3 py-1.5 text-zinc-300">{d.name || "—"}</td>
+                  <td className="px-3 py-1.5 font-mono text-[10.5px] text-zinc-500">{d.country || "—"}</td>
+                  <td className="px-3 py-1.5 text-[11.5px] text-zinc-400">{d.reason}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       )}
 
-      {stat.impossible.length > 0 && (
+      {stat.impossible.length > 0 && false && (
         <div className="mt-3 rounded-xl border border-rose-500/20 bg-rose-500/[0.02] p-4">
           <div className="mb-2 font-mono text-[10.5px] uppercase tracking-wider text-rose-400">
             Impossibles ({stat.impossible.length}) — scrape externe via organismes pays nécessaire
@@ -196,6 +214,7 @@ export default function V19StatusPage() {
           title="Top 307 V1.8"
           icon="🌍"
           stat={data.top307}
+          details={DETAILS_TYPED.scopes.top307}
           difficileTooltip="307 plus grosses stés mondiales. Docs locaux disponibles, mais extraction KPI à reprendre (hero générique, KPIs purgés par reverify)."
           impossibleTooltip="Stés du top 307 sans documents 10-K/20-F/annual-text. Probablement delisted, fusionnées ou ADR sans filing SEC."
         />
@@ -204,6 +223,7 @@ export default function V19StatusPage() {
           title="S&P 500"
           icon="🇺🇸"
           stat={data.sp500}
+          details={DETAILS_TYPED.scopes.sp500}
           difficileTooltip="Index S&P 500 US. Toutes ont 10-K dans sec-data, extraction LLM à compléter (sub-agents Claude en cours)."
           impossibleTooltip="Stés SP500 sans 10-K local : très rare, généralement spin-off très récents ou multi-classes mal mappés."
         />
@@ -212,6 +232,7 @@ export default function V19StatusPage() {
           title="Indices européens"
           icon="🇪🇺"
           stat={data.indices_eu}
+          details={DETAILS_TYPED.scopes.indices_eu}
           difficileTooltip="CAC 40 + FTSE 100 + DAX 40 + SMI + BEL 20 + FTSE MIB + AEX + ATX (hors top 307 + SP500). Docs locaux partiels — scrape complément via organismes pays nécessaire (AMF.fr, BaFin, Companies House, SIX, CONSOB, AFM, FSMA, FMA)."
           impossibleTooltip="Stés européennes sans aucun document local. Scrape externe via IR pages officielles ou organismes pays."
         />
