@@ -91,12 +91,21 @@ export function AuthModal() {
       return;
     }
     try {
+      // Yann 20 mai 16h25 : fix Lock "sb-...-auth-token released" + lenteur
+      // 1min. Au lieu d'appeler signOut() (qui fait un call réseau + peut
+      // hang), on clear directement localStorage Supabase. Instantané, pas
+      // de réseau, élimine le race condition cross-tab.
+      try {
+        if (typeof window !== "undefined") {
+          const keys = Object.keys(window.localStorage);
+          for (const k of keys) {
+            if (k.startsWith("sb-") || k.includes("supabase")) {
+              window.localStorage.removeItem(k);
+            }
+          }
+        }
+      } catch {}
       const supa = createSupabaseBrowserClient();
-      // Yann 20 mai 16h : fix Lock "sb-...-auth-token was released because
-      // another request stole it" = session précédente reste en localStorage,
-      // crée race condition cross-tab. signOut() force le clean avant le
-      // nouveau signin.
-      try { await supa.auth.signOut({ scope: "local" }); } catch {}
       // Yann 20 mai 14h55 : timeout 15s pour éviter hang infini si Supabase
       // (ou réseau) ne répond pas. Sinon le bouton reste en spinner indéfini.
       const signinPromise = supa.auth.signInWithPassword({ email: emailV, password: passwordV });
