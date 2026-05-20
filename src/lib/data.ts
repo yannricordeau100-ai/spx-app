@@ -628,6 +628,47 @@ export function formatHeroValue(value: string | number | null | undefined, unit:
     displayUnit = RESCALE_M_TO_MDS[unit];
   }
 
+  // Yann 20 mai 2026 : règle "toujours 1 à 999 avec 1 décimale".
+  // Cas observé UPS / TSLA : value brute en devise pure ($, €, £…) sans
+  // préfixe de magnitude, ex 65 872 000 000 $ pour Average Revenue Per
+  // Piece. Affichage actuel = "65 872 000000,0 $", catastrophe.
+  // Solution : si la valeur sort de [1, 999] et que l'unit est une
+  // devise pure (pas déjà préfixée M / Mds), on monte de magnitude
+  // automatiquement jusqu'à rentrer dans [1, 999].
+  const RAW_CURRENCY_MAGNITUDE_LADDER: Record<string, string[]> = {
+    "$": ["$", "K $", "M $", "Mds $", "Bn $"],
+    "€": ["€", "K €", "M €", "Mds €", "Bn €"],
+    "£": ["£", "K £", "M £", "Mds £", "Bn £"],
+    "¥": ["¥", "K ¥", "M ¥", "Mds ¥", "Bn ¥"],
+    "CHF": ["CHF", "K CHF", "M CHF", "Mds CHF", "Bn CHF"],
+    "EUR": ["EUR", "K EUR", "M EUR", "Mds EUR", "Bn EUR"],
+    "USD": ["USD", "K USD", "M USD", "Mds USD", "Bn USD"],
+    "GBP": ["GBP", "K GBP", "M GBP", "Mds GBP", "Bn GBP"],
+    "JPY": ["JPY", "K JPY", "M JPY", "Mds JPY", "Bn JPY"],
+    "CAD": ["CAD", "K CAD", "M CAD", "Mds CAD", "Bn CAD"],
+    "AUD": ["AUD", "K AUD", "M AUD", "Mds AUD", "Bn AUD"],
+    "SEK": ["SEK", "K SEK", "M SEK", "Mds SEK", "Bn SEK"],
+    "DKK": ["DKK", "K DKK", "M DKK", "Mds DKK", "Bn DKK"],
+    "NOK": ["NOK", "K NOK", "M NOK", "Mds NOK", "Bn NOK"],
+    "HKD": ["HKD", "K HKD", "M HKD", "Mds HKD", "Bn HKD"],
+    "CNY": ["CNY", "K CNY", "M CNY", "Mds CNY", "Bn CNY"],
+    "INR": ["INR", "K INR", "M INR", "Mds INR", "Bn INR"],
+    "BRL": ["BRL", "K BRL", "M BRL", "Mds BRL", "Bn BRL"],
+    "MXN": ["MXN", "K MXN", "M MXN", "Mds MXN", "Bn MXN"],
+    "ZAR": ["ZAR", "K ZAR", "M ZAR", "Mds ZAR", "Bn ZAR"],
+    "KRW": ["KRW", "K KRW", "M KRW", "Mds KRW", "Bn KRW"],
+    "PLN": ["PLN", "K PLN", "M PLN", "Mds PLN", "Bn PLN"],
+  };
+  const ladder = RAW_CURRENCY_MAGNITUDE_LADDER[unit];
+  if (ladder && Math.abs(displayNum) >= 1000) {
+    let tier = 0;
+    while (Math.abs(displayNum) >= 1000 && tier < ladder.length - 1) {
+      displayNum = displayNum / 1000;
+      tier += 1;
+    }
+    displayUnit = ladder[tier];
+  }
+
   // Règle Yann 15 mai 2026 : nb de décimales déterminé par decimalsForValue.
   const dec = decimalsForValue(displayNum, displayUnit);
   const formatted = displayNum.toLocaleString("fr-FR", {
