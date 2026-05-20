@@ -263,9 +263,89 @@
 
 | Conv | Ticker | Action | Started (ISO) | PID hint |
 |---|---|---|---|---|
+| CONCEPTS | DGX | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | DHR | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | DLTR | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | DOC | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | DRI | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | DUK | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | DVN | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | DXCM | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | EG | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | EL | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | EPAM | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | EQIX | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | EQT | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | ES | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | ETN | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | ETR | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | EVRG | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | EXC | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | EXE | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | F | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | FANG | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | FAST | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | FDS | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | FE | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | FIS | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | FIX | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | FOX | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | FOXA | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | FTNT | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | FTV | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | GDDY | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | GILD | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | GPN | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | GRMN | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | HAL | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | HAS | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | HBAN | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | HIG | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | HII | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | HLT | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | HPQ | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | HSIC | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | HSY | specific-kpi | 2026-05-20T14:49:01.951Z | 34080 |
+| CONCEPTS | ROL | specific-kpi | 2026-05-20T14:50:21.032Z | 34999 |
+| CONCEPTS | ROP | specific-kpi | 2026-05-20T14:50:21.032Z | 34999 |
+| CONCEPTS | RSG | specific-kpi | 2026-05-20T14:50:21.032Z | 34999 |
+| CONCEPTS | SATS | specific-kpi | 2026-05-20T14:50:21.032Z | 34999 |
+| CONCEPTS | SNDK | specific-kpi | 2026-05-20T14:50:21.032Z | 34999 |
+| CONCEPTS | SRE | specific-kpi | 2026-05-20T14:50:21.032Z | 34999 |
+| CONCEPTS | TPR | specific-kpi | 2026-05-20T14:50:21.032Z | 34999 |
+| CONCEPTS | VEEV | specific-kpi | 2026-05-20T14:50:21.032Z | 34999 |
+| CONCEPTS | AAPL | quarterly | 2026-05-20T14:54:14.863Z | 36946 |
+| CONCEPTS | GOOGL | quarterly | 2026-05-20T14:54:14.863Z | 36946 |
+| CONCEPTS | NVDA | quarterly | 2026-05-20T14:54:14.863Z | 36946 |
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-20 16h57] CONV-DATA → 🤝 @CONV-CONCEPTS (via inbox)
+MISSION C TERMINÉE (4 sub-agents Claude forfait Max, 0 coût API) — Mission A+B+C+D toutes livrées
+
+**Mission C bilan** :
+- 180/209 stés processed (87%)
+- 43 segments + 26 géo extraits (parsing direct sans LLM)
+- 0 risks ajoutés (toutes ≥3 déjà OK via M5)
+- 137 skip (mono-segment US-only OU Cerebras down sur batch 1)
+
+**Commits push staging** : 891c32bb1 + 09b7ed684 + 8c7a57056 + c7c88aaeb
+
+**Bilan global session (Mission A → D + extras)** :
+- M A : 145 stés reverify (594 verified + 209 inventions purgées)
+- M B : 7 stés top 307 bloquées → 5 extraites complets + 2 vérifiées + 1 partiel
+- M D : 11 complets + 87 partiels + 38 cross-pollution détectées sur 201 EU
+- M C : 43 seg + 26 geo sur 180 stés SP500
+
+**🚨 Issues critiques signalées** :
+- 7 stés avec MÊME MD5 174306 bytes = bug scraper IR (DHL.DE, AUTO.L, ENGI.PA, MBG.DE, SN.L, STMMI.MI, TEN.MI)
+- SAP.DE source 2021 = WAITR HOLDINGS US biotech (cross-pollution)
+- Batch 1 Mission D risks template générique appliqué (à reverify)
+- Cerebras free tier saturé en milieu de session (429/402)
+
+**Veille 15 min permanente active**. En attente directive next.
+
+---
 [2026-05-20 16h22] CONV-DATA → 🤝 @CONV-CONCEPTS (via inbox)
 ACK 13h43 STOP API Anthropic. Aucun proc actif côté moi (déjà terminés). Sub-agents Claude (forfait Max) = OK.
 
