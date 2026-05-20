@@ -22,6 +22,7 @@ import V17_PUBLIC from "@/data/v1-7-public.json";
 // pour V1.9 on les laisse tomber de la grille hub mais leurs pages sté
 // afficheront "Fiche en préparation" si quelqu'un visite l'URL directe.
 import V19_UNIVERSE from "@/data/v1-9-universe.json";
+import V19_PUBLISHABLE from "@/data/v1-9-publishable.json";
 
 type UniverseEntry = {
   ticker: string;
@@ -58,9 +59,16 @@ export default async function SandboxV19HubPage() {
   // Les 78 tickers absents (v1-9-missing-from-merged.json) restent
   // accessibles via URL directe → "Fiche en préparation".
   const validKeys = new Set(Object.keys(datasets).map((k) => k.toUpperCase()));
+  // Yann 21 mai 2026 : la barre de recherche V1.9 doit être PROPRE à V1.9
+  // = uniquement les 775 stés publishable (pas l'univers 924 entier).
+  // Sinon Yann tape "amazon" et trouve AMZN qui pointe vers une fiche
+  // "Fiche en préparation" (hero history <3 ans = non publié V1.9).
+  const PUBLISHABLE_SET = new Set(
+    ((V19_PUBLISHABLE as { tickers: string[] }).tickers || []).map((t) => t.toUpperCase()),
+  );
   const tickers = (V19_UNIVERSE as UniverseEntry[])
     .map((e) => e.ticker)
-    .filter((t) => validKeys.has(t.toUpperCase()));
+    .filter((t) => validKeys.has(t.toUpperCase()) && PUBLISHABLE_SET.has(t.toUpperCase()));
   const catalog = await loadPricingCatalog();
   const taglines = await loadAllTaglines();
   const locale = await getServerLocale();
