@@ -91,14 +91,17 @@ export function AuthModal() {
       return;
     }
     try {
-      // Yann 20 mai 16h25 : fix Lock "sb-...-auth-token released" + lenteur
-      // 1min. Au lieu d'appeler signOut() (qui fait un call réseau + peut
-      // hang), on clear directement localStorage Supabase. Instantané, pas
-      // de réseau, élimine le race condition cross-tab.
+      // Yann 20 mai 17h : fix DÉFINITIF Lock "sb-...-auth-token released
+      // because another request stole it".
+      // Cause = navigator.locks API utilisée par Supabase JS v2 pour sync
+      // refresh token entre tabs. Si plusieurs composants créent des
+      // clients Supabase en parallèle (UserPrefsSync, AdminFloatingPanel,
+      // server actions), ils contention le même lock.
+      // Stratégie : (1) clear localStorage, (2) retry 3× max sur erreur
+      // Lock, (3) timeout 15s par tentative.
       try {
         if (typeof window !== "undefined") {
-          const keys = Object.keys(window.localStorage);
-          for (const k of keys) {
+          for (const k of Object.keys(window.localStorage)) {
             if (k.startsWith("sb-") || k.includes("supabase")) {
               window.localStorage.removeItem(k);
             }
@@ -106,14 +109,34 @@ export function AuthModal() {
         }
       } catch {}
       const supa = createSupabaseBrowserClient();
-      // Yann 20 mai 14h55 : timeout 15s pour éviter hang infini si Supabase
-      // (ou réseau) ne répond pas. Sinon le bouton reste en spinner indéfini.
-      const signinPromise = supa.auth.signInWithPassword({ email: emailV, password: passwordV });
-      const timeoutPromise = new Promise<never>((_, reject) =>
-        setTimeout(() => reject(new Error("timeout")), 15000),
-      );
-      const { data, error } = await Promise.race([signinPromise, timeoutPromise]) as Awaited<typeof signinPromise>;
-      if (error || !data.session) {
+
+      let data: Awaited<ReturnType<typeof supa.auth.signInWithPassword>>["data"] | null = null;
+      let error: Awaited<ReturnType<typeof supa.auth.signInWithPassword>>["error"] | null = null;
+      const maxAttempts = 3;
+      for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+        const signinPromise = supa.auth.signInWithPassword({ email: emailV, password: passwordV });
+        const timeoutPromise = new Promise<never>((_, reject) =>
+          setTimeout(() => reject(new Error("timeout")), 15000),
+        );
+        try {
+          const res = await Promise.race([signinPromise, timeoutPromise]) as Awaited<typeof signinPromise>;
+          data = res.data;
+          error = res.error;
+          // Retry uniquement si l'erreur Supabase est un Lock contention
+          const isLockErr = error?.message?.toLowerCase().includes("lock") &&
+                            error.message.toLowerCase().includes("stole");
+          if (!isLockErr) break;
+          if (attempt < maxAttempts) {
+            await new Promise((r) => setTimeout(r, 500 * attempt));
+            continue;
+          }
+        } catch (innerErr) {
+          if (innerErr instanceof Error && innerErr.message === "timeout") throw innerErr;
+          if (attempt === maxAttempts) throw innerErr;
+          await new Promise((r) => setTimeout(r, 500 * attempt));
+        }
+      }
+      if (error || !data || !data.session) {
         setSigninErr(
           error?.message?.includes("Invalid login")
             ? "Email ou mot de passe incorrect."
