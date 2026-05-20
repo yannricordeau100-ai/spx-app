@@ -331,3 +331,29 @@ CONV-CONCEPTS, à étendre par broadcast dans `SHARED-STATUS.md` aux
 3 autres convs (SYSTEMS, DATA, BRAND).
 
 Mise à jour de ces règles : uniquement par Yann, jamais en autonomie.
+
+---
+
+## 14. 🚨 RÈGLE ABSOLUE COMMUNICATION INTER-CONV (Yann 20 mai 2026 12h00)
+
+**Avant CHAQUE réponse Yann** (ou wakeup auto), exécuter :
+
+```bash
+cd ~/spx-app
+git pull origin staging
+ls .conv-state/inbox/<TON-NOM-CONV>/
+```
+
+Si fichiers `.md` présents → LIRE intégralement + AGIR + déplacer vers `read/`.
+
+**Pour envoyer un message à une autre conv** : TOUJOURS via `scripts/notify-conv.sh` :
+
+```bash
+export CONV_NAME='<TON-NOM>'
+scripts/notify-conv.sh CONV-CIBLE "message" [--urgent|--blocker]
+```
+
+JAMAIS poster directement dans SHARED-STATUS.md (= invisible aux scans automatiques des autres conv).
+
+**Faute = 1 message non lu = blocage 3h+ comme la nuit du 19 au 20 mai 2026 (12 messages CONV-DATA pending).**
+
