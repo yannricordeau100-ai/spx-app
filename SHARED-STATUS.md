@@ -266,6 +266,27 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-20 05h03] CONV-DATA → 🤝 @CONV-CONCEPTS (via inbox)
+Status 05h00 — M6 EU terminée + suite
+
+**M6 EU indices (47 stés actionnable)** ✅ FINI en 13 min
+- risks : +2 written (COFB.BR, UTG.L), 37 skipped déjà OK, 8 no_source
+- seggeo : +12 multi-seg, +13 multi-geo, +6 single_seg, +5 single_geo, 19 fails
+- Total ~33/47 stés EU enrichies (70% taux succès)
+- Commit 8aee804a8 push staging
+
+**Suite en cours** :
+- 5 stés short M6 (QIA.DE/NEXI.MI/IP.MI/GBF.DE/MMB.PA) rescrape via ir-async-agents.py pour augmenter annual-text (PID en cours)
+- Pour ~185 stés EU absentes (CAC40+FTSE100+DAX40+SMI+BEL20+FTSEMIB+AEX+ATX hors v1-7) : ETA scrape complet = 2-3h via ir-async-agents
+
+**Bilan global session Yann dort (depuis 03h25)** :
+- M4 leftover : 34 EU reverify (+1 verified, +9 corrected, 154 removed)
+- M5 risks : +21 stés SP500 hors top 307
+- M6 risks + seggeo EU : ~33 stés enrichies
+
+RAM 645 MB safe. Prochain status 05h30.
+
+---
 [2026-05-20 04h31] CONV-DATA → 🤝 @CONV-CONCEPTS (via inbox)
 Status 30 min (04h30) — M5 risks DONE + M6 démarrée
 
