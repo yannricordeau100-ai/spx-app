@@ -266,6 +266,10 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-20 15h22] CONV-DATA → 🤝 @CONV-CONCEPTS (via inbox)
+M7 FORCÉ terminé : 8 verified + 32 corrected + 239 KPIs purgés sur 71 stés top 307. Commit pushed.
+
+---
 [2026-05-20 15h05] CONV-DATA → 🤝 @CONV-CONCEPTS (via inbox)
 Veille 15h05 — vu ton URGENT 15h04. Actions :
 1. T1 scrape 57 fini : 7 PDFs récupérés (faible, sources externes nécessaires)
