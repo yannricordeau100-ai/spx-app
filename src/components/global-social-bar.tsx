@@ -1,36 +1,32 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import { SocialLinksRow } from "@/components/social-links-row";
 
 /**
- * GlobalSocialBar — fine bande horizontale en bas de page,
- * affichée sur TOUTES les pages de l'app (intégrée au layout root).
- * Yann 17 mai 2026 : "ajouter en bas de toutes les pages de l'app le
- * fait que nous soyons présent sur les réseaux sociaux".
+ * GlobalSocialBar — bandeau social en bas de page.
  *
- * Style "wow + sérieux" : layout discret mais haute qualité, gradient
- * subtil violet/cyan Mettrik en background, séparé du contenu par une
- * border-top.
+ * Yann 20 mai 2026 16h :
+ *  - Sur pages SOCIÉTÉ (V1.8 / V1.9 avec DockSpy gauche qui contient déjà
+ *    les liens sociaux) : NE RIEN AFFICHER.
+ *  - Sur pages NON-sté (home, /pricing, /contact, /legal/*, /sandbox hubs,
+ *    /concepts, /account, /maintenance, etc.) : les 2 boutons seuls à
+ *    gauche (pas de texte "Suivez Mettrik AI sur les réseaux").
  *
- * Note : les pages qui ont un DisclaimerFooter complet (home, account,
- * pricing, /[ticker] V1, etc.) afficheront ce bandeau APRÈS leur footer.
- * Volonté Yann : présence permanente.
+ * Détection page sté : pathname matches /sandbox/v1-X/<ticker> (X = 7|7-5|8|9).
  */
-export function GlobalSocialBar() {
-  return (
-    <div className="relative border-t border-white/[0.06] bg-gradient-to-b from-[#070707] to-[#050505] px-4 py-5 sm:px-6">
-      {/* Halo discret violet/cyan en fond */}
-      <div className="pointer-events-none absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-violet-500/30 to-transparent" />
-      <div className="pointer-events-none absolute left-1/2 top-0 size-[400px] -translate-x-1/2 rounded-full bg-violet-500/[0.03] blur-3xl" />
+function isCompanyPage(pathname: string): boolean {
+  return /^\/sandbox\/v1-[789](?:-5)?\/[^/]+\/?$/.test(pathname);
+}
 
-      <div className="relative mx-auto flex max-w-5xl flex-col items-center justify-center gap-3 sm:flex-row sm:justify-between">
-        <div className="text-center sm:text-left">
-          <div className="font-display text-[13px] font-semibold text-zinc-200">
-            Mettrik AI sur les réseaux
-          </div>
-          <div className="text-[11px] text-zinc-500">
-            Suivez nos analyses, méthodologies et nouveautés.
-          </div>
-        </div>
-        <SocialLinksRow align="center" size="compact" />
+export function GlobalSocialBar() {
+  const pathname = usePathname();
+  if (!pathname || isCompanyPage(pathname)) return null;
+  return (
+    <div className="relative border-t border-white/[0.06] bg-gradient-to-b from-[#070707] to-[#050505] px-4 py-4 sm:px-6">
+      <div className="pointer-events-none absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-violet-500/30 to-transparent" />
+      <div className="relative mx-auto flex max-w-5xl items-center">
+        <SocialLinksRow align="left" size="compact" />
       </div>
     </div>
   );

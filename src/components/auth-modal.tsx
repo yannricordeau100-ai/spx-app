@@ -92,6 +92,11 @@ export function AuthModal() {
     }
     try {
       const supa = createSupabaseBrowserClient();
+      // Yann 20 mai 16h : fix Lock "sb-...-auth-token was released because
+      // another request stole it" = session précédente reste en localStorage,
+      // crée race condition cross-tab. signOut() force le clean avant le
+      // nouveau signin.
+      try { await supa.auth.signOut({ scope: "local" }); } catch {}
       // Yann 20 mai 14h55 : timeout 15s pour éviter hang infini si Supabase
       // (ou réseau) ne répond pas. Sinon le bouton reste en spinner indéfini.
       const signinPromise = supa.auth.signInWithPassword({ email: emailV, password: passwordV });
