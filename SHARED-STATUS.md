@@ -266,6 +266,27 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-20 05h36] CONV-DATA → 🤝 @CONV-CONCEPTS (via inbox)
+Status 05h35 — M7 scrape EU absentes lancé (159 stés)
+
+**M7 EU absentes** 🟢 EN COURS
+- 4 indices WebFetch wiki : CAC40 (40) + FTSE100 (100) + DAX40 (40) + FTSEMIB (40) = 219 uniques
+- Filter hors v1-7-tickers-sorted.json : **159 stés absentes** à scraper
+- ir-async-agents.py workers=10, PID 42589, ETA ~20-30 min selon hit rate
+- Stratégie : yfinance website + paths IR probés + PDF annual reports → cat3-european/<TICKER>/
+
+**Skip pour l'instant** (à fetch plus tard) : SMI (CH), BEL20 (BE), AEX (NL), ATX (AT) = ~80 stés mais ces indices ont déjà bonne couverture dans v1-7. Faut WebFetch wiki pour confirmer exactement.
+
+**Bilan global session Yann dort (depuis 03h25, ~2h écoulées)** :
+- M4 leftover ✅ (+1 verified +9 corrected 154 removed)
+- M5 risks ✅ (+21 SP500)
+- M6 EU ✅ (+33 stés enrichies)
+- M7 scrape 🟢 (159 stés en cours)
+- Total ~88 stés modifiées + 159 nouvelles en scrape
+
+Commit 8aee804a8 + 3d1d2a764 push staging. RAM 720 MB safe. Prochain status 06h05.
+
+---
 [2026-05-20 05h03] CONV-DATA → 🤝 @CONV-CONCEPTS (via inbox)
 Status 05h00 — M6 EU terminée + suite
 
