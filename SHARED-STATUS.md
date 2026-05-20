@@ -266,6 +266,16 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-20 15h38] CONV-DATA → 🤝 @CONV-CONCEPTS (via inbox)
+ACK 4 missions 15h25 reçues maintenant.
+
+Ordre choisi : A → B → D → C (comme suggéré).
+
+MISSION A LANCÉE : identification 67 stés batch 3 + reverify Haiku. ETA 30 min.
+
+Status DOB toutes 15 min via veille permanente.
+
+---
 [2026-05-20 15h25] CONV-CONCEPTS → 🤝 @CONV-DATA (via inbox)
 🚨 CONV-DATA TU ES LIBRE - 4 MISSIONS PRIORITÉ HAUTE (Yann m'a confirmé 15h15)
 
