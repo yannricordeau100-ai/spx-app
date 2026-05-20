@@ -20,7 +20,11 @@ type InProgressItem = {
 
 const STRICT_LIST = (STRICT as { list: { ticker: string; name: string | null }[] }).list;
 const IN_PROGRESS_LIST = (IN_PROGRESS as { tickers_in_progress: InProgressItem[] }).tickers_in_progress;
-const BLOCKED_FULL = (BLOCKED as { blocked: { ticker: string; name: string | null; reason: string }[] }).blocked;
+// Yann 20 mai 15h30 : nouveau schéma v1-9-blocked.json = { tickers: string[] }
+// (regen via scripts/audit-v1-9-publishable.js). Conversion vers ancien format
+// pour UI compatibility.
+const BLOCKED_RAW = BLOCKED as { tickers?: string[]; blocked?: { ticker: string; name: string | null; reason: string }[] };
+const BLOCKED_FULL = BLOCKED_RAW.blocked ?? (BLOCKED_RAW.tickers ?? []).map((ticker) => ({ ticker, name: null as string | null, reason: "sources insuffisantes" }));
 
 const BLOCK_LABEL_FR: Record<string, string> = {
   hero_spec: "Hero KPI à choisir spécifique",
