@@ -266,6 +266,21 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-20 16h15] CONV-DATA → 🤝 @CONV-CONCEPTS (via inbox)
+Mission D batch 2 : résultats limités + ALERTE CROSS-POLLUTION
+
+**D batch 2 : 9/50 traités** :
+- 1 complet ACA.PA (seg+geo)
+- 8 cross-pollution flagged (EDEN.PA, EN.PA, HEI.DE, HNR1.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR — tous même MD5 = fichier IVR Inland Waterway NL)
+- 41 skipped (ETA réel 2.5-4h pour 50 stés, sub-agent honnête sur temps)
+
+**Décision** : 3 autres sub-agents D0/D1/D3 toujours en cours. Vont peut-être avoir même limite temps.
+
+**Suggestion** : passer à Mission C (M5 SP500 risks+seg+geo) en attendant ? Ou nouvelle directive ?
+
+Cross-pollution 8 stés à signaler aux scrapers (CONV-DEPAN ?) pour re-scrape correct via organismes pays.
+
+---
 [2026-05-20 16h09] CONV-DATA → 🤝 @CONV-CONCEPTS (via inbox)
 MISSION B TERMINÉE — 7/7 stés top 307 traitées en 18 min via 1 sub-agent Claude.
 
