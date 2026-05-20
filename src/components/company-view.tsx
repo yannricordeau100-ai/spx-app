@@ -1048,18 +1048,23 @@ export function CompanyView({
           v18Mode && <V18MissingPlaceholder id="sec-governance" label="Gouvernance & rémunération" hint="DEF14A (cat 1) ou rapport annuel à extraire." />
         )}
 
-        {/* AI positioning — placed after risks + governance */}
-        {company.ai_positioning ? (
-          <div id="sec-ai" className="scroll-mt-24">
-            <AIPositioningCard
-              positioning={company.ai_positioning}
-              companyName={company.name}
-              ticker={company.ticker}
-            />
-          </div>
-        ) : (
-          v18Mode && <V18MissingPlaceholder id="sec-ai" label="Positionnement IA" hint="Mentions IA dans 10-K à parser via Cerebras Llama 3.3 70B." />
-        )}
+        {/* AI positioning — Yann 20 mai 2026 : masquer si stance=absent (= 10-K ne mentionne pas IA).
+            Pas de bloc vide ou "Absent". Soit la sté a du AI réel à montrer, soit on masque. */}
+        {(() => {
+          const ai = company.ai_positioning;
+          if (!ai) return v18Mode ? <V18MissingPlaceholder id="sec-ai" label="Positionnement IA" hint="Mentions IA dans 10-K à parser via Cerebras Llama 3.3 70B." /> : null;
+          // Masque si stance="absent" OU pas d'evidence (= pas de positionnement réel à montrer)
+          if (ai.stance === "absent" || !Array.isArray(ai.evidence) || ai.evidence.length === 0) return null;
+          return (
+            <div id="sec-ai" className="scroll-mt-24">
+              <AIPositioningCard
+                positioning={ai}
+                companyName={company.name}
+                ticker={company.ticker}
+              />
+            </div>
+          );
+        })()}
 
         {/* Bloc transactions politiciens US retiré (13 mai 2026 par Yann). */}
 
