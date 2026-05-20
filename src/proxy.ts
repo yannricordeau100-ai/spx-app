@@ -60,6 +60,7 @@ function isPublicPath(pathname: string): boolean {
   if (pathname === "/sandbox/v1-7-5") return true;
   if (pathname === "/sandbox/v1-8") return true;
   if (pathname === "/sandbox/v1-9") return true; // Yann 19 mai 2026 — V1.9
+  if (pathname === "/sandbox/v1-9-status") return true; // Yann 20 mai 2026 — page suivi public
   // Sous-routes publiques (sandbox utilitaires) : tout ce qui n'est PAS
   // une page société (= /sandbox/v1-8/<ticker> où ticker matche /^[a-z0-9-.]+$/).
   if (
