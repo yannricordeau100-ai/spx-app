@@ -297,7 +297,7 @@ export function PopulaireClient({
             compact, badge "Pour vous" condensé pour ne pas casser la
             largeur. Mobile : 3-4 chips par ligne automatique. */}
         <div className="mb-8">
-          <div className="flex flex-wrap gap-1 rounded-xl border border-white/[0.06] bg-white/[0.02] p-1.5">
+          <div className="mx-auto flex w-fit max-w-full flex-wrap justify-center gap-1 rounded-xl border border-white/[0.06] bg-white/[0.02] p-1.5">
             {tabs.map((t) => {
               const isActive = t.key === activeTab;
               const isForYou = t.country === country && t.country !== "";

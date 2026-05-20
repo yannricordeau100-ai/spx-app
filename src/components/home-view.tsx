@@ -839,28 +839,34 @@ function renderCompanyCard(
                         ? (hero.name_fr || hero.name_en || hero.short)
                         : (hero.name_en || hero.name_fr || hero.short)}
                     </div>
-                    <div className="mt-3 flex flex-wrap items-center gap-1.5">
-                      <span
-                        className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-medium"
-                        style={{ background: `${r.color}18`, color: r.color }}
-                      >
-                        <span className="size-1.5 rounded-full" style={{ background: r.color }} />
-                        {t(`tier.${r.tier}`)}
-                      </span>
-                      <span className="font-mono text-[10px] text-zinc-400">
-                        {r.percentile}
-                      </span>
-                      <span className="ml-auto">
-                        <FreshnessIndicator
-                          lastDate={hero.last_data_date ?? "2025-12-31"}
-                          publicationDate={c.latest_filing?.date}
-                          nextEarningsDate={c.next_earnings_date}
-                          ticker={ticker}
-                          alwaysShow
-                          size="sm"
-                          tooltipAlign="right"
-                        />
-                      </span>
+                    {/* Yann 20 mai 16h40 : grid 2 colonnes fixes (tier+pct
+                        gauche / freshness droite) avec hauteur min identique
+                        sur toutes les cards. Plus de flex-wrap = pas de
+                        chips qui descendent quand un texte est long. Truncate
+                        au besoin pour préserver l'alignement vertical du
+                        bloc dans toutes les cards de la grille. */}
+                    <div className="mt-3 grid min-h-[24px] grid-cols-[minmax(0,1fr)_auto] items-center gap-1.5">
+                      <div className="flex items-center gap-1.5 overflow-hidden">
+                        <span
+                          className="inline-flex shrink-0 items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-medium"
+                          style={{ background: `${r.color}18`, color: r.color }}
+                        >
+                          <span className="size-1.5 rounded-full" style={{ background: r.color }} />
+                          {t(`tier.${r.tier}`)}
+                        </span>
+                        <span className="truncate font-mono text-[10px] text-zinc-400">
+                          {r.percentile}
+                        </span>
+                      </div>
+                      <FreshnessIndicator
+                        lastDate={hero.last_data_date ?? "2025-12-31"}
+                        publicationDate={c.latest_filing?.date}
+                        nextEarningsDate={c.next_earnings_date}
+                        ticker={ticker}
+                        alwaysShow
+                        size="sm"
+                        tooltipAlign="right"
+                      />
                     </div>
                   </Link>
                 </div>

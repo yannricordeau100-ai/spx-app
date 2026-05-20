@@ -20,11 +20,19 @@ type InProgressItem = {
 
 const STRICT_LIST = (STRICT as { list: { ticker: string; name: string | null }[] }).list;
 const IN_PROGRESS_LIST = (IN_PROGRESS as { tickers_in_progress: InProgressItem[] }).tickers_in_progress;
-// Yann 20 mai 15h30 : nouveau schéma v1-9-blocked.json = { tickers: string[] }
-// (regen via scripts/audit-v1-9-publishable.js). Conversion vers ancien format
-// pour UI compatibility.
-const BLOCKED_RAW = BLOCKED as { tickers?: string[]; blocked?: { ticker: string; name: string | null; reason: string }[] };
-const BLOCKED_FULL = BLOCKED_RAW.blocked ?? (BLOCKED_RAW.tickers ?? []).map((ticker) => ({ ticker, name: null as string | null, reason: "sources insuffisantes" }));
+// Yann 20 mai : schéma blocked.json hétérogène selon source (audit script
+// ou union manuelle). Support 3 formats : { tickers:[] }, { blocked:[{ticker, missing, ...}] },
+// { blocked:[{ticker, name, reason}] }. Conversion uniforme pour UI.
+type BlockedJsonItem = { ticker: string; name?: string | null; reason?: string; missing?: string[] };
+const BLOCKED_RAW = BLOCKED as unknown as { tickers?: string[]; blocked?: BlockedJsonItem[] };
+const BLOCKED_FULL: { ticker: string; name: string | null; reason: string }[] =
+  (BLOCKED_RAW.blocked ?? []).map((b) => ({
+    ticker: b.ticker,
+    name: b.name ?? null,
+    reason: b.reason ?? (b.missing?.length ? `manque: ${b.missing.join(", ")}` : "sources insuffisantes"),
+  })).concat(
+    (BLOCKED_RAW.tickers ?? []).map((ticker) => ({ ticker, name: null, reason: "sources insuffisantes" })),
+  );
 
 const BLOCK_LABEL_FR: Record<string, string> = {
   hero_spec: "Hero KPI à choisir spécifique",
