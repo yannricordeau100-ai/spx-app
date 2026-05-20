@@ -145,6 +145,15 @@ def extract_risk_factors(text: str, max_chars: int = 18000) -> str:
                 # SE/NO
                 r"risker\s+och\s+os[äa]kerheter",
                 r"v[ää]sentliga\s+risker",
+                # JP (9984.T etc)
+                r"リスク要因",
+                r"事業等のリスク",
+                # PT
+                r"fatores\s+de\s+risco",
+                # FI
+                r"riskitekij[äa]t",
+                # General fallback : section "risk" tout court
+                r"\brisks?\s+and\s+uncertainties\b",
             ]:
                 m = list(re.finditer(kw, text, re.IGNORECASE))
                 if m:

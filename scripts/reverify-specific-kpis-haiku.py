@@ -199,12 +199,12 @@ def call_haiku(prompt: str, api_key: str, retries: int = 2):
     return None
 
 
-def reverify_one(ticker: str, api_key: str) -> dict:
+def reverify_one(ticker: str, api_key: str, force: bool = False) -> dict:
     p = KPIS_DIR / f"{ticker}.json"
     if not p.exists():
         return {"status": "no_file"}
     data = json.loads(p.read_text())
-    if not data.get("_verification_needed"):
+    if not data.get("_verification_needed") and not force:
         return {"status": "skip_already_verified"}
 
     kpis = data.get("kpis", [])
@@ -282,6 +282,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--tickers-file", type=str)
     ap.add_argument("--tickers", type=str)
+    ap.add_argument("--force", action="store_true", help="Ignore _verification_needed flag")
     ap.add_argument("--all", action="store_true")
     ap.add_argument("--limit", type=int, default=0)
     args = ap.parse_args()
@@ -325,7 +326,7 @@ def main():
         last_call = time.time()
 
         try:
-            res = reverify_one(tk, api_key)
+            res = reverify_one(tk, api_key, force=args.force)
         except Exception as e:
             print(f"  {tk}: EXC {e}", flush=True)
             stats["llm_fail"] += 1

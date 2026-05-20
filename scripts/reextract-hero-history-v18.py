@@ -346,7 +346,7 @@ def main():
         log_line("❌ ANTHROPIC_API_KEY introuvable")
         sys.exit(1)
 
-    targets = TARGETS_ENHANCE_ONLY if MODE == "enhance" else TARGETS
+    tf = os.environ.get("TICKERS_FILE"); targets = open(tf).read().splitlines() if tf else (TARGETS_ENHANCE_ONLY if MODE == "enhance" else TARGETS); targets = [t for t in targets if t.strip()]
     log_line(f"START re-extract hero history MODE={MODE} : {len(targets)} stés top 307 (sleep {SLEEP_BETWEEN_CALLS}s, 1 proc)")
 
     written = 0
