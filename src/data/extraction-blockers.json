@@ -1,0 +1,2498 @@
+{
+  "_agents": {
+    "chef-3": {
+      "started_at": "2026-05-19T15:30:00Z",
+      "completed_at": "2026-05-19T16:15:00Z",
+      "scope": "50 stes V1.8 (rangs 10-60 environ) - audit + fixes ciblés",
+      "tickers": [
+        "AAPL",
+        "TSLA",
+        "MU",
+        "ASMLF",
+        "COST",
+        "CVX",
+        "UNH",
+        "GE",
+        "MRK",
+        "KLAC",
+        "C",
+        "SIE.DE",
+        "NEE",
+        "ABBN.SW",
+        "TD",
+        "T",
+        "DTEGF",
+        "APP",
+        "CRM",
+        "ADTTF",
+        "BTAFF",
+        "UL",
+        "ISP.MI",
+        "PGR",
+        "SYK",
+        "MDT",
+        "MAR",
+        "EQNR.OL",
+        "INGA.AS",
+        "UPS",
+        "EMR",
+        "BA.L",
+        "CRH",
+        "AEP",
+        "PSX",
+        "BKR",
+        "NKE",
+        "NDA-DK.CO",
+        "URI",
+        "AZO",
+        "GWW",
+        "ADSK",
+        "MRK.DE",
+        "BN.PA",
+        "VOW.DE",
+        "DANSKE.CO",
+        "ON",
+        "PYPL",
+        "SHL.DE",
+        "III.L"
+      ],
+      "summary": {
+        "stes_audited": 50,
+        "risks_score_refined_us_default_3": 22,
+        "risks_score_refined_eu_score_0": 24,
+        "ai_positioning_merged_from_aipos_json": 3,
+        "aapl_full_risks_rewrite_with_quotes": 1,
+        "aapl_ai_upgraded_to_leader": 1,
+        "total_files_written_to_v2_pipeline_enrich": 47,
+        "blockers_logged": 165,
+        "top_5_améliorées": [
+          "AAPL (full risks rewrite + AI leader)",
+          "MU/COST/CVX/GE/MRK (risks scores aligned to severity)",
+          "TSLA/ASMLF/UNH/SIE.DE/ABBN.SW (risks score 0→severity)",
+          "22 US stés + 24 EU stés bulk risks refinement",
+          "BTAFF/AEP/BN.PA (ai_positioning merged from ai-pos.json)"
+        ],
+        "recurring_blockers": [
+          "stories_insufficient (50/50)",
+          "governance EU real gap (18 stés)",
+          "geography_<2 (20 stés)",
+          "hero_history_<5pts (15 stés)",
+          "segments_<2 (9 stés EU)"
+        ],
+        "pipeline_bugs_identified": [
+          "v1-9-complete build does NOT merge company_description from v2-pipeline-enrich/<t>.description.json (19 stés)",
+          "v1-9-complete build does NOT merge governance.board_size/voting_structure for US stés from v2-pipeline (10 stés)",
+          "Default score_rationale \"(score par défaut, à affiner)\" leaking to user-visible UI (22 US stés before fix)",
+          "Score=0 leaking to UI for EU/foreign stés (24 stés before fix)",
+          "ai-pos.json with stance=\"leader\" not preferred over older ai_positioning=\"absent\" in enrich (AAPL fixed manually)"
+        ]
+      }
+    }
+  },
+  "blockers": [
+    {
+      "ticker": "AAPL",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "TSLA",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "TSLA",
+      "_agent": "chef-3",
+      "blocker": "governance_v1-9-complete_build_bug",
+      "details_needed": "v2-pipeline/<t>.json has ['board_size', 'voting_structure', 'ceo_name']. Build pipeline for v1-9-complete doesn't merge them. Fix : update build script. App runtime (load-company.ts) likely merges correctly.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "low (v1-9-complete build merge bug)"
+    },
+    {
+      "ticker": "MU",
+      "_agent": "chef-3",
+      "blocker": "hero_history_<5pts",
+      "details_needed": "Hero KPI needs ≥5 years (or 20 quarters) of history. Source : 10-K/10-Q multi-year financial statements + LLM extraction. Likely period_type mislabel or insufficient extraction passes.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "MU",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "ASMLF",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "ASMLF",
+      "_agent": "chef-3",
+      "blocker": "governance_missing:board_size,top_capital,voting_structure",
+      "details_needed": "EU sté (ASMLF). Pipeline only has ['ceo_name']. Need annual report URD/Universal Registration Document, board composition section (typically pp.40-60), shareholder structure (Top 3 institutional/insider). Source : IR page or AMF/BaFin/FINMA filings. WebFetch needed.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "high (real EU data gap)"
+    },
+    {
+      "ticker": "ASMLF",
+      "_agent": "chef-3",
+      "blocker": "description_v1-9-complete_build_bug",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.json + v2-pipeline-enrich/<t>.description.json. Pipeline that builds v1-9-complete/ doesn't merge company_description. Fix : update build script to merge company_description from enrich. App runtime (load-company.ts) already merges correctly so user-visible page has description.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "low (build pipeline only)"
+    },
+    {
+      "ticker": "COST",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "CVX",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "CVX",
+      "_agent": "chef-3",
+      "blocker": "governance_v1-9-complete_build_bug",
+      "details_needed": "v2-pipeline/<t>.json has ['board_size', 'voting_structure', 'ceo_name']. Build pipeline for v1-9-complete doesn't merge them. Fix : update build script. App runtime (load-company.ts) likely merges correctly.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "low (v1-9-complete build merge bug)"
+    },
+    {
+      "ticker": "CVX",
+      "_agent": "chef-3",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography (≥2 zones, FR labels). Source : 10-K Item 7 / 20-F / annual report 'Geographic Information' section. Needs extraction.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "UNH",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "UNH",
+      "_agent": "chef-3",
+      "blocker": "governance_v1-9-complete_build_bug",
+      "details_needed": "v2-pipeline/<t>.json has ['board_size', 'voting_structure', 'ceo_name']. Build pipeline for v1-9-complete doesn't merge them. Fix : update build script. App runtime (load-company.ts) likely merges correctly.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "low (v1-9-complete build merge bug)"
+    },
+    {
+      "ticker": "UNH",
+      "_agent": "chef-3",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography (≥2 zones, FR labels). Source : 10-K Item 7 / 20-F / annual report 'Geographic Information' section. Needs extraction.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "GE",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "GE",
+      "_agent": "chef-3",
+      "blocker": "events_<3",
+      "details_needed": "Events timeline needs ≥3 events. Source : yfinance.news (filter 12 months pertinent) OR press releases. Already done for most, residual gap.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "MRK",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "KLAC",
+      "_agent": "chef-3",
+      "blocker": "hero_history_<5pts",
+      "details_needed": "Hero KPI needs ≥5 years (or 20 quarters) of history. Source : 10-K/10-Q multi-year financial statements + LLM extraction. Likely period_type mislabel or insufficient extraction passes.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "KLAC",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "KLAC",
+      "_agent": "chef-3",
+      "blocker": "ai_evidence_<3",
+      "details_needed": "AI positioning needs ≥3 evidence items (specific to company). Currently 2 or less. Source : earnings call transcripts + 10-K AI mentions + product announcements.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "C",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "C",
+      "_agent": "chef-3",
+      "blocker": "events_<3",
+      "details_needed": "Events timeline needs ≥3 events. Source : yfinance.news (filter 12 months pertinent) OR press releases. Already done for most, residual gap.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "SIE.DE",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "SIE.DE",
+      "_agent": "chef-3",
+      "blocker": "governance_missing:board_size,top_capital,voting_structure",
+      "details_needed": "EU sté (SIE.DE). Pipeline only has ['ceo_name']. Need annual report URD/Universal Registration Document, board composition section (typically pp.40-60), shareholder structure (Top 3 institutional/insider). Source : IR page or AMF/BaFin/FINMA filings. WebFetch needed.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "high (real EU data gap)"
+    },
+    {
+      "ticker": "SIE.DE",
+      "_agent": "chef-3",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography (≥2 zones, FR labels). Source : 10-K Item 7 / 20-F / annual report 'Geographic Information' section. Needs extraction.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "SIE.DE",
+      "_agent": "chef-3",
+      "blocker": "ai_evidence_<3",
+      "details_needed": "AI positioning needs ≥3 evidence items (specific to company). Currently 2 or less. Source : earnings call transcripts + 10-K AI mentions + product announcements.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "SIE.DE",
+      "_agent": "chef-3",
+      "blocker": "description_v1-9-complete_build_bug",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.json + v2-pipeline-enrich/<t>.description.json. Pipeline that builds v1-9-complete/ doesn't merge company_description. Fix : update build script to merge company_description from enrich. App runtime (load-company.ts) already merges correctly so user-visible page has description.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "low (build pipeline only)"
+    },
+    {
+      "ticker": "SIE.DE",
+      "_agent": "chef-3",
+      "blocker": "events_<3",
+      "details_needed": "Events timeline needs ≥3 events. Source : yfinance.news (filter 12 months pertinent) OR press releases. Already done for most, residual gap.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "NEE",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "NEE",
+      "_agent": "chef-3",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography (≥2 zones, FR labels). Source : 10-K Item 7 / 20-F / annual report 'Geographic Information' section. Needs extraction.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "ABBN.SW",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "ABBN.SW",
+      "_agent": "chef-3",
+      "blocker": "governance_missing:board_size,top_capital,voting_structure",
+      "details_needed": "EU sté (ABBN.SW). Pipeline only has ['ceo_name']. Need annual report URD/Universal Registration Document, board composition section (typically pp.40-60), shareholder structure (Top 3 institutional/insider). Source : IR page or AMF/BaFin/FINMA filings. WebFetch needed.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "high (real EU data gap)"
+    },
+    {
+      "ticker": "ABBN.SW",
+      "_agent": "chef-3",
+      "blocker": "segments_slices_<2",
+      "details_needed": "Revenue_by_segment needs ≥2 slices. Source : 10-K/20-F segment reporting section. Some EU stés don't disclose segment breakdown.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "ABBN.SW",
+      "_agent": "chef-3",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography (≥2 zones, FR labels). Source : 10-K Item 7 / 20-F / annual report 'Geographic Information' section. Needs extraction.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "ABBN.SW",
+      "_agent": "chef-3",
+      "blocker": "description_v1-9-complete_build_bug",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.json + v2-pipeline-enrich/<t>.description.json. Pipeline that builds v1-9-complete/ doesn't merge company_description. Fix : update build script to merge company_description from enrich. App runtime (load-company.ts) already merges correctly so user-visible page has description.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "low (build pipeline only)"
+    },
+    {
+      "ticker": "TD",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "TD",
+      "_agent": "chef-3",
+      "blocker": "governance_missing:board_size,top_capital,voting_structure",
+      "details_needed": "EU sté (TD). Pipeline only has ['ceo_name']. Need annual report URD/Universal Registration Document, board composition section (typically pp.40-60), shareholder structure (Top 3 institutional/insider). Source : IR page or AMF/BaFin/FINMA filings. WebFetch needed.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "high (real EU data gap)"
+    },
+    {
+      "ticker": "TD",
+      "_agent": "chef-3",
+      "blocker": "segments_slices_<2",
+      "details_needed": "Revenue_by_segment needs ≥2 slices. Source : 10-K/20-F segment reporting section. Some EU stés don't disclose segment breakdown.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "TD",
+      "_agent": "chef-3",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography (≥2 zones, FR labels). Source : 10-K Item 7 / 20-F / annual report 'Geographic Information' section. Needs extraction.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "TD",
+      "_agent": "chef-3",
+      "blocker": "risks_<3",
+      "details_needed": "Risks section needs ≥3 risks. Source : 10-K Item 1A / 20-F Item 3.D / annual report risk factors section. EU stés need translation FR.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "TD",
+      "_agent": "chef-3",
+      "blocker": "description_v1-9-complete_build_bug",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.json + v2-pipeline-enrich/<t>.description.json. Pipeline that builds v1-9-complete/ doesn't merge company_description. Fix : update build script to merge company_description from enrich. App runtime (load-company.ts) already merges correctly so user-visible page has description.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "low (build pipeline only)"
+    },
+    {
+      "ticker": "T",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "T",
+      "_agent": "chef-3",
+      "blocker": "governance_v1-9-complete_build_bug",
+      "details_needed": "v2-pipeline/<t>.json has ['board_size', 'voting_structure', 'ceo_name']. Build pipeline for v1-9-complete doesn't merge them. Fix : update build script. App runtime (load-company.ts) likely merges correctly.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "low (v1-9-complete build merge bug)"
+    },
+    {
+      "ticker": "DTEGF",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "DTEGF",
+      "_agent": "chef-3",
+      "blocker": "governance_missing:board_size,top_capital,voting_structure",
+      "details_needed": "EU sté (DTEGF). Pipeline only has ['ceo_name']. Need annual report URD/Universal Registration Document, board composition section (typically pp.40-60), shareholder structure (Top 3 institutional/insider). Source : IR page or AMF/BaFin/FINMA filings. WebFetch needed.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "high (real EU data gap)"
+    },
+    {
+      "ticker": "DTEGF",
+      "_agent": "chef-3",
+      "blocker": "description_v1-9-complete_build_bug",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.json + v2-pipeline-enrich/<t>.description.json. Pipeline that builds v1-9-complete/ doesn't merge company_description. Fix : update build script to merge company_description from enrich. App runtime (load-company.ts) already merges correctly so user-visible page has description.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "low (build pipeline only)"
+    },
+    {
+      "ticker": "APP",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "APP",
+      "_agent": "chef-3",
+      "blocker": "governance_v1-9-complete_build_bug",
+      "details_needed": "v2-pipeline/<t>.json has ['board_size', 'voting_structure', 'ceo_name']. Build pipeline for v1-9-complete doesn't merge them. Fix : update build script. App runtime (load-company.ts) likely merges correctly.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "low (v1-9-complete build merge bug)"
+    },
+    {
+      "ticker": "APP",
+      "_agent": "chef-3",
+      "blocker": "events_<3",
+      "details_needed": "Events timeline needs ≥3 events. Source : yfinance.news (filter 12 months pertinent) OR press releases. Already done for most, residual gap.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "CRM",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "ADTTF",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "ADTTF",
+      "_agent": "chef-3",
+      "blocker": "governance_missing:board_size,top_capital,voting_structure",
+      "details_needed": "EU sté (ADTTF). Pipeline only has ['ceo_name']. Need annual report URD/Universal Registration Document, board composition section (typically pp.40-60), shareholder structure (Top 3 institutional/insider). Source : IR page or AMF/BaFin/FINMA filings. WebFetch needed.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "high (real EU data gap)"
+    },
+    {
+      "ticker": "ADTTF",
+      "_agent": "chef-3",
+      "blocker": "segments_slices_<2",
+      "details_needed": "Revenue_by_segment needs ≥2 slices. Source : 10-K/20-F segment reporting section. Some EU stés don't disclose segment breakdown.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "ADTTF",
+      "_agent": "chef-3",
+      "blocker": "description_v1-9-complete_build_bug",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.json + v2-pipeline-enrich/<t>.description.json. Pipeline that builds v1-9-complete/ doesn't merge company_description. Fix : update build script to merge company_description from enrich. App runtime (load-company.ts) already merges correctly so user-visible page has description.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "low (build pipeline only)"
+    },
+    {
+      "ticker": "BTAFF",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "BTAFF",
+      "_agent": "chef-3",
+      "blocker": "governance_missing:board_size,top_capital,voting_structure",
+      "details_needed": "EU sté (BTAFF). Pipeline only has ['ceo_name']. Need annual report URD/Universal Registration Document, board composition section (typically pp.40-60), shareholder structure (Top 3 institutional/insider). Source : IR page or AMF/BaFin/FINMA filings. WebFetch needed.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "high (real EU data gap)"
+    },
+    {
+      "ticker": "BTAFF",
+      "_agent": "chef-3",
+      "blocker": "description_v1-9-complete_build_bug",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.json + v2-pipeline-enrich/<t>.description.json. Pipeline that builds v1-9-complete/ doesn't merge company_description. Fix : update build script to merge company_description from enrich. App runtime (load-company.ts) already merges correctly so user-visible page has description.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "low (build pipeline only)"
+    },
+    {
+      "ticker": "UL",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "UL",
+      "_agent": "chef-3",
+      "blocker": "governance_v1-9-complete_build_bug",
+      "details_needed": "v2-pipeline/<t>.json has ['top_capital', 'voting_structure', 'ceo_name']. Build pipeline for v1-9-complete doesn't merge them. Fix : update build script. App runtime (load-company.ts) likely merges correctly.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "low (v1-9-complete build merge bug)"
+    },
+    {
+      "ticker": "UL",
+      "_agent": "chef-3",
+      "blocker": "description_v1-9-complete_build_bug",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.json + v2-pipeline-enrich/<t>.description.json. Pipeline that builds v1-9-complete/ doesn't merge company_description. Fix : update build script to merge company_description from enrich. App runtime (load-company.ts) already merges correctly so user-visible page has description.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "low (build pipeline only)"
+    },
+    {
+      "ticker": "UL",
+      "_agent": "chef-3",
+      "blocker": "events_<3",
+      "details_needed": "Events timeline needs ≥3 events. Source : yfinance.news (filter 12 months pertinent) OR press releases. Already done for most, residual gap.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "ISP.MI",
+      "_agent": "chef-3",
+      "blocker": "hero_history_<5pts",
+      "details_needed": "Hero KPI needs ≥5 years (or 20 quarters) of history. Source : 10-K/10-Q multi-year financial statements + LLM extraction. Likely period_type mislabel or insufficient extraction passes.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "ISP.MI",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "ISP.MI",
+      "_agent": "chef-3",
+      "blocker": "governance_missing:board_size,top_capital,voting_structure",
+      "details_needed": "EU sté (ISP.MI). Pipeline only has ['ceo_name']. Need annual report URD/Universal Registration Document, board composition section (typically pp.40-60), shareholder structure (Top 3 institutional/insider). Source : IR page or AMF/BaFin/FINMA filings. WebFetch needed.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "high (real EU data gap)"
+    },
+    {
+      "ticker": "ISP.MI",
+      "_agent": "chef-3",
+      "blocker": "segments_slices_<2",
+      "details_needed": "Revenue_by_segment needs ≥2 slices. Source : 10-K/20-F segment reporting section. Some EU stés don't disclose segment breakdown.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "ISP.MI",
+      "_agent": "chef-3",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography (≥2 zones, FR labels). Source : 10-K Item 7 / 20-F / annual report 'Geographic Information' section. Needs extraction.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "ISP.MI",
+      "_agent": "chef-3",
+      "blocker": "ai_positioning_absent",
+      "details_needed": "AI positioning analysis missing entirely. Needs LLM analysis of recent 10-K/annual + earnings calls + press releases for AI mentions. Stance candidates: leader/integrator/cautious/absent.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "ISP.MI",
+      "_agent": "chef-3",
+      "blocker": "description_v1-9-complete_build_bug",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.json + v2-pipeline-enrich/<t>.description.json. Pipeline that builds v1-9-complete/ doesn't merge company_description. Fix : update build script to merge company_description from enrich. App runtime (load-company.ts) already merges correctly so user-visible page has description.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "low (build pipeline only)"
+    },
+    {
+      "ticker": "PGR",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "PGR",
+      "_agent": "chef-3",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography (≥2 zones, FR labels). Source : 10-K Item 7 / 20-F / annual report 'Geographic Information' section. Needs extraction.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "SYK",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "MDT",
+      "_agent": "chef-3",
+      "blocker": "hero_history_<5pts",
+      "details_needed": "Hero KPI needs ≥5 years (or 20 quarters) of history. Source : 10-K/10-Q multi-year financial statements + LLM extraction. Likely period_type mislabel or insufficient extraction passes.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "MDT",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "MDT",
+      "_agent": "chef-3",
+      "blocker": "governance_v1-9-complete_build_bug",
+      "details_needed": "v2-pipeline/<t>.json has ['board_size', 'voting_structure', 'ceo_name']. Build pipeline for v1-9-complete doesn't merge them. Fix : update build script. App runtime (load-company.ts) likely merges correctly.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "low (v1-9-complete build merge bug)"
+    },
+    {
+      "ticker": "MDT",
+      "_agent": "chef-3",
+      "blocker": "ai_evidence_<3",
+      "details_needed": "AI positioning needs ≥3 evidence items (specific to company). Currently 2 or less. Source : earnings call transcripts + 10-K AI mentions + product announcements.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "MAR",
+      "_agent": "chef-3",
+      "blocker": "hero_history_<5pts",
+      "details_needed": "Hero KPI needs ≥5 years (or 20 quarters) of history. Source : 10-K/10-Q multi-year financial statements + LLM extraction. Likely period_type mislabel or insufficient extraction passes.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "MAR",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "EQNR.OL",
+      "_agent": "chef-3",
+      "blocker": "hero_history_<5pts",
+      "details_needed": "Hero KPI needs ≥5 years (or 20 quarters) of history. Source : 10-K/10-Q multi-year financial statements + LLM extraction. Likely period_type mislabel or insufficient extraction passes.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "EQNR.OL",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "EQNR.OL",
+      "_agent": "chef-3",
+      "blocker": "governance_missing:board_size,top_capital,voting_structure",
+      "details_needed": "EU sté (EQNR.OL). Pipeline only has ['ceo_name']. Need annual report URD/Universal Registration Document, board composition section (typically pp.40-60), shareholder structure (Top 3 institutional/insider). Source : IR page or AMF/BaFin/FINMA filings. WebFetch needed.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "high (real EU data gap)"
+    },
+    {
+      "ticker": "EQNR.OL",
+      "_agent": "chef-3",
+      "blocker": "segments_slices_<2",
+      "details_needed": "Revenue_by_segment needs ≥2 slices. Source : 10-K/20-F segment reporting section. Some EU stés don't disclose segment breakdown.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "EQNR.OL",
+      "_agent": "chef-3",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography (≥2 zones, FR labels). Source : 10-K Item 7 / 20-F / annual report 'Geographic Information' section. Needs extraction.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "EQNR.OL",
+      "_agent": "chef-3",
+      "blocker": "ai_positioning_absent",
+      "details_needed": "AI positioning analysis missing entirely. Needs LLM analysis of recent 10-K/annual + earnings calls + press releases for AI mentions. Stance candidates: leader/integrator/cautious/absent.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "EQNR.OL",
+      "_agent": "chef-3",
+      "blocker": "description_v1-9-complete_build_bug",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.json + v2-pipeline-enrich/<t>.description.json. Pipeline that builds v1-9-complete/ doesn't merge company_description. Fix : update build script to merge company_description from enrich. App runtime (load-company.ts) already merges correctly so user-visible page has description.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "low (build pipeline only)"
+    },
+    {
+      "ticker": "INGA.AS",
+      "_agent": "chef-3",
+      "blocker": "hero_history_<5pts",
+      "details_needed": "Hero KPI needs ≥5 years (or 20 quarters) of history. Source : 10-K/10-Q multi-year financial statements + LLM extraction. Likely period_type mislabel or insufficient extraction passes.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "INGA.AS",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "INGA.AS",
+      "_agent": "chef-3",
+      "blocker": "governance_missing:board_size,top_capital,voting_structure",
+      "details_needed": "EU sté (INGA.AS). Pipeline only has ['ceo_name']. Need annual report URD/Universal Registration Document, board composition section (typically pp.40-60), shareholder structure (Top 3 institutional/insider). Source : IR page or AMF/BaFin/FINMA filings. WebFetch needed.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "high (real EU data gap)"
+    },
+    {
+      "ticker": "INGA.AS",
+      "_agent": "chef-3",
+      "blocker": "segments_slices_<2",
+      "details_needed": "Revenue_by_segment needs ≥2 slices. Source : 10-K/20-F segment reporting section. Some EU stés don't disclose segment breakdown.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "INGA.AS",
+      "_agent": "chef-3",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography (≥2 zones, FR labels). Source : 10-K Item 7 / 20-F / annual report 'Geographic Information' section. Needs extraction.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "INGA.AS",
+      "_agent": "chef-3",
+      "blocker": "ai_positioning_absent",
+      "details_needed": "AI positioning analysis missing entirely. Needs LLM analysis of recent 10-K/annual + earnings calls + press releases for AI mentions. Stance candidates: leader/integrator/cautious/absent.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "INGA.AS",
+      "_agent": "chef-3",
+      "blocker": "description_v1-9-complete_build_bug",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.json + v2-pipeline-enrich/<t>.description.json. Pipeline that builds v1-9-complete/ doesn't merge company_description. Fix : update build script to merge company_description from enrich. App runtime (load-company.ts) already merges correctly so user-visible page has description.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "low (build pipeline only)"
+    },
+    {
+      "ticker": "INGA.AS",
+      "_agent": "chef-3",
+      "blocker": "events_<3",
+      "details_needed": "Events timeline needs ≥3 events. Source : yfinance.news (filter 12 months pertinent) OR press releases. Already done for most, residual gap.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "UPS",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "EMR",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "BA.L",
+      "_agent": "chef-3",
+      "blocker": "hero_history_<5pts",
+      "details_needed": "Hero KPI needs ≥5 years (or 20 quarters) of history. Source : 10-K/10-Q multi-year financial statements + LLM extraction. Likely period_type mislabel or insufficient extraction passes.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "BA.L",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "BA.L",
+      "_agent": "chef-3",
+      "blocker": "governance_missing:board_size,top_capital,voting_structure",
+      "details_needed": "EU sté (BA.L). Pipeline only has ['ceo_name']. Need annual report URD/Universal Registration Document, board composition section (typically pp.40-60), shareholder structure (Top 3 institutional/insider). Source : IR page or AMF/BaFin/FINMA filings. WebFetch needed.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "high (real EU data gap)"
+    },
+    {
+      "ticker": "BA.L",
+      "_agent": "chef-3",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography (≥2 zones, FR labels). Source : 10-K Item 7 / 20-F / annual report 'Geographic Information' section. Needs extraction.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "BA.L",
+      "_agent": "chef-3",
+      "blocker": "description_v1-9-complete_build_bug",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.json + v2-pipeline-enrich/<t>.description.json. Pipeline that builds v1-9-complete/ doesn't merge company_description. Fix : update build script to merge company_description from enrich. App runtime (load-company.ts) already merges correctly so user-visible page has description.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "low (build pipeline only)"
+    },
+    {
+      "ticker": "BA.L",
+      "_agent": "chef-3",
+      "blocker": "events_<3",
+      "details_needed": "Events timeline needs ≥3 events. Source : yfinance.news (filter 12 months pertinent) OR press releases. Already done for most, residual gap.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "CRH",
+      "_agent": "chef-3",
+      "blocker": "hero_history_<5pts",
+      "details_needed": "Hero KPI needs ≥5 years (or 20 quarters) of history. Source : 10-K/10-Q multi-year financial statements + LLM extraction. Likely period_type mislabel or insufficient extraction passes.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "CRH",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "CRH",
+      "_agent": "chef-3",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography (≥2 zones, FR labels). Source : 10-K Item 7 / 20-F / annual report 'Geographic Information' section. Needs extraction.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "AEP",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "AEP",
+      "_agent": "chef-3",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography (≥2 zones, FR labels). Source : 10-K Item 7 / 20-F / annual report 'Geographic Information' section. Needs extraction.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "PSX",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "PSX",
+      "_agent": "chef-3",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography (≥2 zones, FR labels). Source : 10-K Item 7 / 20-F / annual report 'Geographic Information' section. Needs extraction.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "BKR",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "BKR",
+      "_agent": "chef-3",
+      "blocker": "ai_evidence_<3",
+      "details_needed": "AI positioning needs ≥3 evidence items (specific to company). Currently 2 or less. Source : earnings call transcripts + 10-K AI mentions + product announcements.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "NKE",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "NKE",
+      "_agent": "chef-3",
+      "blocker": "governance_v1-9-complete_build_bug",
+      "details_needed": "v2-pipeline/<t>.json has ['board_size', 'voting_structure', 'ceo_name']. Build pipeline for v1-9-complete doesn't merge them. Fix : update build script. App runtime (load-company.ts) likely merges correctly.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "low (v1-9-complete build merge bug)"
+    },
+    {
+      "ticker": "NKE",
+      "_agent": "chef-3",
+      "blocker": "events_<3",
+      "details_needed": "Events timeline needs ≥3 events. Source : yfinance.news (filter 12 months pertinent) OR press releases. Already done for most, residual gap.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "NDA-DK.CO",
+      "_agent": "chef-3",
+      "blocker": "hero_history_<5pts",
+      "details_needed": "Hero KPI needs ≥5 years (or 20 quarters) of history. Source : 10-K/10-Q multi-year financial statements + LLM extraction. Likely period_type mislabel or insufficient extraction passes.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "NDA-DK.CO",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "NDA-DK.CO",
+      "_agent": "chef-3",
+      "blocker": "governance_missing:board_size,top_capital,voting_structure",
+      "details_needed": "EU sté (NDA-DK.CO). Pipeline only has ['ceo_name']. Need annual report URD/Universal Registration Document, board composition section (typically pp.40-60), shareholder structure (Top 3 institutional/insider). Source : IR page or AMF/BaFin/FINMA filings. WebFetch needed.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "high (real EU data gap)"
+    },
+    {
+      "ticker": "NDA-DK.CO",
+      "_agent": "chef-3",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography (≥2 zones, FR labels). Source : 10-K Item 7 / 20-F / annual report 'Geographic Information' section. Needs extraction.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "NDA-DK.CO",
+      "_agent": "chef-3",
+      "blocker": "ai_positioning_absent",
+      "details_needed": "AI positioning analysis missing entirely. Needs LLM analysis of recent 10-K/annual + earnings calls + press releases for AI mentions. Stance candidates: leader/integrator/cautious/absent.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "NDA-DK.CO",
+      "_agent": "chef-3",
+      "blocker": "description_v1-9-complete_build_bug",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.json + v2-pipeline-enrich/<t>.description.json. Pipeline that builds v1-9-complete/ doesn't merge company_description. Fix : update build script to merge company_description from enrich. App runtime (load-company.ts) already merges correctly so user-visible page has description.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "low (build pipeline only)"
+    },
+    {
+      "ticker": "URI",
+      "_agent": "chef-3",
+      "blocker": "hero_history_<5pts",
+      "details_needed": "Hero KPI needs ≥5 years (or 20 quarters) of history. Source : 10-K/10-Q multi-year financial statements + LLM extraction. Likely period_type mislabel or insufficient extraction passes.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "URI",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "AZO",
+      "_agent": "chef-3",
+      "blocker": "hero_history_<5pts",
+      "details_needed": "Hero KPI needs ≥5 years (or 20 quarters) of history. Source : 10-K/10-Q multi-year financial statements + LLM extraction. Likely period_type mislabel or insufficient extraction passes.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "AZO",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "AZO",
+      "_agent": "chef-3",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography (≥2 zones, FR labels). Source : 10-K Item 7 / 20-F / annual report 'Geographic Information' section. Needs extraction.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "GWW",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "ADSK",
+      "_agent": "chef-3",
+      "blocker": "hero_history_<5pts",
+      "details_needed": "Hero KPI needs ≥5 years (or 20 quarters) of history. Source : 10-K/10-Q multi-year financial statements + LLM extraction. Likely period_type mislabel or insufficient extraction passes.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "ADSK",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "ADSK",
+      "_agent": "chef-3",
+      "blocker": "governance_v1-9-complete_build_bug",
+      "details_needed": "v2-pipeline/<t>.json has ['board_size', 'voting_structure', 'ceo_name']. Build pipeline for v1-9-complete doesn't merge them. Fix : update build script. App runtime (load-company.ts) likely merges correctly.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "low (v1-9-complete build merge bug)"
+    },
+    {
+      "ticker": "MRK.DE",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "MRK.DE",
+      "_agent": "chef-3",
+      "blocker": "governance_missing:board_size,top_capital,voting_structure",
+      "details_needed": "EU sté (MRK.DE). Pipeline only has ['ceo_name']. Need annual report URD/Universal Registration Document, board composition section (typically pp.40-60), shareholder structure (Top 3 institutional/insider). Source : IR page or AMF/BaFin/FINMA filings. WebFetch needed.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "high (real EU data gap)"
+    },
+    {
+      "ticker": "MRK.DE",
+      "_agent": "chef-3",
+      "blocker": "description_v1-9-complete_build_bug",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.json + v2-pipeline-enrich/<t>.description.json. Pipeline that builds v1-9-complete/ doesn't merge company_description. Fix : update build script to merge company_description from enrich. App runtime (load-company.ts) already merges correctly so user-visible page has description.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "low (build pipeline only)"
+    },
+    {
+      "ticker": "BN.PA",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "BN.PA",
+      "_agent": "chef-3",
+      "blocker": "governance_missing:board_size,top_capital,voting_structure",
+      "details_needed": "EU sté (BN.PA). Pipeline only has ['ceo_name']. Need annual report URD/Universal Registration Document, board composition section (typically pp.40-60), shareholder structure (Top 3 institutional/insider). Source : IR page or AMF/BaFin/FINMA filings. WebFetch needed.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "high (real EU data gap)"
+    },
+    {
+      "ticker": "BN.PA",
+      "_agent": "chef-3",
+      "blocker": "description_v1-9-complete_build_bug",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.json + v2-pipeline-enrich/<t>.description.json. Pipeline that builds v1-9-complete/ doesn't merge company_description. Fix : update build script to merge company_description from enrich. App runtime (load-company.ts) already merges correctly so user-visible page has description.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "low (build pipeline only)"
+    },
+    {
+      "ticker": "VOW.DE",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "VOW.DE",
+      "_agent": "chef-3",
+      "blocker": "governance_missing:board_size,top_capital,voting_structure",
+      "details_needed": "EU sté (VOW.DE). Pipeline only has ['ceo_name']. Need annual report URD/Universal Registration Document, board composition section (typically pp.40-60), shareholder structure (Top 3 institutional/insider). Source : IR page or AMF/BaFin/FINMA filings. WebFetch needed.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "high (real EU data gap)"
+    },
+    {
+      "ticker": "VOW.DE",
+      "_agent": "chef-3",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography (≥2 zones, FR labels). Source : 10-K Item 7 / 20-F / annual report 'Geographic Information' section. Needs extraction.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "VOW.DE",
+      "_agent": "chef-3",
+      "blocker": "ai_positioning_absent",
+      "details_needed": "AI positioning analysis missing entirely. Needs LLM analysis of recent 10-K/annual + earnings calls + press releases for AI mentions. Stance candidates: leader/integrator/cautious/absent.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "VOW.DE",
+      "_agent": "chef-3",
+      "blocker": "description_v1-9-complete_build_bug",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.json + v2-pipeline-enrich/<t>.description.json. Pipeline that builds v1-9-complete/ doesn't merge company_description. Fix : update build script to merge company_description from enrich. App runtime (load-company.ts) already merges correctly so user-visible page has description.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "low (build pipeline only)"
+    },
+    {
+      "ticker": "DANSKE.CO",
+      "_agent": "chef-3",
+      "blocker": "hero_kpi_generic",
+      "details_needed": "Hero KPI is generic (Revenue/Net Income/etc). Should be specific to company business (e.g. for banks : Loan Book, NIM, ROE). Needs hero_kpi rename + new KPI extraction.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "DANSKE.CO",
+      "_agent": "chef-3",
+      "blocker": "hero_history_<5pts",
+      "details_needed": "Hero KPI needs ≥5 years (or 20 quarters) of history. Source : 10-K/10-Q multi-year financial statements + LLM extraction. Likely period_type mislabel or insufficient extraction passes.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "DANSKE.CO",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "DANSKE.CO",
+      "_agent": "chef-3",
+      "blocker": "governance_missing:board_size,top_capital,voting_structure",
+      "details_needed": "EU sté (DANSKE.CO). Pipeline only has ['ceo_name']. Need annual report URD/Universal Registration Document, board composition section (typically pp.40-60), shareholder structure (Top 3 institutional/insider). Source : IR page or AMF/BaFin/FINMA filings. WebFetch needed.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "high (real EU data gap)"
+    },
+    {
+      "ticker": "DANSKE.CO",
+      "_agent": "chef-3",
+      "blocker": "segments_slices_<2",
+      "details_needed": "Revenue_by_segment needs ≥2 slices. Source : 10-K/20-F segment reporting section. Some EU stés don't disclose segment breakdown.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "DANSKE.CO",
+      "_agent": "chef-3",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography (≥2 zones, FR labels). Source : 10-K Item 7 / 20-F / annual report 'Geographic Information' section. Needs extraction.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "DANSKE.CO",
+      "_agent": "chef-3",
+      "blocker": "risks_<3",
+      "details_needed": "Risks section needs ≥3 risks. Source : 10-K Item 1A / 20-F Item 3.D / annual report risk factors section. EU stés need translation FR.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "DANSKE.CO",
+      "_agent": "chef-3",
+      "blocker": "description_v1-9-complete_build_bug",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.json + v2-pipeline-enrich/<t>.description.json. Pipeline that builds v1-9-complete/ doesn't merge company_description. Fix : update build script to merge company_description from enrich. App runtime (load-company.ts) already merges correctly so user-visible page has description.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "low (build pipeline only)"
+    },
+    {
+      "ticker": "ON",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "ON",
+      "_agent": "chef-3",
+      "blocker": "governance_v1-9-complete_build_bug",
+      "details_needed": "v2-pipeline/<t>.json has ['board_size', 'voting_structure', 'ceo_name']. Build pipeline for v1-9-complete doesn't merge them. Fix : update build script. App runtime (load-company.ts) likely merges correctly.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "low (v1-9-complete build merge bug)"
+    },
+    {
+      "ticker": "PYPL",
+      "_agent": "chef-3",
+      "blocker": "hero_history_<5pts",
+      "details_needed": "Hero KPI needs ≥5 years (or 20 quarters) of history. Source : 10-K/10-Q multi-year financial statements + LLM extraction. Likely period_type mislabel or insufficient extraction passes.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "PYPL",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "PYPL",
+      "_agent": "chef-3",
+      "blocker": "segments_slices_<2",
+      "details_needed": "Revenue_by_segment needs ≥2 slices. Source : 10-K/20-F segment reporting section. Some EU stés don't disclose segment breakdown.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "SHL.DE",
+      "_agent": "chef-3",
+      "blocker": "hero_kpi_not_found_in_kpis_list",
+      "details_needed": "hero_kpi field references a KPI 'short' that doesn't exist in the kpis array. Either rename hero_kpi to existing KPI or add the missing KPI.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "SHL.DE",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "SHL.DE",
+      "_agent": "chef-3",
+      "blocker": "governance_missing:board_size,top_capital,voting_structure",
+      "details_needed": "EU sté (SHL.DE). Pipeline only has ['ceo_name']. Need annual report URD/Universal Registration Document, board composition section (typically pp.40-60), shareholder structure (Top 3 institutional/insider). Source : IR page or AMF/BaFin/FINMA filings. WebFetch needed.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "high (real EU data gap)"
+    },
+    {
+      "ticker": "SHL.DE",
+      "_agent": "chef-3",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography (≥2 zones, FR labels). Source : 10-K Item 7 / 20-F / annual report 'Geographic Information' section. Needs extraction.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "SHL.DE",
+      "_agent": "chef-3",
+      "blocker": "description_v1-9-complete_build_bug",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.json + v2-pipeline-enrich/<t>.description.json. Pipeline that builds v1-9-complete/ doesn't merge company_description. Fix : update build script to merge company_description from enrich. App runtime (load-company.ts) already merges correctly so user-visible page has description.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "low (build pipeline only)"
+    },
+    {
+      "ticker": "III.L",
+      "_agent": "chef-3",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports. Categories: Innovation, Marché, Adoption, Capacité.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "III.L",
+      "_agent": "chef-3",
+      "blocker": "governance_missing:board_size,top_capital,voting_structure",
+      "details_needed": "EU sté (III.L). Pipeline only has ['ceo_name']. Need annual report URD/Universal Registration Document, board composition section (typically pp.40-60), shareholder structure (Top 3 institutional/insider). Source : IR page or AMF/BaFin/FINMA filings. WebFetch needed.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "high (real EU data gap)"
+    },
+    {
+      "ticker": "III.L",
+      "_agent": "chef-3",
+      "blocker": "segments_slices_<2",
+      "details_needed": "Revenue_by_segment needs ≥2 slices. Source : 10-K/20-F segment reporting section. Some EU stés don't disclose segment breakdown.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "III.L",
+      "_agent": "chef-3",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography (≥2 zones, FR labels). Source : 10-K Item 7 / 20-F / annual report 'Geographic Information' section. Needs extraction.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "III.L",
+      "_agent": "chef-3",
+      "blocker": "risks_<3",
+      "details_needed": "Risks section needs ≥3 risks. Source : 10-K Item 1A / 20-F Item 3.D / annual report risk factors section. EU stés need translation FR.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "III.L",
+      "_agent": "chef-3",
+      "blocker": "ai_positioning_absent",
+      "details_needed": "AI positioning analysis missing entirely. Needs LLM analysis of recent 10-K/annual + earnings calls + press releases for AI mentions. Stance candidates: leader/integrator/cautious/absent.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "III.L",
+      "_agent": "chef-3",
+      "blocker": "description_v1-9-complete_build_bug",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.json + v2-pipeline-enrich/<t>.description.json. Pipeline that builds v1-9-complete/ doesn't merge company_description. Fix : update build script to merge company_description from enrich. App runtime (load-company.ts) already merges correctly so user-visible page has description.",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "severity": "low (build pipeline only)"
+    },
+    {
+      "ticker": "III.L",
+      "_agent": "chef-3",
+      "blocker": "events_<3",
+      "details_needed": "Events timeline needs ≥3 events. Source : yfinance.news (filter 12 months pertinent) OR press releases. Already done for most, residual gap.",
+      "attempted_at": "2026-05-19T15:50:00Z"
+    },
+    {
+      "ticker": "AAPL",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "TSLA",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "TSLA",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "governance_v1-9-complete_build_bug",
+      "severity": "low (build merge bug)",
+      "details_needed": "v2-pipeline has ['board_size', 'voting_structure', 'ceo_name']. v1-9-complete build doesn't merge."
+    },
+    {
+      "ticker": "MU",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "hero_history_<5pts",
+      "details_needed": "Hero KPI needs ≥5 years history. period_type mislabel suspected, or extraction passes incomplete."
+    },
+    {
+      "ticker": "MU",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "ASMLF",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "ASMLF",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "governance_missing:board_size,top_capital,voting_structure",
+      "severity": "high (real EU data gap)",
+      "details_needed": "EU sté. Pipeline has ['ceo_name']. Need URD/annual report board + shareholders. WebFetch IR pages or AMF/BaFin/FINMA filings."
+    },
+    {
+      "ticker": "ASMLF",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "description_v1-9-complete_build_bug",
+      "severity": "low (build pipeline only)",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.description.json. v1-9-complete build doesn't merge. App runtime OK."
+    },
+    {
+      "ticker": "COST",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "CVX",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "CVX",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "governance_v1-9-complete_build_bug",
+      "severity": "low (build merge bug)",
+      "details_needed": "v2-pipeline has ['board_size', 'voting_structure', 'ceo_name']. v1-9-complete build doesn't merge."
+    },
+    {
+      "ticker": "CVX",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography ≥2 zones (FR labels). Source : 10-K Item 7 / 20-F geographic info. Real data gap."
+    },
+    {
+      "ticker": "UNH",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "UNH",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "governance_v1-9-complete_build_bug",
+      "severity": "low (build merge bug)",
+      "details_needed": "v2-pipeline has ['board_size', 'voting_structure', 'ceo_name']. v1-9-complete build doesn't merge."
+    },
+    {
+      "ticker": "UNH",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography ≥2 zones (FR labels). Source : 10-K Item 7 / 20-F geographic info. Real data gap."
+    },
+    {
+      "ticker": "GE",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "GE",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "events_<3",
+      "details_needed": "Events ≥3. Source : yfinance.news 12 months."
+    },
+    {
+      "ticker": "MRK",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "KLAC",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "hero_history_<5pts",
+      "details_needed": "Hero KPI needs ≥5 years history. period_type mislabel suspected, or extraction passes incomplete."
+    },
+    {
+      "ticker": "KLAC",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "KLAC",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "ai_evidence_<3",
+      "details_needed": "AI positioning needs ≥3 evidence items specific to company."
+    },
+    {
+      "ticker": "C",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "C",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "events_<3",
+      "details_needed": "Events ≥3. Source : yfinance.news 12 months."
+    },
+    {
+      "ticker": "SIE.DE",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "SIE.DE",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "governance_missing:board_size,top_capital,voting_structure",
+      "severity": "high (real EU data gap)",
+      "details_needed": "EU sté. Pipeline has ['ceo_name']. Need URD/annual report board + shareholders. WebFetch IR pages or AMF/BaFin/FINMA filings."
+    },
+    {
+      "ticker": "SIE.DE",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography ≥2 zones (FR labels). Source : 10-K Item 7 / 20-F geographic info. Real data gap."
+    },
+    {
+      "ticker": "SIE.DE",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "ai_evidence_<3",
+      "details_needed": "AI positioning needs ≥3 evidence items specific to company."
+    },
+    {
+      "ticker": "SIE.DE",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "description_v1-9-complete_build_bug",
+      "severity": "low (build pipeline only)",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.description.json. v1-9-complete build doesn't merge. App runtime OK."
+    },
+    {
+      "ticker": "SIE.DE",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "events_<3",
+      "details_needed": "Events ≥3. Source : yfinance.news 12 months."
+    },
+    {
+      "ticker": "NEE",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "NEE",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography ≥2 zones (FR labels). Source : 10-K Item 7 / 20-F geographic info. Real data gap."
+    },
+    {
+      "ticker": "ABBN.SW",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "ABBN.SW",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "governance_missing:board_size,top_capital,voting_structure",
+      "severity": "high (real EU data gap)",
+      "details_needed": "EU sté. Pipeline has ['ceo_name']. Need URD/annual report board + shareholders. WebFetch IR pages or AMF/BaFin/FINMA filings."
+    },
+    {
+      "ticker": "ABBN.SW",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "segments_slices_<2",
+      "details_needed": "Revenue_by_segment needs ≥2 slices. Source : 10-K/20-F segment reporting."
+    },
+    {
+      "ticker": "ABBN.SW",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography ≥2 zones (FR labels). Source : 10-K Item 7 / 20-F geographic info. Real data gap."
+    },
+    {
+      "ticker": "ABBN.SW",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "description_v1-9-complete_build_bug",
+      "severity": "low (build pipeline only)",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.description.json. v1-9-complete build doesn't merge. App runtime OK."
+    },
+    {
+      "ticker": "TD",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "TD",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "governance_missing:board_size,top_capital,voting_structure",
+      "severity": "high (real EU data gap)",
+      "details_needed": "EU sté. Pipeline has ['ceo_name']. Need URD/annual report board + shareholders. WebFetch IR pages or AMF/BaFin/FINMA filings."
+    },
+    {
+      "ticker": "TD",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "segments_slices_<2",
+      "details_needed": "Revenue_by_segment needs ≥2 slices. Source : 10-K/20-F segment reporting."
+    },
+    {
+      "ticker": "TD",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography ≥2 zones (FR labels). Source : 10-K Item 7 / 20-F geographic info. Real data gap."
+    },
+    {
+      "ticker": "TD",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "risks_<3",
+      "details_needed": "Risks ≥3. Source : 10-K Item 1A."
+    },
+    {
+      "ticker": "TD",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "description_v1-9-complete_build_bug",
+      "severity": "low (build pipeline only)",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.description.json. v1-9-complete build doesn't merge. App runtime OK."
+    },
+    {
+      "ticker": "T",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "T",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "governance_v1-9-complete_build_bug",
+      "severity": "low (build merge bug)",
+      "details_needed": "v2-pipeline has ['board_size', 'voting_structure', 'ceo_name']. v1-9-complete build doesn't merge."
+    },
+    {
+      "ticker": "DTEGF",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "DTEGF",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "governance_missing:board_size,top_capital,voting_structure",
+      "severity": "high (real EU data gap)",
+      "details_needed": "EU sté. Pipeline has ['ceo_name']. Need URD/annual report board + shareholders. WebFetch IR pages or AMF/BaFin/FINMA filings."
+    },
+    {
+      "ticker": "DTEGF",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "description_v1-9-complete_build_bug",
+      "severity": "low (build pipeline only)",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.description.json. v1-9-complete build doesn't merge. App runtime OK."
+    },
+    {
+      "ticker": "APP",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "APP",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "governance_v1-9-complete_build_bug",
+      "severity": "low (build merge bug)",
+      "details_needed": "v2-pipeline has ['board_size', 'voting_structure', 'ceo_name']. v1-9-complete build doesn't merge."
+    },
+    {
+      "ticker": "APP",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "events_<3",
+      "details_needed": "Events ≥3. Source : yfinance.news 12 months."
+    },
+    {
+      "ticker": "CRM",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "ADTTF",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "ADTTF",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "governance_missing:board_size,top_capital,voting_structure",
+      "severity": "high (real EU data gap)",
+      "details_needed": "EU sté. Pipeline has ['ceo_name']. Need URD/annual report board + shareholders. WebFetch IR pages or AMF/BaFin/FINMA filings."
+    },
+    {
+      "ticker": "ADTTF",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "segments_slices_<2",
+      "details_needed": "Revenue_by_segment needs ≥2 slices. Source : 10-K/20-F segment reporting."
+    },
+    {
+      "ticker": "ADTTF",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "description_v1-9-complete_build_bug",
+      "severity": "low (build pipeline only)",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.description.json. v1-9-complete build doesn't merge. App runtime OK."
+    },
+    {
+      "ticker": "BTAFF",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "BTAFF",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "governance_missing:board_size,top_capital,voting_structure",
+      "severity": "high (real EU data gap)",
+      "details_needed": "EU sté. Pipeline has ['ceo_name']. Need URD/annual report board + shareholders. WebFetch IR pages or AMF/BaFin/FINMA filings."
+    },
+    {
+      "ticker": "BTAFF",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "description_v1-9-complete_build_bug",
+      "severity": "low (build pipeline only)",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.description.json. v1-9-complete build doesn't merge. App runtime OK."
+    },
+    {
+      "ticker": "UL",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "UL",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "governance_v1-9-complete_build_bug",
+      "severity": "low (build merge bug)",
+      "details_needed": "v2-pipeline has ['top_capital', 'voting_structure', 'ceo_name']. v1-9-complete build doesn't merge."
+    },
+    {
+      "ticker": "UL",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "description_v1-9-complete_build_bug",
+      "severity": "low (build pipeline only)",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.description.json. v1-9-complete build doesn't merge. App runtime OK."
+    },
+    {
+      "ticker": "UL",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "events_<3",
+      "details_needed": "Events ≥3. Source : yfinance.news 12 months."
+    },
+    {
+      "ticker": "ISP.MI",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "hero_history_<5pts",
+      "details_needed": "Hero KPI needs ≥5 years history. period_type mislabel suspected, or extraction passes incomplete."
+    },
+    {
+      "ticker": "ISP.MI",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "ISP.MI",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "governance_missing:board_size,top_capital,voting_structure",
+      "severity": "high (real EU data gap)",
+      "details_needed": "EU sté. Pipeline has ['ceo_name']. Need URD/annual report board + shareholders. WebFetch IR pages or AMF/BaFin/FINMA filings."
+    },
+    {
+      "ticker": "ISP.MI",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "segments_slices_<2",
+      "details_needed": "Revenue_by_segment needs ≥2 slices. Source : 10-K/20-F segment reporting."
+    },
+    {
+      "ticker": "ISP.MI",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography ≥2 zones (FR labels). Source : 10-K Item 7 / 20-F geographic info. Real data gap."
+    },
+    {
+      "ticker": "ISP.MI",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "ai_positioning_absent",
+      "details_needed": "No ai_positioning data anywhere. Needs LLM analysis 10-K + earnings calls + product PR."
+    },
+    {
+      "ticker": "ISP.MI",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "description_v1-9-complete_build_bug",
+      "severity": "low (build pipeline only)",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.description.json. v1-9-complete build doesn't merge. App runtime OK."
+    },
+    {
+      "ticker": "PGR",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "PGR",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography ≥2 zones (FR labels). Source : 10-K Item 7 / 20-F geographic info. Real data gap."
+    },
+    {
+      "ticker": "SYK",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "MDT",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "hero_history_<5pts",
+      "details_needed": "Hero KPI needs ≥5 years history. period_type mislabel suspected, or extraction passes incomplete."
+    },
+    {
+      "ticker": "MDT",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "MDT",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "governance_v1-9-complete_build_bug",
+      "severity": "low (build merge bug)",
+      "details_needed": "v2-pipeline has ['board_size', 'voting_structure', 'ceo_name']. v1-9-complete build doesn't merge."
+    },
+    {
+      "ticker": "MDT",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "ai_evidence_<3",
+      "details_needed": "AI positioning needs ≥3 evidence items specific to company."
+    },
+    {
+      "ticker": "MAR",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "hero_history_<5pts",
+      "details_needed": "Hero KPI needs ≥5 years history. period_type mislabel suspected, or extraction passes incomplete."
+    },
+    {
+      "ticker": "MAR",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "EQNR.OL",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "hero_history_<5pts",
+      "details_needed": "Hero KPI needs ≥5 years history. period_type mislabel suspected, or extraction passes incomplete."
+    },
+    {
+      "ticker": "EQNR.OL",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "EQNR.OL",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "governance_missing:board_size,top_capital,voting_structure",
+      "severity": "high (real EU data gap)",
+      "details_needed": "EU sté. Pipeline has ['ceo_name']. Need URD/annual report board + shareholders. WebFetch IR pages or AMF/BaFin/FINMA filings."
+    },
+    {
+      "ticker": "EQNR.OL",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "segments_slices_<2",
+      "details_needed": "Revenue_by_segment needs ≥2 slices. Source : 10-K/20-F segment reporting."
+    },
+    {
+      "ticker": "EQNR.OL",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography ≥2 zones (FR labels). Source : 10-K Item 7 / 20-F geographic info. Real data gap."
+    },
+    {
+      "ticker": "EQNR.OL",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "ai_positioning_absent",
+      "details_needed": "No ai_positioning data anywhere. Needs LLM analysis 10-K + earnings calls + product PR."
+    },
+    {
+      "ticker": "EQNR.OL",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "description_v1-9-complete_build_bug",
+      "severity": "low (build pipeline only)",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.description.json. v1-9-complete build doesn't merge. App runtime OK."
+    },
+    {
+      "ticker": "INGA.AS",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "hero_history_<5pts",
+      "details_needed": "Hero KPI needs ≥5 years history. period_type mislabel suspected, or extraction passes incomplete."
+    },
+    {
+      "ticker": "INGA.AS",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "INGA.AS",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "governance_missing:board_size,top_capital,voting_structure",
+      "severity": "high (real EU data gap)",
+      "details_needed": "EU sté. Pipeline has ['ceo_name']. Need URD/annual report board + shareholders. WebFetch IR pages or AMF/BaFin/FINMA filings."
+    },
+    {
+      "ticker": "INGA.AS",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "segments_slices_<2",
+      "details_needed": "Revenue_by_segment needs ≥2 slices. Source : 10-K/20-F segment reporting."
+    },
+    {
+      "ticker": "INGA.AS",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography ≥2 zones (FR labels). Source : 10-K Item 7 / 20-F geographic info. Real data gap."
+    },
+    {
+      "ticker": "INGA.AS",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "ai_positioning_absent",
+      "details_needed": "No ai_positioning data anywhere. Needs LLM analysis 10-K + earnings calls + product PR."
+    },
+    {
+      "ticker": "INGA.AS",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "description_v1-9-complete_build_bug",
+      "severity": "low (build pipeline only)",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.description.json. v1-9-complete build doesn't merge. App runtime OK."
+    },
+    {
+      "ticker": "INGA.AS",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "events_<3",
+      "details_needed": "Events ≥3. Source : yfinance.news 12 months."
+    },
+    {
+      "ticker": "UPS",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "EMR",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "BA.L",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "hero_history_<5pts",
+      "details_needed": "Hero KPI needs ≥5 years history. period_type mislabel suspected, or extraction passes incomplete."
+    },
+    {
+      "ticker": "BA.L",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "BA.L",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "governance_missing:board_size,top_capital,voting_structure",
+      "severity": "high (real EU data gap)",
+      "details_needed": "EU sté. Pipeline has ['ceo_name']. Need URD/annual report board + shareholders. WebFetch IR pages or AMF/BaFin/FINMA filings."
+    },
+    {
+      "ticker": "BA.L",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography ≥2 zones (FR labels). Source : 10-K Item 7 / 20-F geographic info. Real data gap."
+    },
+    {
+      "ticker": "BA.L",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "description_v1-9-complete_build_bug",
+      "severity": "low (build pipeline only)",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.description.json. v1-9-complete build doesn't merge. App runtime OK."
+    },
+    {
+      "ticker": "BA.L",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "events_<3",
+      "details_needed": "Events ≥3. Source : yfinance.news 12 months."
+    },
+    {
+      "ticker": "CRH",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "hero_history_<5pts",
+      "details_needed": "Hero KPI needs ≥5 years history. period_type mislabel suspected, or extraction passes incomplete."
+    },
+    {
+      "ticker": "CRH",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "CRH",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography ≥2 zones (FR labels). Source : 10-K Item 7 / 20-F geographic info. Real data gap."
+    },
+    {
+      "ticker": "AEP",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "AEP",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography ≥2 zones (FR labels). Source : 10-K Item 7 / 20-F geographic info. Real data gap."
+    },
+    {
+      "ticker": "PSX",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "PSX",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography ≥2 zones (FR labels). Source : 10-K Item 7 / 20-F geographic info. Real data gap."
+    },
+    {
+      "ticker": "BKR",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "BKR",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "ai_evidence_<3",
+      "details_needed": "AI positioning needs ≥3 evidence items specific to company."
+    },
+    {
+      "ticker": "NKE",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "NKE",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "governance_v1-9-complete_build_bug",
+      "severity": "low (build merge bug)",
+      "details_needed": "v2-pipeline has ['board_size', 'voting_structure', 'ceo_name']. v1-9-complete build doesn't merge."
+    },
+    {
+      "ticker": "NKE",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "events_<3",
+      "details_needed": "Events ≥3. Source : yfinance.news 12 months."
+    },
+    {
+      "ticker": "NDA-DK.CO",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "hero_history_<5pts",
+      "details_needed": "Hero KPI needs ≥5 years history. period_type mislabel suspected, or extraction passes incomplete."
+    },
+    {
+      "ticker": "NDA-DK.CO",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "NDA-DK.CO",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "governance_missing:board_size,top_capital,voting_structure",
+      "severity": "high (real EU data gap)",
+      "details_needed": "EU sté. Pipeline has ['ceo_name']. Need URD/annual report board + shareholders. WebFetch IR pages or AMF/BaFin/FINMA filings."
+    },
+    {
+      "ticker": "NDA-DK.CO",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography ≥2 zones (FR labels). Source : 10-K Item 7 / 20-F geographic info. Real data gap."
+    },
+    {
+      "ticker": "NDA-DK.CO",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "ai_positioning_absent",
+      "details_needed": "No ai_positioning data anywhere. Needs LLM analysis 10-K + earnings calls + product PR."
+    },
+    {
+      "ticker": "NDA-DK.CO",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "description_v1-9-complete_build_bug",
+      "severity": "low (build pipeline only)",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.description.json. v1-9-complete build doesn't merge. App runtime OK."
+    },
+    {
+      "ticker": "URI",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "hero_history_<5pts",
+      "details_needed": "Hero KPI needs ≥5 years history. period_type mislabel suspected, or extraction passes incomplete."
+    },
+    {
+      "ticker": "URI",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "AZO",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "hero_history_<5pts",
+      "details_needed": "Hero KPI needs ≥5 years history. period_type mislabel suspected, or extraction passes incomplete."
+    },
+    {
+      "ticker": "AZO",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "AZO",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography ≥2 zones (FR labels). Source : 10-K Item 7 / 20-F geographic info. Real data gap."
+    },
+    {
+      "ticker": "GWW",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "ADSK",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "hero_history_<5pts",
+      "details_needed": "Hero KPI needs ≥5 years history. period_type mislabel suspected, or extraction passes incomplete."
+    },
+    {
+      "ticker": "ADSK",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "ADSK",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "governance_v1-9-complete_build_bug",
+      "severity": "low (build merge bug)",
+      "details_needed": "v2-pipeline has ['board_size', 'voting_structure', 'ceo_name']. v1-9-complete build doesn't merge."
+    },
+    {
+      "ticker": "MRK.DE",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "MRK.DE",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "governance_missing:board_size,top_capital,voting_structure",
+      "severity": "high (real EU data gap)",
+      "details_needed": "EU sté. Pipeline has ['ceo_name']. Need URD/annual report board + shareholders. WebFetch IR pages or AMF/BaFin/FINMA filings."
+    },
+    {
+      "ticker": "MRK.DE",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "description_v1-9-complete_build_bug",
+      "severity": "low (build pipeline only)",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.description.json. v1-9-complete build doesn't merge. App runtime OK."
+    },
+    {
+      "ticker": "BN.PA",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "BN.PA",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "governance_missing:board_size,top_capital,voting_structure",
+      "severity": "high (real EU data gap)",
+      "details_needed": "EU sté. Pipeline has ['ceo_name']. Need URD/annual report board + shareholders. WebFetch IR pages or AMF/BaFin/FINMA filings."
+    },
+    {
+      "ticker": "BN.PA",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "description_v1-9-complete_build_bug",
+      "severity": "low (build pipeline only)",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.description.json. v1-9-complete build doesn't merge. App runtime OK."
+    },
+    {
+      "ticker": "VOW.DE",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "VOW.DE",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "governance_missing:board_size,top_capital,voting_structure",
+      "severity": "high (real EU data gap)",
+      "details_needed": "EU sté. Pipeline has ['ceo_name']. Need URD/annual report board + shareholders. WebFetch IR pages or AMF/BaFin/FINMA filings."
+    },
+    {
+      "ticker": "VOW.DE",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography ≥2 zones (FR labels). Source : 10-K Item 7 / 20-F geographic info. Real data gap."
+    },
+    {
+      "ticker": "VOW.DE",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "ai_positioning_absent",
+      "details_needed": "No ai_positioning data anywhere. Needs LLM analysis 10-K + earnings calls + product PR."
+    },
+    {
+      "ticker": "VOW.DE",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "description_v1-9-complete_build_bug",
+      "severity": "low (build pipeline only)",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.description.json. v1-9-complete build doesn't merge. App runtime OK."
+    },
+    {
+      "ticker": "DANSKE.CO",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "hero_kpi_generic",
+      "details_needed": "Hero KPI generic (Revenue/etc). Should be company-specific."
+    },
+    {
+      "ticker": "DANSKE.CO",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "hero_history_<5pts",
+      "details_needed": "Hero KPI needs ≥5 years history. period_type mislabel suspected, or extraction passes incomplete."
+    },
+    {
+      "ticker": "DANSKE.CO",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "DANSKE.CO",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "governance_missing:board_size,top_capital,voting_structure",
+      "severity": "high (real EU data gap)",
+      "details_needed": "EU sté. Pipeline has ['ceo_name']. Need URD/annual report board + shareholders. WebFetch IR pages or AMF/BaFin/FINMA filings."
+    },
+    {
+      "ticker": "DANSKE.CO",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "segments_slices_<2",
+      "details_needed": "Revenue_by_segment needs ≥2 slices. Source : 10-K/20-F segment reporting."
+    },
+    {
+      "ticker": "DANSKE.CO",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography ≥2 zones (FR labels). Source : 10-K Item 7 / 20-F geographic info. Real data gap."
+    },
+    {
+      "ticker": "DANSKE.CO",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "risks_<3",
+      "details_needed": "Risks ≥3. Source : 10-K Item 1A."
+    },
+    {
+      "ticker": "DANSKE.CO",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "description_v1-9-complete_build_bug",
+      "severity": "low (build pipeline only)",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.description.json. v1-9-complete build doesn't merge. App runtime OK."
+    },
+    {
+      "ticker": "ON",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "ON",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "governance_v1-9-complete_build_bug",
+      "severity": "low (build merge bug)",
+      "details_needed": "v2-pipeline has ['board_size', 'voting_structure', 'ceo_name']. v1-9-complete build doesn't merge."
+    },
+    {
+      "ticker": "PYPL",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "hero_history_<5pts",
+      "details_needed": "Hero KPI needs ≥5 years history. period_type mislabel suspected, or extraction passes incomplete."
+    },
+    {
+      "ticker": "PYPL",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "PYPL",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "segments_slices_<2",
+      "details_needed": "Revenue_by_segment needs ≥2 slices. Source : 10-K/20-F segment reporting."
+    },
+    {
+      "ticker": "SHL.DE",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "hero_kpi_not_found_in_kpis_list",
+      "details_needed": "hero_kpi references non-existent KPI 'short'."
+    },
+    {
+      "ticker": "SHL.DE",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "SHL.DE",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "governance_missing:board_size,top_capital,voting_structure",
+      "severity": "high (real EU data gap)",
+      "details_needed": "EU sté. Pipeline has ['ceo_name']. Need URD/annual report board + shareholders. WebFetch IR pages or AMF/BaFin/FINMA filings."
+    },
+    {
+      "ticker": "SHL.DE",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography ≥2 zones (FR labels). Source : 10-K Item 7 / 20-F geographic info. Real data gap."
+    },
+    {
+      "ticker": "SHL.DE",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "description_v1-9-complete_build_bug",
+      "severity": "low (build pipeline only)",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.description.json. v1-9-complete build doesn't merge. App runtime OK."
+    },
+    {
+      "ticker": "III.L",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "stories_insufficient",
+      "details_needed": "≥3 KPI short_history (12 months recent metrics with story_category) — needs extraction from latest Q earnings call or quarterly reports."
+    },
+    {
+      "ticker": "III.L",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "governance_missing:board_size,top_capital,voting_structure",
+      "severity": "high (real EU data gap)",
+      "details_needed": "EU sté. Pipeline has ['ceo_name']. Need URD/annual report board + shareholders. WebFetch IR pages or AMF/BaFin/FINMA filings."
+    },
+    {
+      "ticker": "III.L",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "segments_slices_<2",
+      "details_needed": "Revenue_by_segment needs ≥2 slices. Source : 10-K/20-F segment reporting."
+    },
+    {
+      "ticker": "III.L",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "geography_slices_<2",
+      "details_needed": "Revenue split by geography ≥2 zones (FR labels). Source : 10-K Item 7 / 20-F geographic info. Real data gap."
+    },
+    {
+      "ticker": "III.L",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "risks_<3",
+      "details_needed": "Risks ≥3. Source : 10-K Item 1A."
+    },
+    {
+      "ticker": "III.L",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "ai_positioning_absent",
+      "details_needed": "No ai_positioning data anywhere. Needs LLM analysis 10-K + earnings calls + product PR."
+    },
+    {
+      "ticker": "III.L",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "description_v1-9-complete_build_bug",
+      "severity": "low (build pipeline only)",
+      "details_needed": "company_description EXISTS in v2-pipeline-enrich/<t>.description.json. v1-9-complete build doesn't merge. App runtime OK."
+    },
+    {
+      "ticker": "III.L",
+      "_agent": "chef-3",
+      "attempted_at": "2026-05-19T15:50:00Z",
+      "blocker": "events_<3",
+      "details_needed": "Events ≥3. Source : yfinance.news 12 months."
+    }
+  ]
+}
