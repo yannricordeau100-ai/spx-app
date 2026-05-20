@@ -85,6 +85,12 @@ const SECTIONS: SandboxSection[] = [
         label: "V1.9 · SP500 + Top 307 + Indices EU",
         desc: "924 stés. Univers étendu : SP500 + Top 307 + CAC 40 + FTSE 100 + DAX 40 + SMI + BEL 20 + FTSE MIB + AEX + ATX.",
       },
+      {
+        href: "/sandbox/v1-9-status",
+        icon: Activity,
+        label: "V1.9 · Suivi enrichissement top 307",
+        desc: "Statut temps réel : strict 11/11 ✅ vs en cours 🟠 vs bloquées 🔴. Score par sté + blocs manquants.",
+      },
     ],
   },
   {
