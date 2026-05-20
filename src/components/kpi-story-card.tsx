@@ -10,6 +10,32 @@ import { AcronymHover } from "@/components/acronym-hover";
 import { ACRONYM_GLOSSARY, TERM_GLOSSARY } from "@/lib/ui-fix-templates";
 import { normalizeNarrative } from "@/lib/ui-fix-templates";
 import { useT } from "@/lib/i18n/provider";
+import { isFiscalShifted } from "@/lib/fiscal-calendar";
+
+/**
+ * Yann 20 mai 2026 : période sous chaque KPI Story.
+ * - Année civile → "En 2025" / "In 2025" / "Im Jahr 2025"
+ * - Année fiscale décalée → "Année fiscale 2025" / "Fiscal year 2025" / "Geschäftsjahr 2025"
+ */
+function formatStoryPeriod(kpi: KPI, ticker: string, locale: string): string | null {
+  // Try to derive year from last_data_date, fallback period field
+  let year: number | null = null;
+  const lastDate = kpi.last_data_date;
+  if (lastDate) {
+    const d = new Date(lastDate);
+    if (!Number.isNaN(d.getTime())) year = d.getUTCFullYear();
+  }
+  if (!year) return null;
+  const fiscal = isFiscalShifted(ticker);
+  if (fiscal) {
+    if (locale.startsWith("fr")) return `Année fiscale ${year}`;
+    if (locale.startsWith("de")) return `Geschäftsjahr ${year}`;
+    return `Fiscal year ${year}`;
+  }
+  if (locale.startsWith("fr")) return `En ${year}`;
+  if (locale.startsWith("de")) return `Im Jahr ${year}`;
+  return `In ${year}`;
+}
 
 /**
  * Une carte du bloc Stories : soit un KPI short-history, soit une
@@ -30,14 +56,15 @@ export function KpiStoryCard({ slide, ticker }: { slide: StorySlide; ticker: str
   const glow = brand(ticker).glow;
 
   if (slide.kind === "kpi") {
-    return <KpiCard kpi={slide.data} accent={accent} glow={glow} />;
+    return <KpiCard kpi={slide.data} accent={accent} glow={glow} ticker={ticker} />;
   }
-  return <MarketPositionStoryCard mp={slide.data} accent={accent} glow={glow} />;
+  return <MarketPositionStoryCard mp={slide.data} accent={accent} glow={glow} ticker={ticker} />;
 }
 
 /* -------- KPI card (short-history) — format portrait mobile 9:16 -------- */
-function KpiCard({ kpi, accent, glow }: { kpi: KPI; accent: string; glow: string }) {
-  const { t } = useT();
+function KpiCard({ kpi, accent, glow, ticker }: { kpi: KPI; accent: string; glow: string; ticker: string }) {
+  const { t, locale } = useT();
+  const periodLabel = formatStoryPeriod(kpi, ticker, locale);
   return (
     <div
       className="relative flex h-full flex-col overflow-hidden rounded-[36px] bg-gradient-to-br from-[#101015] via-[#0a0a0e] to-[#060608] px-5 pb-4 pt-11"
@@ -111,6 +138,11 @@ function KpiCard({ kpi, accent, glow }: { kpi: KPI; accent: string; glow: string
               <span className="text-[12px] font-medium italic text-zinc-400" title="Year-on-Year">{t("story.vs_n1")}</span>
             </div>
           )}
+          {periodLabel && (
+            <div className="mt-2 text-[13px] font-normal text-zinc-400">
+              {periodLabel}
+            </div>
+          )}
         </div>
 
         {/* Signal en bas (clé du business). Plus compact, taille augmentée
@@ -159,6 +191,7 @@ function MarketPositionStoryCard({
   mp: MarketPosition;
   accent: string;
   glow: string;
+  ticker: string;
 }) {
   const { t } = useT();
   // Yann 8 mai 2026 : si TAM=null (honesty rule, sté n'a pas publié),
