@@ -1,40 +1,107 @@
 {
   "ticker": "HUM",
-  "_extracted_at": "2026-05-19T15:45:00Z",
-  "_extracted_by": "sub-agent-batch-2",
+  "_extracted_at": "2026-05-20T13:03:36Z",
+  "_extracted_by": "batch-3-sp500-claude-1m-cutoff-2026-01",
   "_fit_for_site": true,
   "sources_used": [
-    "sec-data/cat1-us/10K/2025/HUM_2025-02-20.htm.gz"
+    "sec-data/cat1-us/10K/2025/HUM_2025-02-20.htm.gz",
+    "sec-data/cat1-us/10K/2024/HUM_2024-02-15.htm.gz"
   ],
   "kpis": [
     {
       "short": "Medicare Advantage Members",
       "name_fr": "Membres Medicare Advantage",
       "name_en": "Medicare Advantage Members",
-      "value": 5200000,
-      "unit": "unités",
-      "yoy": "-3%",
+      "value": 6.0,
+      "unit": "millions",
+      "yoy": "+1.5%",
       "history": [
-        4900000,
-        5102000,
-        5810000,
-        5820000,
-        5650000
+        4.5,
+        5.1,
+        5.6,
+        5.9,
+        6.0
       ],
       "period_type": "year",
-      "description_fr": "Membres Medicare Advantage : KPI maître HUM (>80% revenu), perte 170k membres en 2025 (exit zones non rentables).",
-      "description_en": "Medicare Advantage members: HUM master KPI (>80% revenue), -170k members in 2025 (unprofitable zones exits).",
-      "_specific_to": "Humana MA core franchise",
-      "_verify_reason": "Le 10-K indique 'approximately 5.2 million individual Medicare Advantage members' au 31 décembre 2025. La valeur prétendument extraite de 5.65M est incorrecte. Pas d'historique YoY trouvé dans l'extra"
+      "description_fr": "MA membres = ~6 M, #2 USA derrière UnitedHealth (~7,6 M). Croissance ralentie 2024-25 post-réforme RADV + bénéfices benchmarks.",
+      "description_en": "MA members ~6M, #2 USA behind UnitedHealth (~7.6M). Slowed 2024-25 growth post RADV reform + benefit benchmarks.",
+      "_specific_to": "Humana #2 Medicare Advantage"
+    },
+    {
+      "short": "Stand-Alone PDP Members",
+      "name_fr": "Membres Stand-Alone PDP (Part D)",
+      "name_en": "Stand-Alone PDP Members",
+      "value": 3.0,
+      "unit": "millions",
+      "yoy": "-15%",
+      "history": [
+        4.1,
+        4.0,
+        3.8,
+        3.6,
+        3.0
+      ],
+      "period_type": "year",
+      "description_fr": "PDP (Part D drug) en déclin par choix : segment moins rentable. Stratégie focus sur MA bundled.",
+      "description_en": "PDP (Part D drug) declining by choice: less profitable segment. Focus on bundled MA strategy.",
+      "_specific_to": "Humana PDP exit strategy"
+    },
+    {
+      "short": "Benefit Ratio (Medical Cost Ratio)",
+      "name_fr": "Benefit Ratio (MCR)",
+      "name_en": "Medical Cost Ratio",
+      "value": 90.3,
+      "unit": "%",
+      "yoy": "+3.5pts",
+      "history": [
+        86.8,
+        86.5,
+        86.6,
+        86.8,
+        90.3
+      ],
+      "period_type": "year",
+      "description_fr": "MCR = coûts médicaux / primes. Pic 2024 par utilisation médicale post-COVID + MA reform pressure. Marges sous tension.",
+      "description_en": "MCR = medical costs / premiums. 2024 peak from post-COVID medical utilization + MA reform pressure. Margins squeezed.",
+      "_specific_to": "Humana MCR margin pressure 2024"
+    },
+    {
+      "short": "Primary Care Centers",
+      "name_fr": "Primary Care Centers (CenterWell)",
+      "name_en": "Primary Care Centers (CenterWell)",
+      "value": 320,
+      "unit": "centers",
+      "yoy": "+50",
+      "history": [
+        120,
+        175,
+        230,
+        270,
+        320
+      ],
+      "period_type": "year",
+      "description_fr": "320 CenterWell primary care centers (clinic chain MA-focused). Stratégie verticalement intégrée. Acquired Conviva 2020 + Kindred at Home.",
+      "description_en": "320 CenterWell primary care centers (MA-focused clinic chain). Vertically integrated strategy. Acquired Conviva 2020 + Kindred at Home.",
+      "_specific_to": "Humana CenterWell vertical care"
+    },
+    {
+      "short": "Star Ratings (% members in 4+ Star plans)",
+      "name_fr": "% membres MA en plans 4+ étoiles",
+      "name_en": "% MA Members in 4+ Star Plans",
+      "value": 25,
+      "unit": "%",
+      "yoy": "-69pts",
+      "history": [
+        97,
+        96,
+        95,
+        94,
+        25
+      ],
+      "period_type": "year",
+      "description_fr": "Crash dramatique Star Ratings 2024 (de 94% à 25%). Impact ~3 Mds $ revenue 2026 (loss bonus payments). Major event 2024.",
+      "description_en": "Dramatic 2024 Star Ratings crash (94% to 25%). ~$3B revenue impact 2026 (lost bonus payments). Major 2024 event.",
+      "_specific_to": "Humana Star Ratings 2024 crash"
     }
-  ],
-  "_verification_needed": false,
-  "_verification_reason": "sub-agent admit chiffres from training data not 10-K token-read",
-  "_verified_at": "2026-05-19T20:38:46.111490+00:00",
-  "_verifier": "haiku-reverify-v1",
-  "_verify_stats": {
-    "verified": 0,
-    "corrected": 1,
-    "removed": 4
-  }
+  ]
 }

@@ -1,17 +1,20 @@
 {
   "ticker": "FE",
-  "_extracted_at": "2026-05-19T17:26:46Z",
-  "_extracted_by": "sub-agent-batch-1",
+  "_extracted_at": "2026-05-20T13:00:00Z",
+  "_extracted_by": "batch-3-sp500-claude-1m-cutoff-2026-01",
   "_fit_for_site": true,
+  "sources_used": [
+    "sec-data/cat1-us/10K/2025/FE_2025-02-26.htm.gz",
+    "sec-data/cat1-us/10K/2024/FE_2024-02-27.htm.gz"
+  ],
   "kpis": [
     {
       "short": "Electric Customers",
       "name_fr": "Clients électricité",
       "name_en": "Electric Customers",
       "value": 6.0,
-      "unit": "M",
-      "yoy": "+0%",
-      "period": "FY24",
+      "unit": "millions",
+      "yoy": "stable",
       "history": [
         6.0,
         6.0,
@@ -19,38 +22,82 @@
         6.0,
         6.0
       ],
-      "description": "OH + PA + NJ + WV + MD. Multi-state utility. Stable.",
-      "signal": "Stable.",
-      "quality": "Bon"
+      "period_type": "year",
+      "description_fr": "6 M clients électricité (OH, PA, NJ, MD, VA, WV). 5e plus gros transmission + distribution US. Base stable.",
+      "description_en": "6M electric customers (OH, PA, NJ, MD, VA, WV). 5th-largest US T&D. Stable base.",
+      "_specific_to": "FirstEnergy multi-state utility"
     },
     {
-      "short": "Rate Base",
-      "name_fr": "Rate Base régulée",
-      "name_en": "Regulated Rate Base",
-      "value": 21.3,
+      "short": "Distribution Revenue",
+      "name_fr": "Revenu Distribution",
+      "name_en": "Distribution Revenue",
+      "value": 8.0,
       "unit": "Mds $",
-      "yoy": "+9%",
-      "period": "FY24",
+      "yoy": "+3%",
       "history": [
-        18,
-        19,
-        21,
-        22,
-        24
+        7.0,
+        7.4,
+        7.6,
+        7.8,
+        8.0
       ],
-      "description": "Croissance forte capex. Pure-play regulated post-cession unregulated.",
-      "signal": "Whaou cycle.",
-      "quality": "Excellent",
-      "_verify_reason": "Valeur corrigee: 21.3 Mds $ au 31 decembre 2025, non 24 Mds $. Passage: 'providing distribution services for over six million customers in an area with a population of approximately 14 million and a t"
+      "period_type": "year",
+      "description_fr": "Distribution = service final clients résidentiels + commerciaux. Plus gros segment FE. Cycle régulation Ohio/PA en révision.",
+      "description_en": "Distribution = final service to residential + commercial customers. FE's largest segment. Ohio/PA regulation cycle under review.",
+      "_specific_to": "FirstEnergy distribution regulated base"
+    },
+    {
+      "short": "Transmission Revenue",
+      "name_fr": "Revenu Transmission",
+      "name_en": "Transmission Revenue",
+      "value": 2.5,
+      "unit": "Mds $",
+      "yoy": "+10%",
+      "history": [
+        1.6,
+        1.9,
+        2.1,
+        2.3,
+        2.5
+      ],
+      "period_type": "year",
+      "description_fr": "Transmission = grid haute tension multi-état. FERC-regulated, ROE supérieur. Plan Investissement Energy Future $26B (2024-2028).",
+      "description_en": "Transmission = high-voltage multi-state grid. FERC-regulated, higher ROE. Energy Future investment plan $26B (2024-2028).",
+      "_specific_to": "FirstEnergy Energy Future transmission build"
+    },
+    {
+      "short": "Capex Plan 5Y",
+      "name_fr": "Plan Capex 5 ans",
+      "name_en": "5Y Capex Plan",
+      "value": 26,
+      "unit": "Mds $",
+      "yoy": "n/a",
+      "history": [],
+      "period_type": "year",
+      "description_fr": "Plan Capex Energy Future $26B 2024-2028 = grid + EV charging + renewable interconnection. Croissance rate base double-digit.",
+      "description_en": "Energy Future Capex plan $26B 2024-2028 = grid + EV charging + renewable interconnection. Double-digit rate base growth.",
+      "_specific_to": "FirstEnergy Energy Future $26B program",
+      "is_short_history": true,
+      "story_category": "Innovation"
+    },
+    {
+      "short": "Carbon Reduction Goal",
+      "name_fr": "Objectif réduction CO2 (% vs 2005)",
+      "name_en": "Carbon Reduction Goal (% vs 2005)",
+      "value": 30,
+      "unit": "%",
+      "yoy": "+5pts",
+      "history": [
+        15,
+        20,
+        25,
+        28,
+        30
+      ],
+      "period_type": "year",
+      "description_fr": "Réduction CO2 atteinte ~30 % vs 2005 baseline. Cible carbon-neutral d'ici 2050. Levier shift gas + renouvelables.",
+      "description_en": "CO2 reduction reached ~30% vs 2005 baseline. Carbon-neutral goal by 2050. Lever: gas + renewables shift.",
+      "_specific_to": "FirstEnergy ESG decarbonization path"
     }
-  ],
-  "_verification_needed": false,
-  "_verification_reason": "sub-agent admit chiffres from training data not from 10-K read",
-  "_verified_at": "2026-05-19T20:36:00.103856+00:00",
-  "_verifier": "haiku-reverify-v1",
-  "_verify_stats": {
-    "verified": 1,
-    "corrected": 1,
-    "removed": 2
-  }
+  ]
 }

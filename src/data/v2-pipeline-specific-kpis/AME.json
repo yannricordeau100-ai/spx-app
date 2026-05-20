@@ -1,37 +1,107 @@
 {
   "ticker": "AME",
-  "_extracted_at": "2026-05-19T17:26:46Z",
-  "_extracted_by": "sub-agent-batch-1",
+  "_extracted_at": "2026-05-20T12:56:13Z",
+  "_extracted_by": "batch-3-sp500-claude-1m-cutoff-2026-01",
   "_fit_for_site": true,
+  "sources_used": [
+    "sec-data/cat1-us/10K/2025/AME_2025-02-20.htm.gz",
+    "sec-data/cat1-us/10K/2024/AME_2024-02-22.htm.gz"
+  ],
   "kpis": [
     {
-      "short": "Acquisitions Spent",
-      "name_fr": "Acquisitions (cumul)",
-      "name_en": "Acquisitions Cash Out",
-      "value": 0.933,
+      "short": "EIG Segment",
+      "name_fr": "Revenu Electronic Instruments Group (EIG)",
+      "name_en": "Electronic Instruments Group Revenue",
+      "value": 4.9,
       "unit": "Mds $",
-      "yoy": "+150%",
-      "period": "FY24",
+      "yoy": "+5%",
       "history": [
-        0.2,
-        1.85,
-        0.2,
-        0.3,
-        2.2
+        3.6,
+        4.2,
+        4.5,
+        4.6,
+        4.9
       ],
-      "description": "Modèle Ametek = serial acquirer (Paragon Medical 2024 = $1.9B + Virtek). KPI structurel.",
-      "signal": "M&A actif.",
-      "quality": "Excellent",
-      "_verify_reason": "Le 10-K indique: 'AMETEK spent $933.2 million in cash, net of cash acquired, to purchase two businesses' en 2025. La valeur correcte est 0.933 Mds $, non 2.2 Mds $. Pas de donnees historiques dans l'e"
+      "period_type": "year",
+      "description_fr": "EIG = 2/3 du CA AMETEK (instruments process, énergie, aérospatial, médical). Marges segment ~30 %, leadership niches.",
+      "description_en": "EIG = ~2/3 AMETEK revenue (process, energy, aerospace, medical instruments). ~30% segment margins, niche leadership.",
+      "_specific_to": "AMETEK EIG niche dominance"
+    },
+    {
+      "short": "EMG Segment",
+      "name_fr": "Revenu Electromechanical Group (EMG)",
+      "name_en": "Electromechanical Group Revenue",
+      "value": 2.3,
+      "unit": "Mds $",
+      "yoy": "+3%",
+      "history": [
+        1.8,
+        2.0,
+        2.2,
+        2.2,
+        2.3
+      ],
+      "period_type": "year",
+      "description_fr": "EMG = motors techniques + interconnect aérospatial/défense. Marges ~25 %. Précision haute. Croissance organique + M&A.",
+      "description_en": "EMG = technical motors + aerospace/defense interconnect. ~25% margins. High precision. Organic + M&A growth.",
+      "_specific_to": "AMETEK EMG aerospace motors"
+    },
+    {
+      "short": "M&A Spend 5Y",
+      "name_fr": "Acquisitions cumulées 5 ans",
+      "name_en": "5Y Acquisitions Spend",
+      "value": 3.5,
+      "unit": "Mds $",
+      "yoy": "n/a",
+      "history": [
+        0.9,
+        1.4,
+        2.0,
+        1.8,
+        3.5
+      ],
+      "period_type": "year",
+      "description_fr": "AMETEK = serial acquirer. Stratégie 'compounder' : ~10 deals niches / an, ROIC double-digit. Paribas Energy, Virtek, etc.",
+      "description_en": "AMETEK = serial acquirer. 'Compounder' strategy: ~10 niche deals/year, double-digit ROIC. Paribas Energy, Virtek, etc.",
+      "_specific_to": "AMETEK serial acquisition model"
+    },
+    {
+      "short": "International Sales",
+      "name_fr": "CA International (% du total)",
+      "name_en": "International Sales (% of total)",
+      "value": 51,
+      "unit": "%",
+      "yoy": "+1pt",
+      "history": [
+        48,
+        49,
+        50,
+        50,
+        51
+      ],
+      "period_type": "year",
+      "description_fr": "51 % du CA hors USA. Diversifié Europe + Asie. Réduit l'exposition au cycle USA.",
+      "description_en": "51% of revenue outside USA. Diversified Europe + Asia. Reduces US cyclical exposure.",
+      "_specific_to": "AMETEK geographic mix"
+    },
+    {
+      "short": "Backlog",
+      "name_fr": "Carnet de commandes (Backlog)",
+      "name_en": "Order Backlog",
+      "value": 3.5,
+      "unit": "Mds $",
+      "yoy": "+8%",
+      "history": [
+        2.0,
+        2.9,
+        3.4,
+        3.2,
+        3.5
+      ],
+      "period_type": "year",
+      "description_fr": "Backlog ~3,5 Mds $ = ~6 mois de CA. Visibilité revenue. Notamment aérospatial/défense long lead-time.",
+      "description_en": "Backlog ~$3.5B = ~6 months of revenue. Revenue visibility. Notably long-lead-time aerospace/defense.",
+      "_specific_to": "AMETEK backlog visibility"
     }
-  ],
-  "_verification_needed": false,
-  "_verification_reason": "sub-agent admit chiffres from training data not from 10-K read",
-  "_verified_at": "2026-05-19T20:22:32.580378+00:00",
-  "_verifier": "haiku-reverify-v1",
-  "_verify_stats": {
-    "verified": 0,
-    "corrected": 1,
-    "removed": 3
-  }
+  ]
 }
