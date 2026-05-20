@@ -131,10 +131,11 @@ export function AuthModal() {
           target = nextParam;
         }
       }
-      // 200ms laisse Supabase JS propager le cookie session avant le reload.
-      setTimeout(() => {
-        window.location.href = target;
-      }, 200);
+      // Yann 20 mai 2026 14h : retiré setTimeout 200ms.
+      // Supabase v2 JS a déjà committé le cookie session avant que la promesse
+      // signInWithPassword résolve (cookie sync écrit avant la fin du await).
+      // Navigation immédiate = -200ms perçu par l'utilisateur.
+      window.location.href = target;
     } catch (err) {
       setSigninErr("Erreur réseau. Réessaie.");
       setSigninBusy(false);
