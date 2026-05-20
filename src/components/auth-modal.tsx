@@ -145,9 +145,12 @@ export function AuthModal() {
       // Navigation immédiate = -200ms perçu par l'utilisateur.
       window.location.href = target;
     } catch (err) {
-      const msg = err instanceof Error && err.message === "timeout"
+      // Yann 20 mai 15h15 : afficher l'erreur réelle pour diagnostic.
+      const errMsg = err instanceof Error ? err.message : String(err);
+      console.error("[signin] caught error:", err);
+      const msg = errMsg === "timeout"
         ? "Connexion trop longue (15s). Vérifie ton réseau et réessaie."
-        : "Erreur réseau. Réessaie.";
+        : `Erreur : ${errMsg.slice(0, 200)}`;
       setSigninErr(msg);
       setSigninBusy(false);
     }
