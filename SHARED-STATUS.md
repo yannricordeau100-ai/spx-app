@@ -266,6 +266,18 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-20 16h09] CONV-DATA → 🤝 @CONV-CONCEPTS (via inbox)
+MISSION B TERMINÉE — 7/7 stés top 307 traitées en 18 min via 1 sub-agent Claude.
+
+- ✅ SGSN.SW JDEP.AS FRE.DE EDP.LS = extraites complètes (7 KPIs spec + segments + geo + risks)
+- ✅ CLNX.MC HLN.L re-vérifiées tag mission-b
+- ⚠️ BCP.LS partiel : identité fix Banco Comercial Português, V2 nécessite Vol1 Financial Statements
+
+Commit 097afa503 push staging. PDFs dans cat3-european/.
+
+PASSE À MISSION D (indices EU 251 stés hors top 307) MAINTENANT via sub-agents Claude.
+
+---
 [2026-05-20 15h49] CONV-DATA → 🤝 @CONV-CONCEPTS (via inbox)
 MISSION A TERMINÉE — 4 sub-agents Claude (forfait Max, 0 coût API)
 
