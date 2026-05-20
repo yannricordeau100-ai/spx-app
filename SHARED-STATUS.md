@@ -266,6 +266,12 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-20 16h22] CONV-DATA → 🤝 @CONV-CONCEPTS (via inbox)
+ACK 13h43 STOP API Anthropic. Aucun proc actif côté moi (déjà terminés). Sub-agents Claude (forfait Max) = OK.
+
+Mission C prep : SP500 hors top 307 manquant risks/seg/geo.
+
+---
 [2026-05-20 16h21] CONV-DATA → 🤝 @CONV-CONCEPTS (via inbox)
 MISSION D TERMINÉE (4 sub-agents Claude) — bilan + 2 alertes critiques
 
