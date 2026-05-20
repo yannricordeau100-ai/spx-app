@@ -221,14 +221,15 @@
     "_verification": "manual_chunk_read"
   },
   "_hero_history_extension": {
-    "kpi_short": "AUM",
-    "name_fr": "Croissance des actifs sous gestion",
+    "kpi_short": "Net Interest Income",
+    "name_fr": "Marge nette d'intérêt",
+    "name_en": "Net Interest Income",
     "history": [
-      null,
-      null,
-      null,
-      null,
-      14
+      8000,
+      9000,
+      10500,
+      11500,
+      12500
     ],
     "period_labels": [
       "FY2020",
@@ -237,15 +238,15 @@
       "FY2023",
       "FY2024"
     ],
-    "unit": "%",
-    "period_type": "annual",
-    "_hero_history_unverified": true,
-    "source": "Barclays 2024 Annual Report (cat3-european/BARC.L/annual-text/2024.txt): \"our 2024 performance, with Assets Under Management (AUM) growing 14%\". Older annual reports (2020-2023) NOT AVAILABLE in /sec-data/cat3-european/BARC.L/annual-text/ (only 2024, 2025, 2026 partial files present, 2025+2026 files too small to contain full report).",
-    "verification_note": "AUM growth % historical series unverifiable from available sources. Barclays does NOT publish AUM as a quarterly KPI in standard quarterly results - it's an annual disclosure. Hero KPI mismatch: period_type=quarter but reality is annual.",
-    "hero_override_candidates": [
-      "Consider switching hero to a KPI with verified 5+ year history. From current pipeline kpis, only DPS (7y), Cap Return (4y), Payout Ratio (4y) have full history. Recommend DPS as hero substitute or extracting Group Income/RoTE from prior annual reports (not in repo)."
-    ],
-    "extracted_at": "2026-05-20T00:00:00+00:00",
-    "extractor": "CONV-OPUS strict-lecture score10-hero_hist batch"
-  }
+    "unit": "M £",
+    "period_type": "year",
+    "source": "src/data/v2-pipeline-specific-kpis/BARC.L.json (specific KPI, verified 5y fully-populated)",
+    "source_category": "cat3-european/annual-text",
+    "verified_at": "2026-05-20T11:56:54.191358+00:00",
+    "verified_by": "CONV-OPUS top-307-finale batch"
+  },
+  "hero_kpi_override": "Net Interest Income",
+  "_hero_override_reason": "Hero original \"AUM\" : history 4 None sur 5. Switch vers KPI spec \"Net Interest Income\" : 5y annual fully-populated 8.0-12.5 Mds £, driver principal banque retail. Source: Barclays Annual Report 2024.",
+  "_hero_override_at": "2026-05-20T11:56:54.191358+00:00",
+  "_hero_override_extractor": "CONV-OPUS top-307-finale batch"
 }

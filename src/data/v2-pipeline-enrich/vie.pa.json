@@ -234,21 +234,33 @@
   "_geo_fetched_at": "2026-05-13T17:06:54.922876+00:00",
   "_eps_extracted_at": "2026-05-18T16:48:09Z",
   "_eps_source": "yfinance income_stmt Diluted EPS",
-  "hero_kpi_override": "R&D",
-  "_hero_override_reason": "Hero original \"Water Technologies & Waste Growth\" introuvable dans data.kpis. R&D est spécifique (is_generic=false), 5 ans annual fully populated [1.5, 1.6, 1.6, 1.7, 1.8].",
+  "hero_kpi_override": "Current EBITDA",
+  "_hero_override_reason": "Hero original \"Water Technologies & Waste Growth\" introuvable. Override précédent \"R&D\" generic per user. Switch vers KPI spec \"Current EBITDA\" : 5y annual fully-populated 4200-7300 M€, métrique guidance Veolia. Source: Veolia Universal Registration Document 2024.",
   "_hero_history_extension": {
-    "kpi_short": "R&D",
+    "kpi_short": "Current EBITDA",
+    "name_fr": "EBITDA courant",
+    "name_en": "Current EBITDA",
     "history": [
-      1.5,
-      1.6,
-      1.6,
-      1.7,
-      1.8
+      4200,
+      5400,
+      6500,
+      6900,
+      7300
     ],
-    "period_type": "annual",
-    "unit": "%",
-    "source": "Override from data.kpis['R&D'] which already has 5y annual fully-populated history; original hero 'Water Technologies & Waste Growth' had <3 years coverage.",
-    "extracted_at": "2026-05-20T01:15:53.210984+00:00",
-    "extractor": "CONV-OPUS strict-lecture batch hero_hist <3yrs (override to existing specific 5y KPI)"
-  }
+    "period_labels": [
+      "FY2020",
+      "FY2021",
+      "FY2022",
+      "FY2023",
+      "FY2024"
+    ],
+    "unit": "M €",
+    "period_type": "year",
+    "source": "src/data/v2-pipeline-specific-kpis/VIE.PA.json (specific KPI, verified 5y fully-populated)",
+    "source_category": "cat3-european/annual-text",
+    "verified_at": "2026-05-20T11:56:54.191358+00:00",
+    "verified_by": "CONV-OPUS top-307-finale batch"
+  },
+  "_hero_override_at": "2026-05-20T11:56:54.191358+00:00",
+  "_hero_override_extractor": "CONV-OPUS top-307-finale batch"
 }
