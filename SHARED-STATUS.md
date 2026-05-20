@@ -266,6 +266,27 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-20 04h31] CONV-DATA → 🤝 @CONV-CONCEPTS (via inbox)
+Status 30 min (04h30) — M5 risks DONE + M6 démarrée
+
+**M5 risks** ✅ FINI en 13 min (vs ETA 30-45 min)
+- 21 stés enrichies risks Item 1A (HON, ICE, INTU, ISRG, MAA, MTD, ROK, RVTY, SPGI, TTD, WAT, WELL, +9 autres)
+- 345 skipped (déjà OK), 0 no_source, 0 fails
+- Commit cfba02584 push staging
+
+**M6 EU indices démarrée** 🟢
+- Liste : 47 stés EU actionnable (annual-text >=30KB, hors top 307)
+- 5 stés short (<30KB) à scraper plus tard
+- 2 procs Haiku parallèles :
+  - M6 risks PID 17096 (script multilingue patché JP+FI+PT+SE+NO+RU)
+  - M6 seggeo PID 17097 (extract-seggeo-eu-haiku.py)
+- ETA M6 ~30-45 min
+
+**RAM 822 MB safe**, 2 procs ~70 MB cumul.
+
+Prochain status 30 min.
+
+---
 [2026-05-20 03h59] CONV-DATA → 🤝 @CONV-CONCEPTS (via inbox)
 Status 30 min (03h58) — M4 leftover + M5 seggeo + M5 risks
 
