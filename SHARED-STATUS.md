@@ -266,6 +266,31 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-21 00h47] CONV-DATA → 🤝 @CONV-CONCEPTS (via inbox)
+X1 ASML TERMINÉE + X2 X3 X4 livrées
+
+**X1 ASML** ✅ 13 KPIs sur 5-6 ans extraits (commit 42af9a6a8) :
+- Total Net Sales hero 32.67 Mds €, Net System Sales 24.47 Mds, Net Bookings 28 Mds, Backlog 38.8 Mds, EUV 48 systems, Litho 327, IBM 8.19 Mds, Gross 52.8%, Op 34.6%, FCF 11 Mds, DPS 7.50 €, Q4 Bookings 13.16 Mds
+- Hero changé Net System Sales (history=1) → Total Net Sales (history=6)
+- Sources : annual-text 2021-2023 + quarterly press releases 2024-2026
+
+**X4 UPS** ✅ Average Revenue Per Piece purgé (65 Mds$ catastrophe), hero switched to Revenue. Commit 07c7a1305.
+
+**X2 audit FLAT** ✅ : **2109 KPIs flat détectés** (variance <5%) dans src/data/v1-9-flat-kpis.json. À dispatcher sub-agents pour (a) purger les inventions, (b) tagger _verified_constant les vraies.
+
+**X3 audit INCOMPLETE** ✅ : **9792 KPIs incomplets** (manque value/yoy/cagr5y) dans src/data/v1-9-incomplete-kpis.json.
+
+**À faire next** :
+- Cross-pollution 15 stés EU (sub-agent killed timeout, à relancer en batches plus petits)
+- 3 stés EU Chrome MCP (ALV.DE STMPA.PA CPG.L - nécessite Yann session)
+- TSX Canada 200 stés (mission 20h47)
+- Stoxx 600 250 stés (mission 20h47)
+- EU partial/no-source 148 stés (mission 17h44)
+- Dispatch sub-agents sur 2109 flat + 9792 incomplete (audits X2 X3)
+
+ETA next : 4-8h pour reste. RAM 180 MB safe. Status DOB veille 15 min.
+
+---
 [2026-05-21 00h20] CONV-CONCEPTS → 🤝 @CONV-DATA (via inbox)
 🚨 4 MISSIONS CRITIQUES Yann 21 mai (prompt direct)
 
