@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import IN_PROGRESS from "@/data/v1-9-in-progress.json";
 import STRICT from "@/data/v1-9-strictly-complete.json";
+import BLOCKED from "@/data/v1-9-blocked.json";
 
 export const dynamic = "force-static";
 export const revalidate = 3600;
@@ -19,7 +20,7 @@ type InProgressItem = {
 
 const STRICT_LIST = (STRICT as { list: { ticker: string; name: string | null }[] }).list;
 const IN_PROGRESS_LIST = (IN_PROGRESS as { tickers_in_progress: InProgressItem[] }).tickers_in_progress;
-const BLOCKED_TICKERS = ["DG.PA", "SGSN.SW", "FRE.DE", "JDEP.AS", "HLN.L", "CRWV"];
+const BLOCKED_FULL = (BLOCKED as { blocked: { ticker: string; name: string | null; reason: string }[] }).blocked;
 
 const BLOCK_LABEL_FR: Record<string, string> = {
   hero_spec: "Hero KPI à choisir spécifique",
@@ -80,7 +81,7 @@ export default function V19StatusPage() {
               Bloquées
             </div>
             <div className="mt-1 font-display text-3xl font-bold text-rose-300">
-              {BLOCKED_TICKERS.length}
+              {BLOCKED_FULL.length}
             </div>
             <div className="mt-1 text-[12px] text-zinc-400">sources cassées, re-scrape</div>
           </div>
@@ -137,25 +138,37 @@ export default function V19StatusPage() {
 
         {/* Section BLOQUÉES */}
         <h2 className="mt-10 font-display text-xl font-bold">
-          🔴 Stés bloquées (sources cassées, re-scrape CONV-DATA nécessaire)
+          🔴 Stés bloquées ({BLOCKED_FULL.length}) — sources insuffisantes ou cross-pollution
         </h2>
-        <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
-          {BLOCKED_TICKERS.map((t) => (
-            <div
-              key={t}
-              className="rounded-lg border border-rose-500/30 bg-rose-500/5 p-3"
-            >
-              <div className="font-mono text-sm font-bold text-rose-300">{t}</div>
-              <div className="mt-1 text-[11px] text-zinc-400">
-                {t === "DG.PA" && "Cross-pollution → Virbac, pas Vinci"}
-                {t === "SGSN.SW" && "Source = battery test report, pas SGS"}
-                {t === "FRE.DE" && "Source = adresse, pas annual report"}
-                {t === "JDEP.AS" && "Source = lettre NGO B4Ukraine"}
-                {t === "HLN.L" && "Source = Haleon Pakistan, pas Haleon plc"}
-                {t === "CRWV" && "IPO Q1 2026, historique <1 an"}
-              </div>
-            </div>
-          ))}
+        <p className="mt-1 text-[12px] text-zinc-500">
+          Ces sociétés ont des sources réellement insuffisantes (rapports
+          annuels incomplets, cross-pollution mapping, OTC stale, IPO récente).
+          Nécessitent re-scrape via IR pages officielles ou organismes pays
+          (AMF.fr, BaFin, Companies House, SIX, CONSOB, AFM).
+        </p>
+        <div className="mt-4 overflow-hidden rounded-xl border border-rose-500/20">
+          <table className="w-full text-[12.5px]">
+            <thead className="bg-rose-500/[0.03] text-[10.5px] uppercase tracking-wider text-rose-300">
+              <tr>
+                <th className="px-3 py-2 text-left">Ticker</th>
+                <th className="px-3 py-2 text-left">Nom</th>
+                <th className="px-3 py-2 text-left">Raison blocage</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-rose-500/10">
+              {BLOCKED_FULL.map((b) => (
+                <tr key={b.ticker} className="hover:bg-rose-500/[0.02]">
+                  <td className="px-3 py-2 font-mono text-rose-300">
+                    {b.ticker}
+                  </td>
+                  <td className="px-3 py-2 text-zinc-300">{b.name || "—"}</td>
+                  <td className="px-3 py-2 text-[11.5px] leading-relaxed text-zinc-400">
+                    {b.reason}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
 
         <p className="mt-8 text-[11px] italic text-zinc-500">
