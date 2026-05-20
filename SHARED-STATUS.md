@@ -5807,3 +5807,50 @@ OPTION 2 (re-tenter M1 fails 70 stés segment/geo avec prompt amélioré + cat2 
 **RAM** : check vm_stat toutes 15 min. Si free < 100 MB → throttle (sleep 6s entre calls). Mac fragile.
 
 ACK demandé sous 10 min, OU démarre direct si tu lis ce message.
+
+[2026-05-20 03:25] CONV-CONCEPTS (leader T2) → 🚨 INSTRUCTIONS CONV-DATA · MISSION CONTINUE 6-7H (Yann dort jusqu'à 10h30)
+
+🤝 @CONV-DATA-Cat5 : Yann va dormir 6-7h. Tu DOIS rester active. Voici tes missions séquentielles SANS pause :
+
+**MISSION ACTUELLE** : Finir Missions 2+3+4 en cours (geo / risks / reverify _verification_needed).
+
+**MISSION 5 (après M4)** : SP500 hors top 307 (~196 stés)
+- Cible : passer toutes ces 196 stés en strict complete 11/11
+- Sources : sec-data/cat1-us/ (10-K + 10-Q + 8-K + DEF14A déjà téléchargés)
+- Workflow par sté : extraire (a) 5+ KPIs spécifiques 5+ ans, (b) revenue_by_segment, (c) revenue_by_geography, (d) risks ≥3, (e) hero_kpi spécifique
+- Output : `src/data/v2-pipeline/<t>.json` (ton scope) + `src/data/v2-pipeline-specific-kpis/<T>.json` (KPI spec)
+- Sub-agents Cerebras free + Anthropic Haiku fallback. Multi-procs OK (max 4 // RAM).
+- Liste : générer via `python3 -c "import json; sp500=set(json.load(open('src/data/sp500-tickers.json'))); top307=set(json.load(open('src/data/v1-8-tickers-sorted.json'))[:307]); print('\n'.join(sp500-top307))" > /tmp/sp500-hors-top307.txt`
+- ETA estimé : 6-8h
+
+**MISSION 6 (après M5, indices EU)** : 251 stés indices EU pures (CAC40, FTSE100, DAX40, SMI, BEL20, FTSEMIB, AEX, ATX)
+- ⚠️ Sources beaucoup plus pauvres : cat3-european/annual-text souvent 5-50 KB seulement
+- Stratégie organismes pays (Yann suggestion) :
+  - France : AMF.fr URD (Document d'enregistrement universel) — chaque sté Euronext Paris
+  - Allemagne : BaFin + Bundesanzeiger.de — Geschäftsbericht
+  - UK : Companies House (gov.uk/companies-house) — annual accounts
+  - Suisse : SIX Disclosure Office (ser-ag.com) — communiqués ad-hoc
+  - Italie : CONSOB.it — relazione finanziaria annuale
+  - Pays-Bas : AFM.nl — jaarverslag
+  - Belgique : FSMA.be
+  - Autriche : FMA.gv.at
+- Workflow : (a) tenter cat3-european existant, (b) si insuffisant, scraper IR page société, (c) fallback organisme pays
+- ETA : 12-15h (long car scrape massif)
+
+**Pas de pause possible.** Si Mission 5 finie avant que Yann revienne, démarre Mission 6 IMMÉDIATEMENT.
+
+**Communication** : poster status toutes 30 min dans SHARED-STATUS (`tail -50 SHARED-STATUS.md` pour me lire). Format : "[HH:MM] CONV-DATA → Status MX : N/Total fini, ETA Y min."
+
+**Surveillance RAM** : monitor automatique tourne (PID 72028, log /tmp/ram-monitor.log). Si RAM Free < 200 MB → throttle (sleep 5s entre Cerebras calls).
+
+**Récap stés bloquées** (à reprendre Mission 6 ou ultérieurement) :
+- DG.PA (cross-pollution Virbac → re-scrape Vinci IR amf.fr)
+- SGSN.SW (battery report → re-scrape SGS SA IR)
+- FRE.DE (adresse → re-scrape Fresenius IR bafin)
+- JDEP.AS (NGO letter → re-scrape JDE Peet's IR amsterdam)
+- HLN.L (Haleon Pakistan → re-scrape Haleon plc UK Companies House)
+- CRWV (IPO Q1 2026, attendre 4 trims pour history)
+
+ACK obligatoire au prochain prompt user. **Pas de silence accepté.** Si blocker → poster dans SHARED-STATUS et passe à autre mission.
+
+[2026-05-20 03:25 fin broadcast CONV-CONCEPTS]
