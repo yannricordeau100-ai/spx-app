@@ -398,11 +398,44 @@
     "fiscal_year": 2025
   },
   "revenue_by_segment": {
-    "_no_source": true,
-    "_fit_for_site": false,
-    "_extraction_status": "no_source_filing_locally",
-    "_reason": "10-K/20-F/annual-text not present in sec-data or file too short",
-    "_extracted_at": "2026-05-19T18:21:46.552085+00:00"
+    "_verifier": "claude-subagent-mission-b",
+    "_verified_at": "2026-05-20T16:00:00Z",
+    "_source": "SGS 2025 Integrated Report p.92-95 (Business highlights – Testing & Inspection / Certification)",
+    "currency": "CHF",
+    "unit": "millions",
+    "total": 6945,
+    "slices": [
+      {
+        "label": "Industries & Environment",
+        "value": 2295,
+        "share_pct": 33,
+        "unit": "M CHF"
+      },
+      {
+        "label": "Natural Resources",
+        "value": 1636,
+        "share_pct": 24,
+        "unit": "M CHF"
+      },
+      {
+        "label": "Connectivity & Products",
+        "value": 1352,
+        "share_pct": 19,
+        "unit": "M CHF"
+      },
+      {
+        "label": "Health & Nutrition",
+        "value": 882,
+        "share_pct": 13,
+        "unit": "M CHF"
+      },
+      {
+        "label": "Business Assurance",
+        "value": 780,
+        "share_pct": 11,
+        "unit": "M CHF"
+      }
+    ]
   },
   "revenue_by_geography": {
     "_no_geo_source": true,
@@ -411,34 +444,60 @@
   },
   "risks": [
     {
-      "category": "Macroéconomique",
-      "description": "Sensibilité au cycle économique global et au commerce international : ralentissement industrie/transport impacte les volumes inspections.",
+      "category": "Service integrity / quality",
+      "description": "Risque sur l'intégrité des services rendus (faux résultats de test, certifications erronées). SGS applique une approche multi-couches : contrôle qualité, gouvernance technique, contrôles internes, formation et imputabilité claire au niveau Groupe et Pays.",
+      "severity": 5,
+      "score_rationale": "Position 1A 10-K équivalent ESG/risk section (top risk identifié), langage 'key risk due to the nature of our business', tendance stable, catégorie reputation/regulatory pondérée haut.",
+      "_source": "SGS 2025 Integrated Report p.52"
+    },
+    {
+      "category": "Demand decline / economic cycle",
+      "description": "Diminution de la demande pour les services TIC liée aux cycles économiques, crises industrielles ou structurelles. Mitigation : structure de management réalignée sur les clients locaux + global key account management.",
       "severity": 4,
-      "score_rationale": "Note 4/5. Position : section macro. Intensité : revenue cycle. Trend stable. Catégorie macro."
+      "score_rationale": "Cité explicitement dans rapport + intégré aux KPIs de rémunération variable Exec Committee. Catégorie macro pondérée moyenne.",
+      "_source": "SGS 2025 Integrated Report p.52, p.81"
     },
     {
-      "category": "Concurrence",
-      "description": "Concurrence intense des autres TIC (Bureau Veritas, Intertek, Eurofins) sur les marchés mondiaux.",
+      "category": "Insufficient market/customer focus",
+      "description": "Risque de réduction d'agilité due à un focus insuffisant marché/client. Mitigation : Global Business Services pour améliorer l'excellence opérationnelle et réduire les délais.",
       "severity": 3,
-      "score_rationale": "Note 3/5. Position : section concurrence. Intensité : pression pricing. Trend stable. Catégorie concurrence."
+      "score_rationale": "Risque opérationnel mentionné explicitement, lié à STI/LTI metrics.",
+      "_source": "SGS 2025 Integrated Report p.52, p.81"
     },
     {
-      "category": "Réputation",
-      "description": "Risque de réputation et de litiges en cas d'erreurs d'inspection/certification ayant des conséquences pour les clients.",
+      "category": "Cybersecurity / data protection",
+      "description": "Risques accrus en cybersécurité, protection des données et sécurité physique. Effectivement mitigés via mesures ciblées.",
       "severity": 4,
-      "score_rationale": "Note 4/5. Position : section risque opérationnel. Intensité : impact business. Trend stable. Catégorie réputation à fort poids TIC."
+      "score_rationale": "Identifié comme topic à haute importance dans double materiality matrix (Technology & digital innovation), tendance up vu transformation digitale.",
+      "_source": "SGS 2025 Integrated Report p.52-53"
     },
     {
-      "category": "Cybersécurité",
-      "description": "Cybermenaces sur les laboratoires connectés et les données clients (essais industriels sensibles).",
+      "category": "Technology disruption (AI, automation)",
+      "description": "Disruption technologique défie modèles traditionnels labo et audit, ouvrant simultanément nouvelles opportunités. AI usage limité actuellement.",
       "severity": 3,
-      "score_rationale": "Note 3/5. Position : section cyber. Intensité : impact opérationnel. Trend en hausse. Catégorie cyber."
+      "score_rationale": "Mentionné comme défi structurel, mais opportunité aussi. Catégorie business model pondérée moyenne.",
+      "_source": "SGS 2025 Integrated Report p.53"
     },
     {
-      "category": "Change",
-      "description": "Exposition au CHF (siège), USD, EUR et émergents : volatilité impactant la marge consolidée.",
+      "category": "Compliance & ethics / corruption",
+      "description": "Risque de violation d'intégrité de services et corruption. Mitigation : zero-tolerance, malus & claw-back policies, Code of Integrity.",
+      "severity": 4,
+      "score_rationale": "Zero-tolerance officielle, KPI rémunération variable lié, catégorie regulatory pondérée haut.",
+      "_source": "SGS 2025 Integrated Report p.81-82"
+    },
+    {
+      "category": "Talent management & retention",
+      "description": "Risque de gestion talents inadéquate, attrition compétences clés. Mitigation : développement local skills, regional workforce planning, KPIs attrition.",
       "severity": 3,
-      "score_rationale": "Note 3/5. Position : section change. Intensité : impact P&L. Trend stable. Catégorie change."
+      "score_rationale": "Topic top-tier dans double materiality matrix.",
+      "_source": "SGS 2025 Integrated Report p.53"
+    },
+    {
+      "category": "Climate-related & sustainability transition",
+      "description": "Impact physique des risques climatiques + transition vers sustainability services. Mitigation : KPI LTI Exec Committee inclut LTIR, % femmes leadership, GHG emissions.",
+      "severity": 3,
+      "score_rationale": "Topic key dans materiality matrix, opportunité business (sustainability services en croissance double-digit).",
+      "_source": "SGS 2025 Integrated Report p.52-53, p.81"
     }
   ],
   "ai_positioning": {
@@ -492,6 +551,6 @@
   "publication_date": null,
   "company_description": "SGS SA operates as a testing, inspection, and certification company in the Asia Pacific, Europe, North America, Eastern Europe, the Middle East and Africa, and America. It operates in two segments, Testing & Inspection and Certification. The company offers testing services, such as crop production testing, agricultural commodities testing, field studies, laboratory studies, seed quality control, and seed research and development; and inspection services, including draft survey and marine services, e-certificates, loading and discharge supervision, pre-shipment inspection, quality and quantity inspection, and tally. It also provides consulting, digital trust assurance, medical devices regulatory compliance, product certification, supply chain assurance, sustainability assurance, and verification and assurance, as well as assessment, auditing, and certification services; and professional training services. The company serves agriculture and forestry, building and infrastructure, consumer products and retail, cosmetics and personal care, cybersecurity and technology, environmental, health and safety, food, government and trade facilitation, industrial manufacturing and processing, MedTech, mining, oil, gas and chemicals, pharma, power and utilities, and transportation industries. SGS SA was founded in 1878 and is headquartered in Baar, Switzerland.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T17:23:11.401Z",
+  "_built_at": "2026-05-20T17:54:56.850Z",
   "_missing_blocks": []
 }
