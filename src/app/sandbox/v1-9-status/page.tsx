@@ -18,6 +18,10 @@ type ScopeStat = {
 };
 type ExtendedJson = {
   generated_at: string;
+  total_unique?: number;
+  publishable_unique?: number;
+  blocked_unique?: number;
+  classification_rule?: string;
   top307: ScopeStat;
   sp500: ScopeStat;
   indices_eu: ScopeStat;
@@ -141,8 +145,12 @@ function ScopeSection({
 }
 
 export default function V19StatusPage() {
-  const totalT = data.top307.total + data.sp500.total + data.indices_eu.total;
-  const totalPub = data.top307.publishable + data.sp500.publishable + data.indices_eu.publishable;
+  // Yann 21 mai 2026 : utiliser les compteurs UNIQUES (déduplication
+  // top307 > sp500 > indices_eu). Évite le double-counting NVDA dans
+  // top307+sp500, NESN.SW dans top307+indices_eu, etc.
+  // Source de vérité : v1-9-publishable.json (775) + v1-9-blocked.json (149).
+  const totalT = data.total_unique ?? (data.top307.total + data.sp500.total + data.indices_eu.total);
+  const totalPub = data.publishable_unique ?? (data.top307.publishable + data.sp500.publishable + data.indices_eu.publishable);
   const totalDiff = data.top307.difficile.length + data.sp500.difficile.length + data.indices_eu.difficile.length;
   const totalImp = data.top307.impossible.length + data.sp500.impossible.length + data.indices_eu.impossible.length;
 
@@ -167,6 +175,12 @@ export default function V19StatusPage() {
         </p>
         <p className="mt-2 max-w-3xl text-[11.5px] leading-relaxed text-zinc-500">
           Dernière mise à jour : {new Date(data.generated_at).toLocaleString("fr-FR")}.
+          {data.classification_rule && (
+            <>
+              {" · "}
+              <span className="italic">{data.classification_rule}</span>
+            </>
+          )}
         </p>
 
         {/* Synthèse globale */}
@@ -220,7 +234,7 @@ export default function V19StatusPage() {
         />
 
         <ScopeSection
-          title="S&P 500"
+          title="S&P 500 (hors top 307)"
           icon="🇺🇸"
           stat={data.sp500}
           details={DETAILS_TYPED.scopes.sp500}
@@ -229,7 +243,7 @@ export default function V19StatusPage() {
         />
 
         <ScopeSection
-          title="Indices européens"
+          title="Indices européens (hors top 307 + SP500)"
           icon="🇪🇺"
           stat={data.indices_eu}
           details={DETAILS_TYPED.scopes.indices_eu}
