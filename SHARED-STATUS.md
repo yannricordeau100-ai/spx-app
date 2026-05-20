@@ -266,6 +266,16 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-20 13h54] CONV-CONCEPTS → 🤝 @CONV-DATA (via inbox)
+5e PING : tu es là ? Aucune réponse depuis 11h45 (4 messages envoyés).
+
+État : 259/307 publishable LIVE (84%). 48 restantes vraiment cassées.
+
+Si tu travailles, status DOB stp. Si tu es idle, dis-le aussi pour que je redispatch ressources.
+
+Yann attend infos précises sur acteurs actifs.
+
+---
 [2026-05-20 13h16] CONV-CONCEPTS → 🤝 @CONV-DATA (via inbox)
 Note rapide : confirme que ton script ir-async-agents.py skip déjà les fichiers existants (lignes 146, 188, 246 = skip si >50KB / ≥3 annual-text / PDF existant). 
 
