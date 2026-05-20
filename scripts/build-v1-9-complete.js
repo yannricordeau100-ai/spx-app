@@ -106,10 +106,15 @@ for (const entry of V19_UNIVERSE) {
     tagline: v2.tagline,
     hero_kpi: enrich.main?.hero_kpi_override || v2.hero_kpi,
     hero_kpi_rationale: v2.hero_kpi_rationale,
-    kpis: [
-      ...(Array.isArray(v2.kpis) ? v2.kpis : []),
-      ...(Array.isArray(specific?.kpis) ? specific.kpis : []),
-    ],
+    kpis: (() => {
+      // Yann 20 mai : specific kpis come FIRST and dedupe by short
+      // (override pour stés où v2-pipeline a la même KPI avec history vide)
+      const v2Kpis = Array.isArray(v2.kpis) ? v2.kpis : [];
+      const specKpis = Array.isArray(specific?.kpis) ? specific.kpis : [];
+      const specShorts = new Set(specKpis.filter(k => k && k.short).map(k => k.short));
+      const v2Filtered = v2Kpis.filter(k => !k || !k.short || !specShorts.has(k.short));
+      return [...specKpis, ...v2Filtered];
+    })(),
     kpis_story: Array.isArray(specific?.kpis_story) ? specific.kpis_story : [],
     governance: enrich.governance?.governance || enrich.governance || enrich.main?.governance || v2.governance || null,
     revenue_by_segment: pickByMostSlices(enrich.main?.revenue_by_segment, v2.revenue_by_segment),
