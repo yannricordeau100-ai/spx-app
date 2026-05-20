@@ -8,10 +8,14 @@ import type { TranscriptBulletsSummary } from "@/components/transcript-bullets-b
 import { loadV17Company } from "@/lib/v1-7/load-company";
 import { getServerLocale } from "@/lib/i18n/server";
 import V19_UNIVERSE from "@/data/v1-9-universe.json";
-import V19_STRICTLY_COMPLETE from "@/data/v1-9-strictly-complete.json";
+import V19_PUBLISHABLE from "@/data/v1-9-publishable.json";
 
+// Yann 20 mai 2026 13h30 : critère "publishable" (hero spec + 3 KPI spec + desc)
+// remplace "strict 11/11" pour visibilité. UI masque automatiquement les blocs
+// vides (seg/geo/ai) côté composants. Objectif : afficher max stés possible,
+// seules les vraiment cassées (sources insuffisantes) restent en préparation.
 const STRICTLY_COMPLETE = new Set(
-  (V19_STRICTLY_COMPLETE as { tickers: string[] }).tickers.map((t) => t.toUpperCase()),
+  (V19_PUBLISHABLE as { tickers: string[] }).tickers.map((t) => t.toUpperCase()),
 );
 
 // Set des tickers V1.9 pour différencier "fiche en préparation" (sté
