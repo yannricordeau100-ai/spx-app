@@ -1,54 +1,133 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import IN_PROGRESS from "@/data/v1-9-in-progress.json";
-import STRICT from "@/data/v1-9-strictly-complete.json";
-import BLOCKED from "@/data/v1-9-blocked.json";
+import EXTENDED from "@/data/v1-9-status-extended.json";
 
 export const dynamic = "force-static";
 export const revalidate = 3600;
 export const metadata = {
-  title: "Suivi enrichissement top 307 · Mettrik AI",
+  title: "Suivi enrichissement V1.9 (Top 307 + SP500 + Indices EU) · Mettrik AI",
   robots: { index: false, follow: false },
 };
 
-type InProgressItem = {
-  ticker: string;
-  name: string | null;
-  missing: string[];
-  score: number;
+type ScopeStat = {
+  total: number;
+  publishable: number;
+  difficile: string[];
+  impossible: string[];
+};
+type ExtendedJson = {
+  generated_at: string;
+  top307: ScopeStat;
+  sp500: ScopeStat;
+  indices_eu: ScopeStat;
 };
 
-const STRICT_LIST = (STRICT as { list: { ticker: string; name: string | null }[] }).list;
-const IN_PROGRESS_LIST = (IN_PROGRESS as { tickers_in_progress: InProgressItem[] }).tickers_in_progress;
-// Yann 20 mai : schéma blocked.json hétérogène selon source (audit script
-// ou union manuelle). Support 3 formats : { tickers:[] }, { blocked:[{ticker, missing, ...}] },
-// { blocked:[{ticker, name, reason}] }. Conversion uniforme pour UI.
-type BlockedJsonItem = { ticker: string; name?: string | null; reason?: string; missing?: string[] };
-const BLOCKED_RAW = BLOCKED as unknown as { tickers?: string[]; blocked?: BlockedJsonItem[] };
-const BLOCKED_FULL: { ticker: string; name: string | null; reason: string }[] =
-  (BLOCKED_RAW.blocked ?? []).map((b) => ({
-    ticker: b.ticker,
-    name: b.name ?? null,
-    reason: b.reason ?? (b.missing?.length ? `manque: ${b.missing.join(", ")}` : "sources insuffisantes"),
-  })).concat(
-    (BLOCKED_RAW.tickers ?? []).map((ticker) => ({ ticker, name: null, reason: "sources insuffisantes" })),
+const data = EXTENDED as ExtendedJson;
+
+function ScopeSection({
+  title,
+  icon,
+  stat,
+  difficileTooltip,
+  impossibleTooltip,
+}: {
+  title: string;
+  icon: string;
+  stat: ScopeStat;
+  difficileTooltip: string;
+  impossibleTooltip: string;
+}) {
+  const pubPct = Math.round((100 * stat.publishable) / stat.total);
+  return (
+    <section className="mt-10">
+      <h2 className="font-display text-xl font-bold">
+        {icon} {title} — {stat.publishable}/{stat.total} publiées ({pubPct}%)
+      </h2>
+
+      <div className="mt-4 grid grid-cols-3 gap-3">
+        <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-4">
+          <div className="font-mono text-[10px] uppercase tracking-wider text-emerald-400">
+            ✅ Publiées V1.9
+          </div>
+          <div className="mt-1 font-display text-2xl font-bold text-emerald-300">
+            {stat.publishable}
+          </div>
+        </div>
+        <div
+          className="rounded-xl border border-amber-500/30 bg-amber-500/5 p-4"
+          title={difficileTooltip}
+        >
+          <div className="font-mono text-[10px] uppercase tracking-wider text-amber-400">
+            🟡 Difficiles (sources OK)
+          </div>
+          <div className="mt-1 font-display text-2xl font-bold text-amber-300">
+            {stat.difficile.length}
+          </div>
+          <div className="mt-1 text-[10.5px] text-zinc-500">
+            Docs disponibles, extraction KPI à reprendre
+          </div>
+        </div>
+        <div
+          className="rounded-xl border border-rose-500/30 bg-rose-500/5 p-4"
+          title={impossibleTooltip}
+        >
+          <div className="font-mono text-[10px] uppercase tracking-wider text-rose-400">
+            🔴 Impossibles (sans source)
+          </div>
+          <div className="mt-1 font-display text-2xl font-bold text-rose-300">
+            {stat.impossible.length}
+          </div>
+          <div className="mt-1 text-[10.5px] text-zinc-500">
+            Pas de 10-K/20-F local (delisted, racheté, ADR sans filing)
+          </div>
+        </div>
+      </div>
+
+      {stat.difficile.length > 0 && (
+        <div className="mt-4 rounded-xl border border-amber-500/20 bg-amber-500/[0.02] p-4">
+          <div className="mb-2 font-mono text-[10.5px] uppercase tracking-wider text-amber-400">
+            Difficiles ({stat.difficile.length}) — docs locaux, extraction KPI manquante
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            {stat.difficile.map((t) => (
+              <span
+                key={t}
+                className="rounded-md border border-amber-500/20 bg-amber-500/[0.04] px-2 py-0.5 font-mono text-[11px] text-amber-200"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {stat.impossible.length > 0 && (
+        <div className="mt-3 rounded-xl border border-rose-500/20 bg-rose-500/[0.02] p-4">
+          <div className="mb-2 font-mono text-[10.5px] uppercase tracking-wider text-rose-400">
+            Impossibles ({stat.impossible.length}) — scrape externe via organismes pays nécessaire
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            {stat.impossible.map((t) => (
+              <span
+                key={t}
+                className="rounded-md border border-rose-500/20 bg-rose-500/[0.04] px-2 py-0.5 font-mono text-[11px] text-rose-200"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+    </section>
   );
-
-const BLOCK_LABEL_FR: Record<string, string> = {
-  hero_spec: "Hero KPI à choisir spécifique",
-  hero_hist: "Historique hero <3 ans",
-  kpi5_spec: "<5 KPI spécifiques",
-  seg: "Segments CA manquants",
-  geo: "Géographie CA manquante",
-  risks: "Facteurs de risque <3",
-  ai: "Positionnement IA insuffisant",
-  gov: "Gouvernance (CEO) manquant",
-  ev: "Events timeline <3",
-  desc: "Description courte",
-  spec: "KPI à re-vérifier",
-};
+}
 
 export default function V19StatusPage() {
+  const totalT = data.top307.total + data.sp500.total + data.indices_eu.total;
+  const totalPub = data.top307.publishable + data.sp500.publishable + data.indices_eu.publishable;
+  const totalDiff = data.top307.difficile.length + data.sp500.difficile.length + data.indices_eu.difficile.length;
+  const totalImp = data.top307.impossible.length + data.sp500.impossible.length + data.indices_eu.impossible.length;
+
   return (
     <div className="min-h-screen bg-[#050505] text-zinc-100">
       <div className="mx-auto max-w-6xl px-6 py-8">
@@ -60,133 +139,88 @@ export default function V19StatusPage() {
         </Link>
 
         <h1 className="font-display text-[28px] font-bold tracking-tight">
-          Suivi enrichissement top 307 V1.9
+          Suivi enrichissement V1.9 — Top 307 + SP500 + Indices EU
         </h1>
         <p className="mt-2 max-w-3xl text-[13.5px] leading-relaxed text-zinc-400">
-          Statut en temps réel du pipeline Mettrik AI sur les 307 plus grosses
-          sociétés mondiales. Critères stricts 11/11 : hero KPI spécifique +
-          historique 5+ ans + 5+ KPI spécifiques + segments + géographie +
-          gouvernance + risques + IA + events + description.
+          Statut pipeline Mettrik AI sur les <strong>{totalT}</strong> stés
+          V1.9. Critères publishable :{" "}
+          <strong>hero KPI spécifique + 3+ ans d&apos;historique + 3+ KPI
+          spécifiques + description ≥ 100 chars</strong>.
+        </p>
+        <p className="mt-2 max-w-3xl text-[11.5px] leading-relaxed text-zinc-500">
+          Dernière mise à jour : {new Date(data.generated_at).toLocaleString("fr-FR")}.
         </p>
 
-        <div className="mt-8 grid grid-cols-3 gap-4">
+        {/* Synthèse globale */}
+        <div className="mt-6 grid grid-cols-4 gap-3">
+          <div className="rounded-xl border border-zinc-700 bg-zinc-900/40 p-4">
+            <div className="font-mono text-[10px] uppercase tracking-wider text-zinc-400">
+              Univers total
+            </div>
+            <div className="mt-1 font-display text-2xl font-bold text-zinc-100">
+              {totalT}
+            </div>
+          </div>
           <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-4">
-            <div className="font-mono text-xs uppercase tracking-wider text-emerald-400">
-              Complètes 11/11
+            <div className="font-mono text-[10px] uppercase tracking-wider text-emerald-400">
+              Publiées
             </div>
-            <div className="mt-1 font-display text-3xl font-bold text-emerald-300">
-              {STRICT_LIST.length}
+            <div className="mt-1 font-display text-2xl font-bold text-emerald-300">
+              {totalPub}
             </div>
-            <div className="mt-1 text-[12px] text-zinc-400">visibles V1.9</div>
+            <div className="mt-1 text-[10.5px] text-zinc-500">
+              {Math.round((100 * totalPub) / totalT)}% du total
+            </div>
           </div>
           <div className="rounded-xl border border-amber-500/30 bg-amber-500/5 p-4">
-            <div className="font-mono text-xs uppercase tracking-wider text-amber-400">
-              En cours
+            <div className="font-mono text-[10px] uppercase tracking-wider text-amber-400">
+              Difficiles
             </div>
-            <div className="mt-1 font-display text-3xl font-bold text-amber-300">
-              {IN_PROGRESS_LIST.length}
+            <div className="mt-1 font-display text-2xl font-bold text-amber-300">
+              {totalDiff}
             </div>
-            <div className="mt-1 text-[12px] text-zinc-400">enrichissement actif</div>
+            <div className="mt-1 text-[10.5px] text-zinc-500">Sources OK, extraction à faire</div>
           </div>
           <div className="rounded-xl border border-rose-500/30 bg-rose-500/5 p-4">
-            <div className="font-mono text-xs uppercase tracking-wider text-rose-400">
-              Bloquées
+            <div className="font-mono text-[10px] uppercase tracking-wider text-rose-400">
+              Impossibles
             </div>
-            <div className="mt-1 font-display text-3xl font-bold text-rose-300">
-              {BLOCKED_FULL.length}
+            <div className="mt-1 font-display text-2xl font-bold text-rose-300">
+              {totalImp}
             </div>
-            <div className="mt-1 text-[12px] text-zinc-400">sources cassées, re-scrape</div>
+            <div className="mt-1 text-[10.5px] text-zinc-500">Pas de docs locaux</div>
           </div>
         </div>
 
-        {/* Section EN COURS */}
-        <h2 className="mt-10 font-display text-xl font-bold">
-          🟠 Stés en cours d&apos;enrichissement ({IN_PROGRESS_LIST.length})
-        </h2>
-        <p className="mt-1 text-[12px] text-zinc-500">
-          Score actuel (sur 11 critères) et blocs manquants. Triées par score
-          décroissant : les plus proches de la complétion en premier.
-        </p>
-        <div className="mt-4 overflow-hidden rounded-xl border border-zinc-800">
-          <table className="w-full text-[13px]">
-            <thead className="bg-zinc-900/60 text-[11px] uppercase tracking-wider text-zinc-400">
-              <tr>
-                <th className="px-3 py-2 text-left">Ticker</th>
-                <th className="px-3 py-2 text-left">Nom</th>
-                <th className="px-3 py-2 text-left">Score</th>
-                <th className="px-3 py-2 text-left">Blocs manquants</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-zinc-800/80">
-              {IN_PROGRESS_LIST.map((item) => (
-                <tr key={item.ticker} className="hover:bg-zinc-900/30">
-                  <td className="px-3 py-2 font-mono text-[12px] text-zinc-200">
-                    {item.ticker}
-                  </td>
-                  <td className="px-3 py-2 text-zinc-300">{item.name}</td>
-                  <td className="px-3 py-2 font-mono">
-                    <span
-                      className={
-                        item.score >= 10
-                          ? "text-amber-300"
-                          : item.score >= 8
-                            ? "text-amber-400"
-                            : "text-zinc-500"
-                      }
-                    >
-                      {item.score}/11
-                    </span>
-                  </td>
-                  <td className="px-3 py-2 text-[12px] text-zinc-400">
-                    {item.missing
-                      .map((b) => BLOCK_LABEL_FR[b] || b)
-                      .join(" · ")}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <ScopeSection
+          title="Top 307 V1.8"
+          icon="🌍"
+          stat={data.top307}
+          difficileTooltip="307 plus grosses stés mondiales. Docs locaux disponibles, mais extraction KPI à reprendre (hero générique, KPIs purgés par reverify)."
+          impossibleTooltip="Stés du top 307 sans documents 10-K/20-F/annual-text. Probablement delisted, fusionnées ou ADR sans filing SEC."
+        />
 
-        {/* Section BLOQUÉES */}
-        <h2 className="mt-10 font-display text-xl font-bold">
-          🔴 Stés bloquées ({BLOCKED_FULL.length}) — sources insuffisantes ou cross-pollution
-        </h2>
-        <p className="mt-1 text-[12px] text-zinc-500">
-          Ces sociétés ont des sources réellement insuffisantes (rapports
-          annuels incomplets, cross-pollution mapping, OTC stale, IPO récente).
-          Nécessitent re-scrape via IR pages officielles ou organismes pays
-          (AMF.fr, BaFin, Companies House, SIX, CONSOB, AFM).
-        </p>
-        <div className="mt-4 overflow-hidden rounded-xl border border-rose-500/20">
-          <table className="w-full text-[12.5px]">
-            <thead className="bg-rose-500/[0.03] text-[10.5px] uppercase tracking-wider text-rose-300">
-              <tr>
-                <th className="px-3 py-2 text-left">Ticker</th>
-                <th className="px-3 py-2 text-left">Nom</th>
-                <th className="px-3 py-2 text-left">Raison blocage</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-rose-500/10">
-              {BLOCKED_FULL.map((b) => (
-                <tr key={b.ticker} className="hover:bg-rose-500/[0.02]">
-                  <td className="px-3 py-2 font-mono text-rose-300">
-                    {b.ticker}
-                  </td>
-                  <td className="px-3 py-2 text-zinc-300">{b.name || "—"}</td>
-                  <td className="px-3 py-2 text-[11.5px] leading-relaxed text-zinc-400">
-                    {b.reason}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <ScopeSection
+          title="S&P 500"
+          icon="🇺🇸"
+          stat={data.sp500}
+          difficileTooltip="Index S&P 500 US. Toutes ont 10-K dans sec-data, extraction LLM à compléter (sub-agents Claude en cours)."
+          impossibleTooltip="Stés SP500 sans 10-K local : très rare, généralement spin-off très récents ou multi-classes mal mappés."
+        />
+
+        <ScopeSection
+          title="Indices européens"
+          icon="🇪🇺"
+          stat={data.indices_eu}
+          difficileTooltip="CAC 40 + FTSE 100 + DAX 40 + SMI + BEL 20 + FTSE MIB + AEX + ATX (hors top 307 + SP500). Docs locaux partiels — scrape complément via organismes pays nécessaire (AMF.fr, BaFin, Companies House, SIX, CONSOB, AFM, FSMA, FMA)."
+          impossibleTooltip="Stés européennes sans aucun document local. Scrape externe via IR pages officielles ou organismes pays."
+        />
 
         <p className="mt-8 text-[11px] italic text-zinc-500">
-          Mise à jour automatique au rebuild pipeline. Toutes les stés
-          strictement complètes apparaissent automatiquement sur
-          <span className="font-mono"> /sandbox/v1-9/&lt;ticker&gt;</span>.
+          Mise à jour automatique au rebuild pipeline (script{" "}
+          <span className="font-mono">scripts/audit-v1-9-publishable.js</span>).
+          Les stés publishable apparaissent sur{" "}
+          <span className="font-mono">/sandbox/v1-9/&lt;ticker&gt;</span>.
         </p>
       </div>
     </div>
