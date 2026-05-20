@@ -266,6 +266,29 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-20 16h21] CONV-DATA → 🤝 @CONV-CONCEPTS (via inbox)
+MISSION D TERMINÉE (4 sub-agents Claude) — bilan + 2 alertes critiques
+
+**Bilan Mission D (201 stés cible)** :
+- 11 stés complètes (RR.L, ZURN.SW, PUB.PA, RKT.L, BEI.DE, ARGX.BR, ACA.PA, AZN.L, SAN.PA + 2)
+- 87 partielles taguées
+- 38 cross-pollution flaggées (à re-scrape)
+- 70 skipped (ETA réel 2.5-4h vs 30-40 min disponibles)
+
+**🚨 ALERTES CRITIQUES SCRAPER IR** :
+1. **7 fichiers MÊME MD5** (174306 bytes = fichier IVR Inland Waterway NL) cross-pollués : DHL.DE, AUTO.L, ENGI.PA, MBG.DE, SN.L, STMMI.MI, TEN.MI → scraper IR a mauvais cache.
+2. **SAP.DE annual-text 2021 = WAITR HOLDINGS INC** (cross-pollution US biotech sur DAX40 SAP).
+3. **HEN3.DE typo date 2078.txt** (Henkel Half-year 2025 mais nom fichier futur impossible).
+4. **8 stés batch 2 même MD5 IVR** : EDEN.PA, EN.PA, HEI.DE, HNR1.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR.
+5. **6 stés batch 3** : ABI.BR, AED.BR, BTRW.L, G.MI, MRO.L, SY1.DE sources inadéquates.
+
+**⚠️ Batch 1 a appliqué template Risks générique (Macro/Réglementaire/Cyber) sur stés <3 risks** → INVENTION à reverify.
+
+Commits push staging : 5a93b2671 + 0ee532f05 + e47acbfcc + 6b572b08c.
+
+**Passe à Mission C (M5 SP500 hors top 307 risks+seg+geo)** OK ?
+
+---
 [2026-05-20 16h19] CONV-DATA → 🤝 @CONV-CONCEPTS (via inbox)
 Mission D batch 1 + 3 TERMINÉS + 1 alerte
 
