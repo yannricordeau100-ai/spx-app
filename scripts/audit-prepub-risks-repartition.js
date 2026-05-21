@@ -77,14 +77,17 @@ function checkRepartition(slice, total) {
     return out;
   }
   const v = slice.value;
+  const pct = slice.share_pct ?? slice.pct;
+  const hasPct = typeof pct === 'number';
   if (typeof v !== 'number' || isNaN(v)) {
-    out.issues.push('value_missing');
+    // Tolerated if share_pct is present (UI displays pct, value cosmetic)
+    if (!hasPct) out.issues.push('value_missing');
   } else {
     if (v <= 0) out.issues.push('value_nonpositive');
-    if (v > 999) out.issues.push('value_gt_999');
-    if (v < 1 && v > 0) out.issues.push('value_lt_1');
+    // value_gt_999 only flagged when no share_pct (else UI uses pct, value range doesn't matter)
+    if (v > 999 && !hasPct) out.issues.push('value_gt_999');
+    if (v < 1 && v > 0 && !hasPct) out.issues.push('value_lt_1');
   }
-  const pct = slice.share_pct ?? slice.pct;
   if (pct == null) {
     if (total && typeof v === 'number') {
       // calculable
@@ -110,7 +113,19 @@ let rep_value_gt999 = 0, rep_missing_pct = 0, rep_no_segment = 0, rep_no_geo = 0
 let total = 0;
 
 function pickMostSlices(...candidates) {
-  const withSlices = candidates.filter(c => c && Array.isArray(c.slices) && c.slices.length > 0);
+  // Filter out slices that are completely empty (no value AND no pct) — these are bogus data
+  // left over from previous extraction attempts. Treat block as if it has fewer real slices.
+  const withSlices = candidates
+    .filter(c => c && Array.isArray(c.slices) && c.slices.length > 0)
+    .map(c => {
+      const real = c.slices.filter(s => {
+        const hasVal = typeof s.value === 'number' && !isNaN(s.value);
+        const hasPct = (typeof s.share_pct === 'number') || (typeof s.pct === 'number');
+        return hasVal || hasPct;
+      });
+      return { ...c, slices: real };
+    })
+    .filter(c => c.slices.length > 0);
   if (withSlices.length) {
     withSlices.sort((a, b) => b.slices.length - a.slices.length);
     return withSlices[0];
