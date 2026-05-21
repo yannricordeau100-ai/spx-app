@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-05-21T18:17:54.990Z",
+  "generated_at": "2026-05-21T18:21:12.407Z",
   "publishable_source": "src/data/v1-9-publishable.json",
   "publishable_count_input": 807,
   "stats": {
     "total": 807,
     "fatal_no_dataset": 0,
-    "clean_af": 613,
-    "clean_all": 582,
+    "clean_af": 637,
+    "clean_all": 604,
     "by_failed_count": {
-      "0": 613,
-      "1": 131,
+      "0": 637,
+      "1": 107,
       "2": 48,
       "3": 12,
       "4": 2,
       "5": 1
     },
     "by_failed_criterion": {
-      "a_hero_history": 61,
+      "a_hero_history": 38,
       "b_interpretation": 40,
       "c_kpi_count": 1,
       "d_stories": 18,
       "e_risks": 14,
-      "f_repartition": 142
+      "f_repartition": 141
     },
     "by_failed_extension": {
       "g_governance": 142,
@@ -33,10 +33,10 @@
       "m_freshness": 25
     },
     "a_hero_history_exceptions": {
-      "legitimate": 83,
+      "legitimate": 106,
       "short_marked": 17,
       "company_specific": 71,
-      "legitimate_pct_of_total": 10.29,
+      "legitimate_pct_of_total": 13.14,
       "company_specific_pct_of_total": 8.8,
       "under_21pct_cap": false,
       "under_10pct_cap_company_specific": true,
@@ -64,8 +64,8 @@
         "aviation_fleet": 1,
         "hospitality_rooms": 1
       },
-      "total": 171,
-      "total_exceptions_pct_of_total": 21.19
+      "total": 194,
+      "total_exceptions_pct_of_total": 24.04
     },
     "h_ai_positioning_exceptions": {
       "stance_absent_legit": 302,
@@ -96,15 +96,15 @@
   "top5_failed_criteria": [
     [
       "f_repartition",
-      142
-    ],
-    [
-      "a_hero_history",
-      61
+      141
     ],
     [
       "b_interpretation",
       40
+    ],
+    [
+      "a_hero_history",
+      38
     ],
     [
       "d_stories",
@@ -116,28 +116,6 @@
     ]
   ],
   "top20_to_fix": [
-    {
-      "ticker": "C",
-      "market_cap_usd": 212890107904,
-      "failed_count": 1,
-      "failed_criteria": [
-        "a_hero_history"
-      ],
-      "reasons": [
-        "a_hero_history: history insuffisant (5 < 18)"
-      ]
-    },
-    {
-      "ticker": "BUD",
-      "market_cap_usd": 168893731307.52002,
-      "failed_count": 1,
-      "failed_criteria": [
-        "a_hero_history"
-      ],
-      "reasons": [
-        "a_hero_history: history insuffisant (4 < 5)"
-      ]
-    },
     {
       "ticker": "TD",
       "market_cap_usd": 132485636751.36,
@@ -238,17 +216,6 @@
       ]
     },
     {
-      "ticker": "KHC",
-      "market_cap_usd": 27640477696,
-      "failed_count": 1,
-      "failed_criteria": [
-        "a_hero_history"
-      ],
-      "reasons": [
-        "a_hero_history: history insuffisant (11 < 18)"
-      ]
-    },
-    {
       "ticker": "III.L",
       "market_cap_usd": 27517347430.4,
       "failed_count": 1,
@@ -334,6 +301,39 @@
       ],
       "reasons": [
         "f_repartition: segment vide; geography vide"
+      ]
+    },
+    {
+      "ticker": "ABF.L",
+      "market_cap_usd": 16145272012.800001,
+      "failed_count": 1,
+      "failed_criteria": [
+        "b_interpretation"
+      ],
+      "reasons": [
+        "b_interpretation: sous-blocs interp = 3/4 (driver=true, vigilance=false)"
+      ]
+    },
+    {
+      "ticker": "NLY",
+      "market_cap_usd": 16113750016,
+      "failed_count": 1,
+      "failed_criteria": [
+        "e_risks"
+      ],
+      "reasons": [
+        "e_risks: risk[3] sans score/severity"
+      ]
+    },
+    {
+      "ticker": "UPM.HE",
+      "market_cap_usd": 14431382323.2,
+      "failed_count": 1,
+      "failed_criteria": [
+        "b_interpretation"
+      ],
+      "reasons": [
+        "b_interpretation: sous-blocs interp = 3/4 (driver=true, vigilance=false)"
       ]
     }
   ],
@@ -12369,12 +12369,13 @@
       "market_cap_usd": 168893731307.52002,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 4,
           "period": "year",
           "required": 5,
-          "tolerated": 3,
-          "reason": "history insuffisant (4 < 5)"
+          "legitimate_reason": "hero_kpi_introduced_post_2020",
+          "reason": "KPI trop récent légitime (4 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -12445,13 +12446,11 @@
           "source": "publication_date"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [],
-      "failed_count": 1,
-      "is_clean_af": false,
-      "is_clean_all": false
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": true
     },
     {
       "ticker": "BURL",
@@ -12806,11 +12805,7 @@
           "count": 5
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "segment : Σ share_pct=94.0 ≠ 100"
-          ],
-          "reason": "segment : Σ share_pct=94.0 ≠ 100"
+          "ok": true
         }
       },
       "extensions": {
@@ -12845,13 +12840,11 @@
           "source": "next_earnings_date-90d"
         }
       },
-      "failed_criteria": [
-        "f_repartition"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [],
-      "failed_count": 1,
-      "is_clean_af": false,
-      "is_clean_all": false
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": true
     },
     {
       "ticker": "BZU.MI",
@@ -12951,12 +12944,13 @@
       "market_cap_usd": 212890107904,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 5,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (5 < 18)"
+          "legitimate_reason": "hero_kpi_introduced_post_2020",
+          "reason": "KPI trop récent légitime (5 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -13015,13 +13009,11 @@
           "source": "publication_date"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [],
-      "failed_count": 1,
-      "is_clean_af": false,
-      "is_clean_all": false
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": true
     },
     {
       "ticker": "CA.PA",
@@ -13593,12 +13585,13 @@
       "market_cap_usd": 8857818112,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 8,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (8 < 18)"
+          "legitimate_reason": "hero_kpi_introduced_post_2020",
+          "reason": "KPI trop récent légitime (8 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -13657,13 +13650,11 @@
           "source": "publication_date"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [],
-      "failed_count": 1,
-      "is_clean_af": false,
-      "is_clean_all": false
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": true
     },
     {
       "ticker": "CBK.DE",
@@ -14653,12 +14644,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 11,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (11 < 18)"
+          "legitimate_reason": "hero_kpi_introduced_post_2020",
+          "reason": "KPI trop récent légitime (11 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -14717,13 +14709,11 @@
           "source": "next_earnings_date-90d"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [],
-      "failed_count": 1,
-      "is_clean_af": false,
-      "is_clean_all": false
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": true
     },
     {
       "ticker": "CGNX",
@@ -16499,12 +16489,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 14,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (14 < 18)"
+          "legitimate_reason": "hero_kpi_introduced_post_2020",
+          "reason": "KPI trop récent légitime (14 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -16575,13 +16566,11 @@
           "source": "next_earnings_date-90d"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [],
-      "failed_count": 1,
-      "is_clean_af": false,
-      "is_clean_all": false
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": true
     },
     {
       "ticker": "COFB.BR",
@@ -20715,12 +20704,13 @@
       "market_cap_usd": 12386724864,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 13,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (13 < 18)"
+          "legitimate_reason": "hero_kpi_introduced_post_2020",
+          "reason": "KPI trop récent légitime (13 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -20780,14 +20770,12 @@
           "source": "publication_date"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [
         "l_hero_name_fr"
       ],
-      "failed_count": 1,
-      "is_clean_af": false,
+      "failed_count": 0,
+      "is_clean_af": true,
       "is_clean_all": false
     },
     {
@@ -22667,12 +22655,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 17,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (17 < 18)"
+          "legitimate_reason": "hero_kpi_introduced_post_2020",
+          "reason": "KPI trop récent légitime (17 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -22731,13 +22720,11 @@
           "source": "next_earnings_date-90d"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [],
-      "failed_count": 1,
-      "is_clean_af": false,
-      "is_clean_all": false
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": true
     },
     {
       "ticker": "ED",
@@ -26723,12 +26710,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 6,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (6 < 18)"
+          "legitimate_reason": "hero_kpi_introduced_post_2020",
+          "reason": "KPI trop récent légitime (6 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -26787,13 +26775,11 @@
           "source": "next_earnings_date-90d"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [],
-      "failed_count": 1,
-      "is_clean_af": false,
-      "is_clean_all": false
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": true
     },
     {
       "ticker": "FIX",
@@ -28979,12 +28965,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 15,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (15 < 18)"
+          "legitimate_reason": "hero_kpi_introduced_post_2020",
+          "reason": "KPI trop récent légitime (15 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -29045,13 +29032,11 @@
           "source": "next_earnings_date-90d"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [],
-      "failed_count": 1,
-      "is_clean_af": false,
-      "is_clean_all": false
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": true
     },
     {
       "ticker": "GNRC",
@@ -29543,12 +29528,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 4,
           "period": "year",
           "required": 5,
-          "tolerated": 3,
-          "reason": "history insuffisant (4 < 5)"
+          "legitimate_reason": "hero_kpi_introduced_post_2020",
+          "reason": "KPI trop récent légitime (4 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -29609,13 +29595,11 @@
           "source": "next_earnings_date-90d"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [],
-      "failed_count": 1,
-      "is_clean_af": false,
-      "is_clean_all": false
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": true
     },
     {
       "ticker": "GS",
@@ -31685,12 +31669,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 16,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (16 < 18)"
+          "legitimate_reason": "hero_kpi_introduced_post_2020",
+          "reason": "KPI trop récent légitime (16 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -31751,13 +31736,11 @@
           "source": "next_earnings_date-90d"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [],
-      "failed_count": 1,
-      "is_clean_af": false,
-      "is_clean_all": false
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": true
     },
     {
       "ticker": "HSBA.L",
@@ -32906,12 +32889,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 16,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (16 < 18)"
+          "legitimate_reason": "hero_kpi_introduced_post_2020",
+          "reason": "KPI trop récent légitime (16 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -32970,13 +32954,11 @@
           "source": "next_earnings_date-90d"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [],
-      "failed_count": 1,
-      "is_clean_af": false,
-      "is_clean_all": false
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": true
     },
     {
       "ticker": "IHG.L",
@@ -35827,12 +35809,13 @@
       "market_cap_usd": 8750464266.24,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 5,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (5 < 18)"
+          "legitimate_reason": "hero_kpi_introduced_post_2020",
+          "reason": "KPI trop récent légitime (5 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -35898,14 +35881,12 @@
           "source": "latest_filing.date"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 1,
-      "is_clean_af": false,
+      "failed_count": 0,
+      "is_clean_af": true,
       "is_clean_all": false
     },
     {
@@ -35914,12 +35895,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 7,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (7 < 18)"
+          "legitimate_reason": "hero_kpi_introduced_post_2020",
+          "reason": "KPI trop récent légitime (7 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -35980,13 +35962,11 @@
           "source": "hero.last_data_date"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [],
-      "failed_count": 1,
-      "is_clean_af": false,
-      "is_clean_all": false
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": true
     },
     {
       "ticker": "KEYS",
@@ -36182,12 +36162,13 @@
       "market_cap_usd": 27640477696,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 11,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (11 < 18)"
+          "legitimate_reason": "hero_kpi_introduced_post_2020",
+          "reason": "KPI trop récent légitime (11 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -36255,13 +36236,11 @@
           "source": "publication_date"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [],
-      "failed_count": 1,
-      "is_clean_af": false,
-      "is_clean_all": false
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": true
     },
     {
       "ticker": "KIM",
@@ -37877,12 +37856,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 3,
           "period": "annual",
           "required": 5,
-          "tolerated": 3,
-          "reason": "history insuffisant (3 < 5)"
+          "legitimate_reason": "hero_kpi_introduced_post_2020",
+          "reason": "KPI trop récent légitime (3 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -37941,13 +37921,11 @@
           "source": "publication_date"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [],
-      "failed_count": 1,
-      "is_clean_af": false,
-      "is_clean_all": false
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": true
     },
     {
       "ticker": "LLY",
@@ -45972,12 +45950,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 17,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (17 < 18)"
+          "legitimate_reason": "hero_kpi_introduced_post_2020",
+          "reason": "KPI trop récent légitime (17 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -46047,13 +46026,11 @@
           "source": "hero.last_data_date"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [],
-      "failed_count": 1,
-      "is_clean_af": false,
-      "is_clean_all": false
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": true
     },
     {
       "ticker": "OMC",
@@ -54534,12 +54511,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 15,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (15 < 18)"
+          "legitimate_reason": "hero_kpi_introduced_post_2020",
+          "reason": "KPI trop récent légitime (15 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -54600,13 +54578,11 @@
           "source": "hero.last_data_date"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [],
-      "failed_count": 1,
-      "is_clean_af": false,
-      "is_clean_all": false
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": true
     },
     {
       "ticker": "SLB",
@@ -57045,12 +57021,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 8,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (8 < 18)"
+          "legitimate_reason": "hero_kpi_introduced_post_2020",
+          "reason": "KPI trop récent légitime (8 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -57109,13 +57086,11 @@
           "source": "next_earnings_date-90d"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [],
-      "failed_count": 1,
-      "is_clean_af": false,
-      "is_clean_all": false
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": true
     },
     {
       "ticker": "SWK",
@@ -57599,12 +57574,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 17,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (17 < 18)"
+          "legitimate_reason": "hero_kpi_introduced_post_2020",
+          "reason": "KPI trop récent légitime (17 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -57673,13 +57649,11 @@
           "source": "hero.last_data_date"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [],
-      "failed_count": 1,
-      "is_clean_af": false,
-      "is_clean_all": false
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": true
     },
     {
       "ticker": "TD",
@@ -58445,12 +58419,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 17,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (17 < 18)"
+          "legitimate_reason": "hero_kpi_introduced_post_2020",
+          "reason": "KPI trop récent légitime (17 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -58509,13 +58484,11 @@
           "source": "next_earnings_date-90d"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [],
-      "failed_count": 1,
-      "is_clean_af": false,
-      "is_clean_all": false
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": true
     },
     {
       "ticker": "TGT",
@@ -58597,12 +58570,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 17,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (17 < 18)"
+          "legitimate_reason": "hero_kpi_introduced_post_2020",
+          "reason": "KPI trop récent légitime (17 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -58663,13 +58637,11 @@
           "source": "next_earnings_date-90d"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [],
-      "failed_count": 1,
-      "is_clean_af": false,
-      "is_clean_all": false
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": true
     },
     {
       "ticker": "TKA.VI",
@@ -61579,12 +61551,13 @@
       "market_cap_usd": 12925897728,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 7,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (7 < 18)"
+          "legitimate_reason": "hero_kpi_introduced_post_2020",
+          "reason": "KPI trop récent légitime (7 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -61653,13 +61626,11 @@
           "source": "publication_date"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [],
-      "failed_count": 1,
-      "is_clean_af": false,
-      "is_clean_all": false
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": true
     },
     {
       "ticker": "UNP",
