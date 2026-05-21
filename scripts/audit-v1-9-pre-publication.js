@@ -105,6 +105,15 @@ function loadCompany(ticker) {
         if (d.revenue_by_segment && !merged.revenue_by_segment) {
           merged.revenue_by_segment = d.revenue_by_segment;
         }
+        // market_positions = source pour la catégorie "Marché" du bloc Stories
+        if (Array.isArray(d.market_positions) && (!Array.isArray(merged.market_positions) || merged.market_positions.length === 0)) {
+          merged.market_positions = d.market_positions;
+        }
+        // kpis[] : si la source courante a plus de KPIs (utile quand v2-pipeline
+        // contient l'enrichment is_short_history que v1-9-complete n'a pas)
+        if (Array.isArray(d.kpis) && (!Array.isArray(merged.kpis) || merged.kpis.length === 0)) {
+          merged.kpis = d.kpis;
+        }
       }
     }
   }
@@ -118,6 +127,15 @@ function loadCompany(ticker) {
           if (d.profit_warning && !merged.profit_warning) merged.profit_warning = d.profit_warning;
           if (d.events && (!merged.events || merged.events.length === 0)) merged.events = d.events;
           if (d.governance && !merged.governance) merged.governance = d.governance;
+          if (Array.isArray(d.market_positions) && (!Array.isArray(merged.market_positions) || merged.market_positions.length === 0)) {
+            merged.market_positions = d.market_positions;
+          }
+          if (Array.isArray(d.stories_kpis) && (!Array.isArray(merged.stories_kpis) || merged.stories_kpis.length === 0)) {
+            merged.stories_kpis = d.stories_kpis;
+          }
+          if (Array.isArray(d.kpis_story) && (!Array.isArray(merged.kpis_story) || merged.kpis_story.length === 0)) {
+            merged.kpis_story = d.kpis_story;
+          }
         } else {
           merged = { ...d };
         }
@@ -272,21 +290,47 @@ function checkKpiCount(company, marketCapUsd) {
 }
 
 function checkStoriesCount(company, marketCapUsd) {
-  // Source : kpis_story (v1-9-complete) ou stories_kpis (v2-pipeline)
-  const stories = Array.isArray(company.kpis_story)
+  // Le bloc Stories UI (cf src/lib/kpi-stories-ordering.ts) construit ses slides
+  // depuis 3 sources :
+  //   1. kpis[] filtrés sur is_short_history:true
+  //   2. market_positions[] (catégorie "Marché")
+  //   3. legacy kpis_story[] / stories_kpis[] (anciens datasets)
+  // Le critère "Stories" doit donc additionner ces 3 sources, pas regarder
+  // uniquement le champ legacy (ancien bug qui faisait sortir 100 % KO).
+  const legacy = Array.isArray(company.kpis_story)
     ? company.kpis_story
     : Array.isArray(company.stories_kpis)
       ? company.stories_kpis
       : [];
-  const count = stories.length;
+  const shortHistoryKpis = Array.isArray(company.kpis)
+    ? company.kpis.filter((k) => k && k.is_short_history === true)
+    : [];
+  const marketPositions = Array.isArray(company.market_positions)
+    ? company.market_positions
+    : [];
+  // Dédup par "short" pour ne pas compter 2× un KPI présent dans legacy ET dans kpis[]
+  const seen = new Set();
+  let count = 0;
+  for (const item of [...legacy, ...shortHistoryKpis]) {
+    const key = lower(item?.short || item?.name_fr || item?.name_en || JSON.stringify(item));
+    if (seen.has(key)) continue;
+    seen.add(key);
+    count += 1;
+  }
+  count += marketPositions.length;
+  const breakdown = {
+    legacy_stories_kpis: legacy.length,
+    short_history_kpis: shortHistoryKpis.length,
+    market_positions: marketPositions.length,
+  };
   const isLarge = marketCapUsd && marketCapUsd >= 10e9;
   const minRequired = isLarge ? 8 : 5;
   const maxCap = 20;
   if (count > maxCap) {
-    return { ok: false, count, required: minRequired, max: maxCap, reason: `Stories ${count} > ${maxCap}` };
+    return { ok: false, count, required: minRequired, max: maxCap, breakdown, reason: `Stories ${count} > ${maxCap}` };
   }
-  if (count >= minRequired) return { ok: true, count, required: minRequired };
-  return { ok: false, count, required: minRequired, reason: `Stories ${count} < ${minRequired}` };
+  if (count >= minRequired) return { ok: true, count, required: minRequired, breakdown };
+  return { ok: false, count, required: minRequired, breakdown, reason: `Stories ${count} < ${minRequired}` };
 }
 
 function checkRisks(company) {
