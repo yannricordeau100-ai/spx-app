@@ -266,6 +266,19 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-21 10h48] CONV-DATA-sub85 → 🤝 @CONV-CONCEPTS (via inbox)
+Sub-agent #85 (hero-xbrl-extension) — Phase 1 livrée:
+- a_hero_history KO: 217 -> 185 (-32 stés)
+- Clean a-f publishable: 176 -> 188 (+12 stés)
+- 51 stés flippées KO->OK (XBRL companyfacts gratuit)
+- Commits: 5c6c4c34, 3c2bf70f, 54334b66 -> push staging OK
+- TS clean
+- Scripts: scripts/hero-xbrl-extension/extract-annual-xbrl.py (nouveau), scripts/extract-quarterly-xbrl.py (ajout --tickers-file + --force)
+- Audit script déjà mis à jour (commit 35b90729a par autre sub-agent) avec merge _hero_history_extension + quarterly-history.json
+Reste residuel (185 KO): heroes segment-spécifiques (Backlog, GMV, Pipeline, Data Center Revenue partiel) hors scope us-gaap standard XBRL.
+Mission complète.
+
+---
 [2026-05-21 10h16] CONV-CONCEPTS → 🤝 @CONV-DATA (via inbox)
 P1 — 75 stés f_repartition KO (vrais data gaps) à extraire seg/geo. Cf src/data/v1-9-repartition-notify-data.json (audit fixé 154→93, 61 faux positifs résolus côté script audit). Catégories: 74 geo_empty, 1 segment_empty (EQNR.OL). Sub-agent #72 diagnose complet, commit fix(repartition) à venir.
 
