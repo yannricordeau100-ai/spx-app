@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export type UniverseEntry = {
   ticker: string;
@@ -65,6 +65,16 @@ export default function V195OverviewClient({
   const [scope, setScope] = useState<Scope>("all");
   const [sector, setSector] = useState<string>("all");
   const [sortBy, setSortBy] = useState<SortBy>("mc");
+  const [searchInput, setSearchInput] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState<string>("");
+
+  // Debounce 150ms
+  useEffect(() => {
+    const t = setTimeout(() => {
+      setSearchQuery(searchInput.trim());
+    }, 150);
+    return () => clearTimeout(t);
+  }, [searchInput]);
 
   const sectors = useMemo(() => {
     const set = new Set<string>();
@@ -79,6 +89,15 @@ export default function V195OverviewClient({
     if (sector !== "all") {
       result = result.filter((s) => s.sector === sector);
     }
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      result = result.filter(
+        (s) =>
+          s.ticker.toLowerCase().includes(q) ||
+          (s.name && s.name.toLowerCase().includes(q)) ||
+          (s.sector && s.sector.toLowerCase().includes(q)),
+      );
+    }
     const sorted = [...result];
     if (sortBy === "mc") {
       sorted.sort((a, b) => (b.market_cap_usd ?? 0) - (a.market_cap_usd ?? 0));
@@ -88,7 +107,9 @@ export default function V195OverviewClient({
       sorted.sort((a, b) => a.name.localeCompare(b.name));
     }
     return sorted;
-  }, [stocks, scope, sector, sortBy]);
+  }, [stocks, scope, sector, sortBy, searchQuery]);
+
+  const searchHasNoMatch = searchQuery.length > 0 && filtered.length === 0;
 
   return (
     <main className="min-h-screen bg-zinc-950 p-6 text-zinc-100">
@@ -107,6 +128,49 @@ export default function V195OverviewClient({
           {new Date(generatedAt).toLocaleString("fr-FR")}
         </p>
       </header>
+
+      <div className="mb-4">
+        <label className="flex flex-col gap-1 text-xs uppercase tracking-wider text-zinc-500">
+          Recherche
+          <div className="relative">
+            <input
+              type="text"
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+              placeholder="Ticker, nom ou secteur..."
+              autoComplete="off"
+              spellCheck={false}
+              className="w-full rounded-md border border-zinc-700 bg-zinc-900 p-2 pr-10 text-sm text-zinc-100 placeholder:text-zinc-600 focus:border-emerald-500/60 focus:outline-none"
+            />
+            {searchInput && (
+              <button
+                type="button"
+                onClick={() => {
+                  setSearchInput("");
+                  setSearchQuery("");
+                }}
+                aria-label="Effacer la recherche"
+                className="absolute right-2 top-1/2 -translate-y-1/2 rounded p-1 text-zinc-500 transition hover:bg-zinc-800 hover:text-emerald-300"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
+            )}
+          </div>
+        </label>
+      </div>
 
       <div className="mb-6 flex flex-wrap gap-3">
         <label className="flex flex-col gap-1 text-xs uppercase tracking-wider text-zinc-500">
@@ -154,8 +218,14 @@ export default function V195OverviewClient({
       </div>
 
       {filtered.length === 0 ? (
-        <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-8 text-center text-zinc-400">
-          Aucune sté ne correspond aux filtres.
+        <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-8 text-center">
+          {searchHasNoMatch ? (
+            <span className="text-amber-600">
+              Aucune sté validée qualité ne correspond à &laquo;&nbsp;{searchQuery}&nbsp;&raquo;. Cette sté n&apos;est peut-être pas encore dans V1.9.5 (en cours d&apos;audit). Vérifie l&apos;orthographe ou retire le filtre.
+            </span>
+          ) : (
+            <span className="text-zinc-400">Aucune sté ne correspond aux filtres.</span>
+          )}
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
