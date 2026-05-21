@@ -1,0 +1,3308 @@
+{
+  "generated_at": "2026-05-21T10:30:00Z",
+  "source_audit": "src/data/v1-9-pre-publication-audit.json",
+  "scope": "265 stés à 1 critère failed (énorme réservoir quick wins)",
+  "baseline_clean_af": 100,
+  "single_failure_count": 265,
+  "distribution_by_blocking_criterion": {
+    "d_stories": 147,
+    "a_hero_history": 64,
+    "f_repartition": 52,
+    "b_interpretation": 2
+  },
+  "estimated_recovery_by_criterion": {
+    "d_stories": {
+      "total": 147,
+      "estimated_success_rate": 0.75,
+      "estimated_recoverable": 110
+    },
+    "f_repartition": {
+      "total": 52,
+      "estimated_success_rate": 0.7,
+      "estimated_recoverable": 36
+    },
+    "a_hero_history": {
+      "total": 64,
+      "estimated_success_rate": 0.5,
+      "estimated_recoverable": 32
+    },
+    "b_interpretation": {
+      "total": 2,
+      "estimated_success_rate": 0.85,
+      "estimated_recoverable": 1
+    }
+  },
+  "total_estimated_recoverable": 179,
+  "projected_publishable_after_roadmap": 279,
+  "max_possible_publishable_if_all_fixed": 365,
+  "sequence_recommended": [
+    {
+      "step": 1,
+      "scope": "b_interpretation (18 stés, 85% recovery)",
+      "action": "Patch kpi types tag (driver/vigilance/cash/watch) sur v2-pipeline/<t>.json",
+      "eta_h": "0.5-1",
+      "rationale": "Quick win pur tagging, ~15 stés instantanées"
+    },
+    {
+      "step": 2,
+      "scope": "e_risks (10 stés, 95% recovery)",
+      "action": "Verif merge load-company.ts + cleanup",
+      "eta_h": "0.5",
+      "rationale": "Audit fix already done par CONV-DATA, just merge"
+    },
+    {
+      "step": 3,
+      "scope": "f_repartition (154 stés, 70% recovery)",
+      "action": "Cerebras Qwen-3 235B re-extract segments+geography depuis cat3-european/annual-text",
+      "eta_h": "3-4",
+      "rationale": "Sources déjà locales, prompt éprouvé (scripts/extract-seggeo-eu-haiku.py)"
+    },
+    {
+      "step": 4,
+      "scope": "d_stories (groupe principal selon distrib)",
+      "action": "Cerebras stories extraction (cible 5-8 stories par sté)",
+      "eta_h": "4-6",
+      "rationale": "CRON #46 prévu, ou sub-agents Claude (forfait Max gratuit)"
+    },
+    {
+      "step": 5,
+      "scope": "a_hero_history",
+      "action": "Mark is_short_history_legitimate OU CONV-DATA extension 10-Q/older annual",
+      "eta_h": "2-3",
+      "rationale": "50% peuvent être tagués légitimes (post-IPO récente, AI), 50% via SEC EDGAR companyfacts API"
+    }
+  ],
+  "top_100_by_mc_with_actions": [
+    {
+      "ticker": "GOOGL",
+      "market_cap_usd": 4859141029888,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 7,
+        "breakdown": {
+          "legacy_stories_kpis": 2,
+          "short_history_kpis": 5,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "GOOG",
+      "market_cap_usd": 4811891146752,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 7,
+        "breakdown": {
+          "legacy_stories_kpis": 2,
+          "short_history_kpis": 5,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "AVGO",
+      "market_cap_usd": 2082259861504,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 5,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 4,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "LLY",
+      "market_cap_usd": 897716060160,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 7,
+        "breakdown": {
+          "legacy_stories_kpis": 2,
+          "short_history_kpis": 5,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "JPM",
+      "market_cap_usd": 803612262400,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 4,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 3,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "ASML",
+      "market_cap_usd": 659553984184.3201,
+      "blocking_criterion": "f_repartition",
+      "reason": "",
+      "action": {
+        "action": "cerebras_segments_geo_reextract",
+        "eta_min": 12,
+        "tool": "scripts/extract-seggeo-eu-haiku.py ou Cerebras"
+      }
+    },
+    {
+      "ticker": "ORCL",
+      "market_cap_usd": 562583371776,
+      "blocking_criterion": "a_hero_history",
+      "reason": "",
+      "action": {
+        "action": "mark_short_legit_OR_extend",
+        "history_len": 3,
+        "period": "quarter",
+        "eta_min": 5,
+        "tool": "mark is_short_history_legitimate=true OR CONV-DATA extension via 10-Q/older annual"
+      }
+    },
+    {
+      "ticker": "JNJ",
+      "market_cap_usd": 555585634304,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 5,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 4,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "PG",
+      "market_cap_usd": 332314378240,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 5,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 4,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "ARM",
+      "market_cap_usd": 311198314659.84,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 2,
+        "breakdown": {
+          "legacy_stories_kpis": 0,
+          "short_history_kpis": 2,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "GE",
+      "market_cap_usd": 304609624064,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 5,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 4,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "HD",
+      "market_cap_usd": 303141027840,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 5,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 4,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "TXN",
+      "market_cap_usd": 280463310848,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 4,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 3,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "ABBNY",
+      "market_cap_usd": 217772051660.80002,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 3,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 2,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "ABLZF",
+      "market_cap_usd": 217609378201.6,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 3,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 2,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "QCOM",
+      "market_cap_usd": 210884329472,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 6,
+        "breakdown": {
+          "legacy_stories_kpis": 2,
+          "short_history_kpis": 4,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "SAP",
+      "market_cap_usd": 209041670799.36002,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 5,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 4,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "PANW",
+      "market_cap_usd": 193188315136,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 7,
+        "breakdown": {
+          "legacy_stories_kpis": 2,
+          "short_history_kpis": 5,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "TTE.PA",
+      "market_cap_usd": 188065588838.40002,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 3,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 2,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "AMGN",
+      "market_cap_usd": 181564211200,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 4,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 3,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "BA",
+      "market_cap_usd": 180686782464,
+      "blocking_criterion": "a_hero_history",
+      "reason": "",
+      "action": {
+        "action": "mark_short_legit_OR_extend",
+        "history_len": 10,
+        "period": "quarter",
+        "eta_min": 5,
+        "tool": "mark is_short_history_legitimate=true OR CONV-DATA extension via 10-Q/older annual"
+      }
+    },
+    {
+      "ticker": "BTAFF",
+      "market_cap_usd": 178832917135.36002,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 5,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 4,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "T",
+      "market_cap_usd": 171276550144,
+      "blocking_criterion": "a_hero_history",
+      "reason": "",
+      "action": {
+        "action": "mark_short_legit_OR_extend",
+        "history_len": 10,
+        "period": "quarter",
+        "eta_min": 5,
+        "tool": "mark is_short_history_legitimate=true OR CONV-DATA extension via 10-Q/older annual"
+      }
+    },
+    {
+      "ticker": "BUD",
+      "market_cap_usd": 168893731307.52002,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 1,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 0,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "TMO",
+      "market_cap_usd": 166564462592,
+      "blocking_criterion": "a_hero_history",
+      "reason": "",
+      "action": {
+        "action": "mark_short_legit_OR_extend",
+        "history_len": 9,
+        "period": "quarter",
+        "eta_min": 5,
+        "tool": "mark is_short_history_legitimate=true OR CONV-DATA extension via 10-Q/older annual"
+      }
+    },
+    {
+      "ticker": "APP",
+      "market_cap_usd": 162984411136,
+      "blocking_criterion": "a_hero_history",
+      "reason": "",
+      "action": {
+        "action": "mark_short_legit_OR_extend",
+        "history_len": 5,
+        "period": "quarter",
+        "eta_min": 5,
+        "tool": "mark is_short_history_legitimate=true OR CONV-DATA extension via 10-Q/older annual"
+      }
+    },
+    {
+      "ticker": "UL",
+      "market_cap_usd": 134915294822.40001,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 4,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 3,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "CVS",
+      "market_cap_usd": 123956338688,
+      "blocking_criterion": "f_repartition",
+      "reason": "",
+      "action": {
+        "action": "cerebras_segments_geo_reextract",
+        "eta_min": 12,
+        "tool": "scripts/extract-seggeo-eu-haiku.py ou Cerebras"
+      }
+    },
+    {
+      "ticker": "MO",
+      "market_cap_usd": 120916828160,
+      "blocking_criterion": "f_repartition",
+      "reason": "",
+      "action": {
+        "action": "cerebras_segments_geo_reextract",
+        "eta_min": 12,
+        "tool": "scripts/extract-seggeo-eu-haiku.py ou Cerebras"
+      }
+    },
+    {
+      "ticker": "SYK",
+      "market_cap_usd": 117120548864,
+      "blocking_criterion": "a_hero_history",
+      "reason": "",
+      "action": {
+        "action": "mark_short_legit_OR_extend",
+        "history_len": 8,
+        "period": "quarter",
+        "eta_min": 5,
+        "tool": "mark is_short_history_legitimate=true OR CONV-DATA extension via 10-Q/older annual"
+      }
+    },
+    {
+      "ticker": "BBVA.MC",
+      "market_cap_usd": 114229423964.16,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 2,
+        "breakdown": {
+          "legacy_stories_kpis": 0,
+          "short_history_kpis": 2,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "HWM",
+      "market_cap_usd": 108977274880,
+      "blocking_criterion": "a_hero_history",
+      "reason": "",
+      "action": {
+        "action": "mark_short_legit_OR_extend",
+        "history_len": 8,
+        "period": "quarter",
+        "eta_min": 5,
+        "tool": "mark is_short_history_legitimate=true OR CONV-DATA extension via 10-Q/older annual"
+      }
+    },
+    {
+      "ticker": "MDT",
+      "market_cap_usd": 106726278758.40001,
+      "blocking_criterion": "a_hero_history",
+      "reason": "",
+      "action": {
+        "action": "mark_short_legit_OR_extend",
+        "history_len": 4,
+        "period": "year",
+        "eta_min": 5,
+        "tool": "mark is_short_history_legitimate=true OR CONV-DATA extension via 10-Q/older annual"
+      }
+    },
+    {
+      "ticker": "BCLYF",
+      "market_cap_usd": 100348849029.12,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 5,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 4,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "NOW",
+      "market_cap_usd": 93333372928,
+      "blocking_criterion": "a_hero_history",
+      "reason": "",
+      "action": {
+        "action": "mark_short_legit_OR_extend",
+        "history_len": 4,
+        "period": "quarter",
+        "eta_min": 5,
+        "tool": "mark is_short_history_legitimate=true OR CONV-DATA extension via 10-Q/older annual"
+      }
+    },
+    {
+      "ticker": "FDX",
+      "market_cap_usd": 90665795584,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 4,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 3,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "GLEN.L",
+      "market_cap_usd": 89359468462.08,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 6,
+        "breakdown": {
+          "legacy_stories_kpis": 0,
+          "short_history_kpis": 6,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "UPS",
+      "market_cap_usd": 83657613312,
+      "blocking_criterion": "a_hero_history",
+      "reason": "",
+      "action": {
+        "action": "mark_short_legit_OR_extend",
+        "history_len": 9,
+        "period": "quarter",
+        "eta_min": 5,
+        "tool": "mark is_short_history_legitimate=true OR CONV-DATA extension via 10-Q/older annual"
+      }
+    },
+    {
+      "ticker": "NG.L",
+      "market_cap_usd": 82188073697.28,
+      "blocking_criterion": "f_repartition",
+      "reason": "",
+      "action": {
+        "action": "cerebras_segments_geo_reextract",
+        "eta_min": 12,
+        "tool": "scripts/extract-seggeo-eu-haiku.py ou Cerebras"
+      }
+    },
+    {
+      "ticker": "ABNB",
+      "market_cap_usd": 79333801984,
+      "blocking_criterion": "f_repartition",
+      "reason": "",
+      "action": {
+        "action": "cerebras_segments_geo_reextract",
+        "eta_min": 12,
+        "tool": "scripts/extract-seggeo-eu-haiku.py ou Cerebras"
+      }
+    },
+    {
+      "ticker": "EMR",
+      "market_cap_usd": 77226590208,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 3,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 2,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "HOOD",
+      "market_cap_usd": 72670756864,
+      "blocking_criterion": "f_repartition",
+      "reason": "",
+      "action": {
+        "action": "cerebras_segments_geo_reextract",
+        "eta_min": 12,
+        "tool": "scripts/extract-seggeo-eu-haiku.py ou Cerebras"
+      }
+    },
+    {
+      "ticker": "NOKIA.HE",
+      "market_cap_usd": 71867313192.96,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 5,
+        "breakdown": {
+          "legacy_stories_kpis": 0,
+          "short_history_kpis": 5,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "WBD",
+      "market_cap_usd": 67993550848,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 3,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 2,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "MUV2.DE",
+      "market_cap_usd": 64704698449.920006,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 7,
+        "breakdown": {
+          "legacy_stories_kpis": 0,
+          "short_history_kpis": 7,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "BKR",
+      "market_cap_usd": 64097558528,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 5,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 4,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "NKE",
+      "market_cap_usd": 62226874368,
+      "blocking_criterion": "a_hero_history",
+      "reason": "",
+      "action": {
+        "action": "mark_short_legit_OR_extend",
+        "history_len": 10,
+        "period": "quarter",
+        "eta_min": 5,
+        "tool": "mark is_short_history_legitimate=true OR CONV-DATA extension via 10-Q/older annual"
+      }
+    },
+    {
+      "ticker": "GWW",
+      "market_cap_usd": 60630614016,
+      "blocking_criterion": "a_hero_history",
+      "reason": "",
+      "action": {
+        "action": "mark_short_legit_OR_extend",
+        "history_len": 8,
+        "period": "quarter",
+        "eta_min": 5,
+        "tool": "mark is_short_history_legitimate=true OR CONV-DATA extension via 10-Q/older annual"
+      }
+    },
+    {
+      "ticker": "AFL",
+      "market_cap_usd": 59240751104,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 4,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 3,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "NWG.L",
+      "market_cap_usd": 58088090501.12,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 7,
+        "breakdown": {
+          "legacy_stories_kpis": 0,
+          "short_history_kpis": 7,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "AZO",
+      "market_cap_usd": 55991287808,
+      "blocking_criterion": "a_hero_history",
+      "reason": "",
+      "action": {
+        "action": "mark_short_legit_OR_extend",
+        "history_len": 2,
+        "period": "year",
+        "eta_min": 5,
+        "tool": "mark is_short_history_legitimate=true OR CONV-DATA extension via 10-Q/older annual"
+      }
+    },
+    {
+      "ticker": "TGT",
+      "market_cap_usd": 55900012544,
+      "blocking_criterion": "f_repartition",
+      "reason": "",
+      "action": {
+        "action": "cerebras_segments_geo_reextract",
+        "eta_min": 12,
+        "tool": "scripts/extract-seggeo-eu-haiku.py ou Cerebras"
+      }
+    },
+    {
+      "ticker": "ADSK",
+      "market_cap_usd": 49378426880,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 7,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 6,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "EW",
+      "market_cap_usd": 46835568640,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 2,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 1,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "CCEP",
+      "market_cap_usd": 43434835476.48,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 5,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 4,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "BN.PA",
+      "market_cap_usd": 42769191075.840004,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 4,
+        "breakdown": {
+          "legacy_stories_kpis": 0,
+          "short_history_kpis": 4,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "DGE.L",
+      "market_cap_usd": 42692839997.44,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 2,
+        "breakdown": {
+          "legacy_stories_kpis": 0,
+          "short_history_kpis": 2,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "BDX",
+      "market_cap_usd": 39807324160,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 5,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 4,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "PYPL",
+      "market_cap_usd": 39730032640,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 5,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 4,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "JBL",
+      "market_cap_usd": 37383798784,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 3,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 2,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "KER.PA",
+      "market_cap_usd": 32359265648.640003,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 7,
+        "breakdown": {
+          "legacy_stories_kpis": 0,
+          "short_history_kpis": 7,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "MTB",
+      "market_cap_usd": 30129606656,
+      "blocking_criterion": "f_repartition",
+      "reason": "",
+      "action": {
+        "action": "cerebras_segments_geo_reextract",
+        "eta_min": 12,
+        "tool": "scripts/extract-seggeo-eu-haiku.py ou Cerebras"
+      }
+    },
+    {
+      "ticker": "WTW",
+      "market_cap_usd": 29938042798.08,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 5,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 4,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "RMD",
+      "market_cap_usd": 29368117248,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 5,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 4,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "DOV",
+      "market_cap_usd": 28866019328,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 2,
+        "breakdown": {
+          "legacy_stories_kpis": 0,
+          "short_history_kpis": 2,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "CW",
+      "market_cap_usd": 27736903680,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 5,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 4,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "VIE.PA",
+      "market_cap_usd": 27408924426.24,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 2,
+        "breakdown": {
+          "legacy_stories_kpis": 0,
+          "short_history_kpis": 2,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "VWS.CO",
+      "market_cap_usd": 27233282211.839996,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 3,
+        "breakdown": {
+          "legacy_stories_kpis": 0,
+          "short_history_kpis": 3,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "EIX",
+      "market_cap_usd": 27216478208,
+      "blocking_criterion": "f_repartition",
+      "reason": "",
+      "action": {
+        "action": "cerebras_segments_geo_reextract",
+        "eta_min": 12,
+        "tool": "scripts/extract-seggeo-eu-haiku.py ou Cerebras"
+      }
+    },
+    {
+      "ticker": "HEN.DE",
+      "market_cap_usd": 26422370795.52,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 2,
+        "breakdown": {
+          "legacy_stories_kpis": 0,
+          "short_history_kpis": 2,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "AVB",
+      "market_cap_usd": 25532626944,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 5,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 4,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "HUBB",
+      "market_cap_usd": 25471322112,
+      "blocking_criterion": "a_hero_history",
+      "reason": "",
+      "action": {
+        "action": "mark_short_legit_OR_extend",
+        "history_len": 8,
+        "period": "quarter",
+        "eta_min": 5,
+        "tool": "mark is_short_history_legitimate=true OR CONV-DATA extension via 10-Q/older annual"
+      }
+    },
+    {
+      "ticker": "FICO",
+      "market_cap_usd": 24974983168,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 4,
+        "breakdown": {
+          "legacy_stories_kpis": 0,
+          "short_history_kpis": 4,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "CTRA",
+      "market_cap_usd": 24724652032,
+      "blocking_criterion": "f_repartition",
+      "reason": "",
+      "action": {
+        "action": "cerebras_segments_geo_reextract",
+        "eta_min": 12,
+        "tool": "scripts/extract-seggeo-eu-haiku.py ou Cerebras"
+      }
+    },
+    {
+      "ticker": "HEXA-B.ST",
+      "market_cap_usd": 24042146037.76,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 4,
+        "breakdown": {
+          "legacy_stories_kpis": 0,
+          "short_history_kpis": 4,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "FRE.DE",
+      "market_cap_usd": 23766134538.24,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 4,
+        "breakdown": {
+          "legacy_stories_kpis": 0,
+          "short_history_kpis": 4,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "EDPFY",
+      "market_cap_usd": 23094823403.52,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 4,
+        "breakdown": {
+          "legacy_stories_kpis": 0,
+          "short_history_kpis": 4,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "WWD",
+      "market_cap_usd": 21772173312,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 6,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 5,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "PHM",
+      "market_cap_usd": 21690681344,
+      "blocking_criterion": "f_repartition",
+      "reason": "",
+      "action": {
+        "action": "cerebras_segments_geo_reextract",
+        "eta_min": 12,
+        "tool": "scripts/extract-seggeo-eu-haiku.py ou Cerebras"
+      }
+    },
+    {
+      "ticker": "ILMN",
+      "market_cap_usd": 21672212480,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 2,
+        "breakdown": {
+          "legacy_stories_kpis": 0,
+          "short_history_kpis": 2,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "NN.AS",
+      "market_cap_usd": 21538486517.760002,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 2,
+        "breakdown": {
+          "legacy_stories_kpis": 0,
+          "short_history_kpis": 2,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "ENTG",
+      "market_cap_usd": 21209296896,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 5,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 4,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "WST",
+      "market_cap_usd": 21207701504,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 6,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 5,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "CLNX.MC",
+      "market_cap_usd": 20787042631.68,
+      "blocking_criterion": "f_repartition",
+      "reason": "",
+      "action": {
+        "action": "cerebras_segments_geo_reextract",
+        "eta_min": 12,
+        "tool": "scripts/extract-seggeo-eu-haiku.py ou Cerebras"
+      }
+    },
+    {
+      "ticker": "DKS",
+      "market_cap_usd": 19809355776,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 5,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 4,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "EDP.LS",
+      "market_cap_usd": 19644395028.48,
+      "blocking_criterion": "f_repartition",
+      "reason": "",
+      "action": {
+        "action": "cerebras_segments_geo_reextract",
+        "eta_min": 12,
+        "tool": "scripts/extract-seggeo-eu-haiku.py ou Cerebras"
+      }
+    },
+    {
+      "ticker": "FORTUM.HE",
+      "market_cap_usd": 19613482352.64,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 1,
+        "breakdown": {
+          "legacy_stories_kpis": 0,
+          "short_history_kpis": 1,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "CCH.L",
+      "market_cap_usd": 19462990069.760002,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 4,
+        "breakdown": {
+          "legacy_stories_kpis": 0,
+          "short_history_kpis": 4,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "EFX",
+      "market_cap_usd": 19026489344,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 5,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 4,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "ESS",
+      "market_cap_usd": 18508750848,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 5,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 4,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "GIS",
+      "market_cap_usd": 17680859136,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 6,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 5,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "BIP",
+      "market_cap_usd": 17645891584,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 5,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 4,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "NWS",
+      "market_cap_usd": 16445171712,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 5,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 4,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "PTC",
+      "market_cap_usd": 16153485312,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 3,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 2,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "ABF.L",
+      "market_cap_usd": 16145272012.800001,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 2,
+        "breakdown": {
+          "legacy_stories_kpis": 0,
+          "short_history_kpis": 2,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "LDOS",
+      "market_cap_usd": 15792365568,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 5,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 4,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "JAZZ",
+      "market_cap_usd": 15656467415.04,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 2,
+        "breakdown": {
+          "legacy_stories_kpis": 0,
+          "short_history_kpis": 2,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "NVR",
+      "market_cap_usd": 15333624832,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 6,
+        "breakdown": {
+          "legacy_stories_kpis": 0,
+          "short_history_kpis": 8,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "GRAB",
+      "market_cap_usd": 14601298944,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 3,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 2,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    },
+    {
+      "ticker": "GEN",
+      "market_cap_usd": 14039285760,
+      "blocking_criterion": "d_stories",
+      "reason": "",
+      "action": {
+        "action": "cerebras_stories_extract",
+        "target": "5-8 stories",
+        "current_count": 3,
+        "breakdown": {
+          "legacy_stories_kpis": 1,
+          "short_history_kpis": 2,
+          "market_positions": 0
+        },
+        "eta_min": 8,
+        "tool": "scripts/extract-stories-cerebras.py (à créer ou réutiliser)"
+      }
+    }
+  ],
+  "all_265_quick_wins": [
+    {
+      "ticker": "GOOGL",
+      "market_cap_usd": 4859141029888,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "GOOG",
+      "market_cap_usd": 4811891146752,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "AVGO",
+      "market_cap_usd": 2082259861504,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "LLY",
+      "market_cap_usd": 897716060160,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "JPM",
+      "market_cap_usd": 803612262400,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "ASML",
+      "market_cap_usd": 659553984184.3201,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "ORCL",
+      "market_cap_usd": 562583371776,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "JNJ",
+      "market_cap_usd": 555585634304,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "PG",
+      "market_cap_usd": 332314378240,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "ARM",
+      "market_cap_usd": 311198314659.84,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "GE",
+      "market_cap_usd": 304609624064,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "HD",
+      "market_cap_usd": 303141027840,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "TXN",
+      "market_cap_usd": 280463310848,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "ABBNY",
+      "market_cap_usd": 217772051660.80002,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "ABLZF",
+      "market_cap_usd": 217609378201.6,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "QCOM",
+      "market_cap_usd": 210884329472,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "SAP",
+      "market_cap_usd": 209041670799.36002,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "PANW",
+      "market_cap_usd": 193188315136,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "TTE.PA",
+      "market_cap_usd": 188065588838.40002,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "AMGN",
+      "market_cap_usd": 181564211200,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "BA",
+      "market_cap_usd": 180686782464,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "BTAFF",
+      "market_cap_usd": 178832917135.36002,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "T",
+      "market_cap_usd": 171276550144,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "BUD",
+      "market_cap_usd": 168893731307.52002,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "TMO",
+      "market_cap_usd": 166564462592,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "APP",
+      "market_cap_usd": 162984411136,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "UL",
+      "market_cap_usd": 134915294822.40001,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "CVS",
+      "market_cap_usd": 123956338688,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "MO",
+      "market_cap_usd": 120916828160,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "SYK",
+      "market_cap_usd": 117120548864,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "BBVA.MC",
+      "market_cap_usd": 114229423964.16,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "HWM",
+      "market_cap_usd": 108977274880,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "MDT",
+      "market_cap_usd": 106726278758.40001,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "BCLYF",
+      "market_cap_usd": 100348849029.12,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "NOW",
+      "market_cap_usd": 93333372928,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "FDX",
+      "market_cap_usd": 90665795584,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "GLEN.L",
+      "market_cap_usd": 89359468462.08,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "UPS",
+      "market_cap_usd": 83657613312,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "NG.L",
+      "market_cap_usd": 82188073697.28,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "ABNB",
+      "market_cap_usd": 79333801984,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "EMR",
+      "market_cap_usd": 77226590208,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "HOOD",
+      "market_cap_usd": 72670756864,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "NOKIA.HE",
+      "market_cap_usd": 71867313192.96,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "WBD",
+      "market_cap_usd": 67993550848,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "MUV2.DE",
+      "market_cap_usd": 64704698449.920006,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "BKR",
+      "market_cap_usd": 64097558528,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "NKE",
+      "market_cap_usd": 62226874368,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "GWW",
+      "market_cap_usd": 60630614016,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "AFL",
+      "market_cap_usd": 59240751104,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "NWG.L",
+      "market_cap_usd": 58088090501.12,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "AZO",
+      "market_cap_usd": 55991287808,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "TGT",
+      "market_cap_usd": 55900012544,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "ADSK",
+      "market_cap_usd": 49378426880,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "EW",
+      "market_cap_usd": 46835568640,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "CCEP",
+      "market_cap_usd": 43434835476.48,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "BN.PA",
+      "market_cap_usd": 42769191075.840004,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "DGE.L",
+      "market_cap_usd": 42692839997.44,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "BDX",
+      "market_cap_usd": 39807324160,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "PYPL",
+      "market_cap_usd": 39730032640,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "JBL",
+      "market_cap_usd": 37383798784,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "KER.PA",
+      "market_cap_usd": 32359265648.640003,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "MTB",
+      "market_cap_usd": 30129606656,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "WTW",
+      "market_cap_usd": 29938042798.08,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "RMD",
+      "market_cap_usd": 29368117248,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "DOV",
+      "market_cap_usd": 28866019328,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "CW",
+      "market_cap_usd": 27736903680,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "VIE.PA",
+      "market_cap_usd": 27408924426.24,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "VWS.CO",
+      "market_cap_usd": 27233282211.839996,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "EIX",
+      "market_cap_usd": 27216478208,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "HEN.DE",
+      "market_cap_usd": 26422370795.52,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "AVB",
+      "market_cap_usd": 25532626944,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "HUBB",
+      "market_cap_usd": 25471322112,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "FICO",
+      "market_cap_usd": 24974983168,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "CTRA",
+      "market_cap_usd": 24724652032,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "HEXA-B.ST",
+      "market_cap_usd": 24042146037.76,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "FRE.DE",
+      "market_cap_usd": 23766134538.24,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "EDPFY",
+      "market_cap_usd": 23094823403.52,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "WWD",
+      "market_cap_usd": 21772173312,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "PHM",
+      "market_cap_usd": 21690681344,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "ILMN",
+      "market_cap_usd": 21672212480,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "NN.AS",
+      "market_cap_usd": 21538486517.760002,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "ENTG",
+      "market_cap_usd": 21209296896,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "WST",
+      "market_cap_usd": 21207701504,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "CLNX.MC",
+      "market_cap_usd": 20787042631.68,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "DKS",
+      "market_cap_usd": 19809355776,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "EDP.LS",
+      "market_cap_usd": 19644395028.48,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "FORTUM.HE",
+      "market_cap_usd": 19613482352.64,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "CCH.L",
+      "market_cap_usd": 19462990069.760002,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "EFX",
+      "market_cap_usd": 19026489344,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "ESS",
+      "market_cap_usd": 18508750848,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "GIS",
+      "market_cap_usd": 17680859136,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "BIP",
+      "market_cap_usd": 17645891584,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "NWS",
+      "market_cap_usd": 16445171712,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "PTC",
+      "market_cap_usd": 16153485312,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "ABF.L",
+      "market_cap_usd": 16145272012.800001,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "LDOS",
+      "market_cap_usd": 15792365568,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "JAZZ",
+      "market_cap_usd": 15656467415.04,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "NVR",
+      "market_cap_usd": 15333624832,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "GRAB",
+      "market_cap_usd": 14601298944,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "GEN",
+      "market_cap_usd": 14039285760,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "MAP.MC",
+      "market_cap_usd": 13937383342.080002,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "ONTO",
+      "market_cap_usd": 13792896000,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "DECK",
+      "market_cap_usd": 13480988672,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "GLPI",
+      "market_cap_usd": 13274607616,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "CHKP",
+      "market_cap_usd": 12509343744,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "VIAV",
+      "market_cap_usd": 12422847488,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "DINO",
+      "market_cap_usd": 12386724864,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "ZBRA",
+      "market_cap_usd": 12294178816,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "RXL.PA",
+      "market_cap_usd": 12067438510.08,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "GL",
+      "market_cap_usd": 11993786368,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "BBY",
+      "market_cap_usd": 11942203392,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "ALGN",
+      "market_cap_usd": 11496857600,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "ERF.PA",
+      "market_cap_usd": 11207760445.44,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "ITRK.L",
+      "market_cap_usd": 11149964738.56,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "WMS",
+      "market_cap_usd": 10912392192,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "JEF",
+      "market_cap_usd": 10824690688,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "ELAN",
+      "market_cap_usd": 10808088576,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "SNAP",
+      "market_cap_usd": 8882382848,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "ATEYY",
+      "market_cap_usd": 866708461.9776,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "ADTTF",
+      "market_cap_usd": 837977800.704,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "A",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "ADM",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "AGS.BR",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "AI.PA",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "ALB",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "AMD",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "AMT",
+      "market_cap_usd": null,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "AON",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "APH",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "APO",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "ATO",
+      "market_cap_usd": null,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "AXON",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "BAX",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "BMY",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "BRO",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "BX",
+      "market_cap_usd": null,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "CAH",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "CAP.PA",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "CARR",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "CB",
+      "market_cap_usd": null,
+      "blocking_criterion": "b_interpretation",
+      "reason": ""
+    },
+    {
+      "ticker": "CDW",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "CEG",
+      "market_cap_usd": null,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "CHD",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "CI",
+      "market_cap_usd": null,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "CL",
+      "market_cap_usd": null,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "COIN",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "COP",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "COR",
+      "market_cap_usd": null,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "CPAY",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "CPB",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "CRWD",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "CSCO",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "CSX",
+      "market_cap_usd": null,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "CTEC.L",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "D",
+      "market_cap_usd": null,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "DASH",
+      "market_cap_usd": null,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "DCC.L",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "DE",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "DELL",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "DGX",
+      "market_cap_usd": null,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "DHR",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "DIS",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "DOC",
+      "market_cap_usd": null,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "DOW",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "DRI",
+      "market_cap_usd": null,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "DUK",
+      "market_cap_usd": null,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "ECL",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "EPAM",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "EQIX",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "ES",
+      "market_cap_usd": null,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "EXC",
+      "market_cap_usd": null,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "EXPE",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "EXR",
+      "market_cap_usd": null,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "FCX",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "FE",
+      "market_cap_usd": null,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "FIS",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "FISV",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "FTV",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "GD",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "GDDY",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "GILD",
+      "market_cap_usd": null,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "GLW",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "GNRC",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "HCA",
+      "market_cap_usd": null,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "HIK.L",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "HLT",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "HON",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "HRL",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "HSIC",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "HSY",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "IDXX",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "IFF",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "INTC",
+      "market_cap_usd": null,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "INVH",
+      "market_cap_usd": null,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "IP.MI",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "IT",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "J",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "KIM",
+      "market_cap_usd": null,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "KMB",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "KVUE",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "LEN",
+      "market_cap_usd": null,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "LH",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "LIN",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "LMT",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "LRCX",
+      "market_cap_usd": null,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "LULU",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "LVS",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "LYV",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "MAS",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "MCD",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "MCO",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "MDLZ",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "MET",
+      "market_cap_usd": null,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "MOS",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "NDSN",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "NOC",
+      "market_cap_usd": null,
+      "blocking_criterion": "b_interpretation",
+      "reason": ""
+    },
+    {
+      "ticker": "NOVO-B.CO",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "NRG",
+      "market_cap_usd": null,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "NTAP",
+      "market_cap_usd": null,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "NWSA",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "OMC",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "OXY",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "PCAR",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "PEG",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "PGHN.SW",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "PH",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "PNW",
+      "market_cap_usd": null,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "PPG",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "PRU",
+      "market_cap_usd": null,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "REC.MI",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "RR.L",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "RTX",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "RVTY",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "SAN.PA",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "SGO.PA",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "SJM",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "SLB",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "SNA",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "SO",
+      "market_cap_usd": null,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "SOF.BR",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "SPG",
+      "market_cap_usd": null,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "SPGI",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "SRE",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "STX",
+      "market_cap_usd": null,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "STZ",
+      "market_cap_usd": null,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "SU.PA",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "SWK",
+      "market_cap_usd": null,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "SYY",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "TDG",
+      "market_cap_usd": null,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "TDY",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "TER",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "TKO",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "UNP",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "VLTO",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "VRT",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "WAT",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "WELL",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "WM",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "WMT",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "WYNN",
+      "market_cap_usd": null,
+      "blocking_criterion": "a_hero_history",
+      "reason": ""
+    },
+    {
+      "ticker": "XOM",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "XYL",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "XYZ",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    },
+    {
+      "ticker": "ZTS",
+      "market_cap_usd": null,
+      "blocking_criterion": "f_repartition",
+      "reason": ""
+    },
+    {
+      "ticker": "ZURN.SW",
+      "market_cap_usd": null,
+      "blocking_criterion": "d_stories",
+      "reason": ""
+    }
+  ]
+}
