@@ -206,6 +206,26 @@ que je lui ai faite.
 
 ---
 
+## 5sexies. AUTO-REBASCULE SUB-AGENT (Yann 21 mai 2026)
+
+Dès qu'un sub-agent (Task tool) finit sa tâche, je dois IMMÉDIATEMENT
+le redéployer (= en lancer un nouveau via Task tool) sur la prochaine
+tâche prioritaire en file. **JAMAIS d'idle**. Le sub-agent ne reste
+JAMAIS sans travail tant qu'il y a des tâches dans le backlog.
+
+**Procédure obligatoire** :
+1. Quand notification `task-notification status=completed` arrive
+2. Vérifier la todo list / backlog par priorité (P0 > P1 > P2)
+3. Lancer un NOUVEAU sub-agent Task tool sur la P0 la plus haute pas
+   encore prise (ou continuer la même tâche en plus de profondeur)
+4. Ne JAMAIS attendre prompt user pour rebasculer
+
+Idem pour CONV-DATA : son orchestrateur (CONV-CONCEPTS leader T2) doit
+auto-dispatch la mission suivante dès qu'une mission précédente est
+ackée terminée. Pas de silence.
+
+---
+
 ## 6. RAM Mac : utiliser le MAXIMUM d'agents possibles (Yann 21 mai 2026)
 
 Yann a explicitement remplacé la règle conservative par une règle
