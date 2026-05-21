@@ -33,6 +33,16 @@ try:
 except ImportError:
     SSL_CTX = ssl.create_default_context()
 
+# Domain filter (sub-agent #124) — reject out-of-domain stories
+try:
+    sys.path.insert(0, str(Path(__file__).parent))
+    from domain_filter import filter_stories as _domain_filter_stories
+    HAS_DOMAIN_FILTER = True
+except Exception:
+    HAS_DOMAIN_FILTER = False
+    def _domain_filter_stories(stories, sector):
+        return stories, []
+
 ROOT = Path("/Users/yann/spx-app")
 PIPELINE = ROOT / "src/data/v2-pipeline"
 ENRICH = ROOT / "src/data/v2-pipeline-enrich"
@@ -274,6 +284,10 @@ def process_ticker(target_info, primary_idx, state):
     existing_keys = {(s.get("short") or "").strip().lower() for s in existing}
     new_stories = [s for s in new_stories if s.get("short", "").strip().lower() not in existing_keys]
 
+    # Domain filter — reject out-of-domain stories based on sector
+    sector = ctx["pipeline"].get("sector", "")
+    new_stories, rejected_domain = _domain_filter_stories(new_stories, sector)
+
     enrich_path = ENRICH / f"{ticker.lower()}.json"
     if enrich_path.exists():
         enrich_data = json.load(open(enrich_path))
@@ -290,14 +304,26 @@ def process_ticker(target_info, primary_idx, state):
     tmp.write_text(json.dumps(enrich_data, ensure_ascii=False, indent=2))
     tmp.replace(enrich_path)
 
+    # Validation post-filter
+    target_after = before + len(new_stories)
+    requires_revalidation = target_after < target
+    if requires_revalidation:
+        enrich_data["_d_stories_requires_revalidation"] = True
+        # Re-write enrich with this flag
+        tmp = enrich_path.with_suffix(".json.tmp")
+        tmp.write_text(json.dumps(enrich_data, ensure_ascii=False, indent=2))
+        tmp.replace(enrich_path)
+
     return {
         "ticker": ticker,
         "before": before,
         "added": len(new_stories),
-        "after": before + len(new_stories),
+        "after": target_after,
         "target": target,
         "source": source,
         "new_shorts": [s.get("short") for s in new_stories],
+        "rejected_domain": len(rejected_domain),
+        "requires_revalidation": requires_revalidation,
     }
 
 
@@ -316,7 +342,13 @@ def main():
     parser.add_argument("--throttle", type=float, default=0.5)
     parser.add_argument("--limit", type=int, default=0)
     parser.add_argument("--paid-mode", action="store_true")
+    parser.add_argument("--results-name", default="results.json", help="Output filename in RESULTS_DIR")
+    parser.add_argument("--tickers-file", default=None, help="Optional path to JSON list of targets (overrides TARGETS_FILE)")
     args = parser.parse_args()
+
+    global TARGETS_FILE
+    if args.tickers_file:
+        TARGETS_FILE = Path(args.tickers_file)
 
     if args.key_idx >= len(ACTIVE_KEYS):
         print(f"ERROR: key-idx {args.key_idx} but only {len(ACTIVE_KEYS)} active keys", file=sys.stderr)
@@ -330,7 +362,7 @@ def main():
     state = {}
     if args.paid_mode:
         state["_cooldown_429_s"] = 8
-    out_file = RESULTS_DIR / "results.json"
+    out_file = RESULTS_DIR / args.results_name
 
     for i, target_info in enumerate(targets):
         t = target_info["ticker"]
