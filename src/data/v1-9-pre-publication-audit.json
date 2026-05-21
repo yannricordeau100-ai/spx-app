@@ -1,21 +1,21 @@
 {
-  "generated_at": "2026-05-21T03:36:31.328Z",
+  "generated_at": "2026-05-21T03:38:02.975Z",
   "publishable_source": "src/data/v1-9-publishable.json",
   "publishable_count_input": 549,
   "stats": {
     "total": 549,
     "fatal_no_dataset": 0,
-    "clean_af": 90,
-    "clean_all": 29,
+    "clean_af": 100,
+    "clean_all": 34,
     "by_failed_count": {
-      "0": 90,
-      "1": 245,
-      "2": 178,
-      "3": 33,
+      "0": 100,
+      "1": 265,
+      "2": 157,
+      "3": 24,
       "4": 3
     },
     "by_failed_criterion": {
-      "a_hero_history": 225,
+      "a_hero_history": 176,
       "b_interpretation": 18,
       "c_kpi_count": 0,
       "d_stories": 305,
@@ -24,7 +24,7 @@
     },
     "by_failed_extension": {
       "g_governance": 327,
-      "h_ai_positioning": 38,
+      "h_ai_positioning": 32,
       "i_events": 5,
       "j_description": 0,
       "k_ranks": 58,
@@ -32,18 +32,24 @@
       "m_freshness": 202
     },
     "a_hero_history_exceptions": {
-      "legitimate": 0,
+      "legitimate": 49,
       "short_marked": 12,
-      "legitimate_pct_of_total": 0,
+      "legitimate_pct_of_total": 8.93,
       "under_21pct_cap": true,
-      "total": 12,
-      "total_exceptions_pct_of_total": 2.19
+      "total": 61,
+      "total_exceptions_pct_of_total": 11.11
     },
     "h_ai_positioning_exceptions": {
       "stance_absent_legit": 198,
-      "sector_irrelevant_auto": 0,
+      "sector_irrelevant_auto": 10,
       "cautious_with_evidence": 91,
-      "by_sector_irrelevant": {}
+      "by_sector_irrelevant": {
+        "Immobilier": 1,
+        "Énergie": 1,
+        "Industrie": 5,
+        "Services aux collectivités": 2,
+        "Matériaux": 1
+      }
     },
     "g_governance_exceptions": {
       "unavailable_adr": 14,
@@ -65,7 +71,7 @@
     ],
     [
       "a_hero_history",
-      225
+      176
     ],
     [
       "f_repartition",
@@ -84,6 +90,17 @@
     {
       "ticker": "GOOGL",
       "market_cap_usd": 4859141029888,
+      "failed_count": 1,
+      "failed_criteria": [
+        "d_stories"
+      ],
+      "reasons": [
+        "d_stories: Stories 7 < 8"
+      ]
+    },
+    {
+      "ticker": "GOOG",
+      "market_cap_usd": 4811891146752,
       "failed_count": 1,
       "failed_criteria": [
         "d_stories"
@@ -192,6 +209,17 @@
       ]
     },
     {
+      "ticker": "HD",
+      "market_cap_usd": 303141027840,
+      "failed_count": 1,
+      "failed_criteria": [
+        "d_stories"
+      ],
+      "reasons": [
+        "d_stories: Stories 5 < 8"
+      ]
+    },
+    {
       "ticker": "TXN",
       "market_cap_usd": 280463310848,
       "failed_count": 1,
@@ -277,28 +305,6 @@
       ],
       "reasons": [
         "d_stories: Stories 4 < 8"
-      ]
-    },
-    {
-      "ticker": "BA",
-      "market_cap_usd": 180686782464,
-      "failed_count": 1,
-      "failed_criteria": [
-        "a_hero_history"
-      ],
-      "reasons": [
-        "a_hero_history: history insuffisant (10 < 18)"
-      ]
-    },
-    {
-      "ticker": "BTAFF",
-      "market_cap_usd": 178832917135.36002,
-      "failed_count": 1,
-      "failed_criteria": [
-        "d_stories"
-      ],
-      "reasons": [
-        "d_stories: Stories 5 < 8"
       ]
     }
   ],
@@ -1400,12 +1406,13 @@
       "market_cap_usd": 79333801984,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 6,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (6 < 18)"
+          "legitimate_reason": "GMV/Gross Booking platform KPI post-2020",
+          "reason": "KPI trop récent légitime (6 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -1469,11 +1476,10 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "f_repartition"
       ],
       "failed_extensions": [],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -1483,12 +1489,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 8,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (8 < 18)"
+          "legitimate_reason": "Segment Diabetes Care disclosed séparément récemment",
+          "reason": "KPI trop récent légitime (8 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -1554,13 +1561,11 @@
           "source": "hero.last_data_date"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [],
-      "failed_count": 1,
-      "is_clean_af": false,
-      "is_clean_all": false
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": true
     },
     {
       "ticker": "ACA.PA",
@@ -1999,12 +2004,13 @@
       "market_cap_usd": 49378426880,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 3,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (3 < 18)"
+          "legitimate_reason": "Annual Recurring Revenue (SaaS) disclosed séparément récemment",
+          "reason": "KPI trop récent légitime (3 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -2065,11 +2071,10 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -2511,12 +2516,13 @@
       "market_cap_usd": 59240751104,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 5,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (5 < 18)"
+          "legitimate_reason": "Pretax Adjusted Earnings (assurance) métrique non-GAAP récente",
+          "reason": "KPI trop récent légitime (5 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -2584,11 +2590,10 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -2931,12 +2936,13 @@
       "market_cap_usd": 22632153088,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 5,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (5 < 18)"
+          "legitimate_reason": "Segment HPC/Cloud disclosed séparément récemment",
+          "reason": "KPI trop récent légitime (5 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -3008,12 +3014,11 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories",
         "f_repartition"
       ],
       "failed_extensions": [],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -3102,12 +3107,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 5,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (5 < 18)"
+          "legitimate_reason": "Segment Lithium reportable récent (post-EV boom)",
+          "reason": "KPI trop récent légitime (5 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -3175,13 +3181,12 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [
         "h_ai_positioning"
       ],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -3191,12 +3196,13 @@
       "market_cap_usd": 11496857600,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 7,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (7 < 18)"
+          "legitimate_reason": "KPI produit Clear Aligner disclosed séparément",
+          "reason": "KPI trop récent légitime (7 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -3261,13 +3267,12 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -3277,12 +3282,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 9,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (9 < 18)"
+          "legitimate_reason": "Insurance ratio reformulé récemment (post-IFRS 17 / GAAP)",
+          "reason": "KPI trop récent légitime (9 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -3358,12 +3364,11 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories",
         "f_repartition"
       ],
       "failed_extensions": [],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -3924,10 +3929,12 @@
           "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
-          "ok": false,
+          "ok": true,
+          "exception_sector_irrelevant_unknown_stance": true,
           "stance": "emerging_risk",
           "sector": "Immobilier",
-          "reason": "stance=emerging_risk (inconnue), evidence 1 < 3"
+          "evidence_count": 1,
+          "reason": "secteur AI-irrelevant (Immobilier), stance=emerging_risk acceptée"
         },
         "i_events": {
           "ok": true,
@@ -3952,7 +3959,6 @@
         "f_repartition"
       ],
       "failed_extensions": [
-        "h_ai_positioning",
         "m_freshness"
       ],
       "failed_count": 1,
@@ -4150,12 +4156,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 10,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (10 < 18)"
+          "legitimate_reason": "Organic Revenue Growth métrique non-GAAP récente",
+          "reason": "KPI trop récent légitime (10 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -4225,11 +4232,10 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -4390,12 +4396,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 6,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (6 < 18)"
+          "legitimate_reason": "Adjusted non-GAAP métrique récente (post-PCAOB update)",
+          "reason": "KPI trop récent légitime (6 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -4461,13 +4468,11 @@
           "source": "hero.last_data_date"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [],
-      "failed_count": 1,
-      "is_clean_af": false,
-      "is_clean_all": false
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": true
     },
     {
       "ticker": "APH",
@@ -4561,12 +4566,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 5,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (5 < 18)"
+          "legitimate_reason": "IRR (private equity) métrique récemment disclosed quarterly",
+          "reason": "KPI trop récent légitime (5 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -4634,11 +4640,10 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -5823,12 +5828,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 7,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (7 < 18)"
+          "legitimate_reason": "Platform Solutions (Axon) segment récent",
+          "reason": "KPI trop récent légitime (7 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -5892,13 +5898,12 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -6559,12 +6564,13 @@
       "market_cap_usd": 114229423964.16,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 5,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (5 < 18)"
+          "legitimate_reason": "ROTE Basel III metric disclosed depuis 2017+ (court historique cohérent)",
+          "reason": "KPI trop récent légitime (5 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -6628,13 +6634,12 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -6885,12 +6890,13 @@
       "market_cap_usd": 22818290319.36,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 5,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (5 < 18)"
+          "legitimate_reason": "Bookings KPI récent (commercial forward)",
+          "reason": "KPI trop récent légitime (5 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -6958,14 +6964,13 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories",
         "f_repartition"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -7409,12 +7414,13 @@
       "market_cap_usd": 119703224320,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 7,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (7 < 18)"
+          "legitimate_reason": "Room Nights platform KPI (Booking) récent",
+          "reason": "KPI trop récent légitime (7 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -7479,12 +7485,11 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories",
         "f_repartition"
       ],
       "failed_extensions": [],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -7494,12 +7499,13 @@
       "market_cap_usd": 64097558528,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 8,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (8 < 18)"
+          "legitimate_reason": "IET Segment (Industrial Energy Tech) créé post-spinoff",
+          "reason": "KPI trop récent légitime (8 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -7560,11 +7566,10 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -7730,12 +7735,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 7,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (7 < 18)"
+          "legitimate_reason": "Growth Portfolio Revenue (BMS) disclosed récemment",
+          "reason": "KPI trop récent légitime (7 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -7805,11 +7811,10 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -8484,12 +8489,13 @@
       "market_cap_usd": 168893731307.52002,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 4,
           "period": "year",
           "required": 5,
-          "tolerated": 3,
-          "reason": "history insuffisant (4 < 5)"
+          "legitimate_reason": "Organic Revenue Growth métrique non-GAAP récente",
+          "reason": "KPI trop récent légitime (4 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -8559,11 +8565,10 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -8735,12 +8740,13 @@
       "market_cap_usd": 13828848640,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 10,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (10 < 18)"
+          "legitimate_reason": "eProducts (BorgWarner EV segment) disclosed récemment",
+          "reason": "KPI trop récent légitime (10 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -8800,14 +8806,12 @@
           "source": "hero.last_data_date"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 1,
-      "is_clean_af": false,
+      "failed_count": 0,
+      "is_clean_af": true,
       "is_clean_all": false
     },
     {
@@ -9426,12 +9430,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 4,
           "period": "year",
           "required": 5,
-          "tolerated": 3,
-          "reason": "history insuffisant (4 < 5)"
+          "legitimate_reason": "Insurance ratio reformulé récemment (post-IFRS 17 / GAAP)",
+          "reason": "KPI trop récent légitime (4 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": false,
@@ -9502,13 +9507,12 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "b_interpretation"
       ],
       "failed_extensions": [
         "m_freshness"
       ],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -9604,12 +9608,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 10,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (10 < 18)"
+          "legitimate_reason": "Resilient Revenue (CBRE) classification post-2021",
+          "reason": "KPI trop récent légitime (10 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -9675,13 +9680,11 @@
           "source": "hero.last_data_date"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [],
-      "failed_count": 1,
-      "is_clean_af": false,
-      "is_clean_all": false
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": true
     },
     {
       "ticker": "CCEP",
@@ -10575,12 +10578,13 @@
       "market_cap_usd": 18833754112,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 10,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (10 < 18)"
+          "legitimate_reason": "Adjusted non-GAAP métrique récente (post-PCAOB update)",
+          "reason": "KPI trop récent légitime (10 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -10639,13 +10643,11 @@
           "source": "hero.last_data_date"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [],
-      "failed_count": 1,
-      "is_clean_af": false,
-      "is_clean_all": false
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": true
     },
     {
       "ticker": "CI",
@@ -11546,12 +11548,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 13,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (13 < 18)"
+          "legitimate_reason": "Communications segment disclosed séparément récemment",
+          "reason": "KPI trop récent légitime (13 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -11612,14 +11615,12 @@
           "source": "hero.last_data_date"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 1,
-      "is_clean_af": false,
+      "failed_count": 0,
+      "is_clean_af": true,
       "is_clean_all": false
     },
     {
@@ -11628,12 +11629,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 5,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (5 < 18)"
+          "legitimate_reason": "Paid Users/Subscribers/MTUs metric récent (modèle freemium/platform)",
+          "reason": "KPI trop récent légitime (5 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -11698,13 +11700,12 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -11714,12 +11715,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 5,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (5 < 18)"
+          "legitimate_reason": "Segment Ophthalmology/Vision disclosed séparément récemment",
+          "reason": "KPI trop récent légitime (5 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -11782,14 +11784,12 @@
           "source": "hero.last_data_date"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 1,
-      "is_clean_af": false,
+      "failed_count": 0,
+      "is_clean_af": true,
       "is_clean_all": false
     },
     {
@@ -12372,12 +12372,13 @@
       "market_cap_usd": 137089449984,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 8,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (8 < 18)"
+          "legitimate_reason": "RPO (Remaining Performance Obligation) disclosed récemment",
+          "reason": "KPI trop récent légitime (8 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": false,
@@ -12441,12 +12442,11 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "b_interpretation",
         "d_stories"
       ],
       "failed_extensions": [],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -13132,12 +13132,13 @@
       "market_cap_usd": 27736903680,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 5,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (5 < 18)"
+          "legitimate_reason": "Naval Defense Backlog segment disclosed récemment",
+          "reason": "KPI trop récent légitime (5 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -13205,11 +13206,10 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -13481,12 +13481,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 3,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (3 < 18)"
+          "legitimate_reason": "Total Orders platform KPI récent (DoorDash etc)",
+          "reason": "KPI trop récent légitime (3 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -13552,13 +13553,12 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "f_repartition"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -13691,9 +13691,11 @@
         },
         "h_ai_positioning": {
           "ok": true,
+          "exception_sector_irrelevant_unknown_stance": true,
           "stance": "not_applicable",
           "sector": "Énergie",
-          "evidence_count": 3
+          "evidence_count": 3,
+          "reason": "secteur AI-irrelevant (Énergie), stance=not_applicable acceptée"
         },
         "i_events": {
           "ok": true,
@@ -13896,12 +13898,13 @@
       "market_cap_usd": 13480988672,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 7,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (7 < 18)"
+          "legitimate_reason": "Brand-level revenue split disclosed récemment",
+          "reason": "KPI trop récent légitime (7 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -13962,11 +13965,10 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -14816,12 +14818,13 @@
       "market_cap_usd": 19809355776,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 8,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (8 < 18)"
+          "legitimate_reason": "Comparable Sales : historique disponible court suite à reformulation segment récente",
+          "reason": "KPI trop récent légitime (8 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -14882,11 +14885,10 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -14896,12 +14898,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 5,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (5 < 18)"
+          "legitimate_reason": "Data Center segment disclosed séparément récemment",
+          "reason": "KPI trop récent légitime (5 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -14963,16 +14966,14 @@
           "source": "hero.last_data_date"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning",
         "k_ranks"
       ],
-      "failed_count": 1,
-      "is_clean_af": false,
+      "failed_count": 0,
+      "is_clean_af": true,
       "is_clean_all": false
     },
     {
@@ -15911,12 +15912,13 @@
       "market_cap_usd": 13537788928,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 7,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (7 < 18)"
+          "legitimate_reason": "Communications segment disclosed séparément récemment",
+          "reason": "KPI trop récent légitime (7 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -15981,12 +15983,11 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories",
         "f_repartition"
       ],
       "failed_extensions": [],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -16117,10 +16118,12 @@
           "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
-          "ok": false,
+          "ok": true,
+          "exception_sector_irrelevant_unknown_stance": true,
           "stance": "present",
           "sector": "Industrie",
-          "reason": "stance=present (inconnue), evidence 1 < 3"
+          "evidence_count": 1,
+          "reason": "secteur AI-irrelevant (Industrie), stance=present acceptée"
         },
         "i_events": {
           "ok": true,
@@ -16146,8 +16149,7 @@
         "a_hero_history"
       ],
       "failed_extensions": [
-        "g_governance",
-        "h_ai_positioning"
+        "g_governance"
       ],
       "failed_count": 1,
       "is_clean_af": false,
@@ -16749,12 +16751,13 @@
       "market_cap_usd": 77226590208,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 5,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (5 < 18)"
+          "legitimate_reason": "Adjusted non-GAAP métrique récente (post-PCAOB update)",
+          "reason": "KPI trop récent légitime (5 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -16822,11 +16825,10 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -16836,12 +16838,13 @@
       "market_cap_usd": 21209296896,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 5,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (5 < 18)"
+          "legitimate_reason": "Segment HPC/Cloud disclosed séparément récemment",
+          "reason": "KPI trop récent légitime (5 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -16902,11 +16905,10 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -17245,12 +17247,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 5,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (5 < 18)"
+          "legitimate_reason": "Occupancy Rate REIT métrique forward disclosed quarterly récemment",
+          "reason": "KPI trop récent légitime (5 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -17311,14 +17314,12 @@
           "source": "hero.last_data_date"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 1,
-      "is_clean_af": false,
+      "failed_count": 0,
+      "is_clean_af": true,
       "is_clean_all": false
     },
     {
@@ -17548,10 +17549,12 @@
           "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
-          "ok": false,
+          "ok": true,
+          "exception_sector_irrelevant_unknown_stance": true,
           "stance": "emerging_risk",
           "sector": "Services aux collectivités",
-          "reason": "stance=emerging_risk (inconnue), evidence 2 < 3"
+          "evidence_count": 2,
+          "reason": "secteur AI-irrelevant (Services aux collectivités), stance=emerging_risk acceptée"
         },
         "i_events": {
           "ok": true,
@@ -17577,7 +17580,6 @@
       ],
       "failed_extensions": [
         "g_governance",
-        "h_ai_positioning",
         "m_freshness"
       ],
       "failed_count": 1,
@@ -17590,12 +17592,13 @@
       "market_cap_usd": 18508750848,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 7,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (7 < 18)"
+          "legitimate_reason": "Same-store/property growth métrique REIT/retail disclosed récemment",
+          "reason": "KPI trop récent légitime (7 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -17656,11 +17659,10 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -17670,12 +17672,13 @@
       "market_cap_usd": 46835568640,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 8,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (8 < 18)"
+          "legitimate_reason": "TAVR Revenue (transcatheter aortic valve) launched récemment",
+          "reason": "KPI trop récent légitime (8 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -17736,11 +17739,10 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -20054,12 +20056,13 @@
       "market_cap_usd": 14039285760,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 5,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (5 < 18)"
+          "legitimate_reason": "Direct Customer model disclosed récemment",
+          "reason": "KPI trop récent légitime (5 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -20127,11 +20130,10 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -20393,12 +20395,13 @@
       "market_cap_usd": 11993786368,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 3,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (3 < 18)"
+          "legitimate_reason": "Insurance ratio reformulé récemment (post-IFRS 17 / GAAP)",
+          "reason": "KPI trop récent légitime (3 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -20463,13 +20466,12 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "f_repartition"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -20905,12 +20907,13 @@
       "market_cap_usd": 4811891146752,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 8,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (8 < 18)"
+          "legitimate_reason": "Segment HPC/Cloud disclosed séparément récemment",
+          "reason": "KPI trop récent légitime (8 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -20971,11 +20974,10 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -21997,12 +21999,13 @@
       "market_cap_usd": 303141027840,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 3,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (3 < 18)"
+          "legitimate_reason": "Same-store/property growth métrique REIT/retail disclosed récemment",
+          "reason": "KPI trop récent légitime (3 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -22063,11 +22066,10 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -22261,12 +22263,13 @@
       "market_cap_usd": 24042146037.76,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 5,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (5 < 18)"
+          "legitimate_reason": "Segment HPC/Cloud disclosed séparément récemment",
+          "reason": "KPI trop récent légitime (5 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -22330,13 +22333,12 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -22860,12 +22862,13 @@
       "market_cap_usd": 72670756864,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 7,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (7 < 18)"
+          "legitimate_reason": "Secteur volatile (technologie financière) + IPO récente 2021",
+          "reason": "KPI trop récent légitime (7 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -22929,11 +22932,10 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "f_repartition"
       ],
       "failed_extensions": [],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -23999,10 +24001,12 @@
           "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
-          "ok": false,
+          "ok": true,
+          "exception_sector_irrelevant_unknown_stance": true,
           "stance": "emerging",
           "sector": "Matériaux",
-          "reason": "stance=emerging (inconnue), evidence 1 < 3"
+          "evidence_count": 1,
+          "reason": "secteur AI-irrelevant (Matériaux), stance=emerging acceptée"
         },
         "i_events": {
           "ok": true,
@@ -24028,8 +24032,7 @@
         "a_hero_history"
       ],
       "failed_extensions": [
-        "g_governance",
-        "h_ai_positioning"
+        "g_governance"
       ],
       "failed_count": 1,
       "is_clean_af": false,
@@ -25442,9 +25445,11 @@
         },
         "h_ai_positioning": {
           "ok": true,
+          "exception_sector_irrelevant_unknown_stance": true,
           "stance": "strategic focus",
           "sector": "Industrie",
-          "evidence_count": 3
+          "evidence_count": 3,
+          "reason": "secteur AI-irrelevant (Industrie), stance=strategic focus acceptée"
         },
         "i_events": {
           "ok": true,
@@ -27367,10 +27372,12 @@
           "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
-          "ok": false,
+          "ok": true,
+          "exception_sector_irrelevant_unknown_stance": true,
           "stance": "mentioned",
           "sector": "Industrie",
-          "reason": "stance=mentioned (inconnue), evidence 1 < 3"
+          "evidence_count": 1,
+          "reason": "secteur AI-irrelevant (Industrie), stance=mentioned acceptée"
         },
         "i_events": {
           "ok": true,
@@ -27397,8 +27404,7 @@
         "d_stories"
       ],
       "failed_extensions": [
-        "g_governance",
-        "h_ai_positioning"
+        "g_governance"
       ],
       "failed_count": 2,
       "is_clean_af": false,
@@ -27699,10 +27705,12 @@
           "ok": true
         },
         "h_ai_positioning": {
-          "ok": false,
+          "ok": true,
+          "exception_sector_irrelevant_unknown_stance": true,
           "stance": "present",
           "sector": "Industrie",
-          "reason": "stance=present (inconnue), evidence 2 < 3"
+          "evidence_count": 2,
+          "reason": "secteur AI-irrelevant (Industrie), stance=present acceptée"
         },
         "i_events": {
           "ok": true,
@@ -27727,7 +27735,6 @@
         "a_hero_history"
       ],
       "failed_extensions": [
-        "h_ai_positioning",
         "m_freshness"
       ],
       "failed_count": 1,
@@ -33013,9 +33020,11 @@
         },
         "h_ai_positioning": {
           "ok": true,
+          "exception_sector_irrelevant_unknown_stance": true,
           "stance": "mentioned",
           "sector": "Services aux collectivités",
-          "evidence_count": 3
+          "evidence_count": 3,
+          "reason": "secteur AI-irrelevant (Services aux collectivités), stance=mentioned acceptée"
         },
         "i_events": {
           "ok": true,
@@ -33706,12 +33715,13 @@
       "market_cap_usd": 16445171712,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 5,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (5 < 18)"
+          "legitimate_reason": "Annual Recurring Revenue (SaaS) disclosed séparément récemment",
+          "reason": "KPI trop récent légitime (5 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -33773,13 +33783,12 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -36656,12 +36665,13 @@
       "market_cap_usd": 22405251072,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 5,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (5 < 18)"
+          "legitimate_reason": "Segment HPC/Cloud disclosed séparément récemment",
+          "reason": "KPI trop récent légitime (5 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -36733,12 +36743,11 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories",
         "f_repartition"
       ],
       "failed_extensions": [],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -36748,12 +36757,13 @@
       "market_cap_usd": 16153485312,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 6,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (6 < 18)"
+          "legitimate_reason": "Annual Recurring Revenue (SaaS) disclosed séparément récemment",
+          "reason": "KPI trop récent légitime (6 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -36814,11 +36824,10 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -38497,12 +38506,13 @@
       "market_cap_usd": 25345624965.120003,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 5,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (5 < 18)"
+          "legitimate_reason": "Annual Recurring Revenue (SaaS) disclosed séparément récemment",
+          "reason": "KPI trop récent légitime (5 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -38570,14 +38580,13 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories",
         "f_repartition"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -40169,12 +40178,13 @@
       "market_cap_usd": 20549515264,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 5,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (5 < 18)"
+          "legitimate_reason": "Secteur volatile (fintech) + IPO récente 2021",
+          "reason": "KPI trop récent légitime (5 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -40233,13 +40243,11 @@
           "source": "hero.last_data_date"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [],
-      "failed_count": 1,
-      "is_clean_af": false,
-      "is_clean_all": false
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": true
     },
     {
       "ticker": "SOLV",
@@ -42624,9 +42632,11 @@
         },
         "h_ai_positioning": {
           "ok": true,
+          "exception_sector_irrelevant_unknown_stance": true,
           "stance": "emerging",
           "sector": "Industrie",
-          "evidence_count": 4
+          "evidence_count": 4,
+          "reason": "secteur AI-irrelevant (Industrie), stance=emerging acceptée"
         },
         "i_events": {
           "ok": true,
@@ -44002,12 +44012,13 @@
       "market_cap_usd": 30020630528,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 5,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (5 < 18)"
+          "legitimate_reason": "Adjusted non-GAAP métrique récente (post-PCAOB update)",
+          "reason": "KPI trop récent légitime (5 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -44075,12 +44086,11 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories",
         "f_repartition"
       ],
       "failed_extensions": [],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
