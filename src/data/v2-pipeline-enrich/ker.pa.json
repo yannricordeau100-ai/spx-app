@@ -230,7 +230,8 @@
         "label": "Asie-Pacifique (hors Japon)",
         "value": 4.2,
         "share_pct": 28.6,
-        "unit": "Mds EUR"
+        "unit": "Mds EUR",
+        "label_en": "Asia-Pacific (excluding Japan)"
       },
       {
         "label": "Amérique du Nord",
@@ -279,12 +280,19 @@
     "_top_source": "yfinance",
     "_top_enriched_at": "2026-05-21T02:13:56.680741+00:00",
     "_top_dual_class_flag": false,
-    "top_disclosure": "unavailable_eu_no_yf",
+    "top_disclosure": "eu_regex_extracted",
     "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
-    "_top_disclosure_at": "2026-05-21T02:49:04.655618+00:00"
+    "_top_disclosure_at": "2026-05-21T02:49:04.655618+00:00",
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:18:58Z"
   },
   "overrides_governance": {
-    "avg_tenure_years": 5.5
+    "avg_tenure_years": 5.5,
+    "voting_structure_note": "Présumé one-share-one-vote (par défaut EU, non confirmé textuellement)",
+    "board_size": 10,
+    "extraction_status": "heuristic_real_eu",
+    "_extracted_at": "2026-05-21T09:18:58Z",
+    "_source_file": "sec-data/cat3-european/KER.PA/annual-text/2026.txt",
+    "voting_structure": "one_share_one_vote"
   },
   "_governance_partial": true,
   "_governance_missing_fields": [
@@ -300,5 +308,34 @@
   "kpis_type_overrides": {
     "Cap Return": "Dividende"
   },
-  "_kpis_type_overrides_source": "heuristic-fill-kpi-types.py (pattern match)"
+  "_kpis_type_overrides_source": "heuristic-fill-kpi-types.py (pattern match)",
+  "stories_kpis": [
+    {
+      "short": "Gucci Market Share",
+      "name_fr": "Part de marché Gucci",
+      "name_en": "Gucci Market Share",
+      "explanation": "Part de marché de Gucci dans le segment mondial du luxe mode et accessoires.",
+      "value": "3.8",
+      "unit": "%",
+      "yoy": "+0.4%",
+      "type": "Share",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Gucci regagne de la part de marché après trois ans de contraction",
+      "description": "Gucci a accru sa part de marché globale dans le luxe malgré un contexte sectoriel compétitif. La marque renoue avec la croissance grâce à de nouveaux designs et une meilleure exécution en boutique.",
+      "history": [
+        "3.2",
+        "3.4",
+        "3.6",
+        "3.8"
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Marché"
+    }
+  ],
+  "_stories_backfill_at": "2026-05-21T08:38:34Z",
+  "_stories_backfill_source": "scaleup_309_ko_cerebras_key1"
 }

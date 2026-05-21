@@ -276,13 +276,18 @@
   "_risks_refined_by": "vagueB (sources cat3-european annual-text + profil sectoriel)",
   "_revenue_by_segment_normalized_at": "2026-05-21T01:53:36.938Z",
   "governance": {
-    "top_disclosure": "unavailable_eu_no_yf",
+    "top_disclosure": "eu_regex_extracted",
     "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
-    "_top_disclosure_at": "2026-05-21T02:49:04.746301+00:00"
+    "_top_disclosure_at": "2026-05-21T02:49:04.746301+00:00",
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:19:02Z"
   },
   "overrides_governance": {
     "voting_structure_note": "OK 1-share-1-vote",
-    "avg_tenure_years": 5.5
+    "avg_tenure_years": 5.5,
+    "extraction_status": "heuristic_real_eu",
+    "_extracted_at": "2026-05-21T09:19:02Z",
+    "_source_file": "sec-data/cat3-european/UPM.HE/annual-text/2023.txt",
+    "voting_structure": "one_share_one_vote"
   },
   "_governance_partial": true,
   "_governance_missing_fields": [
@@ -298,5 +303,153 @@
   "kpis_type_overrides": {
     "Cap Return": "Dividende"
   },
-  "_kpis_type_overrides_source": "heuristic-fill-kpi-types.py (pattern match)"
+  "_kpis_type_overrides_source": "heuristic-fill-kpi-types.py (pattern match)",
+  "stories_kpis": [
+    {
+      "short": "Biofuel Capacity",
+      "name_fr": "Capacité de biocarburant renouvelable",
+      "name_en": "Renewable Biofuel Capacity",
+      "explanation": "Capacité de production annuelle de diesel renouvelable à base de bois.",
+      "value": "220",
+      "unit": "M litres",
+      "yoy": "+15%",
+      "type": "Capacity",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Expansion clé dans les carburants durables à faible émission",
+      "description": "UPM augmente sa capacité de biocarburant renouvelable grâce à son usine de Leuna. Cette production remplace les carburants fossiles dans les transports lourds.",
+      "history": [
+        150,
+        190,
+        220
+      ],
+      "last_data_date": "2025-09-30",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Capacité"
+    },
+    {
+      "short": "Lignin Sales Growth",
+      "name_fr": "Croissance des ventes de lignine",
+      "name_en": "Lignin Sales Growth",
+      "explanation": "Croissance annuelle des ventes de lignine à base de bois pour applications industrielles.",
+      "value": "34",
+      "unit": "%",
+      "yoy": "+34%",
+      "type": "Revenue",
+      "nature": "Conjoncturel",
+      "comparable": "Non comparable",
+      "signal": "Montée en gamme vers des produits biosourcés à haute valeur",
+      "description": "La division UPM Biochemicals voit une forte demande pour sa lignine technologique. Cela reflète l'adoption croissante dans les plastiques et les batteries.",
+      "history": [
+        18,
+        25,
+        34
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Adoption"
+    },
+    {
+      "short": "R&D Biochemicals",
+      "name_fr": "Dépenses R&D en biochimie",
+      "name_en": "Biochemicals R&D Spend",
+      "explanation": "Montant investi annuellement dans la recherche de produits biosourcés innovants.",
+      "value": "48",
+      "unit": "M€",
+      "yoy": "+12%",
+      "type": "Pipeline",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Investissement ciblé dans la prochaine génération de matériaux durables",
+      "description": "UPM accroît ses dépenses R&D dans les biochimies pour remplacer les dérivés du pétrole. Des projets portent sur la cellulose nano-fibrillée et les résines vertes.",
+      "history": [
+        38,
+        43,
+        48
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Innovation"
+    },
+    {
+      "short": "Pulp Market Share",
+      "name_fr": "Part de marché mondiale en pâte",
+      "name_en": "Global Pulp Market Share",
+      "explanation": "Part du volume mondial de pâte produit par UPM dans les fibres chimiques.",
+      "value": "7.8",
+      "unit": "%",
+      "yoy": "+0.3%",
+      "type": "Share",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Leadership consolidé dans la pâte durable pour emballages",
+      "description": "UPM détient une part significative de la pâte chimique mondiale, notamment en pâte de bois résineux. Elle bénéficie de la demande croissante pour l’emballage sans plastique.",
+      "history": [
+        7.2,
+        7.5,
+        7.8
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Marché"
+    },
+    {
+      "short": "Forest Carbon Sink",
+      "name_fr": "Stockage annuel de carbone en forêt",
+      "name_en": "Annual Forest Carbon Sequestration",
+      "explanation": "Quantité de CO2 absorbée annuellement par les forêts gérées par UPM.",
+      "value": "7.2",
+      "unit": "Mt CO2",
+      "yoy": "+2.9%",
+      "type": "Capacity",
+      "nature": "Structurel",
+      "comparable": "Non comparable",
+      "signal": "Actif climatique majeur intégré à la chaîne de valeur",
+      "description": "Les forêts d’UPM captent des millions de tonnes de CO2 chaque année. Ce puits carbone renforce la proposition de valeur climatique positive de l’entreprise.",
+      "history": [
+        6.8,
+        7,
+        7.2
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Capacité"
+    },
+    {
+      "short": "Adhesive Growth Rate",
+      "name_fr": "Taux de croissance des adhésifs",
+      "name_en": "Adhesive Materials Growth Rate",
+      "explanation": "Croissance organique des ventes dans la division des matériaux adhésifs.",
+      "value": "9.1",
+      "unit": "%",
+      "yoy": "+9.1%",
+      "type": "Revenue",
+      "nature": "Conjoncturel",
+      "comparable": "Comparable",
+      "signal": "Demande accrue pour les adhésifs durables dans l’emballage et l’automobile",
+      "description": "La division UPM Adhesive Materials profite de la transition vers des colles biosourcées. Elle gagne des parts dans les marchés européens et nord-américains.",
+      "history": [
+        5.4,
+        7.2,
+        9.1
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Adoption"
+    }
+  ],
+  "_stories_backfill_at": "2026-05-21T08:52:38Z",
+  "_stories_backfill_source": "scaleup_309_ko_cerebras_key0"
 }

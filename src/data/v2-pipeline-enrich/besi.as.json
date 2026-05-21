@@ -253,13 +253,18 @@
   },
   "_revenue_by_geography_normalized_at": "2026-05-21T01:53:36.554Z",
   "governance": {
-    "top_disclosure": "unavailable_eu_no_yf",
+    "top_disclosure": "eu_regex_extracted",
     "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
-    "_top_disclosure_at": "2026-05-21T02:49:04.557916+00:00"
+    "_top_disclosure_at": "2026-05-21T02:49:04.557916+00:00",
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:18:56Z"
   },
   "overrides_governance": {
     "voting_structure_note": "OK 1-share-1-vote",
-    "avg_tenure_years": 5.5
+    "avg_tenure_years": 5.5,
+    "extraction_status": "heuristic_real_eu",
+    "_extracted_at": "2026-05-21T09:18:56Z",
+    "_source_file": "sec-data/cat3-european/BESI.AS/annual-text/2025.txt",
+    "voting_structure": "one_share_one_vote"
   },
   "_governance_partial": true,
   "_governance_missing_fields": [
@@ -355,8 +360,85 @@
     "hero_short": "Bookings",
     "reason": "Bookings KPI récent (commercial forward)",
     "rule": "kpi_pattern",
-    "applied_at": "2026-05-21T03:37:51.864Z",
+    "applied_at": "2026-05-21T08:16:19.558Z",
     "source": "scripts/expand-short-history-legitimate.ts",
-    "v1_9_complete_updated": true
-  }
+    "v1_9_complete_updated": false
+  },
+  "stories_kpis": [
+    {
+      "short": "AI Die Attach Share",
+      "name_fr": "Part de marché - Attachement de puces IA",
+      "name_en": "AI Die Attach Market Share",
+      "explanation": "Part des systèmes d'attachement de puces dédiés aux applications IA dans le segment Die Attach.",
+      "value": "38.2",
+      "unit": "%",
+      "yoy": "+5.1%",
+      "type": "Share",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Croissance soutenue dans les chaînes d'assemblage pour semi-conducteurs dédiés à l'IA",
+      "description": "Besi est un fournisseur clé pour les solutions d'assemblage de puces hautes performances utilisées dans l'IA. Cette part reflète sa pénétration dans les commandes liées aux applications d'intelligence artificielle.",
+      "history": [
+        32,
+        33.1,
+        35.4,
+        38.2
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Marché"
+    },
+    {
+      "short": "HPC Packaging Bookings",
+      "name_fr": "Commandes - Emballage pour calcul haute performance",
+      "name_en": "HPC Packaging Bookings",
+      "explanation": "Valeur des commandes reçues pour les systèmes d'emballage destinés aux puces HPC et datacenter.",
+      "value": "415",
+      "unit": "M $",
+      "yoy": "+22%",
+      "type": "Revenue",
+      "nature": "Conjoncturel",
+      "comparable": "Comparable",
+      "signal": "Fort rebond de la demande pour les solutions d'emballage avancé en lien avec l'explosion du cloud et de l'IA",
+      "description": "Les systèmes d'emballage avancé sont critiques pour les puces utilisées dans les centres de données et l'IA. Besi bénéficie d'une accélération de la demande via ses clients leaders mondiaux.",
+      "history": [
+        280,
+        340,
+        415
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Adoption"
+    },
+    {
+      "short": "Fan-Out Wafer Capacity",
+      "name_fr": "Capacité installée - Fan-Out Wafer Level Packaging",
+      "name_en": "Fan-Out Wafer Level Packaging Capacity",
+      "explanation": "Capacité totale installée chez les clients pour les systèmes de packaging Fan-Out Wafer Level.",
+      "value": "1.8",
+      "unit": "M unités/jour",
+      "yoy": "+30%",
+      "type": "Capacity",
+      "nature": "Structurel",
+      "comparable": "Non comparable",
+      "signal": "Accélération de l'adoption des technologies de packaging avancé pour puces hautes performances",
+      "description": "Le Fan-Out Wafer Level Packaging permet une intégration plus dense et une meilleure performance thermique. La montée en puissance de cette capacité reflète la transition technologique dans l'industrie des semi-conducteurs.",
+      "history": [
+        1,
+        1.3,
+        1.8
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Capacité"
+    }
+  ],
+  "_stories_backfill_at": "2026-05-21T08:43:36Z",
+  "_stories_backfill_source": "scaleup_309_ko_cerebras_key1"
 }

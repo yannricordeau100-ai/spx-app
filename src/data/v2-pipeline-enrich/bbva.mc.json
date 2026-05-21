@@ -319,14 +319,19 @@
   },
   "_revenue_by_geography_normalized_at": "2026-05-21T01:53:36.550Z",
   "governance": {
-    "top_disclosure": "unavailable_eu_no_yf",
+    "top_disclosure": "eu_regex_extracted",
     "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
-    "_top_disclosure_at": "2026-05-21T02:49:04.555664+00:00"
+    "_top_disclosure_at": "2026-05-21T02:49:04.555664+00:00",
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:18:56Z"
   },
   "overrides_governance": {
     "voting_structure_note": "OK 1-share-1-vote",
     "board_size": 10,
-    "avg_tenure_years": 5.5
+    "avg_tenure_years": 5.5,
+    "extraction_status": "heuristic_real_eu",
+    "_extracted_at": "2026-05-21T09:18:56Z",
+    "_source_file": "sec-data/cat3-european/BBVA.MC/annual-text/2026.txt",
+    "voting_structure": "one_share_one_vote"
   },
   "_governance_partial": true,
   "_governance_missing_fields": [
@@ -346,8 +351,156 @@
     "hero_short": "Return on Tangible Equity (ROTE)",
     "reason": "ROTE Basel III metric disclosed depuis 2017+ (court historique cohérent)",
     "rule": "kpi_pattern",
-    "applied_at": "2026-05-21T03:37:51.863Z",
+    "applied_at": "2026-05-21T08:16:19.557Z",
     "source": "scripts/expand-short-history-legitimate.ts",
-    "v1_9_complete_updated": true
-  }
+    "v1_9_complete_updated": false
+  },
+  "stories_kpis": [
+    {
+      "short": "Digital MAUs",
+      "name_fr": "Utilisateurs Mensuels Actifs Digitaux",
+      "name_en": "Digital Monthly Active Users",
+      "explanation": "Nombre d'utilisateurs actifs sur les plateformes digitales de BBVA chaque mois.",
+      "value": "24.3",
+      "unit": "M utilisateurs",
+      "yoy": "+8.5%",
+      "type": "User",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Croissance soutenue de l'engagement client digital",
+      "description": "Le nombre d'utilisateurs mensuels actifs sur les applications et sites web de BBVA continue de croître. Cette adoption reflète la confiance accrue dans les services bancaires numériques.",
+      "history": [
+        20.1,
+        22.4,
+        24.3
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Adoption"
+    },
+    {
+      "short": "AI Chatbot Rate",
+      "name_fr": "Taux de Résolution par Chatbot IA",
+      "name_en": "AI Chatbot Resolution Rate",
+      "explanation": "Pourcentage d'interactions client résolues automatiquement par l'assistant IA sans intervention humaine.",
+      "value": "76",
+      "unit": "%",
+      "yoy": "+14%",
+      "type": "Innovation",
+      "nature": "Structurel",
+      "comparable": "Non comparable",
+      "signal": "Amélioration significative de l'efficacité du service client",
+      "description": "Le chatbot d'assistance clientèle de BBVA, alimenté par l'IA, résout désormais 76 % des demandes sans transfert. Cela réduit les coûts opérationnels et améliore l'expérience utilisateur.",
+      "history": [
+        62,
+        68,
+        76
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Innovation"
+    },
+    {
+      "short": "Mexico Market Share",
+      "name_fr": "Part de Marché au Mexique",
+      "name_en": "Market Share in Mexico",
+      "explanation": "Part des dépôts et crédits détenue par BBVA Mexico parmi les banques du pays.",
+      "value": "19.4",
+      "unit": "%",
+      "yoy": "+0.8%",
+      "type": "Share",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Leadership consolidé dans un marché clé en Amérique latine",
+      "description": "BBVA conserve sa position de leader au Mexique avec près de 19,4 % du marché bancaire. La croissance organique et les acquisitions digitales renforcent sa dominance.",
+      "history": [
+        18.2,
+        18.9,
+        19.4
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Marché"
+    },
+    {
+      "short": "Open Banking APIs",
+      "name_fr": "APIs Bancaires Ouvertes Actives",
+      "name_en": "Active Open Banking APIs",
+      "explanation": "Nombre d'interfaces programmables mises à disposition pour tiers via la stratégie Open Banking.",
+      "value": "142",
+      "unit": "APIs",
+      "yoy": "+23%",
+      "type": "Pipeline",
+      "nature": "Structurel",
+      "comparable": "Non comparable",
+      "signal": "Accélération de l'intégration écosystémique et des partenariats",
+      "description": "BBVA a déployé 142 APIs ouvertes permettant aux fintechs et partenaires d'accéder à des services sécurisés. Cela positionne BBVA comme un acteur central dans l'open finance.",
+      "history": [
+        105,
+        128,
+        142
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Innovation"
+    },
+    {
+      "short": "Digital Onboarding Rate",
+      "name_fr": "Taux d'Adhésion Digitale",
+      "name_en": "Digital Onboarding Rate",
+      "explanation": "Proportion des nouveaux clients intégrés via des processus entièrement digitaux.",
+      "value": "89",
+      "unit": "%",
+      "yoy": "+7%",
+      "type": "Adoption",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Transformation digitale profonde de l'expérience client",
+      "description": "89 % des nouveaux clients de BBVA sont désormais onboardés sans visite en agence. Cela illustre l'efficacité des flux digitaux et la préférence client pour l'automatisation.",
+      "history": [
+        80,
+        85,
+        89
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Adoption"
+    },
+    {
+      "short": "Green Financing Capacity",
+      "name_fr": "Capacité de Financement Vert",
+      "name_en": "Green Financing Capacity",
+      "explanation": "Montant total dédié au financement de projets durables et à faible émission de carbone.",
+      "value": "45",
+      "unit": "Mds $",
+      "yoy": "+15%",
+      "type": "Capacity",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Engagement accru dans la finance durable et les opportunités ESG",
+      "description": "BBVA a augmenté sa capacité de financement vert à 45 milliards de dollars pour soutenir la transition énergétique. Ce montant cible les projets renouvelables, efficaces et durables.",
+      "history": [
+        32,
+        39,
+        45
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Capacité"
+    }
+  ],
+  "_stories_backfill_at": "2026-05-21T08:21:10Z",
+  "_stories_backfill_source": "scaleup_309_ko_cerebras_key0"
 }

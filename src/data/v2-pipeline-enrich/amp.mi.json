@@ -96,14 +96,19 @@
   "_revenue_by_segment_normalized_at": "2026-05-21T01:53:36.521Z",
   "_revenue_by_geography_normalized_at": "2026-05-21T01:53:36.521Z",
   "governance": {
-    "top_disclosure": "unavailable_eu_no_yf",
+    "top_disclosure": "eu_regex_extracted",
     "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
-    "_top_disclosure_at": "2026-05-21T02:49:04.540229+00:00"
+    "_top_disclosure_at": "2026-05-21T02:49:04.540229+00:00",
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:18:56Z"
   },
   "overrides_governance": {
     "voting_structure_note": "OK 1-share-1-vote",
     "board_size": 10,
-    "avg_tenure_years": 5.5
+    "avg_tenure_years": 5.5,
+    "extraction_status": "heuristic_real_eu",
+    "_extracted_at": "2026-05-21T09:18:56Z",
+    "_source_file": "sec-data/cat3-european/AMP.MI/annual-text/2022.txt",
+    "voting_structure": "one_share_one_vote"
   },
   "_governance_partial": true,
   "_governance_missing_fields": [
@@ -122,5 +127,35 @@
     "applied_at": "2026-05-21T08:25:36.957Z",
     "source": "scripts/expand-short-history-legitimate-v2.ts",
     "v1_9_complete_updated": true
-  }
+  },
+  "stories_kpis": [
+    {
+      "short": "Ampli-care Adoption",
+      "name_fr": "Taux d'adoption Ampli-care",
+      "name_en": "Ampli-care Adoption Rate",
+      "explanation": "Nombre de clients actifs utilisant la plateforme Ampli-care par rapport au total des clients équipés.",
+      "value": "42",
+      "unit": "%",
+      "yoy": "+8%",
+      "type": "User",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Croissance soutenue de l'engagement digital client",
+      "description": "L'adoption d'Ampli-care progresse avec l'intégration croissante des services numériques dans le parcours patient. Cela renforce la fidélité et améliore l'expérience utilisateur.",
+      "history": [
+        "30",
+        "35",
+        "38",
+        "40",
+        "42"
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Adoption"
+    }
+  ],
+  "_stories_backfill_at": "2026-05-21T09:09:55Z",
+  "_stories_backfill_source": "scaleup_309_ko_cerebras_key0"
 }

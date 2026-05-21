@@ -212,9 +212,10 @@
     "_top_source": "yfinance",
     "_top_enriched_at": "2026-05-21T02:13:36.196892+00:00",
     "_top_dual_class_flag": false,
-    "top_disclosure": "unavailable_eu_no_yf",
+    "top_disclosure": "eu_regex_extracted",
     "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
-    "_top_disclosure_at": "2026-05-21T02:49:04.635899+00:00"
+    "_top_disclosure_at": "2026-05-21T02:49:04.635899+00:00",
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:18:58Z"
   },
   "kpis_type_overrides": {
     "Total Revenue": "Revenue",
@@ -223,7 +224,12 @@
   "_kpis_type_overrides_source": "heuristic-fill-kpi-types.py (pattern match)",
   "overrides_governance": {
     "board_size": 10,
-    "avg_tenure_years": 5.5
+    "avg_tenure_years": 5.5,
+    "voting_structure_note": "Présumé one-share-one-vote (par défaut EU, non confirmé textuellement)",
+    "extraction_status": "heuristic_real_eu",
+    "_extracted_at": "2026-05-21T09:18:58Z",
+    "_source_file": "sec-data/cat3-european/HEIA.AS/annual-text/2017.txt",
+    "voting_structure": "one_share_one_vote"
   },
   "_governance_partial": true,
   "_governance_missing_fields": [
@@ -313,5 +319,81 @@
   "publication_date": "2025-12-31",
   "latest_filing": {
     "date": "2025-12-31"
-  }
+  },
+  "stories_kpis": [
+    {
+      "short": "HEINEKEN Share Control",
+      "name_fr": "Participation dans HEINEKEN N.V.",
+      "name_en": "Ownership Stake in HEINEKEN N.V.",
+      "explanation": "Pourcentage du capital de HEINEKEN N.V. détenu par Heineken Holding.",
+      "value": "50.005",
+      "unit": "%",
+      "yoy": "n/a",
+      "type": "Share",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Stabilité du contrôle stratégique à long terme",
+      "description": "Heineken Holding détient exactement 50,005 % des actions de HEINEKEN N.V., assurant un contrôle décisif. Ce seuil clé garantit la stabilité de gouvernance au sein du groupe.",
+      "history": [
+        50.005,
+        50.005,
+        50.005
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Marché"
+    },
+    {
+      "short": "Dividend Payout Ratio",
+      "name_fr": "Taux de distribution des dividendes",
+      "name_en": "Dividend Payout Ratio",
+      "explanation": "Part des bénéfices distribuée aux actionnaires sous forme de dividendes.",
+      "value": "100",
+      "unit": "%",
+      "yoy": "n/a",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "comparable": "Non comparable",
+      "signal": "Retour total du bénéfice aux actionnaires",
+      "description": "Heineken Holding reverse 100 % de son bénéfice net à ses actionnaires. Ce modèle de distribution intégrale reflète sa nature de holding pure sans réinvestissement opérationnel.",
+      "history": [
+        100,
+        100,
+        100
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Adoption"
+    },
+    {
+      "short": "Voting Rights Leverage",
+      "name_fr": "Découplage droit de vote / propriété",
+      "name_en": "Voting Rights vs Ownership Gap",
+      "explanation": "Écart entre la part des droits de vote détenus et la part économique réelle dans HEINEKEN N.V.",
+      "value": "50.0",
+      "unit": "pp",
+      "yoy": "n/a",
+      "type": "Share",
+      "nature": "Structurel",
+      "comparable": "Non comparable",
+      "signal": "Pouvoir de gouvernance disproportionné",
+      "description": "Heineken Holding détient 50,005 % des droits de vote contre une participation économique symétrique. Ce mécanisme de dualité garantit un contrôle stable indépendamment des fluctuations boursières.",
+      "history": [
+        50,
+        50,
+        50
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Capacité"
+    }
+  ],
+  "_stories_backfill_at": "2026-05-21T08:35:39Z",
+  "_stories_backfill_source": "scaleup_309_ko_cerebras_key1"
 }

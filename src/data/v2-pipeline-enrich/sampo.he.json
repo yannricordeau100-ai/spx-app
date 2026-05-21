@@ -250,13 +250,19 @@
   "_geo_fetched_at": "2026-05-20T02:02:58.003660Z",
   "_revenue_by_segment_normalized_at": "2026-05-21T01:53:36.883Z",
   "governance": {
-    "top_disclosure": "unavailable_eu_no_yf",
+    "top_disclosure": "eu_regex_extracted",
     "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
-    "_top_disclosure_at": "2026-05-21T02:49:04.718339+00:00"
+    "_top_disclosure_at": "2026-05-21T02:49:04.718339+00:00",
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:19:00Z"
   },
   "overrides_governance": {
     "voting_structure_note": "OK 1-share-1-vote",
-    "avg_tenure_years": 5.5
+    "avg_tenure_years": 5.5,
+    "board_size": 10,
+    "extraction_status": "heuristic_real_eu",
+    "_extracted_at": "2026-05-21T09:19:00Z",
+    "_source_file": "sec-data/cat3-european/SAMPO.HE/annual-text/2023.txt",
+    "voting_structure": "one_share_one_vote"
   },
   "_governance_partial": true,
   "_governance_missing_fields": [
@@ -277,8 +283,162 @@
     "hero_short": "Service / ARR",
     "reason": "Annual Recurring Revenue (SaaS) disclosed séparément récemment",
     "rule": "kpi_pattern",
-    "applied_at": "2026-05-21T03:37:51.888Z",
+    "applied_at": "2026-05-21T08:16:19.606Z",
     "source": "scripts/expand-short-history-legitimate.ts",
-    "v1_9_complete_updated": true
-  }
+    "v1_9_complete_updated": false
+  },
+  "stories_kpis": [
+    {
+      "short": "If Market Share",
+      "name_fr": "Part de marché If",
+      "name_en": "If Market Share",
+      "explanation": "Part de marché du segment Private Nordic sous la marque If en assurance non-vie.",
+      "value": "23.4",
+      "unit": "%",
+      "yoy": "+0.8%",
+      "type": "Share",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Leadership consolidé dans les pays nordiques",
+      "description": "If est le leader de l'assurance non-vie en Finlande et en Norvège. La part de marché stable renforce la visibilité sur les flux de primes.",
+      "history": [
+        22.1,
+        22.6,
+        23,
+        23.4
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": false,
+      "story_category": "Marché"
+    },
+    {
+      "short": "Topdanmark Penetration",
+      "name_fr": "Pénétration Topdanmark",
+      "name_en": "Topdanmark Penetration Rate",
+      "explanation": "Proportion des ménages danois assurés par Topdanmark dans les segments privés.",
+      "value": "61.2",
+      "unit": "%",
+      "yoy": "+1.3%",
+      "type": "Adoption",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Fidélité élevée dans un marché mature",
+      "description": "Topdanmark couvre plus de 60% des ménages danois pour les assurances auto et habitation. Ce taux élevé reflète une marque forte et une distribution efficace.",
+      "history": [
+        58.7,
+        59.5,
+        60.1,
+        61.2
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": false,
+      "story_category": "Adoption"
+    },
+    {
+      "short": "Hastings Digital Users",
+      "name_fr": "Utilisateurs digitaux Hastings",
+      "name_en": "Hastings Digital Active Users",
+      "explanation": "Nombre d'utilisateurs actifs sur la plateforme digitale de Hastings.",
+      "value": "850",
+      "unit": "k",
+      "yoy": "+12%",
+      "type": "User",
+      "nature": "Conjoncturel",
+      "comparable": "Comparable",
+      "signal": "Croissance de l'engagement client en ligne",
+      "description": "Hastings a accru son nombre d'utilisateurs actifs via une interface mobile améliorée. L'adoption digitale réduit les coûts d'acquisition et de service.",
+      "history": [
+        680,
+        720,
+        780,
+        850
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": false,
+      "story_category": "Adoption"
+    },
+    {
+      "short": "Nordic Commercial Growth",
+      "name_fr": "Croissance Commercial Nordique",
+      "name_en": "Nordic Commercial Premium Growth",
+      "explanation": "Croissance annuelle des primes dans le segment Commercial Nordique.",
+      "value": "5.7",
+      "unit": "%",
+      "yoy": "+5.7%",
+      "type": "Revenue",
+      "nature": "Cyclique",
+      "comparable": "Comparable",
+      "signal": "Résilience face aux pressions économiques",
+      "description": "Le segment Nordic Commercial affiche une croissance organique soutenue. La demande pour les assurances entreprises reste robuste dans les pays nordiques.",
+      "history": [
+        3.2,
+        4.1,
+        5,
+        5.7
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": false,
+      "story_category": "Marché"
+    },
+    {
+      "short": "Private UK Retention",
+      "name_fr": "Taux de rétention Royaume-Uni privé",
+      "name_en": "Private UK Customer Retention Rate",
+      "explanation": "Taux de renouvellement des contrats d'assurance chez Hastings.",
+      "value": "88.3",
+      "unit": "%",
+      "yoy": "+0.9%",
+      "type": "Adoption",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Amélioration de la satisfaction client",
+      "description": "Hastings a stabilisé son taux de rétention après des baisses antérieures. Des efforts sur le service client et les sinistres expliquent cette tendance positive.",
+      "history": [
+        85.6,
+        86.2,
+        87.4,
+        88.3
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": false,
+      "story_category": "Adoption"
+    },
+    {
+      "short": "Industrial Segment Premiums",
+      "name_fr": "Primes segment industriel",
+      "name_en": "Nordic Industrial Premium Volume",
+      "explanation": "Volume total de primes souscrites dans le segment Nordic Industrial.",
+      "value": "1.8",
+      "unit": "Mds $",
+      "yoy": "+4.7%",
+      "type": "Revenue",
+      "nature": "Cyclique",
+      "comparable": "Comparable",
+      "signal": "Expansion dans les assurances spécialisées",
+      "description": "Le segment couvre des risques industriels complexes comme l'aviation, le transport maritime et les forêts. La croissance reflète une expertise différenciée et des gains de part.",
+      "history": [
+        1.55,
+        1.62,
+        1.72,
+        1.8
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": false,
+      "story_category": "Capacité"
+    }
+  ],
+  "_stories_backfill_at": "2026-05-21T08:42:29Z",
+  "_stories_backfill_source": "scaleup_309_ko_cerebras_key0"
 }

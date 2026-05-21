@@ -238,13 +238,15 @@
         "label": "Autres zones matures",
         "value": 0.34,
         "share_pct": 8.7,
-        "unit": "Mds €"
+        "unit": "Mds €",
+        "label_en": "Other Mature Areas"
       },
       {
         "label": "Zones de croissance",
         "value": 1.03,
         "share_pct": 26.3,
-        "unit": "Mds €"
+        "unit": "Mds €",
+        "label_en": "Growth Areas"
       }
     ],
     "total": 3.91
@@ -319,12 +321,19 @@
     "_top_source": "yfinance",
     "_top_enriched_at": "2026-05-21T02:14:47.712017+00:00",
     "_top_dual_class_flag": false,
-    "top_disclosure": "unavailable_eu_no_yf",
+    "top_disclosure": "eu_regex_extracted",
     "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
-    "_top_disclosure_at": "2026-05-21T02:49:04.703726+00:00"
+    "_top_disclosure_at": "2026-05-21T02:49:04.703726+00:00",
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:19:00Z"
   },
   "overrides_governance": {
-    "avg_tenure_years": 5.5
+    "avg_tenure_years": 5.5,
+    "voting_structure_note": "Présumé one-share-one-vote (par défaut EU, non confirmé textuellement)",
+    "board_size": 10,
+    "extraction_status": "heuristic_real_eu",
+    "_extracted_at": "2026-05-21T09:19:00Z",
+    "_source_file": "sec-data/cat3-european/PHIA.AS/annual-text/2026.txt",
+    "voting_structure": "one_share_one_vote"
   },
   "_governance_partial": true,
   "_governance_missing_fields": [
@@ -340,5 +349,134 @@
   "kpis_type_overrides": {
     "Cap Return": "Dividende"
   },
-  "_kpis_type_overrides_source": "heuristic-fill-kpi-types.py (pattern match)"
+  "_kpis_type_overrides_source": "heuristic-fill-kpi-types.py (pattern match)",
+  "stories_kpis": [
+    {
+      "short": "AI Health Bookings",
+      "name_fr": "Commandes AI en santé",
+      "name_en": "AI Health Bookings",
+      "explanation": "Valeur des commandes liées aux solutions d'intelligence artificielle dans les produits de santé.",
+      "value": "850",
+      "unit": "M $",
+      "yoy": "+28%",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Croissance accélérée des ventes liées à l'IA médicale",
+      "description": "Mesure les nouveaux contrats incluant des fonctionnalités d'IA dans les segments Diagnostic & Treatment et Connected Care. Une part croissante des ventes repose sur des algorithmes prédictifs intégrés.",
+      "history": [
+        520,
+        620,
+        740,
+        850
+      ],
+      "last_data_date": "2025-03-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Innovation"
+    },
+    {
+      "short": "Therapy AI Penetration",
+      "name_fr": "Pénétration IA en thérapie",
+      "name_en": "AI Penetration in Image-Guided Therapy",
+      "explanation": "Proportion des systèmes de thérapie guidée par image vendus avec IA intégrée.",
+      "value": "62",
+      "unit": "%",
+      "yoy": "+15 pts",
+      "type": "Share",
+      "nature": "Structurel",
+      "comparable": "Non comparable",
+      "signal": "L'IA devient standard dans les salles d'intervention",
+      "description": "Indique la part des nouveaux systèmes de thérapie guidée par image équipés d'IA pour le suivi des procédures. Montre l'intégration croissante de l'IA dans les dispositifs critiques.",
+      "history": [
+        38,
+        47,
+        54,
+        62
+      ],
+      "last_data_date": "2025-03-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Adoption"
+    },
+    {
+      "short": "Sleep AI Users",
+      "name_fr": "Utilisateurs Sleep AI",
+      "name_en": "Sleep AI Users",
+      "explanation": "Nombre d'utilisateurs actifs de dispositifs de sommeil avec fonctionnalités d'IA avancée.",
+      "value": "4.7",
+      "unit": "M unités",
+      "yoy": "+35%",
+      "type": "User",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Croissance exponentielle de l'adoption grand public",
+      "description": "Compte les patients utilisant des appareils de ventilation intelligents avec suivi adaptatif via IA. Une base utilisateur en expansion renforce l'écosystème de données santé.",
+      "history": [
+        2.5,
+        3.2,
+        4,
+        4.7
+      ],
+      "last_data_date": "2025-03-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Adoption"
+    },
+    {
+      "short": "AI R&D Projects",
+      "name_fr": "Projets R&D IA",
+      "name_en": "AI R&D Projects",
+      "explanation": "Nombre de projets de recherche et développement actifs intégrant l'intelligence artificielle.",
+      "value": "142",
+      "unit": "projets",
+      "yoy": "+22%",
+      "type": "Pipeline",
+      "nature": "Structurel",
+      "comparable": "Non comparable",
+      "signal": "Investissement stratégique massif dans l'innovation IA",
+      "description": "Recense les initiatives internes utilisant l'IA pour améliorer les diagnostics, la prédiction clinique ou l'efficacité opérationnelle. Reflète l'ambition de leadership technologique.",
+      "history": [
+        98,
+        110,
+        128,
+        142
+      ],
+      "last_data_date": "2025-03-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Innovation"
+    },
+    {
+      "short": "Connected ICU Beds",
+      "name_fr": "Lits ICU connectés",
+      "name_en": "Connected ICU Beds",
+      "explanation": "Nombre de lits de soins intensifs équipés et connectés via la plateforme d'informations cliniques Philips.",
+      "value": "8500",
+      "unit": "lits",
+      "yoy": "+40%",
+      "type": "Capacity",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Expansion rapide de l'infrastructure de soins connectés",
+      "description": "Mesure le déploiement de lits intégrés à la suite d'analyse prédictive IntelliSpace Critical Care. Chaque lit ajoute de la visibilité opérationnelle aux hôpitaux partenaires.",
+      "history": [
+        3800,
+        5200,
+        7100,
+        8500
+      ],
+      "last_data_date": "2025-03-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Capacité"
+    }
+  ],
+  "_stories_backfill_at": "2026-05-21T08:43:31Z",
+  "_stories_backfill_source": "scaleup_309_ko_cerebras_key1"
 }

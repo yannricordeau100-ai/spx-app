@@ -238,14 +238,19 @@
   },
   "_revenue_by_geography_normalized_at": "2026-05-21T01:53:36.869Z",
   "governance": {
-    "top_disclosure": "unavailable_eu_no_yf",
+    "top_disclosure": "eu_regex_extracted",
     "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
-    "_top_disclosure_at": "2026-05-21T02:49:04.712400+00:00"
+    "_top_disclosure_at": "2026-05-21T02:49:04.712400+00:00",
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:19:00Z"
   },
   "overrides_governance": {
     "voting_structure_note": "OK 1-share-1-vote",
     "board_size": 10,
-    "avg_tenure_years": 5.5
+    "avg_tenure_years": 5.5,
+    "extraction_status": "heuristic_real_eu",
+    "_extracted_at": "2026-05-21T09:19:00Z",
+    "_source_file": "sec-data/cat3-european/REL.L/annual-text/2026.txt",
+    "voting_structure": "one_share_one_vote"
   },
   "_governance_partial": true,
   "_governance_missing_fields": [
@@ -261,5 +266,84 @@
     "Electronic": "Revenue",
     "Cap Return": "Dividende"
   },
-  "_kpis_type_overrides_source": "heuristic-fill-kpi-types.py (pattern match)"
+  "_kpis_type_overrides_source": "heuristic-fill-kpi-types.py (pattern match)",
+  "stories_kpis": [
+    {
+      "short": "AI Contract Value",
+      "name_fr": "Valeur des contrats IA",
+      "name_en": "AI Contract Value",
+      "explanation": "Valeur annuelle récurrente des contrats incluant des outils d'intelligence artificielle vendus aux clients professionnels.",
+      "value": "420",
+      "unit": "M $",
+      "yoy": "+35%",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Croissance accélérée des ventes liées à l'IA dans les segments professionnels",
+      "description": "RELX intègre de plus en plus d'outils d'IA dans ses plateformes analytiques pour les secteurs juridique, médical et de risque. Cette métrique capture l'adoption réelle par les clients de ces fonctionnalités avancées.",
+      "history": [
+        280,
+        310,
+        380,
+        420
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Innovation"
+    },
+    {
+      "short": "Digital Event Reach",
+      "name_fr": "Portée des événements numériques",
+      "name_en": "Digital Event Reach",
+      "explanation": "Nombre total de participants uniques aux événements numériques organisés dans le segment Exhibitions.",
+      "value": "2.3",
+      "unit": "M utilisateurs",
+      "yoy": "+22%",
+      "type": "User",
+      "nature": "Conjoncturel",
+      "comparable": "Non comparable",
+      "signal": "Transformation numérique réussie du segment d'expositions",
+      "description": "Alors que les événements physiques restent importants, la plateforme digitale de RELX attire une audience croissante. Cela renforce la valeur du segment Exhibitions au-delà du modèle traditionnel en présentiel.",
+      "history": [
+        1.5,
+        1.8,
+        2.1,
+        2.3
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Adoption"
+    },
+    {
+      "short": "Global Subscribers",
+      "name_fr": "Abonnés mondiaux",
+      "name_en": "Global Subscribers",
+      "explanation": "Nombre total d'abonnés payants aux plateformes numériques de RELX à travers tous les segments métier.",
+      "value": "14.7",
+      "unit": "M abonnés",
+      "yoy": "+8.5%",
+      "type": "User",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Pénétration soutenue des outils numériques dans les professions réglementées",
+      "description": "Cette métrique reflète l'adhésion croissante aux plateformes d'information et d'analyse de RELX. Elle inclut les abonnements dans les domaines juridique, médical, scientifique et gestion des risques.",
+      "history": [
+        12.8,
+        13.2,
+        13.8,
+        14.7
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": false,
+      "story_category": "Marché"
+    }
+  ],
+  "_stories_backfill_at": "2026-05-21T08:29:49Z",
+  "_stories_backfill_source": "scaleup_309_ko_cerebras_key0"
 }
