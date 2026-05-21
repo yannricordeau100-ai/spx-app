@@ -18,6 +18,7 @@ import { yoyTone } from "@/lib/utils";
 import { CompanyLogo, logoNeedsLightBg } from "@/components/logos";
 import { AcronymHover } from "@/components/acronym-hover";
 import { useT } from "@/lib/i18n/provider";
+import { displayTicker } from "@/lib/ticker-display";
 import {
   V17_SEARCH_INDEX,
   V17_SEARCH_BY_TICKER,
@@ -118,6 +119,17 @@ export function CompanySearch({
   const v19UniverseSet = useMemo(() => {
     const u = v19UniverseJson as { ticker: string }[];
     return new Set(u.map((x) => x.ticker.toUpperCase()));
+  }, []);
+
+  // Set complet de tous les tickers de l'univers Mettrik (V1 + V1.7 +
+  // V1.9). Utilisé par `displayTicker` pour détecter les doublons short
+  // et garder le suffixe (.SW/.PA/.L/etc) quand ambigu (Yann 21 mai 2026).
+  const allTickersSet = useMemo(() => {
+    const s = new Set<string>();
+    for (const t of TICKERS) s.add(t.toUpperCase());
+    for (const e of V17_SEARCH_INDEX) s.add(e.ticker.toUpperCase());
+    for (const e of V19_SEARCH_INDEX) s.add(e.ticker.toUpperCase());
+    return s;
   }, []);
 
   const results = useMemo<
@@ -386,11 +398,11 @@ export function CompanySearch({
                     {results.map((r) => (
                       <li key={`${r.source}-${r.ticker}`}>
                         {r.source === "v1" ? (
-                          <ResultCard ticker={r.ticker} onSelect={close} />
+                          <ResultCard ticker={r.ticker} onSelect={close} allTickers={allTickersSet} />
                         ) : r.source === "v19" ? (
-                          <ResultCardV19 ticker={r.ticker} onSelect={close} />
+                          <ResultCardV19 ticker={r.ticker} onSelect={close} allTickers={allTickersSet} />
                         ) : (
-                          <ResultCardV17 ticker={r.ticker} onSelect={close} />
+                          <ResultCardV17 ticker={r.ticker} onSelect={close} allTickers={allTickersSet} />
                         )}
                       </li>
                     ))}
@@ -409,9 +421,11 @@ export function CompanySearch({
 function ResultCard({
   ticker,
   onSelect,
+  allTickers,
 }: {
   ticker: string;
   onSelect: () => void;
+  allTickers: Set<string> | ReadonlySet<string>;
 }) {
   const c = COMPANIES[ticker];
   const hero = getHero(c);
@@ -420,6 +434,7 @@ function ResultCard({
     tone === "pos" ? "#22c55e" : tone === "neg" ? "#ef4444" : "#a1a1aa";
   const accent = brand(ticker).primary;
   const heroUnit = formatUnit(hero.unit);
+  const tickerShown = displayTicker(ticker, allTickers);
 
   return (
     <Link
@@ -455,7 +470,7 @@ function ResultCard({
             className="font-mono text-[11px] font-bold tracking-wider"
             style={{ color: accent }}
           >
-            {ticker}
+            {tickerShown}
           </span>
         </div>
         <div className="mt-0.5 truncate text-[11.5px] text-zinc-400">
@@ -510,13 +525,16 @@ function ResultCard({
 function ResultCardV17({
   ticker,
   onSelect,
+  allTickers,
 }: {
   ticker: string;
   onSelect: () => void;
+  allTickers: Set<string> | ReadonlySet<string>;
 }) {
   const e = V17_SEARCH_BY_TICKER[ticker.toUpperCase()];
   const accent = brand(ticker).primary;
   if (!e) return null;
+  const tickerShown = displayTicker(ticker, allTickers);
   // Routing (Yann 19 mai 2026) : Pass 3 validé → /sandbox/v1-7-5/<ticker>
   // (route canonique de meilleure qualité), sinon → /sandbox/v1-8/<ticker>
   // (V1.8 relâché avec filtre permissif, bordures rouges sur blocs manquants).
@@ -555,7 +573,7 @@ function ResultCardV17({
             className="font-mono text-[11px] font-bold tracking-wider"
             style={{ color: accent }}
           >
-            {ticker}
+            {tickerShown}
           </span>
           {e.validated ? (
             <span className="rounded-md border border-amber-400/40 bg-amber-400/10 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-amber-200">
@@ -587,14 +605,17 @@ function ResultCardV17({
 function ResultCardV19({
   ticker,
   onSelect,
+  allTickers,
 }: {
   ticker: string;
   onSelect: () => void;
+  allTickers: Set<string> | ReadonlySet<string>;
 }) {
   const e = V19_SEARCH_BY_TICKER[ticker.toUpperCase()];
   const accent = brand(ticker).primary;
   if (!e) return null;
   const href = `/sandbox/v1-9/${ticker.toLowerCase()}`;
+  const tickerShown = displayTicker(ticker, allTickers);
   return (
     <Link
       href={href}
@@ -626,7 +647,7 @@ function ResultCardV19({
             className="font-mono text-[11px] font-bold tracking-wider"
             style={{ color: accent }}
           >
-            {ticker}
+            {tickerShown}
           </span>
           <span className="rounded-md border border-zinc-500/40 bg-zinc-500/10 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-zinc-300">
             V1.9

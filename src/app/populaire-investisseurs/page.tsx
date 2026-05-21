@@ -12,6 +12,7 @@ import { AuthRequiredBanner } from "@/components/auth-required-banner";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { rate } from "@/lib/brand";
 import type { KPI } from "@/lib/data";
+import { displayTicker, buildTickerSet } from "@/lib/ticker-display";
 import { PopulaireClient } from "./client";
 
 export const dynamic = "force-dynamic";
@@ -45,28 +46,13 @@ export type PopularRow = {
   tier?: "excellent" | "bon" | "moyen" | "faible";
 };
 
-/** Suffixes de place boursière à retirer pour le ticker affiché. */
-const EXCHANGE_SUFFIXES = [
-  ".SW", ".PA", ".L", ".DE", ".AS", ".ST", ".CO", ".MI", ".MC",
-  ".HE", ".OL", ".T", ".HK", ".TO", ".AX", ".BR", ".LS", ".VI",
-  ".IR", ".SS",
-];
-
-/** Exceptions : tickers Suisses qui entrent en conflit avec un ticker
- *  identique sur un autre marché. On garde le suffixe pour éviter
- *  l'ambiguïté avec la sté homonyme.
- *  - CFR.SW (Richemont) vs CFR (Cullen/Frost Bankers, US)
- *  - ROG.SW (Roche) vs ROG (Rogers Corporation, US) */
-const PRESERVE_SUFFIX = new Set(["CFR.SW", "ROG.SW"]);
-
-function stripExchangeSuffix(ticker: string): string {
-  const up = ticker.toUpperCase();
-  if (PRESERVE_SUFFIX.has(up)) return up;
-  for (const suf of EXCHANGE_SUFFIXES) {
-    if (up.endsWith(suf)) return up.slice(0, -suf.length);
-  }
-  return up;
-}
+/**
+ * Suffixes de place boursière + exceptions multi-classes : centralisés
+ * dans `src/lib/ticker-display.ts` (Yann 21 mai 2026). Le helper
+ * `displayTicker(ticker, allTickers)` calcule dynamiquement les doublons
+ * (ex ROG.SW vs ROG) en plus de la liste statique des doublons connus
+ * (ASML/ASMLF, GOOG/GOOGL, BRK.A/BRK.B, etc.).
+ */
 
 /**
  * Charge les noms officiels + données enrichies depuis la fiche société
@@ -178,13 +164,28 @@ export default async function PopulairePage() {
     "ATEYY", "ADTTF", "BP", "BPAQF", "BBVA.MC",
   ]);
   const enrichments = loadMergedEnrichments();
+  // Construit l'univers de tous les tickers présents (toutes régions
+  // confondues + enrichments _merged.json) pour que `displayTicker`
+  // détecte dynamiquement les doublons (ex ROG.SW gardé si ROG existe
+  // ailleurs).
+  const allTickersList: string[] = [];
+  for (const region of Object.keys(data)) {
+    if (region.startsWith("_")) continue;
+    const rows = data[region];
+    if (!Array.isArray(rows)) continue;
+    for (const row of rows) {
+      if (row.ticker) allTickersList.push(row.ticker);
+    }
+  }
+  for (const k of Object.keys(enrichments)) allTickersList.push(k);
+  const allTickers = buildTickerSet(allTickersList);
   for (const region of Object.keys(data)) {
     if (region.startsWith("_")) continue;
     const rows = data[region];
     if (!Array.isArray(rows)) continue;
     for (const row of rows) {
       const t = (row.ticker || "").toUpperCase();
-      row.displayTicker = stripExchangeSuffix(row.ticker);
+      row.displayTicker = displayTicker(row.ticker, allTickers);
       const enrich = enrichments[t];
       if (enrich) {
         if (

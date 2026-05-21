@@ -9,6 +9,7 @@ import { StockPriceBlock } from "@/components/stock-price-block";
 import { InfoTooltip } from "@/components/info-tooltip";
 import { useT } from "@/lib/i18n/provider";
 import { translateSubsector, translateSubsectorLocale } from "@/lib/ui-fix-templates";
+import { displayTicker } from "@/lib/ticker-display";
 
 /**
  * 2 different hover effects, applied ONLY on logo + name:
@@ -52,12 +53,28 @@ function LogoTilt({ ticker }: { ticker: string }) {
   );
 }
 
-function CompanyName({ name, ticker, accent }: { name: string; ticker: string; accent: string }) {
+function CompanyName({
+  name,
+  ticker,
+  accent,
+  allTickers,
+}: {
+  name: string;
+  ticker: string;
+  accent: string;
+  allTickers?: Set<string> | ReadonlySet<string>;
+}) {
   // Liste les alias pointant vers ce ticker canonique (ex : GOOG → GOOGL)
   // pour les afficher en sous-classe à côté du ticker principal.
   const aliases = Object.entries(TICKER_ALIASES)
     .filter(([, target]) => target === ticker)
     .map(([alias]) => alias);
+  // Yann 21 mai 2026 : masquage suffixe ticker (.PA, .SW, .L, etc) sauf
+  // doublons connus (ASML/ASMLF, GOOG/GOOGL...). L'URL et le code utilisent
+  // toujours le ticker complet (ex NESN.SW), seul l'affichage est masqué.
+  const tickerShown = displayTicker(ticker, allTickers ?? new Set());
+  // Inclut les aliases (techniques) à l'affichage en gardant leur forme
+  // canonique. displayTicker ne s'applique qu'au ticker principal.
   // Yann 16 mai 2026 (v2, post-BABA overflow) : seuils plus serrés pour
   // que les noms longs (~29 char comme "Alibaba Group Holding Limited")
   // tiennent en 1 ligne sans dépasser. Court ≤ 18 → 1.9rem/2.3rem,
@@ -89,7 +106,7 @@ function CompanyName({ name, ticker, accent }: { name: string; ticker: string; a
         </span>
       </h1>
       <span className="font-mono text-lg font-semibold sm:text-xl whitespace-nowrap shrink-0" style={{ color: accent }}>
-        {ticker}
+        {tickerShown}
         {aliases.length > 0 && (
           <span className="ml-1 text-[0.75em] font-medium text-zinc-400">
             {" / "}{aliases.join(" / ")}
@@ -186,9 +203,18 @@ function translateRankPreposition(value: string, locale: string): string {
 export function CompanyHeader({
   company,
   hidePriceBar = false,
+  allTickers,
 }: {
   company: Company;
   hidePriceBar?: boolean;
+  /**
+   * Set des tickers de l'univers courant (V1, V1.7, V1.8, etc.). Permet
+   * à `displayTicker` de détecter les doublons short (ex ROG.SW vs ROG)
+   * et de garder le suffixe dans ce cas. Optionnel : si absent, seules
+   * les exceptions explicites (ASML/ASMLF, GOOG/GOOGL...) gardent le
+   * suffixe. Le ticker technique (URL, dataset) reste inchangé.
+   */
+  allTickers?: Set<string> | ReadonlySet<string>;
 }) {
   const accent = brand(company.ticker).primary;
   const { t, locale } = useT();
@@ -198,7 +224,7 @@ export function CompanyHeader({
       <div className="flex flex-wrap items-start gap-x-5 gap-y-4">
         <LogoTilt ticker={company.ticker} />
         <div className="min-w-0 flex-1">
-          <CompanyName name={company.name} ticker={company.ticker} accent={accent} />
+          <CompanyName name={company.name} ticker={company.ticker} accent={accent} allTickers={allTickers} />
           <div className="mt-1.5 text-[14px] text-zinc-400">
             {translateSubsectorLocale(company.sector, locale)} <span className="text-zinc-700">·</span> {translateSubsectorLocale(company.subsector, locale)}
           </div>
