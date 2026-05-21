@@ -9,12 +9,13 @@
  */
 
 import { cookies } from "next/headers";
-import { parseAppVersion, VERSION_COOKIE, type AppVersion } from "./version-cookie";
+import { parseAppVersion, VERSION_COOKIE, DEFAULT_APP_VERSION, type AppVersion } from "./version-cookie";
 
 // Re-exports pour usage server-side simple (évite double import)
 export {
   VERSION_COOKIE,
   VERSION_OPTIONS,
+  DEFAULT_APP_VERSION,
   parseAppVersion,
   versionToHubPath,
   detectVersionFromPath,
@@ -23,10 +24,10 @@ export type { AppVersion } from "./version-cookie";
 
 /**
  * Lit le cookie `mettrik:version` côté server. Retourne la version
- * sélectionnée ou null si absent / invalide.
+ * sélectionnée OU la version par défaut V1.9.5 (Yann 21 mai 2026).
  */
 export async function readAppVersion(): Promise<AppVersion> {
   const c = await cookies();
   const raw = c.get(VERSION_COOKIE)?.value ?? null;
-  return parseAppVersion(raw);
+  return parseAppVersion(raw) ?? DEFAULT_APP_VERSION;
 }

@@ -13,20 +13,25 @@
  * Le hook client + les setters sont dans `use-app-version.ts`.
  */
 
-export type AppVersion = "v1-7" | "v1-7-5" | "v1-8" | null;
+export type AppVersion = "v1-7" | "v1-7-5" | "v1-8" | "v1-9-5" | null;
 
 export const VERSION_COOKIE = "mettrik:version";
 
+/** Version par défaut quand cookie absent / invalide (Yann 21 mai 2026 : V1.9.5 standard). */
+export const DEFAULT_APP_VERSION: AppVersion = "v1-9-5";
+
 export const VERSION_OPTIONS: ReadonlyArray<{ value: AppVersion; label: string }> = [
-  { value: "v1-7", label: "V1.7" },
-  { value: "v1-7-5", label: "V1.7.5" },
+  { value: "v1-9-5", label: "V1.9.5" },
   { value: "v1-8", label: "V1.8" },
+  { value: "v1-7-5", label: "V1.7.5" },
+  { value: "v1-7", label: "V1.7" },
 ];
 
 const VALID_VERSIONS: ReadonlySet<Exclude<AppVersion, null>> = new Set([
   "v1-7",
   "v1-7-5",
   "v1-8",
+  "v1-9-5",
 ]);
 
 /**
@@ -43,18 +48,19 @@ export function parseAppVersion(s: string | null | undefined): AppVersion {
 
 /**
  * Retourne le path du hub correspondant à une version.
- * Pour `null` → renvoie le hub central `/sandbox`.
+ * Pour `null` → renvoie le hub V1.9.5 (Yann 21 mai 2026 : V1.9.5 = défaut).
  */
 export function versionToHubPath(v: AppVersion): string {
-  if (v === null) return "/sandbox";
+  if (v === null) return `/sandbox/${DEFAULT_APP_VERSION}`;
   return `/sandbox/${v}`;
 }
 
 /**
  * Détecte la version actuellement consultée à partir du pathname.
- * Ordre important : v1-7-5 doit matcher AVANT v1-7 (préfixe commun).
+ * Ordre important : v1-9-5 puis v1-7-5 (préfixe commun avec v1-7), v1-8, v1-7.
  */
 export function detectVersionFromPath(pathname: string): AppVersion {
+  if (pathname.startsWith("/sandbox/v1-9-5")) return "v1-9-5";
   if (pathname.startsWith("/sandbox/v1-8")) return "v1-8";
   if (pathname.startsWith("/sandbox/v1-7-5")) return "v1-7-5";
   if (pathname.startsWith("/sandbox/v1-7")) return "v1-7";

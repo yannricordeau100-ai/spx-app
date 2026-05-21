@@ -18,7 +18,6 @@ import {
   Layers,
   TableProperties,
   Activity,
-  BarChart3,
   Languages,
   MapPin,
   Wrench,
@@ -43,6 +42,8 @@ type SandboxItem = {
   label: string;
   desc: string;
   soon?: boolean;
+  /** Couleur d'accentuation du contour de la card (Yann 21 mai 2026 : repérage admin). */
+  accent?: "blue" | "violet";
 };
 
 type SandboxSection = {
@@ -142,12 +143,6 @@ const SECTIONS: SandboxSection[] = [
         desc: "Counts par catégorie (Top 307, SP500, SP1500, Stoxx 600, SMI Suisse, Cat 2 ADR) et par pays. Masque les ADR doublons.",
       },
       {
-        href: "/sandbox/top307-breakdown",
-        icon: BarChart3,
-        label: "Top 307 breakdown",
-        desc: "Décomposition complète du top 307 V1.8 par bloc, statut Pass 3, et indicateurs qualité.",
-      },
-      {
         href: "/sandbox/vip-inspection",
         icon: Crown,
         label: "VIP inspection",
@@ -235,12 +230,21 @@ const SECTIONS: SandboxSection[] = [
         icon: Library,
         label: "Desk interne",
         desc: "Bureau de travail privé : notes, todos, GICS, pipeline V2. Accès restreint.",
+        accent: "blue",
       },
       {
         href: "/desk-mtk9x4kp/page-content?page=home",
         icon: FileEdit,
         label: "Édition textes home",
         desc: "Modifier tagline, sous-titre, KPI Intelligence et 4 punchlines rotatives de la page d'accueil V1.8.",
+        accent: "blue",
+      },
+      {
+        href: "/desk-mtk9x4kp/blocks-control",
+        icon: ListChecks,
+        label: "Blocks Control (V1.9.5)",
+        desc: "Activer / désactiver chaque bloc (hero, stories, dividende, etc.) en global ou par sté. Placeholder gracieux affiché à la place du bloc désactivé.",
+        accent: "blue",
       },
       {
         href: "/desk-mtk9x4kp/ir-sources",
@@ -253,6 +257,7 @@ const SECTIONS: SandboxSection[] = [
         icon: Tag,
         label: "Réglage pricing",
         desc: "Back office tarifs : plans, prix multi-devises, fonctionnalités, codes promo, sync Stripe.",
+        accent: "blue",
       },
       {
         href: "/sandbox/legal-editor",
@@ -545,20 +550,36 @@ export default function SandboxPage() {
                 <div className="grid gap-4 sm:grid-cols-2">
                   {section.items.map((item) => {
                     const Icon = item.icon;
+                    const isBlueAccent = item.accent === "blue";
                     const cardClass = item.soon
                       ? "group flex items-start gap-4 rounded-xl border border-white/5 bg-white/[0.01] p-5 opacity-60"
-                      : "group flex items-start gap-4 rounded-xl border border-white/10 bg-white/[0.02] p-5 transition-colors hover:border-violet-500/30 hover:bg-white/[0.04]";
+                      : isBlueAccent
+                        ? "group flex items-start gap-4 rounded-xl border-2 border-sky-500/55 bg-sky-500/[0.04] p-5 transition-colors hover:border-sky-400/80 hover:bg-sky-500/[0.07]"
+                        : "group flex items-start gap-4 rounded-xl border border-white/10 bg-white/[0.02] p-5 transition-colors hover:border-violet-500/30 hover:bg-white/[0.04]";
+
+                    const iconWrapClass = isBlueAccent
+                      ? "flex size-10 shrink-0 items-center justify-center rounded-lg border border-sky-500/40 bg-sky-500/15 text-sky-200"
+                      : "flex size-10 shrink-0 items-center justify-center rounded-lg border border-violet-500/30 bg-violet-500/10 text-violet-300";
+
+                    const labelHoverClass = isBlueAccent
+                      ? "text-[15px] font-semibold text-zinc-50 group-hover:text-sky-100"
+                      : "text-[15px] font-semibold text-zinc-50 group-hover:text-violet-200";
 
                     const content = (
                       <>
-                        <div className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-violet-500/30 bg-violet-500/10 text-violet-300">
+                        <div className={iconWrapClass}>
                           <Icon className="size-5" />
                         </div>
                         <div className="min-w-0 flex-1">
-                          <div className="flex items-center gap-2">
-                            <h4 className="text-[15px] font-semibold text-zinc-50 group-hover:text-violet-200">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <h4 className={labelHoverClass}>
                               {item.label}
                             </h4>
+                            {isBlueAccent && (
+                              <span className="rounded-full bg-sky-500/15 px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider text-sky-200">
+                                admin
+                              </span>
+                            )}
                             {item.soon && (
                               <span className="rounded-full bg-amber-500/15 px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider text-amber-200">
                                 à venir
