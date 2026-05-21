@@ -601,22 +601,41 @@ export function CurveChart({
                   crowded on alterne up/down pour éviter chevauchements.
                   Yann 16 mai 2026 : TTM aussi affiche sa valeur (gris italique
                   pour rester visuellement distinct des points FY) — sinon
-                  l'investisseur ne sait pas combien vaut le TTM. */}
-              {(
-                <text
-                  x={x}
-                  y={isCrowded ? (i % 2 === 0 ? y - 14 : y - 26) : y - 18}
-                  textAnchor="middle"
-                  fontSize={isCrowded ? 11 : 14}
-                  fontWeight={isTTM ? 500 : (isHover ? 800 : 600)}
-                  fill={isTTM ? "#a1a1aa" : (isHover ? "#fafafa" : "#d4d4d8")}
-                  fontStyle={isTTM ? "italic" : "normal"}
-                  fontFamily="ui-monospace, monospace"
-                  style={isHover ? { filter: `drop-shadow(0 0 4px ${color})` } : undefined}
-                >
-                  {formatDataPointLabel(Number(allData[i]), dataOnlyMax)}
-                </text>
-              )}
+                  l'investisseur ne sait pas combien vaut le TTM.
+                  Yann 21 mai 2026 : valeurs négatives → label SOUS le dot pour
+                  éviter chevauchement avec la courbe (la courbe remonte
+                  fortement depuis un creux). Si dot trop proche du min de la
+                  zone chart (dans les 20% bas), on bascule aussi en dessous. */}
+              {(() => {
+                const v = Number(allData[i]);
+                const isNegative = v < 0;
+                // Distance entre le dot et le bas de la zone chart (y=baselineY).
+                // Si dot dans les 20 % bas du chart, on évite de mettre le label
+                // au-dessus (souvent croisé par la courbe qui remonte).
+                const nearBottom = (baselineY - y) < (innerH * 0.2);
+                const placeBelow = isNegative || nearBottom;
+                // y position : sous le dot mais au-dessus de l'axe X (y=baselineY+10
+                // donne ~10px sous le dot, encore 16px de marge avant les labels X
+                // à baselineY+26).
+                const yLabel = placeBelow
+                  ? Math.min(y + 18, baselineY + 12)
+                  : (isCrowded ? (i % 2 === 0 ? y - 14 : y - 26) : y - 18);
+                return (
+                  <text
+                    x={x}
+                    y={yLabel}
+                    textAnchor="middle"
+                    fontSize={isCrowded ? 11 : 14}
+                    fontWeight={isTTM ? 500 : (isHover ? 800 : 600)}
+                    fill={isTTM ? "#a1a1aa" : (isHover ? "#fafafa" : "#d4d4d8")}
+                    fontStyle={isTTM ? "italic" : "normal"}
+                    fontFamily="ui-monospace, monospace"
+                    style={isHover ? { filter: `drop-shadow(0 0 4px ${color})` } : undefined}
+                  >
+                    {formatDataPointLabel(v, dataOnlyMax)}
+                  </text>
+                );
+              })()}
             </g>
           );
         })}
