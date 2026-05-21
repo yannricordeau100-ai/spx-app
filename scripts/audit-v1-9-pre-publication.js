@@ -251,34 +251,71 @@ function checkHeroHistory(company) {
 }
 
 function checkInterpretation(company) {
-  // Bloc interprétation buildable :
-  // Lead = hero KPI (déjà vérif a)
-  // Moteur = au moins 1 KPI dans Demand/User/Adoption/Revenue/Volume/Pricing/Growth/Engagement/Capacity/Productivity/Operations/Production/Quality/Innovation
-  // Vigilance = au moins 1 KPI Cost (yoy positif) ou Margin (yoy négatif) — sinon le bloc est vide
-  // Surveillance = future-watch, toujours possible
+  // Yann 21 mai 2026 : reproduit la logique runtime de interpretStructured()
+  // (src/lib/data.ts patché par sub-agent #21, commit 667c4b3a4).
+  //
+  // L'audit antérieur utilisait une heuristique fixe (Cost yoy+ / Margin yoy-)
+  // qui ne captait PAS les fallbacks runtime : measurement biaisée → 77 % KO.
+  //
+  // Logique runtime EXACTE :
+  //   Lead         = hero KPI (toujours présent si findHero OK)
+  //   Moteur       = segmentDrivers (Demand/User/Adoption) hors hero
+  //                  ?? revenueDrivers (Revenue) hors hero
+  //                  ?? extendedDrivers (Volume/Pricing/Growth/Engagement/Capacity/
+  //                     Productivity/Operations/Production/Quality/Innovation) hors hero
+  //                  ?? segmentDrivers[0]
+  //                  ?? firstNonHero (premier KPI hors Cost/Margin/Cash)
+  //   Vigilance    = (Cost yoy+ ou Margin yoy-)
+  //                  ?? Margin/Profitability hors hero (fallback structurel)
+  //                  ?? Cost/Investment hors hero
+  //   Surveillance = future-watch (toujours présent)
+  //
+  // Si Lead + Moteur + Vigilance + Surveillance sont tous générables → ok.
   const hero = findHero(company);
   if (!hero) return { ok: false, sub_blocks: 0, reason: 'hero manquant' };
 
   if (!Array.isArray(company.kpis)) return { ok: false, sub_blocks: 0, reason: 'kpis[] manquant' };
 
-  const DRIVER_TYPES = new Set([
-    'Demand', 'User', 'Adoption', 'Revenue', 'Volume', 'Pricing', 'Growth',
-    'Engagement', 'Capacity', 'Productivity', 'Operations', 'Production',
-    'Quality', 'Innovation',
-  ]);
-  const hasDriver = company.kpis.some(
-    (k) => k.short !== hero.short && DRIVER_TYPES.has(k.type)
+  const kpis = company.kpis;
+
+  // Moteur : cascade segment → revenue → extended → segment[0] → firstNonHero
+  const segmentDrivers = kpis.filter((k) =>
+    ['Demand', 'User', 'Adoption'].includes(k.type)
   );
+  const revenueDrivers = kpis.filter((k) => k.type === 'Revenue');
+  const extendedDrivers = kpis.filter((k) =>
+    [
+      'Volume', 'Pricing', 'Growth', 'Engagement', 'Capacity',
+      'Productivity', 'Operations', 'Production', 'Quality', 'Innovation',
+    ].includes(k.type)
+  );
+  const firstNonHero = kpis.find(
+    (k) => k.short !== hero.short && !['Cost', 'Margin', 'Cash'].includes(k.type)
+  );
+  const driver =
+    segmentDrivers.find((d) => d.short !== hero.short) ||
+    revenueDrivers.find((d) => d.short !== hero.short) ||
+    extendedDrivers.find((d) => d.short !== hero.short) ||
+    segmentDrivers[0] ||
+    firstNonHero;
+  const hasDriver = Boolean(driver);
 
-  const hasVigilance = company.kpis.some((k) => {
-    const yoy = typeof k.yoy === 'string' ? k.yoy : '';
-    return (
-      (k.type === 'Cost' && yoy && !yoy.startsWith('-')) ||
-      (k.type === 'Margin' && yoy.startsWith('-'))
+  // Vigilance : cascade strict → Margin/Profitability hors hero → Cost/Investment hors hero
+  const risk =
+    kpis.find(
+      (k) =>
+        (k.type === 'Cost' && typeof k.yoy === 'string' && !k.yoy.startsWith('-')) ||
+        (k.type === 'Margin' && typeof k.yoy === 'string' && k.yoy.startsWith('-'))
+    ) ||
+    kpis.find(
+      (k) => (k.type === 'Margin' || k.type === 'Profitability') && k.short !== hero.short
+    ) ||
+    kpis.find(
+      (k) => (k.type === 'Cost' || k.type === 'Investment') && k.short !== hero.short
     );
-  });
+  const hasVigilance = Boolean(risk);
 
-  // Sub-blocks "candidates"
+  // Sub-blocks candidates
   let count = 2; // Lead + Surveillance toujours
   if (hasDriver) count += 1;
   if (hasVigilance) count += 1;
