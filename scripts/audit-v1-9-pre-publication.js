@@ -302,6 +302,41 @@ function loadCompany(ticker) {
         });
       }
     }
+
+    // Sub-agent #83 (CONV-CONCEPTS, 21 mai 2026) : merger les fichiers séparés
+    // `<ticker>.ranks.json` (produit par yfinance enrich) et
+    // `<ticker>.ai-positioning.json` qui existent côté v2-pipeline-enrich
+    // mais ne sont pas chargés par la logique de merge standard. Sans ce
+    // merge, k_ranks affiche 1/4 et h_ai_positioning fail alors que les
+    // données sont là.
+    const ranksPath = path.join(DATA, 'v2-pipeline-enrich', `${lc}.ranks.json`);
+    const ranksData = readJson(ranksPath);
+    if (ranksData && ranksData.ranks && typeof ranksData.ranks === 'object') {
+      // Field-by-field merge : ne pas écraser les valeurs déjà présentes
+      // (préfère v1-9-complete si ranks already exists), mais combler les trous.
+      if (!merged.ranks || typeof merged.ranks !== 'object') {
+        merged.ranks = { ...ranksData.ranks };
+      } else {
+        for (const [k, v] of Object.entries(ranksData.ranks)) {
+          const cur = merged.ranks[k];
+          const curEmpty = cur === undefined || cur === null || cur === '' || cur === '-';
+          if (curEmpty && v !== undefined && v !== null && v !== '') {
+            merged.ranks[k] = v;
+          }
+        }
+      }
+    }
+
+    const aiPosPath = path.join(DATA, 'v2-pipeline-enrich', `${lc}.ai-positioning.json`);
+    const aiPosData = readJson(aiPosPath);
+    if (aiPosData && aiPosData.ai_positioning && typeof aiPosData.ai_positioning === 'object') {
+      // Override seulement si merged.ai_positioning absent OU stance vide
+      const curAi = merged.ai_positioning;
+      const curStance = curAi && typeof curAi === 'object' ? String(curAi.stance || '').toLowerCase() : '';
+      if (!curAi || !curStance) {
+        merged.ai_positioning = aiPosData.ai_positioning;
+      }
+    }
   }
   return { data: merged, source: sources.join('+') || null };
 }
@@ -895,6 +930,38 @@ function checkAiPositioning(company) {
       reason: `secteur AI-irrelevant (${sector}), stance=${stance} acceptée`,
     };
   }
+  // Sub-agent #83 (CONV-CONCEPTS, 21 mai 2026) : mapper les stances LLM
+  // alternatives vers les buckets canoniques V1.9.
+  // - "leader" / "integrator" / "significant" : nécessite evidence ≥ 3
+  // - "emerging" / "developing" / "active" / etc. : evidence ≥ 1 (= cautious-like)
+  // Inventaire complet observé en production (audit 21 mai) :
+  //   significant, developing, limited, competitive_threat, active,
+  //   early_adopter, emerging_customer_focus, explorateur, nascent,
+  //   exposed_threat, integrator, leader, operational, mentioned, present
+  const STRICT_LIKE = new Set([
+    'significant', 'strong', 'major', 'leader', 'integrator',
+    'operational', 'active',
+  ]);
+  const CAUTIOUS_LIKE = new Set([
+    'emerging', 'mentioned', 'present', 'adopter', 'adopting',
+    'exploring', 'watcher', 'exposure_only', 'monitoring', 'emerging_risk',
+    'in_development', 'pilot', 'initial', 'partial',
+    'developing', 'limited', 'competitive_threat', 'early_adopter',
+    'emerging_customer_focus', 'explorateur', 'nascent', 'exposed_threat',
+    'cautious_with_evidence',
+  ]);
+  if (STRICT_LIKE.has(stance)) {
+    if (ev.length >= 3) {
+      return { ok: true, stance, sector, evidence_count: ev.length, mapped: 'leader-like' };
+    }
+    return { ok: false, stance, sector, reason: `stance=${stance} (mappé leader-like) mais evidence ${ev.length} < 3` };
+  }
+  if (CAUTIOUS_LIKE.has(stance)) {
+    if (ev.length >= 1) {
+      return { ok: true, stance, sector, evidence_count: ev.length, mapped: 'cautious-like' };
+    }
+    return { ok: false, stance, sector, reason: `stance=${stance} (mappé cautious-like) mais evidence ${ev.length} < 1` };
+  }
   if (ev.length >= 3) {
     return { ok: true, stance, sector, evidence_count: ev.length };
   }
@@ -916,6 +983,13 @@ function checkDescription(company) {
 function checkRanks(company) {
   const r = company.ranks;
   if (!r || typeof r !== 'object') return { ok: false, reason: 'ranks absent' };
+  // Sub-agent #83 (CONV-CONCEPTS, 21 mai 2026) : single_player_legitimate
+  // pour stés delisted ou small caps obscures où le rang n'est pas
+  // calculable (ex POLY.L Polymetal delisted, dpw.de ex-Deutsche Post
+  // renommé DHL). Affichage UI : "rang non publiable" ou masquage.
+  if (r._single_player_legitimate === true) {
+    return { ok: true, exception_single_player: true, reason: r._rationale || 'rang non calculable (legitimate)' };
+  }
   const fields = ['global_world', 'global_us', 'sector', 'subsector'];
   const present = fields.filter((f) => r[f] !== undefined && r[f] !== null && r[f] !== '' && r[f] !== '-');
   if (present.length < 2) return { ok: false, reason: `ranks remplis ${present.length}/4` };
