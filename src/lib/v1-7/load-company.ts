@@ -452,6 +452,31 @@ export async function loadV17Company(
         return r;
       });
     }
+    // Freshness overrides (CONV-CONCEPTS 21 mai 2026, script
+    // refresh-freshness-yf-v19.py) : rafraîchit last_data_date sur le hero KPI
+    // (ou KPI nommé) via yfinance.mostRecentQuarter / lastFiscalYearEnd. N'écrase
+    // pas v2-pipeline/ (scope CONV-DATA). Format enrich:
+    // { kpis_freshness_overrides: [{short, last_data_date, source, refreshed_at}] }
+    if (
+      Array.isArray((enrich as Record<string, unknown>).kpis_freshness_overrides) &&
+      Array.isArray(data.kpis)
+    ) {
+      const freshOverrides = (enrich as Record<string, unknown>)
+        .kpis_freshness_overrides as Array<{
+        short?: string;
+        last_data_date?: string;
+        source?: string;
+      }>;
+      data.kpis = (data.kpis as AnyKPI[]).map((k: AnyKPI) => {
+        const match = freshOverrides.find(
+          (o) => o.short && k.short && o.short === k.short,
+        );
+        if (match && match.last_data_date && typeof match.last_data_date === "string") {
+          return { ...k, last_data_date: match.last_data_date };
+        }
+        return k;
+      });
+    }
     // Stories KPIs : ajout APPEND. CONV-SYSTEMS produit des KPIs short-history
     // additionnels (ex : Netflix ad-tier MAU, Live hours) qui complètent ceux
     // de CONV-DATA. Tag is_short_history forcé à true côté carrousel Stories.
