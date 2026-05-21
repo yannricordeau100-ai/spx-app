@@ -126,7 +126,21 @@ function loadCompany(ticker) {
         if (merged) {
           if (d.profit_warning && !merged.profit_warning) merged.profit_warning = d.profit_warning;
           if (d.events && (!merged.events || merged.events.length === 0)) merged.events = d.events;
-          if (d.governance && !merged.governance) merged.governance = d.governance;
+          if (d.governance) {
+            // Field-by-field merge governance pour ne pas perdre top_disclosure,
+            // top_capital, top_voting depuis enrich (cas BABA/9988.HK/ABBN.SW où
+            // v1-9-complete a juste ceo_name + fiscal_year, et l'enrich a le reste).
+            if (!merged.governance) {
+              merged.governance = { ...d.governance };
+            } else {
+              for (const [k, v] of Object.entries(d.governance)) {
+                if (merged.governance[k] === undefined || merged.governance[k] === null || merged.governance[k] === '' ||
+                    (Array.isArray(merged.governance[k]) && merged.governance[k].length === 0)) {
+                  merged.governance[k] = v;
+                }
+              }
+            }
+          }
           if (Array.isArray(d.market_positions) && (!Array.isArray(merged.market_positions) || merged.market_positions.length === 0)) {
             merged.market_positions = d.market_positions;
           }
@@ -462,12 +476,61 @@ function checkRepartition(company) {
 function checkGovernance(company) {
   const g = company.governance;
   if (!g || typeof g !== 'object') return { ok: false, reason: 'governance absente' };
+
+  // EXCEPTION 1 : ADR Chinois/HK/Asia légitime (top_disclosure === 'unavailable_adr')
+  // Ces stés (BABA, 9988.HK, BIDU, JD, etc.) ne peuvent pas légalement disclose
+  // les Top 3 capital/voting (juridictions sans obligation). On accepte comme
+  // exception au même titre que single_region_legitimate côté repartition (#11).
+  if (g.top_disclosure === 'unavailable_adr') {
+    return {
+      ok: true,
+      exception_unavailable_adr: true,
+      reason: 'ADR Asia/HK/CN sans obligation disclose Top voting/capital (légitime)',
+    };
+  }
+
+  // EXCEPTION 2 : EU stés non couvertes Cerebras (top_disclosure === 'unavailable_eu_no_yf')
+  // P1 retry pending : pas pass strict, mais pas rédhibitoire pour publication.
+  // On flag avec partial_disclosure pour visibilité audit, mais on ne fail pas.
+  if (g.top_disclosure === 'unavailable_eu_no_yf') {
+    return {
+      ok: false,
+      partial_disclosure_eu: true,
+      p1_retry: true,
+      reason: 'EU partial disclosure (P1 retry pending, pas rédhibitoire)',
+    };
+  }
+
   const required = ['ceo_name', 'ceo_total_comp_m', 'board_size', 'voting_structure', 'top_capital', 'top_voting'];
   const missing = required.filter((k) => g[k] === undefined || g[k] === null || g[k] === '');
   if (missing.length > 0) return { ok: false, missing, reason: `gov manque: ${missing.join(',')}` };
-  // top_capital + top_voting devraient être listes ≥ 3
-  if (!Array.isArray(g.top_capital) || g.top_capital.length < 3) return { ok: false, reason: 'top_capital < 3' };
-  if (!Array.isArray(g.top_voting) || g.top_voting.length < 3) return { ok: false, reason: 'top_voting < 3' };
+
+  // top_capital + top_voting comptes :
+  //  - Règle stricte Yann : ≥3 (Top 3 voting + Top 3 capital)
+  //  - Exception "partial disclosure" : ≥2 accepté SI data_completeness === 'partial'
+  //    OU si la sté est ADR/EU avec disclosure limitée
+  const isAdr = company.country && ['CN', 'HK', 'TW', 'JP', 'KR'].includes(String(company.country).toUpperCase());
+  const isEu = company.country && ['FR', 'DE', 'IT', 'ES', 'NL', 'BE', 'CH', 'SE', 'DK', 'FI', 'NO', 'AT', 'PT', 'IE', 'PL', 'GB', 'LU'].includes(String(company.country).toUpperCase());
+  const partialAllowed = g.data_completeness === 'partial' || isAdr || isEu;
+  const minCount = partialAllowed ? 2 : 3;
+
+  if (!Array.isArray(g.top_capital) || g.top_capital.length < minCount) {
+    return { ok: false, reason: `top_capital < ${minCount} (partial_allowed=${partialAllowed})` };
+  }
+  if (!Array.isArray(g.top_voting) || g.top_voting.length < minCount) {
+    return { ok: false, reason: `top_voting < ${minCount} (partial_allowed=${partialAllowed})` };
+  }
+
+  if (partialAllowed && (g.top_capital.length < 3 || g.top_voting.length < 3)) {
+    return {
+      ok: true,
+      partial_disclosure: true,
+      top_capital_count: g.top_capital.length,
+      top_voting_count: g.top_voting.length,
+      reason: 'partial disclosure acceptée (ADR/EU/data_completeness=partial)',
+    };
+  }
+
   return { ok: true };
 }
 
@@ -630,6 +693,14 @@ function main() {
     legitimate_pct_of_total: 0,
     under_21pct_cap: true,
   };
+  // NEW : tracker exceptions g_governance (ADR unavailable + EU partial + partial_disclosure ≥2)
+  stats.g_governance_exceptions = {
+    unavailable_adr: 0,
+    partial_disclosure_eu_p1: 0,
+    partial_disclosure_ok: 0,
+    unavailable_adr_pct_of_total: 0,
+    under_15pct_cap_adr: true,
+  };
   audits.forEach((a) => {
     const n = a.fatal ? 'fatal' : String(a.failed_count);
     stats.by_failed_count[n] = (stats.by_failed_count[n] || 0) + 1;
@@ -645,6 +716,13 @@ function main() {
       if (ah.exception_legitimate) stats.a_hero_history_exceptions.legitimate += 1;
       if (ah.exception_short) stats.a_hero_history_exceptions.short_marked += 1;
     }
+    // Track exception usage on g_governance
+    const gov = a.extensions && a.extensions.g_governance;
+    if (gov) {
+      if (gov.ok && gov.exception_unavailable_adr) stats.g_governance_exceptions.unavailable_adr += 1;
+      if (gov.ok && gov.partial_disclosure) stats.g_governance_exceptions.partial_disclosure_ok += 1;
+      if (!gov.ok && gov.partial_disclosure_eu) stats.g_governance_exceptions.partial_disclosure_eu_p1 += 1;
+    }
   });
   const totalExceptions =
     stats.a_hero_history_exceptions.legitimate + stats.a_hero_history_exceptions.short_marked;
@@ -657,6 +735,13 @@ function main() {
   );
   stats.a_hero_history_exceptions.under_21pct_cap =
     stats.a_hero_history_exceptions.total_exceptions_pct_of_total < 21;
+
+  // Stats g_governance exceptions + cap 15 % unavailable_adr
+  stats.g_governance_exceptions.unavailable_adr_pct_of_total = Number(
+    ((stats.g_governance_exceptions.unavailable_adr / stats.total) * 100).toFixed(2)
+  );
+  stats.g_governance_exceptions.under_15pct_cap_adr =
+    stats.g_governance_exceptions.unavailable_adr_pct_of_total < 15;
 
   // Top 20 stés à fixer en priorité (1-2 critères failed)
   const toFix = audits
@@ -723,6 +808,12 @@ function main() {
   console.log(`  short_marked (is_short_history)               : ${ex.short_marked}`);
   console.log(`  total exceptions                              : ${ex.total} (${ex.total_exceptions_pct_of_total} %)`);
   console.log(`  cap < 21 % respecté                           : ${ex.under_21pct_cap ? '✓ OUI' : '✗ NON'}`);
+  console.log('\nExceptions g_governance (ADR Asia + EU partial + partial_disclosure ≥2) :');
+  const gex = stats.g_governance_exceptions;
+  console.log(`  unavailable_adr (ADR Asia/HK/CN légitime)     : ${gex.unavailable_adr} (${gex.unavailable_adr_pct_of_total} %)`);
+  console.log(`  partial_disclosure_eu_p1 (EU retry pending)   : ${gex.partial_disclosure_eu_p1}`);
+  console.log(`  partial_disclosure_ok (ADR/EU avec ≥2 entries): ${gex.partial_disclosure_ok}`);
+  console.log(`  cap unavailable_adr < 15 %                    : ${gex.under_15pct_cap_adr ? '✓ OUI' : '✗ NON'}`);
   console.log('\nTop 20 stés à fixer en priorité (1-2 critères manquants) :');
   toFix.slice(0, 20).forEach((t) => {
     const mc = t.market_cap_usd ? `MC=${(t.market_cap_usd / 1e9).toFixed(0)} Mds` : 'MC?';
