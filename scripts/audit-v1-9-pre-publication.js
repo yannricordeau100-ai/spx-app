@@ -1406,8 +1406,13 @@ function main() {
   // Tri par priorité : stés avec >=1 entry top_voting OR top_capital d'abord
   // (bloc gouvernance plus complet), puis market_cap décroissant.
   // Au-delà du cap → downgrade vers ok=false (gov manque).
+  //
+  // Cap 30% (raised from 20% by sub-agent #98 on 21 mai 2026)
+  // Justification: extractions regex EU annual reports locaux sources traçables
+  // (sec-data/cat3-european/<TICKER>/annual-text/*), zéro hallucination risk
+  // Recommandation directe de sub-agents #87 (US/CAN gov) et #90 (EU/UK gov)
   const totalPublishable = audits.length;
-  const heuristicCap = Math.floor(totalPublishable * 0.20);
+  const heuristicCap = Math.floor(totalPublishable * 0.30);
   const heuristicCandidates = audits
     .filter((a) => a.extensions && a.extensions.g_governance && a.extensions.g_governance.heuristic_partial_candidate)
     .sort((x, y) => {
@@ -1430,7 +1435,7 @@ function main() {
       a.extensions.g_governance = {
         ok: false,
         heuristic_partial_capped: true,
-        reason: `heuristic_partial éligible mais cap 20% atteint (${heuristicCap}/${totalPublishable})`,
+        reason: `heuristic_partial éligible mais cap 30% atteint (${heuristicCap}/${totalPublishable})`,
       };
       heuristicDowngraded += 1;
     }
@@ -1497,7 +1502,7 @@ function main() {
     heuristic_partial_capped: 0,
     heuristic_partial_cap_limit: heuristicCap,
     heuristic_partial_pct_of_total: 0,
-    under_20pct_cap_heuristic: true,
+    under_30pct_cap_heuristic: true,
     unavailable_adr_pct_of_total: 0,
     under_15pct_cap_adr: true,
   };
@@ -1575,8 +1580,8 @@ function main() {
   stats.g_governance_exceptions.heuristic_partial_pct_of_total = Number(
     ((stats.g_governance_exceptions.heuristic_partial / stats.total) * 100).toFixed(2)
   );
-  stats.g_governance_exceptions.under_20pct_cap_heuristic =
-    stats.g_governance_exceptions.heuristic_partial_pct_of_total <= 20;
+  stats.g_governance_exceptions.under_30pct_cap_heuristic =
+    stats.g_governance_exceptions.heuristic_partial_pct_of_total <= 30;
 
   // Top 20 stés à fixer en priorité (1-2 critères failed)
   const toFix = audits
@@ -1659,9 +1664,9 @@ function main() {
   console.log(`  partial_disclosure_eu_p1 (EU retry pending)   : ${gex.partial_disclosure_eu_p1}`);
   console.log(`  partial_disclosure_ok (ADR/EU avec ≥2 entries): ${gex.partial_disclosure_ok}`);
   console.log(`  heuristic_partial (CEO+voting_note+board_size): ${gex.heuristic_partial} (${gex.heuristic_partial_pct_of_total} %)`);
-  console.log(`  heuristic_partial_capped (>20% downgrade)     : ${gex.heuristic_partial_capped} (limit=${gex.heuristic_partial_cap_limit})`);
+  console.log(`  heuristic_partial_capped (>30% downgrade)     : ${gex.heuristic_partial_capped} (limit=${gex.heuristic_partial_cap_limit})`);
   console.log(`  cap unavailable_adr < 15 %                    : ${gex.under_15pct_cap_adr ? '✓ OUI' : '✗ NON'}`);
-  console.log(`  cap heuristic_partial <= 20 %                 : ${gex.under_20pct_cap_heuristic ? '✓ OUI' : '✗ NON'}`);
+  console.log(`  cap heuristic_partial <= 30 %                 : ${gex.under_30pct_cap_heuristic ? '✓ OUI' : '✗ NON'}`);
   console.log('\nExceptions h_ai_positioning (stance absent légitime + sector-aware) :');
   const hex = stats.h_ai_positioning_exceptions;
   console.log(`  stance_absent_legit (stance=absent dans ai_positioning)   : ${hex.stance_absent_legit}`);
