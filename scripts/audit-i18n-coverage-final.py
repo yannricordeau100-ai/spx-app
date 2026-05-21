@@ -44,15 +44,17 @@ def is_non_empty_str(v):
 
 
 def load_company_data(t):
-    """Merge v2-pipeline + v2-pipeline-enrich pour une sté (light merge sur les champs i18n)."""
+    """Merge v2-pipeline + v2-pipeline-enrich + sidecar i18n pour une sté."""
     tl = t.lower()
     pipeline_path = PIPELINE / f"{tl}.json"
     enrich_path = ENRICH / f"{tl}.json"
     desc_path = ENRICH / f"{tl}.description.json"
+    i18n_sidecar_path = ENRICH / f"{tl}.i18n.json"
 
     pipeline = load_json(pipeline_path) or {}
     enrich = load_json(enrich_path) or {}
     desc = load_json(desc_path) or {}
+    i18n_side = load_json(i18n_sidecar_path) or {}
 
     # Merge: enrich extends pipeline for fields like risks/segments/geo
     merged = dict(pipeline)
@@ -63,6 +65,26 @@ def load_company_data(t):
             # prefer enrich version if it has slices with label_en
             if v.get("slices") and (not merged[k].get("slices")):
                 merged[k] = v
+
+    # Apply i18n sidecar patches on kpis (signal_en / explanation_en fills)
+    sig_map = (i18n_side.get("kpi_signal_en") or {}) if isinstance(i18n_side, dict) else {}
+    exp_map = (i18n_side.get("kpi_explanation_en") or {}) if isinstance(i18n_side, dict) else {}
+    if (sig_map or exp_map) and isinstance(merged.get("kpis"), list):
+        patched = []
+        for k in merged["kpis"]:
+            if not isinstance(k, dict):
+                patched.append(k)
+                continue
+            kk = dict(k)
+            short = kk.get("short")
+            if short and not is_non_empty_str(kk.get("signal_en")):
+                if isinstance(sig_map.get(short), str) and sig_map[short].strip():
+                    kk["signal_en"] = sig_map[short]
+            if short and not is_non_empty_str(kk.get("explanation_en")):
+                if isinstance(exp_map.get(short), str) and exp_map[short].strip():
+                    kk["explanation_en"] = exp_map[short]
+            patched.append(kk)
+        merged["kpis"] = patched
     return merged, desc
 
 
