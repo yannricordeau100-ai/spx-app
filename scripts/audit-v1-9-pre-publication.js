@@ -141,6 +141,24 @@ function loadCompany(ticker) {
               }
             }
           }
+          // Yann 21 mai 2026 (sub-agent #59 CONV-CONCEPTS) : overrides_governance
+          // field-by-field merge (heuristic fill : voting_structure_note,
+          // board_size, board_independence_pct, avg_tenure_years, ceo_pay_ratio).
+          // N'écrase jamais un champ déjà présent côté CONV-DATA.
+          if (d.overrides_governance && typeof d.overrides_governance === 'object') {
+            if (!merged.governance) merged.governance = {};
+            for (const [k, v] of Object.entries(d.overrides_governance)) {
+              if (v === undefined || v === null) continue;
+              const cur = merged.governance[k];
+              const curEmpty =
+                cur === undefined || cur === null ||
+                (typeof cur === 'string' && cur.length === 0) ||
+                (Array.isArray(cur) && cur.length === 0);
+              if (curEmpty) {
+                merged.governance[k] = v;
+              }
+            }
+          }
           if (Array.isArray(d.market_positions) && (!Array.isArray(merged.market_positions) || merged.market_positions.length === 0)) {
             merged.market_positions = d.market_positions;
           }
@@ -539,9 +557,38 @@ function checkGovernance(company) {
     };
   }
 
-  const required = ['ceo_name', 'ceo_total_comp_m', 'board_size', 'voting_structure', 'top_capital', 'top_voting'];
-  const missing = required.filter((k) => g[k] === undefined || g[k] === null || g[k] === '');
-  if (missing.length > 0) return { ok: false, missing, reason: `gov manque: ${missing.join(',')}` };
+  // EXCEPTION 3 : heuristic_partial (sub-agent #59, Yann 21 mai 2026 ~05h)
+  // Si la sté a au minimum :
+  //   - governance.ceo_name présent
+  //   - governance.voting_structure_note présent (heuristique fill OU overrides_governance)
+  //   - governance.board_size >= 1
+  //   - OPTIONAL bonus : >=1 entry dans top_voting OR top_capital
+  // → considéré comme bloc gouvernance affichable même sans DEF14A complet.
+  // Tag candidate (cap 20% appliqué dans main()).
+  const requiredStrict = ['ceo_name', 'ceo_total_comp_m', 'board_size', 'voting_structure', 'top_capital', 'top_voting'];
+  const missing = requiredStrict.filter((k) => g[k] === undefined || g[k] === null || g[k] === '');
+
+  if (missing.length > 0) {
+    const hasCeo = typeof g.ceo_name === 'string' && g.ceo_name.length > 0;
+    const hasVotingNote = typeof g.voting_structure_note === 'string' && g.voting_structure_note.length > 0;
+    const hasBoardSize = typeof g.board_size === 'number' && g.board_size >= 1;
+    const topVotingArr = Array.isArray(g.top_voting) ? g.top_voting : [];
+    const topCapitalArr = Array.isArray(g.top_capital) ? g.top_capital : [];
+    const hasOneTop = topVotingArr.length >= 1 || topCapitalArr.length >= 1;
+    if (hasCeo && hasVotingNote && hasBoardSize) {
+      return {
+        ok: true,
+        heuristic_partial_candidate: true,
+        has_one_top: hasOneTop,
+        ceo_name: g.ceo_name,
+        board_size: g.board_size,
+        top_voting_count: topVotingArr.length,
+        top_capital_count: topCapitalArr.length,
+        reason: `heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=${topVotingArr.length} top_capital=${topCapitalArr.length})`,
+      };
+    }
+    return { ok: false, missing, reason: `gov manque: ${missing.join(',')}` };
+  }
 
   // top_capital + top_voting comptes :
   //  - Règle stricte Yann : ≥3 (Top 3 voting + Top 3 capital)
@@ -699,6 +746,48 @@ function main() {
 
   const audits = tickers.map((t) => auditTicker(t, mcMap));
 
+  // Yann 21 mai 2026 (sub-agent #59) : appliquer cap 20% sur heuristic_partial.
+  // Tri par priorité : stés avec >=1 entry top_voting OR top_capital d'abord
+  // (bloc gouvernance plus complet), puis market_cap décroissant.
+  // Au-delà du cap → downgrade vers ok=false (gov manque).
+  const totalPublishable = audits.length;
+  const heuristicCap = Math.floor(totalPublishable * 0.20);
+  const heuristicCandidates = audits
+    .filter((a) => a.extensions && a.extensions.g_governance && a.extensions.g_governance.heuristic_partial_candidate)
+    .sort((x, y) => {
+      const xt = x.extensions.g_governance;
+      const yt = y.extensions.g_governance;
+      if (xt.has_one_top !== yt.has_one_top) return xt.has_one_top ? -1 : 1;
+      const mx = x.market_cap_usd || 0;
+      const my = y.market_cap_usd || 0;
+      return my - mx;
+    });
+  let heuristicAccepted = 0;
+  let heuristicDowngraded = 0;
+  for (const a of heuristicCandidates) {
+    const gov = a.extensions.g_governance;
+    if (heuristicAccepted < heuristicCap) {
+      gov.exception_heuristic_partial = true;
+      delete gov.heuristic_partial_candidate;
+      heuristicAccepted += 1;
+    } else {
+      a.extensions.g_governance = {
+        ok: false,
+        heuristic_partial_capped: true,
+        reason: `heuristic_partial éligible mais cap 20% atteint (${heuristicCap}/${totalPublishable})`,
+      };
+      heuristicDowngraded += 1;
+    }
+  }
+
+  // Recompute failed_extensions + flags après downgrade cap.
+  for (const a of audits) {
+    if (!a.fatal) {
+      a.failed_extensions = Object.entries(a.extensions).filter(([, v]) => !v.ok).map(([k]) => k);
+      a.is_clean_all = a.failed_criteria.length === 0 && a.failed_extensions.length === 0;
+    }
+  }
+
   // Stats globales
   const stats = {
     total: audits.length,
@@ -736,6 +825,11 @@ function main() {
     unavailable_adr: 0,
     partial_disclosure_eu_p1: 0,
     partial_disclosure_ok: 0,
+    heuristic_partial: 0,
+    heuristic_partial_capped: 0,
+    heuristic_partial_cap_limit: heuristicCap,
+    heuristic_partial_pct_of_total: 0,
+    under_20pct_cap_heuristic: true,
     unavailable_adr_pct_of_total: 0,
     under_15pct_cap_adr: true,
   };
@@ -759,7 +853,9 @@ function main() {
     if (gov) {
       if (gov.ok && gov.exception_unavailable_adr) stats.g_governance_exceptions.unavailable_adr += 1;
       if (gov.ok && gov.partial_disclosure) stats.g_governance_exceptions.partial_disclosure_ok += 1;
+      if (gov.ok && gov.exception_heuristic_partial) stats.g_governance_exceptions.heuristic_partial += 1;
       if (!gov.ok && gov.partial_disclosure_eu) stats.g_governance_exceptions.partial_disclosure_eu_p1 += 1;
+      if (!gov.ok && gov.heuristic_partial_capped) stats.g_governance_exceptions.heuristic_partial_capped += 1;
     }
   });
   const totalExceptions =
@@ -780,6 +876,11 @@ function main() {
   );
   stats.g_governance_exceptions.under_15pct_cap_adr =
     stats.g_governance_exceptions.unavailable_adr_pct_of_total < 15;
+  stats.g_governance_exceptions.heuristic_partial_pct_of_total = Number(
+    ((stats.g_governance_exceptions.heuristic_partial / stats.total) * 100).toFixed(2)
+  );
+  stats.g_governance_exceptions.under_20pct_cap_heuristic =
+    stats.g_governance_exceptions.heuristic_partial_pct_of_total <= 20;
 
   // Top 20 stés à fixer en priorité (1-2 critères failed)
   const toFix = audits
@@ -851,7 +952,10 @@ function main() {
   console.log(`  unavailable_adr (ADR Asia/HK/CN légitime)     : ${gex.unavailable_adr} (${gex.unavailable_adr_pct_of_total} %)`);
   console.log(`  partial_disclosure_eu_p1 (EU retry pending)   : ${gex.partial_disclosure_eu_p1}`);
   console.log(`  partial_disclosure_ok (ADR/EU avec ≥2 entries): ${gex.partial_disclosure_ok}`);
+  console.log(`  heuristic_partial (CEO+voting_note+board_size): ${gex.heuristic_partial} (${gex.heuristic_partial_pct_of_total} %)`);
+  console.log(`  heuristic_partial_capped (>20% downgrade)     : ${gex.heuristic_partial_capped} (limit=${gex.heuristic_partial_cap_limit})`);
   console.log(`  cap unavailable_adr < 15 %                    : ${gex.under_15pct_cap_adr ? '✓ OUI' : '✗ NON'}`);
+  console.log(`  cap heuristic_partial <= 20 %                 : ${gex.under_20pct_cap_heuristic ? '✓ OUI' : '✗ NON'}`);
   console.log('\nTop 20 stés à fixer en priorité (1-2 critères manquants) :');
   toFix.slice(0, 20).forEach((t) => {
     const mc = t.market_cap_usd ? `MC=${(t.market_cap_usd / 1e9).toFixed(0)} Mds` : 'MC?';

@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-05-21T03:16:31.673Z",
+  "generated_at": "2026-05-21T03:20:57.516Z",
   "publishable_source": "src/data/v1-9-publishable.json",
   "publishable_count_input": 549,
   "stats": {
     "total": 549,
     "fatal_no_dataset": 0,
     "clean_af": 55,
-    "clean_all": 2,
+    "clean_all": 4,
     "by_failed_count": {
       "0": 55,
       "1": 170,
@@ -24,7 +24,7 @@
       "f_repartition": 98
     },
     "by_failed_extension": {
-      "g_governance": 436,
+      "g_governance": 327,
       "h_ai_positioning": 179,
       "i_events": 117,
       "j_description": 0,
@@ -44,6 +44,11 @@
       "unavailable_adr": 14,
       "partial_disclosure_eu_p1": 83,
       "partial_disclosure_ok": 0,
+      "heuristic_partial": 109,
+      "heuristic_partial_capped": 187,
+      "heuristic_partial_cap_limit": 109,
+      "heuristic_partial_pct_of_total": 19.85,
+      "under_20pct_cap_heuristic": true,
       "unavailable_adr_pct_of_total": 2.55,
       "under_15pct_cap_adr": true
     }
@@ -336,11 +341,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Satya Nadella",
+          "board_size": 12,
+          "top_voting_count": 1,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=1 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -368,9 +376,7 @@
         "a_hero_history",
         "d_stories"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -580,10 +586,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -854,13 +858,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Mr. Padraig  McDonnell",
+          "board_size": 4,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": false,
@@ -890,7 +895,6 @@
         "e_risks"
       ],
       "failed_extensions": [
-        "g_governance",
         "h_ai_positioning"
       ],
       "failed_count": 2,
@@ -1015,13 +1019,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Mr. Morten  Wierod",
+          "board_size": 10,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -1050,7 +1055,6 @@
         "d_stories"
       ],
       "failed_extensions": [
-        "g_governance",
         "i_events"
       ],
       "failed_count": 1,
@@ -1192,11 +1196,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Robert A. Michael",
+          "board_size": 12,
+          "top_voting_count": 3,
+          "top_capital_count": 2,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=2)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": false,
@@ -1226,7 +1233,6 @@
         "f_repartition"
       ],
       "failed_extensions": [
-        "g_governance",
         "h_ai_positioning"
       ],
       "failed_count": 2,
@@ -1539,11 +1545,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Robert B. Ford",
+          "board_size": 12,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": false,
@@ -1572,7 +1581,6 @@
         "a_hero_history"
       ],
       "failed_extensions": [
-        "g_governance",
         "h_ai_positioning"
       ],
       "failed_count": 1,
@@ -1725,11 +1733,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Shantanu Narayen",
+          "board_size": 11,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -1758,7 +1769,6 @@
         "e_risks"
       ],
       "failed_extensions": [
-        "g_governance",
         "i_events",
         "m_freshness"
       ],
@@ -1817,11 +1827,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Not specified",
+          "board_size": 10,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -1849,7 +1862,6 @@
         "e_risks"
       ],
       "failed_extensions": [
-        "g_governance",
         "m_freshness"
       ],
       "failed_count": 1,
@@ -1898,11 +1910,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Mr. Juan Ricardo Luciano",
+          "board_size": 12,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": false,
@@ -1932,7 +1947,6 @@
         "a_hero_history"
       ],
       "failed_extensions": [
-        "g_governance",
         "h_ai_positioning",
         "i_events",
         "m_freshness"
@@ -1994,13 +2008,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Ms. Maria  Black",
+          "board_size": 10,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": false,
@@ -2032,7 +2047,6 @@
         "e_risks"
       ],
       "failed_extensions": [
-        "g_governance",
         "h_ai_positioning",
         "i_events",
         "m_freshness"
@@ -2407,11 +2421,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "William J. Fehrman",
+          "board_size": 10,
+          "top_voting_count": 3,
+          "top_capital_count": 1,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=1)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -2440,7 +2457,6 @@
         "d_stories"
       ],
       "failed_extensions": [
-        "g_governance",
         "l_hero_name_fr",
         "m_freshness"
       ],
@@ -2495,11 +2511,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "John B. Morse, Jr.",
+          "board_size": 12,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -2527,9 +2546,7 @@
         "d_stories",
         "f_repartition"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -2577,11 +2594,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Daniel P. Amos",
+          "board_size": 12,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -2609,9 +2629,7 @@
         "a_hero_history",
         "d_stories"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -2841,11 +2859,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Peter Zaffino",
+          "board_size": 10,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": false,
@@ -2876,7 +2897,6 @@
         "d_stories"
       ],
       "failed_extensions": [
-        "g_governance",
         "h_ai_positioning",
         "i_events",
         "m_freshness"
@@ -3004,11 +3024,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Dr. F. Thomson Leighton",
+          "board_size": 12,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -3037,9 +3060,7 @@
         "d_stories",
         "f_repartition"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
@@ -3178,11 +3199,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "J. Kent Masters, Jr.",
+          "board_size": 10,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": false,
@@ -3212,7 +3236,6 @@
         "d_stories"
       ],
       "failed_extensions": [
-        "g_governance",
         "h_ai_positioning"
       ],
       "failed_count": 2,
@@ -3352,11 +3375,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Tom Wilson",
+          "board_size": 12,
+          "top_voting_count": 3,
+          "top_capital_count": 1,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=1)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -3385,9 +3411,7 @@
         "d_stories",
         "f_repartition"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
@@ -3523,11 +3547,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Peter Konieczny",
+          "board_size": 11,
+          "top_voting_count": 1,
+          "top_capital_count": 1,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=1 top_capital=1)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": false,
@@ -3559,7 +3586,6 @@
         "f_repartition"
       ],
       "failed_extensions": [
-        "g_governance",
         "h_ai_positioning",
         "l_hero_name_fr",
         "m_freshness"
@@ -3702,11 +3728,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "David A. Zapico",
+          "board_size": 3,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": false,
@@ -3733,7 +3762,6 @@
       },
       "failed_criteria": [],
       "failed_extensions": [
-        "g_governance",
         "h_ai_positioning",
         "m_freshness"
       ],
@@ -3962,11 +3990,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Steven O. Vondran",
+          "board_size": 11,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": false,
@@ -3996,7 +4027,6 @@
         "f_repartition"
       ],
       "failed_extensions": [
-        "g_governance",
         "h_ai_positioning",
         "i_events",
         "m_freshness"
@@ -4149,11 +4179,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Jayshree Ullal",
+          "board_size": 9,
+          "top_voting_count": 5,
+          "top_capital_count": 5,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=5 top_capital=5)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -4182,7 +4215,6 @@
         "f_repartition"
       ],
       "failed_extensions": [
-        "g_governance",
         "i_events"
       ],
       "failed_count": 1,
@@ -4232,11 +4264,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Gregory C. Case",
+          "board_size": 12,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": false,
@@ -4266,7 +4301,6 @@
         "d_stories"
       ],
       "failed_extensions": [
-        "g_governance",
         "h_ai_positioning"
       ],
       "failed_count": 2,
@@ -4472,11 +4506,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Eduardo Menezes",
+          "board_size": 10,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -4503,9 +4540,7 @@
       "failed_criteria": [
         "a_hero_history"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -4551,11 +4586,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "R. Adam Norwitt",
+          "board_size": 8,
+          "top_voting_count": 1,
+          "top_capital_count": 2,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=1 top_capital=2)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": false,
@@ -4584,7 +4622,6 @@
         "d_stories"
       ],
       "failed_extensions": [
-        "g_governance",
         "h_ai_positioning",
         "m_freshness"
       ],
@@ -4635,11 +4672,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Mr. Marc Jeffrey Rowan",
+          "board_size": 13,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -4667,9 +4707,7 @@
         "a_hero_history",
         "d_stories"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -4787,11 +4825,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Kevin P. Clark",
+          "board_size": 11,
+          "top_voting_count": 3,
+          "top_capital_count": 1,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=1)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -4818,7 +4859,6 @@
       },
       "failed_criteria": [],
       "failed_extensions": [
-        "g_governance",
         "l_hero_name_fr",
         "m_freshness"
       ],
@@ -4882,13 +4922,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Mr. Karl  Gubitz",
+          "board_size": 10,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -4918,7 +4959,6 @@
         "f_repartition"
       ],
       "failed_extensions": [
-        "g_governance",
         "m_freshness"
       ],
       "failed_count": 3,
@@ -5166,12 +5206,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: board_size,voting_structure"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Christophe D. Fouquet",
+          "board_size": 10,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -5202,7 +5244,6 @@
         "f_repartition"
       ],
       "failed_extensions": [
-        "g_governance",
         "m_freshness"
       ],
       "failed_count": 4,
@@ -5506,11 +5547,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "J. Kevin Akers",
+          "board_size": 12,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -5536,7 +5580,6 @@
       },
       "failed_criteria": [],
       "failed_extensions": [
-        "g_governance",
         "m_freshness"
       ],
       "failed_count": 0,
@@ -5737,11 +5780,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Vikas Arora",
+          "board_size": 10,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": false,
@@ -5768,7 +5814,6 @@
       },
       "failed_criteria": [],
       "failed_extensions": [
-        "g_governance",
         "h_ai_positioning",
         "m_freshness"
       ],
@@ -5818,11 +5863,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Walter J. Lynch",
+          "board_size": 10,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -5849,9 +5897,7 @@
       "failed_criteria": [
         "a_hero_history"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -6059,13 +6105,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Mr. Pascal Claude Roland Soriot D.V.M., M.B.A.",
+          "board_size": 10,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -6094,7 +6141,6 @@
         "e_risks"
       ],
       "failed_extensions": [
-        "g_governance",
         "m_freshness"
       ],
       "failed_count": 1,
@@ -6368,11 +6414,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Ronald J. Lewis",
+          "board_size": 9,
+          "top_voting_count": 3,
+          "top_capital_count": 1,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=1)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": false,
@@ -6400,7 +6449,6 @@
       },
       "failed_criteria": [],
       "failed_extensions": [
-        "g_governance",
         "h_ai_positioning",
         "l_hero_name_fr",
         "m_freshness"
@@ -7150,11 +7198,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Mr. Gregory A. Heckman",
+          "board_size": 12,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -7180,7 +7231,6 @@
       },
       "failed_criteria": [],
       "failed_extensions": [
-        "g_governance",
         "m_freshness"
       ],
       "failed_count": 0,
@@ -7805,11 +7855,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Christopher S. Boerner",
+          "board_size": 11,
+          "top_voting_count": 3,
+          "top_capital_count": 2,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=2)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": false,
@@ -7839,7 +7892,6 @@
         "d_stories"
       ],
       "failed_extensions": [
-        "g_governance",
         "h_ai_positioning"
       ],
       "failed_count": 2,
@@ -7978,13 +8030,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Mr. Jens  Birgersson",
+          "board_size": 4,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -8015,7 +8068,6 @@
         "e_risks"
       ],
       "failed_extensions": [
-        "g_governance",
         "m_freshness"
       ],
       "failed_count": 3,
@@ -8073,13 +8125,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Ms. Carol-Lee  Howle",
+          "board_size": 10,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -8106,9 +8159,7 @@
       "failed_criteria": [
         "e_risks"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -8156,11 +8207,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Timothy C. Gokey",
+          "board_size": 8,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -8188,9 +8242,7 @@
         "a_hero_history",
         "d_stories"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -8236,11 +8288,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Mr. J. Powell Brown C.P.C.U.",
+          "board_size": 14,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": false,
@@ -8269,7 +8324,6 @@
         "d_stories"
       ],
       "failed_extensions": [
-        "g_governance",
         "h_ai_positioning",
         "m_freshness"
       ],
@@ -8323,11 +8377,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Michael F. Mahoney",
+          "board_size": 10,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -8356,7 +8413,6 @@
         "e_risks"
       ],
       "failed_extensions": [
-        "g_governance",
         "i_events",
         "m_freshness"
       ],
@@ -8567,13 +8623,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Mr. Michel Dimitrios  Doukeris",
+          "board_size": 10,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -8602,9 +8659,7 @@
         "d_stories",
         "e_risks"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
@@ -8907,13 +8962,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Mr. Stephen Allen Schwarzman B.A., M.B.A.",
+          "board_size": 10,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -8942,7 +8998,6 @@
         "e_risks"
       ],
       "failed_extensions": [
-        "g_governance",
         "i_events",
         "m_freshness"
       ],
@@ -9072,11 +9127,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Sean Connolly",
+          "board_size": 10,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": false,
@@ -9108,7 +9166,6 @@
         "d_stories"
       ],
       "failed_extensions": [
-        "g_governance",
         "h_ai_positioning",
         "i_events",
         "l_hero_name_fr",
@@ -9159,11 +9216,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Gregory B. Kenny",
+          "board_size": 12,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": false,
@@ -9193,7 +9253,6 @@
         "d_stories"
       ],
       "failed_extensions": [
-        "g_governance",
         "h_ai_positioning",
         "i_events"
       ],
@@ -9335,11 +9394,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "David L. Gitlin",
+          "board_size": 10,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": false,
@@ -9368,7 +9430,6 @@
         "a_hero_history"
       ],
       "failed_extensions": [
-        "g_governance",
         "h_ai_positioning"
       ],
       "failed_count": 1,
@@ -9418,11 +9479,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Joseph E. Creed",
+          "board_size": 10,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": false,
@@ -9454,7 +9518,6 @@
         "d_stories"
       ],
       "failed_extensions": [
-        "g_governance",
         "h_ai_positioning",
         "i_events",
         "k_ranks",
@@ -9509,11 +9572,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Evan G. Greenberg",
+          "board_size": 13,
+          "top_voting_count": 3,
+          "top_capital_count": 2,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=2)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": false,
@@ -9544,7 +9610,6 @@
         "b_interpretation"
       ],
       "failed_extensions": [
-        "g_governance",
         "h_ai_positioning",
         "l_hero_name_fr",
         "m_freshness"
@@ -9595,11 +9660,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Craig S. Donohue",
+          "board_size": 12,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": false,
@@ -9627,7 +9695,6 @@
       },
       "failed_criteria": [],
       "failed_extensions": [
-        "g_governance",
         "h_ai_positioning",
         "i_events",
         "m_freshness"
@@ -9678,11 +9745,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Robert E. Sulentic",
+          "board_size": 10,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -9709,9 +9779,7 @@
       "failed_criteria": [
         "a_hero_history"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -9768,13 +9836,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Mr. Damian Paul Gammell",
+          "board_size": 10,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -9802,9 +9871,7 @@
         "d_stories",
         "e_risks"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -9946,13 +10013,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Mr. Christian H. Hillabrant",
+          "board_size": 9,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": false,
@@ -9984,7 +10052,6 @@
         "e_risks"
       ],
       "failed_extensions": [
-        "g_governance",
         "h_ai_positioning",
         "m_freshness"
       ],
@@ -10034,11 +10101,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Dr. Anirudh  Devgan Ph.D.",
+          "board_size": 11,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -10065,7 +10135,6 @@
       },
       "failed_criteria": [],
       "failed_extensions": [
-        "g_governance",
         "i_events",
         "m_freshness"
       ],
@@ -10122,11 +10191,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Christine A. Leahy",
+          "board_size": 9,
+          "top_voting_count": 3,
+          "top_capital_count": 2,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=2)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": false,
@@ -10157,7 +10229,6 @@
         "e_risks"
       ],
       "failed_extensions": [
-        "g_governance",
         "h_ai_positioning",
         "k_ranks",
         "m_freshness"
@@ -10213,11 +10284,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Mr. Joseph  Dominguez",
+          "board_size": 12,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -10245,7 +10319,6 @@
         "f_repartition"
       ],
       "failed_extensions": [
-        "g_governance",
         "m_freshness"
       ],
       "failed_count": 1,
@@ -10292,11 +10365,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Christopher D. Bohn",
+          "board_size": 11,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": false,
@@ -10323,7 +10399,6 @@
       },
       "failed_criteria": [],
       "failed_extensions": [
-        "g_governance",
         "h_ai_positioning",
         "m_freshness"
       ],
@@ -10374,11 +10449,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Bruce Van Saun",
+          "board_size": 12,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -10408,7 +10486,6 @@
         "d_stories"
       ],
       "failed_extensions": [
-        "g_governance",
         "i_events"
       ],
       "failed_count": 2,
@@ -10467,11 +10544,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Richard A. Dierker",
+          "board_size": 11,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": false,
@@ -10503,7 +10583,6 @@
         "e_risks"
       ],
       "failed_extensions": [
-        "g_governance",
         "h_ai_positioning",
         "k_ranks",
         "l_hero_name_fr",
@@ -10734,11 +10813,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "David M. Cordani",
+          "board_size": 12,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -10763,12 +10845,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "CIEN",
@@ -10813,11 +10893,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Mr. Gary B. Smith",
+          "board_size": 9,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -10847,7 +10930,6 @@
         "d_stories"
       ],
       "failed_extensions": [
-        "g_governance",
         "i_events"
       ],
       "failed_count": 2,
@@ -10976,11 +11058,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Noel Wallace",
+          "board_size": 10,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": false,
@@ -11010,7 +11095,6 @@
         "f_repartition"
       ],
       "failed_extensions": [
-        "g_governance",
         "h_ai_positioning",
         "i_events"
       ],
@@ -11164,11 +11248,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Brian L. Roberts",
+          "board_size": 11,
+          "top_voting_count": 1,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=1 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": false,
@@ -11197,7 +11284,6 @@
         "a_hero_history"
       ],
       "failed_extensions": [
-        "g_governance",
         "h_ai_positioning",
         "m_freshness"
       ],
@@ -11245,11 +11331,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Jennifer W. Rumsey",
+          "board_size": 11,
+          "top_voting_count": 3,
+          "top_capital_count": 2,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=2)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": false,
@@ -11277,7 +11366,6 @@
       },
       "failed_criteria": [],
       "failed_extensions": [
-        "g_governance",
         "h_ai_positioning",
         "i_events",
         "m_freshness"
@@ -11411,11 +11499,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Not specified",
+          "board_size": 9,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": false,
@@ -11443,7 +11534,6 @@
       },
       "failed_criteria": [],
       "failed_extensions": [
-        "g_governance",
         "h_ai_positioning",
         "i_events",
         "m_freshness"
@@ -11506,11 +11596,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Jason P. Wells",
+          "board_size": 11,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": false,
@@ -11541,7 +11634,6 @@
         "e_risks"
       ],
       "failed_extensions": [
-        "g_governance",
         "h_ai_positioning",
         "m_freshness"
       ],
@@ -11592,10 +11684,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -11673,10 +11763,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -11765,10 +11853,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -11933,10 +12019,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -12104,10 +12188,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -12197,10 +12279,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -12288,10 +12368,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -12369,10 +12447,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -12532,10 +12608,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -12616,10 +12690,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -12971,10 +13043,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -13066,11 +13136,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "J. David Joyner",
+          "board_size": 13,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -13098,7 +13171,6 @@
         "e_risks"
       ],
       "failed_extensions": [
-        "g_governance",
         "m_freshness"
       ],
       "failed_count": 1,
@@ -13149,11 +13221,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Michael K. Wirth",
+          "board_size": 12,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -13182,7 +13257,6 @@
         "d_stories"
       ],
       "failed_extensions": [
-        "g_governance",
         "m_freshness"
       ],
       "failed_count": 2,
@@ -13232,11 +13306,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "voting_structure"
-          ],
-          "reason": "gov manque: voting_structure"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Lynn M. Bamford",
+          "board_size": 9,
+          "top_voting_count": 1,
+          "top_capital_count": 1,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=1 top_capital=1)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -13264,9 +13341,7 @@
         "a_hero_history",
         "d_stories"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -13320,10 +13395,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -13411,11 +13484,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Edward H. Bastian",
+          "board_size": 12,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -13446,7 +13522,6 @@
         "e_risks"
       ],
       "failed_extensions": [
-        "g_governance",
         "l_hero_name_fr"
       ],
       "failed_count": 3,
@@ -13593,11 +13668,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -13853,10 +13925,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -13943,10 +14013,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -14114,10 +14182,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -14195,10 +14261,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -14377,13 +14441,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Sir David John Lewis",
+          "board_size": 10,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -14414,7 +14479,6 @@
         "e_risks"
       ],
       "failed_extensions": [
-        "g_governance",
         "i_events",
         "l_hero_name_fr",
         "m_freshness"
@@ -14472,10 +14536,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -14652,11 +14714,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,voting_structure"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -14916,10 +14975,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -15079,10 +15136,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -15162,10 +15217,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -15256,10 +15309,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -15344,11 +15395,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Mr. Richard Joseph Tobin",
+          "board_size": 9,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -15378,7 +15432,6 @@
         "e_risks"
       ],
       "failed_extensions": [
-        "g_governance",
         "l_hero_name_fr"
       ],
       "failed_count": 2,
@@ -15428,10 +15481,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -15521,10 +15572,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -15942,10 +15991,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -16026,10 +16073,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -16210,10 +16255,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -16291,10 +16334,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -16648,11 +16689,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Pedro J. Pizarro",
+          "board_size": 11,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -16680,7 +16724,6 @@
         "e_risks"
       ],
       "failed_extensions": [
-        "g_governance",
         "m_freshness"
       ],
       "failed_count": 1,
@@ -16895,12 +16938,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -16980,11 +17019,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Lal Karsanbhai",
+          "board_size": 10,
+          "top_voting_count": 2,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=2 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -17012,9 +17054,7 @@
         "a_hero_history",
         "d_stories"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -17234,10 +17274,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -17327,10 +17365,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -17496,10 +17532,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -17783,10 +17817,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -18028,10 +18060,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -18116,11 +18146,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,voting_structure"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -18211,12 +18238,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -18398,10 +18421,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -18491,10 +18512,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -18573,10 +18592,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -18666,10 +18683,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -18832,10 +18847,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -18927,10 +18940,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -19017,11 +19028,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "D. Bryan Jordan",
+          "board_size": 12,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -19050,9 +19064,7 @@
         "d_stories",
         "e_risks"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
@@ -19107,11 +19119,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "William J. Lansing",
+          "board_size": 8,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -19140,7 +19155,6 @@
         "e_risks"
       ],
       "failed_extensions": [
-        "g_governance",
         "m_freshness"
       ],
       "failed_count": 2,
@@ -19189,10 +19203,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -19274,10 +19286,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -19368,10 +19378,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -19847,10 +19855,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -19930,10 +19936,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -20009,10 +20013,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -20092,10 +20094,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -20174,10 +20174,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -20408,11 +20406,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Vincent Pilette",
+          "board_size": 9,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -20440,9 +20441,7 @@
         "a_hero_history",
         "d_stories"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -20502,12 +20501,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -20589,10 +20584,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -21016,10 +21009,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -21195,10 +21186,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -21508,10 +21497,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -21696,10 +21683,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -21782,10 +21767,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -21958,11 +21941,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Mr. Donald G. Macpherson",
+          "board_size": 12,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -21989,9 +21975,7 @@
       "failed_criteria": [
         "a_hero_history"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -22047,10 +22031,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -22144,10 +22126,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -22239,10 +22219,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -22334,11 +22312,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -22805,10 +22780,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -23182,11 +23155,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -23277,10 +23247,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -23538,10 +23506,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -23623,10 +23589,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -23719,10 +23683,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -23808,12 +23770,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -23893,10 +23851,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -24056,10 +24012,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -24142,11 +24096,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "John Plant",
+          "board_size": 9,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -24173,9 +24130,7 @@
       "failed_criteria": [
         "a_hero_history"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -24308,10 +24263,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -24394,10 +24347,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -24476,10 +24427,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -24761,11 +24710,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Jacob Thaysen",
+          "board_size": 9,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -24794,7 +24746,6 @@
         "e_risks"
       ],
       "failed_extensions": [
-        "g_governance",
         "m_freshness"
       ],
       "failed_count": 2,
@@ -24858,10 +24809,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -24946,11 +24895,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -25031,10 +24977,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -25213,11 +25157,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -25379,10 +25320,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -25552,10 +25491,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -25635,10 +25572,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -25726,11 +25661,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -25979,10 +25911,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -26167,11 +26097,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Richard B. Handler",
+          "board_size": 12,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -26201,7 +26134,6 @@
         "e_risks"
       ],
       "failed_extensions": [
-        "g_governance",
         "l_hero_name_fr"
       ],
       "failed_count": 2,
@@ -26485,10 +26417,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -26756,10 +26686,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -26851,10 +26779,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -27125,11 +27051,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Richard Wallace",
+          "board_size": 10,
+          "top_voting_count": 3,
+          "top_capital_count": 2,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=2)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -27155,7 +27084,6 @@
       },
       "failed_criteria": [],
       "failed_extensions": [
-        "g_governance",
         "m_freshness"
       ],
       "failed_count": 0,
@@ -27205,10 +27133,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -27284,10 +27210,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -27551,12 +27475,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -27802,10 +27722,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -27889,10 +27807,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -27986,10 +27902,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -28070,10 +27984,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -28151,10 +28063,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -28231,11 +28141,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "David Ricks",
+          "board_size": 4,
+          "top_voting_count": 1,
+          "top_capital_count": 1,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=1 top_capital=1)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -28263,7 +28176,6 @@
         "d_stories"
       ],
       "failed_extensions": [
-        "g_governance",
         "m_freshness"
       ],
       "failed_count": 1,
@@ -28393,10 +28305,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -28580,10 +28490,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -28671,11 +28579,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -28922,11 +28827,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,voting_structure"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -29087,12 +28989,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -29343,10 +29241,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -29523,10 +29419,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -29610,11 +29504,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Steve Sanghi",
+          "board_size": 12,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -29644,7 +29541,6 @@
         "f_repartition"
       ],
       "failed_extensions": [
-        "g_governance",
         "l_hero_name_fr",
         "m_freshness"
       ],
@@ -29696,10 +29592,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -29778,10 +29672,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -29863,10 +29755,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -30118,10 +30008,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -30203,10 +30091,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -30283,10 +30169,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -30529,10 +30413,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -30617,10 +30499,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -30784,10 +30664,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -30883,10 +30761,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -31237,10 +31113,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -31334,10 +31208,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -31418,11 +31290,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Satya Nadella",
+          "board_size": 12,
+          "top_voting_count": 1,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=1 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -31450,9 +31325,7 @@
         "a_hero_history",
         "d_stories"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -31501,10 +31374,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -31672,11 +31543,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Ren F. Jones",
+          "board_size": 12,
+          "top_voting_count": 3,
+          "top_capital_count": 2,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=2)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -31705,7 +31579,6 @@
         "e_risks"
       ],
       "failed_extensions": [
-        "g_governance",
         "l_hero_name_fr",
         "m_freshness"
       ],
@@ -31766,12 +31639,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -31935,13 +31804,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Mr. Junichi  Hanzawa",
+          "board_size": 10,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -31968,9 +31838,7 @@
       "failed_criteria": [
         "e_risks"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -32288,10 +32156,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -32453,10 +32319,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -32904,10 +32768,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -33160,11 +33022,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Kentaro Okuda",
+          "board_size": 12,
+          "top_voting_count": 2,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=2 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -33192,7 +33057,6 @@
         "e_risks"
       ],
       "failed_extensions": [
-        "g_governance",
         "m_freshness"
       ],
       "failed_count": 1,
@@ -33778,10 +33642,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -33860,10 +33722,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -33942,10 +33802,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -34112,11 +33970,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Mr. Michael Gerard O'Grady",
+          "board_size": 12,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -34145,7 +34006,6 @@
         "e_risks"
       ],
       "failed_extensions": [
-        "g_governance",
         "i_events",
         "m_freshness"
       ],
@@ -34290,11 +34150,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Mr. Eugene James Bredow",
+          "board_size": 11,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": false,
@@ -34325,7 +34188,6 @@
         "e_risks"
       ],
       "failed_extensions": [
-        "g_governance",
         "h_ai_positioning",
         "l_hero_name_fr",
         "m_freshness"
@@ -34374,13 +34236,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Dr. Vasant  Narasimhan M.D.",
+          "board_size": 10,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -34405,12 +34268,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "NWG.L",
@@ -34631,11 +34492,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -34724,10 +34582,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -34909,10 +34765,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -35081,11 +34935,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Mr. Michael P. Plisinski",
+          "board_size": 7,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -35115,7 +34972,6 @@
         "e_risks"
       ],
       "failed_extensions": [
-        "g_governance",
         "l_hero_name_fr",
         "m_freshness"
       ],
@@ -35252,11 +35108,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Clayton M. Magouyrk, Michael D. Sicilia",
+          "board_size": 13,
+          "top_voting_count": 1,
+          "top_capital_count": 1,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=1 top_capital=1)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -35283,9 +35142,7 @@
       "failed_criteria": [
         "a_hero_history"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -35344,11 +35201,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Mr. John C. Pfeifer",
+          "board_size": 10,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -35377,9 +35237,7 @@
         "d_stories",
         "e_risks"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
@@ -35505,10 +35363,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -35675,13 +35531,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Ms. Magda Maria de Regina Chambriard",
+          "board_size": 10,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -35712,7 +35569,6 @@
         "e_risks"
       ],
       "failed_extensions": [
-        "g_governance",
         "i_events"
       ],
       "failed_count": 3,
@@ -35762,10 +35618,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -35852,11 +35706,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -36043,10 +35894,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -36214,10 +36063,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -36297,11 +36144,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Jon R. Moeller",
+          "board_size": 14,
+          "top_voting_count": 3,
+          "top_capital_count": 2,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=2)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -36330,7 +36180,6 @@
         "d_stories"
       ],
       "failed_extensions": [
-        "g_governance",
         "i_events",
         "m_freshness"
       ],
@@ -36559,10 +36408,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -36830,11 +36677,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Hamid Moghadam",
+          "board_size": 11,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -36863,9 +36713,7 @@
         "d_stories",
         "e_risks"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
@@ -36911,10 +36759,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -37003,10 +36849,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -37094,12 +36938,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -37179,10 +37019,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -37271,11 +37109,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Craig A. Rogerson",
+          "board_size": 10,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -37306,7 +37147,6 @@
         "e_risks"
       ],
       "failed_extensions": [
-        "g_governance",
         "l_hero_name_fr",
         "m_freshness"
       ],
@@ -37364,10 +37204,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -37546,11 +37384,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Joseph D. Russell, Jr.",
+          "board_size": 12,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -37578,9 +37419,7 @@
         "a_hero_history",
         "e_risks"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -37642,11 +37481,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Charles Giancarlo",
+          "board_size": 10,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -37676,9 +37518,7 @@
         "e_risks",
         "f_repartition"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 4,
       "is_clean_af": false,
       "is_clean_all": false
@@ -37811,11 +37651,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Enrique Lores",
+          "board_size": 11,
+          "top_voting_count": 3,
+          "top_capital_count": 2,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=2)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -37842,9 +37685,7 @@
       "failed_criteria": [
         "d_stories"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -37904,10 +37745,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -38069,11 +37908,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Jim Kessler",
+          "board_size": 10,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -38101,7 +37943,6 @@
         "e_risks"
       ],
       "failed_extensions": [
-        "g_governance",
         "m_freshness"
       ],
       "failed_count": 1,
@@ -38329,10 +38170,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -38526,10 +38365,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -38618,10 +38455,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -38712,11 +38547,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -38805,11 +38637,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Mr. Michael J. Farrell BE, MBA, SM",
+          "board_size": 11,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -38837,9 +38672,7 @@
         "d_stories",
         "e_risks"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -38995,12 +38828,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -39426,12 +39255,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -39898,12 +39723,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: board_size,voting_structure"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Christian Klein",
+          "board_size": 10,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -39932,7 +39759,6 @@
         "e_risks"
       ],
       "failed_extensions": [
-        "g_governance",
         "m_freshness"
       ],
       "failed_count": 2,
@@ -40078,10 +39904,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -40165,12 +39989,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,voting_structure"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Thomas L. Ryan",
+          "board_size": 10,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -40198,7 +40024,6 @@
         "e_risks"
       ],
       "failed_extensions": [
-        "g_governance",
         "m_freshness"
       ],
       "failed_count": 1,
@@ -40603,10 +40428,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -40685,10 +40508,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -40765,10 +40586,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -40921,10 +40740,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -41084,10 +40901,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -41161,10 +40976,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -41413,11 +41226,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Bryan Hanson",
+          "board_size": 4,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -41446,7 +41262,6 @@
         "f_repartition"
       ],
       "failed_extensions": [
-        "g_governance",
         "m_freshness"
       ],
       "failed_count": 2,
@@ -41605,10 +41420,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -41694,12 +41507,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -41788,10 +41597,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -41956,10 +41763,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -42043,10 +41848,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -42234,10 +42037,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -42488,10 +42289,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -42568,11 +42367,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Mr. John T. Stankey",
+          "board_size": 10,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -42601,7 +42403,6 @@
         "a_hero_history"
       ],
       "failed_extensions": [
-        "g_governance",
         "i_events"
       ],
       "failed_count": 1,
@@ -42656,10 +42457,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -42747,11 +42546,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -42835,10 +42631,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -43090,10 +42884,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -43252,10 +43044,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -43346,10 +43136,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -43582,10 +43370,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -43736,11 +43522,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Donnie King",
+          "board_size": 14,
+          "top_voting_count": 1,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=1 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -43766,7 +43555,6 @@
       },
       "failed_criteria": [],
       "failed_extensions": [
-        "g_governance",
         "m_freshness"
       ],
       "failed_count": 0,
@@ -43814,10 +43602,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -43901,13 +43687,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Patrick Pouyanné",
+          "board_size": 10,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -43936,7 +43723,6 @@
         "e_risks"
       ],
       "failed_extensions": [
-        "g_governance",
         "m_freshness"
       ],
       "failed_count": 2,
@@ -44068,10 +43854,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -44147,10 +43931,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -44233,11 +44015,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -44316,10 +44095,7 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "board_size"
-          ],
-          "reason": "gov manque: board_size"
+          "reason": "top_capital < 3 (partial_allowed=false)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -44401,10 +44177,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -44487,11 +44261,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Stephen Hemsley",
+          "board_size": 9,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -44519,9 +44296,7 @@
         "a_hero_history",
         "d_stories"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -45029,10 +44804,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -45457,10 +45230,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -45546,10 +45317,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -45916,10 +45685,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -46012,10 +45779,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -46284,10 +46049,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -46375,10 +46138,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -46467,11 +46228,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Mr. David M. Zaslav",
+          "board_size": 13,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -46500,7 +46264,6 @@
         "e_risks"
       ],
       "failed_extensions": [
-        "g_governance",
         "m_freshness"
       ],
       "failed_count": 2,
@@ -46558,10 +46321,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -46650,10 +46411,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -46744,10 +46503,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -46833,10 +46590,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -47006,10 +46761,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -47097,10 +46850,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -47185,11 +46936,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Eric M. Green",
+          "board_size": 11,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -47217,9 +46971,7 @@
         "d_stories",
         "e_risks"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -47412,10 +47164,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -47511,10 +47261,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -47600,10 +47348,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": true
@@ -47780,10 +47526,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -47968,10 +47712,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -48063,10 +47805,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (109/549)"
         },
         "h_ai_positioning": {
           "ok": false,
@@ -48158,11 +47898,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m"
-          ],
-          "reason": "gov manque: ceo_total_comp_m"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Burns",
+          "board_size": 10,
+          "top_voting_count": 1,
+          "top_capital_count": 1,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=1 top_capital=1)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true
@@ -48190,9 +47933,7 @@
         "a_hero_history",
         "e_risks"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
