@@ -221,14 +221,15 @@ def main():
     with open(AUDIT_PATH) as f:
         audit = json.load(f)
 
+    # Mission #151 expansion : include any sté with g_governance KO,
+    # whether it's the only KO or not (audit fix is non-destructive).
     candidates = [
         a for a in audit["audits"]
         if a["ticker"] in universe
-        and a["is_clean_af"]
         and not a["is_clean_all"]
-        and a["failed_extensions"] == ["g_governance"]
+        and "g_governance" in (a.get("failed_extensions") or [])
     ]
-    print(f"Easy g_gov KO (1 critère seul): {len(candidates)}")
+    print(f"All g_gov KO scope: {len(candidates)}")
 
     # Mission #151 bucket : any easy g_gov KO whose v2-pipeline OR enrich has
     # the missing fields (we just need to copy to overrides_governance so the
