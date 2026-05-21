@@ -62,6 +62,8 @@ import { TranscriptStories, type TranscriptDoc } from "@/components/transcript-s
 import { ImageFindingsBlock, type ImageFindingPublic } from "@/components/image-findings-block";
 import { TranscriptBulletsBlock, type TranscriptBulletsSummary } from "@/components/transcript-bullets-block";
 import { V18MissingPlaceholder } from "@/components/v18-missing-placeholder";
+import { BlockComingSoon } from "@/components/block-coming-soon";
+import { isBlockEnabled } from "@/lib/v1-9-blocks-control";
 import { YoungIpoWarning } from "@/components/young-ipo-warning";
 import { BrandWordmark } from "@/components/brand-wordmark";
 import { CompanyProfileCard } from "@/components/company-profile-card";
@@ -903,9 +905,13 @@ export function CompanyView({
           </div>
 
           {/* Interpretation INSIDE hero panel */}
-          <div className="mt-6">
-            <InterpretationBlock block={interp} accent={accent} />
-          </div>
+          {isBlockEnabled("interpretation", company.ticker) ? (
+            <div className="mt-6">
+              <InterpretationBlock block={interp} accent={accent} />
+            </div>
+          ) : (
+            <BlockComingSoon blockId="interpretation" />
+          )}
         </section>
 
         {/* Compare panel */}
@@ -978,21 +984,29 @@ export function CompanyView({
         </section>
 
         {/* Stories — KPIs short-history + MarketPositions intégrées */}
-        {hasStories(company.kpis, company.market_positions) && (
-          <KpiStories company={company} />
+        {isBlockEnabled("stories", company.ticker) ? (
+          hasStories(company.kpis, company.market_positions) && (
+            <KpiStories company={company} />
+          )
+        ) : (
+          <BlockComingSoon blockId="stories" />
         )}
 
         {/* Graphiques et Schémas de sources diverses (Yann 15 mai 2026 v2).
             Placé SOUS les Stories. Images approuvées dans
             /sandbox/image-findings mergées au SSR dans company.image_findings. */}
-        {Array.isArray((company as Company & { image_findings?: unknown[] }).image_findings) &&
-        ((company as Company & { image_findings?: unknown[] }).image_findings as unknown[]).length > 0 ? (
-          <ImageFindingsBlock
-            findings={(company as Company & { image_findings?: ImageFindingPublic[] }).image_findings ?? []}
-            accent={accent}
-            locale={locale}
-          />
-        ) : null}
+        {isBlockEnabled("image_findings", company.ticker) ? (
+          Array.isArray((company as Company & { image_findings?: unknown[] }).image_findings) &&
+          ((company as Company & { image_findings?: unknown[] }).image_findings as unknown[]).length > 0 ? (
+            <ImageFindingsBlock
+              findings={(company as Company & { image_findings?: ImageFindingPublic[] }).image_findings ?? []}
+              accent={accent}
+              locale={locale}
+            />
+          ) : null
+        ) : (
+          <BlockComingSoon blockId="image_findings" />
+        )}
 
         {/* Stories Dividendes — RETIRÉ de company-view le 7 mai 2026.
             Yann a demandé que tout le travail dividende se fasse uniquement
@@ -1005,15 +1019,19 @@ export function CompanyView({
             dispo. Si pas de bullets et pas de transcript brut : RIEN ne
             s'affiche (Yann 12 mai 2026 : ex AAPL, ne pas afficher de bloc
             vide pour les stés sans transcript accessible). */}
-        {transcriptSummary && transcriptSummary.summary?.bullets?.length ? (
-          <TranscriptBulletsBlock ticker={company.ticker} summary={transcriptSummary} />
-        ) : transcript && (
-            (transcript.extracts?.quotes && transcript.extracts.quotes.length > 0) ||
-            (transcript.extracts?.figures && transcript.extracts.figures.length > 0) ||
-            (transcript.latest?.content && transcript.latest.content.length > 200)
-          ) ? (
-          <TranscriptStories ticker={company.ticker} doc={transcript} />
-        ) : null}
+        {isBlockEnabled("transcripts", company.ticker) ? (
+          transcriptSummary && transcriptSummary.summary?.bullets?.length ? (
+            <TranscriptBulletsBlock ticker={company.ticker} summary={transcriptSummary} />
+          ) : transcript && (
+              (transcript.extracts?.quotes && transcript.extracts.quotes.length > 0) ||
+              (transcript.extracts?.figures && transcript.extracts.figures.length > 0) ||
+              (transcript.latest?.content && transcript.latest.content.length > 200)
+            ) ? (
+            <TranscriptStories ticker={company.ticker} doc={transcript} />
+          ) : null
+        ) : (
+          <BlockComingSoon blockId="transcripts" />
+        )}
 
         {/* Bloc Graphiques et Schémas remonté SOUS les Stories (15 mai v2). */}
 
@@ -1022,49 +1040,69 @@ export function CompanyView({
         <CompanyProfileCard company={company} accent={accent} />
 
         {/* Risk factors */}
-        {company.risks && company.risks.length > 0 ? (
-          <div id="sec-risks" className="scroll-mt-24">
-            <RiskStack risks={company.risks} accent={accent} profitWarning={company.profit_warning} />
-          </div>
+        {isBlockEnabled("risks", company.ticker) ? (
+          company.risks && company.risks.length > 0 ? (
+            <div id="sec-risks" className="scroll-mt-24">
+              <RiskStack risks={company.risks} accent={accent} profitWarning={company.profit_warning} />
+            </div>
+          ) : (
+            v18Mode && <V18MissingPlaceholder id="sec-risks" label="Facteurs de risque" hint="Item 1A 10-K à extraire (Sonnet/Haiku Pass 2)." />
+          )
         ) : (
-          v18Mode && <V18MissingPlaceholder id="sec-risks" label="Facteurs de risque" hint="Item 1A 10-K à extraire (Sonnet/Haiku Pass 2)." />
+          <BlockComingSoon blockId="risks" id="sec-risks" />
         )}
 
         {/* Répartition CA (géo + segment) — au-dessus de Gouvernance */}
-        <RepartitionBlock company={company} />
+        {isBlockEnabled("repartition", company.ticker) ? (
+          <RepartitionBlock company={company} />
+        ) : (
+          <BlockComingSoon blockId="repartition" />
+        )}
 
         {/* Stories Dividendes — réintégré sous Répartition CA pour V1, V1.7
             et V1.8 (Yann 8 mai 2026). Le composant s'auto-active si la
             société a DPS + Cap Return + Payout Ratio dans ses KPIs (ou
             fallback hard-codé pour CAT). Sinon return null = invisible. */}
-        <DividendStories company={company} />
+        {isBlockEnabled("dividend", company.ticker) ? (
+          <DividendStories company={company} />
+        ) : (
+          <BlockComingSoon blockId="dividend" />
+        )}
 
         {/* Governance */}
-        {company.governance ? (
-          <div id="sec-governance" className="scroll-mt-24">
-            <GovernanceCard governance={company.governance} ticker={company.ticker} company={company} />
-          </div>
+        {isBlockEnabled("governance", company.ticker) ? (
+          company.governance ? (
+            <div id="sec-governance" className="scroll-mt-24">
+              <GovernanceCard governance={company.governance} ticker={company.ticker} company={company} />
+            </div>
+          ) : (
+            v18Mode && <V18MissingPlaceholder id="sec-governance" label="Gouvernance & rémunération" hint="DEF14A (cat 1) ou rapport annuel à extraire." />
+          )
         ) : (
-          v18Mode && <V18MissingPlaceholder id="sec-governance" label="Gouvernance & rémunération" hint="DEF14A (cat 1) ou rapport annuel à extraire." />
+          <BlockComingSoon blockId="governance" id="sec-governance" />
         )}
 
         {/* AI positioning — Yann 20 mai 2026 : masquer si stance=absent (= 10-K ne mentionne pas IA).
             Pas de bloc vide ou "Absent". Soit la sté a du AI réel à montrer, soit on masque. */}
-        {(() => {
-          const ai = company.ai_positioning;
-          if (!ai) return v18Mode ? <V18MissingPlaceholder id="sec-ai" label="Positionnement IA" hint="Mentions IA dans 10-K à parser via Cerebras Llama 3.3 70B." /> : null;
-          // Masque si stance="absent" OU pas d'evidence (= pas de positionnement réel à montrer)
-          if (ai.stance === "absent" || !Array.isArray(ai.evidence) || ai.evidence.length === 0) return null;
-          return (
-            <div id="sec-ai" className="scroll-mt-24">
-              <AIPositioningCard
-                positioning={ai}
-                companyName={company.name}
-                ticker={company.ticker}
-              />
-            </div>
-          );
-        })()}
+        {isBlockEnabled("ai_positioning", company.ticker) ? (
+          (() => {
+            const ai = company.ai_positioning;
+            if (!ai) return v18Mode ? <V18MissingPlaceholder id="sec-ai" label="Positionnement IA" hint="Mentions IA dans 10-K à parser via Cerebras Llama 3.3 70B." /> : null;
+            // Masque si stance="absent" OU pas d'evidence (= pas de positionnement réel à montrer)
+            if (ai.stance === "absent" || !Array.isArray(ai.evidence) || ai.evidence.length === 0) return null;
+            return (
+              <div id="sec-ai" className="scroll-mt-24">
+                <AIPositioningCard
+                  positioning={ai}
+                  companyName={company.name}
+                  ticker={company.ticker}
+                />
+              </div>
+            );
+          })()
+        ) : (
+          <BlockComingSoon blockId="ai_positioning" id="sec-ai" />
+        )}
 
         {/* Bloc transactions politiciens US retiré (13 mai 2026 par Yann). */}
 
