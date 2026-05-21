@@ -176,9 +176,29 @@ function loadCompany(ticker) {
           // des sub-agents (ex BP.L #108) est invisible. Aligné avec la
           // logique merge SSR (load-company.ts) qui priorise enrich quand
           // pipeline a une structure vide / fantôme.
+          // Sub-agent #119 fix : recognize legacy single_region (no _legitimate),
+          // _partial_data flag, and slices array with all null values, as empty
+          // for merge purposes. Unblocks 7 top 307 stés signaled by sub-agent #115
+          // (NDA-DK.CO, SAMPO.HE, DY, BARC.L, JDEP.AS, ANA.MC, PHIA.AS).
           const isEmptyRepartitionBlock = (b) => {
             if (!b || typeof b !== 'object') return true;
             if (b._no_source === true || b._no_geo_source === true) return true;
+            // Legacy single_region (sans suffix _legitimate) = bloc fantôme
+            if (b.single_region === true && !b.single_region_legitimate) return true;
+            // _partial_data:true = bloc explicitement marqué incomplet
+            if (b._partial_data === true) return true;
+            // Slices présentes mais toutes sans donnée audit-compatible
+            // (value=null/undef ET share_pct=null/undef sur toutes). On ignore `pct`
+            // car ce champ legacy n'est pas reconnu par la validation f_repartition.
+            if (Array.isArray(b.slices) && b.slices.length > 0) {
+              const allEmpty = b.slices.every((s) => {
+                const noValue = s.value === null || s.value === undefined;
+                const noSharePct = s.share_pct === null || s.share_pct === undefined;
+                return noValue && noSharePct;
+              });
+              if (allEmpty) return true;
+            }
+            // Slices array vide
             if (Array.isArray(b.slices) && b.slices.length === 0) return true;
             return false;
           };
