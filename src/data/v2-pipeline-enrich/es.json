@@ -23,22 +23,15 @@
   "_hero_kpi_override_set_at": "2026-05-20T14:49:46.095291Z",
   "_hero_kpi_override_set_by": "SP500-batch2-CONCEPTS-direct-pick",
   "revenue_by_geography": {
-    "unit": "%",
-    "slices": [
-      {
-        "label": "États-Unis",
-        "value": 100,
-        "share_pct": 100,
-        "single_region_legitimate": true,
-        "unit": "%",
-        "label_en": "United States"
-      }
-    ],
-    "total": 100,
-    "source": "Mono-pays légitime (filings)",
-    "_tagged_by": "auto-rebascule-21mai-CONV-CONCEPTS",
-    "_tagged_at": "2026-05-21T01:26:18.189Z",
-    "_category": "utility-us"
+    "label": "Répartition géographique (mono-région légitime)",
+    "unit": "Mds $",
+    "source": "10-K FY2025",
+    "source_date": "2025-12-31",
+    "slices": [],
+    "single_region_legitimate": true,
+    "_legit_reason": "US utility — multi-state Northeast US operations only (Connecticut, Massachusetts, New Hampshire)",
+    "_legit_marked_at": "2026-05-21T08:22:43Z",
+    "_legit_marked_by": "sub-agent-#76-repartition-cerebras"
   },
   "governance": {
     "top_capital": [
@@ -92,5 +85,66 @@
   "kpis_type_overrides": {
     "Cap Return": "Dividende"
   },
-  "_kpis_type_overrides_source": "heuristic-fill-kpi-types.py (pattern match)"
+  "_kpis_type_overrides_source": "heuristic-fill-kpi-types.py (pattern match)",
+  "freshness_yf_v173": {
+    "publication_date": "2026-03-31",
+    "latest_filing": {
+      "date": "2026-03-31"
+    },
+    "next_earnings_date": "2026-07-30",
+    "source": "yfinance",
+    "fetched_at": "2026-05-21T03:38:30.890938+00:00"
+  },
+  "publication_date": "2026-03-31",
+  "latest_filing": {
+    "date": "2026-03-31"
+  },
+  "next_earnings_date": "2026-07-30",
+  "revenue_by_segment": {
+    "label": "Répartition du chiffre d'affaires par segment opérationnel",
+    "unit": "Mds $",
+    "source": "10-K FY2025 Note 22 REVENUES — Operating Revenues disaggregated by segment",
+    "source_date": "2025-12-31",
+    "slices": [
+      {
+        "label": "Electric Distribution",
+        "value": 10.04,
+        "share_pct": 59.6,
+        "unit": "Mds $",
+        "label_en": "Electric Distribution"
+      },
+      {
+        "label": "Natural Gas Distribution",
+        "value": 2.63,
+        "share_pct": 15.6,
+        "unit": "Mds $",
+        "label_en": "Natural Gas Distribution"
+      },
+      {
+        "label": "Electric Transmission",
+        "value": 2.28,
+        "share_pct": 13.5,
+        "unit": "Mds $",
+        "label_en": "Electric Transmission"
+      },
+      {
+        "label": "Other (parent + services)",
+        "value": 1.73,
+        "share_pct": 10.3,
+        "unit": "Mds $",
+        "label_en": "Other"
+      },
+      {
+        "label": "Water Distribution",
+        "value": 0.24,
+        "share_pct": 1.4,
+        "unit": "Mds $",
+        "label_en": "Water Distribution"
+      }
+    ],
+    "_extracted_at": "2026-05-21T08:22:43Z",
+    "_extracted_by": "sub-agent-#76-cerebras-fallback-manual-strict-from-10K",
+    "_total_operating_revenues_billion_usd": 13.55,
+    "_note": "Segments cross-checked vs Note 22 table. Eliminations -3.38 Mds $ excluded from segment slices (net total 13.55)."
+  }
 }
