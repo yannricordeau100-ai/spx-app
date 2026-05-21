@@ -1,5 +1,6 @@
 {
-  "generated_at": "2026-05-21T11:30:00Z",
+  "generated_at": "2026-05-21T12:00:00Z",
+  "updated_by": "sub-agent-109",
   "next_window": "2026-05-22T00:05:00Z (02:05 Paris)",
   "queue": [
     {
@@ -20,6 +21,25 @@
       "eta_hours": 3.5
     },
     {
+      "priority": "P0",
+      "mission": "v19_missing_fpi_eu_yann",
+      "target_count": "10 FPI EU (TSM/NVO/TM/AZN/BABA/HSBA/BHP/RIO/BATS/ENI)",
+      "script": "scripts/extract-v1-9-missing/extract_fpi_eu.py",
+      "pre_step": "Ajouter TSM/NVO/TM/BABA à src/data/v1-9-universe.json (source fpi-v19-yann-21mai)",
+      "estimated_tokens": 800000,
+      "eta_hours": 2.5,
+      "added_by": "sub-agent-109"
+    },
+    {
+      "priority": "P0",
+      "mission": "v19_missing_stoxx_top30",
+      "target_count": "30 EU blue-chips manquants (DAX/CAC/AEX/SMI/FTSEMIB/FTSE100)",
+      "script": "scripts/extract-v1-9-missing/extract_stoxx_top30.py",
+      "estimated_tokens": 2400000,
+      "eta_hours": 5,
+      "added_by": "sub-agent-109"
+    },
+    {
       "priority": "P1",
       "mission": "hero_segment_extraction",
       "target_count": "97 US LLM_SEGMENT_REQUIRED",
@@ -29,13 +49,41 @@
       "eta_hours": 5
     },
     {
+      "priority": "P1",
+      "mission": "v19_missing_sp500_residuel",
+      "target_count": "18 SP500 small/mid-cap (AMGN/AMZN/DIS/KHC/KIM/KO/MO/ROL/ROP/RSG/SATS/SNDK/TPR/UPS/VEEV/VRT/VTRS/WY)",
+      "estimated_tokens": 1400000,
+      "eta_hours": 2,
+      "added_by": "sub-agent-109"
+    },
+    {
+      "priority": "P1",
+      "mission": "v19_missing_stoxx_residuel",
+      "target_count": "~114 EU mid-cap (Stoxx 600 - top 30 P0)",
+      "estimated_tokens": 9000000,
+      "eta_hours": 12,
+      "splits_recommended": 3,
+      "added_by": "sub-agent-109"
+    },
+    {
       "priority": "P2",
       "mission": "eu_governance_llm_enrichment",
       "target_count": "92 EU heuristic_partial",
       "estimated_tokens": 1200000,
       "eta_hours": 3
+    },
+    {
+      "priority": "P2",
+      "mission": "v19_missing_tsx60_residuel",
+      "target_count": "52 TSX 60 manquants (Canada quasi-vide)",
+      "script": "scripts/extract-v1-9-missing/extract_tsx60_residuel.py",
+      "estimated_tokens": 4000000,
+      "eta_hours": 5,
+      "added_by": "sub-agent-109"
     }
   ],
-  "total_eta_hours": 13.5,
-  "groq_fallback": "Llama 3.3 70B free 100K/day reset 12:00 Pacific"
+  "total_eta_hours_cumulative": 40,
+  "v19_missing_added_eta_hours": 26.5,
+  "groq_fallback": "Llama 3.3 70B free 100K/day reset 12:00 Pacific",
+  "notes": "Missions v19_missing_* ajoutées par sub-agent-109 (21 mai 12:00 UTC). Cible : 219 stés manquantes pour passer de 771 audit -> 990 univers complet. Pré-requis : ajouter TSM/NVO/TM/BABA à v1-9-universe.json avant extract_fpi_eu.py."
 }
