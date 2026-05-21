@@ -1,0 +1,288 @@
+{
+  "generated_at": "2026-05-21T09:30:00Z",
+  "scope": "Top 30 US a_hero_history KO by market cap (sample of 135 US residual)",
+  "total_us_residual": 135,
+  "sample_size": 30,
+  "classification_counts": {
+    "LLM_SEGMENT_REQUIRED": 14,
+    "PIVOT_TO_GENERIC_RECOMMENDED": 7,
+    "LEGITIMATE_NO_HISTORY": 9
+  },
+  "categories_legend": {
+    "LLM_SEGMENT_REQUIRED": "KPI segment-spécifique non-XBRL standard, nécessite Cerebras pour extraction multi-année via 10-K / DEF14A / earnings releases.",
+    "PIVOT_TO_GENERIC_RECOMMENDED": "KPI actuel trop spécifique mais sté pourrait basculer hero vers Revenue/NetIncome/standard XBRL extractible.",
+    "LEGITIMATE_NO_HISTORY": "IPO récente ou KPI nouvellement reporté <5 ans. Doit recevoir tag _is_short_history_legitimate."
+  },
+  "sample": [
+    {
+      "ticker": "MSFT",
+      "market_cap_usd": 3041424048128,
+      "hero_label": "Microsoft Cloud",
+      "audit_history_len": 8,
+      "required": 18,
+      "classification": "LLM_SEGMENT_REQUIRED",
+      "rationale": "Microsoft Cloud = composite Azure+M365 Commercial+Dynamics365, non-XBRL standard. Cerebras extraction via 10-K segment notes nécessaire."
+    },
+    {
+      "ticker": "UNH",
+      "market_cap_usd": 362431348736,
+      "hero_label": "Medical Care Ratio (MCR)",
+      "audit_history_len": 3,
+      "required": 5,
+      "classification": "LLM_SEGMENT_REQUIRED",
+      "rationale": "MCR (Medical Care Ratio) = ratio non-GAAP propriétaire UNH, reported in earnings releases mais nécessite extraction Cerebras."
+    },
+    {
+      "ticker": "C",
+      "market_cap_usd": 212890107904,
+      "hero_label": "Net Interest Income",
+      "audit_history_len": 5,
+      "required": 18,
+      "classification": "PIVOT_TO_GENERIC_RECOMMENDED",
+      "rationale": "Net Interest Income est extractible XBRL (us-gaap:InterestIncomeOperating - InterestExpense). Hero peut basculer Revenue ou NII via XBRL standard."
+    },
+    {
+      "ticker": "NEE",
+      "market_cap_usd": 199525466112,
+      "hero_label": "Battery Storage Capacity Additions",
+      "audit_history_len": 5,
+      "required": 18,
+      "classification": "LLM_SEGMENT_REQUIRED",
+      "rationale": "Battery Storage Capacity Additions = KPI opérationnel (MW/GWh), pas XBRL. Reporté dans 10-K Item 1 Business, extraction LLM."
+    },
+    {
+      "ticker": "VZ",
+      "market_cap_usd": 196522573824,
+      "hero_label": "Consumer Revenue",
+      "audit_history_len": 13,
+      "required": 18,
+      "classification": "LLM_SEGMENT_REQUIRED",
+      "rationale": "Consumer Revenue = segment-specific Verizon Consumer Group, extractible XBRL segment-disclosure mais via Cerebras pour mapping segment."
+    },
+    {
+      "ticker": "T",
+      "market_cap_usd": 171276550144,
+      "hero_label": "Mobility Revenue",
+      "audit_history_len": 10,
+      "required": 18,
+      "classification": "LLM_SEGMENT_REQUIRED",
+      "rationale": "Mobility Revenue = segment AT&T Mobility, XBRL segment-tagged mais extraction LLM nécessaire pour multi-année cohérent."
+    },
+    {
+      "ticker": "APP",
+      "market_cap_usd": 162984411136,
+      "hero_label": "AI Ad Revenue",
+      "audit_history_len": 5,
+      "required": 18,
+      "classification": "LEGITIMATE_NO_HISTORY",
+      "rationale": "AppLovin AXON 2.0 / AI Ad Revenue = KPI <5 ans (2023+), IPO AppLovin 2021. Tag _is_short_history_legitimate."
+    },
+    {
+      "ticker": "TD",
+      "market_cap_usd": 132485636751.36,
+      "hero_label": "Loan Book",
+      "audit_history_len": 5,
+      "required": 18,
+      "classification": "PIVOT_TO_GENERIC_RECOMMENDED",
+      "rationale": "Loan Book = Total Loans (Net), extractible XBRL standard (us-gaap:LoansReceivableNet ou IFRS equivalent SEDAR pour TD)."
+    },
+    {
+      "ticker": "SYK",
+      "market_cap_usd": 117120548864,
+      "hero_label": "MedSurg and Neurotechnology Revenue",
+      "audit_history_len": 8,
+      "required": 18,
+      "classification": "LLM_SEGMENT_REQUIRED",
+      "rationale": "MedSurg and Neurotechnology Revenue = segment Stryker, XBRL segment-tagged mais nécessite Cerebras pour 18 ans cohérent."
+    },
+    {
+      "ticker": "NOW",
+      "market_cap_usd": 93333372928,
+      "hero_label": "Cloud Backlog",
+      "audit_history_len": 4,
+      "required": 18,
+      "classification": "LLM_SEGMENT_REQUIRED",
+      "rationale": "Cloud Backlog = Remaining Performance Obligations / cRPO ServiceNow, non-standard XBRL tag, Cerebras 10-Q/10-K."
+    },
+    {
+      "ticker": "MAR",
+      "market_cap_usd": 93206020096,
+      "hero_label": "RevPAR",
+      "audit_history_len": 3,
+      "required": 18,
+      "classification": "LLM_SEGMENT_REQUIRED",
+      "rationale": "RevPAR (Revenue Per Available Room) = KPI hôtelier propriétaire, pas XBRL. Reporté Item 7 MD&A, extraction LLM."
+    },
+    {
+      "ticker": "KKR",
+      "market_cap_usd": 92843204608,
+      "hero_label": "Dividend per Share",
+      "audit_history_len": 5,
+      "required": 18,
+      "classification": "LEGITIMATE_NO_HISTORY",
+      "rationale": "Dividend per Share KKR : KKR IPO 2010, structure dividende post-IPO C-Corp 2022, history <5 ans cohérent pour C-Corp."
+    },
+    {
+      "ticker": "SHOP",
+      "market_cap_usd": 92284782592,
+      "hero_label": "GMV",
+      "audit_history_len": 4,
+      "required": 5,
+      "classification": "LLM_SEGMENT_REQUIRED",
+      "rationale": "GMV (Gross Merchandise Volume) = KPI Shopify propriétaire, reporté quarterly press release, Cerebras pour multi-année."
+    },
+    {
+      "ticker": "UPS",
+      "market_cap_usd": 83657613312,
+      "hero_label": "Average Revenue Per Piece",
+      "audit_history_len": 9,
+      "required": 18,
+      "classification": "LLM_SEGMENT_REQUIRED",
+      "rationale": "Average Revenue Per Piece = KPI UPS opérationnel, reporté 10-K segment Domestic/International, extraction LLM."
+    },
+    {
+      "ticker": "CTAS",
+      "market_cap_usd": 66402717696,
+      "hero_label": "Uniform Rental & Services",
+      "audit_history_len": 8,
+      "required": 18,
+      "classification": "LLM_SEGMENT_REQUIRED",
+      "rationale": "Uniform Rental & Services = segment Cintas, XBRL segment-tagged mais nécessite Cerebras pour 18 ans."
+    },
+    {
+      "ticker": "MSTR",
+      "market_cap_usd": 65566490624,
+      "hero_label": "Total Bitcoin Holdings",
+      "audit_history_len": 13,
+      "required": 18,
+      "classification": "LEGITIMATE_NO_HISTORY",
+      "rationale": "Total Bitcoin Holdings : MicroStrategy n'a commencé à accumuler BTC qu'en août 2020. History <5 ans légitime pour ce KPI précis."
+    },
+    {
+      "ticker": "TRV",
+      "market_cap_usd": 63429787648,
+      "hero_label": "Investment Portfolio",
+      "audit_history_len": 14,
+      "required": 18,
+      "classification": "PIVOT_TO_GENERIC_RECOMMENDED",
+      "rationale": "Investment Portfolio Travelers = us-gaap:Investments, extractible XBRL standard. Hero peut pivoter générique."
+    },
+    {
+      "ticker": "CRWV",
+      "market_cap_usd": 62312316928,
+      "hero_label": "HPC / Cloud",
+      "audit_history_len": 4,
+      "required": 18,
+      "classification": "LEGITIMATE_NO_HISTORY",
+      "rationale": "CoreWeave IPO mars 2025, sté fondée 2017, KPI HPC/Cloud <5 ans XBRL public légitime. Tag short_history_legitimate."
+    },
+    {
+      "ticker": "AZO",
+      "market_cap_usd": 55991287808,
+      "hero_label": "Store Count",
+      "audit_history_len": 2,
+      "required": 5,
+      "classification": "PIVOT_TO_GENERIC_RECOMMENDED",
+      "rationale": "AutoZone Store Count : 7100+ stores stable, history disponible via 10-K Item 2 Properties. Pivot OK ou extraction LLM 10-K."
+    },
+    {
+      "ticker": "PSA",
+      "market_cap_usd": 53195628544,
+      "hero_label": "NOI",
+      "audit_history_len": 8,
+      "required": 18,
+      "classification": "PIVOT_TO_GENERIC_RECOMMENDED",
+      "rationale": "NOI (Net Operating Income) Public Storage = REIT KPI standard, extractible XBRL non-GAAP supplément. Pivot Revenue OK."
+    },
+    {
+      "ticker": "RDDT",
+      "market_cap_usd": 30091087872,
+      "hero_label": "DAUq",
+      "audit_history_len": 9,
+      "required": 18,
+      "classification": "LEGITIMATE_NO_HISTORY",
+      "rationale": "Reddit IPO mars 2024, DAUq = KPI rapporté depuis S-1. History <2 ans XBRL public légitime. Tag short_history_legitimate."
+    },
+    {
+      "ticker": "GEHC",
+      "market_cap_usd": 28508065792,
+      "hero_label": "AVS Revenue",
+      "audit_history_len": 6,
+      "required": 18,
+      "classification": "LEGITIMATE_NO_HISTORY",
+      "rationale": "GE HealthCare spinoff janvier 2023, AVS = segment Advanced Visualization Solutions post-spinoff. History <5 ans légitime."
+    },
+    {
+      "ticker": "KHC",
+      "market_cap_usd": 27640477696,
+      "hero_label": "North America Revenue",
+      "audit_history_len": 3,
+      "required": 5,
+      "classification": "PIVOT_TO_GENERIC_RECOMMENDED",
+      "rationale": "Kraft Heinz North America Revenue : segment XBRL tagged mais sté ex-merger Kraft+Heinz 2015 = pivot Revenue total disponible >10 ans."
+    },
+    {
+      "ticker": "PPL",
+      "market_cap_usd": 26919094272,
+      "hero_label": "Rate Base",
+      "audit_history_len": 0,
+      "required": 5,
+      "classification": "LLM_SEGMENT_REQUIRED",
+      "rationale": "Rate Base PPL = KPI utility régulé (rate-regulated assets), reporté 10-K MD&A, pas XBRL standard, extraction Cerebras."
+    },
+    {
+      "ticker": "HUBB",
+      "market_cap_usd": 25471322112,
+      "hero_label": "Revenu segment Utility Solutions",
+      "audit_history_len": 8,
+      "required": 18,
+      "classification": "LLM_SEGMENT_REQUIRED",
+      "rationale": "Revenu segment Utility Solutions Hubbell = XBRL segment-tagged mais nécessite Cerebras pour 18 ans (post-reorg 2017)."
+    },
+    {
+      "ticker": "PBR",
+      "market_cap_usd": 22944522240,
+      "hero_label": "Sales revenues",
+      "audit_history_len": 3,
+      "required": 18,
+      "classification": "LEGITIMATE_NO_HISTORY",
+      "rationale": "Petrobras ADR : sales revenues USD reportés mais discontinuités fréquentes (politique BR, sanctions). History 3-ans légitime ADR foreign."
+    },
+    {
+      "ticker": "MRNA",
+      "market_cap_usd": 19851216896,
+      "hero_label": "Pipeline Programs",
+      "audit_history_len": 4,
+      "required": 5,
+      "classification": "LEGITIMATE_NO_HISTORY",
+      "rationale": "Moderna IPO décembre 2018, Pipeline Programs KPI biotech volatile. History <5 ans légitime, déjà cap biotech-volatile heuristic."
+    },
+    {
+      "ticker": "RIVN",
+      "market_cap_usd": 19498420224,
+      "hero_label": "Production Capacity",
+      "audit_history_len": 5,
+      "required": 18,
+      "classification": "LEGITIMATE_NO_HISTORY",
+      "rationale": "Rivian IPO novembre 2021, Production Capacity (vehicles/year) KPI <5 ans légitime. Tag short_history_legitimate."
+    },
+    {
+      "ticker": "NBIX",
+      "market_cap_usd": 15992475648,
+      "hero_label": "INGREZZA Revenue",
+      "audit_history_len": 7,
+      "required": 18,
+      "classification": "LLM_SEGMENT_REQUIRED",
+      "rationale": "INGREZZA Revenue Neurocrine = product-specific revenue, XBRL segment-tagged mais nécessite Cerebras pour 18 ans."
+    },
+    {
+      "ticker": "OHI",
+      "market_cap_usd": 14944400384,
+      "hero_label": "Rental Income",
+      "audit_history_len": 5,
+      "required": 18,
+      "classification": "PIVOT_TO_GENERIC_RECOMMENDED",
+      "rationale": "Omega Healthcare Rental Income = us-gaap:OperatingLeaseLeaseIncome, extractible XBRL standard pour REIT."
+    }
+  ]
+}
