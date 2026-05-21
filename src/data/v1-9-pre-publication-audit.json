@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-21T02:31:31.294Z",
+  "generated_at": "2026-05-21T02:35:01.772Z",
   "publishable_source": "src/data/v1-9-publishable.json",
   "publishable_count_input": 549,
   "stats": {
@@ -9,14 +9,14 @@
     "clean_all": 0,
     "by_failed_count": {
       "0": 13,
-      "1": 76,
-      "2": 196,
-      "3": 182,
-      "4": 70,
+      "1": 78,
+      "2": 199,
+      "3": 180,
+      "4": 67,
       "5": 12
     },
     "by_failed_criterion": {
-      "a_hero_history": 236,
+      "a_hero_history": 226,
       "b_interpretation": 423,
       "c_kpi_count": 0,
       "d_stories": 309,
@@ -31,6 +31,14 @@
       "k_ranks": 26,
       "l_hero_name_fr": 55,
       "m_freshness": 310
+    },
+    "a_hero_history_exceptions": {
+      "legitimate": 10,
+      "short_marked": 12,
+      "legitimate_pct_of_total": 1.82,
+      "under_21pct_cap": true,
+      "total": 22,
+      "total_exceptions_pct_of_total": 4.01
     }
   },
   "top5_failed_criteria": [
@@ -48,7 +56,7 @@
     ],
     [
       "a_hero_history",
-      236
+      226
     ],
     [
       "f_repartition",
@@ -189,6 +197,17 @@
       ]
     },
     {
+      "ticker": "APP",
+      "market_cap_usd": 162984411136,
+      "failed_count": 1,
+      "failed_criteria": [
+        "b_interpretation"
+      ],
+      "reasons": [
+        "b_interpretation: sous-blocs interp = 3/4 (driver=true, vigilance=false)"
+      ]
+    },
+    {
       "ticker": "PFE",
       "market_cap_usd": 146760695808,
       "failed_count": 1,
@@ -263,17 +282,6 @@
       ],
       "reasons": [
         "f_repartition: geography vide"
-      ]
-    },
-    {
-      "ticker": "AJG",
-      "market_cap_usd": 50792292352,
-      "failed_count": 1,
-      "failed_criteria": [
-        "b_interpretation"
-      ],
-      "reasons": [
-        "b_interpretation: sous-blocs interp = 3/4 (driver=true, vigilance=false)"
       ]
     }
   ],
@@ -995,12 +1003,13 @@
       "market_cap_usd": 168483589980.16,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 5,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (5 < 18)"
+          "legitimate_reason": "Segment Electrification créé 2023 (ABB/Schneider)",
+          "reason": "KPI trop récent légitime (5 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": false,
@@ -1069,7 +1078,6 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "b_interpretation",
         "d_stories"
       ],
@@ -1077,7 +1085,7 @@
         "g_governance",
         "i_events"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -3762,12 +3770,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 4,
           "period": "year",
           "required": 5,
-          "tolerated": 3,
-          "reason": "history insuffisant (4 < 5)"
+          "legitimate_reason": "Segment Data Center disclosed séparément depuis 2022",
+          "reason": "KPI trop récent légitime (4 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": false,
@@ -3844,7 +3853,6 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "b_interpretation",
         "e_risks"
       ],
@@ -3852,7 +3860,7 @@
         "g_governance",
         "m_freshness"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -4330,12 +4338,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 9,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (9 < 18)"
+          "legitimate_reason": "KPI AI explicit launched <5 ans",
+          "reason": "KPI trop récent légitime (9 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": false,
@@ -4403,7 +4412,6 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "b_interpretation",
         "f_repartition"
       ],
@@ -4411,7 +4419,7 @@
         "g_governance",
         "i_events"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -4928,12 +4936,13 @@
       "market_cap_usd": 162984411136,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 5,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (5 < 18)"
+          "legitimate_reason": "KPI AI explicit launched <5 ans",
+          "reason": "KPI trop récent légitime (5 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": false,
@@ -4993,13 +5002,12 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "b_interpretation"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -5193,12 +5201,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 3,
           "period": "annual",
           "required": 5,
-          "tolerated": 3,
-          "reason": "history insuffisant (3 < 5)"
+          "legitimate_reason": "VYVGART launched 2021 (argenx)",
+          "reason": "KPI trop récent légitime (3 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": false,
@@ -5277,7 +5286,6 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "b_interpretation",
         "d_stories",
         "e_risks"
@@ -5286,7 +5294,7 @@
         "g_governance",
         "m_freshness"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -21465,12 +21473,13 @@
       "market_cap_usd": 28508065792,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 6,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (6 < 18)"
+          "legitimate_reason": "IPO 2023 (<5 ans réels)",
+          "reason": "KPI trop récent légitime (6 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -21527,11 +21536,10 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -21625,12 +21633,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 3,
           "period": "year",
           "required": 5,
-          "tolerated": 3,
-          "reason": "history insuffisant (3 < 5)"
+          "legitimate_reason": "IPO 2024 (<5 ans réels)",
+          "reason": "KPI trop récent légitime (3 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": false,
@@ -21709,7 +21718,6 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "b_interpretation",
         "d_stories",
         "e_risks"
@@ -21718,7 +21726,7 @@
         "g_governance",
         "h_ai_positioning"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -29033,12 +29041,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 4,
           "period": "year",
           "required": 5,
-          "tolerated": 3,
-          "reason": "history insuffisant (4 < 5)"
+          "legitimate_reason": "IPO 2023 (<5 ans réels)",
+          "reason": "KPI trop récent légitime (4 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": false,
@@ -29114,7 +29123,6 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "b_interpretation",
         "e_risks"
       ],
@@ -29122,7 +29130,7 @@
         "g_governance",
         "h_ai_positioning"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -39910,12 +39918,13 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 4,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (4 < 18)"
+          "legitimate_reason": "IPO 2025 (<5 ans réels)",
+          "reason": "KPI trop récent légitime (4 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": false,
@@ -39991,7 +40000,6 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "b_interpretation",
         "d_stories",
         "e_risks"
@@ -40001,7 +40009,7 @@
         "h_ai_positioning",
         "k_ranks"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -40182,12 +40190,13 @@
       "market_cap_usd": 30091087872,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_legitimate": true,
           "len": 9,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (9 < 18)"
+          "legitimate_reason": "IPO 2024 (<5 ans réels)",
+          "reason": "KPI trop récent légitime (9 dispo, flag is_short_history_legitimate)"
         },
         "b_interpretation": {
           "ok": false,
@@ -40248,14 +40257,13 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "b_interpretation",
         "d_stories"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },

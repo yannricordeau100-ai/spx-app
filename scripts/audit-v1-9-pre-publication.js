@@ -198,6 +198,7 @@ function checkHeroHistory(company) {
   const len = historyLength(hero);
   const period = lower(hero.period_type || 'year');
   const isShortMarked = hero.is_short_history === true || hero._hero_history_unverified === true;
+  const isLegitimate = hero.is_short_history_legitimate === true;
 
   let minRequired, minTolerated;
   if (period === 'quarter') {
@@ -213,6 +214,20 @@ function checkHeroHistory(company) {
 
   if (len >= minRequired) {
     return { ok: true, len, period, required: minRequired };
+  }
+  // NEW : exception "KPI trop récent légitime" (tagué is_short_history_legitimate).
+  // Yann règle : on tolère ce qui existe vraiment dans les filings (KPI lancé <5 ans),
+  // exiger juste assez de data pour afficher un graph utile (len >= 3).
+  if (isLegitimate && len >= 3) {
+    return {
+      ok: true,
+      exception_legitimate: true,
+      len,
+      period,
+      required: minRequired,
+      legitimate_reason: hero.short_history_legitimate_reason || null,
+      reason: `KPI trop récent légitime (${len} dispo, flag is_short_history_legitimate)`,
+    };
   }
   if (len >= minTolerated && isShortMarked) {
     // Exception : KPI flag short_history (assumé "KPI trop récent")
@@ -571,6 +586,13 @@ function main() {
       m_freshness: 0,
     },
   };
+  // NEW : tracker exceptions a_hero_history (KPI trop récent légitime + tolérance short)
+  stats.a_hero_history_exceptions = {
+    legitimate: 0,
+    short_marked: 0,
+    legitimate_pct_of_total: 0,
+    under_21pct_cap: true,
+  };
   audits.forEach((a) => {
     const n = a.fatal ? 'fatal' : String(a.failed_count);
     stats.by_failed_count[n] = (stats.by_failed_count[n] || 0) + 1;
@@ -580,7 +602,24 @@ function main() {
     a.failed_extensions.forEach((e) => {
       stats.by_failed_extension[e] = (stats.by_failed_extension[e] || 0) + 1;
     });
+    // Track exception usage on a_hero_history
+    const ah = a.criteria && a.criteria.a_hero_history;
+    if (ah && ah.ok) {
+      if (ah.exception_legitimate) stats.a_hero_history_exceptions.legitimate += 1;
+      if (ah.exception_short) stats.a_hero_history_exceptions.short_marked += 1;
+    }
   });
+  const totalExceptions =
+    stats.a_hero_history_exceptions.legitimate + stats.a_hero_history_exceptions.short_marked;
+  stats.a_hero_history_exceptions.total = totalExceptions;
+  stats.a_hero_history_exceptions.legitimate_pct_of_total = Number(
+    ((stats.a_hero_history_exceptions.legitimate / stats.total) * 100).toFixed(2)
+  );
+  stats.a_hero_history_exceptions.total_exceptions_pct_of_total = Number(
+    ((totalExceptions / stats.total) * 100).toFixed(2)
+  );
+  stats.a_hero_history_exceptions.under_21pct_cap =
+    stats.a_hero_history_exceptions.total_exceptions_pct_of_total < 21;
 
   // Top 20 stés à fixer en priorité (1-2 critères failed)
   const toFix = audits
@@ -641,6 +680,12 @@ function main() {
   Object.entries(stats.by_failed_extension)
     .sort((a, b) => b[1] - a[1])
     .forEach(([k, v]) => console.log(`  ${k} : ${v} stés (${((v / stats.total) * 100).toFixed(1)} %)`));
+  console.log('\nExceptions a_hero_history (KPI trop récent / short marked) :');
+  const ex = stats.a_hero_history_exceptions;
+  console.log(`  legitimate (is_short_history_legitimate)     : ${ex.legitimate} (${ex.legitimate_pct_of_total} %)`);
+  console.log(`  short_marked (is_short_history)               : ${ex.short_marked}`);
+  console.log(`  total exceptions                              : ${ex.total} (${ex.total_exceptions_pct_of_total} %)`);
+  console.log(`  cap < 21 % respecté                           : ${ex.under_21pct_cap ? '✓ OUI' : '✗ NON'}`);
   console.log('\nTop 20 stés à fixer en priorité (1-2 critères manquants) :');
   toFix.slice(0, 20).forEach((t) => {
     const mc = t.market_cap_usd ? `MC=${(t.market_cap_usd / 1e9).toFixed(0)} Mds` : 'MC?';
