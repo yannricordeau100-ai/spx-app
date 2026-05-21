@@ -20,6 +20,7 @@ import argparse
 import json
 import os
 import sys
+sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parent))
 import time
 from pathlib import Path
 
@@ -99,31 +100,11 @@ def fetch_sec_local(ticker: str) -> dict:
 
 
 def build_enrich_json(t: dict, yf_data: dict, sec_data: dict) -> dict:
-    info = yf_data.get("info", {}) or {}
-    return {
-        "ticker": t["ticker"],
-        "name": t["name"],
-        "country": t["country"],
-        "sources": [t["index"]],
-        "hero": {
-            "market_cap_usd": info.get("marketCap"),
-            "sector": info.get("sector"),
-            "industry": info.get("industry"),
-            "currency": info.get("currency"),
-            "employees": info.get("fullTimeEmployees"),
-            "_source": "yfinance.info",
-        },
-        "repartition": {"segments": [], "geographies": [], "_status": "TODO_LLM_REPARTITION"},
-        "stories": {k: "TODO_CEREBRAS_QWEN3_235B" for k in "abcdef"},
-        "governance": {"_status": "TODO_CEREBRAS", "sec_local": bool(sec_data)},
-        "risks": {"rationale": "TODO_CEREBRAS_QWEN3_235B", "items": []},
-        "_extraction": {
-            "script": "extract_stoxx_top30.py",
-            "agent": "sub-agent-109",
-            "extracted_at_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-            "yf_ok": "info" in yf_data and not yf_data.get("info_error"),
-        },
-    }
+    """Schéma v1-9-complete CONFORME (patch sub-agent #112)."""
+    from _schema_v19 import build_v19_skeleton
+    target_norm = dict(t)
+    target_norm.setdefault("sources", [t.get("index", "stoxx-residual")])
+    return build_v19_skeleton(target_norm, yf_data, sec_data)
 
 
 def process_one(t: dict, force=False) -> str:

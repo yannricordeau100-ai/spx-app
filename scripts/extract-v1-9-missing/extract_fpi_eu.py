@@ -21,6 +21,7 @@ import argparse
 import json
 import os
 import sys
+sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parent))
 import time
 from pathlib import Path
 
@@ -93,50 +94,16 @@ def fetch_sec_local(fpi_id: str) -> dict:
 
 
 def build_enrich_json(target: dict, yf_data: dict, sec_data: dict) -> dict:
-    """Structure JSON v1-9-complete attendue (hero/repartition/stories/gov/risks)."""
-    info = yf_data.get("info", {}) or {}
-    return {
-        "ticker": target["ticker"],
-        "name": target["name"],
-        "country": target["country"],
-        "sources": ["fpi-v19-yann-21mai"],
-        "hero": {
-            "market_cap_usd": info.get("marketCap"),
-            "sector": info.get("sector"),
-            "industry": info.get("industry"),
-            "currency": info.get("currency"),
-            "employees": info.get("fullTimeEmployees"),
-            "_source": "yfinance.info",
-        },
-        "repartition": {
-            "segments": [],
-            "geographies": [],
-            "_status": "TODO_LLM_REPARTITION",
-        },
-        "stories": {
-            "a": "TODO_CEREBRAS_QWEN3_235B",
-            "b": "TODO_CEREBRAS_QWEN3_235B",
-            "c": "TODO_CEREBRAS_QWEN3_235B",
-            "d": "TODO_CEREBRAS_QWEN3_235B",
-            "e": "TODO_CEREBRAS_QWEN3_235B",
-            "f": "TODO_CEREBRAS_QWEN3_235B",
-        },
-        "governance": {
-            "_status": "TODO_CEREBRAS" if not sec_data else "sec_local_available",
-            "source_file": sec_data.get("_path") if sec_data else None,
-        },
-        "risks": {
-            "rationale": "TODO_CEREBRAS_QWEN3_235B",
-            "items": [],
-        },
-        "_extraction": {
-            "script": "extract_fpi_eu.py",
-            "agent": "sub-agent-109",
-            "extracted_at_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-            "yf_ok": "info" in yf_data and not yf_data.get("info_error"),
-            "sec_ok": bool(sec_data),
-        },
-    }
+    """Structure JSON v1-9-complete CONFORME au schéma réel (patch sub-agent #112).
+
+    Le schéma original sub-agent #109 (hero/repartition/stories/gov/risks) était
+    INCOMPATIBLE avec src/data/v1-9-complete/AAPL.json. Patch via _schema_v19.
+    """
+    from _schema_v19 import build_v19_skeleton
+    # Forcer source v1.9 FPI EU 21 mai
+    target_norm = dict(target)
+    target_norm.setdefault("sources", ["fpi-v19-yann-21mai"])
+    return build_v19_skeleton(target_norm, yf_data, sec_data)
 
 
 def process_one(target: dict, force: bool = False) -> str:
