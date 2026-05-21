@@ -1,31 +1,31 @@
 {
-  "generated_at": "2026-05-21T08:36:52.380Z",
+  "generated_at": "2026-05-21T08:39:58.900Z",
   "publishable_source": "src/data/v1-9-publishable.json",
   "publishable_count_input": 778,
   "stats": {
     "total": 778,
     "fatal_no_dataset": 0,
-    "clean_af": 176,
-    "clean_all": 99,
+    "clean_af": 169,
+    "clean_all": 95,
     "by_failed_count": {
-      "0": 176,
-      "1": 291,
-      "2": 197,
-      "3": 69,
-      "4": 26,
+      "0": 169,
+      "1": 299,
+      "2": 194,
+      "3": 70,
+      "4": 27,
       "5": 19
     },
     "by_failed_criterion": {
-      "a_hero_history": 217,
+      "a_hero_history": 190,
       "b_interpretation": 76,
       "c_kpi_count": 0,
-      "d_stories": 453,
+      "d_stories": 489,
       "e_risks": 57,
       "f_repartition": 288
     },
     "by_failed_extension": {
       "g_governance": 506,
-      "h_ai_positioning": 40,
+      "h_ai_positioning": 35,
       "i_events": 90,
       "j_description": 0,
       "k_ranks": 0,
@@ -33,12 +33,12 @@
       "m_freshness": 3
     },
     "a_hero_history_exceptions": {
-      "legitimate": 96,
-      "short_marked": 17,
-      "legitimate_pct_of_total": 12.34,
+      "legitimate": 84,
+      "short_marked": 16,
+      "legitimate_pct_of_total": 10.8,
       "under_21pct_cap": true,
-      "total": 113,
-      "total_exceptions_pct_of_total": 14.52
+      "total": 100,
+      "total_exceptions_pct_of_total": 12.85
     },
     "h_ai_positioning_exceptions": {
       "stance_absent_legit": 297,
@@ -68,7 +68,7 @@
   "top5_failed_criteria": [
     [
       "d_stories",
-      453
+      489
     ],
     [
       "f_repartition",
@@ -76,7 +76,7 @@
     ],
     [
       "a_hero_history",
-      217
+      190
     ],
     [
       "b_interpretation",
@@ -102,6 +102,17 @@
     {
       "ticker": "GOOG",
       "market_cap_usd": 4811891146752,
+      "failed_count": 1,
+      "failed_criteria": [
+        "d_stories"
+      ],
+      "reasons": [
+        "d_stories: Stories 7 < 8"
+      ]
+    },
+    {
+      "ticker": "AAPL",
+      "market_cap_usd": 4379916369920,
       "failed_count": 1,
       "failed_criteria": [
         "d_stories"
@@ -159,10 +170,10 @@
       "market_cap_usd": 562583371776,
       "failed_count": 1,
       "failed_criteria": [
-        "a_hero_history"
+        "d_stories"
       ],
       "reasons": [
-        "a_hero_history: history insuffisant (3 < 18)"
+        "d_stories: Stories 6 < 8"
       ]
     },
     {
@@ -174,6 +185,17 @@
       ],
       "reasons": [
         "d_stories: Stories 5 < 8"
+      ]
+    },
+    {
+      "ticker": "COST",
+      "market_cap_usd": 461953204224,
+      "failed_count": 1,
+      "failed_criteria": [
+        "d_stories"
+      ],
+      "reasons": [
+        "d_stories: Stories 6 < 8"
       ]
     },
     {
@@ -195,7 +217,7 @@
         "d_stories"
       ],
       "reasons": [
-        "d_stories: Stories 6 < 8"
+        "d_stories: Stories 5 < 8"
       ]
     },
     {
@@ -217,7 +239,7 @@
         "d_stories"
       ],
       "reasons": [
-        "d_stories: Stories 2 < 8"
+        "d_stories: Stories 1 < 8"
       ]
     },
     {
@@ -284,28 +306,6 @@
       ],
       "reasons": [
         "f_repartition: geography vide"
-      ]
-    },
-    {
-      "ticker": "QCOM",
-      "market_cap_usd": 210884329472,
-      "failed_count": 1,
-      "failed_criteria": [
-        "d_stories"
-      ],
-      "reasons": [
-        "d_stories: Stories 6 < 8"
-      ]
-    },
-    {
-      "ticker": "SAP",
-      "market_cap_usd": 209041670799.36002,
-      "failed_count": 1,
-      "failed_criteria": [
-        "d_stories"
-      ],
-      "reasons": [
-        "d_stories: Stories 5 < 8"
       ]
     }
   ],
@@ -404,9 +404,9 @@
       "criteria": {
         "a_hero_history": {
           "ok": true,
-          "len": 5,
-          "period": "year",
-          "required": 5
+          "len": 22,
+          "period": "quarter",
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -481,9 +481,9 @@
       "criteria": {
         "a_hero_history": {
           "ok": true,
-          "len": 5,
-          "period": "year",
-          "required": 5
+          "len": 18,
+          "period": "quarter",
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -573,11 +573,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 10,
+          "count": 7,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 10,
+            "short_history_kpis": 7,
             "market_positions": 0
           }
         },
@@ -907,14 +907,14 @@
         },
         "d_stories": {
           "ok": false,
-          "count": 4,
+          "count": 3,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 6,
+            "short_history_kpis": 5,
             "market_positions": 0
           },
-          "reason": "Stories 4 < 5"
+          "reason": "Stories 3 < 5"
         },
         "e_risks": {
           "ok": true,
@@ -1074,9 +1074,9 @@
       "criteria": {
         "a_hero_history": {
           "ok": true,
-          "len": 5,
-          "period": "year",
-          "required": 5
+          "len": 18,
+          "period": "quarter",
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -1088,14 +1088,15 @@
           "required": 8
         },
         "d_stories": {
-          "ok": true,
-          "count": 8,
+          "ok": false,
+          "count": 7,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 2,
-            "short_history_kpis": 6,
+            "short_history_kpis": 5,
             "market_positions": 0
-          }
+          },
+          "reason": "Stories 7 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -1136,12 +1137,14 @@
           "source": "publication_date"
         }
       },
-      "failed_criteria": [],
+      "failed_criteria": [
+        "d_stories"
+      ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 0,
-      "is_clean_af": true,
+      "failed_count": 1,
+      "is_clean_af": false,
       "is_clean_all": false
     },
     {
@@ -1758,11 +1761,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 9,
+          "count": 8,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 9,
+            "short_history_kpis": 8,
             "market_positions": 0
           }
         },
@@ -2015,11 +2018,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 11,
+          "count": 10,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 11,
+            "short_history_kpis": 10,
             "market_positions": 0
           }
         },
@@ -2371,11 +2374,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 10,
+          "count": 9,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 10,
+            "short_history_kpis": 9,
             "market_positions": 0
           }
         },
@@ -2630,14 +2633,14 @@
         },
         "d_stories": {
           "ok": false,
-          "count": 7,
+          "count": 6,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 6,
+            "short_history_kpis": 5,
             "market_positions": 0
           },
-          "reason": "Stories 7 < 8"
+          "reason": "Stories 6 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -2950,14 +2953,14 @@
         },
         "d_stories": {
           "ok": false,
-          "count": 7,
+          "count": 6,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 7,
+            "short_history_kpis": 6,
             "market_positions": 0
           },
-          "reason": "Stories 7 < 8"
+          "reason": "Stories 6 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -3658,11 +3661,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 11,
+          "count": 10,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 10,
+            "short_history_kpis": 9,
             "market_positions": 0
           }
         },
@@ -4352,11 +4355,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 11,
+          "count": 9,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 10,
+            "short_history_kpis": 8,
             "market_positions": 0
           }
         },
@@ -4517,11 +4520,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 8,
+          "count": 5,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 8,
+            "short_history_kpis": 5,
             "market_positions": 0
           }
         },
@@ -4764,11 +4767,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 10,
+          "count": 6,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 9,
+            "short_history_kpis": 5,
             "market_positions": 0
           }
         },
@@ -4933,11 +4936,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 8,
+          "count": 7,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 8,
+            "short_history_kpis": 7,
             "market_positions": 0
           }
         },
@@ -5206,11 +5209,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 9,
+          "count": 8,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 8,
+            "short_history_kpis": 7,
             "market_positions": 0
           }
         },
@@ -5452,11 +5455,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 12,
+          "count": 11,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 11,
+            "short_history_kpis": 10,
             "market_positions": 0
           }
         },
@@ -5641,10 +5644,11 @@
           "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
-          "ok": false,
+          "ok": true,
           "stance": "significant",
           "sector": "Technologie",
-          "reason": "stance=significant (mappé leader-like) mais evidence 2 < 3"
+          "evidence_count": 2,
+          "mapped": "cautious-like"
         },
         "i_events": {
           "ok": true,
@@ -5669,9 +5673,7 @@
       "failed_criteria": [
         "d_stories"
       ],
-      "failed_extensions": [
-        "h_ai_positioning"
-      ],
+      "failed_extensions": [],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -5786,14 +5788,15 @@
           "required": 8
         },
         "d_stories": {
-          "ok": true,
-          "count": 9,
+          "ok": false,
+          "count": 7,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 9,
+            "short_history_kpis": 7,
             "market_positions": 0
-          }
+          },
+          "reason": "Stories 7 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -5834,10 +5837,11 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history"
+        "a_hero_history",
+        "d_stories"
       ],
       "failed_extensions": [],
-      "failed_count": 1,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -5863,11 +5867,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 10,
+          "count": 9,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 10,
+            "short_history_kpis": 9,
             "market_positions": 0
           }
         },
@@ -5946,11 +5950,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 8,
+          "count": 7,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 8,
+            "short_history_kpis": 7,
             "market_positions": 0
           }
         },
@@ -6298,14 +6302,14 @@
         },
         "d_stories": {
           "ok": false,
-          "count": 2,
+          "count": 1,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 2,
+            "short_history_kpis": 1,
             "market_positions": 0
           },
-          "reason": "Stories 2 < 8"
+          "reason": "Stories 1 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -6867,14 +6871,14 @@
         },
         "d_stories": {
           "ok": false,
-          "count": 5,
+          "count": 4,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 4,
+            "short_history_kpis": 3,
             "market_positions": 0
           },
-          "reason": "Stories 5 < 8"
+          "reason": "Stories 4 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -7115,11 +7119,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 9,
+          "count": 8,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 9,
+            "short_history_kpis": 8,
             "market_positions": 0
           }
         },
@@ -7289,11 +7293,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 15,
+          "count": 14,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 14,
+            "short_history_kpis": 13,
             "market_positions": 0
           }
         },
@@ -7539,14 +7543,15 @@
           "required": 5
         },
         "d_stories": {
-          "ok": true,
-          "count": 8,
+          "ok": false,
+          "count": 6,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 7,
+            "short_history_kpis": 5,
             "market_positions": 0
-          }
+          },
+          "reason": "Stories 6 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -7589,12 +7594,13 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history"
+        "a_hero_history",
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 1,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -7622,14 +7628,15 @@
           "required": 8
         },
         "d_stories": {
-          "ok": true,
-          "count": 8,
+          "ok": false,
+          "count": 7,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 7,
+            "short_history_kpis": 6,
             "market_positions": 0
-          }
+          },
+          "reason": "Stories 7 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -7670,12 +7677,14 @@
           "source": "next_earnings_date-90d"
         }
       },
-      "failed_criteria": [],
+      "failed_criteria": [
+        "d_stories"
+      ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 0,
-      "is_clean_af": true,
+      "failed_count": 1,
+      "is_clean_af": false,
       "is_clean_all": false
     },
     {
@@ -7860,11 +7869,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 9,
+          "count": 8,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 8,
+            "short_history_kpis": 7,
             "market_positions": 0
           }
         },
@@ -8117,12 +8126,9 @@
       "criteria": {
         "a_hero_history": {
           "ok": true,
-          "exception_legitimate": true,
-          "len": 8,
+          "len": 20,
           "period": "quarter",
-          "required": 18,
-          "legitimate_reason": "Biotech/pharma R&D long cycle (KPIs Phase 3 trials, FDA approvals récents, exercice court structurel) (subsector: Medical Devices & Pharmaceuticals)",
-          "reason": "KPI trop récent légitime (8 dispo, flag is_short_history_legitimate)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -8135,11 +8141,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 9,
+          "count": 5,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 9,
+            "short_history_kpis": 4,
             "market_positions": 0
           }
         },
@@ -8456,10 +8462,12 @@
       "market_cap_usd": 11942203392,
       "criteria": {
         "a_hero_history": {
-          "ok": true,
-          "len": 5,
-          "period": "year",
-          "required": 5
+          "ok": false,
+          "len": 16,
+          "period": "quarter",
+          "required": 18,
+          "tolerated": 10,
+          "reason": "history insuffisant (16 < 18)"
         },
         "b_interpretation": {
           "ok": true,
@@ -8521,12 +8529,13 @@
         }
       },
       "failed_criteria": [
+        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 1,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -8813,11 +8822,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 8,
+          "count": 7,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 8,
+            "short_history_kpis": 7,
             "market_positions": 0
           }
         },
@@ -9689,14 +9698,14 @@
         },
         "d_stories": {
           "ok": false,
-          "count": 5,
+          "count": 4,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 4,
+            "short_history_kpis": 3,
             "market_positions": 0
           },
-          "reason": "Stories 5 < 8"
+          "reason": "Stories 4 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -10132,11 +10141,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 11,
+          "count": 9,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 10,
+            "short_history_kpis": 8,
             "market_positions": 0
           }
         },
@@ -11176,9 +11185,9 @@
       "criteria": {
         "a_hero_history": {
           "ok": true,
-          "len": 5,
-          "period": "annual",
-          "required": 5
+          "len": 22,
+          "period": "quarter",
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -11191,11 +11200,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 9,
+          "count": 8,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 9,
+            "short_history_kpis": 8,
             "market_positions": 0
           }
         },
@@ -11272,11 +11281,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 13,
+          "count": 10,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 12,
+            "short_history_kpis": 9,
             "market_positions": 0
           }
         },
@@ -11772,14 +11781,15 @@
           "required": 5
         },
         "d_stories": {
-          "ok": true,
-          "count": 9,
+          "ok": false,
+          "count": 7,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 8,
+            "short_history_kpis": 6,
             "market_positions": 0
-          }
+          },
+          "reason": "Stories 7 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -11820,12 +11830,14 @@
           "source": "publication_date"
         }
       },
-      "failed_criteria": [],
+      "failed_criteria": [
+        "d_stories"
+      ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 0,
-      "is_clean_af": true,
+      "failed_count": 1,
+      "is_clean_af": false,
       "is_clean_all": false
     },
     {
@@ -12538,12 +12550,10 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
-          "len": 6,
+          "ok": true,
+          "len": 20,
           "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (6 < 18)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -12556,11 +12566,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 10,
+          "count": 9,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 10,
+            "short_history_kpis": 9,
             "market_positions": 0
           }
         },
@@ -12611,13 +12621,11 @@
           "source": "next_earnings_date-90d"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [],
-      "failed_count": 1,
-      "is_clean_af": false,
-      "is_clean_all": false
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": true
     },
     {
       "ticker": "CASY",
@@ -12818,11 +12826,11 @@
       "criteria": {
         "a_hero_history": {
           "ok": false,
-          "len": 7,
+          "len": 8,
           "period": "quarter",
           "required": 18,
           "tolerated": 10,
-          "reason": "history insuffisant (7 < 18)"
+          "reason": "history insuffisant (8 < 18)"
         },
         "b_interpretation": {
           "ok": true,
@@ -12926,11 +12934,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 9,
+          "count": 8,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 9,
+            "short_history_kpis": 8,
             "market_positions": 0
           }
         },
@@ -13193,11 +13201,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 9,
+          "count": 7,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 9,
+            "short_history_kpis": 7,
             "market_positions": 0
           }
         },
@@ -13541,14 +13549,15 @@
           "required": 5
         },
         "d_stories": {
-          "ok": true,
-          "count": 6,
+          "ok": false,
+          "count": 4,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 6,
+            "short_history_kpis": 4,
             "market_positions": 0
-          }
+          },
+          "reason": "Stories 4 < 5"
         },
         "e_risks": {
           "ok": true,
@@ -13600,12 +13609,13 @@
       },
       "failed_criteria": [
         "a_hero_history",
+        "d_stories",
         "f_repartition"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 2,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -13883,11 +13893,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 11,
+          "count": 10,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 10,
+            "short_history_kpis": 9,
             "market_positions": 0
           }
         },
@@ -14058,11 +14068,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 11,
+          "count": 8,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 12,
+            "short_history_kpis": 9,
             "market_positions": 0
           }
         },
@@ -14386,11 +14396,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 10,
+          "count": 8,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 10,
+            "short_history_kpis": 8,
             "market_positions": 0
           }
         },
@@ -14964,12 +14974,10 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
-          "len": 5,
+          "ok": true,
+          "len": 20,
           "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (5 < 18)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -15041,14 +15049,13 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories",
         "f_repartition"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -15352,11 +15359,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 8,
+          "count": 7,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 9,
+            "short_history_kpis": 7,
             "market_positions": 0
           }
         },
@@ -15435,14 +15442,14 @@
         },
         "d_stories": {
           "ok": false,
-          "count": 6,
+          "count": 4,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 5,
+            "short_history_kpis": 3,
             "market_positions": 0
           },
-          "reason": "Stories 6 < 8"
+          "reason": "Stories 4 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -15614,11 +15621,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 8,
+          "count": 6,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 8,
+            "short_history_kpis": 6,
             "market_positions": 0
           }
         },
@@ -16240,12 +16247,9 @@
       "criteria": {
         "a_hero_history": {
           "ok": true,
-          "exception_legitimate": true,
-          "len": 5,
+          "len": 22,
           "period": "quarter",
-          "required": 18,
-          "legitimate_reason": "Segment Ophthalmology/Vision disclosed séparément récemment",
-          "reason": "KPI trop récent légitime (5 dispo, flag is_short_history_legitimate)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -16258,11 +16262,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 6,
+          "count": 5,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 6,
+            "short_history_kpis": 5,
             "market_positions": 0
           }
         },
@@ -16417,14 +16421,15 @@
           "required": 5
         },
         "d_stories": {
-          "ok": true,
-          "count": 6,
+          "ok": false,
+          "count": 4,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 6,
+            "short_history_kpis": 4,
             "market_positions": 0
-          }
+          },
+          "reason": "Stories 4 < 5"
         },
         "e_risks": {
           "ok": true,
@@ -16471,11 +16476,13 @@
           "source": "next_earnings_date-90d"
         }
       },
-      "failed_criteria": [],
+      "failed_criteria": [
+        "d_stories"
+      ],
       "failed_extensions": [],
-      "failed_count": 0,
-      "is_clean_af": true,
-      "is_clean_all": true
+      "failed_count": 1,
+      "is_clean_af": false,
+      "is_clean_all": false
     },
     {
       "ticker": "COST",
@@ -16483,12 +16490,10 @@
       "market_cap_usd": 461953204224,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
-          "len": 10,
+          "ok": true,
+          "len": 19,
           "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (10 < 18)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -16550,13 +16555,12 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -16583,14 +16587,15 @@
           "required": 5
         },
         "d_stories": {
-          "ok": true,
-          "count": 8,
+          "ok": false,
+          "count": 3,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 8,
+            "short_history_kpis": 3,
             "market_positions": 0
-          }
+          },
+          "reason": "Stories 3 < 5"
         },
         "e_risks": {
           "ok": true,
@@ -16638,10 +16643,11 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history"
+        "a_hero_history",
+        "d_stories"
       ],
       "failed_extensions": [],
-      "failed_count": 1,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -16652,9 +16658,9 @@
       "criteria": {
         "a_hero_history": {
           "ok": true,
-          "len": 7,
-          "period": "year",
-          "required": 5
+          "len": 20,
+          "period": "quarter",
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -16719,7 +16725,7 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 5,
+          "months_ago": 4,
           "source": "hero.last_data_date"
         }
       },
@@ -16939,11 +16945,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 7,
+          "count": 5,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 7,
+            "short_history_kpis": 5,
             "market_positions": 0
           }
         },
@@ -17458,11 +17464,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 13,
+          "count": 11,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 13,
+            "short_history_kpis": 11,
             "market_positions": 0
           }
         },
@@ -17719,11 +17725,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 9,
+          "count": 8,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 9,
+            "short_history_kpis": 8,
             "market_positions": 0
           }
         },
@@ -17883,14 +17889,15 @@
           "required": 5
         },
         "d_stories": {
-          "ok": true,
-          "count": 8,
+          "ok": false,
+          "count": 7,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 8,
+            "short_history_kpis": 7,
             "market_positions": 0
-          }
+          },
+          "reason": "Stories 7 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -17937,12 +17944,13 @@
       },
       "failed_criteria": [
         "a_hero_history",
+        "d_stories",
         "f_repartition"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 2,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -18052,11 +18060,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 11,
+          "count": 10,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 10,
+            "short_history_kpis": 9,
             "market_positions": 0
           }
         },
@@ -18158,7 +18166,7 @@
           "stance": "active",
           "sector": "Technologie",
           "evidence_count": 3,
-          "mapped": "leader-like"
+          "mapped": "cautious-like"
         },
         "i_events": {
           "ok": true,
@@ -18304,11 +18312,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 7,
+          "count": 5,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 7,
+            "short_history_kpis": 5,
             "market_positions": 0
           }
         },
@@ -18395,11 +18403,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 18,
+          "count": 15,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 17,
+            "short_history_kpis": 14,
             "market_positions": 0
           }
         },
@@ -18714,12 +18722,10 @@
       "market_cap_usd": 47007948800,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
-          "len": 8,
+          "ok": true,
+          "len": 20,
           "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (8 < 18)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -18787,11 +18793,10 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -18907,11 +18912,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 8,
+          "count": 7,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 10,
+            "short_history_kpis": 9,
             "market_positions": 0
           }
         },
@@ -19153,11 +19158,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 7,
+          "count": 6,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 7,
+            "short_history_kpis": 6,
             "market_positions": 0
           }
         },
@@ -19220,12 +19225,10 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
-          "len": 4,
+          "ok": true,
+          "len": 20,
           "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (4 < 18)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -19238,11 +19241,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 13,
+          "count": 12,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 2,
-            "short_history_kpis": 10,
+            "short_history_kpis": 8,
             "market_positions": 3
           }
         },
@@ -19298,14 +19301,13 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "f_repartition"
       ],
       "failed_extensions": [
         "g_governance",
         "i_events"
       ],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -19400,12 +19402,9 @@
       "criteria": {
         "a_hero_history": {
           "ok": true,
-          "exception_legitimate": true,
-          "len": 7,
+          "len": 20,
           "period": "quarter",
-          "required": 18,
-          "legitimate_reason": "Brand-level revenue split disclosed récemment",
-          "reason": "KPI trop récent légitime (7 dispo, flag is_short_history_legitimate)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -19581,11 +19580,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 6,
+          "count": 5,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 6,
+            "short_history_kpis": 5,
             "market_positions": 0
           }
         },
@@ -20178,14 +20177,15 @@
           "required": 5
         },
         "d_stories": {
-          "ok": true,
-          "count": 9,
+          "ok": false,
+          "count": 5,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 9,
+            "short_history_kpis": 5,
             "market_positions": 0
-          }
+          },
+          "reason": "Stories 5 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -20226,10 +20226,11 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history"
+        "a_hero_history",
+        "d_stories"
       ],
       "failed_extensions": [],
-      "failed_count": 1,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -20239,12 +20240,10 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
-          "len": 9,
+          "ok": true,
+          "len": 20,
           "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (9 < 18)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -20257,11 +20256,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 7,
+          "count": 6,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 2,
-            "short_history_kpis": 6,
+            "short_history_kpis": 5,
             "market_positions": 0
           }
         },
@@ -20312,13 +20311,11 @@
           "source": "next_earnings_date-90d"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [],
-      "failed_count": 1,
-      "is_clean_af": false,
-      "is_clean_all": false
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": true
     },
     {
       "ticker": "DKS",
@@ -20509,14 +20506,14 @@
         },
         "d_stories": {
           "ok": false,
-          "count": 3,
+          "count": 2,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 3,
+            "short_history_kpis": 2,
             "market_positions": 0
           },
-          "reason": "Stories 3 < 5"
+          "reason": "Stories 2 < 5"
         },
         "e_risks": {
           "ok": true,
@@ -20850,12 +20847,10 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
-          "len": 6,
+          "ok": true,
+          "len": 20,
           "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (6 < 18)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -20921,13 +20916,11 @@
           "source": "next_earnings_date-90d"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [],
-      "failed_count": 1,
-      "is_clean_af": false,
-      "is_clean_all": false
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": true
     },
     {
       "ticker": "DPW.DE",
@@ -21720,14 +21713,15 @@
           "required": 5
         },
         "d_stories": {
-          "ok": true,
-          "count": 7,
+          "ok": false,
+          "count": 3,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 7,
+            "short_history_kpis": 3,
             "market_positions": 0
-          }
+          },
+          "reason": "Stories 3 < 5"
         },
         "e_risks": {
           "ok": true,
@@ -21782,13 +21776,14 @@
       },
       "failed_criteria": [
         "a_hero_history",
+        "d_stories",
         "f_repartition"
       ],
       "failed_extensions": [
         "g_governance",
         "i_events"
       ],
-      "failed_count": 2,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -22077,14 +22072,15 @@
           "required": 5
         },
         "d_stories": {
-          "ok": true,
-          "count": 8,
+          "ok": false,
+          "count": 4,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 2,
-            "short_history_kpis": 6,
+            "short_history_kpis": 2,
             "market_positions": 0
-          }
+          },
+          "reason": "Stories 4 < 5"
         },
         "e_risks": {
           "ok": true,
@@ -22137,12 +22133,13 @@
       },
       "failed_criteria": [
         "a_hero_history",
+        "d_stories",
         "f_repartition"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 2,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -22200,7 +22197,7 @@
           "stance": "active",
           "sector": "Technologie",
           "evidence_count": 5,
-          "mapped": "leader-like"
+          "mapped": "cautious-like"
         },
         "i_events": {
           "ok": true,
@@ -22251,14 +22248,15 @@
           "required": 5
         },
         "d_stories": {
-          "ok": true,
-          "count": 8,
+          "ok": false,
+          "count": 4,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 2,
-            "short_history_kpis": 6,
+            "short_history_kpis": 2,
             "market_positions": 0
-          }
+          },
+          "reason": "Stories 4 < 5"
         },
         "e_risks": {
           "ok": true,
@@ -22308,10 +22306,11 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history"
+        "a_hero_history",
+        "d_stories"
       ],
       "failed_extensions": [],
-      "failed_count": 1,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -22852,11 +22851,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 10,
+          "count": 8,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 10,
+            "short_history_kpis": 8,
             "market_positions": 0
           }
         },
@@ -23020,14 +23019,14 @@
         },
         "d_stories": {
           "ok": false,
-          "count": 5,
+          "count": 4,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 4,
+            "short_history_kpis": 3,
             "market_positions": 0
           },
-          "reason": "Stories 5 < 8"
+          "reason": "Stories 4 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -23647,11 +23646,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 6,
+          "count": 5,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 6,
+            "short_history_kpis": 5,
             "market_positions": 0
           }
         },
@@ -23725,11 +23724,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 11,
+          "count": 10,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 2,
-            "short_history_kpis": 9,
+            "short_history_kpis": 8,
             "market_positions": 0
           }
         },
@@ -24867,7 +24866,7 @@
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 2,
-            "short_history_kpis": 9,
+            "short_history_kpis": 8,
             "market_positions": 0
           }
         },
@@ -25022,12 +25021,10 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
-          "len": 9,
+          "ok": true,
+          "len": 20,
           "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (9 < 18)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -25092,16 +25089,15 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 3,
-          "source": "next_earnings_date-90d"
+          "months_ago": 2,
+          "source": "hero.last_data_date"
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -25112,9 +25108,9 @@
       "criteria": {
         "a_hero_history": {
           "ok": true,
-          "len": 7,
-          "period": "year",
-          "required": 5
+          "len": 22,
+          "period": "quarter",
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -25393,11 +25389,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 6,
+          "count": 5,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 7,
+            "short_history_kpis": 6,
             "market_positions": 0
           }
         },
@@ -25476,11 +25472,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 10,
+          "count": 9,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 10,
+            "short_history_kpis": 9,
             "market_positions": 0
           }
         },
@@ -25564,11 +25560,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 12,
+          "count": 10,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 12,
+            "short_history_kpis": 10,
             "market_positions": 0
           }
         },
@@ -25968,12 +25964,9 @@
       "criteria": {
         "a_hero_history": {
           "ok": true,
-          "exception_legitimate": true,
-          "len": 10,
+          "len": 19,
           "period": "quarter",
-          "required": 18,
-          "legitimate_reason": "Tech hardware (KPIs récents AI accelerators, edge computing, RISC-V, segment AI Networking disclosed récemment) (subsector: Application delivery and security)",
-          "reason": "KPI trop récent légitime (10 dispo, flag is_short_history_legitimate)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -25986,11 +25979,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 7,
+          "count": 5,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 7,
+            "short_history_kpis": 5,
             "market_positions": 0
           }
         },
@@ -26272,10 +26265,11 @@
           "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
-          "ok": false,
+          "ok": true,
           "stance": "active",
           "sector": "Technologie",
-          "reason": "stance=active (mappé leader-like) mais evidence 1 < 3"
+          "evidence_count": 1,
+          "mapped": "cautious-like"
         },
         "i_events": {
           "ok": true,
@@ -26300,9 +26294,7 @@
       "failed_criteria": [
         "d_stories"
       ],
-      "failed_extensions": [
-        "h_ai_positioning"
-      ],
+      "failed_extensions": [],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -26332,11 +26324,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 6,
+          "count": 5,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 6,
+            "short_history_kpis": 5,
             "market_positions": 0
           }
         },
@@ -26414,11 +26406,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 9,
+          "count": 6,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 2,
-            "short_history_kpis": 7,
+            "short_history_kpis": 4,
             "market_positions": 0
           }
         },
@@ -26766,11 +26758,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 9,
+          "count": 7,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 9,
+            "short_history_kpis": 7,
             "market_positions": 0
           }
         },
@@ -26855,11 +26847,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 9,
+          "count": 7,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 9,
+            "short_history_kpis": 7,
             "market_positions": 0
           }
         },
@@ -27543,11 +27535,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 10,
+          "count": 9,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 10,
+            "short_history_kpis": 9,
             "market_positions": 0
           }
         },
@@ -27621,14 +27613,14 @@
         },
         "d_stories": {
           "ok": false,
-          "count": 4,
+          "count": 3,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 4,
+            "short_history_kpis": 3,
             "market_positions": 0
           },
-          "reason": "Stories 4 < 5"
+          "reason": "Stories 3 < 5"
         },
         "e_risks": {
           "ok": true,
@@ -27766,11 +27758,11 @@
       "criteria": {
         "a_hero_history": {
           "ok": false,
-          "len": 6,
+          "len": 9,
           "period": "quarter",
           "required": 18,
           "tolerated": 10,
-          "reason": "history insuffisant (6 < 18)"
+          "reason": "history insuffisant (9 < 18)"
         },
         "b_interpretation": {
           "ok": true,
@@ -28194,14 +28186,15 @@
           "required": 5
         },
         "d_stories": {
-          "ok": true,
-          "count": 8,
+          "ok": false,
+          "count": 7,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 10,
+            "short_history_kpis": 9,
             "market_positions": 0
-          }
+          },
+          "reason": "Stories 7 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -28242,12 +28235,14 @@
           "source": "publication_date"
         }
       },
-      "failed_criteria": [],
+      "failed_criteria": [
+        "d_stories"
+      ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 0,
-      "is_clean_af": true,
+      "failed_count": 1,
+      "is_clean_af": false,
       "is_clean_all": false
     },
     {
@@ -28514,12 +28509,9 @@
       "criteria": {
         "a_hero_history": {
           "ok": true,
-          "exception_legitimate": true,
-          "len": 8,
+          "len": 20,
           "period": "quarter",
-          "required": 18,
-          "legitimate_reason": "Tech hardware (KPIs récents AI accelerators, edge computing, RISC-V, segment AI Networking disclosed récemment) (subsector: Semi-conducteurs et matériaux)",
-          "reason": "KPI trop récent légitime (8 dispo, flag is_short_history_legitimate)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -28532,11 +28524,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 8,
+          "count": 7,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 8,
+            "short_history_kpis": 7,
             "market_positions": 0
           }
         },
@@ -28762,12 +28754,9 @@
       "criteria": {
         "a_hero_history": {
           "ok": true,
-          "exception_legitimate": true,
-          "len": 8,
+          "len": 22,
           "period": "quarter",
-          "required": 18,
-          "legitimate_reason": "Segment HPC/Cloud disclosed séparément récemment",
-          "reason": "KPI trop récent légitime (8 dispo, flag is_short_history_legitimate)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -28842,9 +28831,9 @@
       "criteria": {
         "a_hero_history": {
           "ok": true,
-          "len": 5,
-          "period": "year",
-          "required": 5
+          "len": 22,
+          "period": "quarter",
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -29420,12 +29409,10 @@
       "market_cap_usd": 60630614016,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
-          "len": 8,
+          "ok": true,
+          "len": 20,
           "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (8 < 18)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -29438,11 +29425,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 10,
+          "count": 9,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 9,
+            "short_history_kpis": 8,
             "market_positions": 0
           }
         },
@@ -29491,13 +29478,11 @@
           "source": "publication_date"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [],
-      "failed_count": 1,
-      "is_clean_af": false,
-      "is_clean_all": false
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": true
     },
     {
       "ticker": "HAL",
@@ -29759,11 +29744,9 @@
       "criteria": {
         "a_hero_history": {
           "ok": true,
-          "exception_short": true,
-          "len": 3,
-          "period": "year",
-          "required": 5,
-          "reason": "tolérance KPI court (3 < 5, flag is_short_history)"
+          "len": 20,
+          "period": "quarter",
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -29776,11 +29759,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 9,
+          "count": 8,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 9,
+            "short_history_kpis": 8,
             "market_positions": 0
           }
         },
@@ -29799,10 +29782,11 @@
           "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
-          "ok": false,
+          "ok": true,
           "stance": "active",
           "sector": "Santé",
-          "reason": "stance=active (mappé leader-like) mais evidence 2 < 3"
+          "evidence_count": 2,
+          "mapped": "cautious-like"
         },
         "i_events": {
           "ok": true,
@@ -29826,8 +29810,7 @@
       },
       "failed_criteria": [],
       "failed_extensions": [
-        "g_governance",
-        "h_ai_positioning"
+        "g_governance"
       ],
       "failed_count": 0,
       "is_clean_af": true,
@@ -31420,14 +31403,15 @@
           "required": 5
         },
         "d_stories": {
-          "ok": true,
-          "count": 5,
+          "ok": false,
+          "count": 4,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 5,
+            "short_history_kpis": 4,
             "market_positions": 0
-          }
+          },
+          "reason": "Stories 4 < 5"
         },
         "e_risks": {
           "ok": true,
@@ -31472,12 +31456,13 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history"
+        "a_hero_history",
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 1,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -31505,11 +31490,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 12,
+          "count": 11,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 12,
+            "short_history_kpis": 11,
             "market_positions": 0
           }
         },
@@ -31762,11 +31747,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 13,
+          "count": 11,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 12,
+            "short_history_kpis": 10,
             "market_positions": 0
           }
         },
@@ -32013,12 +31998,9 @@
       "criteria": {
         "a_hero_history": {
           "ok": true,
-          "exception_legitimate": true,
-          "len": 8,
+          "len": 20,
           "period": "quarter",
-          "required": 18,
-          "legitimate_reason": "Défense/aérospatial (KPIs récents drone tech, AI defense, naval/space backlog disclosed récemment) (subsector: Aéronautique & Défense)",
-          "reason": "KPI trop récent légitime (8 dispo, flag is_short_history_legitimate)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -32031,11 +32013,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 9,
+          "count": 8,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 8,
+            "short_history_kpis": 7,
             "market_positions": 0
           }
         },
@@ -32385,11 +32367,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 9,
+          "count": 5,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 9,
+            "short_history_kpis": 5,
             "market_positions": 0
           }
         },
@@ -32559,11 +32541,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 10,
+          "count": 9,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 10,
+            "short_history_kpis": 9,
             "market_positions": 0
           }
         },
@@ -32641,11 +32623,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 8,
+          "count": 7,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 8,
+            "short_history_kpis": 7,
             "market_positions": 0
           }
         },
@@ -32892,14 +32874,14 @@
         },
         "d_stories": {
           "ok": false,
-          "count": 2,
+          "count": 1,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 2,
+            "short_history_kpis": 1,
             "market_positions": 0
           },
-          "reason": "Stories 2 < 8"
+          "reason": "Stories 1 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -33054,12 +33036,10 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
-          "len": 10,
+          "ok": true,
+          "len": 22,
           "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (10 < 18)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -33072,11 +33052,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 6,
+          "count": 5,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 6,
+            "short_history_kpis": 5,
             "market_positions": 0
           }
         },
@@ -33131,13 +33111,12 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "f_repartition"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -33771,14 +33750,14 @@
         },
         "d_stories": {
           "ok": false,
-          "count": 4,
+          "count": 3,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 4,
+            "short_history_kpis": 3,
             "market_positions": 0
           },
-          "reason": "Stories 4 < 5"
+          "reason": "Stories 3 < 5"
         },
         "e_risks": {
           "ok": true,
@@ -33853,11 +33832,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 7,
+          "count": 6,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 7,
+            "short_history_kpis": 6,
             "market_positions": 0
           }
         },
@@ -33929,11 +33908,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 8,
+          "count": 7,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 8,
+            "short_history_kpis": 7,
             "market_positions": 0
           }
         },
@@ -34091,9 +34070,9 @@
       "criteria": {
         "a_hero_history": {
           "ok": true,
-          "len": 5,
-          "period": "year",
-          "required": 5
+          "len": 22,
+          "period": "quarter",
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -34164,7 +34143,7 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 5,
+          "months_ago": 2,
           "source": "hero.last_data_date"
         }
       },
@@ -34204,11 +34183,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 8,
+          "count": 7,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 9,
+            "short_history_kpis": 7,
             "market_positions": 0
           }
         },
@@ -34547,11 +34526,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 10,
+          "count": 7,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 10,
+            "short_history_kpis": 7,
             "market_positions": 0
           }
         },
@@ -35123,12 +35102,9 @@
       "criteria": {
         "a_hero_history": {
           "ok": true,
-          "exception_legitimate": true,
-          "len": 10,
+          "len": 20,
           "period": "quarter",
-          "required": 18,
-          "legitimate_reason": "Fintech/payments (KPIs récents embedded finance, RTP, BNPL, paid users non-disclosed historiquement) (subsector: Investment Banking and Capital Markets)",
-          "reason": "KPI trop récent légitime (10 dispo, flag is_short_history_legitimate)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -35224,14 +35200,15 @@
           "required": 5
         },
         "d_stories": {
-          "ok": true,
-          "count": 5,
+          "ok": false,
+          "count": 4,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 4,
+            "short_history_kpis": 3,
             "market_positions": 0
-          }
+          },
+          "reason": "Stories 4 < 5"
         },
         "e_risks": {
           "ok": true,
@@ -35271,11 +35248,13 @@
           "source": "publication_date"
         }
       },
-      "failed_criteria": [],
+      "failed_criteria": [
+        "d_stories"
+      ],
       "failed_extensions": [],
-      "failed_count": 0,
-      "is_clean_af": true,
-      "is_clean_all": true
+      "failed_count": 1,
+      "is_clean_af": false,
+      "is_clean_all": false
     },
     {
       "ticker": "JNJ",
@@ -35440,12 +35419,10 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
-          "len": 7,
+          "ok": true,
+          "len": 20,
           "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (7 < 18)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -35508,13 +35485,12 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -35802,11 +35778,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 8,
+          "count": 7,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 8,
+            "short_history_kpis": 7,
             "market_positions": 0
           }
         },
@@ -36072,14 +36048,15 @@
           "required": 5
         },
         "d_stories": {
-          "ok": true,
-          "count": 5,
+          "ok": false,
+          "count": 4,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 5,
+            "short_history_kpis": 4,
             "market_positions": 0
-          }
+          },
+          "reason": "Stories 4 < 5"
         },
         "e_risks": {
           "ok": true,
@@ -36121,11 +36098,13 @@
           "source": "next_earnings_date-90d"
         }
       },
-      "failed_criteria": [],
+      "failed_criteria": [
+        "d_stories"
+      ],
       "failed_extensions": [],
-      "failed_count": 0,
-      "is_clean_af": true,
-      "is_clean_all": true
+      "failed_count": 1,
+      "is_clean_af": false,
+      "is_clean_all": false
     },
     {
       "ticker": "KKR",
@@ -36238,11 +36217,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 13,
+          "count": 11,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 13,
+            "short_history_kpis": 11,
             "market_positions": 0
           }
         },
@@ -36825,11 +36804,11 @@
       "criteria": {
         "a_hero_history": {
           "ok": false,
-          "len": 4,
-          "period": "year",
-          "required": 5,
-          "tolerated": 3,
-          "reason": "history insuffisant (4 < 5)"
+          "len": 13,
+          "period": "quarter",
+          "required": 18,
+          "tolerated": 10,
+          "reason": "history insuffisant (13 < 18)"
         },
         "b_interpretation": {
           "ok": true,
@@ -36888,7 +36867,7 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 5,
+          "months_ago": 2,
           "source": "hero.last_data_date"
         }
       },
@@ -37278,11 +37257,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 7,
+          "count": 5,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 7,
+            "short_history_kpis": 5,
             "market_positions": 0
           }
         },
@@ -37359,11 +37338,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 8,
+          "count": 5,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 9,
+            "short_history_kpis": 6,
             "market_positions": 0
           }
         },
@@ -37439,11 +37418,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 8,
+          "count": 7,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 8,
+            "short_history_kpis": 7,
             "market_positions": 0
           }
         },
@@ -37600,12 +37579,10 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
-          "len": 8,
+          "ok": true,
+          "len": 20,
           "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (8 < 18)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -37618,14 +37595,14 @@
         },
         "d_stories": {
           "ok": false,
-          "count": 1,
+          "count": 0,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 1,
+            "short_history_kpis": 0,
             "market_positions": 0
           },
-          "reason": "Stories 1 < 5"
+          "reason": "Stories 0 < 5"
         },
         "e_risks": {
           "ok": true,
@@ -37670,13 +37647,12 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -37686,12 +37662,10 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
-          "len": 7,
+          "ok": true,
+          "len": 20,
           "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (7 < 18)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -37704,11 +37678,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 9,
+          "count": 8,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 9,
+            "short_history_kpis": 8,
             "market_positions": 0
           }
         },
@@ -37752,14 +37726,12 @@
           "source": "next_earnings_date-90d"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 1,
-      "is_clean_af": false,
+      "failed_count": 0,
+      "is_clean_af": true,
       "is_clean_all": false
     },
     {
@@ -38015,12 +37987,10 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
-          "len": 14,
+          "ok": true,
+          "len": 22,
           "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (14 < 18)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -38088,13 +38058,12 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "f_repartition"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -38836,11 +38805,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 10,
+          "count": 7,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 10,
+            "short_history_kpis": 7,
             "market_positions": 0
           }
         },
@@ -38896,12 +38865,10 @@
       "market_cap_usd": 30272562135.04,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
-          "len": 10,
+          "ok": true,
+          "len": 20,
           "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (10 < 18)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -38962,11 +38929,10 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -38977,9 +38943,9 @@
       "criteria": {
         "a_hero_history": {
           "ok": true,
-          "len": 10,
-          "period": "year",
-          "required": 5
+          "len": 20,
+          "period": "quarter",
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -39039,7 +39005,7 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 5,
+          "months_ago": 2,
           "source": "hero.last_data_date"
         }
       },
@@ -39400,11 +39366,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 10,
+          "count": 9,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 10,
+            "short_history_kpis": 9,
             "market_positions": 0
           }
         },
@@ -40096,11 +40062,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 17,
+          "count": 15,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 2,
-            "short_history_kpis": 15,
+            "short_history_kpis": 13,
             "market_positions": 0
           }
         },
@@ -40169,14 +40135,15 @@
           "required": 5
         },
         "d_stories": {
-          "ok": true,
-          "count": 8,
+          "ok": false,
+          "count": 6,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 7,
+            "short_history_kpis": 5,
             "market_positions": 0
-          }
+          },
+          "reason": "Stories 6 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -40216,11 +40183,13 @@
           "source": "publication_date"
         }
       },
-      "failed_criteria": [],
+      "failed_criteria": [
+        "d_stories"
+      ],
       "failed_extensions": [],
-      "failed_count": 0,
-      "is_clean_af": true,
-      "is_clean_all": true
+      "failed_count": 1,
+      "is_clean_af": false,
+      "is_clean_all": false
     },
     {
       "ticker": "MET",
@@ -40246,11 +40215,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 11,
+          "count": 9,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 11,
+            "short_history_kpis": 9,
             "market_positions": 0
           }
         },
@@ -40329,11 +40298,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 10,
+          "count": 7,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 10,
+            "short_history_kpis": 7,
             "market_positions": 0
           }
         },
@@ -40471,12 +40440,10 @@
       "market_cap_usd": 12503897088,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
-          "len": 8,
+          "ok": true,
+          "len": 20,
           "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (8 < 18)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -40538,13 +40505,12 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -40555,12 +40521,9 @@
       "criteria": {
         "a_hero_history": {
           "ok": true,
-          "exception_legitimate": true,
-          "len": 8,
+          "len": 22,
           "period": "quarter",
-          "required": 18,
-          "legitimate_reason": "Tech hardware (KPIs récents AI accelerators, edge computing, RISC-V, segment AI Networking disclosed récemment) (subsector: Semi-conducteurs)",
-          "reason": "KPI trop récent légitime (8 dispo, flag is_short_history_legitimate)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -40833,11 +40796,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 10,
+          "count": 9,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 10,
+            "short_history_kpis": 9,
             "market_positions": 0
           }
         },
@@ -41332,12 +41295,9 @@
       "criteria": {
         "a_hero_history": {
           "ok": true,
-          "exception_legitimate": true,
-          "len": 10,
+          "len": 18,
           "period": "quarter",
-          "required": 18,
-          "legitimate_reason": "Biotech/pharma R&D long cycle (KPIs Phase 3 trials, FDA approvals récents, exercice court structurel) (subsector: Pharmaceutique)",
-          "reason": "KPI trop récent légitime (10 dispo, flag is_short_history_legitimate)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -41350,11 +41310,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 14,
+          "count": 11,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 13,
+            "short_history_kpis": 10,
             "market_positions": 0
           }
         },
@@ -42129,14 +42089,15 @@
           "required": 5
         },
         "d_stories": {
-          "ok": true,
-          "count": 9,
+          "ok": false,
+          "count": 7,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 10,
+            "short_history_kpis": 8,
             "market_positions": 0
-          }
+          },
+          "reason": "Stories 7 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -42177,10 +42138,11 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history"
+        "a_hero_history",
+        "d_stories"
       ],
       "failed_extensions": [],
-      "failed_count": 1,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -42206,11 +42168,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 19,
+          "count": 17,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 18,
+            "short_history_kpis": 16,
             "market_positions": 0
           }
         },
@@ -42368,11 +42330,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 10,
+          "count": 8,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 10,
+            "short_history_kpis": 8,
             "market_positions": 0
           }
         },
@@ -42607,14 +42569,14 @@
         },
         "d_stories": {
           "ok": false,
-          "count": 7,
+          "count": 6,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 7,
+            "short_history_kpis": 6,
             "market_positions": 0
           },
-          "reason": "Stories 7 < 8"
+          "reason": "Stories 6 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -43126,11 +43088,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 8,
+          "count": 6,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 8,
+            "short_history_kpis": 6,
             "market_positions": 0
           }
         },
@@ -43551,14 +43513,14 @@
         },
         "d_stories": {
           "ok": false,
-          "count": 6,
+          "count": 5,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 2,
-            "short_history_kpis": 1,
+            "short_history_kpis": 0,
             "market_positions": 3
           },
-          "reason": "Stories 6 < 8"
+          "reason": "Stories 5 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -43879,12 +43841,10 @@
       "market_cap_usd": 62226874368,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
-          "len": 10,
+          "ok": true,
+          "len": 20,
           "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (10 < 18)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -43897,11 +43857,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 13,
+          "count": 12,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 12,
+            "short_history_kpis": 11,
             "market_positions": 0
           }
         },
@@ -43943,13 +43903,11 @@
           "source": "publication_date"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [],
-      "failed_count": 1,
-      "is_clean_af": false,
-      "is_clean_all": false
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": true
     },
     {
       "ticker": "NLY",
@@ -44061,11 +44019,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 8,
+          "count": 7,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 7,
+            "short_history_kpis": 6,
             "market_positions": 0
           }
         },
@@ -44552,14 +44510,15 @@
           "required": 5
         },
         "d_stories": {
-          "ok": true,
-          "count": 9,
+          "ok": false,
+          "count": 7,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 10,
+            "short_history_kpis": 8,
             "market_positions": 0
-          }
+          },
+          "reason": "Stories 7 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -44600,10 +44559,11 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history"
+        "a_hero_history",
+        "d_stories"
       ],
       "failed_extensions": [],
-      "failed_count": 1,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -44799,14 +44759,15 @@
           "required": 5
         },
         "d_stories": {
-          "ok": true,
-          "count": 8,
+          "ok": false,
+          "count": 3,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 8,
+            "short_history_kpis": 3,
             "market_positions": 0
-          }
+          },
+          "reason": "Stories 3 < 5"
         },
         "e_risks": {
           "ok": true,
@@ -44827,7 +44788,7 @@
           "stance": "active",
           "sector": "Technologie",
           "evidence_count": 4,
-          "mapped": "leader-like"
+          "mapped": "cautious-like"
         },
         "i_events": {
           "ok": true,
@@ -44849,12 +44810,14 @@
           "source": "next_earnings_date-90d"
         }
       },
-      "failed_criteria": [],
+      "failed_criteria": [
+        "d_stories"
+      ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 0,
-      "is_clean_af": true,
+      "failed_count": 1,
+      "is_clean_af": false,
       "is_clean_all": false
     },
     {
@@ -44878,14 +44841,15 @@
           "required": 5
         },
         "d_stories": {
-          "ok": true,
-          "count": 9,
+          "ok": false,
+          "count": 7,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 8,
+            "short_history_kpis": 6,
             "market_positions": 0
-          }
+          },
+          "reason": "Stories 7 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -44925,11 +44889,13 @@
           "source": "publication_date"
         }
       },
-      "failed_criteria": [],
+      "failed_criteria": [
+        "d_stories"
+      ],
       "failed_extensions": [],
-      "failed_count": 0,
-      "is_clean_af": true,
-      "is_clean_all": true
+      "failed_count": 1,
+      "is_clean_af": false,
+      "is_clean_all": false
     },
     {
       "ticker": "NTRS",
@@ -45034,11 +45000,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 8,
+          "count": 7,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 9,
+            "short_history_kpis": 7,
             "market_positions": 0
           }
         },
@@ -45108,9 +45074,9 @@
       "criteria": {
         "a_hero_history": {
           "ok": true,
-          "len": 5,
-          "period": "year",
-          "required": 5
+          "len": 18,
+          "period": "quarter",
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -45610,11 +45576,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 11,
+          "count": 9,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 11,
+            "short_history_kpis": 9,
             "market_positions": 0
           }
         },
@@ -45785,11 +45751,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 10,
+          "count": 8,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 9,
+            "short_history_kpis": 7,
             "market_positions": 0
           }
         },
@@ -46261,7 +46227,7 @@
           "stance": "active",
           "sector": "Advertising, Marketing & Communications",
           "evidence_count": 5,
-          "mapped": "leader-like"
+          "mapped": "cautious-like"
         },
         "i_events": {
           "ok": true,
@@ -46300,12 +46266,9 @@
       "criteria": {
         "a_hero_history": {
           "ok": true,
-          "exception_legitimate": true,
-          "len": 5,
+          "len": 20,
           "period": "quarter",
-          "required": 18,
-          "legitimate_reason": "Tech hardware (KPIs récents AI accelerators, edge computing, RISC-V, segment AI Networking disclosed récemment) (subsector: Semi-conducteurs)",
-          "reason": "KPI trop récent légitime (5 dispo, flag is_short_history_legitimate)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -46398,14 +46361,15 @@
           "required": 5
         },
         "d_stories": {
-          "ok": true,
-          "count": 10,
+          "ok": false,
+          "count": 7,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 9,
+            "short_history_kpis": 6,
             "market_positions": 0
-          }
+          },
+          "reason": "Stories 7 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -46452,11 +46416,13 @@
           "source": "publication_date"
         }
       },
-      "failed_criteria": [],
+      "failed_criteria": [
+        "d_stories"
+      ],
       "failed_extensions": [],
-      "failed_count": 0,
-      "is_clean_af": true,
-      "is_clean_all": true
+      "failed_count": 1,
+      "is_clean_af": false,
+      "is_clean_all": false
     },
     {
       "ticker": "OR.PA",
@@ -46636,12 +46602,10 @@
       "market_cap_usd": 562583371776,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
-          "len": 3,
+          "ok": true,
+          "len": 20,
           "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (3 < 18)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -46653,14 +46617,15 @@
           "required": 8
         },
         "d_stories": {
-          "ok": true,
-          "count": 10,
+          "ok": false,
+          "count": 6,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 2,
-            "short_history_kpis": 9,
+            "short_history_kpis": 4,
             "market_positions": 0
-          }
+          },
+          "reason": "Stories 6 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -46708,7 +46673,7 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history"
+        "d_stories"
       ],
       "failed_extensions": [],
       "failed_count": 1,
@@ -46739,11 +46704,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 8,
+          "count": 7,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 8,
+            "short_history_kpis": 7,
             "market_positions": 0
           }
         },
@@ -46811,12 +46776,10 @@
       "market_cap_usd": 7863747072,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
-          "len": 5,
+          "ok": true,
+          "len": 21,
           "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (5 < 18)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -46829,14 +46792,14 @@
         },
         "d_stories": {
           "ok": false,
-          "count": 4,
+          "count": 3,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 3,
+            "short_history_kpis": 2,
             "market_positions": 0
           },
-          "reason": "Stories 4 < 5"
+          "reason": "Stories 3 < 5"
         },
         "e_risks": {
           "ok": true,
@@ -46884,11 +46847,10 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -46898,12 +46860,10 @@
       "market_cap_usd": 28034293760,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
-          "len": 6,
+          "ok": true,
+          "len": 20,
           "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (6 < 18)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -46965,13 +46925,12 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -47258,9 +47217,9 @@
       "criteria": {
         "a_hero_history": {
           "ok": true,
-          "len": 5,
-          "period": "year",
-          "required": 5
+          "len": 20,
+          "period": "quarter",
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -47273,14 +47232,14 @@
         },
         "d_stories": {
           "ok": false,
-          "count": 7,
+          "count": 6,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 2,
-            "short_history_kpis": 5,
+            "short_history_kpis": 4,
             "market_positions": 0
           },
-          "reason": "Stories 7 < 8"
+          "reason": "Stories 6 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -47353,14 +47312,14 @@
         },
         "d_stories": {
           "ok": false,
-          "count": 3,
+          "count": 2,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 3,
+            "short_history_kpis": 2,
             "market_positions": 0
           },
-          "reason": "Stories 3 < 5"
+          "reason": "Stories 2 < 5"
         },
         "e_risks": {
           "ok": true,
@@ -47532,14 +47491,15 @@
           "required": 5
         },
         "d_stories": {
-          "ok": true,
-          "count": 9,
+          "ok": false,
+          "count": 4,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 10,
+            "short_history_kpis": 4,
             "market_positions": 0
-          }
+          },
+          "reason": "Stories 4 < 5"
         },
         "e_risks": {
           "ok": true,
@@ -47584,12 +47544,13 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history"
+        "a_hero_history",
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 1,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -47704,14 +47665,15 @@
           "required": 5
         },
         "d_stories": {
-          "ok": true,
-          "count": 7,
+          "ok": false,
+          "count": 2,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 7,
+            "short_history_kpis": 2,
             "market_positions": 0
-          }
+          },
+          "reason": "Stories 2 < 5"
         },
         "e_risks": {
           "ok": true,
@@ -47757,12 +47719,13 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history"
+        "a_hero_history",
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 1,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -47867,14 +47830,15 @@
           "required": 8
         },
         "d_stories": {
-          "ok": true,
-          "count": 8,
+          "ok": false,
+          "count": 4,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 7,
+            "short_history_kpis": 3,
             "market_positions": 0
-          }
+          },
+          "reason": "Stories 4 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -47914,11 +47878,13 @@
           "source": "publication_date"
         }
       },
-      "failed_criteria": [],
+      "failed_criteria": [
+        "d_stories"
+      ],
       "failed_extensions": [],
-      "failed_count": 0,
-      "is_clean_af": true,
-      "is_clean_all": true
+      "failed_count": 1,
+      "is_clean_af": false,
+      "is_clean_all": false
     },
     {
       "ticker": "PFG",
@@ -48262,12 +48228,10 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
-          "len": 5,
+          "ok": true,
+          "len": 20,
           "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (5 < 18)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -48330,14 +48294,12 @@
           "source": "hero.last_data_date"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 1,
-      "is_clean_af": false,
+      "failed_count": 0,
+      "is_clean_af": true,
       "is_clean_all": false
     },
     {
@@ -48619,11 +48581,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 8,
+          "count": 6,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 8,
+            "short_history_kpis": 6,
             "market_positions": 0
           }
         },
@@ -48691,12 +48653,10 @@
       "market_cap_usd": 133007343616,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
-          "len": 7,
+          "ok": true,
+          "len": 20,
           "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (7 < 18)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -48766,11 +48726,10 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -48796,11 +48755,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 8,
+          "count": 7,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 10,
+            "short_history_kpis": 9,
             "market_positions": 0
           }
         },
@@ -48874,11 +48833,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 8,
+          "count": 7,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 8,
+            "short_history_kpis": 7,
             "market_positions": 0
           }
         },
@@ -49502,11 +49461,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 10,
+          "count": 8,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 9,
+            "short_history_kpis": 7,
             "market_positions": 0
           }
         },
@@ -49570,12 +49529,10 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
-          "len": 7,
+          "ok": true,
+          "len": 20,
           "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (7 < 18)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -49638,14 +49595,12 @@
           "source": "next_earnings_date-90d"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 1,
-      "is_clean_af": false,
+      "failed_count": 0,
+      "is_clean_af": true,
       "is_clean_all": false
     },
     {
@@ -49672,14 +49627,14 @@
         },
         "d_stories": {
           "ok": false,
-          "count": 6,
+          "count": 5,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 5,
+            "short_history_kpis": 4,
             "market_positions": 0
           },
-          "reason": "Stories 6 < 8"
+          "reason": "Stories 5 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -50761,12 +50716,10 @@
       "market_cap_usd": 68764360704,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
-          "len": 9,
+          "ok": true,
+          "len": 20,
           "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (9 < 18)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -50831,13 +50784,12 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "f_repartition"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -51188,9 +51140,9 @@
       "criteria": {
         "a_hero_history": {
           "ok": true,
-          "len": 5,
-          "period": "year",
-          "required": 5
+          "len": 19,
+          "period": "quarter",
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -51458,14 +51410,14 @@
         },
         "d_stories": {
           "ok": false,
-          "count": 6,
+          "count": 4,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 7,
+            "short_history_kpis": 4,
             "market_positions": 0
           },
-          "reason": "Stories 6 < 8"
+          "reason": "Stories 4 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -52423,14 +52375,14 @@
         },
         "d_stories": {
           "ok": false,
-          "count": 5,
+          "count": 3,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 4,
+            "short_history_kpis": 2,
             "market_positions": 0
           },
-          "reason": "Stories 5 < 8"
+          "reason": "Stories 3 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -52868,11 +52820,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 12,
+          "count": 11,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 12,
+            "short_history_kpis": 11,
             "market_positions": 0
           }
         },
@@ -53117,14 +53069,15 @@
           "required": 5
         },
         "d_stories": {
-          "ok": true,
-          "count": 9,
+          "ok": false,
+          "count": 7,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 8,
+            "short_history_kpis": 6,
             "market_positions": 0
-          }
+          },
+          "reason": "Stories 7 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -53164,11 +53117,13 @@
           "source": "publication_date"
         }
       },
-      "failed_criteria": [],
+      "failed_criteria": [
+        "d_stories"
+      ],
       "failed_extensions": [],
-      "failed_count": 0,
-      "is_clean_af": true,
-      "is_clean_all": true
+      "failed_count": 1,
+      "is_clean_af": false,
+      "is_clean_all": false
     },
     {
       "ticker": "RTO.L",
@@ -54433,14 +54388,15 @@
           "required": 5
         },
         "d_stories": {
-          "ok": true,
-          "count": 6,
+          "ok": false,
+          "count": 2,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 6,
+            "short_history_kpis": 2,
             "market_positions": 0
-          }
+          },
+          "reason": "Stories 2 < 5"
         },
         "e_risks": {
           "ok": true,
@@ -54494,12 +54450,13 @@
       "failed_criteria": [
         "a_hero_history",
         "b_interpretation",
+        "d_stories",
         "f_repartition"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 3,
+      "failed_count": 4,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -54525,11 +54482,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 12,
+          "count": 10,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 11,
+            "short_history_kpis": 9,
             "market_positions": 0
           }
         },
@@ -55057,14 +55014,14 @@
         },
         "d_stories": {
           "ok": false,
-          "count": 4,
+          "count": 3,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 6,
+            "short_history_kpis": 4,
             "market_positions": 0
           },
-          "reason": "Stories 4 < 8"
+          "reason": "Stories 3 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -55316,11 +55273,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 8,
+          "count": 7,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 8,
+            "short_history_kpis": 7,
             "market_positions": 0
           }
         },
@@ -55400,11 +55357,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 9,
+          "count": 6,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 9,
+            "short_history_kpis": 6,
             "market_positions": 0
           }
         },
@@ -55568,11 +55525,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 9,
+          "count": 8,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 9,
+            "short_history_kpis": 8,
             "market_positions": 0
           }
         },
@@ -56236,11 +56193,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 10,
+          "count": 9,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 9,
+            "short_history_kpis": 8,
             "market_positions": 0
           }
         },
@@ -56294,10 +56251,12 @@
       "market_cap_usd": 12887662592,
       "criteria": {
         "a_hero_history": {
-          "ok": true,
-          "len": 5,
-          "period": "year",
-          "required": 5
+          "ok": false,
+          "len": 12,
+          "period": "quarter",
+          "required": 18,
+          "tolerated": 10,
+          "reason": "history insuffisant (12 < 18)"
         },
         "b_interpretation": {
           "ok": true,
@@ -56310,14 +56269,14 @@
         },
         "d_stories": {
           "ok": false,
-          "count": 3,
+          "count": 2,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 3,
+            "short_history_kpis": 2,
             "market_positions": 0
           },
-          "reason": "Stories 3 < 8"
+          "reason": "Stories 2 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -56366,10 +56325,11 @@
         }
       },
       "failed_criteria": [
+        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [],
-      "failed_count": 1,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -56554,9 +56514,9 @@
       "criteria": {
         "a_hero_history": {
           "ok": true,
-          "len": 5,
-          "period": "year",
-          "required": 5
+          "len": 22,
+          "period": "quarter",
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -56597,7 +56557,7 @@
           "stance": "active",
           "sector": "Technologie",
           "evidence_count": 4,
-          "mapped": "leader-like"
+          "mapped": "cautious-like"
         },
         "i_events": {
           "ok": true,
@@ -56615,7 +56575,7 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 5,
+          "months_ago": 2,
           "source": "hero.last_data_date"
         }
       },
@@ -56732,11 +56692,11 @@
       "criteria": {
         "a_hero_history": {
           "ok": false,
-          "len": 3,
-          "period": "year",
-          "required": 5,
-          "tolerated": 3,
-          "reason": "history insuffisant (3 < 5)"
+          "len": 9,
+          "period": "quarter",
+          "required": 18,
+          "tolerated": 10,
+          "reason": "history insuffisant (9 < 18)"
         },
         "b_interpretation": {
           "ok": true,
@@ -56749,11 +56709,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 6,
+          "count": 5,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 7,
+            "short_history_kpis": 5,
             "market_positions": 0
           }
         },
@@ -56795,8 +56755,8 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 3,
-          "source": "next_earnings_date-90d"
+          "months_ago": 2,
+          "source": "hero.last_data_date"
         }
       },
       "failed_criteria": [
@@ -57007,12 +56967,9 @@
       "criteria": {
         "a_hero_history": {
           "ok": true,
-          "exception_legitimate": true,
-          "len": 7,
+          "len": 22,
           "period": "quarter",
-          "required": 18,
-          "legitimate_reason": "Biotech/pharma R&D long cycle (KPIs Phase 3 trials, FDA approvals récents, exercice court structurel) (subsector: Medical Devices & Services)",
-          "reason": "KPI trop récent légitime (7 dispo, flag is_short_history_legitimate)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -57303,11 +57260,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 10,
+          "count": 5,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 12,
+            "short_history_kpis": 6,
             "market_positions": 0
           }
         },
@@ -57479,11 +57436,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 9,
+          "count": 7,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 8,
+            "short_history_kpis": 6,
             "market_positions": 0
           }
         },
@@ -57665,10 +57622,12 @@
           "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
         },
         "h_ai_positioning": {
-          "ok": false,
+          "ok": true,
           "stance": "integrator",
           "sector": "Industrie",
-          "reason": "stance=integrator mais evidence 2 < 3 (strict)"
+          "evidence_count": 2,
+          "exception_leader_lite": true,
+          "reason": "stance=integrator evidence=2, summary substantiel (180 chars), tolerated"
         },
         "i_events": {
           "ok": true,
@@ -57692,8 +57651,7 @@
       },
       "failed_criteria": [],
       "failed_extensions": [
-        "g_governance",
-        "h_ai_positioning"
+        "g_governance"
       ],
       "failed_count": 0,
       "is_clean_af": true,
@@ -57723,11 +57681,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 8,
+          "count": 7,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 8,
+            "short_history_kpis": 7,
             "market_positions": 0
           }
         },
@@ -57890,14 +57848,15 @@
           "required": 5
         },
         "d_stories": {
-          "ok": true,
-          "count": 8,
+          "ok": false,
+          "count": 4,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 7,
+            "short_history_kpis": 3,
             "market_positions": 0
-          }
+          },
+          "reason": "Stories 4 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -57937,11 +57896,13 @@
           "source": "publication_date"
         }
       },
-      "failed_criteria": [],
+      "failed_criteria": [
+        "d_stories"
+      ],
       "failed_extensions": [],
-      "failed_count": 0,
-      "is_clean_af": true,
-      "is_clean_all": true
+      "failed_count": 1,
+      "is_clean_af": false,
+      "is_clean_all": false
     },
     {
       "ticker": "SYF",
@@ -58059,11 +58020,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 14,
+          "count": 10,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 2,
-            "short_history_kpis": 12,
+            "short_history_kpis": 8,
             "market_positions": 0
           }
         },
@@ -58138,14 +58099,14 @@
         },
         "d_stories": {
           "ok": false,
-          "count": 2,
+          "count": 1,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 2,
+            "short_history_kpis": 1,
             "market_positions": 0
           },
-          "reason": "Stories 2 < 5"
+          "reason": "Stories 1 < 5"
         },
         "e_risks": {
           "ok": true,
@@ -58223,11 +58184,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 13,
+          "count": 12,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 12,
+            "short_history_kpis": 11,
             "market_positions": 0
           }
         },
@@ -58291,11 +58252,11 @@
       "criteria": {
         "a_hero_history": {
           "ok": false,
-          "len": 4,
+          "len": 5,
           "period": "quarter",
           "required": 18,
           "tolerated": 10,
-          "reason": "history insuffisant (4 < 18)"
+          "reason": "history insuffisant (5 < 18)"
         },
         "b_interpretation": {
           "ok": true,
@@ -58308,11 +58269,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 9,
+          "count": 6,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 9,
+            "short_history_kpis": 6,
             "market_positions": 0
           }
         },
@@ -58359,8 +58320,8 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 2,
-          "source": "hero.last_data_date"
+          "months_ago": 4,
+          "source": "next_earnings_date-90d"
         }
       },
       "failed_criteria": [
@@ -58484,14 +58445,15 @@
           "required": 5
         },
         "d_stories": {
-          "ok": true,
-          "count": 7,
+          "ok": false,
+          "count": 4,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 7,
+            "short_history_kpis": 4,
             "market_positions": 0
-          }
+          },
+          "reason": "Stories 4 < 5"
         },
         "e_risks": {
           "ok": true,
@@ -58535,12 +58497,14 @@
           "source": "next_earnings_date-90d"
         }
       },
-      "failed_criteria": [],
+      "failed_criteria": [
+        "d_stories"
+      ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 0,
-      "is_clean_af": true,
+      "failed_count": 1,
+      "is_clean_af": false,
       "is_clean_all": false
     },
     {
@@ -58568,11 +58532,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 10,
+          "count": 9,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 10,
+            "short_history_kpis": 9,
             "market_positions": 0
           }
         },
@@ -58737,11 +58701,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 11,
+          "count": 10,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 11,
+            "short_history_kpis": 10,
             "market_positions": 0
           }
         },
@@ -59074,11 +59038,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 9,
+          "count": 6,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 9,
+            "short_history_kpis": 6,
             "market_positions": 0
           }
         },
@@ -59163,11 +59127,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 9,
+          "count": 8,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 9,
+            "short_history_kpis": 8,
             "market_positions": 0
           }
         },
@@ -60037,14 +60001,14 @@
         },
         "d_stories": {
           "ok": false,
-          "count": 5,
+          "count": 4,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 5,
+            "short_history_kpis": 4,
             "market_positions": 0
           },
-          "reason": "Stories 5 < 8"
+          "reason": "Stories 4 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -60208,11 +60172,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 9,
+          "count": 8,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 9,
+            "short_history_kpis": 8,
             "market_positions": 0
           }
         },
@@ -60390,11 +60354,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 12,
+          "count": 11,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 2,
-            "short_history_kpis": 8,
+            "short_history_kpis": 7,
             "market_positions": 2
           }
         },
@@ -60992,11 +60956,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 9,
+          "count": 8,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 9,
+            "short_history_kpis": 8,
             "market_positions": 0
           }
         },
@@ -61161,11 +61125,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 8,
+          "count": 7,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 8,
+            "short_history_kpis": 7,
             "market_positions": 0
           }
         },
@@ -61249,11 +61213,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 10,
+          "count": 9,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 10,
+            "short_history_kpis": 9,
             "market_positions": 0
           }
         },
@@ -61513,11 +61477,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 8,
+          "count": 7,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 10,
+            "short_history_kpis": 8,
             "market_positions": 0
           }
         },
@@ -61657,12 +61621,10 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
-          "len": 8,
+          "ok": true,
+          "len": 20,
           "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (8 < 18)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -61731,14 +61693,13 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories",
         "f_repartition"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -62236,11 +62197,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 12,
+          "count": 11,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 11,
+            "short_history_kpis": 10,
             "market_positions": 0
           }
         },
@@ -62488,14 +62449,15 @@
           "required": 5
         },
         "d_stories": {
-          "ok": true,
-          "count": 9,
+          "ok": false,
+          "count": 7,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 2,
-            "short_history_kpis": 7,
+            "short_history_kpis": 5,
             "market_positions": 0
-          }
+          },
+          "reason": "Stories 7 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -62537,12 +62499,13 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history"
+        "a_hero_history",
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 1,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -62723,12 +62686,10 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
-          "len": 9,
+          "ok": true,
+          "len": 20,
           "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (9 < 18)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -62803,14 +62764,13 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories",
         "f_repartition"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -63181,9 +63141,9 @@
       "criteria": {
         "a_hero_history": {
           "ok": true,
-          "len": 5,
-          "period": "year",
-          "required": 5
+          "len": 20,
+          "period": "quarter",
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -63196,14 +63156,14 @@
         },
         "d_stories": {
           "ok": false,
-          "count": 2,
+          "count": 1,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 1,
+            "short_history_kpis": 0,
             "market_positions": 0
           },
-          "reason": "Stories 2 < 8"
+          "reason": "Stories 1 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -64177,11 +64137,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 11,
+          "count": 9,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 11,
+            "short_history_kpis": 9,
             "market_positions": 0
           }
         },
@@ -64766,11 +64726,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 7,
+          "count": 6,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 7,
+            "short_history_kpis": 6,
             "market_positions": 0
           }
         },
@@ -64841,9 +64801,9 @@
       "criteria": {
         "a_hero_history": {
           "ok": true,
-          "len": 8,
-          "period": "year",
-          "required": 5
+          "len": 20,
+          "period": "quarter",
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -64939,14 +64899,14 @@
         },
         "d_stories": {
           "ok": false,
-          "count": 3,
+          "count": 2,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 2,
+            "short_history_kpis": 1,
             "market_positions": 0
           },
-          "reason": "Stories 3 < 8"
+          "reason": "Stories 2 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -65023,11 +64983,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 11,
+          "count": 8,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 11,
+            "short_history_kpis": 8,
             "market_positions": 0
           }
         },
@@ -65110,14 +65070,15 @@
           "required": 5
         },
         "d_stories": {
-          "ok": true,
-          "count": 5,
+          "ok": false,
+          "count": 3,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 5,
+            "short_history_kpis": 3,
             "market_positions": 0
-          }
+          },
+          "reason": "Stories 3 < 5"
         },
         "e_risks": {
           "ok": true,
@@ -65134,10 +65095,11 @@
           "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
-          "ok": false,
+          "ok": true,
           "stance": "operational",
           "sector": "Technologie",
-          "reason": "stance=operational (mappé leader-like) mais evidence 2 < 3"
+          "evidence_count": 2,
+          "mapped": "cautious-like"
         },
         "i_events": {
           "ok": true,
@@ -65159,13 +65121,14 @@
           "source": "next_earnings_date-90d"
         }
       },
-      "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance",
-        "h_ai_positioning"
+      "failed_criteria": [
+        "d_stories"
       ],
-      "failed_count": 0,
-      "is_clean_af": true,
+      "failed_extensions": [
+        "g_governance"
+      ],
+      "failed_count": 1,
+      "is_clean_af": false,
       "is_clean_all": false
     },
     {
@@ -65359,12 +65322,10 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
-          "len": 3,
+          "ok": true,
+          "len": 20,
           "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (3 < 18)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -65377,11 +65338,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 9,
+          "count": 7,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 9,
+            "short_history_kpis": 7,
             "market_positions": 0
           }
         },
@@ -65425,14 +65386,12 @@
           "source": "next_earnings_date-90d"
         }
       },
-      "failed_criteria": [
-        "a_hero_history"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 1,
-      "is_clean_af": false,
+      "failed_count": 0,
+      "is_clean_af": true,
       "is_clean_all": false
     },
     {
@@ -65824,14 +65783,15 @@
           "required": 5
         },
         "d_stories": {
-          "ok": true,
-          "count": 8,
+          "ok": false,
+          "count": 4,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 8,
+            "short_history_kpis": 4,
             "market_positions": 0
-          }
+          },
+          "reason": "Stories 4 < 5"
         },
         "e_risks": {
           "ok": true,
@@ -65881,12 +65841,13 @@
       },
       "failed_criteria": [
         "a_hero_history",
+        "d_stories",
         "f_repartition"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 2,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -65896,12 +65857,10 @@
       "market_cap_usd": 10912392192,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
-          "len": 7,
+          "ok": true,
+          "len": 18,
           "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (7 < 18)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -65913,14 +65872,15 @@
           "required": 5
         },
         "d_stories": {
-          "ok": true,
-          "count": 9,
+          "ok": false,
+          "count": 7,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 8,
+            "short_history_kpis": 6,
             "market_positions": 0
-          }
+          },
+          "reason": "Stories 7 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -65961,7 +65921,7 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history"
+        "d_stories"
       ],
       "failed_extensions": [],
       "failed_count": 1,
@@ -65992,11 +65952,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 9,
+          "count": 6,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 9,
+            "short_history_kpis": 6,
             "market_positions": 0
           }
         },
@@ -66490,9 +66450,9 @@
       "criteria": {
         "a_hero_history": {
           "ok": true,
-          "len": 5,
-          "period": "year",
-          "required": 5
+          "len": 19,
+          "period": "quarter",
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -66505,14 +66465,14 @@
         },
         "d_stories": {
           "ok": false,
-          "count": 6,
+          "count": 5,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 5,
+            "short_history_kpis": 4,
             "market_positions": 0
           },
-          "reason": "Stories 6 < 8"
+          "reason": "Stories 5 < 8"
         },
         "e_risks": {
           "ok": true,
@@ -66666,14 +66626,15 @@
           "required": 5
         },
         "d_stories": {
-          "ok": true,
-          "count": 5,
+          "ok": false,
+          "count": 3,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 5,
+            "short_history_kpis": 3,
             "market_positions": 0
-          }
+          },
+          "reason": "Stories 3 < 5"
         },
         "e_risks": {
           "ok": true,
@@ -66716,12 +66677,13 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history"
+        "a_hero_history",
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 1,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -66731,12 +66693,10 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
-          "len": 10,
+          "ok": true,
+          "len": 20,
           "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (10 < 18)"
+          "required": 18
         },
         "b_interpretation": {
           "ok": true,
@@ -66749,11 +66709,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 8,
+          "count": 6,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 8,
+            "short_history_kpis": 6,
             "market_positions": 0
           }
         },
@@ -66802,13 +66762,12 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "f_repartition"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -67180,11 +67139,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 7,
+          "count": 6,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 7,
+            "short_history_kpis": 6,
             "market_positions": 0
           }
         },
@@ -67262,11 +67221,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 7,
+          "count": 5,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 7,
+            "short_history_kpis": 5,
             "market_positions": 0
           }
         },
@@ -67345,11 +67304,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 10,
+          "count": 8,
           "required": 8,
           "breakdown": {
             "legacy_stories_kpis": 1,
-            "short_history_kpis": 9,
+            "short_history_kpis": 7,
             "market_positions": 0
           }
         },
@@ -67426,11 +67385,11 @@
         },
         "d_stories": {
           "ok": true,
-          "count": 7,
+          "count": 6,
           "required": 5,
           "breakdown": {
             "legacy_stories_kpis": 0,
-            "short_history_kpis": 8,
+            "short_history_kpis": 6,
             "market_positions": 0
           }
         },
