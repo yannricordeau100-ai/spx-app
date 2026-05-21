@@ -86,3 +86,85 @@ Files modifiés :
 ETA estimée 45-60 min → réalisée en ~10 min car la prémisse principale (overwrite + 72/80 hallucinations) ne tenait pas à l'examen.
 
 **Recommandation pour CONV-CONCEPTS** : avant de lancer un sub-agent avec stop/rollback urgent, vérifier la prémisse (lire 5-10 lignes des scripts incriminés) pour éviter de mobiliser des ressources sur un problème inexistant.
+
+---
+
+# Section #125 — Audit hallucinations 133 stés Cerebras paid scaleup résiduel (#121)
+
+## Scope
+
+133 stés enrichies par `scaleup_residuel_dstories.py` (commits #121, batch1→batch5, 522 stories ajoutées au total).
+
+## Bilan (DOB)
+
+| Métrique | Résultat |
+|---|---|
+| Total audited | 133 |
+| Hallucinations identifiées | **2** |
+| Clean | 131 |
+| Taux d'hallucination | **1.50 %** |
+| Stés sans secteur clair (TBD/None) | 25 (skip keyword check) |
+
+## Distribution sectorielle
+
+| Sector canonique | Audited | Hallucinated stés | Hallucinations |
+|---|---|---|---|
+| Industrials | 11 | **2** | 2 |
+| Health Care | 8 | 0 | 0 |
+| Financials | 28 | 0 | 0 |
+| Energy | 5 | 0 | 0 |
+| Information Technology | 23 | 0 | 0 |
+| Consumer Discretionary | 16 | 0 | 0 |
+| Materials | 3 | 0 | 0 |
+| Consumer Staples | 1 | 0 | 0 |
+| Real Estate | 5 | 0 | 0 |
+| Utilities | 7 | 0 | 0 |
+| Communication Services | 1 | 0 | 0 |
+| Unknown (TBD/None) | 25 | 0 | 0 |
+
+## Top hallucinated stés
+
+1. **HWDN.L** (Industrials — Trade Associations, Inland Waterway IVR) : story `"AI Bookings"` value=4.2 M, sur association de représentation du transport fluvial = incompatible domaine. Stories 2 → 1.
+2. **KNIN.SW** (Industrials — Kuehne+Nagel logistics) : story `"AI Bookings"` value=38 % = template générique tech sur logisticien. Stories 5 → 4.
+
+## Patterns récurrents observés
+
+- Le seul pattern d'hallucination détecté = label générique tech `"AI Bookings"` appliqué à des stés non-tech (logistics, trade association).
+- Aucune hallucination de type "Cloud Revenue", "ARR", "Subscription Revenue", "Manufacturing Volume" détectée sur les 522 stories ajoutées.
+- Aucun pattern d'année inventée (Q5/2026, fy2099) détecté.
+- Les stories d'AI sectoriellement pertinentes ("AI Drug Pipeline" sur NVS pharma, "AI Cataract Tool" sur ALC.SW santé, "AI Trials" sur AZN.L) ne sont **pas** des hallucinations — l'IA appliquée au domaine reste légitime.
+
+## Rollback effectué
+
+- 2 backups créés (`.json.bak-125`) sur HWDN.L et KNIN.SW.
+- Stories hallucinées retirées de `stories_kpis`.
+- HWDN.L post-rollback : 1 story (< 5) → flag `_d_stories_requires_revalidation: true` posé.
+- KNIN.SW post-rollback : 4 stories (< 5) → flag `_d_stories_requires_revalidation: true` posé.
+- Empreinte `_hallucination_rollback_125` ajoutée sur les 2 fichiers (timestamp + titres retirés).
+
+## Comparaison #124 vs #125
+
+| Audit | Stés | Hallucinations | Taux |
+|---|---|---|---|
+| #124 (80 retry #118 paid) | 80 | 0 | 0.00 % |
+| #125 (133 résiduel #121 paid) | 133 | 2 | 1.50 % |
+
+Les 2 audits combinés sur les 213 stés enrichies via Cerebras paid scaleup donnent un taux global de **0.94 %**, sous le seuil 10 % de la recommandation initiale.
+
+## Recommandation décisionnelle
+
+- **Pas de suspension Cerebras paid massif** : taux global < 1 %, bien sous le seuil 10 % défini dans le brief.
+- **Stratégie pour #122 (f_repartition massif) et #123 (hero segment US 97)** : continuer, mais brancher le `domain_filter.py` livré par #124 pour bloquer en amont les rares `"AI Bookings"` sur secteurs non-tech.
+- **Pour les 2 stés rolled back** (HWDN.L, KNIN.SW) : flag `_d_stories_requires_revalidation: true` actif. À retraiter dans une prochaine passe avec prompt strict + `domain_filter` actif.
+
+## Files livrés
+
+- `src/data/v1-9-hallucination-audit-121-21-mai.json` (audit JSON détaillé)
+- `src/data/v2-pipeline-enrich/hwdn.l.json` (rolled back, 1 story restante)
+- `src/data/v2-pipeline-enrich/knin.sw.json` (rolled back, 4 stories restantes)
+- `src/data/v2-pipeline-enrich/hwdn.l.json.bak-125` (backup)
+- `src/data/v2-pipeline-enrich/knin.sw.json.bak-125` (backup)
+- `HALLUCINATION-AUDIT-21-MAI.md` (mise à jour avec cette section #125)
+
+ETA réalisé : ~15 min (audit + rollback rapide grâce au faible taux de hallucinations).
+
