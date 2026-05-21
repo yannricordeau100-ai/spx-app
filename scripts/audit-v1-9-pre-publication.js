@@ -125,7 +125,26 @@ function loadCompany(ticker) {
         // Enrich ne touche que les champs vides côté merged
         if (merged) {
           if (d.profit_warning && !merged.profit_warning) merged.profit_warning = d.profit_warning;
-          if (d.events && (!merged.events || merged.events.length === 0)) merged.events = d.events;
+          // Events : si la source primary a < 4 events et l'enrich en a plus,
+          // fusionner (dédup par title+date). Aligné avec sub-agent #37 fill
+          // programmatic qui peuple `<ticker>.json` enrich avec earnings +
+          // dividends + splits depuis yfinance.
+          if (Array.isArray(d.events) && d.events.length > 0) {
+            const cur = Array.isArray(merged.events) ? merged.events : [];
+            if (cur.length < 4 && d.events.length > cur.length) {
+              const seen = new Set();
+              const out = [];
+              for (const e of [...cur, ...d.events]) {
+                if (!e || typeof e !== 'object') continue;
+                const key = `${String(e.title || '').toLowerCase().slice(0, 60)}|${e.date || ''}`;
+                if (seen.has(key)) continue;
+                seen.add(key);
+                out.push(e);
+              }
+              out.sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')));
+              merged.events = out.slice(0, 8);
+            }
+          }
           if (d.governance) {
             // Field-by-field merge governance pour ne pas perdre top_disclosure,
             // top_capital, top_voting depuis enrich (cas BABA/9988.HK/ABBN.SW où
@@ -145,6 +164,11 @@ function loadCompany(ticker) {
           // field-by-field merge (heuristic fill : voting_structure_note,
           // board_size, board_independence_pct, avg_tenure_years, ceo_pay_ratio).
           // N'écrase jamais un champ déjà présent côté CONV-DATA.
+          // Yann 21 mai 2026 (sub-agent #28+) : overrides_profit_warning produit
+          // par heuristic fill, merger seulement si pas déjà présent côté merged.
+          if (d.overrides_profit_warning && !merged.overrides_profit_warning) {
+            merged.overrides_profit_warning = d.overrides_profit_warning;
+          }
           if (d.overrides_governance && typeof d.overrides_governance === 'object') {
             if (!merged.governance) merged.governance = {};
             for (const [k, v] of Object.entries(d.overrides_governance)) {
@@ -460,15 +484,29 @@ function checkRisks(company) {
   if (risks.length < 3) {
     return { ok: false, count: risks.length, reason: `Risks ${risks.length} < 3` };
   }
-  // Chaque risk doit avoir score + score_rationale
+  // Yann 21 mai 2026 (sub-agent #28+ CONV-CONCEPTS) : la pipeline produit `severity`
+  // (1-5) au lieu de `score` sur ~286 stés (post fix ordered + profit_warning par
+  // sub-agents #23/#27). On accepte l'un OU l'autre. score_rationale = chaîne
+  // ≥ 80 chars (pas besoin de 4-criteria strict, l'extraction LLM a déjà rationalisé).
   const issues = [];
   risks.forEach((r, i) => {
-    if (r.score === undefined || r.score === null) issues.push(`risk[${i}] sans score`);
-    if (!r.score_rationale) issues.push(`risk[${i}] sans score_rationale`);
+    const scoreVal = r.score ?? r.severity;
+    if (scoreVal === undefined || scoreVal === null) issues.push(`risk[${i}] sans score/severity`);
+    const rationale = typeof r.score_rationale === 'string' ? r.score_rationale.trim() : '';
+    if (rationale.length < 80) issues.push(`risk[${i}] score_rationale trop court (${rationale.length}<80)`);
   });
-  // Profit warning
+  // Profit warning : reconnaître présence dans data.profit_warning,
+  // overrides_profit_warning (heuristic fill par sub-agent #23) OU sous-bloc
+  // catégorie/titre dans risks[]. Un objet vide ne compte pas.
+  const pw = company.profit_warning;
+  const opw = company.overrides_profit_warning;
+  const pwOk = (v) => {
+    if (v === undefined || v === null) return false;
+    if (typeof v === 'object' && !Array.isArray(v)) return Object.keys(v).length > 0;
+    return Boolean(v);
+  };
   const hasProfitWarning =
-    company.profit_warning !== undefined ||
+    pwOk(pw) || pwOk(opw) ||
     risks.some((r) => lower(r.category).includes('profit') || lower(r.title).includes('profit warning'));
   if (!hasProfitWarning) issues.push('profit_warning absent');
 
