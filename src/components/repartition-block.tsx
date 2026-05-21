@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Globe2, LayoutGrid, ChevronLeft, ChevronRight } from "lucide-react";
+import { Globe2, LayoutGrid, ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
 import type { Company, RevenueBreakdown } from "@/lib/data";
 import { brand } from "@/lib/brand";
 import { RepartitionTreemap, RepartitionRadial } from "@/components/charts/repartition-variants";
@@ -20,7 +20,7 @@ import type { Locale } from "@/lib/i18n/types";
 type Style = "treemap" | "radial" | "iso";
 const STYLES: Style[] = ["treemap", "radial", "iso"];
 
-type Tab = "geo" | "segment";
+type Tab = "geo" | "segment" | "ai_customer";
 
 function adaptForLocale(b: RevenueBreakdown | undefined | null, locale: Locale) {
   if (!b) return undefined;
@@ -43,16 +43,23 @@ export function RepartitionBlock({ company }: { company: Company }) {
 
   const geo = adaptForLocale(company.revenue_by_geography, locale);
   const segment = adaptForLocale(company.revenue_by_segment, locale);
+  // Yann 21 mai 2026 : nouvel onglet "IA Pro/Particulier" pour les stés
+  // qui vendent de l'IA (NVDA/MSFT/GOOGL/META/etc). Visible UNIQUEMENT
+  // si data présente (sourcée externe, pas dans filings).
+  const aiCustomer = adaptForLocale(company.revenue_by_ai_customer_type, locale);
+  const aiConfidence = company.revenue_by_ai_customer_type?.confidence;
+  const aiSources = company.revenue_by_ai_customer_type?.sources;
 
   const hasGeo = !!(geo && geo.slices.length > 0);
   const hasSegment = !!(segment && segment.slices.length > 0);
-  if (!hasGeo && !hasSegment) return null;
+  const hasAiCustomer = !!(aiCustomer && aiCustomer.slices.length > 0);
+  if (!hasGeo && !hasSegment && !hasAiCustomer) return null;
 
-  const [tab, setTab] = useState<Tab>(hasGeo ? "geo" : "segment");
+  const [tab, setTab] = useState<Tab>(hasGeo ? "geo" : hasSegment ? "segment" : "ai_customer");
   const [styleIdx, setStyleIdx] = useState(0);
   const style: Style = STYLES[styleIdx];
 
-  const active = tab === "geo" ? geo : segment;
+  const active = tab === "geo" ? geo : tab === "segment" ? segment : aiCustomer;
   // Cohérence des décimales : si toutes les valeurs sont entières, 0 décimale ;
   // sinon 1 décimale partout dans le bloc.
   const decimals = active && active.slices.every((s) => Number.isInteger(s.value)) ? 0 : 1;
@@ -138,8 +145,57 @@ export function RepartitionBlock({ company }: { company: Company }) {
               <span className="relative">{t("repartition.tab.segment")}</span>
             </button>
           )}
+          {hasAiCustomer && (
+            <button
+              role="tab"
+              aria-selected={tab === "ai_customer"}
+              onClick={() => setTab("ai_customer")}
+              className={`relative inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[12.5px] font-medium transition-colors ${
+                tab === "ai_customer" ? "text-zinc-50" : "text-zinc-400 hover:text-zinc-100"
+              }`}
+              title="Revenu IA : clients pros vs particuliers (sources externes)"
+            >
+              {tab === "ai_customer" && (
+                <motion.span
+                  layoutId="repartition-tab-pill"
+                  className="absolute inset-0 rounded-full"
+                  style={{
+                    background: `linear-gradient(135deg, ${accent}30, ${accent}18)`,
+                    border: `1px solid ${accent}55`,
+                  }}
+                  transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                />
+              )}
+              <Sparkles className="relative size-3.5" />
+              <span className="relative">IA Pro / Particulier</span>
+            </button>
+          )}
         </div>
       </div>
+
+      {tab === "ai_customer" && (aiConfidence || (aiSources && aiSources.length > 0)) && (
+        <div className="mb-3 flex flex-wrap items-center gap-2 text-[11px] text-zinc-400">
+          <span className="font-mono uppercase tracking-wider text-zinc-500">Source externe</span>
+          {aiConfidence && (
+            <span
+              className="rounded-full border px-2 py-0.5 font-mono uppercase tracking-wider"
+              style={{
+                borderColor:
+                  aiConfidence === "high" ? "#10b98166" : aiConfidence === "mid" ? "#f59e0b66" : "#ef444466",
+                color:
+                  aiConfidence === "high" ? "#6ee7b7" : aiConfidence === "mid" ? "#fcd34d" : "#fca5a5",
+              }}
+            >
+              Confiance {aiConfidence}
+            </span>
+          )}
+          {aiSources && aiSources.length > 0 && (
+            <span className="text-zinc-500">
+              {aiSources.length} source{aiSources.length > 1 ? "s" : ""} : {aiSources.map((s) => s.publisher).join(" · ")}
+            </span>
+          )}
+        </div>
+      )}
 
       {/* Chart area + flèches latérales. Chaque style rend à sa taille
           naturelle (chart + légende), comme dans /chart-lab. La hauteur

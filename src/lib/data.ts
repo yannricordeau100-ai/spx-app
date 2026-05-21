@@ -266,6 +266,20 @@ export type Company = {
   revenue_by_geography?: RevenueBreakdown;
   /** Répartition du chiffre d'affaires par segment opérationnel. */
   revenue_by_segment?: RevenueBreakdown;
+  /**
+   * Yann 21 mai 2026 : pour les stés qui vendent de l'IA (NVDA, MSFT,
+   * GOOGL, etc.), split du CA IA entre clients PROFESSIONNELS (B2B) et
+   * PARTICULIERS (B2C). Données non présentes dans les filings — donc
+   * sourcées externes (analyst reports, articles tier 1). Visible
+   * uniquement si présent. Source écrite dans v2-pipeline-enrich/<ticker>.json.
+   */
+  revenue_by_ai_customer_type?: RevenueBreakdown & {
+    fiscal_year?: string;
+    ai_segment_revenue?: number;
+    ai_segment_unit?: string;
+    confidence?: "low" | "mid" | "high";
+    sources?: { url: string; title: string; date: string; publisher: string; kind: string }[];
+  };
   /** Top 5-8 risks extracted from latest 10-K. */
   risks?: CompanyRisk[];
   /** AI positioning statement. Mandatory for V1 — if no mention, stance = "absent". */
