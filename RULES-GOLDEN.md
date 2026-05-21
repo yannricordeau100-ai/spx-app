@@ -206,12 +206,24 @@ que je lui ai faite.
 
 ---
 
-## 5sexies. AUTO-REBASCULE SUB-AGENT (Yann 21 mai 2026)
+## 5sexies. AUTO-REBASCULE SUB-AGENT — STRICTE (Yann 21 mai 2026, renforcée)
 
-Dès qu'un sub-agent (Task tool) finit sa tâche, je dois IMMÉDIATEMENT
-le redéployer (= en lancer un nouveau via Task tool) sur la prochaine
-tâche prioritaire en file. **JAMAIS d'idle**. Le sub-agent ne reste
-JAMAIS sans travail tant qu'il y a des tâches dans le backlog.
+⚠️ RÈGLE DURCIE après dérive observée : Yann m'a alerté que je disais
+"auto-rebascule" mais en pratique je laissais le tour de table mou.
+
+**MAINTENANT, ZERO TOLERANCE** :
+
+1. **EN PERMANENCE 4+ sub-agents actifs minimum** tant que le backlog
+   est non-vide. Pas 1, pas 2 : QUATRE minimum.
+2. À chaque notification `status=completed`, **dans la même réponse**,
+   je lance un (ou plusieurs) NOUVEAU sub-agent. Pas dans 2 messages :
+   IMMÉDIATEMENT.
+3. **JAMAIS** dire "veille" / "passive" / "j'attends notifications" :
+   ces mots = aveu d'auto-rebascule cassé.
+4. Le backlog 12h+ pour moi ET CONV-DATA est tenu à jour à chaque
+   prompt user. Yann doit voir une liste qui se remplit, pas qui se vide.
+5. Si toutes les tâches connues sont prises, je crée de nouvelles
+   tâches utiles (audits, fixes proactifs, polish) avant de dire "fini".
 
 **Procédure obligatoire** :
 1. Quand notification `task-notification status=completed` arrive
