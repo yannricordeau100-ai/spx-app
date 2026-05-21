@@ -44,39 +44,90 @@ def canonical_sector(sector: str) -> str:
 
 # Out-of-domain keywords per canonical sector group.
 # Empty list = no filtering (sector too broad or naturally cross-domain).
+# Extended by sub-agent #133 (2026-05-21) following JNJ "AI Design Wins"
+# hallucination + 23 stés flagged _d_stories_requires_revalidation by #128.
 DOMAIN_FILTERS = {
     "healthcare": [
         "ai bookings", "cloud revenue", "cloud bookings", "saas arr",
         "subscribers", "subscription revenue", "vehicles produced",
         "barrels", "data center power", "data center capacity",
+        # extended #133:
+        "ai design wins", "ai design win", "manufacturing capacity add",
+        "capacity add", "design wins", "design win", "arr",
+        "annual recurring revenue", "saas revenue", "platform revenue",
+        "wafer", "wafers", "foundry", "semiconductor", "chips shipped",
+        "data center", "hyperscaler",
     ],
     "energy": [
         "subscription revenue", "cloud revenue", "ai bookings",
         "saas arr", "subscribers", "drug pipeline", "clinical trial",
         "fda approval",
+        # extended #133:
+        "ai design wins", "ai design win", "design wins", "design win",
+        "ai productivity gain", "arr", "annual recurring revenue",
+        "saas revenue", "platform revenue", "wafer", "wafers",
+        "foundry", "semiconductor", "phase 3", "phase 2", "fda",
+        "vaccines", "biologics",
     ],
     "financials": [
         "cloud capacity", "manufacturing capacity", "factory", "factories",
         "vehicles produced", "data center power", "drug pipeline",
         "fda approval", "barrels produced",
+        # extended #133:
+        "ai design wins", "ai design win", "design wins", "design win",
+        "manufacturing capacity add", "capacity add", "manufacturing",
+        "wafer", "wafers", "foundry", "semiconductor", "chips shipped",
+        "phase 3", "phase 2", "fda", "vaccines", "biologics", "barrels",
+        "production volume", "tons produced",
     ],
     "staples_or_retail": [
         "ai bookings", "cloud revenue", "saas arr", "data center",
         "drug pipeline", "clinical trial",
+        # extended #133:
+        "ai design wins", "ai design win", "design wins", "design win",
+        "wafer", "wafers", "foundry", "semiconductor", "chips shipped",
+        "phase 3", "phase 2", "fda approval", "vaccines", "biologics",
+        "barrels produced", "drilling", "oil production",
     ],
     "utilities": [
         "ai bookings", "cloud revenue", "saas arr", "drug pipeline",
         "vehicles produced", "subscribers",
+        # extended #133:
+        "ai design wins", "ai design win", "design wins", "design win",
+        "manufacturing capacity add", "wafer", "wafers", "foundry",
+        "semiconductor", "chips shipped", "data center revenue",
+        "phase 3", "phase 2", "fda", "vaccines", "saas revenue",
+        "arr", "annual recurring revenue", "platform revenue",
     ],
     "real_estate": [
         "ai bookings", "cloud revenue", "manufacturing capacity",
         "vehicles produced", "drug pipeline",
+        # extended #133:
+        "ai design wins", "ai design win", "design wins", "design win",
+        "manufacturing capacity add", "manufacturing", "wafer",
+        "wafers", "foundry", "semiconductor", "chips shipped",
+        "ai r&d", "ai r&d spend", "cloud", "data center revenue",
+        "phase 3", "phase 2", "fda", "vaccines", "biologics",
+        "saas arr", "saas revenue", "arr",
     ],
     "materials": [
         "ai bookings", "cloud revenue", "saas arr", "subscribers",
         "drug pipeline",
+        # extended #133:
+        "ai design wins", "ai design win", "design wins", "design win",
+        "manufacturing capacity add", "wafer", "wafers", "foundry",
+        "semiconductor", "chips shipped", "data center revenue",
+        "phase 3", "phase 2", "fda", "vaccines", "biologics",
+        "annual recurring revenue", "platform revenue",
     ],
-    "industrials": [],
+    "industrials": [
+        # added by #133 — generic suspicious tech KPIs on industrials
+        "ai design wins", "ai design win", "ai bookings", "design wins",
+        "saas arr", "arr", "annual recurring revenue",
+        "subscription revenue", "platform revenue", "drug pipeline",
+        "clinical trial", "fda approval", "phase 3", "phase 2",
+        "vaccines", "biologics", "wafer", "wafers", "foundry",
+    ],
     "technology": [],
     "comm_services": [],
     "consumer_disc": [],
