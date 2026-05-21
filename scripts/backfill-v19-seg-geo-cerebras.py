@@ -153,10 +153,12 @@ def find_section_us(text: str, want: str = "both") -> str:
 
     chunks = []
     if want in ("geo", "both"):
-        for p in all_pos(r"(?:revenues?\s+by\s+geograph|geographic\s+(?:information|areas?|revenues?)|disaggregation\s+of\s+revenue)")[-2:]:
+        pat_geo = r"(?:revenues?\s+by\s+geograph|geographic\s+(?:information|areas?|revenues?)|disaggregation\s+of\s+(?:net\s+)?revenue|net\s+sales\s+by\s+(?:geograph|region|country)|net\s+revenues?\s+by\s+(?:geograph|region|country)|product\s+(?:revenues?|sales?)\s+by\s+(?:geograph|region|country))"
+        for p in all_pos(pat_geo)[-2:]:
             chunks.append(("GEO", p, 6000))
     if want in ("seg", "both"):
-        for p in all_pos(r"(?:operating\s+segments?|reportable\s+segments?|segment\s+information|business\s+segment|revenues?\s+by\s+segment)")[-2:]:
+        pat_seg = r"(?:operating\s+segments?|reportable\s+segments?|segment\s+information|business\s+segment|revenues?\s+by\s+segment|net\s+revenues?\s+by\s+(?:business|segment|product\s+(?:line|categor))|disaggregation\s+of\s+(?:net\s+)?revenue)"
+        for p in all_pos(pat_seg)[-2:]:
             chunks.append(("SEG", p, 6000))
     # MDA fallback (sometimes seg/geo lives inside Item 7 only)
     if not chunks:
