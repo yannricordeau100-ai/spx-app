@@ -243,6 +243,32 @@ export function RepartitionBlock({ company }: { company: Company }) {
         </button>
       </div>
 
+      {/* Légende incertitude par slice — onglet ai_customer uniquement.
+          Le split B2B/B2C vient de sources externes (analystes, IR slides)
+          plutôt que d'un filing : chaque slice porte son propre +/- x%. */}
+      {tab === "ai_customer" && active && active.slices.some((s) => (s.uncertainty_pct ?? 0) > 0) && (
+        <div className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[11px] text-zinc-400">
+          {active.slices.map((s, i) => {
+            const u = s.uncertainty_pct ?? 0;
+            if (u <= 0) return null;
+            const total = active.total ?? active.slices.reduce((acc, x) => acc + x.value, 0);
+            const pct = total > 0 ? (s.value / total) * 100 : 0;
+            return (
+              <span key={`${s.label}-${i}`} className="inline-flex items-center gap-1.5">
+                <span
+                  className="size-1.5 rounded-full"
+                  style={{ background: s.color || accent, boxShadow: `0 0 4px ${s.color || accent}` }}
+                />
+                <span className="text-zinc-300">{s.label}</span>
+                <span className="font-mono text-zinc-400">
+                  {pct.toFixed(0)} % <span className="text-zinc-500">(±{u} %)</span>
+                </span>
+              </span>
+            );
+          })}
+        </div>
+      )}
+
       {/* Style dots dock */}
       <div className="mt-3 flex items-center justify-center gap-2">
         {STYLES.map((s, i) => (

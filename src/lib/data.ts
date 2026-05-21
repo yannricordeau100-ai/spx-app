@@ -100,6 +100,14 @@ export type RevenueSlice = {
   value: number;
   /** Couleur custom (sinon palette auto). */
   color?: string;
+  /**
+   * Incertitude par slice en points de pourcentage (ex 5 → ±5%).
+   * Utilisé pour le bloc IA Pro/Particulier (ai_customer) où le split
+   * vient de sources externes (analystes, IR slides) plutôt que d'un
+   * filing officiel. Seulement affiché si > 0 et si l'onglet est
+   * `ai_customer`.
+   */
+  uncertainty_pct?: number;
 };
 
 /** Répartition du chiffre d'affaires par dimension (géo, segment, etc.). */
