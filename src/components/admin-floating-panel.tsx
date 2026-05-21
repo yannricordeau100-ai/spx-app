@@ -86,13 +86,14 @@ const TIER_OPTIONS: Array<{ value: EffectiveTier; label: string }> = [
   { value: "max", label: "Max" },
 ];
 
-// Versions disponibles (hardcodé). Yann 19 mai 2026 : ajout V1.9
-// (univers SP500 + Top 307 + 8 indices EU, 924 stés).
+// Versions disponibles (hardcodé). Yann 21 mai 2026 : V1.9.5 = défaut,
+// stés validées qualité audit strict. V1.9.5 en haut de la liste.
 const VERSION_OPTIONS: Array<{ slug: string; label: string }> = [
-  { slug: "v1-7", label: "V1.7" },
-  { slug: "v1-7-5", label: "V1.7.5" },
-  { slug: "v1-8", label: "V1.8" },
+  { slug: "v1-9-5", label: "V1.9.5" },
   { slug: "v1-9", label: "V1.9" },
+  { slug: "v1-8", label: "V1.8" },
+  { slug: "v1-7-5", label: "V1.7.5" },
+  { slug: "v1-7", label: "V1.7" },
 ];
 
 const VERSION_COOKIE = "mettrik:version";
