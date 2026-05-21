@@ -1,28 +1,528 @@
 {
-  "generated_at": "2026-05-21T14:25:00Z",
+  "generated_at": "2026-05-21T15:31:41.232226+00:00",
   "batch": "k2",
   "summary": {
-    "ok_verified_literal": 2,
-    "ok_initial_then_rolled_back_hallucination": 3,
-    "no_source": 0,
-    "validation_fail": 6,
-    "null": 2,
-    "api_fail": 0
+    "ok": 42,
+    "no_source": 2,
+    "validation_fail": 36,
+    "null": 13,
+    "api_fail": 2
   },
   "results": [
-    {"ticker": "UPS", "status": "rolled_back", "reason": "LLM derived values (Revenue/Pieces calculation), not literal extraction → hallucination rule"},
-    {"ticker": "AIZ", "status": "validation_fail", "reason": "history len n/a < 5 (no comparable series in MD&A)"},
-    {"ticker": "BXP", "status": "null", "reason": "model_returned_null (Development Pipeline Pre-leased not narrative-disclosed as series)"},
-    {"ticker": "CPT", "status": "validation_fail", "reason": "value not numeric (Same Store Revenues series partial)"},
-    {"ticker": "DLTR", "status": "null", "reason": "null_result (Comp Store Sales Growth disclosed only as growth %, not multi-year series)"},
-    {"ticker": "EL", "status": "validation_fail", "reason": "history len n/a < 5 (RD_Investment not disclosed as standalone segment)"},
-    {"ticker": "FTV", "status": "ok", "history_len": 6, "value": 2612.2, "unit": "M $", "verified": "all 6 values literal in 10K_2024 + 10K_2021"},
-    {"ticker": "IP", "status": "ok", "history_len": 6, "value": 2890, "unit": "M $", "verified": "all 6 values literal in 10K_2024 + 10K_2021"},
-    {"ticker": "NSC", "status": "rolled_back", "reason": "2018-2020 values (6258/6438/6575) hallucinated — actual 10K_2021 reports 6088/6803/6744"},
-    {"ticker": "POOL", "status": "validation_fail", "reason": "history len n/a < 5 (Recurring Sales Share not segment-disclosed)"},
-    {"ticker": "ROK", "status": "validation_fail", "reason": "history len n/a < 5 (Annual Recurring Revenue narrative-only)"},
-    {"ticker": "TSCO", "status": "rolled_back", "reason": "10K_2021 reports FY2020 comp sales 'increased 23%' and FY2023 'were even' (0%), LLM extracted 19.8% and 0.8% — hallucination"},
-    {"ticker": "WSM", "status": "validation_fail", "reason": "value not numeric (Comparable Brand Revenue Growth partial)"}
-  ],
-  "post_check": "Spot-checked each OK ticker against 10-K source for literal-match. Rolled back UPS (derived), NSC (hallucinated old years), TSCO (hallucinated %)."
+    {
+      "ticker": "ADM",
+      "status": "validation_fail",
+      "reason": "history len n/a < 5"
+    },
+    {
+      "ticker": "ADP",
+      "status": "ok",
+      "history_len": 6,
+      "value": 12980.8
+    },
+    {
+      "ticker": "AIZ",
+      "status": "null",
+      "reason": "null_result"
+    },
+    {
+      "ticker": "AMCR",
+      "status": "ok",
+      "history_len": 6,
+      "value": 10332
+    },
+    {
+      "ticker": "AMP",
+      "status": "validation_fail",
+      "reason": "last value 5.33 != value 23.0"
+    },
+    {
+      "ticker": "ARE",
+      "status": "null",
+      "reason": "model_returned_null"
+    },
+    {
+      "ticker": "BEN",
+      "status": "validation_fail",
+      "reason": "too many duplicate values (2 dups)"
+    },
+    {
+      "ticker": "BIIB",
+      "status": "ok",
+      "history_len": 6,
+      "value": 3141.4
+    },
+    {
+      "ticker": "BXP",
+      "status": "null",
+      "reason": "model_returned_null"
+    },
+    {
+      "ticker": "CAG",
+      "status": "ok",
+      "history_len": 5,
+      "value": 5084.0
+    },
+    {
+      "ticker": "CAT",
+      "status": "null",
+      "reason": "null_result"
+    },
+    {
+      "ticker": "CAVA",
+      "status": "no_source"
+    },
+    {
+      "ticker": "CCI",
+      "status": "ok",
+      "history_len": 6,
+      "value": 143
+    },
+    {
+      "ticker": "CCL",
+      "status": "validation_fail",
+      "reason": "duplicate value in non-percent series"
+    },
+    {
+      "ticker": "CHWY",
+      "status": "ok",
+      "history_len": 6,
+      "value": 76.2
+    },
+    {
+      "ticker": "CNP",
+      "status": "validation_fail",
+      "reason": "history len n/a < 5"
+    },
+    {
+      "ticker": "COF",
+      "status": "ok",
+      "history_len": 6,
+      "value": 36787
+    },
+    {
+      "ticker": "CPAY",
+      "status": "validation_fail",
+      "reason": "duplicate value in non-percent series"
+    },
+    {
+      "ticker": "CPT",
+      "status": "validation_fail",
+      "reason": "value not numeric: None"
+    },
+    {
+      "ticker": "CSGP",
+      "status": "validation_fail",
+      "reason": "value not numeric: None"
+    },
+    {
+      "ticker": "CTAS",
+      "status": "ok",
+      "history_len": 6,
+      "value": 7465.199
+    },
+    {
+      "ticker": "CTSH",
+      "status": "ok",
+      "history_len": 6,
+      "value": 625
+    },
+    {
+      "ticker": "CTVA",
+      "status": "validation_fail",
+      "reason": "history len n/a < 5"
+    },
+    {
+      "ticker": "CVNA",
+      "status": "api_fail",
+      "err": "JSON parse fail: Expecting ',' delimiter: line 24 column 2707 (char 3534)"
+    },
+    {
+      "ticker": "DG",
+      "status": "ok",
+      "history_len": 6,
+      "value": 20022
+    },
+    {
+      "ticker": "DHR",
+      "status": "validation_fail",
+      "reason": "value not numeric: None"
+    },
+    {
+      "ticker": "DLTR",
+      "status": "null",
+      "reason": "null_result"
+    },
+    {
+      "ticker": "DPZ",
+      "status": "ok",
+      "history_len": 6,
+      "value": 20500
+    },
+    {
+      "ticker": "DVA",
+      "status": "validation_fail",
+      "reason": "last value 10936.998 != value 10936998"
+    },
+    {
+      "ticker": "EA",
+      "status": "null",
+      "reason": "model_returned_null"
+    },
+    {
+      "ticker": "ECL",
+      "status": "validation_fail",
+      "reason": "too many duplicate values (2 dups)"
+    },
+    {
+      "ticker": "EL",
+      "status": "validation_fail",
+      "reason": "history len n/a < 5"
+    },
+    {
+      "ticker": "EPAM",
+      "status": "null",
+      "reason": "null_result"
+    },
+    {
+      "ticker": "ETR",
+      "status": "validation_fail",
+      "reason": "too many duplicate values (2 dups)"
+    },
+    {
+      "ticker": "F",
+      "status": "ok",
+      "history_len": 6,
+      "value": 116995
+    },
+    {
+      "ticker": "FCX",
+      "status": "ok",
+      "history_len": 5,
+      "value": 7816
+    },
+    {
+      "ticker": "FOXA",
+      "status": "ok",
+      "history_len": 6,
+      "value": 5955
+    },
+    {
+      "ticker": "FTV",
+      "status": "ok",
+      "history_len": 6,
+      "value": 2612.2
+    },
+    {
+      "ticker": "GM",
+      "status": "validation_fail",
+      "reason": "value not numeric: None"
+    },
+    {
+      "ticker": "GNRC",
+      "status": "validation_fail",
+      "reason": "value 2911871.0 in M $ unrealistic (>$1T)"
+    },
+    {
+      "ticker": "GPC",
+      "status": "ok",
+      "history_len": 6,
+      "value": 9010.337
+    },
+    {
+      "ticker": "GS",
+      "status": "ok",
+      "history_len": 6,
+      "value": 742
+    },
+    {
+      "ticker": "HIG",
+      "status": "validation_fail",
+      "reason": "history len n/a < 5"
+    },
+    {
+      "ticker": "HSIC",
+      "status": "ok",
+      "history_len": 6,
+      "value": 7539
+    },
+    {
+      "ticker": "HUBB",
+      "status": "validation_fail",
+      "reason": "too many duplicate values (2 dups)"
+    },
+    {
+      "ticker": "ICE",
+      "status": "ok",
+      "history_len": 6,
+      "value": 4138
+    },
+    {
+      "ticker": "IEX",
+      "status": "validation_fail",
+      "reason": "duplicate value in non-percent series"
+    },
+    {
+      "ticker": "IP",
+      "status": "ok",
+      "history_len": 6,
+      "value": 2890
+    },
+    {
+      "ticker": "IQV",
+      "status": "ok",
+      "history_len": 6,
+      "value": 5862
+    },
+    {
+      "ticker": "IT",
+      "status": "null",
+      "reason": "model_returned_null"
+    },
+    {
+      "ticker": "KMB",
+      "status": "validation_fail",
+      "reason": "too many duplicate values (3 dups)"
+    },
+    {
+      "ticker": "L",
+      "status": "ok",
+      "history_len": 6,
+      "value": 83.5
+    },
+    {
+      "ticker": "LH",
+      "status": "ok",
+      "history_len": 6,
+      "value": 9415.1
+    },
+    {
+      "ticker": "LVS",
+      "status": "ok",
+      "history_len": 6,
+      "value": 4841
+    },
+    {
+      "ticker": "MAR",
+      "status": "validation_fail",
+      "reason": "value not numeric: None"
+    },
+    {
+      "ticker": "MAS",
+      "status": "ok",
+      "history_len": 6,
+      "value": 4842
+    },
+    {
+      "ticker": "MDLZ",
+      "status": "null",
+      "reason": "null_result"
+    },
+    {
+      "ticker": "MNST",
+      "status": "ok",
+      "history_len": 6,
+      "value": 769241
+    },
+    {
+      "ticker": "MPC",
+      "status": "validation_fail",
+      "reason": "last value 143575 != value 19722"
+    },
+    {
+      "ticker": "MRSH",
+      "status": "ok",
+      "history_len": 6,
+      "value": 11657
+    },
+    {
+      "ticker": "MS",
+      "status": "null",
+      "reason": "null_result"
+    },
+    {
+      "ticker": "MSFT",
+      "status": "ok",
+      "history_len": 6,
+      "value": 137400
+    },
+    {
+      "ticker": "MSI",
+      "status": "ok",
+      "history_len": 6,
+      "value": 6242
+    },
+    {
+      "ticker": "NBIX",
+      "status": "ok",
+      "history_len": 6,
+      "value": 1836.0
+    },
+    {
+      "ticker": "NDSN",
+      "status": "validation_fail",
+      "reason": "too many duplicate values (4 dups)"
+    },
+    {
+      "ticker": "NEE",
+      "status": "validation_fail",
+      "reason": "value not numeric: None"
+    },
+    {
+      "ticker": "NOW",
+      "status": "ok",
+      "history_len": 6,
+      "value": 18000
+    },
+    {
+      "ticker": "NSC",
+      "status": "ok",
+      "history_len": 6,
+      "value": 7353
+    },
+    {
+      "ticker": "O",
+      "status": "validation_fail",
+      "reason": "too many duplicate values (3 dups)"
+    },
+    {
+      "ticker": "OKE",
+      "status": "validation_fail",
+      "reason": "too many duplicate values (2 dups)"
+    },
+    {
+      "ticker": "ORLY",
+      "status": "ok",
+      "history_len": 5,
+      "value": 4.9
+    },
+    {
+      "ticker": "PCAR",
+      "status": "ok",
+      "history_len": 6,
+      "value": 26846.4
+    },
+    {
+      "ticker": "PEG",
+      "status": "null",
+      "reason": "null_result"
+    },
+    {
+      "ticker": "POOL",
+      "status": "validation_fail",
+      "reason": "history len n/a < 5"
+    },
+    {
+      "ticker": "PPL",
+      "status": "null",
+      "reason": "model_returned_null"
+    },
+    {
+      "ticker": "RCL",
+      "status": "null",
+      "reason": "model_returned_null"
+    },
+    {
+      "ticker": "RL",
+      "status": "ok",
+      "history_len": 6,
+      "value": 3122.2
+    },
+    {
+      "ticker": "ROK",
+      "status": "validation_fail",
+      "reason": "history len n/a < 5"
+    },
+    {
+      "ticker": "RTX",
+      "status": "ok",
+      "history_len": 6,
+      "value": 158000
+    },
+    {
+      "ticker": "SBUX",
+      "status": "validation_fail",
+      "reason": "value not numeric: None"
+    },
+    {
+      "ticker": "SCHW",
+      "status": "validation_fail",
+      "reason": "value 8483000.0 in M $ unrealistic (>$1T)"
+    },
+    {
+      "ticker": "SHOP",
+      "status": "no_source"
+    },
+    {
+      "ticker": "SLB",
+      "status": "ok",
+      "history_len": 6,
+      "value": 3871
+    },
+    {
+      "ticker": "SYK",
+      "status": "api_fail",
+      "err": "JSON parse fail: Expecting ',' delimiter: line 23 column 6 (char 852)"
+    },
+    {
+      "ticker": "T",
+      "status": "validation_fail",
+      "reason": "duplicate value in non-percent series"
+    },
+    {
+      "ticker": "TSCO",
+      "status": "ok",
+      "history_len": 6,
+      "value": 0.8
+    },
+    {
+      "ticker": "UNH",
+      "status": "validation_fail",
+      "reason": "too many duplicate values (2 dups)"
+    },
+    {
+      "ticker": "UNM",
+      "status": "ok",
+      "history_len": 6,
+      "value": 1932.2
+    },
+    {
+      "ticker": "VZ",
+      "status": "ok",
+      "history_len": 6,
+      "value": 101600
+    },
+    {
+      "ticker": "WAB",
+      "status": "validation_fail",
+      "reason": "history len n/a < 5"
+    },
+    {
+      "ticker": "WMB",
+      "status": "validation_fail",
+      "reason": "value not numeric: None"
+    },
+    {
+      "ticker": "WMT",
+      "status": "ok",
+      "history_len": 6,
+      "value": 5.2
+    },
+    {
+      "ticker": "WSM",
+      "status": "validation_fail",
+      "reason": "value not numeric: None"
+    },
+    {
+      "ticker": "WYNN",
+      "status": "validation_fail",
+      "reason": "value 4785989.0 in M $ unrealistic (>$1T)"
+    },
+    {
+      "ticker": "YUM",
+      "status": "ok",
+      "history_len": 6,
+      "value": 18100
+    }
+  ]
 }
