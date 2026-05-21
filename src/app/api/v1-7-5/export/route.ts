@@ -15,7 +15,7 @@
 import { NextResponse } from "next/server";
 import V17_PUBLIC from "@/data/v1-7-5-public.json";
 import V17_SORTED from "@/data/v1-7-tickers-sorted.json";
-import MERGED from "@/data/v2-pipeline/_merged.json";
+import fs from "node:fs"; import path from "node:path"; const MERGED = JSON.parse(fs.readFileSync(path.join(process.cwd(), "src/data/v2-pipeline/_merged.json"), "utf-8"));
 import type { Company } from "@/lib/data";
 
 export const dynamic = "force-static";
