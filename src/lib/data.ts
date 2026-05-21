@@ -920,12 +920,30 @@ export function interpretStructured(
     extendedDrivers.find((d) => d.short !== hero.short) ??
     segmentDrivers[0] ??
     firstNonHero;
-  const risk = company.kpis.find(
-    (k) =>
-      (k.type === "Cost" && typeof k.yoy === "string" && !k.yoy.startsWith("-")) ||
-      (k.type === "Margin" && typeof k.yoy === "string" && k.yoy.startsWith("-"))
-  );
-  const cash = company.kpis.find((k) => k.type === "Cash");
+  // Yann 21 mai 2026 : élargir détection risk pour garantir 4 sous-blocs
+  // d'interprétation. Avant : Cost↑ ou Margin↓ uniquement (manque sur 196 stés).
+  // Maintenant : on accepte aussi Margin/Profitability sans condition (signal
+  // structurel sectoriel) en fallback, ou Cost/Investment quel que soit yoy.
+  const risk =
+    company.kpis.find(
+      (k) =>
+        (k.type === "Cost" && typeof k.yoy === "string" && !k.yoy.startsWith("-")) ||
+        (k.type === "Margin" && typeof k.yoy === "string" && k.yoy.startsWith("-"))
+    ) ??
+    company.kpis.find(
+      (k) => (k.type === "Margin" || k.type === "Profitability") && k.short !== hero.short
+    ) ??
+    company.kpis.find(
+      (k) => (k.type === "Cost" || k.type === "Investment") && k.short !== hero.short
+    );
+
+  // Yann 21 mai 2026 : élargir détection cash : Cash, Cash Flow, Capital,
+  // Dividende (génération de cash = capacité à redistribuer/réinvestir).
+  const cash =
+    company.kpis.find((k) => k.type === "Cash" && k.short !== hero.short) ??
+    company.kpis.find((k) => k.type === "Cash Flow" && k.short !== hero.short) ??
+    company.kpis.find((k) => k.type === "Capital" && k.short !== hero.short) ??
+    company.kpis.find((k) => k.type === "Dividende" && k.short !== hero.short);
 
   // Yann 14-15 mai 2026 : interprétation IA SUBSTANTIVE.
   // Pas un copier-coller du nom KPI, mais : valeur rescalée (jamais "0,..."),
@@ -1014,6 +1032,38 @@ export function interpretStructured(
       body: bulletBodyKpi(locale, cash.name_fr, fmtVal(cash.value), formatUnit(cash.unit), String(cash.yoy ?? ""), cash.signal ?? ""),
       tone: "neutral",
     });
+  }
+
+  // Yann 21 mai 2026 : safety-net 4-sous-blocs. Si on n'a pas atteint 3 bullets
+  // (= driver + risk + cash, soit 4 sous-blocs total avec lead+future), on
+  // pioche dans les KPIs restants pour combler. Garantit qu'aucune fiche
+  // V1.9 publishable n'affiche moins de 4 sous-blocs d'interprétation.
+  if (bullets.length < 3) {
+    const used = new Set<string>([hero.short]);
+    if (driver) used.add(driver.short);
+    if (risk) used.add(risk.short);
+    if (cash) used.add(cash.short);
+    const fallbacks = company.kpis.filter((k) => !used.has(k.short));
+    const needed = 3 - bullets.length;
+    for (let i = 0; i < needed && i < fallbacks.length; i++) {
+      const k = fallbacks[i];
+      const isNeg = typeof k.yoy === "string" && k.yoy.startsWith("-");
+      const tone: InterpretTone = isNeg ? "neg" : "neutral";
+      const isCash =
+        k.type === "Cash" || k.type === "Cash Flow" || k.type === "Capital" || k.type === "Dividende";
+      const isRisk =
+        k.type === "Cost" ||
+        k.type === "Margin" ||
+        k.type === "Profit" ||
+        k.type === "Profitability" ||
+        k.type === "Risk";
+      const labelKey: "cash" | "risk" | "driver" = isCash ? "cash" : isRisk ? "risk" : "driver";
+      bullets.push({
+        label: bulletLabel(locale, labelKey),
+        body: bulletBodyKpi(locale, k.name_fr, fmtVal(k.value), formatUnit(k.unit), String(k.yoy ?? ""), k.signal ?? ""),
+        tone,
+      });
+    }
   }
 
   // FUTURE bullet — promoted to first-class citizen.
