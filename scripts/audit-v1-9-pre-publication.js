@@ -1060,10 +1060,16 @@ function checkGovernance(company) {
     const hasCeo = typeof g.ceo_name === 'string' && g.ceo_name.length > 0;
     const hasVotingNote = typeof g.voting_structure_note === 'string' && g.voting_structure_note.length > 0;
     const hasBoardSize = typeof g.board_size === 'number' && g.board_size >= 1;
+    const hasVotingStructure = typeof g.voting_structure === 'string' && g.voting_structure.length > 0;
     const topVotingArr = Array.isArray(g.top_voting) ? g.top_voting : [];
     const topCapitalArr = Array.isArray(g.top_capital) ? g.top_capital : [];
     const hasOneTop = topVotingArr.length >= 1 || topCapitalArr.length >= 1;
-    if (hasCeo && hasVotingNote && hasBoardSize) {
+    // Mission #151 fix : assouplir critère heuristic_partial — accepter
+    // sans board_size SI ceo_name + voting_structure + top_capital ≥3.
+    // Cible : 42 US sans board_size yfinance + 83 EU/UK où regex board_size
+    // échoue mais le reste de la gouvernance est disponible.
+    const hasFallback151 = hasCeo && hasVotingStructure && topCapitalArr.length >= 3;
+    if ((hasCeo && hasVotingNote && hasBoardSize) || hasFallback151) {
       // Sub-agent #99 (Yann 21 mai 2026) : check if overrides_governance had a
       // traceable sec-data source_file. If yes → category A (regex_real_sourced,
       // no cap). If no → category B (heuristic_partial, cap 30%).
