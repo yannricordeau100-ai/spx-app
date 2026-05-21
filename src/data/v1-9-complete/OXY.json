@@ -249,7 +249,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "_validation": "No changes required; data sourced from MD&A"
+      "_validation": "No changes required; data sourced from MD&A",
+      "signal_en": "Significant revenue decline, warning signal"
     },
     {
       "short": "Brent_price_per_barrel",
@@ -272,7 +273,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "_validation": "No changes required; data sourced from MD&A"
+      "_validation": "No changes required; data sourced from MD&A",
+      "signal_en": "Significant revenue decline, warning signal"
     },
     {
       "short": "DPS",
@@ -296,7 +298,9 @@
       "signal": "Dividende par action de 0.26 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -317,7 +321,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 1.594 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -338,7 +344,9 @@
       "signal": "Part du résultat net distribué en dividendes : 68.5% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Total Revenue",
@@ -364,7 +372,9 @@
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Significant revenue decline, warning signal"
     },
     {
       "short": "Net Income",
@@ -389,7 +399,9 @@
       "signal": "Résultat net de 4.696 Mds $ dernière année.",
       "description": "Résultat net consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns"
     },
     {
       "short": "STRATOS_operations_start",
@@ -440,19 +452,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-05-01",
-    "fiscal_year": 2025,
-    "ceo_name": "Vicki Hollub",
-    "ceo_total_comp_m": null,
-    "ceo_pay_ratio": null,
-    "exec_comp_approval_pct": null,
-    "board_independence_pct": null,
-    "board_size": 10,
-    "avg_tenure_years": null,
-    "board_women_pct": null,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "top_capital": [],
-    "top_voting": []
+    "top_capital": [
+      {
+        "name": "Berkshire Hathaway",
+        "type": "institutionnel",
+        "stake_pct": 26.64
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 8.41
+      },
+      {
+        "name": "Dodge & Cox Inc.",
+        "type": "institutionnel",
+        "stake_pct": 7.45
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "Berkshire Hathaway",
+        "type": "institutionnel",
+        "stake_pct": 26.64
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 8.41
+      },
+      {
+        "name": "Dodge & Cox Inc.",
+        "type": "institutionnel",
+        "stake_pct": 7.45
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:14:42.626323+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -462,21 +499,24 @@
         "value": 13.066,
         "unit": "Mds $",
         "pct": 70.44,
-        "share_pct": 70.44
+        "share_pct": 70.44,
+        "label_en": "Oil and gas"
       },
       {
         "name": "Chemical",
         "value": 3.733,
         "unit": "Mds $",
         "pct": 20.06,
-        "share_pct": 20.06
+        "share_pct": 20.06,
+        "label_en": "Chemical"
       },
       {
         "name": "Midstream and marketing",
         "value": 1.768,
         "unit": "Mds $",
         "pct": 9.5,
-        "share_pct": 9.5
+        "share_pct": 9.5,
+        "label_en": "Midstream and marketing"
       }
     ],
     "total": 18.57,
@@ -489,13 +529,15 @@
         "label": "États-Unis",
         "value": 1.83,
         "share_pct": 85.81,
-        "unit": "Mds $"
+        "unit": "Mds $",
+        "label_en": "United States"
       },
       {
         "label": "International",
         "value": 0.3,
         "share_pct": 14.19,
-        "unit": "Mds $"
+        "unit": "Mds $",
+        "label_en": "International"
       }
     ],
     "unit": "Mds $",
@@ -603,16 +645,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #1000",
-    "global_us": "≈ #250",
-    "sector": "≈ #50",
-    "subsector": "≈ #10"
+    "global_world": "#324",
+    "global_us": "#191",
+    "sector": "Top 25 in Énergie",
+    "subsector": "#3 in Oil & Gas"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-05-05",
   "publication_date": null,
   "company_description": "Occidental Petroleum Corporation, together with its subsidiaries, engages in the acquisition, exploration, and development of oil and gas properties in the United States and internationally. It operates through Oil and Gas and Midstream and Marketing. The Oil and Gas segment explores for, develops, and produces oil and condensate, natural gas liquids (NGLs), and natural gas. This segment also optimizes its transportation and storage capacity and invests in entities. The Midstream and Marketing segment purchases, markets, gathers, processes, transports and stores oil, condensate, NGLs, natural gas, carbon dioxide, and power. Occidental Petroleum Corporation was founded in 1920 and is headquartered in Houston, Texas.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-21T02:08:59.567Z",
+  "_built_at": "2026-05-21T16:00:22.556Z",
   "_missing_blocks": []
 }

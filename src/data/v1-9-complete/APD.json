@@ -38,7 +38,9 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 11.56,
-      "_validation": "Unité corrigée de 'Mds $' à 'B $' (standard financier international)"
+      "_validation": "Unité corrigée de 'Mds $' à 'B $' (standard financier international)",
+      "explanation_en": "Sales : total sales generated over the period.",
+      "signal_en": "Revenue pressure, demand softening"
     },
     {
       "short": "Operating Income",
@@ -65,7 +67,9 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 2.61,
-      "_validation": "Unité corrigée de 'Mds $' à 'B $'; KPI Operating Loss (877 M$ et histoire incohérente) supprimé comme halluciné (perte opérationnelle nette de 877 M$ non conforme au discours MD&A sur résultat ajusté positif). Remplacé par Adjusted Operating Income."
+      "_validation": "Unité corrigée de 'Mds $' à 'B $'; KPI Operating Loss (877 M$ et histoire incohérente) supprimé comme halluciné (perte opérationnelle nette de 877 M$ non conforme au discours MD&A sur résultat ajusté positif). Remplacé par Adjusted Operating Income.",
+      "explanation_en": "Operating Income : profit from core business operations.",
+      "signal_en": "Margin compression, watch profitability"
     },
     {
       "short": "Adjusted EBITDA",
@@ -95,37 +99,12 @@
       "ttm": 4.98,
       "_validation": "Unité corrigée de 'Mds $' à 'B $'",
       "period_type": "quarter",
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
+      "signal_en": "Margin expansion, operating leverage",
       "is_short_history_legitimate": true,
       "short_history_legitimate_reason": "Adjusted non-GAAP métrique récente (post-PCAOB update)",
       "_short_history_legitimate_rule": "kpi_pattern",
-      "_short_history_legitimate_tagged_at": "2026-05-21T03:37:51.860Z"
-    },
-    {
-      "short": "Equity Affiliates Income",
-      "name_fr": "Résultat des associés",
-      "name_en": "Equity Affiliates' Income",
-      "explanation": "Résultat provenant des participations en joint-ventures et affiliés",
-      "value": "0.648",
-      "unit": "Mds $",
-      "yoy": "stable",
-      "type": "Revenue",
-      "nature": "Cyclique",
-      "comparable": "Comparable",
-      "signal": "Stabilité du résultat des associés malgré pressions régionales, hausse Europe et Asie compensée par baisses ailleurs",
-      "description": "Résultat des associés en equity consolidation",
-      "history": [
-        0.65,
-        0.65,
-        0.65,
-        0.65,
-        0.65
-      ],
-      "last_data_date": "2025-09-30",
-      "is_wow": false,
-      "is_generic": true,
-      "is_short_history": false,
-      "ttm": 0.647,
-      "_validation": "Unité corrigée de 'M $' à 'B $' (valeur 647.7 M$ = 0.648 B$ pour cohérence avec autres KPI); value convertie de 647.7 à 0.648"
+      "_short_history_legitimate_tagged_at": "2026-05-21T03:35:15.077Z"
     },
     {
       "short": "Total Revenue",
@@ -147,7 +126,9 @@
       "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Revenue pressure, demand softening"
     },
     {
       "short": "Total Assets",
@@ -169,7 +150,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -191,7 +174,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -213,7 +198,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "Sales 2025",
@@ -274,15 +260,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-01-28",
-    "fiscal_year_end": "2025-09-30",
-    "accounting_standard": "US GAAP",
-    "fiscal_year": 2025,
-    "ceo_name": "Eduardo Menezes",
-    "board_independence_pct": 90,
-    "board_size": 10,
-    "avg_tenure_years": 1.5,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action."
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 9.06
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.11
+      },
+      {
+        "name": "State Farm Mutual Automobile Insurance Co",
+        "type": "institutionnel",
+        "stake_pct": 5.32
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 9.06
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.11
+      },
+      {
+        "name": "State Farm Mutual Automobile Insurance Co",
+        "type": "institutionnel",
+        "stake_pct": 5.32
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:12:02.508990+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -292,35 +307,40 @@
         "value": 3.63,
         "unit": "Mds $",
         "pct": 40.99,
-        "share_pct": 41
+        "share_pct": 40.99,
+        "label_en": "Industrial Gases Americas"
       },
       {
         "name": "Industrial Gases EMEA",
         "value": 1.93,
         "unit": "Mds $",
         "pct": 21.79,
-        "share_pct": 21.8
+        "share_pct": 21.79,
+        "label_en": "Industrial Gases EMEA"
       },
       {
         "name": "Industrial Gases Asia",
         "value": 2.72,
         "unit": "Mds $",
         "pct": 30.71,
-        "share_pct": 30.7
+        "share_pct": 30.71,
+        "label_en": "Industrial Gases Asia"
       },
       {
         "name": "Industrial Gases Global",
         "value": 0.36,
         "unit": "Mds $",
         "pct": 4.09,
-        "share_pct": 4.1
+        "share_pct": 4.09,
+        "label_en": "Industrial Gases Global"
       },
       {
         "name": "Corporate and other",
         "value": 0.22,
         "unit": "Mds $",
         "pct": 2.43,
-        "share_pct": 2.4
+        "share_pct": 2.43,
+        "label_en": "Corporate and Other"
       }
     ],
     "total": 8.86,
@@ -334,21 +354,24 @@
         "value": 3.36,
         "unit": "Mds $",
         "pct": 37.9,
-        "share_pct": 37.9
+        "share_pct": 37.9,
+        "label_en": "United States"
       },
       {
         "name": "China",
         "value": 1.72,
         "unit": "Mds $",
         "pct": 19.4,
-        "share_pct": 19.4
+        "share_pct": 19.4,
+        "label_en": "China"
       },
       {
         "name": "Other foreign operations",
         "value": 3.78,
         "unit": "Mds $",
         "pct": 42.7,
-        "share_pct": 42.7
+        "share_pct": 42.7,
+        "label_en": "Other foreign operations"
       }
     ],
     "total": 8.86,
@@ -469,16 +492,16 @@
     }
   ],
   "ranks": {
-    "global_world": "#166",
-    "global_us": "#100",
-    "sector": "Top 10 in Materials",
-    "subsector": "Top 3 in Industrial Gases"
+    "global_world": "#242",
+    "global_us": "#149",
+    "sector": "Top 10 in Matériaux",
+    "subsector": "#3 in Industrial Gases"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-30",
   "publication_date": null,
   "company_description": "Air Products and Chemicals, Inc. provides atmospheric gases, process and specialty gases, equipment, and related services in the Americas, Asia, Europe, the Middle East, India, and internationally. The company produces atmospheric gases, including oxygen, nitrogen, and argon; process gases, such as hydrogen, helium, carbon dioxide, carbon monoxide, and syngas; and specialty gases for customers in various industries, including refining, chemical, metals, manufacturing, electronics, energy production, medical, food, chemical and petrochemical manufacturing, oil and gas recovery and processing, and steel and primary metals processing. It also designs and manufactures equipment for air separation, hydrocarbon recovery and purification, natural gas liquefaction, and liquid helium and liquid hydrogen transport and storage. Air Products and Chemicals, Inc. was founded in 1940 and is headquartered in Allentown, Pennsylvania.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.156Z",
+  "_built_at": "2026-05-21T16:00:21.919Z",
   "_missing_blocks": []
 }

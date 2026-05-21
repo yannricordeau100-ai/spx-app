@@ -128,7 +128,8 @@
       "_validation": "Unit corrected from 'Mds $' to 'B $' for consistency with international financial reporting",
       "period_type": "quarter",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
-      "_hero_history_extracted_at": "2026-05-14T10:51:31.936928+00:00"
+      "_hero_history_extracted_at": "2026-05-14T10:51:31.936928+00:00",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Marge brute",
@@ -152,7 +153,8 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 25.2,
-      "_validation": "No corrections needed"
+      "_validation": "No corrections needed",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Marge opérationnelle",
@@ -176,7 +178,8 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 15.83,
-      "_validation": "No corrections needed"
+      "_validation": "No corrections needed",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Investissements R&D (% revenu)",
@@ -200,7 +203,8 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 1.23,
-      "_validation": "Field name corrected from 'Dépenses R&D (% revenu)' to 'Investissements R&D (% revenu)' for clarity"
+      "_validation": "Field name corrected from 'Dépenses R&D (% revenu)' to 'Investissements R&D (% revenu)' for clarity",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Effectif (employés)",
@@ -224,7 +228,8 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 20,
-      "_validation": "name_fr improved for consistency; description expanded with source reference from 10-K"
+      "_validation": "name_fr improved for consistency; description expanded with source reference from 10-K",
+      "signal_en": "Flat year-over-year, monitor closely"
     },
     {
       "short": "Dépenses d'investissement",
@@ -248,7 +253,8 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 0.3,
-      "_validation": "Unit corrected from 'Mds $' to 'B $'; name_fr improved for clarity"
+      "_validation": "Unit corrected from 'Mds $' to 'B $'; name_fr improved for clarity",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Total Assets",
@@ -269,7 +275,9 @@
       "signal": "Total des actifs de 4.89 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -290,7 +298,9 @@
       "signal": "Dette totale de 0.57 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable"
     },
     {
       "short": "DPS",
@@ -314,7 +324,9 @@
       "signal": "Dividende par action de 1.54 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Cap Return",
@@ -335,7 +347,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 0.207 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -356,7 +370,9 @@
       "signal": "Part du résultat net distribué en dividendes : 25.6% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Revenu Services Logistiques",
@@ -411,26 +427,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-05-05",
-    "fiscal_year": 2025,
-    "ceo_name": "[Not specified]",
-    "exec_comp_approval_pct": 89.8,
-    "board_independence_pct": 88.9,
-    "board_size": 9,
     "top_capital": [
       {
-        "name": "[Not specified]",
+        "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": 59
+        "stake_pct": 11.73
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 9.49
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 5.52
       }
     ],
     "top_voting": [
       {
-        "name": "[Not specified]",
+        "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": 47
+        "stake_pct": 11.73
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 9.49
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 5.52
       }
-    ]
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:14.323060+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -440,21 +474,24 @@
         "value": 3.983,
         "unit": "Mds $",
         "pct": 36,
-        "share_pct": 36
+        "share_pct": 36,
+        "label_en": "Airfreight services"
       },
       {
         "name": "Ocean freight and ocean services",
         "value": 2.815,
         "unit": "Mds $",
         "pct": 25.4,
-        "share_pct": 25.4
+        "share_pct": 25.4,
+        "label_en": "Ocean freight and ocean services"
       },
       {
         "name": "Customs brokerage and other services",
         "value": 4.271,
         "unit": "Mds $",
         "pct": 38.6,
-        "share_pct": 38.6
+        "share_pct": 38.6,
+        "label_en": "Customs brokerage and other services"
       }
     ],
     "total": 11.07,
@@ -468,49 +505,56 @@
         "value": 4.869,
         "unit": "Mds $",
         "pct": 28.5,
-        "share_pct": 28.5
+        "share_pct": 28.5,
+        "label_en": "United States"
       },
       {
         "name": "North Asia",
         "value": 5.81,
         "unit": "Mds $",
         "pct": 34,
-        "share_pct": 34
+        "share_pct": 34,
+        "label_en": "North Asia"
       },
       {
         "name": "Europe",
         "value": 2.471,
         "unit": "Mds $",
         "pct": 14.5,
-        "share_pct": 14.5
+        "share_pct": 14.5,
+        "label_en": "Europe"
       },
       {
         "name": "South Asia",
         "value": 2.144,
         "unit": "Mds $",
         "pct": 12.6,
-        "share_pct": 12.6
+        "share_pct": 12.6,
+        "label_en": "South Asia"
       },
       {
         "name": "Other North America",
         "value": 0.518,
         "unit": "Mds $",
         "pct": 3,
-        "share_pct": 3
+        "share_pct": 3,
+        "label_en": "Other North America"
       },
       {
         "name": "Middle East, Africa and India",
         "value": 1.005,
         "unit": "Mds $",
         "pct": 5.9,
-        "share_pct": 5.9
+        "share_pct": 5.9,
+        "label_en": "Middle East, Africa and India"
       },
       {
         "name": "Latin America",
         "value": 0.258,
         "unit": "Mds $",
         "pct": 1.5,
-        "share_pct": 1.5
+        "share_pct": 1.5,
+        "label_en": "Latin America"
       }
     ],
     "total": 17.08,
@@ -565,20 +609,91 @@
     "source": ""
   },
   "market_positions": [],
-  "events": [],
+  "events": [
+    {
+      "year": 2026,
+      "month": 8,
+      "title": "Prochaine publication Q3 2026",
+      "body": "Publication attendue le 4 août 2026 (Q3 2026).",
+      "source": "yfinance · calendar",
+      "url": "",
+      "date": "2026-08-04"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "Allegiant Partners With Navan to Modernize Employee Travel Operations",
+      "body": "ALGT adopts Navan's AI-powered platform to centralize employee travel, aiming to streamline workflows and boost workforce mobility.",
+      "source": "Zacks",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/allegiant-partners-navan-modernize-employee-163500049.html",
+      "date": "2026-05-19"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "ALGT Strengthens Leisure Airline Position With Sun Country Acquisition",
+      "body": "Allegiant Travel's Sun Country deal expands its reach to nearly 175 cities while adding cargo and charter revenue streams.",
+      "source": "Zacks",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/algt-strengthens-leisure-airline-position-162600013.html",
+      "date": "2026-05-18"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "Delta Expands Europe Flights to Capture Event-Driven Travel Demand",
+      "body": "DAL adds special flights to Madrid and Munich, tapping football-driven travel demand with premium cabin offerings.",
+      "source": "Zacks",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/delta-expands-europe-flights-capture-144200187.html",
+      "date": "2026-05-18"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "JetBlue Launches Italy Service With Boston-Milan Flights",
+      "body": "JBLU launches nonstop Boston-Milan service, expanding its European reach and targeting premium travelers with Mint cabins and low fares.",
+      "source": "Zacks",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/jetblue-launches-italy-boston-milan-152400134.html",
+      "date": "2026-05-12"
+    },
+    {
+      "year": 2026,
+      "month": 3,
+      "title": "Publication des résultats Q1 2026",
+      "body": "Clôture du trimestre Q1 2026 le 31 mars 2026.",
+      "source": "yfinance · mostRecentQuarter",
+      "url": "",
+      "date": "2026-03-31"
+    },
+    {
+      "year": 2025,
+      "month": 12,
+      "title": "Dividende 0.77 $/action versé",
+      "body": "Dividende ordinaire de 0.77 $ par action, ex-date 1 décembre 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-12-01"
+    },
+    {
+      "year": 2025,
+      "month": 6,
+      "title": "Dividende 0.77 $/action versé",
+      "body": "Dividende ordinaire de 0.77 $ par action, ex-date 2 juin 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-06-02"
+    }
+  ],
   "ranks": {
-    "global_world": "≈ #1",
-    "global_us": "≈ #1",
-    "sector": "≈ #1",
-    "subsector": "≈ #1"
+    "global_world": "#640",
+    "global_us": "#384",
+    "sector": "#179 in Technologie",
+    "subsector": "#1 in Logistics and Supply Chain Management"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-05-05",
   "publication_date": null,
   "company_description": "Expeditors International of Washington, Inc., together with its subsidiaries, provides logistics services in the Americas, North Asia, South Asia, Europe, and Middle East, Africa, and India. The company offers airfreight services, such as air freight consolidation and forwarding; ocean freight and ocean services, including ocean freight consolidation, direct ocean forwarding, and order management; customs brokerage and other services, import, intra-continental ground transportation and delivery, and warehousing and distribution services; and customs clearance, purchase order management, vendor consolidation, time-definite transportation services, temperature-controlled transit, cargo insurance, specialized cargo monitoring and tracking, and other logistics solutions. It also provides optimization, trade compliance consulting, cargo insurance, cargo security, and solutions. In addition, it acts as a freight consolidator or as an agent for the airline that carries the shipment. Further, the company provides ancillary services that include preparation of shipping and customs documentation, packing, crating, insurance services, and the preparation of documentation to comply with local ",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.343Z",
-  "_missing_blocks": [
-    "events"
-  ]
+  "_built_at": "2026-05-21T16:00:22.213Z",
+  "_missing_blocks": []
 }

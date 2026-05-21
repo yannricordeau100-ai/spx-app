@@ -272,7 +272,9 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": [],
-      "period_type": "annual"
+      "period_type": "annual",
+      "explanation_en": "Research & Development expenses.",
+      "signal_en": "Steady growth, healthy trend"
     },
     {
       "short": "Sales",
@@ -294,7 +296,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_validation": []
+      "_validation": [],
+      "explanation_en": "Sales : total sales generated over the period.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Op Margin",
@@ -321,7 +325,8 @@
         "name_en corrigé: 'Adjusted Operating Margin' pour précision",
         "signal modifié pour refléter la source",
         "is_wow changé de false à true"
-      ]
+      ],
+      "explanation_en": "Profit margin on Op."
     },
     {
       "short": "Headcount",
@@ -349,7 +354,9 @@
         "kpi_value_abs": 5500,
         "diff_pct": 98.1,
         "reason": "kept_original_likely_pollution_or_unit"
-      }
+      },
+      "explanation_en": "Headcount : total number of employees at period end.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Sales Mix",
@@ -416,7 +423,8 @@
       "history": [
         869.2
       ],
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Revenue from the Companion Animals segment."
     },
     {
       "short": "Farm Animals Revenue",
@@ -434,7 +442,8 @@
       "history": [
         575.2
       ],
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Revenue from the Farm Animals segment."
     },
     {
       "short": "Adjusted EBITA Margin",
@@ -443,7 +452,7 @@
       "explanation": "Marge EBITA courant avant amortissement intangibles (234,4 M€ sur 1464,7)",
       "value": 16,
       "unit": "%",
-      "yoy": "",
+      "yoy": "-3.6%",
       "type": "Revenue",
       "nature": "Conjoncturel",
       "comparable": "Comparable",
@@ -453,7 +462,9 @@
         16.6,
         16
       ],
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Profit margin on Adjusted EBITA.",
+      "signal_en": "Revenue pressure, demand softening"
     },
     {
       "short": "Net Debt",
@@ -462,7 +473,7 @@
       "explanation": "Endettement net, ratio sur fonds propres 15,4%, covenant largement respecté",
       "value": 172.8,
       "unit": "M €",
-      "yoy": "",
+      "yoy": "+2.6%",
       "type": "Revenue",
       "nature": "Conjoncturel",
       "comparable": "Comparable",
@@ -472,7 +483,9 @@
         168.5,
         172.8
       ],
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Net Debt : total debt minus cash and cash equivalents.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income (Group share)",
@@ -481,7 +494,7 @@
       "explanation": "Résultat net part du groupe, +3,9%",
       "value": 150.9,
       "unit": "M €",
-      "yoy": "",
+      "yoy": "+3.9%",
       "type": "Revenue",
       "nature": "Conjoncturel",
       "comparable": "Comparable",
@@ -491,7 +504,8 @@
         145.3,
         150.9
       ],
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Europe Revenue",
@@ -500,7 +514,7 @@
       "explanation": "Première zone géographique, +7,5% à taux constants",
       "value": 601.1,
       "unit": "M €",
-      "yoy": "",
+      "yoy": "+7.6%",
       "type": "Revenue",
       "nature": "Conjoncturel",
       "comparable": "Comparable",
@@ -510,7 +524,9 @@
         558.9,
         601.1
       ],
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Revenue from the Europe segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "DPS",
@@ -534,7 +550,9 @@
       "signal": "Dividende par action de 3.95 EUR dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -556,7 +574,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -578,7 +598,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "New Products",
@@ -658,9 +680,28 @@
   ],
   "kpis_story": [],
   "governance": {
-    "ceo_name": "Mr. Pierre  Anjolras",
-    "ceo_title": "CEO & Director",
-    "fiscal_year": 2025
+    "top_capital": [
+      {
+        "name": "Pacer Advisors, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 0.09
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "Pacer Advisors, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 0.09
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:12:52.429093+00:00",
+    "_top_dual_class_flag": false,
+    "top_disclosure": "eu_regex_extracted",
+    "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
+    "_top_disclosure_at": "2026-05-21T02:49:04.595723+00:00",
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:18:57Z"
   },
   "revenue_by_segment": {
     "unit": "Mds €",
@@ -670,20 +711,23 @@
       {
         "label": "Companion animals",
         "value": 0.721,
+        "share_pct": 57.8,
         "unit": "Mds €",
-        "share_pct": 57.8
+        "label_en": "Companion animals"
       },
       {
         "label": "Farm animals",
         "value": 0.493,
+        "share_pct": 39.5,
         "unit": "Mds €",
-        "share_pct": 39.5
+        "label_en": "Farm animals"
       },
       {
         "label": "Other businesses",
         "value": 0.033,
+        "share_pct": 2.6,
         "unit": "Mds €",
-        "share_pct": 2.6
+        "label_en": "Other businesses"
       }
     ],
     "total": 1.25
@@ -696,44 +740,51 @@
       {
         "label": "France",
         "value": 362.9,
+        "share_pct": 28.8,
         "unit": "M€",
-        "share_pct": 28.8
+        "label_en": "France"
       },
       {
         "label": "Europe (excluding France)",
         "value": 225.7,
+        "share_pct": 17.9,
         "unit": "M€",
-        "share_pct": 17.9
+        "label_en": "Europe (excluding France)"
       },
       {
         "label": "Amérique du Nord",
         "value": 205.3,
+        "share_pct": 16.3,
         "unit": "M€",
-        "share_pct": 16.3
+        "label_en": "North America"
       },
       {
         "label": "Amérique latine",
         "value": 161.8,
+        "share_pct": 12.8,
         "unit": "M€",
-        "share_pct": 12.8
+        "label_en": "Latin America"
       },
       {
         "label": "Pacifique",
         "value": 146.7,
+        "share_pct": 11.6,
         "unit": "M€",
-        "share_pct": 11.6
+        "label_en": "Pacific"
       },
       {
         "label": "Asie",
         "value": 117.4,
+        "share_pct": 9.3,
         "unit": "M€",
-        "share_pct": 9.3
+        "label_en": "Asia"
       },
       {
         "label": "Afrique & Moyen-Orient",
         "value": 40.6,
+        "share_pct": 3.2,
         "unit": "M€",
-        "share_pct": 3.2
+        "label_en": "Afrique & Moyen-Orient"
       }
     ],
     "total": 1260.4
@@ -856,16 +907,16 @@
     }
   ],
   "ranks": {
-    "global_world": "#281",
-    "global_us": ": ",
-    "sector": "#11 dans Healthcare",
-    "subsector": "#1 dans Animal Health"
+    "global_world": "#192",
+    "global_us": "Non US",
+    "sector": "Top 25 in Santé",
+    "subsector": "#1 in Animal Health"
   },
   "latest_filing": null,
   "next_earnings_date": null,
   "publication_date": null,
   "company_description": "Vinci SA, together with its subsidiaries, engages in concessions, energy, and construction businesses in France and internationally. It operates through Concessions, Energy Solutions, and Construction segments. The company's Concessions segment operates motorways, autoroutes, airports, highways, railways, and stadiums. Its Energy segment provides services to the manufacturing sector, infrastructure, building solutions and facilities management, and information and communication technology; and industrial and energy-related services, which includes development of renewable energy assets, as well as engineering, procurement, construction projects in the energy sector, and development of renewable energy production facilities of solar, and wind farms. The company's Construction segment engages in designing and undertaking projects, which includes general contractor; geotechnical, and structural engineering and related digital activities, as well as provision of services in nuclear engineering; undertaking building, civil engineering, roadworks, rail works, and water works; development of properties, including residential and commercial properties; and management of residences and property services. Vinci SA was founded in 1899 and is headquartered in Nanterre, France.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.296Z",
+  "_built_at": "2026-05-21T16:00:22.123Z",
   "_missing_blocks": []
 }

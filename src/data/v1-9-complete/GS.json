@@ -21,14 +21,18 @@
       "unit": "M $",
       "yoy": "+5.3%",
       "history": [
-        29079,
-        32508,
-        34234
+        322,
+        520,
+        265,
+        2655,
+        2445,
+        742
       ],
       "period_type": "year",
       "description_fr": "Revenus générés par les activités de banque d'investissement et de négoce de titres du segment GBM.",
       "description_en": "Revenues from investment banking and securities trading activities in the GBM segment.",
-      "_specific_to": "Core business line metric for Goldman's largest segment (Global Banking & Markets)"
+      "_specific_to": "Core business line metric for Goldman's largest segment (Global Banking & Markets)",
+      "is_short_history": false
     },
     {
       "short": "AWM_NIR",
@@ -100,7 +104,8 @@
       "is_generic": false,
       "is_short_history": true,
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "VaR (1 jour, 95%) values not found in the provided 10-K excerpt. The document excerpt contains MDA introduction and internal control section"
+      "_hero_history_unverified_reason": "VaR (1 jour, 95%) values not found in the provided 10-K excerpt. The document excerpt contains MDA introduction and internal control section",
+      "explanation_en": "Value at Risk : potential loss over a time horizon at a confidence level."
     },
     {
       "short": "Total Revenue",
@@ -122,7 +127,9 @@
       "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -143,7 +150,9 @@
       "signal": "Résultat net de 17.18 Mds € dernière année",
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum"
     },
     {
       "short": "Diluted EPS",
@@ -164,7 +173,9 @@
       "signal": "BPA dilué de 51.32 € dernière année",
       "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Strong growth, robust momentum"
     },
     {
       "short": "Free Cash Flow",
@@ -185,7 +196,9 @@
       "signal": "Free Cash Flow de -47.22 Mds € dernière année",
       "description": "Free Cash Flow extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Free Cash Flow : operating cash flow minus capital expenditures.",
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "Total Assets",
@@ -206,7 +219,9 @@
       "signal": "Total des actifs de 1809.32 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -227,7 +242,9 @@
       "signal": "Dette totale de 386.15 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -248,7 +265,8 @@
       "signal": "Trésorerie & équivalents de 164.26 Mds € dernière année",
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "DPS",
@@ -272,7 +290,9 @@
       "signal": "Dividende par action de 4.5 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -293,7 +313,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 5.277 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -314,7 +336,9 @@
       "signal": "Part du résultat net distribué en dividendes : 30.7% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "EaR",
@@ -368,35 +392,44 @@
     }
   ],
   "governance": {
-    "agm_date": "2026-04-29",
-    "fiscal_year": 2025,
-    "ceo_name": "David Solomon",
-    "ceo_total_comp_m": null,
-    "ceo_pay_ratio": null,
-    "exec_comp_approval_pct": null,
-    "board_independence_pct": null,
-    "board_size": 13,
-    "avg_tenure_years": null,
-    "board_women_pct": null,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
     "top_capital": [
       {
         "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": 9.68
+        "stake_pct": 8.67
       },
       {
         "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": 7.8
+        "stake_pct": 8.13
       },
       {
         "name": "State Street Corporation",
         "type": "institutionnel",
-        "stake_pct": 6.65
+        "stake_pct": 6.53
       }
     ],
-    "top_voting": []
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 8.67
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.13
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 6.53
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:32.288008+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -406,21 +439,24 @@
         "value": 20.35,
         "unit": "Mds $",
         "pct": 42.9,
-        "share_pct": 42.9
+        "share_pct": 42.9,
+        "label_en": "Global Banking Markets"
       },
       {
         "name": "Asset Wealth Management",
         "value": 15.42,
         "unit": "Mds $",
         "pct": 32.6,
-        "share_pct": 32.6
+        "share_pct": 32.6,
+        "label_en": "Asset Wealth Management"
       },
       {
         "name": "Platform Solutions",
         "value": 11.59,
         "unit": "Mds $",
         "pct": 24.5,
-        "share_pct": 24.5
+        "share_pct": 24.5,
+        "label_en": "Platform Solutions"
       }
     ],
     "total": 47.36,
@@ -434,21 +470,24 @@
         "value": 28.67,
         "unit": "Mds $",
         "pct": 60.5,
-        "share_pct": 60.5
+        "share_pct": 60.5,
+        "label_en": "Americas"
       },
       {
         "name": "EMEA",
         "value": 12.86,
         "unit": "Mds $",
         "pct": 27.1,
-        "share_pct": 27.1
+        "share_pct": 27.1,
+        "label_en": "EMEA"
       },
       {
         "name": "Asie",
         "value": 5.84,
         "unit": "Mds $",
         "pct": 12.3,
-        "share_pct": 12.3
+        "share_pct": 12.3,
+        "label_en": "Asia"
       }
     ],
     "total": 47.37,
@@ -567,16 +606,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #18",
-    "global_us": "≈ #6",
-    "sector": "≈ #4",
-    "subsector": "≈ #2"
+    "global_world": "#50",
+    "global_us": "#38",
+    "sector": "Top 10 in Finance",
+    "subsector": "#1 in Financial Services"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-14",
   "publication_date": null,
   "company_description": "The Goldman Sachs Group, Inc., a financial institution, provides a range of financial services for corporations, financial institutions, governments, and individuals in the Americas, Europe, the Middle East, Africa, and Asia. It operates through three segments: Global Banking & Markets, Asset & Wealth Management, and Platform Solutions. The Global Banking & Markets segment provides financial advisory services, including strategic advisory assignments related to mergers and acquisitions, divestitures, corporate defense activities, restructurings, and spin-offs; equity and debt underwriting of public offerings and private placements; relationship lending and acquisition financing; secured lending through structured credit and asset-backed lending, such as warehouse, residential and commercial mortgage, corporate, consumer, auto, and student loans; financing through securities purchased under agreements to resell; and commodity financing through structured transactions. This segment also offers client execution activities for cash and derivative instruments; credit and interest rate products; and provision of mortgages, currencies, commodities, and equities related products. Its Asset",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.384Z",
+  "_built_at": "2026-05-21T16:00:22.278Z",
   "_missing_blocks": []
 }

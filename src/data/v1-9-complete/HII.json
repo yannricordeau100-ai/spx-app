@@ -70,7 +70,8 @@
       "is_generic": true,
       "is_short_history": false,
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "Only one explicit annual employee count found in the filing: approximately 42,000 employees as of the 2019 10-K filing date. Insufficient da"
+      "_hero_history_unverified_reason": "Only one explicit annual employee count found in the filing: approximately 42,000 employees as of the 2019 10-K filing date. Insufficient da",
+      "explanation_en": "Total Employees : total number of employees at period end."
     },
     {
       "short": "Shipbuilding Revenue",
@@ -89,7 +90,8 @@
       "last_data_date": "Non disponible",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Revenue from the Shipbuilding segment."
     },
     {
       "short": "Gross Margin",
@@ -108,7 +110,8 @@
       "last_data_date": "Non disponible",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Gross Margin : gross profit divided by revenue."
     },
     {
       "short": "Total Revenue",
@@ -136,7 +139,9 @@
       "_source": "yfinance.income_stmt",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:52:09.642469+00:00",
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -157,7 +162,9 @@
       "signal": "Résultat net de 0.6 Mds € dernière année",
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Steady growth, healthy trend"
     },
     {
       "short": "Total Assets",
@@ -178,7 +185,9 @@
       "signal": "Total des actifs de 12.75 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -199,7 +208,9 @@
       "signal": "Dette totale de 2.92 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Cash & Equivalents",
@@ -220,7 +231,8 @@
       "signal": "Trésorerie & équivalents de 0.77 Mds € dernière année",
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "DPS",
@@ -244,7 +256,9 @@
       "signal": "Dividende par action de 1.38 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -265,7 +279,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 0.213 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -286,7 +302,9 @@
       "signal": "Part du résultat net distribué en dividendes : 35.2% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Defense Spending Authorization",
@@ -354,34 +372,67 @@
     ]
   },
   "revenue_by_segment": {
-    "label": "Répartition du chiffre d'affaires par segment opérationnel",
     "slices": [
       {
-        "name": "Ingalls",
-        "value": 2.555,
-        "unit": "Mds $",
-        "pct": 28.7,
-        "share_pct": 28.7
+        "label": "Ingalls",
+        "share_pct": 24,
+        "label_fr": "Ingalls",
+        "label_en": "Ingalls",
+        "value": 2767,
+        "unit": "M $"
       },
       {
-        "name": "Newport News",
-        "value": 5.186,
-        "unit": "Mds $",
-        "pct": 58.3,
-        "share_pct": 58.3
+        "label": "Newport News",
+        "share_pct": 51.7,
+        "label_fr": "Newport News",
+        "label_en": "Newport News",
+        "value": 5969,
+        "unit": "M $"
       },
       {
-        "name": "Technical Solutions",
-        "value": 1.309,
-        "unit": "Mds $",
-        "pct": 14.7,
-        "share_pct": 14.7
+        "label": "Mission Technologies",
+        "share_pct": 25.5,
+        "label_fr": "Technologies opérationnelles",
+        "label_en": "Mission Technologies",
+        "value": 2937,
+        "unit": "M $"
       }
     ],
-    "total": 9.05,
-    "unit": "Mds $"
+    "year": 2024,
+    "currency": "USD",
+    "total": 11573
   },
-  "revenue_by_geography": null,
+  "revenue_by_geography": {
+    "slices": [
+      {
+        "label": "Federal",
+        "share_pct": 99.9,
+        "label_fr": "Fédéral",
+        "label_en": "Federal",
+        "value": 11527,
+        "unit": "M $"
+      },
+      {
+        "label": "Commercial",
+        "share_pct": 0.1,
+        "label_fr": "Commercial",
+        "label_en": "Commercial",
+        "value": 7,
+        "unit": "M $"
+      },
+      {
+        "label": "State and local government agencies",
+        "share_pct": 0,
+        "label_fr": "Agences gouvernementales locales et étatiques",
+        "label_en": "State and local government agencies",
+        "value": 1,
+        "unit": "M $"
+      }
+    ],
+    "year": 2024,
+    "currency": "USD",
+    "total": 11535
+  },
   "risks": [
     {
       "title": "Dépendance à la commande publique",
@@ -498,18 +549,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #",
-    "global_us": "#",
-    "sector": "#",
-    "subsector": "#"
+    "global_world": "#811",
+    "global_us": "#493",
+    "sector": "#82 in Industrie",
+    "subsector": "#1 in Défense & Aéronautique"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-05-05",
   "publication_date": null,
   "company_description": "Huntington Ingalls Industries, Inc. designs, builds, overhauls, and repairs military ships in the United States. It operates through three segments: Ingalls, Newport News, and Mission Technologies. The company is involved in the design and construction of non-nuclear ships comprising amphibious assault ships, surface combatants, and national security cutters for the U.S. Navy and U.S. Coast Guard. It also provides nuclear-powered ships, such as aircraft carriers and submarines, as well as refueling and overhaul, and inactivation services of nuclear-powered aircraft carriers. In addition, the company offers naval nuclear support services, including fleet services comprising design, construction, maintenance, and disposal activities for in-service the U.S. Navy nuclear ships; and maintenance services on nuclear reactor prototypes. Further, the company provides C5ISR systems and operations; application of artificial intelligence and machine learning to battlefield decisions; defensive and offensive cyberspace strategies and electronic warfare; uncrewed autonomous systems; live, virtual, and constructive solutions; platform modernization; and critical nuclear operations. Huntington Ing",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.393Z",
-  "_missing_blocks": [
-    "revenue_by_geography"
-  ]
+  "_built_at": "2026-05-21T16:00:22.291Z",
+  "_missing_blocks": []
 }

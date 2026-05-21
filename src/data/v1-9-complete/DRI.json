@@ -192,7 +192,9 @@
       "_source": "yfinance.income_stmt",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:51:55.774207+00:00",
-      "last_data_date": "2026-02-22"
+      "last_data_date": "2026-02-22",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -214,7 +216,9 @@
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Operating Income",
@@ -236,7 +240,9 @@
       "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Operating Income : profit from core business operations.",
+      "signal_en": "Steady growth, healthy trend"
     },
     {
       "short": "Total Assets",
@@ -258,7 +264,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -280,7 +288,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -302,7 +312,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Nombre de restaurants en 2025",
@@ -329,19 +340,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2025-09-17",
-    "fiscal_year": 2025,
-    "board_size": 9,
-    "board_independence_pct": null,
-    "avg_tenure_years": null,
-    "board_women_pct": null,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "top_capital": null,
-    "top_voting": null,
-    "exec_comp_approval_pct": null,
-    "ceo_name": null,
-    "ceo_total_comp_m": null,
-    "ceo_pay_ratio": null
+    "top_capital": [
+      {
+        "name": "Capital World Investors",
+        "type": "institutionnel",
+        "stake_pct": 13.03
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.21
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.43
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "Capital World Investors",
+        "type": "institutionnel",
+        "stake_pct": 13.03
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.21
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.43
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:12:59.629358+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -351,39 +387,58 @@
         "value": 4.01,
         "unit": "Mds $",
         "pct": 51.4,
-        "share_pct": 51.4
+        "share_pct": 51.4,
+        "label_en": "Olive Garden"
       },
       {
         "name": "LongHorn Steakhouse",
         "value": 1.7,
         "unit": "Mds $",
         "pct": 21.8,
-        "share_pct": 21.8
+        "share_pct": 21.8,
+        "label_en": "LongHorn Steakhouse"
       },
       {
         "name": "Fine Dining",
         "value": 0.54,
         "unit": "Mds $",
         "pct": 6.9,
-        "share_pct": 6.9
+        "share_pct": 6.9,
+        "label_en": "Fine Dining"
       },
       {
         "name": "Other Business",
         "value": 1.55,
         "unit": "Mds $",
         "pct": 19.9,
-        "share_pct": 19.9
+        "share_pct": 19.9,
+        "label_en": "Other Business"
       }
     ],
     "total": 7.8,
     "unit": "Mds $"
   },
   "revenue_by_geography": {
+    "unit": "%",
+    "slices": [
+      {
+        "label": "États-Unis",
+        "value": 100,
+        "share_pct": 100,
+        "single_region_legitimate": true,
+        "unit": "%",
+        "label_en": "United States"
+      }
+    ],
+    "total": 100,
+    "source": "Mono-pays légitime (filings)",
+    "_tagged_by": "auto-rebascule-21mai-CONV-CONCEPTS",
+    "_tagged_at": "2026-05-21T01:26:18.186Z",
+    "_category": "restaurant-us",
     "single_region_legitimate": true,
     "_legit_reason": "US restaurants — domestic operations (Darden)",
     "_legit_marked_at": "2026-05-21T08:18:58Z",
     "_legit_marked_by": "sub-agent-#76-repartition-cerebras",
-    "slices": [],
     "label": "Répartition géographique (mono-région légitime)"
   },
   "risks": [
@@ -445,10 +500,23 @@
     }
   ],
   "ai_positioning": {
-    "stance": "absent",
-    "summary": "La société DRI ne mentionne pas l'intelligence artificielle, l'apprentissage automatique ou des technologies connexes dans son rapport 10-K.",
-    "evidence": [],
-    "source": ""
+    "stance": "cautious",
+    "summary": "Darden Restaurants adopte une approche mesurée de l'IA, en intégrant des outils d'automatisation ciblés dans sa chaîne logistique et ses prévisions de demande, sans communication offensive sur l'IA comme levier stratégique majeur.",
+    "evidence": [
+      "La société utilise des avancées technologiques pour améliorer l'optimisation de sa supply chain via Darden Direct, en collaborant avec des partenaires logistiques et fournisseurs.",
+      "L'intégration de prévisions de demande dans les opérations d'achat permet de renforcer l'efficacité opérationnelle grâce à une meilleure visibilité des données.",
+      "Aucun investissement massif ni produit IA central n'est mentionné dans les documents récents, ni par le CEO, dans les communications officielles."
+    ],
+    "source_note": "10-K FY2025, transcript Q1 2026",
+    "_bucket": "MEDIUM",
+    "_subsector": "Restaurants",
+    "_sources_used": {
+      "has_10k": true,
+      "has_transcript": false,
+      "ai_passages_chars": 1460
+    },
+    "_generated_at": "2026-05-21T02:31:19.321696+00:00",
+    "ticker": "DRI"
   },
   "market_positions": [],
   "events": [
@@ -490,18 +558,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #",
-    "global_us": "",
-    "sector": "",
-    "subsector": ""
+    "global_world": "#469",
+    "global_us": "#283",
+    "sector": "Top 50 in Consommation discrétionnaire",
+    "subsector": "#3 in Restaurants"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-03-19",
   "publication_date": null,
   "company_description": "Darden Restaurants, Inc., together with its subsidiaries, owns and operates full-service restaurants in the United States and Canada. The company operates under Olive Garden, LongHorn Steakhouse, Cheddar's Scratch Kitchen, Chuy's, Yard House, Ruth's Chris Steak House, The Capital Grille, Seasons 52, Eddie V's Prime Seafood, Bahama Breeze, The Capital Burger, Darden and Darden Restaurants brand names. Darden Restaurants, Inc. was founded in 1938 and is based in Orlando, Florida.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.307Z",
-  "_missing_blocks": [
-    "revenue_by_geography"
-  ]
+  "_built_at": "2026-05-21T16:00:22.141Z",
+  "_missing_blocks": []
 }

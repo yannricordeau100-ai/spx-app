@@ -52,7 +52,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Free Cash Flow : operating cash flow minus capital expenditures."
     },
     {
       "short": "Direct Expense Ratio",
@@ -71,7 +72,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Direct Expense ratio."
     },
     {
       "short": "Holding Company Cash",
@@ -128,7 +130,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "FCF to Adjusted Earnings ratio."
     },
     {
       "short": "Total Assets",
@@ -150,7 +153,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -172,7 +177,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Revenue",
@@ -198,7 +205,9 @@
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -223,7 +232,9 @@
       "signal": "Résultat net de 3.379 Mds $ dernière année.",
       "description": "Résultat net consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns"
     },
     {
       "Short": "Adjusted ROE",
@@ -298,49 +309,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2025-06-17",
-    "fiscal_year": 2024,
-    "ceo_name": "Michel A. Khalaf",
-    "exec_comp_approval_pct": 93,
-    "board_independence_pct": 90.9,
-    "board_size": 11,
-    "avg_tenure_years": 11,
-    "board_women_pct": 45.5,
-    "voting_structure": "One share, one vote",
     "top_capital": [
       {
-        "name": "The Vanguard Group, Inc.",
+        "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": 7.6
+        "stake_pct": 10.36
       },
       {
         "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": 6.8
+        "stake_pct": 7.99
       },
       {
-        "name": "State Street Corporation",
+        "name": "Dodge & Cox Inc.",
         "type": "institutionnel",
-        "stake_pct": 4.6
+        "stake_pct": 7.94
       }
     ],
     "top_voting": [
       {
-        "name": "The Vanguard Group, Inc.",
+        "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": 7.6
+        "stake_pct": 10.36
       },
       {
         "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": 6.8
+        "stake_pct": 7.99
       },
       {
-        "name": "State Street Corporation",
+        "name": "Dodge & Cox Inc.",
         "type": "institutionnel",
-        "stake_pct": 4.6
+        "stake_pct": 7.94
       }
-    ]
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:14:14.521469+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -350,35 +356,40 @@
         "value": 34.717,
         "unit": "Mds $",
         "pct": 70.1,
-        "share_pct": 70.1
+        "share_pct": 70.1,
+        "label_en": "United States"
       },
       {
         "name": "Asia",
         "value": 6.75,
         "unit": "Mds $",
         "pct": 13.6,
-        "share_pct": 13.6
+        "share_pct": 13.6,
+        "label_en": "Asia"
       },
       {
         "name": "Latin America",
         "value": 8.019,
         "unit": "Mds $",
         "pct": 16.2,
-        "share_pct": 16.2
+        "share_pct": 16.2,
+        "label_en": "Latin America"
       },
       {
         "name": "EMEA",
         "value": 0,
         "unit": "Mds $",
         "pct": 0,
-        "share_pct": 0
+        "share_pct": 0,
+        "label_en": "EMEA"
       },
       {
         "name": "MetLife Holdings",
         "value": 0,
         "unit": "Mds $",
         "pct": 0,
-        "share_pct": 0
+        "share_pct": 0,
+        "label_en": "MetLife Holdings"
       }
     ],
     "total": 49.49,
@@ -392,21 +403,24 @@
         "value": 34.717,
         "unit": "Mds $",
         "pct": 70.1,
-        "share_pct": 70.1
+        "share_pct": 70.1,
+        "label_en": "North America"
       },
       {
         "name": "Japon",
         "value": 6.75,
         "unit": "Mds $",
         "pct": 13.6,
-        "share_pct": 13.6
+        "share_pct": 13.6,
+        "label_en": "Japan"
       },
       {
         "name": "Autres",
         "value": 8.019,
         "unit": "Mds $",
         "pct": 16.2,
-        "share_pct": 16.2
+        "share_pct": 16.2,
+        "label_en": "Other"
       }
     ],
     "total": 49.49,
@@ -523,18 +537,16 @@
     }
   ],
   "ranks": {
-    "Global_world": "≈ #69",
-    "Global_us": "#23",
-    "Sector": "#5",
-    "Subsector": "#2",
-    "global_world": "Top 200 monde",
-    "_source": "yfinance.marketCap"
+    "global_world": "#276",
+    "global_us": "#169",
+    "sector": "Top 50 in Finance",
+    "subsector": "Top 10 in Assurance"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-05-06",
   "publication_date": null,
   "company_description": "MetLife, Inc., a financial services company, provides insurance, annuities, employee benefits, and asset management services worldwide. It operates in six segments: Group Benefits; Retirement and Income Solutions; Asia; Latin America; Europe, the Middle East and Africa; and MetLife Holdings. The company offers life, dental, group short-and long-term disability, paid family and medical leave, individual disability, accidental death and dismemberment, accident and health, vision, and pet insurance, as well as prepaid legal plans; administrative services-only arrangements to employers; and general and separate account, and synthetic guaranteed interest contracts, as well as private floating rate funding agreements. It also provides pension risk transfers, institutional income annuities, structured settlements, and capital markets investment products; and other products and services, such as life insurance products and funding agreements for funding postretirement benefits, as well as company, bank, or trust-owned life insurance used to finance nonqualified benefit programs for executives. In addition, it offers fixed, indexed-linked, and variable annuities; pension products; regular s",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.474Z",
+  "_built_at": "2026-05-21T16:00:22.448Z",
   "_missing_blocks": []
 }

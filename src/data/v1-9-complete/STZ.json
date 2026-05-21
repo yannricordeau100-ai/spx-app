@@ -155,7 +155,9 @@
       "_source": "yfinance.income_stmt",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:51:50.410797+00:00",
-      "last_data_date": "2026-02-28"
+      "last_data_date": "2026-02-28",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Significant revenue decline, warning signal"
     },
     {
       "short": "Net Income",
@@ -177,7 +179,9 @@
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum"
     },
     {
       "short": "Operating Income",
@@ -199,7 +203,9 @@
       "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Operating Income : profit from core business operations.",
+      "signal_en": "Significant decline, warning signal"
     },
     {
       "short": "Diluted EPS",
@@ -221,7 +227,9 @@
       "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Strong growth, robust momentum"
     },
     {
       "short": "Total Assets",
@@ -243,7 +251,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -265,7 +275,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Cash & Equivalents",
@@ -287,7 +299,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Trademarks Impairment",
@@ -312,17 +325,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2025-07-15",
-    "fiscal_year": 2025,
-    "board_size": 12,
-    "board_independence_pct": 75,
-    "avg_tenure_years": null,
-    "board_women_pct": null,
-    "voting_structure": "Une seule classe d'actions ordinaires avec droits de vote (Class A Stock), 1 vote par action. Class 1 Stock a des droits de vote limités.",
-    "top_capital": null,
-    "top_voting": null,
-    "ceo_name": "Mr. Nicholas Ian Fink J.D.",
-    "_source": "yfinance.companyOfficers"
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 9.63
+      },
+      {
+        "name": "Capital World Investors",
+        "type": "institutionnel",
+        "stake_pct": 7.09
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 6.46
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 9.63
+      },
+      {
+        "name": "Capital World Investors",
+        "type": "institutionnel",
+        "stake_pct": 7.09
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 6.46
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:15:15.648847+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -332,28 +372,32 @@
         "value": 7.465,
         "unit": "Mds $",
         "pct": 76.25,
-        "share_pct": 76.25
+        "share_pct": 76.25,
+        "label_en": "Beer"
       },
       {
         "name": "Wine and Spirits",
         "value": 1.9876,
         "unit": "Mds $",
         "pct": 20.27,
-        "share_pct": 20.27
+        "share_pct": 20.27,
+        "label_en": "Wine and Spirits"
       },
       {
         "name": "Canopy",
         "value": 0.3393,
         "unit": "Mds $",
         "pct": 3.47,
-        "share_pct": 3.47
+        "share_pct": 3.47,
+        "label_en": "Canopy"
       },
       {
         "name": "Corporate Operations and Other",
         "value": 0,
         "unit": "Mds $",
         "pct": 0,
-        "share_pct": 0
+        "share_pct": 0,
+        "label_en": "Corporate Operations and Other"
       }
     ],
     "total": 9.79,
@@ -368,14 +412,16 @@
         "value": 9.195,
         "unit": "Mds $",
         "pct": 97.3,
-        "share_pct": 97.3
+        "share_pct": 97.3,
+        "label_en": "United States"
       },
       {
         "name": "Non-U.S.",
         "value": 0.258,
         "unit": "Mds $",
         "pct": 2.7,
-        "share_pct": 2.7
+        "share_pct": 2.7,
+        "label_en": "Outside United States"
       }
     ],
     "total": 9.45,
@@ -492,8 +538,8 @@
     }
   ],
   "ranks": {
-    "global_world": "#428",
-    "global_us": "#258",
+    "global_world": "#436",
+    "global_us": "#264",
     "sector": "#1 in Consommation",
     "subsector": "Top 10 in Beverages"
   },
@@ -502,6 +548,6 @@
   "publication_date": null,
   "company_description": "Constellation Brands, Inc., together with its subsidiaries, produces, imports, markets, and sells beer, wine, and spirits in the United States, Canada, Mexico, New Zealand, and Italy. It offers beer under the Corona Extra, Corona Familiar, Corona Sunbrew, Corona Light, Corona Non-Alcoholic, Corona Premier, Modelo Especial, Modelo Chelada, Modelo Negra, Modelo Spiked Aguas Frescas, Modelo Oro, Modelo Noche Especial, Victoria, Vicky Chamoy, and Pacifico brand names. The company also offers wine under the Sea Smoke, Schrader Cellars, Kim Crawford, Mount Veeder, Ruffino, My Favorite Neighbor, Robert Mondavi Winery, and The Prisoner Wine Company brand names; and spirits under the Casa Noble, High West, Mi CAMPO, and Nelson's Green Brier brand names. It provides its products to wholesale distributors, retailers, and state alcohol beverage control agencies. Constellation Brands, Inc. was founded in 1945 and is headquartered in Rochester, New York.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-21T02:08:59.703Z",
+  "_built_at": "2026-05-21T16:00:22.739Z",
   "_missing_blocks": []
 }

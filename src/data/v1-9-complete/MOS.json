@@ -153,7 +153,9 @@
       "_source": "yfinance.income_stmt",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:55:26.988117+00:00",
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -174,7 +176,9 @@
       "signal": "Résultat net de 0.54 Mds € dernière année",
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum"
     },
     {
       "short": "Operating Income",
@@ -195,7 +199,9 @@
       "signal": "Résultat opérationnel de 1.08 Mds € dernière année",
       "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Operating Income : profit from core business operations.",
+      "signal_en": "Strong growth, robust momentum"
     },
     {
       "short": "Diluted EPS",
@@ -216,7 +222,9 @@
       "signal": "BPA dilué de 1.7 € dernière année",
       "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Strong growth, robust momentum"
     },
     {
       "short": "Total Assets",
@@ -237,7 +245,9 @@
       "signal": "Total des actifs de 24.48 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -258,7 +268,9 @@
       "signal": "Dette totale de 5.28 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -279,7 +291,8 @@
       "signal": "Trésorerie & équivalents de 0.28 Mds € dernière année",
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "DPS",
@@ -303,7 +316,9 @@
       "signal": "Dividende par action de 0.22 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -324,7 +339,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 0.28 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -345,40 +362,51 @@
       "signal": "Part du résultat net distribué en dividendes : 51.9% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     }
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-05-28",
-    "fiscal_year": 2025,
-    "ceo_name": "Bruce M. Bodine",
-    "ceo_total_comp_m": null,
-    "ceo_pay_ratio": null,
-    "exec_comp_approval_pct": null,
-    "board_independence_pct": 92,
-    "board_size": 12,
-    "avg_tenure_years": null,
-    "board_women_pct": 33.3,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
     "top_capital": [
       {
-        "name": "Fidelity Management & Research Company, LLC",
+        "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": 12.58
+        "stake_pct": 11.31
       },
       {
-        "name": "The Vanguard Group, Inc.",
+        "name": "FMR LLC (Fidelity)",
         "type": "institutionnel",
-        "stake_pct": 11.79
+        "stake_pct": 9.15
       },
       {
         "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": 6.69
+        "stake_pct": 7.44
       }
     ],
-    "top_voting": []
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.31
+      },
+      {
+        "name": "FMR LLC (Fidelity)",
+        "type": "institutionnel",
+        "stake_pct": 9.15
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 7.44
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:14:18.025897+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -388,28 +416,32 @@
         "value": 3.89,
         "unit": "Mds $",
         "pct": 31.5,
-        "share_pct": 31.5
+        "share_pct": 31.5,
+        "label_en": "Phosphates"
       },
       {
         "name": "Potash",
         "value": 2.59,
         "unit": "Mds $",
         "pct": 20.9,
-        "share_pct": 20.9
+        "share_pct": 20.9,
+        "label_en": "Potash"
       },
       {
         "name": "Mosaic Fertilizantes",
         "value": 5.09,
         "unit": "Mds $",
         "pct": 41.2,
-        "share_pct": 41.2
+        "share_pct": 41.2,
+        "label_en": "Mosaic Fertilizantes"
       },
       {
         "name": "Corporate, Eliminations and Other",
         "value": 0.79,
         "unit": "Mds $",
         "pct": 6.4,
-        "share_pct": 6.4
+        "share_pct": 6.4,
+        "label_en": "Corporate, Eliminations and Other"
       }
     ],
     "total": 12.36,
@@ -423,14 +455,16 @@
         "value": 3.93,
         "unit": "Mds $",
         "pct": 31.8,
-        "share_pct": 31.8
+        "share_pct": 31.8,
+        "label_en": "United States"
       },
       {
         "name": "International",
         "value": 8.43,
         "unit": "Mds $",
         "pct": 68.2,
-        "share_pct": 68.2
+        "share_pct": 68.2,
+        "label_en": "International"
       }
     ],
     "total": 12.36,
@@ -556,16 +590,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #XX",
-    "global_us": "...",
-    "sector": "...",
-    "subsector": "..."
+    "global_world": "#1064",
+    "global_us": "#666",
+    "sector": "Top 50 in Matériaux",
+    "subsector": "#1 in Chimie"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-05-11",
   "publication_date": null,
   "company_description": "The Mosaic Company, through its subsidiaries, produces and markets concentrated phosphate and potash crop nutrients. It operates in three segments: Phosphates, Potash, and Mosaic Fertilizantes. The company owns and operates mines and production facilities, which produce concentrated phosphate crop nutrients and phosphate-based animal feed ingredients, as well as concentrated phosphate crop nutrients, such as diammonium phosphate, monoammonium phosphate, and MicroEssentials, a value-added ammoniated phosphate product. It also mines, processes, and sells potash to crop nutrient manufacturers, distributors, retailers, and to customers for industrial use; and owns and operates mines, chemical plants, crop nutrient blending and bagging facilities, port terminals and warehouses, which produce and sell concentrated phosphate and potash-based crop nutrients, and phosphate-based animal feed ingredients. In addition, the company produces a double sulfate of potash magnesia product under the K-Mag brand; and purchases phosphate, potash, and nitrogen products to produce blended crop nutrients. Further, it offers triple superphosphate, single superphosphate, and dicalcium phosphate; feed phosph",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.482Z",
+  "_built_at": "2026-05-21T16:00:22.459Z",
   "_missing_blocks": []
 }

@@ -141,7 +141,8 @@
       "ttm": 135,
       "period_type": "quarter",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "Restructuring charges not found as explicit annual line items in the provided 10-K extract. Only qualitative references to 'multi-year inves"
+      "_hero_history_unverified_reason": "Restructuring charges not found as explicit annual line items in the provided 10-K extract. Only qualitative references to 'multi-year inves",
+      "signal_en": "Significant decline, warning signal"
     },
     {
       "short": "Total Revenue",
@@ -171,7 +172,9 @@
       "_source": "yfinance.income_stmt",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:52:16.326412+00:00",
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Significant revenue decline, warning signal"
     },
     {
       "short": "Net Income",
@@ -193,7 +196,9 @@
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum"
     },
     {
       "short": "Diluted EPS",
@@ -215,7 +220,9 @@
       "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Strong growth, robust momentum"
     },
     {
       "short": "Free Cash Flow",
@@ -237,7 +244,9 @@
       "description": "Free Cash Flow extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Free Cash Flow : operating cash flow minus capital expenditures.",
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "Total Assets",
@@ -259,7 +268,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -281,7 +292,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -303,7 +316,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Prismic Re",
@@ -330,19 +344,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-05-12",
-    "fiscal_year": 2025,
-    "ceo_name": "Joseph J. Wolk",
-    "ceo_total_comp_m": null,
-    "ceo_pay_ratio": null,
-    "exec_comp_approval_pct": 91.31,
-    "board_independence_pct": 91,
-    "board_size": 11,
-    "avg_tenure_years": 8,
-    "board_women_pct": 36.4,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "top_capital": [],
-    "top_voting": []
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.2
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 9.64
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.89
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.2
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 9.64
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.89
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:14:51.531801+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -352,49 +391,56 @@
         "value": 12.5,
         "unit": "Mds $",
         "pct": 25,
-        "share_pct": 25
+        "share_pct": 25,
+        "label_en": "PGIM"
       },
       {
         "name": "Retirement",
         "value": 10.2,
         "unit": "Mds $",
         "pct": 20.4,
-        "share_pct": 20.4
+        "share_pct": 20.4,
+        "label_en": "Retirement"
       },
       {
         "name": "Group Insurance",
         "value": 8.7,
         "unit": "Mds $",
         "pct": 17.4,
-        "share_pct": 17.4
+        "share_pct": 17.4,
+        "label_en": "Group Insurance"
       },
       {
         "name": "Individual Annuities",
         "value": 7.3,
         "unit": "Mds $",
         "pct": 14.6,
-        "share_pct": 14.6
+        "share_pct": 14.6,
+        "label_en": "Individual Annuities"
       },
       {
         "name": "Individual Life",
         "value": 6.1,
         "unit": "Mds $",
         "pct": 12.2,
-        "share_pct": 12.2
+        "share_pct": 12.2,
+        "label_en": "Individual Life"
       },
       {
         "name": "Assurance IQ",
         "value": 3.2,
         "unit": "Mds $",
         "pct": 6.4,
-        "share_pct": 6.4
+        "share_pct": 6.4,
+        "label_en": "Assurance IQ"
       },
       {
         "name": "International Businesses",
         "value": 2,
         "unit": "Mds $",
         "pct": 4,
-        "share_pct": 4
+        "share_pct": 4,
+        "label_en": "International Businesses"
       }
     ],
     "total": 50,
@@ -404,21 +450,28 @@
     "slices": [
       {
         "label": "États-Unis",
-        "value": 48568,
-        "share_pct": 68.98
+        "value": 48.57,
+        "share_pct": 68.98,
+        "unit": "Mds $",
+        "label_en": "United States"
       },
       {
         "label": "Japon",
-        "value": 13760,
-        "share_pct": 19.54
+        "value": 13.76,
+        "share_pct": 19.54,
+        "unit": "Mds $",
+        "label_en": "Japan"
       },
       {
         "label": "Autres pays",
-        "value": 8077,
-        "share_pct": 11.47
+        "value": 8.08,
+        "share_pct": 11.47,
+        "unit": "Mds $",
+        "label_en": "Other countries"
       }
     ],
-    "total": 70405
+    "unit": "Mds $",
+    "total": 70.41
   },
   "risks": [
     {
@@ -521,16 +574,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #246",
-    "global_us": "≈ #53",
-    "sector": "≈ #14",
-    "subsector": "≈ #5"
+    "global_world": "#355",
+    "global_us": "#216",
+    "sector": "Top 50 in Finance",
+    "subsector": "Top 10 in Assurance"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-05-05",
   "publication_date": null,
   "company_description": "Prudential Financial, Inc., together with its subsidiaries, provides financial products and services in the United States, Japan and internationally. It operates through PGIM, Retirement Strategies, Group Insurance, Individual Life, and International Businesses segments. The PGIM segment offers investment management services and solutions related to public fixed income, public equity, real estate debt and equity, private credit and other alternatives, and multi-asset class strategies to institutional and retail clients, as well as its insurance and retirement businesses. The Retirement Strategies segment provides a range of retirement investment, and income products and services to retirement plan sponsors in the public, private, and not-for-profit sectors; group annuities and other products; international reinsurance; investment only products; and FlexGuard suite, Fixed annuities, and variable annuities, as well as develops and distributes individual variable and fixed annuity products. The Group Insurance segment offers various group life, and long-term and short-term group disability, as well as group corporate-, bank-, and trust-owned life insurance; and supplemental health sol",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.559Z",
+  "_built_at": "2026-05-21T16:00:22.595Z",
   "_missing_blocks": []
 }

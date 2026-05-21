@@ -40,7 +40,8 @@
       "ttm": 1087.5,
       "_validation": [
         "Verified value 1231 from 10-K: 'As of December 31, 2025, we have an installed base of 1,231 da Vinci 5 surgical systems'"
-      ]
+      ],
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Gross Margin",
@@ -63,7 +64,8 @@
       "_validation": [
         "HALLUCINATED KPI: No explicit gross margin percentage or data found in provided 10-K extracts (Business, Risk Factors, MD&A, Financials sections). Removed fabricated value 72.0 and history array.",
         "Requires verification in complete Consolidated Financial Statements (Income Statement) section of full 10-K"
-      ]
+      ],
+      "explanation_en": "Gross Margin : gross profit divided by revenue."
     },
     {
       "short": "R&D Intensity",
@@ -133,7 +135,8 @@
       "_validation": [
         "HALLUCINATED KPI: No explicit employee count found in provided 10-K extracts (Business, Risk Factors, MD&A, Financials sections shown). Removed fabricated value 15000 and history array.",
         "Requires verification in Business section or footnotes of full 10-K"
-      ]
+      ],
+      "explanation_en": "Total Employees : total number of employees at period end."
     },
     {
       "short": "Total Assets",
@@ -154,7 +157,9 @@
       "signal": "Total des actifs de 20.46 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -175,7 +180,8 @@
       "signal": "Trésorerie & équivalents de 3.37 Mds € dernière année",
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Stockholders Equity",
@@ -196,7 +202,8 @@
       "signal": "Capitaux propres de 17.82 Mds € dernière année",
       "description": "Capitaux propres extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Revenue",
@@ -221,7 +228,9 @@
       "signal": "Chiffre d'affaires de 10.065 Mds $ dernière année.",
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -246,7 +255,9 @@
       "signal": "Résultat net de 2.856 Mds $ dernière année.",
       "description": "Résultat net consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "da Vinci 5 Launch",
@@ -312,8 +323,33 @@
     "ceo_name": "Mr. David J. Rosa",
     "_source": "yfinance.companyOfficers"
   },
-  "revenue_by_segment": null,
-  "revenue_by_geography": null,
+  "revenue_by_segment": {
+    "single_segment": true,
+    "_reason": "the Company manages the business activities on a consolidated basis and operates in one reportable segment"
+  },
+  "revenue_by_geography": {
+    "slices": [
+      {
+        "label": "United States",
+        "share_pct": 67,
+        "label_fr": "États-Unis",
+        "label_en": "United States",
+        "value": 18.09,
+        "unit": "Mds $"
+      },
+      {
+        "label": "OUS markets",
+        "share_pct": 33,
+        "label_fr": "marchés hors États-Unis",
+        "label_en": "OUS markets",
+        "value": 8.91,
+        "unit": "Mds $"
+      }
+    ],
+    "year": 2024,
+    "currency": "USD",
+    "total": 27
+  },
   "risks": [
     {
       "title": "Concurrence intense et obsolescence technologique",
@@ -397,38 +433,71 @@
   "market_positions": [],
   "events": [
     {
-      "year": 2026,
-      "month": 5,
-      "title": "Intuitive Surgical (ISRG) Is Among The Best Agentic AI Stocks To Buy Right Now",
-      "body": "With an upside potential of 35.5%, Intuitive Surgical, Inc. (NASDAQ:ISRG) remains a bullish pick among analysts. The stock, therefore, earns its place on our list of the best agentic AI stocks to buy right now. On April 21, 2026, Intuitive ",
-      "source": "Insider Monkey",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/intuitive-surgical-isrg-among-best-165911714.html",
-      "date": "2026-05-14"
+      "year": 2027,
+      "month": 3,
+      "title": "Assemblee generale (estimation)",
+      "body": "Estimation basee sur fin d'exercice precedente : AG attendue vers mars 2027.",
+      "source": "yfinance.info.lastFiscalYearEnd",
+      "url": "",
+      "date": "2027-03-15"
     },
     {
       "year": 2026,
-      "month": 5,
-      "title": "What Intuitive Surgical (ISRG)'s FDA Class I Recall and Institutional Selling Mean For Shareholders",
-      "body": "In recent months, Intuitive Surgical has faced FDA Class I recalls on certain da Vinci stapler components and visible institutional selling, reflecting elevated concern around product safety and regulatory scrutiny despite earlier strong qu",
-      "source": "Simply Wall St.",
-      "url": "https://finance.yahoo.com/news/intuitive-surgical-isrg-fda-class-002830143.html",
-      "date": "2026-05-13"
+      "month": 7,
+      "title": "Prochaine publication Q3 2026",
+      "body": "Publication attendue le 21 juillet 2026. Consensus EPS : 2.50.",
+      "source": "yfinance.calendar",
+      "url": "",
+      "date": "2026-07-21"
+    },
+    {
+      "year": 2026,
+      "month": 4,
+      "title": "Resultats Q2 2026 publies",
+      "body": "EPS 2.28 vs consensus 1.93 (beat +18.0 %) Annonce le 21 avril 2026.",
+      "source": "yfinance.earnings_dates",
+      "url": "",
+      "date": "2026-04-21"
+    },
+    {
+      "year": 2026,
+      "month": 1,
+      "title": "Resultats Q1 2026 publies",
+      "body": "EPS 2.21 vs consensus 1.95 (beat +13.3 %) Annonce le 22 janvier 2026.",
+      "source": "yfinance.earnings_dates",
+      "url": "",
+      "date": "2026-01-22"
+    },
+    {
+      "year": 2025,
+      "month": 10,
+      "title": "Resultats Q4 2025 publies",
+      "body": "EPS 1.95 vs consensus 1.70 (beat +14.7 %) Annonce le 21 octobre 2025.",
+      "source": "yfinance.earnings_dates",
+      "url": "",
+      "date": "2025-10-21"
+    },
+    {
+      "year": 2025,
+      "month": 7,
+      "title": "Resultats Q3 2025 publies",
+      "body": "EPS 1.81 vs consensus 1.61 (beat +12.4 %) Annonce le 22 juillet 2025.",
+      "source": "yfinance.earnings_dates",
+      "url": "",
+      "date": "2025-07-22"
     }
   ],
   "ranks": {
-    "global_world": "≈ #1",
-    "global_us": "≈ #1",
-    "sector": "≈ #1",
-    "subsector": "≈ #1"
+    "global_world": "#86",
+    "global_us": "#50",
+    "sector": "Top 50 in Technologie",
+    "subsector": "#1 in Medical Instruments & Supplies"
   },
   "latest_filing": null,
   "next_earnings_date": null,
   "publication_date": null,
   "company_description": "Intuitive Surgical, Inc. develops, manufactures, and markets products that enable physicians and healthcare providers to enhance the quality of and access to minimally invasive care in the United States and internationally. It offers the da Vinci Surgical System that enables surgical procedures using a minimally invasive approach; and Ion endoluminal system, which extends its commercial offerings beyond surgery into diagnostic endoluminal procedures enabling minimally invasive biopsies in the lung. The company also provides a suite of stapling, energy, and core instrumentation for its multi-port da Vinci surgical systems; progressive learning pathways to support the use of its technology; infrastructure of customer service and support specialists, a complement of services to its customers, including installation, repair, maintenance, 24/7 technical support, and proactive system health monitoring; and integrated digital capabilities providing connected offerings, streamlining performance for hospitals with program-enhancing insights. It sells its products through direct sales organizations, such as capital and clinical sales teams. Intuitive Surgical, Inc. was incorporated in 1995 a",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.423Z",
-  "_missing_blocks": [
-    "revenue_by_segment",
-    "revenue_by_geography"
-  ]
+  "_built_at": "2026-05-21T16:00:22.350Z",
+  "_missing_blocks": []
 }

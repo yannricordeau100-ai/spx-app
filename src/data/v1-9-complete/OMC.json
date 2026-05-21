@@ -218,7 +218,9 @@
       "signal": "Total des actifs de 54.42 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -239,7 +241,9 @@
       "signal": "Dette totale de 10.73 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "DPS",
@@ -263,7 +267,9 @@
       "signal": "Dividende par action de 0.8 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -284,7 +290,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 0.55 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "Payout Ratio",
@@ -304,7 +312,9 @@
       "signal": "Part du résultat net distribué en dividendes : 37.3% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 3 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Total Revenue",
@@ -330,7 +340,9 @@
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -355,7 +367,9 @@
       "signal": "Résultat net de -0.054 Mds $ dernière année.",
       "description": "Résultat net consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns"
     },
     {
       "Short": "IPG_Merger_Completion",
@@ -402,19 +416,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-05-05",
-    "fiscal_year": 2026,
-    "ceo_name": "John D. Wren",
-    "ceo_total_comp_m": null,
-    "ceo_pay_ratio": null,
-    "exec_comp_approval_pct": 100,
-    "board_independence_pct": 85.7,
-    "board_size": 14,
-    "avg_tenure_years": 10.5,
-    "board_women_pct": 50,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "top_capital": [],
-    "top_voting": []
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 12.33
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 10.35
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 9.74
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 12.33
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 10.35
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 9.74
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:14:39.663260+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -424,49 +463,56 @@
         "value": 10.016,
         "unit": "Mds $",
         "pct": 58,
-        "share_pct": 58
+        "share_pct": 58,
+        "label_en": "Media & Advertising"
       },
       {
         "name": "Precision Marketing",
         "value": 1.939,
         "unit": "Mds $",
         "pct": 11.2,
-        "share_pct": 11.2
+        "share_pct": 11.2,
+        "label_en": "Precision Marketing"
       },
       {
         "name": "Public Relations",
         "value": 1.614,
         "unit": "Mds $",
         "pct": 9.3,
-        "share_pct": 9.3
+        "share_pct": 9.3,
+        "label_en": "Public Relations"
       },
       {
         "name": "Healthcare",
         "value": 1.38,
         "unit": "Mds $",
         "pct": 8,
-        "share_pct": 8
+        "share_pct": 8,
+        "label_en": "Healthcare"
       },
       {
         "name": "Branding & Retail Commerce",
         "value": 0.618,
         "unit": "Mds $",
         "pct": 3.6,
-        "share_pct": 3.6
+        "share_pct": 3.6,
+        "label_en": "Branding & Retail Commerce"
       },
       {
         "name": "Experiential",
         "value": 0.863,
         "unit": "Mds $",
         "pct": 5,
-        "share_pct": 5
+        "share_pct": 5,
+        "label_en": "Experiential"
       },
       {
         "name": "Execution & Support",
         "value": 0.844,
         "unit": "Mds $",
         "pct": 4.9,
-        "share_pct": 4.9
+        "share_pct": 4.9,
+        "label_en": "Execution & Support"
       }
     ],
     "total": 17.27,
@@ -480,21 +526,24 @@
         "value": 8.88,
         "unit": "Mds $",
         "pct": 59.42,
-        "share_pct": 59.42
+        "share_pct": 59.42,
+        "label_en": "Americas"
       },
       {
         "name": "EMEA",
         "value": 4.42,
         "unit": "Mds $",
         "pct": 29.57,
-        "share_pct": 29.57
+        "share_pct": 29.57,
+        "label_en": "EMEA"
       },
       {
         "name": "Asia-Pacific",
         "value": 1.65,
         "unit": "Mds $",
         "pct": 11.01,
-        "share_pct": 11.01
+        "share_pct": 11.01,
+        "label_en": "Asia-Pacific"
       }
     ],
     "total": 14.95,
@@ -583,6 +632,42 @@
   "events": [
     {
       "year": 2026,
+      "month": 7,
+      "title": "Prochaine publication Q3 2026",
+      "body": "Publication attendue le 21 juillet 2026 (Q3 2026).",
+      "source": "yfinance · calendar",
+      "url": "",
+      "date": "2026-07-21"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "Omnicom Stock Outlook: Is Wall Street Bullish or Bearish?",
+      "body": "While Omnicom has considerably underperformed the broader market over the past 52 weeks, Wall Street analysts maintain a moderately optimistic outlook about the stock’s prospects.",
+      "source": "Barchart",
+      "url": "https://www.barchart.com/story/news/2011758/omnicom-stock-outlook-is-wall-street-bullish-or-bearish",
+      "date": "2026-05-19"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "Omnicom Reshapes PR Leadership As Data And Commerce Strategy Evolves",
+      "body": "Omnicom Group (NYSE:OMC) is reshaping its public relations and marketing businesses with a series of leadership changes and alliances. Weber Shandwick CEO Susan Howe is retiring, with Karen Pugliese set to take over leadership. Ketchum has ",
+      "source": "Simply Wall St.",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/omnicom-reshapes-pr-leadership-data-051340227.html",
+      "date": "2026-05-17"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "Zacks Industry Outlook Highlights  Publicis Groupe, Omnicom and Quad/Graphics",
+      "body": "Publicis Groupe, Omnicom and Quad/Graphics have been highlighted in this Industry Outlook article.",
+      "source": "Zacks",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/zacks-industry-outlook-highlights-publicis-110800720.html",
+      "date": "2026-05-14"
+    },
+    {
+      "year": 2026,
       "month": 5,
       "title": "Omnicom Group's (NYSE:OMC) Soft Earnings Are Actually Better Than They Appear",
       "body": "Soft earnings didn't appear to concern Omnicom Group Inc.'s ( NYSE:OMC ) shareholders over the last week. We did some...",
@@ -593,35 +678,42 @@
     {
       "year": 2026,
       "month": 5,
-      "title": "Deciphering Omnicom (OMC) International Revenue Trends",
-      "body": "Evaluate Omnicom's (OMC) reliance on international revenue to better understand the company's financial stability, growth prospects and potential stock price performance.",
-      "source": "Zacks",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/deciphering-omnicom-omc-international-revenue-131503707.html",
-      "date": "2026-05-04"
+      "title": "How The Omnicom Group (OMC) Investment Story Is Shifting As Analyst Targets Diverge",
+      "body": "Omnicom Group is back in focus as price targets shift, with moves spanning from cuts of around US$10 to fresh targets clustered roughly between US$82 and US$115. These changes reflect a genuine split in analyst opinion, with some highlighti",
+      "source": "Simply Wall St.",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/omnicom-group-omc-investment-story-100938282.html",
+      "date": "2026-05-06"
     },
     {
       "year": 2026,
-      "month": 5,
-      "title": "Omnicom Group Inc. Just Recorded A 5.6% Revenue Beat: Here's What Analysts Think",
-      "body": "Omnicom Group Inc. ( NYSE:OMC ) last week reported its latest first-quarter results, which makes it a good time for...",
-      "source": "Simply Wall St.",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/omnicom-group-inc-just-recorded-123730222.html",
-      "date": "2026-05-02"
+      "month": 3,
+      "title": "Publication des résultats Q1 2026",
+      "body": "Clôture du trimestre Q1 2026 le 31 mars 2026.",
+      "source": "yfinance · mostRecentQuarter",
+      "url": "",
+      "date": "2026-03-31"
+    },
+    {
+      "year": 2026,
+      "month": 3,
+      "title": "Dividende 0.8 $/action versé",
+      "body": "Dividende ordinaire de 0.8 $ par action, ex-date 11 mars 2026.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2026-03-11"
     }
   ],
   "ranks": {
-    "Global_world": "≈ #XX",
-    "Global_us": "...",
-    "Sector": "...",
-    "Subsector": "...",
-    "global_world": "Top 500 monde",
-    "_source": "yfinance.marketCap"
+    "global_world": "#643",
+    "global_us": "#386",
+    "sector": "#1 in Advertising, Marketing & Communications",
+    "subsector": "#1 in Advertising and Marketing Services"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-21",
   "publication_date": null,
   "company_description": "Omnicom Group Inc., together with its subsidiaries, offers advertising, marketing, and corporate communications services. It provides a range of services in the areas of media and advertising, precision marketing, public relations, healthcare, branding and retail commerce, experiential, execution, and support. The company's services include advertising, branding, content marketing, crisis communications, customer data analytics and data-driven decision making, customer relationship management, decision sciences, digital experience design, digital transformation, e-commerce optimization, entertainment marketing, experiential marketing, field marketing, healthcare marketing and communications, in-store design, investor relations, and marketing research.Its services also comprise media planning and buying, merchandising and point of sale, mobile marketing, multi-cultural marketing, organizational communications, package design, performance marketing, product placement, promotional marketing, public affairs, public relations, retail media and e-commerce, shopper marketing, structured innovation, studio production, social media and influencer marketing, and sports and event marketing. I",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-21T02:08:59.556Z",
+  "_built_at": "2026-05-21T16:00:22.545Z",
   "_missing_blocks": []
 }

@@ -134,6 +134,8 @@
       "period_type": "quarter",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:52:21.754686+00:00",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Profitability improving, returns strengthening",
       "is_short_history_legitimate": true,
       "short_history_legitimate_reason": "Biotech/pharma R&D long cycle (KPIs Phase 3 trials, FDA approvals récents, exercice court structurel) (subsector: Pharmaceuticals & Medical Distribution)",
       "_short_history_legitimate_rule": "biotech_pharma_recent",
@@ -156,7 +158,9 @@
       "last_data_date": "2025-03-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Year-over-year growth in Revenue.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Gross Profit Growth",
@@ -175,7 +179,9 @@
       "last_data_date": "2025-03-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Year-over-year growth in Gross Profit.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Total Revenue",
@@ -196,7 +202,9 @@
       "signal": "Chiffre d'affaires de 359.05 Mds € dernière année",
       "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -217,7 +225,9 @@
       "signal": "Résultat net de 3.29 Mds € dernière année",
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Steady growth, healthy trend"
     },
     {
       "short": "Total Assets",
@@ -238,7 +248,9 @@
       "signal": "Total des actifs de 75.14 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -259,7 +271,9 @@
       "signal": "Dette totale de 7.39 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable"
     },
     {
       "short": "Cash & Equivalents",
@@ -280,7 +294,8 @@
       "signal": "Trésorerie & équivalents de 5.69 Mds € dernière année",
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "DPS",
@@ -304,7 +319,9 @@
       "signal": "Dividende par action de 0.82 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -325,7 +342,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 0.345 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -346,7 +365,9 @@
       "signal": "Part du résultat net distribué en dividendes : 10.5% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend stable, payout consistent"
     },
     {
       "short": "Canadian Retail Disposal",
@@ -431,20 +452,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2025-07-30",
-    "fiscal_year": 2025,
-    "board_independence_pct": null,
-    "board_size": 12,
-    "avg_tenure_years": null,
-    "board_women_pct": null,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "top_capital": null,
-    "top_voting": null,
-    "exec_comp_approval_pct": null,
-    "ceo_name": "Mr. Brian S. Tyler Ph.D.",
-    "ceo_total_comp_m": null,
-    "ceo_pay_ratio": null,
-    "_source": "yfinance.companyOfficers"
+    "top_capital": [
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 9.5
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 9.02
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.77
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 9.5
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 9.02
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.77
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:14:12.476722+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -454,28 +499,32 @@
         "value": 206.3,
         "unit": "Mds $",
         "pct": 86.6,
-        "share_pct": 86.6
+        "share_pct": 86.6,
+        "label_en": "U.S. Pharmaceutical"
       },
       {
         "name": "Medical-Surgical Solutions",
         "value": 17.7,
         "unit": "Mds $",
         "pct": 7.4,
-        "share_pct": 7.4
+        "share_pct": 7.4,
+        "label_en": "Medical-Surgical Solutions"
       },
       {
         "name": "International",
         "value": 12.5,
         "unit": "Mds $",
         "pct": 5.2,
-        "share_pct": 5.2
+        "share_pct": 5.2,
+        "label_en": "International"
       },
       {
         "name": "Prescription Technology Solutions",
         "value": 1.7,
         "unit": "Mds $",
         "pct": 0.7,
-        "share_pct": 0.7
+        "share_pct": 0.7,
+        "label_en": "Prescription Technology Solutions"
       }
     ],
     "total": 238.2,
@@ -489,14 +538,16 @@
         "value": 225.7,
         "unit": "Mds $",
         "pct": 94.7,
-        "share_pct": 94.7
+        "share_pct": 94.7,
+        "label_en": "North America"
       },
       {
         "name": "Europe",
         "value": 12.5,
         "unit": "Mds $",
         "pct": 5.2,
-        "share_pct": 5.2
+        "share_pct": 5.2,
+        "label_en": "Europe"
       }
     ],
     "total": 238.2,
@@ -622,16 +673,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #XX",
-    "global_us": "...",
-    "sector": "...",
-    "subsector": "..."
+    "global_world": "#213",
+    "global_us": "#120",
+    "sector": "Top 25 in Santé",
+    "subsector": "#1 in Pharmaceuticals & Medical Distribution"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-08-05",
   "publication_date": null,
   "company_description": "McKesson Corporation provides healthcare services in the United States and internationally. It operates through four segments: North American Pharmaceutical, Oncology & Multispecialty, Prescription Technology Solutions, and Medical-Surgical Solutions. The company distributes branded, generic, specialty, biosimilar and over-the-counter pharmaceutical drugs, and other healthcare-related products; delivers products to retail pharmacies, hospitals, long-term care centers, clinics, and institutions; and provides logistics and distribution services for manufacturers. It also provides consulting, outsourcing, technological, and other services, as well as sells financial, operational, and clinical solutions to pharmacies; gene therapy with InspiroGene, practice consulting, and vaccine distribution services; and technology solutions, as well as research, insights, technologies, and services to improve cancer and specialty care. In addition, the company helps in solving medication access, affordability, and adherence challenges for patients by working across healthcare to connect patients, pharmacies, providers, pharmacy benefit managers, health plans, and biopharma companies. Further, it of",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.471Z",
+  "_built_at": "2026-05-21T16:00:22.441Z",
   "_missing_blocks": []
 }

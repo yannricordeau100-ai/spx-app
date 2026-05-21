@@ -156,7 +156,9 @@
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:55:18.599180+00:00",
       "is_short_history": true,
-      "last_data_date": "2026-03-28"
+      "last_data_date": "2026-03-28",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -178,7 +180,9 @@
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal"
     },
     {
       "short": "Operating Income",
@@ -200,7 +204,9 @@
       "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Operating Income : profit from core business operations.",
+      "signal_en": "Pressure, deteriorating trend"
     },
     {
       "short": "Diluted EPS",
@@ -222,7 +228,9 @@
       "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Significant decline, warning signal"
     },
     {
       "short": "Total Assets",
@@ -244,7 +252,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Total Debt",
@@ -266,7 +276,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Cash & Equivalents",
@@ -288,7 +300,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "Short": "CDMO et Cell Solutions Divestiture",
@@ -315,14 +328,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-05-05",
-    "fiscal_year": 2026,
-    "ceo_name": "James C. Foster",
-    "exec_comp_approval_pct": 96,
-    "board_size": 12,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "board_independence_pct": 91.7,
-    "board_women_pct": 25
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.41
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.01
+      },
+      {
+        "name": "FMR LLC (Fidelity)",
+        "type": "institutionnel",
+        "stake_pct": 7.18
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.41
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.01
+      },
+      {
+        "name": "FMR LLC (Fidelity)",
+        "type": "institutionnel",
+        "stake_pct": 7.18
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:12:42.308285+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -332,21 +375,24 @@
         "value": 1.25,
         "unit": "Mds $",
         "pct": 35,
-        "share_pct": 35
+        "share_pct": 35,
+        "label_en": "Research Models and Services (RMS)"
       },
       {
         "name": "Discovery and Safety Assessment (DSA)",
         "value": 1.85,
         "unit": "Mds $",
         "pct": 52,
-        "share_pct": 52
+        "share_pct": 52,
+        "label_en": "Discovery and Safety Assessment (DSA)"
       },
       {
         "name": "Manufacturing Solutions",
         "value": 0.45,
         "unit": "Mds $",
         "pct": 13,
-        "share_pct": 13
+        "share_pct": 13,
+        "label_en": "Manufacturing Solutions"
       }
     ],
     "total": 3.55,
@@ -360,21 +406,24 @@
         "value": 1.45,
         "unit": "Mds $",
         "pct": 58,
-        "share_pct": 58
+        "share_pct": 58,
+        "label_en": "North America"
       },
       {
         "name": "Europe",
         "value": 0.75,
         "unit": "Mds $",
         "pct": 30,
-        "share_pct": 30
+        "share_pct": 30,
+        "label_en": "Europe"
       },
       {
         "name": "Reste du monde",
         "value": 0.3,
         "unit": "Mds $",
         "pct": 12,
-        "share_pct": 12
+        "share_pct": 12,
+        "label_en": "Rest of World"
       }
     ],
     "total": 2.5,
@@ -428,10 +477,24 @@
     }
   ],
   "ai_positioning": {
-    "stance": "absent",
-    "summary": "Charles River Laboratories ne mentionne pas l'intelligence artificielle ou l'apprentissage automatique comme éléments stratégiques ou opérationnels dans son rapport 10-K pour l'exercice 2025.",
-    "evidence": [],
-    "source": "crl-20251227"
+    "stance": "integrator",
+    "summary": "CRL intègre l'IA comme levier d'accélération dans ses services de découverte préclinique, sans en faire un produit phare. L'accent reste sur l'externalisation de R&D avec un soutien technologique ciblé.",
+    "evidence": [
+      "CRL utilise le machine learning et l'IA pour optimiser l'identification de hits et la progression vers des candidats moléculaires, intégrant ces outils dans ses plateformes de discovery services.",
+      "La société combine l'IA avec la biologie structurale et le cell painting pour améliorer l'efficacité de la conception assistée par ordinateur de médicaments (CADD).",
+      "L'automatisation et les techniques d'IA sont déployées dans les études de toxicité précoce in vitro et les évaluations pharmacocinétiques, renforçant la qualité des données pour les approbations réglementaires.",
+      "CRL n'a pas détaillé d'investissements spécifiques en IA ni de R&D dédiée dans son 10-K FY2025, ni mentionné de revenus liés à des offres IA."
+    ],
+    "source_note": "10-K FY2025, extrait du document annuel déposé auprès de la SEC",
+    "_bucket": "MEDIUM",
+    "_subsector": "Drug Development Services",
+    "_sources_used": {
+      "has_10k": true,
+      "has_transcript": false,
+      "ai_passages_chars": 1489
+    },
+    "_generated_at": "2026-05-21T02:38:46.400274+00:00",
+    "ticker": "CRL"
   },
   "market_positions": [],
   "events": [
@@ -473,18 +536,16 @@
     }
   ],
   "ranks": {
-    "Global_world": "≈ #XX",
-    "Global_us": "...",
-    "Sector": "...",
-    "Subsector": "...",
-    "global_world": "≈ #260",
-    "_source": "yfinance.marketCap"
+    "global_world": "#855",
+    "global_us": "#539",
+    "sector": "#1 in Life Sciences",
+    "subsector": "#1 in Drug Development Services"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-05-07",
   "publication_date": null,
   "company_description": "Charles River Laboratories International, Inc. provides drug discovery, non-clinical development, and safety testing services in the United States, Europe, Canada, the Asia Pacific, and internationally. The Research Models and Services segment produces and sells rodents, and purpose-bred rats and mice for use by researchers. This segment also provides a range of services to assist its clients in supporting the use of research models in research and screening pre-clinical drug candidates, including genetically engineered models and services, insourcing solutions, and research animal diagnostic services; and engages in development and production of cell therapies. The Discovery and Safety Assessment segment offers in vitro and in vivo discovery services for the discovery, development, and safety testing of novel drugs, molecule compounds, oligonucleotides, and biotherapeutics, and antibodies through delivery of preclinical drug and therapeutic candidates ready for safety assessment; safety assessment services, such as toxicology, pathology, safety pharmacology, bioanalysis, drug metabolism, and pharmacokinetics services; and vivarium space services. The Manufacturing Solutions segmen",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.271Z",
+  "_built_at": "2026-05-21T16:00:22.085Z",
   "_missing_blocks": []
 }

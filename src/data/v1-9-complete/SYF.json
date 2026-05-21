@@ -128,27 +128,6 @@
       "_specific_to": "SYF reserves cushion"
     },
     {
-      "short": "Not found",
-      "name_fr": "Donnée non disponible",
-      "name_en": "Data not available",
-      "explanation": "Source document excerpt contains only table of contents and forward-looking statements section, no detailed financial metrics",
-      "value": null,
-      "unit": null,
-      "yoy": null,
-      "type": null,
-      "nature": null,
-      "comparable": null,
-      "signal": null,
-      "description": "No KPI data extractable from provided source",
-      "history": [],
-      "last_data_date": "2026-03-31",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": true,
-      "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "KPI 'Not found' is not a valid financial metric. The provided extract contains only XBRL metadata and structural tags without explicit annua"
-    },
-    {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
@@ -169,7 +148,9 @@
       "is_generic": true,
       "_source": "yfinance.income_stmt",
       "is_short_history": true,
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Revenue pressure, demand softening"
     },
     {
       "short": "Net Income",
@@ -191,7 +172,9 @@
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Diluted EPS",
@@ -213,7 +196,9 @@
       "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Steady growth, healthy trend"
     },
     {
       "short": "Free Cash Flow",
@@ -235,7 +220,9 @@
       "description": "Free Cash Flow extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Free Cash Flow : operating cash flow minus capital expenditures.",
+      "signal_en": "Cash position stable"
     },
     {
       "short": "Total Assets",
@@ -257,7 +244,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Total Debt",
@@ -279,7 +268,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Cash & Equivalents",
@@ -301,27 +292,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
-    },
-    {
-      "short": "Not found",
-      "name_fr": "Donnée non disponible",
-      "name_en": "Data not available",
-      "explanation": "Source document excerpt contains only table of contents and forward-looking statements section, no detailed financial metrics",
-      "value": null,
-      "unit": null,
-      "yoy": null,
-      "type": null,
-      "nature": null,
-      "comparable": null,
-      "signal": null,
-      "description": "No story KPI data extractable from provided source",
-      "history": [],
-      "last_data_date": null,
-      "is_wow": false,
-      "is_generic": false,
       "is_short_history": true,
-      "story_category": "Not found"
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     }
   ],
   "kpis_story": [],
@@ -348,41 +320,66 @@
         "value": 5.7,
         "unit": "Mds $",
         "pct": 26.3,
-        "share_pct": 26.3
+        "share_pct": 26.3,
+        "label_en": "Home & Auto"
       },
       {
         "name": "Digital",
         "value": 6.4,
         "unit": "Mds $",
         "pct": 29.5,
-        "share_pct": 29.5
+        "share_pct": 29.5,
+        "label_en": "Digital"
       },
       {
         "name": "Diversified & Value",
         "value": 4.7,
         "unit": "Mds $",
         "pct": 21.7,
-        "share_pct": 21.7
+        "share_pct": 21.7,
+        "label_en": "Diversified & Value"
       },
       {
         "name": "Health & Wellness",
         "value": 3.8,
         "unit": "Mds $",
         "pct": 17.5,
-        "share_pct": 17.5
+        "share_pct": 17.5,
+        "label_en": "Health & Wellness"
       },
       {
         "name": "Lifestyle",
         "value": 1.1,
         "unit": "Mds $",
         "pct": 5.1,
-        "share_pct": 5.1
+        "share_pct": 5.1,
+        "label_en": "Lifestyle"
       }
     ],
     "total": 21.7,
     "unit": "Mds $"
   },
-  "revenue_by_geography": null,
+  "revenue_by_geography": {
+    "unit": "%",
+    "slices": [
+      {
+        "label": "États-Unis",
+        "value": 100,
+        "share_pct": 100,
+        "single_region_legitimate": true,
+        "unit": "%",
+        "label_en": "United States"
+      }
+    ],
+    "total": 100,
+    "source": "Mono-pays légitime (yfinance longBusinessSummary US-only confirmé)",
+    "source_yfinance_excerpt": "Synchrony Financial... consumer financial services company in the United States",
+    "single_region_legitimate": true,
+    "_legit_reason": "Sté US-only confirmée via yfinance.longBusinessSummary (opérations exclusivement aux États-Unis, sub-agent #116)",
+    "_tagged_by": "sub-agent-116-sp500-cluster-f-geo",
+    "_tagged_at": "2026-05-21T10:31:29.860Z",
+    "_category": "us-domestic-sp500"
+  },
   "risks": [
     {
       "title": "Concentration de revenus auprès de partenaires clés",
@@ -503,18 +500,16 @@
     }
   ],
   "ranks": {
-    "global_world": "Not found in source document",
-    "global_us": "Not found in source document",
-    "sector": "Not found in source document",
-    "subsector": "Not found in source document"
+    "global_world": "#451",
+    "global_us": "#273",
+    "sector": "Top 25 in Financial Services",
+    "subsector": "#1 in Consumer Finance"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-21",
   "publication_date": null,
   "company_description": "Synchrony Financial, together with its subsidiaries, operates as a consumer financial services company in the United States. The company provides credit products, such as credit cards, commercial credit products, and consumer installment loans. It also offers private label credit cards, dual and general purpose co-branded cards, short- and long-term installment loans, and consumer banking products; and deposit products, including certificates of deposit, individual retirement accounts, money market accounts, savings accounts, and sweep and affinity deposits, as well as accepts deposits through third-party firms. In addition, the company provides debt cancellation products to its credit card customers through online and mobile channels; and healthcare payments and financing solutions under the CareCredit and Walgreens brands; payments and financing solutions in the apparel, specialty retail, outdoor, music, and luxury industries, such as American Eagle, Dick's Sporting Goods, Guitar Center, Pandora, Polaris, Suzuki, and Sweetwater. It offers its credit products through programs established with a group of national and regional retailers, local merchants, manufacturers, buying groups",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.631Z",
-  "_missing_blocks": [
-    "revenue_by_geography"
-  ]
+  "_built_at": "2026-05-21T16:00:22.747Z",
+  "_missing_blocks": []
 }

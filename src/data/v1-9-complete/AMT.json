@@ -177,7 +177,8 @@
       "is_short_history": true,
       "period_type": "quarter",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "Extrait incomplet : aucune valeur annuelle explicite de 'Property Operations Revenue' en Mds $ n'est présente dans le texte fourni. Le docum"
+      "_hero_history_unverified_reason": "Extrait incomplet : aucune valeur annuelle explicite de 'Property Operations Revenue' en Mds $ n'est présente dans le texte fourni. Le docum",
+      "explanation_en": "Revenue from the Property Operations segment."
     },
     {
       "short": "Number of Communications Sites",
@@ -246,7 +247,9 @@
       "_source": "yfinance.income_stmt",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:53:53.178587+00:00",
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -268,7 +271,9 @@
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Solid expansion, positive trajectory"
     },
     {
       "short": "Total Assets",
@@ -290,7 +295,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -312,7 +319,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -334,7 +343,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "Churn Rate",
@@ -361,16 +371,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-05-20",
-    "fiscal_year": 2025,
-    "ceo_name": "Steven O. Vondran",
-    "board_independence_pct": null,
-    "board_size": 11,
-    "avg_tenure_years": null,
-    "board_women_pct": null,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "top_capital": null,
-    "top_voting": null
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 12.44
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 9.65
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.6
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 12.44
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 9.65
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.6
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:12:00.312934+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Revenue by Operating Segment",
@@ -380,35 +418,40 @@
         "value": 5.19,
         "unit": "Mds $",
         "pct": 55.5,
-        "share_pct": 55.5
+        "share_pct": 55.5,
+        "label_en": "U.S. Canada property"
       },
       {
         "name": "Asia-Pacific property",
         "value": 1.2,
         "unit": "Mds $",
         "pct": 12.8,
-        "share_pct": 12.8
+        "share_pct": 12.8,
+        "label_en": "Asia-Pacific property"
       },
       {
         "name": "Africa property",
         "value": 1.01,
         "unit": "Mds $",
         "pct": 10.8,
-        "share_pct": 10.8
+        "share_pct": 10.8,
+        "label_en": "Africa property"
       },
       {
         "name": "Europe property",
         "value": 0.5,
         "unit": "Mds $",
         "pct": 5.3,
-        "share_pct": 5.3
+        "share_pct": 5.3,
+        "label_en": "Europe property"
       },
       {
         "name": "Latin America property",
         "value": 1.47,
         "unit": "Mds $",
         "pct": 15.7,
-        "share_pct": 15.7
+        "share_pct": 15.7,
+        "label_en": "Latin America property"
       }
     ],
     "total": 9.37,
@@ -422,55 +465,63 @@
         "value": 5.18,
         "unit": "Mds $",
         "pct": 55.4,
-        "share_pct": 55.4
+        "share_pct": 55.4,
+        "label_en": "United States"
       },
       {
         "name": "India",
         "value": 1.2,
         "unit": "Mds $",
         "pct": 12.8,
-        "share_pct": 12.8
+        "share_pct": 12.8,
+        "label_en": "India"
       },
       {
         "name": "Brazil",
         "value": 0.61,
         "unit": "Mds $",
         "pct": 6.6,
-        "share_pct": 6.6
+        "share_pct": 6.6,
+        "label_en": "Brazil"
       },
       {
         "name": "Mexico",
         "value": 0.52,
         "unit": "Mds $",
         "pct": 5.6,
-        "share_pct": 5.6
+        "share_pct": 5.6,
+        "label_en": "Mexico"
       },
       {
         "name": "Nigeria",
         "value": 0.3,
         "unit": "Mds $",
         "pct": 3.2,
-        "share_pct": 3.2
+        "share_pct": 3.2,
+        "label_en": "Nigeria"
       },
       {
         "name": "Germany",
         "value": 0.21,
         "unit": "Mds $",
         "pct": 2.3,
-        "share_pct": 2.3
+        "share_pct": 2.3,
+        "label_en": "Germany"
       },
       {
         "name": "Other",
         "value": 0.37,
         "unit": "Mds $",
         "pct": 4,
-        "share_pct": 4
+        "share_pct": 4,
+        "label_en": "Other"
       },
       {
         "share_pct": 10.1,
         "unit": "Mds $",
         "pct": 10.1,
-        "name": "Autres"
+        "name": "Autres",
+        "label_en": "Other"
       }
     ],
     "total": 8.39,
@@ -542,15 +593,29 @@
     }
   ],
   "ai_positioning": {
-    "stance": "emerging_risk",
-    "summary": "American Tower Corporation acknowledges artificial intelligence and technological changes as emerging risk factors that could affect customer demand for communications infrastructure and network deployment strategies. AI is mentioned in the context of technological disruption risks, including potential changes in wireless equipment, RAN sharing adoption, and network deployment patterns.",
+    "stance": "absent",
+    "summary": "Le secteur Real Estate Investment Trusts n'est pas significativement transformé par l'IA aujourd'hui : la valeur de American Tower Corporation s'évalue principalement sur les fondamentaux propres au secteur (positionnement, marges, cycle, génération de cash). Une analyse fine de l'usage interne de l'IA (optimisation de processus, gestion d'actifs, automation) sera ajoutée en V2.0.",
     "evidence": [
-      "Factors affecting leasing demand include 'technological changes, including artificial intelligence (AI), wireless equipment changes, satellite technology and an increase in the use of radio access network (RAN) sharing among wireless service providers'"
+      "American Tower Corporation opère dans un sous-secteur (Real Estate Investment Trusts) où l'IA reste à ce jour un outil interne plutôt qu'un facteur de différenciation produit.",
+      "Les KPIs de la fiche (revenus, marges, ranks sectoriels) restent les meilleurs indicateurs de la qualité d'investissement.",
+      "Mettrik AI tracera en V2.0 les usages internes IA quand la sté commencera à les mentionner explicitement dans ses rapports."
     ],
-    "source": "10-K Item 1A Risk Factors"
+    "source_note": "Analyse Mettrik AI (sub-industry classification GICS, en attente de divulgations IA explicites par la sté)",
+    "_bucket": "NONE",
+    "_generated_at": "2026-05-21T02:20:49.635014+00:00",
+    "ticker": "AMT"
   },
   "market_positions": [],
   "events": [
+    {
+      "year": 2026,
+      "month": 7,
+      "title": "Prochaine publication Q3 2026",
+      "body": "Publication attendue le 28 juillet 2026 (Q3 2026).",
+      "source": "yfinance · calendar",
+      "url": "",
+      "date": "2026-07-28"
+    },
     {
       "year": 2026,
       "month": 5,
@@ -562,26 +627,53 @@
     },
     {
       "year": 2026,
-      "month": 5,
-      "title": "How Investors Are Reacting To American Tower (AMT) Upgraded 2026 Outlook And Completed Buyback",
-      "body": "In late April 2026, American Tower reported first-quarter results showing higher revenue and net income year over year and completed a US$567.55 million share repurchase program launched in 2017. The company also raised its 2026 earnings gu",
-      "source": "Simply Wall St.",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/investors-reacting-american-tower-amt-072100826.html",
-      "date": "2026-05-08"
+      "month": 4,
+      "title": "Dividende 1.79 $/action versé",
+      "body": "Dividende ordinaire de 1.79 $ par action, ex-date 14 avril 2026.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2026-04-14"
     },
     {
       "year": 2026,
-      "month": 5,
-      "title": "Analysts Boost American Tower (AMT) Price Target After Better-Than-Expected Q1 Results",
-      "body": "American Tower Corporation (NYSE:AMT) is one of the Best Digital Infrastructure REITs to Buy According to Analysts. Based on a report by TheFly in April, Raymond James raised its price target on American Tower to $240 from $229 while mainta",
-      "source": "Insider Monkey",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/analysts-boost-american-tower-amt-175138414.html",
-      "date": "2026-05-05"
+      "month": 3,
+      "title": "Publication des résultats Q1 2026",
+      "body": "Clôture du trimestre Q1 2026 le 31 mars 2026.",
+      "source": "yfinance · mostRecentQuarter",
+      "url": "",
+      "date": "2026-03-31"
+    },
+    {
+      "year": 2025,
+      "month": 12,
+      "title": "Dividende 1.7 $/action versé",
+      "body": "Dividende ordinaire de 1.7 $ par action, ex-date 29 décembre 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-12-29"
+    },
+    {
+      "year": 2025,
+      "month": 9,
+      "title": "Dividende 1.7 $/action versé",
+      "body": "Dividende ordinaire de 1.7 $ par action, ex-date 30 septembre 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-09-30"
+    },
+    {
+      "year": 2025,
+      "month": 6,
+      "title": "Dividende 1.7 $/action versé",
+      "body": "Dividende ordinaire de 1.7 $ par action, ex-date 13 juin 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-06-13"
     }
   ],
   "ranks": {
-    "global_world": "#181",
-    "global_us": "#104",
+    "global_world": "#179",
+    "global_us": "#106",
     "sector": "#3 in Immobilier",
     "subsector": "#1 in Real Estate Investment Trusts"
   },
@@ -590,6 +682,6 @@
   "publication_date": null,
   "company_description": "American Tower Corporation is one of the largest global real estate investment trusts. It is a leading independent owner, operator and developer of multitenant communications real estate. The Company's primary business is the leasing of space on communications sites to wireless service providers, radio and television broadcast companies, wireless data providers, government agencies and municipalities and tenants in a few other industries. The Company refers to this business, inclusive of its data center business discussed below, as its property operations. Additionally, the Company offers tower-related services in the United States, which the Company refers to as its services operations. These services include site application, zoning and permitting, structural and mount analyses, and construction management services, together with program management offerings that support customer deployment needs from project scoping through construction. The Company's services operations primarily support the Company's site leasing business, including through the addition of new tenants and equipment on its sites. The Company's customers include its tenants, licensees and other payers. American ",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-21T02:08:59.017Z",
+  "_built_at": "2026-05-21T16:00:21.910Z",
   "_missing_blocks": []
 }

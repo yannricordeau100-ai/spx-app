@@ -289,7 +289,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "explanation_en": "Revenue : total sales generated over the period.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Adjusted EBITA Margin",
@@ -312,7 +314,9 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "explanation_en": "Profit margin on Adjusted EBITA.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Free Operating Cash Flow",
@@ -335,7 +339,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "signal_en": "Cash generation deteriorating, monitor liquidity"
     },
     {
       "short": "Adjusted EBIT Margin",
@@ -358,7 +363,9 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "explanation_en": "Profit margin on Adjusted EBIT.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "EPS Diluted",
@@ -381,7 +388,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "DPS",
@@ -405,7 +413,9 @@
       "signal": "Dividende par action de 6.0 SEK dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Cap Return",
@@ -427,7 +437,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -449,7 +461,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Mining Organic Order Growth",
@@ -542,9 +556,10 @@
   ],
   "kpis_story": [],
   "governance": {
-    "ceo_name": "Mr. Stefan  Widing",
-    "ceo_title": "President, CEO & Director",
-    "fiscal_year": 2025
+    "top_disclosure": "eu_regex_extracted",
+    "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
+    "_top_disclosure_at": "2026-05-21T02:49:04.719405+00:00",
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:19:01Z"
   },
   "revenue_by_segment": {
     "unit": "SEK Bn",
@@ -554,26 +569,22 @@
       {
         "label": "Mining",
         "value": null,
-        "share_pct": null,
-        "unit": "SEK Bn"
+        "share_pct": null
       },
       {
         "label": "Rock Processing",
         "value": null,
-        "share_pct": null,
-        "unit": "SEK Bn"
+        "share_pct": null
       },
       {
         "label": "Machining",
         "value": null,
-        "share_pct": null,
-        "unit": "SEK Bn"
+        "share_pct": null
       },
       {
         "label": "Intelligent Manufacturing",
         "value": null,
-        "share_pct": null,
-        "unit": "SEK Bn"
+        "share_pct": null
       }
     ]
   },
@@ -585,38 +596,44 @@
       {
         "label": "Europe",
         "value": 8.19,
-        "unit": "MSEK",
-        "share_pct": 26.7
+        "share_pct": 26.7,
+        "unit": "MdsSEK",
+        "label_en": "Europe"
       },
       {
         "label": "Amérique du Nord",
         "value": 7.42,
-        "unit": "MSEK",
-        "share_pct": 24.2
+        "share_pct": 24.2,
+        "unit": "MdsSEK",
+        "label_en": "North America"
       },
       {
         "label": "Asie",
         "value": 5.32,
-        "unit": "MSEK",
-        "share_pct": 17.3
+        "share_pct": 17.3,
+        "unit": "MdsSEK",
+        "label_en": "Asia"
       },
       {
         "label": "Australie",
         "value": 3.87,
-        "unit": "MSEK",
-        "share_pct": 12.6
+        "share_pct": 12.6,
+        "unit": "MdsSEK",
+        "label_en": "Australia"
       },
       {
         "label": "Afrique/Moyen-Orient",
         "value": 3.76,
-        "unit": "MSEK",
-        "share_pct": 12.3
+        "share_pct": 12.3,
+        "unit": "MdsSEK",
+        "label_en": "Afrique/Moyen-Orient"
       },
       {
         "label": "Amérique du Sud",
         "value": 2.13,
-        "unit": "MSEK",
-        "share_pct": 6.9
+        "share_pct": 6.9,
+        "unit": "MdsSEK",
+        "label_en": "South America"
       }
     ],
     "total": 30.69
@@ -737,16 +754,16 @@
     }
   ],
   "ranks": {
-    "global_world": "#506",
-    "global_us": ": ",
-    "sector": "#36 dans Information Technology",
-    "subsector": "#1 dans Industrial Technology"
+    "global_world": "#296",
+    "global_us": "Non US",
+    "sector": "#87 in Technologie",
+    "subsector": "#2 in Industrial Technology"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-17",
   "publication_date": null,
   "company_description": "Sandvik AB (publ), an engineering company, provides products and solutions for mining and rock excavation, metal cutting, and materials technology worldwide. The company offers mining and rock excavation equipment, including drill rigs and bolters, underground loaders and trucks, mechanical cutting equipment, rock tools and rock drills, and mining automation; rock processing equipment, such as crushers, screens, hydraulic breakers, demolition tools, and breaker booms. It provides cutting tools and tooling systems, and digital solutions and software; metal powder for additive manufacturing, and products made from controlled expansion alloys; and tungsten powders, as well as recycling services of secondary tungsten raw materials. It serves aerospace, automotive, mining, general engineering, infrastructure, and other industries. Sandvik AB (publ) was founded in 1862 and is headquartered in Stockholm, Sweden.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.593Z",
+  "_built_at": "2026-05-21T16:00:22.683Z",
   "_missing_blocks": []
 }

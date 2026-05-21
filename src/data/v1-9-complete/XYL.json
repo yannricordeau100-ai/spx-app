@@ -85,7 +85,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "explanation_en": "Revenue : total sales generated over the period.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Headcount",
@@ -106,7 +108,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Headcount : total number of employees at period end."
     },
     {
       "short": "Total Revenue",
@@ -127,7 +130,9 @@
       "signal": "Chiffre d'affaires de 9.04 Mds € dernière année",
       "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -148,7 +153,9 @@
       "signal": "Résultat net de 0.96 Mds € dernière année",
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Steady growth, healthy trend"
     },
     {
       "short": "Operating Income",
@@ -169,7 +176,9 @@
       "signal": "Résultat opérationnel de 1.33 Mds € dernière année",
       "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Operating Income : profit from core business operations.",
+      "signal_en": "Strong growth, robust momentum"
     },
     {
       "short": "Total Assets",
@@ -190,7 +199,9 @@
       "signal": "Total des actifs de 17.63 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -211,7 +222,9 @@
       "signal": "Dette totale de 2.06 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Cash & Equivalents",
@@ -232,7 +245,8 @@
       "signal": "Trésorerie & équivalents de 1.48 Mds € dernière année",
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "DPS",
@@ -256,7 +270,9 @@
       "signal": "Dividende par action de 0.43 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -277,7 +293,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 0.391 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -298,7 +316,9 @@
       "signal": "Part du résultat net distribué en dividendes : 40.9% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "Short": "Revenue",
@@ -327,17 +347,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-05-14",
-    "fiscal_year": 2025,
-    "ceo_name": "Matthew F. Pine",
-    "exec_comp_approval_pct": null,
-    "board_independence_pct": null,
-    "board_size": 9,
-    "avg_tenure_years": null,
-    "board_women_pct": null,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "top_capital": [],
-    "top_voting": []
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 12.02
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 10.79
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.7
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 12.02
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 10.79
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.7
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:15:44.674447+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -347,21 +394,24 @@
         "value": 3.284,
         "unit": "Mds $",
         "pct": 53.12,
-        "share_pct": 53.12
+        "share_pct": 53.12,
+        "label_en": "Water Infrastructure"
       },
       {
         "name": "Applied Water",
         "value": 1.434,
         "unit": "Mds $",
         "pct": 23.2,
-        "share_pct": 23.2
+        "share_pct": 23.2,
+        "label_en": "Applied Water"
       },
       {
         "name": "Measurement Control Solutions",
         "value": 1.463,
         "unit": "Mds $",
         "pct": 23.68,
-        "share_pct": 23.68
+        "share_pct": 23.68,
+        "label_en": "Measurement Control Solutions"
       }
     ],
     "total": 6.18,
@@ -376,28 +426,32 @@
         "value": 2.297,
         "unit": "Mds $",
         "pct": 47.1,
-        "share_pct": 47.1
+        "share_pct": 47.1,
+        "label_en": "United States"
       },
       {
         "name": "Europe",
         "value": 1.407,
         "unit": "Mds $",
         "pct": 28.8,
-        "share_pct": 28.8
+        "share_pct": 28.8,
+        "label_en": "Europe"
       },
       {
         "name": "Asia Pacific",
         "value": 0.618,
         "unit": "Mds $",
         "pct": 12.7,
-        "share_pct": 12.7
+        "share_pct": 12.7,
+        "label_en": "Asia Pacific"
       },
       {
         "name": "Other",
         "value": 0.554,
         "unit": "Mds $",
         "pct": 11.4,
-        "share_pct": 11.4
+        "share_pct": 11.4,
+        "label_en": "Other"
       }
     ],
     "total": 4.88,
@@ -499,18 +553,16 @@
     }
   ],
   "ranks": {
-    "Global_world": "≈ #XX",
-    "Global_us": "...",
-    "Sector": "...",
-    "Subsector": "...",
-    "global_world": "Top 500 monde",
-    "_source": "yfinance.marketCap"
+    "global_world": "#554",
+    "global_us": "#334",
+    "sector": "#59 in Industrie",
+    "subsector": "#1 in Water Technology"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-04-28",
   "publication_date": null,
   "company_description": "Xylem Inc., together with its subsidiaries, engages in the design, manufacture, and servicing of engineered products and solutions for utility, industrial, and residential and commercial building services settings worldwide. It operates through Water Infrastructure; Applied Water; Measurement and Control Solutions; and Water Solutions and Services segments. The company offers water, wastewater, and storm water pumps and controls and systems; filtration, disinfection, and biological treatment equipment under the Flygt, Ionpure, Leopold, Neptune Benson, Sanitare, Wallace & Tiernan, and Wedeco brands; and pumps, valves, heat exchangers, controls, and dispensing equipment used for water and focuses on the residential, commercial and industrial markets under the Rule, Bell & Gossett, Flojet, Goulds Water Technology, Jabsco, and Lowara brands. It also provides smart meters, network communication devices, data analytics, test instruments, controls, sensor devices, software and managed services, critical infrastructure services, cloud-based analytics, and remote monitoring and data management under the Ebro, Sensus, Sentec, Smith Blair, WTW, YSI, and Xylem Vue brands. In addition, the comp",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-21T02:08:59.801Z",
+  "_built_at": "2026-05-21T16:00:22.902Z",
   "_missing_blocks": []
 }

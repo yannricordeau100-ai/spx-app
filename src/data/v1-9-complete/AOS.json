@@ -118,7 +118,9 @@
       "is_short_history": false,
       "ttm": 38.98,
       "_validation": [],
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "explanation_en": "Gross Margin : gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Op Margin",
@@ -143,7 +145,9 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 18.78,
-      "_validation": []
+      "_validation": [],
+      "explanation_en": "Profit margin on Op.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Revenue",
@@ -171,7 +175,9 @@
       "_validation": [
         "Unit verified as M$ (millions of dollars) consistent with source financials",
         "Value verified as 3830.2M exact value from consolidated financials"
-      ]
+      ],
+      "explanation_en": "Revenue : total sales generated over the period.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Capex",
@@ -199,7 +205,9 @@
       "_validation": [
         "name_fr verified as appropriate",
         "Description confirmed with specific DOE regulation deadline (October 2026)"
-      ]
+      ],
+      "explanation_en": "Capital Expenditures : investments in property, plant and equipment.",
+      "signal_en": "Flat year-over-year, monitor closely"
     },
     {
       "short": "Total Assets",
@@ -221,7 +229,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Total Debt",
@@ -243,7 +253,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "DPS",
@@ -267,7 +279,9 @@
       "signal": "Dividende par action de 0.72 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -289,7 +303,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -311,7 +327,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Pureit Acquisition",
@@ -390,51 +408,44 @@
     }
   ],
   "governance": {
-    "agm_date": "2026-04-13",
-    "fiscal_year": 2025,
-    "ceo_name": "Stephen M. Shafer",
-    "ceo_total_comp_m": 4.96,
-    "ceo_pay_ratio": 132,
-    "exec_comp_approval_pct": 93.5,
-    "board_independence_pct": 80,
-    "board_size": 10,
-    "avg_tenure_years": 7.2,
-    "board_women_pct": 30,
-    "voting_structure": "Dual-class shares with separate voting for directors; Class A Common Stock has one vote per share, Common Stock has one-tenth vote per share on most matters.",
     "top_capital": [
       {
-        "name": "FMR LLC",
+        "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": 10.2
+        "stake_pct": 12.89
       },
       {
-        "name": "The Vanguard Group, Inc.",
+        "name": "FMR LLC (Fidelity)",
         "type": "institutionnel",
-        "stake_pct": 8.7
+        "stake_pct": 7.08
       },
       {
         "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": 7.5
+        "stake_pct": 6.57
       }
     ],
     "top_voting": [
       {
-        "name": "FMR LLC",
+        "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": 10.2
+        "stake_pct": 12.89
       },
       {
-        "name": "The Vanguard Group, Inc.",
+        "name": "FMR LLC (Fidelity)",
         "type": "institutionnel",
-        "stake_pct": 8.7
+        "stake_pct": 7.08
       },
       {
         "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": 7.5
+        "stake_pct": 6.57
       }
-    ]
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:12:01.738342+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -444,14 +455,16 @@
         "value": 2.118,
         "unit": "Mds $",
         "pct": 73.1,
-        "share_pct": 73.1
+        "share_pct": 73.1,
+        "label_en": "North America"
       },
       {
         "name": "Rest of World",
         "value": 0.8,
         "unit": "Mds $",
         "pct": 27.6,
-        "share_pct": 27.6
+        "share_pct": 27.6,
+        "label_en": "Rest of World"
       }
     ],
     "total": 2.92,
@@ -465,28 +478,32 @@
         "value": 1.905,
         "unit": "Mds $",
         "pct": 65.7,
-        "share_pct": 65.7
+        "share_pct": 65.7,
+        "label_en": "United States"
       },
       {
         "name": "China",
         "value": 0.696,
         "unit": "Mds $",
         "pct": 24,
-        "share_pct": 24
+        "share_pct": 24,
+        "label_en": "China"
       },
       {
         "name": "Canada",
         "value": 0.175,
         "unit": "Mds $",
         "pct": 6,
-        "share_pct": 6
+        "share_pct": 6,
+        "label_en": "Canada"
       },
       {
         "name": "Other Foreign",
         "value": 0.12,
         "unit": "Mds $",
         "pct": 4.1,
-        "share_pct": 4.1
+        "share_pct": 4.1,
+        "label_en": "Other Foreign"
       }
     ],
     "total": 2.9,
@@ -616,15 +633,15 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #1500",
-    "global_us": "Mid-cap industrial",
-    "sector": "Leader in water heating and treatment",
-    "subsector": "Leader in water heating"
+    "global_world": "#1029",
+    "global_us": "#643",
+    "sector": "#113 in Industrie",
+    "subsector": "#1 in Building Products & Equipment"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-30",
   "publication_date": null,
   "company_description": "A. O. Smith Corporation manufactures and markets residential and commercial gas and electric water heaters, boilers, heat pumps, tanks, and water treatment products in North America, China, Europe, and India. The company offers water heaters for residences, restaurants, hotels, office buildings, laundries, car washes, and small businesses; boilers for hospitals, schools, hotels, homes, apartments, and condominiums, and other large commercial buildings; and water treatment products comprising point-of-entry water softeners, well water solutions, and whole-home water filtration products, and point-of-use carbon and reverse osmosis products for residences, restaurants, hotels, and offices. It also provides commercial water treatment and filtration products; expansion tanks, commercial solar water heating systems, swimming pool and spa heaters, and related products and parts; and electric wall-hung, gas tankless, combi-boiler, and heat pump and solar water heaters. The company offers its products under the A. O. Smith, State, Lochinvar, Hague, Water-Right, Master Water, Atlantic Filter, Impact, and Water Tec brands. It distributes its products through independent wholesale plumbing dis",
-  "_built_at": "2026-05-20T20:15:02.153Z",
+  "_built_at": "2026-05-21T16:00:21.917Z",
   "_missing_blocks": []
 }

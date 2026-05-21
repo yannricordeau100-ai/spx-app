@@ -32,11 +32,7 @@
       "is_generic": false,
       "period_type": "year",
       "_source": "hero_history_extension",
-      "explanation": "KPI hero spécifique extrait du Segment Reporting (10-K). Source : 10-K 2022, 2023, 2024, 2025 Cardiovascular segment (M USD)",
-      "is_short_history_legitimate": true,
-      "short_history_legitimate_reason": "Biotech/pharma R&D long cycle (KPIs Phase 3 trials, FDA approvals récents, exercice court structurel) (subsector: Medical Devices)",
-      "_short_history_legitimate_rule": "biotech_pharma_recent",
-      "_short_history_legitimate_tagged_at": "2026-05-21T08:25:37.021Z"
+      "explanation": "KPI hero spécifique extrait du Segment Reporting (10-K). Source : 10-K 2022, 2023, 2024, 2025 Cardiovascular segment (M USD)"
     },
     {
       "short": "R&D",
@@ -62,7 +58,13 @@
       "is_short_history": true,
       "ttm": 8.15,
       "period_type": "quarter",
-      "publication_date": "2026-02-24"
+      "publication_date": "2026-02-24",
+      "explanation_en": "Research & Development expenses.",
+      "signal_en": "Stable, slight decline to monitor",
+      "is_short_history_legitimate": true,
+      "short_history_legitimate_reason": "Biotech/pharma R&D long cycle (KPIs Phase 3 trials, FDA approvals récents, exercice court structurel) (subsector: Medical Devices)",
+      "_short_history_legitimate_rule": "biotech_pharma_recent",
+      "_short_history_legitimate_tagged_at": "2026-05-21T08:25:37.021Z"
     },
     {
       "short": "Gross Margin",
@@ -86,7 +88,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "ttm": 65.35
+      "ttm": 65.35,
+      "explanation_en": "Gross Margin : gross profit divided by revenue.",
+      "signal_en": "Margin compression, watch profitability"
     },
     {
       "short": "Op Margin",
@@ -110,7 +114,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "ttm": 16.53
+      "ttm": 16.53,
+      "explanation_en": "Profit margin on Op.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Capex",
@@ -134,7 +140,9 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "ttm": 1.83
+      "ttm": 1.83,
+      "explanation_en": "Capital Expenditures : investments in property, plant and equipment.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Headcount",
@@ -158,7 +166,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "ttm": 94.75
+      "ttm": 94.75,
+      "explanation_en": "Headcount : total number of employees at period end.",
+      "signal_en": "Stable, slight decline to monitor"
     },
     {
       "short": "Tax Reserve",
@@ -301,7 +311,9 @@
       "signal": "Dividende par action de 0.71 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -323,7 +335,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "Payout Ratio",
@@ -345,7 +359,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "AI Systems Risk",
@@ -419,23 +435,44 @@
     }
   ],
   "governance": {
-    "agm_date": "2025-10-16",
-    "fiscal_year": 2025,
-    "ceo_name": "Geoffrey S. Martha",
-    "ceo_total_comp_m": 21.24,
-    "ceo_pay_ratio": null,
-    "exec_comp_approval_pct": null,
-    "board_independence_pct": null,
-    "board_size": 12,
-    "avg_tenure_years": null,
-    "board_women_pct": null,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "ciso_name": null,
-    "ciso_experience_years": 29,
-    "quality_committee": "Oversees cybersecurity strategies, systems, and controls",
-    "audit_committee": "Discusses risk assessment and risk management including IT security",
-    "top_capital": [],
-    "top_voting": []
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 9.1
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.82
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.81
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 9.1
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.82
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.81
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:14:13.734117+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "unit": "Mds $",
@@ -445,32 +482,37 @@
       {
         "label": "Cardiovascular Portfolio",
         "value": 12.481,
+        "share_pct": 37.1,
         "unit": "Mds $",
-        "share_pct": 37.1
+        "label_en": "Cardiovascular Portfolio"
       },
       {
         "label": "Neuroscience Portfolio",
         "value": 9.846,
+        "share_pct": 29.3,
         "unit": "Mds $",
-        "share_pct": 29.3
+        "label_en": "Neuroscience Portfolio"
       },
       {
         "label": "Medical Surgical Portfolio",
         "value": 8.407,
+        "share_pct": 25,
         "unit": "Mds $",
-        "share_pct": 25
+        "label_en": "Medical Surgical Portfolio"
       },
       {
         "label": "Diabetes Operating Unit",
         "value": 2.755,
+        "share_pct": 8.2,
         "unit": "Mds $",
-        "share_pct": 8.2
+        "label_en": "Diabetes Operating Unit"
       },
       {
         "label": "Other operating segment",
         "value": 0.137,
+        "share_pct": 0.4,
         "unit": "Mds $",
-        "share_pct": 0.4
+        "label_en": "Other operating segment"
       }
     ],
     "total": 33.63
@@ -483,14 +525,16 @@
       {
         "label": "États-Unis",
         "value": 17.171,
+        "share_pct": 51.2,
         "unit": "Mds $",
-        "share_pct": 51.2
+        "label_en": "United States"
       },
       {
         "label": "International",
         "value": 16.365,
+        "share_pct": 48.8,
         "unit": "Mds $",
-        "share_pct": 48.8
+        "label_en": "International"
       }
     ],
     "total": 33.54
@@ -565,43 +609,88 @@
   "events": [
     {
       "year": 2026,
-      "month": 5,
-      "title": "How The Medtronic (MDT) Story Is Shifting As Guidance Meets Mixed Wall Street Views",
-      "body": "Medtronic's fair value estimate has been trimmed slightly from US$109.08 to US$108.00, signaling only a modest reset in the analyst pricing framework. This small move lines up with a mixed set of research views, where some firms are cutting",
-      "source": "Simply Wall St.",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/medtronic-mdt-story-shifting-guidance-141243980.html",
-      "date": "2026-05-05"
+      "month": 6,
+      "title": "Prochaine publication Q2 2026",
+      "body": "Publication attendue le 3 juin 2026 (Q2 2026).",
+      "source": "yfinance · calendar",
+      "url": "",
+      "date": "2026-06-03"
     },
     {
       "year": 2026,
       "month": 5,
-      "title": "Medtronic (MDT) Highlights Affera Momentum and FDA Breakthrough Device Designation",
-      "body": "Medtronic plc (NYSE:MDT) is one of the 8 Best Healthcare AI Stocks to Buy According to Analysts. On April 26, 2026, Medtronic announced continued momentum for the Affera family of technologies for cardiac arrhythmia treatment, including pro",
-      "source": "Insider Monkey",
-      "url": "https://finance.yahoo.com/sectors/healthcare/articles/medtronic-mdt-highlights-affera-momentum-113945954.html",
-      "date": "2026-05-05"
+      "title": "Sector Update: Healthcare Stocks Mixed Late Afternoon",
+      "body": "Healthcare stocks were mixed late Wednesday afternoon, with the NYSE Healthcare Index up 0.1% and th",
+      "source": "MT Newswires",
+      "url": "https://finance.yahoo.com/sectors/healthcare/articles/sector-healthcare-stocks-mixed-afternoon-195456200.html",
+      "date": "2026-05-20"
     },
     {
       "year": 2026,
       "month": 5,
-      "title": "Medtronic’s Stealth AXiS Europe Approval Expands Surgical Growth Story",
-      "body": "Medtronic (NYSE:MDT) has received CE mark approval in Europe for its Stealth AXiS next generation surgical system for spine and cranial procedures. The green light follows earlier U.S. clearance and allows Medtronic to offer an integrated p",
+      "title": "Medtronic Neuroscience Appointment Puts Focus On Execution And Growth Risks",
+      "body": "Medtronic (NYSE:MDT) has appointed Kweli Thompson as president of its neuroscience portfolio. The transition follows the planned departure of current neuroscience leader Brett Wall. This leadership change affects one of Medtronic’s primary ",
       "source": "Simply Wall St.",
-      "url": "https://finance.yahoo.com/sectors/healthcare/articles/medtronic-stealth-axis-europe-approval-042621309.html",
-      "date": "2026-05-01"
+      "url": "https://finance.yahoo.com/sectors/healthcare/articles/medtronic-neuroscience-appointment-puts-focus-181002952.html",
+      "date": "2026-05-19"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "Boston Scientific Bets on Growth Through Strategic M&A Deals",
+      "body": "BSX expands into fast-growing medtech segments with acquisitions spanning urology, pain management and vascular devices.",
+      "source": "Zacks",
+      "url": "https://finance.yahoo.com/sectors/healthcare/articles/boston-scientific-bets-growth-strategic-181500829.html",
+      "date": "2026-05-18"
+    },
+    {
+      "year": 2026,
+      "month": 3,
+      "title": "Dividende 0.71 $/action versé",
+      "body": "Dividende ordinaire de 0.71 $ par action, ex-date 27 mars 2026.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2026-03-27"
+    },
+    {
+      "year": 2026,
+      "month": 1,
+      "title": "Publication des résultats Q1 2026",
+      "body": "Clôture du trimestre Q1 2026 le 23 janvier 2026.",
+      "source": "yfinance · mostRecentQuarter",
+      "url": "",
+      "date": "2026-01-23"
+    },
+    {
+      "year": 2025,
+      "month": 12,
+      "title": "Dividende 0.71 $/action versé",
+      "body": "Dividende ordinaire de 0.71 $ par action, ex-date 26 décembre 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-12-26"
+    },
+    {
+      "year": 2025,
+      "month": 9,
+      "title": "Dividende 0.71 $/action versé",
+      "body": "Dividende ordinaire de 0.71 $ par action, ex-date 26 septembre 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-09-26"
     }
   ],
   "ranks": {
-    "global_world": "#229",
-    "global_us": ": ",
-    "sector": "#10 dans Healthcare",
-    "subsector": "#1 dans Medical Devices"
+    "global_world": "#153",
+    "global_us": "Non US",
+    "sector": "Top 25 in Santé",
+    "subsector": "#1 in Medical Devices"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-06-03",
   "publication_date": null,
   "company_description": "Medtronic plc develops, manufactures, and sells device-based medical therapies to healthcare systems, physicians, clinicians, and patients in the United States, Ireland, and internationally. The Cardiovascular Portfolio segment offers implantable cardiac pacemakers, cardioverter defibrillators, and cardiac resynchronization therapy devices; cardiac ablation products; insertable cardiac monitor systems; TYRX products; and remote monitoring and patient-centered software. It also provides aortic valves, surgical valve replacement and repair products, endovascular stent grafts and accessories, and transcatheter pulmonary valves, and percutaneous coronary intervention products, percutaneous angioplasty balloons, and other products. The Neuroscience Portfolio segment offers medical devices and implants, biologic solutions, spinal cord stimulation and brain modulation systems, implantable drug infusion systems, and interventional products, as well as nerve ablation system under the Accurian name. The segment offers its products for spinal surgeons, neurosurgeons, neurologists, pain management specialists, anesthesiologists, orthopedic surgeons, urologists, urogynecologists, and interventional radiologists, as well as ear, nose, and throat specialists, and energy surgical instruments. The Medical Surgical Portfolio segment offers surgical stapling devices, vessel sealing instruments, wound closure and electrosurgery products, AI-powered surgical video and analytics platform, robotic-assisted surgery products, hernia mechanical devices, mesh implants, gynecology products, gastrointestinal and hepatologic diagnostics and therapies, and therapies to treat diseases and conditions, and patient monitoring and airway management products. The Diabetes Operating Unit segment provides insulin pumps and consumables, continuous glucose monitoring systems and sensors, and InPen, a smart insulin pen. Medtronic plc was founded in 1949 and is headquartered in Galway, Ireland.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.472Z",
+  "_built_at": "2026-05-21T16:00:22.444Z",
   "_missing_blocks": []
 }

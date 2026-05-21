@@ -109,7 +109,9 @@
       "last_data_date": "2025-09-30",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Revenue : total sales generated over the period.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -130,7 +132,8 @@
       "last_data_date": "2025-09-30",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes."
     },
     {
       "short": "Operating Cash Flow",
@@ -151,7 +154,8 @@
       "last_data_date": "2025-09-30",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Operating Cash Flow : cash generated from core business operations."
     },
     {
       "short": "Capex",
@@ -172,7 +176,8 @@
       "last_data_date": "2025-08-01",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Expenditures : investments in property, plant and equipment."
     },
     {
       "short": "International Revenue",
@@ -194,7 +199,9 @@
       "last_data_date": "2025-09-30",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Revenue from the International segment.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Total Revenue",
@@ -218,7 +225,9 @@
       "signal": "Chiffre d'affaires de 0.449 Mds $ dernière année fiscale (FY2018).",
       "description": "Chiffre d'affaires extrait SEC EDGAR companyfacts XBRL sur les 7 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Operating Income",
@@ -243,7 +252,9 @@
       "signal": "Résultat opérationnel de 0.218 Mds $ dernière année fiscale (FY2025).",
       "description": "Résultat opérationnel extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Operating Income : profit from core business operations.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "DPS",
@@ -267,7 +278,9 @@
       "signal": "Dividende par action de 0.09 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -289,7 +302,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position stable"
     },
     {
       "short": "Payout Ratio",
@@ -311,7 +326,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "AI Data Center Activity",
@@ -402,56 +419,63 @@
     ]
   },
   "revenue_by_segment": {
-    "_no_source": true,
-    "_fit_for_site": false,
-    "_extraction_status": "manual_review_needed",
-    "_reason": "Powell Industries 10-K: single segment (electrical infrastructure)",
-    "_extracted_at": "2026-05-19T18:21:46.552085+00:00",
-    "_verification": "manual_chunk_read"
+    "single_segment": true,
+    "_reason": "one reportable, operating segment"
   },
   "revenue_by_geography": {
-    "unit": "Mds $",
-    "source_date": "2025-09-30",
-    "source": "10-K 2025",
     "slices": [
       {
-        "label": "États-Unis",
-        "value": 0.88,
-        "unit": "Mds $",
-        "share_pct": 79.8
+        "label": "United States",
+        "share_pct": 83.62,
+        "label_fr": "États-Unis",
+        "label_en": "United States",
+        "value": 846.526,
+        "unit": "M $"
       },
       {
         "label": "Canada",
-        "value": 0.157,
-        "unit": "Mds $",
-        "share_pct": 14.2
+        "share_pct": 10.52,
+        "label_fr": "Canada",
+        "label_en": "Canada",
+        "value": 106.521,
+        "unit": "M $"
       },
       {
         "label": "Middle East and Africa",
-        "value": 0.027,
-        "unit": "Mds $",
-        "share_pct": 2.4
+        "share_pct": 1.33,
+        "label_fr": "Moyen-Orient et Afrique",
+        "label_en": "Middle East and Africa",
+        "value": 13.44,
+        "unit": "M $"
       },
       {
         "label": "Europe",
-        "value": 0.025,
-        "unit": "Mds $",
-        "share_pct": 2.3
+        "share_pct": 3.1,
+        "label_fr": "Europe",
+        "label_en": "Europe",
+        "value": 31.388,
+        "unit": "M $"
       },
       {
         "label": "Asia/Pacific",
-        "value": 0.009,
-        "unit": "Mds $",
-        "share_pct": 0.8
+        "share_pct": 0.68,
+        "label_fr": "Asie/Pacifique",
+        "label_en": "Asia/Pacific",
+        "value": 6.85,
+        "unit": "M $"
       },
       {
         "label": "Mexico, Central and South America",
-        "value": 0.005,
-        "unit": "Mds $",
-        "share_pct": 0.5
+        "share_pct": 0.75,
+        "label_fr": "Mexique, Amérique centrale et Amérique du Sud",
+        "label_en": "Mexico, Central and South America",
+        "value": 7.631,
+        "unit": "M $"
       }
     ],
-    "total": 1.1
+    "year": 2024,
+    "currency": "USD",
+    "total": 1012.356
   },
   "risks": [
     {
@@ -563,9 +587,9 @@
     }
   ],
   "ranks": {
-    "global_world": "#296",
-    "global_us": "#165",
-    "sector": "Top 25 in Industrials",
+    "global_world": "#753",
+    "global_us": "#469",
+    "sector": "#76 in Industrie",
     "subsector": "#1 in Electrical Equipment and Systems"
   },
   "latest_filing": null,
@@ -573,6 +597,6 @@
   "publication_date": null,
   "company_description": "Powell Industries, Inc., together with its subsidiaries, designs, develops, manufactures, sells, and services custom-engineered equipment and systems. The company's products portfolio includes integrated power control room substations, custom-engineered modules, and electrical houses; and traditional and arc-resistant distribution switchgears and control gears, medium-voltage circuit breakers, monitoring and control communications systems, motor control centers, switches, and bus duct systems. It also provides field service inspection, installation, commissioning, modification, and repair services; spare parts; retrofit and retrofill components for existing systems; and replacement circuit breakers for switchgears. The company serves onshore and offshore production, liquefied natural gas facilities and terminals, pipelines and refineries, petrochemical, electric utility, light rail traction power, mining and metals, pulp and paper, data centers, commercial construction, and other industrial markets, as well as universities and government entities. It operates in the United States, Canada, the Middle East, Africa, Europe, Mexico, the Asia/Pacific, and Central and South America. Powell Industries, Inc. was founded in 1947 and is headquartered in Houston, Texas.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.557Z",
+  "_built_at": "2026-05-21T16:00:22.591Z",
   "_missing_blocks": []
 }

@@ -89,7 +89,9 @@
       "_validation": "Corrected: name_fr updated to 'Fonds provenant des operations', tagline updated from MD&A language, history array truncated to actual available data (only 2024 baseline 7.26 available), removed padding zeros, set is_generic to false as FFO is specific to REITs",
       "period_type": "quarter",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "FFO annual values not explicitly stated in the provided 10-K extract. The document mentions FFO as a key performance metric and discusses gr"
+      "_hero_history_unverified_reason": "FFO annual values not explicitly stated in the provided 10-K extract. The document mentions FFO as a key performance metric and discusses gr",
+      "explanation_en": "Funds From Operations : net income plus depreciation and amortization (REITs).",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Diluted EPS",
@@ -112,7 +114,9 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 0,
-      "_validation": "Corrected: type changed from 'Revenue' to 'Earnings', name_fr corrected to 'Benefice par action dilue', history array truncated to actual data, removed padding zeros, updated signal to include TRG gain detail from MDA"
+      "_validation": "Corrected: type changed from 'Revenue' to 'Earnings', name_fr corrected to 'Benefice par action dilue', history array truncated to actual data, removed padding zeros, updated signal to include TRG gain detail from MDA",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Steady growth, healthy trend"
     },
     {
       "short": "Total Revenue",
@@ -142,7 +146,9 @@
       "_source": "yfinance.income_stmt",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:55:27.992449+00:00",
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -164,7 +170,9 @@
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum"
     },
     {
       "short": "Operating Income",
@@ -186,7 +194,9 @@
       "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Operating Income : profit from core business operations.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Total Assets",
@@ -208,7 +218,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -230,7 +242,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -252,7 +266,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "TRG Acquisition",
@@ -285,26 +300,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-05-13",
-    "fiscal_year": 2025,
-    "ceo_name": "Eli Simon",
-    "board_size": 13,
-    "voting_structure": "Une seule classe d'actions ordinaires avec droits de vote égaux, plus une classe B d'actions sans droit de vote dont les droits sont exercés par un voting trustee.",
     "top_capital": [
       {
-        "name": "Simons",
-        "type": "fondateur",
-        "stake_pct": null
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 13.46
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 11.35
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 6.45
       }
     ],
     "top_voting": [
       {
-        "name": "Simons",
-        "type": "fondateur",
-        "stake_pct": null
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 13.46
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 11.35
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 6.45
       }
     ],
-    "board_independence_pct": 84.6
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:15:13.255774+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -314,32 +347,50 @@
         "value": 5.855,
         "unit": "Mds $",
         "pct": 91.9,
-        "share_pct": 91.9
+        "share_pct": 91.9,
+        "label_en": "Lease Income"
       },
       {
         "name": "Management fees and other revenues",
         "value": 0.144,
         "unit": "Mds $",
         "pct": 2.3,
-        "share_pct": 2.3
+        "share_pct": 2.3,
+        "label_en": "Management fees and other revenues"
       },
       {
         "name": "Other Income",
         "value": 0.381,
         "unit": "Mds $",
         "pct": 6,
-        "share_pct": 6
+        "share_pct": 6,
+        "label_en": "Other Income"
       }
     ],
     "total": 6.38,
     "unit": "Mds $"
   },
   "revenue_by_geography": {
+    "unit": "%",
+    "slices": [
+      {
+        "label": "États-Unis",
+        "value": 100,
+        "share_pct": 100,
+        "single_region_legitimate": true,
+        "unit": "%",
+        "label_en": "United States"
+      }
+    ],
+    "total": 100,
+    "source": "Mono-pays légitime (filings)",
+    "_tagged_by": "auto-rebascule-21mai-CONV-CONCEPTS",
+    "_tagged_at": "2026-05-21T01:26:18.207Z",
+    "_category": "reit-us",
     "single_region_legitimate": true,
     "_legit_reason": "US REIT — malls US-dominant (Simon Property)",
     "_legit_marked_at": "2026-05-21T08:18:58Z",
     "_legit_marked_by": "sub-agent-#76-repartition-cerebras",
-    "slices": [],
     "label": "Répartition géographique (mono-région légitime)"
   },
   "risks": [
@@ -452,9 +503,9 @@
     }
   ],
   "ranks": {
-    "global_world": "#143",
-    "global_us": "#86",
-    "sector": "Top 3 in Real Estate",
+    "global_world": "#202",
+    "global_us": "#118",
+    "sector": "Top 5 in Immobilier",
     "subsector": "#1 in Retail REITs"
   },
   "latest_filing": null,
@@ -462,8 +513,6 @@
   "publication_date": null,
   "company_description": "Simon Property Group, Inc. is a self-administered and self-managed real estate investment trust (REIT). Simon Property Group, L.P., or the Operating Partnership, is our majority-owned partnership subsidiary that owns all of our real estate properties and other assets. In this package, the terms Simon, we, our, or the Company refer to Simon Property Group, Inc., the Operating Partnership, and its subsidiaries. We own, develop and manage premier shopping, dining, entertainment and mixed-use destinations, which consist primarily of malls, Premium Outlets, The Mills, and International Properties. At December 31, 2024, we owned or had an interest in 229 properties comprising 183 million square feet in North America, Asia and Europe. We also owned an 88% interest in The Taubman Realty Group, or TRG, which owns 22 regional, super-regional, and outlet malls in the U.S. and Asia. Additionally, at December 31, 2024, we had a 22.4% ownership interest in Klepierre, a publicly traded, Paris-based real estate company, which owns shopping centers in 14 European countries. Simon Property Group, Inc. was incorporated in 1960 and is based in Indiana, United States.",
   "_specific_fit_for_site": false,
-  "_built_at": "2026-05-20T20:15:02.619Z",
-  "_missing_blocks": [
-    "revenue_by_geography"
-  ]
+  "_built_at": "2026-05-21T16:00:22.726Z",
+  "_missing_blocks": []
 }

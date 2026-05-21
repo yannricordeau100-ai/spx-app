@@ -57,7 +57,8 @@
       "is_short_history": false,
       "period_type": "quarter",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "Le KPI 'Voluntary Turnover' n'est pas présent dans l'extrait fourni avec des valeurs annuelles explicites et chiffrées. Seule une mention qu"
+      "_hero_history_unverified_reason": "Le KPI 'Voluntary Turnover' n'est pas présent dans l'extrait fourni avec des valeurs annuelles explicites et chiffrées. Seule une mention qu",
+      "signal_en": "Stable, slight decline to monitor"
     },
     {
       "short": "Overall Turnover",
@@ -79,7 +80,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "signal_en": "Solid expansion, positive trajectory"
     },
     {
       "short": "Plant Voluntary Turnover",
@@ -101,7 +103,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "signal_en": "Stable, slight decline to monitor"
     },
     {
       "short": "Total Revenue",
@@ -129,7 +132,9 @@
       "_source": "yfinance.income_stmt",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:52:27.692034+00:00",
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -150,7 +155,9 @@
       "signal": "Résultat net de 0.74 Mds € dernière année",
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum"
     },
     {
       "short": "Total Assets",
@@ -171,7 +178,9 @@
       "signal": "Total des actifs de 8.91 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -192,7 +201,9 @@
       "signal": "Dette totale de 2.21 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -213,7 +224,8 @@
       "signal": "Trésorerie & équivalents de 0.41 Mds € dernière année",
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "DPS",
@@ -237,7 +249,9 @@
       "signal": "Dividende par action de 0.308 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -258,7 +272,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 0.287 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -279,7 +295,9 @@
       "signal": "Part du résultat net distribué en dividendes : 39.0% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "Short": "Voluntary Turnover",
@@ -324,16 +342,44 @@
     }
   ],
   "governance": {
-    "agm_date": "2026-05-01",
-    "fiscal_year": 2025,
-    "ceo_name": "Richard A. Dierker",
-    "board_independence_pct": 90.9,
-    "board_size": 11,
-    "avg_tenure_years": null,
-    "board_women_pct": 27.3,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "top_capital": null,
-    "top_voting": null
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.96
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 9.37
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 5.91
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.96
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 9.37
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 5.91
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:12:31.761793+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -343,21 +389,24 @@
         "value": 4.131,
         "unit": "Mds $",
         "pct": 76.8,
-        "share_pct": 76.8
+        "share_pct": 76.8,
+        "label_en": "Consumer Domestic"
       },
       {
         "name": "Consumer International",
         "value": 0.896,
         "unit": "Mds $",
         "pct": 16.7,
-        "share_pct": 16.7
+        "share_pct": 16.7,
+        "label_en": "Consumer International"
       },
       {
         "name": "Specialty Products Division",
         "value": 0.349,
         "unit": "Mds $",
         "pct": 6.5,
-        "share_pct": 6.5
+        "share_pct": 6.5,
+        "label_en": "Specialty Products Division"
       }
     ],
     "total": 5.38,
@@ -371,14 +420,16 @@
         "value": 4.461,
         "unit": "Mds $",
         "pct": 83,
-        "share_pct": 83
+        "share_pct": 83,
+        "label_en": "United States"
       },
       {
         "name": "International",
         "value": 0.915,
         "unit": "Mds $",
         "pct": 17,
-        "share_pct": 17
+        "share_pct": 17,
+        "label_en": "International"
       }
     ],
     "total": 5.38,
@@ -460,9 +511,16 @@
   ],
   "ai_positioning": {
     "stance": "absent",
-    "summary": "Aucune mention significative de l'intelligence artificielle, de l'apprentissage automatique ou de technologies connexes n'a été trouvée dans le document 10-K de la société CHD.",
-    "evidence": [],
-    "source": ""
+    "summary": "Le secteur Household Products n'est pas significativement transformé par l'IA aujourd'hui : la valeur de Church & Dwight Co., Inc. s'évalue principalement sur les fondamentaux propres au secteur (positionnement, marges, cycle, génération de cash). Une analyse fine de l'usage interne de l'IA (optimisation de processus, gestion d'actifs, automation) sera ajoutée en V2.0.",
+    "evidence": [
+      "Church & Dwight Co., Inc. opère dans un sous-secteur (Household Products) où l'IA reste à ce jour un outil interne plutôt qu'un facteur de différenciation produit.",
+      "Les KPIs de la fiche (revenus, marges, ranks sectoriels) restent les meilleurs indicateurs de la qualité d'investissement.",
+      "Mettrik AI tracera en V2.0 les usages internes IA quand la sté commencera à les mentionner explicitement dans ses rapports."
+    ],
+    "source_note": "Analyse Mettrik AI (sub-industry classification GICS, en attente de divulgations IA explicites par la sté)",
+    "_bucket": "NONE",
+    "_generated_at": "2026-05-21T02:28:24.470488+00:00",
+    "ticker": "CHD"
   },
   "market_positions": [],
   "events": [
@@ -504,18 +562,16 @@
     }
   ],
   "ranks": {
-    "Global_world": "Non spécifié",
-    "Global_us": "Non spécifié",
-    "Sector": "Non spécifié",
-    "Subsector": "Non spécifié",
-    "global_world": "Top 500 monde",
-    "_source": "yfinance.marketCap"
+    "global_world": "#595",
+    "global_us": "#356",
+    "sector": "Top 25 in Consommation de base",
+    "subsector": "#1 in Household Products"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-31",
   "publication_date": null,
   "company_description": "Church & Dwight Co., Inc. develops, manufactures, and markets household, personal care, and specialty products. It operates in three segments: Consumer Domestic, Consumer International, and Specialty Products Division. The company offers baking soda, cat litters, laundry detergents, carpet deodorizers, and other baking soda-based products under the ARM & HAMMER brand; stain removers, cleaning solutions, laundry detergents, and bleach alternatives under the OXICLEAN brand; dry shampoos under the BATISTE brand; water flossers under the WATERPIK brand; oral care products under the THERABREATH brand; acne treatment products under the HERO brand; hand sanitizers under the TOUCHLAND brand; and condoms, lubricants, and vibrators under the TROJAN brand. It also provides home pregnancy and ovulation test kits under the FIRST RESPONSE brand; depilatories under the NAIR; oral analgesics under the ORAJEL brand; laundry detergents under the XTRA brand; and cold shortening and relief products under the ZICAM brand. In addition, the company's specialty products include animal and food productivity products, such as ARM & HAMMER baking soda as a feed additive to help dairy cow; BIO-CHLOR and FERME",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.247Z",
+  "_built_at": "2026-05-21T16:00:22.035Z",
   "_missing_blocks": []
 }

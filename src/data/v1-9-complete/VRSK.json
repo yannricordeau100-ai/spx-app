@@ -134,7 +134,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "explanation_en": "Year-over-year growth in Revenue.",
+      "signal_en": "Significant revenue decline, warning signal"
     },
     {
       "short": "Subscription Revenue %",
@@ -156,7 +158,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Recurring base eroding, monitor retention"
     },
     {
       "short": "Transactional & Advisory Revenue %",
@@ -178,7 +181,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Personnel Expenses % of Total Operating Expenses",
@@ -200,7 +204,9 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Expenses related to Personnel Expenses % of Total Operating.",
+      "signal_en": "Stable, slight decline to monitor"
     },
     {
       "short": "Total Assets",
@@ -221,7 +227,9 @@
       "signal": "Total des actifs de 6.2 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -242,7 +250,9 @@
       "signal": "Dette totale de 4.9 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "DPS",
@@ -266,7 +276,9 @@
       "signal": "Dividende par action de 0.5 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -287,7 +299,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 0.251 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -308,7 +322,9 @@
       "signal": "Part du résultat net distribué en dividendes : 27.6% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Total Revenue",
@@ -333,7 +349,9 @@
       "signal": "Chiffre d'affaires de 3.073 Mds $ dernière année.",
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -358,7 +376,9 @@
       "signal": "Résultat net de 0.908 Mds $ dernière année.",
       "description": "Résultat net consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns"
     }
   ],
   "kpis_story": [],
@@ -386,27 +406,52 @@
         "value": 1.8555,
         "unit": "Mds $",
         "pct": 71,
-        "share_pct": 71
+        "share_pct": 71,
+        "label_en": "Insurance"
       },
       {
         "name": "Energy and Specialized Markets",
         "value": 0.5736,
         "unit": "Mds $",
         "pct": 22,
-        "share_pct": 22
+        "share_pct": 22,
+        "label_en": "Energy and Specialized Markets"
       },
       {
         "name": "Financial Services",
         "value": 0.178,
         "unit": "Mds $",
         "pct": 7,
-        "share_pct": 7
+        "share_pct": 7,
+        "label_en": "Financial Services"
       }
     ],
     "total": 2.61,
     "unit": "Mds $"
   },
-  "revenue_by_geography": null,
+  "revenue_by_geography": {
+    "slices": [
+      {
+        "label": "United States",
+        "share_pct": 97.6,
+        "label_fr": "États-Unis",
+        "label_en": "United States",
+        "value": 2437,
+        "unit": "M $"
+      },
+      {
+        "label": "Foreign",
+        "share_pct": 2.4,
+        "label_fr": "Étranger",
+        "label_en": "Foreign",
+        "value": 59,
+        "unit": "M $"
+      }
+    ],
+    "year": 2022,
+    "currency": "USD",
+    "total": 2496
+  },
   "risks": [
     {
       "title": "Cybersécurité",
@@ -495,18 +540,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #N/A",
-    "global_us": "N/A",
-    "sector": "N/A",
-    "subsector": "N/A"
+    "global_world": "#604",
+    "global_us": "#362",
+    "sector": "#165 in Technologie",
+    "subsector": "#1 in Data & Analytics"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-29",
   "publication_date": null,
   "company_description": "Verisk Analytics, Inc. engages in the provision of data analytics and technology solutions to the insurance industry in the United States and internationally. The company offers underwriting solutions, including forms, rules, and loss costs services that provides policy language, prospective loss costs, policy writing and rating rules, and underwriting solutions for risk selection and segmentation, pricing, and workflow optimization; underwriting data and analytics solutions, which provides property and auto specific rating, and underwriting information solutions; catastrophe modelling  and risk solutions; life insurance solutions for transforming current workflows in life insurance underwriting, claim insights, policy administration, unclaimed property/equity, compliance and fraud detection, and actuarial and portfolio modelling; specialty business solutions, which provides full end-to-end management of insurance and reinsurance business; and international underwriting solutions. It also provides claims insurance solutions, including property estimating solutions, provide data, analytics, and networking solutions for professionals involved in estimating all phases of building repa",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.685Z",
-  "_missing_blocks": [
-    "revenue_by_geography"
-  ]
+  "_built_at": "2026-05-21T16:00:22.863Z",
+  "_missing_blocks": []
 }

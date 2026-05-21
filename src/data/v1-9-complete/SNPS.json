@@ -150,7 +150,9 @@
       "is_short_history": false,
       "ttm": 5142.38,
       "_validation": "Unit corrigé de 'Mds $' à 'M $' (les montants historiques sont en millions, pas en milliards)",
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "explanation_en": "Revenue : total sales generated over the period.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Gross Margin",
@@ -174,7 +176,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "_validation": "KPI hallucin détecté et corrigé avec calcul (7054.2-1623.5)/7054.2 = 77.0%; history calculé par années fiscales antérieures"
+      "_validation": "KPI hallucin détecté et corrigé avec calcul (7054.2-1623.5)/7054.2 = 77.0%; history calculé par années fiscales antérieures",
+      "explanation_en": "Gross Margin : gross profit divided by revenue.",
+      "signal_en": "Margin compression, watch profitability"
     },
     {
       "short": "Op Margin",
@@ -198,7 +202,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "_validation": "KPI hallucin détecté et corrigé avec calcul (914.9/7054.2) = 13.0%; history calculé (1355.7/6127.4 = 22.1%; 1273.2/5318.0 = 23.9%)"
+      "_validation": "KPI hallucin détecté et corrigé avec calcul (914.9/7054.2) = 13.0%; history calculé (1355.7/6127.4 = 22.1%; 1273.2/5318.0 = 23.9%)",
+      "explanation_en": "Profit margin on Op.",
+      "signal_en": "Margin compression, watch profitability"
     },
     {
       "short": "R&D",
@@ -218,7 +224,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_validation": "Unit corrigé de 'Mds $' à 'M $' pour cohérence; données de R&D non disponibles dans le texte"
+      "_validation": "Unit corrigé de 'Mds $' à 'M $' pour cohérence; données de R&D non disponibles dans le texte",
+      "explanation_en": "Research & Development expenses."
     },
     {
       "short": "Headcount",
@@ -238,7 +245,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_validation": "Unit corrigé de 'K' vers vide (données précises non disponibles dans la source); suppression de l'unité inexacte"
+      "_validation": "Unit corrigé de 'K' vers vide (données précises non disponibles dans la source); suppression de l'unité inexacte",
+      "explanation_en": "Headcount : total number of employees at period end."
     },
     {
       "short": "Total Assets",
@@ -260,7 +268,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -282,7 +292,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -304,7 +316,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "AI Cloud Mix",
@@ -330,17 +343,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-04-16",
-    "fiscal_year": 2025,
-    "ceo_name": "Sassine Ghazi",
-    "exec_comp_approval_pct": 100,
-    "board_independence_pct": 90,
-    "board_size": 12,
-    "avg_tenure_years": null,
-    "board_women_pct": 30,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "top_capital": null,
-    "top_voting": null
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 8.97
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.28
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.65
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 8.97
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.28
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.65
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:15:11.360571+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "unit": "$B",
@@ -350,20 +390,23 @@
       {
         "label": "Design Automation",
         "value": 5.27,
+        "share_pct": 67.4,
         "unit": "$B",
-        "share_pct": 67.4
+        "label_en": "Design Automation"
       },
       {
         "label": "Design IP",
         "value": 1.74,
+        "share_pct": 22.3,
         "unit": "$B",
-        "share_pct": 22.3
+        "label_en": "Design IP"
       },
       {
         "label": "Ansys",
         "value": 0.81,
+        "share_pct": 10.4,
         "unit": "$B",
-        "share_pct": 10.4
+        "label_en": "Ansys"
       }
     ],
     "total": 7.82
@@ -376,35 +419,40 @@
         "value": 2.35,
         "unit": "Mds $",
         "pct": 46.2,
-        "share_pct": 46.2
+        "share_pct": 46.2,
+        "label_en": "United States"
       },
       {
         "name": "Europe",
         "value": 0.493,
         "unit": "Mds $",
         "pct": 9.7,
-        "share_pct": 9.7
+        "share_pct": 9.7,
+        "label_en": "Europe"
       },
       {
         "name": "China",
         "value": 0.795,
         "unit": "Mds $",
         "pct": 15.6,
-        "share_pct": 15.6
+        "share_pct": 15.6,
+        "label_en": "China"
       },
       {
         "name": "Korea",
         "value": 0.532,
         "unit": "Mds $",
         "pct": 10.5,
-        "share_pct": 10.5
+        "share_pct": 10.5,
+        "label_en": "Korea"
       },
       {
         "name": "Other",
         "value": 0.911,
         "unit": "Mds $",
         "pct": 17.9,
-        "share_pct": 17.9
+        "share_pct": 17.9,
+        "label_en": "Other"
       }
     ],
     "total": 5.08,
@@ -525,16 +573,16 @@
     }
   ],
   "ranks": {
-    "global_world": "#115",
-    "global_us": "#68",
-    "sector": "Top 50 in Information Technology",
-    "subsector": "#1 in Semi-conducteurs et logiciels"
+    "global_world": "#159",
+    "global_us": "#91",
+    "sector": "#54 in Technologie",
+    "subsector": "#3 in Semiconductors & Semiconductor Equipment"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-05-27",
   "publication_date": null,
   "company_description": "Synopsys, Inc. provides design IP solutions in the semiconductor and electronics industries. It operates in two segments, Design Automation and Design IP. The company offers Digital and Custom IC Design solution that provides digital design implementation solutions; Verification solution that offers virtual prototyping, static and formal verification, simulation, emulation, field programmable gate array (FPGA)-based prototyping, and debug solutions; FPGA design products that are programmed to perform specific functions; synopsys technology computer-aided design (TCAD), mask synthesis, and manufacturing analytic solutions; and AI-driven EDA solutions. It also provides pre-verified and silicon-proven IP solutions, logic libraries and embedded memories, processor and security solutions, IP Offerings for the automotive market, SOC infrastructure IP, data path and building block IP, and mathematical and floating-point components. Synopsys, Inc. has a strategic collaboration with Arm Holdings plc for development of AGI CPU that provides solutions across its full-stack design portfolio including EDA, interface IP, and hardware-assisted verification (HAV). The company was incorporated in 1",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.615Z",
+  "_built_at": "2026-05-21T16:00:22.721Z",
   "_missing_blocks": []
 }

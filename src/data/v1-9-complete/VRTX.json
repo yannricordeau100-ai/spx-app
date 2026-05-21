@@ -142,7 +142,9 @@
         "Pas de correction nécessaire"
       ],
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
-      "_hero_history_extracted_at": "2026-05-14T10:52:32.846708+00:00"
+      "_hero_history_extracted_at": "2026-05-14T10:52:32.846708+00:00",
+      "explanation_en": "Revenue from the CF Medicine segment.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Total Revenues",
@@ -172,7 +174,8 @@
       "_validation": [
         "Valeur confirmée dans le texte: 'our total revenues increased to $12.0 billion as compared to $11.0 billion in 2024'",
         "YoY corrigé de '+9%' à '+9.1%': ($12.0B - $11.0B) / $11.0B = 9.09%"
-      ]
+      ],
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Gross Margin",
@@ -203,7 +206,9 @@
         "Valeur confirmée: cost of sales 13.8% en 2025 vs 13.9% en 2024 => gross margin 86.2% vs 86.1%",
         "YoY format corrigé de '+0.4' à '+0.4 pts' pour clarifier qu'il s'agit de points de pourcentage, non de pourcentage",
         "Amélioration mineure de 40 points de base confirmée"
-      ]
+      ],
+      "explanation_en": "Gross Margin : gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "R&D Expenses",
@@ -234,7 +239,9 @@
         "Valeur confirmée dans le texte: 'total research and development (R&D) and selling, general and administrative (SG&A) expenses increased to $5.7 billion in 2025 as compared to $5.1 billion in 2024'",
         "YoY corrigé de '+12%' à '+11.8%': ($5.7B - $5.1B) / $5.1B = 11.76%",
         "Note: le texte indique R&D + SG&A combinés à $5.7B, pas seulement R&D; données acceptées comme fournies"
-      ]
+      ],
+      "explanation_en": "Expenses related to R&D.",
+      "signal_en": "Solid expansion, positive trajectory"
     },
     {
       "short": "Cash and Cash Equivalents",
@@ -264,7 +271,8 @@
       "_validation": [
         "Valeur confirmée dans le texte: 'Our total cash, cash equivalents and marketable securities increased to $12.3 billion as of December 31, 2025 as compared to $11.2 billion'",
         "YoY corrigé de '+10%' à '+9.8%': ($12.3B - $11.2B) / $11.2B = 9.82%"
-      ]
+      ],
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Total Assets",
@@ -285,7 +293,9 @@
       "signal": "Total des actifs de 25.64 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -306,7 +316,9 @@
       "signal": "Dette totale de 2.03 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -327,7 +339,8 @@
       "signal": "Trésorerie & équivalents de 5.08 Mds € dernière année",
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Total Revenue",
@@ -352,7 +365,9 @@
       "signal": "Chiffre d'affaires de 2.489 Mds $ dernière année.",
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -377,7 +392,9 @@
       "signal": "Résultat net de 3.953 Mds $ dernière année.",
       "description": "Résultat net consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "CASGEVY Revenue",
@@ -446,7 +463,10 @@
     "ceo_name": "Dr. Reshma  Kewalramani FASN, M.D.",
     "_source": "yfinance.companyOfficers"
   },
-  "revenue_by_segment": null,
+  "revenue_by_segment": {
+    "single_segment": true,
+    "_reason": "We operate in one segment, pharmaceuticals."
+  },
   "revenue_by_geography": {
     "label": "Répartition du chiffre d'affaires par zone géographique",
     "slices": [
@@ -455,14 +475,16 @@
         "value": 5.3,
         "unit": "Mds $",
         "pct": 85.4,
-        "share_pct": 85.4
+        "share_pct": 85.4,
+        "label_en": "North America"
       },
       {
         "name": "Europe",
         "value": 0.8,
         "unit": "Mds $",
         "pct": 12.9,
-        "share_pct": 12.9
+        "share_pct": 12.9,
+        "label_en": "Europe"
       }
     ],
     "total": 6.1,
@@ -560,18 +582,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #345",
-    "global_us": "≈ #123",
-    "sector": "≈ #15",
-    "subsector": "≈ #5"
+    "global_world": "#142",
+    "global_us": "#80",
+    "sector": "Top 25 in Santé",
+    "subsector": "#2 in Biotechnologie"
   },
   "latest_filing": null,
   "next_earnings_date": null,
   "publication_date": null,
   "company_description": "Vertex Pharmaceuticals Incorporated operates as a biotechnology company in the United States, Europe, and internationally. The company offers transformative medicines for people with serious diseases with a focus on specialty markets, such as cystic fibrosis (CF), sickle cell disease (SCD), transfusion dependent beta thalassemia (TDT), and acute pain. It markets TRIKAFTA/KAFTRIO for people with CF with at least one F508del mutation for 2 years of age and older; ALYFTREK for the treatment for people with CF 6 years of age and older; SYMDEKO/SYMKEVI for treatment of patients with CF 6 years of age and older; ORKAMBI for CF patients 1 year or older; and KALYDECO for the treatment of patients with 1 month or older who have CF with ivacaftor. The company also develops CASGEVY for the treatment of SCD and TDT; JOURNAVX for the treatment of acute pain in adults; VX-522, a CFTR mRNA therapeutic designed to treat the underlying cause of CF, which is in Phase 1/2 clinical trial; inaxaplin for the treatment of APOL1-mediated kidney disease, which is in single Phase 2 trial; VX-264 for treating Type 1 Diabetes; VX-670 for the treatment of myotonic dystrophy type 1; and VX-407, a small molecule",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.687Z",
-  "_missing_blocks": [
-    "revenue_by_segment"
-  ]
+  "_built_at": "2026-05-21T16:00:22.867Z",
+  "_missing_blocks": []
 }

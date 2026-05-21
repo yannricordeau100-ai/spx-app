@@ -21,14 +21,17 @@
       "unit": "M $",
       "yoy": "-16.4%",
       "history": [
-        8437,
-        10318,
-        8622
+        2713,
+        3534,
+        7241,
+        8028,
+        7816
       ],
       "period_type": "year",
       "description_fr": "Revenus totaux (clients externes + intersegments) du segment minier Indonésie (Grasberg), principal contributeur de FCX.",
       "description_en": "Total revenues (unaffiliated + intersegment) from FCX's Indonesia Operations segment, home of the Grasberg mining district.",
-      "_specific_to": "Segment business line revenue – Indonesia Operations (Grasberg copper/gold mine)"
+      "_specific_to": "Segment business line revenue – Indonesia Operations (Grasberg copper/gold mine)",
+      "is_short_history": false
     },
     {
       "short": "Cerro Verde Revenue",
@@ -125,7 +128,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Total Revenue",
@@ -147,7 +151,9 @@
       "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -169,7 +175,9 @@
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Solid expansion, positive trajectory"
     },
     {
       "short": "Operating Income",
@@ -191,7 +199,9 @@
       "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Operating Income : profit from core business operations.",
+      "signal_en": "Pressure, deteriorating trend"
     },
     {
       "short": "Total Assets",
@@ -213,7 +223,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -235,7 +247,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -257,7 +271,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position eroding, monitor liquidity"
     }
   ],
   "kpis_story": [
@@ -291,20 +306,44 @@
     }
   ],
   "governance": {
-    "agm_date": "2026-06-10",
-    "fiscal_year": 2025,
-    "ceo_name": "Ms. Kathleen Lynne Quirk",
-    "ceo_total_comp_m": null,
-    "ceo_pay_ratio": null,
-    "exec_comp_approval_pct": null,
-    "board_independence_pct": null,
-    "board_size": 11,
-    "avg_tenure_years": null,
-    "board_women_pct": null,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "top_capital": null,
-    "top_voting": null,
-    "_source": "yfinance.companyOfficers"
+    "top_capital": [
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.76
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 8.14
+      },
+      {
+        "name": "Fisher Asset Management, LLC",
+        "type": "institutionnel",
+        "stake_pct": 4.53
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.76
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 8.14
+      },
+      {
+        "name": "Fisher Asset Management, LLC",
+        "type": "institutionnel",
+        "stake_pct": 4.53
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:16.528165+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -314,49 +353,56 @@
         "value": 5.107,
         "unit": "Mds $",
         "pct": 35.5,
-        "share_pct": 35.5
+        "share_pct": 35.5,
+        "label_en": "North America Copper Mines"
       },
       {
         "name": "South America Mining",
         "value": 2.223,
         "unit": "Mds $",
         "pct": 15.4,
-        "share_pct": 15.4
+        "share_pct": 15.4,
+        "label_en": "South America Mining"
       },
       {
         "name": "Indonesia Mining",
         "value": 1.894,
         "unit": "Mds $",
         "pct": 13.1,
-        "share_pct": 13.1
+        "share_pct": 13.1,
+        "label_en": "Indonesia Mining"
       },
       {
         "name": "Molybdenum mines",
         "value": 0.311,
         "unit": "Mds $",
         "pct": 2.2,
-        "share_pct": 2.2
+        "share_pct": 2.2,
+        "label_en": "Molybdenum mines"
       },
       {
         "name": "Rod Refining",
         "value": 0.242,
         "unit": "Mds $",
         "pct": 1.7,
-        "share_pct": 1.7
+        "share_pct": 1.7,
+        "label_en": "Rod Refining"
       },
       {
         "name": "Atlantic Copper Smelting Refining",
         "value": 0.198,
         "unit": "Mds $",
         "pct": 1.4,
-        "share_pct": 1.4
+        "share_pct": 1.4,
+        "label_en": "Atlantic Copper Smelting Refining"
       },
       {
         "share_pct": 30.7,
         "value": 0.005,
         "unit": "Mds $",
         "pct": 30.7,
-        "name": "Autres"
+        "name": "Autres",
+        "label_en": "Other"
       }
     ],
     "total": 9.98,
@@ -370,112 +416,128 @@
         "value": 5.107,
         "unit": "Mds $",
         "pct": 35.5,
-        "share_pct": 35.5
+        "share_pct": 35.5,
+        "label_en": "United States"
       },
       {
         "name": "Switzerland",
         "value": 2.223,
         "unit": "Mds $",
         "pct": 15.4,
-        "share_pct": 15.4
+        "share_pct": 15.4,
+        "label_en": "Switzerland"
       },
       {
         "name": "Indonesia",
         "value": 1.894,
         "unit": "Mds $",
         "pct": 13.1,
-        "share_pct": 13.1
+        "share_pct": 13.1,
+        "label_en": "Indonesia"
       },
       {
         "name": "Japan",
         "value": 1.181,
         "unit": "Mds $",
         "pct": 8.2,
-        "share_pct": 8.2
+        "share_pct": 8.2,
+        "label_en": "Japan"
       },
       {
         "name": "Spain",
         "value": 0.884,
         "unit": "Mds $",
         "pct": 6.1,
-        "share_pct": 6.1
+        "share_pct": 6.1,
+        "label_en": "Spain"
       },
       {
         "name": "China",
         "value": 0.531,
         "unit": "Mds $",
         "pct": 3.7,
-        "share_pct": 3.7
+        "share_pct": 3.7,
+        "label_en": "China"
       },
       {
         "name": "Germany",
         "value": 0.311,
         "unit": "Mds $",
         "pct": 2.2,
-        "share_pct": 2.2
+        "share_pct": 2.2,
+        "label_en": "Germany"
       },
       {
         "name": "Chile",
         "value": 0.242,
         "unit": "Mds $",
         "pct": 1.7,
-        "share_pct": 1.7
+        "share_pct": 1.7,
+        "label_en": "Chile"
       },
       {
         "name": "United Kingdom",
         "value": 0.233,
         "unit": "Mds $",
         "pct": 1.6,
-        "share_pct": 1.6
+        "share_pct": 1.6,
+        "label_en": "United Kingdom"
       },
       {
         "name": "France",
         "value": 0.198,
         "unit": "Mds $",
         "pct": 1.4,
-        "share_pct": 1.4
+        "share_pct": 1.4,
+        "label_en": "France"
       },
       {
         "name": "Belgium",
         "value": 0.16,
         "unit": "Mds $",
         "pct": 1.1,
-        "share_pct": 1.1
+        "share_pct": 1.1,
+        "label_en": "Belgium"
       },
       {
         "name": "Korea",
         "value": 0.14,
         "unit": "Mds $",
         "pct": 1,
-        "share_pct": 1
+        "share_pct": 1,
+        "label_en": "Korea"
       },
       {
         "name": "India",
         "value": 0.107,
         "unit": "Mds $",
         "pct": 0.7,
-        "share_pct": 0.7
+        "share_pct": 0.7,
+        "label_en": "India"
       },
       {
         "name": "Philippines",
         "value": 0.073,
         "unit": "Mds $",
         "pct": 0.5,
-        "share_pct": 0.5
+        "share_pct": 0.5,
+        "label_en": "Philippines"
       },
       {
         "name": "Bermuda",
         "value": 0.038,
         "unit": "Mds $",
         "pct": 0.3,
-        "share_pct": 0.3
+        "share_pct": 0.3,
+        "label_en": "Bermuda"
       },
       {
         "name": "Other",
         "value": 1.08,
         "unit": "Mds $",
         "pct": 7.5,
-        "share_pct": 7.5
+        "share_pct": 7.5,
+        "label_en": "Other"
       }
     ],
     "total": 14.4,
@@ -547,36 +609,98 @@
     }
   ],
   "ai_positioning": {
-    "stance": "absent",
-    "summary": "Freeport-McMoRan Inc. does not mention artificial intelligence, machine learning, or related technologies in the 10-K/20-F extracts provided.",
-    "evidence": [],
-    "source": "10-K/20-F annual report"
+    "stance": "cautious",
+    "summary": "Freeport-McMoRan Inc. mentionne peu l'IA dans ses communications officielles (Mines).",
+    "evidence": [
+      "Aucune mention significative d'IA dans le 10-K ou les earnings calls disponibles localement.",
+      "Le secteur Mines commence à intégrer l'IA mais Freeport-McMoRan Inc. ne met pas le sujet en avant à ce jour.",
+      "Mettrik AI réévaluera le positionnement IA à chaque nouvelle publication."
+    ],
+    "source_note": "Sources locales sans mentions IA significatives",
+    "_bucket": "MEDIUM",
+    "_no_ai_passages": true,
+    "_generated_at": "2026-05-21T02:32:13.145949+00:00",
+    "ticker": "FCX"
   },
   "market_positions": [],
   "events": [
     {
       "year": 2026,
-      "month": 5,
-      "title": "Grasberg Disruptions Weigh on FCX's Q1 Volumes: What Lies Ahead?",
-      "body": "FCX cuts 2026 copper sales outlook after Grasberg disruptions hit volumes, despite stronger copper and gold prices boosting Q1 results.",
-      "source": "Zacks",
-      "url": "https://finance.yahoo.com/markets/commodities/articles/grasberg-disruptions-weigh-fcxs-q1-135200227.html",
-      "date": "2026-05-14"
+      "month": 7,
+      "title": "Prochaine publication Q3 2026",
+      "body": "Publication attendue le 22 juillet 2026 (Q3 2026).",
+      "source": "yfinance · calendar",
+      "url": "",
+      "date": "2026-07-22"
     },
     {
       "year": 2026,
       "month": 5,
-      "title": "Stocks Settle Higher on Strong Earnings",
-      "body": "The S&P 500 Index ($SPX ) (SPY ) on Monday closed up +0.19%, the Dow Jones Industrial Average ($DOWI ) (DIA ) closed up +0.19%, and the Nasdaq 100 Index ($IUXX ) (QQQ ) closed up +0.29%. June E-mini S&P futures (ESM26 ) rose +0.18%, and Jun",
+      "title": "Stocks Settle Lower on Rising Bond Yields",
+      "body": "The S&P 500 Index ($SPX ) (SPY ) on Tuesday closed down -0.67%, the Dow Jones Industrial Average ($DOWI ) (DIA ) closed down -0.65%, and the Nasdaq 100 Index ($IUXX ) (QQQ ) closed down -0.61%. June E-mini S&P futures (ESM26 ) fell -0.70%, ",
       "source": "Barchart",
-      "url": "https://www.barchart.com/story/news/1858759/stocks-settle-higher-on-strong-earnings",
-      "date": "2026-05-11"
+      "url": "https://www.barchart.com/story/news/2025311/stocks-settle-lower-on-rising-bond-yields",
+      "date": "2026-05-19"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "Stocks Settle Sharply Lower as Bond Yields Jump on Inflation Fears",
+      "body": "The S&P 500 Index ($SPX ) (SPY ) on Friday closed down -1.24%, the Dow Jones Industrial Average ($DOWI ) (DIA ) closed down -1.07%, and the Nasdaq 100 Index ($IUXX ) (QQQ ) closed down -1.54%. June E-mini S&P futures (ESM26 ) fell -1.26%, a",
+      "source": "Barchart",
+      "url": "https://www.barchart.com/story/news/1965508/stocks-settle-sharply-lower-as-bond-yields-jump-on-inflation-fears",
+      "date": "2026-05-15"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "Zacks Industry Outlook Highlights Southern Copper, Freeport-McMoRan and Lundin Mining",
+      "body": "SCCO, FCX and LUNMF are positioned to benefit from rising demand for copper and non-ferrous metals tied to AI and energy projects.",
+      "source": "Zacks",
+      "url": "https://finance.yahoo.com/markets/commodities/articles/zacks-industry-outlook-highlights-southern-072400693.html",
+      "date": "2026-05-15"
+    },
+    {
+      "year": 2026,
+      "month": 4,
+      "title": "Dividende 0.15 $/action versé",
+      "body": "Dividende ordinaire de 0.15 $ par action, ex-date 15 avril 2026.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2026-04-15"
+    },
+    {
+      "year": 2026,
+      "month": 3,
+      "title": "Publication des résultats Q1 2026",
+      "body": "Clôture du trimestre Q1 2026 le 31 mars 2026.",
+      "source": "yfinance · mostRecentQuarter",
+      "url": "",
+      "date": "2026-03-31"
+    },
+    {
+      "year": 2026,
+      "month": 1,
+      "title": "Dividende 0.15 $/action versé",
+      "body": "Dividende ordinaire de 0.15 $ par action, ex-date 15 janvier 2026.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2026-01-15"
+    },
+    {
+      "year": 2025,
+      "month": 10,
+      "title": "Dividende 0.15 $/action versé",
+      "body": "Dividende ordinaire de 0.15 $ par action, ex-date 15 octobre 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-10-15"
     }
   ],
   "ranks": {
     "global_world": "#175",
-    "global_us": "#100",
-    "sector": "#3 in Matériaux",
+    "global_us": "#103",
+    "sector": "Top 5 in Matériaux",
     "subsector": "#1 in Mines"
   },
   "latest_filing": null,
@@ -584,6 +708,6 @@
   "publication_date": null,
   "company_description": "Freeport-McMoRan Inc. engages in the mining of mineral properties in North America, South America, and Indonesia. The company primarily explores for copper, gold, molybdenum, silver, and other metals. Its assets include the Grasberg minerals district in Indonesia; Morenci, Bagdad, Safford, Sierrita, and Miami in Arizona; Chino and Tyrone in New Mexico; and Henderson and Climax in Colorado, North America, as well as Cerro Verde in Peru and El Abra in Chile. The company was formerly known as Freeport-McMoRan Copper & Gold Inc. and changed its name to Freeport-McMoRan Inc. in July 2014. The company was incorporated in 1987 and is headquartered in Phoenix, Arizona.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-21T02:08:59.290Z",
+  "_built_at": "2026-05-21T16:00:22.222Z",
   "_missing_blocks": []
 }

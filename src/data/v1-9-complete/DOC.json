@@ -53,7 +53,8 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "signal_en": "Solid expansion, positive trajectory"
     },
     {
       "short": "Average Occupancy Rate - Senior Housing",
@@ -72,7 +73,8 @@
       "last_data_date": "2024-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Average Annual Rent Per Occupied Unit",
@@ -91,7 +93,8 @@
       "last_data_date": "2024-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Interest Expense",
@@ -110,7 +113,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cost pressure, investment phase"
     },
     {
       "short": "Depreciation and Amortization",
@@ -129,7 +133,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "General and Administrative Expenses",
@@ -148,7 +153,9 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Expenses related to General and Administrative.",
+      "signal_en": "Pressure, deteriorating trend"
     },
     {
       "short": "Total Assets",
@@ -170,7 +177,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -192,7 +201,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Revenue",
@@ -218,7 +229,9 @@
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -243,7 +256,9 @@
       "signal": "Résultat net de 0.071 Mds $ dernière année.",
       "description": "Résultat net consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns"
     },
     {
       "short": "Senior Housing Portfolio Properties",
@@ -308,29 +323,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-04-30",
-    "fiscal_year": 2025,
-    "ceo_name": "Mr. Brinker",
-    "exec_comp_approval_pct": 100,
-    "board_independence_pct": 88.9,
-    "board_size": 9,
-    "avg_tenure_years": 6.2,
-    "board_women_pct": 33.3,
-    "voting_structure": "One share, one vote",
     "top_capital": [
       {
-        "name": "Healthpeak Properties, Inc.",
+        "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": 100
+        "stake_pct": 14.99
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 10.64
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 7.03
       }
     ],
     "top_voting": [
       {
-        "name": "Healthpeak Properties, Inc.",
+        "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": 100
+        "stake_pct": 14.99
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 10.64
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 7.03
       }
-    ]
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:12:57.850781+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -340,39 +370,58 @@
         "value": 0.411,
         "unit": "Mds $",
         "pct": 44,
-        "share_pct": 44
+        "share_pct": 44,
+        "label_en": "Life science"
       },
       {
         "name": "Medical office",
         "value": 0.39,
         "unit": "Mds $",
         "pct": 42,
-        "share_pct": 42
+        "share_pct": 42,
+        "label_en": "Medical office"
       },
       {
         "name": "CCRC",
         "value": 0.113,
         "unit": "Mds $",
         "pct": 12,
-        "share_pct": 12
+        "share_pct": 12,
+        "label_en": "CCRC"
       },
       {
         "name": "Other non-reportable",
         "value": 0.021,
         "unit": "Mds $",
         "pct": 2,
-        "share_pct": 2
+        "share_pct": 2,
+        "label_en": "Other non-reportable"
       }
     ],
     "total": 0.94,
     "unit": "Mds $"
   },
   "revenue_by_geography": {
+    "unit": "%",
+    "slices": [
+      {
+        "label": "États-Unis",
+        "value": 100,
+        "share_pct": 100,
+        "single_region_legitimate": true,
+        "unit": "%",
+        "label_en": "United States"
+      }
+    ],
+    "total": 100,
+    "source": "Mono-pays légitime (filings)",
+    "_tagged_by": "auto-rebascule-21mai-CONV-CONCEPTS",
+    "_tagged_at": "2026-05-21T01:26:18.185Z",
+    "_category": "reit-us",
     "single_region_legitimate": true,
     "_legit_reason": "US REIT — medical office properties US only (Healthpeak)",
     "_legit_marked_at": "2026-05-21T08:18:58Z",
     "_legit_marked_by": "sub-agent-#76-repartition-cerebras",
-    "slices": [],
     "label": "Répartition géographique (mono-région légitime)"
   },
   "risks": [
@@ -435,9 +484,16 @@
   ],
   "ai_positioning": {
     "stance": "absent",
-    "summary": "La société n'a pas de mentions significatives concernant l'intelligence artificielle ou l'apprentissage automatique dans les extraits fournis.",
-    "evidence": [],
-    "source": ""
+    "summary": "Le secteur REIT (foncières cotées) n'est pas significativement transformé par l'IA aujourd'hui : la valeur de Healthpeak Properties, Inc. s'évalue principalement sur les fondamentaux propres au secteur (positionnement, marges, cycle, génération de cash). Une analyse fine de l'usage interne de l'IA (optimisation de processus, gestion d'actifs, automation) sera ajoutée en V2.0.",
+    "evidence": [
+      "Healthpeak Properties, Inc. opère dans un sous-secteur (REIT (foncières cotées)) où l'IA reste à ce jour un outil interne plutôt qu'un facteur de différenciation produit.",
+      "Les KPIs de la fiche (revenus, marges, ranks sectoriels) restent les meilleurs indicateurs de la qualité d'investissement.",
+      "Mettrik AI tracera en V2.0 les usages internes IA quand la sté commencera à les mentionner explicitement dans ses rapports."
+    ],
+    "source_note": "Analyse Mettrik AI (sub-industry classification GICS, en attente de divulgations IA explicites par la sté)",
+    "_bucket": "NONE",
+    "_generated_at": "2026-05-21T02:31:18.711761+00:00",
+    "ticker": "DOC"
   },
   "market_positions": [],
   "events": [
@@ -479,18 +535,16 @@
     }
   ],
   "ranks": {
-    "global_world": "N/A",
-    "global_us": "N/A",
-    "sector": "N/A",
-    "subsector": "N/A"
+    "global_world": "#622",
+    "global_us": "#374",
+    "sector": "Top 25 in Immobilier",
+    "subsector": "Top 10 in REIT (foncières cotées)"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-05-05",
   "publication_date": null,
   "company_description": "Healthpeak Properties, Inc. is a Standard & Poor's 500 company that owns, operates, and develops high-quality real estate focused on healthcare discovery and delivery in the United States. Our company was originally founded in 1985. We are organized as an umbrella partnership REIT. We hold substantially all our assets and conduct our operations through our operating subsidiary, Healthpeak OP, a consolidated subsidiary of which we are the managing member. We are a Maryland corporation and qualify as a self-administered REIT. We are headquartered in Denver, Colorado, with additional corporate offices in California, Tennessee, Wisconsin, and Massachusetts and property management offices in several locations throughout the U.S. We have a diversified portfolio of high-quality healthcare properties across three core asset classes of outpatient medical, lab, and continuing care retirement community real estate. Under the outpatient medical and lab segments, we own, operate, and develop outpatient medical buildings, hospitals, and lab buildings. Under the CCRC segment, our properties are operated through RIDEA structures. We have other non-reportable segments that are comprised primarily o",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.304Z",
-  "_missing_blocks": [
-    "revenue_by_geography"
-  ]
+  "_built_at": "2026-05-21T16:00:22.135Z",
+  "_missing_blocks": []
 }

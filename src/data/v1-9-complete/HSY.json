@@ -120,7 +120,9 @@
       "_source": "yfinance.income_stmt",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:53:50.930958+00:00",
-      "last_data_date": "2026-03-29"
+      "last_data_date": "2026-03-29",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -141,7 +143,9 @@
       "signal": "Résultat net de 0.88 Mds € dernière année",
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal"
     },
     {
       "short": "Total Assets",
@@ -162,7 +166,9 @@
       "signal": "Total des actifs de 13.74 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -183,7 +189,9 @@
       "signal": "Dette totale de 5.74 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -204,7 +212,8 @@
       "signal": "Trésorerie & équivalents de 0.93 Mds € dernière année",
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "DPS",
@@ -228,7 +237,9 @@
       "signal": "Dividende par action de 1.452 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -249,7 +260,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 1.085 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position stable"
     },
     {
       "short": "Payout Ratio",
@@ -270,7 +283,9 @@
       "signal": "Part du résultat net distribué en dividendes : 122.9% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Acquisition of LesserEvil",
@@ -295,15 +310,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-05-05",
-    "fiscal_year": 2025,
-    "board_independence_pct": 90.9,
-    "board_size": 11,
-    "top_capital": [],
-    "top_voting": [],
-    "board_women_pct": 27.3,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "ceo_name": "Kirk Tanner"
+    "top_capital": [
+      {
+        "name": "Hershey Trust Company",
+        "type": "institutionnel",
+        "stake_pct": 38.16
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.35
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.62
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "Hershey Trust Company",
+        "type": "institutionnel",
+        "stake_pct": 38.16
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.35
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.62
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:41.518817+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -313,14 +357,16 @@
         "value": 8.4,
         "unit": "Mds $",
         "pct": 91,
-        "share_pct": 91
+        "share_pct": 91,
+        "label_en": "North America"
       },
       {
         "name": "International and Other",
         "value": 0.8,
         "unit": "Mds $",
         "pct": 9,
-        "share_pct": 9
+        "share_pct": 9,
+        "label_en": "International and Other"
       }
     ],
     "total": 9.2,
@@ -334,14 +380,16 @@
         "value": 8.4,
         "unit": "Mds $",
         "pct": 86.4,
-        "share_pct": 86.4
+        "share_pct": 86.4,
+        "label_en": "United States"
       },
       {
         "name": "Hors États-Unis",
         "value": 1.3,
         "unit": "Mds $",
         "pct": 13.6,
-        "share_pct": 13.6
+        "share_pct": 13.6,
+        "label_en": "Outside United States"
       }
     ],
     "total": 9.7,
@@ -449,16 +497,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #XX",
-    "global_us": "...",
-    "sector": "...",
-    "subsector": "..."
+    "global_world": "#432",
+    "global_us": "#255",
+    "sector": "Top 25 in Consommation de base",
+    "subsector": "#2 in Alimentation"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-30",
   "publication_date": null,
   "company_description": "The Hershey Company, together with its subsidiaries, engages in the manufacture and sale of confectionery products and pantry items in the United States and internationally. It operates through three segments: North America Confectionery, North America Salty Snacks, and International. The company offers chocolate and non-chocolate confectionery products; gum and mint refreshment products, including mints, chewing gums, and bubble gums; protein bars; pantry items, such as baking ingredients, toppings, beverages, and sundae syrups; and snack items comprising spreads, bars, snack bites, mixes, popcorn, and pretzels. It provides its products primarily under the Hershey's, Reese's, Kisses, Jolly Rancher, Almond Joy, Brookside, barkTHINS, Cadbury, Good & Plenty, Heath, Kit Kat, Payday, Rolo, Twizzlers, Sour Strips, Whoppers, York, Ice Breakers, Breath Savers, Bubble Yum, Lily's, SkinnyPop, Pirates Booty, Dot's Homestyle Pretzels, and ONE Bar brands, as well as under the Pelon Pelo Rico, IO-IO, and Sofit brands. The company markets and sells its products to wholesale distributors, chain grocery stores, mass merchandisers, chain drug stores, vending companies, wholesale clubs, convenience ",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.403Z",
+  "_built_at": "2026-05-21T16:00:22.306Z",
   "_missing_blocks": []
 }

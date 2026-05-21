@@ -125,7 +125,9 @@
       ],
       "period_type": "quarter",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
-      "_hero_history_extracted_at": "2026-05-14T10:54:50.980124+00:00"
+      "_hero_history_extracted_at": "2026-05-14T10:54:50.980124+00:00",
+      "explanation_en": "Revenue : total sales generated over the period.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Op Margin",
@@ -155,7 +157,9 @@
       "_validation": [
         "last_data_date corrected to fiscal year-end 2025 (January 3, 2026)",
         "signal updated to reference RCI and Value Creation Processes per 10-K"
-      ]
+      ],
+      "explanation_en": "Profit margin on Op.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Gross Margin",
@@ -184,7 +188,9 @@
       "ttm": 48.58,
       "_validation": [
         "last_data_date corrected to fiscal year-end 2025 (January 3, 2026)"
-      ]
+      ],
+      "explanation_en": "Gross Margin : gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "R&D",
@@ -214,7 +220,9 @@
       "_validation": [
         "name_en updated for consistency: 'of' added",
         "last_data_date corrected to fiscal year-end 2025 (January 3, 2026)"
-      ]
+      ],
+      "explanation_en": "Research & Development expenses.",
+      "signal_en": "Flat year-over-year, monitor closely"
     },
     {
       "short": "Capex",
@@ -245,7 +253,9 @@
         "Unit corrected from 'Mds $' to 'B $' (standard convention)",
         "name_fr improved for clarity",
         "last_data_date corrected to fiscal year-end 2025 (January 3, 2026)"
-      ]
+      ],
+      "explanation_en": "Capital Expenditures : investments in property, plant and equipment.",
+      "signal_en": "Steady growth, healthy trend"
     },
     {
       "short": "Headcount",
@@ -276,7 +286,9 @@
         "Type changed from 'Investment' to 'Headcount' for accuracy",
         "Signal updated to remove franchise-specific language",
         "last_data_date corrected to fiscal year-end 2025 (January 3, 2026)"
-      ]
+      ],
+      "explanation_en": "Headcount : total number of employees at period end.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Total Assets",
@@ -297,7 +309,9 @@
       "signal": "Total des actifs de 8.41 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -318,7 +332,9 @@
       "signal": "Dette totale de 1.29 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable"
     },
     {
       "short": "DPS",
@@ -342,7 +358,9 @@
       "signal": "Dividende par action de 2.44 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -363,7 +381,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 0.462 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -384,7 +404,9 @@
       "signal": "Part du résultat net distribué en dividendes : 45.5% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     }
   ],
   "kpis_story": [
@@ -405,17 +427,44 @@
     }
   ],
   "governance": {
-    "agm_date": "2026-04-30",
-    "fiscal_year": 2025,
-    "exec_comp_approval_pct": null,
-    "board_independence_pct": null,
-    "board_size": 10,
-    "avg_tenure_years": null,
-    "board_women_pct": null,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "top_capital": [],
-    "top_voting": [],
-    "ceo_name": "Nicholas T. Pinchuk"
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.65
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.02
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.42
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.65
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.02
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.42
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:15:10.176263+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "unit": "Mds$",
@@ -425,26 +474,30 @@
       {
         "label": "Tools",
         "value": 2.54,
-        "unit": "M$",
-        "share_pct": 49.3
+        "share_pct": 49.3,
+        "unit": "Mds$",
+        "label_en": "Tools"
       },
       {
         "label": "Diagnostics, information and management systems",
         "value": 1.11,
-        "unit": "M$",
-        "share_pct": 21.6
+        "share_pct": 21.6,
+        "unit": "Mds$",
+        "label_en": "Diagnostics, information and management systems"
       },
       {
         "label": "Equipment",
         "value": 1.09,
-        "unit": "M$",
-        "share_pct": 21.2
+        "share_pct": 21.2,
+        "unit": "Mds$",
+        "label_en": "Equipment"
       },
       {
         "label": "Financial services revenue",
         "value": 0.41,
-        "unit": "M$",
-        "share_pct": 8
+        "share_pct": 8,
+        "unit": "Mds$",
+        "label_en": "Financial services revenue"
       }
     ],
     "total": 5.15
@@ -457,20 +510,23 @@
       {
         "label": "Amérique du Nord",
         "value": 3.53,
-        "unit": "M$",
-        "share_pct": 74.3
+        "share_pct": 74.3,
+        "unit": "Mds$",
+        "label_en": "North America"
       },
       {
         "label": "Europe",
         "value": 0.75,
-        "unit": "M$",
-        "share_pct": 15.8
+        "share_pct": 15.8,
+        "unit": "Mds$",
+        "label_en": "Europe"
       },
       {
         "label": "Autres régions",
         "value": 0.47,
-        "unit": "M$",
-        "share_pct": 9.9
+        "share_pct": 9.9,
+        "unit": "Mds$",
+        "label_en": "Other regions"
       }
     ],
     "total": 4.75
@@ -586,15 +642,15 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #1K",
-    "global_us": "Top 500 US Industrial Companies",
-    "sector": "N/A",
-    "subsector": "Leader in professional tool solutions"
+    "global_world": "#677",
+    "global_us": "#411",
+    "sector": "#69 in Industrie",
+    "subsector": "#1 in Industrial Machinery & Tools"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-16",
   "publication_date": null,
   "company_description": "Snap-on Incorporated manufactures and markets tools, equipment, diagnostics, and repair information and systems solutions for professional users worldwide. It operates through Commercial & Industrial Group, Snap-on Tools Group, Repair Systems & Information Group, and Financial Services segments. The company offers hand tools, such as wrenches, sockets, ratchet wrenches, pliers, screwdrivers, punches and chisels, saws and cutting tools, pruning tools, torque tools, and other similar products; power tools, including cordless, pneumatic, and hydraulic and corded tools; impact wrenches, ratchets, screwdrivers, drills, sanders, and grinders. It also provides tool chests and roll cabinet stool storage products; facility-level tool control and asset management hardware and software; diagnostics, information, and management systems product comprising handheld and computer-based diagnostic products, service and repair information products, diagnostic software solutions, electronic parts catalogs, business management systems and services, point-of-sale systems, integrated systems for vehicle service shops, OEM purchasing facilitation services, and warranty management systems and analytics to",
-  "_built_at": "2026-05-20T20:15:02.613Z",
+  "_built_at": "2026-05-21T16:00:22.718Z",
   "_missing_blocks": []
 }

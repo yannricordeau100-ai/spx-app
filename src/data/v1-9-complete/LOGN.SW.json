@@ -133,7 +133,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "explanation_en": "Gross Margin : gross profit divided by revenue.",
+      "signal_en": "Margin stable, monitor cost dynamics"
     },
     {
       "short": "Op Margin",
@@ -158,7 +160,9 @@
       "last_data_date": "2013-03-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Profit margin on Op.",
+      "signal_en": "Margin compression, watch profitability"
     },
     {
       "short": "R&D",
@@ -183,7 +187,9 @@
       "last_data_date": "2013-03-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Research & Development expenses.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Capex",
@@ -208,7 +214,9 @@
       "last_data_date": "2013-03-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Capital Expenditures : investments in property, plant and equipment.",
+      "signal_en": "Flat year-over-year, monitor closely"
     },
     {
       "short": "Headcount",
@@ -233,7 +241,9 @@
       "last_data_date": "2013-03-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Headcount : total number of employees at period end.",
+      "signal_en": "Pressure, deteriorating trend"
     },
     {
       "short": "DPS",
@@ -257,7 +267,9 @@
       "signal": "Dividende par action de 1.26 CHF dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Cap Return",
@@ -279,7 +291,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -301,7 +315,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     }
   ],
   "kpis_story": [
@@ -321,48 +337,79 @@
     }
   ],
   "governance": {
-    "ceo_name": "Ms. Johanna W. Faber",
-    "ceo_title": "CEO & Director",
-    "fiscal_year": 2025
-  },
-  "revenue_by_segment": {
-    "unit": "$B",
-    "source_date": "2013-03-31",
-    "source": "10-K fiscal year 2013",
-    "slices": [
+    "top_capital": [
       {
-        "label": "Peripherals",
-        "value": null,
-        "unit": "$B"
+        "name": "UBS Group AG",
+        "type": "institutionnel",
+        "stake_pct": 4.58
       },
       {
-        "label": "Video Conferencing (LifeSize)",
-        "value": null,
-        "unit": "$B"
+        "name": "Vontobel Holding Limited",
+        "type": "institutionnel",
+        "stake_pct": 3.02
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 2.9
       }
-    ]
+    ],
+    "top_voting": [
+      {
+        "name": "UBS Group AG",
+        "type": "institutionnel",
+        "stake_pct": 4.58
+      },
+      {
+        "name": "Vontobel Holding Limited",
+        "type": "institutionnel",
+        "stake_pct": 3.02
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 2.9
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:14:06.004235+00:00",
+    "_top_dual_class_flag": false
+  },
+  "revenue_by_segment": {
+    "single_segment": true,
+    "_reason": "The Company operates in a single operating segment that encompasses the design, manufacturing and marketing of peripherals for PCs, tablets, gaming, video conferencing, and other digital platforms."
   },
   "revenue_by_geography": {
-    "unit": "$B",
-    "source_date": "2013-03-31",
-    "source": "10-K fiscal year 2013",
     "slices": [
       {
         "label": "Americas",
-        "value": null,
-        "unit": "$B"
+        "share_pct": 42.54,
+        "label_fr": "Amériques",
+        "label_en": "Americas",
+        "value": 1930.908,
+        "unit": "M $"
       },
       {
         "label": "EMEA",
-        "value": null,
-        "unit": "$B"
+        "share_pct": 28.63,
+        "label_fr": "EMEA",
+        "label_en": "EMEA",
+        "value": 1299.657,
+        "unit": "M $"
       },
       {
         "label": "Asia Pacific",
-        "value": null,
-        "unit": "$B"
+        "share_pct": 28.83,
+        "label_fr": "Asie-Pacifique",
+        "label_en": "Asia Pacific",
+        "value": 1308.253,
+        "unit": "M $"
       }
-    ]
+    ],
+    "year": 2023,
+    "currency": "USD",
+    "total": 4538.818
   },
   "risks": [
     {
@@ -480,15 +527,15 @@
     }
   ],
   "ranks": {
-    "global_world": "#249",
+    "global_world": "#597",
     "global_us": "Non US",
-    "sector": "#77 in Information Technology",
+    "sector": "#159 in Technologie",
     "subsector": "#1 in Computer Hardware"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-08-04",
   "publication_date": null,
   "company_description": "Logitech International S.A., through its subsidiaries, designs, manufactures, and markets software-enabled hardware solutions that connect people to working, creating, and gaming worldwide. The company offers products for gamers and streamers, including mice, steering wheels, headsets, keyboards, microphones, and streaming services; corded and cordless keyboards and keyboard-and-mouse combinations; pointing devices, such as wireless mice and wireless mouse products; conference room cameras, such as ConferenceCams; controllers for video conferencing room solutions; PC-based webcams, including streaming cameras and VC webcams; tablet accessories that includes keyboards for tablets; PC and VC headsets, in-ear headphones, and premium wireless earbuds; and mobile speakers and PC speakers, as well as portable wireless Bluetooth speakers. It sells its products to a network of distributors, retailers, and e-tailers who resell to retailers, value-added resellers, systems integrators, and other distributors. The company sells its products under the Logitech, Logitech G, and others. Logitech International S.A. was incorporated in 1981 and is headquartered in Lausanne, Switzerland.",
-  "_built_at": "2026-05-20T20:15:02.459Z",
+  "_built_at": "2026-05-21T16:00:22.414Z",
   "_missing_blocks": []
 }

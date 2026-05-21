@@ -47,11 +47,12 @@
       "signal": "Principal revenu bancaire",
       "description": "Revenu net d'intérêts en pourcentage du revenu total. Indicateur suivi annuellement par les analystes de la société, valeur historisée sur les 5 dernières années.",
       "history": [
-        66,
-        65,
-        64,
-        63,
-        62
+        549,
+        565,
+        559,
+        600,
+        589,
+        577
       ],
       "last_data_date": "2026-03-31",
       "is_wow": false,
@@ -59,7 +60,9 @@
       "is_short_history": false,
       "ttm": 61.75,
       "_validation": "Valeur numérique corrigée de '66%' à 66 (unit reste %); name_fr et explanation améliorés; hero_kpi_rationale révisé sans tiret",
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "explanation_en": "Net Interest income generated over the period.",
+      "signal_en": "Revenue pressure, demand softening"
     },
     {
       "short": "Noninterest Income",
@@ -86,7 +89,8 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 29.76,
-      "_validation": "Valeur numérique corrigée de '34%' à 34 (unit reste %); explanation enrichi avec détails des sources"
+      "_validation": "Valeur numérique corrigée de '34%' à 34 (unit reste %); explanation enrichi avec détails des sources",
+      "explanation_en": "Noninterest income generated over the period."
     },
     {
       "short": "Total Revenue",
@@ -96,10 +100,12 @@
       "unit": "Mds €",
       "yoy": "+6.7%",
       "history": [
-        8.1,
-        8.43,
-        8.27,
-        8.82
+        549,
+        565,
+        559,
+        600,
+        589,
+        577
       ],
       "type": "Comptes",
       "nature": "comptable",
@@ -108,7 +114,9 @@
       "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": false,
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -130,7 +138,9 @@
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Steady growth, healthy trend"
     },
     {
       "short": "Diluted EPS",
@@ -152,7 +162,9 @@
       "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Solid expansion, positive trajectory"
     },
     {
       "short": "Total Assets",
@@ -174,7 +186,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -196,7 +210,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Cash & Equivalents",
@@ -218,7 +234,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Acquisition of Comerica Incorporated",
@@ -273,18 +290,44 @@
     }
   ],
   "governance": {
-    "agm_date": "2026-04-21",
-    "fiscal_year": 2025,
-    "exec_comp_approval_pct": null,
-    "board_independence_pct": null,
-    "board_size": 16,
-    "avg_tenure_years": null,
-    "board_women_pct": null,
-    "voting_structure": "Une seule classe d'actions ordinaires avec droits de vote égaux, ainsi que des actions préférées de classe B non-cumulatives à 6,00% avec droits de vote limités aux questions spécifiques.",
-    "top_capital": null,
-    "top_voting": null,
-    "ceo_name": "Mr. Timothy N. Spence",
-    "_source": "yfinance.companyOfficers"
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.64
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.91
+      },
+      {
+        "name": "T. Rowe Price",
+        "type": "institutionnel",
+        "stake_pct": 5.09
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.64
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.91
+      },
+      {
+        "name": "T. Rowe Price",
+        "type": "institutionnel",
+        "stake_pct": 5.09
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:20.534053+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -294,34 +337,55 @@
         "value": 4.9,
         "unit": "Mds $",
         "pct": 44.1,
-        "share_pct": 44.1
+        "share_pct": 44.1,
+        "label_en": "Commercial Banking"
       },
       {
         "name": "Branch Banking",
         "value": 2.7,
         "unit": "Mds $",
         "pct": 24.3,
-        "share_pct": 24.3
+        "share_pct": 24.3,
+        "label_en": "Branch Banking"
       },
       {
         "name": "Consumer Lending",
         "value": 2.2,
         "unit": "Mds $",
         "pct": 19.8,
-        "share_pct": 19.8
+        "share_pct": 19.8,
+        "label_en": "Consumer Lending"
       },
       {
         "name": "Wealth & Asset Management",
         "value": 1.3,
         "unit": "Mds $",
         "pct": 11.8,
-        "share_pct": 11.8
+        "share_pct": 11.8,
+        "label_en": "Wealth & Asset Management"
       }
     ],
     "total": 11.1,
     "unit": "Mds $"
   },
-  "revenue_by_geography": null,
+  "revenue_by_geography": {
+    "unit": "%",
+    "slices": [
+      {
+        "label": "États-Unis",
+        "value": 100,
+        "share_pct": 100,
+        "single_region_legitimate": true,
+        "unit": "%",
+        "label_en": "United States"
+      }
+    ],
+    "total": 100,
+    "source": "Mono-pays légitime (filings)",
+    "_tagged_by": "auto-rebascule-21mai-CONV-CONCEPTS",
+    "_tagged_at": "2026-05-21T01:26:18.191Z",
+    "_category": "bank-us-regional"
+  },
   "risks": [
     {
       "title": "Credit Risk",
@@ -389,13 +453,39 @@
     }
   ],
   "ai_positioning": {
-    "stance": "absent",
-    "summary": "Fifth Third Bancorp does not mention artificial intelligence or machine learning in its 2025 10-K filing",
-    "evidence": [],
-    "source": "10-K filing for fiscal year ended December 31, 2025"
+    "stance": "cautious",
+    "summary": "Fifth Third Bancorp mentionne peu l'IA dans ses communications officielles (Banks).",
+    "evidence": [
+      "Aucune mention significative d'IA dans le 10-K ou les earnings calls disponibles localement.",
+      "Le secteur Banks commence à intégrer l'IA mais Fifth Third Bancorp ne met pas le sujet en avant à ce jour.",
+      "Mettrik AI réévaluera le positionnement IA à chaque nouvelle publication."
+    ],
+    "source_note": "Sources locales sans mentions IA significatives",
+    "_bucket": "MEDIUM",
+    "_no_ai_passages": true,
+    "_generated_at": "2026-05-21T02:32:47.468926+00:00",
+    "ticker": "FITB"
   },
   "market_positions": [],
   "events": [
+    {
+      "year": 2026,
+      "month": 7,
+      "title": "Prochaine publication Q3 2026",
+      "body": "Publication attendue le 17 juillet 2026 (Q3 2026).",
+      "source": "yfinance · calendar",
+      "url": "",
+      "date": "2026-07-17"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "Why Fifth Third Bancorp (FITB) is a Great Dividend Stock Right Now",
+      "body": "Dividends are one of the best benefits to being a shareholder, but finding a great dividend stock is no easy task. Does Fifth Third Bancorp (FITB) have what it takes? Let's find out.",
+      "source": "Zacks",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/why-fifth-third-bancorp-fitb-154502511.html",
+      "date": "2026-05-15"
+    },
     {
       "year": 2026,
       "month": 5,
@@ -413,20 +503,54 @@
       "source": "Zacks",
       "url": "https://finance.yahoo.com/markets/stocks/articles/why-fifth-third-bancorp-fitb-154502882.html",
       "date": "2026-04-29"
+    },
+    {
+      "year": 2026,
+      "month": 3,
+      "title": "Publication des résultats Q1 2026",
+      "body": "Clôture du trimestre Q1 2026 le 31 mars 2026.",
+      "source": "yfinance · mostRecentQuarter",
+      "url": "",
+      "date": "2026-03-31"
+    },
+    {
+      "year": 2026,
+      "month": 3,
+      "title": "Dividende 0.4 $/action versé",
+      "body": "Dividende ordinaire de 0.4 $ par action, ex-date 31 mars 2026.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2026-03-31"
+    },
+    {
+      "year": 2025,
+      "month": 12,
+      "title": "Dividende 0.4 $/action versé",
+      "body": "Dividende ordinaire de 0.4 $ par action, ex-date 31 décembre 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-12-31"
+    },
+    {
+      "year": 2025,
+      "month": 9,
+      "title": "Dividende 0.4 $/action versé",
+      "body": "Dividende ordinaire de 0.4 $ par action, ex-date 30 septembre 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-09-30"
     }
   ],
   "ranks": {
-    "global_world": "≈ #XX",
-    "global_us": "...",
-    "sector": "...",
-    "subsector": "..."
+    "global_world": "#316",
+    "global_us": "#190",
+    "sector": "Top 50 in Finance",
+    "subsector": "Top 25 in Banks"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-17",
   "publication_date": null,
   "company_description": "Fifth Third Bancorp operates as the bank holding company for Fifth Third Bank, National Association that provides a range of financial products and services in the United States. It operates through three segments: Commercial Banking, Consumer and Small Business Banking, and Wealth and Asset Management. The Commercial Banking segment offers credit intermediation, cash management, and financial services; lending and depository products; and cash management, foreign exchange and international trade finance, derivatives and capital markets services, asset-based lending, real estate finance, public finance, commercial leasing, and syndicated finance for business, government, and professional customers. Its Consumer and Small Banking segment engages in the provision of a range of deposit and loan products to individuals and small businesses; residential mortgage activities, including the origination, retention and servicing of residential mortgage loans, sales and securitizations of loans, and associated hedging activities; home equity loans and lines of credit, credit cards, automobile and other indirect lending, and other consumer lending services; and home improvement and solar energ",
-  "_built_at": "2026-05-20T20:15:02.356Z",
-  "_missing_blocks": [
-    "revenue_by_geography"
-  ]
+  "_built_at": "2026-05-21T16:00:22.234Z",
+  "_missing_blocks": []
 }

@@ -55,7 +55,8 @@
       "is_short_history": false,
       "period_type": "quarter",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "Seulement 3 années consécutives trouvées explicitement dans la table 'Average Realized Price Reconciliation' (2020-2022). Le seuil minimum d"
+      "_hero_history_unverified_reason": "Seulement 3 années consécutives trouvées explicitement dans la table 'Average Realized Price Reconciliation' (2020-2022). Le seuil minimum d",
+      "signal_en": "Solid expansion, positive trajectory"
     },
     {
       "short": "Natural gas sales volume",
@@ -74,7 +75,9 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Volume of Natural gas sales over the period.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Total liquids sales volume",
@@ -93,7 +96,9 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Volume of Total liquids sales over the period.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Upstream adjusted operating revenues",
@@ -112,7 +117,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Net income",
@@ -131,7 +137,9 @@
       "last_data_date": "2025-12-31",
       "is_wow": true,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "EPS (diluted)",
@@ -150,7 +158,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": true,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Proved reserves",
@@ -212,7 +221,9 @@
       "signal": "Dividende par action de 0.33 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -233,7 +244,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 0.39 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -254,7 +267,9 @@
       "signal": "Part du résultat net distribué en dividendes : 19.1% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Total Revenue",
@@ -280,7 +295,9 @@
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -305,7 +322,9 @@
       "signal": "Résultat net de 2.039 Mds $ dernière année.",
       "description": "Résultat net consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Average Realized Price growth",
@@ -362,7 +381,37 @@
     "top_capital": [],
     "top_voting": []
   },
-  "revenue_by_segment": null,
+  "revenue_by_segment": {
+    "slices": [
+      {
+        "label": "Production",
+        "share_pct": 83.8,
+        "label_fr": "Production",
+        "label_en": "Production",
+        "value": 5009.833,
+        "unit": "M $"
+      },
+      {
+        "label": "Gathering",
+        "share_pct": 12.5,
+        "label_fr": "Regroupement",
+        "label_en": "Gathering",
+        "value": 749.7,
+        "unit": "M $"
+      },
+      {
+        "label": "Transmission",
+        "share_pct": 3.7,
+        "label_fr": "Transport",
+        "label_en": "Transmission",
+        "value": 218.293,
+        "unit": "M $"
+      }
+    ],
+    "year": 2024,
+    "currency": "USD",
+    "total": 5977.826
+  },
   "revenue_by_geography": null,
   "risks": [
     {
@@ -482,19 +531,18 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #N/A",
-    "global_us": "...",
-    "sector": "...",
-    "subsector": "..."
+    "global_world": "#446",
+    "global_us": "#265",
+    "sector": "Top 50 in Énergie",
+    "subsector": "#1 in Natural Gas Exploration & Production"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-21",
   "publication_date": null,
   "company_description": "EQT Corporation engages in the exploration, production, gathering, and transmission of hydrocarbons and natural gas. The company sells natural gas, natural gas liquids, and oil to marketers, utilities, and industrial customers located in the Appalachian Basin. It also provides marketing services and contractual pipeline capacity management services, as well as engages in risk management and hedging activities. The company was formerly known as Equitable Resources Inc. and changed its name to EQT Corporation in February 2009. EQT Corporation was founded in 1888 and is headquartered in Pittsburgh, Pennsylvania.",
   "_specific_fit_for_site": false,
-  "_built_at": "2026-05-20T20:15:02.336Z",
+  "_built_at": "2026-05-21T16:00:22.202Z",
   "_missing_blocks": [
-    "revenue_by_segment",
     "revenue_by_geography"
   ]
 }

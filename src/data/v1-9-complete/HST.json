@@ -106,7 +106,9 @@
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis yfinance.income_stmt sur les 4 dernières années fiscales.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -127,7 +129,9 @@
       "signal": "Résultat net de 0.765 Mds $.",
       "description": "Résultat net consolidé annuellement, valeurs extraites depuis yfinance.income_stmt sur les 4 dernières années fiscales.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Operating Income",
@@ -148,7 +152,9 @@
       "signal": "Résultat opérationnel de 0.831 Mds $.",
       "description": "Résultat opérationnel consolidé annuellement, valeurs extraites depuis yfinance.income_stmt sur les 4 dernières années fiscales.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Operating Income : profit from core business operations.",
+      "signal_en": "Profitability improving, returns strengthening"
     }
   ],
   "kpis_story": [
@@ -168,28 +174,71 @@
     }
   ],
   "governance": {
-    "ceo_name": "Mr. James F. Risoleo",
-    "_source": "yfinance.companyOfficers"
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 14.61
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 10.99
+      },
+      {
+        "name": "Cohen & Steers Inc.",
+        "type": "institutionnel",
+        "stake_pct": 7.82
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 14.61
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 10.99
+      },
+      {
+        "name": "Cohen & Steers Inc.",
+        "type": "institutionnel",
+        "stake_pct": 7.82
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:41.132170+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "slices": [
       {
         "label": "Rooms",
-        "value": 3426,
-        "share_pct": 60.27
+        "value": 3.43,
+        "share_pct": 60.27,
+        "unit": "Mds $",
+        "label_en": "Rooms"
       },
       {
         "label": "Food and beverage",
-        "value": 1716,
-        "share_pct": 30.19
+        "value": 1.72,
+        "share_pct": 30.19,
+        "unit": "Mds $",
+        "label_en": "Food and Beverage"
       },
       {
         "label": "Other",
-        "value": 542,
-        "share_pct": 9.54
+        "value": 0.54,
+        "share_pct": 9.54,
+        "unit": "Mds $",
+        "label_en": "Other"
       }
     ],
-    "total": 5684
+    "unit": "Mds $",
+    "total": 5.69
   },
   "revenue_by_geography": {
     "label": "Répartition du chiffre d'affaires par zone géographique",
@@ -199,21 +248,24 @@
         "value": 4.836,
         "unit": "Mds $",
         "pct": 98.5,
-        "share_pct": 98.5
+        "share_pct": 98.5,
+        "label_en": "United States"
       },
       {
         "name": "Canada",
         "value": 0.054,
         "unit": "Mds $",
         "pct": 1.1,
-        "share_pct": 1.1
+        "share_pct": 1.1,
+        "label_en": "Canada"
       },
       {
         "name": "Brésil",
         "value": 0.017,
         "unit": "Mds $",
         "pct": 0.3,
-        "share_pct": 0.3
+        "share_pct": 0.3,
+        "label_en": "Brazil"
       }
     ],
     "total": 4.91,
@@ -290,13 +342,15 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #133",
-    "_source": "yfinance.marketCap"
+    "global_world": "#576",
+    "global_us": "#354",
+    "sector": "#1 in Real Estate",
+    "subsector": "#1 in REIT - Hotel & Motel"
   },
   "latest_filing": null,
   "next_earnings_date": null,
   "publication_date": null,
   "company_description": "Host Hotels & Resorts, Inc., herein referred to as we, Host Inc., or the Company, is a self-managed and self-administered real estate investment trust that owns hotel property. We conduct our operations as an umbrella partnership, REIT, through an operating partnership, Host Hotels & Resorts, L.P., of which we are the sole general partner. When distinguishing between Host Inc. and Host LP, the primary difference is approximately 1% of the partnership interests in Host LP held by outside partners as of December 31, 2025, which are non-controlling interests in Host LP in our consolidated balance sheets and are included in net (income) loss attributable to non-controlling interests in our condensed consolidated statements of operations. Host Hotels & Resorts, Inc. is incorporated in 1927 and is based in Bethesda, United States.",
-  "_built_at": "2026-05-20T20:15:02.403Z",
+  "_built_at": "2026-05-21T16:00:22.306Z",
   "_missing_blocks": []
 }

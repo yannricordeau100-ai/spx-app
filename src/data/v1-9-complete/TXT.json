@@ -123,7 +123,9 @@
       "is_short_history": false,
       "ttm": 15100,
       "_validation": "Corrigé: unit de 'Mds $' à 'M $' pour cohérence (valeur en millions); value de 14.8 à 14799; history convertie en millions; is_wow passé à true (croissance significative 8%)",
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "explanation_en": "Revenue : total sales generated over the period.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Gross Margin",
@@ -148,7 +150,9 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 17.75,
-      "_validation": "Aucune correction nécessaire, données cohérentes avec 10-K."
+      "_validation": "Aucune correction nécessaire, données cohérentes avec 10-K.",
+      "explanation_en": "Gross Margin : gross profit divided by revenue.",
+      "signal_en": "Margin compression, watch profitability"
     },
     {
       "short": "R&D",
@@ -173,7 +177,9 @@
       "is_generic": false,
       "is_short_history": true,
       "ttm": 3.48,
-      "_validation": "is_wow passé de true à false (3.5% est dans la norma pour le secteur); name_fr amélioré; données validées avec 10-K (R&D costs $521M)"
+      "_validation": "is_wow passé de true à false (3.5% est dans la norma pour le secteur); name_fr amélioré; données validées avec 10-K (R&D costs $521M)",
+      "explanation_en": "Research & Development expenses.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Op Margin",
@@ -198,7 +204,9 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 10.25,
-      "_validation": "yoy corrigé de 'stable' à '+0.2 pts' (10.2% vs 10.0% en 2024)"
+      "_validation": "yoy corrigé de 'stable' à '+0.2 pts' (10.2% vs 10.0% en 2024)",
+      "explanation_en": "Profit margin on Op.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Capex",
@@ -220,7 +228,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "_validation": "HALLUCINE: valeur de Capex non présente dans le 10-K fourni. is_wow passé à false (pas de donnée source vérifiée); is_short_history passé à true (une seule entrée). Signalé comme halluciné mais conservé avec note de cautèle."
+      "_validation": "HALLUCINE: valeur de Capex non présente dans le 10-K fourni. is_wow passé à false (pas de donnée source vérifiée); is_short_history passé à true (une seule entrée). Signalé comme halluciné mais conservé avec note de cautèle.",
+      "explanation_en": "Capital Expenditures : investments in property, plant and equipment."
     },
     {
       "short": "Headcount",
@@ -242,7 +251,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "_validation": "HALLUCINE: valeur d'effectif non vérifiable dans le 10-K fourni. is_short_history passé à true. Conservé avec avertissement."
+      "_validation": "HALLUCINE: valeur d'effectif non vérifiable dans le 10-K fourni. is_short_history passé à true. Conservé avec avertissement.",
+      "explanation_en": "Headcount : total number of employees at period end."
     },
     {
       "short": "Total Assets",
@@ -264,7 +274,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -286,7 +298,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Revenue",
@@ -359,16 +373,44 @@
     }
   ],
   "governance": {
-    "agm_date": "2026-04-29",
-    "fiscal_year": 2025,
-    "ceo_name": "Lisa Atherton",
-    "board_independence_pct": null,
-    "board_size": 11,
-    "avg_tenure_years": null,
-    "board_women_pct": null,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "top_capital": null,
-    "top_voting": null
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 10.82
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 9
+      },
+      {
+        "name": "FMR LLC (Fidelity)",
+        "type": "institutionnel",
+        "stake_pct": 6.56
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 10.82
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 9
+      },
+      {
+        "name": "FMR LLC (Fidelity)",
+        "type": "institutionnel",
+        "stake_pct": 6.56
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:15:26.031630+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "unit": "$B",
@@ -378,38 +420,44 @@
       {
         "label": "Textron Aviation",
         "value": 5.955,
+        "share_pct": 40.2,
         "unit": "$B",
-        "share_pct": 40.2
+        "label_en": "Textron Aviation"
       },
       {
         "label": "Bell",
         "value": 4.282,
+        "share_pct": 28.9,
         "unit": "$B",
-        "share_pct": 28.9
+        "label_en": "Bell"
       },
       {
         "label": "Industrial",
         "value": 3.213,
+        "share_pct": 21.7,
         "unit": "$B",
-        "share_pct": 21.7
+        "label_en": "Industrial"
       },
       {
         "label": "Textron Systems",
         "value": 1.247,
+        "share_pct": 8.4,
         "unit": "$B",
-        "share_pct": 8.4
+        "label_en": "Textron Systems"
       },
       {
         "label": "Textron eAviation",
         "value": 0.027,
+        "share_pct": 0.2,
         "unit": "$B",
-        "share_pct": 0.2
+        "label_en": "Textron eAviation"
       },
       {
         "label": "Finance",
         "value": 0.075,
+        "share_pct": 0.5,
         "unit": "$B",
-        "share_pct": 0.5
+        "label_en": "Finance"
       }
     ],
     "total": 14.8
@@ -422,26 +470,30 @@
       {
         "label": "United States",
         "value": 10.283,
+        "share_pct": 69.5,
         "unit": "$B",
-        "share_pct": 69.5
+        "label_en": "United States"
       },
       {
         "label": "Other international",
         "value": 1.947,
+        "share_pct": 13.2,
         "unit": "$B",
-        "share_pct": 13.2
+        "label_en": "Other International"
       },
       {
         "label": "South and Latin America",
         "value": 1.28,
+        "share_pct": 8.6,
         "unit": "$B",
-        "share_pct": 8.6
+        "label_en": "South and Latin America"
       },
       {
         "label": "Europe",
         "value": 1.289,
+        "share_pct": 8.7,
         "unit": "$B",
-        "share_pct": 8.7
+        "label_en": "Europe"
       }
     ],
     "total": 14.8
@@ -546,15 +598,15 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #500",
-    "global_us": "Top 500",
-    "sector": "N/A",
-    "subsector": "Top 10"
+    "global_world": "#581",
+    "global_us": "#355",
+    "sector": "#2 in Aerospace & Defense",
+    "subsector": "Top 25 in Aéronautique & Défense"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-23",
   "publication_date": null,
   "company_description": "Textron Inc. operates in the aircraft, defense, industrial, and finance businesses worldwide. It operates in six segments: Textron Aviation, Bell, Textron Systems, Industrial, Textron eAviation, and Finance. The Textron Aviation segment manufactures, sells, and services business jets, turboprop and piston engine aircraft, and military trainer and defense aircraft, as well as offers maintenance, inspection, and repair services; commercial parts; and advanced flight training devices. The Bell segment supplies military and commercial helicopters, tiltrotor aircraft, and related spare parts and services. The Textron Systems segment offers unmanned aircraft systems, electronic systems and solutions, advanced marine crafts, piston aircraft engines, live military air-to-air and air-to-ship training, weapons and related components, and armored and specialty vehicles. The Industrial segment offers blow-molded solutions, including conventional plastic fuel tanks and pressurized fuel tanks; plastic tanks for catalytic reduction systems and other fuel system components; lightweight and composite pentatonic battery systems for use in electric vehicles primarily to automobile original equipment ",
-  "_built_at": "2026-05-20T20:15:02.656Z",
+  "_built_at": "2026-05-21T16:00:22.799Z",
   "_missing_blocks": []
 }

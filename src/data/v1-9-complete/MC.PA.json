@@ -29,11 +29,7 @@
       "period_type": "year",
       "description": "Segment cœur LVMH (Louis Vuitton, Dior, Celine, Loewe, Fendi, Givenchy). Marge op > 40%.",
       "signal": "Moteur principal du groupe, croissance organique solide",
-      "quality": "Excellent",
-      "is_short_history_legitimate": true,
-      "short_history_legitimate_reason": "Sté EU avec annual reporting shifted (timing/fiscal year EU différent du calendrier US, tolérance 4 ans au lieu de 5)",
-      "_short_history_legitimate_rule": "eu_annual_tolerance_4y",
-      "_short_history_legitimate_tagged_at": "2026-05-21T08:25:37.021Z"
+      "quality": "Excellent"
     },
     {
       "short": "Selective Retailing",
@@ -126,65 +122,6 @@
       "quality": "Moyen"
     },
     {
-      "short": "Revenu des Maisons",
-      "name_fr": "Revenu des Maisons",
-      "name_en": "Maisons Revenue",
-      "explanation": "Revenu généré par les 75 Maisons du groupe",
-      "value": null,
-      "unit": "Mds €",
-      "yoy": null,
-      "type": "Revenue",
-      "nature": "Cyclique",
-      "comparable": "Comparable",
-      "signal": null,
-      "description": "Le revenu des Maisons est un indicateur clé de la performance du groupe et reflète la desirabilité des produits auprès des clients mondiaux",
-      "history": null,
-      "last_data_date": "2025-12-31",
-      "is_wow": false,
-      "is_generic": true,
-      "is_short_history": false,
-      "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "Aucune valeur annuelle explicite du KPI 'Revenu des Maisons' trouvée dans l'extrait fourni. Le document contient des messages de direction e"
-    },
-    {
-      "short": "Marge brute",
-      "name_fr": "Marge brute",
-      "name_en": "Gross Margin",
-      "explanation": "Marge brute consolidée du groupe",
-      "value": null,
-      "unit": "%",
-      "yoy": null,
-      "type": "Margin",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "signal": null,
-      "description": "La marge brute est un indicateur de la rentabilité du groupe et de sa capacité à protéger ses marges face aux chocs économiques",
-      "history": null,
-      "last_data_date": "2025-12-31",
-      "is_wow": false,
-      "is_generic": true,
-      "is_short_history": false
-    },
-    {
-      "short": "Investissements",
-      "name_fr": "Investissements",
-      "name_en": "Capital Investments",
-      "explanation": "Investissements réalisés dans la capacité de production, la qualité des produits et les propriétés stratégiques",
-      "value": null,
-      "unit": "Mds €",
-      "yoy": null,
-      "type": "Investment",
-      "nature": "Conjoncturel",
-      "comparable": "Comparable",
-      "signal": null,
-      "description": "Les investissements reflètent la stratégie long terme du groupe pour renforcer ses forces et préparer la croissance future des Maisons",
-      "history": null,
-      "last_data_date": "2025-12-31",
-      "is_wow": false,
-      "is_generic": true,
-      "is_short_history": false
-    },
-    {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
@@ -203,7 +140,13 @@
       "signal": "Chiffre d'affaires de 80.81 Mds € dernière année",
       "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Revenue pressure, demand softening",
+      "is_short_history_legitimate": true,
+      "short_history_legitimate_reason": "Sté EU avec annual reporting shifted (timing/fiscal year EU différent du calendrier US, tolérance 4 ans au lieu de 5)",
+      "_short_history_legitimate_rule": "eu_annual_tolerance_4y",
+      "_short_history_legitimate_tagged_at": "2026-05-21T08:25:37.020Z"
     },
     {
       "short": "Net Income",
@@ -224,7 +167,9 @@
       "signal": "Résultat net de 10.88 Mds € dernière année",
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal"
     },
     {
       "short": "Total Assets",
@@ -245,7 +190,9 @@
       "signal": "Total des actifs de 142.04 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Total Debt",
@@ -266,7 +213,9 @@
       "signal": "Dette totale de 36.73 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Cash & Equivalents",
@@ -287,7 +236,8 @@
       "signal": "Trésorerie & équivalents de 8.79 Mds € dernière année",
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "Short": "Croissance du revenu",
@@ -313,36 +263,38 @@
   ],
   "kpis_story": [],
   "governance": {
-    "ceo_name": "Mr. Bernard  Arnault",
-    "ceo_title": "Chairman & CEO",
-    "officers": [
+    "top_capital": [
       {
-        "name": "Mr. Bernard  Arnault",
-        "title": "Chairman & CEO",
-        "age": 76
+        "name": "Aristotle Capital Management, LLC",
+        "type": "institutionnel",
+        "stake_pct": 0.02
       },
       {
-        "name": "Mr. Antoine  Arnault",
-        "title": "Chief of Image, Communication and Sustainable Development & Director",
-        "age": 48
-      },
-      {
-        "name": "Mr. Frederic  Arnault",
-        "title": "CEO of TAG Heuer & Director",
-        "age": 31
-      },
-      {
-        "name": "Mr. Alexandre  Arnault",
-        "title": "Deputy CEO of Wines and Spirits Division, Moët Hennessy & Director",
-        "age": 33
-      },
-      {
-        "name": "Ms. Cecile  Cabanis",
-        "title": "Chief Financial Officer",
-        "age": 54
+        "name": "First Manhattan Co. LLC",
+        "type": "institutionnel",
+        "stake_pct": 0.01
       }
     ],
-    "fiscal_year": 2025
+    "top_voting": [
+      {
+        "name": "Aristotle Capital Management, LLC",
+        "type": "institutionnel",
+        "stake_pct": 0.02
+      },
+      {
+        "name": "First Manhattan Co. LLC",
+        "type": "institutionnel",
+        "stake_pct": 0.01
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:14:10.848847+00:00",
+    "_top_dual_class_flag": false,
+    "top_disclosure": "eu_regex_extracted",
+    "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
+    "_top_disclosure_at": "2026-05-21T02:49:04.668699+00:00",
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:18:59Z"
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -394,42 +346,48 @@
         "value": 26.6,
         "unit": "Mds €",
         "pct": 31,
-        "share_pct": 31
+        "share_pct": 31,
+        "label_en": "Asia excluding Japan"
       },
       {
         "name": "États-Unis",
         "value": 21,
         "unit": "Mds €",
         "pct": 25,
-        "share_pct": 25
+        "share_pct": 25,
+        "label_en": "United States"
       },
       {
         "name": "Europe hors France",
         "value": 14.8,
         "unit": "Mds €",
         "pct": 17,
-        "share_pct": 17
+        "share_pct": 17,
+        "label_en": "Europe (excluding France)"
       },
       {
         "name": "Autres marchés",
         "value": 9.4,
         "unit": "Mds €",
         "pct": 11,
-        "share_pct": 11
+        "share_pct": 11,
+        "label_en": "Other Markets"
       },
       {
         "name": "Japon",
         "value": 6.8,
         "unit": "Mds €",
         "pct": 8,
-        "share_pct": 8
+        "share_pct": 8,
+        "label_en": "Japan"
       },
       {
         "name": "France",
         "value": 6.5,
         "unit": "Mds €",
         "pct": 8,
-        "share_pct": 8
+        "share_pct": 8,
+        "label_en": "France"
       }
     ],
     "total": 85.1,
@@ -512,33 +470,87 @@
     {
       "year": 2026,
       "month": 5,
-      "title": "Global-e Online Ltd. Q1 2026 Earnings Call Summary",
-      "body": "Moby summary of Global-e Online Ltd.'s Q1 2026 earnings call",
-      "source": "Moby",
-      "url": "https://app.moby.co/home/research/tools/earningsCalendar/earnings-global-e-online-ltd-q1-2026-earnings-call-summary?utm_source=yahoo_finance&utm_medium=rss",
-      "date": "2026-05-13"
+      "title": "Middle East Conflict Hurt LVMH Moët Hennessy – Louis Vuitton, Société Européenne (LVMUY) in Q1",
+      "body": "Broyhill Asset Management, an investment advisor, released its first-quarter 2026 investor letter. A copy of the letter can be downloaded here. The Broyhill Equity Composite declined 6.0% in the first quarter, net of all fees and expenses, ",
+      "source": "Insider Monkey",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/middle-east-conflict-hurt-lvmh-140039489.html",
+      "date": "2026-05-18"
     },
     {
       "year": 2026,
       "month": 5,
-      "title": "Earnings Beats in Europe Mask Tougher Times Ahead for Stocks",
-      "body": "(Bloomberg) -- A strong earnings season is hiding tougher times ahead for European stocks as the effects of the Iran war make it harder for companies to meet lofty profit expectations in the quarters to come.Most Read from BloombergUS Has O",
-      "source": "Bloomberg",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/earnings-beats-europe-mask-tougher-071534305.html",
-      "date": "2026-05-07"
+      "title": "LVMH to sell Marc Jacobs to joint venture in $850 mln deal",
+      "body": "<body><p>STORY: French luxury group LVMH has agreed to sell fashion brand Marc Jacobs to a joint venture.&nbsp;</p><p>Buyers WHP Global and G-III Apparel Group said they’re raising up to $850 million to fund the deal.</p><p>Marc Jacobs' sal",
+      "source": "Reuters Videos",
+      "url": "https://finance.yahoo.com/video/lvmh-sell-marc-jacobs-joint-152821301.html",
+      "date": "2026-05-15"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "LVMH sells Marc Jacobs to WHP Global, which will form partnership with G-III",
+      "body": "French luxury giant LVMH will sell its Marc Jacobs brand to US brand firm WHP Global, the two companies said Thursday.After the sale, another company, G-III will then purchase and co-own part of the Marc Jacobs brand alongside WHP Global, a",
+      "source": "AFP",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/lvmh-sells-marc-jacobs-whp-072601796.html",
+      "date": "2026-05-15"
+    },
+    {
+      "year": 2026,
+      "month": 4,
+      "title": "Dividende 7.5 €/action versé",
+      "body": "Dividende ordinaire de 7.5 € par action, ex-date 28 avril 2026.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2026-04-28"
+    },
+    {
+      "year": 2025,
+      "month": 12,
+      "title": "Publication des résultats Q4 2025",
+      "body": "Clôture du trimestre Q4 2025 le 31 décembre 2025.",
+      "source": "yfinance · mostRecentQuarter",
+      "url": "",
+      "date": "2025-12-31"
+    },
+    {
+      "year": 2025,
+      "month": 12,
+      "title": "Dividende 5.5 €/action versé",
+      "body": "Dividende ordinaire de 5.5 € par action, ex-date 2 décembre 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-12-02"
+    },
+    {
+      "year": 2025,
+      "month": 4,
+      "title": "Dividende 7.5 €/action versé",
+      "body": "Dividende ordinaire de 7.5 € par action, ex-date 24 avril 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-04-24"
+    },
+    {
+      "year": 2024,
+      "month": 12,
+      "title": "Dividende 5.5 €/action versé",
+      "body": "Dividende ordinaire de 5.5 € par action, ex-date 2 décembre 2024.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2024-12-02"
     }
   ],
   "ranks": {
-    "Global_world": null,
-    "Global_us": null,
-    "Sector": null,
-    "Subsector": null
+    "global_world": "#56",
+    "global_us": "Non US",
+    "sector": "#1 in Consumer Cyclical",
+    "subsector": "#1 in Luxury Goods"
   },
   "latest_filing": null,
   "next_earnings_date": null,
   "publication_date": null,
   "company_description": "LVMH Moët Hennessy - Louis Vuitton, Société Européenne, together with its subsidiaries, operates as a luxury goods company worldwide. It offers wine and spirit products under the Ao Yun, Ardbeg, Armand de Brignac, Belvedere, Bodega Numanthia, Chandon, Cheval des Andes, Château Cheval Blanc, Château Galoupet, Château d'Yquem, Château d'Esclans, Cloudy Bay, Colgin Cellars, Dom Pérignon, Domaine des Lambrays, Eminente, Glenmorangie, Hennessy, Joseph Phelps, Krug, Mercier, Minuty, Moët & Chandon, Newton Vineyard, Ruinart, SirDavis, Terrazas de los Andes, Veuve Clicquot, Volcan de mi Tierra, and Woodinville brands; fashion and leather products under Barton Perreira,Berluti, Celine, Christian Dior, Fendi, Givenchy, Kenzo, Loewe, Loro Piana, Louis Vuitton, Marc Jacobs, Moynat, Patou, Pucci, Rimowa, and Vuarnet brands; and perfumes and cosmetics products under the Acqua di Parma, Benefit Cosmetics, Fenty Beauty by Rihanna, Fresh, Givenchy Parfums, Guerlain, Kenzo Parfums, Loewe Perfumes, Maison Francis Kurkdjian, Make Up For Ever, OLEHENRIKSEN, Officine Universelle Buly, and Parfums Christian Dior brands. The company also provides watches and jewelry under the Bvlgari, Chaumet, DANIEL ROTH",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.469Z",
+  "_built_at": "2026-05-21T16:00:22.438Z",
   "_missing_blocks": []
 }

@@ -129,7 +129,9 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "annual"
+      "period_type": "annual",
+      "explanation_en": "Year-over-year growth in Organic.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Adjusted Operating Margin",
@@ -151,7 +153,9 @@
       "last_data_date": "2015-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Profit margin on Adjusted Operating.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Adjusted EPS",
@@ -173,7 +177,9 @@
       "last_data_date": "2015-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Adjusted Earnings Per Share : EPS excluding non-recurring items.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Cash Conversion",
@@ -195,7 +201,8 @@
       "last_data_date": "2015-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Dividend per Share",
@@ -217,7 +224,9 @@
       "last_data_date": "2015-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Market share in Dividend per.",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Headcount",
@@ -240,7 +249,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_employees_synced_from_yfinance": true
+      "_employees_synced_from_yfinance": true,
+      "explanation_en": "Headcount : total number of employees at period end.",
+      "signal_en": "Steady growth, healthy trend"
     },
     {
       "short": "DPS",
@@ -264,7 +275,9 @@
       "signal": "Dividende par action de 159.9 GBp dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Cap Return",
@@ -286,7 +299,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -308,19 +323,17 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     }
   ],
   "kpis_story": [],
   "governance": {
-    "ceo_name": "André Lacroix",
-    "ceo_title": "CEO & Director",
-    "fiscal_year": 2025,
-    "ceo_total_comp_m": 6.199,
-    "board_size": 13,
-    "voting_structure": "Une action, un vote.",
-    "top_capital": [],
-    "top_voting": []
+    "top_disclosure": "eu_regex_extracted",
+    "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
+    "_top_disclosure_at": "2026-05-21T02:49:04.649834+00:00",
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:18:58Z"
   },
   "revenue_by_segment": {
     "unit": "M £",
@@ -330,32 +343,37 @@
       {
         "label": "Consumer Products",
         "value": 983.4,
+        "share_pct": 28.7,
         "unit": "M £",
-        "share_pct": 28.7
+        "label_en": "Consumer Products"
       },
       {
         "label": "Industry and Infrastructure",
         "value": 858.1,
+        "share_pct": 25,
         "unit": "M £",
-        "share_pct": 25
+        "label_en": "Industry and Infrastructure"
       },
       {
         "label": "World of Energy",
         "value": 729,
+        "share_pct": 21.2,
         "unit": "M £",
-        "share_pct": 21.2
+        "label_en": "World of Energy"
       },
       {
         "label": "Corporate Assurance",
         "value": 514,
+        "share_pct": 15,
         "unit": "M £",
-        "share_pct": 15
+        "label_en": "Corporate Assurance"
       },
       {
         "label": "Health and Safety",
         "value": 347.1,
+        "share_pct": 10.1,
         "unit": "M £",
-        "share_pct": 10.1
+        "label_en": "Health and Safety"
       }
     ],
     "total": 3431.6
@@ -368,32 +386,37 @@
       {
         "label": "Other countries and unallocated",
         "value": 1.403,
+        "share_pct": 40.9,
         "unit": "Mds £",
-        "share_pct": 40.9
+        "label_en": "Other countries and unallocated"
       },
       {
         "label": "États-Unis",
         "value": 0.995,
+        "share_pct": 29,
         "unit": "Mds £",
-        "share_pct": 29
+        "label_en": "United States"
       },
       {
         "label": "China (including Hong Kong)",
         "value": 0.619,
+        "share_pct": 18,
         "unit": "Mds £",
-        "share_pct": 18
+        "label_en": "China (including Hong Kong)"
       },
       {
         "label": "Royaume-Uni",
         "value": 0.236,
+        "share_pct": 6.9,
         "unit": "Mds £",
-        "share_pct": 6.9
+        "label_en": "United Kingdom"
       },
       {
         "label": "Australie",
         "value": 0.178,
+        "share_pct": 5.2,
         "unit": "Mds £",
-        "share_pct": 5.2
+        "label_en": "Australia"
       }
     ],
     "total": 3.43
@@ -514,9 +537,9 @@
     }
   ],
   "ranks": {
-    "global_world": "#307",
+    "global_world": "#688",
     "global_us": "Non US",
-    "sector": "#97 in Information Technology",
+    "sector": "#193 in Technologie",
     "subsector": "#1 in Testing, Inspection and Certification (TIC)"
   },
   "latest_filing": null,
@@ -524,6 +547,6 @@
   "publication_date": null,
   "company_description": "Intertek Group plc provides quality assurance solutions to various industries in the United Kingdom, the United States, China, Australia, and internationally. It operates through five segments: Consumer Products, Corporate Assurance, Health and Safety, Industry and Infrastructure, and World of Energy. The company offers quality assurance, testing, inspection, and certification services, including laboratory safety, quality and performance testing, accredited third-party management systems auditing and certification, technical inspection, second-party supplier auditing and supply chain solutions, sustainability data verification, process performance analysis and training, food safety testing, hygiene and safety audits, advisory and consulting, and validation services, as well as hardware, software, and cyber security solutions. It also provides asset performance management, analytical testing, non-destructive and materials testing, engineering, cargo and inventory inspection, analytical assessment, calibration, supply-chain traceability, and related research and technical services, as well as support services in product development, regulatory authorization, chemical testing, and production. The company serves a range of industries, including textiles, footwear, toys, hardlines, home appliances, consumer electronics, information and communication technology, automotive, aerospace, lighting, building products, industrial and renewable energy products, oil and gas, petrochemical, minerals, exploration, ore and mining, building and construction, solar energy, energy storage, green hydrogen, petroleum and biofuels, agricultural supply chain, food, transportation, chemicals and pharma, and healthcare, as well as governments, regulatory bodies, and exporters and importers to support trade compliance. The company was founded in 1885 and is based in London, the United Kingdom.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.424Z",
+  "_built_at": "2026-05-21T16:00:22.352Z",
   "_missing_blocks": []
 }

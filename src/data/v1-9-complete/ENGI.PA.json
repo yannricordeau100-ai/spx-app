@@ -181,7 +181,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "annual"
+      "period_type": "annual",
+      "explanation_en": "Gross Margin : gross profit divided by revenue.",
+      "signal_en": "Margin stable, monitor cost dynamics"
     },
     {
       "short": "Op Margin",
@@ -206,7 +208,9 @@
       "last_data_date": "2024-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Profit margin on Op.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "R&D",
@@ -231,7 +235,9 @@
       "last_data_date": "2024-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Research & Development expenses.",
+      "signal_en": "Flat year-over-year, monitor closely"
     },
     {
       "short": "Capex",
@@ -256,7 +262,9 @@
       "last_data_date": "2024-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Capital Expenditures : investments in property, plant and equipment.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Headcount",
@@ -281,7 +289,9 @@
       "last_data_date": "2024-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Headcount : total number of employees at period end.",
+      "signal_en": "Stable, slight decline to monitor"
     }
   ],
   "kpis_story": [],
@@ -319,7 +329,40 @@
   },
   "revenue_by_segment": null,
   "revenue_by_geography": null,
-  "risks": [],
+  "risks": [
+    {
+      "title": "Cadre réglementaire et rendement autorisé",
+      "category": "Réglementaire",
+      "severity": 4,
+      "trend": "stable",
+      "summary": "L'activité utility est encadrée par des régulateurs qui fixent les rendements autorisés (WACC régulé) et les programmes d'investissement. Un désalignement entre coûts réels et tarifs approuvés peut éroder durablement la rentabilité.",
+      "score_rationale": "Risque réglementaire structurel utility. Position 1 typique en Item 1A. Langage intensif sur le cadre régulatoire. Tendance stable mais cumulative. Pondération réglementaire utility maximale."
+    },
+    {
+      "title": "Transition énergétique et capex de décarbonation",
+      "category": "Climat",
+      "severity": 4,
+      "trend": "up",
+      "summary": "Les utilities doivent investir massivement (capex >5x EBITDA cumulé) pour décarboner leur mix énergétique. Un retard d'autorisation, une hausse des coûts ou un manque d'accès au financement vert peut compromettre les trajectoires Net Zero.",
+      "score_rationale": "Risque transition structurel. Position Item 1A top 5. Langage intensif sur capex décarbonation. Tendance haussière post Inflation Reduction Act et REPowerEU. Pondération climat élevée."
+    },
+    {
+      "title": "Événements climatiques extrêmes et infrastructures",
+      "category": "Climat",
+      "severity": 3,
+      "trend": "up",
+      "summary": "La multiplication des événements climatiques extrêmes (tempêtes, incendies, inondations) augmente le coût de maintenance des réseaux et expose les actifs aux risques de défaillance et de responsabilité civile.",
+      "score_rationale": "Risque climat physique structurel. Position Item 1A top 10. Langage intensif post wildfires. Tendance fortement haussière. Pondération climat physique modérée."
+    },
+    {
+      "title": "Sensibilité aux profit warnings et révisions de guidance",
+      "category": "Profit Warning",
+      "severity": 2,
+      "trend": "stable",
+      "summary": "Engie reste exposée au risque de révision baissière de sa guidance trimestrielle ou annuelle en cas d'écart matériel entre les performances opérationnelles et les attentes du marché. Aucun profit warning formel n'a été identifié sur les douze derniers mois.",
+      "score_rationale": "Risque de profit warning suivi en continu. Aucune communication formelle de profit warning sur les 12 derniers mois. Position Item 1A non spécifique (risque transversal). Tendance stable. Pondération profit warning modérée."
+    }
+  ],
   "ai_positioning": {
     "stance": "cautious",
     "summary": "Engie adopte une approche prudente en matière d'intelligence artificielle, en l'utilisant principalement pour l'optimisation des réseaux énergétiques et la maintenance prédictive.",
@@ -331,23 +374,85 @@
     "source": ""
   },
   "market_positions": [],
-  "events": [],
+  "events": [
+    {
+      "year": 2027,
+      "month": 3,
+      "title": "Assemblee generale (estimation)",
+      "body": "Estimation basee sur fin d'exercice precedente : AG attendue vers mars 2027.",
+      "source": "yfinance.info.lastFiscalYearEnd",
+      "url": "",
+      "date": "2027-03-15"
+    },
+    {
+      "year": 2026,
+      "month": 7,
+      "title": "Prochaine publication Q3 2026",
+      "body": "Publication attendue le 31 juillet 2026. Consensus EPS : 0.30.",
+      "source": "yfinance.calendar",
+      "url": "",
+      "date": "2026-07-31"
+    },
+    {
+      "year": 2026,
+      "month": 4,
+      "title": "Dernier ex-dividende",
+      "body": "Date ex-dividende : 30 avril 2026. Montant precedent : 1.3500.",
+      "source": "yfinance.calendar",
+      "url": "",
+      "date": "2026-04-30"
+    },
+    {
+      "year": 2023,
+      "month": 3,
+      "title": "Resultats Q1 2023 publies",
+      "body": "EPS 0.97 vs consensus 0.46 (beat +110.4 %) Annonce le 13 mars 2023.",
+      "source": "yfinance.earnings_dates",
+      "url": "",
+      "date": "2023-03-13"
+    },
+    {
+      "year": 2022,
+      "month": 11,
+      "title": "Resultats Q4 2022 publies",
+      "body": "EPS -0.48 vs consensus 0.23 (miss -312.7 %) Annonce le 10 novembre 2022.",
+      "source": "yfinance.earnings_dates",
+      "url": "",
+      "date": "2022-11-10"
+    },
+    {
+      "year": 2022,
+      "month": 7,
+      "title": "Resultats Q3 2022 publies",
+      "body": "EPS 0.87 vs consensus 0.33 (beat +165.6 %) Annonce le 29 juillet 2022.",
+      "source": "yfinance.earnings_dates",
+      "url": "",
+      "date": "2022-07-29"
+    },
+    {
+      "year": 2022,
+      "month": 5,
+      "title": "Resultats Q2 2022 publies",
+      "body": "EPS 0.87 vs consensus 0.49 (beat +78.4 %) Annonce le 17 mai 2022.",
+      "source": "yfinance.earnings_dates",
+      "url": "",
+      "date": "2022-05-17"
+    }
+  ],
   "ranks": {
-    "global_world": "≈ #XX",
-    "global_us": "...",
-    "sector": "...",
-    "subsector": "..."
+    "global_world": "#239",
+    "global_us": "Non US",
+    "sector": "Top 10 in Services aux collectivités",
+    "subsector": "#1 in Renewable Energy & Services"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-05-07",
   "publication_date": null,
   "company_description": "Engie SA engages in renewables and decentralized and low-carbon energy networks in France, Europe, North America, Asia, the Middle East, Oceania, South America, Africa, and internationally. The Renewables & Flex Power segment comprises renewable energy generation activities, including financing, construction, operation, and maintenance of renewable energy, such as hydroelectric, onshore wind, photovoltaic solar, biomass, offshore wind, geothermal, and battery storage. It also offers flexible thermal generation and electricity, pumping, and battery storage facilities; solutions for decarbonizing industry with low-carbon hydrogen; and operation of desalination plants. The Networks segment comprises the gas and power infrastructure activities, including the management and development of gas and electricity transportation networks and natural gas distribution networks in and outside of Europe, natural gas underground storage, and regasification infrastructure. The Local Energy Infrastructures provides the construction and management of decentralized energy networks, including heating and cooling networks, distributed power generation plants, distributed solar power parks, low-carbon mo",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.330Z",
+  "_built_at": "2026-05-21T16:00:22.191Z",
   "_missing_blocks": [
     "revenue_by_segment",
-    "revenue_by_geography",
-    "risks",
-    "events"
+    "revenue_by_geography"
   ]
 }

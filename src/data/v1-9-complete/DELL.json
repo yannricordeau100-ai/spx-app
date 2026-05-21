@@ -41,7 +41,9 @@
       "_validation": [
         "Corrected unit from 'Mds $' to 'B $' for consistency with English billion notation"
       ],
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "explanation_en": "Revenue from the ISG segment.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "CSG Revenue",
@@ -70,7 +72,9 @@
       "ttm": 43.88,
       "_validation": [
         "Corrected unit from 'Mds $' to 'B $' for consistency with English billion notation"
-      ]
+      ],
+      "explanation_en": "Revenue from the CSG segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Gross Margin",
@@ -97,7 +101,9 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 32.18,
-      "_validation": []
+      "_validation": [],
+      "explanation_en": "Gross Margin : gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Op Margin",
@@ -124,7 +130,9 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 12.69,
-      "_validation": []
+      "_validation": [],
+      "explanation_en": "Profit margin on Op.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "R&D",
@@ -153,7 +161,9 @@
       "ttm": 4.23,
       "_validation": [
         "Enhanced name_fr from 'Investissements R&D' to 'Investissements Recherche et Développement' for clarity"
-      ]
+      ],
+      "explanation_en": "Research & Development expenses.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Capex",
@@ -183,7 +193,9 @@
       "_validation": [
         "Corrected unit from 'Mds $' to 'B $' for consistency with English billion notation",
         "Enhanced name_fr from 'Investissements' to 'Dépenses d'investissement' for clarity"
-      ]
+      ],
+      "explanation_en": "Capital Expenditures : investments in property, plant and equipment.",
+      "signal_en": "Strong growth, robust momentum"
     },
     {
       "short": "Total Assets",
@@ -204,7 +216,9 @@
       "signal": "Total des actifs de 101.29 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -225,7 +239,9 @@
       "signal": "Dette totale de 31.5 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "DPS",
@@ -247,7 +263,9 @@
       "signal": "Dividende par action de 1.155 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 5 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -268,7 +286,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 1.459 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -289,7 +309,9 @@
       "signal": "Part du résultat net distribué en dividendes : 24.6% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Total Revenue",
@@ -314,7 +336,9 @@
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 7 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "last_data_date": "2026-01-30"
+      "last_data_date": "2026-01-30",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -339,7 +363,9 @@
       "signal": "Résultat net de 5.936 Mds $ dernière année.",
       "description": "Résultat net consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "AI-optimized servers",
@@ -409,17 +435,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2025-06-26",
-    "fiscal_year": 2025,
-    "ceo_name": "Michael S. Dell",
-    "exec_comp_approval_pct": null,
-    "board_independence_pct": null,
-    "board_size": 8,
-    "avg_tenure_years": null,
-    "board_women_pct": null,
-    "voting_structure": "Trois classes d'actions (A, B, C) votant ensemble comme une seule classe, 1 vote par action ordinaire.",
-    "top_capital": [],
-    "top_voting": []
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 8.45
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 7.61
+      },
+      {
+        "name": "Bank of America Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.43
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 8.45
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 7.61
+      },
+      {
+        "name": "Bank of America Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.43
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:12:51.636360+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -429,21 +482,24 @@
         "value": 36.72,
         "unit": "Mds $",
         "pct": 40.8,
-        "share_pct": 40.8
+        "share_pct": 40.8,
+        "label_en": "Infrastructure Solutions Group"
       },
       {
         "name": "Client Solutions Group",
         "value": 43.2,
         "unit": "Mds $",
         "pct": 48,
-        "share_pct": 48
+        "share_pct": 48,
+        "label_en": "Client Solutions Group"
       },
       {
         "name": "VMware",
         "value": 9.09,
         "unit": "Mds $",
         "pct": 10.1,
-        "share_pct": 10.1
+        "share_pct": 10.1,
+        "label_en": "VMware"
       }
     ],
     "total": 89.01,
@@ -457,14 +513,16 @@
         "value": 42.8,
         "unit": "Mds $",
         "pct": 47.2,
-        "share_pct": 47.2
+        "share_pct": 47.2,
+        "label_en": "United States"
       },
       {
         "name": "Foreign countries",
         "value": 47.82,
         "unit": "Mds $",
         "pct": 52.8,
-        "share_pct": 52.8
+        "share_pct": 52.8,
+        "label_en": "Foreign countries"
       }
     ],
     "total": 90.62,
@@ -580,16 +638,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #43",
-    "global_us": "≈ #24",
-    "sector": "≈ #5",
-    "subsector": "≈ #3"
+    "global_world": "#120",
+    "global_us": "#70",
+    "sector": "Top 50 in Technologie",
+    "subsector": "#1 in Hardware"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-05-28",
   "publication_date": null,
   "company_description": "Dell Technologies Inc. designs, develops, manufactures, markets, sells, and supports various comprehensive and integrated solutions, products, and services in the Americas, Europe, the Middle East, Asia, and internationally. The company operates through Infrastructure Solutions Group (ISG) and Client Solutions Group (CSG) segments. The ISG segment provides modern and traditional storage solutions, including all-flash, purpose-built, hyper-converged infrastructure, software-defined storage, and general-purpose and AI-optimized servers. This segment also offers networking products and services comprising wide area network infrastructure, data center and edge networking switches, and cables and optics that help its business customers to transform and modernize their infrastructure and complementing its server and storage solutions; and software, peripherals, and services, including consulting and support, and deployment. The CSG segment provides notebooks, desktops, and workstations and branded peripherals that include displays, docking stations, keyboards, mice, webcam and audio devices, and third-party software and peripherals; and configuration, and extended warranties services. Th",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.294Z",
+  "_built_at": "2026-05-21T16:00:22.116Z",
   "_missing_blocks": []
 }

@@ -169,7 +169,8 @@
       "last_data_date": "2026-03-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Headcount : total number of employees at period end."
     },
     {
       "short": "Sea Logistics Volumes",
@@ -340,7 +341,9 @@
       "signal": "Dividende par action de 6.0 CHF dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -361,7 +364,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 0.979 Mds CHF dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "Payout Ratio",
@@ -382,7 +387,9 @@
       "signal": "Part du résultat net distribué en dividendes : 111.0% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     }
   ],
   "kpis_story": [],
@@ -426,35 +433,72 @@
         "value": 1.9,
         "unit": "Mds $",
         "pct": 33.9,
-        "share_pct": 33.9
+        "share_pct": 33.9,
+        "label_en": "Sea Logistics"
       },
       {
         "name": "Air Logistics",
         "value": 1.6,
         "unit": "Mds $",
         "pct": 28.6,
-        "share_pct": 28.6
+        "share_pct": 28.6,
+        "label_en": "Air Logistics"
       },
       {
         "name": "Road Logistics",
         "value": 0.908,
         "unit": "Mds $",
         "pct": 16.2,
-        "share_pct": 16.2
+        "share_pct": 16.2,
+        "label_en": "Road Logistics"
       },
       {
         "name": "Contract Logistics",
         "value": 1.2,
         "unit": "Mds $",
         "pct": 21.3,
-        "share_pct": 21.3
+        "share_pct": 21.3,
+        "label_en": "Contract Logistics"
       }
     ],
     "total": 5.61,
     "unit": "Mds $"
   },
   "revenue_by_geography": null,
-  "risks": [],
+  "risks": [
+    {
+      "title": "Cyclicité industrielle et exposition aux investissements capex",
+      "category": "Marché",
+      "severity": 4,
+      "trend": "stable",
+      "summary": "La demande pour les machines, équipements et services industriels est fortement corrélée au cycle d'investissement des entreprises clientes. Un ralentissement des capex globaux entraînerait une baisse du backlog et du chiffre d'affaires.",
+      "score_rationale": "Risque cyclicité structurel pour l'industrie. Position Item 1A top 3. Langage intensif sur sensibilité capex. Tendance stable. Pondération cycle industriel élevée."
+    },
+    {
+      "title": "Concurrence asiatique et pression sur les marges",
+      "category": "Concurrence",
+      "severity": 3,
+      "trend": "up",
+      "summary": "L'émergence de concurrents chinois et asiatiques sur les segments machines lourdes, automotive, et équipements industriels exerce une pression structurelle sur les prix et oblige à investir massivement en R&D pour maintenir l'avantage technologique.",
+      "score_rationale": "Risque concurrence Asie structurel. Position Item 1A top 5. Langage usuel sur la concurrence prix. Tendance haussière (Made in China 2025). Pondération concurrence modérée à élevée."
+    },
+    {
+      "title": "Chaîne d'approvisionnement et exposition tarifaire",
+      "category": "Supply Chain",
+      "severity": 3,
+      "trend": "up",
+      "summary": "Les ruptures dans les chaînes d'approvisionnement (semi-conducteurs, terres rares, métaux critiques) et la hausse des barrières tarifaires (USA, Chine, UE) compliquent la planification et augmentent les coûts unitaires.",
+      "score_rationale": "Risque supply chain structurel post Covid et tensions commerciales 2024-2025. Position Item 1A top 5. Langage intensif. Tendance haussière. Pondération supply chain modérée à élevée."
+    },
+    {
+      "title": "Sensibilité aux profit warnings et révisions de guidance",
+      "category": "Profit Warning",
+      "severity": 2,
+      "trend": "stable",
+      "summary": "Kuehne+Nagel International AG reste exposée au risque de révision baissière de sa guidance trimestrielle ou annuelle en cas d'écart matériel entre les performances opérationnelles et les attentes du marché. Aucun profit warning formel n'a été identifié sur les douze derniers mois.",
+      "score_rationale": "Risque de profit warning suivi en continu. Aucune communication formelle de profit warning sur les 12 derniers mois. Position Item 1A non spécifique (risque transversal). Tendance stable. Pondération profit warning modérée."
+    }
+  ],
   "ai_positioning": {
     "stance": "absent",
     "summary": "Aucune mention d'initiatives ou de stratégies liées à l'intelligence artificielle dans les documents fournis.",
@@ -468,47 +512,82 @@
   "market_positions": [],
   "events": [
     {
+      "year": 2027,
+      "month": 3,
+      "title": "Assemblee generale (estimation)",
+      "body": "Estimation basee sur fin d'exercice precedente : AG attendue vers mars 2027.",
+      "source": "yfinance.info.lastFiscalYearEnd",
+      "url": "",
+      "date": "2027-03-15"
+    },
+    {
+      "year": 2026,
+      "month": 7,
+      "title": "Prochaine publication Q3 2026",
+      "body": "Publication attendue le 23 juillet 2026. Consensus EPS : 2.19.",
+      "source": "yfinance.calendar",
+      "url": "",
+      "date": "2026-07-23"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "Dernier ex-dividende",
+      "body": "Date ex-dividende : 8 mai 2026. Montant precedent : 6.0000.",
+      "source": "yfinance.calendar",
+      "url": "",
+      "date": "2026-05-08"
+    },
+    {
       "year": 2026,
       "month": 4,
-      "title": "Kuehne + Nagel Lifts Lower-End of Earnings Guidance",
-      "body": "The transport and logistics company said the Middle East conflict hurt first-quarter sea freight volumes, but its air, road and contract logistics businesses had a strong start to the year.",
-      "source": "The Wall Street Journal",
-      "url": "https://www.wsj.com/business/earnings/kuehne-nagel-lifts-lower-end-of-earnings-guidance-d74f7e0a?siteid=yhoof2&yptr=yahoo",
+      "title": "Resultats Q2 2026 publies",
+      "body": "EPS 2.06 vs consensus 1.70 (beat +20.9 %) Annonce le 24 avril 2026.",
+      "source": "yfinance.earnings_dates",
+      "url": "",
       "date": "2026-04-24"
     },
     {
       "year": 2026,
       "month": 3,
-      "title": "Iran war and AI advances are creating winners and losers among transport stocks",
-      "body": "As the Iran war enters its fourth week, analysts warn that AI could double profits for freight leaders while sinking laggards.",
-      "source": "Yahoo Finance",
-      "url": "https://finance.yahoo.com/news/iran-war-and-ai-advances-are-creating-winners-and-losers-among-transport-stocks-173815429.html",
-      "date": "2026-03-25"
+      "title": "Resultats Q1 2026 publies",
+      "body": "EPS 1.32 vs consensus 1.55 (miss -14.8 %) Annonce le 2 mars 2026.",
+      "source": "yfinance.earnings_dates",
+      "url": "",
+      "date": "2026-03-02"
     },
     {
-      "year": 2026,
-      "month": 3,
-      "title": "Kuehne + Nagel Reports Sharp Drop in Earnings Amid Deteriorating Environment",
-      "body": "The transport and logistics company’s recurring earnings before interest and tax-a preferred profitability measure-fell 17% on year.",
-      "source": "The Wall Street Journal",
-      "url": "https://www.wsj.com/business/earnings/kuehne-nagel-reports-sharp-drop-in-earnings-amid-deteriorating-environment-3a82d604?siteid=yhoof2&yptr=yahoo",
-      "date": "2026-03-03"
+      "year": 2025,
+      "month": 10,
+      "title": "Resultats Q4 2025 publies",
+      "body": "EPS 1.63 vs consensus 1.97 (miss -17.4 %) Annonce le 23 octobre 2025.",
+      "source": "yfinance.earnings_dates",
+      "url": "",
+      "date": "2025-10-23"
+    },
+    {
+      "year": 2025,
+      "month": 7,
+      "title": "Resultats Q3 2025 publies",
+      "body": "EPS 2.02 vs consensus 2.15 (miss -6.0 %) Annonce le 24 juillet 2025.",
+      "source": "yfinance.earnings_dates",
+      "url": "",
+      "date": "2025-07-24"
     }
   ],
   "ranks": {
-    "global_world": "Top global logistics provider",
-    "global_us": "...",
-    "sector": "One of the world's leading logistics providers",
-    "subsector": "Global number one in Air and Sea Logistics"
+    "global_world": "#433",
+    "global_us": "Non US",
+    "sector": "Top 50 in Industrie",
+    "subsector": "#1 in Logistics and Supply Chain Services"
   },
   "latest_filing": null,
   "next_earnings_date": null,
   "publication_date": null,
   "company_description": "Kuehne + Nagel International AG, together with its subsidiaries, provides integrated logistics services in Europe, the Middle East, Africa, the Americas, and the Asia-Pacific. The company operates through four segments: Sea Logistics, Air Logistics, Road Logistics, and Contract Logistics. It offers full loads and less than container loads, reefer cold chain solutions for temperature-sensitive goods, order management, and VinLog, a wine, spirits, and drinks logistics solutions, as well as cargo insurance and customs brokerage; and air freight services, such as air charter services, time-critical logistics, sea-air logistics, airside logistics, customs clearance, and smart labels. The company also provides road logistics include full truck load, less than truck load, and groupage services; and fulfillment, warehouse, and distribution services, such as fulfilment operation, distribution and last mile delivery, in-plant, inventory and order management, packaging, returns management, waste management, custom, quality inspections, and value-added services. In addition, it offers customs clearances services comprising export and import customs clearance and transit services, one-stop digi",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.445Z",
+  "_built_at": "2026-05-21T16:00:22.387Z",
   "_missing_blocks": [
-    "revenue_by_geography",
-    "risks"
+    "revenue_by_geography"
   ]
 }

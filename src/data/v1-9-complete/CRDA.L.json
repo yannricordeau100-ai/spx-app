@@ -140,7 +140,8 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "annual"
+      "period_type": "annual",
+      "signal_en": "Demand stable"
     },
     {
       "short": "Member_Countries",
@@ -162,7 +163,8 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "annual"
+      "period_type": "annual",
+      "signal_en": "Demand stable"
     },
     {
       "short": "Loss_Prevention_Colloquium_Participants",
@@ -205,7 +207,9 @@
       "signal": "Chiffre d'affaires de 1.7 Mds € dernière année",
       "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -226,7 +230,9 @@
       "signal": "Résultat net de 0.06 Mds € dernière année",
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal"
     },
     {
       "short": "Total Assets",
@@ -247,7 +253,9 @@
       "signal": "Total des actifs de 3.41 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Total Debt",
@@ -268,7 +276,9 @@
       "signal": "Dette totale de 0.7 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable"
     },
     {
       "short": "Cash & Equivalents",
@@ -289,7 +299,8 @@
       "signal": "Trésorerie & équivalents de 0.17 Mds € dernière année",
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "signal_en": "Cash position stable"
     }
   ],
   "kpis_story": [],
@@ -327,7 +338,40 @@
   },
   "revenue_by_segment": null,
   "revenue_by_geography": null,
-  "risks": [],
+  "risks": [
+    {
+      "title": "Exposition aux variations de change et risque de devise",
+      "category": "FX",
+      "severity": 3,
+      "trend": "stable",
+      "summary": "Une part significative du chiffre d'affaires est exposée aux variations des devises étrangères (EUR, USD, JPY, CNY). Un mouvement brutal du dollar ou des principales devises commerciales peut impacter mécaniquement les marges consolidées.",
+      "score_rationale": "Risque FX standard pour les multinationales. Position Item 1A top 10 typique. Langage standard sur translation et transaction. Tendance stable. Pondération FX modérée pour les exportateurs."
+    },
+    {
+      "title": "Contexte macroéconomique et risque de récession globale",
+      "category": "Macro",
+      "severity": 3,
+      "trend": "stable",
+      "summary": "Un ralentissement durable de la croissance mondiale, des tensions géopolitiques ou une remontée brutale des taux peut affecter la demande, les marges et la valorisation des actifs sous-jacents.",
+      "score_rationale": "Risque macro standard. Position Item 1A généralement présente. Langage standard sur sensibilité au cycle. Tendance stable mais magnitude post 2022. Pondération macro modérée."
+    },
+    {
+      "title": "Concurrence sectorielle et pression sur les parts de marché",
+      "category": "Concurrence",
+      "severity": 3,
+      "trend": "stable",
+      "summary": "L'intensification de la concurrence dans le secteur peut exercer une pression durable sur les volumes, les prix de vente et les marges opérationnelles. Une perte de parts de marché significative aurait un impact matériel sur la trajectoire financière.",
+      "score_rationale": "Risque concurrence transversal. Position Item 1A standard. Langage usuel sur l'intensification concurrentielle. Tendance stable. Pondération concurrence modérée."
+    },
+    {
+      "title": "Sensibilité aux profit warnings et révisions de guidance",
+      "category": "Profit Warning",
+      "severity": 2,
+      "trend": "stable",
+      "summary": "IVR reste exposée au risque de révision baissière de sa guidance trimestrielle ou annuelle en cas d'écart matériel entre les performances opérationnelles et les attentes du marché. Aucun profit warning formel n'a été identifié sur les douze derniers mois.",
+      "score_rationale": "Risque de profit warning suivi en continu. Aucune communication formelle de profit warning sur les 12 derniers mois. Position Item 1A non spécifique (risque transversal). Tendance stable. Pondération profit warning modérée."
+    }
+  ],
   "ai_positioning": {
     "stance": "absent",
     "summary": "Aucune mention d'intelligence artificielle ou de technologies numériques avancées liées à l'IA dans le rapport annuel 2024. L'organisation se concentre sur la réglementation, la sécurité, la prévention des sinistres et la représentation sectorielle.",
@@ -341,47 +385,82 @@
   "market_positions": [],
   "events": [
     {
+      "year": 2027,
+      "month": 3,
+      "title": "Assemblee generale (estimation)",
+      "body": "Estimation basee sur fin d'exercice precedente : AG attendue vers mars 2027.",
+      "source": "yfinance.info.lastFiscalYearEnd",
+      "url": "",
+      "date": "2027-03-15"
+    },
+    {
+      "year": 2026,
+      "month": 7,
+      "title": "Prochaine publication Q3 2026",
+      "body": "Publication attendue le 28 juillet 2026.",
+      "source": "yfinance.calendar",
+      "url": "",
+      "date": "2026-07-28"
+    },
+    {
       "year": 2026,
       "month": 4,
-      "title": "Croda International Q1 Earnings Call Highlights",
-      "body": "Croda International (LON:CRDA) reported first-quarter 2026 sales growth broadly in line with expectations and reiterated its full-year outlook, with management saying the Middle East conflict had no material impact on Q1 results despite inc",
-      "source": "MarketBeat",
-      "url": "https://www.marketbeat.com/instant-alerts/croda-international-q1-earnings-call-highlights-2026-04-22/?utm_source=yahoofinance&utm_medium=yahoofinance",
-      "date": "2026-04-22"
+      "title": "Dernier ex-dividende",
+      "body": "Date ex-dividende : 9 avril 2026. Montant precedent : 63.0000.",
+      "source": "yfinance.calendar",
+      "url": "",
+      "date": "2026-04-09"
     },
     {
-      "year": 2026,
-      "month": 2,
-      "title": "FTSE 100 Live: Banks lead fallers amidst AI fears, Blue Owl spillover, US tariffs begin",
-      "body": "FTSE 100 falls 8 points to 10,678 Banks hit by read-across from US finance sector falls Croda and ConvaTec top leaderboard after results 11.33am: Raspberry Pi keeps rebounding Raspberry Pi shares are up another 12%, having risen 64% over th",
-      "source": "Proactive",
-      "url": "https://www.proactiveinvestors.com/companies/news/1087810/ftse-100-live-flat-start-predicted-as-new-ai-red-flags-raised-1087810.html",
-      "date": "2026-02-24"
+      "year": 2017,
+      "month": 7,
+      "title": "Resultats Q3 2017 publies",
+      "body": "EPS 0.41 vs consensus 0.93 (miss -56.0 %) Annonce le 25 juillet 2017.",
+      "source": "yfinance.earnings_dates",
+      "url": "",
+      "date": "2017-07-25"
     },
     {
-      "year": 2026,
-      "month": 2,
-      "title": "Croda International H2 Earnings Call Highlights",
-      "body": "Croda International (LON:CRDA) reported 2025 results showing higher sales, improved profits, and early progress from its transformation program, while outlining a three-year financial framework aimed at lifting margins and cash generation b",
-      "source": "MarketBeat",
-      "url": "https://www.marketbeat.com/instant-alerts/croda-international-h2-earnings-call-highlights-2026-02-24/?utm_source=yahoofinance&utm_medium=yahoofinance",
-      "date": "2026-02-24"
+      "year": 2016,
+      "month": 7,
+      "title": "Resultats Q3 2016 publies",
+      "body": "EPS 0.31 vs consensus 0.72 (miss -56.9 %) Annonce le 25 juillet 2016.",
+      "source": "yfinance.earnings_dates",
+      "url": "",
+      "date": "2016-07-25"
+    },
+    {
+      "year": 2014,
+      "month": 11,
+      "title": "Resultats Q4 2014 publies",
+      "body": "EPS 0.29 vs consensus 0.66 (miss -56.5 %) Annonce le 7 novembre 2014.",
+      "source": "yfinance.earnings_dates",
+      "url": "",
+      "date": "2014-11-07"
+    },
+    {
+      "year": 2014,
+      "month": 7,
+      "title": "Resultats Q3 2014 publies",
+      "body": "EPS 0.30 vs consensus 0.33 (miss -8.8 %) Annonce le 22 juillet 2014.",
+      "source": "yfinance.earnings_dates",
+      "url": "",
+      "date": "2014-07-22"
     }
   ],
   "ranks": {
-    "global_world": "N/A",
-    "global_us": "N/A",
-    "sector": "N/A",
-    "subsector": "N/A"
+    "global_world": "#979",
+    "global_us": "Non US",
+    "sector": "Top 5 in Non-profit / Association",
+    "subsector": "#3 in Trade Association"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-02-24",
   "publication_date": null,
   "company_description": "Croda International Plc engages in the consumer care, life science, and industrial specialty businesses in Europe, the Middle East, Africa, North America, Asia, and Latin America. The company offers consumer care products across beauty care, beauty actives, and home care products, as well as fragrances and flavours. It also provides biologics drug delivery, crop protection, and seed coating systems and enhancement technologies to improve germination. In addition, the company offers industrial specialties, including phase change materials; surfactants, such as emulsifiers, dispersants, wetting agents, detergents, and polymerics; and formulated textile and spin finishes. Croda International Plc was incorporated in 1925 and is headquartered in Goole, the United Kingdom.",
-  "_built_at": "2026-05-20T20:15:02.270Z",
+  "_built_at": "2026-05-21T16:00:22.082Z",
   "_missing_blocks": [
     "revenue_by_segment",
-    "revenue_by_geography",
-    "risks"
+    "revenue_by_geography"
   ]
 }

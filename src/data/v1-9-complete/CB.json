@@ -14,30 +14,6 @@
   "hero_kpi_rationale": "Indicateur clé de la taille et de la capacité financière du groupe d'assurance mondiale, reflétant sa position de leader dans le secteur P&C avec des actifs totaux de 272 milliards USD",
   "kpis": [
     {
-      "short": "P&C Combined Ratio",
-      "name_fr": "P&C Combined Ratio",
-      "name_en": "P&C Combined Ratio",
-      "value": 86.6,
-      "unit": "%",
-      "yoy": null,
-      "history": [
-        89.1,
-        87.6,
-        86.5,
-        86.6
-      ],
-      "is_short_history": false,
-      "is_wow": true,
-      "is_generic": false,
-      "period_type": "year",
-      "_source": "hero_history_extension",
-      "explanation": "KPI hero spécifique extrait du Segment Reporting (10-K). Source : 10-K 2022, 2023, 2024, 2025 P&C Combined Ratio",
-      "is_short_history_legitimate": true,
-      "short_history_legitimate_reason": "Insurance ratio reformulé récemment (post-IFRS 17 / GAAP)",
-      "_short_history_legitimate_rule": "kpi_pattern",
-      "_short_history_legitimate_tagged_at": "2026-05-21T03:37:51.898Z"
-    },
-    {
       "short": "Total Assets",
       "name_fr": "Actifs totaux",
       "name_en": "Total Assets",
@@ -64,7 +40,13 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "is_short_history_legitimate": true,
+      "short_history_legitimate_reason": "Insurance ratio reformulé récemment (post-IFRS 17 / GAAP)",
+      "_short_history_legitimate_rule": "kpi_pattern",
+      "_short_history_legitimate_tagged_at": "2026-05-21T03:35:15.151Z"
     },
     {
       "short": "Shareholders Equity",
@@ -83,7 +65,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Shareholders' Equity : net assets attributable to shareholders."
     },
     {
       "short": "Gross Unpaid Losses and Loss Expenses",
@@ -104,7 +87,9 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Expenses related to Gross Unpaid Losses and Loss.",
+      "signal_en": "Cost pressure, investment phase"
     },
     {
       "short": "Net Unpaid Losses and Loss Expenses",
@@ -125,7 +110,9 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Expenses related to Net Unpaid Losses and Loss.",
+      "signal_en": "Cost pressure, investment phase"
     },
     {
       "short": "Total Revenue",
@@ -135,10 +122,23 @@
       "unit": "Mds €",
       "yoy": "+6.7%",
       "history": [
-        43.05,
-        49.83,
-        56.01,
-        59.78
+        15.075,
+        16.006,
+        16.834,
+        17.936,
+        19.261,
+        19.171,
+        18.987,
+        31.469,
+        32.243,
+        32.717,
+        34.186,
+        35.994,
+        40.963,
+        43.166,
+        49.735,
+        55.753,
+        59.402
       ],
       "type": "Comptes",
       "nature": "comptable",
@@ -147,7 +147,9 @@
       "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": false,
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Total Debt",
@@ -169,7 +171,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -191,7 +195,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "Stockholders Equity",
@@ -213,7 +218,8 @@
       "description": "Capitaux propres extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cigna Business Acquisition",
@@ -258,26 +264,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-05-21",
-    "fiscal_year": 2025,
-    "ceo_name": "Evan G. Greenberg",
-    "board_independence_pct": 84.6,
-    "board_size": 13,
-    "board_women_pct": 23.1,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
     "top_capital": [
       {
-        "name": "Vanguard Group",
+        "name": "Berkshire Hathaway",
         "type": "institutionnel",
-        "stake_pct": 8.5
+        "stake_pct": 8.27
       },
       {
-        "name": "BlackRock",
+        "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": 7.2
+        "stake_pct": 7.78
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 6.73
       }
     ],
-    "top_voting": []
+    "top_voting": [
+      {
+        "name": "Berkshire Hathaway",
+        "type": "institutionnel",
+        "stake_pct": 8.27
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 7.78
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 6.73
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:12:26.873971+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -294,7 +318,8 @@
         "value": 5.8,
         "unit": "Mds $",
         "pct": 19.3,
-        "share_pct": 19.3
+        "share_pct": 19.3,
+        "label_en": "Overseas General Insurance"
       },
       {
         "name": "North America Personal P\tC Insurance",
@@ -308,14 +333,16 @@
         "value": 2.7,
         "unit": "Mds $",
         "pct": 9,
-        "share_pct": 9
+        "share_pct": 9,
+        "label_en": "Global Reinsurance"
       },
       {
         "name": "Life Insurance",
         "value": 2.1,
         "unit": "Mds $",
         "pct": 7,
-        "share_pct": 7
+        "share_pct": 7,
+        "label_en": "Life Insurance"
       }
     ],
     "total": 30,
@@ -336,14 +363,16 @@
         "value": 5.5,
         "unit": "Mds $",
         "pct": 18.3,
-        "share_pct": 18.3
+        "share_pct": 18.3,
+        "label_en": "Europe, Middle East, Africa"
       },
       {
         "name": "Asie-Pacifique",
         "value": 4.2,
         "unit": "Mds $",
         "pct": 14,
-        "share_pct": 14
+        "share_pct": 14,
+        "label_en": "Asia-Pacific"
       },
       {
         "name": "Am\trique latine",
@@ -423,10 +452,18 @@
     }
   ],
   "ai_positioning": {
-    "stance": "absent",
-    "summary": "Chubb Limited does not mention artificial intelligence, machine learning, or related topics in its 10-K filing for the year ended December 31, 2025",
-    "evidence": [],
-    "source": "10-K Form 2025"
+    "stance": "cautious",
+    "summary": "Chubb Limited mentionne peu l'IA dans ses communications officielles (Assurance).",
+    "evidence": [
+      "Aucune mention significative d'IA dans le 10-K ou les earnings calls disponibles localement.",
+      "Le secteur Assurance commence à intégrer l'IA mais Chubb Limited ne met pas le sujet en avant à ce jour.",
+      "Mettrik AI réévaluera le positionnement IA à chaque nouvelle publication."
+    ],
+    "source_note": "Sources locales sans mentions IA significatives",
+    "_bucket": "MEDIUM",
+    "_no_ai_passages": true,
+    "_generated_at": "2026-05-21T02:28:03.879057+00:00",
+    "ticker": "CB"
   },
   "market_positions": [],
   "events": [
@@ -468,16 +505,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #XX",
-    "global_us": "...",
-    "sector": "...",
-    "subsector": "..."
+    "global_world": "#114",
+    "global_us": "Non US",
+    "sector": "Top 25 in Finance",
+    "subsector": "#2 in Assurance"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-28",
   "publication_date": null,
   "company_description": "Chubb Limited provides insurance and reinsurance products worldwide. It operates in six segments: North America Commercial Property and Casualty (P&C) Insurance, North America Personal P&C Insurance, North America Agricultural Insurance, Overseas General Insurance, Global Reinsurance, and Life Insurance. The company offers property and general liability, workers' compensation, and umbrella; professional and management liability; environmental, health, and international coverages; and claims and risk management products and services, loss control, and engineering and complex claims management. It also provides homeowners, automobile and collector cars, valuable articles, and personal and excess liability insurance. In addition, the company offers multiple peril crop insurance and crop-hail insurance for farm, ranch, specialty (P&C), and commercial agriculture products; product and employer liability, business interruption, and specialty risk; property insurance products, including traditional commercial fire coverage, energy industry-related, marine, construction, and other technical coverages; personal accident and supplemental medical coverages, such as accidental death, business/",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.236Z",
+  "_built_at": "2026-05-21T16:00:22.020Z",
   "_missing_blocks": []
 }

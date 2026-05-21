@@ -163,7 +163,8 @@
       "period_type": "quarter",
       "publication_date": "2026-05-07",
       "_hero_history_unverified": true,
-      "_hero_history_reason": "<2 valeurs chiffrées vérifiées dans 10-K FY2026"
+      "_hero_history_reason": "<2 valeurs chiffrées vérifiées dans 10-K FY2026",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Total NOI",
@@ -186,7 +187,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -209,7 +211,9 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns"
     },
     {
       "short": "Development Starts",
@@ -338,7 +342,9 @@
       "signal": "Dividende par action de 1.78 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -360,7 +366,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -382,7 +390,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Same Store NOI",
@@ -453,46 +463,44 @@
     }
   ],
   "governance": {
-    "agm_date": "2026-05-20",
-    "fiscal_year": 2025,
-    "ceo_name": "Benjamin W. Schall",
-    "ceo_total_comp_m": 9.6635,
-    "ceo_pay_ratio": 137,
-    "exec_comp_approval_pct": 92.5,
-    "board_independence_pct": 91.7,
-    "board_size": 12,
-    "avg_tenure_years": 7.5,
-    "board_women_pct": 25,
-    "voting_structure": "Annual election of all directors with a majority voting standard in uncontested elections",
     "top_capital": [
       {
         "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": 8.3
+        "stake_pct": 15.37
       },
       {
         "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": 7.9
+        "stake_pct": 12.61
       },
       {
         "name": "State Street Corporation",
         "type": "institutionnel",
-        "stake_pct": 5.2
+        "stake_pct": 6.66
       }
     ],
     "top_voting": [
       {
-        "name": "Timothy J. Naughton",
-        "type": "insider",
-        "stake_pct": 1.2
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 15.37
       },
       {
-        "name": "Benjamin W. Schall",
-        "type": "insider",
-        "stake_pct": 0.8
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 12.61
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 6.66
       }
-    ]
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:12:08.447720+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "unit": "Mds $",
@@ -502,20 +510,23 @@
       {
         "label": "Same Store",
         "value": 2.74,
+        "share_pct": 92.6,
         "unit": "Mds $",
-        "share_pct": 92.6
+        "label_en": "Same Store"
       },
       {
         "label": "Other Stabilized",
         "value": 0.17,
+        "share_pct": 5.7,
         "unit": "Mds $",
-        "share_pct": 5.7
+        "label_en": "Other Stabilized"
       },
       {
         "label": "Development/Redevelopment",
         "value": 0.05,
+        "share_pct": 1.7,
         "unit": "Mds $",
-        "share_pct": 1.7
+        "label_en": "Development/Redevelopment"
       }
     ],
     "total": 2.96
@@ -528,56 +539,64 @@
         "value": 1.1487,
         "unit": "Mds $",
         "pct": 14.4,
-        "share_pct": 14.4
+        "share_pct": 14.4,
+        "label_en": "New England"
       },
       {
         "name": "Metro NY/NJ",
         "value": 1.5528,
         "unit": "Mds $",
         "pct": 19.4,
-        "share_pct": 19.4
+        "share_pct": 19.4,
+        "label_en": "Metro NY/NJ"
       },
       {
         "name": "Mid-Atlantic",
         "value": 1.4902,
         "unit": "Mds $",
         "pct": 18.7,
-        "share_pct": 18.7
+        "share_pct": 18.7,
+        "label_en": "Mid Atlantic"
       },
       {
         "name": "Florida",
         "value": 0.1564,
         "unit": "Mds $",
         "pct": 2,
-        "share_pct": 2
+        "share_pct": 2,
+        "label_en": "Florida"
       },
       {
         "name": "Colorado",
         "value": 0.1086,
         "unit": "Mds $",
         "pct": 1.4,
-        "share_pct": 1.4
+        "share_pct": 1.4,
+        "label_en": "Colorado"
       },
       {
         "name": "Pacific Northwest",
         "value": 0.5451,
         "unit": "Mds $",
         "pct": 6.8,
-        "share_pct": 6.8
+        "share_pct": 6.8,
+        "label_en": "Pacific Northwest"
       },
       {
         "name": "Northern California",
         "value": 1.2629,
         "unit": "Mds $",
         "pct": 15.8,
-        "share_pct": 15.8
+        "share_pct": 15.8,
+        "label_en": "Northern California"
       },
       {
         "name": "Southern California",
         "value": 1.7209,
         "unit": "Mds $",
         "pct": 21.5,
-        "share_pct": 21.5
+        "share_pct": 21.5,
+        "label_en": "Southern California"
       }
     ],
     "total": 7.99,
@@ -665,16 +684,16 @@
     }
   ],
   "ranks": {
-    "global_world": "#960",
-    "global_us": "#362",
-    "sector": "#4 dans Real Estate",
-    "subsector": "#1 dans Real Estate Investment Trust (REIT)"
+    "global_world": "#437",
+    "global_us": "#265",
+    "sector": "Top 25 in Immobilier",
+    "subsector": "#2 in Real Estate Investment Trust (REIT)"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-04-27",
   "publication_date": null,
   "company_description": "AvalonBay Communities, Inc., a member of the S&P 500, is an equity REIT. The firm develops, redevelops, acquires and manages communities in leading metropolitan areas in New England, the New York/New Jersey Metro area, the Mid-Atlantic, the Pacific Northwest, and Northern and Southern California, as well as in the Company's expansion regions of Raleigh-Durham and Charlotte, North Carolina, Southeast Florida, Dallas and Austin, Texas, and Denver, Colorado. As of December 31, 2025, the Company owned or held a direct or indirect ownership interest in 320 communities containing 98,694 apartment homes in 11 states and the District of Columbia, of which 24 communities were under development. AvalonBay Communities, Inc. was incorporated in 1978 and is based in Arlington, United States.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.173Z",
+  "_built_at": "2026-05-21T16:00:21.940Z",
   "_missing_blocks": []
 }

@@ -129,7 +129,8 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "signal_en": "Revenue stable, monitor outlook"
     },
     {
       "short": "Revenu des établissements de santé comportementale",
@@ -151,7 +152,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Revenue stable, monitor outlook"
     },
     {
       "short": "Revenu des établissements de santé comportementale au Royaume-Uni",
@@ -173,7 +175,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Total des actifs des établissements de santé comportementale au Royaume-Uni",
@@ -195,7 +198,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Nombre total d'établissements",
@@ -238,7 +242,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -260,7 +266,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -282,7 +290,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Total Revenue",
@@ -308,7 +317,9 @@
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -333,7 +344,9 @@
       "signal": "Résultat net de 1.489 Mds $ dernière année.",
       "description": "Résultat net consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Revenu des établissements de santé comportementale au Royaume-Uni",
@@ -386,49 +399,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-05-20",
-    "fiscal_year": 2025,
-    "ceo_name": "Marc D. Miller",
-    "exec_comp_approval_pct": null,
-    "board_independence_pct": null,
-    "board_size": null,
-    "avg_tenure_years": null,
-    "board_women_pct": null,
-    "voting_structure": "Quatre classes d'actions avec droits de vote distincts : les Classes A et C votent ensemble en tant que classe unique pour élire un administrateur, les Classes B et D votent ensemble en tant que classe unique pour élire un administrateur.",
     "top_capital": [
       {
-        "name": "Alan B. Miller",
-        "type": "fondateur",
-        "stake_pct": 88.9
-      },
-      {
-        "name": "Marc D. Miller",
-        "type": "insider",
-        "stake_pct": 2.3
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.19
       },
       {
         "name": "First Eagle Investment Management, LLC",
         "type": "institutionnel",
-        "stake_pct": 8.6
+        "stake_pct": 8.3
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.15
       }
     ],
     "top_voting": [
       {
-        "name": "Alan B. Miller",
-        "type": "fondateur",
-        "voting_pct": 88.9
-      },
-      {
-        "name": "Marc D. Miller",
-        "type": "insider",
-        "voting_pct": 2.3
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.19
       },
       {
         "name": "First Eagle Investment Management, LLC",
         "type": "institutionnel",
-        "voting_pct": null
+        "stake_pct": 8.3
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.15
       }
-    ]
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:15:27.038723+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "unit": "$B",
@@ -438,14 +446,16 @@
       {
         "label": "Acute Care Hospital Services",
         "value": 9.93,
+        "share_pct": 57.2,
         "unit": "$B",
-        "share_pct": 57.2
+        "label_en": "Acute Care Hospital Services"
       },
       {
         "label": "Behavioral Health Care Services",
         "value": 7.43,
+        "share_pct": 42.8,
         "unit": "$B",
-        "share_pct": 42.8
+        "label_en": "Behavioral Health Care Services"
       }
     ],
     "total": 17.36
@@ -458,14 +468,16 @@
         "value": 12.71,
         "unit": "Mds $",
         "pct": 94.9,
-        "share_pct": 94.9
+        "share_pct": 94.9,
+        "label_en": "United States"
       },
       {
         "name": "United Kingdom",
         "value": 0.69,
         "unit": "Mds $",
         "pct": 5.1,
-        "share_pct": 5.1
+        "share_pct": 5.1,
+        "label_en": "United Kingdom"
       }
     ],
     "total": 13.4,
@@ -567,16 +579,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #N/A",
-    "global_us": "≈ #N/A",
-    "sector": "≈ #N/A",
-    "subsector": "≈ #N/A"
+    "global_world": "#746",
+    "global_us": "#463",
+    "sector": "#62 in Santé",
+    "subsector": "#3 in Services de santé"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-27",
   "publication_date": null,
   "company_description": "Universal Health Services, Inc., through its subsidiaries, owns and operates acute care hospitals, and outpatient and behavioral health care facilities in the United States. It operates through Acute Care Hospital Services and Behavioral Health Care Services segments. The company's hospitals offer general and specialty surgery, internal medicine, obstetrics, emergency room care, radiology, oncology, diagnostic and coronary care, pediatric, pharmacy, and/or behavioral health services. It also provides commercial health insurance services; capital resources; and various management services, including central purchasing, information services, finance and control systems, facilities planning, physician recruitment, administrative personnel management, marketing, and public relations services. Universal Health Services, Inc. was founded in 1978 and is headquartered in King of Prussia, Pennsylvania.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.661Z",
+  "_built_at": "2026-05-21T16:00:22.812Z",
   "_missing_blocks": []
 }

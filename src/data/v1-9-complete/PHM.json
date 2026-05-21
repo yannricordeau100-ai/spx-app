@@ -138,7 +138,9 @@
       "is_short_history": false,
       "ttm": 25.71,
       "period_type": "quarter",
-      "publication_date": "2026-04-23"
+      "publication_date": "2026-04-23",
+      "explanation_en": "Gross Margin : gross profit divided by revenue.",
+      "signal_en": "Margin compression, watch profitability"
     },
     {
       "short": "Home Sale Revenues",
@@ -161,7 +163,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "ttm": 16.56
+      "ttm": 16.56,
+      "signal_en": "Revenue pressure, demand softening"
     },
     {
       "short": "Net New Orders",
@@ -184,7 +187,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "ttm": 27600.72
+      "ttm": 27600.72,
+      "signal_en": "Demand softening, monitor end-markets"
     },
     {
       "short": "Backlog",
@@ -207,7 +211,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "ttm": 5.02
+      "ttm": 5.02,
+      "explanation_en": "Backlog : value of orders not yet recognized as revenue.",
+      "signal_en": "Pipeline contraction, future revenue at risk"
     },
     {
       "short": "SG&A",
@@ -230,7 +236,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "ttm": 1.64
+      "ttm": 1.64,
+      "explanation_en": "Selling, General & Administrative expenses.",
+      "signal_en": "Cost pressure, investment phase"
     },
     {
       "short": "Closings",
@@ -253,7 +261,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "ttm": 29181.97
+      "ttm": 29181.97,
+      "signal_en": "Pressure, deteriorating trend"
     },
     {
       "short": "Share Repurchases",
@@ -299,7 +308,9 @@
       "signal": "Chiffre d'affaires de 3.192 Mds $ dernière année fiscale (FY2020).",
       "description": "Chiffre d'affaires extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "DPS",
@@ -323,7 +334,9 @@
       "signal": "Dividende par action de 0.26 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -345,7 +358,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -367,7 +382,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Gross Margin",
@@ -435,19 +452,44 @@
     }
   ],
   "governance": {
-    "agm_date": "2026-04-29",
-    "fiscal_year": 2025,
-    "ceo_name": "Ryan R. Marshall",
-    "ceo_total_comp_m": 15.393266,
-    "ceo_pay_ratio": null,
-    "exec_comp_approval_pct": null,
-    "board_independence_pct": 90.9,
-    "board_size": 11,
-    "avg_tenure_years": 8,
-    "board_women_pct": 27.3,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "top_capital": [],
-    "top_voting": []
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 10.86
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 10.11
+      },
+      {
+        "name": "Franklin Resources, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 7.86
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 10.86
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 10.11
+      },
+      {
+        "name": "Franklin Resources, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 7.86
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:14:48.278480+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "unit": "Mds $",
@@ -457,59 +499,76 @@
       {
         "label": "Florida",
         "value": 4.26,
+        "share_pct": 24.9,
         "unit": "Mds $",
-        "share_pct": 24.9
+        "label_en": "Florida"
       },
       {
         "label": "West",
         "value": 3.88,
+        "share_pct": 22.6,
         "unit": "Mds $",
-        "share_pct": 22.6
+        "label_en": "West"
       },
       {
         "label": "Southeast",
         "value": 2.96,
+        "share_pct": 17.3,
         "unit": "Mds $",
-        "share_pct": 17.3
+        "label_en": "Southeast"
       },
       {
         "label": "Midwest",
         "value": 2.73,
+        "share_pct": 15.9,
         "unit": "Mds $",
-        "share_pct": 15.9
+        "label_en": "Midwest"
       },
       {
         "label": "Texas",
         "value": 1.68,
+        "share_pct": 9.8,
         "unit": "Mds $",
-        "share_pct": 9.8
+        "label_en": "Texas"
       },
       {
         "label": "Northeast",
         "value": 1.24,
+        "share_pct": 7.2,
         "unit": "Mds $",
-        "share_pct": 7.2
+        "label_en": "Northeast"
       },
       {
         "label": "Financial Services",
         "value": 0.39,
+        "share_pct": 2.3,
         "unit": "Mds $",
-        "share_pct": 2.3
+        "label_en": "Financial Services"
       }
     ],
     "total": 17.14
   },
   "revenue_by_geography": {
-    "single_region": true,
-    "reason": "PHM 10-K confirme opérations exclusivement US : \"Operated out of an average of 945 active communities in 46 markets across 25 states (US homebuilder)\"",
-    "source": "10-K FY2024 (filed 2025-02-06)",
-    "_extracted_at": "2026-05-20T11:22:10.340638Z",
-    "_verified_10k": true,
+    "unit": "%",
+    "slices": [
+      {
+        "label": "États-Unis",
+        "value": 100,
+        "share_pct": 100,
+        "single_region_legitimate": true,
+        "unit": "%",
+        "label_en": "United States"
+      }
+    ],
+    "total": 100,
+    "source": "Mono-pays légitime (filings)",
+    "_tagged_by": "auto-rebascule-21mai-CONV-CONCEPTS",
+    "_tagged_at": "2026-05-21T01:26:18.203Z",
+    "_category": "homebuilder-us",
     "single_region_legitimate": true,
     "_legit_reason": "US homebuilder — domestic operations (PulteGroup)",
     "_legit_marked_at": "2026-05-21T08:18:58Z",
     "_legit_marked_by": "sub-agent-#76-repartition-cerebras",
-    "slices": [],
     "label": "Répartition géographique (mono-région légitime)"
   },
   "risks": [
@@ -611,15 +670,15 @@
     }
   ],
   "ranks": {
-    "global_world": "#205",
-    "global_us": "#111",
-    "sector": "#2 in Consumer Cyclical",
-    "subsector": "#1 in Homebuilding"
+    "global_world": "#476",
+    "global_us": "#288",
+    "sector": "Top 5 in Consumer Cyclical",
+    "subsector": "#2 in Homebuilding"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-21",
   "publication_date": null,
   "company_description": "PulteGroup, Inc., through its subsidiaries, engages in the homebuilding business in the United States. The company is involved in the acquisition and development of land primarily for residential purposes, as well as construction of housing; and sale of single-family detached homes; and attached homes, such as townhomes, condominiums, and duplexes under the Centex, Pulte Homes, Del Webb, DiVosta Homes, and John Wieland Homes and Neighborhoods brands. It also engages in the mortgage banking, title, and insurance agency operations. PulteGroup, Inc. was founded in 1950 and is headquartered in Atlanta, Georgia.",
-  "_built_at": "2026-05-20T20:15:02.550Z",
+  "_built_at": "2026-05-21T16:00:22.579Z",
   "_missing_blocks": []
 }

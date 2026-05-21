@@ -129,7 +129,9 @@
       "signal": "Dividende par action de 3.1 CHF dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Cap Return",
@@ -150,7 +152,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 7.849 Mds CHF dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -171,11 +175,36 @@
       "signal": "Part du résultat net distribué en dividendes : 86.9% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     }
   ],
   "kpis_story": [],
-  "governance": {},
+  "governance": {
+    "top_capital": [
+      {
+        "name": "Pacer Advisors, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 0.02
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "Pacer Advisors, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 0.02
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:14:27.119781+00:00",
+    "_top_dual_class_flag": false,
+    "top_disclosure": "eu_regex_extracted",
+    "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
+    "_top_disclosure_at": "2026-05-21T02:49:04.683472+00:00",
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:18:59Z"
+  },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
     "slices": [
@@ -184,49 +213,56 @@
         "value": 24.786,
         "unit": "Mds $",
         "pct": 26.67,
-        "share_pct": 26.67
+        "share_pct": 26.67,
+        "label_en": "Powdered and Liquid Beverages"
       },
       {
         "name": "Water",
         "value": 3.32,
         "unit": "Mds $",
         "pct": 3.59,
-        "share_pct": 3.59
+        "share_pct": 3.59,
+        "label_en": "Water"
       },
       {
         "name": "Milk products and Ice cream",
         "value": 10.981,
         "unit": "Mds $",
         "pct": 11.83,
-        "share_pct": 11.83
+        "share_pct": 11.83,
+        "label_en": "Milk products and Ice cream"
       },
       {
         "name": "Nutrition and Health Science",
         "value": 15.278,
         "unit": "Mds $",
         "pct": 16.39,
-        "share_pct": 16.39
+        "share_pct": 16.39,
+        "label_en": "Nutrition and Health Science"
       },
       {
         "name": "Prepared dishes and cooking aids",
         "value": 11.666,
         "unit": "Mds $",
         "pct": 12.51,
-        "share_pct": 12.51
+        "share_pct": 12.51,
+        "label_en": "Prepared dishes and cooking aids"
       },
       {
         "name": "Confectionery",
         "value": 8.107,
         "unit": "Mds $",
         "pct": 8.73,
-        "share_pct": 8.73
+        "share_pct": 8.73,
+        "label_en": "Confectionery"
       },
       {
         "name": "PetCare",
         "value": 18.86,
         "unit": "Mds $",
         "pct": 20.27,
-        "share_pct": 20.27
+        "share_pct": 20.27,
+        "label_en": "PetCare"
       }
     ],
     "total": 93,
@@ -240,49 +276,163 @@
         "name": "NA",
         "value": null,
         "unit": "Mds $",
-        "pct": 35
+        "pct": 35,
+        "label_en": "NA"
       },
       {
         "name": "EUR",
         "value": null,
         "unit": "Mds $",
-        "pct": 24
+        "pct": 24,
+        "label_en": "EUR"
       },
       {
         "name": "AOA",
         "value": null,
         "unit": "Mds $",
-        "pct": 21.4
+        "pct": 21.4,
+        "label_en": "AOA"
       },
       {
         "name": "LATAM",
         "value": null,
         "unit": "Mds $",
-        "pct": 13.7
+        "pct": 13.7,
+        "label_en": "LATAM"
       },
       {
         "name": "GC",
         "value": null,
         "unit": "Mds $",
-        "pct": 5.9
+        "pct": 5.9,
+        "label_en": "GC"
       }
     ],
     "unit": "Mds $"
   },
-  "risks": [],
+  "risks": [
+    {
+      "title": "Inflation des coûts intrants et capacité de pricing",
+      "category": "Coûts",
+      "severity": 4,
+      "trend": "stable",
+      "summary": "Les producteurs de biens de grande consommation subissent l'inflation des matières premières agricoles, de l'emballage et de l'énergie. La capacité à répercuter ces hausses sur les prix de vente sans perdre de volume détermine la résilience de marge.",
+      "score_rationale": "Risque inflation intrants structurel post 2022. Position Item 1A top 3. Langage intensif sur sensibilité aux matières premières. Tendance stable mais magnitude historique. Pondération coûts modérée à élevée."
+    },
+    {
+      "title": "Concurrence marques distributeurs et premiumisation",
+      "category": "Concurrence",
+      "severity": 3,
+      "trend": "stable",
+      "summary": "Les marques nationales font face à une concurrence croissante des marques distributeurs (private label) sur les segments standards. La capacité à innover et à premiumiser détermine la rétention de marge.",
+      "score_rationale": "Risque MDD structurel. Position Item 1A top 10. Langage usuel sur private label. Tendance stable mais cumulative post 2022. Pondération concurrence MDD modérée."
+    },
+    {
+      "title": "Réglementation alcool, tabac, sucre et tendances santé",
+      "category": "Réglementaire",
+      "severity": 3,
+      "trend": "up",
+      "summary": "L'évolution des taxes spécifiques (alcool, tabac, sucre), les restrictions publicitaires et les tendances santé/wellness exercent une pression structurelle sur les catégories matures (spirits, soft drinks, snacks).",
+      "score_rationale": "Risque réglementaire structurel sectoriel. Position Item 1A top 5. Langage intensif sur taxation. Tendance haussière (sin taxes, wellness). Pondération réglementaire modérée à élevée."
+    },
+    {
+      "title": "Sensibilité aux profit warnings et révisions de guidance",
+      "category": "Profit Warning",
+      "severity": 2,
+      "trend": "stable",
+      "summary": "Nestlé S.A. reste exposée au risque de révision baissière de sa guidance trimestrielle ou annuelle en cas d'écart matériel entre les performances opérationnelles et les attentes du marché. Aucun profit warning formel n'a été identifié sur les douze derniers mois.",
+      "score_rationale": "Risque de profit warning suivi en continu. Aucune communication formelle de profit warning sur les 12 derniers mois. Position Item 1A non spécifique (risque transversal). Tendance stable. Pondération profit warning modérée."
+    }
+  ],
   "ai_positioning": null,
   "market_positions": [],
-  "events": [],
-  "ranks": {},
+  "events": [
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "Nestlé, Mondelez join regenerative agriculture framework launch",
+      "body": "40 companies including Nestlé, Diageo, and Unilever signed a declaration backing a common framework tested across 25 countries",
+      "source": "Quartz",
+      "url": "https://qz.com/regenerative-agriculture-nestle-diageo-mondelez-framework-051926",
+      "date": "2026-05-19"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "IZEA Worldwide Inc (IZEA) Q1 2026 Earnings Call Highlights: Transition to Enterprise Clients ...",
+      "body": "Despite a revenue decline, IZEA Worldwide Inc (IZEA) leverages enterprise relationships and AI-driven platforms to drive future growth.",
+      "source": "GuruFocus.com",
+      "url": "https://finance.yahoo.com/news/izea-worldwide-inc-izea-q1-050059134.html",
+      "date": "2026-05-13"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "Izea Worldwide Q1 Earnings Call Highlights",
+      "body": "Izea Worldwide (NASDAQ:IZEA) reported lower first-quarter 2026 revenue as the influencer marketing company said it completed a strategic shift away from small and midsize business accounts and toward larger enterprise clients. Chief Executi",
+      "source": "MarketBeat",
+      "url": "https://www.marketbeat.com/instant-alerts/izea-worldwide-q1-earnings-call-highlights-2026-05-12/?utm_source=yahoofinance&utm_medium=yahoofinance",
+      "date": "2026-05-13"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "The Strong Earnings Posted By Nestlé (Malaysia) Berhad (KLSE:NESTLE) Are A Good Indication Of The Strength Of The Business",
+      "body": "Nestlé (Malaysia) Berhad ( KLSE:NESTLE ) recently posted some strong earnings, and the market responded positively. We...",
+      "source": "Simply Wall St.",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/strong-earnings-posted-nestl-malaysia-001258416.html",
+      "date": "2026-05-06"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "SEC Proposes Semi-Annual Reporting",
+      "body": "The Securities and Exchange Commission on Tuesday proposed allowing public companies the option of filing semi-annual reports instead of quarterly reports. The proposal, which the Wall Street Journal previously reported was in the works, wi",
+      "source": "The Wall Street Journal",
+      "url": "https://www.wsj.com/livecoverage/stock-market-today-dow-sp-500-nasdaq-05-05-2026/card/sec-proposes-semi-annual-reporting-lACN2kajXADalC0bJeLD?siteid=yhoof2&yptr=yahoo",
+      "date": "2026-05-05"
+    },
+    {
+      "year": 2026,
+      "month": 4,
+      "title": "Dividende 3.1 CHF/action versé",
+      "body": "Dividende ordinaire de 3.1 CHF par action, ex-date 20 avril 2026.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2026-04-20"
+    },
+    {
+      "year": 2025,
+      "month": 12,
+      "title": "Publication des résultats Q4 2025",
+      "body": "Clôture du trimestre Q4 2025 le 31 décembre 2025.",
+      "source": "yfinance · mostRecentQuarter",
+      "url": "",
+      "date": "2025-12-31"
+    },
+    {
+      "year": 2025,
+      "month": 4,
+      "title": "Dividende 3.05 CHF/action versé",
+      "body": "Dividende ordinaire de 3.05 CHF par action, ex-date 22 avril 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-04-22"
+    }
+  ],
+  "ranks": {
+    "global_world": "#59",
+    "global_us": "Non US",
+    "sector": "#1 in Consumer Defensive",
+    "subsector": "#1 in Packaged Foods"
+  },
   "latest_filing": null,
   "next_earnings_date": null,
   "publication_date": null,
   "company_description": "Nestlé est un groupe alimentaire mondial offrant une large gamme de produits dans les boissons, produits laitiers, nutrition, soins des animaux de compagnie et alimentation préparée, destinés aux consommateurs et aux entreprises.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-21T02:08:59.523Z",
+  "_built_at": "2026-05-21T16:00:22.495Z",
   "_missing_blocks": [
-    "risks",
-    "ai_positioning",
-    "events"
+    "ai_positioning"
   ]
 }

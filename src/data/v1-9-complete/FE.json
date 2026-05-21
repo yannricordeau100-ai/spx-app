@@ -210,7 +210,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Employees : total number of employees at period end."
     },
     {
       "short": "Total Assets",
@@ -231,7 +232,9 @@
       "signal": "Total des actifs de 55.9 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -252,7 +255,9 @@
       "signal": "Dette totale de 26.56 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -273,7 +278,8 @@
       "signal": "Trésorerie & équivalents de 0.06 Mds € dernière année",
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "DPS",
@@ -297,7 +303,9 @@
       "signal": "Dividende par action de 0.91 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -318,7 +326,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 1.016 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -339,7 +349,9 @@
       "signal": "Part du résultat net distribué en dividendes : 99.6% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Total Revenue",
@@ -365,7 +377,9 @@
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -390,17 +404,51 @@
       "signal": "Résultat net de 1.02 Mds $ dernière année.",
       "description": "Résultat net consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening"
     }
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-05-20",
-    "fiscal_year": 2025,
-    "board_size": 9,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "ceo_name": "Mr. Brian X. Tierney",
-    "_source": "yfinance.companyOfficers"
+    "top_capital": [
+      {
+        "name": "Capital World Investors",
+        "type": "institutionnel",
+        "stake_pct": 13.43
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 10.89
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.48
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "Capital World Investors",
+        "type": "institutionnel",
+        "stake_pct": 13.43
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 10.89
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.48
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:17.889543+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -410,32 +458,50 @@
         "value": 9.629,
         "unit": "Mds $",
         "pct": 66.1,
-        "share_pct": 66.1
+        "share_pct": 66.1,
+        "label_en": "Regulated Distribution"
       },
       {
         "name": "Regulated Transmission",
         "value": 1.151,
         "unit": "Mds $",
         "pct": 7.9,
-        "share_pct": 7.9
+        "share_pct": 7.9,
+        "label_en": "Regulated Transmission"
       },
       {
         "name": "Competitive Energy Services",
         "value": 4.07,
         "unit": "Mds $",
         "pct": 27.9,
-        "share_pct": 27.9
+        "share_pct": 27.9,
+        "label_en": "Competitive Energy Services"
       }
     ],
     "total": 14.85,
     "unit": "Mds $"
   },
   "revenue_by_geography": {
+    "unit": "%",
+    "slices": [
+      {
+        "label": "États-Unis",
+        "value": 100,
+        "share_pct": 100,
+        "single_region_legitimate": true,
+        "unit": "%",
+        "label_en": "United States"
+      }
+    ],
+    "total": 100,
+    "source": "Mono-pays légitime (filings)",
+    "_tagged_by": "auto-rebascule-21mai-CONV-CONCEPTS",
+    "_tagged_at": "2026-05-21T01:26:18.191Z",
+    "_category": "utility-us",
     "single_region_legitimate": true,
     "_legit_reason": "US electric utility — domestic operations only (FirstEnergy)",
     "_legit_marked_at": "2026-05-21T08:18:58Z",
     "_legit_marked_by": "sub-agent-#76-repartition-cerebras",
-    "slices": [],
     "label": "Répartition géographique (mono-région légitime)"
   },
   "risks": [
@@ -495,10 +561,18 @@
     }
   ],
   "ai_positioning": {
-    "stance": "absent",
-    "summary": "La société FE ne mentionne pas l'intelligence artificielle (IA) ou l'apprentissage automatique dans son rapport 10-K/20-F.",
-    "evidence": [],
-    "source": "Rapport 10-K/20-F de la société FE"
+    "stance": "cautious",
+    "summary": "FirstEnergy Corp mentionne peu l'IA dans ses communications officielles (Électricité).",
+    "evidence": [
+      "Aucune mention significative d'IA dans le 10-K ou les earnings calls disponibles localement.",
+      "Le secteur Électricité commence à intégrer l'IA mais FirstEnergy Corp ne met pas le sujet en avant à ce jour.",
+      "Mettrik AI réévaluera le positionnement IA à chaque nouvelle publication."
+    ],
+    "source_note": "Sources locales sans mentions IA significatives",
+    "_bucket": "MEDIUM",
+    "_no_ai_passages": true,
+    "_generated_at": "2026-05-21T02:32:13.193744+00:00",
+    "ticker": "FE"
   },
   "market_positions": [],
   "events": [
@@ -540,18 +614,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #XX",
-    "global_us": "One of the largest investor-owned electric systems in the U.S.",
-    "sector": "N/A",
-    "subsector": "Top 5 U.S. investor-owned electric utilities by customer base"
+    "global_world": "#544",
+    "global_us": "#327",
+    "sector": "Top 50 in Services aux collectivités",
+    "subsector": "Top 25 in Électricité"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-04-28",
   "publication_date": null,
   "company_description": "FirstEnergy Corp., together with its subsidiaries, engages in the generation, distribution, and transmission of electricity in the United States. It operates through Distribution, Integrated, and Stand-Alone Transmission segments. The company owns and operates coal-fired, nuclear, hydroelectric, wind, and solar power generating facilities. The company operates 252,959 distribution line miles and 24,157 transmission line miles, including overhead pole line and underground conduit carrying primary, secondary, and street lighting circuits. The company serves customers in Ohio, Pennsylvania, New Jersey, West Virginia, Maryland, and New York. FirstEnergy Corp. was incorporated in 1996 and is headquartered in Akron, Ohio.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.352Z",
-  "_missing_blocks": [
-    "revenue_by_geography"
-  ]
+  "_built_at": "2026-05-21T16:00:22.225Z",
+  "_missing_blocks": []
 }

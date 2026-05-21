@@ -115,7 +115,8 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 10.5,
-      "_validation": "Correction: last_data_date '2026-01-01' corrigé en '2025-12-31' (cohérent avec le fiscal year 2025)"
+      "_validation": "Correction: last_data_date '2026-01-01' corrigé en '2025-12-31' (cohérent avec le fiscal year 2025)",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Gross Margin",
@@ -142,7 +143,9 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 62.63,
-      "_validation": "Pas de modification (KPI générique mais présent implicitement dans la structure regulatory)"
+      "_validation": "Pas de modification (KPI générique mais présent implicitement dans la structure regulatory)",
+      "explanation_en": "Gross Margin : gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Op Margin",
@@ -169,7 +172,9 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 28.13,
-      "_validation": "Pas de modification (KPI générique)"
+      "_validation": "Pas de modification (KPI générique)",
+      "explanation_en": "Profit margin on Op.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Capex",
@@ -196,7 +201,9 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 3.88,
-      "_validation": "Correction: unit 'Mds $' standardisé en 'B$' (milliards USD)"
+      "_validation": "Correction: unit 'Mds $' standardisé en 'B$' (milliards USD)",
+      "explanation_en": "Capital Expenditures : investments in property, plant and equipment.",
+      "signal_en": "Steady growth, healthy trend"
     },
     {
       "short": "Headcount",
@@ -223,7 +230,9 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 8.48,
-      "_validation": "Pas de modification (unit 'K' correct pour milliers)"
+      "_validation": "Pas de modification (unit 'K' correct pour milliers)",
+      "explanation_en": "Headcount : total number of employees at period end.",
+      "signal_en": "Stable, slight decline to monitor"
     },
     {
       "short": "Total Revenue",
@@ -248,7 +257,9 @@
       "signal": "Chiffre d'affaires de 8.799 Mds $ dernière année fiscale (FY2025).",
       "description": "Chiffre d'affaires extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -273,7 +284,9 @@
       "signal": "Résultat net de 0.523 Mds $ dernière année fiscale (FY2017).",
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns"
     },
     {
       "short": "DPS",
@@ -297,7 +310,9 @@
       "signal": "Dividende par action de 0.75 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -319,7 +334,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Revenue Requirement Increase",
@@ -396,16 +413,44 @@
     }
   ],
   "governance": {
-    "agm_date": "2026-05-14",
-    "fiscal_year": 2025,
-    "ceo_name": "Martin J. Lyons, Jr.",
-    "exec_comp_approval_pct": 100,
-    "board_independence_pct": null,
-    "board_size": 12,
-    "avg_tenure_years": null,
-    "board_women_pct": null,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "ceo_total_comp_m": 14.06
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 12.2
+      },
+      {
+        "name": "T. Rowe Price",
+        "type": "institutionnel",
+        "stake_pct": 10.44
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.6
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 12.2
+      },
+      {
+        "name": "T. Rowe Price",
+        "type": "institutionnel",
+        "stake_pct": 10.44
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.6
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:11:52.402983+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "unit": "Mds $",
@@ -415,36 +460,51 @@
       {
         "label": "Ameren Missouri",
         "value": 4.8,
-        "unit": "M $",
-        "share_pct": 53.2
+        "share_pct": 53.2,
+        "unit": "Mds $",
+        "label_en": "Ameren Missouri"
       },
       {
         "label": "Ameren Illinois Electric Distribution",
         "value": 2.4,
-        "unit": "M $",
-        "share_pct": 26.6
+        "share_pct": 26.6,
+        "unit": "Mds $",
+        "label_en": "Ameren Illinois Electric Distribution"
       },
       {
         "label": "Ameren Illinois Natural Gas",
         "value": 0.97,
-        "unit": "M $",
-        "share_pct": 10.7
+        "share_pct": 10.7,
+        "unit": "Mds $",
+        "label_en": "Ameren Illinois Natural Gas"
       },
       {
         "label": "Ameren Transmission",
         "value": 0.86,
-        "unit": "M $",
-        "share_pct": 9.5
+        "share_pct": 9.5,
+        "unit": "Mds $",
+        "label_en": "Ameren Transmission"
       }
     ],
     "total": 9.03
   },
   "revenue_by_geography": {
-    "single_region": true,
-    "reason": "AEE 10-K confirme opérations exclusivement US : \"Ameren Missouri and Ameren Illinois regulated utility operations confined to Missouri and Illinois (US states)\"",
-    "source": "10-K FY2024 (filed 2025-02-18)",
-    "_extracted_at": "2026-05-20T11:22:10.340638Z",
-    "_verified_10k": true
+    "unit": "%",
+    "slices": [
+      {
+        "label": "États-Unis",
+        "value": 100,
+        "share_pct": 100,
+        "single_region_legitimate": true,
+        "unit": "%",
+        "label_en": "United States"
+      }
+    ],
+    "total": 100,
+    "source": "Mono-pays légitime (filings)",
+    "_tagged_by": "auto-rebascule-21mai-CONV-CONCEPTS",
+    "_tagged_at": "2026-05-21T01:26:18.172Z",
+    "_category": "utility-us"
   },
   "risks": [
     {
@@ -570,16 +630,16 @@
     }
   ],
   "ranks": {
-    "global_world": "#825",
-    "global_us": "#321",
-    "sector": "#4 dans Utilities",
-    "subsector": "#1 dans Electric & Gas Utilities"
+    "global_world": "#398",
+    "global_us": "#239",
+    "sector": "Top 25 in Services aux collectivités",
+    "subsector": "#2 in Electric & Gas Utilities"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-05-05",
   "publication_date": null,
   "company_description": "Ameren Corporation, together with its subsidiaries, operates as a public utility holding company in the United States. The company operates through four segments: Ameren Missouri, Ameren Illinois Electric Distribution, Ameren Illinois Natural Gas, and Ameren Transmission. It engages in the rate-regulated electric generation, transmission, and distribution business and natural gas transmission and distribution business. The company also generates electricity through coal, nuclear, and natural gas, as well as renewable energy, including hydroelectric, wind, methane gas, and solar energy centers. It serves residential, commercial, and industrial customers. Ameren Corporation was founded in 1881 and is headquartered in Saint Louis, Missouri.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.129Z",
+  "_built_at": "2026-05-21T16:00:21.881Z",
   "_missing_blocks": []
 }

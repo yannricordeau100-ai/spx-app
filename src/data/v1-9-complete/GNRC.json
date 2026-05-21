@@ -27,20 +27,30 @@
       "signal": "Revenu résidentiel en baisse en raison de la faible activité de pannes de courant au second semestre 2025",
       "description": "Le revenu résidentiel est affecté par le cycle d'investissement résidentiel, la confiance des consommateurs, les taux d'intérêt et les subventions d'énergie renouvelable",
       "history": [
-        0.55,
-        0.74,
-        0.62,
-        0.49,
-        0.54,
-        0.56,
-        0.56
+        0.792,
+        1.1763,
+        1.4858,
+        1.4609,
+        1.3173,
+        1.4445,
+        1.6724,
+        2.0235,
+        2.2043,
+        2.4852,
+        3.7372,
+        4.5647,
+        4.0227,
+        4.2958,
+        4.2091
       ],
       "last_data_date": "2026-03-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true,
+      "is_short_history": false,
       "_validation": "Data hallucinée: valeur non extraite du 10-K",
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "explanation_en": "Revenue from the Residential segment.",
+      "signal_en": "Revenue stable, monitor outlook"
     },
     {
       "short": "Total Revenue",
@@ -50,10 +60,21 @@
       "unit": "Mds €",
       "yoy": "-2.1%",
       "history": [
-        4.56,
-        4.02,
-        4.3,
-        4.21
+        0.792,
+        1.1763,
+        1.4858,
+        1.4609,
+        1.3173,
+        1.4445,
+        1.6724,
+        2.0235,
+        2.2043,
+        2.4852,
+        3.7372,
+        4.5647,
+        4.0227,
+        4.2958,
+        4.2091
       ],
       "type": "Comptes",
       "nature": "comptable",
@@ -62,7 +83,9 @@
       "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": false,
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Revenue pressure, demand softening"
     },
     {
       "short": "Net Income",
@@ -84,7 +107,9 @@
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal"
     },
     {
       "short": "Total Assets",
@@ -106,7 +131,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -128,7 +155,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -150,7 +179,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Impact des tarifs douaniers 2025",
@@ -218,32 +248,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2025-06-12",
-    "fiscal_year": 2024,
-    "ceo_name": "Aaron P. Jagdfeld",
-    "board_independence_pct": 90.9,
-    "board_size": 11,
-    "avg_tenure_years": null,
-    "board_women_pct": 27.3,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
     "top_capital": [
       {
         "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": 11.5
+        "stake_pct": 10.42
       },
       {
         "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": 6.1
+        "stake_pct": 6.46
       },
       {
-        "name": "Aaron Jagdfeld",
-        "type": "insider",
-        "stake_pct": 1.7
+        "name": "Invesco Ltd.",
+        "type": "institutionnel",
+        "stake_pct": 3.89
       }
     ],
-    "top_voting": null
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 10.42
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 6.46
+      },
+      {
+        "name": "Invesco Ltd.",
+        "type": "institutionnel",
+        "stake_pct": 3.89
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:29.266960+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -253,14 +295,16 @@
         "value": 1.035,
         "unit": "Mds $",
         "pct": 70.5,
-        "share_pct": 70.5
+        "share_pct": 70.5,
+        "label_en": "North America"
       },
       {
         "name": "International",
         "value": 0.432,
         "unit": "Mds $",
         "pct": 29.5,
-        "share_pct": 29.5
+        "share_pct": 29.5,
+        "label_en": "International"
       }
     ],
     "total": 1.47,
@@ -274,14 +318,16 @@
         "value": 1.035,
         "unit": "Mds $",
         "pct": 70.5,
-        "share_pct": 70.5
+        "share_pct": 70.5,
+        "label_en": "North America"
       },
       {
         "name": "International",
         "value": 0.432,
         "unit": "Mds $",
         "pct": 29.5,
-        "share_pct": 29.5
+        "share_pct": 29.5,
+        "label_en": "International"
       }
     ],
     "total": 1.47,
@@ -399,16 +445,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #XX",
-    "global_us": "...",
-    "sector": "...",
-    "subsector": "..."
+    "global_world": "#606",
+    "global_us": "#369",
+    "sector": "#59 in Industrie",
+    "subsector": "#2 in Electrical Equipment"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-29",
   "publication_date": null,
   "company_description": "Generac Holdings Inc. designs, manufactures, and distributes energy technology products and solutions worldwide. The company offers residential automatic standby generators, automatic transfer switch, air-cooled engine home standby generators, and liquid-cooled engine generators; Mobile Link, a remote monitoring system for home standby generators; propane tank monitoring solution; and smart home solutions, such as smart thermostats and a suite of home monitoring products. It also provides smart home energy management devices and sensors for heating and cooling system; smart doorbell cameras; and portable and inverter generators; multiple portable battery solutions; manual transfer switches; outdoor power equipment, including trimmers, field and brush mowers, log splitters, stump grinders, chipper shredders, lawn and leaf vacuums, and pressure washers and water pumps; and home energy storage systems. In addition, the company offers commercial and industrial products comprising cleaner-burning natural gas fueled generators; mega-watt diesel generators; light-commercial standby generators and related transfer switches; stationary generators; single-engine industrial generators; indust",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.379Z",
+  "_built_at": "2026-05-21T16:00:22.272Z",
   "_missing_blocks": []
 }

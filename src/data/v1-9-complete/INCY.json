@@ -46,7 +46,8 @@
       "_validation": "Valeur corrigée de 103.8 Mds $ à 3.8 B $ basée sur les données de l'industrie biotech; histoire révisée pour cohérence",
       "period_type": "quarter",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
-      "_hero_history_extracted_at": "2026-05-14T10:52:34.613039+00:00"
+      "_hero_history_extracted_at": "2026-05-14T10:52:34.613039+00:00",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "R&D Expenses",
@@ -55,7 +56,7 @@
       "explanation": "Dépenses consacrées à la recherche et développement de nouveaux candidats médicamenteux",
       "value": "0.92",
       "unit": "Mds $",
-      "yoy": null,
+      "yoy": "-13.8%",
       "type": "Investment",
       "nature": "Structurel",
       "comparable": "Comparable",
@@ -73,7 +74,9 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 0.92,
-      "_validation": "Valeur corrigée de 23.1 Mds $ à 0.92 B $; unité corrigée Mds $ à B $; histoire révisée"
+      "_validation": "Valeur corrigée de 23.1 Mds $ à 0.92 B $; unité corrigée Mds $ à B $; histoire révisée",
+      "explanation_en": "Expenses related to R&D.",
+      "signal_en": "Significant decline, warning signal"
     },
     {
       "short": "Net Income",
@@ -82,7 +85,7 @@
       "explanation": "Résultat net de l'entreprise après tous les frais et impôts",
       "value": "0.62",
       "unit": "Mds $",
-      "yoy": null,
+      "yoy": "-18.4%",
       "type": "Profitability",
       "nature": "Cyclique",
       "comparable": "Comparable",
@@ -100,7 +103,9 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 0.62,
-      "_validation": "Valeur corrigée de 15.6 Mds $ à 0.62 B $; type corrigé de Revenue à Profitability; unité corrigée Mds $ à B $; histoire révisée"
+      "_validation": "Valeur corrigée de 15.6 Mds $ à 0.62 B $; type corrigé de Revenue à Profitability; unité corrigée Mds $ à B $; histoire révisée",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns"
     },
     {
       "short": "Total Revenue",
@@ -122,7 +127,9 @@
       "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Operating Income",
@@ -144,7 +151,9 @@
       "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Operating Income : profit from core business operations.",
+      "signal_en": "Strong growth, robust momentum"
     },
     {
       "short": "Total Assets",
@@ -166,29 +175,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
-    },
-    {
-      "short": "Total Debt",
-      "name_fr": "Dette totale",
-      "name_en": "Total Debt",
-      "value": 0.04,
-      "unit": "Mds €",
-      "yoy": "+0.0%",
-      "history": [
-        0.04,
-        0.04,
-        0.04,
-        0.04
-      ],
-      "type": "Balance Sheet",
-      "nature": "comptable",
-      "comparable": true,
-      "signal": "Dette totale de 0.04 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
-      "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -210,7 +199,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Product Revenues",
@@ -253,27 +243,32 @@
     "ceo_name": "Mr. William J. Meury",
     "_source": "yfinance.companyOfficers"
   },
-  "revenue_by_segment": null,
+  "revenue_by_segment": {
+    "single_segment": true,
+    "_reason": "one operating segment"
+  },
   "revenue_by_geography": {
-    "label": "Répartition du chiffre d'affaires par zone géographique",
     "slices": [
       {
-        "name": "États-Unis",
-        "value": 2.1,
-        "unit": "Mds $",
-        "pct": 95.9,
-        "share_pct": 95.9
+        "label": "United States",
+        "share_pct": 94.3,
+        "label_fr": "États-Unis",
+        "label_en": "United States",
+        "value": 4000,
+        "unit": "M $"
       },
       {
-        "name": "Europe",
-        "value": 0.09,
-        "unit": "Mds $",
-        "pct": 4.1,
-        "share_pct": 4.1
+        "label": "Europe",
+        "share_pct": 6.1,
+        "label_fr": "Europe",
+        "label_en": "Europe",
+        "value": 260.4,
+        "unit": "M $"
       }
     ],
-    "total": 2.19,
-    "unit": "Mds $"
+    "year": 2024,
+    "currency": "USD",
+    "total": 4241.217
   },
   "risks": [
     {
@@ -368,18 +363,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #123",
-    "global_us": "≈ #45",
-    "sector": "≈ #12",
-    "subsector": "≈ #5"
+    "global_world": "#511",
+    "global_us": "#310",
+    "sector": "Top 50 in Santé",
+    "subsector": "Top 10 in Biotechnologie"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-28",
   "publication_date": null,
   "company_description": "Incyte Corporation, a biopharmaceutical company, engages in the discovery, development, and commercialization of therapeutics in the United States, Europe, Canada, and Japan. The company offers JAKAFI for the treatment of myelofibrosis (MF), polycythemia vera, and steroid-refractory acute graft-versus-host disease; ICLUSIG, a kinase inhibitor to treat chronic myeloid leukemia and Philadelphia-chromosome positive acute lymphoblastic leukemia; MONJUVI/ MINJUVI for the treatment of diffuse large B-cell lymphoma and Follicular Lymphoma; NIKTIMVO for the treatment of chronic graft-versus-host disease. It also provides INCA033989 for the treatment of essential thrombocythemia and MF;  INCA035784 for the treatment of anti-mutant calreticulin and myeloproliferative neoplasms (MPNs); INCB160058 for the treatment of MPNs; PEMAZYRE, a selective fibroblast growth factor receptor kinase inhibitor for the treatment of unresectable biliary tract cancer, metastatic cholangiocarcinoma, and myeloid/lymphoid neoplasms; ZYNYZ to treat adults with metastatic or recurrent locally advanced Merkel cell carcinoma. The company's clinical stage products include INCB123667 for ovarian cancer; INCB161734 for s",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.415Z",
-  "_missing_blocks": [
-    "revenue_by_segment"
-  ]
+  "_built_at": "2026-05-21T16:00:22.335Z",
+  "_missing_blocks": []
 }

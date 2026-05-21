@@ -93,14 +93,22 @@
       "unit": "M $",
       "yoy": "+7.9%",
       "history": [
-        3193.58,
-        4009.92,
-        4325.67
+        0.345,
+        0.4211,
+        1.3278,
+        1.4916,
+        1.6516,
+        2.0805,
+        3.3437,
+        4.079,
+        5.2711,
+        5.7494
       ],
       "period_type": "year",
       "description_fr": "Revenu locatif généré par les propriétés de vente au détail, segment métier principal représentant 79.7% du revenu locatif total.",
       "description_en": "Rental revenue from retail properties, primary business segment representing 79.7% of total rental revenue.",
-      "_specific_to": "REIT-specific asset class revenue breakdown; core business line for O"
+      "_specific_to": "REIT-specific asset class revenue breakdown; core business line for O",
+      "is_short_history": false
     },
     {
       "short": "Industrial Revenue",
@@ -178,7 +186,9 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 94.5,
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "explanation_en": "Gross Margin : gross profit divided by revenue.",
+      "signal_en": "Margin stable, monitor cost dynamics"
     },
     {
       "short": "Headcount",
@@ -204,7 +214,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "ttm": 350
+      "ttm": 350,
+      "explanation_en": "Headcount : total number of employees at period end.",
+      "signal_en": "Flat year-over-year, monitor closely"
     },
     {
       "short": "Capex",
@@ -230,7 +242,9 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "ttm": 3.2
+      "ttm": 3.2,
+      "explanation_en": "Capital Expenditures : investments in property, plant and equipment.",
+      "signal_en": "Solid expansion, positive trajectory"
     },
     {
       "short": "R&D",
@@ -256,7 +270,9 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "ttm": 0
+      "ttm": 0,
+      "explanation_en": "Research & Development expenses.",
+      "signal_en": "Flat year-over-year, monitor closely"
     },
     {
       "short": "Total Revenue",
@@ -266,10 +282,16 @@
       "unit": "Mds €",
       "yoy": "+9.1%",
       "history": [
-        3.34,
-        4.08,
-        5.27,
-        5.75
+        0.345,
+        0.4211,
+        1.3278,
+        1.4916,
+        1.6516,
+        2.0805,
+        3.3437,
+        4.079,
+        5.2711,
+        5.7494
       ],
       "type": "Comptes",
       "nature": "comptable",
@@ -278,7 +300,9 @@
       "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": false,
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Total Assets",
@@ -300,7 +324,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -322,7 +348,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -344,7 +372,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position eroding, monitor liquidity"
     }
   ],
   "kpis_story": [
@@ -373,44 +402,48 @@
     "board_women_pct": 36,
     "voting_structure": "Virtual meeting with electronic voting"
   },
-  "revenue_by_segment": null,
+  "revenue_by_segment": {
+    "single_segment": true,
+    "_reason": "we operate and manage the business in one operating and reportable segment"
+  },
   "revenue_by_geography": {
-    "unit": "$B",
-    "source_date": "2025-12-31",
-    "source": "10-K 2025",
     "slices": [
       {
-        "label": "U.S. - Retail",
-        "value": 3.52,
-        "unit": "$B",
-        "share_pct": 65.4
+        "label": "U.S.",
+        "share_pct": 82.58,
+        "label_fr": "États-Unis",
+        "label_en": "U.S.",
+        "value": 4353.4,
+        "unit": "M $"
       },
       {
-        "label": "U.S. - Industrial",
-        "value": 0.79,
-        "unit": "$B",
-        "share_pct": 14.7
+        "label": "U.K.",
+        "share_pct": 10.57,
+        "label_fr": "Royaume-Uni",
+        "label_en": "U.K.",
+        "value": 557.1,
+        "unit": "M $"
       },
       {
-        "label": "U.K. - Retail",
-        "value": 0.62,
-        "unit": "$B",
-        "share_pct": 11.5
+        "label": "Other",
+        "share_pct": 2.53,
+        "label_fr": "Autres",
+        "label_en": "Other",
+        "value": 133.2,
+        "unit": "M $"
       },
       {
-        "label": "U.S. - Other",
-        "value": 0.24,
-        "unit": "$B",
-        "share_pct": 4.5
-      },
-      {
-        "label": "Other Europe",
-        "value": 0.21,
-        "unit": "$B",
-        "share_pct": 3.9
+        "label": "Other revenue",
+        "share_pct": 4.31,
+        "label_fr": "Autres revenus",
+        "label_en": "Other revenue",
+        "value": 227.4,
+        "unit": "M $"
       }
     ],
-    "total": 5.38
+    "year": 2024,
+    "currency": "USD",
+    "total": 5271.1
   },
   "risks": [
     {
@@ -524,18 +557,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #XX",
-    "global_us": "Top 10 US REITs by market cap",
-    "sector": "N/A",
-    "subsector": "Top 5 Net Lease REITs"
+    "global_world": "#264",
+    "global_us": "#160",
+    "sector": "Top 5 in Immobilier",
+    "subsector": "#1 in Real Estate Investment Trust (REIT)"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-05-06",
   "publication_date": null,
   "company_description": "Realty Income Corporation, an S&P 500 company, is real estate partner to the world's leading companies. We serve our clients as a full-service real estate capital provider. As of December 31, 2025, we have a portfolio of over 15,500 properties in all 50 states of the United States (U.S.), the United Kingdom (U.K.), and eight other countries in Europe. We are known as (The Monthly Dividend Company) and have a mission to invest in people and places to deliver dependable monthly dividends that increase over time. Since our listing on the NYSE in 1994, we have had 133 dividend increases and are a member of the S&P 500 Dividend Aristocrats index for having increased our dividend for over 31 consecutive years. The firm was founded and incorporated in 1969 in Maryland and is based in San Diego, United States.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.529Z",
-  "_missing_blocks": [
-    "revenue_by_segment"
-  ]
+  "_built_at": "2026-05-21T16:00:22.536Z",
+  "_missing_blocks": []
 }

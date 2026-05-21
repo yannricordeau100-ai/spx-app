@@ -113,7 +113,8 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "ttm": 12.7
+      "ttm": 12.7,
+      "signal_en": "Recurring base growing, revenue visibility rising"
     },
     {
       "short": "Gross Margin",
@@ -139,7 +140,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "ttm": 74.8
+      "ttm": 74.8,
+      "explanation_en": "Gross Margin : gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Op Margin",
@@ -165,7 +168,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "ttm": 28.51
+      "ttm": 28.51,
+      "explanation_en": "Profit margin on Op.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "R&D",
@@ -191,7 +196,9 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "ttm": 13.68
+      "ttm": 13.68,
+      "explanation_en": "Research & Development expenses.",
+      "signal_en": "Stable, slight decline to monitor"
     },
     {
       "short": "Headcount",
@@ -217,7 +224,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "ttm": 113.11
+      "ttm": 113.11,
+      "explanation_en": "Headcount : total number of employees at period end.",
+      "signal_en": "Stable, slight decline to monitor"
     },
     {
       "short": "DPS",
@@ -241,7 +250,9 @@
       "signal": "Dividende par action de 2.929 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Cap Return",
@@ -263,7 +274,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -285,7 +298,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "AI Cloud Mix",
@@ -360,11 +375,44 @@
     }
   ],
   "governance": {
-    "ceo_name": "Christian Klein",
-    "ceo_total_comp_m": 16.244,
-    "top_capital": [],
-    "top_voting": [],
-    "fiscal_year": 2025
+    "top_capital": [
+      {
+        "name": "Fisher Asset Management, LLC",
+        "type": "institutionnel",
+        "stake_pct": 1.24
+      },
+      {
+        "name": "Eagle Capital Management LLC",
+        "type": "institutionnel",
+        "stake_pct": 0.67
+      },
+      {
+        "name": "FMR LLC (Fidelity)",
+        "type": "institutionnel",
+        "stake_pct": 0.56
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "Fisher Asset Management, LLC",
+        "type": "institutionnel",
+        "stake_pct": 1.24
+      },
+      {
+        "name": "Eagle Capital Management LLC",
+        "type": "institutionnel",
+        "stake_pct": 0.67
+      },
+      {
+        "name": "FMR LLC (Fidelity)",
+        "type": "institutionnel",
+        "stake_pct": 0.56
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:15:01.803759+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "unit": "Mds €",
@@ -374,14 +422,16 @@
       {
         "label": "Applications, Technology & Support",
         "value": 32.85,
-        "unit": "M €",
-        "share_pct": 89.3
+        "share_pct": 89.3,
+        "unit": "Mds €",
+        "label_en": "Applications, Technology & Support"
       },
       {
         "label": "Core Services",
         "value": 3.95,
-        "unit": "M €",
-        "share_pct": 10.7
+        "share_pct": 10.7,
+        "unit": "Mds €",
+        "label_en": "Core Services"
       }
     ],
     "_fit_for_site": true,
@@ -397,38 +447,44 @@
       {
         "label": "Allemagne",
         "value": 5.83,
-        "unit": "M €",
-        "share_pct": 15.8
+        "share_pct": 15.8,
+        "unit": "Mds €",
+        "label_en": "Germany"
       },
       {
         "label": "Reste de l'EMEA",
         "value": 11.2,
-        "unit": "M €",
-        "share_pct": 30.4
+        "share_pct": 30.4,
+        "unit": "Mds €",
+        "label_en": "Rest of EMEA"
       },
       {
         "label": "États-Unis",
         "value": 11.54,
-        "unit": "M €",
-        "share_pct": 31.4
+        "share_pct": 31.4,
+        "unit": "Mds €",
+        "label_en": "United States"
       },
       {
         "label": "Reste des Amériques",
         "value": 2.96,
-        "unit": "M €",
-        "share_pct": 8
+        "share_pct": 8,
+        "unit": "Mds €",
+        "label_en": "Rest of Americas"
       },
       {
         "label": "Japon",
         "value": 1.57,
-        "unit": "M €",
-        "share_pct": 4.3
+        "share_pct": 4.3,
+        "unit": "Mds €",
+        "label_en": "Japan"
       },
       {
         "label": "Reste de l'APJ",
         "value": 3.71,
-        "unit": "M €",
-        "share_pct": 10.1
+        "share_pct": 10.1,
+        "unit": "Mds €",
+        "label_en": "Rest of APJ"
       }
     ],
     "total": 36.81
@@ -549,15 +605,15 @@
     }
   ],
   "ranks": {
-    "global_world": "#87",
-    "global_us": ": ",
-    "sector": "#15 dans Information Technology",
-    "subsector": "#1 dans Enterprise Software"
+    "global_world": "#57",
+    "global_us": "Non US",
+    "sector": "Top 25 in Technologie",
+    "subsector": "#1 in Enterprise Software"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-23",
   "publication_date": null,
   "company_description": "SAP SE, together with its subsidiaries, provides enterprise application and business solutions worldwide. It offers SAP Business AI; SAP S/4HANA that provides software capabilities for finance, risk and project management, procurement, manufacturing, supply chain and asset management, and research and development; SAP SuccessFactors solutions for human resources, including HR, time, payroll, talent and employee experience management, and analytics and planning; and spend management solutions that covers direct and indirect spend, travel and expense, and external workforce management. The company also provides SAP customer experience solutions; SAP Business Technology platform that enables customers and partners to build, integrate, and automate applications; and SAP Business Network, a business-to-business collaboration platform that helps digitalize key business processes across the supply chain and enables communication between trading partners. In addition, it offers SAP Signavio to help customers to discover, analyze, and understand business process operations; industry solutions that provide customers and partners with industry-specific solutions; and SAP LeanIX to visualize enterprise architecture, assess interdependencies and the potential impact of IT modernization, and manage the transition toward the target landscape. Further, the company provides WalkMe to execute workflows; SAP Enable Now, which offers e-learning content embedded in SAP workflows; Taulia solutions for working capital management; and sustainability solutions and services. Additionally, it provides services and support solutions. The company has a strategic collaboration with Fresenius SE & Co. KGaA and Avelios Medical GmbH for the development of a cloud-native, hospital information system that enables digitalization of clinical and administrative processes with AI integration. SAP SE was founded in 1972 and is headquartered in Walldorf, Germany.",
-  "_built_at": "2026-05-20T20:15:02.594Z",
+  "_built_at": "2026-05-21T16:00:22.684Z",
   "_missing_blocks": []
 }

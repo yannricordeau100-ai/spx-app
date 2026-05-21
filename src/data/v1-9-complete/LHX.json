@@ -79,7 +79,8 @@
       "is_short_history": true,
       "ttm": 18.6,
       "_validation": "Valeur corrigée de 12.3 Mds $ à 18.6 Mds $ basée sur les chiffres du 10-K fiscal 2025 (segments CS 5.673 + IMS 6.630 + autres segments). Last_data_date mis à jour à 2026-01-02 (date de clôture du bilan). History et TTM recalculés pour correspondre aux données fiscales réelles.",
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Marge brute",
@@ -105,7 +106,8 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 13.8,
-      "_validation": "Indicateur corrigé: remplacé 'Marge brute' (25.2%) par 'Marge d'exploitation' (13.8%) qui est l'indicateur pertinent présent dans le 10-K. YoY corrigé de +1.5% à +0.3% basé sur les variations segment. History et TTM recalculés."
+      "_validation": "Indicateur corrigé: remplacé 'Marge brute' (25.2%) par 'Marge d'exploitation' (13.8%) qui est l'indicateur pertinent présent dans le 10-K. YoY corrigé de +1.5% à +0.3% basé sur les variations segment. History et TTM recalculés.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Total Revenue",
@@ -127,7 +129,9 @@
       "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -149,7 +153,9 @@
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Steady growth, healthy trend"
     },
     {
       "short": "Total Assets",
@@ -171,7 +177,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Total Debt",
@@ -193,7 +201,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Cash & Equivalents",
@@ -215,7 +225,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "Short": "Backlog 2025",
@@ -247,25 +258,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-05-11",
-    "fiscal_year": 2025,
-    "ceo_name": "Christopher Kubasik",
-    "ceo_total_comp_m": null,
-    "ceo_pay_ratio": null,
-    "exec_comp_approval_pct": null,
-    "board_independence_pct": 90.9,
-    "board_size": 11,
-    "avg_tenure_years": null,
-    "board_women_pct": 27.3,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
     "top_capital": [
       {
-        "name": "Non disponible dans le document",
+        "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": null
+        "stake_pct": 11.64
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 9.6
+      },
+      {
+        "name": "Capital World Investors",
+        "type": "institutionnel",
+        "stake_pct": 5.91
       }
     ],
-    "top_voting": []
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.64
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 9.6
+      },
+      {
+        "name": "Capital World Investors",
+        "type": "institutionnel",
+        "stake_pct": 5.91
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:14:02.763952+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "unit": "$B",
@@ -275,26 +305,30 @@
       {
         "label": "Integrated Mission Systems (IMS)",
         "value": 6.63,
+        "share_pct": 30,
         "unit": "$B",
-        "share_pct": 30
+        "label_en": "Integrated Mission Systems (IMS)"
       },
       {
         "label": "Space and Airborne Systems (SAS)",
         "value": 6.95,
+        "share_pct": 31.4,
         "unit": "$B",
-        "share_pct": 31.4
+        "label_en": "Space and Airborne Systems (SAS)"
       },
       {
         "label": "Communication Systems (CS)",
         "value": 5.67,
+        "share_pct": 25.7,
         "unit": "$B",
-        "share_pct": 25.7
+        "label_en": "Communication Systems (CS)"
       },
       {
         "label": "Assured Resilience (AR)",
         "value": 2.85,
+        "share_pct": 12.9,
         "unit": "$B",
-        "share_pct": 12.9
+        "label_en": "Assured Resilience (AR)"
       }
     ],
     "total": 22.1
@@ -307,14 +341,16 @@
       {
         "label": "United States",
         "value": 17.05,
+        "share_pct": 78,
         "unit": "$B",
-        "share_pct": 78
+        "label_en": "United States"
       },
       {
         "label": "International",
         "value": 4.81,
+        "share_pct": 22,
         "unit": "$B",
-        "share_pct": 22
+        "label_en": "International"
       }
     ],
     "total": 21.86
@@ -412,9 +448,9 @@
     }
   ],
   "ranks": {
-    "global_world": "#189",
-    "global_us": "#116",
-    "sector": "#56 in Information Technology",
+    "global_world": "#266",
+    "global_us": "#161",
+    "sector": "#75 in Technologie",
     "subsector": "#1 in Défense et Sécurité"
   },
   "latest_filing": null,
@@ -422,6 +458,6 @@
   "publication_date": null,
   "company_description": "L3Harris Technologies, Inc. provides mission-critical solutions for government and commercial customers worldwide. It operates through three segments: Space & Mission Systems (SMS), Communications & Spectrum Dominance (CSD), and Missile Solutions (MSL). The SMS segment integrates satellite and payload capabilities, including missile warning and defense, with maritime, air special missions, and other global defense and civil government programs. Its MSL segment unites propulsion, hypersonic, and other advanced missile technologies. The CSD segment provides tactical radios, software, waveforms, satellite terminals, and end-to-end battlefield systems for the U.S. Department of Defense, international, federal, and state agency customers; broadband communications; integrated vision solutions, such as helmet-mounted integrated night vision goggles with image intensifier tubes and weapon-mounted sights, aiming lasers, and range finders; and public safety radios and system applications and equipment. The company was formerly known as Harris Corporation and changed its name to L3Harris Technologies, Inc. in June 2019. L3Harris Technologies, Inc. was founded in 1895 and is headquartered in M",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.453Z",
+  "_built_at": "2026-05-21T16:00:22.399Z",
   "_missing_blocks": []
 }

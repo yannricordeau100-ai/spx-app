@@ -88,7 +88,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "ttm": 48.18
+      "ttm": 48.18,
+      "signal_en": "Revenue pressure, demand softening"
     },
     {
       "short": "Non-GAAP EPS",
@@ -111,7 +112,8 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "ttm": 12.83
+      "ttm": 12.83,
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Growth Portfolio Revenue",
@@ -140,10 +142,12 @@
       "is_generic": false,
       "is_short_history": false,
       "period_type": "quarter",
+      "explanation_en": "Revenue from the Growth Portfolio segment.",
+      "signal_en": "Demand softening, monitor end-markets",
       "is_short_history_legitimate": true,
       "short_history_legitimate_reason": "Growth Portfolio Revenue (BMS) disclosed récemment",
       "_short_history_legitimate_rule": "kpi_pattern",
-      "_short_history_legitimate_tagged_at": "2026-05-21T03:37:51.865Z"
+      "_short_history_legitimate_tagged_at": "2026-05-21T03:35:15.084Z"
     },
     {
       "short": "Cost Savings Initiative",
@@ -221,7 +225,9 @@
       "signal": "Total des actifs de 90.04 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Total Debt",
@@ -242,7 +248,9 @@
       "signal": "Dette totale de 47.14 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "DPS",
@@ -266,7 +274,9 @@
       "signal": "Dividende par action de 1.26 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -287,7 +297,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 5.045 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -307,7 +319,9 @@
       "signal": "Part du résultat net distribué en dividendes : 71.5% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 3 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Regulatory Approvals",
@@ -356,23 +370,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-05-05",
-    "fiscal_year": 2025,
-    "ceo_name": "Christopher S. Boerner",
-    "board_size": 11,
-    "voting_structure": "Une seule classe d'actions ordinaires et d'actions privilegiees, 1 vote par action.",
     "top_capital": [
       {
-        "name": "Vanguard Group Inc.",
+        "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": 9.74
+        "stake_pct": 8.74
       },
       {
         "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": 7.1
+        "stake_pct": 8.41
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.83
       }
-    ]
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 8.74
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.41
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.83
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:12:19.202643+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -382,14 +417,16 @@
         "value": 26.409,
         "unit": "Mds $",
         "pct": 54.8,
-        "share_pct": 54.8
+        "share_pct": 54.8,
+        "label_en": "Growth Portfolio"
       },
       {
         "name": "Legacy Portfolio",
         "value": 21.785,
         "unit": "Mds $",
         "pct": 45.2,
-        "share_pct": 45.2
+        "share_pct": 45.2,
+        "label_en": "Legacy Portfolio"
       }
     ],
     "total": 48.19,
@@ -403,28 +440,32 @@
         "value": 26.577,
         "unit": "Mds $",
         "pct": 62.5,
-        "share_pct": 62.5
+        "share_pct": 62.5,
+        "label_en": "United States"
       },
       {
         "name": "Europe",
         "value": 9.853,
         "unit": "Mds $",
         "pct": 23.2,
-        "share_pct": 23.2
+        "share_pct": 23.2,
+        "label_en": "Europe"
       },
       {
         "name": "Rest of World",
         "value": 5.457,
         "unit": "Mds $",
         "pct": 12.8,
-        "share_pct": 12.8
+        "share_pct": 12.8,
+        "label_en": "Rest of World"
       },
       {
         "name": "Other",
         "value": 0.631,
         "unit": "Mds $",
         "pct": 1.5,
-        "share_pct": 1.5
+        "share_pct": 1.5,
+        "label_en": "Other"
       }
     ],
     "total": 42.52,
@@ -478,10 +519,18 @@
     }
   ],
   "ai_positioning": {
-    "stance": "absent",
-    "summary": "La société BMY ne mentionne pas explicitement l'intelligence artificielle (IA) ou l'apprentissage automatique dans son rapport 10-K/20-F. Les informations fournies se concentrent principalement sur les ventes de produits, les recherches et développement, ainsi que les collaborations, sans référence spécifique à l'IA.",
-    "evidence": [],
-    "source": "Rapport 10-K/20-F de BMY"
+    "stance": "cautious",
+    "summary": "Bristol-Myers Squibb Company mentionne peu l'IA dans ses communications officielles (Biopharmaceuticals).",
+    "evidence": [
+      "Aucune mention significative d'IA dans le 10-K ou les earnings calls disponibles localement.",
+      "Le secteur Biopharmaceuticals commence à intégrer l'IA mais Bristol-Myers Squibb Company ne met pas le sujet en avant à ce jour.",
+      "Mettrik AI réévaluera le positionnement IA à chaque nouvelle publication."
+    ],
+    "source_note": "Sources locales sans mentions IA significatives",
+    "_bucket": "MEDIUM",
+    "_no_ai_passages": true,
+    "_generated_at": "2026-05-21T02:27:46.905135+00:00",
+    "ticker": "BMY"
   },
   "market_positions": [],
   "events": [
@@ -523,16 +572,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #XX",
-    "global_us": "...",
-    "sector": "...",
-    "subsector": "..."
+    "global_world": "#165",
+    "global_us": "#94",
+    "sector": "Top 25 in Santé",
+    "subsector": "#2 in Biopharmaceuticals"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-30",
   "publication_date": null,
   "company_description": "Bristol-Myers Squibb Company discovers, develops, licenses, manufactures, markets, distributes, and sells biopharmaceutical products worldwide. It offers products for oncology, hematology, immunology, cardiovascular, neuroscience, and other areas. The company's products include Opdivo for various anti-cancer indications; Opdivo Qvantig, a subcutaneous PD-1 inhibitor for solid tumorsr; Orencia for active rheumatoid arthritis and psoriatic arthritis; Yervoy for the treatment of patients with unresectable or metastatic melanoma; Reblozyl to treat anemia; Breyanzi for the treatment of patients with relapsed or refractory large B-cell lymphoma; Opdualag for the treatment of unresectable or metastatic melanoma; and Camzyos to treat symptomatic obstructive HCM to improve functional capacity and symptom. It also offers Zeposia to treat relapsing forms of multiple sclerosis; Abecma for the treatment of patients with relapsed or refractory multiple myeloma; Sotyktu for the treatment of moderate-to-severe plaque psoriasis; Krazati for the treatment of adult patients with KRASG12C-mutated locally advanced or metastatic non-small cell lung cancer (NSCLC); and Cobenfy to treat schizophrenia. In ",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.211Z",
+  "_built_at": "2026-05-21T16:00:21.986Z",
   "_missing_blocks": []
 }

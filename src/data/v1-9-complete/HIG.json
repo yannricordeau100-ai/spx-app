@@ -20,9 +20,20 @@
       "value": 14406,
       "unit": "M $",
       "history": [
-        11639,
-        13059,
-        14406
+        24.701,
+        22.383,
+        21.859,
+        26.412,
+        26.236,
+        18.614,
+        18.377,
+        20.74,
+        20.523,
+        22.39,
+        22.362,
+        24.527,
+        26.535,
+        28.368
       ],
       "type": "Métier",
       "nature": "opérationnel",
@@ -31,7 +42,8 @@
       "description": "Primes émises segment Business Insurance (assurance dommages des entreprises, KPI structurel d'un assureur P&C). Source : 10-K HIG.",
       "is_specific_to_company": true,
       "_specific_to": "company",
-      "_source": "10-K"
+      "_source": "10-K",
+      "is_short_history": false
     },
     {
       "short": "Financial Strength Rating (A.M. Best)",
@@ -110,7 +122,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "signal_en": "Flat year-over-year, monitor closely"
     },
     {
       "short": "Board Women Representation",
@@ -129,7 +142,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "signal_en": "Flat year-over-year, monitor closely"
     },
     {
       "short": "Board Average Tenure",
@@ -148,7 +162,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "signal_en": "Flat year-over-year, monitor closely"
     },
     {
       "short": "Total Assets",
@@ -169,7 +184,9 @@
       "signal": "Total des actifs de 86.0 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -190,7 +207,9 @@
       "signal": "Dette totale de 4.37 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable"
     },
     {
       "short": "DPS",
@@ -214,7 +233,9 @@
       "signal": "Dividende par action de 0.6 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -235,7 +256,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 0.613 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -256,7 +279,9 @@
       "signal": "Part du résultat net distribué en dividendes : 16.0% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Total Revenue",
@@ -266,6 +291,12 @@
       "unit": "Mds $",
       "yoy": "+6.9%",
       "history": [
+        24.701,
+        22.383,
+        21.859,
+        26.412,
+        26.236,
+        18.614,
         18.377,
         20.74,
         20.523,
@@ -282,7 +313,10 @@
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction",
+      "is_short_history": false
     },
     {
       "short": "Net Income",
@@ -307,7 +341,9 @@
       "signal": "Résultat net de 3.836 Mds $ dernière année.",
       "description": "Résultat net consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "Short": "Financial Strength Ratings",
@@ -346,27 +382,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-06-09",
-    "fiscal_year": 2025,
-    "ceo_name": "Christopher J. Swift",
-    "board_independence_pct": 91.7,
-    "board_size": 12,
-    "avg_tenure_years": 8.2,
-    "board_women_pct": 41.7,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
     "top_capital": [
       {
-        "name": "Vanguard Group",
+        "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": null
+        "stake_pct": 12.38
       },
       {
-        "name": "BlackRock",
+        "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": null
+        "stake_pct": 11.58
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 5.86
       }
     ],
-    "top_voting": []
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 12.38
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 11.58
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 5.86
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:36.986694+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -376,27 +429,47 @@
         "value": 12.5,
         "unit": "Mds $",
         "pct": 65,
-        "share_pct": 65
+        "share_pct": 65,
+        "label_en": "Property and Casualty"
       },
       {
         "name": "Group Benefits",
         "value": 4.8,
         "unit": "Mds $",
         "pct": 25,
-        "share_pct": 25
+        "share_pct": 25,
+        "label_en": "Group Benefits"
       },
       {
         "name": "Hartford Funds",
         "value": 1.9,
         "unit": "Mds $",
         "pct": 10,
-        "share_pct": 10
+        "share_pct": 10,
+        "label_en": "Hartford Funds"
       }
     ],
     "total": 19.2,
     "unit": "Mds $"
   },
-  "revenue_by_geography": null,
+  "revenue_by_geography": {
+    "unit": "%",
+    "slices": [
+      {
+        "label": "États-Unis",
+        "value": 100,
+        "share_pct": 100,
+        "single_region_legitimate": true,
+        "unit": "%",
+        "label_en": "United States"
+      }
+    ],
+    "total": 100,
+    "source": "Mono-pays légitime (filings)",
+    "_tagged_by": "auto-rebascule-21mai-CONV-CONCEPTS",
+    "_tagged_at": "2026-05-21T01:26:18.194Z",
+    "_category": "insurance-us"
+  },
   "risks": [
     {
       "title": "Baisse des notations financières",
@@ -493,20 +566,16 @@
     }
   ],
   "ranks": {
-    "Global_world": "≈ #XX",
-    "Global_us": "...",
-    "Sector": "...",
-    "Subsector": "...",
-    "global_world": "Top 500 monde",
-    "_source": "yfinance.marketCap"
+    "global_world": "#441",
+    "global_us": "#260",
+    "sector": "#56 in Finance",
+    "subsector": "Top 25 in Assurance"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-04-23",
   "publication_date": null,
   "company_description": "The Hartford Insurance Group, Inc., together with its subsidiaries, provides insurance and financial services to individual and business customers in the United States, the United Kingdom, and internationally. It operates through Business Insurance, Personal Insurance, Property & Casualty Other Operations, Employee Benefits and Hartford Funds. The company offers insurance coverage, including workers' compensation, property, automobile, general and professional liability, package business, umbrella, fidelity and surety, marine, livestock, accident, health, and reinsurance through regional offices, branches, sales and policyholder service centers, independent retail agents and brokers, wholesale agents, and reinsurance brokers. The company also provides automobiles, homeowners, and personal umbrella coverages. The Property & Casualty Other Operations segment offers coverage for asbestos and environmental exposures. In addition, it provides group life, disability, and other group coverages to members of employer groups, associations, and affinity groups through direct insurance policies; reinsurance to other insurance companies; employer paid and voluntary product coverages; disabilit",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.392Z",
-  "_missing_blocks": [
-    "revenue_by_geography"
-  ]
+  "_built_at": "2026-05-21T16:00:22.291Z",
+  "_missing_blocks": []
 }

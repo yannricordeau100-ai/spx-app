@@ -85,10 +85,22 @@
       "value": 5345,
       "unit": "M $",
       "history": [
-        4102,
-        5273,
-        5439,
-        5345
+        1.6188,
+        1.6292,
+        1.7105,
+        1.7046,
+        1.8371,
+        1.9507,
+        2.3693,
+        3.002,
+        3.189,
+        3.213,
+        3.224,
+        4.102,
+        5.273,
+        5.439,
+        5.345,
+        5.991
       ],
       "type": "Métier",
       "nature": "opérationnel",
@@ -97,7 +109,8 @@
       "description": "Revenu net d'intérêts (NII) en millions de dollars : différentiel entre intérêts perçus sur prêts/investissements et intérêts versés sur dépôts. KPI structurel d'une banque commerciale. Source : SEC EDGAR XBRL us-gaap:InterestIncomeExpenseNet.",
       "is_specific_to_company": true,
       "_specific_to": "company",
-      "_source": "SEC EDGAR XBRL"
+      "_source": "SEC EDGAR XBRL",
+      "is_short_history": false
     },
     {
       "short": "BRANCHES",
@@ -139,7 +152,9 @@
       "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -160,7 +175,9 @@
       "signal": "Résultat net de 2.21 Mds € dernière année",
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Solid expansion, positive trajectory"
     },
     {
       "short": "Diluted EPS",
@@ -181,7 +198,9 @@
       "signal": "BPA dilué de 1.39 € dernière année",
       "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Solid expansion, positive trajectory"
     },
     {
       "short": "Free Cash Flow",
@@ -202,7 +221,9 @@
       "signal": "Free Cash Flow de 2.21 Mds € dernière année",
       "description": "Free Cash Flow extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Free Cash Flow : operating cash flow minus capital expenditures.",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Total Debt",
@@ -223,7 +244,9 @@
       "signal": "Dette totale de 18.46 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -244,7 +267,8 @@
       "signal": "Trésorerie & équivalents de 14.08 Mds € dernière année",
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "DPS",
@@ -268,7 +292,9 @@
       "signal": "Dividende par action de 0.155 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -289,7 +315,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 1.016 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "Payout Ratio",
@@ -310,7 +338,9 @@
       "signal": "Part du résultat net distribué en dividendes : 46.0% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "CADENCE_ACQUISITION",
@@ -355,19 +385,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-04-22",
-    "fiscal_year": 2025,
-    "ceo_name": "Stephen D. Steinour",
-    "board_size": 15,
-    "board_independence_pct": null,
-    "avg_tenure_years": null,
-    "board_women_pct": null,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "top_capital": null,
-    "top_voting": null,
-    "exec_comp_approval_pct": null,
-    "ceo_total_comp_m": null,
-    "ceo_pay_ratio": null
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.13
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.67
+      },
+      {
+        "name": "Wellington Management Group, LLP",
+        "type": "institutionnel",
+        "stake_pct": 6.38
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.13
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.67
+      },
+      {
+        "name": "Wellington Management Group, LLP",
+        "type": "institutionnel",
+        "stake_pct": 6.38
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:34.968175+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "R\u0000partition du chiffre d'affaires par segment opérationnel",
@@ -377,41 +432,63 @@
         "value": 523,
         "unit": "Mds $",
         "pct": 27.7,
-        "share_pct": 27.7
+        "share_pct": 27.7,
+        "label_en": "Commercial Banking"
       },
       {
         "name": "Consumer Business Banking",
         "value": 1045,
         "unit": "Mds $",
         "pct": 55.3,
-        "share_pct": 55.3
+        "share_pct": 55.3,
+        "label_en": "Consumer Business Banking"
       },
       {
         "name": "Vehicle Finance",
         "value": 13,
         "unit": "Mds $",
         "pct": 0.7,
-        "share_pct": 0.7
+        "share_pct": 0.7,
+        "label_en": "Vehicle Finance"
       },
       {
         "name": "RBHPCG",
         "value": 227,
         "unit": "Mds $",
         "pct": 12,
-        "share_pct": 12
+        "share_pct": 12,
+        "label_en": "RBHPCG"
       },
       {
         "name": "Treasury / Other",
         "value": 81,
         "unit": "Mds $",
         "pct": 4.3,
-        "share_pct": 4.3
+        "share_pct": 4.3,
+        "label_en": "Treasury / Other"
       }
     ],
     "total": 1889,
     "unit": "Mds $"
   },
-  "revenue_by_geography": null,
+  "revenue_by_geography": {
+    "unit": "%",
+    "slices": [
+      {
+        "label": "États-Unis",
+        "value": 100,
+        "share_pct": 100,
+        "single_region_legitimate": true,
+        "unit": "%",
+        "label_en": "United States"
+      }
+    ],
+    "total": 100,
+    "source": "Mono-pays légitime (filings)",
+    "_tagged_by": "auto-rebascule-21mai-CONV-CONCEPTS",
+    "_tagged_at": "2026-05-21T01:26:18.193Z",
+    "_category": "bank-us-regional"
+  },
   "risks": [
     {
       "title": "Cybersecurity Risk",
@@ -463,13 +540,18 @@
     }
   ],
   "ai_positioning": {
-    "stance": "mentioned",
-    "summary": "La société HBAN mentionne l'intelligence artificielle dans son glossaire des acronymes et son infrastructure de gestion des risques (ERM), mais sans détail stratégique spécifique ou déploiement opérationnel documenté dans le 10-K pour l'exercice 2025.",
+    "stance": "cautious",
+    "summary": "Huntington Bancshares Incorporated mentionne peu l'IA dans ses communications officielles (Banks).",
     "evidence": [
-      "AI listed in Glossary of Acronyms and Terms",
-      "Part of comprehensive risk management and governance framework"
+      "Aucune mention significative d'IA dans le 10-K ou les earnings calls disponibles localement.",
+      "Le secteur Banks commence à intégrer l'IA mais Huntington Bancshares Incorporated ne met pas le sujet en avant à ce jour.",
+      "Mettrik AI réévaluera le positionnement IA à chaque nouvelle publication."
     ],
-    "source": "2025 Form 10-K, Glossary section"
+    "source_note": "Sources locales sans mentions IA significatives",
+    "_bucket": "MEDIUM",
+    "_no_ai_passages": true,
+    "_generated_at": "2026-05-21T02:35:38.474735+00:00",
+    "ticker": "HBAN"
   },
   "market_positions": [],
   "events": [
@@ -511,18 +593,16 @@
     }
   ],
   "ranks": {
-    "global_world": "Not found",
-    "global_us": "Not found",
-    "sector": "Not found",
-    "subsector": "Not found"
+    "global_world": "#478",
+    "global_us": "#285",
+    "sector": "#59 in Finance",
+    "subsector": "Top 25 in Banks"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-23",
   "publication_date": null,
   "company_description": "Huntington Bancshares Incorporated operates as the bank holding company for The Huntington National Bank that provides commercial, consumer, and mortgage banking services. It offers financial products and services to consumer and business customers, including deposits, lending, payments, mortgage banking, dealer financing, investment management, trust, brokerage, insurance, and other financial products and services. The company also provides 24-Hour Grace, Asterisk-Free Checking, Money Scout, $50 Safety Zone, Standby Cash, Early Pay, Instant Access, Savings Goal Getter, And Huntington Heads Up; digitally powered consumer and business financial solutions to consumer finance, regional banking, branch banking, and wealth management customers; direct and indirect consumer loans; dealer finance loans and deposits; and private banking, wealth management and legacy planning through investment and portfolio management, fiduciary administration and trust, institutional custody, and full-service retail brokerage investment services. In addition, it offers equipment financing, asset-based lending, distribution finance, structured lending, municipal financing solutions, and Huntington ChoicePa",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.387Z",
-  "_missing_blocks": [
-    "revenue_by_geography"
-  ]
+  "_built_at": "2026-05-21T16:00:22.283Z",
+  "_missing_blocks": []
 }

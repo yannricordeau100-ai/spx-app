@@ -121,7 +121,9 @@
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis yfinance.income_stmt sur les 4 dernières années fiscales.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "last_data_date": "2025-12-31"
+      "last_data_date": "2025-12-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -142,7 +144,9 @@
       "signal": "Résultat net de -4.479 Mds $.",
       "description": "Résultat net consolidé annuellement, valeurs extraites depuis yfinance.income_stmt sur les 4 dernières années fiscales.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns"
     },
     {
       "short": "Operating Income",
@@ -163,7 +167,9 @@
       "signal": "Résultat opérationnel de -0.739 Mds $.",
       "description": "Résultat opérationnel consolidé annuellement, valeurs extraites depuis yfinance.income_stmt sur les 4 dernières années fiscales.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Operating Income : profit from core business operations.",
+      "signal_en": "Profitability improving, returns strengthening"
     }
   ],
   "kpis_story": [],
@@ -171,27 +177,32 @@
     "ceo_name": "Mr. Strauss H. Zelnick Esq., J.D.",
     "_source": "yfinance.companyOfficers"
   },
-  "revenue_by_segment": null,
+  "revenue_by_segment": {
+    "single_segment": true,
+    "_reason": "one operating and reportable segment"
+  },
   "revenue_by_geography": {
-    "label": "Répartition du chiffre d'affaires par zone géographique",
     "slices": [
       {
-        "name": "United States",
-        "value": 3.36,
-        "unit": "Mds $",
-        "pct": 62.8,
-        "share_pct": 62.8
+        "label": "United States",
+        "share_pct": 61.3,
+        "label_fr": "États-Unis",
+        "label_en": "United States",
+        "value": 3279.2,
+        "unit": "M $"
       },
       {
-        "name": "International",
-        "value": 1.99,
-        "unit": "Mds $",
-        "pct": 37.2,
-        "share_pct": 37.2
+        "label": "International",
+        "share_pct": 38.7,
+        "label_fr": "International",
+        "label_en": "International",
+        "value": 2070.4,
+        "unit": "M $"
       }
     ],
-    "total": 5.35,
-    "unit": "Mds $"
+    "year": 2024,
+    "currency": "USD",
+    "total": 5349.6
   },
   "risks": [
     {
@@ -228,43 +239,79 @@
   "events": [
     {
       "year": 2026,
-      "month": 5,
-      "title": "Snail, Inc. (SNAL) Q1 Earnings and Revenues Beat Estimates",
-      "body": "Snail, Inc. (SNAL) delivered earnings and revenue surprises of +128.57% and +51.64%, respectively, for the quarter ended March 2026. Do the numbers hold clues to what lies ahead for the stock?",
-      "source": "Zacks",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/snail-inc-snal-q1-earnings-213505816.html",
-      "date": "2026-05-13"
+      "month": 6,
+      "title": "Assemblee generale (estimation)",
+      "body": "Estimation basee sur fin d'exercice precedente : AG attendue vers juin 2026.",
+      "source": "yfinance.info.lastFiscalYearEnd",
+      "url": "",
+      "date": "2026-06-15"
     },
     {
       "year": 2026,
       "month": 5,
-      "title": "DraftKings (DKNG) Q1 Earnings Lag Estimates",
-      "body": "DraftKings (DKNG) delivered earnings and revenue surprises of -6.98% and +0.12%, respectively, for the quarter ended March 2026. Do the numbers hold clues to what lies ahead for the stock?",
-      "source": "Zacks",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/draftkings-dkng-q1-earnings-lag-230527757.html",
-      "date": "2026-05-07"
+      "title": "Prochaine publication Q2 2026",
+      "body": "Publication attendue le 21 mai 2026. Consensus EPS : 0.56.",
+      "source": "yfinance.calendar",
+      "url": "",
+      "date": "2026-05-21"
     },
     {
       "year": 2026,
+      "month": 2,
+      "title": "Resultats Q1 2026 publies",
+      "body": "EPS -0.50 vs consensus -0.39 (miss -28.6 %) Annonce le 3 fevrier 2026.",
+      "source": "yfinance.earnings_dates",
+      "url": "",
+      "date": "2026-02-03"
+    },
+    {
+      "year": 2025,
+      "month": 11,
+      "title": "Resultats Q4 2025 publies",
+      "body": "EPS -0.73 vs consensus -0.62 (miss -17.1 %) Annonce le 6 novembre 2025.",
+      "source": "yfinance.earnings_dates",
+      "url": "",
+      "date": "2025-11-06"
+    },
+    {
+      "year": 2025,
+      "month": 8,
+      "title": "Resultats Q3 2025 publies",
+      "body": "EPS -0.07 vs consensus -0.72 (beat +90.2 %) Annonce le 7 aout 2025.",
+      "source": "yfinance.earnings_dates",
+      "url": "",
+      "date": "2025-08-07"
+    },
+    {
+      "year": 2025,
       "month": 5,
-      "title": "The CEO behind Grand Theft Auto VI doesn’t play video games, but analysts say he has put $1.5 billion behind the biggest",
-      "body": "\"I don't think being consumer-in-chief really helps a CEO be effective in this business,\" said Take-Two Interactive Software CEO Strauss Zelnick.",
-      "source": "Fortune",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/ceo-behind-grand-theft-auto-152702094.html",
-      "date": "2026-05-06"
+      "title": "Resultats Q2 2025 publies",
+      "body": "EPS -21.08 vs consensus -0.05 (miss -42929.2 %) Annonce le 15 mai 2025.",
+      "source": "yfinance.earnings_dates",
+      "url": "",
+      "date": "2025-05-15"
+    },
+    {
+      "year": 2008,
+      "month": 9,
+      "title": "Ex-dividende paye",
+      "body": "Ex-dividende du 25 septembre 2008 : 0.0010.",
+      "source": "yfinance.dividends",
+      "url": "",
+      "date": "2008-09-25"
     }
   ],
   "ranks": {
-    "global_world": "Top 500 monde",
-    "_source": "yfinance.marketCap"
+    "global_world": "#319",
+    "global_us": "#192",
+    "sector": "#2 in Communication Services",
+    "subsector": "#1 in Electronic Gaming & Multimedia"
   },
   "latest_filing": null,
   "next_earnings_date": null,
   "publication_date": null,
   "company_description": "Take-Two Interactive Software, Inc. develops, publishes, and markets interactive entertainment solutions for consumers worldwide. The company develops and publishes action/adventure products under the Grand Theft Auto, LA Noire, Max Payne, Midnight Club, and Red Dead Redemption names, as well as other franchises. It also publishes various entertainment properties across various platforms and a range of genres, such as shooter, action, role-playing, strategy, sports, and family/casual entertainment under the BioShock, Mafia, Sid Meier's Civilization, XCOM series, Borderlands, and Tiny Tina's Wonderland names. In addition, the company publishes sports simulation titles comprising NBA 2K series, a basketball video game; the WWE 2K professional wrestling series; mobile titles, including WWE SuperCard; and PGA TOUR 2K. Further, it offers Kerbal Space Program; free-to-play mobile games, such as CSR Racing, Dragon City, Empires & Puzzles, FarmVille, Game of Thrones: Legends, Golf Rival, Harry Potter: Puzzles & Spells, Match Factory!, Merge Dragons!, Merge Magic!, Monster Legends, Toon Blast, Top Eleven, Top Troops, Toy Blast, Two Dots, Words With Friends, and Zynga Poker; and hyper-casual",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.654Z",
-  "_missing_blocks": [
-    "revenue_by_segment"
-  ]
+  "_built_at": "2026-05-21T16:00:22.793Z",
+  "_missing_blocks": []
 }

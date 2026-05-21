@@ -133,7 +133,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_hallucination_risk": "high - aucune donnée financière dans la source"
+      "_hallucination_risk": "high - aucune donnée financière dans la source",
+      "explanation_en": "Gross Margin : gross profit divided by revenue.",
+      "signal_en": "Margin stable, monitor cost dynamics"
     },
     {
       "short": "Op Margin",
@@ -159,7 +161,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_hallucination_risk": "high - aucune donnée financière dans la source"
+      "_hallucination_risk": "high - aucune donnée financière dans la source",
+      "explanation_en": "Profit margin on Op.",
+      "signal_en": "Margin compression, watch profitability"
     },
     {
       "short": "R&D",
@@ -185,7 +189,9 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "_hallucination_risk": "high - aucune donnée financière dans la source"
+      "_hallucination_risk": "high - aucune donnée financière dans la source",
+      "explanation_en": "Research & Development expenses.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Capex",
@@ -211,7 +217,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_hallucination_risk": "high - aucune donnée financière dans la source"
+      "_hallucination_risk": "high - aucune donnée financière dans la source",
+      "explanation_en": "Capital Expenditures : investments in property, plant and equipment.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Headcount",
@@ -239,7 +247,9 @@
       "is_generic": true,
       "is_short_history": false,
       "_hallucination_risk": "high - aucune donnée financière dans la source",
-      "_employees_synced_from_yfinance": true
+      "_employees_synced_from_yfinance": true,
+      "explanation_en": "Headcount : total number of employees at period end.",
+      "signal_en": "Significant decline, warning signal"
     },
     {
       "short": "DPS",
@@ -263,7 +273,9 @@
       "signal": "Dividende par action de 0.85 EUR dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend stable, payout consistent"
     },
     {
       "short": "Cap Return",
@@ -285,7 +297,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "AI Cloud Mix",
@@ -344,9 +358,38 @@
   ],
   "kpis_story": [],
   "governance": {
-    "ceo_name": "Mr. Roy W. O. Jakobs",
-    "ceo_title": "President, CEO & Chairman of the Board of Management",
-    "fiscal_year": 2025
+    "top_capital": [
+      {
+        "name": "Pacer Advisors, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 0.05
+      },
+      {
+        "name": "Generali Investments Cee, Investicni Spolecnost, A.s.",
+        "type": "institutionnel",
+        "stake_pct": 0.03
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "Pacer Advisors, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 0.05
+      },
+      {
+        "name": "Generali Investments Cee, Investicni Spolecnost, A.s.",
+        "type": "institutionnel",
+        "stake_pct": 0.03
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:14:47.712017+00:00",
+    "_top_dual_class_flag": false,
+    "top_disclosure": "eu_regex_extracted",
+    "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
+    "_top_disclosure_at": "2026-05-21T02:49:04.703726+00:00",
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:19:00Z"
   },
   "revenue_by_segment": {
     "unit": "Mds €",
@@ -357,19 +400,22 @@
         "label": "Diagnosis & Treatment",
         "value": 1.85,
         "share_pct": 47.3,
-        "unit": "Mds €"
+        "unit": "M €",
+        "label_en": "Diagnosis & Treatment"
       },
       {
         "label": "Connected Care",
         "value": null,
         "share_pct": null,
-        "unit": "Mds €"
+        "unit": "M €",
+        "label_en": "Connected Care"
       },
       {
         "label": "Personal Health",
         "value": null,
         "share_pct": null,
-        "unit": "Mds €"
+        "unit": "M €",
+        "label_en": "Personal Health"
       },
       {
         "label": "Autres",
@@ -391,25 +437,29 @@
         "label": "Europe occidentale",
         "value": 0.89,
         "share_pct": 22.8,
-        "unit": "Mds €"
+        "unit": "Mds €",
+        "label_en": "Western Europe"
       },
       {
         "label": "Amérique du Nord",
         "value": 1.65,
         "share_pct": 42.2,
-        "unit": "Mds €"
+        "unit": "Mds €",
+        "label_en": "North America"
       },
       {
         "label": "Autres zones matures",
         "value": 0.34,
         "share_pct": 8.7,
-        "unit": "Mds €"
+        "unit": "Mds €",
+        "label_en": "Other Mature Areas"
       },
       {
         "label": "Zones de croissance",
         "value": 1.03,
         "share_pct": 26.3,
-        "unit": "Mds €"
+        "unit": "Mds €",
+        "label_en": "Growth Areas"
       }
     ],
     "total": 3.91
@@ -485,7 +535,7 @@
     }
   ],
   "ranks": {
-    "global_world": "#434",
+    "global_world": "#444",
     "global_us": "Non US",
     "sector": "Top 50 in Santé",
     "subsector": "#1 in Health Care Equipment"
@@ -495,6 +545,6 @@
   "publication_date": null,
   "company_description": "Koninklijke Philips N.V. operates as a health technology company in North America, the Greater China, and internationally. It operates through Diagnosis & Treatment, Connected Care, and Personal Health segments. The company provides diagnostic imaging solutions, includes ultrasound business unit, magnetic resonance imaging, computed tomography, and diagnostic x-ray; Image Guided Therapy, including image guided therapy systems and image guided therapy devices. It also offers monitoring, enterprise informatics, and sleep and respiratory care, as well as personal health. The company was formerly known as Koninklijke Philips Electronics N.V. and changed its name to Koninklijke Philips N.V. in May 2013. Koninklijke Philips N.V. was founded in 1891 and is headquartered in Amsterdam, the Netherlands.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-21T02:08:59.587Z",
+  "_built_at": "2026-05-21T16:00:22.579Z",
   "_missing_blocks": []
 }

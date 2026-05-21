@@ -131,7 +131,9 @@
       "last_data_date": "2024-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Revenue : total sales generated over the period.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -156,7 +158,9 @@
       "last_data_date": "2026-03-31",
       "is_wow": true,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Combined Ratio",
@@ -181,7 +185,9 @@
       "last_data_date": "2024-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Combined Ratio : losses plus expenses divided by net earned premiums.",
+      "signal_en": "Margin compression, watch profitability"
     },
     {
       "short": "Op Margin",
@@ -206,7 +212,9 @@
       "last_data_date": "2024-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Profit margin on Op.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Capex",
@@ -231,7 +239,9 @@
       "last_data_date": "2024-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Capital Expenditures : investments in property, plant and equipment.",
+      "signal_en": "Steady growth, healthy trend"
     },
     {
       "short": "Headcount",
@@ -258,7 +268,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_employees_synced_from_yfinance": true
+      "_employees_synced_from_yfinance": true,
+      "explanation_en": "Headcount : total number of employees at period end.",
+      "signal_en": "Significant decline, warning signal"
     },
     {
       "short": "DPS",
@@ -282,7 +294,9 @@
       "signal": "Dividende par action de 0.1671 EUR dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Cap Return",
@@ -304,7 +318,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -326,14 +342,17 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     }
   ],
   "kpis_story": [],
   "governance": {
-    "ceo_name": "Mr. Antonio  Huertas Mejias",
-    "ceo_title": "President, CEO & Chairman",
-    "fiscal_year": 2025
+    "top_disclosure": "eu_regex_extracted",
+    "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
+    "_top_disclosure_at": "2026-05-21T02:49:04.667384+00:00",
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:18:59Z"
   },
   "revenue_by_segment": {
     "unit": "Mds €",
@@ -343,44 +362,51 @@
       {
         "label": "Reinsurance",
         "value": 9.46,
+        "share_pct": 27.7,
         "unit": "Mds €",
-        "share_pct": 27.7
+        "label_en": "Reinsurance"
       },
       {
         "label": "Other Non-Life",
         "value": 8.12,
+        "share_pct": 23.8,
         "unit": "Mds €",
-        "share_pct": 23.8
+        "label_en": "Other Non-Life"
       },
       {
         "label": "Automobile",
         "value": 6.74,
+        "share_pct": 19.7,
         "unit": "Mds €",
-        "share_pct": 19.7
+        "label_en": "Automotive"
       },
       {
         "label": "Life",
         "value": 3.65,
+        "share_pct": 10.7,
         "unit": "Mds €",
-        "share_pct": 10.7
+        "label_en": "Life"
       },
       {
         "label": "Homeowners and Commercial Risks",
         "value": 3.1,
+        "share_pct": 9.1,
         "unit": "Mds €",
-        "share_pct": 9.1
+        "label_en": "Homeowners and Commercial Risks"
       },
       {
         "label": "Health",
         "value": 1.88,
+        "share_pct": 5.5,
         "unit": "Mds €",
-        "share_pct": 5.5
+        "label_en": "Health"
       },
       {
         "label": "Other Activities",
         "value": 1.22,
+        "share_pct": 3.6,
         "unit": "Mds €",
-        "share_pct": 3.6
+        "label_en": "Other Activities"
       }
     ],
     "total": 34.17
@@ -393,38 +419,44 @@
       {
         "label": "Iberia",
         "value": 8.4,
+        "share_pct": 31,
         "unit": "Mds €",
-        "share_pct": 31
+        "label_en": "Iberia"
       },
       {
         "label": "Other LATAM",
         "value": 5.87,
+        "share_pct": 21.7,
         "unit": "Mds €",
-        "share_pct": 21.7
+        "label_en": "Other LATAM"
       },
       {
         "label": "Brésil",
         "value": 5.08,
+        "share_pct": 18.8,
         "unit": "Mds €",
-        "share_pct": 18.8
+        "label_en": "Brazil"
       },
       {
         "label": "Autres",
         "value": 3.21,
+        "share_pct": 11.9,
         "unit": "Mds €",
-        "share_pct": 11.9
+        "label_en": "Other"
       },
       {
         "label": "Amérique du Nord",
         "value": 2.99,
+        "share_pct": 11,
         "unit": "Mds €",
-        "share_pct": 11
+        "label_en": "North America"
       },
       {
         "label": "EMEA",
         "value": 1.52,
+        "share_pct": 5.6,
         "unit": "Mds €",
-        "share_pct": 5.6
+        "label_en": "EMEA"
       }
     ],
     "total": 27.07
@@ -535,16 +567,16 @@
     }
   ],
   "ranks": {
-    "global_world": "#250",
+    "global_world": "#594",
     "global_us": "Non US",
-    "sector": "Top 50 in Financials",
-    "subsector": "Top 25 in Insurance"
+    "sector": "#68 in Finance",
+    "subsector": "Top 25 in Assurance"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-24",
   "publication_date": null,
   "company_description": "Mapfre, S.A., together with its subsidiaries, engages in insurance, reinsurance, and financial activities in Spain. The company offers life; health; accident; property and casualty protection that include automobile insurance, homeowner and commercial risk, and family third-party liability insurance; savings and investment; retirement; burial; travel and leisure insurance; and agriculture and livestock insurance products. It also provides investment and pension funds; reinsurance services; insurance for businesses; and business multirisk insurance. The company serves its products to companies, small, medium, and large corporations, as well as to professionals, entrepreneurs, the self-employed, and small businesses. The company was formerly known as Corporacion Mapfre and changed its name to Mapfre, S.A. in December 2006. Mapfre, S.A. was founded in 1933 and is based in Majadahonda, Spain. Mapfre, S.A. operates as a subsidiary of Cartera Mapfre, S.L.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.466Z",
+  "_built_at": "2026-05-21T16:00:22.434Z",
   "_missing_blocks": []
 }

@@ -118,7 +118,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "explanation_en": "Revenue : total sales generated over the period."
     },
     {
       "short": "Media Rights Revenue",
@@ -137,7 +138,8 @@
       "last_data_date": "Not available",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Revenue from the Media Rights segment."
     },
     {
       "short": "Live Events Revenue",
@@ -156,7 +158,8 @@
       "last_data_date": "Not available",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Revenue from the Live Events segment."
     },
     {
       "short": "Total Revenue",
@@ -178,7 +181,9 @@
       "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Revenue pressure, demand softening"
     },
     {
       "short": "Net Income",
@@ -200,7 +205,9 @@
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum"
     },
     {
       "short": "Total Assets",
@@ -222,7 +229,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -244,7 +253,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -266,27 +277,50 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     }
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-06-10",
-    "fiscal_year": 2025,
-    "ceo_name": "Ariel Emanuel",
-    "board_size": 12,
-    "board_independence_pct": null,
-    "avg_tenure_years": null,
-    "board_women_pct": null,
-    "voting_structure": "Deux classes d'actions : Class A et Class B avec droits de vote différents selon la Governance Agreement (dispositions de contrôle Endeavor jusqu'au 1er janvier 2026).",
     "top_capital": [
       {
-        "name": "Endeavor Group Holdings, Inc.",
-        "type": "fondateur",
-        "stake_pct": null
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 9.7
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 8.55
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 7.09
       }
     ],
-    "top_voting": null
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 9.7
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 8.55
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 7.09
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:15:21.262392+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "unit": "$B",
@@ -296,26 +330,30 @@
       {
         "label": "WWE",
         "value": 1.709,
+        "share_pct": 35.8,
         "unit": "$B",
-        "share_pct": 35.8
+        "label_en": "WWE"
       },
       {
         "label": "UFC",
         "value": 1.502,
+        "share_pct": 31.4,
         "unit": "$B",
-        "share_pct": 31.4
+        "label_en": "UFC"
       },
       {
         "label": "IMG",
         "value": 1.367,
+        "share_pct": 28.6,
         "unit": "$B",
-        "share_pct": 28.6
+        "label_en": "IMG"
       },
       {
         "label": "Corporate and Other",
         "value": 0.199,
+        "share_pct": 4.2,
         "unit": "$B",
-        "share_pct": 4.2
+        "label_en": "Corporate and Other"
       }
     ],
     "total": 4.78
@@ -328,7 +366,8 @@
         "value": 3.515,
         "unit": "Mds $",
         "pct": 74.2,
-        "share_pct": 74.2
+        "share_pct": 74.2,
+        "label_en": "North America"
       },
       {
         "name": "Europe/Middle East/Africa",
@@ -342,14 +381,16 @@
         "value": 0.242,
         "unit": "Mds $",
         "pct": 5.1,
-        "share_pct": 5.1
+        "share_pct": 5.1,
+        "label_en": "Asia-Pacific"
       },
       {
         "name": "Amérique latine",
         "value": 0.08,
         "unit": "Mds $",
         "pct": 1.7,
-        "share_pct": 1.7
+        "share_pct": 1.7,
+        "label_en": "Latin America"
       }
     ],
     "total": 4.74,
@@ -457,16 +498,16 @@
     }
   ],
   "ranks": {
-    "global_world": "Not available",
-    "global_us": "Not available",
-    "sector": "Not available",
-    "subsector": "Not available"
+    "global_world": "#601",
+    "global_us": "#367",
+    "sector": "#160 in Technologie",
+    "subsector": "#1 in Sports and Entertainment"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-05-06",
   "publication_date": null,
   "company_description": "TKO Group Holdings, Inc. operates as a sports and entertainment company. The company operates through three segments: UFC, WWE and IMG. The UFC segment distributes programming content; ticket sales and site fees associated with the business's global live events; partnerships and marketing; and consumer products licensing agreements of UFC-branded products. The WWE segment consists of media rights fees associated with the distribution of its programming content; ticket sales and site fees associated with the business's global live events; partnerships and marketing; and consumer products licensing agreements of WWE-branded products. The IMG segment specializing in media rights management and sales, multi-channel content production and distribution, brand partnerships, strategic consulting, digital services, and event management. This segment also offers hospitality business, offering ticketing, curated guest experiences, live event production and travel management services. It is also involved in the merchandising of video games, apparel, equipment, trading cards, memorabilia, digital goods, and toys. In addition, the company engages in the sponsorships and advertising business, whi",
   "_specific_fit_for_site": false,
-  "_built_at": "2026-05-20T20:15:02.643Z",
+  "_built_at": "2026-05-21T16:00:22.769Z",
   "_missing_blocks": []
 }

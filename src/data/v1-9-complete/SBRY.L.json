@@ -129,7 +129,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "annual"
+      "period_type": "annual",
+      "explanation_en": "Year-over-year growth in Retail sales.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Underlying profit before tax",
@@ -150,7 +152,8 @@
       "last_data_date": "2025-03-29",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Retail operating profit",
@@ -171,7 +174,8 @@
       "last_data_date": "2025-03-29",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "ROCE",
@@ -192,7 +196,9 @@
       "last_data_date": "2025-03-29",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Return on Capital Employed : operating profit divided by capital employed.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Free cash flow",
@@ -213,7 +219,9 @@
       "last_data_date": "2025-03-29",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Free Cash Flow : operating cash flow minus capital expenditures.",
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "Headcount",
@@ -234,7 +242,8 @@
       "last_data_date": "2025-03-29",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Headcount : total number of employees at period end."
     },
     {
       "short": "DPS",
@@ -258,7 +267,9 @@
       "signal": "Dividende par action de 24.8 GBp dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Cap Return",
@@ -280,7 +291,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -302,7 +315,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Greenhouse gas reduction",
@@ -351,38 +366,53 @@
   ],
   "kpis_story": [],
   "governance": {
-    "ceo_name": "Mr. Simon John Roberts",
-    "ceo_title": "CEO, Director & Chairman of Operating Board",
-    "fiscal_year": 2025
+    "top_capital": [
+      {
+        "name": "Pacer Advisors, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 0.08
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "Pacer Advisors, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 0.08
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:15:02.206668+00:00",
+    "_top_dual_class_flag": false,
+    "top_disclosure": "eu_regex_extracted",
+    "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
+    "_top_disclosure_at": "2026-05-21T02:49:04.720377+00:00",
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:19:01Z"
   },
   "revenue_by_segment": {
-    "unit": "Mds £",
-    "source_date": "2025-03-01",
-    "source": "Sainsbury's Annual Report 2025 (52 weeks to 1 March 2025)",
     "slices": [
       {
-        "label": "Retail (alimentaire et général, incl. carburant)",
-        "value": 36.21,
-        "unit": "M £",
-        "share_pct": 98.6
+        "label": "Retail",
+        "share_pct": 98.05,
+        "label_fr": "Commerce de détail",
+        "label_en": "Retail",
+        "value": 32084,
+        "unit": "M £"
       },
       {
         "label": "Financial Services",
-        "value": 0.51,
-        "unit": "M £",
-        "share_pct": 1.4
+        "share_pct": 0.47,
+        "label_fr": "Services financiers",
+        "label_en": "Financial Services",
+        "value": 154,
+        "unit": "M £"
       }
     ],
-    "_extracted_at": "2026-05-20T02:35:39.866859+00:00",
-    "total": 36.72
+    "year": 2024,
+    "currency": "GBP",
+    "total": 32238
   },
-  "revenue_by_geography": {
-    "single_region": true,
-    "source": "Sainsbury's Annual Report 2025",
-    "source_date": "2025-03-01",
-    "reason": "Sainsbury's opère exclusivement au Royaume-Uni (supermarchés Sainsbury's, Argos, Habitat, Tu, Nectar, Financial Services).",
-    "_extracted_at": "2026-05-20T02:35:39.866859+00:00"
-  },
+  "revenue_by_geography": null,
   "risks": [
     {
       "title": "Pressions inflationnistes sur les coûts salariaux",
@@ -508,16 +538,18 @@
     }
   ],
   "ranks": {
-    "global_world": "#319",
+    "global_world": "#779",
     "global_us": "Non US",
-    "sector": "Top 25 in Consumer Discretionary",
-    "subsector": "#3 in Retail"
+    "sector": "#61 in Consommation discrétionnaire",
+    "subsector": "Top 10 in Retail"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-04-23",
   "publication_date": null,
   "company_description": "J Sainsbury plc, together with its subsidiaries, engages in the food, general merchandise and clothing retailing, and financial services activities in the United Kingdom. It operates through Retail and Financial Services segments. The company sells food, household, general merchandise, clothing, and fuel through convenience stores and supermarkets, as well as online channels. It also provides insurance services. The company offers its products under the Argos, Habitat, Tu, Smart Charge, Nectar, Nectar360, and Sainsbury's Bank brands. The company was founded in 1869 and is based in London, the United Kingdom.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.597Z",
-  "_missing_blocks": []
+  "_built_at": "2026-05-21T16:00:22.688Z",
+  "_missing_blocks": [
+    "revenue_by_geography"
+  ]
 }

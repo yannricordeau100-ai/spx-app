@@ -163,7 +163,8 @@
       "period_type": "quarter",
       "publication_date": "2026-05-07",
       "_hero_history_unverified": true,
-      "_hero_history_reason": "non trouvée dans 10-K FY2026: non trouvé"
+      "_hero_history_reason": "non trouvée dans 10-K FY2026: non trouvé",
+      "signal_en": "User base expansion, adoption building"
     },
     {
       "short": "Logistics_Revenue_Growth",
@@ -189,7 +190,8 @@
       "is_generic": false,
       "is_short_history": true,
       "ttm": 7.6,
-      "_validation": "KPI non validé dans la source 10-K fournie (extrait incomplet)"
+      "_validation": "KPI non validé dans la source 10-K fournie (extrait incomplet)",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Gross_Margin",
@@ -215,7 +217,8 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 67.51,
-      "_validation": "KPI non validé dans la source 10-K fournie (extrait incomplet)"
+      "_validation": "KPI non validé dans la source 10-K fournie (extrait incomplet)",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Operating_Margin",
@@ -241,7 +244,8 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 21.54,
-      "_validation": "KPI non validé dans la source 10-K fournie (extrait incomplet)"
+      "_validation": "KPI non validé dans la source 10-K fournie (extrait incomplet)",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "R&D_as_Revenue",
@@ -267,7 +271,8 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 13.38,
-      "_validation": "KPI non validé dans la source 10-K fournie (extrait incomplet)"
+      "_validation": "KPI non validé dans la source 10-K fournie (extrait incomplet)",
+      "signal_en": "Stable, slight decline to monitor"
     },
     {
       "short": "Capex",
@@ -293,7 +298,9 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 28.93,
-      "_validation": "KPI non validé dans la source 10-K fournie (extrait incomplet)"
+      "_validation": "KPI non validé dans la source 10-K fournie (extrait incomplet)",
+      "explanation_en": "Capital Expenditures : investments in property, plant and equipment.",
+      "signal_en": "Steady growth, healthy trend"
     },
     {
       "short": "Total_Revenue",
@@ -319,7 +326,8 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 0.87,
-      "_validation": "KPI non validé dans la source 10-K fournie (extrait incomplet)"
+      "_validation": "KPI non validé dans la source 10-K fournie (extrait incomplet)",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "DPS",
@@ -343,7 +351,9 @@
       "signal": "Dividende par action de 0.085 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -365,7 +375,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -387,7 +399,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "AI_Vision_Adoption",
@@ -532,12 +546,21 @@
     "ceo_total_comp_m": 8.099369
   },
   "revenue_by_segment": {
-    "_no_source": true,
-    "_fit_for_site": false,
-    "_extraction_status": "single_segment_or_no_table",
-    "_reason": "one segment, machine vision technology",
-    "_extracted_at": "2026-05-19T18:20:46.697630+00:00",
-    "_verification": "manual_chunk_read"
+    "slices": [
+      {
+        "label": "Machine Vision Systems",
+        "share_pct": 100,
+        "value": 0.92,
+        "unit": "Mds $",
+        "label_en": "Machine Vision Systems"
+      }
+    ],
+    "source": "Cognex Corp 10-K 2024 - Single operating segment (machine vision)",
+    "source_date": "2024-12-31",
+    "unit": "Mds $",
+    "single_segment": true,
+    "reason": "Cognex opère un segment unique : systèmes de vision artificielle industrielle. Item 1 et Note 19 du 10-K confirment 1 reportable segment.",
+    "_extracted_at": "2026-05-21T10:30:44Z"
   },
   "revenue_by_geography": {
     "unit": "Mds $",
@@ -548,25 +571,29 @@
         "label": "États-Unis",
         "value": 329.13,
         "unit": "M $",
-        "share_pct": 33.1
+        "share_pct": 33.1,
+        "label_en": "United States"
       },
       {
         "label": "Autres",
         "value": 255.14,
         "unit": "M $",
-        "share_pct": 25.7
+        "share_pct": 25.7,
+        "label_en": "Other"
       },
       {
         "label": "Europe",
         "value": 251.64,
         "unit": "M $",
-        "share_pct": 25.3
+        "share_pct": 25.3,
+        "label_en": "Europe"
       },
       {
         "label": "Greater China",
         "value": 158.46,
         "unit": "M $",
-        "share_pct": 15.9
+        "share_pct": 15.9,
+        "label_en": "Greater China"
       }
     ],
     "total": 994.37
@@ -654,9 +681,9 @@
     }
   ],
   "ranks": {
-    "global_world": "#297",
-    "global_us": "#166",
-    "sector": "#93 in Information Technology",
+    "global_world": "#719",
+    "global_us": "#443",
+    "sector": "#195 in Technologie",
     "subsector": "#1 in Industrial Automation and Machine Vision"
   },
   "latest_filing": null,
@@ -664,6 +691,6 @@
   "publication_date": null,
   "company_description": "Cognex Corporation provides machine vision products that capture and analyze visual information to automate manufacturing and distribution tasks in the United States, Europe, Greater China, and internationally. Its machine vision products are used to automate the manufacture and distribution of discrete items, such as mobile phones, automotive components, and e-commerce packages, by locating, identifying, inspecting, and measuring them. The company offers VisionPro software, a suite of patented vision tools for traditional rule-based tools and deep learning-enabled tools for advanced programming; vision systems that combine smart cameras and software to perform a wide range of tasks, including part location, identification, measurement, assembly verification, and robotic guidance; OneVision, a cloud-based platform designed to transform how manufacturers build, train, and scale AI-powered vision applications; In-Sight product line of vision systems and sensors; QuickBuild, which allows customers to build vision applications with a graphical and flowchart-based programming interface; DataMan, an image-based barcode reader for fixed-mount and handheld models, as well as barcode verifiers; and vision accessories, such as industrial cameras, lenses, lighting, vision controllers, frame grabbers, and I/O cards. It sells its products to the automotive, logistics, packaging, consumer electronics, medical-related, semiconductor, and consumer products industries. The company was incorporated in 1981 and is headquartered in Natick, Massachusetts.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.247Z",
+  "_built_at": "2026-05-21T16:00:22.034Z",
   "_missing_blocks": []
 }

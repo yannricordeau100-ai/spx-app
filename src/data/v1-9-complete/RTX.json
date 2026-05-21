@@ -113,11 +113,12 @@
       "signal": "Croissance significative du backlog, indicateur d'une forte demande future.",
       "description": "Le backlog est un indicateur clé de la santé financière future de la société. Indicateur suivi annuellement par les analystes de la société, valeur historisée sur les 5 dernières années.",
       "history": [
-        268,
-        218,
-        193,
-        173,
-        156
+        130800,
+        135800,
+        142800,
+        148800,
+        152800,
+        158000
       ],
       "last_data_date": "2026-03-31",
       "is_wow": true,
@@ -125,7 +126,9 @@
       "is_short_history": false,
       "_validation": "Historique corrigé: ajout de la valeur 2025 (268) en premier élément; unité Mds $ changée en B $",
       "ttm": 152.17,
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "explanation_en": "Backlog : value of orders not yet recognized as revenue.",
+      "signal_en": "Forward visibility increasing, pipeline strengthening"
     },
     {
       "short": "Chiffre d'affaires",
@@ -152,7 +155,8 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Historique corrigé: valeurs alternées (7, 9, 1, etc.) remplacées par données cohérentes de 10-K (88.603, 80.738, 68.920); unité Mds $ changée en B $; valeur formatée 88,6 en 88.6; is_generic changé de true à false",
-      "ttm": 58.85
+      "ttm": 58.85,
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Marge opérationnelle",
@@ -179,7 +183,8 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Historique corrigé: valeurs alternées (1, 2, 5, etc.) remplacées par données cohérentes de 10-K (10.5%, 8.1%, 5.2%); format décimal normalisé; virgule en point",
-      "ttm": 4.43
+      "ttm": 4.43,
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Total Revenue",
@@ -201,7 +206,9 @@
       "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -223,7 +230,9 @@
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum"
     },
     {
       "short": "Total Assets",
@@ -245,7 +254,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -267,7 +278,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Cash & Equivalents",
@@ -289,7 +302,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "Short": "Backlog",
@@ -319,50 +333,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-04-30",
-    "fiscal_year": 2025,
-    "ceo_name": "Christopher T. Calio",
-    "ceo_total_comp_m": 27.65,
-    "exec_comp_approval_pct": null,
-    "board_independence_pct": null,
-    "board_size": 10,
-    "avg_tenure_years": null,
-    "board_women_pct": null,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
     "top_capital": [
       {
-        "name": "Vanguard Group, Inc.",
+        "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": 9.3
+        "stake_pct": 8.37
       },
       {
         "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": 7.8
+        "stake_pct": 8.1
       },
       {
         "name": "State Street Corporation",
         "type": "institutionnel",
-        "stake_pct": 6.8
+        "stake_pct": 6.88
       }
     ],
     "top_voting": [
       {
-        "name": "Vanguard Group, Inc.",
+        "name": "The Vanguard Group",
         "type": "institutionnel",
-        "voting_pct": 9.3
+        "stake_pct": 8.37
       },
       {
         "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "voting_pct": 7.8
+        "stake_pct": 8.1
       },
       {
         "name": "State Street Corporation",
         "type": "institutionnel",
-        "voting_pct": 6.8
+        "stake_pct": 6.88
       }
-    ]
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:14:59.782016+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -372,28 +380,32 @@
         "value": 19.288,
         "unit": "Mds $",
         "pct": 32.92,
-        "share_pct": 32.92
+        "share_pct": 32.92,
+        "label_en": "Collins Aerospace Systems"
       },
       {
         "name": "Pratt Whitney",
         "value": 16.799,
         "unit": "Mds $",
         "pct": 28.67,
-        "share_pct": 28.67
+        "share_pct": 28.67,
+        "label_en": "Pratt Whitney"
       },
       {
         "name": "Raytheon Intelligence Space",
         "value": 10.841,
         "unit": "Mds $",
         "pct": 18.53,
-        "share_pct": 18.53
+        "share_pct": 18.53,
+        "label_en": "Raytheon Intelligence Space"
       },
       {
         "name": "Raytheon Missiles Defense",
         "value": 11.66,
         "unit": "Mds $",
         "pct": 19.88,
-        "share_pct": 19.88
+        "share_pct": 19.88,
+        "label_en": "Raytheon Missiles Defense"
       }
     ],
     "total": 58.59,
@@ -409,31 +421,36 @@
         "label": "United States",
         "value": 47.3,
         "share_pct": 53.4,
-        "unit": "$B"
+        "unit": "$B",
+        "label_en": "United States"
       },
       {
         "label": "Europe",
         "value": 18.8,
         "share_pct": 21.2,
-        "unit": "$B"
+        "unit": "$B",
+        "label_en": "Europe"
       },
       {
         "label": "Asia Pacific",
         "value": 13.8,
         "share_pct": 15.6,
-        "unit": "$B"
+        "unit": "$B",
+        "label_en": "Asia-Pacific"
       },
       {
         "label": "Middle East and North Africa",
         "value": 3.6,
         "share_pct": 4.1,
-        "unit": "$B"
+        "unit": "$B",
+        "label_en": "Middle East and North Africa"
       },
       {
         "label": "Other regions",
         "value": 5.1,
         "share_pct": 5.8,
-        "unit": "$B"
+        "unit": "$B",
+        "label_en": "Other regions"
       }
     ],
     "total": 88.6
@@ -508,35 +525,80 @@
   "events": [
     {
       "year": 2026,
-      "month": 5,
-      "title": "Redwire Gears Up to Report Q1 Earnings: Here's What to Expect",
-      "body": "RDW to report first-quarter results, with demand across space infrastructure and defense tech in focus, as higher research and development costs loom.",
-      "source": "Zacks",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/redwire-gears-report-q1-earnings-155200266.html",
-      "date": "2026-05-05"
+      "month": 7,
+      "title": "Prochaine publication Q3 2026",
+      "body": "Publication attendue le 21 juillet 2026 (Q3 2026).",
+      "source": "yfinance · calendar",
+      "url": "",
+      "date": "2026-07-21"
     },
     {
       "year": 2026,
       "month": 5,
-      "title": "LDOS Q1 Earnings Beat on Backlog Scale and Key Contract Wins",
-      "body": "Leidos tops Q1 EPS and revenue estimates, lifts 2026 outlook as backlog hits $48.4B on intelligence, energy infrastructure and ATC demand.",
+      "title": "Is Boeing's Growing Backlog Strengthening Its Recovery Prospects?",
+      "body": "BA's record $695B backlog, rising aircraft deliveries and defense growth signal improving operations and stronger revenue visibility.",
       "source": "Zacks",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/ldos-q1-earnings-beat-backlog-152800371.html",
-      "date": "2026-05-05"
+      "url": "https://finance.yahoo.com/markets/stocks/articles/boeings-growing-backlog-strengthening-recovery-183100941.html",
+      "date": "2026-05-20"
     },
     {
       "year": 2026,
       "month": 5,
-      "title": "HII Q1 Earnings Surpass Estimates, Revenues Increase Y/Y",
-      "body": "Huntington Ingalls tops Q1 EPS and revenue estimates as volumes rise; $4B in new awards lifts backlog to $54B and 2026 guidance stays intact.",
+      "title": "LDOS Signs $2.7B U.S. Military Hypersonic Weapons Production Deal",
+      "body": "Ledios secures a $2.7B U.S. Army contract combining TPS and CHGB to speed hypersonic weapons production, but shares fall.",
       "source": "Zacks",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/hii-q1-earnings-surpass-estimates-152500069.html",
-      "date": "2026-05-05"
+      "url": "https://finance.yahoo.com/sectors/technology/articles/ldos-signs-2-7b-u-175000423.html",
+      "date": "2026-05-19"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "How Is RTX Expanding Its Software-Defined Radar Capabilities?",
+      "body": "RTX lands a Naval Research contract to advance software-defined radar, enabling future naval systems to run multi-mission sensing in a crowded spectrum.",
+      "source": "Zacks",
+      "url": "https://finance.yahoo.com/sectors/technology/articles/rtx-expanding-software-defined-radar-135100755.html",
+      "date": "2026-05-19"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "These Stocks Could Be the Biggest Winners of the 2026 Midterms",
+      "body": "Defense, healthcare, and financial stocks may outperform ahead of midterm elections as investors position for policy shifts",
+      "source": "MarketBeat",
+      "url": "https://www.marketbeat.com/stock-ideas/these-stocks-could-be-the-biggest-winners-of-the-2026-midterms/?utm_source=yahoofinance&utm_medium=yahoofinance",
+      "date": "2026-05-18"
+    },
+    {
+      "year": 2026,
+      "month": 3,
+      "title": "Publication des résultats Q1 2026",
+      "body": "Clôture du trimestre Q1 2026 le 31 mars 2026.",
+      "source": "yfinance · mostRecentQuarter",
+      "url": "",
+      "date": "2026-03-31"
+    },
+    {
+      "year": 2026,
+      "month": 2,
+      "title": "Dividende 0.68 $/action versé",
+      "body": "Dividende ordinaire de 0.68 $ par action, ex-date 20 février 2026.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2026-02-20"
+    },
+    {
+      "year": 2025,
+      "month": 11,
+      "title": "Dividende 0.68 $/action versé",
+      "body": "Dividende ordinaire de 0.68 $ par action, ex-date 21 novembre 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-11-21"
     }
   ],
   "ranks": {
-    "global_world": "#46",
-    "global_us": "#33",
+    "global_world": "#49",
+    "global_us": "#37",
     "sector": "#2 in Industrie",
     "subsector": "#1 in Aérospatiale et Défense"
   },
@@ -545,6 +607,6 @@
   "publication_date": null,
   "company_description": "RTX Corporation, an aerospace and defense company, provides systems and services for commercial, military, and government customers worldwide. It operates through three segments: Collins Aerospace (Collins), Pratt & Whitney, and Raytheon. The Collins segment offers aerospace and defense products, and aftermarket services for civil and military aircraft manufacturers and commercial airlines, as well as regional, business, and general aviation, defense, and commercial space operations. This segment designs, manufactures, and supplies electric power generation and management and distribution, environmental control, flight control, air data and aircraft sensing, engine control, and engine nacelle systems, as well as engine components; cabin interiors, including seating, oxygen, food and beverage preparation, storage and galley, lavatory, and wastewater management systems; connected aviation solutions and services; and systems solutions for connected battlespace, test and training range systems, crew escape systems, and simulation and training. It also provides spare parts, overhaul and repair, engineering and technical support, training and fleet management solutions, and asset and inf",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-21T02:08:59.655Z",
+  "_built_at": "2026-05-21T16:00:22.677Z",
   "_missing_blocks": []
 }

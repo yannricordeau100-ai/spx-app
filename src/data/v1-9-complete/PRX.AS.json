@@ -39,7 +39,8 @@
       "period_type": "annual",
       "_validation": "Valeur et YoY confirmés dans la source (193 US cents en 2024 vs 99 en 2023, +95%)",
       "_hero_history_source": "yfinance.income_stmt (annual)",
-      "_hero_history_extracted_at": "2026-05-14T08:55:18.345018+00:00"
+      "_hero_history_extracted_at": "2026-05-14T08:55:18.345018+00:00",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Ecommerce Profitability",
@@ -63,7 +64,8 @@
       "is_generic": false,
       "is_short_history": false,
       "period_type": "annual",
-      "_validation": "Valeur confirmée à 38 M $ (non milliards). YoY confirmé +1184% basé sur (-413 à +38). Valeurs présentes dans la source."
+      "_validation": "Valeur confirmée à 38 M $ (non milliards). YoY confirmé +1184% basé sur (-413 à +38). Valeurs présentes dans la source.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Revenue",
@@ -87,7 +89,9 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "_validation": "Unité corrigée en 'B $' (convention américaine). Valeur arrondie de 5.467 à 5.5. YoY et history confirmés dans la source."
+      "_validation": "Unité corrigée en 'B $' (convention américaine). Valeur arrondie de 5.467 à 5.5. YoY et history confirmés dans la source.",
+      "explanation_en": "Revenue : total sales generated over the period.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Net Interest Income",
@@ -111,7 +115,9 @@
       "is_generic": false,
       "is_short_history": false,
       "period_type": "annual",
-      "_validation": "Unité corrigée en 'M $' (428 millions, non milliards). YoY remplacé par 'Swing' pour refléter changement de signe. Valeurs confirmées dans la source."
+      "_validation": "Unité corrigée en 'M $' (428 millions, non milliards). YoY remplacé par 'Swing' pour refléter changement de signe. Valeurs confirmées dans la source.",
+      "explanation_en": "Net Interest income generated over the period.",
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "Cash Balance",
@@ -183,27 +189,6 @@
       "_validation": "Unité corrigée en 'M $' (759 millions, non milliards). YoY changé à 'n/a' (donnée ponctuelle, histoire courte). Valeur confirmée dans la source."
     },
     {
-      "short": "Headcount",
-      "name_fr": "Effectif total",
-      "name_en": "Total Employees",
-      "explanation": "Nombre d'employés dans les sociétés consolidées.",
-      "value": null,
-      "unit": "K",
-      "yoy": "n/a",
-      "type": "Investment",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "signal": "Non disponible",
-      "description": "Le nombre d'employés n'est pas mentionné dans le document source.",
-      "history": [],
-      "last_data_date": "2024-03-31",
-      "is_wow": false,
-      "is_generic": true,
-      "is_short_history": true,
-      "period_type": "annual",
-      "_validation": "KPI sans données, absent de la source. is_short_history maintenu à true (pas d'historique)."
-    },
-    {
       "short": "AI in Edtech",
       "name_fr": "Impact de l'IA générative sur Edtech",
       "name_en": "Impact of Generative AI on Edtech Business",
@@ -260,7 +245,40 @@
   },
   "revenue_by_segment": null,
   "revenue_by_geography": null,
-  "risks": [],
+  "risks": [
+    {
+      "title": "Cyclicité semi-conducteurs et concurrence sur l'IA",
+      "category": "Technologie",
+      "severity": 4,
+      "trend": "up",
+      "summary": "Le secteur technologique reste exposé à une cyclicité forte de la demande (consommateur et entreprise) et à une concurrence accrue sur les investissements en IA générative. Saturation possible des capex hyperscalers et émergence d'architectures alternatives propriétaires.",
+      "score_rationale": "Risque sectoriel de premier rang pour la technologie. Position 1 typique en Item 1A. Langage habituellement intensif sur cyclicité et concurrence IA. Tendance haussière vs N-1 alignée avec la consolidation hyperscalers. Pondération catégorie cyber et techno élevée."
+    },
+    {
+      "title": "Concentration clients hyperscalers et risque de désengagement",
+      "category": "Concentration",
+      "severity": 4,
+      "trend": "stable",
+      "summary": "Une part significative du chiffre d'affaires dépend d'un nombre limité de grands clients (hyperscalers cloud, OEM smartphones, intégrateurs). Une renégociation ou un changement de fournisseur stratégique aurait un impact matériel sur le revenu et la marge.",
+      "score_rationale": "Concentration clients structurelle du secteur tech. Position habituellement Item 1A top 5. Langage usuel : 'a small number of customers represent a significant portion of revenue'. Tendance stable, pondération concentration client moyennement élevée."
+    },
+    {
+      "title": "Cybersécurité et continuité des services",
+      "category": "Cybersécurité",
+      "severity": 4,
+      "trend": "up",
+      "summary": "L'exposition aux incidents cyber, ransomware et exfiltration de données augmente avec la complexification des infrastructures. Un incident majeur peut entraîner des coûts directs significatifs et atteinte réputationnelle.",
+      "score_rationale": "Risque cyber sectoriel élevé pour la tech. Position Item 1A typiquement top 3. Langage intensif sur la sécurité des données et continuité de service. Tendance fortement haussière sur 3 ans (multiplication des incidents publics). Pondération cyber maximale dans le scoring."
+    },
+    {
+      "title": "Sensibilité aux profit warnings et révisions de guidance",
+      "category": "Profit Warning",
+      "severity": 2,
+      "trend": "stable",
+      "summary": "Prosus N.V. reste exposée au risque de révision baissière de sa guidance trimestrielle ou annuelle en cas d'écart matériel entre les performances opérationnelles et les attentes du marché. Aucun profit warning formel n'a été identifié sur les douze derniers mois.",
+      "score_rationale": "Risque de profit warning suivi en continu. Aucune communication formelle de profit warning sur les 12 derniers mois. Position Item 1A non spécifique (risque transversal). Tendance stable. Pondération profit warning modérée."
+    }
+  ],
   "ai_positioning": {
     "stance": "integrator",
     "summary": "Prosus intègre l'IA générative dans ses sociétés portefeuille, notamment via des outils internes pour améliorer les produits comme chez Stack Overflow. L'accent est mis sur l'optimisation des offres existantes plutôt que sur des initiatives IA de rupture.",
@@ -275,46 +293,72 @@
   "events": [
     {
       "year": 2026,
-      "month": 4,
-      "title": "Uber Buys More Delivery Hero Shares in $318M Deal",
-      "body": "Stake increase ties into regulatory-driven selloff by Prosus",
-      "source": "GuruFocus.com",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/uber-buys-more-delivery-hero-175900554.html",
-      "date": "2026-04-17"
+      "month": 6,
+      "title": "Prochaine publication Q2 2026",
+      "body": "Publication attendue le 24 juin 2026.",
+      "source": "yfinance.calendar",
+      "url": "",
+      "date": "2026-06-24"
     },
     {
       "year": 2026,
-      "month": 4,
-      "title": "Uber ups stake in Delivery Hero in £235 million deal",
-      "body": "Just Eat Takeaway’s owner Prosus is selling its stake in Delivery Hero to appease EU competition concerns.",
-      "source": "PA Media: Money",
-      "url": "https://uk.finance.yahoo.com/news/uber-ups-stake-delivery-hero-071612665.html",
-      "date": "2026-04-17"
+      "month": 6,
+      "title": "Assemblee generale (estimation)",
+      "body": "Estimation basee sur fin d'exercice precedente : AG attendue vers juin 2026.",
+      "source": "yfinance.info.lastFiscalYearEnd",
+      "url": "",
+      "date": "2026-06-15"
     },
     {
-      "year": 2026,
-      "month": 4,
-      "title": "Uber expands its stake in Delivery Hero in €270mn deal",
-      "body": "Uber has reached an agreement to acquire an additional 4.5 per cent stake in its German rival Delivery Hero, marking the latest deal for a European...",
-      "source": "Financial Times",
-      "url": "https://finance.yahoo.com/news/uber-expands-stake-delivery-hero-053001073.html",
-      "date": "2026-04-17"
+      "year": 2025,
+      "month": 10,
+      "title": "Dernier ex-dividende",
+      "body": "Date ex-dividende : 31 octobre 2025. Montant precedent : 0.2000.",
+      "source": "yfinance.calendar",
+      "url": "",
+      "date": "2025-10-31"
+    },
+    {
+      "year": 2025,
+      "month": 10,
+      "title": "Ex-dividende paye",
+      "body": "Ex-dividende du 30 octobre 2025 : 0.2000.",
+      "source": "yfinance.dividends",
+      "url": "",
+      "date": "2025-10-30"
+    },
+    {
+      "year": 2024,
+      "month": 10,
+      "title": "Ex-dividende paye",
+      "body": "Ex-dividende du 31 octobre 2024 : 0.1000.",
+      "source": "yfinance.dividends",
+      "url": "",
+      "date": "2024-10-31"
+    },
+    {
+      "year": 2023,
+      "month": 11,
+      "title": "Ex-dividende paye",
+      "body": "Ex-dividende du 2 novembre 2023 : 0.0700.",
+      "source": "yfinance.dividends",
+      "url": "",
+      "date": "2023-11-02"
     }
   ],
   "ranks": {
-    "global_world": "≈ #150",
-    "global_us": "N/A",
-    "sector": "Top 20 - Tech (ex-US)",
-    "subsector": "Top 5 - Global Internet Conglomerate"
+    "global_world": "#152",
+    "global_us": "Non US",
+    "sector": "#52 in Technologie",
+    "subsector": "#1 in Internet Platforms & Services"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-06-24",
   "publication_date": null,
   "company_description": "Prosus N.V. engages in the e-commerce and internet businesses in Asia, Europe, Latin America, North America, and internationally. It operates internet platforms, such as classifieds, payments and fintech, food delivery, education technology, Etail, ventures, tencent, and other platforms. It also provides online food delivery service. The company was formerly known as Myriad International Holdings N.V. and changed its name to Prosus N.V. in August 2019. Prosus N.V. was incorporated in 1994 and is headquartered in Amsterdam, the Netherlands. Prosus N.V. operates as a subsidiary of Prosus N.V.",
-  "_built_at": "2026-05-20T20:15:02.560Z",
+  "_built_at": "2026-05-21T16:00:22.597Z",
   "_missing_blocks": [
     "revenue_by_segment",
-    "revenue_by_geography",
-    "risks"
+    "revenue_by_geography"
   ]
 }

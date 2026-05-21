@@ -276,7 +276,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "ttm": -52.39
+      "ttm": -52.39,
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "Net market appreciation",
@@ -300,7 +301,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "ttm": 219.71
+      "ttm": 219.71,
+      "signal_en": "Demand strengthening, end-market traction"
     },
     {
       "short": "InvAdvisoryFees",
@@ -321,7 +323,8 @@
       "description": "Les frais de conseil progressent de 3,2% en 2025 grâce à la hausse des AUM moyens. La croissance est freinée par la compression du taux effectif moyen due aux flux vers des stratégies moins chères.",
       "last_data_date": "2025-12-31",
       "is_generic": false,
-      "is_wow": false
+      "is_wow": false,
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "OperatingMargin",
@@ -343,7 +346,8 @@
       "description": "La marge opérationnelle recule de 32,9% à 29,9% en 2025, principalement en raison de la charge de restructuration qui a fait croître les dépenses opérationnelles (+7,7%) plus vite que les revenus nets (+3,1%).",
       "last_data_date": "2025-12-31",
       "is_generic": true,
-      "is_wow": false
+      "is_wow": false,
+      "signal_en": "Margin compression, watch profitability"
     },
     {
       "short": "EFR_bps",
@@ -364,7 +368,8 @@
       "description": "Le taux effectif moyen hors frais de performance s'érode de 41,0 à 39,4 bps en 2025, reflétant un glissement continu des flux clients vers des stratégies et produits à frais plus faibles. Cette tendance est structurelle depuis plusieurs années.",
       "last_data_date": "2025-12-31",
       "is_generic": false,
-      "is_wow": true
+      "is_wow": true,
+      "signal_en": "Profitability under pressure, monitor returns"
     },
     {
       "short": "DilutedEPS_GAAP",
@@ -386,7 +391,8 @@
       "description": "Le BPA dilué GAAP progresse légèrement à 9,24$ en 2025 malgré une baisse du résultat opérationnel, grâce à la hausse des revenus non opérationnels et à la réduction du nombre d'actions en circulation. Sur base non-GAAP, le BPA atteint 9,72$.",
       "last_data_date": "2025-12-31",
       "is_generic": true,
-      "is_wow": false
+      "is_wow": false,
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "AvgAUM",
@@ -408,7 +414,8 @@
       "description": "L'AUM moyen progresse de 7,4% à 1 677,3 Mds$ en 2025, porté par l'appréciation des marchés financiers. Cette base d'actifs est le principal déterminant des revenus de frais de conseil, malgré des sorties nettes persistantes.",
       "last_data_date": "2025-12-31",
       "is_generic": false,
-      "is_wow": false
+      "is_wow": false,
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "DPS",
@@ -432,7 +439,9 @@
       "signal": "Dividende par action de 1.3 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -454,7 +463,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -476,7 +487,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "AUM 2025",
@@ -532,14 +545,30 @@
   },
   "revenue_by_segment": {
     "single_segment": true,
-    "source": "10-K FY2025 Segment Information",
-    "source_date": "FY2025",
-    "reason": "T. Rowe Price a un seul segment reportable (investment advisory)."
+    "_reason": "one reportable segment"
   },
   "revenue_by_geography": {
-    "_no_geo_source": true,
-    "_reason": "T. Rowe Price 10-K FY2024 : majoritairement US, pas de table revenu géo détaillée",
-    "_extracted_at": "2026-05-20T00:00:00Z"
+    "slices": [
+      {
+        "label": "United States",
+        "share_pct": 77.78,
+        "label_fr": "États-Unis",
+        "label_en": "United States",
+        "value": 21,
+        "unit": "Mds $"
+      },
+      {
+        "label": "International",
+        "share_pct": 22.22,
+        "label_fr": "International",
+        "label_en": "International",
+        "value": 6,
+        "unit": "Mds $"
+      }
+    ],
+    "year": 2024,
+    "currency": "USD",
+    "total": 27
   },
   "risks": [
     {
@@ -656,9 +685,9 @@
     }
   ],
   "ranks": {
-    "global_world": "#206",
-    "global_us": "#112",
-    "sector": "#61 in Information Technology",
+    "global_world": "#482",
+    "global_us": "#290",
+    "sector": "#131 in Technologie",
     "subsector": "#2 in Financial Services"
   },
   "latest_filing": null,
@@ -666,6 +695,6 @@
   "publication_date": null,
   "company_description": "T. Rowe Price Group, Inc. is a publicly owned investment manager. The firm provides its services to individuals, institutional investors, retirement plans, financial intermediaries, and institutions. It launches and manages equity and fixed income mutual funds. The firm invests in the public equity and fixed income markets across the globe. It employs fundamental and quantitative analysis with a bottom-up approach. The firm utilizes in-house and external research to make its investments. It employs socially responsible investing with a focus on environmental, social, and governance issues. It makes investment in late-stage venture capital transactions and usually invests between $3 million and $5 million. The firm was previously known as T. Rowe Group, Inc. and T. Rowe Price Associates, Inc. T. Rowe Price Group, Inc. was founded in 1937 and is based in Baltimore, Maryland, with additional offices in North America, Europe, Asia, Australia.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.648Z",
+  "_built_at": "2026-05-21T16:00:22.775Z",
   "_missing_blocks": []
 }

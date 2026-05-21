@@ -123,7 +123,8 @@
       "last_data_date": "2026-01-01",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Total Employees : total number of employees at period end."
     },
     {
       "short": "Total Revenue",
@@ -146,7 +147,9 @@
       "is_generic": true,
       "_source": "yfinance.income_stmt",
       "is_short_history": true,
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Revenue pressure, demand softening"
     },
     {
       "short": "Net Income",
@@ -168,7 +171,9 @@
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal"
     },
     {
       "short": "Operating Income",
@@ -190,7 +195,9 @@
       "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Operating Income : profit from core business operations.",
+      "signal_en": "Significant decline, warning signal"
     },
     {
       "short": "Total Assets",
@@ -212,7 +219,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -234,7 +243,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -256,22 +267,50 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     }
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-04-30",
-    "fiscal_year": 2025,
-    "ceo_name": "Cameron M. Bready",
-    "exec_comp_approval_pct": null,
-    "board_independence_pct": 91.7,
-    "board_size": 12,
-    "avg_tenure_years": null,
-    "board_women_pct": 25,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "top_capital": null,
-    "top_voting": null
+    "top_capital": [
+      {
+        "name": "GTCR, LLC",
+        "type": "institutionnel",
+        "stake_pct": 15.82
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 9.04
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 6.91
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "GTCR, LLC",
+        "type": "institutionnel",
+        "stake_pct": 15.82
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 9.04
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 6.91
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:31.054698+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -281,21 +320,24 @@
         "value": 6.205,
         "unit": "Mds $",
         "pct": 69.1,
-        "share_pct": 69.1
+        "share_pct": 69.1,
+        "label_en": "Merchant Solutions"
       },
       {
         "name": "Issuer Solutions",
         "value": 2.246,
         "unit": "Mds $",
         "pct": 25,
-        "share_pct": 25
+        "share_pct": 25,
+        "label_en": "Issuer Solutions"
       },
       {
         "name": "Consumer Solutions",
         "value": 0.62,
         "unit": "Mds $",
         "pct": 6.9,
-        "share_pct": 6.9
+        "share_pct": 6.9,
+        "label_en": "Consumer Solutions"
       }
     ],
     "total": 9.07,
@@ -309,14 +351,16 @@
         "value": 7.18,
         "unit": "Mds $",
         "pct": 80,
-        "share_pct": 80
+        "share_pct": 80,
+        "label_en": "United States"
       },
       {
         "name": "International",
         "value": 1.796,
         "unit": "Mds $",
         "pct": 20,
-        "share_pct": 20
+        "share_pct": 20,
+        "label_en": "International"
       }
     ],
     "total": 8.98,
@@ -397,6 +441,24 @@
   "events": [
     {
       "year": 2026,
+      "month": 8,
+      "title": "Prochaine publication Q3 2026",
+      "body": "Publication attendue le 5 août 2026 (Q3 2026).",
+      "source": "yfinance · calendar",
+      "url": "",
+      "date": "2026-08-05"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "Global Payments Bets On AI Handhelds And Embedded Deals In Restaurants",
+      "body": "Global Payments (NYSE:GPN) introduced an AI first Genius handheld POS device and new kiosk solutions at the National Restaurant Association Show. The company renewed and expanded embedded payments partnerships, including with Lightspeed DMS",
+      "source": "Simply Wall St.",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/global-payments-bets-ai-handhelds-230819741.html",
+      "date": "2026-05-17"
+    },
+    {
+      "year": 2026,
       "month": 5,
       "title": "Global Payments Enhances Restaurant Tech Portfolio With AI POS Launch",
       "body": "GPN introduces an AI-powered Genius handheld POS with voice ordering, offline payments and kiosk support for restaurants.",
@@ -407,24 +469,60 @@
     {
       "year": 2026,
       "month": 5,
-      "title": "Global Payments Q1 Earnings Call Highlights",
-      "body": "Global Payments (NYSE:GPN) reported first-quarter 2026 results that exceeded management’s expectations, with executives pointing to resilient consumer spending, early benefits from the Worldpay acquisition and continued momentum for its Gen",
-      "source": "MarketBeat",
-      "url": "https://www.marketbeat.com/instant-alerts/global-payments-q1-earnings-call-highlights-2026-05-10/?utm_source=yahoofinance&utm_medium=yahoofinance",
-      "date": "2026-05-10"
+      "title": "Zacks Industry Outlook Highlights Visa, Mastercard, PayPal, Fiserv and Global Payments",
+      "body": "Visa, Mastercard, PayPal, Fiserv and Global Payments have been highlighted in this Industry Outlook article.",
+      "source": "Zacks",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/zacks-industry-outlook-highlights-visa-104400690.html",
+      "date": "2026-05-14"
+    },
+    {
+      "year": 2026,
+      "month": 3,
+      "title": "Publication des résultats Q1 2026",
+      "body": "Clôture du trimestre Q1 2026 le 31 mars 2026.",
+      "source": "yfinance · mostRecentQuarter",
+      "url": "",
+      "date": "2026-03-31"
+    },
+    {
+      "year": 2026,
+      "month": 3,
+      "title": "Dividende 0.25 $/action versé",
+      "body": "Dividende ordinaire de 0.25 $ par action, ex-date 9 mars 2026.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2026-03-09"
+    },
+    {
+      "year": 2025,
+      "month": 12,
+      "title": "Dividende 0.25 $/action versé",
+      "body": "Dividende ordinaire de 0.25 $ par action, ex-date 12 décembre 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-12-12"
+    },
+    {
+      "year": 2025,
+      "month": 9,
+      "title": "Dividende 0.25 $/action versé",
+      "body": "Dividende ordinaire de 0.25 $ par action, ex-date 12 septembre 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-09-12"
     }
   ],
   "ranks": {
-    "global_world": "≈ #",
-    "global_us": "#",
-    "sector": "#",
-    "subsector": "#"
+    "global_world": "#521",
+    "global_us": "#316",
+    "sector": "#145 in Technologie",
+    "subsector": "#1 in Payments Technology"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-08-05",
   "publication_date": null,
   "company_description": "Global Payments Inc. provides payment technology and software solutions for card, check, and digital-based payments in the Americas, Europe, and the Asia-Pacific. It offers authorization, settlement and funding, customer support, chargeback resolution, reconciliation and dispute management, terminal rental, sales and deployment, payment security, and consolidated billing and reporting services. The company also provides an array of enterprise software solutions that streamline business operations of its customers in various vertical markets; and value-added solutions and services, such as point-of-sale software, analytics and customer engagement, payroll and reporting, and human capital management. It markets its products and services through direct sales force, trade associations, agent and enterprise software providers, referral arrangements with value-added resellers, independent sales organizations, payment facilitators, and financial institutions. The company was founded in 1967 and is headquartered in Atlanta, Georgia.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.383Z",
+  "_built_at": "2026-05-21T16:00:22.276Z",
   "_missing_blocks": []
 }

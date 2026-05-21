@@ -82,6 +82,8 @@
       "period_type": "quarter",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:53:37.963659+00:00",
+      "explanation_en": "Revenue from the Unbilled segment.",
+      "signal_en": "Top-line growth, market traction",
       "is_short_history_legitimate": true,
       "short_history_legitimate_reason": "Énergie renouvelable/utilities transition (KPIs nouveaux Battery Storage, Green Hydrogen, renewables capacity) (subsector: Gas and Electric Utilities)",
       "_short_history_legitimate_rule": "renewable_energy_recent",
@@ -128,7 +130,9 @@
       "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -150,7 +154,9 @@
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum"
     },
     {
       "short": "Operating Income",
@@ -172,7 +178,9 @@
       "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Operating Income : profit from core business operations.",
+      "signal_en": "Strong growth, robust momentum"
     },
     {
       "short": "Total Assets",
@@ -194,7 +202,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -216,7 +226,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -238,7 +250,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "NIPSCO Minority Interest Blackstone Capital Commitment",
@@ -265,31 +278,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-05-11",
-    "fiscal_year": 2025,
-    "ceo_name": "Lloyd M. Yates",
-    "exec_comp_approval_pct": 97,
-    "board_independence_pct": 100,
-    "board_size": 12,
-    "board_women_pct": 33.33,
-    "voting_structure": "Majority voting for all directors with resignation policy",
     "top_capital": [
       {
-        "name": "The Vanguard Group, Inc.",
+        "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": 11.4
+        "stake_pct": 12.13
       },
       {
         "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": 8.5
+        "stake_pct": 10.74
       },
       {
-        "name": "State Street Corporation",
+        "name": "T. Rowe Price",
         "type": "institutionnel",
-        "stake_pct": 4.3
+        "stake_pct": 10.39
       }
-    ]
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 12.13
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 10.74
+      },
+      {
+        "name": "T. Rowe Price",
+        "type": "institutionnel",
+        "stake_pct": 10.39
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:14:28.738435+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -299,20 +325,39 @@
         "value": 3.14,
         "unit": "Mds $",
         "pct": 67.1,
-        "share_pct": 67.1
+        "share_pct": 67.1,
+        "label_en": "Gas Distribution Operations"
       },
       {
         "name": "Electric Operations",
         "value": 1.54,
         "unit": "Mds $",
         "pct": 32.9,
-        "share_pct": 32.9
+        "share_pct": 32.9,
+        "label_en": "Electric Operations"
       }
     ],
     "total": 4.68,
     "unit": "Mds $"
   },
-  "revenue_by_geography": null,
+  "revenue_by_geography": {
+    "unit": "%",
+    "slices": [
+      {
+        "label": "États-Unis",
+        "value": 100,
+        "share_pct": 100,
+        "single_region_legitimate": true,
+        "unit": "%",
+        "label_en": "United States"
+      }
+    ],
+    "total": 100,
+    "source": "Mono-pays légitime (filings)",
+    "_tagged_by": "auto-rebascule-21mai-CONV-CONCEPTS",
+    "_tagged_at": "2026-05-21T01:26:18.199Z",
+    "_category": "utility-us"
+  },
   "risks": [
     {
       "title": "Natural gas commodity price volatility",
@@ -417,18 +462,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #XX",
-    "global_us": "...",
-    "sector": "...",
-    "subsector": "..."
+    "global_world": "#471",
+    "global_us": "#284",
+    "sector": "Top 25 in Services aux collectivités",
+    "subsector": "#1 in Gas and Electric Utilities"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-05-06",
   "publication_date": null,
   "company_description": "NiSource Inc., an energy holding company, operates as a regulated natural gas and electric utility company in the United States. It operates in two segments, Columbia Operations and NIPSCO Operations. The company provides natural gas to residential, commercial, and industrial customers through approximately 37,300 miles of distribution main pipeline and the associated individual customer service lines; and 310 miles of transmission main pipeline in Ohio, Pennsylvania, Virginia, Kentucky, and Maryland. It also generates, transmits, and distributes electricity to approximately 0.5 million customers in various counties in the northern part of Indiana, as well as engages in wholesale electric and transmission transactions. It owns and operates steam coal generating stations in Wheatfield and Michigan City; combined cycle gas turbine in West Terre Haute; natural gas generating units in Wheatfield; hydro generating plants in Carroll County and White County; wind generating units in White County; and solar generating units in Sullivan County, Gibson County, Jasper County, and White County. The company was formerly known as NIPSCO Industries, Inc. and changed its name to NiSource Inc. in A",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.509Z",
-  "_missing_blocks": [
-    "revenue_by_geography"
-  ]
+  "_built_at": "2026-05-21T16:00:22.503Z",
+  "_missing_blocks": []
 }

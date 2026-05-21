@@ -44,7 +44,9 @@
         "Correction value: '6,074.5' -> '6074.5' (format numérique standardisé)",
         "Correction history: suppression des virgules de formatage et réorganisation en array numérique cohérent",
         "Correction ttm: '9411.6' -> '6074.5' (TTM doit égaler la valeur annuelle 2025, pas agrégation erronée)"
-      ]
+      ],
+      "explanation_en": "Revenue from the Operating segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Operating Margin",
@@ -78,7 +80,9 @@
         "Correction ttm: '16.73' -> '18.0' (TTM doit refléter 2025)"
       ],
       "period_type": "quarter",
-      "publication_date": "2026-04-21"
+      "publication_date": "2026-04-21",
+      "explanation_en": "Operating Margin : operating profit divided by revenue.",
+      "signal_en": "Margin compression, watch profitability"
     },
     {
       "short": "Diluted EPS",
@@ -111,7 +115,9 @@
         "Correction type: 'Cash' -> 'Earnings' (catégorie appropriée)",
         "Correction ttm: '3.72' -> '5.32' (TTM doit égaler 2025)",
         "Correction history: réorganisation en array cohérent"
-      ]
+      ],
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Steady growth, healthy trend"
     },
     {
       "short": "Cash Operating",
@@ -147,7 +153,8 @@
         "Correction history: suppression formatage virgules et réorganisation en array",
         "Correction ttm: '5409.04' -> '1615.7' (TTM doit égaler 2025 annuel, pas agrégation erronée)",
         "Correction is_generic: true -> false (KPI d'importance stratégique pour santé financière)"
-      ]
+      ],
+      "signal_en": "Cash generation improving, financial flexibility rising"
     },
     {
       "short": "Capital Expenditures",
@@ -180,7 +187,8 @@
         "Correction yoy: '-3.2%' -> '-3.2' (format numérique sans symbole %)",
         "Correction history: réorganisation en array cohérent avec 2025 en premier",
         "Correction ttm: '447.31' -> '480.2' (TTM doit égaler 2025)"
-      ]
+      ],
+      "signal_en": "Stable, slight decline to monitor"
     },
     {
       "short": "Total Revenue",
@@ -205,7 +213,9 @@
       "signal": "Chiffre d'affaires de 6.074 Mds $ dernière année fiscale (FY2025).",
       "description": "Chiffre d'affaires extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -230,7 +240,9 @@
       "signal": "Résultat net de 0.66 Mds $ dernière année fiscale (FY2025).",
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Operating Income",
@@ -255,7 +267,9 @@
       "signal": "Résultat opérationnel de 1.095 Mds $ dernière année fiscale (FY2025).",
       "description": "Résultat opérationnel extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Operating Income : profit from core business operations.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "DPS",
@@ -279,7 +293,9 @@
       "signal": "Dividende par action de 0.56 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -301,7 +317,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -323,7 +341,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Operating Revenue",
@@ -400,19 +420,44 @@
     }
   ],
   "governance": {
-    "agm_date": "2026-05-07",
-    "fiscal_year": 2025,
-    "ceo_name": "Mark W. Begor",
-    "ceo_total_comp_m": 23.42,
-    "ceo_pay_ratio": null,
-    "exec_comp_approval_pct": null,
-    "board_independence_pct": null,
-    "board_size": 10,
-    "avg_tenure_years": null,
-    "board_women_pct": null,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "top_capital": [],
-    "top_voting": []
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 7.95
+      },
+      {
+        "name": "Harris Associates L.P.",
+        "type": "institutionnel",
+        "stake_pct": 6.32
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 7.95
+      },
+      {
+        "name": "Harris Associates L.P.",
+        "type": "institutionnel",
+        "stake_pct": 6.32
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:04.806485+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -422,28 +467,32 @@
         "value": 1.2774,
         "unit": "Mds $",
         "pct": 36.4,
-        "share_pct": 36.4
+        "share_pct": 36.4,
+        "label_en": "U.S. Information Solutions"
       },
       {
         "name": "Workforce Solutions",
         "value": 0.9497,
         "unit": "Mds $",
         "pct": 27.1,
-        "share_pct": 27.1
+        "share_pct": 27.1,
+        "label_en": "Workforce Solutions"
       },
       {
         "name": "International",
         "value": 0.9206,
         "unit": "Mds $",
         "pct": 26.2,
-        "share_pct": 26.2
+        "share_pct": 26.2,
+        "label_en": "International"
       },
       {
         "name": "Global Consumer Solutions",
         "value": 0.3599,
         "unit": "Mds $",
         "pct": 10.3,
-        "share_pct": 10.3
+        "share_pct": 10.3,
+        "label_en": "Global Consumer Solutions"
       }
     ],
     "total": 3.51,
@@ -457,35 +506,40 @@
         "value": 2.5432,
         "unit": "Mds $",
         "pct": 73,
-        "share_pct": 73
+        "share_pct": 73,
+        "label_en": "United States"
       },
       {
         "name": "U.K.",
         "value": 0.3038,
         "unit": "Mds $",
         "pct": 9,
-        "share_pct": 9
+        "share_pct": 9,
+        "label_en": "U.K."
       },
       {
         "name": "Australia",
         "value": 0.2899,
         "unit": "Mds $",
         "pct": 5,
-        "share_pct": 5
+        "share_pct": 5,
+        "label_en": "Australia"
       },
       {
         "name": "Canada",
         "value": 0.17,
         "unit": "Mds $",
         "pct": 8,
-        "share_pct": 8
+        "share_pct": 8,
+        "label_en": "Canada"
       },
       {
         "name": "Other",
         "value": 0.2007,
         "unit": "Mds $",
         "pct": 5,
-        "share_pct": 5
+        "share_pct": 5,
+        "label_en": "Other"
       }
     ],
     "total": 3.51,
@@ -610,15 +664,15 @@
     }
   ],
   "ranks": {
-    "global_world": "#211",
-    "global_us": "#114",
-    "sector": "#64 in Information Technology",
+    "global_world": "#511",
+    "global_us": "#309",
+    "sector": "#143 in Technologie",
     "subsector": "#1 in Data et analytics"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-21",
   "publication_date": null,
   "company_description": "Equifax Inc. operates as a data, analytics, and technology company. The company operates through three segments: Workforce Solutions, U.S. Information Solutions (USIS), and International. The Workforce Solutions segment offers services that enables customers to verify income, employment, educational history, criminal justice data, healthcare professional licensure, and sanctions of people in the United States; and employer customers with services that that assist them in complying with and automating certain payroll-related and human resource management processes throughout the entire cycle of the employment relationship. The U.S. Information Solutions segment provides consumer and commercial information services, such as credit information and credit scoring, credit modeling and portfolio analytics, locate, fraud detection and prevention, identity verification, and other consulting services; mortgage services; financial marketing services; identity management services; and credit monitoring products. The International segment offers information service products, which include consumer and commercial services comprising credit and financial information, and credit scoring and modeling; and credit and other marketing products and services, as well as information, technology, and services to support debt collections and recovery management. The company also provides information solutions for businesses, governments and consumers; and human resources business process automation and outsourcing services for employers. It operates in Argentina, Australia, Brazil, Canada, Chile, Costa Rica, Dominican Republic, Ecuador, El Salvador, Honduras, India, Ireland, Mexico, New Zealand, Paraguay, Peru, Portugal, Spain, the United Kingdom, Uruguay, and the United States. The company was founded in 1899 and is headquartered in Atlanta, Georgia.",
-  "_built_at": "2026-05-20T20:15:02.322Z",
+  "_built_at": "2026-05-21T16:00:22.178Z",
   "_missing_blocks": []
 }

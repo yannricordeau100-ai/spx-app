@@ -157,7 +157,8 @@
       "period_type": "quarter",
       "publication_date": "2026-04-30",
       "_hero_history_unverified": true,
-      "_hero_history_reason": "<2 valeurs chiffrées vérifiées dans 10-K FY2026"
+      "_hero_history_reason": "<2 valeurs chiffrées vérifiées dans 10-K FY2026",
+      "signal_en": "Demand strengthening, end-market traction"
     },
     {
       "short": "Cash flow opérationnel",
@@ -178,7 +179,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "Dette courante à long terme",
@@ -313,7 +315,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Strong growth, robust momentum"
     },
     {
       "short": "DPS",
@@ -337,7 +340,9 @@
       "signal": "Dividende par action de 0.34 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -359,7 +364,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -381,7 +388,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     }
   ],
   "kpis_story": [
@@ -407,7 +416,45 @@
     "ceo_name": "Thomas L. Ryan",
     "board_independence_pct": 90,
     "board_size": 10,
-    "board_women_pct": 30
+    "board_women_pct": 30,
+    "top_capital": [
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 10.33
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 9.42
+      },
+      {
+        "name": "BAILLIE GIFFORD & CO",
+        "type": "institutionnel",
+        "stake_pct": 6.24
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 10.33
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 9.42
+      },
+      {
+        "name": "BAILLIE GIFFORD & CO",
+        "type": "institutionnel",
+        "stake_pct": 6.24
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:15:02.994098+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "unit": "Mds $",
@@ -417,14 +464,16 @@
       {
         "label": "Funeral",
         "value": 2.41,
+        "share_pct": 55.9,
         "unit": "Mds $",
-        "share_pct": 55.9
+        "label_en": "Funeral"
       },
       {
         "label": "Cemetery",
         "value": 1.9,
+        "share_pct": 44.1,
         "unit": "Mds $",
-        "share_pct": 44.1
+        "label_en": "Cemetery"
       }
     ],
     "total": 4.31
@@ -437,14 +486,16 @@
       {
         "label": "États-Unis",
         "value": 4.1,
+        "share_pct": 95.1,
         "unit": "Mds $",
-        "share_pct": 95.1
+        "label_en": "United States"
       },
       {
         "label": "Canada",
         "value": 0.21,
+        "share_pct": 4.9,
         "unit": "Mds $",
-        "share_pct": 4.9
+        "label_en": "Canada"
       }
     ],
     "total": 4.31
@@ -535,9 +586,9 @@
     }
   ],
   "ranks": {
-    "global_world": "#298",
-    "global_us": "#167",
-    "sector": "Top 25 in Consumer Discretionary",
+    "global_world": "#711",
+    "global_us": "#438",
+    "sector": "#56 in Consommation discrétionnaire",
     "subsector": "#1 in Funeral Services & Cemeteries"
   },
   "latest_filing": null,
@@ -545,6 +596,6 @@
   "publication_date": null,
   "company_description": "Service Corporation International provides deathcare products and services in the United States and Canada. Its funeral service and cemetery operations comprise funeral service locations, cemeteries, funeral service/cemetery combination locations, crematoria, and other businesses. The company also provides professional services related to funerals and cremations, including the use of funeral home facilities and motor vehicles, arranging and directing services, removal, preparation, embalming, cremation, memorialization, and travel protection, as well as catering services. In addition, it offers funeral merchandise, including burial caskets and related accessories, urns and other cremation receptacles, outer burial containers, flowers, online and video tributes, stationery products, casket and cremation memorialization products, and other ancillary merchandise. Further, the company's cemeteries provide cemetery property interment rights, such as developed lots, lawn crypts, mausoleum spaces, and cremation niches; custom inventory, including private mausoleums, family estates, and exclusive cremation memorialization options; and Cemetery merchandise and services, such as memorial cemetery markers and bases, outer burial containers, flowers and floral placement, other ancillary merchandise, graveside services, merchandise installation, and interments. It offers its products and services under the Dignity Memorial, Dignity Planning, National Cremation Society, Advantage Funeral and Cremation Services, Funeraria del Angel, Making Everlasting Memories, Neptune Society, and Trident Society brand names. Service Corporation International was incorporated in 1962 and is headquartered in Houston, Texas.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.599Z",
+  "_built_at": "2026-05-21T16:00:22.693Z",
   "_missing_blocks": []
 }

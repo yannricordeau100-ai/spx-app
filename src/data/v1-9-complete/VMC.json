@@ -244,7 +244,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Total Debt",
@@ -266,7 +268,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Total Revenue",
@@ -290,7 +294,9 @@
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 6 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -315,7 +321,9 @@
       "signal": "Résultat net de 1.077 Mds $ dernière année.",
       "description": "Résultat net consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Top Ten Revenue States",
@@ -366,34 +374,59 @@
     "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action."
   },
   "revenue_by_segment": {
-    "label": "Répartition du chiffre d'affaires par segment opérationnel",
     "slices": [
       {
-        "name": "Aggregates",
-        "value": 3.3166,
-        "unit": "Mds $",
-        "pct": 89.7,
-        "share_pct": 89.7
+        "label": "Aggregates",
+        "share_pct": 74.4,
+        "label_fr": "Agrégats",
+        "label_en": "Aggregates",
+        "value": 5518.6,
+        "unit": "M $"
       },
       {
-        "name": "Asphalt",
-        "value": 0.0916,
-        "unit": "Mds $",
-        "pct": 2.5,
-        "share_pct": 2.5
+        "label": "Asphalt",
+        "share_pct": 16.8,
+        "label_fr": "Enrobés",
+        "label_en": "Asphalt",
+        "value": 1245.6,
+        "unit": "M $"
       },
       {
-        "name": "Concrete",
-        "value": 0.2885,
-        "unit": "Mds $",
-        "pct": 7.8,
-        "share_pct": 7.8
+        "label": "Concrete",
+        "share_pct": 8.8,
+        "label_fr": "Béton",
+        "label_en": "Concrete",
+        "value": 653.5,
+        "unit": "M $"
       }
     ],
-    "total": 3.7,
-    "unit": "Mds $"
+    "year": 2024,
+    "currency": "USD",
+    "total": 7417.7
   },
-  "revenue_by_geography": null,
+  "revenue_by_geography": {
+    "slices": [
+      {
+        "label": "United States",
+        "share_pct": 99.8,
+        "label_fr": "États-Unis",
+        "label_en": "United States",
+        "value": 7401,
+        "unit": "M $"
+      },
+      {
+        "label": "Nondomestic",
+        "share_pct": 0.2,
+        "label_fr": "Hors États-Unis",
+        "label_en": "Nondomestic",
+        "value": 16.7,
+        "unit": "M $"
+      }
+    ],
+    "year": 2024,
+    "currency": "USD",
+    "total": 7417.7
+  },
   "risks": [
     {
       "title": "Risque géologique",
@@ -496,18 +529,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #N/A",
-    "global_us": "N/A",
-    "sector": "N/A",
-    "subsector": "N/A"
+    "global_world": "#364",
+    "global_us": "#219",
+    "sector": "Top 25 in Matériaux",
+    "subsector": "#1 in Construction Materials"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-30",
   "publication_date": null,
   "company_description": "Vulcan Materials Company produces and supplies construction aggregates in the United States. It operates through three segments: Aggregates, Asphalt, and Concrete. The company provides crushed stone, sand and gravel, sand, and other aggregates for use in construction and maintenance of highways, streets, and other public works, as well as in the construction of housing and commercial, industrial, and other nonresidential facilities; aggregates that are used as ballast for construction and maintenance of railroad tracks; riprap and jetty stones for use in erosion control along roads and waterways; asphalt mix; asphalt construction paving services; and ready-mixed concrete products. The company was formerly known as Virginia Holdco, Inc. and changed its name to Vulcan Materials Company. Vulcan Materials Company was founded in 1909 and is headquartered in Birmingham, Alabama.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.677Z",
-  "_missing_blocks": [
-    "revenue_by_geography"
-  ]
+  "_built_at": "2026-05-21T16:00:22.857Z",
+  "_missing_blocks": []
 }

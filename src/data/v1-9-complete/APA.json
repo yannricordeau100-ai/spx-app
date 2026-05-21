@@ -155,7 +155,9 @@
       "ttm": 2.71,
       "_validation": "Correction de l'unité: 'Mds $' -> 'B$' (standard). Correction du name_fr: précisé pour refléter l'industrie pétrolière.",
       "period_type": "quarter",
-      "publication_date": "2026-05-07"
+      "publication_date": "2026-05-07",
+      "explanation_en": "Capital Expenditures : investments in property, plant and equipment.",
+      "signal_en": "Stable, slight decline to monitor"
     },
     {
       "short": "Gross Margin",
@@ -179,7 +181,9 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 65.58,
-      "_validation": "Aucune correction requise. KPI valide."
+      "_validation": "Aucune correction requise. KPI valide.",
+      "explanation_en": "Gross Margin : gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Op Margin",
@@ -203,7 +207,9 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 29.99,
-      "_validation": "Signal amélioré pour plus de clarté. Corrigé la description pour aligner avec le contexte des impairments 2024."
+      "_validation": "Signal amélioré pour plus de clarté. Corrigé la description pour aligner avec le contexte des impairments 2024.",
+      "explanation_en": "Profit margin on Op.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "R&D",
@@ -227,7 +233,9 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 0.78,
-      "_validation": "Aucune correction requise. KPI valide."
+      "_validation": "Aucune correction requise. KPI valide.",
+      "explanation_en": "Research & Development expenses.",
+      "signal_en": "Significant decline, warning signal"
     },
     {
       "short": "Headcount",
@@ -253,7 +261,9 @@
       "is_short_history": true,
       "ttm": 2.05,
       "_validation": "Correction du name_fr: 'Effectifs (employés)' -> 'Effectif total' (cohérence linguistique). Signal amélioré avec contexte des 350 M$.",
-      "_employees_synced_from_yfinance": true
+      "_employees_synced_from_yfinance": true,
+      "explanation_en": "Headcount : total number of employees at period end.",
+      "signal_en": "Significant decline, warning signal"
     },
     {
       "short": "Cash Flow",
@@ -278,7 +288,8 @@
       "is_generic": false,
       "is_short_history": true,
       "ttm": 4.84,
-      "_validation": "Correction de l'unité: 'Mds $' -> 'B$' (standard). Signal précisé avec contexte de collecte de créances en Egypte."
+      "_validation": "Correction de l'unité: 'Mds $' -> 'B$' (standard). Signal précisé avec contexte de collecte de créances en Egypte.",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Operating Income",
@@ -300,7 +311,9 @@
       "signal": "Résultat opérationnel de 3.087 Mds $ dernière année fiscale (FY2025).",
       "description": "Résultat opérationnel extrait SEC EDGAR companyfacts XBRL sur les 5 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Operating Income : profit from core business operations.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Diluted EPS",
@@ -322,7 +335,9 @@
       "signal": "BPA dilué de 3.99 $ dernière année fiscale (FY2025).",
       "description": "BPA dilué extrait SEC EDGAR companyfacts XBRL sur les 5 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Strong growth, robust momentum"
     },
     {
       "short": "DPS",
@@ -346,7 +361,9 @@
       "signal": "Dividende par action de 0.5 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -368,7 +385,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -390,7 +409,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "AI Cloud Mix",
@@ -461,31 +482,44 @@
     }
   ],
   "governance": {
-    "agm_date": "2026-05-21",
-    "fiscal_year": 2025,
-    "ceo_name": "John J. Christmann IV",
-    "board_independence_pct": 100,
-    "board_size": 10,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
     "top_capital": [
       {
-        "name": "The Vanguard Group, Inc.",
+        "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": 12.83
-      },
-      {
-        "name": "Hotchkis and Wiley Capital Management, LLC",
-        "type": "institutionnel",
-        "stake_pct": 10.31
+        "stake_pct": 11.39
       },
       {
         "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": 6.47
+        "stake_pct": 9.56
+      },
+      {
+        "name": "Hotchkis & Wiley Capital Management, LLC",
+        "type": "institutionnel",
+        "stake_pct": 9.06
       }
     ],
-    "ceo_total_comp_m": 13.202517,
-    "top_voting": []
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.39
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 9.56
+      },
+      {
+        "name": "Hotchkis & Wiley Capital Management, LLC",
+        "type": "institutionnel",
+        "stake_pct": 9.06
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:12:02.129673+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "unit": "Mds $",
@@ -495,20 +529,23 @@
       {
         "label": "U.S.",
         "value": 5.541,
+        "share_pct": 61.9,
         "unit": "Mds $",
-        "share_pct": 61.9
+        "label_en": "United States"
       },
       {
         "label": "Egypt",
         "value": 2.637,
+        "share_pct": 29.5,
         "unit": "Mds $",
-        "share_pct": 29.5
+        "label_en": "Egypt"
       },
       {
         "label": "North Sea",
         "value": 0.773,
+        "share_pct": 8.6,
         "unit": "Mds $",
-        "share_pct": 8.6
+        "label_en": "North Sea"
       }
     ],
     "total": 8.95
@@ -521,20 +558,23 @@
       {
         "label": "États-Unis",
         "value": 3.82,
-        "unit": "M $",
-        "share_pct": 52.8
+        "share_pct": 52.8,
+        "unit": "Mds $",
+        "label_en": "United States"
       },
       {
         "label": "Égypte",
         "value": 2.64,
-        "unit": "M $",
-        "share_pct": 36.5
+        "share_pct": 36.5,
+        "unit": "Mds $",
+        "label_en": "Egypt"
       },
       {
         "label": "Europe (Mer du Nord)",
         "value": 0.77,
-        "unit": "M $",
-        "share_pct": 10.7
+        "share_pct": 10.7,
+        "unit": "Mds $",
+        "label_en": "Europe (North Sea)"
       }
     ],
     "total": 7.23
@@ -645,16 +685,16 @@
     }
   ],
   "ranks": {
-    "global_world": "#268",
-    "global_us": "#145",
-    "sector": "Top 25 in Energy",
-    "subsector": "#2 in Oil & Gas Exploration & Production"
+    "global_world": "#616",
+    "global_us": "#371",
+    "sector": "Top 50 in Énergie",
+    "subsector": "Top 5 in Oil & Gas Exploration & Production"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-05-06",
   "publication_date": null,
   "company_description": "APA Corporation, an independent energy company, explores for, develops, and produces natural gas, crude oil, and natural gas liquids. The company has oil and gas operations in the United States, Egypt, and North Sea. It also has exploration and appraisal activities in Suriname, as well as holds interests in projects located in Uruguay and internationally. APA Corporation was incorporated in 1954 and is headquartered in Houston, Texas.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.154Z",
+  "_built_at": "2026-05-21T16:00:21.918Z",
   "_missing_blocks": []
 }

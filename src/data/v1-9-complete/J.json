@@ -68,7 +68,8 @@
       "last_data_date": "Non disponible",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Research & Development expenses."
     },
     {
       "short": "Headcount",
@@ -89,7 +90,8 @@
       "is_generic": false,
       "is_short_history": false,
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "No explicit annual headcount figures found in the provided 10-K extract. The excerpt contains MD&A sections on revenue accounting, joint ven"
+      "_hero_history_unverified_reason": "No explicit annual headcount figures found in the provided 10-K extract. The excerpt contains MD&A sections on revenue accounting, joint ven",
+      "explanation_en": "Headcount : total number of employees at period end."
     },
     {
       "short": "Total Revenue",
@@ -119,7 +121,9 @@
       "_source": "yfinance.income_stmt",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:51:54.521626+00:00",
-      "last_data_date": "2026-03-27"
+      "last_data_date": "2026-03-27",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -140,7 +144,9 @@
       "signal": "Résultat net de 0.29 Mds € dernière année",
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal"
     },
     {
       "short": "Operating Income",
@@ -161,7 +167,9 @@
       "signal": "Résultat opérationnel de 0.86 Mds € dernière année",
       "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Operating Income : profit from core business operations.",
+      "signal_en": "Strong growth, robust momentum"
     },
     {
       "short": "Total Assets",
@@ -182,7 +190,9 @@
       "signal": "Total des actifs de 11.25 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Total Debt",
@@ -203,7 +213,9 @@
       "signal": "Dette totale de 2.71 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Cash & Equivalents",
@@ -224,7 +236,8 @@
       "signal": "Trésorerie & équivalents de 1.24 Mds € dernière année",
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "DPS",
@@ -248,7 +261,9 @@
       "signal": "Dividende par action de 0.36 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -269,7 +284,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 0.153 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -290,7 +307,9 @@
       "signal": "Part du résultat net distribué en dividendes : 52.9% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Challenge Accepted Strategy",
@@ -335,26 +354,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "ceo_name": "Bob Pragada",
-    "fiscal_year": 2026,
-    "voting_structure": "Information non disponible dans l'extrait fourni.",
     "top_capital": [
       {
         "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": 11.9
+        "stake_pct": 10.49
       },
       {
-        "name": "Blackrock, Inc.",
+        "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": 6.84
+        "stake_pct": 8.88
       },
       {
         "name": "State Street Corporation",
         "type": "institutionnel",
-        "stake_pct": 6.31
+        "stake_pct": 6.14
       }
-    ]
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 10.49
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.88
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 6.14
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:51.989847+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -364,14 +401,16 @@
         "value": 4.966,
         "unit": "Mds $",
         "pct": 36.6,
-        "share_pct": 36.6
+        "share_pct": 36.6,
+        "label_en": "Critical Mission Solutions"
       },
       {
         "name": "People Places Solutions",
         "value": 8.601,
         "unit": "Mds $",
         "pct": 63.4,
-        "share_pct": 63.4
+        "share_pct": 63.4,
+        "label_en": "People Places Solutions"
       }
     ],
     "total": 13.57,
@@ -385,49 +424,56 @@
         "value": 7.415,
         "unit": "Mds $",
         "pct": 61.6,
-        "share_pct": 61.6
+        "share_pct": 61.6,
+        "label_en": "United States"
       },
       {
         "name": "Europe",
         "value": 2.872,
         "unit": "Mds $",
         "pct": 23.9,
-        "share_pct": 23.9
+        "share_pct": 23.9,
+        "label_en": "Europe"
       },
       {
         "name": "Canada",
         "value": 0.248,
         "unit": "Mds $",
         "pct": 2.1,
-        "share_pct": 2.1
+        "share_pct": 2.1,
+        "label_en": "Canada"
       },
       {
         "name": "Asia",
         "value": 0.145,
         "unit": "Mds $",
         "pct": 1.2,
-        "share_pct": 1.2
+        "share_pct": 1.2,
+        "label_en": "Asia"
       },
       {
         "name": "India",
         "value": 0.18,
         "unit": "Mds $",
         "pct": 1.5,
-        "share_pct": 1.5
+        "share_pct": 1.5,
+        "label_en": "India"
       },
       {
         "name": "Australia and New Zealand",
         "value": 0.573,
         "unit": "Mds $",
         "pct": 4.8,
-        "share_pct": 4.8
+        "share_pct": 4.8,
+        "label_en": "Australia and New Zealand"
       },
       {
         "name": "Middle East and Africa",
         "value": 0.596,
         "unit": "Mds $",
         "pct": 4.9,
-        "share_pct": 4.9
+        "share_pct": 4.9,
+        "label_en": "Middle East and Africa"
       }
     ],
     "total": 12.03,
@@ -529,20 +575,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #XX",
-    "global_us": "...",
-    "sector": "...",
-    "subsector": "..."
+    "global_world": "#788",
+    "global_us": "#474",
+    "sector": "#216 in Technologie",
+    "subsector": "Top 10 in IT Services"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-05-05",
   "publication_date": null,
   "company_description": "Jacobs Solutions Inc. engages in the infrastructure and advanced facilities, and consulting businesses in the United States, Europe, Canada, India, Asia, Australia, New Zealand, the Middle East, and Africa. The company provides consulting, planning, architecture, design, engineering, and infrastructure delivery services including project, program, and construction management and long-term operation of facilities. It also offers consulting services for consumer and manufacturing, defense and security, energy and utilities, financial services, government, health and life sciences, and transport sectors. The company was founded in 1947 and is headquartered in Dallas, Texas.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.426Z",
-  "_missing_blocks": [
-    "revenue_by_geography"
-  ],
-  "_seg_geo_backfilled_at": "2026-05-21T00:48:39.522904+00:00",
-  "_seg_geo_backfilled_by": "CONV-CONCEPTS-cerebras-qwen3-235b"
+  "_built_at": "2026-05-21T16:00:22.357Z",
+  "_missing_blocks": []
 }

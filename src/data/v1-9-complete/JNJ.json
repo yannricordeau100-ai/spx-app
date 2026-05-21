@@ -134,7 +134,8 @@
       "period_type": "quarter",
       "publication_date": "2026-04-22",
       "_hero_history_unverified": true,
-      "_hero_history_reason": "non trouvée dans 10-K FY2026: non trouvé"
+      "_hero_history_reason": "non trouvée dans 10-K FY2026: non trouvé",
+      "signal_en": "Demand strengthening, end-market traction"
     },
     {
       "short": "Pipeline",
@@ -161,7 +162,8 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation_note": "KPI potentiellement halluciné : aucune mention explicite de '18 molécules en Phase 3' dans les extraits fournis. À vérifier.",
-      "ttm": 18.26
+      "ttm": 18.26,
+      "signal_en": "Forward visibility increasing, pipeline strengthening"
     },
     {
       "short": "Op Margin",
@@ -188,7 +190,9 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation_note": "Marge opérationnelle calculable depuis les données : Gross profit 63,937M$ / Sales 94,193M$ = 67.9% brut. Operating margin après SG&A et R&D = (63,937 - 23,676 - 14,665) / 94,193 = 27.1%. Valeur 34.5% non vérifiable directement, possiblement ajustée (Core). À vérifier définition exacte.",
-      "ttm": 34.81
+      "ttm": 34.81,
+      "explanation_en": "Profit margin on Op.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "R&D",
@@ -215,7 +219,9 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation_note": "R&D expense 2025: 14,665M$ / Sales 94,193M$ = 15.6%. Vérifié et correct. YoY: 2024 R&D 17,232M$ / Sales 88,821M$ = 19.4%, donc -3.8 pts (pas -2.9 pts). Correction YoY nécessaire.",
-      "ttm": 14.99
+      "ttm": 14.99,
+      "explanation_en": "Research & Development expenses.",
+      "signal_en": "Stable, slight decline to monitor"
     },
     {
       "short": "Vaccines / Specialty",
@@ -242,7 +248,8 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation_note": "KPI potentiellement halluciné : aucune segmentation 'Vaccines / Specialty Care' avec valeur 12.8 Mds $ n'apparaît dans les extraits fournis. À vérifier dans le document source complet.",
-      "ttm": 12.99
+      "ttm": 12.99,
+      "signal_en": "Demand strengthening, end-market traction"
     },
     {
       "short": "FCF",
@@ -269,7 +276,9 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation_note": "FCF calculé : Operating cash flow 24,530M$ - Capex 4,832M$ = 19,698M$ (≈19.7 Mds $). Valeur dataset 22.0 Mds $ incorrect. Correction nécessaire.",
-      "ttm": 22.1
+      "ttm": 22.1,
+      "explanation_en": "Free Cash Flow : operating cash flow minus capital expenditures.",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Total Revenue",
@@ -294,7 +303,9 @@
       "signal": "Chiffre d'affaires de 94.193 Mds $ dernière année fiscale (FY2025).",
       "description": "Chiffre d'affaires extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -319,7 +330,9 @@
       "signal": "Résultat net de 26.804 Mds $ dernière année fiscale (FY2025).",
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "DPS",
@@ -343,7 +356,9 @@
       "signal": "Dividende par action de 1.3 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -365,7 +380,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -387,7 +404,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "FDA Approval",
@@ -463,20 +482,44 @@
     }
   ],
   "governance": {
-    "agm_date": "2026-04-23",
-    "fiscal_year": 2025,
-    "ceo_name": "Non spécifié dans les extraits",
-    "ceo_total_comp_m": "Non spécifié",
-    "ceo_pay_ratio": "Non spécifié",
-    "exec_comp_approval_pct": "Non spécifié",
-    "board_independence_pct": 80,
-    "board_size": 12,
-    "avg_tenure_years": 6.5,
-    "board_women_pct": 33.3,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "top_capital": [],
-    "top_voting": [],
-    "lead_independent_director": "Marillyn A. Hewson"
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 9.15
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.86
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 5.54
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 9.15
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.86
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 5.54
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:54.542319+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "unit": "Mds $",
@@ -486,32 +529,37 @@
       {
         "label": "Oncology (Innovative Medicine)",
         "value": 25.38,
-        "unit": "M $",
-        "share_pct": 44.8
+        "share_pct": 44.8,
+        "unit": "Mds $",
+        "label_en": "Oncology (Innovative Medicine)"
       },
       {
         "label": "Immunology (Innovative Medicine)",
         "value": 15.73,
-        "unit": "M $",
-        "share_pct": 27.8
+        "share_pct": 27.8,
+        "unit": "Mds $",
+        "label_en": "Immunology (Innovative Medicine)"
       },
       {
         "label": "Neuroscience (Innovative Medicine)",
         "value": 7.84,
-        "unit": "M $",
-        "share_pct": 13.8
+        "share_pct": 13.8,
+        "unit": "Mds $",
+        "label_en": "Neuroscience (Innovative Medicine)"
       },
       {
         "label": "Pulmonary Hypertension (Innovative Medicine)",
         "value": 4.44,
-        "unit": "M $",
-        "share_pct": 7.8
+        "share_pct": 7.8,
+        "unit": "Mds $",
+        "label_en": "Pulmonary Hypertension (Innovative Medicine)"
       },
       {
         "label": "Infectious Diseases (Innovative Medicine)",
         "value": 3.24,
-        "unit": "M $",
-        "share_pct": 5.7
+        "share_pct": 5.7,
+        "unit": "Mds $",
+        "label_en": "Infectious Diseases (Innovative Medicine)"
       }
     ],
     "_extraction_note": "JNJ has 2 reportable segments (Innovative Medicine + MedTech). The chunk shows Innovative Medicine therapeutic-area breakdown; MedTech total not captured in this chunk.",
@@ -528,14 +576,16 @@
       {
         "label": "États-Unis",
         "value": 36.3,
+        "share_pct": 60.1,
         "unit": "Mds $",
-        "share_pct": 60.1
+        "label_en": "United States"
       },
       {
         "label": "International",
         "value": 24.1,
+        "share_pct": 39.9,
         "unit": "Mds $",
-        "share_pct": 39.9
+        "label_en": "International"
       }
     ],
     "total": 60.4
@@ -666,15 +716,15 @@
     }
   ],
   "ranks": {
-    "global_world": "#25",
-    "global_us": "#19",
-    "sector": "#2 dans Healthcare",
-    "subsector": "#1 dans Pharmaceuticals and Medical Devices"
+    "global_world": "#19",
+    "global_us": "#16",
+    "sector": "#2 in Santé",
+    "subsector": "#1 in Pharmaceuticals and Medical Devices"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-15",
   "publication_date": null,
   "company_description": "Johnson & Johnson, together with its subsidiaries, engages in the research and development, manufacture, and sale of a range of products in the healthcare field worldwide. It operates in two segments, Innovative Medicine and MedTech. The Innovative Medicine segment offers products for various therapeutic areas, such as oncology, immunology, neuroscience, pulmonary hypertension, infectious diseases, and cardiovascular and metabolism distributed through retailers, wholesalers, distributors, hospitals, and healthcare professionals for prescription use. The MedTech segment provides a portfolio of products used in the surgery, orthopedic, cardiovascular, and vision fields distributed through wholesalers, hospitals and retailers, and used in the professional fields by physicians, nurses, hospitals, eye care professionals and clinics. This segment also offers products and enabling technologies that support joint reconstruction, trauma, spine, sports related injuries, and others, as well as open, laparoscopic, and robotic surgical procedures; instrumentation, energy devices, stapling systems, wound closure, biosurgery products, and digital and robotic technologies; breast aesthetics and reconstruction; contact lenses under the ACUVUE brand; intraocular lenses for cataract surgery, and other products used in cataract and refractive procedures under the TECNIS brand. The company was founded in 1886 and is based in New Brunswick, New Jersey.",
-  "_built_at": "2026-05-20T20:15:02.434Z",
+  "_built_at": "2026-05-21T16:00:22.370Z",
   "_missing_blocks": []
 }

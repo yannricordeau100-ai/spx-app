@@ -152,7 +152,9 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 3.7,
-      "_validation": "Unit corrected from 'Mboe/d' to 'Mboe/j' (French standard for per day); value appears inferred as Business Profile table shows 'Net liquids production (thousands of barrels daily)' without consolidated total hydrocarbon figure; maintained as likely estimate based on operational context"
+      "_validation": "Unit corrected from 'Mboe/d' to 'Mboe/j' (French standard for per day); value appears inferred as Business Profile table shows 'Net liquids production (thousands of barrels daily)' without consolidated total hydrocarbon figure; maintained as likely estimate based on operational context",
+      "explanation_en": "Production : total physical output over the period.",
+      "signal_en": "Demand strengthening, end-market traction"
     },
     {
       "short": "Capex",
@@ -179,7 +181,9 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 29,
-      "_validation": "VALUE CORRECTED: Business Profile table shows 'Cash Capital Expenditures 28,997 M$ (2025) vs 25,647 M$ (2024)', which is 29.0 Mds $ vs 25.6 Mds $, representing +13% YoY growth, not stable; original value of 17.5 Mds $ was hallucinated; history adjusted to reflect actual growth trajectory"
+      "_validation": "VALUE CORRECTED: Business Profile table shows 'Cash Capital Expenditures 28,997 M$ (2025) vs 25,647 M$ (2024)', which is 29.0 Mds $ vs 25.6 Mds $, representing +13% YoY growth, not stable; original value of 17.5 Mds $ was hallucinated; history adjusted to reflect actual growth trajectory",
+      "explanation_en": "Capital Expenditures : investments in property, plant and equipment.",
+      "signal_en": "Solid expansion, positive trajectory"
     },
     {
       "short": "FCF",
@@ -206,7 +210,9 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 30.2,
-      "_validation": "FCF value cannot be verified directly from provided extracts (no consolidated Statement of Cash Flows operating cash flow figure provided); value appears estimated; maintained as plausible inference but flagged as unverifiable from source"
+      "_validation": "FCF value cannot be verified directly from provided extracts (no consolidated Statement of Cash Flows operating cash flow figure provided); value appears estimated; maintained as plausible inference but flagged as unverifiable from source",
+      "explanation_en": "Free Cash Flow : operating cash flow minus capital expenditures.",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "ROCE",
@@ -233,7 +239,9 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 9.4,
-      "_validation": "VALUE CORRECTED: Business Profile table shows Corporate total 'Return on Average Capital Employed 9.3% (2025) vs 12.7% (2024)'; original 'Op Margin / EBITDA Margin 18.5%' was hallucinated; replaced with actual ROCE metric from source; name_fr and fields updated accordingly"
+      "_validation": "VALUE CORRECTED: Business Profile table shows Corporate total 'Return on Average Capital Employed 9.3% (2025) vs 12.7% (2024)'; original 'Op Margin / EBITDA Margin 18.5%' was hallucinated; replaced with actual ROCE metric from source; name_fr and fields updated accordingly",
+      "explanation_en": "Return on Capital Employed : operating profit divided by capital employed.",
+      "signal_en": "Margin compression, watch profitability"
     },
     {
       "short": "Earnings",
@@ -260,7 +268,8 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 28.8,
-      "_validation": "VALUE ADDED FROM SOURCE: Business Profile table shows Corporate total 'Earnings (Loss) After Income Taxes 28,844 M$ (2025) vs 33,680 M$ (2024)', representing -14% YoY decline; replaced hallucinated 'Reserves Life' KPI which could not be verified from source extracts"
+      "_validation": "VALUE ADDED FROM SOURCE: Business Profile table shows Corporate total 'Earnings (Loss) After Income Taxes 28,844 M$ (2025) vs 33,680 M$ (2024)', representing -14% YoY decline; replaced hallucinated 'Reserves Life' KPI which could not be verified from source extracts",
+      "signal_en": "Margin compression, watch profitability"
     },
     {
       "short": "Total Assets",
@@ -281,7 +290,9 @@
       "signal": "Total des actifs de 448.98 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Total Debt",
@@ -302,7 +313,9 @@
       "signal": "Dette totale de 43.54 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -323,7 +336,8 @@
       "signal": "Trésorerie & équivalents de 10.68 Mds € dernière année",
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "DPS",
@@ -347,7 +361,9 @@
       "signal": "Dividende par action de 1.03 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -368,7 +384,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 17.231 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -389,7 +407,9 @@
       "signal": "Part du résultat net distribué en dividendes : 59.7% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Total Revenue",
@@ -414,7 +434,9 @@
       "signal": "Chiffre d'affaires de 332.238 Mds $ dernière année.",
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Revenue pressure, demand softening"
     },
     {
       "short": "Net Income",
@@ -439,7 +461,9 @@
       "signal": "Résultat net de 28.844 Mds $ dernière année.",
       "description": "Résultat net consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns"
     },
     {
       "short": "Low-Carbon Capex",
@@ -472,36 +496,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "ceo_name": "Mr. Darren W. Woods",
-    "ceo_title": "Chairman of the Board, President & CEO",
-    "officers": [
+    "top_capital": [
       {
-        "name": "Mr. Darren W. Woods",
-        "title": "Chairman of the Board, President & CEO",
-        "age": 60
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 9.33
       },
       {
-        "name": "Mr. Jon M. Gibbs",
-        "title": "Senior President of ExxonMobil Global Operations",
-        "age": 53
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 7.79
       },
       {
-        "name": "Mr. Neil A. Chapman",
-        "title": "Senior Vice President",
-        "age": 63
-      },
-      {
-        "name": "Mr. Jack P. Williams Jr.",
-        "title": "Senior Vice President",
-        "age": 61
-      },
-      {
-        "name": "Mr. Neil A. Hansen",
-        "title": "Senior VP & CFO",
-        "age": 50
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 5.16
       }
     ],
-    "fiscal_year": 2025
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 9.33
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 7.79
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 5.16
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:15:44.284203+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -511,21 +543,24 @@
         "value": 148.7,
         "unit": "Mds $",
         "pct": 58.5,
-        "share_pct": 58.5
+        "share_pct": 58.5,
+        "label_en": "Upstream"
       },
       {
         "name": "Product Solutions",
         "value": 67.5,
         "unit": "Mds $",
         "pct": 26.5,
-        "share_pct": 26.5
+        "share_pct": 26.5,
+        "label_en": "Product Solutions"
       },
       {
         "name": "Chemical",
         "value": 38.8,
         "unit": "Mds $",
         "pct": 15,
-        "share_pct": 15
+        "share_pct": 15,
+        "label_en": "Chemical"
       }
     ],
     "total": 255,
@@ -539,14 +574,16 @@
         "value": 149.201,
         "unit": "Mds $",
         "pct": 37.4,
-        "share_pct": 37.4
+        "share_pct": 37.4,
+        "label_en": "United States"
       },
       {
         "name": "Non-U.S.",
         "value": 249.474,
         "unit": "Mds $",
         "pct": 62.6,
-        "share_pct": 62.6
+        "share_pct": 62.6,
+        "label_en": "Outside United States"
       }
     ],
     "total": 398.67,
@@ -598,20 +635,82 @@
     "_validation": "Confirmed: no AI/ML references detected in provided ITEM 1 BUSINESS, ITEM 1A RISK FACTORS, or MDA excerpts"
   },
   "market_positions": [],
-  "events": [],
+  "events": [
+    {
+      "year": 2026,
+      "month": 7,
+      "title": "Prochaine publication Q3 2026",
+      "body": "Publication attendue le 31 juillet 2026 (Q3 2026).",
+      "source": "yfinance · calendar",
+      "url": "",
+      "date": "2026-07-31"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "Exxon Mobil Corporation (XOM): Graham Stephan Might Have Moved On, But Core Thesis Remains Intact",
+      "body": "We just covered the Graham Stephan Stock Portfolio: Top 11 Stocks and Exxon Mobil Corporation (NYSE:XOM) ranks 4th on this list. Graham Stephan is not one to take individual stock recommendations lightly. This is because he believes that in",
+      "source": "Insider Monkey",
+      "url": "https://finance.yahoo.com/sectors/energy/articles/exxon-mobil-corporation-xom-graham-194812067.html",
+      "date": "2026-05-20"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "Dividende 1.03 $/action versé",
+      "body": "Dividende ordinaire de 1.03 $ par action, ex-date 15 mai 2026.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2026-05-15"
+    },
+    {
+      "year": 2026,
+      "month": 3,
+      "title": "Publication des résultats Q1 2026",
+      "body": "Clôture du trimestre Q1 2026 le 31 mars 2026.",
+      "source": "yfinance · mostRecentQuarter",
+      "url": "",
+      "date": "2026-03-31"
+    },
+    {
+      "year": 2026,
+      "month": 2,
+      "title": "Dividende 1.03 $/action versé",
+      "body": "Dividende ordinaire de 1.03 $ par action, ex-date 12 février 2026.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2026-02-12"
+    },
+    {
+      "year": 2025,
+      "month": 11,
+      "title": "Dividende 1.03 $/action versé",
+      "body": "Dividende ordinaire de 1.03 $ par action, ex-date 14 novembre 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-11-14"
+    },
+    {
+      "year": 2025,
+      "month": 8,
+      "title": "Dividende 0.99 $/action versé",
+      "body": "Dividende ordinaire de 0.99 $ par action, ex-date 15 août 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-08-15"
+    }
+  ],
   "ranks": {
-    "global_world": "≈ #15",
-    "global_us": "Top 10",
-    "sector": "Top 3",
-    "subsector": "Top 2"
+    "global_world": "#15",
+    "global_us": "#14",
+    "sector": "#1 in Énergie",
+    "subsector": "#1 in Integrated Oil and Gas"
   },
   "latest_filing": null,
   "next_earnings_date": null,
   "publication_date": null,
   "company_description": "Exxon Mobil Corporation engages in the exploration and production of crude oil and natural gas in the United States, Canada, and internationally. The company operates through Upstream, Energy Products, Chemical Products, and Specialty Products segments. Its Upstream segment explores for and produces crude oil and natural gas. The Energy Products segment offers fuels, aromatics, and catalysts, as well as licensing services. Its Chemical Products segment manufactures and sells olefins, polyolefins, and intermediates. The Specialty Products segment offers finished lubricants, basestocks, waxes, synthetics, elastomers, and resins. It is also involved in the manufacture, trade, transport, and sale of crude oil, natural gas, petroleum products, petrochemicals, and other specialty products; and pursuit of lower-emission and business opportunities, including carbon capture and storage, hydrogen, lower-emission fuels, Proxxima resin systems, carbon materials, low-carbon data center, and lithium. In addition, the company offers aviation fuel. It sells its products under the Exxon, Esso, and Mobil brands. Exxon Mobil Corporation was founded in 1870 and is headquartered in Spring, Texas.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.706Z",
-  "_missing_blocks": [
-    "events"
-  ]
+  "_built_at": "2026-05-21T16:00:22.901Z",
+  "_missing_blocks": []
 }

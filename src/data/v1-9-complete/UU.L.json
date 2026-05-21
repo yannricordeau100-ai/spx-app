@@ -109,7 +109,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "annual"
+      "period_type": "annual",
+      "explanation_en": "Headcount : total number of employees at period end.",
+      "signal_en": "Flat year-over-year, monitor closely"
     },
     {
       "short": "Total Revenue",
@@ -130,7 +132,9 @@
       "signal": "Chiffre d'affaires de 2.15 Mds € dernière année",
       "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -151,7 +155,9 @@
       "signal": "Résultat net de 0.26 Mds € dernière année",
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum"
     },
     {
       "short": "Operating Income",
@@ -172,7 +178,9 @@
       "signal": "Résultat opérationnel de 0.64 Mds € dernière année",
       "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Operating Income : profit from core business operations.",
+      "signal_en": "Strong growth, robust momentum"
     },
     {
       "short": "Total Assets",
@@ -193,7 +201,9 @@
       "signal": "Total des actifs de 16.77 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -214,7 +224,9 @@
       "signal": "Dette totale de 10.79 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -235,7 +247,8 @@
       "signal": "Trésorerie & équivalents de 1.67 Mds € dernière année",
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     }
   ],
   "kpis_story": [
@@ -256,36 +269,72 @@
     }
   ],
   "governance": {
-    "ceo_name": "Ms. Louise  Beardmore",
-    "ceo_title": "CEO & Director",
-    "officers": [
+    "top_capital": [
       {
-        "name": "Ms. Louise  Beardmore",
-        "title": "CEO & Director",
-        "age": 51
+        "name": "LAZARD FUNDS INC-Lazard Global Listed Infrastructure Portfolio",
+        "type": "institutional",
+        "stake_pct": 3.97,
+        "source": "yfinance_institutional_holders"
       },
       {
-        "name": "Mr. Philip Anthony Aspin",
-        "title": "CFO & Director",
-        "age": 57
+        "name": "VANGUARD STAR FUNDS-Vanguard Total International Stock Index Fund",
+        "type": "institutional",
+        "stake_pct": 1.35,
+        "source": "yfinance_institutional_holders"
       },
       {
-        "name": "Mr. Matthew  Hemmings",
-        "title": "Chief Operating Officer",
-        "age": null
+        "name": "VANGUARD TAX-MANAGED FUNDS-Vanguard Developed Markets Index Fund",
+        "type": "institutional",
+        "stake_pct": 0.87,
+        "source": "yfinance_institutional_holders"
       },
       {
-        "name": "Mr. Mike  Gauterin",
-        "title": "Customer, Technology & Security Director",
-        "age": null
+        "name": "iShares Trust-iShares Core MSCI EAFE ETF",
+        "type": "institutional",
+        "stake_pct": 0.64,
+        "source": "yfinance_institutional_holders"
       },
       {
-        "name": "Mr. Robert  Lee",
-        "title": "Head of Investor Relations",
-        "age": null
+        "name": "Franklin Custodian Funds-FRANKLIN UTILITIES FUND",
+        "type": "institutional",
+        "stake_pct": 0.54,
+        "source": "yfinance_institutional_holders"
       }
     ],
-    "fiscal_year": 2025
+    "top_voting": [
+      {
+        "name": "LAZARD FUNDS INC-Lazard Global Listed Infrastructure Portfolio",
+        "type": "institutional",
+        "stake_pct": 3.97,
+        "source": "yfinance_institutional_holders"
+      },
+      {
+        "name": "VANGUARD STAR FUNDS-Vanguard Total International Stock Index Fund",
+        "type": "institutional",
+        "stake_pct": 1.35,
+        "source": "yfinance_institutional_holders"
+      },
+      {
+        "name": "VANGUARD TAX-MANAGED FUNDS-Vanguard Developed Markets Index Fund",
+        "type": "institutional",
+        "stake_pct": 0.87,
+        "source": "yfinance_institutional_holders"
+      },
+      {
+        "name": "iShares Trust-iShares Core MSCI EAFE ETF",
+        "type": "institutional",
+        "stake_pct": 0.64,
+        "source": "yfinance_institutional_holders"
+      },
+      {
+        "name": "Franklin Custodian Funds-FRANKLIN UTILITIES FUND",
+        "type": "institutional",
+        "stake_pct": 0.54,
+        "source": "yfinance_institutional_holders"
+      }
+    ],
+    "_top_extended_by_sub90": "2026-05-21T09:21:49Z",
+    "_top_source_sub90": "yfinance_institutional_holders"
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -295,14 +344,16 @@
         "value": 1.2,
         "unit": "Mds £",
         "pct": 53,
-        "share_pct": 53
+        "share_pct": 53,
+        "label_en": "Eau (Water)"
       },
       {
         "name": "Assainissement (Wastewater)",
         "value": 1.1,
         "unit": "Mds £",
         "pct": 47,
-        "share_pct": 47
+        "share_pct": 47,
+        "label_en": "Assainissement (Wastewater)"
       }
     ],
     "total": 2.3,
@@ -438,15 +489,15 @@
     }
   ],
   "ranks": {
-    "global_world": "#467",
+    "global_world": "#626",
     "global_us": "Non US",
-    "sector": "Top 25 in Utilities",
+    "sector": "Top 50 in Services aux collectivités",
     "subsector": "#1 in Water and Wastewater Services"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-05-14",
   "publication_date": null,
   "company_description": "United Utilities Group PLC provides water and wastewater services in the United Kingdom. It is involved in the renewable energy generation, corporate trustee, financing, and property management activities. The company operates approximately 122,000 kilometers of water and wastewater pipes. United Utilities Group PLC was incorporated in 2008 and is based in Warrington, the United Kingdom.",
-  "_built_at": "2026-05-20T20:15:02.671Z",
+  "_built_at": "2026-05-21T16:00:22.846Z",
   "_missing_blocks": []
 }

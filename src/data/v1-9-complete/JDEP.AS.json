@@ -209,7 +209,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "annual"
+      "period_type": "annual",
+      "explanation_en": "Gross Margin : gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Op Margin",
@@ -234,7 +236,9 @@
       "last_data_date": "2022-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Profit margin on Op.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "R&D",
@@ -259,7 +263,9 @@
       "last_data_date": "2022-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Research & Development expenses.",
+      "signal_en": "Flat year-over-year, monitor closely"
     },
     {
       "short": "Capex",
@@ -284,7 +290,9 @@
       "last_data_date": "2022-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Capital Expenditures : investments in property, plant and equipment.",
+      "signal_en": "Steady growth, healthy trend"
     },
     {
       "short": "Headcount",
@@ -311,7 +319,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_employees_synced_from_yfinance": true
+      "_employees_synced_from_yfinance": true,
+      "explanation_en": "Headcount : total number of employees at period end.",
+      "signal_en": "Significant decline, warning signal"
     },
     {
       "short": "DPS",
@@ -334,7 +344,9 @@
       "signal": "Dividende par action de 0.36 EUR dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 6 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -356,7 +368,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -378,14 +392,17 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     }
   ],
   "kpis_story": [],
   "governance": {
-    "ceo_name": "Mr. Rafael  de Oliveira",
-    "ceo_title": "CEO & Executive Director",
-    "fiscal_year": 2025
+    "top_disclosure": "eu_regex_extracted",
+    "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
+    "_top_disclosure_at": "2026-05-21T02:49:04.652613+00:00",
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:18:58Z"
   },
   "revenue_by_segment": {
     "unit": "Mds EUR",
@@ -399,71 +416,91 @@
         "label": "Europe",
         "value": 5.12,
         "share_pct": 51.6,
-        "unit": "Mds EUR"
+        "unit": "Mds EUR",
+        "label_en": "Europe"
       },
       {
         "label": "LARMEA (Latin America, Russia, Middle East, Africa)",
         "value": 2.64,
         "share_pct": 26.6,
-        "unit": "Mds EUR"
+        "unit": "Mds EUR",
+        "label_en": "LARMEA (Latin America, Russia, Middle East, Africa)"
       },
       {
         "label": "Peet's",
         "value": 1.3,
         "share_pct": 13.1,
-        "unit": "Mds EUR"
+        "unit": "Mds EUR",
+        "label_en": "Peet's"
       },
       {
         "label": "APAC (Asia Pacific)",
         "value": 0.83,
         "share_pct": 8.4,
-        "unit": "Mds EUR"
+        "unit": "Mds EUR",
+        "label_en": "APAC"
       },
       {
         "label": "Unallocated",
         "value": 0.04,
         "share_pct": 0.4,
-        "unit": "Mds EUR"
+        "unit": "Mds EUR",
+        "label_en": "Unallocated"
       }
     ]
   },
   "revenue_by_geography": {
-    "unit": "M €",
-    "source_date": "2025-06-30",
-    "source": "Entity-wide disclosures - Revenue by location of selling entity (H1 2025)",
+    "label": "Repartition du chiffre d'affaires par zone geographique (pays vente)",
+    "_verifier": "claude-subagent-mission-b",
+    "_verified_at": "2026-05-20T16:00:00Z",
+    "_source": "JDE Peet's Annual Report 2025 p.198 (Entity-wide disclosures by location of selling entity)",
+    "currency": "EUR",
+    "unit": "%",
+    "total": 9921,
     "slices": [
       {
-        "label": "Reste du monde",
-        "value": null,
-        "unit": "M €"
+        "label": "Bresil",
+        "value": 1389,
+        "share_pct": 14,
+        "unit": "M EUR",
+        "label_en": "Brazil"
       },
       {
-        "label": "Brésil",
-        "value": null,
-        "unit": "M €"
-      },
-      {
-        "label": "États-Unis",
-        "value": null,
-        "unit": "M €"
+        "label": "Etats-Unis",
+        "value": 1191,
+        "share_pct": 12,
+        "unit": "M EUR",
+        "label_en": "United States"
       },
       {
         "label": "France",
-        "value": null,
-        "unit": "M €"
+        "value": 1191,
+        "share_pct": 12,
+        "unit": "M EUR",
+        "label_en": "France"
       },
       {
         "label": "Allemagne",
-        "value": null,
-        "unit": "M €"
+        "value": 794,
+        "share_pct": 8,
+        "unit": "M EUR",
+        "label_en": "Germany"
       },
       {
         "label": "Pays-Bas",
-        "value": null,
-        "unit": "M €"
+        "value": 694,
+        "share_pct": 7,
+        "unit": "M EUR",
+        "label_en": "Netherlands"
+      },
+      {
+        "label": "Reste du monde",
+        "value": 4663,
+        "share_pct": 47,
+        "unit": "M EUR",
+        "label_en": "Rest of World"
       }
-    ],
-    "note": "Données en pourcentages uniquement (pas de valeurs absolues en EUR millions fournies)"
+    ]
   },
   "risks": [
     {
@@ -576,16 +613,16 @@
     }
   ],
   "ranks": {
-    "global_world": "#234",
+    "global_world": "#544",
     "global_us": "Non US",
-    "sector": "Top 25 in Consumer Staples",
-    "subsector": "Top 5 in Beverages"
+    "sector": "Top 25 in Consommation de base",
+    "subsector": "Top 10 in Beverages"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-02-24",
   "publication_date": null,
   "company_description": "JDE Peet's N.V. operates as a coffee and tea company worldwide. The company operates through Europe, LARMEA, APAC, and Peet's segments. It provides roast and ground multi-serve coffee, roast and ground single-serve coffee pads and capsules, instant coffee, and tea; hot beverage products, including liquid roast products and related coffee machines, and services. The company also offers whole bean coffee, beverages, tea, and related products, as well as pastries. The company sells its products primarily under the L'OR, Peet's, Jacobs, Friele, Douwe Egberts, Kenco, Old Town, Super, Pickwick, Pilão, Friele, Marcilla, Gevalia, Maxwell House, and Moccona brands. It serves various businesses, such as offices, hotels, bars, and restaurants, as well as coffee stores. JDE Peet's N.V. was founded in 1753 and is headquartered in Amsterdam, the Netherlands. JDE Peet's N.V. is a subsidiary of Acorn Holdings B.V. As of March 27, 2026, JDE Peet's N.V. operates as a subsidiary of Keurig Dr Pepper Inc..",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.431Z",
+  "_built_at": "2026-05-21T16:00:22.367Z",
   "_missing_blocks": []
 }

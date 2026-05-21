@@ -210,7 +210,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -232,7 +234,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable"
     },
     {
       "short": "Cash & Equivalents",
@@ -254,7 +258,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "Total Revenue",
@@ -280,7 +285,9 @@
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -305,7 +312,9 @@
       "signal": "Résultat net de 0.654 Mds $ dernière année.",
       "description": "Résultat net consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Hydra-Stop Acquisition",
@@ -359,34 +368,75 @@
     "note": "Données incomplètes dans le DEF14A fourni : CEO total comp, CEO pay ratio, exec comp approval %, avg tenure years, board women %, top capital et top voting non disponibles dans les extraits fournis."
   },
   "revenue_by_segment": {
-    "label": "Répartition du chiffre d'affaires par segment opérationnel",
     "slices": [
       {
-        "name": "Aquatic Systems",
-        "value": 0.9853,
-        "unit": "Mds $",
-        "pct": 33,
-        "share_pct": 33
+        "label": "Flow",
+        "share_pct": 55.8,
+        "label_fr": "Flow",
+        "label_en": "Flow",
+        "value": 1514,
+        "unit": "M $"
       },
       {
-        "name": "Filtration Solutions",
-        "value": 1.0669,
-        "unit": "Mds $",
-        "pct": 36,
-        "share_pct": 36
+        "label": "Water Solutions",
+        "share_pct": 41.7,
+        "label_fr": "Water Solutions",
+        "label_en": "Water Solutions",
+        "value": 1131,
+        "unit": "M $"
       },
       {
-        "name": "Flow Technologies",
-        "value": 0.9036,
-        "unit": "Mds $",
-        "pct": 31,
-        "share_pct": 31
+        "label": "Pool",
+        "share_pct": 2.5,
+        "label_fr": "Pool",
+        "label_en": "Pool",
+        "value": 68,
+        "unit": "M $"
       }
     ],
-    "total": 2.96,
-    "unit": "Mds $"
+    "year": 2024,
+    "currency": "USD",
+    "total": 2713
   },
-  "revenue_by_geography": null,
+  "revenue_by_geography": {
+    "slices": [
+      {
+        "label": "United States",
+        "share_pct": 73.7,
+        "label_fr": "États-Unis",
+        "label_en": "United States",
+        "value": 2000,
+        "unit": "M $"
+      },
+      {
+        "label": "Europe, Middle East and Africa",
+        "share_pct": 14.7,
+        "label_fr": "Europe, Moyen-Orient et Afrique",
+        "label_en": "Europe, Middle East and Africa",
+        "value": 400,
+        "unit": "M $"
+      },
+      {
+        "label": "Asia Pacific",
+        "share_pct": 7.4,
+        "label_fr": "Asie-Pacifique",
+        "label_en": "Asia Pacific",
+        "value": 200,
+        "unit": "M $"
+      },
+      {
+        "label": "Canada",
+        "share_pct": 4.2,
+        "label_fr": "Canada",
+        "label_en": "Canada",
+        "value": 113,
+        "unit": "M $"
+      }
+    ],
+    "year": 2024,
+    "currency": "USD",
+    "total": 2713
+  },
   "risks": [
     {
       "title": "Litige amiante",
@@ -483,18 +533,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #1000",
-    "global_us": null,
-    "sector": null,
-    "subsector": null
+    "global_world": "#672",
+    "global_us": "Non US",
+    "sector": "#66 in Industrie",
+    "subsector": "#1 in Water Industrial Manufacturing"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-21",
   "publication_date": null,
   "company_description": "Pentair plc provides various water solutions in the United States, Western Europe, China, Latin America, the Middle East, Southeast Asia, Australia, and Canada. It operates through three segments: Flow, Water Solutions, and Pool. The Flow segment designs, manufactures, and sells fluid treatment and pump products and systems, including pressure vessels, gas recovery solutions, membrane bioreactors, wastewater reuse systems and advanced membrane filtration, separation systems, specialty insertion valves, water disposal pumps, water supply pumps, fluid transfer pumps, turbine pumps, solid handling pumps, and agricultural spray nozzles. This segment provides products under Pentair Flow, Aurora, Berkeley, Codeline, Fairbanks-Nijhuis, Haffmans, Hydromatic, Hypro, Jung Pumpen, Myers, Sta-Rite, Shurflo, Südmo, and X-Flow brand names. The Water Solutions segment offers commercial and residential water treatment products and systems, such as pressure tanks, control valves, activated carbon products, commercial ice machines, conventional filtration products, and point-of-entry and point-of-use water treatment systems for use in water filtration and water softening solutions, as well as commer",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.554Z",
-  "_missing_blocks": [
-    "revenue_by_geography"
-  ]
+  "_built_at": "2026-05-21T16:00:22.587Z",
+  "_missing_blocks": []
 }

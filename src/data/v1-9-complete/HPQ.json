@@ -20,10 +20,23 @@
       "value": 38532,
       "unit": "M $",
       "history": [
-        44011,
-        35684,
-        36195,
-        38532
+        114.552,
+        126.033,
+        127.245,
+        120.357,
+        112.298,
+        111.454,
+        103.355,
+        48.238,
+        52.056,
+        58.472,
+        58.756,
+        56.639,
+        63.487,
+        62.983,
+        53.718,
+        53.559,
+        55.295
       ],
       "type": "Métier",
       "nature": "opérationnel",
@@ -33,10 +46,7 @@
       "is_specific_to_company": true,
       "_specific_to": "company",
       "_source": "10-K",
-      "is_short_history_legitimate": true,
-      "short_history_legitimate_reason": "Tech hardware (KPIs récents AI accelerators, edge computing, RISC-V, segment AI Networking disclosed récemment) (subsector: Technology Hardware)",
-      "_short_history_legitimate_rule": "tech_hardware_recent",
-      "_short_history_legitimate_tagged_at": "2026-05-21T08:25:37.017Z"
+      "is_short_history": false
     },
     {
       "short": "Printing Revenue",
@@ -103,7 +113,9 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 22.31,
-      "_validation": "Correction encodage caractères spéciaux"
+      "_validation": "Correction encodage caractères spéciaux",
+      "explanation_en": "Gross Margin : gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Op Margin",
@@ -127,7 +139,9 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 7.23,
-      "_validation": "Correction encodage: Bnice > Bénéfice"
+      "_validation": "Correction encodage: Bnice > Bénéfice",
+      "explanation_en": "Profit margin on Op.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "R&D",
@@ -151,7 +165,9 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 2.1,
-      "_validation": "Correction encodage caractères spéciaux"
+      "_validation": "Correction encodage caractères spéciaux",
+      "explanation_en": "Research & Development expenses.",
+      "signal_en": "Flat year-over-year, monitor closely"
     },
     {
       "short": "Capex",
@@ -175,7 +191,9 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 1.36,
-      "_validation": "Unité corrigée de Mds $ à B $; name_fr amélioré; correction encodage"
+      "_validation": "Unité corrigée de Mds $ à B $; name_fr amélioré; correction encodage",
+      "explanation_en": "Capital Expenditures : investments in property, plant and equipment.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Headcount",
@@ -199,7 +217,9 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 47.41,
-      "_validation": "Correction encodage caractères spéciaux"
+      "_validation": "Correction encodage caractères spéciaux",
+      "explanation_en": "Headcount : total number of employees at period end.",
+      "signal_en": "Pressure, deteriorating trend"
     },
     {
       "short": "DPS",
@@ -223,7 +243,9 @@
       "signal": "Dividende par action de 0.3 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -244,7 +266,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 1.088 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -265,7 +289,9 @@
       "signal": "Part du résultat net distribué en dividendes : 43.0% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Total Revenue",
@@ -275,6 +301,15 @@
       "unit": "Mds $",
       "yoy": "+3.2%",
       "history": [
+        114.552,
+        126.033,
+        127.245,
+        120.357,
+        112.298,
+        111.454,
+        103.355,
+        48.238,
+        52.056,
         58.472,
         58.756,
         56.639,
@@ -291,7 +326,14 @@
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "last_data_date": "2026-01-31"
+      "last_data_date": "2026-01-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction",
+      "is_short_history_legitimate": true,
+      "short_history_legitimate_reason": "Tech hardware (KPIs récents AI accelerators, edge computing, RISC-V, segment AI Networking disclosed récemment) (subsector: Technology Hardware)",
+      "_short_history_legitimate_rule": "tech_hardware_recent",
+      "_short_history_legitimate_tagged_at": "2026-05-21T08:25:37.013Z",
+      "is_short_history": false
     },
     {
       "short": "Net Income",
@@ -316,7 +358,9 @@
       "signal": "Résultat net de 2.529 Mds $ dernière année.",
       "description": "Résultat net consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns"
     },
     {
       "short": "AI PCs",
@@ -342,19 +386,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-01-01",
-    "fiscal_year": 2025,
-    "ceo_name": "Bruce Broussard",
-    "ceo_total_comp_m": null,
-    "ceo_pay_ratio": null,
-    "exec_comp_approval_pct": null,
-    "board_independence_pct": 91.7,
-    "board_size": 12,
-    "avg_tenure_years": 5.4,
-    "board_women_pct": 58.3,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "top_capital": [],
-    "top_voting": []
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 12.78
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 11.48
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 5.7
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 12.78
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 11.48
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 5.7
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:39.976807+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -364,14 +433,16 @@
         "value": 36.6,
         "unit": "Mds $",
         "pct": 64.6,
-        "share_pct": 64.6
+        "share_pct": 64.6,
+        "label_en": "Personal Systems"
       },
       {
         "name": "Printing",
         "value": 19.1,
         "unit": "Mds $",
         "pct": 33.7,
-        "share_pct": 33.7
+        "share_pct": 33.7,
+        "label_en": "Printing"
       }
     ],
     "total": 55.7,
@@ -385,14 +456,16 @@
         "value": 20.2,
         "unit": "Mds $",
         "pct": 35.7,
-        "share_pct": 35.7
+        "share_pct": 35.7,
+        "label_en": "United States"
       },
       {
         "name": "Other countries",
         "value": 36.4,
         "unit": "Mds $",
         "pct": 64.3,
-        "share_pct": 64.3
+        "share_pct": 64.3,
+        "label_en": "Other countries"
       }
     ],
     "total": 56.6,
@@ -477,7 +550,7 @@
     {
       "year": 2026,
       "month": 5,
-      "title": "AI Is Now the Bull Case for the Broader Market-Enough to Even Revive Old Tech",
+      "title": "AI Is Now the Bull Case for the Broader Market : Enough to Even Revive Old Tech",
       "body": "Many companies are benefiting from the feedback loop being created by AI demand. Just don’t call it “parabolic.”",
       "source": "Barrons.com",
       "url": "https://www.barrons.com/articles/ai-tech-rally-micron-semiconductor-chips-broader-stock-market-0e82e528?siteid=yhoof2&yptr=yahoo",
@@ -494,16 +567,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #150",
-    "global_us": "Top 100",
-    "sector": "Top 20",
-    "subsector": "#1 in personal computing"
+    "global_world": "#667",
+    "global_us": "#402",
+    "sector": "#190 in Technologie",
+    "subsector": "#1 in Technology Hardware"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-05-27",
   "publication_date": null,
   "company_description": "HP Inc. provides personal computing, printing, 3D printing, hybrid work, gaming, and other related technologies in the United States and internationally. The company operates through three segments: Personal Systems, Printing, and Corporate Investments. The Personal Systems segment offers commercial and consumer desktops and notebooks, workstations, thin clients, retail point-of-sale systems, displays, software, hybrid systems, and endpoint security and services, as well as lifecycle services, including support and deployment, configurations, and extended warranty services. The Printing segment provides consumer and commercial printer hardware, supplies, and solutions, as well as office and home printing solutions; and focuses on graphics, 3D printing, and personalization solutions for the commercial and industrial markets. The Corporate Investments segment is involved in the business incubation and investment projects. It serves small- and medium-sized businesses, public sector, and enterprises. The company was formerly known as Hewlett-Packard Company and changed its name to HP Inc. in October 2015. HP Inc. was founded in 1939 and is headquartered in Palo Alto, California.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.401Z",
+  "_built_at": "2026-05-21T16:00:22.303Z",
   "_missing_blocks": []
 }

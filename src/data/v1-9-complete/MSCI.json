@@ -149,7 +149,8 @@
       "_validation": [
         "Unit confirmed: B $ is correct for revenue segment",
         "Last data date confirmed: 2024-12-31 (10-K filed 2/7/2025 for year ended 12/31/2024)"
-      ]
+      ],
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Gross Margin",
@@ -178,7 +179,9 @@
       "ttm": 78.2,
       "_validation": [
         "Last data date confirmed: 2024-12-31 (10-K filed 2/7/2025 for year ended 12/31/2024)"
-      ]
+      ],
+      "explanation_en": "Gross Margin : gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Op Margin",
@@ -207,7 +210,9 @@
       "ttm": 42.2,
       "_validation": [
         "Last data date confirmed: 2024-12-31 (10-K filed 2/7/2025 for year ended 12/31/2024)"
-      ]
+      ],
+      "explanation_en": "Profit margin on Op.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "R&D",
@@ -236,7 +241,9 @@
       "ttm": 8,
       "_validation": [
         "Last data date confirmed: 2024-12-31 (10-K filed 2/7/2025 for year ended 12/31/2024)"
-      ]
+      ],
+      "explanation_en": "Research & Development expenses.",
+      "signal_en": "Flat year-over-year, monitor closely"
     },
     {
       "short": "Run Rate",
@@ -266,7 +273,9 @@
       "_validation": [
         "Unit confirmed: B $ is correct for Run Rate",
         "Last data date confirmed: 2024-12-31 (10-K filed 2/7/2025 for year ended 12/31/2024)"
-      ]
+      ],
+      "explanation_en": "Run Rate : annualized projection based on the latest period.",
+      "signal_en": "Recurring base growing, revenue visibility rising"
     },
     {
       "short": "Retention Rate",
@@ -295,7 +304,8 @@
       "ttm": 98,
       "_validation": [
         "Last data date confirmed: 2024-12-31 (10-K filed 2/7/2025 for year ended 12/31/2024)"
-      ]
+      ],
+      "signal_en": "User base stable"
     },
     {
       "short": "DPS",
@@ -319,7 +329,9 @@
       "signal": "Dividende par action de 2.05 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -340,7 +352,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 0.557 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -361,7 +375,9 @@
       "signal": "Part du résultat net distribué en dividendes : 46.3% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Sustainability and Climate",
@@ -428,111 +444,130 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-04-21",
-    "fiscal_year": 2025,
-    "ceo_name": "Henry A. Fernandez",
-    "exec_comp_approval_pct": 100,
-    "board_independence_pct": 87.5,
-    "board_size": 8,
-    "avg_tenure_years": 9.5,
-    "board_women_pct": 25,
-    "voting_structure": "One share, one vote",
     "top_capital": [
       {
         "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": 8.2
+        "stake_pct": 11.92
       },
       {
         "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": 7.6
+        "stake_pct": 7.89
       },
       {
         "name": "State Street Corporation",
         "type": "institutionnel",
-        "stake_pct": 6.3
+        "stake_pct": 4.28
       }
     ],
     "top_voting": [
       {
-        "name": "Henry A. Fernandez",
-        "type": "fondateur",
-        "stake_pct": 4.1
-      },
-      {
         "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": 8.2
+        "stake_pct": 11.92
       },
       {
         "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": 7.6
+        "stake_pct": 7.89
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.28
       }
-    ]
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:14:20.320234+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
-    "label": "Répartition du chiffre d'affaires par segment opérationnel",
     "slices": [
       {
-        "name": "Index",
-        "value": 1196.79,
-        "unit": "Mds $",
-        "pct": 39.68,
-        "share_pct": 39.68
+        "label": "Index",
+        "share_pct": 55.88,
+        "label_fr": "Index",
+        "label_en": "Index",
+        "value": 1596.145,
+        "unit": "M $"
       },
       {
-        "name": "Analytics",
-        "value": 971.51,
-        "unit": "Mds $",
-        "pct": 32.16,
-        "share_pct": 32.16
+        "label": "Analytics",
+        "share_pct": 23.63,
+        "label_fr": "Analytique",
+        "label_en": "Analytics",
+        "value": 675.089,
+        "unit": "M $"
       },
       {
-        "name": "ESG and Climate",
-        "value": 850.5,
-        "unit": "Mds $",
-        "pct": 28.17,
-        "share_pct": 28.17
+        "label": "ESG and Climate",
+        "share_pct": 11.43,
+        "label_fr": "ESG et climat",
+        "label_en": "ESG and Climate",
+        "value": 326.601,
+        "unit": "M $"
       },
       {
-        "name": "All Other Private Assets",
-        "value": null,
-        "unit": "Mds $",
-        "pct": null
+        "label": "All Other - Private Assets",
+        "share_pct": 9.04,
+        "label_fr": "Autres - Actifs privés",
+        "label_en": "All Other - Private Assets",
+        "value": 258.293,
+        "unit": "M $"
       }
     ],
-    "total": 3018.8,
-    "unit": "Mds $",
-    "_partial_data": true,
-    "_share_pct_normalized": true
+    "year": 2024,
+    "currency": "USD",
+    "total": 2856.128
   },
   "revenue_by_geography": {
-    "unit": "Mds$",
-    "source_date": "2025-12-31",
-    "source": "10-K Item 8 : Geographic Information",
     "slices": [
       {
-        "label": "Amériques",
-        "value": 1.41,
-        "share_pct": 45,
-        "unit": "Mds$"
+        "label": "United States",
+        "share_pct": 74,
+        "label_fr": "États-Unis",
+        "label_en": "United States",
+        "value": 20,
+        "unit": "Mds $"
       },
       {
-        "label": "Europe, Moyen-Orient et Afrique",
-        "value": 1.24,
-        "share_pct": 39.6,
-        "unit": "Mds$"
+        "label": "United Kingdom",
+        "share_pct": 11.1,
+        "label_fr": "Royaume-Uni",
+        "label_en": "United Kingdom",
+        "value": 3,
+        "unit": "Mds $"
       },
       {
-        "label": "Asie et Australie",
-        "value": 0.48,
-        "share_pct": 15.3,
-        "unit": "Mds$"
+        "label": "Japan",
+        "share_pct": 5.6,
+        "label_fr": "Japon",
+        "label_en": "Japan",
+        "value": 1.5,
+        "unit": "Mds $"
+      },
+      {
+        "label": "Germany",
+        "share_pct": 3.7,
+        "label_fr": "Allemagne",
+        "label_en": "Germany",
+        "value": 1,
+        "unit": "Mds $"
+      },
+      {
+        "label": "Other",
+        "share_pct": 5.6,
+        "label_fr": "Autres",
+        "label_en": "Other",
+        "value": 1.5,
+        "unit": "Mds $"
       }
     ],
-    "total": 3.13
+    "year": 2024,
+    "currency": "USD",
+    "total": 27
   },
   "risks": [
     {
@@ -685,16 +720,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #1",
-    "global_us": "Top 5",
-    "sector": "Top 10",
-    "subsector": "≈ #1"
+    "global_world": "#407",
+    "global_us": "#240",
+    "sector": "#122 in Technologie",
+    "subsector": "#3 in Financial Data & Analytics"
   },
   "latest_filing": null,
   "next_earnings_date": null,
   "publication_date": null,
   "company_description": "MSCI Inc., together with its subsidiaries, provides research-based data, analytics, and indexes, supported by advanced technology worldwide. The Index segment provides indexes for use in various areas of the investment process, including indexed financial products, such as ETFs, mutual funds, annuities, futures, options, structured products, and over-the-counter derivatives; performance benchmarking; portfolio construction and rebalancing; and asset allocation, as well as licenses GICS and GICS Direct. The Analytics segment offers risk management, performance attribution and portfolio management content, application, an integrated view of risk and return service, and an analysis of market, credit, liquidity, counterparty, and climate risk across asset classes; managed services, including consolidation of client portfolio data, review and reconciliation of input data and results, and customized reporting; and HedgePlatform to measure, evaluate, and monitor the risk of hedge fund investments. The Sustainability and Climate segment provides products and services that help institutional investors understand how ESG impacts the long-term risk and return of their portfolio and individual security-level investments; and data, ratings, research, and tools to assist investors navigate increasing regulation. The All Other  Private Assets segment comprises private credit, real estate and infrastructure data, benchmarks, return-analytics, climate assessments and market insights; business intelligence to real estate owners, managers, developers, and brokers; and offers investment decision support tools for private capital. The Private Capital Solutions segment offers tools to help private asset investors across mission-critical workflows, such as sourcing terms and conditions, evaluating operating performance, managing risk and other activities supporting private capital investment. MSCI Inc. was incorporated in 1998 and is based in New York, New York.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-21T02:08:59.502Z",
+  "_built_at": "2026-05-21T16:00:22.468Z",
   "_missing_blocks": []
 }

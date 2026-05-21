@@ -39,10 +39,11 @@
       "is_short_history": false,
       "ttm": 4.45,
       "period_type": "quarter",
+      "signal_en": "User base expansion, adoption building",
       "is_short_history_legitimate": true,
       "short_history_legitimate_reason": "Paid Users/Subscribers/MTUs metric récent (modèle freemium/platform)",
       "_short_history_legitimate_rule": "kpi_pattern",
-      "_short_history_legitimate_tagged_at": "2026-05-21T03:37:51.869Z"
+      "_short_history_legitimate_tagged_at": "2026-05-21T03:35:15.089Z"
     },
     {
       "short": "Assets on Platform",
@@ -68,7 +69,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "ttm": 217.87
+      "ttm": 217.87,
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Trading Volume",
@@ -94,7 +96,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "ttm": 685.68
+      "ttm": 685.68,
+      "explanation_en": "Volume of Trading over the period.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Revenue",
@@ -120,7 +124,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "ttm": 3.59
+      "ttm": 3.59,
+      "explanation_en": "Revenue from the Net segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Adjusted EBITDA",
@@ -146,7 +152,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "ttm": 1.84
+      "ttm": 1.84,
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
+      "signal_en": "Margin compression, watch profitability"
     },
     {
       "short": "Total Assets",
@@ -168,7 +176,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -190,7 +200,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -212,7 +224,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "USDC Market Capitalization",
@@ -244,16 +257,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-06-16",
-    "fiscal_year": 2025,
-    "ceo_name": "Brian Armstrong",
-    "board_independence_pct": 88.9,
-    "board_size": 9,
-    "avg_tenure_years": null,
-    "board_women_pct": 22.2,
-    "voting_structure": "Deux classes d'actions : Class A et Class B avec droits de vote différents.",
-    "top_capital": null,
-    "top_voting": null
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 10.62
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 7.53
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.21
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 10.62
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 7.53
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.21
+      }
+    ],
+    "voting_structure_note": "Dual-class shares (classes différentes) — top_voting reflète stake économique ; vérifier DEF14A pour droits de vote réels.",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:12:38.335830+00:00",
+    "_top_dual_class_flag": true
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -263,21 +304,24 @@
         "value": 4.055,
         "unit": "Mds $",
         "pct": 56.5,
-        "share_pct": 56.5
+        "share_pct": 56.5,
+        "label_en": "Transaction revenue"
       },
       {
         "name": "Subscription and services revenue",
         "value": 2.828,
         "unit": "Mds $",
         "pct": 39.4,
-        "share_pct": 39.4
+        "share_pct": 39.4,
+        "label_en": "Subscription and services revenue"
       },
       {
         "name": "Other revenue",
         "value": 0.298,
         "unit": "Mds $",
         "pct": 4.1,
-        "share_pct": 4.1
+        "share_pct": 4.1,
+        "label_en": "Other revenue"
       }
     ],
     "total": 7.18,
@@ -291,14 +335,16 @@
         "value": 6.011,
         "unit": "Mds $",
         "pct": 83.7,
-        "share_pct": 83.7
+        "share_pct": 83.7,
+        "label_en": "United States"
       },
       {
         "name": "International",
         "value": 1.171,
         "unit": "Mds $",
         "pct": 16.3,
-        "share_pct": 16.3
+        "share_pct": 16.3,
+        "label_en": "International"
       }
     ],
     "total": 7.18,
@@ -406,16 +452,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #XX",
-    "global_us": "...",
-    "sector": "...",
-    "subsector": "..."
+    "global_world": "#292",
+    "global_us": "#182",
+    "sector": "#86 in Technologie",
+    "subsector": "#1 in Technologie financière"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-05-07",
   "publication_date": null,
   "company_description": "Coinbase Global, Inc. operates platform for crypto assets in the United States and internationally. It provides the primary financial account in the crypto economy for consumers; a brokerage platform with a pool of liquidity across the crypto marketplace for institutions; and a suite of products granting access to build onchain for developers. The company was founded in 2012 and is based in New York, New York.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.263Z",
+  "_built_at": "2026-05-21T16:00:22.070Z",
   "_missing_blocks": []
 }

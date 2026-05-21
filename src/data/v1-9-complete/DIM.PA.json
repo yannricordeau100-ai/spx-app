@@ -76,7 +76,9 @@
       "last_data_date": "2022-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Revenue from the Sales segment.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Order intake",
@@ -101,7 +103,8 @@
       "last_data_date": "2022-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "signal_en": "Demand softening, monitor end-markets"
     },
     {
       "short": "Underlying EBITDA",
@@ -128,10 +131,11 @@
       "is_generic": false,
       "is_short_history": false,
       "period_type": "quarter",
+      "signal_en": "Margin expansion, operating leverage",
       "is_short_history_legitimate": true,
       "short_history_legitimate_reason": "Biotech/pharma R&D long cycle (KPIs Phase 3 trials, FDA approvals récents, exercice court structurel) (subsector: Life Sciences Tools & Services)",
       "_short_history_legitimate_rule": "biotech_pharma_recent",
-      "_short_history_legitimate_tagged_at": "2026-05-21T08:25:36.966Z"
+      "_short_history_legitimate_tagged_at": "2026-05-21T08:25:36.965Z"
     },
     {
       "short": "R&D",
@@ -156,7 +160,9 @@
       "last_data_date": "2022-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Research & Development expenses.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Capex",
@@ -181,7 +187,9 @@
       "last_data_date": "2022-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Capital Expenditures : investments in property, plant and equipment.",
+      "signal_en": "Strong growth, robust momentum"
     },
     {
       "short": "Capex as % Revenue",
@@ -206,7 +214,9 @@
       "last_data_date": "2022-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Revenue from the Capex as % segment.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Headcount",
@@ -233,7 +243,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_employees_synced_from_yfinance": true
+      "_employees_synced_from_yfinance": true,
+      "explanation_en": "Headcount : total number of employees at period end.",
+      "signal_en": "Significant decline, warning signal"
     },
     {
       "short": "DPS",
@@ -257,7 +269,9 @@
       "signal": "Dividende par action de 0.69 EUR dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend stable, payout consistent"
     },
     {
       "short": "Cap Return",
@@ -279,7 +293,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position stable"
     },
     {
       "short": "Payout Ratio",
@@ -301,7 +317,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Sales CAGR",
@@ -350,9 +368,10 @@
   ],
   "kpis_story": [],
   "governance": {
-    "ceo_name": "Dr. Rene  Faber",
-    "ceo_title": "CEO & Director",
-    "fiscal_year": 2025
+    "top_disclosure": "eu_regex_extracted",
+    "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
+    "_top_disclosure_at": "2026-05-21T02:49:04.597858+00:00",
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:18:57Z"
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -362,14 +381,16 @@
         "value": 0.735,
         "unit": "Mds $",
         "pct": 81.8,
-        "share_pct": 81.8
+        "share_pct": 81.8,
+        "label_en": "Bioprocess Solutions"
       },
       {
         "name": "Lab Products & Services",
         "value": 0.164,
         "unit": "Mds $",
         "pct": 18.2,
-        "share_pct": 18.2
+        "share_pct": 18.2,
+        "label_en": "Lab Products & Services"
       }
     ],
     "total": 0.9,
@@ -383,20 +404,23 @@
       {
         "label": "Europe, Moyen-Orient, Afrique",
         "value": 392.4,
+        "share_pct": 43.6,
         "unit": "M €",
-        "share_pct": 43.6
+        "label_en": "Europe, Moyen-Orient, Afrique"
       },
       {
         "label": "Amériques",
         "value": 307.9,
+        "share_pct": 34.2,
         "unit": "M €",
-        "share_pct": 34.2
+        "label_en": "Americas"
       },
       {
         "label": "Asie-Pacifique",
         "value": 198.9,
+        "share_pct": 22.1,
         "unit": "M €",
-        "share_pct": 22.1
+        "label_en": "Asia-Pacific"
       }
     ],
     "total": 899.2
@@ -506,9 +530,9 @@
     }
   ],
   "ranks": {
-    "global_world": "#231",
+    "global_world": "#534",
     "global_us": "Non US",
-    "sector": "Top 25 in Healthcare",
+    "sector": "Top 50 in Santé",
     "subsector": "#2 in Life Sciences Tools & Services"
   },
   "latest_filing": null,
@@ -516,6 +540,6 @@
   "publication_date": null,
   "company_description": "Sartorius Stedim Biotech S.A. engages in the production and sale of instruments and consumables for the biopharmaceutical industry worldwide. The company offers various products, such as cell lines; cell culture media; bioreactors; reagents; advanced therapies; and a range of products for separation, purification, and concentration processes, as well as products and systems for storage and transportation of intermediate and finished biological products. It also provides fluid management services; biolayer interferometry instruments; microbiology testing, sterility testing, and air monitoring instruments; pipette products; sensors and analyzers; screening instruments; biomolecule analysis tools; batch liquid chromatography systems; lab data and fleet management software; live cell imaging and analysis; surface plasmon resonance solutions; water purification systems; and weighing products. In addition, the company offers data analytics software; process automation platform and software; and transfection reagents and plasmid DNA solutions. The company has a collaboration with Bio Usawa Biotechnology, Ltd. focusing on developing and manufacturing monoclonal antibodies in Sub-Saharan Africa to tackle oncology, diabetes-induced eye diseases, infectious diseases, and autoimmune conditions. It serves manufacturers of medications, vaccines, food, and chemicals, as well as research and development laboratories. The company was incorporated in 1978 and is headquartered in Aubagne, France. Sartorius Stedim Biotech S.A. is a subsidiary of Sartorius AG.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.299Z",
+  "_built_at": "2026-05-21T16:00:22.130Z",
   "_missing_blocks": []
 }

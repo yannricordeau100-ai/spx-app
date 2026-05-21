@@ -29,11 +29,7 @@
       "period_type": "year",
       "description_fr": "Revenus de royalties et franchise. Modèle 'asset-light' IHG, croissance forte post-Covid.",
       "description_en": "Fee revenue from royalties and franchise. Asset-light IHG model, strong post-Covid growth.",
-      "_specific_to": "IHG fee-based franchise model",
-      "is_short_history_legitimate": true,
-      "short_history_legitimate_reason": "Sté EU avec annual reporting shifted (timing/fiscal year EU différent du calendrier US, tolérance 4 ans au lieu de 5)",
-      "_short_history_legitimate_rule": "eu_annual_tolerance_4y",
-      "_short_history_legitimate_tagged_at": "2026-05-21T08:25:37.018Z"
+      "_specific_to": "IHG fee-based franchise model"
     },
     {
       "short": "RevPAR Growth",
@@ -132,7 +128,8 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "annual"
+      "period_type": "annual",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Revenue",
@@ -155,7 +152,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "annual"
+      "period_type": "annual",
+      "explanation_en": "Revenue : total sales generated over the period.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "EMEA Revenue Growth",
@@ -178,7 +177,9 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "annual"
+      "period_type": "annual",
+      "explanation_en": "Year-over-year growth in EMEA Revenue.",
+      "signal_en": "Demand strengthening, end-market traction"
     },
     {
       "short": "Greater China Revenue",
@@ -201,7 +202,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "annual"
+      "period_type": "annual",
+      "explanation_en": "Revenue from the Greater China segment.",
+      "signal_en": "Revenue stable, monitor outlook"
     },
     {
       "short": "Total Assets",
@@ -222,7 +225,9 @@
       "signal": "Total des actifs de 5.34 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -243,7 +248,9 @@
       "signal": "Dette totale de 4.61 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Underlying Revenue",
@@ -296,36 +303,28 @@
   ],
   "kpis_story": [],
   "governance": {
-    "ceo_name": "Mr. Kenneth  Macpherson",
-    "ceo_title": "Chief Executive Officer of Europe, Middle East, Asia & Africa",
-    "officers": [
+    "top_capital": [
       {
-        "name": "Ms. Jolie  Fleming",
-        "title": "Executive VP and Chief Product & Technology Officer",
-        "age": null
-      },
-      {
-        "name": "Mr. Stuart  Ford",
-        "title": "Senior VP & Head of Investor Relations",
-        "age": null
-      },
-      {
-        "name": "Ms. Nicolette  Henfrey",
-        "title": "Executive VP, General Counsel & Company Secretary",
-        "age": 56
-      },
-      {
-        "name": "Mr. Michael  Torres",
-        "title": "Chief Communications Officer & VP of Corporate Communications - Americas Region",
-        "age": null
-      },
-      {
-        "name": "Ms. Heather  Balsley",
-        "title": "Chief Commercial & Marketing Officer",
-        "age": null
+        "name": "Canoe Financial LP",
+        "type": "institutionnel",
+        "stake_pct": 0.71
       }
     ],
-    "fiscal_year": 2025
+    "top_voting": [
+      {
+        "name": "Canoe Financial LP",
+        "type": "institutionnel",
+        "stake_pct": 0.71
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:45.813522+00:00",
+    "_top_dual_class_flag": false,
+    "top_disclosure": "eu_regex_extracted",
+    "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
+    "_top_disclosure_at": "2026-05-21T02:49:04.645566+00:00",
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:18:58Z"
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -342,21 +341,24 @@
         "value": 0.811,
         "unit": "Mds $",
         "pct": 32.8,
-        "share_pct": 32.8
+        "share_pct": 32.8,
+        "label_en": "EMEAA"
       },
       {
         "name": "Greater China",
         "value": 0.165,
         "unit": "Mds $",
         "pct": 6.7,
-        "share_pct": 6.7
+        "share_pct": 6.7,
+        "label_en": "Greater China"
       },
       {
         "name": "Central",
         "value": 0.363,
         "unit": "Mds $",
         "pct": 14.7,
-        "share_pct": 14.7
+        "share_pct": 14.7,
+        "label_en": "Central"
       }
     ],
     "total": 2.47,
@@ -370,14 +372,16 @@
         "value": 1.4,
         "unit": "Mds $",
         "pct": 56,
-        "share_pct": 56
+        "share_pct": 56,
+        "label_en": "United States and Canada"
       },
       {
         "name": "Europe",
         "value": 0.4,
         "unit": "Mds $",
         "pct": 16,
-        "share_pct": 16
+        "share_pct": 16,
+        "label_en": "Europe"
       },
       {
         "name": "Moyen-Orient, Asie, Afrique",
@@ -391,7 +395,8 @@
         "value": 0.4,
         "unit": "Mds $",
         "pct": 16,
-        "share_pct": 16
+        "share_pct": 16,
+        "label_en": "Greater China"
       }
     ],
     "total": 2.5,
@@ -501,19 +506,64 @@
       "source": "Simply Wall St.",
       "url": "https://finance.yahoo.com/markets/stocks/articles/intercontinental-hotels-group-lse-ihg-110459421.html",
       "date": "2026-04-25"
+    },
+    {
+      "year": 2026,
+      "month": 4,
+      "title": "Dividende 1.2516 $/action versé",
+      "body": "Dividende ordinaire de 1.2516 $ par action, ex-date 9 avril 2026.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2026-04-09"
+    },
+    {
+      "year": 2026,
+      "month": 4,
+      "title": "Dividende 1.2514 $/action versé",
+      "body": "Dividende ordinaire de 1.2514 $ par action, ex-date 9 avril 2026.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2026-04-09"
+    },
+    {
+      "year": 2025,
+      "month": 12,
+      "title": "Publication des résultats Q4 2025",
+      "body": "Clôture du trimestre Q4 2025 le 31 décembre 2025.",
+      "source": "yfinance · mostRecentQuarter",
+      "url": "",
+      "date": "2025-12-31"
+    },
+    {
+      "year": 2025,
+      "month": 8,
+      "title": "Dividende 0.5815 $/action versé",
+      "body": "Dividende ordinaire de 0.5815 $ par action, ex-date 21 août 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-08-21"
+    },
+    {
+      "year": 2025,
+      "month": 8,
+      "title": "Dividende 0.5814 $/action versé",
+      "body": "Dividende ordinaire de 0.5814 $ par action, ex-date 21 août 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-08-21"
     }
   ],
   "ranks": {
-    "global_world": "≈ #5",
-    "global_us": "Top 10",
-    "sector": "Top 20",
-    "subsector": "#3 in global hotel brands"
+    "global_world": "#457",
+    "global_us": "Non US",
+    "sector": "Top 50 in Consommation discrétionnaire",
+    "subsector": "#2 in Hotels, Resorts & Cruise Lines"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-02-17",
   "publication_date": null,
   "company_description": "InterContinental Hotels Group PLC owns, manages, franchises, and leases hotels in the United Kingdom, the United States, and internationally. It operates hotels under the Six Senses, Regent, InterContinental Hotels & Resorts, Vignette Collection, Kimpton Hotel, Hotel Indigo, voco, Ruby, HUALUXE, Crowne Plaza, Iberostar Beachfront Resorts, EVEN Hotels, Holiday Inn Express, Holiday Inn, Garner, avid hotels, Atwell Suites, Staybridge Suites, IHG, Holiday Inn Club Vacations, and Candlewood Suites brand names. The company also provides IHG Rewards loyalty program. InterContinental Hotels Group PLC was formerly known as Six Continents PLC and changed its name to InterContinental Hotels Group PLC in June 2003. The company was founded in 1777 and is headquartered in Windsor, United Kingdom.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.412Z",
+  "_built_at": "2026-05-21T16:00:22.326Z",
   "_missing_blocks": []
 }

@@ -184,7 +184,8 @@
         "old_unit": "%",
         "old_value": 41954000000,
         "factor": 1000000000
-      }
+      },
+      "signal_en": "Demand strengthening, end-market traction"
     },
     {
       "short": "Divestiture IMS",
@@ -282,7 +283,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -304,7 +307,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -326,7 +331,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "AI Cloud Mix",
@@ -371,51 +377,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-05-20",
-    "fiscal_year": 2025,
-    "ceo_name": "Kathy J. Warden",
-    "ceo_total_comp_m": 14.8,
-    "ceo_pay_ratio": 198,
-    "exec_comp_approval_pct": 95,
-    "board_independence_pct": 90.9,
-    "board_size": 11,
-    "avg_tenure_years": 8.5,
-    "board_women_pct": 36.4,
-    "voting_structure": "One share, one vote",
     "top_capital": [
       {
-        "name": "The Vanguard Group, Inc.",
+        "name": "State Street Corporation",
         "type": "institutionnel",
-        "stake_pct": 7.5
+        "stake_pct": 9.15
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 8.77
       },
       {
         "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": 6.8
-      },
-      {
-        "name": "State Street Corporation",
-        "type": "institutionnel",
-        "stake_pct": 4.7
+        "stake_pct": 7.66
       }
     ],
     "top_voting": [
       {
-        "name": "Kathy J. Warden",
-        "type": "insider",
-        "stake_pct": 0.1
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 9.15
       },
       {
-        "name": "Mark A. Welch III",
-        "type": "insider",
-        "stake_pct": 0.1
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 8.77
       },
       {
-        "name": "David P. Abney",
-        "type": "insider",
-        "stake_pct": 0.05
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 7.66
       }
-    ]
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:14:31.713918+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -425,28 +424,32 @@
         "value": 12.169,
         "unit": "Mds $",
         "pct": 31.58,
-        "share_pct": 31.58
+        "share_pct": 31.58,
+        "label_en": "Aeronautics Systems"
       },
       {
         "name": "Defense Systems",
         "value": 7.543,
         "unit": "Mds $",
         "pct": 19.56,
-        "share_pct": 19.56
+        "share_pct": 19.56,
+        "label_en": "Defense Systems"
       },
       {
         "name": "Mission Systems",
         "value": 10.08,
         "unit": "Mds $",
         "pct": 26.15,
-        "share_pct": 26.15
+        "share_pct": 26.15,
+        "label_en": "Mission Systems"
       },
       {
         "name": "Space Systems",
         "value": 8.744,
         "unit": "Mds $",
         "pct": 22.71,
-        "share_pct": 22.71
+        "share_pct": 22.71,
+        "label_en": "Space Systems"
       }
     ],
     "total": 38.54,
@@ -461,21 +464,24 @@
         "value": 30.903,
         "unit": "Mds $",
         "pct": 84,
-        "share_pct": 84
+        "share_pct": 84,
+        "label_en": "United States"
       },
       {
         "name": "International",
         "value": 5.188,
         "unit": "Mds $",
         "pct": 14.1,
-        "share_pct": 14.1
+        "share_pct": 14.1,
+        "label_en": "International"
       },
       {
         "name": "Other customers",
         "value": 0.708,
         "unit": "Mds $",
         "pct": 1.9,
-        "share_pct": 1.9
+        "share_pct": 1.9,
+        "label_en": "Other customers"
       }
     ],
     "total": 36.8,
@@ -565,35 +571,80 @@
   "events": [
     {
       "year": 2026,
-      "month": 5,
-      "title": "Unpacking Q1 Earnings: Northrop Grumman (NYSE:NOC) In The Context Of Other Defense Contractors Stocks",
-      "body": "The end of the earnings season is always a good time to take a step back and see who shined (and who not so much). Let’s take a look at how defense contractors stocks fared in Q1, starting with Northrop Grumman (NYSE:NOC).",
-      "source": "StockStory",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/unpacking-q1-earnings-northrop-grumman-190855638.html",
-      "date": "2026-05-14"
+      "month": 7,
+      "title": "Prochaine publication Q3 2026",
+      "body": "Publication attendue le 21 juillet 2026 (Q3 2026).",
+      "source": "yfinance · calendar",
+      "url": "",
+      "date": "2026-07-21"
     },
     {
       "year": 2026,
       "month": 5,
-      "title": "Can Rocket Lab's HASTE Launch Vehicle Support Long-Term Expansion?",
-      "body": "RKLB's HASTE, built off Electron tech, targets fast, flexible hypersonic tests as defense demand rises, widening its role beyond satellites.",
+      "title": "Cathie Wood Shifts ARK's Defense Stocks; Contracts, Foreign Sales In Focus",
+      "body": "Cathie Wood's ARK Invest loads up on defense, air taxi stocks. Navy awards contracts to Lockheed, Northrop. U.S. announces foreign military sales.",
+      "source": "Investor's Business Daily",
+      "url": "https://www.investors.com/news/cathie-wood-ark-invest-aerospace-defense-holdings-lockheed-martin-northrop-grumman-navy-foreign-military-sales/?src=A00220&yptr=yahoo",
+      "date": "2026-05-19"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "LDOS Signs $2.7B U.S. Military Hypersonic Weapons Production Deal",
+      "body": "Ledios secures a $2.7B U.S. Army contract combining TPS and CHGB to speed hypersonic weapons production, but shares fall.",
       "source": "Zacks",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/rocket-labs-haste-launch-vehicle-125000075.html",
-      "date": "2026-05-14"
+      "url": "https://finance.yahoo.com/sectors/technology/articles/ldos-signs-2-7b-u-175000423.html",
+      "date": "2026-05-19"
     },
     {
       "year": 2026,
-      "month": 5,
-      "title": "AI Stock Portfolio For 2026: Northrop Grumman (NOC) Among Top 10 Picks",
-      "body": "We just covered Grok’s Latest Stock Portfolio in 2026: Elon Musk’s AI Chatbot’s Top 10 Stock Picks. Northrop Grumman (NYSE:NOC) ranks #5 (see Grok’s Latest Stock Portfolio in 2026: AI Assistant’s Top 5 Stock Picks). Number of Hedge Funds: 6",
-      "source": "Insider Monkey",
-      "url": "https://finance.yahoo.com/news/ai-stock-portfolio-2026-northrop-210620325.html",
-      "date": "2026-05-12"
+      "month": 3,
+      "title": "Publication des résultats Q1 2026",
+      "body": "Clôture du trimestre Q1 2026 le 31 mars 2026.",
+      "source": "yfinance · mostRecentQuarter",
+      "url": "",
+      "date": "2026-03-31"
+    },
+    {
+      "year": 2026,
+      "month": 2,
+      "title": "Dividende 2.31 $/action versé",
+      "body": "Dividende ordinaire de 2.31 $ par action, ex-date 23 février 2026.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2026-02-23"
+    },
+    {
+      "year": 2025,
+      "month": 12,
+      "title": "Dividende 2.31 $/action versé",
+      "body": "Dividende ordinaire de 2.31 $ par action, ex-date 1 décembre 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-12-01"
+    },
+    {
+      "year": 2025,
+      "month": 9,
+      "title": "Dividende 2.31 $/action versé",
+      "body": "Dividende ordinaire de 2.31 $ par action, ex-date 2 septembre 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-09-02"
+    },
+    {
+      "year": 2025,
+      "month": 6,
+      "title": "Dividende 2.31 $/action versé",
+      "body": "Dividende ordinaire de 2.31 $ par action, ex-date 2 juin 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-06-02"
     }
   ],
   "ranks": {
-    "global_world": "#196",
-    "global_us": "#111",
+    "global_world": "#197",
+    "global_us": "#115",
     "sector": "Top 25 in Industrie",
     "subsector": "Top 10 in Aéronautique & Défense"
   },
@@ -602,6 +653,6 @@
   "publication_date": null,
   "company_description": "Northrop Grumman Corporation operates as an aerospace and defense technology company in the United States, Asia/Pacific, Europe, and internationally. It operates through four segments: Aeronautics Systems, Defense Systems, Mission Systems and Space Systems. The Aeronautics Systems segment designs, develops, produces, integrates, sustains, and modernizes aircraft systems. This segment also offers unmanned autonomous aircraft systems, including high-altitude long-endurance strategic, surveillance and reconnaissance systems; and strategic long-range strike aircraft, tactical fighter and air dominance aircraft, and airborne battle management and command and control systems. Its Defense Systems segment designs, develops, integrates, and produces strategic deterrent systems, tactical weapons, and missile defense solutions; and provides sustainment, modernization, and training services for manned and unmanned aircraft and electronics systems. This segment also offers strategic missiles; integrated all-domain command and control systems; precision strike weapons; tactical solid rocket motors, and high-speed air-breathing and hypersonic systems; high-performance gun systems, ammunition, pre",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-21T02:08:59.535Z",
+  "_built_at": "2026-05-21T16:00:22.508Z",
   "_missing_blocks": []
 }

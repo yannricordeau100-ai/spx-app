@@ -169,10 +169,11 @@
         "YoY changé de '+2%' à '+2' (format numérique cohérent)"
       ],
       "period_type": "quarter",
+      "signal_en": "Demand strengthening, end-market traction",
       "is_short_history_legitimate": true,
       "short_history_legitimate_reason": "Occupancy Rate REIT métrique forward disclosed quarterly récemment",
       "_short_history_legitimate_rule": "kpi_pattern",
-      "_short_history_legitimate_tagged_at": "2026-05-21T03:37:51.876Z"
+      "_short_history_legitimate_tagged_at": "2026-05-21T03:35:15.101Z"
     },
     {
       "short": "Total Revenue",
@@ -194,7 +195,9 @@
       "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -216,7 +219,9 @@
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Steady growth, healthy trend"
     },
     {
       "short": "Operating Income",
@@ -238,7 +243,9 @@
       "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Operating Income : profit from core business operations.",
+      "signal_en": "Flat year-over-year, monitor closely"
     },
     {
       "short": "Diluted EPS",
@@ -260,7 +267,9 @@
       "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Steady growth, healthy trend"
     },
     {
       "short": "Total Assets",
@@ -282,7 +291,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Total Debt",
@@ -304,7 +315,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -326,7 +339,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position stable"
     },
     {
       "short": "Rent Growth",
@@ -365,25 +379,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-06-18",
-    "fiscal_year": 2025,
-    "ceo_name": "Mark J. Parrell",
-    "board_independence_pct": 80,
-    "board_size": 10,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
     "top_capital": [
       {
-        "name": "Vanguard Group",
+        "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": null
+        "stake_pct": 14.43
       },
       {
-        "name": "BlackRock",
+        "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": null
+        "stake_pct": 11.57
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 6.43
       }
     ],
-    "top_voting": []
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 14.43
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 11.57
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 6.43
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:11.073842+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "unit": "$B",
@@ -394,13 +427,15 @@
         "label": "Same Store",
         "value": 2.835,
         "share_pct": 91.6,
-        "unit": "$B"
+        "unit": "$B",
+        "label_en": "Same Store"
       },
       {
         "label": "Non-Same Store",
         "value": 0.259,
         "share_pct": 8.4,
-        "unit": "$B"
+        "unit": "$B",
+        "label_en": "Non-Same Store"
       }
     ],
     "total": 3.09
@@ -413,63 +448,72 @@
         "value": 0.679,
         "unit": "Mds $",
         "pct": 24.8,
-        "share_pct": 24.8
+        "share_pct": 24.8,
+        "label_en": "Southern California"
       },
       {
         "name": "San Francisco",
         "value": 0.419,
         "unit": "Mds $",
         "pct": 15.3,
-        "share_pct": 15.3
+        "share_pct": 15.3,
+        "label_en": "San Francisco"
       },
       {
         "name": "Washington, D.C.",
         "value": 0.412,
         "unit": "Mds $",
         "pct": 15.1,
-        "share_pct": 15.1
+        "share_pct": 15.1,
+        "label_en": "Washington, D.C."
       },
       {
         "name": "New York",
         "value": 0.435,
         "unit": "Mds $",
         "pct": 15.9,
-        "share_pct": 15.9
+        "share_pct": 15.9,
+        "label_en": "New York"
       },
       {
         "name": "Seattle",
         "value": 0.283,
         "unit": "Mds $",
         "pct": 10.3,
-        "share_pct": 10.3
+        "share_pct": 10.3,
+        "label_en": "Seattle"
       },
       {
         "name": "Boston",
         "value": 0.263,
         "unit": "Mds $",
         "pct": 9.6,
-        "share_pct": 9.6
+        "share_pct": 9.6,
+        "label_en": "Boston"
       },
       {
         "name": "Denver",
         "value": 0.044,
         "unit": "Mds $",
         "pct": 1.6,
-        "share_pct": 1.6
+        "share_pct": 1.6,
+        "label_en": "Denver"
       },
       {
         "name": "Other",
         "value": 0.022,
         "unit": "Mds $",
         "pct": 0.8,
-        "share_pct": 0.8
+        "share_pct": 0.8,
+        "label_en": "Other"
       },
       {
         "share_pct": 6.6,
         "value": 0.003,
         "unit": "Mds $",
         "pct": 6.6,
-        "name": "Autres"
+        "name": "Autres",
+        "label_en": "Other"
       }
     ],
     "total": 2.56,
@@ -583,8 +627,8 @@
     }
   ],
   "ranks": {
-    "global_world": "#432",
-    "global_us": "#262",
+    "global_world": "#441",
+    "global_us": "#268",
     "sector": "Top 25 in Immobilier",
     "subsector": "#1 in Residential REITs"
   },
@@ -593,6 +637,6 @@
   "publication_date": null,
   "company_description": "Equity Residential is committed to creating communities where people thrive. The Company, a member of the S&P 500, owns and manages 312 rental properties consisting of 85,190 apartment units in dynamic metro areas across the U.S. with a primary concentration in major coastal markets, diversified by a targeted presence in the high-growth metro areas of Atlanta, Austin, Dallas/Ft. Worth and Denver. Equity Residential was incorporated in 1993 and is based in Chicago, United States.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-21T02:08:59.272Z",
+  "_built_at": "2026-05-21T16:00:22.200Z",
   "_missing_blocks": []
 }

@@ -125,7 +125,8 @@
       "is_short_history": true,
       "ttm": 173.5,
       "_validation": "Corrigé history[0] de 169.1 à 169.0 (valeur précise du 10-K)",
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "signal_en": "User base expansion, adoption building"
     },
     {
       "short": "Revenue",
@@ -149,7 +150,9 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 1656.6,
-      "_validation": "Changé unit de 'Mds $' à 'M$'; corrigé value de 1.6566 à 1656.6; corrigé history de [1.562, 1.6566] à [1557.4, 1656.6]; corrigé ttm de 1.68 à 1656.6"
+      "_validation": "Changé unit de 'Mds $' à 'M$'; corrigé value de 1.6566 à 1656.6; corrigé history de [1.562, 1.6566] à [1557.4, 1656.6]; corrigé ttm de 1.68 à 1656.6",
+      "explanation_en": "Revenue : total sales generated over the period.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Operating Income",
@@ -173,7 +176,9 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 1121,
-      "_validation": "Changé unit de 'Mds $' à 'M$'; corrigé value de 1.121 à 1121.0; corrigé history de [1.057, 1.121] à [1057.6, 1121.0]; corrigé ttm de 1.14 à 1121.0"
+      "_validation": "Changé unit de 'Mds $' à 'M$'; corrigé value de 1.121 à 1121.0; corrigé history de [1.057, 1.121] à [1057.6, 1121.0]; corrigé ttm de 1.14 à 1121.0",
+      "explanation_en": "Operating Income : profit from core business operations.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Gross Margin",
@@ -198,7 +203,9 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 88.33,
-      "_validation": "Aucune correction nécessaire"
+      "_validation": "Aucune correction nécessaire",
+      "explanation_en": "Gross Margin : gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Op Margin",
@@ -223,7 +230,9 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 67.7,
-      "_validation": "Corrigé ttm de 67.65 à 67.7"
+      "_validation": "Corrigé ttm de 67.65 à 67.7",
+      "explanation_en": "Profit margin on Op.",
+      "signal_en": "Margin compression, watch profitability"
     },
     {
       "short": "R&D",
@@ -248,7 +257,9 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 6.3,
-      "_validation": "Corrigé ttm de 6.33 à 6.3"
+      "_validation": "Corrigé ttm de 6.33 à 6.3",
+      "explanation_en": "Research & Development expenses.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Cash Flow",
@@ -272,7 +283,8 @@
       "is_generic": false,
       "is_short_history": true,
       "ttm": 1091.1,
-      "_validation": "Changé unit de 'Mds $' à 'M$'; corrigé value de 1.0911 à 1091.1; corrigé history de [0.9017, 1.0911] à [901.7, 1091.1]; corrigé ttm de 1.15 à 1091.1"
+      "_validation": "Changé unit de 'Mds $' à 'M$'; corrigé value de 1.0911 à 1091.1; corrigé history de [0.9017, 1.0911] à [901.7, 1091.1]; corrigé ttm de 1.15 à 1091.1",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Renewal Rate",
@@ -296,7 +308,8 @@
       "is_generic": false,
       "is_short_history": true,
       "ttm": 75.4,
-      "_validation": "Corrigé ttm de 76.24 à 75.4"
+      "_validation": "Corrigé ttm de 76.24 à 75.4",
+      "signal_en": "Recurring base growing, revenue visibility rising"
     },
     {
       "short": "Total Revenue",
@@ -322,7 +335,9 @@
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -344,7 +359,9 @@
       "description": "Résultat net consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 4 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "New Registrations",
@@ -444,41 +461,48 @@
       }
     ]
   },
-  "revenue_by_segment": null,
+  "revenue_by_segment": {
+    "single_segment": true,
+    "_reason": "one reportable segment"
+  },
   "revenue_by_geography": {
-    "label": "R\u0000partition du chiffre d'affaires par zone g\u000000ographique",
     "slices": [
       {
-        "name": "U.S.",
-        "value": 0.805,
-        "unit": "Mds $",
-        "pct": 63.6,
-        "share_pct": 63.6
+        "label": "U.S",
+        "share_pct": 66.5,
+        "label_fr": "États-Unis",
+        "label_en": "U.S",
+        "value": 1035.5,
+        "unit": "M $"
       },
       {
-        "name": "EMEA",
-        "value": 0.214,
-        "unit": "Mds $",
-        "pct": 16.9,
-        "share_pct": 16.9
+        "label": "EMEA",
+        "share_pct": 16,
+        "label_fr": "EMEA",
+        "label_en": "EMEA",
+        "value": 249.6,
+        "unit": "M $"
       },
       {
-        "name": "China",
-        "value": 0.113,
-        "unit": "Mds $",
-        "pct": 8.9,
-        "share_pct": 8.9
+        "label": "APAC",
+        "share_pct": 11.3,
+        "label_fr": "APAC",
+        "label_en": "APAC",
+        "value": 175.7,
+        "unit": "M $"
       },
       {
-        "name": "Other",
-        "value": 0.133,
-        "unit": "Mds $",
-        "pct": 10.5,
-        "share_pct": 10.5
+        "label": "Other",
+        "share_pct": 6.2,
+        "label_fr": "Autres",
+        "label_en": "Other",
+        "value": 96.6,
+        "unit": "M $"
       }
     ],
-    "total": 1.27,
-    "unit": "Mds $"
+    "year": 2024,
+    "currency": "USD",
+    "total": 1557.4
   },
   "risks": [
     {
@@ -594,18 +618,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #1",
-    "global_us": "Top 500",
-    "sector": "Top 100",
-    "subsector": "#1 in .com/.net registry"
+    "global_world": "#422",
+    "global_us": "#253",
+    "sector": "#119 in Technologie",
+    "subsector": "#1 in Internet Infrastructure"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-23",
   "publication_date": null,
   "company_description": "VeriSign, Inc., together with its subsidiaries, provides internet infrastructure and domain name registry services that enables internet navigation for various recognized domain names worldwide. The company provides root zone maintainer services, operating two of thirteen internet root servers; and offering registration services and authoritative resolution for the .com and .net domains, which supports global e-commerce. It operates directory for .name and .cc; and back-end systems for .edu, domain names. The company was incorporated in 1995 and is headquartered in Reston, Virginia.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.685Z",
-  "_missing_blocks": [
-    "revenue_by_segment"
-  ]
+  "_built_at": "2026-05-21T16:00:22.864Z",
+  "_missing_blocks": []
 }

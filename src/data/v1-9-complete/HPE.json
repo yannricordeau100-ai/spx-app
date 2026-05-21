@@ -131,7 +131,9 @@
       "is_generic": true,
       "_source": "yfinance.income_stmt",
       "is_short_history": true,
-      "last_data_date": "2026-01-31"
+      "last_data_date": "2026-01-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -153,7 +155,9 @@
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal"
     },
     {
       "short": "Total Assets",
@@ -175,7 +179,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -197,7 +203,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -219,7 +227,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "DPS",
@@ -243,7 +252,9 @@
       "signal": "Dividende par action de 0.143 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -265,7 +276,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -287,7 +300,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "AI Cloud Mix",
@@ -312,51 +327,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-04-01",
-    "fiscal_year": 2025,
-    "ceo_name": "Antonio Neri",
-    "ceo_total_comp_m": 17.5,
-    "ceo_pay_ratio": 237,
-    "exec_comp_approval_pct": 94,
-    "board_independence_pct": 83,
-    "board_size": 12,
-    "avg_tenure_years": 9.5,
-    "board_women_pct": 42,
-    "voting_structure": "One share, one vote",
     "top_capital": [
       {
-        "name": "The Vanguard Group, Inc.",
+        "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": 8.7
+        "stake_pct": 12.07
       },
       {
         "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": 7.6
+        "stake_pct": 10.84
       },
       {
-        "name": "State Street Corporation",
+        "name": "Bank of America Corporation",
         "type": "institutionnel",
-        "stake_pct": 4.3
+        "stake_pct": 5.58
       }
     ],
     "top_voting": [
       {
-        "name": "The Vanguard Group, Inc.",
+        "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": 8.7
+        "stake_pct": 12.07
       },
       {
         "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": 7.6
+        "stake_pct": 10.84
       },
       {
-        "name": "State Street Corporation",
+        "name": "Bank of America Corporation",
         "type": "institutionnel",
-        "stake_pct": 4.3
+        "stake_pct": 5.58
       }
-    ]
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:39.582074+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -366,35 +374,40 @@
         "value": 17.745,
         "unit": "Mds $",
         "pct": 51.2,
-        "share_pct": 51.2
+        "share_pct": 51.2,
+        "label_en": "Server"
       },
       {
         "name": "Hybrid Cloud",
         "value": 5.754,
         "unit": "Mds $",
         "pct": 16.6,
-        "share_pct": 16.6
+        "share_pct": 16.6,
+        "label_en": "Hybrid Cloud"
       },
       {
         "name": "Networking",
         "value": 6.85,
         "unit": "Mds $",
         "pct": 19.8,
-        "share_pct": 19.8
+        "share_pct": 19.8,
+        "label_en": "Networking"
       },
       {
         "name": "Financial Services",
         "value": 3.504,
         "unit": "Mds $",
         "pct": 10.1,
-        "share_pct": 10.1
+        "share_pct": 10.1,
+        "label_en": "Financial Services"
       },
       {
         "name": "Corporate Investments and Other",
         "value": 0.776,
         "unit": "Mds $",
         "pct": 2.2,
-        "share_pct": 2.2
+        "share_pct": 2.2,
+        "label_en": "Corporate Investments and Other"
       }
     ],
     "total": 34.63,
@@ -408,21 +421,24 @@
         "value": 10.862,
         "unit": "Mds $",
         "pct": 40.26,
-        "share_pct": 40.3
+        "share_pct": 40.26,
+        "label_en": "Americas"
       },
       {
         "name": "Europe, Moyen-Orient et Afrique",
         "value": 9.745,
         "unit": "Mds $",
         "pct": 36.12,
-        "share_pct": 36.1
+        "share_pct": 36.12,
+        "label_en": "Europe, Middle East and Africa"
       },
       {
         "name": "Asie-Pacifique et Japon",
         "value": 6.375,
         "unit": "Mds $",
         "pct": 23.62,
-        "share_pct": 23.6
+        "share_pct": 23.62,
+        "label_en": "Asia-Pacific and Japan"
       }
     ],
     "total": 26.98,
@@ -502,34 +518,88 @@
   "events": [
     {
       "year": 2026,
-      "month": 5,
-      "title": "Hewlett Packard Enterprise (HPE) Unveils Fourth Generation HPE Private Cloud for Unified Workloads",
-      "body": "Hewlett Packard Enterprise Company (NYSE:HPE) is one of the unstoppable AI stocks to buy now. On May 12, HPE announced the fourth generation of its HPE Private Cloud, designed to unify virtual machines and containers on a single platform po",
-      "source": "Insider Monkey",
-      "url": "https://finance.yahoo.com/sectors/technology/articles/hewlett-packard-enterprise-hpe-unveils-161608664.html",
-      "date": "2026-05-14"
+      "month": 6,
+      "title": "Prochaine publication Q2 2026",
+      "body": "Publication attendue le 1 juin 2026 (Q2 2026).",
+      "source": "yfinance · calendar",
+      "url": "",
+      "date": "2026-06-01"
     },
     {
       "year": 2026,
       "month": 5,
-      "title": "Cisco Jumps Most Since 2011 on Sales Outlook, Restructuring Plan",
-      "body": "(Bloomberg) -- Cisco Systems Inc. jumped by the most in more than 14 years after the company delivered a better-than-anticipated sales forecast and announced plans to cut thousands of jobs, an attempt to focus on the fast-growing AI market.",
-      "source": "Bloomberg",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/cisco-soars-sales-forecast-ai-224334168.html",
-      "date": "2026-05-14"
+      "title": "Can SMCI Navigate CapEx & Inventory Headwinds Amid Rapid Scale-Up?",
+      "body": "Super Micro Computer ramps up AI infrastructure capacity to 6,000 racks monthly by FY26 as inventory and cash flow pressures intensify.",
+      "source": "Zacks",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/smci-navigate-capex-inventory-headwinds-152000717.html",
+      "date": "2026-05-19"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "Agilysys (AGYS) Q4 Earnings and Revenues Surpass Estimates",
+      "body": "Agilysys (AGYS) delivered earnings and revenue surprises of +24.33% and +1.59%, respectively, for the quarter ended March 2026. Do the numbers hold clues to what lies ahead for the stock?",
+      "source": "Zacks",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/agilysys-agys-q4-earnings-revenues-211501970.html",
+      "date": "2026-05-18"
+    },
+    {
+      "year": 2026,
+      "month": 3,
+      "title": "Dividende 0.143 $/action versé",
+      "body": "Dividende ordinaire de 0.143 $ par action, ex-date 24 mars 2026.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2026-03-24"
+    },
+    {
+      "year": 2026,
+      "month": 1,
+      "title": "Publication des résultats Q1 2026",
+      "body": "Clôture du trimestre Q1 2026 le 31 janvier 2026.",
+      "source": "yfinance · mostRecentQuarter",
+      "url": "",
+      "date": "2026-01-31"
+    },
+    {
+      "year": 2025,
+      "month": 12,
+      "title": "Dividende 0.143 $/action versé",
+      "body": "Dividende ordinaire de 0.143 $ par action, ex-date 19 décembre 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-12-19"
+    },
+    {
+      "year": 2025,
+      "month": 9,
+      "title": "Dividende 0.13 $/action versé",
+      "body": "Dividende ordinaire de 0.13 $ par action, ex-date 18 septembre 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-09-18"
+    },
+    {
+      "year": 2025,
+      "month": 6,
+      "title": "Dividende 0.13 $/action versé",
+      "body": "Dividende ordinaire de 0.13 $ par action, ex-date 18 juin 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-06-18"
     }
   ],
   "ranks": {
-    "global_world": "≈ #114",
-    "global_us": "≈ #24",
-    "sector": "≈ #10",
-    "subsector": "≈ #5"
+    "global_world": "#302",
+    "global_us": "#182",
+    "sector": "#95 in Technologie",
+    "subsector": "#1 in Technologie de l'information"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-06-02",
   "publication_date": null,
   "company_description": "Hewlett Packard Enterprise Company, together with its subsidiaries, develops intelligent solutions in the United States, the Americas, Europe, the Middle East, Africa, the Asia Pacific, Japan, and internationally. It operates in five segments: Server, Hybrid Cloud, Networking, Financial Services, and Corporate Investments and Other. The company offers general-purpose servers, workload-optimized servers, and integrated systems, including HPE ProLiant Rack and Tower servers; HPE Synergy; HPE Scale Up servers; HPE Edgeline servers; HPE Cray EX; HPE Cray XD; and HPE NonStop. It also provides cloud-native and hybrid solutions, such as HPE Alletra Storage; HPE InfoSight; HPE CloudPhysics; and HPE GreenLake. In addition, the company develops and sells networking and security products and services comprising hardware products, which include Wi-Fi and private cellular access points, MX and PTX routers, and gateways, as well as QFX, EX, and CX switches; software products, such as Mist and Aruba Central; and services comprising professional, maintenance, support services, management software, and education and training programs. Further, it offers investment solutions, including leasing, fina",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.400Z",
+  "_built_at": "2026-05-21T16:00:22.302Z",
   "_missing_blocks": []
 }

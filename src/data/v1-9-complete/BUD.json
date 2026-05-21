@@ -131,10 +131,8 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "is_short_history_legitimate": true,
-      "short_history_legitimate_reason": "Organic Revenue Growth métrique non-GAAP récente",
-      "_short_history_legitimate_rule": "kpi_pattern",
-      "_short_history_legitimate_tagged_at": "2026-05-21T03:37:51.897Z"
+      "explanation_en": "Year-over-year growth in Total Organic Revenue.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Total Organic EBITDA Growth",
@@ -158,7 +156,9 @@
       "last_data_date": "2022-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Year-over-year growth in Total Organic EBITDA.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Normalized EPS",
@@ -230,7 +230,9 @@
       "last_data_date": "2022-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Year-over-year growth in Total Organic Volume.",
+      "signal_en": "Demand strengthening, end-market traction"
     },
     {
       "short": "Total Assets",
@@ -251,7 +253,9 @@
       "signal": "Total des actifs de 218.81 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -272,7 +276,9 @@
       "signal": "Dette totale de 73.03 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -293,7 +299,8 @@
       "signal": "Trésorerie & équivalents de 11.53 Mds € dernière année",
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     }
   ],
   "kpis_story": [
@@ -314,36 +321,44 @@
     }
   ],
   "governance": {
-    "ceo_name": "Mr. Michel Dimitrios  Doukeris",
-    "ceo_title": "Chief Executive Officer",
-    "officers": [
+    "top_capital": [
       {
-        "name": "Mr. Michel Dimitrios  Doukeris",
-        "title": "Chief Executive Officer",
-        "age": 52
+        "name": "Dodge & Cox Inc.",
+        "type": "institutionnel",
+        "stake_pct": 1.65
       },
       {
-        "name": "Mr. Fernando Mommensohn Tennenbaum",
-        "title": "Chief Financial Officer",
-        "age": 48
+        "name": "Fisher Asset Management, LLC",
+        "type": "institutionnel",
+        "stake_pct": 0.66
       },
       {
-        "name": "Dr. David Henrique Galatro  de Almeida",
-        "title": "Chief Strategy & Technology Officer",
-        "age": 49
-      },
-      {
-        "name": "Mr. Shaun  Fullalove",
-        "title": "Global Vice President of Investor Relations",
-        "age": null
-      },
-      {
-        "name": "Mr. John James  Blood",
-        "title": "Chief Legal & Corporate Affairs Officer and Corporate Secretary",
-        "age": 58
+        "name": "Morgan Stanley",
+        "type": "institutionnel",
+        "stake_pct": 0.22
       }
     ],
-    "fiscal_year": 2025
+    "top_voting": [
+      {
+        "name": "Dodge & Cox Inc.",
+        "type": "institutionnel",
+        "stake_pct": 1.65
+      },
+      {
+        "name": "Fisher Asset Management, LLC",
+        "type": "institutionnel",
+        "stake_pct": 0.66
+      },
+      {
+        "name": "Morgan Stanley",
+        "type": "institutionnel",
+        "stake_pct": 0.22
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:12:22.571833+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "unit": "Mds $",
@@ -353,32 +368,37 @@
       {
         "label": "Middle Americas",
         "value": 17.4,
+        "share_pct": 29.6,
         "unit": "Mds $",
-        "share_pct": 29.6
+        "label_en": "Middle Americas"
       },
       {
         "label": "North America",
         "value": 14.2,
+        "share_pct": 24.1,
         "unit": "Mds $",
-        "share_pct": 24.1
+        "label_en": "North America"
       },
       {
         "label": "South America",
         "value": 12,
+        "share_pct": 20.4,
         "unit": "Mds $",
-        "share_pct": 20.4
+        "label_en": "South America"
       },
       {
         "label": "EMEA",
         "value": 9.5,
+        "share_pct": 16.2,
         "unit": "Mds $",
-        "share_pct": 16.2
+        "label_en": "EMEA"
       },
       {
         "label": "Asia Pacific",
         "value": 5.7,
+        "share_pct": 9.7,
         "unit": "Mds $",
-        "share_pct": 9.7
+        "label_en": "Asia-Pacific"
       }
     ],
     "total": 58.8
@@ -391,38 +411,44 @@
       {
         "label": "Amériques du Sud",
         "value": 27.7,
+        "share_pct": 27.7,
         "unit": "% volume",
-        "share_pct": 27.7
+        "label_en": "South Americas"
       },
       {
         "label": "Middle Americas",
         "value": 26.8,
+        "share_pct": 26.8,
         "unit": "% volume",
-        "share_pct": 26.8
+        "label_en": "Middle Americas"
       },
       {
         "label": "EMEA",
         "value": 16.6,
+        "share_pct": 16.6,
         "unit": "% volume",
-        "share_pct": 16.6
+        "label_en": "EMEA"
       },
       {
         "label": "Amérique du Nord",
         "value": 14.7,
+        "share_pct": 14.7,
         "unit": "% volume",
-        "share_pct": 14.7
+        "label_en": "North America"
       },
       {
         "label": "Asie-Pacifique",
         "value": 14.1,
+        "share_pct": 14.1,
         "unit": "% volume",
-        "share_pct": 14.1
+        "label_en": "Asia-Pacific"
       },
       {
         "label": "Global Export / Holding",
         "value": 0.1,
+        "share_pct": 0.1,
         "unit": "% volume",
-        "share_pct": 0.1
+        "label_en": "Global Export / Holding"
       }
     ],
     "_extracted_at": "2026-05-20T00:00:00Z",
@@ -547,15 +573,15 @@
     }
   ],
   "ranks": {
-    "global_world": "#134",
-    "global_us": ": ",
-    "sector": "#3 dans Consumer Staples",
-    "subsector": "#1 dans Beverages"
+    "global_world": "#90",
+    "global_us": "Non US",
+    "sector": "Top 10 in Consommation de base",
+    "subsector": "#3 in Beverages"
   },
   "latest_filing": null,
   "next_earnings_date": null,
   "publication_date": null,
   "company_description": "Anheuser-Busch InBev SA/NV produces and sells beer in North America, Middle Americas, South America, Europe, the Middle East, Africa, and the Asia Pacific. It operates through North America, Middle Americas, South America, EMEA, Asia Pacific, and Global Export and Holding Companies segments. The company also offers flavored malt beverages, soft drinks, spirit-based ready-to-drink cocktails and beverages, and energy drinks. In addition, it operates BEES, a business-to-business digital commerce platform; on-demand delivery platforms under the Zé Delivery and TaDa Delivery brands; and premium at-home draft system under the PerfectDraft brand. The company provides a portfolio of approximately 500 beer brands, which primarily include Budweiser, Corona Extra, Michelob Ultra, and Stella Artois; Aguila, Brahma, Carling Black Label, Cass Fresh, Jupiler, Quilmes, SKOL, and Victoria; Beck's, Hoegaarden, and Leffe; Antarctica, Bud Light, Castle, Castle Lite, Cristal, Harbin, Modelo Especial, Sedrin, and Skol brands, as well as non-beer brands comprising Brutal Fruit, Cutwater, and NÜTRL brands. The company was formerly known as InBev SA and changed its name to Anheuser-Busch InBev SA/NV in November 2008. Anheuser-Busch InBev SA/NV was founded in 1366 and is headquartered in Leuven, Belgium.",
-  "_built_at": "2026-05-20T20:15:02.224Z",
+  "_built_at": "2026-05-21T16:00:22.003Z",
   "_missing_blocks": []
 }

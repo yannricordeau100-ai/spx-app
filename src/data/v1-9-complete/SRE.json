@@ -34,7 +34,8 @@
       "is_generic": true,
       "is_short_history": true,
       "_validation": "Unité corrigée de 'Mds $' à 'B $' pour conformité internationale",
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "explanation_en": "Capital Expenditures : investments in property, plant and equipment."
     },
     {
       "short": "Earnings",
@@ -50,15 +51,27 @@
       "signal": "Baisse significative du bénéfice net en 2025 principalement due aux dépréciations d'actifs et aux impacts de change en Mexique",
       "description": "Bénéfice net attribuable aux actionnaires ordinaires de Sempra",
       "history": [
-        1.796,
-        2.817,
-        3.03
+        9.647,
+        10.557,
+        11.035,
+        10.231,
+        10.183,
+        11.207,
+        11.687,
+        10.829,
+        11.37,
+        12.857,
+        14.439,
+        16.72,
+        13.185,
+        13.702
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "_validation": "Unité corrigée de 'Mds $' à 'B $'; name_en précisé pour clarifier 'common shares'; yoy confirmé à -36% (1.796 vs 2.817); nature reclassée de 'Revenue' à 'Profitability'"
+      "_validation": "Unité corrigée de 'Mds $' à 'B $'; name_en précisé pour clarifier 'common shares'; yoy confirmé à -36% (1.796 vs 2.817); nature reclassée de 'Revenue' à 'Profitability'",
+      "signal_en": "Profitability under pressure, monitor returns"
     },
     {
       "short": "Rate Base",
@@ -82,7 +95,8 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "_validation": "Unité corrigée de 'Mds $' à 'B $'; name_en précisé à 'Combined Rate Base' pour clarifier qu'il s'agit d'Oncor seul (31.5B$); yoy calculé correctement à +18% (31.5 vs 26.6); is_wow changé à true car croissance de 18% est significative; description enrichie pour contextualiser les deux univers de base tarifaire (Oncor vs California)"
+      "_validation": "Unité corrigée de 'Mds $' à 'B $'; name_en précisé à 'Combined Rate Base' pour clarifier qu'il s'agit d'Oncor seul (31.5B$); yoy calculé correctement à +18% (31.5 vs 26.6); is_wow changé à true car croissance de 18% est significative; description enrichie pour contextualiser les deux univers de base tarifaire (Oncor vs California)",
+      "signal_en": "Solid expansion, positive trajectory"
     },
     {
       "short": "Total Revenue",
@@ -92,10 +106,20 @@
       "unit": "Mds €",
       "yoy": "+3.9%",
       "history": [
-        14.44,
+        9.647,
+        10.557,
+        11.035,
+        10.231,
+        10.183,
+        11.207,
+        11.687,
+        10.829,
+        11.37,
+        12.857,
+        14.439,
         16.72,
-        13.19,
-        13.7
+        13.185,
+        13.702
       ],
       "type": "Comptes",
       "nature": "comptable",
@@ -104,8 +128,10 @@
       "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années. Indicateur Chiffre d'affaires historisé sur 4 ans, source pipeline financière officielle.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true,
-      "last_data_date": "2026-03-31"
+      "is_short_history": false,
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -127,7 +153,9 @@
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal"
     },
     {
       "short": "Total Assets",
@@ -149,7 +177,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -171,7 +201,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Cash & Equivalents",
@@ -193,7 +225,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "Capex",
@@ -221,11 +254,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-05-12",
-    "fiscal_year": 2025,
-    "ceo_name": "Jeffrey W. Martin",
-    "board_size": 11,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action."
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 10.78
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 9.16
+      },
+      {
+        "name": "Wellington Management Group, LLP",
+        "type": "institutionnel",
+        "stake_pct": 7.06
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 10.78
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 9.16
+      },
+      {
+        "name": "Wellington Management Group, LLP",
+        "type": "institutionnel",
+        "stake_pct": 7.06
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:15:14.398810+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -235,14 +301,16 @@
         "value": 11.154,
         "unit": "Mds $",
         "pct": 86.7,
-        "share_pct": 86.7
+        "share_pct": 86.7,
+        "label_en": "SDG&E"
       },
       {
         "name": "SoCalGas",
         "value": 1.703,
         "unit": "Mds $",
         "pct": 13.3,
-        "share_pct": 13.3
+        "share_pct": 13.3,
+        "label_en": "SoCalGas"
       }
     ],
     "total": 12.86,
@@ -256,14 +324,16 @@
         "value": 11.154,
         "unit": "Mds $",
         "pct": 86.7,
-        "share_pct": 86.7
+        "share_pct": 86.7,
+        "label_en": "United States"
       },
       {
         "name": "Mexique",
         "value": 1.703,
         "unit": "Mds $",
         "pct": 13.3,
-        "share_pct": 13.3
+        "share_pct": 13.3,
+        "label_en": "Mexico"
       }
     ],
     "total": 12.86,
@@ -365,16 +435,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #XX",
-    "global_us": "...",
-    "sector": "...",
-    "subsector": "..."
+    "global_world": "#251",
+    "global_us": "#151",
+    "sector": "Top 10 in Services aux collectivités",
+    "subsector": "#1 in Energy Infrastructure"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-05-07",
   "publication_date": null,
   "company_description": "Sempra engages in the regulated utilities business in the United States and Mexico. It operates through three segments: Sempra California, Sempra Texas Utilities, and Sempra Infrastructure. It also invests in and operates electric and gas utilities and other energy infrastructure that provides energy services to customers. The Sempra California segment provides natural gas and electric services to Southern California and part of central California. As of December 31, 2025, it offered electric services to approximately 3.6 million population and natural gas services to approximately 3.3 million population that covers 4,100 square miles. This segment owns and operates a natural gas distribution, transmission, and storage system that supplies natural gas. As of December 31, 2025, it served a population of 21.3 million covering an area of 24,000 square miles. The Sempra Texas Utilities segment engages in the regulated electricity transmission and distribution utility business. As of December 31, 2025, transmission system included approximately 18,418 circuit miles of transmission lines; 1,333 transmission and distribution substations; interconnection to 230 third-party generation facil",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.620Z",
+  "_built_at": "2026-05-21T16:00:22.729Z",
   "_missing_blocks": []
 }

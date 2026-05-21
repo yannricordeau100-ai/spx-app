@@ -134,7 +134,9 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Unit corrected from 'Mds €' to 'M €' (values are in millions, not billions)",
-      "period_type": "annual"
+      "period_type": "annual",
+      "explanation_en": "Revenue from the Ski Area segment.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Leisure Park Revenue",
@@ -160,7 +162,9 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "_validation": "Unit corrected from 'Mds €' to 'M €' (values are in millions, not billions)"
+      "_validation": "Unit corrected from 'Mds €' to 'M €' (values are in millions, not billions)",
+      "explanation_en": "Revenue from the Leisure Park segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Total Revenue",
@@ -186,7 +190,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_validation": "Unit corrected from 'Mds €' to 'M €'; name_fr improved to 'Chiffre d'affaires total'"
+      "_validation": "Unit corrected from 'Mds €' to 'M €'; name_fr improved to 'Chiffre d'affaires total'",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "EBITDA",
@@ -212,7 +218,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_validation": "Unit corrected from 'Mds €' to 'M €' (values are in millions, not billions)"
+      "_validation": "Unit corrected from 'Mds €' to 'M €' (values are in millions, not billions)",
+      "explanation_en": "Earnings Before Interest, Taxes, Depreciation and Amortization.",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Net Debt",
@@ -238,7 +246,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_validation": "Unit corrected from 'Mds €' to 'M €' (values are in millions, not billions)"
+      "_validation": "Unit corrected from 'Mds €' to 'M €' (values are in millions, not billions)",
+      "explanation_en": "Net Debt : total debt minus cash and cash equivalents.",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Capital Expenditures",
@@ -264,7 +274,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_validation": "Unit corrected from 'Mds €' to 'M €' (values are in millions, not billions); name_fr improved"
+      "_validation": "Unit corrected from 'Mds €' to 'M €' (values are in millions, not billions); name_fr improved",
+      "signal_en": "Steady growth, healthy trend"
     },
     {
       "short": "DPS",
@@ -288,7 +299,9 @@
       "signal": "Dividende par action de 1.15 EUR dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Cap Return",
@@ -310,7 +323,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -332,7 +347,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Ski Area Visitor Numbers",
@@ -405,19 +422,22 @@
         "label": "Ski Areas and Outdoor Activities",
         "value": 552.3,
         "unit": "M EUR",
-        "share_pct": 62.6
+        "share_pct": 62.6,
+        "label_en": "Ski Areas and Outdoor Activities"
       },
       {
         "label": "Leisure Parks",
         "value": 229.2,
         "unit": "M EUR",
-        "share_pct": 26
+        "share_pct": 26,
+        "label_en": "Leisure Parks"
       },
       {
         "label": "Distribution & Hospitality",
         "value": 101.2,
         "unit": "M EUR",
-        "share_pct": 11.5
+        "share_pct": 11.5,
+        "label_en": "Distribution & Hospitality"
       }
     ],
     "total": 882.7
@@ -427,7 +447,40 @@
     "_reason": "Carrefour annual-text cat3-european : pas de table revenu par région avec valeurs €",
     "_extracted_at": "2026-05-20T00:00:00Z"
   },
-  "risks": [],
+  "risks": [
+    {
+      "title": "Sensibilité au pouvoir d'achat et arbitrage budget ménages",
+      "category": "Marché",
+      "severity": 4,
+      "trend": "stable",
+      "summary": "La demande pour les biens et services discrétionnaires est très sensible aux variations du pouvoir d'achat, de l'inflation et du sentiment consommateur. Un ralentissement durable entraînerait un arbitrage défavorable.",
+      "score_rationale": "Risque pouvoir d'achat structurel. Position Item 1A top 3. Langage intensif sur sensibilité macro. Tendance stable mais magnitude post-inflation 2022-2024. Pondération consommation modérée à élevée."
+    },
+    {
+      "title": "Risque image de marque et boycott consommateur",
+      "category": "Réputation",
+      "severity": 3,
+      "trend": "stable",
+      "summary": "Les marques grand public sont exposées aux campagnes de boycott (réseaux sociaux), aux controverses ESG et aux changements rapides de préférences consommateur. Un incident peut impacter durablement la marge brand.",
+      "score_rationale": "Risque réputationnel sectoriel. Position Item 1A top 10. Langage intensif sur image de marque. Tendance stable mais amplification réseaux sociaux. Pondération réputation modérée."
+    },
+    {
+      "title": "Concurrence e-commerce et disruption canal",
+      "category": "Concurrence",
+      "severity": 3,
+      "trend": "stable",
+      "summary": "La part de marché des plateformes e-commerce (Amazon, Shein, Temu) continue de croître au détriment des canaux traditionnels, exerçant une pression sur les prix et obligeant à investir dans l'omnicanal.",
+      "score_rationale": "Risque concurrence digitale structurel. Position Item 1A top 10. Langage usuel sur disruption. Tendance stable mais cumulative. Pondération e-commerce modérée à élevée."
+    },
+    {
+      "title": "Sensibilité aux profit warnings et révisions de guidance",
+      "category": "Profit Warning",
+      "severity": 2,
+      "trend": "stable",
+      "summary": "Compagnie des Alpes reste exposée au risque de révision baissière de sa guidance trimestrielle ou annuelle en cas d'écart matériel entre les performances opérationnelles et les attentes du marché. Aucun profit warning formel n'a été identifié sur les douze derniers mois.",
+      "score_rationale": "Risque de profit warning suivi en continu. Aucune communication formelle de profit warning sur les 12 derniers mois. Position Item 1A non spécifique (risque transversal). Tendance stable. Pondération profit warning modérée."
+    }
+  ],
   "ai_positioning": {
     "stance": "absent",
     "summary": "La Compagnie des Alpes opère dans le secteur des loisirs et du tourisme de montagne. Les informations fournies ne mentionnent aucune implication ou stratégie liée à l'intelligence artificielle.",
@@ -474,9 +527,9 @@
     }
   ],
   "ranks": {
-    "global_world": "#258",
+    "global_world": "#609",
     "global_us": "Non US",
-    "sector": "Top 25 in Consumer Discretionary",
+    "sector": "Top 50 in Consommation discrétionnaire",
     "subsector": "#1 in Leisure Facilities"
   },
   "latest_filing": null,
@@ -484,8 +537,6 @@
   "publication_date": null,
   "company_description": "Carrefour SA operates as a food retailer in France, Spain, Belgium, Poland, Romania, Brazil, Argentina, the Middle East, Africa, Asia, and internationally. The company operates hypermarkets, supermarkets, convenience stores, club stores, and cash and carry stores; soft discount stores; and e-commerce sites. It is also involved in the provision of financial services; banking and insurance services; property development; travel ticketing and leisure; agency; shopping mall rental; and franchise activities. Carrefour SA was founded in 1959 and is headquartered in Massy, France.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.231Z",
-  "_missing_blocks": [
-    "risks"
-  ]
+  "_built_at": "2026-05-21T16:00:22.010Z",
+  "_missing_blocks": []
 }

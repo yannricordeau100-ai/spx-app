@@ -136,7 +136,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -157,7 +159,9 @@
       "signal": "Dette totale de 68.41 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -178,7 +182,8 @@
       "signal": "Trésorerie & équivalents de 46.89 Mds € dernière année",
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "DPS",
@@ -202,7 +207,9 @@
       "signal": "Dividende par action de 0.52 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -223,7 +230,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 3.502 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -244,7 +253,9 @@
       "signal": "Part du résultat net distribué en dividendes : 46.3% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Total Revenue",
@@ -269,7 +280,9 @@
       "signal": "Chiffre d'affaires de 28.656 Mds $ dernière année.",
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     }
   ],
   "kpis_story": [
@@ -290,16 +303,44 @@
     }
   ],
   "governance": {
-    "agm_date": "2026-04-21",
-    "fiscal_year": 2025,
-    "ceo_name": "Gunjan Kedia",
-    "board_independence_pct": 91.7,
-    "board_size": 12,
-    "avg_tenure_years": null,
-    "board_women_pct": 25,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "top_capital": null,
-    "top_voting": null
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 8.41
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.27
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.47
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 8.41
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.27
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.47
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:15:30.959294+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -308,31 +349,36 @@
         "name": "Corporate and Commercial Banking",
         "value": null,
         "unit": "Mds $",
-        "pct": null
+        "pct": null,
+        "label_en": "Corporate and Commercial Banking"
       },
       {
         "name": "Consumer and Business Banking",
         "value": null,
         "unit": "Mds $",
-        "pct": null
+        "pct": null,
+        "label_en": "Consumer and Business Banking"
       },
       {
         "name": "Wealth Management and Investment Services",
         "value": null,
         "unit": "Mds $",
-        "pct": null
+        "pct": null,
+        "label_en": "Wealth Management and Investment Services"
       },
       {
         "name": "Payment Services",
         "value": null,
         "unit": "Mds $",
-        "pct": null
+        "pct": null,
+        "label_en": "Payment Services"
       },
       {
         "name": "Treasury and Corporate Support",
         "value": null,
         "unit": "Mds $",
-        "pct": null
+        "pct": null,
+        "label_en": "Treasury and Corporate Support"
       }
     ],
     "unit": "Mds $"
@@ -395,43 +441,88 @@
   "events": [
     {
       "year": 2026,
-      "month": 5,
-      "title": "Watch: US Bank CEO Says Employees Dislike AI as Much as Return-to-Office Mandates",
-      "body": "Gunjan Kedia, CEO of U.S. Bancorp, tells the WSJ Future of Everything event that most workers are still highly skeptical of AI. “The workforce likes AI about as much as they liked the return to office mandates after Covid,” she said.",
-      "source": "The Wall Street Journal",
-      "url": "https://www.wsj.com/livecoverage/stock-market-today-dow-sp-500-nasdaq-05-05-2026/card/us-bank-ceo-says-employees-dislike-ai-as-much-as-return-to-office-mandates-fBKlue7XVZ9fzlAwH7dP?siteid=yhoof2&yptr=yahoo",
-      "date": "2026-05-05"
+      "month": 7,
+      "title": "Prochaine publication Q3 2026",
+      "body": "Publication attendue le 16 juillet 2026 (Q3 2026).",
+      "source": "yfinance · calendar",
+      "url": "",
+      "date": "2026-07-16"
     },
     {
       "year": 2026,
       "month": 5,
-      "title": "US Bank CEO on AI Popularity in the Workforce",
-      "body": "Gunjan Kedia, CEO of U.S. Bancorp, tells the WSJ Future of Everything event that AI is about as popular with the workforce as return to office mandates were post-Covid.",
-      "source": "WSJ",
-      "url": "https://finance.yahoo.com/video/us-bank-ceo-ai-popularity-153500814.html",
-      "date": "2026-05-05"
+      "title": "PNC's Expansion Strategy: Growth Through Acquisitions & Partnerships",
+      "body": "PNC Financial is expanding through inorganic efforts, boosting its footprint in high-growth markets and strengthening fee-based businesses.",
+      "source": "Zacks",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/pncs-expansion-strategy-growth-acquisitions-135600033.html",
+      "date": "2026-05-20"
     },
     {
       "year": 2026,
-      "month": 4,
-      "title": "Why U.S. Bancorp (USB) is a Great Dividend Stock Right Now",
+      "month": 5,
+      "title": "U.S. Bancorp Amazon Card Deal Adds New Angle To Valuation Story",
+      "body": "U.S. Bancorp (NYSE:USB) has partnered with Amazon and Mastercard to issue new Amazon Prime Business and Amazon Business credit cards for business customers. The cards are designed to integrate Amazon Business tools, U.S. Bank Spend Manageme",
+      "source": "Simply Wall St.",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/u-bancorp-amazon-card-deal-004930203.html",
+      "date": "2026-05-18"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "Are You Looking for a High-Growth Dividend Stock?",
       "body": "Dividends are one of the best benefits to being a shareholder, but finding a great dividend stock is no easy task. Does U.S. Bancorp (USB) have what it takes? Let's find out.",
       "source": "Zacks",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/why-u-bancorp-usb-great-154503319.html",
-      "date": "2026-04-29"
+      "url": "https://finance.yahoo.com/markets/stocks/articles/looking-high-growth-dividend-stock-154503581.html",
+      "date": "2026-05-15"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "Inflation Is Coming: 5 High-Yielding Stocks in Sectors That Will Thrive",
+      "body": "You don’t need to be an economist to determine that the path of least resistance for inflation will be higher as 2026 rolls on. While energy prices are the biggest determining factor, we have seen grocery prices, especially in the meat depa",
+      "source": "24/7 Wall St.",
+      "url": "https://247wallst.com/investing/2026/05/12/inflation-is-coming-5-high-yielding-stocks-in-sectors-that-will-thrive/",
+      "date": "2026-05-12"
+    },
+    {
+      "year": 2026,
+      "month": 3,
+      "title": "Publication des résultats Q1 2026",
+      "body": "Clôture du trimestre Q1 2026 le 31 mars 2026.",
+      "source": "yfinance · mostRecentQuarter",
+      "url": "",
+      "date": "2026-03-31"
+    },
+    {
+      "year": 2026,
+      "month": 3,
+      "title": "Dividende 0.52 $/action versé",
+      "body": "Dividende ordinaire de 0.52 $ par action, ex-date 31 mars 2026.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2026-03-31"
+    },
+    {
+      "year": 2025,
+      "month": 12,
+      "title": "Dividende 0.52 $/action versé",
+      "body": "Dividende ordinaire de 0.52 $ par action, ex-date 31 décembre 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-12-31"
     }
   ],
   "ranks": {
-    "global_world": "≈ #100",
-    "global_us": "≈ #20",
-    "sector": "≈ #100",
-    "subsector": "≈ #20"
+    "global_world": "#231",
+    "global_us": "#134",
+    "sector": "Top 50 in Finance",
+    "subsector": "Top 25 in Banks"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-16",
   "publication_date": null,
   "company_description": "U.S. Bancorp, a financial services holding company, provides various financial services to individuals, businesses, institutional organizations, governmental entities, and other financial institutions in the United States. The company operates through Wealth, Corporate, Commercial and Institutional Banking; Consumer and Business Banking; Payment Services; and Treasury and Corporate Support segments. It offers depository services, including checking accounts, savings accounts, and time certificate contracts; and lending services, such as traditional credit products and credit card services, lease financing and import/export trade, agricultural finance, asset-backed lending, and other products. The company also provides cash management, capital markets, and trust and investment management services; and ancillary services comprising capital markets, treasury management, and receivable lock-box collection services to corporate and governmental entity customers. In addition, it offers asset management and fiduciary services for individuals, estates, foundations, business corporations, and charitable organizations; and investment and insurance products to its customers principally within",
-  "_built_at": "2026-05-20T20:15:02.670Z",
+  "_built_at": "2026-05-21T16:00:22.843Z",
   "_missing_blocks": [
     "revenue_by_geography"
   ]

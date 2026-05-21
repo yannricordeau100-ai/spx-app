@@ -59,7 +59,9 @@
       "_validation": "Corrigé unité de Mds $ à M $, ajusté yoy de +12% à +12.5%, type changé de Revenue à Profitability, nom_fr amélioré pour précision",
       "period_type": "quarter",
       "_hero_history_source": "yfinance.income_stmt (annual)",
-      "_hero_history_extracted_at": "2026-05-14T09:38:52.470959+00:00"
+      "_hero_history_extracted_at": "2026-05-14T09:38:52.470959+00:00",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Adjusted operating earnings",
@@ -83,7 +85,8 @@
       "is_generic": false,
       "is_short_history": true,
       "ttm": 2801,
-      "_validation": "Corrigé unité de Mds $ à M $, ajusté yoy de +12% à +11.7%, type changé de Revenue à Profitability, nom_fr amélioré pour précision"
+      "_validation": "Corrigé unité de Mds $ à M $, ajusté yoy de +12% à +11.7%, type changé de Revenue à Profitability, nom_fr amélioré pour précision",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Diluted earnings per share",
@@ -107,7 +110,9 @@
       "is_generic": false,
       "is_short_history": true,
       "ttm": 2.73,
-      "_validation": "Corrigé history de [2, 45, 2, 73] à [2.45, 2.73], ajusté yoy de +12% à +11.4%, type changé de Revenue à Profitability"
+      "_validation": "Corrigé history de [2, 45, 2, 73] à [2.45, 2.73], ajusté yoy de +12% à +11.4%, type changé de Revenue à Profitability",
+      "explanation_en": "Market share in Diluted earnings per.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Total Revenue",
@@ -129,7 +134,9 @@
       "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -151,7 +158,9 @@
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Solid expansion, positive trajectory"
     },
     {
       "short": "Total Assets",
@@ -173,7 +182,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -195,7 +206,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -217,7 +230,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Net income 2025",
@@ -276,37 +290,78 @@
     }
   ],
   "governance": {
-    "agm_date": "2026-04-28",
-    "fiscal_year": 2025,
-    "ceo_name": "Calvin G. Butler, Jr.",
-    "board_size": 9,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "top_capital": []
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 12.42
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 11.6
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 6.95
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 12.42
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 11.6
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 6.95
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:13.932364+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "slices": [
       {
         "label": "ComEd",
-        "value": 8353,
-        "share_pct": 36.17
+        "value": 8.35,
+        "share_pct": 36.17,
+        "unit": "Mds $",
+        "label_en": "ComEd"
       },
       {
         "label": "BGE",
-        "value": 3948,
-        "share_pct": 17.1
+        "value": 3.95,
+        "share_pct": 17.1,
+        "unit": "Mds $",
+        "label_en": "BGE"
       },
       {
         "label": "Pepco",
-        "value": 4357,
-        "share_pct": 18.87
+        "value": 4.36,
+        "share_pct": 18.87,
+        "unit": "Mds $",
+        "label_en": "Pepco"
       },
       {
         "label": "ACE",
-        "value": 6434,
-        "share_pct": 27.86
+        "value": 6.43,
+        "share_pct": 27.86,
+        "unit": "Mds $",
+        "label_en": "ACE"
       }
     ],
-    "total": 23092
+    "unit": "Mds $",
+    "total": 23.09
   },
   "revenue_by_geography": {
     "label": "Rpartition du chiffre d'affaires par zone gographique",
@@ -316,35 +371,40 @@
         "value": 4.645,
         "unit": "Mds $",
         "pct": 30.8,
-        "share_pct": 30.8
+        "share_pct": 30.8,
+        "label_en": "Mid Atlantic"
       },
       {
         "name": "Midwest",
         "value": 4.024,
         "unit": "Mds $",
         "pct": 26.7,
-        "share_pct": 26.7
+        "share_pct": 26.7,
+        "label_en": "Midwest"
       },
       {
         "name": "New York",
         "value": 1.431,
         "unit": "Mds $",
         "pct": 9.5,
-        "share_pct": 9.5
+        "share_pct": 9.5,
+        "label_en": "New York"
       },
       {
         "name": "ERCOT",
         "value": 0.958,
         "unit": "Mds $",
         "pct": 6.3,
-        "share_pct": 6.3
+        "share_pct": 6.3,
+        "label_en": "ERCOT"
       },
       {
         "name": "Other Power Regions",
         "value": 4.002,
         "unit": "Mds $",
         "pct": 26.6,
-        "share_pct": 26.6
+        "share_pct": 26.6,
+        "label_en": "Other Power Regions"
       }
     ],
     "total": 15.06,
@@ -456,15 +516,15 @@
     }
   ],
   "ranks": {
-    "global_world": "#211",
-    "global_us": "#133",
-    "sector": "Top 5 in Utilities",
-    "subsector": "Top 5 in Electric Utilities"
+    "global_world": "#311",
+    "global_us": "#189",
+    "sector": "Top 10 in Services aux collectivités",
+    "subsector": "Top 10 in Électricité"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-05-06",
   "publication_date": null,
   "company_description": "Exelon Corporation, a utility services holding company, engages in the energy distribution and transmission businesses in the United States. The company is involved in the purchase and regulated retail sale of electricity and natural gas; transmission and distribution of electricity; and distribution of natural gas to retail customers. It serves residential, commercial, industrial, and public authorities and electric railroads customers. Exelon Corporation was incorporated in 1999 and is headquartered in Chicago, Illinois.",
-  "_built_at": "2026-05-20T20:15:02.341Z",
+  "_built_at": "2026-05-21T16:00:22.211Z",
   "_missing_blocks": []
 }

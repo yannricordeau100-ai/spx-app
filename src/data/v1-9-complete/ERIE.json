@@ -134,7 +134,9 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "_validation": "Renommé en 'Agent Compensation Expense Ratio' pour clarifier que c'est un ratio; yoy changé de null à stable; signal et description améliorés; history basé sur les données 2025 du MD&A"
+      "_validation": "Renommé en 'Agent Compensation Expense Ratio' pour clarifier que c'est un ratio; yoy changé de null à stable; signal et description améliorés; history basé sur les données 2025 du MD&A",
+      "explanation_en": "Agent Compensation Expense ratio.",
+      "signal_en": "Cost base stable"
     },
     {
       "short": "Underwriting Expense Ratio",
@@ -156,7 +158,9 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "_validation": "Renommé en 'Underwriting Expense Ratio' pour clarifier que c'est un ratio; yoy changé de null à stable; signal et description améliorés; history basé sur les données 2025 du MD&A"
+      "_validation": "Renommé en 'Underwriting Expense Ratio' pour clarifier que c'est un ratio; yoy changé de null à stable; signal et description améliorés; history basé sur les données 2025 du MD&A",
+      "explanation_en": "Underwriting Expense ratio.",
+      "signal_en": "Cost base stable"
     },
     {
       "short": "IT Services Expense Ratio",
@@ -178,7 +182,9 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "_validation": "Renommé en 'IT Services Expense Ratio' pour clarifier que c'est un ratio; yoy changé de null à stable; signal et description améliorés; history basé sur les données 2025 du MD&A"
+      "_validation": "Renommé en 'IT Services Expense Ratio' pour clarifier que c'est un ratio; yoy changé de null à stable; signal et description améliorés; history basé sur les données 2025 du MD&A",
+      "explanation_en": "IT Services Expense ratio.",
+      "signal_en": "Cost base stable"
     },
     {
       "short": "Personal Lines Premium Mix",
@@ -200,7 +206,8 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "_validation": "KPI ajouté basé sur les données du MD&A concernant la répartition des primes par segment"
+      "_validation": "KPI ajouté basé sur les données du MD&A concernant la répartition des primes par segment",
+      "signal_en": "Flat year-over-year, monitor closely"
     },
     {
       "short": "Total Revenue",
@@ -225,7 +232,9 @@
       "signal": "Chiffre d'affaires de 1.692 Mds $ dernière année fiscale (FY2017).",
       "description": "Chiffre d'affaires extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -250,7 +259,9 @@
       "signal": "Résultat net de 0.559 Mds $ dernière année fiscale (FY2025).",
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns"
     },
     {
       "short": "Operating Income",
@@ -275,7 +286,9 @@
       "signal": "Résultat opérationnel de 0.717 Mds $ dernière année fiscale (FY2025).",
       "description": "Résultat opérationnel extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Operating Income : profit from core business operations.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "DPS",
@@ -299,7 +312,9 @@
       "signal": "Dividende par action de 2.926 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -321,7 +336,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -343,48 +360,76 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     }
   ],
   "kpis_story": [],
   "governance": {
-    "ceo_name": "Mr. Timothy Gerard NeCastro C.I.C., CPA",
-    "ceo_title": "President & CEO",
-    "fiscal_year": 2025
-  },
-  "revenue_by_segment": {
-    "unit": "Mds $",
-    "source_date": "2025-12-31",
-    "source": "10-K 2025",
-    "slices": [
+    "top_capital": [
       {
-        "label": "Policy issuance and renewal services",
-        "value": 3.13,
-        "unit": "Mds $",
-        "share_pct": 77.1
+        "name": "PNC Financial Services Group, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 10.63
       },
       {
-        "label": "Administrative services",
-        "value": 0.91,
-        "unit": "Mds $",
-        "share_pct": 22.4
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 5.92
       },
       {
-        "label": "Service agreement revenue",
-        "value": 0.02,
-        "unit": "Mds $",
-        "share_pct": 0.5
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 3.42
       }
     ],
-    "total": 4.06
+    "top_voting": [
+      {
+        "name": "PNC Financial Services Group, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 10.63
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 5.92
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 3.42
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:12.355985+00:00",
+    "_top_dual_class_flag": false
   },
-  "revenue_by_geography": {
-    "single_region": true,
-    "reason": "ERIE 10-K confirme opérations exclusivement US : \"All segment revenue is derived in the United States, the majority of which is from the subscriber agreement\"",
-    "source": "10-K FY2024 (filed 2025-02-27)",
-    "_extracted_at": "2026-05-20T11:22:10.340638Z",
-    "_verified_10k": true
+  "revenue_by_segment": {
+    "label": "Répartition du chiffre d'affaires par segment opérationnel",
+    "slices": [
+      {
+        "name": "Policy issuance and renewal services",
+        "value": 1.842,
+        "unit": "Mds $",
+        "pct": 73.4,
+        "share_pct": 73.4,
+        "label_en": "Policy issuance and renewal services"
+      },
+      {
+        "name": "Administrative services",
+        "value": 0.669,
+        "unit": "Mds $",
+        "pct": 26.6,
+        "share_pct": 26.6,
+        "label_en": "Administrative services"
+      }
+    ],
+    "total": 2.51,
+    "unit": "Mds $"
   },
+  "revenue_by_geography": null,
   "risks": [
     {
       "title": "Dépendance envers l'Erie Insurance Exchange",
@@ -502,16 +547,18 @@
     }
   ],
   "ranks": {
-    "global_world": "#291",
-    "global_us": "#161",
-    "sector": "Top 50 in Financials",
-    "subsector": "Top 25 in Insurance"
+    "global_world": "#683",
+    "global_us": "#418",
+    "sector": "#77 in Finance",
+    "subsector": "Top 50 in Assurance"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-04-23",
   "publication_date": null,
   "company_description": "Erie Indemnity Company operates as a managing attorney-in-fact for the subscribers at the Erie Insurance Exchange in the United States. It provides issuance and renewal services; sales related services, including agent compensation and sales and advertising support services; underwriting services that include underwriting and policy processing; and other services consist of customer services and administrative support services, as well as information technology services. The company was incorporated in 1925 and is based in Erie, Pennsylvania.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.337Z",
-  "_missing_blocks": []
+  "_built_at": "2026-05-21T16:00:22.205Z",
+  "_missing_blocks": [
+    "revenue_by_geography"
+  ]
 }

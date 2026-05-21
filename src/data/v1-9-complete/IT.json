@@ -35,15 +35,29 @@
       "unit": "%",
       "yoy": "+1%",
       "history": [
-        84,
-        84,
-        85
+        1.2885,
+        1.4686,
+        1.6158,
+        1.7842,
+        2.0214,
+        2.1631,
+        2.4445,
+        3.3115,
+        3.9755,
+        4.2453,
+        4.0994,
+        4.734,
+        5.4758,
+        5.907,
+        6.2674,
+        6.4972
       ],
       "period_type": "annual",
       "description": "Taux de renouvellement des contrats d'abonnement Insights (12 mois minimum)",
       "signal": "Stable et élevé",
       "quality": "Bon",
-      "explanation": "Taux de rétention client 85% en 2025 vs 84% en 2024. Contrats multi-années: 77% du portefeuille. Métrique clé pour modèle SaaS/abonnement (78% des revenus 2025)."
+      "explanation": "Taux de rétention client 85% en 2025 vs 84% en 2024. Contrats multi-années: 77% du portefeuille. Métrique clé pour modèle SaaS/abonnement (78% des revenus 2025).",
+      "is_short_history": false
     },
     {
       "short": "Multi_Year_Contracts",
@@ -163,10 +177,22 @@
       "unit": "Mds €",
       "yoy": "+13.3%",
       "history": [
-        1.469,
-        1.616,
-        1.784,
-        2.021
+        1.2885,
+        1.4686,
+        1.6158,
+        1.7842,
+        2.0214,
+        2.1631,
+        2.4445,
+        3.3115,
+        3.9755,
+        4.2453,
+        4.0994,
+        4.734,
+        5.4758,
+        5.907,
+        6.2674,
+        6.4972
       ],
       "type": "Comptes",
       "nature": "comptable",
@@ -177,8 +203,10 @@
       "_source": "yfinance.income_stmt",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:52:22.119781+00:00",
-      "is_short_history": true,
-      "last_data_date": "2026-03-31"
+      "is_short_history": false,
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -200,7 +228,9 @@
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal"
     },
     {
       "short": "Operating Income",
@@ -222,7 +252,9 @@
       "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Operating Income : profit from core business operations.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Total Assets",
@@ -244,7 +276,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Total Debt",
@@ -266,7 +300,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -288,7 +324,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "Insights contract value",
@@ -315,11 +352,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-05-28",
-    "fiscal_year": 2025,
-    "ceo_name": "Eugene A. Hall",
-    "board_size": 13,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action."
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 12.19
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 10.28
+      },
+      {
+        "name": "BAMCO Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.84
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 12.19
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 10.28
+      },
+      {
+        "name": "BAMCO Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.84
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:50.504701+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -329,21 +399,24 @@
         "value": 3.57,
         "unit": "Mds $",
         "pct": 79,
-        "share_pct": 79
+        "share_pct": 79,
+        "label_en": "Research"
       },
       {
         "name": "Conferences",
         "value": 0.27,
         "unit": "Mds $",
         "pct": 6,
-        "share_pct": 6
+        "share_pct": 6,
+        "label_en": "Conferences"
       },
       {
         "name": "Consulting",
         "value": 0.68,
         "unit": "Mds $",
         "pct": 15,
-        "share_pct": 15
+        "share_pct": 15,
+        "label_en": "Consulting"
       }
     ],
     "total": 4.52,
@@ -357,21 +430,24 @@
         "value": 3.21,
         "unit": "Mds $",
         "pct": 71,
-        "share_pct": 71
+        "share_pct": 71,
+        "label_en": "North America"
       },
       {
         "name": "Europe, Moyen-Orient et Afrique",
         "value": 0.96,
         "unit": "Mds $",
         "pct": 21,
-        "share_pct": 21
+        "share_pct": 21,
+        "label_en": "Europe, Middle East and Africa"
       },
       {
         "name": "Autres régions internationales",
         "value": 0.35,
         "unit": "Mds $",
         "pct": 8,
-        "share_pct": 8
+        "share_pct": 8,
+        "label_en": "Other International Regions"
       }
     ],
     "total": 4.52,
@@ -436,12 +512,25 @@
     }
   ],
   "ai_positioning": {
-    "stance": "present",
-    "summary": "Gartner reconnaît l'importance stratégique de l'IA avec des mentions de la nécessité de maintenir et d'étendre les produits et services liés à l'IA, ainsi que de se conformer aux réglementations émergentes en matière d'IA.",
+    "stance": "integrator",
+    "summary": "Gartner intègre l'IA comme levier d'amélioration de ses services existants, sans en faire un produit central, tout en surveillant les risques concurrentiels et réglementaires.",
     "evidence": [
-      "Ability to keep pace with technological developments in artificial intelligence (AI) and comply with evolving AI regulations"
+      "Lancement en août 2025 d'AskGartner, un outil IA destiné à améliorer l'accès aux contenus pour les utilisateurs sous licence, marquant une intégration opérationnelle de l'IA dans l'expérience client.",
+      "La société reconnaît que les grands modèles linguistiques (LLM) et moteurs de recherche pourraient réduire le trafic vers ses sites en diffusant du contenu généré par IA, menaçant indirectement ses revenus.",
+      "Gartner investit dans le développement interne de compétences IA, avec des coûts accrus liés au talent et à la mise en œuvre, mais sans préciser de montant dédié en R&D.",
+      "La protection de la propriété intellectuelle face à l'entraînement des IA sur ses contenus reste une préoccupation majeure, malgré des clauses contractuelles interdisant leur utilisation.",
+      "La société anticipe une intensification de la concurrence avec l'adoption généralisée de l'IA, pouvant entraîner une pression sur les prix et des dépenses commerciales accrues."
     ],
-    "source": "Form 10-K 2025, Forward-Looking Statements section"
+    "source_note": "10-K FY2025, transcripts d'earnings calls 2025-2026",
+    "_bucket": "MEDIUM",
+    "_subsector": "Services de conseil en technologie",
+    "_sources_used": {
+      "has_10k": true,
+      "has_transcript": false,
+      "ai_passages_chars": 9226
+    },
+    "_generated_at": "2026-05-21T02:24:41.708689+00:00",
+    "ticker": "IT"
   },
   "market_positions": [],
   "events": [
@@ -483,16 +572,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #",
-    "global_us": "",
-    "sector": "",
-    "subsector": ""
+    "global_world": "#707",
+    "global_us": "#438",
+    "sector": "#201 in Technologie",
+    "subsector": "#1 in Services de conseil en technologie"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-05-05",
   "publication_date": null,
   "company_description": "Gartner, Inc. provides business and technology insights for decisions and performance on an organization's mission-critical priorities in the United States, Canada, Europe, the Middle East, Africa, and internationally. It operates through three segments: Insights, Conferences, and Consulting. The Research segment delivers insights through subscription services, such as access to published content, data and benchmarks, and direct access to a network of business and technology experts. The Conferences segment offers executives and teams in an organization the opportunity to learn, share, and network through its Symposium/Xpo series and peer-driven sessions, as well as conferences focused on specific business roles and topics. The Consulting segment provides technology-driven strategic initiatives, including custom analysis and on-the-ground support to senior executives. This segment also offers actionable solutions for IT-related priorities, including IT cost optimization, digital transformation, and IT sourcing optimization. Gartner, Inc. was founded in 1979 and is headquartered in Stamford, Connecticut.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.423Z",
+  "_built_at": "2026-05-21T16:00:22.351Z",
   "_missing_blocks": []
 }

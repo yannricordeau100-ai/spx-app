@@ -116,7 +116,9 @@
       "last_data_date": "2024-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Profit margin on Adjusted EBIT.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Sales",
@@ -141,7 +143,9 @@
       "last_data_date": "2024-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Sales : total sales generated over the period.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Adjusted EBIT",
@@ -166,7 +170,9 @@
       "last_data_date": "2024-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Adjusted EBIT : operating profit excluding non-recurring items.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "EPS",
@@ -191,7 +197,9 @@
       "last_data_date": "2024-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Earnings Per Share : net income divided by shares outstanding.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Dividend",
@@ -216,7 +224,8 @@
       "last_data_date": "2024-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "DPS",
@@ -240,7 +249,9 @@
       "signal": "Dividende par action de 2.05 EUR dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Cap Return",
@@ -262,7 +273,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -284,14 +297,17 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     }
   ],
   "kpis_story": [],
   "governance": {
-    "ceo_name": "Dr. Carsten  Knobel",
-    "ceo_title": "CEO & Chairman of the Management Board - Henkel Management AG",
-    "fiscal_year": 2025
+    "top_disclosure": "eu_regex_extracted",
+    "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
+    "_top_disclosure_at": "2026-05-21T02:49:04.636477+00:00",
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:18:58Z"
   },
   "revenue_by_segment": {
     "unit": "Mds€",
@@ -301,14 +317,16 @@
       {
         "label": "Adhesive Technologies",
         "value": 5.42,
-        "unit": "M€",
-        "share_pct": 52.5
+        "share_pct": 52.5,
+        "unit": "Mds€",
+        "label_en": "Adhesive Technologies"
       },
       {
         "label": "Consumer Brands",
         "value": 4.91,
-        "unit": "M€",
-        "share_pct": 47.5
+        "share_pct": 47.5,
+        "unit": "Mds€",
+        "label_en": "Consumer Brands"
       }
     ],
     "total": 10.33
@@ -321,32 +339,37 @@
       {
         "label": "Europe",
         "value": 3.98,
-        "unit": "M€",
-        "share_pct": 38.6
+        "share_pct": 38.6,
+        "unit": "Mds€",
+        "label_en": "Europe"
       },
       {
         "label": "Amérique du Nord",
         "value": 2.82,
-        "unit": "M€",
-        "share_pct": 27.3
+        "share_pct": 27.3,
+        "unit": "Mds€",
+        "label_en": "North America"
       },
       {
         "label": "Asie-Pacifique",
         "value": 1.69,
-        "unit": "M€",
-        "share_pct": 16.4
+        "share_pct": 16.4,
+        "unit": "Mds€",
+        "label_en": "Asia-Pacific"
       },
       {
         "label": "IMEA",
         "value": 1.08,
-        "unit": "M€",
-        "share_pct": 10.5
+        "share_pct": 10.5,
+        "unit": "Mds€",
+        "label_en": "IMEA"
       },
       {
         "label": "Amérique latine",
         "value": 0.75,
-        "unit": "M€",
-        "share_pct": 7.3
+        "share_pct": 7.3,
+        "unit": "Mds€",
+        "label_en": "Latin America"
       }
     ],
     "total": 10.32
@@ -467,9 +490,9 @@
     }
   ],
   "ranks": {
-    "global_world": "#174",
+    "global_world": "#405",
     "global_us": "Non US",
-    "sector": "#1 in Consumer Cyclical",
+    "sector": "#2 in Consumer Cyclical",
     "subsector": "#2 in Household & Personal Care"
   },
   "latest_filing": null,
@@ -477,6 +500,6 @@
   "publication_date": null,
   "company_description": "Henkel AG & Co. KGaA, together with its subsidiaries, engages in the adhesive technologies and consumer brands businesses in Europe, India, the Middle East, Africa, North America, Latin America, the Asia Pacific. It offers adhesives, sealants, and functional coatings for various business areas, including packaging and consumer goods; mobility and electronics; and craftsmen, construction, and professional industries. The company also provides hair styling, hair colorants, and hair care products; and body care products, as well as distributes its products through brick-and-mortar stores, hair salons, and digital channels. In addition, it offers laundry and home care products, such as heavy-duty and specialty detergents, fabric softeners and laundry additives, and other fabric cleaning and fabric care products; dishwashing products; and hard surface and toilet cleaners. Further, the company provides household cleaners products. The company was founded in 1876 and is headquartered in Düsseldorf, Germany.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.390Z",
+  "_built_at": "2026-05-21T16:00:22.288Z",
   "_missing_blocks": []
 }

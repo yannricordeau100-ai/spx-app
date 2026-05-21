@@ -125,7 +125,9 @@
       "_validation": "Conversion Mds $ vers B $; history réorganisée en ordre chronologique croissant; ttm supprimé (non pertinent)",
       "period_type": "quarter",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
-      "_hero_history_extracted_at": "2026-05-14T10:55:11.503159+00:00"
+      "_hero_history_extracted_at": "2026-05-14T10:55:11.503159+00:00",
+      "explanation_en": "Revenue : total sales generated over the period.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Gross Margin",
@@ -151,7 +153,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_validation": "History réorganisée en ordre chronologique croissant; ttm supprimé; values corrigées pour cohérence"
+      "_validation": "History réorganisée en ordre chronologique croissant; ttm supprimé; values corrigées pour cohérence",
+      "explanation_en": "Gross Margin : gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Op Margin",
@@ -177,7 +181,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_validation": "History réorganisée en ordre chronologique croissant; ttm supprimé"
+      "_validation": "History réorganisée en ordre chronologique croissant; ttm supprimé",
+      "explanation_en": "Profit margin on Op.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Top 10 Customers",
@@ -203,7 +209,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_validation": "KPI conservé; données validées par source; ttm supprimé"
+      "_validation": "KPI conservé; données validées par source; ttm supprimé",
+      "explanation_en": "Number of Top 10 customers."
     },
     {
       "short": "Walgreens and Boots Revenue",
@@ -223,7 +230,8 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "_validation": "KPI ajouté from source 10-K; données critiques de risque client"
+      "_validation": "KPI ajouté from source 10-K; données critiques de risque client",
+      "explanation_en": "Revenue from the Walgreens and Boots segment."
     },
     {
       "short": "Evernorth Revenue",
@@ -243,7 +251,8 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "_validation": "KPI ajouté from source 10-K; données critiques de risque client"
+      "_validation": "KPI ajouté from source 10-K; données critiques de risque client",
+      "explanation_en": "Revenue from the Evernorth segment."
     },
     {
       "short": "Total Assets",
@@ -265,7 +274,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -287,7 +298,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "Short": "Revenue",
@@ -348,30 +361,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-03-05",
-    "fiscal_year": 2025,
-    "board_independence_pct": 90.9,
-    "board_size": 11,
     "top_capital": [
       {
-        "name": "The Vanguard Group, Inc.",
+        "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": 7.2
+        "stake_pct": 11.26
       },
       {
         "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": 5.5
+        "stake_pct": 10.25
       },
       {
-        "name": "State Street Corporation",
+        "name": "T. Rowe Price",
         "type": "institutionnel",
-        "stake_pct": 3.9
+        "stake_pct": 7
       }
     ],
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "ceo_name": "Dr. Robert P. Mauch Ph.D., PharmD",
-    "_source": "yfinance.companyOfficers"
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.26
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 10.25
+      },
+      {
+        "name": "T. Rowe Price",
+        "type": "institutionnel",
+        "stake_pct": 7
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:12:40.111699+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -381,14 +408,16 @@
         "value": 201.5,
         "unit": "Mds $",
         "pct": 74,
-        "share_pct": 74
+        "share_pct": 74,
+        "label_en": "U.S. Healthcare Solutions"
       },
       {
         "name": "International Healthcare Solutions",
         "value": 70.6,
         "unit": "Mds $",
         "pct": 26,
-        "share_pct": 26
+        "share_pct": 26,
+        "label_en": "International Healthcare Solutions"
       }
     ],
     "total": 272.1,
@@ -398,16 +427,21 @@
     "slices": [
       {
         "label": "Domestique",
-        "value": 1611725,
-        "share_pct": 71.37
+        "value": 1611.73,
+        "share_pct": 71.37,
+        "unit": "Mds $",
+        "label_en": "Domestic"
       },
       {
         "label": "International",
-        "value": 646611,
-        "share_pct": 28.63
+        "value": 646.61,
+        "share_pct": 28.63,
+        "unit": "Mds $",
+        "label_en": "International"
       }
     ],
-    "total": 2258336
+    "unit": "Mds $",
+    "total": 2258.34
   },
   "risks": [
     {
@@ -519,9 +553,9 @@
     }
   ],
   "ranks": {
-    "global_world": "#204",
-    "global_us": "#127",
-    "sector": "#62 in Information Technology",
+    "global_world": "#283",
+    "global_us": "#174",
+    "sector": "#80 in Technologie",
     "subsector": "#1 in Pharmaceutical sourcing and distribution services"
   },
   "latest_filing": null,
@@ -529,6 +563,6 @@
   "publication_date": null,
   "company_description": "Cencora, Inc. sources and distributes pharmaceutical products in the United States and internationally. The company's U.S. Healthcare Solutions segment distributes generic and injectable pharmaceuticals, over-the-counter healthcare products, home healthcare supplies and equipment, and related services to acute care hospitals and health systems, independent and chain retail pharmacies, mail order pharmacies, medical clinics, long-term care and alternate site pharmacies, and other customers; distributes plasma and other blood products, vaccines, and other specialty pharmaceutical products; provides pharmacy management, staffing, and other consulting services; supply management software to retail and institutional healthcare providers; packaging solutions to institutional and retail healthcare providers; clinical trial support, product post-approval, and commercialization support services; data analytics, outcomes research, and other services for biotechnology and pharmaceutical manufacturers; pharmaceuticals, vaccines, parasiticides, diagnostics, micro feed ingredients, and other products to the companion animal and production animal markets; sales force services to manufacturers; an",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.265Z",
+  "_built_at": "2026-05-21T16:00:22.074Z",
   "_missing_blocks": []
 }

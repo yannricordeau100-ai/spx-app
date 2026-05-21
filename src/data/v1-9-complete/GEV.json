@@ -40,7 +40,10 @@
         "Value verified from 10-K source: RPO was $150.2 billion as of December 31, 2025",
         "YoY calculation verified: ($150.2B - $119.0B) / $119.0B = 26.2%",
         "History values confirmed from financial statements for 2025, 2024, 2023"
-      ]
+      ],
+      "is_short_history_legitimate": true,
+      "short_history_legitimate_reason": "IPO 2024 (<5 ans réels)",
+      "signal_en": "Forward visibility increasing, pipeline strengthening"
     },
     {
       "short": "Total revenues",
@@ -69,7 +72,8 @@
         "Value verified from 10-K source: Total revenues were $38.068 billion (rounded to $38.1B) for year ended December 31, 2025",
         "YoY calculation verified: ($38.1B - $34.9B) / $34.9B = 9.2%",
         "History values confirmed from REVENUES table in financial statements: 2025: $38.068B, 2024: $34.935B, 2023: $33.239B"
-      ]
+      ],
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net income",
@@ -99,7 +103,9 @@
         "YoY calculation corrected: ($4.879B - $1.559B) / $1.559B = 212.9% (rounded to 213%)",
         "2024 history corrected from 1.6 to 1.559 for accuracy",
         "History confirmed: 2025: $4.879B, 2024: $1.559B, 2023: -$0.474B (displayed as -0.5)"
-      ]
+      ],
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Net income margin",
@@ -129,7 +135,9 @@
         "2024 margin verified: $1.559B / $34.935B = 4.46% (displayed as 4.5%)",
         "2023 margin verified: -$0.474B / $33.239B = -1.43% (displayed as -1.4%)",
         "YoY point calculation corrected from +1.5 pts to +8.3 pts: 12.8% - 4.5% = 8.3 percentage points"
-      ]
+      ],
+      "explanation_en": "Profit margin on Net income.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Operating income",
@@ -159,7 +167,9 @@
         "YoY calculation verified: ($1.388B - $0.471B) / $0.471B = 194.7% (rounded to 195%)",
         "2024 history corrected from 0.5 to 0.471 for accuracy",
         "History confirmed: 2025: $1.388B, 2024: $0.471B, 2023: -$0.923B (displayed as -0.9)"
-      ]
+      ],
+      "explanation_en": "Operating Income : profit from core business operations.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Cash flow from operations",
@@ -187,7 +197,8 @@
         "Value verified from 10-K source: Cash flows from operating activities were $5.0 billion for year ended December 31, 2025",
         "YoY calculation verified: ($5.0B - $2.6B) / $2.6B = 92.3%",
         "History confirmed: 2025: $5.0B, 2024: $2.6B, 2023: data not disclosed in provided extract"
-      ]
+      ],
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Free cash flow",
@@ -215,7 +226,9 @@
         "Value verified from 10-K source: Free cash flow was $3.7 billion for year ended December 31, 2025",
         "YoY calculation verified: ($3.7B - $1.7B) / $1.7B = 117.6% (rounded to 118%)",
         "History confirmed: 2025: $3.7B, 2024: $1.7B, 2023: data not disclosed in provided extract"
-      ]
+      ],
+      "explanation_en": "Free Cash Flow : operating cash flow minus capital expenditures.",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Tariff costs",
@@ -242,7 +255,8 @@
         "Value verified from 10-K source: Total cost impact from global tariffs for full year 2025 was approximately $250 million",
         "Unit confirmed: $0.25B = $250M (conversion correct)",
         "Note added: amount is net of contractual protections and mitigating actions"
-      ]
+      ],
+      "explanation_en": "Costs related to Tariff."
     },
     {
       "short": "DPS",
@@ -262,7 +276,9 @@
       "signal": "Dividende par action de 1.0 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 3 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Cap Return",
@@ -282,7 +298,8 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 0.275 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 3 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks)."
     },
     {
       "short": "Prolec GE Acquisition",
@@ -344,8 +361,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "ceo_name": "Mr. Scott L. Strazik",
-    "_source": "yfinance.companyOfficers"
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 8.31
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 7.71
+      },
+      {
+        "name": "FMR LLC (Fidelity)",
+        "type": "institutionnel",
+        "stake_pct": 6.82
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 8.31
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 7.71
+      },
+      {
+        "name": "FMR LLC (Fidelity)",
+        "type": "institutionnel",
+        "stake_pct": 6.82
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:25.499832+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -355,21 +408,24 @@
         "value": 18.127,
         "unit": "Mds $",
         "pct": 51.2,
-        "share_pct": 51.2
+        "share_pct": 51.2,
+        "label_en": "Power"
       },
       {
         "name": "Wind",
         "value": 9.701,
         "unit": "Mds $",
         "pct": 27.4,
-        "share_pct": 27.4
+        "share_pct": 27.4,
+        "label_en": "Wind"
       },
       {
         "name": "Electrification",
         "value": 7.55,
         "unit": "Mds $",
         "pct": 21.3,
-        "share_pct": 21.3
+        "share_pct": 21.3,
+        "label_en": "Electrification"
       }
     ],
     "total": 35.38,
@@ -383,35 +439,40 @@
         "value": 17.341,
         "unit": "Mds $",
         "pct": 45.55,
-        "share_pct": 45.6
+        "share_pct": 45.55,
+        "label_en": "United States"
       },
       {
         "name": "Europe",
         "value": 7.594,
         "unit": "Mds $",
         "pct": 19.95,
-        "share_pct": 20
+        "share_pct": 19.95,
+        "label_en": "Europe"
       },
       {
         "name": "Asia",
         "value": 4.629,
         "unit": "Mds $",
         "pct": 12.16,
-        "share_pct": 12.2
+        "share_pct": 12.16,
+        "label_en": "Asia"
       },
       {
         "name": "Americas",
         "value": 3.116,
         "unit": "Mds $",
         "pct": 8.18,
-        "share_pct": 8.2
+        "share_pct": 8.18,
+        "label_en": "Americas"
       },
       {
         "name": "Middle East and Africa",
         "value": 5.389,
         "unit": "Mds $",
         "pct": 14.16,
-        "share_pct": 14.2
+        "share_pct": 14.16,
+        "label_en": "Middle East and Africa"
       }
     ],
     "total": 38.07,
@@ -483,7 +544,18 @@
     }
   ],
   "ai_positioning": {
-    "stance": "absent"
+    "stance": "cautious",
+    "summary": "GE Vernova Inc. mentionne peu l'IA dans ses communications officielles (Electrical Equipment & Parts).",
+    "evidence": [
+      "Aucune mention significative d'IA dans le 10-K ou les earnings calls disponibles localement.",
+      "Le secteur Electrical Equipment & Parts commence à intégrer l'IA mais GE Vernova Inc. ne met pas le sujet en avant à ce jour.",
+      "Mettrik AI réévaluera le positionnement IA à chaque nouvelle publication."
+    ],
+    "source_note": "Sources locales sans mentions IA significatives",
+    "_bucket": "MEDIUM",
+    "_no_ai_passages": true,
+    "_generated_at": "2026-05-21T02:33:21.753035+00:00",
+    "ticker": "GEV"
   },
   "market_positions": [],
   "events": [
@@ -525,18 +597,16 @@
     }
   ],
   "ranks": {
-    "global_world": "Top 50 monde",
-    "_source": "yfinance.marketCap"
+    "global_world": "#43",
+    "global_us": "#35",
+    "sector": "#1 in Industrie",
+    "subsector": "#1 in Electrical Equipment & Parts"
   },
   "latest_filing": null,
   "next_earnings_date": null,
   "publication_date": null,
   "company_description": "GE Vernova Inc., an energy company, engages in the provision of various products and services that generate, transfer, orchestrate, convert, and store electricity in the United States, Europe, Asia, the Middle East, and Africa. The company operates through three segments: Power, Wind, and Electrification. The Power segment designs, manufactures, and services gas, nuclear, hydro, and steam technologies. It serves industrial, government, and other customers. The Wind segment offers wind generation technologies, including onshore and offshore wind turbines and blades. The Electrification segment provides grid solutions; power conversion; electrification software; and solar and storage solutions technologies required for the transmission, distribution, conversion, storage, and orchestration of electricity from point of generation to point of consumption. The company was incorporated in 2023 and is headquartered in Cambridge, Massachusetts.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.370Z",
-  "_missing_blocks": [
-    "revenue_by_geography"
-  ],
-  "_seg_geo_backfilled_at": "2026-05-21T00:46:57.654860+00:00",
-  "_seg_geo_backfilled_by": "CONV-CONCEPTS-cerebras-qwen3-235b"
+  "_built_at": "2026-05-21T16:00:22.258Z",
+  "_missing_blocks": []
 }

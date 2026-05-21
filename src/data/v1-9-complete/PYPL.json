@@ -137,7 +137,9 @@
       "is_short_history": false,
       "period_type": "annual",
       "publication_date": "2026-05-05",
-      "_hero_history_extended": true
+      "_hero_history_extended": true,
+      "explanation_en": "Total Payment Volume : total value of payments processed.",
+      "signal_en": "Demand strengthening, end-market traction"
     },
     {
       "short": "Net Revenues",
@@ -160,7 +162,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Operating Margin",
@@ -183,7 +186,9 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Operating Margin : operating profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Operating Income",
@@ -206,7 +211,9 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Operating Income : profit from core business operations.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Payment Transactions",
@@ -228,7 +235,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "signal_en": "User base contraction, monitor churn"
     },
     {
       "short": "Net Income",
@@ -251,7 +259,9 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Total Revenue",
@@ -274,7 +284,9 @@
       "signal": "Chiffre d'affaires de 33.172 Mds $ dernière année fiscale (FY2025).",
       "description": "Chiffre d'affaires extrait SEC EDGAR companyfacts XBRL sur les 6 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Cap Return",
@@ -295,7 +307,8 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 3 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks)."
     },
     {
       "short": "Payout Ratio",
@@ -316,7 +329,8 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 3 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income."
     },
     {
       "short": "Operating Margin",
@@ -386,25 +400,44 @@
     }
   ],
   "governance": {
-    "agm_date": "2026-05-19",
-    "fiscal_year": 2025,
-    "ceo_name": "Enrique Lores",
-    "board_size": 11,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "board_independence_pct": 90.9,
-    "board_women_pct": 27.3,
     "top_capital": [
       {
-        "name": "Vanguard Group",
+        "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": null
+        "stake_pct": 9.22
       },
       {
-        "name": "BlackRock",
+        "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": null
+        "stake_pct": 8.35
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.76
       }
-    ]
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 9.22
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.35
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.76
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:14:53.475220+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "unit": "Mds $",
@@ -414,14 +447,16 @@
       {
         "label": "Transaction revenues",
         "value": 29.8,
-        "unit": "M $",
-        "share_pct": 89.8
+        "share_pct": 89.8,
+        "unit": "Mds $",
+        "label_en": "Transaction revenues"
       },
       {
         "label": "Revenues from other value added services",
         "value": 3.37,
-        "unit": "M $",
-        "share_pct": 10.2
+        "share_pct": 10.2,
+        "unit": "Mds $",
+        "label_en": "Revenues from other value added services"
       }
     ],
     "_fit_for_site": true,
@@ -437,21 +472,24 @@
         "value": 15.807,
         "unit": "Mds $",
         "pct": 57.4,
-        "share_pct": 57.4
+        "share_pct": 57.4,
+        "label_en": "United States"
       },
       {
         "name": "United Kingdom (U.K.)",
         "value": 2.071,
         "unit": "Mds $",
         "pct": 7.5,
-        "share_pct": 7.5
+        "share_pct": 7.5,
+        "label_en": "United Kingdom (U.K.)"
       },
       {
         "name": "Other countries",
         "value": 9.64,
         "unit": "Mds $",
         "pct": 35,
-        "share_pct": 35
+        "share_pct": 35,
+        "label_en": "Other countries"
       }
     ],
     "total": 27.52,
@@ -468,15 +506,6 @@
       "score": 4
     },
     {
-      "title": "Risques fiscaux",
-      "category": "Régulation",
-      "severity": 3,
-      "score_rationale": "Note 3/5. Les lois fiscales sont complexes et sujettes à différentes interprétations, ce qui peut entraîner des incertitudes",
-      "trend": "stable",
-      "summary": "Les incertitudes fiscales peuvent avoir un impact sur les résultats financiers de l'entreprise",
-      "score": 3
-    },
-    {
       "title": "Risques de crédit",
       "category": "Crédit",
       "severity": 4,
@@ -486,13 +515,22 @@
       "score": 4
     },
     {
-      "title": "Risques de taux d'intérêt",
-      "category": "Capital",
-      "severity": 2,
-      "score_rationale": "Note 2/5. Les variations des taux d'intérêt peuvent avoir un impact sur la valeur des investissements et des dettes",
+      "title": "Risques de cyberattaques",
+      "category": "Cybersécurité",
+      "severity": 4,
+      "score_rationale": "Note 4/5. L'entreprise est exposée à des risques de cyberattaques en raison de ses activités",
+      "trend": "up",
+      "summary": "Les risques de cyberattaques peuvent avoir un impact sur les résultats financiers de l'entreprise",
+      "score": 4
+    },
+    {
+      "title": "Risques fiscaux",
+      "category": "Régulation",
+      "severity": 3,
+      "score_rationale": "Note 3/5. Les lois fiscales sont complexes et sujettes à différentes interprétations, ce qui peut entraîner des incertitudes",
       "trend": "stable",
-      "summary": "Les variations des taux d'intérêt peuvent avoir un impact sur les résultats financiers de l'entreprise",
-      "score": 2
+      "summary": "Les incertitudes fiscales peuvent avoir un impact sur les résultats financiers de l'entreprise",
+      "score": 3
     },
     {
       "title": "Risques de litige",
@@ -513,13 +551,13 @@
       "score": 3
     },
     {
-      "title": "Risques de cyberattaques",
-      "category": "Cybersécurité",
-      "severity": 4,
-      "score_rationale": "Note 4/5. L'entreprise est exposée à des risques de cyberattaques en raison de ses activités",
-      "trend": "up",
-      "summary": "Les risques de cyberattaques peuvent avoir un impact sur les résultats financiers de l'entreprise",
-      "score": 4
+      "title": "Risques de taux d'intérêt",
+      "category": "Capital",
+      "severity": 2,
+      "score_rationale": "Note 2/5. Les variations des taux d'intérêt peuvent avoir un impact sur la valeur des investissements et des dettes",
+      "trend": "stable",
+      "summary": "Les variations des taux d'intérêt peuvent avoir un impact sur les résultats financiers de l'entreprise",
+      "score": 2
     }
   ],
   "ai_positioning": {
@@ -583,15 +621,15 @@
     }
   ],
   "ranks": {
-    "global_world": "#636",
-    "global_us": "#264",
-    "sector": "#38 dans Information Technology",
-    "subsector": "#3 dans Software"
+    "global_world": "#343",
+    "global_us": "#207",
+    "sector": "#96 in Technologie",
+    "subsector": "Top 10 in Logiciels"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-05-05",
   "publication_date": null,
   "company_description": "PayPal Holdings, Inc. operates a technology platform that enables digital payments for merchants and consumers worldwide. The company operates a two-sided network at scale that connects merchants and consumers that enables its customers to connect, transact, and send and receive payments through online and in person, as well as transfer and withdraw funds using various funding sources, such as bank accounts, PayPal or Venmo account balance, consumer credit and debit products, credit and debit cards, and cryptocurrencies, as well as other stored value products, including gift cards and eligible rewards. It provides payment solutions under the PayPal, PayPal Credit, Braintree, Venmo, Xoom, Hyperwallet, Honey, and Paidy names. The company was founded in 1998 and is headquartered in San Jose, California.",
-  "_built_at": "2026-05-20T20:15:02.569Z",
+  "_built_at": "2026-05-21T16:00:22.624Z",
   "_missing_blocks": []
 }

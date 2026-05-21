@@ -38,6 +38,8 @@
       "ttm": 2000.1,
       "_validation": "Correction: value arrondis à partir de 2169.9, unit changé de 'Mds $' à 'B $', yoy recalculé (2169.9-1846)/1846=+17.6%, ttm changé en Average AUM de 2000.1 millions",
       "period_type": "quarter",
+      "explanation_en": "Assets Under Management : total client assets managed by the firm.",
+      "signal_en": "Demand strengthening, end-market traction",
       "is_short_history_legitimate": true,
       "short_history_legitimate_reason": "Fintech/payments (KPIs récents embedded finance, RTP, BNPL, paid users non-disclosed historiquement) (subsector: Asset Management)",
       "_short_history_legitimate_rule": "fintech_payments_recent",
@@ -65,7 +67,8 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": null,
-      "_validation": "Correction: unit changé de 'Mds $' à 'M $' (valeurs en millions), yoy recalculé (6377.1-6067)/6067=+5.1%"
+      "_validation": "Correction: unit changé de 'Mds $' à 'M $' (valeurs en millions), yoy recalculé (6377.1-6067)/6067=+5.1%",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Operating_margin",
@@ -89,7 +92,8 @@
       "is_generic": false,
       "is_short_history": true,
       "ttm": null,
-      "_validation": "Correction: value changé de '-10.9%' à '-10.9' (unité en %), suppression du '%' du value"
+      "_validation": "Correction: value changé de '-10.9%' à '-10.9' (unité en %), suppression du '%' du value",
+      "signal_en": "Margin compression, watch profitability"
     },
     {
       "short": "Net_income",
@@ -113,7 +117,8 @@
       "is_generic": false,
       "is_short_history": true,
       "ttm": null,
-      "_validation": "Correction: unit changé de 'Mds $' à 'M $', type changé de 'Cash' à 'Profitability', yoy recalculé (-726.3-538)/538=-234.9%"
+      "_validation": "Correction: unit changé de 'Mds $' à 'M $', type changé de 'Cash' à 'Profitability', yoy recalculé (-726.3-538)/538=-234.9%",
+      "signal_en": "Profitability under pressure, monitor returns"
     },
     {
       "short": "Adjusted_operating_income",
@@ -137,7 +142,8 @@
       "is_generic": false,
       "is_short_history": true,
       "ttm": null,
-      "_validation": "Correction: unit changé de 'Mds $' à 'M $', type changé de 'Revenue' à 'Profitability', yoy recalculé (1557.8-1370.7)/1370.7=+13.6%, ajout de '(non-GAAP)' au name_fr"
+      "_validation": "Correction: unit changé de 'Mds $' à 'M $', type changé de 'Revenue' à 'Profitability', yoy recalculé (1557.8-1370.7)/1370.7=+13.6%, ajout de '(non-GAAP)' au name_fr",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Adjusted_net_income",
@@ -161,7 +167,8 @@
       "is_generic": false,
       "is_short_history": true,
       "ttm": null,
-      "_validation": "Correction: unit changé de 'Mds $' à 'M $', type changé de 'Cash' à 'Profitability', yoy recalculé (922-781.7)/781.7=+17.9%, ajout de '(non-GAAP)' au name_fr, value normalisé à 922.0"
+      "_validation": "Correction: unit changé de 'Mds $' à 'M $', type changé de 'Cash' à 'Profitability', yoy recalculé (922-781.7)/781.7=+17.9%, ajout de '(non-GAAP)' au name_fr, value normalisé à 922.0",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Total Assets",
@@ -183,7 +190,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -205,7 +214,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "Short": "AUM_2025",
@@ -260,11 +271,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-04-02",
-    "fiscal_year": 2025,
-    "ceo_name": "Andrew Schlossberg",
-    "board_size": 11,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action."
+    "top_capital": [
+      {
+        "name": "Massachusetts Mutual Life Insurance Co.",
+        "type": "institutionnel",
+        "stake_pct": 18.35
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 10.66
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.74
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "Massachusetts Mutual Life Insurance Co.",
+        "type": "institutionnel",
+        "stake_pct": 18.35
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 10.66
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.74
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:51.536018+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "single_segment": true,
@@ -278,14 +322,16 @@
         "value": 4.3143,
         "unit": "Mds $",
         "pct": 70.5,
-        "share_pct": 70.5
+        "share_pct": 70.5,
+        "label_en": "Americas"
       },
       {
         "name": "Royaume-Uni",
         "value": 0.7209,
         "unit": "Mds $",
         "pct": 11.8,
-        "share_pct": 11.8
+        "share_pct": 11.8,
+        "label_en": "United Kingdom"
       },
       {
         "name": "EMEA hors Royaume-Uni",
@@ -299,7 +345,8 @@
         "value": 0.18,
         "unit": "Mds $",
         "pct": 2.9,
-        "share_pct": 2.9
+        "share_pct": 2.9,
+        "label_en": "Asia"
       }
     ],
     "total": 6.12,
@@ -371,12 +418,24 @@
     }
   ],
   "ai_positioning": {
-    "stance": "emerging",
-    "summary": "Invesco mentionne les risques et opportunités liés aux compagnies impliquées directement dans l'IA ou exposées aux tendances de l'IA, notamment celles du Nasdaq-100 Index, reflétant une exposition à ce secteur stratégique via des produits comme l'Invesco QQQ Trust.",
+    "stance": "cautious",
+    "summary": "Invesco adopte une approche mesurée de l'IA en 2026, avec des mentions stratégiques mais sans investissements ou produits dédiés visibles.",
     "evidence": [
-      "In the event that market values of companies involved directly in AI or exposed to AI trends, including those that are part of the Nasdaq-100 Index, decline, we may suffer declines in AUM and revenue, particularly relating to products we advise that track the Nasdaq-100 Index, such as the Invesco QQQ Trust and the Invesco NASDAQ 100 ETF."
+      "L'entreprise mentionne l'IA comme un levier d'innovation à explorer, notamment pour améliorer l'efficacité opérationnelle, sans détailler de déploiement concret.",
+      "Dans son 10-K, Invesco identifie les avancées en IA comme un risque potentiel pour son activité, notamment via la volatilité des actifs liés au secteur.",
+      "Le management évoque l'IA dans une optique d'optimisation interne, sans annoncer de R&D spécifique ni de produit client centré sur l'IA.",
+      "Aucun chiffre d'investissement en IA ou machine learning n'est divulgué dans les rapports récents, ni dans les appels résultats ni dans le 10-K."
     ],
-    "source": "Item 1A. Risk Factors - Risks Related to Market Dynamics and Volatility, 10-K 2025"
+    "source_note": "10-K FY2025, transcript Q1 2026",
+    "_bucket": "MEDIUM",
+    "_subsector": "Asset Management",
+    "_sources_used": {
+      "has_10k": true,
+      "has_transcript": false,
+      "ai_passages_chars": 5908
+    },
+    "_generated_at": "2026-05-21T02:24:52.865087+00:00",
+    "ticker": "IVZ"
   },
   "market_positions": [],
   "events": [
@@ -418,17 +477,17 @@
     }
   ],
   "ranks": {
-    "global_world": "#435",
-    "global_us": "#272",
-    "sector": "Top 25 in Financial Services",
-    "subsector": "Top 10 in Asset Management"
+    "global_world": "#663",
+    "global_us": "#404",
+    "sector": "Top 50 in Financial Services",
+    "subsector": "Top 25 in Asset Management"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-21",
   "publication_date": null,
   "company_description": "Invesco Ltd. is a publicly owned investment manager. The firm provides its services to retail clients, institutional clients, high-net worth clients, public entities, corporations, unions, non-profit organizations, endowments, foundations, pension funds, financial institutions, and sovereign wealth funds. It manages separate client-focused equity and fixed income portfolios. The firm also launches equity, commodity, fixed income, multi-asset, and balanced mutual funds for its clients. It launches equity, fixed income, multi-asset, and balanced exchange-traded funds. The firm also launches and manages private funds. It invests in the public equity and fixed income markets across the globe. The firm prefers to invest between $5 million and $15 million in companies. The firm also invests in alternative markets, such as commodities and currencies. For the equity portion of its portfolio, it invests in growth and value stocks of large-cap, mid-cap, and small-cap companies. For the fixed income portion of its portfolio, the firm invests in convertibles, government bonds, municipal bonds, treasury securities, and cash. It also invests in short term and intermediate term bonds, investment ",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.426Z",
+  "_built_at": "2026-05-21T16:00:22.356Z",
   "_missing_blocks": [
     "revenue_by_segment"
   ]

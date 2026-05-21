@@ -138,7 +138,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "annual"
+      "period_type": "annual",
+      "explanation_en": "Revenue : total sales generated over the period.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Op Margin",
@@ -163,7 +165,9 @@
       "last_data_date": "2023-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Profit margin on Op.",
+      "signal_en": "Margin compression, watch profitability"
     },
     {
       "short": "R&D",
@@ -188,7 +192,9 @@
       "last_data_date": "2023-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Research & Development expenses.",
+      "signal_en": "Flat year-over-year, monitor closely"
     },
     {
       "short": "Capex",
@@ -213,7 +219,9 @@
       "last_data_date": "2023-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Capital Expenditures : investments in property, plant and equipment.",
+      "signal_en": "Steady growth, healthy trend"
     },
     {
       "short": "Headcount",
@@ -240,7 +248,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_employees_synced_from_yfinance": true
+      "_employees_synced_from_yfinance": true,
+      "explanation_en": "Headcount : total number of employees at period end.",
+      "signal_en": "Steady growth, healthy trend"
     },
     {
       "short": "Gross Margin",
@@ -265,7 +275,9 @@
       "last_data_date": "2023-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Gross Margin : gross profit divided by revenue.",
+      "signal_en": "Margin compression, watch profitability"
     },
     {
       "short": "DPS",
@@ -289,7 +301,9 @@
       "signal": "Dividende par action de 0.72 EUR dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Cap Return",
@@ -311,7 +325,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -333,14 +349,35 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     }
   ],
   "kpis_story": [],
   "governance": {
-    "ceo_name": "Dr. Gilles G. Martin Ph.D.",
-    "ceo_title": "Chairman of the Board & CEO",
-    "fiscal_year": 2025
+    "top_capital": [
+      {
+        "name": "Gardner Russo & Quinn, LLC",
+        "type": "institutionnel",
+        "stake_pct": 1.76
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "Gardner Russo & Quinn, LLC",
+        "type": "institutionnel",
+        "stake_pct": 1.76
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:11.942681+00:00",
+    "_top_dual_class_flag": false,
+    "top_disclosure": "eu_regex_extracted",
+    "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
+    "_top_disclosure_at": "2026-05-21T02:49:04.612966+00:00",
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:18:57Z"
   },
   "revenue_by_segment": {
     "unit": "Mds $",
@@ -350,26 +387,30 @@
       {
         "label": "Life",
         "value": 2.607,
+        "share_pct": 40,
         "unit": "Mds $",
-        "share_pct": 40
+        "label_en": "Life"
       },
       {
         "label": "BioPharma",
         "value": 1.97,
+        "share_pct": 30.2,
         "unit": "Mds $",
-        "share_pct": 30.2
+        "label_en": "BioPharma"
       },
       {
         "label": "Diagnostic Services & Products",
         "value": 1.276,
+        "share_pct": 19.6,
         "unit": "Mds $",
-        "share_pct": 19.6
+        "label_en": "Diagnostic Services & Products"
       },
       {
         "label": "Consumer & Technology Products Testing",
         "value": 0.661,
+        "share_pct": 10.1,
         "unit": "Mds $",
-        "share_pct": 10.1
+        "label_en": "Consumer & Technology Products Testing"
       }
     ],
     "total": 6.51
@@ -382,20 +423,23 @@
       {
         "label": "Europe",
         "value": 3.306,
+        "share_pct": 50.8,
         "unit": "Mds $",
-        "share_pct": 50.8
+        "label_en": "Europe"
       },
       {
         "label": "Amérique du Nord",
         "value": 2.507,
+        "share_pct": 38.5,
         "unit": "Mds $",
-        "share_pct": 38.5
+        "label_en": "North America"
       },
       {
         "label": "Rest of the World",
         "value": 0.701,
+        "share_pct": 10.8,
         "unit": "Mds $",
-        "share_pct": 10.8
+        "label_en": "Rest of the World"
       }
     ],
     "total": 6.51
@@ -481,6 +525,15 @@
     {
       "year": 2026,
       "month": 4,
+      "title": "Dividende 0.72 €/action versé",
+      "body": "Dividende ordinaire de 0.72 € par action, ex-date 28 avril 2026.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2026-04-28"
+    },
+    {
+      "year": 2026,
+      "month": 4,
       "title": "Assessing Eurofins Scientific (ENXTPA:ERF) Valuation After Share Cancellations And Ongoing Buybacks",
       "body": "Why Eurofins Scientific (ENXTPA:ERF) is back on investor radars Eurofins Scientific (ENXTPA:ERF) has drawn fresh attention after cancelling 6,163,000 previously repurchased shares, trimming its share capital, while also reporting ongoing bu",
       "source": "Simply Wall St.",
@@ -504,12 +557,39 @@
       "source": "Simply Wall St.",
       "url": "https://finance.yahoo.com/news/assessing-eurofins-scientific-enxtpa-erf-060632940.html",
       "date": "2026-01-31"
+    },
+    {
+      "year": 2025,
+      "month": 12,
+      "title": "Publication des résultats Q4 2025",
+      "body": "Clôture du trimestre Q4 2025 le 31 décembre 2025.",
+      "source": "yfinance · mostRecentQuarter",
+      "url": "",
+      "date": "2025-12-31"
+    },
+    {
+      "year": 2025,
+      "month": 4,
+      "title": "Dividende 0.6 €/action versé",
+      "body": "Dividende ordinaire de 0.6 € par action, ex-date 28 avril 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-04-28"
+    },
+    {
+      "year": 2024,
+      "month": 7,
+      "title": "Dividende 0.5 €/action versé",
+      "body": "Dividende ordinaire de 0.5 € par action, ex-date 3 juillet 2024.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2024-07-03"
     }
   ],
   "ranks": {
-    "global_world": "#279",
+    "global_world": "#647",
     "global_us": "Non US",
-    "sector": "#87 in Information Technology",
+    "sector": "#176 in Technologie",
     "subsector": "#3 in Life Sciences Tools & Services"
   },
   "latest_filing": null,
@@ -517,6 +597,6 @@
   "publication_date": null,
   "company_description": "Eurofins Scientific SE, together with its subsidiaries, provides various analytical testing and laboratory services worldwide. It provides services, such as agroscience, including biological assessment, consumer and human, environmental safety, product chemistry, regulatory consultancy, and seed services; agro testing; assurance, including sustainability, audit, certification, quality inspection, QA-QC programme, and food and dietary supplement labelling services; biopharma, and clinical diagnostics. The company also offers consumer product testing, which include sustainability, testing, certifications and approvals, expert services and regulatory, inspections, audits, consumer research and sensory evaluation, and training courses; cosmetics and personal care; and electrical and electronics laboratories services. In addition, it provides environment testing, including maritime, water, air, soil, building material, pollution, waste, fuel/oil, microplastics, and radioactivity testing; and food and feed testing that include allergen, audit and certification, authenticity, carbohydrates, consulting, dioxins and POPs, food irradiation, GMO, heavy metal, melamine, microbiology, molecular biology, mycotoxin, nutritional analyses, organic contaminants, pesticide, veterinary drug, vitamin, and residual DNA testing. Further, the company provides forensic, genomic, maritime, materials and engineering, REACH, and sensory and consumer services, as well as in vitro diagnostics and PSS insourcing solutions. The company was founded in 1987 and is headquartered in Luxembourg, Luxembourg.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.337Z",
+  "_built_at": "2026-05-21T16:00:22.203Z",
   "_missing_blocks": []
 }

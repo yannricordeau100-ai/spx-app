@@ -73,7 +73,9 @@
       "is_short_history": false,
       "period_type": "quarter",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "Operating Margin extracted from MDA table 'Operating income' as % of Operating revenues. Only 3 consecutive years found (2014-2016); thresho"
+      "_hero_history_unverified_reason": "Operating Margin extracted from MDA table 'Operating income' as % of Operating revenues. Only 3 consecutive years found (2014-2016); thresho",
+      "explanation_en": "Operating Margin : operating profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Total Operating Revenues",
@@ -92,7 +94,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "signal_en": "Revenue pressure, demand softening"
     },
     {
       "short": "Net Earnings",
@@ -111,7 +114,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Operating Ratio",
@@ -130,7 +134,9 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Operating ratio.",
+      "signal_en": "Stable, slight decline to monitor"
     },
     {
       "short": "Insurance and Claims Expense",
@@ -149,7 +155,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "signal_en": "Cost pressure, investment phase"
     },
     {
       "short": "Salaries, Wages and Benefits",
@@ -168,7 +175,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Total Assets",
@@ -189,7 +197,9 @@
       "signal": "Total des actifs de 7.93 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Total Debt",
@@ -210,7 +220,9 @@
       "signal": "Dette totale de 1.47 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "DPS",
@@ -234,7 +246,9 @@
       "signal": "Dividende par action de 0.9 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -255,7 +269,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 0.171 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "Payout Ratio",
@@ -276,7 +292,9 @@
       "signal": "Part du résultat net distribué en dividendes : 28.6% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Total Revenue",
@@ -302,7 +320,9 @@
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -327,7 +347,9 @@
       "signal": "Résultat net de 0.598 Mds $ dernière année.",
       "description": "Résultat net consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening"
     }
   ],
   "kpis_story": [],
@@ -358,39 +380,51 @@
     "top_voting": []
   },
   "revenue_by_segment": {
-    "label": "Répartition du chiffre d'affaires par segment opérationnel",
     "slices": [
       {
-        "name": "JBI",
-        "value": 3.796,
-        "unit": "Mds $",
-        "pct": 57.9,
-        "share_pct": 57.9
+        "label": "JBI",
+        "share_pct": 49.27,
+        "label_fr": "JBI",
+        "label_en": "JBI",
+        "value": 5956,
+        "unit": "M $"
       },
       {
-        "name": "DCS",
-        "value": 1.533,
-        "unit": "Mds $",
-        "pct": 23.4,
-        "share_pct": 23.4
+        "label": "DCS",
+        "share_pct": 28.09,
+        "label_fr": "DCS",
+        "label_en": "DCS",
+        "value": 3396,
+        "unit": "M $"
       },
       {
-        "name": "ICS",
-        "value": 0.852,
-        "unit": "Mds $",
-        "pct": 13,
-        "share_pct": 13
+        "label": "ICS",
+        "share_pct": 9.44,
+        "label_fr": "ICS",
+        "label_en": "ICS",
+        "value": 1141,
+        "unit": "M $"
       },
       {
-        "name": "JBT",
-        "value": 0.388,
-        "unit": "Mds $",
-        "pct": 5.9,
-        "share_pct": 5.9
+        "label": "FMS",
+        "share_pct": 7.53,
+        "label_fr": "FMS",
+        "label_en": "FMS",
+        "value": 910,
+        "unit": "M $"
+      },
+      {
+        "label": "JBT",
+        "share_pct": 5.81,
+        "label_fr": "JBT",
+        "label_en": "JBT",
+        "value": 702,
+        "unit": "M $"
       }
     ],
-    "total": 6.57,
-    "unit": "Mds $"
+    "year": 2024,
+    "currency": "USD",
+    "total": 12087
   },
   "revenue_by_geography": null,
   "risks": [
@@ -458,21 +492,75 @@
     "source": "jbht20251231_10k.htm"
   },
   "market_positions": [],
-  "events": [],
+  "events": [
+    {
+      "year": 2027,
+      "month": 3,
+      "title": "Assemblee generale (estimation)",
+      "body": "Estimation basee sur fin d'exercice precedente : AG attendue vers mars 2027.",
+      "source": "yfinance.info.lastFiscalYearEnd",
+      "url": "",
+      "date": "2027-03-15"
+    },
+    {
+      "year": 2026,
+      "month": 7,
+      "title": "Prochaine publication Q3 2026",
+      "body": "Publication attendue le 14 juillet 2026. Consensus EPS : 1.70.",
+      "source": "yfinance.calendar",
+      "url": "",
+      "date": "2026-07-14"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "Dernier ex-dividende",
+      "body": "Date ex-dividende : 8 mai 2026. Montant precedent : 0.4500.",
+      "source": "yfinance.calendar",
+      "url": "",
+      "date": "2026-05-08"
+    },
+    {
+      "year": 2026,
+      "month": 4,
+      "title": "Resultats Q2 2026 publies",
+      "body": "EPS 1.49 vs consensus 1.45 (beat +3.1 %) Annonce le 15 avril 2026.",
+      "source": "yfinance.earnings_dates",
+      "url": "",
+      "date": "2026-04-15"
+    },
+    {
+      "year": 2026,
+      "month": 1,
+      "title": "Resultats Q1 2026 publies",
+      "body": "EPS 1.90 vs consensus 1.82 (beat +4.6 %) Annonce le 15 janvier 2026.",
+      "source": "yfinance.earnings_dates",
+      "url": "",
+      "date": "2026-01-15"
+    },
+    {
+      "year": 2025,
+      "month": 10,
+      "title": "Resultats Q4 2025 publies",
+      "body": "EPS 1.76 vs consensus 1.46 (beat +20.7 %) Annonce le 15 octobre 2025.",
+      "source": "yfinance.earnings_dates",
+      "url": "",
+      "date": "2025-10-15"
+    }
+  ],
   "ranks": {
-    "global_world": "N/A",
-    "global_us": "N/A",
-    "sector": "N/A",
-    "subsector": "N/A"
+    "global_world": "#563",
+    "global_us": "#339",
+    "sector": "#61 in Industrie",
+    "subsector": "#3 in Transportation"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-14",
   "publication_date": null,
   "company_description": "J.B. Hunt Transport Services, Inc. provides surface transportation, delivery, and logistic services in the United States. It operates through five segments: Intermodal, Dedicated Contract Services, Integrated Capacity Solutions, Final Mile Services, and Truckload. The JBI segment offers intermodal freight solutions. It operates 124,838 pieces of company-owned trailing equipment; owns and maintains its chassis fleet of 104,474 units; and manages a fleet of 5,880 company-owned tractors, 308 independent contractor trucks, and 8,704 company drivers. The DCS segment designs, develops, and executes supply chain solutions that support various transportation networks. As of December 31, 2025, it operated 11,878 company-owned trucks, 761 customer-owned trucks, and a contractor trucks. It operates 26,767 owned pieces of trailing equipment and 5,218 customer-owned trailers. The ICS segment provides freight brokerage and transportation logistics solutions; flatbed, refrigerated, expedited, and less-than-truckload, as well as dry-van and intermodal solutions; online multimodal marketplace; and logistics management services for customers to outsource their transportation functions. The FMS segme",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.428Z",
+  "_built_at": "2026-05-21T16:00:22.362Z",
   "_missing_blocks": [
-    "revenue_by_geography",
-    "events"
+    "revenue_by_geography"
   ]
 }

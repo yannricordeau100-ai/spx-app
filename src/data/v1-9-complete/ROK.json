@@ -117,10 +117,23 @@
       "signal": "Double-digit growth in annual recurring revenue.",
       "description": "Rockwell Automation targets double-digit annual recurring revenue growth, emphasizing revenue stability and predictability through services and subscriptions as part of its long-term profitable growth framework.",
       "history": [
-        9.1,
-        8.3,
-        7.6,
-        6.9
+        4.3325,
+        4.857,
+        6.0004,
+        6.2594,
+        6.3519,
+        6.6235,
+        6.3079,
+        5.8795,
+        6.3113,
+        6.666,
+        6.6948,
+        6.3298,
+        6.9974,
+        7.7604,
+        9.058,
+        8.2642,
+        8.342
       ],
       "last_data_date": "2025-09-30",
       "is_wow": true,
@@ -129,7 +142,9 @@
       "ttm": 6.74,
       "_validation": [
         "HALLUCINATION DETECTED: Annual Recurring Revenue (ARR) value 9.1 B$ not found in 10-K source. While MD&A Long-term Strategy section states 'continue double-digit growth in annual recurring revenue', no specific ARR figure or historical data provided. Values appear fabricated. RECOMMEND: Obtain quarterly earnings release with ARR disclosure or investor relations metrics"
-      ]
+      ],
+      "explanation_en": "Revenue from the Annual Recurring segment.",
+      "signal_en": "Recurring base growing, revenue visibility rising"
     },
     {
       "short": "Gross Margin",
@@ -152,7 +167,8 @@
       "ttm": null,
       "_validation": [
         "HALLUCINATION DETECTED: Gross margin values (40.0%, history 40.0/39.5/39.0/38.5) not present in 10-K source. Consolidated balance sheet and income statement structure provided but income statement detail (cost of sales, gross profit) not included in excerpt. Values completely fabricated. RECOMMEND: KPI REMOVED pending access to full consolidated income statement with COGS disclosure"
-      ]
+      ],
+      "explanation_en": "Gross Margin : gross profit divided by revenue."
     },
     {
       "short": "R&D Investment Ratio",
@@ -175,7 +191,8 @@
       "ttm": null,
       "_validation": [
         "HALLUCINATION DETECTED: R&D percentage values (5.0%) and history (5.0/5.0/5.0/5.0) not present in 10-K source. MD&A discusses 'investments in technology and globalization' and technology differentiation strategy but provides no specific R&D expense figures or R&D as % of revenue. Values completely fabricated. RECOMMEND: KPI REMOVED pending access to detailed expense breakdown or investor relations data"
-      ]
+      ],
+      "explanation_en": "R&D Investment ratio."
     },
     {
       "short": "Capital Expenditures",
@@ -231,7 +248,9 @@
         "Validation: Additional demographics confirmed: Individual Contributors 34% women, People Managers 27% women, Technical Talent 20% women, Manufacturing Associates 46% women",
         "Validation: YoY +1.8% calculation valid ((26000-25500)/25500 = 0.0196)",
         "Validation: KPI directly sourced from official 10-K Item 1A Risk Factors 'Attracting, Developing, and Retaining Highly Qualified Employees' section"
-      ]
+      ],
+      "explanation_en": "Total Employees : total number of employees at period end.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Total Assets",
@@ -252,7 +271,9 @@
       "signal": "Total des actifs de 11.22 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Total Debt",
@@ -273,7 +294,9 @@
       "signal": "Dette totale de 3.65 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Cash & Equivalents",
@@ -294,7 +317,8 @@
       "signal": "Trésorerie & équivalents de 0.47 Mds € dernière année",
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "signal_en": "Cash position stable"
     },
     {
       "short": "DPS",
@@ -318,7 +342,9 @@
       "signal": "Dividende par action de 1.38 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -339,7 +365,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 0.591 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -360,7 +388,9 @@
       "signal": "Part du résultat net distribué en dividendes : 68.0% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Total Revenue",
@@ -370,12 +400,22 @@
       "unit": "Mds $",
       "yoy": "+0.9%",
       "history": [
-        6.695,
-        6.33,
-        6.997,
-        7.76,
+        4.3325,
+        4.857,
+        6.0004,
+        6.2594,
+        6.3519,
+        6.6235,
+        6.3079,
+        5.8795,
+        6.3113,
+        6.666,
+        6.6948,
+        6.3298,
+        6.9974,
+        7.7604,
         9.058,
-        8.264,
+        8.2642,
         8.342
       ],
       "type": "Revenue",
@@ -384,7 +424,10 @@
       "signal": "Chiffre d'affaires de 8.342 Mds $ dernière année.",
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 7 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction",
+      "is_short_history": false
     },
     {
       "short": "Net Income",
@@ -409,7 +452,9 @@
       "signal": "Résultat net de 0.869 Mds $ dernière année.",
       "description": "Résultat net consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns"
     },
     {
       "short": "AI-Enabled Deals Mix",
@@ -462,8 +507,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "ceo_name": "Mr. Blake D. Moret",
-    "_source": "yfinance.companyOfficers"
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.81
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 10.71
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.55
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.81
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 10.71
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.55
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:14:58.281365+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -473,14 +554,16 @@
         "value": 3.5446,
         "unit": "Mds $",
         "pct": 45.7,
-        "share_pct": 45.7
+        "share_pct": 45.7,
+        "label_en": "Intelligent Devices"
       },
       {
         "name": "Software Control",
         "value": 2.3129,
         "unit": "Mds $",
         "pct": 29.8,
-        "share_pct": 29.8
+        "share_pct": 29.8,
+        "label_en": "Software Control"
       },
       {
         "name": "Lifecycle Services",
@@ -501,28 +584,32 @@
         "value": 4.722,
         "unit": "Mds $",
         "pct": 60.9,
-        "share_pct": 60.9
+        "share_pct": 60.9,
+        "label_en": "North America"
       },
       {
         "name": "Europe, Moyen-Orient et Afrique",
         "value": 1.4376,
         "unit": "Mds $",
         "pct": 18.5,
-        "share_pct": 18.5
+        "share_pct": 18.5,
+        "label_en": "Europe, Middle East and Africa"
       },
       {
         "name": "Asie Pacifique",
         "value": 1.088,
         "unit": "Mds $",
         "pct": 14,
-        "share_pct": 14
+        "share_pct": 14,
+        "label_en": "Asia-Pacific"
       },
       {
         "name": "Amérique latine",
         "value": 0.5128,
         "unit": "Mds $",
         "pct": 6.6,
-        "share_pct": 6.6
+        "share_pct": 6.6,
+        "label_en": "Latin America"
       }
     ],
     "total": 7.76,
@@ -646,16 +733,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #1",
-    "global_us": "≈ #1",
-    "sector": "≈ #1",
-    "subsector": "≈ #1"
+    "global_world": "#298",
+    "global_us": "#186",
+    "sector": "#88 in Technologie",
+    "subsector": "#1 in Industrial Automation and Digital Transformation"
   },
   "latest_filing": null,
   "next_earnings_date": null,
   "publication_date": null,
   "company_description": "Rockwell Automation, Inc., together with its subsidiaries, provides industrial automation and digital transformation solutions in North America, Europe, the Middle East, Africa, the Asia Pacific, and Latin America. It operates in three segments: Intelligent Devices, Software & Control, and Lifecycle Services. The company offers drives, motion, advanced material handling, safety, sensing, industrial components, hardware, software, and configured-to-order products; and control and visualization software and hardware, digital twin, simulation and information software, network and security infrastructure, and custom-engineered systems. It also provides digital consulting, professional services, engineered-to-order solutions, recurring services, cybersecurity, safety, remote monitoring, customer technical support and repair, asset management and optimization consulting, and training, as well as spare parts. The company sells its products through independent distributors in relation to its direct sales force. It serves discrete end markets, including automotive, semiconductor, e-commerce, and warehouse automation; hybrid end markets, such as food and beverage, life sciences, and tire; an",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.584Z",
+  "_built_at": "2026-05-21T16:00:22.669Z",
   "_missing_blocks": []
 }

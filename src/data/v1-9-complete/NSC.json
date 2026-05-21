@@ -39,23 +39,18 @@
       "unit": "USD M",
       "yoy": "+2.9%",
       "history": [
-        {
-          "year": 2023,
-          "value": 7353
-        },
-        {
-          "year": 2024,
-          "value": 7470
-        },
-        {
-          "year": 2025,
-          "value": 7684
-        }
+        6258,
+        6438,
+        6575,
+        6669,
+        7331,
+        7353
       ],
       "period_type": "year",
       "description_fr": "Revenu Merchandise (agriculture, chemicals, metals, automotive) - 63% du CA railway operating, plus haute marge.",
       "description_en": "Merchandise revenue (agriculture, chemicals, metals, automotive) - 63% of railway operating revenue, highest margin segment.",
-      "_specific_to": "Norfolk Southern segment"
+      "_specific_to": "Norfolk Southern segment",
+      "is_short_history": false
     },
     {
       "short": "Intermodal Revenue",
@@ -181,7 +176,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "explanation_en": "Capital Expenditures : investments in property, plant and equipment."
     },
     {
       "short": "Total Revenue",
@@ -203,7 +199,9 @@
       "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années. Indicateur Chiffre d'affaires historisé sur 4 ans, source pipeline financière officielle. Référence clé pour analyser la trajectoire de la société.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -224,7 +222,9 @@
       "signal": "Résultat net de 2.87 Mds € dernière année",
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Steady growth, healthy trend"
     },
     {
       "short": "Operating Income",
@@ -245,7 +245,9 @@
       "signal": "Résultat opérationnel de 4.57 Mds € dernière année",
       "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Operating Income : profit from core business operations.",
+      "signal_en": "Pressure, deteriorating trend"
     },
     {
       "short": "Diluted EPS",
@@ -266,7 +268,9 @@
       "signal": "BPA dilué de 12.75 € dernière année",
       "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Solid expansion, positive trajectory"
     },
     {
       "short": "Total Assets",
@@ -287,7 +291,9 @@
       "signal": "Total des actifs de 45.24 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -308,7 +314,9 @@
       "signal": "Dette totale de 17.3 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Cash & Equivalents",
@@ -329,7 +337,8 @@
       "signal": "Trésorerie & équivalents de 1.53 Mds € dernière année",
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "DPS",
@@ -353,7 +362,9 @@
       "signal": "Dividende par action de 2.7 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -374,7 +385,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 1.215 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "Payout Ratio",
@@ -395,7 +408,9 @@
       "signal": "Part du résultat net distribué en dividendes : 42.3% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Capex",
@@ -438,12 +453,44 @@
     }
   ],
   "governance": {
-    "agm_date": "2026-05-07",
-    "fiscal_year": 2025,
-    "ceo_name": "Mark George",
-    "exec_comp_approval_pct": 95,
-    "board_size": 12,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action."
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 8.28
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 6.8
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.38
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 8.28
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 6.8
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.38
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:14:34.350701+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -453,27 +500,47 @@
         "value": 6.78,
         "unit": "Mds $",
         "pct": 60,
-        "share_pct": 60
+        "share_pct": 60,
+        "label_en": "Merchandise"
       },
       {
         "name": "Intermodal",
         "value": 2.825,
         "unit": "Mds $",
         "pct": 25,
-        "share_pct": 25
+        "share_pct": 25,
+        "label_en": "Intermodal"
       },
       {
         "name": "Coal",
         "value": 1.695,
         "unit": "Mds $",
         "pct": 15,
-        "share_pct": 15
+        "share_pct": 15,
+        "label_en": "Coal"
       }
     ],
     "total": 11.3,
     "unit": "Mds $"
   },
-  "revenue_by_geography": null,
+  "revenue_by_geography": {
+    "unit": "%",
+    "slices": [
+      {
+        "label": "États-Unis",
+        "value": 100,
+        "share_pct": 100,
+        "single_region_legitimate": true,
+        "unit": "%",
+        "label_en": "United States"
+      }
+    ],
+    "total": 100,
+    "source": "Mono-pays légitime (filings)",
+    "_tagged_by": "auto-rebascule-21mai-CONV-CONCEPTS",
+    "_tagged_at": "2026-05-21T01:26:18.199Z",
+    "_category": "railroad-us"
+  },
   "risks": [
     {
       "title": "Échec ou retard de la fusion avec Union Pacific",
@@ -585,17 +652,15 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #",
-    "global_us": "#",
-    "sector": "#",
-    "subsector": "#"
+    "global_world": "#279",
+    "global_us": "#165",
+    "sector": "Top 50 in Industrie",
+    "subsector": "#2 in Railroads"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-04-24",
   "publication_date": null,
   "company_description": "Norfolk Southern Corporation, together with its subsidiaries, engages in the rail transportation of raw materials, intermediate products, and finished goods in the United States. The company transports agriculture, forest, and consumer products comprising soybeans, wheat, corn, fertilizers, livestock and poultry feed, food products, food oils, flour, sweeteners, ethanol, lumber and wood products, pulp board and paper products, wood fibers, wood pulp, beverages, and canned goods; chemicals, including sulfur and related chemicals, petroleum products comprising crude oil, chlorine and bleaching compounds, plastics, rubber, industrial chemicals, chemical wastes, sand, and natural gas liquids; metals and construction materials, such as steel, aluminum products, machinery, scrap metals, cement, aggregates, minerals, clay, transportation equipment, and military-related products; and automotive, including finished motor vehicles and automotive parts, as well as coal. It also transports overseas freight through various Atlantic and Gulf Coast ports; and operates an intermodal network. Norfolk Southern Corporation was incorporated in 1980 and is headquartered in Atlanta, Georgia.",
-  "_built_at": "2026-05-20T20:15:02.517Z",
-  "_missing_blocks": [
-    "revenue_by_geography"
-  ]
+  "_built_at": "2026-05-21T16:00:22.515Z",
+  "_missing_blocks": []
 }

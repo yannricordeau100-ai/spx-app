@@ -131,7 +131,9 @@
       "last_data_date": "2025-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Capital Expenditures : investments in property, plant and equipment.",
+      "signal_en": "Solid expansion, positive trajectory"
     },
     {
       "short": "Gross Margin",
@@ -156,7 +158,9 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Gross Margin : gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Op Margin",
@@ -181,7 +185,9 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Profit margin on Op.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "R&D",
@@ -206,7 +212,9 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Research & Development expenses.",
+      "signal_en": "Steady growth, healthy trend"
     },
     {
       "short": "Headcount",
@@ -231,7 +239,9 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Headcount : total number of employees at period end.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Service/ARR",
@@ -256,7 +266,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "signal_en": "Recurring base growing, revenue visibility rising"
     },
     {
       "short": "DPS",
@@ -280,7 +291,9 @@
       "signal": "Dividende par action de 0.455 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -302,7 +315,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -324,7 +339,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "AI Cloud Mix",
@@ -397,9 +414,44 @@
     }
   ],
   "governance": {
-    "ceo_name": "Mr. James Bruce Flatt",
-    "ceo_title": "Chief Executive Officer",
-    "fiscal_year": 2025
+    "top_capital": [
+      {
+        "name": "Royal Bank of Canada",
+        "type": "institutionnel",
+        "stake_pct": 10.8
+      },
+      {
+        "name": "Principal Financial Group, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 5.86
+      },
+      {
+        "name": "Bank of Montreal /CAN/",
+        "type": "institutionnel",
+        "stake_pct": 5.74
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "Royal Bank of Canada",
+        "type": "institutionnel",
+        "stake_pct": 10.8
+      },
+      {
+        "name": "Principal Financial Group, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 5.86
+      },
+      {
+        "name": "Bank of Montreal /CAN/",
+        "type": "institutionnel",
+        "stake_pct": 5.74
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:12:16.766111+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "unit": "US$ MILLIONS",
@@ -409,26 +461,30 @@
       {
         "label": "Data",
         "value": 13622,
+        "share_pct": 30,
         "unit": "US$ MILLIONS",
-        "share_pct": 30
+        "label_en": "Data"
       },
       {
         "label": "Transport",
         "value": 11582,
+        "share_pct": 25.5,
         "unit": "US$ MILLIONS",
-        "share_pct": 25.5
+        "label_en": "Transport"
       },
       {
         "label": "Midstream",
         "value": 10275,
+        "share_pct": 22.6,
         "unit": "US$ MILLIONS",
-        "share_pct": 22.6
+        "label_en": "Midstream"
       },
       {
         "label": "Utilities",
         "value": 9900,
+        "share_pct": 21.8,
         "unit": "US$ MILLIONS",
-        "share_pct": 21.8
+        "label_en": "Utilities"
       }
     ],
     "total": 45379
@@ -441,50 +497,58 @@
       {
         "label": "États-Unis",
         "value": 6.4,
-        "unit": "M $",
-        "share_pct": 30.9
+        "share_pct": 30.9,
+        "unit": "Mds $",
+        "label_en": "United States"
       },
       {
         "label": "Canada",
         "value": 4.5,
-        "unit": "M $",
-        "share_pct": 21.7
+        "share_pct": 21.7,
+        "unit": "Mds $",
+        "label_en": "Canada"
       },
       {
         "label": "Inde",
         "value": 3.21,
-        "unit": "M $",
-        "share_pct": 15.5
+        "share_pct": 15.5,
+        "unit": "Mds $",
+        "label_en": "India"
       },
       {
         "label": "Royaume-Uni",
         "value": 2.54,
-        "unit": "M $",
-        "share_pct": 12.3
+        "share_pct": 12.3,
+        "unit": "Mds $",
+        "label_en": "United Kingdom"
       },
       {
         "label": "Brésil",
         "value": 1.68,
-        "unit": "M $",
-        "share_pct": 8.1
+        "share_pct": 8.1,
+        "unit": "Mds $",
+        "label_en": "Brazil"
       },
       {
         "label": "Colombie",
         "value": 1.27,
-        "unit": "M $",
-        "share_pct": 6.1
+        "share_pct": 6.1,
+        "unit": "Mds $",
+        "label_en": "Colombia"
       },
       {
         "label": "France",
         "value": 0.67,
-        "unit": "M $",
-        "share_pct": 3.2
+        "share_pct": 3.2,
+        "unit": "Mds $",
+        "label_en": "France"
       },
       {
         "label": "Allemagne",
         "value": 0.46,
-        "unit": "M $",
-        "share_pct": 2.2
+        "share_pct": 2.2,
+        "unit": "Mds $",
+        "label_en": "Germany"
       }
     ],
     "total": 20.73
@@ -605,15 +669,15 @@
     }
   ],
   "ranks": {
-    "global_world": "#239",
+    "global_world": "#540",
     "global_us": "Non US",
-    "sector": "Top 25 in Utilities",
+    "sector": "Top 50 in Services aux collectivités",
     "subsector": "#1 in Infrastructure"
   },
   "latest_filing": null,
   "next_earnings_date": null,
   "publication_date": null,
   "company_description": "Brookfield Infrastructure Partners L.P. engages in the utilities, transport, midstream, and data businesses. The company provides transmission of energy and natural gas, and distribution; transport infrastructure including freight, toll road operations, transportation services and intermodal logistics; midstream infrastructure, such as midstream and storage services; and data transmission and distribution operations. In addition, it offers asset management, and wealth solutions. It operates in the United States, Canada, India, the United Kingdom, Brazil, Japan, Colombia, France, Australia, Germany, and internationally. The company was incorporated in 2007 and is based in Hamilton, Bermuda.",
-  "_built_at": "2026-05-20T20:15:02.202Z",
+  "_built_at": "2026-05-21T16:00:21.974Z",
   "_missing_blocks": []
 }

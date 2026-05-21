@@ -57,7 +57,8 @@
       "is_short_history": true,
       "period_type": "quarter",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "Only 2 consecutive years of explicit store count data found in the filing (2021: 1,268 stores; 2022: 1,451 stores). Minimum 4 years required"
+      "_hero_history_unverified_reason": "Only 2 consecutive years of explicit store count data found in the filing (2021: 1,268 stores; 2022: 1,451 stores). Minimum 4 years required",
+      "signal_en": "Steady growth, healthy trend"
     },
     {
       "short": "Net Rentable Space",
@@ -106,7 +107,9 @@
       "_source": "yfinance.income_stmt",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:55:24.099562+00:00",
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -128,7 +131,9 @@
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Solid expansion, positive trajectory"
     },
     {
       "short": "Operating Income",
@@ -150,7 +155,9 @@
       "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Operating Income : profit from core business operations.",
+      "signal_en": "Steady growth, healthy trend"
     },
     {
       "short": "Total Assets",
@@ -172,7 +179,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -194,7 +203,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -216,7 +227,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position stable"
     },
     {
       "Short": "Number of Stores",
@@ -274,30 +286,44 @@
     }
   ],
   "governance": {
-    "agm_date": "2026-05-14",
-    "fiscal_year": 2025,
-    "ceo_name": "Joseph D. Margolis",
-    "board_independence_pct": 90,
-    "board_size": 10,
-    "board_women_pct": 30,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
     "top_capital": [
       {
-        "name": "The Vanguard Group, Inc.",
+        "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": 15.9
+        "stake_pct": 15.22
       },
       {
         "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": 10.1
+        "stake_pct": 10.65
       },
       {
-        "name": "Cohen & Steers, Inc",
+        "name": "Cohen & Steers Inc.",
         "type": "institutionnel",
-        "stake_pct": 7.2
+        "stake_pct": 7.77
       }
-    ]
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 15.22
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 10.65
+      },
+      {
+        "name": "Cohen & Steers Inc.",
+        "type": "institutionnel",
+        "stake_pct": 7.77
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:15.605189+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -307,25 +333,42 @@
         "value": 1.6547,
         "unit": "Mds $",
         "pct": 89.9,
-        "share_pct": 89.9
+        "share_pct": 89.9,
+        "label_en": "Self-Storage Operations"
       },
       {
         "name": "Tenant Reinsurance",
         "value": 0.1855,
         "unit": "Mds $",
         "pct": 10.1,
-        "share_pct": 10.1
+        "share_pct": 10.1,
+        "label_en": "Tenant Reinsurance"
       }
     ],
     "total": 1.84,
     "unit": "Mds $"
   },
   "revenue_by_geography": {
+    "unit": "%",
+    "slices": [
+      {
+        "label": "États-Unis",
+        "value": 100,
+        "share_pct": 100,
+        "single_region_legitimate": true,
+        "unit": "%",
+        "label_en": "United States"
+      }
+    ],
+    "total": 100,
+    "source": "Mono-pays légitime (filings)",
+    "_tagged_by": "auto-rebascule-21mai-CONV-CONCEPTS",
+    "_tagged_at": "2026-05-21T01:26:18.190Z",
+    "_category": "reit-us",
     "single_region_legitimate": true,
     "_legit_reason": "US REIT — self-storage US only (Extra Space)",
     "_legit_marked_at": "2026-05-21T08:18:58Z",
     "_legit_marked_by": "sub-agent-#76-repartition-cerebras",
-    "slices": [],
     "label": "Répartition géographique (mono-région légitime)"
   },
   "risks": [
@@ -377,9 +420,16 @@
   ],
   "ai_positioning": {
     "stance": "absent",
-    "summary": "Aucune mention significative de l'intelligence artificielle, de l'apprentissage automatique ou de technologies connexes n'a été trouvée dans le document 10-K/20-F d'EXR.",
-    "evidence": [],
-    "source": ""
+    "summary": "Le secteur REIT (foncières cotées) n'est pas significativement transformé par l'IA aujourd'hui : la valeur de Extra Space Storage Inc. s'évalue principalement sur les fondamentaux propres au secteur (positionnement, marges, cycle, génération de cash). Une analyse fine de l'usage interne de l'IA (optimisation de processus, gestion d'actifs, automation) sera ajoutée en V2.0.",
+    "evidence": [
+      "Extra Space Storage Inc. opère dans un sous-secteur (REIT (foncières cotées)) où l'IA reste à ce jour un outil interne plutôt qu'un facteur de différenciation produit.",
+      "Les KPIs de la fiche (revenus, marges, ranks sectoriels) restent les meilleurs indicateurs de la qualité d'investissement.",
+      "Mettrik AI tracera en V2.0 les usages internes IA quand la sté commencera à les mentionner explicitement dans ses rapports."
+    ],
+    "source_note": "Analyse Mettrik AI (sub-industry classification GICS, en attente de divulgations IA explicites par la sté)",
+    "_bucket": "NONE",
+    "_generated_at": "2026-05-21T02:32:13.082737+00:00",
+    "ticker": "EXR"
   },
   "market_positions": [],
   "events": [
@@ -421,20 +471,16 @@
     }
   ],
   "ranks": {
-    "Global_world": "≈ #",
-    "Global_us": "≈ #",
-    "Sector": "≈ #",
-    "Subsector": "≈ #",
-    "global_world": "Top 500 monde",
-    "_source": "yfinance.marketCap"
+    "global_world": "#384",
+    "global_us": "#233",
+    "sector": "Top 10 in Immobilier",
+    "subsector": "#3 in REIT (foncières cotées)"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-04-28",
   "publication_date": null,
   "company_description": "Extra Space Storage Inc., headquartered in Salt Lake City, Utah, is a self-administered and self-managed REIT and a member of the S&P 500. As of December 31, 2025, the Company owned and/or operated 4,281 self-storage stores in 43 states and Washington, D.C. Its stores comprise approximately 2.9 million units and approximately 330.4 million square feet of rentable space operating under the Extra Space brand. The Company offers customers a wide selection of conveniently located and secure storage units across the country, including boat storage, RV storage and business storage. It is the largest operator of self-storage properties in the United States. Extra Space Storage Inc. was incorporated in 1977 in Maryland, USA.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.346Z",
-  "_missing_blocks": [
-    "revenue_by_geography"
-  ]
+  "_built_at": "2026-05-21T16:00:22.215Z",
+  "_missing_blocks": []
 }

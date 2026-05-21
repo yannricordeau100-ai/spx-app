@@ -35,7 +35,8 @@
       "is_short_history": false,
       "period_type": "quarter",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "KPI 'Rinvoq Exclusivity' (US exclusivity period/expiration date) not found with explicit annual values in the provided 10-K extract. The doc"
+      "_hero_history_unverified_reason": "KPI 'Rinvoq Exclusivity' (US exclusivity period/expiration date) not found with explicit annual values in the provided 10-K extract. The doc",
+      "signal_en": "Flat year-over-year, monitor closely"
     },
     {
       "short": "Revenue",
@@ -61,7 +62,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "ttm": 61.64
+      "ttm": 61.64,
+      "explanation_en": "Revenue : total sales generated over the period.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Op Margin",
@@ -87,7 +90,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "ttm": 24.73
+      "ttm": 24.73,
+      "explanation_en": "Profit margin on Op.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "R&D",
@@ -106,7 +111,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Research & Development expenses."
     },
     {
       "short": "Cash Flow",
@@ -132,7 +138,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "ttm": 19.13
+      "ttm": 19.13,
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Pipeline",
@@ -158,7 +165,8 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "ttm": 90.25
+      "ttm": 90.25,
+      "signal_en": "Pipeline stable, monitor conversion"
     },
     {
       "short": "Total Assets",
@@ -179,7 +187,9 @@
       "signal": "Total des actifs de 133.96 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Total Debt",
@@ -200,7 +210,9 @@
       "signal": "Dette totale de 67.5 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "DPS",
@@ -224,7 +236,9 @@
       "signal": "Dividende par action de 3.46 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -245,7 +259,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 11.657 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -266,7 +282,9 @@
       "signal": "Part du résultat net distribué en dividendes : 275.8% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Total Revenue",
@@ -291,7 +309,9 @@
       "signal": "Chiffre d'affaires de 61.16 Mds $ dernière année.",
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -316,7 +336,9 @@
       "signal": "Résultat net de 4.226 Mds $ dernière année.",
       "description": "Résultat net consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns"
     },
     {
       "short": "Capex US",
@@ -370,27 +392,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-05-08",
-    "fiscal_year": 2025,
-    "ceo_name": "Robert A. Michael",
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "board_size": 12,
-    "board_independence_pct": 92,
-    "board_women_pct": 33.3,
-    "avg_tenure_years": 6.5,
-    "exec_comp_approval_pct": 95,
     "top_capital": [
       {
         "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": 10.02
+        "stake_pct": 9.3
       },
       {
         "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": 8.09
+        "stake_pct": 8.53
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.6
       }
-    ]
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 9.3
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.53
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.6
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:11:47.922888+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "single_segment": true,
@@ -400,61 +439,84 @@
     "slices": [
       {
         "label": "États-Unis",
-        "value": 43029,
-        "share_pct": 84.56
+        "value": 43.03,
+        "share_pct": 84.56,
+        "unit": "Mds $",
+        "label_en": "United States"
       },
       {
         "label": "Allemagne",
-        "value": 1465,
-        "share_pct": 2.88
+        "value": 1.47,
+        "share_pct": 2.88,
+        "unit": "Mds $",
+        "label_en": "Germany"
       },
       {
         "label": "Japon",
-        "value": 1122,
-        "share_pct": 2.2
+        "value": 1.12,
+        "share_pct": 2.2,
+        "unit": "Mds $",
+        "label_en": "Japan"
       },
       {
         "label": "Canada",
-        "value": 1088,
-        "share_pct": 2.14
+        "value": 1.09,
+        "share_pct": 2.14,
+        "unit": "Mds $",
+        "label_en": "Canada"
       },
       {
         "label": "Chine",
-        "value": 917,
-        "share_pct": 1.8
+        "value": 0.92,
+        "share_pct": 1.8,
+        "unit": "Mds $",
+        "label_en": "China"
       },
       {
         "label": "France",
-        "value": 776,
-        "share_pct": 1.53
+        "value": 0.78,
+        "share_pct": 1.53,
+        "unit": "Mds $",
+        "label_en": "France"
       },
       {
         "label": "Espagne",
-        "value": 528,
-        "share_pct": 1.04
+        "value": 0.53,
+        "share_pct": 1.04,
+        "unit": "Mds $",
+        "label_en": "Spain"
       },
       {
         "label": "Royaume-Uni",
-        "value": 522,
-        "share_pct": 1.03
+        "value": 0.52,
+        "share_pct": 1.03,
+        "unit": "Mds $",
+        "label_en": "United Kingdom"
       },
       {
         "label": "Italie",
-        "value": 511,
-        "share_pct": 1
+        "value": 0.51,
+        "share_pct": 1,
+        "unit": "Mds $",
+        "label_en": "Italy"
       },
       {
         "label": "Brésil",
-        "value": 464,
-        "share_pct": 0.91
+        "value": 0.46,
+        "share_pct": 0.91,
+        "unit": "Mds $",
+        "label_en": "Brazil"
       },
       {
         "label": "Australie",
-        "value": 463,
-        "share_pct": 0.91
+        "value": 0.46,
+        "share_pct": 0.91,
+        "unit": "Mds $",
+        "label_en": "Australia"
       }
     ],
-    "total": 50885
+    "unit": "Mds $",
+    "total": 50.89
   },
   "risks": [
     {
@@ -522,27 +584,98 @@
     }
   ],
   "ai_positioning": {
-    "stance": "absent",
-    "summary": "La société n'a pas mentionné d'utilisation ou de développement significatif de l'IA dans les extraits fournis. Les mentions sont liées à des données financières et des accords de collaboration génériques.",
-    "evidence": [],
-    "source": ""
+    "stance": "cautious",
+    "summary": "AbbVie Inc. mentionne peu l'IA dans ses communications officielles (Biopharmaceutical).",
+    "evidence": [
+      "Aucune mention significative d'IA dans le 10-K ou les earnings calls disponibles localement.",
+      "Le secteur Biopharmaceutical commence à intégrer l'IA mais AbbVie Inc. ne met pas le sujet en avant à ce jour.",
+      "Mettrik AI réévaluera le positionnement IA à chaque nouvelle publication."
+    ],
+    "source_note": "Sources locales sans mentions IA significatives",
+    "_bucket": "MEDIUM",
+    "_no_ai_passages": true,
+    "_generated_at": "2026-05-21T02:27:10.982026+00:00",
+    "ticker": "ABBV"
   },
   "market_positions": [],
-  "events": [],
+  "events": [
+    {
+      "year": 2026,
+      "month": 7,
+      "title": "Prochaine publication Q3 2026",
+      "body": "Publication attendue le 30 juillet 2026 (Q3 2026).",
+      "source": "yfinance · calendar",
+      "url": "",
+      "date": "2026-07-30"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "J&J's Pipeline Progress & New Drugs Promise Stronger Long-Term Growth",
+      "body": "J&J's expanding pipeline, new drug approvals and rising sales from cancer medicines are expected to fuel growth.",
+      "source": "Zacks",
+      "url": "https://finance.yahoo.com/sectors/healthcare/articles/j-js-pipeline-progress-drugs-151700796.html",
+      "date": "2026-05-19"
+    },
+    {
+      "year": 2026,
+      "month": 4,
+      "title": "Dividende 1.73 $/action versé",
+      "body": "Dividende ordinaire de 1.73 $ par action, ex-date 15 avril 2026.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2026-04-15"
+    },
+    {
+      "year": 2026,
+      "month": 3,
+      "title": "Publication des résultats Q1 2026",
+      "body": "Clôture du trimestre Q1 2026 le 31 mars 2026.",
+      "source": "yfinance · mostRecentQuarter",
+      "url": "",
+      "date": "2026-03-31"
+    },
+    {
+      "year": 2026,
+      "month": 1,
+      "title": "Dividende 1.73 $/action versé",
+      "body": "Dividende ordinaire de 1.73 $ par action, ex-date 16 janvier 2026.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2026-01-16"
+    },
+    {
+      "year": 2025,
+      "month": 10,
+      "title": "Dividende 1.64 $/action versé",
+      "body": "Dividende ordinaire de 1.64 $ par action, ex-date 15 octobre 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-10-15"
+    },
+    {
+      "year": 2025,
+      "month": 7,
+      "title": "Dividende 1.64 $/action versé",
+      "body": "Dividende ordinaire de 1.64 $ par action, ex-date 15 juillet 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-07-15"
+    }
+  ],
   "ranks": {
-    "global_world": "≈ #150",
-    "global_us": "≈ #120",
-    "sector": "Top 25",
-    "subsector": "Top 5"
+    "global_world": "#29",
+    "global_us": "#25",
+    "sector": "#3 in Santé",
+    "subsector": "#1 in Biopharmaceutical"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-30",
   "publication_date": null,
   "company_description": "AbbVie Inc., a research-based biopharmaceutical company, engages in the research and development, manufacturing, commercializing, and sale of medicines and therapies worldwide. The company offers Skyrizi to treat autoimmune diseases; Rinvoq to treat inflammatory diseases; Imbruvica for the treatment of adult patients with blood cancers; Venclexta to treat blood cancers; Elahere to treat various cancer; and Epkinly to treat lymphoma; and Emrelis for the treatment of lung cancer. It also provides facial injectables, plastics and regenerative medicine, body contouring, and skincare products; botox Cosmetic for the treatment of glabellar lines, crow's feet, forehead lines, and platysma bands; Juvederm Collection to treat volume loss in the temples, undereye, cheeks, chin, lips and lower face; Vraylar to treat schizophrenia, bipolar disorder, and depressive disorder; Duodopa to treat Parkinson's disease; Ubrelvy to treat migraine; Qulipta for episodic and chronic migraine; and Vyalev for the treatment of motor fluctuations, as well as Botox Therapeutic to treat chronic migraine, overactive bladder, spasticity, cervical dystonia, and other conditions. In addition, the company offers Ozur",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.110Z",
+  "_built_at": "2026-05-21T16:00:21.856Z",
   "_missing_blocks": [
-    "revenue_by_segment",
-    "events"
+    "revenue_by_segment"
   ]
 }

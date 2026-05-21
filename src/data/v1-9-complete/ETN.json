@@ -124,7 +124,8 @@
         "Verified revenue of 27.4B$ for 2025 confirmed in Business section: 'With revenues of $27.4 billion in 2025'",
         "Unit confirmed as 'B $' (billions USD)",
         "Name and explanation consistent with source material on data center momentum"
-      ]
+      ],
+      "signal_en": "Demand strengthening, end-market traction"
     },
     {
       "short": "Gross Margin",
@@ -154,7 +155,9 @@
         "KPI flagged as generic metric appropriately",
         "VALUE UNVERIFIABLE: No consolidated income statement or gross profit figures provided in source excerpt",
         "RECOMMENDATION: Remove or flag with low confidence until explicit disclosure found in full financial statements"
-      ]
+      ],
+      "explanation_en": "Gross Margin : gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Op Margin",
@@ -184,7 +187,9 @@
         "KPI flagged as generic metric appropriately",
         "VALUE UNVERIFIABLE: No consolidated income statement with operating income figures provided in source excerpt",
         "RECOMMENDATION: Remove or flag with low confidence until explicit disclosure found in full financial statements"
-      ]
+      ],
+      "explanation_en": "Profit margin on Op.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "R&D",
@@ -215,7 +220,9 @@
         "VALUE UNVERIFIABLE: No R&D expense figures provided in source excerpt",
         "RECOMMENDATION: Remove or flag with low confidence until explicit disclosure found in full financial statements",
         "Minor correction: name_en changed from 'R&D as % Revenue' to 'R&D as % of Revenue' for consistency"
-      ]
+      ],
+      "explanation_en": "Research & Development expenses.",
+      "signal_en": "Flat year-over-year, monitor closely"
     },
     {
       "short": "Capex",
@@ -247,7 +254,9 @@
         "YoY FORMAT CORRECTION: Changed from '+0.2' to '+0.2 B $' for unit consistency",
         "Capex magnitude reasonable for company of this scale (4.4% of revenue) but unverifiable from source",
         "RECOMMENDATION: Remove or flag with low confidence until explicit disclosure found in full financial statements"
-      ]
+      ],
+      "explanation_en": "Capital Expenditures : investments in property, plant and equipment.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Headcount",
@@ -278,7 +287,9 @@
         "VALUE UNVERIFIABLE: No headcount disclosure in provided source excerpt",
         "Headcount increase narrative justified by acquisitions mentioned in Business section (Fibrebond, Resilient, Ultra PCS, Boyd Thermal)",
         "RECOMMENDATION: Remove or flag with low confidence until explicit disclosure found in full 10-K"
-      ]
+      ],
+      "explanation_en": "Headcount : total number of employees at period end.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Total Assets",
@@ -299,7 +310,9 @@
       "signal": "Total des actifs de 41.25 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -320,7 +333,9 @@
       "signal": "Dette totale de 10.53 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "DPS",
@@ -344,7 +359,9 @@
       "signal": "Dividende par action de 2.2 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -365,7 +382,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 1.626 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -386,7 +405,9 @@
       "signal": "Part du résultat net distribué en dividendes : 39.8% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Total Revenue",
@@ -407,7 +428,8 @@
       "signal": "Chiffre d'affaires de 0.0 Mds $ dernière année.",
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 4 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Revenue from the Total segment."
     },
     {
       "short": "Net Income",
@@ -433,7 +455,9 @@
       "description": "Résultat net consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Data Center Acquisitions",
@@ -501,8 +525,100 @@
     "ceo_name": "Mr. Paulo Ruiz Sternadt",
     "_source": "yfinance.companyOfficers"
   },
-  "revenue_by_segment": null,
-  "revenue_by_geography": null,
+  "revenue_by_segment": {
+    "slices": [
+      {
+        "label": "Electrical Americas",
+        "share_pct": 45.97,
+        "label_fr": "Électrique Amériques",
+        "label_en": "Electrical Americas",
+        "value": 11.436,
+        "unit": "Mds $"
+      },
+      {
+        "label": "Electrical Global",
+        "share_pct": 25.12,
+        "label_fr": "Électrique International",
+        "label_en": "Electrical Global",
+        "value": 6.248,
+        "unit": "Mds $"
+      },
+      {
+        "label": "Aerospace",
+        "share_pct": 15.05,
+        "label_fr": "Aérospatiale",
+        "label_en": "Aerospace",
+        "value": 3.744,
+        "unit": "Mds $"
+      },
+      {
+        "label": "Vehicle",
+        "share_pct": 11.21,
+        "label_fr": "Véhicule",
+        "label_en": "Vehicle",
+        "value": 2.79,
+        "unit": "Mds $"
+      },
+      {
+        "label": "eMobility",
+        "share_pct": 2.66,
+        "label_fr": "eMobilité",
+        "label_en": "eMobility",
+        "value": 0.662,
+        "unit": "Mds $"
+      }
+    ],
+    "year": 2024,
+    "currency": "USD",
+    "total": 24.878
+  },
+  "revenue_by_geography": {
+    "slices": [
+      {
+        "label": "United States",
+        "share_pct": 60.9,
+        "label_fr": "États-Unis",
+        "label_en": "United States",
+        "value": 15.151,
+        "unit": "Mds $"
+      },
+      {
+        "label": "Canada",
+        "share_pct": 4.25,
+        "label_fr": "Canada",
+        "label_en": "Canada",
+        "value": 1.058,
+        "unit": "Mds $"
+      },
+      {
+        "label": "Latin America",
+        "share_pct": 6.75,
+        "label_fr": "Amérique latine",
+        "label_en": "Latin America",
+        "value": 1.68,
+        "unit": "Mds $"
+      },
+      {
+        "label": "Europe",
+        "share_pct": 18.21,
+        "label_fr": "Europe",
+        "label_en": "Europe",
+        "value": 4.53,
+        "unit": "Mds $"
+      },
+      {
+        "label": "Asia Pacific",
+        "share_pct": 9.88,
+        "label_fr": "Asie-Pacifique",
+        "label_en": "Asia Pacific",
+        "value": 2.459,
+        "unit": "Mds $"
+      }
+    ],
+    "year": 2024,
+    "currency": "USD",
+    "total": 24.878
+  },
   "risks": [
     {
       "title": "Risques de cybersecurite et incidents IT",
@@ -588,19 +704,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #500",
-    "global_us": "Top 250",
-    "sector": "Mid-tier",
-    "subsector": "Top 5"
+    "global_world": "#102",
+    "global_us": "Non US",
+    "sector": "#2 in Industrial",
+    "subsector": "#1 in Electrical Equipment & Components"
   },
   "latest_filing": null,
   "next_earnings_date": null,
   "publication_date": null,
   "company_description": "Eaton Corporation plc operates as a power management company in the United States, Canada, Latin America, Europe, and the Asia Pacific. The company operates through Electrical Americas, Electrical Global, Aerospace, Vehicle, and eMobility segments. It offers electrical components, industrial components, power distribution and assemblies, residential products, single and three phase power quality and connectivity products, wiring devices, circuit protection products, utility power distribution products, and power reliability equipment; and hazardous duty electrical equipment, emergency lighting, fire detection, intrinsically safe explosion-proof instrumentation, and structural support systems. It also provides pumps, motors, hydraulic power units, hoses and fittings, and electro-hydraulic pumps; valves, cylinders, electronic controls, electromechanical actuators, sensors, aircraft flap and slat systems, and nose wheel steering systems; hose, thermoplastic tubing products, fittings, adapters, couplings, and sealing and ducting products; air-to-air refueling systems, fuel pumps, fuel inerting products, sensors, and adapters and regulators; oxygen generation system, payload carriages, ",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.339Z",
-  "_missing_blocks": [
-    "revenue_by_segment",
-    "revenue_by_geography"
-  ]
+  "_built_at": "2026-05-21T16:00:22.207Z",
+  "_missing_blocks": []
 }

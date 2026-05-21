@@ -202,11 +202,7 @@
       "description": "Revenu segment Fitness de Garmin. Source : 10-K Garmin.",
       "is_specific_to_company": true,
       "_specific_to": "company",
-      "_source": "10-K",
-      "is_short_history_legitimate": true,
-      "short_history_legitimate_reason": "Tech hardware (KPIs récents AI accelerators, edge computing, RISC-V, segment AI Networking disclosed récemment) (subsector: Technology Hardware & Equipment)",
-      "_short_history_legitimate_rule": "tech_hardware_recent",
-      "_short_history_legitimate_tagged_at": "2026-05-21T08:25:37.011Z"
+      "_source": "10-K"
     },
     {
       "short": "Outdoor Revenue",
@@ -310,7 +306,13 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "explanation_en": "Research & Development expenses.",
+      "signal_en": "Flat year-over-year, monitor closely",
+      "is_short_history_legitimate": true,
+      "short_history_legitimate_reason": "Tech hardware (KPIs récents AI accelerators, edge computing, RISC-V, segment AI Networking disclosed récemment) (subsector: Technology Hardware & Equipment)",
+      "_short_history_legitimate_rule": "tech_hardware_recent",
+      "_short_history_legitimate_tagged_at": "2026-05-21T08:25:37.011Z"
     },
     {
       "short": "Gross Margin",
@@ -329,7 +331,9 @@
       "last_data_date": "2025-12-27",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Gross Margin : gross profit divided by revenue.",
+      "signal_en": "Profitability stable"
     },
     {
       "short": "Operating Margin",
@@ -348,7 +352,9 @@
       "last_data_date": "2025-12-27",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Operating Margin : operating profit divided by revenue.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Net Margin",
@@ -367,7 +373,9 @@
       "last_data_date": "2025-12-27",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Net Margin : net income divided by revenue.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "SG&A",
@@ -386,7 +394,9 @@
       "last_data_date": "2025-12-27",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Selling, General & Administrative expenses.",
+      "signal_en": "Cost discipline, efficiency gains"
     },
     {
       "short": "Total Assets",
@@ -407,7 +417,9 @@
       "signal": "Total des actifs de 10.99 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -428,7 +440,9 @@
       "signal": "Dette totale de 0.16 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -449,7 +463,8 @@
       "signal": "Trésorerie & équivalents de 2.28 Mds € dernière année",
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "DPS",
@@ -473,7 +488,9 @@
       "signal": "Dividende par action de 0.9 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -494,7 +511,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 0.664 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -515,7 +534,9 @@
       "signal": "Part du résultat net distribué en dividendes : 39.9% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Products Delivered",
@@ -560,19 +581,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-06-05",
-    "fiscal_year": 2025,
-    "ceo_name": "Min H. Kao",
-    "board_independence_pct": null,
-    "board_size": 6,
-    "avg_tenure_years": null,
-    "board_women_pct": null,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "top_capital": null,
-    "top_voting": null,
-    "exec_comp_approval_pct": null,
-    "ceo_pay_ratio": null,
-    "ceo_total_comp_m": null
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 9.66
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.07
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 3.58
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 9.66
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.07
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 3.58
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:31.898219+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "unit": "Mds$",
@@ -582,32 +628,37 @@
       {
         "label": "Fitness",
         "value": 2.36,
-        "unit": "M$",
-        "share_pct": 32.6
+        "share_pct": 32.6,
+        "unit": "Mds$",
+        "label_en": "Fitness"
       },
       {
         "label": "Outdoor",
         "value": 2.05,
-        "unit": "M$",
-        "share_pct": 28.3
+        "share_pct": 28.3,
+        "unit": "Mds$",
+        "label_en": "Outdoor"
       },
       {
         "label": "Marine",
         "value": 1.18,
-        "unit": "M$",
-        "share_pct": 16.3
+        "share_pct": 16.3,
+        "unit": "Mds$",
+        "label_en": "Marine"
       },
       {
         "label": "Aviation",
         "value": 0.99,
-        "unit": "M$",
-        "share_pct": 13.7
+        "share_pct": 13.7,
+        "unit": "Mds$",
+        "label_en": "Aviation"
       },
       {
         "label": "Auto OEM",
         "value": 0.66,
-        "unit": "M$",
-        "share_pct": 9.1
+        "share_pct": 9.1,
+        "unit": "Mds$",
+        "label_en": "Auto OEM"
       }
     ],
     "total": 7.24
@@ -620,20 +671,23 @@
       {
         "label": "Amériques",
         "value": 3.45,
-        "unit": "M$",
-        "share_pct": 47.7
+        "share_pct": 47.7,
+        "unit": "Mds$",
+        "label_en": "Americas"
       },
       {
         "label": "EMEA",
         "value": 2.74,
-        "unit": "M$",
-        "share_pct": 37.8
+        "share_pct": 37.8,
+        "unit": "Mds$",
+        "label_en": "EMEA"
       },
       {
         "label": "APAC",
         "value": 1.05,
-        "unit": "M$",
-        "share_pct": 14.5
+        "share_pct": 14.5,
+        "unit": "Mds$",
+        "label_en": "APAC"
       }
     ],
     "total": 7.24
@@ -742,16 +796,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #434",
-    "global_us": "≈ #234",
-    "sector": "≈ #23",
-    "subsector": "≈ #5"
+    "global_world": "#388",
+    "global_us": "Non US",
+    "sector": "#116 in Technologie",
+    "subsector": "#2 in Technology Hardware & Equipment"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-29",
   "publication_date": null,
   "company_description": "Garmin Ltd. designs, develops, manufactures, markets, and distributes a diverse range of GPS-enabled products and navigation, communications, sensor-based, and information products and services worldwide. It offers running; cycling products; smartwatch devices; scales and monitors; and sports timing and performance analysis; Garmin Connect and Garmin Connect Mobile, which are web and mobile platforms where users can track and analyze their fitness, activities and workouts, and wellness data; and Connect IQ, which enables third parties to create applications that run on Garmin devices. It also provides adventure watches; outdoor handhelds and satellite communicators; golf devices; consumer automotive; dog devices; InReach and Gramin response; and dive devices. In addition, it designs, manufactures, and markets various aircraft avionics solutions, including integrated flight decks, electronic flight displays and instrumentation, navigation and communication products, automatic flight control systems and safety-enhancing technologies, audio control systems, engine indication systems, traffic awareness and avoidance solutions, ADS-B and transponders, weather information and avoidance s",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.384Z",
+  "_built_at": "2026-05-21T16:00:22.278Z",
   "_missing_blocks": []
 }

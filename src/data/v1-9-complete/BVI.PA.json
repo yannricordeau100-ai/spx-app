@@ -150,7 +150,9 @@
       "period_type": "annual",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Document is a 2024 Half-Year Financial Report (H1 2024 only). Only one explicit organic revenue growth value found: 9.2% for H1 2024. Insuff",
-      "_hero_history_extended": true
+      "_hero_history_extended": true,
+      "explanation_en": "Year-over-year growth in Organic Revenue.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Adjusted Operating Margin",
@@ -173,7 +175,9 @@
       "last_data_date": "2024-06-30",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Profit margin on Adjusted Operating.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Net Debt/EBITDA",
@@ -195,7 +199,8 @@
       "last_data_date": "2024-06-30",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Free Cash Flow",
@@ -216,7 +221,8 @@
       "last_data_date": "2024-06-30",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Free Cash Flow : operating cash flow minus capital expenditures."
     },
     {
       "short": "Capex",
@@ -237,7 +243,8 @@
       "last_data_date": "2024-06-30",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Expenditures : investments in property, plant and equipment."
     },
     {
       "short": "Headcount",
@@ -260,7 +267,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "_employees_synced_from_yfinance": true
+      "_employees_synced_from_yfinance": true,
+      "explanation_en": "Headcount : total number of employees at period end.",
+      "signal_en": "Significant decline, warning signal"
     },
     {
       "short": "DPS",
@@ -284,7 +293,9 @@
       "signal": "Dividende par action de 0.9 EUR dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Cap Return",
@@ -306,7 +317,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -328,7 +341,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Marine & Offshore Growth",
@@ -379,9 +394,10 @@
   ],
   "kpis_story": [],
   "governance": {
-    "ceo_name": "Ms. Hinda  Gharbi M.Sc.",
-    "ceo_title": "Chief Executive Officer",
-    "fiscal_year": 2025
+    "top_disclosure": "eu_regex_extracted",
+    "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
+    "_top_disclosure_at": "2026-05-21T02:49:04.568148+00:00",
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:18:56Z"
   },
   "revenue_by_segment": {
     "unit": "Mds $",
@@ -391,38 +407,44 @@
       {
         "label": "Buildings & Infrastructure",
         "value": 0.897,
+        "share_pct": 29.7,
         "unit": "Mds $",
-        "share_pct": 29.7
+        "label_en": "Buildings & Infrastructure"
       },
       {
         "label": "Industry",
         "value": 0.624,
+        "share_pct": 20.6,
         "unit": "Mds $",
-        "share_pct": 20.6
+        "label_en": "Industry"
       },
       {
         "label": "Agri-Food & Commodities",
         "value": 0.614,
+        "share_pct": 20.3,
         "unit": "Mds $",
-        "share_pct": 20.3
+        "label_en": "Agri-Food & Commodities"
       },
       {
         "label": "Consumer Products Services",
         "value": 0.381,
+        "share_pct": 12.6,
         "unit": "Mds $",
-        "share_pct": 12.6
+        "label_en": "Consumer Products Services"
       },
       {
         "label": "Certification",
         "value": 0.255,
+        "share_pct": 8.4,
         "unit": "Mds $",
-        "share_pct": 8.4
+        "label_en": "Certification"
       },
       {
         "label": "Marine & Offshore",
         "value": 0.251,
+        "share_pct": 8.3,
         "unit": "Mds $",
-        "share_pct": 8.3
+        "label_en": "Marine & Offshore"
       }
     ],
     "total": 3.02
@@ -435,26 +457,30 @@
       {
         "label": "Europe",
         "value": 1.057,
+        "share_pct": 35,
         "unit": "Mds $",
-        "share_pct": 35
+        "label_en": "Europe"
       },
       {
         "label": "Asie-Pacifique",
         "value": 0.858,
+        "share_pct": 28.4,
         "unit": "Mds $",
-        "share_pct": 28.4
+        "label_en": "Asia-Pacific"
       },
       {
         "label": "Americas",
         "value": 0.813,
+        "share_pct": 26.9,
         "unit": "Mds $",
-        "share_pct": 26.9
+        "label_en": "Americas"
       },
       {
         "label": "Africa, Middle East",
         "value": 0.293,
+        "share_pct": 9.7,
         "unit": "Mds $",
-        "share_pct": 9.7
+        "label_en": "Africa, Middle East"
       }
     ],
     "total": 3.02
@@ -575,9 +601,9 @@
     }
   ],
   "ranks": {
-    "global_world": "#263",
+    "global_world": "#613",
     "global_us": "Non US",
-    "sector": "#81 in Information Technology",
+    "sector": "#164 in Technologie",
     "subsector": "#1 in Professional Services"
   },
   "latest_filing": null,
@@ -585,6 +611,6 @@
   "publication_date": null,
   "company_description": "Bureau Veritas SA provides laboratory testing, inspection, and certification services. It operates through six segments: Marine & Offshore; Agri-Food & Commodities; Industry; Buildings & Infrastructure; Certification; and Consumer Products services. The company engages in inspecting, analyzing, auditing, and certifying the products, assets, and management systems of its clients in relation to regulatory or self-imposed standards, as well as issues compliance reports. It also provides technical services, including asset integrity management for marine and offshore; post accident expertise, risk assessment for the offshore industry, marine accident investigations, pre- and post salvage advice, and refloating of vessels; inspection, audit, certification, and testing services for oil and petrochemicals, metals and minerals, and agri commodities; technical control, code compliance, independent technical assistance, quality assurance/quality control, construction management, and project management assistance; laboratory and on-site testing services for manufacturing and process industries; inspection services for products, services, assets, and installations, as well as various services designed to control quality, verify quantity, and meet regulatory requirements; and certification services for management systems, products, and people. The company serves construction and civil engineering, real estate, transportation, oil and gas, marine and offshore, nuclear, defense, automotive, aerospace, IT, electronics, power and utilities, consumer products, and retail industries, as well as financial services and public sectors. It operates in approximately 140 countries through a network of offices and laboratories. Bureau Veritas SA was founded in 1828 and is headquartered in Neuilly-sur-Seine, France.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.226Z",
+  "_built_at": "2026-05-21T16:00:22.005Z",
   "_missing_blocks": []
 }

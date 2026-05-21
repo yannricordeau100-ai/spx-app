@@ -82,7 +82,9 @@
       "_source": "yfinance.income_stmt",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:52:15.645249+00:00",
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -103,7 +105,9 @@
       "signal": "Résultat net de 8.56 Mds € dernière année",
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Operating Income",
@@ -124,7 +128,9 @@
       "signal": "Résultat opérationnel de 12.39 Mds € dernière année",
       "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Operating Income : profit from core business operations.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Diluted EPS",
@@ -145,7 +151,9 @@
       "signal": "BPA dilué de 11.95 € dernière année",
       "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Total Assets",
@@ -166,7 +174,9 @@
       "signal": "Total des actifs de 59.52 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -187,7 +197,9 @@
       "signal": "Dette totale de 54.81 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -208,7 +220,8 @@
       "signal": "Trésorerie & équivalents de 0.77 Mds € dernière année",
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "DPS",
@@ -232,7 +245,9 @@
       "signal": "Dividende par action de 1.86 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -253,7 +268,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 5.115 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -274,37 +291,51 @@
       "signal": "Part du résultat net distribué en dividendes : 59.7% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     }
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-05-20",
-    "fiscal_year": 2025,
-    "ceo_name": "Christopher Kempczinski",
-    "board_independence_pct": 95,
-    "board_size": 12,
-    "avg_tenure_years": null,
-    "board_women_pct": 33.3,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
     "top_capital": [
       {
         "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": 10.03
+        "stake_pct": 9.19
       },
       {
         "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": 7.3
+        "stake_pct": 7.79
       },
       {
-        "name": "State Street Corporation",
+        "name": "JPMorgan Chase & Co.",
         "type": "institutionnel",
-        "stake_pct": 5.1
+        "stake_pct": 5.3
       }
     ],
-    "top_voting": []
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 9.19
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 7.79
+      },
+      {
+        "name": "JPMorgan Chase & Co.",
+        "type": "institutionnel",
+        "stake_pct": 5.3
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:14:11.247831+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Revenue by Operating Segment",
@@ -314,21 +345,24 @@
         "value": 7.8,
         "unit": "Mds $",
         "pct": 40.8,
-        "share_pct": 40.8
+        "share_pct": 40.8,
+        "label_en": "United States"
       },
       {
         "name": "International Operated Markets",
         "value": 9.6,
         "unit": "Mds $",
         "pct": 49.8,
-        "share_pct": 49.8
+        "share_pct": 49.8,
+        "label_en": "International Operated Markets"
       },
       {
         "name": "International Developmental Licensed Markets Corporate",
         "value": 1.8,
         "unit": "Mds $",
         "pct": 9.4,
-        "share_pct": 9.4
+        "share_pct": 9.4,
+        "label_en": "International Developmental Licensed Markets Corporate"
       }
     ],
     "total": 19.2,
@@ -342,21 +376,24 @@
         "value": 7.8285,
         "unit": "Mds $",
         "pct": 40.76,
-        "share_pct": 40.8
+        "share_pct": 40.76,
+        "label_en": "United States"
       },
       {
         "name": "International Operated Markets",
         "value": 9.5707,
         "unit": "Mds $",
         "pct": 49.83,
-        "share_pct": 49.8
+        "share_pct": 49.83,
+        "label_en": "International Operated Markets"
       },
       {
         "name": "International Developmental Licensed Markets Corporate",
         "value": 1.8086,
         "unit": "Mds $",
         "pct": 9.41,
-        "share_pct": 9.4
+        "share_pct": 9.41,
+        "label_en": "International Developmental Licensed Markets Corporate"
       }
     ],
     "total": 19.21,
@@ -425,20 +462,91 @@
     "source": "Rapport 10-K/20-F de McDonald's"
   },
   "market_positions": [],
-  "events": [],
+  "events": [
+    {
+      "year": 2026,
+      "month": 8,
+      "title": "Prochaine publication Q3 2026",
+      "body": "Publication attendue le 6 août 2026 (Q3 2026).",
+      "source": "yfinance · calendar",
+      "url": "",
+      "date": "2026-08-06"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "3 Dividend Aristocrats to Own For a Lifetime Of Passive Income",
+      "body": "Paychecks stop. Bonuses get cut. Layoff announcements arrive without warning. Dividend checks, by contrast, keep landing in brokerage accounts on a schedule set years in advance by boards that treat the payout like a contract with sharehold",
+      "source": "24/7 Wall St.",
+      "url": "https://247wallst.com/investing/2026/05/20/3-dividend-aristocrats-to-own-for-a-lifetime-of-passive-income/",
+      "date": "2026-05-20"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "Walmart Stock Looks Quite Risky Heading Into Q1 Results",
+      "body": "Higher oil prices and the K-shaped economy are negative catalysts for WMT stock.",
+      "source": "Barchart",
+      "url": "https://www.barchart.com/story/news/2042516/walmart-stock-looks-quite-risky-heading-into-q1-results",
+      "date": "2026-05-20"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "AI Job Destruction Is Coming, Another CEO Says",
+      "body": "Most Americans have never heard of Standard Chartered Plc. It is one of the 30 largest banks in the world, after the Chinese banks pulled out. Its CEO, Bill Winters, made the point, as some of his colleagues in the financial industry have, ",
+      "source": "24/7 Wall St.",
+      "url": "https://247wallst.com/investing/2026/05/19/ai-job-destruction-is-coming-another-ceo-says/",
+      "date": "2026-05-19"
+    },
+    {
+      "year": 2026,
+      "month": 3,
+      "title": "Publication des résultats Q1 2026",
+      "body": "Clôture du trimestre Q1 2026 le 31 mars 2026.",
+      "source": "yfinance · mostRecentQuarter",
+      "url": "",
+      "date": "2026-03-31"
+    },
+    {
+      "year": 2026,
+      "month": 3,
+      "title": "Dividende 1.86 $/action versé",
+      "body": "Dividende ordinaire de 1.86 $ par action, ex-date 3 mars 2026.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2026-03-03"
+    },
+    {
+      "year": 2025,
+      "month": 12,
+      "title": "Dividende 1.86 $/action versé",
+      "body": "Dividende ordinaire de 1.86 $ par action, ex-date 1 décembre 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-12-01"
+    },
+    {
+      "year": 2025,
+      "month": 9,
+      "title": "Dividende 1.77 $/action versé",
+      "body": "Dividende ordinaire de 1.77 $ par action, ex-date 2 septembre 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-09-02"
+    }
+  ],
   "ranks": {
-    "global_world": "≈ #1",
-    "global_us": "≈ #1",
-    "sector": "≈ #1",
-    "subsector": "≈ #1"
+    "global_world": "#83",
+    "global_us": "#53",
+    "sector": "Top 5 in Consommation discrétionnaire",
+    "subsector": "#1 in Restaurants"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-05-07",
   "publication_date": null,
   "company_description": "McDonald's Corporation owns, operates, and franchises restaurants under the McDonald's brand in the United States and internationally. It offers food and beverages, including hamburgers and cheeseburgers, various chicken sandwiches, fries, shakes, frozen desserts, sundaes, soft serve cones, cookies, pies, soft drinks, coffee, and other beverages; and full or limited breakfast, as well as sells various other products during limited-time promotions. The company owns and operates franchised restaurants under various structures, including conventional franchise, developmental license, or affiliate. McDonald's Corporation was founded in 1940 and is based in Chicago, Illinois.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.470Z",
-  "_missing_blocks": [
-    "events"
-  ]
+  "_built_at": "2026-05-21T16:00:22.439Z",
+  "_missing_blocks": []
 }

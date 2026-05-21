@@ -21,14 +21,18 @@
       "unit": "M $",
       "yoy": "-7.1%",
       "history": [
-        4661.9,
-        4349.8,
-        4038.9
+        6800.5,
+        6713.8,
+        5900.1,
+        3805.7,
+        3469.3,
+        3141.4
       ],
       "period_type": "year",
       "description_fr": "Revenu franchise SEP (Tysabri, Tecfidera, Vumerity, Plegridy, Avonex). Cœur historique en déclin (générication Tecfidera).",
       "description_en": "Multiple Sclerosis franchise revenue (Tysabri, Tecfidera, Vumerity, Plegridy, Avonex). Historic core in decline (Tecfidera genericization).",
-      "_specific_to": "Biogen MS franchise patent cliff"
+      "_specific_to": "Biogen MS franchise patent cliff",
+      "is_short_history": false
     },
     {
       "short": "Rare Disease Revenue",
@@ -126,7 +130,9 @@
       "_source": "yfinance.income_stmt",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:54:16.781316+00:00",
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -148,7 +154,9 @@
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal"
     },
     {
       "short": "Total Assets",
@@ -170,7 +178,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -192,7 +202,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Cash & Equivalents",
@@ -214,7 +226,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "Short": "LEQEMBI",
@@ -286,48 +299,56 @@
     "top_voting": [],
     "_source": "yfinance.companyOfficers"
   },
-  "revenue_by_segment": null,
+  "revenue_by_segment": {
+    "single_segment": true,
+    "_reason": "one operating segment"
+  },
   "revenue_by_geography": {
-    "label": "Répartition du chiffre d'affaires par zone géographique",
     "slices": [
       {
-        "name": "U.S.",
-        "value": 3.4693,
-        "unit": "Mds $",
-        "pct": 43.4,
-        "share_pct": 43.4
+        "label": "U.S.",
+        "share_pct": 44.9,
+        "label_fr": "États-Unis",
+        "label_en": "U.S.",
+        "value": 3237.3,
+        "unit": "M $"
       },
       {
-        "name": "Europe",
-        "value": 2.4013,
-        "unit": "Mds $",
-        "pct": 30.1,
-        "share_pct": 30.1
+        "label": "Europe",
+        "share_pct": 30.1,
+        "label_fr": "Europe",
+        "label_en": "Europe",
+        "value": 2171.5,
+        "unit": "M $"
       },
       {
-        "name": "Germany",
-        "value": 0.9262,
-        "unit": "Mds $",
-        "pct": 11.6,
-        "share_pct": 11.6
+        "label": "Germany",
+        "share_pct": 13.2,
+        "label_fr": "Allemagne",
+        "label_en": "Germany",
+        "value": 955.6,
+        "unit": "M $"
       },
       {
-        "name": "Asia",
-        "value": 0.6721,
-        "unit": "Mds $",
-        "pct": 8.4,
-        "share_pct": 8.4
+        "label": "Asia",
+        "share_pct": 5.1,
+        "label_fr": "Asie",
+        "label_en": "Asia",
+        "value": 366.9,
+        "unit": "M $"
       },
       {
-        "name": "Other",
-        "value": 0.5189,
-        "unit": "Mds $",
-        "pct": 6.5,
-        "share_pct": 6.5
+        "label": "Other",
+        "share_pct": 6.7,
+        "label_fr": "Autres",
+        "label_en": "Other",
+        "value": 482.2,
+        "unit": "M $"
       }
     ],
-    "total": 7.99,
-    "unit": "Mds $"
+    "year": 2024,
+    "currency": "USD",
+    "total": 7213.5
   },
   "risks": [
     {
@@ -449,19 +470,15 @@
     }
   ],
   "ranks": {
-    "Global_world": "≈ #246",
-    "Global_us": "≈ #63",
-    "Sector": "≈ #14",
-    "Subsector": "≈ #5",
-    "global_world": "Top 500 monde",
-    "_source": "yfinance.marketCap"
+    "global_world": "#421",
+    "global_us": "#252",
+    "sector": "Top 50 in Santé",
+    "subsector": "Top 5 in Biotechnologie"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-30",
   "publication_date": null,
   "company_description": "Biogen Inc. discovers, develops, manufactures, and delivers therapies in the United States, Europe, Germany, Asia, and internationally. The company provides TECFIDERA, VUMERITY, AVONEX, PLEGRIDY, and TYSABRI for multiple sclerosis (MS); SPINRAZA for spinal muscular atrophy; SKYCLARYS to treat Friedreich's Ataxia; QALSODY for treating amyotrophic lateral sclerosis; FUMADERM to treat plaque psoriasis; BENEPALI, an etanercept biosimilar referencing ENBREL; IMRALDI, an adalimumab biosimilar referencing HUMIRA; FLIXABI, an infliximab biosimilar referencing REMICADE. It offers LEQEMBI for the treatment of Alzheimer's disease; ZURZUVAE for the treatment of postpartum depression; RITUXAN to treat non-Hodgkin's lymphoma, chronic lymphocytic leukemia (CLL), rheumatoid arthritis, two forms of ANCA-associated vasculitis, and pemphigus vulgaris; RITUXAN HYCELA for non-Hodgkin's lymphoma and CLL; GAZYVA to treat CLL and follicular lymphoma; OCREVUS for relapsing MS and primary progressive MS; LUNSUMIO to treat relapsed or refractory follicular lymphoma; glofitamab for aRelapsed or refractory diffuse large B-cell lymphoma; and other anti-CD20 therapies. Biogen Inc. has collaboration and license a",
-  "_built_at": "2026-05-20T20:15:02.201Z",
-  "_missing_blocks": [
-    "revenue_by_segment"
-  ]
+  "_built_at": "2026-05-21T16:00:21.973Z",
+  "_missing_blocks": []
 }

@@ -168,7 +168,9 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "explanation_en": "Assets Under Management : total client assets managed by the firm.",
+      "signal_en": "Demand strengthening, end-market traction"
     },
     {
       "short": "Profit Before Tax UKCB",
@@ -273,7 +275,8 @@
       "last_data_date": "2024-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Number of USCB customers."
     },
     {
       "short": "Investment Bank RoTE",
@@ -292,7 +295,8 @@
         10.6
       ],
       "explanation_fr": "Mesure la rentabilité de la banque d'investissement : combien de profit elle génère avec chaque euro investi.",
-      "explanation_en": "Measures investment banking profitability: how much profit is generated per euro of capital invested."
+      "explanation_en": "Measures investment banking profitability: how much profit is generated per euro of capital invested.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "UK Corporate Bank RoTE",
@@ -311,7 +315,8 @@
         18.9
       ],
       "explanation_fr": "Mesure la rentabilité des capitaux investis dans la division Corporate Bank au Royaume-Uni pour évaluer son efficacité.",
-      "explanation_en": "Measures how profitably UK Corporate Bank uses invested capital to assess its operational efficiency."
+      "explanation_en": "Measures how profitably UK Corporate Bank uses invested capital to assess its operational efficiency.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Credit Impairment Charges",
@@ -331,7 +336,8 @@
         2.279
       ],
       "explanation_fr": "Mesure les pertes bancaires dues aux crédits non remboursés par les clients. Indique la santé du portefeuille de prêts.",
-      "explanation_en": "Measures bank losses from unpaid customer loans. Indicates the health of the loan portfolio."
+      "explanation_en": "Measures bank losses from unpaid customer loans. Indicates the health of the loan portfolio.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "RWAs Group",
@@ -350,7 +356,8 @@
         356.8
       ],
       "explanation_fr": "Mesure le capital que Barclays doit détenir pour couvrir ses risques financiers selon les règles bancaires.",
-      "explanation_en": "Measures capital Barclays must hold to cover financial risks under banking regulations."
+      "explanation_en": "Measures capital Barclays must hold to cover financial risks under banking regulations.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Profit Before Impairment",
@@ -370,7 +377,8 @@
         11.418
       ],
       "explanation_fr": "Le bénéfice avant dépréciation mesure le profit de Barclays avant les pertes attendues sur les prêts.",
-      "explanation_en": "Profit before expected loan losses shows Barclays' earnings before accounting for potential bad debts."
+      "explanation_en": "Profit before expected loan losses shows Barclays' earnings before accounting for potential bad debts.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "DPS",
@@ -394,7 +402,9 @@
       "signal": "Dividende par action de 5.6 GBp dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -416,7 +426,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "Payout Ratio",
@@ -438,14 +450,17 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     }
   ],
   "kpis_story": [],
   "governance": {
-    "ceo_name": "Mr. Coimbatore Sundararajan Venkatakrishnan Ph.D.",
-    "ceo_title": "Group CEO & Executive Director",
-    "fiscal_year": 2025
+    "top_disclosure": "eu_regex_extracted",
+    "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
+    "_top_disclosure_at": "2026-05-21T02:49:04.553916+00:00",
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:18:56Z"
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -455,66 +470,81 @@
         "value": 19.7,
         "unit": "Mds $",
         "pct": 30,
-        "share_pct": 30
+        "share_pct": 30,
+        "label_en": "Barclays UK"
       },
       {
         "name": "UK Corporate Bank",
         "value": 19.9,
         "unit": "Mds $",
         "pct": 13,
-        "share_pct": 13
+        "share_pct": 13,
+        "label_en": "UK Corporate Bank"
       },
       {
         "name": "Private Bank & Wealth Management",
         "value": 25.5,
         "unit": "Mds $",
         "pct": 5,
-        "share_pct": 5
+        "share_pct": 5,
+        "label_en": "Private Bank & Wealth Management"
       },
       {
         "name": "Investment Bank",
         "value": 15,
         "unit": "Mds $",
         "pct": 45,
-        "share_pct": 45
+        "share_pct": 45,
+        "label_en": "Investment Bank"
       },
       {
         "name": "US Consumer Bank",
         "value": 18.8,
         "unit": "Mds $",
         "pct": 7,
-        "share_pct": 7
+        "share_pct": 7,
+        "label_en": "US Consumer Bank"
       }
     ],
     "total": 98.9,
     "unit": "Mds $"
   },
   "revenue_by_geography": {
-    "unit": "£bn",
-    "source_date": "2025-12-31",
-    "source": "Annual Report 2026",
     "slices": [
       {
         "label": "Royaume-Uni",
-        "value": null,
-        "share_pct": null,
-        "unit": "£bn"
+        "share_pct": 64,
+        "value": 17.6,
+        "unit": "Mds £",
+        "label_en": "United Kingdom"
       },
       {
         "label": "États-Unis",
-        "value": null,
-        "share_pct": 40,
-        "unit": "£bn"
+        "share_pct": 21,
+        "value": 5.8,
+        "unit": "Mds £",
+        "label_en": "United States"
       },
       {
-        "label": "Autres",
-        "label_en": "Other",
-        "share_pct": 60,
-        "value": null,
-        "unit": "£bn"
+        "label": "Europe",
+        "share_pct": 7,
+        "value": 1.9,
+        "unit": "Mds £",
+        "label_en": "Europe"
+      },
+      {
+        "label": "Asie / Reste du monde",
+        "share_pct": 8,
+        "value": 2.2,
+        "unit": "Mds £",
+        "label_en": "Asia / Rest of World"
       }
     ],
-    "_partial_data": true
+    "source": "Barclays plc Annual Report 2024 - Group income by geographic location",
+    "source_date": "2024-12-31",
+    "unit": "Mds £",
+    "currency": "GBP",
+    "_extracted_at": "2026-05-21T10:30:44Z"
   },
   "risks": [
     {
@@ -632,7 +662,7 @@
     }
   ],
   "ranks": {
-    "global_world": "#190",
+    "global_world": "#189",
     "global_us": "Non US",
     "sector": "Top 25 in Financial Services",
     "subsector": "Top 10 in Banking"
@@ -642,6 +672,6 @@
   "publication_date": null,
   "company_description": "Barclays PLC provides various financial services in the United Kingdom, Europe, the Americas, Africa, the Middle East, and Asia. The company operates through Barclays UK; Barclays UK Corporate Bank; Barclays Private Bank and Wealth Management; Barclays Investment Bank; and Barclays US Consumer Bank segments. It offers financial services, such as current accounts, savings accounts, mortgages and unsecured lending, such as credit cards and loans retail banking, wholesale banking, investment banking, wealth management, and investment management services, as well as lending products. In addition, the company engages in securities dealing activities and issuing of credit cards. The company was formerly known as Barclays Bank public limited company and changed its name to Barclays PLC in January 1985. Barclays PLC was founded in 1690 and is headquartered in London, the United Kingdom.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-21T02:08:59.073Z",
+  "_built_at": "2026-05-21T16:00:21.955Z",
   "_missing_blocks": []
 }

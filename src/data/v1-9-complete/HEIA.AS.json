@@ -36,7 +36,9 @@
       "last_data_date": "2016-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Dividend income generated over the period.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Market Cap",
@@ -57,33 +59,8 @@
       "last_data_date": "2016-12-30",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
-    },
-    {
-      "short": "Ownership Stake",
-      "name_fr": "Participation dans Heineken N.V.",
-      "name_en": "Ownership in Heineken N.V.",
-      "explanation": "Pourcentage du capital de Heineken N.V. détenu par Heineken Holding",
-      "value": 50.005,
-      "unit": "%",
-      "yoy": "stable",
-      "type": "Capital",
-      "nature": "Structurel",
-      "comparable": "Non comparable",
-      "signal": "Contrôle majoritaire indirect du groupe HEINEKEN",
-      "description": "Heineken Holding détient exactement 50,005% des actions de Heineken N.V., assurant une influence décisive et structurelle.",
-      "history": [
-        50.005,
-        50.005,
-        50.005,
-        50.005,
-        50.005
-      ],
-      "last_data_date": "2025-12-31",
-      "is_wow": false,
-      "is_generic": true,
       "is_short_history": false,
-      "period_type": "annual"
+      "signal_en": "Capital base stable"
     },
     {
       "short": "Share Price",
@@ -105,7 +82,8 @@
       "last_data_date": "2016-12-30",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Revenue",
@@ -126,7 +104,9 @@
       "signal": "Chiffre d'affaires de 28.75 Mds € dernière année",
       "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Revenue pressure, demand softening"
     },
     {
       "short": "Total Assets",
@@ -147,7 +127,9 @@
       "signal": "Total des actifs de 53.75 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base stable"
     },
     {
       "short": "Total Debt",
@@ -168,7 +150,9 @@
       "signal": "Dette totale de 19.28 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -189,7 +173,8 @@
       "signal": "Trésorerie & équivalents de 4.77 Mds € dernière année",
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     }
   ],
   "kpis_story": [
@@ -223,36 +208,28 @@
     }
   ],
   "governance": {
-    "ceo_name": "Mr. Rudolf Gijsbert Servaas van den Brink",
-    "ceo_title": "Chairman of the Executive Board & CEO",
-    "officers": [
+    "top_capital": [
       {
-        "name": "Mr. Rudolf Gijsbert Servaas van den Brink",
-        "title": "Chairman of the Executive Board & CEO",
-        "age": 52
-      },
-      {
-        "name": "Mr. Harold P. J. van den Broek",
-        "title": "CFO & Member of Executive Board",
-        "age": 58
-      },
-      {
-        "name": "Mr. Ronald  den Elzen",
-        "title": "Chief Digital & Technology Officer",
-        "age": 55
-      },
-      {
-        "name": "Mr. Raoul-Tristan  Van Strien",
-        "title": "Director of Investor Relations",
-        "age": null
-      },
-      {
-        "name": "Mr. Ernst Willem Arnod Van de Weert",
-        "title": "Executive Director of Global Legal Affairs",
-        "age": null
+        "name": "Aristotle Capital Management, LLC",
+        "type": "institutionnel",
+        "stake_pct": 0.1
       }
     ],
-    "fiscal_year": 2025
+    "top_voting": [
+      {
+        "name": "Aristotle Capital Management, LLC",
+        "type": "institutionnel",
+        "stake_pct": 0.1
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:36.196892+00:00",
+    "_top_dual_class_flag": false,
+    "top_disclosure": "eu_regex_extracted",
+    "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
+    "_top_disclosure_at": "2026-05-21T02:49:04.635899+00:00",
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:18:58Z"
   },
   "revenue_by_segment": {
     "unit": "$B",
@@ -262,61 +239,35 @@
       {
         "label": "Africa, Middle East & Eastern Europe",
         "value": 10.1,
+        "share_pct": 48.6,
         "unit": "$B",
-        "share_pct": 48.6
+        "label_en": "Africa, Middle East & Eastern Europe"
       },
       {
         "label": "Americas",
         "value": 5.2,
+        "share_pct": 25,
         "unit": "$B",
-        "share_pct": 25
+        "label_en": "Americas"
       },
       {
         "label": "Asia Pacific",
         "value": 2.9,
+        "share_pct": 13.9,
         "unit": "$B",
-        "share_pct": 13.9
+        "label_en": "Asia-Pacific"
       },
       {
         "label": "Europe",
         "value": 2.6,
+        "share_pct": 12.5,
         "unit": "$B",
-        "share_pct": 12.5
+        "label_en": "Europe"
       }
     ],
     "total": 20.8
   },
-  "revenue_by_geography": {
-    "unit": "M €",
-    "source_date": "2016-12-31",
-    "source": "Annual Report 2017",
-    "slices": [
-      {
-        "label": "Amériques",
-        "value": null,
-        "share_pct": null,
-        "unit": "M €"
-      },
-      {
-        "label": "Europe",
-        "value": null,
-        "share_pct": null,
-        "unit": "M €"
-      },
-      {
-        "label": "Asie-Pacifique",
-        "value": null,
-        "share_pct": null,
-        "unit": "M €"
-      },
-      {
-        "label": "Afrique, Moyen-Orient et Europe de l'Est",
-        "value": null,
-        "share_pct": null,
-        "unit": "M €"
-      }
-    ]
-  },
+  "revenue_by_geography": null,
   "risks": [
     {
       "title": "Dépendance structurelle envers Heineken N.V.",
@@ -392,6 +343,24 @@
   "events": [
     {
       "year": 2026,
+      "month": 5,
+      "title": "Diageo's Indian unit's profit jumps on premium demand",
+      "body": "May 14 (Reuters) - India's United Spirits, which distributes Johnnie Walker and Antiquity whiskeys, posted about a 27% rise in fourth quarter profit on Friday, boosted by demand for its premium brands",
+      "source": "Reuters",
+      "url": "https://sg.finance.yahoo.com/news/diageos-indian-units-profit-jumps-133538374.html",
+      "date": "2026-05-14"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "Heineken focuses agency roster on fewer future-fit partners",
+      "body": "Dentsu retains global media duties, extending a decade-long relationship, while creative is being consolidated with Publicis, WPP and Stagwell.",
+      "source": "Marketing Dive",
+      "url": "https://www.marketingdive.com/news/heineken-focuses-agency-roster-on-fewer-future-fit-partners/819831/",
+      "date": "2026-05-11"
+    },
+    {
+      "year": 2026,
       "month": 4,
       "title": "Ex-Mars CEO named Lipton chair",
       "body": "Grant Reid joins the hot-drinks group, which hired a new CEO in October.",
@@ -400,25 +369,54 @@
       "date": "2026-04-29"
     },
     {
-      "year": 2026,
+      "year": 2025,
+      "month": 12,
+      "title": "Publication des résultats Q4 2025",
+      "body": "Clôture du trimestre Q4 2025 le 31 décembre 2025.",
+      "source": "yfinance · mostRecentQuarter",
+      "url": "",
+      "date": "2025-12-31"
+    },
+    {
+      "year": 2025,
+      "month": 7,
+      "title": "Dividende 0.74 €/action versé",
+      "body": "Dividende ordinaire de 0.74 € par action, ex-date 30 juillet 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-07-30"
+    },
+    {
+      "year": 2025,
       "month": 4,
-      "title": "Goldman Strategist Sees European Earnings Pared by Weak Demand",
-      "body": "(Bloomberg) -- European companies are set to see earnings growth of only a “few percent” in the first quarter, according to Goldman Sachs Group Inc.’s senior European strategist, substantially weaker than double-digit expansion in the US.Mo",
-      "source": "Bloomberg",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/goldman-strategist-sees-european-earnings-090859797.html",
-      "date": "2026-04-23"
+      "title": "Dividende 1.17 €/action versé",
+      "body": "Dividende ordinaire de 1.17 € par action, ex-date 23 avril 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-04-23"
+    },
+    {
+      "year": 2024,
+      "month": 7,
+      "title": "Dividende 0.69 €/action versé",
+      "body": "Dividende ordinaire de 0.69 € par action, ex-date 31 juillet 2024.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2024-07-31"
     }
   ],
   "ranks": {
-    "global_world": "#142",
+    "global_world": "#317",
     "global_us": "Non US",
-    "sector": "Top 10 in Consumer Discretionary",
-    "subsector": "#2 in Beverages"
+    "sector": "Top 25 in Consommation discrétionnaire",
+    "subsector": "Top 5 in Beverages"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-02-11",
   "publication_date": null,
   "company_description": "Heineken N.V. brews and sells beer and cider in Europe, the Americas, Africa, the Middle East, and the Asia Pacific. The company also provides soft drinks. It sells its products under the Heineken, Heineken 0.0, Heineken Silver, Amstel, Moretti, Tiger, Desperados, Edelweiss, Lagunitas, Orchard Thieves, Windhoek, Dos Equis, Red Stripe, Kingfisher, Bintang, Gosser, Affligem, Mort Subite, Strongbow, Stassen, Bulmers, Old Mout, Savanna, Turbo King, Tecate, Lagunitas Hoppy Refresher, Bia Viet, Tiger Crystal, Birra Moretti, Harar, Cruzcampo, Bernini, Legend Stout, Beavertown, Stëlz, Texels, Ladrón, Bandida, Stibitzer, El Aguila, and Murphy's brands. In addition, the company engages in rental of pubs and bars; wholesale activities; and pub management and technical services. The company offers its products to retailers, wholesalers and distributors, bars, restaurants, clubs, cafes, and hotels. Heineken N.V. was incorporated in 1864 and is headquartered in Amsterdam, the Netherlands. Heineken N.V. is a subsidiary of Heineken Holding N.V.",
-  "_built_at": "2026-05-20T20:15:02.390Z",
-  "_missing_blocks": []
+  "_built_at": "2026-05-21T16:00:22.287Z",
+  "_missing_blocks": [
+    "revenue_by_geography"
+  ]
 }

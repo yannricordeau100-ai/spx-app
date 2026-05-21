@@ -20,9 +20,12 @@
       "value": 2714.7,
       "unit": "M $",
       "history": [
+        1576.3,
+        1898.9,
+        1883.7,
+        2169.4,
         2466.1,
-        2612.2,
-        2714.7
+        2612.2
       ],
       "type": "Métier",
       "nature": "opérationnel",
@@ -31,7 +34,8 @@
       "description": "Revenu segment IOS (instrumentation et logiciels mission-critical pour clients industriels, marques FLUKE, ACCRUENT). Source : 10-K FTV.",
       "is_specific_to_company": true,
       "_specific_to": "company",
-      "_source": "10-K"
+      "_source": "10-K",
+      "is_short_history": false
     },
     {
       "short": "Precision Technologies Revenue",
@@ -111,7 +115,8 @@
       "last_data_date": "Non disponible",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Research & Development expenses."
     },
     {
       "short": "Total Revenue",
@@ -134,7 +139,9 @@
       "is_generic": true,
       "_source": "yfinance.income_stmt",
       "is_short_history": true,
-      "last_data_date": "2026-04-03"
+      "last_data_date": "2026-04-03",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -156,7 +163,9 @@
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal"
     },
     {
       "short": "Operating Income",
@@ -178,7 +187,9 @@
       "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Operating Income : profit from core business operations.",
+      "signal_en": "Flat year-over-year, monitor closely"
     },
     {
       "short": "Total Assets",
@@ -200,7 +211,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Total Debt",
@@ -222,7 +235,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Cash & Equivalents",
@@ -244,7 +259,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "AI",
@@ -269,36 +285,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2025-04-21",
-    "fiscal_year": 2024,
-    "ceo_name": "Mr. Olumide O. Soroye J.D.",
-    "ceo_total_comp_m": null,
-    "ceo_pay_ratio": null,
-    "exec_comp_approval_pct": null,
-    "board_independence_pct": null,
-    "board_size": 9,
-    "avg_tenure_years": null,
-    "board_women_pct": 33.3,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
     "top_capital": [
       {
-        "name": "T. Rowe Price Investment Management, Inc.",
+        "name": "Dodge & Cox Inc.",
         "type": "institutionnel",
-        "stake_pct": 12.4
+        "stake_pct": 14.16
       },
       {
         "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": 11.12
+        "stake_pct": 10.94
       },
       {
         "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": 7.6
+        "stake_pct": 10.37
       }
     ],
-    "top_voting": [],
-    "_source": "yfinance.companyOfficers"
+    "top_voting": [
+      {
+        "name": "Dodge & Cox Inc.",
+        "type": "institutionnel",
+        "stake_pct": 14.16
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 10.94
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 10.37
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:23.007231+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -308,21 +332,24 @@
         "value": 1.8837,
         "unit": "Mds $",
         "pct": 40.6,
-        "share_pct": 40.6
+        "share_pct": 40.6,
+        "label_en": "Intelligent Operating Solutions"
       },
       {
         "name": "Precision Technologies",
         "value": 1.6513,
         "unit": "Mds $",
         "pct": 35.6,
-        "share_pct": 35.6
+        "share_pct": 35.6,
+        "label_en": "Precision Technologies"
       },
       {
         "name": "Advanced Healthcare Solutions",
         "value": 1.0994,
         "unit": "Mds $",
         "pct": 23.7,
-        "share_pct": 23.7
+        "share_pct": 23.7,
+        "label_en": "Advanced Healthcare Solutions"
       }
     ],
     "total": 4.63,
@@ -336,21 +363,24 @@
         "value": 2.4366,
         "unit": "Mds $",
         "pct": 52.6,
-        "share_pct": 52.6
+        "share_pct": 52.6,
+        "label_en": "United States"
       },
       {
         "name": "China",
         "value": 0.5341,
         "unit": "Mds $",
         "pct": 11.5,
-        "share_pct": 11.5
+        "share_pct": 11.5,
+        "label_en": "China"
       },
       {
         "name": "All other",
         "value": 1.6637,
         "unit": "Mds $",
         "pct": 35.9,
-        "share_pct": 35.9
+        "share_pct": 35.9,
+        "label_en": "All Other"
       }
     ],
     "total": 4.63,
@@ -404,12 +434,24 @@
     }
   ],
   "ai_positioning": {
-    "stance": "developing",
-    "summary": "Fortive mentionne explicitement l'intégration de l'intelligence artificielle et du machine learning dans sa stratégie d'accélération (Fortive Accelerated strategy). La société incorpore ces technologies dans le Fortive Business System comme des 'enablers technologiques' pour accélérer l'innovation et générer une valeur client récurrente.",
+    "stance": "integrator",
+    "summary": "Fortive intègre l'IA comme levier d'innovation et d'efficacité opérationnelle, centré sur l'amélioration de ses solutions industrielles et de son modèle commercial.",
     "evidence": [
-      "In doing so, we have incorporated new technology enablers, like artificial intelligence and machine learning and are building new capabilities to drive accelerated innovation, greater commercial success and more recurring customer value."
+      "L'IA et le machine learning sont intégrés dans FBS (Fortive Business System) pour renforcer les outils de croissance et la formation des équipes, améliorant performance et innovation commerciale.",
+      "Fortive utilise l'IA dans certains de ses produits et dans son activité, avec une gestion proactive des risques liés à sa mise en œuvre, mentionnée comme facteur de résultats opérationnels.",
+      "Le déploiement de l'IA s'inscrit dans la stratégie 'Fortive Accelerated' visant une croissance rentable accélérée et une allocation disciplinée du capital.",
+      "Les programmes de développement des talents intègrent des capacités IA pour fluidifier l'apprentissage et renforcer les compétences opérationnelles sur les piliers croissance, lean et leadership."
     ],
-    "source": "Rapport 10-K de FTV, Item 1. Business"
+    "source_note": "10-K FY2025, transcript Q1 2026",
+    "_bucket": "MEDIUM",
+    "_subsector": "Industrial Technology",
+    "_sources_used": {
+      "has_10k": true,
+      "has_transcript": false,
+      "ai_passages_chars": 4433
+    },
+    "_generated_at": "2026-05-21T02:23:23.639901+00:00",
+    "ticker": "FTV"
   },
   "market_positions": [],
   "events": [
@@ -451,16 +493,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #XX",
-    "global_us": "...",
-    "sector": "...",
-    "subsector": "..."
+    "global_world": "#543",
+    "global_us": "#330",
+    "sector": "#150 in Technologie",
+    "subsector": "Top 5 in Industrial Technology"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-29",
   "publication_date": null,
   "company_description": "Fortive Corporation designs, develops, manufactures, and markets products, software, and services in the United States, China, and internationally. It operates through Intelligent Operating Solutions and Advanced Healthcare Solutions segments. The Intelligent Operating Solutions segment provides advanced instrumentation, software, and services, including maintenance, repair, measurement and condition monitoring, facility and asset lifecycle software applications, and connected worker safety and compliance solutions for manufacturing, process industries, healthcare, utilities and power, communications and electronics, and other industries. This segment markets its products and services under the ACCRUENT, FLUKE, GORDIAN, INDUSTRIAL SCIENTIFIC, INTELEX, and SERVICECHANNEL brand names. The Advanced Healthcare Solutions segment provides critical workflow solutions comprising instrument sterilization, instrument tracking, biomedical test tools, radiation detection and safety monitoring, and end-to-end clinical productivity software and solutions under the ASP, CENSIS, FLUKE BIOMEDICAL, LANDAUER, and PROVATION brand names. Fortive Corporation was incorporated in 2015 and is headquartered",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.364Z",
+  "_built_at": "2026-05-21T16:00:22.247Z",
   "_missing_blocks": []
 }

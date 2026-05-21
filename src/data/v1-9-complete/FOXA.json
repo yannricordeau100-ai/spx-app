@@ -104,10 +104,12 @@
       "value": 6930,
       "unit": "M $",
       "history": [
+        5381,
+        5492,
+        5683,
         6097,
         6043,
-        5955,
-        6930
+        5955
       ],
       "type": "Métier",
       "nature": "opérationnel",
@@ -116,7 +118,8 @@
       "description": "Revenu segment Cable Network Programming (Fox News Channel, Fox Sports 1, Fox Business). Source : 10-K FOXA.",
       "is_specific_to_company": true,
       "_specific_to": "company",
-      "_source": "10-K"
+      "_source": "10-K",
+      "is_short_history": false
     },
     {
       "short": "Television Revenue",
@@ -161,7 +164,8 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 16.3,
-      "_validation": "history corrigé (suppression des valeurs fractionnées erronées 13,98 et 16,3 séparés)"
+      "_validation": "history corrigé (suppression des valeurs fractionnées erronées 13,98 et 16,3 séparés)",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Revenu publicitaire",
@@ -188,7 +192,8 @@
       "_validation": "history corrigé (suppression des valeurs fractionnées erronées 5,44 et 6,87 séparés); ttm corrigé de 380.63 à 6.87",
       "period_type": "quarter",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "Le texte fourni est un extrait XML/XBRL contenant uniquement des métadonnées de structure (tags, dates, membres de contexte) sans données nu"
+      "_hero_history_unverified_reason": "Le texte fourni est un extrait XML/XBRL contenant uniquement des métadonnées de structure (tags, dates, membres de contexte) sans données nu",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Marge brute",
@@ -212,7 +217,8 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 35,
-      "_validation": "valeur corrigée de '35%' à '35' (unité % gérée séparément); KPI halluciné - Gross Margin non présent dans le 10-K fourni"
+      "_validation": "valeur corrigée de '35%' à '35' (unité % gérée séparément); KPI halluciné - Gross Margin non présent dans le 10-K fourni",
+      "signal_en": "Margin stable, monitor cost dynamics"
     },
     {
       "short": "Revenu affiliate",
@@ -236,7 +242,8 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 7.66,
-      "_validation": "history corrigé (suppression des valeurs fractionnées erronées 7,32 et 7,66 séparés); ttm corrigé de 205.07 à 7.66"
+      "_validation": "history corrigé (suppression des valeurs fractionnées erronées 7,32 et 7,66 séparés); ttm corrigé de 205.07 à 7.66",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "EBITDA ajusté",
@@ -260,7 +267,8 @@
       "is_generic": false,
       "is_short_history": true,
       "ttm": 3.62,
-      "_validation": "history corrigé (suppression des valeurs fractionnées erronées 2,88 et 3,62 séparés); ttm corrigé de 366.83 à 3.62; valeur corrigée de '3,624' (10-K) à '3,62' pour cohérence"
+      "_validation": "history corrigé (suppression des valeurs fractionnées erronées 2,88 et 3,62 séparés); ttm corrigé de 366.83 à 3.62; valeur corrigée de '3,624' (10-K) à '3,62' pour cohérence",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Total Assets",
@@ -282,7 +290,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -304,7 +314,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Cash & Equivalents",
@@ -326,7 +338,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Total Revenue",
@@ -349,7 +362,9 @@
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 5 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -373,7 +388,9 @@
       "signal": "Résultat net de 2.293 Mds $ dernière année.",
       "description": "Résultat net consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 7 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Revenu publicitaire 2025",
@@ -410,30 +427,43 @@
     "_source": "yfinance.companyOfficers"
   },
   "revenue_by_segment": {
-    "unit": "$B",
-    "source_date": "2025-06-30",
-    "source": "10-K 2025",
     "slices": [
       {
-        "label": "Television",
-        "value": 9.325,
-        "unit": "$B",
-        "share_pct": 56.5
+        "label": "Cable Network Programming",
+        "share_pct": 42.7,
+        "label_fr": "Programmation de réseaux câblés",
+        "label_en": "Cable Network Programming",
+        "value": 5955,
+        "unit": "M $"
       },
       {
-        "label": "Cable Network Programming",
-        "value": 6.93,
-        "unit": "$B",
-        "share_pct": 42
+        "label": "Television",
+        "share_pct": 56.5,
+        "label_fr": "Télévision",
+        "label_en": "Television",
+        "value": 7875,
+        "unit": "M $"
       },
       {
         "label": "Corporate and Other",
-        "value": 0.244,
-        "unit": "$B",
-        "share_pct": 1.5
+        "share_pct": 1.5,
+        "label_fr": "Entreprise et autres",
+        "label_en": "Corporate and Other",
+        "value": 209,
+        "unit": "M $"
+      },
+      {
+        "label": "Eliminations",
+        "share_pct": -0.4,
+        "label_fr": "Éliminations",
+        "label_en": "Eliminations",
+        "value": -59,
+        "unit": "M $"
       }
     ],
-    "total": 16.5
+    "year": 2024,
+    "currency": "USD",
+    "total": 13980
   },
   "revenue_by_geography": null,
   "risks": [
@@ -562,17 +592,17 @@
     }
   ],
   "ranks": {
-    "global_world": "#279",
-    "global_us": "#173",
-    "sector": "Top 3 in Communication Services",
-    "subsector": "Top 3 in Media & Entertainment"
+    "global_world": "#425",
+    "global_us": "#256",
+    "sector": "Top 5 in Communication",
+    "subsector": "#2 in Media & Entertainment"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-05-11",
   "publication_date": null,
   "company_description": "Fox Corporation operates as a news, sports, and entertainment company in the United States. It operates in four segments: Cable Network Programming, Television, Credible, and The FOX Studio Lot. The Cable Network Programming segment produces and licenses news and sports content for distribution through traditional cable television systems, direct broadcast satellite operators, telecommunication companies, virtual multi-channel video programming distributors, and other digital platforms. Its Television segment produces, acquires, markets, and distributes programming through the FOX broadcast network, advertising-supported video-on-demand service Tubi, and operates full power broadcast television stations, including duopolies and other digital platforms. This segment also produces content for third parties. The Credible segment engages in the consumer finance marketplace. Its FOX Studio Lot segment provides television and film production services along with office space, studio operation services, and all operations of the facility. Fox Corporation was incorporated in 2018 and is headquartered in New York, New York.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.359Z",
+  "_built_at": "2026-05-21T16:00:22.239Z",
   "_missing_blocks": [
     "revenue_by_geography"
   ]

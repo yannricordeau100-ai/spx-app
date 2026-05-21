@@ -264,7 +264,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -286,7 +288,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Cash & Equivalents",
@@ -308,7 +312,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "Total Revenue",
@@ -334,7 +339,9 @@
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -359,7 +366,9 @@
       "signal": "Résultat net de 0.262 Mds $ dernière année.",
       "description": "Résultat net consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Acquisitions",
@@ -420,19 +429,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-05-13",
-    "fiscal_year": 2025,
-    "ceo_name": "Debra A. Cafaro",
-    "board_independence_pct": null,
-    "board_size": 12,
-    "avg_tenure_years": null,
-    "board_women_pct": null,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "top_capital": null,
-    "top_voting": null,
-    "exec_comp_approval_pct": null,
-    "ceo_pay_ratio": null,
-    "ceo_total_comp_m": null
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 14.84
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 11.64
+      },
+      {
+        "name": "JPMorgan Chase & Co.",
+        "type": "institutionnel",
+        "stake_pct": 7.28
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 14.84
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 11.64
+      },
+      {
+        "name": "JPMorgan Chase & Co.",
+        "type": "institutionnel",
+        "stake_pct": 7.28
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:15:35.436301+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -442,28 +476,32 @@
         "value": 1.495,
         "unit": "Mds $",
         "pct": 39.4,
-        "share_pct": 39.4
+        "share_pct": 39.4,
+        "label_en": "Triple-net leased properties"
       },
       {
         "name": "Senior Living Operations",
         "value": 2.197,
         "unit": "Mds $",
         "pct": 57.9,
-        "share_pct": 57.9
+        "share_pct": 57.9,
+        "label_en": "Senior Living Operations"
       },
       {
         "name": "Office Operations",
         "value": 0.009,
         "unit": "Mds $",
         "pct": 0.2,
-        "share_pct": 0.2
+        "share_pct": 0.2,
+        "label_en": "Office Operations"
       },
       {
         "name": "All Other",
         "value": 0.094,
         "unit": "Mds $",
         "pct": 2.5,
-        "share_pct": 2.5
+        "share_pct": 2.5,
+        "label_en": "All Other"
       }
     ],
     "total": 3.8,
@@ -477,21 +515,24 @@
         "value": 3.381,
         "unit": "Mds $",
         "pct": 89.1,
-        "share_pct": 89.1
+        "share_pct": 89.1,
+        "label_en": "United States"
       },
       {
         "name": "Canada",
         "value": 0.389,
         "unit": "Mds $",
         "pct": 10.3,
-        "share_pct": 10.3
+        "share_pct": 10.3,
+        "label_en": "Canada"
       },
       {
         "name": "Royaume-Uni",
         "value": 0.025,
         "unit": "Mds $",
         "pct": 0.6,
-        "share_pct": 0.6
+        "share_pct": 0.6,
+        "label_en": "United Kingdom"
       }
     ],
     "total": 3.79,
@@ -593,16 +634,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #",
-    "global_us": "",
-    "sector": "",
-    "subsector": ""
+    "global_world": "#323",
+    "global_us": "#193",
+    "sector": "Top 10 in Immobilier",
+    "subsector": "#1 in Healthcare Facilities"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-04-27",
   "publication_date": null,
   "company_description": "Ventas, Inc. is a leading S&P 500 real estate investment trust enabling exceptional environments that benefit a large and growing aging population. With approximately 1,400 properties in North America and the United Kingdom, Ventas occupies an essential role in the longevity economy. The Company's growth is fueled by its more than 850 senior housing communities, which provide valuable services to residents and enable them to thrive in supported environments. Ventas aims to deliver outsized performance by leveraging its operational expertise, data-driven insights from its Ventas OI platform, extensive relationships and strong financial position. The Ventas portfolio also includes outpatient medical buildings, research centers and healthcare facilities. Ventas's seasoned team of talented professionals shares a commitment to excellence, integrity and a common purpose of helping people live longer, healthier, happier lives. Ventas, Inc. was incorporated in 1983 and is based in Chicago, United States.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.688Z",
+  "_built_at": "2026-05-21T16:00:22.870Z",
   "_missing_blocks": []
 }

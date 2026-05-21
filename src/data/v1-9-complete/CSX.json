@@ -58,7 +58,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "ttm": 0
+      "ttm": 0,
+      "explanation_en": "Revenue : total sales generated over the period.",
+      "signal_en": "Revenue pressure, demand softening"
     },
     {
       "short": "Operating Margin",
@@ -85,7 +87,9 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 0,
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "explanation_en": "Operating Margin : operating profit divided by revenue.",
+      "signal_en": "Margin compression, watch profitability"
     },
     {
       "short": "Intermodal Volume",
@@ -111,7 +115,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "ttm": 0
+      "ttm": 0,
+      "explanation_en": "Volume of Intermodal over the period.",
+      "signal_en": "Demand strengthening, end-market traction"
     },
     {
       "short": "Total Revenue",
@@ -133,7 +139,9 @@
       "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Revenue pressure, demand softening"
     },
     {
       "short": "Net Income",
@@ -155,7 +163,9 @@
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal"
     },
     {
       "short": "Total Assets",
@@ -177,7 +187,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -199,7 +211,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -221,7 +235,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "Coal Volume",
@@ -253,51 +268,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-05-12",
-    "fiscal_year": 2025,
-    "ceo_name": "Joseph Hinrichs",
-    "ceo_total_comp_m": 13.9,
-    "ceo_pay_ratio": 225,
-    "exec_comp_approval_pct": 92.5,
-    "board_independence_pct": 90.9,
-    "board_size": 11,
-    "avg_tenure_years": 11.2,
-    "board_women_pct": 36.4,
-    "voting_structure": "One share, one vote",
     "top_capital": [
-      {
-        "name": "The Vanguard Group, Inc.",
-        "type": "institutionnel",
-        "stake_pct": 7.6
-      },
       {
         "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": 6.7
+        "stake_pct": 8.62
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 8.47
       },
       {
         "name": "State Street Corporation",
         "type": "institutionnel",
-        "stake_pct": 4.3
+        "stake_pct": 4.79
       }
     ],
     "top_voting": [
       {
-        "name": "The Vanguard Group, Inc.",
-        "type": "institutionnel",
-        "stake_pct": 7.6
-      },
-      {
         "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": 6.7
+        "stake_pct": 8.62
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 8.47
       },
       {
         "name": "State Street Corporation",
         "type": "institutionnel",
-        "stake_pct": 4.3
+        "stake_pct": 4.79
       }
-    ]
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:12:44.488829+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -307,46 +315,66 @@
         "value": 7.5,
         "unit": "Mds $",
         "pct": 60,
-        "share_pct": 60
+        "share_pct": 60,
+        "label_en": "merchandise"
       },
       {
         "name": "intermodal",
         "value": 2,
         "unit": "Mds $",
         "pct": 16,
-        "share_pct": 16
+        "share_pct": 16,
+        "label_en": "intermodal"
       },
       {
         "name": "coal",
         "value": 1.75,
         "unit": "Mds $",
         "pct": 14,
-        "share_pct": 14
+        "share_pct": 14,
+        "label_en": "coal"
       },
       {
         "name": "trucking",
         "value": 0.375,
         "unit": "Mds $",
         "pct": 3,
-        "share_pct": 3
+        "share_pct": 3,
+        "label_en": "trucking"
       },
       {
         "name": "Other",
         "value": 0.875,
         "unit": "Mds $",
         "pct": 7,
-        "share_pct": 7
+        "share_pct": 7,
+        "label_en": "Other"
       }
     ],
     "total": 12.5,
     "unit": "Mds $"
   },
   "revenue_by_geography": {
+    "unit": "%",
+    "slices": [
+      {
+        "label": "États-Unis",
+        "value": 100,
+        "share_pct": 100,
+        "single_region_legitimate": true,
+        "unit": "%",
+        "label_en": "United States"
+      }
+    ],
+    "total": 100,
+    "source": "Mono-pays légitime (filings)",
+    "_tagged_by": "auto-rebascule-21mai-CONV-CONCEPTS",
+    "_tagged_at": "2026-05-21T01:26:18.182Z",
+    "_category": "railroad-us",
     "single_region_legitimate": true,
     "_legit_reason": "US railroad — domestic operations (East US)",
     "_legit_marked_at": "2026-05-21T08:18:58Z",
     "_legit_marked_by": "sub-agent-#76-repartition-cerebras",
-    "slices": [],
     "label": "Répartition géographique (mono-région légitime)"
   },
   "risks": [
@@ -430,6 +458,33 @@
     {
       "year": 2026,
       "month": 5,
+      "title": "How CSX’s (CSX) New US$5 Billion Buyback and Tech Leadership Shift Will Impact Investors",
+      "body": "CSX Corporation recently approved a US$0.14 per-share quarterly dividend payable on June 15, 2026, and authorized a new US$5.00 billion share repurchase program, while also announcing the departure of Executive Vice President and Chief Digi",
+      "source": "Simply Wall St.",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/csx-csx-us-5-billion-020602107.html",
+      "date": "2026-05-18"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "CSX Eyes Higher Margins as Freight Demand Improves, CFO Says at Conference",
+      "body": "CSX (NASDAQ:CSX) Executive Vice President and Chief Financial Officer Kevin Boone said the railroad remains focused on improving margins, capturing pricing tied to better service and using capital more efficiently, while cautioning that “on",
+      "source": "MarketBeat",
+      "url": "https://www.marketbeat.com/instant-alerts/csx-eyes-higher-margins-as-freight-demand-improves-cfo-says-at-conference-2026-05-15/?utm_source=yahoofinance&utm_medium=yahoofinance",
+      "date": "2026-05-16"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "Zacks Industry Outlook Highlights Union Pacific, CSX and Canadian Pacific Kansas City",
+      "body": "UNP, CSX and CP are navigating fuel costs and trade uncertainty while focusing on earnings growth and shareholder returns.",
+      "source": "Zacks",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/zacks-industry-outlook-highlights-union-073100973.html",
+      "date": "2026-05-15"
+    },
+    {
+      "year": 2026,
+      "month": 5,
       "title": "How The CSX (CSX) Investment Story Is Shifting With New Targets And Freight Signals",
       "body": "CSX's fair value estimate has moved from US$42.10 to US$45.54, an 8.2% shift that sits alongside a broader reset of price targets across recent research. Some analysts are leaning into CSX's rail network and freight exposure to justify high",
       "source": "Simply Wall St.",
@@ -438,27 +493,45 @@
     },
     {
       "year": 2026,
-      "month": 4,
-      "title": "CSX (CSX) Valuation Check After Strong Shareholder Returns And Recent Earnings Performance",
-      "body": "CSX Stock Overview After Recent Performance CSX (CSX) has drawn fresh attention after a strong run in recent months, with the share price last closing at $46.18 and the company reporting revenue of $14.09b and net income of $2.89b. See our ",
-      "source": "Simply Wall St.",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/csx-csx-valuation-check-strong-100434529.html",
-      "date": "2026-04-24"
+      "month": 3,
+      "title": "Publication des résultats Q1 2026",
+      "body": "Clôture du trimestre Q1 2026 le 31 mars 2026.",
+      "source": "yfinance · mostRecentQuarter",
+      "url": "",
+      "date": "2026-03-31"
     },
     {
       "year": 2026,
-      "month": 4,
-      "title": "CSX Q1 Earnings Beat Estimates, Revenues Lag, 2026 View Raised",
-      "body": "CSX posts Q1 earnings beat but revenue miss, with stronger margins and an upgraded 2026 outlook signaling improved growth and cash flow expectations.",
-      "source": "Zacks",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/csx-q1-earnings-beat-estimates-173800088.html",
-      "date": "2026-04-23"
+      "month": 2,
+      "title": "Dividende 0.14 $/action versé",
+      "body": "Dividende ordinaire de 0.14 $ par action, ex-date 27 février 2026.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2026-02-27"
+    },
+    {
+      "year": 2025,
+      "month": 11,
+      "title": "Dividende 0.13 $/action versé",
+      "body": "Dividende ordinaire de 0.13 $ par action, ex-date 28 novembre 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-11-28"
+    },
+    {
+      "year": 2025,
+      "month": 8,
+      "title": "Dividende 0.13 $/action versé",
+      "body": "Dividende ordinaire de 0.13 $ par action, ex-date 29 août 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-08-29"
     }
   ],
   "ranks": {
-    "global_world": "#132",
-    "global_us": "#77",
-    "sector": "Top 25 in Industrials",
+    "global_world": "#181",
+    "global_us": "#108",
+    "sector": "Top 25 in Industrie",
     "subsector": "#1 in Transportation"
   },
   "latest_filing": null,
@@ -466,8 +539,6 @@
   "publication_date": null,
   "company_description": "CSX Corporation, together with its subsidiaries, provides rail-based freight transportation services in the United States and Canada. It operates through two segments: rail and trucking. The company offers rail services; and transportation of intermodal containers and trailers, as well as other transportation services, such as rail-to-truck transfers and bulk commodity operations. It also transports chemicals, agricultural and food products, minerals, automotive, forest products, fertilizers, and metals and equipment; and coal, coke, and iron ore to electricity-generating power plants, steel manufacturers, and industrial plants, as well as exports coal to deep-water port facilities. In addition, the company provides intermodal services through a network of approximately 30 terminals transporting manufactured consumer goods in containers; and drayage services, including the pickup and delivery of intermodal shipments. It serves the automotive industry with distribution centers and storage locations, as well as connects non-rail served customers through transferring products, such as plastics and ethanol from rail to trucks. The company operates approximately 20,000 route mile rail n",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.277Z",
-  "_missing_blocks": [
-    "revenue_by_geography"
-  ]
+  "_built_at": "2026-05-21T16:00:22.096Z",
+  "_missing_blocks": []
 }

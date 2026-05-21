@@ -163,7 +163,9 @@
         2025
       ],
       "_hero_history_source": "cat3-european annual-text (Haiku Pass 3)",
-      "_hero_history_extracted_at": "2026-05-14T09:37:18.161295+00:00"
+      "_hero_history_extracted_at": "2026-05-14T09:37:18.161295+00:00",
+      "explanation_en": "Profit margin on Adjusted EBITDA.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Revenue",
@@ -188,7 +190,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "period_type": "annual"
+      "period_type": "annual",
+      "explanation_en": "Revenue : total sales generated over the period.",
+      "signal_en": "Revenue pressure, demand softening"
     },
     {
       "short": "Adjusted EBITDA",
@@ -213,7 +217,9 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "annual"
+      "period_type": "annual",
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
+      "signal_en": "Profitability under pressure, monitor returns"
     },
     {
       "short": "Operating Income",
@@ -235,7 +241,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "period_type": "annual"
+      "period_type": "annual",
+      "explanation_en": "Operating Income : profit from core business operations."
     },
     {
       "short": "Employees (FTE)",
@@ -282,7 +289,8 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "annual"
+      "period_type": "annual",
+      "signal_en": "Steady growth, healthy trend"
     },
     {
       "short": "Return on Investment (ROI)",
@@ -326,7 +334,8 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "annual"
+      "period_type": "annual",
+      "explanation_en": "Market share in Earnings per."
     },
     {
       "short": "DPS",
@@ -350,7 +359,9 @@
       "signal": "Dividende par action de 1.54 EUR dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -372,7 +383,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "Payout Ratio",
@@ -394,14 +407,45 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     }
   ],
   "kpis_story": [],
   "governance": {
-    "ceo_name": "Mr. Gregoire  Poux-Guillaume",
-    "ceo_title": "CEO & Chairman of the Management Board",
-    "fiscal_year": 2025
+    "top_capital": [
+      {
+        "name": "Aristotle Capital Management, LLC",
+        "type": "institutionnel",
+        "stake_pct": 0.28
+      },
+      {
+        "name": "Paradigm Asset Management Company, LLC",
+        "type": "institutionnel",
+        "stake_pct": 0.01
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "Aristotle Capital Management, LLC",
+        "type": "institutionnel",
+        "stake_pct": 0.28
+      },
+      {
+        "name": "Paradigm Asset Management Company, LLC",
+        "type": "institutionnel",
+        "stake_pct": 0.01
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:11:56.427477+00:00",
+    "_top_dual_class_flag": false,
+    "top_disclosure": "eu_regex_extracted",
+    "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
+    "_top_disclosure_at": "2026-05-21T02:49:04.535273+00:00",
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:18:56Z"
   },
   "revenue_by_segment": {
     "unit": "Mds€",
@@ -411,26 +455,30 @@
       {
         "label": "Industrial Coatings",
         "value": 1.87,
-        "unit": "M€",
-        "share_pct": 30.8
+        "share_pct": 30.8,
+        "unit": "Mds€",
+        "label_en": "Industrial Coatings"
       },
       {
         "label": "Marine and Protective Coatings",
         "value": 1.57,
-        "unit": "M€",
-        "share_pct": 25.9
+        "share_pct": 25.9,
+        "unit": "Mds€",
+        "label_en": "Marine and Protective Coatings"
       },
       {
         "label": "Automotive and Specialty Coatings",
         "value": 1.35,
-        "unit": "M€",
-        "share_pct": 22.2
+        "share_pct": 22.2,
+        "unit": "Mds€",
+        "label_en": "Automotive and Specialty Coatings"
       },
       {
         "label": "Powder Coatings",
         "value": 1.28,
-        "unit": "M€",
-        "share_pct": 21.1
+        "share_pct": 21.1,
+        "unit": "Mds€",
+        "label_en": "Powder Coatings"
       }
     ],
     "total": 6.07
@@ -443,32 +491,37 @@
       {
         "label": "EMEA",
         "value": 4.88,
-        "unit": "M€",
-        "share_pct": 48
+        "share_pct": 48,
+        "unit": "Mds€",
+        "label_en": "EMEA"
       },
       {
         "label": "North Asia",
         "value": 1.63,
-        "unit": "M€",
-        "share_pct": 16
+        "share_pct": 16,
+        "unit": "Mds€",
+        "label_en": "North Asia"
       },
       {
         "label": "South Asia Pacific",
         "value": 1.22,
-        "unit": "M€",
-        "share_pct": 12
+        "share_pct": 12,
+        "unit": "Mds€",
+        "label_en": "South Asia Pacific"
       },
       {
         "label": "Amérique du Nord",
         "value": 1.22,
-        "unit": "M€",
-        "share_pct": 12
+        "share_pct": 12,
+        "unit": "Mds€",
+        "label_en": "North America"
       },
       {
         "label": "Amérique latine",
         "value": 1.22,
-        "unit": "M€",
-        "share_pct": 12
+        "share_pct": 12,
+        "unit": "Mds€",
+        "label_en": "Latin America"
       }
     ],
     "total": 10.17
@@ -563,12 +616,39 @@
   "events": [
     {
       "year": 2026,
+      "month": 7,
+      "title": "Prochaine publication Q3 2026",
+      "body": "Publication attendue le 21 juillet 2026 (Q3 2026).",
+      "source": "yfinance · calendar",
+      "url": "",
+      "date": "2026-07-21"
+    },
+    {
+      "year": 2026,
+      "month": 4,
+      "title": "Dividende 1.54 €/action versé",
+      "body": "Dividende ordinaire de 1.54 € par action, ex-date 27 avril 2026.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2026-04-27"
+    },
+    {
+      "year": 2026,
       "month": 4,
       "title": "AkzoNobel Posts Higher Adjusted Earnings Amid Difficult Context",
       "body": "The company’s adjusted earnings before interest, taxes, depreciation and amortization rose 7% on a comparable basis, despite turbulent market conditions.",
       "source": "The Wall Street Journal",
       "url": "https://www.wsj.com/business/earnings/akzonobel-posts-higher-adjusted-earnings-amid-difficult-context-ea87f625?siteid=yhoof2&yptr=yahoo",
       "date": "2026-04-22"
+    },
+    {
+      "year": 2026,
+      "month": 3,
+      "title": "Publication des résultats Q1 2026",
+      "body": "Clôture du trimestre Q1 2026 le 31 mars 2026.",
+      "source": "yfinance · mostRecentQuarter",
+      "url": "",
+      "date": "2026-03-31"
     },
     {
       "year": 2026,
@@ -587,10 +667,28 @@
       "source": "Simply Wall St.",
       "url": "https://finance.yahoo.com/news/akzo-nobel-ams-akza-pay-062559709.html",
       "date": "2026-02-07"
+    },
+    {
+      "year": 2025,
+      "month": 10,
+      "title": "Dividende 0.44 €/action versé",
+      "body": "Dividende ordinaire de 0.44 € par action, ex-date 27 octobre 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-10-27"
+    },
+    {
+      "year": 2025,
+      "month": 4,
+      "title": "Dividende 1.54 €/action versé",
+      "body": "Dividende ordinaire de 1.54 € par action, ex-date 29 avril 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-04-29"
     }
   ],
   "ranks": {
-    "global_world": "#304",
+    "global_world": "#740",
     "global_us": "Non US",
     "sector": "#1 in Specialty Chemicals",
     "subsector": "#1 in Paints and Coatings"
@@ -600,6 +698,6 @@
   "publication_date": null,
   "company_description": "Akzo Nobel N.V. produces and sells paints and coatings worldwide. It operates through Decorative Paints and Performance Coatings segments. The company offers decorative paints, including paints, enamels, varnishes, and surface preparation products; and a range of mixing machines, color concepts and advice, and training for applicators. It also provides performance coatings that produces engineered coatings designed to deliver functional properties, such as corrosion and fouling control, anti-scratch performance, and fire protection to protect and enhance ships, cars, aircraft, yachts, and architectural components, consumer goods, and oil and gas facilities. The company offers its products under the AkzoNobel, Alabastine, Alba, Andercol, Apla, Armstead Trade, Astral, Astral Batiment, AwlGrip, Brikol, Bruguer, Cetabever, Cetol, Chemcraft, Colourland Paints, CONSOLAN, Coral, Cromadex, Cuprinol, Dulux, Dynacoat, Flexa, Glitsa, Grip-Gard, Hammerite, Herbol, Inca, Innenweis, Interlux, International, Interpon, Lesonal, Levis, Luxol, Mactra, Marshall, Mauvilac, Maxilite, Modern Classikk, Molto, Nordsjo, Oxirite, Pintuco, Pinotex, Polycell, Polyfilla, Procolor, Protecto, Relest, Resicoat, Sadolin, Salcomix, Savana, Sea Hawk, Sikkens, Sparlack, Taubmans, Titanlux, Trimetal, U-Tech, Vivechrom, VPowdertech, Wanda, Xyladecor, and Xylazel brands. The company serves energy, packaging, infrastructure, and shipbuilding and maintenance industries, as well as general industries, such as agricultural and construction equipment, construction-related steel, metal fabrication, pipes, appliances, and transportation. The company was formerly known as Akzo NV and changed its name to Akzo Nobel N.V. in 1994. Akzo Nobel N.V. was founded in 1646 and is headquartered in Amsterdam, the Netherlands.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.138Z",
+  "_built_at": "2026-05-21T16:00:21.895Z",
   "_missing_blocks": []
 }

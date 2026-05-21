@@ -134,10 +134,11 @@
       "is_short_history": false,
       "_validation": "Unit corrected from 'Mds €' to 'Bn EUR' (standard notation). Hero_kpi_rationale: removed em-dash.",
       "period_type": "quarter",
+      "signal_en": "Demand strengthening, end-market traction",
       "is_short_history_legitimate": true,
       "short_history_legitimate_reason": "Segment HPC/Cloud disclosed séparément récemment",
       "_short_history_legitimate_rule": "kpi_pattern",
-      "_short_history_legitimate_tagged_at": "2026-05-21T03:37:51.881Z"
+      "_short_history_legitimate_tagged_at": "2026-05-21T03:35:15.112Z"
     },
     {
       "short": "Gross Margin",
@@ -163,7 +164,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_validation": "No corrections needed. Data consistent with typical software margins."
+      "_validation": "No corrections needed. Data consistent with typical software margins.",
+      "explanation_en": "Gross Margin : gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Op Margin",
@@ -189,7 +192,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_validation": "No corrections needed. Operating margin progression consistent."
+      "_validation": "No corrections needed. Operating margin progression consistent.",
+      "explanation_en": "Profit margin on Op.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "R&D",
@@ -215,7 +220,9 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "_validation": "No corrections needed. R&D intensity appropriate for software/innovation company."
+      "_validation": "No corrections needed. R&D intensity appropriate for software/innovation company.",
+      "explanation_en": "Research & Development expenses.",
+      "signal_en": "Stable, slight decline to monitor"
     },
     {
       "short": "Capex",
@@ -241,7 +248,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_validation": "Unit corrected from 'Mds €' to 'Bn EUR'. Name_fr clarified: removed misleading '(semi : fabs)' reference which was irrelevant for software company."
+      "_validation": "Unit corrected from 'Mds €' to 'Bn EUR'. Name_fr clarified: removed misleading '(semi : fabs)' reference which was irrelevant for software company.",
+      "explanation_en": "Capital Expenditures : investments in property, plant and equipment.",
+      "signal_en": "Steady growth, healthy trend"
     },
     {
       "short": "Service / ARR",
@@ -267,7 +276,8 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "_validation": "Unit corrected from 'Mds €' to 'Bn EUR'."
+      "_validation": "Unit corrected from 'Mds €' to 'Bn EUR'.",
+      "signal_en": "Recurring base growing, revenue visibility rising"
     },
     {
       "short": "Headcount",
@@ -295,7 +305,9 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Name_fr clarified from '(employés)' to '(milliers)' for consistency with unit K.",
-      "_employees_synced_from_yfinance": true
+      "_employees_synced_from_yfinance": true,
+      "explanation_en": "Headcount : total number of employees at period end.",
+      "signal_en": "Significant decline, warning signal"
     },
     {
       "short": "DPS",
@@ -319,7 +331,9 @@
       "signal": "Dividende par action de 1.5286 SEK dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend stable, payout consistent"
     },
     {
       "short": "Cap Return",
@@ -341,7 +355,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -363,7 +379,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "AI Cloud Mix",
@@ -422,9 +440,10 @@
   ],
   "kpis_story": [],
   "governance": {
-    "ceo_name": "Mr. Anders  Svensson",
-    "ceo_title": "President & CEO",
-    "fiscal_year": 2025
+    "top_disclosure": "eu_regex_extracted",
+    "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
+    "_top_disclosure_at": "2026-05-21T02:49:04.637062+00:00",
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:18:58Z"
   },
   "revenue_by_segment": {
     "unit": "Mds $",
@@ -434,14 +453,16 @@
       {
         "label": "Industrial Enterprise Solutions (IES)",
         "value": 2.8,
+        "share_pct": 51.9,
         "unit": "Mds $",
-        "share_pct": 51.9
+        "label_en": "Industrial Enterprise Solutions (IES)"
       },
       {
         "label": "Geospatial Enterprise Solutions (GES)",
         "value": 2.6,
+        "share_pct": 48.1,
         "unit": "Mds $",
-        "share_pct": 48.1
+        "label_en": "Geospatial Enterprise Solutions (GES)"
       }
     ],
     "total": 5.4
@@ -454,20 +475,23 @@
       {
         "label": "Americas",
         "value": 2.1,
+        "share_pct": 38.2,
         "unit": "Mds $",
-        "share_pct": 38.2
+        "label_en": "Americas"
       },
       {
         "label": "EMEA",
         "value": 1.9,
+        "share_pct": 34.5,
         "unit": "Mds $",
-        "share_pct": 34.5
+        "label_en": "EMEA"
       },
       {
         "label": "Asia",
         "value": 1.5,
+        "share_pct": 27.3,
         "unit": "Mds $",
-        "share_pct": 27.3
+        "label_en": "Asia"
       }
     ],
     "total": 5.5
@@ -591,9 +615,9 @@
     }
   ],
   "ranks": {
-    "global_world": "#179",
+    "global_world": "#388",
     "global_us": "Non US",
-    "sector": "#55 in Information Technology",
+    "sector": "#109 in Technologie",
     "subsector": "#1 in Industrial Software & Digital Reality"
   },
   "latest_filing": null,
@@ -601,6 +625,6 @@
   "publication_date": null,
   "company_description": "Hexagon AB (publ) provides geospatial and industrial enterprise solutions worldwide. It operates in Manufacturing Intelligence, Geosystems, Autonomous Solutions and Octave segments. The company provides autonomy and perception, enterprise software for farms, GNSS positioning, and machine control; airborne and mobile mapping, geospatial content, laser scanning, ERIDAA imagin, lucaid, and M.app enterprise; and asset lifecycle information management, design and visualization, engineering and schematics, enterprise project performance, operations and maintenance, OT/ICS cyber security, and smart digital reality, as well as procurement, fabrication, and construction services. It offers automated measurement systems, CAD/CAM and production software, CAE software, coordinate measuring machines, metrology software, portable measuring systems, quality assurance software, and service and support services. In addition, the company provides evaluation, planning and design; drill and blast; load and haul; mine survey and monitoring; processing; reclamation; operational safety; autonomous operations; and multi-senor technology insights services. Further, it offers anti-jam systems, anti-jam systems, correction services, GNSS and SMART antennas, GNSS/INS receivers and post processing, resilience and integrity technology, and visualization software; HxGN Oncall, Connect, and dC3; forensics and investigations; and AEC software, documentation and verification solutions, total stations, GNNS systems, survey software, detection systems, digital realities platform, monitoring solutions, and airborne solutions. It serves agriculture, geospatial, industrial asset lifecycle, manufacturing, mining, positioning, safety, security, and surveillance industries. The company was founded in 1975 and is headquartered in Stockholm, Sweden.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.392Z",
+  "_built_at": "2026-05-21T16:00:22.290Z",
   "_missing_blocks": []
 }

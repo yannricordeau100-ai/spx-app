@@ -174,7 +174,9 @@
       "last_data_date": "2026-03-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Gross Margin : gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Op Margin",
@@ -199,7 +201,9 @@
       "last_data_date": "2023-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Profit margin on Op.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "R&D",
@@ -224,7 +228,9 @@
       "last_data_date": "2023-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Research & Development expenses.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Capex",
@@ -249,7 +255,9 @@
       "last_data_date": "2023-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Capital Expenditures : investments in property, plant and equipment.",
+      "signal_en": "Solid expansion, positive trajectory"
     },
     {
       "short": "Headcount",
@@ -280,7 +288,9 @@
         "kpi_value_abs": 1200,
         "diff_pct": 89.9,
         "reason": "kept_original_likely_pollution_or_unit"
-      }
+      },
+      "explanation_en": "Headcount : total number of employees at period end.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "DPS",
@@ -304,7 +314,9 @@
       "signal": "Dividende par action de 0.205 EUR dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Cap Return",
@@ -326,7 +338,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -348,7 +362,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "AI API Calls",
@@ -404,9 +420,28 @@
     }
   ],
   "governance": {
-    "ceo_name": "Mr. Miguel Stilwell de Andrade",
-    "ceo_title": "Chairman of the Executive Board of Directors & CEO",
-    "fiscal_year": 2025
+    "top_capital": [
+      {
+        "name": "Generali Investments Cee, Investicni Spolecnost, A.s.",
+        "type": "institutionnel",
+        "stake_pct": 0.01
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "Generali Investments Cee, Investicni Spolecnost, A.s.",
+        "type": "institutionnel",
+        "stake_pct": 0.01
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:04.207923+00:00",
+    "_top_dual_class_flag": false,
+    "top_disclosure": "eu_regex_extracted",
+    "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
+    "_top_disclosure_at": "2026-05-21T02:49:04.606705+00:00",
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:18:57Z"
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -439,7 +474,8 @@
     "_extracted_at": "2026-05-21T08:23:30Z",
     "_extracted_by": "sub-agent-#76-cerebras-fallback-manual-strict-from-annual-report",
     "_total_revenues_billion_eur": 15.61,
-    "_note": "EDP reporte ses revenus par 2 reportable segments + Other. Eliminations -2.2 Mds € appliquées au total Group."
+    "_note": "EDP reporte ses revenus par 2 reportable segments + Other. Eliminations -2.2 Mds € appliquées au total Group.",
+    "total": 16.1
   },
   "revenue_by_geography": {
     "label": "Répartition du chiffre d'affaires par zone géographique",
@@ -457,7 +493,7 @@
       {
         "label": "Brésil",
         "value": 3.2,
-        "share_pct": 20.0,
+        "share_pct": 20,
         "unit": "Mds €",
         "label_en": "Brazil"
       },
@@ -478,14 +514,15 @@
       {
         "label": "Autres",
         "value": 0.6,
-        "share_pct": 4.0,
+        "share_pct": 4,
         "unit": "Mds €",
         "label_en": "Other"
       }
     ],
     "_extracted_at": "2026-05-21T08:23:30Z",
     "_extracted_by": "sub-agent-#76-cerebras-fallback-manual-strict",
-    "_note": "Q1 2026 ratios appliqués au total FY2025 (Portugal/Espagne/Brésil/USA/Other). Annual report 2025 ne disclose pas la décomposition geo aussi détaillée."
+    "_note": "Q1 2026 ratios appliqués au total FY2025 (Portugal/Espagne/Brésil/USA/Other). Annual report 2025 ne disclose pas la décomposition geo aussi détaillée.",
+    "total": 16
   },
   "risks": [
     {
@@ -558,9 +595,9 @@
     }
   ],
   "ranks": {
-    "global_world": "#212",
+    "global_world": "#492",
     "global_us": "Non US",
-    "sector": "Top 25 in Utilities",
+    "sector": "Top 50 in Services aux collectivités",
     "subsector": "#1 in Renewable Energy & Smart Grid"
   },
   "latest_filing": null,
@@ -568,6 +605,6 @@
   "publication_date": null,
   "company_description": "EDP, S.A. engages in the generation, transmission, distribution, and supply of electricity in Portugal, Spain, France, Poland, Romania, Italy, Belgium, the United Kingdom, Greece, Colombia, Brazil, North America, and internationally. It operates through Renewables, Networks, and Client Solutions & Energy Management segments. The company generates and sells electricity through hydro, combined-cycle gas turbine, coal, wind, solar, nuclear, and cogeneration and waste sources. The company is also involved in the supply of natural gas. In addition, it offers engineering, laboratory tests, professional training, and energy services, as well as property management services. The company was formerly known as EDP - Energias de Portugal, S.A. and changed its name to EDP, S.A. in April 2024. The company was incorporated in 1976 and is headquartered in Lisbon, Portugal.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.318Z",
+  "_built_at": "2026-05-21T16:00:22.169Z",
   "_missing_blocks": []
 }

@@ -127,34 +127,8 @@
         "old_unit": "%",
         "old_value": 1384000000,
         "factor": 1000000000
-      }
-    },
-    {
-      "short": "New Equipment Operating Profit",
-      "name_fr": "Résultat opérationnel équipement neuf",
-      "name_en": "New Equipment Operating Profit",
-      "explanation": "Part du bénéfice opérationnel provenant de la vente et installation d'équipements neufs.",
-      "value": "9",
-      "unit": "%",
-      "yoy": "+0.0%",
-      "type": "Margin",
-      "nature": "Cyclique",
-      "comparable": "Non comparable",
-      "signal": "Seulement 9% du profit, malgré 35% des ventes: marge faible sur le neuf.",
-      "description": "Ce segment est capital intensif et moins rentable que le service.",
-      "history": [
-        9,
-        9,
-        9,
-        9,
-        9
-      ],
-      "last_data_date": "2025-12-31",
-      "is_wow": true,
-      "is_generic": false,
-      "is_short_history": false,
-      "ttm": 9,
-      "_validation": "Valeur confirmée par source (9% en 2025), unité correcte, em-dash supprimé du signal"
+      },
+      "signal_en": "Margin compression, watch profitability"
     },
     {
       "short": "UpLift Run-Rate Savings",
@@ -178,34 +152,8 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 200,
-      "_validation": "Unité corrigée de 'Mds $' à 'M $' (source indique run-rate savings de ~200 million dollars en 2025 et ~120 million en 2024), ttm ajouté"
-    },
-    {
-      "short": "International Sales",
-      "name_fr": "Ventes internationales",
-      "name_en": "International Net Sales",
-      "explanation": "Part des ventes réalisées hors États-Unis.",
-      "value": "71",
-      "unit": "%",
-      "yoy": "+0.0%",
-      "type": "Revenue",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "signal": "71% des ventes à l'international: position mondiale forte.",
-      "description": "Otis opère dans plus de 200 pays, avec une présence directe dans 70+ pays.",
-      "history": [
-        71,
-        71,
-        71,
-        71,
-        71
-      ],
-      "last_data_date": "2025-12-31",
-      "is_wow": false,
-      "is_generic": true,
-      "is_short_history": false,
-      "ttm": 71,
-      "_validation": "Valeur confirmée par source (71% en 2025), unité correcte, em-dash supprimé du signal"
+      "_validation": "Unité corrigée de 'Mds $' à 'M $' (source indique run-rate savings de ~200 million dollars en 2025 et ~120 million en 2024), ttm ajouté",
+      "signal_en": "Strong growth, robust momentum"
     },
     {
       "short": "Total Revenue",
@@ -228,7 +176,9 @@
       "signal": "Chiffre d'affaires de 14.431 Mds $ dernière année fiscale (FY2025).",
       "description": "Chiffre d'affaires extrait SEC EDGAR companyfacts XBRL sur les 6 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -251,7 +201,9 @@
       "signal": "Résultat net de 1.384 Mds $ dernière année fiscale (FY2025).",
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 6 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns"
     },
     {
       "short": "DPS",
@@ -275,7 +227,9 @@
       "signal": "Dividende par action de 0.42 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -297,7 +251,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -319,7 +275,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "UpLift Transformation Costs",
@@ -388,26 +346,44 @@
     }
   ],
   "governance": {
-    "agm_date": "2026-05-27",
-    "fiscal_year": 2025,
-    "ceo_name": "Judy Marks",
-    "ceo_pay_ratio": 162,
-    "exec_comp_approval_pct": 94,
-    "board_independence_pct": 90,
-    "board_size": 10,
-    "avg_tenure_years": 5.5,
-    "board_women_pct": 30,
-    "voting_structure": "Une action, un vote.",
     "top_capital": [
       {
         "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": 8
+        "stake_pct": 11.71
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.4
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.22
       }
     ],
-    "_validation": "Données de gouvernance cohérentes avec source disponible",
-    "ceo_total_comp_m": 16.977877,
-    "top_voting": []
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.71
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.4
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.22
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:14:42.233727+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "unit": "Mds $",
@@ -417,14 +393,16 @@
       {
         "label": "Service",
         "value": 9.442,
+        "share_pct": 65.4,
         "unit": "Mds $",
-        "share_pct": 65.4
+        "label_en": "Service"
       },
       {
         "label": "New Equipment",
         "value": 4.989,
+        "share_pct": 34.6,
         "unit": "Mds $",
-        "share_pct": 34.6
+        "label_en": "New Equipment"
       }
     ],
     "total": 14.43
@@ -437,14 +415,16 @@
         "value": 3.7,
         "unit": "Mds $",
         "pct": 25.88,
-        "share_pct": 25.9
+        "share_pct": 25.88,
+        "label_en": "United States"
       },
       {
         "name": "International",
         "value": 10.598,
         "unit": "Mds $",
         "pct": 74.12,
-        "share_pct": 74.1
+        "share_pct": 74.12,
+        "label_en": "International"
       }
     ],
     "total": 14.3,
@@ -573,15 +553,15 @@
     }
   ],
   "ranks": {
-    "global_world": "#869",
-    "global_us": "#336",
-    "sector": "#12 dans Industrials",
-    "subsector": "#1 dans Machinery & Equipment"
+    "global_world": "#424",
+    "global_us": "#255",
+    "sector": "Top 50 in Industrie",
+    "subsector": "#2 in Machinery & Equipment"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-22",
   "publication_date": null,
   "company_description": "Otis Worldwide Corporation engages in manufacturing, installation, and servicing of elevators and escalators in the United States, China, and internationally. The company operates in two segments, New Equipment and Service. The New Equipment segment designs, manufactures, sells, and installs a range of passenger and freight elevators, as well as escalators and moving walkways for residential and commercial buildings, and infrastructure projects. This segment serves real-estate and building developers, and general contractors. It sells its products directly to customers, as well as through agents and distributors. The Service segment performs maintenance and repair services, as well as modernization services to upgrade elevators and escalators. Otis Worldwide Corporation was founded in 1853 and is headquartered in Farmington, Connecticut.",
-  "_built_at": "2026-05-20T20:15:02.537Z",
+  "_built_at": "2026-05-21T16:00:22.555Z",
   "_missing_blocks": []
 }

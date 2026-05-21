@@ -139,7 +139,9 @@
       "is_short_history": false,
       "ttm": 4.5,
       "_validation": "DONNÉES NON VÉRIFIABLES: Item 8 (Financial Statements) non fourni dans le 10-K source. Valeur structurellement plausible pour Illumina mais non validable.",
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "explanation_en": "Revenue : total sales generated over the period.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Gross Margin",
@@ -166,7 +168,9 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 68.58,
-      "_validation": "DONNÉES NON VÉRIFIABLES: Item 8 (Financial Statements) non fourni dans le 10-K source. Valeur structurellement plausible pour Illumina mais non validable."
+      "_validation": "DONNÉES NON VÉRIFIABLES: Item 8 (Financial Statements) non fourni dans le 10-K source. Valeur structurellement plausible pour Illumina mais non validable.",
+      "explanation_en": "Gross Margin : gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Op Margin",
@@ -193,7 +197,9 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 11.77,
-      "_validation": "DONNÉES NON VÉRIFIABLES: Item 8 (Financial Statements) non fourni dans le 10-K source. Tendance baissière structurellement cohérente avec contexte Grail mais non validable."
+      "_validation": "DONNÉES NON VÉRIFIABLES: Item 8 (Financial Statements) non fourni dans le 10-K source. Tendance baissière structurellement cohérente avec contexte Grail mais non validable.",
+      "explanation_en": "Profit margin on Op.",
+      "signal_en": "Margin compression, watch profitability"
     },
     {
       "short": "R&D",
@@ -220,7 +226,9 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 22.26,
-      "_validation": "DONNÉES NON VÉRIFIABLES: Item 8 (Financial Statements) non fourni. Tendance croissante cohérente avec stratégie d'innovation annoncée mais non validable."
+      "_validation": "DONNÉES NON VÉRIFIABLES: Item 8 (Financial Statements) non fourni. Tendance croissante cohérente avec stratégie d'innovation annoncée mais non validable.",
+      "explanation_en": "Research & Development expenses.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Capex",
@@ -247,7 +255,9 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 0.41,
-      "_validation": "DONNÉES NON VÉRIFIABLES: Item 8 (Financial Statements) non fourni. Capex en B$ représente environ 9% du revenu, ratio structurellement plausible mais non validable."
+      "_validation": "DONNÉES NON VÉRIFIABLES: Item 8 (Financial Statements) non fourni. Capex en B$ représente environ 9% du revenu, ratio structurellement plausible mais non validable.",
+      "explanation_en": "Capital Expenditures : investments in property, plant and equipment.",
+      "signal_en": "Steady growth, healthy trend"
     },
     {
       "short": "Headcount",
@@ -274,7 +284,9 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 8.5,
-      "_validation": "DONNÉES NON VÉRIFIABLES: Item 8 (Financial Statements) non fourni. Valeur en K (8500 employés) plausible pour Illumina mais non validable."
+      "_validation": "DONNÉES NON VÉRIFIABLES: Item 8 (Financial Statements) non fourni. Valeur en K (8500 employés) plausible pour Illumina mais non validable.",
+      "explanation_en": "Headcount : total number of employees at period end.",
+      "signal_en": "Stable, slight decline to monitor"
     },
     {
       "short": "Net Income",
@@ -299,7 +311,9 @@
       "signal": "Résultat net de 0.85 Mds $ dernière année fiscale (FY2025).",
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "R&D",
@@ -363,7 +377,45 @@
     "board_size": 9,
     "avg_tenure_years": 5,
     "board_women_pct": 33,
-    "voting_structure": "One vote per share with majority vote standard for uncontested director elections"
+    "voting_structure": "One vote per share with majority vote standard for uncontested director elections",
+    "top_capital": [
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 12.57
+      },
+      {
+        "name": "Capital World Investors",
+        "type": "institutionnel",
+        "stake_pct": 10.28
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 8.87
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 12.57
+      },
+      {
+        "name": "Capital World Investors",
+        "type": "institutionnel",
+        "stake_pct": 10.28
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 8.87
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:47.546189+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "unit": "Mds $",
@@ -373,14 +425,16 @@
       {
         "label": "Core Illumina",
         "value": 4.34,
-        "unit": "M $",
-        "share_pct": 98.6
+        "share_pct": 98.6,
+        "unit": "Mds $",
+        "label_en": "Core Illumina"
       },
       {
         "label": "GRAIL",
         "value": 0.06,
-        "unit": "M $",
-        "share_pct": 1.4
+        "share_pct": 1.4,
+        "unit": "Mds $",
+        "label_en": "GRAIL"
       }
     ],
     "total": 4.4
@@ -393,14 +447,16 @@
       {
         "label": "États-Unis",
         "value": 2.28,
+        "share_pct": 52.1,
         "unit": "Mds $",
-        "share_pct": 52.1
+        "label_en": "United States"
       },
       {
         "label": "International",
         "value": 2.1,
+        "share_pct": 47.9,
         "unit": "Mds $",
-        "share_pct": 47.9
+        "label_en": "International"
       }
     ],
     "total": 4.38
@@ -504,9 +560,9 @@
     }
   ],
   "ranks": {
-    "global_world": "#214",
-    "global_us": "#115",
-    "sector": "#65 in Information Technology",
+    "global_world": "#482",
+    "global_us": "#289",
+    "sector": "#137 in Technologie",
     "subsector": "#1 in Life Sciences Tools and Services"
   },
   "latest_filing": null,
@@ -514,6 +570,6 @@
   "publication_date": null,
   "company_description": "Illumina, Inc. provides sequencing- and array-based solutions for genetic and genomic analysis in the Americas, Europe, Greater China, the Asia Pacific, the Middle East, and Africa. The company offers sequencing- and array-based instruments and consumables, which include reagents, flow cells, and library preparation; whole-genome sequencing kits, which sequence entire genomes of various size and complexity; and targeted resequencing kits, which sequence exomes, specific genes, and RNA or other genomic regions of interest. It also provides whole-genome sequencing, genotyping, noninvasive prenatal testing, and product support services. The company serves genomic research centers, academic institutions, government laboratories, and hospitals, as well as pharmaceutical, biotechnology, commercial molecular diagnostic laboratories, and consumer genomics companies. The company markets and distributes its products directly to customers, as well as through life-science distributors. The company has a collaboration with Labcorp Holdings Inc. for the development of oncology treatments through applications of sequencing solutions across the healthcare ecosystem. It also has a data partnership with Center for Data-Driven Discovery in Biomedicine to advance research in pediatric cancer and rare disease. Illumina, Inc. was incorporated in 1998 and is headquartered in San Diego, California.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.413Z",
+  "_built_at": "2026-05-21T16:00:22.329Z",
   "_missing_blocks": []
 }

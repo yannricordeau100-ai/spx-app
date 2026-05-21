@@ -45,6 +45,8 @@
       "publication_date": "2026-05-07",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:53:10.525722+00:00",
+      "explanation_en": "Revenue from the Net Product segment.",
+      "signal_en": "Top-line growth, market traction",
       "is_short_history_legitimate": true,
       "short_history_legitimate_reason": "Tech hardware (KPIs récents AI accelerators, edge computing, RISC-V, segment AI Networking disclosed récemment) (subsector: Semi-conducteurs)",
       "_short_history_legitimate_rule": "tech_hardware_recent",
@@ -100,7 +102,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "ttm": 3.931
+      "ttm": 3.931,
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Long-term Debt",
@@ -126,7 +129,8 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "ttm": 0
+      "ttm": 0,
+      "signal_en": "Pressure, deteriorating trend"
     },
     {
       "short": "Semico Rev",
@@ -147,7 +151,8 @@
       "description": "Les revenus semiconducteurs ont progressé de 198 M$ en 2025, portés par la logique, les fonderies et les mises à niveau NAND. Ce segment représente 43% du chiffre d'affaires total.",
       "last_data_date": "2025-12-31",
       "is_generic": false,
-      "is_wow": false
+      "is_wow": false,
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "E&P Rev",
@@ -168,7 +173,8 @@
       "description": "Le segment Electronics & Packaging affiche la plus forte croissance en 2025 (+20%), tirée par la chimie MSD et les systèmes de perçage laser PSD. Il représente désormais 28% du total.",
       "last_data_date": "2025-12-31",
       "is_generic": false,
-      "is_wow": false
+      "is_wow": false,
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Intl Rev %",
@@ -189,7 +195,8 @@
       "description": "81% des revenus 2025 proviennent de marchés internationaux (vs 78% en 2024), avec une concentration notable en Chine, Corée du Sud, Singapour, Taïwan et Japon. Ce niveau élevé amplifie les risques liés aux contrôles à l'exportation.",
       "last_data_date": "2025-12-31",
       "is_generic": false,
-      "is_wow": false
+      "is_wow": false,
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Div/Share",
@@ -210,7 +217,8 @@
       "description": "MKSI a versé 0,88 $ par action en dividendes en 2025 (4 × 0,22 $), soit 59 M$ au total, identique à 2024. Le conseil a annoncé une hausse à 0,25 $ par trimestre dès mars 2026.",
       "last_data_date": "2025-12-31",
       "is_generic": true,
-      "is_wow": false
+      "is_wow": false,
+      "signal_en": "Capital base stable"
     },
     {
       "short": "Buyback $",
@@ -255,7 +263,9 @@
       "signal": "Dividende par action de 0.25 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -277,7 +287,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position stable"
     },
     {
       "short": "Payout Ratio",
@@ -298,7 +310,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 3 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     }
   ],
   "kpis_story": [
@@ -319,13 +333,44 @@
     }
   ],
   "governance": {
-    "agm_date": "2026-05-11",
-    "fiscal_year": 2025,
-    "ceo_name": "John T.C. Lee",
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "ceo_total_comp_m": 12.96,
-    "top_capital": [],
-    "top_voting": []
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 9.92
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 9.83
+      },
+      {
+        "name": "Invesco Ltd.",
+        "type": "institutionnel",
+        "stake_pct": 5.51
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 9.92
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 9.83
+      },
+      {
+        "name": "Invesco Ltd.",
+        "type": "institutionnel",
+        "stake_pct": 5.51
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:14:16.166044+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "unit": "Mds $",
@@ -335,20 +380,23 @@
       {
         "label": "VSD (Vacuum Solutions Division)",
         "value": 1.58,
-        "unit": "M $",
-        "share_pct": 40.2
+        "share_pct": 40.2,
+        "unit": "Mds $",
+        "label_en": "VSD (Vacuum Solutions Division)"
       },
       {
         "label": "PSD (Photonics Solutions Division)",
         "value": 1.03,
-        "unit": "M $",
-        "share_pct": 26.2
+        "share_pct": 26.2,
+        "unit": "Mds $",
+        "label_en": "PSD (Photonics Solutions Division)"
       },
       {
         "label": "MSD (Materials Solutions Division)",
         "value": 1.32,
-        "unit": "M $",
-        "share_pct": 33.6
+        "share_pct": 33.6,
+        "unit": "Mds $",
+        "label_en": "MSD (Materials Solutions Division)"
       }
     ],
     "_fit_for_site": true,
@@ -364,44 +412,51 @@
       {
         "label": "États-Unis",
         "value": 0.76,
-        "unit": "M $",
-        "share_pct": 19.3
+        "share_pct": 19.3,
+        "unit": "Mds $",
+        "label_en": "United States"
       },
       {
         "label": "Chine",
         "value": 0.93,
-        "unit": "M $",
-        "share_pct": 23.7
+        "share_pct": 23.7,
+        "unit": "Mds $",
+        "label_en": "China"
       },
       {
         "label": "Corée du Sud",
         "value": 0.44,
-        "unit": "M $",
-        "share_pct": 11.2
+        "share_pct": 11.2,
+        "unit": "Mds $",
+        "label_en": "South Korea"
       },
       {
         "label": "Singapour",
         "value": 0.27,
-        "unit": "M $",
-        "share_pct": 6.9
+        "share_pct": 6.9,
+        "unit": "Mds $",
+        "label_en": "Singapore"
       },
       {
         "label": "Taïwan",
         "value": 0.26,
-        "unit": "M $",
-        "share_pct": 6.6
+        "share_pct": 6.6,
+        "unit": "Mds $",
+        "label_en": "Taiwan"
       },
       {
         "label": "Japon",
         "value": 0.24,
-        "unit": "M $",
-        "share_pct": 6.1
+        "share_pct": 6.1,
+        "unit": "Mds $",
+        "label_en": "Japan"
       },
       {
         "label": "Reste du monde",
         "value": 1.03,
-        "unit": "M $",
-        "share_pct": 26.2
+        "share_pct": 26.2,
+        "unit": "Mds $",
+        "label_en": "Rest of World"
       }
     ],
     "total": 3.93
@@ -521,15 +576,15 @@
     }
   ],
   "ranks": {
-    "global_world": "#218",
-    "global_us": "#118",
-    "sector": "#68 in Information Technology",
-    "subsector": "Top 25 in Semiconductors"
+    "global_world": "#498",
+    "global_us": "#300",
+    "sector": "#135 in Technologie",
+    "subsector": "Top 25 in Semi-conducteurs"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-08-05",
   "publication_date": null,
   "company_description": "MKS Inc. provides foundational technology solutions to semiconductor manufacturing, electronics and packaging, and specialty industrial applications in the United States, China, South Korea, Japan, Taiwan, Singapore, and internationally. The company operates through Vacuum Solutions Division (VSD), Photonics Solutions Division (PSD), and Material Solutions Division (MSD) segments. Its VSD segment provides foundational technology solutions, including pressure measurement and control, flow measurement and control, gas and vapor delivery, gas composition analysis, electronic control technology, reactive gas generation and delivery, power generation and delivery, and fiber optic temperature and position sensing. The PSD segment offers range of solutions, which include lasers, photonics, optics, precision motion control, and vibration control. Its MSD segment develops, process, and manufactures technologies comprising advanced surface modification, electroless and electrolytic plating, and surface finishing for chemistry, equipment, and services markets, as well as high-technology applications. In addition, the company sells its products and services through direct sales, network of independent distributors, and sales representatives, as well as websites, including product catalogs. MKS Inc. was formerly known as MKS Instruments, Inc. and changed its name to MKS Inc. in May 2025. The company was incorporated in 1961 and is based in Andover, Massachusetts.",
-  "_built_at": "2026-05-20T20:15:02.476Z",
+  "_built_at": "2026-05-21T16:00:22.452Z",
   "_missing_blocks": []
 }

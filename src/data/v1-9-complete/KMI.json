@@ -38,7 +38,9 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 3.3,
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "explanation_en": "Capital Expenditures : investments in property, plant and equipment.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Dividende",
@@ -64,7 +66,8 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "ttm": 1.19
+      "ttm": 1.19,
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Total Revenue",
@@ -86,7 +89,9 @@
       "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -108,7 +113,9 @@
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Solid expansion, positive trajectory"
     },
     {
       "short": "Operating Income",
@@ -130,7 +137,9 @@
       "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Operating Income : profit from core business operations.",
+      "signal_en": "Steady growth, healthy trend"
     },
     {
       "short": "Total Assets",
@@ -152,7 +161,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -174,7 +185,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -196,7 +209,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "Short": "Capex",
@@ -227,14 +241,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-05-13",
-    "fiscal_year": 2025,
-    "ceo_name": "Richard D. Kinder",
-    "board_independence_pct": null,
-    "board_size": 11,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "top_capital": null,
-    "top_voting": null
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 8.65
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 7.82
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 5.64
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 8.65
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 7.82
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 5.64
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:14:00.273037+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "unit": "$B",
@@ -244,26 +288,30 @@
       {
         "label": "Natural Gas Pipelines",
         "value": 11.01,
+        "share_pct": 64.9,
         "unit": "$B",
-        "share_pct": 64.9
+        "label_en": "Natural Gas Pipelines"
       },
       {
         "label": "Products Pipelines",
         "value": 2.69,
+        "share_pct": 15.9,
         "unit": "$B",
-        "share_pct": 15.9
+        "label_en": "Products Pipelines"
       },
       {
         "label": "Terminals",
         "value": 2.1,
+        "share_pct": 12.4,
         "unit": "$B",
-        "share_pct": 12.4
+        "label_en": "Terminals"
       },
       {
         "label": "CO2",
         "value": 1.17,
+        "share_pct": 6.9,
         "unit": "$B",
-        "share_pct": 6.9
+        "label_en": "CO2"
       }
     ],
     "total": 16.97
@@ -276,21 +324,24 @@
         "value": 12.8,
         "unit": "Mds $",
         "pct": 97.2,
-        "share_pct": 97.2
+        "share_pct": 97.2,
+        "label_en": "United States"
       },
       {
         "name": "Canada",
         "value": 0.3,
         "unit": "Mds $",
         "pct": 2.3,
-        "share_pct": 2.3
+        "share_pct": 2.3,
+        "label_en": "Canada"
       },
       {
         "name": "Mexico and other foreign",
         "value": 0.08,
         "unit": "Mds $",
         "pct": 0.5,
-        "share_pct": 0.5
+        "share_pct": 0.5,
+        "label_en": "Mexico and other foreign"
       }
     ],
     "total": 13.18,
@@ -403,9 +454,9 @@
     }
   ],
   "ranks": {
-    "global_world": "#162",
-    "global_us": "#96",
-    "sector": "Top 10 in Energy",
+    "global_world": "#215",
+    "global_us": "#127",
+    "sector": "Top 25 in Énergie",
     "subsector": "#1 in Oil and Gas Storage and Transportation"
   },
   "latest_filing": null,
@@ -413,6 +464,6 @@
   "publication_date": null,
   "company_description": "Kinder Morgan, Inc. operates as an energy infrastructure company primarily in North America. It operates through Natural Gas Pipelines, Products Pipelines, Terminals, and CO2 segments. The Natural Gas Pipelines segment owns and operates interstate and intrastate natural gas pipeline, and storage systems; natural gas gathering systems and natural gas processing and treating facilities; natural gas liquids fractionation facilities and transportation systems; and liquefied natural gas gasification, liquefaction, and storage facilities. The Products Pipelines segment owns and operates refined petroleum products, and crude oil and condensate pipelines; and associated product terminals and petroleum pipeline transmix facilities. The Terminals segment owns and/or operates liquids and bulk terminals that stores and handles various commodities, including gasoline, diesel fuel, renewable fuel and feedstocks, chemicals, ethanol, metals, and petroleum coke; and owns tankers. The CO2 segment produces, transports, and markets CO2 to recovery and production crude oil from mature oil fields; owns interests in/or operates oil fields and gasoline processing plants; and operates a crude oil pipeline ",
   "_specific_fit_for_site": false,
-  "_built_at": "2026-05-20T20:15:02.444Z",
+  "_built_at": "2026-05-21T16:00:22.386Z",
   "_missing_blocks": []
 }

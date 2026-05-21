@@ -136,10 +136,12 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "quarter",
+      "explanation_en": "Benefit ratio.",
+      "signal_en": "Margin compression, watch profitability",
       "is_short_history_legitimate": true,
       "short_history_legitimate_reason": "Biotech/pharma R&D long cycle (KPIs Phase 3 trials, FDA approvals récents, exercice court structurel) (subsector: Health Insurance)",
       "_short_history_legitimate_rule": "biotech_pharma_recent",
-      "_short_history_legitimate_tagged_at": "2026-05-21T08:25:36.974Z"
+      "_short_history_legitimate_tagged_at": "2026-05-21T08:25:36.973Z"
     },
     {
       "short": "Total Members",
@@ -158,7 +160,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Number of Total members."
     },
     {
       "short": "Specialty Members",
@@ -177,7 +180,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Number of Specialty members."
     },
     {
       "short": "Medicare Advantage Members FL",
@@ -234,7 +238,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "signal_en": "Stable, slight decline to monitor"
     },
     {
       "short": "Total Assets",
@@ -255,7 +260,9 @@
       "signal": "Total des actifs de 48.91 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "DPS",
@@ -279,7 +286,9 @@
       "signal": "Dividende par action de 0.885 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -300,7 +309,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 0.43 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "Payout Ratio",
@@ -321,7 +332,9 @@
       "signal": "Part du résultat net distribué en dividendes : 36.2% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "Short": "Exit from Employer Group Commercial Medical Products Market",
@@ -389,35 +402,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-04-16",
-    "fiscal_year": 2025,
-    "ceo_name": "James A. Rechtin",
-    "ceo_total_comp_m": null,
-    "ceo_pay_ratio": null,
-    "exec_comp_approval_pct": 50,
-    "board_independence_pct": 90,
-    "board_size": 10,
-    "avg_tenure_years": null,
-    "board_women_pct": 30,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
     "top_capital": [
       {
         "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": 11.8
+        "stake_pct": 11.37
       },
       {
-        "name": "Dodge & Cox",
+        "name": "Dodge & Cox Inc.",
         "type": "institutionnel",
-        "stake_pct": 8.5
+        "stake_pct": 9.48
       },
       {
         "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": 7.7
+        "stake_pct": 8.49
       }
     ],
-    "top_voting": null
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.37
+      },
+      {
+        "name": "Dodge & Cox Inc.",
+        "type": "institutionnel",
+        "stake_pct": 9.48
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.49
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:42.315596+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -427,21 +449,24 @@
         "value": 74,
         "unit": "Mds $",
         "pct": 66,
-        "share_pct": 66
+        "share_pct": 66,
+        "label_en": "Retail"
       },
       {
         "name": "Group and Specialty",
         "value": 6.9,
         "unit": "Mds $",
         "pct": 6.15,
-        "share_pct": 6.15
+        "share_pct": 6.15,
+        "label_en": "Group and Specialty"
       },
       {
         "name": "Healthcare Services",
         "value": 31.2,
         "unit": "Mds $",
         "pct": 27.85,
-        "share_pct": 27.85
+        "share_pct": 27.85,
+        "label_en": "Healthcare Services"
       }
     ],
     "total": 112.1,
@@ -456,7 +481,8 @@
         "value": 100,
         "share_pct": 100,
         "single_region_legitimate": true,
-        "unit": "%"
+        "unit": "%",
+        "label_en": "United States"
       }
     ],
     "total": 100,
@@ -549,45 +575,79 @@
   "events": [
     {
       "year": 2026,
-      "month": 5,
-      "title": "Profound Medical Q1 Earnings Call Highlights",
-      "body": "Profound Medical (NASDAQ:PROF) reported sharply higher first-quarter revenue and reiterated its view that adoption of its TULSA prostate treatment platform is moving toward broader commercial use, supported by new clinical data, payer progr",
-      "source": "MarketBeat",
-      "url": "https://www.marketbeat.com/instant-alerts/profound-medical-q1-earnings-call-highlights-2026-05-08/?utm_source=yahoofinance&utm_medium=yahoofinance",
-      "date": "2026-05-08"
+      "month": 7,
+      "title": "Prochaine publication Q3 2026",
+      "body": "Publication attendue le 29 juillet 2026 (Q3 2026).",
+      "source": "yfinance · calendar",
+      "url": "",
+      "date": "2026-07-29"
     },
     {
       "year": 2026,
       "month": 5,
-      "title": "This $4 Million Warrior Met Coal Sale May Be More About Profit Taking Than Coal Prices",
-      "body": "Warrior Met Coal supplies high-grade metallurgical coal to global steelmakers, leveraging underground mining operations in Alabama.",
-      "source": "Motley Fool",
-      "url": "https://www.fool.com/coverage/filings/2026/05/07/this-usd4-million-warrior-met-coal-sale-may-be-more-about-profit-taking-than-coal-prices/",
-      "date": "2026-05-07"
+      "title": "Deutsche Bank sees new upswing for health insurers after years of margin pressure",
+      "body": "Investing.com -- Analysts at Deutsche Bank turned more bullish on the managed care sector, upgrading shares of Humana, Centene, and Elevance Health to “Buy,” while downgrading The Cigna Group to “Hold” on valuation concerns.",
+      "source": "Investing.com",
+      "url": "https://finance.yahoo.com/sectors/healthcare/articles/wall-street-sees-upswing-health-133531169.html",
+      "date": "2026-05-20"
     },
     {
       "year": 2026,
-      "month": 5,
-      "title": "CVS Health Stock Jumps After Earnings. What’s Encouraging Wall Street.",
-      "body": "CVS Health’s Aetna was the third-largest provider of Medicare Advantage plans in 2025, behind UnitedHealth Group and Humana.",
-      "source": "Barrons.com",
-      "url": "https://www.barrons.com/articles/cvs-health-earnings-stock-price-e60f0899?siteid=yhoof2&yptr=yahoo",
-      "date": "2026-05-06"
+      "month": 3,
+      "title": "Publication des résultats Q1 2026",
+      "body": "Clôture du trimestre Q1 2026 le 31 mars 2026.",
+      "source": "yfinance · mostRecentQuarter",
+      "url": "",
+      "date": "2026-03-31"
+    },
+    {
+      "year": 2026,
+      "month": 3,
+      "title": "Dividende 0.885 $/action versé",
+      "body": "Dividende ordinaire de 0.885 $ par action, ex-date 27 mars 2026.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2026-03-27"
+    },
+    {
+      "year": 2025,
+      "month": 12,
+      "title": "Dividende 0.885 $/action versé",
+      "body": "Dividende ordinaire de 0.885 $ par action, ex-date 26 décembre 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-12-26"
+    },
+    {
+      "year": 2025,
+      "month": 9,
+      "title": "Dividende 0.885 $/action versé",
+      "body": "Dividende ordinaire de 0.885 $ par action, ex-date 26 septembre 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-09-26"
+    },
+    {
+      "year": 2025,
+      "month": 6,
+      "title": "Dividende 0.885 $/action versé",
+      "body": "Dividende ordinaire de 0.885 $ par action, ex-date 27 juin 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-06-27"
     }
   ],
   "ranks": {
-    "Global_world": "≈ #XX",
-    "Global_us": "...",
-    "Sector": "...",
-    "Subsector": "...",
-    "global_world": "Top 500 monde",
-    "_source": "yfinance.marketCap"
+    "global_world": "#444",
+    "global_us": "#263",
+    "sector": "Top 50 in Santé",
+    "subsector": "#2 in Health Insurance"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-29",
   "publication_date": null,
   "company_description": "Humana Inc. provides medical and specialty insurance products in the United States. It operates in two segments, Insurance and CenterWell. The Insurance segment offers individual Medicare Advantage products, including health insurance benefits, including wellness programs, chronic care management, and care coordination; individual Medicare stand-alone prescription drug products (PDP); group Medicare advantage and Medicare stand-alone PDP; Medicare supplements; specialty and ancillary insurance comprising dental, vision, life and disability; and administrative services to arrange health care services for active-duty and retired military personnel and dependents, as well as pharmacy benefit managers. Its CenterWell segment operates full-service, value-based senior focused primary care centers under the Conviva Senior Primary Care and CenterWell Senior Primary Care brands; a management services organization; CenterWell Home Health, a home health provider; and OneHome, which manages post-acute patient needs, as well as provides pharmacy and hospice solutions. The company was formerly known as Extendicare Inc. and changed its name to Humana Inc. in April 1974. Humana Inc. was founded in",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-21T02:08:59.357Z",
+  "_built_at": "2026-05-21T16:00:22.310Z",
   "_missing_blocks": []
 }

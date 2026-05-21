@@ -311,7 +311,8 @@
         "old_unit": "%",
         "old_value": 15454000000,
         "factor": 1000000000
-      }
+      },
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Total Assets",
@@ -333,7 +334,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "DPS",
@@ -357,7 +360,9 @@
       "signal": "Dividende par action de 1.05 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -379,7 +384,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -401,7 +408,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Total Revenue",
@@ -423,7 +432,9 @@
       "signal": "Chiffre d'affaires de 15.454 Mds $ dernière année.",
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 5 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -448,7 +459,9 @@
       "signal": "Résultat net de 2.132 Mds $ dernière année.",
       "description": "Résultat net consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns"
     },
     {
       "short": "ai_cloud_mix",
@@ -493,28 +506,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-05-08",
-    "fiscal_year": 2025,
-    "ceo_name": "Noel Wallace",
-    "board_size": 10,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
     "top_capital": [
       {
         "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": 10.26
+        "stake_pct": 9.48
       },
       {
         "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": 8.18
+        "stake_pct": 9.05
       },
       {
         "name": "State Street Corporation",
         "type": "institutionnel",
         "stake_pct": 5.95
       }
-    ]
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 9.48
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 9.05
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 5.95
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:12:34.740466+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -524,14 +553,16 @@
         "value": 13.588,
         "unit": "Mds $",
         "pct": 82.5,
-        "share_pct": 82.5
+        "share_pct": 82.5,
+        "label_en": "Oral, Personal and Home Care"
       },
       {
         "name": "Pet Nutrition",
         "value": 2.883,
         "unit": "Mds $",
         "pct": 17.5,
-        "share_pct": 17.5
+        "share_pct": 17.5,
+        "label_en": "Pet Nutrition"
       }
     ],
     "total": 16.47,
@@ -545,41 +576,47 @@
         "value": 5.453,
         "unit": "Mds $",
         "pct": 33.1,
-        "share_pct": 33.1
+        "share_pct": 33.1,
+        "label_en": "North America"
       },
       {
         "name": "Latin America",
         "value": 3.418,
         "unit": "Mds $",
         "pct": 20.8,
-        "share_pct": 20.8
+        "share_pct": 20.8,
+        "label_en": "Latin America"
       },
       {
         "name": "Europe",
         "value": 2.747,
         "unit": "Mds $",
         "pct": 16.7,
-        "share_pct": 16.7
+        "share_pct": 16.7,
+        "label_en": "Europe"
       },
       {
         "name": "Asia Pacific",
         "value": 2.701,
         "unit": "Mds $",
         "pct": 16.4,
-        "share_pct": 16.4
+        "share_pct": 16.4,
+        "label_en": "Asia Pacific"
       },
       {
         "name": "Africa/Eurasia",
         "value": 0.981,
         "unit": "Mds $",
         "pct": 6,
-        "share_pct": 6
+        "share_pct": 6,
+        "label_en": "Africa/Eurasia"
       },
       {
         "share_pct": 7,
         "unit": "Mds $",
         "pct": 7,
-        "name": "Autres"
+        "name": "Autres",
+        "label_en": "Other"
       }
     ],
     "total": 15.3,
@@ -642,48 +679,104 @@
     }
   ],
   "ai_positioning": {
-    "stance": "developing",
-    "summary": "Colgate-Palmolive reconnaît l'IA comme une capacité stratégique clé dans sa stratégie 2030, visant à mener dans les domaines des données, analytiques et intelligence artificielle. La société a accru ses capacités en IA malgré les défis macroéconomiques.",
+    "stance": "integrator",
+    "summary": "Colgate-Palmolive intègre l'IA comme levier stratégique dans sa génération de demande omnicanal et son analyse data, sans en faire un produit central.",
     "evidence": [
-      "La stratégie 2030 identifie le leadership en capacités telles que les données, analytiques et IA comme un élément clé des initiatives de croissance accélérée.",
-      "Le plan stratégique 2025 inclut des augmentations de capacités en science-led innovation, digital, data, analytics et artificial intelligence."
+      "L'entreprise identifie explicitement l'IA et l'analytique comme une capacité clé pour générer des insights commerciaux et renforcer son approche omnicanal.",
+      "Elle mentionne la pression accrue des retailers utilisant des algorithmes d'IA pour fixer les prix de catégorie, ce qui influence sa stratégie commerciale.",
+      "L'IA est citée comme facteur de transformation du comportement d'achat, avec une montée de l'e-commerce social et des parcours d'achat assistés par IA.",
+      "La société dépend de plus des données propriétaires des grands détaillants, limitant son accès aux données consommateurs malgré ses efforts en analytique."
     ],
-    "source": "Management Discussion and Analysis (Item 7), Business Strategy section, 10-K 2025"
+    "source_note": "10-K FY2025, sections Business, Risk Factors et MD&A",
+    "_bucket": "MEDIUM",
+    "_subsector": "Consumer Staples",
+    "_sources_used": {
+      "has_10k": true,
+      "has_transcript": false,
+      "ai_passages_chars": 9908
+    },
+    "_generated_at": "2026-05-21T02:21:50.877911+00:00",
+    "ticker": "CL"
   },
   "market_positions": [],
   "events": [
     {
       "year": 2026,
-      "month": 5,
-      "title": "Venezuela begins debt restructuring process as sanctions ease",
-      "body": "Investing.com -- Venezuela announced Wednesday that it has started a comprehensive process to restructure its sovereign and state oil company debt, following the lifting of U.S. sanctions earlier this year.",
-      "source": "Investing.com",
-      "url": "https://finance.yahoo.com/economy/policy/articles/venezuela-begins-debt-restructuring-process-122649480.html",
-      "date": "2026-05-14"
+      "month": 7,
+      "title": "Prochaine publication Q3 2026",
+      "body": "Publication attendue le 31 juillet 2026 (Q3 2026).",
+      "source": "yfinance · calendar",
+      "url": "",
+      "date": "2026-07-31"
     },
     {
       "year": 2026,
       "month": 5,
-      "title": "Polestar CEO says high fuel prices drive EV demand",
-      "body": "Investing.com -- Electric-vehicle maker Polestar said Thursday that rising fuel prices have shifted consumer focus from \"range anxiety\" to \"pump anxiety\" as a Middle East crisis drives up global energy costs.",
+      "title": "Canada inflation accelerates to 2.8% in April but misses forecasts",
+      "body": "Inbesting.com -- Canada’s annual inflation rate accelerated less than anticipated in April as underlying price pressures showed signs of cooling. According to data from Statistics Canada, the consumer price index rose 2.8% from a year earli",
       "source": "Investing.com",
-      "url": "https://finance.yahoo.com/sectors/energy/articles/polestar-ceo-says-high-fuel-121436929.html",
-      "date": "2026-05-14"
+      "url": "https://finance.yahoo.com/economy/articles/canada-inflation-accelerates-2-8-134211811.html",
+      "date": "2026-05-19"
     },
     {
       "year": 2026,
       "month": 5,
-      "title": "Colgate-Palmolive’s Q1 Earnings Call: Our Top 5 Analyst Questions",
-      "body": "Colgate-Palmolive began 2026 with positive momentum, as Q1 results exceeded Wall Street’s revenue and non-GAAP profit expectations. Management credited improved sales volumes and strong brand performance in emerging markets, particularly in",
-      "source": "StockStory",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/colgate-palmolive-q1-earnings-call-233255108.html",
-      "date": "2026-05-11"
+      "title": "Hormuz reopening may cause tanker rates to rise or fall, says CMB.Tech CEO",
+      "body": "Investing.com - The head of Belgian tanker firm CMB.Tech said on Tuesday that uncertainty remains over whether reopening the Strait of Hormuz would cause freight rates to rise or fall, despite the current boom in the tanker market.",
+      "source": "Investing.com",
+      "url": "https://finance.yahoo.com/sectors/energy/articles/hormuz-reopening-may-cause-tanker-122411482.html",
+      "date": "2026-05-19"
+    },
+    {
+      "year": 2026,
+      "month": 4,
+      "title": "Dividende 0.53 $/action versé",
+      "body": "Dividende ordinaire de 0.53 $ par action, ex-date 20 avril 2026.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2026-04-20"
+    },
+    {
+      "year": 2026,
+      "month": 3,
+      "title": "Publication des résultats Q1 2026",
+      "body": "Clôture du trimestre Q1 2026 le 31 mars 2026.",
+      "source": "yfinance · mostRecentQuarter",
+      "url": "",
+      "date": "2026-03-31"
+    },
+    {
+      "year": 2026,
+      "month": 1,
+      "title": "Dividende 0.52 $/action versé",
+      "body": "Dividende ordinaire de 0.52 $ par action, ex-date 21 janvier 2026.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2026-01-21"
+    },
+    {
+      "year": 2025,
+      "month": 10,
+      "title": "Dividende 0.52 $/action versé",
+      "body": "Dividende ordinaire de 0.52 $ par action, ex-date 17 octobre 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-10-17"
+    },
+    {
+      "year": 2025,
+      "month": 7,
+      "title": "Dividende 0.52 $/action versé",
+      "body": "Dividende ordinaire de 0.52 $ par action, ex-date 18 juillet 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-07-18"
     }
   ],
   "ranks": {
-    "global_world": "#215",
-    "global_us": "#124",
-    "sector": "Top 10 in Consommation de base",
+    "global_world": "#219",
+    "global_us": "#130",
+    "sector": "Top 25 in Consommation de base",
     "subsector": "#1 in Consumer Staples"
   },
   "latest_filing": null,
@@ -691,6 +784,6 @@
   "publication_date": null,
   "company_description": "Colgate-Palmolive Company, together with its subsidiaries, manufactures and sells consumer products in the United States and internationally. It operates through two segments: Oral, Personal and Home Care; and Pet Nutrition. The Oral, Personal and Home Care segment offers toothpaste, toothbrushes, mouthwash, bar and liquid hand soaps, shower gels, shampoos, conditioners, deodorants and antiperspirants, skin health products, dishwashing detergents, fabric conditioners, household cleaners, and other related items. This segment markets and sells its products under the Colgate, Palmolive, Darlie, elmex, hello, meridol, Sorriso, Tom's of Maine, EltaMD, Filorga, Irish Spring, Lady Speed Stick, PCA SKIN, Protex, Sanex, Softsoap, Speed Stick, Ajax, Axion, Fabuloso, Murphy, Soupline, and Suavitel brands to a range of traditional and eCommerce retailers, wholesalers, and distributors, as well as dentists and skin health professionals. It also offers pharmaceutical products for dentists and other oral health professionals. The Pet Nutrition segment offers pet nutrition products for everyday nutritional needs under the Hill's Science Diet brand; and a range of therapeutic pet products to help ",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-21T02:08:59.160Z",
+  "_built_at": "2026-05-21T16:00:22.044Z",
   "_missing_blocks": []
 }

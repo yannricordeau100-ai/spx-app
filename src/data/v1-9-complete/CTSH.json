@@ -72,14 +72,18 @@
       "unit": "Mds $",
       "yoy": "+1.7%",
       "history": [
-        2.34,
-        2.38,
-        2.42
+        692,
+        732,
+        794,
+        691,
+        769,
+        625
       ],
       "period_type": "annual",
       "description": "Revenus du segment CMT (communications, médias, divertissement, éducation, services professionnels, technologie). Source: Note 2 - segment revenues 2023: $2,344M, 2024: $2,382M, 2025: $2,424M.",
       "signal": "Segment le plus petit mais avec croissance stable, porté par l'adoption d'IA et la modernisation des opérations.",
-      "quality": "Bon"
+      "quality": "Bon",
+      "is_short_history": false
     },
     {
       "short": "Tech_Attrition",
@@ -119,7 +123,9 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 16.31,
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "explanation_en": "Profit margin on Op.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Revenue",
@@ -142,7 +148,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "ttm": 21.47
+      "ttm": 21.47,
+      "explanation_en": "Revenue : total sales generated over the period.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Voluntary Attrition",
@@ -164,7 +172,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Stable, slight decline to monitor"
     },
     {
       "short": "Headcount",
@@ -186,7 +195,9 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Headcount : total number of employees at period end.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Total Revenue",
@@ -208,7 +219,9 @@
       "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Total Assets",
@@ -230,7 +243,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -252,7 +267,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Cash & Equivalents",
@@ -274,7 +291,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "Belcan Acquisition",
@@ -358,41 +376,83 @@
     ]
   },
   "revenue_by_segment": {
-    "label": "Répartition du chiffre d'affaires par segment opérationnel",
     "slices": [
       {
-        "name": "Financial Services",
-        "value": 1.449,
-        "unit": "Mds $",
-        "pct": 30.5,
-        "share_pct": 30.5
+        "label": "Health Sciences",
+        "share_pct": 30.06,
+        "label_fr": "Sciences de la santé",
+        "label_en": "Health Sciences",
+        "value": 5.932,
+        "unit": "Mds $"
       },
       {
-        "name": "Healthcare",
-        "value": 1.383,
-        "unit": "Mds $",
-        "pct": 29.1,
-        "share_pct": 29.1
+        "label": "Financial Services",
+        "share_pct": 29.15,
+        "label_fr": "Services financiers",
+        "label_en": "Financial Services",
+        "value": 5.753,
+        "unit": "Mds $"
       },
       {
-        "name": "Products and Resources",
-        "value": 1.078,
-        "unit": "Mds $",
-        "pct": 22.7,
-        "share_pct": 22.7
+        "label": "Products and Resources",
+        "share_pct": 24.23,
+        "label_fr": "Produits et ressources",
+        "label_en": "Products and Resources",
+        "value": 4.782,
+        "unit": "Mds $"
       },
       {
-        "name": "Communications, Media and Technology",
-        "value": 0.794,
-        "unit": "Mds $",
-        "pct": 16.7,
-        "share_pct": 16.7
+        "label": "Communications, Media and Technology",
+        "share_pct": 16.56,
+        "label_fr": "Communications, médias et technologies",
+        "label_en": "Communications, Media and Technology",
+        "value": 3.269,
+        "unit": "Mds $"
       }
     ],
-    "total": 4.7,
-    "unit": "Mds $"
+    "year": 2024,
+    "currency": "USD",
+    "total": 19.736
   },
-  "revenue_by_geography": null,
+  "revenue_by_geography": {
+    "slices": [
+      {
+        "label": "North America",
+        "share_pct": 74.47,
+        "label_fr": "Amérique du Nord",
+        "label_en": "North America",
+        "value": 14.698,
+        "unit": "Mds $"
+      },
+      {
+        "label": "United Kingdom",
+        "share_pct": 9.26,
+        "label_fr": "Royaume-Uni",
+        "label_en": "United Kingdom",
+        "value": 1.827,
+        "unit": "Mds $"
+      },
+      {
+        "label": "Continental Europe",
+        "share_pct": 9.79,
+        "label_fr": "Europe continentale",
+        "label_en": "Continental Europe",
+        "value": 1.932,
+        "unit": "Mds $"
+      },
+      {
+        "label": "Rest of World",
+        "share_pct": 6.48,
+        "label_fr": "Reste du monde",
+        "label_en": "Rest of World",
+        "value": 1.279,
+        "unit": "Mds $"
+      }
+    ],
+    "year": 2024,
+    "currency": "USD",
+    "total": 19.736
+  },
   "risks": [
     {
       "title": "Fluctuations des taux de change INR/USD",
@@ -499,18 +559,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #185",
-    "global_us": "≈ #43",
-    "sector": "≈ #10",
-    "subsector": "≈ #5"
+    "global_world": "#450",
+    "global_us": "#272",
+    "sector": "#123 in Technologie",
+    "subsector": "#2 in IT Services"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-29",
   "publication_date": null,
   "company_description": "Cognizant Technology Solutions Corporation, a professional services company, provides consulting and technology, and outsourcing services in North America, Europe, and internationally. It operates through four segments: Financial Services; Health Sciences; Products and Resources; and Communications, Media and Technology. The company provides services including artificial intelligence (AI) and other technology services and solutions, consulting, application development, systems integration, quality engineering and assurance, engineering research and development, application maintenance, infrastructure, security, and business process services and automation. It also offers AI-led automation, which includes advisory, and process and IT automation solutions designed to simplify and accelerate automation adoption; business process outsourcing services, which help deliver business outcomes including revenue growth, increased customer and employee satisfaction, and cost savings; and Cognizant Moment, a digital experience service that uses AI to reimagine customer experiences and engineer strategies aimed at driving growth. In addition, the company develops, licenses, implements, and suppo",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.282Z",
-  "_missing_blocks": [
-    "revenue_by_geography"
-  ]
+  "_built_at": "2026-05-21T16:00:22.100Z",
+  "_missing_blocks": []
 }

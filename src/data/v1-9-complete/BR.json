@@ -44,6 +44,7 @@
       "period_type": "quarter",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:55:32.194232+00:00",
+      "signal_en": "Strong top-line growth, market traction",
       "is_short_history_legitimate": true,
       "short_history_legitimate_reason": "Fintech/payments (KPIs récents embedded finance, RTP, BNPL, paid users non-disclosed historiquement) (subsector: Technologie financière)",
       "_short_history_legitimate_rule": "fintech_payments_recent",
@@ -74,7 +75,8 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 177.64,
-      "_validation": "Unité corrigée de 'Mds $' à 'M $'; histoire réarrangée pour ordre décroissant correct"
+      "_validation": "Unité corrigée de 'Mds $' à 'M $'; histoire réarrangée pour ordre décroissant correct",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Distribution Revenues",
@@ -101,7 +103,8 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 1598.23,
-      "_validation": "Unité corrigée de 'Mds $' à 'M $'; histoire réarrangée pour ordre décroissant correct"
+      "_validation": "Unité corrigée de 'Mds $' à 'M $'; histoire réarrangée pour ordre décroissant correct",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Operating Income",
@@ -128,7 +131,9 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 665.91,
-      "_validation": "Unité corrigée de 'Mds $' à 'M $'; histoire réarrangée pour ordre décroissant correct"
+      "_validation": "Unité corrigée de 'Mds $' à 'M $'; histoire réarrangée pour ordre décroissant correct",
+      "explanation_en": "Operating Income : profit from core business operations.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Net Earnings",
@@ -155,7 +160,8 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 430.55,
-      "_validation": "Unité corrigée de 'Mds $' à 'M $'; histoire réarrangée pour ordre décroissant correct"
+      "_validation": "Unité corrigée de 'Mds $' à 'M $'; histoire réarrangée pour ordre décroissant correct",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Total Assets",
@@ -177,7 +183,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -199,7 +207,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Cash & Equivalents",
@@ -221,7 +231,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Mutual Fund Proxy Revenues",
@@ -250,17 +261,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2025-11-13",
-    "fiscal_year": 2025,
-    "ceo_name": "Timothy C. Gokey",
-    "exec_comp_approval_pct": null,
-    "board_independence_pct": 87.5,
-    "board_size": 8,
-    "avg_tenure_years": null,
-    "board_women_pct": 37.5,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "top_capital": [],
-    "top_voting": []
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 12.06
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 9.52
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.76
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 12.06
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 9.52
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.76
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:12:20.737606+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -270,14 +308,16 @@
         "value": 3.4913,
         "unit": "Mds $",
         "pct": 74.85,
-        "share_pct": 74.85
+        "share_pct": 74.85,
+        "label_en": "Investor Communication Solutions"
       },
       {
         "name": "Global Technology and Operations",
         "value": 1.1742,
         "unit": "Mds $",
         "pct": 25.15,
-        "share_pct": 25.15
+        "share_pct": 25.15,
+        "label_en": "Global Technology and Operations"
       }
     ],
     "total": 4.67,
@@ -292,28 +332,32 @@
         "value": 3.9897,
         "unit": "Mds $",
         "pct": 88.1,
-        "share_pct": 88.1
+        "share_pct": 88.1,
+        "label_en": "United States"
       },
       {
         "name": "Canada",
         "value": 0.3416,
         "unit": "Mds $",
         "pct": 7.5,
-        "share_pct": 7.5
+        "share_pct": 7.5,
+        "label_en": "Canada"
       },
       {
         "name": "Royaume-Uni",
         "value": 0.1444,
         "unit": "Mds $",
         "pct": 3.2,
-        "share_pct": 3.2
+        "share_pct": 3.2,
+        "label_en": "United Kingdom"
       },
       {
         "name": "Autres",
         "value": 0.0535,
         "unit": "Mds $",
         "pct": 1.2,
-        "share_pct": 1.2
+        "share_pct": 1.2,
+        "label_en": "Other"
       }
     ],
     "total": 4.53,
@@ -435,16 +479,16 @@
     }
   ],
   "ranks": {
-    "global_world": "#544",
-    "global_us": "#332",
-    "sector": "#156 in Technologie",
-    "subsector": "Top 10 in Technologie financière"
+    "global_world": "#551",
+    "global_us": "#334",
+    "sector": "#152 in Technologie",
+    "subsector": "Top 5 in Technologie financière"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-04-30",
   "publication_date": null,
   "company_description": "Broadridge Financial Solutions, Inc. provides investor communications and technology-driven solutions for the financial services industry in the United States and internationally. The company's Investor Communication Solutions segment handles the proxy materials distribution and voting processes for bank, broker-dealer, corporate issuer, and fund clients; and provides fund manager and a range of other regulatory communication solutions. The segment also offers ProxyEdge, an electronic proxy delivery and voting solution; data-driven solutions and an end-to-end platform for content management, composition, and omni-channel distribution of regulatory, marketing, and transactional information, as well as mutual fund and exchange-traded funds trade processing services; data and analytics solutions; annual SEC filing and capital markets transaction services; registrar, stock transfer, and record-keeping services; and omni-channel customer communications solutions, as well as operates Broadridge Communications Cloud platform that creates, delivers, and manages communications and customer engagement activities. The Global Technology and Operations segment provides solutions that automate t",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-21T02:08:59.111Z",
+  "_built_at": "2026-05-21T16:00:21.996Z",
   "_missing_blocks": []
 }

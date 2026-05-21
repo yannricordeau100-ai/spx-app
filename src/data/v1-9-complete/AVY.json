@@ -93,7 +93,8 @@
       "is_short_history": false,
       "_validation": "Correction: value changé de 'stable' à 'non disponible'; yoy changé de 'stable' à 'n/a' (données non numériques)",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "Gross Margin (%) values not explicitly stated in the provided 10-K extract. The document contains MD&A and financial statement headers but d"
+      "_hero_history_unverified_reason": "Gross Margin (%) values not explicitly stated in the provided 10-K extract. The document contains MD&A and financial statement headers but d",
+      "explanation_en": "Gross Margin : gross profit divided by revenue."
     },
     {
       "short": "Op Margin",
@@ -113,7 +114,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_validation": "Correction: value changé de 'stable' à 'non disponible'; yoy changé de 'stable' à 'n/a' (données non numériques)"
+      "_validation": "Correction: value changé de 'stable' à 'non disponible'; yoy changé de 'stable' à 'n/a' (données non numériques)",
+      "explanation_en": "Profit margin on Op."
     },
     {
       "short": "R&D",
@@ -133,7 +135,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_validation": "Correction: name_fr simplifié (suppression de '% revenu'); name_en harmonisé"
+      "_validation": "Correction: name_fr simplifié (suppression de '% revenu'); name_en harmonisé",
+      "explanation_en": "Research & Development expenses."
     },
     {
       "short": "Capex",
@@ -153,7 +156,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_validation": "Correction: unit changé de 'Mds $' à 'M $' (cohérent avec échelle de l'entreprise); name_fr amélioré"
+      "_validation": "Correction: unit changé de 'Mds $' à 'M $' (cohérent avec échelle de l'entreprise); name_fr amélioré",
+      "explanation_en": "Capital Expenditures : investments in property, plant and equipment."
     },
     {
       "short": "Headcount",
@@ -175,7 +179,9 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "_validation": "Correction: name_fr amélioré (clarification contexte 2025); unit clarifié en 'postes'; is_generic changé à false (événement spécifique)"
+      "_validation": "Correction: name_fr amélioré (clarification contexte 2025); unit clarifié en 'postes'; is_generic changé à false (événement spécifique)",
+      "explanation_en": "Headcount : total number of employees at period end.",
+      "signal_en": "Significant decline, warning signal"
     },
     {
       "short": "Adjusted free cash flow",
@@ -217,7 +223,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -239,7 +247,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "DPS",
@@ -263,7 +273,9 @@
       "signal": "Dividende par action de 0.94 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -285,7 +297,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -307,7 +321,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Total Revenue",
@@ -333,7 +349,9 @@
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -358,7 +376,9 @@
       "signal": "Résultat net de 0.688 Mds $ dernière année.",
       "description": "Résultat net consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns"
     },
     {
       "short": "Organic sales change",
@@ -413,16 +433,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-04-30",
-    "fiscal_year": 2025,
-    "ceo_name": "Vikas Arora",
-    "board_independence_pct": null,
-    "board_size": 10,
-    "avg_tenure_years": null,
-    "board_women_pct": null,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "top_capital": null,
-    "top_voting": null
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 12.91
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.34
+      },
+      {
+        "name": "Wellington Management Group, LLP",
+        "type": "institutionnel",
+        "stake_pct": 6.94
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 12.91
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.34
+      },
+      {
+        "name": "Wellington Management Group, LLP",
+        "type": "institutionnel",
+        "stake_pct": 6.94
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:12:09.210475+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -432,14 +480,16 @@
         "value": 6.51,
         "unit": "Mds $",
         "pct": 72,
-        "share_pct": 72
+        "share_pct": 72,
+        "label_en": "Materials Group"
       },
       {
         "name": "Solutions Group",
         "value": 2.53,
         "unit": "Mds $",
         "pct": 28,
-        "share_pct": 28
+        "share_pct": 28,
+        "label_en": "Solutions Group"
       }
     ],
     "total": 9.04,
@@ -453,35 +503,40 @@
         "value": 2.57,
         "unit": "Mds $",
         "pct": 28.4,
-        "share_pct": 28.4
+        "share_pct": 28.4,
+        "label_en": "North America"
       },
       {
         "name": "Europe",
         "value": 2.68,
         "unit": "Mds $",
         "pct": 29.7,
-        "share_pct": 29.7
+        "share_pct": 29.7,
+        "label_en": "Europe"
       },
       {
         "name": "Asie",
         "value": 2.82,
         "unit": "Mds $",
         "pct": 31.2,
-        "share_pct": 31.2
+        "share_pct": 31.2,
+        "label_en": "Asia"
       },
       {
         "name": "Amérique latine",
         "value": 0.61,
         "unit": "Mds $",
         "pct": 6.7,
-        "share_pct": 6.7
+        "share_pct": 6.7,
+        "label_en": "Latin America"
       },
       {
         "name": "Autres internationaux",
         "value": 0.37,
         "unit": "Mds $",
         "pct": 4.1,
-        "share_pct": 4.1
+        "share_pct": 4.1,
+        "label_en": "Other International"
       }
     ],
     "total": 9.05,
@@ -553,10 +608,18 @@
     }
   ],
   "ai_positioning": {
-    "stance": "absent",
-    "summary": "Aucune mention significative de l'intelligence artificielle ou du machine learning dans le rapport 10-K d'AVY.",
-    "evidence": [],
-    "source": "Rapport 10-K d'AVY"
+    "stance": "cautious",
+    "summary": "Avery Dennison Corporation mentionne peu l'IA dans ses communications officielles (Materials Science and Digital Identification Solutions).",
+    "evidence": [
+      "Aucune mention significative d'IA dans le 10-K ou les earnings calls disponibles localement.",
+      "Le secteur Materials Science and Digital Identification Solutions commence à intégrer l'IA mais Avery Dennison Corporation ne met pas le sujet en avant à ce jour.",
+      "Mettrik AI réévaluera le positionnement IA à chaque nouvelle publication."
+    ],
+    "source_note": "Sources locales sans mentions IA significatives",
+    "_bucket": "MEDIUM",
+    "_no_ai_passages": true,
+    "_generated_at": "2026-05-21T02:27:29.573297+00:00",
+    "ticker": "AVY"
   },
   "market_positions": [],
   "events": [
@@ -598,16 +661,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #XX",
-    "global_us": "...",
-    "sector": "...",
-    "subsector": "..."
+    "global_world": "#665",
+    "global_us": "#405",
+    "sector": "#181 in Technologie",
+    "subsector": "#1 in Materials Science and Digital Identification Solutions"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-21",
   "publication_date": null,
   "company_description": "Avery Dennison Corporation operates as a materials science and digital identification solutions company in the North America, Europe, the Middle East, North Africa, Asia, and Latin America. It offers pressure-sensitive label materials, which consist of papers, plastic films, and metal foils; performance tapes products, including mechanical fasteners, which are precision-extruded and injection-molded plastic devices; and other pressure-sensitive adhesive-based materials and converted products under the Fasson, JAC, and Avery Dennison brands. The company provides graphics and reflective products that include films and other products for the architectural, commercial sign, digital printing, and other related market segments; durable cast and reflective films to the construction, automotive, and fleet transportation markets; sign shops, commercial printers, and designers for pressure-sensitive materials; reflective films for traffic and safety applications; and pressure-sensitive vinyl and specialty materials for digital imaging, screen printing, and sign cutting applications under the Avery Dennison and Mactac brand names. In addition, it offers branding solutions, which include brand",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.175Z",
+  "_built_at": "2026-05-21T16:00:21.943Z",
   "_missing_blocks": []
 }

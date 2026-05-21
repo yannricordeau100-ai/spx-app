@@ -93,7 +93,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "_validation": "Corrigé: unité 'Mds $' en 'B$', history corrigée (7 valeurs aberrantes réduites à 4 valeurs cohérentes avec croissance +7%)"
+      "_validation": "Corrigé: unité 'Mds $' en 'B$', history corrigée (7 valeurs aberrantes réduites à 4 valeurs cohérentes avec croissance +7%)",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Inventory Sales Revenue",
@@ -116,7 +118,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "_validation": "Ajouté: KPI extrait de la source financière, valeurs et croissance vérifiées"
+      "_validation": "Ajouté: KPI extrait de la source financière, valeurs et croissance vérifiées",
+      "explanation_en": "Revenue from the Inventory Sales segment.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -139,7 +143,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "_validation": "Ajouté: KPI extrait de la source financière, unité M$, valeurs vérifiées"
+      "_validation": "Ajouté: KPI extrait de la source financière, unité M$, valeurs vérifiées",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Adjusted EBITDA",
@@ -162,7 +168,9 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "_validation": "Ajouté: KPI extrait de la source financière, unité B$, valeurs vérifiées"
+      "_validation": "Ajouté: KPI extrait de la source financière, unité B$, valeurs vérifiées",
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Operating Income",
@@ -187,7 +195,9 @@
       "signal": "Résultat opérationnel de 0.713 Mds $ dernière année fiscale (FY2025).",
       "description": "Résultat opérationnel extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Operating Income : profit from core business operations.",
+      "signal_en": "Profitability under pressure, monitor returns"
     },
     {
       "short": "Diluted EPS",
@@ -212,7 +222,9 @@
       "signal": "BPA dilué de 2.04 $ dernière année fiscale (FY2025).",
       "description": "BPA dilué extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "DPS",
@@ -236,7 +248,9 @@
       "signal": "Dividende par action de 0.58 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -258,7 +272,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -280,7 +296,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "GTV 2025",
@@ -372,7 +390,45 @@
     "fiscal_year": 2025,
     "ceo_name": "Jim Kessler",
     "board_size": 10,
-    "voting_structure": "Virtual-only format via live audio webcast with online voting"
+    "voting_structure": "Virtual-only format via live audio webcast with online voting",
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.68
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.3
+      },
+      {
+        "name": "Massachusetts Financial Services Co.",
+        "type": "institutionnel",
+        "stake_pct": 6.05
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.68
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.3
+      },
+      {
+        "name": "Massachusetts Financial Services Co.",
+        "type": "institutionnel",
+        "stake_pct": 6.05
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:14:54.644361+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "unit": "Mds $",
@@ -382,26 +438,30 @@
       {
         "label": "Transactional buyer revenue",
         "value": 2.24,
-        "unit": "M $",
-        "share_pct": 48.7
+        "share_pct": 48.7,
+        "unit": "Mds $",
+        "label_en": "Transactional buyer revenue"
       },
       {
         "label": "Inventory sales revenue",
         "value": 1.09,
-        "unit": "M $",
-        "share_pct": 23.7
+        "share_pct": 23.7,
+        "unit": "Mds $",
+        "label_en": "Inventory sales revenue"
       },
       {
         "label": "Transactional seller revenue",
         "value": 0.93,
-        "unit": "M $",
-        "share_pct": 20.2
+        "share_pct": 20.2,
+        "unit": "Mds $",
+        "label_en": "Transactional seller revenue"
       },
       {
         "label": "Marketplace services revenue",
         "value": 0.34,
-        "unit": "M $",
-        "share_pct": 7.4
+        "share_pct": 7.4,
+        "unit": "Mds $",
+        "label_en": "Marketplace services revenue"
       }
     ],
     "total": 4.6
@@ -414,32 +474,37 @@
       {
         "label": "États-Unis",
         "value": 3.31,
-        "unit": "M $",
-        "share_pct": 72
+        "share_pct": 72,
+        "unit": "Mds $",
+        "label_en": "United States"
       },
       {
         "label": "Canada",
         "value": 0.7,
-        "unit": "M $",
-        "share_pct": 15.2
+        "share_pct": 15.2,
+        "unit": "Mds $",
+        "label_en": "Canada"
       },
       {
         "label": "Europe",
         "value": 0.34,
-        "unit": "M $",
-        "share_pct": 7.4
+        "share_pct": 7.4,
+        "unit": "Mds $",
+        "label_en": "Europe"
       },
       {
         "label": "Australie",
         "value": 0.15,
-        "unit": "M $",
-        "share_pct": 3.3
+        "share_pct": 3.3,
+        "unit": "Mds $",
+        "label_en": "Australia"
       },
       {
         "label": "Autres",
         "value": 0.1,
-        "unit": "M $",
-        "share_pct": 2.2
+        "share_pct": 2.2,
+        "unit": "Mds $",
+        "label_en": "Other"
       }
     ],
     "total": 4.6
@@ -553,9 +618,9 @@
     }
   ],
   "ranks": {
-    "global_world": "#223",
-    "global_us": "#121",
-    "sector": "Top 25 in Industrials",
+    "global_world": "#516",
+    "global_us": "#312",
+    "sector": "#53 in Industrie",
     "subsector": "#1 in Commercial Services & Supplies"
   },
   "latest_filing": null,
@@ -563,6 +628,6 @@
   "publication_date": null,
   "company_description": "RB Global, Inc. operates a marketplace that provides insights, services, and transaction solutions for buyers and sellers of commercial assets and vehicles worldwide. The company's marketplace brands include Ritchie Bros., an auctioneer of commercial assets and vehicles; IAA, a digital marketplace that connects vehicle buyers and sellers; Rouse, which provides asset management, data-driven intelligence, and performance benchmarking system; SmartEquip, a technology platform that supports customers' management of the equipment lifecycle; and Veritread, an online marketplace for heavy haul transport solution. It also offers transaction, financial, loan payoff, appraisal, inspection, listing, refurbishing, transportation and logistics, data, parts, catastrophe response, and title services. The company serves customers across various asset classes, including automotive, commercial transportation, construction, government surplus, lifting and material handling, energy, mining, and agriculture. RB Global, Inc. was founded in 1958 and is headquartered in Westchester, Illinois.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.572Z",
+  "_built_at": "2026-05-21T16:00:22.639Z",
   "_missing_blocks": []
 }

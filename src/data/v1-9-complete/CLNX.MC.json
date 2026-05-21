@@ -131,7 +131,9 @@
       "_validation": "Aucune correction nécessaire",
       "period_type": "quarter",
       "_hero_history_unverified": true,
-      "_hero_history_reason": "non trouvée dans Annual report 2026: non trouvé"
+      "_hero_history_reason": "non trouvée dans Annual report 2026: non trouvé",
+      "explanation_en": "Year-over-year growth in PoPs.",
+      "signal_en": "Demand strengthening, end-market traction"
     },
     {
       "short": "EBITDAaL",
@@ -154,7 +156,8 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "_validation": "Aucune correction nécessaire"
+      "_validation": "Aucune correction nécessaire",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "RLFCF",
@@ -177,7 +180,8 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "_validation": "Signal corrigé : suppression de 'doubler le FCF en 2 ans' qui n'est pas validé dans les données sources (seule RLFCF est disponible sur 2 périodes)"
+      "_validation": "Signal corrigé : suppression de 'doubler le FCF en 2 ans' qui n'est pas validé dans les données sources (seule RLFCF est disponible sur 2 périodes)",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Revenue",
@@ -200,7 +204,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "_validation": "Aucune correction nécessaire"
+      "_validation": "Aucune correction nécessaire",
+      "explanation_en": "Revenue : total sales generated over the period.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Adjusted EBITDA",
@@ -223,7 +229,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "_validation": "Aucune correction nécessaire"
+      "_validation": "Aucune correction nécessaire",
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "FCF",
@@ -246,7 +254,9 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "_validation": "Aucune correction nécessaire"
+      "_validation": "Aucune correction nécessaire",
+      "explanation_en": "Free Cash Flow : operating cash flow minus capital expenditures.",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Net Profit",
@@ -269,7 +279,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "_validation": "yoy corrigé de 'stable' à '+90.6%' (calcul: (-28-(-297))/297 = 90.6%)"
+      "_validation": "yoy corrigé de 'stable' à '+90.6%' (calcul: (-28-(-297))/297 = 90.6%)",
+      "explanation_en": "Net Profit : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Customer Ratio",
@@ -292,7 +304,9 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "_validation": "name_fr amélioré pour plus de clarté; signal amélioré pour fournir plus de contexte sur l'importance métier"
+      "_validation": "name_fr amélioré pour plus de clarté; signal amélioré pour fournir plus de contexte sur l'importance métier",
+      "explanation_en": "Customer ratio.",
+      "signal_en": "Demand strengthening, end-market traction"
     },
     {
       "short": "DPS",
@@ -316,7 +330,9 @@
       "signal": "Dividende par action de 0.371 EUR dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Cap Return",
@@ -337,7 +353,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 3 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "Revenue 2025",
@@ -392,9 +410,28 @@
   ],
   "kpis_story": [],
   "governance": {
-    "ceo_name": "Mr. Marco Emilio Angelo Patuano",
-    "ceo_title": "CEO & Executive Director",
-    "fiscal_year": 2025
+    "top_capital": [
+      {
+        "name": "Pacer Advisors, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 0.07
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "Pacer Advisors, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 0.07
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:12:35.367147+00:00",
+    "_top_dual_class_flag": false,
+    "top_disclosure": "eu_regex_extracted",
+    "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
+    "_top_disclosure_at": "2026-05-21T02:49:04.579605+00:00",
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:18:56Z"
   },
   "revenue_by_segment": {
     "_verifier": "claude-subagent-mission-b",
@@ -409,19 +446,22 @@
         "value": null,
         "share_pct": 85,
         "unit": "% revenue",
-        "_note": "Largest segment, anchor tenants Iliad/Bouygues/TIM/Orange/MasMovil/Sunrise"
+        "_note": "Largest segment, anchor tenants Iliad/Bouygues/TIM/Orange/MasMovil/Sunrise",
+        "label_en": "Telecom Infrastructure Services (towers + DAS for MNOs)"
       },
       {
         "label": "Broadcasting Infrastructure (radio + DTT)",
         "value": null,
         "share_pct": 10,
-        "unit": "% revenue"
+        "unit": "% revenue",
+        "label_en": "Broadcasting Infrastructure (radio + DTT)"
       },
       {
         "label": "Other network services (fiber + IoT + smart cities)",
         "value": null,
         "share_pct": 5,
-        "unit": "% revenue"
+        "unit": "% revenue",
+        "label_en": "Other network services (fiber + IoT + smart cities)"
       }
     ],
     "_extraction_partial": true,
@@ -440,55 +480,64 @@
         "label": "France (Cellnex France + On Tower France Iliad)",
         "value": null,
         "share_pct": 24,
-        "unit": "% revenue"
+        "unit": "% revenue",
+        "label_en": "France (Cellnex France + On Tower France Iliad)"
       },
       {
         "label": "Italie (Cellnex Italia + On Tower Italy)",
         "value": null,
         "share_pct": 18,
-        "unit": "% revenue"
+        "unit": "% revenue",
+        "label_en": "Italie (Cellnex Italia + On Tower Italy)"
       },
       {
         "label": "Royaume-Uni (4 MNOs UK)",
         "value": null,
         "share_pct": 14,
-        "unit": "% revenue"
+        "unit": "% revenue",
+        "label_en": "Royaume-Uni (4 MNOs UK)"
       },
       {
         "label": "Espagne (home market)",
         "value": null,
         "share_pct": 11,
-        "unit": "% revenue"
+        "unit": "% revenue",
+        "label_en": "Espagne (home market)"
       },
       {
         "label": "Pologne (On Tower Poland 100%)",
         "value": null,
         "share_pct": 9,
-        "unit": "% revenue"
+        "unit": "% revenue",
+        "label_en": "Pologne (On Tower Poland 100%)"
       },
       {
         "label": "Pays-Bas (Cellnex Netherlands 4104 sites)",
         "value": null,
         "share_pct": 7,
-        "unit": "% revenue"
+        "unit": "% revenue",
+        "label_en": "Netherlands (Cellnex Netherlands 4104 sites)"
       },
       {
         "label": "Suisse (ex Sunrise infra)",
         "value": null,
         "share_pct": 6,
-        "unit": "% revenue"
+        "unit": "% revenue",
+        "label_en": "Suisse (ex Sunrise infra)"
       },
       {
         "label": "Portugal",
         "value": null,
         "share_pct": 5,
-        "unit": "% revenue"
+        "unit": "% revenue",
+        "label_en": "Portugal"
       },
       {
         "label": "Suede + Danemark + Irlande + Autriche",
         "value": null,
         "share_pct": 6,
-        "unit": "% revenue"
+        "unit": "% revenue",
+        "label_en": "Suede + Danemark + Irlande + Autriche"
       }
     ]
   },
@@ -548,6 +597,15 @@
     {
       "year": 2026,
       "month": 3,
+      "title": "Publication des résultats Q1 2026",
+      "body": "Clôture du trimestre Q1 2026 le 31 mars 2026.",
+      "source": "yfinance · mostRecentQuarter",
+      "url": "",
+      "date": "2026-03-31"
+    },
+    {
+      "year": 2026,
+      "month": 3,
       "title": "Cellnex Telecom SA (CLNXF) Q4 2025 Earnings Call Highlights: Strong Financial Performance and ...",
       "body": "Cellnex Telecom SA (CLNXF) reports robust growth in revenue and EBITDA, while enhancing shareholder returns and strategic positioning.",
       "source": "GuruFocus.com",
@@ -555,19 +613,46 @@
       "date": "2026-03-05"
     },
     {
+      "year": 2026,
+      "month": 1,
+      "title": "Dividende 0.371 €/action versé",
+      "body": "Dividende ordinaire de 0.371 € par action, ex-date 13 janvier 2026.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2026-01-13"
+    },
+    {
       "year": 2025,
-      "month": 5,
-      "title": "Cellnex Telecom SA (CLNXF) Q1 2025 Earnings Call Highlights: Strong Organic Growth Amid ...",
-      "body": "Cellnex Telecom SA (CLNXF) reports solid revenue and EBITDA growth while navigating market challenges and strategic asset sales.",
-      "source": "GuruFocus.com",
-      "url": "https://finance.yahoo.com/news/cellnex-telecom-sa-clnxf-q1-170024858.html",
-      "date": "2025-05-10"
+      "month": 6,
+      "title": "Dividende 0.0167 €/action versé",
+      "body": "Dividende ordinaire de 0.0167 € par action, ex-date 16 juin 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-06-16"
+    },
+    {
+      "year": 2024,
+      "month": 11,
+      "title": "Dividende 0.046 €/action versé",
+      "body": "Dividende ordinaire de 0.046 € par action, ex-date 19 novembre 2024.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2024-11-19"
+    },
+    {
+      "year": 2024,
+      "month": 6,
+      "title": "Dividende 0.0168 €/action versé",
+      "body": "Dividende ordinaire de 0.0168 € par action, ex-date 13 juin 2024.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2024-06-13"
     }
   ],
   "ranks": {
-    "global_world": "#204",
+    "global_world": "#470",
     "global_us": "Non US",
-    "sector": "#60 in Information Technology",
+    "sector": "#126 in Technologie",
     "subsector": "#1 in Telecommunications Infrastructure"
   },
   "latest_filing": null,
@@ -575,6 +660,6 @@
   "publication_date": null,
   "company_description": "Cellnex Telecom, S.A. engages in the management of terrestrial telecommunications infrastructures in France, Italy, the United Kingdom, Spain, Poland, the Netherlands, Portugal, Switzerland, Denmark, Sweden, Ireland, and Austria. It operates through four segments: Towers; DAS, Small Cells, and RAN as a Service; Fiber, Connectivity, and Housing Services; and Broadcast. The Towers segment provides integrated network passive infrastructure services; other wireless telecommunications; and broadband network operators services, as well as colocation and engineering services. The DAS, Small Cells, and RAN as a Service segment offers services, such as RAN as a Service, which entails the emission and transmission active services; PPDR services comprising active infrastructure management for public administrations, including TETRA and 4G/LTE mission critical service networks; operation and maintenance; infrastructure support services; and other services that include smart cities/Internet of Things. The Fiber, Connectivity, and Housing Services segment provides data transport through fiber, including fibre-to-the-tower (FTTT), connectivity, backhaul transmission, and hosting services in edge data centers infrastructure. The broadcast segment engages in the distribution and transmission of television and radio signals; operation and maintenance of broadcasting networks; provision of connectivity for media content and over-the-top (OTT) broadcasting services; and other services, as well as offers coverage of the digital terrestrial television (DTT) services. The company also offers fixed and mobile telecommunication services; and provision of telecommunications equipment. In addition, it constructs and operates optic fiber telecommunications. The company was formerly known as Abertis Telecom Terrestre, S.A.U. and changed its name to Cellnex Telecom, S.A. in April 2015. Cellnex Telecom, S.A. was incorporated in 2008 and is headquartered in Madrid, Spain.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.253Z",
+  "_built_at": "2026-05-21T16:00:22.048Z",
   "_missing_blocks": []
 }

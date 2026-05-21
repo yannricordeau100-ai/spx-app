@@ -38,7 +38,9 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 5,
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "explanation_en": "Profit margin on Op.",
+      "signal_en": "Margin stable, monitor cost dynamics"
     },
     {
       "short": "Gross Margin",
@@ -64,7 +66,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "ttm": 15.2
+      "ttm": 15.2,
+      "explanation_en": "Gross Margin : gross profit divided by revenue.",
+      "signal_en": "Margin stable, monitor cost dynamics"
     },
     {
       "short": "Headcount",
@@ -90,7 +94,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "ttm": 49.75
+      "ttm": 49.75,
+      "explanation_en": "Headcount : total number of employees at period end.",
+      "signal_en": "Stable, slight decline to monitor"
     },
     {
       "short": "R&D",
@@ -116,7 +122,9 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "ttm": 1.23
+      "ttm": 1.23,
+      "explanation_en": "Research & Development expenses.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Capex",
@@ -142,7 +150,9 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "ttm": 0.81
+      "ttm": 0.81,
+      "explanation_en": "Capital Expenditures : investments in property, plant and equipment.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Service / ARR",
@@ -168,7 +178,8 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "ttm": 1.53
+      "ttm": 1.53,
+      "signal_en": "Recurring base growing, revenue visibility rising"
     },
     {
       "short": "Total Assets",
@@ -189,7 +200,9 @@
       "signal": "Total des actifs de 53.12 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -210,7 +223,9 @@
       "signal": "Dette totale de 8.53 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "DPS",
@@ -234,7 +249,9 @@
       "signal": "Dividende par action de 1.022 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -255,7 +272,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 0.494 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "Payout Ratio",
@@ -275,7 +294,9 @@
       "signal": "Part du résultat net distribué en dividendes : 31.6% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 3 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Total Revenue",
@@ -300,7 +321,9 @@
       "signal": "Chiffre d'affaires de 222.578 Mds $ dernière année.",
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Revenue pressure, demand softening"
     },
     {
       "short": "Net Income",
@@ -325,7 +348,9 @@
       "signal": "Résultat net de 1.561 Mds $ dernière année.",
       "description": "Résultat net consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "AI API Calls",
@@ -402,20 +427,44 @@
     }
   ],
   "governance": {
-    "agm_date": "2025-11-05",
-    "fiscal_year": 2025,
-    "ceo_name": "Gregory B. Kenny",
-    "ceo_status": "retired_march_2026",
-    "board_chair": "Patricia A. Hemingway Hall",
-    "board_chair_effective_date": "2026-03-20",
-    "exec_comp_approval_pct": null,
-    "board_independence_pct": null,
-    "board_size": 12,
-    "avg_tenure_years": null,
-    "board_women_pct": null,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "top_capital": null,
-    "top_voting": null
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 12.39
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 12.17
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 5.16
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 12.39
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 12.17
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 5.16
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:12:25.263838+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -425,14 +474,16 @@
         "value": 26.409,
         "unit": "Mds $",
         "pct": 81.7,
-        "share_pct": 81.7
+        "share_pct": 81.7,
+        "label_en": "Pharmaceutical"
       },
       {
         "name": "Medical",
         "value": 11.632,
         "unit": "Mds $",
         "pct": 18.3,
-        "share_pct": 18.3
+        "share_pct": 18.3,
+        "label_en": "Medical"
       }
     ],
     "total": 38.04,
@@ -446,14 +497,16 @@
       {
         "label": "États-Unis",
         "value": 220.99,
-        "unit": "M$",
-        "share_pct": 99.2
+        "share_pct": 99.2,
+        "unit": "Mds$",
+        "label_en": "United States"
       },
       {
         "label": "International",
         "value": 1.67,
-        "unit": "M$",
-        "share_pct": 0.8
+        "share_pct": 0.8,
+        "unit": "Mds$",
+        "label_en": "International"
       }
     ],
     "total": 222.66
@@ -515,51 +568,95 @@
     }
   ],
   "ai_positioning": {
-    "stance": "absent",
-    "summary": "La société CAH ne mentionne pas explicitement l'intelligence artificielle, l'apprentissage automatique ou des sujets connexes dans les documents 10-K/8-K fournis. Cependant, les deux KPI stories liés à l'IA semblent hallucinés.",
-    "evidence": [],
-    "source": ""
+    "stance": "cautious",
+    "summary": "Cardinal Health, Inc. mentionne peu l'IA dans ses communications officielles (Healthcare Distribution & Services).",
+    "evidence": [
+      "Aucune mention significative d'IA dans le 10-K ou les earnings calls disponibles localement.",
+      "Le secteur Healthcare Distribution & Services commence à intégrer l'IA mais Cardinal Health, Inc. ne met pas le sujet en avant à ce jour.",
+      "Mettrik AI réévaluera le positionnement IA à chaque nouvelle publication."
+    ],
+    "source_note": "Sources locales sans mentions IA significatives",
+    "_bucket": "MEDIUM",
+    "_no_ai_passages": true,
+    "_generated_at": "2026-05-21T02:27:47.008773+00:00",
+    "ticker": "CAH"
   },
   "market_positions": [],
   "events": [
     {
       "year": 2026,
       "month": 5,
-      "title": "Baird Keeps Outperform on Cardinal Health (CAH) Following Earnings Update",
-      "body": "Cardinal Health, Inc. (NYSE:CAH) is included among the 10 Best Stocks to Buy Now for a $1 Million Portfolio. On May 1, Baird lowered its price recommendation on Cardinal Health, Inc. (NYSE:CAH) to $248 from $257. It reiterated an Outperform",
-      "source": "Insider Monkey",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/baird-keeps-outperform-cardinal-health-050927347.html",
-      "date": "2026-05-14"
+      "title": "What Lone Peak’s $20 Million Thermon Exit Could Signal After Record Earnings",
+      "body": "Thermon Group delivers industrial heating solutions worldwide, serving sectors from energy and transit to tech and manufacturing.",
+      "source": "Motley Fool",
+      "url": "https://www.fool.com/coverage/filings/2026/05/17/what-lone-peak-s-usd20-million-thermon-exit-could-signal-after-record-earnings/",
+      "date": "2026-05-17"
     },
     {
       "year": 2026,
       "month": 5,
-      "title": "Rigetti Q1 Earnings & Revenues Beat Estimates, Gross Margin Up",
-      "body": "RGTI beats Q1 estimates as revenue nearly triples, gross margin expands and adoption grows for its quantum systems and cloud platforms.",
-      "source": "Zacks",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/rigetti-q1-earnings-revenues-beat-153900199.html",
-      "date": "2026-05-12"
-    },
-    {
-      "year": 2026,
-      "month": 5,
-      "title": "We Think Cardinal Health's (NYSE:CAH) Solid Earnings Are Understated",
-      "body": "Cardinal Health, Inc.'s ( NYSE:CAH ) recent earnings report didn't offer any surprises, with the shares unchanged over...",
+      "title": "Does Cardinal Health's (CAH) Higher Dividend and Guidance Hint at a New Capital Allocation Play?",
+      "body": "Earlier this month, Cardinal Health, Inc. declared a quarterly dividend of US$0.5158 per share, payable on July 15, 2026, to shareholders of record as of July 1, 2026. This dividend move comes alongside upgraded fiscal 2026 earnings guidanc",
       "source": "Simply Wall St.",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/think-cardinal-healths-nyse-cah-124802001.html",
-      "date": "2026-05-11"
+      "url": "https://finance.yahoo.com/sectors/healthcare/articles/does-cardinal-healths-cah-higher-071641172.html",
+      "date": "2026-05-16"
+    },
+    {
+      "year": 2026,
+      "month": 4,
+      "title": "Dividende 0.511 $/action versé",
+      "body": "Dividende ordinaire de 0.511 $ par action, ex-date 1 avril 2026.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2026-04-01"
+    },
+    {
+      "year": 2026,
+      "month": 3,
+      "title": "Publication des résultats Q1 2026",
+      "body": "Clôture du trimestre Q1 2026 le 31 mars 2026.",
+      "source": "yfinance · mostRecentQuarter",
+      "url": "",
+      "date": "2026-03-31"
+    },
+    {
+      "year": 2026,
+      "month": 1,
+      "title": "Dividende 0.511 $/action versé",
+      "body": "Dividende ordinaire de 0.511 $ par action, ex-date 2 janvier 2026.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2026-01-02"
+    },
+    {
+      "year": 2025,
+      "month": 10,
+      "title": "Dividende 0.511 $/action versé",
+      "body": "Dividende ordinaire de 0.511 $ par action, ex-date 1 octobre 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-10-01"
+    },
+    {
+      "year": 2025,
+      "month": 7,
+      "title": "Dividende 0.511 $/action versé",
+      "body": "Dividende ordinaire de 0.511 $ par action, ex-date 1 juillet 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-07-01"
     }
   ],
   "ranks": {
-    "global_world": "≈ #500",
-    "global_us": "Top 100",
-    "sector": "Mid-tier",
-    "subsector": "Top 5"
+    "global_world": "#385",
+    "global_us": "#228",
+    "sector": "Top 50 in Santé",
+    "subsector": "#1 in Healthcare Distribution & Services"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-04-30",
   "publication_date": null,
   "company_description": "Cardinal Health, Inc. operates as a healthcare services and products company in the United States and internationally. It operates in two segments: Pharmaceutical and Specialty Solutions, and Global Medical Products and Distribution. The company provides customized solutions for hospitals, healthcare systems, pharmacies, ambulatory surgery centers, clinical laboratories, physician offices, and patients in the home. It distributes branded and generic pharmaceutical, specialty pharmaceutical, and over-the-counter healthcare and consumer products. The company also provides services to pharmaceutical manufacturers and healthcare providers for specialty pharmaceutical products; pharmacy management services to hospitals; operates pharmacies, including pharmacies in community health centers; and repackages generic pharmaceuticals and over-the-counter healthcare products. In addition, it manufactures, sources, and distributes Cardinal Health branded medical, surgical, and laboratory products and devices that include exam and surgical gloves; needles, syringe, and sharps disposals; compression, incontinence, nutritional delivery, and wound care products; single-use surgical drapes, gowns, a",
-  "_built_at": "2026-05-20T20:15:02.232Z",
+  "_built_at": "2026-05-21T16:00:22.012Z",
   "_missing_blocks": []
 }

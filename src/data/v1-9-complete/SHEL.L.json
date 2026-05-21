@@ -109,106 +109,6 @@
       "_specific_to": "Shell / transition énergétique"
     },
     {
-      "short": "Gross Margin",
-      "name_fr": "Marge brute",
-      "name_en": "Gross Margin",
-      "explanation": "Marge brute consolidée.",
-      "value": "24.5",
-      "unit": "%",
-      "yoy": "stable",
-      "type": "Margin",
-      "nature": "Conjoncturel",
-      "comparable": "Comparable",
-      "signal": "Marge brute typique d'une entreprise énergétique cyclique",
-      "description": "La marge brute reflète la performance opérationnelle après coût des produits vendus. Indicateur clé de la rentabilité marginale dans un contexte de volatilité des prix des hydrocarbures.",
-      "history": [
-        24.5,
-        24.5,
-        24.5,
-        24.5,
-        24.5
-      ],
-      "last_data_date": "2015-12-31",
-      "is_wow": false,
-      "is_generic": true,
-      "is_short_history": true
-    },
-    {
-      "short": "Op Margin",
-      "name_fr": "Marge opérationnelle",
-      "name_en": "Operating Margin",
-      "explanation": "Bénéfice opérationnel divisé par le revenu total.",
-      "value": "8.2",
-      "unit": "%",
-      "yoy": "stable",
-      "type": "Margin",
-      "nature": "Conjoncturel",
-      "comparable": "Comparable",
-      "signal": "Marge opérationnelle modérée, exposée aux cycles pétroliers",
-      "description": "Indique la rentabilité après charges opérationnelles, mais avant impôts et intérêts. Reflète l'efficacité opérationnelle avant financement et fiscalité.",
-      "history": [
-        8.2,
-        8.2,
-        8.2,
-        8.2,
-        8.2
-      ],
-      "last_data_date": "2015-12-31",
-      "is_wow": false,
-      "is_generic": true,
-      "is_short_history": true
-    },
-    {
-      "short": "Capex",
-      "name_fr": "Investissements en immobilisations",
-      "name_en": "Capital Expenditures",
-      "explanation": "Dépenses en immobilisations pour maintenir ou étendre les actifs.",
-      "value": 27,
-      "unit": "Mds $",
-      "yoy": "stable",
-      "type": "Investment",
-      "nature": "Structurel",
-      "comparable": "Non comparable",
-      "signal": "Niveau élevé d'investissement typique du secteur énergétique intégré",
-      "description": "Shell investit massivement dans des projets long terme comme les installations GTL (Pearl) et FLNG (Prelude), reflet de sa stratégie d'expansion en exploration-production et technologies de conversion avancées.",
-      "history": [
-        27,
-        27,
-        27,
-        27,
-        27
-      ],
-      "last_data_date": "2026-03-31",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": true
-    },
-    {
-      "short": "Headcount",
-      "name_fr": "Effectif total",
-      "name_en": "Total Employees",
-      "explanation": "Nombre total d'employés dans le monde.",
-      "value": "82.0",
-      "unit": "K",
-      "yoy": "stable",
-      "type": "Operational",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "signal": "Effectif très élevé, cohérent avec une multinationale énergétique intégrée",
-      "description": "Shell compte environ 82 000 employés à fin 2015, reflétant la complexité et l'ampleur mondiale de ses opérations en amont et aval couvrant exploration, production, raffinage, distribution et vente.",
-      "history": [
-        82,
-        82,
-        82,
-        82,
-        82
-      ],
-      "last_data_date": "2015-12-31",
-      "is_wow": false,
-      "is_generic": true,
-      "is_short_history": true
-    },
-    {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
@@ -227,7 +127,9 @@
       "signal": "Chiffre d'affaires de 266.89 Mds € dernière année",
       "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Revenue pressure, demand softening"
     },
     {
       "short": "Total Assets",
@@ -248,7 +150,9 @@
       "signal": "Total des actifs de 370.35 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Total Debt",
@@ -269,7 +173,9 @@
       "signal": "Dette totale de 75.64 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Cash & Equivalents",
@@ -290,7 +196,8 @@
       "signal": "Trésorerie & équivalents de 29.63 Mds € dernière année",
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "signal_en": "Cash position eroding, monitor liquidity"
     }
   ],
   "kpis_story": [
@@ -311,36 +218,28 @@
     }
   ],
   "governance": {
-    "ceo_name": "Mr. Wael  Sawan",
-    "ceo_title": "CEO & Director",
-    "officers": [
+    "top_capital": [
       {
-        "name": "Mr. Wael  Sawan",
-        "title": "CEO & Director",
-        "age": 51
-      },
-      {
-        "name": "Ms. Sinead  Gorman",
-        "title": "CFO & Director",
-        "age": 48
-      },
-      {
-        "name": "Ms. Philippa  Bounds",
-        "title": "Chief Legal Officer",
-        "age": 54
-      },
-      {
-        "name": "Ms. Rachel  Solway",
-        "title": "Chief Human Resources & Corporate Officer",
-        "age": 51
-      },
-      {
-        "name": "Mr. Graham Robert van't Hoff",
-        "title": "Executive Vice President of Chemicals",
-        "age": 63
+        "name": "Pacer Advisors, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 0.04
       }
     ],
-    "fiscal_year": 2025
+    "top_voting": [
+      {
+        "name": "Pacer Advisors, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 0.04
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:15:03.685408+00:00",
+    "_top_dual_class_flag": false,
+    "top_disclosure": "eu_regex_extracted",
+    "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
+    "_top_disclosure_at": "2026-05-21T02:49:04.722360+00:00",
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:19:01Z"
   },
   "revenue_by_segment": {
     "unit": "$B",
@@ -350,20 +249,23 @@
       {
         "label": "Downstream",
         "value": 237.7,
+        "share_pct": 81.5,
         "unit": "$B",
-        "share_pct": 81.5
+        "label_en": "Downstream"
       },
       {
         "label": "Upstream",
         "value": 53.9,
+        "share_pct": 18.5,
         "unit": "$B",
-        "share_pct": 18.5
+        "label_en": "Upstream"
       },
       {
         "label": "Corporate",
         "value": 0.1,
+        "share_pct": 0,
         "unit": "$B",
-        "share_pct": 0
+        "label_en": "Corporate"
       }
     ],
     "total": 291.7
@@ -376,26 +278,30 @@
       {
         "label": "Europe",
         "value": 95.2,
+        "share_pct": 35.9,
         "unit": "$B",
-        "share_pct": 35.9
+        "label_en": "Europe"
       },
       {
         "label": "Asia, Oceania, Africa",
         "value": 95.9,
+        "share_pct": 36.2,
         "unit": "$B",
-        "share_pct": 36.2
+        "label_en": "Asia, Oceania, Africa"
       },
       {
         "label": "USA",
         "value": 50.7,
+        "share_pct": 19.1,
         "unit": "$B",
-        "share_pct": 19.1
+        "label_en": "United States"
       },
       {
         "label": "Other Americas",
         "value": 23.2,
+        "share_pct": 8.8,
         "unit": "$B",
-        "share_pct": 8.8
+        "label_en": "Other Americas"
       }
     ],
     "total": 265
@@ -516,15 +422,15 @@
     }
   ],
   "ranks": {
-    "global_world": "#32",
+    "global_world": "#47",
     "global_us": "Non US",
-    "sector": "#2 in Energy",
+    "sector": "Top 5 in Énergie",
     "subsector": "#1 in Oil & Gas Integrated"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-05-07",
   "publication_date": null,
   "company_description": "Royal Dutch Shell plc est une entreprise énergétique multinationale active dans l'exploration, la production, le raffinage, la distribution d'hydrocarbures et la commercialisation de gaz naturel.",
-  "_built_at": "2026-05-20T20:15:02.603Z",
+  "_built_at": "2026-05-21T16:00:22.701Z",
   "_missing_blocks": []
 }

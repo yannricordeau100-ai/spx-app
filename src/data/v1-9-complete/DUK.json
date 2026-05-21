@@ -50,7 +50,8 @@
       "last_data_date": "Not found",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Revenue from the Electric Utilities segment."
     },
     {
       "short": "Number of Customers",
@@ -71,7 +72,8 @@
       "is_generic": false,
       "is_short_history": false,
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "No explicit annual 'Number of Customers' values found in the provided 10-K extract. The document contains MDA and financial statement struct"
+      "_hero_history_unverified_reason": "No explicit annual 'Number of Customers' values found in the provided 10-K extract. The document contains MDA and financial statement struct",
+      "explanation_en": "Number of Number of customers."
     },
     {
       "short": "Total Revenue",
@@ -96,7 +98,9 @@
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:52:48.632381+00:00",
       "is_short_history": true,
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -118,7 +122,9 @@
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Steady growth, healthy trend"
     },
     {
       "short": "Operating Income",
@@ -140,7 +146,9 @@
       "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Operating Income : profit from core business operations.",
+      "signal_en": "Steady growth, healthy trend"
     },
     {
       "short": "Total Assets",
@@ -162,7 +170,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -184,7 +194,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -206,7 +218,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "Number of Customers",
@@ -260,21 +273,44 @@
     }
   ],
   "governance": {
-    "agm_date": "2026-05-07",
-    "fiscal_year": 2025,
-    "ceo_name": "Harry K. Sideris",
-    "board_size": 15,
     "top_capital": [
       {
-        "name": "Theodore F. Craver, Jr.",
-        "type": "insider",
-        "stake_pct": 0
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 9.06
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.89
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 5.71
       }
     ],
-    "board_independence_pct": 86.7,
-    "board_women_pct": 26.7,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "exec_comp_approval_pct": 94
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 9.06
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.89
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 5.71
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:01.401853+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -284,32 +320,50 @@
         "value": 14.8,
         "unit": "Mds $",
         "pct": 74,
-        "share_pct": 74
+        "share_pct": 74,
+        "label_en": "Electric Utilities and Infrastructure"
       },
       {
         "name": "Gas Utilities and Infrastructure",
         "value": 3.2,
         "unit": "Mds $",
         "pct": 16,
-        "share_pct": 16
+        "share_pct": 16,
+        "label_en": "Gas Utilities and Infrastructure"
       },
       {
         "name": "Commercial Renewables",
         "value": 2,
         "unit": "Mds $",
         "pct": 10,
-        "share_pct": 10
+        "share_pct": 10,
+        "label_en": "Commercial Renewables"
       }
     ],
     "total": 20,
     "unit": "Mds $"
   },
   "revenue_by_geography": {
+    "unit": "%",
+    "slices": [
+      {
+        "label": "États-Unis",
+        "value": 100,
+        "share_pct": 100,
+        "single_region_legitimate": true,
+        "unit": "%",
+        "label_en": "United States"
+      }
+    ],
+    "total": 100,
+    "source": "Mono-pays légitime (filings)",
+    "_tagged_by": "auto-rebascule-21mai-CONV-CONCEPTS",
+    "_tagged_at": "2026-05-21T01:26:18.187Z",
+    "_category": "utility-us",
     "single_region_legitimate": true,
     "_legit_reason": "US electric utility — domestic operations only (Duke Energy)",
     "_legit_marked_at": "2026-05-21T08:18:58Z",
     "_legit_marked_by": "sub-agent-#76-repartition-cerebras",
-    "slices": [],
     "label": "Répartition géographique (mono-région légitime)"
   },
   "risks": [
@@ -378,10 +432,18 @@
     }
   ],
   "ai_positioning": {
-    "stance": "absent",
-    "summary": "The company has not mentioned artificial intelligence, machine learning or similar terms in the provided excerpts from its 10-K/20-F report. Therefore, its position on AI cannot be determined from this information.",
-    "evidence": [],
-    "source": ""
+    "stance": "cautious",
+    "summary": "Duke Energy mentionne peu l'IA dans ses communications officielles (Électricité).",
+    "evidence": [
+      "Aucune mention significative d'IA dans le 10-K ou les earnings calls disponibles localement.",
+      "Le secteur Électricité commence à intégrer l'IA mais Duke Energy ne met pas le sujet en avant à ce jour.",
+      "Mettrik AI réévaluera le positionnement IA à chaque nouvelle publication."
+    ],
+    "source_note": "Sources locales sans mentions IA significatives",
+    "_bucket": "MEDIUM",
+    "_no_ai_passages": true,
+    "_generated_at": "2026-05-21T02:31:22.408367+00:00",
+    "ticker": "DUK"
   },
   "market_positions": [],
   "events": [
@@ -423,17 +485,15 @@
     }
   ],
   "ranks": {
-    "global_world": "Not found",
-    "global_us": "Not found",
-    "sector": "Not found",
-    "subsector": "Not found"
+    "global_world": "#158",
+    "global_us": "#90",
+    "sector": "Top 5 in Services aux collectivités",
+    "subsector": "#3 in Électricité"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-05-05",
   "publication_date": null,
   "company_description": "Duke Energy Corporation, through its subsidiaries, operates as an energy company in the United States. The company operates through two segments: Electric Utilities and Infrastructure (EU&I); and Gas Utilities and Infrastructure (GU&I). The EU&I segment generates, transmits, distributes, and sells electricity to customers in the Southeast and Midwest regions. It generates electricity through coal, hydroelectric, natural gas, oil, renewables, and nuclear fuel. This segment also engages in the wholesale of electricity to municipalities, electric cooperative utilities, and other load-serving entities. The GU&I segment distributes natural gas to customers in the residential, commercial, industrial, and power generation natural gas sectors; and invests in pipeline transmission projects, renewable natural gas projects, and natural gas storage facilities. The company was formerly known as Duke Energy Holding Corp. and changed its name to Duke Energy Corporation in April 2006. Duke Energy Corporation was founded in 1904 and is headquartered in Charlotte, North Carolina.",
-  "_built_at": "2026-05-20T20:15:02.312Z",
-  "_missing_blocks": [
-    "revenue_by_geography"
-  ]
+  "_built_at": "2026-05-21T16:00:22.151Z",
+  "_missing_blocks": []
 }

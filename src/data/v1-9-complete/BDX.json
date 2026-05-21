@@ -166,7 +166,9 @@
       "is_short_history": false,
       "ttm": 58.2,
       "period_type": "quarter",
-      "publication_date": "2026-05-07"
+      "publication_date": "2026-05-07",
+      "explanation_en": "Gross Margin : gross profit divided by revenue.",
+      "signal_en": "Margin stable, monitor cost dynamics"
     },
     {
       "short": "Op Margin",
@@ -192,7 +194,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "ttm": 18.48
+      "ttm": 18.48,
+      "explanation_en": "Profit margin on Op.",
+      "signal_en": "Margin compression, watch profitability"
     },
     {
       "short": "R&D",
@@ -218,7 +222,9 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "ttm": 5.83
+      "ttm": 5.83,
+      "explanation_en": "Research & Development expenses.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Capex",
@@ -244,7 +250,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "ttm": 1.21
+      "ttm": 1.21,
+      "explanation_en": "Capital Expenditures : investments in property, plant and equipment.",
+      "signal_en": "Steady growth, healthy trend"
     },
     {
       "short": "Headcount",
@@ -272,7 +280,9 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 74.88,
-      "_employees_synced_from_yfinance": true
+      "_employees_synced_from_yfinance": true,
+      "explanation_en": "Headcount : total number of employees at period end.",
+      "signal_en": "Pressure, deteriorating trend"
     },
     {
       "short": "Uncertain Tax Positions",
@@ -298,7 +308,8 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "ttm": 285.76
+      "ttm": 285.76,
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "New BD Revenue Growth (FXN)",
@@ -410,7 +421,9 @@
       "signal": "Dividende par action de 1.05 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -432,7 +445,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -454,7 +469,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Alaris Remediation Progress",
@@ -525,28 +542,44 @@
     }
   ],
   "governance": {
-    "agm_date": "2026-01-01",
-    "fiscal_year": 2025,
-    "ceo_name": "Thomas E. Polen",
-    "board_size": 13,
-    "avg_tenure_years": 7.3,
-    "board_women_pct": 30.77,
-    "voting_structure": "Une action, un vote.",
     "top_capital": [
       {
-        "name": "Thomas E. Polen",
-        "type": "insider",
-        "stake_pct": null
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 12.27
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 9.49
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 5.02
       }
     ],
     "top_voting": [
       {
-        "name": "Thomas E. Polen",
-        "type": "insider",
-        "stake_pct": null
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 12.27
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 9.49
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 5.02
       }
     ],
-    "ceo_total_comp_m": 17.129
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:12:14.834981+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "unit": "Mds $",
@@ -556,20 +589,23 @@
       {
         "label": "Medical",
         "value": 12.93,
-        "unit": "M $",
-        "share_pct": 48.6
+        "share_pct": 48.6,
+        "unit": "Mds $",
+        "label_en": "Medical"
       },
       {
         "label": "Interventional",
         "value": 12.76,
-        "unit": "M $",
-        "share_pct": 48
+        "share_pct": 48,
+        "unit": "Mds $",
+        "label_en": "Interventional"
       },
       {
         "label": "Life Sciences",
         "value": 0.91,
-        "unit": "M $",
-        "share_pct": 3.4
+        "share_pct": 3.4,
+        "unit": "Mds $",
+        "label_en": "Life Sciences"
       }
     ],
     "total": 26.6
@@ -582,26 +618,30 @@
       {
         "label": "États-Unis",
         "value": 12.79,
-        "unit": "M $",
-        "share_pct": 58.6
+        "share_pct": 58.6,
+        "unit": "Mds $",
+        "label_en": "United States"
       },
       {
         "label": "EMEA",
         "value": 4.73,
-        "unit": "M $",
-        "share_pct": 21.7
+        "share_pct": 21.7,
+        "unit": "Mds $",
+        "label_en": "EMEA"
       },
       {
         "label": "Greater Asia",
         "value": 3.09,
-        "unit": "M $",
-        "share_pct": 14.1
+        "share_pct": 14.1,
+        "unit": "Mds $",
+        "label_en": "Greater Asia"
       },
       {
         "label": "Autres",
         "value": 1.23,
-        "unit": "M $",
-        "share_pct": 5.6
+        "share_pct": 5.6,
+        "unit": "Mds $",
+        "label_en": "Other"
       }
     ],
     "total": 21.84
@@ -681,14 +721,24 @@
     }
   ],
   "ai_positioning": {
-    "stance": "emerging",
-    "summary": "Becton, Dickinson intègre progressivement l'IA et les technologies numériques dans ses solutions de dispositifs médicaux. La société investit dans des dispositifs intelligents et connectés avec des capacités d'IA pour améliorer la sécurité des patients, tout en renforçant ses infrastructures cloud et ses protocoles de protection des données pour gérer les risques associés aux technologies émergentes.",
+    "stance": "integrator",
+    "summary": "BD intègre l'IA dans ses solutions d'automatisation pharmaceutique et de gestion des médicaments, sans en faire un levier stratégique central en 2026.",
     "evidence": [
-      "R&D orientée vers les dispositifs médicaux numériques et solutions IA pour sécurité patients",
-      "Emploi d'infrastructures cloud et technologies d'IA pour solutions data-driven",
-      "Exposition aux risques de biais algorithmique et exposition de données liés à l'IA"
+      "BD déploie des systèmes d'automatisation pharmaceutique intégrant l'IA pour l'optimisation des stocks et le suivi des médicaments dans les établissements de santé.",
+      "Les solutions d'informatique et d'analytique d'entreprise pour la gestion médicamenteuse s'appuient sur des algorithmes d'IA pour améliorer les flux en pharmacie hospitalière.",
+      "Le système de dispensation automatisée des médicaments utilise des fonctionnalités d'IA pour réduire les erreurs et optimiser les workflows en milieu clinique.",
+      "BD investit dans l'automatisation des laboratoires de microbiologie avec des plateformes combinant robotique et analyse prédictive basée sur le machine learning."
     ],
-    "source": "10-K 2025, Item 1 Business & Item 1A Risk Factors"
+    "source_note": "10-K FY2025, transcript Q1 2026",
+    "_bucket": "MEDIUM",
+    "_subsector": "Medical Devices",
+    "_sources_used": {
+      "has_10k": true,
+      "has_transcript": false,
+      "ai_passages_chars": 2926
+    },
+    "_generated_at": "2026-05-21T02:21:25.480668+00:00",
+    "ticker": "BDX"
   },
   "market_positions": [],
   "events": [
@@ -730,16 +780,16 @@
     }
   ],
   "ranks": {
-    "global_world": "#589",
-    "global_us": "#246",
-    "sector": "#17 dans Healthcare",
-    "subsector": "#4 dans Medical Devices"
+    "global_world": "#337",
+    "global_us": "#202",
+    "sector": "Top 50 in Santé",
+    "subsector": "Top 5 in Medical Devices"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-05-07",
   "publication_date": null,
   "company_description": "Becton, Dickinson and Company develops, manufactures, and sells medical supplies, devices, laboratory equipment, and diagnostic products for healthcare institutions, physicians, life science researchers, clinical laboratories, pharmaceutical industry, and the general public worldwide. It operates through Medical Essentials, Connected Care, BioPharma Systems, Interventional and Life Sciences segments. It provides peripheral intravenous (IV) and advanced peripheral catheters, central lines, acute dialysis catheters, vascular access technology, vascular care and preparation products, needle-free IV connectors and extensions sets, closed-system drug transfer devices, hazardous drug detections, hypodermic syringes and needles, anesthesia needles and trays, enteral syringes, and sharps disposal systems; IV medication safety and infusion therapy delivery systems, medication compounding workflow system, automated medication dispensing and supply management systems, informatics and analytics and pharmacy automation system, and medication inventory optimization and tracking system; hemodynamic monitoring system; and prefillable drug delivery systems. It also offers specimen and blood collection products; automated blood and tuberculosis culturing, molecular testing, and microorganism identification and drug susceptibility, as well as rapid diagnostic assays, microbiology laboratory automation products, and plated media products; and fluorescence-activated cell sorters and analyzers, antibodies and kits, reagent system, and solution for single-cell gene expression analysis, as well as clinical oncology, immunological, and transplantation diagnostic/monitoring reagents and analyzers. It provides hernia and soft tissue repair, biological and bioresorbable graft, biosurgery, and other surgical products; surgical infection prevention, peripheral intervention, and urology and critical care products. The company has a strategic collaboration with ChemoGLO for the advancement of hazardous drug contamination testing in health care settings to improve the safety of health care workers. The company was founded in 1897 and is headquartered in Franklin Lakes, New Jersey.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.192Z",
+  "_built_at": "2026-05-21T16:00:21.966Z",
   "_missing_blocks": []
 }

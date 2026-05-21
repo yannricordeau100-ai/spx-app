@@ -239,7 +239,9 @@
       "last_data_date": "2023-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Sales : total sales generated over the period.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Underlying EBIT",
@@ -262,7 +264,8 @@
       "last_data_date": "2023-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Free Cash Flow",
@@ -285,7 +288,9 @@
       "last_data_date": "2023-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Free Cash Flow : operating cash flow minus capital expenditures.",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "EPS",
@@ -308,7 +313,9 @@
       "last_data_date": "2023-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Earnings Per Share : net income divided by shares outstanding.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Group Sales FY25",
@@ -331,7 +338,8 @@
         30.7
       ],
       "explanation_fr": "Mesure le chiffre d'affaires total du groupe BAE Systems pour l'année fiscale 2025, indicateur clé de la croissance commerciale.",
-      "explanation_en": "Measures BAE Systems' total revenue for fiscal year 2025, key indicator of overall business growth and performance."
+      "explanation_en": "Measures BAE Systems' total revenue for fiscal year 2025, key indicator of overall business growth and performance.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Order Backlog Record",
@@ -354,7 +362,8 @@
         83.6
       ],
       "explanation_fr": "Mesure la valeur totale des commandes futures confirmées. Indique la santé financière et la demande pour les produits.",
-      "explanation_en": "Measures total value of confirmed future orders. Indicates financial health and demand for products."
+      "explanation_en": "Measures total value of confirmed future orders. Indicates financial health and demand for products.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Electronic Systems Margin",
@@ -392,7 +401,8 @@
         9.3
       ],
       "explanation_fr": "Mesure le chiffre d'affaires des avions militaires et civils de BAE Systems, indiquant la santé de cette division clé.",
-      "explanation_en": "Measures BAE Systems' revenue from military and commercial aircraft, indicating this key division's financial health."
+      "explanation_en": "Measures BAE Systems' revenue from military and commercial aircraft, indicating this key division's financial health.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "DPS",
@@ -416,7 +426,9 @@
       "signal": "Dividende par action de 22.8 GBp dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -438,7 +450,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -460,7 +474,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     }
   ],
   "kpis_story": [],
@@ -470,60 +486,98 @@
     "fiscal_year": 2025
   },
   "revenue_by_segment": {
-    "label": "Répartition du chiffre d'affaires par segment opérationnel",
     "slices": [
       {
-        "name": "Electronic Systems",
-        "value": 8.15,
-        "unit": "Mds $",
-        "pct": 23.18,
-        "share_pct": 23.18
+        "label": "Electronic Systems",
+        "share_pct": 23.6,
+        "label_fr": "Systèmes électroniques",
+        "label_en": "Electronic Systems",
+        "value": 5.456,
+        "unit": "Mds $"
       },
       {
-        "name": "Platforms & Services",
-        "value": 5.74,
-        "unit": "Mds $",
-        "pct": 16.34,
-        "share_pct": 16.34
+        "label": "Platforms & Services",
+        "share_pct": 16.6,
+        "label_fr": "Plateformes et services",
+        "label_en": "Platforms & Services",
+        "value": 3.842,
+        "unit": "Mds $"
       },
       {
-        "name": "Air",
-        "value": 9.73,
-        "unit": "Mds $",
-        "pct": 27.64,
-        "share_pct": 27.64
+        "label": "Air",
+        "share_pct": 28.1,
+        "label_fr": "Aérien",
+        "label_en": "Air",
+        "value": 6.517,
+        "unit": "Mds $"
       },
       {
-        "name": "Maritime",
-        "value": 8.05,
-        "unit": "Mds $",
-        "pct": 22.88,
-        "share_pct": 22.88
+        "label": "Maritime",
+        "share_pct": 23.3,
+        "label_fr": "Maritime",
+        "label_en": "Maritime",
+        "value": 5.391,
+        "unit": "Mds $"
       },
       {
-        "name": "Cyber & Intelligence",
-        "value": 3.46,
-        "unit": "Mds $",
-        "pct": 9.88,
-        "share_pct": 9.88
+        "label": "Cyber & Intelligence",
+        "share_pct": 10.1,
+        "label_fr": "Cyber et renseignement",
+        "label_en": "Cyber & Intelligence",
+        "value": 2.321,
+        "unit": "Mds $"
       },
       {
-        "name": "HQ",
-        "value": 0.015,
-        "unit": "Mds $",
-        "pct": 0.07,
-        "share_pct": 0.07
+        "label": "HQ",
+        "share_pct": 0,
+        "label_fr": "Siège social",
+        "label_en": "HQ",
+        "value": 0.01,
+        "unit": "Mds $"
       }
     ],
-    "total": 35.15,
-    "unit": "Mds $",
-    "_share_pct_normalized": true
+    "year": 2023,
+    "currency": "GBP",
+    "total": 23.078
   },
   "revenue_by_geography": {
-    "_no_geo_source": true,
-    "_attempted": "10-K read + cat3-european annual-text search",
-    "reason": "BAE Systems - UK defense (multi-region UK/US/AU). Rapport annuel non disponible localement.",
-    "_extracted_at": "2026-05-20T11:23:05.566226Z"
+    "slices": [
+      {
+        "label": "United States",
+        "share_pct": 59.7,
+        "label_fr": "États-Unis",
+        "label_en": "United States",
+        "value": 13.777,
+        "unit": "Mds $"
+      },
+      {
+        "label": "United Kingdom",
+        "share_pct": 23.3,
+        "label_fr": "Royaume-Uni",
+        "label_en": "United Kingdom",
+        "value": 5.391,
+        "unit": "Mds $"
+      },
+      {
+        "label": "Australia",
+        "share_pct": 10.1,
+        "label_fr": "Australie",
+        "label_en": "Australia",
+        "value": 2.321,
+        "unit": "Mds $"
+      },
+      {
+        "label": "Other countries",
+        "share_pct": 6.9,
+        "label_fr": "Autres pays",
+        "label_en": "Other countries",
+        "value": 1.589,
+        "unit": "Mds $"
+      }
+    ],
+    "year": 2023,
+    "currency": "GBP",
+    "total": 23.078
   },
   "risks": [
     {
@@ -636,7 +690,7 @@
     }
   ],
   "ranks": {
-    "global_world": "#205",
+    "global_world": "#207",
     "global_us": "Non US",
     "sector": "#1 in Aerospace and Defense",
     "subsector": "#1 in Aerospace and Defense"
@@ -646,6 +700,6 @@
   "publication_date": null,
   "company_description": "BAE Systems plc provides defense, aerospace, and security solutions in the United States, the United Kingdom, the Middle East, Australia, Kingdom of Saudi Arabia, Europe, and internationally. The company operates through five segments: Electronic Systems, Platforms & Services, Air, Maritime, and Cyber & Intelligence. The Electronic Systems segment offers electronic warfare systems, navigation systems, electro-optical sensors, military and commercial avionics, and precision guided solutions and communications systems, as well as space electronics, spacecraft, and ground and tactical systems. The Platforms & Services segment manufactures and sells combat vehicles, weapons, and munitions; and offers naval ship repair services, as well as operates and manages two government-owned and contractor-operated ammunition plants. The Air segment develops future combat air systems and falconworks alongside edgewing, and eurofighter and MBDA. The Maritime segment provides maritime and land services, including submarine, ship build, and support programs. The Cyber & Intelligence segment offers cyber security services for national security, central government, and government enterprises. The company was formerly known as British Aerospace plc and changed its name to BAE Systems plc in May 2000. BAE Systems plc was incorporated in 1979 and is headquartered in London, the United Kingdom.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-21T02:08:59.070Z",
+  "_built_at": "2026-05-21T16:00:21.951Z",
   "_missing_blocks": []
 }

@@ -156,7 +156,8 @@
       "is_generic": false,
       "is_short_history": true,
       "ttm": 12.88,
-      "_validation": "Valeur corrigée de 12.2 à 12.192 (10-K: $12,192M), unité changée de 'Mds $' à 'B $' pour cohérence"
+      "_validation": "Valeur corrigée de 12.2 à 12.192 (10-K: $12,192M), unité changée de 'Mds $' à 'B $' pour cohérence",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Organic Revenues",
@@ -180,7 +181,8 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 6,
-      "_validation": "name_fr amélioré de 'Revenus organiques' à 'Croissance organique des revenus', is_generic changé à false pour plus de pertinence"
+      "_validation": "name_fr amélioré de 'Revenus organiques' à 'Croissance organique des revenus', is_generic changé à false pour plus de pertinence",
+      "signal_en": "Revenue stable, monitor outlook"
     },
     {
       "short": "Risk Management Revenues",
@@ -204,7 +206,8 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 1.62,
-      "_validation": "Valeur corrigée de 1.6 à 1.585 (10-K: $1,585M), unité changée de 'Mds $' à 'B $', is_generic changé à false"
+      "_validation": "Valeur corrigée de 1.6 à 1.585 (10-K: $1,585M), unité changée de 'Mds $' à 'B $', is_generic changé à false",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Adjusted EBITDAC",
@@ -228,7 +231,8 @@
       "is_generic": false,
       "is_short_history": true,
       "ttm": 4.75,
-      "_validation": "Valeur corrigée de 4.5 à 4.446 (10-K: $4,446M), unité changée de 'Mds $' à 'B $', type changé de 'Margin' à 'Profitability'"
+      "_validation": "Valeur corrigée de 4.5 à 4.446 (10-K: $4,446M), unité changée de 'Mds $' à 'B $', type changé de 'Margin' à 'Profitability'",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Market Cap",
@@ -278,7 +282,8 @@
         "kpi_value_abs": 10900,
         "diff_pct": 84.9,
         "reason": "kept_original_likely_pollution_or_unit"
-      }
+      },
+      "explanation_en": "Total Employees : total number of employees at period end."
     },
     {
       "short": "DPS",
@@ -302,7 +307,9 @@
       "signal": "Dividende par action de 0.7 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -324,7 +331,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -346,7 +355,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Acquisition Impact",
@@ -413,46 +424,44 @@
     }
   ],
   "governance": {
-    "agm_date": "2026-05-12",
-    "fiscal_year": 2025,
-    "ceo_name": "Pat Gallagher",
-    "board_size": 9,
-    "voting_structure": "Une action, un vote (majorité des actions émises et en circulation requise pour le quorum).",
     "top_capital": [
       {
         "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": 9.9
+        "stake_pct": 11.33
       },
       {
-        "name": "JP Morgan Chase & Co.",
+        "name": "JPMorgan Chase & Co.",
         "type": "institutionnel",
-        "stake_pct": 7.8
+        "stake_pct": 7.62
       },
       {
         "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": 6.9
+        "stake_pct": 7.52
       }
     ],
     "top_voting": [
       {
         "name": "The Vanguard Group",
         "type": "institutionnel",
-        "voting_pct": 9.9
+        "stake_pct": 11.33
       },
       {
-        "name": "JP Morgan Chase & Co.",
+        "name": "JPMorgan Chase & Co.",
         "type": "institutionnel",
-        "voting_pct": 7.8
+        "stake_pct": 7.62
       },
       {
         "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "voting_pct": 6.9
+        "stake_pct": 7.52
       }
     ],
-    "ceo_total_comp_m": 20.74506
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:11:55.630910+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -462,21 +471,24 @@
         "value": 7.3038,
         "unit": "Mds $",
         "pct": 86.7,
-        "share_pct": 86.7
+        "share_pct": 86.7,
+        "label_en": "Brokerage"
       },
       {
         "name": "Risk Management",
         "value": 1.0926,
         "unit": "Mds $",
         "pct": 13,
-        "share_pct": 13
+        "share_pct": 13,
+        "label_en": "Risk Management"
       },
       {
         "name": "Corporate",
         "value": 0.0237,
         "unit": "Mds $",
         "pct": 0.3,
-        "share_pct": 0.3
+        "share_pct": 0.3,
+        "label_en": "Corporate"
       }
     ],
     "total": 8.42,
@@ -490,14 +502,16 @@
       {
         "label": "Domestic (USA)",
         "value": 9.23,
+        "share_pct": 67,
         "unit": "Mds $",
-        "share_pct": 67
+        "label_en": "Domestic (USA)"
       },
       {
         "label": "International",
         "value": 4.548,
+        "share_pct": 33,
         "unit": "Mds $",
-        "share_pct": 33
+        "label_en": "International"
       }
     ],
     "total": 13.78
@@ -618,16 +632,16 @@
     }
   ],
   "ranks": {
-    "global_world": "#493",
-    "global_us": "#222",
-    "sector": "#10 dans Financials",
-    "subsector": "#1 dans Insurance Brokerage and Risk Management"
+    "global_world": "#282",
+    "global_us": "#173",
+    "sector": "Top 50 in Finance",
+    "subsector": "#1 in Insurance Brokerage and Risk Management"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-30",
   "publication_date": null,
   "company_description": "Arthur J. Gallagher & Co., together with its subsidiaries, provides insurance and reinsurance brokerage, consulting, and third-party property/casualty claims settlement and administration services to entities and individuals worldwide. The company operates in Brokerage and Risk Management segments. Its Brokerage segment offers retail and wholesale insurance and reinsurance brokerage services; assists retail brokers and other non-affiliated brokers in the placement of specialized and hard-to-place insurance; and acts as a brokerage wholesaler, managing general agent, and managing general underwriter for distributing specialized insurance coverages to underwriting enterprises. This segment performs activities, including marketing, underwriting, issuing policies, collecting premiums, appointing and supervising other agents, paying claims, and negotiating reinsurance; and offers services in the areas of insurance and reinsurance placement, risk of loss management, and management of employer sponsored benefit programs. The Risk Management segment provides contract claim settlement and administration services; and claims management, loss control consulting, and insurance property appraisal services. The company offers its services through a network of correspondent brokers and consultants. It serves commercial, industrial, public, religious, and nonprofit entities, as well as underwriting enterprises. The company was founded in 1927 and is headquartered in Rolling Meadows, Illinois.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.136Z",
+  "_built_at": "2026-05-21T16:00:21.893Z",
   "_missing_blocks": []
 }

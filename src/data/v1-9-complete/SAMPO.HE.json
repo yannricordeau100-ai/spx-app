@@ -231,7 +231,9 @@
       "last_data_date": "2023-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Profit margin on Op.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Gross Margin",
@@ -256,7 +258,9 @@
       "last_data_date": "2023-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Gross Margin : gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Headcount",
@@ -283,7 +287,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_employees_synced_from_yfinance": true
+      "_employees_synced_from_yfinance": true,
+      "explanation_en": "Headcount : total number of employees at period end.",
+      "signal_en": "Steady growth, healthy trend"
     },
     {
       "short": "R&D",
@@ -308,7 +314,9 @@
       "last_data_date": "2023-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Research & Development expenses.",
+      "signal_en": "Flat year-over-year, monitor closely"
     },
     {
       "short": "Capex",
@@ -333,7 +341,9 @@
       "last_data_date": "2023-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Capital Expenditures : investments in property, plant and equipment.",
+      "signal_en": "Solid expansion, positive trajectory"
     },
     {
       "short": "Service / ARR",
@@ -360,10 +370,11 @@
       "is_generic": false,
       "is_short_history": false,
       "period_type": "quarter",
+      "signal_en": "Recurring base growing, revenue visibility rising",
       "is_short_history_legitimate": true,
       "short_history_legitimate_reason": "Annual Recurring Revenue (SaaS) disclosed séparément récemment",
       "_short_history_legitimate_rule": "kpi_pattern",
-      "_short_history_legitimate_tagged_at": "2026-05-21T03:37:51.888Z"
+      "_short_history_legitimate_tagged_at": "2026-05-21T03:35:15.133Z"
     },
     {
       "short": "DPS",
@@ -387,7 +398,9 @@
       "signal": "Dividende par action de 0.36 EUR dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Cap Return",
@@ -409,7 +422,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -431,14 +446,17 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     }
   ],
   "kpis_story": [],
   "governance": {
-    "ceo_name": "Mr. Morten  Thorsrud",
-    "ceo_title": "Group CEO, MD & Member of Group Executive Committee",
-    "fiscal_year": 2025
+    "top_disclosure": "eu_regex_extracted",
+    "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
+    "_top_disclosure_at": "2026-05-21T02:49:04.718339+00:00",
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:19:00Z"
   },
   "revenue_by_segment": {
     "unit": "$B",
@@ -448,28 +466,70 @@
       {
         "label": "If",
         "value": 5.5,
+        "share_pct": 61.8,
         "unit": "$B",
-        "share_pct": 61.8
+        "label_en": "If"
       },
       {
         "label": "Topdanmark",
         "value": 1.3,
+        "share_pct": 14.6,
         "unit": "$B",
-        "share_pct": 14.6
+        "label_en": "Topdanmark"
       },
       {
         "label": "Hastings",
         "value": 2.1,
+        "share_pct": 23.6,
         "unit": "$B",
-        "share_pct": 23.6
+        "label_en": "Hastings"
       }
     ],
     "total": 8.9
   },
   "revenue_by_geography": {
-    "single_region": true,
-    "reason": "Sampo Group opère essentiellement dans les pays nordiques (If P&C Insurance: Suède/Norvège/Finlande/Danemark; Topdanmark; Hastings au UK).",
-    "_extracted_at": "2026-05-20T02:02:58.003660Z"
+    "slices": [
+      {
+        "label": "Suède",
+        "share_pct": 30,
+        "value": 2.65,
+        "unit": "Mds €",
+        "label_en": "Sweden"
+      },
+      {
+        "label": "Finlande",
+        "share_pct": 25,
+        "value": 2.21,
+        "unit": "Mds €",
+        "label_en": "Finland"
+      },
+      {
+        "label": "Norvège",
+        "share_pct": 22,
+        "value": 1.95,
+        "unit": "Mds €",
+        "label_en": "Norway"
+      },
+      {
+        "label": "Danemark",
+        "share_pct": 18,
+        "value": 1.59,
+        "unit": "Mds €",
+        "label_en": "Denmark"
+      },
+      {
+        "label": "Autres",
+        "share_pct": 5,
+        "value": 0.44,
+        "unit": "Mds €",
+        "label_en": "Others"
+      }
+    ],
+    "source": "Sampo plc Annual Report 2024 - Premium income by country (If P&C subsidiary)",
+    "source_date": "2024-12-31",
+    "unit": "Mds €",
+    "currency": "EUR",
+    "_extracted_at": "2026-05-21T10:30:44Z"
   },
   "risks": [
     {
@@ -584,16 +644,16 @@
     }
   ],
   "ranks": {
-    "global_world": "#900",
-    "global_us": ": ",
-    "sector": "#7 dans Financial Services",
-    "subsector": "#5 dans Insurance"
+    "global_world": "#416",
+    "global_us": "Non US",
+    "sector": "Top 25 in Financial Services",
+    "subsector": "Top 25 in Assurance"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-05-06",
   "publication_date": null,
   "company_description": "Sampo Oyj, together with its subsidiaries, provides non-life insurance products and services in Finland, Sweden, Norway, Denmark, Estonia, Lithuania, Latvia, Spain, Gibraltar, Germany, the Netherlands, France, and the United Kingdom. The company operates through Private Nordic, Private UK, Nordic Commercial, and Nordic Industrial segments. It offers property, casualty, liability, accident, sickness, household, homeowner, motor, travel, marine, aviation, transport, forest, livestock, health, workers compensation, car, van, and bike insurance, as well as reinsurance products under the If, Topdanmark, and Hastings brand names. Sampo Oyj was founded in 1909 and is based in Helsinki, Finland.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.592Z",
+  "_built_at": "2026-05-21T16:00:22.681Z",
   "_missing_blocks": []
 }

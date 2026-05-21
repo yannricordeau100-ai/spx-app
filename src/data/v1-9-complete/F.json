@@ -20,10 +20,12 @@
       "value": 124968,
       "unit": "M $",
       "history": [
+        97546,
+        98729,
+        82535,
         87012,
         105481,
-        116995,
-        124968
+        116995
       ],
       "type": "Métier",
       "nature": "opérationnel",
@@ -32,7 +34,8 @@
       "description": "Revenu généré aux Etats-Unis (ventes véhicules Ford Blue, Ford Pro, Ford Model e + Ford Credit). Marché domicile et principal. Source : 10-K Ford Total Company revenues split geographically.",
       "is_specific_to_company": true,
       "_specific_to": "company",
-      "_source": "10-K"
+      "_source": "10-K",
+      "is_short_history": false
     },
     {
       "short": "Company Adjusted EBIT",
@@ -73,7 +76,8 @@
       "is_short_history": true,
       "period_type": "quarter",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "Foreign Currency Risk KPI found only as sensitivity metrics (fair value of derivatives and potential change from 10% FX rate shift) for 2 ye"
+      "_hero_history_unverified_reason": "Foreign Currency Risk KPI found only as sensitivity metrics (fair value of derivatives and potential change from 10% FX rate shift) for 2 ye",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Commodity Price Risk",
@@ -92,7 +96,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Company Cash",
@@ -111,7 +116,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Revenue",
@@ -141,7 +147,9 @@
       "_source": "yfinance.income_stmt",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:50:48.927518+00:00",
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Total Assets",
@@ -163,7 +171,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -185,7 +195,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -207,7 +219,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Foreign Currency Risk",
@@ -232,67 +245,71 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-05-14",
-    "fiscal_year": 2025,
-    "ceo_name": "James D. Farley, Jr.",
-    "board_size": 15,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
     "top_capital": [
       {
-        "name": "William Clay Ford, Jr.",
-        "type": "insider",
-        "stake_pct": null
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.09
       },
       {
-        "name": "Alexandra Ford English",
-        "type": "insider",
-        "stake_pct": null
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.45
       },
       {
-        "name": "Henry Ford III",
-        "type": "insider",
-        "stake_pct": null
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.92
       }
     ],
     "top_voting": [
       {
-        "name": "William Clay Ford, Jr.",
-        "type": "insider",
-        "stake_pct": null
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.09
       },
       {
-        "name": "Alexandra Ford English",
-        "type": "insider",
-        "stake_pct": null
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.45
       },
       {
-        "name": "Henry Ford III",
-        "type": "insider",
-        "stake_pct": null
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.92
       }
     ],
-    "board_independence_pct": 86.7,
-    "board_women_pct": 26.7
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:16.039667+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "slices": [
       {
         "label": "Ford Blue",
-        "value": 130782,
-        "share_pct": 70.66
+        "value": 130.78,
+        "share_pct": 70.66,
+        "unit": "Mds $",
+        "label_en": "Ford Blue"
       },
       {
         "label": "Ford Pro",
-        "value": 5374,
-        "share_pct": 2.9
+        "value": 5.37,
+        "share_pct": 2.9,
+        "unit": "Mds $",
+        "label_en": "Ford Pro"
       },
       {
         "label": "Ford Credit",
-        "value": 48939,
-        "share_pct": 26.44
+        "value": 48.94,
+        "share_pct": 26.44,
+        "unit": "Mds $",
+        "label_en": "Ford Credit"
       }
     ],
-    "total": 185095
+    "unit": "Mds $",
+    "total": 185.09
   },
   "revenue_by_geography": {
     "label": "Répartition du chiffre d'affaires par zone géographique",
@@ -302,35 +319,40 @@
         "value": 105.481,
         "unit": "Mds $",
         "pct": 66.7,
-        "share_pct": 66.7
+        "share_pct": 66.7,
+        "label_en": "United States"
       },
       {
         "name": "Canada",
         "value": 12.59,
         "unit": "Mds $",
         "pct": 8,
-        "share_pct": 8
+        "share_pct": 8,
+        "label_en": "Canada"
       },
       {
         "name": "Royaume-Uni",
         "value": 8.22,
         "unit": "Mds $",
         "pct": 5.2,
-        "share_pct": 5.2
+        "share_pct": 5.2,
+        "label_en": "United Kingdom"
       },
       {
         "name": "Allemagne",
         "value": 6.471,
         "unit": "Mds $",
         "pct": 4.1,
-        "share_pct": 4.1
+        "share_pct": 4.1,
+        "label_en": "Germany"
       },
       {
         "name": "Mexique",
         "value": 1.813,
         "unit": "Mds $",
         "pct": 1.1,
-        "share_pct": 1.1
+        "share_pct": 1.1,
+        "label_en": "Mexico"
       },
       {
         "name": "Tous autres",
@@ -453,16 +475,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #18",
-    "global_us": "≈ #4",
-    "sector": "≈ #3",
-    "subsector": "≈ #2"
+    "global_world": "#280",
+    "global_us": "#172",
+    "sector": "Top 25 in Consommation discrétionnaire",
+    "subsector": "#3 in Automobiles"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-29",
   "publication_date": null,
   "company_description": "Ford Motor Company develops, delivers, and services Ford trucks, sport utility vehicles, commercial vans and cars, and Lincoln luxury vehicles in the United States, Canada, the United Kingdom, Mexico, and internationally. It operates through Ford Blue, Ford Model e, Ford Pro, and Ford Credit segments. The company sells Ford and Lincoln internal combustion engine and hybrid vehicles, electric vehicles, service parts, accessories, and digital services for retail customers; develops EV and digital vehicle technologies, and software; and provides telematics and EV charging solutions. It also sells Ford and Lincoln vehicles, service parts, and accessories through distributors and dealers, as well as through dealerships to commercial fleet customers, daily rental car companies, and governments. In addition, it engages in vehicle-related financing and leasing activities to and through automotive dealers. Further, the company provides retail installment sale contracts for new and used vehicles; and direct financing leases for new vehicles to retail and commercial customers, such as leasing companies, government entities, daily rental companies, and fleet customers. Additionally, it offers ",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.346Z",
+  "_built_at": "2026-05-21T16:00:22.217Z",
   "_missing_blocks": []
 }

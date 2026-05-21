@@ -310,27 +310,8 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "_validation": "Validé directement du 10-K: 'Financial Technology segment delivered 14% growth in ARR and revenue'"
-    },
-    {
-      "short": "Market Services Revenue",
-      "name_fr": "Revenu Services de Marché",
-      "name_en": "Market Services Revenue",
-      "explanation": "Revenu généré par les activités de services de marché de Nasdaq, y compris les actions et options.",
-      "value": null,
-      "unit": null,
-      "yoy": null,
-      "type": "Revenue",
-      "nature": "Conjoncturel",
-      "comparable": "Non comparable",
-      "signal": "Revenu record dans les services de marché.",
-      "description": "Revenu record pour le segment Services de Marché en 2025, soutenu par la force des volumes des actions et options sur actions aux États-Unis.",
-      "history": [],
-      "last_data_date": "2026-03-31",
-      "is_wow": true,
-      "is_generic": false,
-      "is_short_history": true,
-      "_validation": "KPI marqué comme halluciné: énoncé qualitatif 'Market Services delivered record revenue' sans chiffre numérique spécifique ni unité dans le 10-K; conservé car signal mentionné dans les highlights avec is_short_history=true"
+      "_validation": "Validé directement du 10-K: 'Financial Technology segment delivered 14% growth in ARR and revenue'",
+      "explanation_en": "Year-over-year growth in Financial Technology ARR."
     },
     {
       "short": "Total Assets",
@@ -352,7 +333,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -374,7 +357,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Total Revenue",
@@ -400,7 +385,9 @@
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -425,56 +412,51 @@
       "signal": "Résultat net de 1.788 Mds $ dernière année.",
       "description": "Résultat net consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening"
     }
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-05-05",
-    "fiscal_year": 2025,
-    "ceo_name": "Adena T. Friedman",
-    "ceo_total_comp_m": 16.7,
-    "ceo_pay_ratio": 197,
-    "exec_comp_approval_pct": 94.5,
-    "board_independence_pct": 91.7,
-    "board_size": 12,
-    "avg_tenure_years": 6.2,
-    "board_women_pct": 41.7,
-    "voting_structure": "Nasdaq has a dual-class voting structure with Class A and Class B shares, where Class B shares have superior voting rights.",
     "top_capital": [
       {
-        "name": "The Vanguard Group, Inc.",
+        "name": "Investor AB",
         "type": "institutionnel",
-        "stake_pct": 8.3
+        "stake_pct": 10.32
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 10.14
       },
       {
         "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": 7.9
-      },
-      {
-        "name": "State Street Corporation",
-        "type": "institutionnel",
-        "stake_pct": 4.2
+        "stake_pct": 6.75
       }
     ],
     "top_voting": [
       {
-        "name": "Adena T. Friedman",
-        "type": "insider",
-        "stake_pct": 1.2
+        "name": "Investor AB",
+        "type": "institutionnel",
+        "stake_pct": 10.32
       },
       {
-        "name": "The Vanguard Group, Inc.",
+        "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": 5.1
+        "stake_pct": 10.14
       },
       {
         "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": 4.7
+        "stake_pct": 6.75
       }
-    ]
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:14:25.097728+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -484,28 +466,32 @@
         "value": 2.137,
         "unit": "Mds $",
         "pct": 25.9,
-        "share_pct": 25.9
+        "share_pct": 25.9,
+        "label_en": "Capital Access Platforms"
       },
       {
         "name": "Financial Technology",
         "value": 1.85,
         "unit": "Mds $",
         "pct": 22.4,
-        "share_pct": 22.4
+        "share_pct": 22.4,
+        "label_en": "Financial Technology"
       },
       {
         "name": "Market Services",
         "value": 4.214,
         "unit": "Mds $",
         "pct": 51,
-        "share_pct": 51
+        "share_pct": 51,
+        "label_en": "Market Services"
       },
       {
         "name": "Corporate",
         "value": 0.061,
         "unit": "Mds $",
         "pct": 0.7,
-        "share_pct": 0.7
+        "share_pct": 0.7,
+        "label_en": "Corporate"
       }
     ],
     "total": 8.26,
@@ -519,14 +505,16 @@
         "value": 5.947,
         "unit": "Mds $",
         "pct": 71.9,
-        "share_pct": 71.9
+        "share_pct": 71.9,
+        "label_en": "United States"
       },
       {
         "name": "All other countries",
         "value": 2.315,
         "unit": "Mds $",
         "pct": 28.1,
-        "share_pct": 28.1
+        "share_pct": 28.1,
+        "label_en": "All other countries"
       }
     ],
     "total": 8.26,
@@ -636,16 +624,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #N/A",
-    "global_us": "N/A",
-    "sector": "N/A",
-    "subsector": "N/A"
+    "global_world": "#289",
+    "global_us": "#179",
+    "sector": "#83 in Technologie",
+    "subsector": "#1 in Marketplaces"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-23",
   "publication_date": null,
   "company_description": "Nasdaq, Inc. operates as a technology company that serves capital markets and other industries in the United States and internationally. It operates through three segments: Capital Access Platforms, Financial Technology, and Market Services. The company distributes historical and real-time market data; develops and licenses Nasdaq-branded indices and financial products; provides investor relations intelligence, governance solutions, and sustainability solution products for public and private companies, and organizations, as well as insights and workflow solutions; and operates listing platforms. It also offers Verafin, a cloud-based platform to detect, investigate, and report money laundering and financial frauds; AxiomSL, a risk data management and regulatory reporting solution; cloud-enabled and on-premises surveillance solutions to assist in complying with market rules, regulations, and internal market surveillance policies; Calypso, a platform providing cross-asset, front-to-back trading, treasury, risk, and collateral management solutions; and trade management and colocation services, as well as handles assets comprising cash equities, equity derivatives, currencies, various i",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.501Z",
+  "_built_at": "2026-05-21T16:00:22.490Z",
   "_missing_blocks": []
 }

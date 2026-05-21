@@ -47,7 +47,9 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 0,
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "explanation_en": "Number of Electric customers.",
+      "signal_en": "User base expansion, adoption building"
     },
     {
       "short": "Gas Customers",
@@ -73,7 +75,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "ttm": 0
+      "ttm": 0,
+      "explanation_en": "Number of Gas customers."
     },
     {
       "short": "Planned Natural Gas Capacity Addition",
@@ -121,7 +124,9 @@
       "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -143,7 +148,9 @@
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Solid expansion, positive trajectory"
     },
     {
       "short": "Total Assets",
@@ -165,7 +172,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -187,7 +196,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -209,7 +220,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Planned Renewable Generation Addition",
@@ -268,35 +280,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-05-20",
-    "fiscal_year": 2025,
-    "ceo_name": "Mr. Garcia",
-    "board_size": 4,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "top_voting": [
+    "top_capital": [
       {
-        "name": "Mr. Allen",
-        "type": "insider",
-        "stake_pct": null
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 13.25
       },
       {
-        "name": "Mr. Asthana",
-        "type": "insider",
-        "stake_pct": null
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 10.38
       },
       {
-        "name": "Mr. Cortina",
-        "type": "insider",
-        "stake_pct": null
-      },
-      {
-        "name": "Mr. Garcia",
-        "type": "insider",
-        "stake_pct": null
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 7.21
       }
     ],
-    "board_independence_pct": 100,
-    "note": "Document incomplet : informations CEO, rémunération exécutive, composition complète du board, actionnaires principaux et tenure moyenne non disponibles dans les extraits fournis."
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 13.25
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 10.38
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 7.21
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:14:05.102466+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -306,34 +327,55 @@
         "value": 3.421,
         "unit": "Mds $",
         "pct": 81.4,
-        "share_pct": 81.4
+        "share_pct": 81.4,
+        "label_en": "Electric Utility"
       },
       {
         "name": "Gas Utility",
         "value": 0.642,
         "unit": "Mds $",
         "pct": 15.3,
-        "share_pct": 15.3
+        "share_pct": 15.3,
+        "label_en": "Gas Utility"
       },
       {
         "name": "Other Utility",
         "value": 0.049,
         "unit": "Mds $",
         "pct": 1.2,
-        "share_pct": 1.2
+        "share_pct": 1.2,
+        "label_en": "Other Utility"
       },
       {
         "name": "Non-Utility and Other",
         "value": 0.093,
         "unit": "Mds $",
         "pct": 2.2,
-        "share_pct": 2.2
+        "share_pct": 2.2,
+        "label_en": "Non-Utility and Other"
       }
     ],
     "total": 4.21,
     "unit": "Mds $"
   },
-  "revenue_by_geography": null,
+  "revenue_by_geography": {
+    "unit": "%",
+    "slices": [
+      {
+        "label": "États-Unis",
+        "value": 100,
+        "share_pct": 100,
+        "single_region_legitimate": true,
+        "unit": "%",
+        "label_en": "United States"
+      }
+    ],
+    "total": 100,
+    "source": "Mono-pays légitime (filings)",
+    "_tagged_by": "auto-rebascule-21mai-CONV-CONCEPTS",
+    "_tagged_at": "2026-05-21T01:26:18.196Z",
+    "_category": "utility-us"
+  },
   "risks": [
     {
       "title": "Cybersecurity",
@@ -418,18 +460,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #XX",
-    "global_us": "...",
-    "sector": "...",
-    "subsector": "..."
+    "global_world": "#531",
+    "global_us": "#324",
+    "sector": "Top 50 in Services aux collectivités",
+    "subsector": "Top 25 in Électricité"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-04-30",
   "publication_date": null,
   "company_description": "Alliant Energy Corporation operates as a utility holding company that provides regulated electric and natural gas services in the United States. It operates through IPL and WPL segments. The company's IPL segment engages primarily in the generation and distribution of electricity and the distribution and transportation of natural gas to retail customers in select markets in Iowa. This segment also sells electricity to wholesale customers in Minnesota, Illinois and Iowa; and generates and distributes steam for two customers in Cedar Rapids, Iowa. Its WPL segment generates and distributes electricity, and distributes and transports natural gas to retail customers in select markets in Wisconsin; and sells electricity to wholesale customers in Wisconsin. It serves retail customers in the farming, agriculture, industrial manufacturing, chemical, packaging, and food industries, as well as wholesale customers comprising municipalities and rural electric cooperatives. In addition, the company owns and operates a short-line rail freight service in Iowa; a Mississippi River barge, rail, and truck freight terminal in Illinois; freight brokerage services; wind turbine blade recycling services;",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.458Z",
-  "_missing_blocks": [
-    "revenue_by_geography"
-  ]
+  "_built_at": "2026-05-21T16:00:22.410Z",
+  "_missing_blocks": []
 }

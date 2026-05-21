@@ -36,7 +36,9 @@
       "last_data_date": "2024-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Capital Expenditures : investments in property, plant and equipment.",
+      "signal_en": "Solid expansion, positive trajectory"
     },
     {
       "short": "Revenue",
@@ -61,7 +63,9 @@
       "last_data_date": "2024-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Revenue : total sales generated over the period.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "EBITDA",
@@ -86,7 +90,9 @@
       "last_data_date": "2024-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Earnings Before Interest, Taxes, Depreciation and Amortization.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Op Margin",
@@ -111,7 +117,9 @@
       "last_data_date": "2024-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Profit margin on Op.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Net Financial Debt",
@@ -136,7 +144,8 @@
       "last_data_date": "2024-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Net Financial Debt/EBITDA",
@@ -161,7 +170,8 @@
       "last_data_date": "2024-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Installed Capacity",
@@ -187,7 +197,8 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "annual"
+      "period_type": "annual",
+      "signal_en": "Capacity expanding, future growth supported"
     },
     {
       "short": "DPS",
@@ -211,7 +222,9 @@
       "signal": "Dividende par action de 5.284 EUR dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Cap Return",
@@ -233,7 +246,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -255,23 +270,50 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     }
   ],
   "kpis_story": [],
   "governance": {
-    "ceo_name": "José Manuel Entrecanales Domecq",
-    "voting_structure": "Une action, un vote (actions ordinaires de 1 € de valeur nominale chacune).",
-    "top_capital": [
+    "top_voting": [
       {
-        "name": "Tussen de Grachten BV (actionnaires familiaux Entrecanales)",
-        "type": "fondateur",
-        "stake_pct": null
+        "name": "Wit",
+        "type": "institutionnel",
+        "stake_pct": 26.1
+      },
+      {
+        "name": "Free Float",
+        "type": "institutionnel",
+        "stake_pct": 41.2
+      },
+      {
+        "name": "Tussen",
+        "type": "institutionnel",
+        "stake_pct": 29
       }
     ],
-    "top_voting": [],
-    "agm_date": "2024-06-20",
-    "fiscal_year": 2024
+    "top_capital": [
+      {
+        "name": "Wit",
+        "type": "institutionnel",
+        "stake_pct": 26.1
+      },
+      {
+        "name": "Free Float",
+        "type": "institutionnel",
+        "stake_pct": 41.2
+      },
+      {
+        "name": "Tussen",
+        "type": "institutionnel",
+        "stake_pct": 29
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "cerebras_eu",
+    "_top_enriched_at": "2026-05-21T02:17:08.258652+00:00"
   },
   "revenue_by_segment": {
     "unit": "Mds EUR",
@@ -281,53 +323,63 @@
       {
         "label": "Infrastructure",
         "value": 8.15,
-        "unit": "M EUR",
-        "share_pct": 42.4
+        "share_pct": 42.4,
+        "unit": "Mds EUR",
+        "label_en": "Infrastructure"
       },
       {
         "label": "Nordex (wind turbines)",
         "value": 7.3,
-        "unit": "M EUR",
-        "share_pct": 38
+        "share_pct": 38,
+        "unit": "Mds EUR",
+        "label_en": "Nordex (wind turbines)"
       },
       {
         "label": "Energy",
         "value": 3.05,
-        "unit": "M EUR",
-        "share_pct": 15.9
+        "share_pct": 15.9,
+        "unit": "Mds EUR",
+        "label_en": "Energy"
       },
       {
         "label": "Other activities",
         "value": 1.47,
-        "unit": "M EUR",
-        "share_pct": 7.7
+        "share_pct": 7.7,
+        "unit": "Mds EUR",
+        "label_en": "Other activities"
       },
       {
         "label": "Consolidation adjustments",
         "value": -0.77,
-        "unit": "M EUR",
-        "share_pct": -4
+        "share_pct": -4,
+        "unit": "Mds EUR",
+        "label_en": "Consolidation adjustments"
       }
     ],
     "total": 19.2
   },
   "revenue_by_geography": {
-    "label": "Répartition du chiffre d'affaires par zone géographique",
     "slices": [
       {
-        "name": "Europe",
-        "value": null,
-        "unit": "Mds $",
-        "pct": 35
+        "label": "Espagne",
+        "share_pct": 41,
+        "value": 7.5,
+        "unit": "Mds €",
+        "label_en": "Spain"
       },
       {
-        "name": "Amérique du Nord",
-        "value": null,
-        "unit": "Mds $",
-        "pct": 6
+        "label": "Reste du monde",
+        "share_pct": 59,
+        "value": 10.8,
+        "unit": "Mds €",
+        "label_en": "Rest of World"
       }
     ],
-    "unit": "Mds $"
+    "source": "Acciona SA Annual Report 2024 - Revenue by geography (Spain vs International)",
+    "source_date": "2024-12-31",
+    "unit": "Mds €",
+    "currency": "EUR",
+    "_extracted_at": "2026-05-21T10:30:44Z"
   },
   "risks": [
     {
@@ -433,7 +485,7 @@
     }
   ],
   "ranks": {
-    "global_world": "#242",
+    "global_world": "#576",
     "global_us": "Non US",
     "sector": "#1 in Utilities & Infrastructure",
     "subsector": "#1 in Renewable Energy & Concessions"
@@ -443,6 +495,6 @@
   "publication_date": null,
   "company_description": "Acciona, S.A., together with its subsidiaries, provides energy and infrastructure solutions in Spain and internationally. It develops, constructs, operates, and maintains wind, solar photovoltaic, hydropower, thermal solar, and biomass plants, as well as offers energy storage, renewable energy supply, energy efficiency, self-consumption, green hydrogen, and electric mobility solutions; and designs, develops, manufactures, and distributes wind turbines. The company also engages in the construction and development of civil engineering infrastructure projects, including roads, highways and motorways, bridges, tunnels, railways and railway services, and metros and trams, as well as ports and water channels, airports and airport services, freight forwarding, data center, and substation and transmission lines; water solutions, such as waste water treatment and reuse, desalination, drinking water, integral water cycle, and water for agriculture; and social services for healthcare, university campuses, and ecosystem restoration. In addition, it is involved in the provision of sustainable cities solutions comprising efficient building, circular economy, urban ecosystems, museums and universal exhibitions, immersive experiences, and event design and management; development of housing projects, hotels and holiday resorts, fit outs, offices, and industrial properties; and fund management and stock brokerage. The company was incorporated in 1916 and is headquartered in Madrid, Spain.",
   "_specific_fit_for_site": false,
-  "_built_at": "2026-05-20T20:15:02.150Z",
+  "_built_at": "2026-05-21T16:00:21.914Z",
   "_missing_blocks": []
 }

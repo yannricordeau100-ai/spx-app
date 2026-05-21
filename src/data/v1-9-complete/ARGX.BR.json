@@ -153,7 +153,8 @@
       "last_data_date": "2024-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "Accumulated Losses",
@@ -175,7 +176,8 @@
       "last_data_date": "2024-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "signal_en": "Significant decline, warning signal"
     },
     {
       "short": "Subsidiaries Result",
@@ -218,7 +220,11 @@
       "signal": "Chiffre d'affaires de 4.15 Mds € dernière année",
       "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "is_short_history_legitimate": true,
+      "short_history_legitimate_reason": "VYVGART launched 2021 (argenx)",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -239,7 +245,9 @@
       "signal": "Résultat net de 1.29 Mds € dernière année",
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum"
     },
     {
       "short": "Total Assets",
@@ -260,7 +268,9 @@
       "signal": "Total des actifs de 8.68 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -281,7 +291,9 @@
       "signal": "Dette totale de 0.05 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -302,41 +314,34 @@
       "signal": "Trésorerie & équivalents de 3.49 Mds € dernière année",
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     }
   ],
   "kpis_story": [],
   "governance": {
-    "ceo_name": "Mr. Karl  Gubitz",
-    "ceo_title": "Chief Financial Officer",
-    "officers": [
+    "top_capital": [
       {
-        "name": "Mr. Karl  Gubitz",
-        "title": "Chief Financial Officer",
-        "age": 55
-      },
-      {
-        "name": "Dr. Peter  Ulrichts",
-        "title": "Chief Scientific Officer",
-        "age": 45
-      },
-      {
-        "name": "Ms. Malini  Moorthy",
-        "title": "General Counsel & Corporate Secretary",
-        "age": 55
-      },
-      {
-        "name": "Mr. Arjen  Lemmen M.Sc.",
-        "title": "Vice President of Corporate Development & Strategy",
-        "age": 40
-      },
-      {
-        "name": "Ms. Andria  Wilk",
-        "title": "Global Head of Quality",
-        "age": 51
+        "name": "Old Mission Capital, LLC",
+        "type": "institutionnel",
+        "stake_pct": 0.01
       }
     ],
-    "fiscal_year": 2025
+    "top_voting": [
+      {
+        "name": "Old Mission Capital, LLC",
+        "type": "institutionnel",
+        "stake_pct": 0.01
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:12:05.080926+00:00",
+    "_top_dual_class_flag": false,
+    "top_disclosure": "eu_regex_extracted",
+    "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
+    "_top_disclosure_at": "2026-05-21T02:49:04.546057+00:00",
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:18:56Z"
   },
   "revenue_by_segment": {
     "label": "Argenx fonctionne en business unit unique (un produit commercial : VYVGART efgartigimod). Pas de segments reportés.",
@@ -345,7 +350,8 @@
         "name": "VYVGART franchise (efgartigimod alfa)",
         "value": 4.151,
         "unit": "Mds $",
-        "share_pct": 100
+        "share_pct": 100,
+        "label_en": "VYVGART franchise (efgartigimod alfa)"
       }
     ],
     "total": 4.15,
@@ -359,28 +365,32 @@
         "label": "États-Unis",
         "value": 3.534,
         "unit": "Mds $",
-        "share_pct": 85.1
+        "share_pct": 85.1,
+        "label_en": "United States"
       },
       {
         "name": "Japan",
         "label": "Japon",
         "value": 0.207,
         "unit": "Mds $",
-        "share_pct": 5
+        "share_pct": 5,
+        "label_en": "Japan"
       },
       {
         "name": "China",
         "label": "Chine",
         "value": 0.068,
         "unit": "Mds $",
-        "share_pct": 1.6
+        "share_pct": 1.6,
+        "label_en": "China"
       },
       {
         "name": "Rest of the World",
         "label": "Reste du monde",
         "value": 0.343,
         "unit": "Mds $",
-        "share_pct": 8.3
+        "share_pct": 8.3,
+        "label_en": "Rest of World"
       }
     ],
     "total": 4.15,
@@ -502,15 +512,15 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #1500",
-    "global_us": "...",
-    "sector": "Top 100 Biotech",
-    "subsector": "Top 20 Autoimmune Biotech"
+    "global_world": "#366",
+    "global_us": "Non US",
+    "sector": "#110 in Technologie",
+    "subsector": "Top 5 in Biotechnologie"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-05-07",
   "publication_date": null,
   "company_description": "argenx est une société biopharmaceutique spécialisée dans le développement de thérapies innovantes basées sur les anticorps, principalement pour le traitement de maladies auto-immunes et oncologiques.",
-  "_built_at": "2026-05-20T20:15:02.163Z",
+  "_built_at": "2026-05-21T16:00:21.927Z",
   "_missing_blocks": []
 }

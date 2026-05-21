@@ -45,7 +45,9 @@
         "Amélioration name_fr pour plus de clarté",
         "Correction last_data_date: '2025-12-31' remplacée par '2025-11-30' (année fiscale McCormick)",
         "Correction is_generic: 'true' remplacée par 'false' (KPI spécifique au segment)"
-      ]
+      ],
+      "explanation_en": "Revenue from the Consumer Segment segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Flavor Solutions Segment Revenue",
@@ -78,7 +80,9 @@
         "Amélioration name_fr pour plus de clarté",
         "Correction last_data_date: '2025-12-31' remplacée par '2025-11-30'",
         "Correction is_generic: 'true' remplacée par 'false' (KPI spécifique au segment)"
-      ]
+      ],
+      "explanation_en": "Revenue from the Flavor Solutions Segment segment.",
+      "signal_en": "Revenue pressure, demand softening"
     },
     {
       "short": "Gross Profit Margin",
@@ -112,7 +116,9 @@
         "Amélioration description pour clarifier la baisse en points de base",
         "Correction history pour refléter les marges historiques réelles",
         "Correction last_data_date: '2025-12-31' remplacée par '2025-11-30'"
-      ]
+      ],
+      "explanation_en": "Profit margin on Gross Profit.",
+      "signal_en": "Margin compression, watch profitability"
     },
     {
       "short": "Operating Income",
@@ -143,7 +149,9 @@
         "Correction type: 'Revenue' remplacée par 'Profitability'",
         "Correction yoy: '+1.0%' remplacée par '+1.0' (en points)",
         "Correction last_data_date: '2025-12-31' remplacée par '2025-11-30'"
-      ]
+      ],
+      "explanation_en": "Operating Income : profit from core business operations.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Net Sales Growth",
@@ -191,7 +199,9 @@
         "old_unit": "%",
         "old_value": 6840300000,
         "factor": 1000000000
-      }
+      },
+      "explanation_en": "Year-over-year growth in Net Sales.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Adjusted Operating Income",
@@ -224,7 +234,9 @@
         "Amélioration description pour inclure la croissance en monnaie constante",
         "Correction last_data_date: '2025-12-31' remplacée par '2025-11-30'",
         "Correction is_generic: 'true' remplacée par 'false' (KPI de profitabilité ajustée)"
-      ]
+      ],
+      "explanation_en": "Adjusted Operating income generated over the period.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Diluted Earnings Per Share",
@@ -254,7 +266,9 @@
       "_validation": [
         "Correction type: 'Revenue' remplacée par 'Profitability'",
         "Correction last_data_date: '2025-12-31' remplacée par '2025-11-30'"
-      ]
+      ],
+      "explanation_en": "Market share in Diluted Earnings Per.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Adjusted Diluted Earnings Per Share",
@@ -286,7 +300,9 @@
         "Amélioration description pour inclure le taux de croissance",
         "Correction last_data_date: '2025-12-31' remplacée par '2025-11-30'",
         "Correction is_generic: 'true' remplacée par 'false' (KPI clé de rentabilité ajustée)"
-      ]
+      ],
+      "explanation_en": "Market share in Adjusted Diluted Earnings Per.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Operating Cash Flow",
@@ -319,7 +335,9 @@
         "Correction history: ajustement pour cohérence avec données réelles",
         "Correction last_data_date: '2025-12-31' remplacée par '2025-11-30'",
         "Correction ttm: '838.19' remplacée par '925.0' (estimation ajustée)"
-      ]
+      ],
+      "explanation_en": "Operating Cash Flow : cash generated from core business operations.",
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "DPS",
@@ -343,7 +361,9 @@
       "signal": "Dividende par action de 0.48 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -365,7 +385,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -387,7 +409,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     }
   ],
   "kpis_story": [
@@ -407,30 +431,44 @@
     }
   ],
   "governance": {
-    "agm_date": "2026-04-01",
-    "fiscal_year": 2025,
-    "ceo_name": "Brendan M. Foley",
-    "exec_comp_approval_pct": null,
-    "board_independence_pct": 92.3,
-    "board_size": 13,
-    "avg_tenure_years": 8,
-    "board_women_pct": 31,
-    "voting_structure": "Double structure d'actions : actions ordinaires avec droit de vote et actions ordinaires sans droit de vote (Common Stock Non-Voting).",
     "top_capital": [
       {
-        "name": "Brendan M. Foley",
-        "type": "insider",
-        "stake_pct": null
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.96
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.38
+      },
+      {
+        "name": "State Farm Mutual Automobile Insurance Co",
+        "type": "institutionnel",
+        "stake_pct": 6.51
       }
     ],
     "top_voting": [
       {
-        "name": "Brendan M. Foley",
-        "type": "insider",
-        "stake_pct": null
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.96
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.38
+      },
+      {
+        "name": "State Farm Mutual Automobile Insurance Co",
+        "type": "institutionnel",
+        "stake_pct": 6.51
       }
     ],
-    "ceo_total_comp_m": 10.831581
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:14:15.735376+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "unit": "Mds $",
@@ -440,14 +478,16 @@
       {
         "label": "Consumer",
         "value": 3.95,
+        "share_pct": 57.7,
         "unit": "Mds $",
-        "share_pct": 57.7
+        "label_en": "Consumer"
       },
       {
         "label": "Flavor Solutions",
         "value": 2.89,
+        "share_pct": 42.3,
         "unit": "Mds $",
-        "share_pct": 42.3
+        "label_en": "Flavor Solutions"
       }
     ],
     "total": 6.84
@@ -460,21 +500,24 @@
         "value": 3.92,
         "unit": "Mds $",
         "pct": 61.8,
-        "share_pct": 61.8
+        "share_pct": 61.8,
+        "label_en": "United States"
       },
       {
         "name": "EMEA",
         "value": 1.12,
         "unit": "Mds $",
         "pct": 17.6,
-        "share_pct": 17.6
+        "share_pct": 17.6,
+        "label_en": "EMEA"
       },
       {
         "name": "Other countries",
         "value": 1.31,
         "unit": "Mds $",
         "pct": 20.7,
-        "share_pct": 20.7
+        "share_pct": 20.7,
+        "label_en": "Other countries"
       }
     ],
     "total": 6.35,
@@ -561,15 +604,15 @@
     }
   ],
   "ranks": {
-    "global_world": "#266",
-    "global_us": "#143",
-    "sector": "#1 in Consommation",
+    "global_world": "#650",
+    "global_us": "#396",
+    "sector": "#2 in Consommation",
     "subsector": "#1 in Agroalimentaire"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-03-31",
   "publication_date": null,
   "company_description": "McCormick & Company, Incorporated manufactures, markets, and distributes herbs, spices, seasoning mixes, condiments, and other flavorful products to the food industry. It operates in two segments, Consumer and Flavor Solutions. The Consumer segment offers spices, herbs, and seasonings, as well as condiments and sauces, and desserts. This segment markets its products under the McCormick, French's, Frank's RedHot, Lawry's, Cholula Hot Sauce, Club House, Gourmet Garden, and OLD BAY brands in the Americas; Ducros, Schwartz, Kamis, LA Drogheria, and Vahiné brands in Europe, the Middle East, and Africa; and McCormick and DaQiao brands in the Asia/Pacific, as well as markets desserts under the Aeroplane brand and packaged chilled herbs under the Gourmet Garden brand name; and markets authentic regional brands, such as Zatarain's, Stubb's, Thai Kitchen, and Simply Asia. It also supplies its products under the private labels. This segment serves retailers comprising grocery, mass merchandise, warehouse clubs, discount and drug stores, and e-commerce retailers directly and indirectly through distributors, wholesale foodservice suppliers, and e-commerce. The Flavor Solutions segment offers seasoning blends, spices and herbs, condiments, coating systems, and compound flavors to multinational food manufacturers and foodservice customers. It serves foodservice customers directly and indirectly through distributors. The company was founded in 1889 and is headquartered in Hunt Valley, Maryland.",
-  "_built_at": "2026-05-20T20:15:02.476Z",
+  "_built_at": "2026-05-21T16:00:22.451Z",
   "_missing_blocks": []
 }

@@ -209,7 +209,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "explanation_en": "Profit margin on Op.",
+      "signal_en": "Margin stable, monitor cost dynamics"
     },
     {
       "short": "Gross Margin",
@@ -234,7 +236,9 @@
       "last_data_date": "2017-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Gross Margin : gross profit divided by revenue.",
+      "signal_en": "Margin stable, monitor cost dynamics"
     },
     {
       "short": "R&D",
@@ -259,7 +263,9 @@
       "last_data_date": "2017-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Research & Development expenses.",
+      "signal_en": "Flat year-over-year, monitor closely"
     },
     {
       "short": "Capex",
@@ -284,7 +290,9 @@
       "last_data_date": "2017-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Capital Expenditures : investments in property, plant and equipment.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Headcount",
@@ -315,7 +323,9 @@
         "kpi_value_abs": 265000,
         "diff_pct": 50.3,
         "reason": "kept_original_likely_pollution_or_unit"
-      }
+      },
+      "explanation_en": "Headcount : total number of employees at period end.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Revenue",
@@ -340,7 +350,9 @@
       "last_data_date": "2017-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Revenue : total sales generated over the period.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "DPS",
@@ -364,7 +376,9 @@
       "signal": "Dividende par action de 1.0 EUR dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Cap Return",
@@ -386,14 +400,17 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     }
   ],
   "kpis_story": [],
   "governance": {
-    "ceo_name": "Mr. Michael  Sen",
-    "ceo_title": "CEO, President & Chairman of Management Board of Fresenius Management SE",
-    "fiscal_year": 2025
+    "top_disclosure": "eu_regex_extracted",
+    "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
+    "_top_disclosure_at": "2026-05-21T02:49:04.622785+00:00",
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:18:57Z"
   },
   "revenue_by_segment": {
     "_verifier": "claude-subagent-mission-b",
@@ -407,19 +424,22 @@
         "label": "Fresenius Helios (hopitaux Allemagne + Espagne)",
         "value": 13.55,
         "share_pct": 60,
-        "unit": "Mds EUR"
+        "unit": "Mds EUR",
+        "label_en": "Fresenius Helios (hopitaux Allemagne + Espagne)"
       },
       {
         "label": "Fresenius Kabi (medicaments IV, nutrition clinique, dispositifs)",
         "value": 8.61,
         "share_pct": 38,
-        "unit": "Mds EUR"
+        "unit": "Mds EUR",
+        "label_en": "Fresenius Kabi (medicaments IV, nutrition clinique, dispositifs)"
       },
       {
         "label": "Corporate / Others",
         "value": 0.39,
         "share_pct": 2,
-        "unit": "Mds EUR"
+        "unit": "Mds EUR",
+        "label_en": "Corporate / Others"
       }
     ]
   },
@@ -435,31 +455,36 @@
         "label": "Europe",
         "value": 16.77,
         "share_pct": 74,
-        "unit": "Mds EUR"
+        "unit": "Mds EUR",
+        "label_en": "Europe"
       },
       {
         "label": "North America",
         "value": 2.74,
         "share_pct": 12,
-        "unit": "Mds EUR"
+        "unit": "Mds EUR",
+        "label_en": "North America"
       },
       {
         "label": "Asia-Pacific",
         "value": 1.51,
         "share_pct": 7,
-        "unit": "Mds EUR"
+        "unit": "Mds EUR",
+        "label_en": "Asia-Pacific"
       },
       {
         "label": "Latin America",
         "value": 1.38,
         "share_pct": 6,
-        "unit": "Mds EUR"
+        "unit": "Mds EUR",
+        "label_en": "Latin America"
       },
       {
         "label": "Africa",
         "value": 0.16,
         "share_pct": 1,
-        "unit": "Mds EUR"
+        "unit": "Mds EUR",
+        "label_en": "Africa"
       }
     ]
   },
@@ -579,16 +604,16 @@
     }
   ],
   "ranks": {
-    "global_world": "#913",
-    "global_us": ": ",
-    "sector": "#2 dans Health Care",
-    "subsector": "#1 dans Medical Devices & Services"
+    "global_world": "#431",
+    "global_us": "Non US",
+    "sector": "Top 50 in Santé",
+    "subsector": "#1 in Medical Devices & Services"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-08-05",
   "publication_date": null,
   "company_description": "Fresenius SE & Co. KGaA, a health care company, provides products and services for chronically ill patients in North America, Europe, the Asia-Pacific, Latin America, and Africa. It operates through Fresenius Kabi and Fresenius Helios segments. The Fresenius Kabi segment offers products for therapy and care of critically and chronically ill patients, including biopharmaceuticals, clinical nutrition, MedTech products, intravenously administered generic drugs, and IV fluids. It also provides biosimilar drugs; enteral and parenteral nutrition products; and medical technologies that include disposables, infusions pumps, apheresis machines, cell therapy devices, and other products. The Fresenius Helios segment operates hospitals, medical care centers, occupational health centers, prevention centers, and outpatient health centers, as well as provision of medical diagnostics. The company was formerly known as Fresenius SE and changed its name to Fresenius SE & Co. KGaA in January 2011. Fresenius SE & Co. KGaA was founded in 1912 and is based in Bad Homburg vor der Höhe, Germany.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.360Z",
+  "_built_at": "2026-05-21T16:00:22.240Z",
   "_missing_blocks": []
 }

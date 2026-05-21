@@ -35,7 +35,8 @@
       "is_short_history": true,
       "period_type": "quarter",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "Le KPI 'Clean Energy Mix' est mentionné dans la stratégie (2030 target: 65% clean energy; current state: 50% clean), mais aucune valeur annu"
+      "_hero_history_unverified_reason": "Le KPI 'Clean Energy Mix' est mentionné dans la stratégie (2030 target: 65% clean energy; current state: 50% clean), mais aucune valeur annu",
+      "signal_en": "Mix stable"
     },
     {
       "short": "Total Capacity",
@@ -56,7 +57,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Capacity stable"
     },
     {
       "short": "Customers",
@@ -77,7 +79,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "User base stable"
     },
     {
       "short": "Assets",
@@ -98,7 +101,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Capital base stable"
     },
     {
       "short": "Palo Verde Output",
@@ -119,7 +123,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Flat year-over-year, monitor closely"
     },
     {
       "short": "Gas Pipeline",
@@ -160,7 +165,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -182,7 +189,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Revenue",
@@ -208,7 +217,9 @@
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -233,7 +244,9 @@
       "signal": "Résultat net de 0.632 Mds $ dernière année.",
       "description": "Résultat net consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Flexible Gas Capacity",
@@ -286,7 +299,45 @@
     "ceo_name": "Theodore N. Geisler",
     "board_size": 10,
     "board_women_pct": 40,
-    "voting_structure": "One share, one vote"
+    "voting_structure": "One share, one vote",
+    "top_capital": [
+      {
+        "name": "Capital Research Global Investors",
+        "type": "institutionnel",
+        "stake_pct": 13.56
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.38
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 9.71
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "Capital Research Global Investors",
+        "type": "institutionnel",
+        "stake_pct": 13.56
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.38
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 9.71
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:14:49.912815+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "unit": "$B",
@@ -296,24 +347,41 @@
       {
         "label": "Regulated Electricity Segment",
         "value": 5.34,
+        "share_pct": 100,
         "unit": "$B",
-        "share_pct": 100
+        "label_en": "Regulated Electricity Segment"
       },
       {
         "label": "Other",
         "value": 0,
+        "share_pct": 0,
         "unit": "$B",
-        "share_pct": 0
+        "label_en": "Other"
       }
     ],
     "total": 5.34
   },
   "revenue_by_geography": {
+    "unit": "%",
+    "slices": [
+      {
+        "label": "États-Unis",
+        "value": 100,
+        "share_pct": 100,
+        "single_region_legitimate": true,
+        "unit": "%",
+        "label_en": "United States"
+      }
+    ],
+    "total": 100,
+    "source": "Mono-pays légitime (filings)",
+    "_tagged_by": "auto-rebascule-21mai-CONV-CONCEPTS",
+    "_tagged_at": "2026-05-21T01:26:18.203Z",
+    "_category": "utility-us",
     "single_region_legitimate": true,
     "_legit_reason": "US electric utility — Arizona regulated operations only",
     "_legit_marked_at": "2026-05-21T08:18:58Z",
     "_legit_marked_by": "sub-agent-#76-repartition-cerebras",
-    "slices": [],
     "label": "Répartition géographique (mono-région légitime)"
   },
   "risks": [
@@ -412,18 +480,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #XX",
-    "global_us": "Top utility in Arizona",
-    "sector": "N/A",
-    "subsector": "Largest electric company in Arizona"
+    "global_world": "#659",
+    "global_us": "#401",
+    "sector": "Top 50 in Services aux collectivités",
+    "subsector": "Top 25 in Électricité"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-05-04",
   "publication_date": null,
   "company_description": "Pinnacle West Capital Corporation, through its subsidiary, provides retail and wholesale electric services in the state of Arizona. The company engages in the generation, transmission, and distribution of electricity using nuclear, gas, oil, coal, and solar generating facilities. Its transmission facilities include overhead lines and underground lines; and distribution facilities consist of overhead lines and underground primary cables. The company also owns and maintains substations, including transmission and distribution yards; and owns energy storage facilities. Pinnacle West Capital Corporation was incorporated in 1985 and is headquartered in Phoenix, Arizona.",
   "_specific_fit_for_site": false,
-  "_built_at": "2026-05-20T20:15:02.555Z",
-  "_missing_blocks": [
-    "revenue_by_geography"
-  ]
+  "_built_at": "2026-05-21T16:00:22.588Z",
+  "_missing_blocks": []
 }

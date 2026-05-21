@@ -21,14 +21,17 @@
       "unit": "%",
       "yoy": "+1.8%",
       "history": [
-        2.9,
-        7.9,
-        4.7
+        3.5,
+        10.1,
+        15.8,
+        4.7,
+        4.9
       ],
       "period_type": "year",
       "description_fr": "Variation annuelle des ventes pour les magasins américains ouverts depuis au moins un an, incluant les ventes en ligne.",
       "description_en": "Annual change in sales for U.S. stores open at least one year, including online ship-to-home and pick-up-in-store orders.",
-      "_specific_to": "Retail automotive parts industry metric; excludes new stores and specialty sales to isolate organic growth"
+      "_specific_to": "Retail automotive parts industry metric; excludes new stores and specialty sales to isolate organic growth",
+      "is_short_history": false
     },
     {
       "short": "Sales per Weighted-Avg Store",
@@ -123,7 +126,9 @@
       "_validation": "Correction du signal : mentionner que c'est une hausse, pas une amélioration. Unité corrigée de 'fois' à 'x'.",
       "period_type": "quarter",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "Only 2 years of explicit Consolidated Leverage Ratio values found in the filing (2024: 1.89x, 2025: 1.92x). Minimum threshold of 4 consecuti"
+      "_hero_history_unverified_reason": "Only 2 years of explicit Consolidated Leverage Ratio values found in the filing (2024: 1.89x, 2025: 1.92x). Minimum threshold of 4 consecuti",
+      "explanation_en": "Consolidated Leverage ratio.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Consolidated Fixed Charge Coverage Ratio",
@@ -147,7 +152,9 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 6.12,
-      "_validation": "Unité corrigée de 'fois' à 'x'. Signal amélioré avec contexte de covenant."
+      "_validation": "Unité corrigée de 'fois' à 'x'. Signal amélioré avec contexte de covenant.",
+      "explanation_en": "Consolidated Fixed Charge Coverage ratio.",
+      "signal_en": "Stable, slight decline to monitor"
     },
     {
       "short": "Free Cash Flow",
@@ -172,7 +179,9 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 1987.7,
-      "_validation": "Unité corrigée de 'Mds $' à 'M $' (millions, non milliards). Valeur confirmée à 1,563.25M dans la source."
+      "_validation": "Unité corrigée de 'Mds $' à 'M $' (millions, non milliards). Valeur confirmée à 1,563.25M dans la source.",
+      "explanation_en": "Free Cash Flow : operating cash flow minus capital expenditures.",
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "Capital Expenditures",
@@ -197,7 +206,8 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 1002.05,
-      "_validation": "Unité corrigée de 'Mds $' à 'M $'. Valeur arrondie à 1,168.82M (source: 1,168.815M). History values arrondis."
+      "_validation": "Unité corrigée de 'Mds $' à 'M $'. Valeur arrondie à 1,168.82M (source: 1,168.815M). History values arrondis.",
+      "signal_en": "Solid expansion, positive trajectory"
     },
     {
       "short": "Total Store Count",
@@ -241,7 +251,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -263,7 +275,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -285,7 +299,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Total Revenue",
@@ -311,7 +326,9 @@
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -336,7 +353,9 @@
       "signal": "Résultat net de 2.538 Mds $ dernière année.",
       "description": "Résultat net consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening"
     }
   ],
   "kpis_story": [],
@@ -356,7 +375,10 @@
     "top_voting": [],
     "_source": "yfinance.companyOfficers"
   },
-  "revenue_by_segment": null,
+  "revenue_by_segment": {
+    "single_segment": true,
+    "_reason": "single operating segment"
+  },
   "revenue_by_geography": null,
   "risks": [
     {
@@ -482,9 +504,9 @@
     }
   ],
   "ranks": {
-    "global_world": "#141",
-    "global_us": "#85",
-    "sector": "Top 10 in Consumer Discretionary",
+    "global_world": "#204",
+    "global_us": "#119",
+    "sector": "Top 10 in Consommation discrétionnaire",
     "subsector": "#1 in Specialty Retailers"
   },
   "latest_filing": null,
@@ -492,9 +514,8 @@
   "publication_date": null,
   "company_description": "O'Reilly Automotive, Inc., together with its subsidiaries, operates as a retailer and supplier of automotive aftermarket parts, tools, supplies, equipment, and accessories in the United States, Puerto Rico, Mexico, and Canada. The company offers new and remanufactured automotive hard parts and maintenance items, such as alternators, batteries, brake system components, belts, chassis parts, driveline parts, engine parts, fuel pumps, hoses, starters, temperature control, water pumps, antifreeze, appearance products, engine additives, filters, fluids, lighting products, and oil and wiper blades; and accessories, including floor mats, seat covers, and truck accessories. It also provides auto body paint and related materials, automotive tools, and professional service provider service equipment. In addition, the company offers enhanced services and programs consisting of used oil, oil filter, and battery recycling; battery, wiper, and bulb replacement; battery diagnostic testing; electrical and module testing; check engine light code extraction; loaner tool program; referrals to trusted local repair shops; drum and rotor resurfacing; custom hydraulic hoses; and professional paint shop m",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.536Z",
+  "_built_at": "2026-05-21T16:00:22.553Z",
   "_missing_blocks": [
-    "revenue_by_segment",
     "revenue_by_geography"
   ]
 }

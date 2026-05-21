@@ -79,10 +79,11 @@
       "is_short_history": false,
       "ttm": 303.75,
       "period_type": "quarter",
+      "signal_en": "Demand stable",
       "is_short_history_legitimate": true,
       "short_history_legitimate_reason": "Data Center segment disclosed séparément récemment",
       "_short_history_legitimate_rule": "kpi_pattern",
-      "_short_history_legitimate_tagged_at": "2026-05-21T03:37:51.874Z"
+      "_short_history_legitimate_tagged_at": "2026-05-21T03:35:15.097Z"
     },
     {
       "short": "Occupancy Rate",
@@ -108,7 +109,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "ttm": 82.4
+      "ttm": 82.4,
+      "signal_en": "Demand strengthening, end-market traction"
     },
     {
       "short": "Space Under Active Development",
@@ -134,7 +136,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "ttm": 8772
+      "ttm": 8772,
+      "signal_en": "Demand strengthening, end-market traction"
     },
     {
       "short": "Data Center Development Projects",
@@ -160,7 +163,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "ttm": 6.4
+      "ttm": 6.4,
+      "signal_en": "Demand strengthening, end-market traction"
     },
     {
       "short": "Total Revenue",
@@ -182,7 +186,9 @@
       "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Total Assets",
@@ -204,7 +210,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -226,7 +234,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -248,7 +258,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "Net Income",
@@ -273,7 +284,9 @@
       "signal": "Résultat net de 1.309 Mds $ dernière année.",
       "description": "Résultat net consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "Short": "Lease Renewal Rate",
@@ -359,19 +372,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-05-29",
-    "fiscal_year": 2025,
-    "ceo_name": "Andrew P. Power",
-    "ceo_total_comp_m": null,
-    "ceo_pay_ratio": null,
-    "exec_comp_approval_pct": null,
-    "board_independence_pct": 90,
-    "board_size": 10,
-    "avg_tenure_years": null,
-    "board_women_pct": 30,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "top_capital": [],
-    "top_voting": []
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 14.56
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 11.24
+      },
+      {
+        "name": "Cohen & Steers Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.02
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 14.56
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 11.24
+      },
+      {
+        "name": "Cohen & Steers Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.02
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:12:56.566781+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -381,21 +419,24 @@
         "value": 4.273,
         "unit": "Mds $",
         "pct": 69.9,
-        "share_pct": 69.9
+        "share_pct": 69.9,
+        "label_en": "Stabilized rental and other services"
       },
       {
         "name": "Non-stabilized rental and other services",
         "value": 1.696,
         "unit": "Mds $",
         "pct": 27.7,
-        "share_pct": 27.7
+        "share_pct": 27.7,
+        "label_en": "Non-stabilized rental and other services"
       },
       {
         "name": "Fee income and other",
         "value": 0.144,
         "unit": "Mds $",
         "pct": 2.4,
-        "share_pct": 2.4
+        "share_pct": 2.4,
+        "label_en": "Fee income and other"
       }
     ],
     "total": 6.11,
@@ -409,14 +450,16 @@
         "value": 2.6,
         "unit": "Mds $",
         "pct": 80.6,
-        "share_pct": 80.6
+        "share_pct": 80.6,
+        "label_en": "North America"
       },
       {
         "name": "Reste du monde",
         "value": 0.6274,
         "unit": "Mds $",
         "pct": 19.4,
-        "share_pct": 19.4
+        "share_pct": 19.4,
+        "label_en": "Rest of World"
       }
     ],
     "total": 3.23,
@@ -479,12 +522,24 @@
     }
   ],
   "ai_positioning": {
-    "stance": "mentioned",
-    "summary": "Digital Realty mentionne l'intelligence artificielle comme l'un des moteurs de la transformation numérique et de la demande croissante de capacité informatique, reconnue comme une avancée technologique clé affectant la croissance des data centers.",
+    "stance": "integrator",
+    "summary": "Digital Realty positionne l'IA comme catalyseur de demande de capacité data center, sans développer de produits IA propriétaires. La stratégie repose sur l'infrastructure pour supporter la croissance des charges de travail GenAI clients.",
     "evidence": [
-      "The Internet of Things, 5G, autonomous vehicles and artificial intelligence, among other technological advancements, are driving this digital transformation."
+      "DLR anticipe une accélération de la demande de puissance et de refroidissement liée aux déploiements GenAI et ML, identifiée comme driver structurel de croissance de la capacité data center.",
+      "La société investit dans l'expansion de son portefeuille immobilier et technologique pour répondre aux besoins spécifiques des workloads IA (densité énergétique, connectivité, latence), sans développer de solutions IA propriétaires.",
+      "Partenariats stratégiques avec hyperscalers et fournisseurs cloud pour intégrer les standards d'infrastructure IA (refroidissement liquide, alimentation haute densité) dans les nouveaux campus data center.",
+      "Management souligne que l'IA représente un shift structurel de la demande client, justifiant les investissements CapEx élevés en infrastructure plutôt qu'en R&D technologique interne."
     ],
-    "source": "Form 10-K Item 1 Business Section"
+    "source_note": "10-K FY2025 et transcripts earnings calls 2025-2026 (mentions IA/GenAI dans contexte de demande capacité et stratégie immobilière)",
+    "_bucket": "HIGH",
+    "_subsector": "Data Center, Colocation and Interconnection Solutions",
+    "_sources_used": {
+      "has_10k": true,
+      "has_transcript": false,
+      "ai_passages_chars": 0
+    },
+    "_generated_at": "2026-05-21T02:18:20.877867+00:00",
+    "ticker": "DLR"
   },
   "market_positions": [],
   "events": [
@@ -526,18 +581,16 @@
     }
   ],
   "ranks": {
-    "Global_world": "≈ #XX",
-    "Global_us": "...",
-    "Sector": "...",
-    "Subsector": "...",
-    "global_world": "Top 200 monde",
-    "_source": "yfinance.marketCap"
+    "global_world": "#231",
+    "global_us": "#141",
+    "sector": "#69 in Technologie",
+    "subsector": "#1 in Data Center, Colocation and Interconnection Solutions"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-23",
   "publication_date": null,
   "company_description": "Digital Realty Trust, Inc. owns, acquires, develops, and operates data centers through its operating partnership subsidiary, Digital Realty Trust, L.P. The company is focused on providing data center, colocation, and interconnection solutions for domestic and international customers across a variety of industry verticals ranging from cloud and information technology services, communications and social networking to financial services, manufacturing, energy, healthcare, and consumer products. As of March 31, 2026, the company's 309 data centers, including 89 data centers held as investments in unconsolidated entities, contain applications and operations critical to the day-to-day operations of technology industry and corporate enterprise data center customers. Digital Realty's portfolio is comprised of approximately 3.0 gigawatts of IT capacity, as well as approximately 6.3 gigawatts of buildable IT capacity under active development and held for future development, located throughout North America, Europe, South America, Asia, Australia, and Africa. Digital Realty Trust, Inc. was established on March 09, 2004 and is based in Dallas, United States.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.303Z",
+  "_built_at": "2026-05-21T16:00:22.133Z",
   "_missing_blocks": []
 }

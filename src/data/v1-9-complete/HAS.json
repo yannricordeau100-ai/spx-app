@@ -164,7 +164,9 @@
       "_source": "yfinance.income_stmt",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:54:50.084368+00:00",
-      "last_data_date": "2025-12-28"
+      "last_data_date": "2025-12-28",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -185,7 +187,9 @@
       "signal": "Résultat net de -0.32 Mds € dernière année",
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal"
     },
     {
       "short": "Total Assets",
@@ -206,7 +210,9 @@
       "signal": "Total des actifs de 5.55 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Total Debt",
@@ -227,7 +233,9 @@
       "signal": "Dette totale de 3.3 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Cash & Equivalents",
@@ -248,7 +256,8 @@
       "signal": "Trésorerie & équivalents de 0.78 Mds € dernière année",
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "DPS",
@@ -272,7 +281,9 @@
       "signal": "Dividende par action de 0.7 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -293,7 +304,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 0.393 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Revenu de MAGIC: THE GATHERING",
@@ -318,36 +331,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-06-11",
-    "fiscal_year": 2025,
-    "ceo_name": "Mr. Christian P. Cocks",
-    "ceo_total_comp_m": null,
-    "ceo_pay_ratio": null,
-    "exec_comp_approval_pct": null,
-    "board_independence_pct": null,
-    "board_size": 11,
-    "avg_tenure_years": null,
-    "board_women_pct": null,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
     "top_capital": [
       {
-        "name": "BlackRock Portfolio Management LLC",
+        "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": 11.6
+        "stake_pct": 17.89
       },
       {
-        "name": "The Vanguard Group, Inc.",
+        "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": 10.7
+        "stake_pct": 11.26
       },
       {
-        "name": "Tarrant Sibley",
-        "type": "insider",
-        "stake_pct": 0.1
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.07
       }
     ],
-    "top_voting": [],
-    "_source": "yfinance.companyOfficers"
+    "top_voting": [
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 17.89
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.26
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.07
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:34.517994+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -501,16 +522,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #123",
-    "global_us": "≈ #56",
-    "sector": "≈ #12",
-    "subsector": "≈ #3"
+    "global_world": "#818",
+    "global_us": "#499",
+    "sector": "#60 in Consommation discrétionnaire",
+    "subsector": "#1 in Jeux et divertissement"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-05-20",
   "publication_date": null,
   "company_description": "Hasbro, Inc. operates as a toy and game company in the United States, Europe, Canada, Mexico, Latin America, Australia, China, and Hong Kong. The company offers trading cards and collectibles, action figures, arts and crafts and creative play products, dolls, play sets, preschool toys, plush products, vehicles and toy-related specialty products, sports action products and accessories, and other consumer products; and licensed products, such as apparel, publishing products, home goods and electronics, and toy products. It also engages in the sourcing, marketing, and sale of toy and game products; and promotes its brands through the out-licensing of trademarks, characters, and other brand and intellectual property rights to third parties through the sale of branded consumer products, such as toys and apparel. In addition, the company is involved in the promotion of its brands through the development of trading cards, role-playing, and digital game experiences based on Hasbro and Wizards of the Coast games; and license certain brands to other third-party digital game developers who transform Hasbro brand-based characters and other intellectual properties, into digital gaming experienc",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-21T02:08:59.333Z",
+  "_built_at": "2026-05-21T16:00:22.282Z",
   "_missing_blocks": []
 }

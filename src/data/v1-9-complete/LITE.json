@@ -57,11 +57,7 @@
       "description": "Part de revenu du client A (principal) - concentration de risque client",
       "signal": "Concentration élevée",
       "quality": "Bon",
-      "explanation": "FY2025: 16.0% (Customer A), FY2024: 11.4%, FY2023: 15.3%. Volatilité client majeur reflétant dépendance aux hyperscalers cloud",
-      "is_short_history_legitimate": true,
-      "short_history_legitimate_reason": "Tech hardware (KPIs récents AI accelerators, edge computing, RISC-V, segment AI Networking disclosed récemment) (subsector: Semi-conducteurs et composants)",
-      "_short_history_legitimate_rule": "tech_hardware_recent",
-      "_short_history_legitimate_tagged_at": "2026-05-21T08:25:37.019Z"
+      "explanation": "FY2025: 16.0% (Customer A), FY2024: 11.4%, FY2023: 15.3%. Volatilité client majeur reflétant dépendance aux hyperscalers cloud"
     },
     {
       "short": "TOP2_CUST",
@@ -114,7 +110,8 @@
       "last_data_date": "2025-06-28",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Headcount : total number of employees at period end."
     },
     {
       "short": "Total Assets",
@@ -135,7 +132,9 @@
       "signal": "Total des actifs de 4.22 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -156,7 +155,9 @@
       "signal": "Dette totale de 2.61 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -177,7 +178,8 @@
       "signal": "Trésorerie & équivalents de 0.52 Mds € dernière année",
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Net Income",
@@ -203,7 +205,13 @@
       "description": "Résultat net consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "last_data_date": "2026-03-28"
+      "last_data_date": "2026-03-28",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "is_short_history_legitimate": true,
+      "short_history_legitimate_reason": "Tech hardware (KPIs récents AI accelerators, edge computing, RISC-V, segment AI Networking disclosed récemment) (subsector: Semi-conducteurs et composants)",
+      "_short_history_legitimate_rule": "tech_hardware_recent",
+      "_short_history_legitimate_tagged_at": "2026-05-21T08:25:37.019Z"
     },
     {
       "short": "Cloud Light Acquisition",
@@ -228,17 +236,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2025-11-19",
-    "fiscal_year": 2025,
-    "ceo_name": "Michael E. Hurlston",
-    "exec_comp_approval_pct": 93,
-    "board_independence_pct": 87.5,
-    "board_size": 8,
-    "avg_tenure_years": 5.5,
-    "board_women_pct": 25,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "top_capital": null,
-    "top_voting": null
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 10.72
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 10.07
+      },
+      {
+        "name": "FMR LLC (Fidelity)",
+        "type": "institutionnel",
+        "stake_pct": 9.24
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 10.72
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 10.07
+      },
+      {
+        "name": "FMR LLC (Fidelity)",
+        "type": "institutionnel",
+        "stake_pct": 9.24
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:14:03.920968+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -248,14 +283,16 @@
         "value": 1.6207,
         "unit": "Mds $",
         "pct": 93,
-        "share_pct": 93
+        "share_pct": 93,
+        "label_en": "OpComms"
       },
       {
         "name": "Lasers",
         "value": 0.1221,
         "unit": "Mds $",
         "pct": 7,
-        "share_pct": 7
+        "share_pct": 7,
+        "label_en": "Lasers"
       }
     ],
     "total": 1.74,
@@ -269,21 +306,24 @@
         "value": 1.3223,
         "unit": "Mds $",
         "pct": 75.9,
-        "share_pct": 75.9
+        "share_pct": 75.9,
+        "label_en": "Asia-Pacific"
       },
       {
         "name": "Amériques",
         "value": 0.2803,
         "unit": "Mds $",
         "pct": 16.1,
-        "share_pct": 16.1
+        "share_pct": 16.1,
+        "label_en": "Americas"
       },
       {
         "name": "EMEA",
         "value": 0.1402,
         "unit": "Mds $",
         "pct": 8,
-        "share_pct": 8
+        "share_pct": 8,
+        "label_en": "EMEA"
       }
     ],
     "total": 1.74,
@@ -356,20 +396,55 @@
     "source": "Rapport 10-K de LITE (Item 1, Item 7 MD&A)"
   },
   "market_positions": [],
-  "events": [],
+  "events": [
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "Does Lumentum (LITE) Joining the Nasdaq-100 Recast Its AI Infrastructure Investment Narrative?",
+      "body": "Lumentum Holdings Inc. was added to the Nasdaq-100 Index on May 18, 2026, following a year of strong AI-related demand for its optical and photonic technologies supporting cloud, telecom, and data center infrastructure. This inclusion, comb",
+      "source": "Simply Wall St.",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/does-lumentum-lite-joining-nasdaq-231549258.html",
+      "date": "2026-05-20"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "Astera Labs Stock Notches Record High. It’s Up Double Digits for a Second Day.",
+      "body": "Shares of Astera Labs surged Wednesday, building on a strong gain from Tuesday as investors appeared bullish on the maker of semiconductor-based connectors for cloud and artificial-intelligence infrastructure ahead of Nvidia earnings and af",
+      "source": "Barrons.com",
+      "url": "https://www.barrons.com/articles/astera-labs-stock-record-high-nvidia-ai-4e10de1f?siteid=yhoof2&yptr=yahoo",
+      "date": "2026-05-20"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "POET Technologies Secures US$400M Strategic Investment",
+      "body": "By Karen Roman POET Technologies Inc. (Nasdaq: POET) said it closed its direct offering by issuing about 19 million common shares in a sale totaling $400 million to a single […]",
+      "source": "IPO-Edge.com",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/poet-technologies-secures-us-400m-211901619.html",
+      "date": "2026-05-18"
+    },
+    {
+      "year": 2026,
+      "month": 3,
+      "title": "Publication des résultats Q1 2026",
+      "body": "Clôture du trimestre Q1 2026 le 28 mars 2026.",
+      "source": "yfinance · mostRecentQuarter",
+      "url": "",
+      "date": "2026-03-28"
+    }
+  ],
   "ranks": {
-    "global_world": "≈ #",
-    "global_us": "...",
-    "sector": "...",
-    "subsector": "..."
+    "global_world": "#293",
+    "global_us": "#175",
+    "sector": "#89 in Technologie",
+    "subsector": "#1 in Semi-conducteurs et composants"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-05-05",
   "publication_date": null,
   "company_description": "Lumentum Holdings Inc. manufactures and sells optical and photonic products in the Americas, the Asia-Pacific, Europe, the Middle East, and Africa. It operates through two segments, Cloud & Networking and Industrial Tech. The Cloud & Networking segment offers optical and photonic chips, components, modules, and subsystems supplied to cloud data center operators, AI/ML infrastructure providers, and network equipment manufacturer customers that are building cloud data centers and network infrastructures. Its Industrial Tech segment provides short-pulse solid-state lasers, kilowatt-class fiber lasers, diode lasers, and gas lasers that serves the semiconductor device, solar cell, display, and electric vehicle and battery manufacturing markets. The company was incorporated in 2015 and is headquartered in San Jose, California.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.455Z",
-  "_missing_blocks": [
-    "events"
-  ]
+  "_built_at": "2026-05-21T16:00:22.404Z",
+  "_missing_blocks": []
 }

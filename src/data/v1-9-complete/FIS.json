@@ -115,7 +115,9 @@
       "_source": "yfinance.income_stmt",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:51:36.125426+00:00",
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -136,7 +138,9 @@
       "signal": "Résultat net de 0.38 Mds € dernière année",
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal"
     },
     {
       "short": "Total Assets",
@@ -157,7 +161,9 @@
       "signal": "Total des actifs de 33.49 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Total Debt",
@@ -178,7 +184,9 @@
       "signal": "Dette totale de 13.33 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -199,7 +207,8 @@
       "signal": "Trésorerie & équivalents de 0.6 Mds € dernière année",
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "DPS",
@@ -223,7 +232,9 @@
       "signal": "Dividende par action de 0.44 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -244,7 +255,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 0.847 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "Short": "AI Integration",
@@ -310,19 +323,44 @@
     }
   ],
   "governance": {
-    "agm_date": "2025-06-12",
-    "fiscal_year": 2024,
-    "ceo_name": "Jeffrey A. Goldstein",
-    "board_size": 9,
-    "board_independence_pct": 88.9,
-    "avg_tenure_years": null,
-    "board_women_pct": 22.2,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "top_capital": null,
-    "top_voting": null,
-    "exec_comp_approval_pct": null,
-    "ceo_total_comp_m": null,
-    "ceo_pay_ratio": null
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.13
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 11.03
+      },
+      {
+        "name": "Dodge & Cox Inc.",
+        "type": "institutionnel",
+        "stake_pct": 9.49
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.13
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 11.03
+      },
+      {
+        "name": "Dodge & Cox Inc.",
+        "type": "institutionnel",
+        "stake_pct": 9.49
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:19.702115+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -332,28 +370,32 @@
         "value": 3.767,
         "unit": "Mds $",
         "pct": 30,
-        "share_pct": 30
+        "share_pct": 30,
+        "label_en": "Merchant Solutions"
       },
       {
         "name": "Banking Solutions",
         "value": 5.944,
         "unit": "Mds $",
         "pct": 47.4,
-        "share_pct": 47.4
+        "share_pct": 47.4,
+        "label_en": "Banking Solutions"
       },
       {
         "name": "Capital Market Solutions",
         "value": 2.44,
         "unit": "Mds $",
         "pct": 19.4,
-        "share_pct": 19.4
+        "share_pct": 19.4,
+        "label_en": "Capital Market Solutions"
       },
       {
         "name": "Corporate and Other",
         "value": 0.401,
         "unit": "Mds $",
         "pct": 3.2,
-        "share_pct": 3.2
+        "share_pct": 3.2,
+        "label_en": "Corporate and Other"
       }
     ],
     "total": 12.55,
@@ -367,14 +409,16 @@
         "value": 9.551,
         "unit": "Mds $",
         "pct": 76.1,
-        "share_pct": 76.1
+        "share_pct": 76.1,
+        "label_en": "North America"
       },
       {
         "name": "All others",
         "value": 3.001,
         "unit": "Mds $",
         "pct": 23.9,
-        "share_pct": 23.9
+        "share_pct": 23.9,
+        "label_en": "All others"
       }
     ],
     "total": 12.55,
@@ -484,17 +528,15 @@
     }
   ],
   "ranks": {
-    "Global_world": "≈ #421",
-    "Global_us": "≈ #114",
-    "Sector": "≈ #23",
-    "Subsector": "≈ #5",
-    "global_world": "Top 500 monde",
-    "_source": "yfinance.marketCap"
+    "global_world": "#610",
+    "global_us": "#365",
+    "sector": "#167 in Technologie",
+    "subsector": "Top 10 in Technologie financière"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-08-04",
   "publication_date": null,
   "company_description": "Fidelity National Information Services, Inc. provides solutions to financial institutions, businesses, and developers worldwide. The company operates through Banking Solutions, Capital Market Solutions, and Corporate and Other segments. It provides core processing and ancillary applications; mobile and online banking; fraud, risk management, and compliance; card and retail payment; electronic funds transfer and network; wealth and retirement; and item processing and output solutions. The company also offers trading and assets, lending, leveraged and syndicated loan markets, and treasury and risk solutions. Fidelity National Information Services, Inc. was founded in 1968 and is headquartered in Jacksonville, Florida.",
-  "_built_at": "2026-05-20T20:15:02.355Z",
+  "_built_at": "2026-05-21T16:00:22.232Z",
   "_missing_blocks": []
 }

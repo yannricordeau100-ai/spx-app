@@ -85,7 +85,8 @@
       "is_generic": true,
       "is_short_history": true,
       "_validation": "Valeur confirmée dans la source (Item 1A Risk Factors: '$46.492 billion')",
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings."
     },
     {
       "short": "Cash from Operations",
@@ -110,7 +111,8 @@
       "is_generic": false,
       "is_short_history": true,
       "ttm": 13.27,
-      "_validation": "Valeur confirmée dans MDA: '$12.636 billion in 2025 compared to $10.514 billion in 2024 and $9.431 billion in 2023'"
+      "_validation": "Valeur confirmée dans MDA: '$12.636 billion in 2025 compared to $10.514 billion in 2024 and $9.431 billion in 2023'",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Hospitals Count",
@@ -220,7 +222,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -242,7 +246,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "Total Revenue",
@@ -265,7 +270,9 @@
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 5 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -290,7 +297,9 @@
       "signal": "Résultat net de 6.784 Mds $ dernière année.",
       "description": "Résultat net consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "AI Capabilities",
@@ -316,20 +325,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-04-23",
-    "fiscal_year": 2025,
-    "exec_comp_approval_pct": null,
-    "board_independence_pct": null,
-    "board_size": null,
-    "avg_tenure_years": null,
-    "board_women_pct": null,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "top_capital": null,
-    "top_voting": null,
-    "ceo_name": "Mr. Samuel N. Hazen",
-    "ceo_total_comp_m": null,
-    "ceo_pay_ratio": null,
-    "_source": "yfinance.companyOfficers"
+    "top_capital": [
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 6.02
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 5.83
+      },
+      {
+        "name": "Sanders Capital, LLC",
+        "type": "institutionnel",
+        "stake_pct": 4.04
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 6.02
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 5.83
+      },
+      {
+        "name": "Sanders Capital, LLC",
+        "type": "institutionnel",
+        "stake_pct": 4.04
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:35.409882+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -339,39 +372,58 @@
         "value": 21.278,
         "unit": "Mds $",
         "pct": 28.1,
-        "share_pct": 28.1
+        "share_pct": 28.1,
+        "label_en": "National Group"
       },
       {
         "name": "Atlantic Group",
         "value": 24.709,
         "unit": "Mds $",
         "pct": 32.7,
-        "share_pct": 32.7
+        "share_pct": 32.7,
+        "label_en": "Atlantic Group"
       },
       {
         "name": "American Group",
         "value": 26.445,
         "unit": "Mds $",
         "pct": 35,
-        "share_pct": 35
+        "share_pct": 35,
+        "label_en": "American Group"
       },
       {
         "name": "Corporate and Other",
         "value": 3.168,
         "unit": "Mds $",
         "pct": 4.2,
-        "share_pct": 4.2
+        "share_pct": 4.2,
+        "label_en": "Corporate and Other"
       }
     ],
     "total": 75.6,
     "unit": "Mds $"
   },
   "revenue_by_geography": {
+    "unit": "%",
+    "slices": [
+      {
+        "label": "États-Unis",
+        "value": 100,
+        "share_pct": 100,
+        "single_region_legitimate": true,
+        "unit": "%",
+        "label_en": "United States"
+      }
+    ],
+    "total": 100,
+    "source": "Mono-pays légitime (filings)",
+    "_tagged_by": "auto-rebascule-21mai-CONV-CONCEPTS",
+    "_tagged_at": "2026-05-21T01:26:18.193Z",
+    "_category": "healthcare-us",
     "single_region_legitimate": true,
     "_legit_reason": "US hospital operator — domestic operations",
     "_legit_marked_at": "2026-05-21T08:18:58Z",
     "_legit_marked_by": "sub-agent-#76-repartition-cerebras",
-    "slices": [],
     "label": "Répartition géographique (mono-région légitime)"
   },
   "risks": [
@@ -481,18 +533,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #XX",
-    "global_us": "Top healthcare services provider in the U.S.",
-    "sector": "Not applicable",
-    "subsector": "One of the largest hospital operators in the U.S."
+    "global_world": "#173",
+    "global_us": "#101",
+    "sector": "Top 25 in Santé",
+    "subsector": "#1 in Health Care Services"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-24",
   "publication_date": null,
   "company_description": "HCA Healthcare, Inc., through its subsidiaries, provides health care services in the United States. The company owns, manages, and operates hospitals, ASCs, freestanding emergency care facilities, urgent care facilities, walk-in clinics, diagnostic and imaging centers, radiation and oncology therapy centers, as well as rehabilitation and physical therapy centers, physician practices, home health agencies, hospices, outpatient physical therapy providers, home and community-based services providers, and various other facilities. Its general and acute care hospitals offer medical and surgical services, including inpatient care, intensive care, cardiac care, diagnostic services, and emergency services; and outpatient services, such as outpatient surgery, laboratory, radiology, respiratory therapy, cardiology, and physical therapy. The company was formerly known as HCA Holdings, Inc. HCA Healthcare, Inc. was founded in 1968 and is headquartered in Nashville, Tennessee.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.388Z",
-  "_missing_blocks": [
-    "revenue_by_geography"
-  ]
+  "_built_at": "2026-05-21T16:00:22.284Z",
+  "_missing_blocks": []
 }

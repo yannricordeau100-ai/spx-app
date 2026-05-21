@@ -146,7 +146,9 @@
       "_source": "yfinance.income_stmt",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:55:00.322423+00:00",
-      "last_data_date": "2026-03-31"
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -167,7 +169,9 @@
       "signal": "Résultat net de 2.39 Mds € dernière année",
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Diluted EPS",
@@ -188,7 +192,9 @@
       "signal": "BPA dilué de 15.17 € dernière année",
       "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Free Cash Flow",
@@ -209,7 +215,9 @@
       "signal": "Free Cash Flow de 3.09 Mds € dernière année",
       "description": "Free Cash Flow extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Free Cash Flow : operating cash flow minus capital expenditures.",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Total Assets",
@@ -230,7 +238,9 @@
       "signal": "Total des actifs de 41.0 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -251,7 +261,9 @@
       "signal": "Dette totale de 0.89 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -272,7 +284,8 @@
       "signal": "Trésorerie & équivalents de 1.43 Mds € dernière année",
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "DPS",
@@ -296,7 +309,9 @@
       "signal": "Dividende par action de 0.94 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -317,7 +332,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 0.525 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -337,7 +354,9 @@
       "signal": "Part du résultat net distribué en dividendes : 21.9% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 3 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Premium Revenue Growth",
@@ -362,35 +381,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-05-02",
-    "fiscal_year": 2025,
-    "ceo_name": "Stephen M. Spray",
-    "ceo_total_comp_m": 5.94,
-    "ceo_pay_ratio": null,
-    "exec_comp_approval_pct": null,
-    "board_independence_pct": 71,
-    "board_size": 14,
-    "avg_tenure_years": 12,
-    "board_women_pct": 35,
-    "voting_structure": "Simple majority voting standards",
     "top_capital": [
       {
-        "name": "The Vanguard Group Inc.",
+        "name": "The Vanguard Group",
         "type": "institutionnel",
-        "stake_pct": 12.32
+        "stake_pct": 11.79
       },
       {
-        "name": "BlackRock Inc.",
+        "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": 7.81
+        "stake_pct": 8.15
       },
       {
         "name": "State Street Corporation",
         "type": "institutionnel",
-        "stake_pct": 6.24
+        "stake_pct": 5.36
       }
     ],
-    "top_voting": null
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.79
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.15
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 5.36
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:12:34.046752+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -400,34 +428,55 @@
         "value": 3.534,
         "unit": "Mds $",
         "pct": 60.2,
-        "share_pct": 60.2
+        "share_pct": 60.2,
+        "label_en": "Commercial lines insurance"
       },
       {
         "name": "Personal lines insurance",
         "value": 1.503,
         "unit": "Mds $",
         "pct": 25.6,
-        "share_pct": 25.6
+        "share_pct": 25.6,
+        "label_en": "Personal lines insurance"
       },
       {
         "name": "Excess and surplus lines insurance",
         "value": 0.348,
         "unit": "Mds $",
         "pct": 5.9,
-        "share_pct": 5.9
+        "share_pct": 5.9,
+        "label_en": "Excess and surplus lines insurance"
       },
       {
         "name": "Other",
         "value": 0.479,
         "unit": "Mds $",
         "pct": 8.2,
-        "share_pct": 8.2
+        "share_pct": 8.2,
+        "label_en": "Other"
       }
     ],
     "total": 5.86,
     "unit": "Mds $"
   },
-  "revenue_by_geography": null,
+  "revenue_by_geography": {
+    "unit": "%",
+    "slices": [
+      {
+        "label": "États-Unis",
+        "value": 100,
+        "share_pct": 100,
+        "single_region_legitimate": true,
+        "unit": "%",
+        "label_en": "United States"
+      }
+    ],
+    "total": 100,
+    "source": "Mono-pays légitime (filings)",
+    "_tagged_by": "auto-rebascule-21mai-CONV-CONCEPTS",
+    "_tagged_at": "2026-05-21T01:26:18.179Z",
+    "_category": "insurance-us"
+  },
   "risks": [
     {
       "title": "Risques liés à la concurrence sur le marché de l'assurance",
@@ -485,10 +534,18 @@
     }
   ],
   "ai_positioning": {
-    "stance": "absent",
-    "summary": "La société CINF ne mentionne pas l'intelligence artificielle (IA) ou l'apprentissage automatique dans son rapport 10-K/20-F. Les informations fournies se concentrent sur les aspects financiers et opérationnels de l'entreprise, sans référence à l'IA ou à ses applications.",
-    "evidence": [],
-    "source": "Rapport 10-K/20-F de CINF"
+    "stance": "cautious",
+    "summary": "Cincinnati Financial Corporation mentionne peu l'IA dans ses communications officielles (Assurance).",
+    "evidence": [
+      "Aucune mention significative d'IA dans le 10-K ou les earnings calls disponibles localement.",
+      "Le secteur Assurance commence à intégrer l'IA mais Cincinnati Financial Corporation ne met pas le sujet en avant à ce jour.",
+      "Mettrik AI réévaluera le positionnement IA à chaque nouvelle publication."
+    ],
+    "source_note": "Sources locales sans mentions IA significatives",
+    "_bucket": "MEDIUM",
+    "_no_ai_passages": true,
+    "_generated_at": "2026-05-21T02:28:24.516378+00:00",
+    "ticker": "CINF"
   },
   "market_positions": [],
   "events": [
@@ -530,18 +587,16 @@
     }
   ],
   "ranks": {
-    "global_world": "Non disponible",
-    "global_us": "Non disponible",
-    "sector": "Non disponible",
-    "subsector": "Non disponible"
+    "global_world": "#549",
+    "global_us": "#330",
+    "sector": "#65 in Finance",
+    "subsector": "Top 25 in Assurance"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-27",
   "publication_date": null,
   "company_description": "Cincinnati Financial Corporation provides property casualty insurance products in the United States. The company operates through five segments: Commercial Lines Insurance, Personal Lines Insurance, Excess and Surplus Lines Insurance, Life Insurance, and Investments. The Commercial Lines Insurance segment offers coverage for commercial casualty and property, commercial auto, and workers' compensation. This segment also provides contract and commercial surety bonds, and fidelity bonds; management liability; and machinery and equipment insurance products. The Personal Lines Insurance segment offers personal auto; homeowner; and other personal lines insurance, such as dwelling fire, inland marine, personal umbrella liability, and watercraft coverages. The Excess and Surplus Lines Insurance segment offers commercial casualty insurance that covers businesses for third-party liability from accidents occurring on their premises or arising out of their operations, such as injuries sustained from products, as well as other coverages comprising miscellaneous errors and omissions, professional liability, and excess liability; and commercial property insurance, which insures buildings, invento",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.252Z",
-  "_missing_blocks": [
-    "revenue_by_geography"
-  ]
+  "_built_at": "2026-05-21T16:00:22.043Z",
+  "_missing_blocks": []
 }

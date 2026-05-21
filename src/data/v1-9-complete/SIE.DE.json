@@ -134,7 +134,8 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Unit corrected from 'Mds ₹' to 'M ₹' (millions, not billions). YoY calculation verified: (463829-198509)/198509 = 133.8%, source shows 138.8% likely includes other operations component.",
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "signal_en": "Demand strengthening, end-market traction"
     },
     {
       "short": "Revenue from operations",
@@ -160,7 +161,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_validation": "Unit corrected from 'Mds ₹' to 'M ₹'. YoY recalculated: (179651-152558)/152558 = 17.7% (source shows 21.3% for Sales excluding other operating revenues at 177007M; 179651 is total including other revenue)."
+      "_validation": "Unit corrected from 'Mds ₹' to 'M ₹'. YoY recalculated: (179651-152558)/152558 = 17.7% (source shows 21.3% for Sales excluding other operating revenues at 177007M; 179651 is total including other revenue).",
+      "explanation_en": "Revenue from the from operations segment.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Profit Before Tax",
@@ -186,7 +189,8 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "_validation": "Unit corrected from 'Mds ₹' to 'M ₹'. YoY verified: (25451-16802)/16802 = 51.5% (note: source shows prior year 20503 including gain on sale, actual operational PBT prior year was 16944M)."
+      "_validation": "Unit corrected from 'Mds ₹' to 'M ₹'. YoY verified: (25451-16802)/16802 = 51.5% (note: source shows prior year 20503 including gain on sale, actual operational PBT prior year was 16944M).",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Profit After Tax",
@@ -212,7 +216,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_validation": "Unit corrected from 'Mds ₹' to 'M ₹'. YoY verified: (19113-12497)/12497 = 52.9% (source shows prior year PAT 15308M, but actual year-over-year from 12497M per Chairman statement)."
+      "_validation": "Unit corrected from 'Mds ₹' to 'M ₹'. YoY verified: (19113-12497)/12497 = 52.9% (source shows prior year PAT 15308M, but actual year-over-year from 12497M per Chairman statement).",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Order Backlog",
@@ -258,7 +263,9 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "_validation": "YoY changed from null to 0.0% (10 in 2023 vs 10 in 2022). No unit change needed."
+      "_validation": "YoY changed from null to 0.0% (10 in 2023 vs 10 in 2022). No unit change needed.",
+      "explanation_en": "Market share in Dividend per.",
+      "signal_en": "Cash position stable"
     },
     {
       "short": "Net Worth (Equity)",
@@ -284,7 +291,8 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "_validation": "Unit corrected from 'Mds ₹' to 'M ₹'. YoY verified: (130245-115959)/115959 = 12.3%."
+      "_validation": "Unit corrected from 'Mds ₹' to 'M ₹'. YoY verified: (130245-115959)/115959 = 12.3%.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "DPS",
@@ -308,7 +316,9 @@
       "signal": "Dividende par action de 5.35 EUR dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Cap Return",
@@ -330,7 +340,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -352,7 +364,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Largest Locomotive Order",
@@ -378,9 +392,28 @@
   ],
   "kpis_story": [],
   "governance": {
-    "ceo_name": "Dr. Roland  Busch Dipl.Phys.",
-    "ceo_title": "President, CEO & Chairman of Management Board",
-    "fiscal_year": 2025
+    "top_capital": [
+      {
+        "name": "Generali Investments Cee, Investicni Spolecnost, A.s.",
+        "type": "institutionnel",
+        "stake_pct": 0.01
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "Generali Investments Cee, Investicni Spolecnost, A.s.",
+        "type": "institutionnel",
+        "stake_pct": 0.01
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:15:04.619859+00:00",
+    "_top_dual_class_flag": false,
+    "top_disclosure": "eu_regex_extracted",
+    "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
+    "_top_disclosure_at": "2026-05-21T02:49:04.723625+00:00",
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:19:01Z"
   },
   "revenue_by_segment": {
     "unit": "₹B",
@@ -390,32 +423,37 @@
       {
         "label": "Energy",
         "value": 60.8,
+        "share_pct": 30.5,
         "unit": "₹B",
-        "share_pct": 30.5
+        "label_en": "Energy"
       },
       {
         "label": "Smart Infrastructure",
         "value": 70.7,
+        "share_pct": 35.5,
         "unit": "₹B",
-        "share_pct": 35.5
+        "label_en": "Smart Infrastructure"
       },
       {
         "label": "Mobility",
         "value": 21.6,
+        "share_pct": 10.8,
         "unit": "₹B",
-        "share_pct": 10.8
+        "label_en": "Mobility"
       },
       {
         "label": "Digital Industries",
         "value": 44.8,
+        "share_pct": 22.5,
         "unit": "₹B",
-        "share_pct": 22.5
+        "label_en": "Digital Industries"
       },
       {
         "label": "Others",
         "value": 1.2,
+        "share_pct": 0.6,
         "unit": "₹B",
-        "share_pct": 0.6
+        "label_en": "Others"
       }
     ],
     "total": 199.1
@@ -428,14 +466,16 @@
       {
         "label": "Inde",
         "value": 151982,
+        "share_pct": 84.6,
         "unit": "M ₹",
-        "share_pct": 84.6
+        "label_en": "India"
       },
       {
         "label": "Reste du monde",
         "value": 27669,
+        "share_pct": 15.4,
         "unit": "M ₹",
-        "share_pct": 15.4
+        "label_en": "Rest of World"
       }
     ],
     "total": 179651
@@ -448,6 +488,15 @@
       "score_rationale": "Note 4/5. Le contrat locomotives Indian Railways (~₹260 milliards, livraison sur 11 ans + 35 ans maintenance) représente une part disproportionnée du carnet de commandes (₹455 milliards). Toute résiliation, renégociation ou défaillance d'exécution aurait un impact majeur sur les revenus futurs. Langage du rapport souligne ce contrat comme 'le plus grand de l'histoire de la société', signalant une concentration de risque élevée.",
       "trend": "new",
       "summary": "Siemens Limited a décroché un méga-contrat unique pour 1 200 locomotives 9 000 HP pour Indian Railways, représentant plus de 57 % du carnet de commandes total. Une défaillance d'exécution, un litige contractuel ou une révision budgétaire gouvernementale pourrait déstabiliser significativement les revenus sur la prochaine décennie.",
+      "score": 4
+    },
+    {
+      "title": "Dépendance à la maison-mère Siemens AG pour technologie et IP",
+      "category": "Technologie",
+      "severity": 4,
+      "score_rationale": "Note 4/5. Siemens Limited opère sous licence et avec les technologies de Siemens AG (Allemagne). Les produits clés (locomotives 9 000 HP, transformateurs, 5G industriel, Xcelerator) reposent sur des IP développées par la maison-mère. Toute modification des accords de licence, des royalties ou des politiques de transfert technologique du groupe impacterait directement la compétitivité et les marges de la filiale indienne.",
+      "trend": "stable",
+      "summary": "La capacité de Siemens Limited à remporter et exécuter des contrats complexes (locomotives, transformateurs haute tension, solutions digitales) repose sur l'accès aux technologies propriétaires et au savoir-faire de Siemens AG. Une révision des conditions de licence intra-groupe, une restriction d'accès à certaines technologies ou un changement de stratégie du groupe pourrait fragiliser le positionnement concurrentiel de la filiale indienne.",
       "score": 4
     },
     {
@@ -485,15 +534,6 @@
       "trend": "up",
       "summary": "Siemens Limited investit massivement dans sa plateforme digitale Xcelerator (IoT, automatisation industrielle, bâtiments intelligents) pour capter la demande de digitalisation en Inde. Le risque est double : obsolescence technologique rapide face aux géants du cloud et de l'IA, et difficulté à convertir les déploiements pilotes en revenus récurrents à grande échelle sur le marché indien.",
       "score": 3
-    },
-    {
-      "title": "Dépendance à la maison-mère Siemens AG pour technologie et IP",
-      "category": "Technologie",
-      "severity": 4,
-      "score_rationale": "Note 4/5. Siemens Limited opère sous licence et avec les technologies de Siemens AG (Allemagne). Les produits clés (locomotives 9 000 HP, transformateurs, 5G industriel, Xcelerator) reposent sur des IP développées par la maison-mère. Toute modification des accords de licence, des royalties ou des politiques de transfert technologique du groupe impacterait directement la compétitivité et les marges de la filiale indienne.",
-      "trend": "stable",
-      "summary": "La capacité de Siemens Limited à remporter et exécuter des contrats complexes (locomotives, transformateurs haute tension, solutions digitales) repose sur l'accès aux technologies propriétaires et au savoir-faire de Siemens AG. Une révision des conditions de licence intra-groupe, une restriction d'accès à certaines technologies ou un changement de stratégie du groupe pourrait fragiliser le positionnement concurrentiel de la filiale indienne.",
-      "score": 4
     },
     {
       "title": "Risque réglementaire sectoriel dans l'énergie et les infrastructures critiques",
@@ -553,16 +593,16 @@
     }
   ],
   "ranks": {
-    "global_world": "#64",
-    "global_us": ": ",
-    "sector": "#12 dans Information Technology",
-    "subsector": "#1 dans Industrial Conglomerates"
+    "global_world": "#50",
+    "global_us": "Non US",
+    "sector": "Top 25 in Technologie",
+    "subsector": "#1 in Conglomérats industriels"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-05-13",
   "publication_date": null,
   "company_description": "Siemens Aktiengesellschaft, a technology company, focuses in the areas of automation and digitalization in Europe, Commonwealth of Independent States, Africa, the Middle East, the Americas, Asia, and Australia. It operates through Digital Industries, Smart Infrastructure, Mobility, Siemens Healthineers, and Siemens Financial Services (SFS) segments. The Digital Industries segment provides automation systems and software for factories, numerical control systems, servo motors, drives and inverters, and integrated automation systems for machine tools and production machines; process control systems, machine-to-machine communication products, sensors and radio frequency identification systems; production and product lifecycle management software, and simulation and testing of mechatronic system. The Smart Infrastructure segment offers products, systems, solutions, services, and software to support sustainable transition from fossil and renewable energy  sources; sustainable buildings and communities; and buildings, electrification, and electrical products. The Mobility segment provides rail passenger and freight transportation, such as metro systems, trams and light rail, and commuter trains, as well as trains and passenger coaches; locomotives and solutions for automated transportation and leasing; products and solutions for rail automation and electrification; maintenance and digital services; and digital and cloud-based solutions, and related services. The Siemens Healthineers segment develops, manufactures, and sells various diagnostic and therapeutic products and services; and provides clinical consulting and training services. The Siemens Financial Services segment offers debt and equity investments; leasing, lending, and working capital; structured, equipment, and project financing; and financial advisory services. The company was founded in 1847 and is headquartered in Munich, Germany.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.606Z",
+  "_built_at": "2026-05-21T16:00:22.708Z",
   "_missing_blocks": []
 }

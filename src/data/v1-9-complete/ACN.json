@@ -53,7 +53,8 @@
       "is_generic": true,
       "is_short_history": false,
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "Aucune valeur annuelle explicite de marge opérationnelle (Op Margin en %) n'a été trouvée dans l'extrait fourni du 10-K d'Accenture (FY2020)"
+      "_hero_history_unverified_reason": "Aucune valeur annuelle explicite de marge opérationnelle (Op Margin en %) n'a été trouvée dans l'extrait fourni du 10-K d'Accenture (FY2020)",
+      "explanation_en": "Profit margin on Op."
     },
     {
       "short": "Gross Margin",
@@ -72,7 +73,8 @@
       "last_data_date": "Non disponible",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Gross Margin : gross profit divided by revenue."
     },
     {
       "short": "Total Revenue",
@@ -102,7 +104,9 @@
       "_source": "yfinance.income_stmt",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:53:05.155463+00:00",
-      "last_data_date": "2026-02-28"
+      "last_data_date": "2026-02-28",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Net Income",
@@ -123,7 +127,9 @@
       "signal": "Résultat net de 7.68 Mds € dernière année",
       "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Steady growth, healthy trend"
     },
     {
       "short": "Operating Income",
@@ -144,7 +150,9 @@
       "signal": "Résultat opérationnel de 10.84 Mds € dernière année",
       "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt"
+      "_source": "yfinance.income_stmt",
+      "explanation_en": "Operating Income : profit from core business operations.",
+      "signal_en": "Steady growth, healthy trend"
     },
     {
       "short": "Total Assets",
@@ -165,7 +173,9 @@
       "signal": "Total des actifs de 65.39 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -186,7 +196,9 @@
       "signal": "Dette totale de 8.18 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -207,7 +219,8 @@
       "signal": "Trésorerie & équivalents de 11.48 Mds € dernière année",
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "DPS",
@@ -231,7 +244,9 @@
       "signal": "Dividende par action de 1.63 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -252,7 +267,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 3.7 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -273,7 +290,9 @@
       "signal": "Part du résultat net distribué en dividendes : 48.2% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Cloud Commitments",
@@ -312,27 +331,67 @@
     "top_capital": [],
     "top_voting": []
   },
-  "revenue_by_segment": null,
-  "revenue_by_geography": {
-    "label": "Répartition du chiffre d'affaires par zone géographique",
+  "revenue_by_segment": {
     "slices": [
       {
-        "name": "United States",
-        "value": 19.95,
-        "unit": "Mds $",
-        "pct": 45,
-        "share_pct": 45
+        "label": "Americas",
+        "share_pct": 50.3,
+        "label_fr": "Amériques",
+        "label_en": "Americas",
+        "value": 35.057,
+        "unit": "Mds $"
       },
       {
-        "name": "International",
-        "value": 24.38,
-        "unit": "Mds $",
-        "pct": 55,
-        "share_pct": 55
+        "label": "EMEA",
+        "share_pct": 35.4,
+        "label_fr": "EMEA",
+        "label_en": "EMEA",
+        "value": 24.644,
+        "unit": "Mds $"
+      },
+      {
+        "label": "Asia Pacific",
+        "share_pct": 14.3,
+        "label_fr": "Asie-Pacifique",
+        "label_en": "Asia Pacific",
+        "value": 9.972,
+        "unit": "Mds $"
       }
     ],
-    "total": 44.33,
-    "unit": "Mds $"
+    "year": 2025,
+    "currency": "USD",
+    "total": 69.673
+  },
+  "revenue_by_geography": {
+    "slices": [
+      {
+        "label": "Americas",
+        "share_pct": 50.3,
+        "label_fr": "Amériques",
+        "label_en": "Americas",
+        "value": 35.057,
+        "unit": "Mds $"
+      },
+      {
+        "label": "EMEA",
+        "share_pct": 35.4,
+        "label_fr": "EMEA",
+        "label_en": "EMEA",
+        "value": 24.644,
+        "unit": "Mds $"
+      },
+      {
+        "label": "Asia Pacific",
+        "share_pct": 14.3,
+        "label_fr": "Asie-Pacifique",
+        "label_en": "Asia Pacific",
+        "value": 9.972,
+        "unit": "Mds $"
+      }
+    ],
+    "year": 2025,
+    "currency": "USD",
+    "total": 69.673
   },
   "risks": [
     {
@@ -436,18 +495,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #31",
-    "global_us": "≈ #15",
-    "sector": "≈ #2",
-    "subsector": "≈ #1"
+    "global_world": "#179",
+    "global_us": "Non US",
+    "sector": "#59 in Technologie",
+    "subsector": "#1 in IT Services"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-06-18",
   "publication_date": null,
   "company_description": "Accenture plc provides strategy and consulting, industry X, song, and technology and operation services in the Americas, Europe, the Middle East, Africa, and the Asia Pacific. It offers systems integration and application management; security; intelligent platform; infrastructure; software engineering; data, AI, cloud; and automation and global delivery services. The company also operates business processes for specific enterprise functions, including finance and accounting, sourcing and procurement, supply chain, marketing and sales, and human resources, as well as industry-specific services, such as platform trust and safety, banking, insurance, network and health services; and designs, manufactures, and assembles automation equipment, robotics, and other commercial hardware products. It serves communications, media, and technology; financial services; banking and capital markets, and insurance; health and public service; consumer goods, retail, travel services; industrial; life science; and chemicals, natural resources, energy, and utilities sectors. Accenture plc has collaboration with Amazon Web Services (AWS) to deliver transformative digital services to public sector, defens",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.120Z",
-  "_missing_blocks": [
-    "revenue_by_segment"
-  ]
+  "_built_at": "2026-05-21T16:00:21.868Z",
+  "_missing_blocks": []
 }

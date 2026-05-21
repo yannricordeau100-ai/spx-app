@@ -44,7 +44,8 @@
       "is_short_history": false,
       "_validation": "Value confirmed in source (16,986,422K = 16.99B); Unit standard B$ notation",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
-      "_hero_history_extracted_at": "2026-05-14T10:51:56.345211+00:00"
+      "_hero_history_extracted_at": "2026-05-14T10:51:56.345211+00:00",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Gross Margin",
@@ -66,7 +67,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_validation": "Value confirmed in source (3,282,988 / 16,986,422 = 19.3%); No changes needed"
+      "_validation": "Value confirmed in source (3,282,988 / 16,986,422 = 19.3%); No changes needed",
+      "explanation_en": "Gross Margin : gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Op Margin",
@@ -88,7 +91,9 @@
       "is_wow": true,
       "is_generic": true,
       "is_short_history": false,
-      "_validation": "Value confirmed in source (1,713,418 / 16,986,422 = 10.1%); No changes needed"
+      "_validation": "Value confirmed in source (1,713,418 / 16,986,422 = 10.1%); No changes needed",
+      "explanation_en": "Profit margin on Op.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Net Income",
@@ -110,7 +115,9 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "_validation": "Value confirmed in source (1,272,817K = 1.27B); YoY % verified (1.272817 / 1.007145 - 1 = 26.4%)"
+      "_validation": "Value confirmed in source (1,272,817K = 1.27B); YoY % verified (1.272817 / 1.007145 - 1 = 26.4%)",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Diluted EPS",
@@ -136,7 +143,9 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "_validation": "Value confirmed in source (28.19 vs 21.52); YoY % verified (28.19 / 21.52 - 1 = 30.9%)"
+      "_validation": "Value confirmed in source (28.19 vs 21.52); YoY % verified (28.19 / 21.52 - 1 = 30.9%)",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Operating Cash Flow",
@@ -158,7 +167,9 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "_validation": "Value confirmed in source (approximately 1.30B); YoY % calculated (-105.8M / 1.41B = -7.5%)"
+      "_validation": "Value confirmed in source (approximately 1.30B); YoY % calculated (-105.8M / 1.41B = -7.5%)",
+      "explanation_en": "Operating Cash Flow : cash generated from core business operations.",
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "Open Purchase Obligations",
@@ -202,7 +213,9 @@
       "signal": "Dividende par action de 0.8 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -223,7 +236,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 0.045 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -244,7 +259,9 @@
       "signal": "Part du résultat net distribué en dividendes : 3.5% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Total Revenue",
@@ -269,7 +286,9 @@
       "signal": "Chiffre d'affaires de 16.986 Mds $ dernière année.",
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Gain on sale of United Kingdom operations",
@@ -318,8 +337,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "ceo_name": "Mr. Anthony J. Guzzi",
-    "_source": "yfinance.companyOfficers"
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.03
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 9.24
+      },
+      {
+        "name": "FMR LLC (Fidelity)",
+        "type": "institutionnel",
+        "stake_pct": 4.41
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.03
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 9.24
+      },
+      {
+        "name": "FMR LLC (Fidelity)",
+        "type": "institutionnel",
+        "stake_pct": 4.41
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:06.394160+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -329,21 +384,24 @@
         "value": 5.46,
         "unit": "Mds $",
         "pct": 62,
-        "share_pct": 62
+        "share_pct": 62,
+        "label_en": "Construction"
       },
       {
         "name": "Services immobiliers",
         "value": 2.55,
         "unit": "Mds $",
         "pct": 29,
-        "share_pct": 29
+        "share_pct": 29,
+        "label_en": "Services immobiliers"
       },
       {
         "name": "Services industriels",
         "value": 0.79,
         "unit": "Mds $",
         "pct": 9,
-        "share_pct": 9
+        "share_pct": 9,
+        "label_en": "Services industriels"
       }
     ],
     "total": 8.8,
@@ -357,14 +415,16 @@
         "value": 8.36,
         "unit": "Mds $",
         "pct": 95,
-        "share_pct": 95
+        "share_pct": 95,
+        "label_en": "United States"
       },
       {
         "name": "Royaume-Uni",
         "value": 0.44,
         "unit": "Mds $",
         "pct": 5,
-        "share_pct": 5
+        "share_pct": 5,
+        "label_en": "United Kingdom"
       }
     ],
     "total": 8.8,
@@ -441,16 +501,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #1000",
-    "global_us": "≈ #250",
-    "sector": "≈ #50",
-    "subsector": "≈ #10"
+    "global_world": "#350",
+    "global_us": "#212",
+    "sector": "Top 50 in Industrie",
+    "subsector": "#1 in Construction Services"
   },
   "latest_filing": null,
   "next_earnings_date": null,
   "publication_date": null,
   "company_description": "EMCOR Group, Inc. provides electrical and mechanical construction and facilities, building, and industrial services in the United States and the United Kingdom. It offers design, integration, installation, startup, operation, and maintenance services related to power transmission, distribution, and generation systems; energy solutions; premises electrical and lighting systems; process instrumentation; low-voltage systems; voice and data communications systems; roadway and transit lighting, signaling, and fiber optic lines; computerized traffic control systems, and signal and communication equipment; heating, ventilation, air conditioning, refrigeration, and geothermal solutions; clean-room process ventilation systems; fire protection and suppression systems; plumbing, process, and piping systems; control and filtration systems; water and wastewater treatment systems; central plant heating and cooling systems; crane and rigging; millwright; and steel fabrication, erection, and welding services. The company also provides site-based operations and maintenance; facility management and maintenance; energy retrofit; military base operations support; indoor air quality; floor care and jan",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.327Z",
+  "_built_at": "2026-05-21T16:00:22.188Z",
   "_missing_blocks": []
 }

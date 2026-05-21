@@ -131,7 +131,8 @@
       "last_data_date": "2026-03-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Revenue",
@@ -156,7 +157,9 @@
       "last_data_date": "2023-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Revenue : total sales generated over the period.",
+      "signal_en": "Revenue pressure, demand softening"
     },
     {
       "short": "Gross Margin",
@@ -181,7 +184,9 @@
       "last_data_date": "2023-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Gross Margin : gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Capex",
@@ -206,7 +211,9 @@
       "last_data_date": "2023-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Capital Expenditures : investments in property, plant and equipment.",
+      "signal_en": "Flat year-over-year, monitor closely"
     },
     {
       "short": "Headcount",
@@ -233,7 +240,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_employees_synced_from_yfinance": true
+      "_employees_synced_from_yfinance": true,
+      "explanation_en": "Headcount : total number of employees at period end.",
+      "signal_en": "Strong growth, robust momentum"
     },
     {
       "short": "DPS",
@@ -257,7 +266,9 @@
       "signal": "Dividende par action de 0.74 DKK dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Cap Return",
@@ -278,7 +289,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 3 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Circular Blade Solution",
@@ -331,9 +344,38 @@
   ],
   "kpis_story": [],
   "governance": {
-    "ceo_name": "Mr. Henrik  Andersen",
-    "ceo_title": "Group President & CEO",
-    "fiscal_year": 2025
+    "top_capital": [
+      {
+        "name": "Pacer Advisors, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 0.06
+      },
+      {
+        "name": "DRW Securities, LLC",
+        "type": "institutionnel",
+        "stake_pct": 0.02
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "Pacer Advisors, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 0.06
+      },
+      {
+        "name": "DRW Securities, LLC",
+        "type": "institutionnel",
+        "stake_pct": 0.02
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:15:36.388832+00:00",
+    "_top_dual_class_flag": false,
+    "top_disclosure": "eu_regex_extracted",
+    "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
+    "_top_disclosure_at": "2026-05-21T02:49:04.753261+00:00",
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:19:02Z"
   },
   "revenue_by_segment": {
     "unit": "mEUR",
@@ -343,14 +385,16 @@
       {
         "label": "Power Solutions",
         "value": 11814,
+        "share_pct": 76.8,
         "unit": "mEUR",
-        "share_pct": 76.8
+        "label_en": "Power Solutions"
       },
       {
         "label": "Service",
         "value": 3568,
+        "share_pct": 23.2,
         "unit": "mEUR",
-        "share_pct": 23.2
+        "label_en": "Service"
       }
     ],
     "total": 15382
@@ -363,20 +407,23 @@
       {
         "label": "EMEA",
         "value": 7617,
+        "share_pct": 49.5,
         "unit": "mEUR",
-        "share_pct": 49.5
+        "label_en": "EMEA"
       },
       {
         "label": "Americas",
         "value": 5728,
+        "share_pct": 37.2,
         "unit": "mEUR",
-        "share_pct": 37.2
+        "label_en": "Americas"
       },
       {
         "label": "Asie-Pacifique",
         "value": 2037,
+        "share_pct": 13.2,
         "unit": "mEUR",
-        "share_pct": 13.2
+        "label_en": "Asia-Pacific"
       }
     ],
     "total": 15382
@@ -460,12 +507,39 @@
   "events": [
     {
       "year": 2026,
+      "month": 5,
+      "title": "Iberdrola launches 195MW Tâmega Norte wind farm in Portugal",
+      "body": "The wind farm, part of the Tâmega Complex, is the first grid-connected wind-hydro hybrid project on the Iberian Peninsula.",
+      "source": "Power Technology",
+      "url": "https://www.power-technology.com/news/iberdrola-launches-195mw-tamega-norte/",
+      "date": "2026-05-15"
+    },
+    {
+      "year": 2026,
       "month": 4,
       "title": "Vestas secures 186 MW order from EDF power solutions North America",
       "body": "Vestas has secured a 186 MW order from EDF power solutions North America to supply wind turbines for the Forêt Domaniale wind project in Canada.",
       "source": "Energy Global",
       "url": "https://www.energyglobal.com/wind/28042026/vestas-secures-186-mw-order-from-edf-power-solutions-north-america/?yptr=yahoo",
       "date": "2026-04-28"
+    },
+    {
+      "year": 2026,
+      "month": 4,
+      "title": "Vestas Wind Systems (CPSE:VWS) Valuation Check After New 70 MW Strazhitsa Order In Bulgaria",
+      "body": "Vestas Wind Systems (CPSE:VWS) just secured a 70 MW order from Tessa Green Energy for the Strazhitsa wind project in Bulgaria, highlighting the company’s role in supporting the country’s shift toward greater energy independence. See our lat",
+      "source": "Simply Wall St.",
+      "url": "https://finance.yahoo.com/sectors/energy/articles/vestas-wind-systems-cpse-vws-031100763.html",
+      "date": "2026-04-19"
+    },
+    {
+      "year": 2026,
+      "month": 4,
+      "title": "Vestas receives 70 MW order from Tessa Green Energy to deliver wind energy in Bulgaria",
+      "body": "Vestas has received a 70 MW order from Tessa Green Energy to deliver more wind energy in Bulgaria.",
+      "source": "Energy Global",
+      "url": "https://www.energyglobal.com/wind/17042026/vestas-receives-70-mw-order-from-tessa-green-energy-to-deliver-wind-energy-in-bulgaria/?yptr=yahoo",
+      "date": "2026-04-17"
     },
     {
       "year": 2026,
@@ -484,19 +558,37 @@
       "source": "Power Technology",
       "url": "https://www.power-technology.com/news/cwp-energy-funding-sanquhar-ii-wind-project/",
       "date": "2026-04-14"
+    },
+    {
+      "year": 2026,
+      "month": 4,
+      "title": "Dividende 0.74 DKK/action versé",
+      "body": "Dividende ordinaire de 0.74 DKK par action, ex-date 9 avril 2026.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2026-04-09"
+    },
+    {
+      "year": 2026,
+      "month": 3,
+      "title": "Publication des résultats Q1 2026",
+      "body": "Clôture du trimestre Q1 2026 le 31 mars 2026.",
+      "source": "yfinance · mostRecentQuarter",
+      "url": "",
+      "date": "2026-03-31"
     }
   ],
   "ranks": {
-    "global_world": "#821",
-    "global_us": ": ",
-    "sector": "#10 dans Industrials",
-    "subsector": "#1 dans Industrial Machinery & Equipment"
+    "global_world": "#396",
+    "global_us": "Non US",
+    "sector": "Top 50 in Industrie",
+    "subsector": "#1 in Industrial Machinery & Equipment"
   },
   "latest_filing": null,
   "next_earnings_date": null,
   "publication_date": null,
   "company_description": "Vestas Wind Systems A/S engages in the design, manufacture, installation, and services of wind turbines the United States, Denmark, and internationally. It operates through two segments, Power Solutions and Service. The Power Solutions segment offers onshore and offshore wind power plants, wind turbines, development sites, etc. The Service segment engages in the sale of service contracts, spare parts, and related activities. Vestas Wind Systems A/S was founded in 1898 and is headquartered in Aarhus, Denmark.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.689Z",
+  "_built_at": "2026-05-21T16:00:22.872Z",
   "_missing_blocks": []
 }

@@ -81,7 +81,9 @@
       "ttm": 2.59,
       "_validation": "Sector corrigé de 'Information Technology' à 'Utilities'; subsector corrigé de 'Not available' à 'Electric Power Generation'; name_fr corrigé de 'Investissements (semi : fabs)' à 'Investissements en capital'",
       "period_type": "quarter",
-      "publication_date": "2026-05-05"
+      "publication_date": "2026-05-05",
+      "explanation_en": "Capital Expenditures : investments in property, plant and equipment.",
+      "signal_en": "Steady growth, healthy trend"
     },
     {
       "short": "Gross Margin",
@@ -108,7 +110,9 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 42.31,
-      "_validation": "Aucune correction majeure nécessaire"
+      "_validation": "Aucune correction majeure nécessaire",
+      "explanation_en": "Gross Margin : gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Op Margin",
@@ -135,7 +139,9 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 17.55,
-      "_validation": "Aucune correction majeure nécessaire"
+      "_validation": "Aucune correction majeure nécessaire",
+      "explanation_en": "Profit margin on Op.",
+      "signal_en": "Margin compression, watch profitability"
     },
     {
       "short": "R&D",
@@ -162,7 +168,9 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 1.23,
-      "_validation": "name_fr amélioré pour clarté"
+      "_validation": "name_fr amélioré pour clarté",
+      "explanation_en": "Research & Development expenses.",
+      "signal_en": "Steady growth, healthy trend"
     },
     {
       "short": "Headcount",
@@ -195,7 +203,9 @@
         "kpi_value_abs": 28000,
         "diff_pct": 70.2,
         "reason": "kept_original_likely_pollution_or_unit"
-      }
+      },
+      "explanation_en": "Headcount : total number of employees at period end.",
+      "signal_en": "Pressure, deteriorating trend"
     },
     {
       "short": "G&A Expenses",
@@ -222,7 +232,9 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 235.54,
-      "_validation": "short changé de 'General and Administrative' à 'G&A Expenses'; type changé de 'Investment' à 'OpEx'; description améliorée avec données spécifiques du 10-K"
+      "_validation": "short changé de 'General and Administrative' à 'G&A Expenses'; type changé de 'Investment' à 'OpEx'; description améliorée avec données spécifiques du 10-K",
+      "explanation_en": "Expenses related to G&A.",
+      "signal_en": "Cost discipline, efficiency gains"
     },
     {
       "short": "Total Revenue",
@@ -247,7 +259,9 @@
       "signal": "Chiffre d'affaires de 12.233 Mds $ dernière année fiscale (FY2025).",
       "description": "Chiffre d'affaires extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Revenue pressure, demand softening"
     },
     {
       "short": "Net Income",
@@ -272,7 +286,9 @@
       "signal": "Résultat net de 0.91 Mds $ dernière année fiscale (FY2025).",
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns"
     },
     {
       "short": "DPS",
@@ -296,7 +312,9 @@
       "signal": "Dividende par action de 0.352 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -318,7 +336,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -339,7 +359,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 3 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "FX Losses",
@@ -412,16 +434,44 @@
     }
   ],
   "governance": {
-    "agm_date": "2026-04-29",
-    "fiscal_year": 2025,
-    "ceo_name": "John B. Morse, Jr.",
-    "ceo_total_comp_m": null,
-    "ceo_pay_ratio": null,
-    "exec_comp_approval_pct": null,
-    "board_independ_pct": null,
-    "board_size": 12,
-    "board_independence_pct": 80,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action."
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.47
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 6.61
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 6.03
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.47
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 6.61
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 6.03
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:11:54.085455+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "unit": "Mds $",
@@ -431,32 +481,37 @@
       {
         "label": "Energy Infrastructure",
         "value": 5.4,
-        "unit": "M $",
-        "share_pct": 44.2
+        "share_pct": 44.2,
+        "unit": "Mds $",
+        "label_en": "Energy Infrastructure"
       },
       {
         "label": "Utilities",
         "value": 4.12,
-        "unit": "M $",
-        "share_pct": 33.7
+        "share_pct": 33.7,
+        "unit": "Mds $",
+        "label_en": "Utilities"
       },
       {
         "label": "Renewables",
         "value": 2.91,
-        "unit": "M $",
-        "share_pct": 23.8
+        "share_pct": 23.8,
+        "unit": "Mds $",
+        "label_en": "Renewables"
       },
       {
         "label": "New Energy Technologies",
         "value": 0,
-        "unit": "M $",
-        "share_pct": 0
+        "share_pct": 0,
+        "unit": "Mds $",
+        "label_en": "New Energy Technologies"
       },
       {
         "label": "Corporate & Eliminations",
         "value": -0.2,
-        "unit": "M $",
-        "share_pct": -1.6
+        "share_pct": -1.6,
+        "unit": "Mds $",
+        "label_en": "Corporate & Eliminations"
       }
     ],
     "total": 12.23
@@ -466,18 +521,23 @@
     "slices": [
       {
         "name": "U.S.",
-        "value": null,
+        "value": 3.91,
         "unit": "Mds $",
-        "pct": 32
+        "pct": 32,
+        "share_pct": 32,
+        "label_en": "United States"
       },
       {
         "name": "International",
-        "value": null,
+        "value": 8.32,
         "unit": "Mds $",
-        "pct": 68
+        "pct": 68,
+        "share_pct": 68,
+        "label_en": "International"
       }
     ],
-    "unit": "Mds $"
+    "unit": "Mds $",
+    "total": 12.23
   },
   "risks": [
     {
@@ -594,15 +654,15 @@
     }
   ],
   "ranks": {
-    "global_world": "#306",
-    "global_us": "#173",
-    "sector": "Top 25 in Utilities",
+    "global_world": "#721",
+    "global_us": "#445",
+    "sector": "Top 50 in Services aux collectivités",
     "subsector": "#1 in Electric Power Generation"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-30",
   "publication_date": null,
   "company_description": "The AES Corporation, together with its subsidiaries, operates as a power generation and utility company. It operates through four segments: Renewables, Utilities, Energy Infrastructure, and New Energy Technologies. The company owns and/or operates power plants to generate and sell power to customers, such as utilities, industrial users, and other intermediaries; owns and/or operates utilities to generate or purchase, distribute, transmit, and sell electricity to end-user customers in the residential, commercial, industrial, and governmental sectors; and generates and sells electricity on the wholesale market, as well as investments in technologies to support leading-edge greener energy solutions. It uses various fuels and technologies to generate electricity, such as solar, hydro, wind, coal, and gas, as well as renewables comprising energy storage and landfill gas. The company owns and/or operates a generation portfolio of approximately 34,740 megawatts and distributes power to 2.7 million customers. The company operates in the United States, Chile, Dominican Republic, El Salvador, Mexico, Bulgaria, Panama, Colombia, Argentina, Vietnam, Jordan, Puerto Rico, and internationally. The company was formerly known as Applied Energy Services, Inc. and changed its name to The AES Corporation in April 2000. The AES Corporation was incorporated in 1981 and is based in Arlington, Virginia.",
-  "_built_at": "2026-05-20T20:15:02.131Z",
+  "_built_at": "2026-05-21T16:00:21.885Z",
   "_missing_blocks": []
 }

@@ -64,7 +64,8 @@
       "ttm": 3.67,
       "_validation": "Corrigé: history reordonné (valeur courante en premier), TTM mis à jour à 3.67 pour correspondre à la valeur actuelle",
       "period_type": "quarter",
-      "publication_date": "2026-05-01"
+      "publication_date": "2026-05-01",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Revenu segment Electrical Solutions",
@@ -89,7 +90,8 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 2.18,
-      "_validation": "Corrigé: value de 2.17 à 2.18 pour align avec total Net sales de 5.844.6M moins Utility Solutions 3.67M; yoy calculé +3.8% en ligne avec croissance globale; history reordonné"
+      "_validation": "Corrigé: value de 2.17 à 2.18 pour align avec total Net sales de 5.844.6M moins Utility Solutions 3.67M; yoy calculé +3.8% en ligne avec croissance globale; history reordonné",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Marge brute",
@@ -114,7 +116,8 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 35.3,
-      "_validation": "Corrigé: history reordonné (valeur courante en premier); TTM mis à jour; signification du KPI clarifiée (non-generic en context stratégique)"
+      "_validation": "Corrigé: history reordonné (valeur courante en premier); TTM mis à jour; signification du KPI clarifiée (non-generic en context stratégique)",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Marge opérationnelle",
@@ -139,7 +142,8 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 20.7,
-      "_validation": "Corrigé: history reordonné; TTM mis à jour à 20.7"
+      "_validation": "Corrigé: history reordonné; TTM mis à jour à 20.7",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Dépenses d'investissement",
@@ -203,7 +207,8 @@
       "is_generic": false,
       "is_short_history": true,
       "ttm": 1029.8,
-      "_validation": "Corrigé: TTM ajouté; history nettoyé (suppression des nulls, gardé données vérifiables)"
+      "_validation": "Corrigé: TTM ajouté; history nettoyé (suppression des nulls, gardé données vérifiables)",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Flux de trésorerie disponible",
@@ -227,7 +232,8 @@
       "is_generic": false,
       "is_short_history": true,
       "ttm": 874.7,
-      "_validation": "Corrigé: TTM ajouté; history nettoyé (suppression des nulls); description enrichie avec détails allocation capital"
+      "_validation": "Corrigé: TTM ajouté; history nettoyé (suppression des nulls); description enrichie avec détails allocation capital",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "DPS",
@@ -251,7 +257,9 @@
       "signal": "Dividende par action de 1.42 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -273,7 +281,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -295,7 +305,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Investissements en acquisitions",
@@ -378,26 +390,44 @@
     }
   ],
   "governance": {
-    "agm_date": "2026-05-05",
-    "fiscal_year": 2025,
-    "ceo_name": "Gerben W. Bakker",
-    "board_size": 11,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
     "top_capital": [
       {
-        "name": "Anthony J. Guzzi",
-        "type": "insider",
-        "stake_pct": null
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.57
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.37
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.36
       }
     ],
     "top_voting": [
       {
-        "name": "Anthony J. Guzzi",
-        "type": "insider",
-        "stake_pct": null
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.57
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.37
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 4.36
       }
     ],
-    "ceo_total_comp_m": 10.35
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:41.912621+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "unit": "Mds $",
@@ -407,14 +437,16 @@
       {
         "label": "Utility Solutions",
         "value": 3.67,
+        "share_pct": 62.8,
         "unit": "Mds $",
-        "share_pct": 62.8
+        "label_en": "Utility Solutions"
       },
       {
         "label": "Electrical Solutions",
         "value": 2.17,
+        "share_pct": 37.2,
         "unit": "Mds $",
-        "share_pct": 37.2
+        "label_en": "Electrical Solutions"
       }
     ],
     "total": 5.84
@@ -427,14 +459,16 @@
       {
         "label": "États-Unis",
         "value": 5.41,
+        "share_pct": 92.6,
         "unit": "Mds $",
-        "share_pct": 92.6
+        "label_en": "United States"
       },
       {
         "label": "International",
         "value": 0.43,
+        "share_pct": 7.4,
         "unit": "Mds $",
-        "share_pct": 7.4
+        "label_en": "International"
       }
     ],
     "total": 5.84
@@ -529,15 +563,15 @@
     }
   ],
   "ranks": {
-    "global_world": "#949",
-    "global_us": "#358",
-    "sector": "#14 dans Industrials",
-    "subsector": "#1 dans Electrical Components and Equipment"
+    "global_world": "#438",
+    "global_us": "#266",
+    "sector": "#53 in Industrie",
+    "subsector": "#1 in Electrical Components and Equipment"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-28",
   "publication_date": null,
   "company_description": "Hubbell Incorporated, together with its subsidiaries, manufactures and sells electrical and utility solutions in the United States and internationally. It operates through two segments, Electrical Solutions and Utility Solutions. The Utility Solution segment offers critical components that allow the grid to transmit and distribute energy, as well as the communications and controls technologies, including  utility transmission and distribution components, such as arresters, insulators, connectors, anchors, bushings, enclosures, cutouts, and switches; and solutions that serve the edge of the utility infrastructure comprising smart meters, communications systems, and protection and control devices. It sells its products under various brands and/or trademarks to the electrical distribution, substation and transmission markets, as well as markets for grid protection and controls, utility meters and advanced metering infrastructure and telcom and gas distribution markets. The Electrical Solution segment offers standard and special application wiring device products, rough-in electrical products, connector and grounding products, and other electrical equipment for use in industrial, commercial, and institutional facilities by electrical contractors, maintenance personnel, electricians, utilities, and telecommunications companies. It also designs and manufactures various industrial controls, and communication systems for use in the non-residential and industrial markets, as well as in the oil and gas, and mining industries. This segment sells its products through electrical and industrial distributors, home centers, retail and hardware outlets, and residential product-oriented internet sites; and special application products primarily through wholesale distributors to contractors, industrial customers, and original equipment manufacturers. The company was founded in 1888 and is headquartered in Shelton, Connecticut.",
-  "_built_at": "2026-05-20T20:15:02.404Z",
+  "_built_at": "2026-05-21T16:00:22.307Z",
   "_missing_blocks": []
 }

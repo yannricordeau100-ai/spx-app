@@ -74,7 +74,8 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Unit corrected from Mds $ to M $ (values are in thousands per 10-K)",
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Base Rent",
@@ -96,7 +97,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_validation": "Unit corrected from Mds $ to M $"
+      "_validation": "Unit corrected from Mds $ to M $",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Recoveries from Tenants",
@@ -118,7 +120,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_validation": "Unit corrected from Mds $ to M $"
+      "_validation": "Unit corrected from Mds $ to M $",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Total Operating Expenses",
@@ -140,7 +143,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_validation": "Unit corrected from Mds $ to M $"
+      "_validation": "Unit corrected from Mds $ to M $",
+      "explanation_en": "Expenses related to Total Operating.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "General and Administrative",
@@ -162,7 +167,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_validation": "Unit corrected from Mds $ to M $"
+      "_validation": "Unit corrected from Mds $ to M $",
+      "signal_en": "Stable, slight decline to monitor"
     },
     {
       "short": "Interest Expense, Net",
@@ -184,7 +190,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_validation": "Unit corrected from Mds $ to M $"
+      "_validation": "Unit corrected from Mds $ to M $",
+      "signal_en": "Solid expansion, positive trajectory"
     },
     {
       "short": "Net Income Attributable to Common Shareholders",
@@ -206,7 +213,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_validation": "Unit corrected from Mds $ to M $"
+      "_validation": "Unit corrected from Mds $ to M $",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "DPS",
@@ -230,7 +238,9 @@
       "signal": "Dividende par action de 0.755 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -251,7 +261,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 0.525 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -272,7 +284,9 @@
       "signal": "Part du résultat net distribué en dividendes : 99.6% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Gain on Sale of Real Estate, Net of Tax",
@@ -323,26 +337,67 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-05-06",
-    "fiscal_year": 2025,
-    "ceo_name": "Ms. Lisa  Palmer",
-    "ceo_total_comp_m": null,
-    "ceo_pay_ratio": null,
-    "exec_comp_approval_pct": null,
-    "board_independence_pct": null,
-    "board_size": 11,
-    "avg_tenure_years": null,
-    "board_women_pct": null,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "top_capital": [],
-    "top_voting": [],
-    "_source": "yfinance.companyOfficers"
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 15.69
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 12.37
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 7.32
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 15.69
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 12.37
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 7.32
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:14:55.623294+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "single_segment": true,
     "slices": []
   },
-  "revenue_by_geography": null,
+  "revenue_by_geography": {
+    "unit": "%",
+    "slices": [
+      {
+        "label": "États-Unis",
+        "value": 100,
+        "share_pct": 100,
+        "single_region_legitimate": true,
+        "unit": "%",
+        "label_en": "United States"
+      }
+    ],
+    "total": 100,
+    "source": "Mono-pays légitime (filings)",
+    "_tagged_by": "auto-rebascule-21mai-CONV-CONCEPTS",
+    "_tagged_at": "2026-05-21T01:26:18.205Z",
+    "_category": "reit-us"
+  },
   "risks": [
     {
       "title": "Risque de non-conformité au statut REIT",
@@ -439,17 +494,18 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #139",
-    "_source": "yfinance.marketCap"
+    "global_world": "#760",
+    "global_us": "#462",
+    "sector": "Top 25 in Immobilier",
+    "subsector": "Top 10 in REIT (foncières cotées)"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-07-29",
   "publication_date": null,
   "company_description": "Regency Centers Corporation is a fully integrated real estate company and self-administered and self-managed real estate investment trust that began its operations as a publicly-traded REIT in 1993. The Company conducts substantially all of its operations, and owns, directly or indirectly, substantially all of its assets. Our business consists of acquiring, developing, owning, and operating income-producing retail real estate principally located in suburban trade areas with compelling demographics within the United States of America. Regency has been an S&P 500 Index member since 2017. We are a preeminent national owner, operator, and developer of neighborhood and community shopping centers. Our portfolio includes thriving properties merchandised with highly productive grocers, restaurants, service providers, and best-in-class retailers that connect with their neighborhoods, communities, and customers. Regency Centers Corporation was incorporated in 1963 and is based in Jacksonville, United States.",
   "_specific_fit_for_site": false,
-  "_built_at": "2026-05-20T20:15:02.575Z",
+  "_built_at": "2026-05-21T16:00:22.649Z",
   "_missing_blocks": [
-    "revenue_by_segment",
-    "revenue_by_geography"
+    "revenue_by_segment"
   ]
 }

@@ -40,7 +40,8 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 10.93,
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Tangible Book Value",
@@ -66,7 +67,8 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "ttm": 8.41
+      "ttm": 8.41,
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Equity-to-Assets",
@@ -91,7 +93,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Tangible Equity Ratio",
@@ -116,7 +119,9 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Tangible Equity ratio.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Tier 1 Risk-based Capital",
@@ -141,7 +146,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Common Equity Tier 1",
@@ -166,7 +172,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Total Risk-based Capital",
@@ -191,7 +198,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Leverage Ratio",
@@ -216,7 +224,9 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Leverage ratio.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "DPS",
@@ -240,7 +250,9 @@
       "signal": "Dividende par action de 0.205 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -261,7 +273,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 1.054 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -281,23 +295,51 @@
       "signal": "Part du résultat net distribué en dividendes : 57.6% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 3 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     }
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-05-14",
-    "fiscal_year": 2025,
-    "ceo_name": "Christopher M. Gorman",
-    "ceo_pay_ratio": null,
-    "exec_comp_approval_pct": null,
-    "board_independence_pct": 92.9,
-    "board_size": 14,
-    "avg_tenure_years": null,
-    "board_women_pct": 21.4,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "top_capital": [],
-    "top_voting": []
+    "top_capital": [
+      {
+        "name": "Bank of Nova Scotia",
+        "type": "institutionnel",
+        "stake_pct": 15.03
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 10.83
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.18
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "Bank of Nova Scotia",
+        "type": "institutionnel",
+        "stake_pct": 15.03
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 10.83
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.18
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:57.783924+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -307,20 +349,39 @@
         "value": 733,
         "unit": "Mds $",
         "pct": 51.3,
-        "share_pct": 51.3
+        "share_pct": 51.3,
+        "label_en": "Consumer Bank"
       },
       {
         "name": "Commercial Bank",
         "value": 695,
         "unit": "Mds $",
         "pct": 48.7,
-        "share_pct": 48.7
+        "share_pct": 48.7,
+        "label_en": "Commercial Bank"
       }
     ],
     "total": 1428,
     "unit": "Mds $"
   },
-  "revenue_by_geography": null,
+  "revenue_by_geography": {
+    "unit": "%",
+    "slices": [
+      {
+        "label": "États-Unis",
+        "value": 100,
+        "share_pct": 100,
+        "single_region_legitimate": true,
+        "unit": "%",
+        "label_en": "United States"
+      }
+    ],
+    "total": 100,
+    "source": "Mono-pays légitime (filings)",
+    "_tagged_by": "auto-rebascule-21mai-CONV-CONCEPTS",
+    "_tagged_at": "2026-05-21T01:26:18.195Z",
+    "_category": "bank-us-regional"
+  },
   "risks": [
     {
       "title": "Cyberattaques et compromission des données",
@@ -388,44 +449,87 @@
     {
       "year": 2026,
       "month": 5,
-      "title": "Corporate America Earnings Beat Back Wall Street’s Wall of Worry",
-      "body": "(Bloomberg) -- First-quarter earnings season is delivering Wall Street better-than-expected results, propelling US equities’ run from one record to the next.Most Read from BloombergSupertanker Appears to Have Crossed the Strait of HormuzBei",
-      "source": "Bloomberg",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/corporate-america-earnings-beat-back-130000785.html",
-      "date": "2026-05-02"
+      "title": "Want Super Safe Dividend Income? Invest $5k Into These 3 Under $40 Stocks",
+      "body": "With Treasury yields sliding and the broader market trading near record highs, retail investors hunting for reliable passive income are getting squeezed. That makes brand-name dividend payers trading under $40 a share unusually interesting ",
+      "source": "24/7 Wall St.",
+      "url": "https://247wallst.com/investing/2026/05/20/want-super-safe-dividend-income-invest-5k-into-these-3-under-40-stocks/",
+      "date": "2026-05-20"
     },
     {
       "year": 2026,
-      "month": 4,
-      "title": "5 Must-Read Analyst Questions From KeyCorp’s Q1 Earnings Call",
-      "body": "KeyCorp’s first quarter results reflected robust execution in both lending and fee-based businesses, outpacing analyst expectations on revenue and non-GAAP earnings. Management attributed the performance to strong commercial loan growth, di",
-      "source": "StockStory",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/5-must-read-analyst-questions-095723312.html",
-      "date": "2026-04-23"
+      "month": 5,
+      "title": "The SoFi CEO Just Bought 70,000 Shares With His Own Money. Here Are Four More Under $30 Worth a Closer Look",
+      "body": "With markets at elevated multiples in May 2026, low share prices can mislead investors into thinking quality is out of reach. Stocks trading below $30 with strong balance sheets offer income, deleveraging stories, or growth at valuations th",
+      "source": "24/7 Wall St.",
+      "url": "https://247wallst.com/investing/2026/05/19/the-sofi-ceo-just-bought-70000-shares-with-his-own-money-here-are-four-more-under-30-worth-a-closer-look/",
+      "date": "2026-05-19"
     },
     {
       "year": 2026,
-      "month": 4,
-      "title": "KeyCorp (KEY) Valuation Check After Strong Q1 Results And New US$1b Share Buyback Program",
-      "body": "KeyCorp (KEY) shares are in focus after the bank paired strong first quarter results with a new US$1b share repurchase plan, highlighting capital strength and an active approach to returning cash to investors. See our latest analysis for Ke",
+      "month": 5,
+      "title": "KeyCorp’s New US$3 Billion Buyback and Dividends Might Change The Case For Investing In KEY",
+      "body": "In mid-May 2026, KeyCorp announced a new US$3.00 billion common share repurchase authorization, completed a prior US$720.00 million buyback, and confirmed second-quarter common and preferred dividends payable on June 15, 2026. Together with",
       "source": "Simply Wall St.",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/keycorp-key-valuation-check-strong-022017558.html",
-      "date": "2026-04-23"
+      "url": "https://finance.yahoo.com/markets/stocks/articles/keycorp-us-3-billion-buyback-091144575.html",
+      "date": "2026-05-19"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "HWC to Expand in High-Growth Orlando Market, Acquire OFB Bancshares",
+      "body": "Hancock Whitney will buy OFB Bancshares for $377.6M in cash, expanding into fast-growing Orlando and boosting Florida deposits.",
+      "source": "Zacks",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/hwc-expand-high-growth-orlando-150900744.html",
+      "date": "2026-05-18"
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "title": "Banks Win More Business as Private Debt Shrinks",
+      "body": "(Bloomberg) -- For many US companies, the hot new type of credit seems to be getting less attractive. Most Read from BloombergIran Makes New Offer on Uranium in Response to US, WSJ SaysDrone Hits Ship Near Qatar as US Awaits Iran Peace Plan",
+      "source": "Bloomberg",
+      "url": "https://finance.yahoo.com/economy/policy/articles/banks-win-more-business-private-161301265.html",
+      "date": "2026-05-09"
+    },
+    {
+      "year": 2026,
+      "month": 3,
+      "title": "Publication des résultats Q1 2026",
+      "body": "Clôture du trimestre Q1 2026 le 31 mars 2026.",
+      "source": "yfinance · mostRecentQuarter",
+      "url": "",
+      "date": "2026-03-31"
+    },
+    {
+      "year": 2026,
+      "month": 3,
+      "title": "Dividende 0.205 $/action versé",
+      "body": "Dividende ordinaire de 0.205 $ par action, ex-date 3 mars 2026.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2026-03-03"
+    },
+    {
+      "year": 2025,
+      "month": 12,
+      "title": "Dividende 0.205 $/action versé",
+      "body": "Dividende ordinaire de 0.205 $ par action, ex-date 2 décembre 2025.",
+      "source": "yfinance · actions",
+      "url": "",
+      "date": "2025-12-02"
     }
   ],
   "ranks": {
-    "global_world": "≈ #XX",
-    "global_us": "...",
-    "sector": "...",
-    "subsector": "..."
+    "global_world": "#588",
+    "global_us": "#353",
+    "sector": "#71 in Finance",
+    "subsector": "#3 in Banques et services financiers"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-04-16",
   "publication_date": null,
   "company_description": "KeyCorp operates as the holding company for KeyBank National Association that provides various retail and commercial banking products and services in the United States. It operates in two segments, Consumer Bank and Commercial Bank. The company offers various deposits and investment products; personal finance and financial wellness, lending, student loan refinancing, mortgage and home equity, credit card, treasury, and business advisory; commercial leasing, investment management, consumer finance; and wealth management and investment services for institutional, non-profit, and high-net-worth clients. It also provides lending, cash management, equipment financing, and commercial mortgage loans; and capital market products and services, such as syndicated finance, debt and equity underwriting, fixed income and equity sales and trading, derivatives, foreign exchange, mergers and acquisition, other advisory services, and public finance to large corporate and institutional clients. In addition, the company offers personal and institutional trust custody services, personal financial and planning services, access to mutual funds, treasury services, and international banking services. Furt",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.439Z",
-  "_missing_blocks": [
-    "revenue_by_geography"
-  ]
+  "_built_at": "2026-05-21T16:00:22.378Z",
+  "_missing_blocks": []
 }

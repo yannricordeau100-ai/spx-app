@@ -104,59 +104,8 @@
         "YoY calculation verified: 5,514 vs 4,748 = +766 MMBoe increase (+12.2%)",
         "Unit MMBoe confirmed correct",
         "History[0] updated to reflect prior year value of 4,748"
-      ]
-    },
-    {
-      "short": "Production de pétrole et de gaz",
-      "name_fr": "Production de pétrole et de gaz fragmentaire",
-      "name_en": "Fragmentary Oil and Gas Production Data",
-      "explanation": "Données incomplètes de production pétrolière et gazière",
-      "value": null,
-      "unit": "MBbld",
-      "yoy": null,
-      "type": "Production",
-      "nature": "Cyclique",
-      "comparable": "Non comparable",
-      "signal": "Données insuffisantes pour KPI consolidé",
-      "description": "Seule mention de production: 4 MBbld attribués au Midland Basin Q4 2025 (vente ultérieure en février 2026)",
-      "history": [],
-      "last_data_date": "2025-12-31",
-      "is_wow": false,
-      "is_generic": true,
-      "is_short_history": true,
-      "_validation": [
-        "KPI halluciné: aucune donnée de production totale consolidée (MBoe/j) présente dans l'extrait 10-K fourni",
-        "Seule donnée disponible: 4 MBbld pour le Midland Basin Q4 2025 (fragmentaire, non consolidée)",
-        "Valeur changée de null à null (pas de modification)",
-        "Unit corrigé de 'MBoe/j' à 'MBbld' pour cohérence avec unique donnée disponible",
-        "KPI supprimé du core set - insuffisant pour analyse"
-      ]
-    },
-    {
-      "short": "Revenu",
-      "name_fr": "Revenu total",
-      "name_en": "Total Revenue",
-      "explanation": "Revenu total annuel",
-      "value": null,
-      "unit": "Mds$",
-      "yoy": null,
-      "type": "Revenu",
-      "nature": "Cyclique",
-      "comparable": "Comparable",
-      "signal": "Revenu opérationnel",
-      "description": "Revenu total annuel",
-      "history": [],
-      "last_data_date": "2025-12-31",
-      "is_wow": false,
-      "is_generic": true,
-      "is_short_history": true,
-      "_validation": [
-        "KPI non trouvé dans extrait 10-K fourni (Item 8 Financial Statements section tronquée)",
-        "Valeur changée de 'Non disponible' (string) à null (type cohérent)",
-        "YoY changé de 'Non disponible' (string) à null (type cohérent)",
-        "Unité standardisée à 'Mds$' pour cohérence",
-        "Impact de l'acquisition d'Encino (+5.7 Mds$ de considération) mentionné mais revenus consolidés non chiffrés"
-      ]
+      ],
+      "signal_en": "Solid expansion, positive trajectory"
     },
     {
       "short": "Bénéfice net",
@@ -189,7 +138,8 @@
         "YoY calculation verified: (4,980 - 6,403) / 6,403 = -22.1%",
         "Unit M$ confirmed correct",
         "Baisse attribuée à baisse de 14% du prix NYMEX crude oil ($64.78/barrel vs prior year) partiellement compensée par hausse de 51% du gaz ($3.43/MMBtu)"
-      ]
+      ],
+      "signal_en": "Significant decline, warning signal"
     },
     {
       "short": "Ratio dette/capitalisation",
@@ -224,7 +174,8 @@
         "History[3] corrigé de 0.1 à 0.10 (format cohérent)",
         "Augmentation attribuée à l'acquisition d'Encino pour 5.7 Mds$ complétée le 1er août 2025",
         "EOG maintained strong position: $3.4B cash on hand + $3.0B revolving credit facility"
-      ]
+      ],
+      "signal_en": "Strong growth, robust momentum"
     },
     {
       "short": "Total Assets",
@@ -246,7 +197,9 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
@@ -268,7 +221,9 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Cash & Equivalents",
@@ -290,7 +245,8 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "Acquisition d'Encino",
@@ -323,51 +279,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-05-20",
-    "fiscal_year": 2025,
-    "ceo_name": "Ezra Y. Yacob",
-    "ceo_total_comp_m": 16.7,
-    "ceo_pay_ratio": 239,
-    "exec_comp_approval_pct": 97.2,
-    "board_independence_pct": 87.5,
-    "board_size": 10,
-    "avg_tenure_years": 11.2,
-    "board_women_pct": 30,
-    "voting_structure": "Each share of common stock is entitled to one vote.",
     "top_capital": [
       {
-        "name": "The Vanguard Group, Inc.",
+        "name": "Capital World Investors",
         "type": "institutionnel",
-        "stake_pct": 8.6
+        "stake_pct": 9.74
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 9.09
       },
       {
         "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": 7.4
-      },
-      {
-        "name": "State Street Corporation",
-        "type": "institutionnel",
-        "stake_pct": 4.7
+        "stake_pct": 8.31
       }
     ],
     "top_voting": [
       {
-        "name": "The Vanguard Group, Inc.",
+        "name": "Capital World Investors",
         "type": "institutionnel",
-        "stake_pct": 8.6
+        "stake_pct": 9.74
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 9.09
       },
       {
         "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": 7.4
-      },
-      {
-        "name": "State Street Corporation",
-        "type": "institutionnel",
-        "stake_pct": 4.7
+        "stake_pct": 8.31
       }
-    ]
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:13:07.872163+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -377,21 +326,24 @@
         "value": 10.795,
         "unit": "Mds $",
         "pct": 97.85,
-        "share_pct": 97.9
+        "share_pct": 97.85,
+        "label_en": "United States"
       },
       {
         "name": "Trinidad",
         "value": 0.181,
         "unit": "Mds $",
         "pct": 1.64,
-        "share_pct": 1.6
+        "share_pct": 1.64,
+        "label_en": "Trinidad"
       },
       {
         "name": "Other International",
         "value": 0.056,
         "unit": "Mds $",
         "pct": 0.51,
-        "share_pct": 0.5
+        "share_pct": 0.51,
+        "label_en": "Other International"
       }
     ],
     "total": 11.03,
@@ -405,21 +357,24 @@
         "value": 10.795,
         "unit": "Mds $",
         "pct": 97.85,
-        "share_pct": 97.9
+        "share_pct": 97.85,
+        "label_en": "United States"
       },
       {
         "name": "Trinidad",
         "value": 0.181,
         "unit": "Mds $",
         "pct": 1.64,
-        "share_pct": 1.6
+        "share_pct": 1.64,
+        "label_en": "Trinidad"
       },
       {
         "name": "Other International",
         "value": 0.056,
         "unit": "Mds $",
         "pct": 0.51,
-        "share_pct": 0.5
+        "share_pct": 0.51,
+        "label_en": "Other International"
       }
     ],
     "total": 11.03,
@@ -512,10 +467,18 @@
     }
   ],
   "ai_positioning": {
-    "stance": "absent",
-    "summary": "La société n'a pas mentionné l'IA ou le machine learning dans les extraits fournis. Son activité principale semble être dans le secteur de l'énergie.",
-    "evidence": [],
-    "source": ""
+    "stance": "cautious",
+    "summary": "EOG Resources, Inc. mentionne peu l'IA dans ses communications officielles (Exploration et production pétrolière et gazière).",
+    "evidence": [
+      "Aucune mention significative d'IA dans le 10-K ou les earnings calls disponibles localement.",
+      "Le secteur Exploration et production pétrolière et gazière commence à intégrer l'IA mais EOG Resources, Inc. ne met pas le sujet en avant à ce jour.",
+      "Mettrik AI réévaluera le positionnement IA à chaque nouvelle publication."
+    ],
+    "source_note": "Sources locales sans mentions IA significatives",
+    "_bucket": "MEDIUM",
+    "_no_ai_passages": true,
+    "_generated_at": "2026-05-21T02:31:56.271407+00:00",
+    "ticker": "EOG"
   },
   "market_positions": [],
   "events": [
@@ -557,16 +520,16 @@
     }
   ],
   "ranks": {
-    "global_world": "Not applicable",
-    "global_us": "Not applicable",
-    "sector": "Not applicable",
-    "subsector": "Not applicable"
+    "global_world": "#210",
+    "global_us": "#123",
+    "sector": "Top 25 in Énergie",
+    "subsector": "#1 in Exploration et production pétrolière et gazière"
   },
   "latest_filing": null,
   "next_earnings_date": null,
   "publication_date": null,
   "company_description": "EOG Resources, Inc., together with its subsidiaries, explores for, develops, produces, and markets crude oil, natural gas liquids, and natural gas in producing basins in the United States, the Republic of Trinidad and Tobago, and internationally. The company also offers crude oil and condensate, and gathering, processing and marketing. The company was formerly known as Enron Oil & Gas Company. EOG Resources, Inc. was incorporated in 1985 and is headquartered in Houston, Texas.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.333Z",
+  "_built_at": "2026-05-21T16:00:22.195Z",
   "_missing_blocks": []
 }

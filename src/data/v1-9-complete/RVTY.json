@@ -112,7 +112,9 @@
         "Validé: valeur 35.6 M$ correspond à la source MD&A (increase of $35.6 million in Software revenue)"
       ],
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
-      "_hero_history_extracted_at": "2026-05-14T10:55:34.782474+00:00"
+      "_hero_history_extracted_at": "2026-05-14T10:55:34.782474+00:00",
+      "explanation_en": "Revenue from the Software segment.",
+      "signal_en": "Significant revenue decline, warning signal"
     },
     {
       "short": "Gross Margin",
@@ -137,7 +139,9 @@
       "is_short_history": false,
       "_validation": [
         "Validé: 54.8% FY2025 vs 55.8% FY2024 = -100 bps (arrondi -1.0 pts), source MD&A confirme 104 bps decline"
-      ]
+      ],
+      "explanation_en": "Gross Margin : gross profit divided by revenue.",
+      "signal_en": "Margin compression, watch profitability"
     },
     {
       "short": "Op Margin",
@@ -162,7 +166,9 @@
       "is_short_history": false,
       "_validation": [
         "Validé: 20.7% FY2025 vs 20.8% FY2024 = -10 bps (-0.1 pts), source MD&A confirme 'consolidated operating margin decreased 10 basis points'"
-      ]
+      ],
+      "explanation_en": "Profit margin on Op.",
+      "signal_en": "Margin compression, watch profitability"
     },
     {
       "short": "R&D",
@@ -187,7 +193,9 @@
       "is_short_history": false,
       "_validation": [
         "Validé: 7.6% FY2025 vs 7.1% FY2024 = +50 bps (+0.5 pts), source MD&A confirme increase to 7.6% et +10% en valeur absolue"
-      ]
+      ],
+      "explanation_en": "Research & Development expenses.",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Headcount",
@@ -212,7 +220,9 @@
       "_validation": [
         "Validé: 11K employés confirmés dans Business section ('As of December 28, 2025, we employed approximately 11,000 employees')",
         "Validé: -5% YoY source MD&A ('In fiscal year 2025, severance actions associated with facility consolidations and cost reduction measures affected approximately 5% of our workforce')"
-      ]
+      ],
+      "explanation_en": "Headcount : total number of employees at period end.",
+      "signal_en": "Pressure, deteriorating trend"
     },
     {
       "short": "Total Assets",
@@ -233,7 +243,9 @@
       "signal": "Total des actifs de 12.17 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets : sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Total Debt",
@@ -254,7 +266,9 @@
       "signal": "Dette totale de 3.4 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "DPS",
@@ -278,7 +292,9 @@
       "signal": "Dividende par action de 0.14 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -299,7 +315,9 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 0.033 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "Payout Ratio",
@@ -320,7 +338,9 @@
       "signal": "Part du résultat net distribué en dividendes : 13.6% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Total Revenue",
@@ -345,7 +365,9 @@
       "signal": "Chiffre d'affaires de 3.312 Mds $ dernière année.",
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Significant revenue decline, warning signal"
     },
     {
       "short": "Net Income",
@@ -370,7 +392,9 @@
       "signal": "Résultat net de 0.241 Mds $ dernière année.",
       "description": "Résultat net consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income : bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns"
     },
     {
       "short": "AI Integration",
@@ -423,8 +447,44 @@
   ],
   "kpis_story": [],
   "governance": {
-    "ceo_name": "Dr. Prahlad R. Singh Ph.D.",
-    "_source": "yfinance.companyOfficers"
+    "top_capital": [
+      {
+        "name": "T. Rowe Price",
+        "type": "institutionnel",
+        "stake_pct": 28.94
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 10.88
+      },
+      {
+        "name": "Edgepoint Investment Group Inc.",
+        "type": "institutionnel",
+        "stake_pct": 7.89
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "T. Rowe Price",
+        "type": "institutionnel",
+        "stake_pct": 28.94
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 10.88
+      },
+      {
+        "name": "Edgepoint Investment Group Inc.",
+        "type": "institutionnel",
+        "stake_pct": 7.89
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:15:00.164893+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "label": "Répartition du chiffre d'affaires par segment opérationnel",
@@ -434,14 +494,16 @@
         "value": 1.716,
         "unit": "Mds $",
         "pct": 45.4,
-        "share_pct": 45.4
+        "share_pct": 45.4,
+        "label_en": "Discovery Analytical Solutions"
       },
       {
         "name": "Diagnostics",
         "value": 2.067,
         "unit": "Mds $",
         "pct": 54.6,
-        "share_pct": 54.6
+        "share_pct": 54.6,
+        "label_en": "Diagnostics"
       }
     ],
     "total": 3.78,
@@ -455,14 +517,16 @@
         "value": 1.269,
         "unit": "Mds $",
         "pct": 33.5,
-        "share_pct": 33.5
+        "share_pct": 33.5,
+        "label_en": "North America"
       },
       {
         "name": "International",
         "value": 2.513,
         "unit": "Mds $",
         "pct": 66.5,
-        "share_pct": 66.5
+        "share_pct": 66.5,
+        "label_en": "International"
       }
     ],
     "total": 3.78,
@@ -592,16 +656,16 @@
     }
   ],
   "ranks": {
-    "global_world": "≈ #1500",
-    "global_us": "≈ #500",
-    "sector": "Mid-tier player",
-    "subsector": "Top 5 in translational multi-omics"
+    "global_world": "#715",
+    "global_us": "#441",
+    "sector": "#194 in Technologie",
+    "subsector": "#1 in Health Science Solutions"
   },
   "latest_filing": null,
   "next_earnings_date": null,
   "publication_date": null,
   "company_description": "Revvity, Inc. provides health sciences solutions, technologies, and services. The company offers instruments, reagents, software, subscriptions, detection and imaging technologies, extended warranties, training and services; and instruments, reagents, assay platforms and software products for early detection of common and rare conditions, such as pregnancy and early childhood, as well as infectious disease testing in the diagnostics market. Its products are used for testing and screening genetic abnormalities, disorders, and diseases, including down syndrome, hypothyroidism, muscular dystrophy, infertility, and various metabolic conditions. The company also develops technologies that enable and support genomic workflows using protein coupled receptor and next-generation DNA sequencing for oncology, immunodiagnostics, and drug discovery. It serves pharmaceutical and biotechnology companies, laboratories, academic and research institutions, public health authorities, private healthcare organizations, doctors, and government agencies under the AutoDELFIA, chemagic, Chitas, CNGnome, DELFIA, DELFIA Xpress, EONIS, EUROArray , EUROIMMUN, EUROLabWorkstation, EUROLINE, EUROPattern, Evolutio",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.591Z",
+  "_built_at": "2026-05-21T16:00:22.678Z",
   "_missing_blocks": []
 }

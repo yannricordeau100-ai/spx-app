@@ -133,7 +133,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_validation": "KPI générique, valeurs en % confirmées"
+      "_validation": "KPI générique, valeurs en % confirmées",
+      "explanation_en": "Gross Margin : gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Operating Margin",
@@ -159,7 +161,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_validation": "Correction short: 'Op Margin' -> 'Operating Margin' pour clarté"
+      "_validation": "Correction short: 'Op Margin' -> 'Operating Margin' pour clarté",
+      "explanation_en": "Operating Margin : operating profit divided by revenue.",
+      "signal_en": "Margin compression, watch profitability"
     },
     {
       "short": "R&D Intensity",
@@ -185,7 +189,8 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "_validation": "Correction short: 'R&D' -> 'R&D Intensity' pour spécificité; name_en amélioré; comparable corrigé de 'Non comparable' à 'Comparable'; description enrichie avec données du 10-K"
+      "_validation": "Correction short: 'R&D' -> 'R&D Intensity' pour spécificité; name_en amélioré; comparable corrigé de 'Non comparable' à 'Comparable'; description enrichie avec données du 10-K",
+      "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Total Employees",
@@ -211,7 +216,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_validation": "Correction type: 'Investment' -> 'Headcount'; description précisée avec chiffre exact du 10-K (62,557)"
+      "_validation": "Correction type: 'Investment' -> 'Headcount'; description précisée avec chiffre exact du 10-K (62,557)",
+      "explanation_en": "Total Employees : total number of employees at period end.",
+      "signal_en": "Stable, slight decline to monitor"
     },
     {
       "short": "DPS",
@@ -235,7 +242,9 @@
       "signal": "Dividende par action de 2.2 EUR dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend stable, payout consistent"
     },
     {
       "short": "Cap Return",
@@ -257,7 +266,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position stable"
     },
     {
       "short": "Payout Ratio",
@@ -279,7 +290,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "R&D Intensity",
@@ -311,41 +324,62 @@
   ],
   "kpis_story": [],
   "governance": {
-    "ceo_name": "Dr. Kai  Beckmann",
-    "ceo_title": "CEO & Chair of Management Board",
-    "fiscal_year": 2025
+    "top_disclosure": "eu_regex_extracted",
+    "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
+    "_top_disclosure_at": "2026-05-21T02:49:04.676456+00:00",
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:18:59Z"
   },
   "revenue_by_segment": {
-    "unit": "$B",
+    "unit": "% of Group sales",
     "source_date": "2024-12-31",
-    "source": "10-K 2024",
+    "source": "Annual Report 2024",
     "slices": [
       {
         "label": "Life Science",
         "value": null,
-        "unit": "$B"
+        "share_pct": 42
+      },
+      {
+        "label": "Healthcare",
+        "value": null,
+        "share_pct": 40
       },
       {
         "label": "Electronics",
         "value": null,
-        "unit": "$B"
+        "share_pct": null
       }
     ]
   },
   "revenue_by_geography": {
-    "unit": "$B",
+    "unit": "% of segment sales",
     "source_date": "2024-12-31",
-    "source": "10-K 2024",
+    "source": "Annual Report 2024",
     "slices": [
       {
-        "label": "Europe and North America",
+        "label": "Europe",
         "value": null,
-        "unit": "$B"
+        "share_pct": null
       },
       {
-        "label": "Asia-Pacific and Latin America",
+        "label": "Amérique du Nord",
         "value": null,
-        "unit": "$B"
+        "share_pct": null
+      },
+      {
+        "label": "Asie-Pacifique",
+        "value": null,
+        "share_pct": null
+      },
+      {
+        "label": "Amérique latine",
+        "value": null,
+        "share_pct": null
+      },
+      {
+        "label": "Moyen-Orient et Afrique",
+        "value": null,
+        "share_pct": null
       }
     ]
   },
@@ -462,16 +496,16 @@
     }
   ],
   "ranks": {
-    "global_world": "#424",
-    "global_us": ": ",
-    "sector": "#1 dans Life Sciences & Healthcare",
-    "subsector": "#1 dans Specialty Chemicals & Pharmaceuticals"
+    "global_world": "#249",
+    "global_us": "Non US",
+    "sector": "#1 in Life Sciences & Healthcare",
+    "subsector": "#1 in Specialty Chemicals & Pharmaceuticals"
   },
   "latest_filing": null,
   "next_earnings_date": "2026-05-13",
   "publication_date": null,
   "company_description": "Merck KGaA operates as a science and technology company in Europe, North America, Latin America, Middle East and Africa, and the Asia Pacific. The Life Science segment offers products, solutions, and services to academic, research and diagnostic labs, biotech, and pharmaceutical companies, as well as the industrial sector; reagents, consumables, devices, instruments, software, and services for research, production, and testing to lab water instruments, microbiology and biomonitoring products, test assays, analytical reagents, and flow cytometry kits and instruments. This segment also provides traditional and novel therapies, such as ration devices, chromatography resins, single-use systems, process chemicals, and excipients for bioprocessing; contract development, manufacturing and testing services, which supports customers from preclinical phases to commercialization. The Healthcare segment discovers, develops, manufactures, and markets prescription drugs and biopharmaceuticals to the therapeutic areas of oncology, rare diseases, neurology and immunology, fertility, cardiovascular, and metabolic and endocrinological disorders. The Electronics segment offers advanced dielectric and metallic materials; photoresist, anti-reflective coating, and material lithography products; clean and selective etch chemistries; materials for chemical-mechanical planarization; high-purity gases for semiconductor manufacturing; and develops and installs delivery equipment for handling of specialty chemicals and gases for semiconductor manufacturing; develops modulating, creating, engineering, and guiding light; and material solutions in liquid crystals, OLED materials, and photoresists. It has in-licensing agreement with Abbisko Therapeutics Co. Ltd., China on drug candidates for the treatment of tenosynovial giant cell tumor. The company was founded in 1668 and is headquartered in Darmstadt, Germany. Merck KGaA is a subsidiary of E. Merck KG.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.485Z",
+  "_built_at": "2026-05-21T16:00:22.463Z",
   "_missing_blocks": []
 }

@@ -163,7 +163,8 @@
       "period_type": "quarter",
       "publication_date": "2026-02-05",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
-      "_hero_history_extracted_at": "2026-05-14T10:53:59.079729+00:00"
+      "_hero_history_extracted_at": "2026-05-14T10:53:59.079729+00:00",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Marge brute",
@@ -187,7 +188,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "ttm": 34.5
+      "ttm": 34.5,
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Marge EBITDA ajustée",
@@ -210,7 +212,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "ttm": 30.6
+      "ttm": 30.6,
+      "signal_en": "Margin compression, watch profitability"
     },
     {
       "short": "Flux de trésorerie disponible",
@@ -233,7 +236,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "ttm": 368.5
+      "ttm": 368.5,
+      "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "Dépenses d'investissement",
@@ -256,7 +260,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "ttm": 212.9
+      "ttm": 212.9,
+      "signal_en": "Solid expansion, positive trajectory"
     },
     {
       "short": "Dette/EBITDA",
@@ -296,7 +301,8 @@
       "last_data_date": "2025-03-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true
+      "is_short_history": true,
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Total Revenue",
@@ -320,7 +326,9 @@
       "signal": "Chiffre d'affaires de 2.904 Mds $ dernière année fiscale (FY2025).",
       "description": "Chiffre d'affaires extrait SEC EDGAR companyfacts XBRL sur les 7 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "DPS",
@@ -344,7 +352,9 @@
       "signal": "Dividende par action de 0.18 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -366,7 +376,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -388,7 +400,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     }
   ],
   "kpis_story": [
@@ -410,18 +424,44 @@
     }
   ],
   "governance": {
-    "agm_date": "2025-07-17",
-    "fiscal_year": 2025,
-    "board_size": 11,
-    "exec_comp_approval_pct": null,
-    "board_independence_pct": null,
-    "avg_tenure_years": null,
-    "board_women_pct": 27.3,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "top_capital": [],
-    "top_voting": [],
-    "ceo_name": "D. Scott Barbour",
-    "ceo_total_comp_m": 7.398322
+    "top_capital": [
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 9.53
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 9.04
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 3.2
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 9.53
+      },
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 9.04
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 3.2
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:15:40.556501+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "unit": "Mds $",
@@ -431,26 +471,30 @@
       {
         "label": "Pipe",
         "value": 1.56,
-        "unit": "M $",
-        "share_pct": 50.6
+        "share_pct": 50.6,
+        "unit": "Mds $",
+        "label_en": "Pipe"
       },
       {
         "label": "Allied Products & Other",
         "value": 0.71,
-        "unit": "M $",
-        "share_pct": 23.1
+        "share_pct": 23.1,
+        "unit": "Mds $",
+        "label_en": "Allied Products & Other"
       },
       {
         "label": "Infiltrator",
         "value": 0.6,
-        "unit": "M $",
-        "share_pct": 19.5
+        "share_pct": 19.5,
+        "unit": "Mds $",
+        "label_en": "Infiltrator"
       },
       {
         "label": "International",
         "value": 0.21,
-        "unit": "M $",
-        "share_pct": 6.8
+        "share_pct": 6.8,
+        "unit": "Mds $",
+        "label_en": "International"
       }
     ],
     "total": 3.08
@@ -463,14 +507,16 @@
       {
         "label": "États-Unis (domestic)",
         "value": 2.71,
-        "unit": "M $",
-        "share_pct": 93.4
+        "share_pct": 93.4,
+        "unit": "Mds $",
+        "label_en": "United States (Domestic)"
       },
       {
         "label": "International",
         "value": 0.19,
-        "unit": "M $",
-        "share_pct": 6.6
+        "share_pct": 6.6,
+        "unit": "Mds $",
+        "label_en": "International"
       }
     ],
     "total": 2.9
@@ -564,9 +610,9 @@
     }
   ],
   "ranks": {
-    "global_world": "#295",
-    "global_us": "#164",
-    "sector": "Top 25 in Industrials",
+    "global_world": "#713",
+    "global_us": "#440",
+    "sector": "#71 in Industrie",
     "subsector": "#1 in Water Management Solutions"
   },
   "latest_filing": null,
@@ -574,6 +620,6 @@
   "publication_date": null,
   "company_description": "Advanced Drainage Systems, Inc. designs, manufactures, and markets thermoplastic corrugated pipes and related water management products in the United States, Canada, and internationally. It operates through Pipe, Infiltrator, International, and Allied Products & Other segments. The company offers single, double, and triple wall corrugated polypropylene and polyethylene pipes; plastic leachfield chambers and systems; EZflow synthetic aggregate bundles; wastewater purification through mechanical aeration wastewater for residential and commercial systems; septic tanks and accessories; combined treatment and dispersal systems, including AeroFin, advanced enviro-septic, enviro-septic, and advanced treatment leachfield; and allied products, including storm retention/detention and septic chambers, polyvinyl chloride drainage structures, fittings, and water quality filters and separators. It also purchases and distributes construction fabrics and other geosynthetic products for soil stabilization, reinforcement, filtration, separation, erosion control, and sub-surface drainage, as well as drainage grates and other products. In addition, the company provides PVC hubs, rubber sleeves, and stainless-steel bands. It offers its products for non-residential, residential, agriculture, and infrastructure applications through a network of distribution centers. Advanced Drainage Systems, Inc. was incorporated in 1966 and is headquartered in Hilliard, Ohio.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-20T20:15:02.699Z",
+  "_built_at": "2026-05-21T16:00:22.889Z",
   "_missing_blocks": []
 }

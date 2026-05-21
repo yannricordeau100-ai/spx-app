@@ -136,7 +136,8 @@
       "is_generic": false,
       "is_short_history": false,
       "period_type": "quarter",
-      "publication_date": "2026-04-30"
+      "publication_date": "2026-04-30",
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Rental revenues",
@@ -157,7 +158,8 @@
       "last_data_date": "2024-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Strategic Capital Segment NOI",
@@ -178,7 +180,8 @@
       "last_data_date": "2024-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "signal_en": "Significant revenue decline, warning signal"
     },
     {
       "short": "Development starts TEI",
@@ -199,7 +202,8 @@
       "last_data_date": "2024-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "signal_en": "Strong growth, robust momentum"
     },
     {
       "short": "Occupancy rate",
@@ -256,7 +260,8 @@
       "last_data_date": "2024-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "explanation_en": "Total Debt : sum of short-term and long-term borrowings."
     },
     {
       "short": "Weighted average term of debt",
@@ -318,7 +323,9 @@
       "signal": "Dividende par action de 1.07 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share : total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
       "short": "Cap Return",
@@ -340,7 +347,9 @@
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
       "_source": "yfinance.cashflow",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Capital Return : total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
       "short": "Payout Ratio",
@@ -362,7 +371,9 @@
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "is_short_history": true
+      "is_short_history": true,
+      "explanation_en": "Payout Ratio : dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
       "short": "Build-to-suit percentage of development starts",
@@ -446,19 +457,44 @@
     }
   ],
   "governance": {
-    "agm_date": "2026-04-28",
-    "fiscal_year": 2025,
-    "ceo_name": "Hamid Moghadam",
-    "ceo_total_comp_m": null,
-    "ceo_pay_ratio": null,
-    "exec_comp_approval_pct": 100,
-    "board_independence_pct": 82,
-    "board_size": 11,
-    "avg_tenure_years": null,
-    "board_women_pct": null,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "top_capital": [],
-    "top_voting": []
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 12.25
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 10.77
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 6.01
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 12.25
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 10.77
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 6.01
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "yfinance",
+    "_top_enriched_at": "2026-05-21T02:14:48.654093+00:00",
+    "_top_dual_class_flag": false
   },
   "revenue_by_segment": {
     "unit": "Mds $",
@@ -469,19 +505,22 @@
         "label": "Real Estate - Rental Operations",
         "value": 8.159,
         "share_pct": 92.8,
-        "unit": "Mds $"
+        "unit": "Mds $",
+        "label_en": "Real Estate - Rental Operations"
       },
       {
         "label": "Strategic Capital",
         "value": 0.592,
         "share_pct": 6.7,
-        "unit": "Mds $"
+        "unit": "Mds $",
+        "label_en": "Strategic Capital"
       },
       {
         "label": "Real Estate - Development Management and Other",
         "value": 0.039,
         "share_pct": 0.4,
-        "unit": "Mds $"
+        "unit": "Mds $",
+        "label_en": "Real Estate - Development Management and Other"
       }
     ],
     "total": 8.79
@@ -494,32 +533,38 @@
         "value": 7.35,
         "unit": "Mds $",
         "pct": 89.6,
-        "share_pct": 89.6
+        "share_pct": 89.6,
+        "label_en": "North America"
       },
       {
         "name": "Europe",
         "value": 0.31,
         "unit": "Mds $",
         "pct": 3.8,
-        "share_pct": 3.8
+        "share_pct": 3.8,
+        "label_en": "Europe"
       },
       {
         "name": "Asie",
         "value": 0.15,
         "unit": "Mds $",
         "pct": 1.8,
-        "share_pct": 1.8
+        "share_pct": 1.8,
+        "label_en": "Asia"
       },
       {
         "name": "Other Americas",
         "value": 0.23,
         "unit": "Mds $",
         "pct": 2.8,
-        "share_pct": 2.8
+        "share_pct": 2.8,
+        "label_en": "Other Americas"
       }
     ],
     "total": 8.04,
-    "unit": "Mds $"
+    "unit": "Mds $",
+    "_share_pct_check_failed": true,
+    "_share_pct_sum": 98
   },
   "risks": [
     {
@@ -565,15 +610,15 @@
   ],
   "ai_positioning": {
     "stance": "absent",
-    "summary": "Le secteur Real Estate Investment Trusts (REITs) n'est pas significativement transformé par l'IA aujourd'hui : la valeur de Prologis, Inc. s'évalue principalement sur les fondamentaux propres au secteur (positionnement, marges, cycle, génération de cash). Une analyse fine de l'usage interne de l'IA (optimisation de processus, gestion d'actifs, automation) sera ajoutée en V2.0.",
+    "summary": "Le secteur REIT (foncières cotées) n'est pas significativement transformé par l'IA aujourd'hui : la valeur de Prologis, Inc. s'évalue principalement sur les fondamentaux propres au secteur (positionnement, marges, cycle, génération de cash). Une analyse fine de l'usage interne de l'IA (optimisation de processus, gestion d'actifs, automation) sera ajoutée en V2.0.",
     "evidence": [
-      "Prologis, Inc. opère dans un sous-secteur (Real Estate Investment Trusts (REITs)) où l'IA reste à ce jour un outil interne plutôt qu'un facteur de différenciation produit.",
+      "Prologis, Inc. opère dans un sous-secteur (REIT (foncières cotées)) où l'IA reste à ce jour un outil interne plutôt qu'un facteur de différenciation produit.",
       "Les KPIs de la fiche (revenus, marges, ranks sectoriels) restent les meilleurs indicateurs de la qualité d'investissement.",
       "Mettrik AI tracera en V2.0 les usages internes IA quand la sté commencera à les mentionner explicitement dans ses rapports."
     ],
     "source_note": "Analyse Mettrik AI (sub-industry classification GICS, en attente de divulgations IA explicites par la sté)",
     "_bucket": "NONE",
-    "_generated_at": "2026-05-07T23:34:50.117336+00:00",
+    "_generated_at": "2026-05-21T02:28:07.709857+00:00",
     "ticker": "PLD"
   },
   "market_positions": [],
@@ -616,8 +661,8 @@
     }
   ],
   "ranks": {
-    "global_world": "#110",
-    "global_us": "#65",
+    "global_world": "#112",
+    "global_us": "#67",
     "sector": "#2 in Immobilier",
     "subsector": "#2 in REIT (foncières cotées)"
   },
@@ -625,6 +670,6 @@
   "next_earnings_date": "2026-07-15",
   "publication_date": null,
   "company_description": "Prologis, Inc. is a self-administered and self-managed REIT and is the sole general partner of Prologis, L.P. through which it holds substantially all of its assets. We operate Prologis, Inc. and Prologis, L.P. as one enterprise and, therefore, our discussion and analysis refer to Prologis, Inc. and its consolidated subsidiaries, including Prologis, L.P. We invest in real estate through wholly owned subsidiaries and other entities through which we co-invest with partners and investors (co-investment ventures). We have a significant ownership interest in the co-investment ventures, which are either consolidated or unconsolidated based on our level of control of the entity. Prologis, Inc. began operating as a fully integrated real estate company in 1997 and elected to be taxed as a REIT under the Internal Revenue Code of 1986, as amended (Internal Revenue Code or IRC). We believe the current organization and method of operation enable Prologis, Inc. to maintain its status as a REIT. Prologis, L.P. was also formed in 1997. We operate, manage and measure the operating performance of our properties on an owned and managed (O&M) basis. Our O&M portfolio includes our consolidated properties as well as properties owned by our unconsolidated co investment ventures, which we manage. We make operating decisions based on our total O&M portfolio as we manage the properties without regard to their ownership. Prologis, Inc. was incorporated in 1983 in Maryland, USA.",
-  "_built_at": "2026-05-21T02:08:59.592Z",
+  "_built_at": "2026-05-21T16:00:22.583Z",
   "_missing_blocks": []
 }
