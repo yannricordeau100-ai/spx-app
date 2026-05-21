@@ -488,6 +488,18 @@ def main():
     targets = [c for c in gap if c.get("category") == "medium_eu_full"]
     log_line(f"Cluster medium_eu_full: {len(targets)} targets")
 
+    # Allow TICKER_FILE env to override / extend targets
+    ticker_file = os.environ.get("TICKER_FILE")
+    if ticker_file and os.path.exists(ticker_file):
+        with open(ticker_file) as f:
+            allowed = {ln.strip().upper() for ln in f if ln.strip()}
+        existing = {c.get("ticker", "").upper() for c in targets}
+        targets = [c for c in targets if c.get("ticker", "").upper() in allowed]
+        missing = allowed - existing
+        for t in missing:
+            targets.append({"ticker": t, "category": "m161_override"})
+        log_line(f"Filtered to {len(targets)} via TICKER_FILE={ticker_file}")
+
     limit = int(os.environ.get("LIMIT", "0"))
     if limit:
         targets = targets[:limit]

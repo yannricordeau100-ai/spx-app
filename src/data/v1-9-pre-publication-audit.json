@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-05-21T18:11:59.421Z",
+  "generated_at": "2026-05-21T18:17:54.990Z",
   "publishable_source": "src/data/v1-9-publishable.json",
   "publishable_count_input": 807,
   "stats": {
     "total": 807,
     "fatal_no_dataset": 0,
     "clean_af": 613,
-    "clean_all": 580,
+    "clean_all": 582,
     "by_failed_count": {
       "0": 613,
       "1": 131,
@@ -24,7 +24,7 @@
       "f_repartition": 142
     },
     "by_failed_extension": {
-      "g_governance": 144,
+      "g_governance": 142,
       "h_ai_positioning": 9,
       "i_events": 12,
       "j_description": 0,
@@ -82,8 +82,8 @@
       "unavailable_adr": 14,
       "partial_disclosure_eu_p1": 0,
       "partial_disclosure_ok": 0,
-      "regex_real_sourced": 187,
-      "regex_real_sourced_pct_of_total": 23.17,
+      "regex_real_sourced": 188,
+      "regex_real_sourced_pct_of_total": 23.3,
       "heuristic_partial": 57,
       "heuristic_partial_capped": 0,
       "heuristic_partial_cap_limit": 242,
@@ -3578,15 +3578,15 @@
       "extensions": {
         "g_governance": {
           "ok": true,
-          "has_one_top": false,
+          "has_one_top": true,
           "ceo_name": "Mr. E. Lard Friese",
           "board_size": 10,
-          "top_voting_count": 0,
-          "top_capital_count": 0,
-          "override_source": null,
+          "top_voting_count": 4,
+          "top_capital_count": 4,
+          "override_source": "urd_eu_cerebras_real_eu",
           "override_source_file": "sec-data/cat3-european/AGN.AS/annual-text/2018.txt",
-          "override_extraction_status": "heuristic_real_eu",
-          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=0 top_capital=0, regex_real_sourced=true)",
+          "override_extraction_status": "rolled_back_hallucination",
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=4 top_capital=4, regex_real_sourced=true)",
           "exception_regex_real_sourced": true
         },
         "h_ai_positioning": {
@@ -6089,14 +6089,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -6125,12 +6118,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "APO",
@@ -46661,14 +46652,16 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "J. Marks",
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "override_source": "def14a_local_cerebras_real",
+          "override_source_file": "sec-data/cat1-us/DEF14A/2026/OTIS_2026-04-17.htm.gz",
+          "override_extraction_status": "heuristic_partial",
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3, regex_real_sourced=true)",
+          "exception_regex_real_sourced": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -46697,12 +46690,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "OXY",
@@ -54498,7 +54489,10 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "top_capital < 2 (partial_allowed=true)"
+          "missing": [
+            "ceo_name"
+          ],
+          "reason": "gov manque: ceo_name"
         },
         "h_ai_positioning": {
           "ok": true,

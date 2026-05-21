@@ -56,8 +56,9 @@ SLEEP_BETWEEN_CALLS = 0.5
 MAX_TOKENS = 2200
 CTX_LEN = 26000
 
+_CEO_TOKEN = r"(?:[A-ZÀ-ÿ]\.(?:[A-ZÀ-ÿ]\.)*|[A-ZÀ-ÿ][a-zA-ZÀ-ÿ'\-]+)"
 CEO_NAME_PATTERN = re.compile(
-    r"^(?:[A-Z]\.?(?:[A-Z]\.?)?\s?)*(?:[A-ZÀ-ÿ][a-zA-ZÀ-ÿ'\-]+)(?:\s[A-Z]\.?){0,3}(?:\s(?:de|du|de\sLa|der|van|von|den|le|la))*(?:\s[A-ZÀ-ÿ][a-zA-ZÀ-ÿ'\-]+){1,4}(?:,?\s(?:Jr|Sr|III|II|IV|Ph\.D|Ph\.D\.|M\.D|M\.D\.))?\.?$"
+    rf"^{_CEO_TOKEN}(?:\s(?:{_CEO_TOKEN}|de|du|de\sLa|der|van|von|den|le|la)){{1,5}}(?:,?\s(?:Jr|Sr|III|II|IV|Ph\.D\.?|M\.D\.?))?\.?$"
 )
 CEO_NAME_BLOCKLIST = {
     "officer", "executive", "chairman", "president", "director",
