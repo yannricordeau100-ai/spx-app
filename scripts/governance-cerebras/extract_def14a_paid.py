@@ -466,6 +466,20 @@ def main():
     targets = [c for c in gap if c.get("category") == "medium_us_proxy_full"]
     log_line(f"Cluster medium_us_proxy_full: {len(targets)} targets")
 
+    # Allow TICKER_FILE env to restrict / extend with arbitrary tickers (mission #158)
+    ticker_file = os.environ.get("TICKER_FILE")
+    if ticker_file and os.path.exists(ticker_file):
+        with open(ticker_file) as f:
+            allowed = {line.strip().upper() for line in f if line.strip()}
+        # Filter existing targets to those in the allow-list
+        existing_tickers = {c["ticker"].upper() for c in targets}
+        targets = [c for c in targets if c["ticker"].upper() in allowed]
+        # Add any tickers from the file that weren't in gap_detail (synthesize minimal entry)
+        missing = allowed - existing_tickers
+        for t in missing:
+            targets.append({"ticker": t, "category": "m158_override"})
+        log_line(f"Filtered to {len(targets)} via TICKER_FILE={ticker_file} (added {len(missing)} synthesized)")
+
     limit = int(os.environ.get("LIMIT", "0"))
     if limit:
         targets = targets[:limit]
