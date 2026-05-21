@@ -38,7 +38,21 @@ for (const entry of UNIVERSE) {
     continue;
   }
   const d = JSON.parse(fs.readFileSync(p, "utf-8"));
-  const hero = d.hero_kpi;
+  // Sub-agent #141 (CONV-CONCEPTS, 21 mai 2026) : load hero_kpi_override from
+  // v2-pipeline-enrich/<lower>.hero_name_fr.json. Mirror logic of
+  // scripts/audit-v1-9-pre-publication.js + src/lib/v1-7/load-company.ts.
+  // Sans ce merge, les fix sub-agent #141 (24 stés absentes) restent invisibles
+  // au filtre publishable.
+  let hero = d.hero_kpi;
+  const heroFrPath = path.join(ROOT, "src/data/v2-pipeline-enrich", `${T.toLowerCase()}.hero_name_fr.json`);
+  if (fs.existsSync(heroFrPath)) {
+    try {
+      const heroFr = JSON.parse(fs.readFileSync(heroFrPath, "utf-8"));
+      if (heroFr && typeof heroFr.hero_kpi_override === "string" && heroFr.hero_kpi_override) {
+        hero = heroFr.hero_kpi_override;
+      }
+    } catch {}
+  }
   const heroSpec = hero && !isGenericHero(hero);
   const heroKpi = (d.kpis || []).find((k) => k && (k.short === hero || k.name_fr === hero || k.name_en === hero));
   const heroHistOk = heroKpi && Array.isArray(heroKpi.history) && heroKpi.history.length >= 3;

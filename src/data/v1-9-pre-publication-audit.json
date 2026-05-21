@@ -1,42 +1,42 @@
 {
-  "generated_at": "2026-05-21T11:44:02.774Z",
+  "generated_at": "2026-05-21T11:57:34.470Z",
   "publishable_source": "src/data/v1-9-publishable.json",
-  "publishable_count_input": 771,
+  "publishable_count_input": 781,
   "stats": {
-    "total": 771,
+    "total": 781,
     "fatal_no_dataset": 0,
     "clean_af": 443,
-    "clean_all": 208,
+    "clean_all": 243,
     "by_failed_count": {
       "0": 443,
-      "1": 247,
-      "2": 70,
-      "3": 10,
+      "1": 252,
+      "2": 73,
+      "3": 12,
       "4": 1
     },
     "by_failed_criterion": {
-      "a_hero_history": 152,
-      "b_interpretation": 26,
+      "a_hero_history": 153,
+      "b_interpretation": 31,
       "c_kpi_count": 1,
-      "d_stories": 101,
-      "e_risks": 6,
-      "f_repartition": 135
+      "d_stories": 107,
+      "e_risks": 7,
+      "f_repartition": 139
     },
     "by_failed_extension": {
-      "g_governance": 472,
+      "g_governance": 448,
       "h_ai_positioning": 5,
-      "i_events": 7,
+      "i_events": 6,
       "j_description": 0,
-      "k_ranks": 8,
+      "k_ranks": 9,
       "l_hero_name_fr": 7,
-      "m_freshness": 16
+      "m_freshness": 18
     },
     "a_hero_history_exceptions": {
       "legitimate": 83,
       "short_marked": 16,
       "company_specific": 20,
-      "legitimate_pct_of_total": 10.77,
-      "company_specific_pct_of_total": 2.59,
+      "legitimate_pct_of_total": 10.63,
+      "company_specific_pct_of_total": 2.56,
       "under_21pct_cap": true,
       "under_10pct_cap_company_specific": true,
       "by_specific_category": {
@@ -58,12 +58,12 @@
         "hospitality_rooms": 1
       },
       "total": 119,
-      "total_exceptions_pct_of_total": 15.43
+      "total_exceptions_pct_of_total": 15.24
     },
     "h_ai_positioning_exceptions": {
-      "stance_absent_legit": 280,
+      "stance_absent_legit": 290,
       "sector_irrelevant_auto": 9,
-      "cautious_with_evidence": 171,
+      "cautious_with_evidence": 168,
       "by_sector_irrelevant": {
         "Énergie": 1,
         "Services aux collectivités": 2,
@@ -75,37 +75,37 @@
       "unavailable_adr": 14,
       "partial_disclosure_eu_p1": 0,
       "partial_disclosure_ok": 0,
-      "regex_real_sourced": 97,
-      "regex_real_sourced_pct_of_total": 12.58,
-      "heuristic_partial": 42,
+      "regex_real_sourced": 110,
+      "regex_real_sourced_pct_of_total": 14.08,
+      "heuristic_partial": 29,
       "heuristic_partial_capped": 0,
-      "heuristic_partial_cap_limit": 231,
-      "heuristic_partial_pct_of_total": 5.45,
+      "heuristic_partial_cap_limit": 234,
+      "heuristic_partial_pct_of_total": 3.71,
       "under_30pct_cap_heuristic": true,
-      "unavailable_adr_pct_of_total": 1.82,
+      "unavailable_adr_pct_of_total": 1.79,
       "under_15pct_cap_adr": true
     }
   },
   "top5_failed_criteria": [
     [
       "a_hero_history",
-      152
+      153
     ],
     [
       "f_repartition",
-      135
+      139
     ],
     [
       "d_stories",
-      101
+      107
     ],
     [
       "b_interpretation",
-      26
+      31
     ],
     [
       "e_risks",
-      6
+      7
     ]
   ],
   "top20_to_fix": [
@@ -200,6 +200,17 @@
     {
       "ticker": "PANW",
       "market_cap_usd": 193188315136,
+      "failed_count": 1,
+      "failed_criteria": [
+        "d_stories"
+      ],
+      "reasons": [
+        "d_stories: Stories 7 < 8"
+      ]
+    },
+    {
+      "ticker": "AMGN",
+      "market_cap_usd": 181564211200,
       "failed_count": 1,
       "failed_criteria": [
         "d_stories"
@@ -317,20 +328,94 @@
       "reasons": [
         "a_hero_history: history insuffisant (8 < 18)"
       ]
-    },
-    {
-      "ticker": "PGR",
-      "market_cap_usd": 115044163584,
-      "failed_count": 1,
-      "failed_criteria": [
-        "d_stories"
-      ],
-      "reasons": [
-        "d_stories: Stories 7 < 8"
-      ]
     }
   ],
   "sample_majors": [
+    {
+      "ticker": "AMZN",
+      "source": "src/data/v1-9-complete/AMZN.json+src/data/v2-pipeline/AMZN.json+src/data/v2-pipeline/amzn.json+src/data/v2-pipeline-enrich/AMZN.json+src/data/v2-pipeline-enrich/amzn.json",
+      "market_cap_usd": null,
+      "criteria": {
+        "a_hero_history": {
+          "ok": true,
+          "len": 5,
+          "period": "year",
+          "required": 5
+        },
+        "b_interpretation": {
+          "ok": true,
+          "sub_blocks": 4
+        },
+        "c_kpi_count": {
+          "ok": true,
+          "count": 8,
+          "required": 5
+        },
+        "d_stories": {
+          "ok": true,
+          "count": 12,
+          "required": 5,
+          "breakdown": {
+            "legacy_stories_kpis": 6,
+            "short_history_kpis": 5,
+            "market_positions": 1
+          }
+        },
+        "e_risks": {
+          "ok": true,
+          "count": 7
+        },
+        "f_repartition": {
+          "ok": true
+        }
+      },
+      "extensions": {
+        "g_governance": {
+          "ok": false,
+          "missing": [
+            "ceo_total_comp_m",
+            "board_size"
+          ],
+          "reason": "gov manque: ceo_total_comp_m,board_size"
+        },
+        "h_ai_positioning": {
+          "ok": true,
+          "exception_stance_absent": true,
+          "stance": "absent",
+          "sector": "Consommation discrétionnaire",
+          "evidence_count": 0,
+          "reason": "stance=absent légitime (sté non concernée par stratégie IA explicite)"
+        },
+        "i_events": {
+          "ok": false,
+          "count": 3,
+          "reason": "events 3 < 4"
+        },
+        "j_description": {
+          "ok": true,
+          "len": 1200
+        },
+        "k_ranks": {
+          "ok": true
+        },
+        "l_hero_name_fr": {
+          "ok": true
+        },
+        "m_freshness": {
+          "ok": true,
+          "months_ago": 1,
+          "source": "next_earnings_date-90d"
+        }
+      },
+      "failed_criteria": [],
+      "failed_extensions": [
+        "g_governance",
+        "i_events"
+      ],
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": false
+    },
     {
       "ticker": "MSFT",
       "source": "src/data/v1-9-complete/MSFT.json+src/data/v2-pipeline/MSFT.json+src/data/v2-pipeline/msft.json+src/data/v2-pipeline-enrich/MSFT.json+src/data/v2-pipeline-enrich/msft.json",
@@ -1383,6 +1468,94 @@
       "is_clean_all": false
     },
     {
+      "ticker": "ABF.L",
+      "source": "src/data/v1-9-complete/ABF.L.json+src/data/v2-pipeline/ABF.L.json+src/data/v2-pipeline/abf.l.json+src/data/v2-pipeline-enrich/ABF.L.json+src/data/v2-pipeline-enrich/abf.l.json",
+      "market_cap_usd": 16145272012.800001,
+      "criteria": {
+        "a_hero_history": {
+          "ok": true,
+          "len": 5,
+          "period": "year",
+          "required": 5
+        },
+        "b_interpretation": {
+          "ok": false,
+          "sub_blocks": 3,
+          "has_driver": true,
+          "has_vigilance": false,
+          "reason": "sous-blocs interp = 3/4 (driver=true, vigilance=false)"
+        },
+        "c_kpi_count": {
+          "ok": true,
+          "count": 9,
+          "required": 5
+        },
+        "d_stories": {
+          "ok": true,
+          "count": 16,
+          "required": 8,
+          "breakdown": {
+            "legacy_stories_kpis": 14,
+            "short_history_kpis": 2,
+            "market_positions": 0
+          }
+        },
+        "e_risks": {
+          "ok": true,
+          "count": 8
+        },
+        "f_repartition": {
+          "ok": true
+        }
+      },
+      "extensions": {
+        "g_governance": {
+          "ok": false,
+          "missing": [
+            "ceo_name",
+            "ceo_total_comp_m"
+          ],
+          "reason": "gov manque: ceo_name,ceo_total_comp_m"
+        },
+        "h_ai_positioning": {
+          "ok": true,
+          "exception_stance_absent": true,
+          "stance": "absent",
+          "sector": "Consumer Cyclical",
+          "evidence_count": 3,
+          "reason": "stance=absent légitime (sté non concernée par stratégie IA explicite)"
+        },
+        "i_events": {
+          "ok": true,
+          "count": 4
+        },
+        "j_description": {
+          "ok": true,
+          "len": 1242
+        },
+        "k_ranks": {
+          "ok": true
+        },
+        "l_hero_name_fr": {
+          "ok": true
+        },
+        "m_freshness": {
+          "ok": true,
+          "months_ago": 1,
+          "source": "latest_filing.date"
+        }
+      },
+      "failed_criteria": [
+        "b_interpretation"
+      ],
+      "failed_extensions": [
+        "g_governance"
+      ],
+      "failed_count": 1,
+      "is_clean_af": false,
+      "is_clean_all": false
+    },
+    {
       "ticker": "ABI.BR",
       "source": "src/data/v1-9-complete/ABI.BR.json+src/data/v2-pipeline/ABI.BR.json+src/data/v2-pipeline/abi.br.json+src/data/v2-pipeline-enrich/ABI.BR.json+src/data/v2-pipeline-enrich/abi.br.json",
       "market_cap_usd": null,
@@ -1601,11 +1774,11 @@
           "board_size": 8,
           "top_voting_count": 3,
           "top_capital_count": 3,
-          "override_source": "cerebras_paid_def14a_131",
+          "override_source": "def14a_local_cerebras_real",
           "override_source_file": "sec-data/cat1-us/DEF14A/2026/ABNB_2026-04-24.htm.gz",
           "override_extraction_status": "heuristic_partial",
-          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3, regex_real_sourced=false)",
-          "exception_heuristic_partial": true
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3, regex_real_sourced=true)",
+          "exception_regex_real_sourced": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -1715,6 +1888,98 @@
       "failed_count": 0,
       "is_clean_af": true,
       "is_clean_all": true
+    },
+    {
+      "ticker": "ABVX",
+      "source": "src/data/v1-9-complete/ABVX.json+src/data/v2-pipeline/ABVX.json+src/data/v2-pipeline/abvx.json+src/data/v2-pipeline-enrich/ABVX.json+src/data/v2-pipeline-enrich/abvx.json",
+      "market_cap_usd": 10361771458.560001,
+      "criteria": {
+        "a_hero_history": {
+          "ok": true,
+          "len": 5,
+          "period": "year",
+          "required": 5
+        },
+        "b_interpretation": {
+          "ok": true,
+          "sub_blocks": 4
+        },
+        "c_kpi_count": {
+          "ok": true,
+          "count": 10,
+          "required": 5
+        },
+        "d_stories": {
+          "ok": false,
+          "count": 3,
+          "required": 8,
+          "breakdown": {
+            "legacy_stories_kpis": 0,
+            "short_history_kpis": 3,
+            "market_positions": 0
+          },
+          "reason": "Stories 3 < 8"
+        },
+        "e_risks": {
+          "ok": true,
+          "count": 8
+        },
+        "f_repartition": {
+          "ok": false,
+          "issues": [
+            "geography vide"
+          ],
+          "reason": "geography vide"
+        }
+      },
+      "extensions": {
+        "g_governance": {
+          "ok": false,
+          "missing": [
+            "ceo_total_comp_m",
+            "board_size",
+            "voting_structure"
+          ],
+          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure"
+        },
+        "h_ai_positioning": {
+          "ok": true,
+          "exception_stance_absent": true,
+          "stance": "absent",
+          "sector": "Santé",
+          "evidence_count": 3,
+          "reason": "stance=absent légitime (sté non concernée par stratégie IA explicite)"
+        },
+        "i_events": {
+          "ok": true,
+          "count": 6
+        },
+        "j_description": {
+          "ok": true,
+          "len": 494
+        },
+        "k_ranks": {
+          "ok": true
+        },
+        "l_hero_name_fr": {
+          "ok": true
+        },
+        "m_freshness": {
+          "ok": true,
+          "months_ago": 0,
+          "source": "publication_date"
+        }
+      },
+      "failed_criteria": [
+        "d_stories",
+        "f_repartition"
+      ],
+      "failed_extensions": [
+        "g_governance"
+      ],
+      "failed_count": 2,
+      "is_clean_af": false,
+      "is_clean_all": false
     },
     {
       "ticker": "ACA.PA",
@@ -4242,11 +4507,11 @@
           "board_size": 15,
           "top_voting_count": 3,
           "top_capital_count": 3,
-          "override_source": "cerebras_paid_def14a_131",
+          "override_source": "def14a_local_cerebras_real",
           "override_source_file": "sec-data/cat1-us/DEF14A/2026/AMAT_2026-01-28.htm.gz",
           "override_extraction_status": "heuristic_partial",
-          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3, regex_real_sourced=false)",
-          "exception_heuristic_partial": true
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3, regex_real_sourced=true)",
+          "exception_regex_real_sourced": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -4516,6 +4781,92 @@
       "failed_count": 0,
       "is_clean_af": true,
       "is_clean_all": true
+    },
+    {
+      "ticker": "AMGN",
+      "source": "src/data/v1-9-complete/AMGN.json+src/data/v2-pipeline/AMGN.json+src/data/v2-pipeline/amgn.json+src/data/v2-pipeline-enrich/AMGN.json+src/data/v2-pipeline-enrich/amgn.json",
+      "market_cap_usd": 181564211200,
+      "criteria": {
+        "a_hero_history": {
+          "ok": true,
+          "len": 5,
+          "period": "year",
+          "required": 5
+        },
+        "b_interpretation": {
+          "ok": true,
+          "sub_blocks": 4
+        },
+        "c_kpi_count": {
+          "ok": true,
+          "count": 21,
+          "required": 8
+        },
+        "d_stories": {
+          "ok": false,
+          "count": 7,
+          "required": 8,
+          "breakdown": {
+            "legacy_stories_kpis": 4,
+            "short_history_kpis": 3,
+            "market_positions": 0
+          },
+          "reason": "Stories 7 < 8"
+        },
+        "e_risks": {
+          "ok": true,
+          "count": 8
+        },
+        "f_repartition": {
+          "ok": true
+        }
+      },
+      "extensions": {
+        "g_governance": {
+          "ok": false,
+          "missing": [
+            "ceo_name",
+            "ceo_total_comp_m",
+            "board_size",
+            "voting_structure"
+          ],
+          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+        },
+        "h_ai_positioning": {
+          "ok": true,
+          "stance": "integrator",
+          "sector": "Santé",
+          "evidence_count": 5
+        },
+        "i_events": {
+          "ok": true,
+          "count": 8
+        },
+        "j_description": {
+          "ok": true,
+          "len": 2089
+        },
+        "k_ranks": {
+          "ok": true
+        },
+        "l_hero_name_fr": {
+          "ok": true
+        },
+        "m_freshness": {
+          "ok": true,
+          "months_ago": 0,
+          "source": "next_earnings_date-90d"
+        }
+      },
+      "failed_criteria": [
+        "d_stories"
+      ],
+      "failed_extensions": [
+        "g_governance"
+      ],
+      "failed_count": 1,
+      "is_clean_af": false,
+      "is_clean_all": false
     },
     {
       "ticker": "AMP",
@@ -4851,6 +5202,91 @@
       ],
       "failed_count": 1,
       "is_clean_af": false,
+      "is_clean_all": false
+    },
+    {
+      "ticker": "AMZN",
+      "source": "src/data/v1-9-complete/AMZN.json+src/data/v2-pipeline/AMZN.json+src/data/v2-pipeline/amzn.json+src/data/v2-pipeline-enrich/AMZN.json+src/data/v2-pipeline-enrich/amzn.json",
+      "market_cap_usd": null,
+      "criteria": {
+        "a_hero_history": {
+          "ok": true,
+          "len": 5,
+          "period": "year",
+          "required": 5
+        },
+        "b_interpretation": {
+          "ok": true,
+          "sub_blocks": 4
+        },
+        "c_kpi_count": {
+          "ok": true,
+          "count": 8,
+          "required": 5
+        },
+        "d_stories": {
+          "ok": true,
+          "count": 12,
+          "required": 5,
+          "breakdown": {
+            "legacy_stories_kpis": 6,
+            "short_history_kpis": 5,
+            "market_positions": 1
+          }
+        },
+        "e_risks": {
+          "ok": true,
+          "count": 7
+        },
+        "f_repartition": {
+          "ok": true
+        }
+      },
+      "extensions": {
+        "g_governance": {
+          "ok": false,
+          "missing": [
+            "ceo_total_comp_m",
+            "board_size"
+          ],
+          "reason": "gov manque: ceo_total_comp_m,board_size"
+        },
+        "h_ai_positioning": {
+          "ok": true,
+          "exception_stance_absent": true,
+          "stance": "absent",
+          "sector": "Consommation discrétionnaire",
+          "evidence_count": 0,
+          "reason": "stance=absent légitime (sté non concernée par stratégie IA explicite)"
+        },
+        "i_events": {
+          "ok": false,
+          "count": 3,
+          "reason": "events 3 < 4"
+        },
+        "j_description": {
+          "ok": true,
+          "len": 1200
+        },
+        "k_ranks": {
+          "ok": true
+        },
+        "l_hero_name_fr": {
+          "ok": true
+        },
+        "m_freshness": {
+          "ok": true,
+          "months_ago": 1,
+          "source": "next_earnings_date-90d"
+        }
+      },
+      "failed_criteria": [],
+      "failed_extensions": [
+        "g_governance",
+        "i_events"
+      ],
+      "failed_count": 0,
+      "is_clean_af": true,
       "is_clean_all": false
     },
     {
@@ -6708,7 +7144,7 @@
           "board_size": 13,
           "top_voting_count": 3,
           "top_capital_count": 3,
-          "override_source": "def14a_local_regex",
+          "override_source": "def14a_local_cerebras_real",
           "override_source_file": "sec-data/cat1-us/DEF14A/2026/AVGO_2026-03-02.htm.gz",
           "override_extraction_status": "heuristic_partial",
           "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3, regex_real_sourced=true)",
@@ -6792,11 +7228,11 @@
           "board_size": 10,
           "top_voting_count": 3,
           "top_capital_count": 3,
-          "override_source": "cerebras_paid_def14a_131",
+          "override_source": "def14a_local_cerebras_real",
           "override_source_file": "sec-data/cat1-us/DEF14A/2026/AVY_2026-03-12.htm.gz",
           "override_extraction_status": "heuristic_partial",
-          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3, regex_real_sourced=false)",
-          "exception_heuristic_partial": true
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3, regex_real_sourced=true)",
+          "exception_regex_real_sourced": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -6879,11 +7315,11 @@
           "board_size": 11,
           "top_voting_count": 3,
           "top_capital_count": 3,
-          "override_source": "cerebras_paid_def14a_131",
+          "override_source": "def14a_local_cerebras_real",
           "override_source_file": "sec-data/cat1-us/DEF14A/2026/AWK_2026-03-24.htm.gz",
           "override_extraction_status": "heuristic_partial",
-          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3, regex_real_sourced=false)",
-          "exception_heuristic_partial": true
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3, regex_real_sourced=true)",
+          "exception_regex_real_sourced": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -7243,89 +7679,6 @@
           "ok": true,
           "months_ago": 1,
           "source": "next_earnings_date-90d"
-        }
-      },
-      "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
-      "failed_count": 0,
-      "is_clean_af": true,
-      "is_clean_all": false
-    },
-    {
-      "ticker": "AZO",
-      "source": "src/data/v1-9-complete/AZO.json+src/data/v2-pipeline/AZO.json+src/data/v2-pipeline/azo.json+src/data/v2-pipeline-enrich/AZO.json+src/data/v2-pipeline-enrich/azo.json",
-      "market_cap_usd": 55991287808,
-      "criteria": {
-        "a_hero_history": {
-          "ok": true,
-          "len": 16,
-          "period": "year",
-          "required": 5
-        },
-        "b_interpretation": {
-          "ok": true,
-          "sub_blocks": 4
-        },
-        "c_kpi_count": {
-          "ok": true,
-          "count": 18,
-          "required": 5
-        },
-        "d_stories": {
-          "ok": true,
-          "count": 10,
-          "required": 8,
-          "breakdown": {
-            "legacy_stories_kpis": 3,
-            "short_history_kpis": 7,
-            "market_positions": 0
-          }
-        },
-        "e_risks": {
-          "ok": true,
-          "count": 7
-        },
-        "f_repartition": {
-          "ok": true
-        }
-      },
-      "extensions": {
-        "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
-        },
-        "h_ai_positioning": {
-          "ok": true,
-          "stance": "cautious",
-          "sector": "Consommation discrétionnaire",
-          "evidence_count": 4
-        },
-        "i_events": {
-          "ok": true,
-          "count": 4
-        },
-        "j_description": {
-          "ok": true,
-          "len": 1908
-        },
-        "k_ranks": {
-          "ok": true
-        },
-        "l_hero_name_fr": {
-          "ok": true
-        },
-        "m_freshness": {
-          "ok": true,
-          "months_ago": 2,
-          "source": "publication_date"
         }
       },
       "failed_criteria": [],
@@ -12287,95 +12640,6 @@
       "is_clean_all": false
     },
     {
-      "ticker": "CASY",
-      "source": "src/data/v1-9-complete/CASY.json+src/data/v2-pipeline/CASY.json+src/data/v2-pipeline/casy.json+src/data/v2-pipeline-enrich/CASY.json+src/data/v2-pipeline-enrich/casy.json",
-      "market_cap_usd": null,
-      "criteria": {
-        "a_hero_history": {
-          "ok": true,
-          "len": 20,
-          "period": "quarter",
-          "required": 18
-        },
-        "b_interpretation": {
-          "ok": true,
-          "sub_blocks": 4
-        },
-        "c_kpi_count": {
-          "ok": true,
-          "count": 18,
-          "required": 5
-        },
-        "d_stories": {
-          "ok": true,
-          "count": 5,
-          "required": 5,
-          "breakdown": {
-            "legacy_stories_kpis": 4,
-            "short_history_kpis": 1,
-            "market_positions": 0
-          }
-        },
-        "e_risks": {
-          "ok": true,
-          "count": 3
-        },
-        "f_repartition": {
-          "ok": true
-        }
-      },
-      "extensions": {
-        "g_governance": {
-          "ok": true,
-          "has_one_top": true,
-          "ceo_name": "Darren M. Rebelez",
-          "board_size": 11,
-          "top_voting_count": 3,
-          "top_capital_count": 3,
-          "override_source": "def14a_local_regex",
-          "override_source_file": "sec-data/cat1-us/DEF14A/2025/CASY_2025-07-23.htm.gz",
-          "override_extraction_status": "heuristic_real",
-          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3, regex_real_sourced=true)",
-          "exception_regex_real_sourced": true
-        },
-        "h_ai_positioning": {
-          "ok": true,
-          "exception_stance_absent": true,
-          "stance": "absent",
-          "sector": "Consommation",
-          "evidence_count": 1,
-          "reason": "stance=absent légitime (sté non concernée par stratégie IA explicite)"
-        },
-        "i_events": {
-          "ok": false,
-          "count": 2,
-          "reason": "events 2 < 4"
-        },
-        "j_description": {
-          "ok": true,
-          "len": 1070
-        },
-        "k_ranks": {
-          "ok": true
-        },
-        "l_hero_name_fr": {
-          "ok": true
-        },
-        "m_freshness": {
-          "ok": true,
-          "months_ago": 2,
-          "source": "next_earnings_date-90d"
-        }
-      },
-      "failed_criteria": [],
-      "failed_extensions": [
-        "i_events"
-      ],
-      "failed_count": 0,
-      "is_clean_af": true,
-      "is_clean_all": false
-    },
-    {
       "ticker": "CAT",
       "source": "src/data/v1-9-complete/CAT.json+src/data/v2-pipeline/CAT.json+src/data/v2-pipeline/cat.json+src/data/v2-pipeline-enrich/CAT.json+src/data/v2-pipeline-enrich/cat.json",
       "market_cap_usd": null,
@@ -13594,11 +13858,11 @@
           "board_size": 13,
           "top_voting_count": 3,
           "top_capital_count": 3,
-          "override_source": "cerebras_paid_def14a_131",
+          "override_source": "def14a_local_cerebras_real",
           "override_source_file": "sec-data/cat1-us/DEF14A/2026/CF_2026-03-17.htm.gz",
           "override_extraction_status": "heuristic_partial",
-          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3, regex_real_sourced=false)",
-          "exception_heuristic_partial": true
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3, regex_real_sourced=true)",
+          "exception_regex_real_sourced": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -18583,11 +18847,11 @@
           "board_size": 15,
           "top_voting_count": 3,
           "top_capital_count": 3,
-          "override_source": "cerebras_paid_def14a_131",
+          "override_source": "def14a_local_cerebras_real",
           "override_source_file": "sec-data/cat1-us/DEF14A/2026/DASH_2026-04-20.htm.gz",
           "override_extraction_status": "heuristic_partial",
-          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3, regex_real_sourced=false)",
-          "exception_heuristic_partial": true
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3, regex_real_sourced=true)",
+          "exception_regex_real_sourced": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -18915,11 +19179,9 @@
           "ok": false,
           "missing": [
             "ceo_total_comp_m",
-            "board_size",
-            "top_capital",
-            "top_voting"
+            "board_size"
           ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,top_capital,top_voting"
+          "reason": "gov manque: ceo_total_comp_m,board_size"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -19735,13 +19997,10 @@
         "g_governance": {
           "ok": false,
           "missing": [
-            "ceo_name",
             "ceo_total_comp_m",
-            "board_size",
-            "top_capital",
-            "top_voting"
+            "board_size"
           ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,top_capital,top_voting"
+          "reason": "gov manque: ceo_total_comp_m,board_size"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -19778,13 +20037,13 @@
       "is_clean_all": false
     },
     {
-      "ticker": "DINO",
-      "source": "src/data/v1-9-complete/DINO.json+src/data/v2-pipeline/DINO.json+src/data/v2-pipeline/dino.json+src/data/v2-pipeline-enrich/DINO.json+src/data/v2-pipeline-enrich/dino.json",
-      "market_cap_usd": 12386724864,
+      "ticker": "DIS",
+      "source": "src/data/v1-9-complete/DIS.json+src/data/v2-pipeline/DIS.json+src/data/v2-pipeline/dis.json+src/data/v2-pipeline-enrich/DIS.json+src/data/v2-pipeline-enrich/dis.json",
+      "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
           "ok": true,
-          "len": 13,
+          "len": 5,
           "period": "year",
           "required": 5
         },
@@ -19794,22 +20053,22 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 11,
+          "count": 22,
           "required": 5
         },
         "d_stories": {
           "ok": true,
-          "count": 8,
-          "required": 8,
+          "count": 7,
+          "required": 5,
           "breakdown": {
-            "legacy_stories_kpis": 0,
-            "short_history_kpis": 8,
+            "legacy_stories_kpis": 2,
+            "short_history_kpis": 6,
             "market_positions": 0
           }
         },
         "e_risks": {
           "ok": true,
-          "count": 6
+          "count": 8
         },
         "f_repartition": {
           "ok": true
@@ -19817,13 +20076,22 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "missing": [
+            "ceo_name",
+            "ceo_total_comp_m",
+            "board_size",
+            "voting_structure"
+          ],
+          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
         },
         "h_ai_positioning": {
           "ok": true,
-          "stance": "cautious",
-          "sector": "Énergie",
-          "evidence_count": 3
+          "exception_stance_absent": true,
+          "stance": "absent",
+          "sector": "Communication",
+          "evidence_count": 0,
+          "reason": "stance=absent légitime (sté non concernée par stratégie IA explicite)"
         },
         "i_events": {
           "ok": true,
@@ -19831,7 +20099,7 @@
         },
         "j_description": {
           "ok": true,
-          "len": 1287
+          "len": 1200
         },
         "k_ranks": {
           "ok": true
@@ -19841,15 +20109,17 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 1,
-          "source": "publication_date"
+          "months_ago": 0,
+          "source": "next_earnings_date-90d"
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": true
+      "is_clean_all": false
     },
     {
       "ticker": "DKS",
@@ -22294,11 +22564,11 @@
           "board_size": 11,
           "top_voting_count": 3,
           "top_capital_count": 3,
-          "override_source": "cerebras_paid_def14a_131",
+          "override_source": "def14a_local_cerebras_real",
           "override_source_file": "sec-data/cat1-us/DEF14A/2026/EIX_2026-03-13.htm.gz",
           "override_extraction_status": "heuristic_partial",
-          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3, regex_real_sourced=false)",
-          "exception_heuristic_partial": true
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3, regex_real_sourced=true)",
+          "exception_regex_real_sourced": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -23239,11 +23509,11 @@
           "board_size": 9,
           "top_voting_count": 3,
           "top_capital_count": 3,
-          "override_source": "cerebras_paid_def14a_131",
+          "override_source": "def14a_local_cerebras_real",
           "override_source_file": "sec-data/cat1-us/DEF14A/2026/EQIX_2026-04-02.htm.gz",
           "override_extraction_status": "heuristic_partial",
-          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3, regex_real_sourced=false)",
-          "exception_heuristic_partial": true
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3, regex_real_sourced=true)",
+          "exception_regex_real_sourced": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -25334,89 +25604,6 @@
       "is_clean_all": false
     },
     {
-      "ticker": "FHN",
-      "source": "src/data/v1-9-complete/FHN.json+src/data/v2-pipeline/FHN.json+src/data/v2-pipeline/fhn.json+src/data/v2-pipeline-enrich/FHN.json+src/data/v2-pipeline-enrich/fhn.json",
-      "market_cap_usd": 11257934848,
-      "criteria": {
-        "a_hero_history": {
-          "ok": true,
-          "len": 16,
-          "period": "year",
-          "required": 5
-        },
-        "b_interpretation": {
-          "ok": true,
-          "sub_blocks": 4
-        },
-        "c_kpi_count": {
-          "ok": true,
-          "count": 16,
-          "required": 5
-        },
-        "d_stories": {
-          "ok": true,
-          "count": 8,
-          "required": 8,
-          "breakdown": {
-            "legacy_stories_kpis": 6,
-            "short_history_kpis": 2,
-            "market_positions": 0
-          }
-        },
-        "e_risks": {
-          "ok": true,
-          "count": 5
-        },
-        "f_repartition": {
-          "ok": true
-        }
-      },
-      "extensions": {
-        "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
-        },
-        "h_ai_positioning": {
-          "ok": true,
-          "stance": "cautious",
-          "sector": "Finance",
-          "evidence_count": 5
-        },
-        "i_events": {
-          "ok": true,
-          "count": 4
-        },
-        "j_description": {
-          "ok": true,
-          "len": 1235
-        },
-        "k_ranks": {
-          "ok": true
-        },
-        "l_hero_name_fr": {
-          "ok": true
-        },
-        "m_freshness": {
-          "ok": true,
-          "months_ago": 0,
-          "source": "publication_date"
-        }
-      },
-      "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
-      "failed_count": 0,
-      "is_clean_af": true,
-      "is_clean_all": false
-    },
-    {
       "ticker": "FICO",
       "source": "src/data/v1-9-complete/FICO.json+src/data/v2-pipeline/FICO.json+src/data/v2-pipeline/fico.json+src/data/v2-pipeline-enrich/FICO.json+src/data/v2-pipeline-enrich/fico.json",
       "market_cap_usd": 24974983168,
@@ -26056,15 +26243,17 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "top_capital",
-            "top_voting"
-          ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,top_capital,top_voting"
+          "ok": true,
+          "has_one_top": false,
+          "ceo_name": "Markus Rauramo",
+          "board_size": 9,
+          "top_voting_count": 0,
+          "top_capital_count": 0,
+          "override_source": "urd_eu_cerebras_real_eu",
+          "override_source_file": "sec-data/cat3-european/FORTUM.HE/annual-text/2024.txt",
+          "override_extraction_status": "heuristic_partial_eu",
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=0 top_capital=0, regex_real_sourced=true)",
+          "exception_regex_real_sourced": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -26095,12 +26284,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "FOX",
@@ -28502,11 +28689,11 @@
           "board_size": 11,
           "top_voting_count": 3,
           "top_capital_count": 3,
-          "override_source": "cerebras_paid_def14a_131",
+          "override_source": "def14a_local_cerebras_real",
           "override_source_file": "sec-data/cat1-us/DEF14A/2026/GPN_2026-03-17.htm.gz",
           "override_extraction_status": "heuristic_partial",
-          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3, regex_real_sourced=false)",
-          "exception_heuristic_partial": true
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3, regex_real_sourced=true)",
+          "exception_regex_real_sourced": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -29171,11 +29358,11 @@
           "board_size": 8,
           "top_voting_count": 3,
           "top_capital_count": 3,
-          "override_source": "cerebras_paid_def14a_131",
+          "override_source": "def14a_local_cerebras_real",
           "override_source_file": "sec-data/cat1-us/DEF14A/2026/HBAN_2026-03-12.htm.gz",
           "override_extraction_status": "heuristic_partial",
-          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3, regex_real_sourced=false)",
-          "exception_heuristic_partial": true
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3, regex_real_sourced=true)",
+          "exception_regex_real_sourced": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -29369,6 +29556,97 @@
       "is_clean_all": false
     },
     {
+      "ticker": "HEIA.AS",
+      "source": "src/data/v1-9-complete/HEIA.AS.json+src/data/v2-pipeline/HEIA.AS.json+src/data/v2-pipeline/heia.as.json+src/data/v2-pipeline-enrich/HEIA.AS.json+src/data/v2-pipeline-enrich/heia.as.json",
+      "market_cap_usd": null,
+      "criteria": {
+        "a_hero_history": {
+          "ok": true,
+          "len": 5,
+          "period": "year",
+          "required": 5
+        },
+        "b_interpretation": {
+          "ok": true,
+          "sub_blocks": 4
+        },
+        "c_kpi_count": {
+          "ok": true,
+          "count": 7,
+          "required": 5
+        },
+        "d_stories": {
+          "ok": false,
+          "count": 3,
+          "required": 5,
+          "breakdown": {
+            "legacy_stories_kpis": 3,
+            "short_history_kpis": 0,
+            "market_positions": 0
+          },
+          "reason": "Stories 3 < 5"
+        },
+        "e_risks": {
+          "ok": true,
+          "count": 7
+        },
+        "f_repartition": {
+          "ok": false,
+          "issues": [
+            "geography vide"
+          ],
+          "reason": "geography vide"
+        }
+      },
+      "extensions": {
+        "g_governance": {
+          "ok": false,
+          "missing": [
+            "ceo_name",
+            "ceo_total_comp_m"
+          ],
+          "reason": "gov manque: ceo_name,ceo_total_comp_m"
+        },
+        "h_ai_positioning": {
+          "ok": true,
+          "exception_stance_absent": true,
+          "stance": "absent",
+          "sector": "Consommation discrétionnaire",
+          "evidence_count": 3,
+          "reason": "stance=absent légitime (sté non concernée par stratégie IA explicite)"
+        },
+        "i_events": {
+          "ok": true,
+          "count": 7
+        },
+        "j_description": {
+          "ok": true,
+          "len": 1044
+        },
+        "k_ranks": {
+          "ok": true
+        },
+        "l_hero_name_fr": {
+          "ok": true
+        },
+        "m_freshness": {
+          "ok": true,
+          "months_ago": 5,
+          "source": "publication_date"
+        }
+      },
+      "failed_criteria": [
+        "d_stories",
+        "f_repartition"
+      ],
+      "failed_extensions": [
+        "g_governance"
+      ],
+      "failed_count": 2,
+      "is_clean_af": false,
+      "is_clean_all": false
+    },
+    {
       "ticker": "HEN.DE",
       "source": "src/data/v1-9-complete/HEN.DE.json+src/data/v2-pipeline/HEN.DE.json+src/data/v2-pipeline/hen.de.json+src/data/v2-pipeline-enrich/HEN.DE.json+src/data/v2-pipeline-enrich/hen.de.json",
       "market_cap_usd": 26422370795.52,
@@ -29410,13 +29688,10 @@
         "g_governance": {
           "ok": false,
           "missing": [
-            "ceo_name",
             "ceo_total_comp_m",
-            "board_size",
-            "top_capital",
-            "top_voting"
+            "board_size"
           ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,top_capital,top_voting"
+          "reason": "gov manque: ceo_total_comp_m,board_size"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -32224,6 +32499,96 @@
       },
       "failed_criteria": [
         "a_hero_history"
+      ],
+      "failed_extensions": [
+        "g_governance"
+      ],
+      "failed_count": 1,
+      "is_clean_af": false,
+      "is_clean_all": false
+    },
+    {
+      "ticker": "III.L",
+      "source": "src/data/v1-9-complete/III.L.json+src/data/v2-pipeline/III.L.json+src/data/v2-pipeline/iii.l.json+src/data/v2-pipeline-enrich/III.L.json+src/data/v2-pipeline-enrich/iii.l.json",
+      "market_cap_usd": 27517347430.4,
+      "criteria": {
+        "a_hero_history": {
+          "ok": true,
+          "len": 5,
+          "period": "year",
+          "required": 5
+        },
+        "b_interpretation": {
+          "ok": false,
+          "sub_blocks": 3,
+          "has_driver": true,
+          "has_vigilance": false,
+          "reason": "sous-blocs interp = 3/4 (driver=true, vigilance=false)"
+        },
+        "c_kpi_count": {
+          "ok": true,
+          "count": 8,
+          "required": 5
+        },
+        "d_stories": {
+          "ok": true,
+          "count": 8,
+          "required": 8,
+          "breakdown": {
+            "legacy_stories_kpis": 6,
+            "short_history_kpis": 2,
+            "market_positions": 0
+          }
+        },
+        "e_risks": {
+          "ok": true,
+          "count": 5
+        },
+        "f_repartition": {
+          "ok": true
+        }
+      },
+      "extensions": {
+        "g_governance": {
+          "ok": false,
+          "missing": [
+            "ceo_name",
+            "ceo_total_comp_m",
+            "top_capital",
+            "top_voting"
+          ],
+          "reason": "gov manque: ceo_name,ceo_total_comp_m,top_capital,top_voting"
+        },
+        "h_ai_positioning": {
+          "ok": true,
+          "exception_stance_absent": true,
+          "stance": "absent",
+          "sector": "Financial Services",
+          "evidence_count": 3,
+          "reason": "stance=absent légitime (sté non concernée par stratégie IA explicite)"
+        },
+        "i_events": {
+          "ok": true,
+          "count": 5
+        },
+        "j_description": {
+          "ok": true,
+          "len": 4729
+        },
+        "k_ranks": {
+          "ok": true
+        },
+        "l_hero_name_fr": {
+          "ok": true
+        },
+        "m_freshness": {
+          "ok": true,
+          "months_ago": 3,
+          "source": "next_earnings_date-90d"
+        }
+      },
+      "failed_criteria": [
+        "b_interpretation"
       ],
       "failed_extensions": [
         "g_governance"
@@ -35246,6 +35611,180 @@
       "is_clean_all": false
     },
     {
+      "ticker": "KHC",
+      "source": "src/data/v1-9-complete/KHC.json+src/data/v2-pipeline/KHC.json+src/data/v2-pipeline/khc.json+src/data/v2-pipeline-enrich/KHC.json+src/data/v2-pipeline-enrich/khc.json",
+      "market_cap_usd": 27640477696,
+      "criteria": {
+        "a_hero_history": {
+          "ok": false,
+          "len": 11,
+          "period": "quarter",
+          "required": 18,
+          "tolerated": 10,
+          "reason": "history insuffisant (11 < 18)"
+        },
+        "b_interpretation": {
+          "ok": true,
+          "sub_blocks": 4
+        },
+        "c_kpi_count": {
+          "ok": true,
+          "count": 13,
+          "required": 5
+        },
+        "d_stories": {
+          "ok": false,
+          "count": 4,
+          "required": 8,
+          "breakdown": {
+            "legacy_stories_kpis": 2,
+            "short_history_kpis": 4,
+            "market_positions": 0
+          },
+          "reason": "Stories 4 < 8"
+        },
+        "e_risks": {
+          "ok": true,
+          "count": 6
+        },
+        "f_repartition": {
+          "ok": true
+        }
+      },
+      "extensions": {
+        "g_governance": {
+          "ok": false,
+          "missing": [
+            "ceo_name",
+            "ceo_total_comp_m",
+            "board_size",
+            "voting_structure"
+          ],
+          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+        },
+        "h_ai_positioning": {
+          "ok": true,
+          "stance": "cautious",
+          "sector": "Consommation de base",
+          "evidence_count": 4
+        },
+        "i_events": {
+          "ok": true,
+          "count": 4
+        },
+        "j_description": {
+          "ok": true,
+          "len": 1605
+        },
+        "k_ranks": {
+          "ok": true
+        },
+        "l_hero_name_fr": {
+          "ok": true
+        },
+        "m_freshness": {
+          "ok": true,
+          "months_ago": 0,
+          "source": "publication_date"
+        }
+      },
+      "failed_criteria": [
+        "a_hero_history",
+        "d_stories"
+      ],
+      "failed_extensions": [
+        "g_governance"
+      ],
+      "failed_count": 2,
+      "is_clean_af": false,
+      "is_clean_all": false
+    },
+    {
+      "ticker": "KIM",
+      "source": "src/data/v1-9-complete/KIM.json+src/data/v2-pipeline/KIM.json+src/data/v2-pipeline/kim.json+src/data/v2-pipeline-enrich/KIM.json+src/data/v2-pipeline-enrich/kim.json",
+      "market_cap_usd": null,
+      "criteria": {
+        "a_hero_history": {
+          "ok": true,
+          "len": 5,
+          "period": "year",
+          "required": 5
+        },
+        "b_interpretation": {
+          "ok": true,
+          "sub_blocks": 4
+        },
+        "c_kpi_count": {
+          "ok": true,
+          "count": 10,
+          "required": 5
+        },
+        "d_stories": {
+          "ok": true,
+          "count": 5,
+          "required": 5,
+          "breakdown": {
+            "legacy_stories_kpis": 2,
+            "short_history_kpis": 3,
+            "market_positions": 0
+          }
+        },
+        "e_risks": {
+          "ok": true,
+          "count": 9
+        },
+        "f_repartition": {
+          "ok": true
+        }
+      },
+      "extensions": {
+        "g_governance": {
+          "ok": false,
+          "missing": [
+            "ceo_name",
+            "ceo_total_comp_m",
+            "board_size",
+            "voting_structure"
+          ],
+          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+        },
+        "h_ai_positioning": {
+          "ok": true,
+          "exception_stance_absent": true,
+          "stance": "absent",
+          "sector": "Immobilier",
+          "evidence_count": 1,
+          "reason": "stance=absent légitime (sté non concernée par stratégie IA explicite)"
+        },
+        "i_events": {
+          "ok": true,
+          "count": 4
+        },
+        "j_description": {
+          "ok": true,
+          "len": 1098
+        },
+        "k_ranks": {
+          "ok": true
+        },
+        "l_hero_name_fr": {
+          "ok": true
+        },
+        "m_freshness": {
+          "ok": true,
+          "months_ago": 1,
+          "source": "next_earnings_date-90d"
+        }
+      },
+      "failed_criteria": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": false
+    },
+    {
       "ticker": "KKR",
       "source": "src/data/v1-9-complete/KKR.json+src/data/v2-pipeline/KKR.json+src/data/v2-pipeline/kkr.json+src/data/v2-pipeline-enrich/KKR.json+src/data/v2-pipeline-enrich/kkr.json",
       "market_cap_usd": 92843204608,
@@ -35662,6 +36201,88 @@
         "f_repartition"
       ],
       "failed_extensions": [],
+      "failed_count": 1,
+      "is_clean_af": false,
+      "is_clean_all": false
+    },
+    {
+      "ticker": "KO",
+      "source": "src/data/v1-9-complete/KO.json+src/data/v2-pipeline/KO.json+src/data/v2-pipeline/ko.json+src/data/v2-pipeline-enrich/KO.json+src/data/v2-pipeline-enrich/ko.json",
+      "market_cap_usd": null,
+      "criteria": {
+        "a_hero_history": {
+          "ok": true,
+          "len": 5,
+          "period": "year",
+          "required": 5
+        },
+        "b_interpretation": {
+          "ok": true,
+          "sub_blocks": 4
+        },
+        "c_kpi_count": {
+          "ok": true,
+          "count": 9,
+          "required": 5
+        },
+        "d_stories": {
+          "ok": true,
+          "count": 7,
+          "required": 5,
+          "breakdown": {
+            "legacy_stories_kpis": 1,
+            "short_history_kpis": 7,
+            "market_positions": 0
+          }
+        },
+        "e_risks": {
+          "ok": true,
+          "count": 7
+        },
+        "f_repartition": {
+          "ok": false,
+          "issues": [
+            "segment vide"
+          ],
+          "reason": "segment vide"
+        }
+      },
+      "extensions": {
+        "g_governance": {
+          "ok": true
+        },
+        "h_ai_positioning": {
+          "ok": true,
+          "stance": "explorateur",
+          "sector": "Consommation de base",
+          "evidence_count": 2,
+          "mapped": "cautious-like"
+        },
+        "i_events": {
+          "ok": true,
+          "count": 7
+        },
+        "j_description": {
+          "ok": true,
+          "len": 1200
+        },
+        "k_ranks": {
+          "ok": true
+        },
+        "l_hero_name_fr": {
+          "ok": true
+        },
+        "m_freshness": {
+          "ok": false,
+          "reason": "last_data_date absent"
+        }
+      },
+      "failed_criteria": [
+        "f_repartition"
+      ],
+      "failed_extensions": [
+        "m_freshness"
+      ],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -40062,6 +40683,88 @@
       "is_clean_all": false
     },
     {
+      "ticker": "MO",
+      "source": "src/data/v1-9-complete/MO.json+src/data/v2-pipeline/MO.json+src/data/v2-pipeline/mo.json+src/data/v2-pipeline-enrich/MO.json+src/data/v2-pipeline-enrich/mo.json",
+      "market_cap_usd": 120916828160,
+      "criteria": {
+        "a_hero_history": {
+          "ok": true,
+          "len": 5,
+          "period": "year",
+          "required": 5
+        },
+        "b_interpretation": {
+          "ok": true,
+          "sub_blocks": 4
+        },
+        "c_kpi_count": {
+          "ok": true,
+          "count": 17,
+          "required": 8
+        },
+        "d_stories": {
+          "ok": true,
+          "count": 8,
+          "required": 8,
+          "breakdown": {
+            "legacy_stories_kpis": 2,
+            "short_history_kpis": 8,
+            "market_positions": 0
+          }
+        },
+        "e_risks": {
+          "ok": true,
+          "count": 9
+        },
+        "f_repartition": {
+          "ok": true
+        }
+      },
+      "extensions": {
+        "g_governance": {
+          "ok": false,
+          "missing": [
+            "ceo_name",
+            "ceo_total_comp_m",
+            "board_size"
+          ],
+          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size"
+        },
+        "h_ai_positioning": {
+          "ok": true,
+          "stance": "cautious",
+          "sector": "Consommation de base",
+          "evidence_count": 5
+        },
+        "i_events": {
+          "ok": true,
+          "count": 4
+        },
+        "j_description": {
+          "ok": true,
+          "len": 632
+        },
+        "k_ranks": {
+          "ok": true
+        },
+        "l_hero_name_fr": {
+          "ok": true
+        },
+        "m_freshness": {
+          "ok": true,
+          "months_ago": 1,
+          "source": "next_earnings_date-90d"
+        }
+      },
+      "failed_criteria": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": false
+    },
+    {
       "ticker": "MOS",
       "source": "src/data/v1-9-complete/MOS.json+src/data/v2-pipeline/MOS.json+src/data/v2-pipeline/mos.json+src/data/v2-pipeline-enrich/MOS.json+src/data/v2-pipeline-enrich/mos.json",
       "market_cap_usd": null,
@@ -41128,11 +41831,11 @@
           "board_size": 9,
           "top_voting_count": 3,
           "top_capital_count": 3,
-          "override_source": "cerebras_paid_def14a_131",
+          "override_source": "def14a_local_cerebras_real",
           "override_source_file": "sec-data/cat1-us/DEF14A/2026/MSTR_2026-04-28.htm.gz",
           "override_extraction_status": "heuristic_partial",
-          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3, regex_real_sourced=false)",
-          "exception_heuristic_partial": true
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3, regex_real_sourced=true)",
+          "exception_regex_real_sourced": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -43225,11 +43928,11 @@
           "board_size": 13,
           "top_voting_count": 3,
           "top_capital_count": 3,
-          "override_source": "cerebras_paid_def14a_131",
+          "override_source": "def14a_local_cerebras_real",
           "override_source_file": "sec-data/cat1-us/DEF14A/2026/NOC_2026-04-03.htm.gz",
           "override_extraction_status": "heuristic_partial",
-          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3, regex_real_sourced=false)",
-          "exception_heuristic_partial": true
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3, regex_real_sourced=true)",
+          "exception_regex_real_sourced": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -43919,11 +44622,11 @@
           "board_size": 9,
           "top_voting_count": 3,
           "top_capital_count": 3,
-          "override_source": "cerebras_paid_def14a_131",
+          "override_source": "def14a_local_cerebras_real",
           "override_source_file": "sec-data/cat1-us/DEF14A/2025/NTNX_2025-10-22.htm.gz",
           "override_extraction_status": "heuristic_partial",
-          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3, regex_real_sourced=false)",
-          "exception_heuristic_partial": true
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3, regex_real_sourced=true)",
+          "exception_regex_real_sourced": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -44933,171 +45636,6 @@
       "is_clean_all": false
     },
     {
-      "ticker": "ODFL",
-      "source": "src/data/v1-9-complete/ODFL.json+src/data/v2-pipeline/ODFL.json+src/data/v2-pipeline/odfl.json+src/data/v2-pipeline-enrich/ODFL.json+src/data/v2-pipeline-enrich/odfl.json",
-      "market_cap_usd": null,
-      "criteria": {
-        "a_hero_history": {
-          "ok": true,
-          "len": 8,
-          "period": "year",
-          "required": 5
-        },
-        "b_interpretation": {
-          "ok": true,
-          "sub_blocks": 4
-        },
-        "c_kpi_count": {
-          "ok": true,
-          "count": 12,
-          "required": 5
-        },
-        "d_stories": {
-          "ok": false,
-          "count": 1,
-          "required": 5,
-          "breakdown": {
-            "legacy_stories_kpis": 1,
-            "short_history_kpis": 1,
-            "market_positions": 0
-          },
-          "reason": "Stories 1 < 5"
-        },
-        "e_risks": {
-          "ok": true,
-          "count": 6
-        },
-        "f_repartition": {
-          "ok": true
-        }
-      },
-      "extensions": {
-        "g_governance": {
-          "ok": true
-        },
-        "h_ai_positioning": {
-          "ok": true,
-          "exception_stance_absent": true,
-          "stance": "absent",
-          "sector": "Industrie",
-          "evidence_count": 0,
-          "reason": "stance=absent légitime (sté non concernée par stratégie IA explicite)"
-        },
-        "i_events": {
-          "ok": false,
-          "count": 3,
-          "reason": "events 3 < 4"
-        },
-        "j_description": {
-          "ok": true,
-          "len": 676
-        },
-        "k_ranks": {
-          "ok": true
-        },
-        "l_hero_name_fr": {
-          "ok": true
-        },
-        "m_freshness": {
-          "ok": true,
-          "months_ago": 1,
-          "source": "next_earnings_date-90d"
-        }
-      },
-      "failed_criteria": [
-        "d_stories"
-      ],
-      "failed_extensions": [
-        "i_events"
-      ],
-      "failed_count": 1,
-      "is_clean_af": false,
-      "is_clean_all": false
-    },
-    {
-      "ticker": "OHI",
-      "source": "src/data/v1-9-complete/OHI.json+src/data/v2-pipeline/OHI.json+src/data/v2-pipeline/ohi.json+src/data/v2-pipeline-enrich/OHI.json+src/data/v2-pipeline-enrich/ohi.json",
-      "market_cap_usd": 14944400384,
-      "criteria": {
-        "a_hero_history": {
-          "ok": true,
-          "len": 20,
-          "period": "quarter",
-          "required": 18
-        },
-        "b_interpretation": {
-          "ok": true,
-          "sub_blocks": 4
-        },
-        "c_kpi_count": {
-          "ok": true,
-          "count": 18,
-          "required": 5
-        },
-        "d_stories": {
-          "ok": true,
-          "count": 8,
-          "required": 8,
-          "breakdown": {
-            "legacy_stories_kpis": 4,
-            "short_history_kpis": 4,
-            "market_positions": 0
-          }
-        },
-        "e_risks": {
-          "ok": true,
-          "count": 7
-        },
-        "f_repartition": {
-          "ok": true
-        }
-      },
-      "extensions": {
-        "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
-        },
-        "h_ai_positioning": {
-          "ok": true,
-          "stance": "cautious",
-          "sector": "Immobilier",
-          "evidence_count": 4
-        },
-        "i_events": {
-          "ok": true,
-          "count": 4
-        },
-        "j_description": {
-          "ok": true,
-          "len": 951
-        },
-        "k_ranks": {
-          "ok": true
-        },
-        "l_hero_name_fr": {
-          "ok": true
-        },
-        "m_freshness": {
-          "ok": true,
-          "months_ago": 1,
-          "source": "publication_date"
-        }
-      },
-      "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
-      "failed_count": 0,
-      "is_clean_af": true,
-      "is_clean_all": false
-    },
-    {
       "ticker": "OKE",
       "source": "src/data/v1-9-complete/OKE.json+src/data/v2-pipeline/OKE.json+src/data/v2-pipeline/oke.json+src/data/v2-pipeline-enrich/OKE.json+src/data/v2-pipeline-enrich/oke.json",
       "market_cap_usd": null,
@@ -45223,14 +45761,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -45260,12 +45791,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "ON",
@@ -45653,14 +46182,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -45689,12 +46211,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "ORLY",
@@ -46607,13 +47127,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -46644,12 +47158,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "PEG",
@@ -46776,13 +47288,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,board_size,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -46813,12 +47319,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "PFE",
@@ -46860,14 +47364,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -46896,12 +47393,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "PFG",
@@ -46943,14 +47438,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -46981,12 +47469,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "PG",
@@ -47282,13 +47768,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,board_size,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -47319,12 +47799,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "PHIA.AS",
@@ -47450,14 +47928,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -47486,12 +47957,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "PHNX.L",
@@ -47791,14 +48260,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -47827,12 +48289,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "PM",
@@ -49151,89 +49611,6 @@
       "is_clean_all": true
     },
     {
-      "ticker": "PSA",
-      "source": "src/data/v1-9-complete/PSA.json+src/data/v2-pipeline/PSA.json+src/data/v2-pipeline/psa.json+src/data/v2-pipeline-enrich/PSA.json+src/data/v2-pipeline-enrich/psa.json",
-      "market_cap_usd": 53195628544,
-      "criteria": {
-        "a_hero_history": {
-          "ok": true,
-          "len": 20,
-          "period": "quarter",
-          "required": 18
-        },
-        "b_interpretation": {
-          "ok": true,
-          "sub_blocks": 4
-        },
-        "c_kpi_count": {
-          "ok": true,
-          "count": 16,
-          "required": 5
-        },
-        "d_stories": {
-          "ok": true,
-          "count": 8,
-          "required": 8,
-          "breakdown": {
-            "legacy_stories_kpis": 1,
-            "short_history_kpis": 7,
-            "market_positions": 0
-          }
-        },
-        "e_risks": {
-          "ok": true,
-          "count": 7
-        },
-        "f_repartition": {
-          "ok": true
-        }
-      },
-      "extensions": {
-        "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
-        },
-        "h_ai_positioning": {
-          "ok": true,
-          "stance": "integrator",
-          "sector": "Immobilier",
-          "evidence_count": 4
-        },
-        "i_events": {
-          "ok": true,
-          "count": 4
-        },
-        "j_description": {
-          "ok": true,
-          "len": 684
-        },
-        "k_ranks": {
-          "ok": true
-        },
-        "l_hero_name_fr": {
-          "ok": true
-        },
-        "m_freshness": {
-          "ok": true,
-          "months_ago": 1,
-          "source": "publication_date"
-        }
-      },
-      "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
-      "failed_count": 0,
-      "is_clean_af": true,
-      "is_clean_all": false
-    },
-    {
       "ticker": "PSKY",
       "source": "src/data/v1-9-complete/PSKY.json+src/data/v2-pipeline/PSKY.json+src/data/v2-pipeline/psky.json+src/data/v2-pipeline-enrich/PSKY.json+src/data/v2-pipeline-enrich/psky.json",
       "market_cap_usd": null,
@@ -50486,11 +50863,9 @@
         "g_governance": {
           "ok": false,
           "missing": [
-            "ceo_name",
-            "board_size",
-            "voting_structure"
+            "board_size"
           ],
-          "reason": "gov manque: ceo_name,board_size,voting_structure"
+          "reason": "gov manque: board_size"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -51093,13 +51468,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,board_size,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -51130,12 +51499,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "RL",
@@ -51533,14 +51900,17 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "top_capital",
-            "top_voting"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,top_capital,top_voting"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Dr. Thomas  Schinecker",
+          "board_size": 12,
+          "top_voting_count": 1,
+          "top_capital_count": 1,
+          "override_source": "urd_eu_cerebras_real_eu",
+          "override_source_file": "sec-data/cat3-european/ROG.SW/annual-text/2023.txt",
+          "override_extraction_status": "heuristic_real_eu",
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=1 top_capital=1, regex_real_sourced=true)",
+          "exception_regex_real_sourced": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -51569,12 +51939,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "ROK",
@@ -51702,14 +52070,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -51738,12 +52099,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "RR.L",
@@ -51954,12 +52313,9 @@
         "g_governance": {
           "ok": false,
           "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
+            "board_size"
           ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+          "reason": "gov manque: board_size"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -54495,12 +54851,9 @@
         "g_governance": {
           "ok": false,
           "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
+            "board_size"
           ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+          "reason": "gov manque: board_size"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -54932,13 +55285,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,board_size,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -54967,12 +55314,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "SO",
@@ -55014,14 +55359,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -55052,12 +55390,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "SOF.BR",
@@ -55189,12 +55525,9 @@
         "g_governance": {
           "ok": false,
           "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
+            "board_size"
           ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+          "reason": "gov manque: board_size"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -55275,12 +55608,9 @@
         "g_governance": {
           "ok": false,
           "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
+            "board_size"
           ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+          "reason": "gov manque: board_size"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -55454,14 +55784,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -55490,12 +55813,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "SPGI",
@@ -55670,91 +55991,6 @@
       ],
       "failed_count": 2,
       "is_clean_af": false,
-      "is_clean_all": false
-    },
-    {
-      "ticker": "SRE",
-      "source": "src/data/v1-9-complete/SRE.json+src/data/v2-pipeline/SRE.json+src/data/v2-pipeline/sre.json+src/data/v2-pipeline-enrich/SRE.json+src/data/v2-pipeline-enrich/sre.json",
-      "market_cap_usd": null,
-      "criteria": {
-        "a_hero_history": {
-          "ok": true,
-          "len": 20,
-          "period": "quarter",
-          "required": 18
-        },
-        "b_interpretation": {
-          "ok": true,
-          "sub_blocks": 4
-        },
-        "c_kpi_count": {
-          "ok": true,
-          "count": 9,
-          "required": 5
-        },
-        "d_stories": {
-          "ok": true,
-          "count": 5,
-          "required": 5,
-          "breakdown": {
-            "legacy_stories_kpis": 1,
-            "short_history_kpis": 6,
-            "market_positions": 0
-          }
-        },
-        "e_risks": {
-          "ok": true,
-          "count": 6
-        },
-        "f_repartition": {
-          "ok": true
-        }
-      },
-      "extensions": {
-        "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
-        },
-        "h_ai_positioning": {
-          "ok": true,
-          "exception_stance_absent": true,
-          "stance": "absent",
-          "sector": "Services aux collectivités",
-          "evidence_count": 0,
-          "reason": "stance=absent légitime (sté non concernée par stratégie IA explicite)"
-        },
-        "i_events": {
-          "ok": true,
-          "count": 4
-        },
-        "j_description": {
-          "ok": true,
-          "len": 1200
-        },
-        "k_ranks": {
-          "ok": true
-        },
-        "l_hero_name_fr": {
-          "ok": true
-        },
-        "m_freshness": {
-          "ok": true,
-          "months_ago": 3,
-          "source": "next_earnings_date-90d"
-        }
-      },
-      "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
-      "failed_count": 0,
-      "is_clean_af": true,
       "is_clean_all": false
     },
     {
@@ -56501,13 +56737,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,board_size,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -56537,12 +56767,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "STZ",
@@ -56584,13 +56812,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,board_size,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -56621,12 +56843,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "SU.PA",
@@ -56845,11 +57065,9 @@
         "g_governance": {
           "ok": false,
           "missing": [
-            "ceo_name",
-            "board_size",
-            "voting_structure"
+            "board_size"
           ],
-          "reason": "gov manque: ceo_name,board_size,voting_structure"
+          "reason": "gov manque: board_size"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -56929,12 +57147,9 @@
         "g_governance": {
           "ok": false,
           "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
+            "board_size"
           ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+          "reason": "gov manque: board_size"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -57308,90 +57523,6 @@
       "is_clean_all": false
     },
     {
-      "ticker": "TAP",
-      "source": "src/data/v1-9-complete/TAP.json+src/data/v2-pipeline/TAP.json+src/data/v2-pipeline/tap.json+src/data/v2-pipeline-enrich/TAP.json+src/data/v2-pipeline-enrich/tap.json",
-      "market_cap_usd": null,
-      "criteria": {
-        "a_hero_history": {
-          "ok": true,
-          "len": 17,
-          "period": "year",
-          "required": 5
-        },
-        "b_interpretation": {
-          "ok": true,
-          "sub_blocks": 4
-        },
-        "c_kpi_count": {
-          "ok": true,
-          "count": 14,
-          "required": 5
-        },
-        "d_stories": {
-          "ok": true,
-          "count": 7,
-          "required": 5,
-          "breakdown": {
-            "legacy_stories_kpis": 1,
-            "short_history_kpis": 7,
-            "market_positions": 0
-          }
-        },
-        "e_risks": {
-          "ok": true,
-          "count": 7
-        },
-        "f_repartition": {
-          "ok": true
-        }
-      },
-      "extensions": {
-        "g_governance": {
-          "ok": true,
-          "has_one_top": true,
-          "ceo_name": "Rahul Goyal",
-          "board_size": 14,
-          "top_voting_count": 2,
-          "top_capital_count": 1,
-          "override_source": "def14a_local_regex",
-          "override_source_file": "sec-data/cat1-us/DEF14A/2026/TAP_2026-03-25.htm.gz",
-          "override_extraction_status": "heuristic_real",
-          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=2 top_capital=1, regex_real_sourced=true)",
-          "exception_regex_real_sourced": true
-        },
-        "h_ai_positioning": {
-          "ok": true,
-          "stance": "cautious",
-          "sector": "Consommation",
-          "evidence_count": 5
-        },
-        "i_events": {
-          "ok": true,
-          "count": 4
-        },
-        "j_description": {
-          "ok": true,
-          "len": 1200
-        },
-        "k_ranks": {
-          "ok": true
-        },
-        "l_hero_name_fr": {
-          "ok": true
-        },
-        "m_freshness": {
-          "ok": true,
-          "months_ago": 4,
-          "source": "next_earnings_date-90d"
-        }
-      },
-      "failed_criteria": [],
-      "failed_extensions": [],
-      "failed_count": 0,
-      "is_clean_af": true,
-      "is_clean_all": true
-    },
-    {
       "ticker": "TD",
       "source": "src/data/v1-9-complete/TD.json+src/data/v2-pipeline/TD.json+src/data/v2-pipeline/td.json+src/data/v2-pipeline-enrich/TD.json+src/data/v2-pipeline-enrich/td.json",
       "market_cap_usd": 132485636751.36,
@@ -57526,12 +57657,9 @@
         "g_governance": {
           "ok": false,
           "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
+            "board_size"
           ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+          "reason": "gov manque: board_size"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -57612,13 +57740,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -57647,12 +57769,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "TECH",
@@ -57773,14 +57893,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -57811,12 +57924,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "TEL2-B.ST",
@@ -58217,14 +58328,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -58253,12 +58357,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "TJX",
@@ -58486,11 +58588,9 @@
         "g_governance": {
           "ok": false,
           "missing": [
-            "ceo_name",
-            "board_size",
-            "voting_structure"
+            "board_size"
           ],
-          "reason": "gov manque: ceo_name,board_size,voting_structure"
+          "reason": "gov manque: board_size"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -58569,14 +58669,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -58605,12 +58698,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "TMUS",
@@ -59508,14 +59599,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -59546,12 +59630,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "TT",
@@ -60007,13 +60089,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,board_size,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -60042,12 +60118,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "TYL",
@@ -60239,14 +60313,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -60275,12 +60342,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "UCB.BR",
@@ -60491,12 +60556,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -60527,12 +60587,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "UL",
@@ -60659,14 +60717,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -60697,12 +60748,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "ULVR.L",
@@ -61328,6 +61377,180 @@
       "is_clean_all": true
     },
     {
+      "ticker": "UPM.HE",
+      "source": "src/data/v1-9-complete/UPM.HE.json+src/data/v2-pipeline/UPM.HE.json+src/data/v2-pipeline/upm.he.json+src/data/v2-pipeline-enrich/UPM.HE.json+src/data/v2-pipeline-enrich/upm.he.json",
+      "market_cap_usd": 14431382323.2,
+      "criteria": {
+        "a_hero_history": {
+          "ok": true,
+          "len": 5,
+          "period": "year",
+          "required": 5
+        },
+        "b_interpretation": {
+          "ok": false,
+          "sub_blocks": 3,
+          "has_driver": true,
+          "has_vigilance": false,
+          "reason": "sous-blocs interp = 3/4 (driver=true, vigilance=false)"
+        },
+        "c_kpi_count": {
+          "ok": true,
+          "count": 8,
+          "required": 5
+        },
+        "d_stories": {
+          "ok": true,
+          "count": 8,
+          "required": 8,
+          "breakdown": {
+            "legacy_stories_kpis": 6,
+            "short_history_kpis": 2,
+            "market_positions": 0
+          }
+        },
+        "e_risks": {
+          "ok": true,
+          "count": 5
+        },
+        "f_repartition": {
+          "ok": true
+        }
+      },
+      "extensions": {
+        "g_governance": {
+          "ok": false,
+          "missing": [
+            "ceo_name",
+            "ceo_total_comp_m",
+            "board_size",
+            "top_capital",
+            "top_voting"
+          ],
+          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,top_capital,top_voting"
+        },
+        "h_ai_positioning": {
+          "ok": true,
+          "exception_stance_absent": true,
+          "stance": "absent",
+          "sector": "Matériaux",
+          "evidence_count": 3,
+          "reason": "stance=absent légitime (sté non concernée par stratégie IA explicite)"
+        },
+        "i_events": {
+          "ok": true,
+          "count": 4
+        },
+        "j_description": {
+          "ok": true,
+          "len": 1545
+        },
+        "k_ranks": {
+          "ok": true
+        },
+        "l_hero_name_fr": {
+          "ok": true
+        },
+        "m_freshness": {
+          "ok": true,
+          "months_ago": 1,
+          "source": "latest_filing.date"
+        }
+      },
+      "failed_criteria": [
+        "b_interpretation"
+      ],
+      "failed_extensions": [
+        "g_governance"
+      ],
+      "failed_count": 1,
+      "is_clean_af": false,
+      "is_clean_all": false
+    },
+    {
+      "ticker": "UPS",
+      "source": "src/data/v1-9-complete/UPS.json+src/data/v2-pipeline/UPS.json+src/data/v2-pipeline/ups.json+src/data/v2-pipeline-enrich/UPS.json+src/data/v2-pipeline-enrich/ups.json",
+      "market_cap_usd": 83657613312,
+      "criteria": {
+        "a_hero_history": {
+          "ok": true,
+          "len": 5,
+          "period": "year",
+          "required": 5
+        },
+        "b_interpretation": {
+          "ok": true,
+          "sub_blocks": 4
+        },
+        "c_kpi_count": {
+          "ok": true,
+          "count": 13,
+          "required": 5
+        },
+        "d_stories": {
+          "ok": true,
+          "count": 9,
+          "required": 8,
+          "breakdown": {
+            "legacy_stories_kpis": 2,
+            "short_history_kpis": 7,
+            "market_positions": 0
+          }
+        },
+        "e_risks": {
+          "ok": true,
+          "count": 6
+        },
+        "f_repartition": {
+          "ok": true
+        }
+      },
+      "extensions": {
+        "g_governance": {
+          "ok": false,
+          "missing": [
+            "ceo_name",
+            "ceo_total_comp_m",
+            "board_size",
+            "voting_structure"
+          ],
+          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+        },
+        "h_ai_positioning": {
+          "ok": true,
+          "stance": "integrator",
+          "sector": "Industrie",
+          "evidence_count": 4
+        },
+        "i_events": {
+          "ok": true,
+          "count": 4
+        },
+        "j_description": {
+          "ok": true,
+          "len": 1103
+        },
+        "k_ranks": {
+          "ok": true
+        },
+        "l_hero_name_fr": {
+          "ok": true
+        },
+        "m_freshness": {
+          "ok": true,
+          "months_ago": 0,
+          "source": "publication_date"
+        }
+      },
+      "failed_criteria": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": false
+    },
+    {
       "ticker": "URI",
       "source": "src/data/v1-9-complete/URI.json+src/data/v2-pipeline/URI.json+src/data/v2-pipeline/uri.json+src/data/v2-pipeline-enrich/URI.json+src/data/v2-pipeline-enrich/uri.json",
       "market_cap_usd": 60952596480,
@@ -61367,14 +61590,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -61403,11 +61619,106 @@
         }
       },
       "failed_criteria": [],
+      "failed_extensions": [],
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": true
+    },
+    {
+      "ticker": "URW.PA",
+      "source": "src/data/v1-9-complete/URW.PA.json+src/data/v2-pipeline/URW.PA.json+src/data/v2-pipeline/urw.pa.json+src/data/v2-pipeline-enrich/URW.PA.json+src/data/v2-pipeline-enrich/urw.pa.json",
+      "market_cap_usd": 15824495370.240002,
+      "criteria": {
+        "a_hero_history": {
+          "ok": true,
+          "len": 5,
+          "period": "year",
+          "required": 5
+        },
+        "b_interpretation": {
+          "ok": false,
+          "sub_blocks": 3,
+          "has_driver": true,
+          "has_vigilance": false,
+          "reason": "sous-blocs interp = 3/4 (driver=true, vigilance=false)"
+        },
+        "c_kpi_count": {
+          "ok": true,
+          "count": 6,
+          "required": 5
+        },
+        "d_stories": {
+          "ok": false,
+          "count": 0,
+          "required": 8,
+          "breakdown": {
+            "legacy_stories_kpis": 0,
+            "short_history_kpis": 0,
+            "market_positions": 0
+          },
+          "reason": "Stories 0 < 8"
+        },
+        "e_risks": {
+          "ok": true,
+          "count": 8
+        },
+        "f_repartition": {
+          "ok": false,
+          "issues": [
+            "geography vide"
+          ],
+          "reason": "geography vide"
+        }
+      },
+      "extensions": {
+        "g_governance": {
+          "ok": false,
+          "missing": [
+            "ceo_total_comp_m",
+            "board_size",
+            "top_capital",
+            "top_voting"
+          ],
+          "reason": "gov manque: ceo_total_comp_m,board_size,top_capital,top_voting"
+        },
+        "h_ai_positioning": {
+          "ok": true,
+          "exception_stance_absent": true,
+          "stance": "absent",
+          "sector": "Immobilier",
+          "evidence_count": 3,
+          "reason": "stance=absent légitime (sté non concernée par stratégie IA explicite)"
+        },
+        "i_events": {
+          "ok": true,
+          "count": 5
+        },
+        "j_description": {
+          "ok": true,
+          "len": 1111
+        },
+        "k_ranks": {
+          "ok": true
+        },
+        "l_hero_name_fr": {
+          "ok": true
+        },
+        "m_freshness": {
+          "ok": true,
+          "months_ago": 3,
+          "source": "latest_filing.date"
+        }
+      },
+      "failed_criteria": [
+        "b_interpretation",
+        "d_stories",
+        "f_repartition"
+      ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 0,
-      "is_clean_af": true,
+      "failed_count": 3,
+      "is_clean_af": false,
       "is_clean_all": false
     },
     {
@@ -61721,14 +62032,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -61757,11 +62061,110 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
+      "is_clean_all": true
+    },
+    {
+      "ticker": "VEEV",
+      "source": "src/data/v1-9-complete/VEEV.json+src/data/v2-pipeline/VEEV.json+src/data/v2-pipeline/veev.json+src/data/v2-pipeline-enrich/VEEV.json+src/data/v2-pipeline-enrich/veev.json",
+      "market_cap_usd": null,
+      "criteria": {
+        "a_hero_history": {
+          "ok": true,
+          "len": 5,
+          "period": "year",
+          "required": 5
+        },
+        "b_interpretation": {
+          "ok": false,
+          "sub_blocks": 3,
+          "has_driver": true,
+          "has_vigilance": false,
+          "reason": "sous-blocs interp = 3/4 (driver=true, vigilance=false)"
+        },
+        "c_kpi_count": {
+          "ok": true,
+          "count": 8,
+          "required": 5
+        },
+        "d_stories": {
+          "ok": false,
+          "count": 0,
+          "required": 5,
+          "breakdown": {
+            "legacy_stories_kpis": 0,
+            "short_history_kpis": 0,
+            "market_positions": 0
+          },
+          "reason": "Stories 0 < 5"
+        },
+        "e_risks": {
+          "ok": false,
+          "count": 3,
+          "issues": [
+            "risk[0] score_rationale trop court (60<80)",
+            "risk[1] score_rationale trop court (19<80)",
+            "risk[2] score_rationale trop court (29<80)",
+            "profit_warning absent"
+          ],
+          "reason": "risk[0] score_rationale trop court (60<80); risk[1] score_rationale trop court (19<80); risk[2] score_rationale trop court (29<80); profit_warning absent"
+        },
+        "f_repartition": {
+          "ok": true
+        }
+      },
+      "extensions": {
+        "g_governance": {
+          "ok": false,
+          "missing": [
+            "ceo_total_comp_m",
+            "board_size",
+            "voting_structure",
+            "top_capital",
+            "top_voting"
+          ],
+          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+        },
+        "h_ai_positioning": {
+          "ok": true,
+          "exception_stance_absent": true,
+          "stance": "absent",
+          "sector": "Healthcare",
+          "evidence_count": 0,
+          "reason": "stance=absent légitime (sté non concernée par stratégie IA explicite)"
+        },
+        "i_events": {
+          "ok": true,
+          "count": 4
+        },
+        "j_description": {
+          "ok": true,
+          "len": 1200
+        },
+        "k_ranks": {
+          "ok": true
+        },
+        "l_hero_name_fr": {
+          "ok": true
+        },
+        "m_freshness": {
+          "ok": false,
+          "reason": "last_data_date absent"
+        }
+      },
+      "failed_criteria": [
+        "b_interpretation",
+        "d_stories",
+        "e_risks"
+      ],
+      "failed_extensions": [
+        "g_governance",
+        "m_freshness"
+      ],
+      "failed_count": 3,
+      "is_clean_af": false,
       "is_clean_all": false
     },
     {
@@ -61856,6 +62259,91 @@
         "g_governance"
       ],
       "failed_count": 2,
+      "is_clean_af": false,
+      "is_clean_all": false
+    },
+    {
+      "ticker": "VIAV",
+      "source": "src/data/v1-9-complete/VIAV.json+src/data/v2-pipeline/VIAV.json+src/data/v2-pipeline/viav.json+src/data/v2-pipeline-enrich/VIAV.json+src/data/v2-pipeline-enrich/viav.json",
+      "market_cap_usd": 12422847488,
+      "criteria": {
+        "a_hero_history": {
+          "ok": true,
+          "len": 20,
+          "period": "quarter",
+          "required": 18
+        },
+        "b_interpretation": {
+          "ok": true,
+          "sub_blocks": 4
+        },
+        "c_kpi_count": {
+          "ok": true,
+          "count": 8,
+          "required": 5
+        },
+        "d_stories": {
+          "ok": false,
+          "count": 2,
+          "required": 8,
+          "breakdown": {
+            "legacy_stories_kpis": 1,
+            "short_history_kpis": 1,
+            "market_positions": 0
+          },
+          "reason": "Stories 2 < 8"
+        },
+        "e_risks": {
+          "ok": true,
+          "count": 6
+        },
+        "f_repartition": {
+          "ok": true
+        }
+      },
+      "extensions": {
+        "g_governance": {
+          "ok": false,
+          "missing": [
+            "ceo_name",
+            "ceo_total_comp_m",
+            "voting_structure"
+          ],
+          "reason": "gov manque: ceo_name,ceo_total_comp_m,voting_structure"
+        },
+        "h_ai_positioning": {
+          "ok": true,
+          "stance": "integrator",
+          "sector": "Technologie",
+          "evidence_count": 3
+        },
+        "i_events": {
+          "ok": true,
+          "count": 4
+        },
+        "j_description": {
+          "ok": true,
+          "len": 1520
+        },
+        "k_ranks": {
+          "ok": true
+        },
+        "l_hero_name_fr": {
+          "ok": true
+        },
+        "m_freshness": {
+          "ok": true,
+          "months_ago": 1,
+          "source": "publication_date"
+        }
+      },
+      "failed_criteria": [
+        "d_stories"
+      ],
+      "failed_extensions": [
+        "g_governance"
+      ],
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -62071,12 +62559,9 @@
         "g_governance": {
           "ok": false,
           "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
+            "board_size"
           ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+          "reason": "gov manque: board_size"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -62154,13 +62639,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,board_size,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -62191,12 +62670,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "VMC",
@@ -62811,6 +63288,91 @@
       "is_clean_all": true
     },
     {
+      "ticker": "VRT",
+      "source": "src/data/v1-9-complete/VRT.json+src/data/v2-pipeline/VRT.json+src/data/v2-pipeline/vrt.json+src/data/v2-pipeline-enrich/VRT.json+src/data/v2-pipeline-enrich/vrt.json",
+      "market_cap_usd": null,
+      "criteria": {
+        "a_hero_history": {
+          "ok": true,
+          "len": 5,
+          "period": "year",
+          "required": 5
+        },
+        "b_interpretation": {
+          "ok": true,
+          "sub_blocks": 4
+        },
+        "c_kpi_count": {
+          "ok": true,
+          "count": 15,
+          "required": 5
+        },
+        "d_stories": {
+          "ok": true,
+          "count": 6,
+          "required": 5,
+          "breakdown": {
+            "legacy_stories_kpis": 3,
+            "short_history_kpis": 3,
+            "market_positions": 0
+          }
+        },
+        "e_risks": {
+          "ok": true,
+          "count": 7
+        },
+        "f_repartition": {
+          "ok": true
+        }
+      },
+      "extensions": {
+        "g_governance": {
+          "ok": false,
+          "missing": [
+            "ceo_name",
+            "ceo_total_comp_m",
+            "board_size",
+            "voting_structure"
+          ],
+          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+        },
+        "h_ai_positioning": {
+          "ok": true,
+          "exception_stance_absent": true,
+          "stance": "absent",
+          "sector": "Technologie",
+          "evidence_count": 0,
+          "reason": "stance=absent légitime (sté non concernée par stratégie IA explicite)"
+        },
+        "i_events": {
+          "ok": true,
+          "count": 7
+        },
+        "j_description": {
+          "ok": true,
+          "len": 1200
+        },
+        "k_ranks": {
+          "ok": true
+        },
+        "l_hero_name_fr": {
+          "ok": true
+        },
+        "m_freshness": {
+          "ok": true,
+          "months_ago": 1,
+          "source": "next_earnings_date-90d"
+        }
+      },
+      "failed_criteria": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": false
+    },
+    {
       "ticker": "VRTX",
       "source": "src/data/v1-9-complete/VRTX.json+src/data/v2-pipeline/VRTX.json+src/data/v2-pipeline/vrtx.json+src/data/v2-pipeline-enrich/VRTX.json+src/data/v2-pipeline-enrich/vrtx.json",
       "market_cap_usd": null,
@@ -63051,6 +63613,93 @@
       "failed_criteria": [],
       "failed_extensions": [
         "g_governance"
+      ],
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": false
+    },
+    {
+      "ticker": "VTRS",
+      "source": "src/data/v1-9-complete/VTRS.json+src/data/v2-pipeline/VTRS.json+src/data/v2-pipeline/vtrs.json+src/data/v2-pipeline-enrich/VTRS.json+src/data/v2-pipeline-enrich/vtrs.json",
+      "market_cap_usd": null,
+      "criteria": {
+        "a_hero_history": {
+          "ok": true,
+          "len": 5,
+          "period": "year",
+          "required": 5
+        },
+        "b_interpretation": {
+          "ok": true,
+          "sub_blocks": 4
+        },
+        "c_kpi_count": {
+          "ok": true,
+          "count": 14,
+          "required": 5
+        },
+        "d_stories": {
+          "ok": true,
+          "count": 5,
+          "required": 5,
+          "breakdown": {
+            "legacy_stories_kpis": 5,
+            "short_history_kpis": 0,
+            "market_positions": 0
+          }
+        },
+        "e_risks": {
+          "ok": true,
+          "count": 6
+        },
+        "f_repartition": {
+          "ok": true
+        }
+      },
+      "extensions": {
+        "g_governance": {
+          "ok": false,
+          "missing": [
+            "ceo_name",
+            "ceo_total_comp_m",
+            "board_size",
+            "voting_structure"
+          ],
+          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+        },
+        "h_ai_positioning": {
+          "ok": true,
+          "exception_stance_absent": true,
+          "stance": "absent",
+          "sector": "Santé",
+          "evidence_count": 0,
+          "reason": "stance=absent légitime (sté non concernée par stratégie IA explicite)"
+        },
+        "i_events": {
+          "ok": true,
+          "count": 4
+        },
+        "j_description": {
+          "ok": true,
+          "len": 1200
+        },
+        "k_ranks": {
+          "ok": false,
+          "reason": "ranks remplis 1/4"
+        },
+        "l_hero_name_fr": {
+          "ok": true
+        },
+        "m_freshness": {
+          "ok": true,
+          "months_ago": 2,
+          "source": "publication_date"
+        }
+      },
+      "failed_criteria": [],
+      "failed_extensions": [
+        "g_governance",
+        "k_ranks"
       ],
       "failed_count": 0,
       "is_clean_af": true,
@@ -63611,13 +64260,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,board_size,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -63647,12 +64290,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "WDP.BR",
@@ -63795,13 +64436,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,board_size,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -63832,12 +64467,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "WELL",
@@ -64402,14 +65035,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -64438,12 +65064,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "WMT",
@@ -65050,6 +65674,90 @@
       "is_clean_all": false
     },
     {
+      "ticker": "WY",
+      "source": "src/data/v1-9-complete/WY.json+src/data/v2-pipeline/WY.json+src/data/v2-pipeline/wy.json+src/data/v2-pipeline-enrich/WY.json+src/data/v2-pipeline-enrich/wy.json",
+      "market_cap_usd": null,
+      "criteria": {
+        "a_hero_history": {
+          "ok": true,
+          "len": 5,
+          "period": "year",
+          "required": 5
+        },
+        "b_interpretation": {
+          "ok": true,
+          "sub_blocks": 4
+        },
+        "c_kpi_count": {
+          "ok": true,
+          "count": 9,
+          "required": 5
+        },
+        "d_stories": {
+          "ok": true,
+          "count": 5,
+          "required": 5,
+          "breakdown": {
+            "legacy_stories_kpis": 1,
+            "short_history_kpis": 4,
+            "market_positions": 0
+          }
+        },
+        "e_risks": {
+          "ok": true,
+          "count": 7
+        },
+        "f_repartition": {
+          "ok": true
+        }
+      },
+      "extensions": {
+        "g_governance": {
+          "ok": false,
+          "missing": [
+            "ceo_name",
+            "board_size",
+            "voting_structure"
+          ],
+          "reason": "gov manque: ceo_name,board_size,voting_structure"
+        },
+        "h_ai_positioning": {
+          "ok": true,
+          "exception_stance_absent": true,
+          "stance": "absent",
+          "sector": "Immobilier",
+          "evidence_count": 0,
+          "reason": "stance=absent légitime (sté non concernée par stratégie IA explicite)"
+        },
+        "i_events": {
+          "ok": true,
+          "count": 4
+        },
+        "j_description": {
+          "ok": true,
+          "len": 1084
+        },
+        "k_ranks": {
+          "ok": true
+        },
+        "l_hero_name_fr": {
+          "ok": true
+        },
+        "m_freshness": {
+          "ok": true,
+          "months_ago": 1,
+          "source": "next_earnings_date-90d"
+        }
+      },
+      "failed_criteria": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": false
+    },
+    {
       "ticker": "WYNN",
       "source": "src/data/v1-9-complete/WYNN.json+src/data/v2-pipeline/WYNN.json+src/data/v2-pipeline/wynn.json+src/data/v2-pipeline-enrich/WYNN.json+src/data/v2-pipeline-enrich/wynn.json",
       "market_cap_usd": null,
@@ -65175,13 +65883,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,board_size,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -65210,12 +65912,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "XOM",
@@ -65341,14 +66041,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -65379,12 +66072,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "XYZ",
@@ -65690,14 +66381,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -65728,12 +66412,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "ZBRA",
@@ -65778,14 +66460,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -65814,12 +66489,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "ZTS",
@@ -65863,11 +66536,9 @@
         "g_governance": {
           "ok": false,
           "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
             "board_size"
           ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size"
+          "reason": "gov manque: board_size"
         },
         "h_ai_positioning": {
           "ok": true,
