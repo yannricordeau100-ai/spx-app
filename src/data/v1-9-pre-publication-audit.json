@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-21T01:59:22.427Z",
+  "generated_at": "2026-05-21T02:09:09.063Z",
   "publishable_source": "src/data/v1-9-publishable.json",
   "publishable_count_input": 549,
   "stats": {
@@ -8,28 +8,28 @@
     "clean_af": 0,
     "clean_all": 0,
     "by_failed_count": {
-      "1": 20,
-      "2": 131,
-      "3": 235,
-      "4": 142,
-      "5": 21
+      "1": 23,
+      "2": 150,
+      "3": 247,
+      "4": 115,
+      "5": 14
     },
     "by_failed_criterion": {
-      "a_hero_history": 231,
+      "a_hero_history": 236,
       "b_interpretation": 423,
       "c_kpi_count": 0,
       "d_stories": 549,
       "e_risks": 288,
-      "f_repartition": 169
+      "f_repartition": 98
     },
     "by_failed_extension": {
       "g_governance": 512,
       "h_ai_positioning": 179,
       "i_events": 130,
       "j_description": 0,
-      "k_ranks": 63,
-      "l_hero_name_fr": 45,
-      "m_freshness": 296
+      "k_ranks": 26,
+      "l_hero_name_fr": 55,
+      "m_freshness": 310
     }
   },
   "top5_failed_criteria": [
@@ -47,11 +47,11 @@
     ],
     [
       "a_hero_history",
-      231
+      236
     ],
     [
       "f_repartition",
-      169
+      98
     ]
   ],
   "top20_to_fix": [
@@ -113,6 +113,17 @@
     {
       "ticker": "QCOM",
       "market_cap_usd": 210884329472,
+      "failed_count": 1,
+      "failed_criteria": [
+        "d_stories"
+      ],
+      "reasons": [
+        "d_stories: Stories 2 < 8"
+      ]
+    },
+    {
+      "ticker": "UPS",
+      "market_cap_usd": 83657613312,
       "failed_count": 1,
       "failed_criteria": [
         "d_stories"
@@ -254,18 +265,7 @@
       ]
     },
     {
-      "ticker": "SMCI",
-      "market_cap_usd": null,
-      "failed_count": 1,
-      "failed_criteria": [
-        "d_stories"
-      ],
-      "reasons": [
-        "d_stories: Stories 0 < 5"
-      ]
-    },
-    {
-      "ticker": "SNPS",
+      "ticker": "CSCO",
       "market_cap_usd": null,
       "failed_count": 1,
       "failed_criteria": [
@@ -547,11 +547,7 @@
           "count": 7
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography sans unit"
-          ],
-          "reason": "geography sans unit"
+          "ok": true
         }
       },
       "extensions": {
@@ -587,14 +583,13 @@
       },
       "failed_criteria": [
         "a_hero_history",
-        "d_stories",
-        "f_repartition"
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance",
         "l_hero_name_fr"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     }
@@ -698,7 +693,7 @@
     },
     {
       "ticker": "9988.HK",
-      "source": "src/data/v2-pipeline/9988.HK.json+src/data/v2-pipeline/9988.hk.json",
+      "source": "src/data/v1-9-complete/9988.HK.json+src/data/v2-pipeline/9988.HK.json+src/data/v2-pipeline/9988.hk.json",
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
@@ -709,14 +704,14 @@
         },
         "b_interpretation": {
           "ok": false,
-          "sub_blocks": 3,
-          "has_driver": true,
+          "sub_blocks": 2,
+          "has_driver": false,
           "has_vigilance": false,
-          "reason": "sous-blocs interp = 3/4 (driver=true, vigilance=false)"
+          "reason": "sous-blocs interp = 2/4 (driver=false, vigilance=false)"
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 5,
+          "count": 10,
           "required": 5
         },
         "d_stories": {
@@ -772,8 +767,7 @@
         },
         "m_freshness": {
           "ok": false,
-          "months_ago": 14,
-          "reason": "last_data_date 14 mois"
+          "reason": "last_data_date absent"
         }
       },
       "failed_criteria": [
@@ -1179,10 +1173,9 @@
         "f_repartition": {
           "ok": false,
           "issues": [
-            "segment vide",
-            "geography sans unit"
+            "segment vide"
           ],
-          "reason": "segment vide; geography sans unit"
+          "reason": "segment vide"
         }
       },
       "extensions": {
@@ -1238,21 +1231,18 @@
       "market_cap_usd": 16145272012.800001,
       "criteria": {
         "a_hero_history": {
-          "ok": true,
-          "len": 5,
-          "period": "annual",
-          "required": 5
+          "ok": false,
+          "reason": "hero_kpi introuvable dans kpis[]",
+          "fatal": true
         },
         "b_interpretation": {
           "ok": false,
-          "sub_blocks": 3,
-          "has_driver": true,
-          "has_vigilance": false,
-          "reason": "sous-blocs interp = 3/4 (driver=true, vigilance=false)"
+          "sub_blocks": 0,
+          "reason": "hero manquant"
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 16,
+          "count": 9,
           "required": 5
         },
         "d_stories": {
@@ -1307,22 +1297,26 @@
           "ok": true
         },
         "l_hero_name_fr": {
-          "ok": true
+          "ok": false,
+          "reason": "hero introuvable"
         },
         "m_freshness": {
-          "ok": true,
-          "months_ago": 9
+          "ok": false,
+          "reason": "last_data_date absent"
         }
       },
       "failed_criteria": [
+        "a_hero_history",
         "b_interpretation",
         "d_stories",
         "e_risks"
       ],
       "failed_extensions": [
-        "g_governance"
+        "g_governance",
+        "l_hero_name_fr",
+        "m_freshness"
       ],
-      "failed_count": 3,
+      "failed_count": 4,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -1520,7 +1514,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 10,
+          "count": 22,
           "required": 5
         },
         "d_stories": {
@@ -1725,11 +1719,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score; risk[4] sans score; risk[5] sans score; risk[6] sans score; risk[7] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography : Σ share_pct=11.8 ≠ 100"
-          ],
-          "reason": "geography : Σ share_pct=11.8 ≠ 100"
+          "ok": true
         }
       },
       "extensions": {
@@ -1768,15 +1758,14 @@
       "failed_criteria": [
         "b_interpretation",
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "g_governance",
         "i_events",
         "m_freshness"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -1893,7 +1882,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 19,
+          "count": 15,
           "required": 5
         },
         "d_stories": {
@@ -2343,11 +2332,7 @@
           "count": 8
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -2383,14 +2368,13 @@
       },
       "failed_criteria": [
         "b_interpretation",
-        "d_stories",
-        "f_repartition"
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance",
         "m_freshness"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -2428,11 +2412,7 @@
           "count": 9
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -2468,15 +2448,14 @@
       },
       "failed_criteria": [
         "b_interpretation",
-        "d_stories",
-        "f_repartition"
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance",
         "l_hero_name_fr",
         "m_freshness"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -2813,8 +2792,7 @@
           "len": 1200
         },
         "k_ranks": {
-          "ok": false,
-          "reason": "ranks remplis 1/4"
+          "ok": true
         },
         "l_hero_name_fr": {
           "ok": true
@@ -2833,7 +2811,6 @@
       "failed_extensions": [
         "g_governance",
         "i_events",
-        "k_ranks",
         "m_freshness"
       ],
       "failed_count": 4,
@@ -3302,11 +3279,7 @@
           "count": 7
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography : Σ share_pct=119.2 ≠ 100"
-          ],
-          "reason": "geography : Σ share_pct=119.2 ≠ 100"
+          "ok": true
         }
       },
       "extensions": {
@@ -3342,13 +3315,12 @@
       "failed_criteria": [
         "a_hero_history",
         "b_interpretation",
-        "d_stories",
-        "f_repartition"
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -3390,8 +3362,8 @@
             "segment.slices[3].value=0 Mds $ ne rescale pas en [1,999]",
             "segment.slices[4].value=0 Mds $ ne rescale pas en [1,999]",
             "segment.slices[5].value=0 Mds $ ne rescale pas en [1,999]",
-            "segment : Σ share_pct=90.7 ≠ 100",
-            "geography vide"
+            "segment.slices[6] sans value",
+            "segment : Σ share_pct=90.7 ≠ 100"
           ],
           "reason": "segment.slices[3].value=0 Mds $ ne rescale pas en [1,999]; segment.slices[4].value=0 Mds $ ne rescale pas en [1,999]; segment.slices[5].value=0 Mds $ ne rescale pas en [1,999]"
         }
@@ -3563,9 +3535,10 @@
         "f_repartition": {
           "ok": false,
           "issues": [
+            "segment.slices[2] sans value",
             "segment : Σ share_pct=91.1 ≠ 100"
           ],
-          "reason": "segment : Σ share_pct=91.1 ≠ 100"
+          "reason": "segment.slices[2] sans value; segment : Σ share_pct=91.1 ≠ 100"
         }
       },
       "extensions": {
@@ -3638,7 +3611,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 18,
+          "count": 14,
           "required": 5
         },
         "d_stories": {
@@ -3802,21 +3775,18 @@
       "market_cap_usd": 181564211200,
       "criteria": {
         "a_hero_history": {
-          "ok": true,
-          "len": 5,
-          "period": "year",
-          "required": 5
+          "ok": false,
+          "reason": "hero_kpi introuvable dans kpis[]",
+          "fatal": true
         },
         "b_interpretation": {
           "ok": false,
-          "sub_blocks": 3,
-          "has_driver": true,
-          "has_vigilance": false,
-          "reason": "sous-blocs interp = 3/4 (driver=true, vigilance=false)"
+          "sub_blocks": 0,
+          "reason": "hero manquant"
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 22,
+          "count": 21,
           "required": 8
         },
         "d_stories": {
@@ -3854,22 +3824,26 @@
           "ok": true
         },
         "l_hero_name_fr": {
-          "ok": true
+          "ok": false,
+          "reason": "hero introuvable"
         },
         "m_freshness": {
-          "ok": true,
-          "months_ago": 5
+          "ok": false,
+          "reason": "last_data_date absent"
         }
       },
       "failed_criteria": [
+        "a_hero_history",
         "b_interpretation",
         "d_stories"
       ],
       "failed_extensions": [
         "g_governance",
-        "i_events"
+        "i_events",
+        "l_hero_name_fr",
+        "m_freshness"
       ],
-      "failed_count": 2,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -4008,9 +3982,10 @@
         "f_repartition": {
           "ok": false,
           "issues": [
+            "geography.slices[7] sans value",
             "geography : Σ share_pct=89.9 ≠ 100"
           ],
-          "reason": "geography : Σ share_pct=89.9 ≠ 100"
+          "reason": "geography.slices[7] sans value; geography : Σ share_pct=89.9 ≠ 100"
         }
       },
       "extensions": {
@@ -4180,7 +4155,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 9,
+          "count": 17,
           "required": 5
         },
         "d_stories": {
@@ -4222,8 +4197,7 @@
           "len": 1200
         },
         "k_ranks": {
-          "ok": false,
-          "reason": "ranks remplis 1/4"
+          "ok": true
         },
         "l_hero_name_fr": {
           "ok": true
@@ -4241,8 +4215,7 @@
       ],
       "failed_extensions": [
         "g_governance",
-        "i_events",
-        "k_ranks"
+        "i_events"
       ],
       "failed_count": 4,
       "is_clean_af": false,
@@ -4508,7 +4481,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 10,
+          "count": 9,
           "required": 5
         },
         "d_stories": {
@@ -4753,7 +4726,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 13,
+          "count": 25,
           "required": 8
         },
         "d_stories": {
@@ -5179,10 +5152,12 @@
       "market_cap_usd": 659553984184.3201,
       "criteria": {
         "a_hero_history": {
-          "ok": true,
-          "len": 5,
+          "ok": false,
+          "len": 4,
           "period": "year",
-          "required": 5
+          "required": 5,
+          "tolerated": 3,
+          "reason": "history insuffisant (4 < 5)"
         },
         "b_interpretation": {
           "ok": false,
@@ -5193,14 +5168,14 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 22,
+          "count": 17,
           "required": 8
         },
         "d_stories": {
           "ok": false,
-          "count": 1,
+          "count": 0,
           "required": 8,
-          "reason": "Stories 1 < 8"
+          "reason": "Stories 0 < 8"
         },
         "e_risks": {
           "ok": false,
@@ -5250,8 +5225,7 @@
           "ok": true
         },
         "l_hero_name_fr": {
-          "ok": false,
-          "reason": "hero name_fr manquant ou = short"
+          "ok": true
         },
         "m_freshness": {
           "ok": false,
@@ -5259,6 +5233,7 @@
         }
       },
       "failed_criteria": [
+        "a_hero_history",
         "b_interpretation",
         "d_stories",
         "e_risks",
@@ -5266,10 +5241,9 @@
       ],
       "failed_extensions": [
         "g_governance",
-        "l_hero_name_fr",
         "m_freshness"
       ],
-      "failed_count": 4,
+      "failed_count": 5,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -5571,11 +5545,7 @@
           "count": 7
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -5612,14 +5582,13 @@
       },
       "failed_criteria": [
         "b_interpretation",
-        "d_stories",
-        "f_repartition"
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance",
         "m_freshness"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -5894,11 +5863,7 @@
           "count": 5
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -5934,13 +5899,12 @@
       "failed_criteria": [
         "a_hero_history",
         "b_interpretation",
-        "d_stories",
-        "f_repartition"
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -6040,7 +6004,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 21,
+          "count": 30,
           "required": 8
         },
         "d_stories": {
@@ -6544,9 +6508,10 @@
           "ok": false,
           "issues": [
             "geography.slices[0] sans value",
-            "geography.slices[1] sans value"
+            "geography.slices[1] sans value",
+            "geography.slices[2] sans value"
           ],
-          "reason": "geography.slices[0] sans value; geography.slices[1] sans value"
+          "reason": "geography.slices[0] sans value; geography.slices[1] sans value; geography.slices[2] sans value"
         }
       },
       "extensions": {
@@ -7282,7 +7247,7 @@
     },
     {
       "ticker": "BHP.AX",
-      "source": "src/data/v2-pipeline/BHP.AX.json+src/data/v2-pipeline/bhp.ax.json",
+      "source": "src/data/v1-9-complete/BHP.AX.json+src/data/v2-pipeline/BHP.AX.json+src/data/v2-pipeline/bhp.ax.json",
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
@@ -7293,14 +7258,14 @@
         },
         "b_interpretation": {
           "ok": false,
-          "sub_blocks": 3,
-          "has_driver": true,
+          "sub_blocks": 2,
+          "has_driver": false,
           "has_vigilance": false,
-          "reason": "sous-blocs interp = 3/4 (driver=true, vigilance=false)"
+          "reason": "sous-blocs interp = 2/4 (driver=false, vigilance=false)"
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 6,
+          "count": 11,
           "required": 5
         },
         "d_stories": {
@@ -7355,8 +7320,8 @@
           "ok": true
         },
         "m_freshness": {
-          "ok": true,
-          "months_ago": 11
+          "ok": false,
+          "reason": "last_data_date absent"
         }
       },
       "failed_criteria": [
@@ -7366,7 +7331,8 @@
       ],
       "failed_extensions": [
         "g_governance",
-        "i_events"
+        "i_events",
+        "m_freshness"
       ],
       "failed_count": 3,
       "is_clean_af": false,
@@ -7501,8 +7467,7 @@
           "issues": [
             "segment.slices[0] sans value",
             "segment.slices[1] sans value",
-            "segment.slices[2] sans value",
-            "geography vide"
+            "segment.slices[2] sans value"
           ],
           "reason": "segment.slices[0] sans value; segment.slices[1] sans value; segment.slices[2] sans value"
         }
@@ -8129,7 +8094,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 18,
+          "count": 17,
           "required": 8
         },
         "d_stories": {
@@ -8748,10 +8713,9 @@
         "f_repartition": {
           "ok": false,
           "issues": [
-            "segment vide",
-            "geography vide"
+            "segment vide"
           ],
-          "reason": "segment vide; geography vide"
+          "reason": "segment vide"
         }
       },
       "extensions": {
@@ -9009,11 +8973,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score; risk[4] sans score; risk[5] sans score; risk[6] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "segment sans unit"
-          ],
-          "reason": "segment sans unit"
+          "ok": true
         }
       },
       "extensions": {
@@ -9054,15 +9014,14 @@
       "failed_criteria": [
         "b_interpretation",
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "g_governance",
         "i_events",
         "m_freshness"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -9361,11 +9320,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score; risk[4] sans score; risk[5] sans score; risk[6] sans score; risk[7] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography : Σ share_pct=120.3 ≠ 100"
-          ],
-          "reason": "geography : Σ share_pct=120.3 ≠ 100"
+          "ok": true
         }
       },
       "extensions": {
@@ -9406,14 +9361,13 @@
       "failed_criteria": [
         "b_interpretation",
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "g_governance",
         "m_freshness"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -9954,7 +9908,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 19,
+          "count": 17,
           "required": 5
         },
         "d_stories": {
@@ -10093,8 +10047,7 @@
           "len": 525
         },
         "k_ranks": {
-          "ok": false,
-          "reason": "ranks remplis 1/4"
+          "ok": true
         },
         "l_hero_name_fr": {
           "ok": true
@@ -10113,7 +10066,6 @@
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning",
-        "k_ranks",
         "m_freshness"
       ],
       "failed_count": 3,
@@ -10331,9 +10283,10 @@
         "f_repartition": {
           "ok": false,
           "issues": [
+            "geography.slices[5] sans value",
             "geography : Σ share_pct=80.4 ≠ 100"
           ],
-          "reason": "geography : Σ share_pct=80.4 ≠ 100"
+          "reason": "geography.slices[5] sans value; geography : Σ share_pct=80.4 ≠ 100"
         }
       },
       "extensions": {
@@ -10491,11 +10444,7 @@
           "count": 7
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -10531,14 +10480,13 @@
       },
       "failed_criteria": [
         "a_hero_history",
-        "d_stories",
-        "f_repartition"
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance",
         "i_events"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -10861,11 +10809,7 @@
           "count": 7
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -10900,13 +10844,12 @@
       },
       "failed_criteria": [
         "b_interpretation",
-        "d_stories",
-        "f_repartition"
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -11024,11 +10967,7 @@
           "count": 6
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -11064,15 +11003,14 @@
       },
       "failed_criteria": [
         "b_interpretation",
-        "d_stories",
-        "f_repartition"
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning",
         "m_freshness"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -11112,9 +11050,10 @@
         "f_repartition": {
           "ok": false,
           "issues": [
+            "geography.slices[5] sans value",
             "geography : Σ share_pct=93.0 ≠ 100"
           ],
-          "reason": "geography : Σ share_pct=93.0 ≠ 100"
+          "reason": "geography.slices[5] sans value; geography : Σ share_pct=93.0 ≠ 100"
         }
       },
       "extensions": {
@@ -11310,11 +11249,7 @@
           "count": 6
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography sans unit"
-          ],
-          "reason": "geography sans unit"
+          "ok": true
         }
       },
       "extensions": {
@@ -11338,8 +11273,7 @@
           "len": 1200
         },
         "k_ranks": {
-          "ok": false,
-          "reason": "ranks remplis 1/4"
+          "ok": true
         },
         "l_hero_name_fr": {
           "ok": true
@@ -11352,16 +11286,14 @@
       "failed_criteria": [
         "a_hero_history",
         "b_interpretation",
-        "d_stories",
-        "f_repartition"
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning",
-        "k_ranks",
         "m_freshness"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -11425,8 +11357,7 @@
           "len": 1200
         },
         "k_ranks": {
-          "ok": false,
-          "reason": "ranks remplis 1/4"
+          "ok": true
         },
         "l_hero_name_fr": {
           "ok": true
@@ -11444,7 +11375,6 @@
         "g_governance",
         "h_ai_positioning",
         "i_events",
-        "k_ranks",
         "m_freshness"
       ],
       "failed_count": 2,
@@ -11494,11 +11424,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score; risk[4] sans score; risk[5] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -11530,13 +11456,12 @@
       "failed_criteria": [
         "b_interpretation",
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "m_freshness"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -11574,12 +11499,7 @@
           "count": 7
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "segment : Σ share_pct=112.5 ≠ 100",
-            "geography vide"
-          ],
-          "reason": "segment : Σ share_pct=112.5 ≠ 100; geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -11616,8 +11536,7 @@
       },
       "failed_criteria": [
         "b_interpretation",
-        "d_stories",
-        "f_repartition"
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance",
@@ -11625,7 +11544,7 @@
         "i_events",
         "m_freshness"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -11676,11 +11595,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score; risk[4] sans score; risk[5] sans score; risk[6] sans score; risk[7] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -11720,15 +11635,14 @@
         "a_hero_history",
         "b_interpretation",
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning",
         "m_freshness"
       ],
-      "failed_count": 5,
+      "failed_count": 4,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -12111,11 +12025,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score; risk[4] sans score; risk[5] sans score; risk[6] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography sans unit"
-          ],
-          "reason": "geography sans unit"
+          "ok": true
         }
       },
       "extensions": {
@@ -12152,13 +12062,12 @@
       "failed_criteria": [
         "b_interpretation",
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -12169,11 +12078,11 @@
       "criteria": {
         "a_hero_history": {
           "ok": false,
-          "len": 10,
-          "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (10 < 18)"
+          "len": 4,
+          "period": "year",
+          "required": 5,
+          "tolerated": 3,
+          "reason": "history insuffisant (4 < 5)"
         },
         "b_interpretation": {
           "ok": false,
@@ -12184,7 +12093,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 19,
+          "count": 33,
           "required": 8
         },
         "d_stories": {
@@ -12224,8 +12133,8 @@
           "ok": true
         },
         "m_freshness": {
-          "ok": true,
-          "months_ago": 3
+          "ok": false,
+          "reason": "last_data_date absent"
         }
       },
       "failed_criteria": [
@@ -12234,7 +12143,8 @@
         "d_stories"
       ],
       "failed_extensions": [
-        "g_governance"
+        "g_governance",
+        "m_freshness"
       ],
       "failed_count": 3,
       "is_clean_af": false,
@@ -12403,8 +12313,7 @@
           "len": 1200
         },
         "k_ranks": {
-          "ok": false,
-          "reason": "ranks remplis 1/4"
+          "ok": true
         },
         "l_hero_name_fr": {
           "ok": true
@@ -12422,8 +12331,7 @@
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning",
-        "i_events",
-        "k_ranks"
+        "i_events"
       ],
       "failed_count": 3,
       "is_clean_af": false,
@@ -12581,8 +12489,7 @@
           "len": 1200
         },
         "k_ranks": {
-          "ok": false,
-          "reason": "ranks remplis 1/4"
+          "ok": true
         },
         "l_hero_name_fr": {
           "ok": true
@@ -12599,7 +12506,6 @@
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning",
-        "k_ranks",
         "m_freshness"
       ],
       "failed_count": 2,
@@ -12786,7 +12692,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 18,
+          "count": 30,
           "required": 5
         },
         "d_stories": {
@@ -12800,12 +12706,7 @@
           "count": 5
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "segment : Σ share_pct=146.5 ≠ 100",
-            "geography : Σ share_pct=129.3 ≠ 100"
-          ],
-          "reason": "segment : Σ share_pct=146.5 ≠ 100; geography : Σ share_pct=129.3 ≠ 100"
+          "ok": true
         }
       },
       "extensions": {
@@ -12830,8 +12731,7 @@
           "len": 1200
         },
         "k_ranks": {
-          "ok": false,
-          "reason": "ranks remplis 1/4"
+          "ok": true
         },
         "l_hero_name_fr": {
           "ok": true
@@ -12842,17 +12742,15 @@
         }
       },
       "failed_criteria": [
-        "d_stories",
-        "f_repartition"
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning",
         "i_events",
-        "k_ranks",
         "m_freshness"
       ],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -12898,11 +12796,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score; risk[4] sans score; risk[5] sans score; risk[6] sans score; risk[7] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -12934,14 +12828,13 @@
       },
       "failed_criteria": [
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "i_events",
         "m_freshness"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -13265,11 +13158,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score; risk[4] sans score; risk[5] sans score; risk[6] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -13306,14 +13195,13 @@
       },
       "failed_criteria": [
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "g_governance",
         "m_freshness"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -13337,7 +13225,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 18,
+          "count": 17,
           "required": 8
         },
         "d_stories": {
@@ -13420,7 +13308,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 17,
+          "count": 16,
           "required": 5
         },
         "d_stories": {
@@ -13521,11 +13409,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score; risk[4] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -13563,8 +13447,7 @@
       "failed_criteria": [
         "b_interpretation",
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "g_governance",
@@ -13572,7 +13455,7 @@
         "k_ranks",
         "m_freshness"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -14058,7 +13941,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 17,
+          "count": 13,
           "required": 5
         },
         "d_stories": {
@@ -14096,8 +13979,7 @@
           "len": 1200
         },
         "k_ranks": {
-          "ok": false,
-          "reason": "ranks remplis 1/4"
+          "ok": true
         },
         "l_hero_name_fr": {
           "ok": true
@@ -14114,7 +13996,6 @@
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning",
-        "k_ranks",
         "m_freshness"
       ],
       "failed_count": 2,
@@ -14415,11 +14296,7 @@
           "count": 7
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -14458,8 +14335,7 @@
       "failed_criteria": [
         "a_hero_history",
         "b_interpretation",
-        "d_stories",
-        "f_repartition"
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance",
@@ -14467,7 +14343,7 @@
         "i_events",
         "l_hero_name_fr"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -14705,11 +14581,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score; risk[4] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -14746,15 +14618,14 @@
       "failed_criteria": [
         "b_interpretation",
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning",
         "m_freshness"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -14798,11 +14669,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score; risk[4] sans score; risk[5] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -14835,15 +14702,14 @@
       },
       "failed_criteria": [
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning",
         "m_freshness"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -14918,8 +14784,7 @@
           "len": 1200
         },
         "k_ranks": {
-          "ok": false,
-          "reason": "ranks remplis 1/4"
+          "ok": true
         },
         "l_hero_name_fr": {
           "ok": true
@@ -14938,7 +14803,6 @@
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning",
-        "k_ranks",
         "m_freshness"
       ],
       "failed_count": 4,
@@ -15127,22 +14991,17 @@
       "criteria": {
         "a_hero_history": {
           "ok": false,
-          "len": 9,
-          "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (9 < 18)"
+          "reason": "hero_kpi introuvable dans kpis[]",
+          "fatal": true
         },
         "b_interpretation": {
           "ok": false,
-          "sub_blocks": 3,
-          "has_driver": true,
-          "has_vigilance": false,
-          "reason": "sous-blocs interp = 3/4 (driver=true, vigilance=false)"
+          "sub_blocks": 0,
+          "reason": "hero manquant"
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 12,
+          "count": 22,
           "required": 5
         },
         "d_stories": {
@@ -15194,11 +15053,12 @@
           "ok": true
         },
         "l_hero_name_fr": {
-          "ok": true
+          "ok": false,
+          "reason": "hero introuvable"
         },
         "m_freshness": {
-          "ok": true,
-          "months_ago": 2
+          "ok": false,
+          "reason": "last_data_date absent"
         }
       },
       "failed_criteria": [
@@ -15209,7 +15069,9 @@
       ],
       "failed_extensions": [
         "g_governance",
-        "h_ai_positioning"
+        "h_ai_positioning",
+        "l_hero_name_fr",
+        "m_freshness"
       ],
       "failed_count": 4,
       "is_clean_af": false,
@@ -15353,8 +15215,7 @@
           "len": 1164
         },
         "k_ranks": {
-          "ok": false,
-          "reason": "ranks remplis 1/4"
+          "ok": true
         },
         "l_hero_name_fr": {
           "ok": true
@@ -15371,8 +15232,7 @@
       ],
       "failed_extensions": [
         "g_governance",
-        "h_ai_positioning",
-        "k_ranks"
+        "h_ai_positioning"
       ],
       "failed_count": 3,
       "is_clean_af": false,
@@ -15414,11 +15274,7 @@
           "count": 6
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -15458,8 +15314,7 @@
       "failed_criteria": [
         "a_hero_history",
         "b_interpretation",
-        "d_stories",
-        "f_repartition"
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance",
@@ -15467,7 +15322,7 @@
         "i_events",
         "m_freshness"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -15515,11 +15370,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score; risk[4] sans score; risk[5] sans score; risk[6] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -15556,15 +15407,14 @@
       "failed_criteria": [
         "b_interpretation",
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning",
         "m_freshness"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -15765,7 +15615,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 13,
+          "count": 11,
           "required": 5
         },
         "d_stories": {
@@ -15883,11 +15733,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score; risk[4] sans score; risk[5] sans score; risk[6] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -15914,8 +15760,7 @@
           "len": 482
         },
         "k_ranks": {
-          "ok": false,
-          "reason": "ranks remplis 1/4"
+          "ok": true
         },
         "l_hero_name_fr": {
           "ok": true
@@ -15928,16 +15773,14 @@
       "failed_criteria": [
         "b_interpretation",
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning",
-        "k_ranks",
         "m_freshness"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -15983,11 +15826,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score; risk[4] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -16027,15 +15866,14 @@
       "failed_criteria": [
         "b_interpretation",
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning",
         "m_freshness"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -16249,11 +16087,7 @@
           "count": 7
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -16290,15 +16124,14 @@
       },
       "failed_criteria": [
         "b_interpretation",
-        "d_stories",
-        "f_repartition"
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning",
         "m_freshness"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -16551,8 +16384,7 @@
           "len": 475
         },
         "k_ranks": {
-          "ok": false,
-          "reason": "ranks remplis 1/4"
+          "ok": true
         },
         "l_hero_name_fr": {
           "ok": true
@@ -16569,7 +16401,6 @@
       ],
       "failed_extensions": [
         "g_governance",
-        "k_ranks",
         "m_freshness"
       ],
       "failed_count": 3,
@@ -16983,11 +16814,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score; risk[4] sans score; risk[5] sans score; risk[6] sans score; risk[7] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -17025,14 +16852,13 @@
       "failed_criteria": [
         "b_interpretation",
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "g_governance",
         "m_freshness"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -17453,14 +17279,14 @@
         },
         "b_interpretation": {
           "ok": false,
-          "sub_blocks": 3,
-          "has_driver": true,
+          "sub_blocks": 2,
+          "has_driver": false,
           "has_vigilance": false,
-          "reason": "sous-blocs interp = 3/4 (driver=true, vigilance=false)"
+          "reason": "sous-blocs interp = 2/4 (driver=false, vigilance=false)"
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 12,
+          "count": 10,
           "required": 5
         },
         "d_stories": {
@@ -17635,7 +17461,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 18,
+          "count": 30,
           "required": 5
         },
         "d_stories": {
@@ -17727,7 +17553,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 23,
+          "count": 22,
           "required": 5
         },
         "d_stories": {
@@ -17832,11 +17658,7 @@
           "count": 6
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography : Σ share_pct=93.4 ≠ 100"
-          ],
-          "reason": "geography : Σ share_pct=93.4 ≠ 100"
+          "ok": true
         }
       },
       "extensions": {
@@ -17872,13 +17694,12 @@
       "failed_criteria": [
         "a_hero_history",
         "b_interpretation",
-        "d_stories",
-        "f_repartition"
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -18095,7 +17916,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 16,
+          "count": 12,
           "required": 5
         },
         "d_stories": {
@@ -18124,8 +17945,7 @@
             "segment.slices[0] sans value",
             "segment.slices[1] sans value",
             "segment.slices[2] sans value",
-            "segment.slices[3] sans value",
-            "geography vide"
+            "segment.slices[3] sans value"
           ],
           "reason": "segment.slices[0] sans value; segment.slices[1] sans value; segment.slices[2] sans value"
         }
@@ -18377,11 +18197,7 @@
           "count": 6
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "segment sans unit"
-          ],
-          "reason": "segment sans unit"
+          "ok": true
         }
       },
       "extensions": {
@@ -18417,14 +18233,13 @@
       },
       "failed_criteria": [
         "b_interpretation",
-        "d_stories",
-        "f_repartition"
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance",
         "m_freshness"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -18666,12 +18481,17 @@
         "f_repartition": {
           "ok": false,
           "issues": [
+            "segment.slices[0] sans value",
+            "segment.slices[1] sans value",
+            "segment.slices[2] sans value",
+            "segment.slices[3] sans value",
+            "segment.slices[4] sans value",
             "geography.slices[0] sans value",
             "geography.slices[1] sans value",
             "geography.slices[2] sans value",
             "geography.slices[3] sans value"
           ],
-          "reason": "geography.slices[0] sans value; geography.slices[1] sans value; geography.slices[2] sans value"
+          "reason": "segment.slices[0] sans value; segment.slices[1] sans value; segment.slices[2] sans value"
         }
       },
       "extensions": {
@@ -18756,11 +18576,7 @@
           "count": 5
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -18785,8 +18601,7 @@
           "len": 726
         },
         "k_ranks": {
-          "ok": false,
-          "reason": "ranks remplis 1/4"
+          "ok": true
         },
         "l_hero_name_fr": {
           "ok": false,
@@ -18799,17 +18614,15 @@
       },
       "failed_criteria": [
         "b_interpretation",
-        "d_stories",
-        "f_repartition"
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning",
-        "k_ranks",
         "l_hero_name_fr",
         "m_freshness"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -18859,11 +18672,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score; risk[4] sans score; risk[5] sans score; risk[6] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "segment sans unit"
-          ],
-          "reason": "segment sans unit"
+          "ok": true
         }
       },
       "extensions": {
@@ -18900,14 +18709,13 @@
         "a_hero_history",
         "b_interpretation",
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "g_governance",
         "m_freshness"
       ],
-      "failed_count": 5,
+      "failed_count": 4,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -18933,7 +18741,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 13,
+          "count": 12,
           "required": 5
         },
         "d_stories": {
@@ -18947,11 +18755,7 @@
           "count": 7
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "segment : Σ share_pct=69.3 ≠ 100"
-          ],
-          "reason": "segment : Σ share_pct=69.3 ≠ 100"
+          "ok": true
         }
       },
       "extensions": {
@@ -18978,8 +18782,7 @@
           "len": 669
         },
         "k_ranks": {
-          "ok": false,
-          "reason": "ranks remplis 1/4"
+          "ok": true
         },
         "l_hero_name_fr": {
           "ok": true
@@ -18992,17 +18795,15 @@
       "failed_criteria": [
         "a_hero_history",
         "b_interpretation",
-        "d_stories",
-        "f_repartition"
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning",
         "i_events",
-        "k_ranks",
         "m_freshness"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -19216,11 +19017,7 @@
           "count": 6
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -19258,15 +19055,14 @@
       },
       "failed_criteria": [
         "b_interpretation",
-        "d_stories",
-        "f_repartition"
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning",
         "m_freshness"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -19289,7 +19085,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 9,
+          "count": 8,
           "required": 5
         },
         "d_stories": {
@@ -19407,11 +19203,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score; risk[4] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -19448,13 +19240,12 @@
         "a_hero_history",
         "b_interpretation",
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 5,
+      "failed_count": 4,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -19765,11 +19556,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score; risk[4] sans score; risk[5] sans score; risk[6] sans score; risk[7] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -19810,15 +19597,14 @@
         "a_hero_history",
         "b_interpretation",
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning",
         "i_events"
       ],
-      "failed_count": 5,
+      "failed_count": 4,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -20260,9 +20046,10 @@
         "f_repartition": {
           "ok": false,
           "issues": [
+            "geography.slices[2] sans value",
             "geography : Σ share_pct=85.3 ≠ 100"
           ],
-          "reason": "geography : Σ share_pct=85.3 ≠ 100"
+          "reason": "geography.slices[2] sans value; geography : Σ share_pct=85.3 ≠ 100"
         }
       },
       "extensions": {
@@ -20368,8 +20155,7 @@
           "len": 1200
         },
         "k_ranks": {
-          "ok": false,
-          "reason": "ranks remplis 1/4"
+          "ok": true
         },
         "l_hero_name_fr": {
           "ok": true
@@ -20385,7 +20171,6 @@
       ],
       "failed_extensions": [
         "g_governance",
-        "k_ranks",
         "m_freshness"
       ],
       "failed_count": 2,
@@ -20581,7 +20366,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 14,
+          "count": 11,
           "required": 5
         },
         "d_stories": {
@@ -20942,8 +20727,7 @@
           "len": 949
         },
         "k_ranks": {
-          "ok": false,
-          "reason": "ranks remplis 1/4"
+          "ok": true
         },
         "l_hero_name_fr": {
           "ok": true
@@ -20961,8 +20745,7 @@
       ],
       "failed_extensions": [
         "g_governance",
-        "h_ai_positioning",
-        "k_ranks"
+        "h_ai_positioning"
       ],
       "failed_count": 4,
       "is_clean_af": false,
@@ -21166,11 +20949,7 @@
           "count": 5
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -21203,13 +20982,12 @@
       "failed_criteria": [
         "a_hero_history",
         "b_interpretation",
-        "d_stories",
-        "f_repartition"
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -21233,7 +21011,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 20,
+          "count": 19,
           "required": 5
         },
         "d_stories": {
@@ -21422,7 +21200,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 15,
+          "count": 27,
           "required": 5
         },
         "d_stories": {
@@ -21555,8 +21333,7 @@
           "len": 933
         },
         "k_ranks": {
-          "ok": false,
-          "reason": "ranks remplis 1/4"
+          "ok": true
         },
         "l_hero_name_fr": {
           "ok": true
@@ -21573,8 +21350,7 @@
         "f_repartition"
       ],
       "failed_extensions": [
-        "h_ai_positioning",
-        "k_ranks"
+        "h_ai_positioning"
       ],
       "failed_count": 4,
       "is_clean_af": false,
@@ -22505,8 +22281,7 @@
           "len": 1200
         },
         "k_ranks": {
-          "ok": false,
-          "reason": "ranks remplis 1/4"
+          "ok": true
         },
         "l_hero_name_fr": {
           "ok": true
@@ -22524,7 +22299,6 @@
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning",
-        "k_ranks",
         "m_freshness"
       ],
       "failed_count": 3,
@@ -22577,9 +22351,10 @@
         "f_repartition": {
           "ok": false,
           "issues": [
+            "geography.slices[2] sans value",
             "geography : Σ share_pct=87.5 ≠ 100"
           ],
-          "reason": "geography : Σ share_pct=87.5 ≠ 100"
+          "reason": "geography.slices[2] sans value; geography : Σ share_pct=87.5 ≠ 100"
         }
       },
       "extensions": {
@@ -22673,11 +22448,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score; risk[4] sans score; risk[5] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -22717,15 +22488,14 @@
         "a_hero_history",
         "b_interpretation",
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning",
         "m_freshness"
       ],
-      "failed_count": 5,
+      "failed_count": 4,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -22775,11 +22545,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score; risk[4] sans score; risk[5] sans score; risk[6] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -22819,14 +22585,13 @@
       "failed_criteria": [
         "b_interpretation",
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -22922,21 +22687,18 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": true,
-          "len": 5,
-          "period": "annual",
-          "required": 5
+          "ok": false,
+          "reason": "hero_kpi introuvable dans kpis[]",
+          "fatal": true
         },
         "b_interpretation": {
           "ok": false,
-          "sub_blocks": 3,
-          "has_driver": true,
-          "has_vigilance": false,
-          "reason": "sous-blocs interp = 3/4 (driver=true, vigilance=false)"
+          "sub_blocks": 0,
+          "reason": "hero manquant"
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 8,
+          "count": 7,
           "required": 5
         },
         "d_stories": {
@@ -22998,14 +22760,16 @@
           "ok": true
         },
         "l_hero_name_fr": {
-          "ok": true
+          "ok": false,
+          "reason": "hero introuvable"
         },
         "m_freshness": {
-          "ok": true,
-          "months_ago": 5
+          "ok": false,
+          "reason": "last_data_date absent"
         }
       },
       "failed_criteria": [
+        "a_hero_history",
         "b_interpretation",
         "d_stories",
         "e_risks",
@@ -23013,9 +22777,11 @@
       ],
       "failed_extensions": [
         "g_governance",
-        "i_events"
+        "i_events",
+        "l_hero_name_fr",
+        "m_freshness"
       ],
-      "failed_count": 4,
+      "failed_count": 5,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -23255,11 +23021,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score; risk[4] sans score; risk[5] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -23298,8 +23060,7 @@
         "a_hero_history",
         "b_interpretation",
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "g_governance",
@@ -23307,7 +23068,7 @@
         "k_ranks",
         "m_freshness"
       ],
-      "failed_count": 5,
+      "failed_count": 4,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -23513,7 +23274,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 18,
+          "count": 13,
           "required": 5
         },
         "d_stories": {
@@ -23705,7 +23466,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 16,
+          "count": 23,
           "required": 5
         },
         "d_stories": {
@@ -24060,7 +23821,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 14,
+          "count": 11,
           "required": 5
         },
         "d_stories": {
@@ -24099,8 +23860,7 @@
           "len": 1200
         },
         "k_ranks": {
-          "ok": false,
-          "reason": "ranks remplis 1/4"
+          "ok": true
         },
         "l_hero_name_fr": {
           "ok": true
@@ -24117,8 +23877,7 @@
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning",
-        "i_events",
-        "k_ranks"
+        "i_events"
       ],
       "failed_count": 2,
       "is_clean_af": false,
@@ -24262,11 +24021,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "segment sans unit"
-          ],
-          "reason": "segment sans unit"
+          "ok": true
         }
       },
       "extensions": {
@@ -24294,8 +24049,7 @@
           "len": 836
         },
         "k_ranks": {
-          "ok": false,
-          "reason": "ranks remplis 1/4"
+          "ok": true
         },
         "l_hero_name_fr": {
           "ok": true
@@ -24308,16 +24062,14 @@
       "failed_criteria": [
         "b_interpretation",
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning",
-        "k_ranks",
         "m_freshness"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -24504,7 +24256,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 19,
+          "count": 18,
           "required": 5
         },
         "d_stories": {
@@ -24518,12 +24270,7 @@
           "count": 8
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "segment : Σ share_pct=135.0 ≠ 100",
-            "geography vide"
-          ],
-          "reason": "segment : Σ share_pct=135.0 ≠ 100; geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -24563,8 +24310,7 @@
       "failed_criteria": [
         "a_hero_history",
         "b_interpretation",
-        "d_stories",
-        "f_repartition"
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance",
@@ -24572,7 +24318,7 @@
         "i_events",
         "k_ranks"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -25096,21 +24842,18 @@
       "market_cap_usd": 27517347430.4,
       "criteria": {
         "a_hero_history": {
-          "ok": true,
-          "len": 5,
-          "period": "annual",
-          "required": 5
+          "ok": false,
+          "reason": "hero_kpi introuvable dans kpis[]",
+          "fatal": true
         },
         "b_interpretation": {
           "ok": false,
-          "sub_blocks": 3,
-          "has_driver": true,
-          "has_vigilance": false,
-          "reason": "sous-blocs interp = 3/4 (driver=true, vigilance=false)"
+          "sub_blocks": 0,
+          "reason": "hero manquant"
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 15,
+          "count": 8,
           "required": 5
         },
         "d_stories": {
@@ -25170,15 +24913,16 @@
           "ok": true
         },
         "l_hero_name_fr": {
-          "ok": true
+          "ok": false,
+          "reason": "hero introuvable"
         },
         "m_freshness": {
           "ok": false,
-          "months_ago": 14,
-          "reason": "last_data_date 14 mois"
+          "reason": "last_data_date absent"
         }
       },
       "failed_criteria": [
+        "a_hero_history",
         "b_interpretation",
         "d_stories",
         "e_risks",
@@ -25186,9 +24930,10 @@
       ],
       "failed_extensions": [
         "g_governance",
+        "l_hero_name_fr",
         "m_freshness"
       ],
-      "failed_count": 4,
+      "failed_count": 5,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -25325,9 +25070,10 @@
         "f_repartition": {
           "ok": false,
           "issues": [
+            "geography.slices[2] sans value",
             "geography : Σ share_pct=53.0 ≠ 100"
           ],
-          "reason": "geography : Σ share_pct=53.0 ≠ 100"
+          "reason": "geography.slices[2] sans value; geography : Σ share_pct=53.0 ≠ 100"
         }
       },
       "extensions": {
@@ -25414,10 +25160,9 @@
         "f_repartition": {
           "ok": false,
           "issues": [
-            "segment vide",
-            "geography vide"
+            "segment vide"
           ],
-          "reason": "segment vide; geography vide"
+          "reason": "segment vide"
         }
       },
       "extensions": {
@@ -25444,8 +25189,7 @@
           "len": 1200
         },
         "k_ranks": {
-          "ok": false,
-          "reason": "ranks remplis 1/4"
+          "ok": true
         },
         "l_hero_name_fr": {
           "ok": true
@@ -25463,7 +25207,6 @@
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning",
-        "k_ranks",
         "m_freshness"
       ],
       "failed_count": 3,
@@ -25795,8 +25538,7 @@
           "len": 1200
         },
         "k_ranks": {
-          "ok": false,
-          "reason": "ranks remplis 1/4"
+          "ok": true
         },
         "l_hero_name_fr": {
           "ok": true
@@ -25812,7 +25554,6 @@
       ],
       "failed_extensions": [
         "h_ai_positioning",
-        "k_ranks",
         "m_freshness"
       ],
       "failed_count": 2,
@@ -25891,8 +25632,7 @@
           "len": 1120
         },
         "k_ranks": {
-          "ok": false,
-          "reason": "ranks remplis 1/4"
+          "ok": true
         },
         "l_hero_name_fr": {
           "ok": true
@@ -25911,7 +25651,6 @@
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning",
-        "k_ranks",
         "m_freshness"
       ],
       "failed_count": 4,
@@ -26364,7 +26103,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 11,
+          "count": 10,
           "required": 5
         },
         "d_stories": {
@@ -27234,11 +26973,7 @@
           "count": 6
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -27276,15 +27011,14 @@
       "failed_criteria": [
         "a_hero_history",
         "b_interpretation",
-        "d_stories",
-        "f_repartition"
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning",
         "i_events"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -27479,21 +27213,18 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": true,
-          "len": 5,
-          "period": "year",
-          "required": 5
+          "ok": false,
+          "reason": "hero_kpi introuvable dans kpis[]",
+          "fatal": true
         },
         "b_interpretation": {
           "ok": false,
-          "sub_blocks": 3,
-          "has_driver": true,
-          "has_vigilance": false,
-          "reason": "sous-blocs interp = 3/4 (driver=true, vigilance=false)"
+          "sub_blocks": 0,
+          "reason": "hero manquant"
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 14,
+          "count": 10,
           "required": 5
         },
         "d_stories": {
@@ -27521,10 +27252,9 @@
         "f_repartition": {
           "ok": false,
           "issues": [
-            "segment vide",
-            "geography vide"
+            "segment vide"
           ],
-          "reason": "segment vide; geography vide"
+          "reason": "segment vide"
         }
       },
       "extensions": {
@@ -27547,23 +27277,27 @@
           "ok": true
         },
         "l_hero_name_fr": {
-          "ok": true
+          "ok": false,
+          "reason": "hero introuvable"
         },
         "m_freshness": {
-          "ok": true,
-          "months_ago": 5
+          "ok": false,
+          "reason": "last_data_date absent"
         }
       },
       "failed_criteria": [
+        "a_hero_history",
         "b_interpretation",
         "d_stories",
         "e_risks",
         "f_repartition"
       ],
       "failed_extensions": [
-        "h_ai_positioning"
+        "h_ai_positioning",
+        "l_hero_name_fr",
+        "m_freshness"
       ],
-      "failed_count": 4,
+      "failed_count": 5,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -27587,7 +27321,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 20,
+          "count": 30,
           "required": 8
         },
         "d_stories": {
@@ -27627,8 +27361,7 @@
           "ok": true
         },
         "l_hero_name_fr": {
-          "ok": false,
-          "reason": "hero name_fr manquant ou = short"
+          "ok": true
         },
         "m_freshness": {
           "ok": false,
@@ -27641,7 +27374,6 @@
       ],
       "failed_extensions": [
         "g_governance",
-        "l_hero_name_fr",
         "m_freshness"
       ],
       "failed_count": 2,
@@ -28061,8 +27793,7 @@
           "len": 1200
         },
         "k_ranks": {
-          "ok": false,
-          "reason": "ranks remplis 1/4"
+          "ok": true
         },
         "l_hero_name_fr": {
           "ok": true
@@ -28080,8 +27811,7 @@
       ],
       "failed_extensions": [
         "g_governance",
-        "h_ai_positioning",
-        "k_ranks"
+        "h_ai_positioning"
       ],
       "failed_count": 4,
       "is_clean_af": false,
@@ -28196,10 +27926,9 @@
         "f_repartition": {
           "ok": false,
           "issues": [
-            "segment.slices[6].value=0 Mds $ ne rescale pas en [1,999]",
-            "geography vide"
+            "segment.slices[6].value=0 Mds $ ne rescale pas en [1,999]"
           ],
-          "reason": "segment.slices[6].value=0 Mds $ ne rescale pas en [1,999]; geography vide"
+          "reason": "segment.slices[6].value=0 Mds $ ne rescale pas en [1,999]"
         }
       },
       "extensions": {
@@ -28221,8 +27950,7 @@
           "len": 966
         },
         "k_ranks": {
-          "ok": false,
-          "reason": "ranks remplis 1/4"
+          "ok": true
         },
         "l_hero_name_fr": {
           "ok": true
@@ -28240,7 +27968,6 @@
         "g_governance",
         "h_ai_positioning",
         "i_events",
-        "k_ranks",
         "m_freshness"
       ],
       "failed_count": 2,
@@ -28478,12 +28205,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score; risk[4] sans score; risk[5] sans score; risk[6] sans score; risk[7] sans score; risk[8] sans score; risk[9] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "segment : Σ share_pct=300.0 ≠ 100",
-            "geography sans unit"
-          ],
-          "reason": "segment : Σ share_pct=300.0 ≠ 100; geography sans unit"
+          "ok": true
         }
       },
       "extensions": {
@@ -28521,14 +28243,13 @@
         "a_hero_history",
         "b_interpretation",
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning"
       ],
-      "failed_count": 5,
+      "failed_count": 4,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -28720,7 +28441,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 19,
+          "count": 31,
           "required": 8
         },
         "d_stories": {
@@ -28801,7 +28522,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 17,
+          "count": 29,
           "required": 5
         },
         "d_stories": {
@@ -28896,11 +28617,7 @@
           "count": 4
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -28938,14 +28655,13 @@
       "failed_criteria": [
         "a_hero_history",
         "b_interpretation",
-        "d_stories",
-        "f_repartition"
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -29073,7 +28789,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 11,
+          "count": 22,
           "required": 5
         },
         "d_stories": {
@@ -29492,7 +29208,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 15,
+          "count": 27,
           "required": 5
         },
         "d_stories": {
@@ -29592,11 +29308,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score; risk[4] sans score; risk[5] sans score; risk[6] sans score; risk[7] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -29638,8 +29350,7 @@
       "failed_criteria": [
         "b_interpretation",
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "g_governance",
@@ -29647,7 +29358,7 @@
         "i_events",
         "m_freshness"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -29838,7 +29549,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 15,
+          "count": 14,
           "required": 5
         },
         "d_stories": {
@@ -29912,14 +29623,14 @@
         },
         "b_interpretation": {
           "ok": false,
-          "sub_blocks": 3,
-          "has_driver": true,
+          "sub_blocks": 2,
+          "has_driver": false,
           "has_vigilance": false,
-          "reason": "sous-blocs interp = 3/4 (driver=true, vigilance=false)"
+          "reason": "sous-blocs interp = 2/4 (driver=false, vigilance=false)"
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 15,
+          "count": 12,
           "required": 5
         },
         "d_stories": {
@@ -30713,11 +30424,7 @@
           "count": 7
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography sans unit"
-          ],
-          "reason": "geography sans unit"
+          "ok": true
         }
       },
       "extensions": {
@@ -30753,14 +30460,13 @@
       },
       "failed_criteria": [
         "a_hero_history",
-        "d_stories",
-        "f_repartition"
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance",
         "l_hero_name_fr"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -30784,7 +30490,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 19,
+          "count": 17,
           "required": 5
         },
         "d_stories": {
@@ -31034,11 +30740,7 @@
           "count": 5
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "segment : Σ share_pct=111.2 ≠ 100"
-          ],
-          "reason": "segment : Σ share_pct=111.2 ≠ 100"
+          "ok": true
         }
       },
       "extensions": {
@@ -31074,14 +30776,13 @@
         }
       },
       "failed_criteria": [
-        "d_stories",
-        "f_repartition"
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance",
         "m_freshness"
       ],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -31185,22 +30886,17 @@
       "criteria": {
         "a_hero_history": {
           "ok": false,
-          "len": 5,
-          "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (5 < 18)"
+          "reason": "hero_kpi introuvable dans kpis[]",
+          "fatal": true
         },
         "b_interpretation": {
           "ok": false,
-          "sub_blocks": 3,
-          "has_driver": true,
-          "has_vigilance": false,
-          "reason": "sous-blocs interp = 3/4 (driver=true, vigilance=false)"
+          "sub_blocks": 0,
+          "reason": "hero manquant"
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 19,
+          "count": 17,
           "required": 8
         },
         "d_stories": {
@@ -31241,11 +30937,12 @@
           "ok": true
         },
         "l_hero_name_fr": {
-          "ok": true
+          "ok": false,
+          "reason": "hero introuvable"
         },
         "m_freshness": {
-          "ok": true,
-          "months_ago": 2
+          "ok": false,
+          "reason": "last_data_date absent"
         }
       },
       "failed_criteria": [
@@ -31255,7 +30952,9 @@
         "f_repartition"
       ],
       "failed_extensions": [
-        "g_governance"
+        "g_governance",
+        "l_hero_name_fr",
+        "m_freshness"
       ],
       "failed_count": 4,
       "is_clean_af": false,
@@ -31836,10 +31535,9 @@
         "f_repartition": {
           "ok": false,
           "issues": [
-            "segment.slices[3] sans value",
-            "segment : Σ share_pct=147.7 ≠ 100"
+            "segment.slices[3] sans value"
           ],
-          "reason": "segment.slices[3] sans value; segment : Σ share_pct=147.7 ≠ 100"
+          "reason": "segment.slices[3] sans value"
         }
       },
       "extensions": {
@@ -32177,11 +31875,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score; risk[4] sans score; risk[5] sans score; risk[6] sans score; risk[7] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -32217,15 +31911,14 @@
       },
       "failed_criteria": [
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "g_governance",
         "l_hero_name_fr",
         "m_freshness"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -32274,11 +31967,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score; risk[4] sans score; risk[5] sans score; risk[6] sans score; risk[7] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "segment sans unit"
-          ],
-          "reason": "segment sans unit"
+          "ok": true
         }
       },
       "extensions": {
@@ -32320,15 +32009,14 @@
       "failed_criteria": [
         "b_interpretation",
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning",
         "k_ranks"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -32352,7 +32040,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 20,
+          "count": 31,
           "required": 8
         },
         "d_stories": {
@@ -32430,7 +32118,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 17,
+          "count": 29,
           "required": 5
         },
         "d_stories": {
@@ -32702,7 +32390,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 19,
+          "count": 18,
           "required": 5
         },
         "d_stories": {
@@ -32888,7 +32576,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 17,
+          "count": 27,
           "required": 8
         },
         "d_stories": {
@@ -32902,11 +32590,7 @@
           "count": 5
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -32939,13 +32623,12 @@
       "failed_criteria": [
         "a_hero_history",
         "b_interpretation",
-        "d_stories",
-        "f_repartition"
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -33444,11 +33127,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score; risk[4] sans score; risk[5] sans score; risk[6] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -33487,14 +33166,13 @@
         "a_hero_history",
         "b_interpretation",
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning"
       ],
-      "failed_count": 5,
+      "failed_count": 4,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -33775,7 +33453,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 18,
+          "count": 9,
           "required": 5
         },
         "d_stories": {
@@ -34121,7 +33799,7 @@
     },
     {
       "ticker": "NOVO-B.CO",
-      "source": "src/data/v2-pipeline/NOVO-B.CO.json+src/data/v2-pipeline/novo-b.co.json+src/data/v2-pipeline-enrich/NOVO-B.CO.json+src/data/v2-pipeline-enrich/novo-b.co.json",
+      "source": "src/data/v1-9-complete/NOVO-B.CO.json+src/data/v2-pipeline/NOVO-B.CO.json+src/data/v2-pipeline/novo-b.co.json+src/data/v2-pipeline-enrich/NOVO-B.CO.json+src/data/v2-pipeline-enrich/novo-b.co.json",
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
@@ -34180,7 +33858,7 @@
         },
         "h_ai_positioning": {
           "ok": false,
-          "reason": "stance manquant"
+          "reason": "evidence 0 < 3"
         },
         "i_events": {
           "ok": true,
@@ -34191,15 +33869,14 @@
           "len": 922
         },
         "k_ranks": {
-          "ok": false,
-          "reason": "ranks remplis 0/4"
+          "ok": true
         },
         "l_hero_name_fr": {
           "ok": true
         },
         "m_freshness": {
-          "ok": true,
-          "months_ago": 5
+          "ok": false,
+          "reason": "last_data_date absent"
         }
       },
       "failed_criteria": [
@@ -34210,7 +33887,7 @@
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning",
-        "k_ranks"
+        "m_freshness"
       ],
       "failed_count": 3,
       "is_clean_af": false,
@@ -34342,10 +34019,10 @@
           "ok": false,
           "issues": [
             "segment.slices[2].value=0 Mds $ ne rescale pas en [1,999]",
-            "segment : Σ share_pct=117.4 ≠ 100",
+            "geography.slices[2] sans value",
             "geography : Σ share_pct=39.2 ≠ 100"
           ],
-          "reason": "segment.slices[2].value=0 Mds $ ne rescale pas en [1,999]; segment : Σ share_pct=117.4 ≠ 100; geography : Σ share_pct=39.2 ≠ 100"
+          "reason": "segment.slices[2].value=0 Mds $ ne rescale pas en [1,999]; geography.slices[2] sans value; geography : Σ share_pct=39.2 ≠ 100"
         }
       },
       "extensions": {
@@ -34429,11 +34106,7 @@
           "count": 7
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -34472,15 +34145,14 @@
       "failed_criteria": [
         "a_hero_history",
         "b_interpretation",
-        "d_stories",
-        "f_repartition"
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning",
         "m_freshness"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -34504,7 +34176,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 9,
+          "count": 8,
           "required": 5
         },
         "d_stories": {
@@ -34518,11 +34190,7 @@
           "count": 7
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography sans unit"
-          ],
-          "reason": "geography sans unit"
+          "ok": true
         }
       },
       "extensions": {
@@ -34548,8 +34216,7 @@
           "len": 1200
         },
         "k_ranks": {
-          "ok": false,
-          "reason": "ranks remplis 1/4"
+          "ok": true
         },
         "l_hero_name_fr": {
           "ok": true
@@ -34561,16 +34228,14 @@
       },
       "failed_criteria": [
         "b_interpretation",
-        "d_stories",
-        "f_repartition"
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance",
         "i_events",
-        "k_ranks",
         "m_freshness"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -35403,10 +35068,9 @@
         "f_repartition": {
           "ok": false,
           "issues": [
-            "segment vide",
-            "geography vide"
+            "segment vide"
           ],
-          "reason": "segment vide; geography vide"
+          "reason": "segment vide"
         }
       },
       "extensions": {
@@ -35495,11 +35159,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score; risk[4] sans score; risk[5] sans score; risk[6] sans score; risk[7] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography : Σ share_pct=109.9 ≠ 100"
-          ],
-          "reason": "geography : Σ share_pct=109.9 ≠ 100"
+          "ok": true
         }
       },
       "extensions": {
@@ -35537,8 +35197,7 @@
       "failed_criteria": [
         "b_interpretation",
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "g_governance",
@@ -35546,7 +35205,7 @@
         "k_ranks",
         "m_freshness"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -35738,7 +35397,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 21,
+          "count": 20,
           "required": 8
         },
         "d_stories": {
@@ -35914,7 +35573,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 17,
+          "count": 14,
           "required": 5
         },
         "d_stories": {
@@ -36006,7 +35665,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 15,
+          "count": 13,
           "required": 5
         },
         "d_stories": {
@@ -36095,11 +35754,7 @@
           "count": 6
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography sans unit"
-          ],
-          "reason": "geography sans unit"
+          "ok": true
         }
       },
       "extensions": {
@@ -36135,15 +35790,14 @@
       },
       "failed_criteria": [
         "b_interpretation",
-        "d_stories",
-        "f_repartition"
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning",
         "m_freshness"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -36446,11 +36100,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score; risk[4] sans score; risk[5] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -36491,8 +36141,7 @@
       "failed_criteria": [
         "b_interpretation",
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "g_governance",
@@ -36501,7 +36150,7 @@
         "k_ranks",
         "m_freshness"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -36552,12 +36201,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score; risk[4] sans score; risk[5] sans score; risk[6] sans score; risk[7] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "segment : Σ share_pct=112.8 ≠ 100",
-            "geography vide"
-          ],
-          "reason": "segment : Σ share_pct=112.8 ≠ 100; geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -36597,13 +36241,12 @@
         "a_hero_history",
         "b_interpretation",
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 5,
+      "failed_count": 4,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -36627,7 +36270,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 9,
+          "count": 21,
           "required": 5
         },
         "d_stories": {
@@ -36824,10 +36467,10 @@
         "f_repartition": {
           "ok": false,
           "issues": [
-            "segment : Σ share_pct=92.9 ≠ 100",
-            "geography vide"
+            "segment.slices[4] sans value",
+            "segment : Σ share_pct=92.9 ≠ 100"
           ],
-          "reason": "segment : Σ share_pct=92.9 ≠ 100; geography vide"
+          "reason": "segment.slices[4] sans value; segment : Σ share_pct=92.9 ≠ 100"
         }
       },
       "extensions": {
@@ -37085,11 +36728,7 @@
           "count": 7
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -37121,13 +36760,12 @@
       },
       "failed_criteria": [
         "b_interpretation",
-        "d_stories",
-        "f_repartition"
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -37269,9 +36907,10 @@
           "issues": [
             "segment.slices[1] sans value",
             "segment.slices[2] sans value",
+            "segment.slices[3] sans value",
             "segment : Σ share_pct=47.3 ≠ 100"
           ],
-          "reason": "segment.slices[1] sans value; segment.slices[2] sans value; segment : Σ share_pct=47.3 ≠ 100"
+          "reason": "segment.slices[1] sans value; segment.slices[2] sans value; segment.slices[3] sans value"
         }
       },
       "extensions": {
@@ -37362,11 +37001,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score; risk[4] sans score; risk[5] sans score; risk[6] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -37398,14 +37033,13 @@
       },
       "failed_criteria": [
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "g_governance",
         "m_freshness"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -37519,7 +37153,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 13,
+          "count": 25,
           "required": 5
         },
         "d_stories": {
@@ -37625,10 +37259,9 @@
         "f_repartition": {
           "ok": false,
           "issues": [
-            "segment.slices[1].value=0 $B ne rescale pas en [1,999]",
-            "geography vide"
+            "segment.slices[1].value=0 $B ne rescale pas en [1,999]"
           ],
-          "reason": "segment.slices[1].value=0 $B ne rescale pas en [1,999]; geography vide"
+          "reason": "segment.slices[1].value=0 $B ne rescale pas en [1,999]"
         }
       },
       "extensions": {
@@ -37828,8 +37461,7 @@
           "len": 1200
         },
         "k_ranks": {
-          "ok": false,
-          "reason": "ranks remplis 1/4"
+          "ok": true
         },
         "l_hero_name_fr": {
           "ok": true
@@ -37846,8 +37478,7 @@
       ],
       "failed_extensions": [
         "g_governance",
-        "h_ai_positioning",
-        "k_ranks"
+        "h_ai_positioning"
       ],
       "failed_count": 3,
       "is_clean_af": false,
@@ -37992,11 +37623,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score; risk[4] sans score; risk[5] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography sans unit"
-          ],
-          "reason": "geography sans unit"
+          "ok": true
         }
       },
       "extensions": {
@@ -38032,14 +37659,13 @@
       "failed_criteria": [
         "b_interpretation",
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "g_governance",
         "m_freshness"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -38181,11 +37807,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score; risk[4] sans score; risk[5] sans score; risk[6] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -38222,13 +37844,12 @@
         "a_hero_history",
         "b_interpretation",
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 5,
+      "failed_count": 4,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -38973,10 +38594,9 @@
         "f_repartition": {
           "ok": false,
           "issues": [
-            "segment vide",
-            "geography vide"
+            "segment vide"
           ],
-          "reason": "segment vide; geography vide"
+          "reason": "segment vide"
         }
       },
       "extensions": {
@@ -39047,7 +38667,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 21,
+          "count": 16,
           "required": 5
         },
         "d_stories": {
@@ -39169,11 +38789,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score; risk[4] sans score; risk[5] sans score; risk[6] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -39209,15 +38825,14 @@
       },
       "failed_criteria": [
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "g_governance",
         "l_hero_name_fr",
         "m_freshness"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -39290,8 +38905,7 @@
           "len": 1200
         },
         "k_ranks": {
-          "ok": false,
-          "reason": "ranks remplis 1/4"
+          "ok": true
         },
         "l_hero_name_fr": {
           "ok": true
@@ -39309,7 +38923,6 @@
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning",
-        "k_ranks",
         "m_freshness"
       ],
       "failed_count": 3,
@@ -39524,7 +39137,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 16,
+          "count": 9,
           "required": 5
         },
         "d_stories": {
@@ -39749,10 +39362,9 @@
         "f_repartition": {
           "ok": false,
           "issues": [
-            "segment vide",
-            "geography vide"
+            "segment vide"
           ],
-          "reason": "segment vide; geography vide"
+          "reason": "segment vide"
         }
       },
       "extensions": {
@@ -41003,7 +40615,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 13,
+          "count": 9,
           "required": 5
         },
         "d_stories": {
@@ -41854,11 +41466,7 @@
           "count": 6
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -41895,8 +41503,7 @@
       },
       "failed_criteria": [
         "b_interpretation",
-        "d_stories",
-        "f_repartition"
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance",
@@ -41904,7 +41511,7 @@
         "k_ranks",
         "m_freshness"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -42116,7 +41723,12 @@
           "count": 6
         },
         "f_repartition": {
-          "ok": true
+          "ok": false,
+          "issues": [
+            "segment.slices[3] sans value",
+            "segment : Σ share_pct=90.4 ≠ 100"
+          ],
+          "reason": "segment.slices[3] sans value; segment : Σ share_pct=90.4 ≠ 100"
         }
       },
       "extensions": {
@@ -42151,13 +41763,14 @@
       },
       "failed_criteria": [
         "b_interpretation",
-        "d_stories"
+        "d_stories",
+        "f_repartition"
       ],
       "failed_extensions": [
         "g_governance",
         "m_freshness"
       ],
-      "failed_count": 2,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -42306,11 +41919,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score; risk[4] sans score; risk[5] sans score; risk[6] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -42346,14 +41955,13 @@
       "failed_criteria": [
         "b_interpretation",
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "g_governance",
         "m_freshness"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -42664,10 +42272,9 @@
         "f_repartition": {
           "ok": false,
           "issues": [
-            "segment sans unit",
             "geography.slices[3].value=0 $B ne rescale pas en [1,999]"
           ],
-          "reason": "segment sans unit; geography.slices[3].value=0 $B ne rescale pas en [1,999]"
+          "reason": "geography.slices[3].value=0 $B ne rescale pas en [1,999]"
         }
       },
       "extensions": {
@@ -42954,9 +42561,10 @@
         "f_repartition": {
           "ok": false,
           "issues": [
+            "segment.slices[2] sans value",
             "segment : Σ share_pct=15.8 ≠ 100"
           ],
-          "reason": "segment : Σ share_pct=15.8 ≠ 100"
+          "reason": "segment.slices[2] sans value; segment : Σ share_pct=15.8 ≠ 100"
         }
       },
       "extensions": {
@@ -43377,11 +42985,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography sans unit"
-          ],
-          "reason": "geography sans unit"
+          "ok": true
         }
       },
       "extensions": {
@@ -43418,14 +43022,13 @@
       "failed_criteria": [
         "b_interpretation",
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -43822,8 +43425,7 @@
           "issues": [
             "segment.slices[0] sans value",
             "segment.slices[1] sans value",
-            "segment.slices[2] sans value",
-            "geography vide"
+            "segment.slices[2] sans value"
           ],
           "reason": "segment.slices[0] sans value; segment.slices[1] sans value; segment.slices[2] sans value"
         }
@@ -44148,7 +43750,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 21,
+          "count": 32,
           "required": 8
         },
         "d_stories": {
@@ -44313,10 +43915,9 @@
         "f_repartition": {
           "ok": false,
           "issues": [
-            "segment vide",
-            "geography vide"
+            "segment vide"
           ],
-          "reason": "segment vide; geography vide"
+          "reason": "segment vide"
         }
       },
       "extensions": {
@@ -44864,7 +44465,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 15,
+          "count": 23,
           "required": 5
         },
         "d_stories": {
@@ -45131,10 +44732,9 @@
         "f_repartition": {
           "ok": false,
           "issues": [
-            "segment vide",
-            "geography vide"
+            "segment vide"
           ],
-          "reason": "segment vide; geography vide"
+          "reason": "segment vide"
         }
       },
       "extensions": {
@@ -45217,11 +44817,7 @@
           "count": 7
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -45258,13 +44854,12 @@
       },
       "failed_criteria": [
         "a_hero_history",
-        "d_stories",
-        "f_repartition"
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -45471,22 +45066,17 @@
       "criteria": {
         "a_hero_history": {
           "ok": false,
-          "len": 5,
-          "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (5 < 18)"
+          "reason": "hero_kpi introuvable dans kpis[]",
+          "fatal": true
         },
         "b_interpretation": {
           "ok": false,
-          "sub_blocks": 3,
-          "has_driver": true,
-          "has_vigilance": false,
-          "reason": "sous-blocs interp = 3/4 (driver=true, vigilance=false)"
+          "sub_blocks": 0,
+          "reason": "hero manquant"
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 13,
+          "count": 8,
           "required": 5
         },
         "d_stories": {
@@ -45544,11 +45134,12 @@
           "ok": true
         },
         "l_hero_name_fr": {
-          "ok": true
+          "ok": false,
+          "reason": "hero introuvable"
         },
         "m_freshness": {
-          "ok": true,
-          "months_ago": 2
+          "ok": false,
+          "reason": "last_data_date absent"
         }
       },
       "failed_criteria": [
@@ -45559,7 +45150,9 @@
         "f_repartition"
       ],
       "failed_extensions": [
-        "g_governance"
+        "g_governance",
+        "l_hero_name_fr",
+        "m_freshness"
       ],
       "failed_count": 5,
       "is_clean_af": false,
@@ -45571,12 +45164,10 @@
       "market_cap_usd": 83657613312,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
-          "len": 9,
-          "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (9 < 18)"
+          "ok": true,
+          "len": 5,
+          "period": "year",
+          "required": 5
         },
         "b_interpretation": {
           "ok": true,
@@ -45584,7 +45175,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 14,
+          "count": 13,
           "required": 5
         },
         "d_stories": {
@@ -45625,17 +45216,16 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 2
+          "months_ago": 5
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -45763,8 +45353,7 @@
             "segment.slices[1] sans value",
             "segment.slices[2] sans value",
             "segment.slices[3] sans value",
-            "segment.slices[4] sans value",
-            "geography vide"
+            "segment.slices[4] sans value"
           ],
           "reason": "segment.slices[0] sans value; segment.slices[1] sans value; segment.slices[2] sans value"
         }
@@ -45910,22 +45499,17 @@
       "criteria": {
         "a_hero_history": {
           "ok": false,
-          "len": 11,
-          "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (11 < 18)"
+          "reason": "hero_kpi introuvable dans kpis[]",
+          "fatal": true
         },
         "b_interpretation": {
           "ok": false,
-          "sub_blocks": 3,
-          "has_driver": true,
-          "has_vigilance": false,
-          "reason": "sous-blocs interp = 3/4 (driver=true, vigilance=false)"
+          "sub_blocks": 0,
+          "reason": "hero manquant"
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 9,
+          "count": 8,
           "required": 5
         },
         "d_stories": {
@@ -45965,11 +45549,12 @@
           "ok": true
         },
         "l_hero_name_fr": {
-          "ok": true
+          "ok": false,
+          "reason": "hero introuvable"
         },
         "m_freshness": {
-          "ok": true,
-          "months_ago": 2
+          "ok": false,
+          "reason": "last_data_date absent"
         }
       },
       "failed_criteria": [
@@ -45978,7 +45563,9 @@
         "d_stories"
       ],
       "failed_extensions": [
-        "g_governance"
+        "g_governance",
+        "l_hero_name_fr",
+        "m_freshness"
       ],
       "failed_count": 3,
       "is_clean_af": false,
@@ -46006,7 +45593,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 22,
+          "count": 21,
           "required": 5
         },
         "d_stories": {
@@ -46022,10 +45609,9 @@
         "f_repartition": {
           "ok": false,
           "issues": [
-            "segment vide",
-            "geography vide"
+            "segment vide"
           ],
-          "reason": "segment vide; geography vide"
+          "reason": "segment vide"
         }
       },
       "extensions": {
@@ -46221,8 +45807,7 @@
           "len": 1200
         },
         "k_ranks": {
-          "ok": false,
-          "reason": "ranks remplis 1/4"
+          "ok": true
         },
         "l_hero_name_fr": {
           "ok": true
@@ -46240,7 +45825,6 @@
         "g_governance",
         "h_ai_positioning",
         "i_events",
-        "k_ranks",
         "m_freshness"
       ],
       "failed_count": 2,
@@ -46267,7 +45851,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 16,
+          "count": 14,
           "required": 5
         },
         "d_stories": {
@@ -46534,22 +46118,17 @@
       "criteria": {
         "a_hero_history": {
           "ok": false,
-          "len": 6,
-          "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (6 < 18)"
+          "reason": "hero_kpi introuvable dans kpis[]",
+          "fatal": true
         },
         "b_interpretation": {
           "ok": false,
-          "sub_blocks": 3,
-          "has_driver": true,
-          "has_vigilance": false,
-          "reason": "sous-blocs interp = 3/4 (driver=true, vigilance=false)"
+          "sub_blocks": 0,
+          "reason": "hero manquant"
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 16,
+          "count": 15,
           "required": 5
         },
         "d_stories": {
@@ -46595,15 +46174,15 @@
           "len": 1200
         },
         "k_ranks": {
-          "ok": false,
-          "reason": "ranks remplis 1/4"
-        },
-        "l_hero_name_fr": {
           "ok": true
         },
+        "l_hero_name_fr": {
+          "ok": false,
+          "reason": "hero introuvable"
+        },
         "m_freshness": {
-          "ok": true,
-          "months_ago": 2
+          "ok": false,
+          "reason": "last_data_date absent"
         }
       },
       "failed_criteria": [
@@ -46616,7 +46195,8 @@
         "g_governance",
         "h_ai_positioning",
         "i_events",
-        "k_ranks"
+        "l_hero_name_fr",
+        "m_freshness"
       ],
       "failed_count": 4,
       "is_clean_af": false,
@@ -46691,8 +46271,7 @@
           "len": 1011
         },
         "k_ranks": {
-          "ok": false,
-          "reason": "ranks remplis 1/4"
+          "ok": true
         },
         "l_hero_name_fr": {
           "ok": true
@@ -46710,7 +46289,6 @@
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning",
-        "k_ranks",
         "m_freshness"
       ],
       "failed_count": 3,
@@ -46724,22 +46302,17 @@
       "criteria": {
         "a_hero_history": {
           "ok": false,
-          "len": 4,
-          "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (4 < 18)"
+          "reason": "hero_kpi introuvable dans kpis[]",
+          "fatal": true
         },
         "b_interpretation": {
           "ok": false,
-          "sub_blocks": 2,
-          "has_driver": false,
-          "has_vigilance": false,
-          "reason": "sous-blocs interp = 2/4 (driver=false, vigilance=false)"
+          "sub_blocks": 0,
+          "reason": "hero manquant"
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 16,
+          "count": 14,
           "required": 5
         },
         "d_stories": {
@@ -46764,9 +46337,10 @@
         "f_repartition": {
           "ok": false,
           "issues": [
+            "geography.slices[3] sans value",
             "geography : Σ share_pct=50.6 ≠ 100"
           ],
-          "reason": "geography : Σ share_pct=50.6 ≠ 100"
+          "reason": "geography.slices[3] sans value; geography : Σ share_pct=50.6 ≠ 100"
         }
       },
       "extensions": {
@@ -46796,11 +46370,12 @@
           "reason": "ranks remplis 1/4"
         },
         "l_hero_name_fr": {
-          "ok": true
+          "ok": false,
+          "reason": "hero introuvable"
         },
         "m_freshness": {
-          "ok": true,
-          "months_ago": 5
+          "ok": false,
+          "reason": "last_data_date absent"
         }
       },
       "failed_criteria": [
@@ -46813,7 +46388,9 @@
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning",
-        "k_ranks"
+        "k_ranks",
+        "l_hero_name_fr",
+        "m_freshness"
       ],
       "failed_count": 5,
       "is_clean_af": false,
@@ -46936,7 +46513,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 14,
+          "count": 22,
           "required": 8
         },
         "d_stories": {
@@ -46952,9 +46529,10 @@
         "f_repartition": {
           "ok": false,
           "issues": [
-            "geography vide"
+            "segment.slices[2] sans value",
+            "segment : Σ share_pct=93.0 ≠ 100"
           ],
-          "reason": "geography vide"
+          "reason": "segment.slices[2] sans value; segment : Σ share_pct=93.0 ≠ 100"
         }
       },
       "extensions": {
@@ -47155,8 +46733,7 @@
           "len": 1200
         },
         "k_ranks": {
-          "ok": false,
-          "reason": "ranks remplis 1/4"
+          "ok": true
         },
         "l_hero_name_fr": {
           "ok": true
@@ -47172,8 +46749,7 @@
       ],
       "failed_extensions": [
         "g_governance",
-        "h_ai_positioning",
-        "k_ranks"
+        "h_ai_positioning"
       ],
       "failed_count": 2,
       "is_clean_af": false,
@@ -47288,7 +46864,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 13,
+          "count": 22,
           "required": 5
         },
         "d_stories": {
@@ -47337,8 +46913,7 @@
           "len": 764
         },
         "k_ranks": {
-          "ok": false,
-          "reason": "ranks remplis 1/4"
+          "ok": true
         },
         "l_hero_name_fr": {
           "ok": true
@@ -47356,7 +46931,6 @@
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning",
-        "k_ranks",
         "m_freshness"
       ],
       "failed_count": 3,
@@ -47407,11 +46981,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score; risk[4] sans score; risk[5] sans score; risk[6] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -47450,15 +47020,14 @@
       "failed_criteria": [
         "b_interpretation",
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning",
         "m_freshness"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -47752,7 +47321,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 16,
+          "count": 28,
           "required": 5
         },
         "d_stories": {
@@ -48148,22 +47717,17 @@
       "criteria": {
         "a_hero_history": {
           "ok": false,
-          "len": 5,
-          "period": "quarter",
-          "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (5 < 18)"
+          "reason": "hero_kpi introuvable dans kpis[]",
+          "fatal": true
         },
         "b_interpretation": {
           "ok": false,
-          "sub_blocks": 2,
-          "has_driver": false,
-          "has_vigilance": false,
-          "reason": "sous-blocs interp = 2/4 (driver=false, vigilance=false)"
+          "sub_blocks": 0,
+          "reason": "hero manquant"
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 14,
+          "count": 9,
           "required": 5
         },
         "d_stories": {
@@ -48201,15 +47765,15 @@
           "len": 1084
         },
         "k_ranks": {
-          "ok": false,
-          "reason": "ranks remplis 1/4"
-        },
-        "l_hero_name_fr": {
           "ok": true
         },
+        "l_hero_name_fr": {
+          "ok": false,
+          "reason": "hero introuvable"
+        },
         "m_freshness": {
-          "ok": true,
-          "months_ago": 2
+          "ok": false,
+          "reason": "last_data_date absent"
         }
       },
       "failed_criteria": [
@@ -48220,7 +47784,8 @@
       "failed_extensions": [
         "g_governance",
         "h_ai_positioning",
-        "k_ranks"
+        "l_hero_name_fr",
+        "m_freshness"
       ],
       "failed_count": 3,
       "is_clean_af": false,
@@ -48366,11 +47931,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score; risk[4] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography vide"
-          ],
-          "reason": "geography vide"
+          "ok": true
         }
       },
       "extensions": {
@@ -48407,13 +47968,12 @@
         "a_hero_history",
         "b_interpretation",
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 5,
+      "failed_count": 4,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -48550,11 +48110,7 @@
           "reason": "risk[0] sans score; risk[1] sans score; risk[2] sans score; risk[3] sans score; risk[4] sans score; risk[5] sans score"
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "segment : Σ share_pct=126.7 ≠ 100"
-          ],
-          "reason": "segment : Σ share_pct=126.7 ≠ 100"
+          "ok": true
         }
       },
       "extensions": {
@@ -48592,8 +48148,7 @@
       "failed_criteria": [
         "b_interpretation",
         "d_stories",
-        "e_risks",
-        "f_repartition"
+        "e_risks"
       ],
       "failed_extensions": [
         "g_governance",
@@ -48601,7 +48156,7 @@
         "k_ranks",
         "m_freshness"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -48716,7 +48271,7 @@
         },
         "c_kpi_count": {
           "ok": true,
-          "count": 13,
+          "count": 12,
           "required": 5
         },
         "d_stories": {
@@ -48861,8 +48416,7 @@
           "len": 1200
         },
         "k_ranks": {
-          "ok": false,
-          "reason": "ranks remplis 1/4"
+          "ok": true
         },
         "l_hero_name_fr": {
           "ok": true
@@ -48881,7 +48435,6 @@
         "g_governance",
         "h_ai_positioning",
         "i_events",
-        "k_ranks",
         "m_freshness"
       ],
       "failed_count": 3,
@@ -49011,11 +48564,7 @@
           "count": 7
         },
         "f_repartition": {
-          "ok": false,
-          "issues": [
-            "geography sans unit"
-          ],
-          "reason": "geography sans unit"
+          "ok": true
         }
       },
       "extensions": {
@@ -49047,14 +48596,13 @@
       },
       "failed_criteria": [
         "b_interpretation",
-        "d_stories",
-        "f_repartition"
+        "d_stories"
       ],
       "failed_extensions": [
         "g_governance",
         "m_freshness"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
