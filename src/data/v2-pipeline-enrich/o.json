@@ -166,57 +166,194 @@
   },
   "_repartition_backfill_at": "2026-05-21T10:56:42Z",
   "_repartition_backfill_source": "cerebras_paid_k2",
+  "_hero_segment_extracted_at": "2026-05-21T11:16:35.269361+00:00",
+  "_hero_segment_extracted_by": "sub-agent-123-cerebras-paid",
   "overrides_hero_kpi": {
-    "label": "Retail Revenue",
-    "label_en": "Retail",
-    "label_fr": "...",
-    "value": 4325.67,
-    "unit": "M $",
+    "label": "Revenue",
+    "label_fr": "Chiffre d'affaires",
+    "label_en": "Revenue",
+    "value": 5.7494,
+    "value_raw": 5749377000,
+    "unit": "Mds $",
     "year": 2025,
     "periodicity": "annual",
     "history": [
+      0.345,
+      0.4211,
+      1.3278,
+      1.4916,
+      1.6516,
+      2.0805,
+      3.3437,
+      4.079,
+      5.2711,
+      5.7494
+    ],
+    "period_labels": [
+      "FY10",
+      "FY11",
+      "FY18",
+      "FY19",
+      "FY20",
+      "FY21",
+      "FY22",
+      "FY23",
+      "FY24",
+      "FY25"
+    ],
+    "last_data_date": "2025-12-31",
+    "history_detailed": [
+      {
+        "year": 2010,
+        "value": 0.345,
+        "value_raw": 345009000,
+        "unit": "Mds $",
+        "period_end": "2010-12-31",
+        "form": "10-K",
+        "accession_number": "0000726728-11-000013",
+        "concept": "Revenues"
+      },
+      {
+        "year": 2011,
+        "value": 0.4211,
+        "value_raw": 421059000,
+        "unit": "Mds $",
+        "period_end": "2011-12-31",
+        "form": "10-K",
+        "accession_number": "0001140361-12-007480",
+        "concept": "Revenues"
+      },
+      {
+        "year": 2018,
+        "value": 1.3278,
+        "value_raw": 1327838000,
+        "unit": "Mds $",
+        "period_end": "2018-12-31",
+        "form": "10-K/A",
+        "accession_number": "0000726728-19-000041",
+        "concept": "RevenueFromContractWithCustomerExcludingAssessedTax"
+      },
+      {
+        "year": 2019,
+        "value": 1.4916,
+        "value_raw": 1491591000,
+        "unit": "Mds $",
+        "period_end": "2019-12-31",
+        "form": "10-K",
+        "accession_number": "0000726728-20-000033",
+        "concept": "Revenues"
+      },
+      {
+        "year": 2020,
+        "value": 1.6516,
+        "value_raw": 1651625000,
+        "unit": "Mds $",
+        "period_end": "2020-12-31",
+        "form": "10-K",
+        "accession_number": "0000726728-21-000043",
+        "concept": "Revenues"
+      },
+      {
+        "year": 2021,
+        "value": 2.0805,
+        "value_raw": 2080463000,
+        "unit": "Mds $",
+        "period_end": "2021-12-31",
+        "form": "10-K",
+        "accession_number": "0000726728-22-000046",
+        "concept": "Revenues"
+      },
+      {
+        "year": 2022,
+        "value": 3.3437,
+        "value_raw": 3343681000,
+        "unit": "Mds $",
+        "period_end": "2022-12-31",
+        "form": "10-K",
+        "accession_number": "0000726728-23-000044",
+        "concept": "Revenues"
+      },
       {
         "year": 2023,
-        "value": 3193.58,
-        "unit": "M $"
+        "value": 4.079,
+        "value_raw": 4078993000,
+        "unit": "Mds $",
+        "period_end": "2023-12-31",
+        "form": "10-K",
+        "accession_number": "0000726728-24-000047",
+        "concept": "Revenues"
       },
       {
         "year": 2024,
-        "value": 4009.917,
-        "unit": "M $"
+        "value": 5.2711,
+        "value_raw": 5271142000,
+        "unit": "Mds $",
+        "period_end": "2024-12-31",
+        "form": "10-K",
+        "accession_number": "0000726728-25-000055",
+        "concept": "Revenues"
       },
       {
         "year": 2025,
-        "value": 4325.67,
-        "unit": "M $"
+        "value": 5.7494,
+        "value_raw": 5749377000,
+        "unit": "Mds $",
+        "period_end": "2025-12-31",
+        "form": "10-K",
+        "accession_number": "0000726728-26-000011",
+        "concept": "Revenues"
       }
     ],
     "source": {
-      "type": "10K_local_cerebras",
-      "file": "sec-data/cat1-us/10K/2026/O_2026-02-25.htm.gz",
-      "section": "Item 7 MD&A"
+      "type": "xbrl_companyfacts_pivot_154",
+      "concept": "Revenues+RevenueFromContractWithCustomerExcludingAssessedTax",
+      "accession_number": "0000726728-26-000011",
+      "form": "10-K",
+      "currency": "USD",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/"
     },
-    "rationale_segment_specific": "Retail Revenue is explicitly broken out in the geographic revenue disaggregation table within the MD&A, with values provided for 2023, 2024, and 2025 in thousands, which were converted to millions for consistency."
+    "rationale_pivot": "Original hero KPI trop spécifique (segment / produit / metric niche) sans 5+ ans d'historique fiable. Pivot vers Revenue total annuel XBRL SEC EDGAR pour assurer couverture ≥5 ans et comparabilité.",
+    "extractor": "Mission #154 pivot XBRL hero",
+    "extracted_at": "2026-05-21T15:51:06+00:00"
   },
-  "_hero_segment_extracted_at": "2026-05-21T11:16:35.269361+00:00",
-  "_hero_segment_extracted_by": "sub-agent-123-cerebras-paid",
   "_hero_history_extension": {
-    "ticker": "O",
-    "hero_kpi_short": "Retail Revenue",
-    "hero_kpi_resolved": "Retail Revenue",
+    "hero_kpi_short": "Total Revenue",
     "history": [
-      3193.58,
-      4009.917,
-      4325.67
+      0.345,
+      0.4211,
+      1.3278,
+      1.4916,
+      1.6516,
+      2.0805,
+      3.3437,
+      4.079,
+      5.2711,
+      5.7494
     ],
-    "history_years": [
-      "FY2023",
-      "FY2024",
-      "FY2025"
+    "period_labels": [
+      "FY10",
+      "FY11",
+      "FY18",
+      "FY19",
+      "FY20",
+      "FY21",
+      "FY22",
+      "FY23",
+      "FY24",
+      "FY25"
     ],
-    "unit": "M $",
-    "_source": "10-K Cerebras paid (sub-agent #123). file=sec-data/cat1-us/10K/2026/O_2026-02-25.htm.gz",
-    "_extracted_at": "2026-05-21T11:32:16.946848+00:00",
-    "period_type": "annual"
+    "unit": "Mds $",
+    "period_type": "annual",
+    "last_data_date": "2025-12-31",
+    "_source_concepts": [
+      "Revenues+RevenueFromContractWithCustomerExcludingAssessedTax"
+    ],
+    "_xbrl_accessions_sample": [
+      "0000726728-11-000013",
+      "0001140361-12-007480",
+      "0000726728-19-000041"
+    ],
+    "extractor": "Mission #154 pivot XBRL hero (a_hero_history 98 US)",
+    "extracted_at": "2026-05-21T15:51:06+00:00"
   }
 }
