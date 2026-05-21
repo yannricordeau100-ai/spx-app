@@ -1,0 +1,28 @@
+{
+  "generated_at": "2026-05-21T14:25:00Z",
+  "batch": "k2",
+  "summary": {
+    "ok_verified_literal": 2,
+    "ok_initial_then_rolled_back_hallucination": 3,
+    "no_source": 0,
+    "validation_fail": 6,
+    "null": 2,
+    "api_fail": 0
+  },
+  "results": [
+    {"ticker": "UPS", "status": "rolled_back", "reason": "LLM derived values (Revenue/Pieces calculation), not literal extraction → hallucination rule"},
+    {"ticker": "AIZ", "status": "validation_fail", "reason": "history len n/a < 5 (no comparable series in MD&A)"},
+    {"ticker": "BXP", "status": "null", "reason": "model_returned_null (Development Pipeline Pre-leased not narrative-disclosed as series)"},
+    {"ticker": "CPT", "status": "validation_fail", "reason": "value not numeric (Same Store Revenues series partial)"},
+    {"ticker": "DLTR", "status": "null", "reason": "null_result (Comp Store Sales Growth disclosed only as growth %, not multi-year series)"},
+    {"ticker": "EL", "status": "validation_fail", "reason": "history len n/a < 5 (RD_Investment not disclosed as standalone segment)"},
+    {"ticker": "FTV", "status": "ok", "history_len": 6, "value": 2612.2, "unit": "M $", "verified": "all 6 values literal in 10K_2024 + 10K_2021"},
+    {"ticker": "IP", "status": "ok", "history_len": 6, "value": 2890, "unit": "M $", "verified": "all 6 values literal in 10K_2024 + 10K_2021"},
+    {"ticker": "NSC", "status": "rolled_back", "reason": "2018-2020 values (6258/6438/6575) hallucinated — actual 10K_2021 reports 6088/6803/6744"},
+    {"ticker": "POOL", "status": "validation_fail", "reason": "history len n/a < 5 (Recurring Sales Share not segment-disclosed)"},
+    {"ticker": "ROK", "status": "validation_fail", "reason": "history len n/a < 5 (Annual Recurring Revenue narrative-only)"},
+    {"ticker": "TSCO", "status": "rolled_back", "reason": "10K_2021 reports FY2020 comp sales 'increased 23%' and FY2023 'were even' (0%), LLM extracted 19.8% and 0.8% — hallucination"},
+    {"ticker": "WSM", "status": "validation_fail", "reason": "value not numeric (Comparable Brand Revenue Growth partial)"}
+  ],
+  "post_check": "Spot-checked each OK ticker against 10-K source for literal-match. Rolled back UPS (derived), NSC (hallucinated old years), TSCO (hallucinated %)."
+}
