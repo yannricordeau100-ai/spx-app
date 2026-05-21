@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import EXTENDED from "@/data/v1-9-status-extended.json";
 import DETAILS from "@/data/v1-9-not-publishable-details.json";
+import PUB_DETAILS from "@/data/v1-9-publishable-details.json";
 
 export const dynamic = "force-static";
 export const revalidate = 3600;
@@ -34,6 +35,17 @@ const DETAILS_TYPED = DETAILS as {
   scopes: { top307: DetailItem[]; sp500: DetailItem[]; indices_eu: DetailItem[] };
 };
 
+type PubItem = { ticker: string; name: string | null; country: string | null; scope: string };
+const PUB_DETAILS_TYPED = PUB_DETAILS as {
+  scopes: { top307: PubItem[]; sp500: PubItem[]; indices_eu: PubItem[] };
+};
+
+function shortName(name: string | null, max = 25): string {
+  if (!name) return "—";
+  if (name.length <= max) return name;
+  return name.slice(0, max - 1).trimEnd() + "…";
+}
+
 function ScopeSection({
   title,
   icon,
@@ -41,6 +53,7 @@ function ScopeSection({
   difficileTooltip,
   impossibleTooltip,
   details,
+  published,
 }: {
   title: string;
   icon: string;
@@ -48,6 +61,7 @@ function ScopeSection({
   difficileTooltip: string;
   impossibleTooltip: string;
   details: DetailItem[];
+  published: PubItem[];
 }) {
   const pubPct = Math.round((100 * stat.publishable) / stat.total);
   return (
@@ -121,6 +135,27 @@ function ScopeSection({
             </tbody>
           </table>
         </div>
+      )}
+
+      {published.length > 0 && (
+        <details className="mt-4 group overflow-hidden rounded-xl border border-emerald-500/20 bg-emerald-500/[0.02]">
+          <summary className="cursor-pointer list-none border-b border-emerald-500/20 bg-emerald-500/[0.04] px-4 py-2 font-mono text-[10.5px] uppercase tracking-wider text-emerald-300 hover:bg-emerald-500/[0.06]">
+            <span className="inline-block transition-transform group-open:rotate-90">▶</span>{" "}
+            Stés publiables ({published.length}) — cliquer pour déplier
+          </summary>
+          <div className="flex flex-wrap gap-1.5 p-3">
+            {published.map((p) => (
+              <span
+                key={p.ticker}
+                className="inline-flex items-center gap-1.5 rounded-md border border-emerald-500/20 bg-emerald-500/[0.04] px-2 py-0.5 text-[11px] text-emerald-100"
+                title={p.name || p.ticker}
+              >
+                <span className="font-mono text-emerald-300">{p.ticker}</span>
+                <span className="text-zinc-400">{shortName(p.name)}</span>
+              </span>
+            ))}
+          </div>
+        </details>
       )}
 
       {stat.impossible.length > 0 && false && (
@@ -229,6 +264,7 @@ export default function V19StatusPage() {
           icon="🌍"
           stat={data.top307}
           details={DETAILS_TYPED.scopes.top307}
+          published={PUB_DETAILS_TYPED.scopes.top307}
           difficileTooltip="307 plus grosses stés mondiales. Docs locaux disponibles, mais extraction KPI à reprendre (hero générique, KPIs purgés par reverify)."
           impossibleTooltip="Stés du top 307 sans documents 10-K/20-F/annual-text. Probablement delisted, fusionnées ou ADR sans filing SEC."
         />
@@ -238,6 +274,7 @@ export default function V19StatusPage() {
           icon="🇺🇸"
           stat={data.sp500}
           details={DETAILS_TYPED.scopes.sp500}
+          published={PUB_DETAILS_TYPED.scopes.sp500}
           difficileTooltip="Index S&P 500 US. Toutes ont 10-K dans sec-data, extraction LLM à compléter (sub-agents Claude en cours)."
           impossibleTooltip="Stés SP500 sans 10-K local : très rare, généralement spin-off très récents ou multi-classes mal mappés."
         />
@@ -247,6 +284,7 @@ export default function V19StatusPage() {
           icon="🇪🇺"
           stat={data.indices_eu}
           details={DETAILS_TYPED.scopes.indices_eu}
+          published={PUB_DETAILS_TYPED.scopes.indices_eu}
           difficileTooltip="CAC 40 + FTSE 100 + DAX 40 + SMI + BEL 20 + FTSE MIB + AEX + ATX (hors top 307 + SP500). Docs locaux partiels — scrape complément via organismes pays nécessaire (AMF.fr, BaFin, Companies House, SIX, CONSOB, AFM, FSMA, FMA)."
           impossibleTooltip="Stés européennes sans aucun document local. Scrape externe via IR pages officielles ou organismes pays."
         />
