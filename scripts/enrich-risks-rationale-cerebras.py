@@ -284,7 +284,7 @@ def main():
             n_processed_risks += 1
             api_key = keys[key_idx % len(keys)]
 
-            quote = (r.get("quote") or r.get("description") or "")[:400]
+            quote = (r.get("quote") or r.get("summary") or r.get("description") or "")[:400]
             prompt = PROMPT.format(
                 company=data.get("name", ticker),
                 ticker=ticker,
