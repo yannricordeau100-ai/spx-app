@@ -425,6 +425,32 @@ export async function loadV17Company(
         (data as Record<string, unknown>)[key] = enrich[key];
       }
     }
+    // Yann 21 mai 2026 (sub-agent #52 CONV-CONCEPTS) : overrides_governance
+    // field-by-field. Fill heuristique (voting_structure_note, board_size via
+    // yfinance.companyOfficers, board_independence_pct 80% US default,
+    // avg_tenure_years 7y US / 5.5y EU, ceo_pay_ratio 100 US default).
+    // N'écrase JAMAIS un champ déjà présent côté CONV-DATA. Merge propre.
+    const govOverrides = (enrich as Record<string, unknown>).overrides_governance;
+    if (govOverrides && typeof govOverrides === "object" && !Array.isArray(govOverrides)) {
+      const existingGov =
+        data.governance && typeof data.governance === "object" && !Array.isArray(data.governance)
+          ? { ...(data.governance as Record<string, unknown>) }
+          : ({} as Record<string, unknown>);
+      const ov = govOverrides as Record<string, unknown>;
+      for (const [k, v] of Object.entries(ov)) {
+        if (v === undefined || v === null) continue;
+        const cur = existingGov[k];
+        const curEmpty =
+          cur === undefined ||
+          cur === null ||
+          (typeof cur === "string" && cur.length === 0) ||
+          (typeof cur === "number" && Number.isNaN(cur));
+        if (curEmpty) {
+          existingGov[k] = v;
+        }
+      }
+      data.governance = existingGov as typeof data.governance;
+    }
     // Yann 21 mai 2026 : risks_rationale_overrides (CONV-CONCEPTS sub-agent #24
     // Cerebras Qwen-3 235B). Pour les 391 stés avec weak_rationale identifiés
     // par v1-9-risks-audit.json, override le score_rationale du risk matchant
