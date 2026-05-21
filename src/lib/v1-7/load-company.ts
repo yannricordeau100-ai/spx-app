@@ -425,6 +425,33 @@ export async function loadV17Company(
         (data as Record<string, unknown>)[key] = enrich[key];
       }
     }
+    // Yann 21 mai 2026 : risks_rationale_overrides (CONV-CONCEPTS sub-agent #24
+    // Cerebras Qwen-3 235B). Pour les 391 stés avec weak_rationale identifiés
+    // par v1-9-risks-audit.json, override le score_rationale du risk matchant
+    // (title + category) sans toucher v2-pipeline/<t>.json (scope CONV-DATA).
+    // Format enrich: { risks_rationale_overrides: [{title, category, score_rationale}] }
+    if (
+      Array.isArray((enrich as Record<string, unknown>).risks_rationale_overrides) &&
+      Array.isArray(data.risks)
+    ) {
+      const overrides = (enrich as Record<string, unknown>)
+        .risks_rationale_overrides as Array<{
+        title?: string;
+        category?: string;
+        score_rationale?: string;
+      }>;
+      data.risks = (data.risks as CompanyRisk[]).map((r: CompanyRisk) => {
+        const match = overrides.find(
+          (o) =>
+            (o.title || "") === (r.title || "") &&
+            (o.category || "") === (r.category || ""),
+        );
+        if (match && match.score_rationale && typeof match.score_rationale === "string") {
+          return { ...r, score_rationale: match.score_rationale };
+        }
+        return r;
+      });
+    }
     // Stories KPIs : ajout APPEND. CONV-SYSTEMS produit des KPIs short-history
     // additionnels (ex : Netflix ad-tier MAU, Live hours) qui complètent ceux
     // de CONV-DATA. Tag is_short_history forcé à true côté carrousel Stories.
