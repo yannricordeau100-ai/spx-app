@@ -955,6 +955,52 @@ export async function loadV17Company(
     }
   }
 
+  // Hero name_fr override (CONV-CONCEPTS 21 mai 2026, sub-agent l_hero_name_fr) :
+  // fix critère audit l_hero_name_fr KO (55 stés où name_fr du hero KPI est
+  // vide, identique au short, ou en anglais). Source :
+  // `src/data/v2-pipeline-enrich/<ticker>.hero_name_fr.json`. Format :
+  // { overrides_hero_name_fr: { hero_short, name_fr }, hero_kpi_override?: "..." }
+  // - Si hero_kpi_override présent → repointe data.hero_kpi (cas hero introuvable
+  //   dans kpis[]).
+  // - Applique name_fr au KPI matching (écrase name_fr courant — qui était vide,
+  //   = short, ou en anglais).
+  // Merge SSR-only (n'altère pas v2-pipeline/<t>.json).
+  const heroNameFrPath = path.join(
+    ROOT,
+    "src/data/v2-pipeline-enrich",
+    `${ticker.toLowerCase()}.hero_name_fr.json`,
+  );
+  const heroNameFrFile = await readJsonOrNull<{
+    overrides_hero_name_fr?: { hero_short?: string; name_fr?: string };
+    hero_kpi_override?: string;
+  }>(heroNameFrPath);
+  if (heroNameFrFile) {
+    if (
+      heroNameFrFile.hero_kpi_override &&
+      typeof heroNameFrFile.hero_kpi_override === "string"
+    ) {
+      (data as Record<string, unknown>).hero_kpi = heroNameFrFile.hero_kpi_override;
+    }
+    const ov = heroNameFrFile.overrides_hero_name_fr;
+    if (
+      ov &&
+      ov.hero_short &&
+      ov.name_fr &&
+      typeof ov.name_fr === "string" &&
+      Array.isArray(data.kpis)
+    ) {
+      data.kpis = (data.kpis as AnyKPI[]).map((k: AnyKPI) => {
+        if (
+          typeof k.short === "string" &&
+          k.short.toLowerCase() === ov.hero_short!.toLowerCase()
+        ) {
+          return { ...k, name_fr: ov.name_fr };
+        }
+        return k;
+      });
+    }
+  }
+
   // Yann 15 mai 2026 : overlay i18n KPI / tagline / risks pour les locales
   // autres que FR. Lit `src/data/v2-pipeline-i18n/<ticker>.<locale>.json`
   // produit par `scripts/translate-v17-kpis-to-de.py` (et variantes).

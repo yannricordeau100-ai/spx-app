@@ -716,13 +716,143 @@ function checkGovernance(company) {
   return { ok: true };
 }
 
+// Yann 21 mai 2026 (sub-agent #N CONV-CONCEPTS) : audit h_ai_positioning sector-aware.
+//
+// Logique relâchée :
+//   - stance "absent"        → OK (sté légitimement non concernée par l'IA)
+//   - stance "cautious"      → OK si evidence ≥ 1 (positioning prudent mais
+//                              documenté)
+//   - stance "leader" ou
+//     "integrator"           → strict, require evidence ≥ 3 (claim fort doit
+//                              être chiffré)
+//   - ai_positioning absent
+//     OU stance vide :
+//        - si secteur AI-irrelevant (Utilities, Real Estate, Materials,
+//          Consumer Staples basics, Energy hors tech, Insurance, certaines
+//          banques régionales) → considéré comme stance="absent" légitime, OK
+//        - sinon (Tech, Communication, Healthcare biotech, fintech) → KO
+//
+// Secteurs en FR car company.sector est stocké en français côté pipeline
+// (v2-pipeline). Cf échantillon NEE.json/CCI.json/AMT.json/SBUX.json.
+const AI_IRRELEVANT_SECTORS = new Set([
+  'Services aux collectivités',
+  'Utilities',
+  'Immobilier',
+  'Real Estate',
+  'Matériaux',
+  'Materials',
+  'Biens de consommation de base',
+  'Consumer Staples',
+  'Énergie',
+  'Energy',
+  'Industrie', // ⚠ partiel : industrie lourde généralement non concernée mais
+               // certaines sous-industries (defense AI, autonomous) le sont.
+               // On accepte stance=absent légitime, l'extracteur LLM sait
+               // distinguer si fourni.
+]);
+
+const AI_RELEVANT_SECTORS = new Set([
+  'Technologie',
+  'Information Technology',
+  'Technology',
+  'Services de communication',
+  'Communication Services',
+  'Communications',
+  'Santé', // partial — biotech/pharma R&D
+  'Health Care',
+  'Healthcare',
+  'Finance', // partial — fintech yes, traditional banks partial
+  'Financials',
+  'Consommation discrétionnaire', // partial — retail/auto/leisure parfois
+  'Consumer Discretionary',
+]);
+
+function isSectorAiIrrelevant(sector) {
+  if (!sector || typeof sector !== 'string') return false;
+  return AI_IRRELEVANT_SECTORS.has(sector);
+}
+
 function checkAiPositioning(company) {
   const ai = company.ai_positioning;
-  if (!ai || typeof ai !== 'object') return { ok: false, reason: 'ai_positioning absent' };
-  if (!ai.stance) return { ok: false, reason: 'stance manquant' };
+  const sector = company.sector || null;
+  const sectorIrrelevant = isSectorAiIrrelevant(sector);
+
+  // Cas 1 : ai_positioning absent ou non-objet
+  if (!ai || typeof ai !== 'object') {
+    if (sectorIrrelevant) {
+      return {
+        ok: true,
+        exception_sector_irrelevant: true,
+        stance: 'absent',
+        sector,
+        reason: `secteur AI-irrelevant (${sector}), stance=absent légitime auto`,
+      };
+    }
+    return { ok: false, reason: 'ai_positioning absent', sector };
+  }
+
+  const stance = String(ai.stance || '').toLowerCase();
   const ev = Array.isArray(ai.evidence) ? ai.evidence : [];
-  if (ev.length < 3) return { ok: false, reason: `evidence ${ev.length} < 3` };
-  return { ok: true };
+
+  // Cas 2 : stance manquante
+  if (!stance) {
+    if (sectorIrrelevant) {
+      return {
+        ok: true,
+        exception_sector_irrelevant: true,
+        stance: 'absent',
+        sector,
+        reason: `secteur AI-irrelevant (${sector}), stance vide acceptée`,
+      };
+    }
+    return { ok: false, reason: 'stance manquant', sector };
+  }
+
+  // Cas 3 : stance "absent" légitime
+  if (stance === 'absent') {
+    return {
+      ok: true,
+      exception_stance_absent: true,
+      stance,
+      sector,
+      evidence_count: ev.length,
+      reason: 'stance=absent légitime (sté non concernée par stratégie IA explicite)',
+    };
+  }
+
+  // Cas 4 : stance "cautious" → evidence ≥ 1
+  if (stance === 'cautious') {
+    if (ev.length >= 1) {
+      return { ok: true, stance, sector, evidence_count: ev.length };
+    }
+    return { ok: false, stance, sector, reason: `stance=cautious mais evidence ${ev.length} < 1` };
+  }
+
+  // Cas 5 : stance "leader" / "integrator" → strict ≥ 3
+  if (stance === 'leader' || stance === 'integrator') {
+    if (ev.length >= 3) {
+      return { ok: true, stance, sector, evidence_count: ev.length };
+    }
+    return { ok: false, stance, sector, reason: `stance=${stance} mais evidence ${ev.length} < 3 (strict)` };
+  }
+
+  // Cas 6 : stance inconnue (ex "emerging_risk", "exposure_only", "monitoring")
+  // → si secteur AI-irrelevant, considérer comme absent légitime (peu importe ev)
+  // → sinon fallback strict ≥ 3
+  if (sectorIrrelevant) {
+    return {
+      ok: true,
+      exception_sector_irrelevant_unknown_stance: true,
+      stance,
+      sector,
+      evidence_count: ev.length,
+      reason: `secteur AI-irrelevant (${sector}), stance=${stance} acceptée`,
+    };
+  }
+  if (ev.length >= 3) {
+    return { ok: true, stance, sector, evidence_count: ev.length };
+  }
+  return { ok: false, stance, sector, reason: `stance=${stance} (inconnue), evidence ${ev.length} < 3` };
 }
 
 function checkEvents(company) {
@@ -958,6 +1088,13 @@ function main() {
     legitimate_pct_of_total: 0,
     under_21pct_cap: true,
   };
+  // NEW : tracker exceptions h_ai_positioning (stance absent légitime + sector-aware)
+  stats.h_ai_positioning_exceptions = {
+    stance_absent_legit: 0,
+    sector_irrelevant_auto: 0,
+    cautious_with_evidence: 0,
+    by_sector_irrelevant: {},
+  };
   // NEW : tracker exceptions g_governance (ADR unavailable + EU partial + partial_disclosure ≥2)
   stats.g_governance_exceptions = {
     unavailable_adr: 0,
@@ -985,6 +1122,20 @@ function main() {
     if (ah && ah.ok) {
       if (ah.exception_legitimate) stats.a_hero_history_exceptions.legitimate += 1;
       if (ah.exception_short) stats.a_hero_history_exceptions.short_marked += 1;
+    }
+    // Track exception usage on h_ai_positioning
+    const ai = a.extensions && a.extensions.h_ai_positioning;
+    if (ai && ai.ok) {
+      if (ai.exception_stance_absent) stats.h_ai_positioning_exceptions.stance_absent_legit += 1;
+      if (ai.exception_sector_irrelevant || ai.exception_sector_irrelevant_unknown_stance) {
+        stats.h_ai_positioning_exceptions.sector_irrelevant_auto += 1;
+        const sec = ai.sector || 'unknown';
+        stats.h_ai_positioning_exceptions.by_sector_irrelevant[sec] =
+          (stats.h_ai_positioning_exceptions.by_sector_irrelevant[sec] || 0) + 1;
+      }
+      if (ai.stance === 'cautious' && !ai.exception_stance_absent) {
+        stats.h_ai_positioning_exceptions.cautious_with_evidence += 1;
+      }
     }
     // Track exception usage on g_governance
     const gov = a.extensions && a.extensions.g_governance;
@@ -1094,6 +1245,17 @@ function main() {
   console.log(`  heuristic_partial_capped (>20% downgrade)     : ${gex.heuristic_partial_capped} (limit=${gex.heuristic_partial_cap_limit})`);
   console.log(`  cap unavailable_adr < 15 %                    : ${gex.under_15pct_cap_adr ? '✓ OUI' : '✗ NON'}`);
   console.log(`  cap heuristic_partial <= 20 %                 : ${gex.under_20pct_cap_heuristic ? '✓ OUI' : '✗ NON'}`);
+  console.log('\nExceptions h_ai_positioning (stance absent légitime + sector-aware) :');
+  const hex = stats.h_ai_positioning_exceptions;
+  console.log(`  stance_absent_legit (stance=absent dans ai_positioning)   : ${hex.stance_absent_legit}`);
+  console.log(`  sector_irrelevant_auto (ai_positioning absent + secteur)  : ${hex.sector_irrelevant_auto}`);
+  console.log(`  cautious_with_evidence (stance=cautious + evidence ≥ 1)   : ${hex.cautious_with_evidence}`);
+  if (Object.keys(hex.by_sector_irrelevant).length > 0) {
+    console.log('  Détail sector_irrelevant_auto par secteur :');
+    Object.entries(hex.by_sector_irrelevant)
+      .sort((a, b) => b[1] - a[1])
+      .forEach(([sec, n]) => console.log(`    ${sec.padEnd(40)} : ${n}`));
+  }
   console.log('\nTop 20 stés à fixer en priorité (1-2 critères manquants) :');
   toFix.slice(0, 20).forEach((t) => {
     const mc = t.market_cap_usd ? `MC=${(t.market_cap_usd / 1e9).toFixed(0)} Mds` : 'MC?';
