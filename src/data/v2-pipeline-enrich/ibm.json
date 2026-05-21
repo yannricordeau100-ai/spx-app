@@ -5,14 +5,14 @@
       "short": "DPS",
       "name_fr": "Dividende par action",
       "name_en": "Dividend Per Share",
-      "explanation": "Montant total vers\u00e9 en dividendes par action sur l'ann\u00e9e fiscale.",
+      "explanation": "Montant total versé en dividendes par action sur l'année fiscale.",
       "value": "6.71",
       "unit": "$",
       "yoy": "+0.6%",
       "type": "Dividende",
       "nature": "Structurel",
       "comparable": "Comparable",
-      "signal": "Versement r\u00e9gulier",
+      "signal": "Versement régulier",
       "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
       "history": [
         6.3341,
@@ -31,15 +31,15 @@
       "short": "Cap Return",
       "name_fr": "Capital rendu aux actionnaires",
       "name_en": "Capital Returned to Shareholders",
-      "explanation": "Total annuel : dividendes vers\u00e9s + rachats d'actions.",
+      "explanation": "Total annuel : dividendes versés + rachats d'actions.",
       "value": "7.27",
       "unit": "$B",
       "yoy": "+7.0%",
       "type": "Cash",
-      "nature": "R\u00e9current",
-      "comparable": "Sp\u00e9cifique",
+      "nature": "Récurrent",
+      "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumul\u00e9s (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
       "history": [
         null,
         6.355,
@@ -57,15 +57,15 @@
       "short": "Payout Ratio",
       "name_fr": "Taux de distribution",
       "name_en": "Payout Ratio",
-      "explanation": "Part du r\u00e9sultat net redistribu\u00e9e. >80 % = potentiellement non soutenable.",
+      "explanation": "Part du résultat net redistribuée. >80 % = potentiellement non soutenable.",
       "value": "59.05",
       "unit": "%",
       "yoy": "-42.1%",
       "type": "Dividende",
       "nature": "Structurel",
       "comparable": "Comparable",
-      "signal": "Soutenabilit\u00e9 du dividende",
-      "description": "Dividendes / r\u00e9sultat net (2021-2025). Source yfinance.",
+      "signal": "Soutenabilité du dividende",
+      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
       "history": [
         null,
         362.9,
@@ -81,17 +81,17 @@
     },
     {
       "short": "EPS",
-      "name_fr": "B\u00e9n\u00e9fice par action",
+      "name_fr": "Bénéfice par action",
       "name_en": "Earnings Per Share (Diluted)",
-      "explanation": "B\u00e9n\u00e9fice net divis\u00e9 par le nombre moyen d'actions dilu\u00e9es sur l'ann\u00e9e fiscale. Permet de visualiser la capacit\u00e9 de la soci\u00e9t\u00e9 \u00e0 g\u00e9n\u00e9rer du r\u00e9sultat par action \u2014 base de calcul du Payout Ratio (DPS / EPS).",
+      "explanation": "Bénéfice net divisé par le nombre moyen d'actions diluées sur l'année fiscale. Permet de visualiser la capacité de la société à générer du résultat par action — base de calcul du Payout Ratio (DPS / EPS).",
       "value": "11.17",
       "unit": "$",
       "yoy": "+73.7%",
-      "type": "Rentabilit\u00e9",
+      "type": "Rentabilité",
       "nature": "Structurel",
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
-      "signal": "Capacit\u00e9 b\u00e9n\u00e9ficiaire par action",
+      "signal": "Capacité bénéficiaire par action",
       "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
       "history": [
         null,
@@ -129,5 +129,53 @@
   "_eps_source": "yfinance income_stmt Diluted EPS",
   "hero_kpi_override": "DPS",
   "_hero_override_set_at": "2026-05-20T00:00:00Z",
-  "_hero_override_set_by": "CONV-DATA-batch3-mission"
+  "_hero_override_set_by": "CONV-DATA-batch3-mission",
+  "revenue_by_ai_customer_type": {
+    "fiscal_year": "FY25 (annoncé Q4 2025)",
+    "ai_segment_revenue": 12.5,
+    "ai_segment_unit": "Mds $",
+    "ai_segment_definition": "Generative AI book of business cumulé (signed deals Watsonx + AI Consulting). Book of business, pas revenue annuel pur.",
+    "slices": [
+      {
+        "label": "Professionnels (B2B)",
+        "value": 12.5,
+        "share_pct": 100,
+        "unit": "Mds $",
+        "note": "IBM = pure-play B2B entreprise. Mix Watsonx (software ~30%) + IBM Consulting AI services (~70%)."
+      },
+      {
+        "label": "Particuliers (B2C)",
+        "value": 0.0,
+        "share_pct": 0,
+        "unit": "Mds $",
+        "note": "IBM n'a aucune offre IA grand public. Modèle 100% entreprises + secteur public."
+      }
+    ],
+    "confidence": "high",
+    "sources": [
+      {
+        "url": "https://www.sec.gov/Archives/edgar/data/0000051143/000005114326000004/ibm-20260128xex991.htm",
+        "title": "IBM Q4 2025 Earnings Release (8-K)",
+        "date": "2026-01-28",
+        "publisher": "SEC / IBM",
+        "kind": "earning_call"
+      },
+      {
+        "url": "https://www.financialcontent.com/article/marketminute-2026-1-28-ibms-ai-transformation-crystallizes-q4-earnings-surpass-expectations-as-generative-ai-book-hits-12-billion",
+        "title": "IBM's Generative AI Book Hits $12 Billion",
+        "date": "2026-01-28",
+        "publisher": "FinancialContent",
+        "kind": "article"
+      },
+      {
+        "url": "https://www.klover.ai/ibm-ai-strategy-lead-enterprise-ai/",
+        "title": "IBM AI Strategy: Lead Enterprise AI",
+        "date": "2026-03-15",
+        "publisher": "Klover.ai",
+        "kind": "analyst_report"
+      }
+    ],
+    "extracted_at": "2026-05-21T19:00:00Z"
+  },
+  "_ai_customer_type_fetched_at": "2026-05-21T19:00:00Z"
 }
