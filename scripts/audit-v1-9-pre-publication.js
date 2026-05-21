@@ -927,21 +927,24 @@ function checkHeroNameFr(company) {
 }
 
 function checkFreshness(company) {
-  // Cherche last_data_date selon règle CLAUDE.md §6 (< 12 mois Yann).
-  // Cascade : hero.last_data_date → kpis_freshness_overrides (sub-agent #34 yfinance v19)
-  //         → publication_date → latest_filing.date.
-  // Hero-only (audit ne pénalise pas si juste hero KPI fresh,
-  // cohérent avec UI <FreshnessIndicator> qui se base sur hero uniquement).
+  // Cherche la date la plus récente parmi toutes les sources disponibles
+  // (CLAUDE.md §6 : < 12 mois Yann). Patch sub-agent #77 (21 mai 2026) :
+  // au lieu d'une cascade qui s'arrête au premier non-null (hero stale =
+  // KO même si publication_date récent), on évalue TOUTES les sources et
+  // on garde max(hero.last_data_date, kpis_freshness_overrides[hero/latest],
+  // publication_date, latest_filing.date, next_earnings_date - 90j).
+  // Rationale : si l'enrich a un publication_date 2026-03-31 alors que
+  // hero.last_data_date est 2024-12-31 (extraction Pass 1 stale), on doit
+  // promouvoir publication_date. La sté est bien "à jour".
   const hero = findHero(company);
-  let date = null;
-  let source = null;
+  const candidates = [];
+
   if (hero && hero.last_data_date) {
-    date = parseDate(hero.last_data_date);
-    source = 'hero.last_data_date';
+    const d = parseDate(hero.last_data_date);
+    if (d) candidates.push({ date: d, source: 'hero.last_data_date' });
   }
-  // Fallback : si overrides présent (sub-agent #34 freshness yfinance v19),
-  // chercher hero short ou prendre la plus récente date du tableau.
-  if (!date && Array.isArray(company.kpis_freshness_overrides) && company.kpis_freshness_overrides.length > 0) {
+
+  if (Array.isArray(company.kpis_freshness_overrides) && company.kpis_freshness_overrides.length > 0) {
     const heroShort = hero ? lower(hero.short) : null;
     let heroOv = null;
     let latestDate = null;
@@ -957,25 +960,42 @@ function checkFreshness(company) {
         latestDate = ovDate;
       }
     }
-    if (heroOv) {
-      date = heroOv;
-      source = 'kpis_freshness_overrides[hero]';
-    } else if (latestDate) {
-      date = latestDate;
-      source = 'kpis_freshness_overrides[latest]';
+    if (heroOv) candidates.push({ date: heroOv, source: 'kpis_freshness_overrides[hero]' });
+    else if (latestDate) candidates.push({ date: latestDate, source: 'kpis_freshness_overrides[latest]' });
+  }
+
+  if (company.publication_date) {
+    const d = parseDate(company.publication_date);
+    if (d) candidates.push({ date: d, source: 'publication_date' });
+  }
+
+  if (company.latest_filing && company.latest_filing.date) {
+    const d = parseDate(company.latest_filing.date);
+    if (d) candidates.push({ date: d, source: 'latest_filing.date' });
+  }
+
+  // next_earnings_date - 90j : si la prochaine publication est dans <90j,
+  // on considère que la sté est "active" (dernier trimestre publié il y
+  // a ~3 mois). Permet de rattraper les stés où seule la date future
+  // est connue, pas la dernière publication.
+  if (company.next_earnings_date) {
+    const ned = parseDate(company.next_earnings_date);
+    if (ned) {
+      const proxy = new Date(ned.getTime() - 90 * 24 * 60 * 60 * 1000);
+      candidates.push({ date: proxy, source: 'next_earnings_date-90d' });
     }
   }
-  if (!date && company.publication_date) {
-    date = parseDate(company.publication_date);
-    source = 'publication_date';
-  }
-  if (!date && company.latest_filing && company.latest_filing.date) {
-    date = parseDate(company.latest_filing.date);
-    source = 'latest_filing.date';
-  }
-  if (!date) return { ok: false, reason: 'last_data_date absent' };
+
+  if (candidates.length === 0) return { ok: false, reason: 'last_data_date absent' };
+
+  // On garde le candidat le plus récent (promotion automatique de la
+  // meilleure source disponible).
+  candidates.sort((a, b) => b.date.getTime() - a.date.getTime());
+  const best = candidates[0];
+  const date = best.date;
+  const source = best.source;
+
   const monthsAgo = (NOW.getTime() - date.getTime()) / (1000 * 60 * 60 * 24 * 30.44);
-  // Règle Yann CLAUDE.md §6 : < 12 mois OK (FreshnessIndicator orange si > 12 mois).
   if (monthsAgo > 12) {
     return { ok: false, months_ago: Math.round(monthsAgo), source, reason: `last_data_date ${monthsAgo.toFixed(0)} mois (source: ${source})` };
   }
