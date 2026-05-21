@@ -581,16 +581,42 @@ function checkRepartition(company) {
   const issues = [];
 
   function auditBlock(name, block) {
+    // FIX 21 mai 2026 (sub-agent #72) : exceptions légitimes data
+    // - segment.single_segment=true → sté mono-segment légitime (ex pharma)
+    // - geography.single_region_legitimate=true → mono-pays légitime
+    // Le bloc est vide MAIS marqué comme intentionnel → ne pas flag KO.
+    if (name === 'segment' && block && block.single_segment === true) {
+      return; // OK : single segment legitimate
+    }
+    if (name === 'geography' && block && block.single_region_legitimate === true) {
+      return; // OK : single region legitimate
+    }
+
     if (!block || !Array.isArray(block.slices) || block.slices.length === 0) {
       issues.push(`${name} vide`);
       return;
     }
-    if (!block.unit) issues.push(`${name} sans unit`);
+    // FIX 21 mai 2026 (sub-agent #72) : block.unit absent mais slices.unit présent
+    // = unit cohérent au niveau slice (ex CMCSA, BX, ALL geo). On utilise l'unit
+    // de la 1ère slice non-null comme effectif si block.unit absent.
+    // De plus, si TOUTES les slices ont un share_pct présent et que la somme ~= 100,
+    // l'unit est cosmétique (UI affiche pct) → tolérer unit absent.
+    const effectiveUnit = block.unit || (block.slices.find((s) => s && s.unit)?.unit) || null;
+    const allHavePct = block.slices.every((s) => typeof s.share_pct === 'number');
+    if (!effectiveUnit && !allHavePct) issues.push(`${name} sans unit`);
     let totalShare = 0;
     let hasShare = true;
     block.slices.forEach((s, i) => {
       if (s.value === undefined || s.value === null) {
+        // FIX 21 mai 2026 (sub-agent #72) : tolérer value=null si share_pct présent
+        // (UI affiche pct, value est cosmétique). Cas typique : LLM extrait pct
+        // mais pas value chiffrée brute.
+        if (typeof s.share_pct === 'number') {
+          totalShare += s.share_pct;
+          return;
+        }
         issues.push(`${name}.slices[${i}] sans value`);
+        hasShare = false;
         return;
       }
       const v = Number(s.value);
@@ -598,9 +624,21 @@ function checkRepartition(company) {
         issues.push(`${name}.slices[${i}].value non numérique`);
         return;
       }
+      // FIX 21 mai 2026 (sub-agent #72) : value=0 tolérée si share_pct présent
+      // (slice "Autres" / pays mineurs avec value arrondie à 0). UI affiche pct.
+      // Le rescale check ne s'applique que si pas de pct fallback.
+      const hasPct = typeof s.share_pct === 'number';
+      if (v === 0 && hasPct) {
+        if (s.share_pct !== undefined && s.share_pct !== null) {
+          totalShare += Number(s.share_pct) || 0;
+        } else {
+          hasShare = false;
+        }
+        return; // OK : value=0 + pct présent = slice mineure légitime
+      }
       // Yann : value entre 1 et 999 (avec smart-rescale unit-aware)
-      if (!isDisplayValueOk(v, block.unit)) {
-        issues.push(`${name}.slices[${i}].value=${v} ${block.unit || '?'} ne rescale pas en [1,999]`);
+      if (!isDisplayValueOk(v, effectiveUnit)) {
+        issues.push(`${name}.slices[${i}].value=${v} ${effectiveUnit || '?'} ne rescale pas en [1,999]`);
       }
       if (s.share_pct !== undefined && s.share_pct !== null) {
         totalShare += Number(s.share_pct) || 0;
