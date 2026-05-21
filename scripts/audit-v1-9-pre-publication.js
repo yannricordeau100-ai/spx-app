@@ -208,6 +208,38 @@ function loadCompany(ticker) {
                 cur === undefined || cur === null ||
                 (typeof cur === 'string' && cur.length === 0) ||
                 (Array.isArray(cur) && cur.length === 0);
+              // Sub-agent #95 (Yann 21 mai 2026) : top_capital / top_voting / board_size /
+              // voting_structure — si override plus complet, REMPLACER (au lieu de skip).
+              // Cas typique : governance.top_capital extrait yfinance retourne 1-2 entrées
+              // partielles, overrides_governance.top_capital (regex DEF14A / annual EU)
+              // retourne 3+ entrées propres. Sans cette règle, l'audit g_governance
+              // restait KO car merged.top_capital.length < 3.
+              if (k === 'top_capital' || k === 'top_voting') {
+                const curArr = Array.isArray(cur) ? cur : [];
+                const newArr = Array.isArray(v) ? v : [];
+                if (newArr.length >= 3 && curArr.length < 3) {
+                  merged.governance[k] = v;
+                  continue;
+                }
+              }
+              if (k === 'board_size') {
+                // Override gagne si current invalide (0 ou non-number)
+                const curNum = typeof cur === 'number' && cur >= 1 ? cur : null;
+                const newNum = typeof v === 'number' && v >= 1 ? v : null;
+                if (newNum !== null && curNum === null) {
+                  merged.governance[k] = v;
+                  continue;
+                }
+              }
+              if (k === 'voting_structure') {
+                // Override gagne si current vide/court/inutile
+                const curStr = typeof cur === 'string' ? cur.trim() : '';
+                const newStr = typeof v === 'string' ? v.trim() : '';
+                if (newStr.length >= 10 && curStr.length < 10) {
+                  merged.governance[k] = v;
+                  continue;
+                }
+              }
               if (curEmpty) {
                 merged.governance[k] = v;
               }
@@ -249,6 +281,16 @@ function loadCompany(ticker) {
             }
             if (d._hero_specific_category && !merged._hero_specific_category) {
               merged._hero_specific_category = d._hero_specific_category;
+            }
+          }
+          // Sub-agent #95 (21 mai 2026) : merger les tags
+          // _is_short_history_legitimate + _short_history_reason depuis enrich.
+          // Permet à checkHeroHistory de tolérer hero court mais légitime
+          // (IPO récent, spinoff récent, KPI introduit récemment, restructuring).
+          if (d._is_short_history_legitimate === true) {
+            merged._is_short_history_legitimate = true;
+            if (d._short_history_reason && !merged._short_history_reason) {
+              merged._short_history_reason = d._short_history_reason;
             }
           }
           // kpis_freshness_overrides : sub-agent #34 yfinance v19 a écrit
@@ -526,7 +568,11 @@ function checkHeroHistory(company) {
   const len = historyLength(hero);
   const period = lower(hero.period_type || 'year');
   const isShortMarked = hero.is_short_history === true || hero._hero_history_unverified === true;
-  const isLegitimate = hero.is_short_history_legitimate === true;
+  // Sub-agent #95 : accept root-level _is_short_history_legitimate (Yann 21 mai 2026)
+  // pour les stés US tagguées récemment (APP/KKR/MSTR/CRWV/RDDT/GEHC/PBR/MRNA/RIVN).
+  const isLegitimate =
+    hero.is_short_history_legitimate === true ||
+    company._is_short_history_legitimate === true;
   // NEW (sub-agent #92, 21 mai 2026) : exception "hero company-specific légitime"
   // pour EU/UK stés où le hero est un KPI officiel publié par l'entreprise
   // (Beer Volume Heineken, VYVGART argenx, Vehicle Deliveries Stellantis, CET1
@@ -560,7 +606,10 @@ function checkHeroHistory(company) {
       len,
       period,
       required: minRequired,
-      legitimate_reason: hero.short_history_legitimate_reason || null,
+      legitimate_reason:
+        hero.short_history_legitimate_reason ||
+        company._short_history_reason ||
+        null,
       reason: `KPI trop récent légitime (${len} dispo, flag is_short_history_legitimate)`,
     };
   }
