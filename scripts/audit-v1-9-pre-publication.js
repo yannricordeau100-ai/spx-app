@@ -202,12 +202,29 @@ function loadCompany(ticker) {
             if (Array.isArray(b.slices) && b.slices.length === 0) return true;
             return false;
           };
-          if (d.revenue_by_segment && Array.isArray(d.revenue_by_segment.slices) && d.revenue_by_segment.slices.length > 0) {
+          // Sub-agent #127 fix : merger l'enrich repartition aussi quand les blocs
+          // n'ont pas de slices mais sont marqués mono-segment / mono-region légitime
+          // (single_segment: true OU single_region_legitimate: true). Sans ce fix,
+          // ~30 stés extracted par #122 avec flag mono-legit restaient KO côté audit
+          // car la condition précédente exigeait `slices.length > 0`.
+          const shouldMergeRepartition = (enrichBlock, kind) => {
+            if (!enrichBlock || typeof enrichBlock !== 'object') return false;
+            // Ne jamais merger les blocs fallback audit (sentinelles _no_source / _no_geo_source)
+            if (enrichBlock._no_source === true || enrichBlock._no_geo_source === true) return false;
+            if (Array.isArray(enrichBlock.slices) && enrichBlock.slices.length > 0) return true;
+            if (kind === 'segment' && enrichBlock.single_segment === true) return true;
+            if (kind === 'geography' && enrichBlock.single_region_legitimate === true) return true;
+            // single_region_legitimate côté segment block (#122 a parfois posé la
+            // sémantique sur les 2 dans des cas EU) → également accepté.
+            if (enrichBlock.single_region_legitimate === true) return true;
+            return false;
+          };
+          if (shouldMergeRepartition(d.revenue_by_segment, 'segment')) {
             if (isEmptyRepartitionBlock(merged.revenue_by_segment)) {
               merged.revenue_by_segment = d.revenue_by_segment;
             }
           }
-          if (d.revenue_by_geography && Array.isArray(d.revenue_by_geography.slices) && d.revenue_by_geography.slices.length > 0) {
+          if (shouldMergeRepartition(d.revenue_by_geography, 'geography')) {
             if (isEmptyRepartitionBlock(merged.revenue_by_geography)) {
               merged.revenue_by_geography = d.revenue_by_geography;
             }
