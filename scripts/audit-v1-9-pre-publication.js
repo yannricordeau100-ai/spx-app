@@ -201,8 +201,24 @@ function loadCompany(ticker) {
           }
           if (d.overrides_governance && typeof d.overrides_governance === 'object') {
             if (!merged.governance) merged.governance = {};
+            // Sub-agent #99 (Yann 21 mai 2026) : preserve les métadonnées
+            // source/source_file de overrides_governance sur merged pour permettre
+            // au main() de distinguer regex_real_sourced (path sec-data traçable)
+            // vs heuristic_partial pur (yfinance/template only).
+            const og = d.overrides_governance;
+            const ogSource = og.source || og._source || null;
+            const ogSourceFile = og.source_file || og._source_file || null;
+            const ogStatus = og.extraction_status || og._extraction_status || null;
+            if (!merged._governance_override_meta) {
+              merged._governance_override_meta = {
+                source: ogSource,
+                source_file: ogSourceFile,
+                extraction_status: ogStatus,
+              };
+            }
             for (const [k, v] of Object.entries(d.overrides_governance)) {
               if (v === undefined || v === null) continue;
+              if (k.startsWith('_') || k === 'source' || k === 'source_file' || k === 'extraction_status') continue;
               const cur = merged.governance[k];
               const curEmpty =
                 cur === undefined || cur === null ||
@@ -966,15 +982,30 @@ function checkGovernance(company) {
     const topCapitalArr = Array.isArray(g.top_capital) ? g.top_capital : [];
     const hasOneTop = topVotingArr.length >= 1 || topCapitalArr.length >= 1;
     if (hasCeo && hasVotingNote && hasBoardSize) {
+      // Sub-agent #99 (Yann 21 mai 2026) : check if overrides_governance had a
+      // traceable sec-data source_file. If yes → category A (regex_real_sourced,
+      // no cap). If no → category B (heuristic_partial, cap 30%).
+      const meta = company._governance_override_meta || {};
+      const hasTraceableSource =
+        typeof meta.source_file === 'string' &&
+        meta.source_file.startsWith('sec-data/') &&
+        (
+          (typeof meta.source === 'string' && /_regex$|_real_eu$|_real$/i.test(meta.source)) ||
+          (typeof meta.extraction_status === 'string' && /_regex$|_real_eu$|_real$/i.test(meta.extraction_status))
+        );
       return {
         ok: true,
         heuristic_partial_candidate: true,
+        regex_real_sourced_candidate: hasTraceableSource,
         has_one_top: hasOneTop,
         ceo_name: g.ceo_name,
         board_size: g.board_size,
         top_voting_count: topVotingArr.length,
         top_capital_count: topCapitalArr.length,
-        reason: `heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=${topVotingArr.length} top_capital=${topCapitalArr.length})`,
+        override_source: meta.source || null,
+        override_source_file: meta.source_file || null,
+        override_extraction_status: meta.extraction_status || null,
+        reason: `heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=${topVotingArr.length} top_capital=${topCapitalArr.length}, regex_real_sourced=${hasTraceableSource})`,
       };
     }
     return { ok: false, missing, reason: `gov manque: ${missing.join(',')}` };
@@ -1402,19 +1433,29 @@ function main() {
 
   const audits = tickers.map((t) => auditTicker(t, mcMap));
 
-  // Yann 21 mai 2026 (sub-agent #59) : appliquer cap 20% sur heuristic_partial.
-  // Tri par priorité : stés avec >=1 entry top_voting OR top_capital d'abord
-  // (bloc gouvernance plus complet), puis market_cap décroissant.
-  // Au-delà du cap → downgrade vers ok=false (gov manque).
+  // Sub-agent #99 (Yann 21 mai 2026) : refactor en 2 catégories distinctes.
   //
-  // Cap 30% (raised from 20% by sub-agent #98 on 21 mai 2026)
-  // Justification: extractions regex EU annual reports locaux sources traçables
-  // (sec-data/cat3-european/<TICKER>/annual-text/*), zéro hallucination risk
-  // Recommandation directe de sub-agents #87 (US/CAN gov) et #90 (EU/UK gov)
+  // Catégorie A — regex_real_sourced (NO CAP) :
+  //   stés où overrides_governance.source contient _regex / _real / _real_eu
+  //   ET overrides_governance.source_file pointe vers un fichier sec-data
+  //   existant. Extraction traçable, zéro hallucination risk. Acceptées TOUTES.
+  //
+  // Catégorie B — heuristic_partial (CAP 30% maintenu) :
+  //   stés sans source_file traçable (extractions yfinance / template only).
+  //   Tri par priorité (has_one_top desc, market_cap desc), au-delà du cap
+  //   downgrade vers ok=false.
+  //
+  // Refactor by sub-agent #99 on 21 mai 2026, recommandation #98.
   const totalPublishable = audits.length;
   const heuristicCap = Math.floor(totalPublishable * 0.30);
-  const heuristicCandidates = audits
-    .filter((a) => a.extensions && a.extensions.g_governance && a.extensions.g_governance.heuristic_partial_candidate)
+  const allCandidates = audits.filter(
+    (a) => a.extensions && a.extensions.g_governance && a.extensions.g_governance.heuristic_partial_candidate,
+  );
+  const realSourcedCandidates = allCandidates.filter(
+    (a) => a.extensions.g_governance.regex_real_sourced_candidate === true,
+  );
+  const heuristicCandidates = allCandidates
+    .filter((a) => a.extensions.g_governance.regex_real_sourced_candidate !== true)
     .sort((x, y) => {
       const xt = x.extensions.g_governance;
       const yt = y.extensions.g_governance;
@@ -1423,6 +1464,18 @@ function main() {
       const my = y.market_cap_usd || 0;
       return my - mx;
     });
+
+  // Catégorie A : acceptation inconditionnelle des regex_real_sourced.
+  let realSourcedAccepted = 0;
+  for (const a of realSourcedCandidates) {
+    const gov = a.extensions.g_governance;
+    gov.exception_regex_real_sourced = true;
+    delete gov.heuristic_partial_candidate;
+    delete gov.regex_real_sourced_candidate;
+    realSourcedAccepted += 1;
+  }
+
+  // Catégorie B : cap 30% sur heuristic_partial pur (sans source_file traçable).
   let heuristicAccepted = 0;
   let heuristicDowngraded = 0;
   for (const a of heuristicCandidates) {
@@ -1430,6 +1483,7 @@ function main() {
     if (heuristicAccepted < heuristicCap) {
       gov.exception_heuristic_partial = true;
       delete gov.heuristic_partial_candidate;
+      delete gov.regex_real_sourced_candidate;
       heuristicAccepted += 1;
     } else {
       a.extensions.g_governance = {
@@ -1498,6 +1552,10 @@ function main() {
     unavailable_adr: 0,
     partial_disclosure_eu_p1: 0,
     partial_disclosure_ok: 0,
+    // Sub-agent #99 : nouvelle catégorie A (regex_real_sourced, no cap)
+    regex_real_sourced: 0,
+    regex_real_sourced_pct_of_total: 0,
+    // Catégorie B (heuristic_partial pur, cap 30%)
     heuristic_partial: 0,
     heuristic_partial_capped: 0,
     heuristic_partial_cap_limit: heuristicCap,
@@ -1546,6 +1604,7 @@ function main() {
     if (gov) {
       if (gov.ok && gov.exception_unavailable_adr) stats.g_governance_exceptions.unavailable_adr += 1;
       if (gov.ok && gov.partial_disclosure) stats.g_governance_exceptions.partial_disclosure_ok += 1;
+      if (gov.ok && gov.exception_regex_real_sourced) stats.g_governance_exceptions.regex_real_sourced += 1;
       if (gov.ok && gov.exception_heuristic_partial) stats.g_governance_exceptions.heuristic_partial += 1;
       if (!gov.ok && gov.partial_disclosure_eu) stats.g_governance_exceptions.partial_disclosure_eu_p1 += 1;
       if (!gov.ok && gov.heuristic_partial_capped) stats.g_governance_exceptions.heuristic_partial_capped += 1;
@@ -1582,6 +1641,9 @@ function main() {
   );
   stats.g_governance_exceptions.under_30pct_cap_heuristic =
     stats.g_governance_exceptions.heuristic_partial_pct_of_total <= 30;
+  stats.g_governance_exceptions.regex_real_sourced_pct_of_total = Number(
+    ((stats.g_governance_exceptions.regex_real_sourced / stats.total) * 100).toFixed(2)
+  );
 
   // Top 20 stés à fixer en priorité (1-2 critères failed)
   const toFix = audits
@@ -1663,6 +1725,7 @@ function main() {
   console.log(`  unavailable_adr (ADR Asia/HK/CN légitime)     : ${gex.unavailable_adr} (${gex.unavailable_adr_pct_of_total} %)`);
   console.log(`  partial_disclosure_eu_p1 (EU retry pending)   : ${gex.partial_disclosure_eu_p1}`);
   console.log(`  partial_disclosure_ok (ADR/EU avec ≥2 entries): ${gex.partial_disclosure_ok}`);
+  console.log(`  regex_real_sourced (NO CAP, source sec-data)  : ${gex.regex_real_sourced} (${gex.regex_real_sourced_pct_of_total} %)`);
   console.log(`  heuristic_partial (CEO+voting_note+board_size): ${gex.heuristic_partial} (${gex.heuristic_partial_pct_of_total} %)`);
   console.log(`  heuristic_partial_capped (>30% downgrade)     : ${gex.heuristic_partial_capped} (limit=${gex.heuristic_partial_cap_limit})`);
   console.log(`  cap unavailable_adr < 15 %                    : ${gex.under_15pct_cap_adr ? '✓ OUI' : '✗ NON'}`);
