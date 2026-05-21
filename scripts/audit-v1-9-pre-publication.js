@@ -169,6 +169,29 @@ function loadCompany(ticker) {
           if (d.overrides_profit_warning && !merged.overrides_profit_warning) {
             merged.overrides_profit_warning = d.overrides_profit_warning;
           }
+          // Sub-agent #113 (Yann 21 mai 2026) — Patch 1 bug bloqueur :
+          // merger revenue_by_segment / revenue_by_geography depuis enrich
+          // si merged.* est vide OU absent OU a .slices=[] OU est marqué
+          // _no_source/_no_geo_source. Sans ce merge, le fix f_repartition
+          // des sub-agents (ex BP.L #108) est invisible. Aligné avec la
+          // logique merge SSR (load-company.ts) qui priorise enrich quand
+          // pipeline a une structure vide / fantôme.
+          const isEmptyRepartitionBlock = (b) => {
+            if (!b || typeof b !== 'object') return true;
+            if (b._no_source === true || b._no_geo_source === true) return true;
+            if (Array.isArray(b.slices) && b.slices.length === 0) return true;
+            return false;
+          };
+          if (d.revenue_by_segment && Array.isArray(d.revenue_by_segment.slices) && d.revenue_by_segment.slices.length > 0) {
+            if (isEmptyRepartitionBlock(merged.revenue_by_segment)) {
+              merged.revenue_by_segment = d.revenue_by_segment;
+            }
+          }
+          if (d.revenue_by_geography && Array.isArray(d.revenue_by_geography.slices) && d.revenue_by_geography.slices.length > 0) {
+            if (isEmptyRepartitionBlock(merged.revenue_by_geography)) {
+              merged.revenue_by_geography = d.revenue_by_geography;
+            }
+          }
           // Sub-agent #88 (e_risks residual) : enrich.risks merge SEULEMENT si
           // la fiche CONV-DATA n'a pas déjà fourni des risks. Aligné runtime
           // src/lib/v1-7/load-company.ts ligne 444+.
@@ -264,11 +287,23 @@ function loadCompany(ticker) {
           if (Array.isArray(d.market_positions) && (!Array.isArray(merged.market_positions) || merged.market_positions.length === 0)) {
             merged.market_positions = d.market_positions;
           }
-          if (Array.isArray(d.stories_kpis) && (!Array.isArray(merged.stories_kpis) || merged.stories_kpis.length === 0)) {
-            merged.stories_kpis = d.stories_kpis;
+          // Sub-agent #113 (Yann 21 mai 2026) — Patch 2 complément :
+          // Python stories scaleup (PID 86250) écrit enrich.stories_kpis
+          // avec 5-6 stories riches. Avant ce fix, si merged.stories_kpis
+          // contenait déjà 1-2 entrées (v2-pipeline), enrich était ignoré
+          // et d_stories restait KO. Maintenant on garde l'array le plus
+          // peuplé entre v2-pipeline et enrich.
+          if (Array.isArray(d.stories_kpis) && d.stories_kpis.length > 0) {
+            const curLen = Array.isArray(merged.stories_kpis) ? merged.stories_kpis.length : 0;
+            if (d.stories_kpis.length > curLen) {
+              merged.stories_kpis = d.stories_kpis;
+            }
           }
-          if (Array.isArray(d.kpis_story) && (!Array.isArray(merged.kpis_story) || merged.kpis_story.length === 0)) {
-            merged.kpis_story = d.kpis_story;
+          if (Array.isArray(d.kpis_story) && d.kpis_story.length > 0) {
+            const curLen = Array.isArray(merged.kpis_story) ? merged.kpis_story.length : 0;
+            if (d.kpis_story.length > curLen) {
+              merged.kpis_story = d.kpis_story;
+            }
           }
           // Yann 21 mai 2026 (sub-agent freshness fix) : merger les champs
           // freshness depuis enrich. Pipeline v1-9-complete n'a pas
@@ -779,11 +814,15 @@ function checkStoriesCount(company, marketCapUsd) {
   //   3. legacy kpis_story[] / stories_kpis[] (anciens datasets)
   // Le critère "Stories" doit donc additionner ces 3 sources, pas regarder
   // uniquement le champ legacy (ancien bug qui faisait sortir 100 % KO).
-  const legacy = Array.isArray(company.kpis_story)
-    ? company.kpis_story
-    : Array.isArray(company.stories_kpis)
-      ? company.stories_kpis
-      : [];
+  // Sub-agent #113 (Yann 21 mai 2026) — Patch 2 bug bloqueur :
+  // si company.kpis_story === [] (array vide mais présent), l'ancienne
+  // logique lisait ce array vide et masquait stories_kpis (qui peut être
+  // peuplé par v2-pipeline OU enrich via merge). Maintenant on prend
+  // celui qui a le plus d'entrées entre les deux sources, pour rester
+  // honnête avec la réalité du dataset.
+  const legacyKpisStory = Array.isArray(company.kpis_story) ? company.kpis_story : [];
+  const legacyStoriesKpis = Array.isArray(company.stories_kpis) ? company.stories_kpis : [];
+  const legacy = legacyKpisStory.length >= legacyStoriesKpis.length ? legacyKpisStory : legacyStoriesKpis;
   const shortHistoryKpis = Array.isArray(company.kpis)
     ? company.kpis.filter((k) => k && k.is_short_history === true)
     : [];
