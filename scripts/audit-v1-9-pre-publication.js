@@ -464,11 +464,17 @@ function loadCompany(ticker) {
       if (extHist.length >= 3 && typeof ext.hero_kpi_short === 'string') {
         const heroShort = String(merged.hero_kpi || '');
         const extShortLow = ext.hero_kpi_short.toLowerCase();
+        // Sub-agent #103 fix: word boundary matching to avoid false positives
+        // (e.g. "Net sales" was matching "Americas Net Sales" before)
+        const escapedExt = extShortLow.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const wordBoundaryRegex = new RegExp(`(^|[^a-z])${escapedExt}([^a-z]|$)`, 'i');
         const heroIdx = merged.kpis.findIndex((k) => {
           if (!k || typeof k !== 'object') return false;
           const s = (typeof k.short === 'string' ? k.short : '').toLowerCase();
           if (heroShort && s === heroShort.toLowerCase()) return true;
-          return s === extShortLow || s.includes(extShortLow) || extShortLow.includes(s);
+          if (s === extShortLow) return true;
+          // Word boundary check both directions
+          return wordBoundaryRegex.test(s) || (s.length >= 4 && new RegExp(`(^|[^a-z])${s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}([^a-z]|$)`, 'i').test(extShortLow));
         });
         if (heroIdx >= 0) {
           const cur = merged.kpis[heroIdx];
