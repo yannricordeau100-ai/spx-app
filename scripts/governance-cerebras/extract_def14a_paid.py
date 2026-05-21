@@ -57,7 +57,7 @@ MAX_TOKENS = 2200
 CTX_LEN = 26000
 
 CEO_NAME_PATTERN = re.compile(
-    r"^(?:[A-Z]\.?\s)?[A-Z][a-zA-Z'\-]+(?:\s[A-Z]\.?)*(?:\s[A-Z][a-zA-Z'\-]+){1,3}$"
+    r"^(?:[A-Z]\.?(?:[A-Z]\.?)?\s?)*(?:[A-ZÀ-ÿ][a-zA-ZÀ-ÿ'\-]+)(?:\s[A-Z]\.?){0,3}(?:\s(?:de|du|de\sLa|der|van|von|den|le|la))*(?:\s[A-ZÀ-ÿ][a-zA-ZÀ-ÿ'\-]+){1,4}(?:,?\s(?:Jr|Sr|III|II|IV|Ph\.D|Ph\.D\.|M\.D|M\.D\.))?\.?$"
 )
 CEO_NAME_BLOCKLIST = {
     "officer", "executive", "chairman", "president", "director",

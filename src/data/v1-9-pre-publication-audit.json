@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-05-21T17:35:12.159Z",
+  "generated_at": "2026-05-21T18:11:59.421Z",
   "publishable_source": "src/data/v1-9-publishable.json",
   "publishable_count_input": 807,
   "stats": {
     "total": 807,
     "fatal_no_dataset": 0,
-    "clean_af": 614,
-    "clean_all": 578,
+    "clean_af": 613,
+    "clean_all": 580,
     "by_failed_count": {
-      "0": 614,
-      "1": 130,
+      "0": 613,
+      "1": 131,
       "2": 48,
       "3": 12,
       "4": 2,
@@ -21,10 +21,10 @@
       "c_kpi_count": 1,
       "d_stories": 18,
       "e_risks": 14,
-      "f_repartition": 141
+      "f_repartition": 142
     },
     "by_failed_extension": {
-      "g_governance": 147,
+      "g_governance": 144,
       "h_ai_positioning": 9,
       "i_events": 12,
       "j_description": 0,
@@ -82,8 +82,8 @@
       "unavailable_adr": 14,
       "partial_disclosure_eu_p1": 0,
       "partial_disclosure_ok": 0,
-      "regex_real_sourced": 186,
-      "regex_real_sourced_pct_of_total": 23.05,
+      "regex_real_sourced": 187,
+      "regex_real_sourced_pct_of_total": 23.17,
       "heuristic_partial": 57,
       "heuristic_partial_capped": 0,
       "heuristic_partial_cap_limit": 242,
@@ -96,7 +96,7 @@
   "top5_failed_criteria": [
     [
       "f_repartition",
-      141
+      142
     ],
     [
       "a_hero_history",
@@ -7970,14 +7970,17 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Philip B. Daniele, III",
+          "board_size": 11,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "override_source": "def14a_local_cerebras_real",
+          "override_source_file": "sec-data/cat1-us/DEF14A/2025/AZO_2025-10-28.htm.gz",
+          "override_extraction_status": "heuristic_partial",
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3, regex_real_sourced=true)",
+          "exception_regex_real_sourced": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -8006,12 +8009,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "BA",
@@ -12814,7 +12815,11 @@
           "count": 5
         },
         "f_repartition": {
-          "ok": true
+          "ok": false,
+          "issues": [
+            "segment : Σ share_pct=94.0 ≠ 100"
+          ],
+          "reason": "segment : Σ share_pct=94.0 ≠ 100"
         }
       },
       "extensions": {
@@ -12849,11 +12854,13 @@
           "source": "next_earnings_date-90d"
         }
       },
-      "failed_criteria": [],
+      "failed_criteria": [
+        "f_repartition"
+      ],
       "failed_extensions": [],
-      "failed_count": 0,
-      "is_clean_af": true,
-      "is_clean_all": true
+      "failed_count": 1,
+      "is_clean_af": false,
+      "is_clean_all": false
     },
     {
       "ticker": "BZU.MI",
@@ -13476,17 +13483,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true,
-          "has_one_top": true,
-          "ceo_name": "Darren M. Rebelez",
-          "board_size": 11,
-          "top_voting_count": 3,
-          "top_capital_count": 3,
-          "override_source": "def14a_local_regex",
-          "override_source_file": "sec-data/cat1-us/DEF14A/2025/CASY_2025-07-23.htm.gz",
-          "override_extraction_status": "heuristic_real",
-          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3, regex_real_sourced=true)",
-          "exception_regex_real_sourced": true
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -41032,13 +41029,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size"
-          ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -41067,12 +41058,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "MOS",
@@ -49728,14 +49717,16 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_name",
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Joseph D. Russell, Jr.",
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "override_source": "def14a_local_cerebras_real",
+          "override_source_file": "sec-data/cat1-us/DEF14A/2026/PSA_2026-03-27.htm.gz",
+          "override_extraction_status": "heuristic_partial",
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3, regex_real_sourced=true)",
+          "exception_regex_real_sourced": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -49764,12 +49755,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "PSKY",
