@@ -86,3 +86,40 @@
   Cerebras Qwen-3 235B paid.
 - 5 errors résiduelles = stés sans pipeline file → scope V1.9 / CONV-DATA
   Pass 3, hors mission paid activation.
+
+## #120 Commit + audit re-run impact
+
+- Commit hash : `0f671dee6` (push origin staging OK)
+- Fichiers commités : **269 enrich** (80 paid retry + 194 shard0 backfill + ~75 overlap #117 f_repartition / freshness_yf_v173)
+- Statut working tree avant : 270 enrich modifiés non-committés (mission disait 85)
+- Audit re-run : aucun delta stats (baseline déjà inclut les stories enrich, audit script merge enrich.stories_kpis depuis load-company logique)
+
+### Stats post-audit (snapshot)
+
+- d_stories KO : 328 → 328 (stable, le précédent audit avait déjà mergé les stés enrich pre-commit)
+- Clean a-f publishable : 309 → 309 (stable)
+- a_hero_history KO : 152, b_interp : 26, c_kpi_count : 1, d_stories : 328, e_risks : 6, f_repartition : 220
+- g_governance : 609 KO (résiduel structurel ADR/EU)
+
+Conclusion : le delta attendu par la mission (-80 d_stories KO) ne s'est pas matérialisé car l'audit script précédent avait déjà mergé les stories_kpis depuis enrich (`load-company` logique merge enrich.stories_kpis priorité longueur).
+
+### Sample 5 stés vérifiées
+
+| Ticker | enrich.stories_kpis | audit d_stories | Sample quality |
+|---|---|---|---|
+| FDX | 4 | KO (4+3 short_history=7 < 8 cible MC>10B) | "AI Shipments" desc 188 chars OK |
+| JPM | 7 | OK | "G-SIB Surcharge" desc 141 chars OK |
+| V | 6 | OK | "AI Fraud Prevention" desc 202 chars OK |
+| JNJ | 3 | KO | "AI Bookings" SUSPECT (pharma + AI Bookings = hallucination probable Cerebras) |
+| EOG | 1 | KO | "Reserves Replacement" desc 187 chars OK |
+
+### Qualité Cerebras paid retry
+
+- 8/80 ont atteint exactement la cible `after` annoncée dans results-paid-retry.json
+- 72/80 ont `after` plus bas que prévu (cause : prompt extracteur overwrite stories_kpis au lieu d'append, perd les "before" comptés dans les complete files)
+- JNJ exemple flag hallucination : "AI Bookings / Capacity Add" hors-domaine pharma. À investiguer scope CONV-DATA séparément.
+
+### Coordination
+
+- Pas de chevauchement détecté avec #117 (f_repartition label_en) ni #119 (audit isEmpty patch) : commit purement additif.
+- Commit push réussi `74f47165d..0f671dee6 staging -> staging` sans force.
