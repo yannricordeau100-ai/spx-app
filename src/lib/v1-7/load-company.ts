@@ -425,6 +425,53 @@ export async function loadV17Company(
         (data as Record<string, unknown>)[key] = enrich[key];
       }
     }
+    // Yann 21 mai 2026 (sub-agent #52 CONV-CONCEPTS hero signal fix follow-up) :
+    // kpis_type_overrides field-by-field. Pure heuristique pattern match sur
+    // KPI.short / name_fr (cf scripts/heuristic-fill-kpi-types.py). Pour les
+    // ~313 stés où des KPIs ont des types non reconnus par interpretStructured
+    // (Balance Sheet / Comptes / Profit / Risk / Specific / Pipeline / etc.),
+    // on remappe le `type` field vers les catégories Driver (Revenue, Demand,
+    // User, Adoption) / Vigilance (Margin, Profitability, Cost, Investment) /
+    // Surveillance (Cash Flow, Capital, Dividende). N'écrase JAMAIS le type si
+    // déjà reconnu côté CONV-DATA. Merge SSR-only, n'altère pas v2-pipeline/.
+    const RECOGNIZED_TYPES = new Set([
+      "Demand", "User", "Adoption", "Revenue", "Volume", "Pricing", "Growth",
+      "Engagement", "Capacity", "Productivity", "Operations", "Production",
+      "Quality", "Innovation", "Subscription",
+      "Cost", "Margin", "Profitability", "Investment",
+      "Cash", "Cash Flow", "Capital", "Dividende",
+    ]);
+    // Shorts à FORCE override (high-confidence LLM mislabel) : Net Income en Revenue,
+    // Free Cash Flow en Revenue, etc. Patterns autoritaires. Cf
+    // scripts/heuristic-fill-kpi-types.py HIGH_CONFIDENCE_PATTERNS.
+    const FORCE_OVERRIDE_PATTERNS: Array<[RegExp, string]> = [
+      [/^net\s*income(\s*\(loss\))?$/i, "Profitability"],
+      [/^operating\s*income$/i, "Profitability"],
+      [/\beps\b/i, "Profitability"],
+      [/^free\s*cash\s*flow$|^fcf$|^operating\s*cash\s*flow$/i, "Cash Flow"],
+      [/^gross\s*margin$|^operating\s*margin$|^net\s*margin$|^ebitda\s*margin$/i, "Margin"],
+      [/^r&d$|^capex$/i, "Investment"],
+      [/^dps$|^payout\s*ratio$|^cap\s*return$/i, "Dividende"],
+    ];
+    const typeOverrides = (enrich as Record<string, unknown>).kpis_type_overrides;
+    if (typeOverrides && typeof typeOverrides === "object" && !Array.isArray(typeOverrides) && Array.isArray(data.kpis)) {
+      const ov = typeOverrides as Record<string, string>;
+      data.kpis = (data.kpis as AnyKPI[]).map((k: AnyKPI) => {
+        const short = typeof k.short === "string" ? k.short : "";
+        const curType = typeof k.type === "string" ? k.type : "";
+        if (!short || !ov[short]) return k;
+        // 1. Force override pour shorts high-confidence (override même si type reconnu)
+        const forced = FORCE_OVERRIDE_PATTERNS.find(([re]) => re.test(short));
+        if (forced && curType !== forced[1]) {
+          return { ...k, type: forced[1] };
+        }
+        // 2. Sinon override seulement si type courant pas reconnu (génériques / vides)
+        if (!RECOGNIZED_TYPES.has(curType)) {
+          return { ...k, type: ov[short] };
+        }
+        return k;
+      });
+    }
     // Yann 21 mai 2026 (sub-agent #52 CONV-CONCEPTS) : overrides_governance
     // field-by-field. Fill heuristique (voting_structure_note, board_size via
     // yfinance.companyOfficers, board_independence_pct 80% US default,

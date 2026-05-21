@@ -150,6 +150,44 @@ function loadCompany(ticker) {
           if (Array.isArray(d.kpis_story) && (!Array.isArray(merged.kpis_story) || merged.kpis_story.length === 0)) {
             merged.kpis_story = d.kpis_story;
           }
+          // Yann 21 mai 2026 (CONV-CONCEPTS sub-agent #52 follow-up) :
+          // kpis_type_overrides — heuristique pattern match remappe les types
+          // génériques (Balance Sheet, Comptes, Profit, Risk, etc.) vers les
+          // catégories reconnues par interpretStructured (Driver / Vigilance /
+          // Surveillance). Appliqué field-by-field, n'écrase que si type
+          // courant pas reconnu. Cf scripts/heuristic-fill-kpi-types.py.
+          if (d.kpis_type_overrides && typeof d.kpis_type_overrides === 'object' && Array.isArray(merged.kpis)) {
+            const RECOGNIZED = new Set([
+              'Demand', 'User', 'Adoption', 'Revenue', 'Volume', 'Pricing', 'Growth',
+              'Engagement', 'Capacity', 'Productivity', 'Operations', 'Production',
+              'Quality', 'Innovation', 'Subscription',
+              'Cost', 'Margin', 'Profitability', 'Investment',
+              'Cash', 'Cash Flow', 'Capital', 'Dividende',
+            ]);
+            const FORCE = [
+              [/^net\s*income(\s*\(loss\))?$/i, 'Profitability'],
+              [/^operating\s*income$/i, 'Profitability'],
+              [/\beps\b/i, 'Profitability'],
+              [/^free\s*cash\s*flow$|^fcf$|^operating\s*cash\s*flow$/i, 'Cash Flow'],
+              [/^gross\s*margin$|^operating\s*margin$|^net\s*margin$|^ebitda\s*margin$/i, 'Margin'],
+              [/^r&d$|^capex$/i, 'Investment'],
+              [/^dps$|^payout\s*ratio$|^cap\s*return$/i, 'Dividende'],
+            ];
+            merged.kpis = merged.kpis.map((k) => {
+              if (!k || typeof k !== 'object') return k;
+              const short = typeof k.short === 'string' ? k.short : '';
+              const curType = typeof k.type === 'string' ? k.type : '';
+              if (!short || !d.kpis_type_overrides[short]) return k;
+              const forced = FORCE.find(([re]) => re.test(short));
+              if (forced && curType !== forced[1]) {
+                return { ...k, type: forced[1] };
+              }
+              if (!RECOGNIZED.has(curType)) {
+                return { ...k, type: d.kpis_type_overrides[short] };
+              }
+              return k;
+            });
+          }
         } else {
           merged = { ...d };
         }
