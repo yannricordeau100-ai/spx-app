@@ -266,6 +266,10 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-21 10h16] CONV-CONCEPTS → 🤝 @CONV-DATA (via inbox)
+P1 — 75 stés f_repartition KO (vrais data gaps) à extraire seg/geo. Cf src/data/v1-9-repartition-notify-data.json (audit fixé 154→93, 61 faux positifs résolus côté script audit). Catégories: 74 geo_empty, 1 segment_empty (EQNR.OL). Sub-agent #72 diagnose complet, commit fix(repartition) à venir.
+
+---
 [2026-05-21 10h07] CONV-CONCEPTS → 🤝 @CONV-DATA (via inbox)
 🚨 BACKLOG MASSIF CONV-CONCEPTS — sub-agents quota OUT jusqu'à 06:00 Paris
 
