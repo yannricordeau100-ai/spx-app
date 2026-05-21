@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.mettrik.cerebras-restart</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>/Users/yann/spx-app/scripts/cron-cerebras-restart.sh</string>
+    </array>
+    <!-- launchd StartCalendarInterval uses LOCAL time (Europe/Paris).
+         Cible: minuit UTC + 5 min. En CEST (mai, UTC+2) -> 02:05 locale.
+         En CET (hiver, UTC+1) -> 01:05 locale. On garde 02:05 (CEST actuel mai 2026). -->
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>2</integer>
+        <key>Minute</key>
+        <integer>5</integer>
+    </dict>
+    <key>RunAtLoad</key>
+    <false/>
+    <key>KeepAlive</key>
+    <false/>
+    <key>StandardOutPath</key>
+    <string>/Users/yann/spx-app/logs/cron-cerebras-restart/launchd-stdout.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/yann/spx-app/logs/cron-cerebras-restart/launchd-stderr.log</string>
+    <key>WorkingDirectory</key>
+    <string>/Users/yann/spx-app</string>
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+        <key>LANG</key>
+        <string>en_US.UTF-8</string>
+    </dict>
+</dict>
+</plist>
