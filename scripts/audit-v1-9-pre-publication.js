@@ -192,6 +192,41 @@ function loadCompany(ticker) {
           if (Array.isArray(d.kpis_story) && (!Array.isArray(merged.kpis_story) || merged.kpis_story.length === 0)) {
             merged.kpis_story = d.kpis_story;
           }
+          // Yann 21 mai 2026 (sub-agent freshness fix) : merger les champs
+          // freshness depuis enrich. Pipeline v1-9-complete n'a pas
+          // publication_date / latest_filing / next_earnings_date (écrits
+          // uniquement côté v2-pipeline-enrich par sub-agent #34 + cron
+          // yfinance). Sans ce merge, m_freshness check fail à 56.5%.
+          if (d.publication_date && !merged.publication_date) {
+            merged.publication_date = d.publication_date;
+          }
+          if (d.latest_filing && !merged.latest_filing) {
+            merged.latest_filing = d.latest_filing;
+          }
+          if (d.next_earnings_date && !merged.next_earnings_date) {
+            merged.next_earnings_date = d.next_earnings_date;
+          }
+          // kpis_freshness_overrides : sub-agent #34 yfinance v19 a écrit
+          // un array [{short, last_data_date, source}] par sté. Appliquer
+          // au KPI matchant côté merged.kpis[] (set last_data_date si vide).
+          if (Array.isArray(d.kpis_freshness_overrides) && Array.isArray(merged.kpis)) {
+            const overridesByShort = new Map();
+            for (const ov of d.kpis_freshness_overrides) {
+              if (ov && typeof ov.short === 'string' && ov.last_data_date) {
+                overridesByShort.set(lower(ov.short), ov.last_data_date);
+              }
+            }
+            merged.kpis = merged.kpis.map((k) => {
+              if (!k || typeof k !== 'object') return k;
+              const ovDate = overridesByShort.get(lower(k.short));
+              if (ovDate && !k.last_data_date) {
+                return { ...k, last_data_date: ovDate };
+              }
+              return k;
+            });
+            // Conserver le champ pour checkFreshness fallback
+            merged.kpis_freshness_overrides = d.kpis_freshness_overrides;
+          }
           // Yann 21 mai 2026 (CONV-CONCEPTS sub-agent #52 follow-up) :
           // kpis_type_overrides — heuristique pattern match remappe les types
           // génériques (Balance Sheet, Comptes, Profit, Risk, etc.) vers les
@@ -233,6 +268,30 @@ function loadCompany(ticker) {
         } else {
           merged = { ...d };
         }
+      }
+    }
+  }
+  // CONV-CONCEPTS 21 mai 2026 (sub-agent l_hero_name_fr) : fichier séparé
+  // `<ticker>.hero_name_fr.json` pour repointer hero_kpi et/ou poser un
+  // name_fr propre sur le hero. Mirror de la logique merge SSR
+  // (src/lib/v1-7/load-company.ts) afin que l'audit voie aussi le fix.
+  if (merged) {
+    const t = String(merged.ticker || ticker || '');
+    const lc = t.toLowerCase();
+    const heroFrPath = path.join(DATA, 'v2-pipeline-enrich', `${lc}.hero_name_fr.json`);
+    const heroFr = readJson(heroFrPath);
+    if (heroFr) {
+      if (typeof heroFr.hero_kpi_override === 'string') {
+        merged.hero_kpi = heroFr.hero_kpi_override;
+      }
+      const ov = heroFr.overrides_hero_name_fr;
+      if (ov && ov.hero_short && ov.name_fr && Array.isArray(merged.kpis)) {
+        merged.kpis = merged.kpis.map((k) => {
+          if (k && lower(k.short) === lower(ov.hero_short)) {
+            return { ...k, name_fr: ov.name_fr };
+          }
+          return k;
+        });
       }
     }
   }
@@ -700,18 +759,59 @@ function checkHeroNameFr(company) {
 }
 
 function checkFreshness(company) {
-  // Cherche last_data_date du hero KPI ou racine
+  // Cherche last_data_date selon règle CLAUDE.md §6 (< 12 mois Yann).
+  // Cascade : hero.last_data_date → kpis_freshness_overrides (sub-agent #34 yfinance v19)
+  //         → publication_date → latest_filing.date.
+  // Hero-only (audit ne pénalise pas si juste hero KPI fresh,
+  // cohérent avec UI <FreshnessIndicator> qui se base sur hero uniquement).
   const hero = findHero(company);
   let date = null;
-  if (hero && hero.last_data_date) date = parseDate(hero.last_data_date);
-  if (!date && company.publication_date) date = parseDate(company.publication_date);
-  if (!date && company.latest_filing && company.latest_filing.date) date = parseDate(company.latest_filing.date);
+  let source = null;
+  if (hero && hero.last_data_date) {
+    date = parseDate(hero.last_data_date);
+    source = 'hero.last_data_date';
+  }
+  // Fallback : si overrides présent (sub-agent #34 freshness yfinance v19),
+  // chercher hero short ou prendre la plus récente date du tableau.
+  if (!date && Array.isArray(company.kpis_freshness_overrides) && company.kpis_freshness_overrides.length > 0) {
+    const heroShort = hero ? lower(hero.short) : null;
+    let heroOv = null;
+    let latestDate = null;
+    for (const ov of company.kpis_freshness_overrides) {
+      if (!ov || !ov.last_data_date) continue;
+      const ovDate = parseDate(ov.last_data_date);
+      if (!ovDate) continue;
+      if (heroShort && lower(ov.short) === heroShort) {
+        heroOv = ovDate;
+        break;
+      }
+      if (!latestDate || ovDate > latestDate) {
+        latestDate = ovDate;
+      }
+    }
+    if (heroOv) {
+      date = heroOv;
+      source = 'kpis_freshness_overrides[hero]';
+    } else if (latestDate) {
+      date = latestDate;
+      source = 'kpis_freshness_overrides[latest]';
+    }
+  }
+  if (!date && company.publication_date) {
+    date = parseDate(company.publication_date);
+    source = 'publication_date';
+  }
+  if (!date && company.latest_filing && company.latest_filing.date) {
+    date = parseDate(company.latest_filing.date);
+    source = 'latest_filing.date';
+  }
   if (!date) return { ok: false, reason: 'last_data_date absent' };
   const monthsAgo = (NOW.getTime() - date.getTime()) / (1000 * 60 * 60 * 24 * 30.44);
+  // Règle Yann CLAUDE.md §6 : < 12 mois OK (FreshnessIndicator orange si > 12 mois).
   if (monthsAgo > 12) {
-    return { ok: false, months_ago: Math.round(monthsAgo), reason: `last_data_date ${monthsAgo.toFixed(0)} mois` };
+    return { ok: false, months_ago: Math.round(monthsAgo), source, reason: `last_data_date ${monthsAgo.toFixed(0)} mois (source: ${source})` };
   }
-  return { ok: true, months_ago: Math.round(monthsAgo) };
+  return { ok: true, months_ago: Math.round(monthsAgo), source };
 }
 
 // ---------------------------------------------------------------------------
