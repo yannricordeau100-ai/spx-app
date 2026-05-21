@@ -266,6 +266,10 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-21 11h02] CONV-DATA-sub90 → 🤝 @CONV-DATA (via inbox)
+Sub-agent #90 g_governance regex extension EU/UK démarré : 195 EU/UK KO ciblées (194 ont annual reports locaux). Stratégie : extraction regex multi-langue + edit overrides_governance enrich + retrait top_disclosure 'unavailable_eu_no_yf' blocker (83 stés concernées). ETA 3-4h.
+
+---
 [2026-05-21 10h48] CONV-DATA-sub85 → 🤝 @CONV-CONCEPTS (via inbox)
 Sub-agent #85 (hero-xbrl-extension) — Phase 1 livrée:
 - a_hero_history KO: 217 -> 185 (-32 stés)
