@@ -413,6 +413,32 @@ export async function loadV17Company(
         (data as Record<string, unknown>)[key] = enrich[key];
       }
     }
+    // Yann 21 mai 2026 (sub-agent #37 CONV-CONCEPTS programmatic events fill) :
+    // events fusion = si data.events a < 4 entrées et enrich.events en a plus,
+    // fusionner les deux listes (dedup par title+date, sort date desc, cap 8).
+    // Sans ce merge, les events programmatic (earnings, dividends, splits)
+    // ajoutés par scripts/fill-events-programmatic.py restent invisibles sur
+    // les fiches sté qui ont déjà 1-3 events news.
+    if (Array.isArray(enrich.events) && enrich.events.length > 0) {
+      const cur = Array.isArray((data as Record<string, unknown>).events)
+        ? ((data as Record<string, unknown>).events as Array<Record<string, unknown>>)
+        : [];
+      if (cur.length < 4 && enrich.events.length > cur.length) {
+        const seen = new Set<string>();
+        const out: Array<Record<string, unknown>> = [];
+        for (const e of [...cur, ...(enrich.events as Array<Record<string, unknown>>)]) {
+          if (!e || typeof e !== "object") continue;
+          const title = String(e.title ?? "").toLowerCase().slice(0, 60);
+          const date = String(e.date ?? "");
+          const key = `${title}|${date}`;
+          if (seen.has(key)) continue;
+          seen.add(key);
+          out.push(e);
+        }
+        out.sort((a, b) => String(b.date ?? "").localeCompare(String(a.date ?? "")));
+        (data as Record<string, unknown>).events = out.slice(0, 8);
+      }
+    }
     // Risks / governance / AI positioning : merge SEULEMENT si la fiche
     // CONV-DATA ne les a pas déjà fournis. Évite de doubler des données.
     for (const key of ["risks", "governance", "ai_positioning"] as const) {
