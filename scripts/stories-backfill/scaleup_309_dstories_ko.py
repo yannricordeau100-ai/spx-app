@@ -345,14 +345,41 @@ def process_ticker(target_info, primary_idx, state):
     existing_keys = {(s.get("short") or "").strip().lower() for s in existing}
     new_stories = [s for s in new_stories if s.get("short", "").strip().lower() not in existing_keys]
 
+    # Sub-agent #124 (2026-05-21): domain filter to reject out-of-domain
+    # stories (e.g. "AI Bookings" on a pharma company). Helper in
+    # scripts/stories-backfill/domain_filter.py
+    try:
+        from domain_filter import filter_stories  # type: ignore
+        sector = ctx["pipeline"].get("sector", "")
+        new_stories, _rejected_domain = filter_stories(new_stories, sector)
+    except ImportError:
+        pass
+
     enrich_path = ENRICH / f"{ticker.lower()}.json"
     if enrich_path.exists():
         enrich_data = json.load(open(enrich_path))
     else:
         enrich_data = {"ticker": ticker.upper()}
 
+    # Append + dedup against existing enrich stories_kpis (title-prefix dedup
+    # added by sub-agent #124 for robustness — previous code already
+    # appended but did not dedup vs existing enrich content).
     enrich_existing = enrich_data.get("stories_kpis") or []
-    merged = enrich_existing + new_stories
+    if not isinstance(enrich_existing, list):
+        enrich_existing = []
+    existing_enrich_titles = {
+        (s.get("short") or s.get("title") or s.get("name_fr") or "")[:30].strip().lower()
+        for s in enrich_existing
+        if isinstance(s, dict)
+    }
+    deduped_new = []
+    for s in new_stories:
+        title_key = (s.get("short") or s.get("title") or s.get("name_fr") or "")[:30].strip().lower()
+        if title_key and title_key not in existing_enrich_titles:
+            deduped_new.append(s)
+            existing_enrich_titles.add(title_key)
+    # Cap final at 12 stories max (audit target = 5-8 per company)
+    merged = (enrich_existing + deduped_new)[:12]
     enrich_data["stories_kpis"] = merged
     enrich_data["_stories_backfill_at"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     enrich_data["_stories_backfill_source"] = f"scaleup_309_ko_{source}"
