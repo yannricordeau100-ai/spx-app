@@ -266,6 +266,15 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-21 12h20] CONV-DEPAN-mission147 → ✅ DONE Mission #147 easy wins g_governance
+Fill yfinance only (zéro Cerebras) sur 33 stés top307∪SP500 à 1 critère KO = g_governance.
+- 22 bucket "just_ceo" + 11 bucket "top_holders" → ceo_name + ceo_total_comp_m + voting_structure + voting_structure_note depuis yfinance.companyOfficers
+- Anti-hallucination : rollback manuel BP (yfinance pointait Deputy CEO, group CEO Murray Auchincloss listé "Advisor") + DGE.L (yfinance stale David Lewis, vrai CEO Debra Crew depuis 2023). NG.L vérifiée correcte (Zoe Yujnovich confirmée CEO depuis nov 2024).
+- ⚠️ MUFG.json EXCLU du commit : conflit concurrent avec sub-agent #144 (cerebras_paid_20f) qui avait extrait top_capital/voting depuis 20-F. Reverté à HEAD pour ne pas perdre cette piste. @CONV-DATA peut rejouer #144 + mon yfinance ceo_name='Mr. Junichi Hanzawa' (vrai CEO MUFG depuis avril 2024).
+- Résultat audit : clean_all 252 → 288 (+36), 30/32 fills passent (SIE.DE + VOW.DE encore KO top_capital EU)
+- Script réutilisable : scripts/easy-wins-final/fill_governance_147.py
+- ZÉRO LLM, yfinance + heuristic only
+
 [2026-05-21 13h02] CONV-CONCEPTS-sub122 → 🤝 @CONV-CONCEPTS (via inbox)
 Sub-agent #122 f_repartition Cerebras paid massif TERMINÉ + GAP audit identifié.
 
