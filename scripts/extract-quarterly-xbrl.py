@@ -419,8 +419,10 @@ def load_universe(name: str) -> list[str]:
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--universe", choices=["top307", "sp500", "test"], default="test")
+    p.add_argument("--tickers-file", type=str, default="", help="Path to a text file with one ticker per line; overrides --universe")
     p.add_argument("--limit", type=int, default=0)
     p.add_argument("--workers", type=int, default=4)
+    p.add_argument("--force", action="store_true", help="Overwrite existing quarterly-history.json")
     args = p.parse_args()
 
     LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
@@ -429,12 +431,20 @@ def main():
         sys.exit(1)
     cik_index = json.loads(CIK_INDEX.read_text())
 
-    tickers = load_universe(args.universe)
+    if args.tickers_file:
+        tf = Path(args.tickers_file)
+        if not tf.exists():
+            log(f"[FATAL] tickers file missing: {tf}")
+            sys.exit(1)
+        tickers = [ln.strip() for ln in tf.read_text().splitlines() if ln.strip()]
+    else:
+        tickers = load_universe(args.universe)
     if args.limit:
         tickers = tickers[:args.limit]
 
     work = []
     skipped_no_cik = 0
+    skipped_existing = 0
     for t in tickers:
         upper = t.upper()
         # Skip tickers with dots (foreign listings, often no SEC CIK)
@@ -446,9 +456,16 @@ def main():
         if not cik:
             skipped_no_cik += 1
             continue
+        # Skip if quarterly-history.json already exists (unless --force)
+        if not args.force:
+            existing = ENRICH / f"{upper.lower()}.quarterly-history.json"
+            if existing.exists():
+                skipped_existing += 1
+                continue
         work.append((upper, cik))
 
-    log(f"=== START universe={args.universe} workers={args.workers} tickers={len(work)} (skipped {skipped_no_cik} no-CIK) ===")
+    src_label = args.tickers_file if args.tickers_file else args.universe
+    log(f"=== START source={src_label} workers={args.workers} tickers={len(work)} (skipped {skipped_no_cik} no-CIK, {skipped_existing} existing) ===")
 
     counts = {}
     with mp.Pool(args.workers) as pool:
