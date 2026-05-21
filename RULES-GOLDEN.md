@@ -206,18 +206,30 @@ que je lui ai faite.
 
 ---
 
-## 6. RAM Mac fragile : surveiller AVANT chaque gros run
+## 6. RAM Mac : utiliser le MAXIMUM d'agents possibles (Yann 21 mai 2026)
 
-Le Mac de Yann a déjà crashé plusieurs fois (hard reset forcé). Avant
-de lancer une tâche gourmande (build prod, scraper, batch LLM, dev
-server, ouverture multiple de fichiers > 100 Mo) :
-1. Lire `SHARED-STATUS.md` section `## 🔄 EN COURS` pour voir ce que les
-   3 autres convs consomment déjà
-2. Estimer ma propre conso (procs Python, dev server, etc.)
-3. Si total système estimé > 80 % RAM, **ne pas lancer**, attendre ou
-   réduire (ex : 2 procs au lieu de 4)
-4. Si RAM Mac détectée > 80 % par mes outils, kill tout proc zombie /
-   inutile avant de continuer
+Yann a explicitement remplacé la règle conservative par une règle
+d'**utilisation maximale** : déployer si besoin ou si demandé tous les
+agents IA possibles, en laissant juste la RAM nécessaire pour ne pas
+faire apparaître la fenêtre macOS de fermeture forcée d'applications.
+
+**Procédure obligatoire** :
+1. Quand 4+ agents IA sont déployés en parallèle → **vérifier `vm_stat`
+   toutes les 30 secondes** automatiquement
+2. Si RAM free approche du seuil critique (< 100 MB free + compressor
+   actif) → baisser la conso (kill 1 agent OU augmenter sleep entre
+   calls OU pause temporaire d'un agent non critique)
+3. Veille constante sur la RAM = utiliser le MAXIMUM d'agents pour les
+   tâches nécessaires ou qui peuvent accélérer le travail directement
+   ou indirectement (sub-agents Claude forfait Max gratuit prioritaires)
+4. **PAS de cap arbitraire** (l'ancien "max 4 procs" ou "max 80% RAM" est
+   ABROGÉ). Le cap est dynamique = jusqu'au seuil critique macOS.
+5. Le seuil critique = juste avant que la fenêtre macOS "Quitter cette
+   application pour libérer de la mémoire" apparaisse. En pratique :
+   RAM free < 50 MB + compressor saturé + swap > 4 GB.
+
+**Esprit** : Yann a payé 16 GB RAM + Mac upgradé. Pas de stand-by "par
+précaution" sans raison. Mieux vaut throttle dynamique que sous-utiliser.
 
 ---
 
