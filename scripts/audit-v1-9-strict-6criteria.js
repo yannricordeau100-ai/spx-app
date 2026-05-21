@@ -71,12 +71,19 @@ function getSlices(block) {
  * `slices=[]` car mono-pays / mono-segment. Le critère ≥2 slices les exclut
  * artificiellement de la publication alors qu'elles méritent leur fiche.
  *
+ * Exemple canonique single-segment : NFLX (Netflix, 1 seul segment reportable
+ * streaming consolidé per 10-K FY2025 Note 11). Tagué via sub-agent #17 :
+ *   "revenue_by_segment": { "single_segment_legitimate": true, "source": "...",
+ *     "reason": "Netflix n'a qu'un segment opérationnel (streaming)." }
+ *
  * Règle d'acceptation (méthodologie HONNÊTE) :
  *   1. `revenue_by_geography.single_region_legitimate === true` → critère geo REMPLI
- *   2. `revenue_by_geography.slices = [{ label: "États-Unis"/"United States", value: 100, share_pct: 100 }]`
+ *   2. `revenue_by_geography.single_region === true` → critère geo REMPLI (alias)
+ *   3. `revenue_by_geography.slices = [{ label: "États-Unis"/"United States", value: 100, share_pct: 100 }]`
  *      (single-slice 100% US) → critère geo REMPLI
- *   3. `revenue_by_segment.single_segment_legitimate === true` → critère seg REMPLI
- *   4. `revenue_by_segment.slices = [{ value: 100, share_pct: 100 }]` mono-segment
+ *   4. `revenue_by_segment.single_segment_legitimate === true` → critère seg REMPLI
+ *   5. `revenue_by_segment.single_segment === true` → critère seg REMPLI (alias)
+ *   6. `revenue_by_segment.slices = [{ value: 100, share_pct: 100 }]` mono-segment
  *      → critère seg REMPLI
  *
  * Anti-cheat : ne JAMAIS tagger comme légitimes les multinationales (AAPL, KO,
