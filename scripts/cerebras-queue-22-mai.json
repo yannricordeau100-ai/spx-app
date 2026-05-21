@@ -1,0 +1,41 @@
+{
+  "generated_at": "2026-05-21T11:30:00Z",
+  "next_window": "2026-05-22T00:05:00Z (02:05 Paris)",
+  "queue": [
+    {
+      "priority": "P0",
+      "mission": "d_stories_scaleup_residuel",
+      "target_count": "100-150 stés résiduelles post Python PID 86250",
+      "script": "scripts/stories-backfill/scaleup_309_dstories_ko.py",
+      "estimated_tokens": 1500000,
+      "rate_limit": "Qwen-3 235B 3 keys rotation",
+      "eta_hours": 2
+    },
+    {
+      "priority": "P0",
+      "mission": "f_repartition_seg_geo",
+      "target_count": "64 quick-wins + 224 missing EU/CH/UK",
+      "script": "scripts/repartition-backfill/extract_segments_geo.py",
+      "estimated_tokens": 2500000,
+      "eta_hours": 3.5
+    },
+    {
+      "priority": "P1",
+      "mission": "hero_segment_extraction",
+      "target_count": "97 US LLM_SEGMENT_REQUIRED",
+      "source_file": "src/data/v1-9-us-segment-heroes-analysis-21-mai.json",
+      "filter_category": "LLM_SEGMENT_REQUIRED",
+      "estimated_tokens": 3500000,
+      "eta_hours": 5
+    },
+    {
+      "priority": "P2",
+      "mission": "eu_governance_llm_enrichment",
+      "target_count": "92 EU heuristic_partial",
+      "estimated_tokens": 1200000,
+      "eta_hours": 3
+    }
+  ],
+  "total_eta_hours": 13.5,
+  "groq_fallback": "Llama 3.3 70B free 100K/day reset 12:00 Pacific"
+}
