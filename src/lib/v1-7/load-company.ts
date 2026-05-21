@@ -477,6 +477,26 @@ export async function loadV17Company(
         return k;
       });
     }
+    // Hero signal override (CONV-CONCEPTS 21 mai 2026, sub-agent #48 follow-up) :
+    // fill heuristique signal vide sur hero KPI (7 stés publishable). Format :
+    // { overrides_hero_signal: { hero_short, signal, _source } }. N'écrase pas
+    // un signal existant. Merge SSR-only (n'altère pas v2-pipeline/<t>.json).
+    const overrideSignal = (enrich as Record<string, unknown>).overrides_hero_signal;
+    if (
+      overrideSignal
+      && typeof overrideSignal === "object"
+      && Array.isArray(data.kpis)
+    ) {
+      const ov = overrideSignal as { hero_short?: string; signal?: string };
+      if (ov.hero_short && ov.signal && typeof ov.signal === "string") {
+        data.kpis = (data.kpis as AnyKPI[]).map((k: AnyKPI) => {
+          if (k.short === ov.hero_short && (!k.signal || !String(k.signal).trim())) {
+            return { ...k, signal: ov.signal };
+          }
+          return k;
+        });
+      }
+    }
     // Stories KPIs : ajout APPEND. CONV-SYSTEMS produit des KPIs short-history
     // additionnels (ex : Netflix ad-tier MAU, Live hours) qui complètent ceux
     // de CONV-DATA. Tag is_short_history forcé à true côté carrousel Stories.
