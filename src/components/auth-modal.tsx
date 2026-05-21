@@ -161,7 +161,8 @@ export function AuthModal() {
       // user qui se connecte depuis une page V1.9 atterrit sur V1.8 (faute
       // d'allowlist) et perd son contexte.
       const isStaging = typeof window !== "undefined" && window.location.host.includes("staging");
-      const safeHome = isStaging ? "/sandbox/v1-8" : "/";
+      // Yann 21 mai 2026 : V1.9.5 = défaut staging (au lieu de V1.8).
+      const safeHome = isStaging ? "/sandbox/v1-9-5" : "/";
       let target = safeHome;
       if (nextParam && nextParam.startsWith("/") && !nextParam.startsWith("//")) {
         // Autorise les pages sté V1.7 / V1.7.5 / V1.8 / V1.9 directement

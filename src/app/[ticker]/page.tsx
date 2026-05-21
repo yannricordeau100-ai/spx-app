@@ -82,11 +82,11 @@ export default async function TickerPage({
   }
   const company = getCompany(ticker);
   if (!company) {
-    // Yann 8 mai 2026 : si le ticker n'est pas V1 mais existe en V1.7-public,
-    // redirect vers /sandbox/v1-8/<ticker> (UX : tape /AAPL → ouvre AAPL).
+    // Yann 21 mai 2026 : V1.9.5 = défaut. Si le ticker existe en V1.7-public,
+    // on redirige vers /sandbox/v1-9-5/<ticker> (UX : tape /AAPL → ouvre AAPL).
     const v17 = V17_PUBLIC as unknown as Record<string, unknown>;
     if (v17[upper]) {
-      redirect(`/sandbox/v1-8/${ticker.toLowerCase()}`);
+      redirect(`/sandbox/v1-9-5/${ticker.toLowerCase()}`);
     }
     notFound();
   }
