@@ -475,10 +475,16 @@ export async function loadV17Company(
       [/^operating\s*income$/i, "Profitability"],
       [/\beps\b/i, "Profitability"],
       [/^free\s*cash\s*flow$|^fcf$|^operating\s*cash\s*flow$/i, "Cash Flow"],
-      [/^gross\s*margin$|^operating\s*margin$|^net\s*margin$|^ebitda\s*margin$/i, "Margin"],
+      [/^(adj(usted)?\s+)?(gross|operating|net|ebitda)\s*margin$/i, "Margin"],
       [/^r&d$|^capex$/i, "Investment"],
       [/^dps$|^payout\s*ratio$|^cap\s*return$/i, "Dividende"],
     ];
+    // Sub-agent #58 (b_interpretation residual) : Vigilance targets forcent
+    // override même si type courant reconnu, pour débloquer 2 stés restantes
+    // (KEY Tier 1, MAR Adj EBITDA Margin). Sécurité : seulement pour cibles
+    // Vigilance strictes (Cost/Margin/Profitability/Investment). Évite de
+    // déstabiliser les overrides Driver/Surveillance déjà OK.
+    const VIGILANCE_TARGETS = new Set(["Cost", "Margin", "Profitability", "Investment"]);
     const typeOverrides = (enrich as Record<string, unknown>).kpis_type_overrides;
     if (typeOverrides && typeof typeOverrides === "object" && !Array.isArray(typeOverrides) && Array.isArray(data.kpis)) {
       const ov = typeOverrides as Record<string, string>;
@@ -491,9 +497,14 @@ export async function loadV17Company(
         if (forced && curType !== forced[1]) {
           return { ...k, type: forced[1] };
         }
-        // 2. Sinon override seulement si type courant pas reconnu (génériques / vides)
+        // 2. Force override si cible = Vigilance (b_interpretation unblock)
+        const target = ov[short];
+        if (VIGILANCE_TARGETS.has(target) && curType !== target) {
+          return { ...k, type: target };
+        }
+        // 3. Sinon override seulement si type courant pas reconnu (génériques / vides)
         if (!RECOGNIZED_TYPES.has(curType)) {
-          return { ...k, type: ov[short] };
+          return { ...k, type: target };
         }
         return k;
       });

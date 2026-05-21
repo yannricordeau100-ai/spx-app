@@ -246,10 +246,14 @@ function loadCompany(ticker) {
               [/^operating\s*income$/i, 'Profitability'],
               [/\beps\b/i, 'Profitability'],
               [/^free\s*cash\s*flow$|^fcf$|^operating\s*cash\s*flow$/i, 'Cash Flow'],
-              [/^gross\s*margin$|^operating\s*margin$|^net\s*margin$|^ebitda\s*margin$/i, 'Margin'],
+              [/^(adj(usted)?\s+)?(gross|operating|net|ebitda)\s*margin$/i, 'Margin'],
               [/^r&d$|^capex$/i, 'Investment'],
               [/^dps$|^payout\s*ratio$|^cap\s*return$/i, 'Dividende'],
             ];
+            // Sub-agent #58 (b_interpretation residual) : Vigilance targets
+            // forcent override même si type courant reconnu. Aligné avec
+            // src/lib/v1-7/load-company.ts VIGILANCE_TARGETS.
+            const VIGILANCE_TARGETS = new Set(['Cost', 'Margin', 'Profitability', 'Investment']);
             merged.kpis = merged.kpis.map((k) => {
               if (!k || typeof k !== 'object') return k;
               const short = typeof k.short === 'string' ? k.short : '';
@@ -259,8 +263,12 @@ function loadCompany(ticker) {
               if (forced && curType !== forced[1]) {
                 return { ...k, type: forced[1] };
               }
+              const target = d.kpis_type_overrides[short];
+              if (VIGILANCE_TARGETS.has(target) && curType !== target) {
+                return { ...k, type: target };
+              }
               if (!RECOGNIZED.has(curType)) {
-                return { ...k, type: d.kpis_type_overrides[short] };
+                return { ...k, type: target };
               }
               return k;
             });
