@@ -1,21 +1,20 @@
 {
-  "generated_at": "2026-05-21T08:54:21.095Z",
+  "generated_at": "2026-05-21T09:14:43.249Z",
   "publishable_source": "src/data/v1-9-publishable.json",
   "publishable_count_input": 778,
   "stats": {
     "total": 778,
     "fatal_no_dataset": 0,
     "clean_af": 188,
-    "clean_all": 141,
+    "clean_all": 125,
     "by_failed_count": {
       "0": 188,
-      "1": 315,
-      "2": 205,
-      "3": 66,
-      "4": 4
+      "1": 323,
+      "2": 209,
+      "3": 58
     },
     "by_failed_criterion": {
-      "a_hero_history": 185,
+      "a_hero_history": 161,
       "b_interpretation": 12,
       "c_kpi_count": 0,
       "d_stories": 453,
@@ -23,21 +22,42 @@
       "f_repartition": 288
     },
     "by_failed_extension": {
-      "g_governance": 366,
+      "g_governance": 393,
       "h_ai_positioning": 0,
-      "i_events": 90,
+      "i_events": 87,
       "j_description": 0,
       "k_ranks": 0,
       "l_hero_name_fr": 5,
-      "m_freshness": 3
+      "m_freshness": 6
     },
     "a_hero_history_exceptions": {
       "legitimate": 83,
       "short_marked": 16,
+      "company_specific": 21,
       "legitimate_pct_of_total": 10.67,
+      "company_specific_pct_of_total": 2.7,
       "under_21pct_cap": true,
-      "total": 99,
-      "total_exceptions_pct_of_total": 12.72
+      "under_10pct_cap_company_specific": true,
+      "by_specific_category": {
+        "industrial_segment": 3,
+        "asset_mgmt_aum": 1,
+        "biotech_pipeline": 2,
+        "bank_cet1": 1,
+        "holding_portfolio_share": 1,
+        "utility_waste_ebitda": 1,
+        "industrial_recurring_ebit": 1,
+        "bank_roe": 1,
+        "aluminium_adj_ebitda": 1,
+        "automotive_deliveries": 3,
+        "mining_production": 1,
+        "industrial_orders": 1,
+        "utility_rab": 1,
+        "reit_portfolio_value": 1,
+        "aviation_fleet": 1,
+        "hospitality_rooms": 1
+      },
+      "total": 120,
+      "total_exceptions_pct_of_total": 15.42
     },
     "h_ai_positioning_exceptions": {
       "stance_absent_legit": 326,
@@ -53,10 +73,10 @@
     },
     "g_governance_exceptions": {
       "unavailable_adr": 14,
-      "partial_disclosure_eu_p1": 83,
-      "partial_disclosure_ok": 0,
+      "partial_disclosure_eu_p1": 4,
+      "partial_disclosure_ok": 8,
       "heuristic_partial": 155,
-      "heuristic_partial_capped": 57,
+      "heuristic_partial_capped": 194,
       "heuristic_partial_cap_limit": 155,
       "heuristic_partial_pct_of_total": 19.92,
       "under_20pct_cap_heuristic": true,
@@ -75,7 +95,7 @@
     ],
     [
       "a_hero_history",
-      185
+      161
     ],
     [
       "b_interpretation",
@@ -253,6 +273,17 @@
       ]
     },
     {
+      "ticker": "SIE.DE",
+      "market_cap_usd": 225463892705.28003,
+      "failed_count": 1,
+      "failed_criteria": [
+        "d_stories"
+      ],
+      "reasons": [
+        "d_stories: Stories 4 < 8"
+      ]
+    },
+    {
       "ticker": "ABBNY",
       "market_cap_usd": 217772051660.80002,
       "failed_count": 1,
@@ -294,17 +325,6 @@
       ],
       "reasons": [
         "d_stories: Stories 6 < 8"
-      ]
-    },
-    {
-      "ticker": "SAP",
-      "market_cap_usd": 209041670799.36002,
-      "failed_count": 1,
-      "failed_criteria": [
-        "d_stories"
-      ],
-      "reasons": [
-        "d_stories: Stories 5 < 8"
       ]
     }
   ],
@@ -591,7 +611,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "top_voting < 3 (partial_allowed=false)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -671,9 +692,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -1011,15 +1031,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure",
-            "top_capital",
-            "top_voting"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Mr. Renato  Mazzoncini",
+          "board_size": 6,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -1053,7 +1072,6 @@
         "f_repartition"
       ],
       "failed_extensions": [
-        "g_governance",
         "i_events"
       ],
       "failed_count": 2,
@@ -1143,12 +1161,14 @@
       "market_cap_usd": 168483589980.16,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_company_specific": true,
           "len": 5,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (5 < 18)"
+          "specific_rationale": "ABB Annual Report 2024 : Electrification segment revenue (segment officiel + KPI flagship)",
+          "specific_category": "industrial_segment",
+          "reason": "hero company-specific légitime (5 dispo, flag _hero_is_company_specific_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -1216,11 +1236,10 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -1431,9 +1450,7 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "reason": "top_capital < 2 (partial_allowed=true)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -1524,11 +1541,10 @@
           "missing": [
             "ceo_total_comp_m",
             "board_size",
-            "voting_structure",
             "top_capital",
             "top_voting"
           ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "reason": "gov manque: ceo_total_comp_m,board_size,top_capital,top_voting"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -1946,9 +1962,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -2030,7 +2045,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Nicolas Papadopoulo",
+          "board_size": 12,
+          "top_voting_count": 2,
+          "top_capital_count": 2,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=2 top_capital=2)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -2111,14 +2133,8 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true,
-          "has_one_top": true,
-          "ceo_name": "Julie Sweet",
-          "board_size": 10,
-          "top_voting_count": 2,
-          "top_capital_count": 2,
-          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=2 top_capital=2)",
-          "exception_heuristic_partial": true
+          "ok": false,
+          "reason": "top_capital < 3 (partial_allowed=false)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -2154,6 +2170,7 @@
         "f_repartition"
       ],
       "failed_extensions": [
+        "g_governance",
         "l_hero_name_fr"
       ],
       "failed_count": 2,
@@ -2206,14 +2223,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure",
-            "top_capital",
-            "top_voting"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -2310,9 +2321,8 @@
           "evidence_count": 6
         },
         "i_events": {
-          "ok": false,
-          "count": 3,
-          "reason": "events 3 < 4"
+          "ok": true,
+          "count": 8
         },
         "j_description": {
           "ok": true,
@@ -2331,12 +2341,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "i_events"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "ADI",
@@ -2795,9 +2803,7 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "reason": "top_voting < 2 (partial_allowed=true)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -3232,14 +3238,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure",
-            "top_capital",
-            "top_voting"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -3320,9 +3320,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -3406,9 +3405,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -3816,10 +3814,11 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "ok": true,
+          "partial_disclosure": true,
+          "top_capital_count": 2,
+          "top_voting_count": 2,
+          "reason": "partial disclosure acceptée (ADR/EU/data_completeness=partial)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -3848,12 +3847,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "ALB",
@@ -3994,11 +3991,10 @@
           "missing": [
             "ceo_total_comp_m",
             "board_size",
-            "voting_structure",
             "top_capital",
             "top_voting"
           ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "reason": "gov manque: ceo_total_comp_m,board_size,top_capital,top_voting"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -4826,9 +4822,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -4957,12 +4952,14 @@
       "market_cap_usd": 18841638666.24,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_company_specific": true,
           "len": 5,
           "period": "semester",
           "required": 8,
-          "tolerated": 4,
-          "reason": "history insuffisant (5 < 8)"
+          "specific_rationale": "Amundi Annual Report 2024 : AUM Assets Under Management (KPI flagship asset manager)",
+          "specific_category": "asset_mgmt_aum",
+          "reason": "hero company-specific légitime (5 dispo, flag _hero_is_company_specific_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -5035,14 +5032,13 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories",
         "f_repartition"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -5925,7 +5921,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Joel S. Marcus",
+          "board_size": 8,
+          "top_voting_count": 4,
+          "top_capital_count": 4,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=4 top_capital=4)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -6008,8 +6011,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "reason": "top_capital < 3 (partial_allowed=false)"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Antony P. Ressler",
+          "board_size": 10,
+          "top_voting_count": 1,
+          "top_capital_count": 1,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=1 top_capital=1)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -6042,7 +6051,6 @@
         "f_repartition"
       ],
       "failed_extensions": [
-        "g_governance",
         "i_events"
       ],
       "failed_count": 1,
@@ -6141,12 +6149,14 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_company_specific": true,
           "len": 3,
           "period": "annual",
           "required": 5,
-          "tolerated": 3,
-          "reason": "history insuffisant (3 < 5)"
+          "specific_rationale": "argenx Annual Report 2024 : VYVGART franchise + new molecules in late-stage pipeline (Pipeline Projects = KPI flagship investor day)",
+          "specific_category": "biotech_pipeline",
+          "reason": "hero company-specific légitime (3 dispo, flag _hero_is_company_specific_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -6212,13 +6222,12 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -6748,11 +6757,10 @@
           "missing": [
             "ceo_total_comp_m",
             "board_size",
-            "voting_structure",
             "top_capital",
             "top_voting"
           ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "reason": "gov manque: ceo_total_comp_m,board_size,top_capital,top_voting"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -7293,12 +7301,14 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_company_specific": true,
           "len": 4,
           "period": "year",
           "required": 5,
-          "tolerated": 3,
-          "reason": "history insuffisant (4 < 5)"
+          "specific_rationale": "AstraZeneca Annual Report 2024 p.18-25 : Oncology/CVRM/Rare disease pipeline projects (KPI flagship CMD)",
+          "specific_category": "biotech_pipeline",
+          "reason": "hero company-specific légitime (4 dispo, flag _hero_is_company_specific_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -7369,13 +7379,12 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -7910,15 +7919,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure",
-            "top_capital",
-            "top_voting"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -7952,9 +7953,7 @@
         "a_hero_history",
         "d_stories"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -8006,9 +8005,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -8167,14 +8165,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure",
-            "top_capital",
-            "top_voting"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -8258,9 +8250,7 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "reason": "top_capital < 3 (partial_allowed=false)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -8596,11 +8586,10 @@
           "missing": [
             "ceo_total_comp_m",
             "board_size",
-            "voting_structure",
             "top_capital",
             "top_voting"
           ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "reason": "gov manque: ceo_total_comp_m,board_size,top_capital,top_voting"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -8859,9 +8848,13 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "missing": [
+            "ceo_total_comp_m",
+            "board_size",
+            "top_capital",
+            "top_voting"
+          ],
+          "reason": "gov manque: ceo_total_comp_m,board_size,top_capital,top_voting"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -9855,14 +9848,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure",
-            "top_capital",
-            "top_voting"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -9910,12 +9897,14 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_company_specific": true,
           "len": 4,
           "period": "year",
           "required": 5,
-          "tolerated": 3,
-          "reason": "history insuffisant (4 < 5)"
+          "specific_rationale": "Banca Mediolanum Annual Report 2024 : CET1 Ratio (KPI prudentiel obligatoire EU banks)",
+          "specific_category": "bank_cet1",
+          "reason": "hero company-specific légitime (4 dispo, flag _hero_is_company_specific_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -9991,14 +9980,13 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories",
         "f_repartition"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -10207,9 +10195,7 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "reason": "top_capital < 2 (partial_allowed=true)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -10294,15 +10280,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure",
-            "top_capital",
-            "top_voting"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -10336,7 +10314,6 @@
         "f_repartition"
       ],
       "failed_extensions": [
-        "g_governance",
         "i_events"
       ],
       "failed_count": 2,
@@ -11206,7 +11183,7 @@
     },
     {
       "ticker": "BT-A.L",
-      "source": "src/data/v1-9-complete/BT-A.L.json+src/data/v2-pipeline/BT-A.L.json+src/data/v2-pipeline/bt-a.l.json",
+      "source": "src/data/v1-9-complete/BT-A.L.json+src/data/v2-pipeline/BT-A.L.json+src/data/v2-pipeline/bt-a.l.json+src/data/v2-pipeline-enrich/BT-A.L.json+src/data/v2-pipeline-enrich/bt-a.l.json",
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
@@ -11250,14 +11227,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure",
-            "top_capital",
-            "top_voting"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -11590,9 +11561,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -11922,8 +11892,11 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "reason": "governance absente"
+          "ok": true,
+          "partial_disclosure": true,
+          "top_capital_count": 2,
+          "top_voting_count": 2,
+          "reason": "partial disclosure acceptée (ADR/EU/data_completeness=partial)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -11959,7 +11932,6 @@
         "f_repartition"
       ],
       "failed_extensions": [
-        "g_governance",
         "i_events"
       ],
       "failed_count": 2,
@@ -12098,11 +12070,10 @@
           "missing": [
             "ceo_total_comp_m",
             "board_size",
-            "voting_structure",
             "top_capital",
             "top_voting"
           ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "reason": "gov manque: ceo_total_comp_m,board_size,top_capital,top_voting"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -12359,10 +12330,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Mr. Aiman  Ezzat",
+          "board_size": 10,
+          "top_voting_count": 1,
+          "top_capital_count": 1,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=1 top_capital=1)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -12393,9 +12368,7 @@
       "failed_criteria": [
         "d_stories"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -12534,7 +12507,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Darren M. Rebelez",
+          "board_size": 11,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -12891,14 +12871,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure",
-            "top_capital",
-            "top_voting"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -13235,9 +13209,7 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "reason": "top_capital < 2 (partial_allowed=true)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -13412,7 +13384,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Josh Weinstein",
+          "board_size": 11,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -14754,9 +14733,7 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "reason": "top_capital < 3 (partial_allowed=false)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -15369,11 +15346,10 @@
           "missing": [
             "ceo_total_comp_m",
             "board_size",
-            "voting_structure",
             "top_capital",
             "top_voting"
           ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "reason": "gov manque: ceo_total_comp_m,board_size,top_capital,top_voting"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -15640,7 +15616,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Richard D. Fairbank",
+          "board_size": 13,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -15689,12 +15672,14 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_company_specific": true,
           "len": 5,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (5 < 18)"
+          "specific_rationale": "Cofinimmo Annual Report 2024 : Healthcare Portfolio Share (KPI flagship REIT santé)",
+          "specific_category": "holding_portfolio_share",
+          "reason": "hero company-specific légitime (5 dispo, flag _hero_is_company_specific_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -15770,7 +15755,6 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories",
         "f_repartition"
       ],
@@ -15778,7 +15762,7 @@
         "g_governance",
         "i_events"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -16008,11 +15992,10 @@
           "missing": [
             "ceo_total_comp_m",
             "board_size",
-            "voting_structure",
             "top_capital",
             "top_voting"
           ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "reason": "gov manque: ceo_total_comp_m,board_size,top_capital,top_voting"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -16550,12 +16533,10 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
-          "len": 3,
-          "period": "year",
-          "required": 5,
-          "tolerated": 3,
-          "reason": "history insuffisant (3 < 5)"
+          "ok": true,
+          "len": 5,
+          "period": "annual",
+          "required": 5
         },
         "b_interpretation": {
           "ok": true,
@@ -16593,14 +16574,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure",
-            "top_capital",
-            "top_voting"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -16632,7 +16607,6 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories",
         "f_repartition"
       ],
@@ -16640,7 +16614,7 @@
         "g_governance",
         "i_events"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -16700,9 +16674,8 @@
           "evidence_count": 4
         },
         "i_events": {
-          "ok": false,
-          "count": 2,
-          "reason": "events 2 < 4"
+          "ok": true,
+          "count": 7
         },
         "j_description": {
           "ok": true,
@@ -16721,12 +16694,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "i_events"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "CPT",
@@ -16864,11 +16835,10 @@
           "missing": [
             "ceo_total_comp_m",
             "board_size",
-            "voting_structure",
             "top_capital",
             "top_voting"
           ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "reason": "gov manque: ceo_total_comp_m,board_size,top_capital,top_voting"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -17790,9 +17760,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -18636,9 +18605,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -18802,9 +18770,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -18884,9 +18851,7 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "reason": "top_capital < 2 (partial_allowed=true)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -19479,9 +19444,7 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "reason": "top_capital < 2 (partial_allowed=true)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -19904,9 +19867,13 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "missing": [
+            "ceo_total_comp_m",
+            "board_size",
+            "top_capital",
+            "top_voting"
+          ],
+          "reason": "gov manque: ceo_total_comp_m,board_size,top_capital,top_voting"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -20499,7 +20466,14 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "governance absente"
+          "missing": [
+            "ceo_name",
+            "ceo_total_comp_m",
+            "board_size",
+            "top_capital",
+            "top_voting"
+          ],
+          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,top_capital,top_voting"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -20757,7 +20731,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "governance absente"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -20928,7 +20903,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Year-End Ricardo Cardenas",
+          "board_size": 9,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -21012,14 +20994,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure",
-            "top_capital",
-            "top_voting"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -21185,14 +21161,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure",
-            "top_capital",
-            "top_voting"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -21423,14 +21393,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true,
-          "has_one_top": true,
-          "ceo_name": "Harry K. Sideris",
-          "board_size": 15,
-          "top_voting_count": 3,
-          "top_capital_count": 1,
-          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=1)",
-          "exception_heuristic_partial": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -21461,10 +21426,12 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": true
+      "is_clean_all": false
     },
     {
       "ticker": "DVA",
@@ -21512,14 +21479,8 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true,
-          "has_one_top": true,
-          "ceo_name": "Javier J. Rodriguez",
-          "board_size": 9,
-          "top_voting_count": 2,
-          "top_capital_count": 2,
-          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=2 top_capital=2)",
-          "exception_heuristic_partial": true
+          "ok": false,
+          "reason": "top_capital < 3 (partial_allowed=false)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -21555,6 +21516,7 @@
         "f_repartition"
       ],
       "failed_extensions": [
+        "g_governance",
         "i_events"
       ],
       "failed_count": 2,
@@ -21607,7 +21569,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -21641,7 +21605,9 @@
         "d_stories",
         "f_repartition"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -21687,14 +21653,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true,
-          "has_one_top": true,
-          "ceo_name": "Jacob Leach",
-          "board_size": 12,
-          "top_voting_count": 3,
-          "top_capital_count": 3,
-          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
-          "exception_heuristic_partial": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -21727,7 +21688,9 @@
       "failed_criteria": [
         "d_stories"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -21863,14 +21826,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true,
-          "has_one_top": true,
-          "ceo_name": "Andrew Wilson",
-          "board_size": 8,
-          "top_voting_count": 3,
-          "top_capital_count": 3,
-          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
-          "exception_heuristic_partial": true
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -21948,14 +21904,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true,
-          "has_one_top": true,
-          "ceo_name": "Jamie J. Iannone",
-          "board_size": 11,
-          "top_voting_count": 3,
-          "top_capital_count": 3,
-          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
-          "exception_heuristic_partial": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -21985,10 +21936,12 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": true
+      "is_clean_all": false
     },
     {
       "ticker": "ECL",
@@ -22032,14 +21985,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true,
-          "has_one_top": true,
-          "ceo_name": "Mr. Christophe  Beck",
-          "board_size": 13,
-          "top_voting_count": 3,
-          "top_capital_count": 3,
-          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
-          "exception_heuristic_partial": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -22072,7 +22020,9 @@
       "failed_criteria": [
         "a_hero_history"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -22124,7 +22074,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "top_capital < 3 (partial_allowed=false)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -22206,9 +22157,11 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "missing": [
+            "ceo_total_comp_m",
+            "board_size"
+          ],
+          "reason": "gov manque: ceo_total_comp_m,board_size"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -22731,8 +22684,8 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 2,
-          "source": "publication_date"
+          "months_ago": 4,
+          "source": "next_earnings_date-90d"
         }
       },
       "failed_criteria": [
@@ -22950,14 +22903,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true,
-          "has_one_top": true,
-          "ceo_name": "Mr. Anthony J. Guzzi",
-          "board_size": 10,
-          "top_voting_count": 3,
-          "top_capital_count": 3,
-          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
-          "exception_heuristic_partial": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -22990,7 +22938,9 @@
       "failed_criteria": [
         "d_stories"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -23130,15 +23080,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure",
-            "top_capital",
-            "top_voting"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -23173,7 +23115,6 @@
         "f_repartition"
       ],
       "failed_extensions": [
-        "g_governance",
         "i_events"
       ],
       "failed_count": 3,
@@ -23307,7 +23248,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "governance absente"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -23468,14 +23410,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true,
-          "has_one_top": true,
-          "ceo_name": "Mr. Balazs  Fejes",
-          "board_size": 4,
-          "top_voting_count": 3,
-          "top_capital_count": 3,
-          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
-          "exception_heuristic_partial": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -23506,7 +23443,9 @@
       "failed_criteria": [
         "a_hero_history"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -23552,14 +23491,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true,
-          "has_one_top": true,
-          "ceo_name": "Adaure Fox-Martin",
-          "board_size": 10,
-          "top_voting_count": 3,
-          "top_capital_count": 3,
-          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
-          "exception_heuristic_partial": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -23591,7 +23525,9 @@
       "failed_criteria": [
         "d_stories"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -23641,10 +23577,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Mr. Anders  Opedal",
+          "board_size": 10,
+          "top_voting_count": 1,
+          "top_capital_count": 1,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=1 top_capital=1)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -23678,9 +23618,7 @@
         "d_stories",
         "f_repartition"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -23728,14 +23666,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true,
-          "has_one_top": true,
-          "ceo_name": "Mark J. Parrell",
-          "board_size": 10,
-          "top_voting_count": 3,
-          "top_capital_count": 2,
-          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=2)",
-          "exception_heuristic_partial": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -23764,10 +23697,12 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": true
+      "is_clean_all": false
     },
     {
       "ticker": "EQT",
@@ -23815,14 +23750,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true,
-          "has_one_top": true,
-          "ceo_name": "Toby Z. Rice",
-          "board_size": 10,
-          "top_voting_count": 3,
-          "top_capital_count": 3,
-          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
-          "exception_heuristic_partial": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -23854,7 +23784,9 @@
         "d_stories",
         "f_repartition"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -23901,9 +23833,7 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "reason": "top_capital < 2 (partial_allowed=true)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -24071,14 +24001,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true,
-          "has_one_top": true,
-          "ceo_name": "David H. Long",
-          "board_size": 10,
-          "top_voting_count": 3,
-          "top_capital_count": 3,
-          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
-          "exception_heuristic_partial": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -24109,10 +24034,12 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": true
+      "is_clean_all": false
     },
     {
       "ticker": "ESS",
@@ -24329,7 +24256,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -24364,7 +24293,9 @@
         "d_stories",
         "f_repartition"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
@@ -24572,14 +24503,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true,
-          "has_one_top": true,
-          "ceo_name": "Calvin G. Butler, Jr.",
-          "board_size": 9,
-          "top_voting_count": 3,
-          "top_capital_count": 3,
-          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3)",
-          "exception_heuristic_partial": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -24608,10 +24534,12 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": true
+      "is_clean_all": false
     },
     {
       "ticker": "EXE",
@@ -24921,9 +24849,7 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "reason": "top_capital < 2 (partial_allowed=true)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -25172,7 +25098,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "top_capital < 3 (partial_allowed=false)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -26082,7 +26009,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -26116,7 +26045,9 @@
         "a_hero_history",
         "f_repartition"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -26247,13 +26178,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -26284,9 +26209,7 @@
       "failed_criteria": [
         "d_stories"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -26333,9 +26256,13 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "missing": [
+            "ceo_total_comp_m",
+            "board_size",
+            "top_capital",
+            "top_voting"
+          ],
+          "reason": "gov manque: ceo_total_comp_m,board_size,top_capital,top_voting"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -26592,9 +26519,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -26765,7 +26691,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -26796,7 +26724,9 @@
       "failed_criteria": [
         "f_repartition"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -27279,8 +27209,8 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 2,
-          "source": "publication_date"
+          "months_ago": 4,
+          "source": "next_earnings_date-90d"
         }
       },
       "failed_criteria": [
@@ -27682,8 +27612,8 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 2,
-          "source": "publication_date"
+          "months_ago": 3,
+          "source": "next_earnings_date-90d"
         }
       },
       "failed_criteria": [],
@@ -27901,11 +27831,10 @@
           "missing": [
             "ceo_total_comp_m",
             "board_size",
-            "voting_structure",
             "top_capital",
             "top_voting"
           ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "reason": "gov manque: ceo_total_comp_m,board_size,top_capital,top_voting"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -27986,9 +27915,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -28144,7 +28072,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -28174,10 +28104,12 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": true
+      "is_clean_all": false
     },
     {
       "ticker": "GM",
@@ -28303,7 +28235,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -28336,7 +28270,9 @@
       "failed_criteria": [
         "a_hero_history"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -28615,7 +28551,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -28646,10 +28584,12 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": true
+      "is_clean_all": false
     },
     {
       "ticker": "GRAB",
@@ -28780,7 +28720,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -28813,7 +28755,9 @@
       "failed_criteria": [
         "d_stories"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -28949,9 +28893,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -29216,8 +29159,8 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 2,
-          "source": "publication_date"
+          "months_ago": 3,
+          "source": "next_earnings_date-90d"
         }
       },
       "failed_criteria": [
@@ -29275,7 +29218,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -29309,7 +29254,9 @@
         "d_stories",
         "f_repartition"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
@@ -29354,7 +29301,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -29384,10 +29333,12 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": true
+      "is_clean_all": false
     },
     {
       "ticker": "HD",
@@ -29519,9 +29470,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -29604,9 +29554,13 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "missing": [
+            "ceo_total_comp_m",
+            "board_size",
+            "top_capital",
+            "top_voting"
+          ],
+          "reason": "gov manque: ceo_total_comp_m,board_size,top_capital,top_voting"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -29652,12 +29606,14 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_company_specific": true,
           "len": 3,
           "period": "year",
           "required": 5,
-          "tolerated": 3,
-          "reason": "history insuffisant (3 < 5)"
+          "specific_rationale": "Hera Annual Report 2024 : Waste Management EBITDA (segment officiel + KPI flagship)",
+          "specific_category": "utility_waste_ebitda",
+          "reason": "hero company-specific légitime (3 dispo, flag _hero_is_company_specific_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -29727,7 +29683,6 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories",
         "f_repartition"
       ],
@@ -29735,7 +29690,7 @@
         "g_governance",
         "i_events"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -29784,9 +29739,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -29898,8 +29852,8 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 2,
-          "source": "publication_date"
+          "months_ago": 4,
+          "source": "next_earnings_date-90d"
         }
       },
       "failed_criteria": [
@@ -29959,7 +29913,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -29993,7 +29949,9 @@
         "d_stories",
         "f_repartition"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -30040,9 +29998,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -30215,7 +30172,14 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "governance absente"
+          "missing": [
+            "ceo_name",
+            "ceo_total_comp_m",
+            "board_size",
+            "top_capital",
+            "top_voting"
+          ],
+          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,top_capital,top_voting"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -30302,10 +30266,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Mr. Brian James McNamara",
+          "board_size": 10,
+          "top_voting_count": 1,
+          "top_capital_count": 1,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=1 top_capital=1)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -30339,9 +30307,7 @@
         "a_hero_history",
         "d_stories"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -30411,15 +30377,16 @@
           "ok": true
         },
         "m_freshness": {
-          "ok": true,
-          "months_ago": 1,
-          "source": "next_earnings_date-90d"
+          "ok": false,
+          "reason": "last_data_date absent"
         }
       },
       "failed_criteria": [
         "d_stories"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "m_freshness"
+      ],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -30474,11 +30441,10 @@
           "missing": [
             "ceo_total_comp_m",
             "board_size",
-            "voting_structure",
             "top_capital",
             "top_voting"
           ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "reason": "gov manque: ceo_total_comp_m,board_size,top_capital,top_voting"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -30525,12 +30491,14 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_company_specific": true,
           "len": 3,
           "period": "year",
           "required": 5,
-          "tolerated": 3,
-          "reason": "history insuffisant (3 < 5)"
+          "specific_rationale": "Holcim Annual Report 2024 : Recurring EBIT Margin (KPI guidance investor day officiel)",
+          "specific_category": "industrial_recurring_ebit",
+          "reason": "hero company-specific légitime (3 dispo, flag _hero_is_company_specific_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -30605,14 +30573,13 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "f_repartition"
       ],
       "failed_extensions": [
         "g_governance",
         "i_events"
       ],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -30682,15 +30649,16 @@
           "ok": true
         },
         "m_freshness": {
-          "ok": true,
-          "months_ago": 1,
-          "source": "next_earnings_date-90d"
+          "ok": false,
+          "reason": "last_data_date absent"
         }
       },
       "failed_criteria": [
         "d_stories"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "m_freshness"
+      ],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -30970,9 +30938,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "heuristic_partial_capped": true,
-          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -31005,9 +30971,7 @@
       "failed_criteria": [
         "a_hero_history"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -31082,8 +31046,8 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 2,
-          "source": "publication_date"
+          "months_ago": 3,
+          "source": "next_earnings_date-90d"
         }
       },
       "failed_criteria": [
@@ -31379,7 +31343,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -31412,7 +31378,9 @@
       "failed_criteria": [
         "d_stories"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -31467,11 +31435,10 @@
           "missing": [
             "ceo_total_comp_m",
             "board_size",
-            "voting_structure",
             "top_capital",
             "top_voting"
           ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "reason": "gov manque: ceo_total_comp_m,board_size,top_capital,top_voting"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -31645,11 +31612,10 @@
           "missing": [
             "ceo_total_comp_m",
             "board_size",
-            "voting_structure",
             "top_capital",
             "top_voting"
           ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "reason": "gov manque: ceo_total_comp_m,board_size,top_capital,top_voting"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -31816,9 +31782,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "heuristic_partial_capped": true,
-          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -31850,9 +31814,7 @@
         "d_stories",
         "f_repartition"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -31904,8 +31866,7 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "heuristic_partial_capped": true,
-          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
+          "reason": "top_capital < 3 (partial_allowed=false)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -32065,7 +32026,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -32096,7 +32059,9 @@
       "failed_criteria": [
         "a_hero_history"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -32143,7 +32108,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -32176,7 +32143,9 @@
       "failed_criteria": [
         "a_hero_history"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -32226,9 +32195,7 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "reason": "top_capital < 2 (partial_allowed=true)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -32308,9 +32275,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -32481,7 +32447,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "governance absente"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -32659,11 +32626,10 @@
           "missing": [
             "ceo_total_comp_m",
             "board_size",
-            "voting_structure",
             "top_capital",
             "top_voting"
           ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "reason": "gov manque: ceo_total_comp_m,board_size,top_capital,top_voting"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -32830,7 +32796,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -32859,10 +32827,12 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": true
+      "is_clean_all": false
     },
     {
       "ticker": "INTU",
@@ -32991,7 +32961,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -33022,10 +32994,12 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": true
+      "is_clean_all": false
     },
     {
       "ticker": "IP",
@@ -33070,7 +33044,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -33104,7 +33080,9 @@
         "a_hero_history",
         "d_stories"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -33151,9 +33129,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -33670,8 +33647,8 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 2,
-          "source": "publication_date"
+          "months_ago": 3,
+          "source": "next_earnings_date-90d"
         }
       },
       "failed_criteria": [
@@ -33724,9 +33701,7 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "reason": "top_capital < 2 (partial_allowed=true)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -33889,7 +33864,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "governance absente"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -33976,7 +33952,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -34006,10 +33984,12 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": true
+      "is_clean_all": false
     },
     {
       "ticker": "J",
@@ -34078,8 +34058,8 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 2,
-          "source": "publication_date"
+          "months_ago": 3,
+          "source": "next_earnings_date-90d"
         }
       },
       "failed_criteria": [
@@ -34133,9 +34113,10 @@
         "g_governance": {
           "ok": false,
           "missing": [
+            "ceo_total_comp_m",
             "board_size"
           ],
-          "reason": "gov manque: board_size"
+          "reason": "gov manque: ceo_total_comp_m,board_size"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -34219,7 +34200,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "top_capital < 3 (partial_allowed=false)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -34379,7 +34361,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -34410,10 +34394,12 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": true
+      "is_clean_all": false
     },
     {
       "ticker": "JDEP.AS",
@@ -34467,9 +34453,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -34947,9 +34932,7 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "reason": "top_capital < 2 (partial_allowed=true)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -35033,9 +35016,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -35121,7 +35103,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -35156,7 +35140,9 @@
         "d_stories",
         "f_repartition"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
@@ -35297,14 +35283,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure",
-            "top_capital",
-            "top_voting"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -35748,8 +35728,8 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 2,
-          "source": "publication_date"
+          "months_ago": 4,
+          "source": "next_earnings_date-90d"
         }
       },
       "failed_criteria": [
@@ -35880,14 +35860,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure",
-            "top_capital",
-            "top_voting"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -36056,9 +36030,13 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "missing": [
+            "ceo_total_comp_m",
+            "board_size",
+            "top_capital",
+            "top_voting"
+          ],
+          "reason": "gov manque: ceo_total_comp_m,board_size,top_capital,top_voting"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -36222,9 +36200,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "heuristic_partial_capped": true,
-          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -36257,9 +36233,7 @@
       "failed_criteria": [
         "a_hero_history"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -36396,14 +36370,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure",
-            "top_capital",
-            "top_voting"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -36493,7 +36461,14 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "governance absente"
+          "missing": [
+            "ceo_name",
+            "ceo_total_comp_m",
+            "board_size",
+            "top_capital",
+            "top_voting"
+          ],
+          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,top_capital,top_voting"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -36681,8 +36656,8 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 3,
-          "source": "publication_date"
+          "months_ago": 5,
+          "source": "next_earnings_date-90d"
         }
       },
       "failed_criteria": [],
@@ -36735,7 +36710,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -36766,7 +36743,9 @@
       "failed_criteria": [
         "a_hero_history"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -36812,7 +36791,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "top_capital < 3 (partial_allowed=false)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -36895,14 +36875,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure",
-            "top_capital",
-            "top_voting"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -37062,7 +37036,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -37091,10 +37067,12 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": true
+      "is_clean_all": false
     },
     {
       "ticker": "LITE",
@@ -37472,13 +37450,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -37512,9 +37484,7 @@
         "d_stories",
         "f_repartition"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -37649,7 +37619,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -37682,7 +37654,9 @@
       "failed_criteria": [
         "f_repartition"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -37735,14 +37709,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure",
-            "top_capital",
-            "top_voting"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -37907,11 +37875,10 @@
           "missing": [
             "ceo_total_comp_m",
             "board_size",
-            "voting_structure",
             "top_capital",
             "top_voting"
           ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "reason": "gov manque: ceo_total_comp_m,board_size,top_capital,top_voting"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -38078,7 +38045,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "top_capital < 3 (partial_allowed=false)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -38313,7 +38281,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -38346,7 +38316,9 @@
       "failed_criteria": [
         "d_stories"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -38471,7 +38443,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -38496,16 +38470,18 @@
           "ok": true
         },
         "m_freshness": {
-          "ok": true,
-          "months_ago": 1,
-          "source": "next_earnings_date-90d"
+          "ok": false,
+          "reason": "last_data_date absent"
         }
       },
       "failed_criteria": [
         "d_stories",
         "f_repartition"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance",
+        "m_freshness"
+      ],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -38552,9 +38528,13 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "missing": [
+            "ceo_total_comp_m",
+            "board_size",
+            "top_capital",
+            "top_voting"
+          ],
+          "reason": "gov manque: ceo_total_comp_m,board_size,top_capital,top_voting"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -38713,7 +38693,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "top_capital < 3 (partial_allowed=false)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -38737,8 +38718,8 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 2,
-          "source": "publication_date"
+          "months_ago": 4,
+          "source": "next_earnings_date-90d"
         }
       },
       "failed_criteria": [
@@ -38804,11 +38785,10 @@
           "missing": [
             "ceo_total_comp_m",
             "board_size",
-            "voting_structure",
             "top_capital",
             "top_voting"
           ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "reason": "gov manque: ceo_total_comp_m,board_size,top_capital,top_voting"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -38894,10 +38874,11 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "ok": true,
+          "partial_disclosure": true,
+          "top_capital_count": 2,
+          "top_voting_count": 2,
+          "reason": "partial disclosure acceptée (ADR/EU/data_completeness=partial)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -38930,9 +38911,7 @@
       "failed_criteria": [
         "d_stories"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -39004,8 +38983,8 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 2,
-          "source": "publication_date"
+          "months_ago": 3,
+          "source": "next_earnings_date-90d"
         }
       },
       "failed_criteria": [
@@ -39311,7 +39290,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "top_voting < 3 (partial_allowed=false)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -39567,8 +39547,8 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 2,
-          "source": "publication_date"
+          "months_ago": 3,
+          "source": "next_earnings_date-90d"
         }
       },
       "failed_criteria": [],
@@ -39621,7 +39601,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "top_voting < 3 (partial_allowed=false)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -39697,7 +39678,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -39728,10 +39711,12 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": true
+      "is_clean_all": false
     },
     {
       "ticker": "MKC",
@@ -39937,7 +39922,14 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "governance absente"
+          "missing": [
+            "ceo_name",
+            "ceo_total_comp_m",
+            "board_size",
+            "top_capital",
+            "top_voting"
+          ],
+          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,top_capital,top_voting"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -40180,7 +40172,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -40214,7 +40208,9 @@
         "a_hero_history",
         "d_stories"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -40363,8 +40359,8 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 2,
-          "source": "publication_date"
+          "months_ago": 3,
+          "source": "next_earnings_date-90d"
         }
       },
       "failed_criteria": [
@@ -40513,7 +40509,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -40547,7 +40545,9 @@
         "d_stories",
         "f_repartition"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -40677,9 +40677,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -40853,14 +40852,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure",
-            "top_capital",
-            "top_voting"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -41111,7 +41104,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -41143,7 +41138,9 @@
         "d_stories",
         "f_repartition"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -41303,8 +41300,8 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 2,
-          "source": "publication_date"
+          "months_ago": 3,
+          "source": "next_earnings_date-90d"
         }
       },
       "failed_criteria": [
@@ -41518,9 +41515,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "heuristic_partial_capped": true,
-          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -41552,9 +41547,7 @@
       "failed_criteria": [
         "d_stories"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -41755,10 +41748,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Dr. Christoph  Jurecka",
+          "board_size": 10,
+          "top_voting_count": 1,
+          "top_capital_count": 1,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=1 top_capital=1)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -41789,9 +41786,7 @@
       "failed_criteria": [
         "d_stories"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -41843,7 +41838,8 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "reason": "top_capital < 3 (partial_allowed=false)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -41876,7 +41872,9 @@
         "d_stories",
         "f_repartition"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
@@ -42014,9 +42012,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -42147,12 +42144,14 @@
       "market_cap_usd": 53562253377.536,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_company_specific": true,
           "len": 3,
           "period": "year",
           "required": 5,
-          "tolerated": 3,
-          "reason": "history insuffisant (3 < 5)"
+          "specific_rationale": "Nordea Bank Annual Report 2024 : RoE flagship metric Nordic bank (targets investor presentations)",
+          "specific_category": "bank_roe",
+          "reason": "hero company-specific légitime (3 dispo, flag _hero_is_company_specific_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -42220,13 +42219,12 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "f_repartition"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -42605,9 +42603,7 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "reason": "top_capital < 2 (partial_allowed=true)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -42689,9 +42685,7 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "reason": "top_capital < 3 (partial_allowed=false)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -42846,10 +42840,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Ms. Zoe A. Yujnovich",
+          "board_size": 10,
+          "top_voting_count": 2,
+          "top_capital_count": 2,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=2 top_capital=2)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -42880,12 +42878,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "NHY.OL",
@@ -42893,12 +42889,14 @@
       "market_cap_usd": 19729823334.4,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_company_specific": true,
           "len": 5,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (5 < 18)"
+          "specific_rationale": "Norsk Hydro Annual Report 2024 : Adjusted EBITDA flagship metric (aluminium producer)",
+          "specific_category": "aluminium_adj_ebitda",
+          "reason": "hero company-specific légitime (5 dispo, flag _hero_is_company_specific_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -42973,14 +42971,13 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories",
         "f_repartition"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -43031,9 +43028,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "heuristic_partial_capped": true,
-          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -43066,9 +43061,7 @@
       "failed_criteria": [
         "f_repartition"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -43357,9 +43350,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -43515,9 +43507,7 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "reason": "top_capital < 3 (partial_allowed=false)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -43600,9 +43590,7 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "reason": "top_capital < 2 (partial_allowed=true)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -43682,9 +43670,7 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "reason": "top_capital < 2 (partial_allowed=true)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -43842,7 +43828,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -43873,10 +43861,12 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": true
+      "is_clean_all": false
     },
     {
       "ticker": "NSC",
@@ -43953,8 +43943,8 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 2,
-          "source": "publication_date"
+          "months_ago": 4,
+          "source": "next_earnings_date-90d"
         }
       },
       "failed_criteria": [
@@ -44243,9 +44233,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "heuristic_partial_capped": true,
-          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -44278,9 +44266,7 @@
       "failed_criteria": [
         "f_repartition"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -44566,9 +44552,7 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "reason": "top_capital < 2 (partial_allowed=true)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -44808,9 +44792,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "heuristic_partial_capped": true,
-          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -44839,12 +44821,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "NXT.L",
@@ -44895,11 +44875,10 @@
           "missing": [
             "ceo_total_comp_m",
             "board_size",
-            "voting_structure",
             "top_capital",
             "top_voting"
           ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "reason": "gov manque: ceo_total_comp_m,board_size,top_capital,top_voting"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -45337,10 +45316,9 @@
         "g_governance": {
           "ok": false,
           "missing": [
-            "ceo_total_comp_m",
             "board_size"
           ],
-          "reason": "gov manque: ceo_total_comp_m,board_size"
+          "reason": "gov manque: board_size"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -45666,9 +45644,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -45751,14 +45728,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure",
-            "top_capital",
-            "top_voting"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -45926,7 +45897,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "top_capital < 3 (partial_allowed=false)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -46196,8 +46168,8 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 2,
-          "source": "publication_date"
+          "months_ago": 3,
+          "source": "next_earnings_date-90d"
         }
       },
       "failed_criteria": [
@@ -46214,12 +46186,14 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_company_specific": true,
           "len": 3,
           "period": "year",
           "required": 5,
-          "tolerated": 3,
-          "reason": "history insuffisant (3 < 5)"
+          "specific_rationale": "Porsche AG Annual Report 2024 : Vehicle Deliveries (KPI officiel investor presentations)",
+          "specific_category": "automotive_deliveries",
+          "reason": "hero company-specific légitime (3 dispo, flag _hero_is_company_specific_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -46289,7 +46263,6 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories",
         "f_repartition"
       ],
@@ -46297,7 +46270,7 @@
         "g_governance",
         "i_events"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -46347,14 +46320,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure",
-            "top_capital",
-            "top_voting"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -46687,7 +46654,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -46720,7 +46689,9 @@
       "failed_criteria": [
         "a_hero_history"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -46798,8 +46769,8 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 2,
-          "source": "publication_date"
+          "months_ago": 4,
+          "source": "next_earnings_date-90d"
         }
       },
       "failed_criteria": [
@@ -46857,9 +46828,10 @@
         "g_governance": {
           "ok": false,
           "missing": [
-            "ceo_name"
+            "ceo_name",
+            "ceo_total_comp_m"
           ],
-          "reason": "gov manque: ceo_name"
+          "reason": "gov manque: ceo_name,ceo_total_comp_m"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -47088,7 +47060,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -47114,14 +47088,16 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 2,
-          "source": "publication_date"
+          "months_ago": 4,
+          "source": "next_earnings_date-90d"
         }
       },
       "failed_criteria": [
         "d_stories"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -47252,9 +47228,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -47502,10 +47477,11 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "ok": true,
+          "partial_disclosure": true,
+          "top_capital_count": 2,
+          "top_voting_count": 2,
+          "reason": "partial disclosure acceptée (ADR/EU/data_completeness=partial)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -47537,9 +47513,7 @@
         "d_stories",
         "f_repartition"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -47665,7 +47639,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "governance absente"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -47920,7 +47895,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "top_capital < 3 (partial_allowed=false)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -48002,7 +47978,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "top_voting < 3 (partial_allowed=false)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -48086,7 +48063,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -48117,7 +48096,9 @@
       "failed_criteria": [
         "f_repartition"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -48246,7 +48227,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -48277,10 +48260,12 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": true
+      "is_clean_all": false
     },
     {
       "ticker": "PODD",
@@ -48367,12 +48352,14 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_company_specific": true,
           "len": 3,
           "period": "year",
           "required": 5,
-          "tolerated": 3,
-          "reason": "history insuffisant (3 < 5)"
+          "specific_rationale": "Polymetal Annual Report 2024 : Gold Equivalent Production (KPI flagship miner ounces)",
+          "specific_category": "mining_production",
+          "reason": "hero company-specific légitime (3 dispo, flag _hero_is_company_specific_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -48443,7 +48430,6 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories",
         "f_repartition"
       ],
@@ -48452,7 +48438,7 @@
         "i_events",
         "m_freshness"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -48503,9 +48489,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "heuristic_partial_capped": true,
-          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -48538,9 +48522,7 @@
         "d_stories",
         "f_repartition"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
@@ -48938,7 +48920,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -48962,15 +48946,17 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 2,
-          "source": "publication_date"
+          "months_ago": 3,
+          "source": "next_earnings_date-90d"
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": true
+      "is_clean_all": false
     },
     {
       "ticker": "PRU.L",
@@ -49019,14 +49005,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure",
-            "top_capital",
-            "top_voting"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -49115,14 +49095,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure",
-            "top_capital",
-            "top_voting"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -49169,12 +49143,14 @@
       "market_cap_usd": 48430444216.32,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_company_specific": true,
           "len": 5,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (5 < 18)"
+          "specific_rationale": "Prysmian Annual Report 2024 : Energy Projects Revenue (segment officiel + KPI flagship)",
+          "specific_category": "industrial_segment",
+          "reason": "hero company-specific légitime (5 dispo, flag _hero_is_company_specific_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -49240,13 +49216,12 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -49482,11 +49457,10 @@
           "missing": [
             "ceo_total_comp_m",
             "board_size",
-            "voting_structure",
             "top_capital",
             "top_voting"
           ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "reason": "gov manque: ceo_total_comp_m,board_size,top_capital,top_voting"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -49581,11 +49555,10 @@
           "missing": [
             "ceo_total_comp_m",
             "board_size",
-            "voting_structure",
             "top_capital",
             "top_voting"
           ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "reason": "gov manque: ceo_total_comp_m,board_size,top_capital,top_voting"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -49671,14 +49644,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure",
-            "top_capital",
-            "top_voting"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -50015,7 +49982,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -50050,6 +50019,7 @@
         "f_repartition"
       ],
       "failed_extensions": [
+        "g_governance",
         "i_events"
       ],
       "failed_count": 1,
@@ -50183,9 +50153,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "heuristic_partial_capped": true,
-          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -50219,9 +50187,7 @@
         "a_hero_history",
         "d_stories"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -50594,9 +50560,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -50767,8 +50732,7 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "heuristic_partial_capped": true,
-          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
+          "reason": "top_capital < 3 (partial_allowed=false)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -50859,9 +50823,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -51032,7 +50995,11 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "governance absente"
+          "missing": [
+            "ceo_name",
+            "ceo_total_comp_m"
+          ],
+          "reason": "gov manque: ceo_name,ceo_total_comp_m"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -51126,11 +51093,10 @@
           "missing": [
             "ceo_total_comp_m",
             "board_size",
-            "voting_structure",
             "top_capital",
             "top_voting"
           ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "reason": "gov manque: ceo_total_comp_m,board_size,top_capital,top_voting"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -51378,9 +51344,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "heuristic_partial_capped": true,
-          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -51414,9 +51378,7 @@
         "a_hero_history",
         "d_stories"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -51549,10 +51511,11 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "ok": true,
+          "partial_disclosure": true,
+          "top_capital_count": 2,
+          "top_voting_count": 2,
+          "reason": "partial disclosure acceptée (ADR/EU/data_completeness=partial)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -51583,9 +51546,7 @@
       "failed_criteria": [
         "d_stories"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -51636,15 +51597,11 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure",
-            "top_capital",
-            "top_voting"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "ok": true,
+          "partial_disclosure": true,
+          "top_capital_count": 2,
+          "top_voting_count": 2,
+          "reason": "partial disclosure acceptée (ADR/EU/data_completeness=partial)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -51680,7 +51637,6 @@
         "f_repartition"
       ],
       "failed_extensions": [
-        "g_governance",
         "i_events"
       ],
       "failed_count": 2,
@@ -51736,11 +51692,10 @@
           "missing": [
             "ceo_total_comp_m",
             "board_size",
-            "voting_structure",
             "top_capital",
             "top_voting"
           ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "reason": "gov manque: ceo_total_comp_m,board_size,top_capital,top_voting"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -51985,10 +51940,11 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "ok": true,
+          "partial_disclosure": true,
+          "top_capital_count": 2,
+          "top_voting_count": 2,
+          "reason": "partial disclosure acceptée (ADR/EU/data_completeness=partial)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -52019,9 +51975,7 @@
       "failed_criteria": [
         "d_stories"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -52070,7 +52024,14 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Dennis L. Degner",
+          "board_size": 7,
+          "top_voting_count": 5,
+          "top_capital_count": 5,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=5 top_capital=5)",
+          "exception_heuristic_partial": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -52227,7 +52188,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "governance absente"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -52389,9 +52351,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "heuristic_partial_capped": true,
-          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -52422,9 +52382,7 @@
       "failed_criteria": [
         "d_stories"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -52476,14 +52434,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure",
-            "top_capital",
-            "top_voting"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -52568,9 +52520,13 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "missing": [
+            "ceo_total_comp_m",
+            "board_size",
+            "top_capital",
+            "top_voting"
+          ],
+          "reason": "gov manque: ceo_total_comp_m,board_size,top_capital,top_voting"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -52658,8 +52614,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "reason": "governance absente"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -52696,7 +52651,6 @@
         "f_repartition"
       ],
       "failed_extensions": [
-        "g_governance",
         "i_events"
       ],
       "failed_count": 3,
@@ -52752,9 +52706,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -52835,9 +52788,7 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "reason": "top_capital < 2 (partial_allowed=true)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -52925,9 +52876,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -53097,14 +53047,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure",
-            "top_capital",
-            "top_voting"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -53278,9 +53222,7 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "reason": "top_capital < 2 (partial_allowed=true)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -53362,9 +53304,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "heuristic_partial_capped": true,
-          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -53396,9 +53336,7 @@
         "a_hero_history",
         "d_stories"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -53615,7 +53553,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "governance absente"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -53699,9 +53638,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -53789,14 +53727,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure",
-            "top_capital",
-            "top_voting"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -53879,9 +53811,7 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "reason": "top_capital < 2 (partial_allowed=true)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -54182,12 +54112,14 @@
       "market_cap_usd": 225463892705.28003,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_company_specific": true,
           "len": 5,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (5 < 18)"
+          "specific_rationale": "Siemens Annual Report 2024 : Orders Received (KPI flagship demand metric investor day)",
+          "specific_category": "industrial_orders",
+          "reason": "hero company-specific légitime (5 dispo, flag _hero_is_company_specific_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -54251,13 +54183,12 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -54303,7 +54234,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -54336,7 +54269,9 @@
       "failed_criteria": [
         "a_hero_history"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -54465,8 +54400,7 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "heuristic_partial_capped": true,
-          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
+          "reason": "top_capital < 2 (partial_allowed=true)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -54547,7 +54481,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -54571,15 +54507,17 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 2,
-          "source": "publication_date"
+          "months_ago": 3,
+          "source": "next_earnings_date-90d"
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": true
+      "is_clean_all": false
     },
     {
       "ticker": "SMDS.L",
@@ -54630,7 +54568,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "governance absente"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -55032,7 +54971,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -55063,10 +55004,12 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": true
+      "is_clean_all": false
     },
     {
       "ticker": "SOF.BR",
@@ -55110,9 +55053,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -55370,9 +55312,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -55454,7 +55395,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "top_capital < 3 (partial_allowed=false)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -55531,7 +55473,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -55563,7 +55507,9 @@
       "failed_criteria": [
         "d_stories"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -55614,14 +55560,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure",
-            "top_capital",
-            "top_voting"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -55706,7 +55646,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -55739,7 +55681,9 @@
       "failed_criteria": [
         "a_hero_history"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -55750,12 +55694,14 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_company_specific": true,
           "len": 4,
           "period": "year",
           "required": 5,
-          "tolerated": 3,
-          "reason": "history insuffisant (4 < 5)"
+          "specific_rationale": "Snam Annual Report 2024 : Regulatory Asset Base (KPI prudentiel regulated TSO gaz)",
+          "specific_category": "utility_rab",
+          "reason": "hero company-specific légitime (4 dispo, flag _hero_is_company_specific_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -55825,7 +55771,6 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories",
         "f_repartition"
       ],
@@ -55833,7 +55778,7 @@
         "g_governance",
         "i_events"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -55883,14 +55828,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure",
-            "top_capital",
-            "top_voting"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -56057,7 +55996,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "governance absente"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -56150,7 +56090,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "governance absente"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -56328,7 +56269,8 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "reason": "top_capital < 3 (partial_allowed=false)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -56361,6 +56303,7 @@
         "f_repartition"
       ],
       "failed_extensions": [
+        "g_governance",
         "i_events"
       ],
       "failed_count": 1,
@@ -56562,9 +56505,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -57219,7 +57161,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "top_capital < 3 (partial_allowed=false)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -57388,7 +57331,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "top_capital < 3 (partial_allowed=false)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -57469,7 +57413,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -57498,10 +57444,12 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": true
+      "is_clean_all": false
     },
     {
       "ticker": "TECH",
@@ -57548,9 +57496,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "heuristic_partial_capped": true,
-          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -57584,9 +57530,7 @@
         "d_stories",
         "f_repartition"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -57631,7 +57575,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -57662,10 +57608,12 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": true
+      "is_clean_all": false
     },
     {
       "ticker": "TEL2-B.ST",
@@ -57708,9 +57656,7 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "reason": "top_capital < 3 (partial_allowed=false)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -57754,12 +57700,10 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
-          "len": 3,
-          "period": "year",
-          "required": 5,
-          "tolerated": 3,
-          "reason": "history insuffisant (3 < 5)"
+          "ok": true,
+          "len": 5,
+          "period": "annual",
+          "required": 5
         },
         "b_interpretation": {
           "ok": false,
@@ -57799,8 +57743,11 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "reason": "governance absente"
+          "ok": true,
+          "partial_disclosure": true,
+          "top_capital_count": 2,
+          "top_voting_count": 2,
+          "reason": "partial disclosure acceptée (ADR/EU/data_completeness=partial)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -57827,20 +57774,18 @@
         "m_freshness": {
           "ok": true,
           "months_ago": 5,
-          "source": "publication_date"
+          "source": "hero.last_data_date"
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "b_interpretation",
         "d_stories",
         "f_repartition"
       ],
       "failed_extensions": [
-        "g_governance",
         "i_events"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -57971,7 +57916,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -58003,7 +57950,9 @@
         "a_hero_history",
         "f_repartition"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -58125,7 +58074,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -58159,7 +58110,9 @@
         "a_hero_history",
         "d_stories"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -58211,7 +58164,14 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "governance absente"
+          "missing": [
+            "ceo_name",
+            "ceo_total_comp_m",
+            "board_size",
+            "top_capital",
+            "top_voting"
+          ],
+          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,top_capital,top_voting"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -58320,8 +58280,8 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 2,
-          "source": "publication_date"
+          "months_ago": 3,
+          "source": "next_earnings_date-90d"
         }
       },
       "failed_criteria": [
@@ -58456,7 +58416,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "top_capital < 3 (partial_allowed=false)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -58630,9 +58591,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "heuristic_partial_capped": true,
-          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -58665,9 +58624,7 @@
       "failed_criteria": [
         "f_repartition"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -58802,15 +58759,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure",
-            "top_capital",
-            "top_voting"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -58846,7 +58795,6 @@
         "f_repartition"
       ],
       "failed_extensions": [
-        "g_governance",
         "i_events"
       ],
       "failed_count": 2,
@@ -59068,7 +59016,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -59100,7 +59050,9 @@
         "a_hero_history",
         "f_repartition"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -59111,12 +59063,10 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
-          "len": 3,
-          "period": "year",
-          "required": 5,
-          "tolerated": 3,
-          "reason": "history insuffisant (3 < 5)"
+          "ok": true,
+          "len": 5,
+          "period": "annual",
+          "required": 5
         },
         "b_interpretation": {
           "ok": true,
@@ -59154,7 +59104,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "governance absente"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -59182,11 +59133,10 @@
         "m_freshness": {
           "ok": true,
           "months_ago": 3,
-          "source": "publication_date"
+          "source": "hero.last_data_date"
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories",
         "f_repartition"
       ],
@@ -59194,7 +59144,7 @@
         "g_governance",
         "i_events"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -59247,9 +59197,8 @@
           "evidence_count": 3
         },
         "i_events": {
-          "ok": false,
-          "count": 3,
-          "reason": "events 3 < 4"
+          "ok": true,
+          "count": 8
         },
         "j_description": {
           "ok": true,
@@ -59268,12 +59217,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "i_events"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "TSN",
@@ -59810,9 +59757,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "heuristic_partial_capped": true,
-          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -59841,12 +59786,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "TYL",
@@ -60060,7 +60003,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -60084,15 +60029,17 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 2,
-          "source": "publication_date"
+          "months_ago": 3,
+          "source": "next_earnings_date-90d"
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": true
+      "is_clean_all": false
     },
     {
       "ticker": "UCB.BR",
@@ -60140,14 +60087,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure",
-            "top_capital",
-            "top_voting"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -60314,9 +60255,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "heuristic_partial_capped": true,
-          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -60347,12 +60286,10 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": false
+      "is_clean_all": true
     },
     {
       "ticker": "UL",
@@ -60480,7 +60417,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "top_capital < 3 (partial_allowed=false)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -60570,7 +60508,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "governance absente"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -60661,14 +60600,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure",
-            "top_capital",
-            "top_voting"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -60760,7 +60693,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "governance absente"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -60940,11 +60874,10 @@
           "missing": [
             "ceo_total_comp_m",
             "board_size",
-            "voting_structure",
             "top_capital",
             "top_voting"
           ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "reason": "gov manque: ceo_total_comp_m,board_size,top_capital,top_voting"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -61027,9 +60960,10 @@
         "g_governance": {
           "ok": false,
           "missing": [
+            "ceo_total_comp_m",
             "board_size"
           ],
-          "reason": "gov manque: board_size"
+          "reason": "gov manque: ceo_total_comp_m,board_size"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -61186,9 +61120,13 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "missing": [
+            "ceo_total_comp_m",
+            "board_size",
+            "top_capital",
+            "top_voting"
+          ],
+          "reason": "gov manque: ceo_total_comp_m,board_size,top_capital,top_voting"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -61435,11 +61373,10 @@
           "missing": [
             "ceo_total_comp_m",
             "board_size",
-            "voting_structure",
             "top_capital",
             "top_voting"
           ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "reason": "gov manque: ceo_total_comp_m,board_size,top_capital,top_voting"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -61531,7 +61468,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -61565,7 +61504,9 @@
         "d_stories",
         "f_repartition"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -61615,14 +61556,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure",
-            "top_capital",
-            "top_voting"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -61708,11 +61643,10 @@
           "missing": [
             "ceo_total_comp_m",
             "board_size",
-            "voting_structure",
             "top_capital",
             "top_voting"
           ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "reason": "gov manque: ceo_total_comp_m,board_size,top_capital,top_voting"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -61877,8 +61811,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "reason": "governance absente"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -61915,7 +61848,6 @@
         "f_repartition"
       ],
       "failed_extensions": [
-        "g_governance",
         "i_events"
       ],
       "failed_count": 3,
@@ -62128,9 +62060,11 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "missing": [
+            "ceo_total_comp_m",
+            "board_size"
+          ],
+          "reason": "gov manque: ceo_total_comp_m,board_size"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -62208,7 +62142,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -62239,10 +62175,12 @@
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": true
+      "is_clean_all": false
     },
     {
       "ticker": "VLTO",
@@ -62285,9 +62223,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "heuristic_partial_capped": true,
-          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -62320,9 +62256,7 @@
       "failed_criteria": [
         "d_stories"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -62467,9 +62401,7 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "reason": "top_capital < 2 (partial_allowed=true)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -62516,12 +62448,14 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_company_specific": true,
           "len": 3,
           "period": "year",
           "required": 5,
-          "tolerated": 3,
-          "reason": "history insuffisant (3 < 5)"
+          "specific_rationale": "voestalpine Annual Report 2024 : Steel Division Revenue (segment officiel + KPI flagship)",
+          "specific_category": "industrial_segment",
+          "reason": "hero company-specific légitime (3 dispo, flag _hero_is_company_specific_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -62591,7 +62525,6 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories",
         "f_repartition"
       ],
@@ -62599,7 +62532,7 @@
         "g_governance",
         "i_events"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -62609,12 +62542,14 @@
       "market_cap_usd": 49186088386.560005,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_company_specific": true,
           "len": 5,
           "period": "quarter",
           "required": 18,
-          "tolerated": 10,
-          "reason": "history insuffisant (5 < 18)"
+          "specific_rationale": "Volkswagen Annual Report 2024 : Deliveries to customers (KPI officiel investor day)",
+          "specific_category": "automotive_deliveries",
+          "reason": "hero company-specific légitime (5 dispo, flag _hero_is_company_specific_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -62678,13 +62613,12 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories"
       ],
       "failed_extensions": [
         "g_governance"
       ],
-      "failed_count": 2,
+      "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -62694,12 +62628,14 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_company_specific": true,
           "len": 3,
           "period": "year",
           "required": 5,
-          "tolerated": 3,
-          "reason": "history insuffisant (3 < 5)"
+          "specific_rationale": "Volkswagen preferred shares Annual Report 2024 : Vehicle Deliveries (KPI officiel)",
+          "specific_category": "automotive_deliveries",
+          "reason": "hero company-specific légitime (3 dispo, flag _hero_is_company_specific_legitimate)"
         },
         "b_interpretation": {
           "ok": false,
@@ -62772,7 +62708,6 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "b_interpretation",
         "d_stories",
         "f_repartition"
@@ -62781,7 +62716,7 @@
         "g_governance",
         "i_events"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -63275,8 +63210,8 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 2,
-          "source": "publication_date"
+          "months_ago": 4,
+          "source": "next_earnings_date-90d"
         }
       },
       "failed_criteria": [],
@@ -63327,9 +63262,7 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "reason": "top_capital < 3 (partial_allowed=false)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -63567,7 +63500,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "top_voting < 3 (partial_allowed=false)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -63736,7 +63670,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "top_capital < 3 (partial_allowed=false)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -63857,12 +63792,14 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_company_specific": true,
           "len": 4,
           "period": "year",
           "required": 5,
-          "tolerated": 3,
-          "reason": "history insuffisant (4 < 5)"
+          "specific_rationale": "Warehouses De Pauw Annual Report 2024 : Property Portfolio Value (KPI flagship REIT logistique)",
+          "specific_category": "reit_portfolio_value",
+          "reason": "hero company-specific légitime (4 dispo, flag _hero_is_company_specific_legitimate)"
         },
         "b_interpretation": {
           "ok": false,
@@ -63935,7 +63872,6 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "b_interpretation",
         "d_stories",
         "f_repartition"
@@ -63944,7 +63880,7 @@
         "g_governance",
         "i_events"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -63993,9 +63929,7 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": false,
-          "heuristic_partial_capped": true,
-          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
+          "ok": true
         },
         "h_ai_positioning": {
           "ok": true,
@@ -64021,17 +63955,15 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 2,
-          "source": "publication_date"
+          "months_ago": 3,
+          "source": "next_earnings_date-90d"
         }
       },
       "failed_criteria": [
         "d_stories",
         "f_repartition"
       ],
-      "failed_extensions": [
-        "g_governance"
-      ],
+      "failed_extensions": [],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -64243,7 +64175,14 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "reason": "governance absente"
+          "missing": [
+            "ceo_name",
+            "ceo_total_comp_m",
+            "board_size",
+            "top_capital",
+            "top_voting"
+          ],
+          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,top_capital,top_voting"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -64292,12 +64231,14 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_company_specific": true,
           "len": 3,
           "period": "year",
           "required": 5,
-          "tolerated": 3,
-          "reason": "history insuffisant (3 < 5)"
+          "specific_rationale": "Wizz Air Annual Report 2024 : Fleet Size (KPI flagship low-cost carrier expansion)",
+          "specific_category": "aviation_fleet",
+          "reason": "hero company-specific légitime (3 dispo, flag _hero_is_company_specific_legitimate)"
         },
         "b_interpretation": {
           "ok": false,
@@ -64370,7 +64311,6 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "b_interpretation",
         "d_stories",
         "f_repartition"
@@ -64379,7 +64319,7 @@
         "g_governance",
         "i_events"
       ],
-      "failed_count": 4,
+      "failed_count": 3,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -64512,7 +64452,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -64544,7 +64486,9 @@
         "a_hero_history",
         "f_repartition"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
@@ -64665,7 +64609,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -64696,7 +64642,9 @@
       "failed_criteria": [
         "a_hero_history"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -64959,12 +64907,14 @@
       "market_cap_usd": null,
       "criteria": {
         "a_hero_history": {
-          "ok": false,
+          "ok": true,
+          "exception_company_specific": true,
           "len": 4,
           "period": "year",
           "required": 5,
-          "tolerated": 3,
-          "reason": "history insuffisant (4 < 5)"
+          "specific_rationale": "Whitbread Annual Report 2024 : Premier Inn Rooms count (KPI flagship UK hospitality)",
+          "specific_category": "hospitality_rooms",
+          "reason": "hero company-specific légitime (4 dispo, flag _hero_is_company_specific_legitimate)"
         },
         "b_interpretation": {
           "ok": true,
@@ -65041,7 +64991,6 @@
         }
       },
       "failed_criteria": [
-        "a_hero_history",
         "d_stories",
         "f_repartition"
       ],
@@ -65049,7 +64998,7 @@
         "g_governance",
         "i_events"
       ],
-      "failed_count": 3,
+      "failed_count": 2,
       "is_clean_af": false,
       "is_clean_all": false
     },
@@ -65487,9 +65436,10 @@
         "g_governance": {
           "ok": false,
           "missing": [
+            "ceo_total_comp_m",
             "board_size"
           ],
-          "reason": "gov manque: board_size"
+          "reason": "gov manque: ceo_total_comp_m,board_size"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -65570,7 +65520,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -65596,14 +65548,16 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 2,
-          "source": "publication_date"
+          "months_ago": 4,
+          "source": "next_earnings_date-90d"
         }
       },
       "failed_criteria": [
         "d_stories"
       ],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -65675,8 +65629,8 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 2,
-          "source": "publication_date"
+          "months_ago": 3,
+          "source": "next_earnings_date-90d"
         }
       },
       "failed_criteria": [
@@ -65736,14 +65690,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "missing": [
-            "ceo_total_comp_m",
-            "board_size",
-            "voting_structure",
-            "top_capital",
-            "top_voting"
-          ],
-          "reason": "gov manque: ceo_total_comp_m,board_size,voting_structure,top_capital,top_voting"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -65906,7 +65854,9 @@
       },
       "extensions": {
         "g_governance": {
-          "ok": true
+          "ok": false,
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,
@@ -65932,15 +65882,17 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 2,
-          "source": "publication_date"
+          "months_ago": 4,
+          "source": "next_earnings_date-90d"
         }
       },
       "failed_criteria": [],
-      "failed_extensions": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
       "failed_count": 0,
       "is_clean_af": true,
-      "is_clean_all": true
+      "is_clean_all": false
     },
     {
       "ticker": "ZBRA",
@@ -66091,8 +66043,8 @@
         },
         "m_freshness": {
           "ok": true,
-          "months_ago": 2,
-          "source": "publication_date"
+          "months_ago": 3,
+          "source": "next_earnings_date-90d"
         }
       },
       "failed_criteria": [],
@@ -66145,9 +66097,8 @@
       "extensions": {
         "g_governance": {
           "ok": false,
-          "partial_disclosure_eu": true,
-          "p1_retry": true,
-          "reason": "EU partial disclosure (P1 retry pending, pas rédhibitoire)"
+          "heuristic_partial_capped": true,
+          "reason": "heuristic_partial éligible mais cap 20% atteint (155/778)"
         },
         "h_ai_positioning": {
           "ok": true,

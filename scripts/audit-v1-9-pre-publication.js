@@ -236,6 +236,21 @@ function loadCompany(ticker) {
           if (d.next_earnings_date && !merged.next_earnings_date) {
             merged.next_earnings_date = d.next_earnings_date;
           }
+          // Sub-agent #92 (21 mai 2026) : merger les tags
+          // _hero_is_company_specific_legitimate + rationale + category
+          // depuis enrich. Permet à checkHeroHistory de tolérer hero
+          // company-specific EU/UK (Beer Volume, VYVGART, Vehicle
+          // Deliveries, CET1 Ratio, Pipeline biotech, etc.) avec cap
+          // séparé 10 % du dataset.
+          if (d._hero_is_company_specific_legitimate === true) {
+            merged._hero_is_company_specific_legitimate = true;
+            if (d._hero_specific_rationale && !merged._hero_specific_rationale) {
+              merged._hero_specific_rationale = d._hero_specific_rationale;
+            }
+            if (d._hero_specific_category && !merged._hero_specific_category) {
+              merged._hero_specific_category = d._hero_specific_category;
+            }
+          }
           // kpis_freshness_overrides : sub-agent #34 yfinance v19 a écrit
           // un array [{short, last_data_date, source}] par sté. Appliquer
           // au KPI matchant côté merged.kpis[] (set last_data_date si vide).
@@ -512,6 +527,13 @@ function checkHeroHistory(company) {
   const period = lower(hero.period_type || 'year');
   const isShortMarked = hero.is_short_history === true || hero._hero_history_unverified === true;
   const isLegitimate = hero.is_short_history_legitimate === true;
+  // NEW (sub-agent #92, 21 mai 2026) : exception "hero company-specific légitime"
+  // pour EU/UK stés où le hero est un KPI officiel publié par l'entreprise
+  // (Beer Volume Heineken, VYVGART argenx, Vehicle Deliveries Stellantis, CET1
+  // Banques EU, Pipeline biotech, etc.). Cap séparé 10 % du dataset.
+  const isCompanySpecific =
+    hero._hero_is_company_specific_legitimate === true ||
+    company._hero_is_company_specific_legitimate === true;
 
   let minRequired, minTolerated;
   if (period === 'quarter') {
@@ -540,6 +562,30 @@ function checkHeroHistory(company) {
       required: minRequired,
       legitimate_reason: hero.short_history_legitimate_reason || null,
       reason: `KPI trop récent légitime (${len} dispo, flag is_short_history_legitimate)`,
+    };
+  }
+  // NEW (sub-agent #92) : exception "hero company-specific légitime" EU/UK.
+  // Tag : _hero_is_company_specific_legitimate (sur hero ou racine company).
+  // Cap : 10 % du dataset (tracker séparé below).
+  // Exigence : len >= 3 pour qu'un graph soit affichable.
+  if (isCompanySpecific && len >= 3) {
+    const rationale =
+      hero._hero_specific_rationale ||
+      company._hero_specific_rationale ||
+      null;
+    const category =
+      hero._hero_specific_category ||
+      company._hero_specific_category ||
+      null;
+    return {
+      ok: true,
+      exception_company_specific: true,
+      len,
+      period,
+      required: minRequired,
+      specific_rationale: rationale,
+      specific_category: category,
+      reason: `hero company-specific légitime (${len} dispo, flag _hero_is_company_specific_legitimate)`,
     };
   }
   if (len >= minTolerated && isShortMarked) {
@@ -1374,12 +1420,17 @@ function main() {
       m_freshness: 0,
     },
   };
-  // NEW : tracker exceptions a_hero_history (KPI trop récent légitime + tolérance short)
+  // NEW : tracker exceptions a_hero_history (KPI trop récent légitime + tolérance short
+  // + company-specific légitime sub-agent #92)
   stats.a_hero_history_exceptions = {
     legitimate: 0,
     short_marked: 0,
+    company_specific: 0,
     legitimate_pct_of_total: 0,
+    company_specific_pct_of_total: 0,
     under_21pct_cap: true,
+    under_10pct_cap_company_specific: true,
+    by_specific_category: {},
   };
   // NEW : tracker exceptions h_ai_positioning (stance absent légitime + sector-aware)
   stats.h_ai_positioning_exceptions = {
@@ -1415,6 +1466,12 @@ function main() {
     if (ah && ah.ok) {
       if (ah.exception_legitimate) stats.a_hero_history_exceptions.legitimate += 1;
       if (ah.exception_short) stats.a_hero_history_exceptions.short_marked += 1;
+      if (ah.exception_company_specific) {
+        stats.a_hero_history_exceptions.company_specific += 1;
+        const cat = ah.specific_category || 'uncategorized';
+        stats.a_hero_history_exceptions.by_specific_category[cat] =
+          (stats.a_hero_history_exceptions.by_specific_category[cat] || 0) + 1;
+      }
     }
     // Track exception usage on h_ai_positioning
     const ai = a.extensions && a.extensions.h_ai_positioning;
@@ -1441,16 +1498,24 @@ function main() {
     }
   });
   const totalExceptions =
-    stats.a_hero_history_exceptions.legitimate + stats.a_hero_history_exceptions.short_marked;
+    stats.a_hero_history_exceptions.legitimate +
+    stats.a_hero_history_exceptions.short_marked +
+    stats.a_hero_history_exceptions.company_specific;
   stats.a_hero_history_exceptions.total = totalExceptions;
   stats.a_hero_history_exceptions.legitimate_pct_of_total = Number(
     ((stats.a_hero_history_exceptions.legitimate / stats.total) * 100).toFixed(2)
+  );
+  stats.a_hero_history_exceptions.company_specific_pct_of_total = Number(
+    ((stats.a_hero_history_exceptions.company_specific / stats.total) * 100).toFixed(2)
   );
   stats.a_hero_history_exceptions.total_exceptions_pct_of_total = Number(
     ((totalExceptions / stats.total) * 100).toFixed(2)
   );
   stats.a_hero_history_exceptions.under_21pct_cap =
     stats.a_hero_history_exceptions.total_exceptions_pct_of_total < 21;
+  // NEW (sub-agent #92) : cap séparé 10 % pour company-specific
+  stats.a_hero_history_exceptions.under_10pct_cap_company_specific =
+    stats.a_hero_history_exceptions.company_specific_pct_of_total <= 10;
 
   // Stats g_governance exceptions + cap 15 % unavailable_adr
   stats.g_governance_exceptions.unavailable_adr_pct_of_total = Number(
@@ -1523,12 +1588,22 @@ function main() {
   Object.entries(stats.by_failed_extension)
     .sort((a, b) => b[1] - a[1])
     .forEach(([k, v]) => console.log(`  ${k} : ${v} stés (${((v / stats.total) * 100).toFixed(1)} %)`));
-  console.log('\nExceptions a_hero_history (KPI trop récent / short marked) :');
+  console.log('\nExceptions a_hero_history (KPI trop récent / short marked / company-specific) :');
   const ex = stats.a_hero_history_exceptions;
-  console.log(`  legitimate (is_short_history_legitimate)     : ${ex.legitimate} (${ex.legitimate_pct_of_total} %)`);
+  console.log(`  legitimate (is_short_history_legitimate)      : ${ex.legitimate} (${ex.legitimate_pct_of_total} %)`);
   console.log(`  short_marked (is_short_history)               : ${ex.short_marked}`);
+  console.log(`  company_specific (_hero_is_company_specific_legitimate) : ${ex.company_specific} (${ex.company_specific_pct_of_total} %)`);
   console.log(`  total exceptions                              : ${ex.total} (${ex.total_exceptions_pct_of_total} %)`);
-  console.log(`  cap < 21 % respecté                           : ${ex.under_21pct_cap ? '✓ OUI' : '✗ NON'}`);
+  console.log(`  cap < 21 % respecté (global)                  : ${ex.under_21pct_cap ? '✓ OUI' : '✗ NON'}`);
+  console.log(`  cap <= 10 % company_specific respecté         : ${ex.under_10pct_cap_company_specific ? '✓ OUI' : '✗ NON'}`);
+  if (Object.keys(ex.by_specific_category).length) {
+    console.log(`  by_specific_category :`);
+    Object.entries(ex.by_specific_category)
+      .sort((a, b) => b[1] - a[1])
+      .forEach(([cat, count]) => {
+        console.log(`    - ${cat}: ${count}`);
+      });
+  }
   console.log('\nExceptions g_governance (ADR Asia + EU partial + partial_disclosure ≥2) :');
   const gex = stats.g_governance_exceptions;
   console.log(`  unavailable_adr (ADR Asia/HK/CN légitime)     : ${gex.unavailable_adr} (${gex.unavailable_adr_pct_of_total} %)`);

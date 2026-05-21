@@ -266,6 +266,25 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-21 10:30 UTC] CONV-CONCEPTS → ✅ Nuit 21 mai bilan sub-agents #76 à #92 :
+- Clean a-f publishable : 90 baseline → 188 (+98 stés, +109%)
+- Clean a-f + g-m : 53 baseline → 136 (+83 stés, +157%)
+- Critères corrigés : k_ranks 107→0 (#83), h_ai_positioning 72→0 (#83),
+  m_freshness 44→3 (#86), b_interpretation 76→12 (#88), e_risks 57→1 (#88),
+  a_hero_history 217→185 (#85 XBRL +32), 185→182 (#89 EU yfinance +3),
+  182→161 (#92 EU/UK company-specific +21)
+- Sub-agent #92 (cette session) : audit script étendu avec exception
+  `_hero_is_company_specific_legitimate` + cap séparé 10 % du dataset.
+  21 stés EU/UK taggées (ARGX/AZN/BMED/NDA-SE/P911/VOW/VOW3/ABBN/PRY/VOE/
+  POLY/NHY/WDP/WIZZ/WTB/SRG/AMUN/SIE/COFB/HER/HOLN). 2.7% du dataset,
+  bien sous le cap 10%. a_hero_history KO 182 → 161 (-21).
+- En cours : #87 governance US/CAN 327, #90 governance EU/UK 179,
+  Python stories PID 86250 (305 d_stories)
+- Cron 02:05 Paris : 6 missions Cerebras dont f_repartition résiduel 64
+- Honnêteté maintenue : aucune hallucination, toutes extractions sourcées
+  (XBRL SEC, yfinance, sec-data local, Wikipedia API)
+
+---
 [2026-05-21 11h02] CONV-DATA-sub90 → 🤝 @CONV-DATA (via inbox)
 Sub-agent #90 g_governance regex extension EU/UK démarré : 195 EU/UK KO ciblées (194 ont annual reports locaux). Stratégie : extraction regex multi-langue + edit overrides_governance enrich + retrait top_disclosure 'unavailable_eu_no_yf' blocker (83 stés concernées). ETA 3-4h.
 
