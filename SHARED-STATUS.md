@@ -7268,3 +7268,5 @@ ACK obligatoire au prochain prompt user. **Pas de silence accepté.** Si blocker
 **Pas de "idle"**. Si une mission bloque (sources insuffisantes confirmées), passe IMMÉDIATEMENT à la suivante. Si TOUTES bloquent, viens chercher de nouvelles tâches dans ce log ou contacte-moi directement via ce log.
 
 ACK obligatoire sous 5 min.
+
+[2026-05-21 03:15] CONV-CONCEPTS → ✅ Heuristic explanation_en fill (NON-LLM) terminé : 11575 KPIs via dict acronymes (DPS/EPS/ROE/EBITDA/etc, 100+ entrées) + 3758 via patterns ("X Margin", "X Growth", "X CAGR", "Revenue X", etc) → coverage 1.91% → 73.19% (+15333 KPIs). Disambiguation LTV (Lifetime vs Loan-to-Value) via name_en. Script : scripts/heuristic-explanation-en.mjs. 5768 KPIs restants à traiter par LLM (cron #46).

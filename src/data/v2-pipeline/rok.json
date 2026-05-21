@@ -42,7 +42,8 @@
       "ttm": 6.74,
       "_validation": [
         "HALLUCINATION DETECTED: Annual Recurring Revenue (ARR) value 9.1 B$ not found in 10-K source. While MD&A Long-term Strategy section states 'continue double-digit growth in annual recurring revenue', no specific ARR figure or historical data provided. Values appear fabricated. RECOMMEND: Obtain quarterly earnings release with ARR disclosure or investor relations metrics"
-      ]
+      ],
+      "explanation_en": "Revenue from the Annual Recurring segment."
     },
     {
       "short": "Gross Margin",
@@ -65,7 +66,8 @@
       "ttm": null,
       "_validation": [
         "HALLUCINATION DETECTED: Gross margin values (40.0%, history 40.0/39.5/39.0/38.5) not present in 10-K source. Consolidated balance sheet and income statement structure provided but income statement detail (cost of sales, gross profit) not included in excerpt. Values completely fabricated. RECOMMEND: KPI REMOVED pending access to full consolidated income statement with COGS disclosure"
-      ]
+      ],
+      "explanation_en": "Gross Margin — gross profit divided by revenue."
     },
     {
       "short": "R&D Investment Ratio",
@@ -88,7 +90,8 @@
       "ttm": null,
       "_validation": [
         "HALLUCINATION DETECTED: R&D percentage values (5.0%) and history (5.0/5.0/5.0/5.0) not present in 10-K source. MD&A discusses 'investments in technology and globalization' and technology differentiation strategy but provides no specific R&D expense figures or R&D as % of revenue. Values completely fabricated. RECOMMEND: KPI REMOVED pending access to detailed expense breakdown or investor relations data"
-      ]
+      ],
+      "explanation_en": "R&D Investment ratio."
     },
     {
       "short": "Capital Expenditures",
@@ -144,7 +147,8 @@
         "Validation: Additional demographics confirmed: Individual Contributors 34% women, People Managers 27% women, Technical Talent 20% women, Manufacturing Associates 46% women",
         "Validation: YoY +1.8% calculation valid ((26000-25500)/25500 = 0.0196)",
         "Validation: KPI directly sourced from official 10-K Item 1A Risk Factors 'Attracting, Developing, and Retaining Highly Qualified Employees' section"
-      ]
+      ],
+      "explanation_en": "Total Employees — total number of employees at period end."
     },
     {
       "short": "Total Assets",
@@ -165,7 +169,8 @@
       "signal": "Total des actifs de 11.22 Mds € dernière année",
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets — sum of all assets on the balance sheet."
     },
     {
       "short": "Total Debt",
@@ -186,7 +191,8 @@
       "signal": "Dette totale de 3.65 Mds € dernière année",
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt — sum of short-term and long-term borrowings."
     },
     {
       "short": "Cash & Equivalents",
@@ -231,7 +237,8 @@
       "signal": "Dividende par action de 1.38 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends"
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding."
     },
     {
       "short": "Cap Return",
@@ -252,7 +259,8 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 0.591 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow"
+      "_source": "yfinance.cashflow",
+      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks)."
     },
     {
       "short": "Payout Ratio",
@@ -273,7 +281,8 @@
       "signal": "Part du résultat net distribué en dividendes : 68.0% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt"
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio — dividends paid divided by net income."
     },
     {
       "short": "Total Revenue",
@@ -297,7 +306,8 @@
       "signal": "Chiffre d'affaires de 8.342 Mds $ dernière année.",
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 7 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Revenue from the Total segment."
     },
     {
       "short": "Net Income",
@@ -322,7 +332,8 @@
       "signal": "Résultat net de 0.869 Mds $ dernière année.",
       "description": "Résultat net consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL"
+      "_source": "SEC EDGAR companyfacts XBRL",
+      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes."
     }
   ],
   "stories_kpis": [
