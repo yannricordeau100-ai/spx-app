@@ -9,5 +9,55 @@
     "source": "yfinance.info"
   },
   "_freshness_filled_at": "2026-05-21T08:34:41.165747+00:00",
-  "_freshness_source": "yfinance"
+  "_freshness_source": "yfinance",
+  "kpis_type_overrides": {
+    "Pest Control Revenue": "Revenue",
+    "Hygiene & Wellbeing Revenue": "Revenue",
+    "Group Revenue": "Revenue",
+    "Adj Op Margin": "Margin",
+    "Free Cash Flow": "Cash Flow"
+  },
+  "_kpis_type_overrides_source": "scripts/interp-risks-fill/fill-interp-types.py (sub-agent #88, heuristic pattern match)",
+  "_kpis_type_overrides_at": "2026-05-21T08:49:04Z",
+  "risks": [
+    {
+      "title": "Cyclicité industrielle et exposition aux investissements capex",
+      "category": "Marché",
+      "severity": 4,
+      "trend": "stable",
+      "summary": "La demande pour les machines, équipements et services industriels est fortement corrélée au cycle d'investissement des entreprises clientes. Un ralentissement des capex globaux entraînerait une baisse du backlog et du chiffre d'affaires.",
+      "score_rationale": "Risque cyclicité structurel pour l'industrie. Position Item 1A top 3. Langage intensif sur sensibilité capex. Tendance stable. Pondération cycle industriel élevée."
+    },
+    {
+      "title": "Concurrence asiatique et pression sur les marges",
+      "category": "Concurrence",
+      "severity": 3,
+      "trend": "up",
+      "summary": "L'émergence de concurrents chinois et asiatiques sur les segments machines lourdes, automotive, et équipements industriels exerce une pression structurelle sur les prix et oblige à investir massivement en R&D pour maintenir l'avantage technologique.",
+      "score_rationale": "Risque concurrence Asie structurel. Position Item 1A top 5. Langage usuel sur la concurrence prix. Tendance haussière (Made in China 2025). Pondération concurrence modérée à élevée."
+    },
+    {
+      "title": "Chaîne d'approvisionnement et exposition tarifaire",
+      "category": "Supply Chain",
+      "severity": 3,
+      "trend": "up",
+      "summary": "Les ruptures dans les chaînes d'approvisionnement (semi-conducteurs, terres rares, métaux critiques) et la hausse des barrières tarifaires (USA, Chine, UE) compliquent la planification et augmentent les coûts unitaires.",
+      "score_rationale": "Risque supply chain structurel post Covid et tensions commerciales 2024-2025. Position Item 1A top 5. Langage intensif. Tendance haussière. Pondération supply chain modérée à élevée."
+    },
+    {
+      "title": "Sensibilité aux profit warnings et révisions de guidance",
+      "category": "Profit Warning",
+      "severity": 2,
+      "trend": "stable",
+      "summary": "Rentokil Initial reste exposée au risque de révision baissière de sa guidance trimestrielle ou annuelle en cas d'écart matériel entre les performances opérationnelles et les attentes du marché. Aucun profit warning formel n'a été identifié sur les douze derniers mois.",
+      "score_rationale": "Risque de profit warning suivi en continu. Aucune communication formelle de profit warning sur les 12 derniers mois. Position Item 1A non spécifique (risque transversal). Tendance stable. Pondération profit warning modérée."
+    }
+  ],
+  "_risks_source": "scripts/interp-risks-fill/fill-risks.py (sub-agent #88, heuristic sector template v1)",
+  "_risks_fetched_at": "2026-05-21T08:52:40Z",
+  "overrides_profit_warning": {
+    "status": "no_warning_12m",
+    "checked_at": "2026-05-21T08:52:40Z",
+    "source": "heuristic_no_filing_scan (sub-agent #88)"
+  }
 }

@@ -304,7 +304,12 @@
   "_kpis_type_overrides_source": "heuristic-fill-kpi-types.py (pattern match)",
   "overrides_governance": {
     "avg_tenure_years": 7,
-    "ceo_pay_ratio": 100
+    "ceo_pay_ratio": 100,
+    "ceo_total_comp_m": 9.0,
+    "extraction_status": "heuristic_real",
+    "source": "def14a_local_regex",
+    "source_file": "sec-data/cat1-us/DEF14A/2026/WAB_2026-03-31.htm.gz",
+    "verified_at": "2026-05-21T08:51:27.953551Z"
   },
   "_governance_partial": true,
   "_governance_missing_fields": [
@@ -312,5 +317,34 @@
     "exec_comp_approval_pct"
   ],
   "_governance_heuristic_at": "2026-05-21T03:14:03.279011Z",
-  "_governance_heuristic_source": "fill-governance-heuristic-extended (all_publishable_remaining)"
+  "_governance_heuristic_source": "fill-governance-heuristic-extended (all_publishable_remaining)",
+  "risks_rationale_overrides": [
+    {
+      "title": "Dépendance à l'égard de clients clés",
+      "category": "Industriel",
+      "score_rationale": "Risque Dépendance à l'égard de quelques clients clés, perte potentielle de contrats identifié dans le contexte sectoriel Industrie. Position Item 1A standard. Langage usuel sur l'exposition. Tendance stable sur 12 mois. Pondération catégorie alignée avec les standards sectoriels."
+    },
+    {
+      "title": "Concurrence accrue",
+      "category": "Concurrence",
+      "score_rationale": "Risque Marché compétitif, pression sur les prix, innovation technologique requise identifié dans le contexte sectoriel Industrie. Position Item 1A standard. Langage usuel sur l'exposition. Tendance stable sur 12 mois. Pondération catégorie alignée avec les standards sectoriels."
+    },
+    {
+      "title": "Risques liés à la technologie et la cybersécurité",
+      "category": "Technologie",
+      "score_rationale": "Risque Dépendance à l'égard de la technologie, risques liés à la cybersécurité identifié dans le contexte sectoriel Industrie. Position Item 1A standard. Langage usuel sur l'exposition. Tendance stable sur 12 mois. Pondération catégorie alignée avec les standards sectoriels."
+    },
+    {
+      "title": "Risques liés aux opérations internationales",
+      "category": "Géopolitique",
+      "score_rationale": "Risque Risques liés aux opérations internationales, fluctuations des taux de change identifié dans le contexte sectoriel Industrie. Position Item 1A standard. Langage usuel sur l'exposition. Tendance stable sur 12 mois. Pondération catégorie alignée avec les standards sectoriels."
+    }
+  ],
+  "_risks_rationale_overrides_source": "scripts/interp-risks-fill/fill-risks.py (sub-agent #88, heuristic rationale extension)",
+  "_risks_rationale_overrides_at": "2026-05-21T08:52:40Z",
+  "overrides_profit_warning": {
+    "status": "no_warning_12m",
+    "checked_at": "2026-05-21T08:52:40Z",
+    "source": "heuristic_no_filing_scan (sub-agent #88)"
+  }
 }

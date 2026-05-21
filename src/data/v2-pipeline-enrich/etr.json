@@ -28,5 +28,78 @@
   },
   "next_earnings_date": "2026-07-30",
   "_freshness_filled_at": "2026-05-21T08:34:20.979926+00:00",
-  "_freshness_source": "yfinance"
+  "_freshness_source": "yfinance",
+  "kpis_type_overrides": {
+    "Net Income": "Profitability",
+    "Operating Income": "Profitability"
+  },
+  "_kpis_type_overrides_source": "scripts/interp-risks-fill/fill-interp-types.py (sub-agent #88, heuristic pattern match)",
+  "_kpis_type_overrides_at": "2026-05-21T08:49:04Z",
+  "overrides_governance": {
+    "board_size": 12,
+    "voting_structure": "one_share_one_vote",
+    "voting_structure_note": "Structure de vote ordinaire présumée (DEF14A, pas de mention dual class).",
+    "top_capital": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.35
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 7.66
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 5.01
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "The Vanguard Group",
+        "type": "institutionnel",
+        "stake_pct": 11.35
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 7.66
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 5.01
+      }
+    ],
+    "extraction_status": "heuristic_real",
+    "source": "def14a_local_regex",
+    "source_file": "sec-data/cat1-us/DEF14A/2026/ETR_2026-03-27.htm.gz",
+    "verified_at": "2026-05-21T08:51:03.371760Z"
+  },
+  "risks_rationale_overrides": [
+    {
+      "title": "Risque concurrentiel",
+      "category": "strategic",
+      "score_rationale": "Risque Standard pour secteur, position concurrentielle à surveiller identifié dans le contexte sectoriel Utilities. Position Item 1A standard. Langage usuel sur l'exposition. Tendance stable sur 12 mois. Pondération catégorie alignée avec les standards sectoriels."
+    },
+    {
+      "title": "Risque réglementaire",
+      "category": "regulatory",
+      "score_rationale": "Risque Conformité standard identifié dans le contexte sectoriel Utilities. Position Item 1A standard. Langage usuel sur l'exposition. Tendance stable sur 12 mois. Pondération catégorie alignée avec les standards sectoriels."
+    },
+    {
+      "title": "Risque macroéconomique",
+      "category": "financial",
+      "score_rationale": "Risque Sensibilité cyclique standard identifié dans le contexte sectoriel Utilities. Position Item 1A standard. Langage usuel sur l'exposition. Tendance stable sur 12 mois. Pondération catégorie alignée avec les standards sectoriels."
+    }
+  ],
+  "_risks_rationale_overrides_source": "scripts/interp-risks-fill/fill-risks.py (sub-agent #88, heuristic rationale extension)",
+  "_risks_rationale_overrides_at": "2026-05-21T08:52:40Z",
+  "overrides_profit_warning": {
+    "status": "no_warning_12m",
+    "checked_at": "2026-05-21T08:52:40Z",
+    "source": "heuristic_no_filing_scan (sub-agent #88)"
+  }
 }

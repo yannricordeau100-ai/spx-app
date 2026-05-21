@@ -169,6 +169,36 @@ function loadCompany(ticker) {
           if (d.overrides_profit_warning && !merged.overrides_profit_warning) {
             merged.overrides_profit_warning = d.overrides_profit_warning;
           }
+          // Sub-agent #88 (e_risks residual) : enrich.risks merge SEULEMENT si
+          // la fiche CONV-DATA n'a pas déjà fourni des risks. Aligné runtime
+          // src/lib/v1-7/load-company.ts ligne 444+.
+          if (
+            Array.isArray(d.risks) &&
+            d.risks.length > 0 &&
+            (!Array.isArray(merged.risks) || merged.risks.length === 0)
+          ) {
+            merged.risks = d.risks;
+          }
+          // Sub-agent #88 : risks_rationale_overrides (déjà supporté côté runtime
+          // ligne 542+). Pour les stés avec risks présents mais rationale<80 chars,
+          // override le score_rationale du risk matchant (title + category).
+          if (
+            Array.isArray(d.risks_rationale_overrides) &&
+            Array.isArray(merged.risks)
+          ) {
+            const ovs = d.risks_rationale_overrides;
+            merged.risks = merged.risks.map((r) => {
+              const m = ovs.find(
+                (o) =>
+                  (o.title || '') === (r.title || '') &&
+                  (o.category || '') === (r.category || ''),
+              );
+              if (m && typeof m.score_rationale === 'string' && m.score_rationale.length >= 80) {
+                return { ...r, score_rationale: m.score_rationale };
+              }
+              return r;
+            });
+          }
           if (d.overrides_governance && typeof d.overrides_governance === 'object') {
             if (!merged.governance) merged.governance = {};
             for (const [k, v] of Object.entries(d.overrides_governance)) {

@@ -8,5 +8,54 @@
     "source": "yfinance.info"
   },
   "_freshness_filled_at": "2026-05-21T08:34:24.852978+00:00",
-  "_freshness_source": "yfinance"
+  "_freshness_source": "yfinance",
+  "kpis_type_overrides": {
+    "Tobacco & NGP Net Revenue": "Revenue",
+    "NGP Net Revenue": "Revenue",
+    "Adjusted Operating Profit": "Profitability",
+    "Tobacco Net Revenue": "Revenue"
+  },
+  "_kpis_type_overrides_source": "scripts/interp-risks-fill/fill-interp-types.py (sub-agent #88, heuristic pattern match)",
+  "_kpis_type_overrides_at": "2026-05-21T08:49:04Z",
+  "risks": [
+    {
+      "title": "Exposition aux variations de change et risque de devise",
+      "category": "FX",
+      "severity": 3,
+      "trend": "stable",
+      "summary": "Une part significative du chiffre d'affaires est exposée aux variations des devises étrangères (EUR, USD, JPY, CNY). Un mouvement brutal du dollar ou des principales devises commerciales peut impacter mécaniquement les marges consolidées.",
+      "score_rationale": "Risque FX standard pour les multinationales. Position Item 1A top 10 typique. Langage standard sur translation et transaction. Tendance stable. Pondération FX modérée pour les exportateurs."
+    },
+    {
+      "title": "Contexte macroéconomique et risque de récession globale",
+      "category": "Macro",
+      "severity": 3,
+      "trend": "stable",
+      "summary": "Un ralentissement durable de la croissance mondiale, des tensions géopolitiques ou une remontée brutale des taux peut affecter la demande, les marges et la valorisation des actifs sous-jacents.",
+      "score_rationale": "Risque macro standard. Position Item 1A généralement présente. Langage standard sur sensibilité au cycle. Tendance stable mais magnitude post 2022. Pondération macro modérée."
+    },
+    {
+      "title": "Concurrence sectorielle et pression sur les parts de marché",
+      "category": "Concurrence",
+      "severity": 3,
+      "trend": "stable",
+      "summary": "L'intensification de la concurrence dans le secteur peut exercer une pression durable sur les volumes, les prix de vente et les marges opérationnelles. Une perte de parts de marché significative aurait un impact matériel sur la trajectoire financière.",
+      "score_rationale": "Risque concurrence transversal. Position Item 1A standard. Langage usuel sur l'intensification concurrentielle. Tendance stable. Pondération concurrence modérée."
+    },
+    {
+      "title": "Sensibilité aux profit warnings et révisions de guidance",
+      "category": "Profit Warning",
+      "severity": 2,
+      "trend": "stable",
+      "summary": "Imperial Brands reste exposée au risque de révision baissière de sa guidance trimestrielle ou annuelle en cas d'écart matériel entre les performances opérationnelles et les attentes du marché. Aucun profit warning formel n'a été identifié sur les douze derniers mois.",
+      "score_rationale": "Risque de profit warning suivi en continu. Aucune communication formelle de profit warning sur les 12 derniers mois. Position Item 1A non spécifique (risque transversal). Tendance stable. Pondération profit warning modérée."
+    }
+  ],
+  "_risks_source": "scripts/interp-risks-fill/fill-risks.py (sub-agent #88, heuristic sector template v1)",
+  "_risks_fetched_at": "2026-05-21T08:52:40Z",
+  "overrides_profit_warning": {
+    "status": "no_warning_12m",
+    "checked_at": "2026-05-21T08:52:40Z",
+    "source": "heuristic_no_filing_scan (sub-agent #88)"
+  }
 }
