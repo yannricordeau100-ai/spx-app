@@ -15,9 +15,9 @@ import type { Locale } from "@/lib/i18n/types";
  *
  * Prop `scope` (Yann 6 mai 2026) :
  *   - "home" (défaut) : toutes les langues sont pleinement traduites
- *     (8 locales) → aucune grisée dans le dropdown.
+ *     (6 locales) → aucune grisée dans le dropdown.
  *   - "company" : uniquement FR/EN sont traduites à 100 %, les autres
- *     locales (DE/NL/SV/DA/en-GB/de-CH) sont grisées + pastille "partiel".
+ *     locales (DE/NL/en-GB/de-CH) sont grisées + pastille "partiel".
  */
 
 // Locales pleinement traduites par scope. Yann a couvert FR/EN partout.

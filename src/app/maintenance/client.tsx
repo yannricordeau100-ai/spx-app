@@ -92,7 +92,7 @@ export function MaintenanceClient({
           {strings.caption}
         </motion.p>
 
-        {/* Drapeaux 8 langues, en bas */}
+        {/* Drapeaux 6 langues, en bas */}
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}

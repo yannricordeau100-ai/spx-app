@@ -672,7 +672,7 @@ function FindingCard({
                   ? "bg-emerald-500/40 text-emerald-50"
                   : "border border-emerald-500/40 text-emerald-200 hover:bg-emerald-500/15"
               }`}
-              title={allLangsActive ? "Revenir aux langues par défaut" : "Activer les 8 langues du site"}
+              title={allLangsActive ? "Revenir aux langues par défaut" : "Activer les 6 langues du site"}
             >
               {allLangsActive ? "✓ Toutes" : "+ Toutes"}
             </button>

@@ -429,7 +429,7 @@ function KpiForm({
         </label>
         <div className="col-span-2 rounded-xl border border-white/[0.06] bg-white/[0.02] p-3">
           <I18nEditor
-            label="Nom du KPI (8 langues)"
+            label="Nom du KPI (6 langues)"
             value={nameI18n}
             onChange={(v) => {
               setNameI18n(v);
@@ -517,17 +517,17 @@ function KpiForm({
         />
       </label>
 
-      {/* Traductions des libellés affichés (8 langues) */}
+      {/* Traductions des libellés affichés (6 langues) */}
       <div className="mt-4 space-y-4 rounded-xl border border-white/[0.06] bg-white/[0.02] p-3">
         <I18nEditor
-          label="Hero summary (phrase courte sous le chart, 8 langues)"
+          label="Hero summary (phrase courte sous le chart, 6 langues)"
           value={summaryI18n}
           onChange={setSummaryI18n}
           multiline
           placeholder="1 phrase max 18 mots avec la valeur la plus récente."
         />
         <I18nEditor
-          label="Interprétation (phrase plus longue, 8 langues)"
+          label="Interprétation (phrase plus longue, 6 langues)"
           value={interpI18n}
           onChange={setInterpI18n}
           multiline

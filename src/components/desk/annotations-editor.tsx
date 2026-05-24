@@ -14,8 +14,8 @@ export type Annotation = {
  * Chaque annotation = 1 marqueur info à une période donnée :
  *  - period : "2020" / "FY20" (exactement sur l'année)
  *             OU "between:2020-2021" (entre 2 années)
- *  - title  : titre du tooltip (8 langues)
- *  - text   : texte d'explication (8 langues)
+ *  - title  : titre du tooltip (6 langues)
+ *  - text   : texte d'explication (6 langues)
  */
 export function AnnotationsEditor({
   annotations,
@@ -117,13 +117,13 @@ export function AnnotationsEditor({
           </div>
 
           <I18nEditor
-            label="Titre du tooltip (8 langues)"
+            label="Titre du tooltip (6 langues)"
             value={ann.title_i18n}
             onChange={(v) => update(i, { title_i18n: v })}
             placeholder="ex Lancement iPhone 12"
           />
           <I18nEditor
-            label="Texte explicatif (8 langues)"
+            label="Texte explicatif (6 langues)"
             value={ann.text_i18n}
             onChange={(v) => update(i, { text_i18n: v })}
             multiline

@@ -24,3 +24,19 @@ export async function requireDeskOwner(): Promise<{ email: string; userId: strin
 
   return { email: user.email!, userId: user.id };
 }
+
+/**
+ * Yann (25 mai 2026) : version non-throwing pour les pages publiques qui
+ * veulent afficher conditionnellement un élément admin (ex CurrencyPicker
+ * sur /pricing). Retourne true uniquement si l'utilisateur connecté est
+ * `DESK_OWNER_EMAIL`. Aucune redirection : si false, on cache juste l'UI.
+ */
+export async function isDeskOwner(): Promise<boolean> {
+  try {
+    const supabase = await createSupabaseServerClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    return !!user && user.email === DESK_OWNER_EMAIL;
+  } catch {
+    return false;
+  }
+}

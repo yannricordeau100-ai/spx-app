@@ -5,7 +5,7 @@ import { LOCALES, LOCALE_META, type Locale } from "@/lib/i18n/types";
 import { useT } from "@/lib/i18n/provider";
 
 /**
- * Rangée discrète de drapeaux : montre les 8 langues disponibles.
+ * Rangée discrète de drapeaux : montre les 6 langues disponibles.
  * À placer dans le footer ou en zone secondaire. Click = switch + reload.
  *
  * Design : très petit (size-4), opacity 50% par défaut, full opacity au hover.

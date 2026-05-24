@@ -12,6 +12,7 @@ import { loadPricingCatalog } from "@/lib/billing/load-pricing";
 import { loadAllTaglines } from "@/lib/billing/pricing-taglines";
 import { getServerLocale } from "@/lib/i18n/server";
 import { translate } from "@/lib/i18n/dictionary";
+import { isDeskOwner } from "@/lib/desk/auth";
 import V18_TICKERS from "@/data/v1-8-tickers-sorted.json";
 
 /**
@@ -54,6 +55,10 @@ export default async function V18PricingPage() {
   const currency = await detectCurrency();
   const locale = await getServerLocale();
   const taglines = await loadAllTaglines();
+  // Yann (25 mai 2026) : CurrencyPicker visible UNIQUEMENT pour l'admin réel
+  // (DESK_OWNER_EMAIL). Le visiteur public garde la devise auto-géo (cookie
+  // posé par proxy.ts selon x-vercel-ip-country).
+  const showCurrencyPicker = await isDeskOwner();
   const t = (k: string) => translate(k, locale);
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#050505]">
@@ -79,7 +84,7 @@ export default async function V18PricingPage() {
           <BrandWordmark size="sm" animated={false} showRail={false} />
         </Link>
         <div className="flex items-center gap-3">
-          <CurrencyPicker current={currency} />
+          {showCurrencyPicker && <CurrencyPicker current={currency} />}
           {/* AuthNav réactif : affiche initiales + lien /account si connecté,
               ou Connexion + S'inscrire en style "Risographe" sinon (même
               style que la home page). */}
@@ -87,7 +92,10 @@ export default async function V18PricingPage() {
         </div>
       </nav>
 
-      <main className="relative mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+      {/* Yann (25 mai 2026) : padding-top main réduit pour coller le hero à
+          la nav. Avant : py-12 sm:py-16 = 48-64px de vide au-dessus du badge
+          "TARIFS SIMPLES". Maintenant : pt-2 sm:pt-4 (la nav fait déjà py-6). */}
+      <main className="relative mx-auto max-w-6xl px-4 pb-12 pt-2 sm:px-6 sm:pb-16 sm:pt-4">
         {/* HERO */}
         <div className="mx-auto max-w-3xl text-center">
           <span className="inline-block rounded-full border border-violet-500/30 bg-violet-500/10 px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-violet-200">

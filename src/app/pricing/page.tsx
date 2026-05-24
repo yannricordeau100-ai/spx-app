@@ -11,6 +11,7 @@ import { loadPricingCatalog } from "@/lib/billing/load-pricing";
 import { loadAllTaglines } from "@/lib/billing/pricing-taglines";
 import { getServerLocale } from "@/lib/i18n/server";
 import { translate } from "@/lib/i18n/dictionary";
+import { isDeskOwner } from "@/lib/desk/auth";
 import V18_TICKERS from "@/data/v1-8-tickers-sorted.json";
 
 async function detectCurrency(): Promise<string> {
@@ -43,6 +44,8 @@ export default async function PricingPage() {
   const currency = await detectCurrency();
   const locale = await getServerLocale();
   const taglines = await loadAllTaglines();
+  // Yann (25 mai 2026) : CurrencyPicker visible UNIQUEMENT pour l'admin réel.
+  const showCurrencyPicker = await isDeskOwner();
   const t = (k: string) => translate(k, locale);
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#050505]">
@@ -63,7 +66,7 @@ export default async function PricingPage() {
           <BrandWordmark size="sm" animated={false} showRail={false} />
         </Link>
         <div className="flex items-center gap-3">
-          <CurrencyPicker current={currency} />
+          {showCurrencyPicker && <CurrencyPicker current={currency} />}
           <Link href="/login" className="text-sm text-zinc-400 transition-colors hover:text-zinc-100">
             Se connecter
           </Link>
@@ -76,7 +79,9 @@ export default async function PricingPage() {
         </div>
       </nav>
 
-      <main className="relative mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+      {/* Yann (25 mai 2026) : padding-top main réduit pour coller le hero à
+          la nav (avant : py-12 sm:py-16). */}
+      <main className="relative mx-auto max-w-6xl px-4 pb-12 pt-2 sm:px-6 sm:pb-16 sm:pt-4">
         <div className="mx-auto max-w-3xl text-center">
           <span className="inline-block rounded-full border border-violet-500/30 bg-violet-500/10 px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-violet-200">
             {t("pricing.eyebrow")}

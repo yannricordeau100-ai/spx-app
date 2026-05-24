@@ -15,7 +15,7 @@ import { useT } from "@/lib/i18n/provider";
 
 /**
  * LanguageDropdown : drapeau + nom de la langue active, click ouvre la
- * liste des 8 langues dispos avec drapeau + nom dans la langue native.
+ * liste des 6 langues dispos avec drapeau + nom dans la langue native.
  *
  * Regroupement par famille linguistique (Yann 17 mai 2026 nuit) :
  *   - English   : EN-US + EN-GB

@@ -22,8 +22,6 @@
  *   pays officiellement francophone → fr
  *   pays officiellement germanophone → de (CH → de-CH)
  *   pays officiellement néerlandophone → nl
- *   pays officiellement suédophone → sv
- *   pays officiellement danois → da
  *   pays officiellement anglophone (UK) → en-GB
  *   tout le reste → en (par défaut, anglais US)
  */

@@ -883,6 +883,7 @@ function FeaturesSection({
                 {showLocales && <th className="px-3 py-2 text-left w-56">Anglais (EN)</th>}
                 {showLocales && <th className="px-3 py-2 text-left w-56">Allemand (DE)</th>}
                 <th className="px-3 py-2 text-left w-40">Catégorie</th>
+                <th className="px-2 py-2 text-center w-12" title="Visible sur la page tarifs publique ? Si masqué, la feature reste en base mais disparaît de la matrice + des cards.">Affiché</th>
                 <th className="px-2 py-2 text-center w-16" title="Afficher cette feature dans la card publique 'forfait'">Card</th>
                 {plans.map((p) => (
                   <th key={p.id} className="px-3 py-2 text-center" style={{ color: p.accent_color }}>{p.name_fr}</th>
@@ -902,7 +903,7 @@ function FeaturesSection({
                     isSelected ? "bg-violet-500/[0.08]" : "hover:bg-white/[0.02]"
                   } ${isDragging ? "opacity-30" : ""} ${
                     isDropOver ? "border-t-2 border-t-violet-400" : ""
-                  }`}
+                  } ${!f.is_active ? "opacity-50" : ""}`}
                   onDragOver={(e) => {
                     if (draggingIds) {
                       e.preventDefault();
@@ -1021,13 +1022,26 @@ function FeaturesSection({
                     </select>
                   </td>
                   <td className="px-2 py-2 text-center align-middle">
+                    <IconBtn
+                      title={f.is_active ? "Masquer cette fonctionnalité (reste en base, plus affichée publiquement)" : "Réafficher cette fonctionnalité publiquement"}
+                      onClick={() => patchFeature(f, { is_active: !f.is_active })}
+                      disabled={busy}
+                    >
+                      {f.is_active
+                        ? <Eye className="size-4 text-emerald-300" />
+                        : <EyeOff className="size-4 text-zinc-500" />}
+                    </IconBtn>
+                  </td>
+                  <td className="px-2 py-2 text-center align-middle">
                     <input
                       type="checkbox"
                       checked={!!f.show_in_card}
                       onChange={(e) => patchFeature(f, { show_in_card: e.target.checked })}
-                      disabled={busy}
-                      className="cursor-pointer accent-emerald-500"
-                      title="Si coché : cette feature apparaît dans le bloc 'forfait' (card publique). Sinon : visible uniquement dans la matrice détaillée."
+                      disabled={busy || !f.is_active}
+                      className="cursor-pointer accent-emerald-500 disabled:opacity-30"
+                      title={f.is_active
+                        ? "Si coché : cette feature apparaît dans le bloc 'forfait' (card publique). Sinon : visible uniquement dans la matrice détaillée."
+                        : "Réactive la feature (œil ←) pour pouvoir cocher Card."}
                     />
                   </td>
                   {plans.map((p) => (

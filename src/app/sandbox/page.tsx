@@ -209,7 +209,7 @@ const SECTIONS: SandboxSection[] = [
         href: "/sandbox/i18n-audit",
         icon: Languages,
         label: "i18n audit",
-        desc: "Visualisation 462 clés × 8 langues. Dropdown locale et tableau par groupe de pages.",
+        desc: "Visualisation 462 clés × 6 langues. Dropdown locale et tableau par groupe de pages.",
       },
     ],
   },

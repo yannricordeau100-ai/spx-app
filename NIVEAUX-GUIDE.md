@@ -36,7 +36,7 @@ URL distincte aussi (cf tableau ci-dessus).
 - ✅ Test checkout Stripe (mode test : carte `4242 4242 4242 4242`)
 - ✅ Test desk (todos, bugs, image findings, kpi-builder, pricing admin, etc.)
 - ✅ Test parcours sandbox V1.7.5 + V1.8 (toutes pages sté)
-- ✅ Test changement langue (8 locales)
+- ✅ Test changement langue (6 locales)
 - ✅ Test changement devise + geo-detection
 - ✅ Test KPI builder : ajout nouveau KPI → Groq recherche tickers → worker tick → résultats
 - ✅ Test image-findings : visualisation findings existants (le scrape neuf nécessite Chrome MCP @mettrik_ai reconnecté)
