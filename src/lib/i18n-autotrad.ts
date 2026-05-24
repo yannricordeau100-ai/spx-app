@@ -10,7 +10,7 @@
  *   import { translateToAllLocales } from "@/lib/i18n-autotrad";
  *   const map = await translateToAllLocales(
  *     "Soit moins que le prix d'un café",
- *     ["en", "en-GB", "de", "de-CH", "nl", "sv", "da"]
+ *     ["en", "en-GB", "de", "de-CH", "nl"]
  *   );
  *   // → { en: "...", "en-GB": "...", de: "...", ... }
  *
@@ -28,7 +28,7 @@ const GROQ_ENDPOINT = "https://api.groq.com/openai/v1/chat/completions";
 const GROQ_MODEL = "llama-3.3-70b-versatile";
 
 /** Liste des locales supportées pour autotrad (cf src/lib/i18n/types.ts). */
-export type AutotradLocale = "en" | "en-GB" | "de" | "de-CH" | "nl" | "sv" | "da";
+export type AutotradLocale = "en" | "en-GB" | "de" | "de-CH" | "nl";
 
 /** Nom complet par locale pour guider le LLM. */
 const LOCALE_FULL_NAME: Record<AutotradLocale, string> = {
@@ -37,8 +37,6 @@ const LOCALE_FULL_NAME: Record<AutotradLocale, string> = {
   "de": "Deutsch (Standard German for Germany / Austria)",
   "de-CH": "Schweizerdeutsch (Swiss High German, Helvetisms allowed)",
   "nl": "Nederlands (Dutch for Netherlands / Belgium)",
-  "sv": "Svenska (Swedish)",
-  "da": "Dansk (Danish)",
 };
 
 /**
@@ -108,11 +106,11 @@ async function translateOne(
  *   passent). Pas de throw global.
  *
  * @param textFr Texte source en français.
- * @param locales Locales cibles. Si omis, traduit vers les 7 par défaut.
+ * @param locales Locales cibles. Si omis, traduit vers les 5 par défaut.
  */
 export async function translateToAllLocales(
   textFr: string,
-  locales: AutotradLocale[] = ["en", "en-GB", "de", "de-CH", "nl", "sv", "da"],
+  locales: AutotradLocale[] = ["en", "en-GB", "de", "de-CH", "nl"],
 ): Promise<Record<string, string>> {
   const trimmed = (textFr ?? "").trim();
   if (!trimmed) return {};

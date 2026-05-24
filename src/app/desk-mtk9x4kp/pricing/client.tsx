@@ -739,12 +739,50 @@ function FeaturesSection({
     await refresh();
   }
 
-  // Catégories disponibles : toutes les catégories utilisées + "Général"
-  // (toujours présent par défaut). Évite la suppression accidentelle des
-  // catégories saisies par Yann.
-  const categoriesSet = new Set<string>(["Général"]);
+  // Catégories disponibles : union (catégories utilisées par ≥1 feature) +
+  // (catégories créées par Yann via "+ Catégorie", persistées localStorage).
+  // Yann (25 mai 2026) : avant, si une catégorie n'avait plus de feature,
+  // elle disparaissait du dropdown et impossible de la re-sélectionner.
+  // Maintenant, toute catégorie créée reste choisissable même si plus
+  // utilisée par aucune feature.
+  const [extraCategories, setExtraCategories] = useState<string[]>([]);
+  useEffect(() => {
+    try {
+      const raw = window.localStorage.getItem("mettrik:pricing:extra-categories");
+      if (raw) setExtraCategories(JSON.parse(raw) as string[]);
+    } catch {}
+  }, []);
+  function addCategory() {
+    const name = window.prompt('Nom de la nouvelle catégorie (ex : "Forfait", "Pro+", "Bonus") :');
+    if (!name) return;
+    const trimmed = name.trim();
+    if (!trimmed) return;
+    setExtraCategories((prev) => {
+      if (prev.includes(trimmed)) return prev;
+      const next = [...prev, trimmed];
+      try {
+        window.localStorage.setItem("mettrik:pricing:extra-categories", JSON.stringify(next));
+      } catch {}
+      return next;
+    });
+  }
+  function removeExtraCategory(c: string) {
+    setExtraCategories((prev) => {
+      const next = prev.filter((x) => x !== c);
+      try {
+        window.localStorage.setItem("mettrik:pricing:extra-categories", JSON.stringify(next));
+      } catch {}
+      return next;
+    });
+  }
+  const categoriesSet = new Set<string>(["Général", ...extraCategories]);
   for (const f of features) if (f.category) categoriesSet.add(f.category);
   const categories = Array.from(categoriesSet).sort();
+  // Pour le panneau "gérer" : catégories ajoutées non encore utilisées
+  // (= supprimables sans casser de feature).
+  const unusedExtraCategories = extraCategories.filter(
+    (c) => !features.some((f) => f.category === c),
+  );
 
   // Liste plate triée par feature_order (ordre choisi par Yann via flèches).
   const sortedFeatures = [...features].sort((a, b) => (a.feature_order ?? 0) - (b.feature_order ?? 0));
@@ -780,6 +818,16 @@ function FeaturesSection({
           </button>
           <button
             type="button"
+            onClick={addCategory}
+            disabled={busy}
+            className="inline-flex items-center gap-1.5 rounded-lg border border-amber-500/40 bg-amber-500/10 px-3 py-1.5 text-[12px] font-bold text-amber-100 transition-colors hover:bg-amber-500/20 disabled:opacity-50"
+            title="Créer une catégorie sélectionnable dans le dropdown ci-dessous"
+          >
+            <Plus className="size-3.5" />
+            Catégorie
+          </button>
+          <button
+            type="button"
             onClick={newFeature}
             disabled={busy}
             className="inline-flex items-center gap-1.5 rounded-lg border border-violet-500/40 bg-violet-500/15 px-3 py-1.5 text-[12px] font-bold text-violet-100 transition-colors hover:bg-violet-500/25 disabled:opacity-50"
@@ -789,6 +837,24 @@ function FeaturesSection({
           </button>
         </div>
       </div>
+      {unusedExtraCategories.length > 0 && (
+        <div className="mb-3 flex flex-wrap items-center gap-2 rounded-lg border border-amber-500/15 bg-amber-500/[0.04] px-3 py-2 text-[11.5px] text-amber-200">
+          <span className="font-semibold uppercase tracking-wider text-[10px] text-amber-300">Catégories ajoutées non utilisées :</span>
+          {unusedExtraCategories.map((c) => (
+            <span key={c} className="inline-flex items-center gap-1 rounded-full bg-amber-500/15 px-2 py-0.5">
+              {c}
+              <button
+                type="button"
+                onClick={() => removeExtraCategory(c)}
+                className="text-amber-300 hover:text-amber-100"
+                title="Retirer cette catégorie du dropdown"
+              >
+                ×
+              </button>
+            </span>
+          ))}
+        </div>
+      )}
 
       {features.length === 0 ? (
         <div className="rounded-xl border border-amber-500/20 bg-amber-500/[0.05] p-4 text-[12.5px] text-amber-200">
@@ -817,6 +883,7 @@ function FeaturesSection({
                 {showLocales && <th className="px-3 py-2 text-left w-56">Anglais (EN)</th>}
                 {showLocales && <th className="px-3 py-2 text-left w-56">Allemand (DE)</th>}
                 <th className="px-3 py-2 text-left w-40">Catégorie</th>
+                <th className="px-2 py-2 text-center w-16" title="Afficher cette feature dans la card publique 'forfait'">Card</th>
                 {plans.map((p) => (
                   <th key={p.id} className="px-3 py-2 text-center" style={{ color: p.accent_color }}>{p.name_fr}</th>
                 ))}
@@ -952,6 +1019,16 @@ function FeaturesSection({
                         <option key={c} value={c}>{c}</option>
                       ))}
                     </select>
+                  </td>
+                  <td className="px-2 py-2 text-center align-middle">
+                    <input
+                      type="checkbox"
+                      checked={!!f.show_in_card}
+                      onChange={(e) => patchFeature(f, { show_in_card: e.target.checked })}
+                      disabled={busy}
+                      className="cursor-pointer accent-emerald-500"
+                      title="Si coché : cette feature apparaît dans le bloc 'forfait' (card publique). Sinon : visible uniquement dans la matrice détaillée."
+                    />
                   </td>
                   {plans.map((p) => (
                     <td key={p.id} className="px-2 py-1.5 text-center">
@@ -1583,8 +1660,6 @@ const TAGLINE_LOCALES: Array<{ code: string; flag: string; name: string }> = [
   { code: "de",    flag: "🇩🇪", name: "Deutsch" },
   { code: "de-CH", flag: "🇨🇭", name: "Schweizerdeutsch" },
   { code: "nl",    flag: "🇳🇱", name: "Nederlands" },
-  { code: "sv",    flag: "🇸🇪", name: "Svenska" },
-  { code: "da",    flag: "🇩🇰", name: "Dansk" },
 ];
 
 /** Plans pour lesquels on édite un tagline. "free" exclu (non pertinent). */

@@ -12,7 +12,7 @@
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 
 /** Locales gérées par le système autotrad. Source : src/lib/i18n/types.ts. */
-export type TaglineLocale = "fr" | "en" | "en-GB" | "de" | "de-CH" | "nl" | "sv" | "da";
+export type TaglineLocale = "fr" | "en" | "en-GB" | "de" | "de-CH" | "nl";
 
 export type PricingTaglineRow = {
   plan_key: string;

@@ -133,7 +133,7 @@ export function translateSubsector(en: string): string {
 /**
  * Yann 18 mai 2026 (audit ASML DE) : version locale-aware. Permet aux pages DE
  * d'afficher "Halbleiter" au lieu de "Semi-conducteurs" (FR fallback).
- * Pour les locales non couvertes (sv/da/nl/etc.) → fallback EN puis FR.
+ * Pour les locales non couvertes (nl/etc.) → fallback EN puis FR.
  */
 const SUBSECTOR_DE_MAP: Record<string, string> = {
   "Semi-conducteurs": "Halbleiter",

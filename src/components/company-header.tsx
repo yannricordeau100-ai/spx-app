@@ -75,27 +75,26 @@ function CompanyName({
   const tickerShown = displayTicker(ticker, allTickers ?? new Set());
   // Inclut les aliases (techniques) à l'affichage en gardant leur forme
   // canonique. displayTicker ne s'applique qu'au ticker principal.
-  // Yann 16 mai 2026 (v2, post-BABA overflow) : seuils plus serrés pour
-  // que les noms longs (~29 char comme "Alibaba Group Holding Limited")
-  // tiennent en 1 ligne sans dépasser. Court ≤ 18 → 1.9rem/2.3rem,
-  // moyen ≤ 26 → 1.5rem/1.8rem, long ≤ 34 → 1.2rem/1.45rem (BABA ici),
-  // très long > 34 → 1.0rem/1.25rem.
+  // Yann 25 mai 2026 : seuils encore plus serrés pour éliminer tout
+  // scroll horizontal sur le nom (bug observé sur sociétés à nom long).
+  // Court ≤ 14 → 1.7rem/2rem, moyen ≤ 22 → 1.35rem/1.6rem,
+  // long ≤ 30 → 1.1rem/1.3rem, très long > 30 → 0.9rem/1.1rem.
   const len = name.length;
-  const fontSize = len <= 18
-    ? "text-[1.9rem] sm:text-[2.3rem]"
-    : len <= 26
-      ? "text-[1.5rem] sm:text-[1.8rem]"
-      : len <= 34
-        ? "text-[1.2rem] sm:text-[1.45rem]"
-        : "text-[1rem] sm:text-[1.25rem]";
+  const fontSize = len <= 14
+    ? "text-[1.7rem] sm:text-[2rem]"
+    : len <= 22
+      ? "text-[1.35rem] sm:text-[1.6rem]"
+      : len <= 30
+        ? "text-[1.1rem] sm:text-[1.3rem]"
+        : "text-[0.9rem] sm:text-[1.1rem]";
   return (
-    <div className="group/name flex flex-nowrap items-baseline gap-x-3 min-w-0">
+    <div className="group/name flex flex-nowrap items-baseline gap-x-3 min-w-0 max-w-full">
       <h1
-        className={`relative ${fontSize} font-bold tracking-tight text-zinc-50 whitespace-nowrap overflow-x-hidden overflow-y-visible text-ellipsis min-w-0`}
+        className={`relative ${fontSize} font-bold tracking-tight text-zinc-50 truncate min-w-0`}
         style={{ lineHeight: 1.2 }}
         title={name}
       >
-        <span className="relative inline-block max-w-full overflow-x-hidden overflow-y-visible text-ellipsis whitespace-nowrap align-bottom">
+        <span className="relative inline-block max-w-full truncate align-bottom">
           {name}
           <span
             className="pointer-events-none absolute -bottom-1 left-0 h-[3px] w-0 rounded-full transition-[width] duration-500 ease-out group-hover/name:w-full"
@@ -105,7 +104,7 @@ function CompanyName({
           />
         </span>
       </h1>
-      <span className="font-mono text-lg font-semibold sm:text-xl whitespace-nowrap shrink-0" style={{ color: accent }}>
+      <span className="font-mono text-base font-semibold sm:text-lg whitespace-nowrap shrink-0" style={{ color: accent }}>
         {tickerShown}
         {aliases.length > 0 && (
           <span className="ml-1 text-[0.75em] font-medium text-zinc-400">
@@ -181,15 +180,13 @@ function translateRankPreposition(value: string, locale: string): string {
     "de": "in",
     "de-CH": "in",
     "nl": "in",
-    "sv": "i",
-    "da": "i",
   };
   const target = rankPrepByLocale[locale] ?? rankPrepByLocale.fr;
   // 1. Translate prepostion FR → locale
   let out = target === "dans" ? value : value.replace(/\bdans\b/g, target);
   // 2. Yann 18 mai 2026 : also translate the sector NAME in "#7 dans/in X"
   // → translateSubsectorLocale applied to the trailing sector name.
-  const sep = target === "i" ? " i " : target === "in" ? " in " : " dans ";
+  const sep = target === "in" ? " in " : " dans ";
   const idx = out.indexOf(sep);
   if (idx > -1) {
     const prefix = out.slice(0, idx + sep.length);

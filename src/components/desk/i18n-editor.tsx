@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ChevronDown, ChevronRight } from "lucide-react";
 
 export const I18N_LOCALES = [
-  "fr", "en", "de", "nl", "sv", "da", "en-GB", "de-CH",
+  "fr", "en", "de", "nl", "en-GB", "de-CH",
 ] as const;
 export type I18nLocale = (typeof I18N_LOCALES)[number];
 export type I18nString = Partial<Record<I18nLocale, string>>;
@@ -14,22 +14,20 @@ const LOCALE_LABELS: Record<I18nLocale, string> = {
   "en": "English (US)",
   "de": "Deutsch",
   "nl": "Nederlands",
-  "sv": "Svenska",
-  "da": "Dansk",
   "en-GB": "English (UK)",
   "de-CH": "Deutsch (CH)",
 };
 
 const LOCALE_FLAGS: Record<I18nLocale, string> = {
   "fr": "🇫🇷", "en": "🇺🇸", "de": "🇩🇪", "nl": "🇳🇱",
-  "sv": "🇸🇪", "da": "🇩🇰", "en-GB": "🇬🇧", "de-CH": "🇨🇭",
+  "en-GB": "🇬🇧", "de-CH": "🇨🇭",
 };
 
 /**
- * Éditeur de texte dans 8 langues (collapsable).
+ * Éditeur de texte dans 6 langues (collapsable).
  * - Affiche FR en input principal (toujours visible)
- * - Les 7 autres langues sont dans une section dépliable
- * - Indicateur visuel : nombre de langues remplies / 8
+ * - Les 5 autres langues sont dans une section dépliable
+ * - Indicateur visuel : nombre de langues remplies / 6
  */
 export function I18nEditor({
   label,
@@ -57,10 +55,10 @@ export function I18nEditor({
         <span className="font-semibold text-zinc-400">{label}</span>
         <span
           className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${
-            filled === 8 ? "bg-emerald-500/20 text-emerald-200" : filled > 0 ? "bg-amber-500/20 text-amber-200" : "bg-zinc-700/40 text-zinc-400"
+            filled === 6 ? "bg-emerald-500/20 text-emerald-200" : filled > 0 ? "bg-amber-500/20 text-amber-200" : "bg-zinc-700/40 text-zinc-400"
           }`}
         >
-          {filled}/8 langues
+          {filled}/6 langues
         </span>
       </div>
 

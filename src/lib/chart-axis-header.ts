@@ -20,7 +20,7 @@
  * Yann 15 mai 2026 : locale param ajouté pour traduire "en Milliards"
  * et "en Millions" selon la langue. Default = "fr" (rétro-compat).
  */
-type AxisLocale = "fr" | "en" | "en-GB" | "de" | "de-CH" | "nl" | "sv" | "da";
+type AxisLocale = "fr" | "en" | "en-GB" | "de" | "de-CH" | "nl";
 
 // Yann 17 mai 2026 (v2) : ajout T (Trillions) et K (Milliers) pour couvrir
 // les rescales d'unité time-fraction (ex /minute = $K, /year d'une méga-sté = $T).
@@ -31,8 +31,6 @@ const SCALE_WORDS: Record<AxisLocale, { T: string; B: string; M: string; K: stri
   "de":    { T: "in Billionen",   B: "in Milliarden", M: "in Millionen", K: "in Tausend" },
   "de-CH": { T: "in Billionen",   B: "in Milliarden", M: "in Millionen", K: "in Tausend" },
   "nl":    { T: "in biljoenen",   B: "in miljarden",  M: "in miljoenen", K: "in duizenden" },
-  "sv":    { T: "i biljoner",     B: "i miljarder",   M: "i miljoner",   K: "i tusentals" },
-  "da":    { T: "i billioner",    B: "i milliarder",  M: "i millioner",  K: "i tusinder" },
 };
 
 export function chartAxisHeader(unit: string, locale: AxisLocale = "fr"): string {

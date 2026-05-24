@@ -1,6 +1,6 @@
 /**
  * Yann 15 mai 2026 : templates traduits pour `interpretStructured`.
- * Couvre les 8 locales supportées (fr / en / en-GB / de / de-CH / nl / sv / da).
+ * Couvre les 6 locales supportées (fr / en / en-GB / de / de-CH / nl).
  *
  * Pourquoi un fichier séparé : les templates sont longs et la duplication
  * dans data.ts rendrait la fonction illisible. Tous les templates retournent
@@ -18,9 +18,7 @@ export type InterpLocale =
   | "en-GB"
   | "de"
   | "de-CH"
-  | "nl"
-  | "sv"
-  | "da";
+  | "nl";
 
 /** Locale → BCP47 pour `toLocaleString` (séparateur décimal, milliers). */
 const NUM_LOCALE: Record<InterpLocale, string> = {
@@ -30,8 +28,6 @@ const NUM_LOCALE: Record<InterpLocale, string> = {
   "de":    "de-DE",
   "de-CH": "de-CH",
   "nl":    "nl-NL",
-  "sv":    "sv-SE",
-  "da":    "da-DK",
 };
 
 export function numLocale(l: InterpLocale): string {
@@ -46,8 +42,6 @@ const PER_YEAR: Record<InterpLocale, string> = {
   "de":    "% / Jahr",
   "de-CH": "% / Jahr",
   "nl":    "% / jaar",
-  "sv":    "% / år",
-  "da":    "% / år",
 };
 
 export function perYear(l: InterpLocale): string {
@@ -81,10 +75,6 @@ export function leadSentence(
       return `Der wichtigste KPI von <strong>${company}</strong> ist <strong>${kpi}</strong>, bei <strong>${value} ${unit}</strong> (${yoy} <em>YoY</em>). ${trendCapitalized}.${tail}`;
     case "nl":
       return `De belangrijkste KPI van <strong>${company}</strong> is <strong>${kpi}</strong>, op <strong>${value} ${unit}</strong> (${yoy} <em>YoY</em>). ${trendCapitalized}.${tail}`;
-    case "sv":
-      return `Den viktigaste KPI:n för <strong>${company}</strong> är <strong>${kpi}</strong>, på <strong>${value} ${unit}</strong> (${yoy} <em>YoY</em>). ${trendCapitalized}.${tail}`;
-    case "da":
-      return `Den vigtigste KPI for <strong>${company}</strong> er <strong>${kpi}</strong>, på <strong>${value} ${unit}</strong> (${yoy} <em>YoY</em>). ${trendCapitalized}.${tail}`;
     case "fr":
     default:
       return `Le KPI principal de <strong>${company}</strong> est <strong>${kpi}</strong>, à <strong>${value} ${unit}</strong> (${yoy} <em>YoY</em>). ${trendCapitalized}.${tail}`;
@@ -104,10 +94,6 @@ export function cagrTrendBit(locale: InterpLocale, pctSigned: string): string {
       return `Wachstum von <strong>${pctSigned}</strong> über den Zeitraum`;
     case "nl":
       return `samengestelde groei van <strong>${pctSigned}</strong> over de periode`;
-    case "sv":
-      return `sammansatt tillväxt på <strong>${pctSigned}</strong> under perioden`;
-    case "da":
-      return `sammensat vækst på <strong>${pctSigned}</strong> over perioden`;
     case "fr":
     default:
       return `croissance composée de <strong>${pctSigned}</strong> sur la période`;
@@ -125,10 +111,6 @@ export function peakTrendBit(locale: InterpLocale, pctBelowPeak: string): string
       return `derzeit <strong>${pctBelowPeak}</strong> unter dem historischen Höchstwert`;
     case "nl":
       return `momenteel <strong>${pctBelowPeak}</strong> onder de historische piek`;
-    case "sv":
-      return `för närvarande <strong>${pctBelowPeak}</strong> under den historiska toppen`;
-    case "da":
-      return `aktuelt <strong>${pctBelowPeak}</strong> under den historiske top`;
     case "fr":
     default:
       return `actuellement <strong>${pctBelowPeak}</strong> sous le pic historique`;
@@ -145,10 +127,6 @@ export function joinAnd(locale: InterpLocale): string {
       return " und ";
     case "nl":
       return " en ";
-    case "sv":
-      return " och ";
-    case "da":
-      return " og ";
     case "fr":
     default:
       return " et ";
@@ -168,10 +146,6 @@ export function trendSignalShortHistory(locale: InterpLocale, kpiName: string): 
       return `Daten verfügbar für ${k}, unzureichende Historie zur Trendinterpretation`;
     case "nl":
       return `data beschikbaar voor ${k}, onvoldoende historie om de trend te interpreteren`;
-    case "sv":
-      return `data tillgänglig för ${k}, otillräcklig historik för att tolka trenden`;
-    case "da":
-      return `data tilgængelig for ${k}, utilstrækkelig historik til at fortolke tendensen`;
     case "fr":
     default:
       return `donnée disponible pour ${k}, historique insuffisant pour interpréter la tendance`;
@@ -188,10 +162,6 @@ export function trendSignalUnknown(locale: InterpLocale): string {
       return "zu analysieren";
     case "nl":
       return "te analyseren";
-    case "sv":
-      return "att analysera";
-    case "da":
-      return "skal analyseres";
     case "fr":
     default:
       return "à analyser";
@@ -214,8 +184,6 @@ const TREND_LABELS: Record<TrendCategory, Record<InterpLocale, string>> = {
     "de":    "anhaltender Aufwärtstrend über den Zeitraum",
     "de-CH": "anhaltender Aufwärtstrend über den Zeitraum",
     "nl":    "aanhoudende opwaartse trend over de periode",
-    "sv":    "ihållande uppåtgående trend under perioden",
-    "da":    "vedvarende opadgående tendens over perioden",
   },
   moderate_up: {
     "fr":    "croissance modérée mais constante",
@@ -224,8 +192,6 @@ const TREND_LABELS: Record<TrendCategory, Record<InterpLocale, string>> = {
     "de":    "moderates, aber stetiges Wachstum",
     "de-CH": "moderates, aber stetiges Wachstum",
     "nl":    "gematigde maar gestage groei",
-    "sv":    "måttlig men stadig tillväxt",
-    "da":    "moderat, men stabil vækst",
   },
   slowdown: {
     "fr":    "ralentissement récent malgré une tendance positive sur la période",
@@ -234,8 +200,6 @@ const TREND_LABELS: Record<TrendCategory, Record<InterpLocale, string>> = {
     "de":    "jüngste Verlangsamung trotz positivem Trend über den Zeitraum",
     "de-CH": "jüngste Verlangsamung trotz positivem Trend über den Zeitraum",
     "nl":    "recente vertraging ondanks een positieve trend over de periode",
-    "sv":    "nyligen avmattning trots positiv trend under perioden",
-    "da":    "nylig opbremsning trods positiv tendens over perioden",
   },
   downtrend: {
     "fr":    "trajectoire baissière à surveiller",
@@ -244,8 +208,6 @@ const TREND_LABELS: Record<TrendCategory, Record<InterpLocale, string>> = {
     "de":    "abwärtsgerichtete Entwicklung zu beobachten",
     "de-CH": "abwärtsgerichtete Entwicklung zu beobachten",
     "nl":    "neerwaartse trend om in de gaten te houden",
-    "sv":    "nedåtgående bana att övervaka",
-    "da":    "nedadgående kurve at overvåge",
   },
   stable: {
     "fr":    "stabilité sur la période, peu de mouvement",
@@ -254,8 +216,6 @@ const TREND_LABELS: Record<TrendCategory, Record<InterpLocale, string>> = {
     "de":    "Stabilität über den Zeitraum, wenig Bewegung",
     "de-CH": "Stabilität über den Zeitraum, wenig Bewegung",
     "nl":    "stabiel over de periode, weinig beweging",
-    "sv":    "stabilt under perioden, lite rörelse",
-    "da":    "stabilt over perioden, lille bevægelse",
   },
   mixed: {
     "fr":    "évolution mixte selon la période observée",
@@ -264,8 +224,6 @@ const TREND_LABELS: Record<TrendCategory, Record<InterpLocale, string>> = {
     "de":    "gemischte Entwicklung je nach beobachtetem Zeitraum",
     "de-CH": "gemischte Entwicklung je nach beobachtetem Zeitraum",
     "nl":    "gemengde evolutie afhankelijk van de waargenomen periode",
-    "sv":    "blandad utveckling beroende på den observerade perioden",
-    "da":    "blandet udvikling afhængig af den observerede periode",
   },
 };
 
@@ -285,10 +243,6 @@ export function detailPrefix(locale: InterpLocale, signal: string): string {
       return ` Detail: <em>${signal}</em>`;
     case "nl":
       return ` Detail: <em>${signal}</em>`;
-    case "sv":
-      return ` Detalj: <em>${signal}</em>`;
-    case "da":
-      return ` Detalje: <em>${signal}</em>`;
     case "fr":
     default:
       return ` Détail : <em>${signal}</em>`;
@@ -305,8 +259,6 @@ export const BULLET_LABELS = {
     "de":    "Wachstumstreiber",
     "de-CH": "Wachstumstreiber",
     "nl":    "Groeimotor",
-    "sv":    "Tillväxtmotor",
-    "da":    "Vækstdriver",
   },
   risk: {
     "fr":    "Point de vigilance",
@@ -315,8 +267,6 @@ export const BULLET_LABELS = {
     "de":    "Risikofaktor",
     "de-CH": "Risikofaktor",
     "nl":    "Aandachtspunt",
-    "sv":    "Riskfaktor",
-    "da":    "Risikopunkt",
   },
   cash: {
     "fr":    "Génération de cash",
@@ -325,8 +275,6 @@ export const BULLET_LABELS = {
     "de":    "Cash-Generierung",
     "de-CH": "Cash-Generierung",
     "nl":    "Kasgeneratie",
-    "sv":    "Kassagenerering",
-    "da":    "Kontantgenerering",
   },
   future: {
     "fr":    "À surveiller prochainement",
@@ -335,8 +283,6 @@ export const BULLET_LABELS = {
     "de":    "Demnächst zu beobachten",
     "de-CH": "Demnächst zu beobachten",
     "nl":    "Binnenkort in de gaten te houden",
-    "sv":    "Att hålla ögonen på snart",
-    "da":    "At holde øje med snart",
   },
 } as const;
 
@@ -373,10 +319,6 @@ export function bulletBodyKpi(
       return `${valuePart} bei ${numPart} (${yoy}).${signalSafe}`;
     case "nl":
       return `${valuePart} op ${numPart} (${yoy}).${signalSafe}`;
-    case "sv":
-      return `${valuePart} på ${numPart} (${yoy}).${signalSafe}`;
-    case "da":
-      return `${valuePart} på ${numPart} (${yoy}).${signalSafe}`;
     case "fr":
     default:
       return `${valuePart} à ${numPart} (${yoy}).${signalSafe}`;
@@ -396,10 +338,6 @@ export function futureBulletBody(locale: InterpLocale, kpiName: string): string 
       return `Drei mögliche Szenarien für ${k}: (1) <strong>Beschleunigung</strong>, die das Momentum bestätigen würde, (2) <strong>Stabilisierung</strong> auf dem aktuellen Niveau, (3) <strong>Trendumkehr</strong>, die den Trend brechen würde. Der Markt wird die Bewertung gemäß dem beobachteten Szenario anpassen.`;
     case "nl":
       return `Drie mogelijke scenario's voor ${k}: (1) <strong>versnelling</strong> die het momentum zou bevestigen, (2) <strong>stabilisatie</strong> rond het huidige niveau, (3) <strong>ommekeer</strong> die de trend zou breken. De markt zal de waardering aanpassen aan het waargenomen scenario.`;
-    case "sv":
-      return `Tre möjliga scenarier för ${k}: (1) <strong>acceleration</strong> som skulle bekräfta momentum, (2) <strong>stabilisering</strong> kring den aktuella nivån, (3) <strong>vändning</strong> som skulle bryta trenden. Marknaden kommer att justera värderingen efter det observerade scenariot.`;
-    case "da":
-      return `Tre mulige scenarier for ${k}: (1) <strong>acceleration</strong>, der vil bekræfte momentum, (2) <strong>stabilisering</strong> omkring det aktuelle niveau, (3) <strong>vending</strong>, der vil bryde tendensen. Markedet vil justere værdiansættelsen efter det observerede scenarie.`;
     case "fr":
     default:
       return `Trois scénarios possibles pour ${k} : (1) <strong>accélération</strong> qui validerait le momentum, (2) <strong>stabilisation</strong> autour du niveau actuel, (3) <strong>retournement</strong> qui casserait la tendance. Le marché ajustera la valorisation en fonction du scénario observé.`;

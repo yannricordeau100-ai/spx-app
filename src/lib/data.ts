@@ -764,7 +764,7 @@ export function formatCAGR(
   history: number[],
   unit?: string,
   period_type: "year" | "quarter" | "semester" = "year",
-  locale: "fr" | "en" | "en-GB" | "de" | "de-CH" | "nl" | "sv" | "da" = "fr"
+  locale: "fr" | "en" | "en-GB" | "de" | "de-CH" | "nl" = "fr"
 ): string | null {
   const c = cagr(history, unit, period_type);
   if (c === null) return null;
@@ -778,8 +778,6 @@ export function formatCAGR(
     "de":    "% / Jahr",
     "de-CH": "% / Jahr",
     "nl":    "% / jaar",
-    "sv":    "% / år",
-    "da":    "% / år",
   };
   const numLocale = locale === "fr" ? "fr-FR" : locale === "de" || locale === "de-CH" ? "de-DE" : "en-US";
   return `${sign}${c.toLocaleString(numLocale, {

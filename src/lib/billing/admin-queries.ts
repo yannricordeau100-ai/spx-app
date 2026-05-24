@@ -153,10 +153,12 @@ export async function deletePrice(id: string): Promise<void> {
 /* ─── Features (catalogue) ──────────────────────────────────────────── */
 
 export async function listFeatures(): Promise<PricingFeature[]> {
+  // Yann 25 mai 2026 : sort par feature_order uniquement, identique au tri
+  // appliqué côté public (load-pricing.ts) pour éviter tout mismatch entre
+  // BO et app. Le client BO re-trie de toute façon par feature_order seul.
   const { data, error } = await adminClient()
     .from("pricing_features")
     .select("*")
-    .order("category_order", { ascending: true })
     .order("feature_order", { ascending: true });
   if (error) throw error;
   return (data ?? []) as PricingFeature[];

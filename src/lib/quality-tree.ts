@@ -97,7 +97,7 @@ export const QUALITY_TREE: QualityNode[] = [
   {
     id: "global.lang.html_attr",
     title: "Attribut lang HTML",
-    description: "La balise <html> a l'attribut lang qui matche la locale active (fr / de / en / nl / sv / da / en-GB / de-CH).",
+    description: "La balise <html> a l'attribut lang qui matche la locale active (fr / de / en / nl / en-GB / de-CH).",
     level: 2,
     parent: "global.lang",
     anti_patterns: ["<html lang=\"en\"> sur page FR (228 stés flag par UI-AUDIT)"],

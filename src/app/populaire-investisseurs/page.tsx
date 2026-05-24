@@ -123,8 +123,6 @@ const COUNTRY_TO_LANGS: Record<string, string[]> = {
   GB: ["en-GB"],
   DE: ["de"],
   NL: ["nl"],
-  SE: ["sv"],
-  DK: ["da"],
   CH: ["de-CH", "fr"],
   BE: ["fr", "nl"],
   AT: ["de"],
@@ -139,8 +137,6 @@ const TABS: { key: string; label_fr: string; label_en: string; flag: string; cou
   { key: "en-GB", label_fr: "Royaume-Uni", label_en: "UK", flag: "🇬🇧", country: "GB" },
   { key: "de", label_fr: "Allemagne", label_en: "Germany", flag: "🇩🇪", country: "DE" },
   { key: "nl", label_fr: "Pays-Bas", label_en: "Netherlands", flag: "🇳🇱", country: "NL" },
-  { key: "sv", label_fr: "Suède", label_en: "Sweden", flag: "🇸🇪", country: "SE" },
-  { key: "da", label_fr: "Danemark", label_en: "Denmark", flag: "🇩🇰", country: "DK" },
   { key: "de-CH", label_fr: "Suisse", label_en: "Switzerland", flag: "🇨🇭", country: "CH" },
 ];
 

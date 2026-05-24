@@ -35,9 +35,9 @@ export type SpecialKpiData = {
   cagr_5y_pct?: number;
 };
 
-/** Mapping 8 langues → string. Vide = pas traduit. */
+/** Mapping 6 langues → string. Vide = pas traduit. */
 export const SUPPORTED_LOCALES = [
-  "fr", "en", "de", "nl", "sv", "da", "en-GB", "de-CH",
+  "fr", "en", "de", "nl", "en-GB", "de-CH",
 ] as const;
 export type SpecialKpiLocale = (typeof SUPPORTED_LOCALES)[number];
 export type LocalizedString = Partial<Record<SpecialKpiLocale, string>>;
@@ -57,13 +57,13 @@ export type SpecialKpi = {
   kpi_short: string;
   kpi_name_fr: string | null;
   kpi_name_en: string | null;
-  /** Traductions du nom dans les 8 langues (clés SUPPORTED_LOCALES). */
+  /** Traductions du nom dans les 6 langues (clés SUPPORTED_LOCALES). */
   kpi_name_i18n: LocalizedString;
-  /** Traductions du hero_summary dans les 8 langues. */
+  /** Traductions du hero_summary dans les 6 langues. */
   hero_summary_i18n: LocalizedString;
-  /** Traductions de l'interprétation dans les 8 langues. */
+  /** Traductions de l'interprétation dans les 6 langues. */
   interpretation_i18n: LocalizedString;
-  /** Annotations "i" sur le chart par année (titre + texte en 8 langues). */
+  /** Annotations "i" sur le chart par année (titre + texte en 6 langues). */
   annotations: SpecialKpiAnnotation[];
   kpi_unit: string | null;
   kpi_category: string;
@@ -192,9 +192,9 @@ INSTRUCTIONS STRICTES
 3. JAMAIS inventer. Si zéro source crédible pour une année → omettre la ligne.
 4. Réponds UNIQUEMENT en JSON valide, format strict ci-dessous.
 5. Pour les CHAMPS TRADUITS (kpi_name_i18n, hero_summary_i18n,
-   interpretation_i18n), donne les 8 langues exactes : fr, en, de, nl,
-   sv, da, en-GB, de-CH. Si pas de différence en-GB vs en → copie de en.
-   Si pas de différence de-CH vs de → copie de de. Aucun em-dash (—).
+   interpretation_i18n), donne les 6 langues exactes : fr, en, de, nl,
+   en-GB, de-CH. Si pas de différence en-GB vs en → copie de en.
+   Si pas de différence de-CH vs de → copie de de. Aucun em-dash (:).
 
 \`\`\`json
 {
@@ -208,21 +208,19 @@ INSTRUCTIONS STRICTES
     "en": "iPhone units sold",
     "de": "Verkaufte iPhone-Einheiten",
     "nl": "Verkochte iPhone-eenheden",
-    "sv": "Sålda iPhone-enheter",
-    "da": "Solgte iPhone-enheder",
     "en-GB": "iPhone units sold",
     "de-CH": "Verkaufte iPhone-Einheiten"
   },
   "hero_summary_i18n": {
     "fr": "1 phrase max 18 mots avec la valeur la plus récente.",
     "en": "1 sentence max 18 words with the latest value.",
-    "de": "...", "nl": "...", "sv": "...", "da": "...",
+    "de": "...", "nl": "...",
     "en-GB": "...", "de-CH": "..."
   },
   "interpretation_i18n": {
     "fr": "2 phrases : drivers + signal pour l'investisseur.",
     "en": "2 sentences: drivers + signal for the investor.",
-    "de": "...", "nl": "...", "sv": "...", "da": "...",
+    "de": "...", "nl": "...",
     "en-GB": "...", "de-CH": "..."
   },
   "yoy_latest": "+5,2 %",

@@ -32,7 +32,7 @@ const CURRENCY_LABELS: Record<CurrencyCode, { code: string; flag: string; name: 
 function guessLocalCurrency(): CurrencyCode {
   if (typeof navigator === "undefined") return "eur";
   const lang = (navigator.language || "").toLowerCase();
-  // navigator.language exemples : "fr-FR", "en-US", "de-CH", "sv-SE", "da-DK", "en-GB", "en-CA"
+  // navigator.language exemples : "fr-FR", "en-US", "de-CH", "en-GB", "en-CA"
   const map: Record<string, CurrencyCode> = {
     "us": "usd", "ca": "cad", "gb": "gbp", "ch": "chf",
     "se": "sek", "dk": "dkk",

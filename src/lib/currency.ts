@@ -177,8 +177,6 @@ export function getUserCurrency(): Currency {
   if (lang.includes("ja")) return "JPY";
   if (lang.includes("en-ca")) return "CAD";
   if (lang.includes("en-au")) return "AUD";
-  if (lang.includes("sv")) return "SEK";
-  if (lang.includes("da")) return "DKK";
   if (lang.includes("no") || lang.includes("nb") || lang.includes("nn")) return "NOK";
   return "USD";
 }

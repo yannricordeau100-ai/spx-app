@@ -85,6 +85,11 @@ export type FeatureRow = {
   free: string | boolean;
   premium: string | boolean;
   max: string | boolean;
+  /** Yann (25 mai 2026) : si true, la feature apparaît dans le bloc "forfait"
+   *  (card publique). Sinon visible uniquement dans la matrice détaillée.
+   *  Fallback côté pricing-cards : si AUCUNE feature n'a show_in_card=true,
+   *  on retombe sur les 8 premières (comportement avant flag). */
+  show_in_card?: boolean;
 };
 
 export const FEATURES: FeatureRow[] = [

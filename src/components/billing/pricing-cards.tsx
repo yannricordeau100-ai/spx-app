@@ -262,26 +262,31 @@ function PricingCard({
     }
   }
 
-  // Yann 9 mai 2026 : les bullet points doivent venir du catalogue
-  // BDD pricing_features (= ce que Yann édite en back office), pas
-  // d'une liste hardcodée. Pour chaque feature active, on prend la
-  // valeur du plan : true → label seul, "string" → "label : string",
-  // false → on skip. Limite à 8 max pour pas tasser la card.
+  // Yann 9 mai 2026 : les bullet points viennent du catalogue BDD
+  // pricing_features. Pour chaque feature, true → label seul, "string"
+  // → "label : string", false → skip.
+  // Yann 25 mai 2026 : seules les features flaggées `show_in_card`
+  // apparaissent dans la card. Si AUCUNE n'est cochée pour ce plan
+  // (= migration appliquée mais Yann n'a coché aucune ligne), fallback
+  // sur les 8 premières pour ne pas afficher une card vide.
   const planFeatures = features && features.length > 0 ? features : [];
-  const bulletFeatures: string[] = planFeatures
-    .map((f) => {
-      const v = f[plan.tier];
-      if (v === false || v === null || v === undefined) return null;
-      if (v === true) return f.label;
-      const sv = String(v).trim();
-      if (!sv || sv === "false") return null;
-      // Si la string commence par un nombre ou ressemble à une quantité,
-      // mettre "label : valeur". Sinon, juste "label" (la valeur EST déjà
-      // une description).
-      return sv.length <= 30 ? `${f.label} : ${sv}` : f.label;
-    })
+  const formatBullet = (f: FeatureRow): string | null => {
+    const v = f[plan.tier];
+    if (v === false || v === null || v === undefined) return null;
+    if (v === true) return f.label;
+    const sv = String(v).trim();
+    if (!sv || sv === "false") return null;
+    return sv.length <= 30 ? `${f.label} : ${sv}` : f.label;
+  };
+  const selectedBullets: string[] = planFeatures
+    .filter((f) => f.show_in_card)
+    .map(formatBullet)
+    .filter((s): s is string => Boolean(s));
+  const fallbackBullets: string[] = planFeatures
+    .map(formatBullet)
     .filter((s): s is string => Boolean(s))
     .slice(0, 8);
+  const bulletFeatures = selectedBullets.length > 0 ? selectedBullets : fallbackBullets;
   const bulletList = bulletFeatures.length > 0 ? bulletFeatures : topFeatures(plan.tier);
 
   // Yann (13 mai 2026) : devise UNIFORME pour toute la page. Plus jamais

@@ -39,8 +39,6 @@ const TABS: { key: string; flag: string; country: string }[] = [
   { key: "en-GB", flag: "🇬🇧", country: "GB" },
   { key: "de", flag: "🇩🇪", country: "DE" },
   { key: "nl", flag: "🇳🇱", country: "NL" },
-  { key: "sv", flag: "🇸🇪", country: "SE" },
-  { key: "da", flag: "🇩🇰", country: "DK" },
   { key: "de-CH", flag: "🇨🇭", country: "CH" },
 ];
 
@@ -51,8 +49,6 @@ const TAB_LABELS_FR: Record<string, string> = {
   "en-GB": "UK",
   de: "Allemagne",
   nl: "Pays-Bas",
-  sv: "Suède",
-  da: "Danemark",
   "de-CH": "Suisse",
 };
 
@@ -63,8 +59,6 @@ const TAB_LABELS_EN: Record<string, string> = {
   "en-GB": "UK",
   de: "Germany",
   nl: "Netherlands",
-  sv: "Sweden",
-  da: "Denmark",
   "de-CH": "Switzerland",
 };
 

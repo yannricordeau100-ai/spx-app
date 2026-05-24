@@ -145,8 +145,7 @@ export async function proxy(request: NextRequest) {
   //
   // RÈGLES (Yann 10 mai 2026) — visiteur NON CONNECTÉ uniquement :
   //   - Langue : si pays officiellement francophone → fr ; germanophone →
-  //     de (CH-de → de-CH) ; néerlandophone → nl ; suédophone → sv ;
-  //     danois → da ; pays UK Commonwealth → en-GB ; sinon → en.
+  //     de (CH-de → de-CH) ; néerlandophone → nl ; pays UK Commonwealth → en-GB ; sinon → en.
   //   - Devise : si pays a sa devise propre dans nos 10 → utiliser celle-ci ;
   //     sinon : Europe + Afrique → EUR ; reste → USD.
   //
@@ -201,8 +200,6 @@ export async function proxy(request: NextRequest) {
       if (osPrimary === "de-ch" || osPrimary.startsWith("de-ch")) return "de-CH";
       if (osPrimary.startsWith("de")) return "de";
       if (osPrimary.startsWith("nl")) return "nl";
-      if (osPrimary.startsWith("sv")) return "sv";
-      if (osPrimary.startsWith("da")) return "da";
       if (osPrimary.startsWith("en")) return "en";
       return null;
     }

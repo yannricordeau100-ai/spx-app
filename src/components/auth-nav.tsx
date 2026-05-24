@@ -23,10 +23,10 @@ import type { Locale } from "@/lib/i18n/types";
 // Locales pleinement traduites par scope. Yann a couvert FR/EN partout.
 // Yann 15 mai 2026 : DE désormais traduit aussi sur pages société (KPIs,
 // risks, governance, AI positioning, lead interprétation) via overlay
-// v2-pipeline-i18n/<ticker>.de.json + interp-i18n. NL/SV/DA encore partiels
+// v2-pipeline-i18n/<ticker>.de.json + interp-i18n. NL encore partiel
 // (les chartes/labels UI sont traduits mais pas le contenu KPI data-side).
 const COVERAGE: Record<"home" | "company", Locale[]> = {
-  home: ["en", "fr", "de", "nl", "en-GB", "sv", "da", "de-CH"],
+  home: ["en", "fr", "de", "nl", "en-GB", "de-CH"],
   company: ["en", "fr", "de", "de-CH"],
 };
 

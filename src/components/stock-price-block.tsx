@@ -133,15 +133,24 @@ export function StockPriceBlock({ company }: { company: Company }) {
   const ledColor = live.loading ? "#a1a1aa" : isUp ? GREEN_LED : RED_LED;
   const placeholder = "—";
 
+  // Yann 25 mai 2026 : split du label sur 2 lignes pour permettre aux
+  // 3 colonnes de respirer (FR/DE/NL ~ même longueur). Le 3e élément
+  // (montant) tombe naturellement sur une 3e ligne.
+  const marketCapLabel = t("stock.market_cap");
+  const labelWords = marketCapLabel.trim().split(/\s+/);
+  const splitIdx = Math.ceil(labelWords.length / 2);
+  const labelLine1 = labelWords.slice(0, splitIdx).join(" ");
+  const labelLine2 = labelWords.slice(splitIdx).join(" ");
+  const variationLocale = locale === "fr" ? "fr-FR" : locale === "de" || locale === "de-CH" ? "de-DE" : locale === "nl" ? "nl-NL" : "en-US";
+
   return (
     <div
-      className="relative flex w-full items-center overflow-hidden rounded-xl px-5 py-3 sm:w-[520px] sm:shrink-0"
+      className="relative flex w-full items-stretch overflow-hidden rounded-xl px-5 py-3 sm:w-[520px] sm:shrink-0"
       style={{
-        // Dégradé fortement progressif (12 paliers sur la largeur) pour une
-        // transition douce et continue de gauche (sombre) à droite (couleur
-        // pleine). Plus aucun saut visible : l'œil suit une montée linéaire
-        // de la luminosité.
-        background: `linear-gradient(90deg, #0a0a0a 0%, ${tone}10 4%, ${tone}22 10%, ${tone}38 18%, ${tone}50 28%, ${tone}68 38%, ${tone}80 48%, ${tone}96 58%, ${tone}ac 68%, ${tone}c2 78%, ${tone}d8 88%, ${tone}ec 95%, ${tone} 100%)`,
+        // Bande colorée beaucoup plus large : la couleur démarre dès 25 %
+        // (au lieu de garder #0a0a0a noir jusqu'à ~10 %). Tout ce qui est
+        // affiché baigne désormais dans la teinte signalétique (vert/rouge).
+        background: `linear-gradient(90deg, ${tone}30 0%, ${tone}50 18%, ${tone}68 32%, ${tone}82 46%, ${tone}96 58%, ${tone}ac 68%, ${tone}c2 78%, ${tone}d8 88%, ${tone}ec 95%, ${tone} 100%)`,
       }}
     >
       {/* Glow radial à droite, autour du prix */}
@@ -153,68 +162,77 @@ export function StockPriceBlock({ company }: { company: Company }) {
         }}
       />
 
-      {/* COL 1 — Capitalisation Boursière */}
-      <div className="relative flex flex-col items-center justify-center border-r border-white/15 pr-4">
-        <span className="text-center font-mono text-[9.5px] font-semibold uppercase tracking-[0.18em] text-zinc-100">
-          {t("stock.market_cap")}
+      {/* COL 1 — Capitalisation boursière (label 2 lignes + montant 3e ligne).
+          shrink-0 + alignement droite pour préserver l'espace. */}
+      <div className="relative flex shrink-0 flex-col items-end justify-center border-r border-white/15 pr-4 text-right">
+        <span className="font-mono text-[10px] font-semibold uppercase leading-[1.15] tracking-[0.18em] text-zinc-100">
+          {labelLine1}
         </span>
-        <span className="mt-1 text-center font-display text-[22px] font-bold leading-none tracking-tight text-zinc-50 tabular-nums sm:text-[24px]">
+        {labelLine2 && (
+          <span className="font-mono text-[10px] font-semibold uppercase leading-[1.15] tracking-[0.18em] text-zinc-100">
+            {labelLine2}
+          </span>
+        )}
+        <span className="mt-1 font-display text-[18px] font-bold leading-none tracking-tight text-zinc-50 tabular-nums sm:text-[20px]">
           {live.loading ? placeholder : fmtMarketCap(s.marketCap, locale)}
         </span>
       </div>
 
-      {/* COL 2 — Variation %, taille réduite, centrée verticalement (items-center
-          parent + self-center) et horizontalement (flex-1 + justify-center). */}
-      <div className="relative flex flex-1 items-center justify-center self-stretch px-3">
+      {/* COL 2 — Variation %, taille agrandie (Yann 25 mai 2026), alignée à
+          droite, centrée verticalement, peut respirer car le label cap est
+          sur 2 lignes côté gauche. */}
+      <div className="relative flex flex-1 items-center justify-end self-stretch px-3">
         <span
-          className="font-display font-semibold leading-none tabular-nums tracking-tight"
+          className="font-display font-bold leading-none tabular-nums tracking-tight text-right whitespace-nowrap"
           style={{
             color: toneLight,
             textShadow: "0 1px 6px rgba(0,0,0,0.35)",
-            fontSize: "clamp(11px, 1.15vw, 13px)",
+            fontSize: "clamp(18px, 2.2vw, 24px)",
           }}
         >
-          {live.loading ? placeholder : `${isUp ? "+" : ""}${s.deltaPct.toLocaleString(locale === "fr" ? "fr-FR" : locale === "de" || locale === "de-CH" ? "de-DE" : "en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} %`}
+          {live.loading ? placeholder : `${isUp ? "+" : ""}${s.deltaPct.toLocaleString(variationLocale, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} %`}
         </span>
       </div>
 
       {/* COL 3 — Prix avec point LED dans le coin haut-droite */}
-      <div className="relative shrink-0">
-        {/* Point LED — neon, glow puissant, pulse léger pour signal "live" */}
-        <motion.span
-          aria-hidden
-          animate={{ opacity: [1, 0.55, 1] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -right-1 -top-1 size-2.5 rounded-full"
-          style={{
-            background: ledColor,
-            boxShadow: `0 0 4px ${ledColor}, 0 0 10px ${ledColor}, 0 0 18px ${ledColor}aa`,
-          }}
-        />
-        <span
-          className="block whitespace-nowrap text-[40px] leading-none tracking-[-0.02em] text-white tabular-nums sm:text-[46px]"
-          style={{
-            fontFamily: "var(--font-sora), ui-sans-serif, sans-serif",
-            fontWeight: 200,
-            textShadow: "0 2px 12px rgba(0,0,0,0.55)",
-          }}
-        >
-          {live.loading
-            ? placeholder
-            : s.price.toLocaleString(locale === "fr" ? "fr-FR" : "en-US", {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              })}
+      <div className="relative flex shrink-0 items-center">
+        <div className="relative">
+          {/* Point LED — neon, glow puissant, pulse léger pour signal "live" */}
+          <motion.span
+            aria-hidden
+            animate={{ opacity: [1, 0.55, 1] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute -right-1 -top-1 size-2.5 rounded-full"
+            style={{
+              background: ledColor,
+              boxShadow: `0 0 4px ${ledColor}, 0 0 10px ${ledColor}, 0 0 18px ${ledColor}aa`,
+            }}
+          />
           <span
-            className="ml-1.5 text-[20px] text-white/85 sm:text-[22px]"
+            className="block whitespace-nowrap text-right text-[36px] leading-none tracking-[-0.02em] text-white tabular-nums sm:text-[42px]"
             style={{
               fontFamily: "var(--font-sora), ui-sans-serif, sans-serif",
-              fontWeight: 300,
+              fontWeight: 200,
+              textShadow: "0 2px 12px rgba(0,0,0,0.55)",
             }}
           >
-            $
+            {live.loading
+              ? placeholder
+              : s.price.toLocaleString(locale === "fr" ? "fr-FR" : "en-US", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+            <span
+              className="ml-1.5 text-[18px] text-white/85 sm:text-[20px]"
+              style={{
+                fontFamily: "var(--font-sora), ui-sans-serif, sans-serif",
+                fontWeight: 300,
+              }}
+            >
+              $
+            </span>
           </span>
-        </span>
+        </div>
       </div>
     </div>
   );

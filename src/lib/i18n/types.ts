@@ -9,10 +9,11 @@
  *   de    : allemand (DE, AT)
  *   de-CH : allemand suisse
  *   nl    : néerlandais (NL, BE-nl)
- *   sv    : suédois (SE, FI partiellement)
- *   da    : danois (DK)
+ *
+ * Note (Yann 25 mai 2026) : suédois (sv) et danois (da) retirés —
+ * volumes utilisateurs trop faibles pour justifier maintenance i18n.
  */
-export type Locale = "en" | "en-GB" | "fr" | "de" | "de-CH" | "nl" | "sv" | "da";
+export type Locale = "en" | "en-GB" | "fr" | "de" | "de-CH" | "nl";
 
 /**
  * Familles linguistiques pour le regroupement visuel du LanguageDropdown
@@ -22,25 +23,22 @@ export type Locale = "en" | "en-GB" | "fr" | "de" | "de-CH" | "nl" | "sv" | "da"
  *   "romance"     : FR (et toute autre langue romane future)
  *   "germanic"    : DE + DE-CH + NL (NL est germanique occidental, cousine
  *                   directe de l'allemand → groupée avec)
- *   "scandinavian": SV + DA (langues nord-germaniques, mutuellement
- *                   intelligibles à l'écrit)
  *
  * Template pour ajout futur d'une langue : DOIT inclure une `family` dans
  * LOCALE_META + figurer dans la const LOCALE_FAMILIES_ORDER ci-dessous.
  * Le LanguageDropdown applique le regroupement automatiquement.
  */
-export type LocaleFamily = "english" | "romance" | "germanic" | "scandinavian";
+export type LocaleFamily = "english" | "romance" | "germanic";
 
 /**
  * Ordre d'affichage des familles dans le dropdown (haut → bas).
  * EN d'abord car défaut international, puis FR (audience principale Yann),
- * puis germanique, puis scandinave.
+ * puis germanique.
  */
 export const LOCALE_FAMILIES_ORDER: LocaleFamily[] = [
   "english",
   "romance",
   "germanic",
-  "scandinavian",
 ];
 
 /** Libellés FR très courts des familles, affichés en header de groupe. */
@@ -48,7 +46,6 @@ export const LOCALE_FAMILY_LABEL: Record<LocaleFamily, string> = {
   english: "English",
   romance: "Romance",
   germanic: "Germanique",
-  scandinavian: "Scandinave",
 };
 
 /**
@@ -58,15 +55,13 @@ export const LOCALE_FAMILY_LABEL: Record<LocaleFamily, string> = {
  *   DE      : 95M (DE + AT)
  *   NL      : 24M (NL + BE-nl)
  *   EN-GB   : 67M (UK)
- *   SV      : 10M (SE)
- *   DA      : 6M (DK)
  *   DE-CH   : 5M (CH-de)
  *
  * Cet ordre est utilisé pour les fallbacks et la priorité de détection
  * automatique. L'affichage visuel du dropdown est lui regroupé par famille
  * linguistique (cf LOCALE_FAMILIES_ORDER ci-dessus).
  */
-export const LOCALES: Locale[] = ["en", "fr", "de", "nl", "en-GB", "sv", "da", "de-CH"];
+export const LOCALES: Locale[] = ["en", "fr", "de", "nl", "en-GB", "de-CH"];
 
 /** Métadonnées d'affichage (drapeau emoji + nom dans la langue + famille). */
 export const LOCALE_META: Record<Locale, { flag: string; nativeName: string; populationOrder: number; family: LocaleFamily }> = {
@@ -74,10 +69,8 @@ export const LOCALE_META: Record<Locale, { flag: string; nativeName: string; pop
   "en-GB": { flag: "🇬🇧", nativeName: "English (UK)",     populationOrder: 5, family: "english" },
   "fr":    { flag: "🇫🇷", nativeName: "Français",         populationOrder: 2, family: "romance" },
   "de":    { flag: "🇩🇪", nativeName: "Deutsch",          populationOrder: 3, family: "germanic" },
-  "de-CH": { flag: "🇨🇭", nativeName: "Schweizerdeutsch", populationOrder: 8, family: "germanic" },
+  "de-CH": { flag: "🇨🇭", nativeName: "Schweizerdeutsch", populationOrder: 6, family: "germanic" },
   "nl":    { flag: "🇳🇱", nativeName: "Nederlands",       populationOrder: 4, family: "germanic" },
-  "sv":    { flag: "🇸🇪", nativeName: "Svenska",          populationOrder: 6, family: "scandinavian" },
-  "da":    { flag: "🇩🇰", nativeName: "Dansk",            populationOrder: 7, family: "scandinavian" },
 };
 
 /**
@@ -88,7 +81,6 @@ export const LOCALES_BY_FAMILY: Record<LocaleFamily, Locale[]> = {
   english: ["en", "en-GB"],
   romance: ["fr"],
   germanic: ["de", "de-CH", "nl"],
-  scandinavian: ["sv", "da"],
 };
 
 export const DEFAULT_LOCALE: Locale = "en";
@@ -132,18 +124,6 @@ export const COUNTRY_TO_LOCALE: Record<string, Locale> = {
   NL: "nl",
   // Curaçao + Aruba + Sint Maarten + BES → néerlandais
   AW: "nl", CW: "nl", SX: "nl", BQ: "nl", SR: "nl",
-
-  // ─── Suédois ───
-  SE: "sv",
-  FI: "sv", // Finlande co-officielle (suédois minoritaire ~5 %, mais
-  // Yann a dit "pays qui a sa propre langue". FI a le finnois mais le
-  // finnois n'est pas dans nos 8. SV est co-officiel donc OK.
-
-  // ─── Danois ───
-  DK: "da",
-  // Groenland + Féroé : co-officiels avec leurs langues respectives mais
-  // utilisent danois en pratique
-  GL: "da", FO: "da",
 
   // ─── English UK (variante) ───
   GB: "en-GB", IE: "en-GB",
@@ -190,8 +170,6 @@ export function localeFromAcceptLanguage(al: string | null | undefined): Locale 
   if (first.startsWith("de-ch")) return "de-CH";
   if (first.startsWith("de")) return "de";
   if (first.startsWith("nl")) return "nl";
-  if (first.startsWith("sv")) return "sv";
-  if (first.startsWith("da")) return "da";
   if (first.startsWith("en-gb") || first.startsWith("en-uk")) return "en-GB";
   if (first.startsWith("en")) return "en";
   return null;

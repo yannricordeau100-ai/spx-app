@@ -14,13 +14,13 @@
  *   - noreply@mettrik.ai      (à créer si on veut un sender no-reply propre)
  *
  * Localisation des emails (4 mai 2026) :
- *   - 6 locales supportées : fr, en, de, nl, sv, da.
+ *   - 4 locales supportées : fr, en, de, nl.
  *   - en-GB tombe sur en, de-CH tombe sur de (cascade fallback).
  *   - Toute autre locale fallback sur en.
  */
 
 type FromAddress = "contact" | "support" | "noreply";
-export type EmailLocale = "fr" | "en" | "de" | "nl" | "sv" | "da";
+export type EmailLocale = "fr" | "en" | "de" | "nl";
 
 const FROM_MAP: Record<FromAddress, string> = {
   contact: "Mettrik AI <contact@mettrik.ai>",
@@ -100,18 +100,16 @@ export async function sendEmail(params: SendEmailParams): Promise<{ ok: boolean;
 }
 
 /* ============================================================ */
-/* HELPERS pour les types d'emails standards (6 locales)         */
+/* HELPERS pour les types d'emails standards (4 locales)         */
 /* ============================================================ */
 
-/** Réduit toute Locale dictionnaire à une des 6 locales emails (en-GB → en, de-CH → de). */
+/** Réduit toute Locale dictionnaire à une des 4 locales emails (en-GB → en, de-CH → de). */
 function normalizeEmailLocale(loc: string | undefined | null): EmailLocale {
   if (!loc) return "en";
   const l = loc.toLowerCase();
   if (l === "fr") return "fr";
   if (l === "de" || l === "de-ch") return "de";
   if (l === "nl") return "nl";
-  if (l === "sv") return "sv";
-  if (l === "da") return "da";
   if (l === "en" || l === "en-gb") return "en";
   return "en";
 }
@@ -122,8 +120,6 @@ const WELCOME_SUBJECT: Record<EmailLocale, string> = {
   en: "Welcome to Mettrik AI",
   de: "Willkommen bei Mettrik AI",
   nl: "Welkom bij Mettrik AI",
-  sv: "Välkommen till Mettrik AI",
-  da: "Velkommen til Mettrik AI",
 };
 
 const WELCOME_BODY: Record<EmailLocale, (name: string) => string> = {
@@ -143,14 +139,6 @@ const WELCOME_BODY: Record<EmailLocale, (name: string) => string> = {
 <p>Welkom bij Mettrik AI. Je kunt nu de KPI's van de grootste beursgenoteerde bedrijven verkennen en hun sectorindicatoren vergelijken.</p>
 <p>Een vraag? Antwoord gewoon op deze e-mail.</p>
 <p style="color:#888;font-size:12px;margin-top:24px">Mettrik AI publiceert analyses uitsluitend ter informatie. Geen enkele inhoud vormt beleggingsadvies.</p>`,
-  sv: (n) => `<p>Hej${n ? " " + n : ""},</p>
-<p>Välkommen till Mettrik AI. Du kan nu utforska KPI:erna för de största börsnoterade bolagen och jämföra deras branschindikatorer.</p>
-<p>Frågor? Svara bara på det här mejlet.</p>
-<p style="color:#888;font-size:12px;margin-top:24px">Mettrik AI publicerar analyser endast i informationssyfte. Inget innehåll utgör investeringsrådgivning.</p>`,
-  da: (n) => `<p>Hej${n ? " " + n : ""},</p>
-<p>Velkommen til Mettrik AI. Du kan nu udforske KPI'erne for de største børsnoterede selskaber og sammenligne deres branchespecifikke indikatorer.</p>
-<p>Spørgsmål? Svar blot på denne mail.</p>
-<p style="color:#888;font-size:12px;margin-top:24px">Mettrik AI udgiver analyser udelukkende til informationsformål. Intet indhold udgør investeringsrådgivning.</p>`,
 };
 
 export async function sendWelcomeEmail(
@@ -173,8 +161,6 @@ const BILLING_SUBJECT: Record<EmailLocale, string> = {
   en: "Payment issue · Mettrik AI",
   de: "Zahlungsproblem · Mettrik AI",
   nl: "Betalingsprobleem · Mettrik AI",
-  sv: "Betalningsproblem · Mettrik AI",
-  da: "Betalingsproblem · Mettrik AI",
 };
 
 const BILLING_BODY: Record<EmailLocale, string> = {
@@ -186,10 +172,6 @@ const BILLING_BODY: Record<EmailLocale, string> = {
 <p>Bitte aktualisieren Sie Ihre Zahlungsinformationen in Ihrem Konto, um eine Unterbrechung zu vermeiden.</p>`,
   nl: `<p>De betaling voor je Mettrik AI-abonnement is mislukt.</p>
 <p>Werk je betaalgegevens bij vanuit je accountpagina om een onderbreking van de dienst te voorkomen.</p>`,
-  sv: `<p>Betalningen för din Mettrik AI-prenumeration misslyckades.</p>
-<p>Uppdatera dina betalningsuppgifter i ditt konto för att undvika ett avbrott i tjänsten.</p>`,
-  da: `<p>Betalingen for dit Mettrik AI-abonnement mislykkedes.</p>
-<p>Opdater dine betalingsoplysninger fra din kontoside for at undgå en afbrydelse af tjenesten.</p>`,
 };
 
 export async function sendBillingFailedEmail(to: string, opts?: { locale?: string }) {

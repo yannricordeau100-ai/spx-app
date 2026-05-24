@@ -9,8 +9,6 @@ const LOCALE_META: Record<string, { flag: string; label: string }> = {
   en: { flag: "🇺🇸", label: "English (US)" },
   de: { flag: "🇩🇪", label: "Deutsch" },
   nl: { flag: "🇳🇱", label: "Nederlands" },
-  sv: { flag: "🇸🇪", label: "Svenska" },
-  da: { flag: "🇩🇰", label: "Dansk" },
   "en-GB": { flag: "🇬🇧", label: "English (UK)" },
   "de-CH": { flag: "🇨🇭", label: "Schweizerdeutsch" },
 };

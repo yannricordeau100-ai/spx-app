@@ -24,7 +24,7 @@ import type {
 // Yann 18 mai 2026 : EN = langue canonique du site, affichée en premier
 // (encadrée comme langue active du visiteur par défaut). FR + DE ensuite,
 // autres locales en fallback EN.
-const ALL_LOCALES = ["en", "fr", "de", "en-GB", "de-CH", "nl", "sv", "da"] as const;
+const ALL_LOCALES = ["en", "fr", "de", "en-GB", "de-CH", "nl"] as const;
 // Langue canonique encadrée comme "active" dans les chips per-finding.
 const CANONICAL_LOCALE = "en";
 type Locale = (typeof ALL_LOCALES)[number];

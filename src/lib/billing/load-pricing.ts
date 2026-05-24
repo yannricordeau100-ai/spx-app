@@ -191,7 +191,13 @@ export async function loadPricingCatalog(): Promise<LoadedCatalog> {
     const supabase = createClient(url, key, { auth: { autoRefreshToken: false, persistSession: false } });
 
     const [featRes, pfRes] = await Promise.all([
-      supabase.from("pricing_features").select("*").eq("is_active", true).order("category_order").order("feature_order"),
+      // Yann 25 mai 2026 : sort UNIQUEMENT par feature_order (== ordre BO).
+      // Avant : (category_order, feature_order) ce qui réordonnait
+      // silencieusement quand 2 features avaient le même category_order et
+      // que l'utilisateur déplaçait via flèches/drag (qui ne touchent QUE
+      // feature_order). Résultat : ordre BO ≠ ordre app. La matrice reste
+      // groupée par category (logique côté composant).
+      supabase.from("pricing_features").select("*").eq("is_active", true).order("feature_order"),
       supabase.from("pricing_plan_features").select("*").eq("is_active", true),
     ]);
 
@@ -238,6 +244,7 @@ export async function loadPricingCatalog(): Promise<LoadedCatalog> {
         free: get("free"),
         premium: get("premium"),
         max: get("max"),
+        show_in_card: !!f.show_in_card,
       };
     });
 

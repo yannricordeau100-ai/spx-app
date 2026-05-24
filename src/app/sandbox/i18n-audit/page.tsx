@@ -57,7 +57,7 @@ function parseEntries(text: string): Entry[] {
   return out;
 }
 
-const LOCALES = ["fr", "en", "de", "nl", "sv", "da", "en-GB", "de-CH"] as const;
+const LOCALES = ["fr", "en", "de", "nl", "en-GB", "de-CH"] as const;
 
 const GROUPS: Array<{ id: string; label: string; prefixes: string[] }> = [
   { id: "home", label: "Home", prefixes: ["home.", "brand."] },

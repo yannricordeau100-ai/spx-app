@@ -44,7 +44,7 @@ function DataFreshnessPill({ locale, freshnessKey }: { locale: string; freshness
     // précédent (samedi → vendredi -1 jour, dimanche → vendredi -2 jours).
     // Les marchés US/EU sont fermés samedi-dimanche, données pas rafraîchies.
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    const fmt = new Intl.DateTimeFormat(locale === "fr" ? "fr-FR" : locale === "de" || locale === "de-CH" ? "de-DE" : locale === "nl" ? "nl-NL" : locale === "sv" ? "sv-SE" : locale === "da" ? "da-DK" : locale === "en-GB" ? "en-GB" : "en-US", {
+    const fmt = new Intl.DateTimeFormat(locale === "fr" ? "fr-FR" : locale === "de" || locale === "de-CH" ? "de-DE" : locale === "nl" ? "nl-NL" : locale === "en-GB" ? "en-GB" : "en-US", {
       day: "numeric", month: "long", year: "numeric", timeZone: tz,
     });
     const now = new Date();

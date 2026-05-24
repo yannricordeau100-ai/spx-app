@@ -231,11 +231,4 @@ const FAMILY_ACCENT: Record<LocaleFamily, {
     textActive: "text-violet-100",
     check: "text-violet-300",
   },
-  scandinavian: {
-    dot: "bg-emerald-400/80 shadow-[0_0_6px_rgba(52,211,153,0.5)]",
-    text: "text-emerald-300/70",
-    bgActive: "bg-emerald-500/12",
-    textActive: "text-emerald-100",
-    check: "text-emerald-300",
-  },
 };

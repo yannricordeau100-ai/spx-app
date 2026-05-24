@@ -52,8 +52,6 @@ export function KpiRow({
   const numLocaleStr = locale === "fr" ? "fr-FR"
     : locale === "de" || locale === "de-CH" ? "de-DE"
     : locale === "nl" ? "nl-NL"
-    : locale === "sv" ? "sv-SE"
-    : locale === "da" ? "da-DK"
     : "en-US";
   const valueAsNum = typeof kpi.value === "number"
     ? kpi.value

@@ -68,6 +68,11 @@ export type PricingFeature = {
   help_en: string | null;
   help_de: string | null;
   is_active: boolean;
+  /** Yann (25 mai 2026) : flag pour afficher cette feature dans la card
+   *  publique "forfait" (sinon visible uniquement dans la matrice détaillée).
+   *  Default false : si AUCUNE feature cochée, fallback côté front sur les
+   *  8 premières par feature_order pour éviter card vide. */
+  show_in_card: boolean;
   created_at: string;
   updated_at: string;
 };

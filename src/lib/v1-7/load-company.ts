@@ -1024,8 +1024,6 @@ export async function loadV17Company(
     "en": "en",
     "en-gb": "en",
     "nl": "nl",
-    "sv": "sv",
-    "da": "da",
   };
   const i18nKey = localeMap[requestedLocale];
   if (i18nKey) {
