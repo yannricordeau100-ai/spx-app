@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Check, Sparkles, ArrowRight, Crown } from "lucide-react";
+import { Check, Sparkles, ArrowRight, Crown, Lock } from "lucide-react";
 import { PLANS as FALLBACK_PLANS, FEATURES as FALLBACK_FEATURES, monthlyEquivalent, type PlanDisplay, type FeatureRow } from "@/lib/billing/plans";
 import type { LoadedPlan } from "@/lib/billing/load-pricing";
 import { useT } from "@/lib/i18n/provider";
@@ -61,6 +61,16 @@ export function PricingCards({
   const [billing, setBilling] = useState<"monthly" | "annual">("annual");
   const { t } = useT();
 
+  // Yann (25 mai 2026 v2) : les MÊMES features apparaissent dans les 3 cards
+  // pour montrer ✓ ou 🔒 selon le plan (mise en avant des limites). La
+  // sélection est faite au niveau parent (pas par card) :
+  //   1. Priorité : toutes les features cochées show_in_card en BO
+  //   2. Fallback (aucune cochée) : 8 premières par feature_order
+  const cardFeaturesSelected = FEATURES.filter((f) => f.show_in_card);
+  const cardFeatures: FeatureRow[] = cardFeaturesSelected.length > 0
+    ? cardFeaturesSelected
+    : FEATURES.slice(0, 8);
+
   return (
     <div>
       {/* Toggle mensuel / annuel : pillule double-onglet, beaucoup
@@ -117,7 +127,7 @@ export function PricingCards({
             billing={billing}
             onSwitch={setBilling}
             prefix={ctaTrackingPrefix}
-            features={FEATURES}
+            cardFeatures={cardFeatures}
             currency={currency}
             taglines={taglines}
           />
@@ -206,7 +216,7 @@ function PricingCard({
   billing,
   onSwitch,
   prefix,
-  features,
+  cardFeatures,
   currency = "EUR",
   taglines,
 }: {
@@ -215,8 +225,11 @@ function PricingCard({
   onSwitch?: (b: "monthly" | "annual") => void;
   prefix: string;
   currency?: string;
-  /** Catalogue features (BDD ou fallback) pour générer les bullets dynamiquement. */
-  features?: FeatureRow[];
+  /** Features à afficher dans la card. MÊME liste pour les 3 plans : le
+   *  rendu par plan affiche ✓ (inclus) ou 🔒 (verrouillé) selon la valeur
+   *  de chaque feature. Sélectionnée au niveau parent (show_in_card BO ou
+   *  fallback 8 premières). */
+  cardFeatures: FeatureRow[];
   /** Taglines BDD éditables (map plan_key → row). */
   taglines?: Record<string, PricingTaglineRow>;
 }) {
@@ -262,32 +275,29 @@ function PricingCard({
     }
   }
 
-  // Yann 9 mai 2026 : les bullet points viennent du catalogue BDD
-  // pricing_features. Pour chaque feature, true → label seul, "string"
-  // → "label : string", false → skip.
-  // Yann 25 mai 2026 : seules les features flaggées `show_in_card`
-  // apparaissent dans la card. Si AUCUNE n'est cochée pour ce plan
-  // (= migration appliquée mais Yann n'a coché aucune ligne), fallback
-  // sur les 8 premières pour ne pas afficher une card vide.
-  const planFeatures = features && features.length > 0 ? features : [];
-  const formatBullet = (f: FeatureRow): string | null => {
+  // Yann (25 mai 2026 v2) : les MÊMES features apparaissent dans les 3 cards.
+  // Pour CE plan, chaque feature est soit ✓ (incluse, label + valeur si
+  // string), soit 🔒 (verrouillée, label barré gris). But : mettre en avant
+  // ce qu'on perd en restant sur un plan inférieur.
+  type CardBullet = { label: string; locked: boolean };
+  const bullets: CardBullet[] = cardFeatures.map((f) => {
     const v = f[plan.tier];
-    if (v === false || v === null || v === undefined) return null;
-    if (v === true) return f.label;
+    const isIncluded = v === true || (typeof v === "string" && v.trim() && v.trim() !== "false");
+    if (!isIncluded) return { label: f.label, locked: true };
+    if (v === true) return { label: f.label, locked: false };
     const sv = String(v).trim();
-    if (!sv || sv === "false") return null;
-    return sv.length <= 30 ? `${f.label} : ${sv}` : f.label;
-  };
-  const selectedBullets: string[] = planFeatures
-    .filter((f) => f.show_in_card)
-    .map(formatBullet)
-    .filter((s): s is string => Boolean(s));
-  const fallbackBullets: string[] = planFeatures
-    .map(formatBullet)
-    .filter((s): s is string => Boolean(s))
-    .slice(0, 8);
-  const bulletFeatures = selectedBullets.length > 0 ? selectedBullets : fallbackBullets;
-  const bulletList = bulletFeatures.length > 0 ? bulletFeatures : topFeatures(plan.tier);
+    return {
+      label: sv.length <= 30 ? `${f.label} : ${sv}` : f.label,
+      locked: false,
+    };
+  });
+  // Fallback ultime : si AUCUNE feature passée (BDD vide totale), retombe
+  // sur la liste hardcoded historique de ce plan (toutes incluses).
+  const useFallback = bullets.length === 0;
+  const fallbackBullets: CardBullet[] = useFallback
+    ? topFeatures(plan.tier).map((label) => ({ label, locked: false }))
+    : [];
+  const finalBullets = useFallback ? fallbackBullets : bullets;
 
   // Yann (13 mai 2026) : devise UNIFORME pour toute la page. Plus jamais
   // de mix € / $ sur la même page (cas plan Gratuit qui n'a pas de
@@ -425,13 +435,25 @@ function PricingCard({
           l'ensemble [audience + slogan + CTA] en bas. Tous les CTAs se
           retrouvent à la même hauteur Y. */}
 
-      {/* Bullet points features : viennent du catalogue BDD
-          pricing_features. flex-grow pour pousser CTA en bas. */}
+      {/* Bullet points features : MÊMES features pour les 3 cards. ✓ vert
+          si incluse dans CE plan, 🔒 gris barré si verrouillée (= incitation
+          à upgrade). flex-grow pour pousser CTA en bas. */}
       <ul className="mt-5 flex-grow space-y-2.5 border-t border-white/[0.06] pt-5">
-        {bulletList.map((f, i) => (
-          <li key={i} className="flex items-start gap-2 text-[12.5px] leading-snug text-zinc-300">
-            <Check className="mt-0.5 size-3.5 shrink-0" style={{ color: plan.accent }} strokeWidth={2.5} />
-            <span>{f}</span>
+        {finalBullets.map((b, i) => (
+          <li
+            key={i}
+            className={`flex items-start gap-2 text-[12.5px] leading-snug ${
+              b.locked ? "text-zinc-500" : "text-zinc-300"
+            }`}
+          >
+            {b.locked ? (
+              <Lock className="mt-0.5 size-3.5 shrink-0 text-zinc-600" strokeWidth={2} />
+            ) : (
+              <Check className="mt-0.5 size-3.5 shrink-0" style={{ color: plan.accent }} strokeWidth={2.5} />
+            )}
+            <span className={b.locked ? "line-through decoration-zinc-700 decoration-1" : ""}>
+              {b.label}
+            </span>
           </li>
         ))}
       </ul>
