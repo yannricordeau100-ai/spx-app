@@ -673,6 +673,42 @@ export async function loadV17Company(
     } catch {
       // best effort, silent fail si le fichier n'existe pas pour ce ticker
     }
+    // Yann 25 mai 2026 v2 : merge auto kpis-v3 vérifiés (CONV-VERIF-KPIS-V3)
+    // Source : `src/data/v2-pipeline-enrich/<ticker>.kpis-v3.json`.
+    // Format : { ticker, kpis_v3: [...], _signed_by, _extracted_at }.
+    // Anti-hallucination déjà appliquée en pipeline Python (source_quote ≥5 mots,
+    // value présente dans quote, mention count canonique ≥3 dans filing).
+    try {
+      const v3Path = path.join(
+        ROOT,
+        "src/data/v2-pipeline-enrich",
+        `${ticker.toLowerCase()}.kpis-v3.json`,
+      );
+      const v3Data = await readJsonOrNull<{
+        kpis_v3?: AnyKPI[];
+      }>(v3Path);
+      if (
+        v3Data
+        && Array.isArray(v3Data.kpis_v3)
+        && Array.isArray(data.kpis)
+      ) {
+        const existingShortsV3 = new Set(
+          (data.kpis as AnyKPI[]).map((k) => k?.short).filter(Boolean),
+        );
+        const extraV3 = v3Data.kpis_v3
+          .filter((k): k is AnyKPI => Boolean(k && typeof k === "object" && k.short && !existingShortsV3.has(k.short)))
+          .map((k) => ({
+            ...k,
+            history: normalizeHistory(k.history),
+            _source: "kpis-v3-verif",
+          }));
+        if (extraV3.length > 0) {
+          data.kpis = [...data.kpis, ...extraV3];
+        }
+      }
+    } catch {
+      // best effort, silent fail si le fichier n'existe pas pour ce ticker
+    }
     // Yann 20 mai 2026 : EXTENSION HERO HISTORY (mission CONV-CONCEPTS).
     // Pour les ~28 stés US où le hero_kpi est SPÉCIFIQUE mais history <3 ans
     // (bloquait publishable), extraction multi-année 10-K Segment Reporting.
