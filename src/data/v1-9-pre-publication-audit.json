@@ -1,43 +1,43 @@
 {
-  "generated_at": "2026-05-25T01:59:10.727Z",
+  "generated_at": "2026-05-25T02:30:36.834Z",
   "publishable_source": "src/data/v1-9-publishable.json",
-  "publishable_count_input": 808,
+  "publishable_count_input": 813,
   "stats": {
-    "total": 808,
+    "total": 813,
     "fatal_no_dataset": 0,
-    "clean_af": 661,
+    "clean_af": 663,
     "clean_all": 632,
     "by_failed_count": {
-      "0": 661,
-      "1": 90,
+      "0": 663,
+      "1": 93,
       "2": 42,
       "3": 12,
       "4": 2,
       "5": 1
     },
     "by_failed_criterion": {
-      "a_hero_history": 35,
-      "b_interpretation": 31,
+      "a_hero_history": 37,
+      "b_interpretation": 33,
       "c_kpi_count": 1,
       "d_stories": 15,
-      "e_risks": 13,
+      "e_risks": 12,
       "f_repartition": 128
     },
     "by_failed_extension": {
-      "g_governance": 111,
+      "g_governance": 114,
       "h_ai_positioning": 9,
-      "i_events": 12,
+      "i_events": 14,
       "j_description": 0,
       "k_ranks": 15,
       "l_hero_name_fr": 3,
-      "m_freshness": 24
+      "m_freshness": 25
     },
     "a_hero_history_exceptions": {
       "legitimate": 109,
-      "short_marked": 18,
+      "short_marked": 19,
       "company_specific": 71,
-      "legitimate_pct_of_total": 13.49,
-      "company_specific_pct_of_total": 8.79,
+      "legitimate_pct_of_total": 13.41,
+      "company_specific_pct_of_total": 8.73,
       "under_21pct_cap": false,
       "under_10pct_cap_company_specific": true,
       "by_specific_category": {
@@ -64,13 +64,13 @@
         "aviation_fleet": 1,
         "hospitality_rooms": 1
       },
-      "total": 198,
-      "total_exceptions_pct_of_total": 24.5
+      "total": 199,
+      "total_exceptions_pct_of_total": 24.48
     },
     "h_ai_positioning_exceptions": {
-      "stance_absent_legit": 302,
+      "stance_absent_legit": 303,
       "sector_irrelevant_auto": 9,
-      "cautious_with_evidence": 174,
+      "cautious_with_evidence": 175,
       "by_sector_irrelevant": {
         "Énergie": 1,
         "Services aux collectivités": 2,
@@ -83,13 +83,13 @@
       "partial_disclosure_eu_p1": 0,
       "partial_disclosure_ok": 0,
       "regex_real_sourced": 193,
-      "regex_real_sourced_pct_of_total": 23.89,
-      "heuristic_partial": 51,
+      "regex_real_sourced_pct_of_total": 23.74,
+      "heuristic_partial": 53,
       "heuristic_partial_capped": 0,
-      "heuristic_partial_cap_limit": 242,
-      "heuristic_partial_pct_of_total": 6.31,
+      "heuristic_partial_cap_limit": 243,
+      "heuristic_partial_pct_of_total": 6.52,
       "under_30pct_cap_heuristic": true,
-      "unavailable_adr_pct_of_total": 4.83,
+      "unavailable_adr_pct_of_total": 4.8,
       "under_15pct_cap_adr": true
     }
   },
@@ -100,11 +100,11 @@
     ],
     [
       "a_hero_history",
-      35
+      37
     ],
     [
       "b_interpretation",
-      31
+      33
     ],
     [
       "d_stories",
@@ -112,7 +112,7 @@
     ],
     [
       "e_risks",
-      13
+      12
     ]
   ],
   "top20_to_fix": [
@@ -191,6 +191,17 @@
       ],
       "reasons": [
         "f_repartition: geography vide"
+      ]
+    },
+    {
+      "ticker": "PPL",
+      "market_cap_usd": 26919094272,
+      "failed_count": 1,
+      "failed_criteria": [
+        "a_hero_history"
+      ],
+      "reasons": [
+        "a_hero_history: history insuffisant (13 < 18)"
       ]
     },
     {
@@ -323,17 +334,6 @@
       ],
       "reasons": [
         "f_repartition: segment vide; geography vide"
-      ]
-    },
-    {
-      "ticker": "SOON.SW",
-      "market_cap_usd": 11650308669.44,
-      "failed_count": 1,
-      "failed_criteria": [
-        "f_repartition"
-      ],
-      "reasons": [
-        "f_repartition: segment.slices[0] sans value; segment.slices[1] sans value; segment.slices[2] sans value"
       ]
     }
   ],
@@ -13551,6 +13551,89 @@
       "is_clean_all": true
     },
     {
+      "ticker": "CB",
+      "source": "src/data/v1-9-complete/CB.json+src/data/v2-pipeline/CB.json+src/data/v2-pipeline/cb.json+src/data/v2-pipeline-enrich/CB.json+src/data/v2-pipeline-enrich/cb.json",
+      "market_cap_usd": null,
+      "criteria": {
+        "a_hero_history": {
+          "ok": true,
+          "len": 17,
+          "period": "annual",
+          "required": 5
+        },
+        "b_interpretation": {
+          "ok": true,
+          "sub_blocks": 4
+        },
+        "c_kpi_count": {
+          "ok": true,
+          "count": 10,
+          "required": 5
+        },
+        "d_stories": {
+          "ok": true,
+          "count": 8,
+          "required": 5,
+          "breakdown": {
+            "legacy_stories_kpis": 2,
+            "short_history_kpis": 8,
+            "market_positions": 0
+          }
+        },
+        "e_risks": {
+          "ok": true,
+          "count": 7
+        },
+        "f_repartition": {
+          "ok": true
+        }
+      },
+      "extensions": {
+        "g_governance": {
+          "ok": false,
+          "missing": [
+            "ceo_name",
+            "ceo_total_comp_m",
+            "board_size",
+            "voting_structure"
+          ],
+          "reason": "gov manque: ceo_name,ceo_total_comp_m,board_size,voting_structure"
+        },
+        "h_ai_positioning": {
+          "ok": true,
+          "stance": "cautious",
+          "sector": "Finance",
+          "evidence_count": 3
+        },
+        "i_events": {
+          "ok": true,
+          "count": 4
+        },
+        "j_description": {
+          "ok": true,
+          "len": 1200
+        },
+        "k_ranks": {
+          "ok": true
+        },
+        "l_hero_name_fr": {
+          "ok": true
+        },
+        "m_freshness": {
+          "ok": true,
+          "months_ago": 1,
+          "source": "next_earnings_date-90d"
+        }
+      },
+      "failed_criteria": [],
+      "failed_extensions": [
+        "g_governance"
+      ],
+      "failed_count": 0,
+      "is_clean_af": true,
+      "is_clean_all": false
+    },
+    {
       "ticker": "CBK.DE",
       "source": "src/data/v1-9-complete/CBK.DE.json+src/data/v2-pipeline/CBK.DE.json+src/data/v2-pipeline/cbk.de.json+src/data/v2-pipeline-enrich/CBK.DE.json+src/data/v2-pipeline-enrich/cbk.de.json",
       "market_cap_usd": null,
@@ -17107,6 +17190,94 @@
       "failed_count": 0,
       "is_clean_af": true,
       "is_clean_all": true
+    },
+    {
+      "ticker": "CPAY",
+      "source": "src/data/v1-9-complete/CPAY.json+src/data/v2-pipeline/CPAY.json+src/data/v2-pipeline/cpay.json+src/data/v2-pipeline-enrich/CPAY.json+src/data/v2-pipeline-enrich/cpay.json",
+      "market_cap_usd": null,
+      "criteria": {
+        "a_hero_history": {
+          "ok": false,
+          "len": 15,
+          "period": "quarter",
+          "required": 18,
+          "tolerated": 10,
+          "reason": "history insuffisant (15 < 18)"
+        },
+        "b_interpretation": {
+          "ok": true,
+          "sub_blocks": 4
+        },
+        "c_kpi_count": {
+          "ok": true,
+          "count": 11,
+          "required": 5
+        },
+        "d_stories": {
+          "ok": true,
+          "count": 8,
+          "required": 5,
+          "breakdown": {
+            "legacy_stories_kpis": 1,
+            "short_history_kpis": 8,
+            "market_positions": 0
+          }
+        },
+        "e_risks": {
+          "ok": true,
+          "count": 8
+        },
+        "f_repartition": {
+          "ok": true
+        }
+      },
+      "extensions": {
+        "g_governance": {
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Ronald F. Clarke",
+          "board_size": 12,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "override_source": null,
+          "override_source_file": null,
+          "override_extraction_status": null,
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3, regex_real_sourced=false)",
+          "exception_heuristic_partial": true
+        },
+        "h_ai_positioning": {
+          "ok": true,
+          "stance": "integrator",
+          "sector": "Technologie",
+          "evidence_count": 3
+        },
+        "i_events": {
+          "ok": true,
+          "count": 4
+        },
+        "j_description": {
+          "ok": true,
+          "len": 1200
+        },
+        "k_ranks": {
+          "ok": true
+        },
+        "l_hero_name_fr": {
+          "ok": true
+        },
+        "m_freshness": {
+          "ok": true,
+          "months_ago": 0,
+          "source": "next_earnings_date-90d"
+        }
+      },
+      "failed_criteria": [
+        "a_hero_history"
+      ],
+      "failed_extensions": [],
+      "failed_count": 1,
+      "is_clean_af": false,
+      "is_clean_all": false
     },
     {
       "ticker": "CPB",
@@ -49015,6 +49186,94 @@
       "is_clean_all": true
     },
     {
+      "ticker": "PPL",
+      "source": "src/data/v1-9-complete/PPL.json+src/data/v2-pipeline/PPL.json+src/data/v2-pipeline/ppl.json+src/data/v2-pipeline-enrich/PPL.json+src/data/v2-pipeline-enrich/ppl.json",
+      "market_cap_usd": 26919094272,
+      "criteria": {
+        "a_hero_history": {
+          "ok": false,
+          "len": 13,
+          "period": "quarter",
+          "required": 18,
+          "tolerated": 10,
+          "reason": "history insuffisant (13 < 18)"
+        },
+        "b_interpretation": {
+          "ok": true,
+          "sub_blocks": 4
+        },
+        "c_kpi_count": {
+          "ok": true,
+          "count": 12,
+          "required": 5
+        },
+        "d_stories": {
+          "ok": true,
+          "count": 16,
+          "required": 8,
+          "breakdown": {
+            "legacy_stories_kpis": 12,
+            "short_history_kpis": 4,
+            "market_positions": 0
+          }
+        },
+        "e_risks": {
+          "ok": true,
+          "count": 7
+        },
+        "f_repartition": {
+          "ok": true
+        }
+      },
+      "extensions": {
+        "g_governance": {
+          "ok": true,
+          "has_one_top": true,
+          "ceo_name": "Craig A. Rogerson",
+          "board_size": 10,
+          "top_voting_count": 3,
+          "top_capital_count": 3,
+          "override_source": "yfinance_companyOfficers",
+          "override_source_file": "yfinance_mission151_2026-05-21",
+          "override_extraction_status": "heuristic_real",
+          "reason": "heuristic_partial (CEO + voting_structure_note + board_size affichable, top_voting=3 top_capital=3, regex_real_sourced=false)",
+          "exception_heuristic_partial": true
+        },
+        "h_ai_positioning": {
+          "ok": true,
+          "stance": "integrator",
+          "sector": "Services aux collectivités",
+          "evidence_count": 4
+        },
+        "i_events": {
+          "ok": true,
+          "count": 4
+        },
+        "j_description": {
+          "ok": true,
+          "len": 857
+        },
+        "k_ranks": {
+          "ok": true
+        },
+        "l_hero_name_fr": {
+          "ok": true
+        },
+        "m_freshness": {
+          "ok": true,
+          "months_ago": 0,
+          "source": "publication_date"
+        }
+      },
+      "failed_criteria": [
+        "a_hero_history"
+      ],
+      "failed_extensions": [],
+      "failed_count": 1,
+      "is_clean_af": false,
+      "is_clean_all": false
+    },
+    {
       "ticker": "PROX.BR",
       "source": "src/data/v1-9-complete/PROX.BR.json+src/data/v2-pipeline/PROX.BR.json+src/data/v2-pipeline/prox.br.json+src/data/v2-pipeline-enrich/PROX.BR.json+src/data/v2-pipeline-enrich/prox.br.json",
       "market_cap_usd": null,
@@ -51957,6 +52216,93 @@
       "is_clean_all": true
     },
     {
+      "ticker": "ROP",
+      "source": "src/data/v1-9-complete/ROP.json+src/data/v2-pipeline/ROP.json+src/data/v2-pipeline/rop.json",
+      "market_cap_usd": null,
+      "criteria": {
+        "a_hero_history": {
+          "ok": true,
+          "len": 7,
+          "period": "year",
+          "required": 5
+        },
+        "b_interpretation": {
+          "ok": false,
+          "sub_blocks": 3,
+          "has_driver": true,
+          "has_vigilance": false,
+          "reason": "sous-blocs interp = 3/4 (driver=true, vigilance=false)"
+        },
+        "c_kpi_count": {
+          "ok": true,
+          "count": 8,
+          "required": 5
+        },
+        "d_stories": {
+          "ok": true,
+          "count": 6,
+          "required": 5,
+          "breakdown": {
+            "legacy_stories_kpis": 1,
+            "short_history_kpis": 5,
+            "market_positions": 0
+          }
+        },
+        "e_risks": {
+          "ok": true,
+          "count": 5
+        },
+        "f_repartition": {
+          "ok": true
+        }
+      },
+      "extensions": {
+        "g_governance": {
+          "ok": false,
+          "missing": [
+            "ceo_total_comp_m"
+          ],
+          "reason": "gov manque: ceo_total_comp_m"
+        },
+        "h_ai_positioning": {
+          "ok": true,
+          "stance": "integrator",
+          "sector": "Technologie",
+          "evidence_count": 3
+        },
+        "i_events": {
+          "ok": false,
+          "count": 2,
+          "reason": "events 2 < 4"
+        },
+        "j_description": {
+          "ok": true,
+          "len": 1200
+        },
+        "k_ranks": {
+          "ok": true
+        },
+        "l_hero_name_fr": {
+          "ok": true
+        },
+        "m_freshness": {
+          "ok": false,
+          "reason": "last_data_date absent"
+        }
+      },
+      "failed_criteria": [
+        "b_interpretation"
+      ],
+      "failed_extensions": [
+        "g_governance",
+        "i_events",
+        "m_freshness"
+      ],
+      "failed_count": 1,
+      "is_clean_af": false,
+      "is_clean_all": false
+    },
+    {
       "ticker": "ROST",
       "source": "src/data/v1-9-complete/ROST.json+src/data/v2-pipeline/ROST.json+src/data/v2-pipeline/rost.json+src/data/v2-pipeline-enrich/ROST.json+src/data/v2-pipeline-enrich/rost.json",
       "market_cap_usd": 68981104640,
@@ -53213,6 +53559,99 @@
         "f_repartition"
       ],
       "failed_extensions": [],
+      "failed_count": 1,
+      "is_clean_af": false,
+      "is_clean_all": false
+    },
+    {
+      "ticker": "SATS",
+      "source": "src/data/v1-9-complete/SATS.json+src/data/v2-pipeline/SATS.json+src/data/v2-pipeline/sats.json",
+      "market_cap_usd": null,
+      "criteria": {
+        "a_hero_history": {
+          "ok": true,
+          "exception_short": true,
+          "len": 4,
+          "period": "year",
+          "required": 5,
+          "reason": "tolérance KPI court (4 < 5, flag is_short_history)"
+        },
+        "b_interpretation": {
+          "ok": false,
+          "sub_blocks": 3,
+          "has_driver": true,
+          "has_vigilance": false,
+          "reason": "sous-blocs interp = 3/4 (driver=true, vigilance=false)"
+        },
+        "c_kpi_count": {
+          "ok": true,
+          "count": 9,
+          "required": 5
+        },
+        "d_stories": {
+          "ok": true,
+          "count": 8,
+          "required": 5,
+          "breakdown": {
+            "legacy_stories_kpis": 1,
+            "short_history_kpis": 9,
+            "market_positions": 0
+          }
+        },
+        "e_risks": {
+          "ok": true,
+          "count": 6
+        },
+        "f_repartition": {
+          "ok": true
+        }
+      },
+      "extensions": {
+        "g_governance": {
+          "ok": false,
+          "missing": [
+            "ceo_total_comp_m",
+            "top_capital",
+            "top_voting"
+          ],
+          "reason": "gov manque: ceo_total_comp_m,top_capital,top_voting"
+        },
+        "h_ai_positioning": {
+          "ok": true,
+          "exception_stance_absent": true,
+          "stance": "absent",
+          "sector": "Technologie",
+          "evidence_count": 0,
+          "reason": "stance=absent légitime (sté non concernée par stratégie IA explicite)"
+        },
+        "i_events": {
+          "ok": false,
+          "count": 2,
+          "reason": "events 2 < 4"
+        },
+        "j_description": {
+          "ok": true,
+          "len": 1200
+        },
+        "k_ranks": {
+          "ok": true
+        },
+        "l_hero_name_fr": {
+          "ok": true
+        },
+        "m_freshness": {
+          "ok": true,
+          "months_ago": 3,
+          "source": "next_earnings_date-90d"
+        }
+      },
+      "failed_criteria": [
+        "b_interpretation"
+      ],
+      "failed_extensions": [
+        "g_governance",
+        "i_events"
+      ],
       "failed_count": 1,
       "is_clean_af": false,
       "is_clean_all": false
@@ -62117,15 +62556,8 @@
           }
         },
         "e_risks": {
-          "ok": false,
-          "count": 3,
-          "issues": [
-            "risk[0] score_rationale trop court (60<80)",
-            "risk[1] score_rationale trop court (19<80)",
-            "risk[2] score_rationale trop court (29<80)",
-            "profit_warning absent"
-          ],
-          "reason": "risk[0] score_rationale trop court (60<80); risk[1] score_rationale trop court (19<80); risk[2] score_rationale trop court (29<80); profit_warning absent"
+          "ok": true,
+          "count": 3
         },
         "f_repartition": {
           "ok": true
@@ -62171,14 +62603,12 @@
           "reason": "last_data_date absent"
         }
       },
-      "failed_criteria": [
-        "e_risks"
-      ],
+      "failed_criteria": [],
       "failed_extensions": [
         "m_freshness"
       ],
-      "failed_count": 1,
-      "is_clean_af": false,
+      "failed_count": 0,
+      "is_clean_af": true,
       "is_clean_all": false
     },
     {
