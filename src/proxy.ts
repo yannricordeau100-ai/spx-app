@@ -60,6 +60,7 @@ function isPublicPath(pathname: string): boolean {
   if (pathname === "/sandbox/v1-7-5") return true;
   if (pathname === "/sandbox/v1-8") return true;
   if (pathname === "/sandbox/v1-9") return true; // Yann 19 mai 2026 — V1.9
+  if (pathname === "/sandbox/v1-9-5") return true; // Yann 25 mai 2026 — V1.9.5 hub
   if (pathname === "/sandbox/v1-9-status") return true; // Yann 20 mai 2026 — page suivi public
   // Sous-routes publiques (sandbox utilitaires) : tout ce qui n'est PAS
   // une page société (= /sandbox/v1-8/<ticker> où ticker matche /^[a-z0-9-.]+$/).
@@ -67,7 +68,8 @@ function isPublicPath(pathname: string): boolean {
     pathname.startsWith("/sandbox/v1-7/") ||
     pathname.startsWith("/sandbox/v1-7-5/") ||
     pathname.startsWith("/sandbox/v1-8/") ||
-    pathname.startsWith("/sandbox/v1-9/")
+    pathname.startsWith("/sandbox/v1-9/") ||
+    pathname.startsWith("/sandbox/v1-9-5/")
   ) {
     const tail = pathname.replace(/^\/sandbox\/v1-[789](-5)?\//, "");
     const firstSeg = tail.split("/")[0] ?? "";
