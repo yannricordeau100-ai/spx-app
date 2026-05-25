@@ -61,14 +61,17 @@ export default async function HomePage({
   // depuis Yann le 21 mai 2026 ; V1.9.5 = stés validées qualité audit strict,
   // standard désormais. URLs explicites /sandbox/v1-8 et /sandbox/v1-7-5
   // restent accessibles pour rétrocompatibilité.
-  if (IS_STAGING) {
-    const params = new URLSearchParams();
-    if (sp.auth) params.set("auth", sp.auth);
-    if (sp.next) params.set("next", sp.next);
-    if (sp.error) params.set("error", sp.error);
-    if (sp.info) params.set("info", sp.info);
-    const qs = params.toString();
-    redirect(qs ? `/sandbox/v1-9-5?${qs}` : "/sandbox/v1-9-5");
+  //
+  // Yann (25 mai 2026) : FIX BOUCLE INFINIE de redirections. Si l'URL
+  // contient `?auth=signin` ou `?error=` ou `?info=` (= le proxy nous a
+  // envoyé ici pour afficher la modal auth d'un user non connecté qui
+  // voulait accéder à /sandbox/v1-9-5), NE PAS rediriger vers /sandbox/v1-9-5.
+  // Sinon : proxy gate /sandbox/v1-9-5 → /?auth=signin&next=... → home
+  // re-redirect vers /sandbox/v1-9-5?auth=signin → boucle infinie → ERR_TOO_MANY_REDIRECTS
+  // (= ce que Yann voit comme un "404" dans Safari).
+  // On laisse tomber sur le rendu HomeView + AuthModal ci-dessous.
+  if (IS_STAGING && !wantsAuth && !sp.error && !sp.info) {
+    redirect("/sandbox/v1-9-5");
   }
 
   // Yann 14 mai 2026 : home prod lit aussi les overrides desk_page_content
