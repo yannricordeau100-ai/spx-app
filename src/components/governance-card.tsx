@@ -20,6 +20,7 @@ import { InfoTooltip } from "@/components/info-tooltip";
 import { HolographicPie } from "@/components/holographic-pie";
 import { useT } from "@/lib/i18n/provider";
 import type { Locale } from "@/lib/i18n/types";
+import { BlurredFreeValue } from "@/components/freemium/blurred-free-value";
 
 function fmt(n: number | undefined | null, decimals = 0, locale: Locale = "fr") {
   // Guard ajouté 4 mai 2026 : datasets pipeline (NFLX et autres) peuvent
@@ -72,6 +73,8 @@ function MetricCell({
   tooltip,
   peerRank,
   inverse = false,
+  freeBlocked = false,
+  ticker,
 }: {
   Icon: typeof Briefcase;
   label: string;
@@ -80,6 +83,8 @@ function MetricCell({
   tooltip?: React.ReactNode;
   peerRank?: PeerRank;
   inverse?: boolean;
+  freeBlocked?: boolean;
+  ticker?: string;
 }) {
   return (
     <div className="flex items-start gap-3 rounded-lg border border-[#1a1a1a] bg-[#0a0a0a] p-3.5">
@@ -96,8 +101,12 @@ function MetricCell({
             <InfoTooltip color={color}>{tooltip}</InfoTooltip>
           )}
         </div>
-        <div className="mt-1 font-mono text-xl font-semibold tabular-nums" style={{ color }}>
-          {value}
+        <div className="mt-1 font-mono text-xl font-semibold tabular-nums" style={{ color: freeBlocked ? "#52525b" : color }}>
+          {freeBlocked ? (
+            <BlurredFreeValue value={value} ticker={ticker} />
+          ) : (
+            value
+          )}
         </div>
         {peerRank && (
           <div className="mt-1.5">
@@ -109,7 +118,7 @@ function MetricCell({
   );
 }
 
-function HolderRow({ h, index }: { h: Shareholder; index: number }) {
+function HolderRow({ h, index, freeBlocked = false, ticker }: { h: Shareholder; index: number; freeBlocked?: boolean; ticker?: string }) {
   const { t, locale } = useT();
   const typeMeta: Record<Shareholder["type"], { labelKey: string; color: string }> = {
     institutionnel: { labelKey: "governance.holder.institutionnel", color: "#06b6d4" },
@@ -147,8 +156,14 @@ function HolderRow({ h, index }: { h: Shareholder; index: number }) {
         </div>
       </div>
       <div className="font-mono text-lg font-bold tabular-nums text-zinc-50">
-        {fmt(h.stake_pct, 1, locale)}
-        <span className="ml-0.5 text-xs text-zinc-400"> %</span>
+        {freeBlocked ? (
+          <BlurredFreeValue value="0,0" suffix=" %" ticker={ticker} />
+        ) : (
+          <>
+            {fmt(h.stake_pct, 1, locale)}
+            <span className="ml-0.5 text-xs text-zinc-400"> %</span>
+          </>
+        )}
       </div>
     </div>
   );
@@ -241,10 +256,13 @@ export function GovernanceCard({
   governance,
   ticker,
   company,
+  freeBlocked = false,
 }: {
   governance: Governance;
   ticker: string;
   company?: Company | null;
+  /** Yann (25 mai 2026) : floute valeurs chiffrées governance en mode free. */
+  freeBlocked?: boolean;
 }) {
   const { t, locale } = useT();
   const accent = brand(ticker).primary;
@@ -429,7 +447,7 @@ export function GovernanceCard({
       {/* Metrics grid */}
       <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
         {fullRowMetrics.map((m, i) => (
-          <MetricCell key={i} {...m} />
+          <MetricCell key={i} {...m} freeBlocked={freeBlocked} ticker={ticker} />
         ))}
       </div>
       {lastRowMetrics.length > 0 && (
@@ -440,7 +458,7 @@ export function GovernanceCard({
         >
           {rem === 1 && <div className="hidden lg:block" />}
           {lastRowMetrics.map((m, i) => (
-            <MetricCell key={i} {...m} />
+            <MetricCell key={i} {...m} freeBlocked={freeBlocked} ticker={ticker} />
           ))}
           {rem === 1 && <div className="hidden lg:block" />}
         </div>
@@ -484,7 +502,7 @@ export function GovernanceCard({
               </div>
               <div className="space-y-2">
                 {g.top_voting.map((h, i) => (
-                  <HolderRow key={h.name} h={h} index={i} />
+                  <HolderRow key={h.name} h={h} index={i} freeBlocked={freeBlocked} ticker={ticker} />
                 ))}
               </div>
             </button>
@@ -506,7 +524,7 @@ export function GovernanceCard({
               </div>
               <div className="space-y-2">
                 {g.top_capital.map((h, i) => (
-                  <HolderRow key={h.name} h={h} index={i} />
+                  <HolderRow key={h.name} h={h} index={i} freeBlocked={freeBlocked} ticker={ticker} />
                 ))}
               </div>
             </button>

@@ -71,6 +71,9 @@ import { getFiscalAudit, isFiscalShifted, fiscalLabelsForTicker } from "@/lib/fi
 import { aggregateQuarterlyToAnnual, getKpiAggregationKind } from "@/lib/kpi-aggregation";
 import { buildChartSpec } from "@/lib/chart-template";
 import { verifyAndFix } from "@/lib/chart-spec-verify";
+import { BlurredFreeValue } from "@/components/freemium/blurred-free-value";
+import { BlurredFreeText } from "@/components/freemium/blurred-free-text";
+import type { UserTier } from "@/lib/freemium/context";
 
 const VISIBLE_KPI_COUNT = 6;
 
@@ -151,6 +154,7 @@ export function CompanyView({
   transcript = null,
   transcriptSummary = null,
   v18Mode = false,
+  freemiumTier,
 }: {
   company: Company;
   authSlot?: React.ReactNode;
@@ -163,7 +167,17 @@ export function CompanyView({
   /** V1.8 : affiche les blocs manquants en placeholder rouge au lieu de
    *  les masquer. Permet à Yann de voir ce qu'il manque sur chaque sté. */
   v18Mode?: boolean;
+  /** Yann (25 mai 2026) : tier freemium pour floutage chiffres + textes PV.
+   *  Si "free"/"anon" sur une sté non accessible (≠ GOOGL/META), floute les
+   *  chiffres importants + textes plus-value. Provider FreemiumBlurProvider
+   *  doit être posé côté SSR (page.tsx V1.9 / V1.9.5). */
+  freemiumTier?: UserTier;
 }) {
+  // Yann (25 mai 2026) : helper local — true si on doit flouter pour ce tier
+  // sur cette sté (free + sté non accessible en free).
+  const freeBlocked =
+    (freemiumTier === "free" || freemiumTier === "anon") &&
+    !["GOOGL", "GOOG", "META"].includes(company.ticker.toUpperCase());
   const { t, locale } = useT();
   const accent = brand(company.ticker).primary;
   const glow = brand(company.ticker).glow;
@@ -681,23 +695,35 @@ export function CompanyView({
                   de basculer en dessous si pas la place. min-w-0 sur la
                   colonne parent côté layout HERO. */}
               <div className="mt-5 flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                <div
-                  className="font-display font-semibold leading-none tracking-tight gradient-text"
-                  style={{
-                    fontSize: "clamp(40px, 7vw, 72px)",
-                    wordBreak: "keep-all",
-                  }}
-                  title={heroPercentAnomaly ? "Donnée incohérente détectée (magnitude aberrante)" : undefined}
-                >
-                  <NumberTicker value={heroFormatted.value} />
-                </div>
-                {heroFormatted.unit && (
-                  <div
-                    className="font-medium text-zinc-400"
-                    style={{ fontSize: "clamp(15px, 2vw, 22px)" }}
-                  >
-                    {heroFormatted.unit}
+                {freeBlocked ? (
+                  <div style={{ fontSize: "clamp(40px, 7vw, 72px)" }}>
+                    <BlurredFreeValue
+                      value={heroFormatted.value}
+                      suffix={heroFormatted.unit ? ` ${heroFormatted.unit}` : ""}
+                      ticker={company.ticker}
+                    />
                   </div>
+                ) : (
+                  <>
+                    <div
+                      className="font-display font-semibold leading-none tracking-tight gradient-text"
+                      style={{
+                        fontSize: "clamp(40px, 7vw, 72px)",
+                        wordBreak: "keep-all",
+                      }}
+                      title={heroPercentAnomaly ? "Donnée incohérente détectée (magnitude aberrante)" : undefined}
+                    >
+                      <NumberTicker value={heroFormatted.value} />
+                    </div>
+                    {heroFormatted.unit && (
+                      <div
+                        className="font-medium text-zinc-400"
+                        style={{ fontSize: "clamp(15px, 2vw, 22px)" }}
+                      >
+                        {heroFormatted.unit}
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
 
@@ -707,15 +733,17 @@ export function CompanyView({
                   <div
                     className="inline-flex w-fit items-center gap-1.5 rounded-full border px-3 py-1 text-sm font-medium"
                     style={{
-                      color: yoyColor,
-                      borderColor: `${yoyColor}40`,
-                      background: `${yoyColor}12`,
+                      color: freeBlocked ? "#52525b" : yoyColor,
+                      borderColor: `${freeBlocked ? "#52525b" : yoyColor}40`,
+                      background: `${freeBlocked ? "#52525b" : yoyColor}12`,
                     }}
                   >
-                    {tone === "pos" && <ArrowUpRight className="size-4" />}
-                    {tone === "neg" && <ArrowDownRight className="size-4" />}
+                    {!freeBlocked && tone === "pos" && <ArrowUpRight className="size-4" />}
+                    {!freeBlocked && tone === "neg" && <ArrowDownRight className="size-4" />}
                     <span className="font-mono tabular-nums">
-                      {(() => {
+                      {freeBlocked ? (
+                        <BlurredFreeValue value="+0,0" suffix=" %" ticker={company.ticker} />
+                      ) : (() => {
                         // Yann 16 mai 2026 : normalise yoy en format FR
                         // (virgule décimale + espace insécable avant %).
                         // Fix audit Playwright (48/50 stés concernées).
@@ -739,7 +767,11 @@ export function CompanyView({
                 {!isIncompleteKpi && <QualityChipOnly rating={heroRating} />}
                 {heroCAGR && (
                   <div className="inline-flex w-fit items-center gap-1.5 rounded-full border border-[#262626] bg-[#0d0d0d] px-3 py-1 font-mono text-[12.5px] tabular-nums text-zinc-200">
-                    {heroCAGR}
+                    {freeBlocked ? (
+                      <BlurredFreeValue value="+0,0 %/an" ticker={company.ticker} />
+                    ) : (
+                      heroCAGR
+                    )}
                     <span className="text-[10.5px] italic text-zinc-400">
                       {heroCagrYears >= 4.5
                         ? t("hero.cagr_5y")
@@ -747,8 +779,13 @@ export function CompanyView({
                     </span>
                   </div>
                 )}
-                {!isIncompleteKpi && (
+                {!isIncompleteKpi && !freeBlocked && (
                   <PercentileChipOnly rating={heroRating} scope={company.subsector} />
+                )}
+                {!isIncompleteKpi && freeBlocked && (
+                  <div className="inline-flex w-fit items-center gap-1.5 rounded-full border border-[#262626] bg-[#0d0d0d] px-3 py-1 font-mono text-[12.5px] text-zinc-200">
+                    <BlurredFreeValue value="Top 5 %" ticker={company.ticker} />
+                  </div>
                 )}
                 {isIncompleteKpi && (
                   <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/[0.06] px-3 py-1 text-[11.5px] font-medium text-amber-400">
@@ -766,9 +803,11 @@ export function CompanyView({
               {typeof active.signal === "string" && active.signal.trim() && (
                 <div className="mt-5 flex max-w-md items-start gap-2.5 rounded-xl border border-[#1a1a1a] bg-[#070707] p-3.5">
                   <Sparkles className="mt-0.5 size-4 shrink-0" style={{ color: accent }} />
-                  <div className="text-[14px] font-semibold leading-snug text-zinc-100">
-                    {active.signal}
-                  </div>
+                  <BlurredFreeText blocked={freeBlocked} ticker={company.ticker} className="flex-1">
+                    <div className="text-[14px] font-semibold leading-snug text-zinc-100">
+                      {active.signal}
+                    </div>
+                  </BlurredFreeText>
                 </div>
               )}
             </div>
@@ -907,7 +946,9 @@ export function CompanyView({
           {/* Interpretation INSIDE hero panel */}
           {isBlockEnabled("interpretation", company.ticker) ? (
             <div className="mt-6">
-              <InterpretationBlock block={interp} accent={accent} />
+              <BlurredFreeText blocked={freeBlocked} ticker={company.ticker}>
+                <InterpretationBlock block={interp} accent={accent} />
+              </BlurredFreeText>
             </div>
           ) : (
             <BlockComingSoon blockId="interpretation" />
@@ -963,6 +1004,7 @@ export function CompanyView({
                 subsector={company.subsector}
                 ticker={company.ticker}
                 onClick={() => handleKpiClick(kpi.short)}
+                freeBlocked={freeBlocked}
               />
             ))}
             {hiddenCount > 0 && (
@@ -986,7 +1028,7 @@ export function CompanyView({
         {/* Stories — KPIs short-history + MarketPositions intégrées */}
         {isBlockEnabled("stories", company.ticker) ? (
           hasStories(company.kpis, company.market_positions) && (
-            <KpiStories company={company} />
+            <KpiStories company={company} freeBlocked={freeBlocked} />
           )
         ) : (
           <BlockComingSoon blockId="stories" />
@@ -1043,7 +1085,7 @@ export function CompanyView({
         {isBlockEnabled("risks", company.ticker) ? (
           company.risks && company.risks.length > 0 ? (
             <div id="sec-risks" className="scroll-mt-24">
-              <RiskStack risks={company.risks} accent={accent} profitWarning={company.profit_warning} />
+              <RiskStack risks={company.risks} accent={accent} profitWarning={company.profit_warning} freeBlocked={freeBlocked} ticker={company.ticker} />
             </div>
           ) : (
             v18Mode && <V18MissingPlaceholder id="sec-risks" label="Facteurs de risque" hint="Item 1A 10-K à extraire (Sonnet/Haiku Pass 2)." />
@@ -1073,7 +1115,7 @@ export function CompanyView({
         {isBlockEnabled("governance", company.ticker) ? (
           company.governance ? (
             <div id="sec-governance" className="scroll-mt-24">
-              <GovernanceCard governance={company.governance} ticker={company.ticker} company={company} />
+              <GovernanceCard governance={company.governance} ticker={company.ticker} company={company} freeBlocked={freeBlocked} />
             </div>
           ) : (
             v18Mode && <V18MissingPlaceholder id="sec-governance" label="Gouvernance & rémunération" hint="DEF14A (cat 1) ou rapport annuel à extraire." />
@@ -1096,6 +1138,7 @@ export function CompanyView({
                   positioning={ai}
                   companyName={company.name}
                   ticker={company.ticker}
+                  freeBlocked={freeBlocked}
                 />
               </div>
             );

@@ -22,6 +22,8 @@ import type { CompanyRisk, ProfitWarning, RiskCategory, RiskTrend } from "@/lib/
 import { InfoTooltip } from "@/components/info-tooltip";
 import { useT } from "@/lib/i18n/provider";
 import { normalizeNarrative } from "@/lib/ui-fix-templates";
+import { BlurredFreeValue } from "@/components/freemium/blurred-free-value";
+import { BlurredFreeText } from "@/components/freemium/blurred-free-text";
 
 function formatDate(iso: string, locale: string = "fr"): string {
   try {
@@ -180,7 +182,7 @@ function scoreLabelKey(score: number): string {
           : "risks.score.marginal";
 }
 
-function RiskCard({ risk, index }: { risk: CompanyRisk; index: number }) {
+function RiskCard({ risk, index, freeBlocked = false, ticker }: { risk: CompanyRisk; index: number; freeBlocked?: boolean; ticker?: string }) {
   const { t, locale } = useT();
   const [open, setOpen] = useState(false);
   const displayTitle = locale === "en" && risk.title_en ? risk.title_en : risk.title;
@@ -264,16 +266,25 @@ function RiskCard({ risk, index }: { risk: CompanyRisk; index: number }) {
           </div>
 
           <div className="mt-2.5 flex items-center gap-3">
-            <ScoreBar score={risk.score} color={scoreColor} />
-            <span
-              className="font-mono text-[11px] font-semibold uppercase tracking-wider"
-              style={{ color: scoreColor }}
-            >
-              {t(scoreLabelKey(risk.score))}
-            </span>
-            <span className="font-mono text-[11px] tabular-nums text-zinc-400">
-              {risk.score}/5
-            </span>
+            {freeBlocked ? (
+              <span className="inline-flex items-center gap-2">
+                <BlurredFreeValue value="?" ticker={ticker} />
+                <span className="text-[11px] text-zinc-500">/5</span>
+              </span>
+            ) : (
+              <>
+                <ScoreBar score={risk.score} color={scoreColor} />
+                <span
+                  className="font-mono text-[11px] font-semibold uppercase tracking-wider"
+                  style={{ color: scoreColor }}
+                >
+                  {t(scoreLabelKey(risk.score))}
+                </span>
+                <span className="font-mono text-[11px] tabular-nums text-zinc-400">
+                  {risk.score}/5
+                </span>
+              </>
+            )}
             <span
               onClick={(e) => e.stopPropagation()}
               className="ml-1"
@@ -285,9 +296,9 @@ function RiskCard({ risk, index }: { risk: CompanyRisk; index: number }) {
                 >
                   {t("risks.score_explainer_title")}
                 </div>
-                <p className="text-[12px] leading-relaxed text-zinc-200">
+                <BlurredFreeText blocked={freeBlocked} ticker={ticker} as="p" className="text-[12px] leading-relaxed text-zinc-200">
                   {risk.score_rationale ? normalizeNarrative(risk.score_rationale) : risk.score_rationale}
-                </p>
+                </BlurredFreeText>
                 <div className="mt-3 rounded-md border border-[#1f1f1f] bg-[#0c0c0c] p-2">
                   <div className="font-mono text-[10px] uppercase tracking-wider text-zinc-400">
                     {t("risks.score_scale_title")}
@@ -321,9 +332,9 @@ function RiskCard({ risk, index }: { risk: CompanyRisk; index: number }) {
               <div className="mb-1.5 font-mono text-[10px] uppercase tracking-wider text-zinc-400">
                 {t("risks.management_quote")}
               </div>
-              <p className="border-l-2 border-[#2a2a2a] pl-3 text-[13px] italic leading-relaxed text-zinc-200">
+              <BlurredFreeText blocked={freeBlocked} ticker={ticker} as="p" className="border-l-2 border-[#2a2a2a] pl-3 text-[13px] italic leading-relaxed text-zinc-200">
                 {quoteOpen}{displayQuote}{quoteClose}
-              </p>
+              </BlurredFreeText>
             </div>
           </motion.div>
         )}
@@ -336,10 +347,15 @@ export function RiskStack({
   risks,
   accent = "#a78bfa",
   profitWarning,
+  freeBlocked = false,
+  ticker,
 }: {
   risks: CompanyRisk[];
   accent?: string;
   profitWarning?: ProfitWarning;
+  /** Yann (25 mai 2026) : floute score + rationale + quote en mode free. */
+  freeBlocked?: boolean;
+  ticker?: string;
 }) {
   const { t } = useT();
   if (!risks || risks.length === 0) return null;
@@ -389,7 +405,7 @@ export function RiskStack({
       <div className="grid gap-3">
         {items.map((item, i) =>
           item.kind === "risk" ? (
-            <RiskCard key={item.key} risk={item.data} index={i} />
+            <RiskCard key={item.key} risk={item.data} index={i} freeBlocked={freeBlocked} ticker={ticker} />
           ) : (
             <ProfitWarningCard key={item.key} pw={item.data} />
           )

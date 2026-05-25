@@ -11,6 +11,8 @@ import { StarButton } from "@/components/star-button";
 import { AcronymHover } from "@/components/acronym-hover";
 import { useT } from "@/lib/i18n/provider";
 import { normalizeNarrative, ACRONYM_GLOSSARY, TERM_GLOSSARY } from "@/lib/ui-fix-templates";
+import { BlurredFreeValue } from "@/components/freemium/blurred-free-value";
+import { BlurredFreeText } from "@/components/freemium/blurred-free-text";
 
 const TYPE_COLOR: Record<string, string> = {
   Revenue: "#a78bfa",
@@ -30,12 +32,15 @@ export function KpiRow({
   onClick,
   subsector,
   ticker,
+  freeBlocked = false,
 }: {
   kpi: KPI;
   active?: boolean;
   onClick?: () => void;
   subsector: string;
   ticker: string;
+  /** Yann (25 mai 2026) : floute valeur + YoY + CAGR + tooltip explanation. */
+  freeBlocked?: boolean;
 }) {
   const { t, locale } = useT();
   const primaryName = locale === "en" && kpi.name_en ? kpi.name_en : kpi.name_fr;
@@ -150,7 +155,9 @@ export function KpiRow({
             <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: accent }}>
               {t("kpi.definition")}
             </div>
-            <div className="text-zinc-200">{kpi.explanation}</div>
+            <BlurredFreeText blocked={freeBlocked} ticker={ticker} as="div" className="text-zinc-200">
+              {kpi.explanation}
+            </BlurredFreeText>
           </InfoTooltip>
         </div>
 
@@ -174,9 +181,19 @@ export function KpiRow({
       {/* COL 2 — Valeur · YoY (2 cols) */}
       <div className="col-span-6 sm:col-span-2">
         <div className="font-mono text-[26px] font-semibold tabular-nums leading-none text-zinc-50">
-          {formattedValue}
-          {formattedUnit && (
-            <span className="ml-1 text-sm font-normal text-zinc-400">{formattedUnit}</span>
+          {freeBlocked ? (
+            <BlurredFreeValue
+              value={formattedValue}
+              suffix={formattedUnit ? ` ${formattedUnit}` : ""}
+              ticker={ticker}
+            />
+          ) : (
+            <>
+              {formattedValue}
+              {formattedUnit && (
+                <span className="ml-1 text-sm font-normal text-zinc-400">{formattedUnit}</span>
+              )}
+            </>
           )}
         </div>
         {/* Yann 13 mai 2026 : tolère yoy nombre brut (ex GWW yoy=4.5, DINO yoy=-6
@@ -207,18 +224,26 @@ export function KpiRow({
           return (
             <div
               className="mt-2 inline-flex items-center gap-1 font-mono text-[13px] tabular-nums"
-              style={{ color: yoyColor }}
+              style={{ color: freeBlocked ? "#52525b" : yoyColor }}
             >
-              {tone === "pos" && <ArrowUpRight className="size-3.5" />}
-              {tone === "neg" && <ArrowDownRight className="size-3.5" />}
-              {yoyStr}
+              {!freeBlocked && tone === "pos" && <ArrowUpRight className="size-3.5" />}
+              {!freeBlocked && tone === "neg" && <ArrowDownRight className="size-3.5" />}
+              {freeBlocked ? (
+                <BlurredFreeValue value="+0,0 %" ticker={ticker} />
+              ) : (
+                yoyStr
+              )}
               <span className="text-[10.5px] italic text-zinc-400">{t("hero.yoy")}</span>
             </div>
           );
         })()}
         {cagrLabel && (
           <div className="mt-1 font-mono text-[11.5px] tabular-nums text-zinc-400">
-            {cagrLabel}
+            {freeBlocked ? (
+              <BlurredFreeValue value="+0,0 %/an" ticker={ticker} />
+            ) : (
+              cagrLabel
+            )}
             <span className="ml-1 text-[10px] italic text-zinc-500">{t("hero.cagr_5y")}</span>
           </div>
         )}

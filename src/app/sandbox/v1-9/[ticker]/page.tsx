@@ -9,6 +9,8 @@ import { loadV17Company } from "@/lib/v1-7/load-company";
 import { getServerLocale } from "@/lib/i18n/server";
 import V19_UNIVERSE from "@/data/v1-9-universe.json";
 import V19_PUBLISHABLE from "@/data/v1-9-publishable.json";
+import { FreemiumBlurProvider, type UserTier } from "@/lib/freemium/context";
+import { readSimulateTier } from "@/lib/desk/effective-tier";
 
 // Yann 20 mai 2026 13h30 : critère "publishable" (hero spec + 3 KPI spec + desc)
 // remplace "strict 11/11" pour visibilité. UI masque automatiquement les blocs
@@ -252,13 +254,29 @@ export default async function SandboxV19TickerPage({
   }
   const transcript = await loadTranscript(ticker);
   const transcriptSummary = await loadTranscriptSummary(ticker);
+
+  // Yann (25 mai 2026) : floutage freemium SSR. Tier lu depuis cookie
+  // SIMULATE_COOKIE (admin "view as") + fallback "free" pour démontrer
+  // le floutage par défaut sur les stés non accessibles (toutes sauf
+  // GOOGL/META/GOOG en free).
+  const simulated = await readSimulateTier();
+  const freemiumTier: UserTier =
+    simulated === "anonymous" ? "anon"
+    : simulated === "free" ? "free"
+    : simulated === "premium" ? "premium"
+    : simulated === "max" ? "max"
+    : "free";
+
   return (
-    <CompanyView
-      company={r.company}
-      authSlot={<AuthNav scope="company" />}
-      transcript={transcript}
-      transcriptSummary={transcriptSummary}
-      v18Mode
-    />
+    <FreemiumBlurProvider tier={freemiumTier}>
+      <CompanyView
+        company={r.company}
+        authSlot={<AuthNav scope="company" />}
+        transcript={transcript}
+        transcriptSummary={transcriptSummary}
+        v18Mode
+        freemiumTier={freemiumTier}
+      />
+    </FreemiumBlurProvider>
   );
 }

@@ -7,6 +7,8 @@ import type { TranscriptDoc } from "@/components/transcript-stories";
 import type { TranscriptBulletsSummary } from "@/components/transcript-bullets-block";
 import { loadV17Company } from "@/lib/v1-7/load-company";
 import { getServerLocale } from "@/lib/i18n/server";
+import { FreemiumBlurProvider, type UserTier } from "@/lib/freemium/context";
+import { readSimulateTier } from "@/lib/desk/effective-tier";
 
 type AuditEntry = {
   ticker: string;
@@ -202,13 +204,26 @@ export default async function SandboxV195TickerPage({
 
   const transcript = await loadTranscript(ticker);
   const transcriptSummary = await loadTranscriptSummary(ticker);
+
+  // Yann (25 mai 2026) : floutage freemium SSR — voir v1-9 page pour détail.
+  const simulated = await readSimulateTier();
+  const freemiumTier: UserTier =
+    simulated === "anonymous" ? "anon"
+    : simulated === "free" ? "free"
+    : simulated === "premium" ? "premium"
+    : simulated === "max" ? "max"
+    : "free";
+
   return (
-    <CompanyView
-      company={r.company}
-      authSlot={<AuthNav scope="company" />}
-      transcript={transcript}
-      transcriptSummary={transcriptSummary}
-      v18Mode
-    />
+    <FreemiumBlurProvider tier={freemiumTier}>
+      <CompanyView
+        company={r.company}
+        authSlot={<AuthNav scope="company" />}
+        transcript={transcript}
+        transcriptSummary={transcriptSummary}
+        v18Mode
+        freemiumTier={freemiumTier}
+      />
+    </FreemiumBlurProvider>
   );
 }

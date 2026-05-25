@@ -21,7 +21,7 @@ import { useSwipeStories } from "@/lib/hooks/use-swipe-stories";
  * Position dans la page : sous le bloc "Indicateurs clés", au-dessus de
  * Position marché (qu'on a supprimé sous sa forme actuelle, intégré ici).
  */
-export function KpiStories({ company }: { company: Company }) {
+export function KpiStories({ company, freeBlocked = false }: { company: Company; freeBlocked?: boolean }) {
   const { t } = useT();
   const accent = brand(company.ticker).primary;
 
@@ -167,7 +167,7 @@ export function KpiStories({ company }: { company: Company }) {
                 transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                 className="absolute inset-0"
               >
-                <KpiStoryCard slide={slides[active]} ticker={company.ticker} />
+                <KpiStoryCard slide={slides[active]} ticker={company.ticker} freeBlocked={freeBlocked} />
               </motion.div>
             </AnimatePresence>
           </div>
