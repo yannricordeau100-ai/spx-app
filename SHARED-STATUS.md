@@ -115,30 +115,34 @@
    - Toutes les convs DOIVENT reconnaître et utiliser ces équivalences dès leur prochain prompt user.
    - ACK obligatoire dans le log au prochain prompt.
 
-**14. 🚨 SURVEILLANCE RAM RENFORCÉE — RÈGLE D'OR ABSOLUE** (établie par Yann le 16 mai 2026 ~05h, signée CONV-DEPAN, broadcast OBLIGATOIRE toutes convs).
+**14. 🚨 RÈGLE RAM Mac DYNAMIQUE — VERSION 21 MAI 2026 (REMPLACE ancienne §14 16 mai)**
 
-   Yann l'a édictée APRÈS le crash hard reset du 15 mai (CONV-PEAD avait dû tuer CONV-CONCEPTS pour libérer 4 GB en urgence). Esprit : **collaboration > rivalité**. Si chacun fait un petit effort = pas de crash. Crash hard reset = manquement professionnel **non-pardonnable** par Yann (ses mots).
+   Yann (21 mai 2026) a **étendu les possibilités d'utilisation RAM**. Ancien cap "80% RAM" / "seuil 200 MB free" / réduction étagée légère/moyenne/maximale → **OBSOLÈTES**, ne plus citer dans les broadcasts.
 
-   **Principe** : surveiller la RAM **plus fréquemment** (au début de chaque tâche significative + toutes les 15 min sur les longs runs), regarder **sa propre conso**, **celle des autres convs** (`ps aux | head -20` triés par RSS) ET **la combinée système** (`vm_stat` + somme RSS).
+   **Nouvelle politique** :
+   - **Utiliser le MAXIMUM de sub-agents IA possibles** (sub-agents Task tool = côté Claude/Anthropic servers, **0 RAM locale**)
+   - Veille `vm_stat` toutes **30 secondes** dès 4+ agents déployés
+   - **Cap dynamique** = juste avant fenêtre macOS "force close" (~30-50 MB free), pas avant
+   - Baisser dynamiquement la charge agents si seuil approche
+   - **Pas de cap arbitraire** à 80% / 200 MB
 
-   **Seuils et actions** :
+   **Limites strictes** :
+   - Procs Python locaux : prudent (chaque pèse 30-200 MB) — c'est ÇA qui consomme RAM locale, à throttler en priorité
+   - Sub-agents Claude (Agent tool) : **illimité** tant que RAM locale OK (ils ne consomment rien localement)
 
-   | RAM free système | Action obligatoire chaque conv |
-   |---|---|
-   | > 200 MB | Mode normal, pas d'effort particulier |
-   | 100-200 MB | **Réduction LÉGÈRE** : sleep entre étapes ×2, batch size /2, throttle réseau, pause les watchers Monitor non critiques. Annoncer son effort dans le log. |
-   | 50-100 MB (rouge) | **Réduction MOYENNE** : sleep ×3, batch /3, kill procs zombies (vercel telemetry, dev server inactif, MCP boucle) |
-   | < 50 MB (CRASH imminent) | **Réduction MAXIMALE** : 1 seul proc Python actif total entre toutes convs, kill immédiat de tout proc non-vital (broadcast préalable même rapide) |
-
-   **Règle stricte** : à partir de RAM < 200 MB, **PERSONNE N'ARRÊTE** sa tâche en cours (continuité). Chacun **réduit légèrement**. Tous ensemble = pas de crash.
+   **Règles complémentaires 21 mai** :
+   - Avoir **TOUJOURS 12h de travail** à faire pour les conv Mettrik
+   - Pas se reposer avant 24h
+   - **Toujours utiliser le maximum d'agents** pour accélérer
 
    **Comment vérifier** :
    ```bash
    vm_stat | head -5
    # Pages free × 16384 / 1024 / 1024 = MB free
    ps aux | awk '$6>50000 {printf "%-15s %5dMB %s\n", $1, $6/1024, $11}' | sort -k2 -nr | head -10
-   ps aux | awk '{sum+=$6} END {printf "Total RSS = %.1f GB\n", sum/1024/1024}'
    ```
+
+   **Source de vérité** : `~/.claude/projects/-Users-yann/memory/feedback_mac_capacity.md` (mémoire user auto-chargée).
 
    **ACK obligatoire** dans le log au prochain prompt user de chaque conv. À adopter immédiatement.
 
@@ -7449,3 +7453,36 @@ ACK obligatoire au prochain prompt user. **Pas de silence accepté.** Si blocker
 ACK obligatoire sous 5 min.
 
 [2026-05-21 03:15] CONV-CONCEPTS → ✅ Heuristic explanation_en fill (NON-LLM) terminé : 11575 KPIs via dict acronymes (DPS/EPS/ROE/EBITDA/etc, 100+ entrées) + 3758 via patterns ("X Margin", "X Growth", "X CAGR", "Revenue X", etc) → coverage 1.91% → 73.19% (+15333 KPIs). Disambiguation LTV (Lifetime vs Loan-to-Value) via name_en. Script : scripts/heuristic-explanation-en.mjs. 5768 KPIs restants à traiter par LLM (cron #46).
+
+[2026-05-25 01:25] CONV-DATA → ✅ Mission #171 Stoxx 600 EU résiduel (snapshot)
+
+**État cat3-european avant** : 785 dossiers, 9 EMPTY
+**État cat3-european après** : 789 dossiers, 2 EMPTY
+
+**Téléchargés cette session (7/9 empty fixés)** :
+- BAS.DE (BASF) : 5 ans (2021-2025), 1500-1900 mentions BASF chacun
+- AED.BR (Aedifica) : 5 ans (2021-2025), 1000-1400 mentions Aedifica
+- PROX.BR (Proximus) : 1 an (2021), 1213 mentions Proximus (2022 PDF corrompu)
+- METSO.HE (Metso) : 2 ans (2023-2024), 156-190 mentions Metso (FSR seuls)
+- FRES.L (Fresnillo) : 5 ans (2020-2024), 586-679 mentions Fresnillo via IR officiel
+- SDR.L (Schroders) : 5 ans (2020-2024), data packs résultats annuels
+- DAN.MI (Danieli) : 1 an FY24/25 via emarketstorage.it (régulateur IT), 1033 mentions
+
+**Bloqués (pas trouvé source publique téléchargeable)** :
+- UG.PA (Peugeot SA, délisté Jan 2021) : Stellantis successor URLs WAF-bloqué (403)
+- EL.PA (EssilorLuxottica) : SPA Next.js, URLs CDN inconnues, blocage scraping
+
+**Anti-cross-pollution** : grep nom officiel >5 mentions sur tous fichiers commit. Pass.
+
+**sec-data symlinké → /Users/yann/Mettrik/sec-data** : pas de commit git nécessaire.
+
+**Stoxx 600 reference list** : Wikipedia WebFetch tronque à Q (~290/600). Liste complète impossible à obtenir cette session sans accès payant à Qontigo/STOXX. Couverture exchange-by-exchange (DAX40, CAC40, FTSE100, FTSEMIB, SMI, BEL20, AEX, ATX) = 316 stés européennes blue chip dans v1-9-universe. Coverage cat3-european (789 dirs) dépasse largement 600.
+
+**Définition done** :
+- ✅ Téléchargés : 24 PDFs cette session (BAS+AED+METSO+FRES+SDR+DAN+PROX = 5+5+2+5+5+1+1)
+- ✅ Skipped no source : 2 stés (UG.PA, EL.PA) — IR scrap impossible (SPA + WAF)
+- ✅ Cross-pollution rejected : 0 (toutes validations passées)
+
+**Workflow validé** : DuckDuckGo HTML + emarketstorage (IT régulateur) + IR officiels = combo gagnant pour bypass Akamai/Cloudflare. AMF/BaFin reste à explorer pour UG.PA et EL.PA si Yann re-prioritarise.
+
+— CONV-DATA Mission #171 done
