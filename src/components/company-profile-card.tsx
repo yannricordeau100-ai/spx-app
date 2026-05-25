@@ -39,16 +39,33 @@ import { useT } from "@/lib/i18n/provider";
  * Source de chaque champ documentée dans des tooltips discrets pour
  * l'utilisateur qui veut savoir "d'où ça vient".
  */
-export function CompanyProfileCard({ company, accent = "#a78bfa" }: { company: Company; accent?: string }) {
+export function CompanyProfileCard({
+  company,
+  accent = "#a78bfa",
+  hideDescription = false,
+  hideSnapshot = false,
+}: {
+  company: Company;
+  accent?: string;
+  /** Yann 26 mai 2026 : masque le bloc description Mettrik (toggle blocks-toggle). */
+  hideDescription?: boolean;
+  /** Yann 26 mai 2026 : masque la carte snapshot boursier (toggle blocks-toggle).
+   *  Quand true, la description prend automatiquement toute la largeur. */
+  hideSnapshot?: boolean;
+}) {
   const { locale, t } = useT();
   const lang = (locale === "de" ? "de" : locale === "fr" ? "fr" : "en") as "fr" | "en" | "de";
   // Yann 14 mai 2026 : nouvelle description Gemini "PV" en 2 versions
   // (simple + avancée), prioritaire sur l'ancienne `company_description`
   // yfinance qui était générique.
-  const mDesc = company.mettrik_description;
-  const legacyDesc = company.company_description;
-  const snap = company.financial_snapshot;
+  const mDesc = hideDescription ? undefined : company.mettrik_description;
+  const legacyDesc = hideDescription ? undefined : company.company_description;
+  const snap = hideSnapshot ? undefined : company.financial_snapshot;
   const news = company.latest_news;
+  // Si la carte snapshot est masquée OU absente, la description doit prendre
+  // toute la largeur du conteneur (sinon elle reste collée à gauche et le
+  // tiers droit reste blanc).
+  const descTakesFullWidth = !snap;
 
   const [descMode, setDescMode] = useState<"simple" | "advanced">("simple");
 
@@ -85,9 +102,15 @@ export function CompanyProfileCard({ company, accent = "#a78bfa" }: { company: C
       {/* Layout principal : Description Mettrik (2/3) + Snapshot boursier (1/3).
           Yann 14 mai 2026 v2 : structure sections (~150 mots), look pro. */}
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-        {/* Description Mettrik : 2/3 width, sections nommées avec icônes */}
+        {/* Description Mettrik : 2/3 width par défaut, full-width (3/3) si
+            snapshot masqué (Yann 26 mai 2026). */}
         {mDesc && (
-          <div className="rounded-2xl border border-white/[0.06] bg-gradient-to-br from-white/[0.025] to-transparent p-5 lg:col-span-2">
+          <div
+            className={
+              "rounded-2xl border border-white/[0.06] bg-gradient-to-br from-white/[0.025] to-transparent p-5 " +
+              (descTakesFullWidth ? "lg:col-span-3" : "lg:col-span-2")
+            }
+          >
             <div className="mb-4 flex items-center justify-between gap-3">
               <h3 className="flex items-center gap-2 font-display text-[14px] font-semibold uppercase tracking-wider text-zinc-200">
                 <Sparkles className="size-3.5" style={{ color: accent }} />

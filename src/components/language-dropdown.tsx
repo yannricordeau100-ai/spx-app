@@ -12,6 +12,7 @@ import {
   type LocaleFamily,
 } from "@/lib/i18n/types";
 import { useT } from "@/lib/i18n/provider";
+import { getDisabledLocaleSet } from "@/lib/disabled-locales";
 
 /**
  * LanguageDropdown : drapeau + nom de la langue active, click ouvre la
@@ -60,6 +61,9 @@ export function LanguageDropdown({
 
   const activeMeta = LOCALE_META[locale];
   const availableSet = availableLocales ? new Set(availableLocales) : null;
+  // Yann 26 mai 2026 : locales masquées via /sandbox/v1-8/languages-toggle.
+  // Les dictionnaires i18n restent intacts ; seule l'option disparaît du picker.
+  const disabledLocales = getDisabledLocaleSet();
 
   return (
     <div ref={ref} className="relative">
@@ -90,8 +94,13 @@ export function LanguageDropdown({
             />
             <ul role="listbox" className="py-1.5">
               {LOCALE_FAMILIES_ORDER.map((family, familyIdx) => {
-                const locales = LOCALES_BY_FAMILY[family];
-                if (!locales || locales.length === 0) return null;
+                const raw = LOCALES_BY_FAMILY[family];
+                if (!raw || raw.length === 0) return null;
+                // Filtre les locales explicitement désactivées (ex NL).
+                // L'active reste toujours visible même si désactivée
+                // (sécurité : éviter un dropdown vide ou un état illisible).
+                const locales = raw.filter((loc) => loc === locale || !disabledLocales.has(loc));
+                if (locales.length === 0) return null;
                 return (
                   <FamilyGroup
                     key={family}

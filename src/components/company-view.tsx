@@ -64,6 +64,7 @@ import { TranscriptBulletsBlock, type TranscriptBulletsSummary } from "@/compone
 import { V18MissingPlaceholder } from "@/components/v18-missing-placeholder";
 import { BlockComingSoon } from "@/components/block-coming-soon";
 import { isBlockEnabled } from "@/lib/v1-9-blocks-control";
+import { isBlockDisabledForTicker } from "@/lib/disabled-blocks";
 import { YoungIpoWarning } from "@/components/young-ipo-warning";
 import { BrandWordmark } from "@/components/brand-wordmark";
 import { CompanyProfileCard } from "@/components/company-profile-card";
@@ -537,8 +538,16 @@ export function CompanyView({
           </div>
         </nav>
 
-        {/* Rich company header */}
-        <CompanyHeader company={company} hidePriceBar={hidePriceBar} freeBlocked={freeBlocked} />
+        {/* Rich company header.
+            Yann 26 mai 2026 : snapshot_boursier (= StockPriceBlock dans le
+            header) désactivable via /sandbox/v1-8/blocks-toggle. Quand
+            désactivé, la description Mettrik passe full-width côté
+            CompanyProfileCard (cf prop hideSnapshot ci-dessous). */}
+        <CompanyHeader
+          company={company}
+          hidePriceBar={hidePriceBar || isBlockDisabledForTicker(company.ticker, "snapshot_boursier")}
+          freeBlocked={freeBlocked}
+        />
 
         {/* HERO SECTION — plain section (no motion opacity:0 -> mobile bug) */}
         <section
@@ -929,7 +938,7 @@ export function CompanyView({
                 unit={displayUnit}
                 color={accent}
                 anomalies={anomalies}
-                events={(company.events && company.events.length > 0) ? company.events : getCompanyEvents(company.ticker)}
+                events={isBlockDisabledForTicker(company.ticker, "events") ? [] : ((company.events && company.events.length > 0) ? company.events : getCompanyEvents(company.ticker))}
                 company={company}
                 activeShort={active.short}
                 onPickKpi={handleKpiClick}
@@ -1026,7 +1035,7 @@ export function CompanyView({
         </section>
 
         {/* Stories — KPIs short-history + MarketPositions intégrées */}
-        {isBlockEnabled("stories", company.ticker) ? (
+        {isBlockEnabled("stories", company.ticker) && !isBlockDisabledForTicker(company.ticker, "kpi_stories") ? (
           hasStories(company.kpis, company.market_positions) && (
             <KpiStories company={company} freeBlocked={freeBlocked} />
           )
@@ -1037,7 +1046,7 @@ export function CompanyView({
         {/* Graphiques et Schémas de sources diverses (Yann 15 mai 2026 v2).
             Placé SOUS les Stories. Images approuvées dans
             /sandbox/image-findings mergées au SSR dans company.image_findings. */}
-        {isBlockEnabled("image_findings", company.ticker) ? (
+        {isBlockEnabled("image_findings", company.ticker) && !isBlockDisabledForTicker(company.ticker, "graphiques_schemas") ? (
           Array.isArray((company as Company & { image_findings?: unknown[] }).image_findings) &&
           ((company as Company & { image_findings?: unknown[] }).image_findings as unknown[]).length > 0 ? (
             <ImageFindingsBlock
@@ -1061,7 +1070,7 @@ export function CompanyView({
             dispo. Si pas de bullets et pas de transcript brut : RIEN ne
             s'affiche (Yann 12 mai 2026 : ex AAPL, ne pas afficher de bloc
             vide pour les stés sans transcript accessible). */}
-        {isBlockEnabled("transcripts", company.ticker) ? (
+        {isBlockEnabled("transcripts", company.ticker) && !isBlockDisabledForTicker(company.ticker, "transcript_bullets") ? (
           transcriptSummary && transcriptSummary.summary?.bullets?.length ? (
             <TranscriptBulletsBlock ticker={company.ticker} summary={transcriptSummary} />
           ) : transcript && (
@@ -1078,11 +1087,20 @@ export function CompanyView({
         {/* Bloc Graphiques et Schémas remonté SOUS les Stories (15 mai v2). */}
 
         {/* Profil société & marché — description longue + snapshot
-            boursier + faits clés + sés comparables. (7 mai 2026) */}
-        <CompanyProfileCard company={company} accent={accent} />
+            boursier + faits clés + sés comparables. (7 mai 2026).
+            Yann 26 mai 2026 : description_mettrik + snapshot (carte
+            "Snapshot boursier" dans le bloc) désactivables séparément
+            via /sandbox/v1-8/blocks-toggle. Si snapshot off → description
+            full-width automatique. */}
+        <CompanyProfileCard
+          company={company}
+          accent={accent}
+          hideDescription={isBlockDisabledForTicker(company.ticker, "description_mettrik")}
+          hideSnapshot={isBlockDisabledForTicker(company.ticker, "snapshot_boursier")}
+        />
 
         {/* Risk factors */}
-        {isBlockEnabled("risks", company.ticker) ? (
+        {isBlockEnabled("risks", company.ticker) && !isBlockDisabledForTicker(company.ticker, "risks") ? (
           company.risks && company.risks.length > 0 ? (
             <div id="sec-risks" className="scroll-mt-24">
               <RiskStack risks={company.risks} accent={accent} profitWarning={company.profit_warning} freeBlocked={freeBlocked} ticker={company.ticker} />
@@ -1112,7 +1130,7 @@ export function CompanyView({
         )}
 
         {/* Governance */}
-        {isBlockEnabled("governance", company.ticker) ? (
+        {isBlockEnabled("governance", company.ticker) && !isBlockDisabledForTicker(company.ticker, "gouvernance") ? (
           company.governance ? (
             <div id="sec-governance" className="scroll-mt-24">
               <GovernanceCard governance={company.governance} ticker={company.ticker} company={company} freeBlocked={freeBlocked} />
@@ -1126,7 +1144,7 @@ export function CompanyView({
 
         {/* AI positioning — Yann 20 mai 2026 : masquer si stance=absent (= 10-K ne mentionne pas IA).
             Pas de bloc vide ou "Absent". Soit la sté a du AI réel à montrer, soit on masque. */}
-        {isBlockEnabled("ai_positioning", company.ticker) ? (
+        {isBlockEnabled("ai_positioning", company.ticker) && !isBlockDisabledForTicker(company.ticker, "ai_positioning") ? (
           (() => {
             const ai = company.ai_positioning;
             if (!ai) return v18Mode ? <V18MissingPlaceholder id="sec-ai" label="Positionnement IA" hint="Mentions IA dans 10-K à parser via Cerebras Llama 3.3 70B." /> : null;
@@ -1158,7 +1176,14 @@ export function CompanyView({
           accent={accent}
         />
 
-        <footer className="mt-16 pb-8 text-center font-mono text-[11px] uppercase tracking-wider text-zinc-500">
+        {/* Provenance — Yann 26 mai 2026 : déplacée du haut (sous le header)
+            vers le bas de page. Ligne discrète, italique, max-w-3xl, juste
+            avant le footer. */}
+        <p className="mt-12 max-w-3xl text-[11.5px] italic leading-relaxed text-zinc-500">
+          {t("company.provenance")}
+        </p>
+
+        <footer className="mt-6 pb-8 text-center font-mono text-[11px] uppercase tracking-wider text-zinc-500">
           Mettrik AI · KPI Intelligence
         </footer>
       </main>

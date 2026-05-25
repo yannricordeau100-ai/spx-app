@@ -31,6 +31,7 @@ import {
 import { CONCEPT_COMPANIES } from "@/lib/concepts-data";
 import { CompanyLogo } from "@/components/logos";
 import { brand } from "@/lib/brand";
+import { SandboxSearch } from "@/components/sandbox/sandbox-search";
 
 export const metadata = {
   title: "Sandbox · Mettrik",
@@ -375,10 +376,15 @@ export default function SandboxPage() {
             isolé de l&apos;app prod
           </span>
         </div>
-        <p className="mb-8 max-w-2xl text-[14px] text-zinc-400">
+        <p className="mb-6 max-w-2xl text-[14px] text-zinc-400">
           Environnement de prototypage. Tout ce qui est dev ici (paiement, paywall, nouveaux modules)
           ne touche pas la vraie app tant que le code n&apos;est pas explicitement promu.
         </p>
+
+        {/* Recherche intelligente : fuse.js, top 5 résultats, cmd+K */}
+        <div className="mb-10">
+          <SandboxSearch />
+        </div>
 
         {/* ═══════ DATASETS V1 + V2 ═══════ */}
         <section className="mb-10">

@@ -277,10 +277,8 @@ export function CompanyHeader({
         <StatChip label={t("company.founded")} value={company.founded != null ? String(company.founded) : null} />
         <StatChip label={t("company.ipo")} value={company.ipo != null ? String(company.ipo) : null} />
       </div>
-
-      <p className="mt-3 max-w-3xl text-[11.5px] italic leading-relaxed text-zinc-500">
-        {t("company.provenance")}
-      </p>
+      {/* Yann 26 mai 2026 : provenance déplacée TOUT EN BAS de la page société
+          (voir CompanyView footer). Plus de mention "i" en haut près du nom. */}
     </div>
   );
 }
