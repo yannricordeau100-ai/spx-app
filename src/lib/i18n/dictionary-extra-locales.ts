@@ -33,9 +33,10 @@ export const EXTRA_LOCALES: Record<string, Partial<Record<LocaleKey, string>>> =
   "brand.tagline_main_2": {
     de: "die Geschichte erzählen.",
     nl: "het verhaal vertellen." },
+  // Yann (25 mai 2026) : tagline_sub retirée de l'UI. Vide pour back-compat.
   "brand.tagline_sub": {
-    de: "3 Klicks zu den wichtigsten KPIs und exklusiven Super KPIs der größten US- und europäischen Unternehmen.",
-    nl: "3 klikken naar de belangrijkste KPI's en exclusieve Super KPI's van de grootste Amerikaanse en Europese bedrijven." },
+    de: "",
+    nl: "" },
   "brand.data_updated": {
     de: "Daten aktualisiert am",
     nl: "Gegevens bijgewerkt op" },
@@ -673,9 +674,11 @@ export const EXTRA_LOCALES: Record<string, Partial<Record<LocaleKey, string>>> =
   "lang.switch_label": { de: "Sprache wechseln", nl: "Taal wijzigen" },
 
   // ─── Ajouts CONV-CONCEPTS 9 mai 2026 : 90 clés DE/NL/SV/DA manquantes ───
+  // Yann (25 mai 2026) : nouvelle bio FR canonique. EN/DE/NL à traduire si
+  // besoin SEO multi-locale (placeholder vide pour l'instant).
   "brand.kpi_intelligence_under": {
-    de: "Die weltweit leistungsstärkste KPI-App für börsennotierte Unternehmen, ganz einfach.",
-    nl: "De krachtigste KPI-app voor beursgenoteerde bedrijven ter wereld, simpelweg." },
+    de: "",
+    nl: "" },
   "company.ipo_mid.label": {
     de: "IPO {year}: 10-Jahres-Historie unvollständig",
     nl: "IPO {year}: 10-jarige historie onvolledig" },

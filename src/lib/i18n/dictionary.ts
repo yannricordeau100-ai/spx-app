@@ -39,12 +39,17 @@ export const DICTIONARY: Dict = {
     fr: "racontent l'histoire.",
     en: "tell the story.",
   },
+  // Yann (25 mai 2026) : tagline_sub retirée de l'UI (home-view) car la bio
+  // est centralisée côté SEO (layout.tsx metadata). Clés conservées vides
+  // pour back-compat avec tout caller éventuel.
   "brand.tagline_sub": {
-    fr: "À seulement 1 clic découvrir les KPI clés et Super KPI exclusifs des plus grandes sociétés américaines et européennes…",
-    en: "3 clicks to the key KPIs and exclusive Super KPIs of the largest US and European companies.",
+    fr: "",
+    en: "",
   },
+  // Yann (25 mai 2026) : nouvelle bio Mettrik AI, source de vérité pour le
+  // SEO (layout.tsx metadata + OG + Twitter).
   "brand.kpi_intelligence_under": {
-    fr: "L'application de KPI de sociétés la plus puissante au monde, tout simplement.",
+    fr: "KPI Intelligence pour investisseurs boursiers fournisseur d'indicateurs clés et risques tracés",
     en: "",
   },
   // Format strict (Yann 10 mai 2026, refacto Opus) : "part1 | part2".

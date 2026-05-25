@@ -76,7 +76,7 @@ export const metadata: Metadata = {
     template: "%s · Mettrik AI",
   },
   description:
-    "Les KPI indispensables et Super KPI privées des plus grandes sociétés américaines et européennes.",
+    "KPI Intelligence pour investisseurs boursiers fournisseur d'indicateurs clés et risques tracés",
   applicationName: "Mettrik AI",
   authors: [{ name: "Mettrik AI" }],
   creator: "Mettrik AI",
@@ -86,14 +86,14 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "Mettrik AI",
     title: "Mettrik AI · KPI Intelligence",
-    description: "KPI Intelligence pour investisseurs : indicateurs scorés, risques tracés, gouvernance, IA.",
+    description: "KPI Intelligence pour investisseurs boursiers fournisseur d'indicateurs clés et risques tracés",
     url: SITE_URL,
     locale: "fr_FR",
   },
   twitter: {
     card: "summary_large_image",
     title: "Mettrik AI · KPI Intelligence",
-    description: "KPI Intelligence pour investisseurs : indicateurs scorés, risques tracés, gouvernance, IA.",
+    description: "KPI Intelligence pour investisseurs boursiers fournisseur d'indicateurs clés et risques tracés",
   },
   robots: {
     index: true,

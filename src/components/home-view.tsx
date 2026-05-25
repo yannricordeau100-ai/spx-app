@@ -184,29 +184,10 @@ function BrandWordmark({ kpiUnderText }: { kpiUnderText?: string }) {
         }}
       />
 
-      {/* Sous-titre KPI INTELLIGENCE en mono uppercase, tracking very wide,
-          fade-in après le tracé du rail */}
-      <motion.div
-        initial={{ opacity: 0, y: 6 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.05, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="mt-3 font-mono text-[11px] font-semibold uppercase text-zinc-300 sm:text-[13px]"
-        style={{ letterSpacing: "0.42em" }}
-      >
-        KPI Intelligence
-      </motion.div>
-
-      {/* Ligne sous-KPI INTELLIGENCE (catchphrase produit, FR uniquement) */}
-      {kpiUnderText && (
-        <motion.div
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.25, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-2 max-w-xl text-balance text-center text-[12px] italic text-zinc-400 sm:text-[13.5px]"
-        >
-          {kpiUnderText}
-        </motion.div>
-      )}
+      {/* Yann (25 mai 2026) : retire le sous-titre "KPI Intelligence" hardcoded
+          + la catchphrase produit kpiUnderText. La nouvelle bio est désormais
+          centralisée côté SEO (layout.tsx metadata) et n'est plus dupliquée
+          visuellement sous le wordmark. */}
     </div>
   );
 }
@@ -597,9 +578,7 @@ export function HomeView({
           </nav>
         )}
 
-        <BrandWordmark
-          kpiUnderText={locale === "fr" ? tt("brand.kpi_intelligence_under", "kpi_intelligence_under") : undefined}
-        />
+        <BrandWordmark />
 
         {/* Headline réduite + nouvelle punchline */}
         <div className="text-center animate-fade-up">
@@ -607,9 +586,9 @@ export function HomeView({
             <span className="gradient-text">{tt("brand.tagline_main_1", "tagline_main_1")}</span>{" "}
             <span className="gradient-text-violet">{tt("brand.tagline_main_2", "tagline_main_2")}</span>
           </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-balance text-[13.5px] leading-relaxed text-zinc-400 sm:text-[15px]">
-            {tt("brand.tagline_sub", "tagline_sub")}
-          </p>
+          {/* Yann (25 mai 2026) : retire la phrase "À seulement 1 clic
+              découvrir les KPI clés..." (= brand.tagline_sub). La bio est
+              désormais dans les metadata SEO uniquement. */}
           {locale === "fr" && (
             <RotatingPunchline
               items={[

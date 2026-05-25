@@ -57,9 +57,9 @@ export function MaintenanceClient({
             italic, gradient holographique, pulse-dot intégré au i, rail
             iridescent. Yann le 7 mai 2026. */}
         <div className="mb-10">
-          {/* Wordmark identique à /sandbox/v1-7 (BrandWordmark home) avec
-              sous-titre "KPI Intelligence" + rail iridescent. Yann 8 mai 2026. */}
-          <BrandWordmark size="lg" showSubtitle showRail />
+          {/* Yann (25 mai 2026) : sous-titre "KPI Intelligence" retiré (showSubtitle=false).
+              Rail iridescent conservé. */}
+          <BrandWordmark size="lg" showRail />
         </div>
 
         {/* Headline */}
