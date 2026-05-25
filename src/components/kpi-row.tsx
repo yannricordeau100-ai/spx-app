@@ -257,10 +257,13 @@ export function KpiRow({
       {/* COL 4 — Qualité (stacked) + Signal */}
       <div className="col-span-12 sm:col-span-4">
         {isIncompleteKpi ? (
-          <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/[0.06] px-2.5 py-0.5 text-[10.5px] font-medium text-amber-400">
-            <span className="size-1.5 rounded-full bg-amber-400" />
-            {t("kpi.partial_data")}
-          </span>
+          // Yann (26 mai 2026) : retire le badge alarmant "Données partielles"
+          // qui apparaissait sur 5-10 KPIs par sté ayant une valeur claire mais
+          // pas encore d'historique/yoy/signal extraits (ex GOOGL Cloud Backlog
+          // 460 Mds $, Google Search Revenue 60,4 Mds $, YouTube Ads 9,88 Mds $).
+          // La présence de la valeur seule = info utile, pas une "data partielle".
+          // On laisse juste un fragment vide → QUALITÉ column blank, propre.
+          null
         ) : (
           <QualityBadge rating={r} size="sm" scope={subsector} layout="stack" />
         )}

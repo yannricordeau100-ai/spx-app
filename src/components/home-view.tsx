@@ -810,7 +810,7 @@ function renderCompanyCard(
                           {heroDisplay.value}
                         </span>
                         {heroDisplay.unit && (
-                          <span className="whitespace-nowrap text-xs text-zinc-400">
+                          <span className="whitespace-nowrap text-sm font-medium text-zinc-300">
                             {heroDisplay.unit.replace(/ /g, " ")}
                           </span>
                         )}
