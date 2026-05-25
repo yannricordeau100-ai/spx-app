@@ -26,6 +26,7 @@ import {
   HelpCircle,
   ScrollText,
   ListChecks,
+  Lock,
 } from "lucide-react";
 import { CONCEPT_COMPANIES } from "@/lib/concepts-data";
 import { CompanyLogo } from "@/components/logos";
@@ -129,18 +130,11 @@ const SECTIONS: SandboxSection[] = [
         desc: "Qui fait quoi, Pass 3 par catégorie, audit transverse cat 1 / 2 / 3.",
       },
       {
-        href: "/sandbox/kpi-builder",
-        icon: Wrench,
-        label: "KPI builder (sur mesure)",
-        desc: "Ajout d'un KPI sur mesure : description NL, suggestion tickers, déclenchement extraction.",
-      },
-      {
-        href: "/sandbox/special-kpis",
-        icon: Sparkles,
-        label: "KPIs spéciaux (recherche manuelle)",
-        desc: "KPIs qui nécessitent recherche manuelle (iPhone units, abonnés Netflix). Demande, extraction, preview, push live.",
-      },
-      {
+        // Yann (25 mai 2026) : kpi-builder + special-kpis + image-findings
+        // + page-content + blocks-control DÉPLACÉS vers la section
+        // "🎨 Création & personnalisation" pour les rassembler. Lien
+        // restant ici uniquement pour quality-tree (audit data, pas
+        // création contenu).
         href: "/sandbox/quality-tree",
         icon: TreePine,
         label: "Quality tree (registry)",
@@ -181,14 +175,8 @@ const SECTIONS: SandboxSection[] = [
   {
     id: "ui",
     title: "🎨 UI & visuels",
-    description: "Visuels, graphiques externes, expérimentations branding.",
+    description: "Visuels, expérimentations branding.",
     items: [
-      {
-        href: "/sandbox/image-findings",
-        icon: ImageIcon,
-        label: "Graphiques et schémas (sources diverses)",
-        desc: "Recherche manuelle de graphiques et schémas via Claude conv MAX 20×. Approbation Yann, carrousel sous le hero des pages sté.",
-      },
       {
         href: "/sandbox/logo-lab",
         icon: Palette,
@@ -201,6 +189,59 @@ const SECTIONS: SandboxSection[] = [
         icon: ImagePlus,
         label: "V2 (50 stés DRAFT seed)",
         desc: "Prototype visuel V1.5 cat 2 (FPI étrangères), 50 stés seed pour tests.",
+      },
+    ],
+  },
+  {
+    // Yann (25 mai 2026) : nouvelle section rassemblant tous les outils
+    // d'ajout/édition/personnalisation du contenu affiché sur les pages
+    // sté + home. Avant : éclaté entre data-quality, ui, billing-admin.
+    id: "personnalisation",
+    title: "🎨 Création & personnalisation",
+    description:
+      "Tout ce qui te permet d'ajouter, éditer ou contrôler le contenu affiché : KPIs sur mesure, graphiques externes, textes home, activation des blocs.",
+    items: [
+      {
+        href: "/sandbox/kpi-builder",
+        icon: Wrench,
+        label: "KPI builder (sur mesure)",
+        desc: "Ajout d'un KPI sur mesure : description NL, suggestion tickers, déclenchement extraction.",
+        accent: "default" as const,
+      },
+      {
+        href: "/sandbox/special-kpis",
+        icon: Sparkles,
+        label: "KPIs spéciaux (recherche manuelle)",
+        desc: "KPIs qui nécessitent recherche manuelle (iPhone units, abonnés Netflix). Demande, extraction, preview, push live.",
+        accent: "default" as const,
+      },
+      {
+        href: "/sandbox/image-findings",
+        icon: ImageIcon,
+        label: "Graphiques et schémas (sources diverses)",
+        desc: "Recherche manuelle de graphiques et schémas via Claude conv MAX 20×. Approbation Yann, carrousel sous le hero des pages sté.",
+        accent: "default" as const,
+      },
+      {
+        href: "/desk-mtk9x4kp/page-content?page=home",
+        icon: FileEdit,
+        label: "Édition textes home",
+        desc: "Modifier tagline, sous-titre, KPI Intelligence et 4 punchlines rotatives de la page d'accueil.",
+        accent: "default" as const,
+      },
+      {
+        href: "/desk-mtk9x4kp/blocks-control",
+        icon: ListChecks,
+        label: "Blocks Control · ON/OFF par bloc",
+        desc: "Panneau de contrôle complet : activer/désactiver chaque bloc (hero, stories, dividende, gouvernance, etc.) en GLOBAL toutes stés OU MANUELLEMENT par sté. Placeholder gracieux à la place du bloc OFF.",
+        accent: "default" as const,
+      },
+      {
+        href: "/sandbox/freemium-demo",
+        icon: Lock,
+        label: "Demo floutage Free tier",
+        desc: "Démo composant <BlurredFreeValue> : floute chiffres clés inviolablement pour utilisateurs Free. Toggle 3-tier free/premium/max. AAPL (verrouillée) vs GOOGL (accessible). Click chiffre floutté → /pricing.",
+        accent: "default" as const,
       },
     ],
   },
@@ -243,20 +284,8 @@ const SECTIONS: SandboxSection[] = [
         accent: "blue",
       },
       {
-        href: "/desk-mtk9x4kp/page-content?page=home",
-        icon: FileEdit,
-        label: "Édition textes home",
-        desc: "Modifier tagline, sous-titre, KPI Intelligence et 4 punchlines rotatives de la page d'accueil V1.8.",
-        accent: "blue",
-      },
-      {
-        href: "/desk-mtk9x4kp/blocks-control",
-        icon: ListChecks,
-        label: "Blocks Control (V1.9.5)",
-        desc: "Activer / désactiver chaque bloc (hero, stories, dividende, etc.) en global ou par sté. Placeholder gracieux affiché à la place du bloc désactivé.",
-        accent: "blue",
-      },
-      {
+        // Yann (25 mai 2026) : page-content + blocks-control DÉPLACÉS vers
+        // la section "🎨 Création & personnalisation".
         href: "/desk-mtk9x4kp/ir-sources",
         icon: Download,
         label: "Sources IR (téléchargement docs)",
