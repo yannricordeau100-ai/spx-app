@@ -11,6 +11,8 @@ import { ACRONYM_GLOSSARY, TERM_GLOSSARY } from "@/lib/ui-fix-templates";
 import { normalizeNarrative } from "@/lib/ui-fix-templates";
 import { useT } from "@/lib/i18n/provider";
 import { isFiscalShifted } from "@/lib/fiscal-calendar";
+import { BlurredFreeValue } from "@/components/freemium/blurred-free-value";
+import { BlurredFreeText } from "@/components/freemium/blurred-free-text";
 
 /**
  * Yann 20 mai 2026 : période sous chaque KPI Story.
@@ -51,18 +53,18 @@ function formatStoryPeriod(kpi: KPI, ticker: string, locale: string): string | n
  *  - Sources externes longues (>4 mots) sont déplacées dans un tooltip
  *    "i" pour ne pas polluer l'écran story.
  */
-export function KpiStoryCard({ slide, ticker }: { slide: StorySlide; ticker: string }) {
+export function KpiStoryCard({ slide, ticker, freeBlocked = false }: { slide: StorySlide; ticker: string; freeBlocked?: boolean }) {
   const accent = brand(ticker).primary;
   const glow = brand(ticker).glow;
 
   if (slide.kind === "kpi") {
-    return <KpiCard kpi={slide.data} accent={accent} glow={glow} ticker={ticker} />;
+    return <KpiCard kpi={slide.data} accent={accent} glow={glow} ticker={ticker} freeBlocked={freeBlocked} />;
   }
-  return <MarketPositionStoryCard mp={slide.data} accent={accent} glow={glow} ticker={ticker} />;
+  return <MarketPositionStoryCard mp={slide.data} accent={accent} glow={glow} ticker={ticker} freeBlocked={freeBlocked} />;
 }
 
 /* -------- KPI card (short-history) — format portrait mobile 9:16 -------- */
-function KpiCard({ kpi, accent, glow, ticker }: { kpi: KPI; accent: string; glow: string; ticker: string }) {
+function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI; accent: string; glow: string; ticker: string; freeBlocked?: boolean }) {
   const { t, locale } = useT();
   const periodLabel = formatStoryPeriod(kpi, ticker, locale);
   return (
@@ -100,7 +102,9 @@ function KpiCard({ kpi, accent, glow, ticker }: { kpi: KPI; accent: string; glow
                   <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: accent }}>
                     {kpi.short}
                   </div>
-                  <div className="text-zinc-200">{kpi.explanation}</div>
+                  <BlurredFreeText blocked={freeBlocked} ticker={ticker} as="div" className="text-zinc-200">
+                    {kpi.explanation}
+                  </BlurredFreeText>
                 </InfoTooltip>
               )}
             </div>
@@ -128,23 +132,35 @@ function KpiCard({ kpi, accent, glow, ticker }: { kpi: KPI; accent: string; glow
         {/* Chiffre principal : occupe le centre, beaucoup plus grand qu'avant
             (Yann 7 mai 2026 : "informations essentielles trop petites"). */}
         <div className="my-auto flex flex-col items-center text-center">
-          <div
-            className="font-display font-bold leading-none tracking-tight gradient-text"
-            style={{ fontSize: "clamp(64px, 22vw, 110px)" }}
-          >
-            {formatKpiValue(kpi.value, kpi.unit)}
-          </div>
-          {formatUnit(kpi.unit) && (
-            <div className="mt-2 text-[32px] font-bold text-zinc-100">
-              {formatUnit(kpi.unit)}
+          {freeBlocked ? (
+            <div style={{ fontSize: "clamp(64px, 22vw, 110px)" }}>
+              <BlurredFreeValue
+                value={formatKpiValue(kpi.value, kpi.unit)}
+                suffix={formatUnit(kpi.unit) ? ` ${formatUnit(kpi.unit)}` : ""}
+                ticker={ticker}
+              />
             </div>
-          )}
-          {kpi.yoy && typeof kpi.yoy === "string" && kpi.yoy.toLowerCase() !== "n/a" && (
-            <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-emerald-500/40 bg-emerald-500/15 px-3.5 py-1.5 text-[16px] font-bold text-emerald-200">
-              <TrendingUp className="size-4" />
-              <span className="font-mono tabular-nums">{kpi.yoy.replace(/(\d)\.(\d)/g, "$1,$2")}</span>
-              <span className="text-[12px] font-medium italic text-zinc-400" title="Year-on-Year">{t("story.vs_n1")}</span>
-            </div>
+          ) : (
+            <>
+              <div
+                className="font-display font-bold leading-none tracking-tight gradient-text"
+                style={{ fontSize: "clamp(64px, 22vw, 110px)" }}
+              >
+                {formatKpiValue(kpi.value, kpi.unit)}
+              </div>
+              {formatUnit(kpi.unit) && (
+                <div className="mt-2 text-[32px] font-bold text-zinc-100">
+                  {formatUnit(kpi.unit)}
+                </div>
+              )}
+              {kpi.yoy && typeof kpi.yoy === "string" && kpi.yoy.toLowerCase() !== "n/a" && (
+                <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-emerald-500/40 bg-emerald-500/15 px-3.5 py-1.5 text-[16px] font-bold text-emerald-200">
+                  <TrendingUp className="size-4" />
+                  <span className="font-mono tabular-nums">{kpi.yoy.replace(/(\d)\.(\d)/g, "$1,$2")}</span>
+                  <span className="text-[12px] font-medium italic text-zinc-400" title="Year-on-Year">{t("story.vs_n1")}</span>
+                </div>
+              )}
+            </>
           )}
         </div>
 
@@ -154,17 +170,17 @@ function KpiCard({ kpi, accent, glow, ticker }: { kpi: KPI; accent: string; glow
         {kpi.signal && (
           <div className="rounded-xl border border-white/10 bg-black/55 p-3 backdrop-blur">
             <div className="flex items-start gap-1.5">
-              <div className="flex-1 text-[15px] font-semibold leading-snug text-zinc-50">
+              <BlurredFreeText blocked={freeBlocked} ticker={ticker} as="div" className="flex-1 text-[15px] font-semibold leading-snug text-zinc-50">
                 {normalizeNarrative(kpi.signal)}
-              </div>
+              </BlurredFreeText>
               {kpi.description && (
                 <InfoTooltip color={accent} size="sm" align="right">
                   <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: accent }}>
                     {t("story.detail")}
                   </div>
-                  <div className="text-[12.5px] leading-relaxed text-zinc-200">
+                  <BlurredFreeText blocked={freeBlocked} ticker={ticker} as="div" className="text-[12.5px] leading-relaxed text-zinc-200">
                     {normalizeNarrative(kpi.description)}
-                  </div>
+                  </BlurredFreeText>
                 </InfoTooltip>
               )}
             </div>
@@ -190,11 +206,14 @@ function MarketPositionStoryCard({
   mp,
   accent,
   glow,
+  ticker,
+  freeBlocked = false,
 }: {
   mp: MarketPosition;
   accent: string;
   glow: string;
   ticker: string;
+  freeBlocked?: boolean;
 }) {
   const { t } = useT();
   // Yann 8 mai 2026 : si TAM=null (honesty rule, sté n'a pas publié),
