@@ -14,20 +14,19 @@ const nextConfig: NextConfig = {
     "192.168.1.49",
     "*.local",
   ],
-  // Yann 21 mai 2026 : Serverless Function bundle dépassait 250 MB à cause
-  // de l'inclusion automatique de src/data/v2-pipeline (111 MB) et
-  // src/data/v2-pipeline-enrich (49 MB). Ces dossiers sont lus via
-  // fs.readFile au runtime (pas import static) donc inutile de les bundler.
+  // Yann 21 mai (corrigé 26 mai 2026) : on EXCLUT uniquement les dossiers
+  // jamais lus au runtime SSR (audits intermédiaires, batches Cerebras,
+  // backfill, sec-data brut, backups). On GARDE v2-pipeline, v2-pipeline-enrich,
+  // v2-pipeline-specific-kpis, transcripts et transcript-summaries car ils
+  // sont lus par `src/lib/v1-7/load-company.ts` via fs.readFile à chaque
+  // rendu de page société. Sans ces dossiers dans le bundle, TOUTES les
+  // pages /sandbox/v1-{7-5|8|9-5}/<ticker> renvoient 404 (loadV17Company
+  // → kind:"missing" → notFound()).
   outputFileTracingExcludes: {
     "*": [
-      "./src/data/v2-pipeline/**/*",
-      "./src/data/v2-pipeline-enrich/**/*",
       "./src/data/v2-pipeline-kpi-v2/**/*",
-      "./src/data/v2-pipeline-specific-kpis/**/*",
       "./src/data/v2-pipeline-exhaustive/**/*",
       "./src/data/v2/**/*",
-      "./src/data/transcripts/**/*",
-      "./src/data/transcript-summaries/**/*",
       "./src/data/governance-cerebras/**/*",
       "./src/data/repartition-cerebras/**/*",
       "./src/data/stories-backfill-residuel/**/*",
