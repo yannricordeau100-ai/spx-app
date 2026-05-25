@@ -184,11 +184,9 @@ function BrandWordmark({ kpiUnderText }: { kpiUnderText?: string }) {
         }}
       />
 
-      {/* Yann (25 mai 2026 v2) : "KPI Intelligence" subtitle hardcoded reste
-          retiré (Yann ne veut plus ce libellé). En revanche la NOUVELLE bio
-          (kpiUnderText = "KPI Intelligence pour investisseurs boursiers
-          fournisseur d'indicateurs clés et risques tracés") est désormais
-          affichée ici sous le wordmark, en cohérence avec les metadata SEO.
+      {/* Yann (26 mai 2026) : nouvelle bio = "Surperformer le marché avec les
+          meilleurs KPIs de chaque action". Affichée sous le wordmark + utilisée
+          comme metadata SEO (layout.tsx description + OG + Twitter card).
           Visible visuellement sur la home ET dans les link previews. */}
       {kpiUnderText && (
         <motion.div

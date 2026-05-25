@@ -49,7 +49,7 @@ export const DICTIONARY: Dict = {
   // Yann (25 mai 2026) : nouvelle bio Mettrik AI, source de vérité pour le
   // SEO (layout.tsx metadata + OG + Twitter).
   "brand.kpi_intelligence_under": {
-    fr: "KPI Intelligence pour investisseurs boursiers fournisseur d'indicateurs clés et risques tracés",
+    fr: "Surperformer le marché avec les meilleurs KPIs de chaque action",
     en: "",
   },
   // Format strict (Yann 10 mai 2026, refacto Opus) : "part1 | part2".

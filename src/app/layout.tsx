@@ -76,7 +76,7 @@ export const metadata: Metadata = {
     template: "%s · Mettrik AI",
   },
   description:
-    "KPI Intelligence pour investisseurs boursiers fournisseur d'indicateurs clés et risques tracés",
+    "Surperformer le marché avec les meilleurs KPIs de chaque action",
   applicationName: "Mettrik AI",
   authors: [{ name: "Mettrik AI" }],
   creator: "Mettrik AI",
@@ -86,14 +86,14 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "Mettrik AI",
     title: "Mettrik AI · KPI Intelligence",
-    description: "KPI Intelligence pour investisseurs boursiers fournisseur d'indicateurs clés et risques tracés",
+    description: "Surperformer le marché avec les meilleurs KPIs de chaque action",
     url: SITE_URL,
     locale: "fr_FR",
   },
   twitter: {
     card: "summary_large_image",
     title: "Mettrik AI · KPI Intelligence",
-    description: "KPI Intelligence pour investisseurs boursiers fournisseur d'indicateurs clés et risques tracés",
+    description: "Surperformer le marché avec les meilleurs KPIs de chaque action",
   },
   robots: {
     index: true,
