@@ -18,6 +18,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { PLANS as FALLBACK_PLANS, FEATURES as FALLBACK_FEATURES, type PlanDisplay, type PlanTier, type FeatureRow } from "./plans";
 import type { Currency, Frequency } from "./admin-types";
+import { getExchangeRate } from "@/lib/currency";
 
 /**
  * Normalise un code de plan BDD vers les tiers internes du code TS.
@@ -65,7 +66,52 @@ export type LoadedCatalog = {
   features: FeatureRow[];
 };
 
-export async function loadPricingForPublic(): Promise<LoadedPlan[]> {
+/**
+ * Yann (25 mai 2026) : conversion automatique EUR → devise cible quand
+ * la devise demandée n'est pas configurée en BDD (Yann n'a pas activé
+ * USD/GBP/etc côté admin BO). Permet au CurrencyPicker public de
+ * fonctionner immédiatement avec affichage cohérent en monnaie locale.
+ *
+ * Taux via frankfurter.app (ECB, gratuit, cache 1 h). Si l'API échoue,
+ * fallback à 1:1 (preserves EUR amount). Pas de stripe_price_id généré
+ * pour les devises auto-converties (le checkout reste en EUR derrière).
+ */
+async function applyAutoCurrencyConversion(
+  prices: Record<string, { monthly?: PriceEntry; annual?: PriceEntry }>,
+  targetCurrency: string | undefined,
+): Promise<Record<string, { monthly?: PriceEntry; annual?: PriceEntry }>> {
+  if (!targetCurrency || targetCurrency === "EUR") return prices;
+  if (prices[targetCurrency]?.monthly?.amount && prices[targetCurrency].monthly.amount > 0) {
+    return prices; // déjà configuré en BDD pour cette devise
+  }
+  const eurMonthly = prices.EUR?.monthly?.amount;
+  const eurAnnual = prices.EUR?.annual?.amount;
+  if (!eurMonthly || eurMonthly <= 0) return prices; // plan gratuit ou EUR absent
+  try {
+    const rate = await getExchangeRate("EUR" as Currency, targetCurrency as Currency);
+    if (!rate || rate <= 0) return prices;
+    const round2 = (n: number) => Math.round(n * 100) / 100;
+    return {
+      ...prices,
+      [targetCurrency]: {
+        monthly: {
+          amount: round2(eurMonthly * rate),
+          stripe_price_id: null,
+          active: true,
+        },
+        annual: eurAnnual && eurAnnual > 0 ? {
+          amount: round2(eurAnnual * rate),
+          stripe_price_id: null,
+          active: true,
+        } : undefined,
+      },
+    };
+  } catch {
+    return prices;
+  }
+}
+
+export async function loadPricingForPublic(targetCurrency?: string): Promise<LoadedPlan[]> {
   // Tente la lecture BDD
   try {
     const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -104,13 +150,15 @@ export async function loadPricingForPublic(): Promise<LoadedPlan[]> {
       };
     }
 
-    return plans.map((dbPlan): LoadedPlan => {
+    return await Promise.all(plans.map(async (dbPlan): Promise<LoadedPlan> => {
       const tier = normalizePlanCode(dbPlan.code);
-      const tierPrices = pricesByPlan.get(dbPlan.id) ?? {} as Record<string, { monthly?: PriceEntry; annual?: PriceEntry }>;
+      const rawPrices = pricesByPlan.get(dbPlan.id) ?? {} as Record<string, { monthly?: PriceEntry; annual?: PriceEntry }>;
+      // Yann (25 mai 2026) : auto-conversion EUR → targetCurrency si la
+      // devise demandée n'est pas en BDD. Le CurrencyPicker fonctionne
+      // immédiatement pour USD/GBP/CHF/etc sans config BO préalable.
+      const tierPrices = await applyAutoCurrencyConversion(rawPrices, targetCurrency);
       const eurMonthly = tierPrices.EUR?.monthly?.amount ?? 0;
       const eurAnnual = tierPrices.EUR?.annual?.amount ?? 0;
-      // Yann (11 mai 2026) : si price_caption_fr est rempli côté admin,
-      // on l'utilise tel quel (Yann maître du wording). Sinon fallback auto.
       const customCaption = (dbPlan as { price_caption_fr?: string | null }).price_caption_fr;
       const annualSavingsLabel = customCaption && customCaption.trim().length > 0
         ? customCaption
@@ -131,7 +179,7 @@ export async function loadPricingForPublic(): Promise<LoadedPlan[]> {
         audience: dbPlan.audience_fr ?? "",
         prices: tierPrices,
       };
-    });
+    }));
   } catch {
     // Toute erreur → fallback silencieux (la page front doit toujours
     // marcher, même si la BDD est down).
@@ -180,8 +228,8 @@ export function checkoutInfoFor(
  * Charge le catalogue complet (plans + features + valeurs) pour le front.
  * Idempotent : fallback sur plans.ts hardcoded si BDD vide / inaccessible.
  */
-export async function loadPricingCatalog(): Promise<LoadedCatalog> {
-  const plans = await loadPricingForPublic();
+export async function loadPricingCatalog(targetCurrency?: string): Promise<LoadedCatalog> {
+  const plans = await loadPricingForPublic(targetCurrency);
 
   // Charge features + plan_features depuis la BDD
   try {

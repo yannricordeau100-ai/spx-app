@@ -430,14 +430,31 @@ function PricingCard({
         )}
       </div>
 
-      {/* Yann (11 mai 2026 v3) : alignement horizontal des CTAs entre
-          les 3 cards. Stratégie : bullets avec flex-grow poussent
-          l'ensemble [audience + slogan + CTA] en bas. Tous les CTAs se
-          retrouvent à la même hauteur Y. */}
+      {/* Yann (25 mai 2026) : CTA déplacé DIRECTEMENT sous le bloc prix
+          (= conversion + élevée car le user voit le prix puis clique
+          immédiatement). Avant : CTA tout en bas après les bullets. */}
+      <CtaButton
+        plan={plan.tier}
+        ctaHref={ctaHref}
+        ctaIsCheckout={ctaIsCheckout}
+        ctaLabel={
+          !currencyActive
+            ? t("pricing.card.currency_not_available")
+            : plan.cta_label
+        }
+        isHighlight={isHighlight}
+        accent={plan.accent}
+        prefix={prefix}
+        billing={billing}
+        stripePriceId={ctaIsCheckout && stripePriceId ? stripePriceId : undefined}
+        disabled={!isFreeOrApi && !currencyActive}
+      />
+
+      <p className="mt-3 text-center text-[10.5px] text-zinc-500">{plan.audience}</p>
 
       {/* Bullet points features : MÊMES features pour les 3 cards. ✓ vert
           si incluse dans CE plan, 🔒 gris barré si verrouillée (= incitation
-          à upgrade). flex-grow pour pousser CTA en bas. */}
+          à upgrade). flex-grow pour aligner verticalement entre les 3 cards. */}
       <ul className="mt-5 flex-grow space-y-2.5 border-t border-white/[0.06] pt-5">
         {finalBullets.map((b, i) => (
           <li
@@ -458,11 +475,20 @@ function PricingCard({
         ))}
       </ul>
 
-      <p className="mt-4 text-center text-[10.5px] text-zinc-500">{plan.audience}</p>
+      {/* Bouton "Tout comparer" en bas des features : ancre vers la matrice
+          détaillée (#compare). Wording optimisé conversion ("tout comparer"
+          = action concrète vs "voir plus" vague). */}
+      <a
+        href="#compare"
+        className="mt-4 inline-flex w-full items-center justify-center gap-1.5 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 py-2 text-[11.5px] font-semibold text-zinc-300 transition-colors hover:border-violet-500/30 hover:bg-violet-500/[0.05] hover:text-violet-100"
+      >
+        Tout comparer en détail
+        <ArrowRight className="size-3 rotate-90" />
+      </a>
 
-      {/* Bloc prix /jour DÉPLACÉ vers le haut (au-dessus des bullets,
-          Yann 15 mai 2026). Plus de doublon ici. */}
-
+      {/* Garde-place pour le legacy CTA ci-dessous (remplacé par celui en haut).
+          Section vide pour préserver l'alignement vertical. */}
+      <div className="hidden">
       <CtaButton
         plan={plan.tier}
         ctaHref={ctaHref}
@@ -479,6 +505,7 @@ function PricingCard({
         stripePriceId={ctaIsCheckout && stripePriceId ? stripePriceId : undefined}
         disabled={!isFreeOrApi && !currencyActive}
       />
+      </div>
     </div>
   );
 }

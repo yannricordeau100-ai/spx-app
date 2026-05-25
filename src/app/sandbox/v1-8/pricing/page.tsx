@@ -51,8 +51,10 @@ export const metadata = {
 };
 
 export default async function V18PricingPage() {
-  const catalog = await loadPricingCatalog();
   const currency = await detectCurrency();
+  // Yann (25 mai 2026) : passer currency au catalog → auto-conversion EUR→cible
+  // si pas de prix natif en BDD (fix bug "USD ne fonctionne pas dans le picker").
+  const catalog = await loadPricingCatalog(currency);
   const locale = await getServerLocale();
   const taglines = await loadAllTaglines();
   // Yann (25 mai 2026) : CurrencyPicker visible UNIQUEMENT pour l'admin réel
@@ -123,8 +125,9 @@ export default async function V18PricingPage() {
           <PricingCards ctaTrackingPrefix="v18_top_" plans={catalog.plans} features={catalog.features} currency={currency} taglines={taglines} />
         </div>
 
-        {/* MATRICE FEATURES */}
-        <section className="mx-auto mt-20 max-w-5xl">
+        {/* MATRICE FEATURES — ancre #compare (Yann 25 mai 2026) cible du
+            bouton "Tout comparer en détail" en bas des bullets des cards. */}
+        <section id="compare" className="mx-auto mt-20 max-w-5xl scroll-mt-20">
           <div className="mb-6 text-center">
             <h2 className="font-display text-3xl font-bold tracking-tight text-zinc-50">
               {t("pricing.compare_title")}
