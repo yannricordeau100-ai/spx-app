@@ -24,8 +24,11 @@ const nextConfig: NextConfig = {
   // → kind:"missing" → notFound()).
   outputFileTracingExcludes: {
     "*": [
+      // Audits intermédiaires + datasets jamais lus au runtime
+      "./src/data/v2-pipeline/*.gemini.json",
       "./src/data/v2-pipeline-kpi-v2/**/*",
       "./src/data/v2-pipeline-exhaustive/**/*",
+      "./src/data/v2-pipeline-i18n/**/*",
       "./src/data/v2/**/*",
       "./src/data/governance-cerebras/**/*",
       "./src/data/repartition-cerebras/**/*",
