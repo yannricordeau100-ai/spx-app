@@ -195,7 +195,11 @@ export async function getExchangeRate(from: Currency, to: Currency): Promise<num
   const cached = rateCache.get(key);
   if (cached && now - cached.ts < TTL_MS) return cached.rate;
   try {
-    const res = await fetch(`https://api.frankfurter.app/latest?from=${from}&to=${to}`, {
+    // Yann (25 mai 2026) : frankfurter.app → 301 vers frankfurter.dev/v1.
+    // L'auto-follow fetch peut échouer côté Vercel (env serverless,
+    // certificats, timeout, CDN cache). On utilise directement la nouvelle
+    // URL canonique pour éviter le redirect.
+    const res = await fetch(`https://api.frankfurter.dev/v1/latest?base=${from}&symbols=${to}`, {
       cache: "no-store",
     });
     if (!res.ok) return 1;
