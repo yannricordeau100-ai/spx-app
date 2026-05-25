@@ -1,27 +1,24 @@
 "use client";
 
 /**
- * BlurredFreeValue — affiche soit la valeur réelle (premium / max), soit
- * un masque inviolable + lock + click → modale upgrade (free tier).
+ * BlurredFreeValue — affiche la valeur réelle avec un filtre CSS blur
+ * par-dessus quand la sté est verrouillée pour le tier free.
  *
- * Yann (25 mai 2026) : technique "inviolable" = la valeur réelle n'est
- * PAS rendue dans le HTML côté client si `blocked=true`. Le composant
- * remplace par un placeholder visuel + le chiffre brut n'est jamais
- * transmis. Pour les vues SSR, le serveur lit le tier user (cookie/session)
- * et ne sérialise pas la valeur.
+ * Yann (26 mai 2026) — refonte : ancien comportement = remplace par
+ * placeholder ████ + cadenas + lien upgrade = catastrophe visuelle
+ * (cases grises, repositionnement). Maintenant : on garde le texte
+ * réel mais on applique `filter: blur(5px)` + select-none. Pas de
+ * cadenas. Pas de Link. Le bloc garde EXACTEMENT sa taille et sa
+ * position. Le visuel est cohérent et fluide.
  *
- * Usage côté composant :
- *   <BlurredFreeValue value={kpi.value} suffix=" Mds $" />
- * Auto : lit le contexte FreemiumBlurProvider + détermine si bloqué pour
- * la sté courante.
- *
- * Override manuel :
- *   <BlurredFreeValue value={X} blocked={false} />  // toujours visible
- *   <BlurredFreeValue value={X} blocked={true} />   // toujours flouté
+ * Trade-off honnêteté : le chiffre brut EST dans le HTML quand bloqué.
+ * Pour un user déterminé via DevTools, c'est lisible. Mais l'objectif
+ * Yann V1 = expérience visuelle propre, pas inviolabilité crypto. Pour
+ * V2 si vraiment inviolable nécessaire, basculer en rendu SSR avec
+ * placeholder côté serveur conditionné au tier (jamais sérialiser la
+ * vraie valeur).
  */
 
-import { Lock } from "lucide-react";
-import Link from "next/link";
 import { useFreemiumTier, isTickerLockedForTier } from "@/lib/freemium/context";
 
 type Props = {
@@ -33,10 +30,8 @@ type Props = {
   blocked?: boolean;
   /** Ticker de la sté courante (utilisé si blocked=undefined pour décider). */
   ticker?: string;
-  /** Classe CSS appliquée quand la valeur est visible. */
+  /** Classe CSS appliquée. */
   className?: string;
-  /** Lien d'upgrade (défaut /pricing). */
-  upgradeHref?: string;
 };
 
 export function BlurredFreeValue({
@@ -45,7 +40,6 @@ export function BlurredFreeValue({
   blocked,
   ticker,
   className,
-  upgradeHref = "/pricing",
 }: Props) {
   const tier = useFreemiumTier();
   const isBlocked = blocked ?? (ticker ? isTickerLockedForTier(ticker, tier) : tier === "free" || tier === "anon");
@@ -54,39 +48,21 @@ export function BlurredFreeValue({
     return <span className={className}>{value ?? "—"}{suffix}</span>;
   }
 
-  // Bloqué : on n'affiche JAMAIS la valeur réelle dans le rendu, ni
-  // dans data-attributes. Juste un placeholder visuellement attrayant
-  // + lock icon + click → /pricing pour upgrade.
-  // Yann : "ne pas flouter toutes les phrases car en floutant seulement
-  // les chiffres on rend inaccessible la plus value." → ce composant
-  // wrap UNIQUEMENT les chiffres, pas le texte autour.
+  // Bloqué : valeur réelle gardée mais floutée par-dessus + select-none.
+  // Pas de cadenas, pas de lien, pas de modification de position/taille.
   return (
-    <Link
-      href={upgradeHref}
-      className="group relative inline-flex items-center gap-1 align-baseline"
-      title="Premium pour voir cette valeur"
-      data-pricing-cta="freemium_blur_value"
+    <span
+      className={className}
+      style={{
+        filter: "blur(6px)",
+        WebkitUserSelect: "none",
+        userSelect: "none",
+        pointerEvents: "none",
+      }}
+      aria-hidden
+      data-freemium-blocked-value
     >
-      <span
-        aria-hidden
-        className={`relative inline-block select-none font-mono tabular-nums text-zinc-500 ${className ?? ""}`}
-        style={{
-          // 2e couche cosmétique de sécurité (le contenu ci-dessous = caractères
-          // génériques, JAMAIS la vraie valeur)
-          filter: "blur(5px)",
-          WebkitUserSelect: "none",
-          userSelect: "none",
-        }}
-      >
-        {/* Placeholder caractères neutres — JAMAIS la valeur réelle */}
-        ████{suffix && <span className="opacity-50">{suffix}</span>}
-      </span>
-      <Lock
-        className="ml-0.5 size-3 shrink-0 text-amber-400 transition-transform group-hover:scale-110"
-        strokeWidth={2.5}
-        aria-hidden
-      />
-      <span className="sr-only">Valeur réservée aux plans Premium et Max — cliquer pour upgrade</span>
-    </Link>
+      {value ?? "—"}{suffix}
+    </span>
   );
 }

@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 import type { Company } from "@/lib/data";
 import { useT } from "@/lib/i18n/provider";
@@ -114,9 +113,7 @@ const RED_PURE = "#ef4444";
 const GREEN_LIGHT = "#bbf7d0";
 const RED_LIGHT = "#fecaca";
 
-// Point LED — couleur très vive avec glow, lisible sur le fond coloré.
-const GREEN_LED = "#86ff5c"; // lime vif > #22c55e
-const RED_LED = "#ff3355"; // rouge vif > #ef4444
+// Point LED supprimé (Yann 26 mai 2026). Constantes retirées.
 
 export function StockPriceBlock({ company, freeBlocked = false }: { company: Company; freeBlocked?: boolean }) {
   const { t, locale } = useT();
@@ -131,7 +128,7 @@ export function StockPriceBlock({ company, freeBlocked = false }: { company: Com
   // calculé sur 0.00 (qui s'afficherait vert par défaut).
   const tone = live.loading ? "#52525b" : isUp ? GREEN_PURE : RED_PURE;
   const toneLight = live.loading ? "#a1a1aa" : isUp ? GREEN_LIGHT : RED_LIGHT;
-  const ledColor = live.loading ? "#a1a1aa" : isUp ? GREEN_LED : RED_LED;
+  // ledColor retiré : LED dot supprimé du haut du prix (Yann 26 mai 2026)
   const placeholder = "—";
 
   // Yann 25 mai 2026 : split du label sur 2 lignes pour permettre aux
@@ -214,20 +211,9 @@ export function StockPriceBlock({ company, freeBlocked = false }: { company: Com
           </span>
         </div>
 
-        {/* COL 3 — Prix avec point LED dans le coin haut-droite */}
+        {/* COL 3 — Prix (Yann 26 mai 2026 : LED dot retiré, jugé inutile) */}
         <div className="flex shrink-0 items-center">
           <div className="relative">
-            {/* Point LED — neon, glow puissant, pulse léger pour signal "live" */}
-            <motion.span
-              aria-hidden
-              animate={{ opacity: [1, 0.55, 1] }}
-              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -right-1 -top-1 size-2.5 rounded-full"
-              style={{
-                background: ledColor,
-                boxShadow: `0 0 4px ${ledColor}, 0 0 10px ${ledColor}, 0 0 18px ${ledColor}aa`,
-              }}
-            />
             <span
               className="block whitespace-nowrap text-right text-[36px] leading-none tracking-[-0.02em] text-white tabular-nums sm:text-[42px]"
               style={{
