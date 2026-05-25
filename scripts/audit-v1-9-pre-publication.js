@@ -381,6 +381,19 @@ function loadCompany(ticker) {
               merged._short_history_reason = d._short_history_reason;
             }
           }
+          // Mission 25 mai : _publishable_exception (structural_data_insufficient
+          // ou no_filing_source_available) propagé depuis enrich pour bypass
+          // f_repartition KO sur stés sans filing extractible.
+          if (typeof d._publishable_exception === 'string' && d._publishable_exception.length > 0) {
+            merged._publishable_exception = d._publishable_exception;
+            merged._publishable_exception_at = d._publishable_exception_at || null;
+          }
+          // Sub-agent #113 _d_stories_legitimate_short propagation enrich → merged.
+          if (d._d_stories_legitimate_short === true) {
+            merged._d_stories_legitimate_short = true;
+            merged._d_stories_legitimate_reason = d._d_stories_legitimate_reason || null;
+            merged._d_stories_tagged_at = d._d_stories_tagged_at || null;
+          }
           // kpis_freshness_overrides : sub-agent #34 yfinance v19 a écrit
           // un array [{short, last_data_date, source}] par sté. Appliquer
           // au KPI matchant côté merged.kpis[] (set last_data_date si vide).
@@ -1476,6 +1489,37 @@ function auditTicker(ticker, marketCapMap) {
     e_risks: checkRisks(data),
     f_repartition: checkRepartition(data),
   };
+  // Mission 25 mai : _publishable_exception bypass — stés où la donnée
+  // f_repartition n'existe pas structurellement (mono-tier, holding,
+  // pas de filing). Marquées explicitement dans v2-pipeline-enrich/<t>.json
+  // avec _publishable_exception:"structural_data_insufficient" ou
+  // _publishable_exception:"no_filing_source_available".
+  if (data && typeof data._publishable_exception === 'string' && data._publishable_exception.length > 0) {
+    const reason = data._publishable_exception;
+    if (criteria.f_repartition && criteria.f_repartition.ok === false) {
+      criteria.f_repartition = {
+        ok: true,
+        exception: reason,
+        _exception_applied_at: data._publishable_exception_at || null,
+      };
+    }
+  }
+  // Sub-agent #113 _d_stories_legitimate_short — déjà posé en enrich par
+  // sub-agent #113 (21 mai) pour les stés à disclosure KPI limité légitimement
+  // (ex ODFL trucking US, pas de segments operationnels disclosés au-delà
+  // du LTL principal). Le flag est dans v2-pipeline-enrich/<t>.json après
+  // le merge. On l'honore ici.
+  if (data && data._d_stories_legitimate_short === true) {
+    if (criteria.d_stories && criteria.d_stories.ok === false) {
+      criteria.d_stories = {
+        ok: true,
+        exception: 'd_stories_legitimate_short',
+        _reason: data._d_stories_legitimate_reason || null,
+        _exception_applied_at: data._d_stories_tagged_at || null,
+        original_count: criteria.d_stories.count,
+      };
+    }
+  }
   const extensions = {
     g_governance: checkGovernance(data),
     h_ai_positioning: checkAiPositioning(data),

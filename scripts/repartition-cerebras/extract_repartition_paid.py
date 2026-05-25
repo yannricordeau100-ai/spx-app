@@ -106,21 +106,65 @@ def read_filing(path: str) -> str:
 
 
 # Section anchors — pull text windows around each
+# Multi-language (EN/FR/DE/IT/ES/PT/NL/SV/DA/NO) for EU annual reports.
 SEGMENT_KEYWORDS = [
-    r"Segment\s+(?:information|reporting|results)",
+    # EN
+    r"Segment\s+(?:information|reporting|results|revenues?)",
     r"Reportable\s+segments?",
     r"Operating\s+segments?",
     r"Disaggregation\s+of\s+revenue",
     r"Revenues?\s+by\s+segment",
     r"Net\s+(?:sales|revenues?)\s+by\s+segment",
+    r"Business\s+(?:segments?|divisions?|areas?|units?)",
+    r"Sales\s+by\s+(?:business|division|product|category)",
+    r"Net\s+sales\s+by\s+product",
+    # FR
+    r"Chiffre\s+d['e]?affaires\s+par\s+(?:segment|secteur|activit|division|m[ée]tier|branche|p[ôo]le)",
+    r"R[ée]partition\s+(?:du\s+)?CA\s+par\s+(?:segment|secteur|activit|division|m[ée]tier)",
+    r"Information\s+(?:sectorielle|par\s+segment)",
+    # DE
+    r"Umsatzerl[öo]se\s+nach\s+(?:Segment|Gesch[äa]ftsbereich|Produkt|Division)",
+    r"Segmentbericht(?:erstattung)?",
+    r"Gesch[äa]ftssegmente",
+    # IT
+    r"Ricavi\s+per\s+(?:settore|segmento|divisione|area\s+di\s+business)",
+    r"Informativa\s+(?:di\s+settore|per\s+segmento)",
+    # ES
+    r"Ingresos\s+por\s+(?:segmento|divisi[óo]n|negocio)",
+    # NL
+    r"Omzet\s+per\s+(?:segment|divisie|activiteit)",
+    r"Segmentrapportage",
+    # SV/DA/NO
+    r"Net\s?omsetning\s+per",
+    r"Inntekter\s+per\s+segment",
+    r"Forretningsomr[åa]de",
 ]
 
 GEO_KEYWORDS = [
+    # EN
     r"Revenues?\s+by\s+geograph",
     r"Net\s+(?:sales|revenues?)\s+by\s+geograph",
     r"Sales\s+by\s+geograph",
-    r"Geographic\s+(?:area|region|market|information|breakdown)",
+    r"Geographic\s+(?:area|region|market|information|breakdown|split)",
     r"Revenues?\s+(?:by|from)\s+countr",
+    r"Revenues?\s+by\s+(?:region|market)",
+    r"Net\s+sales\s+by\s+region",
+    # FR
+    r"Chiffre\s+d['e]?affaires\s+par\s+(?:zone\s+g[ée]ographique|r[ée]gion|pays|march[ée]\s+g[ée]ographique)",
+    r"R[ée]partition\s+g[ée]ographique",
+    r"Ventes\s+par\s+zone\s+g[ée]ographique",
+    # DE
+    r"Umsatzerl[öo]se\s+nach\s+(?:Region|L[äa]ndern|geografisch)",
+    r"Geografische\s+Aufgliederung",
+    # IT
+    r"Ricavi\s+per\s+(?:area\s+geografica|paese|regione)",
+    # ES
+    r"Ingresos\s+por\s+(?:zona\s+geogr[áa]fica|pa[íi]s|regi[óo]n)",
+    # NL
+    r"Omzet\s+per\s+(?:regio|geografisch)",
+    # SV/NO
+    r"Net\s?omsetning\s+per\s+(?:region|geografi)",
+    r"Inntekter\s+per\s+(?:region|geografi)",
 ]
 
 
@@ -145,15 +189,21 @@ def extract_excerpts(text: str, max_chars: int = 24000) -> str:
             if sum(len(e) for e in excerpts) > max_chars:
                 break
 
-    # If found nothing, include Item 1 + Item 7 first-pass
+    # If found nothing, include Item 1 + Item 7 first-pass (US 10-K).
     if not excerpts:
-        # Find Item 1 Business
         m1 = re.search(r"\bItem\s*1[\.\s]*Business\b", text, flags=re.IGNORECASE)
         m7 = re.search(r"\bItem\s*7[\.\s]*Management", text, flags=re.IGNORECASE)
         if m1:
             excerpts.append("=== ITEM 1 ===\n" + text[m1.start():m1.start() + 12000])
         if m7:
             excerpts.append("\n=== ITEM 7 ===\n" + text[m7.start():m7.start() + 8000])
+
+    # EU annual reports / capital markets decks / half-year reports often have
+    # the segment+geography tables in early pages without identifiable English
+    # section headers. Fallback : feed the first 22KB of text directly to the
+    # LLM. This works well for short investor presentations (<40KB).
+    if not excerpts and len(text) > 1000:
+        excerpts.append("=== DOC START (no anchor matched) ===\n" + text[:max_chars])
 
     combined = "\n".join(excerpts)
     if len(combined) > max_chars:
