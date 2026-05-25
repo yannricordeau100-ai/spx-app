@@ -107,6 +107,27 @@ TICKER_TO_NAME = {
 }
 
 
+# Garde anti-US (ajoutée 25 mai 2026 suite audit cleanup BLK / 20 routing cat3→cat1) :
+# Tout ticker SANS suffixe place boursière (pas de "." dans le ticker) est traité comme US
+# et doit aller dans cat1-us via SEC EDGAR scraper, JAMAIS via cat3-annualreports-scraper.
+# Exceptions : rares EU sans suffixe (ADR OTC déjà listées dans TICKER_TO_NAME) tolérées
+# via whitelist explicite ci-dessous (à étendre au cas par cas si nouveau cas vérifié).
+EU_TICKERS_NO_SUFFIX_WHITELIST = {
+    "SIEGY",       # Siemens AG OTC ADR
+    "ENI",         # Eni SpA OTC ADR (Italy)
+    "STLA",        # Stellantis NV (Netherlands, listed NYSE+Euronext)
+    "SONY",        # Sony Group Corp (Japan ADR sur NYSE)
+    "TSMC/TSM",    # TSMC ADR
+}
+
+
+def is_us_ticker(ticker: str) -> bool:
+    """Retourne True si le ticker semble US (= pas de suffixe place boursière + pas whitelist EU)."""
+    if "." in ticker:
+        return False  # Has suffix → non-US (e.g. MC.PA, ASML.AS, ROG.SW)
+    return ticker not in EU_TICKERS_NO_SUFFIX_WHITELIST
+
+
 def log(msg: str, log_fh=None):
     ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     line = f"[{ts}] {msg}"
@@ -265,8 +286,15 @@ def main():
         sys.exit(1)
 
     log(f"CAT3 SCRAPER démarré, {len(tickers)} stés à scraper, sortie: {OUT_DIR}", log_fh)
-    n_ok = n_fail = n_skip = 0
+    n_ok = n_fail = n_skip = n_skip_us = 0
     for ticker in tickers:
+        # Garde anti-US (25 mai 2026) : skip tout ticker US (pas de "." dans le ticker)
+        # sauf whitelist EU sans suffixe. Évite la cross-pollution cat1→cat3
+        # (cas BLK iShares ESG Fund + 20 routing AMD/BAC/DIS/INTC/JPM/KO/PEP/etc).
+        if is_us_ticker(ticker):
+            log(f"   [SKIP-US] {ticker}: ticker US, doit aller en cat1-us via SEC EDGAR (pas cat3)", log_fh)
+            n_skip_us += 1
+            continue
         name = extended_names.get(ticker, ticker.split(".")[0])
         log(f"\n=== {ticker} ({name}) ===", log_fh)
         res = process_ticker(ticker, name, log_fh)
@@ -277,7 +305,7 @@ def main():
         else:
             n_fail += 1
 
-    log(f"\n=== TOTAL : {n_ok} OK, {n_fail} fail, {n_skip} skip ===", log_fh)
+    log(f"\n=== TOTAL : {n_ok} OK, {n_fail} fail, {n_skip} skip-already, {n_skip_us} skip-us-tickers ===", log_fh)
     log_fh.close()
 
 
