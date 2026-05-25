@@ -106,13 +106,34 @@ export function AIPositioningCard({
           )}
         </BlurredFreeText>
 
-        {Array.isArray(effective.evidence) && effective.evidence.length > 0 && (
+        {(() => {
+          // Yann (26 mai 2026) : filtre anti-XBRL + cap 8 items max.
+          // Cas MSCI : extraction LLM a renvoyé 57 items du type
+          // "msci:RecurringSubscriptionsMember msci:IndexSegmentMember
+          // 2025-01-01 2025-12-31" = tags XBRL bruts illisibles.
+          // Filtre : retire tout item dont le contenu lisible (après
+          // strip des tags `xxx:YyyMember`, `us-gaap:...`, dates ISO)
+          // fait moins de 25 chars. Puis cap à 8.
+          const rawEvidence = Array.isArray(effective.evidence) ? effective.evidence : [];
+          const cleanEvidence = rawEvidence
+            .filter((e) => {
+              if (typeof e !== "string") return true;
+              const stripped = e
+                .replace(/\b[a-z][a-z0-9_-]*:[A-Za-z0-9_]+\b/g, "") // xbrl tags
+                .replace(/\b\d{4}-\d{2}-\d{2}\b/g, "") // ISO dates
+                .replace(/\s+/g, " ")
+                .trim();
+              return stripped.length >= 25;
+            })
+            .slice(0, 8);
+          if (cleanEvidence.length === 0) return null;
+          return (
           <div className="mt-5">
             <div className="mb-2 font-mono text-[10.5px] uppercase tracking-wider text-zinc-300">
               {t("ai.evidence_label")}
             </div>
             <ul className="grid gap-1.5 sm:grid-cols-2">
-              {effective.evidence.map((e, i) => (
+              {cleanEvidence.map((e, i) => (
                 <li
                   key={i}
                   className="flex items-start gap-2 rounded-lg border border-[#1a1a1a] bg-[#0a0a0a] p-2.5 text-[13px] leading-snug text-zinc-200"
@@ -132,7 +153,8 @@ export function AIPositioningCard({
               ))}
             </ul>
           </div>
-        )}
+          );
+        })()}
 
         {effective.source && !isOfficialSource(effective.source) && (
           <div className="mt-4 font-mono text-[11px] italic text-zinc-400">

@@ -119,31 +119,44 @@ export function KpiStories({ company, freeBlocked = false }: { company: Company;
           {/* Timeline segments + temps de défilement : Yann 21 mai 2026 →
               DESCENDUS sous la notch (top:2 → top:9 = 36px depuis le haut)
               pour ne plus chevaucher l'encoche. */}
+          {/* Yann (26 mai 2026) : refonte timeline. Avant : hack width:50%
+              quand hover/paused → la barre sautait à la moitié visible. Le
+              non-active bar avait aussi transition 200ms ce qui faisait
+              filer plusieurs bars en même temps lors d'un saut.
+              Maintenant : CSS keyframes story-progress 5s linear forwards
+              avec animation-play-state. Le key={active} force le re-mount
+              de la barre active = animation redémarre proprement à 0% à
+              chaque slide changé. Hover/pause = play-state paused (freeze
+              à position actuelle, pas saut). Bars non-actives = width fixe
+              0% (à venir) ou 100% (passées) sans transition. */}
           <div className="absolute inset-x-3 top-9 z-20 flex gap-1">
-            {slides.map((_, i) => (
-              <div
-                key={i}
-                className="relative h-[3px] flex-1 overflow-hidden rounded-full bg-white/15"
-              >
+            {slides.map((_, i) => {
+              const isPassed = i < active;
+              const isActive = i === active;
+              return (
                 <div
-                  className="absolute inset-y-0 left-0"
-                  style={{
-                    width:
-                      i < active
-                        ? "100%"
-                        : i === active
-                        ? paused || hovered
-                          ? "50%"
-                          : "100%"
-                        : "0%",
-                    background: "#fff",
-                    transition: i === active && !paused && !hovered
-                      ? "width 5s linear"
-                      : "width 200ms",
-                  }}
-                />
-              </div>
-            ))}
+                  key={i}
+                  className="relative h-[3px] flex-1 overflow-hidden rounded-full bg-white/15"
+                >
+                  {isActive ? (
+                    <div
+                      key={active}
+                      className="absolute inset-y-0 left-0 bg-white"
+                      style={{
+                        width: "0%",
+                        animation: "story-progress 5s linear forwards",
+                        animationPlayState: paused || hovered ? "paused" : "running",
+                      }}
+                    />
+                  ) : (
+                    <div
+                      className="absolute inset-y-0 left-0 bg-white"
+                      style={{ width: isPassed ? "100%" : "0%" }}
+                    />
+                  )}
+                </div>
+              );
+            })}
           </div>
 
           {/* Pause/Play toggle (top-right inside) — descendu pour ne plus

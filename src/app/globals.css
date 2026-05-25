@@ -118,6 +118,15 @@ input, textarea, select {
   100% { background-position: 0% 50%; }
 }
 
+/* Yann (26 mai 2026) : barre progression timeline KPI stories. Anime de 0%
+   à 100% sur 5s linear. animation-play-state: paused stoppe la barre à sa
+   position actuelle (vs ancien hack width:50% qui faisait sauter le bar à
+   la moitié quand l'utilisateur hover). */
+@keyframes story-progress {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
 @keyframes spotlight {
   0% { opacity: 0; transform: translate(-72%, -62%) scale(0.5); }
   100% { opacity: 1; transform: translate(-50%, -40%) scale(1); }
