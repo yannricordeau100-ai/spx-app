@@ -184,10 +184,22 @@ function BrandWordmark({ kpiUnderText }: { kpiUnderText?: string }) {
         }}
       />
 
-      {/* Yann (25 mai 2026) : retire le sous-titre "KPI Intelligence" hardcoded
-          + la catchphrase produit kpiUnderText. La nouvelle bio est désormais
-          centralisée côté SEO (layout.tsx metadata) et n'est plus dupliquée
-          visuellement sous le wordmark. */}
+      {/* Yann (25 mai 2026 v2) : "KPI Intelligence" subtitle hardcoded reste
+          retiré (Yann ne veut plus ce libellé). En revanche la NOUVELLE bio
+          (kpiUnderText = "KPI Intelligence pour investisseurs boursiers
+          fournisseur d'indicateurs clés et risques tracés") est désormais
+          affichée ici sous le wordmark, en cohérence avec les metadata SEO.
+          Visible visuellement sur la home ET dans les link previews. */}
+      {kpiUnderText && (
+        <motion.div
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.05, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-3 max-w-2xl text-balance text-center text-[12.5px] leading-relaxed text-zinc-400 sm:text-[14px]"
+        >
+          {kpiUnderText}
+        </motion.div>
+      )}
     </div>
   );
 }
@@ -365,27 +377,12 @@ function RotatingPunchline({ items }: { items: string[] }) {
         <span aria-hidden className="absolute inset-0 translate-x-[3px] translate-y-[3px] rounded-xl border border-white/35 bg-[#06060a]/55" />
         <span aria-hidden className="absolute inset-0 translate-x-[6px] translate-y-[6px] rounded-xl border border-white/25 bg-[#04040a]/40" />
         <span aria-hidden className="absolute inset-0 translate-x-[9px] translate-y-[9px] rounded-xl border border-white/18 bg-[#020208]/28" />
-        {/* Badge "Pourquoi utiliser Mettrik AI ?" à cheval sur la bordure
-            supérieure. Yann 13 mai 2026 v2 : agrandi (text-[13px] sm:15px)
-            + padding plus généreux + bordure 1.5px + glow plus marqué pour
-            meilleure visibilité. Style toujours décalé du reste (mono
-            uppercase, gradient violet/cyan, fond opaque casse la bordure). */}
-        <span
-          aria-hidden
-          className="absolute left-1/2 top-0 z-30 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-[#06060a] px-4 py-1.5 font-mono text-[12px] font-extrabold uppercase tracking-[0.22em] sm:px-5 sm:py-2 sm:text-[14.5px]"
-          style={{
-            border: "1.5px solid rgba(168, 85, 247, 0.7)",
-            boxShadow:
-              "0 0 28px rgba(168, 85, 247, 0.55), 0 0 14px rgba(34, 211, 238, 0.35), inset 0 1px 0 rgba(255,255,255,0.18)",
-          }}
-        >
-          <span
-            className="bg-gradient-to-r from-violet-200 via-cyan-200 to-violet-200 bg-clip-text text-transparent"
-            style={{ WebkitBackgroundClip: "text", backgroundClip: "text" }}
-          >
-            Pourquoi utiliser Mettrik AI ?
-          </span>
-        </span>
+        {/* Yann (25 mai 2026 v2) : badge "Pourquoi utiliser Mettrik AI ?"
+            RETIRÉ. Yann l'avait demandé dans le prompt "enlève le texte
+            ... des pages d'accueil et tout autres endroits" mais j'avais
+            oublié. Les 4 punchlines "prouver à..." parlent désormais
+            d'elles-mêmes, plus besoin de titre wrapper. Bordure supérieure
+            du cadre redevient continue (le badge la cassait). */}
         {/* Cadre principal */}
         <div
           className="relative z-10 flex min-h-[148px] items-center justify-center overflow-hidden rounded-xl border border-white/40 bg-[#0a0a0e]/85 px-5 py-4 pr-12 backdrop-blur-sm sm:min-h-[168px] sm:pr-14"
@@ -578,7 +575,9 @@ export function HomeView({
           </nav>
         )}
 
-        <BrandWordmark />
+        <BrandWordmark
+          kpiUnderText={tt("brand.kpi_intelligence_under", "kpi_intelligence_under")}
+        />
 
         {/* Headline réduite + nouvelle punchline */}
         <div className="text-center animate-fade-up">
@@ -586,9 +585,11 @@ export function HomeView({
             <span className="gradient-text">{tt("brand.tagline_main_1", "tagline_main_1")}</span>{" "}
             <span className="gradient-text-violet">{tt("brand.tagline_main_2", "tagline_main_2")}</span>
           </h1>
-          {/* Yann (25 mai 2026) : retire la phrase "À seulement 1 clic
-              découvrir les KPI clés..." (= brand.tagline_sub). La bio est
-              désormais dans les metadata SEO uniquement. */}
+          {/* Yann (25 mai 2026 v2) : la bio "KPI Intelligence pour
+              investisseurs boursiers fournisseur d'indicateurs clés et risques
+              tracés" est désormais visible sous le wordmark (kpiUnderText)
+              ET dans les metadata SEO. Cohérent : ce que les visiteurs voient
+              = ce que Google / link previews montrent. */}
           {locale === "fr" && (
             <RotatingPunchline
               items={[
