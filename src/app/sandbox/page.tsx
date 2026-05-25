@@ -42,8 +42,9 @@ type SandboxItem = {
   label: string;
   desc: string;
   soon?: boolean;
-  /** Couleur d'accentuation du contour de la card (Yann 21 mai 2026 : repérage admin). */
-  accent?: "blue" | "violet";
+  /** Couleur d'accentuation du contour de la card (Yann 21 mai 2026 : repérage admin).
+   *  "default" (Yann 25 mai 2026) : accent vert/emerald pour signaler la version par défaut. */
+  accent?: "blue" | "violet" | "default";
 };
 
 type SandboxSection = {
@@ -62,23 +63,14 @@ const SECTIONS: SandboxSection[] = [
     description:
       "Hubs principaux des fiches sté et leurs sous-pages dynamiques [ticker].",
     items: [
+      // Yann (25 mai 2026) : V1.9.5 = VERSION PAR DÉFAUT partout dans l'app.
+      // Mise en première position + accent "DÉFAUT" pour clarté.
       {
-        href: "/sandbox/v1-7",
-        icon: Compass,
-        label: "V1.7 (Pass 3 strict)",
-        desc: "Hub des fiches société Pass 3 validées en stricte conformité.",
-      },
-      {
-        href: "/sandbox/v1-7-5",
-        icon: Layers,
-        label: "V1.7.5 (snapshot étendu)",
-        desc: "Version snapshot stable archivée pour la démo investisseur.",
-      },
-      {
-        href: "/sandbox/v1-8",
+        href: "/sandbox/v1-9-5",
         icon: Sparkles,
-        label: "V1.8 (dev actif)",
-        desc: "Version active de développement, top 307 prioritaire et reste en cours.",
+        label: "V1.9.5 · DÉFAUT — stés validées qualité",
+        desc: "Hub par défaut de l'app. Stés clean audit strict (a-f publishable + g-m extensions), 0 hallucination, mises à jour cron horaire.",
+        accent: "default" as const,
       },
       {
         href: "/sandbox/v1-9",
@@ -91,6 +83,24 @@ const SECTIONS: SandboxSection[] = [
         icon: Activity,
         label: "V1.9 · Suivi enrichissement top 307",
         desc: "Statut temps réel : strict 11/11 ✅ vs en cours 🟠 vs bloquées 🔴. Score par sté + blocs manquants.",
+      },
+      {
+        href: "/sandbox/v1-8",
+        icon: Sparkles,
+        label: "V1.8 (dev actif)",
+        desc: "Version active de développement, top 307 prioritaire et reste en cours.",
+      },
+      {
+        href: "/sandbox/v1-7-5",
+        icon: Layers,
+        label: "V1.7.5 (snapshot étendu)",
+        desc: "Version snapshot stable archivée pour la démo investisseur.",
+      },
+      {
+        href: "/sandbox/v1-7",
+        icon: Compass,
+        label: "V1.7 (Pass 3 strict)",
+        desc: "Hub des fiches société Pass 3 validées en stricte conformité.",
       },
     ],
   },
@@ -495,6 +505,13 @@ export default function SandboxPage() {
                   <span className="text-base">→</span>
                 </Link>
                 <Link
+                  href="/sandbox/v1-9-5"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-lg border-2 border-emerald-500/60 bg-emerald-500/20 px-4 py-2.5 font-mono text-[11.5px] font-semibold uppercase tracking-wider text-emerald-100 transition-all hover:border-emerald-400/80 hover:bg-emerald-500/30"
+                >
+                  Ouvrir 1.9.5 · DÉFAUT (stés validées qualité)
+                  <span className="text-base">→</span>
+                </Link>
+                <Link
                   href="/sandbox/v1-8"
                   className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-rose-500/50 bg-rose-500/15 px-4 py-2.5 font-mono text-[11.5px] font-semibold uppercase tracking-wider text-rose-100 transition-all hover:border-rose-500/80 hover:bg-rose-500/25"
                 >
@@ -551,19 +568,26 @@ export default function SandboxPage() {
                   {section.items.map((item) => {
                     const Icon = item.icon;
                     const isBlueAccent = item.accent === "blue";
+                    const isDefaultAccent = item.accent === "default";
                     const cardClass = item.soon
                       ? "group flex items-start gap-4 rounded-xl border border-white/5 bg-white/[0.01] p-5 opacity-60"
+                      : isDefaultAccent
+                        ? "group flex items-start gap-4 rounded-xl border-2 border-emerald-500/60 bg-emerald-500/[0.05] p-5 shadow-lg shadow-emerald-500/10 transition-colors hover:border-emerald-400/80 hover:bg-emerald-500/[0.08]"
+                        : isBlueAccent
+                          ? "group flex items-start gap-4 rounded-xl border-2 border-sky-500/55 bg-sky-500/[0.04] p-5 transition-colors hover:border-sky-400/80 hover:bg-sky-500/[0.07]"
+                          : "group flex items-start gap-4 rounded-xl border border-white/10 bg-white/[0.02] p-5 transition-colors hover:border-violet-500/30 hover:bg-white/[0.04]";
+
+                    const iconWrapClass = isDefaultAccent
+                      ? "flex size-10 shrink-0 items-center justify-center rounded-lg border border-emerald-500/40 bg-emerald-500/15 text-emerald-200"
                       : isBlueAccent
-                        ? "group flex items-start gap-4 rounded-xl border-2 border-sky-500/55 bg-sky-500/[0.04] p-5 transition-colors hover:border-sky-400/80 hover:bg-sky-500/[0.07]"
-                        : "group flex items-start gap-4 rounded-xl border border-white/10 bg-white/[0.02] p-5 transition-colors hover:border-violet-500/30 hover:bg-white/[0.04]";
+                        ? "flex size-10 shrink-0 items-center justify-center rounded-lg border border-sky-500/40 bg-sky-500/15 text-sky-200"
+                        : "flex size-10 shrink-0 items-center justify-center rounded-lg border border-violet-500/30 bg-violet-500/10 text-violet-300";
 
-                    const iconWrapClass = isBlueAccent
-                      ? "flex size-10 shrink-0 items-center justify-center rounded-lg border border-sky-500/40 bg-sky-500/15 text-sky-200"
-                      : "flex size-10 shrink-0 items-center justify-center rounded-lg border border-violet-500/30 bg-violet-500/10 text-violet-300";
-
-                    const labelHoverClass = isBlueAccent
-                      ? "text-[15px] font-semibold text-zinc-50 group-hover:text-sky-100"
-                      : "text-[15px] font-semibold text-zinc-50 group-hover:text-violet-200";
+                    const labelHoverClass = isDefaultAccent
+                      ? "text-[15px] font-semibold text-zinc-50 group-hover:text-emerald-100"
+                      : isBlueAccent
+                        ? "text-[15px] font-semibold text-zinc-50 group-hover:text-sky-100"
+                        : "text-[15px] font-semibold text-zinc-50 group-hover:text-violet-200";
 
                     const content = (
                       <>
