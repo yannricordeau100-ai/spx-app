@@ -1180,6 +1180,42 @@ export async function loadV17Company(
     }
   }
 
+  // Yann 25 mai 2026 : si locale demandée = "fr", on overlay l'ai_positioning
+  // evidence depuis v2-pipeline-i18n/<ticker>.fr.json champ
+  // `ai_positioning_evidence_fr`. Les sources enrich (CONV-DATA) contiennent
+  // souvent des phrases EN dans evidence. Cet overlay les remplace par leur
+  // traduction FR quand disponible (translated by script translate-ai-evidence-fr-cerebras.py).
+  // Fallback : si pas de FR pour un index, on garde la phrase originale (souvent FR déjà).
+  if (requestedLocale === "fr" || requestedLocale === "fr-fr") {
+    const frPath = path.join(
+      ROOT,
+      "src/data/v2-pipeline-i18n",
+      `${ticker.toLowerCase()}.fr.json`,
+    );
+    const frFile = await readJsonOrNull<{
+      ai_positioning_evidence_fr?: Array<string>;
+    }>(frPath);
+    const aiEv = frFile?.ai_positioning_evidence_fr;
+    const ai = (data as Record<string, unknown>).ai_positioning as
+      | Record<string, unknown>
+      | undefined;
+    if (
+      Array.isArray(aiEv) &&
+      ai &&
+      Array.isArray((ai as { evidence?: unknown }).evidence)
+    ) {
+      const original = (ai as { evidence: unknown[] }).evidence;
+      const merged = original.map((orig, idx) => {
+        const tr = aiEv[idx];
+        if (typeof tr === "string" && tr.trim().length > 0) {
+          return tr;
+        }
+        return orig;
+      });
+      (ai as { evidence: unknown }).evidence = merged;
+    }
+  }
+
   // Fresh / stale backfill via existing helper
   const company = enhanceFreshness(data as Company & Record<string, unknown>);
 
