@@ -191,15 +191,23 @@ function loadCompany(ticker) {
             // (value=null/undef ET share_pct=null/undef sur toutes). On ignore `pct`
             // car ce champ legacy n'est pas reconnu par la validation f_repartition.
             if (Array.isArray(b.slices) && b.slices.length > 0) {
-              const allEmpty = b.slices.every((s) => {
-                const noValue = s.value === null || s.value === undefined;
-                const noSharePct = s.share_pct === null || s.share_pct === undefined;
-                return noValue && noSharePct;
+              const allInvalid = b.slices.every((s) => {
+                return s.share_pct == null || s.share_pct === undefined || s.value == null;
               });
-              if (allEmpty) return true;
+              if (allInvalid) return true;
             }
             // Slices array vide
             if (Array.isArray(b.slices) && b.slices.length === 0) return true;
+            // Slices présentes avec share_pct mais somme hors [95, 105] → invalide pour f_repartition.
+            if (Array.isArray(b.slices) && b.slices.length > 0) {
+              const pctsAvailable = b.slices.filter(
+                (s) => s.share_pct !== null && s.share_pct !== undefined && Number.isFinite(Number(s.share_pct))
+              );
+              if (pctsAvailable.length > 0) {
+                const sum = pctsAvailable.reduce((acc, s) => acc + Number(s.share_pct), 0);
+                if (sum < 95 || sum > 105) return true;
+              }
+            }
             return false;
           };
           // Sub-agent #127 fix : merger l'enrich repartition aussi quand les blocs
@@ -652,8 +660,12 @@ function findHero(company) {
 
 function historyLength(kpi) {
   if (!kpi || !Array.isArray(kpi.history)) return 0;
-  // Filter out nulls
-  return kpi.history.filter((v) => v !== null && v !== undefined && Number.isFinite(Number(v))).length;
+  return kpi.history.filter((v) => {
+    if (v === null || v === undefined) return false;
+    if (Number.isFinite(Number(v))) return true;
+    if (typeof v === 'object' && v !== null && Number.isFinite(Number(v.value))) return true;
+    return false;
+  }).length;
 }
 
 function parseDate(s) {
