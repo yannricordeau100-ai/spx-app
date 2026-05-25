@@ -538,7 +538,7 @@ export function CompanyView({
         </nav>
 
         {/* Rich company header */}
-        <CompanyHeader company={company} hidePriceBar={hidePriceBar} />
+        <CompanyHeader company={company} hidePriceBar={hidePriceBar} freeBlocked={freeBlocked} />
 
         {/* HERO SECTION — plain section (no motion opacity:0 -> mobile bug) */}
         <section

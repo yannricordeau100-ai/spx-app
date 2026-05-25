@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import type { Company } from "@/lib/data";
 import { useT } from "@/lib/i18n/provider";
 import type { Locale } from "@/lib/i18n/types";
+import { BlurredFreeValue } from "@/components/freemium/blurred-free-value";
 
 /**
  * StockPriceBlock — bandeau prix de l'action, design "S6 v2".
@@ -117,7 +118,7 @@ const RED_LIGHT = "#fecaca";
 const GREEN_LED = "#86ff5c"; // lime vif > #22c55e
 const RED_LED = "#ff3355"; // rouge vif > #ef4444
 
-export function StockPriceBlock({ company }: { company: Company }) {
+export function StockPriceBlock({ company, freeBlocked = false }: { company: Company; freeBlocked?: boolean }) {
   const { t, locale } = useT();
   const live = useLivePrice(company.ticker);
   const s = {
@@ -174,7 +175,11 @@ export function StockPriceBlock({ company }: { company: Company }) {
           </span>
         )}
         <span className="mt-1 font-display text-[18px] font-bold leading-none tracking-tight text-zinc-50 tabular-nums sm:text-[20px]">
-          {live.loading ? placeholder : fmtMarketCap(s.marketCap, locale)}
+          {live.loading
+            ? placeholder
+            : freeBlocked
+              ? <BlurredFreeValue value="0" suffix=" Mds $" ticker={company.ticker} />
+              : fmtMarketCap(s.marketCap, locale)}
         </span>
       </div>
 
@@ -190,7 +195,11 @@ export function StockPriceBlock({ company }: { company: Company }) {
             fontSize: "clamp(18px, 2.2vw, 24px)",
           }}
         >
-          {live.loading ? placeholder : `${isUp ? "+" : ""}${s.deltaPct.toLocaleString(variationLocale, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} %`}
+          {live.loading
+            ? placeholder
+            : freeBlocked
+              ? <BlurredFreeValue value="0,00" suffix=" %" ticker={company.ticker} />
+              : `${isUp ? "+" : ""}${s.deltaPct.toLocaleString(variationLocale, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} %`}
         </span>
       </div>
 
@@ -218,10 +227,12 @@ export function StockPriceBlock({ company }: { company: Company }) {
           >
             {live.loading
               ? placeholder
-              : s.price.toLocaleString(locale === "fr" ? "fr-FR" : "en-US", {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                })}
+              : freeBlocked
+                ? <BlurredFreeValue value="0,00" ticker={company.ticker} />
+                : s.price.toLocaleString(locale === "fr" ? "fr-FR" : "en-US", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
             <span
               className="ml-1.5 text-[18px] text-white/85 sm:text-[20px]"
               style={{

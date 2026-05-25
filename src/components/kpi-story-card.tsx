@@ -263,22 +263,34 @@ function MarketPositionStoryCard({
         <div className="my-auto flex flex-col items-center text-center">
           {sharePct !== null ? (
             <>
-              <div
-                className="font-display font-bold leading-none tracking-tight gradient-text"
-                style={{ fontSize: "clamp(72px, 25vw, 120px)" }}
-              >
-                {sharePct.toFixed(1).replace(".", ",")}&nbsp;%
-              </div>
+              {freeBlocked ? (
+                <div style={{ fontSize: "clamp(72px, 25vw, 120px)" }}>
+                  <BlurredFreeValue value="0,0" suffix=" %" ticker={ticker} />
+                </div>
+              ) : (
+                <div
+                  className="font-display font-bold leading-none tracking-tight gradient-text"
+                  style={{ fontSize: "clamp(72px, 25vw, 120px)" }}
+                >
+                  {sharePct.toFixed(1).replace(".", ",")}&nbsp;%
+                </div>
+              )}
               <div className="mt-2 text-[18px] font-semibold text-zinc-100">{t("story.market_share")}</div>
             </>
           ) : (
             <>
-              <div
-                className="font-display font-bold leading-none tracking-tight gradient-text"
-                style={{ fontSize: "clamp(56px, 18vw, 88px)" }}
-              >
-                {mp.segment_revenue} <span className="text-[0.5em] font-medium text-zinc-300">{formatUnit(mp.segment_unit)}</span>
-              </div>
+              {freeBlocked ? (
+                <div style={{ fontSize: "clamp(56px, 18vw, 88px)" }}>
+                  <BlurredFreeValue value={String(mp.segment_revenue)} suffix={` ${formatUnit(mp.segment_unit)}`} ticker={ticker} />
+                </div>
+              ) : (
+                <div
+                  className="font-display font-bold leading-none tracking-tight gradient-text"
+                  style={{ fontSize: "clamp(56px, 18vw, 88px)" }}
+                >
+                  {mp.segment_revenue} <span className="text-[0.5em] font-medium text-zinc-300">{formatUnit(mp.segment_unit)}</span>
+                </div>
+              )}
               <div className="mt-2 text-[16px] font-semibold text-zinc-100">{t("story.segment_revenue_label")}</div>
               <div className="mt-2 text-[12px] italic text-zinc-400">
                 {t("story.tam_not_disclosed")}

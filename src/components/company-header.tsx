@@ -201,6 +201,7 @@ export function CompanyHeader({
   company,
   hidePriceBar = false,
   allTickers,
+  freeBlocked = false,
 }: {
   company: Company;
   hidePriceBar?: boolean;
@@ -212,6 +213,8 @@ export function CompanyHeader({
    * suffixe. Le ticker technique (URL, dataset) reste inchangé.
    */
   allTickers?: Set<string> | ReadonlySet<string>;
+  /** Yann (25 mai 2026) : floute stock price + market cap en mode free. */
+  freeBlocked?: boolean;
 }) {
   const accent = brand(company.ticker).primary;
   const { t, locale } = useT();
@@ -254,7 +257,7 @@ export function CompanyHeader({
             );
           })()}
         </div>
-        {!hidePriceBar && <StockPriceBlock company={company} />}
+        {!hidePriceBar && <StockPriceBlock company={company} freeBlocked={freeBlocked} />}
       </div>
 
       {/* Yann (12 mai 2026) : tous les rangs sur UNE ligne horizontale.
