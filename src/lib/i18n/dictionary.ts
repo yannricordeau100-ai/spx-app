@@ -53,24 +53,28 @@ export const DICTIONARY: Dict = {
     en: "",
   },
   // Format strict (Yann 10 mai 2026, refacto Opus) : "part1 | part2".
-  // Le composant RotatingPunchline split sur ' | ', rend part1 (question /
-  // locuteur 1) en blanc-60 italique, et part2 (réponse / locuteur 2) en
+  // Le composant RotatingPunchline split sur ' | ', rend part1 (situation /
+  // objection) en blanc-60 italique, et part2 (réponse / preuve) en
   // gradient violet→cyan en gras pour la mettre en avant. Saut de ligne
   // logique avec une flèche cyan ↳ entre les deux parties.
+  //
+  // Yann (25 mai 2026) : refonte complète, 4 nouvelles punchlines articulées
+  // sur le verbe « PROUVER » (conseiller / voisin / collègues / enfants).
+  // Esprit "wow" = chaque ligne plante une preuve concrète, pas un dialogue.
   "home.punchline.1": {
-    fr: "*Conseiller bancaire sérieux* 👨‍💼 : « Vous n'avez rien de plus que les autres pour battre le marché. » | *Moi confiant* : Moi seul non. *Moi + Mettrik AI*, si.",
+    fr: "👨‍💼 *À votre conseiller bancaire* : « Vous ne battrez pas le marché. » | *Prouvez-lui le contraire* avec les bonnes informations. *Mettrik AI*.",
     en: "",
   },
   "home.punchline.2": {
-    fr: "*Conseiller bancaire sérieux* 👨‍💼 : « Vous n'arriverez pas à battre le marché. » | *Moi confiant* : Sans information, non. Avec *Mettrik AI*, si.",
+    fr: "🏠 *À votre voisin* : « Bloomberg coûte 30 000 $/an. » | *Prouvez-lui* que toutes les métriques d'une société sont accessibles, à 0,99 €/jour. *Mettrik AI*.",
     en: "",
   },
   "home.punchline.3": {
-    fr: "📚 *Question* : Comment avoir un avantage compétitif sur vos collègues à la machine à café ? | *Réponse* : Utiliser *Mettrik AI*. 🤷🏼‍♂️",
+    fr: "☕ *À vos collègues machine à café* : « Personne ne bat le marché durablement. » | *Prouvez-leur* qu'un avantage compétitif change la donne. *Mettrik AI*.",
     en: "",
   },
   "home.punchline.4": {
-    fr: "👦 *Le fils* : Dis Papa, comment t'as eu et gardé un avantage compétitif par rapport aux autres ? | 👨 *Le père* : J'utilise *Mettrik AI* mon fils, tout simplement.",
+    fr: "👨‍👩‍👧 *À vos enfants, un jour* : « Pourquoi notre épargne performe ? » | *Prouvez-leur* : papa / maman a su exploiter l'info mieux que les autres. *Mettrik AI*.",
     en: "",
   },
   "brand.data_updated": {
