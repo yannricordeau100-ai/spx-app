@@ -4,6 +4,7 @@ import { Sparkles, ArrowUpRight, AlertTriangle, Coins, Telescope } from "lucide-
 import type { InterpretBlock, InterpretTone } from "@/lib/data";
 import { normalizeNarrative } from "@/lib/ui-fix-templates";
 import { useT } from "@/lib/i18n/provider";
+import { AutoTooltipText } from "@/components/auto-tooltip-text";
 
 const TONE: Record<
   InterpretTone,
@@ -32,10 +33,9 @@ export function InterpretationBlock({
         </span>
       </div>
 
-      <p
-        className="text-[15.5px] leading-relaxed text-zinc-100 [&_em]:italic [&_em]:text-zinc-200 [&_strong]:font-semibold [&_strong]:text-zinc-50"
-        dangerouslySetInnerHTML={{ __html: normalizeNarrative(block.lead) }}
-      />
+      <p className="text-[15.5px] leading-relaxed text-zinc-100 [&_em]:italic [&_em]:text-zinc-200 [&_strong]:font-semibold [&_strong]:text-zinc-50">
+        <AutoTooltipText text={normalizeNarrative(block.lead)} locale="fr" />
+      </p>
 
       <ul className="mt-5 grid gap-3">
         {block.bullets.map((b, i) => {
@@ -70,10 +70,9 @@ export function InterpretationBlock({
                 >
                   {b.label}
                 </div>
-                <p
-                  className="mt-1.5 text-[14.5px] leading-relaxed text-zinc-200 [&_em]:italic [&_em]:text-zinc-100 [&_strong]:font-semibold [&_strong]:text-zinc-50"
-                  dangerouslySetInnerHTML={{ __html: normalizeNarrative(b.body) }}
-                />
+                <p className="mt-1.5 text-[14.5px] leading-relaxed text-zinc-200 [&_em]:italic [&_em]:text-zinc-100 [&_strong]:font-semibold [&_strong]:text-zinc-50">
+                  <AutoTooltipText text={normalizeNarrative(b.body)} locale="fr" />
+                </p>
               </div>
             </li>
           );

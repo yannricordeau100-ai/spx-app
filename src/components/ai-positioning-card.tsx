@@ -6,6 +6,7 @@ import { brand } from "@/lib/brand";
 import { useT } from "@/lib/i18n/provider";
 import { normalizeNarrative } from "@/lib/ui-fix-templates";
 import { BlurredFreeText } from "@/components/freemium/blurred-free-text";
+import { AutoTooltipText } from "@/components/auto-tooltip-text";
 
 const STANCE_META: Record<
   AIPositioning["stance"],
@@ -98,7 +99,11 @@ export function AIPositioningCard({
         </div>
 
         <BlurredFreeText blocked={freeBlocked} ticker={ticker} as="p" className="mt-4 text-[15px] leading-relaxed text-zinc-100">
-          {effective.summary ? normalizeNarrative(effective.summary) : effective.summary}
+          {effective.summary ? (
+            <AutoTooltipText text={normalizeNarrative(effective.summary)} locale="fr" />
+          ) : (
+            effective.summary
+          )}
         </BlurredFreeText>
 
         {Array.isArray(effective.evidence) && effective.evidence.length > 0 && (
@@ -117,7 +122,11 @@ export function AIPositioningCard({
                     style={{ color: meta.color }}
                   />
                   <BlurredFreeText blocked={freeBlocked} ticker={ticker} as="span">
-                    {typeof e === "string" ? normalizeNarrative(e) : e}
+                    {typeof e === "string" ? (
+                      <AutoTooltipText text={normalizeNarrative(e)} locale="fr" />
+                    ) : (
+                      e
+                    )}
                   </BlurredFreeText>
                 </li>
               ))}

@@ -22,6 +22,7 @@ import type { CompanyRisk, ProfitWarning, RiskCategory, RiskTrend } from "@/lib/
 import { InfoTooltip } from "@/components/info-tooltip";
 import { useT } from "@/lib/i18n/provider";
 import { normalizeNarrative } from "@/lib/ui-fix-templates";
+import { AutoTooltipText } from "@/components/auto-tooltip-text";
 import { BlurredFreeValue } from "@/components/freemium/blurred-free-value";
 import { BlurredFreeText } from "@/components/freemium/blurred-free-text";
 
@@ -297,7 +298,11 @@ function RiskCard({ risk, index, freeBlocked = false, ticker }: { risk: CompanyR
                   {t("risks.score_explainer_title")}
                 </div>
                 <BlurredFreeText blocked={freeBlocked} ticker={ticker} as="p" className="text-[12px] leading-relaxed text-zinc-200">
-                  {risk.score_rationale ? normalizeNarrative(risk.score_rationale) : risk.score_rationale}
+                  {risk.score_rationale ? (
+                    <AutoTooltipText text={normalizeNarrative(risk.score_rationale)} locale="fr" />
+                  ) : (
+                    risk.score_rationale
+                  )}
                 </BlurredFreeText>
                 <div className="mt-3 rounded-md border border-[#1f1f1f] bg-[#0c0c0c] p-2">
                   <div className="font-mono text-[10px] uppercase tracking-wider text-zinc-400">
