@@ -295,51 +295,14 @@ function useLineCount(ref: React.RefObject<HTMLElement | null>, deps: unknown[])
  *   (out 600 ms, in 800 ms, durée affichage 6,5 s)
  * - Part2 entre 120 ms après part1 (effet stagger premium)
  */
-function RotatingPunchline({ items }: { items: string[] }) {
-  const [idx, setIdx] = useState(() => Math.floor(Math.random() * items.length));
-
-  // Yann 13 mai 2026 : délai 15s (était 10s) pour laisser le temps de lire.
-  useEffect(() => {
-    if (items.length <= 1) return;
-    const t = setTimeout(() => {
-      setIdx((prev) => {
-        let next = Math.floor(Math.random() * items.length);
-        let safety = 0;
-        while (next === prev && safety++ < 8) next = Math.floor(Math.random() * items.length);
-        return next;
-      });
-    }, 15000);
-    return () => clearTimeout(t);
-  }, [idx, items.length]);
-
-  // Avance manuelle (clic chevron desktop ou swipe mobile).
-  const advance = () => {
-    if (items.length <= 1) return;
-    setIdx((prev) => {
-      let next = Math.floor(Math.random() * items.length);
-      let safety = 0;
-      while (next === prev && safety++ < 8) next = Math.floor(Math.random() * items.length);
-      return next;
-    });
-  };
-
-  // Swipe gauche → next (mobile + trackpad).
-  const touchStartX = useRef<number | null>(null);
-  const onTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0]?.clientX ?? null;
-  };
-  const onTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX.current === null) return;
-    const dx = (e.changedTouches[0]?.clientX ?? touchStartX.current) - touchStartX.current;
-    if (dx < -40) advance(); // swipe left
-    touchStartX.current = null;
-  };
-
-  const raw = items[idx] ?? "";
-  const sepIdx = raw.indexOf(" | ");
-  const part1 = sepIdx > 0 ? raw.slice(0, sepIdx).trim() : raw.trim();
-  const part2 = sepIdx > 0 ? raw.slice(sepIdx + 3).trim() : "";
-
+/**
+ * MettrikCitationCard (refonte Yann 26 mai 2026) :
+ * - Plus de rotation. Une seule citation académique mise en avant.
+ * - Source : Fang, Mohanram & Vyas (2020), Singapore Management University.
+ * - Esprit : preuve scientifique → légitimise l'usage des KPI pour battre
+ *   le marché. Style "papier de recherche encadré" + halo violet/cyan.
+ */
+function MettrikCitationCard() {
   const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
   // Yann 12 mai 2026 v2 : effet 3D nettement plus marqué.
@@ -395,104 +358,81 @@ function RotatingPunchline({ items }: { items: string[] }) {
             Pourquoi utiliser Mettrik AI ?
           </span>
         </span>
-        {/* Cadre principal */}
+        {/* Cadre principal — citation académique unique (pas de rotation) */}
         <div
-          className="relative z-10 flex min-h-[148px] items-center justify-center overflow-hidden rounded-xl border border-white/40 bg-[#0a0a0e]/85 px-5 py-4 pr-12 backdrop-blur-sm sm:min-h-[168px] sm:pr-14"
+          className="relative z-10 flex min-h-[180px] flex-col items-center justify-center overflow-hidden rounded-xl border border-white/40 bg-[#0a0a0e]/85 px-6 py-7 backdrop-blur-sm sm:min-h-[200px] sm:px-10 sm:py-9"
           style={{
             boxShadow:
               "inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -1px 0 rgba(0,0,0,0.5), 0 18px 40px -12px rgba(139, 92, 246, 0.35), 0 8px 18px -6px rgba(0,0,0,0.6)",
           }}
-          onTouchStart={onTouchStart}
-          onTouchEnd={onTouchEnd}
         >
-          {/* Catch light en haut (simule éclairage du haut) */}
+          {/* Catch light en haut */}
           <span
             aria-hidden
             className="pointer-events-none absolute inset-x-0 top-0 h-px"
             style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent)" }}
           />
-          {/* Hint à droite (Yann 13 mai 2026) : 3 barres équaliseur qui
-              pulsent + label "swipe" vertical mini. Effet "data vivante" :
-              fait sentir que l'app est en train de "respirer", inviter à
-              avancer sans flèche bateau. Cliquable desktop, swipe gauche
-              mobile (touchHandlers sur le parent). */}
-          <button
-            type="button"
-            onClick={advance}
-            aria-label="Punchline suivante"
-            className="group/hint absolute inset-y-0 right-0 z-20 flex flex-col items-center justify-center gap-1.5 px-3 transition-opacity hover:opacity-100 sm:px-4"
+
+          {/* Quote mark décoratif en haut-gauche, gros, gradient violet/cyan */}
+          <motion.span
+            aria-hidden
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 0.45, scale: 1 }}
+            transition={{ duration: 0.9, ease }}
+            className="pointer-events-none absolute -top-2 left-2 select-none font-display text-[80px] leading-none sm:-top-3 sm:left-5 sm:text-[110px]"
             style={{
-              background:
-                "linear-gradient(270deg, rgba(139, 92, 246, 0.20) 0%, rgba(34, 211, 238, 0.08) 60%, transparent 100%)",
+              background: "linear-gradient(135deg, #a78bfa 0%, #22d3ee 100%)",
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+              color: "transparent",
+              fontFamily: "var(--font-fraunces), Georgia, serif",
             }}
           >
-            <span
-              aria-hidden
-              className="flex items-end gap-[3px]"
-              style={{ filter: "drop-shadow(0 0 5px rgba(168,85,247,0.55))" }}
-            >
-              {[0, 0.18, 0.36].map((delay, i) => (
-                <motion.span
-                  key={i}
-                  animate={{ scaleY: [0.4, 1, 0.4], opacity: [0.55, 1, 0.55] }}
-                  transition={{ duration: 1.4, delay, repeat: Infinity, ease: "easeInOut" }}
-                  style={{
-                    transformOrigin: "bottom",
-                    display: "inline-block",
-                    width: "3px",
-                    height: "14px",
-                    borderRadius: "1.5px",
-                    background:
-                      "linear-gradient(180deg, #22d3ee 0%, #a78bfa 100%)",
-                  }}
-                />
-              ))}
-            </span>
-            <span className="font-mono text-[8px] font-bold uppercase tracking-[0.22em] text-violet-300/85">
-              suivant
-            </span>
-          </button>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5, ease }}
-              className="w-full text-center"
-            >
-              {/* part1 — question / locuteur 1, retrait visuel */}
-              <motion.p
-                initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                exit={{ opacity: 0, y: -12, filter: "blur(4px)" }}
-                transition={{ duration: 0.6, ease }}
-                className="text-balance font-display text-[17px] italic leading-[1.4] text-zinc-300/80 sm:text-[20px]"
-              >
-                {renderPunchline(part1)}
-              </motion.p>
+            “
+          </motion.span>
 
-              {part2 && (
-                <motion.p
-                  initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
-                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                  exit={{ opacity: 0, y: -12, filter: "blur(4px)" }}
-                  transition={{ duration: 0.7, ease, delay: 0.12 }}
-                  className="mt-2 text-balance font-display text-[18px] font-semibold italic leading-[1.35] sm:mt-2.5 sm:text-[22px]"
-                >
-                  <span className="mr-2 inline-block align-middle text-cyan-300/80" aria-hidden>
-                    ↳
-                  </span>
-                  <span
-                    className="bg-gradient-to-r from-violet-200 via-violet-100 to-cyan-200 bg-clip-text text-transparent"
-                    style={{ WebkitBackgroundClip: "text", backgroundClip: "text" }}
-                  >
-                    {renderPunchline(part2)}
-                  </span>
-                </motion.p>
-              )}
-            </motion.div>
-          </AnimatePresence>
+          {/* Citation principale */}
+          <motion.p
+            initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ duration: 0.8, ease }}
+            className="relative z-10 max-w-2xl text-balance text-center font-display text-[18px] font-medium italic leading-[1.45] text-zinc-100 sm:text-[22px]"
+          >
+            <span
+              className="bg-gradient-to-r from-violet-100 via-white to-cyan-100 bg-clip-text text-transparent"
+              style={{ WebkitBackgroundClip: "text", backgroundClip: "text" }}
+            >
+              Les KPI sont positivement associés à la rentabilité future, à la croissance des ventes et aux performances boursières.
+            </span>
+          </motion.p>
+
+          {/* Séparateur subtil */}
+          <motion.span
+            aria-hidden
+            initial={{ scaleX: 0, opacity: 0 }}
+            animate={{ scaleX: 1, opacity: 0.6 }}
+            transition={{ duration: 0.7, ease, delay: 0.3 }}
+            className="my-4 block h-px w-16 origin-center sm:my-5 sm:w-20"
+            style={{
+              background: "linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.8), rgba(34, 211, 238, 0.8), transparent)",
+            }}
+          />
+
+          {/* Citation source — ton académique discret */}
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease, delay: 0.45 }}
+            className="relative z-10 flex flex-col items-center gap-1 text-center sm:flex-row sm:gap-2.5"
+          >
+            <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-zinc-300 sm:text-[12px]">
+              Fang, Mohanram &amp; Vyas
+            </span>
+            <span className="hidden text-zinc-600 sm:inline" aria-hidden>·</span>
+            <span className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-zinc-500 sm:text-[11.5px]">
+              2020 · Singapore Management University
+            </span>
+          </motion.div>
         </div>
       </motion.div>
     </div>
@@ -602,16 +542,7 @@ export function HomeView({
               tracés" est désormais visible sous le wordmark (kpiUnderText)
               ET dans les metadata SEO. Cohérent : ce que les visiteurs voient
               = ce que Google / link previews montrent. */}
-          {locale === "fr" && (
-            <RotatingPunchline
-              items={[
-                tt("home.punchline.1", "punchline_1"),
-                tt("home.punchline.2", "punchline_2"),
-                tt("home.punchline.3", "punchline_3"),
-                tt("home.punchline.4", "punchline_4"),
-              ]}
-            />
-          )}
+          {locale === "fr" && <MettrikCitationCard />}
         </div>
 
         {/* Pill "Données à jour" : Yann 10 mai 2026 déplacée ici, entre
