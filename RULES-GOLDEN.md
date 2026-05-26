@@ -10,31 +10,45 @@
 
 ---
 
-## 0. V1.8 EN PREMIER, JAMAIS V1.7 (RÈGLE D'OR ABSOLUE)
+## 0. DERNIÈRE VERSION UNIQUEMENT (RÈGLE D'OR PERMANENTE)
 
-Édictée par Yann le 12 mai 2026. Ordre TRÈS important, à appliquer
-dans toutes les conversations (CONCEPTS, SYSTEMS, DATA, DIV, BRAND).
+Édictée par Yann le 26 mai 2026 (remplace l'ancienne règle V1.8/V1.7
+du 12 mai 2026, devenue obsolète).
 
-**Règle** : tout nouveau travail sur l'univers société (KPIs, freshness,
-features, data enrichment, etc.) **commence systématiquement sur V1.8**,
-sur le **top 307** d'abord (univers `src/data/v1-8-tickers-sorted.json[:307]`).
+**Règle ABSOLUE et NON-temporaire** : tout travail (code, data,
+extraction, traduction, UI, fix, feature) se fait UNIQUEMENT sur la
+**dernière version** de l'app. Aujourd'hui = **V1.9.5**. Demain V2.0,
+V2.1, etc. Source de vérité unique : `LATEST_VERSION_SLUG` dans
+`src/lib/version-routing.ts`.
 
-**Workflow obligatoire** :
-1. **D'abord** : V1.8 top 307 → V1.8 reste
-2. **Une fois V1.8 terminé** → seulement à ce moment-là, copier les 307
-   premiers vers V1.7 (= mêmes données, mêmes features, version snapshot)
-3. **Jamais l'inverse** : ne pas commencer un chantier sur V1.7 puis
-   l'étendre à V1.8 (= source de bugs et d'incohérences entre les 2
-   versions, observés en pratique)
+**Conséquences** :
+- Aucun nouveau chantier V1.7, V1.8, V1.9 (non-5). Ces routes restent
+  accessibles mais en mode "snapshot figé" : pas de fix UI, pas
+  d'enrichment data, pas de nouvelles features dessus.
+- Tous les scripts, jobs, crons, sub-agents doivent cibler V1.9.5.
+- Les fichiers nommés `v17` / `v18` / `v19` dans `scripts/` ou
+  `src/data/` sont legacy : leur path peut rester (pour ne pas casser
+  les crons existants) mais leur CONTENU itère sur l'univers
+  V1.9.5 (= 660 stés clean_all du dernier audit).
+- Côté UI : la recherche, les liens internes, les redirections
+  pointent vers V1.9.5. Les anciennes routes redirigent vers leur
+  équivalent V1.9.5 quand possible.
+- Quand Yann demande "fix sur les stés" / "modif sur les pages sté"
+  sans préciser la version → V1.9.5 par défaut. Toujours.
 
-**Exception explicite** : si Yann mentionne explicitement "V1.7" ou
-"sur les V1.7 seulement" dans son prompt, suivre. Sinon, par défaut,
-**toute mention "top N" ou "univers société" = V1.8 top N**.
+**Exception explicite** : Yann mentionne nominativement une version
+ancienne ("juste sur V1.7", "snapshot V1.8") → suivre. Sinon,
+toujours V1.9.5.
 
-**Pourquoi** : V1.7 est la version "snapshot stable" archivée pour la
-démo investisseur. V1.8 est la version active de développement avec
-les dernières features. Travailler dans le mauvais ordre crée des
-discordances UI/data entre les 2 versions et oblige à refaire le boulot.
+**Quand passage V2.0** : un seul fichier à modifier
+(`src/lib/version-routing.ts:LATEST_VERSION_SLUG`) + créer le dossier
+`src/app/sandbox/v2-0/` qui réutilise les composants partagés. Les
+scripts continuent de fonctionner sur le nouveau univers car ils
+lisent l'audit publié le plus récent, pas un version-slug hardcodé.
+
+**Pourquoi** : Yann ne veut PAS de discordances UI/data entre versions,
+ni d'oubli de fix sur la version qu'il regarde. Une version active
+unique = zéro friction.
 
 ---
 
