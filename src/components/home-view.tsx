@@ -302,8 +302,54 @@ function useLineCount(ref: React.RefObject<HTMLElement | null>, deps: unknown[])
  * - Esprit : preuve scientifique → légitimise l'usage des KPI pour battre
  *   le marché. Style "papier de recherche encadré" + halo violet/cyan.
  */
-function MettrikCitationCard() {
+// Yann 26 mai 2026 : citation Fang/Mohanram/Vyas 2020 traduite dans toutes
+// les locales actives. FR + EN + DE fournis par Yann, autres traduits.
+const CITATION_BY_LOCALE: Record<string, { quote: string; openQuote: string; closeQuote: string }> = {
+  fr: {
+    quote: "Les KPI sont positivement associés à la rentabilité future, à la croissance des ventes et aux performances boursières.",
+    openQuote: "“",
+    closeQuote: "”",
+  },
+  en: {
+    quote: "KPIs are positively associated with future profitability, sales growth, and current stock returns.",
+    openQuote: "“",
+    closeQuote: "”",
+  },
+  "en-GB": {
+    quote: "KPIs are positively associated with future profitability, sales growth, and current stock returns.",
+    openQuote: "“",
+    closeQuote: "”",
+  },
+  de: {
+    quote: "KPIs stehen in einem positiven Zusammenhang mit zukünftiger Profitabilität, Umsatzwachstum und Aktienrenditen.",
+    openQuote: "„",
+    closeQuote: "“",
+  },
+  "de-CH": {
+    quote: "KPIs stehen in einem positiven Zusammenhang mit zukünftiger Profitabilität, Umsatzwachstum und Aktienrenditen.",
+    openQuote: "„",
+    closeQuote: "“",
+  },
+  nl: {
+    quote: "KPI's zijn positief geassocieerd met toekomstige winstgevendheid, omzetgroei en beursrendementen.",
+    openQuote: "„",
+    closeQuote: "”",
+  },
+  sv: {
+    quote: "Nyckeltal är positivt förknippade med framtida lönsamhet, försäljningstillväxt och aktieavkastning.",
+    openQuote: "”",
+    closeQuote: "”",
+  },
+  da: {
+    quote: "Nøgletal er positivt forbundet med fremtidig rentabilitet, omsætningsvækst og aktieafkast.",
+    openQuote: "„",
+    closeQuote: "”",
+  },
+};
+
+function MettrikCitationCard({ locale = "fr" }: { locale?: string }) {
   const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
+  const citation = CITATION_BY_LOCALE[locale] ?? CITATION_BY_LOCALE.en!;
 
   // Yann 12 mai 2026 v2 : effet 3D nettement plus marqué.
   // - perspective wrapper + léger tilt rotateX (cadre flotte au-dessus du fond)
@@ -388,7 +434,7 @@ function MettrikCitationCard() {
               fontFamily: "var(--font-fraunces), Georgia, serif",
             }}
           >
-            “
+            {citation.openQuote}
           </motion.span>
 
           {/* Citation principale */}
@@ -402,7 +448,7 @@ function MettrikCitationCard() {
               className="bg-gradient-to-r from-violet-100 via-white to-cyan-100 bg-clip-text text-transparent"
               style={{ WebkitBackgroundClip: "text", backgroundClip: "text" }}
             >
-              Les KPI sont positivement associés à la rentabilité future, à la croissance des ventes et aux performances boursières.
+              {citation.quote}
             </span>
           </motion.p>
 
@@ -542,7 +588,7 @@ export function HomeView({
               tracés" est désormais visible sous le wordmark (kpiUnderText)
               ET dans les metadata SEO. Cohérent : ce que les visiteurs voient
               = ce que Google / link previews montrent. */}
-          {locale === "fr" && <MettrikCitationCard />}
+          <MettrikCitationCard locale={locale} />
         </div>
 
         {/* Pill "Données à jour" : Yann 10 mai 2026 déplacée ici, entre
