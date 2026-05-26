@@ -11,6 +11,7 @@ import V19_UNIVERSE from "@/data/v1-9-universe.json";
 import V19_PUBLISHABLE from "@/data/v1-9-publishable.json";
 import { FreemiumBlurProvider, type UserTier } from "@/lib/freemium/context";
 import { readSimulateTier } from "@/lib/desk/effective-tier";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 // Yann 20 mai 2026 13h30 : critère "publishable" (hero spec + 3 KPI spec + desc)
 // remplace "strict 11/11" pour visibilité. UI masque automatiquement les blocs
@@ -255,17 +256,23 @@ export default async function SandboxV19TickerPage({
   const transcript = await loadTranscript(ticker);
   const transcriptSummary = await loadTranscriptSummary(ticker);
 
-  // Yann (25 mai 2026) : floutage freemium SSR. Tier lu depuis cookie
-  // SIMULATE_COOKIE (admin "view as") + fallback "free" pour démontrer
-  // le floutage par défaut sur les stés non accessibles (toutes sauf
-  // GOOGL/META/GOOG en free).
+  // Yann (26 mai 2026) : floutage uniquement pour anon / plan free réel.
+  // Admin et users inscrits → max par défaut. Cookie simulate prime.
   const simulated = await readSimulateTier();
-  const freemiumTier: UserTier =
-    simulated === "anonymous" ? "anon"
-    : simulated === "free" ? "free"
-    : simulated === "premium" ? "premium"
-    : simulated === "max" ? "max"
-    : "free";
+  let freemiumTier: UserTier;
+  if (simulated === "anonymous") freemiumTier = "anon";
+  else if (simulated === "free") freemiumTier = "free";
+  else if (simulated === "premium") freemiumTier = "premium";
+  else if (simulated === "max") freemiumTier = "max";
+  else {
+    try {
+      const sb = await createSupabaseServerClient();
+      const { data: { user } } = await sb.auth.getUser();
+      freemiumTier = user ? "max" : "anon";
+    } catch {
+      freemiumTier = "anon";
+    }
+  }
 
   return (
     <FreemiumBlurProvider tier={freemiumTier}>

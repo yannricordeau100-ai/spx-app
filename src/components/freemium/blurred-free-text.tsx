@@ -53,7 +53,8 @@ export function BlurredFreeText({
     <Tag
       className={`${className ?? ""} relative cursor-pointer select-none`}
       style={{
-        filter: "blur(5px)",
+        // Yann (26 mai 2026) : blur fort pour vraiment empêcher la lecture.
+        filter: "blur(10px)",
         WebkitUserSelect: "none",
         userSelect: "none",
         pointerEvents: "none",

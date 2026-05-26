@@ -9,6 +9,7 @@ import { loadV17Company } from "@/lib/v1-7/load-company";
 import { getServerLocale } from "@/lib/i18n/server";
 import { FreemiumBlurProvider, type UserTier } from "@/lib/freemium/context";
 import { readSimulateTier } from "@/lib/desk/effective-tier";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 type AuditEntry = {
   ticker: string;
@@ -205,14 +206,27 @@ export default async function SandboxV195TickerPage({
   const transcript = await loadTranscript(ticker);
   const transcriptSummary = await loadTranscriptSummary(ticker);
 
-  // Yann (25 mai 2026) : floutage freemium SSR — voir v1-9 page pour détail.
+  // Yann (26 mai 2026) : floutage UNIQUEMENT pour plan free réel ou anon.
+  // L'admin (DESK_OWNER_EMAIL) et tout user inscrit voit en clair par défaut
+  // tant qu'on n'a pas branché Supabase plans → tier = max.
+  // Le cookie simulate (admin "view as") prime sur tout.
   const simulated = await readSimulateTier();
-  const freemiumTier: UserTier =
-    simulated === "anonymous" ? "anon"
-    : simulated === "free" ? "free"
-    : simulated === "premium" ? "premium"
-    : simulated === "max" ? "max"
-    : "free";
+  let freemiumTier: UserTier;
+  if (simulated === "anonymous") freemiumTier = "anon";
+  else if (simulated === "free") freemiumTier = "free";
+  else if (simulated === "premium") freemiumTier = "premium";
+  else if (simulated === "max") freemiumTier = "max";
+  else {
+    // Pas de simulate cookie : on regarde le user réel
+    try {
+      const sb = await createSupabaseServerClient();
+      const { data: { user } } = await sb.auth.getUser();
+      // user connecté → max par défaut (pas de blur). Anon → anon (blur tout).
+      freemiumTier = user ? "max" : "anon";
+    } catch {
+      freemiumTier = "anon";
+    }
+  }
 
   return (
     <FreemiumBlurProvider tier={freemiumTier}>

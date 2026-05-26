@@ -54,7 +54,9 @@ export function BlurredFreeValue({
     <span
       className={className}
       style={{
-        filter: "blur(6px)",
+        // Yann (26 mai 2026) : blur fort pour rendre illisible meme sur très
+        // gros caractères (hero KPI 80px). blur(12px) > blur(6px).
+        filter: "blur(12px)",
         WebkitUserSelect: "none",
         userSelect: "none",
         pointerEvents: "none",
