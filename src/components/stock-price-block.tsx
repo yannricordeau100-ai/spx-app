@@ -159,7 +159,11 @@ export function StockPriceBlock({ company, freeBlocked = false }: { company: Com
       style={{
         // Fondu gauche : 0 % transparent → 35 % couleur pleine. Ce fondu
         // se voit toujours quelle que soit la longueur du bloc.
-        background: `linear-gradient(90deg, ${tone}00 0%, ${tone}1a 12%, ${tone}55 24%, ${tone}99 32%, ${tone}cc 40%, ${tone} 50%, ${tone} 100%)`,
+        // Yann (26 mai 2026) : fondu décalé à gauche. La Market Cap (col 1)
+        // doit être intégralement sur le fond coloré → tone à 100% dès ~15%
+        // de la largeur. Le fondu transparent ne concerne plus que la marge
+        // gauche extrême (avant la col 1).
+        background: `linear-gradient(90deg, ${tone}00 0%, ${tone}66 4%, ${tone}cc 9%, ${tone} 15%, ${tone} 100%)`,
       }}
     >
       {/* Glow radial à droite, autour du prix */}
