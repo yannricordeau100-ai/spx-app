@@ -660,6 +660,41 @@ export function CompanyView({
                     "July", "August", "September", "October", "November", "December",
                   ][fl.fiscalYearEndMonth] ?? "?";
                   const isFr = locale === "fr";
+                  // Yann 27 mai 2026 : refonte tooltip "Exercice fiscal décalé".
+                  // - Garder explication FY décalé
+                  // - Retirer la phrase "On the chart Q4 refers to..." (outdated, confuse)
+                  // - Lire le dernier trimestre RÉEL via active.last_data_date ou
+                  //   company.latest_filing?.date (plutôt que fiscal-audit.json stale)
+                  // - Ajouter info sur prochain earning attendu (company.next_earnings_date)
+                  // - Sync avec chip Freshness : si earning attendu en retard, le mentionner
+                  const latestData = active.last_data_date ?? company.latest_filing?.period_end ?? null;
+                  const filingDate = company.latest_filing?.date ?? fl.publicationDate ?? null;
+                  const nextEarningsDate = company.next_earnings_date ?? null;
+                  const dateFmt = (iso: string | null) =>
+                    iso
+                      ? new Date(iso).toLocaleDateString(isFr ? "fr-FR" : "en-US", {
+                          day: "numeric", month: "long", year: "numeric",
+                        })
+                      : null;
+                  const today = new Date();
+                  today.setUTCHours(0, 0, 0, 0);
+                  const isEarningPending =
+                    nextEarningsDate && latestData
+                      ? (() => {
+                          try {
+                            const nextD = new Date(nextEarningsDate.split("T")[0]);
+                            const lastD = new Date(latestData.split("T")[0]);
+                            return (
+                              !Number.isNaN(nextD.getTime()) &&
+                              !Number.isNaN(lastD.getTime()) &&
+                              nextD.getTime() < today.getTime() &&
+                              lastD.getTime() < nextD.getTime()
+                            );
+                          } catch {
+                            return false;
+                          }
+                        })()
+                      : false;
                   return (
                     <InfoTooltip color="#f59e0b">
                       <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: "#f59e0b" }}>
@@ -670,27 +705,45 @@ export function CompanyView({
                           <>
                             <strong>{company.name}</strong> a un exercice fiscal qui se termine en{" "}
                             <strong>{fyEndMonthFr}</strong> (pas en décembre comme le calendrier).
-                            <br /><br />
-                            Sur le graph, <strong>« T{(fl.lastLabel.match(/Q(\d)/)?.[1] ?? "?")} {fl.lastLabel.match(/(\d{4})/)?.[1] ?? ""} »</strong> correspond
-                            au trimestre fiscal {fl.lastLabel}, et non au trimestre calendaire.
                           </>
                         ) : (
                           <>
                             <strong>{company.name}</strong>&apos;s fiscal year ends in{" "}
                             <strong>{fyEndMonthEn}</strong> (not December like the calendar year).
-                            <br /><br />
-                            On the chart, <strong>&quot;Q{(fl.lastLabel.match(/Q(\d)/)?.[1] ?? "?")} {fl.lastLabel.match(/(\d{4})/)?.[1] ?? ""}&quot;</strong> refers
-                            to the fiscal quarter {fl.lastLabel}, not the calendar quarter.
                           </>
                         )}
-                        {fl.publicationDate && (
+                        {fl.lastLabel && (
                           <>
                             <br /><br />
-                            <span className="text-zinc-400">
-                              {isFr ? "Dernier trimestre publié officiellement le " : "Latest quarter officially published on "}
-                              {new Date(fl.publicationDate).toLocaleDateString(isFr ? "fr-FR" : "en-US", {
-                                day: "numeric", month: "long", year: "numeric",
-                              })}.
+                            <span className="text-zinc-300">
+                              {isFr ? "Dernier trimestre publié : " : "Latest published quarter: "}
+                              <strong>{fl.lastLabel}</strong>
+                              {filingDate && (
+                                <>
+                                  {" "}
+                                  <span className="text-zinc-400">
+                                    ({isFr ? "publié le " : "filed on "}
+                                    {dateFmt(filingDate)})
+                                  </span>
+                                </>
+                              )}
+                            </span>
+                          </>
+                        )}
+                        {nextEarningsDate && (
+                          <>
+                            <br />
+                            <span style={{ color: isEarningPending ? "#fbbf24" : "#facc15" }}>
+                              {isEarningPending
+                                ? isFr
+                                  ? "Earning attendu : "
+                                  : "Earning pending: "
+                                : isFr
+                                  ? "Prochain earning : "
+                                  : "Next earning: "}
+                              <strong>{fl.nextLabel}</strong>
+                              {" "}
+                              <span className="opacity-80">({dateFmt(nextEarningsDate)})</span>
                             </span>
                           </>
                         )}
