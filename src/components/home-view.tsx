@@ -404,9 +404,9 @@ function MettrikCitationCard({ locale = "fr" }: { locale?: string }) {
             Pourquoi utiliser Mettrik AI ?
           </span>
         </span>
-        {/* Cadre principal — citation académique unique (pas de rotation) */}
+        {/* Cadre principal — citation académique style "résultat de recherche" */}
         <div
-          className="relative z-10 flex min-h-[180px] flex-col items-center justify-center overflow-hidden rounded-xl border border-white/40 bg-[#0a0a0e]/85 px-6 py-7 backdrop-blur-sm sm:min-h-[200px] sm:px-10 sm:py-9"
+          className="relative z-10 flex min-h-[240px] flex-col items-center justify-center overflow-hidden rounded-xl border border-white/40 bg-[#0a0a0e]/85 px-6 py-9 backdrop-blur-sm sm:min-h-[260px] sm:px-12 sm:py-11"
           style={{
             boxShadow:
               "inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -1px 0 rgba(0,0,0,0.5), 0 18px 40px -12px rgba(139, 92, 246, 0.35), 0 8px 18px -6px rgba(0,0,0,0.6)",
@@ -419,13 +419,33 @@ function MettrikCitationCard({ locale = "fr" }: { locale?: string }) {
             style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent)" }}
           />
 
-          {/* Quote mark décoratif en haut-gauche, gros, gradient violet/cyan */}
+          {/* Badge "Étude académique" en haut, look paper journal */}
+          <motion.div
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease, delay: 0.1 }}
+            className="mb-4 inline-flex items-center gap-2 rounded-full border border-violet-400/35 bg-violet-500/[0.08] px-3 py-1 sm:mb-5"
+          >
+            <svg
+              aria-hidden
+              viewBox="0 0 24 24"
+              className="size-3 text-violet-300"
+              fill="currentColor"
+            >
+              <path d="M12 2L2 7v2l10 5 10-5V7L12 2zm0 9l-7-3.5 7-3.5 7 3.5L12 11zm-6 1.27v3.86c0 .87.93 1.42 1.69 1.04L12 14.91l4.31 2.26c.76.38 1.69-.17 1.69-1.04v-3.86l-6 3.13-6-3.13z" />
+            </svg>
+            <span className="font-mono text-[9.5px] font-bold uppercase tracking-[0.22em] text-violet-200 sm:text-[10.5px]">
+              {locale === "fr" ? "Étude académique" : locale === "de" || locale === "de-CH" ? "Akademische Studie" : locale === "nl" ? "Academisch onderzoek" : locale === "sv" ? "Akademisk studie" : locale === "da" ? "Akademisk studie" : "Academic Study"}
+            </span>
+          </motion.div>
+
+          {/* Quote mark décoratif gros à gauche */}
           <motion.span
             aria-hidden
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 0.45, scale: 1 }}
+            initial={{ opacity: 0, scale: 0.7 }}
+            animate={{ opacity: 0.5, scale: 1 }}
             transition={{ duration: 0.9, ease }}
-            className="pointer-events-none absolute -top-2 left-2 select-none font-display text-[80px] leading-none sm:-top-3 sm:left-5 sm:text-[110px]"
+            className="pointer-events-none absolute -top-4 left-2 select-none font-display text-[90px] leading-none sm:-top-6 sm:left-6 sm:text-[130px]"
             style={{
               background: "linear-gradient(135deg, #a78bfa 0%, #22d3ee 100%)",
               WebkitBackgroundClip: "text",
@@ -437,12 +457,31 @@ function MettrikCitationCard({ locale = "fr" }: { locale?: string }) {
             {citation.openQuote}
           </motion.span>
 
-          {/* Citation principale */}
+          {/* Quote mark décoratif gros à droite (closing) */}
+          <motion.span
+            aria-hidden
+            initial={{ opacity: 0, scale: 0.7 }}
+            animate={{ opacity: 0.5, scale: 1 }}
+            transition={{ duration: 0.9, ease, delay: 0.15 }}
+            className="pointer-events-none absolute -bottom-2 right-2 select-none font-display text-[90px] leading-none sm:-bottom-3 sm:right-6 sm:text-[130px]"
+            style={{
+              background: "linear-gradient(135deg, #22d3ee 0%, #a78bfa 100%)",
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+              color: "transparent",
+              fontFamily: "var(--font-fraunces), Georgia, serif",
+            }}
+          >
+            {citation.closeQuote}
+          </motion.span>
+
+          {/* Citation principale — typo serif élégante (Fraunces) au lieu du sans-serif */}
           <motion.p
             initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.8, ease }}
-            className="relative z-10 max-w-2xl text-balance text-center font-display text-[18px] font-medium italic leading-[1.45] text-zinc-100 sm:text-[22px]"
+            className="relative z-10 max-w-2xl text-balance text-center text-[19px] font-medium italic leading-[1.5] text-zinc-100 sm:text-[24px]"
+            style={{ fontFamily: "var(--font-fraunces), Georgia, serif" }}
           >
             <span
               className="bg-gradient-to-r from-violet-100 via-white to-cyan-100 bg-clip-text text-transparent"
@@ -456,28 +495,43 @@ function MettrikCitationCard({ locale = "fr" }: { locale?: string }) {
           <motion.span
             aria-hidden
             initial={{ scaleX: 0, opacity: 0 }}
-            animate={{ scaleX: 1, opacity: 0.6 }}
+            animate={{ scaleX: 1, opacity: 0.7 }}
             transition={{ duration: 0.7, ease, delay: 0.3 }}
-            className="my-4 block h-px w-16 origin-center sm:my-5 sm:w-20"
+            className="my-5 block h-px w-20 origin-center sm:my-6 sm:w-24"
             style={{
-              background: "linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.8), rgba(34, 211, 238, 0.8), transparent)",
+              background: "linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.9), rgba(34, 211, 238, 0.9), transparent)",
             }}
           />
 
-          {/* Citation source — ton académique discret */}
+          {/* Source : 3 lignes hiérarchisées + typo variée (plus monotone) */}
           <motion.div
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease, delay: 0.45 }}
-            className="relative z-10 flex flex-col items-center gap-1 text-center sm:flex-row sm:gap-2.5"
+            className="relative z-10 flex flex-col items-center gap-1.5 text-center"
           >
-            <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-zinc-300 sm:text-[12px]">
-              Fang, Mohanram &amp; Vyas
-            </span>
-            <span className="hidden text-zinc-600 sm:inline" aria-hidden>·</span>
-            <span className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-zinc-500 sm:text-[11.5px]">
-              2020 · Singapore Management University
-            </span>
+            {/* Ligne 1 : auteurs en serif italic, marquage premium */}
+            <div
+              className="text-[15px] font-semibold text-zinc-100 sm:text-[16.5px]"
+              style={{ fontFamily: "var(--font-fraunces), Georgia, serif" }}
+            >
+              Fang
+              <span className="mx-1 text-zinc-500" aria-hidden>·</span>
+              Mohanram
+              <span className="mx-1 text-zinc-500" aria-hidden>·</span>
+              Vyas
+            </div>
+            {/* Ligne 2 : année en chip violet + institution en sans-serif */}
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              <span
+                className="inline-flex items-center rounded-full border border-violet-400/40 bg-violet-500/[0.12] px-2 py-0.5 font-mono text-[10.5px] font-bold tracking-[0.12em] text-violet-200"
+              >
+                2020
+              </span>
+              <span className="text-[12.5px] font-medium text-zinc-300 sm:text-[13.5px]">
+                Singapore Management University
+              </span>
+            </div>
           </motion.div>
         </div>
       </motion.div>
