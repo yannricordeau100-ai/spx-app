@@ -10,6 +10,33 @@
 
 ---
 
+## 0bis. ZÉRO API ANTHROPIC PAYANT (PERMANENT) — RÈGLE D'OR ABSOLUE
+
+Édictée par Yann le 26 mai 2026 18h45. Facturation Claude Console
+**ARRÊTÉE**. Toute requête vers `api.anthropic.com` est INTERDITE
+(Haiku / Sonnet / Opus via clé `ANTHROPIC_API_KEY`).
+
+**Autorisé** :
+- **Sub-agents Task tool dans cette conv** (= Claude Opus 4.7 forfait
+  Max 20× gratuit, illimité). C'est le seul accès Claude autorisé.
+- **Cerebras free tier** (3 clés rotation, quota TPD 24h reset).
+- **Groq Llama 3.3 70B free** (100k tokens/jour).
+- yfinance, SEC EDGAR, WebFetch (gratuits).
+- Scripts Python locaux qui ne tapent QUE les API gratuites ci-dessus.
+
+**Interdit** :
+- `USE_ANTHROPIC=1` dans les scripts → désactivé.
+- Pas de fallback Haiku/Sonnet/Opus payant même si Cerebras saturé.
+- Si saturation Cerebras + Groq : ATTENDRE le reset OU lancer plus de
+  sub-agents Task tool (forfait Max).
+
+**Si je détecte qu'un script appelle `api.anthropic.com`** : je le
+modifie pour skip cette branche. Si un sub-agent que je dispatch a
+besoin de LLM en backend, il doit utiliser Cerebras/Groq, jamais
+sa propre clé Anthropic.
+
+---
+
 ## 0. DERNIÈRE VERSION UNIQUEMENT (RÈGLE D'OR PERMANENTE)
 
 Édictée par Yann le 26 mai 2026 (remplace l'ancienne règle V1.8/V1.7
