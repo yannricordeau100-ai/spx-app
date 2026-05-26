@@ -3,6 +3,15 @@
 import { useState, useMemo, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+
+/**
+ * Yann (26 mai 2026) : URL canonique de la DERNIÈRE version app pour
+ * toute recherche. Centralisé ici → quand on passera à V2.0, V2.5, etc.
+ * un seul endroit à modifier (cette ligne) et toutes les recherches
+ * routent automatiquement vers la dernière version.
+ */
+const LATEST_VERSION_PATH = "/sandbox/v1-9-5";
+const buildLatestHref = (ticker: string) => `${LATEST_VERSION_PATH}/${ticker.toLowerCase()}`;
 import { motion, AnimatePresence } from "motion/react";
 import { Search, X, ArrowRight, ArrowUpRight, ArrowDownRight } from "lucide-react";
 import {
@@ -318,26 +327,13 @@ export function CompanySearch({
                   data-1p-ignore
                   data-lpignore="true"
                   onKeyDown={(e) => {
-                    // Yann 14 mai 2026 : Entrée ouvre la sté quand 1 seul
-                    // résultat. Évite de cliquer manuellement.
+                    // Yann 14 mai 2026 : Entrée ouvre la sté quand 1 seul résultat.
+                    // Yann 26 mai 2026 : toute recherche route vers la DERNIÈRE
+                    // version (LATEST_VERSION_PATH), peu importe la source.
                     if (e.key === "Enter" && results.length === 1) {
                       e.preventDefault();
-                      const r = results[0];
-                      const lower = r.ticker.toLowerCase();
-                      let href: string;
-                      if (r.source === "v1") {
-                        href = `/${lower}`;
-                      } else if (r.source === "v19") {
-                        href = `/sandbox/v1-9/${lower}`;
-                      } else {
-                        // v17 : route Pass 3 → v1-7-5, sinon v1-8
-                        const entry = V17_SEARCH_BY_TICKER[r.ticker.toUpperCase()];
-                        href = entry?.validated
-                          ? `/sandbox/v1-7-5/${lower}`
-                          : `/sandbox/v1-8/${lower}`;
-                      }
                       close();
-                      router.push(href);
+                      router.push(buildLatestHref(results[0].ticker));
                     }
                   }}
                   className="flex-1 bg-transparent text-[16px] text-zinc-100 outline-none placeholder:text-zinc-500"
@@ -438,7 +434,7 @@ function ResultCard({
 
   return (
     <Link
-      href={`/${ticker.toLowerCase()}`}
+      href={buildLatestHref(ticker)}
       onClick={onSelect}
       className="group relative flex items-center gap-4 overflow-hidden rounded-2xl border border-white/8 bg-white/[0.02] p-3 transition-all hover:border-white/20 hover:bg-white/[0.05]"
     >
@@ -535,12 +531,8 @@ function ResultCardV17({
   const accent = brand(ticker).primary;
   if (!e) return null;
   const tickerShown = displayTicker(ticker, allTickers);
-  // Routing (Yann 19 mai 2026) : Pass 3 validé → /sandbox/v1-7-5/<ticker>
-  // (route canonique de meilleure qualité), sinon → /sandbox/v1-8/<ticker>
-  // (V1.8 relâché avec filtre permissif, bordures rouges sur blocs manquants).
-  const href = e.validated
-    ? `/sandbox/v1-7-5/${ticker.toLowerCase()}`
-    : `/sandbox/v1-8/${ticker.toLowerCase()}`;
+  // Yann 26 mai 2026 : toutes les recherches routent vers la dernière version.
+  const href = buildLatestHref(ticker);
   return (
     <Link
       href={href}
@@ -614,7 +606,7 @@ function ResultCardV19({
   const e = V19_SEARCH_BY_TICKER[ticker.toUpperCase()];
   const accent = brand(ticker).primary;
   if (!e) return null;
-  const href = `/sandbox/v1-9/${ticker.toLowerCase()}`;
+  const href = buildLatestHref(ticker);
   const tickerShown = displayTicker(ticker, allTickers);
   return (
     <Link

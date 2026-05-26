@@ -995,7 +995,11 @@ export function CompanyView({
               </p>
             </div>
             <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-500">
-              {company.kpis.length} {t("company.kpi_table.count_label")}
+              {/* Yann (26 mai 2026) : compte affiché = orderedKpis (après filtre
+                  isGenericKpi) au lieu de company.kpis.length (total brut).
+                  Avant : Broadcom affichait "31 indicateurs" mais ne montrait
+                  que 5 (génériques filtrés), sans bouton "voir plus". */}
+              {orderedKpis.length} {t("company.kpi_table.count_label")}
             </span>
           </div>
           <div className="overflow-hidden rounded-2xl border border-[#1f1f1f] bg-[#080808]">
