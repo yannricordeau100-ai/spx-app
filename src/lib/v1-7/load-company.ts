@@ -603,6 +603,53 @@ export async function loadV17Company(
         return k;
       });
     }
+    // latest_filing_update (CONV-CONCEPTS 27 mai 2026, daily-doc-watcher) :
+    // si Cerebras a extrait un trimestre plus récent depuis un 10-Q / 10-K /
+    // 8-K nouvellement téléchargé, étend history du hero KPI et MAJ
+    // last_data_date. Format enrich.latest_filing_update :
+    // { filing_date, form_type, hero_value_new, hero_period_end,
+    //   sentiment, key_takeaway, risks_changed, source_path, extracted_at }
+    // Skip si _extraction_pending: true (Cerebras saturé, retry au prochain cron).
+    const latestFilingUpdate = (enrich as Record<string, unknown>).latest_filing_update;
+    if (
+      latestFilingUpdate
+      && typeof latestFilingUpdate === "object"
+      && Array.isArray(data.kpis)
+      && data.hero_kpi
+    ) {
+      const lfu = latestFilingUpdate as {
+        filing_date?: string;
+        form_type?: string;
+        hero_value_new?: number | null;
+        hero_period_end?: string | null;
+        sentiment?: string | null;
+        key_takeaway?: string | null;
+        risks_changed?: boolean;
+        _extraction_pending?: boolean;
+      };
+      if (
+        !lfu._extraction_pending
+        && lfu.filing_date
+        && typeof lfu.hero_value_new === "number"
+        && lfu.hero_period_end
+      ) {
+        data.kpis = (data.kpis as AnyKPI[]).map((k: AnyKPI) => {
+          if (k.short !== data.hero_kpi) return k;
+          const currentLast = ((k as AnyKPI & { last_data_date?: string }).last_data_date as string | undefined) ?? "";
+          if (lfu.hero_period_end! <= currentLast) return k;
+          const newHistory = Array.isArray(k.history) ? [...k.history] : [];
+          const lastVal = newHistory.length > 0 ? newHistory[newHistory.length - 1] : null;
+          if (lastVal !== lfu.hero_value_new) {
+            newHistory.push(lfu.hero_value_new as number);
+          }
+          return {
+            ...k,
+            history: newHistory,
+            last_data_date: lfu.hero_period_end!,
+          } as AnyKPI;
+        });
+      }
+    }
     // Hero signal override (CONV-CONCEPTS 21 mai 2026, sub-agent #48 follow-up) :
     // fill heuristique signal vide sur hero KPI (7 stés publishable). Format :
     // { overrides_hero_signal: { hero_short, signal, _source } }. N'écrase pas
