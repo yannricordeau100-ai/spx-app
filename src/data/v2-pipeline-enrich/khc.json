@@ -283,7 +283,7 @@
     "_extracted_at": "2026-05-20T00:00:00Z",
     "total": 24.94
   },
-  "hero_kpi_override": "North America Revenue",
+  "hero_kpi_override": "Net Income",
   "_hero_override_reason": "Hero original \"Net Sales\" generic + history 3 None sur 5. Switch vers KPI spec \"North America Revenue\" : 5y annual fully-populated 19.0-20.0 Mds$, segment ~74% revenu. Source: KHC 10-K FY2024.",
   "_hero_override_at": "2026-05-20T11:56:54.191358+00:00",
   "_hero_override_extractor": "CONV-OPUS top-307-finale batch",
@@ -930,8 +930,6 @@
       "_enriched_by": "CONV-CONCEPTS sub-agent #24 Cerebras Qwen-3 235B"
     }
   ],
-  "_hero_replacement_needed": true,
-  "_hero_replacement_reason": "Hero actuel 'Net Sales' a 2 pt(s) d'historique (period_type=quarter, requis 12 trimestres (3 ans)). AUCUN remplaçant trouvé dans kpis[] (tous insuffisants en history ou tous génériques). Investigation manuelle requise.",
   "_kpis_hidden_by_history_rule": [
     "Divestitures",
     "Impairment Losses",
@@ -956,5 +954,7 @@
       "period_type": "year",
       "required": 3
     }
-  ]
+  ],
+  "hero_kpi_replaced_reason": "Orphelin résolu par fallback sectoriel 'Consommation de base'. Hero précédent 'Net Sales' avait history insuffisant. Remplaçant 'Net Income' choisi parmi liste sectorielle (history=8, period=year). Stratégie B fix-hero-orphan.",
+  "_hero_replaced_by_sector_fallback": true
 }
