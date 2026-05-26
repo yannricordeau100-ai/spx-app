@@ -94,7 +94,14 @@ def merge_enrich_kpis(ticker: str, entry: dict) -> dict:
 OUT_DIR = ROOT / "src/data/v2-pipeline-i18n"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
-CEREBRAS_API_KEY = os.environ.get("CEREBRAS_API_KEY", "")
+CEREBRAS_KEYS = [
+    os.environ.get("CEREBRAS_API_KEY", ""),
+    os.environ.get("CEREBRAS2_API_KEY", ""),
+    os.environ.get("CEREBRAS3_API_KEY", ""),
+]
+CEREBRAS_KEYS = [k for k in CEREBRAS_KEYS if k]
+KEY_INDEX = int(os.environ.get("KEY_INDEX", "0"))
+CEREBRAS_API_KEY = CEREBRAS_KEYS[KEY_INDEX % len(CEREBRAS_KEYS)] if CEREBRAS_KEYS else ""
 USE_ANTHROPIC = os.environ.get("USE_ANTHROPIC", "0") == "1"
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 ANTHROPIC_URL = "https://api.anthropic.com/v1/messages"
