@@ -175,10 +175,12 @@ export async function proxy(request: NextRequest) {
     // Africa (large EUR-leaning)
     "MA","DZ","TN","SN","CI","BF","TG","BJ","ML","NE","CM","GA","CG","CD",
   ]);
-  const wrongCurrencyCookie =
-    currentCurrency === "USD" && country && EU_AF_NON_USD.has(country);
-  const hasCurrencyCookie =
-    !!request.cookies.get("mettrik:currency")?.value && !wrongCurrencyCookie;
+  // Yann (26 mai 2026) : RETIRÉ la logique wrongCurrencyCookie qui forçait
+  // USD → EUR/CHF quand IP était en EU/Afrique. Bug : un user EU qui clique
+  // manuellement USD dans le CurrencyPicker se voyait écrasé par le proxy
+  // → USD impossible à sélectionner pour Yann (en Suisse). Maintenant on
+  // respecte STRICTEMENT le cookie posé par l'utilisateur.
+  const hasCurrencyCookie = !!request.cookies.get("mettrik:currency")?.value;
   const isApiOrAsset =
     originalPathname.startsWith("/api/") ||
     originalPathname.startsWith("/auth/") ||

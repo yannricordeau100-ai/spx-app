@@ -114,10 +114,6 @@ export function PricingCards({
           </button>
         </div>
       </div>
-      <p className="mb-6 text-center text-[11.5px] text-zinc-500">
-        Les deux prix sont affichés sur chaque plan. Active l'annuel pour passer au tarif réduit.
-      </p>
-
       {/* Cards 3 plans */}
       <div className="grid gap-5 lg:grid-cols-3">
         {PLANS.map((plan) => (
