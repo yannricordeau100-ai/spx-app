@@ -789,7 +789,7 @@ function renderCompanyCard(
                 <div key={ticker}>
                   <Link
                     href={buildHref(ticker)}
-                    className="conic-border group relative flex h-[200px] flex-col rounded-xl border border-[#1f1f1f] bg-[#0a0a0a] p-4 transition-colors hover:border-[#2a2a2a]"
+                    className="conic-border group relative flex min-h-[230px] flex-col rounded-xl border border-[#1f1f1f] bg-[#0a0a0a] p-4 transition-colors hover:border-[#2a2a2a]"
                   >
                     <div
                       className="pointer-events-none absolute -right-10 -top-10 size-32 rounded-full blur-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
