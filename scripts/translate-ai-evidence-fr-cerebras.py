@@ -60,8 +60,8 @@ load_env_local()
 
 KEYS = [
     os.environ.get("CEREBRAS_API_KEY", ""),
-    os.environ.get("CEREBRAS_API_KEY_2", "") or os.environ.get("CEREBRAS_API_KEY", ""),
-    os.environ.get("CEREBRAS_API_KEY_3", "") or os.environ.get("CEREBRAS_API_KEY", ""),
+    os.environ.get("CEREBRAS_API_KEY_2", "") or os.environ.get("CEREBRAS2_API_KEY", "") or os.environ.get("CEREBRAS_API_KEY", ""),
+    os.environ.get("CEREBRAS_API_KEY_3", "") or os.environ.get("CEREBRAS3_API_KEY", "") or os.environ.get("CEREBRAS_API_KEY", ""),
 ]
 KEY_INDEX = int(os.environ.get("KEY_INDEX", "0"))
 API_KEY = KEYS[KEY_INDEX % len(KEYS)]
