@@ -183,10 +183,42 @@ export function getUserCurrency(): Currency {
 
 /**
  * Récupère le taux de change `from → to` via frankfurter.app.
- * Cache simple en mémoire par paire (TTL 1 h). Si l'API échoue, retourne 1.
+ * Cache simple en mémoire par paire (TTL 1 h). Si l'API échoue, retourne
+ * un taux fallback approximatif (mai 2026) plutôt que 1 — sinon le
+ * picker devise affichait des montants EUR avec un symbole étranger.
  */
 const rateCache = new Map<string, { rate: number; ts: number }>();
 const TTL_MS = 60 * 60 * 1000; // 1 h
+
+// Yann (25 mai 2026) : taux fallback EUR → cible (approx mai 2026, ECB).
+// Utilisé quand l'API frankfurter renvoie une erreur (timeout Vercel,
+// rate limit, etc.). Sans ce fallback, USD afficherait le montant EUR
+// avec le symbole $ = bug visuel "USD ne fonctionne pas".
+const FALLBACK_RATES_FROM_EUR: Record<string, number> = {
+  USD: 1.08,
+  GBP: 0.85,
+  CHF: 0.95,
+  SEK: 11.3,
+  DKK: 7.46,
+  CAD: 1.48,
+  JPY: 168,
+  AUD: 1.63,
+  NOK: 11.6,
+};
+
+function fallbackRate(from: Currency, to: Currency): number {
+  if (from === to) return 1;
+  if (from === "EUR") return FALLBACK_RATES_FROM_EUR[to] ?? 1;
+  if (to === "EUR") {
+    const r = FALLBACK_RATES_FROM_EUR[from];
+    return r ? 1 / r : 1;
+  }
+  // Triangulation via EUR : from → EUR → to
+  const toEur = FALLBACK_RATES_FROM_EUR[from];
+  const fromEurToTarget = FALLBACK_RATES_FROM_EUR[to];
+  if (toEur && fromEurToTarget) return fromEurToTarget / toEur;
+  return 1;
+}
 
 export async function getExchangeRate(from: Currency, to: Currency): Promise<number> {
   if (from === to) return 1;
@@ -202,12 +234,18 @@ export async function getExchangeRate(from: Currency, to: Currency): Promise<num
     const res = await fetch(`https://api.frankfurter.dev/v1/latest?base=${from}&symbols=${to}`, {
       cache: "no-store",
     });
-    if (!res.ok) return 1;
+    if (!res.ok) {
+      const fb = fallbackRate(from, to);
+      rateCache.set(key, { rate: fb, ts: now });
+      return fb;
+    }
     const json = (await res.json()) as { rates?: Record<string, number> };
-    const rate = json.rates?.[to] ?? 1;
+    const rate = json.rates?.[to] ?? fallbackRate(from, to);
     rateCache.set(key, { rate, ts: now });
     return rate;
   } catch {
-    return 1;
+    const fb = fallbackRate(from, to);
+    rateCache.set(key, { rate: fb, ts: now });
+    return fb;
   }
 }

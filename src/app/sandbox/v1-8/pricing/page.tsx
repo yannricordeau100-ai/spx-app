@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { cookies } from "next/headers";
-import { ArrowLeft, Check, Sparkles, Shield, Zap, Mail } from "lucide-react";
+import { ArrowLeft, Check, Mail } from "lucide-react";
 import { PricingCards } from "@/components/billing/pricing-cards";
 import { PricingMatrix } from "@/components/billing/pricing-matrix";
 import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
@@ -94,34 +94,26 @@ export default async function V18PricingPage() {
         </div>
       </nav>
 
-      {/* Yann (25 mai 2026) : padding-top main réduit pour coller le hero à
-          la nav. Avant : py-12 sm:py-16 = 48-64px de vide au-dessus du badge
-          "TARIFS SIMPLES". Maintenant : pt-2 sm:pt-4 (la nav fait déjà py-6). */}
-      <main className="relative mx-auto max-w-6xl px-4 pb-12 pt-2 sm:px-6 sm:pb-16 sm:pt-4">
+      {/* Yann (26 mai 2026) : padding-top encore réduit (Bug 5). */}
+      <main className="relative mx-auto max-w-6xl px-4 pb-12 pt-1 sm:px-6 sm:pb-16 sm:pt-2">
         {/* HERO */}
         <div className="mx-auto max-w-3xl text-center">
           <span className="inline-block rounded-full border border-violet-500/30 bg-violet-500/10 px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-violet-200">
             {t("pricing.eyebrow")}
           </span>
-          <h1 className="mt-4 font-display text-4xl font-bold tracking-tight text-zinc-50 sm:text-5xl">
+          <h1 className="mt-3 font-display text-4xl font-bold tracking-tight text-zinc-50 sm:text-5xl">
             {t("pricing.h1")}
           </h1>
-          <p className="mt-4 text-[15.5px] leading-relaxed text-zinc-400">
+          <p className="mt-4 whitespace-pre-line text-[15.5px] leading-relaxed text-zinc-400">
             {t("pricing.intro")}
           </p>
-          {/* Yann 9 mai 2026 : retire les badges "30 jours satisfait" et
-              "Tarifs en 7 devises". Garde "Sans engagement" qui est encore
-              une vraie PV pour le visiteur. */}
-          <div className="mt-6 flex flex-wrap justify-center gap-3 text-[12px] text-zinc-400">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-cyan-500/20 bg-cyan-500/[0.06] px-3 py-1.5">
-              <Zap className="size-3.5 text-cyan-300" />
-              {t("pricing.badge_no_engagement")}
-            </span>
-          </div>
+          {/* Yann 26 mai 2026 : badge "Sans engagement" intégré dans la
+              phrase d'intro → bloc badges retiré. */}
         </div>
 
-        {/* PLAN CARDS */}
-        <div className="mx-auto mt-14 max-w-5xl">
+        {/* PLAN CARDS — Yann 26 mai 2026 : mt réduit (mt-14 → mt-6) pour
+            réduire l'espace intro ↔ toggle Mensuel/Annuel (Bug 3). */}
+        <div className="mx-auto mt-6 max-w-5xl">
           <PricingCards ctaTrackingPrefix="v18_top_" plans={catalog.plans} features={catalog.features} currency={currency} taglines={taglines} />
         </div>
 
@@ -136,7 +128,7 @@ export default async function V18PricingPage() {
               {t("pricing.compare_sub")}
             </p>
           </div>
-          <PricingMatrix plans={catalog.plans} features={catalog.features} />
+          <PricingMatrix plans={catalog.plans} features={catalog.features} currency={currency} />
         </section>
 
         {/* TRUST / VALUE */}

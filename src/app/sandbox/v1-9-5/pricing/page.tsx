@@ -3,16 +3,18 @@ import { cookies } from "next/headers";
 import { ArrowLeft, Check, Mail } from "lucide-react";
 import { PricingCards } from "@/components/billing/pricing-cards";
 import { PricingMatrix } from "@/components/billing/pricing-matrix";
-import { ScrollToTopOnMount } from "@/components/scroll-to-top-on-mount";
 import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
 import { BrandWordmark } from "@/components/brand-wordmark";
 import { FloatingLogosBg } from "@/components/billing/floating-logos-bg";
+import { AuthNav } from "@/components/auth-nav";
 import { CurrencyPicker } from "@/components/billing/currency-picker";
+import { ScrollToTopOnMount } from "@/components/scroll-to-top-on-mount";
 import { loadPricingCatalog } from "@/lib/billing/load-pricing";
 import { loadAllTaglines } from "@/lib/billing/pricing-taglines";
 import { getServerLocale } from "@/lib/i18n/server";
 import { translate } from "@/lib/i18n/dictionary";
 import { isDeskOwner } from "@/lib/desk/auth";
+import { LATEST_VERSION_SLUG } from "@/lib/version-routing";
 import V18_TICKERS from "@/data/v1-8-tickers-sorted.json";
 
 async function detectCurrency(): Promise<string> {
@@ -24,30 +26,30 @@ async function detectCurrency(): Promise<string> {
   return "EUR";
 }
 
-/**
- * Page tarifs publique `/pricing` (RGPD-friendly, aucune auth requise).
- *
- * Refonte 7 mai 2026 : abandon du squelette ad-hoc, alignement sur le
- * nouveau modèle 3 plans (Gratuit / Premium / Max) défini dans
- * `src/lib/billing/plans.ts`. Une seule source de vérité partagée avec
- * `/sandbox/v1-8/pricing`.
- *
- * Sales-optimisée : annuel par défaut, garanties visibles, matrice
- * features détaillée, FAQ, CTA finale.
- */
 export const metadata = {
   title: "Tarifs · Mettrik AI",
-  description: "3 plans Mettrik AI : Gratuit gratuit, Premium 29,90 €/mois, Max 59,90 €/mois.",
+  description: "3 plans Mettrik AI : Gratuit, Premium, Max.",
+  robots: { index: false, follow: false },
 };
 
-export default async function PricingPage() {
+/**
+ * /sandbox/v1-9-5/pricing — page tarifs V1.9.5 (= dernière version, alias
+ * automatique via LATEST_VERSION_SLUG dans `src/lib/version-routing.ts`).
+ *
+ * Réutilise exactement les mêmes composants que /sandbox/v1-8/pricing
+ * (PricingCards + PricingMatrix) pour rester en synchro. Le seul écart =
+ * la navigation retour pointe vers `/sandbox/v1-9-5` (hub V1.9.5).
+ *
+ * Pour basculer ces routes vers une future version (V1.9.6, V2…), il
+ * suffit de changer `LATEST_VERSION_SLUG` dans version-routing.ts et de
+ * créer le dossier `src/app/sandbox/<nouveau-slug>/pricing/` qui pointe
+ * sur les mêmes composants partagés.
+ */
+export default async function V195PricingPage() {
   const currency = await detectCurrency();
-  // Yann (25 mai 2026) : passer currency au catalog → auto-conversion EUR→cible
-  // si pas de prix natif en BDD (fix bug "USD ne fonctionne pas dans le picker").
   const catalog = await loadPricingCatalog(currency);
   const locale = await getServerLocale();
   const taglines = await loadAllTaglines();
-  // Yann (25 mai 2026) : CurrencyPicker visible UNIQUEMENT pour l'admin réel.
   const showCurrencyPicker = await isDeskOwner();
   const t = (k: string) => translate(k, locale);
   return (
@@ -62,7 +64,7 @@ export default async function PricingPage() {
 
       <nav className="relative mx-auto flex max-w-6xl items-center justify-between px-4 py-6 sm:px-6">
         <Link
-          href="/"
+          href={`/sandbox/${LATEST_VERSION_SLUG}`}
           className="group inline-flex items-center gap-2 text-sm text-zinc-400 transition-colors hover:text-zinc-100"
         >
           <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-0.5" />
@@ -70,24 +72,11 @@ export default async function PricingPage() {
         </Link>
         <div className="flex items-center gap-3">
           {showCurrencyPicker && <CurrencyPicker current={currency} />}
-          <Link href="/login" className="text-sm text-zinc-400 transition-colors hover:text-zinc-100">
-            Se connecter
-          </Link>
-          <Link
-            href="/signup"
-            className="inline-flex items-center gap-1.5 rounded-lg border border-violet-500/30 bg-violet-500/10 px-3.5 py-2 text-sm font-semibold text-violet-200 transition-colors hover:border-violet-500/50 hover:bg-violet-500/15"
-          >
-            S&apos;inscrire
-          </Link>
+          <AuthNav scope="home" />
         </div>
       </nav>
 
-      {/* Yann (26 mai 2026) : padding-top main encore réduit pour coller
-          le hero à la nav (pt-1 sm:pt-2 au lieu de pt-2 sm:pt-4). Réduit
-          aussi l'espace au-dessus de "TARIFS SIMPLES" (Bug 5). */}
       <main className="relative mx-auto max-w-6xl px-4 pb-12 pt-1 sm:px-6 sm:pb-16 sm:pt-2">
-        {/* Force scroll-to-top au chargement initial : empêche le browser
-            de restaurer le scroll position vers le bas (Bug 3 Yann). */}
         <ScrollToTopOnMount />
         <div className="mx-auto max-w-3xl text-center">
           <span className="inline-block rounded-full border border-violet-500/30 bg-violet-500/10 px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-violet-200">
@@ -99,19 +88,12 @@ export default async function PricingPage() {
           <p className="mt-4 whitespace-pre-line text-[15.5px] leading-relaxed text-zinc-400">
             {t("pricing.intro")}
           </p>
-          {/* Yann 26 mai 2026 : badge "Sans engagement" intégré dans la
-              phrase d'intro (cf dictionary.ts) → bloc badges retiré. */}
         </div>
 
-        {/* Yann 26 mai 2026 : mt réduit (était mt-14, maintenant mt-6) pour
-            réduire l'espace entre la phrase d'intro et les onglets
-            Mensuel/Annuel. */}
         <div className="mx-auto mt-6 max-w-5xl">
-          <PricingCards ctaTrackingPrefix="pricing_top_" plans={catalog.plans} features={catalog.features} currency={currency} taglines={taglines} />
+          <PricingCards ctaTrackingPrefix="v195_top_" plans={catalog.plans} features={catalog.features} currency={currency} taglines={taglines} />
         </div>
 
-        {/* Yann (25 mai 2026) : ancre #compare = cible du bouton "Tout comparer
-            en détail" placé sous les bullets des cards pricing. */}
         <section id="compare" className="mx-auto mt-20 max-w-5xl scroll-mt-20">
           <div className="mb-6 text-center">
             <h2 className="font-display text-3xl font-bold tracking-tight text-zinc-50">
@@ -152,7 +134,7 @@ export default async function PricingPage() {
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Link
               href="/signup"
-              data-pricing-cta="pricing_bottom_signup"
+              data-pricing-cta="v195_bottom_signup"
               className="inline-flex items-center gap-2 rounded-xl bg-violet-500 px-6 py-3 text-[14px] font-bold text-zinc-50 transition-colors hover:bg-violet-400"
             >
               {t("pricing.cta_final_btn")}

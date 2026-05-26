@@ -1041,9 +1041,9 @@ export const DICTIONARY: Dict = {
     de: "Der richtige Plan für deine Art zu investieren",
   },
   "pricing.intro": {
-    fr: "Découvre Mettrik AI gratuitement avec des fonctionnalités et indicateurs jamais vu ailleurs, rien que ça.",
-    en: "Discover Mettrik AI for free with features and indicators you won't find anywhere else.",
-    de: "Entdecke Mettrik AI kostenlos mit Funktionen und Kennzahlen, die du nirgendwo sonst findest.",
+    fr: "Découvre Mettrik AI gratuitement avec des fonctionnalités et indicateurs jamais vu ailleurs, rien que ça.\nSans engagement, annulation en 1 clic.",
+    en: "Discover Mettrik AI for free with features and indicators you won't find anywhere else.\nNo commitment, cancel in 1 click.",
+    de: "Entdecke Mettrik AI kostenlos mit Funktionen und Kennzahlen, die du nirgendwo sonst findest.\nKeine Bindung, 1-Klick-Kündigung.",
   },
   "pricing.badge_refund": {
     fr: "30 jours satisfait ou remboursé",

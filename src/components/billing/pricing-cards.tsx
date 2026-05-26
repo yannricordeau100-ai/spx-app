@@ -341,10 +341,11 @@ function PricingCard({
       </h3>
       <p className="mt-1 min-h-[40px] whitespace-pre-line text-[13px] leading-relaxed text-zinc-400">{plan.tagline}</p>
 
-      {/* Bloc prix avec min-height pour aligner les CTA des 3 cards
-          horizontalement (le free a juste '0 €' alors que les payants
-          ont prix mensuel + pill prix/jour + ligne 'soit X €/an'). */}
-      <div className="mt-5 min-h-[180px]">
+      {/* Yann 26 mai 2026 : bloc prix avec min-height pour aligner les
+          3 cards horizontalement. Le free a juste '0 €' (court), les
+          payants ont prix mensuel + ligne 'soit X €/an' + prix journalier.
+          min-h ajusté après refonte compact prix/jour. */}
+      <div className="mt-5 min-h-[140px]">
         {displayMonthly === 0 ? (
           <>
             <div className="flex items-baseline gap-1.5">
@@ -382,48 +383,38 @@ function PricingCard({
                 <>{t("pricing.card.no_engagement_short")}</>
               )}
             </div>
-            {/* Yann 15 mai 2026 v3 : refonte complète du bloc prix/jour.
-                Inspiration Notion / Linear / Cursor : 1 grosse valeur
-                hero + qualifier slim. Le but : capter l'œil ("0,99 €/jour
-                c'est rien"), ancrage psychologique → conversion. */}
+            {/* Yann 26 mai 2026 : refonte prix/jour inspirée Linear/Notion/Stripe.
+                Hiérarchie claire : prix mensuel = gros (déjà au-dessus),
+                prix journalier = petit en dessous, discret mais visible.
+                Supprime la phrase "Soit moins que le prix d'un café".
+                Taglines BDD restent disponibles si Yann les configure. */}
             {!isFreeOrApi && dailyPrice > 0 && (
-              <div
-                className="relative mt-5 overflow-hidden rounded-xl border border-emerald-500/25 bg-gradient-to-br from-emerald-500/[0.08] via-emerald-500/[0.04] to-transparent px-4 py-3.5"
-              >
-                <div className="absolute -top-8 -right-8 size-24 rounded-full bg-emerald-400/15 blur-2xl" />
-                <div className="relative flex items-center justify-between gap-3">
-                  <div className="flex items-baseline gap-2">
-                    <span className="font-display text-[40px] font-bold leading-none tracking-tight text-emerald-50">
-                      {dailyPrice.toFixed(2).replace(".", ",")}
-                    </span>
-                    <div className="flex flex-col leading-none">
-                      <span className="text-[14px] font-semibold text-emerald-200">{currencySymbol}</span>
-                      <span className="mt-1 text-[10.5px] font-mono font-semibold uppercase tracking-[0.16em] text-emerald-300/90">{t("pricing.unit.per_day")}</span>
-                    </div>
-                  </div>
-                  <span className="text-right text-[12px] italic leading-tight text-zinc-300">
-                    {(() => {
-                      // Yann 17 mai 2026 : tagline /jour éditable via
-                      // /desk-mtk9x4kp/pricing onglet "Taglines". Lit BDD
-                      // pour le plan + locale courant. Fallback : phrase
-                      // café i18n hardcodée (préserve l'affichage si BDD
-                      // vide ou clé absente). plan.code = "premium" | "max".
-                      const planKey = (plan.code ?? plan.tier ?? "").toLowerCase();
-                      if (taglines && taglines[planKey]) {
-                        const text = getPricingTagline(taglines, planKey, locale);
-                        if (text && text.trim().length > 0) {
-                          return <strong className="not-italic text-emerald-100">{text}</strong>;
-                        }
-                      }
+              <div className="mt-3 flex items-baseline gap-1.5 text-zinc-400">
+                <span className="font-mono text-[13.5px] font-semibold tabular-nums text-emerald-300">
+                  {dailyPrice.toFixed(2).replace(".", ",")} {currencySymbol}
+                </span>
+                <span className="text-[11px] uppercase tracking-wider text-zinc-500">
+                  {t("pricing.unit.per_day")}
+                </span>
+                {(() => {
+                  // Yann 17 mai 2026 : tagline /jour éditable via
+                  // /desk-mtk9x4kp/pricing onglet "Taglines". Lit BDD
+                  // pour le plan + locale courant. Si pas de tagline en
+                  // BDD : on n'affiche RIEN (Yann 26 mai 2026 : suppression
+                  // de la phrase café).
+                  const planKey = (plan.code ?? plan.tier ?? "").toLowerCase();
+                  if (taglines && taglines[planKey]) {
+                    const text = getPricingTagline(taglines, planKey, locale);
+                    if (text && text.trim().length > 0) {
                       return (
-                        <>
-                          {t("pricing.card.coffee_slogan_part1")}<br />
-                          <strong className="not-italic text-emerald-100">{t("pricing.card.coffee_slogan_part2")}</strong>
-                        </>
+                        <span className="ml-2 truncate text-[11px] italic text-zinc-400">
+                          {text}
+                        </span>
                       );
-                    })()}
-                  </span>
-                </div>
+                    }
+                  }
+                  return null;
+                })()}
               </div>
             )}
           </>
