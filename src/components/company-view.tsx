@@ -940,7 +940,16 @@ export function CompanyView({
               </div>
               <div className="mb-3 flex flex-wrap items-baseline justify-center gap-2.5 text-center">
                 <span className="text-[24px] font-bold leading-tight tracking-tight text-zinc-50 sm:text-[28px]">
-                  {active.name_fr}
+                  {/* Yann (27 mai 2026) : hero title doit suivre la locale.
+                      Avant : hardcoded active.name_fr → en EN/DE on voyait du FR.
+                      Maintenant : name_en pour EN, name_de pour DE, name_fr sinon. */}
+                  {(() => {
+                    type N = typeof active & { name_de?: string; name_en?: string };
+                    const a = active as N;
+                    if (locale === "en" || locale === "en-GB") return a.name_en || a.name_fr;
+                    if (locale === "de" || locale === "de-CH") return a.name_de || a.name_en || a.name_fr;
+                    return a.name_fr;
+                  })()}
                   {/* Suffix "par X" si le KPI est divisible (flux) ET que la
                       fréquence sélectionnée n'est pas l'année. (5 mai 2026) */}
                   {timeFraction !== "year" && (
@@ -1018,7 +1027,13 @@ export function CompanyView({
                 ttm={chartTTM}
                 barsVariant={barsVariant}
                 timeFraction={timeFraction}
-                exportTitle={`${active.name_fr}${
+                exportTitle={`${(() => {
+                  type N = typeof active & { name_de?: string; name_en?: string };
+                  const a = active as N;
+                  if (locale === "en" || locale === "en-GB") return a.name_en || a.name_fr;
+                  if (locale === "de" || locale === "de-CH") return a.name_de || a.name_en || a.name_fr;
+                  return a.name_fr;
+                })()}${
                   timeFraction !== "year" ? ` ${t(`timefrac.suffix.${timeFraction}`)}` : ""
                 } · ${company.name}`}
               />
