@@ -410,9 +410,29 @@ export function CompanyView({
     // Hero KPI toujours visible (même s'il est dans la library générique,
     // ex pour SP500 où on a activé manuellement Revenue comme hero).
     const heroShort = company.hero_kpi;
+    // Yann 26 mai 2026 — Règle ABSOLUE : aucun KPI hero ou Indicateurs clés
+    // avec moins de 3 ans d'historique. Sources :
+    // 1. enrich._kpis_hidden_by_history_rule (produit par fix-hero-kpi-history.py)
+    // 2. Filtre live : history.length < seuil pour son period_type
+    //    (year/undefined → 3, quarter → 12, semester → 6).
+    const hiddenByRule = new Set(
+      ((company as unknown as { _kpis_hidden_by_history_rule?: string[] })
+        ._kpis_hidden_by_history_rule) || []
+    );
+    const requiredForPeriod = (pt?: string) => {
+      if (pt === "quarter") return 12;
+      if (pt === "semester") return 6;
+      return 3; // year or undefined
+    };
     return all.filter((k) => {
       if (k.short === heroShort) return true;
-      return !isGenericKpi(k.short);
+      if (isGenericKpi(k.short)) return false;
+      if (hiddenByRule.has(k.short)) return false;
+      // Live check : history insuffisant pour son period_type
+      const hist = Array.isArray(k.history) ? k.history : [];
+      const pt = (k as unknown as { period_type?: string }).period_type;
+      if (hist.length < requiredForPeriod(pt)) return false;
+      return true;
     });
   }, [company]);
   const visibleKpis = showAll ? orderedKpis : orderedKpis.slice(0, VISIBLE_KPI_COUNT);

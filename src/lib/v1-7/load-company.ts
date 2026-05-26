@@ -377,6 +377,22 @@ export async function loadV17Company(
     }
   }
   if (enrich) {
+    // Yann 26 mai 2026 — Règle ABSOLUE : aucun KPI hero ou Indicateurs clés
+    // avec moins de 3 ans d'historique. Produit par scripts/fix-hero-kpi-history.py.
+    // - hero_kpi_override : repointe data.hero_kpi vers un KPI valide.
+    // - hero_kpi_replaced_reason : trace la raison du remplacement.
+    // - _kpis_hidden_by_history_rule : liste de KPI shorts à cacher du tableau
+    //   "Indicateurs clés" car leur history est insuffisante (filtré côté UI).
+    if (typeof enrich.hero_kpi_override === "string" && enrich.hero_kpi_override.trim()) {
+      (data as Record<string, unknown>).hero_kpi = enrich.hero_kpi_override;
+    }
+    if (typeof enrich.hero_kpi_replaced_reason === "string") {
+      (data as Record<string, unknown>).hero_kpi_replaced_reason = enrich.hero_kpi_replaced_reason;
+    }
+    if (Array.isArray(enrich._kpis_hidden_by_history_rule)) {
+      (data as Record<string, unknown>)._kpis_hidden_by_history_rule = enrich._kpis_hidden_by_history_rule;
+    }
+
     // Helper : "vide" = undefined, null, [], {} sans slices, {} sans champs significatifs
     const isBlockEmpty = (val: unknown): boolean => {
       if (val === undefined || val === null) return true;
@@ -843,6 +859,58 @@ export async function loadV17Company(
           unit: ext.unit ?? k.unit,
         } as AnyKPI;
       });
+    }
+    // Yann 2026-05-26 : MERGE `hero_quarterly_history` (mission extraction
+    // Cerebras Qwen 235B sur ~258 stés clean_all dont hero KPI period_type
+    // était undefined ou "year"). Source :
+    // `v2-pipeline-enrich/<ticker>.json` field `hero_quarterly_history`.
+    // Format payload :
+    //   { short, period_type: "quarter"|"semester", history: number[],
+    //     history_periods?, last_data_date?, source?, extracted_at, method }
+    // Effet : ajoute un champ `quarterly_history` séparé sur le hero KPI
+    // (n'écrase pas `history` annuel). Le composant ChartCycle lit
+    // `kpi.quarterly_history` quand toggle = "Trimestriel".
+    if (
+      enrich.hero_quarterly_history
+      && typeof enrich.hero_quarterly_history === "object"
+      && Array.isArray(data.kpis)
+    ) {
+      const qh = enrich.hero_quarterly_history as {
+        short?: string;
+        period_type?: string;
+        history?: unknown;
+        history_periods?: unknown;
+        last_data_date?: string;
+        source?: string;
+        skip_reason?: string;
+      };
+      const qhHist = Array.isArray(qh.history)
+        ? (qh.history as unknown[]).filter((v): v is number => typeof v === "number" && Number.isFinite(v))
+        : [];
+      // Only merge if non-empty (skip placeholders with skip_reason)
+      if (qhHist.length >= 3 && qh.short) {
+        const heroShortCur = data.hero_kpi as string | undefined;
+        const targetShortLow = qh.short.toLowerCase();
+        const heroKpi = (data.kpis as AnyKPI[]).find((k) => {
+          if (!k || typeof k !== "object") return false;
+          const s = (typeof k.short === "string" ? k.short : "").toLowerCase();
+          if (heroShortCur && s === heroShortCur.toLowerCase()) return true;
+          return s === targetShortLow;
+        });
+        if (heroKpi) {
+          (heroKpi as AnyKPI).quarterly_history = qhHist;
+          if (Array.isArray(qh.history_periods)) {
+            (heroKpi as AnyKPI).quarterly_history_periods = qh.history_periods;
+          }
+          (heroKpi as AnyKPI).quarterly_period_type = qh.period_type ?? "quarter";
+          if (qh.last_data_date) {
+            (heroKpi as AnyKPI).quarterly_last_data_date = qh.last_data_date;
+          }
+          if (qh.source) {
+            (heroKpi as AnyKPI).quarterly_source = qh.source;
+          }
+        }
+      }
     }
     // KPIs SPÉCIAUX (Yann 14 mai 2026) — fetch BDD desk_special_kpis publiés
     // pour ce ticker. APPEND comme indicateurs clés ou remplace hero si is_hero.
