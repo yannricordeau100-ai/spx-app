@@ -57,24 +57,34 @@ def main() -> int:
     print(f"[info] clean_all stés to process: {len(clean_tickers)}")
 
     overall_start = time.time()
+    # Yann 26 mai 2026 : spawn N_WORKERS procs en parallèle par locale,
+    # chacun avec un KEY_INDEX différent (0/1/2 = 3 keys Cerebras).
+    # Avant : 1 proc séquentiel = bottleneck TPM 1 key. Maintenant 3x débit.
+    n_workers = max(1, min(args.workers, 3))
     for locale in locales:
         script_name = LOCALE_SCRIPTS[locale]
         script_path = ROOT / "scripts" / script_name
         if not script_path.exists():
             print(f"[warn] {script_name} not found, skipping locale {locale}")
             continue
-        print(f"\n========== locale={locale} ==========")
+        print(f"\n========== locale={locale} workers={n_workers} ==========")
         loc_start = time.time()
-        # The existing scripts read from _merged.json — they cover all clean stés naturally
-        # because they iterate the whole merged dataset.
-        # We pass through env CEREBRAS_API_KEY (already in env from .env.local).
-        cmd = [sys.executable, str(script_path)]
-        if args.limit > 0:
-            cmd += ["--limit", str(args.limit)]
-        print(f"[exec] {' '.join(cmd)}")
-        rc = subprocess.call(cmd, cwd=str(ROOT))
+        procs = []
+        for wid in range(n_workers):
+            cmd = [sys.executable, str(script_path)]
+            if args.limit > 0:
+                cmd += ["--limit", str(args.limit)]
+            env = os.environ.copy()
+            env["KEY_INDEX"] = str(wid)
+            env["WORKER_ID"] = str(wid)
+            env["NUM_WORKERS"] = str(n_workers)
+            print(f"[exec W{wid} KEY{wid}] {' '.join(cmd)}")
+            p = subprocess.Popen(cmd, cwd=str(ROOT), env=env)
+            procs.append(p)
+        # Wait all
+        rcs = [p.wait() for p in procs]
         loc_dur = time.time() - loc_start
-        print(f"[done locale={locale}] exit={rc} duration={loc_dur:.1f}s")
+        print(f"[done locale={locale}] rcs={rcs} duration={loc_dur:.1f}s")
 
     total_dur = time.time() - overall_start
     print(f"\n[done all] total duration={total_dur / 60:.1f}min")
