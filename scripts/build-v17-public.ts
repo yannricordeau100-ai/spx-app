@@ -34,9 +34,14 @@ function injectEnrichFlags(ticker: string, base: AnyCo): AnyCo {
   if (!fs.existsSync(enrichPath)) return base;
   try {
     const e = JSON.parse(fs.readFileSync(enrichPath, "utf-8")) as Record<string, unknown>;
-    if (typeof e._adr_duplicate_of === "string") {
-      return { ...base, _adr_duplicate_of: e._adr_duplicate_of };
+    const out = { ...base };
+    if (typeof e._adr_duplicate_of === "string") out._adr_duplicate_of = e._adr_duplicate_of;
+    // Yann 27 mai 2026 : enrich next_earnings_date prime sur _merged
+    // (mis à jour par scripts/update-earnings-dates.py daily watcher).
+    if (typeof e.next_earnings_date === "string" && e.next_earnings_date) {
+      out.next_earnings_date = e.next_earnings_date;
     }
+    return out;
   } catch {}
   return base;
 }
