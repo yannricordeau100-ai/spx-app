@@ -445,7 +445,7 @@ function MettrikCitationCard({ locale = "fr" }: { locale?: string }) {
             initial={{ opacity: 0, scale: 0.7 }}
             animate={{ opacity: 0.5, scale: 1 }}
             transition={{ duration: 0.9, ease }}
-            className="pointer-events-none absolute -top-4 left-2 select-none font-display text-[90px] leading-none sm:-top-6 sm:left-6 sm:text-[130px]"
+            className="pointer-events-none absolute top-2 left-2 select-none font-display text-[80px] leading-none sm:top-3 sm:left-6 sm:text-[110px]"
             style={{
               background: "linear-gradient(135deg, #a78bfa 0%, #22d3ee 100%)",
               WebkitBackgroundClip: "text",
