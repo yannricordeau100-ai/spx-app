@@ -10,6 +10,30 @@
 
 ---
 
+## 0ter. PIPELINE DEPLOY OBLIGATOIRE (PERMANENT)
+
+Édictée par Yann le 27 mai 2026. Vercel n'auto-deploy pas sur push
+staging (constaté empiriquement). Donc chaque modif UI/data critique
+doit suivre OBLIGATOIREMENT la chaîne complète en FOREGROUND (pas
+background, sinon je ne re-vérifie pas) :
+
+1. `git commit` + `git push origin staging`
+2. `npx vercel deploy --archive=tgz --yes` (foreground)
+3. `until vercel inspect <url> | grep Ready; do sleep 5; done`
+4. `npx vercel alias set <url> mettrik-niveau2.vercel.app`
+5. `curl` test sur niveau2 + grep du contenu attendu
+6. Confirmer à Yann SEULEMENT après ces 5 étapes
+
+**Pas de "deploy en background, je te notifie"** sauf si Yann l'accepte
+explicitement. La règle est : un fix annoncé = un fix LIVE et VÉRIFIÉ
+par curl sur niveau2 dans le même tour de bash.
+
+**Sub-agents Opus** : leurs rapports "done" doivent être recoupés par
+diff git ou curl avant que je les relaie comme fait. Sinon je relaie
+des mensonges silencieux.
+
+---
+
 ## 0bis. ZÉRO API ANTHROPIC PAYANT (PERMANENT) — RÈGLE D'OR ABSOLUE
 
 Édictée par Yann le 26 mai 2026 18h45. Facturation Claude Console
