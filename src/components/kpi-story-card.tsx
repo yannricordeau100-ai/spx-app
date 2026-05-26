@@ -102,7 +102,7 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
                   <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: accent }}>
                     {kpi.short}
                   </div>
-                  <BlurredFreeText blocked={freeBlocked} ticker={ticker} as="div" className="text-zinc-200">
+                  <BlurredFreeText blocked={freeBlocked} ticker={ticker} mode="stories" as="div" className="text-zinc-200">
                     {kpi.explanation}
                   </BlurredFreeText>
                 </InfoTooltip>
@@ -131,15 +131,30 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
 
         {/* Chiffre principal : occupe le centre, beaucoup plus grand qu'avant
             (Yann 7 mai 2026 : "informations essentielles trop petites"). */}
-        <div className="my-auto flex flex-col items-center text-center">
+        <div className="my-auto flex w-full flex-col items-center px-4 text-center">
           {freeBlocked ? (
-            <div style={{ fontSize: "clamp(64px, 22vw, 110px)" }}>
-              <BlurredFreeValue
-                value={formatKpiValue(kpi.value, kpi.unit)}
-                suffix={formatUnit(kpi.unit) ? ` ${formatUnit(kpi.unit)}` : ""}
-                ticker={ticker}
-              />
-            </div>
+            <>
+              {/* Yann (26 mai 2026) : value + unit séparés (avant : concatenés
+                  → overflow horizontal phone-frame visible "210 M unités"
+                  sur les côtés). Maintenant chaque ligne respecte la largeur
+                  phone-frame avec word-wrap. */}
+              <div
+                className="w-full max-w-full overflow-hidden text-center"
+                style={{ fontSize: "clamp(48px, 18vw, 90px)", lineHeight: 1.05, wordBreak: "break-word" }}
+              >
+                <BlurredFreeValue
+                  value={formatKpiValue(kpi.value, kpi.unit)}
+                  ticker={ticker}
+                />
+              </div>
+              {formatUnit(kpi.unit) && (
+                <div className="mt-2 max-w-full overflow-hidden text-[24px] font-bold text-zinc-100" style={{ wordBreak: "break-word" }}>
+                  <BlurredFreeText blocked={freeBlocked} ticker={ticker} mode="stories" as="span">
+                    {formatUnit(kpi.unit)}
+                  </BlurredFreeText>
+                </div>
+              )}
+            </>
           ) : (
             <>
               <div
@@ -170,7 +185,7 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
         {kpi.signal && (
           <div className="rounded-xl border border-white/10 bg-black/55 p-3 backdrop-blur">
             <div className="flex items-start gap-1.5">
-              <BlurredFreeText blocked={freeBlocked} ticker={ticker} as="div" className="flex-1 text-[15px] font-semibold leading-snug text-zinc-50">
+              <BlurredFreeText blocked={freeBlocked} ticker={ticker} mode="stories" as="div" className="flex-1 text-[15px] font-semibold leading-snug text-zinc-50">
                 {normalizeNarrative(kpi.signal)}
               </BlurredFreeText>
               {kpi.description && (
@@ -178,7 +193,7 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
                   <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: accent }}>
                     {t("story.detail")}
                   </div>
-                  <BlurredFreeText blocked={freeBlocked} ticker={ticker} as="div" className="text-[12.5px] leading-relaxed text-zinc-200">
+                  <BlurredFreeText blocked={freeBlocked} ticker={ticker} mode="stories" as="div" className="text-[12.5px] leading-relaxed text-zinc-200">
                     {normalizeNarrative(kpi.description)}
                   </BlurredFreeText>
                 </InfoTooltip>
