@@ -133,10 +133,15 @@ def is_pass3(entry: dict[str, Any]) -> bool:
 
 
 def build_translation_payload(entry: dict[str, Any]) -> dict[str, Any]:
-    """Extrait les champs textuels à traduire dans une structure compacte."""
+    """Extrait les champs textuels à traduire dans une structure compacte.
+    Yann 26 mai 2026 : extension couverture (5 trous critiques) :
+      + company_description, risks[].summary, events[].title + body,
+      + stories_kpis[].signal + description, governance.voting_structure_note.
+    """
     out: dict[str, Any] = {
         "tagline": entry.get("tagline", ""),
         "hero_kpi_rationale": entry.get("hero_kpi_rationale", ""),
+        "company_description": entry.get("company_description", "") or "",
     }
     kpis = entry.get("kpis") or []
     out["kpis"] = [
@@ -154,17 +159,40 @@ def build_translation_payload(entry: dict[str, Any]) -> dict[str, Any]:
         {
             "title": r.get("title", ""),
             "description": r.get("description", ""),
+            "summary": r.get("summary", "") or "",
             "score_rationale": r.get("score_rationale", ""),
         }
         for r in risks
     ]
     gov = entry.get("governance") or {}
-    out["governance"] = {"notes": gov.get("notes", "") or ""}
+    out["governance"] = {
+        "notes": gov.get("notes", "") or "",
+        "voting_structure_note": gov.get("voting_structure_note", "") or "",
+    }
     ai = entry.get("ai_positioning") or {}
     out["ai_positioning"] = {
         "summary": ai.get("summary", "") or "",
         "evidence": ai.get("evidence", []) or [],
     }
+    events = entry.get("events") or []
+    out["events"] = [
+        {
+            "year": e.get("year", ""),  # ID, not translated
+            "month": e.get("month", ""),  # ID, not translated
+            "title": e.get("title", "") or "",
+            "body": e.get("body", "") or "",
+        }
+        for e in events
+    ]
+    stories = entry.get("stories_kpis") or []
+    out["stories_kpis"] = [
+        {
+            "short": s.get("short", ""),  # ID, not translated
+            "signal": s.get("signal", "") or "",
+            "description": s.get("description", "") or "",
+        }
+        for s in stories
+    ]
     return out
 
 
