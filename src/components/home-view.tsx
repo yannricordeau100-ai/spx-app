@@ -837,7 +837,12 @@ function renderCompanyCard(
                         chips qui descendent quand un texte est long. Truncate
                         au besoin pour préserver l'alignement vertical du
                         bloc dans toutes les cards de la grille. */}
-                    <div className="mt-3 grid min-h-[24px] grid-cols-[minmax(0,1fr)_auto] items-center gap-1.5">
+                    {/* Yann (26 mai 2026) : chips empilées sur 2 lignes au lieu
+                        d'une seule. Avant : grid 1 ligne forçait truncate sur
+                        percentile (= "Top..." illisible) ET les chips étaient
+                        masquées par FreshnessIndicator. Maintenant chaque chip
+                        a sa propre ligne, tout est lisible sur toutes les stés. */}
+                    <div className="mt-3 flex flex-col gap-1.5">
                       <div className="flex items-center gap-1.5 overflow-hidden">
                         <span
                           className="inline-flex shrink-0 items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-medium"
@@ -857,7 +862,7 @@ function renderCompanyCard(
                         ticker={ticker}
                         alwaysShow
                         size="sm"
-                        tooltipAlign="right"
+                        tooltipAlign="left"
                       />
                     </div>
                   </Link>

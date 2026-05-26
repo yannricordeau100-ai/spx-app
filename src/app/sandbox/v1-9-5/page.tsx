@@ -68,12 +68,44 @@ function loadDatasets(): Record<string, Company> {
   return V17_PUBLIC as unknown as Record<string, Company>;
 }
 
+// Yann 26 mai 2026 : dédup doublons multi-classes / ADR (ASML/ASMLF, BRK.A/B, etc.).
+// Canonical map identique à src/lib/v1-7/load-company.ts ALIASES.
+const TICKER_DEDUP_ALIASES: Record<string, string> = {
+  GOOG: "GOOGL",
+  "BRK.A": "BRK-B",
+  "BRK-A": "BRK-B",
+  "BRK.B": "BRK-B",
+  FOX: "FOXA",
+  NWSA: "NWS",
+  UAA: "UA",
+  ASMLF: "ASML",
+  ABBNY: "ABBN.SW",
+  ABLZF: "ABBN.SW",
+  DTEGY: "DTEGF",
+  ADTTF: "ATEYY",
+  BPAQF: "BP",
+  "BP.L": "BP",
+  "NDA-DK.CO": "NDA-FI.HE",
+  EDPFY: "EDP.LS",
+  BCLYF: "BARC.L",
+  BBVXF: "BBVA",
+};
+
 export default async function SandboxV195HubPage() {
   const datasets = loadDatasets();
   const validKeys = new Set(Object.keys(datasets).map((k) => k.toUpperCase()));
   const allCleanTickers = await loadCleanAllTickers();
-  // Garde uniquement les tickers présents aussi dans le dataset Pass 3 strict.
-  const tickers = allCleanTickers.filter((t) => validKeys.has(t.toUpperCase()));
+  // Garde uniquement les tickers présents aussi dans le dataset Pass 3 strict
+  // ET dédup les doublons multi-classes via TICKER_DEDUP_ALIASES.
+  const seen = new Set<string>();
+  const tickers = allCleanTickers.filter((t) => {
+    const up = t.toUpperCase();
+    if (!validKeys.has(up)) return false;
+    const canonical = TICKER_DEDUP_ALIASES[up] ?? up;
+    if (seen.has(canonical)) return false;
+    seen.add(canonical);
+    return true;
+  });
 
   const catalog = await loadPricingCatalog();
   const taglines = await loadAllTaglines();
