@@ -117,8 +117,8 @@ function readLevelEnv(): Level | null {
 }
 
 function detectVersionFromPath(pathname: string): string | null {
-  // Ordre : versions hautes avant basses pour éviter les matches partiels
-  // (ex "v1-7" match dans "v1-7-5"). Yann 19 mai 2026 : ajout v1-9.
+  // CRITIQUE : préfixes longs AVANT courts (v1-9-5 avant v1-9, v1-7-5 avant v1-7)
+  if (pathname.startsWith("/sandbox/v1-9-5")) return "v1-9-5";
   if (pathname.startsWith("/sandbox/v1-9")) return "v1-9";
   if (pathname.startsWith("/sandbox/v1-8")) return "v1-8";
   if (pathname.startsWith("/sandbox/v1-7-5")) return "v1-7-5";

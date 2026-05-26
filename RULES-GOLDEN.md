@@ -142,6 +142,32 @@ essentiels. Tout ce qui peut être résumé doit l'être.
 - Tableaux > listes longues quand c'est comparatif
 - Phrases courtes
 
+### 5.bis RÉPONSES STRUCTURELLEMENT 50 % PLUS COURTES (Yann 26 mai 2026)
+
+Yann constate que mes réponses contiennent trop d'info non-indispensable
+qui le perd. Règle additive STRICTE :
+
+- **Une réponse = seulement la réponse directe au prompt.** Rien d'autre.
+- **Pas de récap des étapes intermédiaires** (commits, deploys, sub-agents
+  lancés, tâches créées) sauf si Yann demande explicitement le détail.
+- **Pas de "tu peux maintenant tester X"** sauf si c'est une action que
+  Yann doit prendre pour débloquer la suite.
+- **Pas de tableau récap si 2-3 items**. Liste courte ou phrase unique.
+- **Pas de "Récap des fixes"** ni de bilans automatiques. Le commit
+  message contient déjà ce détail pour qui veut savoir.
+- **Pas de ETA si pas demandé.** L'ETA reste obligatoire UNIQUEMENT
+  quand Yann attend un livrable bloquant (cf §5quater).
+- Cible : **mes réponses ≤ 50 % de leur longueur actuelle**.
+
+Format type attendu pour un fix livré :
+> Fait. <1 phrase précisant la nature du fix>. Deploy en cours.
+
+OU pour une question :
+> <Réponse directe>.
+
+Si je dois absolument ajouter un point, le mettre en bullet unique, pas
+en paragraphe.
+
 Majuscules dans **mes** réponses : seulement quand c'est important, OU
 quand mon travail est bloqué par une question / validation que je dois
 poser à Yann (pour qu'il la repère immédiatement).
