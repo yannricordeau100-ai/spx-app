@@ -52,6 +52,41 @@ des mensonges silencieux.
 
 ---
 
+## 0sexies. SOLIDIFICATION PAR SUB-AGENTS AVANT DE CONFIRMER "OK" (PERMANENT)
+
+Édictée par Yann le 27 mai 2026 (rappel d'une règle déjà demandée 26 mai
+mais pas inscrite formellement). Le problème clef du décalage entre ce
+que je rapporte et ce que Yann voit est aussi dû au fait que MES AUDITS
+NE SONT QUE MES AUDITS — si mon grep regex rate (échappement Next.js,
+faux positif, marker manqué), je rapporte un mensonge basé sur un seul
+point de vue (le mien) avec une méthode imparfaite.
+
+**Solution permanente** : avant de confirmer "OK" sur une réparation
+critique, je DOIS dispatcher **N sub-agents Claude MAX en parallèle**
+qui vérifient INDÉPENDAMMENT le rendu réel sur niveau2 :
+
+1. **N ≥ 2 agents minimum** (3-5 pour fixes critiques), chacun
+   inspecte une partie différente (blocs UI, fraîcheur data,
+   cohérence i18n, cross-pollution sources, etc.).
+2. Chaque agent retourne un rapport HONNÊTE (OK/problèmes/doutes).
+3. Si TOUS convergent sur "OK" → je peux dire OK à Yann.
+4. Si UN agent détecte un problème → je l'annonce, je le répare,
+   et je relance la solidification.
+5. **JAMAIS confirmer "OK" sans cette convergence multi-agents** pour
+   les bugs structurels signalés explicitement par Yann.
+
+Coût : 0 (forfait Max 20× via Task tool sub-agents). Justifie
+"autant d'agents que nécessaire".
+
+Cas d'usage : verif fix UI (chart, KPI table, badge), verif data
+freshness (re-extraction risks/KPIs/translations), verif chaîne
+deploy → alias niveau2 → rendu utilisateur final.
+
+Cas hors scope : tâches purement administratives sans impact visuel
+(ex création tâche, lecture règles).
+
+---
+
 ## 0quinquies. AUDIT VISUEL COMPLET AVANT DE DIRE "OK" (PERMANENT)
 
 Édictée par Yann le 27 mai 2026 après bug récurrent : je dis "OK" sur
