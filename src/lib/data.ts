@@ -991,10 +991,17 @@ export function interpretStructured(
     && !nameNorm.split(/\s+/).every((w) => heroSignalLow.includes(w))
     && /\d/.test(heroSignalLow);
   const tailSignal = signalAddsValue ? detailPrefix(locale, heroSignalLow) : "";
+  // Yann 27 mai 2026 : nom KPI selon locale (avant : hardcoded name_fr → texte FR mixed sur page EN).
+  const kpiName = (k: { name_fr: string; name_en?: string; name_de?: string }): string => {
+    if (locale === "en" || locale === "en-GB") return k.name_en || k.name_fr;
+    if (locale === "de" || locale === "de-CH") return k.name_de || k.name_en || k.name_fr;
+    return k.name_fr;
+  };
+
   const lead = leadSentence(
     locale,
     company.name,
-    hero.name_fr,
+    kpiName(hero),
     heroValue,
     formatUnit(scaledUnit),
     heroYoy,
@@ -1013,21 +1020,21 @@ export function interpretStructured(
   if (driver && driver.short !== hero.short) {
     bullets.push({
       label: bulletLabel(locale, "driver"),
-      body: bulletBodyKpi(locale, driver.name_fr, fmtVal(driver.value), formatUnit(driver.unit), String(driver.yoy ?? ""), driver.signal ?? ""),
+      body: bulletBodyKpi(locale, kpiName(driver), fmtVal(driver.value), formatUnit(driver.unit), String(driver.yoy ?? ""), driver.signal ?? ""),
       tone: "pos",
     });
   }
   if (risk) {
     bullets.push({
       label: bulletLabel(locale, "risk"),
-      body: bulletBodyKpi(locale, risk.name_fr, fmtVal(risk.value), formatUnit(risk.unit), String(risk.yoy ?? ""), risk.signal ?? ""),
+      body: bulletBodyKpi(locale, kpiName(risk), fmtVal(risk.value), formatUnit(risk.unit), String(risk.yoy ?? ""), risk.signal ?? ""),
       tone: "neg",
     });
   }
   if (cash && cash.short !== hero.short) {
     bullets.push({
       label: bulletLabel(locale, "cash"),
-      body: bulletBodyKpi(locale, cash.name_fr, fmtVal(cash.value), formatUnit(cash.unit), String(cash.yoy ?? ""), cash.signal ?? ""),
+      body: bulletBodyKpi(locale, kpiName(cash), fmtVal(cash.value), formatUnit(cash.unit), String(cash.yoy ?? ""), cash.signal ?? ""),
       tone: "neutral",
     });
   }
@@ -1058,7 +1065,7 @@ export function interpretStructured(
       const labelKey: "cash" | "risk" | "driver" = isCash ? "cash" : isRisk ? "risk" : "driver";
       bullets.push({
         label: bulletLabel(locale, labelKey),
-        body: bulletBodyKpi(locale, k.name_fr, fmtVal(k.value), formatUnit(k.unit), String(k.yoy ?? ""), k.signal ?? ""),
+        body: bulletBodyKpi(locale, kpiName(k), fmtVal(k.value), formatUnit(k.unit), String(k.yoy ?? ""), k.signal ?? ""),
         tone,
       });
     }
@@ -1067,7 +1074,7 @@ export function interpretStructured(
   // FUTURE bullet — promoted to first-class citizen.
   bullets.push({
     label: bulletLabel(locale, "future"),
-    body: futureBulletBody(locale, hero.name_fr),
+    body: futureBulletBody(locale, kpiName(hero)),
     tone: "future",
   });
 
