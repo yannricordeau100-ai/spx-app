@@ -52,6 +52,36 @@ des mensonges silencieux.
 
 ---
 
+## 0quinquies. AUDIT VISUEL COMPLET AVANT DE DIRE "OK" (PERMANENT)
+
+Édictée par Yann le 27 mai 2026 après bug récurrent : je dis "OK" sur
+un sous-bloc (ex risks) alors qu'un autre bloc visible (ex tableau
+Indicateurs clés) est cassé/vide. **Décalage entre ce que je rapporte
+et ce que Yann voit réellement = MENSONGE structurel à éliminer**.
+
+Avant de dire qu'une page sté est "OK / live / vérifiée", je DOIS curl
+la page sur niveau2 (avec audit_token) et vérifier la PRÉSENCE et le
+COMPTAGE de chaque bloc principal :
+
+1. **Hero KPI** : nom visible + value + chart
+2. **Indicateurs clés (tableau KPI)** : **MINIMUM 5 KPIs rendus**
+   (compter via marker rendu DOM : font-mono shorts, badges type, etc.)
+3. **Stories KPIs** : si présent dans data, vérifier rendu carrousel
+4. **Facteurs de risque** : MIN 3 risks rendus avec badge category
+5. **Gouvernance & rémunération** : CEO + comp + top 3 (si applicable)
+6. **AI positioning** : stance + 2+ evidence items
+7. **Répartition CA** : segments + geography (si data dispo)
+8. **Events timeline** : 3+ events (si data dispo)
+
+**Pas d'audit partiel.** Si je vérifie risks et que tout est OK, je NE
+peux PAS dire "page sté OK" — seulement "risks OK". Pour dire "page
+OK" il faut TOUS les blocs ci-dessus vérifiés.
+
+Si un bloc est vide quand il devrait être plein → flag explicite à
+Yann avant de prétendre que c'est bon.
+
+---
+
 ## 0bis. ZÉRO API ANTHROPIC PAYANT (PERMANENT) — RÈGLE D'OR ABSOLUE
 
 Édictée par Yann le 26 mai 2026 18h45. Facturation Claude Console

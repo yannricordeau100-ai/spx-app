@@ -427,7 +427,7 @@ export function CompanyView({
       if (pt === "semester") return 2;
       return 3; // year or undefined
     };
-    return all.filter((k) => {
+    const strict = all.filter((k) => {
       if (k.short === heroShort) return true;
       if (isGenericKpi(k.short)) return false;
       if (hiddenByRule.has(k.short)) return false;
@@ -437,6 +437,36 @@ export function CompanyView({
       if (hist.length < requiredForPeriod(pt)) return false;
       return true;
     });
+    // Yann 27 mai 2026 v2 — Fallback "5 indicateurs clés minimum".
+    // Le filtre strict masquait trop de KPIs sur certaines stés (ex GOOGL :
+    // 16 KPIs merged → 3 visibles après filtre, car 9 générique + 5 history vide).
+    // Si moins de 5 KPIs passent, on relâche progressivement :
+    //   (a) inclure génériques utiles non-hidden avec history >= 3 (Revenue,
+    //       Op Margin, R&D, Capex, etc.)
+    //   (b) puis inclure ceux avec history >= 1 (au moins 1 point pour
+    //       afficher une value visible).
+    // Hero + hidden_by_rule restent toujours filtrés (hidden = decision Yann).
+    const MIN_VISIBLE_KPIS = 5;
+    if (strict.length >= MIN_VISIBLE_KPIS) return strict;
+
+    const strictShorts = new Set(strict.map((k) => k.short));
+    const fallback1 = all.filter((k) => {
+      if (strictShorts.has(k.short)) return false;
+      if (hiddenByRule.has(k.short)) return false;
+      const hist = Array.isArray(k.history) ? k.history : [];
+      return hist.length >= 3;
+    });
+    const augmented1 = [...strict, ...fallback1].slice(0, Math.max(MIN_VISIBLE_KPIS, strict.length));
+    if (augmented1.length >= MIN_VISIBLE_KPIS) return augmented1;
+
+    const aug1Shorts = new Set(augmented1.map((k) => k.short));
+    const fallback2 = all.filter((k) => {
+      if (aug1Shorts.has(k.short)) return false;
+      if (hiddenByRule.has(k.short)) return false;
+      const hist = Array.isArray(k.history) ? k.history : [];
+      return hist.length >= 1;
+    });
+    return [...augmented1, ...fallback2].slice(0, Math.max(MIN_VISIBLE_KPIS, augmented1.length));
   }, [company]);
   const visibleKpis = showAll ? orderedKpis : orderedKpis.slice(0, VISIBLE_KPI_COUNT);
   const hiddenCount = orderedKpis.length - VISIBLE_KPI_COUNT;
