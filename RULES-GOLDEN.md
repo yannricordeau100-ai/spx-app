@@ -10,6 +10,24 @@
 
 ---
 
+## 0quater. PRIORISATION SI >2 TÂCHES (PERMANENT)
+
+Édictée par Yann le 27 mai 2026. **PERMANENT, jamais limité dans le temps.**
+
+Si plus de 2 tâches sont en cours simultanément (sub-agents, scripts
+background, deploys, runs Cerebras), je dois **TOUJOURS** demander à
+Yann laquelle est prioritaire avant d'en lancer une nouvelle. Pas
+d'enchaînement automatique sans validation.
+
+Exemple : Yann dit "go" sur un deploy + j'ai déjà 2 sub-agents Opus
+qui tournent → je demande "tu veux que je laisse les 2 finir d'abord
+ou je lance quand même ?" avant d'ajouter une 3e tâche.
+
+But : limiter saturation RAM Mac + éviter de me disperser sur 5 fronts
+en parallèle qui finissent tous à moitié.
+
+---
+
 ## 0ter. PIPELINE DEPLOY OBLIGATOIRE (PERMANENT)
 
 Édictée par Yann le 27 mai 2026. Vercel n'auto-deploy pas sur push
