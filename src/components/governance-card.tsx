@@ -128,7 +128,12 @@ function HolderRow({ h, index, freeBlocked = false, ticker }: { h: Shareholder; 
     fondateur: { labelKey: "governance.holder.fondateur", color: "#fbbf24" },
     "fonds souverain": { labelKey: "governance.holder.fonds_souverain", color: "#10b981" },
   };
-  const meta = typeMeta[h.type];
+  // Yann 27 mai 2026 (point 4) : fallback défensif si h.type est null ou
+  // une valeur hors map (ex ATO / PYPL : overrides_governance.top_capital[]
+  // contient des holders avec type=null → meta.color crashait SSR → erreur
+  // 500 sur les fiches société).
+  const TYPE_META_FALLBACK = typeMeta.institutionnel;
+  const meta = typeMeta[h.type] ?? TYPE_META_FALLBACK;
   return (
     <div className="flex items-center gap-3 rounded-lg border border-[#1a1a1a] bg-[#0a0a0a] p-3">
       <span
