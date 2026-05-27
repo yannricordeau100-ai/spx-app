@@ -78,6 +78,12 @@ function isPublicPath(pathname: string): boolean {
     const UTIL_SUBPATHS = new Set([
       "pricing", "pages-toggle", "freshness-audit",
       "i18n-audit", "geo-test", "data-status",
+      // Yann 27 mai 2026 : languages-toggle est un outil GLOBAL (affecte
+      // toute l'app, pas seulement V1.8). La page canonique est désormais
+      // /sandbox/languages-toggle (cf src/app/sandbox/languages-toggle).
+      // L'ancien path /sandbox/v1-8/languages-toggle est conservé pour
+      // backward-compat via rewrite ci-dessous.
+      "languages-toggle",
     ]);
     if (UTIL_SUBPATHS.has(firstSeg)) return true;
     // Sinon = page société (ex /sandbox/v1-8/nvda) → AUTH REQUISE
@@ -97,6 +103,9 @@ function isPublicPath(pathname: string): boolean {
   if (pathname === "/sandbox/visual-audit") return true;
   // /sandbox/quality-tree = registry unique des éléments contrôlables (IDs stables).
   if (pathname === "/sandbox/quality-tree") return true;
+  // /sandbox/languages-toggle = activer/désactiver les locales pour l'app
+  // (outil global, ne dépend pas d'une version de fiche sté). Yann 27 mai 2026.
+  if (pathname === "/sandbox/languages-toggle") return true;
   // /sandbox/ready-by-category = counts stés prêtes par catégorie + pays.
   if (pathname === "/sandbox/ready-by-category") return true;
   // /sandbox/vip-inspection = liste VIP stés à inspecter en profondeur.
@@ -260,6 +269,17 @@ export async function proxy(request: NextRequest) {
       url.pathname = "/fr" + (originalPathname === "/" ? "" : originalPathname);
       return NextResponse.redirect(url, 307);
     }
+  }
+
+  // -1.5. Redirect 301 ancien path admin V1.8 → path canonique sandbox
+  //       (Yann 27 mai 2026) : languages-toggle est un outil GLOBAL,
+  //       pas spécifique à une version. Path canonique = /sandbox/languages-toggle.
+  //       L'ancien /sandbox/v1-8/languages-toggle reste accessible via 301
+  //       pour ne pas casser les bookmarks (rewrite, pas redirect visible).
+  if (routePathname === "/sandbox/v1-8/languages-toggle") {
+    const url = request.nextUrl.clone();
+    url.pathname = `${isFrLocale ? "/fr" : ""}/sandbox/languages-toggle`;
+    return NextResponse.redirect(url, 301);
   }
 
   // -1. Redirect 301 V1.0 → V1.7.5 (Yann 18 mai 2026, broadcast bascule
