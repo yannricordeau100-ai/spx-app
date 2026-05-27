@@ -300,12 +300,17 @@ export function DividendAristocratCard({
       const last = cuts[cuts.length - 1];
       return { cut: true, year: last.year, reason: last.reason };
     }
-    // Heuristique XBRL : DPS d'une année strictement < DPS de l'année précédente.
+    // Yann 27 mai 2026 : ignorer l'année courante incomplète + années null/0.
+    // GOOGL DPS 2026 = null (année non finie) déclenchait un faux "cut".
+    const currentYear = new Date().getFullYear();
     for (let i = 1; i < allYears.length; i++) {
-      const cur = extendedByYear[allYears[i]];
+      const curYear = allYears[i];
+      if (curYear >= currentYear) continue; // skip année incomplète
+      const cur = extendedByYear[curYear];
       const prev = extendedByYear[allYears[i - 1]];
-      if (cur != null && prev != null && cur < prev * 0.95) {
-        return { cut: true, year: allYears[i] };
+      if (cur == null || prev == null || cur === 0 || prev === 0) continue;
+      if (cur < prev * 0.95) {
+        return { cut: true, year: curYear };
       }
     }
     return { cut: false };

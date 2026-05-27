@@ -935,9 +935,18 @@ export function interpretStructured(
       (k) => (k.type === "Cost" || k.type === "Investment") && k.short !== hero.short
     );
 
-  // Yann 21 mai 2026 : élargir détection cash : Cash, Cash Flow, Capital,
-  // Dividende (génération de cash = capacité à redistribuer/réinvestir).
+  // Yann 27 mai 2026 : refonte priorité cash. Avant : Cash/CashFlow/Capital
+  // /Dividende par TYPE. Problème : GOOGL n'a aucun KPI typed Cash → fallback
+  // Dividende ($0.21/share) qui n'a aucun sens pour Google. Maintenant :
+  // priorité par NOM (Free Cash Flow > Operating Cash Flow > Cash from Ops)
+  // → ces noms matchent les tech/SaaS qui ne taguent pas leurs KPIs en Cash.
+  // Fallback par type, et Dividende EN DERNIER seulement si vraiment rien.
+  const nameMatchesFCF = (k: { short: string; name_fr: string; name_en?: string }) => {
+    const blob = `${k.short} ${k.name_fr} ${k.name_en ?? ""}`.toLowerCase();
+    return /\b(free\s+cash\s+flow|fcf|operating\s+cash\s+flow|cash\s+from\s+op|flux\s+de\s+tr[ée]sorerie|tr[ée]sorerie\s+op[ée]r)/.test(blob);
+  };
   const cash =
+    company.kpis.find((k) => nameMatchesFCF(k) && k.short !== hero.short) ??
     company.kpis.find((k) => k.type === "Cash" && k.short !== hero.short) ??
     company.kpis.find((k) => k.type === "Cash Flow" && k.short !== hero.short) ??
     company.kpis.find((k) => k.type === "Capital" && k.short !== hero.short) ??
