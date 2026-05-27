@@ -406,6 +406,14 @@ export async function loadV17Company(
     if (Array.isArray(enrich._kpis_hidden_by_history_rule)) {
       (data as Record<string, unknown>)._kpis_hidden_by_history_rule = enrich._kpis_hidden_by_history_rule;
     }
+    // Yann 27 mai 2026 : propager les markers de traçabilité fraîcheur risks
+    // au SSR pour qu'un audit puisse les vérifier visiblement (Agent 2
+    // §0sexies a flag l'absence).
+    for (const meta of ["_risks_reextracted_at", "_risks_source_year", "_risks_source_path", "_risks_verification_needed", "_risks_no_source"] as const) {
+      if (enrich[meta] !== undefined) {
+        (data as Record<string, unknown>)[meta] = enrich[meta];
+      }
+    }
 
     // Helper : "vide" = undefined, null, [], {} sans slices, {} sans champs significatifs
     const isBlockEmpty = (val: unknown): boolean => {
