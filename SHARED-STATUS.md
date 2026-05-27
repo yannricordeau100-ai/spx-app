@@ -270,6 +270,8 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-27 18:10] CRON-MERGED → ⚠️ Rebuild horaire Pass 3 2141 → 2141 (idle, juste reordering _tickers-index.json). Commit 2d38ed8ce pushé sur staging. **Vercel deploy_failed** : "Request body too large. Limit: 10mb" (2e cycle aujourd'hui). Yann notifié.
+
 [2026-05-21 12h20] CONV-DEPAN-mission147 → ✅ DONE Mission #147 easy wins g_governance
 Fill yfinance only (zéro Cerebras) sur 33 stés top307∪SP500 à 1 critère KO = g_governance.
 - 22 bucket "just_ceo" + 11 bucket "top_holders" → ceo_name + ceo_total_comp_m + voting_structure + voting_structure_note depuis yfinance.companyOfficers
