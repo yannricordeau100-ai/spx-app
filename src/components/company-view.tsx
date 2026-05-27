@@ -466,7 +466,24 @@ export function CompanyView({
       const hist = Array.isArray(k.history) ? k.history : [];
       return hist.length >= 1;
     });
-    return [...augmented1, ...fallback2].slice(0, Math.max(MIN_VISIBLE_KPIS, augmented1.length));
+    const augmented2 = [...augmented1, ...fallback2].slice(0, Math.max(MIN_VISIBLE_KPIS, augmented1.length));
+    if (augmented2.length >= MIN_VISIBLE_KPIS) return augmented2;
+
+    // Yann 27 mai 2026 v3 — Dernier fallback : inclure les is_short_history.
+    // Cas ATO : 7/7 KPIs non-hero ont is_short_history=true → orderKpis()
+    // les exclut tous (ils sont supposés aller dans Stories) → `all` est vide.
+    // Pour garantir min 5 indicateurs, on autorise les short_history KPIs
+    // si toutes les autres tentatives ont échoué.
+    const aug2Shorts = new Set(augmented2.map((k) => k.short));
+    const heroShort2 = company.hero_kpi;
+    const fallback3 = (company.kpis || []).filter((k) => {
+      if (aug2Shorts.has(k.short)) return false;
+      if (hiddenByRule.has(k.short)) return false;
+      if (k.short === heroShort2) return false;
+      const hist = Array.isArray(k.history) ? k.history : [];
+      return hist.length >= 1;
+    });
+    return [...augmented2, ...fallback3].slice(0, Math.max(MIN_VISIBLE_KPIS, augmented2.length));
   }, [company]);
   const visibleKpis = showAll ? orderedKpis : orderedKpis.slice(0, VISIBLE_KPI_COUNT);
   const hiddenCount = orderedKpis.length - VISIBLE_KPI_COUNT;
