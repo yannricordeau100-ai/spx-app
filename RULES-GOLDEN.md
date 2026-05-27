@@ -52,6 +52,42 @@ des mensonges silencieux.
 
 ---
 
+## 0septies. KPI SPÉCIFIQUES UNIQUEMENT — RÈGLE D'OR ABSOLUE
+
+ÉDICTÉE PAR YANN LE 19 MAI 2026. RAPPELÉE 28 MAI 2026 APRÈS RÉCIDIVE
+(fix orderedKpis avait inclus des génériques pour atteindre min 5).
+
+TOUS LES KPI VISIBLES (HERO + INDICATEURS CLÉS + STORIES) DOIVENT ÊTRE :
+- SPÉCIFIQUES À LA SOCIÉTÉ (ex GOOGL = Google Cloud Revenue, YouTube
+  Ads Revenue, Vertex AI Customers ; NVDA = Data Center Revenue,
+  Gaming Revenue, Auto Revenue)
+- OU SPÉCIFIQUES AU SOUS-SECTEUR / INDUSTRIE (ex banque = Tier 1 ratio,
+  Net Interest Margin, Loan Book ; pharma = Top Drug Sales, Pipeline)
+
+KPI GÉNÉRIQUES INTERDITS À L'AFFICHAGE (sauf hero activé manuellement) :
+Revenue / Op Margin / EPS / Net Income / EBITDA / FCF / Headcount /
+Capex / R&D / Gross Margin / Cap Return / DPS / Payout Ratio / Total
+Assets / Total Debt / Cash & Equivalents / Net Debt / EBITDA Margin /
+Buybacks / Market Cap / Leverage Ratio / Free Cash Flow.
+
+LISTE CANONIQUE : src/data/kpi-generic-library.json.
+
+FILTRE OBLIGATOIRE : `isGenericKpi(short) === true` → KPI MASQUÉ.
+JAMAIS DE FALLBACK qui inclut des génériques pour atteindre un compte
+minimum. Si <5 spécifiques disponibles pour une sté → AFFICHER MOINS
+DE 5. Si 0 spécifique → bloc vide + flag "Fiche en préparation".
+
+VIOLATIONS HISTORIQUES À NE PAS REFAIRE :
+- 27 mai 2026 : commits 531b987f4 + c0fcd5c17 avaient ajouté fallback
+  "min 5 visibles" incluant les génériques. REVERTED le 28 mai 2026.
+
+CECI EST UNE RÈGLE PROTÉGÉE COMPACTAGE. Lors d'une nouvelle session
+Claude Code, après lecture de RULES-GOLDEN.md, je VÉRIFIE explicitement
+cette règle AVANT toute modif du composant company-view.tsx
+section `orderedKpis`.
+
+---
+
 ## 0sexies. SOLIDIFICATION PAR SUB-AGENTS AVANT DE CONFIRMER "OK" (PERMANENT)
 
 Édictée par Yann le 27 mai 2026 (rappel d'une règle déjà demandée 26 mai

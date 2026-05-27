@@ -427,63 +427,22 @@ export function CompanyView({
       if (pt === "semester") return 2;
       return 3; // year or undefined
     };
-    const strict = all.filter((k) => {
+    // Yann 28 mai 2026 — REVERT des fallback "min 5 indicateurs" qui
+    // incluaient des KPIs génériques (Revenue / Op Margin / EPS / Net
+    // Income / Capex / R&D / Headcount / etc.) en violation directe de la
+    // règle §0septies "KPI SPÉCIFIQUES UNIQUEMENT" (édictée 19 mai).
+    // Aucun fallback n'inclut plus de génériques. Si <5 spécifiques
+    // disponibles pour une sté, on affiche MOINS de 5 — c'est honnête
+    // côté contenu vs faux confort "5 visibles" avec génériques.
+    return all.filter((k) => {
       if (k.short === heroShort) return true;
       if (isGenericKpi(k.short)) return false;
       if (hiddenByRule.has(k.short)) return false;
-      // Live check : history insuffisant pour son period_type
       const hist = Array.isArray(k.history) ? k.history : [];
       const pt = (k as unknown as { period_type?: string }).period_type;
       if (hist.length < requiredForPeriod(pt)) return false;
       return true;
     });
-    // Yann 27 mai 2026 v2 — Fallback "5 indicateurs clés minimum".
-    // Le filtre strict masquait trop de KPIs sur certaines stés (ex GOOGL :
-    // 16 KPIs merged → 3 visibles après filtre, car 9 générique + 5 history vide).
-    // Si moins de 5 KPIs passent, on relâche progressivement :
-    //   (a) inclure génériques utiles non-hidden avec history >= 3 (Revenue,
-    //       Op Margin, R&D, Capex, etc.)
-    //   (b) puis inclure ceux avec history >= 1 (au moins 1 point pour
-    //       afficher une value visible).
-    // Hero + hidden_by_rule restent toujours filtrés (hidden = decision Yann).
-    const MIN_VISIBLE_KPIS = 5;
-    if (strict.length >= MIN_VISIBLE_KPIS) return strict;
-
-    const strictShorts = new Set(strict.map((k) => k.short));
-    const fallback1 = all.filter((k) => {
-      if (strictShorts.has(k.short)) return false;
-      if (hiddenByRule.has(k.short)) return false;
-      const hist = Array.isArray(k.history) ? k.history : [];
-      return hist.length >= 3;
-    });
-    const augmented1 = [...strict, ...fallback1].slice(0, Math.max(MIN_VISIBLE_KPIS, strict.length));
-    if (augmented1.length >= MIN_VISIBLE_KPIS) return augmented1;
-
-    const aug1Shorts = new Set(augmented1.map((k) => k.short));
-    const fallback2 = all.filter((k) => {
-      if (aug1Shorts.has(k.short)) return false;
-      if (hiddenByRule.has(k.short)) return false;
-      const hist = Array.isArray(k.history) ? k.history : [];
-      return hist.length >= 1;
-    });
-    const augmented2 = [...augmented1, ...fallback2].slice(0, Math.max(MIN_VISIBLE_KPIS, augmented1.length));
-    if (augmented2.length >= MIN_VISIBLE_KPIS) return augmented2;
-
-    // Yann 27 mai 2026 v3 — Dernier fallback : inclure les is_short_history.
-    // Cas ATO : 7/7 KPIs non-hero ont is_short_history=true → orderKpis()
-    // les exclut tous (ils sont supposés aller dans Stories) → `all` est vide.
-    // Pour garantir min 5 indicateurs, on autorise les short_history KPIs
-    // si toutes les autres tentatives ont échoué.
-    const aug2Shorts = new Set(augmented2.map((k) => k.short));
-    const heroShort2 = company.hero_kpi;
-    const fallback3 = (company.kpis || []).filter((k) => {
-      if (aug2Shorts.has(k.short)) return false;
-      if (hiddenByRule.has(k.short)) return false;
-      if (k.short === heroShort2) return false;
-      const hist = Array.isArray(k.history) ? k.history : [];
-      return hist.length >= 1;
-    });
-    return [...augmented2, ...fallback3].slice(0, Math.max(MIN_VISIBLE_KPIS, augmented2.length));
   }, [company]);
   const visibleKpis = showAll ? orderedKpis : orderedKpis.slice(0, VISIBLE_KPI_COUNT);
   const hiddenCount = orderedKpis.length - VISIBLE_KPI_COUNT;
