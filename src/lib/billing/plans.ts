@@ -77,8 +77,10 @@ export const PLANS: PlanDisplay[] = [
 /** Catalogue des fonctionnalités, leur disponibilité par tier. */
 export type FeatureRow = {
   id: string;
-  /** Catégorie pour grouper visuellement la matrice. */
-  category: "Sociétés" | "Analyse" | "Suivi" | "Comparaison" | "Données" | "Pro";
+  /** Catégorie pour grouper visuellement la matrice. Yann (27 mai 2026) :
+   *  désormais un string libre (sourcé de la BDD `pricing_features.category`).
+   *  Chaîne vide "" = sans catégorie (affichée en haut de la matrice). */
+  category: string;
   label: string;
   /** Aide tooltip (1 phrase). */
   help?: string;

@@ -189,6 +189,26 @@ export async function upsertFeature(feature: Partial<PricingFeature>): Promise<P
   return data as PricingFeature;
 }
 
+/**
+ * Renomme une catégorie en bulk : met à jour TOUTES les features dont
+ * `category=oldName` vers `category=newName`. Permet de renommer une
+ * catégorie globalement sans toucher feature par feature.
+ *
+ * newName peut être vide ("") → toutes les features de la catégorie
+ * deviennent "sans catégorie" (affichées en haut de la matrice).
+ */
+export async function renameCategory(oldName: string, newName: string): Promise<{ updated: number }> {
+  const supa = adminClient();
+  const trimmedNew = (newName ?? "").trim();
+  const { data, error } = await supa
+    .from("pricing_features")
+    .update({ category: trimmedNew })
+    .eq("category", oldName)
+    .select("id");
+  if (error) throw error;
+  return { updated: (data ?? []).length };
+}
+
 /** Swap feature_order entre 2 features (utilisé par les flèches up/down du back office). */
 export async function swapFeatureOrders(idA: string, idB: string): Promise<void> {
   const supa = adminClient();

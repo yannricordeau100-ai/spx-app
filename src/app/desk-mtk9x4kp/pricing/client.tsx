@@ -605,6 +605,114 @@ function PriceInput({ defaultValue, onSave, disabled }: { defaultValue: number; 
   );
 }
 
+/* ─── Catégories manager (renommage bulk d'une catégorie en BDD) ───── */
+
+function CategoriesManagerPanel({
+  features,
+  onRename,
+  disabled,
+}: {
+  features: PricingFeature[];
+  onRename: (oldName: string, newName: string) => Promise<void>;
+  disabled: boolean;
+}) {
+  // Compte les features par catégorie. Filtre "" (sans catégorie) :
+  // pas besoin de la renommer ici (elle a déjà un sens fonctionnel).
+  const counts = new Map<string, number>();
+  for (const f of features) {
+    const c = (f.category ?? "").trim();
+    if (!c) continue;
+    counts.set(c, (counts.get(c) ?? 0) + 1);
+  }
+  const usedCategories = Array.from(counts.entries()).sort((a, b) => a[0].localeCompare(b[0]));
+  const [editing, setEditing] = useState<string | null>(null);
+  const [editValue, setEditValue] = useState<string>("");
+  const [savingFor, setSavingFor] = useState<string | null>(null);
+
+  if (usedCategories.length === 0) return null;
+
+  async function save(oldName: string) {
+    setSavingFor(oldName);
+    try {
+      await onRename(oldName, editValue);
+      setEditing(null);
+      setEditValue("");
+    } finally {
+      setSavingFor(null);
+    }
+  }
+
+  return (
+    <div className="mb-3 rounded-lg border border-white/[0.06] bg-white/[0.02] px-3 py-2 text-[11.5px]">
+      <div className="mb-1.5 font-semibold uppercase tracking-wider text-[10px] text-zinc-400">
+        Gérer les catégories ({usedCategories.length})
+      </div>
+      <div className="flex flex-wrap gap-2">
+        {usedCategories.map(([name, count]) => {
+          const isEditing = editing === name;
+          const isSaving = savingFor === name;
+          return (
+            <div key={name} className="flex items-center gap-1 rounded-full bg-white/[0.04] px-2 py-1">
+              {isEditing ? (
+                <>
+                  <input
+                    autoFocus
+                    type="text"
+                    value={editValue}
+                    onChange={(e) => setEditValue(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") void save(name);
+                      if (e.key === "Escape") { setEditing(null); setEditValue(""); }
+                    }}
+                    disabled={isSaving || disabled}
+                    placeholder="(vide = sans catégorie)"
+                    className="w-44 rounded border border-violet-500/40 bg-zinc-950/60 px-1.5 py-0.5 text-[11px] text-zinc-100"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => save(name)}
+                    disabled={isSaving || disabled}
+                    className="rounded p-0.5 text-emerald-300 hover:bg-emerald-500/15 disabled:opacity-30"
+                    title="Enregistrer le nouveau nom"
+                  >
+                    <Check className="size-3.5" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => { setEditing(null); setEditValue(""); }}
+                    disabled={isSaving}
+                    className="rounded p-0.5 text-zinc-400 hover:bg-white/5"
+                    title="Annuler"
+                  >
+                    <X className="size-3.5" />
+                  </button>
+                </>
+              ) : (
+                <>
+                  <span className="font-medium text-zinc-200">{name}</span>
+                  <span className="text-[10px] text-zinc-500">{count}</span>
+                  <button
+                    type="button"
+                    onClick={() => { setEditing(name); setEditValue(name); }}
+                    disabled={disabled}
+                    className="rounded p-0.5 text-zinc-400 hover:bg-white/5 hover:text-zinc-200 disabled:opacity-30"
+                    title="Renommer cette catégorie globalement"
+                  >
+                    <Pencil className="size-3" />
+                  </button>
+                </>
+              )}
+            </div>
+          );
+        })}
+      </div>
+      <p className="mt-2 text-[10px] text-zinc-500">
+        Renommer une catégorie ici met à jour toutes les features qui l&apos;utilisent en BDD. Vide = sans catégorie (affichée en haut de la matrice publique).
+      </p>
+    </div>
+  );
+}
+
 /* ─── Features tab : matrice éditable inline + nouvelle feature ────── */
 
 function FeaturesSection({
@@ -775,6 +883,25 @@ function FeaturesSection({
       return next;
     });
   }
+  // Yann (27 mai 2026) : renommer une catégorie globalement (= rebadge
+  // toutes les features dont category=oldName vers newName en BDD).
+  async function renameCategoryGlobal(oldName: string, newName: string) {
+    const trimmed = (newName ?? "").trim();
+    if (trimmed === oldName) return;
+    await api("/api/billing/admin/features/rename-category", "POST", { oldName, newName: trimmed });
+    // Si oldName était dans extraCategories localStorage, on déplace l'entrée.
+    setExtraCategories((prev) => {
+      let next = prev.filter((x) => x !== oldName);
+      if (trimmed && !next.includes(trimmed) && !features.some((f) => f.category === trimmed)) {
+        next = [...next, trimmed];
+      }
+      try {
+        window.localStorage.setItem("mettrik:pricing:extra-categories", JSON.stringify(next));
+      } catch {}
+      return next;
+    });
+    await refresh();
+  }
   const categoriesSet = new Set<string>(["Général", ...extraCategories]);
   for (const f of features) if (f.category) categoriesSet.add(f.category);
   const categories = Array.from(categoriesSet).sort();
@@ -855,6 +982,16 @@ function FeaturesSection({
           ))}
         </div>
       )}
+
+      {/* Yann (27 mai 2026) : panneau renommage catégories en bulk.
+          Liste chaque catégorie utilisée par ≥1 feature, inline-edit du nom
+          → POST /api/billing/admin/features/rename-category (rebadge en BDD). */}
+      <CategoriesManagerPanel
+        features={features}
+        onRename={renameCategoryGlobal}
+        disabled={busy}
+      />
+
 
       {features.length === 0 ? (
         <div className="rounded-xl border border-amber-500/20 bg-amber-500/[0.05] p-4 text-[12.5px] text-amber-200">
@@ -1011,12 +1148,13 @@ function FeaturesSection({
                   )}
                   <td className="px-3 py-2 align-top">
                     <select
-                      value={f.category ?? "Général"}
+                      value={f.category ?? ""}
                       onChange={(e) => setFeatureCategory(f, e.target.value)}
                       disabled={busy}
                       className="w-full rounded border border-white/[0.08] bg-white/[0.02] px-2 py-1 text-[11px] text-zinc-200"
                     >
-                      {categories.map((c) => (
+                      <option value="">(Aucune catégorie)</option>
+                      {categories.filter((c) => c !== "").map((c) => (
                         <option key={c} value={c}>{c}</option>
                       ))}
                     </select>

@@ -88,12 +88,20 @@ export function PricingMatrix({
   const FEATURES = featuresProp && featuresProp.length > 0 ? featuresProp : FALLBACK_FEATURES;
   const currencySymbol = CURRENCY_SYMBOLS[currency] ?? currency;
 
-  // Group features by category
+  // Group features by category. Yann (27 mai 2026) : les features sans
+  // catégorie (category="" ou null) sont affichées EN PREMIER, sans header
+  // de section, puis les autres catégories dans l'ordre d'apparition.
   const byCategory = FEATURES.reduce<Record<string, FeatureRow[]>>((acc, f) => {
-    if (!acc[f.category]) acc[f.category] = [];
-    acc[f.category].push(f);
+    const key = (f.category ?? "").trim();
+    if (!acc[key]) acc[key] = [];
+    acc[key].push(f);
     return acc;
   }, {});
+  const orderedCategoryKeys = Object.keys(byCategory).sort((a, b) => {
+    if (a === "" && b !== "") return -1;
+    if (b === "" && a !== "") return 1;
+    return 0;
+  });
 
   return (
     <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6">
@@ -135,14 +143,19 @@ export function PricingMatrix({
         })}
       </div>
 
-      {Object.entries(byCategory).map(([category, rows]) => (
-        <div key={category} className="mt-3">
-          <div className="mb-1.5 text-[10.5px] font-semibold uppercase tracking-wider text-zinc-500">{category}</div>
-          {rows.map((f) => (
-            <FeatureCellGroup key={f.id} feature={f} plans={PLANS} />
-          ))}
-        </div>
-      ))}
+      {orderedCategoryKeys.map((category) => {
+        const rows = byCategory[category];
+        return (
+          <div key={category || "__no_category__"} className="mt-3">
+            {category !== "" && (
+              <div className="mb-1.5 text-[10.5px] font-semibold uppercase tracking-wider text-zinc-500">{category}</div>
+            )}
+            {rows.map((f) => (
+              <FeatureCellGroup key={f.id} feature={f} plans={PLANS} />
+            ))}
+          </div>
+        );
+      })}
     </div>
   );
 }
