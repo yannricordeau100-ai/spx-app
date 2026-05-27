@@ -945,12 +945,21 @@ export function interpretStructured(
     const blob = `${k.short} ${k.name_fr} ${k.name_en ?? ""}`.toLowerCase();
     return /\b(free\s+cash\s+flow|fcf|operating\s+cash\s+flow|cash\s+from\s+op|flux\s+de\s+tr[ée]sorerie|tr[ée]sorerie\s+op[ée]r)/.test(blob);
   };
+  // Yann 27 mai 2026 v2 : exclure les KPIs masqués par _kpis_hidden_by_history_rule.
+  // Si un KPI est explicitement masqué (ex GOOGL : DPS/Cap Return/Payout Ratio),
+  // il ne doit PAS non plus apparaître dans le bullet cash de l'interprétation.
+  // Et : suppression du fallback Dividende (aberrant pour Google : 0,21 $/share).
+  const hiddenShorts = new Set(
+    (company as unknown as { _kpis_hidden_by_history_rule?: string[] })
+      ._kpis_hidden_by_history_rule ?? []
+  );
+  const eligibleCash = (k: { short: string }) =>
+    k.short !== hero.short && !hiddenShorts.has(k.short);
   const cash =
-    company.kpis.find((k) => nameMatchesFCF(k) && k.short !== hero.short) ??
-    company.kpis.find((k) => k.type === "Cash" && k.short !== hero.short) ??
-    company.kpis.find((k) => k.type === "Cash Flow" && k.short !== hero.short) ??
-    company.kpis.find((k) => k.type === "Capital" && k.short !== hero.short) ??
-    company.kpis.find((k) => k.type === "Dividende" && k.short !== hero.short);
+    company.kpis.find((k) => nameMatchesFCF(k) && eligibleCash(k)) ??
+    company.kpis.find((k) => k.type === "Cash" && eligibleCash(k)) ??
+    company.kpis.find((k) => k.type === "Cash Flow" && eligibleCash(k)) ??
+    company.kpis.find((k) => k.type === "Capital" && eligibleCash(k));
 
   // Yann 14-15 mai 2026 : interprétation IA SUBSTANTIVE.
   // Pas un copier-coller du nom KPI, mais : valeur rescalée (jamais "0,..."),
