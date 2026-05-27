@@ -33,9 +33,14 @@ export function InterpretationBlock({
         </span>
       </div>
 
-      <p className="text-[15.5px] leading-relaxed text-zinc-100 [&_em]:italic [&_em]:text-zinc-200 [&_strong]:font-semibold [&_strong]:text-zinc-50">
-        <AutoTooltipText text={normalizeNarrative(block.lead)} locale="fr" />
-      </p>
+      {/* Yann 27 mai 2026 : restore HTML rendering pour <strong>/<em>.
+          AutoTooltipText escape le HTML → tags rendus comme texte brut.
+          Fix : dangerouslySetInnerHTML directement (sécurisé car le texte
+          vient de notre pipeline contrôlé, pas user input). */}
+      <p
+        className="text-[15.5px] leading-relaxed text-zinc-100 [&_em]:italic [&_em]:text-zinc-200 [&_strong]:font-semibold [&_strong]:text-zinc-50"
+        dangerouslySetInnerHTML={{ __html: normalizeNarrative(block.lead) }}
+      />
 
       <ul className="mt-5 grid gap-3">
         {block.bullets.map((b, i) => {
@@ -70,9 +75,10 @@ export function InterpretationBlock({
                 >
                   {b.label}
                 </div>
-                <p className="mt-1.5 text-[14.5px] leading-relaxed text-zinc-200 [&_em]:italic [&_em]:text-zinc-100 [&_strong]:font-semibold [&_strong]:text-zinc-50">
-                  <AutoTooltipText text={normalizeNarrative(b.body)} locale="fr" />
-                </p>
+                <p
+                  className="mt-1.5 text-[14.5px] leading-relaxed text-zinc-200 [&_em]:italic [&_em]:text-zinc-100 [&_strong]:font-semibold [&_strong]:text-zinc-50"
+                  dangerouslySetInnerHTML={{ __html: normalizeNarrative(b.body) }}
+                />
               </div>
             </li>
           );

@@ -419,9 +419,12 @@ export function CompanyView({
       ((company as unknown as { _kpis_hidden_by_history_rule?: string[] })
         ._kpis_hidden_by_history_rule) || []
     );
+    // Yann 27 mai 2026 : seuil relâché. 12 quarters = 3 ans était trop strict,
+    // filtrait 14/15 KPIs sur GOOGL (segments newly disclosed). Maintenant
+    // 4 quarters = 1 an minimum, semestre 2 = 1 an, année 3 = 3 ans.
     const requiredForPeriod = (pt?: string) => {
-      if (pt === "quarter") return 12;
-      if (pt === "semester") return 6;
+      if (pt === "quarter") return 4;
+      if (pt === "semester") return 2;
       return 3; // year or undefined
     };
     return all.filter((k) => {

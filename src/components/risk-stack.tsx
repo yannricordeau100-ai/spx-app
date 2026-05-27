@@ -191,6 +191,9 @@ function RiskCard({ risk, index, freeBlocked = false, ticker }: { risk: CompanyR
   const displayQuote = locale === "fr" && risk.quote_fr ? risk.quote_fr : risk.quote;
   const quoteOpen = locale === "en" ? "“" : "« ";
   const quoteClose = locale === "en" ? "”" : " »";
+  // Yann 27 mai 2026 : ne jamais permettre le déroulé si le quote est vide.
+  // Sinon = box vide qui frustre. Pas de chevron, pas de click.
+  const hasQuote = !!(displayQuote && displayQuote.trim());
   // Garde-fous : nouveaux datasets peuvent avoir des catégories/trends hors mapping
   const meta = CATEGORY_META[risk.category] ?? CATEGORY_META.operational;
   const trend = TREND_META[risk.trend] ?? TREND_META.stable;
@@ -217,16 +220,16 @@ function RiskCard({ risk, index, freeBlocked = false, ticker }: { risk: CompanyR
       className="rounded-xl border border-[#1a1a1a] bg-[#070707] transition-colors hover:border-[#2a2a2a]"
     >
       <div
-        role="button"
-        tabIndex={0}
-        onClick={() => setOpen((o) => !o)}
-        onKeyDown={(e) => {
+        role={hasQuote ? "button" : undefined}
+        tabIndex={hasQuote ? 0 : undefined}
+        onClick={hasQuote ? () => setOpen((o) => !o) : undefined}
+        onKeyDown={hasQuote ? (e) => {
           if (e.key === "Enter" || e.key === " ") {
             e.preventDefault();
             setOpen((o) => !o);
           }
-        }}
-        className="flex w-full cursor-pointer items-start gap-3.5 p-4 text-left"
+        } : undefined}
+        className={`flex w-full items-start gap-3.5 p-4 text-left ${hasQuote ? "cursor-pointer" : "cursor-default"}`}
       >
         <span
           className="mt-0.5 inline-flex size-9 shrink-0 items-center justify-center rounded-md"
@@ -319,13 +322,15 @@ function RiskCard({ risk, index, freeBlocked = false, ticker }: { risk: CompanyR
             </span>
           </div>
         </div>
-        <ChevronDown
-          className={`mt-1 size-4 shrink-0 text-zinc-400 transition-transform ${open ? "rotate-180" : ""}`}
-        />
+        {hasQuote && (
+          <ChevronDown
+            className={`mt-1 size-4 shrink-0 text-zinc-400 transition-transform ${open ? "rotate-180" : ""}`}
+          />
+        )}
       </div>
 
       <AnimatePresence>
-        {open && (
+        {open && hasQuote && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
