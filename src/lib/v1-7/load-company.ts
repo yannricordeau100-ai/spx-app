@@ -471,13 +471,23 @@ export async function loadV17Company(
     }
     // Risks / governance / AI positioning : merge SEULEMENT si la fiche
     // CONV-DATA ne les a pas déjà fournis. Évite de doubler des données.
+    // Yann 27 mai 2026 : EXCEPTION pour risks → si enrich._risks_reextracted_at
+    // est présent (re-extraction fraîche depuis filings 2024-2026 par les
+    // 5 sub-agents Claude MAX), on OVERRIDE les risks v2-pipeline avec les
+    // enrich.risks (data plus fraîche = priorité). Les autres clés (governance
+    // / ai_positioning) gardent la sémantique "merge si vide".
     for (const key of ["risks", "governance", "ai_positioning"] as const) {
       const existing = (data as Record<string, unknown>)[key];
       const empty =
         existing === undefined ||
         existing === null ||
         (Array.isArray(existing) && existing.length === 0);
-      if (empty && enrich[key] !== undefined) {
+      const enrichRisksFresh =
+        key === "risks" &&
+        typeof enrich._risks_reextracted_at === "string" &&
+        Array.isArray(enrich.risks) &&
+        enrich.risks.length > 0;
+      if ((empty || enrichRisksFresh) && enrich[key] !== undefined) {
         (data as Record<string, unknown>)[key] = enrich[key];
       }
     }
