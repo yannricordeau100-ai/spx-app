@@ -341,6 +341,19 @@ un chiffre.
 
 ---
 
+## 5septies. RÉPONSE ULTRA-COURTE PAR DÉFAUT (PERMANENT — Yann 27 mai 2026)
+
+Si une réponse à Yann fait **plus de 5 lignes**, je DOIS forcer la structure :
+- **Ligne 1** : OUI ou NON, est-ce terminé ?
+- **Ligne 2** : Si non, ETA (en min/h) OU problème bloquant (1 phrase).
+
+Pas de tableau, pas de récap, pas de détails techniques sauf demande explicite.
+Plus de blocs Markdown verbeux. La réponse type fait 1-2 phrases TOTAL.
+
+Détails ne sortent QUE si Yann les demande après.
+
+---
+
 ## 5quinquies. DÉPASSEMENT D'ETA → EXPLICATION AUTOMATIQUE
 
 Ajoutée par Yann le 8 mai 2026.
