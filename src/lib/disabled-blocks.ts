@@ -34,13 +34,15 @@ export type DisabledBlockKey =
   | "transcript_bullets"
   | "risks"
   | "kpi_stories"
-  | "events";
+  | "events"
+  | "gouvernance_top3";
 
 export const DISABLED_BLOCKS_KEYS: DisabledBlockKey[] = [
   "snapshot_boursier",
   "description_mettrik",
   "graphiques_schemas",
   "gouvernance",
+  "gouvernance_top3",
   "ai_positioning",
   "transcript_bullets",
   "risks",
@@ -53,6 +55,7 @@ export const DISABLED_BLOCKS_LABELS: Record<DisabledBlockKey, string> = {
   description_mettrik: "Description Mettrik",
   graphiques_schemas: "Graphiques et schémas",
   gouvernance: "Gouvernance & rémunération",
+  gouvernance_top3: "Gouvernance : Top 3 (votes + capital)",
   ai_positioning: "Positionnement IA",
   transcript_bullets: "Synthèse earning call",
   risks: "Facteurs de risque",

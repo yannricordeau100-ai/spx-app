@@ -21,6 +21,7 @@ import { HolographicPie } from "@/components/holographic-pie";
 import { useT } from "@/lib/i18n/provider";
 import type { Locale } from "@/lib/i18n/types";
 import { BlurredFreeValue } from "@/components/freemium/blurred-free-value";
+import { isBlockDisabledForTicker } from "@/lib/disabled-blocks";
 
 function fmt(n: number | undefined | null, decimals = 0, locale: Locale = "fr") {
   // Guard ajouté 4 mai 2026 : datasets pipeline (NFLX et autres) peuvent
@@ -481,8 +482,12 @@ export function GovernanceCard({
         </div>
       )}
 
-      {/* Top shareholders : voting rights + capital */}
-      {(g.top_voting || g.top_capital) && (
+      {/* Top shareholders : voting rights + capital.
+          Yann 27 mai 2026 : toggle dédié via la clé `gouvernance_top3` dans
+          la sandbox per-sté (src/data/disabled-blocks-per-ste.json). Si Yann
+          masque ce bloc sur une sté, le top 3 + la modale Holographic Pie
+          disparaissent (sans impact sur le reste de la card gouvernance). */}
+      {(g.top_voting || g.top_capital) && !isBlockDisabledForTicker(ticker, "gouvernance_top3") && (
         <div className="mt-5 grid grid-cols-1 gap-4 lg:grid-cols-2">
           {g.top_voting && g.top_voting.length > 0 && (
             <button
