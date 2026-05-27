@@ -383,8 +383,22 @@ export async function loadV17Company(
     // - hero_kpi_replaced_reason : trace la raison du remplacement.
     // - _kpis_hidden_by_history_rule : liste de KPI shorts à cacher du tableau
     //   "Indicateurs clés" car leur history est insuffisante (filtré côté UI).
+    // Yann 27 mai 2026 (point 4) : hero_kpi_override seulement si l'override
+    // correspond à un short présent dans data.kpis (ou enrich.kpis qui sera
+    // mergé juste après). Sinon des stés comme ATO (override='Distribution
+    // Customer Count' absent des data.kpis) se retrouvent avec un hero_kpi
+    // pointant dans le vide → erreur 500 server-side au render.
     if (typeof enrich.hero_kpi_override === "string" && enrich.hero_kpi_override.trim()) {
-      (data as Record<string, unknown>).hero_kpi = enrich.hero_kpi_override;
+      const overrideShort = enrich.hero_kpi_override;
+      const dataShorts = new Set(
+        (data.kpis || []).map((k: AnyKPI) => k?.short).filter(Boolean)
+      );
+      const enrichShorts = new Set(
+        (Array.isArray(enrich.kpis) ? enrich.kpis : []).map((k: AnyKPI) => k?.short).filter(Boolean)
+      );
+      if (dataShorts.has(overrideShort) || enrichShorts.has(overrideShort)) {
+        (data as Record<string, unknown>).hero_kpi = overrideShort;
+      }
     }
     if (typeof enrich.hero_kpi_replaced_reason === "string") {
       (data as Record<string, unknown>).hero_kpi_replaced_reason = enrich.hero_kpi_replaced_reason;
@@ -1149,7 +1163,14 @@ export async function loadV17Company(
       heroNameFrFile.hero_kpi_override &&
       typeof heroNameFrFile.hero_kpi_override === "string"
     ) {
-      (data as Record<string, unknown>).hero_kpi = heroNameFrFile.hero_kpi_override;
+      // Yann 27 mai 2026 (point 4) : idem garde-fou que merge enrich plus haut.
+      const ov = heroNameFrFile.hero_kpi_override;
+      const dataShortsFinal = new Set(
+        (Array.isArray(data.kpis) ? data.kpis : []).map((k: AnyKPI) => k?.short).filter(Boolean)
+      );
+      if (dataShortsFinal.has(ov)) {
+        (data as Record<string, unknown>).hero_kpi = ov;
+      }
     }
     const ov = heroNameFrFile.overrides_hero_name_fr;
     if (
