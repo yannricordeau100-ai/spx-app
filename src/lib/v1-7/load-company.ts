@@ -415,6 +415,32 @@ export async function loadV17Company(
       }
     }
 
+    // Mission Mettrik #5 (28 mai 2026, CONV-DATA sub-agent #5) :
+    // ai_positioning_override remappe les stances non-canoniques (prominent,
+    // emerging, present, mentioned, central, active, etc.) vers le mapping UI
+    // strict (leader / integrator / cautious / absent). Sans ça, le composant
+    // ai-positioning-card.tsx fallback sur STANCE_META.absent -> badge
+    // "AUCUN POSITIONNEMENT" alors que le summary décrit un engagement IA réel
+    // (cas observé MU "prominent" + summary leader + CMBU +257 % YoY).
+    if (
+      enrich.ai_positioning_override &&
+      typeof enrich.ai_positioning_override === "object" &&
+      !Array.isArray(enrich.ai_positioning_override)
+    ) {
+      const ovr = enrich.ai_positioning_override as Record<string, unknown>;
+      const newStance = ovr.stance;
+      const CANONICAL_STANCES = new Set(["leader", "integrator", "cautious", "absent"]);
+      if (typeof newStance === "string" && CANONICAL_STANCES.has(newStance)) {
+        const ai = (data as Record<string, unknown>).ai_positioning as
+          | Record<string, unknown>
+          | undefined;
+        if (ai && typeof ai === "object") {
+          ai.stance = newStance;
+          (ai as Record<string, unknown>)._stance_overridden_from = ovr._original_stance;
+        }
+      }
+    }
+
     // Helper : "vide" = undefined, null, [], {} sans slices, {} sans champs significatifs
     const isBlockEmpty = (val: unknown): boolean => {
       if (val === undefined || val === null) return true;
@@ -1118,6 +1144,300 @@ export async function loadV17Company(
     ) {
       (data as Record<string, unknown>).dividend_meta = enrich.dividend_meta;
     }
+
+    // Yann 28 mai 2026 v2 — MERGE *_fr écrits par 17 sub-agents successifs.
+    // Reproduit le commit ed840dd97 reverted (efd871981), avec garde-fous
+    // défensifs renforcés contre les variations de format observées dans
+    // les 570+ fichiers enrich :
+    //  - evidence_fr = array d'objets {source, text_fr} (pas strings) →
+    //    on extrait text_fr pour produire un array de strings (sinon React
+    //    crashe "Objects are not valid as a React child" + composant
+    //    ai-positioning-card l.146 rend `e` direct quand non-string).
+    //  - events_fr = 4 formats distincts {title_fr/description_fr},
+    //    {title/description}, etc. → on supporte les 2 plus courants.
+    //  - kpis_supplementary.value = float|int|str → conservé tel quel.
+    //  - Tout est wrap dans try/catch + Array.isArray / typeof checks.
+    const reqLocale = (opts.locale ?? "").toLowerCase();
+    const isFr = reqLocale === "fr" || reqLocale === "fr-fr" || reqLocale === "";
+
+    try {
+      // 1. tagline_fr → tagline_i18n.fr (coexiste avec taglines-fr.json
+      // global injecté plus bas dans la fonction). Cet enrich SPÉCIFIQUE
+      // gagne sur le global s'il existe.
+      if (typeof enrich.tagline_fr === "string" && enrich.tagline_fr.trim().length > 0) {
+        const curT = ((data as Record<string, unknown>).tagline_i18n as
+          | Record<string, string>
+          | undefined) ?? {};
+        (data as Record<string, unknown>).tagline_i18n = {
+          ...curT,
+          fr: enrich.tagline_fr,
+        };
+      }
+    } catch (err) {
+      console.warn(`tagline_fr merge failed for ${ticker}:`, err);
+    }
+
+    try {
+      // 2. hero_kpi_rationale_fr → company.hero_kpi_rationale (locale=fr only).
+      if (
+        isFr &&
+        typeof enrich.hero_kpi_rationale_fr === "string" &&
+        enrich.hero_kpi_rationale_fr.trim().length > 0
+      ) {
+        (data as Record<string, unknown>).hero_kpi_rationale =
+          enrich.hero_kpi_rationale_fr;
+      }
+    } catch (err) {
+      console.warn(`hero_kpi_rationale_fr merge failed for ${ticker}:`, err);
+    }
+
+    try {
+      // 3. events_fr → match par date avec data.events. Supporte 2 formats :
+      //  - {date, title_fr, description_fr} (407 stés, le plus courant)
+      //  - {date, title, description} (44 stés, déjà FR du sub-agent)
+      // Set title/description in-place quand locale=fr.
+      if (
+        isFr &&
+        Array.isArray(enrich.events_fr) &&
+        Array.isArray(data.events) &&
+        data.events.length > 0
+      ) {
+        const evFr = enrich.events_fr as Array<Record<string, unknown>>;
+        const byDate = new Map<string, { title?: string; description?: string }>();
+        for (const e of evFr) {
+          if (!e || typeof e !== "object") continue;
+          const dateStr = typeof e.date === "string" ? e.date : "";
+          if (!dateStr) continue;
+          const titleFr =
+            typeof e.title_fr === "string" && e.title_fr.trim().length > 0
+              ? e.title_fr
+              : typeof e.title === "string" && e.title.trim().length > 0
+                ? e.title
+                : undefined;
+          const descFr =
+            typeof e.description_fr === "string" && e.description_fr.trim().length > 0
+              ? e.description_fr
+              : typeof e.description === "string" && e.description.trim().length > 0
+                ? e.description
+                : undefined;
+          byDate.set(dateStr, { title: titleFr, description: descFr });
+        }
+        if (byDate.size > 0) {
+          (data as Record<string, unknown>).events = (
+            data.events as Array<Record<string, unknown>>
+          ).map((ev) => {
+            if (!ev || typeof ev !== "object") return ev;
+            const dateStr = typeof ev.date === "string" ? ev.date : "";
+            const match = dateStr ? byDate.get(dateStr) : undefined;
+            if (!match) return ev;
+            return {
+              ...ev,
+              title: match.title ?? ev.title,
+              description: match.description ?? ev.description,
+            };
+          });
+        }
+      }
+    } catch (err) {
+      console.warn(`events_fr merge failed for ${ticker}:`, err);
+    }
+
+    try {
+      // 4. risks_rationale_fr → dict {index_str: rationale_fr}. Set
+      // score_rationale in-place sur data.risks[i] quand locale=fr.
+      if (
+        isFr &&
+        enrich.risks_rationale_fr &&
+        typeof enrich.risks_rationale_fr === "object" &&
+        !Array.isArray(enrich.risks_rationale_fr) &&
+        Array.isArray(data.risks) &&
+        data.risks.length > 0
+      ) {
+        const dict = enrich.risks_rationale_fr as Record<string, unknown>;
+        (data as Record<string, unknown>).risks = (data.risks as CompanyRisk[]).map(
+          (r: CompanyRisk, i: number) => {
+            if (!r || typeof r !== "object") return r;
+            const key = String(i);
+            const v = dict[key];
+            if (typeof v === "string" && v.trim().length > 0) {
+              return { ...r, score_rationale: v };
+            }
+            return r;
+          },
+        );
+      }
+    } catch (err) {
+      console.warn(`risks_rationale_fr merge failed for ${ticker}:`, err);
+    }
+
+    try {
+      // 5. kpis_explanation_fr / kpis_description_fr / kpis_signal_fr :
+      // dicts {short: value_fr}. Set in-place sur les KPIs matching par
+      // .short, locale=fr. N'écrase pas si dict vide ou clé manquante.
+      if (isFr && Array.isArray(data.kpis) && data.kpis.length > 0) {
+        const expDict =
+          enrich.kpis_explanation_fr &&
+          typeof enrich.kpis_explanation_fr === "object" &&
+          !Array.isArray(enrich.kpis_explanation_fr)
+            ? (enrich.kpis_explanation_fr as Record<string, unknown>)
+            : null;
+        const descDict =
+          enrich.kpis_description_fr &&
+          typeof enrich.kpis_description_fr === "object" &&
+          !Array.isArray(enrich.kpis_description_fr)
+            ? (enrich.kpis_description_fr as Record<string, unknown>)
+            : null;
+        const sigDict =
+          enrich.kpis_signal_fr &&
+          typeof enrich.kpis_signal_fr === "object" &&
+          !Array.isArray(enrich.kpis_signal_fr)
+            ? (enrich.kpis_signal_fr as Record<string, unknown>)
+            : null;
+        if (expDict || descDict || sigDict) {
+          data.kpis = (data.kpis as AnyKPI[]).map((k) => {
+            if (!k || typeof k !== "object") return k;
+            const short = typeof k.short === "string" ? k.short : "";
+            if (!short) return k;
+            const out: AnyKPI = { ...k };
+            if (expDict) {
+              const v = expDict[short];
+              if (typeof v === "string" && v.trim().length > 0) out.explanation = v;
+            }
+            if (descDict) {
+              const v = descDict[short];
+              if (typeof v === "string" && v.trim().length > 0) out.description = v;
+            }
+            if (sigDict) {
+              const v = sigDict[short];
+              if (typeof v === "string" && v.trim().length > 0) out.signal = v;
+            }
+            return out;
+          });
+        }
+      }
+    } catch (err) {
+      console.warn(`kpis_*_fr merge failed for ${ticker}:`, err);
+    }
+
+    try {
+      // 6. ai_positioning_fr.{summary_fr, evidence_fr} → ai_positioning.
+      // CRITIQUE : evidence_fr est un array de DICTS {source, text_fr}
+      // (235/235 cas observés). Composant ai-positioning-card.tsx ligne
+      // 146 rend `e` direct quand non-string → React crashe sur les objets.
+      // FIX : on extrait text_fr pour produire un array de strings.
+      if (
+        isFr &&
+        enrich.ai_positioning_fr &&
+        typeof enrich.ai_positioning_fr === "object" &&
+        !Array.isArray(enrich.ai_positioning_fr)
+      ) {
+        const aiFr = enrich.ai_positioning_fr as Record<string, unknown>;
+        const ai = (data as Record<string, unknown>).ai_positioning as
+          | Record<string, unknown>
+          | undefined;
+        if (ai && typeof ai === "object") {
+          const summaryFr = aiFr.summary_fr;
+          if (typeof summaryFr === "string" && summaryFr.trim().length > 0) {
+            ai.summary = summaryFr;
+          }
+          const evidenceFr = aiFr.evidence_fr;
+          if (Array.isArray(evidenceFr) && evidenceFr.length > 0) {
+            const cleanedEv: string[] = [];
+            for (const ev of evidenceFr) {
+              if (typeof ev === "string" && ev.trim().length > 0) {
+                cleanedEv.push(ev);
+              } else if (ev && typeof ev === "object" && !Array.isArray(ev)) {
+                const evObj = ev as Record<string, unknown>;
+                const textFr = evObj.text_fr;
+                if (typeof textFr === "string" && textFr.trim().length > 0) {
+                  cleanedEv.push(textFr);
+                }
+              }
+            }
+            if (cleanedEv.length > 0) {
+              ai.evidence = cleanedEv;
+            }
+          }
+        }
+      }
+    } catch (err) {
+      console.warn(`ai_positioning_fr merge failed for ${ticker}:`, err);
+    }
+
+    try {
+      // 7. stories_body_fr → array [{kpi_short, body_fr}]. Match par
+      // kpi.short et set kpi.description (champ réellement lu par
+      // kpi-story-card.tsx ligne 191 `kpi.description`).
+      if (
+        isFr &&
+        Array.isArray(enrich.stories_body_fr) &&
+        Array.isArray(data.kpis) &&
+        data.kpis.length > 0
+      ) {
+        const storiesArr = enrich.stories_body_fr as Array<Record<string, unknown>>;
+        const byShort = new Map<string, string>();
+        for (const s of storiesArr) {
+          if (!s || typeof s !== "object") continue;
+          const kpiShort = s.kpi_short;
+          const bodyFr = s.body_fr;
+          if (
+            typeof kpiShort === "string" &&
+            kpiShort.trim().length > 0 &&
+            typeof bodyFr === "string" &&
+            bodyFr.trim().length > 0
+          ) {
+            byShort.set(kpiShort, bodyFr);
+          }
+        }
+        if (byShort.size > 0) {
+          data.kpis = (data.kpis as AnyKPI[]).map((k) => {
+            if (!k || typeof k !== "object") return k;
+            const short = typeof k.short === "string" ? k.short : "";
+            if (!short) return k;
+            const bodyFr = byShort.get(short);
+            if (bodyFr) {
+              return { ...k, description: bodyFr };
+            }
+            return k;
+          });
+        }
+      }
+    } catch (err) {
+      console.warn(`stories_body_fr merge failed for ${ticker}:`, err);
+    }
+
+    try {
+      // 8. CRITIQUE — kpis_supplementary (array nouveaux KPIs spec) :
+      // APPEND à data.kpis avec anti-doublon sur le champ `short`.
+      // Source unique des KPIs spécifiques pour ~570 stés. Spread
+      // immutable (pas de push) pour éviter mutation accidentelle.
+      if (Array.isArray(enrich.kpis_supplementary) && Array.isArray(data.kpis)) {
+        const existingShortsSupp = new Set(
+          (data.kpis as AnyKPI[])
+            .map((k) => (k && typeof k === "object" ? k.short : undefined))
+            .filter(Boolean),
+        );
+        const extraSupp: AnyKPI[] = [];
+        for (const k of enrich.kpis_supplementary as unknown[]) {
+          if (!k || typeof k !== "object" || Array.isArray(k)) continue;
+          const kObj = k as AnyKPI;
+          const short = kObj.short;
+          if (typeof short !== "string" || !short.trim()) continue;
+          if (existingShortsSupp.has(short)) continue;
+          extraSupp.push({
+            ...kObj,
+            history: normalizeHistory(kObj.history),
+            _source: "kpis-supplementary",
+          });
+        }
+        if (extraSupp.length > 0) {
+          data.kpis = [...(data.kpis as AnyKPI[]), ...extraSupp];
+        }
+      }
+    } catch (err) {
+      console.warn(`kpis_supplementary merge failed for ${ticker}:`, err);
+    }
+
     // Sync Headcount KPI ↔ key_facts.employees_count (Yann 10 mai 2026).
     // Bug NVDA : KPI affiche 26.3 K (10-K FY2024) mais "Profil société" via
     // yfinance dit 42 000 (à jour). On aligne la valeur affichée du KPI sur
