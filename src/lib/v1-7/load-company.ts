@@ -963,8 +963,28 @@ export async function loadV17Company(
           }
         }
         if (!useExt && mergedHist === baseHist) return k;
+        // Yann 2026-05-28 : FIX RACINE bug data type A. Quand qExt
+        // (xbrl-companyfacts) override unit ou history, le `value` pipeline
+        // restait désaligné (ex MU : pipeline value=10 (%, annuel) avec unit
+        // "Mds $" → "10 Mds$" affiché alors que XBRL trailing 4Q ~9.5 Mds$).
+        // Si l'unit change (ext.unit !== k.unit) OU si l'history est étendue
+        // par ext, on synchronise `value` avec le dernier point de l'history
+        // mergée pour cohérence value/history/unit.
+        const extUnit = ext.unit ?? undefined;
+        const unitChanged = typeof extUnit === "string"
+          && typeof k.unit === "string"
+          && extUnit !== k.unit;
+        const histExtended = useExt || mergedHist !== baseHist;
+        let syncedValue = (k as AnyKPI).value as unknown;
+        if ((unitChanged || histExtended) && mergedHist.length > 0) {
+          const lastPoint = mergedHist[mergedHist.length - 1];
+          if (typeof lastPoint === "number" && Number.isFinite(lastPoint)) {
+            syncedValue = lastPoint;
+          }
+        }
         return {
           ...k,
+          value: syncedValue,
           history: mergedHist,
           history_periods: ext.history_periods,
           period_type: ext.period_type ?? k.period_type ?? "quarter",
