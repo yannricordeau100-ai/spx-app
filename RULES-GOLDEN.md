@@ -222,6 +222,23 @@ unique = zéro friction.
 
 ---
 
+## 0octies. VÉRIFIER SES AFFIRMATIONS SUR SOURCES FIABLES (PERMANENT)
+
+Édictée par Yann le 29 mai 2026. Avant d'affirmer une donnée numérique (capi, revenue, KPI, fait financier) à Yann, je DOIS la vérifier sur une source fiable externe (yfinance, SEC EDGAR, site IR officiel).
+
+CAS HISTORIQUE : j'ai affirmé "MU Micron capi ~120 Mds$" alors que la vraie capi est ~1041 Mds$ (vérifiée yfinance après Yann m'a contredit). Affirmation fausse = perte de confiance grave.
+
+Procédure : pour TOUTE donnée numérique affirmée à Yann (capi, revenue, prix action, P/E, %YoY, etc.) je vérifie en 1 commande :
+- yfinance : python3 -c "import yfinance; print(yfinance.Ticker('TICKER').info.get('marketCap'))"
+- SEC EDGAR : curl https://data.sec.gov/submissions/CIK<padded>.json
+- Brand IR page si nécessaire
+
+Si pas de vérif possible : dire "à vérifier" ou "estimation" au lieu d'affirmer.
+
+Faute = mensonge silencieux. Yann se base sur mes chiffres pour décider.
+
+---
+
 ## 1. LIRE ET FAIRE l'INTÉGRALITÉ du prompt
 
 Chaque prompt Yann se traite dans son ENTIÈRETÉ. Si le prompt contient
