@@ -30,7 +30,17 @@ import { getDisabledLocaleSet } from "@/lib/disabled-locales";
  *
  * Position type : top-right de la nav, inline avec ThemeToggle / AuthNav.
  */
-export function LanguageDropdown({
+/**
+ * Yann 29 mai 2026 — Phase 1 V1 FR-only : on masque entièrement le picker
+ * de langue. Le composant `LanguageDropdown` retourne `null`. Le composant
+ * d'origine est renommé `LanguageDropdownLegacy` (jamais monté) afin de
+ * conserver l'arbre + les hooks pour une réactivation V2 multi-locale.
+ */
+export function LanguageDropdown(_props: { availableLocales?: readonly Locale[] }) {
+  return null;
+}
+
+function LanguageDropdownLegacy({
   availableLocales,
 }: {
   /** Locales pleinement traduites pour la page courante. Si non passé,

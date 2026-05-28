@@ -77,13 +77,16 @@ export const LOCALE_META: Record<Locale, { flag: string; nativeName: string; pop
  * Ordre intra-famille pour l'affichage (utilisé par le LanguageDropdown).
  * Modifie cet array si tu ajoutes une variante (ex: en-AU dans english).
  */
+// Yann 29 mai 2026 : Phase 1 V1 → désactivation UI des 7 langues autres
+// que FR. Les dictionnaires EN/DE/NL/EN-GB/DE-CH restent en code (pour V2
+// future), mais le LanguageDropdown n'affiche QUE le français. Cf MISSION B.
 export const LOCALES_BY_FAMILY: Record<LocaleFamily, Locale[]> = {
-  english: ["en", "en-GB"],
+  english: [],
   romance: ["fr"],
-  germanic: ["de", "de-CH", "nl"],
+  germanic: [],
 };
 
-export const DEFAULT_LOCALE: Locale = "en";
+export const DEFAULT_LOCALE: Locale = "fr";
 
 /**
  * Mapping pays → locale par défaut. Utilisé par la détection auto via

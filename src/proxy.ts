@@ -138,6 +138,10 @@ function isPublicPath(pathname: string): boolean {
  * Effet net : un visiteur peut partager `https://mettrik.ai/fr/googl` et
  * la personne en face voit la page en français, peu importe sa locale auto.
  */
+// Yann 29 mai 2026 — Phase 1 V1 FR-only : on retire le routing préfixé
+// `/fr/...`. Toutes les URLs sont servies en FR par défaut, sans préfixe.
+// `stripFrPrefix` est conservée pour préserver les anciennes URLs en
+// redirigeant `/fr/<route>` → `/<route>` (308) côté handler ci-dessous.
 const FR_PREFIX = "/fr";
 function stripFrPrefix(pathname: string): { stripped: string; hadPrefix: boolean } {
   if (pathname === FR_PREFIX) return { stripped: "/", hadPrefix: true };
@@ -151,7 +155,18 @@ export async function proxy(request: NextRequest) {
   // 1. Détecte / strip le préfixe /fr AVANT tout le reste pour que les
   //    auth gates et desk gates voient la route "réelle" sans confusion.
   const originalPathname = request.nextUrl.pathname;
-  const { stripped: routePathname, hadPrefix: isFrLocale } = stripFrPrefix(originalPathname);
+  const { stripped: routePathname, hadPrefix: hadFrPrefix } = stripFrPrefix(originalPathname);
+
+  // 1.0bis. Yann 29 mai 2026 — Phase 1 V1 FR-only : si une URL `/fr/<route>`
+  // est encore touchée (anciens backlinks, share Yann), on redirige 308
+  // vers `/<route>` (canonique). Plus de routing préfixé /fr/*.
+  if (hadFrPrefix) {
+    const url = request.nextUrl.clone();
+    url.pathname = routePathname;
+    return NextResponse.redirect(url, 308);
+  }
+  // Plus aucun chemin n'est en "FR-locale via préfixe" : tout est FR par défaut.
+  const isFrLocale = false;
 
   // 1.bis Détection auto LANGUE + DEVISE par IP (header Vercel
   // `x-vercel-ip-country`, injecté gratuitement par le edge runtime).
@@ -257,18 +272,8 @@ export async function proxy(request: NextRequest) {
       // Si erreur d'import edge runtime : skip silencieux, fallback EN/USD.
     }
 
-    // FR-only : si pays francophone → redirect vers /fr/<route> pour que
-    // l'URL reflète la langue (cohérence SEO + share). Les autres locales
-    // n'ont pas de préfixe URL aujourd'hui, juste le cookie.
-    if (
-      !isFrLocale &&
-      !hasLocaleCookie &&
-      detectedLocaleForCookie === "fr"
-    ) {
-      const url = request.nextUrl.clone();
-      url.pathname = "/fr" + (originalPathname === "/" ? "" : originalPathname);
-      return NextResponse.redirect(url, 307);
-    }
+    // Yann 29 mai 2026 — Phase 1 V1 FR-only : on ne redirige plus vers
+    // `/fr/<route>` puisque le préfixe a été retiré. Tout est FR par défaut.
   }
 
   // -1.5. Redirect 301 ancien path admin V1.8 → path canonique sandbox
@@ -327,9 +332,11 @@ export async function proxy(request: NextRequest) {
 
   let response = NextResponse.next({ request });
 
-  // Si /fr/* : pose le cookie NEXT_LOCALE=fr sur la response ET aussi sur
-  // request.cookies (pour que getServerLocale() le lise dans le même request).
-  if (isFrLocale) {
+  // Yann 29 mai 2026 — Phase 1 V1 FR-only : on force NEXT_LOCALE=fr sur
+  // toutes les requêtes (UI, assets, API). Plus aucune auto-détection
+  // locale, plus aucun cookie autre que "fr" pour la langue. Les autres
+  // locales seront ré-activées en V2 quand Yann valide.
+  if (!isApiOrAsset) {
     request.cookies.set("NEXT_LOCALE", "fr");
     response.cookies.set("NEXT_LOCALE", "fr", {
       maxAge: 60 * 60 * 24 * 365,
@@ -337,18 +344,10 @@ export async function proxy(request: NextRequest) {
       sameSite: "lax",
     });
   }
-
-  // Auto-détection IP : si on a pu déduire une locale et/ou devise depuis
-  // le pays et qu'aucun cookie n'existe → on les pose pour que le visiteur
-  // arrive directement dans sa langue + devise. 1 an de durée.
-  if (detectedLocaleForCookie && !isFrLocale) {
-    request.cookies.set("NEXT_LOCALE", detectedLocaleForCookie);
-    response.cookies.set("NEXT_LOCALE", detectedLocaleForCookie, {
-      maxAge: 60 * 60 * 24 * 365,
-      path: "/",
-      sameSite: "lax",
-    });
-  }
+  // Note : `detectedLocaleForCookie` n'est plus utilisé pour poser un
+  // cookie, mais on garde la variable pour ne pas casser le code en aval
+  // (sera retirée plus tard si vraiment plus utile).
+  void detectedLocaleForCookie;
   if (detectedCurrencyForCookie) {
     request.cookies.set("mettrik:currency", detectedCurrencyForCookie);
     response.cookies.set("mettrik:currency", detectedCurrencyForCookie, {
