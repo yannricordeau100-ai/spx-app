@@ -155,17 +155,30 @@ export function StockPriceBlock({ company, freeBlocked = false }: { company: Com
   //    bord droit (le bord gauche varie selon la longueur des valeurs).
   return (
     <div
-      className="relative flex w-full items-stretch overflow-hidden rounded-xl py-3 pl-8 pr-5 sm:w-auto sm:shrink-0"
+      className="relative flex w-full items-stretch py-3 pl-8 pr-5 sm:w-auto sm:shrink-0"
       style={{
-        // Fondu gauche : 0 % transparent → 35 % couleur pleine. Ce fondu
-        // se voit toujours quelle que soit la longueur du bloc.
-        // Yann (26 mai 2026) : fondu décalé à gauche. La Market Cap (col 1)
-        // doit être intégralement sur le fond coloré → tone à 100% dès ~15%
-        // de la largeur. Le fondu transparent ne concerne plus que la marge
-        // gauche extrême (avant la col 1).
+        // Yann (28 mai 2026) : fondu plus progressif ÉTALÉ sur le fond noir
+        // de la page (extension overlay à gauche). La zone coloré pleine du
+        // bloc reste inchangée (15→100%), seulement la transition vers le
+        // transparent s'étire désormais sur ~280px supplémentaires vers la
+        // gauche (= déborde sur le fond de page).
         background: `linear-gradient(90deg, ${tone}00 0%, ${tone}66 4%, ${tone}cc 9%, ${tone} 15%, ${tone} 100%)`,
+        borderTopLeftRadius: 0,
+        borderBottomLeftRadius: 0,
+        borderTopRightRadius: "0.75rem",
+        borderBottomRightRadius: "0.75rem",
       }}
     >
+      {/* Extension fondu gauche — déborde sur le fond de page (Yann 28 mai 2026).
+          Crée un gradient progressif transparent → tone qui s'étire sur
+          ~280px à gauche du bloc, sans toucher à la zone color du bloc. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute right-full top-0 h-full w-[280px]"
+        style={{
+          background: `linear-gradient(90deg, ${tone}00 0%, ${tone}22 30%, ${tone}55 60%, ${tone}99 85%, ${tone} 100%)`,
+        }}
+      />
       {/* Glow radial à droite, autour du prix */}
       <div
         aria-hidden
