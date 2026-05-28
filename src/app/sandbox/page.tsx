@@ -305,6 +305,13 @@ const SECTIONS: SandboxSection[] = [
         label: "Legal editor (CGU/CGV)",
         desc: "Édition Markdown FR + EN des Conditions générales. Upload PDF, modification textarea, publication directe sur /legal/conditions.",
       },
+      {
+        href: "/admin/kpis-toggle",
+        icon: ListChecks,
+        label: "KPIs : activer / désactiver par sté",
+        desc: "Toggle granulaire par KPI individuel pour chaque sté publishable (≥3 ans d'historique). Différent du toggle blocs.",
+        accent: "blue",
+      },
     ],
   },
   {

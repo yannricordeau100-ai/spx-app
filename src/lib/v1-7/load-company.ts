@@ -1766,6 +1766,43 @@ export async function loadV17Company(
     }
   }
 
+  // Yann 29 mai 2026 : filtre KPIs désactivés individuellement par sté
+  // (granulaire, via /admin/kpis-toggle). Source de vérité unique :
+  // `src/data/disabled-kpis-per-ste.json`. Appliqué APRÈS tous les merges
+  // (enrich, supplementary, overrides) pour cacher exactement les KPIs
+  // que Yann a décochés. Si le hero_kpi est désactivé, on fallback sur le
+  // premier KPI activé et on marque `_hero_kpi_replaced_by_disable` pour
+  // traçabilité côté admin.
+  try {
+    const { getDisabledKpisForTicker } = await import("@/lib/disabled-kpis");
+    const disabledShorts = new Set(getDisabledKpisForTicker(canonical));
+    if (disabledShorts.size > 0 && Array.isArray(data.kpis)) {
+      const before = (data.kpis as AnyKPI[]).length;
+      const filtered = (data.kpis as AnyKPI[]).filter((k) => {
+        const s = typeof k?.short === "string" ? k.short : "";
+        return !disabledShorts.has(s);
+      });
+      data.kpis = filtered;
+      // Si le hero a été désactivé, repointer sur le premier KPI restant.
+      const heroShort = data.hero_kpi as string | undefined;
+      if (heroShort && disabledShorts.has(heroShort)) {
+        const fallback = filtered.find((k) => typeof k?.short === "string");
+        if (fallback) {
+          (data as Record<string, unknown>).hero_kpi = fallback.short;
+          (data as Record<string, unknown>)._hero_kpi_replaced_by_disable = {
+            original: heroShort,
+            fallback_to: fallback.short,
+          };
+        }
+      }
+      if (before !== filtered.length) {
+        (data as Record<string, unknown>)._kpis_disabled_count = before - filtered.length;
+      }
+    }
+  } catch (err) {
+    console.warn(`disabled-kpis filter failed for ${ticker}:`, err);
+  }
+
   // Fresh / stale backfill via existing helper
   const company = enhanceFreshness(data as Company & Record<string, unknown>);
 
