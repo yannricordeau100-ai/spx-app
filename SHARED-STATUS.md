@@ -270,6 +270,8 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-28 07:09] CRON-MERGED → ⚠️ Rebuild horaire Pass 3 2141 → 2141 (delta v1-7-public.json uniquement, 1 ligne). Commit 0af986f25 pushé sur staging. **Vercel deploy_failed** : "Request body too large. Limit: 10mb" (3e cycle consécutif). Yann notifié.
+
 [2026-05-27 18:10] CRON-MERGED → ⚠️ Rebuild horaire Pass 3 2141 → 2141 (idle, juste reordering _tickers-index.json). Commit 2d38ed8ce pushé sur staging. **Vercel deploy_failed** : "Request body too large. Limit: 10mb" (2e cycle aujourd'hui). Yann notifié.
 
 [2026-05-21 12h20] CONV-DEPAN-mission147 → ✅ DONE Mission #147 easy wins g_governance
