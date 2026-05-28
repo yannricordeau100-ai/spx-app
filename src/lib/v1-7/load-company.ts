@@ -1708,16 +1708,25 @@ export async function loadV17Company(
   }
 
   // Yann 18 mai 2026 : injecte traduction FR du tagline depuis le fichier
-  // global taglines-fr.json. Source tagline = EN (CLAUDE.md §6). Pour les
-  // pages FR, le composant CompanyHeader affiche l'EN + tooltip "i" FR.
+  // global taglines-fr.json. Source tagline = EN (CLAUDE.md §6).
+  // Yann 28 mai 2026 : ne PAS écraser une trad FR déjà posée par
+  // `enrich.tagline_fr` (cf merge ligne ~1167). La trad par-sté dans enrich
+  // est canonique (rédigée spécifiquement pour la sté), alors que le fichier
+  // global est un fallback générique. Cas observé : MU enrich.tagline_fr
+  // "Leader mondial des semi-conducteurs de mémoire et stockage, au service
+  // de l'IA et du cloud." vs taglines-fr.json "semiconducteurs..." (générique
+  // sans tiret + traduction littérale). On garde la spécifique.
   if (company.tagline) {
     const taglineMap = await loadTaglinesFr();
     const frTr = taglineMap[company.tagline];
     if (frTr) {
-      (company as Company & { tagline_i18n?: Record<string, string> }).tagline_i18n = {
-        ...((company as Company & { tagline_i18n?: Record<string, string> }).tagline_i18n || {}),
-        fr: frTr,
-      };
+      const cur = ((company as Company & { tagline_i18n?: Record<string, string> }).tagline_i18n) || {};
+      if (!cur.fr) {
+        (company as Company & { tagline_i18n?: Record<string, string> }).tagline_i18n = {
+          ...cur,
+          fr: frTr,
+        };
+      }
     }
   }
 

@@ -229,27 +229,37 @@ export function CompanyHeader({
             {translateSubsectorLocale(company.sector, locale)} <span className="text-zinc-700">·</span> {translateSubsectorLocale(company.subsector, locale)}
           </div>
           {/* Yann 14 mai 2026 : tagline obligatoirement sur 1 ligne (truncate).
-              Yann 16 mai 2026 (v2) : tagline garde la langue d'origine (EN
-              per CLAUDE.md §6). Si la langue de la page diffère ET qu'une
-              traduction existe dans `tagline_i18n[locale]`, afficher un "i"
-              à côté avec la traduction. Sinon pas de "i". */}
+              Yann 28 mai 2026 : sur les pages non-EN, afficher la tagline
+              localisée si disponible dans `tagline_i18n[locale]` (peuplée
+              par enrich.tagline_fr + overlay i18n DE/NL). Fallback sur l'EN
+              original. Un tooltip "i" affiche l'EN d'origine pour traçabilité
+              quand la traduction est rendue. Normalisation locale fr-FR → fr,
+              de-CH → de, en-GB → en pour matcher les clés tagline_i18n. */}
           {(() => {
-            const isPageEn = locale === "en" || locale === "en-GB";
-            const translation = !isPageEn
-              ? (company as Company & { tagline_i18n?: Record<string, string> }).tagline_i18n?.[locale]
+            const normalizedLocale = (locale || "")
+              .toLowerCase()
+              .replace(/^fr-.*/, "fr")
+              .replace(/^de-.*/, "de")
+              .replace(/^en-.*/, "en");
+            const taglineI18n = (company as Company & { tagline_i18n?: Record<string, string> }).tagline_i18n;
+            const isPageEn = normalizedLocale === "en";
+            const translation = !isPageEn && taglineI18n
+              ? taglineI18n[normalizedLocale] || taglineI18n[locale]
               : undefined;
+            const displayed = translation || company.tagline;
+            const showOriginalTooltip = Boolean(translation) && translation !== company.tagline;
             return (
               <div className="mt-2 flex max-w-2xl items-center gap-1.5">
                 <p
                   className="truncate text-[14.5px] italic leading-relaxed text-zinc-400"
-                  title={company.tagline}
+                  title={displayed}
                 >
-                  “{company.tagline}”
+                  “{displayed}”
                 </p>
-                {translation && (
+                {showOriginalTooltip && (
                   <InfoTooltip align="left" size="sm">
                     <div className="text-[13px] italic leading-relaxed text-zinc-200">
-                      “{translation}”
+                      “{company.tagline}”
                     </div>
                   </InfoTooltip>
                 )}

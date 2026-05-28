@@ -206,7 +206,12 @@ export function CompanyLogo({ ticker }: { ticker: string }) {
  *  - MSCI : bleu corporate #1F4F8B → trop foncé sur dark, fond clair requis
  *  - SPGI : carré rouge OK + texte "Global" #1A1A1A noir → fond clair requis
  *  - CAT : wordmark "CAT" noir + triangle jaune → fond clair requis
+ *  - MU (Micron) : PNG officiel téléchargé était corrompu (carré noir
+ *    uniforme 100% opaque rgb≈5,5,5). Supprimé → fallback monogramme "MU"
+ *    visible sur fond sombre. Pas besoin de fond clair.
  */
+const LIGHT_BG_TICKERS = new Set(["MSCI", "SPGI", "CAT"]);
+
 export function logoNeedsLightBg(ticker: string): boolean {
-  return ticker === "MSCI" || ticker === "SPGI" || ticker === "CAT";
+  return LIGHT_BG_TICKERS.has(ticker.toUpperCase());
 }
