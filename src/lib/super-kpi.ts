@@ -88,6 +88,11 @@ const STR = {
     fr: "Données nécessaires non disponibles pour cette société.",
     de: "Erforderliche Daten für dieses Unternehmen nicht verfügbar.",
   },
+  ppi_na_missing_prefix: {
+    en: "Cannot compute. Missing inputs: ",
+    fr: "Calcul impossible. KPIs manquants : ",
+    de: "Berechnung nicht möglich. Fehlende Daten: ",
+  },
 
   // Rule of 40
   r40_formula_na: {
@@ -445,6 +450,180 @@ function findKpi(c: Company, short: string): KPI | undefined {
   return c.kpis.find((k) => k.short === short);
 }
 
+/**
+ * Cherche un KPI Revenue (top-line, en valeur absolue $/€).
+ * Élargit le matching au-delà de findKpi(c, "Revenue") qui ne couvrait
+ * que ~50 stés. Couvre top-line "Total Revenue", "Net Sales", "Total Net Sales",
+ * "Sales", + hero KPI Revenue-like si pas de générique trouvé.
+ * Filtre les KPI en % (R&D as %, marges).
+ */
+function findRevenueKpi(c: Company): KPI | undefined {
+  // Priorité 1 : shorts standards (couvre la grande majorité)
+  const standardShorts = [
+    "Revenue",
+    "Total Revenue",
+    "Total Revenues",
+    "Net Sales",
+    "Total Net Sales",
+    "Sales",
+    "Net Sales (Group)",
+    "Net Revenue",
+    "Total Net Revenue",
+    "Revenues",
+    "Net Revenues",
+    "Group Revenue",
+    "Group Sales",
+    "Total fee revenue", // banques fee-based (STT)
+    "Net interest income", // banques (NII = top line équivalent)
+    "Operating revenue",
+    "Operating revenues",
+  ];
+  for (const s of standardShorts) {
+    const k = findKpi(c, s);
+    if (k && k.unit !== "%" && k.history && k.history.length >= 2) {
+      return k;
+    }
+  }
+  // Priorité 2 : name_en / name_fr correspondants (banques, FR, EU)
+  const candidate = c.kpis.find((k) => {
+    if (k.unit === "%" || (k.unit || "").includes("YoY")) return false;
+    if (!k.history || k.history.length < 2) return false;
+    const en = (k.name_en || "").toLowerCase();
+    const fr = (k.name_fr || "").toLowerCase();
+    return (
+      en === "total revenue" ||
+      en === "total revenues" ||
+      en === "net sales" ||
+      en === "total net sales" ||
+      en === "revenue" ||
+      en === "net revenues" ||
+      en === "group revenue" ||
+      en === "operating revenue" ||
+      en === "operating revenues" ||
+      en === "net interest income" ||
+      fr === "chiffre d'affaires" ||
+      fr === "chiffre d'affaires total" ||
+      fr === "revenu total" ||
+      fr === "produit net bancaire" // banques FR
+    );
+  });
+  if (candidate) return candidate;
+
+  // Priorité 3 : si la sté a un hero_kpi qui matche un KPI Revenue-like
+  // (NVDA: "Data Center Revenue" peut servir de proxy si Total Revenue absent)
+  // SKIPPED pour rester honnête : un revenu de segment n'est pas un proxy
+  // fiable pour Rule of 40 global. Mieux vaut N/A que faux signal.
+  return undefined;
+}
+
+/**
+ * Cherche un KPI Op Margin / Operating Margin / EBITDA Margin.
+ * Couvre les variations FR/EN/EU et banques (Cost-Income inversé).
+ */
+function findMarginKpi(c: Company): KPI | undefined {
+  // Standards
+  const standardShorts = [
+    "Op Margin",
+    "Operating Margin",
+    "EBITDA Mgn",
+    "EBITDA Margin",
+    "Op. Margin",
+    "Op Mgn",
+    "Adjusted Operating Margin",
+    "Adj Operating Margin",
+    "Adj Op Margin",
+    "Adjusted EBITDAC Margin",
+    "Adjusted EBITDA Margin",
+    "Adj EBITDA Margin",
+    "EBIT Margin",
+    "EBIT Margin before Special Items",
+    "Pre-tax margin", // banques (STT)
+  ];
+  for (const s of standardShorts) {
+    const k = findKpi(c, s);
+    if (k && k.unit === "%") return k;
+  }
+  // Match par name_en / name_fr : élargi aux variantes "Adjusted"
+  const candidate = c.kpis.find((k) => {
+    if (k.unit !== "%") return false;
+    const en = (k.name_en || "").toLowerCase();
+    const fr = (k.name_fr || "").toLowerCase();
+    return (
+      en === "operating margin" ||
+      en === "op margin" ||
+      en === "ebitda margin" ||
+      en === "ebit margin" ||
+      en === "adjusted operating margin" ||
+      en === "adj operating margin" ||
+      en === "adjusted ebitda margin" ||
+      en === "adjusted ebit margin" ||
+      en === "pre-tax margin" ||
+      fr === "marge opérationnelle" ||
+      fr === "marge op." ||
+      fr === "marge ebitda" ||
+      fr === "marge ebit"
+    );
+  });
+  return candidate;
+}
+
+/**
+ * Computed margin from Operating Income / Revenue if both available with absolute units.
+ * Useful when company doesn't publish "Op Margin" directly (AWK, PFE, etc).
+ * Returns a synthetic KPI-like object compatible with downstream consumers.
+ */
+function computeOperatingMargin(c: Company): { value: number; history: number[] } | null {
+  // Cherche Op Income (valeur absolue)
+  const opIncomeShorts = [
+    "Operating Income",
+    "Op Income",
+    "Adjusted Operating Income",
+    "EBIT",
+    "Adjusted EBIT",
+  ];
+  let opInc: KPI | undefined;
+  for (const s of opIncomeShorts) {
+    const k = findKpi(c, s);
+    if (k && k.unit !== "%" && k.history && k.history.length >= 2) {
+      opInc = k;
+      break;
+    }
+  }
+  if (!opInc) return null;
+  const rev = findRevenueKpi(c);
+  if (!rev) return null;
+  const opV = num(opInc.value);
+  const revV = num(rev.value);
+  if (opV === null || revV === null || revV === 0) return null;
+  // Unit normalization: convert to same base. Mds = 1000 M.
+  const unitFactor = (u: string): number => {
+    const s = (u || "").trim().toLowerCase();
+    if (s.startsWith("mds") || s.startsWith("bn") || s.includes("billion") || s.startsWith("md €") || s.startsWith("md $")) return 1000;
+    if (s.startsWith("m ") || s.startsWith("m$") || s.startsWith("m €") || s.includes("million")) return 1;
+    return 1; // fallback : ignore (assume same)
+  };
+  const opFactor = unitFactor(opInc.unit || "");
+  const revFactor = unitFactor(rev.unit || "");
+  const opNorm = opV * opFactor;
+  const revNorm = revV * revFactor;
+  if (revNorm === 0) return null;
+  const marginPct = (opNorm / revNorm) * 100;
+  // Compute history-by-history when possible (using same scale factors)
+  const hist: number[] = [];
+  const minLen = Math.min(opInc.history.length, rev.history.length);
+  for (let i = 0; i < minLen; i++) {
+    const o = opInc.history[opInc.history.length - minLen + i];
+    const r = rev.history[rev.history.length - minLen + i];
+    if (typeof o === "number" && typeof r === "number" && r > 0) {
+      hist.push(((o * opFactor) / (r * revFactor)) * 100);
+    }
+  }
+  if (hist.length < 2) return null;
+  // Sanity check : margin should be plausible (-50% to 80%)
+  if (marginPct < -50 || marginPct > 80) return null;
+  return { value: marginPct, history: hist };
+}
+
 function num(v: unknown): number | null {
   if (typeof v === "number" && Number.isFinite(v)) return v;
   if (typeof v === "string") {
@@ -488,7 +667,7 @@ function topSegment(c: Company, shorts: string[]): { name: string; value: number
   return best;
 }
 
-/** Map ticker → segments candidats. */
+/** Map ticker → segments candidats (legacy V1, fallback si pas de revenue_by_segment). */
 const SEGMENT_MAP: Record<string, string[]> = {
   GOOGL: ["Search", "Cloud", "YT Ads", "Subs"],
   META: ["FoA Op"],
@@ -496,6 +675,25 @@ const SEGMENT_MAP: Record<string, string[]> = {
   SPGI: ["MI", "Ratings", "Indices", "Energy", "Mobility"],
   CAT: ["Energy", "Construction", "Resource"],
 };
+
+/** Cherche un KPI Capex en testant plusieurs variations de nommage. */
+function findCapexKpi(c: Company): KPI | undefined {
+  const candidates = ["Capex", "CapEx", "Capex Total", "Capex total", "Capital Expenditure", "Capital Expenditures"];
+  for (const s of candidates) {
+    const k = findKpi(c, s);
+    if (k) return k;
+  }
+  return c.kpis.find((k) => {
+    const nameEn = (k.name_en || "").toLowerCase();
+    const nameFr = (k.name_fr || "").toLowerCase();
+    if (k.unit === "%") return false;
+    return (
+      nameEn.includes("capital expenditure") ||
+      (nameEn.startsWith("capex") && !nameEn.includes("%")) ||
+      (nameFr.includes("capex") && !nameFr.includes("%") && !nameFr.includes("ratio"))
+    );
+  });
+}
 
 /* Helper: format a number FR-style with comma decimal separator. */
 function fmt(n: number, decimals: number): string {
@@ -506,10 +704,15 @@ function fmt(n: number, decimals: number): string {
  *  Super-KPI 1 — RULE OF 40
  *  ═══════════════════════════════════════════════════════════════════════ */
 function ruleOf40(c: Company, locale: Locale): SuperKpi {
-  const rev = findKpi(c, "Revenue");
-  const margin = findKpi(c, "Op Margin") ?? findKpi(c, "EBITDA Mgn");
+  const rev = findRevenueKpi(c);
+  const margin = findMarginKpi(c);
   const revYoY = rev ? yoyFromHistory(rev.history) : null;
-  const marginV = margin ? num(margin.value) : null;
+  let marginV = margin ? num(margin.value) : null;
+  // Fallback computed margin if no direct margin KPI
+  if (marginV === null) {
+    const computed = computeOperatingMargin(c);
+    if (computed) marginV = computed.value;
+  }
 
   if (revYoY === null || marginV === null) {
     return naResult(
@@ -550,10 +753,14 @@ function ruleOf40(c: Company, locale: Locale): SuperKpi {
  *  Super-KPI 2 — QUALITY OF COMPOUNDING (CAGR × Marge)
  *  ═══════════════════════════════════════════════════════════════════════ */
 function qualityOfCompounding(c: Company, locale: Locale): SuperKpi {
-  const rev = findKpi(c, "Revenue");
-  const margin = findKpi(c, "Op Margin") ?? findKpi(c, "EBITDA Mgn");
+  const rev = findRevenueKpi(c);
+  const margin = findMarginKpi(c);
   const cagr5y = rev ? cagr(rev.history) : null;
-  const marginV = margin ? num(margin.value) : null;
+  let marginV = margin ? num(margin.value) : null;
+  if (marginV === null) {
+    const computed = computeOperatingMargin(c);
+    if (computed) marginV = computed.value;
+  }
 
   if (cagr5y === null || marginV === null) {
     return naResult(
@@ -598,10 +805,53 @@ function qualityOfCompounding(c: Company, locale: Locale): SuperKpi {
  *  Super-KPI 3 — CONCENTRATION RISK (Top segment / Revenue)
  *  ═══════════════════════════════════════════════════════════════════════ */
 function concentrationRisk(c: Company, locale: Locale): SuperKpi {
-  const rev = findKpi(c, "Revenue");
-  const revV = rev ? num(rev.value) : null;
-  const segs = SEGMENT_MAP[c.ticker];
-  if (!revV || !segs) {
+  // Source 1 (prioritaire) : revenue_by_segment.slices avec share_pct calculé.
+  // Couvre 1000+ stés au lieu des 5 du SEGMENT_MAP hardcodé.
+  const rbs = c.revenue_by_segment;
+  let topName: string | null = null;
+  let topPct: number | null = null;
+
+  if (rbs && Array.isArray(rbs.slices) && rbs.slices.length > 0) {
+    let best: { name: string; pct: number } | null = null;
+    for (const s of rbs.slices) {
+      const sAny = s as unknown as { label?: string; name?: string; share_pct?: number; pct?: number; value?: number };
+      const name = sAny.label || sAny.name || "";
+      let pct = typeof sAny.share_pct === "number" ? sAny.share_pct
+              : typeof sAny.pct === "number" ? sAny.pct
+              : null;
+      // Fallback : si pas de share_pct, calculer depuis value et total
+      if (pct === null && typeof sAny.value === "number") {
+        const total = rbs.total ?? rbs.slices.reduce((acc, x) => {
+          const xAny = x as unknown as { value?: number };
+          return acc + (typeof xAny.value === "number" ? xAny.value : 0);
+        }, 0);
+        if (total > 0) pct = (sAny.value / total) * 100;
+      }
+      if (pct !== null && (!best || pct > best.pct)) {
+        best = { name, pct };
+      }
+    }
+    if (best) {
+      topName = best.name;
+      topPct = best.pct;
+    }
+  }
+
+  // Source 2 (fallback legacy) : SEGMENT_MAP pour les 5 stés V1.
+  if (topPct === null) {
+    const rev = findKpi(c, "Revenue");
+    const revV = rev ? num(rev.value) : null;
+    const segs = SEGMENT_MAP[c.ticker];
+    if (revV && segs) {
+      const top = topSegment(c, segs);
+      if (top) {
+        topName = top.name;
+        topPct = (top.value / revV) * 100;
+      }
+    }
+  }
+
+  if (topPct === null || topName === null) {
     return naResult(
       {
         id: "conc",
@@ -609,25 +859,14 @@ function concentrationRisk(c: Company, locale: Locale): SuperKpi {
         category: "Risque",
         formula: tr("conc_formula", locale),
         benchmark: tr("conc_benchmark", locale),
-        inputs: ["Revenue", "KPIs segments"],
+        inputs: ["revenue_by_segment.slices", "KPIs segments"],
       },
       locale,
     );
   }
-  const top = topSegment(c, segs);
-  if (!top) return naResult(
-    {
-      id: "conc",
-      name: tr("name_conc", locale),
-      category: "Risque",
-      formula: tr("conc_formula", locale),
-      benchmark: tr("conc_benchmark", locale),
-      inputs: ["Revenue", "KPIs segments"],
-    },
-    locale,
-  );
 
-  const pct = (top.value / revV) * 100;
+  const pct = topPct;
+  const top = { name: topName, value: pct };
   // Inversé : plus le pct est élevé, plus le tier est mauvais
   const tier: SuperKpiTier = pct < 35 ? "premium" : pct < 50 ? "solid" : pct < 65 ? "average" : "below";
   const gauge = Math.min(100, pct);
@@ -642,7 +881,7 @@ function concentrationRisk(c: Company, locale: Locale): SuperKpi {
     color: TIER_COLOR[tier],
     tierLabel: pickLoc(TIER_LABEL[tier], locale),
     gaugePct: gauge,
-    inputs: [`${tr("in_top_segment", locale)} : ${top.name}`, `${tr("in_total_revenue", locale)} : ${fmt(revV, 1)}`],
+    inputs: [`${tr("in_top_segment", locale)} : ${top.name}`, `${fmt(pct, 1)} % du Revenue`],
     formula: tr("conc_formula", locale),
     benchmark: tr("conc_benchmark", locale),
     interpretation:
@@ -658,7 +897,10 @@ function concentrationRisk(c: Company, locale: Locale): SuperKpi {
  *  Super-KPI 4 — CAPITAL INTENSITY (Capex / Revenue)
  *  ═══════════════════════════════════════════════════════════════════════ */
 function capitalIntensity(c: Company, locale: Locale): SuperKpi {
-  const capex = findKpi(c, "Capex");
+  // Cherche Capex en testant plusieurs variations de nommage (Capex, CapEx,
+  // Capex Total, Capital Expenditure, name_en/name_fr contenant "capex").
+  // Couvre ~830 stés au lieu de la trentaine du strict "Capex" short match.
+  const capex = findCapexKpi(c);
   const rev = findKpi(c, "Revenue");
   const capexV = capex ? num(capex.value) : null;
   const revV = rev ? num(rev.value) : null;
@@ -721,12 +963,41 @@ function capitalIntensity(c: Company, locale: Locale): SuperKpi {
 function profitPowerIndex(c: Company, locale: Locale): SuperKpi {
   const r40 = ruleOf40(c, locale);
   const conc = concentrationRisk(c, locale);
-  const margin = findKpi(c, "Op Margin") ?? findKpi(c, "EBITDA Mgn");
-  const marginV = margin ? num(margin.value) : null;
-  const marginTrend = margin ? yoyFromHistory(margin.history) : null;
+  const margin = findMarginKpi(c);
+  let marginV = margin ? num(margin.value) : null;
+  let marginTrend = margin ? yoyFromHistory(margin.history) : null;
+  // Fallback : margin computed from Op Income / Revenue
+  if (marginV === null || marginTrend === null) {
+    const computed = computeOperatingMargin(c);
+    if (computed) {
+      if (marginV === null) marginV = computed.value;
+      if (marginTrend === null) marginTrend = yoyFromHistory(computed.history);
+    }
+  }
 
-  if (r40.value === null || marginV === null || conc.value === null || marginTrend === null) {
-    return naResult(
+  // Calcul partiel : on accepte de calculer dès qu'on a au moins MARGIN
+  // (input central, présent sur ~95% des stés). Les autres inputs sont
+  // pondérés dynamiquement en fonction de leur disponibilité.
+  // Honesty rule : si seulement margin disponible, retourner N/A
+  // (un score "Profit Power" basé uniquement sur la marge n'a aucun sens).
+  const r40Available = r40.value !== null;
+  const marginAvailable = marginV !== null;
+  const concAvailable = conc.value !== null;
+  const trendAvailable = marginTrend !== null;
+
+  const availableCount =
+    Number(r40Available) + Number(marginAvailable) + Number(concAvailable) + Number(trendAvailable);
+
+  // Minimum requirement : margin OBLIGATOIRE + au moins 1 autre input.
+  // Sinon N/A explicite avec liste des inputs manquants.
+  if (!marginAvailable || availableCount < 2) {
+    const missing: string[] = [];
+    if (!r40Available) missing.push(tr("ppi_input_r40", locale));
+    if (!marginAvailable) missing.push(tr("ppi_input_margin", locale));
+    if (!concAvailable) missing.push(tr("ppi_input_conc", locale));
+    if (!trendAvailable) missing.push(tr("ppi_input_trend", locale) + " YoY");
+
+    const base = naResult(
       {
         id: "ppi",
         name: tr("name_ppi", locale),
@@ -742,14 +1013,73 @@ function profitPowerIndex(c: Company, locale: Locale): SuperKpi {
       },
       locale,
     );
+    return {
+      ...base,
+      interpretation: tr("ppi_na_missing_prefix", locale) + missing.join(", "),
+    };
   }
 
-  const r40Norm = Math.max(0, Math.min(1, r40.value / 60));
-  const marginNorm = Math.max(0, Math.min(1, marginV / 50));
-  const concNorm = Math.max(0, 1 - conc.value / 100);
-  const trendNorm = Math.max(0, Math.min(1, (marginTrend + 5) / 10));
-  const score100 = (0.4 * r40Norm + 0.3 * marginNorm + 0.2 * concNorm + 0.1 * trendNorm) * 100;
-  const tier: SuperKpiTier = score100 >= 75 ? "premium" : score100 >= 55 ? "solid" : score100 >= 35 ? "average" : "below";
+  // Poids cibles : R40=40%, Margin=30%, Conc=20%, Trend=10%
+  // Si un input manque, son poids est redistribué proportionnellement aux autres.
+  const weightsRaw = {
+    r40: r40Available ? 0.4 : 0,
+    margin: marginAvailable ? 0.3 : 0,
+    conc: concAvailable ? 0.2 : 0,
+    trend: trendAvailable ? 0.1 : 0,
+  };
+  const totalWeight = weightsRaw.r40 + weightsRaw.margin + weightsRaw.conc + weightsRaw.trend;
+  // Normalize so weights sum to 1
+  const w = {
+    r40: weightsRaw.r40 / totalWeight,
+    margin: weightsRaw.margin / totalWeight,
+    conc: weightsRaw.conc / totalWeight,
+    trend: weightsRaw.trend / totalWeight,
+  };
+
+  const r40Norm = r40Available ? Math.max(0, Math.min(1, (r40.value as number) / 60)) : 0;
+  const marginNorm = marginAvailable ? Math.max(0, Math.min(1, (marginV as number) / 50)) : 0;
+  const concNorm = concAvailable ? Math.max(0, 1 - (conc.value as number) / 100) : 0;
+  const trendNorm = trendAvailable
+    ? Math.max(0, Math.min(1, ((marginTrend as number) + 5) / 10))
+    : 0;
+
+  const score100 =
+    (w.r40 * r40Norm + w.margin * marginNorm + w.conc * concNorm + w.trend * trendNorm) * 100;
+
+  const tier: SuperKpiTier =
+    score100 >= 75 ? "premium" : score100 >= 55 ? "solid" : score100 >= 35 ? "average" : "below";
+
+  // Confidence flag : si tous les inputs présents → high, 3/4 → medium, 2/4 → low
+  const confidence: "high" | "medium" | "low" =
+    availableCount === 4 ? "high" : availableCount === 3 ? "medium" : "low";
+
+  // Construire la liste des inputs en n'affichant que ceux disponibles
+  const inputsList: string[] = [];
+  if (r40Available)
+    inputsList.push(`${tr("ppi_input_r40", locale)} : ${fmt(r40.value as number, 1)}`);
+  if (marginAvailable)
+    inputsList.push(`${tr("ppi_input_margin", locale)} : ${fmt(marginV as number, 1)} %`);
+  if (concAvailable)
+    inputsList.push(`${tr("ppi_input_conc", locale)} : ${fmt(conc.value as number, 1)} %`);
+  if (trendAvailable) {
+    const t = marginTrend as number;
+    inputsList.push(`${tr("ppi_input_trend", locale)} : ${t >= 0 ? "+" : ""}${fmt(t, 1)} bps YoY`);
+  }
+  // Note de confiance si calcul partiel
+  if (confidence !== "high") {
+    const noteEn = confidence === "medium" ? "Partial calculation (3/4 inputs)" : "Partial calculation (2/4 inputs)";
+    const noteFr = confidence === "medium" ? "Calcul partiel (3/4 inputs)" : "Calcul partiel (2/4 inputs)";
+    inputsList.push(locale.startsWith("fr") ? noteFr : noteEn);
+  }
+
+  const interp =
+    score100 >= 75
+      ? tr("ppi_interp_top", locale)
+      : score100 >= 55
+        ? tr("ppi_interp_high", locale)
+        : score100 >= 35
+          ? tr("ppi_interp_mid", locale)
+          : tr("ppi_interp_low", locale);
 
   return {
     id: "ppi",
@@ -761,19 +1091,10 @@ function profitPowerIndex(c: Company, locale: Locale): SuperKpi {
     color: TIER_COLOR[tier],
     tierLabel: pickLoc(TIER_LABEL[tier], locale),
     gaugePct: score100,
-    inputs: [
-      `${tr("ppi_input_r40", locale)} : ${fmt(r40.value, 1)}`,
-      `${tr("ppi_input_margin", locale)} : ${fmt(marginV, 1)} %`,
-      `${tr("ppi_input_conc", locale)} : ${fmt(conc.value, 1)} %`,
-      `${tr("ppi_input_trend", locale)} : ${marginTrend >= 0 ? "+" : ""}${fmt(marginTrend, 1)} bps YoY`,
-    ],
+    inputs: inputsList,
     formula: tr("ppi_formula", locale),
     benchmark: tr("ppi_benchmark", locale),
-    interpretation:
-      score100 >= 75 ? tr("ppi_interp_top", locale)
-      : score100 >= 55 ? tr("ppi_interp_high", locale)
-      : score100 >= 35 ? tr("ppi_interp_mid", locale)
-      : tr("ppi_interp_low", locale),
+    interpretation: interp,
   };
 }
 
