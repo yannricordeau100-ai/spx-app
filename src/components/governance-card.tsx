@@ -175,16 +175,18 @@ function HolderRow({ h, index, freeBlocked = false, ticker }: { h: Shareholder; 
   );
 }
 
-function formatDate(iso: string, locale: Locale = "fr"): string {
+function formatDate(iso: string | null | undefined, locale: Locale = "fr"): string {
+  if (!iso || typeof iso !== "string") return "";
   try {
     const d = new Date(iso);
+    if (isNaN(d.getTime())) return "";
     return d.toLocaleDateString(locale === "fr" ? "fr-FR" : "en-US", {
       day: "numeric",
       month: "long",
       year: "numeric",
     });
   } catch {
-    return iso;
+    return "";
   }
 }
 
@@ -445,7 +447,21 @@ export function GovernanceCard({
             })()}
           </h2>
           <p className="mt-0.5 text-[13.5px] text-zinc-300">
-            {t("governance.subtitle_prefix")} {formatDate(g.agm_date, locale)}. {t("governance.subtitle_suffix")} {g.fiscal_year}.
+            {(() => {
+              const dateStr = formatDate(g.agm_date, locale);
+              if (dateStr) {
+                return (
+                  <>
+                    {t("governance.subtitle_prefix")} {dateStr}. {t("governance.subtitle_suffix")} {g.fiscal_year}.
+                  </>
+                );
+              }
+              return (
+                <>
+                  {t("governance.subtitle_suffix")} {g.fiscal_year}.
+                </>
+              );
+            })()}
           </p>
         </div>
       </div>
