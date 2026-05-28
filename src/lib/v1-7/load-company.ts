@@ -1198,6 +1198,34 @@ export async function loadV17Company(
     }
 
     try {
+      // 1bis. sector_fr / subsector_fr → remap data.sector / data.subsector
+      // quand locale=fr. Sources extraction LLM CONV-DATA contenaient
+      // souvent des libellés EN bruts (Banking, Financial Services,
+      // Integrated Oil & Gas, etc.) qui apparaissaient sur les chips
+      // header de page sté FR. Yann 28 mai 2026 : audit visuel confirmé
+      // sur BNP.PA, TTE.PA, ROG.SW, AAPL. Le dict EN→FR est appliqué côté
+      // pipeline sub-agent dans v2-pipeline-enrich/<ticker>.json. On
+      // remplace data.sector/subsector in-place (pas de duplication
+      // sector_i18n, le composant lit data.sector direct).
+      if (isFr) {
+        if (
+          typeof enrich.sector_fr === "string" &&
+          enrich.sector_fr.trim().length > 0
+        ) {
+          (data as Record<string, unknown>).sector = enrich.sector_fr;
+        }
+        if (
+          typeof enrich.subsector_fr === "string" &&
+          enrich.subsector_fr.trim().length > 0
+        ) {
+          (data as Record<string, unknown>).subsector = enrich.subsector_fr;
+        }
+      }
+    } catch (err) {
+      console.warn(`sector_fr/subsector_fr merge failed for ${ticker}:`, err);
+    }
+
+    try {
       // 2. hero_kpi_rationale_fr → company.hero_kpi_rationale (locale=fr only).
       if (
         isFr &&
