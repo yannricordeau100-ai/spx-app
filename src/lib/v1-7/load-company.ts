@@ -1320,6 +1320,46 @@ export async function loadV17Company(
     }
 
     try {
+      // 5bis. revenue_by_geography_fr.slices_label_fr → dict {EN label: FR label}.
+      // Remap chaque slice.label via le dict quand locale=fr. Évite que des
+      // labels EN purs (Other Asia Pacific, Rest of World, North America, etc.)
+      // apparaissent sur la fiche FR. Source : v2-pipeline-enrich/<t>.json.
+      if (
+        isFr &&
+        enrich.revenue_by_geography_fr &&
+        typeof enrich.revenue_by_geography_fr === "object" &&
+        !Array.isArray(enrich.revenue_by_geography_fr)
+      ) {
+        const geoFr = enrich.revenue_by_geography_fr as Record<string, unknown>;
+        const labelDict = geoFr.slices_label_fr;
+        if (
+          labelDict &&
+          typeof labelDict === "object" &&
+          !Array.isArray(labelDict)
+        ) {
+          const dict = labelDict as Record<string, string>;
+          const geo = (data as Record<string, unknown>).revenue_by_geography as
+            | Record<string, unknown>
+            | undefined;
+          if (geo && Array.isArray(geo.slices)) {
+            geo.slices = (geo.slices as Array<Record<string, unknown>>).map(
+              (sl) => {
+                if (!sl || typeof sl !== "object") return sl;
+                const lab = sl.label;
+                if (typeof lab === "string" && typeof dict[lab] === "string") {
+                  return { ...sl, label: dict[lab] };
+                }
+                return sl;
+              },
+            );
+          }
+        }
+      }
+    } catch (err) {
+      console.warn(`revenue_by_geography_fr merge failed for ${ticker}:`, err);
+    }
+
+    try {
       // 6. ai_positioning_fr.{summary_fr, evidence_fr} → ai_positioning.
       // CRITIQUE : evidence_fr est un array de DICTS {source, text_fr}
       // (235/235 cas observés). Composant ai-positioning-card.tsx ligne
