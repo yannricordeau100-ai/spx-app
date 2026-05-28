@@ -504,59 +504,67 @@ export function GovernanceCard({
       )}
 
       {/* Top shareholders : voting rights + capital.
-          Yann 27 mai 2026 : toggle dédié via la clé `gouvernance_top3` dans
-          la sandbox per-sté (src/data/disabled-blocks-per-ste.json). Si Yann
-          masque ce bloc sur une sté, le top 3 + la modale Holographic Pie
-          disparaissent (sans impact sur le reste de la card gouvernance). */}
-      {(g.top_voting || g.top_capital) && !isBlockDisabledForTicker(ticker, "gouvernance_top3") && (
-        <div className="mt-5 grid grid-cols-1 gap-4 lg:grid-cols-2">
-          {g.top_voting && g.top_voting.length > 0 && (
-            <button
-              onClick={() => setPieOpen("voting")}
-              className="group relative overflow-hidden rounded-xl border border-[#1a1a1a] bg-[#080808] p-4 text-left transition-all hover:border-amber-400/40 hover:bg-[#0c0c0c]"
-              style={{ boxShadow: "0 0 0 0 rgba(245,158,11,0.0)" }}
-            >
-              <div className="mb-2.5 flex items-center gap-2">
-                <Vote className="size-4 text-amber-300" />
-                <span className="font-sans text-[13px] font-semibold uppercase tracking-wider text-zinc-100">
-                  Top {g.top_voting.length} : {t("governance.top_voting")}
-                </span>
-                <span className="ml-auto inline-flex items-center gap-1 rounded-md border border-amber-400/30 bg-amber-500/10 px-1.5 py-0.5 text-[10.5px] font-medium uppercase tracking-wider text-amber-200 opacity-0 transition-opacity group-hover:opacity-100">
-                  <PieChart className="size-3" />
-                  {t("governance.view_3d")}
-                </span>
-              </div>
-              <div className="space-y-2">
-                {g.top_voting.map((h, i) => (
-                  <HolderRow key={h.name} h={h} index={i} freeBlocked={freeBlocked} ticker={ticker} />
-                ))}
-              </div>
-            </button>
-          )}
-          {g.top_capital && g.top_capital.length > 0 && (
-            <button
-              onClick={() => setPieOpen("capital")}
-              className="group relative overflow-hidden rounded-xl border border-[#1a1a1a] bg-[#080808] p-4 text-left transition-all hover:border-cyan-400/40 hover:bg-[#0c0c0c]"
-            >
-              <div className="mb-2.5 flex items-center gap-2">
-                <Landmark className="size-4 text-cyan-300" />
-                <span className="font-sans text-[13px] font-semibold uppercase tracking-wider text-zinc-100">
-                  Top {g.top_capital.length} : {t("governance.top_capital")}
-                </span>
-                <span className="ml-auto inline-flex items-center gap-1 rounded-md border border-cyan-400/30 bg-cyan-500/10 px-1.5 py-0.5 text-[10.5px] font-medium uppercase tracking-wider text-cyan-200 opacity-0 transition-opacity group-hover:opacity-100">
-                  <PieChart className="size-3" />
-                  {t("governance.view_3d")}
-                </span>
-              </div>
-              <div className="space-y-2">
-                {g.top_capital.map((h, i) => (
-                  <HolderRow key={h.name} h={h} index={i} freeBlocked={freeBlocked} ticker={ticker} />
-                ))}
-              </div>
-            </button>
-          )}
-        </div>
-      )}
+          Yann 29 mai 2026 : 2 toggles indépendants (gouvernance_top3_votes,
+          gouvernance_top3_capital). Rétro-compat : si l'ancienne clé legacy
+          `gouvernance_top3` est présente (global ou per-sté), elle désactive
+          automatiquement les 2 sous-blocs via la logique de
+          isBlockDisabledForTicker. */}
+      {(() => {
+        const votesDisabled = isBlockDisabledForTicker(ticker, "gouvernance_top3_votes");
+        const capitalDisabled = isBlockDisabledForTicker(ticker, "gouvernance_top3_capital");
+        const showVotes = !!(g.top_voting && g.top_voting.length > 0) && !votesDisabled;
+        const showCapital = !!(g.top_capital && g.top_capital.length > 0) && !capitalDisabled;
+        if (!showVotes && !showCapital) return null;
+        return (
+          <div className="mt-5 grid grid-cols-1 gap-4 lg:grid-cols-2">
+            {showVotes && (
+              <button
+                onClick={() => setPieOpen("voting")}
+                className="group relative overflow-hidden rounded-xl border border-[#1a1a1a] bg-[#080808] p-4 text-left transition-all hover:border-amber-400/40 hover:bg-[#0c0c0c]"
+                style={{ boxShadow: "0 0 0 0 rgba(245,158,11,0.0)" }}
+              >
+                <div className="mb-2.5 flex items-center gap-2">
+                  <Vote className="size-4 text-amber-300" />
+                  <span className="font-sans text-[13px] font-semibold uppercase tracking-wider text-zinc-100">
+                    Top {g.top_voting!.length} : {t("governance.top_voting")}
+                  </span>
+                  <span className="ml-auto inline-flex items-center gap-1 rounded-md border border-amber-400/30 bg-amber-500/10 px-1.5 py-0.5 text-[10.5px] font-medium uppercase tracking-wider text-amber-200 opacity-0 transition-opacity group-hover:opacity-100">
+                    <PieChart className="size-3" />
+                    {t("governance.view_3d")}
+                  </span>
+                </div>
+                <div className="space-y-2">
+                  {g.top_voting!.map((h, i) => (
+                    <HolderRow key={h.name} h={h} index={i} freeBlocked={freeBlocked} ticker={ticker} />
+                  ))}
+                </div>
+              </button>
+            )}
+            {showCapital && (
+              <button
+                onClick={() => setPieOpen("capital")}
+                className="group relative overflow-hidden rounded-xl border border-[#1a1a1a] bg-[#080808] p-4 text-left transition-all hover:border-cyan-400/40 hover:bg-[#0c0c0c]"
+              >
+                <div className="mb-2.5 flex items-center gap-2">
+                  <Landmark className="size-4 text-cyan-300" />
+                  <span className="font-sans text-[13px] font-semibold uppercase tracking-wider text-zinc-100">
+                    Top {g.top_capital!.length} : {t("governance.top_capital")}
+                  </span>
+                  <span className="ml-auto inline-flex items-center gap-1 rounded-md border border-cyan-400/30 bg-cyan-500/10 px-1.5 py-0.5 text-[10.5px] font-medium uppercase tracking-wider text-cyan-200 opacity-0 transition-opacity group-hover:opacity-100">
+                    <PieChart className="size-3" />
+                    {t("governance.view_3d")}
+                  </span>
+                </div>
+                <div className="space-y-2">
+                  {g.top_capital!.map((h, i) => (
+                    <HolderRow key={h.name} h={h} index={i} freeBlocked={freeBlocked} ticker={ticker} />
+                  ))}
+                </div>
+              </button>
+            )}
+          </div>
+        );
+      })()}
 
       {/* Holographic 3D Pie modal */}
       {(() => {

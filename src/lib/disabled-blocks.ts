@@ -35,32 +35,58 @@ export type DisabledBlockKey =
   | "risks"
   | "kpi_stories"
   | "events"
-  | "gouvernance_top3";
+  | "gouvernance_top3"
+  | "logo"
+  | "repartition_geo_treemap"
+  | "repartition_geo_radial"
+  | "repartition_geo_iso3d"
+  | "repartition_segment_treemap"
+  | "repartition_segment_radial"
+  | "repartition_segment_iso3d"
+  | "gouvernance_top3_votes"
+  | "gouvernance_top3_capital";
 
 export const DISABLED_BLOCKS_KEYS: DisabledBlockKey[] = [
   "snapshot_boursier",
+  "logo",
   "description_mettrik",
   "graphiques_schemas",
   "gouvernance",
-  "gouvernance_top3",
+  "gouvernance_top3_votes",
+  "gouvernance_top3_capital",
   "ai_positioning",
   "transcript_bullets",
   "risks",
   "kpi_stories",
   "events",
+  "repartition_geo_treemap",
+  "repartition_geo_radial",
+  "repartition_geo_iso3d",
+  "repartition_segment_treemap",
+  "repartition_segment_radial",
+  "repartition_segment_iso3d",
 ];
 
 export const DISABLED_BLOCKS_LABELS: Record<DisabledBlockKey, string> = {
   snapshot_boursier: "Snapshot boursier",
+  logo: "Logo (header)",
   description_mettrik: "Description Mettrik",
   graphiques_schemas: "Graphiques et schémas",
   gouvernance: "Gouvernance & rémunération",
-  gouvernance_top3: "Gouvernance : Top 3 (votes + capital)",
+  gouvernance_top3: "Gouvernance : Top 3 (votes + capital) [legacy]",
+  gouvernance_top3_votes: "Gouvernance · Top 3 Droits de vote",
+  gouvernance_top3_capital: "Gouvernance · Top 3 Capital détenu",
   ai_positioning: "Positionnement IA",
   transcript_bullets: "Synthèse earning call",
   risks: "Facteurs de risque",
   kpi_stories: "Stories KPIs",
   events: "Événements (timeline)",
+  repartition_geo_treemap: "Répartition CA · vue Géographique Treemap",
+  repartition_geo_radial: "Répartition CA · vue Géographique Radiale",
+  repartition_geo_iso3d: "Répartition CA · vue Géographique Iso 3D",
+  repartition_segment_treemap: "Répartition CA · vue Segment Treemap",
+  repartition_segment_radial: "Répartition CA · vue Segment Radiale",
+  repartition_segment_iso3d: "Répartition CA · vue Segment Iso 3D",
 };
 
 export type DisabledBlocksConfig = {
@@ -79,7 +105,16 @@ export function loadDisabledBlocks(): DisabledBlocksConfig {
 
 export function isBlockDisabled(key: DisabledBlockKey | string): boolean {
   const cfg = loadDisabledBlocks();
-  return cfg.disabled.includes(key);
+  if (cfg.disabled.includes(key)) return true;
+  // Rétro-compatibilité : ancienne clé `gouvernance_top3` (legacy) couvre
+  // les 2 nouvelles clés séparées votes + capital.
+  if (
+    (key === "gouvernance_top3_votes" || key === "gouvernance_top3_capital") &&
+    cfg.disabled.includes("gouvernance_top3")
+  ) {
+    return true;
+  }
+  return false;
 }
 
 /* ------------------------------------------------------------------ */
@@ -126,5 +161,14 @@ export function isBlockDisabledForTicker(
 ): boolean {
   if (isBlockDisabled(blockKey)) return true;
   const perSte = getDisabledBlocksForTicker(ticker);
-  return perSte.includes(blockKey);
+  if (perSte.includes(blockKey)) return true;
+  // Rétro-compatibilité per-sté : ancienne clé legacy `gouvernance_top3`
+  // couvre les 2 nouvelles clés votes + capital.
+  if (
+    (blockKey === "gouvernance_top3_votes" || blockKey === "gouvernance_top3_capital") &&
+    perSte.includes("gouvernance_top3")
+  ) {
+    return true;
+  }
+  return false;
 }

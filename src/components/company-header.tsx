@@ -10,6 +10,7 @@ import { InfoTooltip } from "@/components/info-tooltip";
 import { useT } from "@/lib/i18n/provider";
 import { translateSubsector, translateSubsectorLocale } from "@/lib/ui-fix-templates";
 import { displayTicker } from "@/lib/ticker-display";
+import { isBlockDisabledForTicker } from "@/lib/disabled-blocks";
 
 /**
  * 2 different hover effects, applied ONLY on logo + name:
@@ -218,11 +219,15 @@ export function CompanyHeader({
 }) {
   const accent = brand(company.ticker).primary;
   const { t, locale } = useT();
+  // Yann 29 mai 2026 : toggle global/per-sté pour masquer le bloc logo
+  // (header). Quand désactivé : layout alternatif sans le carré 56-64px,
+  // nom + catégorie + tagline alignés à gauche du conteneur.
+  const logoDisabled = isBlockDisabledForTicker(company.ticker, "logo");
 
   return (
     <div className="mb-8">
       <div className="flex flex-wrap items-start gap-x-5 gap-y-4">
-        <LogoTilt ticker={company.ticker} />
+        {!logoDisabled && <LogoTilt ticker={company.ticker} />}
         <div className="min-w-0 flex-1">
           <CompanyName name={company.name} ticker={company.ticker} accent={accent} allTickers={allTickers} />
           <div className="mt-1.5 text-[14px] text-zinc-400">

@@ -9,6 +9,7 @@ import { RepartitionTreemap, RepartitionRadial } from "@/components/charts/repar
 import { RepartitionIsoDetachedWedges } from "@/components/charts/repartition-3d-variants";
 import { useT } from "@/lib/i18n/provider";
 import type { Locale } from "@/lib/i18n/types";
+import { isBlockDisabledForTicker } from "@/lib/disabled-blocks";
 
 /**
  * RepartitionBlock — vue répartition CA par dimension (géographique
@@ -50,14 +51,29 @@ export function RepartitionBlock({ company }: { company: Company }) {
   const aiConfidence = company.revenue_by_ai_customer_type?.confidence;
   const aiSources = company.revenue_by_ai_customer_type?.sources;
 
-  const hasGeo = !!(geo && geo.slices.length > 0);
-  const hasSegment = !!(segment && segment.slices.length > 0);
+  // Yann 29 mai 2026 : 6 toggles pour les vues répartition (treemap /
+  // radial / iso3d × géo / segment). On filtre les vues désactivées et
+  // on masque la dimension si toutes ses vues sont off.
+  const geoStyles: Style[] = STYLES.filter(
+    (s) => !isBlockDisabledForTicker(company.ticker, `repartition_geo_${s === "iso" ? "iso3d" : s}`),
+  );
+  const segmentStyles: Style[] = STYLES.filter(
+    (s) => !isBlockDisabledForTicker(company.ticker, `repartition_segment_${s === "iso" ? "iso3d" : s}`),
+  );
+
+  const hasGeo = !!(geo && geo.slices.length > 0) && geoStyles.length > 0;
+  const hasSegment = !!(segment && segment.slices.length > 0) && segmentStyles.length > 0;
   const hasAiCustomer = !!(aiCustomer && aiCustomer.slices.length > 0);
   if (!hasGeo && !hasSegment && !hasAiCustomer) return null;
 
   const [tab, setTab] = useState<Tab>(hasGeo ? "geo" : hasSegment ? "segment" : "ai_customer");
   const [styleIdx, setStyleIdx] = useState(0);
-  const style: Style = STYLES[styleIdx];
+  // Styles disponibles pour l'onglet courant. ai_customer garde les 3
+  // styles (pas de toggle dédié). geo/segment respectent les toggles.
+  const activeStyles: Style[] =
+    tab === "geo" ? geoStyles : tab === "segment" ? segmentStyles : STYLES;
+  const safeStyleIdx = activeStyles.length > 0 ? styleIdx % activeStyles.length : 0;
+  const style: Style = activeStyles[safeStyleIdx] ?? STYLES[0];
 
   const active = tab === "geo" ? geo : tab === "segment" ? segment : aiCustomer;
   // Cohérence des décimales : si toutes les valeurs sont entières, 0 décimale ;
@@ -66,7 +82,9 @@ export function RepartitionBlock({ company }: { company: Company }) {
   const wheelLock = useRef(false);
 
   function cycleStyle(dir: 1 | -1) {
-    setStyleIdx((i) => (i + dir + STYLES.length) % STYLES.length);
+    const len = activeStyles.length;
+    if (len === 0) return;
+    setStyleIdx((i) => (i + dir + len) % len);
   }
 
   function onWheel(e: React.WheelEvent) {
@@ -201,14 +219,16 @@ export function RepartitionBlock({ company }: { company: Company }) {
           naturelle (chart + légende), comme dans /chart-lab. La hauteur
           du bloc s'adapte au chart courant. */}
       <div className="relative" onWheel={onWheel}>
-        <button
-          onClick={() => cycleStyle(-1)}
-          aria-label={`${t("repartition.style." + STYLES[(styleIdx - 1 + STYLES.length) % STYLES.length])}`}
-          className="absolute left-1 top-1/2 z-10 inline-flex size-11 -translate-y-1/2 items-center justify-center rounded-full border bg-black/70 text-zinc-100 backdrop-blur-md transition-all hover:scale-110"
-          style={{ borderColor: `${accent}66`, boxShadow: `0 0 14px ${accent}33` }}
-        >
-          <ChevronLeft className="size-5" />
-        </button>
+        {activeStyles.length > 1 && (
+          <button
+            onClick={() => cycleStyle(-1)}
+            aria-label={`${t("repartition.style." + activeStyles[(safeStyleIdx - 1 + activeStyles.length) % activeStyles.length])}`}
+            className="absolute left-1 top-1/2 z-10 inline-flex size-11 -translate-y-1/2 items-center justify-center rounded-full border bg-black/70 text-zinc-100 backdrop-blur-md transition-all hover:scale-110"
+            style={{ borderColor: `${accent}66`, boxShadow: `0 0 14px ${accent}33` }}
+          >
+            <ChevronLeft className="size-5" />
+          </button>
+        )}
 
         <AnimatePresence mode="wait">
           <motion.div
@@ -233,14 +253,16 @@ export function RepartitionBlock({ company }: { company: Company }) {
           </motion.div>
         </AnimatePresence>
 
-        <button
-          onClick={() => cycleStyle(1)}
-          aria-label={`${t("repartition.style." + STYLES[(styleIdx + 1) % STYLES.length])}`}
-          className="absolute right-1 top-1/2 z-10 inline-flex size-11 -translate-y-1/2 items-center justify-center rounded-full border bg-black/70 text-zinc-100 backdrop-blur-md transition-all hover:scale-110"
-          style={{ borderColor: `${accent}66`, boxShadow: `0 0 14px ${accent}33` }}
-        >
-          <ChevronRight className="size-5" />
-        </button>
+        {activeStyles.length > 1 && (
+          <button
+            onClick={() => cycleStyle(1)}
+            aria-label={`${t("repartition.style." + activeStyles[(safeStyleIdx + 1) % activeStyles.length])}`}
+            className="absolute right-1 top-1/2 z-10 inline-flex size-11 -translate-y-1/2 items-center justify-center rounded-full border bg-black/70 text-zinc-100 backdrop-blur-md transition-all hover:scale-110"
+            style={{ borderColor: `${accent}66`, boxShadow: `0 0 14px ${accent}33` }}
+          >
+            <ChevronRight className="size-5" />
+          </button>
+        )}
       </div>
 
       {/* Légende incertitude par slice — onglet ai_customer uniquement.
@@ -269,27 +291,29 @@ export function RepartitionBlock({ company }: { company: Company }) {
         </div>
       )}
 
-      {/* Style dots dock */}
-      <div className="mt-3 flex items-center justify-center gap-2">
-        {STYLES.map((s, i) => (
-          <button
-            key={s}
-            onClick={() => setStyleIdx(i)}
-            aria-label={t(`repartition.style.${s}`)}
-            className={`flex items-center gap-1.5 font-mono text-[10.5px] uppercase tracking-wider transition-colors ${
-              i === styleIdx ? "text-zinc-100" : "text-zinc-500 hover:text-zinc-300"
-            }`}
-          >
-            <span
-              className={`size-1.5 rounded-full transition-all ${
-                i === styleIdx ? "" : "bg-zinc-600"
+      {/* Style dots dock — basé sur les styles actifs (filtrés par toggles). */}
+      {activeStyles.length > 1 && (
+        <div className="mt-3 flex items-center justify-center gap-2">
+          {activeStyles.map((s, i) => (
+            <button
+              key={s}
+              onClick={() => setStyleIdx(i)}
+              aria-label={t(`repartition.style.${s}`)}
+              className={`flex items-center gap-1.5 font-mono text-[10.5px] uppercase tracking-wider transition-colors ${
+                i === safeStyleIdx ? "text-zinc-100" : "text-zinc-500 hover:text-zinc-300"
               }`}
-              style={i === styleIdx ? { background: accent, boxShadow: `0 0 6px ${accent}` } : undefined}
-            />
-            {t(`repartition.style.${s}`)}
-          </button>
-        ))}
-      </div>
+            >
+              <span
+                className={`size-1.5 rounded-full transition-all ${
+                  i === safeStyleIdx ? "" : "bg-zinc-600"
+                }`}
+                style={i === safeStyleIdx ? { background: accent, boxShadow: `0 0 6px ${accent}` } : undefined}
+              />
+              {t(`repartition.style.${s}`)}
+            </button>
+          ))}
+        </div>
+      )}
     </section>
   );
 }
