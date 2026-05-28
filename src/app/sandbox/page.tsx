@@ -312,6 +312,13 @@ const SECTIONS: SandboxSection[] = [
         desc: "Toggle granulaire par KPI individuel pour chaque sté publishable (≥3 ans d'historique). Différent du toggle blocs.",
         accent: "blue",
       },
+      {
+        href: "/admin/blocks",
+        icon: ListChecks,
+        label: "Blocs page société (global + per-sté)",
+        desc: "Page unique back office : toggle global on/off des 19 blocs + override per-ticker. Version-agnostic (V1.7-5 / V1.8 / V1.9 / V1.9-5).",
+        accent: "blue",
+      },
     ],
   },
   {

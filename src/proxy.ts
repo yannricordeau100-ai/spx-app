@@ -287,6 +287,21 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(url, 301);
   }
 
+  // -1.5bis. Yann 29 mai 2026 — Mission C : path UNIQUE et version-agnostic
+  //          pour gérer les blocs page société = `/admin/blocks` (Mission C).
+  //          Anciens paths sandbox redirigés en 308 (permanent + méthode
+  //          préservée) :
+  //            - /sandbox/v1-8/blocks-toggle   → /admin/blocks
+  //            - /sandbox/v1-8/blocks-per-ste  → /admin/blocks
+  if (
+    routePathname === "/sandbox/v1-8/blocks-toggle" ||
+    routePathname === "/sandbox/v1-8/blocks-per-ste"
+  ) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/admin/blocks";
+    return NextResponse.redirect(url, 308);
+  }
+
   // -1. Redirect 301 V1.0 → V1.7.5 (Yann 18 mai 2026, broadcast bascule
   //     niveau 1) : les routes V1.0 `/<ticker>` (cat/googl/meta/msci/spgi)
   //     sont obsolètes. Les 5 stés ont été migrées dans V1.7.5 + V1.8.
