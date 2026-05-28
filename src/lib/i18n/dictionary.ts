@@ -423,7 +423,7 @@ export const DICTIONARY: Dict = {
   "stories.aria_pause": { fr: "Mettre en pause", en: "Pause" },
   "stories.aria_resume": { fr: "Reprendre", en: "Resume" },
   "stories.aria_jump": { fr: "Aller à la story", en: "Go to story" },
-  "stories.title": { fr: "Stories", en: "Stories" },
+  "stories.title": { fr: "Récits", en: "Stories" },
   "stories.subtitle": {
     fr: "",
     en: "",
@@ -487,7 +487,7 @@ export const DICTIONARY: Dict = {
   "risks.score.moderate": { fr: "Modéré", en: "Moderate" },
   "risks.score.low": { fr: "Faible", en: "Low" },
   "risks.score.marginal": { fr: "Marginal", en: "Marginal" },
-  "risks.pw.label": { fr: "Profit warning", en: "Profit warning" },
+  "risks.pw.label": { fr: "Avertissement sur résultat", en: "Profit warning" },
   "risks.pw.title_tooltip": {
     fr: "Avertissement sur les résultats",
     en: "Profit warning",
@@ -1653,9 +1653,9 @@ export const DICTIONARY: Dict = {
     de: "Aktuelle Nachrichten",
   },
   "company.snapshot.title": {
-    fr: "Snapshot boursier",
-    en: "Market snapshot",
-    de: "Börsen-Snapshot",
+    fr: "Aperçu boursier",
+    en: "Market Snapshot",
+    de: "Marktübersicht",
   },
   "company.snapshot.market_cap": {
     fr: "Capitalisation",

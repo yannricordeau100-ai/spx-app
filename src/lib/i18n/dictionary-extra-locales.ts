@@ -229,7 +229,7 @@ export const EXTRA_LOCALES: Record<string, Partial<Record<LocaleKey, string>>> =
   "stories.aria_pause": { de: "Pause", nl: "Pauzeren" },
   "stories.aria_resume": { de: "Fortsetzen", nl: "Hervatten" },
   "stories.aria_jump": { de: "Zur Story springen", nl: "Naar story gaan" },
-  "stories.title": { de: "Stories", nl: "Stories" },
+  "stories.title": { de: "Geschichten", nl: "Stories" },
   "stories.subtitle": {
     de: "Fokussierte KPIs (kurze oder einmalige Historie) und Marktpositionen. Mobile-Format: Auto-Play 5s pro Karte, Pfeile zum Navigieren, Hover zum Pausieren.",
     nl: "Gerichte KPI's (korte of eenmalige historie) en marktposities. Mobiel formaat: auto-play 5s per kaart, pijlen om te navigeren, hover om te pauzeren." },
@@ -287,7 +287,7 @@ export const EXTRA_LOCALES: Record<string, Partial<Record<LocaleKey, string>>> =
   "risks.score.moderate": { de: "Moderat", nl: "Matig" },
   "risks.score.low": { de: "Niedrig", nl: "Laag" },
   "risks.score.marginal": { de: "Marginal", nl: "Marginaal" },
-  "risks.pw.label": { de: "Profit Warning", nl: "Profit warning" },
+  "risks.pw.label": { de: "Gewinnwarnung", nl: "Winstwaarschuwing" },
   "risks.pw.title_tooltip": {
     de: "Gewinnwarnung",
     nl: "Winstwaarschuwing" },
