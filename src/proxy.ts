@@ -319,16 +319,16 @@ export async function proxy(request: NextRequest) {
     }
   }
 
-  // -1. Redirect 301 V1.0 → V1.7.5 (Yann 18 mai 2026, broadcast bascule
-  //     niveau 1) : les routes V1.0 `/<ticker>` (cat/googl/meta/msci/spgi)
-  //     sont obsolètes. Les 5 stés ont été migrées dans V1.7.5 + V1.8.
-  //     Redirect permanent 301 vers la sandbox V1.7.5 pour préserver les
+  // -1. Redirect 301 V1.0 → V1.9.5 (mis à jour Yann 29 mai 2026 Phase 2A) :
+  //     les routes V1.0 `/<ticker>` (cat/googl/meta/msci/spgi) sont obsolètes.
+  //     Les 5 stés ont été migrées dans V1.9.5 canonique (V1.7.5 supprimée).
+  //     Redirect permanent 301 vers la sandbox V1.9.5 pour préserver les
   //     backlinks externes (SEO, partages anciens).
   const V1_TICKERS = new Set(["cat", "googl", "meta", "msci", "spgi"]);
   const v1Match = routePathname.match(/^\/([a-z]+)\/?$/i);
   if (v1Match && V1_TICKERS.has(v1Match[1]!.toLowerCase())) {
     const url = request.nextUrl.clone();
-    url.pathname = `${isFrLocale ? "/fr" : ""}/sandbox/v1-7-5/${v1Match[1]!.toLowerCase()}`;
+    url.pathname = `/sandbox/v1-9-5/${v1Match[1]!.toLowerCase()}`;
     return NextResponse.redirect(url, 301);
   }
 
