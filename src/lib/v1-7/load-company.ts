@@ -775,16 +775,23 @@ export async function loadV17Company(
     // history/period_type/description_fr/en/_specific_to.
     // Si `_fit_for_site: false` → sté marquée non-publishable (skip merge).
     try {
-      const specificPath = path.join(
-        ROOT,
-        "src/data/v2-pipeline-specific-kpis",
-        `${ticker.toLowerCase()}.json`,
-      );
-      const specificData = await readJsonOrNull<{
+      // Yann 30 mai 2026 (Bug GOOGL 4 KPIs prod) : fallback case-insensitive.
+      // Convention canonique = lowercase. On essaie d'abord lowercase, puis
+      // uppercase pour rétro-compatibilité avec anciens fichiers non normalisés.
+      // Sur Vercel Linux FS case-sensitive, sinon les uppercase ne matchent pas.
+      const specificDir = path.join(ROOT, "src/data/v2-pipeline-specific-kpis");
+      let specificData = await readJsonOrNull<{
         kpis?: AnyKPI[];
         _fit_for_site?: boolean;
         _verification_needed?: boolean;
-      }>(specificPath);
+      }>(path.join(specificDir, `${ticker.toLowerCase()}.json`));
+      if (!specificData) {
+        specificData = await readJsonOrNull<{
+          kpis?: AnyKPI[];
+          _fit_for_site?: boolean;
+          _verification_needed?: boolean;
+        }>(path.join(specificDir, `${ticker.toUpperCase()}.json`));
+      }
       if (
         specificData
         && specificData._fit_for_site !== false
