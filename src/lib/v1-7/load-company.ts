@@ -230,24 +230,16 @@ export async function loadV17Company(
   };
   const upper = ticker.toUpperCase();
   const canonical = ALIASES[upper] ?? upper;
-  // Phase 3A (29 mai 2026) : source unique `src/data/companies/<ticker>.json`
-  // générée par `scripts/build-companies-unified.ts`. Quand le fichier existe,
-  // il sert de base (= v2-pipeline + merge append-only du root enrich).
-  // Sinon fallback sur `v2-pipeline/<ticker>.json` ancien (compat backwards).
-  // Les sous-fichiers nommés (events, ranks, description, etc.) restent lus
-  // depuis `v2-pipeline-enrich/` plus bas (logique intacte).
-  const unifiedPath = path.join(
-    ROOT,
-    "src/data/companies",
-    `${canonical.toLowerCase()}.json`,
-  );
+  // Phase 3A (29 mai 2026) : `src/data/companies/<ticker>.json` est généré
+  // par `scripts/build-companies-unified.ts` pour audits LOCAUX uniquement.
+  // Il n'est PAS lu en runtime (exclu du bundle Vercel pour size cap 250 MB).
+  // Runtime lit toujours `v2-pipeline/<ticker>.json` + merge enrich.
   const legacyPath = path.join(
     ROOT,
     "src/data/v2-pipeline",
     `${canonical.toLowerCase()}.json`,
   );
-  const raw =
-    (await readJsonOrNull<AnyCo>(unifiedPath)) ?? (await readJsonOrNull<AnyCo>(legacyPath));
+  const raw = await readJsonOrNull<AnyCo>(legacyPath);
   if (!raw) return { kind: "missing" };
 
   // Normalise stories_kpis → kpis avec is_short_history flag
