@@ -24,6 +24,9 @@ export default defineConfig({
     navigationTimeout: 45_000,
     actionTimeout: 15_000,
     ignoreHTTPSErrors: true,
+    // critique : sans reducedMotion, le NumberTicker reste invisible
+    // (motion/react garde opacity:0 sur le wrapper)
+    contextOptions: { reducedMotion: "reduce" },
   },
   projects: [
     {

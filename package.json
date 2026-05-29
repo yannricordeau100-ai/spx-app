@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "backup": "node scripts/db-export.mjs",
-    "restore": "node scripts/db-restore.mjs"
+    "restore": "node scripts/db-restore.mjs",
+    "test:golden": "playwright test tests/golden",
+    "test:golden:propose": "tsx scripts/golden-snapshot.ts"
   },
   "dependencies": {
     "@stripe/stripe-js": "^9.3.1",
@@ -27,12 +29,14 @@
     "yahoo-finance2": "^3.14.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.60.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "playwright": "^1.60.0",
     "tailwindcss": "^4",
+    "tsx": "^4.22.3",
     "typescript": "^5"
   }
 }
