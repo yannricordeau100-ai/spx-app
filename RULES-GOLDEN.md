@@ -10,6 +10,33 @@
 
 ---
 
+## 000. NE JAMAIS ARRÊTER UNE TÂCHE SANS CONFIRMATION EXPLICITE YANN (PERMANENT, À JAMAIS)
+
+Édictée par Yann le 30 mai 2026. **RÈGLE LA PLUS IMPORTANTE. PERMANENTE. À JAMAIS.**
+
+Une tâche en cours (sub-agent, script, run, mission, rotation, batch, extraction, scrape, etc.) **NE DOIT JAMAIS ÊTRE ARRÊTÉE** tant que Yann n'a pas confirmé explicitement "oui, arrête" dans le chat.
+
+**Procédure obligatoire** :
+1. Si je pense devoir arrêter une tâche → demander à Yann d'abord.
+2. Si Yann ne répond pas / réponse ambiguë → demander à nouveau, plusieurs fois si besoin.
+3. **Tant qu'il n'y a pas de OUI clair → la tâche continue.**
+4. En attendant la confirmation : continuer la tâche, ne pas la suspendre, ne pas la mettre en pause "par précaution".
+
+**Cette règle s'applique à TOUT** :
+- Sub-agents background en cours
+- Scripts Python / Cerebras / Anthropic
+- Vagues de batches (10×10 strategy)
+- Loops `/loop`
+- ScheduleWakeup
+- Crons GHA
+- Re-extractions, re-validations, audits
+
+**Pas d'exception**. Pas de "j'ai arrêté car je pensais que c'était fini". Pas de "j'ai stoppé pour économiser des tokens". Pas de "j'ai estimé que c'était suffisant". **Confirmation explicite Yann obligatoire**.
+
+Faute = trahison. Yann ne doit JAMAIS relancer manuellement une tâche que Claude aurait arrêtée de sa propre initiative.
+
+---
+
 ## 0quater. PRIORISATION SI >2 TÂCHES (PERMANENT)
 
 Édictée par Yann le 27 mai 2026. **PERMANENT, jamais limité dans le temps.**
