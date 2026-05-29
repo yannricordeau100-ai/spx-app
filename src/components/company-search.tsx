@@ -37,6 +37,18 @@ import {
   type V19SearchEntry,
 } from "@/lib/v1-7/tickers-search-index";
 import v19UniverseJson from "@/data/v1-9-universe.json";
+import v195CleanAllJson from "@/data/v1-9-5-clean-all-tickers.json";
+
+/**
+ * Yann (30 mai 2026) : V1.9.5 strict = univers clean_all uniquement (652 stés
+ * audit a-f + g-m). Les autres tickers du pipeline _merged.json (Pass 3
+ * validés mais pas clean_all) sont volontairement masqués de la recherche
+ * sinon `/sandbox/v1-9-5/<ticker>` redirige silencieusement vers l'overview
+ * (cf. logique `loadCleanAllSet` côté page sté). Set figé au build.
+ */
+const V195_CLEAN_ALL_SET: ReadonlySet<string> = new Set(
+  (v195CleanAllJson as { tickers: string[] }).tickers.map((t) => t.toUpperCase()),
+);
 
 /**
  * CompanySearch — barre de recherche unifiée, utilisée :
@@ -180,6 +192,11 @@ export function CompanySearch({
       const upper = e.ticker.toUpperCase();
       if (v1Set.has(upper)) continue;
       if (scopeSet && !scopeSet.has(upper)) continue;
+      // Yann 30 mai 2026 : V1.9.5 strict = clean_all uniquement. Tout ticker
+      // hors clean_all serait redirigé silencieusement vers l'overview au clic
+      // (= bug "la recherche ne marche pas"). On filtre en amont pour ne
+      // proposer que les fiches réellement accessibles.
+      if (!V195_CLEAN_ALL_SET.has(upper)) continue;
       // Si pas Pass 3 validé : on l'inclut seulement s'il est dans l'univers
       // V1.9 (extension recherche EU). Comportement historique préservé pour
       // les non-V1.9 (non searchables).
@@ -198,6 +215,8 @@ export function CompanySearch({
     for (const e of V19_SEARCH_INDEX) {
       const upper = e.ticker.toUpperCase();
       if (v1Set.has(upper)) continue;
+      // Yann 30 mai 2026 : idem, V1.9.5 strict = clean_all uniquement.
+      if (!V195_CLEAN_ALL_SET.has(upper)) continue;
       const matches =
         !q ||
         e.ticker.toLowerCase().includes(q) ||
