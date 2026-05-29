@@ -147,8 +147,6 @@ async function savePerSteOverride(formData: FormData) {
 
   revalidatePath("/admin/blocks");
   revalidatePath(`/sandbox/v1-9-5/${tickerRaw.toLowerCase()}`);
-  revalidatePath(`/sandbox/v1-9/${tickerRaw.toLowerCase()}`);
-  revalidatePath(`/sandbox/v1-8/${tickerRaw.toLowerCase()}`);
 }
 
 async function removePerSteOverride(formData: FormData) {

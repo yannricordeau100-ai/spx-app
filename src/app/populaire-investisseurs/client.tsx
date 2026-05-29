@@ -98,7 +98,7 @@ function PodiumCard({
 
   return (
     <a
-      href={`/sandbox/v1-8/${row.ticker.toLowerCase()}`}
+      href={`/sandbox/v1-9-5/${row.ticker.toLowerCase()}`}
       target="_blank"
       rel="noopener"
       className={`group relative overflow-hidden rounded-2xl border ${accent.border} bg-gradient-to-br ${accent.bg} p-5 transition-all hover:scale-[1.02] hover:shadow-lg`}
@@ -152,7 +152,7 @@ function StockRow({
 
   return (
     <a
-      href={`/sandbox/v1-8/${row.ticker.toLowerCase()}`}
+      href={`/sandbox/v1-9-5/${row.ticker.toLowerCase()}`}
       target="_blank"
       rel="noopener"
       className="group relative flex items-center gap-3 rounded-xl border border-white/[0.06] bg-white/[0.015] p-3 transition-all hover:border-violet-500/30 hover:bg-violet-500/[0.04] sm:gap-4 sm:p-4"

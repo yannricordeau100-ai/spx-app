@@ -270,7 +270,7 @@ export function VipInspectionClient({
                       <h2 className="font-mono text-[18px] font-bold text-zinc-50">
                         {entry.ticker}
                         <a
-                          href={`/sandbox/v1-8/${entry.ticker.toLowerCase()}?audit_token=preview`}
+                          href={`/sandbox/v1-9-5/${entry.ticker.toLowerCase()}?audit_token=preview`}
                           target="_blank"
                           rel="noopener"
                           className="ml-2 text-[12px] font-normal text-violet-300 hover:text-violet-200"

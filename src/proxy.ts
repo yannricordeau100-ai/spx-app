@@ -302,6 +302,23 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(url, 308);
   }
 
+  // -1.5ter. Yann 29 mai 2026 — Phase 2A restructure : V1.5/V1.6/V1.7/V1.7.5/V1.8/V1.9
+  //          sont obsolètes. Seule V1.9.5 reste canonique (cf RULES-GOLDEN §0).
+  //          Redirect 308 (permanent + méthode préservée) de toutes les
+  //          anciennes versions vers leur équivalent V1.9.5.
+  //          V1.0 (routes `/<ticker>` racine) reste isolée et inchangée.
+  {
+    const legacyMatch = routePathname.match(
+      /^\/sandbox\/v1-(?:6|7|7-5|8|9)(\/.*)?$/
+    );
+    if (legacyMatch) {
+      const tail = legacyMatch[1] ?? "";
+      const url = request.nextUrl.clone();
+      url.pathname = `/sandbox/v1-9-5${tail}`;
+      return NextResponse.redirect(url, 308);
+    }
+  }
+
   // -1. Redirect 301 V1.0 → V1.7.5 (Yann 18 mai 2026, broadcast bascule
   //     niveau 1) : les routes V1.0 `/<ticker>` (cat/googl/meta/msci/spgi)
   //     sont obsolètes. Les 5 stés ont été migrées dans V1.7.5 + V1.8.

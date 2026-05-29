@@ -75,34 +75,10 @@ const SECTIONS: SandboxSection[] = [
         accent: "default" as const,
       },
       {
-        href: "/sandbox/v1-9",
-        icon: Globe2,
-        label: "V1.9 · SP500 + Top 307 + Indices EU",
-        desc: "924 stés. Univers étendu : SP500 + Top 307 + CAC 40 + FTSE 100 + DAX 40 + SMI + BEL 20 + FTSE MIB + AEX + ATX.",
-      },
-      {
         href: "/sandbox/v1-9-status",
         icon: Activity,
         label: "V1.9 · Suivi enrichissement top 307",
         desc: "Statut temps réel : strict 11/11 ✅ vs en cours 🟠 vs bloquées 🔴. Score par sté + blocs manquants.",
-      },
-      {
-        href: "/sandbox/v1-8",
-        icon: Sparkles,
-        label: "V1.8 (dev actif)",
-        desc: "Version active de développement, top 307 prioritaire et reste en cours.",
-      },
-      {
-        href: "/sandbox/v1-7-5",
-        icon: Layers,
-        label: "V1.7.5 (snapshot étendu)",
-        desc: "Version snapshot stable archivée pour la démo investisseur.",
-      },
-      {
-        href: "/sandbox/v1-7",
-        icon: Compass,
-        label: "V1.7 (Pass 3 strict)",
-        desc: "Hub des fiches société Pass 3 validées en stricte conformité.",
       },
     ],
   },
@@ -540,38 +516,10 @@ export default function SandboxPage() {
                   <span className="text-base">→</span>
                 </Link>
                 <Link
-                  href="/sandbox/v1-6"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-cyan-500/40 bg-cyan-500/15 px-4 py-2.5 font-mono text-[11.5px] font-semibold uppercase tracking-wider text-cyan-100 transition-all hover:border-cyan-500/70 hover:bg-cyan-500/25"
-                >
-                  Ouvrir 1.6 (toutes stés extraites · 1606)
-                  <span className="text-base">→</span>
-                </Link>
-                <Link
-                  href="/sandbox/v1-7"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-emerald-500/50 bg-emerald-500/20 px-4 py-2.5 font-mono text-[11.5px] font-semibold uppercase tracking-wider text-emerald-100 transition-all hover:border-emerald-500/80 hover:bg-emerald-500/30"
-                >
-                  Ouvrir 1.7 (Pass 3 strict, fiches complètes)
-                  <span className="text-base">→</span>
-                </Link>
-                <Link
                   href="/sandbox/v1-9-5"
                   className="inline-flex w-full items-center justify-center gap-2 rounded-lg border-2 border-emerald-500/60 bg-emerald-500/20 px-4 py-2.5 font-mono text-[11.5px] font-semibold uppercase tracking-wider text-emerald-100 transition-all hover:border-emerald-400/80 hover:bg-emerald-500/30"
                 >
                   Ouvrir 1.9.5 · DÉFAUT (stés validées qualité)
-                  <span className="text-base">→</span>
-                </Link>
-                <Link
-                  href="/sandbox/v1-8"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-rose-500/50 bg-rose-500/15 px-4 py-2.5 font-mono text-[11.5px] font-semibold uppercase tracking-wider text-rose-100 transition-all hover:border-rose-500/80 hover:bg-rose-500/25"
-                >
-                  Ouvrir 1.8 (Pass 3 + blocs manquants en rouge)
-                  <span className="text-base">→</span>
-                </Link>
-                <Link
-                  href="/sandbox/v1-9"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-cyan-500/50 bg-cyan-500/15 px-4 py-2.5 font-mono text-[11.5px] font-semibold uppercase tracking-wider text-cyan-100 transition-all hover:border-cyan-500/80 hover:bg-cyan-500/25"
-                >
-                  Ouvrir 1.9 · SP500 + Top 307 + Indices EU (924 stés)
                   <span className="text-base">→</span>
                 </Link>
                 <Link

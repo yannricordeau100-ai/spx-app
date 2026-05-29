@@ -5,7 +5,7 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getServerLocale } from "@/lib/i18n/server";
 import { translate } from "@/lib/i18n/dictionary";
 import { loadPageContent } from "@/lib/desk/page-content";
-import { ContactV18Client } from "../../v1-8/contact/client";
+import { ContactV18Client } from "./client";
 import { LATEST_VERSION_SLUG } from "@/lib/version-routing";
 
 export const dynamic = "force-dynamic";
