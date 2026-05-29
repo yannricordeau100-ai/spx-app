@@ -25,19 +25,14 @@ This file is auto-loaded by Claude Code at the project root.
 that contradict the rules below — they were established with the user across
 many hours of iteration.
 
-> **🔴 RÈGLE ABSOLUE — coordination 4 conversations**
+> **🔴 RÈGLE — Conversation unique Mettrik**
 >
-> Avant de répondre à CHAQUE prompt user :
-> 1. Re-lire `SHARED-STATUS.md` (au moins les 10 dernières lignes du log + section
->    "🔄 EN COURS").
-> 2. Vérifier qu'aucune autre conv n'est en train de toucher au même périmètre.
-> 3. Si chevauchement détecté → l'évoquer explicitement avant d'agir.
-> 4. Esprit **entraide**, pas rivalité. Ne jamais re-faire / dé-faire / dupliquer
->    le travail d'une autre conv.
-> 5. Les 4 conversations : **CONCEPTS · SYSTEMS · DATA · BRAND**. Pas d'autre nom.
-> 6. Le terme **"Pulse"** ne désigne plus rien : la marque est **Mettrik AI**.
->    Toute mention résiduelle de "Pulse" dans un fichier = reliquat à signaler
->    ou remplacer selon ton scope.
+> Une seule conversation Mettrik. Pas de naming CONV-X (CONCEPTS / SYSTEMS /
+> DATA / BRAND / DIV / DEPAN abrogés Yann 29 mai 2026, Phase 3B).
+> `SHARED-STATUS.md` devient archive historique uniquement (lecture seule,
+> pas d'écriture). Le terme **"Pulse"** ne désigne plus rien : la marque
+> est **Mettrik AI**.
+>
 > 7. **DATA PRESERVATION ABSOLUE** : toute migration / refactor qui touche
 >    une structure de données (BDD, fichiers JSON `src/data/`, configs user)
 >    DOIT préserver les données existantes. Migration SQL = `UPDATE` de

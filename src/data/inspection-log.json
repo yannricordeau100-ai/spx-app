@@ -1,0 +1,348 @@
+{
+  "_doc": "Log d'inspections visuelles stés Mettrik. Géré par Claude lors de boucles ennui. Chaque entrée = ticker + erreurs détectées + corrections double-vérifiées appliquées.",
+  "inspections": [
+    {
+      "ticker": "MU",
+      "inspected_at": "2026-05-29T01:30:00Z",
+      "source_url": "https://mettrik-niveau2.vercel.app/fr/sandbox/v1-9-5/mu",
+      "blocs_inspected": [
+        {
+          "bloc": "header",
+          "verifications": [
+            {"item": "Capi 1041 Mds$", "source_check": "yfinance MU.info.marketCap=1041e9", "verdict": "OK (mon analyse initiale fausse était une invention sans source)"},
+            {"item": "Prix 923.52$", "source_check": "yfinance currentPrice=923.52", "verdict": "OK"},
+            {"item": "Logo monogram au lieu PNG", "verdict": "RÉSOLU commit ce05d4887 (Apple/Rivian/Block etc HD téléchargés, MU déjà bon)"},
+            {"item": "Tagline tronquée '...du...'", "verdict": "UI truncation CSS, à investiguer composant company-header.tsx ligne 245"}
+          ]
+        },
+        {
+          "bloc": "hero_kpi_R&D",
+          "verifications": [
+            {"item": "Title 'Investissements R&D' value 10 Mds$", "source_check": "MU FY24 R&D ~3.4 Mds$, FY25 ~3.0 Mds$ (Yahoo)", "verdict": "DATA FAUSSE : 10 Mds$ aberrant pour MU R&D annuel"},
+            {"item": "History trimestrielle avec valeurs négatives -1.2/-1.4/-1.8/-1.6", "verdict": "DATA IMPOSSIBLE : R&D ne peut pas être négatif"},
+            {"item": "Badge -4 pts (vs N-1) avec unit Mds$", "verdict": "BUG UI : unit ne matche pas (pts vs Mds$)"},
+            {"item": "Bottom 25% Semi-conducteurs sur R&D", "verdict": "À VÉRIFIER : MU R&D rank vs NVDA/AMD/INTC"},
+            {"item": "+4.6% / an CAGR 5 ans sur history mixant + et -", "verdict": "CALCUL NON-SENS : CAGR impossible sur valeurs négatives"},
+            {"item": "Phrase 'ratio R&D/revenu' alors KPI Mds$", "verdict": "NAME/DATA MISMATCH"}
+          ]
+        }
+      ],
+      "errors_count": 8,
+      "corrections_applied": [
+        {"item": "Mon analyse fausse 'capi MU ~120 Mds$'", "correction": "Reconnaissance erreur. Capi réelle 1041 Mds$ vérifiée yfinance."}
+      ],
+      "corrections_pending": [
+        "Hero R&D value 10 → vraie value FY25 ~3.0 Mds$",
+        "Purge values négatives -1.2/-1.4/-1.8 du history R&D",
+        "Recalcul CAGR sur history nettoyée",
+        "Fix badge unit (pts → Mds$)",
+        "Fix name 'Investissements R&D (% revenu)' → soit changer name, soit changer unit"
+      ]
+    },
+    {
+      "ticker": "NVDA",
+      "inspected_at": "2026-05-29T01:50:00Z",
+      "source_url": "https://mettrik-niveau2.vercel.app/fr/sandbox/v1-9-5/nvda",
+      "blocs_inspected": [
+        {
+          "bloc": "header",
+          "verifications": [
+            {"item": "Capi 5189 Mds$ (5.19 T$)", "source_check": "yfinance NVDA.info.marketCap=5189349146624", "verdict": "OK"},
+            {"item": "Prix 214.25$", "source_check": "yfinance currentPrice=214.25", "verdict": "OK"},
+            {"item": "Nom 'NVIDIA Corporation'", "verdict": "OK"}
+          ]
+        },
+        {
+          "bloc": "hero_kpi",
+          "verifications": [
+            {"item": "Data Center Revenue value 68 Mds$ +73%", "source_check": "NVDA FY25 Q4 Data Center ~35.6 Mds$/Q × 4 ≈ 130 Mds$ FY26 cible", "verdict": "À VÉRIFIER : 68 semble être H1 FY26 (2 trim) ou period_type ambigu"},
+            {"item": "Gaming Revenue présent", "verdict": "OK (KPI secondaire pertinent)"},
+            {"item": "Automotive Revenue présent", "verdict": "OK (KPI secondaire pertinent)"},
+            {"item": "Capital Intensity présent", "verdict": "OK"}
+          ]
+        },
+        {
+          "bloc": "description_company",
+          "verifications": [
+            {"item": "Description EN 'operates as a data center scale AI infrastructure company' affichée sur page FR", "verdict": "BUG i18n : description_fr manquante ou pas mergée par load-company.ts"}
+          ]
+        }
+      ],
+      "errors_count": 2,
+      "corrections_applied": [],
+      "corrections_pending": [
+        "Vérifier Data Center value 68 Mds$ : annuel FY26 partial ou period_type='quarter' mal labellé ?",
+        "Ajouter description_fr pour NVDA (ou activer merge enrich.description_fr dans load-company.ts)"
+      ]
+    },
+    {
+      "ticker": "AAPL",
+      "inspected_at": "2026-05-29T01:55:00Z",
+      "source_url": "https://mettrik-niveau2.vercel.app/sandbox/v1-9-5/aapl",
+      "blocs_inspected": [
+        {
+          "bloc": "header",
+          "verifications": [
+            {"item": "Capi 4589 Mds$ (~4.6 T$)", "source_check": "yfinance AAPL.info.marketCap=4589945880576", "verdict": "OK"},
+            {"item": "Prix 312.51$", "source_check": "yfinance currentPrice=312.51", "verdict": "OK"},
+            {"item": "Redirect 308 /fr/sandbox → /sandbox", "verdict": "OK comportement attendu post mission B (a1b30bf13) FR-only : /fr/ redirige vers / et cookie NEXT_LOCALE=fr posé"}
+          ]
+        },
+        {
+          "bloc": "hero_kpi",
+          "verifications": [
+            {"item": "iPhone Revenue hero présent", "verdict": "OK (KPI signature Apple)"},
+            {"item": "Services Revenue, iPhone Units, Mac Revenue, iPad Revenue", "verdict": "OK (KPIs spécifiques Apple cohérents)"},
+            {"item": "Apple Vision Pro mentionné", "verdict": "OK (KPI émergent légitime)"}
+          ]
+        }
+      ],
+      "errors_count": 0,
+      "corrections_applied": [
+        {"item": "Faux positif redirect /fr/", "correction": "Confirmé comportement normal post mission B FR-only"}
+      ],
+      "corrections_pending": []
+    },
+    {
+      "ticker": "MSFT",
+      "inspected_at": "2026-05-29T02:00:00Z",
+      "source_url": "https://mettrik-niveau2.vercel.app/sandbox/v1-9-5/msft",
+      "blocs_inspected": [
+        {
+          "bloc": "header",
+          "verifications": [
+            {"item": "Capi 3171 Mds$ (~3.17 T$)", "source_check": "yfinance MSFT.info.marketCap=3171867426816", "verdict": "OK"},
+            {"item": "Prix 426.99$", "source_check": "yfinance currentPrice=426.99", "verdict": "OK"}
+          ]
+        },
+        {
+          "bloc": "kpis",
+          "verifications": [
+            {"item": "Hero 'Microsoft 365 Commercial cloud'", "verdict": "OK structure (KPI spécifique MSFT)"},
+            {"item": "KPIs overlap : Microsoft 365 Commercial cloud / Microsoft Cloud / Microsoft Cloud Revenue / Cloud Rev (4 KPIs Cloud)", "verdict": "REDONDANCE : trop de KPIs Cloud sémantiquement proches, à dédupliquer"},
+            {"item": "Azure Growth unit 'Mds $'", "verdict": "BUG UI/DATA : Azure Growth = % YoY typiquement, pas Mds$ (similaire au bug MU R&D)"}
+          ]
+        }
+      ],
+      "errors_count": 2,
+      "corrections_applied": [],
+      "corrections_pending": [
+        "Dédupliquer KPIs Cloud MSFT : garder 'Microsoft Cloud Revenue' OU 'Microsoft 365 Commercial cloud' (pas les 4)",
+        "Fix Azure Growth unit : passer de 'Mds $' à '%' (ou renommer 'Azure Revenue' si vraiment Mds$)"
+      ]
+    },
+    {
+      "ticker": "GOOGL",
+      "inspected_at": "2026-05-29T02:05:00Z",
+      "source_url": "https://mettrik-niveau2.vercel.app/sandbox/v1-9-5/googl",
+      "blocs_inspected": [
+        {
+          "bloc": "header",
+          "verifications": [
+            {"item": "Capi 4726 Mds$ (~4.73 T$)", "source_check": "yfinance GOOGL.info.marketCap=4726597877760", "verdict": "OK"},
+            {"item": "Prix 390.13$", "source_check": "yfinance currentPrice=390.13", "verdict": "OK"},
+            {"item": "Nom 'Alphabet Inc.'", "verdict": "OK"}
+          ]
+        },
+        {
+          "bloc": "kpis",
+          "verifications": [
+            {"item": "Hero 'Google Cloud Revenue' value 109,9 Mds$ +63.4%", "source_check": "Google Cloud FY24 ≈ 43 Mds$, FY25E ~50-55 Mds$ : 109.9 semble inclure GCP + Workspace + AI ou TTM cumul 8 trim", "verdict": "À VÉRIFIER : value 109.9 Mds$ et yoy +63.4% paraissent élevés vs sources publiques"},
+            {"item": "'Google Cloud' + 'Google Cloud Revenue' apparaissent en double", "verdict": "DUPLICATION potentielle : 2 KPIs au libellé quasi-identique"},
+            {"item": "'Google Cloud AI Share' présent", "verdict": "OK KPI émergent légitime mais à valider sourcing"}
+          ]
+        }
+      ],
+      "errors_count": 2,
+      "corrections_applied": [],
+      "corrections_pending": [
+        "Vérifier value Google Cloud Revenue 109.9 Mds$ vs source primaire 10-K Alphabet FY24/FY25 (TTM ou annuel ?)",
+        "Dédupliquer 'Google Cloud' / 'Google Cloud Revenue' si vraiment doublon (vs split GCP/Workspace par exemple)"
+      ]
+    },
+    {
+      "ticker": "TSLA",
+      "inspected_at": "2026-05-29T02:35:00Z",
+      "source_url": "https://mettrik-niveau2.vercel.app/sandbox/v1-9-5/tsla",
+      "blocs_inspected": [
+        {
+          "bloc": "header",
+          "verifications": [
+            {"item": "Capi 1660 Mds$ (~1.66 T$)", "source_check": "yfinance TSLA.info.marketCap=1660405547008", "verdict": "OK"},
+            {"item": "Prix 442.10$", "source_check": "yfinance currentPrice=442.10", "verdict": "OK"}
+          ]
+        },
+        {
+          "bloc": "kpis",
+          "verifications": [
+            {"item": "Hero Vehicle Unit Sales -1.2%", "verdict": "OK plausible (FY25 vs FY24)"},
+            {"item": "Energy Storage GWh", "verdict": "OK KPI disclosed Tesla earnings"},
+            {"item": "FSD Subscribers", "verdict": "DATA SUSPECTE : Tesla ne divulgue pas officiellement nb abonnés FSD, KPI potentiellement halluciné LLM"},
+            {"item": "Energy GM (margin)", "verdict": "OK KPI disclosed"}
+          ]
+        }
+      ],
+      "errors_count": 1,
+      "corrections_applied": [],
+      "corrections_pending": [
+        "Vérifier 'FSD Subscribers' : source 10-K/earnings call Tesla, sinon supprimer (Tesla ne disclose pas ce chiffre publiquement)"
+      ]
+    },
+    {
+      "ticker": "META",
+      "inspected_at": "2026-05-29T02:55:00Z",
+      "source_url": "https://mettrik-niveau2.vercel.app/sandbox/v1-9-5/meta",
+      "blocs_inspected": [
+        {
+          "bloc": "header",
+          "verifications": [
+            {"item": "Capi 1612 Mds$ (~1.61 T$)", "source_check": "yfinance META.info.marketCap=1612634914816", "verdict": "OK"},
+            {"item": "Prix 635.29$", "source_check": "yfinance currentPrice=635.29", "verdict": "OK"}
+          ]
+        },
+        {
+          "bloc": "hero_kpi_DAP",
+          "verifications": [
+            {"item": "Hero DAP (Daily Active People) value 3.56 Mds users", "source_check": "Meta Q4 2024 DAP=3.35B, FY25 cible 3.5B+ : value 3.56 Mds plausible", "verdict": "VALUE OK"},
+            {"item": "Unit affichée 'Mds $'", "verdict": "BUG UNIT CRITIQUE : DAP est un compte d'utilisateurs (Mds users), pas une valeur en USD. Doit être 'Mds' ou 'utilisateurs'"}
+          ]
+        },
+        {
+          "bloc": "kpis_secondaires",
+          "verifications": [
+            {"item": "Reality Labs Revenue / Op Loss", "verdict": "OK KPIs spécifiques Meta"},
+            {"item": "Family of Apps Op Income", "verdict": "OK KPI spécifique"},
+            {"item": "'WhatsApp subscriptions (+74%)'", "verdict": "À VÉRIFIER : Meta Verified WhatsApp ? source primaire ?"}
+          ]
+        }
+      ],
+      "errors_count": 2,
+      "corrections_applied": [],
+      "corrections_pending": [
+        "Fix unit DAP : 'Mds $' → 'Mds' ou 'utilisateurs' (bug récurrent : aussi sur MU R&D)",
+        "Vérifier 'WhatsApp subscriptions +74%' : source Meta IR earnings call, sinon retirer"
+      ]
+    },
+    {
+      "ticker": "AMZN",
+      "inspected_at": "2026-05-29T03:30:00Z",
+      "source_url": "https://mettrik-niveau2.vercel.app/sandbox/v1-9-5/amzn",
+      "blocs_inspected": [
+        {
+          "bloc": "header",
+          "verifications": [
+            {"item": "Capi 2947 Mds$ (~2.95 T$)", "source_check": "yfinance AMZN.info.marketCap=2947448045568", "verdict": "OK"},
+            {"item": "Prix 274.00$", "source_check": "yfinance currentPrice=274.0", "verdict": "OK"}
+          ]
+        },
+        {
+          "bloc": "global_units",
+          "verifications": [
+            {"item": "Unit 'B EUR' (vs 'Mds €') et 'B $' (vs 'Mds $') détectées dans dataset adjacent au DOM AMZN", "verdict": "BUG SYSTÉMIQUE i18n : certains datasets gardent l'unit anglo 'B $/B EUR' au lieu de normaliser en 'Mds $/Mds €' (locale FR forcée par mission B)"}
+          ]
+        }
+      ],
+      "errors_count": 1,
+      "corrections_applied": [],
+      "corrections_pending": [
+        "Audit globale src/data/v2-pipeline/*.json + v2-pipeline-enrich/*.json : trouver et migrer 'B $' → 'Mds $', 'B EUR' → 'Mds €' (scope CONV-DATA strict)"
+      ]
+    },
+    {
+      "ticker": "JPM",
+      "inspected_at": "2026-05-29T03:50:00Z",
+      "source_url": "https://mettrik-niveau2.vercel.app/sandbox/v1-9-5/jpm",
+      "blocs_inspected": [
+        {
+          "bloc": "header",
+          "verifications": [
+            {"item": "Capi 795 Mds$", "source_check": "yfinance JPM.info.marketCap=795091402752", "verdict": "OK"},
+            {"item": "Prix 296.73$", "source_check": "yfinance currentPrice=296.73", "verdict": "OK"}
+          ]
+        },
+        {
+          "bloc": "kpis_bancaires",
+          "verifications": [
+            {"item": "NIM (Net Interest Margin)", "verdict": "OK KPI bancaire spécifique"},
+            {"item": "CET1 (ratio)", "verdict": "OK KPI bancaire spécifique"},
+            {"item": "Tier 1 Ratio unit 'Mds $'", "verdict": "BUG UNIT (3e occurrence) : Tier 1 Ratio est un ratio en %, pas Mds$. Pattern systémique pipeline confirmé."},
+            {"item": "ROTCE", "verdict": "OK KPI bancaire spécifique"},
+            {"item": "Loan Book en croissance modérée +4.0%", "verdict": "OK plausible"}
+          ]
+        }
+      ],
+      "errors_count": 1,
+      "corrections_applied": [],
+      "corrections_pending": [
+        "Fix unit Tier 1 Ratio : 'Mds $' → '%' (3e occurrence pattern systémique : MU R&D, META DAP, JPM Tier 1)"
+      ]
+    },
+    {
+      "ticker": "V",
+      "inspected_at": "2026-05-29T04:15:00Z",
+      "source_url": "https://mettrik-niveau2.vercel.app/sandbox/v1-9-5/v",
+      "blocs_inspected": [
+        {
+          "bloc": "header",
+          "verifications": [
+            {"item": "Capi 617 Mds$", "source_check": "yfinance V.info.marketCap=617971646464", "verdict": "OK"},
+            {"item": "Prix 324.95$", "source_check": "yfinance currentPrice=324.95", "verdict": "OK"}
+          ]
+        },
+        {
+          "bloc": "kpis_paiement",
+          "verifications": [
+            {"item": "Payment volume +11% +17% YoY", "verdict": "OK plausible Visa FY25"},
+            {"item": "Transactions traitées +9%", "verdict": "OK plausible"},
+            {"item": "Buyback KPI value n.d.", "verdict": "À VÉRIFIER : honest fallback si pas dans 10-K vs invention (Visa fait des rachats importants, devrait être chiffrable)"},
+            {"item": "Partenariat TikTok mentionné", "verdict": "OK plausible partenariat Visa-TikTok Shop"}
+          ]
+        }
+      ],
+      "errors_count": 1,
+      "corrections_applied": [],
+      "corrections_pending": [
+        "Re-extraire buyback Visa depuis 10-K FY25 : Treasury Stock Repurchases ou Cap Return en Mds$"
+      ]
+    },
+    {
+      "ticker": "BRK-B",
+      "inspected_at": "2026-05-29T11:25:00Z",
+      "source_url": "https://mettrik-niveau2.vercel.app/sandbox/v1-9-5/brk-b",
+      "blocs_inspected": [
+        {
+          "bloc": "header",
+          "verifications": [
+            {"item": "Capi 1029 Mds$ (~1.03 T$)", "source_check": "yfinance BRK-B.info.marketCap=1029725159424", "verdict": "OK"},
+            {"item": "Prix 477.42$", "source_check": "yfinance currentPrice=477.42", "verdict": "OK"}
+          ]
+        },
+        {
+          "bloc": "dataset_critique",
+          "verifications": [
+            {"item": "Hero 'Insurance Underwriting Earnings' value=1.6 Mds$ yoy +6.7%", "source_check": "BRK Q4 2024 insurance underwriting ~9 Mds$ FY24, 1.6 Mds$ ressemble à 1 trim ou estimation fausse", "verdict": "DATA SUSPECTE : value 1.6 Mds$ FY incohérente"},
+            {"item": "Seulement 1 KPI extrait pour BRK-B", "verdict": "EXTRACTION INCOMPLÈTE CRITIQUE : devrait avoir Operating Earnings 47 Mds$, Book Value, Cash 325 Mds$, Insurance Float 170 Mds$, Investment Portfolio, etc."},
+            {"item": "Ranks {'global_world': '≈ #1', 'global_us': '≈ #1', 'sector': '≈ #1', 'subsector': '≈ #1'}", "verdict": "DATA FAUSSE : BRK-B n'est PAS #1 mondial (top 10 ~ rang 8-10). #1 = NVIDIA. Ranks inventés/hallucinés."},
+            {"item": "Doublon fichiers : brk-b.json + brk.b.json + brkr.json", "verdict": "BUG STRUCTURE DATA : 3 fichiers pour la même sté, à dédupliquer (probablement variantes ticker URL)"}
+          ]
+        }
+      ],
+      "errors_count": 4,
+      "corrections_applied": [],
+      "corrections_pending": [
+        "Re-extraire BRK-B 10-K FY24 (CIK 0001067983) : Operating Earnings, Cash position, Insurance Float, Book Value, Investment Portfolio (5+ KPIs)",
+        "Recalculer ranks BRK-B via yfinance market_cap (script enrich-ranks-v2.py) : devrait être ~#9 mondial pas #1",
+        "Dédupliquer fichiers brk-b.json / brk.b.json / brkr.json : décider canonical via TICKER_ALIASES dans load-company.ts",
+        "Vérifier hero value 1.6 Mds$ : FY ou trim ? Source 10-K page (Annual underwriting gain by segment)"
+      ]
+    },
+    {
+      "_PATTERN_SYSTEMIQUE_RECAP": {
+        "name": "unit_mds_dollar_default_wrong",
+        "occurrences": ["MU R&D", "META DAP", "JPM Tier 1 Ratio", "MSFT Azure Growth"],
+        "diagnostic": "Le pipeline LLM extraction met 'Mds $' par défaut sur tous les KPIs même quand la métrique n'est pas en USD (ratios %, counts users, growth rates). Bug de prompt ou de post-processing.",
+        "recommandation": "Ajouter règle dans prompt extraction LLM : 'unit doit être cohérente avec la métrique (% pour ratios, count pour users, $/€ uniquement pour valeurs monétaires)'. Sinon script audit + correction batch via script Python sur src/data/v2-pipeline/*.json."
+      }
+    }
+  ]
+}

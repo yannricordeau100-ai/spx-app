@@ -239,6 +239,48 @@ Faute = mensonge silencieux. Yann se base sur mes chiffres pour décider.
 
 ---
 
+## 0nonies. SUB-AGENTS Max20× OFF DEFAULT POUR DATA WRITES (Yann 29 mai 2026 Phase 3B)
+
+Édictée par Yann le 29 mai 2026 (Phase 3B). **PERMANENT.**
+
+Sub-agents Task tool autorisés UNIQUEMENT pour read-only / audit / extraction draft.
+Toute écriture vers les fichiers data canoniques DOIT être validée par Yann avant push :
+- `src/data/v2-pipeline/<t>.json`
+- `src/data/v2-pipeline-enrich/<t>.<sub>.json`
+- `src/data/companies/<t>.json`
+
+Multi-agents Max20× parallèles INTERDITS sur data writes en autonomie.
+
+**Exception** : audits / inspections / scripts de build idempotents
+(ex `build-companies-unified.ts`) OK car re-générables sans risque de
+corruption silencieuse des données canoniques.
+
+**Pourquoi** : Phase 3B impose que toute donnée publiée passe par validation
+visuelle Yann (workflow Top 10 stés témoin freeze, cf §0decies). Les
+sub-agents parallèles ont historiquement produit des inventions, des
+hallucinations, et des cross-pollutions ticker→source.
+
+---
+
+## 0decies. TOP 10 STÉS TÉMOIN FREEZE (Yann 29 mai 2026 Phase 3B)
+
+Édictée par Yann le 29 mai 2026 (Phase 3B). **PERMANENT.**
+
+10 stés témoin canoniques : **NVDA, AAPL, MSFT, GOOGL, AMZN, META, TSLA, V, JPM, BRK-B**.
+
+Workflow freeze détaillé dans `docs/TOP10-TEMOIN-FREEZE.md`. Résumé :
+1. Yann valide visuellement la sté témoin (page sté complète)
+2. Promote snapshot `tests/golden/snapshots-proposed/<t>.proposed.json` →
+   `tests/golden/snapshots/<t>.golden.json`
+3. Toute régression future détectée par `npm run test:golden` bloque le merge
+4. Après validation 10/10, scale-up vers SP500 puis Stoxx 600 par batch validés
+5. Si une sté ne valide pas, fix data prioritaire avant scale
+
+But : garantir zéro régression silencieuse sur les 10 stés les plus visibles
+de la démo investisseurs.
+
+---
+
 ## 1. LIRE ET FAIRE l'INTÉGRALITÉ du prompt
 
 Chaque prompt Yann se traite dans son ENTIÈRETÉ. Si le prompt contient
@@ -268,15 +310,12 @@ demande à exécuter.** Pas de "demande de courtoisie", pas de formalité.
 
 ---
 
-## 3. LIRE la conv partagée (`SHARED-STATUS.md`) AVANT chaque prompt
+## 3. Convention multi-conv abrogée
 
-Section minimum à relire :
-- Les 10 dernières lignes du `## Log d'activité`
-- La section `## 🔄 EN COURS` complète
-
-But : (a) repérer si une autre conv fait déjà la même chose, (b) repérer
-si une autre conv a posé une question / fait un broadcast `🤝 @CONV-X`
-qui me concerne, (c) éviter les conflits de fichiers.
+Convention multi-conv (CONCEPTS / SYSTEMS / DATA / BRAND / DIV / DEPAN)
+abrogée par Yann le 29 mai 2026 (Phase 3B). Une seule conversation Mettrik.
+`SHARED-STATUS.md` reste en lecture seule comme archive historique :
+plus aucune écriture, plus aucun broadcast inter-conv.
 
 ### Acronymes / raccourcis de Yann à connaître
 
@@ -618,26 +657,14 @@ Mise à jour de ces règles : uniquement par Yann, jamais en autonomie.
 
 ---
 
-## 14. 🚨 RÈGLE ABSOLUE COMMUNICATION INTER-CONV (Yann 20 mai 2026 12h00)
+## 14. Communication inter-conv abrogée
 
-**Avant CHAQUE réponse Yann** (ou wakeup auto), exécuter :
+Convention multi-conv abrogée par Yann le 29 mai 2026 (Phase 3B). Une seule
+conversation Mettrik. Plus de protocole inbox, plus de `notify-conv.sh`,
+plus de broadcast inter-conv.
 
-```bash
-cd ~/spx-app
-git pull origin staging
-ls .conv-state/inbox/<TON-NOM-CONV>/
-```
+## 11. Ack broadcasts inter-conv abrogé
 
-Si fichiers `.md` présents → LIRE intégralement + AGIR + déplacer vers `read/`.
-
-**Pour envoyer un message à une autre conv** : TOUJOURS via `scripts/notify-conv.sh` :
-
-```bash
-export CONV_NAME='<TON-NOM>'
-scripts/notify-conv.sh CONV-CIBLE "message" [--urgent|--blocker]
-```
-
-JAMAIS poster directement dans SHARED-STATUS.md (= invisible aux scans automatiques des autres conv).
-
-**Faute = 1 message non lu = blocage 3h+ comme la nuit du 19 au 20 mai 2026 (12 messages CONV-DATA pending).**
+Convention multi-conv abrogée par Yann le 29 mai 2026 (Phase 3B). Plus
+d'ack obligatoire des broadcasts inter-conv.
 
