@@ -30,11 +30,18 @@ async function loadCleanAllSet(): Promise<Set<string>> {
   try {
     const raw = await fs.readFile(auditPath, "utf-8");
     const audit = JSON.parse(raw) as AuditFile;
-    return new Set(
-      audit.audits
-        .filter((a) => a.is_clean_all === true)
-        .map((a) => a.ticker.toUpperCase()),
-    );
+    // Yann 29 mai 2026 : normaliser les variantes de séparateur (BRK.B / BRK-B
+    // / BRK_B = même sté). Le set contient TOUTES les variantes pour absorber
+    // l'écart entre audit (utilise ".") et URL ("-").
+    const out = new Set<string>();
+    for (const a of audit.audits) {
+      if (a.is_clean_all !== true) continue;
+      const upper = a.ticker.toUpperCase();
+      out.add(upper);
+      out.add(upper.replace(/\./g, "-"));
+      out.add(upper.replace(/-/g, "."));
+    }
+    return out;
   } catch {
     return new Set();
   }
