@@ -56,22 +56,15 @@ function isPublicPath(pathname: string): boolean {
   // visiteur déconnecté tout voir sur /sandbox/v1-8/nvda.
   // → On garde public uniquement la liste/hub + les sous-pages "utilitaires"
   // (pricing, contact, pages-toggle, etc.), pas les /[ticker].
-  if (pathname === "/sandbox/v1-7") return true;
-  if (pathname === "/sandbox/v1-7-5") return true;
-  if (pathname === "/sandbox/v1-8") return true;
-  if (pathname === "/sandbox/v1-9") return true; // Yann 19 mai 2026 — V1.9
-  if (pathname === "/sandbox/v1-9-5") return true; // Yann 25 mai 2026 — V1.9.5 hub
-  if (pathname === "/sandbox/v1-9-status") return true; // Yann 20 mai 2026 — page suivi public
-  // Sous-routes publiques (sandbox utilitaires) : tout ce qui n'est PAS
-  // une page société (= /sandbox/v1-8/<ticker> où ticker matche /^[a-z0-9-.]+$/).
-  if (
-    pathname.startsWith("/sandbox/v1-7/") ||
-    pathname.startsWith("/sandbox/v1-7-5/") ||
-    pathname.startsWith("/sandbox/v1-8/") ||
-    pathname.startsWith("/sandbox/v1-9/") ||
-    pathname.startsWith("/sandbox/v1-9-5/")
-  ) {
-    const tail = pathname.replace(/^\/sandbox\/v1-[789](-5)?\//, "");
+  // Yann 29 mai 2026 Phase 2A : seule V1.9.5 reste canonique.
+  // V1.5/V1.6/V1.7/V1.7.5/V1.8/V1.9 routes supprimées + redirect 308 proxy.
+  // V1.0 reste isolée (routes /<ticker> racine).
+  if (pathname === "/sandbox/v1-9-5") return true; // V1.9.5 hub
+  if (pathname === "/sandbox/v1-9-status") return true; // page suivi public
+  // Sous-routes publiques (sandbox utilitaires V1.9.5) : tout ce qui n'est
+  // PAS une page société (= /sandbox/v1-9-5/<ticker>).
+  if (pathname.startsWith("/sandbox/v1-9-5/")) {
+    const tail = pathname.replace(/^\/sandbox\/v1-9-5\//, "");
     const firstSeg = tail.split("/")[0] ?? "";
     // Liste blanche des sous-routes utilitaires (non-tickers)
     // /contact retiré (auth requise, Yann 13 mai 2026).
@@ -319,18 +312,11 @@ export async function proxy(request: NextRequest) {
     }
   }
 
-  // -1. Redirect 301 V1.0 → V1.9.5 (mis à jour Yann 29 mai 2026 Phase 2A) :
-  //     les routes V1.0 `/<ticker>` (cat/googl/meta/msci/spgi) sont obsolètes.
-  //     Les 5 stés ont été migrées dans V1.9.5 canonique (V1.7.5 supprimée).
-  //     Redirect permanent 301 vers la sandbox V1.9.5 pour préserver les
-  //     backlinks externes (SEO, partages anciens).
-  const V1_TICKERS = new Set(["cat", "googl", "meta", "msci", "spgi"]);
-  const v1Match = routePathname.match(/^\/([a-z]+)\/?$/i);
-  if (v1Match && V1_TICKERS.has(v1Match[1]!.toLowerCase())) {
-    const url = request.nextUrl.clone();
-    url.pathname = `/sandbox/v1-9-5/${v1Match[1]!.toLowerCase()}`;
-    return NextResponse.redirect(url, 301);
-  }
+  // V1.0 (routes `/<ticker>` racine = cat/googl/meta/msci/spgi) RESTE
+  // COMPLÈTEMENT ISOLÉE (Yann 29 mai 2026). Pas de redirect. V1.0 fonctionne
+  // en standalone avec ses propres datasets et composants. Toute autre
+  // version (V1.5/V1.6/V1.7/V1.7.5/V1.8/V1.9) → redirect 308 vers V1.9.5
+  // canonique (cf bloc -1.5ter ci-dessus).
 
   // 0. Maintenance mode (cf. règle Yann 3 mai 2026) : sur prod (mettrik.ai),
   //    SEULE la page /maintenance est accessible. Yann 10 mai 2026 : on
