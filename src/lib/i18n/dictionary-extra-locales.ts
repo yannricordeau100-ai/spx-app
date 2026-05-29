@@ -229,7 +229,7 @@ export const EXTRA_LOCALES: Record<string, Partial<Record<LocaleKey, string>>> =
   "stories.aria_pause": { de: "Pause", nl: "Pauzeren" },
   "stories.aria_resume": { de: "Fortsetzen", nl: "Hervatten" },
   "stories.aria_jump": { de: "Zur Story springen", nl: "Naar story gaan" },
-  "stories.title": { de: "Geschichten", nl: "Stories" },
+  "stories.title": { de: "Story", nl: "Story" },
   "stories.subtitle": {
     de: "Fokussierte KPIs (kurze oder einmalige Historie) und Marktpositionen. Mobile-Format: Auto-Play 5s pro Karte, Pfeile zum Navigieren, Hover zum Pausieren.",
     nl: "Gerichte KPI's (korte of eenmalige historie) en marktposities. Mobiel formaat: auto-play 5s per kaart, pijlen om te navigeren, hover om te pauzeren." },

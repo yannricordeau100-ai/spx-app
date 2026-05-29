@@ -423,7 +423,7 @@ export const DICTIONARY: Dict = {
   "stories.aria_pause": { fr: "Mettre en pause", en: "Pause" },
   "stories.aria_resume": { fr: "Reprendre", en: "Resume" },
   "stories.aria_jump": { fr: "Aller à la story", en: "Go to story" },
-  "stories.title": { fr: "Récits", en: "Stories" },
+  "stories.title": { fr: "Story", en: "Story" },
   "stories.subtitle": {
     fr: "",
     en: "",

@@ -146,20 +146,27 @@ export function ChartCycleControls({
           graphs hero, fallback annuel pour les KPIs sans data quarterly.) */}
       {graphPeriod && onGraphPeriodChange && (
         <div className="inline-flex items-center gap-0.5 rounded-full border border-white/10 bg-white/[0.02] p-0.5">
-          {graphPeriodAvailable.quarter && (
-            <button
-              onClick={() => onGraphPeriodChange("quarter")}
-              className={cn(
-                "rounded-full px-2 py-0.5 text-[10.5px] font-medium transition-colors",
-                graphPeriod === "quarter"
-                  ? "bg-white/10 text-zinc-100"
-                  : "text-zinc-500 hover:text-zinc-200"
-              )}
-              title={t("graph.period.quarter.tooltip")}
-            >
-              {t("graph.period.quarter")}
-            </button>
-          )}
+          {/* Yann 29 mai 2026 (Bug 2) : le bouton Trimestriel est TOUJOURS
+              rendu (même si data quarterly absente) — grisé + disabled dans
+              ce cas. Avant : bouton complètement masqué, l'utilisateur ne
+              savait pas que la fonctionnalité existait. */}
+          <button
+            onClick={() => graphPeriodAvailable.quarter && onGraphPeriodChange("quarter")}
+            disabled={!graphPeriodAvailable.quarter}
+            className={cn(
+              "rounded-full px-2 py-0.5 text-[10.5px] font-medium transition-colors",
+              graphPeriod === "quarter"
+                ? "bg-white/10 text-zinc-100"
+                : "text-zinc-500 hover:text-zinc-200",
+              !graphPeriodAvailable.quarter && "cursor-not-allowed opacity-40"
+            )}
+            title={!graphPeriodAvailable.quarter
+              ? "Trimestriel indisponible pour ce KPI"
+              : t("graph.period.quarter.tooltip")}
+          >
+            {t("graph.period.quarter")}
+          </button>
+
           {graphPeriodAvailable.semester && (
             <button
               onClick={() => onGraphPeriodChange("semester")}

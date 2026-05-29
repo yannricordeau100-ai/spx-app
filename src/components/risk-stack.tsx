@@ -200,15 +200,24 @@ function RiskCard({ risk, index, freeBlocked = false, ticker }: { risk: CompanyR
   const Icon = meta.Icon;
   const TrendIcon = trend.Icon;
 
+  // Yann 29 mai 2026 : fallback `severity` quand `score` est null (data
+  // historique pré-§0quinquies sur NVDA / AMZN / TSLA / V notamment). Toutes
+  // les stés ont au moins l'un des deux. Default neutre 3 en cas absolu.
+  const rawScore = (risk as unknown as { score?: number; severity?: number });
+  const effectiveScore = (typeof rawScore.score === "number" && rawScore.score > 0)
+    ? rawScore.score
+    : (typeof rawScore.severity === "number" && rawScore.severity > 0)
+      ? rawScore.severity
+      : 3;
   // Score color scales from yellow (low) to red (critical)
   const scoreColor =
-    risk.score >= 5
+    effectiveScore >= 5
       ? "#ef4444"
-      : risk.score >= 4
+      : effectiveScore >= 4
         ? "#f97316"
-        : risk.score >= 3
+        : effectiveScore >= 3
           ? "#eab308"
-          : risk.score >= 2
+          : effectiveScore >= 2
             ? "#84cc16"
             : "#22c55e";
 
@@ -277,15 +286,15 @@ function RiskCard({ risk, index, freeBlocked = false, ticker }: { risk: CompanyR
               </span>
             ) : (
               <>
-                <ScoreBar score={risk.score} color={scoreColor} />
+                <ScoreBar score={effectiveScore} color={scoreColor} />
                 <span
                   className="font-mono text-[11px] font-semibold uppercase tracking-wider"
                   style={{ color: scoreColor }}
                 >
-                  {t(scoreLabelKey(risk.score))}
+                  {t(scoreLabelKey(effectiveScore))}
                 </span>
                 <span className="font-mono text-[11px] tabular-nums text-zinc-400">
-                  {risk.score}/5
+                  {effectiveScore}/5
                 </span>
               </>
             )}

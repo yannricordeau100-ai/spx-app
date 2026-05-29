@@ -281,9 +281,15 @@ export function GovernanceCard({
   const currency = locale === "fr" ? `M ${currencySymbol}` : `M${currencySymbol}`;
   const yearsUnit = t("governance.metrics.tenure_unit");
 
+  // Yann 29 mai 2026 (Bug 6) : ne JAMAIS rendre un sous-bloc vide.
+  // Pour chaque metric, on n'inclut l'entrée que si la valeur sous-jacente
+  // existe (number > 0). Sinon le sous-bloc est SUPPRIMÉ entièrement (pas de
+  // "—" frustrant).
+  const hasNum = (v: unknown): v is number => typeof v === "number" && Number.isFinite(v);
+
   // Color seeds for each metric (independent of peer rank — peer rank shown separately)
   const metrics = [
-    {
+    ...(hasNum(g.ceo_total_comp_m) ? [{
       Icon: Briefcase,
       label: g.ceo_name ? `${t("governance.metrics.ceo_comp_label")} (${g.ceo_name})` : t("governance.metrics.ceo_comp_label"),
       value: `${fmt(g.ceo_total_comp_m, 1, locale)} ${currency}`,
@@ -295,8 +301,8 @@ export function GovernanceCard({
       ),
       peerRank: g.ceo_comp_rank,
       inverse: true,
-    },
-    {
+    }] : []),
+    ...(hasNum(g.ceo_pay_ratio) ? [{
       Icon: Award,
       label: t("governance.metrics.pay_ratio_label"),
       value: `${fmt(g.ceo_pay_ratio, 0, locale)}×`,
@@ -308,8 +314,8 @@ export function GovernanceCard({
       ),
       peerRank: g.ceo_pay_ratio_rank,
       inverse: true,
-    },
-    {
+    }] : []),
+    ...(hasNum(g.exec_comp_approval_pct) ? [{
       Icon: Vote,
       label: t("governance.metrics.exec_approval_label"),
       value: `${fmt(g.exec_comp_approval_pct, 1, locale)} %`,
@@ -320,8 +326,8 @@ export function GovernanceCard({
         </p>
       ),
       peerRank: g.exec_comp_approval_rank,
-    },
-    {
+    }] : []),
+    ...(hasNum(g.board_independence_pct) ? [{
       Icon: UserCheck,
       label: t("governance.metrics.board_independence_label"),
       value: `${fmt(g.board_independence_pct, 0, locale)} %`,
@@ -332,11 +338,10 @@ export function GovernanceCard({
         </p>
       ),
       peerRank: g.board_independence_rank,
-    },
-    {
+    }] : []),
+    ...(hasNum(g.board_size) ? [{
       Icon: Users,
       label: t("governance.metrics.board_size_label"),
-      // Yann 15 mai 2026 : fmt() pour éviter "undefined membres" si board_size manquant.
       value: `${fmt(g.board_size, 0, locale)} ${t("governance.metrics.board_size_unit")}`,
       color: "#a78bfa",
       tooltip: g.directors && g.directors.length > 0 ? (
@@ -354,8 +359,8 @@ export function GovernanceCard({
           </ul>
         </>
       ) : undefined,
-    },
-    {
+    }] : []),
+    ...(hasNum(g.avg_tenure_years) ? [{
       Icon: Calendar,
       label: t("governance.metrics.tenure_label"),
       value: `${fmt(g.avg_tenure_years, 1, locale)} ${yearsUnit}`,
@@ -365,7 +370,7 @@ export function GovernanceCard({
           {t("governance.metrics.tenure_tooltip")}
         </p>
       ),
-    },
+    }] : []),
     ...(g.board_women_pct !== undefined
       ? [
           {

@@ -169,14 +169,19 @@ export function StockPriceBlock({ company, freeBlocked = false }: { company: Com
         borderBottomRightRadius: "0.75rem",
       }}
     >
-      {/* Extension fondu gauche — déborde sur le fond de page (Yann 28 mai 2026).
-          Crée un gradient progressif transparent → tone qui s'étire sur
-          ~280px à gauche du bloc, sans toucher à la zone color du bloc. */}
+      {/* Yann (29 mai 2026, Bug 1) : la barre devient UNE SEULE barre du tout
+          à gauche au tout à droite du CompanyHeader. La partie gauche démarre
+          en NOIR (au niveau du logo société), puis transitionne progressivement
+          vers la couleur vert/rouge selon la variation. Ancrage : on étend
+          l'extension gauche via un container ABSOLU qui couvre la moitié
+          gauche du viewport (`-left-[100vw]` est trop, on prend une largeur
+          fixe ample = 800px) avec un gradient progressif transparent (noir
+          virtuel) → tone. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute right-full top-0 h-full w-[280px]"
+        className="pointer-events-none absolute right-full top-0 h-full w-[800px]"
         style={{
-          background: `linear-gradient(90deg, ${tone}00 0%, ${tone}22 30%, ${tone}55 60%, ${tone}99 85%, ${tone} 100%)`,
+          background: `linear-gradient(90deg, transparent 0%, transparent 35%, ${tone}11 55%, ${tone}33 70%, ${tone}66 82%, ${tone}99 92%, ${tone} 100%)`,
         }}
       />
       {/* Glow radial à droite, autour du prix */}
