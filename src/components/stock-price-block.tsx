@@ -179,13 +179,16 @@ export function StockPriceBlock({ company, freeBlocked = false }: { company: Com
           gauche du viewport (`-left-[100vw]` est trop, on prend une largeur
           fixe ample = 800px) avec un gradient progressif transparent (noir
           virtuel) → tone. */}
-      {/* Yann 30 mai 2026 (option 2) : extension gauche couleur PLEINE uniforme.
-          Plus de gradient. Le logo en son propre container clair/sombre reste
-          visuellement hors zone colorée car son fond opaque le détache. */}
+      {/* Yann 30 mai 2026 (clarification option 2 v2) : FONDU progressif noir
+          (après logo) → opaque tone à droite. Gradient sur extension 800px :
+          transparent à gauche, tone à droite. Le logo reste hors zone colorée
+          car le gradient commence transparent. */}
       <div
         aria-hidden
         className="pointer-events-none absolute right-full top-0 h-full w-[800px]"
-        style={{ background: tone }}
+        style={{
+          background: `linear-gradient(90deg, transparent 0%, ${tone}22 40%, ${tone}66 65%, ${tone}cc 85%, ${tone} 100%)`,
+        }}
       />
       {/* Glow radial retiré (Yann 30 mai 2026, option 2) : couleur PLEINE
           uniforme sur toute la zone sans halos. */}
