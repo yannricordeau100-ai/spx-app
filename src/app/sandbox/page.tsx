@@ -46,7 +46,7 @@ type SandboxItem = {
   soon?: boolean;
   /** Couleur d'accentuation du contour de la card (Yann 21 mai 2026 : repérage admin).
    *  "default" (Yann 25 mai 2026) : accent vert/emerald pour signaler la version par défaut. */
-  accent?: "blue" | "violet" | "default";
+  accent?: "blue" | "violet" | "default" | "orange";
 };
 
 type SandboxSection = {
@@ -294,6 +294,13 @@ const SECTIONS: SandboxSection[] = [
         label: "Blocs page société (global + per-sté)",
         desc: "Page unique back office : toggle global on/off des 19 blocs + override per-ticker. Version-agnostic (V1.7-5 / V1.8 / V1.9 / V1.9-5).",
         accent: "blue",
+      },
+      {
+        href: "/sandbox/admin/block-rules",
+        icon: FileEdit,
+        label: "Règles par bloc",
+        desc: "Règles d'écriture libres (fond + forme) par bloc page sté. Les sub-agents lisent ces règles AVANT chaque extraction. Auto-save 1s. Version-agnostic.",
+        accent: "orange",
       },
     ],
   },
@@ -566,25 +573,32 @@ export default function SandboxPage() {
                     const Icon = item.icon;
                     const isBlueAccent = item.accent === "blue";
                     const isDefaultAccent = item.accent === "default";
+                    const isOrangeAccent = item.accent === "orange";
                     const cardClass = item.soon
                       ? "group flex items-start gap-4 rounded-xl border border-white/5 bg-white/[0.01] p-5 opacity-60"
+                      : isOrangeAccent
+                        ? "group flex items-start gap-4 rounded-xl border-2 border-orange-500/55 bg-orange-500/[0.05] p-5 shadow-lg shadow-orange-500/10 transition-colors hover:border-orange-400/80 hover:bg-orange-500/[0.08]"
+                        : isDefaultAccent
+                          ? "group flex items-start gap-4 rounded-xl border-2 border-emerald-500/60 bg-emerald-500/[0.05] p-5 shadow-lg shadow-emerald-500/10 transition-colors hover:border-emerald-400/80 hover:bg-emerald-500/[0.08]"
+                          : isBlueAccent
+                            ? "group flex items-start gap-4 rounded-xl border-2 border-sky-500/55 bg-sky-500/[0.04] p-5 transition-colors hover:border-sky-400/80 hover:bg-sky-500/[0.07]"
+                            : "group flex items-start gap-4 rounded-xl border border-white/10 bg-white/[0.02] p-5 transition-colors hover:border-violet-500/30 hover:bg-white/[0.04]";
+
+                    const iconWrapClass = isOrangeAccent
+                      ? "flex size-10 shrink-0 items-center justify-center rounded-lg border border-orange-500/40 bg-orange-500/15 text-orange-200"
                       : isDefaultAccent
-                        ? "group flex items-start gap-4 rounded-xl border-2 border-emerald-500/60 bg-emerald-500/[0.05] p-5 shadow-lg shadow-emerald-500/10 transition-colors hover:border-emerald-400/80 hover:bg-emerald-500/[0.08]"
+                        ? "flex size-10 shrink-0 items-center justify-center rounded-lg border border-emerald-500/40 bg-emerald-500/15 text-emerald-200"
                         : isBlueAccent
-                          ? "group flex items-start gap-4 rounded-xl border-2 border-sky-500/55 bg-sky-500/[0.04] p-5 transition-colors hover:border-sky-400/80 hover:bg-sky-500/[0.07]"
-                          : "group flex items-start gap-4 rounded-xl border border-white/10 bg-white/[0.02] p-5 transition-colors hover:border-violet-500/30 hover:bg-white/[0.04]";
+                          ? "flex size-10 shrink-0 items-center justify-center rounded-lg border border-sky-500/40 bg-sky-500/15 text-sky-200"
+                          : "flex size-10 shrink-0 items-center justify-center rounded-lg border border-violet-500/30 bg-violet-500/10 text-violet-300";
 
-                    const iconWrapClass = isDefaultAccent
-                      ? "flex size-10 shrink-0 items-center justify-center rounded-lg border border-emerald-500/40 bg-emerald-500/15 text-emerald-200"
-                      : isBlueAccent
-                        ? "flex size-10 shrink-0 items-center justify-center rounded-lg border border-sky-500/40 bg-sky-500/15 text-sky-200"
-                        : "flex size-10 shrink-0 items-center justify-center rounded-lg border border-violet-500/30 bg-violet-500/10 text-violet-300";
-
-                    const labelHoverClass = isDefaultAccent
-                      ? "text-[15px] font-semibold text-zinc-50 group-hover:text-emerald-100"
-                      : isBlueAccent
-                        ? "text-[15px] font-semibold text-zinc-50 group-hover:text-sky-100"
-                        : "text-[15px] font-semibold text-zinc-50 group-hover:text-violet-200";
+                    const labelHoverClass = isOrangeAccent
+                      ? "text-[15px] font-semibold text-zinc-50 group-hover:text-orange-100"
+                      : isDefaultAccent
+                        ? "text-[15px] font-semibold text-zinc-50 group-hover:text-emerald-100"
+                        : isBlueAccent
+                          ? "text-[15px] font-semibold text-zinc-50 group-hover:text-sky-100"
+                          : "text-[15px] font-semibold text-zinc-50 group-hover:text-violet-200";
 
                     const content = (
                       <>
@@ -599,6 +613,11 @@ export default function SandboxPage() {
                             {isBlueAccent && (
                               <span className="rounded-full bg-sky-500/15 px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider text-sky-200">
                                 admin
+                              </span>
+                            )}
+                            {isOrangeAccent && (
+                              <span className="rounded-full bg-orange-500/15 px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider text-orange-200">
+                                Règles par bloc
                               </span>
                             )}
                             {item.soon && (
