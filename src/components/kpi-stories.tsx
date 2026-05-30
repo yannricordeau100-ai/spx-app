@@ -159,11 +159,14 @@ export function KpiStories({ company, freeBlocked = false }: { company: Company;
             })}
           </div>
 
-          {/* Pause/Play toggle (top-right inside) — descendu pour ne plus
-              recouvrir le pin de l'encoche (Yann 21 mai 2026). */}
+          {/* Pause/Play toggle — FIX 4e V1.9.5 (Yann 30 mai 2026) : déplacé
+              dans l'angle ARRONDI haut-droit du phone-frame (au lieu d'être
+              descendu sous la timeline). Le coin droit haut est libre car la
+              notch est centrée. data-pause-position="corner" pour test e2e. */}
           <button
+            data-pause-position="corner"
             onClick={() => setPaused((p) => !p)}
-            className="absolute right-3 top-12 z-30 inline-flex size-7 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur transition-colors hover:bg-black/60"
+            className="absolute right-3 top-3 z-30 inline-flex size-7 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur transition-colors hover:bg-black/60"
             aria-label={paused ? t("stories.aria_resume") : t("stories.aria_pause")}
           >
             {paused ? <Play className="size-3" /> : <Pause className="size-3" />}

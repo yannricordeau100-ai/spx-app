@@ -6,7 +6,8 @@ import { Globe2, LayoutGrid, ChevronLeft, ChevronRight, Sparkles } from "lucide-
 import type { Company, RevenueBreakdown } from "@/lib/data";
 import { brand } from "@/lib/brand";
 import { RepartitionTreemap, RepartitionRadial } from "@/components/charts/repartition-variants";
-import { RepartitionIsoDetachedWedges } from "@/components/charts/repartition-3d-variants";
+// FIX 4f V1.9.5 (Yann 30 mai 2026) : mode ISO 3D supprimé entièrement
+// du sélecteur répartition. Import RepartitionIsoDetachedWedges retiré.
 import { useT } from "@/lib/i18n/provider";
 import type { Locale } from "@/lib/i18n/types";
 import { isBlockDisabledForTicker } from "@/lib/disabled-blocks";
@@ -18,8 +19,10 @@ import { isBlockDisabledForTicker } from "@/lib/disabled-blocks";
  *
  * Position : entre Risks et Governance dans la page société.
  */
-type Style = "treemap" | "radial" | "iso";
-const STYLES: Style[] = ["treemap", "radial", "iso"];
+// FIX 4f V1.9.5 (Yann 30 mai 2026) : mode "iso" (ISO 3D) supprimé.
+// Garde seulement treemap + radial dans le sélecteur.
+type Style = "treemap" | "radial";
+const STYLES: Style[] = ["treemap", "radial"];
 
 type Tab = "geo" | "segment" | "ai_customer";
 
@@ -51,14 +54,15 @@ export function RepartitionBlock({ company }: { company: Company }) {
   const aiConfidence = company.revenue_by_ai_customer_type?.confidence;
   const aiSources = company.revenue_by_ai_customer_type?.sources;
 
-  // Yann 29 mai 2026 : 6 toggles pour les vues répartition (treemap /
-  // radial / iso3d × géo / segment). On filtre les vues désactivées et
-  // on masque la dimension si toutes ses vues sont off.
+  // Yann 29 mai 2026 : toggles pour les vues répartition (treemap / radial
+  // × géo / segment). On filtre les vues désactivées et on masque la
+  // dimension si toutes ses vues sont off.
+  // FIX 4f V1.9.5 (30 mai 2026) : ISO 3D entièrement supprimé du sélecteur.
   const geoStyles: Style[] = STYLES.filter(
-    (s) => !isBlockDisabledForTicker(company.ticker, `repartition_geo_${s === "iso" ? "iso3d" : s}`),
+    (s) => !isBlockDisabledForTicker(company.ticker, `repartition_geo_${s}`),
   );
   const segmentStyles: Style[] = STYLES.filter(
-    (s) => !isBlockDisabledForTicker(company.ticker, `repartition_segment_${s === "iso" ? "iso3d" : s}`),
+    (s) => !isBlockDisabledForTicker(company.ticker, `repartition_segment_${s}`),
   );
 
   const hasGeo = !!(geo && geo.slices.length > 0) && geoStyles.length > 0;
@@ -245,10 +249,8 @@ export function RepartitionBlock({ company }: { company: Company }) {
               </div>
             ) : style === "treemap" ? (
               <RepartitionTreemap data={active.slices} unit={active.unit} total={active.total} accent={accent} decimals={decimals} />
-            ) : style === "radial" ? (
-              <RepartitionRadial data={active.slices} unit={active.unit} total={active.total} accent={accent} decimals={decimals} />
             ) : (
-              <RepartitionIsoDetachedWedges data={active.slices} unit={active.unit} total={active.total} accent={accent} decimals={decimals} />
+              <RepartitionRadial data={active.slices} unit={active.unit} total={active.total} accent={accent} decimals={decimals} />
             )}
           </motion.div>
         </AnimatePresence>

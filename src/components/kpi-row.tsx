@@ -43,8 +43,14 @@ export function KpiRow({
   freeBlocked?: boolean;
 }) {
   const { t, locale } = useT();
-  const primaryName = locale === "en" && kpi.name_en ? kpi.name_en : kpi.name_fr;
-  const secondaryName = locale === "en" ? kpi.name_fr : kpi.name_en;
+  // Yann FIX 4d : en FR on affiche name_fr en priorité ; si absent fallback name_en
+  // (avec flag implicite "à traduire" via tooltip i qui montre toujours name_en).
+  const primaryName = locale === "en"
+    ? (kpi.name_en || kpi.name_fr)
+    : (kpi.name_fr || kpi.name_en);
+  // Yann FIX 4d : on retire la version EN sous le titre du tableau pour libérer la place,
+  // la version EN reste accessible dans le tooltip "i" via InfoTooltip ci-dessous.
+  const secondaryName: string | undefined = undefined;
   const tone = yoyTone(kpi.yoy, kpi.type);
   const yoyColor =
     tone === "pos" ? "#10b981" : tone === "neg" ? "#f43f5e" : "#a1a1aa";
@@ -158,20 +164,21 @@ export function KpiRow({
             <BlurredFreeText blocked={freeBlocked} ticker={ticker} as="div" className="text-zinc-200">
               {kpi.explanation}
             </BlurredFreeText>
+            {/* Yann FIX 4d (29 mai 2026) : nom EN du KPI dans tooltip "i" quand
+                différent du nom FR principal affiché dans le tableau. */}
+            {kpi.name_en && kpi.name_en !== kpi.name_fr && (
+              <div className="mt-2 border-t border-white/10 pt-2 text-[11.5px] text-zinc-400">
+                <span className="font-mono uppercase tracking-wider text-[9.5px] text-zinc-500">EN</span>{" "}
+                <span className="italic text-zinc-300">{kpi.name_en}</span>
+              </div>
+            )}
           </InfoTooltip>
         </div>
 
         <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
-          <span
-            className="inline-flex items-center rounded-md border px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wider"
-            style={{
-              borderColor: `${accent}33`,
-              color: accent,
-              background: `${accent}10`,
-            }}
-          >
-            {kpi.type}
-          </span>
+          {/* Yann (V1.9.5 fix 4c, 30 mai 2026) : badge violet sub-category
+              retiré. Garder uniquement la nature (gris) pour ne plus afficher
+              de catégorie violette redondante sur le tableau Indicateurs clés. */}
           <span className="inline-flex items-center rounded-md border border-[#262626] px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wider text-zinc-400">
             {kpi.nature}
           </span>
