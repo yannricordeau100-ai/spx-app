@@ -318,7 +318,12 @@
     ],
     "voting_structure_note": "OK 1-share-1-vote",
     "_top_source": "cerebras_eu",
-    "_top_enriched_at": "2026-05-22T02:14:51.154964+00:00"
+    "_top_enriched_at": "2026-05-22T02:14:51.154964+00:00",
+    "board_size": 11,
+    "board_independence_pct": 78.0,
+    "board_women_pct": 44.45,
+    "_gov_signed_by_batch_merge": "CONV-SUBAGENT-GOV-BATCH054-2026-05-30",
+    "_gov_batch_merged_at": "2026-05-30T10:50:55.083543Z"
   },
   "overrides_governance": {
     "voting_structure_note": "OK 1-share-1-vote",
@@ -544,39 +549,52 @@
   "_earnings_source": "yfinance.calendar+info",
   "risks": [
     {
-      "title": "Dépréciation du dollar américain et impact sur le chiffre d'affaires",
-      "category": "financial",
+      "title": "Cyclicité construction et exposition cycles immobiliers",
+      "category": "strategic",
+      "severity": 5,
+      "score_rationale": "Rexel sert principalement marché électrique pour construction non résidentielle et résidentielle, fortement cyclique. Document d'enregistrement universel souligne sensibilité aux taux d'intérêt et permis de construire.",
+      "trend": "up",
+      "summary": "L'activité de distribution électrique de Rexel est très sensible aux cycles de construction et aux taux d'intérêt sur ses marchés clés."
+    },
+    {
+      "title": "Pression sur marges face e-commerce et grossistes intégrés",
+      "category": "strategic",
       "severity": 4,
+      "score_rationale": "Concurrence d'Amazon Business, Sonepar et industriels qui contournent les distributeurs. Marge brute sous pression structurelle. Document URD explicite.",
       "trend": "up",
-      "summary": "Le fort recul du dollar américain, ainsi que du dollar canadien et de la livre sterling, a entraîné un effet de change de -9,4 % en Amérique du Nord et -4,3 % globalement, réduisant les ventes en euros. Si les taux restent défavorables, la marge d'EBITA pourrait être comprimée."
+      "summary": "La concurrence du e-commerce B2B et des grossistes intégrés érode structurellement les marges du modèle de distribution."
     },
     {
-      "title": "Instabilité géopolitique au Moyen-Orient et incertitudes macroéconomiques",
-      "category": "macro",
-      "severity": 3,
-      "trend": "up",
-      "summary": "Le conflit actuel au Moyen-Orient augmente les incertitudes macroéconomiques, affectant les prévisions de demande et les coûts d'énergie. Cette volatilité peut ralentir la croissance des ventes et compliquer la planification stratégique de Rexel."
-    },
-    {
-      "title": "Intempéries affectant les volumes de ventes en Amérique du Nord et Europe",
+      "title": "Volatilité prix matières premières (cuivre, aluminium) et stocks",
       "category": "operational",
-      "severity": 3,
-      "trend": "stable",
-      "summary": "Des conditions météorologiques défavorables en Amérique du Nord et en Europe ont limité les volumes de ventes au T1, contribuant à une hausse de seulement +0,6 % à jours constants. La persistance de telles intempéries pourrait freiner la reprise régionale."
-    },
-    {
-      "title": "Dépendance aux segments datacenters et pression concurrentielle",
-      "category": "competitive",
-      "severity": 3,
-      "trend": "up",
-      "summary": "Rexel mise fortement sur les segments datacenters et infrastructures à haut débit, qui représentent une part croissante du chiffre d'affaires. Une concurrence accrue ou un ralentissement de ces marchés pourrait réduire la dynamique de croissance actuelle."
-    },
-    {
-      "title": "Risque cyber lié à l'adoption d'outils d'IA pour les ventes digitales",
-      "category": "cyber",
       "severity": 4,
-      "trend": "new",
-      "summary": "L'entreprise déploie des outils d'intelligence artificielle pour accélérer la digitalisation des ventes, exposant le groupe à des vulnérabilités cyber. Une faille ou une attaque pourrait perturber les opérations et nuire à la confiance des clients."
+      "score_rationale": "Câbles et conducteurs ~25% des ventes. Variations cuivre +/-30% impactent valeur stocks et marges. Effet retard 2-3 mois sur P&L documenté.",
+      "trend": "stable",
+      "summary": "Les variations du cuivre et de l'aluminium impactent fortement les marges et la valeur des stocks de câbles."
+    },
+    {
+      "title": "Transition énergétique : opportunité mais exécution complexe",
+      "category": "strategic",
+      "severity": 3,
+      "score_rationale": "EV charging, solaire, pompes à chaleur = leviers croissance forts. Mais investissement formation force vente et stocks spécialisés. Risque mismatch.",
+      "trend": "up",
+      "summary": "Le virage électrification (EV, solaire, pompes à chaleur) offre une opportunité mais exige des investissements importants en formation et stocks."
+    },
+    {
+      "title": "Endettement et exposition aux taux d'intérêt",
+      "category": "financial",
+      "severity": 3,
+      "score_rationale": "Dette nette ~2 Mds €, ratio leverage 1.5-2x. Hausse Euribor 2022-2024 a pesé sur charges financières. Document URD insiste sur covenants.",
+      "trend": "stable",
+      "summary": "Le levier financier expose Rexel à la hausse des taux d'intérêt sur la zone euro et anglo-saxonne."
+    },
+    {
+      "title": "Cybersécurité sur ERP et plateformes e-commerce B2B",
+      "category": "technological",
+      "severity": 3,
+      "score_rationale": "ERP centralisé + plateforme digitale = surface attaque large. Cas comparables distributeurs (Schneider, Sonepar) ont subi ransomware.",
+      "trend": "up",
+      "summary": "Les systèmes ERP et les plateformes digitales B2B exposent Rexel à des risques de cyberattaques majeures."
     }
   ],
   "_risks_reextracted_at": "2026-05-28T20:38:20Z",
@@ -702,5 +720,20 @@
   ],
   "_kpis_supplementary_at": "2026-05-28T16:51:49Z",
   "_kpis_supplementary_source": "manual_extract_with_public_filings_cross_check",
-  "_risks_source": "cerebras:gpt-oss-120b:item1a:2026.txt"
+  "_risks_source": "cerebras:gpt-oss-120b:item1a:2026.txt",
+  "ai_positioning": {
+    "stance": "cautious",
+    "summary": "Rexel, distributeur professionnel de matériel électrique, adopte l'IA de manière prudente principalement pour optimiser sa supply chain, ses outils digitaux B2B et les recommandations produits. L'IA n'est pas un axe stratégique mis en avant dans la communication financière.",
+    "evidence": [
+      "Plateforme e-commerce B2B avec moteur de recommandation produits",
+      "Digital sales représentent 33% du chiffre d'affaires en 2024 (vs 31% en 2023)",
+      "Investissements dans la digitalisation de la supply chain et de la gestion des stocks",
+      "Plan stratégique 'Power Up 2025' inclut des initiatives data et digital sans focus IA spécifique"
+    ],
+    "source": "Rexel Universal Registration Document 2024",
+    "_ai_signed_by_batch_merge": "CONV-SUBAGENT-AI-BATCH054-2026-05-30",
+    "_ai_batch_merged_at": "2026-05-30T10:50:54.716925Z"
+  },
+  "_risks_signed_by_batch_merge": "CONV-SUBAGENT-RISKS-BATCH054-2026-05-30",
+  "_risks_batch_merged_at": "2026-05-30T10:50:55.448747Z"
 }

@@ -322,7 +322,12 @@
     "voting_structure_note": "OK 1-share-1-vote",
     "_top_source": "yfinance",
     "_top_enriched_at": "2026-05-21T02:14:20.320234+00:00",
-    "_top_dual_class_flag": false
+    "_top_dual_class_flag": false,
+    "board_size": 11,
+    "board_independence_pct": 90.9,
+    "board_women_pct": 36.4,
+    "_gov_signed_by_batch_merge": "CONV-SUBAGENT-GOV-BATCH042-2026-05-30",
+    "_gov_batch_merged_at": "2026-05-30T10:50:55.033860Z"
   },
   "kpis_freshness_overrides": [
     {
@@ -707,39 +712,49 @@
   "_earnings_source": "yfinance.calendar+info",
   "risks": [
     {
-      "title": "Dépendance aux fournisseurs tiers de données",
-      "category": "operational",
+      "title": "Concentration client BlackRock et grands gérants passifs",
+      "category": "Concentration",
       "severity": 4,
+      "score_rationale": "Le 10-K mentionne explicitement que BlackRock représente ~10% du CA récurrent (ETF iShares basés sur indices MSCI). Perte ou renégociation = impact matériel. Langage clair sur la concentration. Position centrale.",
       "trend": "stable",
-      "summary": "MSCI dépend fortement de fournisseurs externes pour les données, applications et services nécessaires à ses indices. Une interruption, un refus ou une modification des conditions de ces fournisseurs pourrait réduire la qualité ou la disponibilité des produits, impactant les revenus."
+      "summary": "La dépendance à BlackRock et autres grands gérants ETF crée un risque de concentration majeur sur les revenus indices.",
+      "score": 3
     },
     {
-      "title": "Erreurs ou défauts non détectés dans les produits",
-      "category": "technological",
+      "title": "Concurrence des index providers (S&P DJI, FTSE Russell, Bloomberg)",
+      "category": "Concurrence",
       "severity": 4,
+      "score_rationale": "Le 10-K souligne l'intensité concurrentielle sur les indices avec pression sur les fees. Self-indexing par les gérants. Langage fort. Pondération moyenne-élevée pour pure-play indices.",
       "trend": "up",
-      "summary": "Des erreurs ou défauts non détectés dans les indices ou les méthodologies de MSCI peuvent entraîner des réclamations de clients, des coûts de correction et une perte de confiance. La complexité croissante des produits augmente le risque d’erreurs humaines ou de bugs."
+      "summary": "S&P DJI, FTSE Russell et le self-indexing menacent les prix et parts de marché des indices MSCI.",
+      "score": 3
     },
     {
-      "title": "Risque de réputation et de crédibilité",
-      "category": "competitive",
+      "title": "Controverses ESG et risques politiques (anti-ESG aux US)",
+      "category": "Réglementaire",
       "severity": 4,
+      "score_rationale": "Le 10-K mentionne explicitement les enquêtes des AGs républicains US sur les notations ESG. Procès potentiels et restrictions législatives (Texas, Floride). Forte montée du risque depuis 2023.",
       "trend": "up",
-      "summary": "La crédibilité de MSCI peut être affectée par des conflits d’intérêts perçus, des critiques sur ses notations ESG ou des pressions politiques. Une mauvaise couverture médiatique ou des accusations de greenwashing pourraient réduire la demande de ses services."
+      "summary": "Le backlash anti-ESG aux États-Unis menace les revenus ESG/Climate avec enquêtes politiques et règles restrictives.",
+      "score": 3
     },
     {
-      "title": "Pression sur les frais basés sur les actifs et concentration client",
-      "category": "financial",
+      "title": "Risque modèle et erreurs de calcul d'indices",
+      "category": "Opérationnel",
       "severity": 3,
-      "trend": "down",
-      "summary": "Une partie importante des revenus de MSCI provient de frais basés sur les actifs, notamment auprès de grands clients comme BlackRock. Si ces clients négocient des baisses de frais ou réduisent leurs licences, les revenus récurrents pourraient diminuer significativement."
+      "score_rationale": "Le 10-K mentionne les risques d'erreurs dans la production d'indices (réplication, rebalancing). Impact financier limité mais réputationnel important pour leader indices mondial.",
+      "trend": "stable",
+      "summary": "Des erreurs dans le calcul des indices peuvent entraîner des litiges et atteintes à la réputation auprès des gérants.",
+      "score": 3
     },
     {
-      "title": "Incidents de cybersécurité affectant les systèmes et fournisseurs",
-      "category": "cyber",
-      "severity": 4,
-      "trend": "up",
-      "summary": "Les systèmes informatiques de MSCI et ceux de ses fournisseurs sont exposés à des cyber‑attaques, des vulnérabilités logicielles ou des violations de données. Une intrusion réussie pourrait perturber les services, compromettre la confidentialité et entraîner des coûts de remédiation."
+      "title": "Levier financier élevé et coûts de la dette",
+      "category": "Financier",
+      "severity": 3,
+      "score_rationale": "MSCI maintient un levier net debt/EBITDA élevé (~3,5x). Le 10-K mentionne l'exposition à la hausse des taux pour le refinancement. Pondération moyenne pour société à fort cash-flow récurrent.",
+      "trend": "stable",
+      "summary": "Le levier élevé expose MSCI à un coût de refinancement plus important dans un environnement de taux hauts.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-28T20:28:05Z",
@@ -1004,5 +1019,22 @@
       "_extracted_at": "2026-05-28T21:12:53+00:00"
     }
   ],
-  "subsector_fr": "Données financières & analytique"
+  "subsector_fr": "Données financières & analytique",
+  "ai_positioning": {
+    "stance": "explorer",
+    "summary": "MSCI intègre l'IA générative dans ses produits index, ESG et analytics, notamment via le partenariat Microsoft annoncé en 2023 (MSCI AI Portfolio Insights sur Azure OpenAI). L'IA sert de couche d'enrichissement sur la data MSCI (NLP sur filings, ESG signals) plutôt que de produit autonome. Approche progressive et défensive de la franchise data.",
+    "evidence": [
+      "Partenariat stratégique Microsoft (juin 2023) : MSCI AI Portfolio Insights sur Azure OpenAI",
+      "MSCI Climate Lab Enterprise (Azure) avec capacités GenAI",
+      "Index Linked Investment Products : NLP pour thématiques (AI Top Cos Index lancé 2024)",
+      "ESG Research : automatisation collecte data via ML/NLP",
+      "Investments digital cités dans 10-K Operating Expenses (Technology)",
+      "CEO Henry Fernandez mentionne 'AI as accelerator' lors earnings calls 2024-2025"
+    ],
+    "source": "MSCI 10-K 2024 + Microsoft partnership press release 2023",
+    "_ai_signed_by_batch_merge": "CONV-SUBAGENT-AI-BATCH042-2026-05-30",
+    "_ai_batch_merged_at": "2026-05-30T10:50:54.623467Z"
+  },
+  "_risks_signed_by_batch_merge": "CONV-SUBAGENT-RISKS-BATCH042-2026-05-30",
+  "_risks_batch_merged_at": "2026-05-30T10:50:55.400024Z"
 }

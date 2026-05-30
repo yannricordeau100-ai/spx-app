@@ -96,7 +96,10 @@
     "voting_structure_note": "OK 1-share-1-vote",
     "_top_source": "yfinance",
     "_top_enriched_at": "2026-05-21T02:12:51.636360+00:00",
-    "_top_dual_class_flag": false
+    "_top_dual_class_flag": false,
+    "board_women_pct": 30.0,
+    "_gov_signed_by_batch_merge": "CONV-SUBAGENT-GOV-BATCH019-2026-05-30",
+    "_gov_batch_merged_at": "2026-05-30T10:50:54.905122Z"
   },
   "kpis_type_overrides": {
     "Cap Return": "Dividende",
@@ -578,20 +581,58 @@
   "_earnings_source": "yfinance.calendar+info",
   "risks": [
     {
-      "title": "Exposition aux taux d'intérêt et refinancement",
-      "category": "financial",
-      "severity": 2,
-      "score_rationale": "Risque mentionné explicitement dans le filing US 2026. Sévérité 2/5 inférée du langage utilisé.",
-      "trend": "stable",
-      "summary": "Une hausse des taux d'intérêt augmente le coût du service de la dette et peut peser sur la rentabilité et la capacité d'investissement."
+      "title": "Concentration et dépendance aux GPU Nvidia pour l'AI server",
+      "category": "Industriel",
+      "severity": 5,
+      "score_rationale": "Le 10-K souligne la dépendance aux GPU Nvidia H100/H200/Blackwell pour la croissance des serveurs IA. Allocation limitée, dépendance à un fournisseur unique, et tensions sur les délais. Backlog AI server élevé mais fragile. (score par défaut, à affiner)",
+      "trend": "up",
+      "summary": "La croissance des serveurs IA Dell dépend de l'allocation de GPU Nvidia, créant un risque d'approvisionnement majeur.",
+      "score": 3
     },
     {
-      "title": "Pression concurrentielle sur les prix",
-      "category": "competitive",
-      "severity": 3,
-      "score_rationale": "Risque mentionné explicitement dans le filing US 2026. Sévérité 3/5 inférée du langage utilisé.",
+      "title": "Cyclicité PC et concurrence prix",
+      "category": "Concurrence",
+      "severity": 4,
+      "score_rationale": "Le 10-K détaille la pression de HP, Lenovo, Apple sur le marché PC, sensibilité au cycle de renouvellement et au climat IT. Marges fines. (score par défaut, à affiner)",
       "trend": "stable",
-      "summary": "L'intensification de la concurrence ou l'arrivée de nouveaux acteurs peut éroder les parts de marché, comprimer les marges et limiter le pouvoir de fixation des prix."
+      "summary": "Le marché PC est très concurrentiel et les marges restent fines malgré le cycle de renouvellement Windows 11/IA PC.",
+      "score": 3
+    },
+    {
+      "title": "Endettement élevé issu de la fusion EMC",
+      "category": "Financier",
+      "severity": 4,
+      "score_rationale": "Le 10-K rappelle le niveau de dette structurelle. Sensibilité aux taux et notation crédit. Capacité de retour à l'actionnaire dépend de la génération de cash. (score par défaut, à affiner)",
+      "trend": "down",
+      "summary": "L'endettement hérité de l'acquisition EMC limite la flexibilité financière et expose aux variations de taux.",
+      "score": 3
+    },
+    {
+      "title": "Tensions géopolitiques US-Chine et tarifs",
+      "category": "Géopolitique",
+      "severity": 4,
+      "score_rationale": "Le 10-K cite restrictions exports semis et tarifs. Production en Asie et clientèle mondiale. Risque d'interdiction de vente de certaines configs en Chine. (score par défaut, à affiner)",
+      "trend": "up",
+      "summary": "Les restrictions d'export et tarifs US-Chine perturbent la chaîne d'approvisionnement et l'accès au marché chinois.",
+      "score": 3
+    },
+    {
+      "title": "Cybersécurité et fuite de données clients",
+      "category": "Cybersécurité",
+      "severity": 4,
+      "score_rationale": "Le 10-K mentionne l'incident de fuite de données clients en 2024 (49M de records). Risques de litiges et perte de confiance. Pression accrue sur la sécurité interne. (score par défaut, à affiner)",
+      "trend": "up",
+      "summary": "Les fuites de données clients récentes nuisent à la réputation Dell et augmentent les coûts de conformité et litiges.",
+      "score": 3
+    },
+    {
+      "title": "Transition vers services et logiciels d'infrastructure",
+      "category": "Stratégique",
+      "severity": 3,
+      "score_rationale": "Le 10-K évoque le pivot APEX (as-a-service) et le risque d'exécution face à HPE GreenLake, Pure Storage. Adoption progressive et marges variables. (score par défaut, à affiner)",
+      "trend": "stable",
+      "summary": "Le pivot vers les modèles as-a-service APEX prend du temps face à des concurrents bien établis.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-27",
@@ -776,5 +817,25 @@
   "_hero_kpi_override_orphan_flag_at": "2026-05-28",
   "_hero_kpi_override_orphan_flag_by": "CONV-SUBAGENT-POLISH",
   "_hero_kpi_override_orphan_flag_reason": "hero_kpi_override 'AI-optimized servers' does not match any short in kpis[], stories_kpis[], or kpis_supplementary[]",
-  "subsector_fr": "Matériel"
+  "subsector_fr": "Matériel",
+  "ai_positioning": {
+    "stance": "leader",
+    "summary": "Dell Technologies est un leader des serveurs IA enterprise avec sa gamme PowerEdge XE et la Dell AI Factory en partenariat avec NVIDIA. AI server backlog record ($14.4 Mds Q4 FY25, $9 Mds shipped FY25) et positionnement central sur l'infrastructure IA tier-2 (xAI, Meta, sovereign AI) en plus du marché enterprise.",
+    "evidence": [
+      "PowerEdge XE9680, XE9712 (GB200), XE9785 (MI300X) : serveurs IA flagship",
+      "Dell AI Factory with NVIDIA : full-stack reference architecture",
+      "AI server backlog $14.4 Mds Q4 FY25, shipped $9.0 Mds FY25",
+      "Customer wins : xAI Colossus (Memphis), CoreWeave, Meta",
+      "ISG (Infrastructure Solutions Group) AI revenue >$10 Mds annual run-rate",
+      "Partenariats NVIDIA Blackwell GB200 NVL72, AMD Instinct MI300X",
+      "Dell AI PC strategy (Copilot+ PCs) sur CSG",
+      "PowerScale, ObjectScale storage pour AI workloads"
+    ],
+    "source": "DELL 10-K FY2025, Q4 FY25 earnings",
+    "_ai_signed_by_batch_merge": "CONV-SUBAGENT-AI-BATCH019-2026-05-30",
+    "_ai_batch_merged_at": "2026-05-30T10:50:54.451556Z"
+  },
+  "_risks_signed_by_batch_merge": "CONV-SUBAGENT-RISKS-BATCH019-2026-05-30",
+  "_risks_batch_merged_at": "2026-05-30T10:50:55.324528Z",
+  "_risks_batch_merge_source": "Dell Technologies 10-K Item 1A (FY2025)"
 }

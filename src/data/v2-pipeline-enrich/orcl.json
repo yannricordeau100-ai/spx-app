@@ -567,39 +567,52 @@
   "_earnings_source": "yfinance.calendar+info",
   "risks": [
     {
-      "title": "Risque de change de traduction",
-      "category": "financial",
-      "severity": 4,
-      "trend": "up",
-      "summary": "Les revenus et dépenses consolidés d’Oracle sont libellés en dollars US. Toute variation du dollar face aux principales devises étrangères modifie la valeur reportée des actifs, passifs, revenus et charges, affectant les résultats."
-    },
-    {
-      "title": "Risque de transaction en devises étrangères",
-      "category": "financial",
-      "severity": 4,
-      "trend": "stable",
-      "summary": "Les opérations inter‑entreprises exposent Oracle aux fluctuations des monnaies comme l’AUD, le BRL, le GBP, l’EUR, l’INR, le JPY et le SAR. Des écarts de change peuvent générer des gains ou pertes non opérationnels."
-    },
-    {
-      "title": "Risque de sensibilité aux variations de taux de change",
-      "category": "market",
-      "severity": 5,
-      "trend": "up",
-      "summary": "Une baisse hypothétique de 10 % des taux de change entraînerait une perte de 2,379 M$ sur les revenus et 1,788 M$ sur les actifs, montrant la vulnérabilité des résultats aux mouvements de change. Ce scénario souligne l’impact direct des fluctuations monétaires sur la rentabilité d’Oracle."
-    },
-    {
-      "title": "Risque lié aux limites inhérentes des contrôles internes",
+      "title": "Exécution capex cloud OCI à grande échelle",
       "category": "operational",
-      "severity": 3,
-      "trend": "stable",
-      "summary": "Les contrôles de divulgation et de reporting financier d’Oracle ne garantissent pas l’absence totale d’erreurs ou de fraudes, laissant une marge de manœuvre pour des défaillances non détectées. Des failles potentielles pourraient affecter la fiabilité des informations publiées."
+      "severity": 5,
+      "score_rationale": "Sévérité 5/5 : capex >$25Mds annuels, RPO Oracle Cloud explosé >$500Mds (commande OpenAI Stargate $300Mds). Risque exécution datacenters massif.",
+      "trend": "up",
+      "summary": "Engagement RPO massif (>$500 Mds) requiert exécution capex datacenters majeure et timely, retards peuvent compromettre obligations contractuelles."
     },
     {
-      "title": "Risque d’exposition aux marchés internationaux",
-      "category": "macro",
+      "title": "Dépendance NVIDIA et chaîne supply GPU",
+      "category": "operational",
+      "severity": 5,
+      "score_rationale": "Sévérité 5/5 : croissance OCI dépend disponibilité GPU H100/H200/B200/GB200. Rupture supply = retards revenus AI infra.",
+      "trend": "stable",
+      "summary": "Dépendance critique aux GPU NVIDIA (H100, B200) et leur disponibilité contraint capacité OCI et timing reconnaissance revenue AI."
+    },
+    {
+      "title": "Concurrence hyperscalers AWS Azure GCP",
+      "category": "competitive",
+      "severity": 5,
+      "score_rationale": "Sévérité 5/5 : Oracle #4 cloud derrière AWS/Azure/GCP. Risque commoditisation infrastructure cloud et compression marges.",
+      "trend": "stable",
+      "summary": "Compétition féroce des hyperscalers AWS, Azure et Google Cloud avec moyens R&D et capex supérieurs limite parts de marché et marges OCI."
+    },
+    {
+      "title": "Concentration client OpenAI",
+      "category": "operational",
       "severity": 4,
+      "score_rationale": "Sévérité 4/5 : contrat OpenAI ~$300Mds représente part majeure RPO. Risque concentration et capacité paiement long terme.",
       "trend": "up",
-      "summary": "Une part importante du chiffre d’affaires provient de filiales étrangères, exposant Oracle aux conditions économiques, politiques et réglementaires des pays où il opère, ce qui peut affecter la croissance. Des chocs macroéconomiques dans ces régions pourraient réduire les marges et ralentir les investissements."
+      "summary": "Concentration exceptionnelle sur contrat OpenAI Stargate (~$300 Mds) expose Oracle à risque crédit et exécution si OpenAI rencontre difficultés."
+    },
+    {
+      "title": "Transition licences à cloud et taux change",
+      "category": "financial",
+      "severity": 3,
+      "score_rationale": "Sévérité 3/5 : déclin progressif licences traditionnelles, exposition FX (~50% revenus hors US). Mention 'material adverse effect'.",
+      "trend": "down",
+      "summary": "Transition modèle licences/support vers cloud SaaS et IaaS comprime marges à court terme. Volatilité FX impacte revenus internationaux."
+    },
+    {
+      "title": "Cybersécurité et confiance clients critiques",
+      "category": "technological",
+      "severity": 4,
+      "score_rationale": "Sévérité 4/5 : Oracle gère bases données critiques (gouvernement, banques, santé). Breach majeur compromettrait crédibilité OCI.",
+      "trend": "up",
+      "summary": "Risque cyberattaque sur infrastructure cloud OCI ou applications SaaS (Fusion, NetSuite) menace confiance clients critiques et obligations contractuelles."
     }
   ],
   "_risks_reextracted_at": "2026-05-28T20:32:37Z",
@@ -740,5 +753,22 @@
       "_extracted_at": "2026-05-28T21:13:34+00:00"
     }
   ],
-  "_risks_source": "cerebras:gpt-oss-120b:item1a:ORCL_2025-06-18.htm.gz"
+  "_risks_source": "cerebras:gpt-oss-120b:item1a:ORCL_2025-06-18.htm.gz",
+  "ai_positioning": {
+    "stance": "leader",
+    "summary": "Oracle est un leader infrastructure IA via Oracle Cloud Infrastructure (OCI) Supercluster (jusqu'à 131,072 GPU NVIDIA B200), partenariats stratégiques avec OpenAI, Meta, xAI, Cohere. Oracle Database 23ai intègre vector search natif. Stargate project (500B$ annoncé janv 2025) avec OpenAI/SoftBank place Oracle au centre du build-out IA. Croissance RPO explosée à 130B$+ portée par contrats AI training.",
+    "evidence": [
+      "OCI Supercluster : jusqu'à 131,072 GPU NVIDIA B200, 65,536 H200 Blackwell",
+      "Project Stargate (janv 2025) : 500B$ infrastructure IA avec OpenAI, SoftBank, MGX",
+      "Oracle Database 23ai : AI Vector Search natif, in-database LLM integration",
+      "Contrats multi-milliards avec OpenAI, Meta, xAI, NVIDIA, Cohere annoncés FY24-FY25",
+      "RPO Q2 FY25 = 97B$ puis Q3 = 130B$+ majoritairement cloud/AI",
+      "OCI Generative AI Service : Cohere, Meta Llama, Mistral en managed service"
+    ],
+    "source": "ORCL 10-K, earnings calls Q1-Q3 FY25, Stargate announcement",
+    "_ai_signed_by_batch_merge": "CONV-SUBAGENT-AI-BATCH047-2026-05-30",
+    "_ai_batch_merged_at": "2026-05-30T10:50:54.662479Z"
+  },
+  "_risks_signed_by_batch_merge": "CONV-SUBAGENT-RISKS-BATCH047-2026-05-30",
+  "_risks_batch_merged_at": "2026-05-30T10:50:55.420428Z"
 }

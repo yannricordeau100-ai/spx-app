@@ -254,7 +254,25 @@
     "top_disclosure": "eu_regex_extracted",
     "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
     "_top_disclosure_at": "2026-05-21T02:49:04.693300+00:00",
-    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:19:00Z"
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:19:00Z",
+    "board_independence_pct": 83.3,
+    "board_women_pct": 41.7,
+    "top_capital": [
+      {
+        "name": "BlackRock, Inc.",
+        "pct": 9.91
+      },
+      {
+        "name": "The Vanguard Group",
+        "pct": 4.2
+      },
+      {
+        "name": "Norges Bank Investment Management",
+        "pct": 3.1
+      }
+    ],
+    "_gov_signed_by_batch_merge": "CONV-SUBAGENT-GOV-BATCH046-2026-05-30",
+    "_gov_batch_merged_at": "2026-05-30T10:50:55.054135Z"
   },
   "overrides_governance": {
     "voting_structure_note": "OK 1-share-1-vote",
@@ -497,39 +515,58 @@
   "_earnings_source": "yfinance.calendar+info",
   "risks": [
     {
-      "title": "Capacité de capital face aux scénarios de stress",
-      "category": "financial",
+      "title": "Risque de crédit et qualité du portefeuille",
+      "category": "Crédit",
+      "severity": 5,
+      "score_rationale": "Le rapport annuel NatWest place le risque de crédit comme principal risque. La hausse des taux et un éventuel ralentissement UK peuvent dégrader la qualité du portefeuille hypothécaire et entreprise. NatWest a une forte exposition au marché immobilier résidentiel UK. Pondération maximale pour une banque commerciale.",
+      "trend": "up",
+      "summary": "NatWest est exposée à une dégradation de la qualité de son portefeuille de prêts en cas de ralentissement économique UK ou de chômage en hausse.",
+      "score": 3
+    },
+    {
+      "title": "Exposition aux taux d'intérêt et à la marge nette d'intérêt",
+      "category": "Marché",
+      "severity": 5,
+      "score_rationale": "La trajectoire des taux Bank of England impacte directement la NIM (Net Interest Margin) de NatWest. Le rapport détaille la sensibilité aux taux. La baisse anticipée des taux 2025-2026 menace la profitabilité. La structured hedge protège partiellement mais comporte des risques de timing.",
+      "trend": "up",
+      "summary": "Les variations des taux d'intérêt UK affectent directement la rentabilité de NatWest, particulièrement sa marge nette d'intérêt.",
+      "score": 3
+    },
+    {
+      "title": "Réglementation bancaire et exigences en capital",
+      "category": "Régulation",
+      "severity": 5,
+      "score_rationale": "Bâle 3.1 (entrée en vigueur 2026 UK), exigences PRA, MREL et ringfencing imposent des contraintes fortes. Le rapport détaille les coûts de conformité et l'impact sur les RWA. Les conduct fines historiques (motor finance commission, PPI) restent un risque. Régulateur UK très actif.",
+      "trend": "up",
+      "summary": "Les exigences réglementaires bancaires UK croissantes augmentent les besoins en capital et les coûts de conformité de NatWest.",
+      "score": 3
+    },
+    {
+      "title": "Risques climatiques et transition ESG",
+      "category": "Régulation",
       "severity": 4,
+      "score_rationale": "Le rapport annuel développe les risques climatiques (physiques et de transition) sur le portefeuille de prêts, particulièrement hypothécaire et énergie. NatWest s'est engagée sur net-zero. Les exigences de reporting climat (TCFD, IFRS S2) sont strictes. Risque de stranded assets dans le portefeuille corporate.",
       "trend": "up",
-      "summary": "Les tests de résistance indiquent que des chocs macroéconomiques sévères pourraient réduire le ratio CET1 en dessous du seuil réglementaire, obligeant NatWest à renforcer son capital. Le groupe dépend d’une marge de manœuvre limitée."
+      "summary": "Les risques climatiques et la transition énergétique peuvent dégrader la valeur des actifs financés par NatWest et créer de nouveaux coûts.",
+      "score": 3
     },
     {
-      "title": "Liquidité et déséquilibres actifs passifs",
-      "category": "financial",
+      "title": "Cybersécurité et risque opérationnel digital",
+      "category": "Cybersécurité",
       "severity": 4,
+      "score_rationale": "Le rapport souligne la menace cyber croissante sur le secteur bancaire. Les fraudes APP (Authorised Push Payment) sous régime de remboursement obligatoire UK depuis 2024 créent un risque financier nouveau. Les pannes IT (cf. incidents passés) impactent réputation et clients.",
       "trend": "up",
-      "summary": "Une forte concentration de dépôts à court terme face à des engagements à long terme expose NatWest à un risque de tension de liquidité en cas de retrait massif. Les indicateurs quotidiens montrent une hausse des écarts."
+      "summary": "Les cyberattaques et fraudes en ligne menacent l'intégrité des systèmes NatWest et exposent à des coûts de remboursement et de réputation.",
+      "score": 3
     },
     {
-      "title": "Risque climatique de transition et physique",
-      "category": "macro",
-      "severity": 3,
-      "trend": "new",
-      "summary": "Le stress test climatique 2025 révèle une sensibilité du portefeuille hypothécaire aux scénarios de réchauffement et aux politiques de décarbonation, pouvant entraîner des pertes de valeur et des exigences de capital supplémentaires."
-    },
-    {
-      "title": "Contrôles internes et gouvernance du risque",
-      "category": "operational",
-      "severity": 3,
-      "trend": "stable",
-      "summary": "Des lacunes dans la documentation et le suivi des contrôles peuvent affaiblir l’efficacité du cadre de gestion des risques, augmentant la probabilité d’erreurs opérationnelles et de non conformité aux exigences du PRA."
-    },
-    {
-      "title": "Concentration du crédit sur les prêts personnels à faible valeur",
-      "category": "financial",
-      "severity": 3,
+      "title": "Risques géopolitiques et macroéconomiques UK",
+      "category": "Géopolitique",
+      "severity": 4,
+      "score_rationale": "Le rapport mentionne les tensions géopolitiques (Ukraine, Moyen-Orient), l'impact persistant du Brexit sur l'économie UK, et l'incertitude politique. NatWest étant essentiellement domestique UK, elle est très exposée à l'économie britannique. Pression budgétaire UK et impôts bancaires.",
       "trend": "up",
-      "summary": "Le volume élevé de prêts personnels automatisés crée une exposition importante à des défauts massifs en cas de détérioration économique, limitant la capacité du groupe à absorber les pertes."
+      "summary": "L'incertitude économique et politique au Royaume-Uni, amplifiée par le contexte géopolitique mondial, impacte l'activité de NatWest.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-28T20:31:30Z",
@@ -568,5 +605,21 @@
     }
   ],
   "sector_fr": "Finance",
-  "subsector_fr": "Banque et services financiers"
+  "subsector_fr": "Banque et services financiers",
+  "ai_positioning": {
+    "stance": "explorer",
+    "summary": "NatWest Group déploie l'IA générative dans la banque de détail via un partenariat élargi avec OpenAI (2025) pour transformer l'assistant virtuel Cora en Cora+ (powered by IBM Watsonx + OpenAI). Focus sur le service client, la détection de fraude et l'efficacité opérationnelle, mais déploiement à l'échelle encore en cours.",
+    "evidence": [
+      "Cora+ generative AI assistant launched 2024 (IBM Watsonx + OpenAI)",
+      "Strategic partnership with OpenAI extended (2025) for enterprise AI deployment",
+      "AI used in financial crime detection and AML screening",
+      "Microsoft Azure cloud migration enabling AI workloads",
+      "Workforce productivity tools (Copilot deployment across NatWest staff)"
+    ],
+    "source": "NWG Annual Report 2024 + NatWest-OpenAI press releases",
+    "_ai_batch_merged_at": "2026-05-30T10:50:54.641827Z"
+  },
+  "_risks_signed_by_batch_merge": "CONV-SUBAGENT-RISKS-BATCH046-2026-05-30",
+  "_risks_batch_merged_at": "2026-05-30T10:50:55.411911Z",
+  "_risks_batch_merge_source": "NatWest Group plc Annual Report 2024 — Risk Factors section"
 }

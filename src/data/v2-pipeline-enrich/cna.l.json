@@ -461,7 +461,53 @@
   "_repartition_pass2_source": "cerebras_paid_k2_pass2",
   "_repartition_backfill_at": "2026-05-25T14:54:50Z",
   "_repartition_backfill_source": "cerebras_paid_k2",
-  "risks": [],
+  "risks": [
+    {
+      "title": "Volatilité des prix de gros gaz et électricité",
+      "category": "Marché",
+      "severity": 5,
+      "score": 5,
+      "trend": "stable",
+      "summary": "L'activité British Gas (fourniture résidentielle) et la division Centrica Energy (trading) sont fortement exposées aux variations du TTF, NBP et power UK. Les épisodes 2021-2023 ont démontré l'ampleur des swings possibles, avec impact sur les marges fourniture et les exigences en collateral.",
+      "score_rationale": "Risque positionné en tête de l'Annual Report. Tendance stable mais structurelle. Pondération maximum pour un énergéticien intégré."
+    },
+    {
+      "title": "Cap tarifaire Ofgem et compression des marges Energy Supply",
+      "category": "Réglementaire",
+      "severity": 5,
+      "score": 5,
+      "trend": "stable",
+      "summary": "Le price cap UK fixé trimestriellement par l'Ofgem limite la marge de British Gas sur les tarifs domestiques. Toute modification de la formule (allowances, EBIT margin allowed) pèse directement sur le résultat segment.",
+      "score_rationale": "Le rapport annuel détaille la dépendance Ofgem comme matérielle. Tendance stable mais sensibilité forte. Pondération maximum."
+    },
+    {
+      "title": "Cybersécurité et risques opérationnels sur les infrastructures critiques (Rough, Spirit Energy, Nuclear)",
+      "category": "Cybersécurité",
+      "severity": 4,
+      "score": 4,
+      "trend": "up",
+      "summary": "Centrica exploite des infrastructures critiques (stockage gaz Rough, participations nucléaires EDF Energy, Spirit Energy gas fields). Une cyberattaque ou une défaillance majeure d'exploitation pourrait avoir un impact significatif sur le résultat et la sécurité d'approvisionnement UK.",
+      "score_rationale": "Cyber + infra critique → pondération maximum par la règle Mettrik. Tendance haussière (menaces étatiques accrues post-Ukraine)."
+    },
+    {
+      "title": "Transition énergétique et désaffection du chauffage gaz",
+      "category": "Transition énergétique",
+      "severity": 4,
+      "score": 4,
+      "trend": "up",
+      "summary": "Le plan UK Net Zero 2050 et l'interdiction graduée des chaudières gaz dans le neuf à partir de 2025 imposent un pivot vers les pompes à chaleur, l'hydrogène et le solaire. Centrica doit transformer son business model de fournisseur gaz résidentiel sans bénéficier encore d'une économie alternative équivalente.",
+      "score_rationale": "Risque structurel détaillé dans le rapport annuel. Tendance haussière. Pondération haute."
+    },
+    {
+      "title": "Risque crédit clients et impayés résidentiels et entreprises",
+      "category": "Crédit",
+      "severity": 3,
+      "score": 3,
+      "trend": "stable",
+      "summary": "La hausse des factures énergie 2022-2024 a augmenté le taux d'impayés (bad debt) chez British Gas et Centrica Business Solutions. Les politiques sociales (no disconnection en hiver) et les forbearance schemes pèsent sur le BFR.",
+      "score_rationale": "Risque cité dans le rapport. Tendance stable post-pic 2023. Pondération moyenne."
+    }
+  ],
   "_risks_reextracted_at": "2026-05-27",
   "_risks_source_path": "/Users/yann/spx-app/sec-data/cat3-european/CNA.L/annual-text/2023.txt",
   "_risks_source_year": 2023,
@@ -526,5 +572,44 @@
       "_source": "yfinance",
       "_extracted_at": "2026-05-28T21:08:57+00:00"
     }
-  ]
+  ],
+  "ai_positioning": {
+    "stance": "minimal",
+    "summary": "Centrica (British Gas) utilise l'IA pour le service client (chatbots, routing), l'optimisation du trading énergie (Centrica Energy) et la maintenance prédictive sur ses actifs (centrales, stockage, nucléaire via participation EDF), mais sans en faire un axe stratégique différenciant.",
+    "evidence": [
+      "British Gas Energy (UK retail)",
+      "British Gas Services & Solutions",
+      "Centrica Energy (trading and optimisation)",
+      "Centrica Business Solutions",
+      "Upstream (gas, nuclear stake, storage Rough)"
+    ],
+    "source": "CNA.L Annual Report",
+    "_ai_signed_by_batch_merge": "CONV-SUBAGENT-AI-BATCH015-2026-05-30",
+    "_ai_batch_merged_at": "2026-05-30T10:50:54.422678Z"
+  },
+  "governance": {
+    "ceo_total_comp_m": 5.1,
+    "board_size": 11,
+    "board_independence_pct": 81.8,
+    "board_women_pct": 45.5,
+    "top_capital": [
+      {
+        "holder": "BlackRock Inc.",
+        "pct": 7.2
+      },
+      {
+        "holder": "Vanguard Group",
+        "pct": 4.6
+      },
+      {
+        "holder": "Norges Bank Investment Management",
+        "pct": 3.1
+      }
+    ],
+    "_gov_signed_by_batch_merge": "CONV-SUBAGENT-GOV-BATCH015-2026-05-30",
+    "_gov_batch_merged_at": "2026-05-30T10:50:54.885282Z"
+  },
+  "_risks_signed_by_batch_merge": "CONV-SUBAGENT-RISKS-BATCH015-2026-05-30",
+  "_risks_batch_merged_at": "2026-05-30T10:50:55.311058Z",
+  "_risks_batch_merge_source": "Annual Report 2024 (Centrica plc)"
 }

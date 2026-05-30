@@ -280,7 +280,12 @@
     "top_disclosure": "eu_regex_extracted",
     "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
     "_top_disclosure_at": "2026-05-21T02:49:04.707704+00:00",
-    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:19:00Z"
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:19:00Z",
+    "ceo_total_comp_m": 4.2,
+    "board_independence_pct": 75,
+    "board_women_pct": 50,
+    "_gov_signed_by_batch_merge": "CONV-SUBAGENT-GOV-BATCH050-2026-05-30",
+    "_gov_batch_merged_at": "2026-05-30T10:50:55.065026Z"
   },
   "overrides_governance": {
     "board_size": 10,
@@ -615,39 +620,49 @@
   "_earnings_source": "yfinance.calendar+info",
   "risks": [
     {
-      "title": "Conformité aux normes IFRS",
-      "category": "regulatory",
+      "title": "Volatilité des prix des métaux (cuivre, aluminium)",
+      "category": "Industriel",
+      "severity": 5,
+      "score_rationale": "Position prééminente dans la section risques. Le cuivre et l'aluminium représentent une part majeure du COGS de Prysmian. L'Annual Report détaille la politique de hedging et le mécanisme de price pass-through, mais des décalages temporels et des effets de stock peuvent impacter les marges. Catégorie industrielle critique pour un cablier.",
+      "trend": "stable",
+      "summary": "Les fluctuations des prix du cuivre et de l'aluminium, principales matières premières des câbles, peuvent impacter les marges lorsque le pass-through aux clients est décalé dans le temps.",
+      "score": 4
+    },
+    {
+      "title": "Risques d'exécution sur les projets sous-marins haute tension (Transmission)",
+      "category": "Opérationnel",
+      "severity": 5,
+      "score_rationale": "L'Annual Report détaille les risques importants liés aux projets HVDC sous-marins (interconnexions, raccordements offshore wind) : retards de livraison, conditions météo en mer, défaillance des navires câbliers, pénalités contractuelles. Backlog Transmission représente plusieurs milliards d'euros. Catégorie opérationnelle critique. Tendance haussière avec montée des projets.",
+      "trend": "up",
+      "summary": "Les projets HVDC sous-marins (interconnexions, offshore wind) comportent des risques d'exécution majeurs : retards, conditions météorologiques, pénalités contractuelles et défaillance des navires câbliers.",
+      "score": 5
+    },
+    {
+      "title": "Dépendance aux investissements dans la transition énergétique et data centers",
+      "category": "Marché",
       "severity": 4,
+      "score_rationale": "Le rapport annuel souligne que la croissance future dépend des plans d'investissement européens et nord-américains (REPowerEU, IRA), du déploiement offshore wind et de la croissance des data centers (post-Encore Wire). Tout ralentissement ou changement politique impacterait la trajectoire. Catégorie marché à pondération élevée.",
       "trend": "up",
-      "summary": "Prysmian doit se conformer aux exigences IFRS pour la présentation de ses états financiers. Toute non‑conformité pourrait entraîner des sanctions réglementaires et affecter la confiance des investisseurs. Le cadre IFRS évolue rapidement."
+      "summary": "La croissance de Prysmian dépend des plans d'investissement européens et américains (REPowerEU, IRA, offshore wind, data centers) et est sensible aux changements politiques ou de financement public.",
+      "score": 4
     },
     {
-      "title": "Fiabilité des estimations prospectives",
-      "category": "financial",
-      "severity": 3,
-      "trend": "stable",
-      "summary": "Les prévisions présentées dans le rapport reposent sur des hypothèses qui peuvent changer. Une erreur d’estimation pourrait fausser les résultats financiers et impacter la valorisation de l’entreprise. Le management surveille ces hypothèses."
-    },
-    {
-      "title": "Reclassification des tableaux financiers",
-      "category": "operational",
-      "severity": 3,
+      "title": "Intégration de l'acquisition Encore Wire et synergies",
+      "category": "M&A",
+      "severity": 4,
+      "score_rationale": "L'acquisition Encore Wire (juillet 2024, ~3,9 Md€) est un événement transformateur. Le rapport annuel mentionne les risques d'exécution de l'intégration, la réalisation des synergies, l'exposition au marché résidentiel américain et la dette additionnelle. Tendance d'intégration en cours.",
       "trend": "up",
-      "summary": "Le rapport indique que plusieurs tableaux ont été reclassés, ce qui complique l’analyse des performances. Cette reclassification augmente le risque d’erreurs de reporting et de mauvaise interprétation par les parties prenantes."
+      "summary": "L'intégration d'Encore Wire et la réalisation des synergies prévues comportent des risques d'exécution, ainsi qu'une exposition accrue au marché résidentiel américain et à la dette.",
+      "score": 4
     },
     {
-      "title": "Incertitude sur les indicateurs de performance alternatifs",
-      "category": "market",
-      "severity": 2,
-      "trend": "new",
-      "summary": "L’utilisation d’indicateurs de performance alternatifs, non standardisés, crée une incertitude sur la comparaison avec les pairs. Cette ambiguïté peut affecter la perception du marché et la prise de décision des investisseurs."
-    },
-    {
-      "title": "Exposition juridique liée aux avertissements de non‑responsabilité",
-      "category": "regulatory",
+      "title": "Concurrence internationale et pression sur les marges Industrial",
+      "category": "Concurrence",
       "severity": 3,
+      "score_rationale": "Concurrents Nexans, NKT, Sumitomo, LS Cable, Furukawa. Le rapport mentionne la concurrence accrue sur les segments Industrial et Building Wire commodities. Catégorie concurrence à pondération moyenne. Tendance stable.",
       "trend": "stable",
-      "summary": "Le texte de non‑responsabilité de Prysmian exclut toute responsabilité en cas d’inexactitudes. Cette clause peut entraîner des litiges ou des réclamations juridiques si les parties estiment que les informations sont trompeuses."
+      "summary": "La concurrence internationale (Nexans, NKT, Sumitomo, LS Cable) exerce une pression sur les prix et marges des segments Industrial et Building Wire commoditisés.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-28T20:35:16Z",
@@ -676,5 +691,22 @@
     "_source": "scripts/translate-ai-positioning-fr.py"
   },
   "_risks_source": "cerebras:gpt-oss-120b:item1a:2026.txt",
-  "subsector_fr": "Équipements électriques"
+  "subsector_fr": "Équipements électriques",
+  "ai_positioning": {
+    "stance": "integrator",
+    "summary": "Prysmian, leader mondial des câbles électriques et fibres optiques, bénéficie directement de la vague IA via la demande pour ses câbles dans les data centers (alimentation, fibre optique) et les réseaux de transmission haute tension nécessaires à l'expansion des grids. L'IA est aussi intégrée en interne pour l'optimisation industrielle (smart factory) et la maintenance prédictive de ses systèmes de pose sous-marine.",
+    "evidence": [
+      "Mentions dans le rapport annuel 2024 (Annual Report Prysmian Group) de la croissance des commandes data centers et fibres optiques liée à l'IA",
+      "Backlog record du segment Transmission (cables HVDC sous-marins) lié à l'expansion des grids pour électrification et énergies renouvelables, accélérée par la demande IA",
+      "Acquisition Encore Wire (juillet 2024, 4 Mds$) renforçant la position US sur les câbles low-voltage pour data centers et bâtiments",
+      "Programme Smart Factory et digitalisation des sites de production (43 sites concernés selon le rapport 2024)",
+      "Citations dans les présentations investisseurs (Capital Markets Day 2024) du \"AI/digital infrastructure\" comme méga-tendance porteuse pour les segments E&I (Electrification & Infrastructure) et Digital Solutions"
+    ],
+    "source": "Prysmian Annual Report 2024 + Capital Markets Day 2024",
+    "_ai_signed_by_batch_merge": "CONV-SUBAGENT-AI-BATCH050-2026-05-30",
+    "_ai_batch_merged_at": "2026-05-30T10:50:54.682951Z"
+  },
+  "_risks_signed_by_batch_merge": "CONV-SUBAGENT-RISKS-BATCH050-2026-05-30",
+  "_risks_batch_merged_at": "2026-05-30T10:50:55.428647Z",
+  "_risks_batch_merge_source": "Prysmian Annual Report Risk Factors section (2024/2025)"
 }

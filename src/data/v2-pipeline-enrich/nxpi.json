@@ -162,7 +162,11 @@
     "voting_structure_note": "OK 1-share-1-vote",
     "_top_source": "yfinance",
     "_top_enriched_at": "2026-05-21T02:14:38.883774+00:00",
-    "_top_dual_class_flag": false
+    "_top_dual_class_flag": false,
+    "board_independence_pct": 90.9,
+    "board_women_pct": 36.4,
+    "_gov_signed_by_batch_merge": "CONV-SUBAGENT-GOV-BATCH046-2026-05-30",
+    "_gov_batch_merged_at": "2026-05-30T10:50:55.056186Z"
   },
   "kpis_type_overrides": {
     "FCF": "Cash Flow",
@@ -337,39 +341,58 @@
   "_earnings_source": "yfinance.calendar+info",
   "risks": [
     {
-      "title": "Tensions commerciales États-Unis Chine",
-      "category": "macro",
-      "severity": 4,
+      "title": "Cyclicité de l'industrie des semi-conducteurs",
+      "category": "Marché",
+      "severity": 5,
+      "score_rationale": "Le 10-K NXP place la cyclicité du semi-conducteur comme risque structurel majeur. Après la pénurie 2021-2022, le cycle de digestion 2023-2024 a fortement impacté les revenus auto et industriels. Les corrections d'inventaire chez les clients ont créé une forte volatilité. Risque récurrent et bien documenté.",
       "trend": "up",
-      "summary": "Les différends commerciaux entre les États‑Unis et la Chine peuvent entraîner de nouveaux tarifs ou des restrictions, perturbant les chaînes d’approvisionnement de NXP et augmentant les coûts d’importation de composants critiques."
+      "summary": "L'activité de NXP est très sensible aux cycles de l'industrie semi-conducteur, avec des variations brutales de demande et d'inventaire.",
+      "score": 3
     },
     {
-      "title": "Restrictions à l’exportation de technologies",
-      "category": "regulatory",
-      "severity": 4,
-      "trend": "stable",
-      "summary": "Des ordres exécutifs limitant l’exportation de produits et de technologies peuvent réduire les ventes de NXP à l'international, compliquer les licences et obliger l’entreprise à réviser ses stratégies de marché."
-    },
-    {
-      "title": "Menaces cybernétiques et risques de confidentialité",
-      "category": "cyber",
-      "severity": 4,
+      "title": "Dépendance au secteur automobile",
+      "category": "Commercial",
+      "severity": 5,
+      "score_rationale": "Plus de 55% des revenus NXP proviennent de l'automobile. Le 10-K souligne cette concentration. La transition EV, la production automobile mondiale et les destockings OEM impactent directement la performance. Toute crise dans l'auto (Chine, Europe) a un effet démultiplié sur NXP.",
       "trend": "up",
-      "summary": "L’augmentation des cyberattaques expose les plateformes de conception et les données de NXP à des compromissions, pouvant entraîner des pertes de propriété intellectuelle et des interruptions de production."
+      "summary": "NXP dépend fortement du secteur automobile, ce qui crée une vulnérabilité en cas de baisse de la production ou des ventes de véhicules.",
+      "score": 3
     },
     {
-      "title": "Capacité de production et prévisions de la demande",
-      "category": "operational",
-      "severity": 3,
+      "title": "Exposition à la Chine et tensions géopolitiques",
+      "category": "Géopolitique",
+      "severity": 5,
+      "score_rationale": "La Chine représente une part majeure des revenus NXP (>30%). Les tensions US-Chine sur les semi-conducteurs, les restrictions d'exportation et les menaces sur Taïwan créent un risque géopolitique majeur. NXP utilise aussi TSMC pour ses puces avancées. Le 10-K développe ces risques.",
+      "trend": "up",
+      "summary": "L'exposition forte à la Chine et les tensions géopolitiques sur les semi-conducteurs menacent les revenus et la chaîne d'approvisionnement de NXP.",
+      "score": 3
+    },
+    {
+      "title": "Concurrence sur les marchés MCU et puces auto",
+      "category": "Concurrence",
+      "severity": 4,
+      "score_rationale": "Concurrence intense de Infineon, STMicro, Renesas, Texas Instruments et Microchip sur les MCU automotive et industriels. La pression sur les prix s'est intensifiée en 2024. Les acteurs chinois locaux montent en puissance. Le 10-K souligne la nécessité d'innovation continue.",
+      "trend": "up",
+      "summary": "La concurrence intense des autres fabricants de puces automotive et industriels pèse sur les marges et les parts de marché de NXP.",
+      "score": 3
+    },
+    {
+      "title": "Chaîne d'approvisionnement et capacité de fabrication",
+      "category": "Industriel",
+      "severity": 4,
+      "score_rationale": "NXP utilise un modèle hybride (fabs internes + foundries TSMC/UMC). Le 10-K mentionne les risques de capacité, de qualité et de single-source. Les investissements dans VSMC (JV avec TSMC à Singapour) sont une réponse mais comportent des risques d'exécution.",
       "trend": "stable",
-      "summary": "Des prévisions de demande inexactes ou une inadéquation entre la capacité de production et les besoins du marché peuvent conduire à des stocks excédentaires ou à des ruptures, affectant les marges de NXP."
+      "summary": "La chaîne d'approvisionnement complexe de NXP, mêlant fabs internes et fonderies tierces, expose à des risques de capacité et de qualité.",
+      "score": 3
     },
     {
-      "title": "Accès au financement et refinancement de la dette",
-      "category": "financial",
+      "title": "Cybersécurité et risque produit (puces sécurisées)",
+      "category": "Cybersécurité",
       "severity": 3,
-      "trend": "down",
-      "summary": "Des difficultés à lever des capitaux ou à refinancer la dette à l’échéance pourraient limiter les investissements de NXP en R&D et en capacités de production, compromettant sa compétitivité."
+      "score_rationale": "NXP est leader sur les puces de sécurité (NFC, eID, payment). Une vulnérabilité matérielle découverte aurait un impact majeur sur la réputation et entraînerait des rappels. Le 10-K mentionne la sécurité produit comme enjeu critique. Risque réputationnel important.",
+      "trend": "stable",
+      "summary": "Une faille de sécurité dans les puces NXP pourrait entraîner des rappels coûteux et nuire à la réputation de la société sur ses marchés clés.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-28T20:31:52Z",
@@ -597,5 +620,21 @@
   "_hero_kpi_override_orphan_flag": "Automotive",
   "_hero_kpi_override_orphan_flag_at": "2026-05-28",
   "_hero_kpi_override_orphan_flag_by": "CONV-SUBAGENT-POLISH",
-  "_hero_kpi_override_orphan_flag_reason": "hero_kpi_override 'Automotive' does not match any short in kpis[], stories_kpis[], or kpis_supplementary[]"
+  "_hero_kpi_override_orphan_flag_reason": "hero_kpi_override 'Automotive' does not match any short in kpis[], stories_kpis[], or kpis_supplementary[]",
+  "ai_positioning": {
+    "stance": "explorer",
+    "summary": "NXP Semiconductors positionne ses processeurs sur l'IA Edge (automobile, IoT industriel, smart home) plutôt que sur l'IA datacenter. La plateforme i.MX 9 avec NPU intégrée et l'acquisition de Kinara (2025, ~307 M$) renforcent l'offre AI inference edge. Pas un leader IA mais explorer crédible sur le segment edge.",
+    "evidence": [
+      "Acquisition of Kinara Inc. (AI inference chips) announced Feb 2025 (~$307M)",
+      "i.MX 9 applications processors with integrated Neural Processing Unit (NPU)",
+      "S32 automotive processors with AI/ML for ADAS",
+      "eIQ machine learning software development environment",
+      "Partnership with NVIDIA for automotive AI (announced 2024)"
+    ],
+    "source": "NXPI 10-K 2024 + Kinara acquisition press release Feb 2025",
+    "_ai_batch_merged_at": "2026-05-30T10:50:54.645769Z"
+  },
+  "_risks_signed_by_batch_merge": "CONV-SUBAGENT-RISKS-BATCH046-2026-05-30",
+  "_risks_batch_merged_at": "2026-05-30T10:50:55.413804Z",
+  "_risks_batch_merge_source": "NXP Semiconductors N.V. 10-K Item 1A Risk Factors (FY2024)"
 }

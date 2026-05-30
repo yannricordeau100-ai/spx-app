@@ -92,20 +92,49 @@
   "_profile_fetched_at": "2026-05-07T11:56:37.811799+00:00",
   "risks": [
     {
-      "title": "Dépendance fournisseurs et chaîne d'approvisionnement",
-      "category": "operational",
-      "severity": 2,
-      "score_rationale": "Risque mentionné explicitement dans le filing EU 2024. Sévérité 2/5 inférée du langage utilisé.",
+      "title": "Volatilité des prix de l'électricité nordique (Nord Pool)",
+      "category": "Marché",
+      "severity": 5,
+      "score_rationale": "Risque #1 dans la section Risk Management. Les prix Nord Pool ont oscillé entre 0 et 1000 €/MWh en 2022-2024. Fortum couvre via dérivés mais l'exposition résiduelle est massive. Langage explicite sur l'impact EBIT du segment Generation. Pondération critique pour un utility 100% production.",
       "trend": "stable",
-      "summary": "La dépendance à un nombre restreint de fournisseurs ou de composants critiques expose l'entreprise à des ruptures d'approvisionnement et à des hausses de coûts."
+      "summary": "Les fluctuations extrêmes du prix de l'électricité sur Nord Pool, liées à l'hydrologie nordique et au gaz européen, impactent directement les revenus de Fortum.",
+      "score": 5
     },
     {
-      "title": "Risque spécifique au business model",
-      "category": "operational",
-      "severity": 2,
-      "score_rationale": "Risque mentionné explicitement dans le filing EU 2024. Sévérité 2/5 inférée du langage utilisé.",
+      "title": "Risques d'exploitation nucléaire (Loviisa)",
+      "category": "Opérationnel",
+      "severity": 5,
+      "score_rationale": "Loviisa fournit ~10% de l'électricité finlandaise. Tout arrêt non planifié coûte des millions par jour. Le rapport souligne le vieillissement de la centrale (extension d'exploitation négociée jusqu'en 2050). Sûreté nucléaire = priorité absolue STUK. Pondération maximale.",
       "trend": "stable",
-      "summary": "Un risque opérationnel identifié dans le filing pourrait perturber la production, la distribution ou la qualité de service."
+      "summary": "L'exploitation de la centrale nucléaire de Loviisa expose Fortum à des risques de sûreté, d'arrêt non planifié et d'évolution réglementaire STUK.",
+      "score": 4
+    },
+    {
+      "title": "Conditions hydrologiques (production hydroélectrique)",
+      "category": "Climat",
+      "severity": 4,
+      "score_rationale": "L'hydro représente ~50% de la production Fortum. Une année sèche réduit massivement les volumes. Le rapport décrit le risque comme structurel et météo-dépendant. Tendance haussière sur la variabilité climatique.",
+      "trend": "up",
+      "summary": "La production hydroélectrique de Fortum dépend des précipitations et du niveau des réservoirs nordiques, source de volatilité significative des volumes annuels.",
+      "score": 4
+    },
+    {
+      "title": "Risques politiques et réglementation européenne de l'énergie",
+      "category": "Réglementaire",
+      "severity": 4,
+      "score_rationale": "L'UE a introduit la révision des marchés électriques, les plafonds de revenus inframarginaux (windfall taxes 2022-2023), et la finlande a discuté plafond rente énergétique. Risque récurrent. Tendance stable mais imprévisible.",
+      "trend": "stable",
+      "summary": "Les interventions politiques européennes (plafonds de revenus, taxes exceptionnelles, refonte du marché de l'électricité) créent une incertitude sur les revenus futurs.",
+      "score": 4
+    },
+    {
+      "title": "Risques liés au désinvestissement Uniper et expositions russes résiduelles",
+      "category": "Géopolitique",
+      "severity": 3,
+      "score_rationale": "Fortum a sorti Uniper en 2022 (perte ~6 Mds €) et désinvesti ses actifs russes. Litiges en cours sur les indemnités. Le rapport mentionne des provisions juridiques et des risques arbitrage CIADI. Tendance baissière car la sortie est largement finalisée.",
+      "trend": "down",
+      "summary": "Les contentieux liés à la sortie d'Uniper et à la confiscation des actifs russes pourraient encore générer des charges juridiques et des provisions.",
+      "score": 3
     }
   ],
   "_risks_gov_fetched_at": "2026-05-07T15:01:05.821256+00:00",
@@ -289,7 +318,12 @@
     ],
     "voting_structure_note": "OK 1-share-1-vote",
     "_top_source": "cerebras_eu",
-    "_top_enriched_at": "2026-05-25T01:12:35.882745+00:00"
+    "_top_enriched_at": "2026-05-25T01:12:35.882745+00:00",
+    "ceo_total_comp_m": 2.4,
+    "board_independence_pct": 88,
+    "board_women_pct": 50,
+    "_gov_signed_by_batch_merge": "CONV-SUBAGENT-GOV-BATCH027-2026-05-30",
+    "_gov_batch_merged_at": "2026-05-30T10:50:54.956405Z"
   },
   "overrides_governance": {
     "voting_structure_note": "Structure standard une action = une voix (vérifié via source).",
@@ -743,5 +777,20 @@
   "_kpis_supplementary_signed_by": "CONV-SUBAGENT-KPIS-B1-2026-05-28",
   "tagline_fr": "Société énergétique nordique de référence au service d'un avenir durable",
   "_tagline_fr_added_by": "CONV-SUBAGENT-POLISH-2026-05-28",
-  "subsector_fr": "Énergie"
+  "subsector_fr": "Énergie",
+  "ai_positioning": {
+    "stance": "minimal",
+    "summary": "Fortum, utility nordique finlandaise centree sur l'hydroelectricite et le nucleaire, utilise l'IA pour la maintenance predictive des actifs de production, l'optimisation du trading energetique et la gestion de la flexibilite des reseaux. L'IA n'est pas un axe strategique de communication mais beneficie indirectement de la demande electricite data centers nordiques.",
+    "evidence": [
+      "Deploiement de modeles predictifs pour la maintenance des centrales hydroelectriques nordiques et de la centrale nucleaire de Loviisa (rapport annuel 2024).",
+      "Utilisation d'IA dans le trading energetique et l'optimisation du portefeuille via la division Generation (mentionne dans le rapport CMD 2024).",
+      "Partenariats data centers nordiques (Microsoft, Google) pour fourniture electricite bas-carbone soutenant la demande IA en Finlande et Suede.",
+      "Pas de produit IA proprietaire ; investissements digitaux integres aux capex operationnels standards."
+    ],
+    "source": "FORTUM.HE Annual Report FY2024 + CMD 2024",
+    "_ai_signed_by_batch_merge": "CONV-SUBAGENT-AI-BATCH027-2026-05-30",
+    "_ai_batch_merged_at": "2026-05-30T10:50:54.503215Z"
+  },
+  "_risks_signed_by_batch_merge": "CONV-SUBAGENT-RISKS-BATCH027-2026-05-30",
+  "_risks_batch_merged_at": "2026-05-30T10:50:55.353119Z"
 }

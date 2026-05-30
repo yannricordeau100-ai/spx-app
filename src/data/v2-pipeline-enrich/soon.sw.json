@@ -230,7 +230,12 @@
     "top_disclosure": "eu_regex_extracted",
     "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
     "_top_disclosure_at": "2026-05-21T02:49:04.728500+00:00",
-    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:19:01Z"
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:19:01Z",
+    "ceo_total_comp_m": 6.9,
+    "board_independence_pct": 90.0,
+    "board_women_pct": 40.0,
+    "_gov_signed_by_batch_merge": "CONV-SUBAGENT-GOV-BATCH056-2026-05-30",
+    "_gov_batch_merged_at": "2026-05-30T10:50:55.092678Z"
   },
   "overrides_governance": {
     "voting_structure_note": "With the exception of the treasury shares held by the company itself, each share entitles to one vote at the Annual General Shareholders' Meeting.",
@@ -698,36 +703,49 @@
   "_earnings_source": "yfinance.calendar+info",
   "risks": [
     {
-      "title": "Risques opérationnels",
-      "category": "operational",
-      "severity": 2,
-      "score_rationale": "Risque mentionné parmi les facteurs Item 1A. sévérité modérée (2/5).",
+      "title": "Pression prix générique US et Europe",
+      "category": "Marché",
+      "severity": 5,
+      "score_rationale": "Annual Report documente la pression prix structurelle sur génériques (US -10% annuel historique) et l'érosion marge oral solids. Risque de marge EBITDA continu.",
       "trend": "stable",
-      "summary": "Le filing identifie un risque. Source : « The second risk we analyzed was a transition risk: the potential financial impact of increasing carbon prices on air-transportation cost in Switzerland, Germany, and the United Kingdom: the 223... »"
+      "summary": "La pression prix structurelle sur les génériques US et Europe érode continuellement les marges Sandoz.",
+      "score": 4
     },
     {
-      "title": "Risques climatiques et environnementaux",
-      "category": "climate",
-      "severity": 2,
-      "score_rationale": "Risque mentionné parmi les facteurs Item 1A. sévérité modérée (2/5).",
-      "trend": "stable",
-      "summary": "Le filing identifie un risque. Source : « TCFD – Potential climate-related risks and opportunities Category Type Description Explanation Physical risk Acute Heatwaves and extreme tem­ Prolonged periods of abnormally hot weather peratures... »"
+      "title": "Exécution stratégie biosimilars et concurrence",
+      "category": "Stratégique",
+      "severity": 5,
+      "score_rationale": "Annual Report souligne la stratégie biosimilars (Hyrimoz, Tyruko) avec concurrence Amgen, Celltrion, Samsung Bioepis. Risque sur trajectoire Pyzchiva (ustekinumab) et denosumab.",
+      "trend": "up",
+      "summary": "La concurrence intense biosimilars Amgen, Celltrion et Samsung Bioepis menace l'exécution stratégique Sandoz.",
+      "score": 4
     },
     {
-      "title": "Dépendance aux tiers et prestataires",
-      "category": "operational",
-      "severity": 2,
-      "score_rationale": "Risque mentionné parmi les facteurs Item 1A. sévérité modérée (2/5).",
+      "title": "Litigation antitrust et accords génériques",
+      "category": "Juridique",
+      "severity": 4,
+      "score_rationale": "Annual Report cite les enquêtes DoJ et class actions sur fixation prix génériques (héritage Sandoz). Provisions et amendes potentielles significatives.",
       "trend": "stable",
-      "summary": "La dépendance à des tiers et prestataires est notée. Source : « rented facilities) Transition risk Policy Scope 3 reduction challenges Lack of stringent policies to constrain suppliers to use low- carbon energy sources, thereby putting our scope 3 target po­... »"
+      "summary": "Les enquêtes DoJ et class actions sur fixation prix génériques génèrent un risque juridique et financier hérité.",
+      "score": 3
     },
     {
-      "title": "Chaîne d'approvisionnement et fournisseurs",
-      "category": "operational",
-      "severity": 2,
-      "score_rationale": "Risque mentionné parmi les facteurs Item 1A. sévérité modérée (2/5).",
+      "title": "Spin-off Novartis et coûts standalone",
+      "category": "Opérationnel",
+      "severity": 4,
+      "score_rationale": "Annual Report signale les coûts standalone post-spin-off Novartis octobre 2023 (IT, finance, supply chain). Trajectoire vers EBITDA margin >24% à exécuter.",
       "trend": "stable",
-      "summary": "La chaîne d'approvisionnement présente des vulnérabilités. Source : « increased heavy precipitation and flooding near of our operations centers in Vietnam and China (a physical risk that could cause supply chain and operational interruptions), and increasing air-... »"
+      "summary": "Le spin-off Novartis d'octobre 2023 crée des coûts standalone et défis d'exécution vers la cible EBITDA margin.",
+      "score": 3
+    },
+    {
+      "title": "Réglementation IRA et Medicare negotiation",
+      "category": "Réglementaire",
+      "severity": 4,
+      "score_rationale": "Annual Report mentionne l'impact Inflation Reduction Act sur prix Medicare et la pression prix accélérée sur biosimilars suivant les molécules négociées.",
+      "trend": "up",
+      "summary": "L'Inflation Reduction Act et la négociation Medicare accélèrent la pression prix sur biosimilars Sandoz.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-27",
@@ -782,5 +800,21 @@
       "_source": "yfinance",
       "_extracted_at": "2026-05-28T21:14:52+00:00"
     }
-  ]
+  ],
+  "ai_positioning": {
+    "stance": "minimal",
+    "summary": "Sonova est un leader mondial des aides auditives (Phonak, Unitron) et solutions de communication audio (Sennheiser Consumer Audio). L'IA est integree dans les puces proprietaires des aides auditives (AutoSense OS, DEEPSONIC) pour la classification automatique de scenes sonores et la reduction de bruit deep learning, mais reste un usage applique sans strategie GenAI ni produit IA pour tiers.",
+    "evidence": [
+      "Plateforme Phonak Audeo Sphere (lancee 2024) integre la puce DEEPSONIC avec reseau de neurones embedded entraine sur 22M echantillons sonores pour separation parole/bruit temps reel.",
+      "AutoSense OS 5.0 : systeme de classification automatique de scenes sonores base ML deploye sur les aides auditives Phonak depuis plusieurs generations.",
+      "Investissement R&D significatif (~7-8% du chiffre d'affaires) avec une part dediee aux algorithmes ML embedded pour traitement audio, sans communication sur GenAI ni modeles fondamentaux.",
+      "Pas de produit IA SaaS ou plateforme IA pour tiers : usage strictement interne aux dispositifs hardware Sonova."
+    ],
+    "source": "Sonova Annual Report FY2024/25 + communiques Phonak Audeo Sphere/DEEPSONIC 2024",
+    "_ai_signed_by_batch_merge": "CONV-SUBAGENT-AI-BATCH056-2026-05-30",
+    "_ai_batch_merged_at": "2026-05-30T10:50:54.731585Z"
+  },
+  "_risks_signed_by_batch_merge": "CONV-SUBAGENT-RISKS-BATCH056-2026-05-30",
+  "_risks_batch_merged_at": "2026-05-30T10:50:55.454692Z",
+  "_risks_batch_merge_source": "Annual Report 2024 risk factors (Sandoz Group AG)"
 }

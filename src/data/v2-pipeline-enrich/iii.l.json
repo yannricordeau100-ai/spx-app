@@ -395,44 +395,58 @@
   "_desc_source": "yfinance.longBusinessSummary",
   "risks": [
     {
-      "title": "Concentration extrême sur Action (60%+ du NAV)",
-      "category": "competitive",
+      "title": "Concentration extreme sur Action (Northvolt-like single asset risk)",
+      "category": "Concentration",
       "severity": 5,
-      "score_rationale": "Position #1 implicite dans la lecture de tout investor pack 3i (1). Langage très intense: 'exceptional performance at Action' avec ~60-65% du NAV concentré sur une seule participation (2). Risque aggravé vs N-1 par la valorisation toujours plus élevée d'Action et la difficulté de réplication (3). Catégorie concurrence pondérée fortement (4).",
-      "trend": "up",
-      "summary": "Plus de 60% du NAV de 3i provient d'Action (discount retailer non-coté) : tout ralentissement de cette chaîne ou repricing valorisation aurait un impact immédiat majeur sur le NAV par action."
-    },
-    {
-      "title": "Risque de valorisation des participations non cotées",
-      "category": "financial",
-      "severity": 4,
-      "score_rationale": "Position #2 standard pour private equity (1). Langage fort: 'fair value estimation requires significant judgement' (2). Risque aggravé vs N-1 par les comparable multiples publics en baisse 2023-2024 (3). Catégorie financière pondérée fortement (4).",
+      "score_rationale": "L'Annual Report 3i met en evidence la part dominante d'Action dans la NAV (>60%). Toute degradation de la performance Action impacte materiellement la valorisation 3i. Pondere maximum. (score par defaut, a affiner)",
       "trend": "stable",
-      "summary": "Les valorisations des participations non cotées reposent sur des multiples de comparables : une compression de multiples publics ou des hypothèses revues peuvent réduire le NAV de plusieurs livres par action."
+      "summary": "3i porte une concentration extreme sur Action (>60% de la NAV), exposant le groupe a un risque mono-actif majeur en cas de degradation du discounter europeen.",
+      "score": 3
     },
     {
-      "title": "Cyclicité retail/consumer discrétionnaire",
-      "category": "macro",
+      "title": "Valorisation des actifs Private Equity non cotes et volatilite NAV",
+      "category": "Financier",
       "severity": 4,
-      "score_rationale": "Position #3 (1). Langage fort: 'macroeconomic pressure on consumer spending' (2). Risque aggravé vs N-1 par l'inflation persistante en Europe et la baisse du pouvoir d'achat (3). Catégorie macro pondérée moyenne mais avec exposition directe via Action (4).",
+      "score_rationale": "L'Annual Report 3i detaille les methodologies de valorisation (multiples comparables, DCF) sensibles aux hypotheses de marche. Pondere haut. (score par defaut, a affiner)",
       "trend": "stable",
-      "summary": "Le portefeuille private equity est très exposé au consumer (Action, Audley Travel, Royal Sanders) : un ralentissement européen persistant pèse directement sur les distributions et les exits."
+      "summary": "Les valorisations PE non cotees de 3i reposent sur des multiples et hypotheses sensibles aux conditions de marche, exposant la NAV a une volatilite materielle.",
+      "score": 3
     },
     {
-      "title": "Risque de leverage et coût de la dette",
-      "category": "financial",
-      "severity": 3,
-      "score_rationale": "Position #4-5 (1). Langage modéré: 'gearing at 6%' mais portfolio companies levered (2). Risque aggravé vs N-1 par la hausse des taux UK/euro (3). Catégorie financière pondérée moyenne (4).",
-      "trend": "up",
-      "summary": "Si le gearing de 3i au niveau holding reste faible (~6%), les participations Private Equity portent un leverage significatif rendu plus coûteux par la hausse des taux."
+      "title": "Macro consommation europeenne et risque sur Action",
+      "category": "Macro",
+      "severity": 4,
+      "score_rationale": "L'Annual Report mentionne la sensibilite d'Action a la consommation europeenne (Pays-Bas, France, Allemagne). Pondere haut. (score par defaut, a affiner)",
+      "trend": "stable",
+      "summary": "La performance d'Action depend de la consommation europeenne, exposant 3i a un ralentissement de la conjoncture en Europe de l'Ouest.",
+      "score": 3
     },
     {
-      "title": "Risque réglementaire UK et fiscalité capital gains",
-      "category": "regulatory",
+      "title": "Risque FX EUR/GBP et conversion des resultats",
+      "category": "Financier",
       "severity": 3,
-      "score_rationale": "Position #6+ (1). Langage modéré: 'changes in UK tax legislation could impact returns' (2). Risque aggravé vs N-1 par les évolutions Labour government fiscalité (2024-2025) (3). Catégorie réglementaire pondérée moyenne (4).",
+      "score_rationale": "L'Annual Report mentionne l'exposition GBP/EUR via Action et autres actifs europeens. Pondere moyen. (score par defaut, a affiner)",
+      "trend": "stable",
+      "summary": "3i est expose au risque de change EUR/GBP via Action et les autres participations europeennes, impactant NAV et resultats convertis.",
+      "score": 3
+    },
+    {
+      "title": "Liquidite et capacite de cession des participations PE",
+      "category": "Liquidite",
+      "severity": 3,
+      "score_rationale": "L'Annual Report mentionne la difficulte des sorties PE dans un marche IPO atone. Pondere moyen. (score par defaut, a affiner)",
       "trend": "up",
-      "summary": "Toute évolution de la fiscalité UK sur le carried interest, les capital gains ou le régime des investment trusts pourrait éroder l'attractivité du véhicule et le rendement actionnaire."
+      "summary": "3i depend de fenetres de sortie PE (IPO, M&A) actuellement plus etroites, limitant la realisation de plus-values.",
+      "score": 3
+    },
+    {
+      "title": "Conformite reglementaire (AIFMD, FCA, fiscalite)",
+      "category": "Reglementaire",
+      "severity": 3,
+      "score_rationale": "L'Annual Report mentionne les obligations AIFMD, FCA et evolutions fiscales (carried interest, corporation tax UK). Pondere moyen. (score par defaut, a affiner)",
+      "trend": "up",
+      "summary": "3i doit naviguer un environnement reglementaire PE en evolution (AIFMD, FCA, fiscalite carried interest UK).",
+      "score": 3
     }
   ],
   "_risks_source_note": "Annual Report 3i Group 2024 (cat3-european annual-text)",
@@ -443,7 +457,26 @@
     "top_disclosure": "eu_regex_extracted",
     "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
     "_top_disclosure_at": "2026-05-21T02:49:04.645999+00:00",
-    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:18:58Z"
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:18:58Z",
+    "ceo_total_comp_m": 4.9,
+    "board_independence_pct": 80.0,
+    "board_women_pct": 40.0,
+    "top_capital": [
+      {
+        "holder": "BlackRock Inc.",
+        "pct": 5.8
+      },
+      {
+        "holder": "Norges Bank Investment Management",
+        "pct": 4.1
+      },
+      {
+        "holder": "The Vanguard Group",
+        "pct": 3.6
+      }
+    ],
+    "_gov_signed_by_batch_merge": "CONV-SUBAGENT-GOV-BATCH033-2026-05-30",
+    "_gov_batch_merged_at": "2026-05-30T10:50:54.993262Z"
   },
   "overrides_governance": {
     "voting_structure_note": "Structure standard une action = une voix (vérifié via URD).",
@@ -924,5 +957,20 @@
     }
   ],
   "_events_fr_translated_at": "2026-05-28T17:00:00Z",
-  "sector_fr": "Services financiers"
+  "sector_fr": "Services financiers",
+  "ai_positioning": {
+    "stance": "minimal",
+    "summary": "3i Group est une société de private equity et infrastructure cotée à Londres. L'IA n'est pas un thème d'investissement central; l'exposition se fait via certaines participations du portefeuille mais 3i lui-même n'a pas de positionnement IA opérationnel.",
+    "evidence": [
+      "Private Equity portfolio (Action notamment)",
+      "Infrastructure investments",
+      "Scandlines investment"
+    ],
+    "source": "3i Group Annual Report",
+    "_ai_signed_by_batch_merge": "CONV-SUBAGENT-AI-BATCH033-2026-05-30",
+    "_ai_batch_merged_at": "2026-05-30T10:50:54.559920Z"
+  },
+  "_risks_signed_by_batch_merge": "CONV-SUBAGENT-RISKS-BATCH033-2026-05-30",
+  "_risks_batch_merged_at": "2026-05-30T10:50:55.369355Z",
+  "_risks_batch_merge_source": "3i Group plc Annual Report FY2025 Principal Risks"
 }

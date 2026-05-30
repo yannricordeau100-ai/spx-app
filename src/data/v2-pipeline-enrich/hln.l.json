@@ -311,7 +311,11 @@
     "top_disclosure": "eu_regex_extracted",
     "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
     "_top_disclosure_at": "2026-05-21T02:49:04.639311+00:00",
-    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:18:58Z"
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:18:58Z",
+    "board_independence_pct": 72.7,
+    "board_women_pct": 45.5,
+    "_gov_signed_by_batch_merge": "CONV-SUBAGENT-GOV-BATCH031-2026-05-30",
+    "_gov_batch_merged_at": "2026-05-30T10:50:54.978285Z"
   },
   "overrides_governance": {
     "board_size": 10,
@@ -740,44 +744,58 @@
   "_short_history_tagged_at": "2026-05-21T19:06:02.663900+00:00",
   "risks": [
     {
-      "title": "Risque opérationnel identifié dans le filing",
-      "category": "operational",
-      "severity": 3,
-      "score_rationale": "Risque identifié dans la section facteurs de risque du filing (extraction automatique).",
+      "title": "Litiges Zantac et responsabilité produit héritée",
+      "category": "Juridique",
+      "severity": 5,
+      "score_rationale": "L'annual report Haleon traite explicitement des litiges Zantac (ranitidine) bien que la société conteste toute responsabilité et n'ait pas commercialisé Zantac aux US. Le risque de provisions et coûts juridiques reste matériel. Catégorie juridique pondération maximale en raison de l'exposition collective potentielle. (score par défaut, à affiner)",
       "trend": "stable",
-      "summary": "Risque opérationnel pouvant affecter la production, la chaîne d'approvisionnement ou les ressources clés."
+      "summary": "Haleon reste exposée aux litiges hérités liés à Zantac (NDMA/ranitidine), malgré sa position contestant toute responsabilité matérielle.",
+      "score": 3
     },
     {
-      "title": "Intensification de la concurrence",
-      "category": "operational",
-      "severity": 3,
-      "score_rationale": "Risque identifié dans la section facteurs de risque du filing (extraction automatique).",
-      "trend": "stable",
-      "summary": "Risque opérationnel pouvant affecter la production, la chaîne d'approvisionnement ou les ressources clés."
+      "title": "Pression concurrentielle private label et marques émergentes",
+      "category": "Concurrence",
+      "severity": 4,
+      "score_rationale": "Haleon opère sur des marchés OTC consumer health très concurrentiels, avec montée des marques de distributeur en EMEA et nouveaux entrants D2C. Le rapport souligne la pression sur les marques historiques (Sensodyne, Voltaren, Centrum) face aux private labels et aux concurrents digitaux. (score par défaut, à affiner)",
+      "trend": "up",
+      "summary": "Haleon fait face à une concurrence accrue des marques de distributeur et des challengers digitaux sur ses catégories OTC clés.",
+      "score": 3
     },
     {
-      "title": "Sécurité alimentaire et qualité produits",
-      "category": "regulatory",
-      "severity": 3,
-      "score_rationale": "Risque identifié dans la section facteurs de risque du filing (extraction automatique).",
+      "title": "Risques réglementaires multi-juridictionnels OTC",
+      "category": "Réglementaire",
+      "severity": 4,
+      "score_rationale": "Haleon vend des produits OTC dans plus de 100 pays, soumis à des régulations diverses (FDA, EMA, MHRA, CNDA). Le rapport mentionne les évolutions sur les allégations santé, l'étiquetage et les revues d'ingrédients (PFAS, conservateurs). Pondération réglementaire élevée. (score par défaut, à affiner)",
       "trend": "stable",
-      "summary": "Risque réglementaire ou juridique pouvant engendrer des sanctions, amendes ou contraintes opérationnelles."
+      "summary": "Haleon est exposée à un patchwork réglementaire OTC complexe avec évolutions sur allégations santé, étiquetage et ingrédients.",
+      "score": 3
     },
     {
-      "title": "Risque opérationnel identifié dans le filing",
-      "category": "operational",
-      "severity": 3,
-      "score_rationale": "Risque identifié dans la section facteurs de risque du filing (extraction automatique).",
+      "title": "Chaîne d'approvisionnement et inflation des intrants",
+      "category": "Supply chain",
+      "severity": 4,
+      "score_rationale": "L'annual report détaille la dépendance aux principes actifs pharmaceutiques (API) majoritairement asiatiques, et l'inflation des coûts (énergie, packaging, transport). Tensions géopolitiques amplifient le risque. Catégorie supply chain pondération moyennement élevée. (score par défaut, à affiner)",
       "trend": "stable",
-      "summary": "Risque opérationnel pouvant affecter la production, la chaîne d'approvisionnement ou les ressources clés."
+      "summary": "Haleon dépend de chaînes d'approvisionnement complexes pour ses API et packaging, exposées à l'inflation des coûts et aux tensions géopolitiques.",
+      "score": 3
     },
     {
-      "title": "Cyberattaques et violations de données",
-      "category": "operational",
+      "title": "Exposition aux devises émergentes",
+      "category": "Financier",
       "severity": 3,
-      "score_rationale": "Risque identifié dans la section facteurs de risque du filing (extraction automatique).",
+      "score_rationale": "Haleon génère une part significative de son chiffre d'affaires en devises émergentes (LATAM, Asie). Le rapport mentionne explicitement l'impact des dévaluations (peso argentin, lira turque) sur les résultats consolidés en sterling. Pondération financière moyenne. (score par défaut, à affiner)",
       "trend": "stable",
-      "summary": "Risque opérationnel pouvant affecter la production, la chaîne d'approvisionnement ou les ressources clés."
+      "summary": "Haleon est exposée aux fluctuations des devises émergentes, avec impact direct sur les revenus consolidés en sterling.",
+      "score": 3
+    },
+    {
+      "title": "Cybersécurité et continuité des plateformes commerciales",
+      "category": "Cybersécurité",
+      "severity": 4,
+      "score_rationale": "Haleon dépend d'une infrastructure IT mondiale post-spin-off de GSK pour ses opérations e-commerce et ERP. Le rapport mentionne explicitement les investissements en cybersécurité et le risque de disruption opérationnelle. Tendance haussière sectorielle. (score par défaut, à affiner)",
+      "trend": "up",
+      "summary": "Haleon est exposée aux cyberattaques visant ses systèmes ERP et plateformes e-commerce mondiales, avec risque de disruption opérationnelle.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-27T12:02:10.748743+00:00",
@@ -952,5 +970,22 @@
   "_hero_kpi_override_orphan_flag": "Organic Rev Growth",
   "_hero_kpi_override_orphan_flag_at": "2026-05-28",
   "_hero_kpi_override_orphan_flag_by": "CONV-SUBAGENT-POLISH",
-  "_hero_kpi_override_orphan_flag_reason": "hero_kpi_override 'Organic Rev Growth' does not match any short in kpis[], stories_kpis[], or kpis_supplementary[]"
+  "_hero_kpi_override_orphan_flag_reason": "hero_kpi_override 'Organic Rev Growth' does not match any short in kpis[], stories_kpis[], or kpis_supplementary[]",
+  "ai_positioning": {
+    "stance": "cautious",
+    "summary": "Haleon, leader mondial du consumer healthcare (Sensodyne, Panadol, Centrum, Voltaren) issu du spin-off GSK 2022, n'a pas communiqué de stratégie IA structurée. L'utilisation reste limitée à l'optimisation marketing digital, l'e-commerce et la supply chain. La R&D consumer health est moins intensive en IA que la pharma.",
+    "evidence": [
+      "Revenus 2024 environ 11.2 Mds £ sur 5 catégories : Oral Health, VMS, Pain Relief, Respiratory Health, Digestive Health",
+      "Mention d'investissements dans data analytics et digital marketing dans l'Annual Report 2024 pour optimiser le ROI publicitaire",
+      "Programme de transformation digitale post-spin-off GSK incluant ERP et plateformes e-commerce",
+      "Pas de plateforme IA propriétaire annoncée, pas de partenariats IA publics majeurs",
+      "Focus sur l'innovation produit (formulations, packaging) plutôt que sur l'IA comme axe stratégique"
+    ],
+    "source": "Haleon Annual Report 2024",
+    "_ai_signed_by_batch_merge": "CONV-SUBAGENT-AI-BATCH031-2026-05-30",
+    "_ai_batch_merged_at": "2026-05-30T10:50:54.528904Z"
+  },
+  "_risks_signed_by_batch_merge": "CONV-SUBAGENT-RISKS-BATCH031-2026-05-30",
+  "_risks_batch_merged_at": "2026-05-30T10:50:55.363493Z",
+  "_risks_batch_merge_source": "Haleon plc Annual Report FY2024 Principal Risks (UK)"
 }

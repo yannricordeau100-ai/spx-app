@@ -296,7 +296,28 @@
     "top_disclosure": "eu_regex_extracted",
     "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
     "_top_disclosure_at": "2026-05-21T02:49:04.718339+00:00",
-    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:19:00Z"
+    "_top_disclosure_replaced_by_sub90": "2026-05-21T09:19:00Z",
+    "board_independence_pct": 87.5,
+    "board_women_pct": 25.0,
+    "top_capital": [
+      {
+        "name": "Varma Mutual Pension Insurance",
+        "pct": 4.17,
+        "type": "pension_fund"
+      },
+      {
+        "name": "BlackRock",
+        "pct": 4.0,
+        "type": "asset_manager"
+      },
+      {
+        "name": "Ilmarinen Mutual Pension Insurance",
+        "pct": 1.3,
+        "type": "pension_fund"
+      }
+    ],
+    "_gov_signed_by_batch_merge": "CONV-SUBAGENT-GOV-BATCH054-2026-05-30",
+    "_gov_batch_merged_at": "2026-05-30T10:50:55.084992Z"
   },
   "overrides_governance": {
     "voting_structure_note": "OK 1-share-1-vote",
@@ -648,39 +669,52 @@
   "_earnings_source": "yfinance.calendar+info",
   "risks": [
     {
-      "title": "Risque climatique physique",
-      "category": "macro",
-      "severity": 4,
+      "title": "Catastrophes naturelles et changement climatique sur risques P&C",
+      "category": "strategic",
+      "severity": 5,
+      "score_rationale": "Sampo (If P&C) très exposé aux événements climatiques nordiques (tempêtes, inondations). Annual report souligne hausse fréquence et coûts réassurance.",
       "trend": "up",
-      "summary": "Les catastrophes naturelles, notamment les tempêtes et inondations, augmentent la fréquence et la gravité des sinistres pour les filiales Sampo. Ces événements sont intégrés aux modèles internes de risque et affectent la rentabilité des activités d’assurance."
+      "summary": "Le changement climatique augmente la fréquence et le coût des sinistres P&C dans les pays nordiques."
     },
     {
-      "title": "Risque de transition réglementaire",
+      "title": "Volatilité marchés financiers sur portefeuille placements",
+      "category": "financial",
+      "severity": 4,
+      "score_rationale": "Portefeuille investments ~16 Mds €, mix obligations + actions + immobilier. Sensible aux taux longs et spreads crédit.",
+      "trend": "stable",
+      "summary": "Le portefeuille de placements de Sampo est exposé aux variations des taux longs, des spreads crédit et des marchés actions."
+    },
+    {
+      "title": "Régulation Solvency II et exigences capital",
       "category": "regulatory",
       "severity": 4,
+      "score_rationale": "Solvency II ratio ~190%. Révision Solvency II 2026 et IFRS 17 augmentent complexité reporting et capital requis.",
       "trend": "up",
-      "summary": "Les évolutions de la législation environnementale imposent des exigences plus strictes en matière d’émissions de carbone. Sampo doit réorienter ses portefeuilles d’investissement vers des actifs bas carbone, ce qui peut entraîner des réévaluations d’actifs et des pertes potentielles."
+      "summary": "Les évolutions Solvency II et IFRS 17 augmentent les exigences en capital et la complexité du reporting prudentiel."
     },
     {
-      "title": "Risque de concentration de souscription",
-      "category": "operational",
+      "title": "Concurrence sur marchés P&C nordiques saturés",
+      "category": "strategic",
       "severity": 3,
+      "score_rationale": "Marché P&C Suède/Finlande/Norvège/Danemark mature, parts de marché stables, pression prix sur renouvellements. Topdanmark intégration risques exécution.",
       "trend": "stable",
-      "summary": "La concentration des activités de souscription sur les marchés nordiques expose Sampo à des chocs régionaux. Bien que la diversification géographique existe, les lignes de métier similaires augmentent le risque de pertes corrélées en cas de crise locale."
+      "summary": "La maturité des marchés nordiques P&C et la concurrence locale limitent la croissance organique de Sampo."
     },
     {
-      "title": "Risque de réserve lié à l’inflation des sinistres",
-      "category": "financial",
-      "severity": 3,
+      "title": "Cyber risques sur souscription et infrastructures clients",
+      "category": "technological",
+      "severity": 4,
+      "score_rationale": "Souscription cyber-assurance + propres systèmes IT critiques. Coût sinistres cyber explose 2024. Annual report explicite.",
       "trend": "up",
-      "summary": "L’inflation des sinistres, notamment dans les assurances MTPL et accidents, augmente les provisions de réserve. Cette hausse, combinée à la longévité des engagements, crée une sensibilité accrue aux variations de taux d’actualisation."
+      "summary": "Sampo est doublement exposé aux cyber-risques : via ses polices cyber souscrites et via ses propres systèmes informatiques."
     },
     {
-      "title": "Risque de liquidité lié aux investissements liquides",
+      "title": "Inflation et impact sur sinistres long-tail",
       "category": "financial",
-      "severity": 3,
-      "trend": "stable",
-      "summary": "La gestion de la liquidité repose sur une part importante d’actifs liquides. Un resserrement du marché monétaire ou une hausse des taux d’intérêt pourrait réduire la capacité de Sampo à répondre à ses obligations de paiement à court terme."
+      "severity": 4,
+      "score_rationale": "Inflation médicale et matériaux augmente coûts indemnisation auto et habitation. Adjustments réserves nécessaires.",
+      "trend": "up",
+      "summary": "L'inflation médicale et des matériaux gonfle les coûts d'indemnisation et oblige à renforcer les réserves techniques."
     }
   ],
   "_risks_reextracted_at": "2026-05-28T20:38:28Z",
@@ -782,5 +816,20 @@
     }
   ],
   "_risks_source": "cerebras:gpt-oss-120b:item1a:2023.txt",
-  "sector_fr": "Services financiers"
+  "sector_fr": "Services financiers",
+  "ai_positioning": {
+    "stance": "cautious",
+    "summary": "Sampo, assureur nordique (If P&C, Hastings, Topdanmark), utilise l'IA principalement pour la tarification, la détection de fraude et l'automatisation du traitement des sinistres. L'IA est un outil opérationnel, pas un axe stratégique de différenciation publique.",
+    "evidence": [
+      "If P&C utilise des modèles ML pour la tarification dynamique et la souscription automatisée",
+      "Hastings Direct (UK) déploie l'IA pour la prévention de fraude et le pricing motor insurance",
+      "Automatisation du traitement des sinistres simples via algorithmes (claims STP)",
+      "Investissements digitaux mentionnés sans positionnement IA spécifique dans le rapport annuel"
+    ],
+    "source": "Sampo Annual Report 2024",
+    "_ai_signed_by_batch_merge": "CONV-SUBAGENT-AI-BATCH054-2026-05-30",
+    "_ai_batch_merged_at": "2026-05-30T10:50:54.718785Z"
+  },
+  "_risks_signed_by_batch_merge": "CONV-SUBAGENT-RISKS-BATCH054-2026-05-30",
+  "_risks_batch_merged_at": "2026-05-30T10:50:55.450412Z"
 }
