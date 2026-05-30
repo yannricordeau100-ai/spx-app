@@ -15,6 +15,7 @@ import { BlurredFreeValue } from "@/components/freemium/blurred-free-value";
 import { BlurredFreeText } from "@/components/freemium/blurred-free-text";
 
 const TYPE_COLOR: Record<string, string> = {
+  // EN canoniques (legacy)
   Revenue: "#a78bfa",
   Margin: "#06b6d4",
   Cash: "#10b981",
@@ -24,6 +25,22 @@ const TYPE_COLOR: Record<string, string> = {
   Investment: "#a78bfa",
   User: "#06b6d4",
   Demand: "#10b981",
+  // FR canoniques (Yann 30 mai 2026, mission catégories KPI)
+  Revenus: "#a78bfa",
+  Marges: "#06b6d4",
+  Trésorerie: "#10b981",
+  "Solidité financière": "#facc15",
+  Capacité: "#fb923c",
+  Clientèle: "#06b6d4",
+  Investissement: "#a78bfa",
+  Productivité: "#34d399",
+  Engagement: "#c084fc",
+  Pipeline: "#a3e635",
+  Distribution: "#f472b6",
+  Dividende: "#22d3ee",
+  Coûts: "#fb7185",
+  Demande: "#10b981",
+  Prix: "#f43f5e",
 };
 
 export function KpiRow({

@@ -543,11 +543,16 @@ export async function loadV17Company(
     // Surveillance (Cash Flow, Capital, Dividende). N'écrase JAMAIS le type si
     // déjà reconnu côté CONV-DATA. Merge SSR-only, n'altère pas v2-pipeline/.
     const RECOGNIZED_TYPES = new Set([
+      // EN canoniques (legacy, gardés pour les ~2200 stés autres)
       "Demand", "User", "Adoption", "Revenue", "Volume", "Pricing", "Growth",
       "Engagement", "Capacity", "Productivity", "Operations", "Production",
       "Quality", "Innovation", "Subscription",
       "Cost", "Margin", "Profitability", "Investment",
       "Cash", "Cash Flow", "Capital", "Dividende",
+      // FR canoniques (Yann 30 mai 2026, mission catégories KPI témoin 11 stés)
+      "Revenus", "Marges", "Trésorerie", "Solidité financière",
+      "Capacité", "Clientèle", "Investissement", "Productivité",
+      "Engagement", "Pipeline", "Distribution", "Coûts", "Demande", "Prix",
     ]);
     // Shorts à FORCE override (high-confidence LLM mislabel) : Net Income en Revenue,
     // Free Cash Flow en Revenue, etc. Patterns autoritaires. Cf
