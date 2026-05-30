@@ -162,7 +162,9 @@ export function StockPriceBlock({ company, freeBlocked = false }: { company: Com
         // bloc reste inchangée (15→100%), seulement la transition vers le
         // transparent s'étire désormais sur ~280px supplémentaires vers la
         // gauche (= déborde sur le fond de page).
-        background: `linear-gradient(90deg, ${tone}00 0%, ${tone}66 4%, ${tone}cc 9%, ${tone} 15%, ${tone} 100%)`,
+        // Yann 30 mai 2026 (option 2) : couleur PLEINE uniforme, plus de gradient.
+        // Logo reste hors zone colorée (logo a son propre container blanc/foncé).
+        background: tone,
         borderTopLeftRadius: 0,
         borderBottomLeftRadius: 0,
         borderTopRightRadius: "0.75rem",
@@ -177,21 +179,16 @@ export function StockPriceBlock({ company, freeBlocked = false }: { company: Com
           gauche du viewport (`-left-[100vw]` est trop, on prend une largeur
           fixe ample = 800px) avec un gradient progressif transparent (noir
           virtuel) → tone. */}
+      {/* Yann 30 mai 2026 (option 2) : extension gauche couleur PLEINE uniforme.
+          Plus de gradient. Le logo en son propre container clair/sombre reste
+          visuellement hors zone colorée car son fond opaque le détache. */}
       <div
         aria-hidden
         className="pointer-events-none absolute right-full top-0 h-full w-[800px]"
-        style={{
-          background: `linear-gradient(90deg, transparent 0%, transparent 35%, ${tone}11 55%, ${tone}33 70%, ${tone}66 82%, ${tone}99 92%, ${tone} 100%)`,
-        }}
+        style={{ background: tone }}
       />
-      {/* Glow radial à droite, autour du prix */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-y-0 right-0 w-1/2"
-        style={{
-          background: `radial-gradient(ellipse at right center, ${tone}66 0%, transparent 70%)`,
-        }}
-      />
+      {/* Glow radial retiré (Yann 30 mai 2026, option 2) : couleur PLEINE
+          uniforme sur toute la zone sans halos. */}
 
       {/* Cadre flex auto-largeur, gap-x pour espacement régulier sans flex-1 */}
       <div className="relative flex items-stretch gap-x-4">
