@@ -69,7 +69,7 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
   const periodLabel = formatStoryPeriod(kpi, ticker, locale);
   return (
     <div
-      className="relative flex h-full flex-col overflow-hidden rounded-[36px] bg-gradient-to-br from-[#101015] via-[#0a0a0e] to-[#060608] px-5 pb-4 pt-11"
+      className="relative flex h-full flex-col overflow-hidden rounded-[40px] bg-gradient-to-br from-[#101015] via-[#0a0a0e] to-[#060608] px-5 pb-4 pt-11"
       style={{ boxShadow: `inset 0 0 120px ${glow}` }}
     >
       <div
@@ -247,7 +247,7 @@ function MarketPositionStoryCard({
 
   return (
     <div
-      className="relative flex h-full flex-col overflow-hidden rounded-[36px] bg-gradient-to-br from-[#101015] via-[#0a0a0e] to-[#060608] px-5 pb-5 pt-12"
+      className="relative flex h-full flex-col overflow-hidden rounded-[40px] bg-gradient-to-br from-[#101015] via-[#0a0a0e] to-[#060608] px-5 pb-5 pt-12"
       style={{ boxShadow: `inset 0 0 120px ${glow}` }}
     >
       <div
