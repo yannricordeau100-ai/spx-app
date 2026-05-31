@@ -157,14 +157,18 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
             </>
           ) : (
             <>
+              {/* Règle desk_block_rules.stories_kpi (Yann 31 mai 2026) :
+                  les chiffres ne doivent pas dépasser de l'écran sur la
+                  gauche et la droite → auto-shrink + overflow-hidden +
+                  wordBreak pour matcher la branche freeBlocked au-dessus. */}
               <div
-                className="font-display font-bold leading-none tracking-tight gradient-text"
-                style={{ fontSize: "clamp(64px, 22vw, 110px)" }}
+                className="w-full max-w-full overflow-hidden text-center font-display font-bold leading-none tracking-tight gradient-text"
+                style={{ fontSize: "clamp(48px, 18vw, 110px)", wordBreak: "break-word" }}
               >
                 {formatKpiValue(kpi.value, kpi.unit)}
               </div>
               {formatUnit(kpi.unit) && (
-                <div className="mt-2 text-[32px] font-bold text-zinc-100">
+                <div className="mt-2 max-w-full overflow-hidden text-[32px] font-bold text-zinc-100" style={{ wordBreak: "break-word" }}>
                   {formatUnit(kpi.unit)}
                 </div>
               )}
