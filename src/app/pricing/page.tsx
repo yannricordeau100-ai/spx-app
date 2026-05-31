@@ -90,13 +90,14 @@ export default async function PricingPage() {
             de restaurer le scroll position vers le bas (Bug 3 Yann). */}
         <ScrollToTopOnMount />
         <div className="mx-auto max-w-3xl text-center">
-          <span className="inline-block rounded-full border border-violet-500/30 bg-violet-500/10 px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-violet-200">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-violet-500/40 bg-violet-500/10 px-3.5 py-1 font-mono text-[11px] uppercase tracking-[0.16em] text-violet-200 shadow-[0_0_24px_rgba(167,139,250,0.18)] transition-all hover:border-violet-400/60 hover:bg-violet-500/15">
+            <span className="size-1.5 animate-pulse rounded-full bg-violet-400" />
             {t("pricing.eyebrow")}
           </span>
-          <h1 className="mt-3 font-display text-4xl font-bold tracking-tight text-zinc-50 sm:text-5xl">
+          <h1 className="mt-4 bg-gradient-to-br from-zinc-50 via-zinc-100 to-violet-200 bg-clip-text font-display text-4xl font-bold tracking-tight text-transparent sm:text-[56px] sm:leading-[1.05]">
             {t("pricing.h1")}
           </h1>
-          <p className="mt-4 whitespace-pre-line text-[15.5px] leading-relaxed text-zinc-400">
+          <p className="mx-auto mt-5 max-w-2xl whitespace-pre-line text-[15.5px] leading-relaxed text-zinc-400">
             {t("pricing.intro")}
           </p>
           {/* Yann 26 mai 2026 : badge "Sans engagement" intégré dans la
@@ -112,28 +113,37 @@ export default async function PricingPage() {
 
         {/* Yann (25 mai 2026) : ancre #compare = cible du bouton "Tout comparer
             en détail" placé sous les bullets des cards pricing. */}
-        <section id="compare" className="mx-auto mt-20 max-w-5xl scroll-mt-20">
-          <div className="mb-6 text-center">
-            <h2 className="font-display text-3xl font-bold tracking-tight text-zinc-50">
+        <section id="compare" className="mx-auto mt-24 max-w-5xl scroll-mt-20">
+          <div className="mb-2 flex justify-center">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1 font-mono text-[10.5px] uppercase tracking-[0.18em] text-zinc-400">
+              <span className="h-px w-6 bg-gradient-to-r from-transparent to-violet-400/60" />
+              02
+              <span className="h-px w-6 bg-gradient-to-l from-transparent to-violet-400/60" />
+            </span>
+          </div>
+          <div className="mb-7 text-center">
+            <h2 className="bg-gradient-to-br from-zinc-50 to-zinc-300 bg-clip-text font-display text-3xl font-bold tracking-tight text-transparent sm:text-4xl">
               {t("pricing.compare_title")}
             </h2>
-            <p className="mt-2 text-[14px] text-zinc-400">
+            <p className="mx-auto mt-3 max-w-xl text-[14.5px] leading-relaxed text-zinc-400">
               {t("pricing.compare_sub")}
             </p>
           </div>
           <PricingMatrix plans={catalog.plans} features={catalog.features} currency={currency} />
         </section>
 
-        <section className="mx-auto mt-20 grid max-w-5xl gap-5 sm:grid-cols-3">
-          <TrustCard title={t("pricing.trust1_title")} body={t("pricing.trust1_body")} />
-          <TrustCard title={t("pricing.trust2_title")} body={t("pricing.trust2_body")} />
-          <TrustCard title={t("pricing.trust3_title")} body={t("pricing.trust3_body")} />
+        <section className="mx-auto mt-24 grid max-w-5xl gap-5 sm:grid-cols-3">
+          <TrustCard idx={1} title={t("pricing.trust1_title")} body={t("pricing.trust1_body")} />
+          <TrustCard idx={2} title={t("pricing.trust2_title")} body={t("pricing.trust2_body")} />
+          <TrustCard idx={3} title={t("pricing.trust3_title")} body={t("pricing.trust3_body")} />
         </section>
 
-        <section className="mx-auto mt-20 max-w-3xl">
-          <h2 className="mb-6 text-center font-display text-3xl font-bold tracking-tight text-zinc-50">
-            {t("pricing.faq_title")}
-          </h2>
+        <section className="mx-auto mt-24 max-w-3xl">
+          <div className="mb-7 text-center">
+            <h2 className="bg-gradient-to-br from-zinc-50 to-zinc-300 bg-clip-text font-display text-3xl font-bold tracking-tight text-transparent sm:text-4xl">
+              {t("pricing.faq_title")}
+            </h2>
+          </div>
           <div className="space-y-3">
             <FaqItem q={t("pricing.faq_q1")} a={t("pricing.faq_a1")} />
             <FaqItem q={t("pricing.faq_q2")} a={t("pricing.faq_a2")} />
@@ -142,25 +152,27 @@ export default async function PricingPage() {
           </div>
         </section>
 
-        <section className="mx-auto mt-20 max-w-3xl rounded-3xl border border-violet-500/30 bg-gradient-to-br from-violet-500/[0.10] to-cyan-500/[0.05] p-10 text-center">
-          <h2 className="font-display text-3xl font-bold tracking-tight text-zinc-50">
+        <section className="relative mx-auto mt-24 max-w-3xl overflow-hidden rounded-3xl border border-violet-500/40 bg-gradient-to-br from-violet-500/[0.14] via-violet-500/[0.06] to-cyan-500/[0.08] p-10 text-center shadow-[0_20px_60px_-30px_rgba(167,139,250,0.4)]">
+          <div className="pointer-events-none absolute -left-20 -top-20 size-64 rounded-full bg-violet-500/20 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-20 -right-20 size-64 rounded-full bg-cyan-500/15 blur-3xl" />
+          <h2 className="relative bg-gradient-to-br from-zinc-50 via-zinc-100 to-violet-200 bg-clip-text font-display text-3xl font-bold tracking-tight text-transparent sm:text-4xl">
             {t("pricing.cta_final_title")}
           </h2>
-          <p className="mt-3 text-[14.5px] leading-relaxed text-zinc-300">
+          <p className="relative mx-auto mt-3 max-w-xl text-[14.5px] leading-relaxed text-zinc-300">
             {t("pricing.cta_final_body")}
           </p>
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <div className="relative mt-7 flex flex-wrap justify-center gap-3">
             <Link
               href="/signup"
               data-pricing-cta="pricing_bottom_signup"
-              className="inline-flex items-center gap-2 rounded-xl bg-violet-500 px-6 py-3 text-[14px] font-bold text-zinc-50 transition-colors hover:bg-violet-400"
+              className="group inline-flex items-center gap-2 rounded-xl bg-violet-500 px-6 py-3 text-[14px] font-bold text-zinc-50 shadow-[0_8px_24px_-8px_rgba(167,139,250,0.6)] transition-all hover:-translate-y-0.5 hover:bg-violet-400 hover:shadow-[0_12px_32px_-8px_rgba(167,139,250,0.8)]"
             >
               {t("pricing.cta_final_btn")}
-              <Check className="size-4" />
+              <Check className="size-4 transition-transform group-hover:translate-x-0.5" />
             </Link>
             <a
               href="mailto:contact@mettrik.ai?subject=Question%20sur%20les%20plans%20Mettrik%20AI"
-              className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-6 py-3 text-[14px] font-semibold text-zinc-200 transition-colors hover:bg-white/[0.07]"
+              className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/[0.04] px-6 py-3 text-[14px] font-semibold text-zinc-200 backdrop-blur transition-all hover:-translate-y-0.5 hover:border-white/25 hover:bg-white/[0.08]"
             >
               <Mail className="size-4" />
               {t("pricing.cta_final_email")}
@@ -174,23 +186,29 @@ export default async function PricingPage() {
   );
 }
 
-function TrustCard({ title, body }: { title: string; body: string }) {
+function TrustCard({ idx, title, body }: { idx: number; title: string; body: string }) {
   return (
-    <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5">
-      <h3 className="font-display text-[15px] font-bold tracking-tight text-zinc-100">{title}</h3>
-      <p className="mt-2 text-[13px] leading-relaxed text-zinc-400">{body}</p>
+    <div className="group relative overflow-hidden rounded-2xl border border-white/[0.08] bg-gradient-to-br from-white/[0.04] to-white/[0.01] p-5 transition-all hover:-translate-y-0.5 hover:border-violet-500/30 hover:shadow-[0_12px_32px_-12px_rgba(167,139,250,0.3)]">
+      <div className="pointer-events-none absolute -right-12 -top-12 size-32 rounded-full bg-violet-500/[0.08] blur-2xl transition-opacity group-hover:bg-violet-500/[0.16]" />
+      <div className="relative mb-2 font-mono text-[10.5px] uppercase tracking-[0.18em] text-violet-300/70">
+        {String(idx).padStart(2, "0")}
+      </div>
+      <h3 className="relative font-display text-[15px] font-bold tracking-tight text-zinc-100">{title}</h3>
+      <p className="relative mt-2 text-[13px] leading-relaxed text-zinc-400">{body}</p>
     </div>
   );
 }
 
 function FaqItem({ q, a }: { q: string; a: string }) {
   return (
-    <details className="group rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 transition-colors open:border-violet-500/20 open:bg-violet-500/[0.04]">
-      <summary className="flex cursor-pointer items-center justify-between gap-3 text-[14px] font-semibold text-zinc-100">
+    <details className="group rounded-xl border border-white/[0.08] bg-white/[0.02] p-4 transition-all open:border-violet-500/30 open:bg-violet-500/[0.06] open:shadow-[0_8px_24px_-12px_rgba(167,139,250,0.3)] hover:border-white/[0.14]">
+      <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-[14px] font-semibold text-zinc-100">
         {q}
-        <span className="text-[18px] text-zinc-500 transition-transform group-open:rotate-45">+</span>
+        <span className="inline-flex size-6 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-[13px] text-zinc-400 transition-all group-open:rotate-45 group-open:border-violet-500/40 group-open:bg-violet-500/15 group-open:text-violet-200">
+          +
+        </span>
       </summary>
-      <p className="mt-2.5 text-[13px] leading-relaxed text-zinc-400">{a}</p>
+      <p className="mt-3 text-[13px] leading-relaxed text-zinc-400">{a}</p>
     </details>
   );
 }
