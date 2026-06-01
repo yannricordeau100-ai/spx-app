@@ -602,7 +602,7 @@ export function CompanyView({
         <CompanyHeader
           company={company}
           hidePriceBar={hidePriceBar || isBlockDisabledForTicker(company.ticker, "snapshot_boursier")}
-          freeBlocked={freeBlocked}
+          freeBlocked={false}
         />
 
         {/* HERO SECTION — plain section (no motion opacity:0 -> mobile bug) */}
