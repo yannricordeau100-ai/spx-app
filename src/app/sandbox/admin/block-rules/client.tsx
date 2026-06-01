@@ -18,6 +18,29 @@ type RowState = {
   status: SaveStatus;
   errorMessage?: string;
   showHorsTop1: boolean;
+  lastAppliedAt: string | null;
+  lastApplyReport: BlockApplyReportClient | null;
+};
+
+type BlockApplyReportClient = {
+  block_key: string;
+  block_label: string;
+  rules_count: number;
+  ui_rules_count: number;
+  data_rules_count: number;
+  ambiguous_rules_count: number;
+  needs_review: { line: string; reason: string }[];
+  data_modifications: Record<string, number>;
+  modified_tickers: string[];
+};
+
+type JobStatus = "pending" | "running" | "done" | "error";
+type JobReportClient = {
+  started_at: string;
+  finished_at: string;
+  total_companies_scanned: number;
+  total_modifications: number;
+  by_block: BlockApplyReportClient[];
 };
 
 const DEBOUNCE_MS = 1000;
@@ -35,6 +58,24 @@ function formatUpdatedAt(iso: string | null): string {
     });
   } catch {
     return iso;
+  }
+}
+
+function formatTimeAgo(iso: string | null): string | null {
+  if (!iso) return null;
+  try {
+    const then = new Date(iso).getTime();
+    const now = Date.now();
+    const diffSec = Math.floor((now - then) / 1000);
+    if (diffSec < 60) return "il y a quelques secondes";
+    const diffMin = Math.floor(diffSec / 60);
+    if (diffMin < 60) return `il y a ${diffMin} min`;
+    const diffH = Math.floor(diffMin / 60);
+    if (diffH < 24) return `il y a ${diffH} h`;
+    const diffD = Math.floor(diffH / 24);
+    return `il y a ${diffD} j`;
+  } catch {
+    return null;
   }
 }
 
@@ -58,10 +99,89 @@ export function BlockRulesClient({
         updatedAt: payload?.updated_at ?? null,
         status: "idle",
         showHorsTop1: !!(payload?.hors_top1_raw && payload.hors_top1_raw.length > 0),
+        lastAppliedAt: payload?.last_applied_at ?? null,
+        lastApplyReport:
+          (payload?.last_apply_report as BlockApplyReportClient | null) ?? null,
       };
     }
     return out as Record<BlockKey, RowState>;
   });
+
+  // État job "Appliquer maintenant".
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [jobId, setJobId] = useState<string | null>(null);
+  const [jobStatus, setJobStatus] = useState<JobStatus | null>(null);
+  const [jobError, setJobError] = useState<string | null>(null);
+  const [jobReport, setJobReport] = useState<JobReportClient | null>(null);
+  const isApplying = jobStatus === "pending" || jobStatus === "running";
+
+  const launchApply = useCallback(async () => {
+    setConfirmOpen(false);
+    setJobError(null);
+    setJobReport(null);
+    setJobStatus("pending");
+    try {
+      const res = await fetch("/api/desk-mtk9x4kp/block-rules-apply", {
+        method: "POST",
+      });
+      const data = (await res.json().catch(() => ({}))) as {
+        ok?: boolean;
+        job_id?: string;
+        error?: string;
+      };
+      if (!res.ok || !data.ok || !data.job_id) {
+        setJobStatus("error");
+        setJobError(data.error ?? `HTTP ${res.status}`);
+        return;
+      }
+      setJobId(data.job_id);
+    } catch (err) {
+      setJobStatus("error");
+      setJobError(err instanceof Error ? err.message : String(err));
+    }
+  }, []);
+
+  // Polling status job toutes les 2s.
+  useEffect(() => {
+    if (!jobId || !isApplying) return;
+    const interval = setInterval(async () => {
+      try {
+        const res = await fetch(
+          `/api/desk-mtk9x4kp/block-rules-apply?job_id=${encodeURIComponent(jobId)}`,
+        );
+        const data = (await res.json().catch(() => ({}))) as {
+          status?: JobStatus;
+          report?: JobReportClient;
+          error_message?: string;
+        };
+        if (data.status) setJobStatus(data.status);
+        if (data.status === "done" && data.report) {
+          setJobReport(data.report);
+          // Met à jour les rows avec les nouveaux last_applied_at + report par bloc.
+          setRows((prev) => {
+            const next = { ...prev };
+            for (const rep of data.report!.by_block) {
+              const bk = rep.block_key as BlockKey;
+              if (next[bk]) {
+                next[bk] = {
+                  ...next[bk],
+                  lastAppliedAt: data.report!.finished_at,
+                  lastApplyReport: rep,
+                };
+              }
+            }
+            return next;
+          });
+        }
+        if (data.status === "error") {
+          setJobError(data.error_message ?? "Erreur inconnue");
+        }
+      } catch {
+        // ignore, retry au tour suivant
+      }
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [jobId, isApplying]);
 
   // Refs pour les timers de debounce (1 par bloc).
   const timersRef = useRef<Record<string, ReturnType<typeof setTimeout> | null>>(
@@ -206,8 +326,113 @@ export function BlockRulesClient({
             <span className="text-neutral-600">·</span>
             <span>Version-agnostic (s&apos;applique à toute version de l&apos;app)</span>
           </div>
+
+          <div className="mt-5 flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              onClick={() => setConfirmOpen(true)}
+              disabled={isApplying}
+              className="inline-flex items-center gap-2 rounded-lg border border-orange-400/50 bg-orange-500/20 px-4 py-2 text-sm font-semibold text-orange-100 transition hover:border-orange-400 hover:bg-orange-500/30 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              {isApplying ? (
+                <>
+                  <span className="h-2 w-2 animate-pulse rounded-full bg-orange-300" />
+                  Application en cours…
+                </>
+              ) : (
+                <>Appliquer maintenant à tout l&apos;univers</>
+              )}
+            </button>
+            {jobStatus === "done" && jobReport && (
+              <span className="text-xs text-emerald-300">
+                Terminé : {jobReport.total_modifications} modifications sur{" "}
+                {jobReport.total_companies_scanned} sociétés.
+              </span>
+            )}
+            {jobStatus === "error" && (
+              <span className="text-xs text-red-300">
+                Erreur : {jobError ?? "inconnue"}
+              </span>
+            )}
+          </div>
         </div>
       </div>
+
+      {/* Modal confirmation */}
+      {confirmOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4"
+          onClick={() => setConfirmOpen(false)}
+        >
+          <div
+            className="max-w-md rounded-xl border border-orange-500/40 bg-neutral-950 p-6 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 className="mb-3 text-lg font-bold text-orange-100">
+              Es-tu sûr ?
+            </h3>
+            <p className="mb-5 text-sm text-neutral-300">
+              Tu vas appliquer toutes les règles stockées aux 911 sociétés
+              V1.9.5. Les règles UI seront signalées dans le report (modifs
+              composants déjà faites par le team). Les règles data
+              (em-dash, unités, etc.) seront appliquées aux datasets.
+            </p>
+            <p className="mb-5 text-xs text-neutral-500">
+              Idempotent : appliquer 2 fois la même règle ne fait pas plus
+              de modifs la 2e fois.
+            </p>
+            <div className="flex items-center justify-end gap-3">
+              <button
+                type="button"
+                onClick={() => setConfirmOpen(false)}
+                className="rounded-lg border border-neutral-700 px-3 py-2 text-sm text-neutral-300 transition hover:border-neutral-500"
+              >
+                Annuler
+              </button>
+              <button
+                type="button"
+                onClick={launchApply}
+                className="rounded-lg border border-orange-400 bg-orange-500/30 px-3 py-2 text-sm font-semibold text-orange-100 transition hover:bg-orange-500/40"
+              >
+                Oui, appliquer
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Report global après application */}
+      {jobReport && (
+        <div className="mx-auto max-w-5xl px-6 pt-6">
+          <div className="rounded-xl border border-emerald-500/30 bg-emerald-950/20 p-4">
+            <h3 className="mb-2 text-sm font-semibold text-emerald-200">
+              Report de la dernière application
+            </h3>
+            <div className="grid grid-cols-2 gap-3 text-xs text-neutral-300 sm:grid-cols-4">
+              <div>
+                <div className="text-neutral-500">Sociétés scannées</div>
+                <div className="text-lg font-bold text-emerald-100">
+                  {jobReport.total_companies_scanned}
+                </div>
+              </div>
+              <div>
+                <div className="text-neutral-500">Modifications totales</div>
+                <div className="text-lg font-bold text-emerald-100">
+                  {jobReport.total_modifications}
+                </div>
+              </div>
+              <div>
+                <div className="text-neutral-500">Démarré</div>
+                <div>{formatUpdatedAt(jobReport.started_at)}</div>
+              </div>
+              <div>
+                <div className="text-neutral-500">Terminé</div>
+                <div>{formatUpdatedAt(jobReport.finished_at)}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Grille blocs */}
       <div className="mx-auto max-w-5xl space-y-6 px-6 py-8">
@@ -222,13 +447,22 @@ export function BlockRulesClient({
             >
               <header className="mb-3 flex items-start justify-between gap-4">
                 <div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     <span className="rounded bg-orange-500/15 px-2 py-0.5 text-xs font-mono text-orange-300">
                       {String(idx + 1).padStart(2, "0")}
                     </span>
                     <h2 className="text-lg font-semibold text-orange-100">
                       {label}
                     </h2>
+                    {row.lastAppliedAt && (
+                      <span
+                        className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-medium text-emerald-300"
+                        title={`Appliquée le ${formatUpdatedAt(row.lastAppliedAt)}`}
+                      >
+                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                        Appliquée {formatTimeAgo(row.lastAppliedAt)}
+                      </span>
+                    )}
                   </div>
                   <code className="mt-1 inline-block text-xs text-neutral-500">
                     block_key: {blockKey}
@@ -236,6 +470,64 @@ export function BlockRulesClient({
                 </div>
                 <SaveBadge row={row} />
               </header>
+
+              {row.lastApplyReport && (
+                <div className="mb-3 rounded-lg border border-emerald-500/20 bg-emerald-950/20 p-3 text-xs text-neutral-300">
+                  <div className="mb-1.5 flex flex-wrap items-center gap-3 text-[11px]">
+                    <span>
+                      <span className="text-neutral-500">Règles UI :</span>{" "}
+                      <span className="font-semibold text-cyan-300">
+                        {row.lastApplyReport.ui_rules_count}
+                      </span>
+                    </span>
+                    <span>
+                      <span className="text-neutral-500">Règles data :</span>{" "}
+                      <span className="font-semibold text-emerald-300">
+                        {row.lastApplyReport.data_rules_count}
+                      </span>
+                    </span>
+                    {row.lastApplyReport.ambiguous_rules_count > 0 && (
+                      <span>
+                        <span className="text-neutral-500">À revoir :</span>{" "}
+                        <span className="font-semibold text-amber-300">
+                          {row.lastApplyReport.ambiguous_rules_count}
+                        </span>
+                      </span>
+                    )}
+                    {row.lastApplyReport.modified_tickers.length > 0 && (
+                      <span>
+                        <span className="text-neutral-500">Sociétés modifiées :</span>{" "}
+                        <span className="font-semibold text-orange-300">
+                          {row.lastApplyReport.modified_tickers.length}
+                        </span>
+                      </span>
+                    )}
+                  </div>
+                  {Object.keys(row.lastApplyReport.data_modifications).length > 0 && (
+                    <div className="text-[11px] text-neutral-400">
+                      Modifications :{" "}
+                      {Object.entries(row.lastApplyReport.data_modifications)
+                        .map(([k, v]) => `${k} (${v})`)
+                        .join(" · ")}
+                    </div>
+                  )}
+                  {row.lastApplyReport.needs_review.length > 0 && (
+                    <details className="mt-2">
+                      <summary className="cursor-pointer text-[11px] text-amber-300">
+                        {row.lastApplyReport.needs_review.length} règle(s) à revoir
+                      </summary>
+                      <ul className="mt-1.5 space-y-1 pl-3">
+                        {row.lastApplyReport.needs_review.map((r, i) => (
+                          <li key={i} className="text-[10px] text-neutral-400">
+                            <code className="text-amber-200">{r.line}</code> :{" "}
+                            {r.reason}
+                          </li>
+                        ))}
+                      </ul>
+                    </details>
+                  )}
+                </div>
+              )}
 
               <label
                 className="mb-1 block text-xs font-semibold uppercase tracking-wider text-neutral-400"

@@ -76,6 +76,8 @@ export type BlockRulesRow = {
   rules_hors_top1_raw: string;
   rules_hors_top1_structured: BlockRulesStructured;
   updated_at: string;
+  last_applied_at?: string | null;
+  last_apply_report?: Record<string, unknown> | null;
 };
 
 /** Sortie standard renvoyée aux sub-agents. */
@@ -85,6 +87,8 @@ export type BlockRulesPayload = {
   hors_top1_raw: string;
   hors_top1_structured: BlockRulesStructured;
   updated_at: string | null;
+  last_applied_at: string | null;
+  last_apply_report: Record<string, unknown> | null;
 };
 
 const EMPTY_PAYLOAD: BlockRulesPayload = {
@@ -93,6 +97,8 @@ const EMPTY_PAYLOAD: BlockRulesPayload = {
   hors_top1_raw: "",
   hors_top1_structured: { lines: [] },
   updated_at: null,
+  last_applied_at: null,
+  last_apply_report: null,
 };
 
 /**
@@ -131,6 +137,8 @@ export async function getBlockRules(
       hors_top1_raw: row.rules_hors_top1_raw ?? "",
       hors_top1_structured: (row.rules_hors_top1_structured ?? { lines: [] }) as BlockRulesStructured,
       updated_at: row.updated_at,
+      last_applied_at: row.last_applied_at ?? null,
+      last_apply_report: row.last_apply_report ?? null,
     };
   } catch {
     return EMPTY_PAYLOAD;
@@ -159,6 +167,8 @@ export async function getAllBlockRules(): Promise<
         hors_top1_raw: r.rules_hors_top1_raw ?? "",
         hors_top1_structured: (r.rules_hors_top1_structured ?? { lines: [] }) as BlockRulesStructured,
         updated_at: r.updated_at,
+        last_applied_at: r.last_applied_at ?? null,
+        last_apply_report: r.last_apply_report ?? null,
       };
     }
   } catch {
