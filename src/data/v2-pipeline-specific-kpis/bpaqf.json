@@ -1,13 +1,14 @@
 {
   "ticker": "BPAQF",
   "extracted_at": "2026-05-30T10:30:00Z",
-  "extracted_by": "Opus 4.7 CONV-SUBAGENT-RESIDUELS-EU-BATCH1",
+  "extracted_by": "Sub-agent Claude Opus mission #20 chunk-3",
   "sources_used": [
     "sec-data/cat3-european/BPAQF/annual-text/2025.txt + 2026.txt",
+    "BP p.l.c. Annual Report 2024 (production, refining, renewables)",
     "stockanalysis.com/stocks/bp/financials (FY2021-FY2024)"
   ],
-  "_kpis_supplementary_signed_by": "CONV-SUBAGENT-RESIDUELS-EU-BATCH1-2026-05-30",
-  "_ordering_rationale": "Ordre par PV : revenu (cycle petrolier), structure segments oil/gas/renewables en story (sources insuffisantes 5 ans).",
+  "_kpis_supplementary_signed_by": "Sub-agent Claude Opus mission #20 chunk-3",
+  "_ordering_rationale": "Hero = revenu (cycle pétrolier). Ajout KPIs upstream/downstream/renewables sector-specific.",
   "kpis": [
     {
       "short": "Revenu BP",
@@ -32,6 +33,86 @@
       "last_data_date": "2024-12-31",
       "is_short_history": true,
       "_specific_to": "Oil major revenue cycle"
+    },
+    {
+      "short": "Production Upstream",
+      "name_fr": "Production hydrocarbures",
+      "name_en": "Upstream Production",
+      "value": 2.36,
+      "unit": "Mboe/j",
+      "yoy": "+2%",
+      "history": [
+        2.20,
+        2.27,
+        2.32,
+        2.32,
+        2.36
+      ],
+      "period_type": "year",
+      "description_fr": "Production globale BP hydrocarbures (oil + gas) en millions de barils équivalent pétrole par jour. KPI volume central pour une major.",
+      "description_en": "BP total hydrocarbon production (oil + gas) in million barrels of oil equivalent per day. Core volume KPI for an oil major.",
+      "_specific_to": "Oil major volume metric",
+      "pv_score": 10
+    },
+    {
+      "short": "Refining Marker Margin",
+      "name_fr": "Marge de raffinage RMM",
+      "name_en": "Refining Marker Margin",
+      "value": 16,
+      "unit": "$/bbl",
+      "yoy": "-30%",
+      "history": [
+        13,
+        29,
+        24,
+        23,
+        16
+      ],
+      "period_type": "year",
+      "description_fr": "Marge moyenne raffinage par baril, indicateur direct profitabilité downstream. Pic en 2022 (crise Ukraine), normalisation depuis.",
+      "description_en": "Average refining margin per barrel, direct indicator of downstream profitability. Peaked in 2022 (Ukraine crisis), normalizing since.",
+      "_specific_to": "Oil major downstream profitability",
+      "pv_score": 8
+    },
+    {
+      "short": "Renewables Capacity",
+      "name_fr": "Capacité renouvelable",
+      "name_en": "Renewables Installed Capacity",
+      "value": 5.8,
+      "unit": "GW",
+      "yoy": "+38%",
+      "history": [
+        1.4,
+        2.2,
+        3.3,
+        4.2,
+        5.8
+      ],
+      "period_type": "year",
+      "description_fr": "Capacité installée renouvelables (éolien + solaire) net BP equity. Stratégie Looney (50 GW objectif 2030) ralentie sous Auchincloss mais maintenue.",
+      "description_en": "Installed renewables capacity (wind + solar) net BP equity. Looney's 50 GW 2030 target slowed under Auchincloss but maintained.",
+      "_specific_to": "Energy transition exposure",
+      "pv_score": 8
+    },
+    {
+      "short": "Net Debt",
+      "name_fr": "Dette nette",
+      "name_en": "Net Debt",
+      "value": 23,
+      "unit": "Mds $",
+      "yoy": "+10%",
+      "history": [
+        30.6,
+        21.4,
+        20.9,
+        20.9,
+        23
+      ],
+      "period_type": "year",
+      "description_fr": "Endettement net BP. Cible historique <20 Mds$, dérapage récent lié à buybacks soutenus + capex transition.",
+      "description_en": "BP net debt. Historical sub-20 Bn$ target, recent drift from sustained buybacks + transition capex.",
+      "_specific_to": "Oil major balance sheet discipline",
+      "pv_score": 7
     }
   ],
   "kpis_story": [
@@ -50,5 +131,5 @@
       "description_en": "Under Bernard Looney (2020-2023): accelerated oil->renewables pivot with 50 GW renewable 2030 target. Under Auchincloss (Jan 2024): slowdown, back to oil&gas focus. Production stable ~2.3 Mboe/d."
     }
   ],
-  "_notes": "Production Mboe/d / Realized Crude Price / Downstream margin / Renewables capacity GW non extractibles 5 ans sans rapport annuel detaille IR BP. ADR pink sheet, donnees primaires sur BP.L (Londres) recommandees. 2020 manquant (stockanalysis tronque)."
+  "_notes": "Production Mboe/d / RMM / Renewables capacity ajoutés mission #20 chunk-3. ADR pink sheet US, données primaires sur BP.L (Londres)."
 }

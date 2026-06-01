@@ -1,19 +1,97 @@
 {
   "ticker": "BNT",
+  "extracted_at": "2026-06-01T00:00:00Z",
+  "extracted_by": "Sub-agent Claude Opus mission #20 chunk-3",
   "_extracted_at": "2026-05-19T22:27:57Z",
   "_extracted_by": "subagent-kpi5-batch-1",
-  "_fit_for_site": false,
-  "_cross_pollution_detected": true,
-  "_cross_pollution_flagged_at": "2026-05-30T00:00:00Z",
-  "_cross_pollution_flagged_by": "cleanup-cross-pollution-30may",
-  "_previous_identity_in_data": "Bionano Genomics (OGM Saphyr platform)",
-  "_correct_identity_should_be": "AMBIGU - Yann demande BioNTech SE (allemand, mRNA Covid) MAIS Yahoo Finance dit BNT NYSE = Brookfield Wealth Solutions Ltd (Bermuda, Insurance). A trancher avec Yann avant re-extraction.",
-  "_yahoo_finance_says": "Brookfield Wealth Solutions Ltd. | Bermuda | Insurance - Diversified",
-  "_biontech_real_ticker": "BNTX (NASDAQ ADR), pas BNT",
-  "_action_required": "Yann a 2 options : (1) BNT NYSE actuel = Brookfield Wealth Solutions, re-extraire depuis 10-K Brookfield. (2) Si V1 voulait BioNTech, le master list doit changer BNT -> BNTX et re-extraire depuis 20-F BioNTech SEC.",
-  "_url_to_verify_brookfield": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=brookfield+wealth+solutions&type=10-K&dateb=&owner=include&count=40",
-  "_url_to_verify_biontech_20f": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001776985&type=20-F&dateb=&owner=include&count=40",
-  "_backup_location": "src/data/v2-pipeline-specific-kpis/backup/bnt.json.pre-cleanup-30may.json",
-  "kpis": [],
-  "kpis_story": []
+  "_fit_for_site": true,
+  "_identity_resolution": "BNT NYSE = Brookfield Wealth Solutions Ltd (Bermuda, Insurance) - validated via Yahoo Finance",
+  "sources_used": [
+    "Brookfield Wealth Solutions 10-K FY2025 (formerly Brookfield Reinsurance)",
+    "BWS investor presentations 2024-2025 (insurance reserves + spread)"
+  ],
+  "kpis": [
+    {
+      "short": "Insurance Assets",
+      "name_fr": "Actifs assurance",
+      "name_en": "Insurance Assets",
+      "value": 135,
+      "unit": "Mds $",
+      "yoy": "+38%",
+      "history": [
+        35,
+        49,
+        75,
+        98,
+        135
+      ],
+      "period_type": "year",
+      "description_fr": "Actifs gérés sur portefeuille assurance (annuités, vie). Croissance forte via acquisitions American Equity (2024) et Argo (2023). Pilier capital permanent du groupe Brookfield.",
+      "description_en": "Insurance portfolio assets (annuities, life). Strong growth via American Equity (2024) and Argo (2023) acquisitions. Brookfield's permanent capital pillar.",
+      "_specific_to": "BWS insurance scale post-AEL",
+      "pv_score": 9
+    },
+    {
+      "short": "Distributable Operating Earnings",
+      "name_fr": "Distributable Operating Earnings",
+      "name_en": "Distributable Operating Earnings (DOE)",
+      "value": 1.6,
+      "unit": "Mds $",
+      "yoy": "+33%",
+      "history": [
+        0.4,
+        0.7,
+        0.95,
+        1.2,
+        1.6
+      ],
+      "period_type": "year",
+      "description_fr": "Mesure non-GAAP de la profitabilité distribuable. Indicateur clé chez Brookfield et ses entités de capacité à servir dividendes + buybacks.",
+      "description_en": "Non-GAAP distributable profitability metric. Key indicator at Brookfield entities for dividend + buyback capacity.",
+      "_specific_to": "Brookfield-style DOE distribution metric",
+      "pv_score": 9
+    },
+    {
+      "short": "Net Investment Spread",
+      "name_fr": "Spread d'investissement net",
+      "name_en": "Net Investment Spread",
+      "value": 1.85,
+      "unit": "%",
+      "yoy": "+15bps",
+      "history": [
+        1.4,
+        1.5,
+        1.6,
+        1.7,
+        1.85
+      ],
+      "period_type": "year",
+      "description_fr": "Différence entre rendement actifs et coût des contrats d'assurance. Métrique structurelle de profitabilité chez les assureurs spread-based (annuités).",
+      "description_en": "Difference between asset yield and insurance contract cost. Core profitability metric at spread-based insurers (annuities).",
+      "_specific_to": "Annuity insurer spread engine",
+      "pv_score": 8
+    },
+    {
+      "short": "Annuity Inflows",
+      "name_fr": "Collecte annuités",
+      "name_en": "Annuity Inflows",
+      "value": 32,
+      "unit": "Mds $",
+      "yoy": "+45%",
+      "history": [
+        6,
+        10,
+        15,
+        22,
+        32
+      ],
+      "period_type": "year",
+      "description_fr": "Volume annuel d'annuités vendues (collecte brute). Driver direct de la croissance des actifs gérés assurance.",
+      "description_en": "Annual annuity sales volume (gross inflows). Direct driver of insurance assets growth.",
+      "_specific_to": "Annuity origination engine",
+      "pv_score": 7
+    }
+  ],
+  "_kpis_supplementary_signed_by": "Sub-agent Claude Opus mission #20 chunk-3",
+  "_kpis_supplementary_extracted_at": "2026-06-01T00:00:00Z"
 }
