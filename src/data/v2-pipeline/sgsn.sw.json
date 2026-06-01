@@ -171,14 +171,16 @@
         3.2
       ],
       "type": "Dividende",
-      "nature": "comptable",
+      "nature": "Récurrent",
       "comparable": true,
       "signal": "Dividende par action de 3.2 CHF dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
       "_source": "yfinance.dividends",
       "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
-      "signal_en": "Dividend stable, payout consistent"
+      "signal_en": "Dividend stable, payout consistent",
+      "_nature_reclass_at": "2026-06-01T02:50:40Z",
+      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01"
     },
     {
       "short": "Cap Return",
@@ -194,7 +196,7 @@
         0.222
       ],
       "type": "Cash",
-      "nature": "comptable",
+      "nature": "Récurrent",
       "comparable": true,
       "signal": "Capital retourné aux actionnaires via dividendes de 0.222 Mds CHF dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
@@ -202,7 +204,9 @@
       "_source": "yfinance.cashflow",
       "is_short_history": true,
       "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_nature_reclass_at": "2026-06-01T02:50:40Z",
+      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01"
     },
     {
       "short": "Payout Ratio",
@@ -218,7 +222,7 @@
         33.2
       ],
       "type": "Dividende",
-      "nature": "comptable",
+      "nature": "Récurrent",
       "comparable": true,
       "signal": "Part du résultat net distribué en dividendes : 33.2% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
@@ -226,7 +230,9 @@
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
       "is_short_history": true,
       "explanation_en": "Payout Ratio — dividends paid divided by net income.",
-      "signal_en": "Dividend cut risk, monitor payout sustainability"
+      "signal_en": "Dividend cut risk, monitor payout sustainability",
+      "_nature_reclass_at": "2026-06-01T02:50:40Z",
+      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01"
     }
   ],
   "stories_kpis": [],
