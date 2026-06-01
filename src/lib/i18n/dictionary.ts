@@ -1671,9 +1671,9 @@ export const DICTIONARY: Dict = {
     de: "Quelle: Mettrik AI",
   },
   "company.profile.desc_title": {
-    fr: "Description Mettrik",
-    en: "Mettrik Description",
-    de: "Mettrik Beschreibung",
+    fr: "Description Mettrik AI",
+    en: "Mettrik AI Description",
+    de: "Mettrik AI Beschreibung",
   },
   "company.profile.toggle_simple": {
     fr: "Simple",
