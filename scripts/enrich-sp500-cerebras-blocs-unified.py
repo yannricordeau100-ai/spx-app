@@ -36,7 +36,7 @@ LOG = PROJECT_ROOT / f".conv-state/CONV-DATA-sp500-blocs-{os.environ.get('KEY_IN
 LOG.parent.mkdir(parents=True, exist_ok=True)
 
 CEREBRAS_URL = "https://api.cerebras.ai/v1/chat/completions"
-MODEL_ID = "qwen-3-235b-a22b-instruct-2507"
+MODEL_ID = "gpt-oss-120b"
 SLEEP = 4.0
 CTX_LEN = 22000
 

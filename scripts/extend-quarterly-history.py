@@ -135,6 +135,63 @@ def extract_text(htm_gz: Path, max_chars: int = 12000) -> str:
     return text[:max_chars]
 
 
+def smart_extract(htm_gz: Path, target_keywords: list[str], max_chars: int = 8000,
+                  window_before: int = 500, window_after: int = 3000) -> str:
+    """Extrait sections autour des mots-clés cibles (revenus segments, etc).
+    Beaucoup plus efficace pour le LLM que dump full text.
+    Yann 1er juin 2026 : gpt-oss-120b échoue sur full text dump (trop dense),
+    mais réussit sur extraction ciblée par section."""
+    try:
+        with gzip.open(htm_gz, "rt", errors="ignore") as f:
+            html = f.read()
+    except Exception:
+        return ""
+    text = re.sub(r"<[^>]+>", " ", html)
+    text = re.sub(r"&nbsp;|&[a-z]+;|&#\d+;", " ", text)
+    text = re.sub(r"\s+", " ", text)
+    excerpts = []
+    seen_ranges: list[tuple[int, int]] = []
+    for kw in target_keywords:
+        for match in re.finditer(re.escape(kw), text, re.IGNORECASE):
+            start = max(0, match.start() - window_before)
+            end = min(len(text), match.end() + window_after)
+            # dedupe overlapping ranges
+            if any(s <= start <= e or s <= end <= e for s, e in seen_ranges):
+                continue
+            seen_ranges.append((start, end))
+            excerpts.append(text[start:end])
+            if sum(len(e) for e in excerpts) > max_chars:
+                break
+        if sum(len(e) for e in excerpts) > max_chars:
+            break
+    return " ... ".join(excerpts)[:max_chars]
+
+
+def build_kpi_keywords(kpi: dict) -> list[str]:
+    """Construit les mots-clés pour cibler les sections du filing concernant ce KPI."""
+    keywords = []
+    short = (kpi.get("short") or "").strip()
+    name_en = (kpi.get("name_en") or "").strip()
+    name_fr = (kpi.get("name_fr") or "").strip()
+    # ajoute name_en et tokens significatifs
+    for src in [short, name_en, name_fr]:
+        if src and src not in keywords:
+            keywords.append(src)
+        # split into significant tokens (skip common words)
+        for tok in re.split(r"[\s\-\(\)\/]+", src):
+            tok = tok.strip()
+            if len(tok) >= 4 and tok.lower() not in {"revenue", "growth", "margin", "rate", "ratio",
+                                                       "operating", "net", "total", "gross", "year"}:
+                if tok not in keywords:
+                    keywords.append(tok)
+    # always include generic financial section markers
+    for generic in ["Net sales", "Three months ended", "Quarter ended", "Reportable segments",
+                    "Segment results", "Revenue from contracts"]:
+        if generic not in keywords:
+            keywords.append(generic)
+    return keywords[:15]  # cap pour pas exploser
+
+
 def call_cerebras(system: str, user: str, key_idx: int = 0, max_retries: int = 3) -> dict | None:
     """Retry sur key différente si fail/rate-limit. Backoff 2s entre tentatives."""
     if not CEREBRAS_KEYS:
@@ -148,7 +205,7 @@ def call_cerebras(system: str, user: str, key_idx: int = 0, max_retries: int = 3
         "temperature": 0.1,
         "response_format": {"type": "json_object"},
         "max_tokens": 8000,
-        "reasoning_effort": "low",  # gpt-oss-120b utilise reasoning séparé ; low garde 90 % tokens dispo pour content
+        "reasoning_effort": "medium",  # Yann 1 juin 2026 : low → JSON vides systématiques sur gpt-oss-120b ; medium débloque l'extraction
     }
     for attempt in range(max_retries):
         key = CEREBRAS_KEYS[(key_idx + attempt) % len(CEREBRAS_KEYS)]
@@ -211,20 +268,27 @@ def process_ticker(ticker: str, worker_id: int) -> str:
     if len(filings) < 3:
         return f"too-few-filings-{len(filings)}"
 
-    # Concat texte (cap MAX_DOC_CHARS total). Prend les filings les plus
-    # récents en priorité (5 derniers 10-Q + 5 derniers 10-K).
-    chars_per_filing = max(2000, MAX_DOC_CHARS // max(len(filings[-15:]), 1))
+    # Smart-extract : cible les sections pertinentes pour chaque KPI demandé.
+    # Yann 1 juin 2026 : full text dump → LLM gpt-oss-120b retourne JSON vides.
+    # Smart extraction ciblée par keyword débloque l'extraction.
+    all_keywords: list[str] = []
+    for k in targets:
+        for kw in build_kpi_keywords(k):
+            if kw not in all_keywords:
+                all_keywords.append(kw)
+
+    chars_per_filing = max(3000, MAX_DOC_CHARS // max(len(filings[-12:]), 1))
     docs_text = []
-    for f in filings[-15:]:
+    for f in filings[-12:]:
         if f.suffix == ".txt":
             txt = extract_text_cat3(f, max_chars=chars_per_filing)
         else:
-            txt = extract_text(f, max_chars=chars_per_filing)
+            txt = smart_extract(f, all_keywords, max_chars=chars_per_filing)
         if txt:
             docs_text.append(f"=== {f.name} ===\n{txt}")
     full = "\n\n".join(docs_text)[:MAX_DOC_CHARS]
 
-    if len(full) < 5000:
+    if len(full) < 3000:
         return "no-text"
 
     kpi_list_text = "\n".join(
