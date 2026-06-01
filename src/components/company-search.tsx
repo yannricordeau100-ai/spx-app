@@ -620,15 +620,6 @@ function ResultCardV17({
           >
             {tickerShown}
           </span>
-          {e.validated ? (
-            <span className="rounded-md border border-amber-400/40 bg-amber-400/10 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-amber-200">
-              ✓ Pass 3
-            </span>
-          ) : (
-            <span className="rounded-md border border-cyan-400/30 bg-cyan-400/10 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-cyan-200">
-              V1.6
-            </span>
-          )}
         </div>
         <div className="mt-0.5 truncate text-[11.5px] text-zinc-400">
           {e.sector || "-"}

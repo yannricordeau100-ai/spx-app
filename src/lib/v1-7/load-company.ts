@@ -44,6 +44,66 @@ async function loadTaglinesFr(): Promise<Record<string, string>> {
 type AnyKPI = Record<string, unknown>;
 type AnyCo = Record<string, unknown>;
 
+/**
+ * Mappe la catégorie KPI (telle que définie dans `desk_kpi_requests` /
+ * `desk_special_kpis`) vers une des 4 natures canoniques utilisées par
+ * l'UI Mettrik :
+ *   - "Structurel"   : marges, coûts, R&D, capex (intrinsèque)
+ *   - "Conjoncturel" : revenus, ventes, ARR (suit le cycle économique)
+ *   - "Récurrent"    : dividendes, yield, payout (versement régulier)
+ *   - "Cyclique"     : volumes, unités, abonnés, production (défaut)
+ *
+ * Si la catégorie n'est pas reconnue, fallback "Cyclique".
+ */
+function mapKpiCategoryToNature(
+  category: string | null | undefined,
+): "Structurel" | "Conjoncturel" | "Récurrent" | "Cyclique" {
+  if (!category) return "Cyclique";
+  const c = category.toLowerCase();
+  // Récurrent (vérifié en premier car "Dividend Yield" contient "yield")
+  if (
+    c.includes("dividend") ||
+    c.includes("yield") ||
+    c.includes("payout")
+  ) {
+    return "Récurrent";
+  }
+  // Structurel : marges, coûts, dépenses intrinsèques
+  if (
+    c.includes("margin") ||
+    c.includes("marge") ||
+    c.includes("cost") ||
+    c.includes("coût") ||
+    c.includes("capex") ||
+    c.includes("r&d") ||
+    c.includes("r & d") ||
+    c.includes("research")
+  ) {
+    return "Structurel";
+  }
+  // Conjoncturel : revenus, ventes, ARR
+  if (
+    c.includes("revenue") ||
+    c.includes("revenus") ||
+    c.includes("sales") ||
+    c.includes("arr")
+  ) {
+    return "Conjoncturel";
+  }
+  // Cyclique : volumes, unités, production, abonnés
+  if (
+    c.includes("volume") ||
+    c.includes("units") ||
+    c.includes("unités") ||
+    c.includes("production") ||
+    c.includes("subscribers") ||
+    c.includes("abonnés")
+  ) {
+    return "Cyclique";
+  }
+  return "Cyclique";
+}
+
 function normalizeHistory(h: unknown): number[] {
   if (!Array.isArray(h)) return [];
   return h
@@ -1270,7 +1330,7 @@ export async function loadV17Company(
             unit: sp.kpi_unit ?? "",
             yoy: sp.data?.yoy_latest ?? null,
             type: sp.kpi_category ?? "Volume",
-            nature: "extracted",
+            nature: mapKpiCategoryToNature(sp.kpi_category),
             comparable: false,
             history,
             history_periods: periods,
