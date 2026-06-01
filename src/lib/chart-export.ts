@@ -33,6 +33,38 @@
  *     en séparateur central si options.title contient " · ".
  *  8. Sérialiser via XMLSerializer → <Image> → <canvas> 2× → blob → download.
  */
+/**
+ * Détecte si une couleur (#hex / rgb()) est sombre.
+ * Utilisé pour choisir entre logo Mettrik noir / blanc dans le watermark download.
+ */
+function isDarkColor(color: string): boolean {
+  if (!color) return true;
+  const c = color.trim().toLowerCase();
+  // Hex #RGB or #RRGGBB
+  const hex = c.startsWith("#") ? c.slice(1) : null;
+  if (hex && (hex.length === 3 || hex.length === 6)) {
+    const full = hex.length === 3
+      ? hex.split("").map((x) => x + x).join("")
+      : hex;
+    const r = parseInt(full.slice(0, 2), 16);
+    const g = parseInt(full.slice(2, 4), 16);
+    const b = parseInt(full.slice(4, 6), 16);
+    // luminance perçue (W3C)
+    const lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+    return lum < 0.5;
+  }
+  // rgb(a)
+  const m = c.match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/);
+  if (m) {
+    const r = parseInt(m[1], 10);
+    const g = parseInt(m[2], 10);
+    const b = parseInt(m[3], 10);
+    const lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+    return lum < 0.5;
+  }
+  return true; // fallback sombre (cas le plus fréquent Mettrik)
+}
+
 export async function downloadSvgAsPng(
   svg: SVGSVGElement,
   filename: string,
@@ -125,58 +157,57 @@ export async function downloadSvgAsPng(
   bg.setAttribute("fill", bgColor);
   clone.insertBefore(bg, clone.firstChild);
 
-  // Yann 17 mai 2026 (v4) : filtres monochromes supprimés (logo sté en
-  // couleur d'origine = copier-coller du logo page sté). Le watermark
-  // "Powered by Mettrik AI" est déjà en text inline monochrome via fill.
+  // ── Watermark "Powered by [logo combiné Mettrik]" (v5, 1er juin 2026) ──
+  // Yann demande logo image (visuel + textuel ensemble) au lieu du texte.
+  // Theme-aware : bg sombre → logo blanc, bg clair → logo noir.
+  // Position : bas droite (pas centré comme avant).
+  const isDarkTheme = isDarkColor(bgColor);
+  const logoFilename = isDarkTheme
+    ? "/brand/mettrik-combined-white-bg-transparent.png"
+    : "/brand/mettrik-combined-black-bg-transparent.png";
 
-  // ── Watermark "Powered by Mettrik AI" texte SVG inline (v4, 17 mai 2026) ──
-  // Plus de fetch PNG, plus d'<image>. Deux <text> côte-à-côte centrés.
-  // Position verticale : juste au-dessus de la ligne axe X (zone plot).
-  const logoCy = origY + origH * 0.78;
-
-  // Tailles approximatives pour centrer le bloc complet.
-  // Manrope 500 13px : ~6.5 px/char × "Powered by" (10 chars) ≈ 65 px
-  // Fraunces 600 italic 13px : ~6.5 px/char × "Mettrik AI" (10 chars) ≈ 65 px
-  // Gap entre les deux : 2 px (très serré, comme demandé Yann 17 mai v4).
-  const POWERED_BY_TEXT_W = 65;
-  const METTRIK_TEXT_W = 65;
-  const WM_GAP = 2;
-  const wmTotalW = POWERED_BY_TEXT_W + WM_GAP + METTRIK_TEXT_W;
-  const wmStartX = origX + origW / 2 - wmTotalW / 2;
+  const WM_LOGO_H = 22; // hauteur image logo
+  const WM_LOGO_W = WM_LOGO_H * 3.6; // ratio ~3.6:1 du combined logo
+  const WM_GAP = 6;
+  const POWERED_BY_TEXT_W = 60;
+  const wmTotalW = POWERED_BY_TEXT_W + WM_GAP + WM_LOGO_W;
+  // Bas droite : aligné sur la marge droite du graph, juste sous l'axe X.
+  const wmRightX = origX + origW - 8;
+  const wmStartX = wmRightX - wmTotalW;
+  const wmY = origY + origH + 18;
   const wmPoweredByCenterX = wmStartX + POWERED_BY_TEXT_W / 2;
-  const wmMettrikCenterX =
-    wmStartX + POWERED_BY_TEXT_W + WM_GAP + METTRIK_TEXT_W / 2;
+  const wmLogoX = wmStartX + POWERED_BY_TEXT_W + WM_GAP;
 
   const wmPoweredByEl = document.createElementNS(NS, "text");
   wmPoweredByEl.setAttribute("x", String(wmPoweredByCenterX));
-  wmPoweredByEl.setAttribute("y", String(logoCy + 4));
+  wmPoweredByEl.setAttribute("y", String(wmY + WM_LOGO_H / 2 + 4));
   wmPoweredByEl.setAttribute("text-anchor", "middle");
   wmPoweredByEl.setAttribute(
     "font-family",
-    "var(--font-manrope), Manrope, system-ui, sans-serif"
+    "var(--font-sora), Sora, var(--font-manrope), Manrope, system-ui, sans-serif"
   );
-  wmPoweredByEl.setAttribute("font-size", "13");
+  wmPoweredByEl.setAttribute("font-size", "12");
   wmPoweredByEl.setAttribute("font-weight", "500");
+  wmPoweredByEl.setAttribute("letter-spacing", "0.04em");
   wmPoweredByEl.setAttribute("fill", titleColor);
-  wmPoweredByEl.setAttribute("opacity", "0.8");
+  wmPoweredByEl.setAttribute("opacity", "0.7");
   wmPoweredByEl.textContent = "Powered by";
   clone.appendChild(wmPoweredByEl);
 
-  const wmMettrikEl = document.createElementNS(NS, "text");
-  wmMettrikEl.setAttribute("x", String(wmMettrikCenterX));
-  wmMettrikEl.setAttribute("y", String(logoCy + 4));
-  wmMettrikEl.setAttribute("text-anchor", "middle");
-  wmMettrikEl.setAttribute(
-    "font-family",
-    "var(--font-fraunces), Fraunces, Georgia, 'Times New Roman', serif"
+  const wmLogoEl = document.createElementNS(NS, "image");
+  wmLogoEl.setAttribute("x", String(wmLogoX));
+  wmLogoEl.setAttribute("y", String(wmY));
+  wmLogoEl.setAttribute("width", String(WM_LOGO_W));
+  wmLogoEl.setAttribute("height", String(WM_LOGO_H));
+  wmLogoEl.setAttribute("preserveAspectRatio", "xMidYMid meet");
+  wmLogoEl.setAttribute("href", logoFilename);
+  wmLogoEl.setAttributeNS(
+    "http://www.w3.org/1999/xlink",
+    "xlink:href",
+    logoFilename
   );
-  wmMettrikEl.setAttribute("font-size", "13");
-  wmMettrikEl.setAttribute("font-weight", "600");
-  wmMettrikEl.setAttribute("font-style", "italic");
-  wmMettrikEl.setAttribute("fill", titleColor);
-  wmMettrikEl.setAttribute("opacity", "0.8");
-  wmMettrikEl.textContent = "Mettrik AI";
-  clone.appendChild(wmMettrikEl);
+  wmLogoEl.setAttribute("opacity", "0.92");
+  clone.appendChild(wmLogoEl);
 
   // Embed les @font-face du document parent dans la balise <style> du SVG
   // cloné, pour que Bricolage Grotesque (titre), Fraunces (watermark) et
