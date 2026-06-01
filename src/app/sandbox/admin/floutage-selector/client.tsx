@@ -460,21 +460,21 @@ export function FloutageSelectorClient({
 
       {/* Sticky footer bouton Valider */}
       <div className="sticky bottom-0 z-30 border-t border-violet-500/30 bg-[#0a0612]/95 backdrop-blur px-6 py-3 flex items-center gap-3">
-        <div className="text-xs text-violet-300/70">
-          {selections.length === 0
-            ? "Dessine au moins 1 zone avant d'enregistrer."
-            : `${selections.length} zone${selections.length > 1 ? "s" : ""} à enregistrer.`}
-        </div>
-        {/* Yann (2 juin 2026) : décalé à gauche pour ne pas chevaucher
-            le panel admin niveau bottom-right. */}
+        {/* Yann (2 juin 2026) : bouton EN PREMIER (gauche) pour ne pas
+            chevaucher le panel admin niveau bottom-right. */}
         <button
           type="button"
           disabled={selections.length === 0 || saveStatus === "saving"}
           onClick={save}
-          className="ml-0 mr-auto px-4 py-2 rounded-md bg-gradient-to-br from-violet-600 to-fuchsia-600 text-sm font-semibold hover:from-violet-500 hover:to-fuchsia-500 disabled:opacity-40 disabled:cursor-not-allowed transition"
+          className="px-4 py-2 rounded-md bg-gradient-to-br from-violet-600 to-fuchsia-600 text-sm font-semibold hover:from-violet-500 hover:to-fuchsia-500 disabled:opacity-40 disabled:cursor-not-allowed transition"
         >
           Valider et Enregistrer
         </button>
+        <div className="text-xs text-violet-300/70 ml-2">
+          {selections.length === 0
+            ? "Dessine au moins 1 zone avant d'enregistrer."
+            : `${selections.length} zone${selections.length > 1 ? "s" : ""} à enregistrer.`}
+        </div>
       </div>
     </div>
   );
