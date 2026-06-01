@@ -39,7 +39,7 @@
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
       "_source": "yfinance.dividends",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share  :  total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01"
@@ -65,7 +65,7 @@
       "is_generic": true,
       "_source": "yfinance.cashflow",
       "is_short_history": true,
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return  :  total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01"
@@ -91,10 +91,42 @@
       "is_generic": true,
       "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
       "is_short_history": true,
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio  :  dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01"
+    },
+    {
+      "short": "NAV per share",
+      "name_fr": "Valeur nette d'actif par action",
+      "name_en": "Net Asset Value per share",
+      "explanation": "Valeur intrinseque par action calculee comme la valeur de marche des participations divisee par le nombre d'actions en circulation. Indicateur principal de creation de valeur pour les societes d'investissement.",
+      "value": null,
+      "unit": "p",
+      "yoy": null,
+      "type": "Patrimoine",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Driver principal de valorisation 3i.",
+      "history": [],
+      "period_type": "year",
+      "_data_note": "Valeur a renseigner depuis le dernier resultat semestriel 3i (NAV par action en pence)"
+    },
+    {
+      "short": "Action portfolio value",
+      "name_fr": "Valeur de la participation Action",
+      "name_en": "Action portfolio value",
+      "explanation": "Valeur de marche de la participation majoritaire dans Action, le discounter non-alimentaire neerlandais qui represente la part dominante de la NAV de 3i.",
+      "value": null,
+      "unit": "Mds £",
+      "yoy": null,
+      "type": "Patrimoine",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Concentration extreme du NAV sur Action.",
+      "history": [],
+      "period_type": "year",
+      "_data_note": "Valeur a renseigner depuis le dernier resultat 3i (Action stake disclose dans le portfolio update)"
     }
   ],
   "stories_kpis": [],
@@ -210,5 +242,50 @@
     ]
   },
   "_seggeo_extracted_at": "2026-05-19T19:12:42.549634+00:00",
-  "_seggeo_source": "haiku-eu-annual-text-v1"
+  "_seggeo_source": "haiku-eu-annual-text-v1",
+  "transcript_summary": null,
+  "_transcript_summary_note": "Pas de transcript earnings call disponible dans les sources locales (cat3-european contient seulement les rapports annuels). NULL selon regle anti-invention.",
+  "market_positions": null,
+  "_market_positions_note": "TAM et parts de marche non auto-disclosees de maniere systematique dans les filings annuels. NULL selon regle anti-invention sur les chiffres.",
+  "revenue_by_segment": null,
+  "_segment_note": "Decoupage par segment operationnel non extrait avec confiance des sources locales (necessite verification ligne-a-ligne du segment reporting). NULL selon regle anti-invention.",
+  "risks": [
+    {
+      "title": "Concentration extreme sur Action",
+      "category": "Concentration portefeuille",
+      "severity": 5,
+      "score_rationale": "Action represente plus de 60% de la valeur d'actif net (NAV) de 3i. Une deterioration de la performance commerciale d'Action ou une revision de sa valorisation (multiples discount retail) impacterait massivement le NAV du groupe et le cours.",
+      "trend": "stable"
+    },
+    {
+      "title": "Cycle de consommation et discount retail",
+      "category": "Macroeconomique",
+      "severity": 4,
+      "score_rationale": "Action est un discounter non-alimentaire dont la performance depend de la consommation discretionnaire europeenne. Recession ou inflation persistante des couts (energie, salaires) pourraient comprimer les marges de la principale participation.",
+      "trend": "stable"
+    },
+    {
+      "title": "Valorisation marked-to-model des participations private equity",
+      "category": "Risque de valorisation",
+      "severity": 3,
+      "score_rationale": "Le NAV de 3i depend de valorisations privees etablies selon des methodologies internes (multiples sectoriels, DCF). Les revisions cycliques de multiples cotes peuvent generer des variations brutales de NAV non realisees.",
+      "trend": "stable"
+    },
+    {
+      "title": "Liquidite et timing des exits",
+      "category": "Liquidite",
+      "severity": 3,
+      "score_rationale": "La distribution de cash aux actionnaires de 3i depend du timing des exits des participations en portefeuille. Un blocage des marches IPO ou M&A peut retarder la realisation de plus-values.",
+      "trend": "stable"
+    },
+    {
+      "title": "Risque reglementaire et fiscal private equity",
+      "category": "Reglementaire",
+      "severity": 2,
+      "score_rationale": "Les regulateurs europeens et britanniques scrutent la fiscalite du carried interest et les structures de fonds offshore. Des changements de regle pourraient impacter le modele economique.",
+      "trend": "deteriorating"
+    }
+  ],
+  "_top307_resumed_by": "subagent-top307-group4-2026-06-01",
+  "_top307_resumed_at": "2026-06-01T13:59:03.857425Z"
 }
