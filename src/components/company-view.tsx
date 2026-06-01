@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { applyFloutageRules, type FloutageRule } from "@/lib/floutage";
-import FLOUTAGE_RULES_FILE from "@/data/floutage-rules.json";
+import FLOUTAGE_RULES_FILE from "@/data/floutage-free-mode.json";
 import { AnimatePresence, motion } from "motion/react";
 import {
   ArrowDownRight,
