@@ -465,11 +465,13 @@ export function FloutageSelectorClient({
             ? "Dessine au moins 1 zone avant d'enregistrer."
             : `${selections.length} zone${selections.length > 1 ? "s" : ""} à enregistrer.`}
         </div>
+        {/* Yann (2 juin 2026) : décalé à gauche pour ne pas chevaucher
+            le panel admin niveau bottom-right. */}
         <button
           type="button"
           disabled={selections.length === 0 || saveStatus === "saving"}
           onClick={save}
-          className="ml-auto px-4 py-2 rounded-md bg-gradient-to-br from-violet-600 to-fuchsia-600 text-sm font-semibold hover:from-violet-500 hover:to-fuchsia-500 disabled:opacity-40 disabled:cursor-not-allowed transition"
+          className="ml-0 mr-auto px-4 py-2 rounded-md bg-gradient-to-br from-violet-600 to-fuchsia-600 text-sm font-semibold hover:from-violet-500 hover:to-fuchsia-500 disabled:opacity-40 disabled:cursor-not-allowed transition"
         >
           Valider et Enregistrer
         </button>
