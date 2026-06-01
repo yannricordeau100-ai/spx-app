@@ -12,7 +12,6 @@ import { normalizeNarrative } from "@/lib/ui-fix-templates";
 import { useT } from "@/lib/i18n/provider";
 import { isFiscalShifted } from "@/lib/fiscal-calendar";
 import { BlurredFreeValue } from "@/components/freemium/blurred-free-value";
-import { BlurredFreeText } from "@/components/freemium/blurred-free-text";
 
 /**
  * Yann 20 mai 2026 : période sous chaque KPI Story.
@@ -102,9 +101,9 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
                   <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: accent }}>
                     {kpi.short}
                   </div>
-                  <BlurredFreeText blocked={freeBlocked} ticker={ticker} mode="tokens" as="div" className="text-zinc-200">
+                  <div className="text-zinc-200">
                     {kpi.explanation}
-                  </BlurredFreeText>
+                  </div>
                 </InfoTooltip>
               )}
             </div>
@@ -149,9 +148,7 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
               </div>
               {formatUnit(kpi.unit) && (
                 <div className="mt-2 max-w-full overflow-hidden text-[24px] font-bold text-zinc-100" style={{ wordBreak: "break-word" }}>
-                  <BlurredFreeText blocked={freeBlocked} ticker={ticker} mode="tokens" as="span">
-                    {formatUnit(kpi.unit)}
-                  </BlurredFreeText>
+                  {formatUnit(kpi.unit)}
                 </div>
               )}
             </>
@@ -189,17 +186,17 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
         {kpi.signal && (
           <div className="rounded-xl border border-white/10 bg-black/55 p-3 backdrop-blur">
             <div className="flex items-start gap-1.5">
-              <BlurredFreeText blocked={freeBlocked} ticker={ticker} mode="tokens" as="div" className="flex-1 text-[15px] font-semibold leading-snug text-zinc-50">
+              <div className="flex-1 text-[15px] font-semibold leading-snug text-zinc-50">
                 {normalizeNarrative(kpi.signal)}
-              </BlurredFreeText>
+              </div>
               {kpi.description && (
                 <InfoTooltip color={accent} size="sm" align="right">
                   <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: accent }}>
                     {t("story.detail")}
                   </div>
-                  <BlurredFreeText blocked={freeBlocked} ticker={ticker} mode="tokens" as="div" className="text-[12.5px] leading-relaxed text-zinc-200">
+                  <div className="text-[12.5px] leading-relaxed text-zinc-200">
                     {normalizeNarrative(kpi.description)}
-                  </BlurredFreeText>
+                  </div>
                 </InfoTooltip>
               )}
             </div>
