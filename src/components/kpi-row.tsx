@@ -162,7 +162,7 @@ export function KpiRow({
             <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: accent }}>
               {t("kpi.definition")}
             </div>
-            <BlurredFreeText blocked={freeBlocked} ticker={ticker} as="div" className="text-zinc-200">
+            <BlurredFreeText blocked={freeBlocked} ticker={ticker} as="div" className="text-zinc-200" mode="full">
               {kpi.explanation}
             </BlurredFreeText>
             {/* Yann FIX 4d (29 mai 2026) : nom EN du KPI dans tooltip "i" quand

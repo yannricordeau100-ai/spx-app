@@ -214,10 +214,10 @@ const SECTIONS: SandboxSection[] = [
         accent: "default" as const,
       },
       {
-        href: "/sandbox/freemium-demo",
+        href: "/sandbox/admin/floutage-selector",
         icon: Lock,
-        label: "Demo floutage Free tier",
-        desc: "Démo composant <BlurredFreeValue> : floute chiffres clés inviolablement pour utilisateurs Free. Toggle 3-tier free/premium/max. AAPL (verrouillée) vs GOOGL (accessible). Click chiffre floutté → /pricing.",
+        label: "Floutage admin : sélection zones",
+        desc: "Page admin pour sélectionner et enregistrer les zones de floutage Free tier. Outil de tagging visuel des éléments à flouter.",
         accent: "default" as const,
       },
     ],
