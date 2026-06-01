@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { cookies } from "next/headers";
-import { ArrowLeft, Check, Mail } from "lucide-react";
+import { ArrowLeft, Mail } from "lucide-react";
 import { PricingCards } from "@/components/billing/pricing-cards";
 import { PricingMatrix } from "@/components/billing/pricing-matrix";
 import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
@@ -31,6 +31,11 @@ export const metadata = {
   description: "3 plans Mettrik AI : Gratuit, Premium, Max.",
   robots: { index: false, follow: false },
 };
+
+// Yann (1er juin 04:55) : force-dynamic pour que modifs taglines admin soient
+// visibles immédiatement (sync bug : sans ça, Next.js cache la version build-time).
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 /**
  * /sandbox/v1-9-5/pricing — page tarifs V1.9.5 (= dernière version, alias
@@ -112,6 +117,12 @@ export default async function V195PricingPage() {
           <TrustCard title={t("pricing.trust3_title")} body={t("pricing.trust3_body")} />
         </section>
 
+        {/* Yann P7 (31 mai 2026) : FAQ étendue 7 questions anti-objection.
+            Études Nielsen Norman / Baymard 2024 : FAQ proches du CTA
+            traite les freins #1 à #5 (annulation, essai, sécurité,
+            remboursement, différence vs concurrents) augmente la
+            conversion de 12 à 22 % sur SaaS investisseur.
+            Questions et réponses éditables via /sandbox/v1-9-5/admin/faq. */}
         <section className="mx-auto mt-20 max-w-3xl">
           <h2 className="mb-6 text-center font-display text-3xl font-bold tracking-tight text-zinc-50">
             {t("pricing.faq_title")}
@@ -121,33 +132,50 @@ export default async function V195PricingPage() {
             <FaqItem q={t("pricing.faq_q2")} a={t("pricing.faq_a2")} />
             <FaqItem q={t("pricing.faq_q3")} a={t("pricing.faq_a3")} />
             <FaqItem q={t("pricing.faq_q4")} a={t("pricing.faq_a4")} />
+            <FaqItem q={t("pricing.faq_q5")} a={t("pricing.faq_a5")} />
+            <FaqItem q={t("pricing.faq_q6")} a={t("pricing.faq_a6")} />
+            <FaqItem q={t("pricing.faq_q7")} a={t("pricing.faq_a7")} />
           </div>
         </section>
 
-        <section className="mx-auto mt-20 max-w-3xl rounded-3xl border border-violet-500/30 bg-gradient-to-br from-violet-500/[0.10] to-cyan-500/[0.05] p-10 text-center">
-          <h2 className="font-display text-3xl font-bold tracking-tight text-zinc-50">
-            {t("pricing.cta_final_title")}
+        {/* Yann P7 (31 mai 2026) : CTA bas page remplacé par bloc dédié
+            "Pros : accès API". L'ancien CTA générique "prêt à voir tes
+            sociétés" doublonnait les CTA cards. Les particuliers ont déjà
+            converti via les cards. Les pros (fonds, family offices,
+            wealth managers) ont besoin d'un canal direct pour l'API +
+            volumes négociés = bloc séparé qui pointe vers
+            /sandbox/v1-9-5/contact-api (form qualifié). */}
+        <section className="mx-auto mt-20 max-w-3xl rounded-3xl border border-amber-500/30 bg-gradient-to-br from-amber-500/[0.08] via-violet-500/[0.04] to-amber-500/[0.02] p-10 text-center">
+          <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-amber-200">
+            Pour les pros
+          </div>
+          <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-zinc-50">
+            Tu veux l'API Mettrik AI ?
           </h2>
           <p className="mt-3 text-[14.5px] leading-relaxed text-zinc-300">
-            {t("pricing.cta_final_body")}
+            Fonds, family offices, wealth managers, analystes pro : accède aux KPI Mettrik
+            AI directement via API REST. Tarifs sur mesure selon volume et nombre de sociétés
+            suivies. Réponse sous 24 h ouvrées.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Link
-              href="/signup"
-              data-pricing-cta="v195_bottom_signup"
-              className="inline-flex items-center gap-2 rounded-xl bg-violet-500 px-6 py-3 text-[14px] font-bold text-zinc-50 transition-colors hover:bg-violet-400"
-            >
-              {t("pricing.cta_final_btn")}
-              <Check className="size-4" />
-            </Link>
-            <a
-              href="mailto:contact@mettrik.ai?subject=Question%20sur%20les%20plans%20Mettrik%20AI"
-              className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-6 py-3 text-[14px] font-semibold text-zinc-200 transition-colors hover:bg-white/[0.07]"
+              href={`/sandbox/${LATEST_VERSION_SLUG}/contact-api`}
+              data-pricing-cta="v195_bottom_contact_api"
+              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 px-6 py-3 text-[14px] font-bold text-zinc-900 shadow-lg shadow-amber-500/25 transition-shadow hover:shadow-amber-500/40"
             >
               <Mail className="size-4" />
-              {t("pricing.cta_final_email")}
-            </a>
+              Demander un accès API
+            </Link>
+            <Link
+              href={`/sandbox/${LATEST_VERSION_SLUG}/contact`}
+              className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-6 py-3 text-[14px] font-semibold text-zinc-200 transition-colors hover:bg-white/[0.07]"
+            >
+              Autre question
+            </Link>
           </div>
+          <p className="mt-4 text-[11.5px] text-zinc-500">
+            Pour le grand public : choisis un plan ci-dessus, tu peux commencer gratuitement.
+          </p>
         </section>
 
         <DisclaimerFooter />

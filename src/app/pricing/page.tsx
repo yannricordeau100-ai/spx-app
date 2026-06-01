@@ -40,6 +40,12 @@ export const metadata = {
   description: "3 plans Mettrik AI : Gratuit gratuit, Premium 29,90 €/mois, Max 59,90 €/mois.",
 };
 
+// Yann (1er juin 04:55) : force-dynamic pour que les modifs de taglines /
+// pricing en admin soient visibles immédiatement (sinon Next.js cache la
+// version statique build-time = sync cassée entre admin save et /pricing render).
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function PricingPage() {
   const currency = await detectCurrency();
   // Yann (25 mai 2026) : passer currency au catalog → auto-conversion EUR→cible
