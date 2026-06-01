@@ -31,7 +31,8 @@
       "period_type": "year",
       "description": "Volume traité Adyen (TPV). KPI cardinal pour payment processor.",
       "signal": "Croissance soutenue >20% pluriannuel",
-      "quality": "Excellent"
+      "quality": "Excellent",
+      "pv_score": 6
     },
     {
       "short": "Net Revenue",
@@ -50,7 +51,8 @@
       "period_type": "year",
       "description": "Revenu net (post payment costs). Métrique investisseurs.",
       "signal": "Stabilisation take-rate",
-      "quality": "Excellent"
+      "quality": "Excellent",
+      "pv_score": 6
     },
     {
       "short": "Take Rate (bps)",
@@ -69,7 +71,8 @@
       "period_type": "year",
       "description": "Take rate = Net Revenue / Volume. Pression structurelle taille clients enterprise.",
       "signal": "Compression structurelle, attendue",
-      "quality": "Bon"
+      "quality": "Bon",
+      "pv_score": 4
     },
     {
       "short": "EBITDA Margin",
@@ -88,7 +91,8 @@
       "period_type": "year",
       "description": "Marge EBITDA. Compression 2023 (recrutement massif), reprise en 2024-2025.",
       "signal": "Levier opérationnel revient",
-      "quality": "Bon"
+      "quality": "Bon",
+      "pv_score": 2
     },
     {
       "short": "Unified Commerce Revenue",
@@ -107,7 +111,8 @@
       "period_type": "year",
       "description": "Revenu intégration omnicanale (POS + ecom + mobile). Différenciateur Adyen.",
       "signal": "Croissance forte, ancrage POS",
-      "quality": "Excellent"
+      "quality": "Excellent",
+      "pv_score": 6
     },
     {
       "short": "EBITDA",
@@ -244,68 +249,68 @@
   },
   "risks": [
     {
-      "title": "Concurrence accrue et perte de parts de marché",
+      "title": "Dépendance aux réseaux de cartes internationaux pour l'acquisition",
+      "category": "Industriel",
+      "severity": 5,
+      "score_rationale": "Risque positionné en section centrale des Risk Factors avec langage fort ('restriction, suspension or termination'). Tendance stable mais structurellement critique car la majorité des transactions Adyen transitent par ces réseaux. Catégorie industrielle à fort poids pour un acquéreur/processeur.",
+      "trend": "stable",
+      "summary": "La quasi-totalité des transactions Adyen passe par Visa, Mastercard et autres réseaux carte. Tout manquement aux règles de ces réseaux ou dégradation des relations peut entraîner la suspension ou résiliation des licences d'acquisition dans plusieurs juridictions, menaçant directement le cœur de métier."
+    },
+    {
+      "title": "Concentration du chiffre d'affaires sur quelques grands marchands",
+      "category": "Crédit",
+      "severity": 4,
+      "score_rationale": "Risque explicitement nommé 'Concentration of sales' avec mention de pertes de volumes significatifs. Langage direct ('terminate their contracts or shift business away'). Tendance stable ; risque structurel inhérent au modèle enterprise d'Adyen.",
+      "trend": "stable",
+      "summary": "Certains grands marchands représentent une part disproportionnée du net revenue d'Adyen. Ces clients disposent généralement de plusieurs PSP en parallèle et peuvent réallouer leurs volumes à tout moment, exposant Adyen à des baisses brutales de revenus sans préavis significatif."
+    },
+    {
+      "title": "Pression concurrentielle de processeurs traditionnels et nouveaux entrants",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Risque stratégique majeur explicitement détaillé (p.43). Langage fort : 'competitors larger', 'competitive pressure from non-traditional', 'decreasing growth rate'. Adyen reconnaît la menace croissante de nouveaux entrants et concurrents mieux dotés en ressources.",
+      "score_rationale": "Section dédiée 'Competition' avec reconnaissance explicite que des concurrents ont 'greater merchant bases, volume, scale, resources'. Mention additionnelle de 'non-traditional payments processors' entrant sur le marché. Tendance en hausse avec la digitalisation accélérée des paiements.",
       "trend": "up",
-      "summary": "Adyen fait face à une concurrence intense de la part d'acteurs plus grands et de nouveaux entrants non-traditionnels. Cette pression pourrait réduire sa croissance, ses parts de marché et ses revenus nets."
+      "summary": "Adyen fait face à des concurrents disposant de ressources supérieures (Stripe, PayPal, WorldPay) et à de nouveaux entrants disruptifs dans le traitement des paiements numériques. Cette pression peut éroder les taux de croissance, les parts de marché et les revenus nets."
     },
     {
-      "title": "Risque de cybersécurité et violation de données",
+      "title": "Risque cybersécurité et violation de données sensibles marchands",
       "category": "Cybersécurité",
       "severity": 5,
-      "score_rationale": "Risque opérationnel critique (p.45-46). Langage d'intensité maximale : 'large amount of sensitive data', 'vulnerable to physical and electronic breaches', 'leakage of merchants' data'. Impact réputationnel et financier existentiel pour une fintech.",
+      "score_rationale": "Risque 'Information security risk' décrit avec langage très fort ('vulnerable to physical and electronic breaches, computer viruses, cyber-criminals'). Mention explicite que l'assurance cyber peut être insuffisante. Tendance en hausse compte tenu de l'escalade des cybermenaces dans le secteur financier.",
       "trend": "up",
-      "summary": "Les systèmes IT d'Adyen et de ses partenaires traitent des données sensibles et sont exposés aux cyberattaques, fraudes et violations. Les brèches pourraient endommager la réputation et entraîner des pertes significatives malgré l'assurance cyber."
+      "summary": "Les systèmes d'Adyen et de ses partenaires traitent de grandes quantités de données financières sensibles. Une intrusion réussie pourrait entraîner des fuites de données marchands, des transactions non autorisées, des dommages réputationnels majeurs et des pénalités réglementaires, avec une couverture assurantielle potentiellement insuffisante."
     },
     {
-      "title": "Conformité RGPD et lois de protection des données",
+      "title": "Non-conformité aux réglementations de confidentialité des données (RGPD et autres)",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "Risque réglementaire majeur (p.46). Langage explicite : 'complex and evolving', 'multiple jurisdictions', 'significant fines, penalties'. Adyen opère sous plusieurs régimes de protection des données avec risque de non-conformité élevé.",
+      "score_rationale": "Section 'Data Privacy' décrit des lois 'complex and evolving' dans de multiples juridictions. Langage fort : 'significant fines, penalties, judgments and reputational damage'. Tendance en hausse avec prolifération des réglementations privacy mondiales post-RGPD.",
       "trend": "up",
-      "summary": "Adyen est soumise à des lois de protection des données complexes et évolutives (RGPD, etc.) dans plusieurs juridictions. Tout manquement pourrait entraîner des amendes substantielles, des poursuites et des dommages réputationnels."
+      "summary": "Adyen traite des données personnelles et financières dans de nombreux pays soumis à des réglementations divergentes (RGPD, CCPA, etc.). Tout manquement, même perçu, peut déclencher des procédures gouvernementales, des class actions et des amendes substantielles, en plus de dommages réputationnels durables."
     },
     {
-      "title": "Dépendance aux réseaux de cartes internationaux",
-      "category": "Régulation",
+      "title": "Innovation technologique disruptive rendant obsolète la plateforme Adyen",
+      "category": "Technologie",
       "severity": 4,
-      "score_rationale": "Risque stratégique critique (p.43). Langage d'alerte : 'majority of transactions', 'failure to comply', 'restriction, suspension or termination'. Adyen dépend entièrement de licences et relations avec les réseaux de cartes.",
+      "score_rationale": "Section 'Disruptive innovation' utilise un langage explicite ('render obsolete the products and services'). Risque structurel pour une fintech dont la valeur repose sur la supériorité technologique de sa plateforme unifiée. Tendance stable mais permanente dans le secteur.",
       "trend": "stable",
-      "summary": "La majorité des transactions d'Adyen transitent par les réseaux de cartes internationaux. Tout non-respect des règles ou détérioration des relations pourrait entraîner la suspension ou révocation des licences dans plusieurs juridictions."
+      "summary": "Des changements technologiques rapides (crypto-paiements, open banking, wallets alternatifs) pourraient dépasser ou rendre obsolète la plateforme d'Adyen. L'incapacité à intégrer de nouvelles fonctionnalités acceptées par le marché ou à suivre les standards évolutifs de l'industrie menacerait directement sa compétitivité."
     },
     {
-      "title": "Risque de disponibilité et continuité de service",
-      "category": "Industriel",
-      "severity": 4,
-      "score_rationale": "Risque opérationnel majeur (p.45). Langage fort : 'significant service interruptions', 'permanently harm reputation', 'regulatory scrutiny, significant fines'. Les interruptions de service menacent directement la viabilité commerciale.",
-      "trend": "stable",
-      "summary": "Les interruptions fréquentes ou persistantes des services d'Adyen pourraient pousser les marchands vers les concurrents, endommager la réputation et entraîner des amendes réglementaires ou la perte de licences."
-    },
-    {
-      "title": "Concentration de revenus auprès de grands marchands",
-      "category": "Capital",
-      "severity": 3,
-      "score_rationale": "Risque commercial identifié (p.43). Langage modéré : 'largest merchants provide significant contributions', 'could terminate contracts'. Risque de concentration mitigé par la diversification stratégique.",
-      "trend": "stable",
-      "summary": "Quelques grands marchands représentent une part significative des revenus. Leur départ ou réduction d'activité pourrait réduire les volumes traités et les revenus nets."
-    },
-    {
-      "title": "Chocs macroéconomiques et pandémies",
-      "category": "Macro",
-      "severity": 4,
-      "score_rationale": "Risque macroéconomique majeur (p.43-44). Langage d'incertitude : 'uncertainty about global events', 'COVID-19 impact too early to tell', 'may not be sufficient'. Adyen reconnaît l'impact potentiel existentiel du COVID-19.",
-      "trend": "up",
-      "summary": "Les crises économiques, pandémies (COVID-19) et événements géopolitiques (Brexit) pourraient réduire les dépenses des consommateurs et marchands, impactant la demande pour les services d'Adyen."
-    },
-    {
-      "title": "Risque de propriété intellectuelle et litiges",
+      "title": "Risque de propriété intellectuelle et litiges en contrefaçon",
       "category": "Litige",
       "severity": 3,
-      "score_rationale": "Risque juridique identifié (p.44-45). Langage modéré : 'may become subject to claims', 'time-consuming, costly litigation'. Risque croissant avec la multiplication des produits et chevauchements fonctionnels.",
+      "score_rationale": "Section 'Intellectual property rights' détaille deux vecteurs de risque : protection insuffisante des actifs IP développés en interne et exposition aux réclamations de tiers. Langage modéré mais conséquences potentiellement sévères ('stop providing transaction processing services'). Tendance stable.",
+      "trend": "stable",
+      "summary": "La quasi-totalité de la propriété intellectuelle d'Adyen est développée en interne, la rendant difficile à protéger via des brevets standards. Des tiers pourraient contester ces droits ou alléguer une contrefaçon, forçant Adyen à cesser certains services, payer des royalties substantielles ou engager des litiges coûteux détournant l'attention du management."
+    },
+    {
+      "title": "Risque d'intégrité : blanchiment, corruption et comportement des tiers",
+      "category": "Réputation",
+      "severity": 4,
+      "score_rationale": "Section 'Integrity risk' introduite en 2019 (évolution du 'regulatory compliance risk' 2018), signalant une tendance haussière dans la prise de conscience. Langage fort : 'severe consequences, including litigation, sanctions, criminal penalties'. Adyen en tant que banque agréée est particulièrement exposée aux exigences AML/KYC.",
       "trend": "up",
-      "summary": "Adyen pourrait faire face à des réclamations en contrefaçon de propriété intellectuelle. Ces litiges seraient coûteux, chronophages et pourraient forcer l'arrêt ou la refonte de services."
+      "summary": "En tant qu'établissement bancaire agréé traitant des milliards de transactions, Adyen est exposé au risque que ses marchands ou partenaires utilisent sa plateforme à des fins de blanchiment ou de financement du terrorisme. Malgré ses politiques AML/KYC, une défaillance pourrait entraîner des sanctions pénales, la perte de licences et des dommages réputationnels irréversibles."
     }
   ],
   "ai_positioning": {
@@ -378,6 +383,6 @@
   "publication_date": null,
   "company_description": "Adyen N.V. operates a payments platform in Europe, the Middle East, Africa, North America, the Asia Pacific, and Latin America. Its platform integrates payments stack, including gateway, risk management, processing, acquiring, and settlement services. The company offers a back-end infrastructure for authorizing. It accepts payment through online, in-person payments, cross channel, and Adyen for Platforms. The company also provides optimization services, including Adyen Uplift, protect, authenticate and tokenize. In addition, it offers financial products, such as accounts, capital, issuing, and payouts. It serves digital, mobility, SaaS platforms, retail, food and beverages, subscription, and travel and hospitality businesses. The company was incorporated in 2006 and is based in Amsterdam, the Netherlands.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-21T16:00:21.880Z",
+  "_built_at": "2026-05-29T21:19:25.636Z",
   "_missing_blocks": []
 }

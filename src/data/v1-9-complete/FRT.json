@@ -31,7 +31,8 @@
       "description_fr": "Taux d'occupation locataire du portefeuille shopping centers : indicateur de demande locative, retour aux niveaux pré-COVID.",
       "description_en": "Tenant occupancy across shopping centers portfolio: leasing demand indicator, back to pre-COVID levels.",
       "_specific_to": "FRT high-quality retail occupancy",
-      "_verify_reason": "Le 10-K indique 'In total, the real estate projects were 96.1% leased and 94.1% occupied at December 31, 2025.' La valeur correcte est 94.1%, non 95.7%."
+      "_verify_reason": "Le 10-K indique 'In total, the real estate projects were 96.1% leased and 94.1% occupied at December 31, 2025.' La valeur correcte est 94.1%, non 95.7%.",
+      "pv_score": 5
     },
     {
       "short": "Dividend Streak",
@@ -51,7 +52,8 @@
       "description_fr": "Federal Realty détient le record absolu du REIT : 57+ années consécutives de hausse du dividende (Dividend King).",
       "description_en": "Federal Realty holds the all-time REIT record: 57+ consecutive years of dividend hikes (Dividend King).",
       "_specific_to": "FRT longest REIT dividend streak",
-      "_verify_reason": "Le 10-K indique 'We have paid quarterly dividends to our shareholders continuously since our founding in 1962 and have increased our dividends per common share for 58 consecutive years.' La valeur cor"
+      "_verify_reason": "Le 10-K indique 'We have paid quarterly dividends to our shareholders continuously since our founding in 1962 and have increased our dividends per common share for 58 consecutive years.' La valeur cor",
+      "pv_score": 5
     },
     {
       "short": "FFO/share dilué",
@@ -68,7 +70,8 @@
       "period_type": "year",
       "description_fr": "Fonds provenant des opérations par action diluée, mesure standard de performance opérationnelle pour les REITs selon la définition Nareit.",
       "description_en": "Funds from operations per diluted share, the standard REIT operating performance metric as defined by Nareit.",
-      "_specific_to": "REIT-sector standard metric excluding real estate depreciation"
+      "_specific_to": "REIT-sector standard metric excluding real estate depreciation",
+      "pv_score": 5
     },
     {
       "short": "Core FFO/share dilué",
@@ -85,7 +88,8 @@
       "period_type": "year",
       "description_fr": "FFO ajusté excluant les éléments non récurrents (gains/pertes sur extinction de dette, coûts de transition, loyers COVID différés) pour refléter la performance opérationnelle courante.",
       "description_en": "Adjusted FFO excluding non-recurring items such as debt extinguishment gains/losses, executive transition costs, and COVID-deferred rent collections.",
-      "_specific_to": "REIT-sector adjusted operating metric stripping one-time items from FFO"
+      "_specific_to": "REIT-sector adjusted operating metric stripping one-time items from FFO",
+      "pv_score": 4
     },
     {
       "short": "Actions moyennes diluées",
@@ -102,7 +106,8 @@
       "period_type": "year",
       "description_fr": "Nombre moyen pondéré d'actions communes diluées utilisé pour le calcul du FFO par action, reflétant la croissance du capital-actions via émissions et unités OP.",
       "description_en": "Weighted average diluted common shares used in FFO per share computation, including downREIT operating partnership units, reflecting share issuance activity.",
-      "_specific_to": "REIT-specific diluted share count including OP units (downREIT structure)"
+      "_specific_to": "REIT-specific diluted share count including OP units (downREIT structure)",
+      "pv_score": 4
     },
     {
       "short": "Occupancy Rate",
@@ -389,14 +394,43 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-05-06",
-    "fiscal_year": 2025,
-    "ceo_name": "Donald C. Wood",
-    "board_independence_pct": 87.5,
-    "board_size": 8,
-    "avg_tenure_years": 9.4,
-    "board_women_pct": 25,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action."
+    "top_voting": [
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.8
+      },
+      {
+        "name": "Norges Bank (The Central Bank of Norway)",
+        "type": "institutionnel",
+        "stake_pct": 8.4
+      },
+      {
+        "name": "The Vanguard Group, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 14.5
+      }
+    ],
+    "top_capital": [
+      {
+        "name": "The Vanguard Group, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 14.5
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "type": "institutionnel",
+        "stake_pct": 8.8
+      },
+      {
+        "name": "Norges Bank (The Central Bank of Norway)",
+        "type": "institutionnel",
+        "stake_pct": 8.4
+      }
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "cerebras_us",
+    "_top_enriched_at": "2026-05-22T01:43:08.133739+00:00"
   },
   "revenue_by_segment": {
     "single_segment": true,
@@ -405,67 +439,60 @@
   "revenue_by_geography": null,
   "risks": [
     {
-      "title": "Collectibilité des revenus locatifs",
-      "category": "Crédit",
+      "title": "Dépendance aux locataires retail et défaillances de tenants ancre",
+      "category": "operational",
       "severity": 4,
-      "score_rationale": "Ce risque est mentionné en premier dans les facteurs de risque, utilise un langage fort et a un impact financier direct chiffré (12,5M$). (score par défaut, à affiner)",
+      "score_rationale": "La performance dépend de la capacité des tenants retail à payer; faillite d'un anchor peut déclencher rent reduction sur autres baux.",
       "trend": "stable",
-      "summary": "La capacité à collecter la totalité des paiements de loyer dépend d'estimations complexes sur la solvabilité des locataires et les conditions économiques. Un défaut de paiement pourrait entraîner des pertes significatives.",
-      "score": 3
+      "summary": "La faillite d'un tenant ancre dans les centres FRT peut entraîner des terminaisons en cascade et une chute des loyers."
     },
     {
-      "title": "Dépréciation des actifs à longue durée de vie",
-      "category": "Industriel",
+      "title": "Glissement du retail brick-and-mortar vers le e-commerce",
+      "category": "strategic",
+      "severity": 3,
+      "score_rationale": "FRT mitige via portefeuille diversifié et centres urbains denses, mais admet la pression continue.",
+      "trend": "up",
+      "summary": "Le e-commerce continue de réduire la demande de surfaces commerciales physiques, malgré la stratégie de FRT axée sur les zones urbaines à forte densité."
+    },
+    {
+      "title": "Concentration géographique et exposition aux marchés locaux",
+      "category": "operational",
+      "severity": 3,
+      "score_rationale": "Tenants dans 14 États + DC; tout choc régional impacte fortement le portefeuille.",
+      "trend": "stable",
+      "summary": "Le portefeuille FRT est concentré géographiquement, amplifiant l'impact d'un ralentissement économique dans ses marchés clés."
+    },
+    {
+      "title": "Endettement de 5 Md$ et exposition aux taux variables",
+      "category": "financial",
       "severity": 4,
-      "score_rationale": "Ce risque est détaillé avec des méthodes d'évaluation complexes (flux de trésorerie actualisés/non actualisés) et des hypothèses clés (période de détention). (score par défaut, à affiner)",
-      "trend": "stable",
-      "summary": "La valeur des propriétés et autres actifs à long terme peut diminuer en raison de conditions de marché défavorables ou de changements dans les projections de flux de trésorerie, entraînant des pertes comptables.",
-      "score": 3
-    },
-    {
-      "title": "Impact de l'inflation et des taux d'intérêt élevés",
-      "category": "Macro",
-      "severity": 4,
-      "score_rationale": "Ce risque est souligné comme ayant un impact négatif actuel sur les coûts d'intérêt, les matériaux et les opérations. Il est mentionné dans la section Outlook. (score par défaut, à affiner)",
+      "score_rationale": "1,4 Md$ à taux variable au 31/12/2025; covenants restrictifs et cross-default.",
       "trend": "up",
-      "summary": "L'inflation et la hausse des taux d'intérêt augmentent les coûts d'emprunt, les coûts des matériaux et les dépenses d'exploitation, ce qui pèse sur la rentabilité.",
-      "score": 3
+      "summary": "L'endettement élevé et l'exposition aux taux variables menacent la flexibilité financière en cas de hausse durable des taux."
     },
     {
-      "title": "Perturbations de la chaîne d'approvisionnement et tarifs douaniers",
-      "category": "Industriel",
+      "title": "Qualification REIT et obligation de distribution 90%",
+      "category": "regulatory",
       "severity": 3,
-      "score_rationale": "Ce risque est mentionné comme pouvant entraîner des délais et des coûts accrus pour les projets et les aménagements locataires, retardant les revenus locatifs. (score par défaut, à affiner)",
-      "trend": "up",
-      "summary": "Les perturbations dans la chaîne d'approvisionnement ou l'imposition de tarifs douaniers peuvent retarder les projets et augmenter les coûts, affectant le calendrier de revenus locatifs.",
-      "score": 3
-    },
-    {
-      "title": "Capacité des locataires à payer le loyer",
-      "category": "Crédit",
-      "severity": 3,
-      "score_rationale": "Ce risque est directement lié à la capacité des locataires à faire face à des conditions économiques défavorables, des problèmes de personnel ou des perturbations de leur propre activité. (score par défaut, à affiner)",
-      "trend": "up",
-      "summary": "Les difficultés économiques rencontrées par les locataires (problèmes de personnel, perturbations d'activité) pourraient réduire leur capacité à payer le loyer, impactant les revenus de la société.",
-      "score": 3
-    },
-    {
-      "title": "Évaluation des acquisitions immobilières",
-      "category": "Industriel",
-      "severity": 3,
-      "score_rationale": "Ce risque concerne l'estimation de la juste valeur des actifs et passifs lors des acquisitions, notamment les baux. Des erreurs d'évaluation peuvent affecter les revenus locatifs futurs. (score par défaut, à affiner)",
+      "score_rationale": "Tout changement règlementaire ou perte de statut REIT entraînerait une imposition fédérale sur les sociétés.",
       "trend": "stable",
-      "summary": "L'évaluation des actifs et passifs lors de l'acquisition de propriétés, y compris la valeur des baux, repose sur des estimations. Des erreurs dans ces estimations peuvent impacter les revenus locatifs.",
-      "score": 3
+      "summary": "Le maintien du statut REIT impose des contraintes strictes; toute perte de qualification générerait une charge fiscale massive."
     },
     {
-      "title": "Gestion de la dette et covenants financiers",
-      "category": "Capital",
+      "title": "Cyberattaques sur systèmes IT et tiers",
+      "category": "technological",
       "severity": 3,
-      "score_rationale": "La société a une dette significative et doit respecter des covenants financiers. Bien qu'actuellement en conformité, le non-respect pourrait avoir des conséquences graves. (score par défaut, à affiner)",
-      "trend": "stable",
-      "summary": "La société doit respecter des ratios financiers stricts liés à sa dette. Le non-respect de ces covenants pourrait entraîner des défauts et des difficultés financières.",
-      "score": 3
+      "score_rationale": "FRT s'appuie sur IT pour gestion des loyers et la paie via tiers; cyberattaques peuvent disrupter le cash flow.",
+      "trend": "up",
+      "summary": "Les cyberattaques sur les systèmes FRT et ses prestataires peuvent compromettre la collecte des loyers et les obligations financières."
+    },
+    {
+      "title": "Risques liés au climat et augmentation des sinistres assurantiels",
+      "category": "climate",
+      "severity": 3,
+      "score_rationale": "Le changement climatique augmente fréquence des catastrophes naturelles; primes d'assurance en hausse, certaines couvertures retirées.",
+      "trend": "up",
+      "summary": "Le réchauffement augmente les coûts d'assurance et les sinistres physiques sur le portefeuille de FRT."
     }
   ],
   "ai_positioning": {
@@ -529,7 +556,7 @@
   "publication_date": null,
   "company_description": "Federal Realty Investment Trust is a recognized leader in the ownership, operation and redevelopment of high-quality retail-based properties located primarily in major coastal markets and select underserved regions with strong economic and demographic fundamentals. Founded in 1962, Federal Realty's mission is to deliver long-term, sustainable growth through investing in communities where retail demand exceeds supply. This includes a portfolio of open-air shopping centers and mixed-use destinationssuch as Santana Row, Pike & Rose and Assembly Rowwhich together reflect the company's ability to create distinctive, high-performing environments that serve as vibrant destinations for their communities. As of December 31, 2025, Federal Realty's 104 properties include approximately 3,700 tenants in 28.8 million commercial square feet, and approximately 2,700 residential units. Federal Realty has increased its quarterly dividends to its shareholders for 58 consecutive years, the longest record in the REIT industry. The company is an S&P 500 index member, and its shares are traded on the NYSE under the symbol FRT. Federal Realty Investment Trust was incorporated in 1962 and is based in Nor",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-21T16:00:22.243Z",
+  "_built_at": "2026-05-29T21:19:25.987Z",
   "_missing_blocks": [
     "revenue_by_geography"
   ]

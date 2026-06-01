@@ -65,7 +65,7 @@ CEREBRAS_KEYS = [
 ]
 CEREBRAS_KEYS = [k for k in CEREBRAS_KEYS if k]
 CEREBRAS_URL = "https://api.cerebras.ai/v1/chat/completions"
-MODEL = "qwen-3-235b-a22b-instruct-2507"
+MODEL = "gpt-oss-120b"  # Cerebras déprécié qwen-3-235b fin mai 2026 ; gpt-oss-120b nouveau modèle dispo
 
 # Min history target avant skip
 MIN_QUARTERS_TARGET = 18  # 4.5 ans (Q1 2021 → Q2 2025 = 18)
@@ -147,7 +147,8 @@ def call_cerebras(system: str, user: str, key_idx: int = 0, max_retries: int = 3
         ],
         "temperature": 0.1,
         "response_format": {"type": "json_object"},
-        "max_tokens": 4000,
+        "max_tokens": 8000,
+        "reasoning_effort": "low",  # gpt-oss-120b utilise reasoning séparé ; low garde 90 % tokens dispo pour content
     }
     for attempt in range(max_retries):
         key = CEREBRAS_KEYS[(key_idx + attempt) % len(CEREBRAS_KEYS)]

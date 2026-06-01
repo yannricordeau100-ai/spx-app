@@ -92,13 +92,15 @@ export function getPricingTagline(
   if (!row) return FALLBACK_TAGLINE_FR;
 
   // FR : retourne tagline_fr directement.
+  // Yann (1er juin 05:15) : `??` au lieu de `||` pour respecter
+  // une chaîne vide explicite (= suppression utilisateur).
   if (locale === "fr") {
-    return row.tagline_fr || FALLBACK_TAGLINE_FR;
+    return row.tagline_fr ?? FALLBACK_TAGLINE_FR;
   }
 
   // Autres locales : cherche dans i18n, fallback sur FR, puis hardcodé.
   const translated = row.tagline_i18n?.[locale];
-  if (translated && translated.trim().length > 0) return translated;
+  if (translated !== undefined) return translated;
 
-  return row.tagline_fr || FALLBACK_TAGLINE_FR;
+  return row.tagline_fr ?? FALLBACK_TAGLINE_FR;
 }

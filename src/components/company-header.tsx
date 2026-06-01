@@ -59,14 +59,18 @@ function CompanyName({
   ticker,
   accent,
   allTickers,
+  alsoKnownLabel,
 }: {
   name: string;
   ticker: string;
   accent: string;
   allTickers?: Set<string> | ReadonlySet<string>;
+  alsoKnownLabel: string;
 }) {
-  // Liste les alias pointant vers ce ticker canonique (ex : GOOG → GOOGL)
-  // pour les afficher en sous-classe à côté du ticker principal.
+  // Yann 31 mai 2026 : liste les alias pointant vers ce ticker canonique
+  // (ex : GOOG → GOOGL ; BRK.A/BRK-A/BRK.B → BRK-B ; FOX → FOXA ; NWSA → NWS ;
+  // UAA → UA). Affichés en mention discrète "Aussi connue sous : GOOG"
+  // sous le ticker principal (et non plus inline avec un slash, trop voyant).
   const aliases = Object.entries(TICKER_ALIASES)
     .filter(([, target]) => target === ticker)
     .map(([alias]) => alias);
@@ -74,8 +78,6 @@ function CompanyName({
   // doublons connus (ASML/ASMLF, GOOG/GOOGL...). L'URL et le code utilisent
   // toujours le ticker complet (ex NESN.SW), seul l'affichage est masqué.
   const tickerShown = displayTicker(ticker, allTickers ?? new Set());
-  // Inclut les aliases (techniques) à l'affichage en gardant leur forme
-  // canonique. displayTicker ne s'applique qu'au ticker principal.
   // Yann 25 mai 2026 : seuils encore plus serrés pour éliminer tout
   // scroll horizontal sur le nom (bug observé sur sociétés à nom long).
   // Court ≤ 14 → 1.7rem/2rem, moyen ≤ 22 → 1.35rem/1.6rem,
@@ -89,30 +91,36 @@ function CompanyName({
         ? "text-[1.1rem] sm:text-[1.3rem]"
         : "text-[0.9rem] sm:text-[1.1rem]";
   return (
-    <div className="group/name flex flex-nowrap items-baseline gap-x-3 min-w-0 max-w-full">
-      <h1
-        className={`relative ${fontSize} font-bold tracking-tight text-zinc-50 truncate min-w-0`}
-        style={{ lineHeight: 1.2 }}
-        title={name}
-      >
-        <span className="relative inline-block max-w-full truncate align-bottom">
-          {name}
-          <span
-            className="pointer-events-none absolute -bottom-1 left-0 h-[3px] w-0 rounded-full transition-[width] duration-500 ease-out group-hover/name:w-full"
-            style={{
-              background: `linear-gradient(90deg, ${accent}, ${accent}88, transparent)`,
-            }}
-          />
-        </span>
-      </h1>
-      <span className="font-mono text-base font-semibold sm:text-lg whitespace-nowrap shrink-0" style={{ color: accent }}>
-        {tickerShown}
-        {aliases.length > 0 && (
-          <span className="ml-1 text-[0.75em] font-medium text-zinc-400">
-            {" / "}{aliases.join(" / ")}
+    <div className="min-w-0 max-w-full">
+      <div className="group/name flex flex-nowrap items-baseline gap-x-3 min-w-0 max-w-full">
+        <h1
+          className={`relative ${fontSize} font-bold tracking-tight text-zinc-50 truncate min-w-0`}
+          style={{ lineHeight: 1.2 }}
+          title={name}
+        >
+          <span className="relative inline-block max-w-full truncate align-bottom">
+            {name}
+            <span
+              className="pointer-events-none absolute -bottom-1 left-0 h-[3px] w-0 rounded-full transition-[width] duration-500 ease-out group-hover/name:w-full"
+              style={{
+                background: `linear-gradient(90deg, ${accent}, ${accent}88, transparent)`,
+              }}
+            />
           </span>
-        )}
-      </span>
+        </h1>
+        <span
+          className="font-mono text-base font-semibold sm:text-lg whitespace-nowrap shrink-0"
+          style={{ color: accent }}
+        >
+          {tickerShown}
+        </span>
+      </div>
+      {aliases.length > 0 && (
+        <div className="mt-0.5 text-[11px] font-medium text-zinc-500">
+          {alsoKnownLabel}{" "}
+          <span className="font-mono text-zinc-400">{aliases.join(" / ")}</span>
+        </div>
+      )}
     </div>
   );
 }
@@ -229,48 +237,19 @@ export function CompanyHeader({
       <div className="flex flex-wrap items-start gap-x-5 gap-y-4">
         {!logoDisabled && <LogoTilt ticker={company.ticker} />}
         <div className="min-w-0 flex-1">
-          <CompanyName name={company.name} ticker={company.ticker} accent={accent} allTickers={allTickers} />
+          <CompanyName
+            name={company.name}
+            ticker={company.ticker}
+            accent={accent}
+            allTickers={allTickers}
+            alsoKnownLabel={t("company.also_known_as")}
+          />
           <div className="mt-1.5 text-[14px] text-zinc-400">
             {translateSubsectorLocale(company.sector, locale)} <span className="text-zinc-700">·</span> {translateSubsectorLocale(company.subsector, locale)}
           </div>
-          {/* Yann 14 mai 2026 : tagline obligatoirement sur 1 ligne (truncate).
-              Yann 28 mai 2026 : sur les pages non-EN, afficher la tagline
-              localisée si disponible dans `tagline_i18n[locale]` (peuplée
-              par enrich.tagline_fr + overlay i18n DE/NL). Fallback sur l'EN
-              original. Un tooltip "i" affiche l'EN d'origine pour traçabilité
-              quand la traduction est rendue. Normalisation locale fr-FR → fr,
-              de-CH → de, en-GB → en pour matcher les clés tagline_i18n. */}
-          {(() => {
-            const normalizedLocale = (locale || "")
-              .toLowerCase()
-              .replace(/^fr-.*/, "fr")
-              .replace(/^de-.*/, "de")
-              .replace(/^en-.*/, "en");
-            const taglineI18n = (company as Company & { tagline_i18n?: Record<string, string> }).tagline_i18n;
-            const isPageEn = normalizedLocale === "en";
-            const translation = !isPageEn && taglineI18n
-              ? taglineI18n[normalizedLocale] || taglineI18n[locale]
-              : undefined;
-            const displayed = translation || company.tagline;
-            const showOriginalTooltip = Boolean(translation) && translation !== company.tagline;
-            return (
-              <div className="mt-2 flex max-w-2xl items-center gap-1.5">
-                <p
-                  className="truncate text-[14.5px] italic leading-relaxed text-zinc-400"
-                  title={displayed}
-                >
-                  “{displayed}”
-                </p>
-                {showOriginalTooltip && (
-                  <InfoTooltip align="left" size="sm">
-                    <div className="text-[13px] italic leading-relaxed text-zinc-200">
-                      “{company.tagline}”
-                    </div>
-                  </InfoTooltip>
-                )}
-              </div>
-            );
-          })()}
+          {/* Yann (1er juin 05:15) : tagline supprimée de V1.9.5
+              (risque hallucination LLM + Yann préfère épure).
+              Pour réactiver, voir git history avant ce commit. */}
         </div>
         {!hidePriceBar && <StockPriceBlock company={company} freeBlocked={freeBlocked} />}
       </div>

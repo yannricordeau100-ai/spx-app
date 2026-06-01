@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { InfoTooltip } from "@/components/info-tooltip";
 import {
   BLOCK_KEYS,
   BLOCK_LABELS,
@@ -269,12 +270,37 @@ export function BlockRulesClient({
 
               {row.showHorsTop1 && (
                 <div className="mt-4 rounded-lg border border-orange-500/15 bg-orange-950/10 p-3">
-                  <label
-                    className="mb-1 block text-xs font-semibold uppercase tracking-wider text-orange-400/80"
-                    htmlFor={`hors-top1-${blockKey}`}
-                  >
-                    Spécificités hors top 1 (optionnel)
-                  </label>
+                  <div className="mb-1 flex items-center gap-1.5">
+                    <label
+                      className="block text-xs font-semibold uppercase tracking-wider text-orange-400/80"
+                      htmlFor={`hors-top1-${blockKey}`}
+                    >
+                      Spécificités hors top 1 (optionnel)
+                    </label>
+                    <InfoTooltip color="#fb923c" size="sm">
+                      <div className="space-y-2">
+                        <p className="font-semibold text-orange-300">
+                          À quoi ça sert ?
+                        </p>
+                        <p>
+                          Sert à définir des règles différentes pour
+                          certaines stés. Par défaut, TOUTES les stés
+                          appliquent les règles du champ principal
+                          ci-dessus.
+                        </p>
+                        <p>
+                          Ici, tu peux préciser des exceptions : règles
+                          qui s&apos;appliquent uniquement aux stés en
+                          dehors du top 1 (ex : banques régionales,
+                          sub-secteur spécifique, cas particuliers).
+                        </p>
+                        <p className="text-neutral-400">
+                          Si tu n&apos;as pas d&apos;exception à ajouter,
+                          laisse vide.
+                        </p>
+                      </div>
+                    </InfoTooltip>
+                  </div>
                   <p className="mb-2 text-xs text-neutral-500">
                     Règles qui s&apos;appliquent uniquement aux stés en
                     dehors du top 1 (ex : banques, sub-secteur spécifique,

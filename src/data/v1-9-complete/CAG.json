@@ -10,30 +10,9 @@
   "founded": 1919,
   "ipo": 1976,
   "tagline": "Leading North American branded food company with 100+ years of heritage",
-  "hero_kpi": "Grocery & Snacks Net Sales",
+  "hero_kpi": "Total Revenue",
   "hero_kpi_rationale": "Bénéfice par action dilué reflétant la performance opérationnelle fondamentale et la création de valeur pour les actionnaires, avec une forte croissance d'une année sur l'autre",
   "kpis": [
-    {
-      "short": "Grocery & Snacks Net Sales",
-      "name_fr": "Grocery & Snacks Net Sales",
-      "name_en": "Grocery & Snacks Net Sales",
-      "value": 5084,
-      "unit": null,
-      "yoy": null,
-      "history": [
-        5215,
-        5365,
-        5404,
-        5284,
-        5084
-      ],
-      "is_short_history": false,
-      "is_wow": true,
-      "is_generic": false,
-      "period_type": "year",
-      "_source": "hero_history_extension",
-      "explanation": "KPI hero spécifique extrait du Segment Reporting (10-K). Source : mission-152-hero-chain-cerebras"
-    },
     {
       "short": "Diluted earnings per share",
       "name_fr": "Bénéfice par action dilué",
@@ -102,10 +81,11 @@
       "unit": "Mds €",
       "yoy": "-3.7%",
       "history": [
-        11.54,
-        12.28,
-        12.05,
-        11.61
+        5215,
+        5365,
+        5404,
+        5284,
+        5084
       ],
       "type": "Comptes",
       "nature": "comptable",
@@ -115,7 +95,8 @@
       "is_generic": true,
       "_source": "yfinance.income_stmt",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "is_short_history": false
     },
     {
       "short": "Net Income",
@@ -343,7 +324,8 @@
       "story_category": "Innovation",
       "description_fr": "Effort premiumization 2024-2026 : Slim Jim, Boom Chicka Pop, Angie's BOOMCHICKAPOP, Duke's. Innovation higher-margin snacks vs ambient grocery commoditisée.",
       "description_en": "2024-2026 premiumization effort: Slim Jim, Boom Chicka Pop, Angie's BOOMCHICKAPOP, Duke's. Higher-margin snack innovation vs commoditized ambient grocery.",
-      "_specific_to": "CAG margin strategy"
+      "_specific_to": "CAG margin strategy",
+      "pv_score": 3
     }
   ],
   "governance": {
@@ -450,74 +432,60 @@
   },
   "risks": [
     {
-      "title": "Deterioration of general economic conditions",
-      "category": "Macro",
-      "severity": 5,
-      "score_rationale": "Ce risque est placé en tête des facteurs de risque avec un langage fort (materially adversely affect). Il couvre plusieurs menaces interconnectées comme la récession, l'inflation et le chômage. Présent de manière répétée dans le texte avec une intensité accrue. Pondération élevée pour les risques macroéconomiques dans le secteur de la consommation. (score par défaut, à affiner)",
-      "trend": "up",
-      "summary": "Une dégradation de l'économie globale peut réduire la consommation et impacter fortement nos ventes et marges.",
-      "_validation": "Correction: title traduit en anglais pour cohérence avec source; score_rationale harmonisé sans em-dash",
-      "score": 3
-    },
-    {
-      "title": "Commodity input cost inflation and supply chain volatility",
-      "category": "Industriel",
-      "severity": 5,
-      "score_rationale": "Mentionné de manière répétée avec un langage alarmant (materially and adversely affected). Le texte souligne l'impossibilité potentielle de compenser totalement ces hausses. Risque aggravé par les tensions commerciales et les tarifs. Catégorie industrielle fortement pondérée. (score par défaut, à affiner)",
-      "trend": "up",
-      "summary": "La hausse des prix des matières premières, énergies et emballages menace notre rentabilité, même avec des augmentations de prix partielles.",
-      "_validation": "Correction: title reformulé pour refléter inflation ET volatilité mentionnées dans source; trend changé à 'up' basé sur impact FY2025 documenté; score_rationale sans em-dash",
-      "score": 3
-    },
-    {
-      "title": "Supply chain disruptions and operational inefficiencies",
-      "category": "Industriel",
-      "severity": 4,
-      "score_rationale": "Risque explicitement lié à des événements récents et récurrents. Mention de difficultés de sourcing, de transport et de main-d'œuvre. Langage affirmé mais moins alarmant que pour l'inflation. Tendance stable, intégré dans les opérations courantes. (score par défaut, à affiner)",
+      "title": "Environnement macroéconomique",
+      "category": "macro",
+      "severity": 2,
+      "score_rationale": "Sévérité 2/5 : risque pouvant avoir un effet défavorable, mention explicite dans Item 1A sans seuil de matérialité.",
       "trend": "stable",
-      "summary": "Les ruptures d'approvisionnement en ingrédients ou problèmes logistiques peuvent perturber notre production et distribution.",
-      "_validation": "Correction: title anglicisé pour cohérence avec source 10-K",
-      "score": 3
+      "summary": "Conjoncture macroéconomique défavorable : récession, inflation, tensions géopolitiques ou baisse de la consommation."
     },
     {
-      "title": "Geopolitical conflicts and global trade policy volatility",
-      "category": "Géopolitique",
-      "severity": 4,
-      "score_rationale": "Le risque est détaillé avec des exemples concrets (Ukraine, Moyen-Orient, Chine-Taïwan). Mention d'impacts directs sur les coûts et la chaîne d'approvisionnement. Langage renforcé par rapport à N-1, avec lien explicite à d'autres risques. Catégorie géopolitique en hausse d'importance. (score par défaut, à affiner)",
-      "trend": "up",
-      "summary": "Les tensions internationales et changements de politiques commerciales peuvent provoquer des pénuries, des hausses de coûts et une volatilité des marchés.",
-      "_validation": "Correction: title enrichi pour inclure trade policy volatility mentionné dans MDA; summary enrichi pour refléter tariff impact FY2025",
-      "score": 3
-    },
-    {
-      "title": "Product recalls and food safety litigation",
-      "category": "Litige",
-      "severity": 5,
-      "score_rationale": "Risque existentiel pour une entreprise agroalimentaire. Mention de responsabilité stricte (strict liability), de rappels volontaires et de sanctions pénales possibles. Langage très fort et positionnement central dans les risques opérationnels. Impact direct sur la réputation. (score par défaut, à affiner)",
+      "title": "Environnement macroéconomique (inflation)",
+      "category": "macro",
+      "severity": 2,
+      "score_rationale": "Sévérité 2/5 : risque pouvant avoir un effet défavorable, mention explicite dans Item 1A sans seuil de matérialité.",
       "trend": "stable",
-      "summary": "Un rappel de produit ou un litige pour contamination peut nuire gravement à notre image et entraîner des coûts élevés.",
-      "_validation": "Correction: title anglicisé et précisé pour refléter contenu source",
-      "score": 3
+      "summary": "Conjoncture macroéconomique défavorable : récession, inflation, tensions géopolitiques ou baisse de la consommation."
     },
     {
-      "title": "Commodity derivatives volatility and hedging effectiveness",
-      "category": "Capital",
-      "severity": 3,
-      "score_rationale": "Impact direct sur la marge brute et les bénéfices nets via la comptabilisation des dérivés. Bien que maîtrisé en partie, le texte reconnaît une volatilité inévitable. Moins critique que l'inflation elle-même, mais amplificateur de risque financier. (score par défaut, à affiner)",
+      "title": "Environnement macroéconomique (autre)",
+      "category": "operational",
+      "severity": 2,
+      "score_rationale": "Sévérité 2/5 : risque mentionné dans Item 1A Risk Factors sans qualification d'intensité spécifique.",
       "trend": "stable",
-      "summary": "L'utilisation de dérivés pour couvrir les matières premières induit une volatilité comptable de nos résultats.",
-      "_validation": "Correction: title enrichi avec 'hedging effectiveness' pour refléter MDA discussion",
-      "score": 3
+      "summary": "Risques opérationnels touchant chaîne d'approvisionnement, capital humain, qualité produit ou continuité d'activité."
     },
     {
-      "title": "Regulatory changes in food labeling and advertising",
-      "category": "Régulation",
-      "severity": 4,
-      "score_rationale": "Le texte mentionne une surveillance accrue, des poursuites croissantes et des exigences nouvelles (allergènes, nutriments, emballages). Risque de coûts supplémentaires et de sanctions. Langage précis et contexte de pression réglementaire en hausse. (score par défaut, à affiner)",
-      "trend": "up",
-      "summary": "Des normes plus strictes sur l'étiquetage et la publicité alimentaire augmentent nos coûts et risques juridiques.",
-      "_validation": "Correction: title anglicisé pour cohérence; score_rationale sans em-dash",
-      "score": 3
+      "title": "Matières premières",
+      "category": "financial",
+      "severity": 2,
+      "score_rationale": "Sévérité 2/5 : risque mentionné dans Item 1A Risk Factors sans qualification d'intensité spécifique.",
+      "trend": "stable",
+      "summary": "Exposition à la volatilité financière : taux, change, crédit ou liquidité, pouvant affecter la rentabilité et la flexibilité."
+    },
+    {
+      "title": "Chaîne d'approvisionnement",
+      "category": "operational",
+      "severity": 2,
+      "score_rationale": "Sévérité 2/5 : risque pouvant avoir un effet défavorable, mention explicite dans Item 1A sans seuil de matérialité.",
+      "trend": "stable",
+      "summary": "Risques opérationnels touchant chaîne d'approvisionnement, capital humain, qualité produit ou continuité d'activité."
+    },
+    {
+      "title": "Capacités de production",
+      "category": "technological",
+      "severity": 2,
+      "score_rationale": "Sévérité 2/5 : risque mentionné dans Item 1A Risk Factors sans qualification d'intensité spécifique.",
+      "trend": "stable",
+      "summary": "L'entreprise signale une exposition aux cyberattaques, intrusions ou pannes IT pouvant compromettre opérations, données clients et confiance."
+    },
+    {
+      "title": "Évolutions réglementaires et conformité",
+      "category": "regulatory",
+      "severity": 2,
+      "score_rationale": "Sévérité 2/5 : risque mentionné dans Item 1A Risk Factors sans qualification d'intensité spécifique.",
+      "trend": "stable",
+      "summary": "Risques liés aux changements normatifs, enquêtes ou contentieux susceptibles d'imposer des sanctions ou de contraindre les opérations."
     }
   ],
   "ai_positioning": {
@@ -602,6 +570,6 @@
   "publication_date": null,
   "company_description": "Conagra Brands, Inc., together with its subsidiaries, operates as a consumer packaged goods food company primarily in the United States. The company operates in four segments: Grocery & Snacks, Refrigerated & Frozen, International, and Foodservice. The Grocery & Snacks segment primarily offers shelf stable food products through various retail channels. The Refrigerated & Frozen segment provides temperature-controlled food products through various retail channels. The International segment offers food products in various temperature states through retail and foodservice channels outside of the United States. The Foodservice segment offers branded and customized food products, including meals, entrees, sauces, and various custom-manufactured culinary products packaged for restaurants and other foodservice establishments. The company sells its products under the Birds Eye, Marie Callender's, Duncan Hines, Healthy Choice, Slim Jim, Reddi-wip, Angie's, BOOMCHICKAPOP brands. Conagra Brands, Inc. was incorporated in 1919 and is headquartered in Chicago, Illinois.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-21T16:00:22.011Z",
+  "_built_at": "2026-05-29T21:19:25.777Z",
   "_missing_blocks": []
 }

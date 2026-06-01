@@ -43,7 +43,28 @@
       "is_specific_to_company": true,
       "_specific_to": "company",
       "_source": "10-K",
+      "pv_score": 4,
       "is_short_history": false
+    },
+    {
+      "short": "AARP Prem",
+      "name_fr": "Primes acquises auprès des membres AARP",
+      "name_en": "Earned premiums from AARP members",
+      "value": 3400,
+      "unit": "M$",
+      "yoy": "+6.3%",
+      "type": "Revenue",
+      "history": [
+        2900,
+        3200,
+        3400
+      ],
+      "period_type": "year",
+      "last_data_date": "2025-12-31",
+      "signal": "Croissance des primes provenant des membres AARP.",
+      "description": "Les primes acquises auprès des membres AARP s'élèvent à 3,4 milliards $ en 2025, 3,2 milliards $ en 2024 et 2,9 milliards $ en 2023, reflétant une hausse annuelle.",
+      "_extracted_by": "REEXTRACT-29MAY-batch2",
+      "pv_score": 4
     },
     {
       "short": "Financial Strength Rating (A.M. Best)",
@@ -472,52 +493,68 @@
   },
   "risks": [
     {
-      "title": "Baisse des notations financières",
-      "category": "Capital",
-      "severity": 5,
-      "score_rationale": "Le risque est cité en premier dans le document et décrit des impacts existentiels : perte d'attrait des produits, hausse du coût du capital, difficultés de refinancement. Les récentes remontées de notations par A.M. Best, S&P et Moody's soulignent l'importance stratégique de ce facteur. Langage fort ('may make our products less attractive, increase our cost of capital and inhibit our ability').",
-      "trend": "stable",
-      "summary": "Une dégradation de ses notations financières pourrait nuire gravement à la compétitivité de HIG et à sa capacité à se financer."
-    },
-    {
-      "title": "Exposition aux catastrophes naturelles",
-      "category": "Industriel",
-      "severity": 4,
-      "score_rationale": "Mentionné dans le contexte de l'impact sur le capital statutaire et les réserves, ce risque est récurrent et lié au cœur de métier P&C. L'effet peut être amplifié par des scénarios extrêmes ou cumulatifs. Bien que non détaillé ici, il est implicite dans les facteurs affectant les sinistres et les réserves.",
-      "trend": "stable",
-      "summary": "Les événements catastrophiques majeurs peuvent entraîner des sinistres élevés, affectant la rentabilité et le capital de HIG."
-    },
-    {
-      "title": "Évolution défavorable des réserves",
-      "category": "Industriel",
-      "severity": 4,
-      "score_rationale": "Le développement des réserves (reserve development) est cité comme facteur d'impact direct sur le capital statutaire. Un déficit de réserves peut découler d'erreurs d'estimation ou de sinistres plus coûteux que prévu, notamment en responsabilité civile ou longue durée. Risque structurel dans l'assurance-vie et P&C.",
-      "trend": "stable",
-      "summary": "Une sous-estimation des sinistres passés ou futurs peut entraîner des charges imprévues et affaiblir la solidité financière."
-    },
-    {
-      "title": "Changements réglementaires ou fiscaux",
-      "category": "Régulation",
-      "severity": 4,
-      "score_rationale": "Le document mentionne explicitement les risques liés à une hausse potentielle de l'impôt sur les sociétés ou à de nouvelles régulations. Ces changements pourraient impacter fortement la rentabilité. Le langage ('could have a material effect') indique un risque significatif, bien que l'incertitude sur la timing et la nature atténue légèrement la gravité.",
-      "trend": "stable",
-      "summary": "Des réformes fiscales ou réglementaires aux États-Unis pourraient réduire la marge ou imposer de nouvelles contraintes opérationnelles."
-    },
-    {
-      "title": "Assujettissement aux fonds de garantie",
-      "category": "Industriel",
+      "title": "Risques climatiques et environnementaux",
+      "category": "financial",
       "severity": 3,
-      "score_rationale": "Mentionné dans les contingences, ce risque découle d'obligations réglementaires imposant des contributions si d'autres assureurs font faillite. Bien que prévisible, il peut créer des charges imprévues. Moins sévère car généralement limité et mutualisé.",
+      "score_rationale": "Sévérité moyenne en raison de l'impact potentiel sur les contreparties, notamment les réassureurs, dans le contexte de notre activité financière.",
       "trend": "stable",
-      "summary": "HIG peut être amenée à payer des contributions pour soutenir des assureurs en difficulté, affectant ponctuellement ses résultats."
+      "summary": "Risque financier lié à l'endettement, aux taux d'intérêt ou à la liquidité."
     },
     {
-      "title": "Litiges juridiques",
-      "category": "Litige",
+      "title": "Endettement et liquidité",
+      "category": "financial",
       "severity": 4,
-      "score_rationale": "Référencé via une mention croisée avec la Note 14 et l'Item 3, ce risque inclut des poursuites potentielles pouvant avoir un impact matériel. Bien que non détaillé ici, la référence explicite indique une exposition non négligeable, typique pour un grand assureur.",
+      "score_rationale": "Sévérité élevée due à l'impact potentiel sur nos résultats financiers et notre liquidité, en raison de facteurs externes.",
       "trend": "stable",
-      "summary": "Des actions en justice ou réglementaires peuvent entraîner des coûts importants et nuire à la réputation de l'entreprise."
+      "summary": "Risque financier lié à l'endettement, aux taux d'intérêt ou à la liquidité."
+    },
+    {
+      "title": "Évolution de la demande et de la marque",
+      "category": "strategic",
+      "severity": 3,
+      "score_rationale": "Sévérité moyenne en raison de l'impact potentiel sur la valeur de nos actifs et la demande pour nos produits, dans le contexte de notre stratégie d'investissement.",
+      "trend": "stable",
+      "summary": "Risque stratégique lié aux acquisitions, séparations ou décisions structurelles."
+    },
+    {
+      "title": "Risque opérationnel identifié dans le filing",
+      "category": "operational",
+      "severity": 3,
+      "score_rationale": "Sévérité moyenne en raison de l'impact potentiel sur notre capacité à fixer des primes adéquates et à obtenir des approbations réglementaires en temps opportun, dans le contexte de notre activité opérationnelle.",
+      "trend": "stable",
+      "summary": "Risque opérationnel pouvant affecter la production, la chaîne d'approvisionnement ou les ressources clés."
+    },
+    {
+      "title": "Endettement et liquidité",
+      "category": "financial",
+      "severity": 4,
+      "score_rationale": "Sévérité élevée due à l'impact potentiel sur nos résultats financiers et notre liquidité, en raison de la combinaison de facteurs de risque.",
+      "trend": "stable",
+      "summary": "Risque financier lié à l'endettement, aux taux d'intérêt ou à la liquidité."
+    },
+    {
+      "title": "Risques climatiques et environnementaux",
+      "category": "climate",
+      "severity": 3,
+      "score_rationale": "Sévérité moyenne en raison de l'impact potentiel du changement climatique sur notre activité et nos résultats financiers.",
+      "trend": "stable",
+      "summary": "Risque climatique pouvant affecter les actifs, la supply chain ou la conformité environnementale."
+    },
+    {
+      "title": "Risques d'assurance et de souscription",
+      "category": "regulatory",
+      "severity": 3,
+      "score_rationale": "Sévérité moyenne en raison de l'impact potentiel de la réglementation sur notre capacité à fixer des prix adéquats pour nos produits.",
+      "trend": "stable",
+      "summary": "Risque réglementaire ou juridique pouvant engendrer des sanctions, amendes ou contraintes opérationnelles."
+    },
+    {
+      "title": "Évolution des taux d'intérêt",
+      "category": "financial",
+      "severity": 3,
+      "score_rationale": "Sévérité moyenne en raison de l'impact potentiel des taux d'intérêt sur notre compétitivité et nos résultats financiers.",
+      "trend": "stable",
+      "summary": "Risque financier lié à l'endettement, aux taux d'intérêt ou à la liquidité."
     }
   ],
   "ai_positioning": {
@@ -576,6 +613,6 @@
   "publication_date": null,
   "company_description": "The Hartford Insurance Group, Inc., together with its subsidiaries, provides insurance and financial services to individual and business customers in the United States, the United Kingdom, and internationally. It operates through Business Insurance, Personal Insurance, Property & Casualty Other Operations, Employee Benefits and Hartford Funds. The company offers insurance coverage, including workers' compensation, property, automobile, general and professional liability, package business, umbrella, fidelity and surety, marine, livestock, accident, health, and reinsurance through regional offices, branches, sales and policyholder service centers, independent retail agents and brokers, wholesale agents, and reinsurance brokers. The company also provides automobiles, homeowners, and personal umbrella coverages. The Property & Casualty Other Operations segment offers coverage for asbestos and environmental exposures. In addition, it provides group life, disability, and other group coverages to members of employer groups, associations, and affinity groups through direct insurance policies; reinsurance to other insurance companies; employer paid and voluntary product coverages; disabilit",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-21T16:00:22.291Z",
+  "_built_at": "2026-05-29T21:19:26.040Z",
   "_missing_blocks": []
 }

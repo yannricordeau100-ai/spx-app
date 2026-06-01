@@ -262,7 +262,7 @@ export function FloutageSelectorClient({
     }
   };
 
-  const save = async () => {
+  const saveSelections = async (toSave: Selection[]) => {
     setSaveStatus("saving");
     setSaveMessage("");
     try {
@@ -271,7 +271,7 @@ export function FloutageSelectorClient({
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
           ticker,
-          selections: selections.map((s) => ({
+          selections: toSave.map((s) => ({
             rect: s.rect,
             dom_selector: s.dom_selector,
             dom_text: s.dom_text,
@@ -282,12 +282,19 @@ export function FloutageSelectorClient({
       const data = (await res.json().catch(() => ({}))) as {
         ok?: boolean;
         error?: string;
+        code?: string;
+        details?: string;
+        hint?: string;
         submission_id?: string;
         count?: number;
       };
       if (!res.ok || !data.ok) {
         setSaveStatus("error");
-        setSaveMessage(data.error ?? `HTTP ${res.status}`);
+        const detail =
+          [data.error, data.code, data.hint, data.details]
+            .filter(Boolean)
+            .join(" · ") || `HTTP ${res.status}`;
+        setSaveMessage(detail);
         return;
       }
       setSaveStatus("ok");
@@ -298,6 +305,14 @@ export function FloutageSelectorClient({
       setSaveStatus("error");
       setSaveMessage((err as Error).message);
     }
+  };
+
+  const save = async () => {
+    await saveSelections(selections);
+  };
+
+  const saveSingle = async (sel: Selection) => {
+    await saveSelections([sel]);
   };
 
   return (
@@ -375,21 +390,21 @@ export function FloutageSelectorClient({
           <div className="p-4 border-b border-violet-500/20">
             <h2 className="text-sm font-semibold mb-1">Zones sélectionnées</h2>
             <p className="text-xs text-violet-300/70">
-              Cliquez sur une zone pour la supprimer.
+              Sauvegarde individuelle ou globale.
             </p>
           </div>
           <ul className="divide-y divide-violet-500/10">
             {selections.length === 0 && (
               <li className="p-4 text-xs text-violet-300/50 italic">
-                Aucune zone. Dessine ta première zone à la souris sur l'aperçu.
+                Aucune zone. Dessine ta première zone à la souris sur l&apos;aperçu.
               </li>
             )}
             {selections.map((sel, i) => (
               <li
                 key={sel.id}
-                className="p-3 hover:bg-violet-500/10 group"
+                className="p-3 hover:bg-violet-500/10"
               >
-                <div className="flex items-start justify-between gap-2">
+                <div className="flex flex-col gap-2">
                   <div className="flex-1 min-w-0">
                     <div className="text-xs font-mono text-violet-200 truncate">
                       #{i + 1} · {sel.label}
@@ -397,8 +412,8 @@ export function FloutageSelectorClient({
                     <div className="text-[10px] text-violet-400/70 font-mono truncate mt-0.5">
                       {sel.dom_selector || "(pas de sélecteur)"}
                     </div>
-                    <div className="text-[10px] text-violet-300/50 mt-0.5">
-                      {sel.rect.w}×{sel.rect.h}px @ ({sel.rect.x},{sel.rect.y})
+                    <div className="text-[10px] text-violet-300/50 mt-0.5 font-mono">
+                      x={sel.rect.x} · y={sel.rect.y} · w={sel.rect.w} · h={sel.rect.h}
                     </div>
                     {sel.dom_text && (
                       <div className="text-[10px] text-violet-300/60 mt-1 italic truncate">
@@ -406,14 +421,24 @@ export function FloutageSelectorClient({
                       </div>
                     )}
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => removeSelection(sel.id)}
-                    className="shrink-0 text-rose-300/60 hover:text-rose-300 text-xs font-bold opacity-0 group-hover:opacity-100 transition"
-                    aria-label="Supprimer"
-                  >
-                    ×
-                  </button>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => saveSingle(sel)}
+                      disabled={saveStatus === "saving"}
+                      className="flex-1 rounded border border-emerald-500/40 bg-emerald-500/10 px-2 py-1 text-[11px] font-semibold text-emerald-300 hover:bg-emerald-500/20 disabled:opacity-40 disabled:cursor-not-allowed transition"
+                    >
+                      Sauvegarder cette zone
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => removeSelection(sel.id)}
+                      className="rounded border border-rose-500/40 bg-rose-500/10 px-2 py-1 text-[11px] font-semibold text-rose-300 hover:bg-rose-500/20 transition"
+                      aria-label="Supprimer cette zone"
+                    >
+                      Supprimer
+                    </button>
+                  </div>
                 </div>
               </li>
             ))}

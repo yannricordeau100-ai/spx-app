@@ -274,19 +274,22 @@
         "value": 0
       }
     ],
-    "rationale": "Gresham House Energy Storage Fund est un fonds d'investissement spécialisé dans les systèmes de stockage d'énergie par batterie (BESS). Sa clientèle est exclusivement professionnelle : opérateurs de réseau électrique (NESO), fournisseurs d'énergie (Octopus Energy) et investisseurs institutionnels. Aucune activité B2C ou produit IA."
+    "rationale": null,
+    "_rationale_needs_reextraction": true
   },
   "_customer_type_fetched_at": "2026-05-13T10:26:02.960196+00:00",
   "_eps_extracted_at": "2026-05-18T16:46:21Z",
   "_eps_source": "yfinance income_stmt Diluted EPS",
   "revenue_by_segment": {
     "single_segment": true,
-    "source": "Gresham House Energy Storage Fund - Investment fund single segment",
+    "source": null,
     "source_date": "FY récent",
-    "reason": "Gresham House Energy Storage Fund est un fonds d'investissement opérant un seul segment (battery storage assets)."
+    "reason": null,
+    "_reason_needs_reextraction": true,
+    "_source_needs_reextraction": true
   },
   "revenue_by_geography": {
-    "_reason": "National Grid plc : le fichier cat3-european annual-text est un mauvais mapping (contient le rapport de Gresham House Energy Storage Fund / 'GRID'). Le rapport annuel correct de National Grid avec ventilation entre UK Electricity Transmission / UK Electricity Distribution / New England / New York / National Grid Ventures / Other n'est pas disponible localement.",
+    "_reason": "PURGED_CROSS_POLLUTION_GRESHAM_HOUSE",
     "_source": "cat3-european annual-text (mauvais mapping)",
     "_extracted_at": "2026-05-20T02:36:25.239641+00:00",
     "single_region_legitimate": true,
@@ -295,7 +298,8 @@
     "_legit_marked_by": "sub-agent-#76-repartition-cerebras",
     "slices": [],
     "label": "Répartition géographique (mono-région légitime)",
-    "_cleanup_mission172": "2026-05-25T01:03:25.173Z"
+    "_cleanup_mission172": "2026-05-25T01:03:25.173Z",
+    "_reason_was": "National Grid plc : le fichier cat3-european annual-text est un mauvais mapping (contient le rapport de Gresham House Energy Storage Fund / 'GRID'). Le rapport annuel correct de National Grid avec ventilation entre UK Electricity Transmission / UK Electricity Distribution / New England / New York / National Grid Ventures / Other n'est pas disponible localement."
   },
   "governance": {
     "top_disclosure": "eu_regex_extracted",
@@ -542,5 +546,15 @@
     "source": "Annual Report National Grid FY2024 + plan stratégique mai 2024",
     "_ai_signed_by_batch_merge": "CONV-SUBAGENT-AI-BATCH044-2026-05-30",
     "_ai_batch_merged_at": "2026-05-30T10:50:54.631460Z"
+  },
+  "_eu_contamination_purged_at": "2026-05-31T04:30:00Z",
+  "_eu_contamination_purge_stats": {
+    "slices_removed": 0,
+    "fields_flagged": [
+      "revenue_by_customer_type.rationale",
+      "revenue_by_segment.reason",
+      "revenue_by_segment.source"
+    ],
+    "objects_flagged": []
   }
 }

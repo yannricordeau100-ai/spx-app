@@ -1,5 +1,6 @@
 import path from "node:path";
 import fs from "node:fs/promises";
+import { loadEu5n } from "@/lib/v1-9/load-eu5n";
 import { UniverseToggleClient } from "./client";
 
 export const dynamic = "force-dynamic";
@@ -12,13 +13,15 @@ export const metadata = {
 /**
  * /sandbox/v1-9-5/admin/universe-toggle
  *
- * Page admin (§0septies) qui décompose l'univers V1.9.5 en 3 onglets :
+ * Page admin (§0septies) qui décompose l'univers V1.9.5 en 4 onglets :
  *  1. SP500 (503 stés US-listed)
  *  2. Top 307 hors SP500 (170 stés)
  *  3. EU dans top 307 (90 stés, groupées par pays)
+ *  4. EU5+N (cohort séparé, 9 pays européens, sous-décomposition par pays)
  *
  * Yann (29 mai 2026) : page de stats admin pure, pas de générique KPI.
- * Lecture build-time des deux JSON via fs.readFile.
+ * Lecture build-time des deux JSON via fs.readFile + manifest pipeline
+ * eu5n pour le 4e onglet.
  */
 
 const AUDIT_TOKEN = "phYUd19KP3T_apdLQmugGzF0yEEoAwM6C5JVp9-2z0Y";
@@ -103,7 +106,7 @@ async function loadTickers(): Promise<{
 }
 
 export default async function UniverseToggleAdminPage() {
-  const data = await loadTickers();
+  const [data, eu5n] = await Promise.all([loadTickers(), loadEu5n()]);
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
@@ -116,8 +119,8 @@ export default async function UniverseToggleAdminPage() {
             Composition de l'univers V1.9.5
           </h1>
           <p className="mt-2 text-sm text-zinc-400">
-            Décomposition en 3 onglets : SP500, top 307 hors SP500, et stés
-            européennes (dans top 307) par pays.
+            Décomposition en 4 onglets : SP500, top 307 hors SP500, stés
+            européennes (dans top 307) par pays, et cohort EU5+N (9 pays).
           </p>
         </header>
 
@@ -126,6 +129,7 @@ export default async function UniverseToggleAdminPage() {
           top307HorsSp500={data.top307HorsSp500}
           euInTop307={data.euInTop307}
           countryCounts={data.countryCounts}
+          eu5n={eu5n}
           auditToken={AUDIT_TOKEN}
         />
       </div>

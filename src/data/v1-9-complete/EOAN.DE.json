@@ -30,7 +30,8 @@
       "period_type": "year",
       "description_fr": "EBITDA ajusté consolidé. Indicateur de pilotage principal post-acquisition innogy.",
       "description_en": "Consolidated adjusted EBITDA. Main steering metric post-innogy acquisition.",
-      "_specific_to": "E.ON adjusted EBITDA"
+      "_specific_to": "E.ON adjusted EBITDA",
+      "pv_score": 6
     },
     {
       "short": "Energy Networks EBITDA",
@@ -49,7 +50,8 @@
       "period_type": "year",
       "description_fr": "EBITDA ajusté segment Energy Networks (distribution électricité/gaz). Pôle régulé majeur.",
       "description_en": "Adjusted EBITDA Energy Networks segment (electricity/gas distribution). Major regulated business.",
-      "_specific_to": "E.ON Energy Networks"
+      "_specific_to": "E.ON Energy Networks",
+      "pv_score": 7
     },
     {
       "short": "Customer Solutions EBITDA",
@@ -68,7 +70,8 @@
       "period_type": "year",
       "description_fr": "EBITDA ajusté Customer Solutions (fourniture détail énergie + B2B). Volatil aux prix énergie.",
       "description_en": "Adjusted EBITDA Customer Solutions (retail energy + B2B). Sensitive to energy prices.",
-      "_specific_to": "E.ON Customer Solutions"
+      "_specific_to": "E.ON Customer Solutions",
+      "pv_score": 7
     },
     {
       "short": "External Sales",
@@ -87,7 +90,8 @@
       "period_type": "year",
       "description_fr": "Ventes externes consolidées. Reflux prix gaz/électricité post pic 2022.",
       "description_en": "Consolidated external sales. Gas/power price reflux post-2022 peak.",
-      "_specific_to": "E.ON external sales"
+      "_specific_to": "E.ON external sales",
+      "pv_score": 6
     },
     {
       "short": "RAB (Network Assets)",
@@ -106,45 +110,52 @@
       "period_type": "year",
       "description_fr": "Base d'actifs régulés Energy Networks (estimation). Pilote rémunération régulée.",
       "description_en": "Energy Networks regulated asset base (estimate). Drives regulated returns.",
-      "_specific_to": "E.ON network RAB"
+      "_specific_to": "E.ON network RAB",
+      "pv_score": 6
     }
   ],
   "kpis_story": [],
   "governance": null,
-  "revenue_by_segment": null,
+  "revenue_by_segment": {
+    "slices": [
+      {
+        "label": "Energy Networks",
+        "share_pct": 18.8,
+        "label_fr": "Réseaux énergétiques",
+        "label_en": "Energy Networks",
+        "value": 17616,
+        "unit": "M $"
+      },
+      {
+        "label": "Customer Solutions",
+        "share_pct": 69,
+        "label_fr": "Solutions pour clients",
+        "label_en": "Customer Solutions",
+        "value": 64624,
+        "unit": "M $"
+      },
+      {
+        "label": "Corporate Functions/Other",
+        "share_pct": 12.2,
+        "label_fr": "Fonctions corporatives/Autres",
+        "label_en": "Corporate Functions/Other",
+        "value": 11446,
+        "unit": "M $"
+      }
+    ],
+    "year": 2023,
+    "currency": "EUR",
+    "total": 93686
+  },
   "revenue_by_geography": null,
   "risks": [
     {
-      "title": "Exposition aux variations de change et risque de devise",
-      "category": "FX",
+      "title": "Risque spécifique au business model",
+      "category": "operational",
       "severity": 3,
+      "score_rationale": "Risque mentionné explicitement dans le filing EU 2023. Sévérité 3/5 inférée du langage utilisé.",
       "trend": "stable",
-      "summary": "Une part significative du chiffre d'affaires est exposée aux variations des devises étrangères (EUR, USD, JPY, CNY). Un mouvement brutal du dollar ou des principales devises commerciales peut impacter mécaniquement les marges consolidées.",
-      "score_rationale": "Risque FX standard pour les multinationales. Position Item 1A top 10 typique. Langage standard sur translation et transaction. Tendance stable. Pondération FX modérée pour les exportateurs."
-    },
-    {
-      "title": "Contexte macroéconomique et risque de récession globale",
-      "category": "Macro",
-      "severity": 3,
-      "trend": "stable",
-      "summary": "Un ralentissement durable de la croissance mondiale, des tensions géopolitiques ou une remontée brutale des taux peut affecter la demande, les marges et la valorisation des actifs sous-jacents.",
-      "score_rationale": "Risque macro standard. Position Item 1A généralement présente. Langage standard sur sensibilité au cycle. Tendance stable mais magnitude post 2022. Pondération macro modérée."
-    },
-    {
-      "title": "Concurrence sectorielle et pression sur les parts de marché",
-      "category": "Concurrence",
-      "severity": 3,
-      "trend": "stable",
-      "summary": "L'intensification de la concurrence dans le secteur peut exercer une pression durable sur les volumes, les prix de vente et les marges opérationnelles. Une perte de parts de marché significative aurait un impact matériel sur la trajectoire financière.",
-      "score_rationale": "Risque concurrence transversal. Position Item 1A standard. Langage usuel sur l'intensification concurrentielle. Tendance stable. Pondération concurrence modérée."
-    },
-    {
-      "title": "Sensibilité aux profit warnings et révisions de guidance",
-      "category": "Profit Warning",
-      "severity": 2,
-      "trend": "stable",
-      "summary": "E.ON reste exposée au risque de révision baissière de sa guidance trimestrielle ou annuelle en cas d'écart matériel entre les performances opérationnelles et les attentes du marché. Aucun profit warning formel n'a été identifié sur les douze derniers mois.",
-      "score_rationale": "Risque de profit warning suivi en continu. Aucune communication formelle de profit warning sur les 12 derniers mois. Position Item 1A non spécifique (risque transversal). Tendance stable. Pondération profit warning modérée."
+      "summary": "Un risque opérationnel identifié dans le filing pourrait perturber la production, la distribution ou la qualité de service."
     }
   ],
   "ai_positioning": null,
@@ -224,10 +235,9 @@
   "next_earnings_date": null,
   "publication_date": null,
   "company_description": "E.ON est l'un des principaux énergéticiens européens, focalisé sur les réseaux de distribution d'électricité et de gaz (Energy Networks) et la fourniture aux clients finaux (Customer Solutions). Le groupe allemand sert plus de 50 millions de clients en Europe.",
-  "_built_at": "2026-05-21T16:00:22.194Z",
+  "_built_at": "2026-05-29T21:19:25.931Z",
   "_missing_blocks": [
     "governance",
-    "revenue_by_segment",
     "revenue_by_geography",
     "ai_positioning"
   ]

@@ -51,7 +51,8 @@
       "period_type": "year",
       "description_fr": "NII : revenu net intérêts (KPI #1 banque). Sensible courbe taux + déposits beta.",
       "description_en": "NII: net interest income (top bank KPI). Rate curve + deposit beta sensitive.",
-      "_specific_to": "PNC NII"
+      "_specific_to": "PNC NII",
+      "pv_score": 6
     },
     {
       "short": "Total Assets",
@@ -65,7 +66,8 @@
       "description": "Actif total consolidé au 31 décembre 2025, incluant l'acquisition de FirstBank (26,4 Mds $)",
       "signal": "Croissance par acquisition",
       "quality": "Excellent",
-      "explanation": "PNC a complété l'acquisition de FirstBank le 5 janvier 2026 (26,4 Mds $ d'actifs), augmentant significativement la base d'actifs consolidés. Données de fin 2025 avant intégration complète."
+      "explanation": "PNC a complété l'acquisition de FirstBank le 5 janvier 2026 (26,4 Mds $ d'actifs), augmentant significativement la base d'actifs consolidés. Données de fin 2025 avant intégration complète.",
+      "pv_score": 0
     },
     {
       "short": "Total Deposits",
@@ -79,7 +81,8 @@
       "description": "Dépôts totaux consolidés au 31 décembre 2025",
       "signal": "Base de financement stable",
       "quality": "Excellent",
-      "explanation": "Les dépôts totaux de 440,9 Mds $ représentent la base de financement principale de PNC, essentielle pour les opérations de prêt et les services bancaires."
+      "explanation": "Les dépôts totaux de 440,9 Mds $ représentent la base de financement principale de PNC, essentielle pour les opérations de prêt et les services bancaires.",
+      "pv_score": 2
     },
     {
       "short": "Shareholders' Equity",
@@ -93,7 +96,8 @@
       "description": "Capitaux propres totaux au 31 décembre 2025",
       "signal": "Solidité capitalistique",
       "quality": "Excellent",
-      "explanation": "Les capitaux propres de 60,6 Mds $ reflètent la solidité financière de PNC et sa capacité à absorber les pertes et financer la croissance."
+      "explanation": "Les capitaux propres de 60,6 Mds $ reflètent la solidité financière de PNC et sa capacité à absorber les pertes et financer la croissance.",
+      "pv_score": 2
     },
     {
       "short": "FirstBank Loans",
@@ -107,7 +111,8 @@
       "description": "Portefeuille de prêts de FirstBank à la clôture de l'acquisition (5 janvier 2026)",
       "signal": "Expansion du portefeuille crédit",
       "quality": "Bon",
-      "explanation": "FirstBank apporte 16,0 Mds $ de prêts à PNC, élargissant significativement le portefeuille de crédit et la présence géographique (Colorado)."
+      "explanation": "FirstBank apporte 16,0 Mds $ de prêts à PNC, élargissant significativement le portefeuille de crédit et la présence géographique (Colorado).",
+      "pv_score": 2
     },
     {
       "short": "FirstBank Deposits",
@@ -121,7 +126,8 @@
       "description": "Dépôts de FirstBank à la clôture de l'acquisition (5 janvier 2026)",
       "signal": "Renforcement de la base de dépôts",
       "quality": "Bon",
-      "explanation": "FirstBank contribue 23,1 Mds $ de dépôts, renforçant la stabilité du financement et la base de clients de PNC dans le secteur bancaire régional."
+      "explanation": "FirstBank contribue 23,1 Mds $ de dépôts, renforçant la stabilité du financement et la base de clients de PNC dans le secteur bancaire régional.",
+      "pv_score": 2
     },
     {
       "short": "PNC NII (5Y)",
@@ -144,7 +150,8 @@
       "nature": "Comptable",
       "comparable": true,
       "signal": "NII en repli 2024 (-3%) après pic 2023, pression marges nettes",
-      "_source": "PNC 10-K FY2024 (verified from PNC_2025-02-21.htm.gz)"
+      "_source": "PNC 10-K FY2024 (verified from PNC_2025-02-21.htm.gz)",
+      "pv_score": 4
     },
     {
       "short": "Net Income",
@@ -460,44 +467,39 @@
   },
   "risks": [
     {
-      "title": "Détérioration de la qualité du portefeuille de prêts",
-      "category": "Crédit",
-      "severity": 5,
-      "score_rationale": "Le risque est central dans le 10-K, avec une mention explicite de l'impact des conditions économiques sur les pertes de crédit. Le langage souligne l'incertitude des prévisions économiques (PIB réel, chômage) et l'usage de scénarios probabilisés, indiquant un risque élevé. Comparé à l'année précédente, l'accent sur les prévisions macroéconomiques renforce son intensité. La catégorie Crédit est pondérée fortement pour une banque.",
-      "trend": "stable",
-      "summary": "Une dégradation des conditions économiques ou des profils de risque des emprunteurs pourrait augmenter les défauts et les pertes sur prêts."
-    },
-    {
-      "title": "Dépendance aux prévisions économiques pour les pertes de crédit",
-      "category": "Macro",
+      "title": "Exigences de capital réglementaire accrues",
+      "category": "regulatory",
       "severity": 4,
-      "score_rationale": "Le document détaille l'utilisation de quatre scénarios macroéconomiques avec pondération, centrés sur le PIB réel et le taux de chômage. Le niveau de jugement managérial est qualifié de 'significatif' par l'auditeur, ce qui accroît le risque d'erreur. Ce facteur est répété dans les 'Critical Audit Matters', ce qui indique une importance accrue par rapport à N-1.",
       "trend": "up",
-      "summary": "Les estimations des pertes sur prêts dépendent fortement de prévisions économiques incertaines, ce qui peut affecter la fiabilité de l'ACL."
+      "summary": "Les nouvelles règles proposées de Bâle III obligeraient PNC à inclure la plupart des éléments d’AOCI dans le capital réglementaire et à appliquer des seuils de déduction plus stricts, augmentant le CET1 requis. Cela pourrait réduire la marge de distribution de dividendes."
     },
     {
-      "title": "Utilisation de réserves qualitatives dans l'ACL",
-      "category": "Capital",
+      "title": "Buffer de capital de conservation insuffisant",
+      "category": "regulatory",
       "severity": 4,
-      "score_rationale": "Les réserves qualitatives sont mentionnées comme reflétant des pertes non capturées par les modèles. Leur nature subjective est soulignée par l'auditeur, qui a dû mobiliser des experts. Ce risque est stable mais critique car il touche la transparence et la robustesse du capital.",
       "trend": "stable",
-      "summary": "Des ajustements subjectifs dans la dotation aux pertes pourraient biaiser l'évaluation des risques réels et impacter la solidité du capital."
+      "summary": "PNC doit maintenir un CET1 d’au moins 7 % et un ratio total de 10,5 % pour éviter les restrictions de distribution. Une baisse du CET1 ou des résultats de stress test pourrait déclencher des limitations de dividendes et de rachats d’actions."
     },
     {
-      "title": "Concentration sectorielle et conditions industrielles",
-      "category": "Industriel",
+      "title": "Conformité aux exigences de liquidité LCR/NSFR",
+      "category": "regulatory",
       "severity": 3,
-      "score_rationale": "Le risque est cité comme facteur qualitatif dans l'ACL. Bien qu'important, il est mentionné de manière générique sans données spécifiques de concentration. Le langage est prudent mais pas alarmiste. Moins central que les risques macro ou crédit.",
       "trend": "stable",
-      "summary": "Une exposition importante à certains secteurs en difficulté pourrait augmenter les pertes de crédit."
+      "summary": "Le ratio de couverture de liquidité (LCR) et le ratio de financement stable net (NSFR) de PNC doivent rester au-dessus de 100 %. Un défaut pendant trois jours consécutifs obligerait la banque à soumettre un plan de redressement, affectant sa réputation."
     },
     {
-      "title": "Limites des modèles de notation et des données d'entrée",
-      "category": "Technologie",
+      "title": "Exigences de dette à long terme et holding propre",
+      "category": "regulatory",
       "severity": 3,
-      "score_rationale": "Le document mentionne explicitement les 'limitations des données disponibles' et 'l'imprécision des modèles' comme facteurs qualitatifs. Cela reflète un risque structurel de modélisation, mais sans indication de faille actuelle. Catégorie moins critique pour une banque traditionnelle.",
-      "trend": "stable",
-      "summary": "Les modèles de risque de crédit peuvent être imparfaits en raison de données incomplètes ou de biais méthodologiques."
+      "trend": "new",
+      "summary": "Les règles proposées imposent aux holdings de catégorie III comme PNC de maintenir un niveau minimum de dette à long terme et de respecter des exigences de holding propre, ce qui pourrait contraindre le financement et augmenter les coûts de capital."
+    },
+    {
+      "title": "Résultats du test de résistance CCAR/DFAST",
+      "category": "regulatory",
+      "severity": 3,
+      "trend": "up",
+      "summary": "Les évaluations du Federal Reserve sur le plan de capital et les scénarios de stress peuvent aboutir à des directives de redressement. Un résultat défavorable en 2025 pourrait entraîner une révision du plan de capital et des restrictions opérationnelles."
     }
   ],
   "ai_positioning": {
@@ -562,6 +564,6 @@
   "publication_date": null,
   "company_description": "The PNC Financial Services Group, Inc. operates as a diversified financial services company in the United States. It operates through three segments: Retail Banking, Corporate & Institutional Banking, and Asset Management Group segments. The Retail Banking segment offers checking, savings, and money market accounts, and time deposit; residential mortgages, home equity loans and lines of credit, auto loans, credit cards, education loans, and personal and small business loans and lines of credit; and brokerage, insurance, and investment and cash management services. This segment serves consumer and small business customers through a network of branches, digital channels, ATMs, and through phone-based customer contact centers. The Corporate & Institutional Banking segment provides secured and unsecured loans, letters of credit, and equipment leases; cash and investment management, receivables and disbursement management, funds transfer, international payment, and access to online/mobile information management and reporting services; asset-backed financing, securities underwriting, loan syndications, mergers and acquisitions and equity capital markets advisory, and customer related ser",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-21T16:00:22.585Z",
+  "_built_at": "2026-05-29T21:19:26.309Z",
   "_missing_blocks": []
 }

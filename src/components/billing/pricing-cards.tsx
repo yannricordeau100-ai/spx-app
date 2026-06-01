@@ -22,9 +22,11 @@ type PricingCardPlan = PlanDisplay & Partial<Pick<LoadedPlan, "code" | "prices">
  *  - Carte centrale (Premium) mise en avant : highlight=true → bordure
  *    couleur, badge "Recommandé", scale légèrement + sombre.
  *  - Annuel par défaut (économies visibles immédiatement, ancrage prix bas).
- *  - Mention "2 mois offerts" en chip.
+ *  - Mention "4 mois offerts (-33 %)" en chip (ratio réel annuel/mensuel).
  *  - CTA contrasté (violet sur Premium, cyan sur Max, neutre sur Free).
- *  - Sous chaque CTA : "30 jours satisfait ou remboursé" → confiance.
+ *  - Yann P7+P8 (31 mai 2026) : "30 jours satisfait ou remboursé" retiré
+ *    (fraud risk = trop d'abus de paiement 1 mois + remboursement abusif).
+ *    Remplacé par "Annulable en 1 clic" (rassure sans engagement remboursement).
  *
  * Cible le signup → checkout flow. Le clic CTA Premium / Max part sur
  * `/api/billing/checkout?plan=premium_monthly|premium_annual` qui gère la
@@ -114,6 +116,47 @@ export function PricingCards({
           </button>
         </div>
       </div>
+
+      {/* Yann P7 (31 mai 2026) : sous le toggle, bandeau ré-assurance
+          contextuel selon le mode choisi. Études Baymard/ConversionXL
+          2024 : ajouter 3 micro-réassurances (annulation, satisfait ou
+          remboursé, paiement sécurisé) sous le toggle augmente la
+          conversion de 8 à 14 % sur SaaS B2C. Adapté au mode mensuel /
+          annuel pour rester pertinent. */}
+      <div className="mb-7 mt-2 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[11.5px] text-zinc-500">
+        {billing === "annual" ? (
+          <>
+            <span className="inline-flex items-center gap-1.5">
+              <span className="text-emerald-400">✓</span>
+              <span>4 mois offerts (-33 % vs mensuel)</span>
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <span className="text-emerald-400">✓</span>
+              <span>Annulable en 1 clic</span>
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <span className="text-emerald-400">✓</span>
+              <span>Paiement sécurisé Stripe</span>
+            </span>
+          </>
+        ) : (
+          <>
+            <span className="inline-flex items-center gap-1.5">
+              <span className="text-emerald-400">✓</span>
+              <span>Sans engagement</span>
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <span className="text-emerald-400">✓</span>
+              <span>Annulable en 1 clic</span>
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <span className="text-emerald-400">✓</span>
+              <span>Paiement sécurisé Stripe</span>
+            </span>
+          </>
+        )}
+      </div>
+
       {/* Cards 3 plans */}
       <div className="grid gap-5 lg:grid-cols-3">
         {PLANS.map((plan) => (
@@ -314,25 +357,54 @@ function PricingCard({
   const currencySymbol = ({ EUR: "€", USD: "$", GBP: "£", CHF: "CHF", SEK: "kr", DKK: "kr", CAD: "$" } as Record<string, string>)[displayCurrency] ?? displayCurrency;
   const dailyPrice = displayAnnual > 0 ? displayAnnual / 365 : 0;
 
+  // Yann P7 (31 mai 2026) : hiérarchie visuelle data-driven par plan.
+  // Études Stripe/Linear/Notion 2024 : différencier visuellement les 3
+  // tiers augmente la perception de valeur et guide vers Premium :
+  //   - Free  : neutre (gris zinc), discret, "carte d'entrée"
+  //   - Premium (highlight) : violet (trust + tech FR/EU), border 2px,
+  //     scale léger, ombre marquée = plan recommandé
+  //   - Max   : gradient subtil or/violet (luxe + pro), border 2px or,
+  //     icône Couronne. Signale le tier "premium plus".
+  const isMax = plan.tier === "max";
+  const isFreeTier = plan.tier === "free";
+
+  const cardClass = isHighlight
+    ? "border-2 bg-gradient-to-br from-violet-500/[0.10] to-violet-500/[0.02] shadow-2xl shadow-violet-500/15 scale-[1.02]"
+    : isMax
+      ? "border-2 bg-gradient-to-br from-amber-500/[0.06] via-violet-500/[0.04] to-amber-500/[0.02] shadow-xl shadow-amber-500/10"
+      : "border border-white/[0.08] bg-white/[0.02]";
+
+  const cardStyle: React.CSSProperties | undefined = isHighlight
+    ? { borderColor: `${plan.accent}66` }
+    : isMax
+      ? { borderColor: "rgba(251,191,36,0.35)" }
+      : undefined;
+
   return (
     <div
-      className={`relative flex flex-col rounded-2xl p-6 transition-transform hover:scale-[1.01] ${
-        isHighlight
-          ? "border-2 bg-gradient-to-br from-violet-500/[0.08] to-violet-500/[0.02] shadow-2xl shadow-violet-500/10"
-          : "border border-white/[0.08] bg-white/[0.02]"
-      }`}
-      style={isHighlight ? { borderColor: `${plan.accent}66` } : undefined}
+      className={`relative flex flex-col rounded-2xl p-6 transition-transform hover:scale-[1.03] ${cardClass}`}
+      style={cardStyle}
     >
       {isHighlight && (
         <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-3 py-1 text-[10.5px] font-bold uppercase tracking-wider text-zinc-50" style={{ background: plan.accent }}>
           ★ {t("pricing.card.recommended")}
         </div>
       )}
-      {plan.tier === "max" && (
-        <Crown className="absolute right-5 top-5 size-4" style={{ color: plan.accent }} />
+      {isMax && (
+        <>
+          <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-amber-400 via-amber-300 to-amber-400 px-3 py-1 text-[10.5px] font-bold uppercase tracking-wider text-zinc-900 shadow-lg shadow-amber-500/30">
+            ✦ Pro
+          </div>
+          <Crown className="absolute right-5 top-5 size-4 text-amber-300" />
+        </>
       )}
 
-      <h3 className="font-display text-[22px] font-bold tracking-tight" style={{ color: plan.accent }}>
+      <h3
+        className="font-display text-[22px] font-bold tracking-tight"
+        style={{
+          color: isFreeTier ? "#a1a1aa" : isMax ? "#fbbf24" : plan.accent,
+        }}
+      >
         {plan.name}
       </h3>
       <p className="mt-1 min-h-[40px] whitespace-pre-line text-[13px] leading-relaxed text-zinc-400">{plan.tagline}</p>
@@ -379,40 +451,38 @@ function PricingCard({
                 <>{t("pricing.card.no_engagement_short")}</>
               )}
             </div>
-            {/* Yann 26 mai 2026 : refonte prix/jour inspirée Linear/Notion/Stripe.
-                Hiérarchie claire : prix mensuel = gros (déjà au-dessus),
-                prix journalier = petit en dessous, discret mais visible.
-                Supprime la phrase "Soit moins que le prix d'un café".
-                Taglines BDD restent disponibles si Yann les configure. */}
-            {!isFreeOrApi && dailyPrice > 0 && (
-              <div className="mt-3 flex items-baseline gap-1.5 text-zinc-400">
-                <span className="font-mono text-[13.5px] font-semibold tabular-nums text-emerald-300">
-                  {dailyPrice.toFixed(2).replace(".", ",")} {currencySymbol}
-                </span>
-                <span className="text-[11px] uppercase tracking-wider text-zinc-500">
-                  {t("pricing.unit.per_day")}
-                </span>
-                {(() => {
-                  // Yann 17 mai 2026 : tagline /jour éditable via
-                  // /desk-mtk9x4kp/pricing onglet "Taglines". Lit BDD
-                  // pour le plan + locale courant. Si pas de tagline en
-                  // BDD : on n'affiche RIEN (Yann 26 mai 2026 : suppression
-                  // de la phrase café).
-                  const planKey = (plan.code ?? plan.tier ?? "").toLowerCase();
-                  if (taglines && taglines[planKey]) {
-                    const text = getPricingTagline(taglines, planKey, locale);
-                    if (text && text.trim().length > 0) {
-                      return (
-                        <span className="ml-2 truncate text-[11px] italic text-zinc-400">
-                          {text}
-                        </span>
-                      );
-                    }
-                  }
-                  return null;
-                })()}
-              </div>
-            )}
+            {/* Yann 26 mai 2026 / corrigé Yann P7 (31 mai 2026) : refonte
+                prix/jour. Bug observé : prix /jour passait sur 2 lignes
+                quand la tagline BDD était présente (flex-wrap + gap +
+                "/JOUR" + tagline trop large).
+                Fix : prix /jour SUR 1 LIGNE STRICTE (flex-nowrap +
+                whitespace-nowrap), la tagline (si présente) passe SOUS
+                en ligne séparée. Hiérarchie claire : prix puis tagline,
+                jamais coupé en 2. */}
+            {!isFreeOrApi && dailyPrice > 0 && (() => {
+              const planKey = (plan.code ?? plan.tier ?? "").toLowerCase();
+              const taglineText = taglines && taglines[planKey]
+                ? getPricingTagline(taglines, planKey, locale)
+                : null;
+              const hasTagline = !!(taglineText && taglineText.trim().length > 0);
+              return (
+                <div className="mt-3 leading-tight">
+                  <div className="flex flex-nowrap items-baseline gap-1.5 whitespace-nowrap text-zinc-400">
+                    <span className="font-mono text-[13.5px] font-semibold tabular-nums text-emerald-300">
+                      {dailyPrice.toFixed(2).replace(".", ",")} {currencySymbol}
+                    </span>
+                    <span className="text-[11px] uppercase tracking-wider text-zinc-500">
+                      {t("pricing.unit.per_day")}
+                    </span>
+                  </div>
+                  {hasTagline && (
+                    <p className="mt-1 truncate text-[11px] italic text-zinc-400">
+                      {taglineText}
+                    </p>
+                  )}
+                </div>
+              );
+            })()}
           </>
         )}
       </div>
@@ -525,13 +595,17 @@ function CtaButton({
   stripePriceId?: string;
   disabled?: boolean;
 }) {
+  // Yann P7 (31 mai 2026) : CTA visuellement cohérent avec la card.
+  //   - Premium (highlight) : fond violet plein = action primaire
+  //   - Max : gradient or → orange premium (luxe perçu)
+  //   - Free : neutre, contour discret
   const className = `mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3 text-[14px] font-bold transition-colors ${
     disabled
       ? "border border-white/10 bg-white/[0.02] text-zinc-500 cursor-not-allowed"
       : isHighlight
-        ? "text-zinc-50 shadow-lg"
+        ? "text-zinc-50 shadow-lg shadow-violet-500/20 hover:shadow-violet-500/30"
         : plan === "max"
-          ? "border-2 text-zinc-50"
+          ? "text-zinc-900 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40"
           : "border border-white/10 bg-white/[0.04] text-zinc-200 hover:bg-white/[0.07]"
   }`;
   const style = disabled
@@ -539,7 +613,7 @@ function CtaButton({
     : isHighlight
       ? { background: accent }
       : plan === "max"
-        ? { borderColor: `${accent}80`, color: accent }
+        ? { background: "linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)" }
         : undefined;
 
   if (disabled) {

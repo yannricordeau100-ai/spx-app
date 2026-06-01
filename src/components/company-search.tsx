@@ -51,6 +51,29 @@ const V195_CLEAN_ALL_SET: ReadonlySet<string> = new Set(
 );
 
 /**
+ * Yann 31 mai 2026 : déduplication des doublons class-shares (GOOG/GOOGL,
+ * BRK.A/BRK.B, FOX/FOXA, NWS/NWSA, UA/UAA) dans la search.
+ *
+ * - ALIAS_KEYS_UPPER : tickers qui sont des ALIAS (= keys de TICKER_ALIASES).
+ *   On les masque de la search pour ne montrer que le canonical.
+ * - REVERSE_ALIASES : pour chaque canonical, la liste des alias qui pointent
+ *   dessus. Utilisé pour étendre le matching (taper "GOOG" trouve GOOGL).
+ */
+const ALIAS_KEYS_UPPER: ReadonlySet<string> = new Set(
+  Object.keys(TICKER_ALIASES).map((k) => k.toUpperCase()),
+);
+
+const REVERSE_ALIASES: Record<string, string[]> = (() => {
+  const map: Record<string, string[]> = {};
+  for (const [alias, target] of Object.entries(TICKER_ALIASES)) {
+    const u = target.toUpperCase();
+    if (!map[u]) map[u] = [];
+    map[u].push(alias);
+  }
+  return map;
+})();
+
+/**
  * CompanySearch — barre de recherche unifiée, utilisée :
  *   - Sur la home (var. "hero", grande, hint ⌘K)
  *   - Dans le top-nav des pages société (var. "compact", icône + placeholder court)
@@ -191,6 +214,11 @@ export function CompanySearch({
     for (const e of V17_SEARCH_INDEX) {
       const upper = e.ticker.toUpperCase();
       if (v1Set.has(upper)) continue;
+      // Yann 31 mai 2026 : dédup class-shares. On masque les tickers qui
+      // sont des ALIAS (ex GOOG → GOOGL) pour ne montrer que le canonical
+      // dans la search. La recherche par alias reste fonctionnelle via
+      // REVERSE_ALIASES ci-dessous.
+      if (ALIAS_KEYS_UPPER.has(upper)) continue;
       if (scopeSet && !scopeSet.has(upper)) continue;
       // Yann 30 mai 2026 : V1.9.5 strict = clean_all uniquement. Tout ticker
       // hors clean_all serait redirigé silencieusement vers l'overview au clic
@@ -201,11 +229,13 @@ export function CompanySearch({
       // V1.9 (extension recherche EU). Comportement historique préservé pour
       // les non-V1.9 (non searchables).
       if (!e.validated && !v19UniverseSet.has(upper)) continue;
+      const reverseAliases = REVERSE_ALIASES[upper] ?? [];
       const matches =
         !q ||
         e.ticker.toLowerCase().includes(q) ||
         e.name.toLowerCase().includes(q) ||
-        e.sector.toLowerCase().includes(q);
+        e.sector.toLowerCase().includes(q) ||
+        reverseAliases.some((a) => a.toLowerCase().includes(q));
       if (matches) v17Out.push({ ticker: e.ticker, source: "v17" });
     }
 
@@ -215,13 +245,17 @@ export function CompanySearch({
     for (const e of V19_SEARCH_INDEX) {
       const upper = e.ticker.toUpperCase();
       if (v1Set.has(upper)) continue;
+      // Yann 31 mai 2026 : dédup class-shares (idem V17).
+      if (ALIAS_KEYS_UPPER.has(upper)) continue;
       // Yann 30 mai 2026 : idem, V1.9.5 strict = clean_all uniquement.
       if (!V195_CLEAN_ALL_SET.has(upper)) continue;
+      const reverseAliases = REVERSE_ALIASES[upper] ?? [];
       const matches =
         !q ||
         e.ticker.toLowerCase().includes(q) ||
         e.name.toLowerCase().includes(q) ||
-        (e.country?.toLowerCase().includes(q) ?? false);
+        (e.country?.toLowerCase().includes(q) ?? false) ||
+        reverseAliases.some((a) => a.toLowerCase().includes(q));
       if (matches) v19Out.push({ ticker: e.ticker, source: "v19" });
     }
 

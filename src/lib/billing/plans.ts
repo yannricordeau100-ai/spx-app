@@ -16,7 +16,7 @@ export type PlanDisplay = {
   tier: PlanTier;
   name: string;
   tagline: string;
-  /** Prix mensuel en euros (annuel = month × 10 = -16,7 % vs ×12). */
+  /** Prix mensuel en euros (annuel = month × 8 = -33 % vs ×12). */
   price_monthly_eur: number;
   /** Prix annuel facturé en une fois en euros. */
   price_annual_eur: number;
@@ -54,7 +54,7 @@ export const PLANS: PlanDisplay[] = [
     tagline: "L'essentiel pour suivre ton portefeuille au quotidien.",
     price_monthly_eur: 29.9,
     price_annual_eur: 238.8,
-    annual_savings_label: "2 mois offerts vs mensuel",
+    annual_savings_label: "4 mois offerts (-33 %)",
     accent: "#a78bfa",
     highlight: true,
     cta_label: "Choisir Premium",
@@ -66,7 +66,7 @@ export const PLANS: PlanDisplay[] = [
     tagline: "Outils avancés pour family offices, conseillers et fonds.",
     price_monthly_eur: 59.9,
     price_annual_eur: 478.8,
-    annual_savings_label: "2 mois offerts vs mensuel",
+    annual_savings_label: "4 mois offerts (-33 %)",
     accent: "#22d3ee",
     highlight: false,
     cta_label: "Passer en Max",

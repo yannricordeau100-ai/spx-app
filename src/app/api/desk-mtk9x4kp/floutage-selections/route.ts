@@ -100,8 +100,17 @@ export async function POST(req: NextRequest) {
     .single();
 
   if (error) {
+    // Cas typique : table manquante en prod (migration jamais appliquée),
+    // service_role mal configurée, ou colonne manquante. On renvoie le
+    // détail brut pour debug Yann + le code Postgres.
+    console.error("[floutage-selections POST] supabase insert error:", error);
     return NextResponse.json(
-      { error: `BDD : ${error.message}` },
+      {
+        error: `BDD : ${error.message}`,
+        code: error.code,
+        details: error.details,
+        hint: error.hint,
+      },
       { status: 500 },
     );
   }

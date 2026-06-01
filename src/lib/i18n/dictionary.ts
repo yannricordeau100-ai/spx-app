@@ -266,6 +266,10 @@ export const DICTIONARY: Dict = {
   "company.subsector": { fr: "Sous-secteur", en: "Sub-sector" },
   "company.founded": { fr: "Fondée en", en: "Founded" },
   "company.ipo": { fr: "IPO", en: "IPO" },
+  "company.also_known_as": {
+    fr: "Aussi connue sous :",
+    en: "Also listed as:",
+  },
 
   "company.provenance": {
     fr: "Tous les chiffres présentés proviennent directement ou indirectement de la société. Toute donnée tierce est sourcée à l'endroit où elle apparaît.",
@@ -1144,6 +1148,40 @@ export const DICTIONARY: Dict = {
     fr: "Oui, à tout moment. Si tu passes de Premium à Max, l'écart est facturé au prorata. Si tu downgrade, le changement prend effet à la prochaine échéance.",
     en: "Yes, anytime. Upgrading from Premium to Max is billed pro-rata. Downgrade takes effect at the next renewal.",
     de: "Ja, jederzeit. Beim Upgrade von Premium zu Max wird die Differenz anteilig berechnet. Downgrade greift zur nächsten Verlängerung.",
+  },
+  /* Yann P7 (31 mai 2026) : FAQ étendue 7 questions anti-objection.
+     Q5 annulation 1 clic (remplace garantie 30 jours retirée 31 mai
+     fraud risk), Q6 différence vs concurrents, Q7 fraîcheur et
+     fiabilité des données. */
+  "pricing.faq_q5": {
+    fr: "Comment annuler mon abonnement ?",
+    en: "How do I cancel my subscription?",
+    de: "Wie kann ich mein Abonnement kündigen?",
+  },
+  "pricing.faq_a5": {
+    fr: "Tu peux annuler ton abonnement à tout moment en 1 clic depuis ton espace compte, sans appel ni email. L'annulation prend effet à la fin de la période en cours (tu gardes l'accès jusque-là). Aucun engagement long terme.",
+    en: "You can cancel your subscription anytime in 1 click from your account page, no call or email needed. Cancellation takes effect at the end of the current period (you keep access until then). No long-term commitment.",
+    de: "Du kannst dein Abonnement jederzeit mit 1 Klick in deinem Kontobereich kündigen, ohne Anruf oder E-Mail. Die Kündigung wird zum Ende der laufenden Periode wirksam (Zugriff bleibt bis dahin bestehen). Keine langfristige Bindung.",
+  },
+  "pricing.faq_q6": {
+    fr: "Qu'est-ce qui différencie Mettrik AI de Seeking Alpha ou Simply Wall Street ?",
+    en: "What sets Mettrik AI apart from Seeking Alpha or Simply Wall Street?",
+    de: "Was unterscheidet Mettrik AI von Seeking Alpha oder Simply Wall Street?",
+  },
+  "pricing.faq_a6": {
+    fr: "Mettrik AI ne fait pas de notes ni de pronostics : on extrait directement les KPI publiés par les sociétés dans leurs documents officiels (10-K, 10-Q, rapports annuels), on les rend lisibles, comparables et traduits en français. Pas d'opinion d'analyste, pas de marketing : juste les chiffres bruts et leur contexte. C'est conçu pour les investisseurs qui veulent voir les données telles que les dirigeants les communiquent.",
+    en: "Mettrik AI does not provide ratings or forecasts: we extract KPIs directly from companies' official filings (10-K, 10-Q, annual reports), make them readable, comparable and translated. No analyst opinion, no marketing: just the raw numbers and their context. Built for investors who want to see the data as management communicates it.",
+    de: "Mettrik AI gibt keine Bewertungen oder Prognosen: wir extrahieren KPIs direkt aus den offiziellen Berichten (10-K, 10-Q, Geschäftsberichten), machen sie lesbar, vergleichbar und übersetzt. Keine Analystenmeinung, kein Marketing: nur die Rohdaten und ihr Kontext. Gemacht für Investoren, die die Zahlen so sehen wollen, wie das Management sie kommuniziert.",
+  },
+  "pricing.faq_q7": {
+    fr: "À quelle vitesse les données sont-elles mises à jour ?",
+    en: "How quickly is the data updated?",
+    de: "Wie schnell werden die Daten aktualisiert?",
+  },
+  "pricing.faq_a7": {
+    fr: "Dès qu'une société publie ses résultats trimestriels ou annuels, nos pipelines détectent le nouveau document, extraient les KPI et les publient sur Mettrik AI dans les 24 à 48 h. Tu peux consulter la date de dernière mise à jour de chaque KPI directement sur la fiche société (indicateur À jour ou Récent).",
+    en: "As soon as a company publishes its quarterly or annual results, our pipelines detect the new filing, extract the KPIs and publish them on Mettrik AI within 24 to 48 hours. You can check the last-updated date of each KPI directly on the company page (Up-to-date or Recent indicator).",
+    de: "Sobald ein Unternehmen seine Quartals- oder Jahresergebnisse veröffentlicht, erkennen unsere Pipelines das neue Dokument, extrahieren die KPIs und veröffentlichen sie innerhalb von 24 bis 48 Stunden auf Mettrik AI. Du kannst das letzte Aktualisierungsdatum jedes KPIs direkt auf der Unternehmensseite einsehen (Anzeige Aktuell oder Kürzlich).",
   },
   "pricing.cta_final_title": {
     fr: "Prêt à voir tes sociétés sous un autre angle ?",

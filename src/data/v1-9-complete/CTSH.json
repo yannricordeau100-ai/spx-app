@@ -10,7 +10,7 @@
   "founded": 1994,
   "ipo": 1998,
   "tagline": "Engineering modern businesses",
-  "hero_kpi": "CMT_Revenue",
+  "hero_kpi": "Total Revenue",
   "hero_kpi_rationale": "Marge opérationnelle en hausse de 140 pb, reflétant les économies du programme NextGen, l'amélioration de l'efficacité opérationnelle et l'impact positif des mouvements de change, partiellement compensés par l'augmentation des coûts de compensation",
   "kpis": [
     {
@@ -28,7 +28,8 @@
       "period_type": "annual",
       "description": "Revenus du segment Health Sciences (prestataires de soins, payeurs, sciences de la vie). Source: Note 2 consolidated financial statements - segment revenues 2023: $6,398M, 2024: $6,586M, 2025: $6,769M.",
       "signal": "Croissance modérée mais constante du segment santé, représentant ~36% des revenus totaux en 2025.",
-      "quality": "Bon"
+      "quality": "Bon",
+      "pv_score": 3
     },
     {
       "short": "FS_Revenue",
@@ -45,7 +46,8 @@
       "period_type": "annual",
       "description": "Revenus du segment Financial Services (banques, marchés de capitaux, paiements, assurances). Source: Note 2 - segment revenues 2023: $5,514M, 2024: $5,556M, 2025: $5,606M.",
       "signal": "Croissance très faible du segment services financiers, reflétant un environnement de demande prudent dans le secteur bancaire.",
-      "quality": "Bon"
+      "quality": "Bon",
+      "pv_score": 3
     },
     {
       "short": "PR_Revenue",
@@ -62,7 +64,8 @@
       "period_type": "annual",
       "description": "Revenus du segment Products & Resources (manufacturiers, retail, biens de consommation, aérospatiale, voyage, logistique, énergie). Source: Note 2 - segment revenues 2023: $3,893M, 2024: $3,952M, 2025: $4,011M.",
       "signal": "Croissance modeste dans le segment manufacturier/retail, impacté par la transformation digitale et l'adoption d'IoT.",
-      "quality": "Bon"
+      "quality": "Bon",
+      "pv_score": 3
     },
     {
       "short": "CMT_Revenue",
@@ -83,6 +86,7 @@
       "description": "Revenus du segment CMT (communications, médias, divertissement, éducation, services professionnels, technologie). Source: Note 2 - segment revenues 2023: $2,344M, 2024: $2,382M, 2025: $2,424M.",
       "signal": "Segment le plus petit mais avec croissance stable, porté par l'adoption d'IA et la modernisation des opérations.",
       "quality": "Bon",
+      "pv_score": 3,
       "is_short_history": false
     },
     {
@@ -98,7 +102,8 @@
       "period_type": "annual",
       "description": "Taux d'attrition volontaire pour les services technologiques (excluant Intuitive Operations and Automation practice) pour Q4 2025. Source: Item 7 MD&A mentionne '13% for the fourth quarter of 2025' comme métrique clé de rétention des talents.",
       "signal": "Attrition en baisse significative vs années précédentes (était ~20%+ en 2022-2023), reflétant amélioration de la rétention des talents techniques dans un marché compétitif.",
-      "quality": "Bon"
+      "quality": "Bon",
+      "pv_score": 2
     },
     {
       "short": "Op Margin",
@@ -207,10 +212,12 @@
       "unit": "Mds €",
       "yoy": "+6.9%",
       "history": [
-        19.43,
-        19.35,
-        19.74,
-        21.11
+        692,
+        732,
+        794,
+        691,
+        769,
+        625
       ],
       "type": "Comptes",
       "nature": "comptable",
@@ -219,7 +226,7 @@
       "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "is_short_history": true,
+      "is_short_history": false,
       "explanation_en": "Revenue from the Total segment.",
       "signal_en": "Top-line growth, market traction"
     },
@@ -339,41 +346,33 @@
   ],
   "kpis_story": [],
   "governance": {
-    "agm_date": "2026-06-02",
-    "fiscal_year": 2025,
-    "ceo_name": "Ravi Kumar S",
-    "ceo_total_comp_m": 12.8,
-    "ceo_pay_ratio": 165,
-    "exec_comp_approval_pct": 95,
-    "board_independence_pct": 80,
-    "board_size": 13,
-    "avg_tenure_years": 6.5,
-    "board_women_pct": 23,
-    "voting_structure": "Majorité des voix",
-    "top_capital": [
-      {
-        "name": "The Vanguard Group, Inc.",
-        "type": "institutionnel",
-        "stake_pct": 8.4
-      },
-      {
-        "name": "BlackRock, Inc.",
-        "type": "institutionnel",
-        "stake_pct": 6.3
-      }
-    ],
     "top_voting": [
       {
-        "name": "The Vanguard Group, Inc.",
+        "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": 8.4
+        "stake_pct": 9
       },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 5.3
+      }
+    ],
+    "top_capital": [
       {
         "name": "BlackRock, Inc.",
         "type": "institutionnel",
-        "stake_pct": 6.3
+        "stake_pct": 9
+      },
+      {
+        "name": "State Street Corporation",
+        "type": "institutionnel",
+        "stake_pct": 5.3
       }
-    ]
+    ],
+    "voting_structure_note": "OK 1-share-1-vote",
+    "_top_source": "cerebras_us",
+    "_top_enriched_at": "2026-05-25T01:04:14.252148+00:00"
   },
   "revenue_by_segment": {
     "slices": [
@@ -455,58 +454,60 @@
   },
   "risks": [
     {
-      "title": "Fluctuations des taux de change INR/USD",
-      "category": "Géopolitique",
+      "title": "Risque spécifique au business model",
+      "category": "operational",
       "severity": 4,
-      "score_rationale": "L'entreprise est fortement exposée aux fluctuations du taux de change entre le dollar américain et la roupie indienne. Chaque variation de 1% du taux de change peut avoir un impact de 17 points de base sur la marge d'exploitation. La majorité des effectifs et des coûts de livraison se situent en Inde, tandis que la majorité des revenus sont en dollars. (score par défaut, à affiner)",
+      "score_rationale": "Risque mentionné explicitement dans le filing US 2026. Sévérité 4/5 inférée du langage utilisé.",
       "trend": "stable",
-      "summary": "Les fluctuations du taux de change INR/USD peuvent impacter significativement la marge d'exploitation",
-      "score": 3
+      "summary": "Un risque opérationnel identifié dans le filing pourrait perturber la production, la distribution ou la qualité de service."
     },
     {
-      "title": "Concurrence accrue dans les services IT",
-      "category": "Concurrence",
+      "title": "Tensions géopolitiques et sanctions",
+      "category": "macro",
       "severity": 3,
-      "score_rationale": "L'entreprise opère dans un secteur hautement compétitif des services informatiques et de conseil professionnels. La concurrence peut exercer une pression à la baisse sur les prix et mettre en danger la part de marché. (score par défaut, à affiner)",
-      "trend": "up",
-      "summary": "La concurrence accrue peut impacter les marges et la part de marché",
-      "score": 3
-    },
-    {
-      "title": "Risques réglementaires internationaux",
-      "category": "Régulation",
-      "severity": 4,
-      "score_rationale": "L'entreprise est soumise à des réglementations strictes dans les pays où elle opère. Les modifications réglementaires, y compris les changements fiscaux et les réformes du droit du travail en Inde, peuvent impacter les coûts d'exploitation et la rentabilité. La modification du traité fiscal Inde-Mauritius pourrait augmenter le taux effectif d'imposition. (score par défaut, à affiner)",
-      "trend": "up",
-      "summary": "Les changements réglementaires et fiscaux peuvent impacter les coûts et la rentabilité",
-      "score": 3
-    },
-    {
-      "title": "Disruption technologique et automatisation IA",
-      "category": "Technologie",
-      "severity": 3,
-      "score_rationale": "L'évolution des technologies basées sur l'IA et des formes d'automatisation pourrait réduire la demande pour certains services actuellement fournis à la clientèle. L'entreprise peut également faire face à une diminution de sa capacité à obtenir des tarifs favorables. (score par défaut, à affiner)",
-      "trend": "up",
-      "summary": "L'évolution des technologies IA et de l'automatisation peut réduire la demande pour certains services",
-      "score": 3
-    },
-    {
-      "title": "Risques d'approvisionnement en talents",
-      "category": "Ressources Humaines",
-      "severity": 3,
-      "score_rationale": "En tant que société de services professionnels mondiale, Cognizant dépend fortement des connaissances, de l'expérience et des compétences de ses employés. La disponibilité et la rétention des talents de qualité constituent un enjeu critique pour la prestation de services. (score par défaut, à affiner)",
+      "score_rationale": "Risque mentionné explicitement dans le filing US 2026. Sévérité 3/5 inférée du langage utilisé.",
       "trend": "stable",
-      "summary": "La disponibilité et la rétention des talents peuvent impacter la capacité à servir les clients",
-      "score": 3
+      "summary": "Les tensions géopolitiques et les sanctions internationales peuvent affecter l'accès aux marchés, les chaînes d'approvisionnement et la demande."
     },
     {
-      "title": "Incertitude macroéconomique et géopolitique",
-      "category": "Macroéconomie",
+      "title": "Évolution réglementaire et conformité",
+      "category": "regulatory",
       "severity": 3,
-      "score_rationale": "L'incertitude économique mondiale, les changements de politique commerciale et les tarifs douaniers peuvent affecter la demande de services discrétionnaires et de transformation de la part des clients. Les clients peuvent réduire les investissements en services pendant les périodes d'incertitude. (score par défaut, à affiner)",
-      "trend": "up",
-      "summary": "L'incertitude macroéconomique peut réduire la demande pour les services discrétionnaires",
-      "score": 3
+      "score_rationale": "Risque mentionné explicitement dans le filing US 2026. Sévérité 3/5 inférée du langage utilisé.",
+      "trend": "stable",
+      "summary": "Les évolutions réglementaires ou les nouvelles obligations de conformité peuvent augmenter les coûts d'exploitation et restreindre les activités."
+    },
+    {
+      "title": "Évolutions technologiques disruptives",
+      "category": "operational",
+      "severity": 2,
+      "score_rationale": "Risque mentionné explicitement dans le filing US 2026. Sévérité 2/5 inférée du langage utilisé.",
+      "trend": "stable",
+      "summary": "Un risque opérationnel identifié dans le filing pourrait perturber la production, la distribution ou la qualité de service."
+    },
+    {
+      "title": "Risque réputationnel",
+      "category": "operational",
+      "severity": 3,
+      "score_rationale": "Risque mentionné explicitement dans le filing US 2026. Sévérité 3/5 inférée du langage utilisé.",
+      "trend": "stable",
+      "summary": "Un risque opérationnel identifié dans le filing pourrait perturber la production, la distribution ou la qualité de service."
+    },
+    {
+      "title": "Risques d'intégration des acquisitions",
+      "category": "operational",
+      "severity": 5,
+      "score_rationale": "Risque mentionné explicitement dans le filing US 2026. Sévérité 5/5 inférée du langage utilisé.",
+      "trend": "stable",
+      "summary": "La difficulté à attirer et retenir les talents clés peut limiter la capacité d'exécution stratégique et opérationnelle."
+    },
+    {
+      "title": "Pression concurrentielle sur les prix",
+      "category": "competitive",
+      "severity": 3,
+      "score_rationale": "Risque mentionné explicitement dans le filing US 2026. Sévérité 3/5 inférée du langage utilisé.",
+      "trend": "stable",
+      "summary": "L'intensification de la concurrence ou l'arrivée de nouveaux acteurs peut éroder les parts de marché, comprimer les marges et limiter le pouvoir de fixation des prix."
     }
   ],
   "ai_positioning": {
@@ -569,6 +570,6 @@
   "publication_date": null,
   "company_description": "Cognizant Technology Solutions Corporation, a professional services company, provides consulting and technology, and outsourcing services in North America, Europe, and internationally. It operates through four segments: Financial Services; Health Sciences; Products and Resources; and Communications, Media and Technology. The company provides services including artificial intelligence (AI) and other technology services and solutions, consulting, application development, systems integration, quality engineering and assurance, engineering research and development, application maintenance, infrastructure, security, and business process services and automation. It also offers AI-led automation, which includes advisory, and process and IT automation solutions designed to simplify and accelerate automation adoption; business process outsourcing services, which help deliver business outcomes including revenue growth, increased customer and employee satisfaction, and cost savings; and Cognizant Moment, a digital experience service that uses AI to reimagine customer experiences and engineer strategies aimed at driving growth. In addition, the company develops, licenses, implements, and suppo",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-21T16:00:22.100Z",
+  "_built_at": "2026-05-29T21:19:25.855Z",
   "_missing_blocks": []
 }

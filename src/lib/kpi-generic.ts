@@ -49,12 +49,12 @@ export function isGenericKpi(short: string | null | undefined): boolean {
     if (n === g) return true;
     // Aliases simples : "Revenue" → "Total Revenue"
     if (g === "total revenue" && n === "revenue") return true;
-    if (g === "operating income" && (n === "op income" || n === "operating profit" || n === "ebit")) return true;
+    if (g === "operating income" && (n === "op income" || n === "operating profit" || n === "ebit" || n === "recurring oi" || n === "recurring operating income" || n === "recurring op income")) return true;
     if (g === "operating margin" && (n === "op margin" || n === "operating margin %")) return true;
     if (g === "net income" && n === "net profit") return true;
     if (g === "net margin" && n === "net margin %") return true;
     if (g === "gross margin" && n === "gross margin %") return true;
-    if (g === "free cash flow" && (n === "fcf" || n === "free cashflow")) return true;
+    if (g === "free cash flow" && (n === "fcf" || n === "free cashflow" || n === "adjusted fcf" || n === "adjusted free cash flow")) return true;
     if (g === "operating cash flow" && (n === "ocf" || n === "operating cashflow")) return true;
     if (g === "eps" && (n === "earnings per share" || n === "eps diluted" || n === "diluted eps")) return true;
     if (g === "dps" && (n === "dividend per share" || n === "dividende par action")) return true;

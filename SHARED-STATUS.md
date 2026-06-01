@@ -270,6 +270,8 @@
 
 ## Log d'activité (le plus récent en haut)
 
+[2026-05-28 16:50] SUB-AGENT-FR-BATCH1 → ✅ FR translate events EN→FR batch 1 (46 stés : 9984.T → CI, total 165 events). Champ `events_fr` ajouté dans `v2-pipeline-enrich/<ticker>.json`. Source `v2-pipeline/` non touchée (scope CONV-DATA respecté). Commits 1e3a1f81a (45 stés) + 9ea5a4154 (BAC retry lock).
+
 [2026-05-28 07:09] CRON-MERGED → ⚠️ Rebuild horaire Pass 3 2141 → 2141 (delta v1-7-public.json uniquement, 1 ligne). Commit 0af986f25 pushé sur staging. **Vercel deploy_failed** : "Request body too large. Limit: 10mb" (3e cycle consécutif). Yann notifié.
 
 [2026-05-27 18:10] CRON-MERGED → ⚠️ Rebuild horaire Pass 3 2141 → 2141 (idle, juste reordering _tickers-index.json). Commit 2d38ed8ce pushé sur staging. **Vercel deploy_failed** : "Request body too large. Limit: 10mb" (2e cycle aujourd'hui). Yann notifié.
@@ -7490,3 +7492,40 @@ ACK obligatoire sous 5 min.
 **Workflow validé** : DuckDuckGo HTML + emarketstorage (IT régulateur) + IR officiels = combo gagnant pour bypass Akamai/Cloudflare. AMF/BaFin reste à explorer pour UG.PA et EL.PA si Yann re-prioritarise.
 
 — CONV-DATA Mission #171 done
+
+[2026-05-28 18:55] CONV-SUBAGENT-KPIS-B1 → ✅ kpis_supplementary 39 stés batch b1 (/tmp/kpi-extract-2spec3spec-b1.txt) : 9984.T, ABBV, ACKB.BR, AEE, AEP, ALB, ALGN, AMP, APD, AWK, BAMI.MI, BBY, BP, BP.L, BT-A.L, CAP.PA, CLX, COHR, COO, CPT, CS.PA, CW, DELL, DOW, DSY.PA, DY, ECL, EDPFY, EQR, ES, EVRG, FORTUM.HE, GIS, GLE.PA, GOOG, GOOGL, GPN, GRAB, HEXA-B.ST. 1-4 KPIs spécifiques métier ajoutés (5y history, source filings publics FY2024/FY2025). Signé _kpis_supplementary_signed_by=CONV-SUBAGENT-KPIS-B1-2026-05-28. Tous committés dans HEAD (sweep par batch5 commit aecee9b99). Pas de génériques, pas d'em-dash, vocabulaire FR strict.
+
+[2026-05-30 startup] CONV-SUBAGENT-RISKS-BATCH055 → début extraction risks[] format aapl.json pour 10 tickers batch055 (SCI, SGSN.SW, SHL.DE, SHOP, SHW, SIE.DE, SJM, SLB, SLHN.SW, SMCI). Sources Item 1A 10-K US / AR EU. Output /tmp/risks-batch055/<TICKER>.json signé CONV-SUBAGENT-RISKS-BATCH055-2026-05-30.
+
+[2026-05-30 10:18] CONV-SUBAGENT-RISKS-BATCH055 → ✅ 10/10 risks JSON écrits dans /tmp/risks-batch055/ (SCI, SGSN.SW, SHL.DE, SHOP, SHW, SIE.DE, SJM, SLB, SLHN.SW, SMCI). 5 risks par société, format aapl.json compliant, sources Item 1A 10-K US / Annual Report EU+CH, signés CONV-SUBAGENT-RISKS-BATCH055-2026-05-30. FR strict, pas em-dash. Builder /tmp/build_risks_batch055.py.
+
+[2026-05-31 15:55] CONV-DATA → ✅ Mission DE wave1 scrape Geschäftsberichte (15 stés DE)
+
+**Output cat3-european/<TICKER>.DE/annual-report/<year>.pdf + annual-text/<year>.txt** :
+- ALV.DE (Allianz SE) : 5/5 (2020-2024) via annualreports.com
+- AT1.DE (Aroundtown SA) : 5/5 (2020-2024) via aroundtown.de
+- COK.DE (CANCOM SE) : 4/5 (2020-2023, pas de GB 2024 publié encore) via investoren.cancom.de
+- CTS.DE (CTS Eventim) : 5/5 (2020-2024) via corporate.eventim.de
+- DEZ.DE (Deutz AG) : 5/5 (2020-2024) via deutz.com
+- DHL.DE (DHL Group / Deutsche Post) : 5/5 (2020-2024) via reporting-hub.group.dhl.com
+- DTE.DE (Deutsche Telekom) : 5/5 (2020-2024) via telekom.com
+- EBK.DE (Energiekontor AG) : 5/5 (2020-2024) via energiekontor.de
+- EVK.DE (Evonik Industries) : 5/5 (2020-2024) via evonik.com
+- EVT.DE (Evotec SE) : 5/5 (2020-2024) via evotec.com
+- FIE.DE (Fielmann Group) : 5/5 (2020-2024) via fielmann-group.com
+- FPE3.DE (Fuchs SE) : 5/5 (2020-2024) via fuchs.azureedge.net
+- G1A.DE (GEA Group) : 5/5 (2020-2024) via cdn.gea.com
+- AFX.DE (Carl Zeiss Meditec, fiscal year Oct-Sep) : 2/5 (FY2023/24 + FY2024/25 seuls dispos publiquement, archives 2020-2022 introuvables côté site IR + Bundesanzeiger search inaccessible sans JS)
+- EVD.DE : SKIPPED (placeholder ticker, "needs_investigation":true dans mapping, fichier 2014 existant = National Treasury Management Agency Ireland = cross-pollution préexistante)
+
+**Anti-cross-pollution** : grep nom officiel allemand >5 mentions sur tous fichiers committed. Pass sur 62/62 fichiers nouveaux. Détecté + supprimé 3 fichiers polluants in-scope préexistants (DEZ.DE/2025, DHL.DE/2025, FPE3.DE/2026 - tous 3 contenaient le faux "Jaarverslag" Dutch shipping ou Q4 transcript hors-sujet).
+
+**Cross-pollution préexistante hors scope wave1** (laissé inchangé, à signaler) : ENR.DE/2025, FME.DE/2025, HEN3.DE/2025, JUN3.DE/2025, MBG.DE/2025, WCH.DE/2025 = même fake Dutch shipping report 174306 octets identiques. À nettoyer dans une mission ultérieure.
+
+**Bilan total** : 62 PDFs + 62 TXTs ajoutés/mis à jour (12 stés × 5 ans = 60 + COK 4 + AFX 2 = 66 - skip 4 doublons existants = 62). Couverture 13/15 ≥80% (87% wave1 DE), AFX partiel (2/5), EVD skippé.
+
+**Sources** : IR officiels sociétés directs (curl + UA Chrome) - bypass annualreports.com bloqué côté IP. Bundesanzeiger.de requiert JS form interactive, non utilisé. WebFetch + curl combo pour 13/15 stés.
+
+— CONV-DATA Mission DE wave1 done
+
+[2026-05-31 16:05] CONV-DATA → Scraping massif annual reports européens .MI/.SW/.MC : 239/260 slots remplis (92%) sur 52 sociétés × 5 années (2020-2024). 100% pour 45/52 sociétés. Restant bloqué par bot-protection : UBSG.SW (Akamai), UHR.SW (timeout), STMMI.MI/TEN.MI (CDN), MONC.MI (maintenance), MTS.MC partiel. Anti-cross-pollution validé (mentions ≥5). Fichiers dans sec-data/cat3-european/<TICKER>/annual-text/<year>.txt.

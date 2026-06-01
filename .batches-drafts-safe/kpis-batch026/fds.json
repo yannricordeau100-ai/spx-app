@@ -1,0 +1,131 @@
+{
+  "ticker": "FDS",
+  "extracted_at": "2026-05-30T00:00:00Z",
+  "extracted_by": "CONV-SUBAGENT-KPIS-BATCH026",
+  "sources_used": [
+    "sec-data/cat1-us/10K/2021/FDS_2021-10-22.htm.gz (FY21)",
+    "sec-data/cat1-us/10K/2022/FDS_2022-10-21.htm.gz (FY22)",
+    "sec-data/cat1-us/10K/2023/FDS_2023-10-27.htm.gz (FY23)",
+    "sec-data/cat1-us/10K/2024/FDS_2024-10-29.htm.gz (FY24)",
+    "sec-data/cat1-us/10K/2025/FDS_2025-10-22.htm.gz (FY25)"
+  ],
+  "_kpis_supplementary_signed_by": "CONV-SUBAGENT-KPIS-BATCH026-2026-05-30",
+  "_ordering_rationale": "FDS = FactSet, abonnement data terminals. ASV existant gardé. KPIs additionnels: clients, professionnels, retention (drivers operationnels recurring), Organic ASV (croissance hors M&A).",
+  "kpis_supplementary": [
+    {
+      "short": "Organic ASV",
+      "name_fr": "Organic ASV",
+      "name_en": "Organic Annual Subscription Value",
+      "value": 2370.9,
+      "unit": "M$",
+      "yoy": "+5.7%",
+      "history": [
+        2027,
+        2125,
+        2230,
+        2370.9
+      ],
+      "period_type": "year",
+      "type": "Revenue",
+      "pv_score": 7,
+      "signal": "Croissance hors M&A et FX, vraie traction client. +5.7% FY25 vs +5% ASV total.",
+      "description_fr": "ASV excluant acquisitions/dispositions des 12 derniers mois et effets FX. Mesure la traction organique du carnet d'abonnements FactSet. Reporting reorganisé en FY25 (hors professional services).",
+      "description_en": "ASV excluding acquisitions/dispositions completed within last 12 months and FX. Tracks organic FactSet subscription book traction. Reporting reorganized in FY25 (excludes professional services).",
+      "last_data_date": "2025-08-31",
+      "_specific_to": "FactSet organic subscription growth gauge"
+    },
+    {
+      "short": "Clients FactSet",
+      "name_fr": "Nombre de clients FactSet",
+      "name_en": "FactSet Client Count",
+      "value": 8996,
+      "unit": "clients",
+      "yoy": "+9.5%",
+      "history": [
+        6453,
+        7538,
+        7921,
+        8217,
+        8996
+      ],
+      "period_type": "year",
+      "type": "Customers",
+      "pv_score": 6,
+      "signal": "Croissance soutenue ~9.5%/an, expansion corporate + wealth + PE/VC. Base client diversifiée.",
+      "description_fr": "Nombre de clients avec ASV >= $10,000. Croissance via corporate users, wealth management, private equity/VC. Multi-asset class data buyers.",
+      "description_en": "Number of clients with ASV >= $10,000. Growth from corporate users, wealth management, private equity/VC. Multi-asset class data buyers.",
+      "last_data_date": "2025-08-31",
+      "_specific_to": "FactSet subscription customer base"
+    },
+    {
+      "short": "Professionnels utilisateurs",
+      "name_fr": "Professionnels utilisateurs FactSet",
+      "name_en": "FactSet Investment Professionals (Users)",
+      "value": 237324,
+      "unit": "users",
+      "yoy": "+9.7%",
+      "history": [
+        160932,
+        179982,
+        189972,
+        216381,
+        237324
+      ],
+      "period_type": "year",
+      "type": "Customers",
+      "pv_score": 7,
+      "signal": "Base utilisateurs en hausse rapide, principalement wealth management. Levier croissance ASV par seat.",
+      "description_fr": "Nombre total de professionnels utilisant FactSet : asset managers, banquiers, wealth managers, hedge funds, corporates, PE/VC. Driver ASV par seat. Croissance principalement wealth FY25.",
+      "description_en": "Total professionals using FactSet: asset managers, bankers, wealth managers, hedge funds, corporates, PE/VC. ASV-per-seat driver. FY25 growth primarily wealth management.",
+      "last_data_date": "2025-08-31",
+      "_specific_to": "FactSet seat penetration metric"
+    },
+    {
+      "short": "Retention clients (annuelle)",
+      "name_fr": "Retention clients (annuelle)",
+      "name_en": "Annual Client Retention Rate",
+      "value": 91,
+      "unit": "%",
+      "yoy": "+1pt",
+      "history": [
+        90,
+        90,
+        90,
+        90,
+        91
+      ],
+      "period_type": "year",
+      "type": "Other",
+      "pv_score": 6,
+      "signal": "Retention par client à 91% FY25 vs 90% FY24. Premiere amélioration multi-annuelle.",
+      "description_fr": "Retention annuelle exprimée en % de clients. Mesure la fidélisation par compte (différent de retention ASV qui reste >95%). Première progression depuis plusieurs années.",
+      "description_en": "Annual retention expressed as % of clients. Account-level stickiness (differs from ASV retention which stays >95%). First multi-year improvement.",
+      "last_data_date": "2025-08-31",
+      "_specific_to": "FactSet account-level retention"
+    },
+    {
+      "short": "Retention ASV",
+      "name_fr": "Retention ASV",
+      "name_en": "ASV Retention Rate",
+      "value": 95,
+      "unit": "%",
+      "yoy": "stable",
+      "history": [
+        95,
+        95,
+        95,
+        95,
+        95
+      ],
+      "period_type": "year",
+      "type": "Other",
+      "pv_score": 6,
+      "signal": "ASV retention >95% sur 5 ans : structure recurring rock-solid type Bloomberg.",
+      "description_fr": "Retention annuelle exprimée en % d'ASV (poids des contrats). >95% en continu sur 5 ans, indicateur clé du modèle subscription rock-solid.",
+      "description_en": "Annual retention as % of ASV (revenue-weighted). >95% consistently over 5 years, key indicator of rock-solid subscription model.",
+      "last_data_date": "2025-08-31",
+      "_specific_to": "FactSet subscription revenue stickiness"
+    }
+  ],
+  "_extraction_method": "10-K filings cat1-us, recherche textuelle puis verification numerique. Aucune valeur inventée. 5 sources 10-K croisées."
+}

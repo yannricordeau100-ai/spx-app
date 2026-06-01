@@ -141,6 +141,10 @@ export const EXTRA_LOCALES: Record<string, Partial<Record<LocaleKey, string>>> =
   "company.subsector": { de: "Unter-Sektor", nl: "Subsector" },
   "company.founded": { de: "Gegründet", nl: "Opgericht in" },
   "company.ipo": { de: "IPO", nl: "IPO" },
+  "company.also_known_as": {
+    de: "Auch bekannt als:",
+    nl: "Ook bekend als:",
+  },
   "company.provenance": {
     de: "Alle gezeigten Zahlen stammen direkt oder indirekt vom Unternehmen. Drittdaten werden an der Stelle ihrer Erscheinung mit Quelle versehen.",
     nl: "Alle getoonde cijfers komen direct of indirect van het bedrijf. Gegevens van derden worden bij hun verschijning van bron voorzien." },

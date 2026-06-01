@@ -162,22 +162,8 @@
   "revenue_by_segment": {
     "unit": "Mds €",
     "source_date": "2023-12-31",
-    "source": "10-K 2023 Virbac",
+    "source": null,
     "slices": [
-      {
-        "label": "Companion animals",
-        "value": 0.721,
-        "share_pct": 57.8,
-        "unit": "Mds €",
-        "label_en": "Companion animals"
-      },
-      {
-        "label": "Farm animals",
-        "value": 0.493,
-        "share_pct": 39.5,
-        "unit": "Mds €",
-        "label_en": "Farm animals"
-      },
       {
         "label": "Other businesses",
         "value": 0.033,
@@ -186,7 +172,8 @@
         "label_en": "Other businesses"
       }
     ],
-    "total": 1.25
+    "total": 1.25,
+    "_source_needs_reextraction": true
   },
   "kpis": [
     {
@@ -334,34 +321,13 @@
   "_customer_type_fetched_at": "2026-05-13T10:25:57.328485+00:00",
   "_eps_extracted_at": "2026-05-18T16:44:36Z",
   "_eps_source": "yfinance income_stmt Diluted EPS",
-  "_hero_override_reason": "Hero original \"R&D\" / \"Sales Mix\" : pas de history fully-populated 5y. Switch vers KPI spec \"Companion Animals Sales\" : 5y annual fully-populated 699-735 M€, segment ~59% revenu Virbac. Source: Virbac Annual Report 2023+.",
+  "_hero_override_reason": "PURGED_CROSS_POLLUTION_VIRBAC",
   "hero_kpi_override": "DPS",
   "_hero_override_at": "2026-05-20T11:56:54.191358+00:00",
   "_hero_override_extractor": "CONV-OPUS top-307-finale batch",
   "_hero_history_extension": {
-    "kpi_short": "Companion Animals Sales",
-    "name_fr": "Ventes animaux de compagnie",
-    "name_en": "Companion Animals Sales",
-    "history": [
-      699.74,
-      705,
-      715,
-      720,
-      734.73
-    ],
-    "period_labels": [
-      "FY2020",
-      "FY2021",
-      "FY2022",
-      "FY2023",
-      "FY2024"
-    ],
-    "unit": "M€",
-    "period_type": "annual",
-    "source": "src/data/v2-pipeline-specific-kpis/DG.PA.json (specific KPI, verified 5y fully-populated)",
-    "source_category": "cat3-european/annual-text",
-    "verified_at": "2026-05-20T11:56:54.191358+00:00",
-    "verified_by": "CONV-OPUS top-307-finale batch"
+    "_needs_reextraction": true,
+    "reason": "PURGED_CROSS_POLLUTION_VIRBAC"
   },
   "_obsolete__hero_history_unverified": true,
   "_obsolete__hero_history_audit": {
@@ -447,56 +413,7 @@
       "_enriched_by": "CONV-CONCEPTS sub-agent #24 Cerebras Qwen-3 235B"
     }
   ],
-  "_kpis_hidden_by_history_detail": [
-    {
-      "short": "Sales",
-      "history_len": 1,
-      "period_type": "year",
-      "required": 3
-    },
-    {
-      "short": "Sales Mix",
-      "history_len": 1,
-      "period_type": "year",
-      "required": 3
-    },
-    {
-      "short": "GHG Emissions",
-      "history_len": 1,
-      "period_type": "year",
-      "required": 3
-    },
-    {
-      "short": "Companion Animals Revenue",
-      "history_len": 1,
-      "period_type": "year",
-      "required": 3
-    },
-    {
-      "short": "Farm Animals Revenue",
-      "history_len": 1,
-      "period_type": "year",
-      "required": 3
-    },
-    {
-      "short": "Adjusted EBITA Margin",
-      "history_len": 2,
-      "period_type": "year",
-      "required": 3
-    },
-    {
-      "short": "Net Income (Group share)",
-      "history_len": 2,
-      "period_type": "year",
-      "required": 3
-    },
-    {
-      "short": "Europe Revenue",
-      "history_len": 2,
-      "period_type": "year",
-      "required": 3
-    }
-  ],
+  "_kpis_hidden_by_history_detail": [],
   "hero_kpi_replaced_reason": "Orphelin résolu par fallback sectoriel 'Santé'. Hero précédent 'R&D' avait history insuffisant. Remplaçant 'DPS' choisi parmi liste sectorielle (history=7, period=year). Stratégie B fix-hero-orphan.",
   "_hero_replaced_by_sector_fallback": true,
   "_earnings_updated_at": "2026-05-26T22:58:39Z",
@@ -633,5 +550,89 @@
   "_kpis_supplementary_at": "2026-05-28T16:51:39.928477+00:00",
   "_kpis_supplementary_source": "manual_extract_with_public_filings_cross_check_b3",
   "_risks_signed_by_batch_merge": "CONV-SUBAGENT-RISKS-BATCH020-2026-05-30",
-  "_risks_batch_merged_at": "2026-05-30T10:50:55.327005Z"
+  "_risks_batch_merged_at": "2026-05-30T10:50:55.327005Z",
+  "_eu_contamination_purged_at": "2026-05-31T04:30:00Z",
+  "_eu_contamination_purge_stats": {
+    "slices_removed": 2,
+    "fields_flagged": [
+      "revenue_by_segment.source"
+    ],
+    "objects_flagged": []
+  },
+  "_hero_override_reason_was": "Hero original \"R&D\" / \"Sales Mix\" : pas de history fully-populated 5y. Switch vers KPI spec \"Companion Animals Sales\" : 5y annual fully-populated 699-735 M€, segment ~59% revenu Virbac. Source: Virbac Annual Report 2023+.",
+  "_hero_history_extension_was": {
+    "kpi_short": "Companion Animals Sales",
+    "name_fr": "Ventes animaux de compagnie",
+    "name_en": "Companion Animals Sales",
+    "history": [
+      699.74,
+      705,
+      715,
+      720,
+      734.73
+    ],
+    "period_labels": [
+      "FY2020",
+      "FY2021",
+      "FY2022",
+      "FY2023",
+      "FY2024"
+    ],
+    "unit": "M€",
+    "period_type": "annual",
+    "source": "src/data/v2-pipeline-specific-kpis/DG.PA.json (specific KPI, verified 5y fully-populated)",
+    "source_category": "cat3-european/annual-text",
+    "verified_at": "2026-05-20T11:56:54.191358+00:00",
+    "verified_by": "CONV-OPUS top-307-finale batch"
+  },
+  "_kpis_hidden_by_history_detail_was": [
+    {
+      "short": "Sales",
+      "history_len": 1,
+      "period_type": "year",
+      "required": 3
+    },
+    {
+      "short": "Sales Mix",
+      "history_len": 1,
+      "period_type": "year",
+      "required": 3
+    },
+    {
+      "short": "GHG Emissions",
+      "history_len": 1,
+      "period_type": "year",
+      "required": 3
+    },
+    {
+      "short": "Companion Animals Revenue",
+      "history_len": 1,
+      "period_type": "year",
+      "required": 3
+    },
+    {
+      "short": "Farm Animals Revenue",
+      "history_len": 1,
+      "period_type": "year",
+      "required": 3
+    },
+    {
+      "short": "Adjusted EBITA Margin",
+      "history_len": 2,
+      "period_type": "year",
+      "required": 3
+    },
+    {
+      "short": "Net Income (Group share)",
+      "history_len": 2,
+      "period_type": "year",
+      "required": 3
+    },
+    {
+      "short": "Europe Revenue",
+      "history_len": 2,
+      "period_type": "year",
+      "required": 3
+    }
+  ]
 }

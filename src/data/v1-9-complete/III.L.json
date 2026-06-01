@@ -31,7 +31,8 @@
       "period_type": "year",
       "description": "Valeur portage participation Action (discount retailer NL/BE/FR/DE...). Représente ~70% NAV.",
       "signal": "Plus gros driver NAV, croissance exceptionnelle",
-      "quality": "Excellent"
+      "quality": "Excellent",
+      "pv_score": 6
     },
     {
       "short": "NAV per Share",
@@ -50,7 +51,8 @@
       "period_type": "year",
       "description": "NAV par action 3i. Pilote valorisation.",
       "signal": "Croissance NAV +20% pluriannuel",
-      "quality": "Excellent"
+      "quality": "Excellent",
+      "pv_score": 6
     },
     {
       "short": "Action EBITDA",
@@ -67,10 +69,10 @@
         2200
       ],
       "period_type": "year",
-      "type": "Profitability",
       "description": "EBITDA Action (look-through 3i). KPI sous-jacent valorisation.",
       "signal": "Croissance organique LFL +12% + ouvertures",
-      "quality": "Excellent"
+      "quality": "Excellent",
+      "pv_score": 6
     },
     {
       "short": "Action New Stores",
@@ -89,7 +91,8 @@
       "period_type": "year",
       "description": "Ouvertures nettes magasins Action. Près de 3000 magasins, cible 4000+ moyen terme.",
       "signal": "Accélération roll-out européen",
-      "quality": "Excellent"
+      "quality": "Excellent",
+      "pv_score": 5
     },
     {
       "short": "Total Return",
@@ -108,7 +111,8 @@
       "period_type": "year",
       "description": "Total Return sur NAV ouverture. Métrique cardinale fonds.",
       "signal": "Performance top secteur PE",
-      "quality": "Excellent"
+      "quality": "Excellent",
+      "pv_score": 4
     },
     {
       "short": "DPS",
@@ -266,34 +270,44 @@
   },
   "risks": [
     {
-      "category": "Concentration",
-      "description": "Forte concentration sur Action (discount retailer Pays-Bas) représentant ~60% de la NAV : risque single-asset majeur.",
+      "title": "Concentration extrême sur Action (60%+ du NAV)",
+      "category": "competitive",
       "severity": 5,
-      "score_rationale": "Note 5/5. Position : risque #1 cité en management report. Intensité : NAV exposure très élevée. Trend : croissance Action depuis 2020. Catégorie concentration déterminante."
+      "score_rationale": "Position #1 implicite dans la lecture de tout investor pack 3i (1). Langage très intense: 'exceptional performance at Action' avec ~60-65% du NAV concentré sur une seule participation (2). Risque aggravé vs N-1 par la valorisation toujours plus élevée d'Action et la difficulté de réplication (3). Catégorie concurrence pondérée fortement (4).",
+      "trend": "up",
+      "summary": "Plus de 60% du NAV de 3i provient d'Action (discount retailer non-coté) : tout ralentissement de cette chaîne ou repricing valorisation aurait un impact immédiat majeur sur le NAV par action."
     },
     {
-      "category": "Investissement",
-      "description": "Performance des autres participations private equity (mid-market UK/Europe) dépendante du cycle économique.",
+      "title": "Risque de valorisation des participations non cotées",
+      "category": "financial",
       "severity": 4,
-      "score_rationale": "Note 4/5. Position : section portefeuille. Intensité : impact NAV. Trend : sensible au macro. Catégorie investissement."
+      "score_rationale": "Position #2 standard pour private equity (1). Langage fort: 'fair value estimation requires significant judgement' (2). Risque aggravé vs N-1 par les comparable multiples publics en baisse 2023-2024 (3). Catégorie financière pondérée fortement (4).",
+      "trend": "stable",
+      "summary": "Les valorisations des participations non cotées reposent sur des multiples de comparables : une compression de multiples publics ou des hypothèses revues peuvent réduire le NAV de plusieurs livres par action."
     },
     {
-      "category": "Valorisation",
-      "description": "Risque de valorisation des participations non cotées : hypothèses multiples EBITDA et taux d'actualisation sensibles.",
+      "title": "Cyclicité retail/consumer discrétionnaire",
+      "category": "macro",
       "severity": 4,
-      "score_rationale": "Note 4/5. Position : section comptable. Intensité : impact direct NAV. Trend stable mais sensible. Catégorie valorisation."
+      "score_rationale": "Position #3 (1). Langage fort: 'macroeconomic pressure on consumer spending' (2). Risque aggravé vs N-1 par l'inflation persistante en Europe et la baisse du pouvoir d'achat (3). Catégorie macro pondérée moyenne mais avec exposition directe via Action (4).",
+      "trend": "stable",
+      "summary": "Le portefeuille private equity est très exposé au consumer (Action, Audley Travel, Royal Sanders) : un ralentissement européen persistant pèse directement sur les distributions et les exits."
     },
     {
-      "category": "Liquidité",
-      "description": "Risque de sortie (exit timing) des participations dans un marché M&A volatil avec coût du capital élevé.",
+      "title": "Risque de leverage et coût de la dette",
+      "category": "financial",
       "severity": 3,
-      "score_rationale": "Note 3/5. Position : section liquidité portfolio. Intensité : impact réalisations. Trend : marché difficile 2023-2024. Catégorie liquidité."
+      "score_rationale": "Position #4-5 (1). Langage modéré: 'gearing at 6%' mais portfolio companies levered (2). Risque aggravé vs N-1 par la hausse des taux UK/euro (3). Catégorie financière pondérée moyenne (4).",
+      "trend": "up",
+      "summary": "Si le gearing de 3i au niveau holding reste faible (~6%), les participations Private Equity portent un leverage significatif rendu plus coûteux par la hausse des taux."
     },
     {
-      "category": "Change",
-      "description": "Exposition à l'EUR (Action et Europe) et au USD impactant la NAV en GBP.",
+      "title": "Risque réglementaire UK et fiscalité capital gains",
+      "category": "regulatory",
       "severity": 3,
-      "score_rationale": "Note 3/5. Position : section change. Intensité : impact reporting. Trend stable. Catégorie change."
+      "score_rationale": "Position #6+ (1). Langage modéré: 'changes in UK tax legislation could impact returns' (2). Risque aggravé vs N-1 par les évolutions Labour government fiscalité (2024-2025) (3). Catégorie réglementaire pondérée moyenne (4).",
+      "trend": "up",
+      "summary": "Toute évolution de la fiscalité UK sur le carried interest, les capital gains ou le régime des investment trusts pourrait éroder l'attractivité du véhicule et le rendement actionnaire."
     }
   ],
   "ai_positioning": {
@@ -345,6 +359,6 @@
   "publication_date": null,
   "company_description": "3i Group plc is a private equity firm specializing in mature companies, growth capital, middle markets, infrastructure, and management leveraged buyouts and buy-ins. The firm also provides infrastructure financing and debt management. For debt management, it invests in senior and mezzanine corporate debt in typically large and private companies in United Kingdom, Europe, Asia, and North America. It makes private equity investments in business and technology services, financial services, consumer and private label, software and service, healthcare, consumption and distribution, media and telecom, renewable energy, wind, and industrial technology sector. Within business and technology services, the firm seeks to invest in sub sectors such as testing, inspection and certification; intelligent outsourcing, BPO and consultancy; human capital including staffing, governance, risk and compliance, services to pharmaceutical companies, vertical application software, education and training businesses; facilities management; support services to industrial sectors such as oil and gas and utilities; human resources outsourcing and advising; recruitment; logistics and infrastructure support services including distribution, waste, and rental. In the consumer sector, it focuses on, multi-unit roll out, omni-channel propositions, niche branded consumer goods, polarization, health and wellness, ageing population, millennials, consumer goods; e-commerce; retail; food and drinks; private label CMO and leisure. In the healthcare sector, the firm focuses on outsourced medical device manufacturing & services, outsourced pharmaceutical manufacturing & services, bioprocessing supply chain, life science tools and diagnostics, wellness & consumer health products, personalized medicine, pharmaceuticals and biotechnology including specialty pharma, generics or OTC, drug delivery, and animal health; healthcare services including activities such as elderly and specialty care, including caring for people in their own homes, in hospital and in community facilities, as well as operational services such as outsourced support, clinical services and B2B contract services; medical devices and technology including devices, medical equipment and consumables, diagnostics, and healthcare IT. In services and software, it focuses on IT services including cloud and IT infrastructure managed services providers, software vendor integration and support services or application, and software development or DevOps; tech-enabled outsourcing services including testing, inspection and certification, human capital management or business information, and data & analytics; mature software including horizontal software, vertical software, office of the CFO, supply chain, ERP, human capital and life sciences. In the industrial sector, it focuses on automotive, chemicals, safety and security, construction, building products and materials, energy, electronics and electrical components, flow control and filtration, mobility, packaging, industrial CMO, B2B distribution, safety & security, industrial services including industrial software, oil, gas, and power. Through 3i BIFM Limited and 3i Infrastructure plc the firm makes infrastructure investments where it focuses principally on the utilities including energy transmission and storage, electricity and gas distribution, water, power generation, and communication network; transportation including airports, ports, ferries, toll roads, and rail; and social infrastructure sector including primary and secondary PFI, public private partnerships, healthcare, education, and government accommodation. In infrastructure it invests primarily in utilities, transportation and social infrastructure in the United Kingdom, France, Italy, Germany, Europe, and Ireland. The firm prefers to invest in companies across Europe, France, United States, South America, and Asia. It seeks to make new investments in Northern Europe and North America. The firm typically invests in companies with enterprise value between 100 million ($108.48 million) and 500 million ($543.42 million). It seeks to make investments of £150 million ($186.53 million) and £300million ($373.05 million) in companies, taking control positions, and target mid-teen investment returns in infrastructure sector. It seeks to take either majority or minority stakes. It seeks to take a board seat in its portfolio companies with regards to infrastructure investments. The firm invests through a combination of third-party and proprietary capital. It invests through its personal capital. 3i Group plc was founded in 1945 and is based in London, United Kingdom with additional offices across North America, Asia and Europe.",
   "_specific_fit_for_site": true,
-  "_built_at": "2026-05-21T16:00:22.327Z",
+  "_built_at": "2026-05-29T21:19:26.076Z",
   "_missing_blocks": []
 }

@@ -227,6 +227,105 @@ export async function loadV17Company(
     EDPFY: "EDP.LS",
     BCLYF: "BARC.L",
     BBVXF: "BBVA",
+    // Phase 4 (30 mai 2026) : 89 aliases supplémentaires post-dédup
+    // SP500+Top307 (most-data-wins + ADR US tie-break). Source :
+    // /tmp/dedup-aliases.json généré par scripts/audit-duplicates.py
+    // + curation Yann. Conserve uniquement le canonical avec le plus
+    // de KPIs/data extraits.
+    "ABB.ST": "ABLZF",
+    ABVX: "AAVXF",
+    "AIR.PA": "AIR.DE",
+    "ALC.SW": "ALC",
+    ALV: "ALIV-SDB.ST",
+    ARBEW: "ARBE",
+    "ARGX.BR": "ARGX",
+    "ASML.AS": "ASML",
+    ASRMF: "ASR",
+    "ATCO-B.ST": "ATCO-A.ST",
+    "AZN.L": "AZN",
+    "AZN.ST": "AZN",
+    "BAESF": "BA.L",
+    "BAESY": "BA.L",
+    "BATS.L": "BTAFF",
+    "BBVA.MC": "BBVA",
+    BCS: "BARC.L",
+    "BMW.DE": "BMWYY",
+    "BN.PA": "BNPQY",
+    "BNP.PA": "BNPQY",
+    "BNPQF": "BNPQY",
+    BTI: "BTAFF",
+    "BUD": "ABI.BR",
+    "BVI.PA": "BVRDF",
+    "CRH.L": "CRH",
+    "CS.PA": "CSGKF",
+    "DANSKE.CO": "DNKEY",
+    DEGAF: "DGEAF",
+    "DEO": "DGEAF",
+    DGEAY: "DGEAF",
+    "DG.PA": "VCISY",
+    DTGHF: "DTG.DE",
+    "EL": "EL.PA",
+    EMSHF: "EMSHY",
+    "EQNR.OL": "EQNR",
+    "ESLOY": "EL.PA",
+    GLAXF: "GSK",
+    "GLEN.L": "GLNCY",
+    "GSK.L": "GSK",
+    "HEIA.AS": "HINKF",
+    "HEIO.AS": "HINKF",
+    HOLIY: "HCMLF",
+    "HSBA.L": "HSBC",
+    "HUM": "HUM.CO",
+    INFY: "INFY.NS",
+    "ITX.MC": "ITXAF",
+    "LIN.DE": "LIN",
+    "LIN.L": "LIN",
+    "LLOY.L": "LYG",
+    LRLCF: "OR.PA",
+    LRLCY: "OR.PA",
+    "MAERSK-B.CO": "AMKBY",
+    "MC.PA": "LVMHF",
+    "MRK.DE": "MKKGY",
+    "MUV2.DE": "MURGY",
+    "NESN.SW": "NSRGY",
+    NJDCY: "JD",
+    "NOKIA.HE": "NOK",
+    "NOVN.SW": "NVS",
+    "NOVO-B.CO": "NVO",
+    NWS_A: "NWSA",
+    "OR.PA": "LRLCF",
+    "ORK.OL": "ORKLY",
+    "PHIA.AS": "PHG",
+    PRGOF: "PRGO",
+    "REL.L": "RELX",
+    REPYY: "REP.MC",
+    "RIO.L": "RIO",
+    "RR.L": "RYCEF",
+    "RTO.L": "RTOXY",
+    "RWE.DE": "RWEOY",
+    SAFRF: "SAFRY",
+    SAN: "SAN.PA",
+    SAP: "SAP.DE",
+    SCMWY: "MUV2.DE",
+    "SHEL.L": "SHEL",
+    "SHEL": "RDSMY",
+    SHELF: "SHEL",
+    "SIE.DE": "SIEGY",
+    "SLHN.SW": "SHLAF",
+    "SMSN.IL": "SSNLF",
+    SU: "SU.PA",
+    "TEL.L": "TELOF",
+    TEL2A: "TEL2-B.ST",
+    "TM": "7203.T",
+    "TOTF": "TTE.PA",
+    "TOTGY": "TTE.PA",
+    UBSFY: "UBS",
+    "UBSG.SW": "UBS",
+    "ULVR.L": "UL",
+    VWAGY: "VWAPY",
+    "VOW.DE": "VWAPY",
+    "VOW3.DE": "VWAPY",
+    YHOO: "YHOO.O",
   };
   const upper = ticker.toUpperCase();
   const canonical = ALIASES[upper] ?? upper;
@@ -895,6 +994,107 @@ export async function loadV17Company(
               heroKpi.is_short_history = false;
             }
           }
+        }
+      }
+    }
+    // Yann 30 mai 2026 — MISSION 4b · MERGE MULTI-KPI QUARTERLY EXTENSION.
+    // Produit par scripts/merge-quarterly-to-hq-180.py sur 180 stés haute
+    // qualité (union v2-pipeline-kpi-v2 + v2-pipeline-exhaustive).
+    // Source : `_quarterly_history_extension` dans v2-pipeline-enrich/<t>.json.
+    // Format réel observé :
+    //   {
+    //     "ticker": "AAPL",
+    //     "kpis": [
+    //       {
+    //         "kpi_short": "iPhone Revenue",
+    //         "unit": "USD",
+    //         "period_type": "quarter",
+    //         "history": [n, n, n, ...],          // valeurs trimestrielles
+    //         "history_periods": ["Q1 2020", ...], // labels alignés sur history
+    //         "last_data_date": "2025-09-27",
+    //         "source": "SEC EDGAR XBRL companyfacts",
+    //         "_sec_tag": "Revenue",
+    //         "_sync_validation": {...}
+    //       },
+    //       ...
+    //     ],
+    //     "_legacy_hero_extension": {...}   // optionnel (ancien format mono-hero)
+    //   }
+    //
+    // Effet : pour CHAQUE KPI canonique correspondant (match exact par
+    // short, case-insensitive trim), si KPI canonique a period_type='year'
+    // ET le quarterly history est non-vide → on REMPLACE history par les
+    // valeurs trimestrielles, on aligne history_periods + last_data_date +
+    // unit éventuel, et on force period_type='quarter'.
+    //
+    // Anti-écrasement : si KPI canonique a déjà period_type='quarter'
+    // (NFLX, et autres natifs), on SKIP (le bloc XBRL plus haut ligne 921+
+    // gère déjà les merges intelligents pour ces cas). Évite régression.
+    //
+    // Backward-compat : si `_quarterly_history_extension` absent, ce bloc
+    // ne fait rien (no-op silencieux).
+    //
+    // Le champ `_legacy_hero_extension` (ancien format hero-only sur ~7
+    // stés) est préservé dans le payload mais le merge effectif a déjà
+    // été fait au bloc précédent via `_hero_history_extension`. Le
+    // fallback ascendant fonctionne donc tel quel : si une sté n'a que
+    // l'ancien hero extension (= pas migrée), elle est servie par le
+    // bloc d'au-dessus. Si elle a l'extension multi-KPI nouvelle, on
+    // applique celle-ci ici en plus.
+    if (
+      enrich._quarterly_history_extension
+      && typeof enrich._quarterly_history_extension === "object"
+      && Array.isArray(data.kpis)
+    ) {
+      const qhExt = enrich._quarterly_history_extension as Record<string, unknown>;
+      const extKpis = Array.isArray(qhExt.kpis)
+        ? (qhExt.kpis as Array<Record<string, unknown>>)
+        : [];
+      if (extKpis.length > 0) {
+        // Indexe par short normalisé (lowercase, trim) pour matching O(1).
+        const byShort = new Map<string, Record<string, unknown>>();
+        for (const ek of extKpis) {
+          if (!ek || typeof ek !== "object") continue;
+          const short = typeof ek.kpi_short === "string" ? ek.kpi_short.trim().toLowerCase() : "";
+          if (!short) continue;
+          byShort.set(short, ek);
+        }
+        if (byShort.size > 0) {
+          data.kpis = (data.kpis as AnyKPI[]).map((k) => {
+            if (!k || typeof k !== "object") return k;
+            const short = typeof k.short === "string" ? k.short.trim().toLowerCase() : "";
+            if (!short) return k;
+            const ek = byShort.get(short);
+            if (!ek) return k;
+            // Garde-fou null/array vide : skip silencieux si malformé.
+            const qHist = Array.isArray(ek.history)
+              ? (ek.history as unknown[]).filter(
+                  (v): v is number => typeof v === "number" && Number.isFinite(v),
+                )
+              : [];
+            if (qHist.length === 0) return k;
+            // Skip si KPI canonique déjà en quarter natif (NFLX etc.).
+            // Le bloc XBRL plus haut (~ligne 921+) gère déjà les merges
+            // intelligents pour ces cas. Évite de doubler / régresser.
+            const curPeriod = typeof k.period_type === "string" ? k.period_type : "";
+            if (curPeriod.toLowerCase() === "quarter") return k;
+            // Récupère history_periods / last_data_date / unit du quarterly
+            // s'ils sont présents, sinon laisse intact côté KPI canonique.
+            const qPeriods = Array.isArray(ek.history_periods)
+              ? (ek.history_periods as unknown[]).filter((v): v is string => typeof v === "string")
+              : undefined;
+            const qLastDate = typeof ek.last_data_date === "string" ? ek.last_data_date : undefined;
+            const qUnit = typeof ek.unit === "string" ? ek.unit : undefined;
+            return {
+              ...k,
+              history: qHist,
+              history_periods: qPeriods && qPeriods.length === qHist.length ? qPeriods : k.history_periods,
+              period_type: "quarter",
+              last_data_date: qLastDate ?? (k as AnyKPI & { last_data_date?: string }).last_data_date,
+              unit: qUnit ?? k.unit,
+              is_short_history: qHist.length < 3,
+            } as AnyKPI;
+          });
         }
       }
     }

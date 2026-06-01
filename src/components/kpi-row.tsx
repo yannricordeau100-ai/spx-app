@@ -147,27 +147,11 @@ export function KpiRow({
       {/* COL 1 — Indicateur (4 cols). Acronym + name centered vertically together. */}
       <div className="col-span-12 sm:col-span-4">
         <div className="flex items-center gap-2.5">
-          <AcronymHover
-            align="left"
-            label={(() => {
-              const base = `${kpi.name_fr}${kpi.name_en && kpi.name_en !== kpi.name_fr ? ` (${kpi.name_en})` : ""}`;
-              // Enrichi glossaire (Yann 16 mai 2026) : si le short ou le name_fr matche un glossaire,
-              // ajoute l'explication courte néophyte-friendly à la suite.
-              const glossEntry = ACRONYM_GLOSSARY[kpi.short] ?? TERM_GLOSSARY[kpi.short] ?? TERM_GLOSSARY[kpi.name_fr];
-              return glossEntry ? `${base} — ${glossEntry}` : base;
-            })()}
-          >
-            <span
-              className="cursor-help rounded-md px-1.5 py-0.5 font-mono text-[11px] font-bold uppercase tracking-wider"
-              style={{
-                background: `${accent}1a`,
-                color: accent,
-                border: `1px solid ${accent}33`,
-              }}
-            >
-              {kpi.short}
-            </span>
-          </AcronymHover>
+          {/* Yann (1er juin 05:15) : badge violet kpi.short retiré.
+              Cause : pour certains KPIs récents le `short` contient le nom EN
+              long (ex "YOUTUBE ADS REVENUE") au lieu d'un code court. Et
+              c'est redondant avec name_fr affiché ci-dessous. Le "i" tooltip
+              de l'InfoTooltip suffit pour les détails. */}
           <div className="min-w-0 leading-tight">
             <div className="text-[15.5px] font-medium text-zinc-100">{primaryName}</div>
             {secondaryName && secondaryName !== primaryName && (
