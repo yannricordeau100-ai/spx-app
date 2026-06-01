@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { applyFloutageRules, type FloutageRule } from "@/lib/floutage";
+import FLOUTAGE_RULES_FILE from "@/data/floutage-rules.json";
 import { AnimatePresence, motion } from "motion/react";
 import {
   ArrowDownRight,
@@ -179,6 +181,31 @@ export function CompanyView({
   const freeBlocked =
     (freemiumTier === "free" || freemiumTier === "anon") &&
     !["GOOGL", "GOOG", "META"].includes(company.ticker.toUpperCase());
+
+  // Yann (1er juin 2026) : applique les règles FREE mode universelles
+  // (src/data/floutage-rules.json) dès que freeBlocked === true.
+  // Délai 100 ms pour laisser le DOM se rendre + retry observer pour les
+  // sections lazy-chargées (transcript-bullets, super-kpi).
+  useEffect(() => {
+    if (!freeBlocked) return;
+    const rules = (FLOUTAGE_RULES_FILE as { rules?: FloutageRule[] }).rules ?? [];
+    if (rules.length === 0) return;
+    let cleanup: (() => void) | null = null;
+    const t1 = setTimeout(() => {
+      cleanup = applyFloutageRules(rules);
+    }, 150);
+    // Retry pour blocs lazy (chart, transcript)
+    const t2 = setTimeout(() => {
+      if (cleanup) cleanup();
+      cleanup = applyFloutageRules(rules);
+    }, 1500);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      if (cleanup) cleanup();
+    };
+  }, [freeBlocked, company.ticker]);
+
   const { t, locale } = useT();
   const accent = brand(company.ticker).primary;
   const glow = brand(company.ticker).glow;
