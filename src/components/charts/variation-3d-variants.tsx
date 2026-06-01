@@ -223,10 +223,8 @@ export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, ex
         );
       })}
 
-      {/* Mini-logo Mettrik AI (home-style). Caché à l'export, remplacé
-          par un grand watermark (cf. chart-export.ts).
-          Yann 17 mai 2026 : centré horizontalement, position top conservée. */}
-      <ChartMiniLogo x={W / 2 + (14 * 1424) / 270 / 2} y={PAD_TOP - 18} height={14} />
+      {/* Yann (1er juin 06:00) : mini-logo retiré web, gardé seulement sur
+          download via chart-export.ts (Powered by + logo combiné). */}
     </svg>
 
     {/* Bouton download */}

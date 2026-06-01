@@ -689,20 +689,9 @@ export function CurveChart({
           );
         })}
 
-        {/* Mini-logo Mettrik AI (home-style). Caché à l'export et remplacé
-            par un grand watermark (cf. chart-export.ts).
-            Yann 17 mai 2026 : centré horizontalement dans le viewBox au-dessus
-            de la chart area (zone marge top, y=22 = sous le bord supérieur du
-            SVG). ChartMiniLogo prend `x` = bord droit du logo, donc pour
-            centrer on pousse à `W/2 + w/2` (w = height * 5.27). Position
-            top-vertical conservée pour rester au-dessus de toute chart
-            content (curve, bars, variation). Évite l'overlap historique avec
-            toggle Y/M/W/D/H/m/s + 5y/MAX + download button au top-right. */}
-        <ChartMiniLogo
-          x={W / 2 + (14 * 1424) / 270 / 2}
-          y={PAD_TOP - 18}
-          height={14}
-        />
+        {/* Yann (1er juin 06:00) : mini-logo Mettrik retiré de l'affichage web.
+            Le logo apparaît uniquement sur la version téléchargée (watermark
+            grand format via chart-export.ts → Powered by [logo combiné]). */}
       </svg>
 
       {/* Bouton download (capture SVG + watermark → PNG) */}
