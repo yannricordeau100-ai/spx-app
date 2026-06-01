@@ -70,6 +70,7 @@ import { isBlockDisabledForTicker } from "@/lib/disabled-blocks";
 import { YoungIpoWarning } from "@/components/young-ipo-warning";
 import { BrandWordmark } from "@/components/brand-wordmark";
 import { CompanyProfileCard } from "@/components/company-profile-card";
+import { RecentIpoPlaceholder, getRecentIpoMeta } from "@/components/recent-ipo-placeholder";
 import { getFiscalAudit, isFiscalShifted, fiscalLabelsForTicker } from "@/lib/fiscal-calendar";
 import { aggregateQuarterlyToAnnual, getKpiAggregationKind } from "@/lib/kpi-aggregation";
 import { buildChartSpec } from "@/lib/chart-template";
@@ -235,15 +236,16 @@ export function CompanyView({
   const [timeFraction, setTimeFraction] = useState<TimeFraction>("year");
   // Toggle Annuel / Trimestriel / Semestriel selon period_type du hero KPI
   // (6 mai 2026 : extension semester pour stés EU qui reportent 2x/an).
-  // Default : period natif si data dispo, sinon annual.
-  const heroNativePeriod = (() => {
+  // Yann (1er juin 2026) : default Trimestriel pour TOUTES les stés. Pour les
+  // stés qui reportent en semestriel, on bascule sur semester. Sinon quarter.
+  // L'utilisateur peut toujours switcher vers Annuel via le toggle.
+  const heroDefaultPeriod = (() => {
     const hk = company.kpis?.find((k) => k.short === company.hero_kpi) ?? company.kpis?.[0];
     const pt = hk?.period_type;
-    if (pt === "quarter") return "quarter";
     if (pt === "semester") return "semester";
-    return "year";
+    return "quarter";
   })();
-  const [graphPeriod, setGraphPeriod] = useState<"year" | "quarter" | "semester">(heroNativePeriod);
+  const [graphPeriod, setGraphPeriod] = useState<"year" | "quarter" | "semester">(heroDefaultPeriod);
   const [compareTicker, setCompareTicker] = useState<string | null>(null);
 
   const heroRef = useRef<HTMLDivElement>(null);
@@ -544,6 +546,58 @@ export function CompanyView({
     () => findComparable(company.ticker, active.short),
     [company.ticker, active.short]
   );
+
+  // Yann (1er juin 2026) : sociétés cotées depuis moins de 24 mois (7 stés
+  // identifiées sur V1.9.5 = CRWV / FLTR.L / GEV / Q / RDDT / SNDK / SOLV).
+  // On garde le bloc TOP (logo, nom, ticker, variation %, prix via
+  // CompanyHeader + StockPriceBlock) et on remplace tout le reste par le
+  // RecentIpoPlaceholder. Pas d'analyse fiable possible sans 5 ans
+  // d'historique et de tendances.
+  const recentIpoMeta = getRecentIpoMeta(company.ticker);
+  if (recentIpoMeta) {
+    return (
+      <div className="relative min-h-screen overflow-hidden bg-[#050505]">
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 h-[600px]"
+          style={{
+            background: `radial-gradient(ellipse 80% 50% at 50% -10%, ${glow}, transparent 60%)`,
+          }}
+        />
+        <div className="pointer-events-none absolute inset-0 bg-grid" />
+        <Spotlight className="-top-40 left-0 md:-top-20 md:left-60" />
+
+        <main className="relative mx-auto max-w-6xl px-4 py-7 sm:px-6 sm:py-9">
+          <nav className="mb-9 flex flex-nowrap items-center gap-3 whitespace-nowrap">
+            <Link
+              href="/"
+              className="group inline-flex shrink-0 items-center gap-3 transition-opacity hover:opacity-90"
+              aria-label={t("nav.home")}
+            >
+              <BrandWordmark size="sm" animated={false} showRail={false} />
+              <ArrowLeft className="size-4 text-zinc-500 transition-transform group-hover:-translate-x-0.5 group-hover:text-zinc-300" />
+            </Link>
+            <PageSearch variant="default" />
+            <div className="ml-auto flex shrink-0 items-center gap-2">
+              <ThemeToggle />
+              {authSlot}
+            </div>
+          </nav>
+
+          <CompanyHeader
+            company={company}
+            hidePriceBar={hidePriceBar || isBlockDisabledForTicker(company.ticker, "snapshot_boursier")}
+            freeBlocked={false}
+          />
+
+          <RecentIpoPlaceholder
+            ticker={company.ticker}
+            ipoLabel={recentIpoMeta.ipoLabel}
+            monthsUntilReady={recentIpoMeta.readyInMonths}
+          />
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#050505]">
