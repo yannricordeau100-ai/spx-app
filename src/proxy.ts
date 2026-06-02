@@ -99,6 +99,10 @@ function isPublicPath(pathname: string): boolean {
   // /sandbox/languages-toggle = activer/désactiver les locales pour l'app
   // (outil global, ne dépend pas d'une version de fiche sté). Yann 27 mai 2026.
   if (pathname === "/sandbox/languages-toggle") return true;
+  // /sandbox/logos-compare = page comparaison avant/apres Logo.dev pour
+  // validation visuelle Yann (Yann 3 juin 2026). Public car validation
+  // visuelle ponctuelle, aucune PII.
+  if (pathname === "/sandbox/logos-compare") return true;
   // /sandbox/ready-by-category = counts stés prêtes par catégorie + pays.
   if (pathname === "/sandbox/ready-by-category") return true;
   // /sandbox/vip-inspection = liste VIP stés à inspecter en profondeur.
