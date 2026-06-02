@@ -30,14 +30,10 @@
       "signal": "Augmentation significative du bénéfice net",
       "description": "Bénéfice net de l'entreprise en millions de dollars. Indicateur suivi annuellement par les analystes de la société, valeur historisée sur les 10 dernières années.",
       "history": [
-        -627,
-        -98,
         341,
         2805,
         2829,
         1166,
-        -429,
-        -2494,
         3348,
         7085
       ],
@@ -51,7 +47,12 @@
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:55:34.699403+00:00",
       "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "signal_en": "Profitability improving, returns strengthening",
+      "_q4_unverified": true,
+      "_fix_log": [
+        "NEG_fix:removed_4_neg_q4_entries",
+        "VAL_NE_LAST_fix:no_fix_ratio_20.78"
+      ]
     },
     {
       "short": "Gain on sale of assets",
@@ -67,8 +68,7 @@
       "signal": "Gain significatif résultant de la cession d'actifs",
       "description": "Gain réalisé sur la vente d'actifs en millions de dollars",
       "history": [
-        1066,
-        -1114
+        1066
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
@@ -76,7 +76,11 @@
       "is_short_history": true,
       "ttm": -24,
       "_validation": "Clarification du nom pour 'non-core assets'; explication améliorée; type spécifié comme 'One-time gain'; ttm recalculé",
-      "signal_en": "Significant decline, warning signal"
+      "signal_en": "Significant decline, warning signal",
+      "_q4_unverified": true,
+      "_fix_log": [
+        "NEG_fix:removed_1_neg_q4_entries"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -108,7 +112,10 @@
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
       "period_type": "year",
       "_history_extended_at": "2026-06-02T04:43:10.107431+00:00",
-      "_history_source": "SEC EDGAR XBRL SP500 (RevenueFromContractWithCustomerExcludingAssessedTax)"
+      "_history_source": "SEC EDGAR XBRL SP500 (RevenueFromContractWithCustomerExcludingAssessedTax)",
+      "_fix_log": [
+        "VAL_NE_LAST_fix:no_fix_ratio_2.33"
+      ]
     },
     {
       "short": "Net Income",
@@ -121,8 +128,6 @@
         2.805,
         2.829,
         1.166,
-        -0.429,
-        -2.494,
         3.348,
         7.085
       ],
@@ -140,7 +145,12 @@
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
       "period_type": "year",
       "_history_extended_at": "2026-06-02T04:43:10.670083+00:00",
-      "_history_source": "SEC EDGAR XBRL SP500 (NetIncomeLoss)"
+      "_history_source": "SEC EDGAR XBRL SP500 (NetIncomeLoss)",
+      "_q4_unverified": true,
+      "_fix_log": [
+        "NEG_fix:removed_2_neg_q4_entries",
+        "VAL_NE_LAST_fix:no_fix_ratio_2.52"
+      ]
     },
     {
       "short": "Operating Income",
@@ -166,7 +176,10 @@
       "explanation_en": "Operating Income, profit from core business operations.",
       "signal_en": "Strong growth, robust momentum",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
-      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01"
+      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
+      "_fix_log": [
+        "VAL_NE_LAST_fix:no_fix_ratio_6.89"
+      ]
     },
     {
       "short": "Total Assets",
@@ -198,7 +211,10 @@
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
       "period_type": "year",
       "_history_extended_at": "2026-06-02T04:43:11.435981+00:00",
-      "_history_source": "SEC EDGAR XBRL SP500 (Assets)"
+      "_history_source": "SEC EDGAR XBRL SP500 (Assets)",
+      "_fix_log": [
+        "VAL_NE_LAST_fix:no_fix_ratio_1.43"
+      ]
     },
     {
       "short": "Total Debt",
@@ -255,7 +271,10 @@
       "is_short_history": true,
       "signal_en": "Cash position strengthening, balance-sheet flexibility",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
-      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01"
+      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
+      "_fix_log": [
+        "VAL_NE_LAST_fix:no_fix_ratio_2.66"
+      ]
     }
   ],
   "stories_kpis": [
@@ -596,5 +615,23 @@
   "_maj_by": "Sub-agent Opus MAJ chunk-08",
   "_maj_at": "2026-06-01T21:15:55Z",
   "_history_extended_at": "2026-06-02T04:43:12.042549+00:00",
-  "_history_source": "SEC EDGAR XBRL SP500"
+  "_history_source": "SEC EDGAR XBRL SP500",
+  "_fix_log": [
+    {
+      "ts": "2026-06-02T21:16:48Z",
+      "audit": "SA19-01_V195",
+      "fixes_applied": 7,
+      "anomalies_detected": [
+        "NEG:Net income",
+        "VAL_NE_LAST:Net income",
+        "NEG:Gain on sale of assets",
+        "VAL_NE_LAST:Total Revenue",
+        "NEG:Net Income",
+        "VAL_NE_LAST:Net Income",
+        "VAL_NE_LAST:Operating Income",
+        "VAL_NE_LAST:Total Assets",
+        "VAL_NE_LAST:Cash & Equivalents"
+      ]
+    }
+  ]
 }
