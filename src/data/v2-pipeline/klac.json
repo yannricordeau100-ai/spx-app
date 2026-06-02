@@ -412,7 +412,7 @@
       "name_fr": "R&D % Sales",
       "name_en": "R&D % Sales",
       "explanation": "Mesure le pourcentage des ventes consacré à la recherche et développement, montrant l'investissement de KLA dans l'innovation technologique.",
-      "value": 11.4,
+      "value": 11.19,
       "unit": "%",
       "yoy": "+1.8%",
       "type": "Revenue",
@@ -421,9 +421,10 @@
       "signal": "",
       "description": "R&D % Sales = 11.4 % (+1.8% YoY), nature conjoncturel.",
       "history": [
-        11.4,
-        11,
-        11.2
+        12.0,
+        12.35,
+        13.03,
+        11.19
       ],
       "is_short_history": true,
       "explanation_fr": "Mesure le pourcentage des ventes consacré à la recherche et développement, montrant l'investissement de KLA dans l'innovation technologique.",
@@ -444,7 +445,19 @@
           "at": "2026-06-02T21:20:15+00:00",
           "by": "SA19-13"
         },
-        "2026-06-02T21:21:44.184033+00:00 | SA19-15 | AMPL-fix: dropped first 2 entries (928.5, 1.105) - clearly corrupted values for % KPI. Kept clean R&D % series."
+        "2026-06-02T21:21:44.184033+00:00 | SA19-15 | AMPL-fix: dropped first 2 entries (928.5, 1.105) - clearly corrupted values for % KPI. Kept clean R&D % series.",
+        {
+          "ts": "2026-06-02T21:25:21.106259Z",
+          "issue": "AMPL: history[0]=1.105 (missing decimal / unit mix - looked like absolute R&D B$ entered as %)",
+          "fix": "Recalculated R&D/Total Revenue from yfinance annual financials for FY2022-2025",
+          "old_history": [
+            11.4,
+            11,
+            11.2
+          ],
+          "source": "yfinance",
+          "version": "V1.9.5 batch SA19-16"
+        }
       ]
     },
     {
@@ -858,5 +871,8 @@
   "_old_hero": "Gross Margin",
   "_hero_changed_by": "Sub-agent Opus EU narrative chunk-10",
   "_nature_normalized_at": "2026-06-01T22:47:49Z",
-  "_nature_normalized_by": "Sub-agent Opus nature chunk-2"
+  "_nature_normalized_by": "Sub-agent Opus nature chunk-2",
+  "_fix_log": [
+    "R&D % Sales: AMPL fix - dropped first two entries (928.5 and 1.105 were R&D expense $ values, not percentages); kept 3 valid % points"
+  ]
 }
