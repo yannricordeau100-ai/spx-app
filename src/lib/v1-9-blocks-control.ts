@@ -13,7 +13,8 @@ export type BlockId =
   | "dividend"
   | "transcripts"
   | "image_findings"
-  | "ranks";
+  | "ranks"
+  | "company_logo";
 
 export const BLOCK_LABELS: Record<BlockId, string> = {
   hero: "Hero KPI",
@@ -29,6 +30,7 @@ export const BLOCK_LABELS: Record<BlockId, string> = {
   transcripts: "Transcripts earnings",
   image_findings: "Image findings",
   ranks: "Classements & parts de marché",
+  company_logo: "Logo société",
 };
 
 export const BLOCK_PLACEHOLDER_HINTS: Record<BlockId, string> = {
@@ -45,6 +47,7 @@ export const BLOCK_PLACEHOLDER_HINTS: Record<BlockId, string> = {
   transcripts: "Les transcripts d'earnings calls arrivent.",
   image_findings: "Les findings visuels sont en cours d'extraction.",
   ranks: "Les classements et parts de marché se peaufinent.",
+  company_logo: "Le logo société sera affiché ici.",
 };
 
 type ControlData = {

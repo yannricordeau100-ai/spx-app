@@ -11,6 +11,7 @@ import { useT } from "@/lib/i18n/provider";
 import { translateSubsector, translateSubsectorLocale } from "@/lib/ui-fix-templates";
 import { displayTicker } from "@/lib/ticker-display";
 import { isBlockDisabledForTicker } from "@/lib/disabled-blocks";
+import { isBlockEnabled } from "@/lib/v1-9-blocks-control";
 
 /**
  * 2 different hover effects, applied ONLY on logo + name:
@@ -230,7 +231,11 @@ export function CompanyHeader({
   // Yann 29 mai 2026 : toggle global/per-sté pour masquer le bloc logo
   // (header). Quand désactivé : layout alternatif sans le carré 56-64px,
   // nom + catégorie + tagline alignés à gauche du conteneur.
-  const logoDisabled = isBlockDisabledForTicker(company.ticker, "logo");
+  // Yann 2 juin 2026 : second système de toggle (blocks-control V1.9.5)
+  // ajoute aussi un switch "Logo société" — on combine les deux.
+  const logoDisabled =
+    isBlockDisabledForTicker(company.ticker, "logo") ||
+    !isBlockEnabled("company_logo", company.ticker);
 
   return (
     <div className="mb-8">
