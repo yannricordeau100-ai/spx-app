@@ -194,7 +194,7 @@ export async function downloadSvgAsPng(
     ? "/brand/mettrik-wordmark-white-bg-transparent.png"
     : "/brand/mettrik-wordmark-black-bg-transparent.png";
 
-  const WM_LOGO_H = 26; // hauteur image wordmark (plus grand qu'avant)
+  const WM_LOGO_H = 34; // hauteur image wordmark (match Bourseko/Fiscal.ai)
   const WM_LOGO_W = WM_LOGO_H * 3.8; // ratio ~3.8:1 du wordmark
   const WM_GAP = 8;
   const KPIS_DATA_BY_TEXT_W = 100; // espace pour "KPIs & Data by"
@@ -275,14 +275,14 @@ export async function downloadSvgAsPng(
   // options.title contient toujours "kpiText · stéText" :
   //   - ligne 1 = stéText (sans "Inc" déjà retiré côté data)
   //   - ligne 2 = kpiText
-  const TITLE_KPI_FONT_SIZE = 28;       // ligne 2 (nom du KPI), gros
+  const TITLE_KPI_FONT_SIZE = 34;       // ligne 2 (nom du KPI), focus #1 (match Bourseko)
   const TITLE_STE_FONT_SIZE = 18;       // ligne 1 (nom sté), plus petit
-  const TITLE_KPI_CHAR_W = 14;          // estimation Fraunces 800 28px
+  const TITLE_KPI_CHAR_W = 17;          // estimation Fraunces 800 34px
   const TITLE_STE_CHAR_W = 9.5;         // estimation Fraunces 600 18px
   const TITLE_LOGO_SIZE = 22;           // logo sté ligne 1
   const TITLE_LOGO_GAP = 8;             // gap entre logo et nom sté
   const LINE1_Y = origY - PAD_TOP + 38;
-  const LINE2_Y = origY - PAD_TOP + 78;
+  const LINE2_Y = origY - PAD_TOP + 82;
 
   const titleFontFamily =
     "var(--font-fraunces), Fraunces, Georgia, 'Times New Roman', serif";
