@@ -10,6 +10,41 @@
 
 ---
 
+## 0undecies. UNE STÉ CITÉE = EXEMPLE D'UN BUG GÉNÉRAL, FIX À APPLIQUER PARTOUT (PERMANENT, Yann 2 juin 2026)
+
+**RÈGLE D'OR ABSOLUE. À CHECKER EXPLICITEMENT À CHAQUE PROMPT.**
+
+### Check obligatoire au début de chaque prompt
+
+À chaque prompt Yann, dès la lecture, me poser la question :
+
+> **Est-ce que ce prompt parle d'une modification sur une page sté (KPI, bloc, sous-bloc, hero, chart, super-KPI, signature, etc.) ?**
+
+- **Si NON** → règle ne s'applique pas, on continue normalement.
+- **Si OUI** → **par défaut, le fix doit être appliqué à TOUTES les stés de l'univers cible V1.9.5 = SP500 ∪ Top 307 V1.8 = 673 stés** (+ ajouts EU/Asia stratégiques). La liste actuelle `v1-9-5-clean-all-tickers.json` = 652 stés curatées. Si fix systémique, traiter aussi les 35 stés du 673 absentes de la liste curatée (ODFL, ROL, ROP, CB, CPAY, CASY, EXE, PPL, MRK.DE, REL.L, RI.PA, ABF.L, AMUN.PA, AV.L, BBVA.MC, BCP.LS, BVI.PA, CA.PA, CNA.L, DANSKE.CO, EIPAF, HEXA-B.ST, HLN.L, JDEP.AS, KESKOB.HE, etc.).
+
+### Pourquoi
+
+Yann cite UNE sté parce qu'il l'a sous les yeux. C'est un révélateur d'un bug systémique. Les clients voient les autres pages : les mêmes bugs y sont presque toujours présents. Une demande sur 1 sté = un fix systémique sur 652.
+
+### Exception unique
+
+Si Yann précise explicitement "uniquement sur cette sté", "juste pour X", "seulement Y", alors restreindre. **Pas d'exception implicite.** Si pas de précision = appliquer partout.
+
+### Conséquence pratique
+
+1. Audit programmatique systématique pour détecter les autres stés touchées.
+2. Sub-agents en parallèle si volume > 50 stés à corriger (jusqu'à 24 agents par règle §11).
+3. Rapport bilan : combien de stés touchées + corrigées, pas juste celle citée.
+4. Si pas de bug équivalent sur les autres stés, le confirmer explicitement (audit fait, 0 autre sté affectée).
+
+### Auto-check
+
+Mots-clés déclencheurs dans un prompt Yann qui activent la règle :
+"hero", "bloc", "sous-bloc", "graph", "chart", "KPI", "super KPI", "signature", "logo", "axe Y", "PNG", "hiérarchie", "fix", "corrige", "change" couplés à un ticker (GOOGL, CAT, NVDA, AAPL, etc.) ou à "page sté".
+
+---
+
 ## 000. NE JAMAIS ARRÊTER UNE TÂCHE SANS CONFIRMATION EXPLICITE YANN (PERMANENT, À JAMAIS)
 
 Édictée par Yann le 30 mai 2026. **RÈGLE LA PLUS IMPORTANTE. PERMANENTE. À JAMAIS.**
