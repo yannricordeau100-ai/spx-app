@@ -111,26 +111,14 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 32.49,
-      "unit": "Mds €",
+      "value": 22.292,
+      "unit": "Mds $",
       "yoy": "+5.7%",
       "history": [
-        4.9409,
-        4.8948,
-        5.1084,
-        5.2911,
-        5.0038,
-        4.3994,
-        4.3576,
-        3.4567,
-        3.7156,
-        4.2458,
-        3.9565,
-        4.8152,
-        5.1701,
-        5.0923,
-        5.5684,
-        6.4608
+        20.235,
+        17.218,
+        16.733,
+        22.292
       ],
       "type": "Comptes",
       "nature": "Conjoncturel",
@@ -140,13 +128,22 @@
       "is_generic": true,
       "_source": "yfinance.income_stmt",
       "is_short_history": true,
-      "last_data_date": "2026-04-04",
+      "last_data_date": "2024-12-31",
       "explanation_en": "Revenue from the Total segment.",
       "signal_en": "Top-line growth, market traction",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
-      "period_type": "quarter",
-      "_period_type_propagated_at": "2026-06-01T23:13:39.757816+00:00"
+      "period_type": "year",
+      "_period_type_propagated_at": "2026-06-01T23:13:39.757816+00:00",
+      "_fix_log": [
+        {
+          "ts": "2026-06-02T21:21:28Z",
+          "tag": "SA19-08-V195",
+          "op": "VAL_NE_LAST_q_to_y",
+          "detail": "quarterly 16Q → 4Y annual: [20.235, 17.218, 16.733, 22.292]"
+        }
+      ],
+      "_fix": "VAL_NE_LAST_BIG: value FY alignée last(history)=22.292; unit Mds € -> Mds $ (Nucor reporte en USD)"
     },
     {
       "short": "Total Assets",
@@ -184,7 +181,7 @@
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 7.12,
+      "value": 4.233,
       "unit": "Mds €",
       "yoy": "+2.4%",
       "history": [
@@ -210,7 +207,21 @@
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
       "period_type": "year",
       "_history_extended_at": "2026-06-02T04:43:27.735558+00:00",
-      "_history_source": "SEC EDGAR XBRL SP500 (LongTermDebtNoncurrent)"
+      "_history_source": "SEC EDGAR XBRL SP500 (LongTermDebtNoncurrent)",
+      "_fix_log": [
+        {
+          "ts": "2026-06-02T21:21:28Z",
+          "tag": "SA19-08-V195",
+          "op": "VAL_NE_LAST_debt_append",
+          "detail": "latest debt appended: [3.38, 4.377, 4.361, 4.337, 3.739, 3.242, 4.233] → [3.38, 4.377, 4.361, 4.337, 3.739, 3.242, 4.233, 4.233]"
+        },
+        {
+          "ts": "2026-06-02T21:22:40Z",
+          "tag": "SA19-08-V195-PATCH",
+          "op": "DEDUP_TRAILING",
+          "detail": "removed duplicate trailing debt: [3.38, 4.377, 4.361, 4.337, 3.739, 3.242, 4.233, 4.233] → [3.38, 4.377, 4.361, 4.337, 3.739, 3.242, 4.233]"
+        }
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -448,5 +459,35 @@
   "_maj_by": "Sub-agent Opus MAJ chunk-08",
   "_maj_at": "2026-06-01T21:15:57Z",
   "_history_extended_at": "2026-06-02T04:43:27.735574+00:00",
-  "_history_source": "SEC EDGAR XBRL SP500"
+  "_history_source": "SEC EDGAR XBRL SP500",
+  "_fix_log": [
+    {
+      "at": "2026-06-02T21:21:00Z",
+      "kpi_idx": 4,
+      "kpi": "Total Revenue",
+      "fix": "VAL_NE_LAST: value 32.49 -> 6.4608 (aligned to last history) (Total Revenue Q vs annual)",
+      "batch": "SA19-18"
+    },
+    {
+      "at": "2026-06-02T21:21:00Z",
+      "kpi_idx": 6,
+      "kpi": "Total Debt",
+      "fix": "VAL_NE_LAST: value 7.12 -> 4.233 (aligned to last history) (Total Debt)",
+      "batch": "SA19-18"
+    },
+    {
+      "at": "2026-06-02T21:22:17Z",
+      "kpi_idx": 4,
+      "kpi": "Total Revenue",
+      "fix": "VAL_NE_LAST pass2: value 6.4608 -> 22.292 (re-aligned after history rescale)",
+      "batch": "SA19-18"
+    },
+    {
+      "at": "2026-06-02T21:22:54Z",
+      "by": "audit-batch-21",
+      "fixes": [
+        "k4:VAL_NE_LAST align year + unit USD"
+      ]
+    }
+  ]
 }

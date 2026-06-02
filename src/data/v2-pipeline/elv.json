@@ -30,11 +30,11 @@
       "signal": "Large member base across individual, employer group, Medicaid and Medicare markets",
       "description": "Medical members served through affiliated health plans as of December 31, 2025. Indicateur suivi annuellement par les analystes de la société, valeur historisée sur les 5 dernières années.",
       "history": [
-        45.2,
-        44.5,
-        43.8,
+        42.4,
         43.1,
-        42.4
+        43.8,
+        44.5,
+        45.2
       ],
       "last_data_date": "2026-03-31",
       "is_wow": false,
@@ -43,7 +43,15 @@
       "ttm": 42.23,
       "_validation": "Unité confirmée en millions (M), valeur extraite du texte source: 'approximately 45.2 million medical members'",
       "period_type": "quarter",
-      "signal_en": "User base contraction, monitor churn"
+      "signal_en": "User base contraction, monitor churn",
+      "_fix_log": [
+        {
+          "ts": "2026-06-02T21:21:28Z",
+          "tag": "SA19-08-V195",
+          "op": "REVERSE_DESC_TO_ASC",
+          "detail": "history reversed DESC→ASC: [45.2, 44.5, 43.8, 43.1, 42.4] → [42.4, 43.1, 43.8, 44.5, 45.2]"
+        }
+      ]
     },
     {
       "short": "Long-term Debt",
@@ -59,11 +67,11 @@
       "signal": "Moderate leverage position with fixed-rate instruments",
       "description": "Long-term debt, less current portion as of December 31, 2025",
       "history": [
-        30797,
-        29218,
-        27885,
+        25219,
         26552,
-        25219
+        27885,
+        29218,
+        30797
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
@@ -71,7 +79,15 @@
       "is_short_history": false,
       "ttm": 26226.69,
       "_validation": "Correction: valeur change de 31,896M$ (carrying value total) à 30,797M$ (long-term debt, less current portion) provenant du bilan consolidé. Histoire ajustée en cohérence.",
-      "signal_en": "Pressure, deteriorating trend"
+      "signal_en": "Pressure, deteriorating trend",
+      "_fix_log": [
+        {
+          "ts": "2026-06-02T21:22:40Z",
+          "tag": "SA19-08-V195-PATCH",
+          "op": "REVERSE_DESC_TO_ASC",
+          "detail": "history DESC→ASC (str-value): [30797, 29218, 27885, 26552, 25219] → [25219, 26552, 27885, 29218, 30797]"
+        }
+      ]
     },
     {
       "short": "Total Revenue",
@@ -215,7 +231,8 @@
         22.35,
         23.25,
         29.22,
-        30.8
+        30.8,
+        32.05
       ],
       "type": "Balance Sheet",
       "nature": "Conjoncturel",
@@ -231,7 +248,15 @@
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
       "period_type": "year",
       "_history_extended_at": "2026-06-02T04:38:58.434915+00:00",
-      "_history_source": "SEC EDGAR XBRL SP500 (LongTermDebtNoncurrent)"
+      "_history_source": "SEC EDGAR XBRL SP500 (LongTermDebtNoncurrent)",
+      "_fix_log": [
+        {
+          "ts": "2026-06-02T21:21:28Z",
+          "tag": "SA19-08-V195",
+          "op": "VAL_NE_LAST_debt_append",
+          "detail": "latest debt appended: [17.79, 19.34, 21.16, 22.35, 23.25, 29.22, 30.8] → [17.79, 19.34, 21.16, 22.35, 23.25, 29.22, 30.8, 32.05]"
+        }
+      ]
     },
     {
       "short": "Cash & Equivalents",
