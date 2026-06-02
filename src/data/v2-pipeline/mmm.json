@@ -189,6 +189,13 @@
           "note": "metric is growth-percent (unit=%); negative history values are valid yoy variations",
           "tag": "SA19-03 batch-03 V1.9.5",
           "ts": "2026-06-02T21:18:01.679576Z"
+        },
+        {
+          "type": "NEG_FALSE_POSITIVE_GROWTH_PCT",
+          "short": "Organic Sales Growth",
+          "note": "metric is growth-percent (unit=%); negative history values are valid yoy variations",
+          "tag": "SA19-03 batch-03 V1.9.5",
+          "ts": "2026-06-02T21:19:44.731097Z"
         }
       ]
     },
@@ -254,10 +261,58 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 24.948,
+      "value": 6.03,
       "unit": "Mds $",
       "yoy": "+1.5%",
       "history": [
+        8.35,
+        8.583,
+        8.851,
+        8.95,
+        8.942,
+        8.829,
+        8.702,
+        8.619,
+        6.055,
+        6.283,
+        6.27,
+        6.002,
+        6.016,
+        6.255,
+        6.294,
+        6.01,
+        5.954,
+        6.344,
+        6.517,
+        6.03
+      ],
+      "type": "Revenue",
+      "nature": "Conjoncturel",
+      "comparable": true,
+      "signal": "Chiffre d'affaires de 24.948 Mds $ dernière année.",
+      "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
+      "is_generic": true,
+      "_source": "SEC EDGAR XBRL single-Q (SA19-04)",
+      "last_data_date": "2026-03-31",
+      "explanation_en": "Revenue from the Total segment.",
+      "signal_en": "Top-line growth, market traction",
+      "_nature_reclass_at": "2026-06-01T02:50:40Z",
+      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
+      "period_type": "quarter",
+      "_period_type_propagated_at": "2026-06-01T23:13:39.715084+00:00",
+      "_value_basis": "TTM_4Q",
+      "_fix_log": [
+        {
+          "type": "VAL_NE_LAST_TTM_CONFIRMED",
+          "short": "Total Revenue",
+          "value": 24.948,
+          "computed_ttm": 25.024,
+          "note": "value is trailing-twelve-months (sum of last 4 quarters); history is per-quarter",
+          "tag": "SA19-03 batch-03 V1.9.5",
+          "ts": "2026-06-02T21:18:01.679576Z"
+        }
+      ],
+      "_corrected_from": [
         8.95,
         8.942,
         8.612,
@@ -279,32 +334,7 @@
         6.133,
         6.03
       ],
-      "type": "Revenue",
-      "nature": "Conjoncturel",
-      "comparable": true,
-      "signal": "Chiffre d'affaires de 24.948 Mds $ dernière année.",
-      "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
-      "is_generic": true,
-      "_source": "SEC EDGAR companyfacts XBRL",
-      "last_data_date": "2026-03-31",
-      "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction",
-      "_nature_reclass_at": "2026-06-01T02:50:40Z",
-      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
-      "period_type": "quarter",
-      "_period_type_propagated_at": "2026-06-01T23:13:39.715084+00:00",
-      "_value_basis": "TTM_4Q",
-      "_fix_log": [
-        {
-          "type": "VAL_NE_LAST_TTM_CONFIRMED",
-          "short": "Total Revenue",
-          "value": 24.948,
-          "computed_ttm": 25.024,
-          "note": "value is trailing-twelve-months (sum of last 4 quarters); history is per-quarter",
-          "tag": "SA19-03 batch-03 V1.9.5",
-          "ts": "2026-06-02T21:18:01.679576Z"
-        }
-      ]
+      "_corrected_from_value": 24.948
     },
     {
       "short": "Net Income",
@@ -333,7 +363,16 @@
       "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability under pressure, monitor returns",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
-      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01"
+      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
+      "_fix_log": [
+        {
+          "type": "NEG_VERIFIED",
+          "action": "no_change",
+          "reason": "Valeurs négatives légitimes (Organic Sales Growth -0.2% modeste recul, Net Income -6.995 Mds$ perte FY23 liée litiges).",
+          "at": "2026-06-02T21:20:15+00:00",
+          "by": "SA19-13"
+        }
+      ]
     }
   ],
   "stories_kpis": [
@@ -638,6 +677,22 @@
       "types": [
         "NEG_FALSE_POSITIVE_GROWTH_PCT",
         "VAL_NE_LAST_TTM_CONFIRMED"
+      ]
+    },
+    {
+      "timestamp": "2026-06-02T21:19:21.650731Z",
+      "batch": "SA19-04",
+      "kpi": "Total Revenue",
+      "anomaly": "AMPL: 0.011 (broken Q) in middle of series",
+      "action": "Replaced 20 values with SEC EDGAR single-Q",
+      "source": "data.sec.gov companyfacts CIK0000066740"
+    },
+    {
+      "tag": "SA19-03 batch-03 V1.9.5",
+      "ts": "2026-06-02T21:19:44.731097Z",
+      "n_changes": 1,
+      "types": [
+        "NEG_FALSE_POSITIVE_GROWTH_PCT"
       ]
     }
   ],
