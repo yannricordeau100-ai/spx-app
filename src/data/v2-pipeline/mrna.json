@@ -76,7 +76,8 @@
       "ttm": -7.66,
       "_validation": "YoY calculation corrected from text 'Amélioration de 2.02$' to precise calculation: (-7.26 - (-9.28)) / -9.28 = -21.7%",
       "explanation_en": "Market share in Loss Per.",
-      "signal_en": "Significant decline, warning signal"
+      "signal_en": "Significant decline, warning signal",
+      "_neg_review": true
     },
     {
       "short": "Net Product Sales",
@@ -252,7 +253,8 @@
       "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability improving, returns strengthening",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
-      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01"
+      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
+      "_neg_review": true
     }
   ],
   "stories_kpis": [],
@@ -505,5 +507,59 @@
     "_source": "Sub-agent Claude 10-K"
   },
   "_maj_by": "Sub-agent Opus MAJ chunk-08",
-  "_maj_at": "2026-06-01T21:15:53Z"
+  "_maj_at": "2026-06-01T21:15:53Z",
+  "_fix_log": [
+    {
+      "kpi_idx": 1,
+      "short": "Loss Per Share",
+      "flags": [
+        "NEG"
+      ],
+      "actions": [
+        {
+          "neg_flag_review": {
+            "neg_count": 3,
+            "total": 3
+          }
+        }
+      ],
+      "before_sample": [
+        -12.33,
+        -9.28,
+        -7.26
+      ],
+      "after_sample": [
+        -12.33,
+        -9.28,
+        -7.26
+      ]
+    },
+    {
+      "kpi_idx": 7,
+      "short": "Net Income",
+      "flags": [
+        "NEG"
+      ],
+      "actions": [
+        {
+          "neg_flag_review": {
+            "neg_count": 6,
+            "total": 8
+          }
+        }
+      ],
+      "before_sample": [
+        8.362,
+        -4.714,
+        -3.561,
+        -2.822
+      ],
+      "after_sample": [
+        8.362,
+        -4.714,
+        -3.561,
+        -2.822
+      ]
+    }
+  ]
 }

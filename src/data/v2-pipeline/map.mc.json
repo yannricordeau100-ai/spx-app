@@ -30,12 +30,12 @@
       "signal": "Croissance solide tirée par le non-vie en Espagne et au Brésil.",
       "description": "Le revenu d'assurance Mapfre atteint 25,5 Mds € en 2024, en hausse de 2,9%, tiré par la croissance des primes non-vie en Ibérie et Amérique latine.",
       "history": [
-        25512.6,
-        24781.0,
-        23553.8,
-        22148.0,
-        21271.0,
-        24154.8
+        25.5126,
+        24.781,
+        23.5538,
+        22.148,
+        21.271,
+        24.1548
       ],
       "last_data_date": "2024-12-31",
       "is_wow": false,
@@ -207,7 +207,8 @@
       "is_short_history": false,
       "_employees_synced_from_yfinance": true,
       "explanation_en": "Headcount  :  total number of employees at period end.",
-      "signal_en": "Significant decline, warning signal"
+      "signal_en": "Significant decline, warning signal",
+      "_ampl_review": true
     },
     {
       "short": "DPS",
@@ -520,5 +521,64 @@
   "_old_hero": "Net Income",
   "_hero_changed_by": "Sub-agent Opus EU narrative chunk-11",
   "_hero_change_failure_reason": "extension absente ou <16 trims | _super_kpi_inputs.revenue_q absent ou scalaire | _quarterly_history_extension absent",
-  "_hero_change_failed_at": "2026-06-01T21:49:37.203173+00:00"
+  "_hero_change_failed_at": "2026-06-01T21:49:37.203173+00:00",
+  "_fix_log": [
+    {
+      "kpi_idx": 0,
+      "short": "Total Revenue",
+      "flags": [
+        "VAL_NE_LAST"
+      ],
+      "actions": [
+        {
+          "history_rescale_power10": {
+            "factor": 0.001,
+            "k": -3,
+            "reason": "value/last ~ 10^k clean"
+          }
+        }
+      ],
+      "before_sample": [
+        23553.8,
+        22148.0,
+        21271.0,
+        24154.8
+      ],
+      "after_sample": [
+        23.5538,
+        22.148,
+        21.271,
+        24.1548
+      ]
+    },
+    {
+      "kpi_idx": 6,
+      "short": "Headcount",
+      "flags": [
+        "AMPL"
+      ],
+      "actions": [
+        {
+          "ampl_flag_review": {
+            "outlier_idx": 5,
+            "value_mag": 1,
+            "majority_mag": 4,
+            "reason": "majority diverges from value scale; manual review"
+          }
+        }
+      ],
+      "before_sample": [
+        54900,
+        54800,
+        54700,
+        30.8
+      ],
+      "after_sample": [
+        54900,
+        54800,
+        54700,
+        30.8
+      ]
+    }
+  ]
 }

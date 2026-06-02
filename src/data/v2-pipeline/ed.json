@@ -30,26 +30,26 @@
       "signal": "Augmentation des revenus",
       "description": "Revenus d'exploitation de l'entreprise. Indicateur Revenus d'exploitation historisé sur 10 ans, source pipeline financière officielle.",
       "history": [
-        2.971,
-        3.613,
-        3.415,
-        4.06,
-        3.415,
-        4.165,
-        4.03,
-        4.403,
-        2.944,
-        3.872,
-        3.444,
-        4.28,
-        3.22,
-        4.092,
-        3.664,
-        4.798,
-        3.595,
-        4.53,
-        3.995,
-        5.095
+        2971.0,
+        3613.0,
+        3415.0,
+        4060.0,
+        3415.0,
+        4165.0,
+        4030.0,
+        4403.0,
+        2944.0,
+        3872.0,
+        3444.0,
+        4280.0,
+        3220.0,
+        4092.0,
+        3664.0,
+        4798.0,
+        3595.0,
+        4530.0,
+        3995.0,
+        5095.0
       ],
       "last_data_date": "2026-03-31",
       "is_wow": false,
@@ -61,7 +61,8 @@
       "_hero_history_extracted_at": "2026-05-14T10:52:27.648077+00:00",
       "signal_en": "Strong top-line growth, market traction",
       "period_type": "quarter",
-      "_period_type_propagated_at": "2026-06-01T23:13:39.512917+00:00"
+      "_period_type_propagated_at": "2026-06-01T23:13:39.512917+00:00",
+      "_value_is_annual": true
     },
     {
       "short": "Net Income for Common Stock",
@@ -202,7 +203,8 @@
       "is_short_history": true,
       "story_category": "Risk",
       "ttm": 91.72,
-      "_validation": "Validé: 205M$ source MD&A Inflation Reduction Act section (213M$ CECONY), history appropriée (2024 introduction IRA), yoy=N/A approprié, type Tax correct"
+      "_validation": "Validé: 205M$ source MD&A Inflation Reduction Act section (213M$ CECONY), history appropriée (2024 introduction IRA), yoy=N/A approprié, type Tax correct",
+      "_val_ne_last_review": true
     },
     {
       "short": "Purchased Power",
@@ -230,7 +232,8 @@
       "is_short_history": false,
       "ttm": 2360,
       "_validation": "Validé: 2945M$ source MD&A financial data Purchased power table (2945 vs 2569 = +15% YoY exact), type Operating Expense correct, unité M$ correcte",
-      "signal_en": "Solid expansion, positive trajectory"
+      "signal_en": "Solid expansion, positive trajectory",
+      "_val_ne_last_review": true
     },
     {
       "short": "Total Assets",
@@ -594,5 +597,90 @@
   "_maj_by": "Sub-agent Opus MAJ chunk-04",
   "_maj_at": "2026-06-01T21:16:47.638777Z",
   "_history_extended_at": "2026-06-02T04:38:51.058464+00:00",
-  "_history_source": "SEC EDGAR XBRL SP500"
+  "_history_source": "SEC EDGAR XBRL SP500",
+  "_fix_log": [
+    {
+      "kpi_idx": 0,
+      "short": "Operating Revenues",
+      "flags": [
+        "VAL_NE_LAST"
+      ],
+      "actions": [
+        {
+          "history_rescale_to_match_value_scale": {
+            "factor": 1000,
+            "reason": "value=16918.0 ≈ sum4 × 10^3"
+          }
+        }
+      ],
+      "before_sample": [
+        3.595,
+        4.53,
+        3.995,
+        5.095
+      ],
+      "after_sample": [
+        3595.0,
+        4530.0,
+        3995.0,
+        5095.0
+      ]
+    },
+    {
+      "kpi_idx": 5,
+      "short": "CAMT Credit Carryforward",
+      "flags": [
+        "VAL_NE_LAST"
+      ],
+      "actions": [
+        {
+          "vne_flag_review": {
+            "value": 205.0,
+            "last": 0,
+            "ratio": null
+          }
+        }
+      ],
+      "before_sample": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "after_sample": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "kpi_idx": 6,
+      "short": "Purchased Power",
+      "flags": [
+        "VAL_NE_LAST"
+      ],
+      "actions": [
+        {
+          "vne_flag_review": {
+            "value": 2945.0,
+            "last": 1900,
+            "ratio": 1.55
+          }
+        }
+      ],
+      "before_sample": [
+        2569,
+        2300,
+        2100,
+        1900
+      ],
+      "after_sample": [
+        2569,
+        2300,
+        2100,
+        1900
+      ]
+    }
+  ]
 }

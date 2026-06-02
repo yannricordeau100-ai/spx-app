@@ -24,21 +24,21 @@
       "unit": "Mds $",
       "yoy": "+20.9%",
       "history": [
-        4828215,
-        4565123,
-        4369195,
-        3872138,
-        4341615,
-        4632634,
-        4694003,
-        4233423,
-        4587057,
-        5081630,
-        4893206,
-        4826287,
-        5651707,
-        6212878,
-        5569902
+        4.828215,
+        4.565123,
+        4.369195,
+        3.872138,
+        4.341615,
+        4.632634,
+        4.694003,
+        4.233423,
+        4.587057,
+        5.08163,
+        4.893206,
+        4.826287,
+        5.651707,
+        6.212878,
+        5.569902
       ],
       "type": "Revenue",
       "nature": "Conjoncturel",
@@ -53,7 +53,8 @@
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
       "period_type": "quarter",
-      "_period_type_propagated_at": "2026-06-01T23:13:39.889920+00:00"
+      "_period_type_propagated_at": "2026-06-01T23:13:39.889920+00:00",
+      "_value_is_annual": true
     },
     {
       "short": "Steel Operations Segment Shipments",
@@ -327,7 +328,8 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 432.9,
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_val_ne_last_review": true
     },
     {
       "short": "Net Income",
@@ -353,7 +355,9 @@
       "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability under pressure, monitor returns",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
-      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01"
+      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
+      "_ampl_neg_review": true,
+      "_neg_review": true
     }
   ],
   "stories_kpis": [
@@ -631,5 +635,89 @@
   "_hero_changed_by": "Sub-agent Opus EU narrative chunk-11",
   "_old_hero": "Total Revenue",
   "_history_extended_at": "2026-06-02T04:45:30.814748+00:00",
-  "_history_source": "SEC EDGAR XBRL SP500"
+  "_history_source": "SEC EDGAR XBRL SP500",
+  "_fix_log": [
+    {
+      "kpi_idx": 0,
+      "short": "Total Revenue",
+      "flags": [
+        "VAL_NE_LAST"
+      ],
+      "actions": [
+        {
+          "history_rescale_to_match_value_scale": {
+            "factor": 1e-06,
+            "reason": "value=22.261 ≈ sum4 × 10^-6"
+          }
+        }
+      ],
+      "before_sample": [
+        4826287,
+        5651707,
+        6212878,
+        5569902
+      ],
+      "after_sample": [
+        4.826287,
+        5.651707,
+        6.212878,
+        5.569902
+      ]
+    },
+    {
+      "kpi_idx": 9,
+      "short": "Income Tax Expense",
+      "flags": [
+        "VAL_NE_LAST"
+      ],
+      "actions": [
+        {
+          "vne_flag_review": {
+            "value": 305.7,
+            "last": 450,
+            "ratio": 0.6793
+          }
+        }
+      ],
+      "before_sample": [
+        432.9,
+        450
+      ],
+      "after_sample": [
+        432.9,
+        450
+      ]
+    },
+    {
+      "kpi_idx": 10,
+      "short": "Net Income",
+      "flags": [
+        "NEG",
+        "AMPL"
+      ],
+      "actions": [
+        {
+          "ampl_neg_combo_flag_review": true
+        },
+        {
+          "neg_flag_review": {
+            "neg_count": 1,
+            "total": 5
+          }
+        }
+      ],
+      "before_sample": [
+        0.141,
+        2.451,
+        1.537,
+        1.186
+      ],
+      "after_sample": [
+        0.141,
+        2.451,
+        1.537,
+        1.186
+      ]
+    }
+  ]
 }
