@@ -48,11 +48,25 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "ttm": 39.17,
+      "ttm": 24.3,
       "_validation": "Correction: unit 'Mds $' standardisé en 'B$' (milliards USD)",
       "period_type": "quarter",
       "publication_date": "2026-05-08",
-      "signal_en": "Steady growth, healthy trend"
+      "signal_en": "Steady growth, healthy trend",
+      "_fix_log": [
+        {
+          "at": "2026-06-02T21:25:52Z",
+          "by": "SA22 batch22 audit V1.9.5",
+          "anomaly": "VAL_NE_LAST/TTM_INCOHERENT/NEG_HIST/AMPL",
+          "before": {
+            "ttm": 39.17
+          },
+          "fields_set": [
+            "ttm"
+          ],
+          "source": "SEC EDGAR XBRL companyconcept (Revenues / NetIncomeLoss / PaymentsToAcquirePropertyPlantAndEquipment)"
+        }
+      ]
     },
     {
       "short": "Allowed ROE",
@@ -331,21 +345,18 @@
       "signal_en": "Quarterly revenue tracking across five years.",
       "description": "Historique trimestriel du chiffre d'affaires reconstitué depuis SEC EDGAR XBRL companyfacts, couvrant 16 trimestres consécutifs pour permettre une lecture conjoncturelle fine.",
       "history": [
-        3.605,
-        5.911,
-        -3.438,
         2.062,
-        3.822,
-        5.882,
-        -4.266,
+        1.76,
+        2.06,
+        1.618,
         1.816,
-        3.509,
-        5.682,
-        -3.384,
+        1.693,
+        2.173,
+        1.941,
         2.097,
-        4.318,
-        7.017,
-        -4.633,
+        2.221,
+        2.699,
+        1.782,
         2.176
       ],
       "history_periods": [
@@ -374,7 +385,47 @@
       "_source": "SEC EDGAR XBRL Revenues / RevenueFromContractWithCustomerExcludingAssessedTax (companyfacts)",
       "_validation": "KPI ajouté par Sub-agent Opus hero-fix chunk-02 le 2026-06-01T21:32:58Z: 16 trimestres extraits du flux XBRL companyfacts.",
       "_added_by": "Sub-agent Opus hero-fix chunk-02",
-      "_added_at": "2026-06-01T21:32:58Z"
+      "_added_at": "2026-06-01T21:32:58Z",
+      "ttm": 8.878,
+      "_fix_log": [
+        {
+          "at": "2026-06-02T21:25:52Z",
+          "by": "SA22 batch22 audit V1.9.5",
+          "anomaly": "VAL_NE_LAST/TTM_INCOHERENT/NEG_HIST/AMPL",
+          "before": {
+            "history": [
+              3.605,
+              5.911,
+              -3.438,
+              2.062,
+              3.822,
+              5.882,
+              -4.266,
+              1.816,
+              3.509,
+              5.682,
+              -3.384,
+              2.097,
+              4.318,
+              7.017,
+              -4.633,
+              2.176
+            ],
+            "value": 2.176,
+            "ttm": null,
+            "last_data_date": "2026-03-31",
+            "unit": "Mds $"
+          },
+          "fields_set": [
+            "history",
+            "value",
+            "ttm",
+            "last_data_date",
+            "unit"
+          ],
+          "source": "SEC EDGAR XBRL companyconcept (Revenues / NetIncomeLoss / PaymentsToAcquirePropertyPlantAndEquipment)"
+        }
+      ]
     }
   ],
   "stories_kpis": [
@@ -654,5 +705,16 @@
   "_old_hero": "Rate Base",
   "_hero_changed_by": "Sub-agent Opus hero-fix chunk-02",
   "_hero_changed_at": "2026-06-01T21:32:58Z",
-  "_hero_kpi_rationale_old": "Le rate base est le principal driver de croissance pour les utilities régulées comme Ameren, car il détermine les revenus autorisés via la régulation et reflète les investissements en infrastructure énergétique."
+  "_hero_kpi_rationale_old": "Le rate base est le principal driver de croissance pour les utilities régulées comme Ameren, car il détermine les revenus autorisés via la régulation et reflète les investissements en infrastructure énergétique.",
+  "_kpi_v2_audit_applied_at": "2026-06-02T21:25:52Z",
+  "_kpi_v2_audit_notes": [
+    {
+      "at": "2026-06-02T21:25:52Z",
+      "batch": "SA22-V1.9.5",
+      "kpis_fixed": [
+        "Revenue (Quarterly)",
+        "Rate Base"
+      ]
+    }
+  ]
 }

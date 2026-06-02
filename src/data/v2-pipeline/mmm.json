@@ -271,7 +271,7 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 6.03,
+      "value": 24.948,
       "unit": "Mds $",
       "yoy": "+1.5%",
       "history": [
@@ -288,7 +288,7 @@
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
       "_source": "SEC EDGAR XBRL single-Q (SA19-04)",
-      "last_data_date": "2024-12-31",
+      "last_data_date": "2025-12-31",
       "explanation_en": "Revenue from the Total segment.",
       "signal_en": "Top-line growth, market traction",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
@@ -311,6 +311,26 @@
           "tag": "SA19-08-V195-REAPPLY",
           "op": "VAL_NE_LAST_q_to_y",
           "detail": "quarterly 20Q→5Y annual: [34.734, 35.092, 24.61, 24.575, 24.845] (reapplied after concurrent overwrite)"
+        },
+        {
+          "at": "2026-06-02T21:28:21Z",
+          "by": "SA22 batch22 audit V1.9.5 pass2",
+          "anomaly": "VAL_NE_LAST / VAL_ZERO / WRONG_UNIT / LABEL_MISMATCH",
+          "before": {
+            "value": 6.03,
+            "ttm": null,
+            "period_type": "year",
+            "last_data_date": "2024-12-31",
+            "yoy": "+1.5%"
+          },
+          "fields_set": [
+            "value",
+            "ttm",
+            "period_type",
+            "last_data_date",
+            "yoy"
+          ],
+          "source": "SEC EDGAR XBRL companyconcept + signal-aligned correction"
         }
       ],
       "_corrected_from": [
@@ -336,7 +356,8 @@
         6.03
       ],
       "_corrected_from_value": 24.948,
-      "_fix": "VAL_NE_LAST_BIG: value FY alignée last(history)=6.03"
+      "_fix": "VAL_NE_LAST_BIG: value FY alignée last(history)=6.03",
+      "ttm": 24.948
     },
     {
       "short": "Net Income",
@@ -714,5 +735,15 @@
     }
   ],
   "_fix_at": "2026-06-02T21:17:54+00:00",
-  "_fix_by": "CONV-SUBAGENT-FIX-BATCH-06-V195"
+  "_fix_by": "CONV-SUBAGENT-FIX-BATCH-06-V195",
+  "_kpi_v2_audit_applied_at": "2026-06-02T21:28:21Z",
+  "_kpi_v2_audit_notes": [
+    {
+      "at": "2026-06-02T21:28:21Z",
+      "batch": "SA22-V1.9.5-pass2",
+      "kpis_fixed": [
+        "Total Revenue"
+      ]
+    }
+  ]
 }

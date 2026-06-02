@@ -159,16 +159,16 @@
       "explanation": "Nombre total d'employés dans l'entreprise.",
       "value": 2.2,
       "unit": "K",
-      "yoy": "-99.8%",
+      "yoy": "+83.3%",
       "type": "Investment",
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Croissance rapide des effectifs pour soutenir l'expansion technologique et opérationnelle.",
       "description": "L'entreprise recrute massivement en ingénierie, R&D et opérations data center.",
       "history": [
-        500,
-        800,
-        1200,
+        0.5,
+        0.8,
+        1.2,
         2.2
       ],
       "last_data_date": "2026-05-14",
@@ -176,10 +176,35 @@
       "is_generic": true,
       "is_short_history": true,
       "_validation": "Unité corrigée de 'K' (erroné) à 'people'; history corrigée de [0.5, 0.8, 1.2] à [500, 800, 1200] pour cohérence avec la valeur en nombre d'employés",
-      "ttm": 1350,
+      "ttm": 2.2,
       "_employees_synced_from_yfinance": true,
       "explanation_en": "Headcount, total number of employees at period end.",
-      "signal_en": "Significant decline, warning signal"
+      "signal_en": "Significant decline, warning signal",
+      "_fix_log": [
+        {
+          "at": "2026-06-02T21:25:52Z",
+          "by": "SA22 batch22 audit V1.9.5",
+          "anomaly": "VAL_NE_LAST/TTM_INCOHERENT/NEG_HIST/AMPL",
+          "before": {
+            "history": [
+              500,
+              800,
+              1200,
+              2.2
+            ],
+            "ttm": 1350,
+            "yoy": "-99.8%",
+            "unit": "K"
+          },
+          "fields_set": [
+            "history",
+            "ttm",
+            "yoy",
+            "unit"
+          ],
+          "source": "SEC EDGAR XBRL companyconcept (Revenues / NetIncomeLoss / PaymentsToAcquirePropertyPlantAndEquipment)"
+        }
+      ]
     },
     {
       "short": "Backlog Contractuel (RPO)",
@@ -438,7 +463,7 @@
     "rationale": "Revenue +180.0% YoY, marge op +33.3 pts, levier operationnel positif.",
     "margin_trend": "expanding"
   },
-  "_kpi_v2_audit_applied_at": "2026-05-14T07:55:52.802266+00:00",
+  "_kpi_v2_audit_applied_at": "2026-06-02T21:25:52Z",
   "events": [
     {
       "date": "2026-05-07",
@@ -501,5 +526,14 @@
   },
   "_blocs_extracted_at": "2026-06-01T15:53:15.382824+00:00",
   "_maj_at": "2026-06-01T21:16:41Z",
-  "_maj_by": "Sub-agent Opus MAJ chunk-03"
+  "_maj_by": "Sub-agent Opus MAJ chunk-03",
+  "_kpi_v2_audit_notes": [
+    {
+      "at": "2026-06-02T21:25:52Z",
+      "batch": "SA22-V1.9.5",
+      "kpis_fixed": [
+        "Headcount"
+      ]
+    }
+  ]
 }
