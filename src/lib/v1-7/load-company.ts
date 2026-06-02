@@ -920,17 +920,62 @@ export async function loadV17Company(
       data.kpis = [...data.kpis, ...extraStories];
     }
     // KPIs additionnels (ex : DividendStories CONV-DIV — DPS / Cap Return /
-    // Payout Ratio). APPEND si le `short` n'existe pas déjà dans CONV-DATA.
+    // Payout Ratio). FUSION par `short` : si KPI existe déjà côté CONV-DATA,
+    // on garde la version avec history LA PLUS LONGUE (et propage period_type
+    // + champs spécifiques du gagnant, en préservant les champs v2-pipeline
+    // tels que yoy/signal si pas dans la version enrich). Sinon append.
+    // (Yann 2 juin 2026 : fix bug iPhone Revenue tronquée à 3 ans alors que
+    // specific-kpis avait 5+ ans, idem GOOGL re-extract.)
     if (Array.isArray(enrich.kpis) && Array.isArray(data.kpis)) {
-      const existingShorts = new Set(
-        (data.kpis as AnyKPI[]).map((k) => k?.short).filter(Boolean),
-      );
-      const extraKpis = (enrich.kpis as AnyKPI[])
-        .filter((k) => k && typeof k === "object" && !existingShorts.has(k.short))
-        .map((k) => ({ ...k, history: normalizeHistory(k.history) }));
-      if (extraKpis.length > 0) {
-        data.kpis = [...data.kpis, ...extraKpis];
+      const enrichKpis: AnyKPI[] = (enrich.kpis as AnyKPI[])
+        .filter((k) => k && typeof k === "object" && typeof k.short === "string" && k.short)
+        .map((k) => ({ ...k, history: normalizeHistory(k.history) }) as AnyKPI);
+      const dataKpis = data.kpis as AnyKPI[];
+      const mergedKpis: AnyKPI[] = [];
+      const dataByShort = new Map<string, AnyKPI>();
+      for (const k of dataKpis) {
+        if (typeof k?.short === "string" && k.short) dataByShort.set(k.short, k);
       }
+      const consumedShorts = new Set<string>();
+      for (const ek of enrichKpis) {
+        const ekShort = ek.short as string;
+        const existing = dataByShort.get(ekShort);
+        if (existing) {
+          consumedShorts.add(ekShort);
+          const existingLen = Array.isArray(existing.history) ? (existing.history as unknown[]).length : 0;
+          const enrichLen = Array.isArray(ek.history) ? (ek.history as unknown[]).length : 0;
+          // Égalité → on prend la version enrich (souvent plus récente).
+          // Strict > → on garde existing.
+          const winner = enrichLen >= existingLen ? ek : existing;
+          const loser = winner === ek ? existing : ek;
+          // Fusion : champs du winner prennent priorité, mais on récupère
+          // depuis loser les champs absents/vides du winner (préserve yoy /
+          // signal / description issus de v2-pipeline si enrich ne les a pas).
+          const merged: AnyKPI = { ...loser, ...winner };
+          if (winner === ek) {
+            merged.history = winner.history;
+            if (winner.period_type) merged.period_type = winner.period_type;
+          }
+          mergedKpis.push(merged);
+        }
+      }
+      // Garder les KPIs existants non touchés par fusion.
+      for (const k of dataKpis) {
+        if (typeof k?.short === "string" && k.short && !consumedShorts.has(k.short)) {
+          mergedKpis.push(k);
+        }
+      }
+      // Append les KPIs enrich qui n'existaient pas côté data.
+      const existingMergedShorts = new Set(
+        mergedKpis.map((k) => k?.short).filter((s): s is string => typeof s === "string" && Boolean(s)),
+      );
+      for (const ek of enrichKpis) {
+        const ekShort = ek.short as string;
+        if (!existingMergedShorts.has(ekShort)) {
+          mergedKpis.push(ek);
+        }
+      }
+      data.kpis = mergedKpis;
     }
     // Yann 19 mai 2026 : KPI SPÉCIFIQUES dispatchés par sub-agents Claude
     // (146 stés priorité 0 re-extracted, scope CONV-CONCEPTS).
@@ -963,20 +1008,57 @@ export async function loadV17Company(
         && Array.isArray(specificData.kpis)
         && Array.isArray(data.kpis)
       ) {
-        const existingShorts = new Set(
-          (data.kpis as AnyKPI[]).map((k) => k?.short).filter(Boolean),
-        );
-        const extraSpecific = specificData.kpis
-          .filter((k) => k && typeof k === "object" && !existingShorts.has(k.short))
+        // FUSION par `short` (Yann 2 juin 2026) : si le KPI existe déjà,
+        // on garde la version avec history LA PLUS LONGUE (+ propage
+        // period_type du gagnant). En cas d'égalité de longueur, specific
+        // gagne (plus récent souvent). Préserve champs v2-pipeline absents
+        // côté specific (yoy / signal / description / etc.).
+        const specificKpis: AnyKPI[] = specificData.kpis
+          .filter((k) => k && typeof k === "object" && typeof k.short === "string" && k.short)
           .map((k) => ({
             ...k,
             history: normalizeHistory(k.history),
-            // Tag pour traçabilité côté UI (debug / audit)
             _source: "v2-pipeline-specific-kpis",
-          }));
-        if (extraSpecific.length > 0) {
-          data.kpis = [...data.kpis, ...extraSpecific];
+          }) as AnyKPI);
+        const dataKpis = data.kpis as AnyKPI[];
+        const mergedKpis: AnyKPI[] = [];
+        const dataByShort = new Map<string, AnyKPI>();
+        for (const k of dataKpis) {
+          if (typeof k?.short === "string" && k.short) dataByShort.set(k.short, k);
         }
+        const consumedShorts = new Set<string>();
+        for (const sk of specificKpis) {
+          const skShort = sk.short as string;
+          const existing = dataByShort.get(skShort);
+          if (existing) {
+            consumedShorts.add(skShort);
+            const existingLen = Array.isArray(existing.history) ? (existing.history as unknown[]).length : 0;
+            const specificLen = Array.isArray(sk.history) ? (sk.history as unknown[]).length : 0;
+            const winner = specificLen >= existingLen ? sk : existing;
+            const loser = winner === sk ? existing : sk;
+            const merged: AnyKPI = { ...loser, ...winner };
+            if (winner === sk) {
+              merged.history = winner.history;
+              if (winner.period_type) merged.period_type = winner.period_type;
+            }
+            mergedKpis.push(merged);
+          }
+        }
+        for (const k of dataKpis) {
+          if (typeof k?.short === "string" && k.short && !consumedShorts.has(k.short)) {
+            mergedKpis.push(k);
+          }
+        }
+        const existingMergedShorts = new Set(
+          mergedKpis.map((k) => k?.short).filter((s): s is string => typeof s === "string" && Boolean(s)),
+        );
+        for (const sk of specificKpis) {
+          const skShort = sk.short as string;
+          if (!existingMergedShorts.has(skShort)) {
+            mergedKpis.push(sk);
+          }
+        }
+        data.kpis = mergedKpis;
       }
     } catch {
       // best effort, silent fail si le fichier n'existe pas pour ce ticker

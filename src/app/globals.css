@@ -213,3 +213,15 @@ mark.cmdf-match-active {
 html[data-theme="light"] .preserve-colors {
   filter: invert(1) hue-rotate(180deg);
 }
+
+/* Yann 2 juin 2026 — Filtre niveau de gris auto-thème sur logos sociétés.
+   Cible : <img class="company-logo-img"> (PNG hébergés public/logos/<TICKER>.png).
+   Effet dark : transforme tout PNG (Apple noir, etc.) en silhouette blanche
+   adoucie. Effet light : silhouette noire adoucie. Ne touche PAS les SVG
+   hardcodés (GOOGL/META/MSCI/SPGI/CAT) qui ne portent pas cette classe. */
+.company-logo-img {
+  filter: brightness(0) invert(1) opacity(0.92);
+}
+html[data-theme="light"] .company-logo-img {
+  filter: brightness(0) opacity(0.85);
+}

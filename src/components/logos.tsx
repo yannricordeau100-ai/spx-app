@@ -180,7 +180,7 @@ export function CompanyLogo({ ticker }: { ticker: string }) {
       <img
         src={`/logos/${safeTicker}.png`}
         alt=""
-        className="size-full object-contain"
+        className="company-logo-img size-full object-contain"
         loading="lazy"
         onError={(e) => {
           // Si pas de PNG cache, on bascule sur monogramme via state.
