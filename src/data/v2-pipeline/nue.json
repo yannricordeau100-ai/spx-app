@@ -21,7 +21,7 @@
       "name_fr": "Taux d'utilisation des aciéries",
       "name_en": "Operating Rate",
       "explanation": "Taux d'utilisation des aciéries Nucor",
-      "value": "83%",
+      "value": 83.0,
       "unit": "%",
       "yoy": "+7 pp",
       "type": "Demand",
@@ -30,8 +30,8 @@
       "signal": "Augmentation du taux d'utilisation en 2025",
       "description": "Taux d'utilisation des aciéries, indicateur clé de la demande et de l'activité de production",
       "history": [
-        "76%",
-        "83%"
+        76.0,
+        83.0
       ],
       "last_data_date": "2026-03-31",
       "is_wow": false,
@@ -40,14 +40,17 @@
       "period_type": "quarter",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Seulement 2 valeurs annuelles explicites trouvées (2024: 76%, 2023: 78%). Le seuil minimum de 4 années consécutives n'est pas atteint. Les a",
-      "signal_en": "Demand strengthening, end-market traction"
+      "signal_en": "Demand strengthening, end-market traction",
+      "_fix_log": [
+        "SA19-19 V195: stripped % from strings, converted to numeric"
+      ]
     },
     {
       "short": "Net Earnings",
       "name_fr": "Bénéfice net",
       "name_en": "Net Earnings",
       "explanation": "Bénéfice net consolidé",
-      "value": "1.74",
+      "value": 1.74,
       "unit": "Mds $",
       "yoy": "-14.3%",
       "type": "Profitability",
@@ -56,21 +59,24 @@
       "signal": "Baisse du bénéfice net en 2025",
       "description": "Bénéfice net consolidé, indicateur clé de la performance financière",
       "history": [
-        "2.03",
-        "1.74"
+        2.03,
+        1.74
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "signal_en": "Profitability under pressure, monitor returns"
+      "signal_en": "Profitability under pressure, monitor returns",
+      "_fix_log": [
+        "SA19-19 V195: string -> float"
+      ]
     },
     {
       "short": "Steel Mills Earnings",
       "name_fr": "Résultats du segment des aciéries",
       "name_en": "Steel Mills Segment Earnings",
       "explanation": "Bénéfices du segment des aciéries, le plus grand segment représentant 62% des ventes externes",
-      "value": "Not available",
+      "value": null,
       "unit": "Mds $",
       "yoy": "Positive",
       "type": "Segmentation",
@@ -79,19 +85,22 @@
       "signal": "Augmentation des résultats du segment des aciéries",
       "description": "Résultats du segment des aciéries, amélioré par une meilleure marge métallique et des volumes accrus",
       "history": [
-        "Not available"
+        null
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true
+      "is_short_history": true,
+      "_fix_log": [
+        "SA19-19 V195: \"Not available\" -> null"
+      ]
     },
     {
       "short": "Scrap Steel Recycled",
       "name_fr": "Acier de récupération recyclé",
       "name_en": "Scrap Steel Recycled",
       "explanation": "Volume d'acier de récupération recyclé par Nucor",
-      "value": "20",
+      "value": 20.0,
       "unit": "M net tons",
       "yoy": "Not available",
       "type": "Volume",
@@ -100,12 +109,15 @@
       "signal": "Nucor as North America's largest recycler",
       "description": "Volume d'acier de récupération recyclé en 2025, reflétant la position de leader de Nucor comme plus grand recycleur nord-américain",
       "history": [
-        "20"
+        20.0
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true
+      "is_short_history": true,
+      "_fix_log": [
+        "SA19-19 V195: string -> float"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -150,7 +162,7 @@
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
       "value": 35.1,
-      "unit": "Mds €",
+      "unit": "Mds $",
       "yoy": "+3.4%",
       "history": [
         18.34,
@@ -175,14 +187,17 @@
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
       "period_type": "year",
       "_history_extended_at": "2026-06-02T04:43:26.579894+00:00",
-      "_history_source": "SEC EDGAR XBRL SP500 (Assets)"
+      "_history_source": "SEC EDGAR XBRL SP500 (Assets)",
+      "_fix_log": [
+        "SA19-19 V195: currency fix Mds € -> Mds $ (US issuer)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
       "value": 4.233,
-      "unit": "Mds €",
+      "unit": "Mds $",
       "yoy": "+2.4%",
       "history": [
         3.38,
@@ -220,7 +235,8 @@
           "tag": "SA19-08-V195-PATCH",
           "op": "DEDUP_TRAILING",
           "detail": "removed duplicate trailing debt: [3.38, 4.377, 4.361, 4.337, 3.739, 3.242, 4.233, 4.233] → [3.38, 4.377, 4.361, 4.337, 3.739, 3.242, 4.233]"
-        }
+        },
+        "SA19-19 V195: currency fix Mds € -> Mds $ (US issuer)"
       ]
     },
     {
@@ -228,7 +244,7 @@
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
       "value": 2.26,
-      "unit": "Mds €",
+      "unit": "Mds $",
       "yoy": "-36.5%",
       "history": [
         4.28,
@@ -246,7 +262,10 @@
       "is_short_history": true,
       "signal_en": "Cash position eroding, monitor liquidity",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
-      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01"
+      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
+      "_fix_log": [
+        "SA19-19 V195: currency fix Mds € -> Mds $ (US issuer)"
+      ]
     }
   ],
   "stories_kpis": [
