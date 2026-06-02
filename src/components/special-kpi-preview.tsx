@@ -87,7 +87,7 @@ function HeroView({ kpi }: { kpi: SpecialKpi }) {
           </div>
           <div className="mt-4">
             <div className="font-mono text-[48px] font-bold leading-none text-zinc-50">
-              {latest ? fmt(latest.value) : "—"}
+              {latest ? fmt(latest.value) : ", "}
             </div>
             {kpi.kpi_unit && (
               <div className="mt-1 text-[14px] text-zinc-400">{kpi.kpi_unit}</div>
@@ -175,7 +175,7 @@ function ClassiqueRow({ kpi }: { kpi: SpecialKpi }) {
         </div>
         <div className="col-span-3">
           <div className="font-mono text-[26px] font-semibold leading-none text-zinc-50">
-            {latest ? fmt(latest.value) : "—"}
+            {latest ? fmt(latest.value) : ", "}
             {kpi.kpi_unit && (
               <span className="ml-1 text-sm font-normal text-zinc-400">{kpi.kpi_unit}</span>
             )}
@@ -252,7 +252,7 @@ function StoryView({ kpi }: { kpi: SpecialKpi }) {
                 className="font-display font-bold leading-none tracking-tight"
                 style={{ fontSize: "clamp(56px, 18vw, 90px)", color: ACCENT }}
               >
-                {latest ? fmt(latest.value) : "—"}
+                {latest ? fmt(latest.value) : ", "}
               </div>
               {kpi.kpi_unit && (
                 <div className="mt-2 text-[18px] font-semibold text-zinc-100">{kpi.kpi_unit}</div>

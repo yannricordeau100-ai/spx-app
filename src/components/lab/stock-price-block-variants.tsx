@@ -413,7 +413,7 @@ export function StockPriceBlockE({ company }: { company: Company }) {
 }
 
 /* ============================================================ */
-/* F — SOFT WASH inline (rectangle aligné à droite du header)     */
+/* F : SOFT WASH inline (rectangle aligné à droite du header)     */
 /* Variation = élément dominant, prix inline secondaire, marché   */
 /* ouvert en coin haut-droit du rectangle.                        */
 /* ============================================================ */

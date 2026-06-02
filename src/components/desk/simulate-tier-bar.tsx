@@ -82,7 +82,7 @@ export function SimulateTierBar() {
           <option value="">(moi-même = admin réel)</option>
           {TIER_OPTIONS.map((o) => (
             <option key={o.value} value={o.value}>
-              {o.label} — {o.desc}
+              {o.label}, {o.desc}
             </option>
           ))}
         </select>

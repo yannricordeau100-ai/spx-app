@@ -849,7 +849,7 @@ export function CompanyView({
                   label={(() => {
                     const base = `${active.name_fr}${active.name_en && active.name_en !== active.name_fr ? ` (${active.name_en})` : ""}`;
                     const gloss = ACRONYM_GLOSSARY[active.short] ?? TERM_GLOSSARY[active.short] ?? TERM_GLOSSARY[active.name_fr];
-                    return gloss ? `${base} — ${gloss}` : base;
+                    return gloss ? `${base}, ${gloss}` : base;
                   })()}
                 >
                   <span
