@@ -124,7 +124,19 @@
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
       "period_type": "quarter",
-      "_period_type_propagated_at": "2026-06-01T23:13:39.444418+00:00"
+      "_period_type_propagated_at": "2026-06-01T23:13:39.444418+00:00",
+      "_value_basis": "TTM_4Q",
+      "_fix_log": [
+        {
+          "type": "VAL_NE_LAST_TTM_CONFIRMED",
+          "short": "Total Revenue",
+          "value": 33.67,
+          "computed_ttm": 33.67,
+          "note": "value is trailing-twelve-months (sum of last 4 quarters); history is per-quarter",
+          "tag": "SA19-03 batch-03 V1.9.5",
+          "ts": "2026-06-02T21:21:54.780310Z"
+        }
+      ]
     },
     {
       "short": "Net Income",
@@ -244,7 +256,19 @@
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
       "period_type": "year",
       "_history_extended_at": "2026-06-02T04:37:04.961727+00:00",
-      "_history_source": "SEC EDGAR XBRL SP500 (LongTermDebt)"
+      "_history_source": "SEC EDGAR XBRL SP500 (LongTermDebt)",
+      "_fix_log": [
+        {
+          "type": "VAL_NE_LAST_YEAR_MISMATCH",
+          "short": "Total Debt",
+          "value": 8.11,
+          "last": 1.63,
+          "ratio": 4.9755,
+          "note": "period_type=year but value does not match hist[-1]; possibly segment vs total mismatch",
+          "tag": "SA19-03 batch-03 V1.9.5",
+          "ts": "2026-06-02T21:21:54.780310Z"
+        }
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -551,5 +575,16 @@
   "_maj_at": "2026-06-01T21:16:41Z",
   "_maj_by": "Sub-agent Opus MAJ chunk-03",
   "_history_extended_at": "2026-06-02T04:37:04.961774+00:00",
-  "_history_source": "SEC EDGAR XBRL SP500"
+  "_history_source": "SEC EDGAR XBRL SP500",
+  "_fix_log": [
+    {
+      "tag": "SA19-03 batch-03 V1.9.5",
+      "ts": "2026-06-02T21:21:54.780310Z",
+      "n_changes": 2,
+      "types": [
+        "VAL_NE_LAST_TTM_CONFIRMED",
+        "VAL_NE_LAST_YEAR_MISMATCH"
+      ]
+    }
+  ]
 }

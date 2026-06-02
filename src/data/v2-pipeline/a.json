@@ -109,7 +109,19 @@
       "is_short_history": true,
       "_validation": "KPI validated against source MDA (Revenue in Agilent CrossLab business increased 6 percent in 2025, 3 percent in 2024); values and growth percentages confirmed",
       "explanation_en": "Revenue from the Agilent CrossLab segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_fix_log": [
+        {
+          "type": "VAL_NE_LAST_GENERIC",
+          "short": "Agilent CrossLab Revenue",
+          "value": 6.0,
+          "last": 3,
+          "ratio": 2.0,
+          "note": "ecart inexplique value vs hist[-1], a revoir manuellement",
+          "tag": "SA19-03 batch-03 V1.9.5",
+          "ts": "2026-06-02T21:21:54.780310Z"
+        }
+      ]
     },
     {
       "short": "Applied Markets Revenue",
@@ -134,7 +146,26 @@
       "is_short_history": true,
       "_validation": "KPI validated against source MDA (Revenue in Applied Markets segment increased 1 percent in 2025, decreased 7 percent in 2024); values confirmed",
       "explanation_en": "Revenue from the Applied Markets segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_fix_log": [
+        {
+          "type": "NEG_FALSE_POSITIVE_GROWTH_PCT",
+          "short": "Applied Markets Revenue",
+          "note": "metric is growth-percent (unit=%); negative history values are valid yoy variations",
+          "tag": "SA19-03 batch-03 V1.9.5",
+          "ts": "2026-06-02T21:21:54.780310Z"
+        },
+        {
+          "type": "VAL_NE_LAST_GENERIC",
+          "short": "Applied Markets Revenue",
+          "value": 1.0,
+          "last": -7,
+          "ratio": -0.1429,
+          "note": "ecart inexplique value vs hist[-1], a revoir manuellement",
+          "tag": "SA19-03 batch-03 V1.9.5",
+          "ts": "2026-06-02T21:21:54.780310Z"
+        }
+      ]
     },
     {
       "short": "Net Income",
@@ -190,7 +221,19 @@
       "is_generic": true,
       "is_short_history": true,
       "_validation": "Unit confirmed as M$ (millions); values verified from source MDA: October 31 2025: 1789M$, October 31 2024: 1329M$; YoY calculation confirmed (1789-1329)/1329 = 34.6%; history corrected to 2-year format",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_fix_log": [
+        {
+          "type": "VAL_NE_LAST_GENERIC",
+          "short": "Cash Balance",
+          "value": 1789.0,
+          "last": 1329,
+          "ratio": 1.3461,
+          "note": "ecart inexplique value vs hist[-1], a revoir manuellement",
+          "tag": "SA19-03 batch-03 V1.9.5",
+          "ts": "2026-06-02T21:21:54.780310Z"
+        }
+      ]
     },
     {
       "short": "Total Revenue",
@@ -637,5 +680,16 @@
   "_hero_changed_at": "2026-06-01T21:31:13.160881+00:00",
   "_hero_changed_by": "Sub-agent Opus hero-fix chunk-01",
   "_history_extended_at": "2026-06-02T04:34:20.655761+00:00",
-  "_history_source": "SEC EDGAR XBRL SP500"
+  "_history_source": "SEC EDGAR XBRL SP500",
+  "_fix_log": [
+    {
+      "tag": "SA19-03 batch-03 V1.9.5",
+      "ts": "2026-06-02T21:21:54.780310Z",
+      "n_changes": 4,
+      "types": [
+        "NEG_FALSE_POSITIVE_GROWTH_PCT",
+        "VAL_NE_LAST_GENERIC"
+      ]
+    }
+  ]
 }

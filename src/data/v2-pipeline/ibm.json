@@ -100,7 +100,19 @@
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
       "period_type": "quarter",
-      "_period_type_propagated_at": "2026-06-01T23:13:39.625329+00:00"
+      "_period_type_propagated_at": "2026-06-01T23:13:39.625329+00:00",
+      "_value_basis": "TTM_4Q",
+      "_fix_log": [
+        {
+          "type": "VAL_NE_LAST_TTM_CONFIRMED",
+          "short": "Total Revenue",
+          "value": 67.535,
+          "computed_ttm": 68.911,
+          "note": "value is trailing-twelve-months (sum of last 4 quarters); history is per-quarter",
+          "tag": "SA19-03 batch-03 V1.9.5",
+          "ts": "2026-06-02T21:21:54.780310Z"
+        }
+      ]
     },
     {
       "short": "Net Income",
@@ -218,7 +230,19 @@
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
       "period_type": "year",
       "_history_extended_at": "2026-06-02T04:40:51.518490+00:00",
-      "_history_source": "SEC EDGAR XBRL SP500 (LongTermDebtNoncurrent)"
+      "_history_source": "SEC EDGAR XBRL SP500 (LongTermDebtNoncurrent)",
+      "_fix_log": [
+        {
+          "type": "VAL_NE_LAST_YEAR_MISMATCH",
+          "short": "Total Debt",
+          "value": 64.61,
+          "last": 54.84,
+          "ratio": 1.1782,
+          "note": "period_type=year but value does not match hist[-1]; possibly segment vs total mismatch",
+          "tag": "SA19-03 batch-03 V1.9.5",
+          "ts": "2026-06-02T21:21:54.780310Z"
+        }
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -587,5 +611,16 @@
   "_maj_by": "Sub-agent Opus MAJ chunk-06",
   "_maj_at": "2026-06-01T21:12:55.150184Z",
   "_history_extended_at": "2026-06-02T04:40:51.960352+00:00",
-  "_history_source": "SEC EDGAR XBRL SP500"
+  "_history_source": "SEC EDGAR XBRL SP500",
+  "_fix_log": [
+    {
+      "tag": "SA19-03 batch-03 V1.9.5",
+      "ts": "2026-06-02T21:21:54.780310Z",
+      "n_changes": 2,
+      "types": [
+        "VAL_NE_LAST_TTM_CONFIRMED",
+        "VAL_NE_LAST_YEAR_MISMATCH"
+      ]
+    }
+  ]
 }
