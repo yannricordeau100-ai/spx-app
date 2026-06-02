@@ -43,9 +43,10 @@ const PNG_FONT_FAMILY =
   '"Avenir", "Avenir Next", "Avenir Sans", "Nunito Sans", "Open Sans", -apple-system, sans-serif';
 
 /**
- * Raccourcit le label d'axe Y pour le PNG download UNIQUEMENT.
- * Web reste verbeux ("$ en Milliards"), PNG devient compact ("$ Mds").
- * Yann 2 juin 2026 : "distinction entre PNG et web".
+ * Yann 2 juin 2026 v9 : devient OBSOLÈTE. Le live et le PNG utilisent
+ * tous deux le format court "Mds $" via chartAxisHeader. Cette fonction
+ * garde sa rétro-compat (datasets pré-v9 avec "$ en Milliards" résiduels)
+ * mais ne fait plus de transformation dans la majorité des cas.
  */
 function shortenYAxisLabel(label: string | null | undefined): string {
   if (!label) return "";

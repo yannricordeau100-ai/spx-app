@@ -11,9 +11,10 @@
  *     "Mds £", "M £", "Mds CHF", "Mds JPY", "Mds EUR", "Mds DKK", "Mds INR",
  *     "Mds"
  *
- * Sortie : mot complet "Milliards" / "Millions" pour l'axe Y (Yann a
- * explicitement demandé ce verbose, vs l'abréviation utilisée pour les
- * affichages compacts type "23,9 Mds $" à côté de la hero value).
+ * Sortie : forme COURTE "Mds" / "M" pour l'axe Y (Yann 2 juin 2026 v9 :
+ * inversion de la décision précédente, le verbose "en Milliards" prenait
+ * trop de place et n'aidait pas la lecture). Format : "Mds $", "M €",
+ * "Mds CHF" etc., aligné sur CLAUDE.md §6 (B$ -> Mds $).
  */
 
 /**
@@ -24,13 +25,14 @@ type AxisLocale = "fr" | "en" | "en-GB" | "de" | "de-CH" | "nl";
 
 // Yann 17 mai 2026 (v2) : ajout T (Trillions) et K (Milliers) pour couvrir
 // les rescales d'unité time-fraction (ex /minute = $K, /year d'une méga-sté = $T).
+// Yann 2 juin 2026 v9 : forme COURTE (Mds/M) pour l'axe Y, aligné CLAUDE.md §6.
 const SCALE_WORDS: Record<AxisLocale, { T: string; B: string; M: string; K: string }> = {
-  "fr":    { T: "en Billions",    B: "en Milliards",  M: "en Millions",  K: "en Milliers" },
-  "en":    { T: "in Trillions",   B: "in Billions",   M: "in Millions",  K: "in Thousands" },
-  "en-GB": { T: "in Trillions",   B: "in Billions",   M: "in Millions",  K: "in Thousands" },
-  "de":    { T: "in Billionen",   B: "in Milliarden", M: "in Millionen", K: "in Tausend" },
-  "de-CH": { T: "in Billionen",   B: "in Milliarden", M: "in Millionen", K: "in Tausend" },
-  "nl":    { T: "in biljoenen",   B: "in miljarden",  M: "in miljoenen", K: "in duizenden" },
+  "fr":    { T: "Bln",  B: "Mds", M: "M",   K: "K" },
+  "en":    { T: "Tn",   B: "Bn",  M: "M",   K: "K" },
+  "en-GB": { T: "Tn",   B: "Bn",  M: "M",   K: "K" },
+  "de":    { T: "Bio",  B: "Mrd", M: "Mio", K: "Tsd" },
+  "de-CH": { T: "Bio",  B: "Mrd", M: "Mio", K: "Tsd" },
+  "nl":    { T: "Bln",  B: "mld", M: "mln", K: "K" },
 };
 
 export function chartAxisHeader(unit: string, locale: AxisLocale = "fr"): string {
@@ -66,42 +68,42 @@ export function chartAxisHeader(unit: string, locale: AxisLocale = "fr"): string
   };
   const u = map[normalized] ?? normalized;
   switch (u) {
-    // Formats bruts (rare, vient des datasets non encore traités par formatUnit
-    // OU sortie de rescaleForReadability quand time-fraction change l'unité).
-    case "$T": return `$ ${w.T}`;
-    case "$B": return `$ ${w.B}`;
-    case "$M": return `$ ${w.M}`;
-    case "$K": return `$ ${w.K}`;
+    // Yann 2 juin 2026 v9 : format "Mds $" (scale first, currency last)
+    // conforme CLAUDE.md §6 (B$ -> Mds $). Avant : "$ en Milliards".
+    case "$T": return `${w.T} $`;
+    case "$B": return `${w.B} $`;
+    case "$M": return `${w.M} $`;
+    case "$K": return `${w.K} $`;
     case "T":  return w.T;
     case "B":  return w.B;
     case "K":  return w.K;
-    case "€B": return `€ ${w.B}`;
-    case "€M": return `€ ${w.M}`;
-    case "£B": return `£ ${w.B}`;
-    case "£M": return `£ ${w.M}`;
+    case "€B": return `${w.B} €`;
+    case "€M": return `${w.M} €`;
+    case "£B": return `${w.B} £`;
+    case "£M": return `${w.M} £`;
     // Formats déjà rendus par formatUnit() — le cas le plus fréquent
-    case "Mds $": return `$ ${w.B}`;
-    case "M $":   return `$ ${w.M}`;
-    case "Mds €": return `€ ${w.B}`;
-    case "M €":   return `€ ${w.M}`;
-    case "Mds £": return `£ ${w.B}`;
-    case "M £":   return `£ ${w.M}`;
-    case "Mds CHF": return `CHF ${w.B}`;
-    case "Mds JPY": return `JPY ${w.B}`;
-    case "Mds EUR": return `EUR ${w.B}`;
-    case "Mds DKK": return `DKK ${w.B}`;
-    case "Mds INR": return `INR ${w.B}`;
-    case "Mds NOK": return `NOK ${w.B}`;
-    case "Mds SEK": return `SEK ${w.B}`;
-    case "Mds KRW": return `KRW ${w.B}`;
-    case "Mds CAD": return `CAD ${w.B}`;
-    case "Mds AUD": return `AUD ${w.B}`;
-    case "Mds HKD": return `HKD ${w.B}`;
-    case "Mds CNY": return `CNY ${w.B}`;
-    case "Mds BRL": return `BRL ${w.B}`;
-    case "Mds MXN": return `MXN ${w.B}`;
-    case "Mds PLN": return `PLN ${w.B}`;
-    case "Mds ZAR": return `ZAR ${w.B}`;
+    case "Mds $": return `${w.B} $`;
+    case "M $":   return `${w.M} $`;
+    case "Mds €": return `${w.B} €`;
+    case "M €":   return `${w.M} €`;
+    case "Mds £": return `${w.B} £`;
+    case "M £":   return `${w.M} £`;
+    case "Mds CHF": return `${w.B} CHF`;
+    case "Mds JPY": return `${w.B} JPY`;
+    case "Mds EUR": return `${w.B} EUR`;
+    case "Mds DKK": return `${w.B} DKK`;
+    case "Mds INR": return `${w.B} INR`;
+    case "Mds NOK": return `${w.B} NOK`;
+    case "Mds SEK": return `${w.B} SEK`;
+    case "Mds KRW": return `${w.B} KRW`;
+    case "Mds CAD": return `${w.B} CAD`;
+    case "Mds AUD": return `${w.B} AUD`;
+    case "Mds HKD": return `${w.B} HKD`;
+    case "Mds CNY": return `${w.B} CNY`;
+    case "Mds BRL": return `${w.B} BRL`;
+    case "Mds MXN": return `${w.B} MXN`;
+    case "Mds PLN": return `${w.B} PLN`;
+    case "Mds ZAR": return `${w.B} ZAR`;
     case "Mds": return w.B;
     case "M":   return w.M;
     // Pourcentages / nombres bruts
