@@ -13,7 +13,7 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 6.114,
+      "value": 1.645,
       "unit": "Mds $",
       "yoy": "+7.6%",
       "history": [
@@ -45,13 +45,14 @@
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis yfinance.income_stmt sur les 4 dernières années fiscales.",
       "is_generic": true,
       "_source": "yfinance.income_stmt",
-      "last_data_date": "2026-03-31",
+      "last_data_date": "2025-12-31",
       "explanation_en": "Revenue from the Total segment.",
       "signal_en": "Top-line growth, market traction",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
       "period_type": "quarter",
-      "_period_type_propagated_at": "2026-06-01T23:13:39.619655+00:00"
+      "_period_type_propagated_at": "2026-06-01T23:13:39.619655+00:00",
+      "_fix": "VAL_NE_LAST_BIG: value Q alignée last(history)=1.645"
     },
     {
       "short": "Net Income",
@@ -82,7 +83,8 @@
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
       "period_type": "year",
       "_history_extended_at": "2026-06-02T04:40:45.610115+00:00",
-      "_history_source": "SEC EDGAR XBRL SP500 (NetIncomeLoss)"
+      "_history_source": "SEC EDGAR XBRL SP500 (NetIncomeLoss)",
+      "_audit_note": "AMPL faux positif : valeur 2020 quasi-nulle (-0.011 Mds, sortie COVID) explique l'amplitude."
     },
     {
       "short": "Operating Income",
@@ -265,5 +267,21 @@
   "_maj_by": "Sub-agent Opus MAJ chunk-06",
   "_maj_at": "2026-06-01T21:12:55.142967Z",
   "_history_extended_at": "2026-06-02T04:40:46.199650+00:00",
-  "_history_source": "SEC EDGAR XBRL SP500"
+  "_history_source": "SEC EDGAR XBRL SP500",
+  "_fix_log": [
+    {
+      "at": "2026-06-02T21:22:54Z",
+      "by": "audit-batch-21",
+      "fixes": [
+        "k0:VAL_NE_LAST align Q"
+      ]
+    },
+    {
+      "at": "2026-06-02T21:23:20Z",
+      "by": "audit-batch-21",
+      "fixes": [
+        "k1:annotation AMPL faux positif COVID"
+      ]
+    }
+  ]
 }

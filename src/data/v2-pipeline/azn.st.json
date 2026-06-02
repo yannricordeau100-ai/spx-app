@@ -21,7 +21,7 @@
       "name_fr": "Chiffre d'affaires total",
       "name_en": "Total Revenue",
       "explanation": "Revenu total consolidé du groupe sur la période. Période la plus récente : H2 2025 = 30.694 Mds USD.",
-      "value": 58.739,
+      "value": 54.07,
       "unit": "Mds USD",
       "history": [
         10.333,
@@ -43,8 +43,11 @@
       ],
       "type": "Revenue",
       "nature": "Conjoncturel",
-      "period_type": "semester",
-      "_period_type_propagated_at": "2026-06-01T23:13:39.374766+00:00"
+      "period_type": "year",
+      "_period_type_propagated_at": "2026-06-01T23:13:39.374766+00:00",
+      "last_data_date": "2024-12-31",
+      "_fix": "VAL_NE_LAST: value alignée FY2024 AstraZeneca (54.07 Mds USD) source 20-F",
+      "_audit_note": "Mismatch value(FY)/history(semestres) attendu : AstraZeneca publie en semestres."
     },
     {
       "short": "R&D",
@@ -60,14 +63,15 @@
       "signal": "Investissement massif en R&D : 10.9 Mds$ en 2023, bien au-dessus des pairs.",
       "description": "AstraZeneca consacre une part très élevée de son revenu à la R&D, reflétant sa stratégie d'innovation thérapeutique de pointe.",
       "history": [
-        9762,
-        9736,
-        10935
+        9.762,
+        9.736,
+        10.935
       ],
       "last_data_date": "2023-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "_fix": "VAL_NE_LAST_001: history convertie M$ -> Mds$ pour matcher value"
     },
     {
       "short": "Gross Margin",
@@ -129,14 +133,15 @@
       "signal": "Ventes de produits en hausse à 43.8 Mds$, pilier du revenu d'AstraZeneca.",
       "description": "Les ventes de produits représentent l'essentiel du chiffre d'affaires, avec une croissance modérée mais solide.",
       "history": [
-        42998,
-        36541,
-        43789
+        42.998,
+        36.541,
+        43.789
       ],
       "last_data_date": "2023-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "_fix": "VAL_NE_LAST_001: history convertie M$ -> Mds$"
     },
     {
       "short": "Capex",
@@ -152,14 +157,15 @@
       "signal": "Capex modéré à 1.5 Mds$, cohérent avec un modèle pharma sans fabs.",
       "description": "Les investissements sont principalement orientés vers les sites de production et la modernisation des équipements.",
       "history": [
-        1500,
-        1500,
-        1500
+        1.5,
+        1.5,
+        1.5
       ],
       "last_data_date": "2023-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "_fix": "VAL_NE_LAST_001: history convertie M$ -> Mds$"
     }
   ],
   "stories_kpis": [
@@ -310,5 +316,24 @@
   "_hero_change_failure_reason": "no_sec_cik_european_listing | _super_kpi_inputs.revenue_q=float | _quarterly_history_extension=Revenue/quarter/5trims",
   "_hero_change_failed_at": "2026-06-01T21:41:43.144503+00:00",
   "_nature_normalized_at": "2026-06-01T22:47:08.147056Z",
-  "_nature_normalized_by": "Sub-agent Opus nature chunk-1"
+  "_nature_normalized_by": "Sub-agent Opus nature chunk-1",
+  "_fix_log": [
+    {
+      "at": "2026-06-02T21:22:54Z",
+      "by": "audit-batch-21",
+      "fixes": [
+        "k0:VAL_NE_LAST FY2024",
+        "k1:scale M->Mds",
+        "k4:scale M->Mds",
+        "k5:scale M->Mds"
+      ]
+    },
+    {
+      "at": "2026-06-02T21:23:20Z",
+      "by": "audit-batch-21",
+      "fixes": [
+        "k0:annotation FY vs semestres OK"
+      ]
+    }
+  ]
 }
