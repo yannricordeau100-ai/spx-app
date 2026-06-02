@@ -1423,7 +1423,80 @@ function cashQuality(c: Company, locale: Locale): SuperKpi {
   };
 }
 
-/** Calcule les 2 super-KPIs sector-specific d'une société. */
+// Yann 2 juin 2026 v10 : sector router pour 23 secteurs V1.9.5
+// (modules sous src/lib/sector-super-kpi/<sector>.ts).
+import * as banksUs from "@/lib/sector-super-kpi/banks-us";
+import * as insurance from "@/lib/sector-super-kpi/insurance";
+import * as pharma from "@/lib/sector-super-kpi/pharma";
+import * as biotech from "@/lib/sector-super-kpi/biotech";
+import * as healthcareServices from "@/lib/sector-super-kpi/healthcare-services";
+import * as energyOg from "@/lib/sector-super-kpi/energy-og";
+import * as utilities from "@/lib/sector-super-kpi/utilities";
+import * as miningMetals from "@/lib/sector-super-kpi/mining-metals";
+import * as techSaas from "@/lib/sector-super-kpi/tech-saas";
+import * as semis from "@/lib/sector-super-kpi/semis";
+import * as hardware from "@/lib/sector-super-kpi/hardware";
+import * as mediaStreaming from "@/lib/sector-super-kpi/media-streaming";
+import * as telecom from "@/lib/sector-super-kpi/telecom";
+import * as retailConsumer from "@/lib/sector-super-kpi/retail-consumer";
+import * as auto from "@/lib/sector-super-kpi/auto";
+import * as industrialHeavy from "@/lib/sector-super-kpi/industrial-heavy";
+import * as aeroDefense from "@/lib/sector-super-kpi/aero-defense";
+import * as chemicals from "@/lib/sector-super-kpi/chemicals";
+import * as reit from "@/lib/sector-super-kpi/reit";
+import * as travelHospitality from "@/lib/sector-super-kpi/travel-hospitality";
+import * as restaurants from "@/lib/sector-super-kpi/restaurants";
+import * as logisticsTransport from "@/lib/sector-super-kpi/logistics-transport";
+import * as assetMgmt from "@/lib/sector-super-kpi/asset-mgmt";
+
+type SectorComputer = (c: Company, locale: Locale) => SuperKpi;
+
+
+function normalizeSectorKpis(arr: unknown): SectorComputer[] {
+  if (!Array.isArray(arr)) return [];
+  const out: SectorComputer[] = [];
+  for (const item of arr) {
+    if (typeof item === "function") {
+      out.push(item as SectorComputer);
+    } else if (item && typeof item === "object" && "compute" in item && typeof (item as { compute: unknown }).compute === "function") {
+      out.push((item as { compute: SectorComputer }).compute);
+    }
+  }
+  return out;
+}
+
+function pickSectorKpis(c: Company): SectorComputer[] {
+  const sector = ((c as unknown as { sector?: string }).sector || "").toLowerCase();
+  const sub = ((c as unknown as { subsector?: string }).subsector || (c as unknown as { industry?: string }).industry || "").toLowerCase();
+  const all = `${sector} ${sub}`;
+  // Plus spécifique d'abord (banks/insurance avant finance generic, etc.)
+  if (/bank|banque/.test(sub) && /finance|financial/.test(sector)) return normalizeSectorKpis(banksUs.SECTOR_KPIS);
+  if (/insur|assur|reinsur/.test(all)) return normalizeSectorKpis(insurance.SECTOR_KPIS);
+  if (/biotech|genomics|biol/.test(all)) return normalizeSectorKpis(biotech.SECTOR_KPIS);
+  if (/pharma|pharmaceutical|drug|medic/.test(all)) return normalizeSectorKpis(pharma.SECTOR_KPIS);
+  if (/health care|healthcare|manag care|hospital|med dev/.test(all)) return normalizeSectorKpis(healthcareServices.SECTOR_KPIS);
+  if (/energ|oil|gas|petroleum/.test(all)) return normalizeSectorKpis(energyOg.SECTOR_KPIS);
+  if (/utilit|services aux collectivit/.test(all)) return normalizeSectorKpis(utilities.SECTOR_KPIS);
+  if (/mining|gold|copper|silver|metal|material/.test(all)) return normalizeSectorKpis(miningMetals.SECTOR_KPIS);
+  if (/semi|chip|silicon/.test(all)) return normalizeSectorKpis(semis.SECTOR_KPIS);
+  if (/software|application|saas|platform|interactive media/.test(all)) return normalizeSectorKpis(techSaas.SECTOR_KPIS);
+  if (/hardware|computer|networking|communication equipment/.test(all)) return normalizeSectorKpis(hardware.SECTOR_KPIS);
+  if (/media|entertainment|broadcast|publish|content/.test(all)) return normalizeSectorKpis(mediaStreaming.SECTOR_KPIS);
+  if (/telecom|wireless|mobile/.test(all)) return normalizeSectorKpis(telecom.SECTOR_KPIS);
+  if (/aerospace|defense|aircraft/.test(all)) return normalizeSectorKpis(aeroDefense.SECTOR_KPIS);
+  if (/auto|vehicle|car|tire|automotive/.test(all)) return normalizeSectorKpis(auto.SECTOR_KPIS);
+  if (/restaurant|dining|quick service/.test(all)) return normalizeSectorKpis(restaurants.SECTOR_KPIS);
+  if (/hotel|airline|cruise|lodging|resort/.test(all)) return normalizeSectorKpis(travelHospitality.SECTOR_KPIS);
+  if (/retail|store|mass market|specialty/.test(all)) return normalizeSectorKpis(retailConsumer.SECTOR_KPIS);
+  if (/transport|logistic|rail|trucking|freight|shipping/.test(all)) return normalizeSectorKpis(logisticsTransport.SECTOR_KPIS);
+  if (/asset management|investment|wealth management|capital market|exchang/.test(all)) return normalizeSectorKpis(assetMgmt.SECTOR_KPIS);
+  if (/machinery|heavy|industrial conglomerate|building products/.test(all)) return normalizeSectorKpis(industrialHeavy.SECTOR_KPIS);
+  if (/chemic|specialty chem|industrial gas/.test(all)) return normalizeSectorKpis(chemicals.SECTOR_KPIS);
+  if (/immobil|real estate|reit/.test(all)) return normalizeSectorKpis(reit.SECTOR_KPIS);
+  return [];
+}
+
+/** Calcule 2 super-KPIs sector-specific. V1 5 stés gardent leurs surcharges. */
 export function computeSectorSuperKpis(c: Company, locale: Locale = "en"): SuperKpi[] {
   switch (c.ticker) {
     case "GOOGL":
@@ -1436,7 +1509,9 @@ export function computeSectorSuperKpis(c: Company, locale: Locale = "en"): Super
       return [spgiMixPremium(c, locale), vitalityIndex(c, locale)];
     case "CAT":
       return [backlogCoverage(c, locale), cashQuality(c, locale)];
-    default:
-      return [];
+    default: {
+      const computers = pickSectorKpis(c);
+      return computers.map((fn) => fn(c, locale));
+    }
   }
 }
