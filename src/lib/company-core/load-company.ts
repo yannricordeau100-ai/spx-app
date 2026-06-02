@@ -1448,6 +1448,71 @@ export async function loadV17Company(
       // Fail-safe : si BDD inaccessible, on continue sans special KPIs.
       console.warn(`special_kpis merge failed for ${ticker}:`, err);
     }
+    // Yann (2 juin 2026) : merge auto des KPIs créés via /sandbox/kpi-builder
+    // qui ont été extraits par le worker (status === "done", result avec value).
+    // Source : Supabase desk_kpi_requests. Complète le merge desk_special_kpis
+    // (manuel) ci-dessus avec les KPIs auto-extraits.
+    try {
+      const { createClient } = await import("@supabase/supabase-js");
+      const sb = createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.SUPABASE_SERVICE_ROLE_KEY!,
+      );
+      const upTicker = ticker.toUpperCase();
+      const { data: kpiReqs } = await sb
+        .from("desk_kpi_requests")
+        .select("*")
+        .contains("tickers", [upTicker])
+        .eq("status", "done");
+      if (Array.isArray(kpiReqs) && kpiReqs.length > 0 && Array.isArray(data.kpis)) {
+        for (const req of kpiReqs as Array<Record<string, unknown>>) {
+          const results = Array.isArray(req.results) ? (req.results as Array<Record<string, unknown>>) : [];
+          const result = results.find(
+            (r) =>
+              typeof r?.ticker === "string" &&
+              (r.ticker as string).toUpperCase() === upTicker &&
+              r?.value != null,
+          );
+          if (!result) continue;
+          const kpiNameFr = typeof req.kpi_name_fr === "string" ? req.kpi_name_fr : "";
+          const kpiNameEn = typeof req.kpi_name_en === "string" ? req.kpi_name_en : "";
+          const short =
+            (typeof req.kpi_short === "string" && req.kpi_short) ||
+            (kpiNameFr ? kpiNameFr.slice(0, 30) : "") ||
+            (kpiNameEn ? kpiNameEn.slice(0, 30) : "");
+          if (!short) continue;
+          if ((data.kpis as AnyKPI[]).some((k) => k?.short === short)) continue;
+          const histRaw = result.history;
+          const value = result.value as number | string;
+          const historyArr = Array.isArray(histRaw)
+            ? (histRaw as Array<number>)
+            : [typeof value === "number" ? value : Number(value)];
+          const kpiCategory = typeof req.kpi_category === "string" ? req.kpi_category : "";
+          const kpi: AnyKPI = {
+            short,
+            name_fr: kpiNameFr || short,
+            name_en: kpiNameEn || short,
+            value,
+            unit: (result.unit as string) ?? (typeof req.kpi_unit === "string" ? req.kpi_unit : "") ?? "",
+            yoy: (result.yoy as number | string | null) ?? null,
+            type: kpiCategory || "Volume",
+            nature: mapKpiCategoryToNature(kpiCategory),
+            comparable: false,
+            history: historyArr,
+            period_type: (result.period_type as string) ?? "year",
+            signal: (result.signal as string) ?? "",
+            description: (result.description as string) ?? "",
+            explanation: kpiNameFr || short,
+            is_wow: true,
+            is_short_history: historyArr.length < 5,
+          };
+          (data.kpis as AnyKPI[]).push(kpi);
+        }
+      }
+    } catch (err) {
+      // Fail-safe : si BDD inaccessible, on continue sans kpi_requests.
+      console.warn(`kpi_requests merge failed for ${ticker}:`, err);
+    }
     // Image findings approuvés (Yann 15 mai 2026) — bloc "Graphiques et
     // Schémas de sources diverses".
     try {
