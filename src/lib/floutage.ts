@@ -34,7 +34,13 @@ export function applyFloutageRules(rules: FloutageRule[]): () => void {
     return () => {};
   }
 
-  const touched: { el: HTMLElement; prevFilter: string; prevDataset: string | undefined }[] = [];
+  const touched: {
+    el: HTMLElement;
+    prevFilter: string;
+    prevBoxDecorationBreak: string;
+    prevWebkitBoxDecorationBreak: string;
+    prevDataset: string | undefined;
+  }[] = [];
 
   for (const rule of rules) {
     let els: NodeListOf<Element> | null = null;
@@ -50,6 +56,8 @@ export function applyFloutageRules(rules: FloutageRule[]): () => void {
       touched.push({
         el,
         prevFilter: el.style.filter,
+        prevBoxDecorationBreak: el.style.boxDecorationBreak,
+        prevWebkitBoxDecorationBreak: (el.style as unknown as Record<string, string>)["webkitBoxDecorationBreak"] ?? "",
         prevDataset: el.dataset.floutageApplied,
       });
       if (rule.action === "hide") {
@@ -58,6 +66,12 @@ export function applyFloutageRules(rules: FloutageRule[]): () => void {
         el.style.filter = "blur(8px)";
         el.style.userSelect = "none";
         el.style.pointerEvents = "none";
+        // Yann 2 juin 2026 : flou adaptatif multi-lignes.
+        // box-decoration-break:clone permet au filter:blur de s'appliquer
+        // ligne par ligne sur un span inline qui wrap. Sans ça, le blur
+        // dessine un seul rectangle englobant qui mord sur le texte voisin.
+        el.style.boxDecorationBreak = "clone";
+        (el.style as unknown as Record<string, string>)["webkitBoxDecorationBreak"] = "clone";
       }
       el.dataset.floutageApplied = "1";
       el.dataset.floutageLabel = rule.label;
@@ -70,6 +84,8 @@ export function applyFloutageRules(rules: FloutageRule[]): () => void {
       t.el.style.visibility = "";
       t.el.style.userSelect = "";
       t.el.style.pointerEvents = "";
+      t.el.style.boxDecorationBreak = t.prevBoxDecorationBreak;
+      (t.el.style as unknown as Record<string, string>)["webkitBoxDecorationBreak"] = t.prevWebkitBoxDecorationBreak;
       if (t.prevDataset === undefined) {
         delete t.el.dataset.floutageApplied;
       }

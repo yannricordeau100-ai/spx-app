@@ -6,6 +6,26 @@ import { normalizeNarrative } from "@/lib/ui-fix-templates";
 import { useT } from "@/lib/i18n/provider";
 import { AutoTooltipText } from "@/components/auto-tooltip-text";
 
+/**
+ * Wrappe la portion qui vient APRÈS "Le KPI principal" dans un span
+ * `floutage-target` pour permettre au flou adaptatif multi-lignes de
+ * s'appliquer sur la valeur sensible uniquement (pas sur le préfixe).
+ *
+ * Si "Le KPI principal" n'est pas trouvé dans le texte (autre langue,
+ * autre formulation), on wrap tout le texte par défaut.
+ */
+function wrapHeroInterpretation(html: string): string {
+  const marker = "Le KPI principal";
+  const idx = html.indexOf(marker);
+  if (idx < 0) {
+    return `<span class="floutage-target" data-floutage-zone="hero_interpretation_value">${html}</span>`;
+  }
+  const prefix = html.slice(0, idx + marker.length);
+  const rest = html.slice(idx + marker.length);
+  if (!rest.trim()) return html;
+  return `${prefix}<span class="floutage-target" data-floutage-zone="hero_interpretation_value">${rest}</span>`;
+}
+
 const TONE: Record<
   InterpretTone,
   { color: string; bg: string; icon: typeof ArrowUpRight }
@@ -36,10 +56,17 @@ export function InterpretationBlock({
       {/* Yann 27 mai 2026 : restore HTML rendering pour <strong>/<em>.
           AutoTooltipText escape le HTML → tags rendus comme texte brut.
           Fix : dangerouslySetInnerHTML directement (sécurisé car le texte
-          vient de notre pipeline contrôlé, pas user input). */}
+          vient de notre pipeline contrôlé, pas user input).
+
+          Yann 2 juin 2026 : flou adaptatif multi-lignes.
+          La portion qui vient APRÈS "Le KPI principal" est wrappée dans
+          un <span class="floutage-target" data-floutage-zone="hero_interpretation_value">.
+          Le span est inline + box-decoration-break:clone côté CSS, ce qui
+          permet au blur de suivre naturellement le texte sur 1 ou N lignes
+          (cas Google : interpretation qui passe sur 2 lignes). */}
       <p
         className="text-[15.5px] leading-relaxed text-zinc-100 [&_em]:italic [&_em]:text-zinc-200 [&_strong]:font-semibold [&_strong]:text-zinc-50"
-        dangerouslySetInnerHTML={{ __html: normalizeNarrative(block.lead) }}
+        dangerouslySetInnerHTML={{ __html: wrapHeroInterpretation(normalizeNarrative(block.lead)) }}
       />
 
       <ul className="mt-5 grid gap-3">
