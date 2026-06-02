@@ -102,7 +102,7 @@
       "name_fr": "Marge brute",
       "name_en": "Gross Margin",
       "explanation": "Marge brute consolidée",
-      "value": "...",
+      "value": 59.2,
       "unit": "%",
       "yoy": "...",
       "type": "Margin",
@@ -116,7 +116,8 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "KPI incomplet: valeur de marge brute non disponible dans l'extrait de source fourni",
-      "explanation_en": "Gross Margin, gross profit divided by revenue."
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "_fix_source": "yfinance placeholder auto-fix"
     },
     {
       "short": "R&D",
@@ -124,41 +125,76 @@
       "name_en": "Research and Development Investments",
       "explanation": "Dépenses R&D en pourcentage du revenu net sur trois ans",
       "value": "5",
-      "unit": "%",
+      "unit": "Mds $",
       "yoy": "...",
       "type": "Investment",
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Innovation continue avec 5% du chiffre d'affaires consacré à R&D",
       "description": "MTD a investi 574M$ en R&D sur trois ans, soit environ 5% du chiffre d'affaires net",
-      "history": [],
+      "history": [
+        0.046,
+        0.049,
+        0.051,
+        0.053,
+        0.051
+      ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Valeur vérifiée: 5% basé sur source MDA ('In the last three years, we spent a total of 574 million on research and development, reflecting approximately 5% of net sales')",
-      "explanation_en": "Research & Development expenses."
+      "explanation_en": "Research & Development expenses.",
+      "history_periods": [
+        "Q1 2025",
+        "Q2 2025",
+        "Q3 2025",
+        "Q4 2025",
+        "Q1 2026"
+      ],
+      "period_type": "quarter",
+      "_fix_log": [
+        "SA22-local quarterly via yfinance Research And Development"
+      ]
     },
     {
       "short": "Capex",
       "name_fr": "Investissements en capital",
       "name_en": "Capital Expenditures",
       "explanation": "Capex annuel",
-      "value": "...",
-      "unit": "M $",
+      "value": 0.11,
+      "unit": "Mds $",
       "yoy": "...",
       "type": "Investment",
       "nature": "Cyclique",
       "comparable": "Comparable",
       "signal": "...",
       "description": "...",
-      "history": [],
+      "history": [
+        0.017,
+        0.024,
+        0.024,
+        0.042,
+        0.017
+      ],
       "last_data_date": "...",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Unité corrigée de '$B' à '$M'; valeur manquante dans l'extrait de source fourni",
-      "explanation_en": "Capital Expenditures, investments in property, plant and equipment."
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "_fix_source": "yfinance auto-fill super-KPI input",
+      "history_periods": [
+        "Q1 2025",
+        "Q2 2025",
+        "Q3 2025",
+        "Q4 2025",
+        "Q1 2026"
+      ],
+      "period_type": "quarter",
+      "_fix_log": [
+        "SA22-local quarterly via yfinance Capital Expenditure"
+      ]
     },
     {
       "short": "Service / ARR",
@@ -196,7 +232,7 @@
       "name_fr": "Effectif total",
       "name_en": "Total Employees",
       "explanation": "Nombre d'employés total",
-      "value": "...",
+      "value": 16.6,
       "unit": "K",
       "yoy": "...",
       "type": "Investment",
@@ -210,7 +246,8 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "KPI incomplet: valeur d'effectif total non disponible dans l'extrait de source fourni",
-      "explanation_en": "Headcount, total number of employees at period end."
+      "explanation_en": "Headcount, total number of employees at period end.",
+      "_fix_source": "yfinance placeholder auto-fix"
     },
     {
       "short": "Net Sales",
@@ -253,14 +290,11 @@
       "unit": "Mds $",
       "yoy": "+4.0%",
       "history": [
-        2.379,
-        3.009,
-        3.085,
-        3.718,
-        3.92,
-        3.788,
-        3.872,
-        4.026
+        0.884,
+        0.983,
+        1.03,
+        1.13,
+        0.947
       ],
       "type": "Revenue",
       "nature": "Conjoncturel",
@@ -272,7 +306,18 @@
       "explanation_en": "Revenue from the Total segment.",
       "signal_en": "Top-line growth, market traction",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
-      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01"
+      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
+      "history_periods": [
+        "Q1 2025",
+        "Q2 2025",
+        "Q3 2025",
+        "Q4 2025",
+        "Q1 2026"
+      ],
+      "period_type": "quarter",
+      "_fix_log": [
+        "SA22-local quarterly via yfinance Total Revenue"
+      ]
     },
     {
       "short": "Net Income",
@@ -282,14 +327,11 @@
       "unit": "Mds $",
       "yoy": "+0.7%",
       "history": [
-        0.306,
-        0.561,
-        0.603,
-        0.769,
-        0.873,
-        0.789,
-        0.863,
-        0.869
+        0.164,
+        0.202,
+        0.217,
+        0.286,
+        0.169
       ],
       "type": "Profit",
       "nature": "Conjoncturel",
@@ -301,7 +343,18 @@
       "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability improving, returns strengthening",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
-      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01"
+      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
+      "history_periods": [
+        "Q1 2025",
+        "Q2 2025",
+        "Q3 2025",
+        "Q4 2025",
+        "Q1 2026"
+      ],
+      "period_type": "quarter",
+      "_fix_log": [
+        "SA22-local quarterly via yfinance Net Income"
+      ]
     }
   ],
   "stories_kpis": [
