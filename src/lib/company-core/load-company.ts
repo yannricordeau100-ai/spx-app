@@ -1139,6 +1139,82 @@ export async function loadV17Company(
         }
       }
     }
+    // Yann 2 juin 2026 — MERGE FORMAT OBJET `_quarterly_history_extension`.
+    // 492 stés ont un payload de la forme :
+    //   {
+    //     hero_kpi_short: "Microsoft Cloud",
+    //     period_type: "quarter",
+    //     history: [{quarter:"Q1 2020", value:35.021, date:"...", source:"..."}, ...]
+    //   }
+    // Ce format n'était PAS mergé avant (les blocs existants attendent
+    // `history: number[]` ou `kpis: [...]`). Effet : extension du hero KPI
+    // (matching fuzzy par short) avec les valeurs trimestrielles, en
+    // forçant period_type="quarter" si applicable.
+    if (
+      enrich._quarterly_history_extension
+      && typeof enrich._quarterly_history_extension === "object"
+      && Array.isArray(data.kpis)
+    ) {
+      const qhe = enrich._quarterly_history_extension as {
+        hero_kpi_short?: string;
+        period_type?: string;
+        history?: unknown;
+        last_data_date?: string;
+        unit?: string;
+      };
+      const rawHist = Array.isArray(qhe.history) ? qhe.history : [];
+      const isObjectFormat = rawHist.length > 0
+        && typeof rawHist[0] === "object"
+        && rawHist[0] !== null
+        && !Array.isArray(rawHist[0]);
+      if (isObjectFormat && qhe.period_type === "quarter" && qhe.hero_kpi_short) {
+        const values: number[] = [];
+        const periods: string[] = [];
+        let lastDate: string | undefined;
+        for (const item of rawHist as Array<Record<string, unknown>>) {
+          if (!item || typeof item !== "object") continue;
+          const v = item.value;
+          if (typeof v !== "number" || !Number.isFinite(v)) continue;
+          values.push(v);
+          const q = typeof item.quarter === "string"
+            ? item.quarter
+            : typeof item.period === "string"
+              ? item.period
+              : undefined;
+          if (q) periods.push(q);
+          const d = typeof item.date === "string" ? item.date : undefined;
+          if (d) lastDate = d;
+        }
+        if (values.length >= 4) {
+          const extShortLow = qhe.hero_kpi_short.toLowerCase();
+          const heroShort = data.hero_kpi as string | undefined;
+          // Match prioritaire : hero_kpi puis fuzzy substring.
+          const heroKpi = (data.kpis as AnyKPI[]).find((k) => {
+            if (!k || typeof k !== "object") return false;
+            const s = (typeof k.short === "string" ? k.short : "").toLowerCase();
+            if (heroShort && s === heroShort.toLowerCase()) return true;
+            return s === extShortLow || s.includes(extShortLow) || extShortLow.includes(s);
+          });
+          if (heroKpi) {
+            const curLen = Array.isArray(heroKpi.history) ? heroKpi.history.length : 0;
+            const isQuarterAlready = (heroKpi as AnyKPI).period_type === "quarter";
+            // Anti-écrasement : si le hero KPI est déjà quarter avec
+            // h >= values.length, on garde l'existant. Sinon on
+            // remplace par les valeurs trimestrielles extraites.
+            if (!isQuarterAlready || values.length > curLen) {
+              (heroKpi as AnyKPI).history = values;
+              (heroKpi as AnyKPI).period_type = "quarter";
+              if (periods.length === values.length) {
+                (heroKpi as AnyKPI).history_periods = periods;
+              }
+              if (lastDate) (heroKpi as AnyKPI).last_data_date = lastDate;
+              if (qhe.unit) (heroKpi as AnyKPI).unit = qhe.unit;
+              (heroKpi as AnyKPI).is_short_history = values.length < 3;
+            }
+          }
+        }
+      }
+    }
     // Yann 30 mai 2026 — MISSION 4b · MERGE MULTI-KPI QUARTERLY EXTENSION.
     // Produit par scripts/merge-quarterly-to-hq-180.py sur 180 stés haute
     // qualité (union v2-pipeline-kpi-v2 + v2-pipeline-exhaustive).
