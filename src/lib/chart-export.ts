@@ -224,7 +224,10 @@ export async function downloadSvgAsPng(
   // "0" et "5" de "2025", soit ~10px). Yann 2 juin 2026 v8.
   const PAD_TOP = 150;
   const PAD_SIDE = 36;
-  const PAD_BOTTOM = 64;
+  // Yann 2 juin 2026 v10 : PAD_BOTTOM réduit à 50 pour rapprocher la
+  // signature des labels X. Logo height 36 + margin 4 = 40 + 10px gap
+  // au-dessus du label X = 50px total nécessaire après origH.
+  const PAD_BOTTOM = 50;
 
   // Nouveau viewBox englobant le contenu original + le padding.
   const newW = origW + PAD_SIDE * 2;
@@ -283,11 +286,11 @@ export async function downloadSvgAsPng(
   // Aligné DROITE sur la fin du graph (= bord droit dernière date axe X).
   const wmRightX = origX + origW;
   const wmStartX = wmRightX - wmTotalW;
-  // Yann 2 juin 2026 v9 : signature TRÈS proche du label X (distance ~10px
-  // identique au gap entre "0" et "5" du label "2025"). Les labels X
-  // occupent l'espace origH+0 à origH+38 (T1/T2... puis année). On place
-  // le watermark à origH+45 = ~10px sous la fin des labels.
-  const wmY = origY + origH + 45;
+  // Yann 2 juin 2026 v10 : les labels X sont rendus À L'INTÉRIEUR du
+  // viewBox original (entre origY+origH-30 et origY+origH). La signature
+  // doit donc être posée à origY+origH+10 (= ~10px sous le bas visuel
+  // du chart, identique au gap "0"-"5" du label "2025").
+  const wmY = origY + origH + 10;
   const wmTextCenterX = wmStartX + KPIS_DATA_BY_TEXT_W / 2;
   const wmLogoX = wmStartX + KPIS_DATA_BY_TEXT_W + WM_GAP;
 

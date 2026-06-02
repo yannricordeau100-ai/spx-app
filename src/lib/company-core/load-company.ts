@@ -1167,7 +1167,13 @@ export async function loadV17Company(
         && typeof rawHist[0] === "object"
         && rawHist[0] !== null
         && !Array.isArray(rawHist[0]);
-      if (isObjectFormat && qhe.period_type === "quarter" && qhe.hero_kpi_short) {
+      // Yann 2 juin 2026 v10 : accepte aussi "semester" pour les stés EU
+      // semestrielles (BN.PA, ROG.SW, etc.).
+      if (
+        isObjectFormat
+        && (qhe.period_type === "quarter" || qhe.period_type === "semester")
+        && qhe.hero_kpi_short
+      ) {
         const values: number[] = [];
         const periods: string[] = [];
         let lastDate: string | undefined;
@@ -1295,7 +1301,8 @@ export async function loadV17Company(
             // Le bloc XBRL plus haut (~ligne 921+) gère déjà les merges
             // intelligents pour ces cas. Évite de doubler / régresser.
             const curPeriod = typeof k.period_type === "string" ? k.period_type : "";
-            if (curPeriod.toLowerCase() === "quarter") return k;
+            // Yann 2 juin 2026 v10 : skip si KPI déjà natif quarter OU semester.
+            if (curPeriod.toLowerCase() === "quarter" || curPeriod.toLowerCase() === "semester") return k;
             // Récupère history_periods / last_data_date / unit du quarterly
             // s'ils sont présents, sinon laisse intact côté KPI canonique.
             const qPeriods = Array.isArray(ek.history_periods)
@@ -1303,11 +1310,16 @@ export async function loadV17Company(
               : undefined;
             const qLastDate = typeof ek.last_data_date === "string" ? ek.last_data_date : undefined;
             const qUnit = typeof ek.unit === "string" ? ek.unit : undefined;
+            // Yann 2 juin 2026 v10 : propage period_type depuis ek
+            // ("semester" pour EU, "quarter" pour US/Canada/FPI).
+            const ekPeriod = typeof ek.period_type === "string"
+              ? ek.period_type
+              : "quarter";
             return {
               ...k,
               history: qHist,
               history_periods: qPeriods && qPeriods.length === qHist.length ? qPeriods : k.history_periods,
-              period_type: "quarter",
+              period_type: ekPeriod,
               last_data_date: qLastDate ?? (k as AnyKPI & { last_data_date?: string }).last_data_date,
               unit: qUnit ?? k.unit,
               is_short_history: qHist.length < 3,
