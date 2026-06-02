@@ -160,15 +160,17 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
           apparaisse aussi dans l'export PNG. Demande Yann 5 mai 2026.
           Yann 17 mai 2026 : label décalé vers le haut (y=22 → y=10) pour
           aérer la zone entre le label et le tick Y le plus haut. */}
+      {/* Yann 2 juin 2026 : repositionné juste au-dessus du premier tick Y
+          (PAD_TOP - 14), aligné fin sur l'axe Y, cohérent web + PNG. */}
       {header && (
         <text
-          x={yOnRight ? PAD_LEFT + INNER_W : PAD_LEFT}
-          y={10}
+          x={yOnRight ? PAD_LEFT + INNER_W + 20 : PAD_LEFT - 20}
+          y={PAD_TOP - 14}
           fontSize={13}
           fontWeight={600}
           fill="#e4e4e7"
           fontFamily="ui-monospace, monospace"
-          textAnchor={yOnRight ? "end" : "start"}
+          textAnchor={yOnRight ? "start" : "end"}
         >
           {header}
         </text>

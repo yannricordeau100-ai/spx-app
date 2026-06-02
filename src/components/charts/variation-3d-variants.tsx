@@ -93,8 +93,9 @@ export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, ex
   return (
     <div className="relative w-full">
     <svg ref={svgRef} width="100%" height="420" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" style={{ overflow: "visible" }}>
-      {/* Header d'unité dans le SVG pour qu'il apparaisse aussi dans l'export. */}
-      <text x={PAD_LEFT} y={22} fontSize={13} fontWeight={600} fill="#e4e4e7" fontFamily="ui-monospace, monospace">
+      {/* Header d'unité dans le SVG. Yann 2 juin 2026 : repositionné
+          juste au-dessus du premier tick Y, aligné fin sur l'axe Y. */}
+      <text x={PAD_LEFT - 20} y={PAD_TOP - 14} fontSize={13} fontWeight={600} fill="#e4e4e7" fontFamily="ui-monospace, monospace" textAnchor="end">
         % (vs N-1)
       </text>
       <defs>

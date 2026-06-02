@@ -125,6 +125,28 @@ export async function downloadSvgAsPng(
     }
   });
 
+  // Yann 2 juin 2026 (v6) : nettoyage agressif "point top-left" entouré
+  // jaune sur capture Yann. Supprime tout <circle> isolé hors zone chart
+  // (y < 20 dans le viewBox SVG d'origine) qui pourrait être un artefact
+  // de mini-logo, indicateur de focus React, ou élément décoratif perdu.
+  clone.querySelectorAll("circle").forEach((c) => {
+    const cy = parseFloat(c.getAttribute("cy") || "0");
+    const cx = parseFloat(c.getAttribute("cx") || "0");
+    // Si le cercle est positionné dans la zone top-left du viewBox d'origine
+    // (en dehors de la zone du chart) ET n'a pas de parent <g> qui le rend
+    // explicite (data-events ou data-chart-point), c'est un artefact.
+    if (cy < 24 && cx < 60) {
+      const parent = c.closest("g");
+      const isExplicit =
+        parent?.hasAttribute("data-events") ||
+        parent?.hasAttribute("data-chart-point") ||
+        c.hasAttribute("data-chart-point");
+      if (!isExplicit && c.parentNode) {
+        c.parentNode.removeChild(c);
+      }
+    }
+  });
+
   // Récupère le viewBox actuel.
   const vb = svg.viewBox.baseVal;
   const origX = vb?.x ?? 0;
@@ -133,9 +155,13 @@ export async function downloadSvgAsPng(
   const origH = vb?.height || svg.clientHeight || 360;
 
   // Padding ajouté autour du graph dans l'export.
-  const PAD_TOP = 80; // espace pour titre + watermark
-  const PAD_SIDE = 36; // espace gauche/droite
-  const PAD_BOTTOM = 28; // espace bas
+  // Yann 2 juin 2026 : PAD_TOP étendu à 120 pour accueillir le titre sur
+  // 2 lignes (ligne 1 = logo + nom sté, ligne 2 = nom du KPI).
+  // PAD_BOTTOM étendu à 60 pour accueillir le footer "KPIs & Data by
+  // [Mettrik wordmark]" sous le chart.
+  const PAD_TOP = 120;
+  const PAD_SIDE = 36;
+  const PAD_BOTTOM = 60;
 
   // Nouveau viewBox englobant le contenu original + le padding.
   const newW = origW + PAD_SIDE * 2;
@@ -157,42 +183,45 @@ export async function downloadSvgAsPng(
   bg.setAttribute("fill", bgColor);
   clone.insertBefore(bg, clone.firstChild);
 
-  // ── Watermark "Powered by [logo combiné Mettrik]" (v5, 1er juin 2026) ──
-  // Yann demande logo image (visuel + textuel ensemble) au lieu du texte.
-  // Theme-aware : bg sombre → logo blanc, bg clair → logo noir.
-  // Position : bas droite (pas centré comme avant).
+  // ── Footer "KPIs & Data by [Mettrik wordmark]" (v6, 2 juin 2026) ──
+  // Yann 2 juin 2026 : "Powered by" → "KPIs & Data by", plus visible
+  // (font-size 14), logo wordmark Mettrik AI complet à droite du texte.
+  // Position : sous le chart, juste en dessous de la dernière catégorie
+  // de l'axe X, aligné à droite (vers la fin de l'axe X).
   const isDarkTheme = isDarkColor(bgColor);
+  // Wordmark complet Mettrik AI (texte uniquement, gros logo).
   const logoFilename = isDarkTheme
-    ? "/brand/mettrik-combined-white-bg-transparent.png"
-    : "/brand/mettrik-combined-black-bg-transparent.png";
+    ? "/brand/mettrik-wordmark-white-bg-transparent.png"
+    : "/brand/mettrik-wordmark-black-bg-transparent.png";
 
-  const WM_LOGO_H = 22; // hauteur image logo
-  const WM_LOGO_W = WM_LOGO_H * 3.6; // ratio ~3.6:1 du combined logo
-  const WM_GAP = 6;
-  const POWERED_BY_TEXT_W = 60;
-  const wmTotalW = POWERED_BY_TEXT_W + WM_GAP + WM_LOGO_W;
-  // Bas droite : aligné sur la marge droite du graph, juste sous l'axe X.
+  const WM_LOGO_H = 26; // hauteur image wordmark (plus grand qu'avant)
+  const WM_LOGO_W = WM_LOGO_H * 3.8; // ratio ~3.8:1 du wordmark
+  const WM_GAP = 8;
+  const KPIS_DATA_BY_TEXT_W = 100; // espace pour "KPIs & Data by"
+  const wmTotalW = KPIS_DATA_BY_TEXT_W + WM_GAP + WM_LOGO_W;
+  // Aligné sur la marge droite du graph, sous l'axe X (entre les labels
+  // X et le bord bas du PNG étendu).
   const wmRightX = origX + origW - 8;
   const wmStartX = wmRightX - wmTotalW;
-  const wmY = origY + origH + 18;
-  const wmPoweredByCenterX = wmStartX + POWERED_BY_TEXT_W / 2;
-  const wmLogoX = wmStartX + POWERED_BY_TEXT_W + WM_GAP;
+  const wmY = origY + origH + 32;
+  const wmTextCenterX = wmStartX + KPIS_DATA_BY_TEXT_W / 2;
+  const wmLogoX = wmStartX + KPIS_DATA_BY_TEXT_W + WM_GAP;
 
-  const wmPoweredByEl = document.createElementNS(NS, "text");
-  wmPoweredByEl.setAttribute("x", String(wmPoweredByCenterX));
-  wmPoweredByEl.setAttribute("y", String(wmY + WM_LOGO_H / 2 + 4));
-  wmPoweredByEl.setAttribute("text-anchor", "middle");
-  wmPoweredByEl.setAttribute(
+  const wmTextEl = document.createElementNS(NS, "text");
+  wmTextEl.setAttribute("x", String(wmTextCenterX));
+  wmTextEl.setAttribute("y", String(wmY + WM_LOGO_H / 2 + 5));
+  wmTextEl.setAttribute("text-anchor", "middle");
+  wmTextEl.setAttribute(
     "font-family",
     "var(--font-sora), Sora, var(--font-manrope), Manrope, system-ui, sans-serif"
   );
-  wmPoweredByEl.setAttribute("font-size", "12");
-  wmPoweredByEl.setAttribute("font-weight", "500");
-  wmPoweredByEl.setAttribute("letter-spacing", "0.04em");
-  wmPoweredByEl.setAttribute("fill", titleColor);
-  wmPoweredByEl.setAttribute("opacity", "0.7");
-  wmPoweredByEl.textContent = "Powered by";
-  clone.appendChild(wmPoweredByEl);
+  wmTextEl.setAttribute("font-size", "14");
+  wmTextEl.setAttribute("font-weight", "600");
+  wmTextEl.setAttribute("letter-spacing", "0.02em");
+  wmTextEl.setAttribute("fill", titleColor);
+  wmTextEl.setAttribute("opacity", "0.85");
+  wmTextEl.textContent = "KPIs & Data by";
+  clone.appendChild(wmTextEl);
 
   const wmLogoEl = document.createElementNS(NS, "image");
   wmLogoEl.setAttribute("x", String(wmLogoX));
@@ -206,7 +235,7 @@ export async function downloadSvgAsPng(
     "xlink:href",
     logoFilename
   );
-  wmLogoEl.setAttribute("opacity", "0.92");
+  wmLogoEl.setAttribute("opacity", "0.95");
   clone.appendChild(wmLogoEl);
 
   // Embed les @font-face du document parent dans la balise <style> du SVG
@@ -237,34 +266,37 @@ export async function downloadSvgAsPng(
     clone.insertBefore(styleEl, clone.firstChild);
   }
 
-  // ── Titre KPI en haut du PNG (Bricolage Grotesque 700, 24px) ──
-  // Yann 17 mai 2026 (v3) : Fraunces "pas sexy ni sérieux" → Bricolage 700,
-  // letter-spacing tighter (-0.025em), fintech editorial moderne premium.
-  // Disposition : si options.title contient " · ", split en 2 parties avec
-  // logo sté COMME SÉPARATEUR central. Sinon fallback rendu monolithique.
-  // Yann 17 mai 2026 (v4) : Bricolage v3 paraissait encore ringard parce
-  // que le var était FAUX (`--font-bricolage` n'existe pas, le vrai est
-  // `--font-instrument`) → titre rendu en system-ui fallback. v4 : pivot
-  // vers Fraunces 800 NON-italique (le serif premium du brand wordmark
-  // home, mais en weight max + droit) → magazine luxe, "wow + sérieux".
-  // Gap séparateur réduit de 14 → 4 (à peine plus qu'un tab) cf Yann v4.
-  const TITLE_FONT_SIZE = 26;
-  const TITLE_CHAR_WIDTH = 13; // estimation Fraunces 800 26px
-  const TITLE_Y = origY - PAD_TOP + 36;
-  const TITLE_LOGO_SIZE = 32; // séparateur visuel
-  const TITLE_LOGO_GAP = 4; // gap mini de chaque côté du logo (v4)
+  // ── Titre 2 lignes centrées au-dessus du PNG (Yann 2 juin 2026) ──
+  // Refonte v7 — style Bourseko / Fiscal.ai :
+  //   Ligne 1 (petite, ~20px) : [logo sté] [nom sté]
+  //   Ligne 2 (grosse, ~26px) : [nom du KPI]
+  // Les deux centrées, Fraunces serif élégant, même tonalité (gradient
+  // titleColor). Logo sté à gauche du nom sté ligne 1.
+  // options.title contient toujours "kpiText · stéText" :
+  //   - ligne 1 = stéText (sans "Inc" déjà retiré côté data)
+  //   - ligne 2 = kpiText
+  const TITLE_KPI_FONT_SIZE = 28;       // ligne 2 (nom du KPI), gros
+  const TITLE_STE_FONT_SIZE = 18;       // ligne 1 (nom sté), plus petit
+  const TITLE_KPI_CHAR_W = 14;          // estimation Fraunces 800 28px
+  const TITLE_STE_CHAR_W = 9.5;         // estimation Fraunces 600 18px
+  const TITLE_LOGO_SIZE = 22;           // logo sté ligne 1
+  const TITLE_LOGO_GAP = 8;             // gap entre logo et nom sté
+  const LINE1_Y = origY - PAD_TOP + 38;
+  const LINE2_Y = origY - PAD_TOP + 78;
 
   const titleFontFamily =
     "var(--font-fraunces), Fraunces, Georgia, 'Times New Roman', serif";
 
   if (options.title) {
-    // Tente split sur " · " (espace point milieu espace).
+    // Split sur " · " (espace point milieu espace).
     const SEPARATOR = " · ";
     const sepIdx = options.title.indexOf(SEPARATOR);
     const hasSeparator = sepIdx > 0;
 
-    // Récupère le logo sté si dispo (DOM ou fallback). Nécessaire pour
-    // décider du layout (avec ou sans logo séparateur).
+    const kpiText = hasSeparator ? options.title.slice(0, sepIdx) : options.title;
+    const stéText = hasSeparator ? options.title.slice(sepIdx + SEPARATOR.length) : "";
+
+    // Récupère le logo sté si dispo (DOM ou fallback).
     let stéLogoDataUrl: string | null = null;
 
     if (options.ticker) {
@@ -298,7 +330,7 @@ export async function downloadSvgAsPng(
           }
         }
 
-        // 2) Fallback : /logos/<TICKER>.png, mais skip si trop basse résolution.
+        // 2) Fallback : /logos/<TICKER>.png (le VRAI logo, ex MSCI bleu).
         if (!stéLogoDataUrl) {
           const stéLogoBlob = await fetch(
             `/logos/${options.ticker.toUpperCase()}.png`
@@ -327,54 +359,28 @@ export async function downloadSvgAsPng(
       }
     }
 
-    if (hasSeparator) {
-      const kpiText = options.title.slice(0, sepIdx);
-      const stéText = options.title.slice(sepIdx + SEPARATOR.length);
-
-      const kpiW = kpiText.length * TITLE_CHAR_WIDTH;
-      const stéW = stéText.length * TITLE_CHAR_WIDTH;
-
-      // Layout : kpiText [gap] (logo si dispo) [gap] stéText, centré.
+    // ── Ligne 1 : logo + nom sté, centrée ──
+    if (stéText) {
       const hasLogo = !!stéLogoDataUrl;
-      const totalW = hasLogo
-        ? kpiW + TITLE_LOGO_GAP + TITLE_LOGO_SIZE + TITLE_LOGO_GAP + stéW
-        : kpiW + TITLE_LOGO_GAP + stéW;
-
+      const stéW = stéText.length * TITLE_STE_CHAR_W;
+      const totalL1 = hasLogo
+        ? TITLE_LOGO_SIZE + TITLE_LOGO_GAP + stéW
+        : stéW;
       const midX = origX + origW / 2;
-      const startX = midX - totalW / 2;
+      const startL1 = midX - totalL1 / 2;
 
-      const kpiCenterX = startX + kpiW / 2;
-      const logoCenterX = hasLogo
-        ? startX + kpiW + TITLE_LOGO_GAP + TITLE_LOGO_SIZE / 2
-        : 0;
-      const stéCenterX = hasLogo
-        ? startX + kpiW + TITLE_LOGO_GAP + TITLE_LOGO_SIZE + TITLE_LOGO_GAP +
-          stéW / 2
-        : startX + kpiW + TITLE_LOGO_GAP + stéW / 2;
-
-      // Texte KPI (gauche)
-      const kpiEl = document.createElementNS(NS, "text");
-      kpiEl.setAttribute("x", String(kpiCenterX));
-      kpiEl.setAttribute("y", String(TITLE_Y));
-      kpiEl.setAttribute("text-anchor", "middle");
-      kpiEl.setAttribute("font-family", titleFontFamily);
-      kpiEl.setAttribute("font-weight", "800");
-      kpiEl.setAttribute("font-style", "normal");
-      kpiEl.setAttribute("font-size", String(TITLE_FONT_SIZE));
-      kpiEl.setAttribute("letter-spacing", "-0.02em");
-      kpiEl.setAttribute("fill", titleColor);
-      kpiEl.textContent = kpiText;
-      clone.appendChild(kpiEl);
-
-      // Logo sté (séparateur central). Yann 17 mai 2026 (v4) : en COULEUR
-      // d'origine (copier-coller du logo page sté), plus de filter mono.
       if (hasLogo && stéLogoDataUrl) {
         const stéImgEl = document.createElementNS(NS, "image");
         stéImgEl.setAttribute("href", stéLogoDataUrl);
-        stéImgEl.setAttribute("x", String(logoCenterX - TITLE_LOGO_SIZE / 2));
+        stéImgEl.setAttributeNS(
+          "http://www.w3.org/1999/xlink",
+          "xlink:href",
+          stéLogoDataUrl
+        );
+        stéImgEl.setAttribute("x", String(startL1));
         stéImgEl.setAttribute(
           "y",
-          String(TITLE_Y - TITLE_LOGO_SIZE * 0.75)
+          String(LINE1_Y - TITLE_LOGO_SIZE * 0.85)
         );
         stéImgEl.setAttribute("width", String(TITLE_LOGO_SIZE));
         stéImgEl.setAttribute("height", String(TITLE_LOGO_SIZE));
@@ -382,51 +388,37 @@ export async function downloadSvgAsPng(
         clone.appendChild(stéImgEl);
       }
 
-      // Texte sté (droite)
+      const stéTextStartX = hasLogo
+        ? startL1 + TITLE_LOGO_SIZE + TITLE_LOGO_GAP
+        : startL1;
       const stéEl = document.createElementNS(NS, "text");
-      stéEl.setAttribute("x", String(stéCenterX));
-      stéEl.setAttribute("y", String(TITLE_Y));
+      stéEl.setAttribute("x", String(stéTextStartX + stéW / 2));
+      stéEl.setAttribute("y", String(LINE1_Y));
       stéEl.setAttribute("text-anchor", "middle");
       stéEl.setAttribute("font-family", titleFontFamily);
-      stéEl.setAttribute("font-weight", "800");
+      stéEl.setAttribute("font-weight", "600");
       stéEl.setAttribute("font-style", "normal");
-      stéEl.setAttribute("font-size", String(TITLE_FONT_SIZE));
-      stéEl.setAttribute("letter-spacing", "-0.02em");
+      stéEl.setAttribute("font-size", String(TITLE_STE_FONT_SIZE));
+      stéEl.setAttribute("letter-spacing", "-0.01em");
       stéEl.setAttribute("fill", titleColor);
       stéEl.textContent = stéText;
       clone.appendChild(stéEl);
-    } else {
-      // Fallback monolithique (pas de séparateur " · " trouvé).
-      const titleEl = document.createElementNS(NS, "text");
-      titleEl.setAttribute("x", String(origX + origW / 2));
-      titleEl.setAttribute("y", String(TITLE_Y));
-      titleEl.setAttribute("text-anchor", "middle");
-      titleEl.setAttribute("font-family", titleFontFamily);
-      titleEl.setAttribute("font-weight", "800");
-      titleEl.setAttribute("font-style", "normal");
-      titleEl.setAttribute("font-size", String(TITLE_FONT_SIZE));
-      titleEl.setAttribute("letter-spacing", "-0.02em");
-      titleEl.setAttribute("fill", titleColor);
-      titleEl.textContent = options.title;
-      clone.appendChild(titleEl);
-
-      // Si logo sté dispo en mode monolithique : ajouter à droite, en COULEUR (v4).
-      if (stéLogoDataUrl) {
-        const titleWidth = options.title.length * TITLE_CHAR_WIDTH;
-        const titleEnd = origX + origW / 2 + titleWidth / 2 + 12;
-        const stéImgEl = document.createElementNS(NS, "image");
-        stéImgEl.setAttribute("href", stéLogoDataUrl);
-        stéImgEl.setAttribute("x", String(titleEnd));
-        stéImgEl.setAttribute(
-          "y",
-          String(TITLE_Y - TITLE_LOGO_SIZE * 0.75)
-        );
-        stéImgEl.setAttribute("width", String(TITLE_LOGO_SIZE));
-        stéImgEl.setAttribute("height", String(TITLE_LOGO_SIZE));
-        stéImgEl.setAttribute("preserveAspectRatio", "xMidYMid meet");
-        clone.appendChild(stéImgEl);
-      }
     }
+
+    // ── Ligne 2 : nom du KPI, centrée, plus gros ──
+    const kpiEl = document.createElementNS(NS, "text");
+    kpiEl.setAttribute("x", String(origX + origW / 2));
+    kpiEl.setAttribute("y", String(LINE2_Y));
+    kpiEl.setAttribute("text-anchor", "middle");
+    kpiEl.setAttribute("font-family", titleFontFamily);
+    kpiEl.setAttribute("font-weight", "800");
+    kpiEl.setAttribute("font-style", "normal");
+    kpiEl.setAttribute("font-size", String(TITLE_KPI_FONT_SIZE));
+    kpiEl.setAttribute("letter-spacing", "-0.02em");
+    kpiEl.setAttribute("fill", titleColor);
+    kpiEl.textContent = kpiText;
+    clone.appendChild(kpiEl);
+    void TITLE_KPI_CHAR_W; // réservé pour calculs futurs si besoin
   }
 
   const xml = new XMLSerializer().serializeToString(clone);

@@ -291,18 +291,20 @@ export function CurveChart({
       >
       {/* Header d'unité dans le SVG (au-dessus de l'axe Y) pour qu'il
           apparaisse aussi dans l'export PNG. Demande Yann 5 mai 2026.
-          Yann 15 mai 2026 : aligne sur la position de l'axe (gauche/droite). */}
-      {/* Yann 17 mai 2026 : label décalé vers le haut (y=22 → y=10) pour
-          aérer la zone entre le label et le tick Y le plus haut. */}
+          Yann 15 mai 2026 : aligne sur la position de l'axe (gauche/droite).
+          Yann 2 juin 2026 : repositionné juste au-dessus du premier tick Y
+          (PAD_TOP - 14), légèrement à gauche de l'axe, aligné fin
+          (textAnchor=end) pour coller à la zone des tick labels. Cohérent
+          web + PNG download. */}
       {header && (
         <text
-          x={yOnRight ? PAD_LEFT + innerW : PAD_LEFT}
-          y={10}
+          x={yOnRight ? PAD_LEFT + innerW + 20 : PAD_LEFT - 20}
+          y={PAD_TOP - 14}
           fontSize={13}
           fontWeight={600}
           fill="#e4e4e7"
           fontFamily="ui-monospace, monospace"
-          textAnchor={yOnRight ? "end" : "start"}
+          textAnchor={yOnRight ? "start" : "end"}
         >
           {header}
         </text>
