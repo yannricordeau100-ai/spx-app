@@ -218,11 +218,12 @@ export async function downloadSvgAsPng(
   // Padding ajouté autour du graph dans l'export.
   // Yann 2 juin 2026 (v7 polish FINAL) : PAD_TOP = 150 (+30 vs v6 pour
   // abaisser le graph de ~30px et donner plus d'air au titre).
-  // PAD_BOTTOM = 80 pour accueillir le footer "KPIs & Data by [logo
-  // combined]" aligné à droite sous la dernière date X.
+  // PAD_BOTTOM = 64 (réduit de 80) pour signature TRÈS proche de la
+  // dernière date X (distance verticale ~= distance horizontale entre
+  // "0" et "5" de "2025", soit ~10px). Yann 2 juin 2026 v8.
   const PAD_TOP = 150;
   const PAD_SIDE = 36;
-  const PAD_BOTTOM = 80;
+  const PAD_BOTTOM = 64;
 
   // Nouveau viewBox englobant le contenu original + le padding.
   const newW = origW + PAD_SIDE * 2;
@@ -263,8 +264,11 @@ export async function downloadSvgAsPng(
   // Aligné DROITE sur la fin du graph (= bord droit dernière date axe X).
   const wmRightX = origX + origW;
   const wmStartX = wmRightX - wmTotalW;
-  // Position verticale : ~28px sous le chart bottom (respiration).
-  const wmY = origY + origH + 28;
+  // Position verticale : juste sous le label X (distance ~10-12px entre
+  // bas du label "2025" et haut du footer signature). Le label X a sa
+  // baseline ~14px sous chartBottom + descender ~2px = bottom ~16px,
+  // donc wmY = origH + 26 → gap ~10px. Yann 2 juin 2026 v8.
+  const wmY = origY + origH + 26;
   const wmTextCenterX = wmStartX + KPIS_DATA_BY_TEXT_W / 2;
   const wmLogoX = wmStartX + KPIS_DATA_BY_TEXT_W + WM_GAP;
 
