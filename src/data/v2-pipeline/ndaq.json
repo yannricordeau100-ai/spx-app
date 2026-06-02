@@ -167,7 +167,7 @@
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
       "value": 9.47,
-      "unit": "Mds €",
+      "unit": "Mds $",
       "yoy": "-4.1%",
       "history": [
         2.996,
@@ -198,35 +198,20 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 4.277,
+      "value": 7.401,
       "unit": "Mds $",
-      "yoy": "+7.9%",
+      "yoy": "+12.6%",
       "history": [
-        1.412,
-        1.357,
-        1.466,
-        1.535,
-        1.552,
-        1.557,
-        1.582,
-        1.533,
-        1.433,
-        1.451,
-        1.647,
-        1.674,
-        1.792,
-        1.902,
-        2.032,
-        2.096,
-        2.09,
-        1.958,
-        2.118,
-        2.137
+        5.886,
+        6.226,
+        6.058,
+        6.572,
+        7.401
       ],
       "type": "Revenue",
       "nature": "Conjoncturel",
       "comparable": true,
-      "signal": "Chiffre d'affaires de 4.277 Mds $ dernière année.",
+      "signal": "Chiffre d'affaires de 7,401 Mds $ en FY25, +12.6% vs FY24.",
       "description": "Chiffre d'affaires consolidé annuellement, valeurs extraites depuis SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales 10-K déclarées.",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
@@ -519,5 +504,66 @@
   "_maj_by": "Sub-agent Opus MAJ chunk-08",
   "_maj_at": "2026-06-01T21:15:55Z",
   "_history_extended_at": "2026-06-02T04:43:07.157739+00:00",
-  "_history_source": "SEC EDGAR XBRL SP500"
+  "_history_source": "SEC EDGAR XBRL SP500",
+  "_fix_log": [
+    {
+      "at": "2026-06-02T21:24:40.992049Z",
+      "by": "SA19-11",
+      "ticker": "NDAQ",
+      "kpi_idx": 7,
+      "kpi": "Total Revenue",
+      "type": "VAL_NE_LAST fix - value was stale FY18 4.277, history was quarterly. Replaced with 5y annual FY21-25.",
+      "old": {
+        "history": [
+          1.412,
+          1.357,
+          1.466,
+          1.535,
+          1.552,
+          1.557,
+          1.582,
+          1.533,
+          1.433,
+          1.451,
+          1.647,
+          1.674,
+          1.792,
+          1.902,
+          2.032,
+          2.096,
+          2.09,
+          1.958,
+          2.118,
+          2.137
+        ],
+        "value": 4.277
+      },
+      "new": {
+        "history": [
+          5.886,
+          6.226,
+          6.058,
+          6.572,
+          7.401
+        ],
+        "value": 7.401,
+        "yoy": "+12.6%"
+      },
+      "source": "SEC EDGAR XBRL Revenues annual FY21-FY25"
+    },
+    {
+      "at": "2026-06-02T21:24:40.992049Z",
+      "by": "SA19-11",
+      "ticker": "NDAQ",
+      "kpi_idx": 6,
+      "kpi": "Total Debt",
+      "type": "unit fix EUR->USD",
+      "old": {
+        "unit": "Mds €"
+      },
+      "new": {
+        "unit": "Mds $"
+      }
+    }
+  ]
 }

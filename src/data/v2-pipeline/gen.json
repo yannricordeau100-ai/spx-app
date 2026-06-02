@@ -250,9 +250,9 @@
       "short": "DPS",
       "name_fr": "Dividende par action",
       "name_en": "Dividend Per Share",
-      "value": 0.125,
+      "value": 0.5,
       "unit": "$",
-      "yoy": "-75.0%",
+      "yoy": "0.0%",
       "history": [
         12.5,
         0.5,
@@ -260,17 +260,17 @@
         0.5,
         0.5,
         0.5,
-        0.125
+        0.5
       ],
       "type": "Dividende",
       "nature": "Récurrent",
       "comparable": true,
-      "signal": "Dividende par action de 0.125 $ dernière année.",
+      "signal": "Dividende par action de 0.5 $ dernière année.",
       "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
       "_source": "yfinance.dividends",
       "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
-      "signal_en": "Dividend cut risk, monitor payout sustainability",
+      "signal_en": "Annual DPS $0.50, stable quarterly $0.125 x 4",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01"
     },
@@ -592,5 +592,51 @@
   },
   "_blocs_extracted_at": "2026-05-14T22:20:24.602647+00:00",
   "_maj_by": "Sub-agent Opus MAJ chunk-05",
-  "_maj_at": "2026-06-01T21:14:14Z"
+  "_maj_at": "2026-06-01T21:14:14Z",
+  "_fix_log": [
+    {
+      "at": "2026-06-02T21:22:08.081813Z",
+      "by": "SA19-11",
+      "ticker": "GEN",
+      "kpi_idx": 8,
+      "kpi": "DPS",
+      "type": "VAL_NE_LAST / scale mismatch fix",
+      "field": "history[-1], value",
+      "old": {
+        "history": [
+          12.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.125
+        ],
+        "value": 0.125
+      },
+      "new": {
+        "history": [
+          12.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5
+        ],
+        "value": 0.5
+      },
+      "source": "SEC EDGAR XBRL CommonStockDividendsPerShareDeclared FY26 = 0.50 (annual = 4x $0.125 quarterly)"
+    },
+    {
+      "at": "2026-06-02T21:22:08.081813Z",
+      "by": "SA19-11",
+      "ticker": "GEN",
+      "kpi_idx": 7,
+      "kpi": "Net Income",
+      "type": "AMPL audit - no fix",
+      "note": "Volatilité légitime: FY19=0.031 (M&A), FY20=3.887 (Veritas sale), confirmé SEC NetIncomeLoss",
+      "source": "SEC EDGAR XBRL NetIncomeLoss"
+    }
+  ]
 }
