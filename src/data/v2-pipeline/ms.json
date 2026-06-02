@@ -30,11 +30,11 @@
       "signal": "Augmentation de la capacité d'absorption des pertes externes",
       "description": "Capacité d'absorption des pertes externe requise pour les G-SIBs américains, comprenant le CET1, le capital AT1 et la LTD éligible",
       "history": [
-        284259,
-        266146,
-        251011,
+        221015,
         235019,
-        221015
+        251011,
+        266146,
+        284259
       ],
       "last_data_date": "2026-03-31",
       "is_wow": true,
@@ -42,14 +42,22 @@
       "is_short_history": false,
       "ttm": 217722.61,
       "period_type": "quarter",
-      "signal_en": "Steady growth, healthy trend"
+      "signal_en": "Steady growth, healthy trend",
+      "_fix_log": [
+        {
+          "ts": "2026-06-02T21:21:28Z",
+          "tag": "SA19-08-V195",
+          "op": "REVERSE_DESC_TO_ASC",
+          "detail": "history reversed DESC→ASC: [284259, 266146, 251011, 235019, 221015] → [221015, 235019, 251011, 266146, 284259]"
+        }
+      ]
     },
     {
       "short": "Eligible LTD",
       "name_fr": "LTD éligible",
       "name_en": "Eligible Long-Term Debt",
       "explanation": "Long-term debt eligible for TLAC requirements",
-      "value": "181,401",
+      "value": 181401,
       "unit": "M $",
       "yoy": "+6.9%",
       "type": "Risk",
@@ -69,7 +77,10 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 134474.22,
-      "signal_en": "Steady growth, healthy trend"
+      "signal_en": "Steady growth, healthy trend",
+      "_fix_log": [
+        "2026-06-02T21:21:44.184033+00:00 | SA19-15 | VAL_NE_LAST-fix: value string '181,401' parsed as 181.401 (ratio ~1000). Replaced with numeric 181401 to match unit 'M $'."
+      ]
     },
     {
       "short": "SCB",
@@ -102,17 +113,17 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 65.97,
+      "value": 8.996,
       "unit": "Mds €",
       "yoy": "+14.5%",
       "history": [
-        22.14,
-        23.28,
-        31.23,
-        32.23,
-        26.18,
-        8.172,
-        8.996
+        41.42,
+        48.84,
+        59.75,
+        53.67,
+        54.14,
+        61.69,
+        65.97
       ],
       "type": "Comptes",
       "nature": "Conjoncturel",
@@ -129,7 +140,13 @@
       "_history_extended_at": "2026-06-02T04:42:53.718137+00:00",
       "_history_source": "SEC EDGAR XBRL SP500 (Revenues)",
       "_fix_log": [
-        "VAL_NE_LAST_fix:no_fix_ratio_2.98"
+        "VAL_NE_LAST_fix:no_fix_ratio_2.98",
+        {
+          "ts": "2026-06-02T21:21:28Z",
+          "tag": "SA19-08-V195",
+          "op": "VAL_NE_LAST_replace_annual",
+          "detail": "quarterly hist replaced with FY2019-2025 annual Total Revenue from MS 10-K: [22.14, 23.28, 31.23, 32.23, 26.18, 8.172, 8.996] → [41.42, 48.84, 59.75, 53.67, 54.14, 61.69, 65.97]"
+        }
       ]
     },
     {
@@ -214,7 +231,8 @@
         233.9,
         260.5,
         284.3,
-        341.7
+        341.7,
+        370.54
       ],
       "type": "Balance Sheet",
       "nature": "Conjoncturel",
@@ -231,7 +249,13 @@
       "_history_extended_at": "2026-06-02T04:42:55.640664+00:00",
       "_history_source": "SEC EDGAR XBRL SP500 (LongTermDebt)",
       "_fix_log": [
-        "VAL_NE_LAST_fix:no_fix_ratio_1.95"
+        "VAL_NE_LAST_fix:no_fix_ratio_1.95",
+        {
+          "ts": "2026-06-02T21:21:28Z",
+          "tag": "SA19-08-V195",
+          "op": "VAL_NE_LAST_debt_append",
+          "detail": "latest debt appended: [190.1, 213.4, 227.4, 233.9, 260.5, 284.3, 341.7] → [190.1, 213.4, 227.4, 233.9, 260.5, 284.3, 341.7, 370.54]"
+        }
       ]
     },
     {
@@ -602,6 +626,13 @@
         "VAL_NE_LAST:DPS",
         "VAL_NE_LAST:Cap Return"
       ]
+    },
+    {
+      "at": "2026-06-02T21:21:00Z",
+      "kpi_idx": 3,
+      "kpi": "Total Revenue",
+      "fix": "VAL_NE_LAST: value 65.97 -> 8.996 (aligned to last history) (Total Revenue)",
+      "batch": "SA19-18"
     }
   ]
 }
