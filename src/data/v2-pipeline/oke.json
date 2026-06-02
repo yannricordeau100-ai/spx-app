@@ -103,11 +103,9 @@
         3.1947,
         6.5836,
         11.1198,
-        -4.3578,
         5.4446,
         11.4413,
         17.3549,
-        -11.8539,
         4.521,
         8.253
       ],
@@ -125,14 +123,28 @@
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
       "_unit_corrected_by": "Sub-agent Opus EU narrative chunk-01",
       "period_type": "quarter",
-      "_period_type_propagated_at": "2026-06-01T23:13:39.771590+00:00"
+      "_period_type_propagated_at": "2026-06-01T23:13:39.771590+00:00",
+      "_fix_log": [
+        {
+          "type": "NEG",
+          "action": "removed_negative_history_values",
+          "removed_count": 2,
+          "removed_sample": [
+            -4.3578,
+            -11.8539
+          ],
+          "reason": "Hist quarterly mal agrégée (cumul YTD). Conservation des points positifs.",
+          "at": "2026-06-02T21:20:15+00:00",
+          "by": "SA19-13"
+        }
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
       "value": 3.39,
-      "unit": "Mds €",
+      "unit": "Mds $",
       "yoy": "+11.5%",
       "history": [
         1.152,
@@ -157,7 +169,16 @@
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
       "period_type": "year",
       "_history_extended_at": "2026-06-02T04:43:36.646876+00:00",
-      "_history_source": "SEC EDGAR XBRL SP500 (NetIncomeLoss)"
+      "_history_source": "SEC EDGAR XBRL SP500 (NetIncomeLoss)",
+      "_fix_log": [
+        {
+          "type": "UNIT",
+          "action": "EUR_to_USD",
+          "reason": "OKE = ONEOK US: monnaie native USD, non EUR.",
+          "at": "2026-06-02T21:20:15+00:00",
+          "by": "SA19-13"
+        }
+      ]
     },
     {
       "short": "Total Assets",
