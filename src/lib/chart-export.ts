@@ -34,6 +34,46 @@
  *  8. Sérialiser via XMLSerializer → <Image> → <canvas> 2× → blob → download.
  */
 /**
+ * Police "Avenir" pour PNG download (Yann 2 juin 2026).
+ * Avenir système sur Mac/iOS, fallback élégant pour autres OS.
+ * Si système n'a pas Avenir : Nunito Sans ressemble à 95%.
+ * UNIQUEMENT pour le PNG download, PAS pour le rendu web (chart live).
+ */
+const PNG_FONT_FAMILY =
+  '"Avenir", "Avenir Next", "Avenir Sans", "Nunito Sans", "Open Sans", -apple-system, sans-serif';
+
+/**
+ * Raccourcit le label d'axe Y pour le PNG download UNIQUEMENT.
+ * Web reste verbeux ("$ en Milliards"), PNG devient compact ("$ Mds").
+ * Yann 2 juin 2026 : "distinction entre PNG et web".
+ */
+function shortenYAxisLabel(label: string | null | undefined): string {
+  if (!label) return "";
+  const raw = label.trim();
+  // Patterns longs → diminutifs
+  const replacements: Array<[RegExp, string]> = [
+    [/^\$\s*en\s+Milliards$/i, "$ Mds"],
+    [/^€\s*en\s+Milliards$/i, "€ Mds"],
+    [/^£\s*en\s+Milliards$/i, "£ Mds"],
+    [/^¥\s*en\s+Milliards$/i, "¥ Mds"],
+    [/^CHF\s*en\s+Milliards$/i, "CHF Mds"],
+    [/^\$\s*en\s+Millions$/i, "$ M"],
+    [/^€\s*en\s+Millions$/i, "€ M"],
+    [/^£\s*en\s+Millions$/i, "£ M"],
+    [/^¥\s*en\s+Millions$/i, "¥ M"],
+    [/^CHF\s*en\s+Millions$/i, "CHF M"],
+    [/^%\s*en\s+pourcentage$/i, "%"],
+    [/^en\s+pourcentage$/i, "%"],
+    [/^Pourcentage$/i, "%"],
+  ];
+  for (const [pattern, replacement] of replacements) {
+    if (pattern.test(raw)) return replacement;
+  }
+  // Déjà court : "Mds $", "M €", "%", etc → garder
+  return raw;
+}
+
+/**
  * Détecte si une couleur (#hex / rgb()) est sombre.
  * Utilisé pour choisir entre logo Mettrik noir / blanc dans le watermark download.
  */
@@ -125,6 +165,27 @@ export async function downloadSvgAsPng(
     }
   });
 
+  // Yann 2 juin 2026 (v7) : raccourcir le label axe Y dans le PNG UNIQUEMENT.
+  // Web reste verbeux ("$ en Milliards"), PNG devient compact ("$ Mds").
+  // On traverse tous les <text> du clone et on remplace les patterns
+  // longs par leur diminutif via shortenYAxisLabel().
+  // Application aussi sur la police : tous les <text> du clone passent
+  // en police Avenir (fix 1 — Yann 2 juin 2026 v7).
+  clone.querySelectorAll("text").forEach((t) => {
+    const txt = (t.textContent || "").trim();
+    if (txt) {
+      const short = shortenYAxisLabel(txt);
+      if (short !== txt) {
+        t.textContent = short;
+      }
+    }
+    // Forcer police Avenir sur tous les textes du PNG (titre, axes,
+    // labels valeurs, footer signature). Les <text> du chart d'origine
+    // utilisaient "ui-monospace, monospace" ou des polices web ; on
+    // override pour homogénéité PNG.
+    t.setAttribute("font-family", PNG_FONT_FAMILY);
+  });
+
   // Yann 2 juin 2026 (v6) : nettoyage agressif "point top-left" entouré
   // jaune sur capture Yann. Supprime tout <circle> isolé hors zone chart
   // (y < 20 dans le viewBox SVG d'origine) qui pourrait être un artefact
@@ -155,13 +216,13 @@ export async function downloadSvgAsPng(
   const origH = vb?.height || svg.clientHeight || 360;
 
   // Padding ajouté autour du graph dans l'export.
-  // Yann 2 juin 2026 : PAD_TOP étendu à 120 pour accueillir le titre sur
-  // 2 lignes (ligne 1 = logo + nom sté, ligne 2 = nom du KPI).
-  // PAD_BOTTOM étendu à 60 pour accueillir le footer "KPIs & Data by
-  // [Mettrik wordmark]" sous le chart.
-  const PAD_TOP = 120;
+  // Yann 2 juin 2026 (v7 polish FINAL) : PAD_TOP = 150 (+30 vs v6 pour
+  // abaisser le graph de ~30px et donner plus d'air au titre).
+  // PAD_BOTTOM = 80 pour accueillir le footer "KPIs & Data by [logo
+  // combined]" aligné à droite sous la dernière date X.
+  const PAD_TOP = 150;
   const PAD_SIDE = 36;
-  const PAD_BOTTOM = 60;
+  const PAD_BOTTOM = 80;
 
   // Nouveau viewBox englobant le contenu original + le padding.
   const newW = origW + PAD_SIDE * 2;
@@ -183,27 +244,27 @@ export async function downloadSvgAsPng(
   bg.setAttribute("fill", bgColor);
   clone.insertBefore(bg, clone.firstChild);
 
-  // ── Footer "KPIs & Data by [Mettrik wordmark]" (v6, 2 juin 2026) ──
-  // Yann 2 juin 2026 : "Powered by" → "KPIs & Data by", plus visible
-  // (font-size 14), logo wordmark Mettrik AI complet à droite du texte.
-  // Position : sous le chart, juste en dessous de la dernière catégorie
-  // de l'axe X, aligné à droite (vers la fin de l'axe X).
+  // ── Footer "KPIs & Data by [Mettrik combined logo]" (v7, 2 juin 2026) ──
+  // Yann 2 juin 2026 v7 FINAL : logo "combined" (wordmark Mettrik AI
+  // complet, pas juste le M). Alignement DROITE strict sur la fin du
+  // graph (= dernière date axe X). Position ~25-30px en dessous du
+  // chart bottom pour respirer.
   const isDarkTheme = isDarkColor(bgColor);
-  // Wordmark complet Mettrik AI (texte uniquement, gros logo).
+  // Logo "combined" = wordmark Mettrik AI complet.
   const logoFilename = isDarkTheme
-    ? "/brand/mettrik-wordmark-white-bg-transparent.png"
-    : "/brand/mettrik-wordmark-black-bg-transparent.png";
+    ? "/brand/mettrik-combined-white-bg-transparent.png"
+    : "/brand/mettrik-combined-black-bg-transparent.png";
 
-  const WM_LOGO_H = 34; // hauteur image wordmark (match Bourseko/Fiscal.ai)
-  const WM_LOGO_W = WM_LOGO_H * 3.8; // ratio ~3.8:1 du wordmark
-  const WM_GAP = 8;
-  const KPIS_DATA_BY_TEXT_W = 100; // espace pour "KPIs & Data by"
+  const WM_LOGO_H = 36; // hauteur image combined logo
+  const WM_LOGO_W = WM_LOGO_H * 3.6; // ratio ~3.6:1 du combined
+  const WM_GAP = 10;
+  const KPIS_DATA_BY_TEXT_W = 110; // espace pour "KPIs & Data by" en Avenir 14
   const wmTotalW = KPIS_DATA_BY_TEXT_W + WM_GAP + WM_LOGO_W;
-  // Aligné sur la marge droite du graph, sous l'axe X (entre les labels
-  // X et le bord bas du PNG étendu).
-  const wmRightX = origX + origW - 8;
+  // Aligné DROITE sur la fin du graph (= bord droit dernière date axe X).
+  const wmRightX = origX + origW;
   const wmStartX = wmRightX - wmTotalW;
-  const wmY = origY + origH + 32;
+  // Position verticale : ~28px sous le chart bottom (respiration).
+  const wmY = origY + origH + 28;
   const wmTextCenterX = wmStartX + KPIS_DATA_BY_TEXT_W / 2;
   const wmLogoX = wmStartX + KPIS_DATA_BY_TEXT_W + WM_GAP;
 
@@ -211,10 +272,8 @@ export async function downloadSvgAsPng(
   wmTextEl.setAttribute("x", String(wmTextCenterX));
   wmTextEl.setAttribute("y", String(wmY + WM_LOGO_H / 2 + 5));
   wmTextEl.setAttribute("text-anchor", "middle");
-  wmTextEl.setAttribute(
-    "font-family",
-    "var(--font-sora), Sora, var(--font-manrope), Manrope, system-ui, sans-serif"
-  );
+  // Police Avenir avec fallback chain (Yann 2 juin 2026 v7).
+  wmTextEl.setAttribute("font-family", PNG_FONT_FAMILY);
   wmTextEl.setAttribute("font-size", "14");
   wmTextEl.setAttribute("font-weight", "600");
   wmTextEl.setAttribute("letter-spacing", "0.02em");
@@ -275,17 +334,18 @@ export async function downloadSvgAsPng(
   // options.title contient toujours "kpiText · stéText" :
   //   - ligne 1 = stéText (sans "Inc" déjà retiré côté data)
   //   - ligne 2 = kpiText
-  const TITLE_KPI_FONT_SIZE = 34;       // ligne 2 (nom du KPI), focus #1 (match Bourseko)
+  const TITLE_KPI_FONT_SIZE = 34;       // ligne 2 (nom du KPI), focus #1
   const TITLE_STE_FONT_SIZE = 18;       // ligne 1 (nom sté), plus petit
-  const TITLE_KPI_CHAR_W = 17;          // estimation Fraunces 800 34px
-  const TITLE_STE_CHAR_W = 9.5;         // estimation Fraunces 600 18px
+  const TITLE_KPI_CHAR_W = 16;          // estimation Avenir 800 34px
+  const TITLE_STE_CHAR_W = 9;           // estimation Avenir 600 18px
   const TITLE_LOGO_SIZE = 22;           // logo sté ligne 1
   const TITLE_LOGO_GAP = 8;             // gap entre logo et nom sté
-  const LINE1_Y = origY - PAD_TOP + 38;
-  const LINE2_Y = origY - PAD_TOP + 82;
+  const LINE1_Y = origY - PAD_TOP + 50;
+  const LINE2_Y = origY - PAD_TOP + 96;
 
-  const titleFontFamily =
-    "var(--font-fraunces), Fraunces, Georgia, 'Times New Roman', serif";
+  // Yann 2 juin 2026 v7 : police Avenir (au lieu de Fraunces) pour le
+  // PNG download UNIQUEMENT. Web reste sur Fraunces.
+  const titleFontFamily = PNG_FONT_FAMILY;
 
   if (options.title) {
     // Split sur " · " (espace point milieu espace).
@@ -317,8 +377,11 @@ export async function downloadSvgAsPng(
               btoa(unescape(encodeURIComponent(svgXml)));
           } else if (
             innerImg instanceof HTMLImageElement &&
-            innerImg.naturalWidth >= 32
+            innerImg.naturalWidth >= 64
           ) {
+            // Yann 2 juin 2026 v7 : seuil bumpé 32→64 px pour rejeter
+            // les monogrammes/favicons low-res et forcer fallback vers
+            // /logos/<TICKER>.png (qui a été corrigé batch 1-4).
             const canvas = document.createElement("canvas");
             canvas.width = innerImg.naturalWidth;
             canvas.height = innerImg.naturalHeight;
@@ -349,7 +412,10 @@ export async function downloadSvgAsPng(
               im.src = tempDataUrl;
             }
           );
-          if (probe.naturalWidth >= 32) {
+          // Yann 2 juin 2026 v7 : seuil 64 px (cohérent avec DOM logo
+          // ci-dessus). Si /logos/<TICKER>.png est < 64 px, c'est un
+          // monogramme ou un favicon stale → on skip silencieusement.
+          if (probe.naturalWidth >= 64) {
             stéLogoDataUrl = tempDataUrl;
           }
         }
