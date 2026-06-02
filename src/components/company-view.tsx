@@ -211,7 +211,44 @@ export function CompanyView({
   const accent = brand(company.ticker).primary;
   const glow = brand(company.ticker).glow;
 
-  const [activeKpiShort, setActiveKpiShort] = useState(company.hero_kpi);
+  // Yann 2 juin 2026 — fix onglet trimestriel manquant (AAPL/GOOGL).
+  // Quand `hero_kpi_override` redirige le hero vers un KPI annuel (ex AAPL :
+  // Services Revenue <3 ans → fallback iPhone Revenue annuel) alors qu'un
+  // autre KPI a une vraie history quarterly ≥4 trims (typiquement
+  // "Total Revenue" via _super_kpi_inputs ou pipeline initial), on
+  // détecte le meilleur KPI quarterly pour booster le default hero
+  // affiché. Préserve l'override comme info mais expose le toggle
+  // Trimestriel à l'utilisateur.
+  const bestQuarterlyKpiShort = useMemo(() => {
+    const kpis = company.kpis ?? [];
+    let best: { short: string; len: number } | null = null;
+    for (const k of kpis) {
+      if (k.period_type !== "quarter") continue;
+      const h = Array.isArray(k.history) ? k.history.length : 0;
+      if (h < 4) continue;
+      if (!best || h > best.len) {
+        best = { short: k.short, len: h };
+      }
+    }
+    return best?.short ?? null;
+  }, [company]);
+
+  // Hero KPI effectif : si le hero "configuré" est annuel/sans history mais
+  // qu'un autre KPI a du quarterly ≥4 trims, on préfère ce dernier comme
+  // hero par défaut. Sinon on garde le hero d'origine (override respecté).
+  const effectiveDefaultHero = useMemo(() => {
+    const heroShort = company.hero_kpi;
+    const heroKpi = company.kpis?.find((k) => k.short === heroShort);
+    const heroIsQuarterly =
+      heroKpi?.period_type === "quarter" &&
+      Array.isArray(heroKpi.history) &&
+      heroKpi.history.length >= 4;
+    if (heroIsQuarterly) return heroShort;
+    if (bestQuarterlyKpiShort) return bestQuarterlyKpiShort;
+    return heroShort;
+  }, [company, bestQuarterlyKpiShort]);
+
+  const [activeKpiShort, setActiveKpiShort] = useState(effectiveDefaultHero);
   const active: KPI | undefined = useMemo(
     () => company.kpis?.find((k) => k.short === activeKpiShort) ?? getHero(company),
     [activeKpiShort, company]
@@ -240,10 +277,16 @@ export function CompanyView({
   // stés qui reportent en semestriel, on bascule sur semester. Sinon quarter.
   // L'utilisateur peut toujours switcher vers Annuel via le toggle.
   const heroDefaultPeriod = (() => {
-    const hk = company.kpis?.find((k) => k.short === company.hero_kpi) ?? company.kpis?.[0];
+    // Yann 2 juin 2026 — fix onglet trimestriel par défaut (AAPL/GOOGL).
+    // Si le hero effectif (post-fallback quarterly) a period_type=quarter +
+    // history.length >= 4, on démarre sur "quarter". Sinon, on respecte le
+    // period_type du hero (semester/year/null).
+    const hk = company.kpis?.find((k) => k.short === effectiveDefaultHero) ?? company.kpis?.[0];
     const pt = hk?.period_type;
+    const histLen = Array.isArray(hk?.history) ? hk!.history.length : 0;
+    if (pt === "quarter" && histLen >= 4) return "quarter";
     if (pt === "semester") return "semester";
-    return "quarter";
+    return "year";
   })();
   const [graphPeriod, setGraphPeriod] = useState<"year" | "quarter" | "semester">(heroDefaultPeriod);
   const [compareTicker, setCompareTicker] = useState<string | null>(null);
