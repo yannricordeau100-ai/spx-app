@@ -55,19 +55,32 @@ en parallèle qui finissent tous à moitié.
 
 ---
 
-## 0ter. PIPELINE DEPLOY OBLIGATOIRE (PERMANENT)
+## 0ter. PIPELINE DEPLOY OBLIGATOIRE (PERMANENT — révision 2026-06-02)
 
-Édictée par Yann le 27 mai 2026. Vercel n'auto-deploy pas sur push
-staging (constaté empiriquement). Donc chaque modif UI/data critique
-doit suivre OBLIGATOIREMENT la chaîne complète en FOREGROUND (pas
-background, sinon je ne re-vérifie pas) :
+Édictée par Yann le 27 mai 2026, révisée 2026-06-02 après bug popup OAuth Vercel
+récurrent depuis dimanche.
+
+**RÈGLE ABSOLUE** : JAMAIS de `npx vercel deploy`, `npx vercel login`, ou toute
+commande `vercel` SANS `--token=$VERCEL_TOKEN` explicite. Sinon → popup OAuth
+device code qui interrompt Yann.
+
+**Workflow OBLIGATOIRE pour tout commit qui doit aller sur niveau2** :
 
 1. `git commit` + `git push origin staging`
-2. `npx vercel deploy --archive=tgz --yes` (foreground)
-3. `until vercel inspect <url> | grep Ready; do sleep 5; done`
-4. `npx vercel alias set <url> mettrik-niveau2.vercel.app`
-5. `curl` test sur niveau2 + grep du contenu attendu
-6. Confirmer à Yann SEULEMENT après ces 5 étapes
+2. `bash scripts/deploy-and-alias.sh` (foreground) — utilise le webhook hook URL
+   (pas de token requis) + auto-poll status via `--token` + auto-alias.
+
+**Alternative manuelle** si script cassé :
+- `curl -X POST $VERCEL_DEPLOY_HOOK_STAGING` (webhook, pas de token)
+- Wait ~3-5 min
+- `npx vercel ls --token=$VERCEL_TOKEN` pour récupérer URL dernier deploy
+- `npx vercel inspect <url> --token=$VERCEL_TOKEN` pour status
+- `npx vercel alias set <url> mettrik-niveau2.vercel.app --token=$VERCEL_TOKEN`
+
+**Sub-agents** : interdit absolu de lancer `npx vercel deploy`. Si un sub-agent a
+besoin de deploy, il commit + push, puis indique dans son rapport "deploy à
+lancer par Claude principal via `bash scripts/deploy-and-alias.sh`". Le sub-agent
+n'a JAMAIS accès au token utilisateur et déclenche systématiquement l'OAuth.
 
 **Pas de "deploy en background, je te notifie"** sauf si Yann l'accepte
 explicitement. La règle est : un fix annoncé = un fix LIVE et VÉRIFIÉ
