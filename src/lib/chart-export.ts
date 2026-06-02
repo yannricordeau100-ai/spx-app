@@ -338,14 +338,16 @@ export async function downloadSvgAsPng(
   // options.title contient toujours "kpiText · stéText" :
   //   - ligne 1 = stéText (sans "Inc" déjà retiré côté data)
   //   - ligne 2 = kpiText
-  const TITLE_KPI_FONT_SIZE = 34;       // ligne 2 (nom du KPI), focus #1
-  const TITLE_STE_FONT_SIZE = 18;       // ligne 1 (nom sté), plus petit
-  const TITLE_KPI_CHAR_W = 16;          // estimation Avenir 800 34px
-  const TITLE_STE_CHAR_W = 9;           // estimation Avenir 600 18px
-  const TITLE_LOGO_SIZE = 22;           // logo sté ligne 1
-  const TITLE_LOGO_GAP = 8;             // gap entre logo et nom sté
-  const LINE1_Y = origY - PAD_TOP + 50;
-  const LINE2_Y = origY - PAD_TOP + 96;
+  // Yann 2 juin 2026 v9 : hiérarchie inversée — nom sté = focus #1 (gros),
+  // titre du graph (KPI) = focus #2 juste en dessous.
+  const TITLE_STE_FONT_SIZE = 34;       // ligne 1 (nom sté), focus #1
+  const TITLE_KPI_FONT_SIZE = 18;       // ligne 2 (nom KPI), juste en dessous
+  const TITLE_STE_CHAR_W = 16;          // estimation Avenir 800 34px
+  const TITLE_KPI_CHAR_W = 9;           // estimation Avenir 600 18px
+  const TITLE_LOGO_SIZE = 32;           // logo sté ligne 1 proportionnel au texte gros
+  const TITLE_LOGO_GAP = 10;            // gap entre logo et nom sté
+  const LINE1_Y = origY - PAD_TOP + 55;
+  const LINE2_Y = origY - PAD_TOP + 90;
 
   // Yann 2 juin 2026 v7 : police Avenir (au lieu de Fraunces) pour le
   // PNG download UNIQUEMENT. Web reste sur Fraunces.
@@ -466,7 +468,7 @@ export async function downloadSvgAsPng(
       stéEl.setAttribute("y", String(LINE1_Y));
       stéEl.setAttribute("text-anchor", "middle");
       stéEl.setAttribute("font-family", titleFontFamily);
-      stéEl.setAttribute("font-weight", "600");
+      stéEl.setAttribute("font-weight", "800");
       stéEl.setAttribute("font-style", "normal");
       stéEl.setAttribute("font-size", String(TITLE_STE_FONT_SIZE));
       stéEl.setAttribute("letter-spacing", "-0.01em");
@@ -481,7 +483,7 @@ export async function downloadSvgAsPng(
     kpiEl.setAttribute("y", String(LINE2_Y));
     kpiEl.setAttribute("text-anchor", "middle");
     kpiEl.setAttribute("font-family", titleFontFamily);
-    kpiEl.setAttribute("font-weight", "800");
+    kpiEl.setAttribute("font-weight", "600");
     kpiEl.setAttribute("font-style", "normal");
     kpiEl.setAttribute("font-size", String(TITLE_KPI_FONT_SIZE));
     kpiEl.setAttribute("letter-spacing", "-0.02em");
