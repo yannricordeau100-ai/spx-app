@@ -2,7 +2,7 @@
  * Estimates % coverage for the broader dataset.
  */
 import { computeSuperKpis } from "../src/lib/super-kpi";
-import { loadV17Company } from "../src/lib/v1-7/load-company";
+import { loadV17Company } from "../src/lib/company-core/load-company";
 import fs from "node:fs";
 import path from "node:path";
 

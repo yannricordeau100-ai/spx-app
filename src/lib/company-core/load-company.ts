@@ -22,8 +22,8 @@
 import { promises as fs } from "fs";
 import path from "path";
 import type { Company, CompanyRisk } from "@/lib/data";
-import { enhanceFreshness } from "@/lib/v1-7/enhance-freshness";
-import { isStrictPass3, isV18Eligible } from "@/lib/v1-7/strict-pass3";
+import { enhanceFreshness } from "@/lib/company-core/enhance-freshness";
+import { isStrictPass3, isV18Eligible } from "@/lib/company-core/strict-pass3";
 
 // Yann 18 mai 2026 : carte globale EN tagline → FR translation. Chargée
 // lazy-une-fois par process. Utilisée pour peupler tagline_i18n.fr.

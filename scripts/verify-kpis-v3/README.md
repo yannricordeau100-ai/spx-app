@@ -88,7 +88,7 @@ Pour chaque candidat KPI :
 
 ## Phase 3 — INTÉGRATION SSR (à faire)
 
-Patch `src/lib/v1-7/load-company.ts` pour merge auto les `.kpis-v3.json`
+Patch `src/lib/company-core/load-company.ts` pour merge auto les `.kpis-v3.json`
 sur les KPIs visibles, en append-only (skip si `short` déjà présent côté
 v2-pipeline). Voir comment CONV-DIV V1 a patché load-company.ts pour
 merger `enrich.kpis` (commit ref dans SHARED-STATUS log 2026-05-09 21:05).

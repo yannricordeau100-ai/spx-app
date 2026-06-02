@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import { computeSuperKpis } from "../src/lib/super-kpi";
-import { loadV17Company } from "../src/lib/v1-7/load-company";
+import { loadV17Company } from "../src/lib/company-core/load-company";
 
 const witnesses = ["nvda", "aapl", "jpm", "bnp.pa", "asml", "msft", "tte.pa", "rog.sw", "mu"];
 

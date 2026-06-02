@@ -69,7 +69,7 @@ function loadDatasets(): Record<string, Company> {
 }
 
 // Yann 26 mai 2026 : dédup doublons multi-classes / ADR (ASML/ASMLF, BRK.A/B, etc.).
-// Canonical map identique à src/lib/v1-7/load-company.ts ALIASES.
+// Canonical map identique à src/lib/company-core/load-company.ts ALIASES.
 const TICKER_DEDUP_ALIASES: Record<string, string> = {
   GOOG: "GOOGL",
   "BRK.A": "BRK-B",

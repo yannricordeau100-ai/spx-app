@@ -331,7 +331,7 @@ def main():
         stats["written"] += 1
 
         # ALSO merge events into the main enrich file <ticker>.json so that
-        # both the prod loader (src/lib/v1-7/load-company.ts) and the audit
+        # both the prod loader (src/lib/company-core/load-company.ts) and the audit
         # script (audit-v1-9-pre-publication.js) pick them up. Without this,
         # the .events.json sidecar file is invisible to both.
         for main_name in [f"{ticker}.json", f"{ticker.lower()}.json"]:

@@ -40,7 +40,7 @@ for (const entry of UNIVERSE) {
   const d = JSON.parse(fs.readFileSync(p, "utf-8"));
   // Sub-agent #141 (CONV-CONCEPTS, 21 mai 2026) : load hero_kpi_override from
   // v2-pipeline-enrich/<lower>.hero_name_fr.json. Mirror logic of
-  // scripts/audit-v1-9-pre-publication.js + src/lib/v1-7/load-company.ts.
+  // scripts/audit-v1-9-pre-publication.js + src/lib/company-core/load-company.ts.
   // Sans ce merge, les fix sub-agent #141 (24 stés absentes) restent invisibles
   // au filtre publishable.
   let hero = d.hero_kpi;

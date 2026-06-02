@@ -239,7 +239,7 @@ function loadCompany(ticker) {
           }
           // Sub-agent #88 (e_risks residual) : enrich.risks merge SEULEMENT si
           // la fiche CONV-DATA n'a pas déjà fourni des risks. Aligné runtime
-          // src/lib/v1-7/load-company.ts ligne 444+.
+          // src/lib/company-core/load-company.ts ligne 444+.
           if (
             Array.isArray(d.risks) &&
             d.risks.length > 0 &&
@@ -448,7 +448,7 @@ function loadCompany(ticker) {
             ];
             // Sub-agent #58 (b_interpretation residual) : Vigilance targets
             // forcent override même si type courant reconnu. Aligné avec
-            // src/lib/v1-7/load-company.ts VIGILANCE_TARGETS.
+            // src/lib/company-core/load-company.ts VIGILANCE_TARGETS.
             const VIGILANCE_TARGETS = new Set(['Cost', 'Margin', 'Profitability', 'Investment']);
             merged.kpis = merged.kpis.map((k) => {
               if (!k || typeof k !== 'object') return k;
@@ -478,7 +478,7 @@ function loadCompany(ticker) {
   // CONV-CONCEPTS 21 mai 2026 (sub-agent l_hero_name_fr) : fichier séparé
   // `<ticker>.hero_name_fr.json` pour repointer hero_kpi et/ou poser un
   // name_fr propre sur le hero. Mirror de la logique merge SSR
-  // (src/lib/v1-7/load-company.ts) afin que l'audit voie aussi le fix.
+  // (src/lib/company-core/load-company.ts) afin que l'audit voie aussi le fix.
   if (merged) {
     const t = String(merged.ticker || ticker || '');
     const lc = t.toLowerCase();
@@ -535,7 +535,7 @@ function loadCompany(ticker) {
     }
 
     // Sub-agent #85 (CONV-DATA hero-xbrl-extension, 21 mai 2026) :
-    // mirror du merge SSR (src/lib/v1-7/load-company.ts) pour les extensions
+    // mirror du merge SSR (src/lib/company-core/load-company.ts) pour les extensions
     // d'history hero issues de SEC EDGAR XBRL companyfacts.
     //
     //   (1) `_hero_history_extension` posé sur l'enrich principal

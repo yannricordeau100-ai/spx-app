@@ -35,7 +35,7 @@ import {
   V19_SEARCH_BY_TICKER,
   type V17SearchEntry,
   type V19SearchEntry,
-} from "@/lib/v1-7/tickers-search-index";
+} from "@/lib/company-core/tickers-search-index";
 import v19UniverseJson from "@/data/v1-9-universe.json";
 import v195CleanAllJson from "@/data/v1-9-5-clean-all-tickers.json";
 import heroKpiIndexJson from "@/data/v2-pipeline/_hero-kpi-index.json";

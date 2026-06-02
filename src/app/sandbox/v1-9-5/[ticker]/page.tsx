@@ -5,7 +5,7 @@ import { CompanyView } from "@/components/company-view";
 import { AuthNav } from "@/components/auth-nav";
 import type { TranscriptDoc } from "@/components/transcript-stories";
 import type { TranscriptBulletsSummary } from "@/components/transcript-bullets-block";
-import { loadV17Company } from "@/lib/v1-7/load-company";
+import { loadV17Company } from "@/lib/company-core/load-company";
 import { getServerLocale } from "@/lib/i18n/server";
 import { FreemiumBlurProvider, type UserTier } from "@/lib/freemium/context";
 import { readSimulateTier } from "@/lib/desk/effective-tier";

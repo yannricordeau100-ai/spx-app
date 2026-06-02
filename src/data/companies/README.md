@@ -26,7 +26,7 @@ npx tsx scripts/build-companies-unified.ts
 - ✅ Source unique générée pour ~2270 stés.
 - ✅ `v2-pipeline/` et `v2-pipeline-enrich/` **restent autoritaires** pour les
   writes (scope CONV-DATA / enrichers existants inchangés).
-- ✅ `src/lib/v1-7/load-company.ts` lit en priorité ce dossier si présent,
+- ✅ `src/lib/company-core/load-company.ts` lit en priorité ce dossier si présent,
   sinon fallback sur le merge runtime (compatibilité backwards).
 - ❌ Suppression des sources **NON prévue** dans cette phase. Migration
   progressive.
@@ -47,6 +47,6 @@ Le JSON unifié reprend la structure du fichier `v2-pipeline/<ticker>.json` puis
 
 ## Lecture côté code
 
-`src/lib/v1-7/load-company.ts` tente d'abord `companies/<ticker>.json` :
+`src/lib/company-core/load-company.ts` tente d'abord `companies/<ticker>.json` :
 si présent et frais, il sert de raccourci ; sinon le merge runtime historique
 (plusieurs `readJsonOrNull` séparés) reste actif.

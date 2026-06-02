@@ -3,7 +3,7 @@
  * Génère src/data/v1-7-public.json à partir de _merged.json.
  *
  * Filtre admission strict = `isStrictPass3` (cf.
- * src/lib/v1-7/strict-pass3.ts) — source unique de vérité partagée avec
+ * src/lib/company-core/strict-pass3.ts) — source unique de vérité partagée avec
  * la page ticker `/sandbox/v1-7/[ticker]`. Sans cet alignement, le hub
  * peut afficher des cartes qui mènent à des pages "Fiche en préparation".
  *
@@ -16,7 +16,7 @@
  */
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { isStrictPass3 } from "../src/lib/v1-7/strict-pass3";
+import { isStrictPass3 } from "../src/lib/company-core/strict-pass3";
 
 const ROOT = path.resolve(__dirname, "..");
 const SRC = path.join(ROOT, "src/data/v2-pipeline/_merged.json");

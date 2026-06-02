@@ -11,7 +11,7 @@
  * Yann 16 mai 2026 : "détecte les graph qui feraient doublons avec les
  * KPI déjà présents (dans KPI normaux ou story)".
  */
-import { loadV17Company } from "@/lib/v1-7/load-company";
+import { loadV17Company } from "@/lib/company-core/load-company";
 
 export type DuplicateMatch = {
   ticker: string;

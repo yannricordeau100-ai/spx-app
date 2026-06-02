@@ -358,7 +358,7 @@ export function computeDataStatus(): DataStatusSnapshot {
         "src/data/v2-pipeline-enrich/<ticker>.events.json",
         "src/data/v2-pipeline-enrich/<ticker>.ranks.json",
         "src/data/v1-7-public.json",
-        "src/lib/v1-7/load-company.ts (merge runtime)",
+        "src/lib/company-core/load-company.ts (merge runtime)",
       ],
       description:
         "CONV-SYSTEMS contrôle que toutes les conversations posent leurs enrichissements dans v2-pipeline-enrich/ et que load-company.ts les fusionne correctement à la lecture. CONV-DATA reste maître du fichier canonique v2-pipeline/<ticker>.json (KPIs + risks + governance + AI positioning).",

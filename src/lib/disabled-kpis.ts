@@ -12,7 +12,7 @@
  *
  * Source de vérité : `src/data/disabled-kpis-per-ste.json`.
  *
- * Mécanisme : lu côté SSR par `src/lib/v1-7/load-company.ts` qui filtre
+ * Mécanisme : lu côté SSR par `src/lib/company-core/load-company.ts` qui filtre
  * `data.kpis` avant le rendu de la fiche.
  */
 import { readFileSync } from "node:fs";

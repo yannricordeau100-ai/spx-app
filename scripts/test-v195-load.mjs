@@ -1,4 +1,4 @@
-import { loadV17Company } from "../src/lib/v1-7/load-company.ts";
+import { loadV17Company } from "../src/lib/company-core/load-company.ts";
 import { promises as fs } from "fs";
 import path from "path";
 

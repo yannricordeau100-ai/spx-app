@@ -1,4 +1,4 @@
-import { computeDataStatus, BLOCK_LABELS } from "@/lib/v1-7/data-status";
+import { computeDataStatus, BLOCK_LABELS } from "@/lib/company-core/data-status";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 300; // 5 min de cache côté Next.js

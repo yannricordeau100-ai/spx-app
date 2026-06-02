@@ -29,7 +29,7 @@
  *   `https://mettrik-staging.vercel.app/sandbox/data-status` ou exécuter
  *   ce script en CLI.
  */
-import { computeDataStatus } from "../src/lib/v1-7/data-status";
+import { computeDataStatus } from "../src/lib/company-core/data-status";
 
 const CONV_BY_LETTER: Record<string, "CONV-SYSTEMS" | "CONV-DATA" | "CONV-CONCEPTS" | "CONV-BRAND"> = {
   S: "CONV-SYSTEMS",
