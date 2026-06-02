@@ -839,7 +839,9 @@ function concentrationRisk(c: Company, locale: Locale): SuperKpi {
 
   // Source 2 (fallback legacy) : SEGMENT_MAP pour les 5 stés V1.
   if (topPct === null) {
-    const rev = findKpi(c, "Revenue");
+    // Yann 2 juin 2026 v10 : findRevenueKpi fait fallback Total Revenue/Net Sales/etc
+
+    const rev = findRevenueKpi(c);
     const revV = rev ? num(rev.value) : null;
     const segs = SEGMENT_MAP[c.ticker];
     if (revV && segs) {
@@ -901,7 +903,9 @@ function capitalIntensity(c: Company, locale: Locale): SuperKpi {
   // Capex Total, Capital Expenditure, name_en/name_fr contenant "capex").
   // Couvre ~830 stés au lieu de la trentaine du strict "Capex" short match.
   const capex = findCapexKpi(c);
-  const rev = findKpi(c, "Revenue");
+  // Yann 2 juin 2026 v10 : findRevenueKpi fait fallback Total Revenue/Net Sales/etc
+
+  const rev = findRevenueKpi(c);
   const capexV = capex ? num(capex.value) : null;
   const revV = rev ? num(rev.value) : null;
   if (capexV === null || revV === null || revV === 0) {
@@ -1131,7 +1135,9 @@ export function computeSuperKpis(c: Company, locale: Locale = "en"): SuperKpi[] 
 
 function tacRatio(c: Company, locale: Locale): SuperKpi {
   const tac = findKpi(c, "TAC");
-  const rev = findKpi(c, "Revenue");
+  // Yann 2 juin 2026 v10 : findRevenueKpi fait fallback Total Revenue/Net Sales/etc
+
+  const rev = findRevenueKpi(c);
   const t = tac ? num(tac.value) : null;
   const r = rev ? num(rev.value) : null;
   if (t === null || r === null) return naResult({ id: "tac", name: tr("name_tac_na", locale), category: "Stratégie", formula: tr("tac_formula", locale), benchmark: tr("tac_benchmark_na", locale), inputs: ["TAC", "Revenue"] }, locale);
@@ -1155,7 +1161,9 @@ function tacRatio(c: Company, locale: Locale): SuperKpi {
 }
 
 function cloudPerCapex(c: Company, locale: Locale): SuperKpi {
-  const cloud = findKpi(c, "Cloud");
+  // Yann 2 juin 2026 v10 : fallback sur "Google Cloud Revenue" si "Cloud" absent
+  // (pipeline v2 utilise le short complet).
+  const cloud = findKpi(c, "Cloud") || findKpi(c, "Google Cloud Revenue") || findKpi(c, "Cloud Revenue");
   const capex = findKpi(c, "Capex");
   const cl = cloud ? num(cloud.value) : null;
   const cx = capex ? num(capex.value) : null;
@@ -1186,7 +1194,9 @@ function cloudPerCapex(c: Company, locale: Locale): SuperKpi {
 function adEngineSaturation(c: Company, locale: Locale): SuperKpi {
   const arpp = findKpi(c, "ARPP");
   const dap = findKpi(c, "DAP");
-  const rev = findKpi(c, "Revenue");
+  // Yann 2 juin 2026 v10 : findRevenueKpi fait fallback Total Revenue/Net Sales/etc
+
+  const rev = findRevenueKpi(c);
   const a = arpp ? num(arpp.value) : null;
   const d = dap ? num(dap.value) : null;
   const r = rev ? num(rev.value) : null;
@@ -1217,7 +1227,9 @@ function adEngineSaturation(c: Company, locale: Locale): SuperKpi {
 
 function realityLabsBurn(c: Company, locale: Locale): SuperKpi {
   const rl = findKpi(c, "RL Loss");
-  const rev = findKpi(c, "Revenue");
+  // Yann 2 juin 2026 v10 : findRevenueKpi fait fallback Total Revenue/Net Sales/etc
+
+  const rev = findRevenueKpi(c);
   const lossV = rl ? Math.abs(num(rl.value) ?? 0) : null;
   const r = rev ? num(rev.value) : null;
   if (lossV === null || r === null) return naResult({ id: "rl-burn", name: tr("name_rl_burn", locale), category: "Risque", formula: tr("rl_formula", locale), benchmark: tr("rl_benchmark_na", locale), inputs: ["RL Loss", "Revenue"] }, locale);
@@ -1245,9 +1257,10 @@ function realityLabsBurn(c: Company, locale: Locale): SuperKpi {
 }
 
 function subscriptionQuality(c: Company, locale: Locale): SuperKpi {
-  const subRR = findKpi(c, "Sub RR");
-  const totalRR = findKpi(c, "Total RR");
-  const ret = findKpi(c, "Retention");
+  // Yann 2 juin 2026 v10 : MSCI v2 utilise "Total Run Rate" (SA15 extraction)
+  const subRR = findKpi(c, "Sub RR") || findKpi(c, "Subscription Run Rate");
+  const totalRR = findKpi(c, "Total RR") || findKpi(c, "Total Run Rate");
+  const ret = findKpi(c, "Retention") || findKpi(c, "Retention Rate");
   const sR = subRR ? num(subRR.value) : null;
   const tR = totalRR ? num(totalRR.value) : null;
   const re = ret ? num(ret.value) : null;
@@ -1272,8 +1285,8 @@ function subscriptionQuality(c: Company, locale: Locale): SuperKpi {
 }
 
 function netNewVelocity(c: Company, locale: Locale): SuperKpi {
-  const netNew = findKpi(c, "Net New");
-  const subRR = findKpi(c, "Sub RR");
+  const netNew = findKpi(c, "Net New") || findKpi(c, "Net New Subscriptions");
+  const subRR = findKpi(c, "Sub RR") || findKpi(c, "Subscription Run Rate") || findKpi(c, "Total Run Rate");
   const nn = netNew ? num(netNew.value) : null;
   const sR = subRR ? num(subRR.value) : null;
   if (nn === null || sR === null || sR === 0) return naResult({ id: "nn-vel", name: tr("name_nn_vel", locale), category: "Croissance", formula: tr("nn_formula", locale), benchmark: tr("nn_benchmark", locale), inputs: ["Net New", "Sub RR"] }, locale);
@@ -1297,10 +1310,11 @@ function netNewVelocity(c: Company, locale: Locale): SuperKpi {
 }
 
 function spgiMixPremium(c: Company, locale: Locale): SuperKpi {
-  const mi = findKpi(c, "MI");
-  const idx = findKpi(c, "Indices");
-  const mob = findKpi(c, "Mobility");
-  const rev = findKpi(c, "Revenue");
+  // Yann 2 juin 2026 v10 : pipeline v2 utilise les shorts complets.
+  const mi = findKpi(c, "MI") || findKpi(c, "Market Intelligence Revenue") || findKpi(c, "Market Intelligence");
+  const idx = findKpi(c, "Indices") || findKpi(c, "Indices Revenue") || findKpi(c, "Dow Jones Indices");
+  const mob = findKpi(c, "Mobility") || findKpi(c, "Mobility Revenue");
+  const rev = findRevenueKpi(c);
   const m = mi ? num(mi.value) : null;
   const i = idx ? num(idx.value) : null;
   const mb = mob ? num(mob.value) : null;
@@ -1327,7 +1341,9 @@ function spgiMixPremium(c: Company, locale: Locale): SuperKpi {
 
 function vitalityIndex(c: Company, locale: Locale): SuperKpi {
   const vit = findKpi(c, "Vitality");
-  const rev = findKpi(c, "Revenue");
+  // Yann 2 juin 2026 v10 : findRevenueKpi fait fallback Total Revenue/Net Sales/etc
+
+  const rev = findRevenueKpi(c);
   const v = vit ? num(vit.value) : null;
   const r = rev ? num(rev.value) : null;
   if (v === null || r === null || r === 0) return naResult({ id: "vitality", name: tr("name_vitality", locale), category: "Composite", formula: tr("vit_formula", locale), benchmark: tr("vit_benchmark", locale), inputs: ["Vitality", "Revenue"] }, locale);
@@ -1352,7 +1368,9 @@ function vitalityIndex(c: Company, locale: Locale): SuperKpi {
 
 function backlogCoverage(c: Company, locale: Locale): SuperKpi {
   const bl = findKpi(c, "Backlog");
-  const rev = findKpi(c, "Revenue");
+  // Yann 2 juin 2026 v10 : findRevenueKpi fait fallback Total Revenue/Net Sales/etc
+
+  const rev = findRevenueKpi(c);
   const b = bl ? num(bl.value) : null;
   const r = rev ? num(rev.value) : null;
   if (b === null || r === null || r === 0) return naResult({ id: "backlog", name: tr("name_backlog", locale), category: "Croissance", formula: tr("bl_formula", locale), benchmark: tr("bl_benchmark_na", locale), inputs: ["Backlog", "Revenue"] }, locale);
