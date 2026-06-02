@@ -38,6 +38,25 @@ import {
 } from "@/lib/v1-7/tickers-search-index";
 import v19UniverseJson from "@/data/v1-9-universe.json";
 import v195CleanAllJson from "@/data/v1-9-5-clean-all-tickers.json";
+import heroKpiIndexJson from "@/data/v2-pipeline/_hero-kpi-index.json";
+
+/**
+ * Yann (2 juin 2026) : index hero KPI compact (151 KB, 1992 stés) pour
+ * afficher le hero KPI à droite de chaque résultat de recherche, pas
+ * juste pour les 5 V1.0. Source `_merged.json` (44 MB, server-only).
+ * Régénération : `python3 scripts/build-hero-kpi-index.py`.
+ */
+type HeroKpiEntry = {
+  s: string; // short label (ex "DAP", "Cloud", "Backlog")
+  v: string | number | null;
+  u: string;
+  y: string | number;
+  t: string;
+};
+const HERO_KPI_INDEX: Record<string, HeroKpiEntry> = heroKpiIndexJson as unknown as Record<
+  string,
+  HeroKpiEntry
+>;
 
 /**
  * Yann (30 mai 2026) : V1.9.5 strict = univers clean_all uniquement (652 stés
@@ -563,6 +582,66 @@ function ResultCard({
   );
 }
 
+/* ─── Hero KPI à droite des résultats V17/V19 ──────────────────────── */
+/**
+ * Rend le hero KPI dans la colonne droite des cartes V17/V19, façon
+ * carte ResultCard V1 (label uppercase tracking-wider + valeur mono +
+ * variation YoY colorée). Renvoie null si la sté n'est pas dans l'index
+ * hero (cas rare) ou si la valeur n'est pas formattable.
+ *
+ * Yann 2 juin 2026 : couvre les 673 stés V1.9.5 (clean_all ∪ top 307 ∪
+ * SP500), pas juste les 5 V1.0. Cohérent avec le screenshot DAP/Cloud/
+ * Backlog côté V1.
+ */
+function ResultHeroKpi({ ticker }: { ticker: string }) {
+  const entry = HERO_KPI_INDEX[ticker.toUpperCase()];
+  if (!entry) return null;
+  if (entry.v == null || entry.v === "") return null;
+  if (!entry.s) return null;
+
+  // yoy peut être un nombre brut (ex +12.3) ou une string déjà formatée
+  // ("+12,3 %"). Normalise en string pour l'affichage et le calcul du tone.
+  let yoyStr = "";
+  if (typeof entry.y === "number" && Number.isFinite(entry.y)) {
+    const sign = entry.y > 0 ? "+" : "";
+    yoyStr = `${sign}${entry.y}%`;
+  } else if (typeof entry.y === "string") {
+    yoyStr = entry.y.trim();
+  }
+  const tone = yoyTone(yoyStr, entry.t);
+  const yoyColor =
+    tone === "pos" ? "#22c55e" : tone === "neg" ? "#ef4444" : "#a1a1aa";
+  const heroUnit = formatUnit(entry.u);
+  const formattedValue = formatKpiValue(entry.v, entry.u);
+  if (formattedValue === "—") return null;
+
+  return (
+    <div className="hidden text-right sm:block">
+      <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-500">
+        {entry.s}
+      </div>
+      <div className="mt-0.5 font-mono text-[15px] font-semibold tabular-nums text-zinc-50">
+        {formattedValue}
+        {heroUnit && (
+          <span className="ml-1 text-[10.5px] font-normal text-zinc-400">
+            {heroUnit}
+          </span>
+        )}
+      </div>
+      {yoyStr && (
+        <div
+          className="mt-0.5 inline-flex items-center justify-end gap-0.5 font-mono text-[11px] tabular-nums"
+          style={{ color: yoyColor }}
+        >
+          {tone === "pos" && <ArrowUpRight className="size-3" />}
+          {tone === "neg" && <ArrowDownRight className="size-3" />}
+          {yoyStr}
+        </div>
+      )}
+    </div>
+  );
+}
+
 /* ─── Carte résultat V1.7 (sté pipeline, format léger) ──────────────── */
 /**
  * Variante de ResultCard pour les 1602 stés V1.7 (pipeline LLM).
@@ -625,6 +704,8 @@ function ResultCardV17({
           {e.sector || "-"}
         </div>
       </div>
+
+      <ResultHeroKpi ticker={ticker} />
 
       <ArrowRight className="size-4 shrink-0 -translate-x-1 text-zinc-600 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:text-zinc-300 group-hover:opacity-100" />
     </Link>
@@ -694,6 +775,8 @@ function ResultCardV19({
           {e.country ? <span className="ml-1 text-zinc-600">· {e.country}</span> : null}
         </div>
       </div>
+
+      <ResultHeroKpi ticker={ticker} />
 
       <ArrowRight className="size-4 shrink-0 -translate-x-1 text-zinc-600 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:text-zinc-300 group-hover:opacity-100" />
     </Link>
