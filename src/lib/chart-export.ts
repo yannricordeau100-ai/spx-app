@@ -256,6 +256,24 @@ export async function downloadSvgAsPng(
     ? "/brand/mettrik-combined-white-bg-transparent.png"
     : "/brand/mettrik-combined-black-bg-transparent.png";
 
+  // Yann 2 juin 2026 v9 : embed le logo en base64 data URI dans le SVG
+  // (sinon le canvas ne charge pas l'image asynchrone avant rendu PNG
+  // = logo invisible dans le download). Fetch synchrone du PNG public.
+  let logoDataUrl: string = logoFilename;
+  try {
+    const logoBlob = await fetch(logoFilename).then((r) =>
+      r.ok ? r.blob() : Promise.reject()
+    );
+    logoDataUrl = await new Promise<string>((resolve, reject) => {
+      const fr = new FileReader();
+      fr.onload = () => resolve(fr.result as string);
+      fr.onerror = reject;
+      fr.readAsDataURL(logoBlob);
+    });
+  } catch {
+    /* fallback sur href URL si fetch fail */
+  }
+
   const WM_LOGO_H = 36; // hauteur image combined logo
   const WM_LOGO_W = WM_LOGO_H * 3.6; // ratio ~3.6:1 du combined
   const WM_GAP = 10;
@@ -264,11 +282,11 @@ export async function downloadSvgAsPng(
   // Aligné DROITE sur la fin du graph (= bord droit dernière date axe X).
   const wmRightX = origX + origW;
   const wmStartX = wmRightX - wmTotalW;
-  // Position verticale : juste sous le label X (distance ~10-12px entre
-  // bas du label "2025" et haut du footer signature). Le label X a sa
-  // baseline ~14px sous chartBottom + descender ~2px = bottom ~16px,
-  // donc wmY = origH + 26 → gap ~10px. Yann 2 juin 2026 v8.
-  const wmY = origY + origH + 26;
+  // Yann 2 juin 2026 v9 : signature TRÈS proche du label X (distance ~10px
+  // identique au gap entre "0" et "5" du label "2025"). Les labels X
+  // occupent l'espace origH+0 à origH+38 (T1/T2... puis année). On place
+  // le watermark à origH+45 = ~10px sous la fin des labels.
+  const wmY = origY + origH + 45;
   const wmTextCenterX = wmStartX + KPIS_DATA_BY_TEXT_W / 2;
   const wmLogoX = wmStartX + KPIS_DATA_BY_TEXT_W + WM_GAP;
 
@@ -292,11 +310,11 @@ export async function downloadSvgAsPng(
   wmLogoEl.setAttribute("width", String(WM_LOGO_W));
   wmLogoEl.setAttribute("height", String(WM_LOGO_H));
   wmLogoEl.setAttribute("preserveAspectRatio", "xMidYMid meet");
-  wmLogoEl.setAttribute("href", logoFilename);
+  wmLogoEl.setAttribute("href", logoDataUrl);
   wmLogoEl.setAttributeNS(
     "http://www.w3.org/1999/xlink",
     "xlink:href",
-    logoFilename
+    logoDataUrl
   );
   wmLogoEl.setAttribute("opacity", "0.95");
   clone.appendChild(wmLogoEl);
