@@ -117,8 +117,18 @@
       "ttm": 41.15,
       "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability",
-      "period_type": "year",
-      "_period_type_source": "SA24-C heuristic"
+      "period_type": "quarter",
+      "_period_type_source": "SA24-C heuristic",
+      "history_periods": [
+        "Q3 2024",
+        "Q4 2024",
+        "Q1 2025",
+        "Q2 2025",
+        "Q3 2025"
+      ],
+      "_fix_log": [
+        "SA26-02 marqué quarter (hist=5 pts, ratio KPI)"
+      ]
     },
     {
       "short": "Production Volume",
@@ -140,7 +150,11 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "explanation_en": "Volume of Production over the period."
+      "explanation_en": "Volume of Production over the period.",
+      "period_type": "snapshot",
+      "_fix_log": [
+        "SA26-02 single-value snapshot, no time series"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -313,9 +327,12 @@
       "signal_en": "Capital base expanding, balance-sheet growth",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
-      "period_type": "year",
+      "period_type": "quarter",
       "_history_extended_at": "2026-06-02T04:39:53.851159+00:00",
-      "_history_source": "SEC EDGAR XBRL SP500 (Assets)"
+      "_history_source": "SEC EDGAR XBRL SP500 (Assets)",
+      "_fix_log": [
+        "SA26-02 marqué quarter (val≈last, hist=7)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -357,9 +374,11 @@
           "note": "period_type=year but value does not match hist[-1]; possibly segment vs total mismatch",
           "tag": "SA19-03 batch-03 V1.9.5",
           "ts": "2026-06-02T21:21:54.780310Z"
-        }
+        },
+        "SA26-02 ajout history_periods annual"
       ],
-      "_unit_rescaled": "Mds->M €"
+      "_unit_rescaled": "Mds->M €",
+      "history_periods": null
     },
     {
       "short": "Cash & Equivalents",
