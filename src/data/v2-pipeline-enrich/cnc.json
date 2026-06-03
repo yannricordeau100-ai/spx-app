@@ -401,19 +401,23 @@
       "short": "Medicaid Membership",
       "name_fr": "Adhérents Medicaid",
       "name_en": "Medicaid Membership",
-      "value": 13003500,
-      "unit": "members",
+      "value": 13003.5,
+      "unit": "members (Mds)",
       "history": [
-        15936700,
-        16091400,
-        14472000,
-        13003500
+        15936.7,
+        16091.4,
+        14472.0,
+        13003.5
       ],
       "period_type": "year",
       "yoy": "-10.1%",
       "type": "Opérationnel",
       "signal": "Medicaid -3 M membres en 2 ans (redetermination post-Covid), érosion attendue mais sévère.",
-      "description": "Adhérents Medicaid (programme gouv. couverture santé bas revenus). KPI #1 historique de Centene, impacté par fin du Public Health Emergency."
+      "description": "Adhérents Medicaid (programme gouv. couverture santé bas revenus). KPI #1 historique de Centene, impacté par fin du Public Health Emergency.",
+      "_unit_rescaled": "members -> members (Mds) for 1-999 readability",
+      "_fix_log": [
+        "SA24-F rescale members -> members (Mds)"
+      ]
     },
     {
       "short": "Medicare PDP Members",
@@ -466,6 +470,87 @@
       "type": "Opérationnel",
       "signal": "Discipline coûts : SG&A ajusté ramené à 8,5% (-40 bps), aide à compenser la dégradation HBR.",
       "description": "Frais administratifs ajustés en % des revenus de primes et services (hors taxes séparément facturées). Indicateur d'efficience opérationnelle."
+    },
+    {
+      "short": "Medicare Advantage Membership",
+      "period_type": "year",
+      "_period_type_source": "SA24-F heuristic",
+      "_fix_log": [
+        "SA24-F period_type=None -> 'year' (heuristic)"
+      ]
+    },
+    {
+      "short": "Medicare Prescription Drug Plan Members",
+      "period_type": "year",
+      "_period_type_source": "SA24-F heuristic",
+      "_fix_log": [
+        "SA24-F period_type=None -> 'year' (heuristic)"
+      ]
+    },
+    {
+      "short": "Marketplace Members",
+      "period_type": "year",
+      "_period_type_source": "SA24-F heuristic",
+      "_fix_log": [
+        "SA24-F period_type=None -> 'year' (heuristic)"
+      ]
+    },
+    {
+      "short": "Cash & Equivalents",
+      "period_type": "quarter",
+      "_period_type_source": "SA24-F heuristic",
+      "history": [
+        12.798,
+        12.198,
+        -22.181,
+        9.627,
+        11.018,
+        13.423,
+        -23.268,
+        11.237,
+        13.435,
+        14.987,
+        -26.541,
+        15.853,
+        17.17,
+        18.19,
+        -39.139,
+        17.585,
+        17.605,
+        14.577,
+        -32.574,
+        14.815
+      ],
+      "history_periods": [
+        "Q2 2021",
+        "Q3 2021",
+        "Q4 2021",
+        "Q1 2022",
+        "Q2 2022",
+        "Q3 2022",
+        "Q4 2022",
+        "Q1 2023",
+        "Q2 2023",
+        "Q3 2023",
+        "Q4 2023",
+        "Q1 2024",
+        "Q2 2024",
+        "Q3 2024",
+        "Q4 2024",
+        "Q1 2025",
+        "Q2 2025",
+        "Q3 2025",
+        "Q4 2025",
+        "Q1 2026"
+      ],
+      "value": 14.815,
+      "_history_source": "SEC EDGAR XBRL companyfacts",
+      "_history_extracted_at": "2026-06-03T00:39:44.721555+00:00",
+      "yoy": "-15.8%",
+      "_fix_log": [
+        "SA24-F period_type=None -> 'quarter' (heuristic)",
+        "SA24-F history quarter: 4 -> 20 via XBRL"
+      ]
     }
   ],
   "_kpis_specific_extracted_at": "2026-05-27T23:56:35.237080+00:00",
@@ -784,5 +869,12 @@
       "capex": false,
       "super_kpi_inputs_format": "none"
     }
+  },
+  "_sa24_f": {
+    "at": "2026-06-03T00:39:44.721555+00:00",
+    "history_extended": 1,
+    "period_type_set": 4,
+    "new_sectoral_kpis": 0,
+    "rescaled": 1
   }
 }
