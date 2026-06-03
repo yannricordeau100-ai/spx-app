@@ -13,18 +13,22 @@ import { isBlockDisabledForTicker } from "@/lib/disabled-blocks";
 import { isBlockEnabled } from "@/lib/v1-9-blocks-control";
 
 /**
- * Yann 4 juin 2026 : RESET COMPLET du sous-bloc logo.
- * Ancien : carre arrondi 36x48 / 44x56 + tilt 3D + p-1.
- * Nouveau : ROND, diametre = hauteur de la barre prix rouge/verte
- * (stock-price-block py-5 = ~88px mobile / ~96px desktop).
- * Suppression du tilt 3D (effet retire avec la refonte).
+ * Yann 4 juin 2026 v3 : ITERATION 3 du logo.
+ * v1 : carre arrondi 36-44px (trop petit, Apple invisible).
+ * v2 : rond 88-96px (trop gros, depasse le nom Apple + sub-titre).
+ * v3 (capture Yann avec traits bleus) : carre-arrondi 60-64px qui matche
+ *     la hauteur "Apple" + "Technologie - Matériel..." exactement.
+ *     Forme : rounded-xl pour eliminer le bord noir vu sur TotalEnergies
+ *     (logo PNG non-carre coince dans cercle laisse coins vides).
+ *     Plus petit = plus lisible pour les logos PNG avec fond blanc + apple
+ *     noir (taille relative compatible avec la zone disponible).
  */
 function LogoTile({ ticker }: { ticker: string }) {
   return (
     <div
       data-logo="true"
       aria-label={`${ticker} logo`}
-      className={`logo-wrapper relative flex h-[88px] w-[88px] shrink-0 items-center justify-center overflow-hidden rounded-full p-1.5 ring-1 shadow-[0_4px_20px_rgba(0,0,0,0.45)] transition-shadow duration-300 hover:shadow-[0_8px_32px_rgba(0,0,0,0.6)] sm:h-[96px] sm:w-[96px] sm:p-2 ${
+      className={`logo-wrapper relative flex h-[60px] w-[60px] shrink-0 items-center justify-center overflow-hidden rounded-xl p-1 ring-1 shadow-[0_3px_14px_rgba(0,0,0,0.4)] transition-shadow duration-300 hover:shadow-[0_6px_22px_rgba(0,0,0,0.55)] sm:h-[64px] sm:w-[64px] sm:p-1.5 ${
         logoNeedsLightBg(ticker)
           ? "bg-white ring-black/15"
           : "bg-[#0a0a0a] ring-white/10"

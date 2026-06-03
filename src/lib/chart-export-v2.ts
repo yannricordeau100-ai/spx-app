@@ -160,8 +160,12 @@ async function composeAndExport(
   bg.setAttribute("fill", bgColor);
   clone.insertBefore(bg, clone.firstChild);
 
-  // ── HEADER : [Logo 54px] [Nom sté] | [Titre KPI] CENTRÉ ──
-  const LOGO_SIZE = 54; // PDF ratio modèle, plus petit que avant
+  // ── HEADER : [Logo carre-arrondi 62px] [Nom sté] | [Titre KPI] CENTRÉ ──
+  // Yann 4 juin 2026 : (a) Logo decale vers le bas pour occuper hauteur
+  // titre + ligne CAGR (titleY a titleY+30). (b) Carre-arrondi au lieu de
+  // cercle pour eliminer bordures noires des PNG non-carres (TotalEnergies).
+  const LOGO_SIZE = 62;
+  const LOGO_CORNER_RADIUS = 12;
   const LOGO_GAP = 18;
   const TITLE_FONT_SIZE = 32;
   const TITLE_WEIGHT = 600;
@@ -195,24 +199,36 @@ async function composeAndExport(
   let textX = blockStartX;
 
   if (stéLogoDataUrl) {
+    // Yann 4 juin 2026 : carre-arrondi (clipPath rect au lieu de circle)
+    // pour eliminer les coins noirs des PNG non-carres.
+    // Y position : couvre titre (de titleY-30) + CAGR (jusqu'a titleY+32)
+    // soit une zone verticale d'environ 62px = LOGO_SIZE.
+    const logoX = blockStartX;
+    const logoY = titleY - 30;
     const clipId = `logoClip_${Math.random().toString(36).slice(2, 8)}`;
     const defs = document.createElementNS(NS, "defs");
     const clipPath = document.createElementNS(NS, "clipPath");
     clipPath.setAttribute("id", clipId);
-    const circle = document.createElementNS(NS, "circle");
-    circle.setAttribute("cx", String(blockStartX + LOGO_SIZE / 2));
-    circle.setAttribute("cy", String(titleY - LOGO_SIZE / 2 + 6));
-    circle.setAttribute("r", String(LOGO_SIZE / 2));
-    clipPath.appendChild(circle);
+    const clipRect = document.createElementNS(NS, "rect");
+    clipRect.setAttribute("x", String(logoX));
+    clipRect.setAttribute("y", String(logoY));
+    clipRect.setAttribute("width", String(LOGO_SIZE));
+    clipRect.setAttribute("height", String(LOGO_SIZE));
+    clipRect.setAttribute("rx", String(LOGO_CORNER_RADIUS));
+    clipRect.setAttribute("ry", String(LOGO_CORNER_RADIUS));
+    clipPath.appendChild(clipRect);
     defs.appendChild(clipPath);
     clone.insertBefore(defs, clone.firstChild);
 
-    const bgCircle = document.createElementNS(NS, "circle");
-    bgCircle.setAttribute("cx", String(blockStartX + LOGO_SIZE / 2));
-    bgCircle.setAttribute("cy", String(titleY - LOGO_SIZE / 2 + 6));
-    bgCircle.setAttribute("r", String(LOGO_SIZE / 2));
-    bgCircle.setAttribute("fill", isLight ? "#f5f5f5" : "#1a1a1a");
-    clone.appendChild(bgCircle);
+    const bgRect = document.createElementNS(NS, "rect");
+    bgRect.setAttribute("x", String(logoX));
+    bgRect.setAttribute("y", String(logoY));
+    bgRect.setAttribute("width", String(LOGO_SIZE));
+    bgRect.setAttribute("height", String(LOGO_SIZE));
+    bgRect.setAttribute("rx", String(LOGO_CORNER_RADIUS));
+    bgRect.setAttribute("ry", String(LOGO_CORNER_RADIUS));
+    bgRect.setAttribute("fill", isLight ? "#ffffff" : "#0a0a0a");
+    clone.appendChild(bgRect);
 
     const stéImg = document.createElementNS(NS, "image");
     stéImg.setAttribute("href", stéLogoDataUrl);
@@ -221,8 +237,8 @@ async function composeAndExport(
       "xlink:href",
       stéLogoDataUrl,
     );
-    stéImg.setAttribute("x", String(blockStartX));
-    stéImg.setAttribute("y", String(titleY - LOGO_SIZE + 6));
+    stéImg.setAttribute("x", String(logoX));
+    stéImg.setAttribute("y", String(logoY));
     stéImg.setAttribute("width", String(LOGO_SIZE));
     stéImg.setAttribute("height", String(LOGO_SIZE));
     stéImg.setAttribute("preserveAspectRatio", "xMidYMid meet");
@@ -273,7 +289,10 @@ async function composeAndExport(
   const SIG_FONT_SIZE = 16;
   const SIG_LOGO_H = 50; // AGRANDI (28 -> 50)
   const SIG_LOGO_W = SIG_LOGO_H * 3.6;
-  const SIG_GAP = 8;
+  // Yann 4 juin 2026 : texte signature TRES colle au logo Mettrik AI
+  // (= largeur 1 espace clavier ~ 4px, au lieu de 8). Effet visuel : le
+  // texte "Powered by" et le logo forment un bloc compact.
+  const SIG_GAP = 4;
   const sigTextW = approxTextWidth(SIG_TEXT, SIG_FONT_SIZE, 500);
   const sigTotalW = sigTextW + SIG_GAP + SIG_LOGO_W;
   const sigRightX = origX + origW;
