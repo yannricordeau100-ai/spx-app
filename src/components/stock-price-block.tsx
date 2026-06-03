@@ -155,7 +155,7 @@ export function StockPriceBlock({ company, freeBlocked = false }: { company: Com
   //    bord droit (le bord gauche varie selon la longueur des valeurs).
   return (
     <div
-      className="relative flex w-full items-stretch py-3 pl-8 pr-5 sm:w-auto sm:shrink-0"
+      className="relative flex w-full items-stretch py-5 pl-8 pr-5 sm:w-auto sm:shrink-0"
       style={{
         // Yann (28 mai 2026) : fondu plus progressif ÉTALÉ sur le fond noir
         // de la page (extension overlay à gauche). La zone coloré pleine du
@@ -195,8 +195,9 @@ export function StockPriceBlock({ company, freeBlocked = false }: { company: Com
 
       {/* Cadre flex auto-largeur, gap-x pour espacement régulier sans flex-1 */}
       <div className="relative flex items-stretch gap-x-4">
-        {/* COL 1 — Capitalisation boursière (label 2 lignes + montant 3e ligne). */}
-        <div className="flex shrink-0 flex-col items-end justify-center border-r border-white/15 pr-4 text-right">
+        {/* COL 1 — Capitalisation boursière (label 2 lignes + montant 3e ligne).
+            Yann 3 juin 2026 22h55: alignement LEFT au lieu de RIGHT (texte aligne a gauche). */}
+        <div className="flex shrink-0 flex-col items-start justify-center border-r border-white/15 pr-4 text-left">
           <span className="font-mono text-[10px] font-semibold uppercase leading-[1.15] tracking-[0.18em] text-zinc-100">
             {labelLine1}
           </span>
