@@ -106,6 +106,9 @@ function isPublicPath(pathname: string): boolean {
   // validation visuelle Yann (Yann 3 juin 2026). Public car validation
   // visuelle ponctuelle, aucune PII.
   if (pathname === "/sandbox/logos-compare") return true;
+  // /sandbox/chart-export-tests = page tests modele PNG export (Yann 3 juin 2026).
+  // Public pour validation visuelle, aucune PII.
+  if (pathname === "/sandbox/chart-export-tests") return true;
   // /sandbox/ready-by-category = counts stés prêtes par catégorie + pays.
   if (pathname === "/sandbox/ready-by-category") return true;
   // /sandbox/vip-inspection = liste VIP stés à inspecter en profondeur.
