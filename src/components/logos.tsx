@@ -201,16 +201,18 @@ export function CompanyLogo({ ticker }: { ticker: string }) {
  * deviendraient invisibles sur le fond sombre Mettrik. Quand true, le
  * conteneur logo doit utiliser un fond blanc/clair pour assurer le contraste.
  *
- *  - GOOGL : 4 couleurs vives (bleu, rouge, jaune, vert) → visible sur dark
- *  - META : bleu gradient → visible sur dark
- *  - MSCI : bleu corporate #1F4F8B → trop foncé sur dark, fond clair requis
- *  - SPGI : carré rouge OK + texte "Global" #1A1A1A noir → fond clair requis
- *  - CAT : wordmark "CAT" noir + triangle jaune → fond clair requis
- *  - MU (Micron) : PNG officiel téléchargé était corrompu (carré noir
- *    uniforme 100% opaque rgb≈5,5,5). Supprimé → fallback monogramme "MU"
- *    visible sur fond sombre. Pas besoin de fond clair.
+ * Liste auto-générée par audit PIL (luminosité moyenne pixels centraux
+ * < 80 → DARK → fond clair requis). 232 stés V1.9.5 + 3 V1 historiques.
+ * Régénérer via scripts/audit-dark-logos.py si nouveaux logos.
  */
-const LIGHT_BG_TICKERS = new Set(["MSCI", "SPGI", "CAT"]);
+import lightBgList from "@/data/light-bg-tickers.json";
+
+const LIGHT_BG_TICKERS = new Set<string>([
+  "MSCI",
+  "SPGI",
+  "CAT",
+  ...(lightBgList as string[]).map((t) => t.toUpperCase()),
+]);
 
 export function logoNeedsLightBg(ticker: string): boolean {
   return LIGHT_BG_TICKERS.has(ticker.toUpperCase());
