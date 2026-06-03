@@ -348,16 +348,33 @@ function ChartCurve({
       <path d={areaPath} fill="url(#areaGrad)" />
       <path d={path} stroke="url(#curveGrad)" strokeWidth="3" fill="none" />
 
-      {/* Data points + values above */}
+      {/* Data points + values above with whisker line (PDF model) */}
       {values.map((v, i) => {
         const x = getX(i);
         const y = getY(v);
         return (
           <g key={i}>
-            <circle cx={x} cy={y} r="5" fill={isLight ? "#fff" : "#050505"} stroke="#06b6d4" strokeWidth="2.5" />
+            <circle
+              cx={x}
+              cy={y}
+              r="5"
+              fill={isLight ? "#fff" : "#050505"}
+              stroke="#06b6d4"
+              strokeWidth="2.5"
+            />
+            {/* Whisker line: petit trait sous la valeur vers le point */}
+            <line
+              x1={x - 4}
+              y1={y - 10}
+              x2={x + 18}
+              y2={y - 10}
+              stroke="#06b6d4"
+              strokeWidth="1.5"
+              opacity="0.6"
+            />
             <text
-              x={x}
-              y={y - 12}
+              x={x + 7}
+              y={y - 14}
               textAnchor="middle"
               fontSize="14"
               fontWeight="700"

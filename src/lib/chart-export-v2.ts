@@ -151,7 +151,7 @@ export async function downloadSvgAsPngV2(
   const origH = vb?.height || svg.clientHeight || 480;
 
   // Padding adaptatif (header avec logo + nom + KPI + CAGR)
-  const PAD_TOP = 140; // assez pour ligne 1 (32px logo + texte) + ligne 2 (CAGR)
+  const PAD_TOP = 170; // assez pour ligne 1 (80px logo + 30px texte) + ligne 2 CAGR (PDF model)
   const PAD_SIDE = 40;
   const PAD_BOTTOM = 60; // pour signature bottom-right
   const newW = origW + PAD_SIDE * 2;
@@ -173,40 +173,45 @@ export async function downloadSvgAsPngV2(
   bg.setAttribute("fill", bgColor);
   clone.insertBefore(bg, clone.firstChild);
 
-  // ── HEADER LIGNE 1 : [Logo sté] [Nom sté] | [Titre KPI] ──
-  const LOGO_SIZE = 56;
-  const LOGO_GAP = 18;
-  const TITLE_FONT_SIZE = 32;
-  const TITLE_WEIGHT = 700;
+  // ── HEADER LIGNE 1 : [Logo sté] [Nom sté] | [Titre KPI] — CENTRÉ (PDF model) ──
+  const LOGO_SIZE = 80; // PDF model: ~80px logo société
+  const LOGO_GAP = 22;
+  const TITLE_FONT_SIZE = 30;
+  const TITLE_WEIGHT = 600;
   const CAGR_FONT_SIZE = 18;
   const CAGR_WEIGHT = 400;
   const SEPARATOR = " | ";
 
-  const titleY = origY - PAD_TOP + 50;
-  const titleStartX = origX;
+  const titleY = origY - PAD_TOP + 60;
 
   // Récupère logo sté
   const stéLogoDataUrl = await getCompanyLogoDataUrl(options.ticker);
 
-  // Construire le titre composé: "Nom sté | Titre KPI"
-  // Si trop long, ellipsize KPI puis nom
-  const maxTitleWidth = origW - (stéLogoDataUrl ? LOGO_SIZE + LOGO_GAP : 0);
-  const separatorWidth = approxTextWidth(SEPARATOR, TITLE_FONT_SIZE, TITLE_WEIGHT);
-
+  // Construire le titre composé centré: "Nom sté | Titre KPI"
   let companyName = options.companyName;
   let kpiName = options.kpiName;
+  const separatorWidth = approxTextWidth(SEPARATOR, TITLE_FONT_SIZE, TITLE_WEIGHT);
+  const maxTitleWidth = origW - (stéLogoDataUrl ? LOGO_SIZE + LOGO_GAP : 0);
   const companyW = approxTextWidth(companyName, TITLE_FONT_SIZE, TITLE_WEIGHT);
   const kpiW = approxTextWidth(kpiName, TITLE_FONT_SIZE, TITLE_WEIGHT);
 
   if (companyW + separatorWidth + kpiW > maxTitleWidth) {
-    // Strategy: 45% pour sté, 55% pour KPI (KPI souvent plus long)
     const stéMax = (maxTitleWidth - separatorWidth) * 0.45;
     const kpiMax = (maxTitleWidth - separatorWidth) * 0.55;
     companyName = ellipsize(companyName, stéMax, TITLE_FONT_SIZE, TITLE_WEIGHT);
     kpiName = ellipsize(kpiName, kpiMax, TITLE_FONT_SIZE, TITLE_WEIGHT);
   }
 
-  // Logo sté (cercle) à gauche
+  // Centrage: calculer largeur totale (logo + gap + texte) puis centrer
+  const textTotalW =
+    approxTextWidth(companyName, TITLE_FONT_SIZE, TITLE_WEIGHT) +
+    separatorWidth +
+    approxTextWidth(kpiName, TITLE_FONT_SIZE, TITLE_WEIGHT);
+  const blockTotalW = (stéLogoDataUrl ? LOGO_SIZE + LOGO_GAP : 0) + textTotalW;
+  const blockStartX = origX + (origW - blockTotalW) / 2;
+  const titleStartX = blockStartX;
+
+  // Logo sté (cercle) en début de bloc centré
   let textX = titleStartX;
   if (stéLogoDataUrl) {
     // Clip path circulaire pour le logo
@@ -409,7 +414,7 @@ export async function svgToPngDataUrlV2(
   const origW = vb?.width || svg.clientWidth || 1100;
   const origH = vb?.height || svg.clientHeight || 480;
 
-  const PAD_TOP = 140;
+  const PAD_TOP = 170; // PDF model: 80px logo + 30px text + CAGR
   const PAD_SIDE = 40;
   const PAD_BOTTOM = 60;
   const newW = origW + PAD_SIDE * 2;
@@ -429,14 +434,13 @@ export async function svgToPngDataUrlV2(
   bg.setAttribute("fill", bgColor);
   clone.insertBefore(bg, clone.firstChild);
 
-  const LOGO_SIZE = 56;
-  const LOGO_GAP = 18;
-  const TITLE_FONT_SIZE = 32;
-  const TITLE_WEIGHT = 700;
+  const LOGO_SIZE = 80; // PDF model
+  const LOGO_GAP = 22;
+  const TITLE_FONT_SIZE = 30;
+  const TITLE_WEIGHT = 600;
   const SEPARATOR = " | ";
 
-  const titleY = origY - PAD_TOP + 50;
-  const titleStartX = origX;
+  const titleY = origY - PAD_TOP + 60;
   const stéLogoDataUrl = await getCompanyLogoDataUrl(options.ticker);
 
   const maxTitleWidth = origW - (stéLogoDataUrl ? LOGO_SIZE + LOGO_GAP : 0);
@@ -453,6 +457,15 @@ export async function svgToPngDataUrlV2(
     companyName = ellipsize(companyName, stéMax, TITLE_FONT_SIZE, TITLE_WEIGHT);
     kpiName = ellipsize(kpiName, kpiMax, TITLE_FONT_SIZE, TITLE_WEIGHT);
   }
+
+  // Centrage block: logo + texte (PDF model)
+  const textTotalW =
+    approxTextWidth(companyName, TITLE_FONT_SIZE, TITLE_WEIGHT) +
+    separatorWidth +
+    approxTextWidth(kpiName, TITLE_FONT_SIZE, TITLE_WEIGHT);
+  const blockTotalW = (stéLogoDataUrl ? LOGO_SIZE + LOGO_GAP : 0) + textTotalW;
+  const blockStartX = origX + (origW - blockTotalW) / 2;
+  const titleStartX = blockStartX;
 
   let textX = titleStartX;
   if (stéLogoDataUrl) {
