@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useRef } from "react";
 import type { Company } from "@/lib/data";
 import { TICKER_ALIASES } from "@/lib/data";
 import { brand } from "@/lib/brand";
@@ -14,41 +13,22 @@ import { isBlockDisabledForTicker } from "@/lib/disabled-blocks";
 import { isBlockEnabled } from "@/lib/v1-9-blocks-control";
 
 /**
- * 2 different hover effects, applied ONLY on logo + name:
- *  - Logo: subtle 3D tilt + spring scale on hover
- *  - Name: animated underline (gradient sweep, brand color) on hover
+ * Yann 4 juin 2026 : RESET COMPLET du sous-bloc logo.
+ * Ancien : carre arrondi 36x48 / 44x56 + tilt 3D + p-1.
+ * Nouveau : ROND, diametre = hauteur de la barre prix rouge/verte
+ * (stock-price-block py-5 = ~88px mobile / ~96px desktop).
+ * Suppression du tilt 3D (effet retire avec la refonte).
  */
-function LogoTilt({ ticker }: { ticker: string }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [tilt, setTilt] = useState({ x: 0, y: 0, scale: 1 });
-
-  const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const el = ref.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    setTilt({ x: -y * 18, y: x * 18, scale: 1.06 });
-  };
-  const onLeave = () => setTilt({ x: 0, y: 0, scale: 1 });
-
+function LogoTile({ ticker }: { ticker: string }) {
   return (
     <div
-      ref={ref}
-      onMouseMove={onMove}
-      onMouseLeave={onLeave}
       data-logo="true"
       aria-label={`${ticker} logo`}
-      className={`logo-wrapper h-9 w-12 shrink-0 rounded-lg border p-1 transition-shadow duration-300 hover:shadow-[0_8px_32px_rgba(0,0,0,0.6)] sm:h-11 sm:w-14 ${
+      className={`logo-wrapper relative flex h-[88px] w-[88px] shrink-0 items-center justify-center overflow-hidden rounded-full border-2 p-2 shadow-[0_4px_20px_rgba(0,0,0,0.45)] transition-shadow duration-300 hover:shadow-[0_8px_32px_rgba(0,0,0,0.6)] sm:h-[96px] sm:w-[96px] sm:p-2.5 ${
         logoNeedsLightBg(ticker)
           ? "border-[#e5e5e5] bg-[#fafafa]"
-          : "border-[#1f1f1f] bg-[#0a0a0a]"
+          : "border-[#262626] bg-[#0a0a0a]"
       }`}
-      style={{
-        transform: `perspective(600px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) scale(${tilt.scale})`,
-        transition: "transform 240ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 240ms",
-        transformStyle: "preserve-3d",
-      }}
     >
       <CompanyLogo ticker={ticker} />
     </div>
@@ -240,7 +220,7 @@ export function CompanyHeader({
   return (
     <div className="mb-8">
       <div className="flex flex-wrap items-start gap-x-5 gap-y-4">
-        {!logoDisabled && <LogoTilt ticker={company.ticker} />}
+        {!logoDisabled && <LogoTile ticker={company.ticker} />}
         <div className="min-w-0 flex-1">
           <CompanyName
             name={company.name}

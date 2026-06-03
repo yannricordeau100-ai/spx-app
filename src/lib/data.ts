@@ -462,6 +462,9 @@ export const TICKER_ALIASES: Record<string, string> = {
   FOX: "FOXA",
   NWSA: "NWS",
   UAA: "UA",
+  // Yann 4 juin 2026 : Alibaba listing HK (9988.HK) renomme en BABA (ADR US).
+  "9988.HK": "BABA",
+  "9988-HK": "BABA",
 };
 
 /** Renvoie le ticker canonique (majuscules), résout les alias. */

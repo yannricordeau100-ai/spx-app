@@ -275,6 +275,9 @@ export async function loadV17Company(
     FOX: "FOXA",
     NWSA: "NWS",
     UAA: "UA",
+    // Yann 4 juin 2026 : Alibaba listing HK -> ADR US BABA (canonical).
+    "9988.HK": "BABA",
+    "9988-HK": "BABA",
     // Top 307 V1.8 doublons ADR/multi-listing (canonical = listing principale)
     ASMLF: "ASML",
     ABBNY: "ABBN.SW",
