@@ -94,7 +94,6 @@
       "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability",
       "period_type": "quarter",
-      "_fix_log": "SA34-Claude 2026-06-03",
       "history_periods": [
         "Q1 2022",
         "Q2 2022",
@@ -109,8 +108,7 @@
         "Q2 2025",
         "Q3 2025",
         "Q1 2026"
-      ],
-      "_sa34_source_tag": "GrossProfit/RevenueFromContractWithCustomerExcludingAssessedTax"
+      ]
     },
     {
       "short": "R&D Expenses",
@@ -160,11 +158,7 @@
       ],
       "explanation_en": "Expenses related to R&D.",
       "signal_en": "Solid expansion, positive trajectory",
-      "period_type": "quarter",
-      "_fix_log": [
-        "SA30-LOCAL 2026-06-03: period_type=year (heuristique len=5)",
-        "SA32-XBRL 2026-06-03: quarterly from SEC us-gaap/ResearchAndDevelopmentExpense (20 trims)"
-      ]
+      "period_type": "quarter"
     },
     {
       "short": "Total Revenue",
@@ -208,8 +202,6 @@
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
       "period_type": "quarter",
-      "_history_extended_at": "2026-06-02T04:37:17.255260+00:00",
-      "_history_source": "SEC EDGAR XBRL SP500 (RevenueFromContractWithCustomerExcludingAssessedTax)",
       "history_periods": [
         "Q2 2021",
         "Q3 2021",
@@ -231,10 +223,6 @@
         "Q3 2025",
         "Q4 2025",
         "Q1 2026"
-      ],
-      "_fix_log": [
-        "SA22-local quarterly via yfinance Total Revenue",
-        "SA21-26-31 XBRL single-Q (start-end span) (Total Revenue)"
       ],
       "last_data_date": "2026-01-31"
     },
@@ -280,8 +268,6 @@
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
       "period_type": "quarter",
-      "_history_extended_at": "2026-06-02T04:37:17.823506+00:00",
-      "_history_source": "SEC EDGAR XBRL SP500 (NetIncomeLoss)",
       "history_periods": [
         "Q2 2021",
         "Q3 2021",
@@ -303,10 +289,6 @@
         "Q3 2025",
         "Q4 2025",
         "Q1 2026"
-      ],
-      "_fix_log": [
-        "SA22-local quarterly via yfinance Net Income",
-        "SA21-26-31 XBRL single-Q (start-end span) (Net Income)"
       ],
       "last_data_date": "2026-01-31"
     },
@@ -352,8 +334,6 @@
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
       "period_type": "quarter",
-      "_history_extended_at": "2026-06-02T04:37:18.366888+00:00",
-      "_history_source": "SEC EDGAR XBRL SP500 (Assets)",
       "history_periods": [
         "Q2 2021",
         "Q3 2021",
@@ -376,10 +356,7 @@
         "Q4 2025",
         "Q1 2026"
       ],
-      "last_data_date": "2026-01-31",
-      "_fix_log": [
-        "SA21-26-31 XBRL single-Q (start-end span) (Total Assets)"
-      ]
+      "last_data_date": "2026-01-31"
     },
     {
       "short": "Total Debt",
@@ -417,8 +394,6 @@
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
       "period_type": "quarter",
-      "_history_extended_at": "2026-06-02T04:37:19.098948+00:00",
-      "_history_source": "SEC EDGAR XBRL SP500 (LongTermDebtNoncurrent)",
       "last_data_date": "2026-01-31"
     },
     {
@@ -484,10 +459,7 @@
         "Q1 2026"
       ],
       "period_type": "quarter",
-      "last_data_date": "2026-01-31",
-      "_fix_log": [
-        "SA21-26-31 XBRL single-Q (start-end span) (Cash & Equivalents)"
-      ]
+      "last_data_date": "2026-01-31"
     }
   ],
   "stories_kpis": [
@@ -692,46 +664,5 @@
   },
   "_blocs_extracted_at": "2026-05-14T21:45:32.940707+00:00",
   "_maj_at": "2026-06-01T21:16:41Z",
-  "_maj_by": "Sub-agent Opus MAJ chunk-03",
-  "_history_extended_at": "2026-06-02T04:37:19.098981+00:00",
-  "_history_source": "SEC EDGAR XBRL SP500",
-  "_fix_log": [
-    {
-      "tag": "SA33-Claude 2026-06-03",
-      "batch": 17,
-      "source": "SEC 10-Q inline XBRL us-gaap concepts (instant)",
-      "changes": [
-        {
-          "kpi_idx": 6,
-          "kpi": "Total Debt",
-          "action": "YEAR_TO_QUARTER",
-          "old": {
-            "history_len": 7,
-            "value": 2.51,
-            "period_type": "year",
-            "last_data_date": null,
-            "yoy": "-2.7%"
-          },
-          "new": {
-            "history_len": 14,
-            "value": 1.877,
-            "period_type": "quarter",
-            "last_data_date": "2026-01-31",
-            "yoy": "-24.6%"
-          },
-          "concepts": [
-            "us-gaap:LongTermDebtNoncurrent+None"
-          ],
-          "scale_divisor": 1000000000.0
-        },
-        {
-          "kpi_idx": 1,
-          "kpi": "Gross Margin",
-          "action": "SKIP_NOT_IN_10Q_XBRL",
-          "reason": "requires 10-K, segment data, or text extraction"
-        }
-      ]
-    },
-    "SA33-Claude 2026-06-03"
-  ]
+  "_maj_by": "Sub-agent Opus MAJ chunk-03"
 }

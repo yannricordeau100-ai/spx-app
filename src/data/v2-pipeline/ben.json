@@ -77,10 +77,7 @@
       "_validation": "Valeur confirmée (604.1 / 8770.7 = 6.9%). YoY correct (+2.1 pts vs 4.8% en 2024). History corrigée: 14 remplacé par 14.0 pour cohérence.",
       "explanation_en": "Profit margin on Op.",
       "signal_en": "Margin expansion, operating leverage",
-      "period_type": "year",
-      "_fix_log": [
-        "SA30-LOCAL 2026-06-03: period_type=year (heuristique len=2)"
-      ]
+      "period_type": "year"
     },
     {
       "short": "Operating revenues",
@@ -124,13 +121,7 @@
       "ttm": 8770.7,
       "_validation": "Valeur corrigée de 8.77 Mds $ à 8770.7 M$ (soit 8.77 Mds $, mais maintenue en millions pour cohérence avec 10-K). History mise à jour avec données réelles (8478.0, 7849.4).",
       "signal_en": "Top-line growth, market traction",
-      "period_type": "quarter",
-      "_history_extended_at": "2026-06-02T04:35:23.590827+00:00",
-      "_history_source": "SEC EDGAR XBRL SP500 (RevenueFromContractWithCustomerExcludingAssessedTax)",
-      "_fix_log": [
-        "SA31-YF 2026-06-03: quarterly from yfinance q_income/Total Revenue (5 trims)",
-        "SA32-XBRL 2026-06-03: quarterly from SEC us-gaap/Revenues (20 trims)"
-      ]
+      "period_type": "quarter"
     },
     {
       "short": "Net income",
@@ -176,13 +167,7 @@
       "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability improving, returns strengthening",
       "period_type": "quarter",
-      "_history_extended_at": "2026-06-02T04:35:24.256863+00:00",
-      "_history_source": "SEC EDGAR XBRL SP500 (NetIncomeLoss)",
-      "_unit_rescaled": "Mds->M $",
-      "_fix_log": [
-        "SA31-YF 2026-06-03: quarterly from yfinance q_income/Net Income (5 trims)",
-        "SA32-XBRL 2026-06-03: quarterly from SEC us-gaap/NetIncomeLoss (20 trims)"
-      ]
+      "_unit_rescaled": "Mds->M $"
     },
     {
       "short": "Average AUM",
@@ -217,11 +202,7 @@
       "ttm": 1606.7,
       "_validation": "Valeur corrigée de 1.6067 à 1606.7 M$ (soit 1.6067 Mds $). History mise à jour (1565.8, 1400.4 en millions).",
       "signal_en": "Capital base expanding, balance-sheet growth",
-      "period_type": "quarter",
-      "_fix_log": [
-        "SA30-LOCAL 2026-06-03: period_type=year (heuristique len=2)",
-        "SA40-Claude 2026-06-03: year->quarter, 11 trims from 10-Q MD&A (2022-12-31 to 2026-03-31)"
-      ]
+      "period_type": "quarter"
     },
     {
       "short": "DPS",
@@ -263,11 +244,7 @@
       "signal_en": "Dividend cut risk, monitor payout sustainability",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
-      "period_type": "quarter",
-      "_fix_log": [
-        "SA30-LOCAL 2026-06-03: period_type=year (heuristique len=7)",
-        "SA32-XBRL 2026-06-03: quarterly from SEC us-gaap/CommonStockDividendsPerShareDeclared (20 trims)"
-      ]
+      "period_type": "quarter"
     },
     {
       "short": "Cap Return",
@@ -311,12 +288,7 @@
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
       "period_type": "quarter",
-      "_history_extended_at": "2026-06-02T04:35:24.812407+00:00",
-      "_history_source": "SEC EDGAR XBRL SP500 (PaymentsOfDividendsCommonStock)",
-      "_unit_rescaled": "Mds->M $",
-      "_fix_log": [
-        "SA32-XBRL 2026-06-03: quarterly from SEC us-gaap/CommonStockDividendsPerShareDeclared (20 trims)"
-      ]
+      "_unit_rescaled": "Mds->M $"
     },
     {
       "short": "Payout Ratio",
@@ -356,11 +328,7 @@
       "signal_en": "Dividend cut risk, monitor payout sustainability",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
-      "period_type": "quarter",
-      "_fix_log": [
-        "SA30-LOCAL 2026-06-03: period_type=year (heuristique len=4)",
-        "SA41-COMPUTED 2026-06-03: quarterly = PaymentsOfDividendsCommonStock/NetIncomeLoss (17 trims)"
-      ]
+      "period_type": "quarter"
     }
   ],
   "stories_kpis": [
@@ -609,25 +577,5 @@
   "_hero_change_failure_reason": "extension absente ou <16 trims | _super_kpi_inputs.revenue_q=float(0) | _quarterly_history_extension=Revenue/quarter/7trims",
   "_hero_change_failed_at": "2026-06-01T21:41:43.144503+00:00",
   "_hero_change_failed_reason": "BEN n'a pas de KPI 'Total Revenue' avec assez d'historique (Operating revenues seulement 2 points). Nécessite extraction SEC XBRL Revenues (8+ trimestres) hors scope mission narrative locale.",
-  "_hero_change_failed_by": "Sub-agent Opus EU narrative chunk-01",
-  "_history_extended_at": "2026-06-02T04:35:24.812505+00:00",
-  "_history_source": "SEC EDGAR XBRL SP500",
-  "_fix_log": [
-    {
-      "at": "2026-06-02T21:23:04Z",
-      "type": "VAL_NE_LAST scale fix (M -> Mds)",
-      "changes": [
-        {
-          "kpi": "Operating Revenues",
-          "old": 8770.7,
-          "new": 8.771
-        },
-        {
-          "kpi": "Net Income",
-          "old": 524.9,
-          "new": 0.525
-        }
-      ]
-    }
-  ]
+  "_hero_change_failed_by": "Sub-agent Opus EU narrative chunk-01"
 }

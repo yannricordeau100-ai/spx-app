@@ -56,11 +56,7 @@
       "is_generic": true,
       "is_short_history": false,
       "explanation_en": "Headcount, total number of employees at period end.",
-      "period_type": "quarter",
-      "_fix_log": [
-        "SA30-LOCAL 2026-06-03: period_type=year (heuristique len=0)",
-        "SA39-FUZZY 2026-06-03: quarterly from us-gaap/AccountsPayableCurrent score=0.46 (20 trims)"
-      ]
+      "period_type": "quarter"
     },
     {
       "short": "Total Assets",
@@ -97,12 +93,7 @@
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
       "period_type": "quarter",
-      "_history_extended_at": "2026-06-02T04:42:00.179917+00:00",
-      "_history_source": "SEC EDGAR XBRL SP500 (Assets)",
-      "last_data_date": "2025-12-27",
-      "_fix_log": [
-        "SA34-Claude 2026-06-03: quarterly from 10-Q us-gaap/Assets (14 trims)"
-      ]
+      "last_data_date": "2025-12-27"
     },
     {
       "short": "Total Debt",
@@ -135,21 +126,6 @@
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
       "period_type": "quarter",
-      "_history_extended_at": "2026-06-02T04:42:01.172945+00:00",
-      "_history_source": "SEC EDGAR XBRL SP500 (LongTermDebt)",
-      "_fix_log": [
-        {
-          "type": "VAL_NE_LAST_YEAR_MISMATCH",
-          "short": "Total Debt",
-          "value": 2.61,
-          "last": 2.411,
-          "ratio": 1.0825,
-          "note": "period_type=year but value does not match hist[-1]; possibly segment vs total mismatch",
-          "tag": "SA19-03 batch-03 V1.9.5",
-          "ts": "2026-06-02T21:21:54.780310Z"
-        },
-        "SA34-Claude 2026-06-03: quarterly from 10-Q us-gaap/LongTermDebtNoncurrent (10 trims)"
-      ],
       "last_data_date": "2025-12-27"
     },
     {
@@ -187,10 +163,6 @@
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
       "_unit_rescaled": "Mds->M €",
       "period_type": "quarter",
-      "_fix_log": [
-        "SA30-LOCAL 2026-06-03: period_type=year (heuristique len=4)",
-        "SA34-Claude 2026-06-03: quarterly from 10-Q us-gaap/CashAndCashEquivalentsAtCarryingValue (14 trims)"
-      ],
       "last_data_date": "2025-12-27"
     },
     {
@@ -240,18 +212,6 @@
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
       "period_type": "quarter",
       "_period_type_propagated_at": "2026-06-01T23:13:39.673709+00:00",
-      "_fix_log": [
-        {
-          "type": "VAL_NE_LAST_GENERIC",
-          "short": "Net Income",
-          "value": 0.026,
-          "last": -0.0824,
-          "ratio": -0.3155,
-          "note": "ecart inexplique value vs hist[-1], a revoir manuellement",
-          "tag": "SA19-03 batch-03 V1.9.5",
-          "ts": "2026-06-02T21:21:54.780310Z"
-        }
-      ],
       "_unit_rescaled": "Mds->M $"
     }
   ],
@@ -451,25 +411,5 @@
     }
   ],
   "_maj_by": "Sub-agent Opus MAJ chunk-07",
-  "_maj_at": "2026-06-01T21:15:19.187841Z",
-  "_history_extended_at": "2026-06-02T04:42:01.173000+00:00",
-  "_history_source": "SEC EDGAR XBRL SP500",
-  "_fix_log": [
-    {
-      "tag": "SA19-03 batch-03 V1.9.5",
-      "ts": "2026-06-02T21:21:54.780310Z",
-      "n_changes": 2,
-      "types": [
-        "VAL_NE_LAST_GENERIC",
-        "VAL_NE_LAST_YEAR_MISMATCH"
-      ]
-    },
-    {
-      "ts": "2026-06-02T21:22:56.706443Z",
-      "batch": "SA19-07",
-      "kpi": "Net Income",
-      "field": "history",
-      "reason": "AMPL + duplications x3: history avait des valeurs annuelles dupliquees au lieu de Q isoles. Reconstruit via SEC EDGAR us-gaap/NetIncomeLoss CIK 0001633978 (FY juin), Q4 fiscaux calcules FY-(Q1+Q2+Q3). 20 quarters Q3 FY2021 -> Q3 FY2026"
-    }
-  ]
+  "_maj_at": "2026-06-01T21:15:19.187841Z"
 }

@@ -80,9 +80,6 @@
         "Q3 2025",
         "Q4 2025",
         "Q1 2026"
-      ],
-      "_fix_log": [
-        "SA21-02-09 quarterly via v2-pipeline-enrich quarterly-history (cerebras-qwen-3-235b)"
       ]
     },
     {
@@ -151,9 +148,7 @@
         "Q3 2025",
         "Q4 2025",
         "Q1 2026"
-      ],
-      "_xbrl_tag": "Revenues",
-      "_extended_by": "SA24-C SEC XBRL"
+      ]
     },
     {
       "short": "Net Income",
@@ -197,13 +192,8 @@
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
       "period_type": "quarter",
-      "_history_extended_at": "2026-06-02T04:47:48.137852+00:00",
-      "_history_source": "SEC EDGAR XBRL SP500 (NetIncomeLoss)",
       "_neg_review": true,
-      "_unit_rescaled": "Mds->M €",
-      "_fix_log": [
-        "SA32-XBRL 2026-06-03: quarterly from SEC us-gaap/NetIncomeLoss (20 trims)"
-      ]
+      "_unit_rescaled": "Mds->M €"
     },
     {
       "short": "Total Assets",
@@ -239,8 +229,6 @@
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
       "period_type": "quarter",
-      "_history_extended_at": "2026-06-02T04:47:48.607314+00:00",
-      "_history_source": "SEC EDGAR XBRL SP500 (Assets)",
       "last_data_date": "2025-09-30"
     },
     {
@@ -277,8 +265,6 @@
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
       "period_type": "quarter",
-      "_history_extended_at": "2026-06-02T04:47:49.150761+00:00",
-      "_history_source": "SEC EDGAR XBRL SP500 (LongTermDebtNoncurrent)",
       "last_data_date": "2025-09-30"
     },
     {
@@ -315,7 +301,6 @@
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
       "_unit_rescaled": "Mds->M €",
       "period_type": "quarter",
-      "_period_type_source": "SA24-C heuristic",
       "history_periods": [
         "2021",
         "2022",
@@ -323,9 +308,7 @@
         "2024",
         "2025"
       ],
-      "last_data_date": "2025-09-30",
-      "_xbrl_tag": "CashAndCashEquivalentsAtCarryingValue",
-      "_extended_by": "SA24-C SEC XBRL"
+      "last_data_date": "2025-09-30"
     }
   ],
   "stories_kpis": [
@@ -548,139 +531,5 @@
   },
   "_haiku_seggeo_at": "2026-05-14T23:24:04.664747+00:00",
   "_maj_by": "Sub-agent Opus MAJ chunk-12",
-  "_maj_at": "2026-06-01T21:12:35.465531Z",
-  "_history_extended_at": "2026-06-02T04:47:49.150813+00:00",
-  "_history_source": "SEC EDGAR XBRL SP500",
-  "_fix_log": [
-    {
-      "kpi_idx": 1,
-      "short": "Total Revenue",
-      "flags": [
-        "VAL_NE_LAST"
-      ],
-      "actions": [
-        {
-          "value_is_annual_quarter_history": true,
-          "sum4": 8.4091
-        }
-      ],
-      "before_sample": [
-        2.0773,
-        2.0014,
-        2.2437,
-        2.0867
-      ],
-      "after_sample": [
-        2.0773,
-        2.0014,
-        2.2437,
-        2.0867
-      ]
-    },
-    {
-      "kpi_idx": 2,
-      "short": "Net Income",
-      "flags": [
-        "NEG"
-      ],
-      "actions": [
-        {
-          "neg_flag_review": {
-            "neg_count": 1,
-            "total": 7
-          }
-        }
-      ],
-      "before_sample": [
-        0.231,
-        1.024,
-        0.904,
-        0.705
-      ],
-      "after_sample": [
-        0.231,
-        1.024,
-        0.904,
-        0.705
-      ]
-    },
-    "SA24-C XBRL extend: +2 KPIs",
-    {
-      "tag": "SA33-Claude 2026-06-03",
-      "batch": 17,
-      "source": "SEC 10-Q inline XBRL us-gaap concepts (instant)",
-      "changes": [
-        {
-          "kpi_idx": 3,
-          "kpi": "Total Assets",
-          "action": "YEAR_TO_QUARTER",
-          "old": {
-            "history_len": 7,
-            "value": 23.09,
-            "period_type": "year",
-            "last_data_date": null,
-            "yoy": "+8.0%"
-          },
-          "new": {
-            "history_len": 12,
-            "value": 23.488,
-            "period_type": "quarter",
-            "last_data_date": "2025-09-30",
-            "yoy": "+8.1%"
-          },
-          "concepts": [
-            "us-gaap:Assets"
-          ],
-          "scale_divisor": 1000000000.0
-        },
-        {
-          "kpi_idx": 4,
-          "kpi": "Total Debt",
-          "action": "YEAR_TO_QUARTER",
-          "old": {
-            "history_len": 7,
-            "value": 7.52,
-            "period_type": "year",
-            "last_data_date": null,
-            "yoy": "+21.3%"
-          },
-          "new": {
-            "history_len": 12,
-            "value": 8.713,
-            "period_type": "quarter",
-            "last_data_date": "2025-09-30",
-            "yoy": "+6.7%"
-          },
-          "concepts": [
-            "us-gaap:LongTermDebtNoncurrent+us-gaap:LongTermDebtCurrent"
-          ],
-          "scale_divisor": 1000000000.0
-        },
-        {
-          "kpi_idx": 5,
-          "kpi": "Cash & Equivalents",
-          "action": "YEAR_TO_QUARTER",
-          "old": {
-            "history_len": 5,
-            "value": 590.0,
-            "period_type": "year",
-            "last_data_date": "2025-12-31",
-            "yoy": "+11.3%"
-          },
-          "new": {
-            "history_len": 12,
-            "value": 1292.7,
-            "period_type": "quarter",
-            "last_data_date": "2025-09-30",
-            "yoy": "+127.2%"
-          },
-          "concepts": [
-            "us-gaap:CashAndCashEquivalentsAtCarryingValue"
-          ],
-          "scale_divisor": 1000000.0
-        }
-      ]
-    },
-    "SA33-Claude 2026-06-03"
-  ]
+  "_maj_at": "2026-06-01T21:12:35.465531Z"
 }
