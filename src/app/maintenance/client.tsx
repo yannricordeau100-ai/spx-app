@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 import type { Locale } from "@/lib/i18n/types";
 import { LocaleFlagsRow } from "@/components/locale-flags-row";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { BrandWordmark } from "@/components/brand-wordmark";
+// BrandWordmark retiré 3 juin 2026 — remplacé par <img> du logo PNG combined.
 
 type Strings = {
   headline: string;
@@ -52,14 +52,54 @@ export function MaintenanceClient({
 
       {/* Contenu central */}
       <main className="relative z-10 mx-auto flex min-h-screen max-w-2xl flex-col items-center justify-center px-6 py-20 text-center">
-        {/* Wordmark Mettrik AI : repris du composant home (BrandWordmark)
-            via le composant réutilisable MettrikWordmark — Fraunces 800
-            italic, gradient holographique, pulse-dot intégré au i, rail
-            iridescent. Yann le 7 mai 2026. */}
+        {/* Yann 3 juin 2026 : nouveau logo PNG combined (curves + "Mettrik AI"
+            wordmark) qui matche le design fourni dans le chat. Remplace
+            l'ancien BrandWordmark texte animé. */}
         <div className="mb-10">
-          {/* Yann (25 mai 2026) : sous-titre "KPI Intelligence" retiré (showSubtitle=false).
-              Rail iridescent conservé. */}
-          <BrandWordmark size="lg" showRail />
+          <motion.div
+            initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            className="relative mx-auto"
+            style={{ width: "clamp(260px, 50vw, 480px)", maxWidth: "100%" }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/brand/mettrik-combined-white-bg-transparent.png"
+              alt="Mettrik AI"
+              style={{ width: "100%", height: "auto", display: "block" }}
+            />
+            {/* Pulse violet sur le point du i */}
+            <motion.span
+              aria-hidden
+              animate={{ opacity: [0.5, 1, 0.5], scale: [1, 1.4, 1] }}
+              transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
+              className="pointer-events-none absolute"
+              style={{
+                left: "75.5%",
+                top: "30%",
+                width: "1.8%",
+                aspectRatio: "1 / 1",
+                borderRadius: "50%",
+                background: "#a855f7",
+                boxShadow:
+                  "0 0 18px #a855f7, 0 0 36px #a855f7aa, 0 0 54px #a855f755",
+              }}
+            />
+          </motion.div>
+          {/* Rail iridescent conservé sous le logo */}
+          <motion.div
+            initial={{ scaleX: 0, opacity: 0 }}
+            animate={{ scaleX: 1, opacity: 1 }}
+            transition={{ delay: 0.5, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            className="mx-auto mt-4 h-[2px] w-[min(82%,480px)] origin-left rounded-full"
+            style={{
+              background:
+                "linear-gradient(90deg, transparent 0%, #a855f7 25%, #22d3ee 55%, #f472b6 85%, transparent 100%)",
+              boxShadow:
+                "0 0 12px rgba(168,85,247,0.4), 0 0 24px rgba(34,211,238,0.25)",
+            }}
+          />
         </div>
 
         {/* Headline */}

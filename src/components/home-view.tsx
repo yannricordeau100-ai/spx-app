@@ -69,106 +69,45 @@ function DataFreshnessPill({ locale, freshnessKey }: { locale: string; freshness
 }
 
 function BrandWordmark({ kpiUnderText }: { kpiUnderText?: string }) {
-  const letters = "Mettrik AI".split("");
+  // Yann 3 juin 2026 : remplacement du wordmark texte animé par le logo combined
+  // PNG (curves icon + "Mettrik AI" wordmark) qui matche le nouveau design.
+  // Path : /brand/mettrik-combined-white-bg-transparent.png (dark theme).
   return (
     <div className="mb-6 flex flex-col items-center sm:mb-8">
-      <div
-        className="relative inline-flex items-baseline leading-none"
+      <motion.div
+        initial={{ opacity: 0, y: "20%", filter: "blur(8px)" }}
+        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+        className="relative"
         style={{
-          fontFamily: "var(--font-instrument), 'Bricolage Grotesque', sans-serif",
-          fontWeight: 800,
-          fontStyle: "italic",
-          fontSize: "clamp(56px, 9vw, 110px)",
-          letterSpacing: "-0.04em",
+          width: "clamp(280px, 50vw, 560px)",
+          maxWidth: "100%",
         }}
       >
-        {letters.map((ch, i) => {
-          const isI = ch === "i";
-          return (
-            <motion.span
-              key={i}
-              initial={{ opacity: 0, y: "30%", filter: "blur(8px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              transition={{
-                duration: 0.7,
-                delay: 0.06 * i,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="relative inline-block"
-              style={{
-                background:
-                  "linear-gradient(135deg, #ffffff 0%, #d8d8e4 30%, #a855f7 55%, #22d3ee 78%, #f472b6 100%)",
-                WebkitBackgroundClip: "text",
-                backgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                color: "transparent",
-              }}
-            >
-              {isI ? (
-                <>
-                  <span aria-hidden style={{ visibility: "hidden" }}>i</span>
-                  {/* Le « i » est repeint sans le point (visibility hidden)
-                      et on le rejoue ici en retirant le point natif via
-                      stylisation. Faisable proprement uniquement avec un
-                      trait personnalisé : on dessine le i au-dessus. */}
-                  <span
-                    aria-hidden
-                    className="pointer-events-none absolute inset-0 flex items-end justify-center"
-                  >
-                    <span
-                      style={{
-                        display: "inline-block",
-                        width: "0.12em",
-                        height: "0.62em",
-                        background:
-                          "linear-gradient(180deg, #a855f7 0%, #22d3ee 100%)",
-                        borderRadius: "0.06em",
-                        transform: "translateY(-0.04em)",
-                      }}
-                    />
-                  </span>
-                  {/* Le point du i = pulse violet (signature Mettrik) */}
-                  <motion.span
-                    aria-hidden
-                    initial={{ scale: 0, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{
-                      delay: 0.06 * i + 0.45,
-                      duration: 0.4,
-                      ease: [0.22, 1, 0.36, 1],
-                    }}
-                    className="absolute"
-                    style={{
-                      left: "50%",
-                      top: "0.05em",
-                      width: "0.18em",
-                      height: "0.18em",
-                      borderRadius: "50%",
-                      background: "#a855f7",
-                      transform: "translateX(-50%)",
-                      boxShadow:
-                        "0 0 12px #a855f7, 0 0 24px #a855f7aa, 0 0 36px #a855f755",
-                    }}
-                  >
-                    <motion.span
-                      animate={{ opacity: [1, 0.55, 1], scale: [1, 1.3, 1] }}
-                      transition={{
-                        duration: 2.6,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                      }}
-                      className="absolute inset-0 rounded-full"
-                      style={{ background: "#a855f7" }}
-                    />
-                  </motion.span>
-                </>
-              ) : (
-                ch
-              )}
-            </motion.span>
-          );
-        })}
-      </div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/brand/mettrik-combined-white-bg-transparent.png"
+          alt="Mettrik AI"
+          style={{ width: "100%", height: "auto", display: "block" }}
+        />
+        {/* Glow point du i conservé via overlay pulse violet */}
+        <motion.span
+          aria-hidden
+          animate={{ opacity: [0.5, 1, 0.5], scale: [1, 1.4, 1] }}
+          transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
+          className="pointer-events-none absolute"
+          style={{
+            left: "75.5%",
+            top: "30%",
+            width: "1.6%",
+            aspectRatio: "1 / 1",
+            borderRadius: "50%",
+            background: "#a855f7",
+            boxShadow:
+              "0 0 18px #a855f7, 0 0 36px #a855f7aa, 0 0 54px #a855f755",
+          }}
+        />
+      </motion.div>
 
       {/* Rail iridescent qui se trace de gauche à droite */}
       <motion.div
