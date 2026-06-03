@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 
 export type LogoEntry = {
   ticker: string;
@@ -22,6 +23,12 @@ type StatusFilter = "all" | "ok" | "small" | "missing";
 type ScopeFilter = "top50" | "top100" | "all";
 type Theme = "dark" | "light";
 
+type SelectedLogo = {
+  ticker: string;
+  src: string;
+  variant: "avant" | "apres";
+};
+
 function formatKB(bytes: number): string {
   if (bytes <= 0) return "0 KB";
   return `${(bytes / 1024).toFixed(1)} KB`;
@@ -37,6 +44,16 @@ export function LogosCompareClient({
   const [scopeFilter, setScopeFilter] = useState<ScopeFilter>("all");
   const [search, setSearch] = useState("");
   const [theme, setTheme] = useState<Theme>("dark");
+  const [selectedLogo, setSelectedLogo] = useState<SelectedLogo | null>(null);
+
+  useEffect(() => {
+    if (!selectedLogo) return;
+    const onKey = (ev: KeyboardEvent) => {
+      if (ev.key === "Escape") setSelectedLogo(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [selectedLogo]);
 
   const filtered = useMemo(() => {
     let out = entries;
@@ -214,6 +231,7 @@ export function LogosCompareClient({
               isDark={isDark}
               cardStyle={cardStyle}
               subtleText={subtleText}
+              onSelect={setSelectedLogo}
             />
           ))}
         </div>
@@ -226,6 +244,74 @@ export function LogosCompareClient({
           </div>
         )}
       </div>
+
+      <AnimatePresence>
+        {selectedLogo && (
+          <motion.div
+            key="logo-lightbox"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.18 }}
+            onClick={() => setSelectedLogo(null)}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 backdrop-blur-sm"
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Logo ${selectedLogo.ticker} agrandi`}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.92 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.92 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              onClick={(ev) => ev.stopPropagation()}
+              className="relative mx-auto flex max-w-4xl flex-col items-center gap-6 p-8"
+            >
+              <button
+                type="button"
+                onClick={() => setSelectedLogo(null)}
+                className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white text-neutral-900 shadow-lg hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-white/60"
+                aria-label="Fermer"
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
+
+              <header className="flex flex-col items-center gap-1 text-center">
+                <span className="font-mono text-xl font-semibold text-white">
+                  {selectedLogo.ticker}
+                </span>
+                <span className="text-xs uppercase tracking-wider text-neutral-300">
+                  {selectedLogo.variant === "avant"
+                    ? "Avant (backup)"
+                    : "Apres (Logo.dev)"}
+                </span>
+              </header>
+
+              <div className="flex items-center justify-center rounded-lg bg-white/5 p-6">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={selectedLogo.src}
+                  alt={`${selectedLogo.ticker} ${selectedLogo.variant}`}
+                  className="max-h-[80vh] max-w-full object-contain"
+                  style={{ width: 512, height: 512, maxWidth: "100%", maxHeight: "80vh" }}
+                />
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
@@ -235,11 +321,13 @@ function LogoCard({
   isDark,
   cardStyle,
   subtleText,
+  onSelect,
 }: {
   entry: LogoEntry;
   isDark: boolean;
   cardStyle: string;
   subtleText: string;
+  onSelect: (logo: SelectedLogo) => void;
 }) {
   const tagColor =
     entry.status === "ok"
@@ -294,11 +382,20 @@ function LogoCard({
                 ? "avant (Parqet)"
                 : "avant"}
           </div>
-          <div
-            className={`flex aspect-square items-center justify-center rounded-md ${tileBg} p-2`}
-          >
-            {backupSrc ? (
-              // eslint-disable-next-line @next/next/no-img-element
+          {backupSrc ? (
+            <button
+              type="button"
+              onClick={() =>
+                onSelect({
+                  ticker: entry.ticker,
+                  src: backupSrc,
+                  variant: "avant",
+                })
+              }
+              className={`flex aspect-square items-center justify-center rounded-md ${tileBg} p-2 transition-transform duration-150 hover:scale-105 focus:scale-105 focus:outline-none focus:ring-2 focus:ring-violet-500/60`}
+              aria-label={`Agrandir le logo avant de ${entry.ticker}`}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={backupSrc}
                 alt={`${entry.ticker} avant`}
@@ -307,21 +404,34 @@ function LogoCard({
                   (ev.target as HTMLImageElement).style.opacity = "0.15";
                 }}
               />
-            ) : (
+            </button>
+          ) : (
+            <div
+              className={`flex aspect-square items-center justify-center rounded-md ${tileBg} p-2`}
+            >
               <span className={`text-[10px] ${subtleText}`}>—</span>
-            )}
-          </div>
+            </div>
+          )}
         </div>
 
         <div className="flex flex-col gap-1">
           <div className={`text-[10px] uppercase ${subtleText}`}>
             apres (Logo.dev)
           </div>
-          <div
-            className={`flex aspect-square items-center justify-center rounded-md ${tileBg} p-2`}
-          >
-            {entry.currentExists ? (
-              // eslint-disable-next-line @next/next/no-img-element
+          {entry.currentExists ? (
+            <button
+              type="button"
+              onClick={() =>
+                onSelect({
+                  ticker: entry.ticker,
+                  src: newSrc,
+                  variant: "apres",
+                })
+              }
+              className={`flex aspect-square items-center justify-center rounded-md ${tileBg} p-2 transition-transform duration-150 hover:scale-105 focus:scale-105 focus:outline-none focus:ring-2 focus:ring-violet-500/60`}
+              aria-label={`Agrandir le logo apres de ${entry.ticker}`}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={newSrc}
                 alt={`${entry.ticker} apres`}
@@ -330,10 +440,14 @@ function LogoCard({
                   (ev.target as HTMLImageElement).style.opacity = "0.15";
                 }}
               />
-            ) : (
+            </button>
+          ) : (
+            <div
+              className={`flex aspect-square items-center justify-center rounded-md ${tileBg} p-2`}
+            >
               <span className={`text-[10px] ${subtleText}`}>404</span>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
 

@@ -162,6 +162,12 @@ const SECTIONS: SandboxSection[] = [
         soon: true,
       },
       {
+        href: "/sandbox/logos-compare",
+        icon: ImageIcon,
+        label: "Logos",
+        desc: "Comparaison + validation logos V1.9.5 (687 stés)",
+      },
+      {
         href: "/sandbox/v2",
         icon: ImagePlus,
         label: "V2 (50 stés DRAFT seed)",
