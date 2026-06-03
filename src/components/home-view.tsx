@@ -86,20 +86,20 @@ function BrandWordmark({ kpiUnderText }: { kpiUnderText?: string }) {
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/brand/mettrik-combined-white-bg-transparent.png"
-          alt="Mettrik AI"
+          src="/brand/mettrik-ai-dark.svg"
+          alt="MettrikAI"
           style={{ width: "100%", height: "auto", display: "block" }}
         />
-        {/* Glow point du i conservé via overlay pulse violet */}
+        {/* Glow pulse violet overlay (renforce le dot sur le i du SVG) */}
         <motion.span
           aria-hidden
-          animate={{ opacity: [0.5, 1, 0.5], scale: [1, 1.4, 1] }}
+          animate={{ opacity: [0.4, 0.9, 0.4], scale: [1, 1.4, 1] }}
           transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
           className="pointer-events-none absolute"
           style={{
-            left: "75.5%",
+            left: "82.5%",
             top: "30%",
-            width: "1.6%",
+            width: "2.2%",
             aspectRatio: "1 / 1",
             borderRadius: "50%",
             background: "#a855f7",

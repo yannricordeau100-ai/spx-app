@@ -65,8 +65,8 @@ export function MaintenanceClient({
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/brand/mettrik-combined-white-bg-transparent.png"
-              alt="Mettrik AI"
+              src="/brand/mettrik-ai-dark.svg"
+              alt="MettrikAI"
               style={{ width: "100%", height: "auto", display: "block" }}
             />
             {/* Pulse violet sur le point du i */}

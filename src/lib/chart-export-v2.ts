@@ -299,8 +299,8 @@ export async function downloadSvgAsPngV2(
   const sigY = origY + origH + 28;
 
   const mettrikLogoUrl = isLight
-    ? "/brand/mettrik-combined-black-bg-transparent.png"
-    : "/brand/mettrik-combined-white-bg-transparent.png";
+    ? "/brand/mettrik-ai-light.svg"
+    : "/brand/mettrik-ai-dark.svg";
   const mettrikLogoDataUrl =
     (await fetchAsDataUrl(mettrikLogoUrl)) || mettrikLogoUrl;
 
@@ -536,8 +536,8 @@ export async function svgToPngDataUrlV2(
   const sigY = origY + origH + 28;
 
   const mettrikLogoUrl = isLight
-    ? "/brand/mettrik-combined-black-bg-transparent.png"
-    : "/brand/mettrik-combined-white-bg-transparent.png";
+    ? "/brand/mettrik-ai-light.svg"
+    : "/brand/mettrik-ai-dark.svg";
   const mettrikLogoDataUrl =
     (await fetchAsDataUrl(mettrikLogoUrl)) || mettrikLogoUrl;
 
