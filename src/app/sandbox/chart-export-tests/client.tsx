@@ -22,171 +22,18 @@ type TestCase = {
   type: ChartType;
   values: number[];
   labels: string[];
+  /** Couleur brand sté pour courbe/barre (sinon cyan default) */
+  brandColor?: string;
+  brandColor2?: string; // pour gradient
 };
 
+// ─── 6 TESTS DE RÉFÉRENCE (Yann 3 juin 2026 v2) ────────────────────────
 const TESTS: TestCase[] = [
-  // ─── Tests de base (dark/light × 3 types × 2 stés ───
+  // === COURBE ×2 (modèle T12 : 20 trims quarterly NVIDIA) ===
   {
     id: 1,
-    title: "T01 — NVIDIA Data Center Rev (Courbe, Dark)",
-    description: "Modèle PDF de référence. Nom court, KPI court.",
-    theme: "dark",
-    ticker: "NVDA",
-    companyName: "Nvidia",
-    kpiName: "Revenus Data Center",
-    unit: "Mds $",
-    cagr: "+148.5 %",
-    type: "curve",
-    values: [10.6, 15.0, 47.5, 115.2, 178.0],
-    labels: ["2021", "2022", "2023", "2024", "2025"],
-  },
-  {
-    id: 2,
-    title: "T02 — Apple iPhone Revenue (Courbe, Light)",
-    description: "Light theme. Nom moyen, KPI moyen.",
-    theme: "light",
-    ticker: "AAPL",
-    companyName: "Apple",
-    kpiName: "Revenus iPhone",
-    unit: "Mds $",
-    cagr: "+2.1 %",
-    type: "curve",
-    values: [191.9, 205.5, 200.6, 201.2, 209.6],
-    labels: ["2021", "2022", "2023", "2024", "2025"],
-  },
-  {
-    id: 3,
-    title: "T03 — Microsoft Cloud (Barres, Dark)",
-    description: "Type barres. Nom moyen, KPI long.",
-    theme: "dark",
-    ticker: "MSFT",
-    companyName: "Microsoft",
-    kpiName: "Microsoft Cloud Revenue (Azure + 365)",
-    unit: "Mds $",
-    cagr: "+22.7 %",
-    type: "bars",
-    values: [68.0, 91.2, 111.6, 135.0, 165.0],
-    labels: ["FY21", "FY22", "FY23", "FY24", "FY25"],
-  },
-  {
-    id: 4,
-    title: "T04 — Alphabet Cloud (Variation, Light)",
-    description: "Type variation (% YoY). Nom moyen + parenthèses.",
-    theme: "light",
-    ticker: "GOOGL",
-    companyName: "Alphabet (Google)",
-    kpiName: "Google Cloud Revenue",
-    unit: "%",
-    cagr: "+30.4 %",
-    type: "variation",
-    values: [47.1, 36.8, 23.9, 35.6, 31.0],
-    labels: ["2021", "2022", "2023", "2024", "2025"],
-  },
-  // ─── Cas longs nom de sté ───
-  {
-    id: 5,
-    title: "T05 — Nom sté TRÈS long (Courbe, Dark)",
-    description: "Test ellipsize nom sté long.",
-    theme: "dark",
-    ticker: "BRK-B",
-    companyName: "Berkshire Hathaway Inc Class B Common Stock",
-    kpiName: "Insurance Float",
-    unit: "Mds $",
-    cagr: "+5.8 %",
-    type: "curve",
-    values: [142.1, 147.2, 162.0, 168.0, 178.0],
-    labels: ["2021", "2022", "2023", "2024", "2025"],
-  },
-  // ─── Cas longs nom KPI ───
-  {
-    id: 6,
-    title: "T06 — KPI TRÈS long (Courbe, Dark)",
-    description: "Test ellipsize KPI long.",
-    theme: "dark",
-    ticker: "META",
-    companyName: "Meta",
-    kpiName: "Average Revenue per Person across Family of Apps World",
-    unit: "$",
-    cagr: "+11.2 %",
-    type: "curve",
-    values: [38.4, 40.2, 44.6, 51.4, 60.0],
-    labels: ["2021", "2022", "2023", "2024", "2025"],
-  },
-  // ─── Cas extrêmes ───
-  {
-    id: 7,
-    title: "T07 — Sté + KPI ULTRA longs (Courbe, Light)",
-    description: "Both ellipsized.",
-    theme: "light",
-    ticker: "JPM",
-    companyName: "JPMorgan Chase & Company NA",
-    kpiName: "Tier 1 Common Equity Capital Ratio (CET1 standardisé)",
-    unit: "%",
-    cagr: "+0.3 %",
-    type: "curve",
-    values: [13.1, 13.2, 15.0, 15.3, 15.7],
-    labels: ["2021", "2022", "2023", "2024", "2025"],
-  },
-  {
-    id: 8,
-    title: "T08 — Ticker sans logo (Courbe, Dark)",
-    description: "Sté sans logo PNG dispo, pas de cercle.",
-    theme: "dark",
-    ticker: "ZZZ_NO_LOGO",
-    companyName: "Société Test",
-    kpiName: "Métrique exemple",
-    unit: "M €",
-    cagr: "+8.0 %",
-    type: "curve",
-    values: [100, 110, 121, 133, 145],
-    labels: ["2021", "2022", "2023", "2024", "2025"],
-  },
-  {
-    id: 9,
-    title: "T09 — Caterpillar Backlog (Barres, Light)",
-    description: "Barres light theme.",
-    theme: "light",
-    ticker: "CAT",
-    companyName: "Caterpillar",
-    kpiName: "Backlog",
-    unit: "Mds $",
-    cagr: "+12.4 %",
-    type: "bars",
-    values: [21.0, 28.0, 30.4, 31.0, 38.7],
-    labels: ["2021", "2022", "2023", "2024", "2025"],
-  },
-  {
-    id: 10,
-    title: "T10 — TotalEnergies (Variation, Dark)",
-    description: "Variation dark, exercice européen.",
-    theme: "dark",
-    ticker: "TTE.PA",
-    companyName: "TotalEnergies",
-    kpiName: "Production Hydrocarbures",
-    unit: "kbep/j",
-    cagr: "-1.2 %",
-    type: "variation",
-    values: [-2.1, 3.4, -0.8, 1.5, -2.2],
-    labels: ["2021", "2022", "2023", "2024", "2025"],
-  },
-  {
-    id: 11,
-    title: "T11 — Sans CAGR (Courbe, Dark)",
-    description: "Test absence CAGR.",
-    theme: "dark",
-    ticker: "TSLA",
-    companyName: "Tesla",
-    kpiName: "Vehicle Deliveries",
-    unit: "M véhicules",
-    cagr: "",
-    type: "curve",
-    values: [0.94, 1.31, 1.81, 1.79, 1.85],
-    labels: ["2021", "2022", "2023", "2024", "2025"],
-  },
-  {
-    id: 12,
-    title: "T12 — 20 trimestres (Courbe, Dark)",
-    description: "Beaucoup de points X axis.",
+    title: "T01 — Courbe Dark (NVIDIA quarterly 20T)",
+    description: "Modèle T12 + couleur brand NVIDIA vert #76B900",
     theme: "dark",
     ticker: "NVDA",
     companyName: "Nvidia",
@@ -194,9 +41,11 @@ const TESTS: TestCase[] = [
     unit: "Mds $",
     cagr: "+74.3 %",
     type: "curve",
+    brandColor: "#76B900",
+    brandColor2: "#06b6d4",
     values: [
-      5.0, 5.7, 6.5, 7.6, 8.3, 6.7, 5.9, 6.0, 7.2, 13.5, 18.1, 22.1, 26.0, 30.0,
-      35.1, 39.3, 44.1, 46.7, 57.0, 60.0,
+      5.0, 5.7, 6.5, 7.6, 8.3, 6.7, 5.9, 6.0, 7.2, 13.5, 18.1, 22.1, 26.0,
+      30.0, 35.1, 39.3, 44.1, 46.7, 57.0, 60.0,
     ],
     labels: [
       "T1 21", "T2 21", "T3 21", "T4 21",
@@ -206,17 +55,101 @@ const TESTS: TestCase[] = [
       "T1 25", "T2 25", "T3 25", "T4 25",
     ],
   },
+  {
+    id: 2,
+    title: "T02 — Courbe Light (NVIDIA quarterly 20T)",
+    description: "Même modèle, thème clair",
+    theme: "light",
+    ticker: "NVDA",
+    companyName: "Nvidia",
+    kpiName: "Revenus trimestriels",
+    unit: "Mds $",
+    cagr: "+74.3 %",
+    type: "curve",
+    brandColor: "#76B900",
+    brandColor2: "#06b6d4",
+    values: [
+      5.0, 5.7, 6.5, 7.6, 8.3, 6.7, 5.9, 6.0, 7.2, 13.5, 18.1, 22.1, 26.0,
+      30.0, 35.1, 39.3, 44.1, 46.7, 57.0, 60.0,
+    ],
+    labels: [
+      "T1 21", "T2 21", "T3 21", "T4 21",
+      "T1 22", "T2 22", "T3 22", "T4 22",
+      "T1 23", "T2 23", "T3 23", "T4 23",
+      "T1 24", "T2 24", "T3 24", "T4 24",
+      "T1 25", "T2 25", "T3 25", "T4 25",
+    ],
+  },
+  // === BARRES ×2 (modèle T3 : Microsoft Cloud) ===
+  {
+    id: 3,
+    title: "T03 — Barres Dark (Microsoft Cloud)",
+    description: "Modèle T3 + couleur brand Microsoft #00A4EF",
+    theme: "dark",
+    ticker: "MSFT",
+    companyName: "Microsoft",
+    kpiName: "Microsoft Cloud Revenue",
+    unit: "Mds $",
+    cagr: "+22.7 %",
+    type: "bars",
+    brandColor: "#00A4EF",
+    brandColor2: "#0078D4",
+    values: [68.0, 91.2, 111.6, 135.0, 165.0],
+    labels: ["FY21", "FY22", "FY23", "FY24", "FY25"],
+  },
+  {
+    id: 4,
+    title: "T04 — Barres Light (Microsoft Cloud)",
+    description: "Même modèle, thème clair",
+    theme: "light",
+    ticker: "MSFT",
+    companyName: "Microsoft",
+    kpiName: "Microsoft Cloud Revenue",
+    unit: "Mds $",
+    cagr: "+22.7 %",
+    type: "bars",
+    brandColor: "#00A4EF",
+    brandColor2: "#0078D4",
+    values: [68.0, 91.2, 111.6, 135.0, 165.0],
+    labels: ["FY21", "FY22", "FY23", "FY24", "FY25"],
+  },
+  // === VARIATION ×2 (modèle T10 : TotalEnergies) ===
+  {
+    id: 5,
+    title: "T05 — Variation Dark (TotalEnergies production)",
+    description: "Modèle T10 - YoY signed bars vert/rouge",
+    theme: "dark",
+    ticker: "TTE.PA",
+    companyName: "TotalEnergies",
+    kpiName: "Production Hydrocarbures",
+    unit: "%",
+    cagr: "-1.2 %",
+    type: "variation",
+    values: [-2.1, 3.4, -0.8, 1.5, -2.2],
+    labels: ["2021", "2022", "2023", "2024", "2025"],
+  },
+  {
+    id: 6,
+    title: "T06 — Variation Light (TotalEnergies production)",
+    description: "Même modèle, thème clair",
+    theme: "light",
+    ticker: "TTE.PA",
+    companyName: "TotalEnergies",
+    kpiName: "Production Hydrocarbures",
+    unit: "%",
+    cagr: "-1.2 %",
+    type: "variation",
+    values: [-2.1, 3.4, -0.8, 1.5, -2.2],
+    labels: ["2021", "2022", "2023", "2024", "2025"],
+  },
 ];
 
-// ────────────────────────────────────────────────────────
-// Chart SVG builders (simples, suffisants pour modèle export)
-// ────────────────────────────────────────────────────────
-
+// ─── CHART SVG BUILDERS ────────────────────────────────────────────────
 const CHART_W = 1100;
 const CHART_H = 460;
 const CHART_PAD_L = 70;
 const CHART_PAD_R = 30;
-const CHART_PAD_T = 30;
+const CHART_PAD_T = 50; // augmenté pour Y-axis label centré 50/50 au-dessus
 const CHART_PAD_B = 40;
 
 function ChartCurve({
@@ -224,11 +157,15 @@ function ChartCurve({
   labels,
   unit,
   theme,
+  brandColor = "#06b6d4",
+  brandColor2 = "#a855f7",
 }: {
   values: number[];
   labels: string[];
   unit: string;
   theme: "dark" | "light";
+  brandColor?: string;
+  brandColor2?: string;
 }) {
   const min = Math.min(0, ...values);
   const max = Math.max(...values);
@@ -250,8 +187,6 @@ function ChartCurve({
     const mx = (x1 + x2) / 2;
     path += ` C ${mx} ${y1} ${mx} ${y2} ${x2} ${y2}`;
   }
-
-  // Area sous courbe
   const areaPath = `${path} L ${pts[pts.length - 1][0]} ${CHART_H - CHART_PAD_B} L ${pts[0][0]} ${CHART_H - CHART_PAD_B} Z`;
 
   const isLight = theme === "light";
@@ -259,7 +194,6 @@ function ChartCurve({
   const axisColor = isLight ? "#444" : "#bbb";
   const valueColor = isLight ? "#0a0a0a" : "#fafafa";
 
-  // Y ticks
   const tickCount = 5;
   const yTicks: number[] = [];
   for (let i = 0; i < tickCount; i++) {
@@ -269,22 +203,22 @@ function ChartCurve({
   return (
     <>
       <defs>
-        <linearGradient id="curveGrad" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#a855f7" />
-          <stop offset="100%" stopColor="#06b6d4" />
+        <linearGradient id={`curveGrad-${brandColor}`} x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor={brandColor2} />
+          <stop offset="100%" stopColor={brandColor} />
         </linearGradient>
-        <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.35" />
-          <stop offset="100%" stopColor="#06b6d4" stopOpacity="0" />
+        <linearGradient id={`areaGrad-${brandColor}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor={brandColor} stopOpacity="0.35" />
+          <stop offset="100%" stopColor={brandColor} stopOpacity="0" />
         </linearGradient>
       </defs>
 
-      {/* Y axis label "Mds $" top-left */}
+      {/* Y axis label "Mds $" CENTRÉ sur l'axe Y (50% à gauche, 50% à droite) */}
       <text
         x={CHART_PAD_L}
-        y={CHART_PAD_T - 8}
-        textAnchor="end"
-        fontSize="13"
+        y={CHART_PAD_T - 18}
+        textAnchor="middle"
+        fontSize="16"
         fill={axisColor}
         fontWeight="600"
       >
@@ -320,6 +254,10 @@ function ChartCurve({
       {/* Vertical grid + X labels */}
       {labels.map((lbl, i) => {
         const x = getX(i);
+        const isFirst = i === 0;
+        const isLast = i === labels.length - 1;
+        // Pour history dense (20 trims), afficher 1 sur 4
+        const skipLabel = labels.length > 12 && !isFirst && !isLast && i % 4 !== 0;
         return (
           <g key={i}>
             <line
@@ -330,28 +268,35 @@ function ChartCurve({
               stroke={gridColor}
               strokeDasharray="2 4"
             />
-            <text
-              x={x}
-              y={CHART_H - CHART_PAD_B + 22}
-              textAnchor="middle"
-              fontSize="14"
-              fill={axisColor}
-              fontWeight="600"
-            >
-              {lbl}
-            </text>
+            {!skipLabel && (
+              <text
+                x={x}
+                y={CHART_H - CHART_PAD_B + 22}
+                textAnchor="middle"
+                fontSize="13"
+                fill={axisColor}
+                fontWeight="600"
+              >
+                {lbl}
+              </text>
+            )}
           </g>
         );
       })}
 
-      {/* Area + Curve */}
-      <path d={areaPath} fill="url(#areaGrad)" />
-      <path d={path} stroke="url(#curveGrad)" strokeWidth="3" fill="none" />
+      <path d={areaPath} fill={`url(#areaGrad-${brandColor})`} />
+      <path
+        d={path}
+        stroke={`url(#curveGrad-${brandColor})`}
+        strokeWidth="3"
+        fill="none"
+      />
 
-      {/* Data points + values above with whisker line (PDF model) */}
+      {/* Data points + values above (skip si dense pour pas surcharger) */}
       {values.map((v, i) => {
         const x = getX(i);
         const y = getY(v);
+        const showLabel = values.length <= 8 || i === 0 || i === values.length - 1 || i % 4 === 0;
         return (
           <g key={i}>
             <circle
@@ -359,29 +304,32 @@ function ChartCurve({
               cy={y}
               r="5"
               fill={isLight ? "#fff" : "#050505"}
-              stroke="#06b6d4"
+              stroke={brandColor}
               strokeWidth="2.5"
             />
-            {/* Whisker line: petit trait sous la valeur vers le point */}
-            <line
-              x1={x - 4}
-              y1={y - 10}
-              x2={x + 18}
-              y2={y - 10}
-              stroke="#06b6d4"
-              strokeWidth="1.5"
-              opacity="0.6"
-            />
-            <text
-              x={x + 7}
-              y={y - 14}
-              textAnchor="middle"
-              fontSize="14"
-              fontWeight="700"
-              fill={valueColor}
-            >
-              {v.toFixed(v < 10 ? 1 : 0)}
-            </text>
+            {showLabel && (
+              <>
+                <line
+                  x1={x - 4}
+                  y1={y - 10}
+                  x2={x + 18}
+                  y2={y - 10}
+                  stroke={brandColor}
+                  strokeWidth="1.5"
+                  opacity="0.6"
+                />
+                <text
+                  x={x + 7}
+                  y={y - 14}
+                  textAnchor="middle"
+                  fontSize="14"
+                  fontWeight="700"
+                  fill={valueColor}
+                >
+                  {v.toFixed(v < 10 ? 1 : 0)}
+                </text>
+              </>
+            )}
           </g>
         );
       })}
@@ -394,11 +342,15 @@ function ChartBars({
   labels,
   unit,
   theme,
+  brandColor = "#06b6d4",
+  brandColor2 = "#a855f7",
 }: {
   values: number[];
   labels: string[];
   unit: string;
   theme: "dark" | "light";
+  brandColor?: string;
+  brandColor2?: string;
 }) {
   const min = 0;
   const max = Math.max(...values);
@@ -424,17 +376,17 @@ function ChartBars({
   return (
     <>
       <defs>
-        <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#a855f7" />
-          <stop offset="100%" stopColor="#06b6d4" />
+        <linearGradient id={`barGrad-${brandColor}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor={brandColor} />
+          <stop offset="100%" stopColor={brandColor2} />
         </linearGradient>
       </defs>
 
       <text
         x={CHART_PAD_L}
-        y={CHART_PAD_T - 8}
-        textAnchor="end"
-        fontSize="13"
+        y={CHART_PAD_T - 18}
+        textAnchor="middle"
+        fontSize="16"
         fill={axisColor}
         fontWeight="600"
       >
@@ -483,7 +435,7 @@ function ChartBars({
         const h = CHART_H - CHART_PAD_B - y;
         return (
           <g key={i}>
-            <rect x={x} y={y} width={barW} height={h} fill="url(#barGrad)" rx="2" />
+            <rect x={x} y={y} width={barW} height={h} fill={`url(#barGrad-${brandColor})`} rx="2" />
             <text
               x={x + barW / 2}
               y={y - 8}
@@ -532,9 +484,9 @@ function ChartVariation({
     <>
       <text
         x={CHART_PAD_L}
-        y={CHART_PAD_T - 8}
-        textAnchor="end"
-        fontSize="13"
+        y={CHART_PAD_T - 18}
+        textAnchor="middle"
+        fontSize="16"
         fill={axisColor}
         fontWeight="600"
       >
@@ -612,9 +564,7 @@ function ChartVariation({
   );
 }
 
-// ────────────────────────────────────────────────────────
-// Test card component
-// ────────────────────────────────────────────────────────
+// ─── TEST CARD ─────────────────────────────────────────────────────────
 function TestCard({ test }: { test: TestCase }) {
   const svgRef = useRef<SVGSVGElement>(null);
   const [preview, setPreview] = useState<string | null>(null);
@@ -650,7 +600,6 @@ function TestCard({ test }: { test: TestCase }) {
     }
   }
 
-  // Auto preview au mount
   useEffect(() => {
     handlePreview();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -683,7 +632,6 @@ function TestCard({ test }: { test: TestCase }) {
         </div>
       </div>
 
-      {/* SVG source (caché mais utilisé pour export) */}
       <div className="sr-only" aria-hidden>
         <svg
           ref={svgRef}
@@ -698,6 +646,8 @@ function TestCard({ test }: { test: TestCase }) {
               labels={test.labels}
               unit={test.unit}
               theme={test.theme}
+              brandColor={test.brandColor}
+              brandColor2={test.brandColor2}
             />
           )}
           {test.type === "bars" && (
@@ -706,6 +656,8 @@ function TestCard({ test }: { test: TestCase }) {
               labels={test.labels}
               unit={test.unit}
               theme={test.theme}
+              brandColor={test.brandColor}
+              brandColor2={test.brandColor2}
             />
           )}
           {test.type === "variation" && (
@@ -719,7 +671,6 @@ function TestCard({ test }: { test: TestCase }) {
         </svg>
       </div>
 
-      {/* Preview du PNG résultat */}
       <div className="overflow-hidden rounded-lg border border-white/5 bg-black">
         {preview ? (
           // eslint-disable-next-line @next/next/no-img-element
@@ -740,22 +691,17 @@ export function ChartExportTestsClient() {
       <div className="mx-auto max-w-7xl">
         <header className="mb-8">
           <h1 className="text-3xl font-bold text-white">
-            Chart Export — Tests modèle PDF
+            Chart Export — Modèle PDF v2
           </h1>
           <p className="mt-2 max-w-3xl text-sm text-zinc-400">
-            Modèle basé sur{" "}
-            <span className="font-mono text-cyan-400">
-              modèle graph export MAI.pdf
-            </span>
-            . Header avec logo sté circulaire + nom sté | titre KPI sur une
-            ligne. CAGR en sous-titre centré. Signature{" "}
-            <span className="font-mono">KPIs &amp; Data : [logo Mettrik]</span>{" "}
-            bottom-right.
+            6 tests référence (3 types × 2 thèmes). Modèles T12 (courbe NVIDIA
+            quarterly), T3 (barres Microsoft Cloud), T10 (variation
+            TotalEnergies). Couleurs brand sté pour courbe/barres.
           </p>
           <p className="mt-2 text-xs text-zinc-500">
-            12 tests numérotés. Chaque vignette affiche le PNG résultat (auto
-            généré au chargement). Bouton{" "}
-            <span className="font-mono">Télécharger PNG</span> pour download.
+            Le téléchargement live sur la page sté reproduit le graph affiché
+            (courbe/barres/variation + thème + axe Y). Cette page sert à
+            valider le template overlay (header + footer + signature).
           </p>
         </header>
 
@@ -767,8 +713,10 @@ export function ChartExportTestsClient() {
 
         <footer className="mt-10 border-t border-white/10 pt-6 text-xs text-zinc-500">
           <p>
-            Si un PNG n&apos;a pas le rendu attendu (chevauchement, ellipsize
-            trop court, signature mal placée), reporter le numéro de test.
+            Spec v2 (3 juin 2026 22h47): logo sté plus petit, &laquo; Powered
+            by &raquo; à la place de &laquo; KPIs &amp; Data :&raquo;, Mettrik AI
+            logo agrandi, Y-axis label centré sur l&apos;axe, X handle
+            &laquo; @Mettrik_AI &raquo; bottom-center.
           </p>
         </footer>
       </div>
