@@ -74,7 +74,8 @@
       "_validation": [
         "HALLUCINATION DETECTED: Gross margin values (40.0%, history 40.0/39.5/39.0/38.5) not present in 10-K source. Consolidated balance sheet and income statement structure provided but income statement detail (cost of sales, gross profit) not included in excerpt. Values completely fabricated. RECOMMEND: KPI REMOVED pending access to full consolidated income statement with COGS disclosure"
       ],
-      "explanation_en": "Gross Margin, gross profit divided by revenue."
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "period_type": "year"
     },
     {
       "short": "R&D Investment Ratio",
@@ -98,7 +99,8 @@
       "_validation": [
         "HALLUCINATION DETECTED: R&D percentage values (5.0%) and history (5.0/5.0/5.0/5.0) not present in 10-K source. MD&A discusses 'investments in technology and globalization' and technology differentiation strategy but provides no specific R&D expense figures or R&D as % of revenue. Values completely fabricated. RECOMMEND: KPI REMOVED pending access to detailed expense breakdown or investor relations data"
       ],
-      "explanation_en": "R&D Investment ratio."
+      "explanation_en": "R&D Investment ratio.",
+      "period_type": "year"
     },
     {
       "short": "Capital Expenditures",
@@ -121,7 +123,8 @@
       "ttm": null,
       "_validation": [
         "HALLUCINATION DETECTED: Capex values (0.5 B$, history 0.5/0.45/0.4/0.35, YoY +11.1%) not found in 10-K source. Balance sheet shows Property net 797M (2025) vs 777M (2024) indicating ~20M net addition but no detailed Capex schedule provided in excerpt. Cash flow statement not included. Values completely fabricated. RECOMMEND: KPI REMOVED pending access to full cash flow statement Item 8 with capital expenditures detail"
-      ]
+      ],
+      "period_type": "year"
     },
     {
       "short": "Total Employees",
@@ -156,7 +159,8 @@
         "Validation: KPI directly sourced from official 10-K Item 1A Risk Factors 'Attracting, Developing, and Retaining Highly Qualified Employees' section"
       ],
       "explanation_en": "Total Employees, total number of employees at period end.",
-      "signal_en": "Moderate growth, slightly positive"
+      "signal_en": "Moderate growth, slightly positive",
+      "period_type": "year"
     },
     {
       "short": "Total Assets",
@@ -243,7 +247,8 @@
       "signal_en": "Cash position stable",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
-      "_unit_rescaled": "Mds->M €"
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year"
     },
     {
       "short": "DPS",
@@ -271,7 +276,8 @@
       "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
-      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01"
+      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
+      "period_type": "year"
     },
     {
       "short": "Cap Return",
@@ -328,7 +334,8 @@
       "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
-      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01"
+      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
+      "period_type": "year"
     },
     {
       "short": "Total Revenue",
@@ -338,6 +345,21 @@
       "unit": "Mds $",
       "yoy": "+0.9%",
       "history": [
+        1.848,
+        1.808,
+        1.857,
+        1.808,
+        1.969,
+        2.126,
+        1.981,
+        2.275,
+        2.239,
+        2.563,
+        2.052,
+        2.126,
+        2.051,
+        2.035,
+        1.881,
         2.001,
         2.144,
         2.316,
@@ -365,7 +387,11 @@
       "period_type": "quarter",
       "_fix_log": [
         "SA22-local quarterly via yfinance Total Revenue"
-      ]
+      ],
+      "_history_source": "SEC EDGAR XBRL companyfacts (RevenueFromContractWithCustomerExcludingAssessedTax)",
+      "_history_extended": true,
+      "_history_extended_at": "2026-06-03T02:07:07.901367+00:00",
+      "last_data_date": "2026-03-31T00:00:00"
     },
     {
       "short": "Net Income",
@@ -375,11 +401,26 @@
       "unit": "M $",
       "yoy": "-8.8%",
       "history": [
-        248.0,
+        271.3,
+        78.5,
+        241.5,
+        53.9,
+        297.9,
+        338.9,
+        384.0,
+        300.3,
+        400.2,
+        302.9,
+        215.2,
+        266.2,
+        232.0,
+        239.1,
+        184.0,
+        252.0,
         295.0,
         138.0,
         305.0,
-        351.0
+        350.0
       ],
       "type": "Profit",
       "nature": "Conjoncturel",
@@ -403,7 +444,11 @@
       "_fix_log": [
         "SA22-local quarterly via yfinance Net Income"
       ],
-      "_unit_rescaled": "Mds->M $"
+      "_unit_rescaled": "Mds->M $",
+      "_history_source": "SEC EDGAR XBRL companyfacts (NetIncomeLoss)",
+      "_history_extended": true,
+      "_history_extended_at": "2026-06-03T02:07:07.901599+00:00",
+      "last_data_date": "2026-03-31T00:00:00"
     }
   ],
   "stories_kpis": [
@@ -637,5 +682,8 @@
   "_hero_changed_by": "Sub-agent Opus hero-fix-retry chunk-19",
   "_old_hero": "Annual Recurring Revenue",
   "_history_extended_at": "2026-06-02T04:44:41.152833+00:00",
-  "_history_source": "SEC EDGAR XBRL SP500"
+  "_history_source": "SEC EDGAR XBRL SP500",
+  "_fix_log": [
+    "SA30-08 2026-06-03"
+  ]
 }
