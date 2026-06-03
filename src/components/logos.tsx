@@ -175,24 +175,28 @@ export function CompanyLogo({ ticker }: { ticker: string }) {
   // Convention fichier : public/logos/<TICKER>.png (ex: public/logos/NFLX.png).
   // Le ticker peut contenir . ou - selon source. Convertit . en - pour fichier.
   const safeTicker = t.replace(/\./g, "-");
+  // Yann 4 juin 2026 : wrapper <span> au lieu de <picture> (qui ne propage
+  // pas size-full correctement vers img dans certains layouts flex avec
+  // overflow-hidden + rounded-xl). + dimensions explicites en plus de size-full.
   return (
-    <picture className="block size-full">
+    <span className="relative block h-full w-full">
       <img
         src={`/logos/${safeTicker}.png`}
         alt=""
-        className="company-logo-img size-full object-contain"
+        width="100%"
+        height="100%"
+        className="company-logo-img absolute inset-0 block h-full w-full object-contain"
         loading="lazy"
         onError={(e) => {
-          // Si pas de PNG cache, on bascule sur monogramme via state.
           (e.currentTarget as HTMLImageElement).style.display = "none";
           const next = (e.currentTarget as HTMLImageElement).nextElementSibling as HTMLElement | null;
           if (next) next.style.display = "block";
         }}
       />
-      <span style={{ display: "none" }} className="block size-full">
+      <span style={{ display: "none" }} className="absolute inset-0 block h-full w-full">
         <LogoMonogram ticker={ticker} />
       </span>
-    </picture>
+    </span>
   );
 }
 
