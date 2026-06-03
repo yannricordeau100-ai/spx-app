@@ -1063,6 +1063,40 @@ export async function loadV17Company(
     } catch {
       // best effort, silent fail si le fichier n'existe pas pour ce ticker
     }
+    // Yann 3 juin 2026 : merge SA22-D nouveaux KPIs sectoriels quarterly Cerebras.
+    // Source : `src/data/v2-pipeline-enrich/<ticker>.sa22d.json`.
+    // Format : { ticker, _sa22_d_extracted_at, model, kpis: [...] }.
+    // Anti-invention : history ≥4 trims chiffrés, devise native, ticker spécifique.
+    // Append-only (skip si short déjà présent).
+    try {
+      const sa22dPath = path.join(
+        ROOT,
+        "src/data/v2-pipeline-enrich",
+        `${ticker.toLowerCase()}.sa22d.json`,
+      );
+      const sa22dData = await readJsonOrNull<{ kpis?: AnyKPI[] }>(sa22dPath);
+      if (
+        sa22dData
+        && Array.isArray(sa22dData.kpis)
+        && Array.isArray(data.kpis)
+      ) {
+        const existingShortsSA22 = new Set(
+          (data.kpis as AnyKPI[]).map((k) => k?.short).filter(Boolean),
+        );
+        const extraSA22 = sa22dData.kpis
+          .filter((k): k is AnyKPI => Boolean(k && typeof k === "object" && k.short && !existingShortsSA22.has(k.short)))
+          .map((k) => ({
+            ...k,
+            history: normalizeHistory(k.history),
+            _source: "sa22-d-cerebras",
+          }));
+        if (extraSA22.length > 0) {
+          data.kpis = [...data.kpis, ...extraSA22];
+        }
+      }
+    } catch {
+      // best effort
+    }
     // Yann 25 mai 2026 v2 : merge auto kpis-v3 vérifiés (CONV-VERIF-KPIS-V3)
     // Source : `src/data/v2-pipeline-enrich/<ticker>.kpis-v3.json`.
     // Format : { ticker, kpis_v3: [...], _signed_by, _extracted_at }.
