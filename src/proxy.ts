@@ -96,6 +96,9 @@ function isPublicPath(pathname: string): boolean {
   if (pathname === "/sandbox/visual-audit") return true;
   // /sandbox/quality-tree = registry unique des éléments contrôlables (IDs stables).
   if (pathname === "/sandbox/quality-tree") return true;
+  // /sandbox/kpi-search = moteur de recherche KPIs Mettrik (7634 indexés sur
+  // 640 stés V1.9.5). Pas de PII, public pour QA + démo. Yann 3 juin 2026.
+  if (pathname === "/sandbox/kpi-search") return true;
   // /sandbox/languages-toggle = activer/désactiver les locales pour l'app
   // (outil global, ne dépend pas d'une version de fiche sté). Yann 27 mai 2026.
   if (pathname === "/sandbox/languages-toggle") return true;

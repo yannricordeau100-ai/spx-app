@@ -136,6 +136,12 @@ const SECTIONS: SandboxSection[] = [
         desc: "Audit historique hero KPI (451 stés ≥5 ans / 1608 stés <5 ans) + Library KPI génériques (Revenue, EBITDA, EPS, etc.) avec toggle activation par catégorie. Yann 19 mai 2026.",
       },
       {
+        href: "/sandbox/kpi-search",
+        icon: Sparkles,
+        label: "Recherche KPIs (7634 indexés)",
+        desc: "Moteur de recherche fuzzy sur les 7634 KPIs uniques de 640 stés V1.9.5. Filtres période/min stés/wow, top 20 résultats live, lazy load des détails par KPI.",
+      },
+      {
         href: "/sandbox/visual-audit",
         icon: Eye,
         label: "Visual audit (Gemini 2.5 Flash)",
