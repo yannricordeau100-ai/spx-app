@@ -1227,12 +1227,16 @@ export async function loadV17Company(
         }
         if (values.length >= 4) {
           const extShortLow = qhe.hero_kpi_short.toLowerCase();
-          const heroShort = data.hero_kpi as string | undefined;
-          // Match prioritaire : hero_kpi puis fuzzy substring.
+          // BUG FIX 3 juin 2026 : ancien code matchait data.hero_kpi en
+          // PRIORITÉ, ce qui écrasait le hero actuel avec les données
+          // de l'extension même si l'extension visait un AUTRE KPI.
+          // Exemple AAPL : hero_kpi="iPhone Revenue", extension visait
+          // "Total Revenue" → les valeurs Total Revenue (FY14-FY25)
+          // écrasaient l'history iPhone Revenue. Fix : matcher
+          // UNIQUEMENT sur extShortLow (cible explicite de l'extension).
           const heroKpi = (data.kpis as AnyKPI[]).find((k) => {
             if (!k || typeof k !== "object") return false;
             const s = (typeof k.short === "string" ? k.short : "").toLowerCase();
-            if (heroShort && s === heroShort.toLowerCase()) return true;
             return s === extShortLow || s.includes(extShortLow) || extShortLow.includes(s);
           });
           if (heroKpi) {
