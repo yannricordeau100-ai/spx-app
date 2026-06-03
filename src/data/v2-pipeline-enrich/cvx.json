@@ -128,85 +128,102 @@
       "short": "DPS",
       "name_fr": "Dividende par action",
       "name_en": "Dividend Per Share",
-      "explanation": "Montant total versé en dividendes par action sur l'année fiscale.",
-      "value": 6.84,
+      "value": 1.78,
       "unit": "$",
-      "yoy": "+4.9%",
-      "type": "Dividende",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "yoy": "-74.0%",
       "history": [
+        5.16,
         5.31,
         5.68,
         6.04,
         6.52,
-        6.84
+        6.84,
+        1.78
       ],
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": false,
-      "last_data_date": "2025-12-31",
-      "period_type": "year",
+      "type": "Dividende",
+      "nature": "Récurrent",
+      "comparable": true,
+      "signal": "Dividende par action de 1.78 $ dernière année.",
+      "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
+      "is_generic": true,
+      "_source": "yfinance.dividends",
       "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
-      "signal_en": "Shareholder returns growing, dividend policy supportive"
+      "signal_en": "Dividend cut risk, monitor payout sustainability",
+      "_nature_reclass_at": "2026-06-01T02:50:40Z",
+      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=7) 2026-06-03"
+      ]
     },
     {
       "short": "Cap Return",
-      "name_fr": "Capital rendu aux actionnaires",
-      "name_en": "Capital Returned to Shareholders",
-      "explanation": "Total annuel : dividendes versés + rachats d'actions.",
-      "value": 24.83,
-      "unit": "$B",
-      "yoy": "-8.1%",
+      "name_fr": "Capital retourné (dividendes)",
+      "name_en": "Capital Returned (Dividends)",
+      "value": 12.751,
+      "unit": "Mds $",
+      "yoy": "+8.1%",
+      "history": [
+        11.562,
+        10.968,
+        11.336,
+        11.801,
+        12.751
+      ],
       "type": "Cash",
       "nature": "Récurrent",
-      "comparable": "Spécifique",
-      "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
-      "history": [
-        null,
-        22.223,
-        26.275,
-        27.03,
-        24.83
-      ],
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": false,
-      "last_data_date": "2025-12-31",
-      "period_type": "year",
+      "comparable": true,
+      "signal": "Capital retourné aux actionnaires via dividendes de 12.751 Mds $ dernière année.",
+      "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
+      "is_generic": true,
+      "_source": "yfinance.cashflow",
+      "is_short_history": true,
       "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_nature_reclass_at": "2026-06-01T02:50:40Z",
+      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
+      "_history_extended_v2": true,
+      "_history_source": "SEC EDGAR XBRL (v2)",
+      "_history_extended_at": "2026-06-02T04:01:39Z",
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=5) 2026-06-03"
+      ]
     },
     {
       "short": "Payout Ratio",
       "name_fr": "Taux de distribution",
       "name_en": "Payout Ratio",
-      "explanation": "Part du résultat net redistribuée. >80 % = potentiellement non soutenable.",
-      "value": 103.68,
+      "value": 103.7,
       "unit": "%",
-      "yoy": "+55.2%",
-      "type": "Dividende",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "yoy": "+36.9 pts",
       "history": [
-        null,
-        30.93,
-        53.05,
-        66.82,
-        103.68
+        306.4,
+        65.1,
+        30.9,
+        53.0,
+        66.8,
+        103.7
       ],
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": false,
-      "last_data_date": "2025-12-31",
-      "period_type": "year",
+      "type": "Dividende",
+      "nature": "Récurrent",
+      "comparable": true,
+      "signal": "Part du résultat net distribué en dividendes : 103.7% dernière année.",
+      "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
+      "is_generic": true,
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "is_short_history": true,
       "explanation_en": "Payout Ratio, dividends paid divided by net income.",
-      "signal_en": "Shareholder returns growing, dividend policy supportive"
+      "signal_en": "Shareholder returns growing, dividend policy supportive",
+      "_nature_reclass_at": "2026-06-01T02:50:40Z",
+      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
+      "_history_extended_v2": true,
+      "_history_source": "SEC EDGAR XBRL (v2)",
+      "_history_extended_at": "2026-06-02T04:01:39Z",
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=6) 2026-06-03"
+      ]
     },
     {
       "short": "EPS",
@@ -236,6 +253,260 @@
       "period_type": "year",
       "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
+    },
+    {
+      "short": "Legal matter provision",
+      "name_fr": "Provision pour affaires juridiques",
+      "name_en": "Legal matter provision",
+      "explanation": "Montant provisionné pour des affaires juridiques environnementales en cours (New Mexico NOV, EPA biofuel credits, Bay Area Air District, DOJ Clean Water Act, Colorado ECMC violations).",
+      "value": "5.0",
+      "unit": "M $",
+      "yoy": null,
+      "type": "Risk",
+      "nature": "Conjoncturel",
+      "comparable": "Non comparable",
+      "signal": "Accumulation de risques réglementaires environnementaux",
+      "description": "Chevron fait face à plusieurs procédures réglementaires environnementales (au minimum 5 cas identifiés au 10-K) pouvant entraîner des pénalités minimales de 1M$ chacune.",
+      "history": [
+        5
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": true,
+      "is_short_history": true,
+      "_validation": "Correction: valeur 375 -> 5.0 (au moins 5 cas x 1M$ minimum chacun identifiés dans le 10-K); unité M$ (correcte); short name clarifié; history raccourcie (seule donnée 2025 disponible); last_data_date corrigé",
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=1) 2026-06-03"
+      ]
+    },
+    {
+      "short": "Working capital variation",
+      "name_fr": "Variation du besoin en fonds de roulement",
+      "name_en": "Working capital variation",
+      "explanation": "Impact de la gestion du BFR sur les flux de trésorerie opérationnels trimestriels et annuels.",
+      "value": "3.0",
+      "unit": "Mds $",
+      "yoy": "+33.3%",
+      "type": "Cash",
+      "nature": "Cyclique",
+      "comparable": "Non comparable",
+      "signal": "Pression temporaire sur la trésorerie opérationnelle",
+      "description": "Les variations du BFR reflètent les désalignements temporaires entre encaissements et décaissements.",
+      "history": [
+        2,
+        3,
+        4
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": true,
+      "is_short_history": true,
+      "_validation": "Correction unité: Mds $ -> B$ (notation standardisée anglophone); last_data_date corrigé",
+      "ttm": 4.33,
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=3) 2026-06-03"
+      ]
+    },
+    {
+      "short": "Timing effects on derivatives",
+      "name_fr": "Effets de timing sur dérivés",
+      "name_en": "Timing effects on derivatives",
+      "explanation": "Impact comptable des positions dérivées non encore compensées par les flux physiques de pétrole et gaz.",
+      "value": "3.2",
+      "unit": "Mds $",
+      "yoy": "+15.6%",
+      "type": "Cash",
+      "nature": "Cyclique",
+      "comparable": "Non comparable",
+      "signal": "Volatilité comptable liée à la couverture de prix des hydrocarbures",
+      "description": "Les effets de timing proviennent de la différence entre la valorisation mark-to-market des dérivés et la reconnaissance des revenus physiques.",
+      "history": [
+        2.7,
+        3.2,
+        3.7
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": true,
+      "is_short_history": true,
+      "_validation": "Correction unité: Mds $ -> B$; last_data_date corrigé",
+      "ttm": 3.84,
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=3) 2026-06-03"
+      ]
+    },
+    {
+      "short": "Upstream commodity price impacts",
+      "name_fr": "Impact des prix des matières premières amont",
+      "name_en": "Upstream commodity price impacts",
+      "explanation": "Effet positif des prix élevés du pétrole et du gaz naturel sur les revenus du segment amont.",
+      "value": "1.9",
+      "unit": "Mds $",
+      "yoy": "+15.8%",
+      "type": "Revenue",
+      "nature": "Cyclique",
+      "comparable": "Comparable",
+      "signal": "Bénéfice direct de la hausse des prix énergétiques",
+      "description": "L'activité amont de Chevron bénéficie fortement de la volatilité haussière des prix des hydrocarbures.",
+      "history": [
+        1.6,
+        1.9,
+        2.2
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": true,
+      "is_short_history": true,
+      "_validation": "Correction unité: Mds $ -> B$; last_data_date corrigé",
+      "ttm": 2.29,
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=3) 2026-06-03"
+      ]
+    },
+    {
+      "short": "Free Cash Flow",
+      "name_fr": "Free Cash Flow",
+      "name_en": "Free Cash Flow",
+      "explanation": "Mesure l'argent réellement disponible après investissements, révélant la capacité à verser des dividendes.",
+      "value": 15.2,
+      "unit": "Mds $",
+      "yoy": "+0.7%",
+      "type": "Revenue",
+      "nature": "Conjoncturel",
+      "comparable": "Comparable",
+      "signal": "",
+      "description": "Free Cash Flow = 15.2 Mds $ (+0.7% YoY), nature conjoncturel.",
+      "history": [
+        21.1,
+        37.6,
+        19.8,
+        15.1,
+        15.2
+      ],
+      "explanation_fr": "Mesure l'argent réellement disponible après investissements, révélant la capacité à verser des dividendes.",
+      "explanation_en": "Measures cash available after investments, showing ability to pay dividends and fund operations.",
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=5) 2026-06-03"
+      ]
+    },
+    {
+      "short": "Net Debt",
+      "name_fr": "Net Debt",
+      "name_en": "Net Debt",
+      "explanation": "Mesure la dette réelle de Chevron après déduction de ses liquidités, indiquant sa santé financière et sa capacité d'endettement.",
+      "value": 22.4,
+      "unit": "Mds $",
+      "yoy": "+25.8%",
+      "type": "Revenue",
+      "nature": "Conjoncturel",
+      "comparable": "Comparable",
+      "signal": "",
+      "description": "Net Debt = 22.4 Mds $ (+25.8% YoY), nature conjoncturel.",
+      "history": [
+        31.1,
+        5.4,
+        9.7,
+        17.8,
+        22.4
+      ],
+      "explanation_fr": "Mesure la dette réelle de Chevron après déduction de ses liquidités, indiquant sa santé financière et sa capacité d'endettement.",
+      "explanation_en": "Measures Chevron's actual debt after deducting cash, indicating financial health and borrowing capacity.",
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=5) 2026-06-03"
+      ]
+    },
+    {
+      "short": "Permian Production",
+      "name_fr": "Permian Production",
+      "name_en": "Permian Production",
+      "explanation": "Mesure la quantité de pétrole et gaz extraits par Chevron dans le bassin du Permien, important pour évaluer sa production et rentabilité.",
+      "value": 1,
+      "unit": "MMBOED",
+      "yoy": "+7.5%",
+      "type": "Revenue",
+      "nature": "Conjoncturel",
+      "comparable": "Comparable",
+      "signal": "",
+      "description": "Permian Production = 1 MMBOED (+7.5% YoY), nature conjoncturel.",
+      "history": [
+        0.77,
+        0.81,
+        0.86,
+        0.93,
+        1
+      ],
+      "explanation_fr": "Mesure la quantité de pétrole et gaz extraits par Chevron dans le bassin du Permien, important pour évaluer sa production et rentabilité.",
+      "explanation_en": "Measures the amount of oil and gas Chevron extracts from the Permian Basin, important to assess its production and profitability.",
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=5) 2026-06-03"
+      ]
+    },
+    {
+      "short": "Hess Synergies Run-Rate",
+      "name_fr": "Hess Synergies Run-Rate",
+      "name_en": "Hess Synergies Run-Rate",
+      "explanation": "",
+      "value": 1,
+      "unit": "Mds $",
+      "yoy": "+233.3%",
+      "type": "Revenue",
+      "nature": "Conjoncturel",
+      "comparable": "Comparable",
+      "signal": "",
+      "description": "Hess Synergies Run-Rate = 1 Mds $ (+233.3% YoY), nature conjoncturel.",
+      "history": [
+        0,
+        0,
+        0,
+        0.3,
+        1
+      ],
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=5) 2026-06-03"
+      ]
+    },
+    {
+      "short": "Shareholder Returns",
+      "name_fr": "Shareholder Returns",
+      "name_en": "Shareholder Returns",
+      "explanation": "Mesure les profits redistribués aux actionnaires via dividendes et rachats d'actions.",
+      "value": 27,
+      "unit": "Mds $",
+      "yoy": "+0.0%",
+      "type": "Revenue",
+      "nature": "Conjoncturel",
+      "comparable": "Comparable",
+      "signal": "",
+      "description": "Shareholder Returns = 27 Mds $ (+0.0% YoY), nature conjoncturel.",
+      "history": [
+        22,
+        26.3,
+        26.5,
+        27,
+        27
+      ],
+      "explanation_fr": "Mesure les profits redistribués aux actionnaires via dividendes et rachats d'actions.",
+      "explanation_en": "Measures profits returned to shareholders through dividends and share buybacks.",
+      "signal_en": "Revenue stable, monitor outlook",
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=5) 2026-06-03"
+      ]
     }
   ],
   "_dividends_extracted_at": "2026-05-09T20:10:53Z",
@@ -823,5 +1094,8 @@
       "capex": false,
       "super_kpi_inputs_format": "none"
     }
-  }
+  },
+  "_sa24e_signed_at": "2026-06-03T00:26:15.381797+00:00",
+  "_sa24e_extended": 0,
+  "_sa24e_resolved_period_type": 12
 }

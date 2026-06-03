@@ -628,5 +628,116 @@
       "capex": false,
       "super_kpi_inputs_format": "none"
     }
-  }
+  },
+  "kpis": [
+    {
+      "short": "Cash & Equivalents",
+      "name_fr": "Trésorerie & équivalents",
+      "name_en": "Cash And Cash Equivalents",
+      "value": 250.0,
+      "unit": "M €",
+      "yoy": "-19.4%",
+      "history": [
+        268.0,
+        166.0,
+        172.0,
+        283.0,
+        153.0,
+        184.0,
+        310.0,
+        250.0
+      ],
+      "type": "Cash",
+      "nature": "Conjoncturel",
+      "comparable": true,
+      "signal": "Trésorerie & équivalents de 0.25 Mds € dernière année",
+      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "is_generic": true,
+      "_source": "yfinance.balance_sheet",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_nature_reclass_at": "2026-06-01T02:50:40Z",
+      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=4) 2026-06-03",
+        "SA24-E extend history year n=8 2026-06-03 source: SEC EDGAR XBRL companyfacts"
+      ],
+      "history_periods": [
+        "FY 2018",
+        "FY 2019",
+        "FY 2020",
+        "FY 2021",
+        "FY 2022",
+        "FY 2023",
+        "FY 2024",
+        "FY 2025"
+      ],
+      "last_data_date": "2025-12-31"
+    },
+    {
+      "short": "DPS",
+      "name_fr": "Dividende par action",
+      "name_en": "Dividend Per Share",
+      "value": 0.668,
+      "unit": "$",
+      "yoy": "-75.0%",
+      "history": [
+        3.45,
+        2.52,
+        2.672,
+        2.672,
+        2.672,
+        2.672,
+        0.668
+      ],
+      "type": "Dividende",
+      "nature": "Récurrent",
+      "comparable": true,
+      "signal": "Dividende par action de 0.668 $ dernière année.",
+      "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
+      "is_generic": true,
+      "_source": "yfinance.dividends",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability",
+      "_nature_reclass_at": "2026-06-01T02:50:40Z",
+      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=7) 2026-06-03"
+      ]
+    },
+    {
+      "short": "Payout Ratio",
+      "name_fr": "Taux de distribution",
+      "name_en": "Payout Ratio",
+      "value": 76,
+      "unit": "%",
+      "yoy": "-34.1 pts",
+      "history": [
+        185.5,
+        113.8,
+        110.1,
+        76
+      ],
+      "type": "Dividende",
+      "nature": "Récurrent",
+      "comparable": true,
+      "signal": "Part du résultat net distribué en dividendes : 76.0% dernière année.",
+      "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
+      "is_generic": true,
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability",
+      "_nature_reclass_at": "2026-06-01T02:50:40Z",
+      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=4) 2026-06-03"
+      ]
+    }
+  ],
+  "_sa24e_signed_at": "2026-06-03T00:27:12.708331+00:00",
+  "_sa24e_extended": 1,
+  "_sa24e_resolved_period_type": 3
 }

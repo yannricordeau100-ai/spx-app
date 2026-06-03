@@ -5,29 +5,33 @@
       "short": "DPS",
       "name_fr": "Dividende par action",
       "name_en": "Dividend Per Share",
-      "explanation": "Montant total versé en dividendes par action sur l'année fiscale.",
-      "value": 1.29,
+      "value": 0.33,
       "unit": "$",
-      "yoy": "-17.3%",
-      "type": "Dividende",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "yoy": "-74.4%",
       "history": [
+        1.09,
         1.13,
         1.17,
         0.9,
         1.56,
-        1.29
+        1.29,
+        0.33
       ],
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": false,
-      "last_data_date": "2025-12-31",
-      "period_type": "year",
+      "type": "Dividende",
+      "nature": "Récurrent",
+      "comparable": true,
+      "signal": "Dividende par action de 0.33 $ dernière année.",
+      "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
+      "is_generic": true,
+      "_source": "yfinance.dividends",
       "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
-      "signal_en": "Dividend cut risk, monitor payout sustainability"
+      "signal_en": "Dividend cut risk, monitor payout sustainability",
+      "_nature_reclass_at": "2026-06-01T02:50:40Z",
+      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=7) 2026-06-03"
+      ]
     },
     {
       "short": "Cap Return",
@@ -61,29 +65,31 @@
       "short": "Payout Ratio",
       "name_fr": "Taux de distribution",
       "name_en": "Payout Ratio",
-      "explanation": "Part du résultat net redistribuée. >80 % = potentiellement non soutenable.",
-      "value": 144.94,
+      "value": 130.3,
       "unit": "%",
-      "yoy": "-4.6%",
-      "type": "Dividende",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "yoy": "-10.9 pts",
       "history": [
-        null,
-        47.11,
-        71.86,
-        151.87,
-        144.94
+        45.1,
+        68.8,
+        141.2,
+        130.3
       ],
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": false,
-      "last_data_date": "2025-12-31",
-      "period_type": "year",
+      "type": "Dividende",
+      "nature": "Récurrent",
+      "comparable": true,
+      "signal": "Part du résultat net distribué en dividendes : 130.3% dernière année.",
+      "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
+      "is_generic": true,
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "is_short_history": true,
       "explanation_en": "Payout Ratio, dividends paid divided by net income.",
-      "signal_en": "Dividend cut risk, monitor payout sustainability"
+      "signal_en": "Dividend cut risk, monitor payout sustainability",
+      "_nature_reclass_at": "2026-06-01T02:50:40Z",
+      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=4) 2026-06-03"
+      ]
     },
     {
       "short": "EPS",
@@ -309,6 +315,65 @@
       "is_generic": false,
       "is_short_history": false,
       "last_data_date": "2025-09-30"
+    },
+    {
+      "short": "Op Margin",
+      "name_fr": "Marge opérationnelle",
+      "name_en": "Operating Margin",
+      "explanation": "Bénéfice opérationnel par rapport aux revenus totaux.",
+      "value": 6.9,
+      "unit": "%",
+      "yoy": "+2.1 pts",
+      "type": "Margin",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Amélioration significative de la marge opérationnelle.",
+      "description": "La marge opérationne mesure l'efficacité de la gestion des coûts d'exploitation.",
+      "history": [
+        4.8,
+        14
+      ],
+      "last_data_date": "2025-09-30",
+      "is_wow": false,
+      "is_generic": true,
+      "is_short_history": true,
+      "ttm": 6.9,
+      "_validation": "Valeur confirmée (604.1 / 8770.7 = 6.9%). YoY correct (+2.1 pts vs 4.8% en 2024). History corrigée: 14 remplacé par 14.0 pour cohérence.",
+      "explanation_en": "Profit margin on Op.",
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=2) 2026-06-03"
+      ]
+    },
+    {
+      "short": "Average AUM",
+      "name_fr": "Actifs sous gestion moyens",
+      "name_en": "Average Assets Under Management",
+      "explanation": "Moyenne des actifs sous gestion sur une période donnée.",
+      "value": 1606.7,
+      "unit": "Mds $",
+      "yoy": "+3%",
+      "type": "Capital",
+      "nature": "Conjoncturel",
+      "comparable": "Comparable",
+      "signal": "Augmentation des actifs sous gestion moyens, bon signe pour les revenus futurs.",
+      "description": "Les actifs sous gestion moyens sont un indicateur plus stable de la performance que les actifs sous gestion en fin de période.",
+      "history": [
+        1565.8,
+        1400.4
+      ],
+      "last_data_date": "2025-09-30",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "ttm": 1606.7,
+      "_validation": "Valeur corrigée de 1.6067 à 1606.7 M$ (soit 1.6067 Mds $). History mise à jour (1565.8, 1400.4 en millions).",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=2) 2026-06-03"
+      ]
     }
   ],
   "_dividends_extracted_at": "2026-05-09T20:19:57Z",
@@ -971,5 +1036,8 @@
     "op_cf_q": -0.2827,
     "rd_q": null,
     "op_margin_q_pct": 15.34
-  }
+  },
+  "_sa24e_signed_at": "2026-06-03T00:26:11.307457+00:00",
+  "_sa24e_extended": 0,
+  "_sa24e_resolved_period_type": 4
 }

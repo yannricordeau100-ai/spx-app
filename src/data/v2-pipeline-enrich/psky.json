@@ -5,57 +5,63 @@
       "short": "DPS",
       "name_fr": "Dividende par action",
       "name_en": "Dividend Per Share",
-      "explanation": "Montant total versé en dividendes par action sur l'année fiscale.",
-      "value": 0.2,
+      "value": 0.05,
       "unit": "$",
-      "yoy": "-48.7%",
-      "type": "Dividende",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "signal": "Versement régulier",
-      "description": "Historique 5 ans (2020-2024). Source : yfinance ex-div dates.",
+      "yoy": "-75.0%",
       "history": [
         0.96,
         0.96,
         0.96,
         0.39,
-        0.2
+        0.2,
+        0.2,
+        0.05
       ],
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": false,
-      "last_data_date": "2024-12-31",
-      "period_type": "year",
+      "type": "Dividende",
+      "nature": "Récurrent",
+      "comparable": true,
+      "signal": "Dividende par action de 0.05 $ dernière année.",
+      "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
+      "is_generic": true,
+      "_source": "yfinance.dividends",
       "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
-      "signal_en": "Dividend cut risk, monitor payout sustainability"
+      "signal_en": "Dividend cut risk, monitor payout sustainability",
+      "_nature_reclass_at": "2026-06-01T02:50:40Z",
+      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=7) 2026-06-03"
+      ]
     },
     {
       "short": "Cap Return",
-      "name_fr": "Capital rendu aux actionnaires",
-      "name_en": "Capital Returned to Shareholders",
-      "explanation": "Total annuel : dividendes versés + rachats d'actions.",
-      "value": 0.17,
-      "unit": "$B",
+      "name_fr": "Capital retourné (dividendes)",
+      "name_en": "Capital Returned (Dividends)",
+      "value": 168.0,
+      "unit": "M $",
       "yoy": "-62.4%",
+      "history": [
+        647.0,
+        689.0,
+        447.0,
+        168.0
+      ],
       "type": "Cash",
       "nature": "Récurrent",
-      "comparable": "Spécifique",
-      "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2020-2024) en milliards USD. Source yfinance cashflow.",
-      "history": [
-        null,
-        0.647,
-        0.689,
-        0.447,
-        0.168
-      ],
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": false,
-      "last_data_date": "2024-12-31",
-      "period_type": "year",
+      "comparable": true,
+      "signal": "Capital retourné aux actionnaires via dividendes de 0.168 Mds $ dernière année.",
+      "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
+      "is_generic": true,
+      "_source": "yfinance.cashflow",
       "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_nature_reclass_at": "2026-06-01T02:50:40Z",
+      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=4) 2026-06-03"
+      ]
     },
     {
       "short": "Payout Ratio",
@@ -112,6 +118,124 @@
       "period_type": "year",
       "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
+    },
+    {
+      "short": "Prix d'offre Warner Bros.",
+      "name_fr": "Prix d'offre révisé pour l'acquisition de Warner Bros.",
+      "name_en": "Revised Offer Price for Warner Bros. Acquisition",
+      "explanation": "Prix par action révisé pour l'acquisition de Warner Bros. Discovery",
+      "value": "31.00",
+      "unit": "$",
+      "yoy": "n/a",
+      "type": "Transaction",
+      "nature": "Conjoncturel",
+      "comparable": "Non comparable",
+      "signal": "Acquisition de Warner Bros.",
+      "description": "Prix d'offre révisé de 31,00 dollars par action de Warner Bros., communiqué le 24 février 2026, augmenté de 30,00 dollars initialement annoncés le 8 décembre 2025.",
+      "history": [
+        {
+          "date": "2025-12-08",
+          "value": "30.00"
+        },
+        {
+          "date": "2026-02-24",
+          "value": "31.00"
+        }
+      ],
+      "last_data_date": "2026-02-24",
+      "is_wow": true,
+      "is_generic": false,
+      "is_short_history": false,
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=2) 2026-06-03"
+      ]
+    },
+    {
+      "short": "Total Assets",
+      "name_fr": "Total des actifs",
+      "name_en": "Total Assets",
+      "value": 43.34,
+      "unit": "Mds €",
+      "yoy": "-6.1%",
+      "history": [
+        58.39,
+        53.54,
+        46.17,
+        43.34
+      ],
+      "type": "Balance Sheet",
+      "nature": "Conjoncturel",
+      "comparable": true,
+      "signal": "Total des actifs de 43.34 Mds € dernière année",
+      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "is_generic": true,
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_nature_reclass_at": "2026-06-01T02:50:40Z",
+      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=4) 2026-06-03"
+      ]
+    },
+    {
+      "short": "Total Debt",
+      "name_fr": "Dette totale",
+      "name_en": "Total Debt",
+      "value": 14.81,
+      "unit": "Mds €",
+      "yoy": "-4.8%",
+      "history": [
+        17.27,
+        15.86,
+        15.55,
+        14.81
+      ],
+      "type": "Balance Sheet",
+      "nature": "Conjoncturel",
+      "comparable": true,
+      "signal": "Dette totale de 14.81 Mds € dernière année",
+      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "is_generic": true,
+      "_source": "yfinance.balance_sheet",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_nature_reclass_at": "2026-06-01T02:50:40Z",
+      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=4) 2026-06-03"
+      ]
+    },
+    {
+      "short": "Cash & Equivalents",
+      "name_fr": "Trésorerie & équivalents",
+      "name_en": "Cash And Cash Equivalents",
+      "value": 3.27,
+      "unit": "Mds €",
+      "yoy": "+22.9%",
+      "history": [
+        2.88,
+        2.46,
+        2.66,
+        3.27
+      ],
+      "type": "Cash",
+      "nature": "Conjoncturel",
+      "comparable": true,
+      "signal": "Trésorerie & équivalents de 3.27 Mds € dernière année",
+      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "is_generic": true,
+      "_source": "yfinance.balance_sheet",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_nature_reclass_at": "2026-06-01T02:50:40Z",
+      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=4) 2026-06-03"
+      ]
     }
   ],
   "_dividends_extracted_at": "2026-05-09T20:21:13Z",
@@ -670,5 +794,8 @@
       "capex": false,
       "super_kpi_inputs_format": "none"
     }
-  }
+  },
+  "_sa24e_signed_at": "2026-06-03T00:26:28.330513+00:00",
+  "_sa24e_extended": 0,
+  "_sa24e_resolved_period_type": 6
 }

@@ -245,87 +245,98 @@
       "short": "DPS",
       "name_fr": "Dividende par action",
       "name_en": "Dividend Per Share",
-      "explanation": "Montant total versé en dividendes par action sur l'année fiscale. Indicateur clé pour les investisseurs orientés revenus.",
-      "value": 2.04,
+      "value": 0.57,
       "unit": "$",
-      "yoy": "+10.9%",
-      "type": "Dividende",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "compare_key": "dividend_per_share",
-      "signal": "Versement régulier",
-      "description": "Historique 5 ans des dividendes par action déclarés (2021-2025).",
+      "yoy": "-72.1%",
       "history": [
-        null,
-        null,
+        1.23,
+        1.36,
+        1.48,
         1.64,
         1.84,
-        2.04
+        2.04,
+        0.57
       ],
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": false,
-      "last_data_date": "2025-12-31",
-      "period_type": "year",
+      "type": "Dividende",
+      "nature": "Récurrent",
+      "comparable": true,
+      "signal": "Dividende par action de 0.57 $ dernière année.",
+      "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
+      "is_generic": true,
+      "_source": "yfinance.dividends",
       "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
-      "signal_en": "Shareholder returns growing, dividend policy supportive"
+      "signal_en": "Dividend cut risk, monitor payout sustainability",
+      "_nature_reclass_at": "2026-06-01T02:50:40Z",
+      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=7) 2026-06-03"
+      ]
     },
     {
       "short": "Cap Return",
-      "name_fr": "Capital rendu aux actionnaires",
-      "name_en": "Capital Returned to Shareholders",
-      "explanation": "Total annuel du cash redistribué aux actionnaires : dividendes versés + rachats d'actions (treasury stock).",
-      "value": 0.41,
-      "unit": "$B",
-      "yoy": "+73.1%",
+      "name_fr": "Capital retourné (dividendes)",
+      "name_en": "Capital Returned (Dividends)",
+      "value": 130.0,
+      "unit": "M $",
+      "yoy": "+8.3%",
+      "history": [
+        122.0,
+        97.0,
+        107.0,
+        120.0,
+        130.0
+      ],
       "type": "Cash",
       "nature": "Récurrent",
-      "comparable": "Spécifique",
-      "signal": "Politique de retour aux actionnaires",
-      "description": "Sur 2025 : dividendes + rachats d'actions cumulés en milliards $.",
-      "history": [
-        null,
-        null,
-        0.1297,
-        0.236,
-        0.4084
-      ],
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": false,
-      "last_data_date": "2025-12-31",
-      "period_type": "year",
+      "comparable": true,
+      "signal": "Capital retourné aux actionnaires via dividendes de 0.13 Mds $ dernière année.",
+      "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
+      "is_generic": true,
+      "_source": "yfinance.cashflow",
+      "is_short_history": true,
       "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_nature_reclass_at": "2026-06-01T02:50:40Z",
+      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
+      "_history_extended_v2": true,
+      "_history_source": "SEC EDGAR XBRL (v2)",
+      "_history_extended_at": "2026-06-02T04:09:35Z",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=5) 2026-06-03"
+      ]
     },
     {
       "short": "Payout Ratio",
       "name_fr": "Taux de distribution",
       "name_en": "Payout Ratio",
-      "explanation": "Part du bénéfice net redistribuée en dividendes. Au-dessus de 80 % indique un dividende potentiellement non-soutenable.",
-      "value": 20.1,
+      "value": 20.2,
       "unit": "%",
-      "yoy": "+14.2%",
-      "type": "Dividende",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "compare_key": "payout_ratio",
-      "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net sur 2025 (comptabilisé sur résultat net attribuable aux actionnaires).",
+      "yoy": "+2.6 pts",
       "history": [
-        null,
-        null,
-        17.8,
+        56,
+        17.9,
         17.6,
-        20.1
+        20.2
       ],
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": false,
-      "last_data_date": "2025-12-31",
-      "period_type": "year",
+      "type": "Dividende",
+      "nature": "Récurrent",
+      "comparable": true,
+      "signal": "Part du résultat net distribué en dividendes : 20.2% dernière année.",
+      "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
+      "is_generic": true,
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "is_short_history": true,
       "explanation_en": "Payout Ratio, dividends paid divided by net income.",
-      "signal_en": "Shareholder returns growing, dividend policy supportive"
+      "signal_en": "Shareholder returns growing, dividend policy supportive",
+      "_nature_reclass_at": "2026-06-01T02:50:40Z",
+      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=4) 2026-06-03"
+      ]
     },
     {
       "short": "EPS",
@@ -355,6 +366,153 @@
       "period_type": "year",
       "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Stable, slight decline to monitor"
+    },
+    {
+      "short": "Access Op Margin",
+      "name_fr": "Marge opérationnelle Access",
+      "name_en": "Access Segment Operating Margin",
+      "explanation": "Marge opérationnelle du segment Access (équipements de levage), reflétant la pression des remises et la sous-absorption des coûts fixes.",
+      "value": 11.2,
+      "unit": "%",
+      "yoy": "-440bps",
+      "history": [
+        null,
+        null,
+        null,
+        15.6,
+        11.2
+      ],
+      "type": "Margin",
+      "nature": "Cyclique",
+      "comparable": "Comparable",
+      "signal": "Compression marquée des marges",
+      "description": "La marge opérationnelle du segment Access chute de 440 bps à 11,2% en 2025, pénalisée par des remises commerciales élevées (+190 bps) et une sous-absorption des coûts fixes liée à la baisse des volumes de production.",
+      "last_data_date": "2025-12-31",
+      "is_generic": false,
+      "is_wow": false,
+      "explanation_en": "Profit margin on Access Op.",
+      "signal_en": "Margin compression, watch profitability",
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=5) 2026-06-03"
+      ]
+    },
+    {
+      "short": "Vocational Op Margin",
+      "name_fr": "Marge opérationnelle Vocational",
+      "name_en": "Vocational Segment Operating Margin",
+      "explanation": "Marge opérationnelle du segment Vocational (camions spécialisés), bénéficiant d'une amélioration des prix et d'une hausse des cadences de production.",
+      "value": 14.7,
+      "unit": "%",
+      "yoy": "+270bps",
+      "history": [
+        null,
+        null,
+        null,
+        12,
+        14.7
+      ],
+      "type": "Margin",
+      "nature": "Cyclique",
+      "comparable": "Comparable",
+      "signal": "Expansion solide des marges",
+      "description": "La marge opérationnelle Vocational progresse de 270 bps à 14,7% grâce à une amélioration des prix (+300 bps de marge brute), partiellement compensée par la hausse des coûts matières et main-d'œuvre.",
+      "last_data_date": "2025-12-31",
+      "is_generic": false,
+      "is_wow": false,
+      "explanation_en": "Profit margin on Vocational Op.",
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=5) 2026-06-03"
+      ]
+    },
+    {
+      "short": "OSK Op Cash Flow",
+      "name_fr": "Flux de trésorerie opérationnel",
+      "name_en": "Operating Cash Flow",
+      "explanation": "Trésorerie générée par les activités opérationnelles, principale source de financement du groupe.",
+      "value": 783.4,
+      "unit": "M $",
+      "yoy": "+42.4%",
+      "history": [
+        null,
+        null,
+        null,
+        550.1,
+        783.4
+      ],
+      "type": "Cash",
+      "nature": "Conjoncturel",
+      "comparable": "Comparable",
+      "signal": "Forte amélioration du cash",
+      "description": "Le flux opérationnel bondit à 783,4 M$ en 2025 vs 550,1 M$ en 2024, porté par des paiements d'impôts nettement inférieurs (-238,6 M$) et une moindre consommation liée au programme NGDV.",
+      "last_data_date": "2025-12-31",
+      "is_generic": true,
+      "is_wow": false,
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=5) 2026-06-03"
+      ]
+    },
+    {
+      "short": "Debt/Capitalization",
+      "name_fr": "Dette sur capitalisation totale",
+      "name_en": "Debt to Total Capitalization",
+      "explanation": "Ratio mesurant le poids de la dette dans la structure de capital totale (dette + capitaux propres), indicateur de levier financier.",
+      "value": 19.5,
+      "unit": "%",
+      "yoy": "+70bps",
+      "history": [
+        null,
+        null,
+        null,
+        18.8,
+        19.5
+      ],
+      "type": "Capital",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Levier stable, dans la cible",
+      "description": "Le ratio dette/capitalisation s'établit à 19,5% au 31 décembre 2025, légèrement en hausse vs 18,8% en 2024, restant dans la fourchette cible du groupe et compatible avec la notation investment grade (BBB/Baa3).",
+      "last_data_date": "2025-12-31",
+      "is_generic": true,
+      "is_wow": false,
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=5) 2026-06-03"
+      ]
+    },
+    {
+      "short": "Inventory Turns",
+      "name_fr": "Rotation des stocks",
+      "name_en": "Consolidated Inventory Turns",
+      "explanation": "Nombre de fois que les stocks sont renouvelés sur l'année (coût des ventes annualisé / stock moyen sur 5 trimestres), indicateur d'efficacité opérationnelle.",
+      "value": 3.6,
+      "unit": "x",
+      "yoy": "-7.7%",
+      "history": [
+        null,
+        null,
+        null,
+        3.9,
+        3.6
+      ],
+      "type": "Profitability",
+      "nature": "Conjoncturel",
+      "comparable": "Comparable",
+      "signal": "Ralentissement rotation stocks",
+      "description": "La rotation des stocks consolidée recule de 3,9x à 3,6x en 2025, principalement en raison de la hausse des niveaux de stocks dans les segments Transport et Vocational liée à la montée en cadence de production.",
+      "last_data_date": "2025-12-31",
+      "is_generic": false,
+      "is_wow": false,
+      "signal_en": "Profitability under pressure, monitor returns",
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=5) 2026-06-03"
+      ]
     }
   ],
   "_dividends_extracted_at": "2026-05-09T16:59:57Z",
@@ -790,5 +948,8 @@
       "capex": false,
       "super_kpi_inputs_format": "scalar"
     }
-  }
+  },
+  "_sa24e_signed_at": "2026-06-03T00:26:27.723035+00:00",
+  "_sa24e_extended": 0,
+  "_sa24e_resolved_period_type": 8
 }

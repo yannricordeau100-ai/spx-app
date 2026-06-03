@@ -68,85 +68,93 @@
       "short": "DPS",
       "name_fr": "Dividende par action",
       "name_en": "Dividend Per Share",
-      "explanation": "Montant total versé en dividendes par action sur l'année fiscale.",
-      "value": 2.25,
+      "value": 3,
       "unit": "NOK",
-      "yoy": "-10.0%",
-      "type": "Dividende",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "yoy": "+33.3%",
       "history": [
+        1.25,
         1.25,
         6.85,
         5.65,
         2.5,
-        2.25
+        2.25,
+        3
       ],
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": false,
-      "last_data_date": "2025-12-31",
-      "period_type": "annual",
+      "type": "Dividende",
+      "nature": "Récurrent",
+      "comparable": true,
+      "signal": "Dividende par action de 3.0 NOK dernière année.",
+      "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
+      "is_generic": true,
+      "_source": "yfinance.dividends",
       "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
-      "signal_en": "Dividend cut risk, monitor payout sustainability"
+      "signal_en": "Shareholder returns growing, dividend policy supportive",
+      "_nature_reclass_at": "2026-06-01T02:50:40Z",
+      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=7) 2026-06-03"
+      ]
     },
     {
       "short": "Cap Return",
-      "name_fr": "Capital rendu aux actionnaires",
-      "name_en": "Capital Returned to Shareholders",
-      "explanation": "Total annuel : dividendes versés + rachats d'actions.",
-      "value": 5.44,
-      "unit": "NOKB",
-      "yoy": "-25.4%",
+      "name_fr": "Capital retourné (dividendes)",
+      "name_en": "Capital Returned (Dividends)",
+      "value": 4.581,
+      "unit": "Mds NOK",
+      "yoy": "-8.7%",
+      "history": [
+        14.179,
+        12.574,
+        5.015,
+        4.581
+      ],
       "type": "Cash",
       "nature": "Récurrent",
-      "comparable": "Spécifique",
-      "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards NOK. Source yfinance cashflow.",
-      "history": [
-        null,
-        14.84,
-        14.731,
-        7.287,
-        5.437
-      ],
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": false,
-      "last_data_date": "2025-12-31",
-      "period_type": "annual",
+      "comparable": true,
+      "signal": "Capital retourné aux actionnaires via dividendes de 4.581 Mds NOK dernière année.",
+      "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
+      "is_generic": true,
+      "_source": "yfinance.cashflow",
+      "is_short_history": true,
       "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_nature_reclass_at": "2026-06-01T02:50:40Z",
+      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=4) 2026-06-03"
+      ]
     },
     {
       "short": "Payout Ratio",
       "name_fr": "Taux de distribution",
       "name_en": "Payout Ratio",
-      "explanation": "Part du résultat net redistribuée. >80 % = potentiellement non soutenable.",
       "value": 68.2,
       "unit": "%",
-      "yoy": "-21.3%",
-      "type": "Dividende",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "yoy": "-18.4 pts",
       "history": [
-        null,
         58.7,
-        350.93,
-        86.61,
+        350.9,
+        86.6,
         68.2
       ],
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": false,
-      "last_data_date": "2025-12-31",
-      "period_type": "annual",
+      "type": "Dividende",
+      "nature": "Récurrent",
+      "comparable": true,
+      "signal": "Part du résultat net distribué en dividendes : 68.2% dernière année.",
+      "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
+      "is_generic": true,
+      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "is_short_history": true,
       "explanation_en": "Payout Ratio, dividends paid divided by net income.",
-      "signal_en": "Dividend cut risk, monitor payout sustainability"
+      "signal_en": "Dividend cut risk, monitor payout sustainability",
+      "_nature_reclass_at": "2026-06-01T02:50:40Z",
+      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=4) 2026-06-03"
+      ]
     },
     {
       "short": "EPS",
@@ -176,6 +184,153 @@
       "period_type": "annual",
       "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Solid expansion, positive trajectory"
+    },
+    {
+      "short": "RoACE",
+      "name_fr": "Rentabilité des capitaux employés",
+      "name_en": "Return on Average Capital Employed",
+      "explanation": "Rendement généré sur les capitaux investis dans l'entreprise.",
+      "value": "7.1",
+      "unit": "%",
+      "yoy": "-n/a",
+      "type": "Capital",
+      "nature": "Conjoncturel",
+      "comparable": "Non comparable",
+      "signal": "Rentabilité en baisse en 2023 en raison de l'environnement volatile.",
+      "description": "Le RoACE ajusté s'est établi à 7,1 % en 2023, en dessous de la moyenne sur 5 ans de 11 %, reflétant un contexte de marché difficile.",
+      "history": [
+        null,
+        null,
+        null,
+        null,
+        7.1
+      ],
+      "last_data_date": "2023-12-31",
+      "is_wow": false,
+      "is_generic": true,
+      "is_short_history": false,
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=5) 2026-06-03"
+      ]
+    },
+    {
+      "short": "Improvements",
+      "name_fr": "Améliorations annuelles accumulées",
+      "name_en": "Annual Accumulated Improvements",
+      "explanation": "Gains d'efficacité et de coûts réalisés grâce aux programmes d'amélioration.",
+      "value": "8.8",
+      "unit": "B NOK",
+      "yoy": "-n/a",
+      "type": "Investment",
+      "nature": "Structurel",
+      "comparable": "Non comparable",
+      "signal": "Programme d'amélioration dépassant les objectifs initiaux.",
+      "description": "Le programme d'amélioration a généré 8,8 milliards de NOK d'améliorations annuelles cumulées par rapport à la base 2018, dépassant l'objectif initial de 7,3 milliards.",
+      "history": [
+        null,
+        null,
+        null,
+        null,
+        8.8
+      ],
+      "last_data_date": "2023-12-31",
+      "is_wow": true,
+      "is_generic": false,
+      "is_short_history": false,
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=5) 2026-06-03"
+      ]
+    },
+    {
+      "short": "Commercial Ambition",
+      "name_fr": "Amélioration commerciale réalisée",
+      "name_en": "Commercial Uplift Achieved",
+      "explanation": "Gains réalisés grâce à une meilleure position commerciale et à la différenciation produit.",
+      "value": "2.4",
+      "unit": "B NOK",
+      "yoy": "-n/a",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "comparable": "Non comparable",
+      "signal": "Progrès soutenus dans la valorisation des produits durables.",
+      "description": "L'ambition commerciale a permis d'atteindre 2,4 milliards de NOK d'amélioration en 2023, dans le cadre d'un objectif révisé de 6,1 milliards d'ici 2030.",
+      "history": [
+        null,
+        null,
+        null,
+        null,
+        2.4
+      ],
+      "last_data_date": "2023-12-31",
+      "is_wow": true,
+      "is_generic": false,
+      "is_short_history": false,
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=5) 2026-06-03"
+      ]
+    },
+    {
+      "short": "Employees",
+      "name_fr": "Effectif total",
+      "name_en": "Total Employees",
+      "explanation": "Nombre de collaborateurs dans le monde.",
+      "value": "33000",
+      "unit": "headcount",
+      "yoy": "-n/a",
+      "type": "Investment",
+      "nature": "Structurel",
+      "comparable": "Non comparable",
+      "signal": "Effectif stable soutenant la transformation industrielle.",
+      "description": "Hydro compte 33 000 collaborateurs à travers 40 pays, essentiels à la mise en œuvre de la stratégie de transition verte.",
+      "history": [
+        null,
+        null,
+        null,
+        null,
+        33000
+      ],
+      "last_data_date": "2023-12-31",
+      "is_wow": false,
+      "is_generic": true,
+      "is_short_history": false,
+      "explanation_en": "Employees, total number of employees at period end.",
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=5) 2026-06-03"
+      ]
+    },
+    {
+      "short": "Recycled Scrap",
+      "name_fr": "Déchets post-consommation recyclés",
+      "name_en": "Post-consumer Scrap Recycled",
+      "explanation": "Quantité de déchets d'aluminium post-consommation recyclés.",
+      "value": "443.76",
+      "unit": "K tonnes",
+      "yoy": "+38%",
+      "type": "Recurring",
+      "nature": "Structurel",
+      "comparable": "Non comparable",
+      "signal": "Croissance forte du recyclage, clé de la circularité.",
+      "description": "En 2023, 443 760 tonnes de déchets post-consommation ont été recyclées, en hausse de 38 % par rapport à 2022.",
+      "history": [
+        null,
+        null,
+        null,
+        null,
+        443.76
+      ],
+      "last_data_date": "2023-12-31",
+      "is_wow": true,
+      "is_generic": false,
+      "is_short_history": false,
+      "signal_en": "Recurring base growing, revenue visibility rising",
+      "period_type": "year",
+      "_fix_log": [
+        "SA24-E resolve period_type=None -> year (heuristic n=5) 2026-06-03"
+      ]
     }
   ],
   "_dividends_extracted_at": "2026-05-09T20:11:18Z",
@@ -705,5 +860,8 @@
       "capex": false,
       "super_kpi_inputs_format": "none"
     }
-  }
+  },
+  "_sa24e_signed_at": "2026-06-03T00:26:02.335304+00:00",
+  "_sa24e_extended": 0,
+  "_sa24e_resolved_period_type": 8
 }
