@@ -164,9 +164,9 @@ async function composeAndExport(
   // Yann 4 juin 2026 : (a) Logo decale vers le bas pour occuper hauteur
   // titre + ligne CAGR (titleY a titleY+30). (b) Carre-arrondi au lieu de
   // cercle pour eliminer bordures noires des PNG non-carres (TotalEnergies).
-  const LOGO_SIZE = 62;
-  const LOGO_CORNER_RADIUS = 12;
-  const LOGO_GAP = 18;
+  const LOGO_SIZE = 90;
+  const LOGO_CORNER_RADIUS = 18;
+  const LOGO_GAP = 22;
   const TITLE_FONT_SIZE = 32;
   const TITLE_WEIGHT = 600;
   const SEPARATOR = " | ";
