@@ -65,7 +65,7 @@ export function MaintenanceClient({
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/brand/mettrik-ai-dark.svg"
+              src="/brand/mettrikai-on-dark.png"
               alt="MettrikAI"
               style={{ width: "100%", height: "auto", display: "block" }}
             />
