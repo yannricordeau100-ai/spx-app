@@ -91,9 +91,11 @@ function renderTokensBlur(node: ReactNode): ReactNode {
             color: "rgba(244,244,245,0.55)",
           }}
           aria-hidden
-          data-freemium-blocked-token
+          data-freemium-blocked-token="locked"
         >
-          {t.text}
+          {/* Yann 4 juin 2026 : HARD - texte reel jamais dans le DOM,
+              blocs Unicode meme largeur pour preserver layout. */}
+          {"█".repeat(Math.max(2, t.text.length))}
         </span>
       ) : (
         <span key={i}>{t.text}</span>

@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { ArrowLeftRight } from "lucide-react";
 import { useT } from "@/lib/i18n/provider";
 import type { Locale } from "@/lib/i18n/types";
+import { usePickerVisible } from "@/lib/i18n/lang-picker-visibility";
 
 /**
  * LanguageSwitcher — bouton drapeau FR ↔ US qui bascule la langue
@@ -50,7 +51,9 @@ function USFlag({ className = "" }: { className?: string }) {
 }
 
 export function LanguageSwitcher() {
+  const visible = usePickerVisible();
   const { locale, setLocale, t } = useT();
+  if (!visible) return null;
   const onSwitch = (target: Locale) => {
     if (target !== locale) setLocale(target);
   };

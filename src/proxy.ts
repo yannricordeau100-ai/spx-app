@@ -111,6 +111,9 @@ function isPublicPath(pathname: string): boolean {
   if (pathname === "/sandbox/chart-export-tests") return true;
   // /sandbox/ready-by-category = counts stés prêtes par catégorie + pays.
   if (pathname === "/sandbox/ready-by-category") return true;
+  // /sandbox/earnings-schedule = calendrier prochaines executions cron earnings
+  // refresh + couverture. Yann 4 juin 2026.
+  if (pathname === "/sandbox/earnings-schedule") return true;
   // /sandbox/vip-inspection = liste VIP stés à inspecter en profondeur.
   if (pathname === "/sandbox/vip-inspection") return true;
   // /sandbox/coverage-matrix = matrice temps réel des blocs data par sté.

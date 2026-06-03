@@ -15,7 +15,12 @@
 # 10-Q US filés la veille soir sont indexés sur SEC EDGAR).
 on:
   schedule:
+    # Quotidien 06:00 UTC = 08:00 Paris (post-indexation SEC EDGAR overnight)
     - cron: "0 6 * * *"
+    # Yann 4 juin 2026 : run renforce LUNDI 01:00 Paris (= dimanche 23:00 UTC)
+    # post-weekend, pour extraire KPIs trimestriels des stes ayant publie
+    # pendant le weekend. Cerebras free tier (3 keys, 0 token Claude).
+    - cron: "0 23 * * 0"
   workflow_dispatch: # permet de lancer manuellement depuis GitHub UI
 
 jobs:
@@ -40,12 +45,12 @@ jobs:
         run: pip install yfinance pandas
 
       - name: Refresh SEC EDGAR filing dates (top 307 V1.8)
-        run: python3 scripts/fetch-filing-dates.py --top 307
+        run: python3 scripts/fetch-filing-dates.py --limit 640
         env:
           PYTHONUNBUFFERED: "1"
 
       - name: Refresh yfinance next_earnings_date (top 307)
-        run: python3 scripts/earnings-dates-yfinance.py --limit 307 --workers 20
+        run: python3 scripts/earnings-dates-yfinance.py --limit 640 --workers 20
         env:
           PYTHONUNBUFFERED: "1"
 
@@ -54,7 +59,7 @@ jobs:
       # quotidiennement. Source = yfinance (gratuit). Effet :
       # `financial_snapshot` à jour chaque jour pour le top 307.
       - name: Refresh yfinance financial_snapshot (top 307)
-        run: python3 scripts/enrich-company-profile-yfinance.py --limit 307 --force
+        run: python3 scripts/enrich-company-profile-yfinance.py --limit 640 --force
         env:
           PYTHONUNBUFFERED: "1"
         continue-on-error: true

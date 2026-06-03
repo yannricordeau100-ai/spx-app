@@ -13,6 +13,7 @@ import {
 } from "@/lib/i18n/types";
 import { useT } from "@/lib/i18n/provider";
 import { getDisabledLocaleSet } from "@/lib/disabled-locales";
+import { usePickerVisible } from "@/lib/i18n/lang-picker-visibility";
 
 /**
  * LanguageDropdown : drapeau + nom de la langue active, click ouvre la
@@ -37,6 +38,12 @@ import { getDisabledLocaleSet } from "@/lib/disabled-locales";
  * conserver l'arbre + les hooks pour une réactivation V2 multi-locale.
  */
 export function LanguageDropdown(_props: { availableLocales?: readonly Locale[] }) {
+  const _visible = usePickerVisible();
+  if (!_visible) return null;
+  return LanguageDropdownImpl(_props);
+}
+
+function LanguageDropdownImpl(_props: { availableLocales?: readonly Locale[] }) {
   return null;
 }
 

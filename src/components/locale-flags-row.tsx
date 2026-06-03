@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { LOCALES, LOCALE_META, type Locale } from "@/lib/i18n/types";
 import { useT } from "@/lib/i18n/provider";
+import { usePickerVisible } from "@/lib/i18n/lang-picker-visibility";
 
 /**
  * Rangée discrète de drapeaux : montre les 6 langues disponibles.
@@ -12,7 +13,9 @@ import { useT } from "@/lib/i18n/provider";
  * Drapeau actif = ring violet pour signaler la langue courante.
  */
 export function LocaleFlagsRow({ align = "center" }: { align?: "left" | "center" | "right" }) {
+  const visible = usePickerVisible();
   const { locale, setLocale } = useT();
+  if (!visible) return null;
   return (
     <div
       className={`flex flex-wrap items-center gap-1.5 ${

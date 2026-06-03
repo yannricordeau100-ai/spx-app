@@ -48,23 +48,26 @@ export function BlurredFreeValue({
     return <span className={className}>{value ?? "—"}{suffix}</span>;
   }
 
-  // Bloqué : valeur réelle gardée mais floutée par-dessus + select-none.
-  // Pas de cadenas, pas de lien, pas de modification de position/taille.
+  // Yann 4 juin 2026 : HARD floutage. La vraie valeur n'est JAMAIS rendue
+  // dans le DOM (= pas de inspect/curl bypass). On affiche des blocs Unicode
+  // de la MEME LARGEUR APPROXIMATIVE que la valeur reelle pour garder le
+  // layout intact (preserve precision visuelle exacte). Le blur(12px) reste
+  // applique pour conserver l'aspect visuel identique a l'ancien floutage.
+  const realStr = `${value ?? "—"}${suffix}`;
+  const masked = "█".repeat(Math.max(2, realStr.length));
   return (
     <span
       className={className}
       style={{
-        // Yann (26 mai 2026) : blur fort pour rendre illisible meme sur très
-        // gros caractères (hero KPI 80px). blur(12px) > blur(6px).
         filter: "blur(12px)",
         WebkitUserSelect: "none",
         userSelect: "none",
         pointerEvents: "none",
       }}
       aria-hidden
-      data-freemium-blocked-value
+      data-freemium-blocked-value="locked"
     >
-      {value ?? "—"}{suffix}
+      {masked}
     </span>
   );
 }
