@@ -218,17 +218,25 @@
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 58.17,
+      "value": 56.828,
       "unit": "Mds €",
-      "yoy": "+6.1%",
+      "yoy": "+2.6%",
       "history": [
-        40.81,
-        42.14,
-        48.02,
-        51.09,
-        52.51,
-        54.85,
-        58.17
+        48.832,
+        50.113,
+        49.927,
+        51.093,
+        50.909,
+        50.907,
+        51.648,
+        52.506,
+        54.198,
+        54.635,
+        55.4,
+        54.848,
+        56.022,
+        56.492,
+        56.828
       ],
       "type": "Balance Sheet",
       "nature": "Conjoncturel",
@@ -237,30 +245,36 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true,
+      "is_short_history": false,
       "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
       "signal_en": "Capital base expanding, balance-sheet growth",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
-      "period_type": "year",
+      "period_type": "quarter",
       "_history_extended_at": "2026-06-02T04:39:32.449693+00:00",
-      "_history_source": "SEC EDGAR XBRL SP500 (Assets)"
+      "_history_source": "SEC EDGAR XBRL SP500 (Assets)",
+      "last_data_date": "2025-09-30"
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 10.49,
+      "value": 9.681,
       "unit": "Mds €",
-      "yoy": "+7.7%",
+      "yoy": "-7.3%",
       "history": [
-        9.821,
-        9.677,
-        9.078,
-        9.583,
-        8.656,
-        8.907,
-        8.913
+        11.657,
+        9.684,
+        9.532,
+        9.44,
+        10.188,
+        10.194,
+        10.194,
+        10.448,
+        8.989,
+        9.899,
+        9.589,
+        9.681
       ],
       "type": "Balance Sheet",
       "nature": "Conjoncturel",
@@ -269,14 +283,15 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true,
+      "is_short_history": false,
       "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
       "signal_en": "Capital base expanding, balance-sheet growth",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
-      "period_type": "year",
+      "period_type": "quarter",
       "_history_extended_at": "2026-06-02T04:39:32.907843+00:00",
-      "_history_source": "SEC EDGAR XBRL SP500 (LongTermDebtNoncurrent)"
+      "_history_source": "SEC EDGAR XBRL SP500 (LongTermDebtNoncurrent)",
+      "last_data_date": "2025-09-30"
     },
     {
       "short": "Cash & Equivalents",
@@ -731,7 +746,61 @@
   "_history_extended_at": "2026-06-02T04:39:32.907914+00:00",
   "_history_source": "SEC EDGAR XBRL SP500",
   "_fix_log": [
-    "SA21-00 quarterly_extension Cash & Equivalents"
+    "SA21-00 quarterly_extension Cash & Equivalents",
+    {
+      "tag": "SA33-Claude 2026-06-03",
+      "batch": 17,
+      "source": "SEC 10-Q inline XBRL us-gaap concepts (instant)",
+      "changes": [
+        {
+          "kpi_idx": 4,
+          "kpi": "Total Assets",
+          "action": "YEAR_TO_QUARTER",
+          "old": {
+            "history_len": 7,
+            "value": 58.17,
+            "period_type": "year",
+            "last_data_date": null,
+            "yoy": "+6.1%"
+          },
+          "new": {
+            "history_len": 15,
+            "value": 56.828,
+            "period_type": "quarter",
+            "last_data_date": "2025-09-30",
+            "yoy": "+2.6%"
+          },
+          "concepts": [
+            "us-gaap:Assets"
+          ],
+          "scale_divisor": 1000000000.0
+        },
+        {
+          "kpi_idx": 5,
+          "kpi": "Total Debt",
+          "action": "YEAR_TO_QUARTER",
+          "old": {
+            "history_len": 7,
+            "value": 10.49,
+            "period_type": "year",
+            "last_data_date": null,
+            "yoy": "+7.7%"
+          },
+          "new": {
+            "history_len": 12,
+            "value": 9.681,
+            "period_type": "quarter",
+            "last_data_date": "2025-09-30",
+            "yoy": "-7.3%"
+          },
+          "concepts": [
+            "us-gaap:LongTermDebtNoncurrent+us-gaap:LongTermDebtCurrent"
+          ],
+          "scale_divisor": 1000000000.0
+        }
+      ]
+    },
+    "SA33-Claude 2026-06-03"
   ],
   "_sa21_batch00": {
     "converted_kpis": 1,

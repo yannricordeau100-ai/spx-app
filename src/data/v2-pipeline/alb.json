@@ -362,17 +362,22 @@
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 16.37,
+      "value": 17.148,
       "unit": "Mds €",
-      "yoy": "-1.4%",
+      "yoy": "-1.8%",
       "history": [
-        9.861,
-        10.45,
-        10.97,
-        15.46,
-        18.27,
+        15.457,
+        17.564,
+        19.11,
+        18.883,
+        18.271,
+        19.032,
+        18.388,
+        17.455,
         16.61,
-        16.37
+        16.999,
+        17.292,
+        17.148
       ],
       "type": "Balance Sheet",
       "nature": "Conjoncturel",
@@ -385,26 +390,31 @@
       "signal_en": "Capital base contracting, monitor structure",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
-      "period_type": "year",
+      "period_type": "quarter",
       "_history_extended_at": "2026-06-02T04:34:43.034719+00:00",
-      "_history_source": "SEC EDGAR XBRL SP500 (Assets)"
+      "_history_source": "SEC EDGAR XBRL SP500 (Assets)",
+      "last_data_date": "2025-09-30"
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 3.3,
+      "value": 4.072,
       "unit": "Mds €",
-      "yoy": "-8.8%",
+      "yoy": "+14.0%",
       "history": [
-        2.863,
-        2.767,
-        2.004,
-        3.215,
-        3.541,
-        3.118,
-        3.119,
-        3.3
+        3.219,
+        3.238,
+        3.522,
+        3.821,
+        4.793,
+        3.53,
+        3.526,
+        3.572,
+        3.914,
+        3.95,
+        4.068,
+        4.072
       ],
       "type": "Balance Sheet",
       "nature": "Conjoncturel",
@@ -417,7 +427,7 @@
       "signal_en": "Capital base contracting, monitor structure",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
-      "period_type": "year",
+      "period_type": "quarter",
       "_history_extended_at": "2026-06-02T04:34:44.228269+00:00",
       "_history_source": "SEC EDGAR XBRL SP500 (LongTermDebtNoncurrent)",
       "_fix_log": [
@@ -439,7 +449,8 @@
           "op": "DEDUP_TRAILING",
           "detail": "removed duplicate trailing: [2.863, 2.767, 2.004, 3.215, 3.541, 3.118, 3.119, 3.3, 3.3] → [2.863, 2.767, 2.004, 3.215, 3.541, 3.118, 3.119, 3.3]"
         }
-      ]
+      ],
+      "last_data_date": "2025-09-30"
     },
     {
       "short": "Cash & Equivalents",
@@ -856,7 +867,61 @@
   "_fix_log": [
     "SA21-00 quarterly_extension R&D Expenses",
     "SA21-00 quarterly_extension Cash & Equivalents",
-    "SA24-A 2026-06-03T02:32:46.821276Z: history,period_type"
+    "SA24-A 2026-06-03T02:32:46.821276Z: history,period_type",
+    {
+      "tag": "SA33-Claude 2026-06-03",
+      "batch": 17,
+      "source": "SEC 10-Q inline XBRL us-gaap concepts (instant)",
+      "changes": [
+        {
+          "kpi_idx": 5,
+          "kpi": "Total Assets",
+          "action": "YEAR_TO_QUARTER",
+          "old": {
+            "history_len": 7,
+            "value": 16.37,
+            "period_type": "year",
+            "last_data_date": null,
+            "yoy": "-1.4%"
+          },
+          "new": {
+            "history_len": 12,
+            "value": 17.148,
+            "period_type": "quarter",
+            "last_data_date": "2025-09-30",
+            "yoy": "-1.8%"
+          },
+          "concepts": [
+            "us-gaap:Assets"
+          ],
+          "scale_divisor": 1000000000.0
+        },
+        {
+          "kpi_idx": 6,
+          "kpi": "Total Debt",
+          "action": "YEAR_TO_QUARTER",
+          "old": {
+            "history_len": 8,
+            "value": 3.3,
+            "period_type": "year",
+            "last_data_date": null,
+            "yoy": "-8.8%"
+          },
+          "new": {
+            "history_len": 12,
+            "value": 4.072,
+            "period_type": "quarter",
+            "last_data_date": "2025-09-30",
+            "yoy": "+14.0%"
+          },
+          "concepts": [
+            "us-gaap:LongTermDebtNoncurrent+us-gaap:LongTermDebtCurrent"
+          ],
+          "scale_divisor": 1000000000.0
+        }
+      ]
+    },
+    "SA33-Claude 2026-06-03"
   ],
   "_sa21_batch00": {
     "converted_kpis": 2,

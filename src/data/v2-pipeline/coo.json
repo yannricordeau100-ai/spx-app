@@ -363,17 +363,24 @@
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 2.51,
+      "value": 1.877,
       "unit": "Mds €",
-      "yoy": "-2.7%",
+      "yoy": "-24.6%",
       "history": [
-        1.263,
-        1.384,
-        1.396,
         2.347,
+        2.624,
+        2.562,
+        2.511,
         2.52,
+        2.723,
+        2.668,
+        2.589,
         2.548,
-        2.456
+        2.489,
+        2.524,
+        2.429,
+        2.456,
+        1.877
       ],
       "type": "Balance Sheet",
       "nature": "Conjoncturel",
@@ -382,14 +389,15 @@
       "description": "Dette totale extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true,
+      "is_short_history": false,
       "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
       "signal_en": "Capital base contracting, monitor structure",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
-      "period_type": "year",
+      "period_type": "quarter",
       "_history_extended_at": "2026-06-02T04:37:19.098948+00:00",
-      "_history_source": "SEC EDGAR XBRL SP500 (LongTermDebtNoncurrent)"
+      "_history_source": "SEC EDGAR XBRL SP500 (LongTermDebtNoncurrent)",
+      "last_data_date": "2026-01-31"
     },
     {
       "short": "Cash & Equivalents",
@@ -664,5 +672,44 @@
   "_maj_at": "2026-06-01T21:16:41Z",
   "_maj_by": "Sub-agent Opus MAJ chunk-03",
   "_history_extended_at": "2026-06-02T04:37:19.098981+00:00",
-  "_history_source": "SEC EDGAR XBRL SP500"
+  "_history_source": "SEC EDGAR XBRL SP500",
+  "_fix_log": [
+    {
+      "tag": "SA33-Claude 2026-06-03",
+      "batch": 17,
+      "source": "SEC 10-Q inline XBRL us-gaap concepts (instant)",
+      "changes": [
+        {
+          "kpi_idx": 6,
+          "kpi": "Total Debt",
+          "action": "YEAR_TO_QUARTER",
+          "old": {
+            "history_len": 7,
+            "value": 2.51,
+            "period_type": "year",
+            "last_data_date": null,
+            "yoy": "-2.7%"
+          },
+          "new": {
+            "history_len": 14,
+            "value": 1.877,
+            "period_type": "quarter",
+            "last_data_date": "2026-01-31",
+            "yoy": "-24.6%"
+          },
+          "concepts": [
+            "us-gaap:LongTermDebtNoncurrent+None"
+          ],
+          "scale_divisor": 1000000000.0
+        },
+        {
+          "kpi_idx": 1,
+          "kpi": "Gross Margin",
+          "action": "SKIP_NOT_IN_10Q_XBRL",
+          "reason": "requires 10-K, segment data, or text extraction"
+        }
+      ]
+    },
+    "SA33-Claude 2026-06-03"
+  ]
 }

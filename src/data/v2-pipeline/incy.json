@@ -336,17 +336,24 @@
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 6.96,
+      "value": 7.339,
       "unit": "Mds €",
-      "yoy": "+27.9%",
+      "yoy": "+27.7%",
       "history": [
-        3.427,
-        3.561,
-        4.933,
         5.841,
+        5.798,
+        6.208,
+        6.388,
         6.782,
+        7.136,
+        4.662,
+        5.012,
         5.444,
-        6.958
+        5.749,
+        5.821,
+        6.33,
+        6.958,
+        7.339
       ],
       "type": "Balance Sheet",
       "nature": "Conjoncturel",
@@ -355,27 +362,38 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true,
+      "is_short_history": false,
       "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
       "signal_en": "Capital base expanding, balance-sheet growth",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
-      "period_type": "year",
+      "period_type": "quarter",
       "_history_extended_at": "2026-06-02T04:41:04.584750+00:00",
-      "_history_source": "SEC EDGAR XBRL SP500 (Assets)"
+      "_history_source": "SEC EDGAR XBRL SP500 (Assets)",
+      "last_data_date": "2026-03-31"
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 3.1,
+      "value": 3.461,
       "unit": "Mds €",
-      "yoy": "+83.4%",
+      "yoy": "+78.2%",
       "history": [
-        2.95,
-        3.21,
-        1.69,
-        3.1
+        2.951,
+        2.821,
+        3.131,
+        3.227,
+        3.213,
+        3.346,
+        0.987,
+        1.304,
+        1.688,
+        1.942,
+        1.955,
+        2.455,
+        3.098,
+        3.461
       ],
       "type": "Cash",
       "nature": "Conjoncturel",
@@ -384,12 +402,13 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true,
+      "is_short_history": false,
       "signal_en": "Cash position strengthening, balance-sheet flexibility",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
-      "period_type": "year",
-      "_period_type_resolved_by": "SA24-A heuristic length_y"
+      "period_type": "quarter",
+      "_period_type_resolved_by": "SA24-A heuristic length_y",
+      "last_data_date": "2026-03-31"
     }
   ],
   "stories_kpis": [
@@ -610,6 +629,60 @@
   "_history_extended_at": "2026-06-02T04:41:04.584770+00:00",
   "_history_source": "SEC EDGAR XBRL SP500",
   "_fix_log": [
-    "SA24-A 2026-06-03T02:33:17.083491Z: history,period_type"
+    "SA24-A 2026-06-03T02:33:17.083491Z: history,period_type",
+    {
+      "tag": "SA33-Claude 2026-06-03",
+      "batch": 17,
+      "source": "SEC 10-Q inline XBRL us-gaap concepts (instant)",
+      "changes": [
+        {
+          "kpi_idx": 5,
+          "kpi": "Total Assets",
+          "action": "YEAR_TO_QUARTER",
+          "old": {
+            "history_len": 7,
+            "value": 6.96,
+            "period_type": "year",
+            "last_data_date": null,
+            "yoy": "+27.9%"
+          },
+          "new": {
+            "history_len": 14,
+            "value": 7.339,
+            "period_type": "quarter",
+            "last_data_date": "2026-03-31",
+            "yoy": "+27.7%"
+          },
+          "concepts": [
+            "us-gaap:Assets"
+          ],
+          "scale_divisor": 1000000000.0
+        },
+        {
+          "kpi_idx": 6,
+          "kpi": "Cash & Equivalents",
+          "action": "YEAR_TO_QUARTER",
+          "old": {
+            "history_len": 4,
+            "value": 3.1,
+            "period_type": "year",
+            "last_data_date": null,
+            "yoy": "+83.4%"
+          },
+          "new": {
+            "history_len": 14,
+            "value": 3.461,
+            "period_type": "quarter",
+            "last_data_date": "2026-03-31",
+            "yoy": "+78.2%"
+          },
+          "concepts": [
+            "us-gaap:CashAndCashEquivalentsAtCarryingValue"
+          ],
+          "scale_divisor": 1000000000.0
+        }
+      ]
+    },
+    "SA33-Claude 2026-06-03"
   ]
 }

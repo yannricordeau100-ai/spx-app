@@ -261,17 +261,19 @@
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 63.19,
+      "value": 63.8887,
       "unit": "Mds €",
       "yoy": "+3.5%",
       "history": [
-        42.8,
-        47.23,
-        69.89,
-        67.19,
-        66.03,
-        61.08,
-        63.19
+        66.8177,
+        66.879,
+        65.653,
+        66.679,
+        65.8378,
+        62.8168,
+        62.0556,
+        63.7545,
+        63.8887
       ],
       "type": "Balance Sheet",
       "nature": "Conjoncturel",
@@ -285,9 +287,29 @@
       "signal_en": "Capital base expanding, balance-sheet growth",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
-      "period_type": "year",
+      "period_type": "quarter",
       "_history_extended_at": "2026-06-02T04:35:00.536389+00:00",
-      "_history_source": "SEC EDGAR XBRL SP500 (Assets)"
+      "_history_source": "SEC EDGAR XBRL SP500 (Assets)",
+      "last_data_date": "2025-09-30",
+      "_fix_log": [
+        {
+          "at": "2026-06-03",
+          "batch": "SA33-Claude 2026-06-03",
+          "fix": "period_type year→quarter via 10-Q parse (n=9, dates 2023-03-31..2025-09-30, div=1000)",
+          "old_period_type": "year",
+          "old_history": [
+            42.8,
+            47.23,
+            69.89,
+            67.19,
+            66.03,
+            61.08,
+            63.19
+          ],
+          "old_value": 63.19,
+          "old_last_data_date": null
+        }
+      ]
     },
     {
       "short": "Total Debt",
@@ -325,15 +347,19 @@
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 1.47,
+      "value": 1.9507,
       "unit": "Mds $",
       "yoy": "-26.5%",
       "history": [
-        1.9499,
-        2.0284,
-        1.9733,
-        1.9996,
-        1.4748
+        1.803,
+        2.0157,
+        2.1189,
+        2.3891,
+        2.4921,
+        2.1503,
+        2.1037,
+        2.076,
+        1.9507
       ],
       "type": "Cash",
       "nature": "Conjoncturel",
@@ -346,7 +372,7 @@
       "signal_en": "Cash position eroding, monitor liquidity",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
-      "period_type": "year",
+      "period_type": "quarter",
       "_period_type_source": "SA24-C heuristic",
       "history_periods": [
         "2021",
@@ -355,9 +381,26 @@
         "2024",
         "2025"
       ],
-      "last_data_date": "2025-12-31",
+      "last_data_date": "2025-09-30",
       "_xbrl_tag": "CashAndCashEquivalentsAtCarryingValue",
-      "_extended_by": "SA24-C SEC XBRL"
+      "_extended_by": "SA24-C SEC XBRL",
+      "_fix_log": [
+        {
+          "at": "2026-06-03",
+          "batch": "SA33-Claude 2026-06-03",
+          "fix": "period_type year→quarter via 10-Q parse (n=9, dates 2023-03-31..2025-09-30, div=1000)",
+          "old_period_type": "year",
+          "old_history": [
+            1.9499,
+            2.0284,
+            1.9733,
+            1.9996,
+            1.4748
+          ],
+          "old_value": 1.47,
+          "old_last_data_date": "2025-12-31"
+        }
+      ]
     }
   ],
   "stories_kpis": [
@@ -693,6 +736,7 @@
       "fix": "VAL_NE_LAST: value 44.96 -> 18.29 (aligned to last history) (Total Debt)",
       "batch": "SA19-18"
     },
-    "SA24-C XBRL extend: +3 KPIs"
+    "SA24-C XBRL extend: +3 KPIs",
+    "SA33-Claude 2026-06-03"
   ]
 }

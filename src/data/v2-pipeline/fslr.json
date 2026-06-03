@@ -338,17 +338,22 @@
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 660.0,
+      "value": 282.565,
       "unit": "M €",
-      "yoy": "-8.3%",
+      "yoy": "-24.3%",
       "history": [
-        454.0,
-        238.0,
-        236.0,
-        184.0,
-        464.0,
-        373.0,
-        283.0
+        184.349,
+        320.378,
+        437.41,
+        534.858,
+        464.068,
+        418.695,
+        418.725,
+        373.321,
+        373.354,
+        327.942,
+        327.972,
+        282.565
       ],
       "type": "Balance Sheet",
       "nature": "Conjoncturel",
@@ -361,7 +366,7 @@
       "signal_en": "Capital base contracting, monitor structure",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
-      "period_type": "year",
+      "period_type": "quarter",
       "_history_extended_at": "2026-06-02T04:39:54.845745+00:00",
       "_history_source": "SEC EDGAR XBRL SP500 (LongTermDebtNoncurrent)",
       "_fix_log": [
@@ -378,21 +383,29 @@
         "SA26-02 ajout history_periods annual"
       ],
       "_unit_rescaled": "Mds->M €",
-      "history_periods": null
+      "history_periods": null,
+      "last_data_date": "2025-09-30"
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 2.8,
+      "value": 1.992,
       "unit": "Mds $",
-      "yoy": "+72.8%",
+      "yoy": "+98.2%",
       "history": [
-        1.4507,
-        1.4813,
+        1.481,
+        0.907,
+        0.83,
+        1.493,
         1.947,
-        1.6214,
-        2.8035
+        1.682,
+        1.703,
+        1.005,
+        1.621,
+        0.838,
+        1.125,
+        1.992
       ],
       "type": "Cash",
       "nature": "Conjoncturel",
@@ -404,7 +417,7 @@
       "signal_en": "Cash position strengthening, balance-sheet flexibility",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
-      "period_type": "year",
+      "period_type": "quarter",
       "_period_type_source": "SA24-C heuristic",
       "history_periods": [
         "2021",
@@ -413,7 +426,7 @@
         "2024",
         "2025"
       ],
-      "last_data_date": "2025-12-31",
+      "last_data_date": "2025-09-30",
       "_xbrl_tag": "CashAndCashEquivalentsAtCarryingValue",
       "_extended_by": "SA24-C SEC XBRL"
     }
@@ -695,6 +708,61 @@
         "VAL_NE_LAST_YEAR_MISMATCH"
       ]
     },
-    "SA24-C XBRL extend: +4 KPIs"
+    "SA24-C XBRL extend: +4 KPIs",
+    {
+      "tag": "SA33-Claude 2026-06-03",
+      "batch": 17,
+      "source": "SEC 10-Q inline XBRL us-gaap concepts (instant)",
+      "changes": [
+        {
+          "kpi_idx": 6,
+          "kpi": "Total Debt",
+          "action": "YEAR_TO_QUARTER",
+          "old": {
+            "history_len": 7,
+            "value": 660.0,
+            "period_type": "year",
+            "last_data_date": null,
+            "yoy": "-8.3%"
+          },
+          "new": {
+            "history_len": 12,
+            "value": 282.565,
+            "period_type": "quarter",
+            "last_data_date": "2025-09-30",
+            "yoy": "-24.3%"
+          },
+          "concepts": [
+            "us-gaap:LongTermDebtNoncurrent+None",
+            "us-gaap:LongTermDebtNoncurrent+us-gaap:LongTermDebtCurrent"
+          ],
+          "scale_divisor": 1000000.0
+        },
+        {
+          "kpi_idx": 7,
+          "kpi": "Cash & Equivalents",
+          "action": "YEAR_TO_QUARTER",
+          "old": {
+            "history_len": 5,
+            "value": 2.8,
+            "period_type": "year",
+            "last_data_date": "2025-12-31",
+            "yoy": "+72.8%"
+          },
+          "new": {
+            "history_len": 12,
+            "value": 1.992,
+            "period_type": "quarter",
+            "last_data_date": "2025-09-30",
+            "yoy": "+98.2%"
+          },
+          "concepts": [
+            "us-gaap:CashAndCashEquivalentsAtCarryingValue"
+          ],
+          "scale_divisor": 1000000000.0
+        }
+      ]
+    },
+    "SA33-Claude 2026-06-03"
   ]
 }

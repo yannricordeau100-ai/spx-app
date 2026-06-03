@@ -69,17 +69,22 @@
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 16.33,
+      "value": 17.513,
       "unit": "Mds €",
-      "yoy": "+1.7%",
+      "yoy": "+4.4%",
       "history": [
-        15.03,
-        15.92,
-        15.04,
-        15.73,
-        16.39,
-        16.05,
-        16.33
+        15.731,
+        16.173,
+        16.227,
+        16.043,
+        16.393,
+        16.571,
+        16.48,
+        16.774,
+        16.046,
+        16.647,
+        17.47,
+        17.513
       ],
       "type": "Balance Sheet",
       "nature": "Conjoncturel",
@@ -88,14 +93,15 @@
       "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "is_short_history": true,
+      "is_short_history": false,
       "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
       "signal_en": "Capital base expanding, balance-sheet growth",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
-      "period_type": "year",
+      "period_type": "quarter",
       "_history_extended_at": "2026-06-02T04:36:48.297123+00:00",
-      "_history_source": "SEC EDGAR XBRL SP500 (Assets)"
+      "_history_source": "SEC EDGAR XBRL SP500 (Assets)",
+      "last_data_date": "2025-09-30"
     },
     {
       "short": "DPS",
@@ -585,6 +591,43 @@
         "k0:VAL_NE_LAST align last"
       ]
     },
-    "SA30-17 2026-06-03"
+    "SA30-17 2026-06-03",
+    {
+      "tag": "SA33-Claude 2026-06-03",
+      "batch": 17,
+      "source": "SEC 10-Q inline XBRL us-gaap concepts (instant)",
+      "changes": [
+        {
+          "kpi_idx": 1,
+          "kpi": "Total Assets",
+          "action": "YEAR_TO_QUARTER",
+          "old": {
+            "history_len": 7,
+            "value": 16.33,
+            "period_type": "year",
+            "last_data_date": null,
+            "yoy": "+1.7%"
+          },
+          "new": {
+            "history_len": 12,
+            "value": 17.513,
+            "period_type": "quarter",
+            "last_data_date": "2025-09-30",
+            "yoy": "+4.4%"
+          },
+          "concepts": [
+            "us-gaap:Assets"
+          ],
+          "scale_divisor": 1000000000.0
+        },
+        {
+          "kpi_idx": 4,
+          "kpi": "Payout Ratio",
+          "action": "SKIP_NOT_IN_10Q_XBRL",
+          "reason": "requires 10-K, segment data, or text extraction"
+        }
+      ]
+    },
+    "SA33-Claude 2026-06-03"
   ]
 }
