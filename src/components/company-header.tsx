@@ -24,10 +24,10 @@ function LogoTile({ ticker }: { ticker: string }) {
     <div
       data-logo="true"
       aria-label={`${ticker} logo`}
-      className={`logo-wrapper relative flex h-[88px] w-[88px] shrink-0 items-center justify-center overflow-hidden rounded-full border-2 p-2 shadow-[0_4px_20px_rgba(0,0,0,0.45)] transition-shadow duration-300 hover:shadow-[0_8px_32px_rgba(0,0,0,0.6)] sm:h-[96px] sm:w-[96px] sm:p-2.5 ${
+      className={`logo-wrapper relative flex h-[88px] w-[88px] shrink-0 items-center justify-center overflow-hidden rounded-full p-1.5 ring-1 shadow-[0_4px_20px_rgba(0,0,0,0.45)] transition-shadow duration-300 hover:shadow-[0_8px_32px_rgba(0,0,0,0.6)] sm:h-[96px] sm:w-[96px] sm:p-2 ${
         logoNeedsLightBg(ticker)
-          ? "border-[#e5e5e5] bg-[#fafafa]"
-          : "border-[#262626] bg-[#0a0a0a]"
+          ? "bg-white ring-black/15"
+          : "bg-[#0a0a0a] ring-white/10"
       }`}
     >
       <CompanyLogo ticker={ticker} />
