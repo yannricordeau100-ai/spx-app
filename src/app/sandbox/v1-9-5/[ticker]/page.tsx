@@ -74,6 +74,9 @@ const URL_ALIASES: Record<string, string> = {
   "BRK.A": "brk-b",
   "BRK-A": "brk-b",
   "BRK.B": "brk-b",
+  // Yann 4 juin 2026 : 9988.HK renomme BABA (ADR US).
+  "9988.HK": "baba",
+  "9988-HK": "baba",
 };
 
 export async function generateMetadata({
