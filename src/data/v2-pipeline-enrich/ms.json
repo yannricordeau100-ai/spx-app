@@ -6,7 +6,7 @@
       "name_fr": "Dividende par action",
       "name_en": "Dividend Per Share",
       "explanation": "Montant total versé en dividendes par action sur l'année fiscale.",
-      "value": 3.85,
+      "value": 2,
       "unit": "$",
       "yoy": "+8.5%",
       "type": "Dividende",
@@ -15,11 +15,13 @@
       "signal": "Versement régulier",
       "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
       "history": [
+        1.4,
         2.1,
         2.95,
         3.25,
         3.55,
-        3.85
+        3.85,
+        2
       ],
       "is_wow": false,
       "is_generic": false,
@@ -27,7 +29,11 @@
       "last_data_date": "2025-12-31",
       "period_type": "year",
       "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
-      "signal_en": "Shareholder returns growing, dividend policy supportive"
+      "signal_en": "Shareholder returns growing, dividend policy supportive",
+      "_fix_log": [
+        "VAL_NE_LAST_fix:no_fix_ratio_1.43",
+        "SA24-G period_type None->year"
+      ]
     },
     {
       "short": "Cap Return",
@@ -62,7 +68,7 @@
       "name_fr": "Taux de distribution",
       "name_en": "Payout Ratio",
       "explanation": "Part du résultat net redistribuée. >80 % = potentiellement non soutenable.",
-      "value": 40.57,
+      "value": 39.1,
       "unit": "%",
       "yoy": "-15.4%",
       "type": "Dividende",
@@ -71,11 +77,10 @@
       "signal": "Soutenabilité du dividende",
       "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
       "history": [
-        null,
-        51.24,
-        67.56,
-        47.95,
-        40.57
+        49,
+        63.4,
+        45.8,
+        39.1
       ],
       "is_wow": false,
       "is_generic": false,
@@ -83,7 +88,10 @@
       "last_data_date": "2025-12-31",
       "period_type": "year",
       "explanation_en": "Payout Ratio, dividends paid divided by net income.",
-      "signal_en": "Dividend cut risk, monitor payout sustainability"
+      "signal_en": "Dividend cut risk, monitor payout sustainability",
+      "_fix_log": [
+        "SA24-G period_type None->year"
+      ]
     },
     {
       "short": "EPS",
@@ -113,6 +121,70 @@
       "period_type": "year",
       "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
+    },
+    {
+      "short": "Eligible LTD",
+      "period_type": "year",
+      "value": 137.019,
+      "history": [
+        181.401,
+        169.69,
+        159.019,
+        148.015,
+        137.019
+      ],
+      "_fix_log": [
+        "2026-06-02T21:21:44.184033+00:00 | SA19-15 | VAL_NE_LAST-fix: value string '181,401' parsed as 181.401 (ratio ~1000). Replaced with numeric 181401 to match unit 'M $'.",
+        "SA24-G period_type None->year"
+      ]
+    },
+    {
+      "short": "SCB",
+      "period_type": "year",
+      "value": "4.3",
+      "history": [
+        4.3,
+        5.1,
+        4.5,
+        4.2,
+        4.1
+      ],
+      "_fix_log": [
+        "SA24-G period_type None->year"
+      ]
+    },
+    {
+      "short": "Total Assets",
+      "period_type": "quarter",
+      "value": 1.5814,
+      "history": [
+        1.1618,
+        1.1905,
+        1.1881,
+        1.2222,
+        1.1738,
+        1.16,
+        1.1802,
+        1.1999,
+        1.1649,
+        1.169,
+        1.1937,
+        1.2285,
+        1.2124,
+        1.258,
+        1.2151,
+        1.3003,
+        1.3539,
+        1.3648,
+        1.4203,
+        1.5814
+      ],
+      "_fix_log": [
+        "VAL_NE_LAST_fix:no_fix_ratio_1.59",
+        "SA19-19 V195: currency fix Mds € -> Mds $ (US issuer)",
+        "SA21-26-31 XBRL single-Q (start-end span) (Total Assets)",
+        "SA24-G rescale factor=0.001"
+      ]
     }
   ],
   "_dividends_extracted_at": "2026-05-09T20:23:07Z",
@@ -1187,5 +1259,6 @@
       "capex": false,
       "super_kpi_inputs_format": "none"
     }
-  }
+  },
+  "_sa24g_processed_at": "2026-06-03T00:45:47.982961Z"
 }

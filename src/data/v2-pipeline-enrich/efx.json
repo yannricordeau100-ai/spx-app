@@ -81,7 +81,7 @@
       "name_fr": "Dividende par action",
       "name_en": "Dividend Per Share",
       "explanation": "Montant total versé en dividendes par action sur l'année fiscale. Indicateur clé pour les investisseurs orientés revenus.",
-      "value": 1.89,
+      "value": 0.56,
       "unit": "$",
       "yoy": "+21.2%",
       "type": "Dividende",
@@ -91,11 +91,13 @@
       "signal": "Versement régulier",
       "description": "Historique 5 ans des dividendes par action déclarés (2021-2025).",
       "history": [
-        null,
-        null,
         1.56,
         1.56,
-        1.89
+        1.56,
+        1.56,
+        1.56,
+        1.89,
+        0.56
       ],
       "is_wow": false,
       "is_generic": false,
@@ -103,14 +105,17 @@
       "last_data_date": "2025-12-31",
       "period_type": "year",
       "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
-      "signal_en": "Shareholder returns growing, dividend policy supportive"
+      "signal_en": "Shareholder returns growing, dividend policy supportive",
+      "_fix_log": [
+        "SA24-G period_type None->year"
+      ]
     },
     {
       "short": "Cap Return",
       "name_fr": "Capital rendu aux actionnaires",
       "name_en": "Capital Returned to Shareholders",
       "explanation": "Total annuel du cash redistribué aux actionnaires : dividendes versés + rachats d'actions (treasury stock).",
-      "value": 1.16,
+      "value": 233.0,
       "unit": "$B",
       "yoy": "+500.5%",
       "type": "Cash",
@@ -119,11 +124,11 @@
       "signal": "Politique de retour aux actionnaires",
       "description": "Sur 2025 : dividendes + rachats d'actions cumulés en milliards $.",
       "history": [
-        null,
-        null,
-        0.1918,
-        0.1932,
-        1.1602
+        260.0,
+        191.0,
+        192.0,
+        193.0,
+        233.0
       ],
       "is_wow": false,
       "is_generic": false,
@@ -131,14 +136,17 @@
       "last_data_date": "2025-12-31",
       "period_type": "year",
       "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_fix_log": [
+        "SA24-G period_type None->year"
+      ]
     },
     {
       "short": "Payout Ratio",
       "name_fr": "Taux de distribution",
       "name_en": "Payout Ratio",
       "explanation": "Part du bénéfice net redistribuée en dividendes. Au-dessus de 80 % indique un dividende potentiellement non-soutenable.",
-      "value": 35.2,
+      "value": 35.3,
       "unit": "%",
       "yoy": "+10.3%",
       "type": "Dividende",
@@ -148,11 +156,12 @@
       "signal": "Soutenabilité du dividende",
       "description": "Dividendes / résultat net sur 2025 (comptabilisé sur résultat net attribuable aux actionnaires).",
       "history": [
-        null,
-        null,
-        35.1,
-        31.9,
-        35.2
+        36.4,
+        25.5,
+        27.4,
+        35.2,
+        32.0,
+        35.3
       ],
       "is_wow": false,
       "is_generic": false,
@@ -160,7 +169,10 @@
       "last_data_date": "2025-12-31",
       "period_type": "year",
       "explanation_en": "Payout Ratio, dividends paid divided by net income.",
-      "signal_en": "Shareholder returns growing, dividend policy supportive"
+      "signal_en": "Shareholder returns growing, dividend policy supportive",
+      "_fix_log": [
+        "SA24-G period_type None->year"
+      ]
     },
     {
       "short": "EPS",
@@ -190,6 +202,71 @@
       "period_type": "year",
       "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Steady growth, healthy trend"
+    },
+    {
+      "short": "Operating Revenue",
+      "period_type": "year",
+      "value": 6.074,
+      "history": [
+        5.681,
+        5.265,
+        4.922,
+        4.652,
+        4.382
+      ],
+      "_fix_log": [
+        {
+          "type": "VAL_NE_LAST_GENERIC",
+          "short": "Operating Revenue",
+          "value": 6074.5,
+          "last": 4382.1,
+          "ratio": 1.3862,
+          "note": "ecart inexplique value vs hist[-1], a revoir manuellement",
+          "tag": "SA19-03 batch-03 V1.9.5",
+          "ts": "2026-06-02T21:21:54.780310Z"
+        },
+        "SA24-G period_type None->year"
+      ]
+    },
+    {
+      "short": "Cash Operating",
+      "period_type": "year",
+      "value": 1.616,
+      "history": [
+        1.616,
+        1.325,
+        1.117,
+        1.342,
+        1.234
+      ],
+      "_fix_log": [
+        {
+          "type": "VAL_NE_LAST_GENERIC",
+          "short": "Cash Operating",
+          "value": 1615.7,
+          "last": 1234.1,
+          "ratio": 1.3092,
+          "note": "ecart inexplique value vs hist[-1], a revoir manuellement",
+          "tag": "SA19-03 batch-03 V1.9.5",
+          "ts": "2026-06-02T21:21:54.780310Z"
+        },
+        "SA24-G period_type None->year"
+      ]
+    },
+    {
+      "short": "Capital Expenditures",
+      "period_type": "year",
+      "value": "480.2",
+      "history": [
+        480.2,
+        495.9,
+        585.8,
+        533.1,
+        494.2
+      ],
+      "_fix_log": [
+        "SA24-G period_type None->year"
+      ]
     }
   ],
   "_dividends_extracted_at": "2026-05-09T18:41:44Z",
@@ -954,5 +1031,6 @@
     "_extracted_at": "2026-06-01T20:45:16Z",
     "_extracted_by": "Sub-agent Opus full-q chunk-08",
     "cik": 33185
-  }
+  },
+  "_sa24g_processed_at": "2026-06-03T00:46:44.998692Z"
 }

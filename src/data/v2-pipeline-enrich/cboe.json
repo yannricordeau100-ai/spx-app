@@ -6,7 +6,7 @@
       "name_fr": "Dividende par action",
       "name_en": "Dividend Per Share",
       "explanation": "Montant total versé en dividendes par action sur l'année fiscale.",
-      "value": 1.26,
+      "value": 0.72,
       "unit": "$",
       "yoy": "-46.6%",
       "type": "Dividende",
@@ -15,11 +15,13 @@
       "signal": "Versement régulier",
       "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
       "history": [
+        1.56,
         1.8,
         1.96,
         2.1,
         2.36,
-        1.26
+        1.26,
+        0.72
       ],
       "is_wow": false,
       "is_generic": false,
@@ -27,7 +29,10 @@
       "last_data_date": "2025-12-31",
       "period_type": "year",
       "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
-      "signal_en": "Dividend cut risk, monitor payout sustainability"
+      "signal_en": "Dividend cut risk, monitor payout sustainability",
+      "_fix_log": [
+        "SA24-G period_type None->year"
+      ]
     },
     {
       "short": "Cap Return",
@@ -62,7 +67,7 @@
       "name_fr": "Taux de distribution",
       "name_en": "Payout Ratio",
       "explanation": "Part du résultat net redistribuée. >80 % = potentiellement non soutenable.",
-      "value": 25.97,
+      "value": 25.8,
       "unit": "%",
       "yoy": "-20.8%",
       "type": "Dividende",
@@ -71,11 +76,10 @@
       "signal": "Soutenabilité du dividende",
       "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
       "history": [
-        null,
-        89.45,
-        29.5,
-        32.77,
-        25.97
+        89.1,
+        29.4,
+        32.6,
+        25.8
       ],
       "is_wow": false,
       "is_generic": false,
@@ -83,7 +87,11 @@
       "last_data_date": "2025-12-31",
       "period_type": "year",
       "explanation_en": "Payout Ratio, dividends paid divided by net income.",
-      "signal_en": "Dividend cut risk, monitor payout sustainability"
+      "signal_en": "Dividend cut risk, monitor payout sustainability",
+      "_fix_log": [
+        "VAL_NE_LAST_fix:no_fix_ratio_0.29",
+        "SA24-G period_type None->year"
+      ]
     },
     {
       "short": "EPS",
@@ -251,6 +259,48 @@
       "is_generic": false,
       "is_short_history": false,
       "_source": "10-K FY2025 Cboe"
+    },
+    {
+      "short": "Trading Volumes",
+      "period_type": "year",
+      "value": "Non disponible",
+      "history": [
+        "Non disponible"
+      ],
+      "_fix_log": [
+        "SA24-G period_type None->year"
+      ]
+    },
+    {
+      "short": "Operating Income",
+      "period_type": "quarter",
+      "value": "Non disponible",
+      "history": [
+        354.0,
+        356.0,
+        375.0,
+        429.0,
+        506.0
+      ],
+      "_fix_log": [
+        "SA22-local quarterly via yfinance Operating Income",
+        "SA24-G rescale factor=1000"
+      ]
+    },
+    {
+      "short": "Cash & Equivalents",
+      "period_type": "year",
+      "value": 2.22,
+      "history": [
+        0.43,
+        0.54,
+        0.92,
+        2.22
+      ],
+      "_fix_log": [
+        "VAL_NE_LAST_fix:no_fix_ratio_5.16",
+        "SA24-G period_type None->year"
+      ]
     }
   ],
   "_dividends_extracted_at": "2026-05-09T20:23:17Z",
@@ -980,5 +1030,6 @@
     "_taxonomy": "us-gaap",
     "extracted_at": "2026-06-01T20:46:02.156735+00:00",
     "extracted_by": "Sub-agent Opus full-q chunk-05"
-  }
+  },
+  "_sa24g_processed_at": "2026-06-03T00:44:28.536972Z"
 }

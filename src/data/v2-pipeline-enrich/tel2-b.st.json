@@ -84,6 +84,8 @@
       "signal": "Versement régulier",
       "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
       "history": [
+        10.4,
+        9,
         9,
         19.75,
         6.8,
@@ -94,16 +96,19 @@
       "is_generic": false,
       "is_short_history": false,
       "last_data_date": "2025-12-31",
-      "period_type": "annual",
+      "period_type": "year",
       "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
-      "signal_en": "Dividend cut risk, monitor payout sustainability"
+      "signal_en": "Dividend cut risk, monitor payout sustainability",
+      "_fix_log": [
+        "SA24-G period_type None->year"
+      ]
     },
     {
       "short": "Cap Return",
       "name_fr": "Capital rendu aux actionnaires",
       "name_en": "Capital Returned to Shareholders",
       "explanation": "Total annuel : dividendes versés + rachats d'actions.",
-      "value": 4.4,
+      "value": 4.403,
       "unit": "SEKB",
       "yoy": "-7.8%",
       "type": "Cash",
@@ -112,7 +117,6 @@
       "signal": "Politique de retour aux actionnaires",
       "description": "Dividendes + rachats cumulés (2021-2025) en milliards SEK. Source yfinance cashflow.",
       "history": [
-        null,
         13.629,
         4.702,
         4.777,
@@ -122,16 +126,19 @@
       "is_generic": false,
       "is_short_history": false,
       "last_data_date": "2025-12-31",
-      "period_type": "annual",
+      "period_type": "year",
       "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_fix_log": [
+        "SA24-G period_type None->year"
+      ]
     },
     {
       "short": "Payout Ratio",
       "name_fr": "Taux de distribution",
       "name_en": "Payout Ratio",
       "explanation": "Part du résultat net redistribuée. >80 % = potentiellement non soutenable.",
-      "value": 95.99,
+      "value": 96,
       "unit": "%",
       "yoy": "-22.2%",
       "type": "Dividende",
@@ -140,19 +147,21 @@
       "signal": "Soutenabilité du dividende",
       "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
       "history": [
-        null,
-        244.51,
-        125.89,
-        123.44,
-        95.99
+        244.5,
+        125.9,
+        123.4,
+        96
       ],
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
       "last_data_date": "2025-12-31",
-      "period_type": "annual",
+      "period_type": "year",
       "explanation_en": "Payout Ratio, dividends paid divided by net income.",
-      "signal_en": "Dividend cut risk, monitor payout sustainability"
+      "signal_en": "Dividend cut risk, monitor payout sustainability",
+      "_fix_log": [
+        "SA24-G period_type None->year"
+      ]
     },
     {
       "short": "EPS",
@@ -295,6 +304,99 @@
       "is_generic": false,
       "is_wow": true,
       "_unit_rescaled": "M->M SEK for 1-999 readability"
+    },
+    {
+      "short": "Revenue",
+      "period_type": "quarter",
+      "value": 29.89,
+      "history": [
+        0.0078,
+        0.0072,
+        0.0073,
+        0.008,
+        0.0072
+      ],
+      "_fix_log": [
+        "SA22-local quarterly via yfinance Total Revenue",
+        "SA24-G rescale factor=0.001"
+      ]
+    },
+    {
+      "short": "Net Sales",
+      "period_type": "year",
+      "value": 39.505,
+      "history": [
+        40.056,
+        39.505
+      ],
+      "_fix_log": [
+        "SA24-G period_type None->year"
+      ]
+    },
+    {
+      "short": "EBIT",
+      "period_type": "year",
+      "value": 2.754,
+      "history": [
+        1.137,
+        2.754
+      ],
+      "_fix_log": [
+        "SA24-G period_type None->year"
+      ]
+    },
+    {
+      "short": "Capex",
+      "period_type": "quarter",
+      "value": 1.328,
+      "history": [
+        0.001,
+        0.0008,
+        0.0008,
+        0.0013,
+        0.0008
+      ],
+      "_fix_log": [
+        "SA22-local quarterly via yfinance Capital Expenditure",
+        "SA24-G rescale factor=0.001"
+      ]
+    },
+    {
+      "short": "Net Debt",
+      "period_type": "year",
+      "value": 4.952,
+      "history": [
+        5.198,
+        4.952
+      ],
+      "_fix_log": [
+        "SA24-G period_type None->year"
+      ]
+    },
+    {
+      "short": "Customer Base",
+      "period_type": "year",
+      "value": 24.486,
+      "history": [
+        23.105,
+        24.486
+      ],
+      "_fix_log": [
+        "SA24-G period_type None->year",
+        "SA24-G rescale factor=0.001"
+      ]
+    },
+    {
+      "short": "EBITDA Margin",
+      "period_type": "year",
+      "value": "21",
+      "history": [
+        15,
+        21
+      ],
+      "_fix_log": [
+        "SA24-G period_type None->year"
+      ]
     }
   ],
   "_dividends_extracted_at": "2026-05-09T20:07:54Z",
@@ -996,5 +1098,6 @@
         "v": 94.98
       }
     ]
-  }
+  },
+  "_sa24g_processed_at": "2026-06-03T00:45:04.502351Z"
 }
