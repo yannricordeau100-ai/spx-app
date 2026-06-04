@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { requireDeskOwner } from "@/lib/desk/auth";
 import { loadDisabledKpisPerSte } from "@/lib/disabled-kpis";
+import { isGenericKpi } from "@/lib/kpi-generic";
 import KpisToggleClient, {
   type SteRow,
   type KpiRow,
@@ -42,7 +43,21 @@ type AnyKPI = {
   history?: unknown;
   value?: unknown;
   unit?: unknown;
+  pv_score?: unknown;
 };
+
+function readNumber(v: unknown): number | null {
+  if (typeof v === "number" && Number.isFinite(v)) return v;
+  if (typeof v === "string") {
+    const n = Number(v);
+    if (Number.isFinite(n)) return n;
+  }
+  return null;
+}
+
+function readString(v: unknown): string {
+  return typeof v === "string" ? v : "";
+}
 
 async function readJson<T>(p: string): Promise<T | null> {
   try {
@@ -126,12 +141,16 @@ async function loadStes(): Promise<SteRow[]> {
       const heroShort =
         typeof base.hero_kpi === "string" ? base.hero_kpi : "";
       const baseKpis = asArray(base.kpis) as AnyKPI[];
+      // BUGFIX 2026-06-04 Yann : merger aussi enrich.kpis (les sub-agents
+      // SA22-B/D/E + Cerebras quarterly y écrivent les KPIs sectoriels
+      // récents). Avant : seulement kpis_supplementary → KPIs invisibles.
+      const enrichKpis = asArray(enrich.kpis) as AnyKPI[];
       const enrichSupp = asArray(enrich.kpis_supplementary) as AnyKPI[];
 
       // Merge avec dedup par `short` (base prioritaire)
       const seen = new Set<string>();
       const merged: AnyKPI[] = [];
-      for (const k of [...baseKpis, ...enrichSupp]) {
+      for (const k of [...baseKpis, ...enrichKpis, ...enrichSupp]) {
         if (!k || typeof k !== "object") continue;
         const short = typeof k.short === "string" ? k.short : "";
         if (!short || seen.has(short)) continue;
@@ -139,13 +158,15 @@ async function loadStes(): Promise<SteRow[]> {
         merged.push(k);
       }
 
-      // Filtre history >= 3
+      // Filtre history >= 3 + classification générique/spécifique
       const kpis: KpiRow[] = merged
         .filter((k) => historyLength(k.history) >= 3)
         .map((k) => {
           const short = typeof k.short === "string" ? k.short : "";
           const lv = lastValue(k.history);
           const unit = typeof k.unit === "string" ? k.unit : "";
+          const histLen = historyLength(k.history);
+          const pv = readNumber(k.pv_score);
           return {
             short,
             name_fr:
@@ -154,29 +175,66 @@ async function loadStes(): Promise<SteRow[]> {
                 : typeof k.name_en === "string"
                   ? k.name_en
                   : "",
+            name_en: typeof k.name_en === "string" ? k.name_en : "",
             type: typeof k.type === "string" ? k.type : "",
             period_type:
               typeof k.period_type === "string" ? k.period_type : "year",
-            history_length: historyLength(k.history),
+            history_length: histLen,
             last_value: lv,
             last_value_fmt: fmtValue(lv, unit),
             unit,
             is_hero: short === heroShort,
+            is_generic: isGenericKpi(short),
+            pv_score: pv,
           };
         })
         .sort((a, b) => {
-          // hero en premier, puis alphabétique
+          // Ordre : hero → spécifiques (history desc) → génériques en bas
           if (a.is_hero && !b.is_hero) return -1;
           if (!a.is_hero && b.is_hero) return 1;
+          if (a.is_generic !== b.is_generic) {
+            return a.is_generic ? 1 : -1;
+          }
+          // Au sein de chaque groupe : history desc puis alpha
+          if (a.history_length !== b.history_length) {
+            return b.history_length - a.history_length;
+          }
           return a.short.localeCompare(b.short);
         });
 
       const name = typeof base.name === "string" ? base.name : ticker;
+      const sector = readString(base.sector);
+      const subsector = readString(base.subsector);
+
+      // Market cap : peut être dans ranks ou champ direct
+      const ranks = base.ranks as Record<string, unknown> | undefined;
+      const marketCap =
+        readNumber((base as Record<string, unknown>).market_cap) ??
+        readNumber((base as Record<string, unknown>).marketCap) ??
+        readNumber(ranks?.market_cap_usd) ??
+        readNumber(ranks?.market_cap) ??
+        0;
+
+      // Hero review status
+      const heroIsGeneric = heroShort ? isGenericKpi(heroShort) : true;
+      const reviewStatusRaw =
+        readString((base as Record<string, unknown>)._hero_review_status) ||
+        readString((enrich as Record<string, unknown>)._hero_review_status);
+      let hero_review_status: SteRow["hero_review_status"];
+      if (reviewStatusRaw === "validated") hero_review_status = "validated";
+      else if (reviewStatusRaw === "auto_proposed_uncertain")
+        hero_review_status = "auto_proposed_uncertain";
+      else if (heroIsGeneric || !heroShort) hero_review_status = "needs_review";
+      else hero_review_status = "validated"; // hero spécifique pré-existant = ok
 
       return {
         ticker,
         name,
+        sector,
+        subsector,
+        market_cap: marketCap,
         hero_kpi: heroShort,
+        hero_review_status,
         kpis,
         disabled_shorts: disabledCfg.overrides[ticker] ?? [],
       };
@@ -184,7 +242,12 @@ async function loadStes(): Promise<SteRow[]> {
   ).then((list) =>
     (list.filter(Boolean) as SteRow[])
       .filter((s) => s.kpis.length > 0)
-      .sort((a, b) => a.ticker.localeCompare(b.ticker)),
+      // Ordre par défaut côté serveur : market_cap desc (le client peut
+      // basculer en tri par secteur).
+      .sort((a, b) => {
+        if (a.market_cap !== b.market_cap) return b.market_cap - a.market_cap;
+        return a.ticker.localeCompare(b.ticker);
+      }),
   );
 
   return rows;

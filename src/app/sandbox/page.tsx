@@ -431,7 +431,7 @@ export default function SandboxPage() {
                         href={`/${t.toLowerCase()}`}
                         className="group flex items-center gap-3 rounded-md border border-white/10 bg-white/[0.02] px-3 py-2 transition-colors hover:border-emerald-500/30 hover:bg-white/[0.05]"
                       >
-                        <div className="size-7 shrink-0 rounded-md border border-white/10 bg-white/[0.03] p-1">
+                        <div className="size-7 shrink-0 overflow-hidden rounded-md border border-white/10 bg-white/[0.03]">
                           <CompanyLogo ticker={t} />
                         </div>
                         <div className="min-w-0 flex-1">

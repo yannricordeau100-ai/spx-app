@@ -519,7 +519,7 @@ function ResultCard({
 
       {/* Logo */}
       <div
-        className={`size-12 shrink-0 rounded-xl border p-1.5 transition-transform duration-300 group-hover:scale-105 ${
+        className={`size-12 shrink-0 overflow-hidden rounded-xl border transition-transform duration-300 group-hover:scale-105 ${
           logoNeedsLightBg(ticker)
             ? "border-[#e5e5e5] bg-[#fafafa]"
             : "border-[#1f1f1f] bg-[#0a0a0a]"
@@ -679,7 +679,7 @@ function ResultCardV17({
 
       {/* Logo : tente CompanyLogo (Clearbit / SVG si dispo), sinon placeholder lettre */}
       <div
-        className={`size-12 shrink-0 rounded-xl border p-1.5 transition-transform duration-300 group-hover:scale-105 ${
+        className={`size-12 shrink-0 overflow-hidden rounded-xl border transition-transform duration-300 group-hover:scale-105 ${
           logoNeedsLightBg(ticker)
             ? "border-[#e5e5e5] bg-[#fafafa]"
             : "border-[#1f1f1f] bg-[#0a0a0a]"
@@ -746,7 +746,7 @@ function ResultCardV19({
       />
 
       <div
-        className={`size-12 shrink-0 rounded-xl border p-1.5 transition-transform duration-300 group-hover:scale-105 ${
+        className={`size-12 shrink-0 overflow-hidden rounded-xl border transition-transform duration-300 group-hover:scale-105 ${
           logoNeedsLightBg(ticker)
             ? "border-[#e5e5e5] bg-[#fafafa]"
             : "border-[#1f1f1f] bg-[#0a0a0a]"
