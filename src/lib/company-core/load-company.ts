@@ -2123,6 +2123,56 @@ export async function loadV17Company(
     }
   }
 
+  // Stories signal patch (Yann 5 juin 2026, sub-agent stories-signal) :
+  // Source : `src/data/v2-pipeline-enrich/<ticker>.stories_signal_patch.json`
+  // Format : { ticker, patches: [{ short, signal, description, _signal_patch_source }] }
+  // Pour chaque KPI avec is_short_history=true et signal vide/absent, on
+  // applique signal + description du patch matching par `short`. N'écrase
+  // jamais un signal/description déjà rempli. Merge SSR-only, n'altère pas
+  // v2-pipeline/<t>.json ni v2-pipeline-enrich/<t>.json principal.
+  try {
+    const storiesSignalPatchPath = path.join(
+      ROOT,
+      "src/data/v2-pipeline-enrich",
+      `${ticker.toLowerCase()}.stories_signal_patch.json`,
+    );
+    const patchData = await readJsonOrNull<{
+      patches?: Array<{ short?: string; signal?: string; description?: string }>;
+    }>(storiesSignalPatchPath);
+    if (
+      patchData
+      && Array.isArray(patchData.patches)
+      && patchData.patches.length > 0
+      && Array.isArray(data.kpis)
+    ) {
+      const patchByShort = new Map<string, { signal?: string; description?: string }>();
+      for (const p of patchData.patches) {
+        if (p && typeof p.short === "string" && p.short.trim()) {
+          patchByShort.set(p.short, {
+            signal: typeof p.signal === "string" ? p.signal : undefined,
+            description: typeof p.description === "string" ? p.description : undefined,
+          });
+        }
+      }
+      data.kpis = (data.kpis as AnyKPI[]).map((k: AnyKPI) => {
+        if (!k || typeof k !== "object") return k;
+        if (!k.is_short_history) return k;
+        const shortKey = typeof k.short === "string" ? k.short : "";
+        if (!shortKey) return k;
+        const patch = patchByShort.get(shortKey);
+        if (!patch) return k;
+        const out = { ...k };
+        const curSignal = typeof k.signal === "string" ? k.signal.trim() : "";
+        const curDesc = typeof k.description === "string" ? k.description.trim() : "";
+        if (!curSignal && patch.signal) out.signal = patch.signal;
+        if (!curDesc && patch.description) out.description = patch.description;
+        return out;
+      });
+    }
+  } catch (err) {
+    console.warn(`stories_signal_patch merge failed for ${ticker}:`, err);
+  }
+
   // Hero name_fr override (CONV-CONCEPTS 21 mai 2026, sub-agent l_hero_name_fr) :
   // fix critère audit l_hero_name_fr KO (55 stés où name_fr du hero KPI est
   // vide, identique au short, ou en anglais). Source :
