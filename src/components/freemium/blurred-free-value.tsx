@@ -56,7 +56,10 @@ export function BlurredFreeValue({
     <span
       className={className}
       style={{
-        filter: "blur(10px)",
+        // Yann 4 juin 2026 v3 : densité augmentée (20px) pour que les
+        // gros chiffres (hero gauche du graph + centre stories) soient
+        // illisibles, on ne doit plus deviner le chiffre.
+        filter: "blur(20px)",
         WebkitUserSelect: "none",
         userSelect: "none",
         pointerEvents: "none",
