@@ -255,10 +255,10 @@ export async function downloadSvgAsPng(
   // graph (= dernière date axe X). Position ~25-30px en dessous du
   // chart bottom pour respirer.
   const isDarkTheme = isDarkColor(bgColor);
-  // Logo "combined" = wordmark Mettrik AI complet.
+  // Yann 4 juin 2026 : logo canonique unique (PNG transparent v2 RGBA).
   const logoFilename = isDarkTheme
-    ? "/brand/mettrik-combined-white-bg-transparent.png"
-    : "/brand/mettrik-combined-black-bg-transparent.png";
+    ? "/brand/mettrik-ai-white-purple.png"
+    : "/brand/mettrik-ai-black-purple.png";
 
   // Yann 2 juin 2026 v9 : embed le logo en base64 data URI dans le SVG
   // (sinon le canvas ne charge pas l'image asynchrone avant rendu PNG

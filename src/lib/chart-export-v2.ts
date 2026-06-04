@@ -300,8 +300,8 @@ async function composeAndExport(
   const sigY = origY + origH + 25;
 
   const mettrikLogoUrl = isLight
-    ? "/brand/mettrikai-on-light.png"
-    : "/brand/mettrikai-on-dark.png";
+    ? "/brand/mettrik-ai-black-purple.png"
+    : "/brand/mettrik-ai-white-purple.png";
   const mettrikLogoDataUrl =
     (await fetchAsDataUrl(mettrikLogoUrl)) || mettrikLogoUrl;
 
