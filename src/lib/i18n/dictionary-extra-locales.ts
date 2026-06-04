@@ -641,7 +641,7 @@ export const EXTRA_LOCALES: Record<string, Partial<Record<LocaleKey, string>>> =
   // ──────────────────── NAV (dock spy) ────────────────────
   "nav.kpi_principal": { de: "Haupt-KPI", nl: "Hoofd-KPI" },
   "nav.kpi_table": { de: "KPI-Tabelle", nl: "KPI-tabel" },
-  "nav.market_position": { de: "Marktposition · TAM", nl: "Marktpositie · TAM" },
+  "nav.market_position": { de: "Marktposition", nl: "Marktpositie" },
   "nav.risks": { de: "Risikofaktoren", nl: "Risicofactoren" },
   "nav.governance": { de: "Governance & Vergütung", nl: "Bestuur & beloning" },
   "nav.ai": { de: "AI-Positionierung", nl: "AI-positionering" },

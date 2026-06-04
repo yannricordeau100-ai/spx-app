@@ -179,10 +179,22 @@ export function KpiRow({
         <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
           {/* Yann (V1.9.5 fix 4c, 30 mai 2026) : badge violet sub-category
               retiré. Garder uniquement la nature (gris) pour ne plus afficher
-              de catégorie violette redondante sur le tableau Indicateurs clés. */}
-          <span className="inline-flex items-center rounded-md border border-[#262626] px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wider text-zinc-400">
-            {kpi.nature}
-          </span>
+              de catégorie violette redondante sur le tableau Indicateurs clés.
+              Yann (4 juin 2026) : si nature absente sur la sté (3.2% des
+              KPIs en dataset), fallback sur type ; si type absent aussi on
+              masque la chip plutôt que d'afficher une bordure vide. */}
+          {(() => {
+            const label =
+              (typeof kpi.nature === "string" && kpi.nature.trim()) ||
+              (typeof kpi.type === "string" && kpi.type.trim()) ||
+              null;
+            if (!label) return null;
+            return (
+              <span className="inline-flex items-center rounded-md border border-[#262626] px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wider text-zinc-400">
+                {label}
+              </span>
+            );
+          })()}
         </div>
       </div>
 

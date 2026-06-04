@@ -1318,7 +1318,7 @@ export const DICTIONARY: Dict = {
   /* Section nav (dock spy) */
   "nav.kpi_principal": { fr: "KPI principal", en: "Lead KPI" },
   "nav.kpi_table": { fr: "Tableau des KPI", en: "KPI table" },
-  "nav.market_position": { fr: "Position marché · TAM", en: "Market position · TAM" },
+  "nav.market_position": { fr: "Position marché", en: "Market position" },
   "nav.risks": { fr: "Facteurs de risque", en: "Risk factors" },
   "nav.governance": { fr: "Gouvernance & rémunération", en: "Governance & comp" },
   "nav.ai": { fr: "Positionnement IA", en: "AI positioning" },

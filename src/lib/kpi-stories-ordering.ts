@@ -31,6 +31,32 @@ const CATEGORY_ORDER: Record<string, number> = {
   Story: 99,
 };
 
+/**
+ * Yann 4 juin 2026 : une story KPI n'est éligible que si elle dispose
+ * d'un minimum d'info lisibles. Sinon la carte affichait juste un badge
+ * "STORY" + signal en bas avec un centre VIDE / flou (cf bug "blocs à
+ * moitié terminés" sur ~énormément de stés). Exigences minimales :
+ *  - value numérique OU string courte non vide (sinon centre vide)
+ *  - name_fr non vide (sinon plus de titre KPI lisible)
+ * Si signal ET description manquent aussi → on garde pas la story (rien à dire).
+ */
+function isStoryKpiUsable(k: KPI): boolean {
+  // Value usable : number fini OU string > 0 char
+  let hasValue = false;
+  if (typeof k.value === "number") hasValue = Number.isFinite(k.value);
+  else if (typeof k.value === "string") hasValue = k.value.trim().length > 0 && k.value.trim() !== "—";
+  if (!hasValue) return false;
+  // Titre obligatoire
+  const name = (k.name_fr ?? "").trim();
+  if (name.length === 0) return false;
+  // Au moins UN texte explicatif (signal ou description) pour ne pas
+  // avoir une story complètement muette.
+  const hasNarrative =
+    ((k.signal ?? "").trim().length > 0) || ((k.description ?? "").trim().length > 0);
+  if (!hasNarrative) return false;
+  return true;
+}
+
 export function buildStories(
   kpis: KPI[],
   marketPositions?: MarketPosition[]
@@ -40,6 +66,7 @@ export function buildStories(
   // 1. KPIs short-history → bouquet par story_category
   for (const k of kpis) {
     if (!k.is_short_history) continue;
+    if (!isStoryKpiUsable(k)) continue;
     const cat = k.story_category || DEFAULT_CATEGORY;
     if (!buckets.has(cat)) buckets.set(cat, []);
     buckets.get(cat)!.push({ kind: "kpi", data: k });
@@ -75,7 +102,9 @@ export function hasStories(
   kpis: KPI[],
   marketPositions?: MarketPosition[]
 ): boolean {
-  if (kpis.some((k) => k.is_short_history)) return true;
+  // Yann 4 juin 2026 : on n'affiche le bloc Stories que si on a au moins
+  // UNE story usable (cf isStoryKpiUsable) ou une MarketPosition.
+  if (kpis.some((k) => k.is_short_history && isStoryKpiUsable(k))) return true;
   if (marketPositions && marketPositions.length > 0) return true;
   return false;
 }

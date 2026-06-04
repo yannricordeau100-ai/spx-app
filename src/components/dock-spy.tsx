@@ -150,10 +150,14 @@ function SocialMiniRack() {
     e.preventDefault();
     window.open("https://x.com/mettrik_ai", "_blank", "noopener,noreferrer");
   };
+  // Yann 4 juin 2026 : Instagram retiré de la sidebar publique. Handler
+  // conservé pour réactivation future (back office RS).
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleIG = (e: React.MouseEvent) => {
     e.preventDefault();
     window.open("https://www.instagram.com/mettrik_ai/", "_blank", "noopener,noreferrer");
   };
+  void handleIG;
   return (
     <>
       {/* Séparateur décoratif (2 dots iridescents) entre nav et social.
@@ -162,46 +166,27 @@ function SocialMiniRack() {
         <span className="size-1 rounded-full bg-violet-400/70 shadow-[0_0_6px_rgba(167,139,250,0.6)]" />
         <span className="size-1 rounded-full bg-cyan-300/70 shadow-[0_0_6px_rgba(103,232,249,0.55)]" />
       </div>
-      {/* Tube social : même forme que le nav, MAIS border gradient
-          subtil (1 px de gradient ring) pour signaler "autre catégorie"
-          + tooltip "RS Mettrik" au hover du tube. */}
+      {/* Bouton social X seul (Yann 4 juin 2026 : Instagram retiré, IG
+          handler conservé back office). Pastille ronde compacte avec
+          border gradient violet/cyan/pink pour rester aligné
+          visuellement avec le rack nav du dessus. */}
       <div className="relative rounded-full bg-gradient-to-b from-violet-500/40 via-cyan-400/30 to-pink-400/35 p-px">
-        <div className="flex flex-col items-center gap-1.5 rounded-full bg-[#0a0a0a]/90 px-2 py-2 backdrop-blur-md">
-          <a
-            href="https://x.com/mettrik_ai"
-            onClick={handleX}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Mettrik AI sur X · @mettrik_ai"
-            title="@mettrik_ai sur X"
-            className="group relative inline-flex size-6 items-center justify-center rounded-full text-zinc-400 transition-all duration-200 hover:bg-violet-500/15 hover:text-violet-200"
-          >
-            <svg viewBox="0 0 24 24" className="size-3 fill-current" aria-hidden>
-              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-            </svg>
-            <span className="pointer-events-none absolute left-full ml-3 whitespace-nowrap rounded-md border border-[#1f1f1f] bg-[#0a0a0a] px-2 py-1 font-mono text-[10px] uppercase tracking-wider text-zinc-300 opacity-0 transition-opacity group-hover:opacity-100">
-              X @mettrik_ai
-            </span>
-          </a>
-          <a
-            href="https://www.instagram.com/mettrik_ai/"
-            onClick={handleIG}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Mettrik AI sur Instagram · @mettrik_ai"
-            title="@mettrik_ai sur Instagram"
-            className="group relative inline-flex size-6 items-center justify-center rounded-full text-zinc-400 transition-all duration-200 hover:bg-pink-500/15 hover:text-pink-200"
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="size-3" aria-hidden>
-              <rect x="2" y="2" width="20" height="20" rx="5" />
-              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-            </svg>
-            <span className="pointer-events-none absolute left-full ml-3 whitespace-nowrap rounded-md border border-[#1f1f1f] bg-[#0a0a0a] px-2 py-1 font-mono text-[10px] uppercase tracking-wider text-zinc-300 opacity-0 transition-opacity group-hover:opacity-100">
-              Instagram @mettrik_ai
-            </span>
-          </a>
-        </div>
+        <a
+          href="https://x.com/mettrik_ai"
+          onClick={handleX}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Mettrik AI sur X · @mettrik_ai"
+          title="@mettrik_ai sur X"
+          className="group relative flex size-7 items-center justify-center rounded-full bg-[#0a0a0a]/90 text-zinc-400 backdrop-blur-md transition-all duration-200 hover:text-violet-200"
+        >
+          <svg viewBox="0 0 24 24" className="size-3 fill-current" aria-hidden>
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+          </svg>
+          <span className="pointer-events-none absolute left-full ml-3 whitespace-nowrap rounded-md border border-[#1f1f1f] bg-[#0a0a0a] px-2 py-1 font-mono text-[10px] uppercase tracking-wider text-zinc-300 opacity-0 transition-opacity group-hover:opacity-100">
+            X @mettrik_ai
+          </span>
+        </a>
       </div>
     </>
   );
