@@ -205,8 +205,20 @@ export default function KpisToggleClient({ stes }: { stes: SteRow[] }) {
         body: JSON.stringify({ ticker, kpi_short: newShort }),
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      setToast(`${ticker} : hero = ${newShort} ✓`);
-      setTimeout(() => setToast(null), 2500);
+      const payload = (await res.json().catch(() => ({}))) as {
+        persisted?: boolean;
+      };
+      if (payload.persisted === false) {
+        // Yann 4 juin 2026 : Vercel filesystem read-only → écriture skip.
+        // L'override reste posé localement pour la validation visuelle.
+        setToast(
+          `${ticker} : hero = ${newShort} (validé local, commit requis)`,
+        );
+        setTimeout(() => setToast(null), 4000);
+      } else {
+        setToast(`${ticker} : hero = ${newShort} ✓`);
+        setTimeout(() => setToast(null), 2500);
+      }
     } catch (err) {
       // revert
       setHeroOverrides((prev) => {

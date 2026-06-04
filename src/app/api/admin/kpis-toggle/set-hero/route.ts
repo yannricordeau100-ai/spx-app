@@ -123,6 +123,13 @@ export async function POST(req: NextRequest) {
   baseJson._hero_last_set_at = new Date().toISOString();
   baseJson._hero_last_set_by = "admin/kpis-toggle";
 
+  // Yann 4 juin 2026 : filesystem Vercel = read-only en prod (EROFS).
+  // L'écriture fail systématiquement → 503 → client revert → étoile
+  // disparaît. Désormais on retourne 200 + persisted=false pour que le
+  // client garde l'override local (validation visuelle) et signale juste
+  // que la persistance disque échouera tant que pas commit local.
+  let persisted = true;
+  let writeErr: string | null = null;
   try {
     await fs.writeFile(
       basePath,
@@ -130,11 +137,9 @@ export async function POST(req: NextRequest) {
       "utf-8",
     );
   } catch (err) {
-    console.error("set-hero write failed", err);
-    return NextResponse.json(
-      { error: "write_failed", detail: String(err) },
-      { status: 503 },
-    );
+    persisted = false;
+    writeErr = String(err);
+    console.warn("set-hero write skipped (read-only fs ?)", err);
   }
 
   // Revalidate
@@ -150,5 +155,7 @@ export async function POST(req: NextRequest) {
     ticker: tickerRaw,
     hero_kpi: kpiShort,
     status: "validated",
+    persisted,
+    write_error: writeErr,
   });
 }

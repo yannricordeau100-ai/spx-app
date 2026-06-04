@@ -493,23 +493,45 @@ export async function loadV17Company(
   );
   const enrich = await readJsonOrNull<Record<string, unknown>>(enrichPath);
 
-  // Mettrik description (simple + advanced × 3 langues) : fichier séparé
-  // `.description.json` (Yann 14 mai 2026). Gemini 2.5 Flash, distinct
-  // de l'ancienne `company_description` yfinance. Merge dans la company
-  // sous `mettrik_description` (toujours, prioritaire sur yfinance).
-  const descPath = path.join(
+  // Mettrik description (simple + advanced × 3 langues) : fichiers séparés.
+  // - Legacy : `<t>.description.json` (Yann 14 mai 2026, Gemini Flash)
+  // - Nouveau : `<t>.mettrik-description.json` (sub-agent 1 juin 2026,
+  //   Cerebras gpt-oss-120b, schéma {mettrik_description:{simple:{fr:{...}},
+  //   advanced:{fr:{...}}}})
+  // Yann 4 juin 2026 : le nouveau path n'était pas chargé → la description
+  // tombait sur le legacy yfinance EN. Fix : on charge les 2 et le nouveau
+  // gagne s'il existe.
+  const legacyDescPath = path.join(
     ROOT,
     "src/data/v2-pipeline-enrich",
     `${ticker.toLowerCase()}.description.json`,
   );
-  const descFile = await readJsonOrNull<{
-    simple?: { fr?: string; en?: string; de?: string };
-    advanced?: { fr?: string; en?: string; de?: string };
-  }>(descPath);
-  if (descFile && descFile.simple && descFile.advanced) {
+  const legacyDescFile = await readJsonOrNull<{
+    simple?: { fr?: unknown; en?: unknown; de?: unknown };
+    advanced?: { fr?: unknown; en?: unknown; de?: unknown };
+  }>(legacyDescPath);
+  if (legacyDescFile && legacyDescFile.simple && legacyDescFile.advanced) {
     (data as Record<string, unknown>).mettrik_description = {
-      simple: descFile.simple,
-      advanced: descFile.advanced,
+      simple: legacyDescFile.simple,
+      advanced: legacyDescFile.advanced,
+    };
+  }
+  const newDescPath = path.join(
+    ROOT,
+    "src/data/v2-pipeline-enrich",
+    `${ticker.toLowerCase()}.mettrik-description.json`,
+  );
+  const newDescFile = await readJsonOrNull<{
+    mettrik_description?: {
+      simple?: { fr?: unknown; en?: unknown; de?: unknown };
+      advanced?: { fr?: unknown; en?: unknown; de?: unknown };
+    };
+  }>(newDescPath);
+  const newMd = newDescFile?.mettrik_description;
+  if (newMd && newMd.simple && newMd.advanced) {
+    (data as Record<string, unknown>).mettrik_description = {
+      simple: newMd.simple,
+      advanced: newMd.advanced,
     };
   }
 
