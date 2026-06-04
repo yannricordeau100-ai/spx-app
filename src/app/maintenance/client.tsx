@@ -52,24 +52,55 @@ export function MaintenanceClient({
 
       {/* Contenu central */}
       <main className="relative z-10 mx-auto flex min-h-screen max-w-2xl flex-col items-center justify-center px-6 py-20 text-center">
-        {/* Yann 4 juin 2026 : PNG officiel MettrikAI (blanc + point violet)
-            sur fond sombre. Remplace animation lettre par lettre précédente. */}
+        {/* Yann 4 juin 2026 v2 : REVERT PNG -> animation lettre par lettre.
+            Les PNG fournis sont opaques (damier blanc/gris fait partie de
+            l'image), donc creent rectangle visible sur fond sombre. */}
         <div className="mb-10">
-          <motion.img
-            src="/brand/mettrik-ai-white-purple.png"
-            alt="Mettrik AI"
-            initial={{ opacity: 0, y: 8, filter: "blur(6px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          <div
+            className="relative inline-flex items-baseline leading-none"
             style={{
-              height: "clamp(72px, 12vw, 130px)",
-              width: "auto",
-              maxWidth: "min(90vw, 640px)",
-              objectFit: "contain",
-              margin: "0 auto",
-              display: "block",
+              fontFamily: "var(--font-instrument), 'Bricolage Grotesque', sans-serif",
+              fontWeight: 800,
+              fontStyle: "italic",
+              fontSize: "clamp(48px, 9vw, 96px)",
+              letterSpacing: "-0.04em",
             }}
-          />
+          >
+            {"Mettrik AI".split("").map((ch, i) => {
+              const isI = ch === "i";
+              return (
+                <motion.span
+                  key={i}
+                  initial={{ opacity: 0, y: "30%", filter: "blur(8px)" }}
+                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  transition={{ duration: 0.7, delay: 0.06 * i, ease: [0.22, 1, 0.36, 1] }}
+                  className="relative inline-block"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, #ffffff 0%, #d8d8e4 30%, #a855f7 55%, #22d3ee 78%, #f472b6 100%)",
+                    WebkitBackgroundClip: "text",
+                    backgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    color: "transparent",
+                  }}
+                >
+                  {isI ? (
+                    <>
+                      <span aria-hidden style={{ visibility: "hidden" }}>i</span>
+                      <span aria-hidden className="pointer-events-none absolute inset-0 flex items-end justify-center">
+                        <span style={{ display: "inline-block", width: "0.12em", height: "0.62em", background: "linear-gradient(180deg, #a855f7 0%, #22d3ee 100%)", borderRadius: "0.06em", transform: "translateY(-0.04em)" }} />
+                      </span>
+                      <motion.span aria-hidden initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.06 * i + 0.45, duration: 0.4, ease: [0.22, 1, 0.36, 1] }} className="absolute" style={{ left: "50%", top: "0.05em", width: "0.18em", height: "0.18em", borderRadius: "50%", background: "#a855f7", transform: "translateX(-50%)", boxShadow: "0 0 12px #a855f7, 0 0 24px #a855f7aa, 0 0 36px #a855f755" }}>
+                        <motion.span animate={{ opacity: [1, 0.55, 1], scale: [1, 1.3, 1] }} transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }} className="absolute inset-0 rounded-full" style={{ background: "#a855f7" }} />
+                      </motion.span>
+                    </>
+                  ) : (
+                    ch
+                  )}
+                </motion.span>
+              );
+            })}
+          </div>
           {/* Rail iridescent conservé sous le logo */}
           <motion.div
             initial={{ scaleX: 0, opacity: 0 }}

@@ -132,7 +132,6 @@ export default async function SandboxV195HubPage() {
         routePrefix="/sandbox/v1-9-5"
         searchScope={{ tickers, total: tickers.length }}
         topNavLinks={[
-          { label: popularLabel, href: "/populaire-investisseurs" },
           { label: pricingLabel, href: "/sandbox/v1-8/pricing" },
           { label: contactLabel, href: "/sandbox/v1-8/contact" },
         ]}
