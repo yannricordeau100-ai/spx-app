@@ -1334,10 +1334,61 @@ const V25: FC<WordmarkVariantProps> = ({
 );
 
 // ────────────────────────────────────────────────────────────────────────────
+// V_PNG2 — PNG transparent canonique (Yann 4 juin 2026)
+// Combine visuel coloré gauche + wordmark "Mettrik AI" + dot violet.
+// 2 versions selon thème : noir (fond clair) / blanc (fond sombre).
+// Active par défaut depuis 4 juin 2026 sur toutes les pages.
+// ────────────────────────────────────────────────────────────────────────────
+
+const V_PNG2: FC<WordmarkVariantProps> = ({
+  size = "lg",
+  showSubtitle = false,
+  className = "",
+}) => {
+  // Tailles cibles harmonisées avec les autres variantes (cf SIZE_FONT).
+  // Le PNG natif fait 2048×1024 (ratio 2:1). On garde le ratio en jouant
+  // sur la hauteur calée sur la font-size équivalente.
+  const heightPx: Record<WordmarkSize, string> = {
+    sm: "clamp(24px, 3vw, 32px)",
+    md: "clamp(44px, 5.5vw, 68px)",
+    lg: "clamp(68px, 11vw, 132px)",
+  };
+  // Mettrik n'utilise PAS Tailwind dark class : le thème est porté par
+  // html[data-theme="light"] (cf globals.css). Par défaut → dark (white
+  // wordmark). En thème clair → black wordmark via CSS attribute selector
+  // injecté inline (idiomatique React pour 2 <img>).
+  return (
+    <div className={`inline-flex flex-col items-center ${className}`}>
+      <span className="wordmark-png-v2 relative inline-block" style={{ height: heightPx[size] }}>
+        <img
+          src="/brand/mettrik-ai-white-purple.png"
+          alt="Mettrik AI"
+          className="wordmark-png-dark block h-full w-auto select-none"
+          draggable={false}
+        />
+        <img
+          src="/brand/mettrik-ai-black-purple.png"
+          alt=""
+          aria-hidden
+          className="wordmark-png-light absolute inset-0 hidden h-full w-auto select-none"
+          draggable={false}
+        />
+        <style>{`
+          html[data-theme="light"] .wordmark-png-dark { display: none; }
+          html[data-theme="light"] .wordmark-png-light { display: block !important; position: static !important; }
+        `}</style>
+      </span>
+      {showSubtitle && <Subtitle size={size} />}
+    </div>
+  );
+};
+
+// ────────────────────────────────────────────────────────────────────────────
 // Registry export
 // ────────────────────────────────────────────────────────────────────────────
 
 export const WORDMARK_VARIANTS: Record<string, FC<WordmarkVariantProps>> = {
+  "logo-mtk-png-v2": V_PNG2,
   "logo-mtk-v1.1": V1_1,
   "logo-mtk-v1.2": V1_2,
   "logo-mtk-v2": V2,
@@ -1373,6 +1424,7 @@ export type WordmarkVariantMeta = {
 };
 
 export const WORDMARK_VARIANT_META: WordmarkVariantMeta[] = [
+  { id: "logo-mtk-png-v2", label: "PNG transparent v2 (canonique 4 juin 2026)", family: "PNG" },
   { id: "logo-mtk-v1.1", label: "Holographic Bricolage (référence)", family: "Gradient" },
   { id: "logo-mtk-v1.2", label: "Fraunces holographic italic", family: "Gradient" },
   { id: "logo-mtk-v2", label: "Mono ultra-condensed", family: "Mono / Brutaliste" },
