@@ -83,19 +83,19 @@ function renderTokensBlur(node: ReactNode): ReactNode {
           key={i}
           className="select-none align-baseline"
           style={{
-            filter: "blur(7px)",
+            filter: "blur(6px)",
             WebkitUserSelect: "none",
             userSelect: "none",
             pointerEvents: "none",
             display: "inline-block",
-            color: "rgba(244,244,245,0.55)",
+            color: "rgba(244,244,245,0.85)",
           }}
           aria-hidden
           data-freemium-blocked-token="locked"
         >
-          {/* Yann 4 juin 2026 : HARD - texte reel jamais dans le DOM,
-              blocs Unicode meme largeur pour preserver layout. */}
-          {"█".repeat(Math.max(2, t.text.length))}
+          {/* Yann 4 juin 2026 v2 : floutage CSS sur le vrai texte
+              (style proche du bloc Interprétation), pas de blocs Unicode. */}
+          {t.text}
         </span>
       ) : (
         <span key={i}>{t.text}</span>

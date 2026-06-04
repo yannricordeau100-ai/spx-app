@@ -48,26 +48,24 @@ export function BlurredFreeValue({
     return <span className={className}>{value ?? "—"}{suffix}</span>;
   }
 
-  // Yann 4 juin 2026 : HARD floutage. La vraie valeur n'est JAMAIS rendue
-  // dans le DOM (= pas de inspect/curl bypass). On affiche des blocs Unicode
-  // de la MEME LARGEUR APPROXIMATIVE que la valeur reelle pour garder le
-  // layout intact (preserve precision visuelle exacte). Le blur(12px) reste
-  // applique pour conserver l'aspect visuel identique a l'ancien floutage.
+  // Yann 4 juin 2026 v2 : floutage CSS sur le vrai texte (style valide
+  // proche de l'Interprétation), pas de blocs Unicode. La vraie valeur
+  // est rendue floutée (filter blur) plutôt que masquée par █.
   const realStr = `${value ?? "—"}${suffix}`;
-  const masked = "█".repeat(Math.max(2, realStr.length));
   return (
     <span
       className={className}
       style={{
-        filter: "blur(12px)",
+        filter: "blur(10px)",
         WebkitUserSelect: "none",
         userSelect: "none",
         pointerEvents: "none",
+        color: "rgba(244,244,245,0.95)",
       }}
       aria-hidden
       data-freemium-blocked-value="locked"
     >
-      {masked}
+      {realStr}
     </span>
   );
 }
