@@ -175,28 +175,22 @@ export function CompanyLogo({ ticker }: { ticker: string }) {
   // Convention fichier : public/logos/<TICKER>.png (ex: public/logos/NFLX.png).
   // Le ticker peut contenir . ou - selon source. Convertit . en - pour fichier.
   const safeTicker = t.replace(/\./g, "-");
-  // Yann 4 juin 2026 : wrapper <span> au lieu de <picture> (qui ne propage
-  // pas size-full correctement vers img dans certains layouts flex avec
-  // overflow-hidden + rounded-xl). + dimensions explicites en plus de size-full.
+  // Yann 4 juin 2026 : APPROCHE DIFFERENTE - CSS background-image au lieu de
+  // <img>. Plus reliable : la taille est dictee par le parent (h-full w-full),
+  // background-size:contain fait le reste sans intermediaire DOM.
+  // Resout les cas ou <img> rendait a taille 0 dans certains layouts flex.
   return (
-    <span className="relative block h-full w-full">
-      <img
-        src={`/logos/${safeTicker}.png`}
-        alt=""
-        width="100%"
-        height="100%"
-        className="company-logo-img absolute inset-0 block h-full w-full object-contain"
-        loading="lazy"
-        onError={(e) => {
-          (e.currentTarget as HTMLImageElement).style.display = "none";
-          const next = (e.currentTarget as HTMLImageElement).nextElementSibling as HTMLElement | null;
-          if (next) next.style.display = "block";
-        }}
-      />
-      <span style={{ display: "none" }} className="absolute inset-0 block h-full w-full">
-        <LogoMonogram ticker={ticker} />
-      </span>
-    </span>
+    <span
+      role="img"
+      aria-label={`${ticker} logo`}
+      className="block h-full w-full"
+      style={{
+        backgroundImage: `url(/logos/${safeTicker}.png)`,
+        backgroundSize: "contain",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+      }}
+    />
   );
 }
 
