@@ -185,8 +185,12 @@ export function CompanyLogo({ ticker }: { ticker: string }) {
       aria-label={`${ticker} logo`}
       className="block h-full w-full"
       style={{
+        // Yann 4 juin 2026 v2 : background-size 'cover' (au lieu de 'contain')
+        // pour ZOOM le logo qui remplit le cadre. Plus de marges blanches/noires
+        // artificielles entre le logo et le cadre. Les logos non-carres sont
+        // cropes legerement sur les bords (acceptable vs marges visibles).
         backgroundImage: `url(/logos/${safeTicker}.png)`,
-        backgroundSize: "contain",
+        backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
       }}
