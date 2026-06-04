@@ -23,6 +23,7 @@ import { yoyTone } from "@/lib/utils";
 import { brand, rate } from "@/lib/brand";
 import { buildCompareAnalysis, type CompareReadingTone } from "@/lib/compare";
 import { QualityBadge } from "@/components/quality-badge";
+import { displayTicker } from "@/lib/ticker-display";
 import { CompareOverlayChart } from "@/components/compare-overlay-chart";
 
 const TONE_META: Record<
@@ -132,7 +133,8 @@ export function ComparePanel({
                 {co.name}
               </Link>
               <span className="font-mono text-[11px]" style={{ color: accent }}>
-                {co.ticker}
+                {/* Yann 4 juin 2026 : strip suffixe place boursière (.PA/.SW/...) */}
+                {displayTicker(co.ticker, new Set())}
               </span>
             </div>
             <div className="mt-2 flex items-baseline gap-2">

@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { ArrowRight, Sparkles } from "lucide-react";
 
 import { COMPANIES, TICKERS, getHero } from "@/lib/data";
+import { displayTicker, buildTickerSet } from "@/lib/ticker-display";
 import { prepareHeroDisplay } from "@/lib/format-hero";
 import { yoyTone } from "@/lib/utils";
 import { brand, rate } from "@/lib/brand";
@@ -520,6 +521,10 @@ export function HomeView({
   const results = tickersProp ?? TICKERS;
   const buildHref = (tk: string): string =>
     routePrefix ? `${routePrefix}/${tk.toLowerCase()}` : `/${tk.toLowerCase()}`;
+  // Yann 4 juin 2026 : ticker affiché sur les cards = displayTicker (strip
+  // suffixe place boursière .PA/.SW/.L/etc sauf si conflit avec un short
+  // existant). URL conserve le ticker complet via `buildHref` ci-dessus.
+  const allTickersSet = useMemo(() => buildTickerSet(results), [results]);
 
   // Pagination par paquet de 30 (Yann 16 mai 2026) : top 30 affiché, puis
   // flèche "Déployer 30 de plus" pour en révéler 30 supplémentaires, etc.
@@ -608,7 +613,7 @@ export function HomeView({
                 // Idem : wrap chaque card société dans le gate signup.
                 // Yann (12 mai 2026) : passer l'idx pour afficher médailles
                 // 🥇🥈🥉 sur les 3 premières du classement.
-                const card = renderCompanyCard(c, ticker, buildHref, locale, t, idx);
+                const card = renderCompanyCard(c, ticker, buildHref, locale, t, idx, allTickersSet);
                 if (!card) return null;
                 return (
                   <SignupGateOverlay key={ticker} enabled={requireSignupGate} gatePath={gatePath} initialAuthed={!requireSignupGate}>
@@ -675,7 +680,9 @@ function renderCompanyCard(
   locale: string,
   t: (k: string) => string,
   rankIdx?: number,
+  allTickersSet?: ReadonlySet<string>,
 ): React.ReactNode {
+  const tickersUniverse = allTickersSet ?? new Set<string>();
   if (!c.kpis || !Array.isArray(c.kpis) || c.kpis.length === 0) return null;
   const hero = getHero(c);
   // Coerce string fields (Yann 9 mai 2026 : NVDA/GOOGL/AAPL/MSFT avaient
@@ -749,7 +756,7 @@ function renderCompanyCard(
                     <div className="relative flex items-start justify-between">
                       <div>
                         <div className="font-mono text-xs" style={{ color: accent }}>
-                          {ticker}
+                          {displayTicker(ticker, tickersUniverse)}
                         </div>
                         <div className="mt-1 line-clamp-2 text-[15px] font-medium leading-snug text-zinc-100">
                           {c.name}
