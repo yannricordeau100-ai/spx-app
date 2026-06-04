@@ -4,7 +4,7 @@ import { Brain, TrendingUp, Zap, ShieldAlert, MinusCircle } from "lucide-react";
 import { isOfficialSource, type AIPositioning } from "@/lib/data";
 import { brand } from "@/lib/brand";
 import { useT } from "@/lib/i18n/provider";
-import { normalizeNarrative } from "@/lib/ui-fix-templates";
+import { normalizeNarrative, humanizeFinJargon } from "@/lib/ui-fix-templates";
 import { BlurredFreeText } from "@/components/freemium/blurred-free-text";
 import { AutoTooltipText } from "@/components/auto-tooltip-text";
 
@@ -98,9 +98,11 @@ export function AIPositioningCard({
           </span>
         </div>
 
-        <BlurredFreeText blocked={freeBlocked} ticker={ticker} as="p" className="mt-4 text-[15px] leading-relaxed text-zinc-100">
+        {/* Yann 4 juin 2026 : summary agrandi (15px → 16.5px, leading-relaxed
+            préservé) + jargon SEC/FR humanisé (MD&A → Analyse direction, etc.). */}
+        <BlurredFreeText blocked={freeBlocked} ticker={ticker} as="p" className="mt-4 text-[16.5px] leading-relaxed text-zinc-100">
           {effective.summary ? (
-            <AutoTooltipText text={normalizeNarrative(effective.summary)} locale="fr" />
+            <AutoTooltipText text={humanizeFinJargon(normalizeNarrative(effective.summary))} locale="fr" />
           ) : (
             effective.summary
           )}
@@ -127,24 +129,27 @@ export function AIPositioningCard({
             })
             .slice(0, 8);
           if (cleanEvidence.length === 0) return null;
+          // Yann 4 juin 2026 : sous-blocs evidence agrandis pour lisibilité
+          // grand public (label 10.5→12px, item 13→15px, padding 2.5→3) +
+          // jargon SEC humanisé via humanizeFinJargon.
           return (
           <div className="mt-5">
-            <div className="mb-2 font-mono text-[10.5px] uppercase tracking-wider text-zinc-300">
+            <div className="mb-2.5 font-mono text-[12px] uppercase tracking-wider text-zinc-300">
               {t("ai.evidence_label")}
             </div>
-            <ul className="grid gap-1.5 sm:grid-cols-2">
+            <ul className="grid gap-2 sm:grid-cols-2">
               {cleanEvidence.map((e, i) => (
                 <li
                   key={i}
-                  className="flex items-start gap-2 rounded-lg border border-[#1a1a1a] bg-[#0a0a0a] p-2.5 text-[13px] leading-snug text-zinc-200"
+                  className="flex items-start gap-2.5 rounded-lg border border-[#1a1a1a] bg-[#0a0a0a] p-3 text-[15px] leading-snug text-zinc-200"
                 >
                   <TrendingUp
-                    className="mt-0.5 size-3.5 shrink-0"
+                    className="mt-0.5 size-4 shrink-0"
                     style={{ color: meta.color }}
                   />
                   <BlurredFreeText blocked={freeBlocked} ticker={ticker} as="span">
                     {typeof e === "string" ? (
-                      <AutoTooltipText text={normalizeNarrative(e)} locale="fr" />
+                      <AutoTooltipText text={humanizeFinJargon(normalizeNarrative(e))} locale="fr" />
                     ) : (
                       e
                     )}
@@ -157,8 +162,8 @@ export function AIPositioningCard({
         })()}
 
         {effective.source && !isOfficialSource(effective.source) && (
-          <div className="mt-4 font-mono text-[11px] italic text-zinc-400">
-            {t("ai.source")} : {effective.source}
+          <div className="mt-4 font-mono text-[12.5px] italic text-zinc-400">
+            {t("ai.source")} : {humanizeFinJargon(effective.source)}
           </div>
         )}
       </div>

@@ -84,6 +84,46 @@ export function normalizeNarrative(text: string): string {
 }
 
 /**
+ * Yann 4 juin 2026 : humanise les acronymes SEC/finance illisibles pour
+ * le grand public. Appliqué dans le bloc Positionnement IA (evidence +
+ * source) pour remplacer "MD&A", "10-K", "20-F", "6-K", "DEF14A" par
+ * des libellés FR compréhensibles. Idempotent.
+ *
+ * Tableau ciblé sur les jargons que Yann a flagués comme incompréhensibles
+ * pour un investisseur particulier.
+ */
+const FIN_JARGON_FR_MAP: Array<{ pattern: RegExp; replacement: string }> = [
+  // SEC filings labels
+  { pattern: /\bMD&amp;A\b/g, replacement: "Analyse direction" },
+  { pattern: /\bMD&A\b/g, replacement: "Analyse direction" },
+  { pattern: /\bManagement Discussion (?:&|and) Analysis\b/gi, replacement: "Analyse direction" },
+  // SEC form codes
+  { pattern: /\b10-K\b/g, replacement: "rapport annuel" },
+  { pattern: /\b10-Q\b/g, replacement: "rapport trimestriel" },
+  { pattern: /\b20-F\b/g, replacement: "rapport annuel" },
+  { pattern: /\b6-K\b/g, replacement: "rapport intermédiaire" },
+  { pattern: /\bDEF\s*14A\b/gi, replacement: "convocation AG" },
+  { pattern: /\b8-K\b/g, replacement: "communiqué" },
+  // "Item N" (sections SEC) → "Section N"
+  { pattern: /\bItem\s+1A\b/g, replacement: "section risques" },
+  { pattern: /\bItem\s+7\b/g, replacement: "section analyse direction" },
+  { pattern: /\bItem\s+8\b/g, replacement: "états financiers" },
+  // Risk factors littéral
+  { pattern: /\bRisk Factors\b/g, replacement: "facteurs de risque" },
+];
+
+export function humanizeFinJargon(text: string): string {
+  if (!text || typeof text !== "string") return text;
+  let out = text;
+  for (const { pattern, replacement } of FIN_JARGON_FR_MAP) {
+    out = out.replace(pattern, replacement);
+  }
+  // Nettoyage : supprime les répétitions "rapport annuel - rapport annuel"
+  out = out.replace(/(\brapport annuel\b)[\s,]+\1/gi, "$1");
+  return out;
+}
+
+/**
  * Normalise un sub-sector GICS anglais en français Mettrik.
  * Source : `_meta/gics-163-master.md` (CONV-DATA). Liste partielle ici,
  * à étendre incrémentalement à mesure que l'audit remonte de nouveaux EN.
