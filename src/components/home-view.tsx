@@ -551,10 +551,10 @@ export function HomeView({
         {topNavLinks && topNavLinks.length > 0 && (
           <nav className="mb-5 flex justify-center gap-3 text-[12.5px]">
             {topNavLinks.map((l) => {
-              // Yann (5 juin 2026) : verrouillage mode anonyme. Tout clic
-              // sur les top nav links (Tarifs / Contact) en mode anonyme
-              // ouvre le popup signup. Les boutons Connexion / S'inscrire
-              // de la top-right (AuthNav) restent intacts (hors HomeView).
+              // Yann (5 juin 2026 v2) : Tarif accessible 100% anonyme
+              // (pas de gate signup). Contact + autres restent gated.
+              // Détection via href contenant "/pricing".
+              const isPricingLink = l.href.includes("/pricing");
               const linkNode = (
                 <a href={l.href} className="group relative inline-block">
                   <span
@@ -566,6 +566,9 @@ export function HomeView({
                   </span>
                 </a>
               );
+              if (isPricingLink) {
+                return <span key={l.href}>{linkNode}</span>;
+              }
               return (
                 <SignupGateOverlay
                   key={l.href}

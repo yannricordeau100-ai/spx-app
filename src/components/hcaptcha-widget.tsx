@@ -54,6 +54,13 @@ export function getHCaptchaSiteKey(): string {
   return process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY ?? TEST_SITE_KEY;
 }
 
+// Yann (5 juin 2026) : ne pas afficher le widget si on est sur la TEST key
+// (sinon banner rouge "Cet hCaptcha est uniquement destiné aux tests" visible
+// en prod). Render null + hidden field bypass pour ne pas casser le form.
+export function isHCaptchaConfigured(): boolean {
+  return Boolean(process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY);
+}
+
 const SCRIPT_ID = "hcaptcha-script";
 const SCRIPT_SRC =
   "https://js.hcaptcha.com/1/api.js?onload=onloadHCaptchaCallback&render=explicit";
@@ -102,12 +109,17 @@ export function HCaptchaWidget(props?: {
   const theme = props?.theme ?? "dark";
   const size = props?.size ?? "normal";
 
+  // Yann (5 juin 2026) : skip render si pas de vraie sitekey configurée.
+  // Évite le banner rouge "uniquement destiné aux tests" en prod.
+  const skipRender = !props?.siteKey && !isHCaptchaConfigured();
+
   const containerRef = useRef<HTMLDivElement | null>(null);
   const widgetIdRef = useRef<string | null>(null);
   const [token, setToken] = useState<string>("");
   const [status, setStatus] = useState<"loading" | "ready" | "error" | "expired">("loading");
 
   useEffect(() => {
+    if (skipRender) return;
     let cancelled = false;
     loadScript()
       .then(() => {
@@ -145,6 +157,10 @@ export function HCaptchaWidget(props?: {
       }
     };
   }, [siteKey, theme, size]);
+
+  if (skipRender) {
+    return <input type="hidden" name={fieldName} value="bypass" />;
+  }
 
   return (
     <div className="inline-block">
