@@ -387,6 +387,22 @@ export default function KpisToggleClient({ stes }: { stes: SteRow[] }) {
             </span>
           )}
         </div>
+        {/* Légende points auto-promote (Yann 5 juin 2026) */}
+        <div className="mt-2 flex flex-wrap items-center gap-2 text-[10.5px] uppercase tracking-wider">
+          <span className="text-zinc-500">Auto-promote :</span>
+          <span className="inline-flex items-center gap-1.5">
+            <span className={`size-2 rounded-full ${DOT_COLOR.emerald}`} />
+            <span className="text-zinc-400">{dotCounts.emerald} ok</span>
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <span className={`size-2 rounded-full ${DOT_COLOR.amber}`} />
+            <span className="text-zinc-400">{dotCounts.amber} doute</span>
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <span className={`size-2 rounded-full ${DOT_COLOR.red}`} />
+            <span className="text-zinc-400">{dotCounts.red} introuvable</span>
+          </span>
+        </div>
       </div>
 
       {/* Liste pliable par sté */}
