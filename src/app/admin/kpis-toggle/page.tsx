@@ -5,6 +5,8 @@ import { ArrowLeft } from "lucide-react";
 import { requireDeskOwner } from "@/lib/desk/auth";
 import { loadDisabledKpisPerSte } from "@/lib/disabled-kpis";
 import { isGenericKpi } from "@/lib/kpi-generic";
+import { autoPromoteHero } from "@/lib/hero-auto-promote";
+import { getHeroKpiOverride } from "@/lib/company-core/hero-kpi-overrides";
 import KpisToggleClient, {
   type SteRow,
   type KpiRow,
@@ -227,6 +229,48 @@ async function loadStes(): Promise<SteRow[]> {
       else if (heroIsGeneric || !heroShort) hero_review_status = "needs_review";
       else hero_review_status = "validated"; // hero spécifique pré-existant = ok
 
+      // Yann 5 juin 2026 — Auto-promote hero refactor : point coloré à
+      // gauche de chaque ligne sté.
+      // 🟢 emerald : hero KPI configuré matche un KPI du dataset ET
+      //              auto-promote confidence="high".
+      // 🟡 amber   : auto-promote confidence="medium" (2 candidats ≥ similaires)
+      //              OU validation Supabase OK mais auto-promote propose autre KPI.
+      // 🔴 red     : hero_kpi_short configuré (Supabase ou dataset) ne matche
+      //              AUCUN KPI dataset (KPI disparu après re-extraction).
+      //
+      // L'override Supabase gagne sur le hero du dataset (= Yann a déjà validé).
+      const supabaseOverride = await getHeroKpiOverride(ticker).catch(
+        () => null,
+      );
+      const allCandidates = kpis.map((k) => ({
+        short: k.short,
+        history_length: k.history_length,
+        is_wow: false, // pas exposé dans KpiRow ; auto-promote tombera sur history_length
+        period_type: k.period_type,
+      }));
+      const autoPromote = autoPromoteHero(allCandidates);
+      const datasetShorts = new Set(kpis.map((k) => k.short));
+      const effectiveHeroShort = supabaseOverride ?? heroShort;
+      let dot_color: SteRow["dot_color"];
+      if (!effectiveHeroShort || !datasetShorts.has(effectiveHeroShort)) {
+        // Hero configuré n'existe plus dans le dataset (re-extraction, KPI
+        // renommé ou supprimé) → rouge.
+        dot_color = "red";
+      } else if (autoPromote.confidence === "medium") {
+        // Auto-promote hésite entre 2 candidats similaires → jaune.
+        dot_color = "amber";
+      } else if (
+        supabaseOverride &&
+        autoPromote.hero &&
+        autoPromote.hero !== supabaseOverride
+      ) {
+        // Override Yann mais l'auto-promote aurait choisi autre chose → jaune
+        // (à vérifier visuellement). Yann reste maître mais on signale.
+        dot_color = "amber";
+      } else {
+        dot_color = "emerald";
+      }
+
       return {
         ticker,
         name,
@@ -235,6 +279,9 @@ async function loadStes(): Promise<SteRow[]> {
         market_cap: marketCap,
         hero_kpi: heroShort,
         hero_review_status,
+        dot_color,
+        auto_promote_hero: autoPromote.hero,
+        auto_promote_confidence: autoPromote.confidence,
         kpis,
         disabled_shorts: disabledCfg.overrides[ticker] ?? [],
       };

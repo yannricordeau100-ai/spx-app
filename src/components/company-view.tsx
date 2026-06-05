@@ -1060,26 +1060,21 @@ export function CompanyView({
                   centrés ensemble, séparés par un petit dot iridescent
                   pour différentier visuellement les 2 familles d'onglets
                   (modes graph + période vs fenêtre 5/10/20 ans). */}
-              {/* Yann 5 juin 2026 : tous les groupes d'onglets sur UNE seule
-                  ligne (5 ans/Max + Année/Mois/Semaine + Courbe/Barres/etc).
-                  Avant : TimeFractionToggle Année/Mois/Semaine était sur une
-                  ligne séparée en dessous → hauteur inutile. Maintenant tout
-                  est ensemble, flex-wrap pour retomber proprement en mobile.
-                  Ordre gauche→droite : 5 ans/Max → Année/Mois/Semaine →
-                  Courbe/Barres/Variation/Tableau. */}
-              <div className="mb-3 flex flex-wrap items-center justify-center gap-3">
+              {/* Yann 5 juin 2026 v3 : flex-nowrap + overflow-x-auto pour
+                  vraiment forcer UNE seule ligne (le flex-wrap retombait
+                  encore sur 2 lignes sur certains écrans). Scrollbar masqué.
+                  Séparateurs dots violet retirés (cosmétique, prenaient de
+                  la place). Onglet "Tableau de bord" supprimé (cf liste
+                  TABS dans chart-cycle.tsx). */}
+              <div className="mb-3 flex flex-nowrap items-center justify-center gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 <PeriodToggle accent={accent} />
                 {(chartMode === "curve" || chartMode === "bars") && isTimeFractionApplicableKpi(active) && (
-                  <>
-                    <span aria-hidden className="size-1 rounded-full bg-violet-400/40" />
-                    <TimeFractionToggle
-                      value={timeFraction}
-                      onChange={setTimeFraction}
-                      accent={accent}
-                    />
-                  </>
+                  <TimeFractionToggle
+                    value={timeFraction}
+                    onChange={setTimeFraction}
+                    accent={accent}
+                  />
                 )}
-                <span aria-hidden className="size-1 rounded-full bg-violet-400/40" />
                 <ChartCycleControls
                   mode={chartMode}
                   onChange={setChartMode}

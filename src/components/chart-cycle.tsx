@@ -30,7 +30,7 @@ const MODES: {
   { id: "curve", labelKey: "company.chart.curve", hintKey: "company.chart.curve.hint", icon: Activity },
   { id: "bars", labelKey: "company.chart.bars", hintKey: "company.chart.bars.hint", icon: BarChart3 },
   { id: "delta", labelKey: "company.chart.variation", hintKey: "company.chart.variation.hint", icon: TrendingUp },
-  { id: "panel", labelKey: "company.chart.dashboard", hintKey: "company.chart.dashboard.hint", icon: Grid2X2 },
+  // Yann 5 juin 2026 : onglet "Tableau de bord" supprimé.
 ];
 
 // Fallback uniquement utilisé si le KPI n'a pas `last_data_date` ni

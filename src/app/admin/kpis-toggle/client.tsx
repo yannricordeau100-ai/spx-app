@@ -26,6 +26,13 @@ export type SteRow = {
   market_cap: number;
   hero_kpi: string;
   hero_review_status: "needs_review" | "auto_proposed_uncertain" | "validated";
+  // Yann 5 juin 2026 — Point coloré à gauche de chaque ligne sté.
+  //   🟢 emerald : hero validé OK, pas de doute
+  //   🟡 amber   : doute (auto-promote hésite OU override ≠ auto-promote)
+  //   🔴 red     : hero configuré ne matche AUCUN KPI dataset
+  dot_color: "emerald" | "amber" | "red";
+  auto_promote_hero: string;
+  auto_promote_confidence: "high" | "medium" | "low";
   kpis: KpiRow[];
   disabled_shorts: string[];
 };
@@ -53,6 +60,22 @@ const STATUS_CHIP: Record<SteRow["hero_review_status"], string> = {
   auto_proposed_uncertain:
     "border-amber-500/40 bg-amber-500/10 text-amber-200",
   validated: "border-emerald-500/30 bg-emerald-500/10 text-emerald-200",
+};
+
+// Yann 5 juin 2026 — Couleurs du point auto-promote (size-2 rounded-full).
+//   🟢 emerald : hero validé OK
+//   🟡 amber   : doute auto-promote (2 candidats similaires OU override ≠ auto)
+//   🔴 red     : hero configuré ne matche AUCUN KPI dataset
+const DOT_COLOR: Record<SteRow["dot_color"], string> = {
+  emerald: "bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.6)]",
+  amber: "bg-amber-400 shadow-[0_0_6px_rgba(251,191,36,0.6)]",
+  red: "bg-red-500 shadow-[0_0_6px_rgba(239,68,68,0.6)]",
+};
+
+const DOT_TITLE: Record<SteRow["dot_color"], string> = {
+  emerald: "Hero validé : auto-promote confiant",
+  amber: "Doute : 2 candidats similaires ou auto-promote propose autre KPI",
+  red: "Hero configuré introuvable dans le dataset",
 };
 
 function formatCapi(c: number): string {
@@ -188,6 +211,13 @@ export default function KpisToggleClient({ stes }: { stes: SteRow[] }) {
     return c;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stes, heroOverrides]);
+
+  // Compteurs points auto-promote (Yann 5 juin 2026)
+  const dotCounts = useMemo(() => {
+    const c = { emerald: 0, amber: 0, red: 0 };
+    for (const s of stes) c[s.dot_color] += 1;
+    return c;
+  }, [stes]);
 
   function toggleOpen(t: string) {
     setOpenSet((prev) => {
@@ -386,6 +416,13 @@ export default function KpisToggleClient({ stes }: { stes: SteRow[] }) {
                 className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left transition-colors hover:bg-white/[0.03]"
               >
                 <div className="flex min-w-0 items-center gap-3">
+                  {/* Point coloré auto-promote (Yann 5 juin 2026) :
+                      🟢 emerald = hero validé / 🟡 amber = doute /
+                      🔴 red = hero introuvable dans dataset. */}
+                  <span
+                    title={DOT_TITLE[sIn.dot_color]}
+                    className={`size-2 shrink-0 rounded-full ${DOT_COLOR[sIn.dot_color]}`}
+                  />
                   <ChevronDown
                     className={`size-4 shrink-0 text-zinc-500 transition-transform ${isOpen ? "rotate-0" : "-rotate-90"}`}
                   />
