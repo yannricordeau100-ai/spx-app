@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useTransition } from "react";
+import { useEffect, useMemo, useState, useTransition } from "react";
 import { ChevronDown, Loader2, Search, Star } from "lucide-react";
 
 export type KpiRow = {
@@ -82,15 +82,79 @@ export default function KpisToggleClient({ stes }: { stes: SteRow[] }) {
     },
   );
   // Hero override : { ticker -> new short choisi par Yann (= validé) }
+  // Populé au mount via fetch /api/admin/kpis-toggle/list-overrides
+  // (source de vérité Supabase niveau 1, plus fiable que la déduction SSR
+  // depuis les fichiers JSON qui peut être stale entre le commit et le deploy).
   const [heroOverrides, setHeroOverrides] = useState<Record<string, string>>(
     {},
   );
+  const [overridesLoaded, setOverridesLoaded] = useState(false);
+
+  // Au mount : récupère TOUS les overrides Supabase et les fusionne dans
+  // le state. Fix Yann 5 juin 2026 : sans ce fetch, les chips restaient
+  // jaunes après validation car le SSR ne les rechargeait pas.
+  useEffect(() => {
+    let cancelled = false;
+    async function loadOverrides() {
+      try {
+        const res = await fetch("/api/admin/kpis-toggle/list-overrides", {
+          cache: "no-store",
+        });
+        if (!res.ok) {
+          console.error("[kpis-toggle] list-overrides HTTP", res.status);
+          if (!cancelled) setOverridesLoaded(true);
+          return;
+        }
+        const json = (await res.json()) as {
+          overrides: Array<{ ticker: string; hero_kpi_short: string }>;
+        };
+        if (cancelled) return;
+        const next: Record<string, string> = {};
+        for (const o of json.overrides) {
+          next[o.ticker.toUpperCase()] = o.hero_kpi_short;
+        }
+        setHeroOverrides(next);
+        setOverridesLoaded(true);
+      } catch (err) {
+        console.error("[kpis-toggle] list-overrides failed", err);
+        if (!cancelled) setOverridesLoaded(true);
+      }
+    }
+    loadOverrides();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   function effectiveHero(s: SteRow): string {
     return heroOverrides[s.ticker] ?? s.hero_kpi;
   }
   function effectiveStatus(s: SteRow): SteRow["hero_review_status"] {
-    return heroOverrides[s.ticker] ? "validated" : s.hero_review_status;
+    // Si un override Supabase existe pour ce ticker → validé (vert),
+    // peu importe le statut SSR initial.
+    if (heroOverrides[s.ticker]) return "validated";
+    return s.hero_review_status;
+  }
+
+  // Re-fetch la liste des overrides après un set-hero réussi : garantit
+  // que l'état UI reflète Supabase, pas juste l'optimistic update.
+  async function refetchOverrides() {
+    try {
+      const res = await fetch("/api/admin/kpis-toggle/list-overrides", {
+        cache: "no-store",
+      });
+      if (!res.ok) return;
+      const json = (await res.json()) as {
+        overrides: Array<{ ticker: string; hero_kpi_short: string }>;
+      };
+      const next: Record<string, string> = {};
+      for (const o of json.overrides) {
+        next[o.ticker.toUpperCase()] = o.hero_kpi_short;
+      }
+      setHeroOverrides(next);
+    } catch {
+      // Pas critique : l'optimistic update suffit en attendant le prochain mount.
+    }
   }
 
   // Filtre + tri
@@ -208,6 +272,9 @@ export default function KpisToggleClient({ stes }: { stes: SteRow[] }) {
       // Yann 5 juin 2026 : persistance Supabase (table desk_hero_kpi_overrides).
       // Plus de "commit requis" : l'override est enregistré pour de bon, lu au
       // SSR de chaque page société via cache mémoire 60 s.
+      // Re-fetch la liste complète pour garantir que l'UI reflète Supabase
+      // (= chips passent vert pour de vrai, plus de "yellow stuck").
+      await refetchOverrides();
       setToast(`${ticker} : hero = ${newShort} ✓ enregistré`);
       setTimeout(() => setToast(null), 2500);
     } catch (err) {
@@ -283,6 +350,12 @@ export default function KpisToggleClient({ stes }: { stes: SteRow[] }) {
           <span className={`rounded-full border px-2 py-0.5 ${STATUS_CHIP.validated}`}>
             {counts.validated} validé
           </span>
+          {!overridesLoaded && (
+            <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.03] px-2 py-0.5 text-zinc-500">
+              <Loader2 className="size-3 animate-spin" />
+              Sync Supabase...
+            </span>
+          )}
         </div>
       </div>
 
