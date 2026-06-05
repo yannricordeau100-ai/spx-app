@@ -720,12 +720,26 @@ export function CompanyView({
                 d'espace au graph (8 → 9). Tout ce qui est trop large doit
                 glisser à gauche, le bord droit étant fixe. */}
             <div className="lg:col-span-3">
-              {/* « À jour » à GAUCHE, juste à côté de KPI principal
-                  Yann 5 juin 2026 : flex-nowrap pour garder TOUS les badges + "i"
-                  (Earning attendu, Data en cours, Fiscal décalé) sur une seule
-                  ligne. Le "i" fiscal-shifted ne doit plus passer à la ligne
-                  et décaler le titre KPI principal. Overflow géré par scroll
-                  horizontal masqué (comme la ligne des rangs ci-dessus). */}
+              {/*
+                ┌────────────────────────────────────────────────────────────┐
+                │ ⚠️  RÈGLE FIGÉE — NE PAS MODIFIER (Yann 5 juin 2026)        │
+                │                                                            │
+                │ "KPI PRINCIPAL" + chip "Earning attendu" + tous les "i"    │
+                │ (Data en cours, Fiscal décalé, etc.) DOIVENT RESTER SUR   │
+                │ UNE SEULE LIGNE, peu importe la résolution. Le titre du   │
+                │ hero KPI ne doit JAMAIS être décalé verticalement par     │
+                │ un wrap de cette toolbar.                                  │
+                │                                                            │
+                │ Pattern obligatoire :                                      │
+                │   - flex-nowrap (PAS flex-wrap)                            │
+                │   - overflow-x-auto (scroll horizontal en cas d'overflow) │
+                │   - scrollbar masqué (pas de barre visible)                │
+                │   - gap-1.5 maximum (compact)                              │
+                │                                                            │
+                │ Tout refactor qui change `flex-nowrap` en `flex-wrap`     │
+                │ ou retire le `overflow-x-auto` doit être reverté.         │
+                └────────────────────────────────────────────────────────────┘
+              */}
               <div className="mb-2 flex flex-nowrap items-center gap-1.5 overflow-x-auto pb-0.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 <span
                   className="inline-block size-1.5 animate-pulse-dot rounded-full"
