@@ -205,20 +205,11 @@ export default function KpisToggleClient({ stes }: { stes: SteRow[] }) {
         body: JSON.stringify({ ticker, kpi_short: newShort }),
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const payload = (await res.json().catch(() => ({}))) as {
-        persisted?: boolean;
-      };
-      if (payload.persisted === false) {
-        // Yann 4 juin 2026 : Vercel filesystem read-only → écriture skip.
-        // L'override reste posé localement pour la validation visuelle.
-        setToast(
-          `${ticker} : hero = ${newShort} (validé local, commit requis)`,
-        );
-        setTimeout(() => setToast(null), 4000);
-      } else {
-        setToast(`${ticker} : hero = ${newShort} ✓`);
-        setTimeout(() => setToast(null), 2500);
-      }
+      // Yann 5 juin 2026 : persistance Supabase (table desk_hero_kpi_overrides).
+      // Plus de "commit requis" : l'override est enregistré pour de bon, lu au
+      // SSR de chaque page société via cache mémoire 60 s.
+      setToast(`${ticker} : hero = ${newShort} ✓ enregistré`);
+      setTimeout(() => setToast(null), 2500);
     } catch (err) {
       // revert
       setHeroOverrides((prev) => {

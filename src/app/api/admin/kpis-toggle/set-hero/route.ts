@@ -3,25 +3,27 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import { revalidatePath } from "next/cache";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { createSupabaseAdminClient } from "@/lib/supabase/admin";
+import { invalidateHeroOverridesCache } from "@/lib/company-core/hero-kpi-overrides";
 import { DESK_OWNER_EMAIL } from "@/lib/desk/auth";
 
 /**
  * POST /api/admin/kpis-toggle/set-hero
  * Body : { ticker: string, kpi_short: string }
  *
- * Définit le KPI hero d'une société. Écrit DIRECT dans
- * `src/data/v2-pipeline/<ticker>.json` (Yann 4 juin 2026, "directement
- * dans le fichier data") :
- *   - hero_kpi = kpi_short
- *   - _hero_review_status = "validated"
- *   - _hero_last_set_at = ISO timestamp
- *   - _hero_last_set_by = "admin/kpis-toggle"
+ * Définit le KPI hero d'une société. Persiste dans la table Supabase
+ * `desk_hero_kpi_overrides` (source de vérité). Remplace l'ancienne
+ * écriture filesystem `fs.writeFile` dans
+ * `src/data/v2-pipeline/<ticker>.json` qui était PERDUE à chaque deploy
+ * Vercel (filesystem read-only en prod → EROFS → choix Yann perdus).
  *
  * Le KPI doit exister dans base.kpis ou enrich.kpis ou
  * enrich.kpis_supplementary. Sinon 400.
  *
- * En prod Vercel le filesystem est read-only → 503 si write fail. Dans
- * ce cas Yann commit le JSON à la main.
+ * Lecture côté SSR : `loadV17Company()` fetche les overrides via
+ * `getHeroKpiOverride(ticker)` (cache 60 s) et remplace `data.hero_kpi`
+ * si une override existe. Effet immédiat post-upsert grâce à
+ * `invalidateHeroOverridesCache()`.
  */
 
 const PIPELINE_DIR = path.join(process.cwd(), "src/data/v2-pipeline");
@@ -36,9 +38,10 @@ async function requireOwner() {
     return {
       ok: false as const,
       response: NextResponse.json({ error: "forbidden" }, { status: 403 }),
+      email: null as string | null,
     };
   }
-  return { ok: true as const };
+  return { ok: true as const, email: user.email ?? null };
 }
 
 function asArray(v: unknown): unknown[] {
@@ -78,6 +81,9 @@ export async function POST(req: NextRequest) {
   const basePath = path.join(PIPELINE_DIR, `${slug}.json`);
   const enrichPath = path.join(ENRICH_DIR, `${slug}.json`);
 
+  // 1) Lecture defensive du dataset pipeline pour valider que le KPI existe.
+  //    On NE TOUCHE PAS au fichier (filesystem read-only en prod, et règle
+  //    Mettrik : pas de touche aux datasets v2-pipeline/).
   let baseJson: Record<string, unknown>;
   try {
     const raw = await fs.readFile(basePath, "utf-8");
@@ -117,32 +123,41 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // Patch + write
-  baseJson.hero_kpi = kpiShort;
-  baseJson._hero_review_status = "validated";
-  baseJson._hero_last_set_at = new Date().toISOString();
-  baseJson._hero_last_set_by = "admin/kpis-toggle";
-
-  // Yann 4 juin 2026 : filesystem Vercel = read-only en prod (EROFS).
-  // L'écriture fail systématiquement → 503 → client revert → étoile
-  // disparaît. Désormais on retourne 200 + persisted=false pour que le
-  // client garde l'override local (validation visuelle) et signale juste
-  // que la persistance disque échouera tant que pas commit local.
-  let persisted = true;
-  let writeErr: string | null = null;
+  // 2) Persistance Supabase (source de vérité). Upsert sur PK ticker.
+  //    Utilise service role (bypass RLS).
   try {
-    await fs.writeFile(
-      basePath,
-      JSON.stringify(baseJson, null, 2) + "\n",
-      "utf-8",
-    );
+    const supabaseAdmin = createSupabaseAdminClient();
+    const { error } = await supabaseAdmin
+      .from("desk_hero_kpi_overrides")
+      .upsert(
+        {
+          ticker: tickerRaw.toUpperCase(),
+          hero_kpi_short: kpiShort,
+          updated_at: new Date().toISOString(),
+          updated_by: r.email ?? "admin/kpis-toggle",
+        },
+        { onConflict: "ticker" },
+      );
+    if (error) {
+      console.error("[set-hero] supabase upsert failed", error);
+      return NextResponse.json(
+        { error: "supabase_upsert_failed", detail: error.message },
+        { status: 500 },
+      );
+    }
   } catch (err) {
-    persisted = false;
-    writeErr = String(err);
-    console.warn("set-hero write skipped (read-only fs ?)", err);
+    console.error("[set-hero] supabase admin client failed", err);
+    return NextResponse.json(
+      { error: "supabase_client_failed", detail: String(err) },
+      { status: 500 },
+    );
   }
 
-  // Revalidate
+  // Force le prochain fetch SSR à relire la table.
+  invalidateHeroOverridesCache();
+
+  // Revalidate routes admin + page société rendue (layout root pour matcher
+  // toutes les routes versionnées /sandbox/v1-*).
   try {
     revalidatePath("/admin/kpis-toggle");
     revalidatePath("/", "layout");
@@ -155,7 +170,6 @@ export async function POST(req: NextRequest) {
     ticker: tickerRaw,
     hero_kpi: kpiShort,
     status: "validated",
-    persisted,
-    write_error: writeErr,
+    persisted: true,
   });
 }

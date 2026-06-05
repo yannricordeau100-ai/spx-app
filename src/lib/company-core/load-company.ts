@@ -2440,6 +2440,33 @@ export async function loadV17Company(
     company.risks = company.risks.map((r: CompanyRisk) => ({ ...r }));
   }
 
+  // Yann 5 juin 2026 : OVERRIDE hero_kpi depuis Supabase
+  // `desk_hero_kpi_overrides` (source de vérité posée via `/admin/kpis-toggle`).
+  // Remplace l'ancienne écriture fs.writeFile qui était PERDUE à chaque deploy
+  // Vercel (filesystem read-only). Cache mémoire 60 s côté serveur.
+  // Appliqué TOUT À LA FIN pour gagner sur tous les autres mécanismes (enrich
+  // hero_kpi_override, special-kpi promotions, fuzzy match, etc.).
+  try {
+    const { getHeroKpiOverride } = await import(
+      "@/lib/company-core/hero-kpi-overrides"
+    );
+    const override = await getHeroKpiOverride(canonical);
+    if (override && Array.isArray(company.kpis)) {
+      const shorts = new Set(
+        company.kpis
+          .map((k) => (k as { short?: unknown }).short)
+          .filter((s): s is string => typeof s === "string" && Boolean(s)),
+      );
+      if (shorts.has(override)) {
+        company.hero_kpi = override;
+      }
+    }
+  } catch (err) {
+    // best effort : si Supabase down ou env vars absentes, on garde le hero
+    // calculé par les mécanismes précédents (auto-promote heuristique).
+    console.warn("[load-company] hero override fetch failed", err);
+  }
+
   // Yann 18 mai 2026 : injecte traduction FR du tagline depuis le fichier
   // global taglines-fr.json. Source tagline = EN (CLAUDE.md §6).
   // Yann 28 mai 2026 : ne PAS écraser une trad FR déjà posée par
