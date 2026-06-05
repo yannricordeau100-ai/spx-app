@@ -13,6 +13,7 @@ import { yoyTone } from "@/lib/utils";
 import { brand, rate } from "@/lib/brand";
 import { Spotlight } from "@/components/effects/spotlight";
 import { FreshnessIndicator } from "@/components/freshness-indicator";
+import { getFreshnessReference } from "@/lib/freshness/compute-tier";
 import { BackToTop } from "@/components/back-to-top";
 import { StarButton } from "@/components/star-button";
 import { CompanySearch } from "@/components/company-search";
@@ -549,17 +550,33 @@ export function HomeView({
             au hover (effet "le bouton se rapproche de toi"). */}
         {topNavLinks && topNavLinks.length > 0 && (
           <nav className="mb-5 flex justify-center gap-3 text-[12.5px]">
-            {topNavLinks.map((l) => (
-              <a key={l.href} href={l.href} className="group relative inline-block">
-                <span
-                  aria-hidden
-                  className="absolute inset-0 translate-x-[2px] translate-y-[2px] rounded-md border border-white/25 transition-transform duration-200 ease-out group-hover:translate-x-[3px] group-hover:translate-y-[3px]"
-                />
-                <span className="relative z-10 inline-flex items-center gap-1.5 rounded-md border border-white/40 bg-[#0a0a0e]/85 px-3.5 py-1.5 font-semibold tracking-[0.02em] text-zinc-100 transition-transform duration-200 ease-out group-hover:-translate-x-[1px] group-hover:-translate-y-[1px]">
-                  {l.label}
-                </span>
-              </a>
-            ))}
+            {topNavLinks.map((l) => {
+              // Yann (5 juin 2026) : verrouillage mode anonyme. Tout clic
+              // sur les top nav links (Tarifs / Contact) en mode anonyme
+              // ouvre le popup signup. Les boutons Connexion / S'inscrire
+              // de la top-right (AuthNav) restent intacts (hors HomeView).
+              const linkNode = (
+                <a href={l.href} className="group relative inline-block">
+                  <span
+                    aria-hidden
+                    className="absolute inset-0 translate-x-[2px] translate-y-[2px] rounded-md border border-white/25 transition-transform duration-200 ease-out group-hover:translate-x-[3px] group-hover:translate-y-[3px]"
+                  />
+                  <span className="relative z-10 inline-flex items-center gap-1.5 rounded-md border border-white/40 bg-[#0a0a0e]/85 px-3.5 py-1.5 font-semibold tracking-[0.02em] text-zinc-100 transition-transform duration-200 ease-out group-hover:-translate-x-[1px] group-hover:-translate-y-[1px]">
+                    {l.label}
+                  </span>
+                </a>
+              );
+              return (
+                <SignupGateOverlay
+                  key={l.href}
+                  enabled={requireSignupGate}
+                  gatePath={gatePath}
+                  initialAuthed={!requireSignupGate}
+                >
+                  {linkNode}
+                </SignupGateOverlay>
+              );
+            })}
           </nav>
         )}
 
@@ -824,9 +841,14 @@ function renderCompanyCard(
                           {r.percentile}
                         </span>
                       </div>
+                      {/* Yann (V1.9.5, juin 2026) : helper unique
+                          `getFreshnessReference` partagé avec la page sté
+                          pour garantir que la chip est identique pour la
+                          même sté entre les 2 vues. Voir
+                          `src/lib/freshness/compute-tier.ts`. */}
                       <FreshnessIndicator
-                        lastDate={hero.last_data_date ?? "2025-12-31"}
-                        publicationDate={c.latest_filing?.date}
+                        lastDate={getFreshnessReference(c).lastDate ?? "2025-12-31"}
+                        publicationDate={getFreshnessReference(c).publicationDate}
                         nextEarningsDate={c.next_earnings_date}
                         ticker={ticker}
                         alwaysShow

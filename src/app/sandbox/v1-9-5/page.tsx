@@ -7,6 +7,7 @@ import { HomeView } from "@/components/home-view";
 import { AuthNav } from "@/components/auth-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { AuthModal } from "@/components/auth-modal";
+import { SignupGateOverlay } from "@/components/signup-gate-overlay";
 import { PricingCards } from "@/components/billing/pricing-cards";
 import { loadPricingCatalog } from "@/lib/billing/load-pricing";
 import { loadAllTaglines } from "@/lib/billing/pricing-taglines";
@@ -143,7 +144,11 @@ export default async function SandboxV195HubPage() {
         <AuthModal />
       </Suspense>
 
-      {/* Section pricing inline (style V1.8) */}
+      {/* Section pricing inline (style V1.8).
+          Yann (5 juin 2026) : verrouillage mode anonyme. Tous les CTA de
+          cette section (cards pricing + boutons comparatif/contact) sont
+          gates derrière le popup signup pour les visiteurs non connectés.
+          La page /pricing reste accessible en mode anonyme via direct URL. */}
       <section className="relative mx-auto max-w-6xl px-4 pb-20 pt-10 sm:px-6">
         <div className="mx-auto max-w-3xl text-center">
           <span className="inline-block rounded-full border border-emerald-500/30 bg-emerald-500/[0.08] px-3 py-1 font-mono text-[10.5px] uppercase tracking-[0.18em] text-emerald-200">
@@ -159,30 +164,36 @@ export default async function SandboxV195HubPage() {
         </div>
 
         <div className="mt-10">
-          <PricingCards
-            ctaTrackingPrefix="v195_home_inline_"
-            plans={catalog.plans}
-            features={catalog.features}
-            taglines={taglines}
-          />
+          <SignupGateOverlay enabled={!isAuthed} gatePath="/sandbox/v1-9-5" initialAuthed={isAuthed}>
+            <PricingCards
+              ctaTrackingPrefix="v195_home_inline_"
+              plans={catalog.plans}
+              features={catalog.features}
+              taglines={taglines}
+            />
+          </SignupGateOverlay>
         </div>
 
         <div className="mt-10 flex flex-wrap items-center justify-center gap-3 text-[12.5px]">
-          <Link
-            href="/sandbox/v1-8/pricing"
-            data-pricing-cta="v195_home_see_full"
-            className="inline-flex items-center gap-1.5 rounded-lg border border-violet-500/30 bg-violet-500/[0.08] px-3.5 py-2 font-semibold text-violet-100 hover:bg-violet-500/15"
-          >
-            Voir le comparatif détaillé (toutes les fonctionnalités)
-            <ArrowRight className="size-3.5" />
-          </Link>
-          <Link
-            href="/sandbox/v1-8/contact"
-            className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.04] px-3.5 py-2 font-semibold text-zinc-200 hover:bg-white/[0.07]"
-          >
-            <Mail className="size-3.5" />
-            Une question ? Nous contacter
-          </Link>
+          <SignupGateOverlay enabled={!isAuthed} gatePath="/sandbox/v1-9-5" initialAuthed={isAuthed}>
+            <Link
+              href="/sandbox/v1-8/pricing"
+              data-pricing-cta="v195_home_see_full"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-violet-500/30 bg-violet-500/[0.08] px-3.5 py-2 font-semibold text-violet-100 hover:bg-violet-500/15"
+            >
+              Voir le comparatif détaillé (toutes les fonctionnalités)
+              <ArrowRight className="size-3.5" />
+            </Link>
+          </SignupGateOverlay>
+          <SignupGateOverlay enabled={!isAuthed} gatePath="/sandbox/v1-9-5" initialAuthed={isAuthed}>
+            <Link
+              href="/sandbox/v1-8/contact"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.04] px-3.5 py-2 font-semibold text-zinc-200 hover:bg-white/[0.07]"
+            >
+              <Mail className="size-3.5" />
+              Une question ? Nous contacter
+            </Link>
+          </SignupGateOverlay>
         </div>
       </section>
     </>
