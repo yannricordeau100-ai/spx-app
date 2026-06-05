@@ -322,7 +322,30 @@ export function CompanySearch({
       if (b.score !== a.score) return b.score - a.score;
       return sourceOrder[a.source] - sourceOrder[b.source];
     });
-    return merged;
+    // ┌────────────────────────────────────────────────────────────────┐
+    // │ ⚠️  RÈGLE FIGÉE — NE PAS MODIFIER (Yann 5 juin 2026)            │
+    // │                                                                │
+    // │ DEDUP final par ticker upper-case. Même si _tickers-index.json │
+    // │ ou v1-9-missing.json se polluent avec des doublons (BABA × 2,  │
+    // │ class-shares oubliés, alias mal mappés), la search NE DOIT     │
+    // │ JAMAIS afficher la même sté deux fois.                         │
+    // │                                                                │
+    // │ Historique : 5 juin 2026 — Yann a vu BABA apparaître 2× sur    │
+    // │ "AVGO" et 4× sur "app". Cause : duplicate dans index +         │
+    // │ placeholder sector "Not Applicable" qui matchait "app". Fix    │
+    // │ côté data + cette dedup côté code = double sécurité.           │
+    // │                                                                │
+    // │ Tout refactor qui retire cette dedup doit être reverté.        │
+    // └────────────────────────────────────────────────────────────────┘
+    const seen = new Set<string>();
+    const deduped: typeof merged = [];
+    for (const r of merged) {
+      const key = r.ticker.toUpperCase();
+      if (seen.has(key)) continue;
+      seen.add(key);
+      deduped.push(r);
+    }
+    return deduped;
   }, [query, searchableTickers, v19UniverseSet]);
 
   // Compteur "X stés au total" : override fourni en prop, sinon V1 (5) +
