@@ -196,26 +196,72 @@ export function CompanySearch({
   }, []);
 
   const results = useMemo<
-    { ticker: string; source: "v1" | "v17" | "v19" }[]
+    { ticker: string; source: "v1" | "v17" | "v19"; score: number }[]
   >(() => {
     const q = query.trim().toLowerCase();
-    const v1Out: { ticker: string; source: "v1" }[] = [];
-    const v17Out: { ticker: string; source: "v17" }[] = [];
-    const v19Out: { ticker: string; source: "v19" }[] = [];
+    // Yann (5 juin 2026) : règle anti-bruit (cf bug "Alibaba apparait partout").
+    // Si la query fait < 3 caractères, on NE matche PAS via name.includes()
+    // car "ali" matcherait Alibaba sur des recherches non pertinentes. Seul
+    // le ticker.startsWith() (et alias exact) est autorisé pour q court.
+    const strictMode = q.length > 0 && q.length < 3;
+    const v1Out: { ticker: string; source: "v1"; score: number }[] = [];
+    const v17Out: { ticker: string; source: "v17"; score: number }[] = [];
+    const v19Out: { ticker: string; source: "v19"; score: number }[] = [];
+
+    // Scoring : plus haut = plus pertinent. Tri décroissant.
+    // 1000 = ticker exact match
+    // 800  = ticker startsWith
+    // 600  = alias exact match
+    // 500  = alias startsWith
+    // 400  = name startsWith
+    // 300  = name word startsWith (ex "Mic" matche "Microsoft" mais aussi "Sigma Microsystems")
+    // 200  = sector/subsector startsWith
+    // 100  = name.includes() (seulement si q.length >= 3)
+    //  50  = sector/subsector.includes() (seulement si q.length >= 3)
+    const scoreEntry = (
+      ticker: string,
+      name: string,
+      sector: string,
+      subsector: string,
+      aliases: string[],
+    ): number => {
+      if (!q) return 1;
+      const tk = ticker.toLowerCase();
+      const nm = name.toLowerCase();
+      const sc = sector.toLowerCase();
+      const ss = subsector.toLowerCase();
+      if (tk === q) return 1000;
+      if (tk.startsWith(q)) return 800;
+      for (const a of aliases) {
+        const al = a.toLowerCase();
+        if (al === q) return 600;
+        if (al.startsWith(q)) return 500;
+      }
+      if (nm.startsWith(q)) return 400;
+      // word startsWith (ex "rev" trouve "Revenue Group" mais pas "Forever")
+      if (nm.split(/\s+/).some((w) => w.startsWith(q))) return 300;
+      if (sc.startsWith(q) || ss.startsWith(q)) return 200;
+      // includes() seulement en mode non-strict (q.length >= 3)
+      if (!strictMode) {
+        if (nm.includes(q)) return 100;
+        if (sc.includes(q) || ss.includes(q)) return 50;
+      }
+      return 0;
+    };
 
     // V1 (5 stés, riches)
     for (const t of TICKERS) {
       const aliases = Object.entries(TICKER_ALIASES)
         .filter(([, target]) => target === t)
-        .map(([alias]) => alias.toLowerCase());
-      const matches =
-        !q ||
-        t.toLowerCase().includes(q) ||
-        aliases.some((a) => a.includes(q)) ||
-        COMPANIES[t].name.toLowerCase().includes(q) ||
-        COMPANIES[t].sector.toLowerCase().includes(q) ||
-        COMPANIES[t].subsector.toLowerCase().includes(q);
-      if (matches) v1Out.push({ ticker: t, source: "v1" });
+        .map(([alias]) => alias);
+      const score = scoreEntry(
+        t,
+        COMPANIES[t].name,
+        COMPANIES[t].sector,
+        COMPANIES[t].subsector,
+        aliases,
+      );
+      if (score > 0) v1Out.push({ ticker: t, source: "v1", score });
     }
 
     // V1.7 : Pass 3 validées (route /sandbox/v1-7-5/<ticker>) + non-validées
@@ -249,13 +295,8 @@ export function CompanySearch({
       // les non-V1.9 (non searchables).
       if (!e.validated && !v19UniverseSet.has(upper)) continue;
       const reverseAliases = REVERSE_ALIASES[upper] ?? [];
-      const matches =
-        !q ||
-        e.ticker.toLowerCase().includes(q) ||
-        e.name.toLowerCase().includes(q) ||
-        e.sector.toLowerCase().includes(q) ||
-        reverseAliases.some((a) => a.toLowerCase().includes(q));
-      if (matches) v17Out.push({ ticker: e.ticker, source: "v17" });
+      const score = scoreEntry(e.ticker, e.name, e.sector, "", reverseAliases);
+      if (score > 0) v17Out.push({ ticker: e.ticker, source: "v17", score });
     }
 
     // V1.9 missing : 78 tickers EU dans `v1-9-universe.json` MAIS absents
@@ -269,16 +310,19 @@ export function CompanySearch({
       // Yann 30 mai 2026 : idem, V1.9.5 strict = clean_all uniquement.
       if (!V195_CLEAN_ALL_SET.has(upper)) continue;
       const reverseAliases = REVERSE_ALIASES[upper] ?? [];
-      const matches =
-        !q ||
-        e.ticker.toLowerCase().includes(q) ||
-        e.name.toLowerCase().includes(q) ||
-        (e.country?.toLowerCase().includes(q) ?? false) ||
-        reverseAliases.some((a) => a.toLowerCase().includes(q));
-      if (matches) v19Out.push({ ticker: e.ticker, source: "v19" });
+      const score = scoreEntry(e.ticker, e.name, e.country ?? "", "", reverseAliases);
+      if (score > 0) v19Out.push({ ticker: e.ticker, source: "v19", score });
     }
 
-    return [...v1Out, ...v17Out, ...v19Out];
+    // Tri global par score décroissant, puis ordre source (v1 > v17 > v19)
+    // pour les égalités (V1 reste prioritaire car richement curatée).
+    const sourceOrder: Record<string, number> = { v1: 0, v17: 1, v19: 2 };
+    const merged = [...v1Out, ...v17Out, ...v19Out];
+    merged.sort((a, b) => {
+      if (b.score !== a.score) return b.score - a.score;
+      return sourceOrder[a.source] - sourceOrder[b.source];
+    });
+    return merged;
   }, [query, searchableTickers, v19UniverseSet]);
 
   // Compteur "X stés au total" : override fourni en prop, sinon V1 (5) +
