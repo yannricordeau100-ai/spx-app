@@ -1408,8 +1408,11 @@ export function CompanyView({
           {t("company.provenance")}
         </p>
 
+        {/* Yann 5 juin 2026 : footer enrichi avec copyright + valeur ajoutée. */}
         <footer className="mt-6 pb-8 text-center font-mono text-[11px] uppercase tracking-wider text-zinc-500">
-          Mettrik AI · KPI Intelligence
+          {t("company.footer_value")}
+          <span className="mx-2 text-zinc-700">·</span>
+          {t("company.footer_copyright")}
         </footer>
       </main>
 

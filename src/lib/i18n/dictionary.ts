@@ -272,8 +272,18 @@ export const DICTIONARY: Dict = {
   },
 
   "company.provenance": {
-    fr: "Tous les chiffres présentés proviennent directement ou indirectement de la société. Toute donnée tierce est sourcée à l'endroit où elle apparaît.",
-    en: "All numbers shown come directly or indirectly from the company. Any third-party data is sourced where it appears.",
+    fr: "",
+    en: "",
+  },
+
+  // Yann 5 juin 2026 : footer page sté = phrase value + copyright.
+  "company.footer_value": {
+    fr: "Mettrik AI — KPIs spécifiques + interprétation investisseur, sur 5 ans +.",
+    en: "Mettrik AI — investor-grade KPIs with interpretation, 5y+ history.",
+  },
+  "company.footer_copyright": {
+    fr: "© 2026 Mettrik AI · Tous droits réservés",
+    en: "© 2026 Mettrik AI · All rights reserved",
   },
 
   "company.chart.curve": { fr: "Courbe", en: "Curve" },
