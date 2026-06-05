@@ -1147,25 +1147,11 @@ export function CompanyView({
                     décalé" DÉPLACÉ vers la zone "À jour" (col gauche) pour
                     ne pas surcharger le titre KPI. Voir code ~ligne 535. */}
               </div>
-              {/* TimeFraction toggle visible UNIQUEMENT pour les charts qui ont
-                  du sens à diviser ET pour les KPIs où ça PARLE à un investisseur.
-                  Yann (12 mai 2026) : limité à 3 familles :
-                    - Revenus (revenue, sales, cloud, ARR, run rate, bookings, backlog…)
-                    - Marges / bénéfices (margin, profit, income, EPS, EBITDA, FCF…)
-                    - Capex / R&D / dépenses (capex, opex, r&d, expense…)
-                  Pour Headcount, NPS, subscribers, etc. → toggle masqué. */}
-              {(chartMode === "curve" || chartMode === "bars") && isTimeFractionApplicableKpi(active) && (
-                // Yann 17 mai 2026 : mb-2 → mb-4 pour aérer la zone entre le
-                // toggle Y/M/W/D/H/m/s et le SVG du chart (sinon trop collé
-                // au header d'unité + mini-logo au top du SVG).
-                <div className="mb-4 flex justify-end">
-                  <TimeFractionToggle
-                    value={timeFraction}
-                    onChange={setTimeFraction}
-                    accent={accent}
-                  />
-                </div>
-              )}
+              {/* Yann 5 juin 2026 : TimeFractionToggle DÉPLACÉ dans la ligne
+                  principale des onglets ci-dessus (entre 5 ans/Max et
+                  Courbe/Barres/etc) pour compacter la hauteur. La logique
+                  d'affichage conditionnel (curve|bars + isTimeFractionApplicableKpi)
+                  est préservée à l'identique. */}
               <ChartCycle
                 mode={chartMode}
                 data={scaleFactor !== 1 ? chartHistoryRaw.map((v) => (typeof v === "number" ? v * scaleFactor : v)) : chartHistoryRaw}
