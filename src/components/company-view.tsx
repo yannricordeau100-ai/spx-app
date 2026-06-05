@@ -57,6 +57,7 @@ import { getFreshnessReference } from "@/lib/freshness/compute-tier";
 import { AcronymHover } from "@/components/acronym-hover";
 import { ACRONYM_GLOSSARY, TERM_GLOSSARY } from "@/lib/ui-fix-templates";
 import { CompanyNavChrome } from "@/components/company-nav-chrome";
+import { KpiSwapTitle } from "@/components/kpi-swap-title";
 import { SuperKpiBoard } from "@/components/super-kpi-board";
 import { computeSuperKpis, computeSectorSuperKpis } from "@/lib/super-kpi";
 import { useT } from "@/lib/i18n/provider";
@@ -1092,25 +1093,19 @@ export function CompanyView({
                 />
               </div>
               <div className="mb-3 flex flex-wrap items-baseline justify-center gap-2.5 text-center">
-                <span className="text-[24px] font-bold leading-tight tracking-tight text-zinc-50 sm:text-[28px]">
-                  {/* Yann (27 mai 2026) : hero title doit suivre la locale.
-                      Avant : hardcoded active.name_fr → en EN/DE on voyait du FR.
-                      Maintenant : name_en pour EN, name_de pour DE, name_fr sinon. */}
-                  {(() => {
-                    type N = typeof active & { name_de?: string; name_en?: string };
-                    const a = active as N;
-                    if (locale === "en" || locale === "en-GB") return a.name_en || a.name_fr;
-                    if (locale === "de" || locale === "de-CH") return a.name_de || a.name_en || a.name_fr;
-                    return a.name_fr;
-                  })()}
-                  {/* Suffix "par X" si le KPI est divisible (flux) ET que la
-                      fréquence sélectionnée n'est pas l'année. (5 mai 2026) */}
-                  {timeFraction !== "year" && (
-                    <span className="ml-2 text-[18px] font-medium text-zinc-300 sm:text-[22px]">
-                      {t(`timefrac.suffix.${timeFraction}`)}
-                    </span>
-                  )}
-                </span>
+                {/* Yann 5 juin 2026 : hero KPI title bascule FR/EN au clic
+                    via KpiSwapTitle. Modification purement locale (state du
+                    composant), n'écrit rien dans le dataset. Le suffix temps
+                    "par X" est géré par KpiSwapTitle via la prop timeFraction. */}
+                <KpiSwapTitle
+                  nameFr={active.name_fr}
+                  nameEn={active.name_en}
+                  short={active.short}
+                  defaultLang={locale === "fr" ? "fr" : "en"}
+                  timeFraction={timeFraction}
+                  className="text-[24px] font-bold leading-tight tracking-tight text-zinc-50 sm:text-[28px]"
+                  suffixClassName="ml-2 text-[18px] font-medium text-zinc-300 sm:text-[22px]"
+                />
                 {/* Yann 15 mai 2026 : tooltip masqué si pas de contenu.
                     Yann 19 mai 2026 : prise en compte des champs i18n
                     `explanation_fr` / `explanation_en` si présents dans le
