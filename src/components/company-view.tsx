@@ -53,6 +53,7 @@ import { GovernanceCard } from "@/components/governance-card";
 import { RepartitionBlock } from "@/components/repartition-block";
 import { DividendStories } from "@/components/dividend-stories";
 import { FreshnessIndicator } from "@/components/freshness-indicator";
+import { getFreshnessReference } from "@/lib/freshness/compute-tier";
 import { AcronymHover } from "@/components/acronym-hover";
 import { ACRONYM_GLOSSARY, TERM_GLOSSARY } from "@/lib/ui-fix-templates";
 import { CompanyNavChrome } from "@/components/company-nav-chrome";
@@ -727,9 +728,15 @@ export function CompanyView({
                 <span className="font-sans text-[12px] font-semibold uppercase tracking-[0.14em] text-zinc-300">
                   {t("company.kpi_principal")}
                 </span>
+                {/* Yann (V1.9.5, juin 2026) : chip freshness identique entre
+                    card home et page sté. On utilise le hero KPI **configuré**
+                    (= getHero(company)), pas l'`active` qui peut diverger
+                    quand l'utilisateur clique un autre KPI ou quand
+                    effectiveDefaultHero swap vers un quarterly. Voir
+                    `src/lib/freshness/compute-tier.ts`. */}
                 <FreshnessIndicator
-                  lastDate={active.last_data_date ?? "2025-12-31"}
-                  publicationDate={company.latest_filing?.date}
+                  lastDate={getFreshnessReference(company).lastDate ?? "2025-12-31"}
+                  publicationDate={getFreshnessReference(company).publicationDate}
                   nextEarningsDate={company.next_earnings_date}
                   ticker={company.ticker}
                   alwaysShow
@@ -1047,7 +1054,26 @@ export function CompanyView({
                   centrés ensemble, séparés par un petit dot iridescent
                   pour différentier visuellement les 2 familles d'onglets
                   (modes graph + période vs fenêtre 5/10/20 ans). */}
+              {/* Yann 5 juin 2026 : tous les groupes d'onglets sur UNE seule
+                  ligne (5 ans/Max + Année/Mois/Semaine + Courbe/Barres/etc).
+                  Avant : TimeFractionToggle Année/Mois/Semaine était sur une
+                  ligne séparée en dessous → hauteur inutile. Maintenant tout
+                  est ensemble, flex-wrap pour retomber proprement en mobile.
+                  Ordre gauche→droite : 5 ans/Max → Année/Mois/Semaine →
+                  Courbe/Barres/Variation/Tableau. */}
               <div className="mb-3 flex flex-wrap items-center justify-center gap-3">
+                <PeriodToggle accent={accent} />
+                {(chartMode === "curve" || chartMode === "bars") && isTimeFractionApplicableKpi(active) && (
+                  <>
+                    <span aria-hidden className="size-1 rounded-full bg-violet-400/40" />
+                    <TimeFractionToggle
+                      value={timeFraction}
+                      onChange={setTimeFraction}
+                      accent={accent}
+                    />
+                  </>
+                )}
+                <span aria-hidden className="size-1 rounded-full bg-violet-400/40" />
                 <ChartCycleControls
                   mode={chartMode}
                   onChange={setChartMode}
@@ -1064,12 +1090,6 @@ export function CompanyView({
                     semester: active.period_type === "semester",
                   }}
                 />
-                {/* Séparateur décoratif : visible uniquement si les 2 groupes
-                    sont rendus simultanément (rare PeriodToggle soit caché,
-                    on garde par sécurité un :only-child:hidden CSS-like via
-                    le `gap-3` qui gère naturellement le cas seul). */}
-                <span aria-hidden className="size-1 rounded-full bg-violet-400/40" />
-                <PeriodToggle accent={accent} />
               </div>
               <div className="mb-3 flex flex-wrap items-baseline justify-center gap-2.5 text-center">
                 <span className="text-[24px] font-bold leading-tight tracking-tight text-zinc-50 sm:text-[28px]">
