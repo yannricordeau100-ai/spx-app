@@ -231,10 +231,14 @@ export function DividendStories({
         {cards.map((card, i) => (
           <div
             key={i}
+            // Yann 5 juin 2026 : background passé en transparent pour
+            // éviter le coin noir qui dépassait au-dessus du contenu
+            // bleu/violet enfant. overflow-hidden + boxShadow ring
+            // suffisent pour le cadre visuel.
             className="relative overflow-hidden rounded-[28px] border border-white/10 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.7)]"
             style={{
               minHeight: 600,
-              background: "#000",
+              background: "transparent",
               boxShadow: `0 0 0 1px #1f1f1f, 0 24px 60px -20px ${accent}40`,
             }}
           >

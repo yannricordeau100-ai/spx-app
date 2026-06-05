@@ -101,12 +101,17 @@ export function KpiStories({ company, freeBlocked = false }: { company: Company;
           </button>
         )}
 
-        {/* La frame mobile elle-même */}
+        {/* La frame mobile elle-même
+            Yann 5 juin 2026 : background passé en transparent pour
+            éviter le coin noir qui dépassait dans le coin sup. droit.
+            Le ring noir 8px + gris 1px du boxShadow continue de
+            simuler la bordure smartphone, le contenu enfant a son
+            propre fond. */}
         <div
           className="relative overflow-hidden rounded-[36px] border border-white/10 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.7)]"
           style={{
             aspectRatio: "9 / 16",
-            background: "#000",
+            background: "transparent",
             boxShadow: `0 0 0 8px #0a0a0a, 0 0 0 9px #1f1f1f, 0 30px 80px -20px ${accent}55`,
           }}
         >
