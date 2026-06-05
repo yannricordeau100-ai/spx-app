@@ -41,9 +41,12 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Valeur corrigée de 12.8 à 16.864 B$ (source: consolidated financial statements - Total backlog 16,864 millions). YoY corrigé de 'stable' à '+1.6%' (16864 vs 16605). Unit corrigé de 'Mds $' vers 'B $' pour cohérence.",
-      "period_type": "quarter",
+      "period_type": "year",
       "explanation_en": "Backlog, value of orders not yet recognized as revenue.",
-      "signal_en": "Forward visibility increasing, pipeline strengthening"
+      "signal_en": "Forward visibility increasing, pipeline strengthening",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Revenue",
@@ -210,7 +213,11 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
@@ -238,7 +245,11 @@
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability improving, returns strengthening",
-      "_unit_rescaled": "Mds->M $"
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [

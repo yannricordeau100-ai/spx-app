@@ -39,9 +39,12 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 525.402,
-      "period_type": "quarter",
+      "period_type": "year",
       "explanation_en": "Net Interest income generated over the period.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Noninterest Income",
@@ -167,7 +170,11 @@
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
       "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -191,7 +198,11 @@
       "_source": "yfinance.balance_sheet",
       "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
       "signal_en": "Capital base expanding, balance-sheet growth",
-      "_unit_rescaled": "Mds->M €"
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -214,7 +225,11 @@
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
       "signal_en": "Cash position eroding, monitor liquidity",
-      "_unit_rescaled": "Mds->M €"
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [

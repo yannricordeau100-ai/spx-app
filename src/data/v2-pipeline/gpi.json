@@ -37,9 +37,12 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Unit corrected from 'Mds $' to 'M $' (500M not 500B)",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "Share repurchases data not found in the provided 10-K excerpt. The MDA and financial sections included do not contain explicit annual figure"
+      "_hero_history_unverified_reason": "Share repurchases data not found in the provided 10-K excerpt. The MDA and financial sections included do not contain explicit annual figure",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Total Dividends Paid",
@@ -134,7 +137,11 @@
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
       "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [

@@ -38,11 +38,14 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Corrigé: value de '48,7%' à '48.7' (valeur numérique), history recalculée avec données vérifiées du 10-K (50.8% 2024, 48.7% 2025), yoy de '-2,1%' à '-2.1' (format numérique), is_generic de true à false (marge brute en baisse est significatif), description enrichie avec chiffres du 10-K",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Seulement 2 années consécutives de Gross Margin explicites trouvées (2020: 48.9%, 2021: 48.1%). Le seuil minimum de 4 années requises n'est ",
       "explanation_en": "Gross Margin, gross profit divided by revenue.",
-      "signal_en": "Margin compression, watch profitability"
+      "signal_en": "Margin compression, watch profitability",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Net Sales",
@@ -116,7 +119,11 @@
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
       "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -139,7 +146,11 @@
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
       "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -161,7 +172,11 @@
       "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [

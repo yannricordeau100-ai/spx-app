@@ -39,10 +39,13 @@
       "is_short_history": false,
       "ttm": 94.45,
       "_validation": "Verified against 10-K: confirmed 94.6% at Dec 31, 2025 and 95.2% at Dec 31, 2024",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Le KPI 'Leasing Percentage' (taux d'occupation locatif) n'est pas explicitement mentionné avec des valeurs annuelles chiffrées dans l'extrai",
-      "signal_en": "Demand softening, monitor end-markets"
+      "signal_en": "Demand softening, monitor end-markets",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Base Rent",
@@ -184,7 +187,11 @@
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
       "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -207,7 +214,11 @@
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
       "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [

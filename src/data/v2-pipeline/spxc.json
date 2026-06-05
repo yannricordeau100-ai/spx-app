@@ -40,9 +40,12 @@
       "is_short_history": false,
       "ttm": null,
       "_validation": "Unité corrigée de 'Mds $' à 'M $' (valeur 2265.1M = $2.27B); YoY calculé précisément: (2265.1-1983.9)/1983.9 = 14.2%; ttm supprimé car non applicable année calendaire complète; name_fr amélioré",
-      "period_type": "quarter",
+      "period_type": "year",
       "signal_en": "Strong top-line growth, market traction",
-      "_unit_rescaled": "M->Mds $ for 1-999 readability"
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Bénéfice opérationnel",
@@ -91,7 +94,11 @@
       "is_generic": true,
       "_source": "yfinance.income_stmt",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -115,7 +122,11 @@
       "_source": "yfinance.income_stmt",
       "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Solid expansion, positive trajectory",
-      "_unit_rescaled": "Mds->M €"
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
@@ -139,7 +150,11 @@
       "_source": "yfinance.income_stmt",
       "explanation_en": "Operating Income, profit from core business operations.",
       "signal_en": "Solid expansion, positive trajectory",
-      "_unit_rescaled": "Mds->M €"
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -162,7 +177,11 @@
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
       "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -186,7 +205,11 @@
       "_source": "yfinance.balance_sheet",
       "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
       "signal_en": "Capital base contracting, monitor structure",
-      "_unit_rescaled": "Mds->M €"
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -209,7 +232,11 @@
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
       "signal_en": "Cash position strengthening, balance-sheet flexibility",
-      "_unit_rescaled": "Mds->M €"
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [

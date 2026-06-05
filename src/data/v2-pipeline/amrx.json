@@ -41,10 +41,13 @@
       "is_short_history": false,
       "ttm": 340,
       "_validation": "Valeurs corrigées selon source 10-K MD&A: Operating activities $339,992K arrondi à 340.0 M$; history[0]=295.1 (2024: $295,099K), history[1]=340.0 (2025: $339,992K); yoy=+15.2% confirmé ($44,893K/$295,099K); ttm=340.0 (year-end 2025)",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Seulement 2 années consécutives trouvées explicitement (2021 et 2022). Le minimum requis est 4 années. Valeurs extraites de la table de flux",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Capital Expenditures",
@@ -209,7 +212,11 @@
       "is_generic": true,
       "_source": "yfinance.balance_sheet",
       "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],

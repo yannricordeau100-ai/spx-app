@@ -42,9 +42,12 @@
       "is_short_history": false,
       "ttm": 3.03,
       "_validation": "Corrected history array: replaced 5.83, 6.17, 5.83, 4.65, 3.72 with actual historical NIM values from 10-K (3.03, 2.78, 2.81 for 2025-2023)",
-      "period_type": "quarter",
+      "period_type": "year",
       "explanation_en": "Profit margin on Net Interest.",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Net Interest Income",
@@ -238,7 +241,11 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [

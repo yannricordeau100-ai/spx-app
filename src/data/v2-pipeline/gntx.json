@@ -40,9 +40,12 @@
       "is_short_history": false,
       "ttm": 34.43,
       "_validation": "Valeurs et unités confirmées depuis le 10-K",
-      "period_type": "quarter",
+      "period_type": "year",
       "explanation_en": "Gross Margin, gross profit divided by revenue.",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Net Sales",
@@ -203,7 +206,11 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=7)"
+      ]
     },
     {
       "short": "Operating Income",
@@ -231,7 +238,11 @@
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Operating Income, profit from core business operations.",
       "signal_en": "Profitability improving, returns strengthening",
-      "_unit_rescaled": "Mds->M $"
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
