@@ -325,7 +325,7 @@ export function DividendAristocratCard({
         setHalo({ x: e.clientX - rect.left, y: e.clientY - rect.top });
       }}
       onMouseLeave={() => setHalo(null)}
-      className="relative flex h-full flex-col overflow-hidden rounded-[36px] bg-gradient-to-br from-[#101015] via-[#0a0a0e] to-[#060608] px-5 pb-5 pt-12"
+      className="relative flex h-full flex-col overflow-hidden rounded-[28px] bg-gradient-to-br from-[#101015] via-[#0a0a0e] to-[#060608] px-5 pb-5 pt-12"
       style={{ boxShadow: `inset 0 0 120px ${glow}` }}
     >
       <div
