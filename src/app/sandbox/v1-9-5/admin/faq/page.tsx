@@ -13,6 +13,7 @@ export const metadata = {
   robots: { index: false, follow: false },
 };
 
+
 /**
  * /sandbox/v1-9-5/admin/faq
  *
@@ -47,7 +48,7 @@ export default async function PricingFaqAdminPage() {
     aKey: string;
     values: Record<Locale, { q: string; a: string }>;
   }> = [];
-  for (let i = 1; i <= 7; i++) {
+  for (let i = 1; i <= 9; i++) {
     const qKey = `pricing.faq_q${i}`;
     const aKey = `pricing.faq_a${i}`;
     const values = {} as Record<Locale, { q: string; a: string }>;
@@ -92,7 +93,7 @@ export default async function PricingFaqAdminPage() {
       <main className="relative mx-auto max-w-5xl px-6 pb-16">
         <header className="mb-8">
           <h1 className="font-display text-3xl font-bold tracking-tight text-zinc-50">
-            Édition des 7 questions FAQ pricing
+            Édition des 9 questions FAQ pricing
           </h1>
           <p className="mt-2 text-[13.5px] text-zinc-400">
             Modifie les questions et réponses ci-dessous (FR / EN / DE).

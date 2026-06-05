@@ -1193,6 +1193,30 @@ export const DICTIONARY: Dict = {
     en: "As soon as a company publishes its quarterly or annual results, our pipelines detect the new filing, extract the KPIs and publish them on Mettrik AI within 24 to 48 hours. You can check the last-updated date of each KPI directly on the company page (Up-to-date or Recent indicator).",
     de: "Sobald ein Unternehmen seine Quartals- oder Jahresergebnisse veröffentlicht, erkennen unsere Pipelines das neue Dokument, extrahieren die KPIs und veröffentlichen sie innerhalb von 24 bis 48 Stunden auf Mettrik AI. Du kannst das letzte Aktualisierungsdatum jedes KPIs direkt auf der Unternehmensseite einsehen (Anzeige Aktuell oder Kürzlich).",
   },
+  /* Yann 5 juin 2026 : Q8 + Q9 ajoutées pour clarifier (a) la variabilité
+     du nombre de KPI entre stés (premier doute investisseur particulier
+     quand il compare 2 fiches) et (b) la provenance des données (objection
+     fiabilité classique avant achat). Reformulé pour public 16+ non-tech. */
+  "pricing.faq_q8": {
+    fr: "Pourquoi le nombre d'indicateurs varie selon les sociétés ?",
+    en: "Why does the number of indicators vary across companies?",
+    de: "Warum variiert die Anzahl der Kennzahlen je nach Unternehmen?",
+  },
+  "pricing.faq_a8": {
+    fr: "Chaque société publie ses propres données dans ses documents officiels (rapport annuel, résultats trimestriels). Mettrik AI ne fabrique aucun chiffre : nous extrayons uniquement ce que l'entreprise communique elle-même. Le pays, le secteur et la culture de transparence jouent un rôle majeur. Une tech américaine peut publier 20+ indicateurs détaillés, tandis qu'une société européenne plus discrète n'en partagera que quelques-uns. L'entreprise reste la première source de vérité sur sa propre activité, devant les analystes.",
+    en: "Each company publishes its own data in official filings (annual report, quarterly results). Mettrik AI does not fabricate any number: we only extract what the company communicates itself. Country, sector and transparency culture play a major role. A US tech can publish 20+ detailed indicators, while a more discreet European company will share only a few. The company remains the primary source of truth on its own business, ahead of analysts.",
+    de: "Jedes Unternehmen veröffentlicht seine eigenen Daten in offiziellen Berichten (Geschäftsbericht, Quartalsergebnisse). Mettrik AI erfindet keine Zahl: Wir extrahieren nur, was das Unternehmen selbst kommuniziert. Land, Branche und Transparenzkultur spielen eine wesentliche Rolle. Ein US-Tech kann 20+ detaillierte Kennzahlen veröffentlichen, während ein zurückhaltenderes europäisches Unternehmen nur wenige teilt. Das Unternehmen bleibt die primäre Wahrheitsquelle für sein eigenes Geschäft, vor den Analysten.",
+  },
+  "pricing.faq_q9": {
+    fr: "D'où proviennent les données ?",
+    en: "Where does the data come from?",
+    de: "Woher stammen die Daten?",
+  },
+  "pricing.faq_a9": {
+    fr: "Toutes nos données viennent directement des sources officielles publiées par les sociétés : rapports annuels (10-K, 20-F, document d'enregistrement universel), résultats trimestriels (10-Q, half-year), communiqués réglementés (8-K, ad-hoc) et présentations investisseurs. Quand un chiffre provient d'une source moins fiable (estimation, source secondaire), nous le précisons clairement à proximité du chiffre concerné, pour que tu saches toujours sur quoi tu te bases.",
+    en: "All our data comes directly from official sources published by companies: annual reports (10-K, 20-F, Universal Registration Document), quarterly results (10-Q, half-year), regulated filings (8-K, ad-hoc) and investor presentations. When a figure comes from a less reliable source (estimate, secondary source), we clearly indicate it near the figure concerned, so you always know what you are basing your view on.",
+    de: "Alle unsere Daten stammen direkt aus offiziellen Quellen, die von den Unternehmen veröffentlicht werden: Geschäftsberichte (10-K, 20-F, Universalregistrierungsdokument), Quartalsergebnisse (10-Q, Halbjahr), regulierte Mitteilungen (8-K, Ad-hoc) und Investorenpräsentationen. Wenn eine Zahl aus einer weniger zuverlässigen Quelle stammt (Schätzung, Sekundärquelle), kennzeichnen wir dies klar in der Nähe der betreffenden Zahl, damit du immer weißt, worauf du dich stützt.",
+  },
   "pricing.cta_final_title": {
     fr: "Prêt à voir tes sociétés sous un autre angle ?",
     en: "Ready to see your companies from a new angle?",

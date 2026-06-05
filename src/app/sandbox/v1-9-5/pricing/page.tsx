@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import { ArrowLeft, Mail } from "lucide-react";
 import { PricingCards } from "@/components/billing/pricing-cards";
 import { PricingMatrix } from "@/components/billing/pricing-matrix";
+import { FaqPricing, type FaqPair } from "@/components/billing/faq-pricing";
 import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
 import { BrandWordmark } from "@/components/brand-wordmark";
 import { FloatingLogosBg } from "@/components/billing/floating-logos-bg";
@@ -117,26 +118,21 @@ export default async function V195PricingPage() {
           <TrustCard title={t("pricing.trust3_title")} body={t("pricing.trust3_body")} />
         </section>
 
-        {/* Yann P7 (31 mai 2026) : FAQ étendue 7 questions anti-objection.
-            Études Nielsen Norman / Baymard 2024 : FAQ proches du CTA
-            traite les freins #1 à #5 (annulation, essai, sécurité,
-            remboursement, différence vs concurrents) augmente la
-            conversion de 12 à 22 % sur SaaS investisseur.
-            Questions et réponses éditables via /sandbox/v1-9-5/admin/faq. */}
-        <section className="mx-auto mt-20 max-w-3xl">
-          <h2 className="mb-6 text-center font-display text-3xl font-bold tracking-tight text-zinc-50">
-            {t("pricing.faq_title")}
-          </h2>
-          <div className="space-y-3">
-            <FaqItem q={t("pricing.faq_q1")} a={t("pricing.faq_a1")} />
-            <FaqItem q={t("pricing.faq_q2")} a={t("pricing.faq_a2")} />
-            <FaqItem q={t("pricing.faq_q3")} a={t("pricing.faq_a3")} />
-            <FaqItem q={t("pricing.faq_q4")} a={t("pricing.faq_a4")} />
-            <FaqItem q={t("pricing.faq_q5")} a={t("pricing.faq_a5")} />
-            <FaqItem q={t("pricing.faq_q6")} a={t("pricing.faq_a6")} />
-            <FaqItem q={t("pricing.faq_q7")} a={t("pricing.faq_a7")} />
-          </div>
-        </section>
+        {/* Yann P7 (31 mai 2026, +Q8/Q9 le 5 juin 2026) : FAQ étendue
+            9 questions anti-objection. Études Nielsen Norman / Baymard
+            2024 : FAQ proches du CTA traite les freins #1 à #5 (annulation,
+            essai, sécurité, remboursement, différence vs concurrents)
+            augmente la conversion de 12 à 22 % sur SaaS investisseur.
+            Q8 : pourquoi nb KPI variable. Q9 : sources.
+            Questions et réponses éditables via /sandbox/v1-9-5/admin/faq.
+            Toggle FR/EN/DE local au bloc FAQ : un visiteur anglophone /
+            germanophone peut lire les Q/R dans sa langue sans changer la
+            langue de tout le site. */}
+        <FaqPricing
+          title={t("pricing.faq_title")}
+          initialLocale={locale === "en" || locale === "de" ? locale : "fr"}
+          pairs={buildFaqPairs()}
+        />
 
         {/* Yann P7 (31 mai 2026) : CTA bas page remplacé par bloc dédié
             "Pros : accès API". L'ancien CTA générique "prêt à voir tes
@@ -193,14 +189,28 @@ function TrustCard({ title, body }: { title: string; body: string }) {
   );
 }
 
-function FaqItem({ q, a }: { q: string; a: string }) {
-  return (
-    <details className="group rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 transition-colors open:border-violet-500/20 open:bg-violet-500/[0.04]">
-      <summary className="flex cursor-pointer items-center justify-between gap-3 text-[14px] font-semibold text-zinc-100">
-        {q}
-        <span className="text-[18px] text-zinc-500 transition-transform group-open:rotate-45">+</span>
-      </summary>
-      <p className="mt-2.5 text-[13px] leading-relaxed text-zinc-400">{a}</p>
-    </details>
-  );
+/**
+ * buildFaqPairs — assemble les 9 questions/réponses dans les 3 langues
+ * pour le composant client <FaqPricing /> qui gère le toggle local.
+ *
+ * Yann 5 juin 2026 : 7 questions historiques (P7) + Q8 (nb KPI variable)
+ * + Q9 (sources). Éditables via /sandbox/v1-9-5/admin/faq.
+ */
+function buildFaqPairs(): FaqPair[] {
+  const pairs: FaqPair[] = [];
+  for (let i = 1; i <= 9; i++) {
+    pairs.push({
+      q: {
+        fr: translate(`pricing.faq_q${i}`, "fr"),
+        en: translate(`pricing.faq_q${i}`, "en"),
+        de: translate(`pricing.faq_q${i}`, "de"),
+      },
+      a: {
+        fr: translate(`pricing.faq_a${i}`, "fr"),
+        en: translate(`pricing.faq_a${i}`, "en"),
+        de: translate(`pricing.faq_a${i}`, "de"),
+      },
+    });
+  }
+  return pairs;
 }
