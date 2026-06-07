@@ -299,7 +299,7 @@ export function CurveChart({
       {header && (
         <text
           x={yOnRight ? PAD_LEFT + innerW + 20 : PAD_LEFT - 20}
-          y={PAD_TOP - 14}
+          y={PAD_TOP - 24}
           fontSize={13}
           fontWeight={600}
           fill="#e4e4e7"

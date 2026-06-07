@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useFormStatus } from "react-dom";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
-import { Mail, Lock, X, Sparkles, ArrowLeft, Loader2 } from "lucide-react";
+import { Mail, Lock, X, ArrowLeft, Loader2 } from "lucide-react";
 import {
   signUpWithPassword,
   signInWithMagicLink,
@@ -279,13 +279,11 @@ export function AuthModal() {
               <X className="size-4" />
             </button>
 
-            {/* Header */}
+            {/* Header. Yann 8 juin 2026 : eyebrow "Mettrik AI · KPI
+                Intelligence" retiré (doublon avec le titre Créer un compte /
+                Se connecter affiché en gros juste en dessous). */}
             <div className="relative mb-5">
-              <div className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.18em] text-violet-300/80">
-                <Sparkles className="size-3.5" />
-                Mettrik AI · KPI Intelligence
-              </div>
-              <h2 className="mt-2 font-display text-2xl font-semibold text-zinc-50">
+              <h2 className="font-display text-2xl font-semibold text-zinc-50">
                 {mode === "signin"
                   ? t("auth.signin.title")
                   : mode === "signup"

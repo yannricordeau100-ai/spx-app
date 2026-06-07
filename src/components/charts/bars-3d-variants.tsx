@@ -165,7 +165,7 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
       {header && (
         <text
           x={yOnRight ? PAD_LEFT + INNER_W + 20 : PAD_LEFT - 20}
-          y={PAD_TOP - 14}
+          y={PAD_TOP - 24}
           fontSize={13}
           fontWeight={600}
           fill="#e4e4e7"
