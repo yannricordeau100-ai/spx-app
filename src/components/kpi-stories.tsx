@@ -112,7 +112,7 @@ export function KpiStories({ company, freeBlocked = false }: { company: Company;
           style={{
             aspectRatio: "9 / 16",
             background: "transparent",
-            boxShadow: `0 0 0 8px #0a0a0a, 0 0 0 9px #1f1f1f, 0 30px 80px -20px ${accent}55`,
+            boxShadow: `0 0 0 1px #1f1f1f, 0 30px 80px -20px ${accent}55`,
           }}
         >
           {/* Notch décorative en haut (vraie ambiance smartphone) */}
