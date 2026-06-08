@@ -70,6 +70,48 @@ function preserveOriginalCurrency(inputUnit: string, rawNewUnit: string): string
 }
 
 /**
+ * Yann 8 juin 2026 : SOURCE DE VERITE UNIQUE du rescale chart.
+ * Calcule les valeurs + l'unite EXACTEMENT comme l'axe Y du graph.
+ * Utilise par ChartCycle (rendu) ET par company-view (gros chiffre hero)
+ * pour garantir que le hero == dernier point visible du graph + meme unite.
+ */
+const FACTOR_PER_UNIT: Record<string, number> = {
+  "$T": 1e12, "$B": 1e9, "$M": 1e6, "$K": 1e3, "$": 1, "$¢": 0.01,
+  "T": 1e12, "B": 1e9, "M": 1e6, "K": 1e3, "": 1,
+};
+export function computeChartDisplay(
+  data: (number | null)[],
+  unit: string,
+  ttm: number | null,
+  divisor: number,
+): { scaledData: (number | null)[]; scaledTtm: number | null; displayUnit: string; lastValue: number | null } {
+  const safe = Array.isArray(data) ? data : [];
+  let scaledData: (number | null)[] = safe;
+  let scaledTtm = ttm;
+  let displayUnit = unit;
+  const absData = safe.map((v) => (typeof v === "number" ? toAbsolute(v, unit) / divisor : null));
+  const absTtm = ttm == null ? null : toAbsolute(ttm, unit) / divisor;
+  const allAbs = [...absData, ...(absTtm != null ? [absTtm] : [])].filter((v): v is number => typeof v === "number" && Number.isFinite(v));
+  const maxAbs = allAbs.length > 0 ? Math.max(...allAbs.map((v) => Math.abs(v))) : 0;
+  const { unit: newUnit } = rescaleForReadability(maxAbs, unit);
+  const newFactor = FACTOR_PER_UNIT[newUnit];
+  if (newFactor != null && (newUnit !== unit || divisor !== 1)) {
+    scaledData = absData.map((v) => (v == null ? null : v / newFactor));
+    scaledTtm = absTtm == null ? null : absTtm / newFactor;
+    displayUnit = preserveOriginalCurrency(unit, newUnit);
+  }
+  // Dernier point numerique visible (= dernier point du graph affiche).
+  let lastValue: number | null = null;
+  for (let i = scaledData.length - 1; i >= 0; i -= 1) {
+    if (typeof scaledData[i] === "number" && Number.isFinite(scaledData[i] as number)) {
+      lastValue = scaledData[i] as number;
+      break;
+    }
+  }
+  return { scaledData, scaledTtm, displayUnit, lastValue };
+}
+
+/**
  * Sélecteur du mode de chart, exporté à part pour pouvoir le placer dans
  * le toolbar du HERO (à gauche du PeriodToggle "5 / 10 / 20 ans") au
  * lieu de l'avoir au-dessus du graph.
@@ -296,35 +338,9 @@ export function ChartCycle({
   // centralisée dans `src/lib/format.ts`. `toAbsolute` et
   // `rescaleForReadability` gèrent maintenant les units formatés FR
   // ("Mds $", "M €", etc) automatiquement → plus de double-mapping ici.
-  let scaledData = data;
-  let scaledTtm = ttm;
-  let displayUnit = unit;
-
-  // Convertir chaque value de history en valeur absolue (unité de base)
-  const absData = safeData.map((v) => toAbsolute(v, unit) / divisor);
-  const absTtm = ttm == null ? null : toAbsolute(ttm, unit) / divisor;
-  // Trouver le MAX absolu (positif) pour décider de l'unité commune
-  const allAbs = [...absData, ...(absTtm != null ? [absTtm] : [])].filter(Number.isFinite);
-  const maxAbs = allAbs.length > 0 ? Math.max(...allAbs.map((v) => Math.abs(v))) : 0;
-  const { unit: newUnit } = rescaleForReadability(maxAbs, unit);
-  // Trouver le facteur de conversion entre l'unité de base et la nouvelle unité.
-  // newUnit est TOUJOURS en RAW ($T/$B/$M/$K ou T/B/M/K) — cf. rescaleForReadability.
-  const factorPerUnit: Record<string, number> = {
-    "$T": 1e12, "$B": 1e9, "$M": 1e6, "$K": 1e3, "$": 1, "$¢": 0.01,
-    "T": 1e12, "B": 1e9, "M": 1e6, "K": 1e3, "": 1,
-  };
-  const newFactor = factorPerUnit[newUnit];
-  if (newFactor != null && (newUnit !== unit || divisor !== 1)) {
-    scaledData = absData.map((v) => v / newFactor);
-    scaledTtm = absTtm == null ? null : absTtm / newFactor;
-    // Yann 17 mai 2026 (D1 fix cascade) : rescaleForReadability retourne
-    // TOUJOURS en RAW USD ($B/$M/$K) car les facteurs sont identiques quelle
-    // que soit la devise. Mais pour préserver la devise à l'affichage axe Y
-    // sur les stés EU/CH/UK (1604 stés Mds €, 43 stés Mds £, etc), on
-    // restitue le symbole d'origine ici. ChartAxisHeader gère "€B", "€M",
-    // "£B", "£M", "Mds CHF", "Mds JPY", "M CHF", etc.
-    displayUnit = preserveOriginalCurrency(unit, newUnit);
-  }
+  // Yann 8 juin 2026 : rescale via helper partage computeChartDisplay
+  // (meme calcul utilise par le gros chiffre hero dans company-view).
+  const { scaledData, scaledTtm, displayUnit } = computeChartDisplay(safeData, unit, ttm, divisor);
 
   return (
     <div className="relative min-h-[320px]">
@@ -337,13 +353,13 @@ export function ChartCycle({
           transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
         >
           {mode === "curve" && (
-            <CurveChart data={scaledData} labels={xLabels} unit={displayUnit} color={color} anomalies={anomalies} events={events} ttm={scaledTtm} exportTitle={exportTitle} exportTicker={company?.ticker} titleLocale={titleLocale} />
+            <CurveChart data={scaledData as number[]} labels={xLabels} unit={displayUnit} color={color} anomalies={anomalies} events={events} ttm={scaledTtm} exportTitle={exportTitle} exportTicker={company?.ticker} titleLocale={titleLocale} />
           )}
           {mode === "bars" && (
-            <BarsIso3DStack data={scaledData} labels={xLabels} unit={displayUnit} color={color} events={events} ttm={scaledTtm} variant={barsVariant} exportTitle={exportTitle} exportTicker={company?.ticker} titleLocale={titleLocale} />
+            <BarsIso3DStack data={scaledData as number[]} labels={xLabels} unit={displayUnit} color={color} events={events} ttm={scaledTtm} variant={barsVariant} exportTitle={exportTitle} exportTicker={company?.ticker} titleLocale={titleLocale} />
           )}
           {mode === "delta" && (
-            <VariationIsoSteps3D data={scaledData} labels={xLabels} events={events} exportTitle={exportTitle} exportTicker={company?.ticker} />
+            <VariationIsoSteps3D data={scaledData as number[]} labels={xLabels} events={events} exportTitle={exportTitle} exportTicker={company?.ticker} />
           )}
           {mode === "panel" && company && activeShort && onPickKpi && (
             <MiniMultiplesChart

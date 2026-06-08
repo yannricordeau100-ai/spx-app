@@ -21,7 +21,7 @@ import { useT } from "@/lib/i18n/provider";
  */
 export function InfoTooltip({
   children,
-  color = "#c4b5fd",
+  color = "#a78bfa",
   align = "left",
   size = "sm",
 }: {
@@ -99,15 +99,15 @@ export function InfoTooltip({
           e.preventDefault();
           setOpen((o) => !o);
         }}
-        className={`inline-flex shrink-0 items-center justify-center rounded-full border bg-[#050505] transition-colors hover:bg-[#1a1a1a] ${
+        className={`inline-flex shrink-0 items-center justify-center rounded-full border bg-[#0a0a0a] transition-colors hover:bg-[#161616] ${
           isSm ? "size-[18px]" : "size-[22px]"
         }`}
-        style={{ borderColor: color, color }}
+        style={{ borderColor: `${color}99`, color }}
         aria-label={t("ui.more_info")}
       >
         <Info
           className={isSm ? "size-[14px]" : "size-4"}
-          strokeWidth={3}
+          strokeWidth={2.5}
           aria-hidden
         />
       </button>

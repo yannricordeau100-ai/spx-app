@@ -32,7 +32,7 @@ import { brand, rate, detectAnomalies } from "@/lib/brand";
 import { smoothScrollTo } from "@/lib/scroll";
 import { Spotlight } from "@/components/effects/spotlight";
 import { NumberTicker } from "@/components/effects/number-ticker";
-import { ChartCycle, ChartCycleControls, useChartMode } from "@/components/chart-cycle";
+import { ChartCycle, ChartCycleControls, useChartMode, computeChartDisplay } from "@/components/chart-cycle";
 import { TimeFractionToggle, timeFractionDivisor, type TimeFraction } from "@/components/charts/time-fraction-toggle";
 import { KpiRow } from "@/components/kpi-row";
 import { QualityBadge, QualityChipOnly, PercentileChipOnly } from "@/components/quality-badge";
@@ -293,6 +293,9 @@ export function CompanyView({
     return "year";
   })();
   const [graphPeriod, setGraphPeriod] = useState<"year" | "quarter" | "semester">(heroDefaultPeriod);
+  // Yann 8 juin 2026 : fenetre temporelle du chart. "5y" = 5 dernieres annees
+  // (= 20 trimestres / 10 semestres selon la frequence), "max" = tout dispo.
+  const [chartRange, setChartRange] = useState<"5y" | "max">("5y");
   const [compareTicker, setCompareTicker] = useState<string | null>(null);
   // Yann 8 juin 2026 (Point 4) : state lifte ici pour que la bascule FR/EN
   // du titre KPI hero (via KpiSwapTitle) propage aussi a l'axe Y du graph.
@@ -325,7 +328,7 @@ export function CompanyView({
   // period_end 2024-12-31 sur AAPL = T1 FY25 (= "T1 25"), pas T4 24.
   // Cohérent avec ce qu'Apple communique dans ses ER + avec les labels
   // déjà appliqués sur transcript-stories (commit a8a0883e du 14 mai).
-  const chartLabels = useMemo(() => {
+  const chartLabelsFull = useMemo(() => {
     if (!active) return undefined;
     const pt = active.period_type;
     if (pt !== "quarter" && pt !== "semester") return undefined;
@@ -423,7 +426,7 @@ export function CompanyView({
   //    aggregateQuarterlyToAnnual (somme 4Q pour flow, last Q pour stock,
   //    skip année incomplète, ajoute point TTM final).
   //  - Mode annuel sur KPI semester : last value de chaque 2-block (legacy).
-  const chartHistoryRaw = useMemo(() => {
+  const chartHistoryRawFull = useMemo(() => {
     if (!active) return [];
     const pt = active.period_type;
     const h = active.history ?? [];
@@ -454,6 +457,20 @@ export function CompanyView({
 
     return h;
   }, [active, graphPeriod, company.ticker]);
+
+  // Yann 8 juin 2026 : filtre fenetre "5 ans / Max" REELLEMENT fonctionnel.
+  // "5y" garde les N derniers points (20 trims / 10 semestres / 5 ans selon
+  // graphPeriod), "max" garde tout. Applique aux labels + history -> propage
+  // au chart ET au gros chiffre hero (qui lit chartHistoryRangeApplied).
+  const rangeLimit = chartRange === "max"
+    ? Infinity
+    : graphPeriod === "quarter" ? 20 : graphPeriod === "semester" ? 10 : 5;
+  const chartHistoryRaw = rangeLimit !== Infinity && chartHistoryRawFull.length > rangeLimit
+    ? chartHistoryRawFull.slice(-rangeLimit)
+    : chartHistoryRawFull;
+  const chartLabels = rangeLimit !== Infinity && (chartLabelsFull?.length ?? 0) > rangeLimit
+    ? chartLabelsFull!.slice(-rangeLimit)
+    : chartLabelsFull;
 
   // Yann 16 mai 2026 — RECETTE CANONIQUE (cf. docs/CHART-RECIPE.md).
   //
@@ -571,24 +588,31 @@ export function CompanyView({
   // labels alignés). Si chartSpec absent ou vide, fallback sur kpi.value brut.
   // Si timeFraction != "year", applique le même divisor que côté chart pour
   // que la magnitude affichée match (ex Revenue annuel ÷ 12 si "month").
-  const heroLastVisibleValue = (() => {
-    if (!chartSpec || !Array.isArray(chartSpec.values) || chartSpec.values.length === 0) return null;
-    const lastNonTtm = chartSpec.values[chartSpec.values.length - 1];
-    if (typeof lastNonTtm !== "number" || !Number.isFinite(lastNonTtm)) return null;
-    // Yann 8 juin 2026 : n'appliquer le divisor de fraction de temps QUE si le
-    // KPI le supporte (monetaire flux). Sinon un compteur comme "Nombre
-    // d'entrepots" (914) se retrouvait divise par 402 jours = "2,27 entrepots".
-    const fractionApplies = timeFraction !== "year" && isTimeFractionApplicableKpi(active);
-    const divisor = fractionApplies ? timeFractionDivisor(timeFraction) : 1;
-    return divisor !== 0 ? lastNonTtm / divisor : lastNonTtm;
-  })();
+  // Yann 8 juin 2026 : effectiveTimeFraction = timeFraction UNIQUEMENT si le KPI
+  // supporte la fraction de temps (monetaire flux). Sinon "year" (divisor 1),
+  // sinon un compteur "Nombre d'entrepots" (914) etait divise par 402 = "2,27".
+  const effectiveTimeFraction: TimeFraction = isTimeFractionApplicableKpi(active) ? timeFraction : "year";
   const rawNumericValue = typeof active.value === "number" ? active.value : Number(active.value);
-  const numericValue = heroLastVisibleValue != null ? heroLastVisibleValue : rawNumericValue;
   const hist = Array.isArray(active.history) ? active.history.filter((x): x is number => typeof x === "number") : [];
-  const allBelowOne = (hist.length > 0 && hist.every((v) => Math.abs(v) < 1) && (!Number.isFinite(numericValue) || Math.abs(numericValue) < 1));
+  const allBelowOne = (hist.length > 0 && hist.every((v) => Math.abs(v) < 1) && (!Number.isFinite(rawNumericValue) || Math.abs(rawNumericValue) < 1));
   const { unit: scaledUnit, factor: scaleFactor } = autoRescaleSmallUnit(rawUnit, allBelowOne);
   const displayUnit = scaledUnit;
-  const scaledValue = Number.isFinite(numericValue) ? numericValue * scaleFactor : active.value;
+  // Yann 8 juin 2026 (BUG Costco + frequences) : le gros chiffre hero DOIT etre
+  // EXACTEMENT le dernier point visible du graph + son unite d'axe Y, a CHAQUE
+  // changement de frequence. On reutilise le MEME helper que le chart
+  // (computeChartDisplay, source de verite unique) avec les MEMES inputs que
+  // ceux passes a <ChartCycle> : data * scaleFactor, displayUnit, ttm, et le
+  // divisor de effectiveTimeFraction. Coherence hero <-> axe Y garantie par
+  // construction (plus de divergence "0,2 Mds $" vs axe "M $ / 191").
+  const heroChartInput: (number | null)[] = scaleFactor !== 1
+    ? chartHistoryRaw.map((v) => (typeof v === "number" ? v * scaleFactor : null))
+    : (chartHistoryRaw as (number | null)[]);
+  const heroChart = computeChartDisplay(heroChartInput, displayUnit, chartTTM, timeFractionDivisor(effectiveTimeFraction));
+  const heroAxisUnit = heroChart.displayUnit;
+  const heroLastVisibleValue = heroChart.lastValue;
+  const scaledValue = heroLastVisibleValue != null
+    ? heroLastVisibleValue
+    : (Number.isFinite(rawNumericValue) ? rawNumericValue * scaleFactor : active.value);
   // Yann 16 mai 2026 : guard magnitude % aberrante (ex ASML R&D 32 milliards %
   // = bug data, pas vraie valeur). Affiche "—" avec tooltip + log console.
   const heroPercentAnomaly = isPercentMagnitudeAnomaly(active.value, rawUnit);
@@ -597,25 +621,10 @@ export function CompanyView({
       `[Mettrik] Hero KPI % anomaly on ${company.ticker} / ${active.short}: value=${active.value}, unit=${rawUnit}`,
     );
   }
-  const formattedUnit = heroPercentAnomaly ? "" : formatUnit(displayUnit);
-  // Yann 8 juin 2026 (BUG Costco) : le hero DOIT afficher EXACTEMENT la meme
-  // valeur ET la meme unite que le dernier point de l'axe Y du chart. Avant,
-  // `formatHeroValue` re-montait la magnitude en interne (M $ -> Mds $ quand
-  // valeur >= 1000, + une echelle devise pure) alors que l'axe Y du chart
-  // garde l'unite `displayUnit` telle quelle (cf curve-chart.tsx ligne 262/267
-  // qui ne fait QUE formatUnit + chartAxisHeader, sans upscaling magnitude).
-  // Resultat : hero "0,2 Mds $" pendant que l'axe Y montrait "M $" / 191.
-  // Fix : on derive value + unit du MEME couple (scaledValue, displayUnit) que
-  // le chart, en passant par formatKpiValue (regle decimalsForValue partagee)
-  // au lieu de formatHeroValue. `scaledValue` = chartSpec.values[last] apres le
-  // MEME scaleFactor que le chart (cf autoRescaleSmallUnit, identique des 2
-  // cotes), `formatUnit(displayUnit)` = chaine d'unite rendue par l'axe Y.
-  // Coherence stricte hero <-> axe Y garantie par construction. Cas deja
-  // coherents inchanges : NVDA Data Center "46,7 Mds $", AAPL Services
-  // "111 Mds $", Op Margin "X %" (displayUnit identique a l'axe dans ces cas).
+  const formattedUnit = heroPercentAnomaly ? "" : formatUnit(heroAxisUnit);
   const heroFormatted = heroPercentAnomaly
     ? { value: "—", unit: "" }
-    : { value: formatKpiValue(scaledValue, displayUnit), unit: formattedUnit };
+    : { value: formatKpiValue(scaledValue, heroAxisUnit), unit: formattedUnit };
   // Yann 8 juin 2026 (Point 4 bis) : si KpiSwapTitle a bascule le titre en EN,
   // l'unite affichee a cote du hero number doit suivre la MEME regle que l'axe
   // Y (cf curve-chart.tsx ligne 267-268). Chaine 2 etapes identique :
@@ -795,7 +804,12 @@ export function CompanyView({
                 │ ou retire le `overflow-x-auto` doit être reverté.         │
                 └────────────────────────────────────────────────────────────┘
               */}
-              <div className="mb-2 flex flex-nowrap items-center gap-1.5 overflow-x-auto pb-0.5 pr-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              {/* Yann 8 juin 2026 : passage flex-nowrap+overflow-x-auto -> flex-wrap.
+                  L'ancien overflow clippait le "i" orange "Exercice fiscal decale"
+                  (FY) en bout de ligne sur les stes a exercice decale. Le user
+                  veut ce "i" TOUJOURS visible : les badges wrappent sous le titre
+                  au lieu d'etre coupes. (Override regle figee 5 juin.) */}
+              <div className="mb-2 flex flex-wrap items-center gap-1.5 pb-0.5">
                 <span
                   className="inline-block size-1.5 animate-pulse-dot rounded-full"
                   style={{ background: accent }}
@@ -1136,7 +1150,7 @@ export function CompanyView({
                   la place). Onglet "Tableau de bord" supprimé (cf liste
                   TABS dans chart-cycle.tsx). */}
               <div className="mb-3 flex flex-nowrap items-center justify-center gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                <PeriodToggle accent={accent} />
+                <PeriodToggle accent={accent} value={chartRange} onChange={setChartRange} hasMaxPlan={!freeBlocked} />
                 {(chartMode === "curve" || chartMode === "bars") && isTimeFractionApplicableKpi(active) && (
                   <TimeFractionToggle
                     value={timeFraction}
@@ -1171,7 +1185,7 @@ export function CompanyView({
                   nameEn={active.name_en}
                   short={active.short}
                   defaultLang={heroTitleLang}
-                  timeFraction={timeFraction}
+                  timeFraction={effectiveTimeFraction}
                   onLangChange={setHeroTitleLang}
                   className="text-[24px] font-bold leading-tight tracking-tight text-zinc-50 sm:text-[28px]"
                   suffixClassName="ml-2 text-[18px] font-medium text-zinc-300 sm:text-[22px]"
@@ -1230,7 +1244,7 @@ export function CompanyView({
                 onPickKpi={handleKpiClick}
                 ttm={chartTTM}
                 barsVariant={barsVariant}
-                timeFraction={timeFraction}
+                timeFraction={effectiveTimeFraction}
                 titleLocale={heroTitleLang}
                 exportTitle={`${(() => {
                   type N = typeof active & { name_de?: string; name_en?: string };
