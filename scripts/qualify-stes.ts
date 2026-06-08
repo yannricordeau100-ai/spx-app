@@ -62,11 +62,36 @@ const raw = process.argv.slice(2);
       const totK = co.kpis.find((k: any) => TOTAL_REV.has(String(k.short || "").toLowerCase()));
       const totv = totK ? num(totK.value) : null;
 
-      // HERO
-      const hero = co.hero_kpi;
+      // HERO RÉEL AFFICHÉ : réplique effectiveDefaultHero de company-view.
+      // Si le hero configuré n'est pas quarterly-usable, la page bascule sur le
+      // meilleur KPI quarterly NON-% NON-générique, sinon fallback.
+      const usableK = (k: any) => k && num(k.value) !== null && num(k.value) !== 0 && hist(k).length > 0;
+      const pctMarg = (k: any) => {
+        const u = String(k?.unit || "").trim();
+        const s = String(k?.short || "");
+        return u === "%" || /margin|marge|ratio|taux|growth|croissance|yield|rendement/i.test(s) || ["GM", "ROE", "ROTE", "ROIC", "ROA", "ROCE", "NIM", "ROTCE"].includes(s);
+      };
+      const bestQ = (() => {
+        let b: any = null;
+        for (const k of co.kpis) {
+          if (k.period_type !== "quarter" || pctMarg(k) || isGen(k)) continue;
+          const h = hist(k).length;
+          if (h < 4) continue;
+          if (!b || h > b.h) b = { short: k.short, h };
+        }
+        return b ? b.short : null;
+      })();
+      const cfgK = co.kpis.find((k: any) => k.short === co.hero_kpi);
+      const cfgQ = cfgK && cfgK.period_type === "quarter" && hist(cfgK).length >= 4;
+      let hero: string;
+      if (usableK(cfgK) && cfgQ && !pctMarg(cfgK)) hero = co.hero_kpi;
+      else if (bestQ) hero = bestQ;
+      else if (usableK(cfgK) && !pctMarg(cfgK)) hero = co.hero_kpi;
+      else hero = co.kpis.find((k: any) => usableK(k) && hist(k).length >= 3 && !pctMarg(k) && !isGen(k))?.short ?? co.hero_kpi;
       const hk = co.kpis.find((k: any) => k.short === hero);
       if (!hk) reasons.push(`hero introuvable (${hero})`);
       else {
+        if (pctMarg(hk)) reasons.push("hero % / marge (interdit)");
         const hv = num(hk.value);
         const hh = hist(hk);
         if (hv === null || hv === 0) reasons.push("hero vide/0");

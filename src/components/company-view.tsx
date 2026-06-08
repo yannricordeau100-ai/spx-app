@@ -243,6 +243,10 @@ export function CompanyView({
     let best: { short: string; len: number } | null = null;
     for (const k of kpis) {
       if (k.period_type !== "quarter") continue;
+      // Yann 9 juin 2026 : le hero auto ne doit JAMAIS être un % / une marge
+      // ni un KPI générique (ex AAPL tombait sur Gross Margin). On les exclut.
+      if (String(k.unit ?? "").trim() === "%" || /marg|ratio|taux/i.test(String(k.short ?? ""))) continue;
+      if (isGenericKpi(k.short)) continue;
       const h = Array.isArray(k.history) ? k.history.length : 0;
       if (h < 4) continue;
       if (!best || h > best.len) {
@@ -268,11 +272,23 @@ export function CompanyView({
     // pour ne jamais afficher un gros chiffre "0,0". Le user re-curera le
     // hero via /admin/kpis-toggle (son choix prime quand la valeur est valide).
     const heroUsable = kpiHasUsableValue(heroKpi);
-    if (heroUsable && heroIsQuarterly) return heroShort;
+    // Yann 9 juin 2026 : un hero % / marge / ratio est interdit même s'il est
+    // configuré. On bascule alors sur le meilleur KPI quarterly non-%.
+    const heroPct =
+      String(heroKpi?.unit ?? "").trim() === "%" ||
+      /margin|marge|ratio|taux|growth|croissance|yield|rendement/i.test(String(heroShort ?? "")) ||
+      ["GM", "ROE", "ROTE", "ROIC", "ROA", "ROCE", "NIM", "ROTCE"].includes(String(heroShort ?? ""));
+    if (heroUsable && heroIsQuarterly && !heroPct) return heroShort;
     if (bestQuarterlyKpiShort) return bestQuarterlyKpiShort;
-    if (heroUsable) return heroShort;
+    if (heroUsable && !heroPct) return heroShort;
     const fallback = company.kpis?.find(
-      (k) => kpiHasUsableValue(k) && Array.isArray(k.history) && k.history.length >= 3,
+      (k) =>
+        kpiHasUsableValue(k) &&
+        Array.isArray(k.history) &&
+        k.history.length >= 3 &&
+        String(k.unit ?? "").trim() !== "%" &&
+        !/marg|ratio|taux/i.test(String(k.short ?? "")) &&
+        !isGenericKpi(k.short),
     );
     return fallback?.short ?? heroShort;
   }, [company, bestQuarterlyKpiShort]);
