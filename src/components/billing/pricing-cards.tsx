@@ -355,7 +355,7 @@ function PricingCard({
   const displayAnnual = hasRequestedCurrency ? (currencyAnnual ?? 0) : eurAnnual;
   const displayCurrency = hasRequestedCurrency ? currency : "EUR";
   const currencySymbol = ({ EUR: "€", USD: "$", GBP: "£", CHF: "CHF", SEK: "kr", DKK: "kr", CAD: "$" } as Record<string, string>)[displayCurrency] ?? displayCurrency;
-  const dailyPrice = displayAnnual > 0 ? displayAnnual / 365 : 0;
+  const weeklyPrice = displayAnnual > 0 ? displayAnnual / 52 : 0;
 
   // Yann P7 (31 mai 2026) : hiérarchie visuelle data-driven par plan.
   // Études Stripe/Linear/Notion 2024 : différencier visuellement les 3
@@ -459,7 +459,7 @@ function PricingCard({
                 whitespace-nowrap), la tagline (si présente) passe SOUS
                 en ligne séparée. Hiérarchie claire : prix puis tagline,
                 jamais coupé en 2. */}
-            {!isFreeOrApi && dailyPrice > 0 && (() => {
+            {!isFreeOrApi && weeklyPrice > 0 && (() => {
               const planKey = (plan.code ?? plan.tier ?? "").toLowerCase();
               const taglineText = taglines && taglines[planKey]
                 ? getPricingTagline(taglines, planKey, locale)
@@ -469,10 +469,10 @@ function PricingCard({
                 <div className="mt-3 leading-tight">
                   <div className="flex flex-nowrap items-baseline gap-1.5 whitespace-nowrap text-zinc-400">
                     <span className="font-mono text-[13.5px] font-semibold tabular-nums text-emerald-300">
-                      {dailyPrice.toFixed(2).replace(".", ",")} {currencySymbol}
+                      {weeklyPrice.toFixed(2).replace(".", ",")} {currencySymbol}
                     </span>
                     <span className="text-[11px] uppercase tracking-wider text-zinc-500">
-                      {t("pricing.unit.per_day")}
+                      {t("pricing.unit.per_week")}
                     </span>
                   </div>
                   {hasTagline && (

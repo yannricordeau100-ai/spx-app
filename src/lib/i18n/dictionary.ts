@@ -1254,6 +1254,11 @@ export const DICTIONARY: Dict = {
     en: "/day",
     de: "/Tag",
   },
+  "pricing.unit.per_week": {
+    fr: "/semaine",
+    en: "/week",
+    de: "/Woche",
+  },
   "pricing.card.billed_annually_prefix": {
     fr: "Soit",
     en: "i.e.",

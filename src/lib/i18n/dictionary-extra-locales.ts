@@ -964,6 +964,9 @@ export const EXTRA_LOCALES: Record<string, Partial<Record<LocaleKey, string>>> =
   "pricing.unit.per_day": {
     de: "/Tag",
     nl: "/dag" },
+  "pricing.unit.per_week": {
+    de: "/Woche",
+    nl: "/week" },
   "pricing.card.billed_annually_prefix": {
     de: "Also",
     nl: "Oftewel" },
