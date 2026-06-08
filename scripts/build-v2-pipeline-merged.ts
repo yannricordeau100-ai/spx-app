@@ -91,28 +91,28 @@ function sanitizeEmDashes(s: string): string {
 // Yann 8 juin 2026 : strip des cles internes (_validation, _fix_log, _sa*, etc)
 // + minification. Sinon _merged.json gonfle a 46MB et la fonction serverless
 // depasse 250MB (limite Vercel) car _merged est importe statiquement partout.
-const INTERNAL_CO = new Set(["_validation", "_iterative_refinement", "_quarterly_extraction", "_quarterly_history_extension", "_super_kpi_inputs", "_hero_data_suspect", "_history_reversed_fix", "_value_aberrant", "_hero_auto_subsector", "_hero_needs_extraction", "_fit_reasons", "_maj_by", "_data_suspect", "_dividends_extracted_at", "_dividends_source"]);
-const INTERNAL_KPI = new Set(["_fix_log", "_audit_flag", "_data_suspect", "_hero_data_suspect", "_history_reversed_fix", "_value_aberrant", "_extended_by", "_xbrl_tag", "_period_type_source", "_sa33_source_tag", "_corrected_from", "_verification_needed", "_verified_at"]);
-function stripInternal(obj: Record<string, unknown>): void {
-  for (const key of Object.keys(obj)) {
-    if (INTERNAL_CO.has(key) || key.startsWith("_sa")) delete obj[key];
+// Yann 8 juin 2026 : strip RECURSIF de TOUTE cle interne commencant par "_"
+// (a n'importe quelle profondeur : company, kpis[], nested objects). Le schema
+// public n'utilise aucune cle prefixee "_" : ce sont toutes des cles de
+// provenance/QA/audit (_validation, _fix_log, _hero_reextracted_10k,
+// _reextract_failed, _data_suspect, _sa*, _xbrl_tag, _contamination_cleared,
+// etc). L'app ignore deja les cles inconnues, donc ce strip n'affecte que la
+// taille + evite d'exposer des strings internes dans _merged.json.
+function stripInternal(node: unknown): void {
+  if (Array.isArray(node)) {
+    for (const item of node) stripInternal(item);
+    return;
   }
-  for (const listKey of ["kpis", "kpis_supplementary"]) {
-    const arr = obj[listKey];
-    if (Array.isArray(arr)) {
-      for (const kp of arr) {
-        if (kp && typeof kp === "object") {
-          for (const key of Object.keys(kp as Record<string, unknown>)) {
-            if (INTERNAL_KPI.has(key) || key.startsWith("_sa")) delete (kp as Record<string, unknown>)[key];
-          }
-        }
-      }
+  if (node && typeof node === "object") {
+    const obj = node as Record<string, unknown>;
+    for (const key of Object.keys(obj)) {
+      if (key.startsWith("_")) delete obj[key];
+      else stripInternal(obj[key]);
     }
   }
 }
 for (const t of Object.keys(merged)) {
-  const co = merged[t];
-  if (co && typeof co === "object") stripInternal(co as Record<string, unknown>);
+  stripInternal(merged[t]);
 }
 
 const json = sanitizeEmDashes(JSON.stringify(merged));
