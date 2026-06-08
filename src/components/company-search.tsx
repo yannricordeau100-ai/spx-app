@@ -59,15 +59,30 @@ const HERO_KPI_INDEX: Record<string, HeroKpiEntry> = heroKpiIndexJson as unknown
 >;
 
 /**
- * Yann (30 mai 2026) : V1.9.5 strict = univers clean_all uniquement (652 stés
- * audit a-f + g-m). Les autres tickers du pipeline _merged.json (Pass 3
- * validés mais pas clean_all) sont volontairement masqués de la recherche
- * sinon `/sandbox/v1-9-5/<ticker>` redirige silencieusement vers l'overview
- * (cf. logique `loadCleanAllSet` côté page sté). Set figé au build.
+ * Yann (30 mai 2026, révisé 8 juin 2026) : V1.9.5 strict = univers clean_all
+ * uniquement. La recherche n'affiche QUE les stés de cette liste (source de
+ * vérité = `v1-9-5-clean-all-tickers.json`). Les autres tickers du pipeline
+ * `_merged.json` (Pass 3 validés mais pas clean_all) sont volontairement
+ * masqués sinon `/sandbox/v1-9-5/<ticker>` redirige silencieusement vers
+ * l'overview (cf. logique `loadCleanAllSet` côté page sté). Set figé au build.
+ *
+ * IMPORTANT (fix 8 juin 2026) : la liste contient parfois la classe d'action
+ * "alias" (ex `BRK.B`) alors que l'index de recherche et `_merged.json`
+ * utilisent le canonical (`BRK-B`). On normalise donc chaque entrée via
+ * TICKER_ALIASES et on AJOUTE le canonical au set. Sans ça, Berkshire
+ * (`BRK-B` côté index) échouait le test d'appartenance et n'apparaissait
+ * jamais dans la recherche.
  */
-const V195_CLEAN_ALL_SET: ReadonlySet<string> = new Set(
-  (v195CleanAllJson as { tickers: string[] }).tickers.map((t) => t.toUpperCase()),
-);
+const V195_CLEAN_ALL_SET: ReadonlySet<string> = (() => {
+  const set = new Set<string>();
+  for (const raw of (v195CleanAllJson as { tickers: string[] }).tickers) {
+    const upper = raw.toUpperCase();
+    set.add(upper);
+    const canonical = TICKER_ALIASES[raw] ?? TICKER_ALIASES[upper];
+    if (canonical) set.add(canonical.toUpperCase());
+  }
+  return set;
+})();
 
 /**
  * Yann 31 mai 2026 : déduplication des doublons class-shares (GOOG/GOOGL,

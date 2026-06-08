@@ -48,7 +48,22 @@ export function isGenericKpi(short: string | null | undefined): boolean {
   for (const g of GENERIC_SHORTS) {
     if (n === g) return true;
     // Aliases simples : "Revenue" → "Total Revenue"
-    if (g === "total revenue" && n === "revenue") return true;
+    // Yann 8 juin 2026 : "net sales" / "chiffre d'affaires net" / "sales" etc
+    // sont aussi du chiffre d'affaires generique (cas COST "Net Sales" visible).
+    if (
+      g === "total revenue" &&
+      (n === "revenue" ||
+        n === "net sales" ||
+        n === "net revenue" ||
+        n === "sales" ||
+        n === "total sales" ||
+        n === "chiffre d'affaires net" ||
+        n === "chiffre d'affaires total" ||
+        n === "chiffre d'affaires" ||
+        n === "revenu total" ||
+        n === "revenus totaux")
+    )
+      return true;
     if (g === "operating income" && (n === "op income" || n === "operating profit" || n === "ebit" || n === "recurring oi" || n === "recurring operating income" || n === "recurring op income")) return true;
     if (g === "operating margin" && (n === "op margin" || n === "operating margin %")) return true;
     if (g === "net income" && n === "net profit") return true;

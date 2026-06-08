@@ -53,7 +53,7 @@ export function QualityBadge({
 
   const PercentileChip = (
     <span
-      className={`inline-flex items-center gap-1 rounded-md font-mono font-medium ${
+      className={`inline-flex max-w-full flex-wrap items-center gap-x-1 gap-y-0.5 rounded-md font-mono font-medium ${
         isSm ? "px-1.5 py-0.5 text-[10.5px]" : "px-2 py-0.5 text-[11.5px]"
       }`}
       style={{
@@ -62,10 +62,13 @@ export function QualityBadge({
         border: `1px solid ${isTopTier ? `${topColor}55` : "#262626"}`,
         boxShadow: isTopTier ? `0 0 12px ${topColor}33` : undefined,
       }}
+      title={`${rating.percentile} · ${scopeLocalized}`}
     >
-      {Icon && <Icon className={isSm ? "size-3" : "size-3.5"} />}
-      {rating.percentile}
-      <span className="font-sans normal-case tracking-normal text-zinc-400">
+      <span className="inline-flex items-center gap-1 whitespace-nowrap">
+        {Icon && <Icon className={isSm ? "size-3" : "size-3.5"} />}
+        {rating.percentile}
+      </span>
+      <span className="font-sans normal-case tracking-normal text-zinc-400 break-words [overflow-wrap:anywhere]">
         · {scopeLocalized}
       </span>
     </span>
@@ -128,7 +131,7 @@ export function PercentileChipOnly({
 
   return (
     <span
-      className={`inline-flex items-center gap-1 rounded-md font-mono font-medium ${
+      className={`inline-flex max-w-full flex-wrap items-center gap-x-1 gap-y-0.5 rounded-md font-mono font-medium ${
         isSm ? "px-1.5 py-0.5 text-[10.5px]" : "px-2 py-0.5 text-[11.5px]"
       }`}
       style={{
@@ -137,10 +140,13 @@ export function PercentileChipOnly({
         border: `1px solid ${isTopTier ? `${topColor}55` : "#262626"}`,
         boxShadow: isTopTier ? `0 0 12px ${topColor}33` : undefined,
       }}
+      title={`${rating.percentile} · ${scopeLocalized}`}
     >
-      {Icon && <Icon className={isSm ? "size-3" : "size-3.5"} />}
-      {rating.percentile}
-      <span className="font-sans normal-case tracking-normal text-zinc-400">
+      <span className="inline-flex items-center gap-1 whitespace-nowrap">
+        {Icon && <Icon className={isSm ? "size-3" : "size-3.5"} />}
+        {rating.percentile}
+      </span>
+      <span className="font-sans normal-case tracking-normal text-zinc-400 break-words [overflow-wrap:anywhere]">
         · {scopeLocalized}
       </span>
     </span>

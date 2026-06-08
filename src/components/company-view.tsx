@@ -18,7 +18,7 @@ import {
   type Company,
   type KPI,
   formatCAGR,
-  formatHeroValue,
+  formatKpiValue,
   formatUnit,
   findComparable,
   getHero,
@@ -26,6 +26,8 @@ import {
 } from "@/lib/data";
 import { yoyTone } from "@/lib/utils";
 import { autoRescaleSmallUnit, isPercentMagnitudeAnomaly } from "@/lib/format-hero";
+import { translateUnitFrToEn } from "@/lib/i18n/unit-translations";
+import { chartAxisHeader } from "@/lib/chart-axis-header";
 import { brand, rate, detectAnomalies } from "@/lib/brand";
 import { smoothScrollTo } from "@/lib/scroll";
 import { Spotlight } from "@/components/effects/spotlight";
@@ -573,7 +575,11 @@ export function CompanyView({
     if (!chartSpec || !Array.isArray(chartSpec.values) || chartSpec.values.length === 0) return null;
     const lastNonTtm = chartSpec.values[chartSpec.values.length - 1];
     if (typeof lastNonTtm !== "number" || !Number.isFinite(lastNonTtm)) return null;
-    const divisor = timeFraction !== "year" ? timeFractionDivisor(timeFraction) : 1;
+    // Yann 8 juin 2026 : n'appliquer le divisor de fraction de temps QUE si le
+    // KPI le supporte (monetaire flux). Sinon un compteur comme "Nombre
+    // d'entrepots" (914) se retrouvait divise par 402 jours = "2,27 entrepots".
+    const fractionApplies = timeFraction !== "year" && isTimeFractionApplicableKpi(active);
+    const divisor = fractionApplies ? timeFractionDivisor(timeFraction) : 1;
     return divisor !== 0 ? lastNonTtm / divisor : lastNonTtm;
   })();
   const rawNumericValue = typeof active.value === "number" ? active.value : Number(active.value);
@@ -592,9 +598,37 @@ export function CompanyView({
     );
   }
   const formattedUnit = heroPercentAnomaly ? "" : formatUnit(displayUnit);
+  // Yann 8 juin 2026 (BUG Costco) : le hero DOIT afficher EXACTEMENT la meme
+  // valeur ET la meme unite que le dernier point de l'axe Y du chart. Avant,
+  // `formatHeroValue` re-montait la magnitude en interne (M $ -> Mds $ quand
+  // valeur >= 1000, + une echelle devise pure) alors que l'axe Y du chart
+  // garde l'unite `displayUnit` telle quelle (cf curve-chart.tsx ligne 262/267
+  // qui ne fait QUE formatUnit + chartAxisHeader, sans upscaling magnitude).
+  // Resultat : hero "0,2 Mds $" pendant que l'axe Y montrait "M $" / 191.
+  // Fix : on derive value + unit du MEME couple (scaledValue, displayUnit) que
+  // le chart, en passant par formatKpiValue (regle decimalsForValue partagee)
+  // au lieu de formatHeroValue. `scaledValue` = chartSpec.values[last] apres le
+  // MEME scaleFactor que le chart (cf autoRescaleSmallUnit, identique des 2
+  // cotes), `formatUnit(displayUnit)` = chaine d'unite rendue par l'axe Y.
+  // Coherence stricte hero <-> axe Y garantie par construction. Cas deja
+  // coherents inchanges : NVDA Data Center "46,7 Mds $", AAPL Services
+  // "111 Mds $", Op Margin "X %" (displayUnit identique a l'axe dans ces cas).
   const heroFormatted = heroPercentAnomaly
     ? { value: "—", unit: "" }
-    : formatHeroValue(scaledValue, displayUnit);
+    : { value: formatKpiValue(scaledValue, displayUnit), unit: formattedUnit };
+  // Yann 8 juin 2026 (Point 4 bis) : si KpiSwapTitle a bascule le titre en EN,
+  // l'unite affichee a cote du hero number doit suivre la MEME regle que l'axe
+  // Y (cf curve-chart.tsx ligne 267-268). Chaine 2 etapes identique :
+  //   1) translateUnitFrToEn : traduit les unites TEXTUELLES non monetaires
+  //      (Mds tonnes, unites, abonnes, employes, etc.). Garde-fou : aucune
+  //      transformation sur les devises ($, EUR, USD, etc.) ni sur les %.
+  //   2) chartAxisHeader(unit, 'en') : applique les SCALE_WORDS locale-aware
+  //      sur les formes monetaires (Mds $ -> Bn $, Mds CHF -> Bn CHF, etc.)
+  //      via le mapping case-by-case du switch. La devise reste preservee.
+  // Cette chaine garantit la coherence stricte hero <-> axe Y du graph.
+  const displayHeroUnit = heroTitleLang === "en"
+    ? chartAxisHeader(translateUnitFrToEn(heroFormatted.unit), "en")
+    : heroFormatted.unit;
   // CAGR insensible au factor (ratios), donc on garde history brut.
   // Yann 15 mai 2026 : locale-aware suffix "/ an" → "/ Jahr" / "/ year".
   const heroCAGR = formatCAGR(active.history, displayUnit, active.period_type ?? "year", locale);
@@ -761,7 +795,7 @@ export function CompanyView({
                 │ ou retire le `overflow-x-auto` doit être reverté.         │
                 └────────────────────────────────────────────────────────────┘
               */}
-              <div className="mb-2 flex flex-nowrap items-center gap-1.5 overflow-x-auto pb-0.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <div className="mb-2 flex flex-nowrap items-center gap-1.5 overflow-x-auto pb-0.5 pr-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 <span
                   className="inline-block size-1.5 animate-pulse-dot rounded-full"
                   style={{ background: accent }}
@@ -962,7 +996,7 @@ export function CompanyView({
                   <div style={{ fontSize: "clamp(40px, 7vw, 72px)" }}>
                     <BlurredFreeValue
                       value={heroFormatted.value}
-                      suffix={heroFormatted.unit ? ` ${heroFormatted.unit}` : ""}
+                      suffix={displayHeroUnit ? ` ${displayHeroUnit}` : ""}
                       ticker={company.ticker}
                     />
                   </div>
@@ -978,12 +1012,12 @@ export function CompanyView({
                     >
                       <NumberTicker value={heroFormatted.value} />
                     </div>
-                    {heroFormatted.unit && (
+                    {displayHeroUnit && (
                       <div
                         className="font-medium text-zinc-400"
                         style={{ fontSize: "clamp(15px, 2vw, 22px)" }}
                       >
-                        {heroFormatted.unit}
+                        {displayHeroUnit}
                       </div>
                     )}
                   </>

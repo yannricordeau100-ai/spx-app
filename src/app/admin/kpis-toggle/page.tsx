@@ -111,13 +111,27 @@ function fmtValue(v: number | null, unit: string): string {
 }
 
 async function loadStes(): Promise<SteRow[]> {
-  // Liste publishable V1.9.5
+  // Liste publishable de base.
   const publishable = await readJson<{ tickers?: string[] }>(
     path.join(ROOT, "src/data/v1-9-publishable.json"),
   );
-  const tickers = Array.isArray(publishable?.tickers)
+  const publishableTickers = Array.isArray(publishable?.tickers)
     ? publishable!.tickers!
     : [];
+
+  // Restreindre à l'univers V1.9.5 (642 stés) : v1-9-publishable.json contient
+  // des stés hors V1.9.5, on intersecte pour n'afficher QUE les stés V1.9.5.
+  const v195 = await readJson<{ tickers?: string[] }>(
+    path.join(ROOT, "src/data/v1-9-5-clean-all-tickers.json"),
+  );
+  const v195Set = new Set(
+    (Array.isArray(v195?.tickers) ? v195!.tickers! : []).map((t) =>
+      t.toUpperCase(),
+    ),
+  );
+  const tickers = publishableTickers.filter((t) =>
+    v195Set.has(t.toUpperCase()),
+  );
 
   const disabledCfg = loadDisabledKpisPerSte();
 

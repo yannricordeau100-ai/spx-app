@@ -134,7 +134,7 @@ export default async function SandboxV195ContactPage() {
         />
 
         <p className="mt-8 text-center font-mono text-[10px] uppercase tracking-wider text-zinc-600">
-          Mettrik AI · contact@mettrik.ai
+          Mettrik AI · KPI Intelligence
         </p>
       </main>
     </div>

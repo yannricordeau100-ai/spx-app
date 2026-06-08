@@ -88,7 +88,7 @@ export function InfoTooltip({
   })();
 
   return (
-    <span className="relative inline-flex">
+    <span className="relative inline-flex shrink-0">
       <button
         ref={triggerRef}
         type="button"
@@ -99,13 +99,17 @@ export function InfoTooltip({
           e.preventDefault();
           setOpen((o) => !o);
         }}
-        className={`inline-flex items-center justify-center rounded-full border bg-[#0a0a0a] transition-colors hover:bg-[#161616] ${
-          isSm ? "size-4" : "size-5"
+        className={`inline-flex shrink-0 items-center justify-center rounded-full border bg-[#0a0a0a] transition-colors hover:bg-[#161616] ${
+          isSm ? "size-[18px]" : "size-[22px]"
         }`}
-        style={{ borderColor: `${color}66`, color }}
+        style={{ borderColor: `${color}99`, color }}
         aria-label={t("ui.more_info")}
       >
-        <Info className={isSm ? "size-2.5" : "size-3"} />
+        <Info
+          className={isSm ? "size-[14px]" : "size-4"}
+          strokeWidth={2.5}
+          aria-hidden
+        />
       </button>
       {mounted &&
         createPortal(

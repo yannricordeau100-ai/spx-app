@@ -104,32 +104,39 @@ export function KpiStories({ company, freeBlocked = false }: { company: Company;
         {/* La frame mobile elle-même
             Yann 5 juin 2026 : background passé en transparent pour
             éviter le coin noir qui dépassait dans le coin sup. droit.
-            Le ring noir 8px + gris 1px du boxShadow continue de
-            simuler la bordure smartphone, le contenu enfant a son
-            propre fond.
-            Yann 8 juin 2026 : régression Safari sur coins haut-droit
-            et bas-gauche (angle 90° visible). Bug connu Safari avec
-            la combinaison overflow-hidden + rounded-[36px] + boxShadow
-            outset : le navigateur ne clippe pas correctement les pixels
-            du shadow inset dans les coins arrondis. Fix appliqué :
-            (1) ring noir 1px déplacé de boxShadow vers une vraie border
-            (border-[1px] border-[#1f1f1f]) qui suit la rounded geometry
-            avec une régularité pixel-perfect sur tous moteurs, (2) seul
-            le drop-shadow accent reste en boxShadow (zéro coin à clipper),
-            (3) isolation + transform translateZ(0) pour forcer Safari
-            à créer un compositing layer GPU dédié qui respecte le
-            border-radius lors du clipping de l'overflow. */}
+            Yann 8 juin 2026 (v2) : régression Safari sur coins haut-droit
+            et bas-gauche (angle 90° visible) persistait malgré boxShadow→border.
+            FIX FINAL : wrapper double + clipPath natif.
+            (1) OUTER div : porte border (ring smartphone) + drop-shadow
+                accent + border-radius + transform GPU layer. PAS d'overflow,
+                donc rien à clipper côté Safari.
+            (2) INNER div : porte overflow-hidden + clipPath inset avec
+                -webkit-clip-path en plus (Safari respecte clipPath là
+                où il bug sur overflow+border-radius). Inset 0 round 36px
+                force Safari à clipper rigoureusement les 4 coins.
+            (3) isolation: isolate + translateZ(0) sur OUTER pour
+                compositing layer GPU dédié = clipping pixel-perfect. */}
         <div
-          className="relative overflow-hidden rounded-[36px] border-[1px] border-[#1f1f1f] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.7)]"
+          className="relative rounded-[36px] border-[1px] border-[#1f1f1f]"
           style={{
             aspectRatio: "9 / 16",
             background: "transparent",
-            boxShadow: `0 30px 80px -20px ${accent}55`,
+            boxShadow: `0 30px 80px -20px ${accent}55, 0 30px 80px -20px rgba(0,0,0,0.7)`,
             isolation: "isolate",
             transform: "translateZ(0)",
             WebkitTransform: "translateZ(0)",
+            willChange: "transform",
           }}
         >
+          <div
+            className="absolute inset-0 rounded-[36px] overflow-hidden"
+            style={{
+              clipPath: "inset(0 round 36px)",
+              WebkitClipPath: "inset(0 round 36px)",
+              transform: "translateZ(0)",
+              WebkitTransform: "translateZ(0)",
+            }}
+          >
           {/* Notch décorative en haut (vraie ambiance smartphone) */}
           <div
             aria-hidden
@@ -225,9 +232,10 @@ export function KpiStories({ company, freeBlocked = false }: { company: Company;
               />
             </>
           )}
+          </div>
         </div>
 
-        {/* Bouton suivant — extérieur droit */}
+        {/* Bouton suivant : extérieur droit */}
         {total > 1 && (
           <button
             onClick={goNext}
