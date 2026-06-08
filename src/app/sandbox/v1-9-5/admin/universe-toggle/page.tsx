@@ -61,6 +61,7 @@ async function loadTickers(): Promise<{
   top307HorsSp500: string[];
   euInTop307: { country: string; tickers: string[] }[];
   countryCounts: { country: string; count: number }[];
+  capOrder: string[];
 }> {
   const sp500Path = path.join(process.cwd(), "src/data/sp500-tickers.json");
   const v18Path = path.join(process.cwd(), "src/data/v1-8-tickers-sorted.json");
@@ -102,6 +103,7 @@ async function loadTickers(): Promise<{
     top307HorsSp500: top307HorsSp500.slice().sort(),
     euInTop307,
     countryCounts,
+    capOrder: v18,
   };
 }
 
@@ -131,6 +133,7 @@ export default async function UniverseToggleAdminPage() {
           countryCounts={data.countryCounts}
           eu5n={eu5n}
           auditToken={AUDIT_TOKEN}
+          capOrder={data.capOrder}
         />
       </div>
     </div>
