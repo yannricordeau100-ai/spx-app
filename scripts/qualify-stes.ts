@@ -34,6 +34,10 @@ const GEN = new Set([
   "net earnings", "eps", "diluted eps", "ebitda", "fcf", "free cash flow",
   "operating margin", "op margin", "gross margin", "headcount", "capex", "r&d",
   "operating income", "total assets", "total debt", "net debt", "market cap",
+  "earnings", "net earnings", "capital return", "cap return", "operating cash flow",
+  "op cash flow", "cash flow", "dps", "payout ratio", "buybacks", "dividend per share",
+  "restructuring charges", "restructuring", "sg&a", "selling general", "interest expense",
+  "income tax", "provision for income taxes", "selling, general and administrative",
 ]);
 const TOTAL_REV = new Set(["total revenue", "revenue", "revenues", "net sales", "total revenues", "total net sales", "operating revenue"]);
 function isGen(k: any): boolean {
@@ -92,6 +96,7 @@ const raw = process.argv.slice(2);
       if (!hk) reasons.push(`hero introuvable (${hero})`);
       else {
         if (pctMarg(hk)) reasons.push("hero % / marge (interdit)");
+        if (isGen(hk)) reasons.push("hero générique (interdit)");
         const hv = num(hk.value);
         const hh = hist(hk);
         if (hv === null || hv === 0) reasons.push("hero vide/0");
@@ -124,7 +129,7 @@ const raw = process.argv.slice(2);
       }
       const genShort = (sh: string) => {
         const kk = co.kpis.find((x: any) => x.short === sh);
-        return kk ? isGen(kk) : false;
+        return kk ? isGen(kk) || pctMarg(kk) : false;
       };
       for (const s in sigs)
         if (sigs[s].length > 1 && sigs[s].some((sh: string) => !genShort(sh)))
