@@ -40,7 +40,9 @@ function isGen(k: any): boolean {
   return k.is_generic === true || GEN.has(String(k.short || "").toLowerCase());
 }
 
-const MIN_Q = 20, MIN_S = 10, MIN_Y = 5, MIN_SPECIFIC = 4;
+// Yann 9 juin 2026 : seuil profondeur = ~5 ans (≥16 trim/4 ans accepté si
+// propre, extension vers 20 en tâche de fond après). Annuel ≥5 ans, semestre ≥8.
+const MIN_Q = 16, MIN_S = 8, MIN_Y = 5, MIN_SPECIFIC = 4;
 const raw = process.argv.slice(2);
 
 (async () => {
@@ -95,7 +97,13 @@ const raw = process.argv.slice(2);
           (sigs[s] = sigs[s] || []).push(k.short);
         }
       }
-      for (const s in sigs) if (sigs[s].length > 1) reasons.push("DUP historique[" + sigs[s].join("=") + "]");
+      const genShort = (sh: string) => {
+        const kk = co.kpis.find((x: any) => x.short === sh);
+        return kk ? isGen(kk) : false;
+      };
+      for (const s in sigs)
+        if (sigs[s].length > 1 && sigs[s].some((sh: string) => !genShort(sh)))
+          reasons.push("DUP historique[" + sigs[s].join("=") + "]");
       for (const k of co.kpis) {
         const v = num(k.value);
         if (v !== null && totv !== null && Math.abs(v - totv) <= Math.abs(totv) * 0.01 && !isGen(k))
