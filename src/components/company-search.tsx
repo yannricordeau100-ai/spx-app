@@ -151,6 +151,29 @@ export function CompanySearch({
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
+  /**
+   * Yann 9 juin 2026 : la search ne montre QUE les stés "online" (publiées).
+   * Source de vérité runtime = /api/online-tickers (lit desk_curated_companies).
+   * Tant que la liste n'est pas chargée (null) on garde le comportement
+   * historique (tout clean_all) pour ne jamais casser la search ; une fois
+   * chargée, on filtre strictement aux online. Erreur API = fallback null.
+   */
+  const [onlineSet, setOnlineSet] = useState<Set<string> | null>(null);
+  useEffect(() => {
+    let alive = true;
+    fetch("/api/online-tickers")
+      .then((r) => r.json())
+      .then((d) => {
+        if (alive && Array.isArray(d?.tickers)) {
+          setOnlineSet(new Set(d.tickers.map((t: string) => String(t).toUpperCase())));
+        }
+      })
+      .catch(() => {});
+    return () => {
+      alive = false;
+    };
+  }, []);
+
   // ⌘K / Ctrl+K pour ouvrir, ESC pour fermer
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -360,8 +383,14 @@ export function CompanySearch({
       seen.add(key);
       deduped.push(r);
     }
-    return deduped;
-  }, [query, searchableTickers, v19UniverseSet]);
+    // Filtre online (Yann 9 juin 2026) : ne montrer que les stés publiées.
+    // onlineSet === null = pas encore chargé → comportement historique (tout
+    // clean_all). Une fois chargé, filtre strict aux online.
+    const onlineFiltered = onlineSet
+      ? deduped.filter((r) => onlineSet.has(r.ticker.toUpperCase()))
+      : deduped;
+    return onlineFiltered;
+  }, [query, searchableTickers, v19UniverseSet, onlineSet]);
 
   // Compteur "X stés au total" : override fourni en prop, sinon V1 (5) +
   // V1.7 Pass 3 validées (le défaut historique).
