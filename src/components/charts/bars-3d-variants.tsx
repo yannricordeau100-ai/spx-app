@@ -14,6 +14,7 @@ import { ChartMiniLogo } from "@/components/charts/chart-mini-logo";
 
 /** Header d'unité (Yann 13 mai 2026 v4 : centralisé dans chart-axis-header). */
 import { chartAxisHeader } from "@/lib/chart-axis-header";
+import { translateUnitFrToEn } from "@/lib/i18n/unit-translations";
 import { useT } from "@/lib/i18n/provider";
 const axisHeader = chartAxisHeader;
 
@@ -82,6 +83,11 @@ type Props = {
   exportTitle?: string;
   /** Ticker injecté dans le PNG exporté → logo société à droite du titre. */
   exportTicker?: string;
+  /** Yann 8 juin 2026 (Point 4) : override locale axe Y depuis KpiSwapTitle.
+   *  'en' force la traduction des mots d'echelle (Mds -> Bn) ET des unites
+   *  textuelles non monetaires (unites -> units, abonnes -> subscribers, etc).
+   *  Les unites monetaires ($/EUR/etc) restent inchangees. */
+  titleLocale?: "fr" | "en";
 };
 
 /* ============================================================ */
@@ -89,11 +95,14 @@ type Props = {
 /* Avec support TTM (barre supplémentaire pointillée) et variant   */
 /* "classic" pour basculer en 2D flat.                             */
 /* ============================================================ */
-export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", events = [], ttm = null, ttmLabel = "TTM", variant = "iso3d", exportTitle, exportTicker }: Props) {
+export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", events = [], ttm = null, ttmLabel = "TTM", variant = "iso3d", exportTitle, exportTicker, titleLocale }: Props) {
   const [hover, setHover] = useState<number | null>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   // Yann 15 mai 2026 : axis header locale-aware.
   const { locale } = useT();
+  // Yann 8 juin 2026 (Point 4) : si KpiSwapTitle a bascule le titre en EN,
+  // l'axe Y suit. Sinon on garde la locale globale.
+  const effectiveLocale = titleLocale === "en" ? "en" : locale;
   // Yann 15 mai 2026 : click sur la zone axe Y → toggle gauche / droite.
   const [yOnRight, setYOnRight] = useState(false);
 
@@ -141,7 +150,12 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
   const valueFontSize = isCrowded ? 11 : 15;
   const DX = isClassic ? 0 : 26;
   const DY = isClassic ? 0 : -16;
-  const header = axisHeader(unit, locale);
+  // Yann 8 juin 2026 (Point 4) : si KpiSwapTitle force EN, l'axe Y traduit
+  // les mots d'echelle via la locale 'en' (Mds -> Bn) et les unites
+  // textuelles non monetaires via translateUnitFrToEn (unites -> units, etc).
+  // Les symboles monetaires ($/EUR/etc) restent inchanges.
+  const headerUnit = titleLocale === "en" ? translateUnitFrToEn(unit) : unit;
+  const header = axisHeader(headerUnit, effectiveLocale);
   // Yann 15 mai 2026 : précision adaptative Y axis pour éviter doublons.
   const intRounded = ticks.map((v) => Math.round(v));
   const needsDecimal = new Set(intRounded).size < ticks.length;

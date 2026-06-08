@@ -253,6 +253,7 @@ export function ChartCycle({
   barsVariant = "iso3d",
   timeFraction = "year",
   exportTitle,
+  titleLocale = "fr",
 }: {
   mode: ChartMode;
   data: number[];
@@ -276,6 +277,12 @@ export function ChartCycle({
    *  donc pas répété live mais ajouté dans le download pour qu'il se suffise
    *  à lui-même hors du contexte page). */
   exportTitle?: string;
+  /** Yann 8 juin 2026 (Point 4) : si le titre KPI est bascule en EN via
+   *  KpiSwapTitle (state local au parent), on traduit aussi l'axe Y SAUF
+   *  pour les unites monetaires (les symboles $/EUR/etc restent identiques).
+   *  Par defaut 'fr' = pas de traduction (axe Y identique a la locale globale).
+   *  Quand 'en', on applique translateUnitFrToEn sur l'unite display. */
+  titleLocale?: "fr" | "en";
 }) {
   // Garde-fou : data peut être null/undefined dans certaines fiches. Forcer tableau.
   const safeData = Array.isArray(data) ? data : [];
@@ -330,10 +337,10 @@ export function ChartCycle({
           transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
         >
           {mode === "curve" && (
-            <CurveChart data={scaledData} labels={xLabels} unit={displayUnit} color={color} anomalies={anomalies} events={events} ttm={scaledTtm} exportTitle={exportTitle} exportTicker={company?.ticker} />
+            <CurveChart data={scaledData} labels={xLabels} unit={displayUnit} color={color} anomalies={anomalies} events={events} ttm={scaledTtm} exportTitle={exportTitle} exportTicker={company?.ticker} titleLocale={titleLocale} />
           )}
           {mode === "bars" && (
-            <BarsIso3DStack data={scaledData} labels={xLabels} unit={displayUnit} color={color} events={events} ttm={scaledTtm} variant={barsVariant} exportTitle={exportTitle} exportTicker={company?.ticker} />
+            <BarsIso3DStack data={scaledData} labels={xLabels} unit={displayUnit} color={color} events={events} ttm={scaledTtm} variant={barsVariant} exportTitle={exportTitle} exportTicker={company?.ticker} titleLocale={titleLocale} />
           )}
           {mode === "delta" && (
             <VariationIsoSteps3D data={scaledData} labels={xLabels} events={events} exportTitle={exportTitle} exportTicker={company?.ticker} />

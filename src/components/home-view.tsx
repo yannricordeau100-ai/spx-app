@@ -82,7 +82,14 @@ function BrandWordmark({ kpiUnderText }: { kpiUnderText?: string }) {
         transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
         className="inline-flex items-center justify-center"
       >
-        <span className="wordmark-png-v2 relative inline-block" style={{ height: "clamp(56px, 9vw, 132px)" }}>
+        <span
+          className="wordmark-png-v2 relative inline-block"
+          style={{
+            height: "clamp(96px, 16vw, 220px)",
+            lineHeight: 1,
+            paddingBottom: "6px",
+          }}
+        >
           <img
             src="/brand/mettrik-ai-white-purple.png"
             alt="Mettrik AI"
@@ -103,12 +110,16 @@ function BrandWordmark({ kpiUnderText }: { kpiUnderText?: string }) {
         </span>
       </motion.div>
 
-      {/* Rail iridescent qui se trace de gauche à droite */}
+      {/* Rail iridescent qui se trace de gauche à droite.
+          Yann 8 juin 2026 : logo agrandi (clamp 96/16vw/220px) pour
+          descendre jusqu'au rail séparateur. mt-1 = ~4px gap entre
+          bas du logo et le rail (paddingBottom 6px du wrapper logo
+          gère les descendants italiques Fraunces). */}
       <motion.div
         initial={{ scaleX: 0, opacity: 0 }}
         animate={{ scaleX: 1, opacity: 1 }}
         transition={{ delay: 0.55, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-        className="mt-4 h-[2px] w-[min(82%,520px)] origin-left rounded-full"
+        className="mt-1 h-[2px] w-[min(82%,520px)] origin-left rounded-full"
         style={{
           background:
             "linear-gradient(90deg, transparent 0%, #a855f7 25%, #22d3ee 55%, #f472b6 85%, transparent 100%)",

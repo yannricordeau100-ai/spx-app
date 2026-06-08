@@ -31,7 +31,7 @@ import { smoothScrollTo } from "@/lib/scroll";
 import { Spotlight } from "@/components/effects/spotlight";
 import { NumberTicker } from "@/components/effects/number-ticker";
 import { ChartCycle, ChartCycleControls, useChartMode } from "@/components/chart-cycle";
-import { TimeFractionToggle, type TimeFraction } from "@/components/charts/time-fraction-toggle";
+import { TimeFractionToggle, timeFractionDivisor, type TimeFraction } from "@/components/charts/time-fraction-toggle";
 import { KpiRow } from "@/components/kpi-row";
 import { QualityBadge, QualityChipOnly, PercentileChipOnly } from "@/components/quality-badge";
 import { CompanyHeader } from "@/components/company-header";
@@ -292,6 +292,13 @@ export function CompanyView({
   })();
   const [graphPeriod, setGraphPeriod] = useState<"year" | "quarter" | "semester">(heroDefaultPeriod);
   const [compareTicker, setCompareTicker] = useState<string | null>(null);
+  // Yann 8 juin 2026 (Point 4) : state lifte ici pour que la bascule FR/EN
+  // du titre KPI hero (via KpiSwapTitle) propage aussi a l'axe Y du graph.
+  // Default = locale globale (fr ou en selon user). Au clic sur le titre,
+  // KpiSwapTitle appelle onLangChange et on synchronise l'axe Y.
+  const [heroTitleLang, setHeroTitleLang] = useState<"fr" | "en">(
+    locale === "fr" ? "fr" : "en"
+  );
 
   const heroRef = useRef<HTMLDivElement>(null);
   const handleKpiClick = (short: string) => {
@@ -1115,8 +1122,9 @@ export function CompanyView({
                   nameFr={active.name_fr}
                   nameEn={active.name_en}
                   short={active.short}
-                  defaultLang={locale === "fr" ? "fr" : "en"}
+                  defaultLang={heroTitleLang}
                   timeFraction={timeFraction}
+                  onLangChange={setHeroTitleLang}
                   className="text-[24px] font-bold leading-tight tracking-tight text-zinc-50 sm:text-[28px]"
                   suffixClassName="ml-2 text-[18px] font-medium text-zinc-300 sm:text-[22px]"
                 />
@@ -1175,6 +1183,7 @@ export function CompanyView({
                 ttm={chartTTM}
                 barsVariant={barsVariant}
                 timeFraction={timeFraction}
+                titleLocale={heroTitleLang}
                 exportTitle={`${(() => {
                   type N = typeof active & { name_de?: string; name_en?: string };
                   const a = active as N;
@@ -1245,17 +1254,37 @@ export function CompanyView({
               <div className="col-span-2">{t("company.kpi_table.col_trend")}</div>
               <div className="col-span-4">{t("company.kpi_table.col_quality")}</div>
             </div>
-            {visibleKpis.map((kpi) => (
-              <KpiRow
-                key={kpi.short}
-                kpi={kpi}
-                active={kpi.short === active.short}
-                subsector={company.subsector}
-                ticker={company.ticker}
-                onClick={() => handleKpiClick(kpi.short)}
-                freeBlocked={freeBlocked}
-              />
-            ))}
+            {/* Yann 8 juin 2026 (Point 3) : la valeur principale affichée à
+                GAUCHE du KPI actif doit TOUJOURS égaler le dernier point
+                visible du chart à DROITE. Recalcule live selon timeFraction
+                (year/month/week/day) et chart view (quarterly vs annual via
+                chartSpec qui dépend de graphPeriod). Source = dernier point
+                non-TTM de `chartSpec.values`. Si timeFraction != "year",
+                applique le divisor déjà utilisé côté chart (cf
+                chart-cycle.tsx ligne 285). */}
+            {visibleKpis.map((kpi) => {
+              const isActive = kpi.short === active.short;
+              let heroLastVisibleValue: number | null = null;
+              if (isActive && chartSpec && Array.isArray(chartSpec.values) && chartSpec.values.length > 0) {
+                const lastNonTtm = chartSpec.values[chartSpec.values.length - 1];
+                if (typeof lastNonTtm === "number" && Number.isFinite(lastNonTtm)) {
+                  const divisor = timeFraction !== "year" ? timeFractionDivisor(timeFraction) : 1;
+                  heroLastVisibleValue = divisor !== 0 ? lastNonTtm / divisor : lastNonTtm;
+                }
+              }
+              return (
+                <KpiRow
+                  key={kpi.short}
+                  kpi={kpi}
+                  active={isActive}
+                  subsector={company.subsector}
+                  ticker={company.ticker}
+                  onClick={() => handleKpiClick(kpi.short)}
+                  freeBlocked={freeBlocked}
+                  overrideValue={isActive ? heroLastVisibleValue : null}
+                />
+              );
+            })}
             {hiddenCount > 0 && (
               <button
                 onClick={() => setShowAll((s) => !s)}

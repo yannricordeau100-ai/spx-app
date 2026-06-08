@@ -11,6 +11,7 @@ import { EventDotsSVG, EventDotsOverlay } from "@/components/charts/event-dots";
 import { downloadSvgAsPng, buildYearGroups } from "@/lib/chart-export";
 import { ChartMiniLogo } from "@/components/charts/chart-mini-logo";
 import { chartAxisHeader, isCurrencyLikeUnit } from "@/lib/chart-axis-header";
+import { translateUnitFrToEn } from "@/lib/i18n/unit-translations";
 import { useT } from "@/lib/i18n/provider";
 
 // Yann 13 mai 2026 v4 : helpers axisHeader/isCurrency centralisés dans
@@ -166,6 +167,7 @@ export function CurveChart({
   ttmLabel = "TTM",
   exportTitle,
   exportTicker,
+  titleLocale,
 }: {
   data: number[];
   labels: string[];
@@ -180,11 +182,20 @@ export function CurveChart({
   exportTitle?: string;
   /** Ticker injecté dans le PNG exporté → logo société à droite du titre. */
   exportTicker?: string;
+  /** Yann 8 juin 2026 (Point 4) : override locale axe Y depuis KpiSwapTitle.
+   *  'en' force la traduction des mots d'echelle (Mds -> Bn) ET des unites
+   *  textuelles non monetaires (unites -> units, abonnes -> subscribers, etc).
+   *  Les unites monetaires ($/EUR/etc) restent inchangees. Si undefined,
+   *  l'axe Y suit la locale globale de l'app. */
+  titleLocale?: "fr" | "en";
 }) {
   const [hover, setHover] = useState<number | null>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   // Yann 15 mai 2026 : axis header locale-aware (DE / NL / SV / DA / EN).
   const { locale } = useT();
+  // Yann 8 juin 2026 (Point 4) : si KpiSwapTitle a bascule le titre en EN,
+  // l'axe Y suit. Sinon on garde la locale globale.
+  const effectiveLocale = titleLocale === "en" ? "en" : locale;
   // Yann 15 mai 2026 : click sur la zone axe Y → toggle gauche / droite.
   const [yOnRight, setYOnRight] = useState(false);
 
@@ -249,7 +260,12 @@ export function CurveChart({
   ] as const);
 
   const u = formatUnit(unit);
-  const header = axisHeader(unit, locale);
+  // Yann 8 juin 2026 (Point 4) : si KpiSwapTitle force EN, l'axe Y traduit
+  // les mots d'echelle via la locale 'en' (Mds -> Bn) et les unites
+  // textuelles non monetaires via translateUnitFrToEn (unites -> units, etc).
+  // Les symboles monetaires ($/EUR/etc) restent inchanges.
+  const headerUnit = titleLocale === "en" ? translateUnitFrToEn(unit) : unit;
+  const header = axisHeader(headerUnit, effectiveLocale);
 
   const ticks = tickValues.map((v) => ({
     v,

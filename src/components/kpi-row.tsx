@@ -50,6 +50,7 @@ export function KpiRow({
   subsector,
   ticker,
   freeBlocked = false,
+  overrideValue = null,
 }: {
   kpi: KPI;
   active?: boolean;
@@ -58,6 +59,11 @@ export function KpiRow({
   ticker: string;
   /** Yann (25 mai 2026) : floute valeur + YoY + CAGR + tooltip explanation. */
   freeBlocked?: boolean;
+  /** Yann (8 juin 2026 - Point 3) : si non-null, remplace kpi.value pour
+   *  l'affichage. Utilisé sur le KPI actif pour synchroniser la valeur
+   *  affichée à gauche avec le dernier point visible du chart à droite
+   *  (mise à jour live selon frequency / view quarterly vs annual). */
+  overrideValue?: number | null;
 }) {
   const { t, locale } = useT();
   // Yann FIX 4d : en FR on affiche name_fr en priorité ; si absent fallback name_en
@@ -81,9 +87,15 @@ export function KpiRow({
     : locale === "de" || locale === "de-CH" ? "de-DE"
     : locale === "nl" ? "nl-NL"
     : "en-US";
-  const valueAsNum = typeof kpi.value === "number"
-    ? kpi.value
-    : (typeof kpi.value === "string" ? parseFloat(kpi.value.replace(/,/g, "")) : NaN);
+  // Yann 8 juin 2026 (Point 3) : si overrideValue fourni (KPI actif uniquement),
+  // on l'utilise à la place de kpi.value pour que la valeur à gauche corresponde
+  // au dernier point visible du chart à droite (varie avec timeFraction +
+  // chart view quarterly/annual).
+  const valueAsNum = overrideValue != null && Number.isFinite(overrideValue)
+    ? overrideValue
+    : (typeof kpi.value === "number"
+      ? kpi.value
+      : (typeof kpi.value === "string" ? parseFloat(kpi.value.replace(/,/g, "")) : NaN));
   // Yann 15 mai 2026 : règle décimales unifiée via formatKpiValue.
   // En FR utilise la règle 1-2 décimales selon magnitude. Pour les autres
   // locales, garde toLocaleString natif (mais en cappant à 2 max).
