@@ -35,6 +35,61 @@ const SCALE_WORDS: Record<AxisLocale, { T: string; B: string; M: string; K: stri
   "nl":    { T: "Bln",  B: "mld", M: "mln", K: "K" },
 };
 
+/**
+ * Yann 8 juin 2026 : title case (premiere lettre de chaque mot en majuscule)
+ * applique a la valeur de retour pour les unites textuelles libres (cas
+ * `default` du switch ci-dessous). Les unites canoniques retournees par les
+ * cases du switch sont deja correctement capitalisees (Mds $, Bn $, Mio €,
+ * etc) donc la transformation ne s'applique qu'au fallback.
+ *
+ * Regles d'exclusion (NE PAS toucher) :
+ *  - Symboles monetaires : $, €, £, ¥, CHF, JPY, EUR, USD, GBP, ...
+ *  - Symboles ratios : %, x
+ *  - Tokens entierement numeriques
+ *
+ * Exemples :
+ *  - "entrepots"          -> "Entrepots"
+ *  - "abonnes"            -> "Abonnes"
+ *  - "millions d'unites"  -> "Millions d'Unites"
+ *  - "tonnes de CO2"      -> "Tonnes de CO2" (CO2 preserve, majuscule + chiffres)
+ *  - "Mds $"              -> "Mds $" (deja correct, currency preserve)
+ *  - "%"                  -> "%" (symbole ratio)
+ */
+function titleCaseAxisUnit(value: string): string {
+  if (!value) return value;
+  // Currency codes ISO (3 lettres majuscules) et symboles -> preserve
+  const CURRENCY_TOKENS = new Set([
+    "$", "€", "£", "¥",
+    "USD", "EUR", "GBP", "CHF", "JPY", "DKK", "INR", "NOK", "SEK",
+    "KRW", "CAD", "AUD", "HKD", "CNY", "BRL", "MXN", "PLN", "ZAR",
+    "%", "x",
+  ]);
+  // Petits mots qui restent en minuscule en milieu de phrase (FR + EN).
+  // Inclut aussi les elisions FR d'une lettre (d', l', j', n', s', t', c',
+  // m', qu'). Le token sans apostrophe (juste "d", "l", etc) suffit car
+  // le split par apostrophe les isole.
+  const SMALL_WORDS = new Set([
+    "de", "du", "des", "le", "la", "les", "et", "ou", "a", "au", "aux",
+    "of", "the", "and", "or", "to", "in", "on", "for",
+    "d", "l", "j", "n", "s", "t", "c", "m", "qu",
+  ]);
+  // Split en preservant les separateurs (espaces, apostrophes, tirets).
+  return value.replace(/([A-Za-zÀ-ÖØ-öø-ÿ][A-Za-zÀ-ÖØ-öø-ÿ0-9]*)/g, (token, _g, offset) => {
+    // Token deja avec une majuscule ailleurs que la 1ere position (CO2, IPO,
+    // EBITDA, etc.) -> preserve tel quel.
+    if (/[A-Z]/.test(token.slice(1))) return token;
+    // Token == currency / ratio -> preserve.
+    if (CURRENCY_TOKENS.has(token) || CURRENCY_TOKENS.has(token.toUpperCase())) {
+      return token;
+    }
+    // Small word en milieu de phrase -> minuscule.
+    if (offset > 0 && SMALL_WORDS.has(token.toLowerCase())) {
+      return token.toLowerCase();
+    }
+    return token.charAt(0).toUpperCase() + token.slice(1).toLowerCase();
+  });
+}
+
 export function chartAxisHeader(unit: string, locale: AxisLocale = "fr"): string {
   const w = SCALE_WORDS[locale] ?? SCALE_WORDS.fr;
   // Yann 16 mai 2026 : normalisation pré-switch pour absorber les formats
@@ -110,7 +165,10 @@ export function chartAxisHeader(unit: string, locale: AxisLocale = "fr"): string
     case "%": return "%";
     case "% YoY": return "% (YoY)";
     case "$": return "$";
-    default: return unit || "";
+    // Yann 8 juin 2026 : title case appliquee aux unites textuelles libres
+    // (entrepots -> Entrepots, abonnes -> Abonnes, millions d'unites ->
+    // Millions d'Unites). Currency/% deja gere par les cases au-dessus.
+    default: return titleCaseAxisUnit(unit || "");
   }
 }
 

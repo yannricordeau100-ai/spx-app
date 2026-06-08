@@ -41,6 +41,23 @@ const FR_TO_EN_UNIT: Record<string, string> = {
   "employes": "employees",
   "tonnes": "tonnes",
   "points": "points",
+  // Yann 8 juin 2026 (Point 4 fix) : unites textuelles FR frequentes
+  // observees dans les datasets v2-pipeline (entrepots, magasins, etc.).
+  "magasins": "stores",
+  "entrepots": "warehouses",
+  "chambres": "rooms",
+  "hotels": "hotels",
+  "membres": "members",
+  "adherents": "members",
+  "utilisateurs": "users",
+  "effectifs": "headcount",
+  "usines": "factories",
+  "stations": "stations",
+  "restaurants": "restaurants",
+  "pharmacies": "pharmacies",
+  "bouteilles": "bottles",
+  "vehicules": "vehicles",
+  "abonnements": "subscriptions",
 };
 
 /**
@@ -51,6 +68,9 @@ const FR_TO_EN_UNIT_ACCENTED: Record<string, string> = {
   "unités": "units",
   "abonnés": "subscribers",
   "employés": "employees",
+  "entrepôts": "warehouses",
+  "véhicules": "vehicles",
+  "adhérents": "members",
 };
 
 /**

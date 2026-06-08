@@ -106,13 +106,28 @@ export function KpiStories({ company, freeBlocked = false }: { company: Company;
             éviter le coin noir qui dépassait dans le coin sup. droit.
             Le ring noir 8px + gris 1px du boxShadow continue de
             simuler la bordure smartphone, le contenu enfant a son
-            propre fond. */}
+            propre fond.
+            Yann 8 juin 2026 : régression Safari sur coins haut-droit
+            et bas-gauche (angle 90° visible). Bug connu Safari avec
+            la combinaison overflow-hidden + rounded-[36px] + boxShadow
+            outset : le navigateur ne clippe pas correctement les pixels
+            du shadow inset dans les coins arrondis. Fix appliqué :
+            (1) ring noir 1px déplacé de boxShadow vers une vraie border
+            (border-[1px] border-[#1f1f1f]) qui suit la rounded geometry
+            avec une régularité pixel-perfect sur tous moteurs, (2) seul
+            le drop-shadow accent reste en boxShadow (zéro coin à clipper),
+            (3) isolation + transform translateZ(0) pour forcer Safari
+            à créer un compositing layer GPU dédié qui respecte le
+            border-radius lors du clipping de l'overflow. */}
         <div
-          className="relative overflow-hidden rounded-[36px] border border-white/10 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.7)]"
+          className="relative overflow-hidden rounded-[36px] border-[1px] border-[#1f1f1f] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.7)]"
           style={{
             aspectRatio: "9 / 16",
             background: "transparent",
-            boxShadow: `0 0 0 1px #1f1f1f, 0 30px 80px -20px ${accent}55`,
+            boxShadow: `0 30px 80px -20px ${accent}55`,
+            isolation: "isolate",
+            transform: "translateZ(0)",
+            WebkitTransform: "translateZ(0)",
           }}
         >
           {/* Notch décorative en haut (vraie ambiance smartphone) */}

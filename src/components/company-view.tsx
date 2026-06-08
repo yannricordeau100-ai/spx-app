@@ -563,7 +563,21 @@ export function CompanyView({
   //    descend d'un cran (Mds → M, M → unités). Évite "0,41 M unités"
   //    quand on a en fait 410 000 unités.
   const rawUnit = String(active.unit ?? "").replace(/\s+deployed$/i, "").replace(/\s+units$/i, " unités");
-  const numericValue = typeof active.value === "number" ? active.value : Number(active.value);
+  // Yann 8 juin 2026 (Point 3 bis) : la hero value DOIT toujours correspondre
+  // au DERNIER point visible du chart à droite (rightmost). Source canonique =
+  // `chartSpec.values[length-1]` (chart-template.ts garantit oldest-first +
+  // labels alignés). Si chartSpec absent ou vide, fallback sur kpi.value brut.
+  // Si timeFraction != "year", applique le même divisor que côté chart pour
+  // que la magnitude affichée match (ex Revenue annuel ÷ 12 si "month").
+  const heroLastVisibleValue = (() => {
+    if (!chartSpec || !Array.isArray(chartSpec.values) || chartSpec.values.length === 0) return null;
+    const lastNonTtm = chartSpec.values[chartSpec.values.length - 1];
+    if (typeof lastNonTtm !== "number" || !Number.isFinite(lastNonTtm)) return null;
+    const divisor = timeFraction !== "year" ? timeFractionDivisor(timeFraction) : 1;
+    return divisor !== 0 ? lastNonTtm / divisor : lastNonTtm;
+  })();
+  const rawNumericValue = typeof active.value === "number" ? active.value : Number(active.value);
+  const numericValue = heroLastVisibleValue != null ? heroLastVisibleValue : rawNumericValue;
   const hist = Array.isArray(active.history) ? active.history.filter((x): x is number => typeof x === "number") : [];
   const allBelowOne = (hist.length > 0 && hist.every((v) => Math.abs(v) < 1) && (!Number.isFinite(numericValue) || Math.abs(numericValue) < 1));
   const { unit: scaledUnit, factor: scaleFactor } = autoRescaleSmallUnit(rawUnit, allBelowOne);
@@ -752,7 +766,7 @@ export function CompanyView({
                   className="inline-block size-1.5 animate-pulse-dot rounded-full"
                   style={{ background: accent }}
                 />
-                <span className="font-sans text-[12px] font-semibold uppercase tracking-[0.14em] text-zinc-300">
+                <span className="whitespace-nowrap font-sans text-[12px] font-semibold uppercase tracking-[0.14em] text-zinc-300">
                   {t("company.kpi_principal")}
                 </span>
                 {/* Yann (V1.9.5, juin 2026) : chip freshness identique entre
@@ -1264,14 +1278,6 @@ export function CompanyView({
                 chart-cycle.tsx ligne 285). */}
             {visibleKpis.map((kpi) => {
               const isActive = kpi.short === active.short;
-              let heroLastVisibleValue: number | null = null;
-              if (isActive && chartSpec && Array.isArray(chartSpec.values) && chartSpec.values.length > 0) {
-                const lastNonTtm = chartSpec.values[chartSpec.values.length - 1];
-                if (typeof lastNonTtm === "number" && Number.isFinite(lastNonTtm)) {
-                  const divisor = timeFraction !== "year" ? timeFractionDivisor(timeFraction) : 1;
-                  heroLastVisibleValue = divisor !== 0 ? lastNonTtm / divisor : lastNonTtm;
-                }
-              }
               return (
                 <KpiRow
                   key={kpi.short}

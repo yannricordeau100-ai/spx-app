@@ -346,7 +346,7 @@ export function FreshnessIndicator({
 
   return (
     <span
-      className={`inline-flex items-center gap-1 rounded-md font-medium ${
+      className={`inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-md font-medium ${
         isSm ? "px-1.5 py-0.5 text-[10.5px]" : "px-2 py-1 text-[11.5px]"
       }`}
       style={{

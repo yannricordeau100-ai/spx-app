@@ -53,7 +53,13 @@ export function MaintenanceClient({
       {/* Contenu central */}
       <main className="relative z-10 mx-auto flex min-h-screen max-w-2xl flex-col items-center justify-center px-6 py-20 text-center">
         {/* Yann 4 juin 2026 v3 : nouveau PNG VRAIMENT transparent (RGBA alpha=0
-            sur bords), même asset que partout dans l'app via BrandWordmark. */}
+            sur bords), même asset que partout dans l'app via BrandWordmark.
+            BUG FIX (8 juin 2026) : alignement sur le mécanisme canonique
+            html[data-theme="light"] + .preserve-colors (cf wordmark-variants
+            V_PNG2). L'ancien <picture> écoutait seulement prefers-color-scheme
+            OS, ignorant le toggle in-app. Et sans preserve-colors le filtre
+            global invert() re-inversait le PNG → wordmark blanc sur fond
+            blanc en light theme. */}
         <div className="mb-10">
           <motion.div
             initial={{ opacity: 0, y: "12%", filter: "blur(6px)" }}
@@ -61,15 +67,25 @@ export function MaintenanceClient({
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
             className="inline-flex items-center justify-center"
           >
-            <picture>
-              <source srcSet="/brand/mettrik-ai-white-purple.png" media="(prefers-color-scheme: dark)" />
+            <span className="wordmark-png-v2 relative inline-block">
               <img
                 src="/brand/mettrik-ai-white-purple.png"
                 alt="Mettrik AI"
-                className="block h-auto w-[min(82vw,640px)] select-none"
+                className="wordmark-png-dark preserve-colors block h-auto w-[min(82vw,640px)] select-none"
                 draggable={false}
               />
-            </picture>
+              <img
+                src="/brand/mettrik-ai-black-purple.png"
+                alt=""
+                aria-hidden
+                className="wordmark-png-light preserve-colors absolute inset-0 hidden h-auto w-[min(82vw,640px)] select-none"
+                draggable={false}
+              />
+              <style>{`
+                html[data-theme="light"] .wordmark-png-dark { display: none; }
+                html[data-theme="light"] .wordmark-png-light { display: block !important; position: static !important; }
+              `}</style>
+            </span>
           </motion.div>
           {/* Rail iridescent conservé sous le logo */}
           <motion.div

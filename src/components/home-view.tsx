@@ -90,17 +90,21 @@ function BrandWordmark({ kpiUnderText }: { kpiUnderText?: string }) {
             paddingBottom: "6px",
           }}
         >
+          {/* BUG FIX (8 juin 2026) : .preserve-colors évite que le filtre
+              global invert() du light theme ne re-inverse le PNG swappé.
+              Sans ça, le PNG black devenait blanc → invisible sur fond
+              clair (lui-même fond sombre inversé). */}
           <img
             src="/brand/mettrik-ai-white-purple.png"
             alt="Mettrik AI"
-            className="wordmark-png-dark block h-full w-auto select-none"
+            className="wordmark-png-dark preserve-colors block h-full w-auto select-none"
             draggable={false}
           />
           <img
             src="/brand/mettrik-ai-black-purple.png"
             alt=""
             aria-hidden
-            className="wordmark-png-light absolute inset-0 hidden h-full w-auto select-none"
+            className="wordmark-png-light preserve-colors absolute inset-0 hidden h-full w-auto select-none"
             draggable={false}
           />
           <style>{`

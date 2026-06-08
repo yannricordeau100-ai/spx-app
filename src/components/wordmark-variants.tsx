@@ -1357,20 +1357,27 @@ const V_PNG2: FC<WordmarkVariantProps> = ({
   // html[data-theme="light"] (cf globals.css). Par défaut → dark (white
   // wordmark). En thème clair → black wordmark via CSS attribute selector
   // injecté inline (idiomatique React pour 2 <img>).
+  //
+  // BUG FIX (8 juin 2026) : le light theme applique `filter: invert(1)
+  // hue-rotate(180deg)` sur <html>. Sans .preserve-colors, le PNG black
+  // se faisait re-inverter en blanc → invisible sur fond clair (lui-même
+  // résultat de l'inversion du fond sombre original). Ajout de
+  // .preserve-colors sur les 2 <img> pour que la couleur swappée reste
+  // intacte malgré le filtre global.
   return (
     <div className={`inline-flex flex-col items-center ${className}`}>
       <span className="wordmark-png-v2 relative inline-block" style={{ height: heightPx[size] }}>
         <img
           src="/brand/mettrik-ai-white-purple.png"
           alt="Mettrik AI"
-          className="wordmark-png-dark block h-full w-auto select-none"
+          className="wordmark-png-dark preserve-colors block h-full w-auto select-none"
           draggable={false}
         />
         <img
           src="/brand/mettrik-ai-black-purple.png"
           alt=""
           aria-hidden
-          className="wordmark-png-light absolute inset-0 hidden h-full w-auto select-none"
+          className="wordmark-png-light preserve-colors absolute inset-0 hidden h-full w-auto select-none"
           draggable={false}
         />
         <style>{`

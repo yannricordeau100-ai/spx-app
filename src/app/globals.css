@@ -218,10 +218,17 @@ html[data-theme="light"] .preserve-colors {
    Cible : <img class="company-logo-img"> (PNG hébergés public/logos/<TICKER>.png).
    Effet dark : transforme tout PNG (Apple noir, etc.) en silhouette blanche
    adoucie. Effet light : silhouette noire adoucie. Ne touche PAS les SVG
-   hardcodés (GOOGL/META/MSCI/SPGI/CAT) qui ne portent pas cette classe. */
+   hardcodés (GOOGL/META/MSCI/SPGI/CAT) qui ne portent pas cette classe.
+
+   BUG FIX (8 juin 2026) : le light theme applique `filter: invert(1)
+   hue-rotate(180deg)` global sur <html>. Sans compensation, le filtre
+   light `brightness(0)` produisait BLACK localement → global invert le
+   transforme en WHITE → invisible sur fond blanc (fond sombre inversé).
+   Fix : `brightness(0) invert(1)` au lieu de `brightness(0)` produit
+   WHITE local → global invert → BLACK final = silhouette noire visible. */
 .company-logo-img {
   filter: brightness(0) invert(1) opacity(0.92);
 }
 html[data-theme="light"] .company-logo-img {
-  filter: brightness(0) opacity(0.85);
+  filter: brightness(0) invert(1) opacity(0.85);
 }
