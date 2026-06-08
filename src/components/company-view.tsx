@@ -83,6 +83,23 @@ import type { UserTier } from "@/lib/freemium/context";
 
 const VISIBLE_KPI_COUNT = 6;
 
+// Yann 8 juin 2026 : un KPI n'est affichable que s'il a une VRAIE valeur non
+// nulle. Un "0,0" n'apporte aucune plus-value et trahit presque toujours une
+// extraction ratee (ex Cap Return avec history toute a zero sur 226 stes).
+// Applique au tableau Indicateurs cles + au hero par defaut + aux stories.
+function kpiHasUsableValue(k?: { value?: unknown } | null): boolean {
+  if (!k) return false;
+  const v = k.value;
+  if (typeof v === "number") return Number.isFinite(v) && Math.abs(v) > 0;
+  if (typeof v === "string") {
+    const s = v.trim();
+    if (s === "" || s === "—") return false;
+    const n = parseFloat(s.replace(/\s/g, "").replace(",", "."));
+    return Number.isFinite(n) && Math.abs(n) > 0;
+  }
+  return false;
+}
+
 /**
  * Yann (12 mai 2026) : le toggle "valeur par seconde / minute / jour /
  * mois / an" ne fait sens QUE pour certaines familles de KPI :
@@ -245,9 +262,19 @@ export function CompanyView({
       heroKpi?.period_type === "quarter" &&
       Array.isArray(heroKpi.history) &&
       heroKpi.history.length >= 4;
-    if (heroIsQuarterly) return heroShort;
+    // Yann 8 juin 2026 : si le hero configure n'a pas de valeur reelle non
+    // nulle (ex Cap Return 0,0, segment vide), on NE l'affiche PAS par defaut.
+    // On bascule sur le 1er KPI specifique avec une vraie valeur + history,
+    // pour ne jamais afficher un gros chiffre "0,0". Le user re-curera le
+    // hero via /admin/kpis-toggle (son choix prime quand la valeur est valide).
+    const heroUsable = kpiHasUsableValue(heroKpi);
+    if (heroUsable && heroIsQuarterly) return heroShort;
     if (bestQuarterlyKpiShort) return bestQuarterlyKpiShort;
-    return heroShort;
+    if (heroUsable) return heroShort;
+    const fallback = company.kpis?.find(
+      (k) => kpiHasUsableValue(k) && Array.isArray(k.history) && k.history.length >= 3,
+    );
+    return fallback?.short ?? heroShort;
   }, [company, bestQuarterlyKpiShort]);
 
   const [activeKpiShort, setActiveKpiShort] = useState(effectiveDefaultHero);
@@ -533,6 +560,10 @@ export function CompanyView({
     // disponibles pour une sté, on affiche MOINS de 5 — c'est honnête
     // côté contenu vs faux confort "5 visibles" avec génériques.
     return all.filter((k) => {
+      // Yann 8 juin 2026 : jamais de KPI a valeur 0/null affiche (meme le
+      // hero). Un "0,0" n'a aucune PV. Le hero reste prioritaire MAIS doit
+      // avoir une vraie valeur.
+      if (!kpiHasUsableValue(k)) return false;
       if (k.short === heroShort) return true;
       if (isGenericKpi(k.short)) return false;
       if (hiddenByRule.has(k.short)) return false;
