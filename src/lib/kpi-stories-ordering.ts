@@ -8,7 +8,32 @@
  */
 
 import type { KPI, MarketPosition } from "./data";
-import { isGenericKpi } from "./kpi-generic";
+
+/**
+ * Yann 8 juin 2026 : generiques BASIQUES interdits en story (comptable banal).
+ * Les generiques "speciaux" (Cap Return, Buybacks, DPS, Payout Ratio =
+ * allocation du capital, narratif investisseur) NE sont PAS dans cette liste
+ * et restent eligibles en story s'ils ont une vraie valeur non nulle.
+ */
+const BASIC_GENERIC_STORY_EXCLUDE = new Set<string>([
+  "total revenue", "revenue", "net sales", "sales", "total sales", "net revenue",
+  "chiffre d'affaires", "chiffre d'affaires net", "chiffre d'affaires total", "revenu total",
+  "net income", "net profit", "net margin", "net margin %",
+  "operating income", "op income", "operating profit", "ebit",
+  "operating margin", "op margin", "operating margin %",
+  "gross margin", "gross margin %",
+  "ebitda", "ebitda margin",
+  "free cash flow", "fcf", "operating cash flow", "ocf",
+  "eps", "earnings per share", "eps diluted", "diluted eps",
+  "total assets", "total debt", "net debt", "cash & equivalents", "cash and equivalents",
+  "leverage ratio", "roe", "roic", "return on equity",
+  "p/e ratio", "market cap", "market capitalization", "shares outstanding",
+  "tax rate", "effective tax rate", "headcount", "capex", "r&d",
+]);
+function isBasicGenericKpi(short: string | null | undefined): boolean {
+  if (!short) return false;
+  return BASIC_GENERIC_STORY_EXCLUDE.has(short.toLowerCase().replace(/\s+/g, " ").trim());
+}
 
 export type StorySlide =
   | { kind: "kpi"; data: KPI }
@@ -42,10 +67,12 @@ const CATEGORY_ORDER: Record<string, number> = {
  * Si signal ET description manquent aussi → on garde pas la story (rien à dire).
  */
 function isStoryKpiUsable(k: KPI): boolean {
-  // Yann 8 juin 2026 : exclure les KPIs GENERIQUES des stories (regle
-  // §0septies). Ex "Cap Return" generique affichait "0,0 Mds $" en story
-  // alors que le texte disait "2.183 Mds $" (data contaminee + bas de gamme).
-  if (isGenericKpi(k.short)) return false;
+  // Yann 8 juin 2026 : exclure SEULEMENT les generiques BASIQUES des stories
+  // (CA, resultat net, EPS, marges, EBITDA, FCF, bilan, effectif...). Les
+  // generiques "speciaux" d'allocation du capital (Cap Return, Buybacks, DPS)
+  // SONT acceptes en story (vraie PV investisseur). Le "0,0 Mds \$" casse de
+  // Cap Return reste filtre par le garde-fou valeur-nulle ci-dessous.
+  if (isBasicGenericKpi(k.short)) return false;
   // Value usable : number fini NON nul OU string > 0 char non nulle. Une
   // story a "0,0" n'a aucun sens (et trahit souvent une extraction ratee).
   let hasValue = false;
