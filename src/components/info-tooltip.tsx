@@ -84,6 +84,18 @@ export function InfoTooltip({
         left: coords.left,
         transform: "translateX(-50%)",
       };
+    // Yann 8 juin 2026 : auto-flip. La popup fait w-72 (288px). Si elle
+    // depasserait le bord droit de l'ecran (cas du "i" en bout de titre KPI a
+    // droite, ex "Revenus des frais de membership (i)"), on l'ouvre vers la
+    // GAUCHE (right-align) pour ne plus tronquer le texte de definition.
+    const POPUP_W = 288;
+    const MARGIN = 12;
+    if (
+      typeof window !== "undefined" &&
+      coords.left + POPUP_W + MARGIN > window.innerWidth
+    ) {
+      return { top: coords.top, right: coords.right };
+    }
     return { top: coords.top, left: coords.left };
   })();
 

@@ -8,6 +8,7 @@
  */
 
 import type { KPI, MarketPosition } from "./data";
+import { isGenericKpi } from "./kpi-generic";
 
 export type StorySlide =
   | { kind: "kpi"; data: KPI }
@@ -41,10 +42,18 @@ const CATEGORY_ORDER: Record<string, number> = {
  * Si signal ET description manquent aussi → on garde pas la story (rien à dire).
  */
 function isStoryKpiUsable(k: KPI): boolean {
-  // Value usable : number fini OU string > 0 char
+  // Yann 8 juin 2026 : exclure les KPIs GENERIQUES des stories (regle
+  // §0septies). Ex "Cap Return" generique affichait "0,0 Mds $" en story
+  // alors que le texte disait "2.183 Mds $" (data contaminee + bas de gamme).
+  if (isGenericKpi(k.short)) return false;
+  // Value usable : number fini NON nul OU string > 0 char non nulle. Une
+  // story a "0,0" n'a aucun sens (et trahit souvent une extraction ratee).
   let hasValue = false;
-  if (typeof k.value === "number") hasValue = Number.isFinite(k.value);
-  else if (typeof k.value === "string") hasValue = k.value.trim().length > 0 && k.value.trim() !== "—";
+  if (typeof k.value === "number") hasValue = Number.isFinite(k.value) && Math.abs(k.value) > 0;
+  else if (typeof k.value === "string") {
+    const s = k.value.trim();
+    hasValue = s.length > 0 && s !== "—" && parseFloat(s.replace(/,/g, ".")) !== 0;
+  }
   if (!hasValue) return false;
   // Titre obligatoire
   const name = (k.name_fr ?? "").trim();

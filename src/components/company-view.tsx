@@ -56,8 +56,6 @@ import { RepartitionBlock } from "@/components/repartition-block";
 import { DividendStories } from "@/components/dividend-stories";
 import { FreshnessIndicator } from "@/components/freshness-indicator";
 import { getFreshnessReference } from "@/lib/freshness/compute-tier";
-import { AcronymHover } from "@/components/acronym-hover";
-import { ACRONYM_GLOSSARY, TERM_GLOSSARY } from "@/lib/ui-fix-templates";
 import { CompanyNavChrome } from "@/components/company-nav-chrome";
 import { KpiSwapTitle } from "@/components/kpi-swap-title";
 import { SuperKpiBoard } from "@/components/super-kpi-board";
@@ -809,14 +807,10 @@ export function CompanyView({
                   (FY) en bout de ligne sur les stes a exercice decale. Le user
                   veut ce "i" TOUJOURS visible : les badges wrappent sous le titre
                   au lieu d'etre coupes. (Override regle figee 5 juin.) */}
+              {/* Yann 8 juin 2026 : "KPI principal" + chip categorie bleu
+                  supprimes. Le badge "A jour" (freshness) est desormais aligne
+                  a gauche en premier (a la place de l'ancien label). */}
               <div className="mb-2 flex flex-wrap items-center gap-1.5 pb-0.5">
-                <span
-                  className="inline-block size-1.5 animate-pulse-dot rounded-full"
-                  style={{ background: accent }}
-                />
-                <span className="whitespace-nowrap font-sans text-[12px] font-semibold uppercase tracking-[0.14em] text-zinc-300">
-                  {t("company.kpi_principal")}
-                </span>
                 {/* Yann (V1.9.5, juin 2026) : chip freshness identique entre
                     card home et page sté. On utilise le hero KPI **configuré**
                     (= getHero(company)), pas l'`active` qui peut diverger
@@ -982,23 +976,8 @@ export function CompanyView({
                 })()}
               </div>
 
-              <div className="mt-1 flex items-center gap-2.5">
-                <AcronymHover
-                  align="left"
-                  label={(() => {
-                    const base = `${active.name_fr}${active.name_en && active.name_en !== active.name_fr ? ` (${active.name_en})` : ""}`;
-                    const gloss = ACRONYM_GLOSSARY[active.short] ?? TERM_GLOSSARY[active.short] ?? TERM_GLOSSARY[active.name_fr];
-                    return gloss ? `${base}, ${gloss}` : base;
-                  })()}
-                >
-                  <span
-                    className="cursor-help rounded-md px-1.5 py-0.5 font-mono text-[12px] font-bold uppercase tracking-wider"
-                    style={{ background: `${accent}1a`, color: accent, border: `1px solid ${accent}33` }}
-                  >
-                    {active.short}
-                  </span>
-                </AcronymHover>
-              </div>
+              {/* Yann 8 juin 2026 : chip categorie bleu (active.short) supprime
+                  du hero a la demande du user. */}
 
               {/* Chiffre principal — clamp responsif (max 7vw) pour éviter
                   l'overflow horizontal sur les grandes valeurs (ex BPA dilué
