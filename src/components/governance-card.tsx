@@ -296,15 +296,27 @@ export function GovernanceCard({
   ticker,
   company,
   freeBlocked = false,
+  disabledBlocks,
 }: {
   governance: Governance;
   ticker: string;
   company?: Company | null;
   /** Yann (25 mai 2026) : floute valeurs chiffrées governance en mode free. */
   freeBlocked?: boolean;
+  /** Yann 9 juin 2026 : blocs désactivés résolus côté serveur (Supabase +
+   *  fallback JSON). Déjà étendu legacy (gouvernance_top3 → votes + capital)
+   *  côté serveur. Si fourni, prime sur le fallback client
+   *  `isBlockDisabledForTicker`. Fallback obligatoire pour ne pas casser
+   *  les pages qui ne passent pas encore la prop (v1-8, v1-7-5). */
+  disabledBlocks?: string[];
 }) {
   const { t, locale } = useT();
   const accent = brand(ticker).primary;
+  // Helper local : prop si fournie, sinon fallback isBlockDisabledForTicker.
+  const isDisabled = (k: string): boolean =>
+    disabledBlocks
+      ? disabledBlocks.includes(k)
+      : isBlockDisabledForTicker(ticker, k);
   const g = governance;
   const [pieOpen, setPieOpen] = useState<"voting" | "capital" | null>(null);
   // Devise dynamique : ASML → €, AAPL → $, ARM → £, NESN.SW → CHF.
@@ -546,8 +558,8 @@ export function GovernanceCard({
           automatiquement les 2 sous-blocs via la logique de
           isBlockDisabledForTicker. */}
       {(() => {
-        const votesDisabled = isBlockDisabledForTicker(ticker, "gouvernance_top3_votes");
-        const capitalDisabled = isBlockDisabledForTicker(ticker, "gouvernance_top3_capital");
+        const votesDisabled = isDisabled("gouvernance_top3_votes");
+        const capitalDisabled = isDisabled("gouvernance_top3_capital");
         const showVotes = !!(g.top_voting && g.top_voting.length > 0) && !votesDisabled;
         const showCapital = !!(g.top_capital && g.top_capital.length > 0) && !capitalDisabled;
         if (!showVotes && !showCapital) return null;

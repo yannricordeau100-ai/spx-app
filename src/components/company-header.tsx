@@ -196,6 +196,7 @@ export function CompanyHeader({
   hidePriceBar = false,
   allTickers,
   freeBlocked = false,
+  disabledBlocks,
 }: {
   company: Company;
   hidePriceBar?: boolean;
@@ -209,16 +210,26 @@ export function CompanyHeader({
   allTickers?: Set<string> | ReadonlySet<string>;
   /** Yann (25 mai 2026) : floute stock price + market cap en mode free. */
   freeBlocked?: boolean;
+  /** Yann 9 juin 2026 : blocs désactivés résolus côté serveur (Supabase +
+   *  fallback JSON). Si fourni, prime sur le fallback client
+   *  `isBlockDisabledForTicker`. Les pages qui ne passent pas encore la
+   *  prop (v1-8, v1-7-5) gardent le fallback JSON sans régression. */
+  disabledBlocks?: string[];
 }) {
   const accent = brand(company.ticker).primary;
   const { t, locale } = useT();
+  // Helper local : prop si fournie, sinon fallback isBlockDisabledForTicker.
+  const isDisabled = (k: string): boolean =>
+    disabledBlocks
+      ? disabledBlocks.includes(k)
+      : isBlockDisabledForTicker(company.ticker, k);
   // Yann 29 mai 2026 : toggle global/per-sté pour masquer le bloc logo
   // (header). Quand désactivé : layout alternatif sans le carré 56-64px,
   // nom + catégorie + tagline alignés à gauche du conteneur.
   // Yann 2 juin 2026 : second système de toggle (blocks-control V1.9.5)
   // ajoute aussi un switch "Logo société" — on combine les deux.
   const logoDisabled =
-    isBlockDisabledForTicker(company.ticker, "logo") ||
+    isDisabled("logo") ||
     !isBlockEnabled("company_logo", company.ticker);
 
   return (

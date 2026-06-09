@@ -178,6 +178,7 @@ export function CompanyView({
   transcriptSummary = null,
   v18Mode = false,
   freemiumTier,
+  disabledBlocks,
 }: {
   company: Company;
   authSlot?: React.ReactNode;
@@ -195,7 +196,24 @@ export function CompanyView({
    *  chiffres importants + textes plus-value. Provider FreemiumBlurProvider
    *  doit être posé côté SSR (page.tsx V1.9 / V1.9.5). */
   freemiumTier?: UserTier;
+  /** Yann 9 juin 2026 : liste des blocs désactivés (Supabase + fallback
+   *  JSON) résolue côté serveur via `resolveDisabledForTicker(ticker)` et
+   *  passée en prop. Si fournie, prime sur le fallback client
+   *  `isBlockDisabledForTicker` (JSON only). Les pages qui ne la passent
+   *  pas encore (v1-8, v1-7-5) gardent le fallback JSON sans régression. */
+  disabledBlocks?: string[];
 }) {
+  // Yann 9 juin 2026 : helper unique pour savoir si un bloc est désactivé.
+  // Si `disabledBlocks` est fourni (page V1.9.5, source Supabase résolue
+  // côté serveur), on lit cette prop + expansion legacy gouvernance_top3.
+  // Sinon fallback sur isBlockDisabledForTicker (JSON only, client-safe)
+  // pour ne pas casser les pages qui ne passent pas encore la prop.
+  const isDisabled = (k: string): boolean =>
+    disabledBlocks
+      ? disabledBlocks.includes(k) ||
+        ((k === "gouvernance_top3_votes" || k === "gouvernance_top3_capital") &&
+          disabledBlocks.includes("gouvernance_top3"))
+      : isBlockDisabledForTicker(company.ticker, k);
   // Yann (25 mai 2026) : helper local — true si on doit flouter pour ce tier
   // sur cette sté (free + sté non accessible en free).
   const freeBlocked =
@@ -764,8 +782,9 @@ export function CompanyView({
 
           <CompanyHeader
             company={company}
-            hidePriceBar={hidePriceBar || isBlockDisabledForTicker(company.ticker, "snapshot_boursier")}
+            hidePriceBar={hidePriceBar || isDisabled("snapshot_boursier")}
             freeBlocked={false}
+            disabledBlocks={disabledBlocks}
           />
 
           <RecentIpoPlaceholder
@@ -834,8 +853,9 @@ export function CompanyView({
             CompanyProfileCard (cf prop hideSnapshot ci-dessous). */}
         <CompanyHeader
           company={company}
-          hidePriceBar={hidePriceBar || isBlockDisabledForTicker(company.ticker, "snapshot_boursier")}
+          hidePriceBar={hidePriceBar || isDisabled("snapshot_boursier")}
           freeBlocked={false}
+          disabledBlocks={disabledBlocks}
         />
 
         {/* HERO SECTION — plain section (no motion opacity:0 -> mobile bug) */}
@@ -1295,7 +1315,7 @@ export function CompanyView({
                 unit={displayUnit}
                 color={accent}
                 anomalies={anomalies}
-                events={isBlockDisabledForTicker(company.ticker, "events") ? [] : ((company.events && company.events.length > 0) ? company.events : getCompanyEvents(company.ticker))}
+                events={isDisabled("events") ? [] : ((company.events && company.events.length > 0) ? company.events : getCompanyEvents(company.ticker))}
                 company={company}
                 activeShort={active.short}
                 onPickKpi={handleKpiClick}
@@ -1415,7 +1435,7 @@ export function CompanyView({
         </section>
 
         {/* Stories — KPIs short-history + MarketPositions intégrées */}
-        {isBlockEnabled("stories", company.ticker) && !isBlockDisabledForTicker(company.ticker, "kpi_stories") ? (
+        {isBlockEnabled("stories", company.ticker) && !isDisabled("kpi_stories") ? (
           hasStories(company.kpis, company.market_positions) && (
             <KpiStories company={company} freeBlocked={freeBlocked} />
           )
@@ -1426,7 +1446,7 @@ export function CompanyView({
         {/* Graphiques et Schémas de sources diverses (Yann 15 mai 2026 v2).
             Placé SOUS les Stories. Images approuvées dans
             /sandbox/image-findings mergées au SSR dans company.image_findings. */}
-        {isBlockEnabled("image_findings", company.ticker) && !isBlockDisabledForTicker(company.ticker, "graphiques_schemas") ? (
+        {isBlockEnabled("image_findings", company.ticker) && !isDisabled("graphiques_schemas") ? (
           Array.isArray((company as Company & { image_findings?: unknown[] }).image_findings) &&
           ((company as Company & { image_findings?: unknown[] }).image_findings as unknown[]).length > 0 ? (
             <ImageFindingsBlock
@@ -1450,7 +1470,7 @@ export function CompanyView({
             dispo. Si pas de bullets et pas de transcript brut : RIEN ne
             s'affiche (Yann 12 mai 2026 : ex AAPL, ne pas afficher de bloc
             vide pour les stés sans transcript accessible). */}
-        {isBlockEnabled("transcripts", company.ticker) && !isBlockDisabledForTicker(company.ticker, "transcript_bullets") ? (
+        {isBlockEnabled("transcripts", company.ticker) && !isDisabled("transcript_bullets") ? (
           transcriptSummary && transcriptSummary.summary?.bullets?.length ? (
             <TranscriptBulletsBlock ticker={company.ticker} summary={transcriptSummary} />
           ) : transcript && (
@@ -1475,12 +1495,12 @@ export function CompanyView({
         <CompanyProfileCard
           company={company}
           accent={accent}
-          hideDescription={isBlockDisabledForTicker(company.ticker, "description_mettrik")}
-          hideSnapshot={isBlockDisabledForTicker(company.ticker, "snapshot_boursier")}
+          hideDescription={isDisabled("description_mettrik")}
+          hideSnapshot={isDisabled("snapshot_boursier")}
         />
 
         {/* Risk factors */}
-        {isBlockEnabled("risks", company.ticker) && !isBlockDisabledForTicker(company.ticker, "risks") ? (
+        {isBlockEnabled("risks", company.ticker) && !isDisabled("risks") ? (
           company.risks && company.risks.length > 0 ? (
             <div id="sec-risks" className="scroll-mt-24">
               <RiskStack risks={company.risks} accent={accent} profitWarning={company.profit_warning} freeBlocked={freeBlocked} ticker={company.ticker} />
@@ -1494,7 +1514,7 @@ export function CompanyView({
 
         {/* Répartition CA (géo + segment) — au-dessus de Gouvernance */}
         {isBlockEnabled("repartition", company.ticker) ? (
-          <RepartitionBlock company={company} />
+          <RepartitionBlock company={company} disabledBlocks={disabledBlocks} />
         ) : (
           <BlockComingSoon blockId="repartition" />
         )}
@@ -1510,10 +1530,10 @@ export function CompanyView({
         )}
 
         {/* Governance */}
-        {isBlockEnabled("governance", company.ticker) && !isBlockDisabledForTicker(company.ticker, "gouvernance") ? (
+        {isBlockEnabled("governance", company.ticker) && !isDisabled("gouvernance") ? (
           company.governance ? (
             <div id="sec-governance" className="scroll-mt-24">
-              <GovernanceCard governance={company.governance} ticker={company.ticker} company={company} freeBlocked={freeBlocked} />
+              <GovernanceCard governance={company.governance} ticker={company.ticker} company={company} freeBlocked={freeBlocked} disabledBlocks={disabledBlocks} />
             </div>
           ) : (
             v18Mode && <V18MissingPlaceholder id="sec-governance" label="Gouvernance & rémunération" hint="DEF14A (cat 1) ou rapport annuel à extraire." />
@@ -1524,7 +1544,7 @@ export function CompanyView({
 
         {/* AI positioning — Yann 20 mai 2026 : masquer si stance=absent (= 10-K ne mentionne pas IA).
             Pas de bloc vide ou "Absent". Soit la sté a du AI réel à montrer, soit on masque. */}
-        {isBlockEnabled("ai_positioning", company.ticker) && !isBlockDisabledForTicker(company.ticker, "ai_positioning") ? (
+        {isBlockEnabled("ai_positioning", company.ticker) && !isDisabled("ai_positioning") ? (
           (() => {
             const ai = company.ai_positioning;
             if (!ai) return v18Mode ? <V18MissingPlaceholder id="sec-ai" label="Positionnement IA" hint="Mentions IA dans 10-K à parser via Cerebras Llama 3.3 70B." /> : null;

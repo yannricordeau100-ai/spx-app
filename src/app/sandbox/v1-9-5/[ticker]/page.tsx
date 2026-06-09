@@ -6,6 +6,7 @@ import { AuthNav } from "@/components/auth-nav";
 import type { TranscriptDoc } from "@/components/transcript-stories";
 import type { TranscriptBulletsSummary } from "@/components/transcript-bullets-block";
 import { loadV17Company } from "@/lib/company-core/load-company";
+import { resolveDisabledForTicker } from "@/lib/disabled-blocks-server";
 import { getServerLocale } from "@/lib/i18n/server";
 import { FreemiumBlurProvider, type UserTier } from "@/lib/freemium/context";
 import { readSimulateTier } from "@/lib/desk/effective-tier";
@@ -216,6 +217,10 @@ export default async function SandboxV195TickerPage({
   const transcript = await loadTranscript(ticker);
   const transcriptSummary = await loadTranscriptSummary(ticker);
 
+  // Blocs désactivés (Supabase + fallback JSON) résolus pour ce ticker :
+  // union(global, per-sté) avec expansion legacy gouvernance_top3.
+  const disabledBlocks = await resolveDisabledForTicker(ticker);
+
   // Yann (26 mai 2026) : floutage UNIQUEMENT pour plan free réel ou anon.
   // L'admin (DESK_OWNER_EMAIL) et tout user inscrit voit en clair par défaut
   // tant qu'on n'a pas branché Supabase plans → tier = max.
@@ -247,6 +252,7 @@ export default async function SandboxV195TickerPage({
         transcriptSummary={transcriptSummary}
         v18Mode
         freemiumTier={freemiumTier}
+        disabledBlocks={disabledBlocks}
       />
     </FreemiumBlurProvider>
   );

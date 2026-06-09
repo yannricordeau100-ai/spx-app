@@ -68,9 +68,24 @@ function adaptForLocale(b: RevenueBreakdown | undefined | null, locale: Locale) 
   };
 }
 
-export function RepartitionBlock({ company }: { company: Company }) {
+export function RepartitionBlock({
+  company,
+  disabledBlocks,
+}: {
+  company: Company;
+  /** Yann 9 juin 2026 : blocs désactivés résolus côté serveur (Supabase +
+   *  fallback JSON). Si fourni, prime sur le fallback client
+   *  `isBlockDisabledForTicker`. Fallback obligatoire pour ne pas casser
+   *  les pages qui ne passent pas encore la prop (v1-8, v1-7-5). */
+  disabledBlocks?: string[];
+}) {
   const { t, locale } = useT();
   const accent = brand(company.ticker).primary;
+  // Helper local : prop si fournie, sinon fallback isBlockDisabledForTicker.
+  const isDisabled = (k: string): boolean =>
+    disabledBlocks
+      ? disabledBlocks.includes(k)
+      : isBlockDisabledForTicker(company.ticker, k);
 
   const geo = adaptForLocale(company.revenue_by_geography, locale);
   const segment = adaptForLocale(company.revenue_by_segment, locale);
@@ -82,10 +97,10 @@ export function RepartitionBlock({ company }: { company: Company }) {
 
   // Treemap uniquement : on respecte quand même les toggles par dimension.
   const geoStyles: Style[] = STYLES.filter(
-    (s) => !isBlockDisabledForTicker(company.ticker, `repartition_geo_${s}`),
+    (s) => !isDisabled(`repartition_geo_${s}`),
   );
   const segmentStyles: Style[] = STYLES.filter(
-    (s) => !isBlockDisabledForTicker(company.ticker, `repartition_segment_${s}`),
+    (s) => !isDisabled(`repartition_segment_${s}`),
   );
 
   const hasGeo = !!(geo && geo.slices.length > 0) && geoStyles.length > 0;

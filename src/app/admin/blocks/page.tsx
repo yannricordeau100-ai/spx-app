@@ -1,18 +1,20 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { revalidatePath } from "next/cache";
-import { promises as fs } from "fs";
-import path from "path";
 import tickers from "@/data/v1-8-tickers-sorted.json";
 import preAudit from "@/data/v1-9-pre-publication-audit.json";
 import { requireDeskOwner } from "@/lib/desk/auth";
 import {
   DISABLED_BLOCKS_KEYS,
   DISABLED_BLOCKS_LABELS,
-  loadDisabledBlocks,
-  loadDisabledBlocksPerSte,
   type DisabledBlockKey,
 } from "@/lib/disabled-blocks";
+import {
+  getDisabledBlocksState,
+  setGlobalDisabled,
+  setPerSteDisabled,
+  removePerSteOverrideSb,
+} from "@/lib/disabled-blocks-server";
 
 /**
  * /admin/blocks — page UNIQUE et VERSION-AGNOSTIC pour gérer les blocs
@@ -24,9 +26,10 @@ import {
  * gated `requireDeskOwner()`. Les anciens paths sont redirigés en 308 vers
  * cette page (cf src/proxy.ts).
  *
- * Source de vérité :
- *   - global : src/data/disabled-blocks.json
- *   - per-sté : src/data/disabled-blocks-per-ste.json
+ * Source de vérité : table Supabase `desk_disabled_blocks` (writable en
+ * prod, contrairement aux JSON : disque Vercel read-only → fs.writeFile
+ * plantait en 500). Fallback sur les 2 JSON si la table est absente. Voir
+ * `src/lib/disabled-blocks-server.ts`.
  */
 export const dynamic = "force-dynamic";
 
@@ -34,12 +37,6 @@ export const metadata = {
   title: "Blocs page société · admin",
   robots: { index: false, follow: false },
 };
-
-const GLOBAL_CONFIG_PATH = path.join(process.cwd(), "src/data/disabled-blocks.json");
-const PER_STE_CONFIG_PATH = path.join(
-  process.cwd(),
-  "src/data/disabled-blocks-per-ste.json",
-);
 
 // Liste tickers = union de la liste V1.8 figée (344) ET de TOUTES les stés
 // clean_all de l'audit (= pages société réelles publiables). Ainsi les stés
@@ -67,22 +64,11 @@ async function disableBlockGlobal(formData: FormData) {
   await requireDeskOwner();
   const key = String(formData.get("block") ?? "").trim();
   if (!key) return;
-  const cfg = loadDisabledBlocks();
-  if (!cfg.disabled.includes(key)) cfg.disabled.push(key);
-  await fs.writeFile(
-    GLOBAL_CONFIG_PATH,
-    JSON.stringify(
-      {
-        _doc:
-          "Liste des blocs page société désactivés globalement. Géré via /admin/blocks.",
-        disabled: cfg.disabled,
-        updated_at: new Date().toISOString(),
-      },
-      null,
-      2,
-    ) + "\n",
-    "utf-8",
-  );
+  const state = await getDisabledBlocksState();
+  const next = state.global.includes(key)
+    ? state.global
+    : [...state.global, key];
+  await setGlobalDisabled(next);
   revalidatePath("/admin/blocks");
   revalidatePath("/", "layout");
 }
@@ -92,22 +78,9 @@ async function enableBlockGlobal(formData: FormData) {
   await requireDeskOwner();
   const key = String(formData.get("block") ?? "").trim();
   if (!key) return;
-  const cfg = loadDisabledBlocks();
-  cfg.disabled = cfg.disabled.filter((b) => b !== key);
-  await fs.writeFile(
-    GLOBAL_CONFIG_PATH,
-    JSON.stringify(
-      {
-        _doc:
-          "Liste des blocs page société désactivés globalement. Géré via /admin/blocks.",
-        disabled: cfg.disabled,
-        updated_at: new Date().toISOString(),
-      },
-      null,
-      2,
-    ) + "\n",
-    "utf-8",
-  );
+  const state = await getDisabledBlocksState();
+  const next = state.global.filter((b) => b !== key);
+  await setGlobalDisabled(next);
   revalidatePath("/admin/blocks");
   revalidatePath("/", "layout");
 }
@@ -125,40 +98,8 @@ async function savePerSteOverride(formData: FormData) {
     }
   }
 
-  let current: {
-    _doc?: string;
-    overrides?: Record<string, string[]>;
-    updated_at?: string;
-  } = {};
-  try {
-    const raw = await fs.readFile(PER_STE_CONFIG_PATH, "utf-8");
-    current = JSON.parse(raw);
-  } catch {
-    current = { overrides: {} };
-  }
-
-  const overrides: Record<string, string[]> = { ...(current.overrides ?? {}) };
-  if (blocks.length === 0) {
-    delete overrides[tickerRaw];
-  } else {
-    overrides[tickerRaw] = blocks;
-  }
-
-  await fs.writeFile(
-    PER_STE_CONFIG_PATH,
-    JSON.stringify(
-      {
-        _doc:
-          current._doc ??
-          "Overrides per-sté pour masquer des blocs page société sur un ticker précis. Géré via /admin/blocks.",
-        overrides,
-        updated_at: new Date().toISOString(),
-      },
-      null,
-      2,
-    ) + "\n",
-    "utf-8",
-  );
+  // setPerSteDisabled gère le cas liste vide (delete de l'override).
+  await setPerSteDisabled(tickerRaw, blocks);
 
   revalidatePath("/admin/blocks");
   revalidatePath(`/sandbox/v1-9-5/${tickerRaw.toLowerCase()}`);
@@ -170,32 +111,10 @@ async function removePerSteOverride(formData: FormData) {
   const ticker = String(formData.get("ticker") ?? "").trim().toUpperCase();
   if (!ticker) return;
 
-  let current: { _doc?: string; overrides?: Record<string, string[]> } = {};
-  try {
-    const raw = await fs.readFile(PER_STE_CONFIG_PATH, "utf-8");
-    current = JSON.parse(raw);
-  } catch {
-    return;
-  }
-
-  const overrides: Record<string, string[]> = { ...(current.overrides ?? {}) };
-  delete overrides[ticker];
-
-  await fs.writeFile(
-    PER_STE_CONFIG_PATH,
-    JSON.stringify(
-      {
-        _doc: current._doc,
-        overrides,
-        updated_at: new Date().toISOString(),
-      },
-      null,
-      2,
-    ) + "\n",
-    "utf-8",
-  );
+  await removePerSteOverrideSb(ticker);
 
   revalidatePath("/admin/blocks");
+  revalidatePath(`/sandbox/v1-9-5/${ticker.toLowerCase()}`);
 }
 
 /* ------------------------------------------------------------------ */
@@ -214,10 +133,11 @@ export default async function AdminBlocksPage({
   const ticker = (sp.ticker ?? "").trim().toUpperCase();
   const tickerKnown = ticker.length > 0 && TICKER_SET.has(ticker);
 
-  const globalCfg = loadDisabledBlocks();
-  const disabledSet = new Set(globalCfg.disabled);
-  const perSteCfg = loadDisabledBlocksPerSte();
-  const currentBlocks = ticker ? perSteCfg.overrides[ticker] ?? [] : [];
+  // Source de vérité Supabase (fallback JSON si table absente).
+  const state = await getDisabledBlocksState();
+  const disabledSet = new Set(state.global);
+  const perSteOverrides = state.perSte;
+  const currentBlocks = ticker ? perSteOverrides[ticker] ?? [] : [];
 
   return (
     <div className="min-h-screen bg-[#050505] text-zinc-100">
@@ -286,12 +206,6 @@ export default async function AdminBlocksPage({
               );
             })}
           </div>
-          {globalCfg.updated_at && (
-            <p className="mt-3 text-[11px] text-zinc-600">
-              Dernière mise à jour global :{" "}
-              {new Date(globalCfg.updated_at).toLocaleString("fr-FR")}
-            </p>
-          )}
         </section>
 
         {/* ─── Section 2 : override per-ticker ─── */}
@@ -421,16 +335,16 @@ export default async function AdminBlocksPage({
           {/* Liste overrides actuels */}
           <div>
             <h3 className="mb-3 font-display text-[13px] font-semibold uppercase tracking-wider text-zinc-300">
-              Overrides actuels ({Object.keys(perSteCfg.overrides).length})
+              Overrides actuels ({Object.keys(perSteOverrides).length})
             </h3>
-            {Object.keys(perSteCfg.overrides).length === 0 ? (
+            {Object.keys(perSteOverrides).length === 0 ? (
               <p className="text-[12.5px] text-zinc-500">
                 Aucun override per-sté pour le moment. Tape un ticker ci-dessus
                 pour en créer un.
               </p>
             ) : (
               <div className="space-y-2">
-                {Object.entries(perSteCfg.overrides)
+                {Object.entries(perSteOverrides)
                   .sort(([a], [b]) => a.localeCompare(b))
                   .map(([tk, blocks]) => (
                     <Link
@@ -456,13 +370,6 @@ export default async function AdminBlocksPage({
               </div>
             )}
           </div>
-
-          {perSteCfg.updated_at && (
-            <p className="mt-8 text-[11px] text-zinc-600">
-              Dernière mise à jour per-sté :{" "}
-              {new Date(perSteCfg.updated_at).toLocaleString("fr-FR")}
-            </p>
-          )}
         </section>
       </div>
     </div>
