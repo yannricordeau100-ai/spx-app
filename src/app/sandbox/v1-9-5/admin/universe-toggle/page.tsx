@@ -64,6 +64,7 @@ async function loadTickers(): Promise<{
   countryCounts: { country: string; count: number }[];
   capOrder: string[];
   names: Record<string, string>;
+  partialTickers: string[];
 }> {
   const sp500Path = path.join(process.cwd(), "src/data/sp500-tickers.json");
   const v18Path = path.join(process.cwd(), "src/data/v1-8-tickers-sorted.json");
@@ -76,6 +77,17 @@ async function loadTickers(): Promise<{
     names = JSON.parse(await fs.readFile(namesPath, "utf8")) as Record<string, string>;
   } catch {
     names = {};
+  }
+  let partialTickers: string[] = [];
+  try {
+    partialTickers = JSON.parse(
+      await fs.readFile(
+        path.join(process.cwd(), "src/data/v1-9-5-partial-retreat.json"),
+        "utf8",
+      ),
+    ) as string[];
+  } catch {
+    partialTickers = [];
   }
 
   const sp500 = JSON.parse(sp500Raw) as string[];
@@ -114,6 +126,7 @@ async function loadTickers(): Promise<{
     countryCounts,
     capOrder: v18,
     names,
+    partialTickers,
   };
 }
 
@@ -146,6 +159,7 @@ export default async function UniverseToggleAdminPage() {
           capOrder={data.capOrder}
           names={data.names}
           problemTickers={DATA_PENDING_TICKERS}
+          partialTickers={data.partialTickers}
         />
       </div>
     </div>

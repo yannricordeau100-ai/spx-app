@@ -17,6 +17,7 @@ type Props = {
   capOrder: string[];
   names: Record<string, string>;
   problemTickers: string[];
+  partialTickers: string[];
 };
 
 type Tab = "all" | "sp500" | "top307" | "country";
@@ -38,6 +39,7 @@ export function UniverseToggleClient({
   capOrder,
   names,
   problemTickers,
+  partialTickers,
 }: Props) {
   const [tab, setTab] = useState<Tab>("all");
   const [country, setCountry] = useState<string>(euInTop307[0]?.country ?? "");
@@ -49,6 +51,12 @@ export function UniverseToggleClient({
   const problemSet = useMemo(
     () => new Set(problemTickers.map((t) => t.toUpperCase())),
     [problemTickers],
+  );
+  // Stés traitées partiellement (technique réduite) à retraiter : violet,
+  // retirées du live, case désactivée.
+  const partialSet = useMemo(
+    () => new Set(partialTickers.map((t) => t.toUpperCase())),
+    [partialTickers],
   );
 
   const capIndex = useMemo(() => {
@@ -149,6 +157,9 @@ export function UniverseToggleClient({
         <span className="rounded-lg border border-red-500/40 bg-red-500/10 px-3 py-1.5 text-sm font-semibold text-red-200">
           🔴 {problemSet.size} mises de côté (problème)
         </span>
+        <span className="rounded-lg border border-violet-500/40 bg-violet-500/10 px-3 py-1.5 text-sm font-semibold text-violet-200">
+          🟣 {partialSet.size} traitées partiellement (à retraiter)
+        </span>
         <button
           type="button"
           onClick={refetchOnline}
@@ -216,7 +227,8 @@ export function UniverseToggleClient({
         {shown.map((ticker) => {
           const T = ticker.toUpperCase();
           const isProblem = problemSet.has(T);
-          const online = !isProblem && (onlineSet?.has(T) ?? false);
+          const isPartial = !isProblem && partialSet.has(T);
+          const online = !isProblem && !isPartial && (onlineSet?.has(T) ?? false);
           const isBusy = busy.has(T);
           const name = names[T] ?? "";
           return (
@@ -225,21 +237,35 @@ export function UniverseToggleClient({
               className={`flex items-center gap-2 rounded border px-2 py-1.5 transition-colors ${
                 isProblem
                   ? "border-red-500/50 bg-red-500/10"
-                  : online
-                    ? "border-emerald-500/50 bg-emerald-500/10"
-                    : "border-zinc-800 bg-zinc-900/40"
+                  : isPartial
+                    ? "border-violet-500/60 bg-violet-500/10"
+                    : online
+                      ? "border-emerald-500/50 bg-emerald-500/10"
+                      : "border-zinc-800 bg-zinc-900/40"
               }`}
             >
               <input
                 type="checkbox"
                 checked={online}
-                disabled={isBusy || isProblem || onlineSet === null}
+                disabled={isBusy || isProblem || isPartial || onlineSet === null}
                 onChange={() => toggle(ticker)}
                 className={`size-4 shrink-0 accent-emerald-500 ${
-                  isProblem ? "cursor-not-allowed opacity-40" : "cursor-pointer"
+                  isProblem || isPartial ? "cursor-not-allowed opacity-40" : "cursor-pointer"
                 }`}
-                aria-label={isProblem ? `${ticker} mise de côté` : `Publier ${ticker}`}
-                title={isProblem ? "Analyse en préparation : donnée non publiable" : undefined}
+                aria-label={
+                  isProblem
+                    ? `${ticker} mise de côté`
+                    : isPartial
+                      ? `${ticker} traitée partiellement, à retraiter`
+                      : `Publier ${ticker}`
+                }
+                title={
+                  isProblem
+                    ? "Analyse en préparation : donnée non publiable"
+                    : isPartial
+                      ? "Traitée partiellement (technique réduite), retirée du live, à retraiter"
+                      : undefined
+                }
               />
               <Link
                 href={`/sandbox/v1-9-5/${ticker}?audit_token=${auditToken}`}
@@ -250,7 +276,9 @@ export function UniverseToggleClient({
                   className={`truncate font-mono text-xs transition-colors ${
                     isProblem
                       ? "text-red-300 hover:text-red-200"
-                      : "text-zinc-200 hover:text-white"
+                      : isPartial
+                        ? "text-violet-300 hover:text-violet-200"
+                        : "text-zinc-200 hover:text-white"
                   }`}
                 >
                   {ticker}
