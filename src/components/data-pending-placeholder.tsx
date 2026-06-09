@@ -21,6 +21,14 @@ const DATA_PENDING_TABLE: Record<string, { name: string }> = {
   DTEGF: { name: "Deutsche Telekom AG" },
   CSGKF: { name: "Compagnie Financière Richemont" },
   VCISY: { name: "Vinci SA" },
+  "ERF.PA": { name: "Eurofins Scientific SE" },
+  "ITRK.L": { name: "Intertek Group plc" },
+  "AKZA.AS": { name: "AkzoNobel N.V." },
+  "SPM.MI": { name: "Saipem S.p.A." },
+  "SBRY.L": { name: "J Sainsbury plc" },
+  "KESKOB.HE": { name: "Kesko Oyj" },
+  "LI.PA": { name: "Klépierre" },
+  AAVXF: { name: "Abivax SA" },
 };
 
 export function getDataPendingMeta(ticker: string): { name: string } | null {

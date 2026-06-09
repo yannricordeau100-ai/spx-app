@@ -1,15 +1,49 @@
 {
   "ticker": "ERIE",
-  "_extracted_at": "2026-05-20T00:00:00Z",
-  "_extracted_by": "subagent-verif-rigoureux-12",
+  "_extracted_at": "2026-06-09T19:41:03.356732+00:00",
+  "_extracted_by": "reextract-top307-opus-ixbrl",
+  "_reextracted_top307": "2026-06-09T19:41:03.356732+00:00",
   "_fit_for_site": true,
-  "_company_note": "Erie Indemnity. Sole revenue source: management fee from Erie Insurance Exchange. Sources: 10-K 2023/2024/2025.",
-  "_sources": [
-    "sec-data/cat1-us/10K/2025/ERIE_2025-02-27.htm.gz (Management fee table ligne 968)",
-    "sec-data/cat1-us/10K/2024/ERIE_2024-02-26.htm.gz",
-    "sec-data/cat1-us/10K/2023/ERIE_2023.htm.gz (ligne 917 historical)"
-  ],
+  "_company_note": "Erie Indemnity: avocat de fait de l'Erie Insurance Exchange. Revenu = commission de gestion (cap 25%) sur primes Exchange. Sources 10-K 2017-2026 inline XBRL verbatim.",
   "kpis": [
+    {
+      "short": "Management Fee Revenue",
+      "name_fr": "Revenus de commission de gestion (emission/renouvellement)",
+      "name_en": "Management Fee Revenue (Policy Issuance and Renewal)",
+      "value": 3131.8,
+      "unit": "M $",
+      "yoy": "+8.2%",
+      "history": [
+        1662.6,
+        1719.6,
+        1810.5,
+        1841.8,
+        1913.2,
+        2087.8,
+        2442.1,
+        2894.1,
+        3131.8
+      ],
+      "history_periods": [
+        "2017",
+        "2018",
+        "2019",
+        "2020",
+        "2021",
+        "2022",
+        "2023",
+        "2024",
+        "2025"
+      ],
+      "period_type": "annual",
+      "description": "Revenus de commission de gestion verbatim 10-K. Environ 94% du revenu total Erie Indemnity.",
+      "signal": "Acceleration 2023-2025 sur hard market P&C (hausse tarifs et primes Exchange).",
+      "quality": "high",
+      "nature": "Cyclique",
+      "is_wow": true,
+      "is_generic": false,
+      "_evidence": "10-K XBRL PolicyIssuanceandRenewalServicesMember 2017-2025."
+    },
     {
       "short": "Exchange DAWP",
       "name_fr": "Primes émises Exchange",
@@ -55,28 +89,6 @@
       "nature": "Cyclique"
     },
     {
-      "short": "Management Fee Revenue",
-      "name_fr": "Revenus management fee policy issuance",
-      "name_en": "Management Fee Revenue (Policy Issuance & Renewal)",
-      "value": 2894.1,
-      "unit": "M$",
-      "yoy": "+18.5%",
-      "history": [
-        1841.8,
-        1913.2,
-        2087.8,
-        2442.1,
-        2894.1
-      ],
-      "period_type": "annual",
-      "description": "Revenus management fee du segment policy issuance & renewal services. ~98% du total revenue Erie Indemnity.",
-      "signal": "Hyper-corrélation parfaite avec DAWP * fee rate, levier zéro",
-      "quality": "high",
-      "explanation": "10-K 2025: $2,894.1M (2024). 10-K 2024: $2,442.1M (2023). 10-K 2023: $2,087.8M (2022), $1,913.2M (2021), $1,841.8M (2020).",
-      "pv_score": 5,
-      "nature": "Conjoncturel"
-    },
-    {
       "short": "Policies in Force Growth",
       "name_fr": "Croissance polices en force",
       "name_en": "Year-over-Year Policies in Force Growth",
@@ -120,7 +132,5 @@
       "pv_score": 4,
       "nature": "Cyclique"
     }
-  ],
-  "_pv_score_applied_at": "2026-05-29T21:15:30.997Z",
-  "_pv_score_signed_by": "REEXTRACT-OPUS-29MAY-residual"
+  ]
 }
