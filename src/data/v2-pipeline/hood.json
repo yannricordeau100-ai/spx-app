@@ -13,7 +13,7 @@
     "sector": "Top 25",
     "subsector": "Top 5"
   },
-  "hero_kpi": "ARPU",
+  "hero_kpi": "Net Interest Revenue",
   "hero_kpi_rationale": "L'ARPU est le KPI hero car il reflète directement la monétisation croissante par utilisateur, moteur clé de la croissance rentable dans le modèle fintech à base utilisateur massive.",
   "kpis": [
     {
@@ -319,46 +319,6 @@
       "_data_suspect": "contamination: history identique a Revenu Net d'Intérêts, vide 2026-06-08 a re-extraire SEC"
     },
     {
-      "short": "Revenu Net d'Intérêts",
-      "name_fr": "Revenu Net d'Intérêts",
-      "name_en": "Revenu Net d'Intérêts",
-      "explanation": "Mesure la différence entre les intérêts gagnés et payés. Montre si Robinhood gagne de l'argent via ses dépôts clients.",
-      "value": 1.067,
-      "unit": "Mds $",
-      "yoy": "+15.1%",
-      "type": "Revenue",
-      "nature": "Conjoncturel",
-      "comparable": "Comparable",
-      "signal": "",
-      "description": "Revenu Net d'Intérêts = 1.78 Mds $ (+28.1% YoY), nature conjoncturel.",
-      "history": [
-        0.565,
-        0.365,
-        0.299,
-        0.318,
-        0.361,
-        0.38,
-        0.441,
-        0.486,
-        0.467,
-        0.471,
-        0.618,
-        0.682,
-        0.637,
-        1.014,
-        0.927,
-        0.989,
-        1.274,
-        1.283,
-        1.067
-      ],
-      "is_short_history": true,
-      "explanation_fr": "Mesure la différence entre les intérêts gagnés et payés. Montre si Robinhood gagne de l'argent via ses dépôts clients.",
-      "explanation_en": "Measures the difference between interest earned and paid. Shows if Robinhood makes money from customer deposits.",
-      "signal_en": "Strong top-line growth, market traction",
-      "period_type": "quarter"
-    },
-    {
       "short": "Marge Opérationnelle Ajustée",
       "name_fr": "Marge Opérationnelle Ajustée",
       "name_en": "Marge Opérationnelle Ajustée",
@@ -564,6 +524,41 @@
       "period_type": "quarter",
       "_source": "Hero remplacé via _super_kpi_inputs.revenue_q (XBRL SEC EDGAR companyfacts)",
       "_hero_replacement_reason": "Hero précédent non couvert par historique trim ≥16"
+    },
+    {
+      "short": "Net Interest Revenue",
+      "name_fr": "Revenu net d'intérêts",
+      "name_en": "Net Interest Revenue",
+      "unit": "M $",
+      "period_type": "quarter",
+      "history": [
+        67.7,
+        63.4,
+        55,
+        74,
+        128,
+        167,
+        208,
+        234,
+        251,
+        236,
+        254,
+        285,
+        274,
+        296,
+        290,
+        357,
+        456,
+        411
+      ],
+      "value": 411,
+      "last_data_date": "2025-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Revenu net d'intérêts réel issu des soldes clients, du prêt sur marge et du cash ségrégué, distinct du chiffre d'affaires total. Forte progression portée par la hausse des actifs et des dépôts nets.",
+      "is_wow": true,
+      "yoy": "+38,9 %"
     }
   ],
   "stories_kpis": [
@@ -641,20 +636,7 @@
       "score": 3
     }
   ],
-  "_validation": [
-    "Aucune correction apportée aux KPIs principaux : toutes les valeurs numériques correspondent aux données du 10-K (ARPU $171, Total Platform Assets $322.1B, Net Deposits $68.1B, Funded Customers 27.0M, Gold Subscribers 4.18M, Total Net Revenues $4.47B, Adjusted EBITDA $2.52B, Net Income $1.88B)",
-    "Aucune correction d'unités nécessaire : toutes les unités sont correctes (M pour millions, Mds $ pour milliards, $ pour dollars, % pour pourcentages)",
-    "Aucun KPI halluciné détecté : toutes les valeurs sont vérifiables dans la source MD&A pages 101-104",
-    "YoY (year-over-year) vérifiés et corrects pour tous les KPIs : +40% ARPU (122→171), +67% Platform Assets (192.9→322.1), +35% Net Deposits (50.5→68.1), +7% Funded Customers (25.2→27.0), +58% Gold Subscribers (2.64→4.18), +52% Revenues (2.95→4.47), +76% Adj EBITDA (1.43→2.52), +33% Net Income (1.41→1.88)",
-    "History arrays vérifiés corrects pour tous les KPIs (année n-1, année n)",
-    "Stories KPIs vérifiés : Growth Rate Net Deposits 49%→35% (-14pts) et Net Market Gains $39.8B→$9.3B (-76%) correspondent aux données du tableau page 103",
-    "hero_kpi_rationale vérifié : pas d'em-dash, style approprié",
-    "Taglines en anglais vérifiés corrects",
-    "name_fr vérifiés appropriés et cohérents",
-    "Risque crypto complété dans score_rationale avec référence précise aux $38.2B d'actifs crypto (page 103 du 10-K)",
-    "Toutes les dates last_data_date cohérentes : 2025-12-31",
-    "Aucune fabrication ou hallucination détectée dans l'ensemble du dataset"
-  ],
+  "_validation": true,
   "governance": {
     "agm_date": "2026-06-02",
     "fiscal_year": 2025,
