@@ -14,30 +14,8 @@
     "subsector": "..."
   },
   "hero_kpi": "Loans to Customers",
-  "hero_kpi_rationale": "Pas de wow distinctif identifié. Le secteur bancaire privilégie les marges d'intérêt et la rentabilité opérationnelle comme indicateurs clés de performance.",
+  "hero_kpi_rationale": "Encours de prets a la clientele : indicateur de bilan central pour une banque de detail, plus parlant que le revenu total.",
   "kpis": [
-    {
-      "short": "Gross Margin",
-      "name_fr": "Marge brute",
-      "name_en": "Gross Margin",
-      "explanation": "La marge brute représente la différence entre les revenus d'intérêts et les coûts de financement, principale source de profit en banque.",
-      "value": null,
-      "unit": "Mds £",
-      "yoy": "+13%",
-      "type": "Revenue",
-      "nature": "Conjoncturel",
-      "comparable": "Comparable",
-      "signal": "Croissance solide de la marge d'intérêt grâce à l'expansion des dépôts.",
-      "description": "La marge brute a augmenté de 13 % en raison d'une meilleure rémunération des dépôts et de soldes clients plus élevés.",
-      "history": [],
-      "last_data_date": "2025-12-31",
-      "is_wow": false,
-      "is_generic": true,
-      "is_short_history": false,
-      "period_type": "year",
-      "_period_type_resolved_by": "SA24-A heuristic length_y",
-      "_data_suspect": "contamination: history identique a Total Income, vide 2026-06-08 a re-extraire SEC"
-    },
     {
       "short": "Op Margin",
       "name_fr": "Marge opérationnelle",
@@ -227,41 +205,6 @@
       "is_short_history": false,
       "period_type": "year",
       "_period_type_resolved_by": "SA24-A heuristic length_y"
-    },
-    {
-      "short": "Total Revenue",
-      "name_fr": "Chiffre d'affaires total",
-      "name_en": "Total Revenue",
-      "explanation": "Chiffre d'affaires consolidé de la période.",
-      "value": 4358,
-      "unit": "Mds GBP",
-      "type": "Revenue",
-      "history": [
-        3.98,
-        3.991,
-        4.332,
-        4.292,
-        4.358
-      ],
-      "last_data_date": "2026-03-31",
-      "period_type": "quarter",
-      "_added_by": "Sub-agent Opus EU narrative chunk-08",
-      "_added_at": "2026-06-01T22:22:46Z",
-      "_source": "v2-pipeline-enrich/nwg.l _super_kpi_inputs revenue_q Q1 2026 4,358 M£",
-      "nature": "Conjoncturel",
-      "_nature_normalized_at": "2026-06-01T22:48:03Z",
-      "_nature_normalized_by": "Sub-agent Opus nature chunk-3",
-      "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "The provided excerpt does not contain explicit annual \"Total Revenue\" figures for four or more consecutive years.",
-      "history_periods": [
-        "Q1 2025",
-        "Q2 2025",
-        "Q3 2025",
-        "Q4 2025",
-        "Q1 2026"
-      ],
-      "_audit_flag": "VALUE_ABERRANT_OUTLIER",
-      "_value_aberrant": true
     }
   ],
   "stories_kpis": [
@@ -452,5 +395,10 @@
   "_hero_last_set_at": "2026-06-04T19:28:31.660436Z",
   "_hero_last_set_by": "vague-bulk-suspects-rerun",
   "_hero_previous": "Net Impairment Losses",
-  "_hero_auto_subsector": "2026-06-08"
+  "_hero_auto_subsector": "2026-06-08",
+  "_validation": [
+    "Hero confirme: Loans to Customers (encours prets clientele) = 379.6 Mds £ verifie rapport annuel 2024.",
+    "Supprime KPI 'Gross Margin' (valeur nulle, historique vide, fabrique).",
+    "Supprime KPI 'Total Revenue' (4358 'Mds GBP' = unite erronee/contamination); Total Income 15.312 Mds £ conserve comme revenu groupe."
+  ]
 }
