@@ -280,8 +280,8 @@ export async function downloadSvgAsPng(
 
   const WM_LOGO_H = 36; // hauteur image combined logo
   const WM_LOGO_W = WM_LOGO_H * 3.6; // ratio ~3.6:1 du combined
-  const WM_GAP = 10;
-  const KPIS_DATA_BY_TEXT_W = 110; // espace pour "KPIs & Data by" en Avenir 14
+  const WM_GAP = 2; // Yann 10 juin 2026 : gap texte<->logo Mettrik reduit ~90% (etait 10 + padding boite)
+  const KPIS_DATA_BY_TEXT_W = 92; // largeur reelle "KPIs & Data by" Avenir 14 (collee au logo)
   const wmTotalW = KPIS_DATA_BY_TEXT_W + WM_GAP + WM_LOGO_W;
   // Aligné DROITE sur la fin du graph (= bord droit dernière date axe X).
   const wmRightX = origX + origW;
@@ -291,13 +291,13 @@ export async function downloadSvgAsPng(
   // doit donc être posée à origY+origH+10 (= ~10px sous le bas visuel
   // du chart, identique au gap "0"-"5" du label "2025").
   const wmY = origY + origH + 10;
-  const wmTextCenterX = wmStartX + KPIS_DATA_BY_TEXT_W / 2;
+  const wmTextRightX = wmStartX + KPIS_DATA_BY_TEXT_W;
   const wmLogoX = wmStartX + KPIS_DATA_BY_TEXT_W + WM_GAP;
 
   const wmTextEl = document.createElementNS(NS, "text");
-  wmTextEl.setAttribute("x", String(wmTextCenterX));
+  wmTextEl.setAttribute("x", String(wmTextRightX));
   wmTextEl.setAttribute("y", String(wmY + WM_LOGO_H / 2 + 5));
-  wmTextEl.setAttribute("text-anchor", "middle");
+  wmTextEl.setAttribute("text-anchor", "end");
   // Police Avenir avec fallback chain (Yann 2 juin 2026 v7).
   wmTextEl.setAttribute("font-family", PNG_FONT_FAMILY);
   wmTextEl.setAttribute("font-size", "14");
@@ -367,7 +367,7 @@ export async function downloadSvgAsPng(
   const TITLE_STE_CHAR_W = 16;          // estimation Avenir 800 34px
   const TITLE_KPI_CHAR_W = 9;           // estimation Avenir 600 18px
   const TITLE_LOGO_SIZE = 32;           // logo sté ligne 1 proportionnel au texte gros
-  const TITLE_LOGO_GAP = 10;            // gap entre logo et nom sté
+  const TITLE_LOGO_GAP = 26;            // Yann 10 juin 2026 : + d'espace entre logo et nom sté
   const LINE1_Y = origY - PAD_TOP + 55;
   const LINE2_Y = origY - PAD_TOP + 90;
 
@@ -464,6 +464,34 @@ export async function downloadSvgAsPng(
       const startL1 = midX - totalL1 / 2;
 
       if (hasLogo && stéLogoDataUrl) {
+        // Yann 10 juin 2026 : logo sté en carre-arrondi (meme forme que les
+        // pages stes) = fond arrondi subtil + logo clippe aux coins arrondis.
+        const logoTop = LINE1_Y - TITLE_LOGO_SIZE * 0.85;
+        const logoRadius = TITLE_LOGO_SIZE * 0.22;
+        const clipId = `steLogoClip_${Math.random().toString(36).slice(2, 8)}`;
+        const clipPathEl = document.createElementNS(NS, "clipPath");
+        clipPathEl.setAttribute("id", clipId);
+        const clipRectEl = document.createElementNS(NS, "rect");
+        clipRectEl.setAttribute("x", String(startL1));
+        clipRectEl.setAttribute("y", String(logoTop));
+        clipRectEl.setAttribute("width", String(TITLE_LOGO_SIZE));
+        clipRectEl.setAttribute("height", String(TITLE_LOGO_SIZE));
+        clipRectEl.setAttribute("rx", String(logoRadius));
+        clipRectEl.setAttribute("ry", String(logoRadius));
+        clipPathEl.appendChild(clipRectEl);
+        clone.appendChild(clipPathEl);
+        const bgRectEl = document.createElementNS(NS, "rect");
+        bgRectEl.setAttribute("x", String(startL1));
+        bgRectEl.setAttribute("y", String(logoTop));
+        bgRectEl.setAttribute("width", String(TITLE_LOGO_SIZE));
+        bgRectEl.setAttribute("height", String(TITLE_LOGO_SIZE));
+        bgRectEl.setAttribute("rx", String(logoRadius));
+        bgRectEl.setAttribute("ry", String(logoRadius));
+        bgRectEl.setAttribute(
+          "fill",
+          isDarkTheme ? "rgba(255,255,255,0.07)" : "rgba(10,10,10,0.05)"
+        );
+        clone.appendChild(bgRectEl);
         const stéImgEl = document.createElementNS(NS, "image");
         stéImgEl.setAttribute("href", stéLogoDataUrl);
         stéImgEl.setAttributeNS(
@@ -472,13 +500,11 @@ export async function downloadSvgAsPng(
           stéLogoDataUrl
         );
         stéImgEl.setAttribute("x", String(startL1));
-        stéImgEl.setAttribute(
-          "y",
-          String(LINE1_Y - TITLE_LOGO_SIZE * 0.85)
-        );
+        stéImgEl.setAttribute("y", String(logoTop));
         stéImgEl.setAttribute("width", String(TITLE_LOGO_SIZE));
         stéImgEl.setAttribute("height", String(TITLE_LOGO_SIZE));
         stéImgEl.setAttribute("preserveAspectRatio", "xMidYMid meet");
+        stéImgEl.setAttribute("clip-path", `url(#${clipId})`);
         clone.appendChild(stéImgEl);
       }
 
