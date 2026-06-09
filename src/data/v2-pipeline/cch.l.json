@@ -11,20 +11,7 @@
   "description": {
     "long_fr": "Coca-Cola HBC est l'un des principaux embouteilleurs partenaires de The Coca-Cola Company. Le groupe opère dans 29 pays sur 3 continents (Europe occidentale, Europe orientale, Afrique-Moyen-Orient) et sert plus de 740 millions de consommateurs. Le portefeuille couvre les boissons gazeuses, eaux, jus, énergie (Monster en distribution), café (Costa Coffee) et spiritueux premium dans certains pays. Coca-Cola HBC est cotée à Londres et Athènes. CA 2024 ~10,8 Mds € avec croissance volumes +2,8%."
   },
-  "hero_kpi": {
-    "short": "Organic Rev Growth",
-    "name_fr": "Croissance organique CA",
-    "value": 13.8,
-    "unit": "%",
-    "yoy": "+1.0pt",
-    "history": [
-      4.7,
-      16.6,
-      17.4,
-      12.8,
-      13.8
-    ]
-  },
+  "hero_kpi": "Volumes",
   "kpis": [
     {
       "short": "Organic Rev Growth",
@@ -48,19 +35,23 @@
       "short": "Volumes",
       "name_fr": "Volumes vendus",
       "name_en": "Unit cases sold",
-      "value": 2.94,
+      "value": 2.997,
       "unit": "Mds caisses",
       "yoy": "+2.8%",
-      "type": "Demand",
+      "type": "Volume",
       "nature": "Structurel",
       "history": [
         2.36,
-        2.6,
-        2.74,
-        2.86,
-        2.94
+        2.712,
+        2.836,
+        2.915,
+        2.997
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "last_data_date": "2025-12-31",
+      "_source": "Coca-Cola HBC Integrated Reports FY2022-2025 (Volume m unit cases, verbatim 2,711.8/2,835.5/2,915/2,997)",
+      "comparable": "Comparable",
+      "signal": "Volume total de caisses unitaires vendues, mesure d'activité cœur d'un embouteilleur."
     },
     {
       "short": "EBIT Margin",
@@ -291,5 +282,12 @@
     }
   ],
   "_maj_at": "2026-06-01T21:16:41Z",
-  "_maj_by": "Sub-agent Opus MAJ chunk-03"
+  "_maj_by": "Sub-agent Opus MAJ chunk-03",
+  "_validation": [
+    "Entity verified Coca-Cola HBC (embouteilleur Coca-Cola Europe-Afrique, CEO Zoran Bogdanovic): correct.",
+    "FIX hero_kpi: was stored as KPI object -> now string 'Volumes' (crash heroShort.toLowerCase resolved).",
+    "Volumes FY2022-2025 cross-checked verbatim vs CCH Integrated Reports (Volume m unit cases 2,711.8/2,835.5/2,915/2,997).",
+    "hero=Volumes (specific operational KPI for a beverage bottler)."
+  ],
+  "_decontam_2026-06-09": "hero_kpi object->string 'Volumes'; verbatim volume series FY21-25; added _validation (was REDIRECT)"
 }
