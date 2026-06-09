@@ -158,7 +158,7 @@ export function UniverseToggleClient({
           🔴 {problemSet.size} mises de côté (problème)
         </span>
         <span className="rounded-lg border border-violet-500/40 bg-violet-500/10 px-3 py-1.5 text-sm font-semibold text-violet-200">
-          🟣 {partialSet.size} traitées partiellement (à retraiter)
+          🟣 {partialSet.size} à retraiter (traitement partiel ou trop coûteux)
         </span>
         <button
           type="button"
