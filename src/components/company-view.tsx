@@ -1206,16 +1206,22 @@ export function CompanyView({
                     via KpiSwapTitle. Modification purement locale (state du
                     composant), n'écrit rien dans le dataset. Le suffix temps
                     "par X" est géré par KpiSwapTitle via la prop timeFraction. */}
-                <KpiSwapTitle
-                  nameFr={active.name_fr}
-                  nameEn={active.name_en}
-                  short={active.short}
-                  defaultLang={heroTitleLang}
-                  timeFraction={effectiveTimeFraction}
-                  onLangChange={setHeroTitleLang}
-                  className="text-[24px] font-bold leading-tight tracking-tight text-zinc-50 sm:text-[28px]"
-                  suffixClassName="ml-2 text-[18px] font-medium text-zinc-300 sm:text-[22px]"
-                />
+                {/* Yann 9 juin 2026 : le TITRE du hero KPI est flouté en mode
+                    gratuit, meme lorsqu'un autre KPI est selectionne (KpiSwapTitle
+                    lit `active`, donc le floutage suit la selection). GOOGL/META
+                    gratuits restent nets via freeBlocked. */}
+                <BlurredFreeText blocked={freeBlocked} ticker={company.ticker} mode="full" as="span">
+                  <KpiSwapTitle
+                    nameFr={active.name_fr}
+                    nameEn={active.name_en}
+                    short={active.short}
+                    defaultLang={heroTitleLang}
+                    timeFraction={effectiveTimeFraction}
+                    onLangChange={setHeroTitleLang}
+                    className="text-[24px] font-bold leading-tight tracking-tight text-zinc-50 sm:text-[28px]"
+                    suffixClassName="ml-2 text-[18px] font-medium text-zinc-300 sm:text-[22px]"
+                  />
+                </BlurredFreeText>
                 {/* Yann 15 mai 2026 : tooltip masqué si pas de contenu.
                     Yann 19 mai 2026 : prise en compte des champs i18n
                     `explanation_fr` / `explanation_en` si présents dans le
