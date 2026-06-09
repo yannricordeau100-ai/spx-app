@@ -13,7 +13,7 @@
     "sector": "N/A",
     "subsector": "N/A"
   },
-  "hero_kpi": "Sales revenues",
+  "hero_kpi": "Production",
   "hero_kpi_rationale": "Le chiffre d'affaires de Petrobras est le principal indicateur de performance reflétant ses volumes de production et de vente de pétrole, de gaz et de produits raffinés.",
   "kpis": [
     {
@@ -73,34 +73,6 @@
       "_fix_log": [
         "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
       ],
-      "_history_reversed_fix": "2026-06-08 deterministic"
-    },
-    {
-      "short": "Gross profit",
-      "name_fr": "Résultat brut",
-      "name_en": "Gross profit",
-      "explanation": "Différence entre le revenu des ventes et le coût des ventes.",
-      "value": 42.459,
-      "unit": "Mds $",
-      "yoy": "-7.7%",
-      "type": "Margin",
-      "nature": "Cyclique",
-      "comparable": "Comparable",
-      "signal": "La marge brute diminue, reflétant une augmentation des coûts de production ou une baisse des prix de vente.",
-      "description": "Le résultat brut indique la rentabilité des activités principales avant prise en compte des autres dépenses d'exploitation et charges financières.",
-      "history": [
-        53.974,
-        45.972,
-        42.459
-      ],
-      "last_data_date": "2025-12-31",
-      "is_wow": true,
-      "is_generic": false,
-      "is_short_history": true,
-      "explanation_en": "Gross Profit, revenue minus cost of goods sold.",
-      "signal_en": "Margin compression, watch profitability",
-      "_unit_rescaled": "M->Mds $ for 1-999 readability",
-      "period_type": "year",
       "_history_reversed_fix": "2026-06-08 deterministic"
     },
     {
@@ -384,6 +356,28 @@
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
       "period_type": "year"
+    },
+    {
+      "short": "Production",
+      "name_fr": "Production totale",
+      "name_en": "Total Production",
+      "unit": "M boe/j",
+      "period_type": "year",
+      "history": [
+        2.774,
+        2.684,
+        2.782,
+        2.698,
+        2.99
+      ],
+      "value": 2.99,
+      "last_data_date": "2025-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Production totale record de 2,99 M boe/j en 2025, en hausse de 10,8 pour cent, portée par le pre-salt du Bassin de Santos (Búzios, Mero, Tupi).",
+      "is_wow": true,
+      "yoy": "+10,8 %"
     }
   ],
   "stories_kpis": [
@@ -404,34 +398,6 @@
         89195,
         91416,
         102409
-      ],
-      "last_data_date": "2025-12-31",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Marché",
-      "period_type": "year",
-      "_fix_log": [
-        "SA30-02 2026-06-03"
-      ]
-    },
-    {
-      "short": "Gross profit",
-      "name_fr": "Résultat brut",
-      "name_en": "Gross profit",
-      "explanation": "Différence entre le revenu des ventes et le coût des ventes.",
-      "value": "42459",
-      "unit": "M $",
-      "yoy": "-7.7%",
-      "type": "Margin",
-      "nature": "Cyclique",
-      "comparable": "Comparable",
-      "signal": "La marge brute diminue, reflétant une augmentation des coûts de production ou une baisse des prix de vente.",
-      "description": "Le résultat brut indique la rentabilité des activités principales avant prise en compte des autres dépenses d'exploitation et charges financières.",
-      "history": [
-        42459,
-        45972,
-        53974
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
@@ -478,18 +444,7 @@
     "evidence": [],
     "source": ""
   },
-  "_validation": [
-    "Sector corrigé de 'Information Technology' à 'Energy'",
-    "Tagline amélioré pour mieux refléter l'activité de Petrobras",
-    "Hero_kpi_rationale réécrit sans tiret cadratin et avec meilleure structuration",
-    "Unités converties de 'Mds $' à 'M $' pour Sales revenues, Gross profit, R&D et Finance debt (valeurs en millions USD)",
-    "Unité de R&D et Finance debt corrigée pour cohérence (M $ au lieu de Mds $)",
-    "name_fr améliorés: 'Revenu des ventes' > 'Chiffre d'affaires', 'Marge brute' > 'Résultat brut'",
-    "Valeurs numériques converties en entiers (89.195 > 89195)",
-    "is_generic changé à false pour KPI validés dans le 10-K (revenues, gross profit, R&D, debt)",
-    "Descriptions améliorées et alignées avec les données du bilan et compte de résultat",
-    "All KPI values validated against Consolidated Statements of Income (F-4) et Financial Position (F-3)"
-  ],
+  "_validation": true,
   "_quarterly_extraction": {
     "date": "2026-05-06 12:57",
     "n_periods": 3,

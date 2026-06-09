@@ -360,7 +360,9 @@ def write_block(slug, block_name, slices, src_kind):
         ],
     }
     data["_ca_pipeline_at"] = datetime.now(timezone.utc).isoformat()
-    bpath.write_text(json.dumps(data, indent=2, ensure_ascii=False))
+    tmp = Path(str(bpath) + ".tmp")
+    tmp.write_text(json.dumps(data, indent=2, ensure_ascii=False))
+    os.replace(tmp, bpath)  # atomique : pas de demi-fichier visible par un lecteur concurrent
     return True
 
 
