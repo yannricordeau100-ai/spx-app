@@ -199,35 +199,11 @@
   "_customer_type_fetched_at": "2026-05-13T10:27:28.054558+00:00",
   "_geo_fetched_at": "2026-05-13T16:26:15.955289+00:00",
   "_gov_source": "yfinance.companyOfficers",
-  "_hero_history_extension": {
-    "kpi_short": "Max/Discovery+ Subs",
-    "name_fr": "Abonnés Max + Discovery+",
-    "name_en": "DTC Subscribers",
-    "history": [
-      73,
-      96.1,
-      97.7,
-      99,
-      116.9
-    ],
-    "period_labels": [
-      "FY2020",
-      "FY2021",
-      "FY2022",
-      "FY2023",
-      "FY2024"
-    ],
-    "unit": "M",
-    "period_type": "year",
-    "source": "src/data/v2-pipeline-specific-kpis/WBD.json (specific KPI, verified 5y fully-populated)",
-    "source_category": "cat1-us/10K",
-    "verified_at": "2026-05-20T11:56:54.191358+00:00",
-    "verified_by": "CONV-OPUS top-307-finale batch"
-  },
-  "hero_kpi_override": "Distribution Revenue",
-  "_hero_override_reason": "Hero original \"Streaming Subscribers\" : history 3 None sur 5. Switch vers KPI spec \"Max/Discovery+ Subs\" : 5y annual fully-populated 73-117M, brand-specific DTC. Source: WBD 10-K FY2024.",
-  "_hero_override_at": "2026-05-20T11:56:54.191358+00:00",
-  "_hero_override_extractor": "CONV-OPUS top-307-finale batch",
+  "_hero_history_extension_removed": "2026-06-09: ancien _hero_history_extension Max/Discovery+ Subs supprime (valeurs 73/99 non sourcables au 10-K, FY2020/FY2021 WBD-basis inexistants, merger avril 2022). Hero bascule sur Advertising Revenue.",
+  "hero_kpi_override": "Advertising Revenue",
+  "_hero_override_reason": "Hero = Advertising Revenue : KPI specifique media, 5 ans d'historique annuel verbatim au 10-K (FY2021 6194 -> FY2025 7306 M$, consolidated statements of operations). DTC subscribers ecarte car seulement 4 annees comparables verbatim (merger avril 2022). Distribution Revenue ecarte (saut merger 5202->16142). Studios/GLN segment non comparable <5y (restructuration segments FY2025).",
+  "_hero_override_at": "2026-06-09T00:00:00.000000+00:00",
+  "_hero_override_extractor": "CONV-DATA-WBD-hero-fix verbatim 10-K FY2025",
   "_revenue_by_segment_normalized_at": "2026-05-21T01:53:36.956Z",
   "_revenue_by_geography_normalized_at": "2026-05-21T01:53:36.956Z",
   "overrides_governance": {
@@ -240,305 +216,7 @@
     "Free Cash Flow": "Cash Flow"
   },
   "_kpis_type_overrides_source": "heuristic-fill-kpi-types.py (pattern match)",
-  "stories_kpis": [
-    {
-      "short": "AI Content Spend",
-      "name_fr": "Dépenses en contenus générés par IA",
-      "name_en": "AI-Generated Content Spend",
-      "explanation": "Montant investi dans la production de contenus utilisant l'intelligence artificielle générative.",
-      "value": 45,
-      "unit": "M $",
-      "yoy": "+35%",
-      "type": "Pipeline",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "signal": "Engagement croissant dans l'IA pour réduire les coûts de production",
-      "description": "WBD intensifie ses investissements dans les outils d'IA générative pour accélérer la création de scénarios, d'effets visuels et de doublages. Cela permet de rationaliser les coûts tout en maintenant un volume élevé de sortie de contenus.",
-      "history": [
-        "20",
-        "30",
-        "45"
-      ],
-      "last_data_date": "2025-03-31",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Innovation"
-    },
-    {
-      "short": "HBO Max MAU",
-      "name_fr": "Utilisateurs mensuels actifs HBO Max",
-      "name_en": "HBO Max Monthly Active Users",
-      "explanation": "Nombre d'utilisateurs actifs sur la plateforme HBO Max chaque mois.",
-      "value": 78,
-      "unit": "M unités",
-      "yoy": "+18%",
-      "type": "User",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "signal": "Croissance soutenue de l'engagement utilisateur malgré la concurrence",
-      "description": "La base d'utilisateurs actifs mensuels d'HBO Max progresse grâce à des lancements exclusifs et une intégration renforcée avec Discovery+. Cela reflète une fidélisation accrue et une stratégie de contenu différenciée.",
-      "history": [
-        "62",
-        "68",
-        "72",
-        "78"
-      ],
-      "last_data_date": "2025-03-31",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": false,
-      "story_category": "Adoption"
-    },
-    {
-      "short": "Global Streaming Share",
-      "name_fr": "Part de marché mondiale du streaming vidéo",
-      "name_en": "Global Video Streaming Market Share",
-      "explanation": "Part du chiffre d'affaires mondial du streaming vidéo détenue par WBD.",
-      "value": 9.3,
-      "unit": "%",
-      "yoy": "+1.2%",
-      "type": "Share",
-      "nature": "Structurel",
-      "comparable": "Non comparable",
-      "signal": "Position renforcée dans un marché dominé par quelques géants",
-      "description": "WBD gagne des parts de marché grâce à la fusion des catalogues HBO et Discovery sur HBO Max. Sa position combinée place l'entreprise au troisième rang mondial derrière Netflix et Disney+.",
-      "history": [
-        "8.1",
-        "8.7",
-        "9.3"
-      ],
-      "last_data_date": "2025-03-31",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Marché"
-    },
-    {
-      "short": "Gaming License Deals",
-      "name_fr": "Accords de licence jeux vidéo",
-      "name_en": "Interactive Gaming License Deals",
-      "explanation": "Nombre de nouveaux accords de licence signés pour l'exploitation de franchises WBD dans les jeux vidéo.",
-      "value": 14,
-      "unit": "accords",
-      "yoy": "+40%",
-      "type": "Pipeline",
-      "nature": "Conjoncturel",
-      "comparable": "Comparable",
-      "signal": "Monétisation accrue des franchises emblématiques via le jeu",
-      "description": "WBD étend l'utilisation de ses franchises comme DC, Harry Potter et Looney Tunes dans l'univers du jeu vidéo via des partenariats stratégiques. Ces accords renforcent les revenus de licence sans nécessiter d'investissement direct.",
-      "history": [
-        "8",
-        "10",
-        "14"
-      ],
-      "last_data_date": "2025-03-31",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Innovation"
-    },
-    {
-      "short": "Themed Experiences Capacity",
-      "name_fr": "Capacité des expériences thématiques",
-      "name_en": "Themed Experiences Capacity",
-      "explanation": "Nombre total de visiteurs annuels supportés par les parcs et expériences thématiques de WBD.",
-      "value": 35,
-      "unit": "M visiteurs",
-      "yoy": "+10%",
-      "type": "Capacity",
-      "nature": "Structurel",
-      "comparable": "Non comparable",
-      "signal": "Expansion physique des univers de marque à l'échelle mondiale",
-      "description": "La capacité d'accueil des parcs Warner Bros. World et autres expériences immersives augmente avec de nouveaux sites en Asie et au Moyen-Orient. Cette expansion renforce la monétisation hors écran des franchises.",
-      "history": [
-        "30",
-        "32",
-        "35"
-      ],
-      "last_data_date": "2025-03-31",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Capacité"
-    },
-    {
-      "short": "AI-Generated Content Hours",
-      "name_fr": "Heures de contenu généré par IA",
-      "name_en": "AI-Generated Content Hours",
-      "explanation": "Nombre d'heures de contenu produit avec l'aide de l'intelligence artificielle pour les plateformes de streaming.",
-      "value": 850,
-      "unit": "heures",
-      "yoy": "+42%",
-      "type": "Content",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "signal": "L'IA accélère la production de contenu à moindre coût",
-      "description": "WBD utilise l'IA pour générer des contenus secondaires comme des documentaires courts, des contenus bonus et des animations. Cela réduit les coûts de production et accélère le time-to-market.",
-      "history": [
-        "200",
-        "400",
-        "600",
-        "720",
-        "850"
-      ],
-      "last_data_date": "2025-12-31",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Innovation"
-    },
-    {
-      "short": "AI Script Pilot Rate",
-      "name_fr": "Taux de Pilotes de Scénarios IA",
-      "name_en": "AI Script Pilot Rate",
-      "explanation": "Proportion de pilotes de séries développés avec assistance IA sur l'ensemble des nouveaux pilotes en production.",
-      "value": 35,
-      "unit": "%",
-      "yoy": "+15%",
-      "type": "Pipeline",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "signal": "L'IA transforme la création de contenu à la source",
-      "description": "WBD intègre des outils d'IA générative dans le développement précoce de scénarios pour accélérer la production. Ce taux mesure l'adoption réelle dans les studios hollywoodiens.",
-      "history": [
-        20,
-        25,
-        30,
-        35
-      ],
-      "last_data_date": "2025-12-31",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Innovation"
-    },
-    {
-      "short": "Streaming Market Share US",
-      "name_fr": "Part de Marché Streaming États-Unis",
-      "name_en": "Streaming Market Share US",
-      "explanation": "Part de marché combinée d'HBO Max et discovery+ en nombre d'abonnés dans le marché américain du streaming vidéo.",
-      "value": 22.4,
-      "unit": "%",
-      "yoy": "+3.1%",
-      "type": "Share",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "signal": "Position dominante consolidée dans un marché saturé",
-      "description": "WBD détient la deuxième part de marché aux États-Unis après Netflix, grâce à la synergie entre HBO Max et discovery+. La croissance est tirée par le bundle et l'acquisition ciblée.",
-      "history": [
-        19.1,
-        20.8,
-        21.5,
-        22.4
-      ],
-      "last_data_date": "2025-12-31",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": false,
-      "story_category": "Marché"
-    },
-    {
-      "short": "Global MAU HBO Max",
-      "name_fr": "MAU Mondial HBO Max",
-      "name_en": "Global MAU HBO Max",
-      "explanation": "Nombre mensuel d'utilisateurs actifs sur la plateforme HBO Max à l'échelle mondiale.",
-      "value": 89.7,
-      "unit": "M unités",
-      "yoy": "+18%",
-      "type": "User",
-      "nature": "Conjoncturel",
-      "comparable": "Comparable",
-      "signal": "Croissance soutenue malgré la concurrence accrue",
-      "description": "La base d'utilisateurs mensuels d'HBO Max continue de croître grâce aux lancements internationaux et au contenu exclusif. L'engagement reste élevé avec une forte rétention post-lancement de séries phares.",
-      "history": [
-        62.3,
-        72.1,
-        78.5,
-        89.7
-      ],
-      "last_data_date": "2025-12-31",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": false,
-      "story_category": "Adoption"
-    },
-    {
-      "short": "Gaming IP License Value",
-      "name_fr": "Valeur des Licences IP Jeux",
-      "name_en": "Gaming IP License Value",
-      "explanation": "Revenus annuels générés par les licences de propriété intellectuelle de WBD pour des jeux vidéo tiers.",
-      "value": 415,
-      "unit": "Mds $",
-      "yoy": "+22%",
-      "type": "Revenue",
-      "nature": "Structurel",
-      "comparable": "Non comparable",
-      "signal": "Monétisation croissante des franchises emblématiques",
-      "description": "Les licences basées sur des IP comme DC, Game of Thrones et Harry Potter génèrent une demande forte auprès des éditeurs de jeux. Cette ligne monte en puissance avec les jeux mobiles et les métavers.",
-      "history": [
-        280,
-        340,
-        385,
-        415
-      ],
-      "last_data_date": "2025-12-31",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Innovation"
-    },
-    {
-      "short": "Themed Experience Openings",
-      "name_fr": "Ouvertures d'Expériences Thématisées",
-      "name_en": "Themed Experience Openings",
-      "explanation": "Nombre de nouvelles expériences physiques immersives (parcs, expositions, attractions) lancées par WBD dans l'année.",
-      "value": 7,
-      "unit": "sites",
-      "yoy": "+40%",
-      "type": "Capacity",
-      "nature": "Cyclique",
-      "comparable": "Non comparable",
-      "signal": "Expansion agressive du tourisme d'expérience",
-      "description": "WBD accélère le déploiement de lieux physiques basés sur ses franchises, notamment avec des partenariats en Asie et au Moyen-Orient. Chaque site renforce l'écosystème global de marque.",
-      "history": [
-        3,
-        4,
-        5,
-        7
-      ],
-      "last_data_date": "2025-12-31",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Capacité"
-    },
-    {
-      "short": "AI Bookings",
-      "name_fr": "Réservations d'intelligence artificielle",
-      "name_en": "AI Bookings",
-      "explanation": "Le montant des réservations d'intelligence artificielle pour les services de streaming.",
-      "value": 250,
-      "unit": "M $",
-      "yoy": "+25%",
-      "type": "Innovation",
-      "nature": "Conjoncturel",
-      "comparable": "Comparable",
-      "signal": "L'adoption de l'intelligence artificielle est en plein essor.",
-      "description": "Les réservations d'intelligence artificielle sont en augmentation thanks à la demande croissante de contenu personnalisé. Cela représente une opportunité de croissance pour l'entreprise.",
-      "history": [
-        150,
-        200,
-        220,
-        250
-      ],
-      "last_data_date": "2026-02-28",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Innovation"
-    }
-  ],
+  "stories_kpis": [],
   "_stories_backfill_at": "2026-05-25T00:12:45Z",
   "_stories_backfill_source": "scaleup_309_ko_cerebras_key0",
   "risks_rationale_overrides": [
@@ -599,7 +277,7 @@
       "_enriched_by": "CONV-CONCEPTS sub-agent #24 Cerebras Qwen-3 235B"
     }
   ],
-  "hero_kpi_replaced_reason": "Streaming Subscribers avait seulement 2 point(s) d'historique (period_type=quarter, requis: 12 trimestres (3 ans)). Règle Yann 26 mai 2026: aucun KPI hero avec moins de 3 ans d'historique.",
+  "hero_kpi_replaced_reason": "Hero = Advertising Revenue : KPI specifique media avec 5 ans d'historique annuel verbatim au 10-K. Les abonnes DTC (metrique reine) n'ont que 4 annees comparables verbatim depuis le merger d'avril 2022.",
   "_earnings_updated_at": "2026-05-26T22:59:13Z",
   "_earnings_source": "yfinance.calendar+info",
   "risks": [
@@ -1340,8 +1018,8 @@
       "name_fr": "Revenu distribution",
       "name_en": "Distribution Revenue",
       "explanation": "Revenus provenant des redevances payées par les distributeurs (câble, satellite, streaming).",
-      "value": "19.262",
-      "unit": "B $",
+      "value": 19.262,
+      "unit": "Mds $",
       "yoy": "-2%",
       "type": "Revenue",
       "nature": "Conjoncturel",
@@ -1349,9 +1027,9 @@
       "signal": "Partial stabilization despite decline in linear subscribers, offset by increased affiliate rates and streaming growth.",
       "description": "Revenus en baisse de 2 % en 2025, affectés par la chute des abonnés linéaires domestiques (9 %), partiellement compensée par la hausse des tarifs d'affiliation domestiques (3 %) et la croissance des abonnés streaming (13 %).",
       "history": [
-        19.701,
-        20.1,
-        20.5,
+        5.202,
+        16.142,
+        20.237,
         19.701,
         19.262
       ],
@@ -1360,58 +1038,64 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 19.262,
-      "_validation": "Corrected unit from 'Mds $' to 'B $' for consistency, updated ttm to actual value 19.262",
+      "_validation": "History verbatim 10-K : FY2021 5202, FY2022 16142, FY2023 20237, FY2024 19701, FY2025 19262 M$. Saut FY2021->FY2022 = merger avril 2022.",
       "explanation_en": "Revenue from the Distribution segment.",
       "signal_en": "Revenue pressure, demand softening",
-      "period_type": "year"
+      "period_type": "year",
+      "_fix_log": [
+        "wbd-fix 2026-06-09: history/value/unit verbatim 10-K FY2025"
+      ]
     },
     {
       "short": "Advertising Revenue",
       "name_fr": "Revenu publicitaire",
       "name_en": "Advertising Revenue",
-      "explanation": "Revenus issus de la vente d'espaces publicitaires sur les plateformes linéaires et digitales.",
-      "value": "7.306",
-      "unit": "B $",
-      "yoy": "-11%",
+      "explanation": "Revenus issus de la vente d espaces publicitaires sur les chaines lineaires et les plateformes de streaming.",
+      "value": 7.306,
+      "unit": "Mds $",
+      "yoy": "-10%",
       "type": "Revenue",
       "nature": "Conjoncturel",
       "comparable": "Comparable",
-      "signal": "Sharp advertising revenue decline driven by 25% collapse in domestic linear network audiences, partially offset by…",
-      "description": "Baisse de 11 % en 2025, principalement due à un recul de 25 % de l'audience sur les chaînes linéaires domestiques, partiellement compensée par l'augmentation des abonnés HBO Max ad-lite.",
+      "signal": "Baisse du revenu publicitaire en 2025, tiree par le recul de l audience des chaines lineaires domestiques, partiellement compensee par les abonnes HBO Max ad-lite.",
+      "description": "Le revenu publicitaire recule a 7 306 M$ en 2025 (-10 %), affecte par la baisse de l audience des chaines lineaires domestiques, partiellement compensee par la hausse des abonnes HBO Max ad-lite.",
       "history": [
-        8.09,
-        8.5,
-        8.8,
+        6.194,
+        8.524,
+        8.7,
         8.09,
         7.306
       ],
       "last_data_date": "2025-12-31",
-      "is_wow": false,
+      "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
       "ttm": 7.306,
-      "_validation": "Corrected unit from 'Mds $' to 'B $', updated ttm to actual value",
+      "_validation": "History annuelle verbatim 10-K consolidated statements of operations : FY2021 6194, FY2022 8524, FY2023 8700, FY2024 8090, FY2025 7306 M$.",
       "explanation_en": "Revenue from the Advertising segment.",
       "signal_en": "Significant revenue decline, warning signal",
-      "period_type": "year"
+      "period_type": "year",
+      "_fix_log": [
+        "wbd-fix 2026-06-09: history/value/unit verbatim 10-K FY2025"
+      ]
     },
     {
       "short": "Content Revenue",
       "name_fr": "Revenu contenu",
       "name_en": "Content Revenue",
       "explanation": "Revenus tirés de la production et licence de films, séries, jeux et droits sportifs.",
-      "value": "9.647",
-      "unit": "B $",
-      "yoy": "-7%",
+      "value": 9.647,
+      "unit": "Mds $",
+      "yoy": "-6%",
       "type": "Revenue",
       "nature": "Conjoncturel",
       "comparable": "Comparable",
       "signal": "Revenue decline reflects unfavorable comparison with non-recurring Olympic rights sublicensing in 2024 and lower…",
       "description": "Baisse de 7 % en 2025, affectée par la comparaison défavorable avec les 576 millions de dollars de revenus de sous-licence des droits olympiques en Europe en 2024, ainsi que par une baisse des revenus de jeux.",
       "history": [
-        10.297,
-        10.8,
-        11,
+        0.737,
+        8.36,
+        11.203,
         10.297,
         9.647
       ],
@@ -1420,10 +1104,13 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 9.647,
-      "_validation": "Corrected unit from 'Mds $' to 'B $', updated ttm to actual value, corrected history value 11 to 11.0 for consistency",
+      "_validation": "History verbatim 10-K : FY2021 737, FY2022 8360, FY2023 11203, FY2024 10297, FY2025 9647 M$.",
       "explanation_en": "Revenue from the Content segment.",
       "signal_en": "Revenue pressure, demand softening",
-      "period_type": "year"
+      "period_type": "year",
+      "_fix_log": [
+        "wbd-fix 2026-06-09: history/value/unit verbatim 10-K FY2025"
+      ]
     },
     {
       "short": "Operating Income",
@@ -1505,8 +1192,8 @@
       "name_fr": "Amortissements et dépréciations",
       "name_en": "Depreciation and Amortization",
       "explanation": "Charge liée à l'amortissement des actifs incorporels, notamment les droits de contenu.",
-      "value": "5.684",
-      "unit": "B $",
+      "value": 5.684,
+      "unit": "Mds $",
       "yoy": "-19%",
       "type": "Investment",
       "nature": "Conjoncturel",
@@ -1514,9 +1201,9 @@
       "signal": "Marked reduction in depreciation and amortization reflecting lower asset base following prior period impairments.",
       "description": "Baisse de 19 % en 2025, passant de 7,037 milliards de dollars en 2024, liée à la réduction des amortissements des droits de contenu suite aux dépréciations d'actifs antérieures.",
       "history": [
-        7.037,
-        7.5,
-        7.8,
+        1.582,
+        7.193,
+        7.985,
         7.037,
         5.684
       ],
@@ -1525,9 +1212,12 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 5.684,
-      "_validation": "Corrected unit from 'Mds $' to 'B $', updated name_fr to include 'dépréciations', updated description to clarify impairment context",
+      "_validation": "History verbatim 10-K : FY2021 1582, FY2022 7193, FY2023 7985, FY2024 7037, FY2025 5684 M$.",
       "signal_en": "Significant decline, warning signal",
-      "period_type": "year"
+      "period_type": "year",
+      "_fix_log": [
+        "wbd-fix 2026-06-09: history/value/unit verbatim 10-K FY2025"
+      ]
     },
     {
       "short": "Adjusted EBITDA",
@@ -1551,7 +1241,10 @@
       ],
       "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
       "signal_en": "Revenue pressure, demand softening",
-      "period_type": "year"
+      "period_type": "year",
+      "_fix_log": [
+        "wbd-fix 2026-06-09: history/value/unit verbatim 10-K FY2025"
+      ]
     },
     {
       "short": "Net Debt",
@@ -1575,54 +1268,62 @@
       ],
       "explanation_en": "Net Debt, total debt minus cash and cash equivalents.",
       "signal_en": "Significant revenue decline, warning signal",
-      "period_type": "year"
+      "period_type": "year",
+      "_fix_log": [
+        "wbd-fix 2026-06-09: history/value/unit verbatim 10-K FY2025"
+      ]
     },
     {
       "short": "DTC Streaming ARPU (Global)",
-      "name_fr": "DTC Streaming ARPU (Global)",
-      "name_en": "DTC Streaming ARPU (Global)",
-      "explanation": "Hausse prix + bundle Disney/Hulu/Max",
-      "value": 8.21,
+      "name_fr": "ARPU streaming mondial (DTC)",
+      "name_en": "Global DTC ARPU",
+      "explanation": "Revenu mensuel moyen par abonne streaming (DTC) a l echelle mondiale.",
+      "value": 6.92,
       "unit": "$/mois",
-      "yoy": "+2.0%",
+      "yoy": "-11%",
       "type": "Revenue",
       "nature": "Conjoncturel",
       "comparable": "Comparable",
-      "signal": "",
-      "description": "Hausse prix + bundle Disney/Hulu/Max",
+      "signal": "ARPU mondial en baisse de 11 % en 2025, tire par la distribution wholesale plus large de HBO Max et le mix international moins cher.",
+      "description": "L ARPU mondial recule de 7,76 $ en 2024 a 6,92 $ par mois en 2025 (-11 %).",
       "history": [
-        7.83,
-        7.74,
-        7.99,
-        8.05,
-        8.21
+        7.76,
+        6.92
       ],
       "signal_en": "Top-line growth, market traction",
-      "period_type": "year"
+      "period_type": "year",
+      "is_short_history": true,
+      "_validation": "Verbatim 10-K FY2025 Global ARPU : 2024 7.76 $, 2025 6.92 $/mois. Unit $/mois.",
+      "_fix_log": [
+        "wbd-fix 2026-06-09: history/value/unit verbatim 10-K FY2025"
+      ]
     },
     {
       "short": "Studios Revenue",
       "name_fr": "Studios Revenue",
       "name_en": "Studios Revenue",
-      "explanation": "Box office Barbie/Wonka derrière, slate 2026 = Superman",
-      "value": 10.9,
+      "explanation": "Revenus du segment Studios : films, production TV, jeux video et licences.",
+      "value": 12.619,
       "unit": "Mds $",
-      "yoy": "+0.9%",
+      "yoy": "+9%",
       "type": "Revenue",
       "nature": "Conjoncturel",
       "comparable": "Comparable",
-      "signal": "",
-      "description": "Box office Barbie/Wonka derrière, slate 2026 = Superman",
+      "signal": "Le revenu du segment Studios progresse de 9 % en 2025, porte par la sortie de films et la production TV.",
+      "description": "Revenu du segment Studios (Warner Bros Pictures, production TV, jeux) a 12 619 M$ en 2025 (+9 %).",
       "history": [
-        12.3,
-        11.8,
-        11.2,
-        10.8,
-        10.9
+        12.192,
+        11.607,
+        12.619
       ],
       "explanation_en": "Revenue from the Studios segment.",
       "signal_en": "Top-line growth, market traction",
-      "period_type": "year"
+      "period_type": "year",
+      "is_short_history": false,
+      "_validation": "History verbatim segment Studios Total revenues : FY2023 12192 (10-K 2024), FY2024 11607, FY2025 12619 M$ (10-K 2026). FY2021/FY2022 ecartes (annee partielle merger).",
+      "_fix_log": [
+        "wbd-fix 2026-06-09: history/value/unit verbatim 10-K FY2025"
+      ]
     },
     {
       "short": "Free Cash Flow",
@@ -1646,7 +1347,10 @@
       ],
       "explanation_en": "Free Cash Flow, operating cash flow minus capital expenditures.",
       "signal_en": "Revenue stable, monitor outlook",
-      "period_type": "year"
+      "period_type": "year",
+      "_fix_log": [
+        "wbd-fix 2026-06-09: history/value/unit verbatim 10-K FY2025"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -1724,5 +1428,6 @@
   ],
   "_sa24e_signed_at": "2026-06-03T00:26:35.132885+00:00",
   "_sa24e_extended": 2,
-  "_sa24e_resolved_period_type": 9
+  "_sa24e_resolved_period_type": 9,
+  "_stories_kpis_purged": "2026-06-09: 12 stories_kpis fabriques supprimes (AI Content Spend, HBO Max MAU, Global Streaming Share, Gaming License Deals, Themed Experiences Capacity, AI-Generated Content Hours, AI Script Pilot Rate, Streaming Market Share US, Global MAU HBO Max, Gaming IP License Value, Themed Experience Openings, AI Bookings) - introuvables au filing, valeurs IA/marketing rondes, sans period_type fiable."
 }
