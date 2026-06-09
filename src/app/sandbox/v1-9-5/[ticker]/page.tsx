@@ -87,6 +87,12 @@ export async function generateMetadata({
   params: Promise<{ ticker: string }>;
 }) {
   const { ticker } = await params;
+  const pending = getDataPendingMeta(ticker);
+  if (pending)
+    return {
+      title: `${pending.name} · Analyse en préparation · Mettrik AI`,
+      robots: { index: false, follow: false },
+    };
   const r = await loadV17Company(ticker, { mode: "v18" });
   if (r.kind === "missing") return { title: "Page introuvable · Mettrik AI" };
   return {
