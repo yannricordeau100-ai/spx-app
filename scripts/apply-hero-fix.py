@@ -13,7 +13,7 @@ Idempotent (re-run safe). Usage :
   python3 scripts/apply-hero-fix.py /tmp/fix-mu.json /tmp/fix-txn.json
   python3 scripts/apply-hero-fix.py                # glob /tmp/fix-*.json
 """
-import json, sys, glob
+import json, sys, glob, os, time
 
 BASE = "src/data/v2-pipeline"
 ENRICH = "src/data/v2-pipeline-enrich"
@@ -21,14 +21,21 @@ ARRAYS = ("kpis", "kpis_supplementary", "stories_kpis")
 
 
 def load(p):
-    try:
-        return json.load(open(p))
-    except FileNotFoundError:
-        return None
+    for _ in range(4):
+        try:
+            return json.load(open(p))
+        except FileNotFoundError:
+            return None
+        except (json.JSONDecodeError, ValueError):
+            time.sleep(0.25)  # ecriture concurrente (pipeline CA) -> retry
+    return None
 
 
 def save(p, d):
-    json.dump(d, open(p, "w"), indent=2, ensure_ascii=False)
+    tmp = p + ".tmp"
+    with open(tmp, "w") as f:
+        json.dump(d, f, indent=2, ensure_ascii=False)
+    os.replace(tmp, p)  # atomique : pas de demi-fichier visible
 
 
 def upsert(d, kpi):
@@ -87,6 +94,10 @@ def apply(fixpath):
     rem = fix.get("remove") or []
     nb = remove(b, rem)
     op = upsert(b, hero)
+    # extra : KPIs specifiques additionnels (ex medicaments PFE) pour atteindre >=4.
+    for ek in (fix.get("extra") or []):
+        if isinstance(ek, dict) and ek.get("short"):
+            upsert(b, ek)
     b["hero_kpi"] = hero["short"]
     # _validation requis par isV18Eligible (sinon page "preparing" non rendue).
     # Legitime : hero verbatim verifie + qualifieur strict derriere.

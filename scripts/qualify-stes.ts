@@ -80,7 +80,7 @@ const raw = process.argv.slice(2);
         for (const k of co.kpis) {
           if (k.period_type !== "quarter" || pctMarg(k) || isGen(k)) continue;
           const h = hist(k).length;
-          if (h < 4) continue;
+          if (h < 16) continue;
           if (!b || h > b.h) b = { short: k.short, h };
         }
         return b ? b.short : null;

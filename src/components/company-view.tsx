@@ -248,7 +248,10 @@ export function CompanyView({
       if (String(k.unit ?? "").trim() === "%" || /marg|ratio|taux/i.test(String(k.short ?? ""))) continue;
       if (isGenericKpi(k.short)) continue;
       const h = Array.isArray(k.history) ? k.history.length : 0;
-      if (h < 4) continue;
+      // Yann 9 juin 2026 : un quarterly ne prime sur le hero annuel configure
+      // QUE s'il a >=16 trims (sinon un KPI quarterly court hijacke le hero
+      // annuel profond, ex BP "Adjusted EBITDA" 5 trims vs Production 7 ans).
+      if (h < 16) continue;
       if (!best || h > best.len) {
         best = { short: k.short, len: h };
       }
