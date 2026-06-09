@@ -633,6 +633,31 @@ function num(v: unknown): number | null {
   return null;
 }
 
+/**
+ * Garde-fou ratio/part/mix/share/concentration/intensité exprimé en %.
+ * Règle Yann (bug AMAT "Mix Data Center / IA" 403 %) :
+ *   - Un ratio numérateur/dénominateur sur la MÊME période ne peut pas
+ *     dépasser 100 % (part d'un tout). Une part > 120 % est le signe d'un
+ *     bug d'input (numérateur multi-périodes, proxy bancal, unités mélangées,
+ *     dénominateur trop petit).
+ *   - Au-dessus de SHARE_BUG_CEILING → retourne null (le caller affiche N/A,
+ *     "Mieux vaut N/A que faux signal").
+ *   - Entre 100 et 120 % (bruit d'arrondi / décalage de période léger) →
+ *     on clampe à 100 %.
+ *   - En dessous de 0 % → bug d'input aussi → null.
+ *
+ * NE PAS utiliser pour les KPIs qui peuvent légitimement dépasser 100 %
+ * (croissance, expansion vs moyenne, ratios en ×, intensité capex/marge
+ * brute pure, etc.) : réservé aux PARTS d'un tout.
+ */
+const SHARE_BUG_CEILING = 120;
+function clampSharePct(pct: number | null): number | null {
+  if (pct === null || !Number.isFinite(pct)) return null;
+  if (pct < 0) return null; // part négative = bug d'input
+  if (pct > SHARE_BUG_CEILING) return null; // > 120 % = bug d'input → N/A honnête
+  return Math.min(100, pct); // 100-120 % = bruit → clamp à 100
+}
+
 /** CAGR sur n ans depuis history (n+1 points) — retourne une fraction (0.124 = 12.4%) */
 function cagr(history: number[]): number | null {
   if (!history || history.length < 2) return null;
@@ -853,7 +878,10 @@ function concentrationRisk(c: Company, locale: Locale): SuperKpi {
     }
   }
 
-  if (topPct === null || topName === null) {
+  // Garde-fou : une part de segment / revenu total est par définition dans
+  // [0, 100]. > 120 % = bug d'input (somme multi-périodes, total trop petit) → N/A.
+  const guardedPct = clampSharePct(topPct);
+  if (guardedPct === null || topName === null) {
     return naResult(
       {
         id: "conc",
@@ -867,7 +895,7 @@ function concentrationRisk(c: Company, locale: Locale): SuperKpi {
     );
   }
 
-  const pct = topPct;
+  const pct = guardedPct;
   const top = { name: topName, value: pct };
   // Inversé : plus le pct est élevé, plus le tier est mauvais
   const tier: SuperKpiTier = pct < 35 ? "premium" : pct < 50 ? "solid" : pct < 65 ? "average" : "below";
@@ -908,7 +936,12 @@ function capitalIntensity(c: Company, locale: Locale): SuperKpi {
   const rev = findRevenueKpi(c);
   const capexV = capex ? num(capex.value) : null;
   const revV = rev ? num(rev.value) : null;
-  if (capexV === null || revV === null || revV === 0) {
+  // Garde-fou : Capex / Revenue est une intensité (% du revenu). Capex et
+  // Revenue doivent être sur la même période. Un Capex > 120 % du revenu est
+  // un bug d'input (capex cumulé multi-périodes, ou revenu d'un seul segment
+  // au dénominateur) → N/A plutôt qu'un chiffre faux.
+  const pct = clampSharePct(capexV !== null && revV !== null && revV !== 0 ? (Math.abs(capexV) / revV) * 100 : null);
+  if (capexV === null || revV === null || revV === 0 || pct === null) {
     return naResult(
       {
         id: "capint",
@@ -921,7 +954,6 @@ function capitalIntensity(c: Company, locale: Locale): SuperKpi {
       locale,
     );
   }
-  const pct = (capexV / revV) * 100;
   let tier: SuperKpiTier;
   let label: string;
   let interp: string;
@@ -1140,8 +1172,9 @@ function tacRatio(c: Company, locale: Locale): SuperKpi {
   const rev = findRevenueKpi(c);
   const t = tac ? num(tac.value) : null;
   const r = rev ? num(rev.value) : null;
-  if (t === null || r === null) return naResult({ id: "tac", name: tr("name_tac_na", locale), category: "Stratégie", formula: tr("tac_formula", locale), benchmark: tr("tac_benchmark_na", locale), inputs: ["TAC", "Revenue"] }, locale);
-  const pct = (t / r) * 100;
+  // TAC / Revenue = part du revenu reversée en distribution (∈ [0, 100]).
+  const pct = clampSharePct(t !== null && r !== null && r !== 0 ? (t / r) * 100 : null);
+  if (t === null || r === null || r === 0 || pct === null) return naResult({ id: "tac", name: tr("name_tac_na", locale), category: "Stratégie", formula: tr("tac_formula", locale), benchmark: tr("tac_benchmark_na", locale), inputs: ["TAC", "Revenue"] }, locale);
   const tier: SuperKpiTier = pct < 12 ? "premium" : pct < 18 ? "solid" : pct < 22 ? "average" : "below";
   return {
     id: "tac",
@@ -1200,9 +1233,13 @@ function adEngineSaturation(c: Company, locale: Locale): SuperKpi {
   const a = arpp ? num(arpp.value) : null;
   const d = dap ? num(dap.value) : null;
   const r = rev ? num(rev.value) : null;
-  if (a === null || d === null || r === null) return naResult({ id: "ad-sat", name: tr("name_ad_sat", locale), category: "Stratégie", formula: tr("ad_formula", locale), benchmark: tr("ad_benchmark_na", locale), inputs: ["ARPP", "DAP", "Revenue"] }, locale);
+  if (a === null || d === null || r === null || r === 0) return naResult({ id: "ad-sat", name: tr("name_ad_sat", locale), category: "Stratégie", formula: tr("ad_formula", locale), benchmark: tr("ad_benchmark_na", locale), inputs: ["ARPP", "DAP", "Revenue"] }, locale);
   const annualized = a * 4 * d;
   const pct = (annualized / r) * 100;
+  // Ce ratio peut légitimement dépasser 100 % (monétisation saturée > 110 %),
+  // donc pas de clamp dur à 100. Mais > 200 % = bug d'input (ARPP, DAP et
+  // Revenue doivent être cohérents en unité et période) → N/A.
+  if (!Number.isFinite(pct) || pct < 0 || pct > 200) return naResult({ id: "ad-sat", name: tr("name_ad_sat", locale), category: "Stratégie", formula: tr("ad_formula", locale), benchmark: tr("ad_benchmark_na", locale), inputs: ["ARPP", "DAP", "Revenue"] }, locale);
   const tier: SuperKpiTier = pct < 90 ? "premium" : pct < 110 ? "solid" : pct < 130 ? "average" : "below";
   const labelKey: keyof typeof STR =
     pct < 90 ? "ad_label_upsell"
@@ -1232,8 +1269,10 @@ function realityLabsBurn(c: Company, locale: Locale): SuperKpi {
   const rev = findRevenueKpi(c);
   const lossV = rl ? Math.abs(num(rl.value) ?? 0) : null;
   const r = rev ? num(rev.value) : null;
-  if (lossV === null || r === null) return naResult({ id: "rl-burn", name: tr("name_rl_burn", locale), category: "Risque", formula: tr("rl_formula", locale), benchmark: tr("rl_benchmark_na", locale), inputs: ["RL Loss", "Revenue"] }, locale);
-  const pct = (lossV / r) * 100;
+  // |Pertes RL| / Revenue : part du revenu absorbée par le drain métavers.
+  // Numérateur et dénominateur sur la même période ; > 120 % = bug d'input.
+  const pct = clampSharePct(lossV !== null && r !== null && r !== 0 ? (lossV / r) * 100 : null);
+  if (lossV === null || r === null || r === 0 || pct === null) return naResult({ id: "rl-burn", name: tr("name_rl_burn", locale), category: "Risque", formula: tr("rl_formula", locale), benchmark: tr("rl_benchmark_na", locale), inputs: ["RL Loss", "Revenue"] }, locale);
   const tier: SuperKpiTier = pct < 5 ? "premium" : pct < 10 ? "solid" : pct < 15 ? "average" : "below";
   const labelKey: keyof typeof STR =
     pct < 5 ? "rl_label_contained"
@@ -1265,7 +1304,11 @@ function subscriptionQuality(c: Company, locale: Locale): SuperKpi {
   const tR = totalRR ? num(totalRR.value) : null;
   const re = ret ? num(ret.value) : null;
   if (sR === null || tR === null || re === null || tR === 0) return naResult({ id: "sub-q", name: tr("name_sub_q", locale), category: "Composite", formula: tr("sub_formula", locale), benchmark: tr("sub_benchmark_na", locale), inputs: ["Sub RR", "Total RR", "Retention"] }, locale);
-  const score = (sR / tR) * re;
+  // Sub RR ne peut pas dépasser Total RR : si part > 105 % c'est un bug d'input
+  // (mauvais appariement Sub RR / Total RR) → N/A plutôt qu'un score faux.
+  const subShare = (sR / tR) * 100;
+  if (!Number.isFinite(subShare) || subShare < 0 || subShare > 105) return naResult({ id: "sub-q", name: tr("name_sub_q", locale), category: "Composite", formula: tr("sub_formula", locale), benchmark: tr("sub_benchmark_na", locale), inputs: ["Sub RR", "Total RR", "Retention"] }, locale);
+  const score = (Math.min(sR, tR) / tR) * re;
   const tier: SuperKpiTier = score >= 70 ? "premium" : score >= 60 ? "solid" : score >= 50 ? "average" : "below";
   return {
     id: "sub-q",
@@ -1319,8 +1362,10 @@ function spgiMixPremium(c: Company, locale: Locale): SuperKpi {
   const i = idx ? num(idx.value) : null;
   const mb = mob ? num(mob.value) : null;
   const r = rev ? num(rev.value) : null;
-  if (m === null || i === null || mb === null || r === null || r === 0) return naResult({ id: "mix-prem", name: tr("name_mix_prem", locale), category: "Risque", formula: tr("mix_formula", locale), benchmark: tr("mix_benchmark_na", locale), inputs: ["MI", "Indices", "Mobility", "Revenue"] }, locale);
-  const pct = ((m + i + mb) / r) * 100;
+  // (MI + Indices + Mobility) / Revenue : part du revenu sur segments premium
+  // (∈ [0, 100]). Tous les inputs doivent être sur la même période / unité.
+  const pct = clampSharePct(m !== null && i !== null && mb !== null && r !== null && r !== 0 ? ((m + i + mb) / r) * 100 : null);
+  if (m === null || i === null || mb === null || r === null || r === 0 || pct === null) return naResult({ id: "mix-prem", name: tr("name_mix_prem", locale), category: "Risque", formula: tr("mix_formula", locale), benchmark: tr("mix_benchmark_na", locale), inputs: ["MI", "Indices", "Mobility", "Revenue"] }, locale);
   const tier: SuperKpiTier = pct >= 60 ? "premium" : pct >= 50 ? "solid" : pct >= 40 ? "average" : "below";
   return {
     id: "mix-prem",
@@ -1346,8 +1391,9 @@ function vitalityIndex(c: Company, locale: Locale): SuperKpi {
   const rev = findRevenueKpi(c);
   const v = vit ? num(vit.value) : null;
   const r = rev ? num(rev.value) : null;
-  if (v === null || r === null || r === 0) return naResult({ id: "vitality", name: tr("name_vitality", locale), category: "Composite", formula: tr("vit_formula", locale), benchmark: tr("vit_benchmark", locale), inputs: ["Vitality", "Revenue"] }, locale);
-  const pct = (v / r) * 100;
+  // Vitality (revenu produits < 3 ans) / Revenue : part du revenu (∈ [0, 100]).
+  const pct = clampSharePct(v !== null && r !== null && r !== 0 ? (v / r) * 100 : null);
+  if (v === null || r === null || r === 0 || pct === null) return naResult({ id: "vitality", name: tr("name_vitality", locale), category: "Composite", formula: tr("vit_formula", locale), benchmark: tr("vit_benchmark", locale), inputs: ["Vitality", "Revenue"] }, locale);
   const tier: SuperKpiTier = pct >= 12 ? "premium" : pct >= 8 ? "solid" : pct >= 5 ? "average" : "below";
   return {
     id: "vitality",

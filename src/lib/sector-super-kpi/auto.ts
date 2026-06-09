@@ -271,7 +271,10 @@ export function evMixGrowth(c: Company, locale: Locale = "en"): SuperKpi {
   const ev = parseNumber(evKpi?.value);
   const tot = parseNumber(totKpi?.value);
 
-  if (evKpi == null || totKpi == null || ev == null || tot == null || tot <= 0) {
+  // Garde-fou part/mix : EV / Total véhicules est ∈ [0, 100], même période.
+  // > 120 % = bug d'input (volumes mal appariés, unités) → N/A. 100-120 % → 100.
+  const currentMixRaw = ev != null && tot != null && tot > 0 ? (ev / tot) * 100 : null;
+  if (evKpi == null || totKpi == null || ev == null || tot == null || tot <= 0 || currentMixRaw == null || currentMixRaw < 0 || currentMixRaw > 120) {
     return naSuperKpi(
       "evMixGrowth",
       name,
@@ -282,7 +285,7 @@ export function evMixGrowth(c: Company, locale: Locale = "en"): SuperKpi {
     );
   }
 
-  const currentMixPct = (ev / tot) * 100;
+  const currentMixPct = Math.min(100, currentMixRaw);
 
   // Tentative de calcul d'un YoY mix : on récupère l'history des deux KPIs
   // et on compare le mix actuel au mix de l'année précédente.

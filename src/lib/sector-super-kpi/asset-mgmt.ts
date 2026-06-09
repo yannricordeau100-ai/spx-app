@@ -474,11 +474,28 @@ export function feeRevenueMix(c: Company, locale: Locale = "en"): SuperKpi {
 }
 
 function buildFeeMixResult(
-  mixPct: number,
+  mixPctRaw: number,
   fee: { value: number; unit: string } | null,
   total: { value: number; unit: string } | null,
   locale: Locale,
 ): SuperKpi {
+  // Garde-fou part/mix : Fee Revenue / Total Revenue est ∈ [0, 100], même
+  // période. > 120 % = bug d'input → N/A. 100-120 % = bruit → clamp 100.
+  if (!Number.isFinite(mixPctRaw) || mixPctRaw < 0 || mixPctRaw > 120) {
+    return naResult(
+      {
+        id: "fee-revenue-mix",
+        name: tr("name_fee_mix_na", locale),
+        category: "Stratégie",
+        formula: tr("fee_mix_formula_na", locale),
+        benchmark: tr("fee_mix_benchmark_na", locale),
+        inputs: ["Fee Revenue", "Total Revenue"],
+      },
+      locale,
+    );
+  }
+  const mixPct = Math.min(100, mixPctRaw);
+
   const tier: SuperKpiTier =
     mixPct >= 75 ? "premium" : mixPct >= 60 ? "solid" : mixPct >= 45 ? "average" : "below";
   // Jauge [0, 100].

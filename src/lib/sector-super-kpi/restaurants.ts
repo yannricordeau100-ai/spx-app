@@ -395,6 +395,22 @@ export function unitGrowthQuality(c: Company, locale: Locale = "en"): SuperKpi {
   const denom = preBase > 0 ? preBase : base.value;
   const growthPct = (netNew.value / denom) * 100;
 
+  // Garde-fou : une croissance nette du parc > 50 %/an est un bug d'input
+  // (mauvais appariement net new / parc total, ou unités mélangées). N/A.
+  if (!Number.isFinite(growthPct) || growthPct < -100 || growthPct > 50) {
+    return naResult(
+      {
+        id: "unit-growth-quality",
+        name: tr("name_unit_growth_na", locale),
+        category: "Stratégie",
+        formula: tr("unit_growth_formula_na", locale),
+        benchmark: tr("unit_growth_benchmark_na", locale),
+        inputs: ["Net New Restaurants", "Number of Restaurants"],
+      },
+      locale,
+    );
+  }
+
   const tier: SuperKpiTier =
     growthPct >= 6 ? "premium" : growthPct >= 4 ? "solid" : growthPct >= 2 ? "average" : "below";
   // Jauge [0, 10 %] → [0, 100].

@@ -191,7 +191,13 @@ function findKpiByNames(
     ]
       .filter((v): v is string => typeof v === "string" && v.length > 0)
       .map((v) => v.toLowerCase());
-    return fields.some((f) => targets.some((t) => f === t || f.includes(t)));
+    // Garde-fou matching : les abréviations courtes (<= 3 caractères, ex "OR",
+    // "ADV") ne doivent matcher qu'en ÉGALITÉ. Sinon le substring "or" capte
+    // n'importe quel KPI ("Operating Income", "Total Revenue") et produit des
+    // ratios faux (ex Operating Ratio à 311431 %). Bug Yann garde-fou.
+    return fields.some((f) =>
+      targets.some((t) => (t.length <= 3 ? f === t : f === t || f.includes(t))),
+    );
   });
 }
 
@@ -294,6 +300,22 @@ export function operatingRatioCompetitive(
 
   // Normalise : si la valeur est < 1 (ex: 0.62) → convertir en %.
   const orPct = orRaw <= 1 ? orRaw * 100 : orRaw;
+
+  // Garde-fou : un Operating Ratio (OpEx / Revenue) réaliste est dans
+  // [10 %, 130 %]. Hors de cette plage = bug d'input (KPI mal matché) → N/A.
+  if (!Number.isFinite(orPct) || orPct < 10 || orPct > 130) {
+    return naResult(
+      {
+        id: "operating-ratio-competitive",
+        name: tr("name_op_ratio_na", locale),
+        category: "Profitabilité",
+        formula: tr("op_ratio_formula_na", locale),
+        benchmark: tr("op_ratio_benchmark_na", locale),
+        inputs: ["Operating Ratio"],
+      },
+      locale,
+    );
+  }
 
   const tier: SuperKpiTier =
     orPct <= 58

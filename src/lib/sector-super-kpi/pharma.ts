@@ -283,7 +283,10 @@ export function topDrugConcentrationRisk(c: Company, locale: Locale = "en"): Sup
   const td = topDrug ? num(topDrug.value) : null;
   const rv = revenue ? num(revenue.value) : null;
 
-  if (td === null || rv === null || rv === 0) {
+  // Garde-fou part : Top Drug / Revenue est ∈ [0, 100], même période.
+  // > 120 % = bug d'input (médicament > revenu total) → N/A. 100-120 % → 100.
+  const pctRaw = td !== null && rv !== null && rv !== 0 ? (td / rv) * 100 : null;
+  if (td === null || rv === null || rv === 0 || pctRaw === null || pctRaw < 0 || pctRaw > 120) {
     return naResult(
       {
         id: "pharma_topdrug",
@@ -297,7 +300,7 @@ export function topDrugConcentrationRisk(c: Company, locale: Locale = "en"): Sup
     );
   }
 
-  const pct = (td / rv) * 100;
+  const pct = Math.min(100, pctRaw);
   const tier: SuperKpiTier =
     pct < 20 ? "premium" : pct < 30 ? "solid" : pct < 45 ? "average" : "below";
 
@@ -343,7 +346,11 @@ export function rdPipelineEfficiency(c: Company, locale: Locale = "en"): SuperKp
   const rdV = rd ? num(rd.value) : null;
   const rvV = revenue ? num(revenue.value) : null;
 
-  if (rdV === null || rvV === null || rvV === 0) {
+  // Garde-fou : R&D / Revenue est une intensité ∈ [0, 100] (R&D ne dépasse
+  // jamais le revenu total). > 120 % = bug d'input (R&D et Revenue sur des
+  // périodes / unités différentes) → N/A.
+  const rdPctRaw = rdV !== null && rvV !== null && rvV !== 0 ? (rdV / rvV) * 100 : null;
+  if (rdV === null || rvV === null || rvV === 0 || rdPctRaw === null || rdPctRaw < 0 || rdPctRaw > 120) {
     return naResult(
       {
         id: "pharma_rdpip",
@@ -361,7 +368,7 @@ export function rdPipelineEfficiency(c: Company, locale: Locale = "en"): SuperKp
     );
   }
 
-  const rdPct = (rdV / rvV) * 100;
+  const rdPct = Math.min(100, rdPctRaw);
   // Si pas de pipeline count : neutre (factor = 1)
   const pipeFactor = pipelineCount !== null && pipelineCount > 0 ? pipelineCount / 10 : 1;
   const score = rdPct * pipeFactor;

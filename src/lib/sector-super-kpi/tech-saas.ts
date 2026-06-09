@@ -472,7 +472,11 @@ function findFcfMarginKpi(c: Company): { value: number } | null {
   // Unit alignment : on suppose même unité (Mds $ vs Mds $). Si différentes,
   // skip pour rester honnête.
   if (fcfKpi.unit !== revKpi.unit) return null;
-  return { value: (fcfV / revV) * 100 };
+  const margin = (fcfV / revV) * 100;
+  // Garde-fou : une marge FCF (FCF / Revenue) ne peut pas dépasser 100 % en
+  // valeur absolue. |marge| > 120 % = bug d'input (périodes/unités) → skip.
+  if (!Number.isFinite(margin) || Math.abs(margin) > 120) return null;
+  return { value: margin };
 }
 
 export function ruleOf50(c: Company, locale: Locale = "en"): SuperKpi {

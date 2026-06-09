@@ -156,6 +156,91 @@ function findKpi(kpis: KPI[] | undefined, names: string[]): KPI | undefined {
   });
 }
 
+/**
+ * Variante stricte : exige une correspondance EXACTE (égalité, pas substring)
+ * sur short / name_en / name_fr. Évite qu'un KPI de segment dont le libellé
+ * contient "AI Revenue" (ex AMAT "HPC / Cloud / AI Revenue") soit pris pour un
+ * vrai revenu Data Center isolé. Optionnel : filtre d'unité (ex exclure les %).
+ * Règle Yann : un Super-KPI calibré ne s'affiche QUE si son input est une
+ * donnée réellement publiée, pas un proxy bancal.
+ */
+function findKpiExact(
+  kpis: KPI[] | undefined,
+  names: string[],
+  unitFilter?: (u: string) => boolean,
+): KPI | undefined {
+  if (!kpis || kpis.length === 0) return undefined;
+  const targets = new Set(names.map((n) => n.toLowerCase().trim()));
+  return kpis.find((k) => {
+    if (unitFilter && !unitFilter(k.unit || "")) return false;
+    const candidates = [k.short, k.name_fr, (k as KPI & { name_en?: string }).name_en]
+      .filter((v): v is string => typeof v === "string" && v.length > 0)
+      .map((v) => v.toLowerCase().trim());
+    return candidates.some((c) => targets.has(c));
+  });
+}
+
+/**
+ * Garde-fou part/mix en % (∈ [0, 100]). > 120 % = bug d'input → null (N/A).
+ * 100-120 % = bruit d'arrondi → clamp à 100.
+ */
+function clampSharePct(pct: number | null): number | null {
+  if (pct === null || !Number.isFinite(pct) || pct < 0 || pct > 120) return null;
+  return Math.min(100, pct);
+}
+
+/**
+ * Facteur de magnitude d'une unité monétaire ($ / € / etc) : Mds = 1000 × M.
+ * Sert à aligner numérateur et dénominateur quand ils sont en magnitudes
+ * différentes (ex DC en "M $" et Revenu total en "Mds $"). Bug AEIS :
+ * 327 M$ / 1,799 Mds$ donnait 18199 % faute d'alignement.
+ */
+function magnitudeFactor(unit: string | undefined): number {
+  const s = (unit || "").trim().toLowerCase();
+  if (s.startsWith("mds") || s.startsWith("md ") || s.startsWith("bn") || s.includes("billion") || s.startsWith("md$") || s.startsWith("md€")) return 1000;
+  return 1; // "M $", "M €", "$", etc → base millions
+}
+
+/** Devise nue d'une unité ($, €, £, ...) pour vérifier la cohérence. */
+function currencyOf(unit: string | undefined): string {
+  const s = (unit || "").trim();
+  const m = s.match(/[$€£¥₣]|chf|usd|eur|gbp|jpy|sek|dkk|nok/i);
+  return m ? m[0].toLowerCase() : "";
+}
+
+/**
+ * Cherche un revenu Data Center / IA RÉELLEMENT isolé. Accepte les libellés
+ * "Data Center ... Revenue" (ex "Data Center Computing Revenue") mais EXCLUT
+ * les segments larges où "AI" n'est qu'un mot parmi d'autres (ex AMAT
+ * "HPC / Cloud / AI Revenue" = revenu Semiconductor Systems, PAS un DC isolé).
+ */
+function findDataCenterKpi(kpis: KPI[] | undefined): KPI | undefined {
+  if (!kpis || kpis.length === 0) return undefined;
+  const isAbs = (k: KPI) => (k.unit || "").trim() !== "%";
+  // 1) Libellé commençant par "data center" / "datacenter" + "revenue".
+  const dc = kpis.find((k) => {
+    if (!isAbs(k)) return false;
+    const fields = [k.short, k.name_fr, (k as KPI & { name_en?: string }).name_en]
+      .filter((v): v is string => typeof v === "string" && v.length > 0)
+      .map((v) => v.toLowerCase().trim());
+    return fields.some(
+      (f) =>
+        (f.startsWith("data center") || f.startsWith("datacenter") || f.startsWith("revenu data center")) &&
+        (f.includes("revenue") || f.includes("revenu")),
+    );
+  });
+  if (dc) return dc;
+  // 2) Revenu IA explicitement isolé (libellé = "AI Revenue" exact, pas un
+  //    segment composite "X / Y / AI Revenue").
+  return kpis.find((k) => {
+    if (!isAbs(k)) return false;
+    const fields = [k.short, k.name_fr, (k as KPI & { name_en?: string }).name_en]
+      .filter((v): v is string => typeof v === "string" && v.length > 0)
+      .map((v) => v.toLowerCase().trim());
+    return fields.some((f) => f === "ai revenue" || f === "revenu ia" || f === "data center / ai revenue" || f === "revenu data center / ia");
+  });
+}
+
 function parseNumber(value: KPI["value"] | undefined): number | null {
   if (value === null || value === undefined) return null;
   if (typeof value === "number") return Number.isFinite(value) ? value : null;
@@ -217,35 +302,60 @@ function formatPct0(value: number, locale: Locale): string {
  *  1. Data Center / AI Mix
  * ═════════════════════════════════════════════════════════════════════ */
 
-const DATA_CENTER_NAMES = [
-  "Data Center Revenue",
-  "Data Center",
-  "AI Revenue",
-  "Datacenter Revenue",
-  "Revenu Data Center",
-  "Revenu IA",
-];
+// Numérateur : voir findDataCenterKpi (revenu Data Center / IA réellement
+// isolé). Cas AMAT : AMAT ne publie pas de revenu Data Center / IA isolé
+// (son libellé "HPC / Cloud / AI Revenue" est le revenu Semiconductor Systems)
+// → ce Super-KPI doit afficher N/A pour AMAT, pas un proxy à 403 %.
 
+// Dénominateur : revenu total, en valeur absolue. Le filtre d'unité exclut
+// les KPIs en % (ex "R&D as % Revenue") qui ne sont JAMAIS un revenu total.
 const REVENUE_NAMES = [
   "Revenue",
   "Total Revenue",
+  "Total Revenues",
   "Net Revenue",
+  "Net Revenues",
   "Net Sales",
+  "Total Net Sales",
+  "Sales",
   "Revenu",
+  "Revenu total",
   "Chiffre d'affaires",
+  "Chiffre d'affaires total",
 ];
+
+const NON_PCT = (u: string) => (u || "").trim() !== "%";
 
 export function dataCenterMix(c: Company, locale: Locale = "en"): SuperKpi {
   const formula = pickLoc(SECTOR_STRINGS.dc_formula, locale);
   const benchmark = pickLoc(SECTOR_STRINGS.dc_benchmark, locale);
   const name = pickLoc(SECTOR_STRINGS.dc_name, locale);
 
-  const dcKpi = findKpi(c.kpis, DATA_CENTER_NAMES);
-  const revKpi = findKpi(c.kpis, REVENUE_NAMES);
+  // Numérateur : revenu Data Center / IA réellement isolé (input publié).
+  const dcKpi = findDataCenterKpi(c.kpis);
+  // Dénominateur : revenu total en valeur absolue (exclut les KPIs en %).
+  const revKpi = findKpiExact(c.kpis, REVENUE_NAMES, NON_PCT);
   const dc = parseNumber(dcKpi?.value);
   const rev = parseNumber(revKpi?.value);
 
-  if (dcKpi == null || revKpi == null || dc == null || rev == null || rev <= 0) {
+  // Alignement unités : numérateur et dénominateur doivent être dans la même
+  // devise et la même magnitude (M vs Mds). Sinon ratio faux (bug AEIS :
+  // 327 M$ / 1,799 Mds$). Devise différente → input incohérent → N/A.
+  let value: number | null = null;
+  if (dcKpi != null && revKpi != null && dc != null && rev != null && rev > 0) {
+    const dcCur = currencyOf(dcKpi.unit);
+    const revCur = currencyOf(revKpi.unit);
+    if (dcCur !== "" && revCur !== "" && dcCur !== revCur) {
+      value = null; // devises différentes = bug d'input → N/A
+    } else {
+      const dcNorm = dc * magnitudeFactor(dcKpi.unit);
+      const revNorm = rev * magnitudeFactor(revKpi.unit);
+      // Garde-fou part/mix : (∈ [0, 100]). > 120 % = bug d'input → N/A.
+      value = clampSharePct(revNorm > 0 ? (dcNorm / revNorm) * 100 : null);
+    }
+  }
+
+  if (value == null) {
     return naSuperKpi(
       "dataCenterMix",
       name,
@@ -255,8 +365,6 @@ export function dataCenterMix(c: Company, locale: Locale = "en"): SuperKpi {
       benchmark,
     );
   }
-
-  const value = (dc / rev) * 100;
 
   let tier: SuperKpiTier;
   let interpretation: string;
@@ -287,7 +395,7 @@ export function dataCenterMix(c: Company, locale: Locale = "en"): SuperKpi {
     color: TIER_COLOR[tier],
     tierLabel: pickLoc(TIER_LABEL[tier], locale),
     gaugePct,
-    inputs: [dcKpi.short, revKpi.short],
+    inputs: [dcKpi?.short ?? "", revKpi?.short ?? ""].filter((s) => s.length > 0),
     formula,
     interpretation,
     benchmark,
@@ -324,7 +432,10 @@ export function capexIntensityVsGross(c: Company, locale: Locale = "en"): SuperK
   const benchmark = pickLoc(SECTOR_STRINGS.ci_benchmark, locale);
   const name = pickLoc(SECTOR_STRINGS.ci_name, locale);
 
-  const capexKpi = findKpi(c.kpis, CAPEX_NAMES);
+  // Matching strict + filtre unité non-% : évite qu'un KPI dont le name_fr
+  // contient "investissements" (ex "Investissements R&D (% revenu)") soit pris
+  // pour le Capex (bug MCHP : R&D mal matché en Capex → intensité à 164 %).
+  const capexKpi = findKpiExact(c.kpis, CAPEX_NAMES, NON_PCT);
   const capex = parseNumber(capexKpi?.value);
 
   if (capexKpi == null || capex == null) {
@@ -338,24 +449,42 @@ export function capexIntensityVsGross(c: Company, locale: Locale = "en"): SuperK
     );
   }
 
-  // Gross Profit direct, sinon Revenue * Gross Margin
+  // Gross Profit direct (valeur absolue, pas en %), sinon Revenue * Gross Margin.
   let grossProfit: number | null = null;
+  let denomUnit: string | null = null; // unité du dénominateur (pour cohérence)
   const inputs: string[] = [capexKpi.short];
 
-  const gpKpi = findKpi(c.kpis, GROSS_PROFIT_NAMES);
+  const gpKpi = findKpiExact(c.kpis, GROSS_PROFIT_NAMES, NON_PCT);
   const gpVal = parseNumber(gpKpi?.value);
   if (gpKpi != null && gpVal != null) {
     grossProfit = gpVal;
+    denomUnit = (gpKpi.unit || "").trim();
     inputs.push(gpKpi.short);
   } else {
-    const revKpi = findKpi(c.kpis, REVENUE_NAMES);
-    const gmKpi = findKpi(c.kpis, GROSS_MARGIN_NAMES);
+    // Revenu total en valeur absolue (exclut "R&D as % Revenue" et autres %).
+    const revKpi = findKpiExact(c.kpis, REVENUE_NAMES, NON_PCT);
+    const gmKpi = findKpiExact(c.kpis, GROSS_MARGIN_NAMES, (u) => (u || "").trim() === "%");
     const rev = parseNumber(revKpi?.value);
     const gm = parseNumber(gmKpi?.value);
     if (revKpi != null && gmKpi != null && rev != null && gm != null) {
       grossProfit = rev * (gm / 100);
+      denomUnit = (revKpi.unit || "").trim();
       inputs.push(revKpi.short, gmKpi.short);
     }
+  }
+
+  // Garde-fou unités : Capex et le dénominateur doivent être dans la même
+  // unité (ex Capex en M $ vs Revenue en M € → ratio faux). Bug PLAB.
+  const capexUnit = (capexKpi.unit || "").trim();
+  if (denomUnit != null && capexUnit !== "" && denomUnit !== "" && capexUnit !== denomUnit) {
+    return naSuperKpi(
+      "capexIntensityVsGross",
+      name,
+      "Risque",
+      locale,
+      formula,
+      benchmark,
+    );
   }
 
   if (grossProfit == null || grossProfit <= 0) {
@@ -371,6 +500,20 @@ export function capexIntensityVsGross(c: Company, locale: Locale = "en"): SuperK
 
   const absCapex = Math.abs(capex);
   const value = (absCapex / grossProfit) * 100;
+
+  // Garde-fou : Capex et Gross Profit doivent être sur la même période / unité.
+  // Cette intensité peut dépasser 35 % (profil lourd en capital) mais
+  // > 200 % = bug d'input (capex cumulé, unités mélangées) → N/A honnête.
+  if (!Number.isFinite(value) || value < 0 || value > 200) {
+    return naSuperKpi(
+      "capexIntensityVsGross",
+      name,
+      "Risque",
+      locale,
+      formula,
+      benchmark,
+    );
+  }
 
   let tier: SuperKpiTier;
   let interpretation: string;

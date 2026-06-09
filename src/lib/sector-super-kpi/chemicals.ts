@@ -176,6 +176,19 @@ function fmt(n: number, decimals: number): string {
   return n.toFixed(decimals).replace(".", ",");
 }
 
+/**
+ * Garde-fou part/mix en % (∈ [0, 100]). > 120 % = bug d'input → null (N/A).
+ * 100-120 % = bruit d'arrondi → clamp à 100. Réservé aux PARTS d'un tout
+ * (jamais aux croissances, CoV, ratios en ×).
+ */
+function clampSharePct(pct: number | null): number | null {
+  if (pct === null || !Number.isFinite(pct) || pct < 0 || pct > 120) return null;
+  return Math.min(100, pct);
+}
+
+/** Unité en valeur absolue (exclut les KPIs en %). */
+const NON_PCT = (u: string) => (u || "").trim() !== "%";
+
 type FoundKpi = { value: number; history: number[]; unit?: string; name_en?: string; name_fr?: string };
 
 /** Cherche un KPI par liste de shorts candidats, ou par match name_en/name_fr. */
@@ -261,6 +274,7 @@ export function specialtyMixGrowth(c: Company, locale: Locale = "en"): SuperKpi 
       fr === "specialites" ||
       fr.includes("ventes spécialités") ||
       fr.includes("chimies de spécialité"),
+    NON_PCT, // un revenu spécialités est en valeur absolue, jamais en %
   );
 
   const total = findKpi(
@@ -278,6 +292,7 @@ export function specialtyMixGrowth(c: Company, locale: Locale = "en"): SuperKpi 
       fr === "ventes" ||
       fr === "ventes nettes" ||
       fr === "chiffre d'affaires",
+    NON_PCT, // revenu total en valeur absolue (exclut "... as % Revenue")
   );
 
   if (!spec || !total || total.value <= 0) {
@@ -294,9 +309,13 @@ export function specialtyMixGrowth(c: Company, locale: Locale = "en"): SuperKpi 
     );
   }
 
-  const sharePct = (spec.value / total.value) * 100;
+  // Garde-fou : la part spécialités / revenu total est ∈ [0, 100]. Specialty
+  // et total doivent être sur la même période. > 120 % = bug d'input (mauvais
+  // appariement numérateur/dénominateur, unités mélangées) → N/A honnête.
+  const sharePctRaw = (spec.value / total.value) * 100;
+  const sharePct = clampSharePct(sharePctRaw);
 
-  if (!Number.isFinite(sharePct) || sharePct < 0) {
+  if (sharePct === null) {
     return naResult(
       {
         id: "specialty-mix-growth",

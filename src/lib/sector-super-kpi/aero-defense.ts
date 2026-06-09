@@ -376,7 +376,13 @@ export function defenseProgramsMix(company: Company, locale: Locale = "en"): Sup
   // Si le KPI Defense est déjà exprimé en %, on prend tel quel.
   // Sinon on calcule defense / revenue x 100.
   const defenseUnit = (defenseKpi!.unit || "").trim();
-  const value = defenseUnit === "%" ? defenseRaw : (defenseRaw / revenue) * 100;
+  const rawValue = defenseUnit === "%" ? defenseRaw : (defenseRaw / revenue) * 100;
+  // Garde-fou part/mix : Defense / Revenue est ∈ [0, 100], même période.
+  // > 120 % = bug d'input → N/A. 100-120 % = bruit → clamp 100.
+  if (!Number.isFinite(rawValue) || rawValue < 0 || rawValue > 120) {
+    return naResult(id, name, category, locale, missing);
+  }
+  const value = Math.min(100, rawValue);
 
   let tier: SuperKpiTier;
   let interp: LocalizedString;

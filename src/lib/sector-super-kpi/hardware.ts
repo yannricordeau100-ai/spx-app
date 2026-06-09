@@ -244,7 +244,13 @@ export function servicesRecurringMix(company: Company, locale: Locale = "en"): S
     return naResult(id, name, category, locale, missing);
   }
 
-  const value = (services / revenue) * 100;
+  // Garde-fou part/mix : Services / Revenue est ∈ [0, 100], même période.
+  // > 120 % = bug d'input (mauvais appariement, unités) → N/A.
+  const rawValue = (services / revenue) * 100;
+  if (!Number.isFinite(rawValue) || rawValue < 0 || rawValue > 120) {
+    return naResult(id, name, category, locale, missing);
+  }
+  const value = Math.min(100, rawValue);
 
   let tier: SuperKpiTier;
   let interp: LocalizedString;
