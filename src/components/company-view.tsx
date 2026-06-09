@@ -346,6 +346,28 @@ export function CompanyView({
     locale === "fr" ? "fr" : "en"
   );
 
+  // Yann 9 juin 2026 (BUG A) : les indicateurs supplementaires reveles par le
+  // bouton "voir X indicateurs supplementaires" n'existaient pas dans le DOM
+  // au moment ou applyFloutageRules tournait (mount + 150 ms / 1500 ms). Ils
+  // n'etaient donc jamais floutes en mode gratuit, contrairement aux lignes
+  // visibles. On re-applique les MEMES regles des que showAll passe a true.
+  // applyFloutageRules est idempotent (skip data-floutageApplied="1") donc
+  // seules les nouvelles lignes sont traitees, a l'identique des visibles.
+  useEffect(() => {
+    if (!freeBlocked || !showAll) return;
+    const rules = (FLOUTAGE_RULES_FILE as { rules?: FloutageRule[] }).rules ?? [];
+    if (rules.length === 0) return;
+    let cleanup: (() => void) | null = null;
+    // Petit delai pour laisser React monter les lignes supplementaires.
+    const id = setTimeout(() => {
+      cleanup = applyFloutageRules(rules);
+    }, 60);
+    return () => {
+      clearTimeout(id);
+      if (cleanup) cleanup();
+    };
+  }, [freeBlocked, showAll, company.ticker]);
+
   const heroRef = useRef<HTMLDivElement>(null);
   const handleKpiClick = (short: string) => {
     setActiveKpiShort(short);

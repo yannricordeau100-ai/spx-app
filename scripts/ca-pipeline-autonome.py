@@ -315,21 +315,19 @@ def validate(slices, total_mds, kind):
         return False, "value<=0"
     if len(set(round(v, 4) for v in vals)) == 1:
         return False, "flat_identical"
-    ssum = sum(vals)
-    if max(vals) >= 0.97 * ssum:
-        return False, "one_slice_is_whole"
-    # anti-contamination : aucune slice ~ CA total de la ste
-    if total_mds and total_mds > 0:
-        for v in vals:
-            if abs(v - total_mds) <= 0.02 * total_mds:
-                return False, "slice_eq_CA_total"
-        # somme plausible : entre 30% et 130% du CA total (segments) ; geo idem
-        if not (0.3 * total_mds <= ssum <= 1.35 * total_mds):
-            return False, "sum_implausible"
-    # geo : share_pct doit sommer ~100 si presents
-    pcts = [s.get("share_pct") for s in slices if isinstance(s.get("share_pct"), (int, float))]
-    if len(pcts) >= 2 and not (70 <= sum(pcts) <= 130):
-        return False, "pct_sum_off"
+    # Validation robuste via share_pct (independante de l'unite) : les parts
+    # somment ~100 (= le tout, anti CA-total) et aucune ne domine ~tout
+    # (mono-segment ou contamination = une slice = CA total).
+    pcts = [float(s["share_pct"]) for s in slices if isinstance(s.get("share_pct"), (int, float))]
+    if len(pcts) >= 2:
+        if not (80 <= sum(pcts) <= 120):
+            return False, "pct_sum_off"
+        if max(pcts) >= 94:
+            return False, "one_slice_dominates"
+    else:
+        ssum = sum(vals)
+        if max(vals) >= 0.94 * ssum:
+            return False, "one_slice_is_whole"
     return True, "ok"
 
 

@@ -182,9 +182,13 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
 
         {/* Signal en bas (clé du business). Plus compact, taille augmentée
             quand même. La description longue est cachée derrière "i" pour
-            ne pas écraser visuellement le chiffre principal. */}
+            ne pas écraser visuellement le chiffre principal.
+            Yann 9 juin 2026 (BUG B) : relative z-30 pour que le "i" en bas
+            passe AU-DESSUS des tap-zones du carrousel (z-10, w-20 sur les
+            bords gauche/droit) qui sinon captaient le clic sur l'icone et
+            faisaient defiler la story au lieu d'ouvrir le tooltip. */}
         {kpi.signal && (
-          <div className="rounded-xl border border-white/10 bg-black/55 p-3 backdrop-blur">
+          <div className="relative z-30 rounded-xl border border-white/10 bg-black/55 p-3 backdrop-blur">
             <div className="flex items-start gap-1.5">
               <div className="flex-1 text-[15px] font-semibold leading-snug text-zinc-50">
                 {normalizeNarrative(kpi.signal)}
@@ -365,7 +369,7 @@ function MarketPositionStoryCard({
         </div>
 
         {mp.market_cagr != null && (
-          <div className="mt-2.5 inline-flex items-center gap-1 text-[12px] text-zinc-300">
+          <div className="relative z-30 mt-2.5 inline-flex items-center gap-1 text-[12px] text-zinc-300">
             <span>{t("story.expected_market_cagr")} :</span>
             <span className="font-mono font-bold text-zinc-50">
               +{mp.market_cagr.toFixed(1).replace(".", ",")} %{t("story.per_year")}
@@ -386,8 +390,10 @@ function MarketPositionStoryCard({
 
         {/* Source : si <=4 mots, affichée inline. Sinon mise dans tooltip "i"
             (règle template Yann 6 mai 2026 : aucune source externe longue ne
-            doit polluer l'écran principal). */}
-        <div className="mt-auto pt-3">
+            doit polluer l'écran principal).
+            Yann 9 juin 2026 (BUG B) : relative z-30 pour que le "i" source en
+            bas passe au-dessus des tap-zones du carrousel (z-10). */}
+        <div className="relative z-30 mt-auto pt-3">
           {sourceIsLong ? (
             <div className="inline-flex items-center gap-1 text-[10.5px] italic text-zinc-400">
               <span>{t("story.source")}</span>
