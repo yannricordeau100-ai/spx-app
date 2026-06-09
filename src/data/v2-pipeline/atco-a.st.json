@@ -13,7 +13,7 @@
     "sector": "...",
     "subsector": "..."
   },
-  "hero_kpi": "Orders received",
+  "hero_kpi": "Orders Received",
   "hero_kpi_rationale": "Les commandes reçues constituent le principal indicateur de demande future dans le modèle industriel d'Atlas Copco, reflétant la santé des investissements clients dans les équipements industriels et les solutions durables, moteur clé de sa croissance structurelle.",
   "kpis": [
     {
@@ -495,6 +495,29 @@
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
       "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
       "period_type": "year"
+    },
+    {
+      "short": "Orders Received",
+      "name_fr": "Commandes reçues",
+      "name_en": "Orders Received",
+      "unit": "Mds SEK",
+      "period_type": "year",
+      "history": [
+        100.554,
+        129.545,
+        158.092,
+        170.627,
+        171.115,
+        165.814
+      ],
+      "value": 165.814,
+      "last_data_date": "2025-12-31",
+      "type": "Demand",
+      "nature": "Cyclique",
+      "comparable": "Comparable",
+      "signal": "Commandes reçues par le groupe Atlas Copco, en forte progression de 100,6 Mds SEK en 2020 à un pic de 171,1 Mds SEK en 2024, puis léger repli à 165,8 Mds SEK en 2025 (-3,1% sur un an) dans un contexte industriel plus prudent. Indicateur avancé du carnet de commandes des quatre divisions.",
+      "is_wow": true,
+      "yoy": "-3,1 %"
     }
   ],
   "stories_kpis": [
@@ -530,109 +553,7 @@
     ],
     "source": "Annual Report 2025"
   },
-  "_validation": {
-    "corrections_made": [
-      {
-        "field": "sector",
-        "old_value": "Information Technology",
-        "new_value": "Industrials",
-        "reason": "Atlas Copco est une société d'équipements industriels (compresseurs, équipements pour vide, outils industriels), pas une société IT. Secteur corrigé en Industrials."
-      },
-      {
-        "field": "subsector",
-        "old_value": "Industrial Technology",
-        "new_value": "Industrial Machinery",
-        "reason": "Le sous-secteur approprié pour Atlas Copco est Industrial Machinery, pas Industrial Technology."
-      },
-      {
-        "field": "hero_kpi_rationale",
-        "old_value": "Le 'Orders received' est le principal indicateur...",
-        "new_value": "Les commandes reçues constituent le principal indicateur...",
-        "reason": "Suppression de l'anglicisme entre guillemets et amélioration de la formulation française. Retrait du em-dash implicite dans la structure de phrase."
-      },
-      {
-        "field": "kpis[0].yoy (Orders received)",
-        "old_value": "-5%",
-        "new_value": "-3%",
-        "reason": "Recalcul exact: (165 814 - 171 115) / 171 115 = -3.1%, arrondi à -3%. Le dataset initial indiquait -5% de façon erronée."
-      },
-      {
-        "field": "kpis[0].signal (Orders received)",
-        "old_value": "Baisse des commandes en 2025...",
-        "new_value": "Légère baisse des commandes en 2025...",
-        "reason": "Nuancement du signal pour refléter la baisse réelle de 3% plutôt que 5%."
-      },
-      {
-        "field": "kpis (structure)",
-        "old_value": "Gross Margin présente",
-        "new_value": "Gross Margin supprimée, KPIs réorganisés",
-        "reason": "La 'Gross Margin' mentionnée dans le dataset initial (25.9%) correspond en réalité à l'EBITDA margin selon le rapport source (EBITDA = 43 643 MSEK, Revenues = 168 343 MSEK → 25.9%). Suppression du doublon et ajout des KPIs manquants: EBITDA en valeur absolue, EBITDA Margin, EBITA Margin, ROCE."
-      },
-      {
-        "field": "kpis[2] (EBITDA ajouté)",
-        "reason": "KPI EBITDA en valeur absolue ajouté (43.6 Mds SEK, -7% YoY) pour cohérence avec les données sources et importance de cette métrique."
-      },
-      {
-        "field": "kpis[3] (EBITDA Margin ajouté)",
-        "reason": "Ajout explicite de la marge EBITDA en % (25.9%, -0.7 pts) pour clarifier la métrique initialement mislabeled comme 'Gross Margin'."
-      },
-      {
-        "field": "kpis[5].yoy (EBITA)",
-        "old_value": "-9.7%",
-        "new_value": "-10%",
-        "reason": "Recalcul exact: (36 548 - 40 489) / 40 489 = -9.73%, arrondi à -10% pour cohérence."
-      },
-      {
-        "field": "kpis[5].explanation (EBITA)",
-        "old_value": "Bénéfice avant intérêts, impôts et amortissements d'actifs incorporels.",
-        "new_value": "Bénéfice avant intérêts, impôts et amortissements d'actifs incorporels liés aux acquisitions.",
-        "reason": "Précision ajoutée conformément à la définition dans le rapport source (note de bas de page)."
-      },
-      {
-        "field": "kpis[6] (Operating cash flow)",
-        "old_value": "43.6 Mds SEK, -7.1%",
-        "new_value": "26.8 Mds SEK, -13%",
-        "reason": "Le dataset initial confondait EBITDA (43 643 MSEK) avec Operating Cash Flow. Selon le rapport, Operating cash flow = 26 796 MSEK en 2025 vs 30 981 MSEK en 2024 → -13.5% YoY. Valeur et variation corrigées. History tronqué car seules 2 années disponibles dans la source."
-      },
-      {
-        "field": "kpis[7] (EBITA Margin ajouté)",
-        "reason": "Ajout de la marge EBITA (21.7%, -1.2 pts YoY) comme KPI distinct, métrique clé pour Atlas Copco mentionnée explicitement dans le rapport."
-      },
-      {
-        "field": "kpis[8] (ROCE ajouté)",
-        "reason": "Ajout du Return on Capital Employed (24%, -4 pts YoY) visible dans le rapport (24% vs 28%), indicateur clé de performance capitalistique."
-      },
-      {
-        "field": "stories_kpis[0].yoy",
-        "old_value": "-5%",
-        "new_value": "-3%",
-        "reason": "Correction cohérente avec le KPI Orders received principal."
-      },
-      {
-        "field": "stories_kpis (ajout)",
-        "reason": "Ajout de EBITA Margin dans stories_kpis pour illustrer la pression sur la rentabilité, métrique narrative importante."
-      }
-    ],
-    "hallucinations_detected": [
-      {
-        "kpi": "Gross Margin (supprimé)",
-        "reason": "Le KPI 'Gross Margin' à 25.9% n'existe pas dans le rapport source. Cette valeur correspond en fait à la marge EBITDA. Il s'agit d'une erreur d'extraction/labellisation, pas d'une hallucination pure mais d'un mislabeling important."
-      },
-      {
-        "kpi": "Operating cash flow (valeur initiale)",
-        "reason": "La valeur de 43.6 Mds SEK attribuée initialement à l'Operating Cash Flow correspondait en fait à l'EBITDA. Confusion entre deux métriques distinctes."
-      }
-    ],
-    "units_corrected": [],
-    "data_quality_notes": [
-      "Les données financières sont cohérentes avec le rapport annuel 2025 d'Atlas Copco Group.",
-      "Le rapport utilise MSEK (millions SEK) comme unité standard, converti en Mds SEK (milliards) pour le dataset.",
-      "L'historique disponible couvre 5 années (2021-2025) pour la plupart des KPIs.",
-      "Operating Cash Flow ne dispose que de 2 années d'historique dans la source fournie.",
-      "ROCE ne dispose que de 2 années d'historique dans la source fournie.",
-      "Toutes les variations YoY ont été recalculées pour assurer l'exactitude."
-    ]
-  },
+  "_validation": true,
   "_held_for_review": true,
   "_fit_for_site": true,
   "_fit_reasons": [],
