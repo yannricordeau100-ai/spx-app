@@ -49,6 +49,22 @@ async function loadCleanAllSet(): Promise<Set<string>> {
   }
 }
 
+// Yann 9 juin 2026 : sociétés dont la profondeur de données réelle est limitée
+// (rupture de segment réelle, ex APH/AIZ/CAH = 4 ans). Affiche un "i" permanent
+// à gauche du titre hero. Map curatée éditable.
+async function loadHistoryLimit(ticker: string): Promise<number | undefined> {
+  try {
+    const raw = await fs.readFile(
+      path.join(process.cwd(), "src/data/v1-9-5-history-limited.json"),
+      "utf-8",
+    );
+    const map = JSON.parse(raw) as Record<string, number>;
+    return map[ticker.toUpperCase()];
+  } catch {
+    return undefined;
+  }
+}
+
 async function loadTranscriptSummary(
   ticker: string,
 ): Promise<TranscriptBulletsSummary | null> {
@@ -234,6 +250,7 @@ export default async function SandboxV195TickerPage({
   // Blocs désactivés (Supabase + fallback JSON) résolus pour ce ticker :
   // union(global, per-sté) avec expansion legacy gouvernance_top3.
   const disabledBlocks = await resolveDisabledForTicker(ticker);
+  const historyLimitYears = await loadHistoryLimit(ticker);
 
   // Yann (26 mai 2026) : floutage UNIQUEMENT pour plan free réel ou anon.
   // L'admin (DESK_OWNER_EMAIL) et tout user inscrit voit en clair par défaut
@@ -267,6 +284,7 @@ export default async function SandboxV195TickerPage({
         v18Mode
         freemiumTier={freemiumTier}
         disabledBlocks={disabledBlocks}
+        historyLimitYears={historyLimitYears}
       />
     </FreemiumBlurProvider>
   );

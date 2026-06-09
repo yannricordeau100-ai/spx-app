@@ -179,6 +179,7 @@ export function CompanyView({
   v18Mode = false,
   freemiumTier,
   disabledBlocks,
+  historyLimitYears,
 }: {
   company: Company;
   authSlot?: React.ReactNode;
@@ -202,6 +203,10 @@ export function CompanyView({
    *  `isBlockDisabledForTicker` (JSON only). Les pages qui ne la passent
    *  pas encore (v1-8, v1-7-5) gardent le fallback JSON sans régression. */
   disabledBlocks?: string[];
+  /** Yann 9 juin 2026 : si la profondeur de données réelle d'une sté est
+   *  limitée (ex rupture de segment : APH/AIZ/CAH = 4 ans), affiche un "i"
+   *  permanent à gauche du titre hero (indépendant du KPI sélectionné). */
+  historyLimitYears?: number;
 }) {
   // Yann 9 juin 2026 : helper unique pour savoir si un bloc est désactivé.
   // Si `disabledBlocks` est fourni (page V1.9.5, source Supabase résolue
@@ -1247,6 +1252,18 @@ export function CompanyView({
                 />
               </div>
               <div className="mb-3 flex flex-wrap items-baseline justify-center gap-2.5 text-center">
+                {/* Yann 9 juin 2026 : "i" permanent à GAUCHE du titre hero quand
+                    la profondeur de données est limitée. Indépendant du KPI
+                    sélectionné (rendu hors KpiSwapTitle, donc persiste au swap). */}
+                {historyLimitYears ? (
+                  <InfoTooltip color="#f59e0b">
+                    <div className="text-zinc-200">
+                      {locale === "fr"
+                        ? `Données disponibles sur ${historyLimitYears} ans seulement pour cette société.`
+                        : `Data available for only ${historyLimitYears} years for this company.`}
+                    </div>
+                  </InfoTooltip>
+                ) : null}
                 {/* Yann 5 juin 2026 : hero KPI title bascule FR/EN au clic
                     via KpiSwapTitle. Modification purement locale (state du
                     composant), n'écrit rien dans le dataset. Le suffix temps
