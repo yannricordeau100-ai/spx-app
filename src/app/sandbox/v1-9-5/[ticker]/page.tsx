@@ -3,6 +3,7 @@ import { promises as fs } from "fs";
 import path from "path";
 import { CompanyView } from "@/components/company-view";
 import { AuthNav } from "@/components/auth-nav";
+import { getDataPendingMeta, DataPendingPage } from "@/components/data-pending-placeholder";
 import type { TranscriptDoc } from "@/components/transcript-stories";
 import type { TranscriptBulletsSummary } from "@/components/transcript-bullets-block";
 import { loadV17Company } from "@/lib/company-core/load-company";
@@ -197,6 +198,13 @@ export default async function SandboxV195TickerPage({
   const aliasTarget = URL_ALIASES[ticker.toUpperCase()];
   if (aliasTarget && aliasTarget !== ticker.toLowerCase()) {
     redirect(`/sandbox/v1-9-5/${aliasTarget}`);
+  }
+
+  // Sociétés dont la fiche n'est pas encore publiable (données officielles en
+  // cours de vérification) : page dédiée à valeur ajoutée, plutôt qu'un redirect
+  // overview ou une 404.
+  if (getDataPendingMeta(ticker)) {
+    return <DataPendingPage ticker={ticker} authSlot={<AuthNav scope="company" />} />;
   }
 
   // V1.9.5 strict : si pas dans clean_all, redirect vers overview.
