@@ -1,19 +1,15 @@
-"use client";
-
-import type { ReactNode } from "react";
 import Link from "next/link";
 import { ArrowLeft, ShieldCheck, FileSearch, BadgeCheck } from "lucide-react";
-import { BrandWordmark } from "@/components/brand-wordmark";
-import { PageSearch } from "@/components/page-search";
-import { ThemeToggle } from "@/components/theme-toggle";
-import { Spotlight } from "@/components/effects/spotlight";
 
 /**
  * Page affichée pour les sociétés dont la fiche n'est pas encore publiable
- * (données officielles en cours de vérification / sourcing). Message à valeur
- * ajoutée, grand public, aligné sur la promesse Mettrik (qualité avant
- * quantité, jamais de chiffres inventés). Remplace l'ancien comportement
- * "redirect overview" ou page 404 pour ces tickers.
+ * (données officielles en cours de vérification). Message à valeur ajoutée,
+ * grand public, aligné sur la promesse Mettrik (qualité avant quantité, jamais
+ * de chiffres inventés).
+ *
+ * IMPORTANT : composant 100% autonome (aucun PageSearch/ThemeToggle/AuthNav ni
+ * provider), car il est rendu hors de l'arbre company-view (la sté n'a pas de
+ * données chargeables). Toute dépendance à un provider ferait planter le SSR.
  *
  * Table éditable : ajouter / retirer un ticker selon l'avancement des données.
  */
@@ -32,15 +28,7 @@ export function getDataPendingMeta(ticker: string): { name: string } | null {
   return DATA_PENDING_TABLE[ticker.toUpperCase()] ?? null;
 }
 
-export function DataPendingPage({
-  ticker,
-  name,
-  authSlot,
-}: {
-  ticker: string;
-  name?: string;
-  authSlot?: ReactNode;
-}) {
+export function DataPendingPage({ ticker, name }: { ticker: string; name?: string }) {
   const display = name || getDataPendingMeta(ticker)?.name || ticker.toUpperCase();
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#050505]">
@@ -51,27 +39,18 @@ export function DataPendingPage({
             "radial-gradient(ellipse 80% 50% at 50% -10%, rgba(139,92,246,0.14), transparent 60%)",
         }}
       />
-      <div className="pointer-events-none absolute inset-0 bg-grid" />
-      <Spotlight className="-top-40 left-0 md:-top-20 md:left-60" />
-
       <main className="relative mx-auto max-w-6xl px-4 py-7 sm:px-6 sm:py-9">
-        <nav className="mb-9 flex flex-nowrap items-center gap-3 whitespace-nowrap">
-          <Link
-            href="/"
-            className="group inline-flex shrink-0 items-center gap-3 transition-opacity hover:opacity-90"
-            aria-label="Accueil"
-          >
-            <BrandWordmark size="sm" animated={false} showRail={false} />
-            <ArrowLeft className="size-4 text-zinc-500 transition-transform group-hover:-translate-x-0.5 group-hover:text-zinc-300" />
-          </Link>
-          <PageSearch variant="default" />
-          <div className="ml-auto flex shrink-0 items-center gap-2">
-            <ThemeToggle />
-            {authSlot}
-          </div>
-        </nav>
+        <Link
+          href="/"
+          className="group mb-9 inline-flex items-center gap-2 text-[13px] text-zinc-400 transition-colors hover:text-zinc-100"
+        >
+          <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-0.5" />
+          <span className="font-display text-[15px] font-semibold tracking-tight text-zinc-200">
+            Mettrik
+          </span>
+        </Link>
 
-        <section className="conic-border relative mt-2 overflow-hidden rounded-2xl border border-violet-500/20 bg-gradient-to-b from-[#0a0a0a] via-[#0a0a0a] to-[#070707] p-8 animate-fade-up sm:p-12">
+        <section className="relative mt-2 overflow-hidden rounded-2xl border border-violet-500/20 bg-gradient-to-b from-[#0a0a0a] via-[#0a0a0a] to-[#070707] p-8 sm:p-12">
           <div
             className="pointer-events-none absolute -right-32 -top-32 size-96 rounded-full blur-3xl"
             style={{ background: "rgba(139, 92, 246, 0.16)" }}
@@ -82,7 +61,7 @@ export function DataPendingPage({
           />
 
           <div className="relative mx-auto flex max-w-2xl flex-col items-center text-center">
-            <div className="mb-6 inline-flex items-center justify-center rounded-full border border-violet-500/30 bg-violet-500/10 p-4 backdrop-blur-sm">
+            <div className="mb-6 inline-flex items-center justify-center rounded-full border border-violet-500/30 bg-violet-500/10 p-4">
               <FileSearch className="size-7 text-violet-300" strokeWidth={1.5} />
             </div>
 

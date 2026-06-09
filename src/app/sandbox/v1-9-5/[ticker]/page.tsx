@@ -204,7 +204,7 @@ export default async function SandboxV195TickerPage({
   // cours de vérification) : page dédiée à valeur ajoutée, plutôt qu'un redirect
   // overview ou une 404.
   if (getDataPendingMeta(ticker)) {
-    return <DataPendingPage ticker={ticker} authSlot={<AuthNav scope="company" />} />;
+    return <DataPendingPage ticker={ticker} />;
   }
 
   // V1.9.5 strict : si pas dans clean_all, redirect vers overview.
