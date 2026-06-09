@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { promises as fs } from "fs";
 import path from "path";
 import tickers from "@/data/v1-8-tickers-sorted.json";
+import preAudit from "@/data/v1-9-pre-publication-audit.json";
 import { requireDeskOwner } from "@/lib/desk/auth";
 import {
   DISABLED_BLOCKS_KEYS,
@@ -40,8 +41,22 @@ const PER_STE_CONFIG_PATH = path.join(
   "src/data/disabled-blocks-per-ste.json",
 );
 
-const TICKER_LIST = tickers as string[];
-const TICKER_SET = new Set(TICKER_LIST.map((t) => t.toUpperCase()));
+// Liste tickers = union de la liste V1.8 figée (344) ET de TOUTES les stés
+// clean_all de l'audit (= pages société réelles publiables). Ainsi les stés
+// ajoutees recemment (des qu'elles passent clean_all + sont publiees) apparaissent
+// automatiquement ici, sans toucher au code. Yann 2026-06-09.
+const CLEAN_ALL_TICKERS = (
+  (preAudit as { audits?: { ticker?: string; is_clean_all?: boolean }[] }).audits ?? []
+)
+  .filter((a) => a && a.is_clean_all === true && typeof a.ticker === "string")
+  .map((a) => (a.ticker as string).toUpperCase());
+const TICKER_LIST = Array.from(
+  new Set([
+    ...(tickers as string[]).map((t) => t.toUpperCase()),
+    ...CLEAN_ALL_TICKERS,
+  ]),
+).sort();
+const TICKER_SET = new Set(TICKER_LIST);
 
 /* ------------------------------------------------------------------ */
 /* Server actions                                                     */
@@ -303,7 +318,7 @@ export default async function AdminBlocksPage({
               autoComplete="off"
             />
             <datalist id="ticker-list">
-              {TICKER_LIST.slice(0, 300).map((t) => (
+              {TICKER_LIST.slice(0, 1200).map((t) => (
                 <option key={t} value={t} />
               ))}
             </datalist>

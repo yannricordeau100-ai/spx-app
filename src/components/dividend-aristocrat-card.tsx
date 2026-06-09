@@ -351,23 +351,37 @@ export function DividendAristocratCard({
       )}
 
       <div className="relative flex h-full flex-col overflow-y-auto pr-1">
-        {/* Badge "Aristocrat" — UNIFORME À DROITE */}
-        <div
-          className="ml-auto inline-flex w-fit items-center gap-1 rounded-full border px-2 py-0.5 text-[12px] font-semibold uppercase tracking-[0.14em] opacity-90"
-          style={{ background: `${accent}14`, color: accent, borderColor: `${accent}40` }}
-        >
-          <Crown className="size-3.5" />
-          Aristocrat
-          <InfoTooltip color={accent} size="sm">
-            <div className="text-zinc-200">
-              <span className="font-semibold">Dividend Aristocrat</span> : société
-              qui a augmenté son dividende chaque année pendant au moins 25 ans
-              consécutifs. Statut rare qui prouve la solidité de la génération
-              de cash sur le long terme et la discipline de retour aux
-              actionnaires.
-            </div>
-          </InfoTooltip>
-        </div>
+        {/* Badge "Aristocrat" — UNIFORME À DROITE.
+            Yann 9 juin 2026 : le badge "Aristocrat" ne s'affiche QUE si la
+            société qualifie réellement (>= 25 ans de hausse consécutive du
+            dividende). Sinon on montre un badge neutre "Dividende". Sans ce
+            garde-fou, Meta (1er dividende en 2024, 0 an de streak) affichait
+            "Aristocrat" à tort. */}
+        {computedStreak != null && computedStreak >= 25 ? (
+          <div
+            className="ml-auto inline-flex w-fit items-center gap-1 rounded-full border px-2 py-0.5 text-[12px] font-semibold uppercase tracking-[0.14em] opacity-90"
+            style={{ background: `${accent}14`, color: accent, borderColor: `${accent}40` }}
+          >
+            <Crown className="size-3.5" />
+            Aristocrat
+            <InfoTooltip color={accent} size="sm">
+              <div className="text-zinc-200">
+                <span className="font-semibold">Dividend Aristocrat</span> : société
+                qui a augmenté son dividende chaque année pendant au moins 25 ans
+                consécutifs. Statut rare qui prouve la solidité de la génération
+                de cash sur le long terme et la discipline de retour aux
+                actionnaires.
+              </div>
+            </InfoTooltip>
+          </div>
+        ) : (
+          <div
+            className="ml-auto inline-flex w-fit items-center gap-1 rounded-full border border-[#2a2a2a] bg-[#101014] px-2 py-0.5 text-[12px] font-semibold uppercase tracking-[0.14em] text-zinc-300 opacity-90"
+          >
+            <Crown className="size-3.5" />
+            Dividende
+          </div>
+        )}
 
         <div className="mt-3 text-[20px] font-bold leading-tight text-zinc-50">
           {computedStreak != null && computedStreak >= 25

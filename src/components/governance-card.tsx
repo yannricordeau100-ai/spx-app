@@ -192,15 +192,46 @@ function formatDate(iso: string | null | undefined, locale: Locale = "fr"): stri
 
 /**
  * Détecte si la sté a une structure dual-class (Class A / Class B avec
- * droits de vote différenciés). Heuristique : si les top_voting et
- * top_capital partagent moins de la moitié de leurs noms en commun, ce
- * sont des sets de détenteurs différents → super-vote en place (cas
- * GOOGL avec Larry Page / Sergey Brin via Class B).
+ * droits de vote différenciés).
+ *
+ * Source 1 (prioritaire) : le texte `voting_structure` lui-même. Quand le
+ * filing décrit explicitement des classes à droits de vote multiples
+ * (ex META : « Class B = 10 votes, Class A = 1 vote »), c'est la vérité
+ * la plus fiable. L'heuristique par chevauchement de noms (source 2)
+ * échoue dans ce cas car le fondateur (Mark Zuckerberg) figure à la fois
+ * dans top_voting ET top_capital → faux négatif « Mono-class ».
+ *
+ * Source 2 (repli) : si top_voting et top_capital partagent moins de la
+ * moitié de leurs noms en commun, ce sont des sets de détenteurs
+ * différents → super-vote en place (cas GOOGL avec Larry Page / Sergey
+ * Brin via Class B et top_capital institutionnel distinct).
  */
 function detectDualClass(
   voting?: { name: string }[],
-  capital?: { name: string }[]
+  capital?: { name: string }[],
+  votingStructure?: string | null
 ): boolean {
+  // Source 1 : texte voting_structure explicite (FR + EN).
+  if (votingStructure) {
+    const v = votingStructure.toLowerCase();
+    const dualSignals = [
+      "dual_class",
+      "dual-class",
+      "dual class",
+      "classe b",
+      "class b",
+      "10 vote",
+      "ten vote",
+      "droits de vote double",
+      "droits de vote multiple",
+      "actions à droits de vote",
+      "super-vote",
+      "super vote",
+      "multiple vote",
+    ];
+    if (dualSignals.some((s) => v.includes(s))) return true;
+  }
+  // Source 2 : repli heuristique par chevauchement de noms.
   if (!voting?.length || !capital?.length) return false;
   const votingNames = new Set(voting.map((s) => s.name.toLowerCase()));
   const overlap = capital.filter((s) => votingNames.has(s.name.toLowerCase())).length;
@@ -431,7 +462,7 @@ export function GovernanceCard({
             <Building2 className="size-5" style={{ color: accent }} />
             {t("governance.title")}
             {(() => {
-              const isDual = detectDualClass(g.top_voting, g.top_capital);
+              const isDual = detectDualClass(g.top_voting, g.top_capital, g.voting_structure);
               return (
                 <span
                   className={`inline-flex items-center gap-1.5 rounded-md border px-2 py-0.5 font-mono text-[10.5px] font-semibold uppercase tracking-wider ${
