@@ -24,6 +24,7 @@ import path from "path";
 import type { Company, CompanyRisk } from "@/lib/data";
 import { enhanceFreshness } from "@/lib/company-core/enhance-freshness";
 import { isStrictPass3, isV18Eligible } from "@/lib/company-core/strict-pass3";
+import { isGenericKpi } from "@/lib/kpi-generic";
 
 // Yann 18 mai 2026 : carte globale EN tagline → FR translation. Chargée
 // lazy-une-fois par process. Utilisée pour peupler tagline_i18n.fr.
@@ -43,6 +44,35 @@ async function loadTaglinesFr(): Promise<Record<string, string>> {
 
 type AnyKPI = Record<string, unknown>;
 type AnyCo = Record<string, unknown>;
+
+/**
+ * Yann 9 juin 2026 — GARDE-FOU HERO PRIME : un hero spécifique valide
+ * (présent dans kpis[] ET hors generic-library) PRIME sur toute
+ * ré-désignation tardive vers un KPI générique.
+ *
+ * Contexte bug MCHP : `enrich.hero_kpi_override = "Microcontroller Revenue"`
+ * (spécifique, présent) était écrasé par une couche TARDIVE
+ * (`<t>.hero_name_fr.json` → `hero_kpi_override: "Net Sales"`), ce qui
+ * affichait un hero GÉNÉRIQUE. Règle : on ne rétrograde JAMAIS un hero
+ * spécifique valide vers un générique via les couches d'auto-désignation
+ * (special-kpis is_hero, pivot hero_name_fr, fallback disabled).
+ *
+ * Retourne true si `candidate` peut remplacer le hero courant de `data`.
+ * Bloque uniquement la rétrogradation spécifique→générique : tout le reste
+ * (générique→spécifique, spécifique→spécifique, hero courant absent) reste
+ * autorisé pour ne pas régresser les autres mécanismes.
+ */
+function canReplaceHero(data: AnyCo, candidate: string | null | undefined): boolean {
+  if (!candidate) return false;
+  const cur = data.hero_kpi as string | undefined;
+  if (!cur || cur === candidate) return true;
+  const kpis = (data.kpis as AnyKPI[] | undefined) ?? [];
+  const shorts = new Set(kpis.map((k) => k?.short).filter(Boolean) as string[]);
+  const curIsValidSpecific = shorts.has(cur) && !isGenericKpi(cur);
+  // Hero courant spécifique + présent → on refuse de le remplacer par un générique.
+  if (curIsValidSpecific && isGenericKpi(candidate)) return false;
+  return true;
+}
 
 /**
  * Mappe la catégorie KPI (telle que définie dans `desk_kpi_requests` /
@@ -1590,7 +1620,9 @@ export async function loadV17Company(
           data.kpis = [...(data.kpis as AnyKPI[]), kpi];
           existingShorts.add(sp.kpi_short);
           // Si is_hero : remplace le hero_kpi de la company.
-          if (sp.is_hero && sp.style === "classique") {
+          // Garde-fou (Yann 9 juin 2026) : ne pas rétrograder un hero
+          // spécifique valide (ex enrich.hero_kpi_override) vers un générique.
+          if (sp.is_hero && sp.style === "classique" && canReplaceHero(data, sp.kpi_short as string)) {
             (data as Record<string, unknown>).hero_kpi = sp.kpi_short;
           }
         }
@@ -2202,7 +2234,11 @@ export async function loadV17Company(
       const dataShortsFinal = new Set(
         (Array.isArray(data.kpis) ? data.kpis : []).map((k: AnyKPI) => k?.short).filter(Boolean)
       );
-      if (dataShortsFinal.has(ov)) {
+      // Garde-fou (Yann 9 juin 2026) : ce pivot file-based ne doit PAS
+      // rétrograder un hero spécifique valide vers un générique (bug MCHP :
+      // "Microcontroller Revenue" écrasé par "Net Sales"). Le pivot reste
+      // appliqué quand le hero courant est introuvable ou déjà générique.
+      if (dataShortsFinal.has(ov) && canReplaceHero(data, ov)) {
         (data as Record<string, unknown>).hero_kpi = ov;
       }
     }
@@ -2414,7 +2450,11 @@ export async function loadV17Company(
       // Si le hero a été désactivé, repointer sur le premier KPI restant.
       const heroShort = data.hero_kpi as string | undefined;
       if (heroShort && disabledShorts.has(heroShort)) {
-        const fallback = filtered.find((k) => typeof k?.short === "string");
+        // Garde-fou (Yann 9 juin 2026) : préférer un KPI spécifique comme
+        // fallback hero plutôt que le premier venu (souvent générique).
+        const fallback =
+          filtered.find((k) => typeof k?.short === "string" && !isGenericKpi(k.short as string)) ??
+          filtered.find((k) => typeof k?.short === "string");
         if (fallback) {
           (data as Record<string, unknown>).hero_kpi = fallback.short;
           (data as Record<string, unknown>)._hero_kpi_replaced_by_disable = {

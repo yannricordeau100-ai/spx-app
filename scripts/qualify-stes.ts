@@ -12,6 +12,7 @@
  * Sortie : console + /tmp/qualify-pass.json (liste des PASS) + /tmp/qualify-fail.json
  */
 import { loadV17Company } from "../src/lib/company-core/load-company";
+import { isGenericKpi } from "../src/lib/kpi-generic";
 import fs from "fs";
 
 function num(x: any): number | null {
@@ -27,21 +28,14 @@ function hist(k: any): number[] {
   return (k.history || []).map(num).filter((x: any) => x !== null) as number[];
 }
 
-// KPI génériques (non haut-de-gamme) : interdits à l'affichage sauf hero manuel.
-const GEN = new Set([
-  "total revenue", "revenue", "revenues", "net sales", "total revenues", "net revenue",
-  "operating revenue", "ca", "chiffre d'affaires", "total net sales", "net income",
-  "net earnings", "eps", "diluted eps", "ebitda", "fcf", "free cash flow",
-  "operating margin", "op margin", "gross margin", "headcount", "capex", "r&d",
-  "operating income", "total assets", "total debt", "net debt", "market cap",
-  "earnings", "net earnings", "capital return", "cap return", "operating cash flow",
-  "op cash flow", "cash flow", "dps", "payout ratio", "buybacks", "dividend per share",
-  "restructuring charges", "restructuring", "sg&a", "selling general", "interest expense",
-  "income tax", "provision for income taxes", "selling, general and administrative",
-]);
+// KPI générique = détection PAR NOM via la library, EXACTEMENT comme la page
+// (isGenericKpi sur src/data/kpi-generic-library.json). Yann 9 juin 2026 :
+// NE PLUS rejeter sur le flag `k.is_generic` (peu fiable, mal posé sur des KPIs
+// spécifiques, ex AAPL "iPhone Revenue" avait is_generic=true par erreur → faux
+// positif qui sur-comptait le qualifieur vs le rendu réel de la page).
 const TOTAL_REV = new Set(["total revenue", "revenue", "revenues", "net sales", "total revenues", "total net sales", "operating revenue"]);
 function isGen(k: any): boolean {
-  return k.is_generic === true || GEN.has(String(k.short || "").toLowerCase());
+  return isGenericKpi(k?.short);
 }
 
 // Yann 9 juin 2026 : seuil profondeur = ~5 ans (≥16 trim/4 ans accepté si
