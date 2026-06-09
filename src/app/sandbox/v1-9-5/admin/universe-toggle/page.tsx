@@ -1,6 +1,7 @@
 import path from "node:path";
 import fs from "node:fs/promises";
 import { loadEu5n } from "@/lib/v1-9/load-eu5n";
+import { DATA_PENDING_TICKERS } from "@/components/data-pending-placeholder";
 import { UniverseToggleClient } from "./client";
 
 export const dynamic = "force-dynamic";
@@ -62,12 +63,20 @@ async function loadTickers(): Promise<{
   euInTop307: { country: string; tickers: string[] }[];
   countryCounts: { country: string; count: number }[];
   capOrder: string[];
+  names: Record<string, string>;
 }> {
   const sp500Path = path.join(process.cwd(), "src/data/sp500-tickers.json");
   const v18Path = path.join(process.cwd(), "src/data/v1-8-tickers-sorted.json");
+  const namesPath = path.join(process.cwd(), "src/data/v1-9-5-names.json");
 
   const sp500Raw = await fs.readFile(sp500Path, "utf8");
   const v18Raw = await fs.readFile(v18Path, "utf8");
+  let names: Record<string, string> = {};
+  try {
+    names = JSON.parse(await fs.readFile(namesPath, "utf8")) as Record<string, string>;
+  } catch {
+    names = {};
+  }
 
   const sp500 = JSON.parse(sp500Raw) as string[];
   const v18 = JSON.parse(v18Raw) as string[];
@@ -104,6 +113,7 @@ async function loadTickers(): Promise<{
     euInTop307,
     countryCounts,
     capOrder: v18,
+    names,
   };
 }
 
@@ -134,6 +144,8 @@ export default async function UniverseToggleAdminPage() {
           eu5n={eu5n}
           auditToken={AUDIT_TOKEN}
           capOrder={data.capOrder}
+          names={data.names}
+          problemTickers={DATA_PENDING_TICKERS}
         />
       </div>
     </div>

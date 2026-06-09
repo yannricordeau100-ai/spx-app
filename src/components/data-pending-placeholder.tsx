@@ -36,6 +36,11 @@ export function getDataPendingMeta(ticker: string): { name: string } | null {
   return DATA_PENDING_TABLE[ticker.toUpperCase()] ?? null;
 }
 
+/** Tickers mis de côté (placeholder "Analyse en préparation") = à afficher en
+ *  rouge sur la page de pilotage de publication. Source unique = la table
+ *  ci-dessus. */
+export const DATA_PENDING_TICKERS: string[] = Object.keys(DATA_PENDING_TABLE);
+
 export function DataPendingPage({ ticker, name }: { ticker: string; name?: string }) {
   const display = name || getDataPendingMeta(ticker)?.name || ticker.toUpperCase();
   return (

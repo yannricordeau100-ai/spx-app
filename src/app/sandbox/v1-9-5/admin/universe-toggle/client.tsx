@@ -15,6 +15,8 @@ type Props = {
   eu5n: Eu5nData;
   auditToken: string;
   capOrder: string[];
+  names: Record<string, string>;
+  problemTickers: string[];
 };
 
 type Tab = "all" | "sp500" | "top307" | "country";
@@ -34,11 +36,20 @@ export function UniverseToggleClient({
   euInTop307,
   auditToken,
   capOrder,
+  names,
+  problemTickers,
 }: Props) {
   const [tab, setTab] = useState<Tab>("all");
   const [country, setCountry] = useState<string>(euInTop307[0]?.country ?? "");
   const [onlineSet, setOnlineSet] = useState<Set<string> | null>(null);
   const [busy, setBusy] = useState<Set<string>>(new Set());
+
+  // Stés mises de côté à cause d'un problème de données (placeholder "Analyse
+  // en préparation") : affichées en rouge, case décochée et désactivée.
+  const problemSet = useMemo(
+    () => new Set(problemTickers.map((t) => t.toUpperCase())),
+    [problemTickers],
+  );
 
   const capIndex = useMemo(() => {
     const m = new Map<string, number>();
@@ -135,6 +146,9 @@ export function UniverseToggleClient({
         <span className="rounded-lg border border-emerald-500/40 bg-emerald-500/10 px-3 py-1.5 text-sm font-semibold text-emerald-200">
           🟢 {totalOnline} en ligne sur N2{onlineSet === null ? " · chargement…" : ""}
         </span>
+        <span className="rounded-lg border border-red-500/40 bg-red-500/10 px-3 py-1.5 text-sm font-semibold text-red-200">
+          🔴 {problemSet.size} mises de côté (problème)
+        </span>
         <button
           type="button"
           onClick={refetchOnline}
@@ -143,7 +157,8 @@ export function UniverseToggleClient({
           Rafraîchir
         </button>
         <span className="text-xs text-zinc-500">
-          Case cochée = publiée sur N2 · clic = publier/retirer (session admin) · auto-refresh 20s
+          Case cochée = publiée sur N2 · clic = publier/retirer (session admin) · auto-refresh 20s ·
+          rouge = analyse en préparation (donnée non publiable)
         </span>
       </div>
 
@@ -200,28 +215,49 @@ export function UniverseToggleClient({
       <ul className="mt-3 grid grid-cols-2 gap-1.5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
         {shown.map((ticker) => {
           const T = ticker.toUpperCase();
-          const online = onlineSet?.has(T) ?? false;
+          const isProblem = problemSet.has(T);
+          const online = !isProblem && (onlineSet?.has(T) ?? false);
           const isBusy = busy.has(T);
+          const name = names[T] ?? "";
           return (
             <li
               key={ticker}
               className={`flex items-center gap-2 rounded border px-2 py-1.5 transition-colors ${
-                online ? "border-emerald-500/50 bg-emerald-500/10" : "border-zinc-800 bg-zinc-900/40"
+                isProblem
+                  ? "border-red-500/50 bg-red-500/10"
+                  : online
+                    ? "border-emerald-500/50 bg-emerald-500/10"
+                    : "border-zinc-800 bg-zinc-900/40"
               }`}
             >
               <input
                 type="checkbox"
                 checked={online}
-                disabled={isBusy || onlineSet === null}
+                disabled={isBusy || isProblem || onlineSet === null}
                 onChange={() => toggle(ticker)}
-                className="size-4 shrink-0 cursor-pointer accent-emerald-500"
-                aria-label={`Publier ${ticker}`}
+                className={`size-4 shrink-0 accent-emerald-500 ${
+                  isProblem ? "cursor-not-allowed opacity-40" : "cursor-pointer"
+                }`}
+                aria-label={isProblem ? `${ticker} mise de côté` : `Publier ${ticker}`}
+                title={isProblem ? "Analyse en préparation : donnée non publiable" : undefined}
               />
               <Link
                 href={`/sandbox/v1-9-5/${ticker}?audit_token=${auditToken}`}
-                className="truncate font-mono text-xs text-zinc-200 transition-colors hover:text-white"
+                className="flex min-w-0 flex-col leading-tight"
+                title={name || ticker}
               >
-                {ticker}
+                <span
+                  className={`truncate font-mono text-xs transition-colors ${
+                    isProblem
+                      ? "text-red-300 hover:text-red-200"
+                      : "text-zinc-200 hover:text-white"
+                  }`}
+                >
+                  {ticker}
+                </span>
+                {name ? (
+                  <span className="truncate text-[10px] text-zinc-500">{name}</span>
+                ) : null}
               </Link>
             </li>
           );
