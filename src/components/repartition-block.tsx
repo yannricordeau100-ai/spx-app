@@ -1,30 +1,52 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Globe2, LayoutGrid, ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
 import type { Company, RevenueBreakdown } from "@/lib/data";
 import { brand } from "@/lib/brand";
-import { RepartitionTreemap, RepartitionRadial } from "@/components/charts/repartition-variants";
-// FIX 4f V1.9.5 (Yann 30 mai 2026) : mode ISO 3D supprimé entièrement
-// du sélecteur répartition. Import RepartitionIsoDetachedWedges retiré.
+import { RepartitionTreemap } from "@/components/charts/repartition-variants";
+// Yann 9 juin 2026 : modes ISO 3D + Radial supprimés. Treemap uniquement.
 import { useT } from "@/lib/i18n/provider";
 import type { Locale } from "@/lib/i18n/types";
 import { isBlockDisabledForTicker } from "@/lib/disabled-blocks";
 
 /**
  * RepartitionBlock — vue répartition CA par dimension (géographique
- * ou segment opérationnel). 3 styles de visualisation cyclables au
- * clic ou via scroll/swipe latéral : R3 Treemap, R4 Radial, R9 ISO 3D.
+ * ou segment opérationnel). Visualisation unique : Treemap.
  *
  * Position : entre Risks et Governance dans la page société.
  */
-// FIX 4f V1.9.5 (Yann 30 mai 2026) : mode "iso" (ISO 3D) supprimé.
-// Garde seulement treemap + radial dans le sélecteur.
-type Style = "treemap" | "radial";
-const STYLES: Style[] = ["treemap", "radial"];
+// Yann 9 juin 2026 : radial supprimé, treemap uniquement.
+type Style = "treemap";
+const STYLES: Style[] = ["treemap"];
 
 type Tab = "geo" | "segment" | "ai_customer";
+
+// Yann 9 juin 2026 : traduction FR des libellés géo/segment courants du bloc
+// chiffre d'affaire. Les noms propres (iPhone, Azure, etc.) restent inchangés.
+const FR_LABELS: Record<string, string> = {
+  Americas: "Amériques", America: "Amériques", "North America": "Amérique du Nord",
+  "South America": "Amérique du Sud", "Latin America": "Amérique latine",
+  Europe: "Europe", "Europe, Middle East and Africa": "Europe, Moyen-Orient et Afrique",
+  "Middle East and Africa": "Moyen-Orient et Afrique", "Middle East": "Moyen-Orient",
+  Africa: "Afrique", "Greater China": "Grande Chine", China: "Chine", Japan: "Japon",
+  "Asia-Pacific": "Asie-Pacifique", "Asia Pacific": "Asie-Pacifique", Asia: "Asie",
+  "Rest of Asia Pacific": "Reste de l'Asie-Pacifique",
+  "Rest of Asia-Pacific": "Reste de l'Asie-Pacifique",
+  "Rest of World": "Reste du monde", "Rest of the World": "Reste du monde",
+  International: "International", Domestic: "National",
+  "United States": "États-Unis", "United Kingdom": "Royaume-Uni", Germany: "Allemagne",
+  France: "France", Other: "Autres", Others: "Autres", "Other countries": "Autres pays",
+  Products: "Produits", Services: "Services", Product: "Produit", Hardware: "Matériel",
+  Software: "Logiciels", Subscriptions: "Abonnements", Subscription: "Abonnement",
+  Advertising: "Publicité", Licensing: "Licences", Cloud: "Cloud", Retail: "Distribution",
+  Wholesale: "Gros", "Consumer": "Grand public", Enterprise: "Entreprises",
+};
+function translateLabelFr(label: string): string {
+  if (!label) return label;
+  return FR_LABELS[label.trim()] ?? label;
+}
 
 function adaptForLocale(b: RevenueBreakdown | undefined | null, locale: Locale) {
   if (!b) return undefined;
@@ -36,7 +58,12 @@ function adaptForLocale(b: RevenueBreakdown | undefined | null, locale: Locale) 
     ...b,
     slices: b.slices.map((s) => ({
       ...s,
-      label: locale === "en" && s.label_en ? s.label_en : s.label,
+      label:
+        locale === "en" && s.label_en
+          ? s.label_en
+          : locale === "fr"
+            ? translateLabelFr(s.label)
+            : s.label,
     })),
   };
 }
@@ -47,17 +74,13 @@ export function RepartitionBlock({ company }: { company: Company }) {
 
   const geo = adaptForLocale(company.revenue_by_geography, locale);
   const segment = adaptForLocale(company.revenue_by_segment, locale);
-  // Yann 21 mai 2026 : nouvel onglet "IA Pro/Particulier" pour les stés
-  // qui vendent de l'IA (NVDA/MSFT/GOOGL/META/etc). Visible UNIQUEMENT
-  // si data présente (sourcée externe, pas dans filings).
+  // Yann 21 mai 2026 : onglet "IA Pro/Particulier" pour les stés qui vendent
+  // de l'IA. Visible UNIQUEMENT si data présente (sourcée externe).
   const aiCustomer = adaptForLocale(company.revenue_by_ai_customer_type, locale);
   const aiConfidence = company.revenue_by_ai_customer_type?.confidence;
   const aiSources = company.revenue_by_ai_customer_type?.sources;
 
-  // Yann 29 mai 2026 : toggles pour les vues répartition (treemap / radial
-  // × géo / segment). On filtre les vues désactivées et on masque la
-  // dimension si toutes ses vues sont off.
-  // FIX 4f V1.9.5 (30 mai 2026) : ISO 3D entièrement supprimé du sélecteur.
+  // Treemap uniquement : on respecte quand même les toggles par dimension.
   const geoStyles: Style[] = STYLES.filter(
     (s) => !isBlockDisabledForTicker(company.ticker, `repartition_geo_${s}`),
   );
@@ -72,33 +95,28 @@ export function RepartitionBlock({ company }: { company: Company }) {
 
   const [tab, setTab] = useState<Tab>(hasGeo ? "geo" : hasSegment ? "segment" : "ai_customer");
   const [styleIdx, setStyleIdx] = useState(0);
-  // Styles disponibles pour l'onglet courant. ai_customer garde les 3
-  // styles (pas de toggle dédié). geo/segment respectent les toggles.
   const activeStyles: Style[] =
     tab === "geo" ? geoStyles : tab === "segment" ? segmentStyles : STYLES;
   const safeStyleIdx = activeStyles.length > 0 ? styleIdx % activeStyles.length : 0;
-  const style: Style = activeStyles[safeStyleIdx] ?? STYLES[0];
 
   const active = tab === "geo" ? geo : tab === "segment" ? segment : aiCustomer;
   // Cohérence des décimales : si toutes les valeurs sont entières, 0 décimale ;
   // sinon 1 décimale partout dans le bloc.
   const decimals = active && active.slices.every((s) => Number.isInteger(s.value)) ? 0 : 1;
-  const wheelLock = useRef(false);
+
+  // Yann 9 juin 2026 : unité de repli quand la dimension n'a pas d'unité
+  // (ex AAPL). On déduit % si les parts somment à ~100, sinon Mds $ (revenu).
+  const unitFallback = (() => {
+    if (active?.unit) return active.unit;
+    if (!active) return "Mds $";
+    const sum = active.slices.reduce((acc, s) => acc + (s.value || 0), 0);
+    return sum >= 95 && sum <= 105 ? "%" : "Mds $";
+  })();
 
   function cycleStyle(dir: 1 | -1) {
     const len = activeStyles.length;
     if (len === 0) return;
     setStyleIdx((i) => (i + dir + len) % len);
-  }
-
-  function onWheel(e: React.WheelEvent) {
-    // Glissement horizontal au trackpad ou shift+wheel = changer le style
-    const horizontal = Math.abs(e.deltaX) > Math.abs(e.deltaY);
-    if (!horizontal) return;
-    if (wheelLock.current) return;
-    wheelLock.current = true;
-    setTimeout(() => (wheelLock.current = false), 350);
-    cycleStyle(e.deltaX > 0 ? 1 : -1);
   }
 
   return (
@@ -219,10 +237,8 @@ export function RepartitionBlock({ company }: { company: Company }) {
         </div>
       )}
 
-      {/* Chart area + flèches latérales. Chaque style rend à sa taille
-          naturelle (chart + légende), comme dans /chart-lab. La hauteur
-          du bloc s'adapte au chart courant. */}
-      <div className="relative" onWheel={onWheel}>
+      {/* Chart area. Treemap uniquement (radial + slide souris supprimés). */}
+      <div className="relative">
         {activeStyles.length > 1 && (
           <button
             onClick={() => cycleStyle(-1)}
@@ -236,7 +252,7 @@ export function RepartitionBlock({ company }: { company: Company }) {
 
         <AnimatePresence mode="wait">
           <motion.div
-            key={`${tab}-${style}`}
+            key={tab}
             initial={{ opacity: 0, x: 12 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -12 }}
@@ -247,10 +263,8 @@ export function RepartitionBlock({ company }: { company: Company }) {
               <div className="flex flex-1 items-center justify-center text-[13px] text-zinc-400">
                 {t("repartition.no_data")}
               </div>
-            ) : style === "treemap" ? (
-              <RepartitionTreemap data={active.slices} unit={active.unit} total={active.total} accent={accent} decimals={decimals} />
             ) : (
-              <RepartitionRadial data={active.slices} unit={active.unit} total={active.total} accent={accent} decimals={decimals} />
+              <RepartitionTreemap data={active.slices} unit={unitFallback} total={active.total} accent={accent} decimals={decimals} />
             )}
           </motion.div>
         </AnimatePresence>
@@ -267,9 +281,7 @@ export function RepartitionBlock({ company }: { company: Company }) {
         )}
       </div>
 
-      {/* Légende incertitude par slice — onglet ai_customer uniquement.
-          Le split B2B/B2C vient de sources externes (analystes, IR slides)
-          plutôt que d'un filing : chaque slice porte son propre +/- x%. */}
+      {/* Légende incertitude par slice — onglet ai_customer uniquement. */}
       {tab === "ai_customer" && active && active.slices.some((s) => (s.uncertainty_pct ?? 0) > 0) && (
         <div className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[11px] text-zinc-400">
           {active.slices.map((s, i) => {
@@ -290,30 +302,6 @@ export function RepartitionBlock({ company }: { company: Company }) {
               </span>
             );
           })}
-        </div>
-      )}
-
-      {/* Style dots dock — basé sur les styles actifs (filtrés par toggles). */}
-      {activeStyles.length > 1 && (
-        <div className="mt-3 flex items-center justify-center gap-2">
-          {activeStyles.map((s, i) => (
-            <button
-              key={s}
-              onClick={() => setStyleIdx(i)}
-              aria-label={t(`repartition.style.${s}`)}
-              className={`flex items-center gap-1.5 font-mono text-[10.5px] uppercase tracking-wider transition-colors ${
-                i === safeStyleIdx ? "text-zinc-100" : "text-zinc-500 hover:text-zinc-300"
-              }`}
-            >
-              <span
-                className={`size-1.5 rounded-full transition-all ${
-                  i === safeStyleIdx ? "" : "bg-zinc-600"
-                }`}
-                style={i === safeStyleIdx ? { background: accent, boxShadow: `0 0 6px ${accent}` } : undefined}
-              />
-              {t(`repartition.style.${s}`)}
-            </button>
-          ))}
         </div>
       )}
     </section>
