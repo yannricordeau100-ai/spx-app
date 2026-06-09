@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowDownRight, ArrowUpRight, Check } from "lucide-react";
-import { type KPI, formatCAGR, formatUnit, formatKpiValue } from "@/lib/data";
+import { type KPI, formatCAGR, formatUnit, formatHeroValue } from "@/lib/data";
 import { cn, yoyTone } from "@/lib/utils";
 import { rate } from "@/lib/brand";
 import { Sparkline } from "@/components/effects/sparkline";
@@ -79,31 +79,24 @@ export function KpiRow({
     tone === "pos" ? "#10b981" : tone === "neg" ? "#f43f5e" : "#a1a1aa";
   const accent = TYPE_COLOR[kpi.type] ?? "#a78bfa";
   const r = rate(kpi);
-  const formattedUnit = formatUnit(kpi.unit);
   const cagrLabel = formatCAGR(kpi.history, kpi.unit, kpi.period_type ?? "year", locale);
 
-  // Yann 15 mai 2026 : valeur formatée selon locale (fix "76.7" → "76,7" en FR/DE).
-  const numLocaleStr = locale === "fr" ? "fr-FR"
-    : locale === "de" || locale === "de-CH" ? "de-DE"
-    : locale === "nl" ? "nl-NL"
-    : "en-US";
   // Yann 8 juin 2026 (Point 3) : si overrideValue fourni (KPI actif uniquement),
   // on l'utilise à la place de kpi.value pour que la valeur à gauche corresponde
-  // au dernier point visible du chart à droite (varie avec timeFraction +
-  // chart view quarterly/annual).
+  // au dernier point visible du chart à droite.
   const valueAsNum = overrideValue != null && Number.isFinite(overrideValue)
     ? overrideValue
     : (typeof kpi.value === "number"
       ? kpi.value
       : (typeof kpi.value === "string" ? parseFloat(kpi.value.replace(/,/g, "")) : NaN));
-  // Yann 15 mai 2026 : règle décimales unifiée via formatKpiValue.
-  // En FR utilise la règle 1-2 décimales selon magnitude. Pour les autres
-  // locales, garde toLocaleString natif (mais en cappant à 2 max).
-  const formattedValue = Number.isFinite(valueAsNum)
-    ? locale === "fr"
-      ? formatKpiValue(valueAsNum, kpi.unit)
-      : valueAsNum.toLocaleString(numLocaleStr, { maximumFractionDigits: 2 })
-    : String(kpi.value ?? "—");
+  // Yann 9 juin 2026 : MEME remise a l'echelle de magnitude que le hero
+  // (formatHeroValue). Les lignes du tableau ne doivent JAMAIS montrer un chiffre
+  // brut hors [1, 999] (ex "1 067 000 000,0 $" devient "1,07 Mds $" ;
+  // "5 848 M €" devient "5,85 Mds €"). Regle CLAUDE.md S6 : chiffres 1-999 + bonne
+  // unite de magnitude. La valeur ET l'unite sont rescalees ensemble (coherent).
+  const heroFmt = Number.isFinite(valueAsNum) ? formatHeroValue(valueAsNum, kpi.unit ?? "") : null;
+  const formattedValue = heroFmt ? heroFmt.value : String(kpi.value ?? "—");
+  const formattedUnit = heroFmt ? heroFmt.unit : formatUnit(kpi.unit);
 
   // Yann 15 mai 2026 : KPI "incomplet" (juste une value, sans history/yoy/signal)
   // → masque tier/percentile (= rating fallback bidon "Moyen Top 50 %").
