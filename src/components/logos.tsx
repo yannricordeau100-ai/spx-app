@@ -1,5 +1,12 @@
 "use client";
 
+import LOGO_TICKERS_LIST from "@/data/logo-tickers.json";
+
+// Yann 10 juin 2026 : set des tickers (normalises comme safeTicker, majuscules +
+// points convertis en tirets) ayant un PNG dans /public/logos. Permet d'afficher
+// le monogramme de repli au lieu d'un carre noir quand le logo est absent.
+const LOGO_TICKERS = new Set(LOGO_TICKERS_LIST as string[]);
+
 /**
  * Real, recognizable brand logos as inline SVG.
  * Designed at 56×56 viewbox. Colors are accurate brand colors.
@@ -175,22 +182,27 @@ export function CompanyLogo({ ticker }: { ticker: string }) {
   // Convention fichier : public/logos/<TICKER>.png (ex: public/logos/NFLX.png).
   // Le ticker peut contenir . ou - selon source. Convertit . en - pour fichier.
   const safeTicker = t.replace(/\./g, "-");
-  // Yann 4 juin 2026 : APPROCHE DIFFERENTE - CSS background-image au lieu de
-  // <img>. Plus reliable : la taille est dictee par le parent (h-full w-full),
-  // background-size:contain fait le reste sans intermediaire DOM.
-  // Resout les cas ou <img> rendait a taille 0 dans certains layouts flex.
+  // Yann 10 juin 2026 : si aucun PNG n'existe pour cette ste, afficher le
+  // monogramme (cercle gradient + initiales) au lieu d'un carre noir vide.
+  // Corrige les logos "noirs" de la barre de recherche (ex ABI sans fichier).
+  if (!LOGO_TICKERS.has(safeTicker)) {
+    return <LogoMonogram ticker={t} />;
+  }
+  // Yann 4 juin 2026 : APPROCHE CSS background-image au lieu de <img>. Plus
+  // reliable : la taille est dictee par le parent (h-full w-full), sans
+  // intermediaire DOM. Resout les cas ou <img> rendait a taille 0 en flex.
   return (
     <span
       role="img"
       aria-label={`${ticker} logo`}
       className="block h-full w-full"
       style={{
-        // Yann 4 juin 2026 v2 : background-size 'cover' (au lieu de 'contain')
-        // pour ZOOM le logo qui remplit le cadre. Plus de marges blanches/noires
-        // artificielles entre le logo et le cadre. Les logos non-carres sont
-        // cropes legerement sur les bords (acceptable vs marges visibles).
+        // Yann 10 juin 2026 : background-size 'contain' (au lieu de 'cover')
+        // pour ne JAMAIS tronquer les logos larges ou en texte (ex ABB, ABF
+        // etaient cropes par 'cover' dans la barre de recherche). Le logo tient
+        // entier dans le cadre arrondi, marges minimes acceptables.
         backgroundImage: `url(/logos/${safeTicker}.png)`,
-        backgroundSize: "cover",
+        backgroundSize: "contain",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
       }}
