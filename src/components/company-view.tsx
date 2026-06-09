@@ -17,6 +17,7 @@ import {
 import {
   type Company,
   type KPI,
+  cagr,
   formatCAGR,
   formatKpiValue,
   formatUnit,
@@ -742,6 +743,29 @@ export function CompanyView({
     const stepsPerYear = active.period_type === "quarter" ? 4 : active.period_type === "semester" ? 2 : 1;
     return Math.round(((h.length - 1) / stepsPerYear) * 10) / 10;
   })();
+  // Yann 10 juin 2026 (Point 3) : CAGR annualisé injecté dans le PNG export,
+  // sous le titre. cagr() est TOUJOURS annualisé (il divise par les années
+  // réelles via period_type), donc le résultat est en %/an quel que soit
+  // l'affichage (annuel/trimestriel) ou la "fréquence" affichée (par an /
+  // par minute, qui ne touche pas active.history). Format discret locale-aware
+  // (Point 6) : "CAGR +47,8 %/an" (FR), "CAGR +47,8 %/yr" (EN).
+  const exportCagr = (() => {
+    const c = cagr(active.history, displayUnit, active.period_type ?? "year");
+    if (c === null) return undefined;
+    const numLoc = locale === "fr" ? "fr-FR" : locale === "de" || locale === "de-CH" ? "de-DE" : "en-US";
+    const perYear =
+      locale === "fr"
+        ? "/an"
+        : locale === "de" || locale === "de-CH"
+          ? "/Jahr"
+          : locale === "nl"
+            ? "/jaar"
+            : "/yr";
+    // "CAGR" reste tel quel (acronyme reconnu dans toutes les locales).
+    const sign = c > 0 ? "+" : "";
+    const pct = c.toLocaleString(numLoc, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+    return `CAGR ${sign}${pct} %${perYear}`;
+  })();
   const interp = useMemo(() => interpretStructured(company, active.short, locale), [company, active.short, locale]);
 
   const comparables = useMemo(
@@ -1340,6 +1364,7 @@ export function CompanyView({
                 barsVariant={barsVariant}
                 timeFraction={effectiveTimeFraction}
                 titleLocale={heroTitleLang}
+                exportCagr={exportCagr}
                 exportTitle={`${(() => {
                   type N = typeof active & { name_de?: string; name_en?: string };
                   const a = active as N;

@@ -167,6 +167,7 @@ export function CurveChart({
   ttmLabel = "TTM",
   exportTitle,
   exportTicker,
+  exportCagr,
   titleLocale,
 }: {
   data: number[];
@@ -182,6 +183,10 @@ export function CurveChart({
   exportTitle?: string;
   /** Ticker injecté dans le PNG exporté → logo société à droite du titre. */
   exportTicker?: string;
+  /** Yann 10 juin 2026 (Point 3) : CAGR annualisé déjà formaté (ex "CAGR
+   *  +47,8 %/an"), affiché sous le titre dans le PNG. Locale-aware côté
+   *  appelant (company-view). */
+  exportCagr?: string;
   /** Yann 8 juin 2026 (Point 4) : override locale axe Y depuis KpiSwapTitle.
    *  'en' force la traduction des mots d'echelle (Mds -> Bn) ET des unites
    *  textuelles non monetaires (unites -> units, abonnes -> subscribers, etc).
@@ -717,7 +722,7 @@ export function CurveChart({
         type="button"
         onClick={() => {
           if (svgRef.current) {
-            downloadSvgAsPng(svgRef.current, `mettrik-curve-${Date.now()}.png`, { title: exportTitle, ticker: exportTicker });
+            downloadSvgAsPng(svgRef.current, `mettrik-curve-${Date.now()}.png`, { title: exportTitle, ticker: exportTicker, cagr: exportCagr, locale });
           }
         }}
         aria-label="Télécharger le graphique"

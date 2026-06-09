@@ -6,6 +6,7 @@ import type { CompanyEvent } from "@/lib/events";
 import { EventDotsSVG, EventDotsOverlay } from "@/components/charts/event-dots";
 import { downloadSvgAsPng, buildYearGroups } from "@/lib/chart-export";
 import { ChartMiniLogo } from "@/components/charts/chart-mini-logo";
+import { useT } from "@/lib/i18n/provider";
 
 /**
  * Essais variation 3D / iso (V11-V12) inspirés freepik.
@@ -54,6 +55,10 @@ type Props = {
   exportTitle?: string;
   /** Ticker injecté dans le PNG exporté → logo société à droite du titre. */
   exportTicker?: string;
+  /** Yann 10 juin 2026 (Point 3) : CAGR annualisé déjà formaté (ex "CAGR
+   *  +47,8 %/an"), affiché sous le titre dans le PNG. Calculé côté
+   *  company-view sur la série de valeurs réelles du KPI (pas les deltas). */
+  exportCagr?: string;
 };
 
 const POS = "#10b981";
@@ -63,9 +68,11 @@ const NEG = "#f43f5e";
 /* V11 — ISO STEP BARS 3D                                         */
 /* Bars de variation en iso, hauteur en plus / moins du zéro.     */
 /* ============================================================ */
-export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, exportTicker }: Props) {
+export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, exportTicker, exportCagr }: Props) {
   const [hover, setHover] = useState<number | null>(null);
   const svgRef = useRef<SVGSVGElement>(null);
+  // Yann 10 juin 2026 (Point 6) : locale courante pour l'export PNG.
+  const { locale } = useT();
 
   const deltas = data.slice(1).map((v, i) => {
     const prev = data[i];
@@ -232,7 +239,7 @@ export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, ex
     <button
       type="button"
       onClick={() => {
-        if (svgRef.current) downloadSvgAsPng(svgRef.current, `mettrik-variation-${Date.now()}.png`, { title: exportTitle, ticker: exportTicker });
+        if (svgRef.current) downloadSvgAsPng(svgRef.current, `mettrik-variation-${Date.now()}.png`, { title: exportTitle, ticker: exportTicker, cagr: exportCagr, locale });
       }}
       aria-label="Télécharger le graphique"
       className="absolute right-2 top-2 inline-flex size-7 items-center justify-center rounded-full border border-white/5 bg-black/20 text-zinc-500 opacity-50 backdrop-blur transition-all hover:border-white/20 hover:bg-black/50 hover:text-zinc-100 hover:opacity-100"

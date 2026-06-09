@@ -109,7 +109,20 @@ function isDarkColor(color: string): boolean {
 export async function downloadSvgAsPng(
   svg: SVGSVGElement,
   filename: string,
-  options: { title?: string; ticker?: string } = {},
+  options: {
+    title?: string;
+    ticker?: string;
+    /** Yann 10 juin 2026 (Point 3) : CAGR annualise deja formate cote
+     *  composant (ex "CAGR +47,8 %/an"). Affiche en ligne discrete sous le
+     *  titre. Le calcul d'annualisation + le libelle locale-aware ("/an" |
+     *  "/yr") sont faits par l'appelant (company-view) qui connait
+     *  history + period_type. Si absent, aucune ligne CAGR n'est rendue. */
+    cagr?: string;
+    /** Yann 10 juin 2026 (Point 6) : locale courante de la page au moment de
+     *  l'export. Utilisee pour tout texte genere cote export. "KPIs Powered
+     *  by" reste en anglais (signature de marque). Default = fr. */
+    locale?: "fr" | "en" | "en-GB" | "de" | "de-CH" | "nl";
+  } = {},
   scale = 2
 ): Promise<void> {
   // Détection du thème depuis <html data-theme>. Default = dark.
@@ -121,6 +134,8 @@ export async function downloadSvgAsPng(
 
   const bgColor = isLight ? "#ffffff" : "#050505";
   const titleColor = isLight ? "#0a0a0a" : "#fafafa";
+  // Yann 10 juin 2026 : couleur sous-titre (CAGR) plus discrete que le titre.
+  const subtitleColor = isLight ? "#52525b" : "#a1a1aa";
 
   // Clone pour pouvoir injecter / modifier sans toucher au DOM live.
   const clone = svg.cloneNode(true) as SVGSVGElement;
@@ -278,19 +293,21 @@ export async function downloadSvgAsPng(
     /* fallback sur href URL si fetch fail */
   }
 
-  const WM_LOGO_H = 36; // hauteur image combined logo
+  // Yann 10 juin 2026 (Point 4) : logo Mettrik +20% (36 -> 43). WM_LOGO_W
+  // suit via le meme ratio 3.6.
+  const WM_LOGO_H = 43; // hauteur image combined logo (+20% vs 36)
   const WM_LOGO_W = WM_LOGO_H * 3.6; // ratio ~3.6:1 du combined
-  const WM_GAP = 2; // Yann 10 juin 2026 : gap texte<->logo Mettrik reduit ~90% (etait 10 + padding boite)
-  const KPIS_DATA_BY_TEXT_W = 92; // largeur reelle "KPIs & Data by" Avenir 14 (collee au logo)
+  const WM_GAP = 1; // Yann 10 juin 2026 : gap texte<->logo tres petit (bloc compact)
+  const KPIS_DATA_BY_TEXT_W = 92; // largeur reelle "KPIs Powered by" Avenir 14 (collee au logo)
   const wmTotalW = KPIS_DATA_BY_TEXT_W + WM_GAP + WM_LOGO_W;
   // Aligné DROITE sur la fin du graph (= bord droit dernière date axe X).
   const wmRightX = origX + origW;
   const wmStartX = wmRightX - wmTotalW;
-  // Yann 2 juin 2026 v10 : les labels X sont rendus À L'INTÉRIEUR du
-  // viewBox original (entre origY+origH-30 et origY+origH). La signature
-  // doit donc être posée à origY+origH+10 (= ~10px sous le bas visuel
-  // du chart, identique au gap "0"-"5" du label "2025").
-  const wmY = origY + origH + 10;
+  // Yann 10 juin 2026 (Point 5) : footer REMONTE vers le haut (etait
+  // origY+origH+10). On le pose a origY+origH-12 pour le rapprocher du bas
+  // du chart sans chevaucher les labels de l'axe X (rendus a l'interieur du
+  // viewBox original, entre origY+origH-30 et origY+origH).
+  const wmY = origY + origH - 12;
   const wmTextRightX = wmStartX + KPIS_DATA_BY_TEXT_W;
   const wmLogoX = wmStartX + KPIS_DATA_BY_TEXT_W + WM_GAP;
 
@@ -305,7 +322,9 @@ export async function downloadSvgAsPng(
   wmTextEl.setAttribute("letter-spacing", "0.02em");
   wmTextEl.setAttribute("fill", titleColor);
   wmTextEl.setAttribute("opacity", "0.85");
-  wmTextEl.textContent = "KPIs & Data by";
+  // Yann 10 juin 2026 (Point 1) : "KPIs & Data by" -> "KPIs Powered by".
+  // Reste en anglais (signature de marque, quelle que soit la locale).
+  wmTextEl.textContent = "KPIs Powered by";
   clone.appendChild(wmTextEl);
 
   const wmLogoEl = document.createElementNS(NS, "image");
@@ -313,7 +332,10 @@ export async function downloadSvgAsPng(
   wmLogoEl.setAttribute("y", String(wmY));
   wmLogoEl.setAttribute("width", String(WM_LOGO_W));
   wmLogoEl.setAttribute("height", String(WM_LOGO_H));
-  wmLogoEl.setAttribute("preserveAspectRatio", "xMidYMid meet");
+  // Yann 10 juin 2026 (Point 2) : logo colle a GAUCHE de sa boite (= colle
+  // au texte) pour reduire encore le gap visuel texte<->logo (le PNG combined
+  // a du padding interne a gauche). xMinYMid au lieu de xMidYMid.
+  wmLogoEl.setAttribute("preserveAspectRatio", "xMinYMid meet");
   wmLogoEl.setAttribute("href", logoDataUrl);
   wmLogoEl.setAttributeNS(
     "http://www.w3.org/1999/xlink",
@@ -539,6 +561,25 @@ export async function downloadSvgAsPng(
     kpiEl.textContent = kpiText;
     clone.appendChild(kpiEl);
     void TITLE_KPI_CHAR_W; // réservé pour calculs futurs si besoin
+
+    // ── Ligne 3 : CAGR annualisé, centrée, discrète (Yann 10 juin 2026) ──
+    // Le CAGR arrive déjà formaté + annualisé via options.cagr (calcul fait
+    // côté company-view qui connaît history + period_type). Locale-aware :
+    // "/an" en FR, "/yr" en EN (gérée par l'appelant). Couleur subtitleColor.
+    if (options.cagr) {
+      const cagrEl = document.createElementNS(NS, "text");
+      cagrEl.setAttribute("x", String(origX + origW / 2));
+      cagrEl.setAttribute("y", String(LINE2_Y + 24));
+      cagrEl.setAttribute("text-anchor", "middle");
+      cagrEl.setAttribute("font-family", titleFontFamily);
+      cagrEl.setAttribute("font-weight", "600");
+      cagrEl.setAttribute("font-style", "normal");
+      cagrEl.setAttribute("font-size", "14");
+      cagrEl.setAttribute("letter-spacing", "0.01em");
+      cagrEl.setAttribute("fill", subtitleColor);
+      cagrEl.textContent = options.cagr;
+      clone.appendChild(cagrEl);
+    }
   }
 
   const xml = new XMLSerializer().serializeToString(clone);

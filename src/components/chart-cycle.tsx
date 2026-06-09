@@ -295,6 +295,7 @@ export function ChartCycle({
   barsVariant = "iso3d",
   timeFraction = "year",
   exportTitle,
+  exportCagr,
   titleLocale = "fr",
 }: {
   mode: ChartMode;
@@ -319,6 +320,10 @@ export function ChartCycle({
    *  donc pas répété live mais ajouté dans le download pour qu'il se suffise
    *  à lui-même hors du contexte page). */
   exportTitle?: string;
+  /** Yann 10 juin 2026 (Point 3) : CAGR annualisé déjà formaté (ex "CAGR
+   *  +47,8 %/an") injecté sous le titre dans le PNG. Calculé côté parent
+   *  (company-view) sur la série de valeurs réelles du hero KPI. */
+  exportCagr?: string;
   /** Yann 8 juin 2026 (Point 4) : si le titre KPI est bascule en EN via
    *  KpiSwapTitle (state local au parent), on traduit aussi l'axe Y SAUF
    *  pour les unites monetaires (les symboles $/EUR/etc restent identiques).
@@ -353,13 +358,13 @@ export function ChartCycle({
           transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
         >
           {mode === "curve" && (
-            <CurveChart data={scaledData as number[]} labels={xLabels} unit={displayUnit} color={color} anomalies={anomalies} events={events} ttm={scaledTtm} exportTitle={exportTitle} exportTicker={company?.ticker} titleLocale={titleLocale} />
+            <CurveChart data={scaledData as number[]} labels={xLabels} unit={displayUnit} color={color} anomalies={anomalies} events={events} ttm={scaledTtm} exportTitle={exportTitle} exportTicker={company?.ticker} exportCagr={exportCagr} titleLocale={titleLocale} />
           )}
           {mode === "bars" && (
-            <BarsIso3DStack data={scaledData as number[]} labels={xLabels} unit={displayUnit} color={color} events={events} ttm={scaledTtm} variant={barsVariant} exportTitle={exportTitle} exportTicker={company?.ticker} titleLocale={titleLocale} />
+            <BarsIso3DStack data={scaledData as number[]} labels={xLabels} unit={displayUnit} color={color} events={events} ttm={scaledTtm} variant={barsVariant} exportTitle={exportTitle} exportTicker={company?.ticker} exportCagr={exportCagr} titleLocale={titleLocale} />
           )}
           {mode === "delta" && (
-            <VariationIsoSteps3D data={scaledData as number[]} labels={xLabels} events={events} exportTitle={exportTitle} exportTicker={company?.ticker} />
+            <VariationIsoSteps3D data={scaledData as number[]} labels={xLabels} events={events} exportTitle={exportTitle} exportTicker={company?.ticker} exportCagr={exportCagr} />
           )}
           {mode === "panel" && company && activeShort && onPickKpi && (
             <MiniMultiplesChart

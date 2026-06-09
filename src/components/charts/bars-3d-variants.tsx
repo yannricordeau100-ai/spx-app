@@ -83,6 +83,9 @@ type Props = {
   exportTitle?: string;
   /** Ticker injecté dans le PNG exporté → logo société à droite du titre. */
   exportTicker?: string;
+  /** Yann 10 juin 2026 (Point 3) : CAGR annualisé déjà formaté (ex "CAGR
+   *  +47,8 %/an"), affiché sous le titre dans le PNG. */
+  exportCagr?: string;
   /** Yann 8 juin 2026 (Point 4) : override locale axe Y depuis KpiSwapTitle.
    *  'en' force la traduction des mots d'echelle (Mds -> Bn) ET des unites
    *  textuelles non monetaires (unites -> units, abonnes -> subscribers, etc).
@@ -95,7 +98,7 @@ type Props = {
 /* Avec support TTM (barre supplémentaire pointillée) et variant   */
 /* "classic" pour basculer en 2D flat.                             */
 /* ============================================================ */
-export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", events = [], ttm = null, ttmLabel = "TTM", variant = "iso3d", exportTitle, exportTicker, titleLocale }: Props) {
+export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", events = [], ttm = null, ttmLabel = "TTM", variant = "iso3d", exportTitle, exportTicker, exportCagr, titleLocale }: Props) {
   const [hover, setHover] = useState<number | null>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   // Yann 15 mai 2026 : axis header locale-aware.
@@ -451,7 +454,7 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
       type="button"
       onClick={() => {
         if (svgRef.current) {
-          downloadSvgAsPng(svgRef.current, `mettrik-bars-${Date.now()}.png`, { title: exportTitle, ticker: exportTicker });
+          downloadSvgAsPng(svgRef.current, `mettrik-bars-${Date.now()}.png`, { title: exportTitle, ticker: exportTicker, cagr: exportCagr, locale });
         }
       }}
       aria-label="Télécharger le graphique"
