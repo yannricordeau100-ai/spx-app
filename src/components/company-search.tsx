@@ -23,6 +23,11 @@ import {
   formatKpiValue,
 } from "@/lib/data";
 import { brand } from "@/lib/brand";
+import capiSortedJson from "@/data/v1-8-tickers-sorted.json";
+/** Ordre capitalisation (= ordre home, NVDA 1er) pour la liste par défaut de la recherche. */
+const CAPI_RANK: Record<string, number> = Object.fromEntries(
+  (capiSortedJson as string[]).map((t, i) => [t.toUpperCase(), i]),
+);
 import { yoyTone } from "@/lib/utils";
 import { CompanyLogo, logoNeedsLightBg } from "@/components/logos";
 import { AcronymHover } from "@/components/acronym-hover";
@@ -358,6 +363,11 @@ export function CompanySearch({
     const merged = [...v1Out, ...v17Out, ...v19Out];
     merged.sort((a, b) => {
       if (b.score !== a.score) return b.score - a.score;
+      // À score égal (notamment query vide = liste par défaut) : ordre capi
+      // (= ordre home, NVDA 1er), puis source.
+      const ra = CAPI_RANK[a.ticker.toUpperCase()] ?? 99999;
+      const rb = CAPI_RANK[b.ticker.toUpperCase()] ?? 99999;
+      if (ra !== rb) return ra - rb;
       return sourceOrder[a.source] - sourceOrder[b.source];
     });
     // ┌────────────────────────────────────────────────────────────────┐

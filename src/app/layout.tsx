@@ -4,7 +4,6 @@ import { PlausibleScript } from "@/components/analytics/plausible";
 import { I18nProvider } from "@/lib/i18n/provider";
 import { getServerLocale } from "@/lib/i18n/server";
 import { UserPrefsSync } from "@/components/user-prefs-sync";
-import { GlobalSocialBar } from "@/components/global-social-bar";
 import { AdminFloatingPanel } from "@/components/admin-floating-panel";
 import "./globals.css";
 
@@ -123,9 +122,6 @@ export default async function RootLayout({
       <body className="min-h-full bg-[#050505] text-base text-zinc-100">
         <I18nProvider locale={locale}>
           {children}
-          {/* Présence sociale Mettrik AI affichée en bas de toutes les
-              pages de l'app (Yann 17 mai 2026). */}
-          <GlobalSocialBar />
         </I18nProvider>
         <UserPrefsSync />
         <PlausibleScript />

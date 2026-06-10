@@ -99,13 +99,13 @@ function CompanyName({
         >
           {tickerShown}
         </span>
+        {aliases.length > 0 && (
+          <span className="text-[11px] font-medium text-zinc-500 whitespace-nowrap self-end pb-0.5">
+            {alsoKnownLabel}{" "}
+            <span className="font-mono text-zinc-400">{aliases.join(" / ")}</span>
+          </span>
+        )}
       </div>
-      {aliases.length > 0 && (
-        <div className="mt-0.5 text-[11px] font-medium text-zinc-500">
-          {alsoKnownLabel}{" "}
-          <span className="font-mono text-zinc-400">{aliases.join(" / ")}</span>
-        </div>
-      )}
     </div>
   );
 }

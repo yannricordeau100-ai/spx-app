@@ -319,14 +319,9 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
                  derrière + fill semi-transparent + stroke vif + cap blanc
                  brillant en haut + edge highlight blanc lumineux gauche. */
               <>
-                {!isTTM && (
-                  <>
-                    {/* Halo soft (large, diffus) — atmosphère lumineuse */}
-                    <rect x={x} y={yT} width={barW} height={h} fill={color} fillOpacity={0.45} rx={3} filter={`url(#b26-neon-soft-${color.slice(1)})`} />
-                    {/* Halo sharp (proche bar, plus défini) */}
-                    <rect x={x} y={yT} width={barW} height={h} fill={color} fillOpacity={0.65} rx={2} filter={`url(#b26-neon-${color.slice(1)})`} />
-                  </>
-                )}
+                {/* Yann 11 juin 2026 : barres 2D néon classique, SANS halo/glow
+                   diffus entre les barres (les 2 rects flous retirés). Le néon
+                   vient du stroke vif + edge highlights blancs. */}
                 {/* Bar principale : fill semi-transparent + stroke néon */}
                 <rect
                   x={x}
