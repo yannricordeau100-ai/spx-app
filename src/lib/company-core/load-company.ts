@@ -312,7 +312,6 @@ export async function loadV17Company(
     ASMLF: "ASML",
     ABBNY: "ABBN.SW",
     ABLZF: "ABBN.SW",
-    DTEGY: "DTEGF",
     ADTTF: "ATEYY",
     BPAQF: "BP",
     "BP.L": "BP",
