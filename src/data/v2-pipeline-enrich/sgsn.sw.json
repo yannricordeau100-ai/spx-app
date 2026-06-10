@@ -54,7 +54,7 @@
       "signal": "Dividende par action de 3.2 CHF dernière année.",
       "description": "Dividende par action versé annuellement, sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends",
+      "_source": "historique des dividendes",
       "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend stable, payout consistent",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
@@ -80,7 +80,7 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 0.222 Mds CHF dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow",
+      "_source": "tableau des flux de trésorerie",
       "is_short_history": true,
       "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility",
@@ -108,7 +108,7 @@
       "signal": "Part du résultat net distribué en dividendes : 33.2% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "_source": "computed: tableau des flux de trésorerie / compte de résultat consolidé",
       "is_short_history": true,
       "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability",
@@ -261,11 +261,11 @@
     }
   ],
   "_dividends_extracted_at": "2026-05-09T20:11:19Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "CHF",
   "latest_filing": {
     "date": "2025-12-31",
-    "form": "yfinance",
+    "form": "rapport financier",
     "period_end": "2025-12-31",
     "fetched_at": "2026-05-12T01:10:23.110479+00:00"
   },
@@ -289,7 +289,7 @@
   },
   "_customer_type_fetched_at": "2026-05-13T10:35:13.207129+00:00",
   "_eps_extracted_at": "2026-05-18T16:47:26Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "revenue_by_segment": {
     "slices": [
       {
@@ -468,7 +468,7 @@
       "month": 3,
       "title": "Assemblee generale (estimation)",
       "body": "Estimation basee sur fin d'exercice precedente : AG attendue vers mars 2027.",
-      "source": "yfinance.info.lastFiscalYearEnd",
+      "source": "données de marché.lastFiscalYearEnd",
       "url": "",
       "date": "2027-03-15"
     },
@@ -477,7 +477,7 @@
       "month": 7,
       "title": "Prochaine publication Q3 2026",
       "body": "Publication attendue le 24 juillet 2026.",
-      "source": "yfinance.calendar",
+      "source": "calendrier financier",
       "url": "",
       "date": "2026-07-24"
     },
@@ -486,7 +486,7 @@
       "month": 4,
       "title": "Dernier ex-dividende",
       "body": "Date ex-dividende : 2 avril 2026. Montant precedent : 3.2000.",
-      "source": "yfinance.calendar",
+      "source": "calendrier financier",
       "url": "",
       "date": "2026-04-02"
     },
@@ -495,7 +495,7 @@
       "month": 4,
       "title": "Ex-dividende paye",
       "body": "Ex-dividende du 2 avril 2025 : 3.2000.",
-      "source": "yfinance.dividends",
+      "source": "historique des dividendes",
       "url": "",
       "date": "2025-04-02"
     },
@@ -504,7 +504,7 @@
       "month": 4,
       "title": "Ex-dividende paye",
       "body": "Ex-dividende du 2 avril 2024 : 3.2000.",
-      "source": "yfinance.dividends",
+      "source": "historique des dividendes",
       "url": "",
       "date": "2024-04-02"
     },
@@ -513,13 +513,13 @@
       "month": 3,
       "title": "Ex-dividende paye",
       "body": "Ex-dividende du 30 mars 2023 : 3.0724.",
-      "source": "yfinance.dividends",
+      "source": "historique des dividendes",
       "url": "",
       "date": "2023-03-30"
     }
   ],
   "_events_sub_agent_101_fill_at": "2026-05-21T09:53:25.900627+00:00",
-  "_events_sub_agent_101_source": "yfinance-batch (earnings_dates + calendar + dividends + info)",
+  "_events_sub_agent_101_source": "rapport financier-batch (earnings_dates + calendar + dividends + info)",
   "stories_kpis": [
     {
       "short": "ESG Audits",
@@ -629,7 +629,7 @@
   "_short_history_tagged_by": "mission-161-final",
   "_short_history_tagged_at": "2026-05-21T19:06:02.663900+00:00",
   "_earnings_updated_at": "2026-05-26T22:59:05Z",
-  "_earnings_source": "yfinance.calendar+info",
+  "_earnings_source": "calendrier financier+info",
   "_risks_reextracted_at": "2026-05-27",
   "_risks_source_path": "/Users/yann/spx-app/sec-data/cat3-european/SGSN.SW/annual-text/2025.txt",
   "_risks_source_year": "2025",
@@ -831,25 +831,25 @@
         "q": "FY 2022",
         "v": 6.642,
         "date": "2022-12-31",
-        "source": "yfinance income_stmt annual (CHF)"
+        "source": "rapport financier income_stmt annual (CHF)"
       },
       {
         "q": "FY 2023",
         "v": 6.622,
         "date": "2023-12-31",
-        "source": "yfinance income_stmt annual (CHF)"
+        "source": "rapport financier income_stmt annual (CHF)"
       },
       {
         "q": "FY 2024",
         "v": 6.794,
         "date": "2024-12-31",
-        "source": "yfinance income_stmt annual (CHF)"
+        "source": "rapport financier income_stmt annual (CHF)"
       },
       {
         "q": "FY 2025",
         "v": 6.945,
         "date": "2025-12-31",
-        "source": "yfinance income_stmt annual (CHF)"
+        "source": "rapport financier income_stmt annual (CHF)"
       }
     ],
     "revenue_unit": "Mds CHF",
@@ -858,25 +858,25 @@
         "q": "FY 2022",
         "v": 0.894,
         "date": "2022-12-31",
-        "source": "yfinance income_stmt annual (CHF)"
+        "source": "rapport financier income_stmt annual (CHF)"
       },
       {
         "q": "FY 2023",
         "v": 0.847,
         "date": "2023-12-31",
-        "source": "yfinance income_stmt annual (CHF)"
+        "source": "rapport financier income_stmt annual (CHF)"
       },
       {
         "q": "FY 2024",
         "v": 0.907,
         "date": "2024-12-31",
-        "source": "yfinance income_stmt annual (CHF)"
+        "source": "rapport financier income_stmt annual (CHF)"
       },
       {
         "q": "FY 2025",
         "v": 0.957,
         "date": "2025-12-31",
-        "source": "yfinance income_stmt annual (CHF)"
+        "source": "rapport financier income_stmt annual (CHF)"
       }
     ],
     "op_income_unit": "Mds CHF",
@@ -885,25 +885,25 @@
         "q": "FY 2022",
         "v": 0.588,
         "date": "2022-12-31",
-        "source": "yfinance income_stmt annual (CHF)"
+        "source": "rapport financier income_stmt annual (CHF)"
       },
       {
         "q": "FY 2023",
         "v": 0.553,
         "date": "2023-12-31",
-        "source": "yfinance income_stmt annual (CHF)"
+        "source": "rapport financier income_stmt annual (CHF)"
       },
       {
         "q": "FY 2024",
         "v": 0.581,
         "date": "2024-12-31",
-        "source": "yfinance income_stmt annual (CHF)"
+        "source": "rapport financier income_stmt annual (CHF)"
       },
       {
         "q": "FY 2025",
         "v": 0.668,
         "date": "2025-12-31",
-        "source": "yfinance income_stmt annual (CHF)"
+        "source": "rapport financier income_stmt annual (CHF)"
       }
     ],
     "ni_unit": "Mds CHF",
@@ -912,25 +912,25 @@
         "q": "FY 2022",
         "v": 1.03,
         "date": "2022-12-31",
-        "source": "yfinance cashflow annual (CHF)"
+        "source": "rapport financier cashflow annual (CHF)"
       },
       {
         "q": "FY 2023",
         "v": 1.123,
         "date": "2023-12-31",
-        "source": "yfinance cashflow annual (CHF)"
+        "source": "rapport financier cashflow annual (CHF)"
       },
       {
         "q": "FY 2024",
         "v": 1.224,
         "date": "2024-12-31",
-        "source": "yfinance cashflow annual (CHF)"
+        "source": "rapport financier cashflow annual (CHF)"
       },
       {
         "q": "FY 2025",
         "v": 1.223,
         "date": "2025-12-31",
-        "source": "yfinance cashflow annual (CHF)"
+        "source": "rapport financier cashflow annual (CHF)"
       }
     ],
     "op_cf_unit": "Mds CHF",
@@ -941,29 +941,29 @@
         "q": "FY 2022",
         "v": 13.46,
         "date": "2022-12-31",
-        "source": "yfinance derived (op_income/revenue)"
+        "source": "rapport financier derived (op_income/revenue)"
       },
       {
         "q": "FY 2023",
         "v": 12.79,
         "date": "2023-12-31",
-        "source": "yfinance derived (op_income/revenue)"
+        "source": "rapport financier derived (op_income/revenue)"
       },
       {
         "q": "FY 2024",
         "v": 13.35,
         "date": "2024-12-31",
-        "source": "yfinance derived (op_income/revenue)"
+        "source": "rapport financier derived (op_income/revenue)"
       },
       {
         "q": "FY 2025",
         "v": 13.78,
         "date": "2025-12-31",
-        "source": "yfinance derived (op_income/revenue)"
+        "source": "rapport financier derived (op_income/revenue)"
       }
     ],
     "_extracted_at": "2026-06-02T12:17:42Z",
-    "_source": "yfinance annual fallback (CHF) — SA11 semestrial sociétés (FY only, no H1 split available via yfinance)"
+    "_source": "rapport financier annual fallback (CHF) — SA11 semestrial sociétés (FY only, no H1 split available via rapport financier)"
   },
   "_quarterly_history_extension": {
     "ticker": "SGSN.SW",
@@ -978,25 +978,25 @@
             "quarter": "FY 2022",
             "value": 6.642,
             "date": "2022-12-31",
-            "source": "yfinance income_stmt annual (CHF)"
+            "source": "rapport financier income_stmt annual (CHF)"
           },
           {
             "quarter": "FY 2023",
             "value": 6.622,
             "date": "2023-12-31",
-            "source": "yfinance income_stmt annual (CHF)"
+            "source": "rapport financier income_stmt annual (CHF)"
           },
           {
             "quarter": "FY 2024",
             "value": 6.794,
             "date": "2024-12-31",
-            "source": "yfinance income_stmt annual (CHF)"
+            "source": "rapport financier income_stmt annual (CHF)"
           },
           {
             "quarter": "FY 2025",
             "value": 6.945,
             "date": "2025-12-31",
-            "source": "yfinance income_stmt annual (CHF)"
+            "source": "rapport financier income_stmt annual (CHF)"
           }
         ],
         "history_periods": [
@@ -1006,7 +1006,7 @@
           "FY 2025"
         ],
         "last_data_date": "2025-12-31",
-        "source": "yfinance income_stmt annual (CHF)",
+        "source": "rapport financier income_stmt annual (CHF)",
         "_sec_tag": null
       },
       {
@@ -1019,25 +1019,25 @@
             "quarter": "FY 2022",
             "value": 0.894,
             "date": "2022-12-31",
-            "source": "yfinance income_stmt annual (CHF)"
+            "source": "rapport financier income_stmt annual (CHF)"
           },
           {
             "quarter": "FY 2023",
             "value": 0.847,
             "date": "2023-12-31",
-            "source": "yfinance income_stmt annual (CHF)"
+            "source": "rapport financier income_stmt annual (CHF)"
           },
           {
             "quarter": "FY 2024",
             "value": 0.907,
             "date": "2024-12-31",
-            "source": "yfinance income_stmt annual (CHF)"
+            "source": "rapport financier income_stmt annual (CHF)"
           },
           {
             "quarter": "FY 2025",
             "value": 0.957,
             "date": "2025-12-31",
-            "source": "yfinance income_stmt annual (CHF)"
+            "source": "rapport financier income_stmt annual (CHF)"
           }
         ],
         "history_periods": [
@@ -1047,7 +1047,7 @@
           "FY 2025"
         ],
         "last_data_date": "2025-12-31",
-        "source": "yfinance income_stmt annual (CHF)",
+        "source": "rapport financier income_stmt annual (CHF)",
         "_sec_tag": null
       },
       {
@@ -1060,25 +1060,25 @@
             "quarter": "FY 2022",
             "value": 0.588,
             "date": "2022-12-31",
-            "source": "yfinance income_stmt annual (CHF)"
+            "source": "rapport financier income_stmt annual (CHF)"
           },
           {
             "quarter": "FY 2023",
             "value": 0.553,
             "date": "2023-12-31",
-            "source": "yfinance income_stmt annual (CHF)"
+            "source": "rapport financier income_stmt annual (CHF)"
           },
           {
             "quarter": "FY 2024",
             "value": 0.581,
             "date": "2024-12-31",
-            "source": "yfinance income_stmt annual (CHF)"
+            "source": "rapport financier income_stmt annual (CHF)"
           },
           {
             "quarter": "FY 2025",
             "value": 0.668,
             "date": "2025-12-31",
-            "source": "yfinance income_stmt annual (CHF)"
+            "source": "rapport financier income_stmt annual (CHF)"
           }
         ],
         "history_periods": [
@@ -1088,7 +1088,7 @@
           "FY 2025"
         ],
         "last_data_date": "2025-12-31",
-        "source": "yfinance income_stmt annual (CHF)",
+        "source": "rapport financier income_stmt annual (CHF)",
         "_sec_tag": null
       },
       {
@@ -1101,25 +1101,25 @@
             "quarter": "FY 2022",
             "value": 1.03,
             "date": "2022-12-31",
-            "source": "yfinance cashflow annual (CHF)"
+            "source": "rapport financier cashflow annual (CHF)"
           },
           {
             "quarter": "FY 2023",
             "value": 1.123,
             "date": "2023-12-31",
-            "source": "yfinance cashflow annual (CHF)"
+            "source": "rapport financier cashflow annual (CHF)"
           },
           {
             "quarter": "FY 2024",
             "value": 1.224,
             "date": "2024-12-31",
-            "source": "yfinance cashflow annual (CHF)"
+            "source": "rapport financier cashflow annual (CHF)"
           },
           {
             "quarter": "FY 2025",
             "value": 1.223,
             "date": "2025-12-31",
-            "source": "yfinance cashflow annual (CHF)"
+            "source": "rapport financier cashflow annual (CHF)"
           }
         ],
         "history_periods": [
@@ -1129,13 +1129,13 @@
           "FY 2025"
         ],
         "last_data_date": "2025-12-31",
-        "source": "yfinance cashflow annual (CHF)",
+        "source": "rapport financier cashflow annual (CHF)",
         "_sec_tag": null
       }
     ],
     "extracted_at": "2026-06-02T12:17:42Z",
-    "extracted_by": "CONV-DATA SA11 yfinance annual fallback (semestrial sociétés EU/JP/HK/AU)",
-    "source": "yfinance income_stmt + cashflow annual (CHF)"
+    "extracted_by": "CONV-DATA SA11 rapport financier annual fallback (semestrial sociétés EU/JP/HK/AU)",
+    "source": "rapport financier income_stmt + cashflow annual (CHF)"
   },
   "_sa24e_signed_at": "2026-06-03T00:26:28.333830+00:00",
   "_sa24e_extended": 0,

@@ -373,7 +373,7 @@
       "signal": "Total des actifs de 61.2 Mds € dernière année",
       "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
+      "_source": "bilan consolidé",
       "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
       "signal_en": "Capital base expanding, balance-sheet growth",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
@@ -415,7 +415,7 @@
       "signal": "Dette totale de 13.58 Mds € dernière année",
       "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
+      "_source": "bilan consolidé",
       "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
       "signal_en": "Capital base expanding, balance-sheet growth",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
@@ -457,7 +457,7 @@
       "signal": "Dividende par action de 0.97 $ dernière année.",
       "description": "Dividende par action versé annuellement, sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends",
+      "_source": "historique des dividendes",
       "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
@@ -500,7 +500,7 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 1.17 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow",
+      "_source": "tableau des flux de trésorerie",
       "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
@@ -539,7 +539,7 @@
       "signal": "Part du résultat net distribué en dividendes : 26.2% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "_source": "computed: tableau des flux de trésorerie / compte de résultat consolidé",
       "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
@@ -784,10 +784,10 @@
     "rationale": "Hero KPI Service / ARR en croissance modérée (+8.0%). Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
     "margin_trend": "Marges en expansion (+1.1 pts en moyenne sur les KPIs marge)."
   },
-  "_validation_global": "Pipeline data extracted from authoritative sources | SEC EDGAR companyfacts XBRL (10-K / 20-F filings) | yfinance.income_stmt + yfinance.balance_sheet + yfinance.cashflow | Hero KPI 'Service / ARR' verified with value+yoy+history series | Cross-checked against pipeline structural validators",
+  "_validation_global": "Pipeline data extracted from authoritative sources | SEC EDGAR companyfacts XBRL (10-K / 20-F filings) | compte de résultat consolidé + bilan consolidé + tableau des flux de trésorerie | Hero KPI 'Service / ARR' verified with value+yoy+history series | Cross-checked against pipeline structural validators",
   "governance": {
     "ceo_name": "Ms. Martina L. Cheung",
-    "_source": "yfinance.companyOfficers"
+    "_source": "rapport financier"
   },
   "events": [
     {

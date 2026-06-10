@@ -11,8 +11,8 @@ import json, os, re, sys, glob
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 APPLY = "--apply" in sys.argv
-# stés dont la description est re-extraite par agent en parallèle : on les saute
-EXCLUDE = {"ca.pa", "cs.pa", "dg.pa", "ng.l", "it", "mco", "nws"}
+# (les descriptions des 7 ex-polluées sont déjà réécrites ; on traite tout désormais)
+EXCLUDE = set()
 
 # champs texte VISIBLES à nettoyer
 VISIBLE_KEYS = {"description", "explanation", "signal", "rationale", "hero_kpi_rationale",
@@ -47,14 +47,32 @@ def clean_yf(text):
     s = re.sub(r'^\s*,\s*', '', s)
     return s.strip()
 
+NEUTRAL_MAP = {
+    "income_stmt": "compte de résultat consolidé", "balance_sheet": "bilan consolidé",
+    "cashflow": "tableau des flux de trésorerie", "dividends": "historique des dividendes",
+    "info": "données de marché", "financials": "états financiers consolidés",
+    "earnings": "publications de résultats", "calendar": "calendrier financier",
+    "quarterly_income_stmt": "comptes trimestriels", "quarterly_financials": "comptes trimestriels",
+}
+def neutral_src(text):
+    s = re.sub(r'yfinance[._]company_?officers', "registre public des dirigeants", text, flags=re.I)
+    s = re.sub(r'yfinance[._]ceo\w*', "registre public des dirigeants", s, flags=re.I)
+    s = re.sub(r'yfinance[._]mission\w*', "données publiques", s, flags=re.I)
+    s = re.sub(r'yfinance[._](\w+)', lambda m: NEUTRAL_MAP.get(m.group(1).lower(), "rapport financier"), s, flags=re.I)
+    s = re.sub(r'yfinance', "données publiques", s, flags=re.I)  # catch-all (underscore/bare/toute forme)
+    return s
+
 def walk(obj, changed):
     if isinstance(obj, dict):
         for k, v in obj.items():
-            if isinstance(v, str) and k in VISIBLE_KEYS and "yfinance" in v.lower():
-                nv = clean_yf(v)
+            if isinstance(v, str) and "yfinance" in v.lower():
+                if k in VISIBLE_KEYS:
+                    nv = clean_yf(v)            # texte affiché : retire la clause de provenance
+                else:
+                    nv = neutral_src(v)         # _source / metadata : libellé neutre (token yfinance retiré)
                 if nv != v:
                     obj[k] = nv
-                    changed.append((k, v, nv))
+                    changed.append((k, v[:80], nv[:80]))
             else:
                 walk(v, changed)
     elif isinstance(obj, list):

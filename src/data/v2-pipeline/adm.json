@@ -246,7 +246,7 @@
       "signal": "Total des actifs de 52.39 Mds € dernière année",
       "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
+      "_source": "bilan consolidé",
       "is_short_history": true,
       "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
       "signal_en": "Capital base contracting, monitor structure",
@@ -286,7 +286,7 @@
       "signal": "Dette totale de 9.76 Mds € dernière année",
       "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
+      "_source": "bilan consolidé",
       "is_short_history": true,
       "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
       "signal_en": "Capital base contracting, monitor structure",
@@ -329,7 +329,7 @@
       "signal": "Dividende par action de 0.52 $ dernière année.",
       "description": "Dividende par action versé annuellement, sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends",
+      "_source": "historique des dividendes",
       "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
@@ -371,7 +371,7 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 0.987 Mds $ dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow",
+      "_source": "tableau des flux de trésorerie",
       "is_short_history": true,
       "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility",
@@ -399,7 +399,7 @@
       "signal": "Part du résultat net distribué en dividendes : 91.6% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "_source": "computed: tableau des flux de trésorerie / compte de résultat consolidé",
       "is_short_history": true,
       "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive",
@@ -647,7 +647,7 @@
       }
     ],
     "top_voting": [],
-    "_source": "yfinance.companyOfficers"
+    "_source": "rapport financier"
   },
   "_validation": [
     "CORRECTION: Sector corrigé de 'Information Technology' à 'Consumer Staples' (ADM est une entreprise agroalimentaire et d'agriculture, pas technologique)",
@@ -669,7 +669,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,

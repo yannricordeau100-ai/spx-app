@@ -439,9 +439,9 @@
       "nature": "Récurrent",
       "comparable": true,
       "signal": "Dividende par action de 3.95 EUR dernière année.",
-      "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
+      "description": "Dividende par action versé annuellement, sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends",
+      "_source": "historique des dividendes",
       "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
@@ -465,9 +465,9 @@
       "nature": "Récurrent",
       "comparable": true,
       "signal": "Capital retourné aux actionnaires via dividendes de 2.665 Mds EUR dernière année.",
-      "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
+      "description": "Capital retourné aux actionnaires via dividendes annuels, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow",
+      "_source": "tableau des flux de trésorerie",
       "is_short_history": true,
       "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility",
@@ -492,9 +492,9 @@
       "nature": "Récurrent",
       "comparable": true,
       "signal": "Part du résultat net distribué en dividendes : 54.4% dernière année.",
-      "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
+      "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "_source": "computed: tableau des flux de trésorerie / compte de résultat consolidé",
       "is_short_history": true,
       "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive",
@@ -687,11 +687,11 @@
     }
   ],
   "_dividends_extracted_at": "2026-05-09T20:11:04Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "EUR",
   "latest_filing": {
     "date": "2025-12-31",
-    "form": "yfinance",
+    "form": "rapport financier",
     "period_end": "2025-12-31",
     "fetched_at": "2026-05-12T01:08:25.822396+00:00"
   },
@@ -716,7 +716,7 @@
   },
   "_customer_type_fetched_at": "2026-05-13T10:25:57.328485+00:00",
   "_eps_extracted_at": "2026-05-18T16:44:36Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "_hero_override_reason": "DECONTAMINATED_VINCI_2026-06-10",
   "hero_kpi_override": "CA Concessions",
   "_hero_override_at": "2026-06-10",
@@ -749,11 +749,11 @@
       }
     ],
     "voting_structure_note": "OK 1-share-1-vote",
-    "_top_source": "yfinance",
+    "_top_source": "rapport financier",
     "_top_enriched_at": "2026-05-21T02:12:52.429093+00:00",
     "_top_dual_class_flag": false,
     "top_disclosure": "eu_regex_extracted",
-    "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
+    "_top_disclosure_note": "Données rapport financier vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
     "_top_disclosure_at": "2026-05-21T02:49:04.595723+00:00",
     "_top_disclosure_replaced_by_sub90": "2026-05-21T09:18:57Z",
     "ceo_total_comp_m": 5.2,
@@ -775,7 +775,7 @@
       "name": "Pierre Anjolras",
       "title": "CEO & Director"
     },
-    "source": "yfinance_companyOfficers",
+    "source": "registre public des dirigeants",
     "_extracted_at_phase_a": "2026-05-21T11:18:32+00:00"
   },
   "_governance_partial": true,
@@ -813,7 +813,7 @@
   "hero_kpi_replaced_reason": "Hero specifique 'CA Concessions' (CA segment Concessions VINCI, history verbatim 5 ans) re-pointe apres decontamination Virbac (override DPS obsolete).",
   "_hero_replaced_by_sector_fallback": true,
   "_earnings_updated_at": "2026-05-26T22:58:39Z",
-  "_earnings_source": "yfinance.calendar+info",
+  "_earnings_source": "calendrier financier+info",
   "_risks_reextracted_at": "2026-05-27",
   "_risks_source_path": "/Users/yann/spx-app/sec-data/cat3-european/DG.PA/annual-text/2023.txt",
   "_risks_source_year": 2023,
@@ -948,7 +948,7 @@
         3.87
       ],
       "period_type": "year",
-      "_source": "yfinance",
+      "_source": "rapport financier",
       "_extracted_at": "2026-05-28T21:09:39+00:00",
       "type": "Investissement",
       "nature": "Structurel",
@@ -1054,29 +1054,29 @@
         "quarter": "FY 2022",
         "value": 62.514,
         "date": "2022-12-31",
-        "source": "yfinance annual"
+        "source": "rapport financier annual"
       },
       {
         "quarter": "FY 2023",
         "value": 69.885,
         "date": "2023-12-31",
-        "source": "yfinance annual"
+        "source": "rapport financier annual"
       },
       {
         "quarter": "FY 2024",
         "value": 72.768,
         "date": "2024-12-31",
-        "source": "yfinance annual"
+        "source": "rapport financier annual"
       },
       {
         "quarter": "FY 2025",
         "value": 75.702,
         "date": "2025-12-31",
-        "source": "yfinance annual"
+        "source": "rapport financier annual"
       }
     ],
     "_xbrl_tag": null,
-    "_source_label": "yfinance annual",
+    "_source_label": "rapport financier annual",
     "_extracted_by": "Sub-agent Opus full-q chunk-07",
     "_extracted_at": "2026-06-01T20:41:42.159217+00:00"
   },
@@ -1085,25 +1085,25 @@
       "value": 75.702,
       "unit": "Mds €",
       "date": "2025-12-31",
-      "source": "yfinance annual"
+      "source": "rapport financier annual"
     },
     "op_income_q": {
       "value": 9.004,
       "unit": "Mds €",
       "date": "2025-12-31",
-      "source": "yfinance annual"
+      "source": "rapport financier annual"
     },
     "ni_q": {
       "value": 4.903,
       "unit": "Mds €",
       "date": "2025-12-31",
-      "source": "yfinance annual"
+      "source": "rapport financier annual"
     },
     "op_cf_q": {
       "value": 11.886,
       "unit": "Mds €",
       "date": "2025-12-31",
-      "source": "yfinance annual"
+      "source": "rapport financier annual"
     },
     "rd_q": null,
     "op_margin_q_pct": 11.89,

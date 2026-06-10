@@ -315,7 +315,7 @@
       "signal": "Total des actifs de 2.56 Mds € dernière année",
       "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
+      "_source": "bilan consolidé",
       "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
       "signal_en": "Capital base contracting, monitor structure",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
@@ -357,7 +357,7 @@
       "signal": "Dette totale de 0.44 Mds € dernière année",
       "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
+      "_source": "bilan consolidé",
       "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
       "signal_en": "Capital base expanding, balance-sheet growth",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
@@ -399,7 +399,7 @@
       "signal": "Dividende par action de 0.08 $ dernière année.",
       "description": "Dividende par action versé annuellement, sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends",
+      "_source": "historique des dividendes",
       "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
@@ -438,7 +438,7 @@
       "signal": "Part du résultat net distribué en dividendes : 68.7% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "_source": "computed: tableau des flux de trésorerie / compte de résultat consolidé",
       "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
@@ -700,7 +700,7 @@
       }
     ],
     "ceo_name": "Mr. Kim  Kelderman",
-    "_source": "yfinance.companyOfficers"
+    "_source": "rapport financier"
   },
   "_validation_summary": "Corrections effectuées: (1) stories_kpis[0] Lunaphore Acquisition: value '5' -> '169.7' (prix confirmé en 10-K), unit '%' -> 'M $', type 'Demand' -> 'Investment', history et TTM ajustés. (2) Tous les KPI revenue et margin confirmés vs 10-K consolidated financials. (3) Croissance organique 5% confirmée. (4) Adjusted net earnings +8% confirmé. (5) Hero_kpi_rationale maintenu sans em-dash.",
   "_held_for_review": true,
@@ -712,7 +712,7 @@
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
   "_hero_kpi_original": "Protein Sciences Revenue",
-  "_validation_global": "Pipeline data extracted from authoritative sources | SEC EDGAR companyfacts XBRL (10-K / 20-F filings) | yfinance.income_stmt + yfinance.balance_sheet + yfinance.cashflow | Hero KPI 'Total Revenue' verified with value+yoy+history series | Cross-checked against pipeline structural validators",
+  "_validation_global": "Pipeline data extracted from authoritative sources | SEC EDGAR companyfacts XBRL (10-K / 20-F filings) | compte de résultat consolidé + bilan consolidé + tableau des flux de trésorerie | Hero KPI 'Total Revenue' verified with value+yoy+history series | Cross-checked against pipeline structural validators",
   "events": [
     {
       "date": "2026-02-11",

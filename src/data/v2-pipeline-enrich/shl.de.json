@@ -55,7 +55,7 @@
       "signal": "Dividende par action de 1.0 EUR dernière année.",
       "description": "Dividende par action versé annuellement, sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends",
+      "_source": "historique des dividendes",
       "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive",
       "_nature_reclass_at": "2026-06-01T02:50:40Z",
@@ -81,7 +81,7 @@
       "signal": "Capital retourné aux actionnaires via dividendes de 1.063 Mds EUR dernière année.",
       "description": "Capital retourné aux actionnaires via dividendes annuels, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow",
+      "_source": "tableau des flux de trésorerie",
       "is_short_history": true,
       "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity",
@@ -108,7 +108,7 @@
       "signal": "Part du résultat net distribué en dividendes : 54.7% dernière année.",
       "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
+      "_source": "computed: tableau des flux de trésorerie / compte de résultat consolidé",
       "is_short_history": true,
       "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability",
@@ -233,11 +233,11 @@
     }
   ],
   "_dividends_extracted_at": "2026-05-09T20:11:13Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2024)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2024)",
   "_dividends_currency": "EUR",
   "latest_filing": {
     "date": "2026-05-06",
-    "form": "yfinance",
+    "form": "rapport financier",
     "period_end": "2026-03-31",
     "fetched_at": "2026-05-12T01:09:26.964465+00:00"
   },
@@ -298,7 +298,7 @@
   },
   "_segment_fetched_at": "2026-05-13T16:59:30.053580+00:00",
   "_eps_extracted_at": "2026-05-18T16:47:28Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "risks": [
     {
       "title": "Acquisitions et intégrations",
@@ -502,7 +502,7 @@
     "method": "cerebras-qwen3-235b"
   },
   "_earnings_updated_at": "2026-05-26T22:59:05Z",
-  "_earnings_source": "yfinance.calendar+info",
+  "_earnings_source": "calendrier financier+info",
   "_risks_reextracted_at": "2026-05-27",
   "_risks_source_path": "/Users/yann/spx-app/sec-data/cat3-european/SHL.DE/annual-text/2023.txt",
   "_risks_source_year": "2023",
@@ -685,7 +685,7 @@
     "unit": "Bn EUR",
     "as_of_quarter": "Q4 2025",
     "as_of_date": "2025-12-31",
-    "source": "yfinance quarterly_income_stmt + quarterly_cashflow"
+    "source": "rapport financier quarterly_income_stmt + quarterly_cashflow"
   },
   "_quarterly_history_extension": {
     "hero_kpi_short": "Total Revenue",
