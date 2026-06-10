@@ -23,6 +23,7 @@ const DATA_PENDING_TABLE: Record<string, { name: string }> = {
   "ERF.PA": { name: "Eurofins Scientific SE" },
   "DGE.L": { name: "Diageo plc" },
   "SPM.MI": { name: "Saipem S.p.A." },
+  "CLNX.MC": { name: "Cellnex Telecom S.A." },
   "SBRY.L": { name: "J Sainsbury plc" },
   "KESKOB.HE": { name: "Kesko Oyj" },
   "LI.PA": { name: "Klépierre" },
