@@ -367,7 +367,6 @@ export async function loadV17Company(
     "HEIO.AS": "HINKF",
     HOLIY: "HCMLF",
     "HSBA.L": "HSBC",
-    "HUM": "HUM.CO",
     INFY: "INFY.NS",
     "ITX.MC": "ITXAF",
     "LIN.DE": "LIN",
