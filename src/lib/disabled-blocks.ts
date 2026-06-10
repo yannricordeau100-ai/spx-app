@@ -50,7 +50,8 @@ export type DisabledBlockKey =
   | "repartition_segment_radial"
   | "repartition_segment_iso3d"
   | "gouvernance_top3_votes"
-  | "gouvernance_top3_capital";
+  | "gouvernance_top3_capital"
+  | "gouvernance_voting_structure";
 
 export const DISABLED_BLOCKS_KEYS: DisabledBlockKey[] = [
   "snapshot_boursier",
@@ -60,6 +61,7 @@ export const DISABLED_BLOCKS_KEYS: DisabledBlockKey[] = [
   "gouvernance",
   "gouvernance_top3_votes",
   "gouvernance_top3_capital",
+  "gouvernance_voting_structure",
   "ai_positioning",
   "transcript_bullets",
   "risks",
@@ -88,6 +90,7 @@ export const DISABLED_BLOCKS_LABELS: Record<DisabledBlockKey, string> = {
   gouvernance_top3: "Gouvernance : Top 3 (votes + capital) [legacy]",
   gouvernance_top3_votes: "Gouvernance · Top 3 Droits de vote",
   gouvernance_top3_capital: "Gouvernance · Top 3 Capital détenu",
+  gouvernance_voting_structure: "Gouvernance · Structure de vote",
   ai_positioning: "Positionnement IA",
   transcript_bullets: "Synthèse earning call",
   risks: "Facteurs de risque",

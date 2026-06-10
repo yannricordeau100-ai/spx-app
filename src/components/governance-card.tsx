@@ -537,7 +537,7 @@ export function GovernanceCard({
       {false && <span>{lastRowOffset}</span>}
 
       {/* Voting structure note */}
-      {g.voting_structure && (
+      {g.voting_structure && !isDisabled("gouvernance_voting_structure") && (
         <div className="mt-4 rounded-lg border border-[#2a2a2a] bg-[#0c0c0c] p-3.5">
           <div className="flex items-start gap-2.5">
             <Scale className="mt-0.5 size-4 shrink-0 text-zinc-300" />
