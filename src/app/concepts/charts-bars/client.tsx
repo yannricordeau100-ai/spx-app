@@ -1,6 +1,7 @@
 "use client";
 
 import { BarsIso3DStack } from "@/components/charts/bars-3d-variants";
+import { BAR_STYLE_PROPOSALS, BarStyleChart } from "@/components/charts/bars-style-proposals";
 
 const DEMO_DATA = [19.21, 26.28, 33.09, 43.23, 58.71];
 const DEMO_LABELS = ["2021", "2022", "2023", "2024", "2025"];
@@ -69,6 +70,52 @@ const VARIANTS: Array<{
 export function ChartsBarsConceptClient() {
   return (
     <div className="space-y-12">
+      {/* Nouvelles propositions Yann 11 juin 2026 : 8 styles, 4 néon + 4 sobres */}
+      <div className="rounded-xl border border-violet-500/25 bg-violet-500/[0.05] p-5">
+        <h2 className="font-display text-[17px] font-bold text-violet-100">
+          Nouvelles propositions barres — 8 styles (4 néon · 4 sobres, 2D + 3D)
+        </h2>
+        <p className="mt-1 text-[12.5px] text-zinc-400">
+          Tu n&apos;aimes pas les barres actuelles : voici 8 alternatives. Dis-moi
+          lesquelles tu veux (une pour le mode 2D, une pour le 3D, ou un toggle).
+          Données démo = Google Cloud (Mds $).
+        </p>
+      </div>
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        {BAR_STYLE_PROPOSALS.map((p) => (
+          <div key={p.id} className="rounded-xl border border-white/8 bg-white/[0.02] p-5">
+            <div className="mb-2 flex flex-wrap items-center gap-2">
+              <h3 className="font-display text-[15px] font-bold text-zinc-50">{p.title}</h3>
+              <span
+                className={`rounded px-1.5 py-0.5 text-[10px] font-semibold ${
+                  p.neon ? "bg-violet-500/20 text-violet-200" : "bg-zinc-600/30 text-zinc-300"
+                }`}
+              >
+                {p.neon ? "NÉON" : "SOBRE"}
+              </span>
+              <span className="rounded bg-zinc-700/40 px-1.5 py-0.5 text-[10px] text-zinc-300">
+                {p.dim}
+              </span>
+            </div>
+            <p className="mb-3 text-[12px] leading-relaxed text-zinc-400">{p.description}</p>
+            <BarStyleChart
+              styleId={p.id}
+              data={DEMO_DATA}
+              labels={DEMO_LABELS}
+              unit={DEMO_UNIT}
+              color={ACCENT}
+              ttm={DEMO_TTM}
+            />
+          </div>
+        ))}
+      </div>
+
+      <div className="border-t border-white/10 pt-8">
+        <h2 className="font-display text-[14px] font-bold uppercase tracking-wide text-zinc-400">
+          Anciens styles (actuellement sur l&apos;app)
+        </h2>
+      </div>
+
       {VARIANTS.map((v) => (
         <div key={v.id} className="rounded-xl border border-white/8 bg-white/[0.02] p-5">
           <div className="mb-3">
