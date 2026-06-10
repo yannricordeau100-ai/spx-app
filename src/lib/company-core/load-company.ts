@@ -1207,13 +1207,15 @@ export async function loadV17Company(
         ? (ext.history as unknown[]).filter((v): v is number => typeof v === "number" && Number.isFinite(v))
         : [];
       if (extHist.length >= 3 && ext.hero_kpi_short && Array.isArray(data.kpis)) {
-        const heroShort = data.hero_kpi as string | undefined;
         const extShortLow = ext.hero_kpi_short.toLowerCase();
-        // Trouve le KPI hero (par hero_kpi field, sinon fuzzy match)
+        // BUG FIX : matcher UNIQUEMENT la cible explicite extShortLow (comme
+        // _quarterly_history_extension corrige le 3 juin). L'ancien match
+        // prioritaire sur data.hero_kpi ecrasait le hero courant avec la serie
+        // de l'extension meme quand elle visait un AUTRE KPI (ex CNP "Electric
+        // Customers" ecrase par le CA total).
         const heroKpi = (data.kpis as AnyKPI[]).find((k) => {
           if (!k || typeof k !== "object") return false;
           const s = (typeof k.short === "string" ? k.short : "").toLowerCase();
-          if (heroShort && s === heroShort.toLowerCase()) return true;
           return s === extShortLow || s.includes(extShortLow) || extShortLow.includes(s);
         });
         if (heroKpi) {
