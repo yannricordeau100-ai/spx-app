@@ -2,13 +2,12 @@
 
 import { useRef, useState } from "react";
 import { motion } from "motion/react";
-import { Download } from "lucide-react";
 import { AnomalyInfo } from "@/components/anomaly-info";
 import type { Anomaly } from "@/lib/brand";
 import { formatUnit } from "@/lib/data";
 import type { CompanyEvent } from "@/lib/events";
 import { EventDotsSVG, EventDotsOverlay } from "@/components/charts/event-dots";
-import { downloadSvgAsPng, buildYearGroups } from "@/lib/chart-export";
+import { buildYearGroups } from "@/lib/chart-export";
 import { ChartMiniLogo } from "@/components/charts/chart-mini-logo";
 import { chartAxisHeader, isCurrencyLikeUnit } from "@/lib/chart-axis-header";
 import { translateUnitFrToEn } from "@/lib/i18n/unit-translations";
@@ -168,6 +167,7 @@ export function CurveChart({
   exportTitle,
   exportTicker,
   exportCagr,
+  exportFrequency,
   titleLocale,
 }: {
   data: number[];
@@ -187,6 +187,12 @@ export function CurveChart({
    *  +47,8 %/an"), affiché sous le titre dans le PNG. Locale-aware côté
    *  appelant (company-view). */
   exportCagr?: string;
+  /** Yann 8 juin 2026 (PRIO 3) : suffixe fréquence "par x" déjà localisé
+   *  (ex "par mois"), fourni UNIQUEMENT quand la fréquence ≠ année. Transmis
+   *  tel quel à l'export pour styler ce segment du sous-titre (2 pts plus
+   *  petit, bleu-violet, opacité 0.85). Le suffixe est déjà inclus dans
+   *  exportTitle ; cette prop sert uniquement à le localiser pour le style. */
+  exportFrequency?: string;
   /** Yann 8 juin 2026 (Point 4) : override locale axe Y depuis KpiSwapTitle.
    *  'en' force la traduction des mots d'echelle (Mds -> Bn) ET des unites
    *  textuelles non monetaires (unites -> units, abonnes -> subscribers, etc).
@@ -309,6 +315,17 @@ export function CurveChart({
         viewBox={`0 0 ${W} ${H}`}
         preserveAspectRatio="xMidYMid meet"
         style={{ display: "block", overflow: "visible" }}
+        // Yann 8 juin 2026 : marqueurs lus par le bouton télécharger DÉPLACÉ
+        // dans la barre d'onglets (ChartCycleControls). Le bouton récupère le
+        // SVG visible via [data-chart-export] et les options d'export ici.
+        // Un seul chart est monté à la fois (AnimatePresence mode="wait").
+        data-chart-export="true"
+        data-export-prefix="curve"
+        data-export-title={exportTitle || ""}
+        data-export-ticker={exportTicker || ""}
+        data-export-cagr={exportCagr || ""}
+        data-export-frequency={exportFrequency || ""}
+        data-export-locale={locale || ""}
       >
       {/* Header d'unité dans le SVG (au-dessus de l'axe Y) pour qu'il
           apparaisse aussi dans l'export PNG. Demande Yann 5 mai 2026.
@@ -381,10 +398,12 @@ export function CurveChart({
           </linearGradient>
         </defs>
 
-        {/* Y guidelines */}
+        {/* Y guidelines (gridlines horizontales pointillées).
+            data-export-role="gridline" → recolorées dans le PNG selon thème. */}
         {ticks.map(({ y }, i) => (
           <line
             key={`gl-${i}`}
+            data-export-role="gridline"
             x1={PAD_LEFT}
             x2={PAD_LEFT + innerW}
             y1={y}
@@ -435,8 +454,9 @@ export function CurveChart({
           transition={{ duration: 1, delay: 0.2 }}
         />
 
-        {/* Back curve (3D depth cue) */}
+        {/* Back curve (3D depth cue) — masqué dans le PNG export (plat). */}
         <motion.path
+          data-export-hide="true"
           d={smoothFrom(backPts)}
           fill="none"
           stroke={color}
@@ -526,10 +546,12 @@ export function CurveChart({
           </g>
         ))}
 
-        {/* Depth-tick connectors at each data point */}
+        {/* Depth-tick connectors at each data point — forment le "carré 3D"
+            autour de chaque point. Masqués dans le PNG export (plat). */}
         {points.map(([x, y], i) => (
           <line
             key={`c-${i}`}
+            data-export-hide="true"
             x1={x}
             y1={y}
             x2={x + DX}
@@ -692,9 +714,9 @@ export function CurveChart({
             <g key={`yg-${g.startIdx}`}>
               {!single && (
                 <>
-                  <line x1={xStart} y1={yLine} x2={xEnd} y2={yLine} stroke="#3f3f46" strokeWidth={1} />
-                  <line x1={xStart} y1={yLine - tickH} x2={xStart} y2={yLine} stroke="#3f3f46" strokeWidth={1} />
-                  <line x1={xEnd} y1={yLine - tickH} x2={xEnd} y2={yLine} stroke="#3f3f46" strokeWidth={1} />
+                  <line data-export-role="structure" x1={xStart} y1={yLine} x2={xEnd} y2={yLine} stroke="#3f3f46" strokeWidth={1} />
+                  <line data-export-role="structure" x1={xStart} y1={yLine - tickH} x2={xStart} y2={yLine} stroke="#3f3f46" strokeWidth={1} />
+                  <line data-export-role="structure" x1={xEnd} y1={yLine - tickH} x2={xEnd} y2={yLine} stroke="#3f3f46" strokeWidth={1} />
                 </>
               )}
               <text
@@ -717,19 +739,9 @@ export function CurveChart({
             grand format via chart-export.ts → Powered by [logo combiné]). */}
       </svg>
 
-      {/* Bouton download (capture SVG + watermark → PNG) */}
-      <button
-        type="button"
-        onClick={() => {
-          if (svgRef.current) {
-            downloadSvgAsPng(svgRef.current, `mettrik-curve-${Date.now()}.png`, { title: exportTitle, ticker: exportTicker, cagr: exportCagr, locale });
-          }
-        }}
-        aria-label="Télécharger le graphique"
-        className="absolute right-2 top-2 inline-flex size-7 items-center justify-center rounded-full border border-white/5 bg-black/20 text-zinc-500 opacity-50 backdrop-blur transition-all hover:border-white/20 hover:bg-black/50 hover:text-zinc-100 hover:opacity-100"
-      >
-        <Download className="size-4" />
-      </button>
+      {/* Yann 8 juin 2026 : bouton télécharger DÉPLACÉ dans la barre d'onglets
+          (ChartCycleControls, au-dessus du titre). Il récupère ce SVG via
+          [data-chart-export] + les options data-export-* posées ci-dessus. */}
       {/* Overlay HTML pour les popovers d'événements (clic sur point) */}
       <EventDotsOverlay
         events={events}

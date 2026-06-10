@@ -2,12 +2,13 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { Activity, BarChart3, Grid2X2, TrendingUp } from "lucide-react";
+import { Activity, BarChart3, Download, Grid2X2, TrendingUp } from "lucide-react";
 
 import { CurveChart } from "@/components/charts/curve-chart";
 import { BarsIso3DStack } from "@/components/charts/bars-3d-variants";
 import { VariationIsoSteps3D } from "@/components/charts/variation-3d-variants";
 import { MiniMultiplesChart } from "@/components/charts/mini-multiples-chart";
+import { downloadSvgAsPng } from "@/lib/chart-export";
 import { cn } from "@/lib/utils";
 import type { Anomaly } from "@/lib/brand";
 import type { Company } from "@/lib/data";
@@ -117,6 +118,36 @@ export function computeChartDisplay(
  * lieu de l'avoir au-dessus du graph.
  */
 export type GraphPeriod = "year" | "quarter" | "semester";
+
+/**
+ * Yann 8 juin 2026 : le bouton télécharger a été DÉPLACÉ de chaque chart
+ * (curve / bars / variation) vers la barre d'onglets (ChartCycleControls).
+ * Le chart visible expose son <svg> via [data-chart-export="true"] + les
+ * options d'export en data-export-*. Un seul chart est monté à la fois
+ * (AnimatePresence mode="wait"), donc querySelector renvoie le bon SVG.
+ */
+const EXPORT_LOCALES = ["fr", "en", "en-GB", "de", "de-CH", "nl"] as const;
+type ExportLocale = (typeof EXPORT_LOCALES)[number];
+
+function downloadVisibleChart() {
+  if (typeof document === "undefined") return;
+  const svg = document.querySelector<SVGSVGElement>(
+    'svg[data-chart-export="true"]'
+  );
+  if (!svg) return;
+  const prefix = svg.getAttribute("data-export-prefix") || "chart";
+  const rawLocale = svg.getAttribute("data-export-locale") || "";
+  const locale = (EXPORT_LOCALES as readonly string[]).includes(rawLocale)
+    ? (rawLocale as ExportLocale)
+    : "fr";
+  void downloadSvgAsPng(svg, `mettrik-${prefix}-${Date.now()}.png`, {
+    title: svg.getAttribute("data-export-title") || undefined,
+    ticker: svg.getAttribute("data-export-ticker") || undefined,
+    cagr: svg.getAttribute("data-export-cagr") || undefined,
+    frequency: svg.getAttribute("data-export-frequency") || undefined,
+    locale,
+  });
+}
 
 export function ChartCycleControls({
   mode,
@@ -270,6 +301,26 @@ export function ChartCycleControls({
           </button>
         </div>
       )}
+
+      {/* Yann 8 juin 2026 : bouton TÉLÉCHARGER déplacé ici, tout à droite de
+          la ligne des onglets (au-dessus du titre du graph). Plus visible
+          qu'avant (était opacity-50 sur le chart) : fond teinté à la couleur
+          de la sté + bordure + texte/icône net. Exporte le chart visible. */}
+      {mode !== "panel" && (
+        <button
+          type="button"
+          onClick={downloadVisibleChart}
+          aria-label={t("graph.download")}
+          title={t("graph.download")}
+          className="ml-1 inline-flex size-7 shrink-0 items-center justify-center rounded-full border text-zinc-100 transition-all hover:text-white"
+          style={{
+            background: `linear-gradient(135deg, ${color}33, ${color}1f)`,
+            borderColor: `${color}66`,
+          }}
+        >
+          <Download className="size-3.5" />
+        </button>
+      )}
     </div>
   );
 }
@@ -331,9 +382,19 @@ export function ChartCycle({
    *  Quand 'en', on applique translateUnitFrToEn sur l'unite display. */
   titleLocale?: "fr" | "en";
 }) {
+  const { t } = useT();
   // Garde-fou : data peut être null/undefined dans certaines fiches. Forcer tableau.
   const safeData = Array.isArray(data) ? data : [];
   const xLabels = labels ?? defaultLabels(safeData.length);
+
+  // Yann 8 juin 2026 (PRIO 3) : suffixe fréquence "par x" pour l'export PNG.
+  // company-view inclut DÉJÀ ce suffixe dans exportTitle via le MÊME
+  // t(`timefrac.suffix.${timeFraction}`). On le recalcule ici à l'identique
+  // pour le transmettre séparément à l'export, qui le détecte en fin de
+  // sous-titre et le style (2 pts plus petit, bleu-violet, opacité 0.85).
+  // Si fréquence = année : undefined → sous-titre inchangé.
+  const exportFrequency =
+    timeFraction !== "year" ? t(`timefrac.suffix.${timeFraction}`) : undefined;
 
   // Diviseur appliqué aux valeurs (data + ttm) pour le mode "par jour", "par seconde", etc.
   const divisor = timeFractionDivisor(timeFraction);
@@ -358,13 +419,13 @@ export function ChartCycle({
           transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
         >
           {mode === "curve" && (
-            <CurveChart data={scaledData as number[]} labels={xLabels} unit={displayUnit} color={color} anomalies={anomalies} events={events} ttm={scaledTtm} exportTitle={exportTitle} exportTicker={company?.ticker} exportCagr={exportCagr} titleLocale={titleLocale} />
+            <CurveChart data={scaledData as number[]} labels={xLabels} unit={displayUnit} color={color} anomalies={anomalies} events={events} ttm={scaledTtm} exportTitle={exportTitle} exportTicker={company?.ticker} exportCagr={exportCagr} exportFrequency={exportFrequency} titleLocale={titleLocale} />
           )}
           {mode === "bars" && (
-            <BarsIso3DStack data={scaledData as number[]} labels={xLabels} unit={displayUnit} color={color} events={events} ttm={scaledTtm} variant={barsVariant} exportTitle={exportTitle} exportTicker={company?.ticker} exportCagr={exportCagr} titleLocale={titleLocale} />
+            <BarsIso3DStack data={scaledData as number[]} labels={xLabels} unit={displayUnit} color={color} events={events} ttm={scaledTtm} variant={barsVariant} exportTitle={exportTitle} exportTicker={company?.ticker} exportCagr={exportCagr} exportFrequency={exportFrequency} titleLocale={titleLocale} />
           )}
           {mode === "delta" && (
-            <VariationIsoSteps3D data={scaledData as number[]} labels={xLabels} events={events} exportTitle={exportTitle} exportTicker={company?.ticker} exportCagr={exportCagr} />
+            <VariationIsoSteps3D data={scaledData as number[]} labels={xLabels} events={events} exportTitle={exportTitle} exportTicker={company?.ticker} exportCagr={exportCagr} exportFrequency={exportFrequency} />
           )}
           {mode === "panel" && company && activeShort && onPickKpi && (
             <MiniMultiplesChart

@@ -34,13 +34,19 @@
  *  8. Sérialiser via XMLSerializer → <Image> → <canvas> 2× → blob → download.
  */
 /**
- * Police "Avenir" pour PNG download (Yann 2 juin 2026).
- * Avenir système sur Mac/iOS, fallback élégant pour autres OS.
- * Si système n'a pas Avenir : Nunito Sans ressemble à 95%.
+ * Police "Avenir" pour PNG download (Yann 2 juin 2026, fallback affiné
+ * 8 juin 2026 PRIO 2).
+ *
+ * IMPORTANT : Avenir / Avenir Next est une police SYSTÈME Apple (licenciée),
+ * NON embarquable dans le SVG/PNG. Elle rend donc parfaitement sur le Mac de
+ * Yann (présente nativement) mais dépend du système ailleurs. Pour les autres
+ * environnements, le meilleur fallback FIN est Manrope (la police body de
+ * l'app, déjà chargée via @font-face → embarquée dans le PNG par le bloc
+ * fontFaceCss plus bas) en weight 300, puis Nunito Sans / Open Sans.
  * UNIQUEMENT pour le PNG download, PAS pour le rendu web (chart live).
  */
 const PNG_FONT_FAMILY =
-  '"Avenir", "Avenir Next", "Avenir Sans", "Nunito Sans", "Open Sans", -apple-system, sans-serif';
+  '"Avenir", "Avenir Next", "Avenir Sans", "Manrope", "Nunito Sans", "Open Sans", -apple-system, sans-serif';
 
 /**
  * Yann 2 juin 2026 v9 : devient OBSOLÈTE. Le live et le PNG utilisent
@@ -122,6 +128,13 @@ export async function downloadSvgAsPng(
      *  l'export. Utilisee pour tout texte genere cote export. "KPIs Powered
      *  by" reste en anglais (signature de marque). Default = fr. */
     locale?: "fr" | "en" | "en-GB" | "de" | "de-CH" | "nl";
+    /** Yann 8 juin 2026 (PRIO 3) : suffixe de fréquence "par x" déjà localisé
+     *  (ex "par mois", "per week"), fourni UNIQUEMENT quand la fréquence du
+     *  graph ≠ année. Ce segment est inclus tel quel à la fin du sous-titre
+     *  KPI (options.title) ; on le détecte pour le styler à part (2 pts plus
+     *  petit, bleu-violet #a78bfa, opacité 0.85). Si fréquence = année,
+     *  laisser undefined → sous-titre inchangé. */
+    frequency?: string;
   } = {},
   scale = 2
 ): Promise<void> {
@@ -200,7 +213,50 @@ export async function downloadSvgAsPng(
     // utilisaient "ui-monospace, monospace" ou des polices web ; on
     // override pour homogénéité PNG.
     t.setAttribute("font-family", PNG_FONT_FAMILY);
+    // Yann 8 juin 2026 (PRIO 2) : graisse FINE (300) sur TOUS les écriteaux
+    // du PNG export (axes, labels valeurs, années, header d'unité). Les
+    // <text> injectés ensuite (titre, KPI, footer, CAGR, "par x") posent
+    // leur propre font-weight 300 à la création.
+    t.setAttribute("font-weight", "300");
   });
+
+  // ── PRIO 1b : recoloration axes / structure / gridlines selon thème ──
+  // Yann 8 juin 2026. Sur le CLONE uniquement (le live garde ses couleurs).
+  //  - Thème CLAIR (fond blanc) : axes + traits de structure du graph en
+  //    gris PLUS FONCÉ (#4b5563) pour rester lisibles sur blanc. Les
+  //    gridlines pointillées suivent (sinon invisibles).
+  //  - Thème SOMBRE : les gridlines pointillées (data-export-role="gridline",
+  //    #1a1a1a quasi invisible) passent à la MÊME couleur que la structure /
+  //    les axes (gris clair #9ca3af) pour être visibles dans le PNG.
+  const STRUCTURE_LIGHT = "#4b5563"; // gris foncé (thème clair)
+  const STRUCTURE_DARK = "#9ca3af"; // gris clair = couleur axes (thème sombre)
+  const structureColor = isLight ? STRUCTURE_LIGHT : STRUCTURE_DARK;
+  clone
+    .querySelectorAll(
+      '[data-export-role="structure"],[data-export-role="gridline"]'
+    )
+    .forEach((el) => {
+      el.setAttribute("stroke", structureColor);
+    });
+  // Thème CLAIR : les textes d'axe du chart (ticks Y, header d'unité, labels
+  // années) sont en gris très clair (#e4e4e7 / #a1a1aa) → illisibles sur
+  // blanc. On les passe au même gris foncé que la structure. Les <text>
+  // injectés par l'export (titre/KPI/CAGR) ont déjà leur couleur theme-aware.
+  if (isLight) {
+    clone.querySelectorAll("text").forEach((t) => {
+      const fill = (t.getAttribute("fill") || "").toLowerCase();
+      // Cible uniquement les gris clairs natifs du chart (pas les éléments
+      // déjà recolorés ou colorés volontairement type couleur sté).
+      if (
+        fill === "#e4e4e7" ||
+        fill === "#a1a1aa" ||
+        fill === "#d4d4d8" ||
+        fill === "#fafafa"
+      ) {
+        t.setAttribute("fill", STRUCTURE_LIGHT);
+      }
+    });
+  }
 
   // Yann 2 juin 2026 (v6) : nettoyage agressif "point top-left" entouré
   // jaune sur capture Yann. Supprime tout <circle> isolé hors zone chart
@@ -318,7 +374,8 @@ export async function downloadSvgAsPng(
   // Police Avenir avec fallback chain (Yann 2 juin 2026 v7).
   wmTextEl.setAttribute("font-family", PNG_FONT_FAMILY);
   wmTextEl.setAttribute("font-size", "14");
-  wmTextEl.setAttribute("font-weight", "600");
+  // Yann 8 juin 2026 (PRIO 2) : graisse fine sur le footer signature.
+  wmTextEl.setAttribute("font-weight", "300");
   wmTextEl.setAttribute("letter-spacing", "0.02em");
   wmTextEl.setAttribute("fill", titleColor);
   wmTextEl.setAttribute("opacity", "0.85");
@@ -538,7 +595,8 @@ export async function downloadSvgAsPng(
       stéEl.setAttribute("y", String(LINE1_Y));
       stéEl.setAttribute("text-anchor", "middle");
       stéEl.setAttribute("font-family", titleFontFamily);
-      stéEl.setAttribute("font-weight", "800");
+      // Yann 8 juin 2026 (PRIO 2) : graisse fine (300) sur le nom sté (titre).
+      stéEl.setAttribute("font-weight", "300");
       stéEl.setAttribute("font-style", "normal");
       stéEl.setAttribute("font-size", String(TITLE_STE_FONT_SIZE));
       stéEl.setAttribute("letter-spacing", "-0.01em");
@@ -553,12 +611,33 @@ export async function downloadSvgAsPng(
     kpiEl.setAttribute("y", String(LINE2_Y));
     kpiEl.setAttribute("text-anchor", "middle");
     kpiEl.setAttribute("font-family", titleFontFamily);
-    kpiEl.setAttribute("font-weight", "600");
+    // Yann 8 juin 2026 (PRIO 2) : graisse fine (300) sur le nom du KPI.
+    kpiEl.setAttribute("font-weight", "300");
     kpiEl.setAttribute("font-style", "normal");
     kpiEl.setAttribute("font-size", String(TITLE_KPI_FONT_SIZE));
     kpiEl.setAttribute("letter-spacing", "-0.02em");
     kpiEl.setAttribute("fill", titleColor);
-    kpiEl.textContent = kpiText;
+    // Yann 8 juin 2026 (PRIO 3) : si la fréquence ≠ année, le sous-titre KPI
+    // se termine par " par <x>" (déjà inclus dans options.title par
+    // company-view). On isole ce segment dans un <tspan> pour le styler :
+    // 2 pts plus petit, bleu-violet #a78bfa, opacité 0.85. Le reste du
+    // sous-titre garde taille / couleur. Centrage inchangé (text-anchor
+    // middle mesure la largeur réelle du <text> complet, tspan inclus).
+    const freq = options.frequency?.trim();
+    if (freq && kpiText.endsWith(freq) && kpiText.length > freq.length) {
+      const base = kpiText.slice(0, kpiText.length - freq.length); // garde l'espace avant "par"
+      const baseSpan = document.createElementNS(NS, "tspan");
+      baseSpan.textContent = base;
+      kpiEl.appendChild(baseSpan);
+      const freqSpan = document.createElementNS(NS, "tspan");
+      freqSpan.setAttribute("font-size", String(TITLE_KPI_FONT_SIZE - 2));
+      freqSpan.setAttribute("fill", "#a78bfa");
+      freqSpan.setAttribute("opacity", "0.85");
+      freqSpan.textContent = freq;
+      kpiEl.appendChild(freqSpan);
+    } else {
+      kpiEl.textContent = kpiText;
+    }
     clone.appendChild(kpiEl);
     void TITLE_KPI_CHAR_W; // réservé pour calculs futurs si besoin
 
@@ -572,7 +651,8 @@ export async function downloadSvgAsPng(
       cagrEl.setAttribute("y", String(LINE2_Y + 24));
       cagrEl.setAttribute("text-anchor", "middle");
       cagrEl.setAttribute("font-family", titleFontFamily);
-      cagrEl.setAttribute("font-weight", "600");
+      // Yann 8 juin 2026 (PRIO 2) : graisse fine (300) sur la ligne CAGR.
+      cagrEl.setAttribute("font-weight", "300");
       cagrEl.setAttribute("font-style", "normal");
       cagrEl.setAttribute("font-size", "14");
       cagrEl.setAttribute("letter-spacing", "0.01em");

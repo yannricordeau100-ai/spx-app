@@ -379,6 +379,9 @@ export const DICTIONARY: Dict = {
     fr: "Style 3D isométrique (par défaut)",
     en: "Isometric 3D style (default)",
   },
+  // Yann 8 juin 2026 : bouton télécharger le graph (PNG), déplacé dans la
+  // barre d'onglets.
+  "graph.download": { fr: "Télécharger le graphique", en: "Download chart" },
 
   "company.compare.button": { fr: "Comparer", en: "Compare" },
   "company.compare.on": { fr: "Comparer sur", en: "Compare on" },
@@ -389,7 +392,7 @@ export const DICTIONARY: Dict = {
   "company.compare.direct": { fr: "Direct", en: "Direct" },
   "company.compare.connex": { fr: "Connexe", en: "Related" },
   "company.save.button": { fr: "Enregistrer", en: "Save" },
-  "company.kpi_table.title": { fr: "Indicateurs clés", en: "Key indicators", de: "Schlüsselindikatoren" },
+  "company.kpi_table.title": { fr: "Indicateurs clés (KPIs)", en: "Key indicators (KPIs)", de: "Schlüsselindikatoren (KPIs)" },
   "company.kpi_table.subtitle": {
     fr: "Cliquez sur un indicateur pour le promouvoir en KPI principal.",
     en: "Click an indicator to promote it to the main KPI.",
@@ -429,7 +432,7 @@ export const DICTIONARY: Dict = {
   "kpi.partial_data_full": { fr: "Données partielles : historique en cours", en: "Partial data: history pending", de: "Teildaten: Historie in Arbeit", nl: "Onvolledige data: historie in behandeling", sv: "Partiella data: historik pågår", da: "Delvise data: historik i gang", "en-GB": "Partial data: history pending", "de-CH": "Teildaten: Historie in Arbeit" },
   "hero.percentile_top": { fr: "Top", en: "Top" },
   "kpi.active": { fr: "Actif", en: "Active" },
-  "kpi.definition": { fr: "Définition", en: "Definition" },
+  "kpi.definition": { fr: "Définition (si KPI imprécis)", en: "Definition (if unclear)" },
 
   /* Stories */
   "stories.aria_prev": { fr: "Story précédente", en: "Previous story" },
@@ -437,7 +440,7 @@ export const DICTIONARY: Dict = {
   "stories.aria_pause": { fr: "Mettre en pause", en: "Pause" },
   "stories.aria_resume": { fr: "Reprendre", en: "Resume" },
   "stories.aria_jump": { fr: "Aller à la story", en: "Go to story" },
-  "stories.title": { fr: "Story", en: "Story" },
+  "stories.title": { fr: "Story (KPIs)", en: "Story (KPIs)" },
   "stories.subtitle": {
     fr: "",
     en: "",

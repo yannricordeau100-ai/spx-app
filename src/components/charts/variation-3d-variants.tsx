@@ -1,10 +1,9 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { Download } from "lucide-react";
 import type { CompanyEvent } from "@/lib/events";
 import { EventDotsSVG, EventDotsOverlay } from "@/components/charts/event-dots";
-import { downloadSvgAsPng, buildYearGroups } from "@/lib/chart-export";
+import { buildYearGroups } from "@/lib/chart-export";
 import { ChartMiniLogo } from "@/components/charts/chart-mini-logo";
 import { useT } from "@/lib/i18n/provider";
 
@@ -59,6 +58,9 @@ type Props = {
    *  +47,8 %/an"), affiché sous le titre dans le PNG. Calculé côté
    *  company-view sur la série de valeurs réelles du KPI (pas les deltas). */
   exportCagr?: string;
+  /** Yann 8 juin 2026 (PRIO 3) : suffixe fréquence "par x" déjà localisé,
+   *  fourni quand la fréquence ≠ année. Transmis tel quel à l'export. */
+  exportFrequency?: string;
 };
 
 const POS = "#10b981";
@@ -68,7 +70,7 @@ const NEG = "#f43f5e";
 /* V11 — ISO STEP BARS 3D                                         */
 /* Bars de variation en iso, hauteur en plus / moins du zéro.     */
 /* ============================================================ */
-export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, exportTicker, exportCagr }: Props) {
+export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, exportTicker, exportCagr, exportFrequency }: Props) {
   const [hover, setHover] = useState<number | null>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   // Yann 10 juin 2026 (Point 6) : locale courante pour l'export PNG.
@@ -99,7 +101,21 @@ export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, ex
 
   return (
     <div className="relative w-full">
-    <svg ref={svgRef} width="100%" height="420" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" style={{ overflow: "visible" }}>
+    <svg
+      ref={svgRef}
+      width="100%"
+      height="420"
+      viewBox={`0 0 ${W} ${H}`}
+      preserveAspectRatio="xMidYMid meet"
+      style={{ overflow: "visible" }}
+      data-chart-export="true"
+      data-export-prefix="variation"
+      data-export-title={exportTitle || ""}
+      data-export-ticker={exportTicker || ""}
+      data-export-cagr={exportCagr || ""}
+      data-export-frequency={exportFrequency || ""}
+      data-export-locale={locale || ""}
+    >
       {/* Header d'unité dans le SVG. Yann 2 juin 2026 : repositionné
           juste au-dessus du premier tick Y, aligné fin sur l'axe Y. */}
       <text x={PAD_LEFT - 20} y={PAD_TOP - 24} fontSize={13} fontWeight={600} fill="#e4e4e7" fontFamily="ui-monospace, monospace" textAnchor="end">
@@ -235,17 +251,8 @@ export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, ex
           download via chart-export.ts (Powered by + logo combiné). */}
     </svg>
 
-    {/* Bouton download */}
-    <button
-      type="button"
-      onClick={() => {
-        if (svgRef.current) downloadSvgAsPng(svgRef.current, `mettrik-variation-${Date.now()}.png`, { title: exportTitle, ticker: exportTicker, cagr: exportCagr, locale });
-      }}
-      aria-label="Télécharger le graphique"
-      className="absolute right-2 top-2 inline-flex size-7 items-center justify-center rounded-full border border-white/5 bg-black/20 text-zinc-500 opacity-50 backdrop-blur transition-all hover:border-white/20 hover:bg-black/50 hover:text-zinc-100 hover:opacity-100"
-    >
-      <Download className="size-4" />
-    </button>
+    {/* Yann 8 juin 2026 : bouton télécharger DÉPLACÉ dans la barre d'onglets
+        (ChartCycleControls). Récupère ce SVG via [data-chart-export]. */}
     <EventDotsOverlay
       events={events}
       xLabels={labels}

@@ -1,10 +1,9 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { Download } from "lucide-react";
 import type { CompanyEvent } from "@/lib/events";
 import { EventDotsSVG, EventDotsOverlay } from "@/components/charts/event-dots";
-import { downloadSvgAsPng, buildYearGroups } from "@/lib/chart-export";
+import { buildYearGroups } from "@/lib/chart-export";
 import { ChartMiniLogo } from "@/components/charts/chart-mini-logo";
 
 /**
@@ -86,6 +85,9 @@ type Props = {
   /** Yann 10 juin 2026 (Point 3) : CAGR annualisé déjà formaté (ex "CAGR
    *  +47,8 %/an"), affiché sous le titre dans le PNG. */
   exportCagr?: string;
+  /** Yann 8 juin 2026 (PRIO 3) : suffixe fréquence "par x" déjà localisé,
+   *  fourni quand la fréquence ≠ année. Transmis tel quel à l'export. */
+  exportFrequency?: string;
   /** Yann 8 juin 2026 (Point 4) : override locale axe Y depuis KpiSwapTitle.
    *  'en' force la traduction des mots d'echelle (Mds -> Bn) ET des unites
    *  textuelles non monetaires (unites -> units, abonnes -> subscribers, etc).
@@ -98,7 +100,7 @@ type Props = {
 /* Avec support TTM (barre supplémentaire pointillée) et variant   */
 /* "classic" pour basculer en 2D flat.                             */
 /* ============================================================ */
-export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", events = [], ttm = null, ttmLabel = "TTM", variant = "iso3d", exportTitle, exportTicker, exportCagr, titleLocale }: Props) {
+export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", events = [], ttm = null, ttmLabel = "TTM", variant = "iso3d", exportTitle, exportTicker, exportCagr, exportFrequency, titleLocale }: Props) {
   const [hover, setHover] = useState<number | null>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   // Yann 15 mai 2026 : axis header locale-aware.
@@ -172,7 +174,20 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
 
   return (
     <div className="relative w-full">
-    <svg ref={svgRef} width="100%" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" style={{ overflow: "visible" }}>
+    <svg
+      ref={svgRef}
+      width="100%"
+      viewBox={`0 0 ${W} ${H}`}
+      preserveAspectRatio="xMidYMid meet"
+      style={{ overflow: "visible" }}
+      data-chart-export="true"
+      data-export-prefix="bars"
+      data-export-title={exportTitle || ""}
+      data-export-ticker={exportTicker || ""}
+      data-export-cagr={exportCagr || ""}
+      data-export-frequency={exportFrequency || ""}
+      data-export-locale={locale || ""}
+    >
       {/* Header d'unité dans le SVG (au-dessus de l'axe Y) pour qu'il
           apparaisse aussi dans l'export PNG. Demande Yann 5 mai 2026.
           Yann 17 mai 2026 : label décalé vers le haut (y=22 → y=10) pour
@@ -449,19 +464,8 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
           download via chart-export.ts (Powered by + logo combiné). */}
     </svg>
 
-    {/* Bouton download (capture SVG + watermark → PNG) */}
-    <button
-      type="button"
-      onClick={() => {
-        if (svgRef.current) {
-          downloadSvgAsPng(svgRef.current, `mettrik-bars-${Date.now()}.png`, { title: exportTitle, ticker: exportTicker, cagr: exportCagr, locale });
-        }
-      }}
-      aria-label="Télécharger le graphique"
-      className="absolute right-2 top-2 inline-flex size-7 items-center justify-center rounded-full border border-white/5 bg-black/20 text-zinc-500 opacity-50 backdrop-blur transition-all hover:border-white/20 hover:bg-black/50 hover:text-zinc-100 hover:opacity-100"
-    >
-      <Download className="size-4" />
-    </button>
+    {/* Yann 8 juin 2026 : bouton télécharger DÉPLACÉ dans la barre d'onglets
+        (ChartCycleControls). Récupère ce SVG via [data-chart-export]. */}
     <EventDotsOverlay
       events={events}
       xLabels={allLabels}
