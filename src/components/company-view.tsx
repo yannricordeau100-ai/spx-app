@@ -1648,13 +1648,15 @@ export function CompanyView({
         {/* Bloc transactions politiciens US retiré (13 mai 2026 par Yann). */}
 
         {/* Super-KPI Mettrik — bloc final, combinaisons composites */}
-        <SuperKpiBoard
-          kpis={computeSuperKpis(company, locale)}
-          sectorKpis={computeSectorSuperKpis(company, locale)}
-          companyName={company.name}
-          ticker={company.ticker}
-          accent={accent}
-        />
+        {!isDisabled("super_kpi") && (
+          <SuperKpiBoard
+            kpis={computeSuperKpis(company, locale)}
+            sectorKpis={computeSectorSuperKpis(company, locale)}
+            companyName={company.name}
+            ticker={company.ticker}
+            accent={accent}
+          />
+        )}
 
         {/* Provenance — Yann 26 mai 2026 : déplacée du haut (sous le header)
             vers le bas de page. Ligne discrète, italique, max-w-3xl, juste
