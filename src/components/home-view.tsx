@@ -124,8 +124,13 @@ function BrandWordmark({ kpiUnderText }: { kpiUnderText?: string }) {
         initial={{ scaleX: 0, opacity: 0 }}
         animate={{ scaleX: 1, opacity: 1 }}
         transition={{ delay: 0.55, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-        className="mt-0 h-[2px] w-[min(82%,520px)] origin-left rounded-full"
+        className="h-[2px] w-[min(82%,520px)] origin-left rounded-full"
         style={{
+          // Yann 10 juin 2026 : le PNG du wordmark a ~36,5% de whitespace
+          // transparent en bas. On remonte le trait de 90% de ce vide (marge
+          // negative responsive = 0,9 x 36,5% x hauteur clamp(96..220px)) pour
+          // le coller quasiment sous le texte du logo.
+          marginTop: "clamp(-72px, -5.26vw, -31.5px)",
           background:
             "linear-gradient(90deg, transparent 0%, #a855f7 25%, #22d3ee 55%, #f472b6 85%, transparent 100%)",
           boxShadow:

@@ -35,6 +35,11 @@ export type DisabledBlockKey =
   | "risks"
   | "kpi_stories"
   | "events"
+  | "interpretation_watch"
+  | "profit_warning"
+  | "dividend_aristocrat"
+  | "dividend_calculator"
+  | "dividend_snowball"
   | "gouvernance_top3"
   | "logo"
   | "repartition_geo_treemap"
@@ -59,6 +64,11 @@ export const DISABLED_BLOCKS_KEYS: DisabledBlockKey[] = [
   "risks",
   "kpi_stories",
   "events",
+  "interpretation_watch",
+  "profit_warning",
+  "dividend_aristocrat",
+  "dividend_calculator",
+  "dividend_snowball",
   "repartition_geo_treemap",
   "repartition_geo_radial",
   "repartition_geo_iso3d",
@@ -81,6 +91,11 @@ export const DISABLED_BLOCKS_LABELS: Record<DisabledBlockKey, string> = {
   risks: "Facteurs de risque",
   kpi_stories: "Stories KPIs",
   events: "Événements (timeline)",
+  interpretation_watch: "Interprétation · À surveiller prochainement",
+  profit_warning: "Risque d'avertissement sur les résultats",
+  dividend_aristocrat: "Dividende · Régularité (Aristocrat)",
+  dividend_calculator: "Dividende · Calculateur de revenu",
+  dividend_snowball: "Dividende · Boule de neige (DRIP)",
   repartition_geo_treemap: "Répartition CA · vue Géographique Treemap",
   repartition_geo_radial: "Répartition CA · vue Géographique Radiale",
   repartition_geo_iso3d: "Répartition CA · vue Géographique Iso 3D",

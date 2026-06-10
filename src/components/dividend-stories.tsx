@@ -33,6 +33,7 @@ import { CurrencyPicker } from "@/components/currency-picker";
 export function DividendStories({
   company,
   showCurrencyPicker = false,
+  disabledScreens,
 }: {
   company: Company;
   /**
@@ -44,6 +45,12 @@ export function DividendStories({
    * `showCurrencyPicker={true}` pour le test interne).
    */
   showCurrencyPicker?: boolean;
+  /**
+   * Yann 10 juin 2026 : ecrans dividende desactives individuellement via
+   * l'admin sous-blocs. Les ecrans restants se recentrent. Si les 3 sont
+   * desactives, le bloc entier ne s'affiche pas.
+   */
+  disabledScreens?: { aristocrat?: boolean; calculator?: boolean; snowball?: boolean };
 }) {
   const { t } = useT();
   const accent = brand(company.ticker).primary;
@@ -194,6 +201,17 @@ export function DividendStories({
     />,
   ];
 
+  // Yann 10 juin 2026 : filtrage des ecrans desactives individuellement
+  // (admin sous-blocs). Les ecrans restants se recentrent (flex justify-center
+  // ci-dessous). Si les 3 ecrans sont desactives, le bloc entier disparait
+  // (pas d'espace vide ni de titre orphelin).
+  const disabledKeys = new Set<string>();
+  if (disabledScreens?.aristocrat) disabledKeys.add("aristocrat");
+  if (disabledScreens?.calculator) disabledKeys.add("calc");
+  if (disabledScreens?.snowball) disabledKeys.add("snow");
+  const visibleCards = cards.filter((c) => !disabledKeys.has(String(c.key)));
+  if (visibleCards.length === 0) return null;
+
   return (
     <section
       id="sec-dividend-stories"
@@ -227,15 +245,18 @@ export function DividendStories({
       {/* Layout : 3 cards côte à côte sans défilement (Yann 9 mai 23h00).
           Suppression du carrousel/autoplay/swipe/dots/tap-zones. Sur mobile,
           stack en colonne unique. */}
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-        {cards.map((card, i) => (
+      <div className="flex flex-col gap-4 lg:flex-row lg:flex-wrap lg:justify-center">
+        {visibleCards.map((card, i) => (
           <div
             key={i}
             // Yann 5 juin 2026 : background passé en transparent pour
             // éviter le coin noir qui dépassait au-dessus du contenu
             // bleu/violet enfant. overflow-hidden + boxShadow ring
             // suffisent pour le cadre visuel.
-            className="relative overflow-hidden rounded-[28px] border border-white/10 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.7)]"
+            // Yann 10 juin 2026 : flex + flex-1 + max-width => quand 1 ou 2
+            // ecrans sont desactives, les restants se recentrent (pas de
+            // colonne vide). 3 = remplissent la rangee, 2 = centres, 1 = centre.
+            className="relative w-full overflow-hidden rounded-[28px] border border-white/10 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.7)] lg:max-w-[440px] lg:flex-1"
             style={{
               minHeight: 600,
               background: "transparent",

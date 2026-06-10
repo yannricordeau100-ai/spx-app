@@ -7,15 +7,15 @@ import { useT } from "@/lib/i18n/provider";
 import { AutoTooltipText } from "@/components/auto-tooltip-text";
 
 /**
- * Wrappe la portion qui vient APRÈS "Le KPI principal" dans un span
+ * Wrappe la portion qui vient APRÈS "Le KPI" dans un span
  * `floutage-target` pour permettre au flou adaptatif multi-lignes de
  * s'appliquer sur la valeur sensible uniquement (pas sur le préfixe).
  *
- * Si "Le KPI principal" n'est pas trouvé dans le texte (autre langue,
+ * Si "Le KPI" n'est pas trouvé dans le texte (autre langue,
  * autre formulation), on wrap tout le texte par défaut.
  */
 function wrapHeroInterpretation(html: string): string {
-  const marker = "Le KPI principal";
+  const marker = "Le KPI";
   const idx = html.indexOf(marker);
   if (idx < 0) {
     return `<span class="floutage-target" data-floutage-zone="hero_interpretation_value">${html}</span>`;
@@ -59,7 +59,7 @@ export function InterpretationBlock({
           vient de notre pipeline contrôlé, pas user input).
 
           Yann 2 juin 2026 : flou adaptatif multi-lignes.
-          La portion qui vient APRÈS "Le KPI principal" est wrappée dans
+          La portion qui vient APRÈS "Le KPI" est wrappée dans
           un <span class="floutage-target" data-floutage-zone="hero_interpretation_value">.
           Le span est inline + box-decoration-break:clone côté CSS, ce qui
           permet au blur de suivre naturellement le texte sur 1 ou N lignes

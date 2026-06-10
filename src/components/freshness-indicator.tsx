@@ -257,12 +257,15 @@ export function FreshnessIndicator({
   const tier = getFreshness(refDate);
 
   // ===== "Earning attendu" : détection automatique =====
-  // Logique (Yann 12 mai 2026) :
-  //   1. Si la `nextEarningsDate` est dans le passé (> aujourd'hui)
-  //   2. ET le dataset n'a pas été mis à jour (`lastDate` toujours
-  //      antérieur ou égal au trimestre couvert par cette nextEarningsDate)
-  //   → on affiche un badge "Earning attendu" jaune-ambre pour signaler
-  //     que le pipeline n'a pas encore intégré le nouveau 10-Q/10-K.
+  // Logique (Yann 8 juin 2026, règle inversée) :
+  //   Le badge "Earning attendu" signale un earning RÉELLEMENT À VENIR.
+  //   Il ne s'affiche QUE quand :
+  //   1. La `nextEarningsDate` est dans le FUTUR (>= aujourd'hui)
+  //   2. ET le dataset est antérieur à cette date d'earning (`lastDate`
+  //      < nextEarningsDate, = la data n'a pas encore intégré ce trimestre)
+  //   → badge jaune-ambre "Earning attendu" pour annoncer le prochain
+  //     earning à venir.
+  //   Jamais affiché pour une date d'earning déjà passée.
   //
   // Gate : activé uniquement sur les tickers du palier de déploiement
   // courant (cf EARNING_PENDING_ENABLED_TICKERS).
@@ -277,10 +280,10 @@ export function FreshnessIndicator({
       today.setUTCHours(0, 0, 0, 0);
       if (Number.isNaN(nextD.getTime()) || Number.isNaN(lastD.getTime()))
         return false;
-      // Condition : nextEarningsDate dépassée ET lastDate antérieur à
-      // nextEarningsDate (= le pipeline n'a pas encore reçu le 10-Q/10-K
-      // qui correspond à cette nextEarningsDate).
-      return nextD.getTime() < today.getTime() && lastD.getTime() < nextD.getTime();
+      // Condition : nextEarningsDate dans le futur ET lastDate antérieur à
+      // nextEarningsDate (= earning à venir que le pipeline n'a pas encore
+      // reçu). Jamais affiché pour une date d'earning déjà passée.
+      return nextD.getTime() >= today.getTime() && lastD.getTime() < nextD.getTime();
     } catch {
       return false;
     }

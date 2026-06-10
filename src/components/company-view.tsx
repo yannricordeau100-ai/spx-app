@@ -1382,7 +1382,14 @@ export function CompanyView({
           {isBlockEnabled("interpretation", company.ticker) ? (
             <div className="mt-6">
               <BlurredFreeText blocked={freeBlocked} ticker={company.ticker}>
-                <InterpretationBlock block={interp} accent={accent} />
+                <InterpretationBlock
+                  block={
+                    isDisabled("interpretation_watch")
+                      ? { ...interp, bullets: interp.bullets.filter((b) => b.tone !== "future") }
+                      : interp
+                  }
+                  accent={accent}
+                />
               </BlurredFreeText>
             </div>
           ) : (
@@ -1545,7 +1552,7 @@ export function CompanyView({
         {isBlockEnabled("risks", company.ticker) && !isDisabled("risks") ? (
           company.risks && company.risks.length > 0 ? (
             <div id="sec-risks" className="scroll-mt-24">
-              <RiskStack risks={company.risks} accent={accent} profitWarning={company.profit_warning} freeBlocked={freeBlocked} ticker={company.ticker} />
+              <RiskStack risks={company.risks} accent={accent} profitWarning={isDisabled("profit_warning") ? undefined : company.profit_warning} freeBlocked={freeBlocked} ticker={company.ticker} />
             </div>
           ) : (
             v18Mode && <V18MissingPlaceholder id="sec-risks" label="Facteurs de risque" hint="Item 1A 10-K à extraire (Sonnet/Haiku Pass 2)." />
@@ -1566,7 +1573,14 @@ export function CompanyView({
             société a DPS + Cap Return + Payout Ratio dans ses KPIs (ou
             fallback hard-codé pour CAT). Sinon return null = invisible. */}
         {isBlockEnabled("dividend", company.ticker) ? (
-          <DividendStories company={company} />
+          <DividendStories
+            company={company}
+            disabledScreens={{
+              aristocrat: isDisabled("dividend_aristocrat"),
+              calculator: isDisabled("dividend_calculator"),
+              snowball: isDisabled("dividend_snowball"),
+            }}
+          />
         ) : (
           <BlockComingSoon blockId="dividend" />
         )}

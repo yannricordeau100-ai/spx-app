@@ -52,8 +52,8 @@ export function perYear(l: InterpLocale): string {
 
 /**
  * lead("Apple", "iPhone revenue", "201,2", "Mds $", "+8,2 %", "richTrend html", " Détail : <em>…</em>")
- *   FR → "Le KPI principal de <strong>Apple</strong> est <strong>iPhone revenue</strong>, à <strong>201,2 Mds $</strong> (+8,2 % <em>YoY</em>). RichTrend…"
- *   DE → "Der wichtigste KPI von <strong>Apple</strong> ist <strong>iPhone revenue</strong>, bei <strong>201,2 Mds $</strong> (+8,2 % <em>YoY</em>). RichTrend…"
+ *   FR → "Le KPI <strong>iPhone revenue</strong> de <strong>Apple</strong> : <strong>201,2 Mds $</strong> (+8,2 % <em>YoY</em>). RichTrend…"
+ *   DE → "Der KPI <strong>iPhone revenue</strong> von <strong>Apple</strong>: <strong>201,2 Mds $</strong> (+8,2 % <em>YoY</em>). RichTrend…"
  */
 export function leadSentence(
   locale: InterpLocale,
@@ -69,15 +69,15 @@ export function leadSentence(
   switch (locale) {
     case "en":
     case "en-GB":
-      return `The main KPI of <strong>${company}</strong> is <strong>${kpi}</strong>, at <strong>${value} ${unit}</strong> (${yoy} <em>YoY</em>). ${trendCapitalized}.${tail}`;
+      return `The <strong>${kpi}</strong> KPI of <strong>${company}</strong>: <strong>${value} ${unit}</strong> (${yoy} <em>YoY</em>). ${trendCapitalized}.${tail}`;
     case "de":
     case "de-CH":
-      return `Der wichtigste KPI von <strong>${company}</strong> ist <strong>${kpi}</strong>, bei <strong>${value} ${unit}</strong> (${yoy} <em>YoY</em>). ${trendCapitalized}.${tail}`;
+      return `Der KPI <strong>${kpi}</strong> von <strong>${company}</strong>: <strong>${value} ${unit}</strong> (${yoy} <em>YoY</em>). ${trendCapitalized}.${tail}`;
     case "nl":
-      return `De belangrijkste KPI van <strong>${company}</strong> is <strong>${kpi}</strong>, op <strong>${value} ${unit}</strong> (${yoy} <em>YoY</em>). ${trendCapitalized}.${tail}`;
+      return `De KPI <strong>${kpi}</strong> van <strong>${company}</strong>: <strong>${value} ${unit}</strong> (${yoy} <em>YoY</em>). ${trendCapitalized}.${tail}`;
     case "fr":
     default:
-      return `Le KPI principal de <strong>${company}</strong> est <strong>${kpi}</strong>, à <strong>${value} ${unit}</strong> (${yoy} <em>YoY</em>). ${trendCapitalized}.${tail}`;
+      return `Le KPI <strong>${kpi}</strong> de <strong>${company}</strong> : <strong>${value} ${unit}</strong> (${yoy} <em>YoY</em>). ${trendCapitalized}.${tail}`;
   }
 }
 
