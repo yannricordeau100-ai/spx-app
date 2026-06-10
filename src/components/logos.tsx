@@ -195,7 +195,7 @@ export function CompanyLogo({ ticker }: { ticker: string }) {
     <span
       role="img"
       aria-label={`${ticker} logo`}
-      className="block h-full w-full"
+      className="block h-full w-full preserve-colors"
       style={{
         // Yann 10 juin 2026 : background-size 'contain' (au lieu de 'cover')
         // pour ne JAMAIS tronquer les logos larges ou en texte (ex ABB, ABF
