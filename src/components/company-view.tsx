@@ -772,6 +772,26 @@ export function CompanyView({
   })();
   const interp = useMemo(() => interpretStructured(company, active.short, locale), [company, active.short, locale]);
 
+  // Yann 10 juin 2026 : lead de l'interprétation IA injecté SOUS le graph dans
+  // le PNG exporté. Calculé dans la MÊME langue que le titre exporté
+  // (heroTitleLang, basculé au clic sur le titre du graph), PAS la locale
+  // globale. On ne garde QUE le lead (1 phrase), strippé des balises HTML
+  // (<strong>/<em>) car le canvas PNG ne rend que du texte brut. Les bullets
+  // ne sont pas exportés.
+  const exportInterp = useMemo(() => {
+    const lead = interpretStructured(company, active.short, heroTitleLang).lead || "";
+    return lead
+      .replace(/<[^>]+>/g, "") // retire toutes les balises HTML
+      .replace(/&amp;/g, "&")
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">")
+      .replace(/&nbsp;/g, " ")
+      .replace(/&#39;|&apos;/g, "'")
+      .replace(/&quot;/g, '"')
+      .replace(/\s+/g, " ")
+      .trim();
+  }, [company, active.short, heroTitleLang]);
+
   const comparables = useMemo(
     () => findComparable(company.ticker, active.short),
     [company.ticker, active.short]
@@ -1369,6 +1389,7 @@ export function CompanyView({
                 timeFraction={effectiveTimeFraction}
                 titleLocale={heroTitleLang}
                 exportCagr={exportCagr}
+                exportInterpretation={exportInterp}
                 exportTitle={`${(() => {
                   type N = typeof active & { name_de?: string; name_en?: string };
                   const a = active as N;

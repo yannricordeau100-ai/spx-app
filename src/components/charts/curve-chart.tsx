@@ -168,6 +168,7 @@ export function CurveChart({
   exportTicker,
   exportCagr,
   exportFrequency,
+  exportInterpretation,
   titleLocale,
 }: {
   data: number[];
@@ -193,6 +194,10 @@ export function CurveChart({
    *  petit, bleu-violet, opacité 0.85). Le suffixe est déjà inclus dans
    *  exportTitle ; cette prop sert uniquement à le localiser pour le style. */
   exportFrequency?: string;
+  /** Yann 10 juin 2026 : lead de l'interprétation IA (1 phrase, texte brut
+   *  strippé HTML), même langue que le titre exporté. Posé en data-export-*
+   *  pour rendu SOUS le graph dans le PNG. */
+  exportInterpretation?: string;
   /** Yann 8 juin 2026 (Point 4) : override locale axe Y depuis KpiSwapTitle.
    *  'en' force la traduction des mots d'echelle (Mds -> Bn) ET des unites
    *  textuelles non monetaires (unites -> units, abonnes -> subscribers, etc).
@@ -325,6 +330,7 @@ export function CurveChart({
         data-export-ticker={exportTicker || ""}
         data-export-cagr={exportCagr || ""}
         data-export-frequency={exportFrequency || ""}
+        data-export-interpretation={exportInterpretation || ""}
         data-export-locale={locale || ""}
       >
       {/* Header d'unité dans le SVG (au-dessus de l'axe Y) pour qu'il

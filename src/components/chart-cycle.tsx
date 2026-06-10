@@ -145,6 +145,7 @@ function downloadVisibleChart() {
     ticker: svg.getAttribute("data-export-ticker") || undefined,
     cagr: svg.getAttribute("data-export-cagr") || undefined,
     frequency: svg.getAttribute("data-export-frequency") || undefined,
+    interpretation: svg.getAttribute("data-export-interpretation") || undefined,
     locale,
   });
 }
@@ -347,6 +348,7 @@ export function ChartCycle({
   timeFraction = "year",
   exportTitle,
   exportCagr,
+  exportInterpretation,
   titleLocale = "fr",
 }: {
   mode: ChartMode;
@@ -375,6 +377,11 @@ export function ChartCycle({
    *  +47,8 %/an") injecté sous le titre dans le PNG. Calculé côté parent
    *  (company-view) sur la série de valeurs réelles du hero KPI. */
   exportCagr?: string;
+  /** Yann 10 juin 2026 : lead de l'interprétation IA du KPI (1 phrase, texte
+   *  brut déjà strippé des balises HTML), dans la MÊME langue que le titre
+   *  exporté (heroTitleLang). Rendu SOUS le graph dans le PNG. Calculé côté
+   *  company-view via interpretStructured(..., heroTitleLang).lead. */
+  exportInterpretation?: string;
   /** Yann 8 juin 2026 (Point 4) : si le titre KPI est bascule en EN via
    *  KpiSwapTitle (state local au parent), on traduit aussi l'axe Y SAUF
    *  pour les unites monetaires (les symboles $/EUR/etc restent identiques).
@@ -419,13 +426,13 @@ export function ChartCycle({
           transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
         >
           {mode === "curve" && (
-            <CurveChart data={scaledData as number[]} labels={xLabels} unit={displayUnit} color={color} anomalies={anomalies} events={events} ttm={scaledTtm} exportTitle={exportTitle} exportTicker={company?.ticker} exportCagr={exportCagr} exportFrequency={exportFrequency} titleLocale={titleLocale} />
+            <CurveChart data={scaledData as number[]} labels={xLabels} unit={displayUnit} color={color} anomalies={anomalies} events={events} ttm={scaledTtm} exportTitle={exportTitle} exportTicker={company?.ticker} exportCagr={exportCagr} exportFrequency={exportFrequency} exportInterpretation={exportInterpretation} titleLocale={titleLocale} />
           )}
           {mode === "bars" && (
-            <BarsIso3DStack data={scaledData as number[]} labels={xLabels} unit={displayUnit} color={color} events={events} ttm={scaledTtm} variant={barsVariant} exportTitle={exportTitle} exportTicker={company?.ticker} exportCagr={exportCagr} exportFrequency={exportFrequency} titleLocale={titleLocale} />
+            <BarsIso3DStack data={scaledData as number[]} labels={xLabels} unit={displayUnit} color={color} events={events} ttm={scaledTtm} variant={barsVariant} exportTitle={exportTitle} exportTicker={company?.ticker} exportCagr={exportCagr} exportFrequency={exportFrequency} exportInterpretation={exportInterpretation} titleLocale={titleLocale} />
           )}
           {mode === "delta" && (
-            <VariationIsoSteps3D data={scaledData as number[]} labels={xLabels} events={events} exportTitle={exportTitle} exportTicker={company?.ticker} exportCagr={exportCagr} exportFrequency={exportFrequency} />
+            <VariationIsoSteps3D data={scaledData as number[]} labels={xLabels} events={events} exportTitle={exportTitle} exportTicker={company?.ticker} exportCagr={exportCagr} exportFrequency={exportFrequency} exportInterpretation={exportInterpretation} />
           )}
           {mode === "panel" && company && activeShort && onPickKpi && (
             <MiniMultiplesChart

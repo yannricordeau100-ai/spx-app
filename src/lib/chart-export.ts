@@ -135,6 +135,12 @@ export async function downloadSvgAsPng(
      *  petit, bleu-violet #a78bfa, opacité 0.85). Si fréquence = année,
      *  laisser undefined → sous-titre inchangé. */
     frequency?: string;
+    /** Yann 10 juin 2026 : "lead" de l'interprétation IA du KPI (1 phrase,
+     *  texte BRUT déjà strippé des balises HTML <strong>/<em> côté appelant),
+     *  dans la MÊME langue que le titre exporté (heroTitleLang). Rendu en bloc
+     *  multi-ligne (word-wrap manuel) SOUS le graph et AU-DESSUS du footer
+     *  "KPIs Powered by". Si absent → aucun bloc ajouté (pas d'espace vide). */
+    interpretation?: string;
   } = {},
   scale = 2
 ): Promise<void> {
@@ -300,9 +306,56 @@ export async function downloadSvgAsPng(
   // au-dessus du label X = 50px total nécessaire après origH.
   const PAD_BOTTOM = 50;
 
-  // Nouveau viewBox englobant le contenu original + le padding.
+  // ── Bloc interprétation IA (Yann 10 juin 2026) ──
+  // Le "lead" de l'interprétation (1 phrase, texte brut déjà strippé des
+  // balises HTML côté appelant) est rendu SOUS le graph et AU-DESSUS du
+  // footer. Police Avenir fine (300), couleur subtitleColor, centré, ~14px,
+  // interligne confortable. Word-wrap manuel sur la largeur du graph.
+  // On calcule la hauteur du bloc AVANT le viewBox pour recalculer la
+  // hauteur totale et ne pas chevaucher footer ni graph. Si pas
+  // d'interprétation → bloc nul (interpBlockH = 0, pas d'espace vide).
+  const INTERP_FONT_SIZE = 14;
+  const INTERP_LINE_H = 22; // interligne confortable
+  const INTERP_GAP_ABOVE = 18; // air entre le bas du graph et la 1re ligne
+  const INTERP_GAP_BELOW = 16; // air entre la dernière ligne et le footer
+  const INTERP_WRAP_W = origW; // word-wrap sur la largeur du graph
+  const interpText = (options.interpretation || "").trim();
+  const interpLines: string[] = [];
+  if (interpText) {
+    // Mesure réelle de la largeur du texte (canvas measureText) pour un
+    // word-wrap fidèle au rendu Avenir/Manrope du PNG. Fallback estimation
+    // char-width si canvas indispo (SSR / contexte non-DOM).
+    const measureCtx =
+      typeof document !== "undefined"
+        ? document.createElement("canvas").getContext("2d")
+        : null;
+    if (measureCtx) {
+      measureCtx.font = `300 ${INTERP_FONT_SIZE}px ${PNG_FONT_FAMILY}`;
+    }
+    const measure = (s: string): number =>
+      measureCtx ? measureCtx.measureText(s).width : s.length * (INTERP_FONT_SIZE * 0.52);
+    const words = interpText.split(/\s+/);
+    let line = "";
+    for (const w of words) {
+      const candidate = line ? `${line} ${w}` : w;
+      if (measure(candidate) > INTERP_WRAP_W && line) {
+        interpLines.push(line);
+        line = w;
+      } else {
+        line = candidate;
+      }
+    }
+    if (line) interpLines.push(line);
+  }
+  const interpBlockH =
+    interpLines.length > 0
+      ? INTERP_GAP_ABOVE + interpLines.length * INTERP_LINE_H + INTERP_GAP_BELOW
+      : 0;
+
+  // Nouveau viewBox englobant le contenu original + le padding + le bloc
+  // interprétation (interpBlockH = 0 si absent → aucune hauteur ajoutée).
   const newW = origW + PAD_SIDE * 2;
-  const newH = origH + PAD_TOP + PAD_BOTTOM;
+  const newH = origH + PAD_TOP + interpBlockH + PAD_BOTTOM;
   const newX = origX - PAD_SIDE;
   const newY = origY - PAD_TOP;
   clone.setAttribute("viewBox", `${newX} ${newY} ${newW} ${newH}`);
@@ -363,7 +416,12 @@ export async function downloadSvgAsPng(
   // origY+origH+10). On le pose a origY+origH-12 pour le rapprocher du bas
   // du chart sans chevaucher les labels de l'axe X (rendus a l'interieur du
   // viewBox original, entre origY+origH-30 et origY+origH).
-  const wmY = origY + origH - 12;
+  // Yann 10 juin 2026 : si un bloc interprétation est rendu sous le graph,
+  // on descend le footer de interpBlockH pour le placer SOUS ce bloc (le
+  // texte d'interprétation occupe [origY+origH, origY+origH+interpBlockH]).
+  // Quand interpBlockH = 0 (pas d'interprétation), le footer garde sa
+  // position d'origine.
+  const wmY = origY + origH - 12 + interpBlockH;
   const wmTextRightX = wmStartX + KPIS_DATA_BY_TEXT_W;
   const wmLogoX = wmStartX + KPIS_DATA_BY_TEXT_W + WM_GAP;
 
@@ -401,6 +459,32 @@ export async function downloadSvgAsPng(
   );
   wmLogoEl.setAttribute("opacity", "0.95");
   clone.appendChild(wmLogoEl);
+
+  // ── Rendu du bloc interprétation IA (Yann 10 juin 2026) ──
+  // Lignes pré-calculées plus haut (interpLines, word-wrap manuel sur la
+  // largeur du graph). Placé SOUS le graph (après origY+origH) et AU-DESSUS
+  // du footer (qui a été descendu de interpBlockH). Police Avenir fine (300),
+  // couleur subtitleColor, centré. Baseline 1re ligne = bas du graph + gap +
+  // taille de police (pour aligner le HAUT du texte sur le gap).
+  if (interpLines.length > 0) {
+    const interpMidX = origX + origW / 2;
+    const interpFirstBaselineY =
+      origY + origH + INTERP_GAP_ABOVE + INTERP_FONT_SIZE;
+    interpLines.forEach((lineText, i) => {
+      const lineEl = document.createElementNS(NS, "text");
+      lineEl.setAttribute("x", String(interpMidX));
+      lineEl.setAttribute("y", String(interpFirstBaselineY + i * INTERP_LINE_H));
+      lineEl.setAttribute("text-anchor", "middle");
+      lineEl.setAttribute("font-family", PNG_FONT_FAMILY);
+      lineEl.setAttribute("font-weight", "300");
+      lineEl.setAttribute("font-style", "normal");
+      lineEl.setAttribute("font-size", String(INTERP_FONT_SIZE));
+      lineEl.setAttribute("letter-spacing", "0.01em");
+      lineEl.setAttribute("fill", subtitleColor);
+      lineEl.textContent = lineText;
+      clone.appendChild(lineEl);
+    });
+  }
 
   // Embed les @font-face du document parent dans la balise <style> du SVG
   // cloné, pour que Bricolage Grotesque (titre), Fraunces (watermark) et

@@ -88,6 +88,10 @@ type Props = {
   /** Yann 8 juin 2026 (PRIO 3) : suffixe fréquence "par x" déjà localisé,
    *  fourni quand la fréquence ≠ année. Transmis tel quel à l'export. */
   exportFrequency?: string;
+  /** Yann 10 juin 2026 : lead de l'interprétation IA (1 phrase, texte brut
+   *  strippé HTML), même langue que le titre exporté. Posé en data-export-*
+   *  pour rendu SOUS le graph dans le PNG. */
+  exportInterpretation?: string;
   /** Yann 8 juin 2026 (Point 4) : override locale axe Y depuis KpiSwapTitle.
    *  'en' force la traduction des mots d'echelle (Mds -> Bn) ET des unites
    *  textuelles non monetaires (unites -> units, abonnes -> subscribers, etc).
@@ -100,7 +104,7 @@ type Props = {
 /* Avec support TTM (barre supplémentaire pointillée) et variant   */
 /* "classic" pour basculer en 2D flat.                             */
 /* ============================================================ */
-export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", events = [], ttm = null, ttmLabel = "TTM", variant = "iso3d", exportTitle, exportTicker, exportCagr, exportFrequency, titleLocale }: Props) {
+export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", events = [], ttm = null, ttmLabel = "TTM", variant = "iso3d", exportTitle, exportTicker, exportCagr, exportFrequency, exportInterpretation, titleLocale }: Props) {
   const [hover, setHover] = useState<number | null>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   // Yann 15 mai 2026 : axis header locale-aware.
@@ -186,6 +190,7 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
       data-export-ticker={exportTicker || ""}
       data-export-cagr={exportCagr || ""}
       data-export-frequency={exportFrequency || ""}
+      data-export-interpretation={exportInterpretation || ""}
       data-export-locale={locale || ""}
     >
       {/* Header d'unité dans le SVG (au-dessus de l'axe Y) pour qu'il

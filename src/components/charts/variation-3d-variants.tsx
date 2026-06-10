@@ -61,6 +61,10 @@ type Props = {
   /** Yann 8 juin 2026 (PRIO 3) : suffixe fréquence "par x" déjà localisé,
    *  fourni quand la fréquence ≠ année. Transmis tel quel à l'export. */
   exportFrequency?: string;
+  /** Yann 10 juin 2026 : lead de l'interprétation IA (1 phrase, texte brut
+   *  strippé HTML), même langue que le titre exporté. Posé en data-export-*
+   *  pour rendu SOUS le graph dans le PNG. */
+  exportInterpretation?: string;
 };
 
 const POS = "#10b981";
@@ -70,7 +74,7 @@ const NEG = "#f43f5e";
 /* V11 — ISO STEP BARS 3D                                         */
 /* Bars de variation en iso, hauteur en plus / moins du zéro.     */
 /* ============================================================ */
-export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, exportTicker, exportCagr, exportFrequency }: Props) {
+export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, exportTicker, exportCagr, exportFrequency, exportInterpretation }: Props) {
   const [hover, setHover] = useState<number | null>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   // Yann 10 juin 2026 (Point 6) : locale courante pour l'export PNG.
@@ -114,6 +118,7 @@ export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, ex
       data-export-ticker={exportTicker || ""}
       data-export-cagr={exportCagr || ""}
       data-export-frequency={exportFrequency || ""}
+      data-export-interpretation={exportInterpretation || ""}
       data-export-locale={locale || ""}
     >
       {/* Header d'unité dans le SVG. Yann 2 juin 2026 : repositionné
