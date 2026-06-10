@@ -96,6 +96,7 @@ export function RecentIpoPlaceholder({
 const RECENT_IPO_TABLE: Record<string, { ipoLabel: string; readyInMonths: number }> = {
   CRWV: { ipoLabel: "mars 2026", readyInMonths: 22 },
   "FLTR.L": { ipoLabel: "2024", readyInMonths: 6 },
+  GEHC: { ipoLabel: "janvier 2023", readyInMonths: 20 },
   GEV: { ipoLabel: "mars 2024", readyInMonths: 4 },
   Q: { ipoLabel: "juin 2025", readyInMonths: 13 },
   RDDT: { ipoLabel: "mars 2024", readyInMonths: 4 },
