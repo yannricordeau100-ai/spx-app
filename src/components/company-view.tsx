@@ -344,7 +344,7 @@ export function CompanyView({
 
   const [showAll, setShowAll] = useState(false);
   const [compareOpen, setCompareOpen] = useState(false);
-  const [chartMode, setChartMode] = useChartMode("curve");
+  const [chartMode, setChartMode] = useChartMode("bars");
   const [barsVariant, setBarsVariant] = useState<"iso3d" | "classic">("classic");
   const [timeFraction, setTimeFraction] = useState<TimeFraction>("year");
   // Toggle Annuel / Trimestriel / Semestriel selon period_type du hero KPI

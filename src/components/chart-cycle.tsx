@@ -28,8 +28,8 @@ const MODES: {
   hintKey: string;
   icon: typeof Activity;
 }[] = [
-  { id: "curve", labelKey: "company.chart.curve", hintKey: "company.chart.curve.hint", icon: Activity },
   { id: "bars", labelKey: "company.chart.bars", hintKey: "company.chart.bars.hint", icon: BarChart3 },
+  { id: "curve", labelKey: "company.chart.curve", hintKey: "company.chart.curve.hint", icon: Activity },
   { id: "delta", labelKey: "company.chart.variation", hintKey: "company.chart.variation.hint", icon: TrendingUp },
   // Yann 5 juin 2026 : onglet "Tableau de bord" supprimé.
 ];
@@ -451,6 +451,6 @@ export function ChartCycle({
  * Hook utilitaire si un parent veut juste l'état de mode + un setter
  * sans avoir à le déclarer manuellement.
  */
-export function useChartMode(initial: ChartMode = "curve") {
+export function useChartMode(initial: ChartMode = "bars") {
   return useState<ChartMode>(initial);
 }
