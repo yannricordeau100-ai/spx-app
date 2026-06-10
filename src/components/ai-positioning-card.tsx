@@ -148,11 +148,23 @@ export function AIPositioningCard({
                     style={{ color: meta.color }}
                   />
                   <BlurredFreeText blocked={freeBlocked} ticker={ticker} as="span">
-                    {typeof e === "string" ? (
-                      <AutoTooltipText text={humanizeFinJargon(normalizeNarrative(e))} locale="fr" />
-                    ) : (
-                      e
-                    )}
+                    {(() => {
+                      // Garde-fou : certains datasets ont des evidence en objet
+                      // citation {text, page_hint, year} au lieu de string.
+                      // Rendre l'objet brut crashe React ("Objects are not valid
+                      // as a React child"). On extrait .text (ex KER.PA, TTE.PA,
+                      // BN.PA, BNPQY... 500 corrige). Vaut pour tout objet futur.
+                      const raw = e as unknown;
+                      const txt =
+                        typeof raw === "string"
+                          ? raw
+                          : raw && typeof raw === "object" && "text" in raw
+                            ? String((raw as { text?: unknown }).text ?? "")
+                            : "";
+                      return txt ? (
+                        <AutoTooltipText text={humanizeFinJargon(normalizeNarrative(txt))} locale="fr" />
+                      ) : null;
+                    })()}
                   </BlurredFreeText>
                 </li>
               ))}
