@@ -772,15 +772,14 @@ export function CompanyView({
   })();
   const interp = useMemo(() => interpretStructured(company, active.short, locale), [company, active.short, locale]);
 
-  // Yann 10 juin 2026 : lead de l'interprétation IA injecté SOUS le graph dans
-  // le PNG exporté. Calculé dans la MÊME langue que le titre exporté
-  // (heroTitleLang, basculé au clic sur le titre du graph), PAS la locale
-  // globale. On ne garde QUE le lead (1 phrase), strippé des balises HTML
-  // (<strong>/<em>) car le canvas PNG ne rend que du texte brut. Les bullets
-  // ne sont pas exportés.
+  // Yann 10 juin 2026 (corrigé) : le texte injecté SOUS le graph dans le PNG
+  // exporté = le SIGNAL du KPI (le texte affiché à gauche du graph dans l'app),
+  // PAS le lead "Le KPI X...". Strippé des balises HTML car le canvas PNG ne
+  // rend que du texte brut. Le signal vient du dataset (langue de la page) ;
+  // le titre/axe suivent heroTitleLang (clic titre).
   const exportInterp = useMemo(() => {
-    const lead = interpretStructured(company, active.short, heroTitleLang).lead || "";
-    return lead
+    const sig = typeof active.signal === "string" ? active.signal : "";
+    return sig
       .replace(/<[^>]+>/g, "") // retire toutes les balises HTML
       .replace(/&amp;/g, "&")
       .replace(/&lt;/g, "<")
@@ -790,7 +789,7 @@ export function CompanyView({
       .replace(/&quot;/g, '"')
       .replace(/\s+/g, " ")
       .trim();
-  }, [company, active.short, heroTitleLang]);
+  }, [active.signal]);
 
   const comparables = useMemo(
     () => findComparable(company.ticker, active.short),
