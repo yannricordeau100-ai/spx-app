@@ -124,23 +124,42 @@ export const EXTRA_LOCALES: Record<string, Partial<Record<LocaleKey, string>>> =
     de: "Ergebnisse veröffentlicht",
     nl: "Resultaten gepubliceerd" },
   "company.earning_published_explainer": {
-    de: "Ergebnisse des letzten Quartals am {date} veröffentlicht, Integration läuft.",
-    nl: "Resultaten van het laatste kwartaal gepubliceerd op {date}, integratie loopt." },
+    de: "Ergebnisse {quarter} am {date} veröffentlicht, Integration läuft.",
+    nl: "Resultaten {quarter} gepubliceerd op {date}, integratie loopt." },
   "company.next_results": { de: "Nächste Ergebnisse", nl: "Volgende resultaten" },
   "company.last_quarter": { de: "Letztes abgedecktes Quartal", nl: "Laatste gedekte kwartaal" },
   "company.last_data": { de: "Letzter Datenpunkt", nl: "Laatste gegevens" },
   "company.fresh_explainer": {
-    de: "Der letzte Datenpunkt ist weniger als 4 Monate alt: aktuellstes Geschäftsjahr.",
-    nl: "Het laatste datapunt is minder dan 4 maanden oud: meest recente boekjaar." },
+    de: "Daten aktuell.",
+    nl: "Gegevens actueel." },
   "company.recent_explainer": {
-    de: "Der letzte Datenpunkt ist 4 bis 12 Monate alt. Noch gültig, aber das nächste Geschäftsjahr naht.",
-    nl: "Het laatste datapunt is 4 tot 12 maanden oud. Nog geldig maar het volgende boekjaar nadert." },
+    de: "Letztes vollständiges Geschäftsjahr, weiterhin relevant.",
+    nl: "Laatste volledige boekjaar, nog steeds relevant." },
   "company.stale_explainer": {
-    de: "Der letzte Datenpunkt ist über 12 Monate alt. Das Unternehmen hat wahrscheinlich ein neueres Geschäftsjahr veröffentlicht: die angezeigten Daten sind veraltet.",
-    nl: "Het laatste datapunt is meer dan 12 maanden oud. Het bedrijf heeft waarschijnlijk een recenter boekjaar gepubliceerd: de getoonde gegevens zijn verouderd." },
+    de: "Ein neueres Geschäftsjahr wurde wahrscheinlich veröffentlicht.",
+    nl: "Er is waarschijnlijk een recenter boekjaar gepubliceerd." },
   "company.unknown_explainer": {
     de: "Kein Datum mit diesem Datenpunkt verbunden.",
     nl: "Geen datum gekoppeld aan dit datapunt." },
+  // Freshness tooltip (Yann 8 juin 2026 : refonte architecture "i") :
+  "freshness.last_earning": {
+    de: "Letztes Earning",
+    nl: "Laatste earning" },
+  "freshness.next_earning": {
+    de: "Nächstes Earning",
+    nl: "Volgende earning" },
+  "freshness.published_on": {
+    de: "veröffentlicht am",
+    nl: "gepubliceerd op" },
+  "freshness.published_around": {
+    de: "veröffentlicht um",
+    nl: "gepubliceerd rond" },
+  "freshness.expected_on": {
+    de: "erwartet am",
+    nl: "verwacht op" },
+  "freshness.expected_around": {
+    de: "erwartet um",
+    nl: "verwacht rond" },
   "company.rank_world": { de: "Weltrang", nl: "Wereldwijde rang" },
   "company.rank_us": { de: "US-Rang", nl: "VS-rang" },
   "company.sector": { de: "Sektor", nl: "Sector" },

@@ -216,38 +216,39 @@ export const DICTIONARY: Dict = {
   },
   "company.earning_published": { fr: "Résultats publiés", en: "Results published" },
   "company.earning_published_explainer": {
-    fr: "Résultats du dernier trimestre publiés le {date}, intégration en cours.",
-    en: "Latest quarter results published on {date}, integration in progress.",
+    fr: "Résultats du {quarter} publiés le {date}, intégration en cours.",
+    en: "{quarter} results published on {date}, integration in progress.",
   },
   "company.next_results": { fr: "Prochains résultats", en: "Next earnings" },
   "company.last_quarter": { fr: "Dernier trimestre couvert", en: "Latest quarter covered" },
   "company.last_data": { fr: "Dernière donnée", en: "Latest data point" },
   "company.fresh_explainer": {
-    fr: "Le dernier point de donnée a moins de 4 mois : exercice fiscal le plus récent.",
-    en: "Latest data point is less than 4 months old: most recent fiscal year.",
+    fr: "Données à jour.",
+    en: "Data up to date.",
   },
   "company.recent_explainer": {
-    fr: "Le dernier point de donnée a entre 4 et 18 mois. Toujours valide : le dernier exercice fiscal complet reste pertinent.",
-    en: "Latest data point is 4 to 18 months old. Still valid: the last full fiscal year remains relevant.",
+    fr: "Dernier exercice complet, toujours pertinent.",
+    en: "Latest full fiscal year, still relevant.",
   },
   "company.stale_explainer": {
-    fr: "Le dernier point de donnée a plus de 18 mois. La société a probablement publié un exercice plus récent : la donnée affichée n'est plus à jour.",
-    en: "Latest data point is over 18 months old. The company has likely published a more recent fiscal year: data shown is outdated.",
+    fr: "Un exercice plus récent a probablement été publié.",
+    en: "A more recent fiscal year has likely been published.",
   },
   "company.unknown_explainer": {
     fr: "Pas de date associée à ce point de donnée.",
     en: "No date associated with this data point.",
   },
 
-  // Freshness tooltip (Yann 17 mai 2026 : étape EN-canonical) :
-  "freshness.last_earning_published": {
-    fr: "Dernier earning publié",
-    en: "Latest earning published",
+  // Freshness tooltip (Yann 8 juin 2026 : refonte architecture "i") :
+  "freshness.last_earning": {
+    fr: "Dernier earning",
+    en: "Latest earning",
   },
-  "freshness.published_on": { fr: "publié le", en: "published on" },
-  "freshness.period_end": { fr: "Fin de période", en: "Period end" },
   "freshness.next_earning": { fr: "Prochain earning", en: "Next earning" },
-  "freshness.estimated_suffix": { fr: " ~est.", en: " ~est." },
+  "freshness.published_on": { fr: "publié le", en: "published on" },
+  "freshness.published_around": { fr: "publié vers", en: "published around" },
+  "freshness.expected_on": { fr: "prévu le", en: "expected on" },
+  "freshness.expected_around": { fr: "prévu vers", en: "expected around" },
 
   // Story card (KPI / MarketPosition) hardcoded labels (Yann 17 mai 2026) :
   "story.detail": { fr: "Détail", en: "Detail" },
