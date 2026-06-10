@@ -196,12 +196,16 @@ for t in sorted(clean):
     if n_spec < 5:  # garde au moins 4 indicateurs apres move -> besoin 5+ specifiques
         continue
     # candidats short-history (2-4 pts numeriques, value+name+narrative)
+    hero = norm(d.get("hero_kpi"))
     cand = []
     for i in specific_idx:
         k = kpis[i]
         hv = nums(k.get("history"))
         sh = str(k.get("short", "")).strip()
         if not sh or len(sh) > 40:
+            continue
+        # JAMAIS déplacer le hero vers stories (sinon hero short-history -> gate FAIL / rendu 307)
+        if norm(sh) == hero or norm(k.get("name_en")) == hero or norm(k.get("name_fr")) == hero:
             continue
         if not str(k.get("name_fr") or "").strip():
             continue
