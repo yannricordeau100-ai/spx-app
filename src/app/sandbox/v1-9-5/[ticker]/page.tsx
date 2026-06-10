@@ -274,10 +274,29 @@ export default async function SandboxV195TickerPage({
     }
   }
 
+  // Yann 11 juin 2026 : retire des props sérialisées (HTML) toute métadonnée de
+  // provenance (yfinance / mettrik / décontamination) pour qu'elle ne soit pas
+  // "potentiellement visible" (view-source). Les fichiers data restent intacts côté serveur.
+  const stripMeta = <T,>(value: T): T => {
+    if (typeof value === "string")
+      return (/yfinance/i.test(value) ? value.replace(/yfinance[._]?\w*/gi, "données publiques") : value) as unknown as T;
+    if (Array.isArray(value)) return value.map((v) => stripMeta(v)) as unknown as T;
+    if (value && typeof value === "object") {
+      const out: Record<string, unknown> = {};
+      for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
+        const kl = k.toLowerCase();
+        if (kl.includes("yfinance") || kl.startsWith("_mettrik") || kl.includes("decontaminat") || kl.includes("gresham_purged") || kl.includes("_polluted")) continue;
+        out[k] = stripMeta(v);
+      }
+      return out as T;
+    }
+    return value;
+  };
+
   return (
     <FreemiumBlurProvider tier={freemiumTier}>
       <CompanyView
-        company={r.company}
+        company={stripMeta(r.company)}
         authSlot={<AuthNav scope="company" />}
         transcript={transcript}
         transcriptSummary={transcriptSummary}
