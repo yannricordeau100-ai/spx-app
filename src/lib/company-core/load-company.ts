@@ -357,7 +357,6 @@ export async function loadV17Company(
     DGEAY: "DGEAF",
     "DG.PA": "VCISY",
     DTGHF: "DTG.DE",
-    "EL": "EL.PA",
     EMSHF: "EMSHY",
     "EQNR.OL": "EQNR",
     "ESLOY": "EL.PA",
