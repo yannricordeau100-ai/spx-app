@@ -226,6 +226,10 @@ export function CompanyView({
     (freemiumTier === "free" || freemiumTier === "anon") &&
     !["GOOGL", "GOOG", "META"].includes(company.ticker.toUpperCase());
 
+  // Yann (8 juin 2026) : thème clair réservé aux offres PAYANTES (premium + max).
+  // Anonyme + free = non payant → toggle clair verrouillé + thème sombre forcé.
+  const isPaidTier = freemiumTier === "premium" || freemiumTier === "max";
+
   // Yann (1er juin 2026) : applique les règles FREE mode universelles
   // (src/data/floutage-rules.json) dès que freeBlocked === true.
   // Délai 100 ms pour laisser le DOM se rendre + retry observer pour les
@@ -804,7 +808,7 @@ export function CompanyView({
             </Link>
             <PageSearch variant="default" />
             <div className="ml-auto flex shrink-0 items-center gap-2">
-              <ThemeToggle />
+              <ThemeToggle paid={isPaidTier} />
               {authSlot}
             </div>
           </nav>
@@ -870,7 +874,7 @@ export function CompanyView({
               <Bookmark className="size-4" />
               <span className="hidden sm:inline">{t("company.save.button")}</span>
             </button>
-            <ThemeToggle />
+            <ThemeToggle paid={isPaidTier} />
             {authSlot}
           </div>
         </nav>

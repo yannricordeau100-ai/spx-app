@@ -8,6 +8,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { loadPageContent } from "@/lib/desk/page-content";
+import { getServerFreemiumTier } from "@/lib/freemium/server";
 import { getServerLocale } from "@/lib/i18n/server";
 
 export const dynamic = "force-dynamic";
@@ -79,10 +80,14 @@ export default async function HomePage({
   const locale = await getServerLocale();
   const homeOverrides = await loadPageContent("home", locale);
 
+  // Yann (8 juin 2026) : thème clair réservé aux offres payantes (premium + max).
+  const freemiumTier = await getServerFreemiumTier();
+  const themePaid = freemiumTier === "premium" || freemiumTier === "max";
+
   return (
     <>
       <div className="fixed right-4 top-4 z-50 flex items-center gap-3 sm:right-6 sm:top-6">
-        <ThemeToggle />
+        <ThemeToggle paid={themePaid} />
         <AuthNav />
       </div>
       <HomeView contentOverrides={homeOverrides} />

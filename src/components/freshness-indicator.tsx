@@ -4,7 +4,6 @@ import { AlertTriangle, CheckCircle2, Clock, HelpCircle, Hourglass } from "lucid
 import { getFreshness, type FreshnessTier } from "@/lib/data";
 import { InfoTooltip } from "@/components/info-tooltip";
 import { useT } from "@/lib/i18n/provider";
-import { EARNING_PENDING_TICKERS } from "@/lib/freshness/earning-pending-tickers";
 import { fiscalLabelsForTicker } from "@/lib/fiscal-calendar";
 
 const META: Record<
@@ -205,15 +204,6 @@ function approximateMonthLabel(iso: string | null | undefined, locale: string): 
  *   - lastDate : fin de période fiscale (ex : 2026-03-31 pour Q1 2026).
  *     Sert à calculer le trimestre couvert affiché dans le tooltip.
  */
-/**
- * Univers V1.8 top 307 où la feature "Earning attendu" est activée.
- * Liste importée de `@/lib/freshness/earning-pending-tickers` (générée
- * depuis `src/data/v1-8-tickers-sorted.json[:307]`).
- * Règle d'or V1.8-first (Yann 12 mai 2026) : V1.8 d'abord, puis V1.7
- * (snapshot stable). Voir RULES-GOLDEN.md § 0.
- */
-const EARNING_PENDING_ENABLED_TICKERS = EARNING_PENDING_TICKERS;
-
 export function FreshnessIndicator({
   lastDate,
   publicationDate,
@@ -256,44 +246,63 @@ export function FreshnessIndicator({
   const refDate = secPublication ?? secLastDate;
   const tier = getFreshness(refDate);
 
-  // ===== "Earning attendu" : détection automatique =====
-  // Logique (Yann 8 juin 2026, règle inversée) :
-  //   Le badge "Earning attendu" signale un earning RÉELLEMENT À VENIR.
-  //   Il ne s'affiche QUE quand :
-  //   1. La `nextEarningsDate` est dans le FUTUR (>= aujourd'hui)
-  //   2. ET le dataset est antérieur à cette date d'earning (`lastDate`
-  //      < nextEarningsDate, = la data n'a pas encore intégré ce trimestre)
-  //   → badge jaune-ambre "Earning attendu" pour annoncer le prochain
-  //     earning à venir.
-  //   Jamais affiché pour une date d'earning déjà passée.
+  // ===== Statuts earning : détection automatique =====
+  // Deux cas distincts (Yann 8 juin 2026) :
   //
-  // Gate : activé uniquement sur les tickers du palier de déploiement
-  // courant (cf EARNING_PENDING_ENABLED_TICKERS).
-  const isEarningPending = (() => {
-    if (!ticker || !EARNING_PENDING_ENABLED_TICKERS.has(ticker.toUpperCase()))
-      return false;
-    if (!nextEarningsDate || !lastDate) return false;
+  //   1. STALE "Résultats publiés" (earning passé NON intégré) :
+  //      `nextEarningsDate` est DÉJÀ PASSÉE (< aujourd'hui) ET le dataset
+  //      est antérieur à cette date (`lastDate` < nextEarningsDate, = la
+  //      data n'a pas encore intégré ce trimestre). L'earning a EU LIEU
+  //      mais n'est pas encore dans la data => ni "à jour" ni "attendu".
+  //      → badge orange "Résultats publiés", OVERRIDE le vert "à jour".
+  //      Appliqué à TOUTES les sociétés (pas de gate ticker) : chaque jour
+  //      une société SP500 publie, le cas doit marcher partout.
+  //
+  //   2. UPCOMING "Earning attendu" (earning RÉELLEMENT à venir) :
+  //      `nextEarningsDate` est dans le FUTUR (>= aujourd'hui) ET le dataset
+  //      est antérieur à cette date (= prochain trimestre pas encore reçu).
+  //      → badge ambre "Earning attendu". Ungate aussi pour cohérence.
+  //
+  // Les deux cas lisent la même date passée/future formatée localement
+  // pour l'explainer.
+  const earningStatus = (() => {
+    if (!nextEarningsDate || !lastDate) return null;
     try {
       const nextD = new Date(nextEarningsDate.split("T")[0]);
       const lastD = new Date(lastDate.split("T")[0]);
       const today = new Date();
       today.setUTCHours(0, 0, 0, 0);
       if (Number.isNaN(nextD.getTime()) || Number.isNaN(lastD.getTime()))
-        return false;
-      // Condition : nextEarningsDate dans le futur ET lastDate antérieur à
-      // nextEarningsDate (= earning à venir que le pipeline n'a pas encore
-      // reçu). Jamais affiché pour une date d'earning déjà passée.
-      return nextD.getTime() >= today.getTime() && lastD.getTime() < nextD.getTime();
+        return null;
+      // La data n'a pas encore intégré la date d'earning visée.
+      if (lastD.getTime() >= nextD.getTime()) return null;
+      if (nextD.getTime() < today.getTime()) return "stale" as const;
+      return "upcoming" as const;
     } catch {
-      return false;
+      return null;
     }
   })();
 
-  if (tier === "fresh" && !alwaysShow && !isEarningPending) return null;
+  const isEarningStale = earningStatus === "stale";
+  const isEarningUpcoming = earningStatus === "upcoming";
+  // Ce flag couvre stale OU upcoming : il laisse passer le early-return
+  // "fresh" et déclenche l'override du tier.
+  const showEarningStatus = isEarningStale || isEarningUpcoming;
 
-  // Si "Earning attendu" est actif, on remplace le tier de freshness par
-  // un état dédié (couleur ambre, icône sablier, label "Earning attendu").
-  const meta = isEarningPending
+  if (tier === "fresh" && !alwaysShow && !showEarningStatus) return null;
+
+  // Priorité meta : stale > upcoming > tier.
+  // - stale  : orange #fb923c + AlertTriangle + "Résultats publiés"
+  //   (OVERRIDE le vert "à jour" : l'earning a eu lieu, data non intégrée).
+  // - upcoming : ambre #fbbf24 + Hourglass + "Earning attendu".
+  const meta = isEarningStale
+    ? {
+        color: "#fb923c",
+        Icon: AlertTriangle,
+        labelKey: "company.earning_published",
+        explainerKey: "company.earning_published_explainer",
+      }
+    : isEarningUpcoming
     ? {
         color: "#fbbf24",
         Icon: Hourglass,
@@ -347,6 +356,15 @@ export function FreshnessIndicator({
   const isPubEstimated = !secPublication && !!pubEstimated;
   const isNextEstimated = !nextEarningsDate && !fiscalInfo?.nextPeriodEnd && !!nextEstimated;
 
+  // Texte de l'explainer. Pour le statut "stale" (Résultats publiés), on
+  // injecte la date de l'earning DÉJÀ PASSÉ (= nextEarningsDate formatée
+  // locale, disponible via nextFormatted) dans le placeholder {date}.
+  // t() ne gère pas l'interpolation → on remplace manuellement.
+  const rawExplainer = t(meta.explainerKey);
+  const explainerText = isEarningStale
+    ? rawExplainer.replace("{date}", nextFormatted ?? lastFormatted ?? "")
+    : rawExplainer;
+
   return (
     <span
       className={`inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-md font-medium ${
@@ -361,7 +379,7 @@ export function FreshnessIndicator({
       <Icon className={isSm ? "size-3" : "size-3.5"} />
       {t(meta.labelKey)}
       <InfoTooltip color={meta.color} size="sm" align={tooltipAlign}>
-        <p className="text-[12px] leading-relaxed text-zinc-200">{t(meta.explainerKey)}</p>
+        <p className="text-[12px] leading-relaxed text-zinc-200">{explainerText}</p>
         {/* Dernier earning publié : trimestre + date de publication */}
         {(lastQuarter || pubFormatted) && (
           <p className="mt-2 font-mono text-[10.5px] text-zinc-300">

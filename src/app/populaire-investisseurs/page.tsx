@@ -10,6 +10,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { AuthModal } from "@/components/auth-modal";
 import { AuthRequiredBanner } from "@/components/auth-required-banner";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { getServerFreemiumTier } from "@/lib/freemium/server";
 import { rate } from "@/lib/brand";
 import type { KPI } from "@/lib/data";
 import { displayTicker, buildTickerSet } from "@/lib/ticker-display";
@@ -224,6 +225,10 @@ export default async function PopulairePage() {
     data: { user },
   } = await supabase.auth.getUser();
 
+  // Yann (8 juin 2026) : thème clair réservé aux offres payantes (premium + max).
+  const freemiumTier = await getServerFreemiumTier();
+  const themePaid = freemiumTier === "premium" || freemiumTier === "max";
+
   return (
     <>
       <div className="fixed left-4 top-4 z-50 sm:left-6 sm:top-6">
@@ -237,7 +242,7 @@ export default async function PopulairePage() {
         </Link>
       </div>
       <div className="fixed right-4 top-4 z-50 flex items-center gap-3 sm:right-6 sm:top-6">
-        <ThemeToggle />
+        <ThemeToggle paid={themePaid} />
         <AuthNav />
       </div>
       <PopulaireClient

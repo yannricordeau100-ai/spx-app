@@ -214,6 +214,11 @@ export const DICTIONARY: Dict = {
     fr: "La date d'earning prévue est passée mais les nouveaux chiffres ne sont pas encore intégrés sur le graphique. Mise à jour automatique dès que le 10-Q/10-K est disponible.",
     en: "The expected earnings date has passed but the new numbers are not yet integrated into the chart. Automatic update as soon as the 10-Q/10-K is available.",
   },
+  "company.earning_published": { fr: "Résultats publiés", en: "Results published" },
+  "company.earning_published_explainer": {
+    fr: "Résultats du dernier trimestre publiés le {date}, intégration en cours.",
+    en: "Latest quarter results published on {date}, integration in progress.",
+  },
   "company.next_results": { fr: "Prochains résultats", en: "Next earnings" },
   "company.last_quarter": { fr: "Dernier trimestre couvert", en: "Latest quarter covered" },
   "company.last_data": { fr: "Dernière donnée", en: "Latest data point" },
@@ -1386,6 +1391,18 @@ export const DICTIONARY: Dict = {
   "nav.pricing": { fr: "Tarifs", en: "Pricing", de: "Preise", nl: "Tarieven", "en-GB": "Pricing", sv: "Priser", da: "Priser", "de-CH": "Tarife" },
   "nav.contact": { fr: "Contact", en: "Contact", de: "Kontakt", nl: "Contact", "en-GB": "Contact", sv: "Kontakt", da: "Kontakt", "de-CH": "Kontakt" },
   "nav.popular": { fr: "Populaires", en: "Popular", de: "Beliebt", nl: "Populair", "en-GB": "Popular", sv: "Populära", da: "Populære", "de-CH": "Beliebt" },
+  // Yann 8 juin 2026 : thème clair réservé aux offres payantes (premium + max).
+  // Tooltip / cadenas affiché sur l'option claire grisée pour anonyme + free.
+  "theme.light_paid_only": {
+    fr: "Thème clair réservé aux offres payantes",
+    en: "Light theme is reserved for paid plans",
+    de: "Helles Design ist zahlenden Abos vorbehalten",
+    nl: "Licht thema is voorbehouden aan betaalde abonnementen",
+    "en-GB": "Light theme is reserved for paid plans",
+    sv: "Ljust tema är reserverat för betalplaner",
+    da: "Lyst tema er forbeholdt betalte abonnementer",
+    "de-CH": "Helles Design ist zahlenden Abos vorbehalten",
+  },
   // Bouton pagination home — ton léger multilingue (Yann 16 mai 2026 :
   // remplace "More ↓" jugé cheap, prefère phrase complète).
   "home.show_next_30": {

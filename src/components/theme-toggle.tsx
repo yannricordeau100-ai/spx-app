@@ -1,11 +1,24 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Sun, Moon } from "lucide-react";
+import { Sun, Moon, Lock } from "lucide-react";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
+import { useT } from "@/lib/i18n/provider";
 
 /**
  * ThemeToggle — bascule clair/sombre.
+ *
+ * Yann (8 juin 2026) : le thème CLAIR est réservé aux 2 offres PAYANTES
+ * (premium + max). Pour les non-payants (anonyme + free), prop `paid={false}` :
+ *  - l'option claire est grisée + cadenas + tooltip "réservé aux offres payantes",
+ *  - le thème est FORCÉ en sombre au montage (même si localStorage ou
+ *    user_metadata.theme avait mémorisé "light" du temps où l'user était
+ *    payant, ou via préférence OS claire),
+ *  - le clic sur l'option claire est inerte.
+ * Anti-flash : le HTML est toujours rendu en sombre côté SSR
+ * (cf src/app/layout.tsx data-theme="dark"), et le mode clair n'est appliqué
+ * que dans ce useEffect client. Un non-payant ne voit donc jamais de flash
+ * clair, le gating tombant au tout premier effet d'hydratation.
  *
  * Logique de persistance (Yann 10 mai 2026 : reglage auto OS) :
  *  1. Anonyme : `localStorage["mettrik:theme"]` source de vérité si l'user
@@ -56,11 +69,31 @@ function applyFilter(m: Mode) {
   }
 }
 
-export function ThemeToggle() {
+/**
+ * @param paid  true pour les offres payantes (premium + max) → toggle complet.
+ *              false (défaut) pour anonyme + free → clair verrouillé, sombre forcé.
+ *              Résolu côté serveur via getServerFreemiumTier() ou la prop
+ *              freemiumTier (CompanyView), puis `tier === "premium" || tier === "max"`.
+ */
+export function ThemeToggle({ paid = false }: { paid?: boolean }) {
   const [mode, setMode] = useState<Mode>("dark");
+  const { t } = useT();
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+
+    // GATING NON-PAYANT (anonyme + free) : thème clair indisponible. On force
+    // sombre, on ignore toute valeur "light" persistée (localStorage,
+    // user_metadata) et on n'installe AUCUN listener OS (sinon une pref OS
+    // claire rebasculerait en clair). Le HTML est déjà sombre côté SSR donc
+    // zéro flash.
+    if (!paid) {
+      setMode("dark");
+      applyFilter("dark");
+      window.localStorage.setItem(STORAGE_KEY, "dark");
+      return;
+    }
+
     // Flag : l'user a-t-il choisi explicitement via le toggle ? Si oui on
     // ne suit plus la pref OS (= localStorage prevaut).
     const explicit = window.localStorage.getItem(`${STORAGE_KEY}:explicit`) === "1";
@@ -136,9 +169,11 @@ export function ThemeToggle() {
         }
       }
     };
-  }, []);
+  }, [paid]);
 
   const toggle = (next: Mode) => {
+    // Non-payant : le clic sur l'option claire est inerte (clair verrouillé).
+    if (!paid && next === "light") return;
     setMode(next);
     applyFilter(next);
     if (typeof window !== "undefined") {
@@ -161,20 +196,35 @@ export function ThemeToggle() {
     })();
   };
 
+  const lockLabel = t("theme.light_paid_only");
+
   return (
     <div className="inline-flex gap-0.5 rounded-full border border-white/10 bg-[#0a0a0a]/85 p-0.5 backdrop-blur-md">
-      <button
-        type="button"
-        onClick={() => toggle("light")}
-        aria-label="Mode clair"
-        className={`inline-flex items-center justify-center rounded-full p-1.5 transition-colors ${
-          mode === "light"
-            ? "bg-violet-500 text-white shadow-[0_0_12px_rgba(167,139,250,0.5)]"
-            : "text-zinc-400 hover:text-zinc-200"
-        }`}
-      >
-        <Sun className="size-3.5" />
-      </button>
+      {paid ? (
+        <button
+          type="button"
+          onClick={() => toggle("light")}
+          aria-label="Mode clair"
+          className={`inline-flex items-center justify-center rounded-full p-1.5 transition-colors ${
+            mode === "light"
+              ? "bg-violet-500 text-white shadow-[0_0_12px_rgba(167,139,250,0.5)]"
+              : "text-zinc-400 hover:text-zinc-200"
+          }`}
+        >
+          <Sun className="size-3.5" />
+        </button>
+      ) : (
+        // Non-payant : option claire grisée + cadenas + tooltip.
+        <span
+          aria-label={lockLabel}
+          aria-disabled="true"
+          title={lockLabel}
+          className="relative inline-flex cursor-not-allowed items-center justify-center rounded-full p-1.5 text-zinc-600"
+        >
+          <Sun className="size-3.5 opacity-50" />
+          <Lock className="absolute -bottom-0.5 -right-0.5 size-2 text-zinc-500" />
+        </span>
+      )}
       <button
         type="button"
         onClick={() => toggle("dark")}

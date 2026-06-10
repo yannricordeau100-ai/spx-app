@@ -120,6 +120,12 @@ export const EXTRA_LOCALES: Record<string, Partial<Record<LocaleKey, string>>> =
   "company.earning_pending_explainer": {
     de: "Das erwartete Earnings-Datum ist überschritten, aber die neuen Zahlen sind noch nicht in der Grafik integriert. Automatische Aktualisierung, sobald das 10-Q/10-K verfügbar ist.",
     nl: "De verwachte resultatendatum is verstreken, maar de nieuwe cijfers zijn nog niet in de grafiek opgenomen. Automatische update zodra de 10-Q/10-K beschikbaar is." },
+  "company.earning_published": {
+    de: "Ergebnisse veröffentlicht",
+    nl: "Resultaten gepubliceerd" },
+  "company.earning_published_explainer": {
+    de: "Ergebnisse des letzten Quartals am {date} veröffentlicht, Integration läuft.",
+    nl: "Resultaten van het laatste kwartaal gepubliceerd op {date}, integratie loopt." },
   "company.next_results": { de: "Nächste Ergebnisse", nl: "Volgende resultaten" },
   "company.last_quarter": { de: "Letztes abgedecktes Quartal", nl: "Laatste gedekte kwartaal" },
   "company.last_data": { de: "Letzter Datenpunkt", nl: "Laatste gegevens" },

@@ -15,6 +15,7 @@ import { loadPageContent } from "@/lib/desk/page-content";
 import { getServerLocale } from "@/lib/i18n/server";
 import { translate } from "@/lib/i18n/dictionary";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { getServerFreemiumTier } from "@/lib/freemium/server";
 import type { Company } from "@/lib/data";
 import V17_PUBLIC from "@/data/v1-7-public.json";
 
@@ -120,10 +121,14 @@ export default async function SandboxV195HubPage() {
   const { data: { user } } = await supabase.auth.getUser();
   const isAuthed = !!user;
 
+  // Yann (8 juin 2026) : thème clair réservé aux offres payantes (premium + max).
+  const freemiumTier = await getServerFreemiumTier();
+  const themePaid = freemiumTier === "premium" || freemiumTier === "max";
+
   return (
     <>
       <div className="fixed right-4 top-4 z-50 flex items-center gap-3 sm:right-6 sm:top-6">
-        <ThemeToggle />
+        <ThemeToggle paid={themePaid} />
         <AuthNav scope="home" />
       </div>
       <HomeView
