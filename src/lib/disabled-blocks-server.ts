@@ -129,6 +129,16 @@ export async function resolveDisabledForTicker(
     merged.add("gouvernance_top3_votes");
     merged.add("gouvernance_top3_capital");
   }
+  // Yann (11 juin 2026) : la répartition CA est désactivée globalement, MAIS
+  // explicitement RÉACTIVÉE pour META et GOOGL/GOOG uniquement. On retire donc
+  // toutes les clés repartition_* (geo + segment, tous styles) du set désactivé
+  // pour ces 2 stés. Scope strict (exception §0undecies : "laisse pour META et
+  // Google" = ces 2 stés seulement).
+  if (upper === "META" || upper === "GOOGL" || upper === "GOOG") {
+    for (const k of Array.from(merged)) {
+      if (k.startsWith("repartition_")) merged.delete(k);
+    }
+  }
   return Array.from(merged);
 }
 
