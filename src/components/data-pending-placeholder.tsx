@@ -18,8 +18,6 @@ const DATA_PENDING_TABLE: Record<string, { name: string }> = {
   "ABBN.SW": { name: "ABB Ltd" },
   NVS: { name: "Novartis AG" },
   DTEGF: { name: "Deutsche Telekom AG" },
-  CSGKF: { name: "Compagnie Financière Richemont" },
-  VCISY: { name: "Vinci SA" },
   "ERF.PA": { name: "Eurofins Scientific SE" },
   "DGE.L": { name: "Diageo plc" },
   "SPM.MI": { name: "Saipem S.p.A." },
