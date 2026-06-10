@@ -603,7 +603,7 @@ export function formatKpiValue(value: string | number | null | undefined, unit?:
   if (!Number.isFinite(num)) return typeof value === "string" ? value : "—";
   const dec = decimalsForValue(num, unit);
   return num.toLocaleString("fr-FR", {
-    minimumFractionDigits: dec,
+    minimumFractionDigits: 0,
     maximumFractionDigits: dec,
   });
 }
@@ -697,7 +697,7 @@ export function formatHeroValue(value: string | number | null | undefined, unit:
   // Règle Yann 15 mai 2026 : nb de décimales déterminé par decimalsForValue.
   const dec = decimalsForValue(displayNum, displayUnit);
   const formatted = displayNum.toLocaleString("fr-FR", {
-    minimumFractionDigits: dec,
+    minimumFractionDigits: 0,
     maximumFractionDigits: dec,
   });
   return { value: formatted, unit: displayUnit };
@@ -784,7 +784,7 @@ export function formatCAGR(
   };
   const numLocale = locale === "fr" ? "fr-FR" : locale === "de" || locale === "de-CH" ? "de-DE" : "en-US";
   return `${sign}${c.toLocaleString(numLocale, {
-    minimumFractionDigits: 1,
+    minimumFractionDigits: 0,
     maximumFractionDigits: 1,
   })} ${PER_YEAR[locale]}`;
 }

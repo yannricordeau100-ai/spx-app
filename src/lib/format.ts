@@ -159,7 +159,7 @@ export function formatNumber(value: number, locale: Locale, options?: { decimals
   // Intl.NumberFormat fait la bonne chose en FR (espace insécable + virgule)
   // et EN (virgule milliers + point décimal).
   return new Intl.NumberFormat(locale === "fr" ? "fr-FR" : "en-US", {
-    minimumFractionDigits: decimals,
+    minimumFractionDigits: 0,
     maximumFractionDigits: decimals,
   }).format(value);
 }
