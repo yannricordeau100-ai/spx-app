@@ -375,7 +375,6 @@ export async function loadV17Company(
     LRLCY: "OR.PA",
     "MAERSK-B.CO": "AMKBY",
     "MC.PA": "LVMHF",
-    "MRK.DE": "MKKGY",
     "MUV2.DE": "MURGY",
     "NESN.SW": "NSRGY",
     NJDCY: "JD",
