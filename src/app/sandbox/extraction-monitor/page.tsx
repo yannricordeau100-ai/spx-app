@@ -18,13 +18,11 @@ const data = status as unknown as {
 };
 
 const BLOCKS = [
-  ["financier", "Financier (XBRL verbatim)"],
-  ["ca_segments", "Chiffre d'affaires / segments"],
-  ["story_kpis", "KPIs spécifiques / story"],
+  ["financier", "Financier (XBRL)"],
+  ["ca_segments", "CA / segments + géo"],
+  ["kpi_normaux", "KPI normaux (5 ans)"],
+  ["story", "Story (2 derniers earnings)"],
   ["gouvernance", "Gouvernance & rémunération"],
-  ["risques", "Facteurs de risque"],
-  ["ai", "Positionnement IA"],
-  ["events", "Événements"],
 ] as const;
 
 const COLOR = { green: "#22c55e", orange: "#f59e0b", red: "#ef4444" };
@@ -52,8 +50,11 @@ export default function Page() {
   return (
     <main style={{ minHeight: "100vh", background: "#09090b", color: "#e4e4e7", padding: "28px 32px", fontFamily: "ui-sans-serif, system-ui" }}>
       <h1 style={{ fontSize: 24, fontWeight: 800, marginBottom: 4 }}>Monitoring extraction · base 5 ans</h1>
-      <p style={{ color: "#a1a1aa", fontSize: 13, marginBottom: 24 }}>
-        {data.scope_n} sociétés · généré {data.generated_at} · vert = présent (verbatim si XBRL) · orange = partiel · rouge = à faire / à reprendre
+      <p style={{ color: "#a1a1aa", fontSize: 13, marginBottom: 8 }}>
+        {data.scope_n} sociétés · généré {data.generated_at} · <b style={{ color: "#22c55e" }}>vert</b> = extrait VERBATIM par la nouvelle opération (data-lake) · <b style={{ color: "#f59e0b" }}>orange</b> = partiel · <b style={{ color: "#ef4444" }}>rouge</b> = reste à faire
+      </p>
+      <p style={{ color: "#71717a", fontSize: 12, marginBottom: 24 }}>
+        Ne reflète PAS l&apos;ancienne data du site (toujours en place) : uniquement l&apos;avancée de la base 5 ans vérifiable. Risques / IA / événements = qualitatifs, suivi séparé.
       </p>
 
       {/* Résumé global par bloc */}
