@@ -211,15 +211,33 @@ function sanitizeCompanyData(data: AnyCo): AnyCo {
       // on inverse l'history côté affichage. Bug détecté sur 75/200
       // stés. Évite le sparkline qui descend alors que yoy monte.
       const yoyStr = typeof out.yoy === "string" ? out.yoy : "";
+      const unitStr = typeof out.unit === "string" ? out.unit : "";
       if (yoyStr && Array.isArray(out.history) && out.history.length >= 2) {
         const yoyN = Number(yoyStr.replace("%", "").replace(",", ".").replace("+", "").trim());
         const h = out.history as number[];
         const first = h[0];
         const last = h[h.length - 1];
-        if (Number.isFinite(yoyN) && Math.abs(yoyN) > 5 && first > 0 && last > 0) {
+        // Garde-fous (Yann 11 juin 2026) : cette re-inversion ne vaut QUE pour
+        // des séries de NIVEAU monotones stockées à l'envers. Elle corrompait
+        // les KPI de VARIATION (% YoY, ex "Prix par pub" [24,-16,-9,10,9] : pic
+        // en 2021, +9% en 2025 → faussement inversé en 2025=24) et toute série
+        // non-monotone. On ne reverse plus si :
+        //  - unité de variation (% YoY, pts, évolution, croissance) ;
+        //  - une valeur <= 0 (typique d'une série de variation) ;
+        //  - série non strictement monotone.
+        const isVariation = /yoy|variation|évolution|evolution|croissance|\bpts?\b/i.test(unitStr);
+        const hasNonPos = h.some((x) => typeof x === "number" && x <= 0);
+        let monotonic = true;
+        let dir = 0;
+        for (let k = 1; k < h.length; k++) {
+          const d = h[k] - h[k - 1];
+          if (d > 0) { if (dir < 0) { monotonic = false; break; } dir = 1; }
+          else if (d < 0) { if (dir > 0) { monotonic = false; break; } dir = -1; }
+        }
+        if (!isVariation && !hasNonPos && monotonic &&
+            Number.isFinite(yoyN) && Math.abs(yoyN) > 5 && first > 0 && last > 0) {
           const trendPct = ((last - first) / Math.abs(first)) * 100;
-          // Disagrément de signe ET amplitude significative ET premier point
-          // est l'inverse du yoy → history en sens inverse → on reverse.
+          // Désaccord de signe + amplitude significative → série à l'envers.
           if (Math.abs(trendPct) > 5 && (yoyN > 0) !== (trendPct > 0)) {
             out.history = [...h].reverse();
           }

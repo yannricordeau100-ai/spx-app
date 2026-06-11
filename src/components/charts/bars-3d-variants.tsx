@@ -143,17 +143,23 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
   // zéro). Sinon les hauteurs de barres sont trompeuses (ex Tesla energy
   // storage tronqué à la base 12 sur un axe 12-17). Zoom d'axe Y désactivé
   // pour les barres ; le mode courbe garde sa propre échelle.
-  const useDataMin = false;
   const ttmIsOutlier = hasTTM && (ttm as number) > dataOnlyMax * 2;
   const dataMaxRaw = ttmIsOutlier ? dataOnlyMax : Math.max(...allData);
-  const ticks = niceTicks(useDataMin ? dataOnlyMin : 0, dataMaxRaw, 5);
+  // Yann 11 juin 2026 : baseline TOUJOURS 0, mais l'axe DOIT englober les
+  // valeurs negatives (ex Prix par pub -16 %). Sinon les barres negatives
+  // tombent hors de l'axe et se rendent cassees. min = min(0, dataMin).
+  const lowBound = Math.min(0, dataOnlyMin);
+  const ticks = niceTicks(lowBound, dataMaxRaw, 5);
   const max = Math.max(...ticks, ...allData);
-  const min = Math.min(...ticks, useDataMin ? dataOnlyMin : 0);
+  const min = Math.min(...ticks, lowBound);
   const range = (max - min) || 1;
   const slot = INNER_W / allData.length;
   const barW = Math.min(slot * 0.42, 56);
   const baseY = PAD_TOP + INNER_H;
   const yFor = (v: number) => PAD_TOP + ((max - v) / range) * INNER_H;
+  // Ligne du zero = base de toutes les barres (positives montent, negatives
+  // descendent depuis cette ligne).
+  const zeroY = yFor(0);
   // Densité crowded : > 12 colonnes. En quarters on bascule en mode
   // "quarter only" (T1/T2/T3/T4) avec un year-band en-dessous (groupage
   // visuel 1 année = 4 quarters = 1 seul libellé d'année).
@@ -316,22 +322,26 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
       </rect>
       {allData.map((v, i) => {
         const x = PAD_LEFT + slot * i + (slot - barW) / 2;
-        const yT = yFor(v);
-        const h = baseY - yT;
+        const yV = yFor(v);
+        // Base = ligne du zero ; barre positive monte, negative descend.
+        const yT = Math.min(yV, zeroY);      // haut de la barre
+        const barBot = Math.max(yV, zeroY);  // bas de la barre
+        const h = barBot - yT;
+        const isNeg = v < 0;
         const isH = hover === i;
         const isTTM = i === ttmIndex;
         // TTM : opacité réduite + pointillé sur stroke pour signaler "12 derniers mois".
         const ttmDash = isTTM ? "5 4" : undefined;
         const ttmOpacity = isTTM ? 0.6 : 1;
         const top = `M ${x} ${yT} L ${x + barW} ${yT} L ${x + barW + DX} ${yT + DY} L ${x + DX} ${yT + DY} Z`;
-        const side = `M ${x + barW} ${yT} L ${x + barW + DX} ${yT + DY} L ${x + barW + DX} ${baseY + DY} L ${x + barW} ${baseY} Z`;
-        const front = `M ${x} ${yT} L ${x + barW} ${yT} L ${x + barW} ${baseY} L ${x} ${baseY} Z`;
+        const side = `M ${x + barW} ${yT} L ${x + barW + DX} ${yT + DY} L ${x + barW + DX} ${barBot + DY} L ${x + barW} ${barBot} Z`;
+        const front = `M ${x} ${yT} L ${x + barW} ${yT} L ${x + barW} ${barBot} L ${x} ${barBot} Z`;
         return (
           <g key={i} onMouseEnter={() => setHover(i)} onMouseLeave={() => setHover(null)} onTouchStart={() => setHover(i)}
             style={{ opacity: (hover === null || isH ? 1 : 0.5) * ttmOpacity, cursor: "pointer", transition: "opacity 200ms", touchAction: "manipulation" }}>
             {/* shadow under bar (skip in classic / TTM) */}
             {!isClassic && !isTTM && (
-              <ellipse cx={x + barW / 2 + DX / 2} cy={baseY + 6} rx={barW * 0.7} ry={6} fill="#000" fillOpacity={0.4} />
+              <ellipse cx={x + barW / 2 + DX / 2} cy={barBot + 6} rx={barW * 0.7} ry={6} fill="#000" fillOpacity={0.4} />
             )}
             {isClassic ? (
               flat2d ? (
@@ -392,8 +402,8 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
                 <path d={side} fill={color} fillOpacity={0.05} stroke={color} strokeOpacity={0.6} strokeWidth={1} strokeDasharray={ttmDash} />
                 <path d={top} fill={color} fillOpacity={0.12} stroke={color} strokeOpacity={0.9} strokeWidth={1.3} strokeDasharray={ttmDash} />
                 <path d={front} fill={color} fillOpacity={isTTM ? 0.05 : 0.09} stroke={color} strokeWidth={isTTM ? 1.2 : 1.7} strokeDasharray={ttmDash} />
-                {!isTTM && (
-                  <line x1={x + 1.5} y1={yT + 3} x2={x + 1.5} y2={baseY - 2} stroke="#ffffff" strokeWidth={0.9} strokeOpacity={0.5} strokeLinecap="round" />
+                {!isTTM && h > 6 && (
+                  <line x1={x + 1.5} y1={yT + 3} x2={x + 1.5} y2={barBot - 2} stroke="#ffffff" strokeWidth={0.9} strokeOpacity={0.5} strokeLinecap="round" />
                 )}
               </g>
             )}
@@ -401,7 +411,7 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
                 entier, sans virgule ni point (demande Yann 5 mai 2026). */}
             <text
               x={x + barW / 2 + (isClassic ? 0 : DX / 2)}
-              y={yT + (isClassic ? -10 : DY - 12)}
+              y={isNeg ? barBot + 18 : yT + (isClassic ? -10 : DY - 12)}
               textAnchor="middle"
               fontSize={valueFontSize}
               fontWeight={700}
