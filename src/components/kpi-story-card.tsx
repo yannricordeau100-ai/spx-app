@@ -14,6 +14,19 @@ import { isFiscalShifted } from "@/lib/fiscal-calendar";
 import { BlurredFreeValue } from "@/components/freemium/blurred-free-value";
 
 /**
+ * Taille de police auto-adaptée du gros chiffre story selon sa longueur,
+ * pour qu'un nombre long (ex "750 000") ne déborde pas ni ne se coupe au
+ * milieu (Yann 11 juin 2026 : "750 0 00" cassé sur 2 lignes = non pro).
+ */
+function storyValueFont(s: string): string {
+  const n = s.replace(/[\s  ]/g, "").length;
+  if (n <= 4) return "clamp(44px, 17vw, 104px)";
+  if (n <= 6) return "clamp(36px, 13vw, 80px)";
+  if (n <= 8) return "clamp(28px, 10vw, 58px)";
+  return "clamp(22px, 8vw, 44px)";
+}
+
+/**
  * Yann 20 mai 2026 : période sous chaque KPI Story.
  * - Année civile → "En 2025" / "In 2025" / "Im Jahr 2025"
  * - Année fiscale décalée → "Année fiscale 2025" / "Fiscal year 2025" / "Geschäftsjahr 2025"
@@ -139,7 +152,7 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
                   phone-frame avec word-wrap. */}
               <div
                 className="w-full max-w-full overflow-hidden text-center"
-                style={{ fontSize: "clamp(48px, 18vw, 90px)", lineHeight: 1.05, wordBreak: "break-word" }}
+                style={{ fontSize: storyValueFont(formatKpiValue(kpi.value, kpi.unit)), lineHeight: 1.05, whiteSpace: "nowrap" }}
               >
                 <BlurredFreeValue
                   value={formatKpiValue(kpi.value, kpi.unit)}
@@ -160,7 +173,7 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
                   wordBreak pour matcher la branche freeBlocked au-dessus. */}
               <div
                 className="w-full max-w-full overflow-hidden text-center font-display font-bold leading-none tracking-tight gradient-text"
-                style={{ fontSize: "clamp(48px, 18vw, 110px)", wordBreak: "break-word" }}
+                style={{ fontSize: storyValueFont(formatKpiValue(kpi.value, kpi.unit)), whiteSpace: "nowrap" }}
               >
                 {formatKpiValue(kpi.value, kpi.unit)}
               </div>

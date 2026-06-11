@@ -535,8 +535,10 @@ export function formatUnit(unit: string): string {
     case "K £":
       return u;
   }
-  // Variantes "B X" / "M X" sans normalisation : "B €" / "B £" / "B $" / "M €" etc.
-  const bMatch = u.match(/^B\s+([€£¥$])$/);
+  // Variantes "B X" sans normalisation : "B €" / "B £" / "B $" mais aussi
+  // "B km" / "B units" etc. (Yann 11 juin 2026 : "B km" affichait l'acronyme
+  // US au lieu du FR). Tout "B <suffixe>" → "Mds <suffixe>".
+  const bMatch = u.match(/^B\s+(.+)$/);
   if (bMatch) return `Mds ${bMatch[1]}`;
   const mMatch = u.match(/^M\s+([€£¥$])$/);
   if (mMatch) return `M ${mMatch[1]}`;
