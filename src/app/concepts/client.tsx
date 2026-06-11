@@ -88,6 +88,14 @@ export function ConceptsClient() {
               Charts
             </Link>
             <Link
+              href="/concepts/charts-bars"
+              className="inline-flex items-center gap-1.5 rounded-md border border-emerald-500/25 bg-emerald-500/10 px-2.5 py-1 text-[11.5px] font-medium text-emerald-200 transition-colors hover:border-emerald-500/45 hover:bg-emerald-500/15"
+              title="8 nouveaux styles de barres (4 néon + 4 sobres, 2D et 3D)"
+            >
+              <Tag className="size-3.5" />
+              Barres 2D/3D
+            </Link>
+            <Link
               href="/concepts/logos"
               className="inline-flex items-center gap-1.5 rounded-md border border-cyan-500/25 bg-cyan-500/10 px-2.5 py-1 text-[11.5px] font-medium text-cyan-200 transition-colors hover:border-cyan-500/45 hover:bg-cyan-500/15"
               title="8 protos logos Mettrik (horizontal + carré)"
