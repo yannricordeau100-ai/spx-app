@@ -1655,6 +1655,7 @@ export function CompanyView({
             companyName={company.name}
             ticker={company.ticker}
             accent={accent}
+            hideSector={isDisabled("super_kpi_sector")}
           />
         )}
 

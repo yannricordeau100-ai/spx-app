@@ -291,12 +291,14 @@ export function SuperKpiBoard({
   companyName,
   ticker,
   accent = "#a78bfa",
+  hideSector = false,
 }: {
   kpis: SuperKpi[];
   sectorKpis?: SuperKpi[];
   companyName?: string;
   ticker?: string;
   accent?: string;
+  hideSector?: boolean;
 }) {
   const { t } = useT();
   if (!kpis || kpis.length === 0) return null;
@@ -337,7 +339,7 @@ export function SuperKpiBoard({
       </div>
 
       {/* Sous-bloc sector-specific — calibré sur le business model de la sté */}
-      {usableSector.length > 0 && (
+      {usableSector.length > 0 && !hideSector && (
         <div className="mt-7 border-t border-[#1f1f1f] pt-5">
           <h3 className="mb-3 flex items-center gap-2 text-[16px] font-semibold text-zinc-50">
             <Sparkles className="size-4" style={{ color: accent }} />

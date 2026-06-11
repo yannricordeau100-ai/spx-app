@@ -38,6 +38,7 @@ export type DisabledBlockKey =
   | "interpretation_watch"
   | "profit_warning"
   | "super_kpi"
+  | "super_kpi_sector"
   | "dividend_aristocrat"
   | "dividend_calculator"
   | "dividend_snowball"
@@ -70,6 +71,7 @@ export const DISABLED_BLOCKS_KEYS: DisabledBlockKey[] = [
   "interpretation_watch",
   "profit_warning",
   "super_kpi",
+  "super_kpi_sector",
   "dividend_aristocrat",
   "dividend_calculator",
   "dividend_snowball",
@@ -99,6 +101,7 @@ export const DISABLED_BLOCKS_LABELS: Record<DisabledBlockKey, string> = {
   interpretation_watch: "Interprétation · À surveiller prochainement",
   profit_warning: "Risque d'avertissement sur les résultats",
   super_kpi: "Super KPI Mettrik",
+  super_kpi_sector: "Super KPI · Sous-bloc sectoriel (business model)",
   dividend_aristocrat: "Dividende · Régularité (Aristocrat)",
   dividend_calculator: "Dividende · Calculateur de revenu",
   dividend_snowball: "Dividende · Boule de neige (DRIP)",
