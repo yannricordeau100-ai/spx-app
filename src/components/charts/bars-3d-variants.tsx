@@ -114,6 +114,9 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
   const effectiveLocale = titleLocale === "en" ? "en" : locale;
   // Yann 15 mai 2026 : click sur la zone axe Y → toggle gauche / droite.
   const [yOnRight, setYOnRight] = useState(false);
+  // Yann 11 juin 2026 : en 2D, un clic sur le graphe bascule entre 2 styles :
+  // Néon Tube creux (défaut) <-> barre couleur pleine classique.
+  const [flat2d, setFlat2d] = useState(false);
 
   // Étend data + labels avec TTM si fourni. Dernière barre stylée distinctement.
   // Yann 15 mai 2026 : si TTM est un OUTLIER (cumul 4Q >> max périodes),
@@ -179,7 +182,12 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
       : (Math.round(v * 10) / 10).toLocaleString("fr-FR");
 
   return (
-    <div className="relative w-full">
+    <div
+      className="relative w-full"
+      style={isClassic ? { cursor: "pointer" } : undefined}
+      onClick={isClassic ? () => setFlat2d((v) => !v) : undefined}
+      title={isClassic ? "Cliquer pour changer le style des barres" : undefined}
+    >
     <svg
       ref={svgRef}
       width="100%"
@@ -266,6 +274,15 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
         <filter id={`b26-neon-soft-${color.slice(1)}`} x="-50%" y="-50%" width="200%" height="200%">
           <feGaussianBlur stdDeviation="14" />
         </filter>
+        {/* Glow tube néon (style 2) : blur + merge sur la source pour halo
+            doux qui suit le tracé sans noyer l'intérieur. */}
+        <filter id={`b26-glow-${color.slice(1)}`} x="-60%" y="-60%" width="220%" height="220%">
+          <feGaussianBlur stdDeviation="3.2" result="b" />
+          <feMerge>
+            <feMergeNode in="b" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
       </defs>
       {ticks.map((v, i) => (
         <line key={i} x1={PAD_LEFT} x2={PAD_LEFT + INNER_W} y1={yFor(v)} y2={yFor(v)}
@@ -293,7 +310,7 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
         height={H}
         fill="transparent"
         style={{ cursor: "pointer" }}
-        onClick={() => setYOnRight((v) => !v)}
+        onClick={(e) => { e.stopPropagation(); setYOnRight((v) => !v); }}
       >
         <title>Cliquer pour basculer l&apos;axe Y à {yOnRight ? "gauche" : "droite"}</title>
       </rect>
@@ -310,61 +327,75 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
         const side = `M ${x + barW} ${yT} L ${x + barW + DX} ${yT + DY} L ${x + barW + DX} ${baseY + DY} L ${x + barW} ${baseY} Z`;
         const front = `M ${x} ${yT} L ${x + barW} ${yT} L ${x + barW} ${baseY} L ${x} ${baseY} Z`;
         return (
-          <g key={i} onMouseEnter={() => setHover(i)} onMouseLeave={() => setHover(null)} onTouchStart={() => setHover(i)} onClick={() => setHover((prev) => (prev === i ? null : i))}
+          <g key={i} onMouseEnter={() => setHover(i)} onMouseLeave={() => setHover(null)} onTouchStart={() => setHover(i)}
             style={{ opacity: (hover === null || isH ? 1 : 0.5) * ttmOpacity, cursor: "pointer", transition: "opacity 200ms", touchAction: "manipulation" }}>
             {/* shadow under bar (skip in classic / TTM) */}
             {!isClassic && !isTTM && (
               <ellipse cx={x + barW / 2 + DX / 2} cy={baseY + 6} rx={barW * 0.7} ry={6} fill="#000" fillOpacity={0.4} />
             )}
             {isClassic ? (
-              /* Classic 2D — style néon "whaou" : double halo (soft + sharp)
-                 derrière + fill semi-transparent + stroke vif + cap blanc
-                 brillant en haut + edge highlight blanc lumineux gauche. */
-              <>
-                {/* Yann 11 juin 2026 : barres 2D néon classique, SANS halo/glow
-                   diffus entre les barres (les 2 rects flous retirés). Le néon
-                   vient du stroke vif + edge highlights blancs. */}
-                {/* Bar principale : fill semi-transparent + stroke néon */}
+              flat2d ? (
+                /* 2D — barre COULEUR PLEINE classique. 2e style accessible en
+                   cliquant sur le graphe (Yann 11 juin 2026). */
                 <rect
                   x={x}
                   y={yT}
                   width={barW}
                   height={h}
-                  fill={color}
-                  fillOpacity={isTTM ? 0.18 : 0.42}
-                  stroke={color}
-                  strokeWidth={isTTM ? 1.6 : 1.8}
-                  strokeDasharray={ttmDash}
                   rx={2}
+                  fill={color}
+                  fillOpacity={isTTM ? 0.5 : 1}
+                  stroke={isTTM ? color : "none"}
+                  strokeWidth={isTTM ? 1.4 : 0}
+                  strokeDasharray={ttmDash}
                 />
-                {!isTTM && (
-                  <>
-                    {/* Edge highlight blanc gauche (tube néon réflexion) */}
-                    <line x1={x + 1.2} y1={yT + 3} x2={x + 1.2} y2={baseY - 2} stroke="#ffffff" strokeWidth={1} strokeOpacity={0.5} strokeLinecap="round" />
-                    {/* Top cap blanc brillant */}
-                    <line x1={x + 1.5} y1={yT + 0.5} x2={x + barW - 1.5} y2={yT + 0.5} stroke="#ffffff" strokeWidth={1.6} strokeOpacity={0.95} strokeLinecap="round" />
-                  </>
-                )}
-              </>
+              ) : (
+                /* 2D — NÉON TUBE CREUX (style 2) : capsule arrondie, intérieur
+                   sombre, contour néon + lueur interne, glow doux. */
+                (() => {
+                  const cap = Math.min(barW / 2, 8);
+                  return (
+                    <g filter={`url(#b26-glow-${color.slice(1)})`}>
+                      <rect
+                        x={x}
+                        y={yT}
+                        width={barW}
+                        height={h}
+                        rx={cap}
+                        fill={color}
+                        fillOpacity={isTTM ? 0.04 : 0.06}
+                        stroke={color}
+                        strokeWidth={isTTM ? 1.2 : 1.6}
+                        strokeDasharray={ttmDash}
+                      />
+                      {!isTTM && h > 7 && (
+                        <rect
+                          x={x + 2.5}
+                          y={yT + 2.5}
+                          width={Math.max(barW - 5, 0)}
+                          height={Math.max(h - 5, 0)}
+                          rx={Math.max(cap - 2, 0)}
+                          fill="none"
+                          stroke={color}
+                          strokeOpacity={0.45}
+                          strokeWidth={1}
+                        />
+                      )}
+                    </g>
+                  );
+                })()
+              )
             ) : (
-              /* Iso 3D — style néon "whaou" : double halo derrière + faces
-                 semi-transparentes + arête frontale blanche brillante + edge
-                 highlight gauche. */
-              <>
+              /* 3D — dérivé du tube néon (style 2 extrudé) : faces sombres
+                 creuses + arêtes néon lumineuses + reflet gauche. */
+              <g filter={isTTM ? undefined : `url(#b26-glow-${color.slice(1)})`}>
+                <path d={side} fill={color} fillOpacity={0.05} stroke={color} strokeOpacity={0.6} strokeWidth={1} strokeDasharray={ttmDash} />
+                <path d={top} fill={color} fillOpacity={0.12} stroke={color} strokeOpacity={0.9} strokeWidth={1.3} strokeDasharray={ttmDash} />
+                <path d={front} fill={color} fillOpacity={isTTM ? 0.05 : 0.09} stroke={color} strokeWidth={isTTM ? 1.2 : 1.7} strokeDasharray={ttmDash} />
                 {!isTTM && (
-                  <>
-                    <path d={front} fill={color} fillOpacity={0.4} filter={`url(#b26-neon-soft-${color.slice(1)})`} />
-                    <path d={front} fill={color} fillOpacity={0.6} filter={`url(#b26-neon-${color.slice(1)})`} />
-                  </>
+                  <line x1={x + 1.5} y1={yT + 3} x2={x + 1.5} y2={baseY - 2} stroke="#ffffff" strokeWidth={0.9} strokeOpacity={0.5} strokeLinecap="round" />
                 )}
-                <path d={front} fill="url(#b26-front)" stroke={color} strokeWidth={1.4} strokeDasharray={ttmDash} fillOpacity={isTTM ? 0.4 : 0.85} />
-                <path d={side} fill="url(#b26-side)" stroke="#050505" strokeWidth={0.4} strokeDasharray={ttmDash} fillOpacity={isTTM ? 0.4 : 0.85} />
-                <path d={top} fill="url(#b26-top)" stroke="#ffffff" strokeWidth={isTTM ? 0.6 : 1.3} strokeOpacity={isTTM ? 0.4 : 0.95} strokeDasharray={ttmDash} />
-                {!isTTM && (
-                  /* Edge highlight gauche (réflexion néon) */
-                  <line x1={x + 0.8} y1={yT + 3} x2={x + 0.8} y2={baseY - 2} stroke="#ffffff" strokeWidth={0.9} strokeOpacity={0.55} strokeLinecap="round" />
-                )}
-              </>
+              </g>
             )}
             {/* Valeur au-dessus de chaque barre (toujours visible). Format
                 entier, sans virgule ni point (demande Yann 5 mai 2026). */}

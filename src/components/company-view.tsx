@@ -1666,10 +1666,9 @@ export function CompanyView({
           {t("company.provenance")}
         </p>
 
-        {/* Yann 5 juin 2026 : footer enrichi avec copyright + valeur ajoutée. */}
+        {/* Yann 11 juin 2026 : ligne "valeur ajoutée" (KPIS SPÉCIFIQUES +
+            INTERPRÉTATION INVESTISSEUR SUR 5 ANS) retirée. Copyright seul. */}
         <footer className="mt-6 pb-8 text-center font-mono text-[11px] uppercase tracking-wider text-zinc-500">
-          {t("company.footer_value")}
-          <span className="mx-2 text-zinc-700">·</span>
           {t("company.footer_copyright")}
         </footer>
       </main>
