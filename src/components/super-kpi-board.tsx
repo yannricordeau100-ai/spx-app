@@ -300,6 +300,12 @@ export function SuperKpiBoard({
 }) {
   const { t } = useT();
   if (!kpis || kpis.length === 0) return null;
+  // Yann 11 juin 2026 : ne pas afficher le sous-bloc sectoriel (ni ses cartes)
+  // quand les super-KPI sectoriels sont vides / N/A. Tesla affichait un bloc
+  // "CALIBRÉS SUR LE BUSINESS MODEL" vide (cartes N/A grises).
+  const usableSector = sectorKpis.filter(
+    (k) => k.tier !== "na" && k.display != null && String(k.display).trim() !== "",
+  );
   const signature = kpis.find((k) => k.id === "ppi");
   const others = kpis.filter((k) => k.id !== "ppi");
 
@@ -331,7 +337,7 @@ export function SuperKpiBoard({
       </div>
 
       {/* Sous-bloc sector-specific — calibré sur le business model de la sté */}
-      {sectorKpis.length > 0 && (
+      {usableSector.length > 0 && (
         <div className="mt-7 border-t border-[#1f1f1f] pt-5">
           <h3 className="mb-3 flex items-center gap-2 text-[16px] font-semibold text-zinc-50">
             <Sparkles className="size-4" style={{ color: accent }} />
@@ -343,7 +349,7 @@ export function SuperKpiBoard({
             </span>
           </h3>
           <div className="grid gap-3 sm:grid-cols-2">
-            {sectorKpis.map((k) => (
+            {usableSector.map((k) => (
               <SuperKpiCard key={k.id} kpi={k} accent={accent} ticker={ticker} />
             ))}
           </div>
