@@ -136,9 +136,11 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
   // < 40 % de dataMax. Si TTM outlier (> 2x dataMax), exclu de la max.
   const dataOnlyMax = Math.max(...data);
   const dataOnlyMin = Math.min(...data);
-  const dataOnlyRange = dataOnlyMax - dataOnlyMin;
-  const useDataMin =
-    dataOnlyMin > 0 && dataOnlyRange < dataOnlyMax * 0.4;
+  // Yann 11 juin 2026 : un graphe BARRES doit TOUJOURS partir de 0 (baseline
+  // zéro). Sinon les hauteurs de barres sont trompeuses (ex Tesla energy
+  // storage tronqué à la base 12 sur un axe 12-17). Zoom d'axe Y désactivé
+  // pour les barres ; le mode courbe garde sa propre échelle.
+  const useDataMin = false;
   const ttmIsOutlier = hasTTM && (ttm as number) > dataOnlyMax * 2;
   const dataMaxRaw = ttmIsOutlier ? dataOnlyMax : Math.max(...allData);
   const ticks = niceTicks(useDataMin ? dataOnlyMin : 0, dataMaxRaw, 5);
