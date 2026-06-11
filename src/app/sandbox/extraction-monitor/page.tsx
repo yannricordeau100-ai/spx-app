@@ -19,9 +19,8 @@ const data = status as unknown as {
 
 const BLOCKS = [
   ["financier", "Financier (XBRL)"],
-  ["ca_segments", "CA / segments + géo"],
-  ["kpi_normaux", "KPI normaux (5 ans)"],
-  ["story", "Story (2 derniers earnings)"],
+  ["kpi_normaux", "KPI normaux (5 ans, segments inclus)"],
+  ["story", "Story (trimestriel récent)"],
   ["gouvernance", "Gouvernance & rémunération"],
 ] as const;
 

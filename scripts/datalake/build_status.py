@@ -7,7 +7,7 @@ import json, os, sqlite3
 A=json.load(open('src/data/v1-9-pre-publication-audit.json')); a=A.get('audits') if isinstance(A,dict) else A
 scope=sorted({e['ticker'].upper() for e in a if isinstance(e,dict) and e.get('is_clean_all') is True})
 # bloc -> nb metriques requises pour 'vert'
-BLOCKS={'financier':6,'ca_segments':2,'kpi_normaux':3,'story':2,'gouvernance':3}
+BLOCKS={'financier':6,'kpi_normaux':3,'story':2,'gouvernance':3}
 cov={}
 if os.path.exists('data-lake/mettrik.db'):
     con=sqlite3.connect('data-lake/mettrik.db')
