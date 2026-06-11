@@ -10,7 +10,7 @@ if os.path.exists('data-lake/mettrik.db'):
     con=sqlite3.connect('data-lake/mettrik.db')
     for tk,n in con.execute("SELECT ticker, COUNT(DISTINCT metric_key) FROM facts GROUP BY ticker"): fin[tk]=n
     con.close()
-FIN_REQ=10
+FIN_REQ=6
 def st(f,r): return 'green' if f>=r else ('orange' if f>0 else 'red')
 def row(tk):
     d=json.load(open(f'src/data/v2-pipeline/{tk.lower()}.json')) if os.path.exists(f'src/data/v2-pipeline/{tk.lower()}.json') else {}
