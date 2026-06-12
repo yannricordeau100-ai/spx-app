@@ -114,9 +114,9 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
   const effectiveLocale = titleLocale === "en" ? "en" : locale;
   // Yann 15 mai 2026 : click sur la zone axe Y → toggle gauche / droite.
   const [yOnRight, setYOnRight] = useState(false);
-  // Yann 11 juin 2026 : en 2D, un clic sur le graphe bascule entre 2 styles :
-  // Néon Tube creux (défaut) <-> barre couleur pleine classique.
-  const [flat2d, setFlat2d] = useState(false);
+  // Yann 11 juin 2026 : en 2D, un clic sur le graphe bascule entre 2 styles.
+  // Yann 12 juin 2026 : barre couleur pleine classique (défaut) <-> Néon Tube creux.
+  const [flat2d, setFlat2d] = useState(true);
 
   // Étend data + labels avec TTM si fourni. Dernière barre stylée distinctement.
   // Yann 15 mai 2026 : si TTM est un OUTLIER (cumul 4Q >> max périodes),

@@ -42,7 +42,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { PeriodToggle } from "@/components/period-toggle";
 import { InfoTooltip } from "@/components/info-tooltip";
 import { InterpretationBlock } from "@/components/interpretation-block";
-import { getCompanyEvents } from "@/lib/events";
+// Yann 12 juin 2026 : events liés au graph retirés (plus d'import getCompanyEvents).
 import { CompareControl } from "@/components/compare-control";
 import { ComparePanel } from "@/components/compare-panel";
 import { KpiStories } from "@/components/kpi-stories";
@@ -1379,7 +1379,7 @@ export function CompanyView({
                 unit={displayUnit}
                 color={accent}
                 anomalies={anomalies}
-                events={isDisabled("events") ? [] : ((company.events && company.events.length > 0) ? company.events : getCompanyEvents(company.ticker))}
+                events={[]}
                 company={company}
                 activeShort={active.short}
                 onPickKpi={handleKpiClick}
