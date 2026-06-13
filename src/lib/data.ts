@@ -496,7 +496,7 @@ export function formatUnit(unit: string): string {
   switch (u) {
     // Bruts USD
     case "$T":
-      return "Bn $";
+      return "B $";
     case "$B":
       return "Mds $";
     case "$M":
@@ -507,7 +507,7 @@ export function formatUnit(unit: string): string {
       return "$";
     // Bruts magnitudes
     case "T":
-      return "Bn";
+      return "B";
     case "B":
       return "Mds";
     case "M":
@@ -663,28 +663,28 @@ export function formatHeroValue(value: string | number | null | undefined, unit:
   // devise pure (pas déjà préfixée M / Mds), on monte de magnitude
   // automatiquement jusqu'à rentrer dans [1, 999].
   const RAW_CURRENCY_MAGNITUDE_LADDER: Record<string, string[]> = {
-    "$": ["$", "K $", "M $", "Mds $", "Bn $"],
-    "€": ["€", "K €", "M €", "Mds €", "Bn €"],
-    "£": ["£", "K £", "M £", "Mds £", "Bn £"],
-    "¥": ["¥", "K ¥", "M ¥", "Mds ¥", "Bn ¥"],
-    "CHF": ["CHF", "K CHF", "M CHF", "Mds CHF", "Bn CHF"],
-    "EUR": ["EUR", "K EUR", "M EUR", "Mds EUR", "Bn EUR"],
-    "USD": ["USD", "K USD", "M USD", "Mds USD", "Bn USD"],
-    "GBP": ["GBP", "K GBP", "M GBP", "Mds GBP", "Bn GBP"],
-    "JPY": ["JPY", "K JPY", "M JPY", "Mds JPY", "Bn JPY"],
-    "CAD": ["CAD", "K CAD", "M CAD", "Mds CAD", "Bn CAD"],
-    "AUD": ["AUD", "K AUD", "M AUD", "Mds AUD", "Bn AUD"],
-    "SEK": ["SEK", "K SEK", "M SEK", "Mds SEK", "Bn SEK"],
-    "DKK": ["DKK", "K DKK", "M DKK", "Mds DKK", "Bn DKK"],
-    "NOK": ["NOK", "K NOK", "M NOK", "Mds NOK", "Bn NOK"],
-    "HKD": ["HKD", "K HKD", "M HKD", "Mds HKD", "Bn HKD"],
-    "CNY": ["CNY", "K CNY", "M CNY", "Mds CNY", "Bn CNY"],
-    "INR": ["INR", "K INR", "M INR", "Mds INR", "Bn INR"],
-    "BRL": ["BRL", "K BRL", "M BRL", "Mds BRL", "Bn BRL"],
-    "MXN": ["MXN", "K MXN", "M MXN", "Mds MXN", "Bn MXN"],
-    "ZAR": ["ZAR", "K ZAR", "M ZAR", "Mds ZAR", "Bn ZAR"],
-    "KRW": ["KRW", "K KRW", "M KRW", "Mds KRW", "Bn KRW"],
-    "PLN": ["PLN", "K PLN", "M PLN", "Mds PLN", "Bn PLN"],
+    "$": ["$", "K $", "M $", "Mds $", "B $"],
+    "€": ["€", "K €", "M €", "Mds €", "B €"],
+    "£": ["£", "K £", "M £", "Mds £", "B £"],
+    "¥": ["¥", "K ¥", "M ¥", "Mds ¥", "B ¥"],
+    "CHF": ["CHF", "K CHF", "M CHF", "Mds CHF", "B CHF"],
+    "EUR": ["EUR", "K EUR", "M EUR", "Mds EUR", "B EUR"],
+    "USD": ["USD", "K USD", "M USD", "Mds USD", "B USD"],
+    "GBP": ["GBP", "K GBP", "M GBP", "Mds GBP", "B GBP"],
+    "JPY": ["JPY", "K JPY", "M JPY", "Mds JPY", "B JPY"],
+    "CAD": ["CAD", "K CAD", "M CAD", "Mds CAD", "B CAD"],
+    "AUD": ["AUD", "K AUD", "M AUD", "Mds AUD", "B AUD"],
+    "SEK": ["SEK", "K SEK", "M SEK", "Mds SEK", "B SEK"],
+    "DKK": ["DKK", "K DKK", "M DKK", "Mds DKK", "B DKK"],
+    "NOK": ["NOK", "K NOK", "M NOK", "Mds NOK", "B NOK"],
+    "HKD": ["HKD", "K HKD", "M HKD", "Mds HKD", "B HKD"],
+    "CNY": ["CNY", "K CNY", "M CNY", "Mds CNY", "B CNY"],
+    "INR": ["INR", "K INR", "M INR", "Mds INR", "B INR"],
+    "BRL": ["BRL", "K BRL", "M BRL", "Mds BRL", "B BRL"],
+    "MXN": ["MXN", "K MXN", "M MXN", "Mds MXN", "B MXN"],
+    "ZAR": ["ZAR", "K ZAR", "M ZAR", "Mds ZAR", "B ZAR"],
+    "KRW": ["KRW", "K KRW", "M KRW", "Mds KRW", "B KRW"],
+    "PLN": ["PLN", "K PLN", "M PLN", "Mds PLN", "B PLN"],
   };
   const ladder = RAW_CURRENCY_MAGNITUDE_LADDER[unit];
   if (ladder && Math.abs(displayNum) >= 1000) {

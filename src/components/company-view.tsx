@@ -924,8 +924,11 @@ export function CompanyView({
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
             {/* LEFT: hero number — colonne réduite à 3/12 pour donner plus
                 d'espace au graph (8 → 9). Tout ce qui est trop large doit
-                glisser à gauche, le bord droit étant fixe. */}
-            <div className="lg:col-span-3">
+                glisser à gauche, le bord droit étant fixe.
+                Yann 13 juin 2026 : flex flex-col + order-* pour remonter le
+                gros chiffre (order-1) et descendre les badges meta sous les
+                chips (order-3). */}
+            <div className="flex flex-col lg:col-span-3">
               {/*
                 ┌────────────────────────────────────────────────────────────┐
                 │ ⚠️  RÈGLE FIGÉE — NE PAS MODIFIER (Yann 5 juin 2026)        │
@@ -954,7 +957,10 @@ export function CompanyView({
               {/* Yann 8 juin 2026 : "KPI principal" + chip categorie bleu
                   supprimes. Le badge "A jour" (freshness) est desormais aligne
                   a gauche en premier (a la place de l'ancien label). */}
-              <div className="mb-2 flex flex-wrap items-center gap-1.5 pb-0.5">
+              {/* Yann 13 juin 2026 : badges meta (chip "Prochain résultats" +
+                  garde-fou data + "i" fiscal décalé) déplacés SOUS la chip
+                  "Top x%" via order-3 (le gros chiffre remonte en order-1). */}
+              <div className="order-3 mt-3 flex flex-wrap items-center gap-1.5 pb-0.5">
                 {/* Yann (V1.9.5, juin 2026) : chip freshness identique entre
                     card home et page sté. On utilise le hero KPI **configuré**
                     (= getHero(company)), pas l'`active` qui peut diverger
@@ -1128,7 +1134,7 @@ export function CompanyView({
                   $XX.XX, ABF $XXX.X Mds, etc.). flex-wrap permet à l'unité
                   de basculer en dessous si pas la place. min-w-0 sur la
                   colonne parent côté layout HERO. */}
-              <div className="mt-5 flex flex-wrap items-baseline gap-x-2 gap-y-1">
+              <div className="order-1 mt-0 flex flex-wrap items-baseline gap-x-2 gap-y-1">
                 {freeBlocked ? (
                   <div style={{ fontSize: "clamp(40px, 7vw, 72px)" }}>
                     <BlurredFreeValue
@@ -1161,7 +1167,7 @@ export function CompanyView({
                 )}
               </div>
 
-              <div className="mt-3 flex flex-col items-start gap-2">
+              <div className="order-2 mt-3 flex flex-col items-start gap-2">
                 {/* YoY pill : masquée si KPI incomplet (= aucune valeur YoY calculable) */}
                 {!isIncompleteKpi && (effectiveYoy !== "" || typeof effectiveYoy === "number") && (
                   <div
@@ -1235,7 +1241,7 @@ export function CompanyView({
                   inutilement verbeux. Le signal seul suffit pour la PV.
                   Yann 15 mai 2026 : masqué si signal vide (évite box vide). */}
               {typeof active.signal === "string" && active.signal.trim() && (
-                <div className="mt-5 flex max-w-md items-start gap-2.5 rounded-xl border border-[#1a1a1a] bg-[#070707] p-3.5">
+                <div className="order-4 mt-5 flex max-w-md items-start gap-2.5 rounded-xl border border-[#1a1a1a] bg-[#070707] p-3.5">
                   <Sparkles className="mt-0.5 size-4 shrink-0" style={{ color: accent }} />
                   <BlurredFreeText blocked={freeBlocked} ticker={company.ticker} className="flex-1">
                     <div className="text-[14px] font-semibold leading-snug text-zinc-100">

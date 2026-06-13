@@ -16,7 +16,7 @@ import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "rea
 import { ArrowRight, Crown } from "lucide-react";
 import { SignupGateOverlay } from "@/components/signup-gate-overlay";
 
-type PopularRow = {
+export type PopularRow = {
   ticker: string;
   displayTicker?: string;
   name: string;
@@ -130,7 +130,7 @@ function TierBadge({ tier }: { tier: "excellent" | "bon" | "moyen" | "faible" })
 
 // === Cards ====================================================================
 
-function PodiumCard({
+export function PodiumCard({
   row,
   rank,
   totalShown,
@@ -185,7 +185,7 @@ function PodiumCard({
   );
 }
 
-function StockRow({
+export function StockRow({
   row,
   rank,
   totalShown,

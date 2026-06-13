@@ -18,7 +18,8 @@ import { BackToTop } from "@/components/back-to-top";
 import { StarButton } from "@/components/star-button";
 import { CompanySearch } from "@/components/company-search";
 import { HomeFAQ } from "@/components/home-faq";
-import { HomePopularBlock } from "@/components/home-popular-block";
+import { HomePopularBlock, type PopularRow } from "@/components/home-popular-block";
+import { HomeBiggestCapBlock } from "@/components/home-biggest-cap-block";
 import { SignupGateOverlay } from "@/components/signup-gate-overlay";
 import { useT } from "@/lib/i18n/provider";
 
@@ -548,6 +549,24 @@ export function HomeView({
   // existant). URL conserve le ticker complet via `buildHref` ci-dessus.
   const allTickersSet = useMemo(() => buildTickerSet(results), [results]);
 
+  // Yann 13 juin 2026 : top 20 sociétés par capitalisation boursière. `results`
+  // est déjà trié cap décroissante (médailles 🥇🥈🥉 "par capitalisation"),
+  // donc on prend simplement les 20 premières disponibles.
+  const biggestCapRows = useMemo<PopularRow[]>(() => {
+    const out: PopularRow[] = [];
+    for (const ticker of results.slice(0, 20)) {
+      const c = COMPANIES_USED[ticker];
+      if (!c || !c.name) continue;
+      out.push({
+        ticker,
+        name: c.name,
+        rank: out.length + 1,
+        displayTicker: displayTicker(ticker, allTickersSet),
+      });
+    }
+    return out;
+  }, [results, COMPANIES_USED, allTickersSet]);
+
   // Pagination par paquet de 30 (Yann 16 mai 2026) : top 30 affiché, puis
   // flèche "Déployer 30 de plus" pour en révéler 30 supplémentaires, etc.
   // Activé uniquement si results.length > 30 (V1 demo 5 stés non concerné).
@@ -696,6 +715,19 @@ export function HomeView({
               locale={locale}
               routePrefix={routePrefix}
               t={t}
+              requireSignupGate={requireSignupGate}
+              gatePath={gatePath}
+            />
+          )}
+
+          {/* Yann 13 juin 2026 : nouvelle section "Plus grandes capitalisations
+              boursières mondiales disponibles" — même style que le bloc
+              populaire, ordonnée par cap décroissante, MAJ auto hebdo. */}
+          {results.length > PAGE_SIZE && (
+            <HomeBiggestCapBlock
+              rows={biggestCapRows}
+              locale={locale}
+              routePrefix={routePrefix}
               requireSignupGate={requireSignupGate}
               gatePath={gatePath}
             />
