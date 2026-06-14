@@ -17,3 +17,9 @@ Dernière maj : 2026-06-12
 
 ## Journal (ajouter 1 ligne par palier)
 - 2026-06-12 : base 0-token livrée (financier 563 / segments 374 / trimestriel 386 / gouvernance 252). Reste = haut de gamme + branchement.
+
+## CAC 40 docs (2026-06-12)
+- 38/40 vérifiés complets + propres (anti-cross-pollution OK).
+- MT.PA : 5 × 20-F SEC vérifiés (ArcelorMittal).
+- 10 docs cross-pollués détectés + mis en QUARANTAINE (sec-data/cat3-european/_quarantine_cac40/) : 0 gardé.
+- RESTE 2 : ORA.PA (Orange) + DG.PA (Vinci) à 4/5 docs vérifiés. Le 5e = URD orange.com / vinci.com (PAS de dépôt SEC). DDG donne du garbage -> à récupérer proprement via IR FR direct pendant le build EU (post-lundi).
