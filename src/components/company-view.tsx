@@ -629,7 +629,7 @@ export function CompanyView({
     // Aucun fallback n'inclut plus de génériques. Si <5 spécifiques
     // disponibles pour une sté, on affiche MOINS de 5 — c'est honnête
     // côté contenu vs faux confort "5 visibles" avec génériques.
-    return all.filter((k) => {
+    const filtered = all.filter((k) => {
       // Yann 8 juin 2026 : jamais de KPI a valeur 0/null affiche (meme le
       // hero). Un "0,0" n'a aucune PV. Le hero reste prioritaire MAIS doit
       // avoir une vraie valeur.
@@ -642,6 +642,17 @@ export function CompanyView({
       if (hist.length < requiredForPeriod(pt)) return false;
       return true;
     });
+    // Yann 15 juin 2026 : si la sté a au moins 3 KPIs trimestriels
+    // affichables, on n'affiche QUE du trimestriel (hero excepté) pour ne
+    // plus melanger annuel/trimestriel. Les stés sans donnee trimestrielle
+    // (EU annuel/semestriel) gardent leurs KPIs normalement.
+    const isQuarter = (k: (typeof filtered)[number]) =>
+      (k as unknown as { period_type?: string }).period_type === "quarter";
+    const quarterCount = filtered.filter(isQuarter).length;
+    if (quarterCount >= 3) {
+      return filtered.filter((k) => k.short === heroShort || isQuarter(k));
+    }
+    return filtered;
   }, [company]);
   const visibleKpis = showAll ? orderedKpis : orderedKpis.slice(0, VISIBLE_KPI_COUNT);
   const hiddenCount = orderedKpis.length - VISIBLE_KPI_COUNT;
