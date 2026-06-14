@@ -158,7 +158,7 @@ export function StockPriceBlock({ company, freeBlocked = false }: { company: Com
       // Yann 5 juin 2026 : bande couleur (vert/rouge) trop haute, dépassait
       // le texte du sous-secteur. Réduit py-5 → py-2.5 pour aligner la limite
       // basse au niveau du texte secteur/sous-secteur du CompanyHeader.
-      className="relative flex w-full items-stretch py-2.5 pl-8 pr-5 sm:w-auto sm:shrink-0"
+      className="preserve-colors relative flex w-full items-stretch py-2.5 pl-8 pr-5 sm:w-auto sm:shrink-0"
       style={{
         // Yann (28 mai 2026) : fondu plus progressif ÉTALÉ sur le fond noir
         // de la page (extension overlay à gauche). La zone coloré pleine du
