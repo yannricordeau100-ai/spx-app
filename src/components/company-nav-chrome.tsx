@@ -18,7 +18,7 @@ export function CompanyNavChrome() {
   const sections: DockSpySection[] = [
     { id: "sec-hero", label: t("nav.kpi_principal"), Icon: TrendingUp },
     { id: "sec-kpis", label: t("nav.kpi_table"), Icon: LayoutGrid },
-    { id: "sec-market", label: t("nav.market_position"), Icon: Target },
+    { id: "sec-profile", label: t("nav.market_position"), Icon: Target },
     { id: "sec-risks", label: t("nav.risks"), Icon: AlertTriangle },
     { id: "sec-governance", label: t("nav.governance"), Icon: Building2 },
     { id: "sec-ai", label: t("nav.ai"), Icon: Brain },
