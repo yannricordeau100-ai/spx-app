@@ -37,6 +37,7 @@ const nextConfig: NextConfig = {
       "./src/data/stories-backfill-residuel/**/*",
       "./src/data/stories-backfill-309-dstories-ko/**/*",
       "./sec-data/**/*",
+      "./data-lake/**/*",
       "./backups/**/*",
     ],
   },
