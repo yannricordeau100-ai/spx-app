@@ -1515,7 +1515,7 @@ export function CompanyView({
 
         {/* Stories — KPIs short-history + MarketPositions intégrées */}
         {isBlockEnabled("stories", company.ticker) && !isDisabled("kpi_stories") ? (
-          hasStories(company.kpis, company.market_positions) && (
+          hasStories(company.kpis, []) && (
             <KpiStories company={company} freeBlocked={freeBlocked} />
           )
         ) : (

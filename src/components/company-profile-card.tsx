@@ -17,7 +17,7 @@ import {
   AlertTriangle,
   MapPin,
 } from "lucide-react";
-import type { Company } from "@/lib/data";
+import type { Company, MarketPosition } from "@/lib/data";
 import { useT } from "@/lib/i18n/provider";
 
 /**
@@ -43,7 +43,6 @@ export function CompanyProfileCard({
   company,
   accent = "#a78bfa",
   hideDescription = false,
-  hideSnapshot = false,
 }: {
   company: Company;
   accent?: string;
@@ -60,19 +59,21 @@ export function CompanyProfileCard({
   // yfinance qui était générique.
   const mDesc = hideDescription ? undefined : company.mettrik_description;
   const legacyDesc = hideDescription ? undefined : company.company_description;
-  const snap = hideSnapshot ? undefined : company.financial_snapshot;
+  // Yann (juin 2026) : l'aperçu boursier (financial_snapshot) a migré dans le
+  // gros « i » de la barre prix. Sa colonne (1/3 droite de « Comprendre ») est
+  // désormais occupée par le TAM (positions marché). Si pas de TAM, la
+  // description prend toute la largeur.
+  const tam = company.market_positions;
+  const hasTam = Array.isArray(tam) && tam.length > 0;
   const news = company.latest_news;
-  // Si la carte snapshot est masquée OU absente, la description doit prendre
-  // toute la largeur du conteneur (sinon elle reste collée à gauche et le
-  // tiers droit reste blanc).
-  const descTakesFullWidth = !snap;
+  const descTakesFullWidth = !hasTam;
 
   const [descMode, setDescMode] = useState<"simple" | "advanced">("simple");
 
   // Yann 14 mai 2026 : retrait des blocs "Faits clés" + "Sociétés comparables"
   // (visuellement trop pauvres, infos déjà disponibles ailleurs : industrie
   // dans le bandeau ranks haut de page, comparables dans le filtre home).
-  const hasAnything = mDesc || news || legacyDesc || snap;
+  const hasAnything = mDesc || news || legacyDesc || hasTam;
   if (!hasAnything) return null;
 
   // Sections de la description (icônes + labels FR)
@@ -170,9 +171,9 @@ export function CompanyProfileCard({
           </div>
         )}
 
-        {/* Snapshot boursier : 1/3 width. Mis à jour quotidiennement via
-            cron GitHub Actions (yfinance, gratuit). Yann 14 mai 2026. */}
-        {snap && <SnapshotCard snap={snap} accent={accent} />}
+        {/* TAM / positions marché : 1/3 width. Remplace l'aperçu boursier
+            (migré dans le « i » de la barre prix). Yann juin 2026. */}
+        {hasTam && <MarketTamCard positions={tam as MarketPosition[]} accent={accent} />}
       </div>
 
       {/* Dernière actualité — bloc séparé, full-width, conditionnel */}
@@ -215,19 +216,60 @@ export function CompanyProfileCard({
   );
 }
 
-/** Yann 14 mai 2026 : carte snapshot boursier extraite en composant
- *  pour la placer en colonne droite à côté de la description. Mis à jour
- *  quotidiennement via cron GitHub Actions (yfinance, gratuit). */
-function SnapshotCard({
+/** Carte TAM (positions marché) — colonne droite (1/3) de « Comprendre la
+ *  société », à la place de l'aperçu boursier (migré dans le « i » barre prix).
+ *  Yann juin 2026. segment_revenue null (TAM externe) → pas de part affichée. */
+function MarketTamCard({ positions, accent }: { positions: MarketPosition[]; accent: string }) {
+  return (
+    <div className="rounded-2xl border border-white/[0.06] bg-gradient-to-br from-white/[0.025] to-transparent p-5">
+      <h3 className="mb-3 flex items-center gap-2 font-display text-[14px] font-semibold uppercase tracking-wider text-zinc-200">
+        <Target className="size-3.5" style={{ color: accent }} />
+        Marché adressable (TAM)
+      </h3>
+      <ul className="space-y-3">
+        {positions.slice(0, 6).map((p, i) => (
+          <li key={i} className="border-l-2 pl-3" style={{ borderColor: `${accent}33` }}>
+            <div className="text-[12.5px] font-semibold leading-snug text-zinc-100">{p.segment_name}</div>
+            <div className="mt-0.5 flex items-baseline gap-2">
+              <span className="font-mono text-[15px] font-bold tabular-nums" style={{ color: accent }}>
+                {fmtTam(p.tam)} {p.tam_unit}
+              </span>
+              {typeof p.market_cagr === "number" && (
+                <span className="font-mono text-[11px] font-semibold text-emerald-400">
+                  +{p.market_cagr.toFixed(1).replace(".", ",")} %/an
+                </span>
+              )}
+            </div>
+            {p.source && <div className="mt-0.5 text-[10.5px] text-zinc-500">{p.source}</div>}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function fmtTam(n: number | null | undefined): string {
+  if (n == null) return "—";
+  if (n >= 1000) return Math.round(n).toLocaleString("fr-FR");
+  return n.toFixed(n < 10 ? 1 : 0).replace(".", ",");
+}
+
+/** Yann 14 mai 2026 : carte snapshot boursier extraite en composant.
+ *  Yann juin 2026 : exportée + mode `bare` pour rendu sans cadre dans la
+ *  popup « i » de la barre prix (StockPriceBlock). */
+export function SnapshotCard({
   snap,
   accent,
+  bare = false,
 }: {
   snap: NonNullable<Company["financial_snapshot"]>;
   accent: string;
+  /** Yann juin 2026 : rendu sans cadre (pour la popup « i » de la barre prix). */
+  bare?: boolean;
 }) {
   const { t } = useT();
-  return (
-    <div className="rounded-2xl border border-white/[0.06] bg-gradient-to-br from-white/[0.025] to-transparent p-5">
+  const inner = (
+    <>
       <div className="mb-3">
         <h3 className="font-display text-[14px] font-semibold uppercase tracking-wider text-zinc-200">
           {t("company.snapshot.title")}
@@ -252,6 +294,12 @@ function SnapshotCard({
         <SnapRow label={t("company.snapshot.high_52w")} value={fmtNum(snap.high_52w, 2)} accent={accent} />
         <SnapRow label={t("company.snapshot.low_52w")} value={fmtNum(snap.low_52w, 2)} accent={accent} />
       </div>
+    </>
+  );
+  if (bare) return inner;
+  return (
+    <div className="rounded-2xl border border-white/[0.06] bg-gradient-to-br from-white/[0.025] to-transparent p-5">
+      {inner}
     </div>
   );
 }

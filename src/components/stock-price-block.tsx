@@ -5,6 +5,8 @@ import type { Company } from "@/lib/data";
 import { useT } from "@/lib/i18n/provider";
 import type { Locale } from "@/lib/i18n/types";
 import { BlurredFreeValue } from "@/components/freemium/blurred-free-value";
+import { InfoTooltip } from "@/components/info-tooltip";
+import { SnapshotCard } from "@/components/company-profile-card";
 
 /**
  * StockPriceBlock — bandeau prix de l'action, design "S6 v2".
@@ -268,6 +270,17 @@ export function StockPriceBlock({ company, freeBlocked = false }: { company: Com
             </span>
           </div>
         </div>
+
+        {/* « i » aperçu boursier — financial_snapshot migré ici depuis
+            « Comprendre la société » (Yann juin 2026). PER, EPS, β, dividende,
+            52 sem. au survol ; capi + variation restent sur la barre. */}
+        {company.financial_snapshot && (
+          <div className="flex shrink-0 items-center pl-1">
+            <InfoTooltip color="#ffffff" align="right" size="md">
+              <SnapshotCard snap={company.financial_snapshot} accent={tone} bare />
+            </InfoTooltip>
+          </div>
+        )}
       </div>
     </div>
   );

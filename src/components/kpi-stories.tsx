@@ -31,7 +31,7 @@ export function KpiStories({ company, freeBlocked = false }: { company: Company;
   const accent = brand(company.ticker).primary;
 
   // Build stories : aplatir toutes les slides de toutes les categories
-  const categories = buildStories(company.kpis, company.market_positions);
+  const categories = buildStories(company.kpis, []);
   const slides = categories.flatMap((c) => c.slides);
 
   // Hooks
@@ -98,7 +98,7 @@ export function KpiStories({ company, freeBlocked = false }: { company: Company;
   const swipeRef = useRef<HTMLDivElement>(null);
   useSwipeStories(swipeRef, { onPrev: goPrev, onNext: goNext });
 
-  if (!hasStories(company.kpis, company.market_positions) || total === 0) {
+  if (!hasStories(company.kpis, []) || total === 0) {
     return null;
   }
 
@@ -265,7 +265,7 @@ function StoryFrame({
   prevLabel: string;
   nextLabel: string;
 }) {
-  const categories = buildStories(company.kpis, company.market_positions);
+  const categories = buildStories(company.kpis, []);
   const slides = categories.flatMap((c) => c.slides);
   const slide = slides[slideIdx];
   if (!slide) return null;
