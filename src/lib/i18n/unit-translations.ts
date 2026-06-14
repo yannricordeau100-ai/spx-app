@@ -32,7 +32,7 @@ import { isCurrencyLikeUnit } from "@/lib/chart-axis-header";
  * tonne metrique). "points" reste "points".
  */
 const FR_TO_EN_UNIT: Record<string, string> = {
-  "Mds": "Bn",
+  "Mds": "B",
   "Millions": "Millions",
   "Milliers": "Thousands",
   "unites": "units",
@@ -125,7 +125,7 @@ export function translateUnitFrToEn(unit: string): string {
     const translatedTail = translateUnitFrToEn(tail);
     if (translatedTail !== tail) {
       // Le tail a ete traduit => on traduit aussi le scale si possible
-      const scaleMap: Record<string, string> = { "Mds": "Bn", "M": "M", "K": "K" };
+      const scaleMap: Record<string, string> = { "Mds": "B", "M": "M", "K": "K" };
       const translatedHead = scaleMap[head] ?? head;
       return `${translatedHead} ${translatedTail}`;
     }

@@ -28,6 +28,7 @@ import {
 import { yoyTone } from "@/lib/utils";
 import { autoRescaleSmallUnit, isPercentMagnitudeAnomaly } from "@/lib/format-hero";
 import { translateUnitFrToEn } from "@/lib/i18n/unit-translations";
+import { translate } from "@/lib/i18n/dictionary";
 import { chartAxisHeader } from "@/lib/chart-axis-header";
 import { brand, rate, detectAnomalies } from "@/lib/brand";
 import { smoothScrollTo } from "@/lib/scroll";
@@ -1396,13 +1397,14 @@ export function CompanyView({
                 exportCagr={exportCagr}
                 exportInterpretation={exportInterp}
                 exportTitle={`${(() => {
-                  type N = typeof active & { name_de?: string; name_en?: string };
+                  // Yann juin 2026 : l'export suit la langue du SWAP titre
+                  // (heroTitleLang via KpiSwapTitle), pas la locale globale, pour
+                  // que le PNG corresponde au titre affiché (clic = EN sur page FR).
+                  type N = typeof active & { name_en?: string };
                   const a = active as N;
-                  if (locale === "en" || locale === "en-GB") return a.name_en || a.name_fr;
-                  if (locale === "de" || locale === "de-CH") return a.name_de || a.name_en || a.name_fr;
-                  return a.name_fr;
+                  return heroTitleLang === "en" ? (a.name_en || a.name_fr) : a.name_fr;
                 })()}${
-                  timeFraction !== "year" ? ` ${t(`timefrac.suffix.${timeFraction}`)}` : ""
+                  timeFraction !== "year" ? ` ${translate(`timefrac.suffix.${timeFraction}`, heroTitleLang)}` : ""
                 } · ${company.name}`}
               />
             </div>

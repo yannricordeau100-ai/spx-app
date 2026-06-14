@@ -28,8 +28,8 @@ type AxisLocale = "fr" | "en" | "en-GB" | "de" | "de-CH" | "nl";
 // Yann 2 juin 2026 v9 : forme COURTE (Mds/M) pour l'axe Y, aligné CLAUDE.md §6.
 const SCALE_WORDS: Record<AxisLocale, { T: string; B: string; M: string; K: string }> = {
   "fr":    { T: "Bln",  B: "Mds", M: "M",   K: "K" },
-  "en":    { T: "Tn",   B: "Bn",  M: "M",   K: "K" },
-  "en-GB": { T: "Tn",   B: "Bn",  M: "M",   K: "K" },
+  "en":    { T: "Tn",   B: "B",  M: "M",   K: "K" },
+  "en-GB": { T: "Tn",   B: "B",  M: "M",   K: "K" },
   "de":    { T: "Bio",  B: "Mrd", M: "Mio", K: "Tsd" },
   "de-CH": { T: "Bio",  B: "Mrd", M: "Mio", K: "Tsd" },
   "nl":    { T: "Bln",  B: "mld", M: "mln", K: "K" },

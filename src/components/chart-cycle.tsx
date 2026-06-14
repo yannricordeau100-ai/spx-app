@@ -14,6 +14,7 @@ import type { Anomaly } from "@/lib/brand";
 import type { Company } from "@/lib/data";
 import type { CompanyEvent } from "@/lib/events";
 import { useT } from "@/lib/i18n/provider";
+import { translate } from "@/lib/i18n/dictionary";
 
 export type ChartMode = "curve" | "bars" | "delta" | "panel";
 export type BarsVariant = "iso3d" | "classic";
@@ -145,7 +146,8 @@ function downloadVisibleChart() {
     ticker: svg.getAttribute("data-export-ticker") || undefined,
     cagr: svg.getAttribute("data-export-cagr") || undefined,
     frequency: svg.getAttribute("data-export-frequency") || undefined,
-    interpretation: svg.getAttribute("data-export-interpretation") || undefined,
+    // Yann juin 2026 : texte d'interprétation RETIRÉ du doc/graph exporté.
+    interpretation: undefined,
     locale,
   });
 }
@@ -400,8 +402,10 @@ export function ChartCycle({
   // pour le transmettre séparément à l'export, qui le détecte en fin de
   // sous-titre et le style (2 pts plus petit, bleu-violet, opacité 0.85).
   // Si fréquence = année : undefined → sous-titre inchangé.
+  // Yann juin 2026 : la fréquence exportée suit la langue du titre (titleLocale
+  // = heroTitleLang du swap), pas la locale globale, pour matcher le PNG.
   const exportFrequency =
-    timeFraction !== "year" ? t(`timefrac.suffix.${timeFraction}`) : undefined;
+    timeFraction !== "year" ? translate(`timefrac.suffix.${timeFraction}`, titleLocale) : undefined;
 
   // Diviseur appliqué aux valeurs (data + ttm) pour le mode "par jour", "par seconde", etc.
   const divisor = timeFractionDivisor(timeFraction);

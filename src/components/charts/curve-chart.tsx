@@ -331,7 +331,7 @@ export function CurveChart({
         data-export-cagr={exportCagr || ""}
         data-export-frequency={exportFrequency || ""}
         data-export-interpretation={exportInterpretation || ""}
-        data-export-locale={locale || ""}
+        data-export-locale={effectiveLocale || ""}
       >
       {/* Header d'unité dans le SVG (au-dessus de l'axe Y) pour qu'il
           apparaisse aussi dans l'export PNG. Demande Yann 5 mai 2026.
