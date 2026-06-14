@@ -3,9 +3,16 @@
 Clean-replace: retire d'abord les anciens KPI wow (is_wow + _source 'ER...') et
 stories ingerees (_source 'ER...') de TOUS les enrich, puis re-ajoute depuis le
 data-lake courant (la donnee recente prime, pas de contamination stale)."""
-import json, os, glob
+import json, os, glob, re
 
 DL = "data-lake"; ENR = "src/data/v2-pipeline-enrich"
+
+GEN = ["net income", "benefice net", " eps", "ebitda", "free cash flow", "fcf",
+       "operating margin", "gross margin", "marge brute", "marge operationnelle",
+       "capex", "headcount", "payout", "total revenue", "adj eps", "adjusted eps"]
+def is_generic(sh):
+    s = " " + sh.lower() + " "
+    return any(g in s for g in GEN)
 
 def yoy_str(hist):
     prev = None
@@ -50,13 +57,21 @@ for f in glob.glob(f"{DL}/*/kpis_wow/extracted.json"):
     seen = {k.get("short") for k in enr.get("kpis", [])}
     add = []
     for k in d["kpis"]:
-        sh = k.get("short")
-        if not sh or sh in seen: continue
+        sh = (k.get("short") or "").strip()
+        if not sh or sh in seen or "_" in sh or is_generic(sh): continue
         per = sorted([p for p in k.get("periods", []) if isinstance(p.get("value"), (int, float))], key=lambda p: p.get("period_end", ""))
         if not per: continue
         hist = [p["value"] for p in per]
+        unit = (k.get("unit") or "").strip()
+        if hist[-1] == 0: continue
+        if abs(hist[-1]) > 999:
+            if re.match(r"^(M\b|M\s*\$|M USD|M GBP|M EUR|million)", unit, re.I):
+                hist = [round(h / 1000, 2) for h in hist]
+                unit = "Mds " + (re.sub(r"^(M\s*|million\s*)", "", unit, flags=re.I).strip() or "$")
+            else:
+                continue
         add.append({"short": sh, "name_fr": k.get("name_fr", sh), "name_en": k.get("name_en", sh),
-                    "value": hist[-1], "unit": k.get("unit", ""), "yoy": yoy_str(hist), "type": "Spécifique",
+                    "value": hist[-1], "unit": unit, "yoy": yoy_str(hist), "type": "Spécifique",
                     "is_wow": True, "period_type": k.get("period_type", "quarter"), "history": hist,
                     "explanation": (per[-1].get("quote") or "")[:200], "_source": src})
         seen.add(sh)
