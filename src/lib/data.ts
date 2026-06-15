@@ -752,7 +752,11 @@ export function cagr(
   unit?: string,
   period_type: "year" | "quarter" | "semester" = "year"
 ): number | null {
-  if (unit === "% YoY") return null; // already a growth-of-growth → meaningless
+  // Yann 15 juin 2026 : un CAGR sur un KPI de TAUX (croissance %, marge %,
+  // points de base) n'a aucun sens (taux début≈fin → 0 %/an trompeur).
+  // On masque le CAGR pour toutes les unités de pourcentage / points.
+  const u = (unit || "").trim().toLowerCase();
+  if (u.includes("%") || ["pts", "pb", "pp", "bps", "bp"].includes(u)) return null;
   if (!history || history.length < 2) return null;
   const first = history[0];
   const last = history[history.length - 1];
