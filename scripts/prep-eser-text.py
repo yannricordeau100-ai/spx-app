@@ -36,7 +36,7 @@ def doc_score(fname):
 
 def collect(t):
     chunks = []
-    for kind, lim in (("ER", 5), ("ES", 3)):
+    for kind, lim in (("ER", 20), ("ES", 2)):
         d = f"{DOCS}/{t}/{kind}"
         if not os.path.isdir(d):
             continue
@@ -44,8 +44,8 @@ def collect(t):
         for f in files:
             s = strip_doc(f"{d}/{f}")
             if len(s) > 200:
-                chunks.append(f"=== [{kind}] {f} ===\n" + s[:2500])
-    return "\n\n".join(chunks)[:15000]
+                chunks.append(f"=== [{kind}] {f} ===\n" + s[:3000])
+    return "\n\n".join(chunks)[:60000]
 
 n = 0
 for i, t in enumerate(tickers):

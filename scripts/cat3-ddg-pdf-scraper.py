@@ -127,7 +127,7 @@ def process_ticker(ticker: str, name: str, log_fh) -> dict:
     out_dir = OUT_DIR / ticker / "annual-report"
     txt_dir = OUT_DIR / ticker / "annual-text"
 
-    if txt_dir.exists() and any(txt_dir.glob("*.txt")):
+    if txt_dir.exists() and len(list(txt_dir.glob("*.txt"))) >= 5:
         res["status"] = "skip-already"
         return res
 

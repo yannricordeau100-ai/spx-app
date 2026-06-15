@@ -109,6 +109,7 @@ export function FreshnessIndicator({
   ticker,
   size = "sm",
   tooltipAlign = "left",
+  iconOnly = false,
 }: {
   lastDate?: string;
   /** Date de publication SEC (filed_date du 10-Q/10-K). */
@@ -121,6 +122,9 @@ export function FreshnessIndicator({
   alwaysShow?: boolean;
   size?: "sm" | "md";
   tooltipAlign?: "left" | "right" | "center";
+  /** Yann 15 juin 2026 : home mini-cards = juste un gros "i" bleu (pas la
+   *  chip "Prochain résultats J-x"). Le détail reste dans le tooltip. */
+  iconOnly?: boolean;
 }) {
   const { t, locale } = useT();
   const isFr = locale === "fr";
@@ -157,22 +161,59 @@ export function FreshnessIndicator({
       : null;
 
   const nextQuarter = quarterLabel(nextQuarterRaw, isFr);
-
-  // RÈGLE : rien si pas de date précise + sûre + future.
-  if (daysUntil === null || daysUntil < 0 || !nextQuarter) return null;
-
   const color = "#06b6d4";
   const isSm = size === "sm";
-  const prefix = isFr ? "Prochain résultats" : "Next results";
-  const dLabel = isFr ? `J-${daysUntil}` : `D-${daysUntil}`;
+  const hasNext = daysUntil !== null && daysUntil >= 0 && !!nextQuarter;
 
-  // Tooltip : dernier earning (trimestre + publication) + date précise du prochain.
+  // Tooltip partagé : dernier earning (trimestre + publication) + prochain.
   const lastQ = quarterLabel(lastQuarterRaw, isFr);
   const pubEstimated = !secPublication ? addDaysIso(lastDate, 35) : null;
   const pubResolved = secPublication ?? pubEstimated;
   const pubFormatted = formatFullDate(pubResolved, locale);
   const isPubEstimated = !secPublication && !!pubEstimated;
   const nextPreciseDate = formatFullDate(nextEarningsDate, locale);
+
+  const tooltipBody = (
+    <>
+      {lastQ && (
+        <p className="font-mono text-[10.5px] text-zinc-300">
+          {t("freshness.last_earning")} :{" "}
+          <span className="font-bold text-zinc-100">{lastQ}</span>
+          {pubFormatted && (
+            <span className="text-zinc-400">
+              {" "}
+              {isPubEstimated
+                ? `(${t("freshness.published_around")} ${pubFormatted})`
+                : `(${t("freshness.published_on")} ${pubFormatted})`}
+            </span>
+          )}
+        </p>
+      )}
+      {hasNext && (
+        <p className="mt-1 font-mono text-[10.5px] font-semibold" style={{ color: "#facc15" }}>
+          {t("freshness.next_earning")} :{" "}
+          <span className="font-bold">{nextQuarter}</span>
+          {nextPreciseDate ? ` (${t("freshness.expected_on")} ${nextPreciseDate})` : ""}
+        </p>
+      )}
+    </>
+  );
+
+  // Yann 15 juin 2026 : home mini-cards = gros "i" bleu seul (le détail
+  // earning reste dans le tooltip). Pas la chip "Prochain résultats J-x".
+  if (iconOnly) {
+    if (!lastQ && !hasNext) return null;
+    return (
+      <InfoTooltip color="#3b82f6" size="md" align={tooltipAlign}>
+        {tooltipBody}
+      </InfoTooltip>
+    );
+  }
+
+  // Chip classique : rien si pas de date précise + sûre + future.
+  if (!hasNext) return null;
+  const prefix = isFr ? "Prochain résultats" : "Next results";
+  const dLabel = isFr ? `J-${daysUntil}` : `D-${daysUntil}`;
 
   return (
     <span
@@ -190,28 +231,7 @@ export function FreshnessIndicator({
       <span className="whitespace-nowrap font-bold">{nextQuarter}</span>
       <span className="whitespace-nowrap opacity-90">{dLabel}</span>
       <InfoTooltip color={color} size="sm" align={tooltipAlign}>
-        {lastQ && (
-          <p className="font-mono text-[10.5px] text-zinc-300">
-            {t("freshness.last_earning")} :{" "}
-            <span className="font-bold text-zinc-100">{lastQ}</span>
-            {pubFormatted && (
-              <span className="text-zinc-400">
-                {" "}
-                {isPubEstimated
-                  ? `(${t("freshness.published_around")} ${pubFormatted})`
-                  : `(${t("freshness.published_on")} ${pubFormatted})`}
-              </span>
-            )}
-          </p>
-        )}
-        <p
-          className="mt-1 font-mono text-[10.5px] font-semibold"
-          style={{ color: "#facc15" }}
-        >
-          {t("freshness.next_earning")} :{" "}
-          <span className="font-bold">{nextQuarter}</span>
-          {nextPreciseDate ? ` (${t("freshness.expected_on")} ${nextPreciseDate})` : ""}
-        </p>
+        {tooltipBody}
       </InfoTooltip>
     </span>
   );

@@ -20,6 +20,19 @@ for f in glob.glob('data-lake/*/kpis/extracted.json'):
                k.get('unit',''),'','agent','accn:'+str(h.get('accession','')),'agent-verbatim',(h.get('quote') or '')[:200],''))
             nk+=1
     con.commit()
+# Yann 13 juin 2026 : KPI haut de gamme (hero/) -> bloc 'story'
+for f in glob.glob('data-lake/*/hero/extracted.json'):
+    tk=f.split('/')[1].upper()
+    try: d=json.load(open(f))
+    except: continue
+    for k in d.get('kpis',[]):
+        pt=k.get('period_type','quarter'); pt='quarter' if pt=='quarter' else 'year'
+        for h in k.get('history',[]):
+            con.execute("INSERT OR IGNORE INTO facts VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+              (tk,k.get('short','?'),'story',pt,h.get('period_end'),h.get('value') if isinstance(h.get('value'),(int,float)) else 0,
+               k.get('unit',''),'','agent','accn:'+str(h.get('accession','')),'agent-verbatim',(h.get('quote') or '')[:200],''))
+            nk+=1
+    con.commit()
 for f in glob.glob('data-lake/*/governance/extracted.json'):
     tk=f.split('/')[1].upper()
     try: d=json.load(open(f))

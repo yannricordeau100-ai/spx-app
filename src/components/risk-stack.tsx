@@ -114,16 +114,9 @@ function ProfitWarningCard({ pw }: { pw: ProfitWarning }) {
             </span>
           </div>
 
-          {pw.rationale && (
-            <p className="mt-2.5 text-[12.5px] leading-relaxed text-zinc-300">
-              {pw.rationale}
-            </p>
-          )}
-          {pw.margin_trend && (
-            <p className="mt-1.5 text-[12px] italic leading-relaxed text-zinc-400">
-              {t("risks.pw.margin_trend")} {pw.margin_trend}
-            </p>
-          )}
+          {/* Yann 15 juin 2026 : rationale + tendance marges RETIRÉS du bloc
+              profit warning (texte sans PV type "sans donnée yoy exploitable").
+              Le frame se referme sur la date du dernier signal. */}
         </div>
       </div>
     </div>

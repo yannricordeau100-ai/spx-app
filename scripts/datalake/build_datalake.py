@@ -96,13 +96,18 @@ def extract(ticker, cik, con):
     metrics = sorted(set(r[1] for r in clean))
     return len(clean), metrics
 
-os.makedirs(LAKE, exist_ok=True)
-con = sqlite3.connect(DB); schema(con)
-for tk, cik in CIK.items():
-    n, metrics = extract(tk, cik, con)
-    print(f"{tk}: {n} facts XBRL verbatim | metriques: {metrics}")
-# resume couverture
-cur = con.execute("SELECT ticker, metric_key, period_type, COUNT(*), MIN(period_end), MAX(period_end) FROM facts GROUP BY ticker, metric_key, period_type ORDER BY ticker, metric_key")
-print("\n=== couverture (ticker | metric | type | n | min | max) ===")
-for row in cur.fetchall(): print("  ", row)
-con.close()
+def _main():
+    os.makedirs(LAKE, exist_ok=True)
+    con = sqlite3.connect(DB); schema(con)
+    for tk, cik in CIK.items():
+        n, metrics = extract(tk, cik, con)
+        print(f"{tk}: {n} facts XBRL verbatim | metriques: {metrics}")
+    cur = con.execute("SELECT ticker, metric_key, period_type, COUNT(*), MIN(period_end), MAX(period_end) FROM facts GROUP BY ticker, metric_key, period_type ORDER BY ticker, metric_key")
+    print("\n=== couverture (ticker | metric | type | n | min | max) ===")
+    for row in cur.fetchall():
+        print("  ", row)
+    con.close()
+
+
+if __name__=='__main__':
+    _main()

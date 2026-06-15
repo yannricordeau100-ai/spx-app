@@ -810,7 +810,7 @@ function renderCompanyCard(
                         top-RIGHT (initialement top-left). */}
                     {typeof rankIdx === "number" && rankIdx < 3 && (
                       <div
-                        className="absolute -right-2 -top-2 z-10 flex size-9 items-center justify-center rounded-full text-[18px] shadow-[0_4px_14px_rgba(0,0,0,0.6)]"
+                        className="absolute -right-2 -top-3.5 z-10 flex size-9 items-center justify-center rounded-full text-[18px] shadow-[0_4px_14px_rgba(0,0,0,0.6)]"
                         style={{
                           background:
                             rankIdx === 0
@@ -896,21 +896,19 @@ function renderCompanyCard(
                         <span className="truncate font-mono text-[10px] text-zinc-400">
                           {r.percentile}
                         </span>
+                        {/* Yann 15 juin 2026 : gros "i" bleu à droite de "Top x%"
+                            (remplace la chip "Prochain résultats J-x"). Détail
+                            earning dans le tooltip. */}
+                        <FreshnessIndicator
+                          lastDate={getFreshnessReference(c).lastDate ?? "2025-12-31"}
+                          publicationDate={getFreshnessReference(c).publicationDate}
+                          nextEarningsDate={c.next_earnings_date}
+                          ticker={ticker}
+                          iconOnly
+                          size="md"
+                          tooltipAlign="left"
+                        />
                       </div>
-                      {/* Yann (V1.9.5, juin 2026) : helper unique
-                          `getFreshnessReference` partagé avec la page sté
-                          pour garantir que la chip est identique pour la
-                          même sté entre les 2 vues. Voir
-                          `src/lib/freshness/compute-tier.ts`. */}
-                      <FreshnessIndicator
-                        lastDate={getFreshnessReference(c).lastDate ?? "2025-12-31"}
-                        publicationDate={getFreshnessReference(c).publicationDate}
-                        nextEarningsDate={c.next_earnings_date}
-                        ticker={ticker}
-                        alwaysShow
-                        size="sm"
-                        tooltipAlign="left"
-                      />
                     </div>
                   </Link>
                 </div>

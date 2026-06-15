@@ -78,8 +78,8 @@ export const DICTIONARY: Dict = {
     en: "",
   },
   "brand.data_updated": {
-    fr: "Données à jour au",
-    en: "Data updated as of",
+    fr: "Dernière mise à jour le",
+    en: "Last updated on",
   },
   "brand.companies_available": {
     fr: "KPI = INDICATEUR",
