@@ -20,7 +20,7 @@ def strip_doc(p):
             txt = re.sub(r"<[^>]+>", " ", txt)
             txt = re.sub(r"&[a-z#0-9]+;", " ", txt)
         else:
-            txt = subprocess.run(["/opt/homebrew/bin/pdftotext", "-l", "6", "-q", p, "-"],
+            txt = subprocess.run(["/opt/homebrew/bin/pdftotext", "-l", "12", "-q", p, "-"],
                                  capture_output=True, timeout=25).stdout.decode("utf-8", "ignore")
         return re.sub(r"\s+", " ", txt).strip()
     except Exception:
@@ -44,8 +44,8 @@ def collect(t):
         for f in files:
             s = strip_doc(f"{d}/{f}")
             if len(s) > 200:
-                chunks.append(f"=== [{kind}] {f} ===\n" + s[:3000])
-    return "\n\n".join(chunks)[:60000]
+                chunks.append(f"=== [{kind}] {f} ===\n" + s[:6500])
+    return "\n\n".join(chunks)[:110000]
 
 n = 0
 for i, t in enumerate(tickers):

@@ -60,27 +60,43 @@ def fetch(t):
     if not sub:
         with clk: cnt["done"] += 1
         return
-    try: rec = json.loads(sub)["filings"]["recent"]
+    try: subj = json.loads(sub)
     except Exception:
         with clk: cnt["done"] += 1
         return
-    forms, accs, items = rec.get("form", []), rec.get("accessionNumber", []), rec.get("items", [])
-    cikn = int(cik); n = er = es = 0
-    for i in range(len(forms)):
-        if forms[i] != "8-K" or "2.02" not in (items[i] or ""): continue
-        if n >= 24: break
-        n += 1; acc = accs[i].replace("-", "")
+    cikn = int(cik)
+    # Accessions des 8-K item 2.02 : recent PUIS pages anciennes (filings.files)
+    # car la fenetre recent (~1000 depots) ne couvre que ~3 ans pour les gros
+    # depositaires (Citi = 4 earnings-8K dans recent). On veut 22 ER (~5,5 ans).
+    accset = []
+    def collect(rec):
+        fo, ac, it = rec.get("form", []), rec.get("accessionNumber", []), rec.get("items", [])
+        for i in range(len(fo)):
+            if fo[i] == "8-K" and "2.02" in (it[i] or ""):
+                accset.append(ac[i])
+    collect(subj.get("filings", {}).get("recent", {}))
+    for pg in subj.get("filings", {}).get("files", []):
+        if len(accset) >= 28: break
+        pj = get(f"https://data.sec.gov/submissions/{pg.get('name','')}")
+        if not pj: continue
+        try: collect(json.loads(pj))
+        except Exception: continue
+    er = es = n = 0
+    for accfull in accset:
+        if er >= 22 or n >= 28: break
+        n += 1; acc = accfull.replace("-", "")
         idx = get(f"https://www.sec.gov/Archives/edgar/data/{cikn}/{acc}/index.json")
         if not idx: continue
-        try: it = json.loads(idx).get("directory", {}).get("item", [])
+        try: itlist = json.loads(idx).get("directory", {}).get("item", [])
         except Exception: continue
-        for f in it:
+        for f in itlist:
             nl = f.get("name", "").lower()
             if not nl.endswith((".htm", ".html")) or is_cover(nl): continue
             kind = classify(nl)
             d = f"{DOCS}/{t}/{kind}"; os.makedirs(d, exist_ok=True)
-            p = f"{d}/edgar_{accs[i]}_{'992' if kind == 'ES' else '991'}.htm"
-            if os.path.exists(p): continue
+            p = f"{d}/edgar_{accfull}_{'992' if kind == 'ES' else '991'}.htm"
+            if os.path.exists(p):
+                er += kind == "ER"; es += kind == "ES"; continue  # compte l'existant vers le quota
             b = get(f"https://www.sec.gov/Archives/edgar/data/{cikn}/{acc}/{f['name']}", raw=True)
             if b:
                 open(p, "wb").write(b); er += kind == "ER"; es += kind == "ES"
