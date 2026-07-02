@@ -1437,10 +1437,17 @@ export async function loadV17Company(
       }
     }
     // Yann 15 mai 2026 v2 : RÉACTIVÉ avec contrainte stricte.
-    // Le merge accepte SEULEMENT les fichiers .quarterly-history.json
-    // marqués method="xbrl-companyfacts" (extraction directe XBRL SEC EDGAR,
-    // chiffres taggés par la sté elle-même). Tout fichier sans cette
-    // marque (= ancien script LLM Cerebras qui hallucinait) est ignoré.
+    // Le merge accepte les fichiers .quarterly-history.json marqués
+    // method="xbrl-companyfacts" (extraction directe XBRL SEC EDGAR,
+    // chiffres taggés par la sté elle-même). Tout fichier sans une des
+    // marques autorisées (= ancien script LLM Cerebras qui hallucinait) est
+    // ignoré.
+    // Yann 2 juillet 2026 : ajout method="llm-filing-crosschecked" — go
+    // explicite de Yann pour l'extraction historique complet SP500 (Claude
+    // Opus/Sonnet, lecture directe des 10-Q/10-K, chaque valeur recoupée
+    // FY = somme(Q1..Q4) quand applicable). Tag distinct de xbrl-companyfacts
+    // pour rester réversible/traçable si un problème est détecté.
+    const ALLOWED_QUARTERLY_METHODS = new Set(["xbrl-companyfacts", "llm-filing-crosschecked"]);
     const qPath = path.join(
       ROOT,
       "src/data/v2-pipeline-enrich",
@@ -1459,7 +1466,8 @@ export async function loadV17Company(
     }>(qPath);
     if (
       qExt
-      && qExt.method === "xbrl-companyfacts"
+      && typeof qExt.method === "string"
+      && ALLOWED_QUARTERLY_METHODS.has(qExt.method)
       && Array.isArray(qExt.kpis)
       && Array.isArray(data.kpis)
     ) {
