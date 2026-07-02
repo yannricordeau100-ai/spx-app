@@ -233,8 +233,12 @@ function detectDualClass(
   }
   // Source 2 : repli heuristique par chevauchement de noms.
   if (!voting?.length || !capital?.length) return false;
-  const votingNames = new Set(voting.map((s) => s.name.toLowerCase()));
-  const overlap = capital.filter((s) => votingNames.has(s.name.toLowerCase())).length;
+  const votingNames = new Set(
+    voting.filter((s) => typeof s.name === "string").map((s) => s.name.toLowerCase()),
+  );
+  const overlap = capital.filter(
+    (s) => typeof s.name === "string" && votingNames.has(s.name.toLowerCase()),
+  ).length;
   return overlap < Math.min(voting.length, capital.length) / 2;
 }
 

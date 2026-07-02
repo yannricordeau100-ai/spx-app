@@ -114,16 +114,23 @@ function heroKpiUsable(v: AnyRecord): boolean {
   if (!hero) return false;
   // Hero KPI doit avoir tous les champs critiques renseignés (non null/undefined).
   // value et yoy peuvent être number (ex AAPL 23.9) OU string (ex "23.9"). Le
-  // composant formatHeroValue les coerce. type / unit / short doivent rester
-  // string. Reject seulement les placeholders explicites ("Non disponible").
-  // type et short DOIVENT être renseignés. unit peut être vide (KPIs
-  // unitless comme "Store Count" / "Headcount" / "Streak" / etc.) car le
-  // composant gère unit absent. Yann 14 mai 2026 (CASY bloqué à tort).
-  for (const f of ["type", "short"] as const) {
-    const raw = hero[f];
+  // composant formatHeroValue les coerce. short doit rester string. Reject
+  // seulement les placeholders explicites ("Non disponible").
+  // short DOIT être renseigné. unit peut être vide (KPIs unitless comme
+  // "Store Count" / "Headcount" / "Streak" / etc.) car le composant gère
+  // unit absent. Yann 14 mai 2026 (CASY bloqué à tort).
+  // Yann 2 juillet 2026 : "type" retiré des champs obligatoires — le pipeline
+  // data-lake (644 stés, 21 juin 2026) n'émet plus ce champ sur les KPIs
+  // segment, ce qui bloquait quasi toutes les fiches sté (redirect silencieux
+  // vers l'overview, bug live détecté par Yann sur AAPL). Le composant gère
+  // déjà un type absent (fallback affichage neutre) ; seul "short" reste
+  // strictement requis.
+  {
+    const raw = hero.short;
     if (typeof raw !== "string") return false;
     if (PLACEHOLDER_VALUES.test(raw.trim())) return false;
   }
+  if (typeof hero.type === "string" && PLACEHOLDER_VALUES.test(hero.type.trim())) return false;
   // unit : si string non-vide, vérifier qu'elle n'est pas un placeholder
   // explicite. Si vide ou undefined, OK (unitless KPI).
   const rawUnit = hero.unit;
