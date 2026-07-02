@@ -463,6 +463,74 @@ export async function loadV17Company(
     }));
   }
 
+  // Yann 2 juillet 2026 : REMPLACE les KPIs génériques v2-pipeline (revenus
+  // par segment/géo, quasi identiques d'une sté à l'autre) par les KPIs
+  // "haut de gamme" dédiés (`.batches-drafts-safe/kpis-haut/<T>.json`),
+  // quand ce fichier existe. Un KPI haut de gamme n'est jamais un simple
+  // earning/CA/revenu générique — c'est un indicateur distinctif propre à
+  // la sté (production rate, backlog, NIM, attach rate, subscribers, etc.).
+  // Go explicite Yann : priorité totale à kpis-haut sur v2-pipeline pour
+  // l'affichage "Indicateurs clés".
+  const kpisHautPath = path.join(
+    ROOT,
+    ".batches-drafts-safe/kpis-haut",
+    `${ticker.toUpperCase()}.json`,
+  );
+  const kpisHaut = await readJsonOrNull<{
+    kpis?: Array<{
+      short: string;
+      name_fr?: string;
+      name_en?: string;
+      value?: unknown;
+      unit?: string;
+      yoy?: unknown;
+      pv_score?: number;
+      signal?: string;
+      frequency?: string;
+      history?: Array<{ q: string; v: number }>;
+    }>;
+  }>(kpisHautPath);
+  if (kpisHaut && Array.isArray(kpisHaut.kpis) && kpisHaut.kpis.length > 0) {
+    const converted: AnyKPI[] = kpisHaut.kpis
+      .filter((k) => k && k.short && Array.isArray(k.history) && k.history.length > 0)
+      .map((k) => {
+        const hist = (k.history as Array<{ q: string; v: number }>)
+          .filter((h) => h && typeof h.v === "number")
+          .slice()
+          .sort((a, b) => (a.q < b.q ? -1 : a.q > b.q ? 1 : 0));
+        const values = hist.map((h) => h.v);
+        const periods = hist.map((h) => h.q);
+        const last = hist[hist.length - 1];
+        return {
+          short: k.short,
+          name_fr: k.name_fr ?? k.short,
+          name_en: k.name_en ?? k.short,
+          value: k.value,
+          unit: k.unit ?? "",
+          yoy: k.yoy ?? "",
+          type: "Volume",
+          nature: "Structurel",
+          comparable: "Non comparable",
+          signal: k.signal ?? "",
+          description: k.signal ?? "",
+          history: values,
+          history_periods: periods,
+          period_type: k.frequency === "annual" ? "year" : "quarter",
+          last_data_date: last ? last.q : undefined,
+          is_wow: true,
+          is_generic: false,
+          pv_score: k.pv_score ?? 0,
+        } as AnyKPI;
+      });
+    if (converted.length > 0) {
+      data.kpis = converted;
+      const bestHero = converted.reduce((best, k) =>
+        ((k.pv_score as number) ?? 0) > ((best?.pv_score as number) ?? -1) ? k : best,
+      converted[0]);
+      data.hero_kpi = bestHero.short as string;
+    }
+  }
+
   // Defaults UI
   if (!data.logo_treatment) data.logo_treatment = "orbit";
   if (!data.ranks) data.ranks = { global_world: "-", global_us: "-", sector: "-", subsector: "-" };
