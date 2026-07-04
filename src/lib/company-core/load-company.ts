@@ -2527,10 +2527,29 @@ export async function loadV17Company(
     const converted: AnyKPI[] = kpisHaut.kpis
       .filter((k) => k && k.short && Array.isArray(k.history) && k.history.length > 0)
       .map((k) => {
+        // Tri CHRONOLOGIQUE par (année, trimestre) numériques — jamais
+        // alphabétique. Le tri string mettait "Q1-FY2022 < Q1-FY2026 <
+        // Q2-FY2022", ce qui affichait tous les Q1 puis tous les Q2 →
+        // graphs en dents de scie sur tous les tickers (bug Yann 4 juil
+        // 2026, vu sur NVDA/AAPL). FYxxxx (annuel) trié après Q4 de la
+        // même année.
+        const periodKey = (q: string): number => {
+          let m = q.match(/^Q([1-4])-(?:FY)?(\d{4})$/i);
+          if (m) return Number(m[2]) * 10 + Number(m[1]);
+          m = q.match(/^FY(\d{4})$/i);
+          if (m) return Number(m[1]) * 10 + 5;
+          return Number.MAX_SAFE_INTEGER; // labels inconnus en fin
+        };
+        // Un KPI quarterly ne garde QUE les trimestres (les entrées FYxxxx
+        // sont des cumuls annuels ~4x plus gros qui créent des pics faux
+        // dans le graph trimestriel ; la vue Annuel est recalculée par
+        // aggregateQuarterlyToAnnual). Un KPI annual ne garde que les FY.
+        const isAnnualKpi = k.frequency === "annual";
         const hist = (k.history as Array<{ q: string; v: number }>)
           .filter((h) => h && typeof h.v === "number")
+          .filter((h) => (isAnnualKpi ? /^FY\d{4}$/i.test(h.q) : /^Q[1-4]-/i.test(h.q)))
           .slice()
-          .sort((a, b) => (a.q < b.q ? -1 : a.q > b.q ? 1 : 0));
+          .sort((a, b) => periodKey(a.q) - periodKey(b.q));
         const values = hist.map((h) => h.v);
         const periods = hist.map((h) => h.q);
         return {
