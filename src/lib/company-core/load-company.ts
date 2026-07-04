@@ -2523,6 +2523,21 @@ export async function loadV17Company(
       history?: Array<{ q: string; v: number }>;
     }>;
   }>(kpisHautPath);
+  // Yann 4 juillet 2026 : type deduit du sens du KPI (avant: "Volume"
+  // hardcode -> blocs Interpretation Moteur/Vigilance/Cash mal classes).
+  const inferKpiHautType = (k: { short: string; name_fr?: string; name_en?: string; unit?: string }): string => {
+    const blob = `${k.short} ${k.name_fr ?? ""} ${k.name_en ?? ""}`.toLowerCase();
+    const unit = String(k.unit ?? "").toLowerCase();
+    if (/\b(fcf|free cash flow|operating cash flow|tr[ée]sorerie)\b/.test(blob)) return "Cash Flow";
+    if (/%/.test(unit) && /(margin|marge|nim|yield|rate|ratio|taux)/.test(blob)) return "Margin";
+    if (/(backlog|carnet de commande|rpo|bookings|orders)/.test(blob)) return "Demand";
+    if (/(subscriber|abonn|members|users|utilisateur|customers|clients|dau|mau|dap|doctors|advisors|headcount|effectif)/.test(blob)) return "User";
+    if (/(capex|r&d|investissement|investment)/.test(blob)) return "Investment";
+    if (/(cost|co[uû]t|expense|charge)/.test(blob)) return "Cost";
+    if (/(revenue|revenu|\brev\b|sales|\bca\b|chiffre d'affaires|fees|premium|prime)/.test(blob)) return "Revenue";
+    if (/(production|deliveries|livraison|shipment|volume|throughput|tons|tonnes|unites|units|capacity|capacite)/.test(blob)) return "Volume";
+    return "Volume";
+  };
   if (kpisHaut && Array.isArray(kpisHaut.kpis) && kpisHaut.kpis.length > 0) {
     const converted: AnyKPI[] = kpisHaut.kpis
       .filter((k) => k && k.short && Array.isArray(k.history) && k.history.length > 0)
@@ -2559,7 +2574,7 @@ export async function loadV17Company(
           value: k.value,
           unit: k.unit ?? "",
           yoy: k.yoy ?? "",
-          type: "Volume",
+          type: inferKpiHautType(k),
           nature: "Structurel",
           comparable: "Non comparable",
           signal: k.signal ?? "",
