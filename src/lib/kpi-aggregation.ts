@@ -190,8 +190,27 @@ export function aggregateQuarterlyToAnnual(
  * On convertit toujours en (fy fiscale, q fiscal).
  */
 function parsePeriodLabel(label: string, fiscalYearEndMonth: number): { fy: number; q: number } | null {
+  // Format "Q1-FY2024" (déjà exprimé en trimestre fiscal, ex kpis-haut) :
+  // q et fy directement utilisables, pas de conversion calendaire.
+  let m = label.match(/^Q([1-4])-FY(\d{4})$/i);
+  if (m) {
+    return { fy: Number(m[2]), q: Number(m[1]) };
+  }
+  // Format "Q1-2024" (kpis-haut, trimestre calendaire avec tiret) : même
+  // logique de conversion fiscale que "Q1 2024" ci-dessous.
+  m = label.match(/^Q([1-4])-(20\d{2}|\d{2})$/i);
+  if (m) {
+    const calQ = Number(m[1]);
+    let calY = Number(m[2]);
+    if (calY < 100) calY += 2000;
+    const calM = calQ * 3;
+    const fy = calM > fiscalYearEndMonth ? calY + 1 : calY;
+    const monthInFY = ((calM - fiscalYearEndMonth - 1 + 12) % 12) + 1;
+    const q = Math.ceil(monthInFY / 3);
+    return { fy, q };
+  }
   // Format "Q1 2024" / "Q1 24" (calendar quarter + calendar year)
-  let m = label.match(/^Q([1-4])\s+(20\d{2}|\d{2})$/i);
+  m = label.match(/^Q([1-4])\s+(20\d{2}|\d{2})$/i);
   if (m) {
     const calQ = Number(m[1]);
     let calY = Number(m[2]);
