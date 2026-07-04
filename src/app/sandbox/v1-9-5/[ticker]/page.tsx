@@ -13,32 +13,25 @@ import { FreemiumBlurProvider, type UserTier } from "@/lib/freemium/context";
 import { readSimulateTier } from "@/lib/desk/effective-tier";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
-type AuditEntry = {
-  ticker: string;
-  is_clean_all: boolean;
-};
-
-type AuditFile = {
-  audits: AuditEntry[];
-};
-
 // V1.9.5 = filtre strict is_clean_all (a-f + g-m post audit qualité).
 // Si la sté n'est pas clean_all → redirect vers /sandbox/v1-9-5 (overview).
 async function loadCleanAllSet(): Promise<Set<string>> {
-  const auditPath = path.join(
+  // Yann 4 juillet 2026 : scope public = SP500 uniquement. La liste
+  // v1-9-5-clean-all-tickers.json (SP500 avec KPIs complets) est la source
+  // de vérité de visibilité : toute sté hors liste => notFound, même par URL.
+  const sp500Path = path.join(
     process.cwd(),
-    "src/data/v1-9-pre-publication-audit.json",
+    "src/data/v1-9-5-clean-all-tickers.json",
   );
   try {
-    const raw = await fs.readFile(auditPath, "utf-8");
-    const audit = JSON.parse(raw) as AuditFile;
+    const sp500Raw = await fs.readFile(sp500Path, "utf-8");
+    const tickers = (JSON.parse(sp500Raw) as { tickers: string[] }).tickers;
     // Yann 29 mai 2026 : normaliser les variantes de séparateur (BRK.B / BRK-B
     // / BRK_B = même sté). Le set contient TOUTES les variantes pour absorber
-    // l'écart entre audit (utilise ".") et URL ("-").
+    // l'écart entre la liste (utilise ".") et URL ("-").
     const out = new Set<string>();
-    for (const a of audit.audits) {
-      if (a.is_clean_all !== true) continue;
-      const upper = a.ticker.toUpperCase();
+    for (const t of tickers) {
+      const upper = t.toUpperCase();
       out.add(upper);
       out.add(upper.replace(/\./g, "-"));
       out.add(upper.replace(/-/g, "."));
