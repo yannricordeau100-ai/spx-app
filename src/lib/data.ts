@@ -228,6 +228,25 @@ export type Governance = {
   top_capital?: Shareholder[];
   /** Free-form notable governance items. */
   notes?: string[];
+  /** Détail de rémunération CEO issu du dernier DEF14A (Summary Compensation Table). */
+  comp_detail?: {
+    source_fiscal_year?: number;
+    ceo_salary_m?: number;
+    ceo_bonus_m?: number;
+    ceo_stock_awards_m?: number;
+    ceo_option_awards_m?: number;
+    ceo_non_equity_incentive_m?: number;
+    ceo_other_m?: number;
+    ceo_total_comp_m?: number;
+    ceo_pay_ratio?: number;
+    /** Salaire médian employé, en $ (pas en millions). */
+    median_employee_pay?: number;
+    neo2_name?: string;
+    neo2_total_comp_m?: number;
+    comp_vs_prior_year_pct?: string;
+    perf_metrics_bonus?: string;
+    note_structure?: string;
+  };
 };
 
 /** Company AI positioning — sourced from 10-K, 10-Q, and investor communications. */

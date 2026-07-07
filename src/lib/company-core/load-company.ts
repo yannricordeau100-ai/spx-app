@@ -2588,7 +2588,30 @@ export async function loadV17Company(
         } as AnyKPI;
       });
     if (converted.length > 0) {
-      data.kpis = converted;
+      // Yann 7 juillet 2026 : le remplacement TOTAL ecrasait aussi les KPI
+      // earnings/calls/stories/sectoriels integres dans v2-pipeline apres le
+      // 2 juillet (ER, calls 5 ans, stories, sectoriels invisibles sur le
+      // site). On garde le remplacement pour les KPI generiques legacy, mais
+      // on REINJECTE les KPI tagges _source, dedupliques par short vs
+      // kpis-haut.
+      const KEPT_SOURCES = new Set([
+        "ER+earnings-calls",
+        "calls-5y",
+        "stories-calls",
+        "stories-filings",
+        "sectoriel",
+        "kpis-haut 10-Q/10-K",
+      ]);
+      const hautShorts = new Set(
+        converted.map((k) => String(k.short ?? "").toLowerCase()),
+      );
+      const keptExtras = ((data.kpis as AnyKPI[]) ?? []).filter((k) => {
+        const src = (k as { _source?: unknown })._source;
+        if (typeof src !== "string" || !KEPT_SOURCES.has(src)) return false;
+        const s = String(k?.short ?? "").toLowerCase();
+        return s.length > 0 && !hautShorts.has(s);
+      });
+      data.kpis = [...converted, ...keptExtras];
       const bestHero = converted.reduce((best, k) =>
         ((k.pv_score as number) ?? 0) > ((best?.pv_score as number) ?? -1) ? k : best,
       converted[0]);

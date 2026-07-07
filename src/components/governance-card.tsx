@@ -342,9 +342,47 @@ export function GovernanceCard({
       value: `${fmt(g.ceo_total_comp_m, 1, locale)} ${currency}`,
       color: "#a78bfa",
       tooltip: (
-        <p className="text-[12px] leading-relaxed text-zinc-200">
-          {t("governance.metrics.ceo_comp_tooltip")} {g.fiscal_year}.
-        </p>
+        <div className="text-[12px] leading-relaxed text-zinc-200">
+          <p>
+            {t("governance.metrics.ceo_comp_tooltip")} {g.fiscal_year}.
+          </p>
+          {g.comp_detail && (
+            <ul className="mt-2 space-y-0.5 text-[11.5px] text-zinc-300">
+              {([
+                [locale === "fr" ? "Salaire" : "Salary", g.comp_detail.ceo_salary_m],
+                ["Bonus", g.comp_detail.ceo_bonus_m],
+                [locale === "fr" ? "Actions" : "Stock awards", g.comp_detail.ceo_stock_awards_m],
+                ["Options", g.comp_detail.ceo_option_awards_m],
+                [locale === "fr" ? "Incitation annuelle" : "Non-equity incentive", g.comp_detail.ceo_non_equity_incentive_m],
+                [locale === "fr" ? "Autres" : "Other", g.comp_detail.ceo_other_m],
+              ] as Array<[string, number | undefined]>)
+                .filter(([, v]) => typeof v === "number" && Number.isFinite(v) && v > 0)
+                .map(([label, v]) => (
+                  <li key={label} className="flex justify-between gap-4">
+                    <span>{label}</span>
+                    <span className="font-mono">{fmt(v as number, 2, locale)} {currency}</span>
+                  </li>
+                ))}
+              {typeof g.comp_detail.median_employee_pay === "number" && g.comp_detail.median_employee_pay > 0 && (
+                <li className="mt-1 flex justify-between gap-4 border-t border-white/10 pt-1">
+                  <span>{locale === "fr" ? "Salaire médian employé" : "Median employee pay"}</span>
+                  <span className="font-mono">
+                    {Math.round(g.comp_detail.median_employee_pay).toLocaleString(locale === "fr" ? "fr-FR" : "en-US")} $
+                  </span>
+                </li>
+              )}
+              {g.comp_detail.neo2_name && typeof g.comp_detail.neo2_total_comp_m === "number" && (
+                <li className="flex justify-between gap-4">
+                  <span>{locale === "fr" ? "N°2" : "2nd highest paid"} ({g.comp_detail.neo2_name})</span>
+                  <span className="font-mono">{fmt(g.comp_detail.neo2_total_comp_m, 1, locale)} {currency}</span>
+                </li>
+              )}
+              {g.comp_detail.note_structure && (
+                <li className="mt-1 italic text-zinc-400">{g.comp_detail.note_structure}</li>
+              )}
+            </ul>
+          )}
+        </div>
       ),
       peerRank: g.ceo_comp_rank,
       inverse: true,
