@@ -280,6 +280,13 @@ export function CompanyView({
       // QUE s'il a >=16 trims (sinon un KPI quarterly court hijacke le hero
       // annuel profond, ex BP "Adjusted EBITDA" 5 trims vs Production 7 ans).
       if (h < 16) continue;
+      // Yann 11 juil 2026 : éligibilité quarterly = last_data_date non vide
+      // ET history_periods aligné avec history (sinon labels fabriqués depuis
+      // année-1 provoquent affichage incohérent).
+      const ldd = (k as { last_data_date?: unknown }).last_data_date;
+      if (typeof ldd !== "string" || ldd.trim().length === 0) continue;
+      const hp = (k as { history_periods?: unknown }).history_periods;
+      if (!Array.isArray(hp) || hp.length !== h) continue;
       if (!best || h > best.len) {
         best = { short: k.short, len: h };
       }

@@ -168,25 +168,15 @@ function normalizeHistory(h: unknown): number[] {
  *  - market_positions[].slices coercés en [] si null
  */
 function sanitizeCompanyData(data: AnyCo): AnyCo {
-  // 1. Hero KPI : si hero_kpi pointe sur un short qui n'existe pas, on
-  //    cherche un fuzzy match (substring case-insensitive). Sinon kpis[0].
+  // 1. Hero KPI : match EXACT sur k.short uniquement. Si aucun match exact,
+  //    on laisse hero_kpi tel quel : le merge enrich complétera. Yann 11 juil
+  //    2026 : ancien fuzzy substring provoquait cross-pollution KPI (bug graph
+  //    ~250 stés).
   const kpis = (data.kpis as AnyKPI[] | undefined) ?? [];
   const heroShort = data.hero_kpi as string | undefined;
   if (heroShort && kpis.length > 0) {
-    const exact = kpis.find((k) => k.short === heroShort);
-    if (!exact) {
-      const heroLow = heroShort.toLowerCase();
-      const fuzzy = kpis.find((k) => {
-        const s = String(k.short ?? "").toLowerCase();
-        return s && (heroLow.includes(s) || s.includes(heroLow));
-      });
-      if (fuzzy) {
-        // Réécrit hero_kpi pour pointer sur le short réel trouvé
-        data.hero_kpi = fuzzy.short as string;
-      } else if (kpis[0]?.short) {
-        data.hero_kpi = kpis[0].short as string;
-      }
-    }
+    // match exact seulement — si absent, on laisse tel quel.
+    kpis.find((k) => k.short === heroShort);
   }
 
   // 2. Coerce KPIs : null → defaults, history non-array → [].
@@ -1001,25 +991,44 @@ export async function loadV17Company(
         .map((k) => ({ ...k, history: normalizeHistory(k.history) }) as AnyKPI);
       const dataKpis = data.kpis as AnyKPI[];
       const mergedKpis: AnyKPI[] = [];
+      // Yann 11 juil 2026 : clef case-insensitive + trim pour éviter les
+      // mismatches "Total Revenue" vs "total revenue" vs " Total Revenue ".
+      // Si conflit après normalisation : winner = celui qui a last_data_date
+      // non vide + history_periods non vide.
+      const normKey = (s: unknown) => (typeof s === "string" ? s.trim().toLowerCase() : "");
+      const hasStrong = (k: AnyKPI) => {
+        const ldd = typeof k?.last_data_date === "string" && k.last_data_date.trim().length > 0;
+        const hp = Array.isArray((k as AnyKPI & { history_periods?: unknown[] }).history_periods)
+          && ((k as AnyKPI & { history_periods?: unknown[] }).history_periods as unknown[]).length > 0;
+        return ldd && hp;
+      };
       const dataByShort = new Map<string, AnyKPI>();
       for (const k of dataKpis) {
-        if (typeof k?.short === "string" && k.short) dataByShort.set(k.short, k);
+        const key = normKey(k?.short);
+        if (!key) continue;
+        const prev = dataByShort.get(key);
+        if (!prev) dataByShort.set(key, k);
+        else if (hasStrong(k) && !hasStrong(prev)) dataByShort.set(key, k);
       }
-      const consumedShorts = new Set<string>();
+      const consumedKeys = new Set<string>();
       for (const ek of enrichKpis) {
-        const ekShort = ek.short as string;
-        const existing = dataByShort.get(ekShort);
+        const ekKey = normKey(ek.short);
+        if (!ekKey) continue;
+        const existing = dataByShort.get(ekKey);
         if (existing) {
-          consumedShorts.add(ekShort);
+          consumedKeys.add(ekKey);
           const existingLen = Array.isArray(existing.history) ? (existing.history as unknown[]).length : 0;
           const enrichLen = Array.isArray(ek.history) ? (ek.history as unknown[]).length : 0;
           // Égalité → on prend la version enrich (souvent plus récente).
           // Strict > → on garde existing.
-          const winner = enrichLen >= existingLen ? ek : existing;
-          const loser = winner === ek ? existing : ek;
-          // Fusion : champs du winner prennent priorité, mais on récupère
-          // depuis loser les champs absents/vides du winner (préserve yoy /
-          // signal / description issus de v2-pipeline si enrich ne les a pas).
+          let winner: AnyKPI = enrichLen >= existingLen ? ek : existing;
+          let loser: AnyKPI = winner === ek ? existing : ek;
+          // Conflit fort : si l'un a last_data_date + history_periods non vides
+          // et pas l'autre, c'est lui le winner.
+          const ekStrong = hasStrong(ek);
+          const exStrong = hasStrong(existing);
+          if (ekStrong && !exStrong) { winner = ek; loser = existing; }
+          else if (exStrong && !ekStrong) { winner = existing; loser = ek; }
           const merged: AnyKPI = { ...loser, ...winner };
           if (winner === ek) {
             merged.history = winner.history;
@@ -1030,18 +1039,20 @@ export async function loadV17Company(
       }
       // Garder les KPIs existants non touchés par fusion.
       for (const k of dataKpis) {
-        if (typeof k?.short === "string" && k.short && !consumedShorts.has(k.short)) {
+        const key = normKey(k?.short);
+        if (key && !consumedKeys.has(key)) {
           mergedKpis.push(k);
         }
       }
       // Append les KPIs enrich qui n'existaient pas côté data.
-      const existingMergedShorts = new Set(
-        mergedKpis.map((k) => k?.short).filter((s): s is string => typeof s === "string" && Boolean(s)),
+      const existingMergedKeys = new Set(
+        mergedKpis.map((k) => normKey(k?.short)).filter((s) => Boolean(s)),
       );
       for (const ek of enrichKpis) {
-        const ekShort = ek.short as string;
-        if (!existingMergedShorts.has(ekShort)) {
+        const ekKey = normKey(ek.short);
+        if (ekKey && !existingMergedKeys.has(ekKey)) {
           mergedKpis.push(ek);
+          existingMergedKeys.add(ekKey);
         }
       }
       data.kpis = mergedKpis;
@@ -1229,8 +1240,8 @@ export async function loadV17Company(
         // Customers" ecrase par le CA total).
         const heroKpi = (data.kpis as AnyKPI[]).find((k) => {
           if (!k || typeof k !== "object") return false;
-          const s = (typeof k.short === "string" ? k.short : "").toLowerCase();
-          return s === extShortLow || s.includes(extShortLow) || extShortLow.includes(s);
+          const s = (typeof k.short === "string" ? k.short : "").trim().toLowerCase();
+          return s === extShortLow.trim().toLowerCase();
         });
         if (heroKpi) {
           const currentLen = Array.isArray(heroKpi.history) ? heroKpi.history.length : 0;
@@ -1307,8 +1318,8 @@ export async function loadV17Company(
           // UNIQUEMENT sur extShortLow (cible explicite de l'extension).
           const heroKpi = (data.kpis as AnyKPI[]).find((k) => {
             if (!k || typeof k !== "object") return false;
-            const s = (typeof k.short === "string" ? k.short : "").toLowerCase();
-            return s === extShortLow || s.includes(extShortLow) || extShortLow.includes(s);
+            const s = (typeof k.short === "string" ? k.short : "").trim().toLowerCase();
+            return s === extShortLow.trim().toLowerCase();
           });
           if (heroKpi) {
             const curLen = Array.isArray(heroKpi.history) ? heroKpi.history.length : 0;

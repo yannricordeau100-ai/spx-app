@@ -198,6 +198,19 @@ export function buildChartSpec(
     values = out;
     labels = buildYearLabelsBackward(lastDataDate, out.length);
   } else if (period === "quarter" || pt === "quarter") {
+    // Yann 11 juil 2026 : sans last_data_date, buildQuarterLabels fabriquait
+    // des trimestres à partir de année-1, ce qui donnait un axe faux. On
+    // renvoie emptySpec + warning audit à la place.
+    if (!lastDataDate || (typeof lastDataDate === "string" && lastDataDate.trim().length === 0)) {
+      const short = typeof kpi.short === "string" ? kpi.short : "?";
+      console.warn(`chart.no_last_data_date for ${ticker}/${short}`);
+      warnings.push({
+        id: "chart.no_last_data_date",
+        level: "warn",
+        message: `Aucune last_data_date pour KPI quarterly ${short} — axe abandonné.`,
+      });
+      return emptySpec(ticker, period, kind, fiscalYearEndMonth, isFiscalShifted, lastDataDate, warnings, kpi);
+    }
     values = rawHistory;
     labels = buildQuarterLabels(lastDataDate, rawHistory.length, fiscalYearEndMonth);
   } else if (period === "semester" || pt === "semester") {
