@@ -16,6 +16,8 @@ import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "rea
 import { ArrowRight, Crown } from "lucide-react";
 import { SignupGateOverlay } from "@/components/signup-gate-overlay";
 
+import v195CleanAll from "@/data/v1-9-5-clean-all-tickers.json";
+
 export type PopularRow = {
   ticker: string;
   displayTicker?: string;
@@ -311,7 +313,19 @@ export function HomePopularBlock({
         const r = await fetch("/api/popular-stocks", { cache: "no-store" });
         if (!r.ok) return;
         const j = (await r.json()) as PopularData;
-        if (!cancel) setData(j);
+        // Yann 11 juil 2026 : scope public = SP500 strict. On filtre chaque
+        // marché aux 503 stés visibles ; les onglets vidés sont masqués.
+        const spSet = new Set(
+          (v195CleanAll as { tickers: string[] }).tickers.map((x) => x.toUpperCase()),
+        );
+        const filtered: PopularData = { _meta: j._meta } as PopularData;
+        for (const [k, rows] of Object.entries(j)) {
+          if (k === "_meta" || !Array.isArray(rows)) continue;
+          filtered[k] = (rows as PopularRow[]).filter((row) =>
+            spSet.has(String(row.ticker).toUpperCase()),
+          );
+        }
+        if (!cancel) setData(filtered);
       } catch {
         // silencieux
       }
@@ -379,7 +393,10 @@ export function HomePopularBlock({
             une lecture rapide et un footprint compact. */}
       <div className="relative mb-5 rounded-xl border border-white/[0.06] bg-white/[0.02] p-1.5">
         <div className="grid grid-cols-3 gap-1 sm:grid-cols-9">
-          {TABS.map((tb) => {
+          {TABS.filter((tb) => {
+            const rows = data[tb.key];
+            return Array.isArray(rows) && rows.length >= 3;
+          }).map((tb) => {
             const isActive = tb.key === activeTab;
             const tabRows = data[tb.key];
             const hasPreview = Array.isArray(tabRows) && tabRows.length > 0;
