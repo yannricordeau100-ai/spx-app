@@ -181,8 +181,8 @@ export const DICTIONARY: Dict = {
 
   /* ──────────────────────── SEARCH ──────────────────────── */
   "search.placeholder_hero": {
-    fr: "Rechercher Apple, LVMH, SAP…",
-    en: "Search Apple, LVMH, SAP…",
+    fr: "Rechercher Apple, Nvidia, Visa…",
+    en: "Search Apple, Nvidia, Visa…",
   },
   "search.placeholder_compact": {
     fr: "Rechercher une société…",

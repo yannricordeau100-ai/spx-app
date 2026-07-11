@@ -54,11 +54,20 @@ type AuditFile = {
 
 async function loadCleanAllTickers(): Promise<string[]> {
   const auditPath = path.join(process.cwd(), "src/data/v1-9-pre-publication-audit.json");
+  // Yann 11 juil 2026 : scope public = SP500 STRICT. La liste 503 de
+  // v1-9-5-clean-all-tickers.json est la source unique de visibilité ;
+  // l'audit pre-publication (657 dont 179 EU/ADR) ne sert plus que pour
+  // l'ordre par capitalisation.
+  const sp500Path = path.join(process.cwd(), "src/data/v1-9-5-clean-all-tickers.json");
   try {
     const raw = await fs.readFile(auditPath, "utf8");
     const audit = JSON.parse(raw) as AuditFile;
+    const spRaw = await fs.readFile(sp500Path, "utf8");
+    const spSet = new Set(
+      (JSON.parse(spRaw) as { tickers: string[] }).tickers.map((t) => t.toUpperCase()),
+    );
     return audit.audits
-      .filter((a) => a.is_clean_all === true)
+      .filter((a) => a.is_clean_all === true && spSet.has(a.ticker.toUpperCase()))
       .sort((a, b) => (b.market_cap_usd ?? 0) - (a.market_cap_usd ?? 0))
       .map((a) => a.ticker);
   } catch {
