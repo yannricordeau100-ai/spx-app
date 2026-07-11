@@ -15,8 +15,7 @@ import {
   type Company,
   type KPI,
   COMPANIES,
-  formatUnit,
-  formatKpiValue,
+  formatHeroValue,
   getHero,
 } from "@/lib/data";
 import { yoyTone } from "@/lib/utils";
@@ -151,11 +150,15 @@ export function ComparePanel({
               <span className="text-[13px] text-zinc-200">{kpi.name_fr}</span>
             </div>
             <div className="mt-3 flex items-baseline gap-2">
+              {/* Yann 11 juil 2026 : rescale valeur+unite ensemble (formatHeroValue),
+                  regle 1-999, coherent avec kpi-row et le hero. */}
               <span className="font-mono text-3xl font-semibold tabular-nums text-zinc-50">
-                {formatKpiValue(kpi.value, kpi.unit)}
+                {formatHeroValue(kpi.value, kpi.unit ?? "").value}
               </span>
-              {formatUnit(kpi.unit) && (
-                <span className="text-sm text-zinc-300">{formatUnit(kpi.unit)}</span>
+              {formatHeroValue(kpi.value, kpi.unit ?? "").unit && (
+                <span className="text-sm text-zinc-300">
+                  {formatHeroValue(kpi.value, kpi.unit ?? "").unit}
+                </span>
               )}
               <span
                 className="ml-2 inline-flex items-center gap-1 font-mono text-xs tabular-nums"

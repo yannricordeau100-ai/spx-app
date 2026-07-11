@@ -19,8 +19,7 @@ import {
   TICKERS,
   TICKER_ALIASES,
   getHero,
-  formatUnit,
-  formatKpiValue,
+  formatHeroValue,
 } from "@/lib/data";
 import { brand } from "@/lib/brand";
 import capiSortedJson from "@/data/v1-8-tickers-sorted.json";
@@ -622,7 +621,9 @@ function ResultCard({
   const yoyColor =
     tone === "pos" ? "#22c55e" : tone === "neg" ? "#ef4444" : "#a1a1aa";
   const accent = brand(ticker).primary;
-  const heroUnit = formatUnit(hero.unit);
+  // Yann 11 juil 2026 : meme rescale valeur+unite que le hero (formatHeroValue),
+  // jamais de "1 036 M $" dans les resultats de recherche (regle 1-999).
+  const heroFmt = formatHeroValue(hero.value, hero.unit ?? "");
   const tickerShown = displayTicker(ticker, allTickers);
 
   return (
@@ -680,10 +681,10 @@ function ResultCard({
           </div>
         </AcronymHover>
         <div className="mt-0.5 font-mono text-[15px] font-semibold tabular-nums text-zinc-50">
-          {formatKpiValue(hero.value, hero.unit)}
-          {heroUnit && (
+          {heroFmt.value}
+          {heroFmt.unit && (
             <span className="ml-1 text-[10.5px] font-normal text-zinc-400">
-              {heroUnit}
+              {heroFmt.unit}
             </span>
           )}
         </div>
@@ -732,8 +733,11 @@ function ResultHeroKpi({ ticker }: { ticker: string }) {
   const tone = yoyTone(yoyStr, entry.t);
   const yoyColor =
     tone === "pos" ? "#22c55e" : tone === "neg" ? "#ef4444" : "#a1a1aa";
-  const heroUnit = formatUnit(entry.u);
-  const formattedValue = formatKpiValue(entry.v, entry.u);
+  // Yann 11 juil 2026 : rescale valeur+unite ensemble (formatHeroValue),
+  // regle 1-999, coherent avec kpi-row et le hero de la page ste.
+  const heroFmt = formatHeroValue(entry.v, entry.u ?? "");
+  const heroUnit = heroFmt.unit;
+  const formattedValue = heroFmt.value;
   if (formattedValue === "—") return null;
 
   return (

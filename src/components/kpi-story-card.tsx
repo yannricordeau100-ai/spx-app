@@ -4,7 +4,16 @@ import { Sparkles, TrendingUp, Building2 } from "lucide-react";
 import type { KPI, MarketPosition } from "@/lib/data";
 import { brand } from "@/lib/brand";
 import type { StorySlide } from "@/lib/kpi-stories-ordering";
-import { formatUnit, formatKpiValue } from "@/lib/data";
+import { formatUnit, formatKpiValue, formatHeroValue } from "@/lib/data";
+
+/** Yann 12 juil 2026 : valeur + unité STORY rescalées ensemble ([1,999] +
+ *  décimales, règle CLAUDE.md §6). Avant : formatKpiValue seul laissait
+ *  "1 036 M $" au lieu de "1,04 Mds $". */
+function storyFmt(value: string | number | null | undefined, unit?: string): { value: string; unit: string } {
+  const f = formatHeroValue(value ?? null, unit ?? "");
+  return { value: f.value, unit: f.unit };
+}
+
 import { InfoTooltip } from "@/components/info-tooltip";
 import { normalizeNarrative } from "@/lib/ui-fix-templates";
 import { useT } from "@/lib/i18n/provider";
@@ -137,22 +146,25 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
         <div className="my-auto flex w-full flex-col items-center px-4 text-center">
           {freeBlocked ? (
             <>
+              {/* Yann 12 juil 2026 : formatHeroValue = rescale magnitude [1,999]
+                  + décimales (règle CLAUDE.md §6). Avant : formatKpiValue seul
+                  laissait "1 036 M $" au lieu de "1,04 Mds $". */}
               {/* Yann (26 mai 2026) : value + unit séparés (avant : concatenés
                   → overflow horizontal phone-frame visible "210 M unités"
                   sur les côtés). Maintenant chaque ligne respecte la largeur
                   phone-frame avec word-wrap. */}
               <div
                 className="w-full max-w-full overflow-hidden text-center"
-                style={{ fontSize: storyValueFont(formatKpiValue(kpi.value, kpi.unit)), lineHeight: 1.05, whiteSpace: "nowrap" }}
+                style={{ fontSize: storyValueFont(storyFmt(kpi.value, kpi.unit).value), lineHeight: 1.05, whiteSpace: "nowrap" }}
               >
                 <BlurredFreeValue
-                  value={formatKpiValue(kpi.value, kpi.unit)}
+                  value={storyFmt(kpi.value, kpi.unit).value}
                   ticker={ticker}
                 />
               </div>
-              {formatUnit(kpi.unit) && (
+              {storyFmt(kpi.value, kpi.unit).unit && (
                 <div className="mt-2 max-w-full overflow-hidden text-[24px] font-bold text-zinc-100" style={{ wordBreak: "break-word" }}>
-                  {formatUnit(kpi.unit)}
+                  {storyFmt(kpi.value, kpi.unit).unit}
                 </div>
               )}
             </>
@@ -164,13 +176,13 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
                   wordBreak pour matcher la branche freeBlocked au-dessus. */}
               <div
                 className="w-full max-w-full overflow-hidden text-center font-display font-bold leading-none tracking-tight gradient-text"
-                style={{ fontSize: storyValueFont(formatKpiValue(kpi.value, kpi.unit)), whiteSpace: "nowrap" }}
+                style={{ fontSize: storyValueFont(storyFmt(kpi.value, kpi.unit).value), whiteSpace: "nowrap" }}
               >
-                {formatKpiValue(kpi.value, kpi.unit)}
+                {storyFmt(kpi.value, kpi.unit).value}
               </div>
-              {formatUnit(kpi.unit) && (
+              {storyFmt(kpi.value, kpi.unit).unit && (
                 <div className="mt-2 max-w-full overflow-hidden text-[32px] font-bold text-zinc-100" style={{ wordBreak: "break-word" }}>
-                  {formatUnit(kpi.unit)}
+                  {storyFmt(kpi.value, kpi.unit).unit}
                 </div>
               )}
               {kpi.yoy && typeof kpi.yoy === "string" && kpi.yoy.toLowerCase() !== "n/a" && (

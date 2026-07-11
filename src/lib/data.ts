@@ -638,7 +638,20 @@ export function formatHeroValue(value: string | number | null | undefined, unit:
   }
 
   let displayNum = num;
-  let displayUnit = formatUnit(unit);
+  // Yann 12 juil 2026 : normalisation unité brute AVANT rescale (règle [1,999]).
+  // Cause n°1 des violations : "M$" (sans espace), "K $", "B$", "millions"...
+  // échappaient au ladder -> "4 483 M$" au lieu de "4,48 Mds $".
+  const RAW_UNIT_NORMALIZE: Record<string, string> = {
+    "M$": "M $", "M USD": "M $", "MUSD": "M $", "millions": "M $", "Millions": "M $",
+    "millions $": "M $", "M dollars": "M $",
+    "K$": "K $", "$K": "K $", "K USD": "K $", "KUSD": "K $", "milliers $": "K $",
+    "B$": "Mds $", "$B": "Mds $", "B USD": "Mds $", "BUSD": "Mds $",
+    "milliards": "Mds $", "Milliards": "Mds $", "milliards $": "Mds $", "Md$": "Mds $",
+    "Md $": "Mds $", "Mds$": "Mds $", "bn $": "Mds $", "bn": "Mds",
+    "M€": "M €", "K€": "K €", "B€": "Mds €",
+  };
+  const normalizedUnit = RAW_UNIT_NORMALIZE[String(unit ?? "").trim()] ?? unit;
+  let displayUnit = formatUnit(normalizedUnit);
 
   // Yann 17 mai 2026 : rescale M → Mds quand |valeur| >= 1000.
   // Yann 19 mai 2026 : étendu aux formats "M XXX" (code devise texte,
@@ -647,11 +660,12 @@ export function formatHeroValue(value: string | number | null | undefined, unit:
   const RESCALE_M_TO_MDS: Record<string, string> = {
     "M": "Mds",
     "$M": "Mds $",
-    "M $": "Mds $",
+    "M USD": "Mds $",
+    "M$": "Mds $",
     "M €": "Mds €",
+    "M EUR": "Mds €",
+    "M $": "Mds $",
     "M £": "Mds £",
-    "M EUR": "Mds EUR",
-    "M USD": "Mds USD",
     "M GBP": "Mds GBP",
     "M CHF": "Mds CHF",
     "M JPY": "Mds JPY",
@@ -669,9 +683,40 @@ export function formatHeroValue(value: string | number | null | undefined, unit:
     "M KRW": "Mds KRW",
     "M PLN": "Mds PLN",
   };
-  if (RESCALE_M_TO_MDS[unit] && Math.abs(num) >= 1000) {
+  const unitForRescale = String(normalizedUnit ?? "").trim();
+  if (RESCALE_M_TO_MDS[unitForRescale] && Math.abs(num) >= 1000) {
     displayNum = num / 1000;
-    displayUnit = RESCALE_M_TO_MDS[unit];
+    displayUnit = RESCALE_M_TO_MDS[unitForRescale];
+  }
+  // Yann 12 juil 2026 : ladder K -> M -> Mds (les unités "K $" n'avaient
+  // aucun rescale : "33 173 381 K $" restait brut). Applique [1,999].
+  const K_LADDER: Record<string, string[]> = {
+    "K $": ["K $", "M $", "Mds $"],
+    "K €": ["K €", "M €", "Mds €"],
+    "K £": ["K £", "M £", "Mds £"],
+    "K USD": ["K $", "M $", "Mds $"],
+  };
+  const kl = K_LADDER[unitForRescale];
+  if (kl && Math.abs(displayNum) >= 1000) {
+    let ti = 0;
+    while (Math.abs(displayNum) >= 1000 && ti < kl.length - 1) {
+      displayNum = displayNum / 1000;
+      ti += 1;
+    }
+    displayUnit = kl[ti];
+  }
+  // "M $" déjà rescalé une fois peut encore dépasser 999 (ex 13 894 600 M$
+  // -> 13 894,6 Mds) : pas de tier au-dessus de Mds (décision Yann), on laisse.
+  // Yann 12 juil 2026 : DOWNSCALE quand |v| < 1 avec magnitude (règle [1,999]
+  // côté bas) : "0,9 Mds $" -> "900 M $" ; "0,37 B USD" -> "370 M $".
+  const DOWNSCALE: Record<string, string> = {
+    "Mds $": "M $", "Mds €": "M €", "Mds £": "M £", "Mds": "M",
+    "Mds USD": "M $", "Mds EUR": "M €",
+    "M $": "K $", "M €": "K €",
+  };
+  while (Math.abs(displayNum) > 0 && Math.abs(displayNum) < 1 && DOWNSCALE[displayUnit]) {
+    displayNum = displayNum * 1000;
+    displayUnit = DOWNSCALE[displayUnit];
   }
 
   // Yann 20 mai 2026 : règle "toujours 1 à 999 avec 1 décimale".
