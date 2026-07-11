@@ -6,8 +6,6 @@ import { brand } from "@/lib/brand";
 import type { StorySlide } from "@/lib/kpi-stories-ordering";
 import { formatUnit, formatKpiValue } from "@/lib/data";
 import { InfoTooltip } from "@/components/info-tooltip";
-import { AcronymHover } from "@/components/acronym-hover";
-import { ACRONYM_GLOSSARY, TERM_GLOSSARY } from "@/lib/ui-fix-templates";
 import { normalizeNarrative } from "@/lib/ui-fix-templates";
 import { useT } from "@/lib/i18n/provider";
 import { isFiscalShifted } from "@/lib/fiscal-calendar";
@@ -100,15 +98,11 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
             droite. Plus compact que avant : 1 ligne au lieu de 2 niveaux. */}
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0 flex-1">
-            <div className="flex items-center gap-1.5">
-              <AcronymHover label={ACRONYM_GLOSSARY[kpi.short] ?? TERM_GLOSSARY[kpi.short] ?? kpi.short} align="left">
-                <span
-                  className="rounded px-1.5 py-0.5 font-mono text-[11px] font-bold uppercase tracking-wider"
-                  style={{ background: `${accent}1a`, color: accent, border: `1px solid ${accent}33` }}
-                >
-                  {kpi.short}
-                </span>
-              </AcronymHover>
+            {/* Yann 12 juil 2026 : le short technique anglais ("BACKLOG
+                (UNITS)", etc.) au-dessus du titre FR est supprimé. Le titre
+                FR suffit ; le tooltip explication reste, collé au titre. */}
+            <div className="flex items-start gap-1.5 text-[22px] font-bold leading-tight text-zinc-50">
+              <span className="min-w-0">{kpi.name_fr}</span>
               {kpi.explanation && (
                 <InfoTooltip color={accent} size="sm">
                   <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: accent }}>
@@ -119,9 +113,6 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
                   </div>
                 </InfoTooltip>
               )}
-            </div>
-            <div className="mt-1 text-[22px] font-bold leading-tight text-zinc-50">
-              {kpi.name_fr}
             </div>
             {/* Yann 21 mai 2026 : période d'analyse JUSTE SOUS le titre du
                 KPI (et non plus sous le chip CAGR/YoY). Format "En 2025" /

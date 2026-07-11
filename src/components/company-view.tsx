@@ -473,7 +473,13 @@ export function CompanyView({
       // "TTM" sera AJOUTÉ par le chart côté allLabels via ttmLabel.
       // Yann 19 mai 2026 ~22h : si fiscal shifted, préfixer "FY" sur axe X.
       const kind = getKpiAggregationKind(active);
-      const agg = aggregateQuarterlyToAnnual(active.history ?? [], active.last_data_date, kind, fyEndMonth);
+      const agg = aggregateQuarterlyToAnnual(
+        active.history ?? [],
+        active.last_data_date,
+        kind,
+        fyEndMonth,
+        (active as { history_periods?: string[] }).history_periods,
+      );
       if (isFiscalShifted) {
         return agg.years.map((y) => {
           const short = String(y).slice(-2);

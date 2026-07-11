@@ -76,13 +76,13 @@ export function KpiStories({ company, freeBlocked = false }: { company: Company;
   const goPrev = () => setActive((prev) => (((prev - step) % total) + total) % total);
   const goNext = () => setActive((prev) => (prev + step) % total);
 
-  // Auto-play 5s : fait défiler le groupe. Désactivé si tout tient sur un
+  // Auto-play 10s : fait défiler le groupe. Désactivé si tout tient sur un
   // seul écran (visible >= total) ou si pause / hover.
   useEffect(() => {
     if (paused || hovered || total <= visible) return;
     timerRef.current = setTimeout(() => {
       setActive((prev) => (prev + step) % total);
-    }, 5000);
+    }, 10000);
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
     };

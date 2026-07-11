@@ -308,8 +308,13 @@ export function SuperKpiBoard({
   const usableSector = sectorKpis.filter(
     (k) => k.tier !== "na" && k.display != null && String(k.display).trim() !== "",
   );
-  const signature = kpis.find((k) => k.id === "ppi");
-  const others = kpis.filter((k) => k.id !== "ppi");
+  // Yann 12 juil 2026 : une carte incalculable (tier "na", "n.d. / Calcul
+  // impossible") n'est plus rendue du tout. Si TOUTES les cartes sont
+  // incalculables, le bloc entier disparaît.
+  const usableMain = kpis.filter((k) => k.tier !== "na");
+  if (usableMain.length === 0 && usableSector.length === 0) return null;
+  const signature = usableMain.find((k) => k.id === "ppi");
+  const others = usableMain.filter((k) => k.id !== "ppi");
 
   return (
     <section
