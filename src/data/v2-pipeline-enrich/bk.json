@@ -1,749 +1,749 @@
 {
-  "ticker": "BK",
-  "hero_kpi_override": "Assets under Custody",
-  "_hero_override_reason": "Batch-1 SP500 enrichment 2026-05-20: original hero was generic",
-  "kpis_type_overrides": {
-    "Assets Under Management (Investment Management)": "Investment",
-    "Total Revenue": "Revenue",
-    "Net Income": "Profitability",
-    "Diluted EPS": "Profitability"
-  },
-  "_kpis_type_overrides_source": "scripts/interp-risks-fill/fill-interp-types.py (sub-agent #88, heuristic pattern match)",
-  "_kpis_type_overrides_at": "2026-05-25T14:36:29Z",
-  "overrides_governance": {
-    "voting_structure_note": "Structure de vote ordinaire présumée (DEF14A, pas de mention dual class).",
-    "ceo_total_comp_m": 83.5,
-    "top_capital": [
-      {
-        "name": "Blackrock Inc.",
-        "type": "institutionnel",
-        "stake_pct": 8.95
-      },
-      {
-        "name": "Vanguard Capital Management LLC",
-        "type": "institutionnel",
-        "stake_pct": 6.49
-      },
-      {
-        "name": "State Street Corporation",
-        "type": "institutionnel",
-        "stake_pct": 4.61
-      },
-      {
-        "name": "FMR, LLC",
-        "type": "institutionnel",
-        "stake_pct": 3.97
-      },
-      {
-        "name": "Dodge & Cox Inc.",
-        "type": "institutionnel",
-        "stake_pct": 3.4
-      }
-    ],
-    "top_voting": [
-      {
-        "name": "Blackrock Inc.",
-        "type": "institutionnel",
-        "stake_pct": 8.95
-      },
-      {
-        "name": "Vanguard Capital Management LLC",
-        "type": "institutionnel",
-        "stake_pct": 6.49
-      },
-      {
-        "name": "State Street Corporation",
-        "type": "institutionnel",
-        "stake_pct": 4.61
-      },
-      {
-        "name": "FMR, LLC",
-        "type": "institutionnel",
-        "stake_pct": 3.97
-      },
-      {
-        "name": "Dodge & Cox Inc.",
-        "type": "institutionnel",
-        "stake_pct": 3.4
-      }
-    ],
-    "extraction_status": "heuristic_real",
-    "source": "def14a_local_regex",
-    "source_file": "sec-data/cat1-us/DEF14A/2026/BK_2026-03-05.htm.gz",
-    "verified_at": "2026-05-21T08:50:58.877919Z",
-    "ceo_name": "Mr. Robin Antony Vince",
-    "voting_structure": "Une action = une voix (structure de gouvernance standard)",
-    "_mission156_filled_at": "2026-05-21T16:48:40.469194Z",
-    "_mission156_source": "rapport financier"
-  },
-  "revenue_by_geography": {
-    "single_region_legitimate": true,
-    "_reason": "US domestic firm: revenue derived primarily from U.S. operations, no foreign geographic breakdown disclosed in 10-K (single-region legitimate).",
-    "_source": "mission-172-heuristic-us-domestic",
-    "_extracted_at": "2026-05-25T00:58:21.659Z"
-  },
-  "_kpis_hidden_by_history_detail": [
-    {
-      "short": "Assets under custody and/or administration",
-      "history_len": 1,
-      "period_type": "quarter",
-      "required": 12
-    },
-    {
-      "short": "Assets under management",
-      "history_len": 1,
-      "period_type": "year",
-      "required": 3
-    }
+ "ticker": "BK",
+ "hero_kpi_override": "Assets under Custody",
+ "_hero_override_reason": "Batch-1 SP500 enrichment 2026-05-20: original hero was generic",
+ "kpis_type_overrides": {
+  "Assets Under Management (Investment Management)": "Investment",
+  "Total Revenue": "Revenue",
+  "Net Income": "Profitability",
+  "Diluted EPS": "Profitability"
+ },
+ "_kpis_type_overrides_source": "scripts/interp-risks-fill/fill-interp-types.py (sub-agent #88, heuristic pattern match)",
+ "_kpis_type_overrides_at": "2026-05-25T14:36:29Z",
+ "overrides_governance": {
+  "voting_structure_note": "Structure de vote ordinaire présumée (DEF14A, pas de mention dual class).",
+  "ceo_total_comp_m": 83.5,
+  "top_capital": [
+   {
+    "name": "Blackrock Inc.",
+    "type": "institutionnel",
+    "stake_pct": 8.95
+   },
+   {
+    "name": "Vanguard Capital Management LLC",
+    "type": "institutionnel",
+    "stake_pct": 6.49
+   },
+   {
+    "name": "State Street Corporation",
+    "type": "institutionnel",
+    "stake_pct": 4.61
+   },
+   {
+    "name": "FMR, LLC",
+    "type": "institutionnel",
+    "stake_pct": 3.97
+   },
+   {
+    "name": "Dodge & Cox Inc.",
+    "type": "institutionnel",
+    "stake_pct": 3.4
+   }
   ],
-  "hero_quarterly_history": {
-    "short": "Total Revenue",
-    "period_type": null,
-    "history": [],
-    "skip_reason": "Le KPI 'Total Revenue' (Chiffre d'affaires) n'a pas été trouvé dans les filings fournis.",
-    "extracted_at": "2026-05-26T01:32:07.488444Z"
-  },
-  "next_earnings_date": "2026-07-15",
-  "_earnings_updated_at": "2026-05-26T22:58:32Z",
-  "_earnings_source": "calendrier financier+info",
-  "risks": [
-    {
-      "title": "Risque opérationnel et défaillance des systèmes critiques",
-      "category": "Opérationnel",
-      "severity": 5,
-      "score_rationale": "Item 1A 10-K BK met le risque opérationnel en tête : BNY agit comme custodian sur ~50 Tn$ d'actifs. Une panne ou erreur de règlement aurait des conséquences systémiques. Langage très fort. Pondération maximale.",
-      "trend": "stable",
-      "summary": "Une panne majeure ou une erreur opérationnelle sur les systèmes de custody pourrait entraîner des pertes et des sanctions lourdes.",
-      "score": 4
-    },
-    {
-      "title": "Sensibilité aux taux d'intérêt et NII",
-      "category": "Marché",
-      "severity": 5,
-      "score_rationale": "Le 10-K insiste sur la corrélation des revenus nets d'intérêts au cycle taux Fed. Langage explicite. Trend stable post-pic 2024. Pondération forte.",
-      "trend": "stable",
-      "summary": "L'évolution des taux d'intérêt influence directement le revenu net d'intérêt et la profitabilité.",
-      "score": 4
-    },
-    {
-      "title": "Cybersécurité et infrastructures financières critiques",
-      "category": "Cybersécurité",
-      "severity": 5,
-      "score_rationale": "BNY est qualifié de financial market utility. Le 10-K dédie une section à la menace cyber sur ses infrastructures. Langage très fort. Trend up. Pondération maximale.",
-      "trend": "up",
-      "summary": "Une cyberattaque majeure sur l'infrastructure custodial de BNY pourrait avoir un impact systémique et réputationnel grave.",
-      "score": 4
-    },
-    {
-      "title": "Pression sur les fees custody et compression des marges",
-      "category": "Marché",
-      "severity": 4,
-      "score_rationale": "Le 10-K mentionne la pression continue sur les frais de custody face à la concurrence (State Street, JPM, Citi). Langage explicite. Trend up.",
-      "trend": "up",
-      "summary": "La compression continue des frais de conservation et d'asset servicing limite la croissance des revenus.",
-      "score": 3
-    },
-    {
-      "title": "Réglementation systémique (G-SIB, Bâle III/IV)",
-      "category": "Réglementaire",
-      "severity": 4,
-      "score_rationale": "Le 10-K détaille le statut G-SIB de BNY et l'évolution des exigences capital (Bâle 3 endgame). Langage explicite. Trend up.",
-      "trend": "up",
-      "summary": "Le renforcement des exigences prudentielles G-SIB et Bâle augmente les contraintes capital et limite les retours.",
-      "score": 3
-    }
+  "top_voting": [
+   {
+    "name": "Blackrock Inc.",
+    "type": "institutionnel",
+    "stake_pct": 8.95
+   },
+   {
+    "name": "Vanguard Capital Management LLC",
+    "type": "institutionnel",
+    "stake_pct": 6.49
+   },
+   {
+    "name": "State Street Corporation",
+    "type": "institutionnel",
+    "stake_pct": 4.61
+   },
+   {
+    "name": "FMR, LLC",
+    "type": "institutionnel",
+    "stake_pct": 3.97
+   },
+   {
+    "name": "Dodge & Cox Inc.",
+    "type": "institutionnel",
+    "stake_pct": 3.4
+   }
   ],
-  "_risks_reextracted_at": "2026-05-27T12:13:26.202012+00:00",
-  "_risks_source_path": "/Users/yann/spx-app/sec-data/cat1-us/10K/2026/BK_2026-02-25.htm.gz",
-  "_risks_source_year": 2026,
-  "_risks_verification_needed": true,
-  "_risks_extraction_status": "no_section",
-  "kpis": [
-    {
-      "short": "AUC/A",
-      "name_fr": "Actifs en custody",
-      "name_en": "Assets Under Custody/Administration",
-      "value": 59.3,
-      "unit": "Td$",
-      "history": [
-        null,
-        null,
-        null,
-        52.1,
-        59.3
-      ],
-      "period_type": "year",
-      "yoy": "+13.8%",
-      "type": "Operationnel",
-      "signal": "AUC/A record a $59.3T",
-      "description": "Assets Under Custody and/or Administration au 31/12/2025. Indicateur cle banque depositaire.",
-      "explanation": "Assets Under Custody and/or Administration au 31/12/2025. Indicateur cle banque depositaire.",
-      "explanation_en": "AUC/A record at $59.3 trillion",
-      "signal_en": "AUC/A record at $59.3 trillion",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": false,
-      "last_data_date": "2025-12-31"
-    },
-    {
-      "short": "AUM",
-      "name_fr": "Actifs sous gestion",
-      "name_en": "Assets Under Management",
-      "value": 2.2,
-      "unit": "Td$",
-      "history": [
-        null,
-        null,
-        null,
-        2.1,
-        2.2
-      ],
-      "period_type": "year",
-      "yoy": "+4.8%",
-      "type": "Operationnel",
-      "signal": "AUM Investment Management",
-      "description": "Assets Under Management du segment Investment and Wealth Management au 31/12/2025.",
-      "explanation": "Assets Under Management du segment Investment and Wealth Management au 31/12/2025.",
-      "explanation_en": "AUM stable around $2.1-2.2T",
-      "signal_en": "AUM stable around $2.1-2.2T",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": false,
-      "last_data_date": "2025-12-31"
-    },
-    {
-      "short": "Fee Revenue",
-      "name_fr": "Revenu de commissions",
-      "name_en": "Total Fee Revenue (9M)",
-      "value": 10681,
-      "unit": "M$",
-      "history": [
-        null,
-        null,
-        null,
-        10107,
-        10681
-      ],
-      "period_type": "year",
-      "yoy": "+5.7%",
-      "type": "Mix revenu",
-      "signal": "72% du revenu total",
-      "description": "Revenu de commissions sur 9 mois 2025 (custody, investment services, M&A). 72% du revenu.",
-      "explanation": "Revenu de commissions sur 9 mois 2025 (custody, investment services, M&A). 72% du revenu.",
-      "explanation_en": "Fees +6% YoY, 72% of revenue",
-      "signal_en": "Fees +6% YoY, 72% of revenue",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": false,
-      "last_data_date": "2025-09-30"
-    },
-    {
-      "short": "Fee Mix",
-      "name_fr": "Part commissions",
-      "name_en": "Fee Revenue Share",
-      "value": 72,
-      "unit": "%",
-      "history": [
-        null,
-        null,
-        null,
-        73,
-        72
-      ],
-      "period_type": "year",
-      "yoy": "-1pp",
-      "type": "Mix revenu",
-      "signal": "Modele fee-based dominant",
-      "description": "Part des commissions dans le revenu total. Modele economique tres fee-based versus banques traditionnelles.",
-      "explanation": "Part des commissions dans le revenu total. Modele economique tres fee-based versus banques traditionnelles.",
-      "explanation_en": "Fee-based model: 72% of revenue",
-      "signal_en": "Fee-based model: 72% of revenue",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": false,
-      "last_data_date": "2025-09-30"
-    },
-    {
-      "short": "Pre-tax Margin",
-      "name_fr": "Marge pre-tax",
-      "name_en": "Pre-tax Operating Margin (9M)",
-      "value": 35,
-      "unit": "%",
-      "history": [
-        null,
-        null,
-        null,
-        32,
-        35
-      ],
-      "period_type": "year",
-      "yoy": "+3pp",
-      "type": "Rentabilite",
-      "signal": "Levier operationnel positif",
-      "description": "Marge pre-tax operationnelle 9 mois 2025. Levier op positif visible.",
-      "explanation": "Marge pre-tax operationnelle 9 mois 2025. Levier op positif visible.",
-      "explanation_en": "Operating leverage positive +3pp",
-      "signal_en": "Operating leverage positive +3pp",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": false,
-      "last_data_date": "2025-09-30"
-    },
-    {
-      "short": "ROTCE",
-      "name_fr": "Rentabilite tangible",
-      "name_en": "Return on Tangible Common Equity",
-      "value": 25.9,
-      "unit": "%",
-      "history": [
-        null,
-        null,
-        null,
-        22.7,
-        25.9
-      ],
-      "period_type": "year",
-      "yoy": "+3.2pp",
-      "type": "Rentabilite",
-      "signal": "ROTCE >25%",
-      "description": "Return on Tangible Common Equity (annualise) 9M 2025. Non-GAAP. Mesure cle de rentabilite bancaire.",
-      "explanation": "Return on Tangible Common Equity (annualise) 9M 2025. Non-GAAP. Mesure cle de rentabilite bancaire.",
-      "explanation_en": "Strong ROTCE expansion to 25.9%",
-      "signal_en": "Strong ROTCE expansion to 25.9%",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": false,
-      "last_data_date": "2025-09-30"
-    },
-    {
-      "short": "Net Interest Margin",
-      "name_fr": "Marge nette d interet",
-      "name_en": "Net Interest Margin (9M)",
-      "value": 1.3,
-      "unit": "%",
-      "history": [
-        null,
-        null,
-        null,
-        1.16,
-        1.3
-      ],
-      "period_type": "year",
-      "yoy": "+14bp",
-      "type": "Rentabilite",
-      "signal": "Expansion NIM",
-      "description": "Net Interest Margin annualisee. Expansion sur 9M 2025 vs 2024.",
-      "explanation": "Net Interest Margin annualisee. Expansion sur 9M 2025 vs 2024.",
-      "explanation_en": "NIM expansion +14bps YoY",
-      "signal_en": "NIM expansion +14bps YoY",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": false,
-      "last_data_date": "2025-09-30"
-    },
-    {
-      "short": "Assets under custody and/or administration",
-      "period_type": "year",
-      "value": 59.3,
-      "history": [
-        null,
-        null,
-        null,
-        null,
-        59.3
-      ],
-      "type": "Bilan",
-      "nature": "Structurel",
-      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
-      "_fix_log": [
-        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
-      ]
-    },
-    {
-      "short": "Assets under management",
-      "period_type": "year",
-      "value": 2.2,
-      "history": [
-        null,
-        null,
-        null,
-        null,
-        2.2
-      ],
-      "type": "Bilan",
-      "nature": "Structurel",
-      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
-    },
-    {
-      "short": "Cash & Equivalents",
-      "period_type": "year",
-      "value": 128.67,
-      "history": [
-        107.36,
-        125.19,
-        101.94,
-        128.67
-      ],
-      "type": "Cash",
-      "nature": "Structurel",
-      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
-    }
+  "extraction_status": "heuristic_real",
+  "source": "def14a_local_regex",
+  "source_file": "sec-data/cat1-us/DEF14A/2026/BK_2026-03-05.htm.gz",
+  "verified_at": "2026-05-21T08:50:58.877919Z",
+  "ceo_name": "Mr. Robin Antony Vince",
+  "voting_structure": "Une action = une voix (structure de gouvernance standard)",
+  "_mission156_filled_at": "2026-05-21T16:48:40.469194Z",
+  "_mission156_source": "rapport financier"
+ },
+ "revenue_by_geography": {
+  "single_region_legitimate": true,
+  "_reason": "US domestic firm: revenue derived primarily from U.S. operations, no foreign geographic breakdown disclosed in 10-K (single-region legitimate).",
+  "_source": "mission-172-heuristic-us-domestic",
+  "_extracted_at": "2026-05-25T00:58:21.659Z"
+ },
+ "_kpis_hidden_by_history_detail": [
+  {
+   "short": "Assets under custody and/or administration",
+   "history_len": 1,
+   "period_type": "quarter",
+   "required": 12
+  },
+  {
+   "short": "Assets under management",
+   "history_len": 1,
+   "period_type": "year",
+   "required": 3
+  }
+ ],
+ "hero_quarterly_history": {
+  "short": "Total Revenue",
+  "period_type": null,
+  "history": [],
+  "skip_reason": "Le KPI 'Total Revenue' (Chiffre d'affaires) n'a pas été trouvé dans les filings fournis.",
+  "extracted_at": "2026-05-26T01:32:07.488444Z"
+ },
+ "next_earnings_date": "2026-07-15",
+ "_earnings_updated_at": "2026-05-26T22:58:32Z",
+ "_earnings_source": "calendrier financier+info",
+ "risks": [
+  {
+   "title": "Risque opérationnel et défaillance des systèmes critiques",
+   "category": "Opérationnel",
+   "severity": 5,
+   "score_rationale": "Item 1A 10-K BK met le risque opérationnel en tête : BNY agit comme custodian sur ~50 Tn$ d'actifs. Une panne ou erreur de règlement aurait des conséquences systémiques. Langage très fort. Pondération maximale.",
+   "trend": "stable",
+   "summary": "Une panne majeure ou une erreur opérationnelle sur les systèmes de custody pourrait entraîner des pertes et des sanctions lourdes.",
+   "score": 5
+  },
+  {
+   "title": "Sensibilité aux taux d'intérêt et NII",
+   "category": "Marché",
+   "severity": 5,
+   "score_rationale": "Le 10-K insiste sur la corrélation des revenus nets d'intérêts au cycle taux Fed. Langage explicite. Trend stable post-pic 2024. Pondération forte.",
+   "trend": "stable",
+   "summary": "L'évolution des taux d'intérêt influence directement le revenu net d'intérêt et la profitabilité.",
+   "score": 5
+  },
+  {
+   "title": "Cybersécurité et infrastructures financières critiques",
+   "category": "Cybersécurité",
+   "severity": 5,
+   "score_rationale": "BNY est qualifié de financial market utility. Le 10-K dédie une section à la menace cyber sur ses infrastructures. Langage très fort. Trend up. Pondération maximale.",
+   "trend": "up",
+   "summary": "Une cyberattaque majeure sur l'infrastructure custodial de BNY pourrait avoir un impact systémique et réputationnel grave.",
+   "score": 5
+  },
+  {
+   "title": "Pression sur les fees custody et compression des marges",
+   "category": "Marché",
+   "severity": 4,
+   "score_rationale": "Le 10-K mentionne la pression continue sur les frais de custody face à la concurrence (State Street, JPM, Citi). Langage explicite. Trend up.",
+   "trend": "up",
+   "summary": "La compression continue des frais de conservation et d'asset servicing limite la croissance des revenus.",
+   "score": 4
+  },
+  {
+   "title": "Réglementation systémique (G-SIB, Bâle III/IV)",
+   "category": "Réglementaire",
+   "severity": 4,
+   "score_rationale": "Le 10-K détaille le statut G-SIB de BNY et l'évolution des exigences capital (Bâle 3 endgame). Langage explicite. Trend up.",
+   "trend": "up",
+   "summary": "Le renforcement des exigences prudentielles G-SIB et Bâle augmente les contraintes capital et limite les retours.",
+   "score": 4
+  }
+ ],
+ "_risks_reextracted_at": "2026-05-27T12:13:26.202012+00:00",
+ "_risks_source_path": "/Users/yann/spx-app/sec-data/cat1-us/10K/2026/BK_2026-02-25.htm.gz",
+ "_risks_source_year": 2026,
+ "_risks_verification_needed": true,
+ "_risks_extraction_status": "no_section",
+ "kpis": [
+  {
+   "short": "AUC/A",
+   "name_fr": "Actifs en custody",
+   "name_en": "Assets Under Custody/Administration",
+   "value": 59.3,
+   "unit": "Td$",
+   "history": [
+    null,
+    null,
+    null,
+    52.1,
+    59.3
+   ],
+   "period_type": "year",
+   "yoy": "+13.8%",
+   "type": "Operationnel",
+   "signal": "AUC/A record a $59.3T",
+   "description": "Assets Under Custody and/or Administration au 31/12/2025. Indicateur cle banque depositaire.",
+   "explanation": "Assets Under Custody and/or Administration au 31/12/2025. Indicateur cle banque depositaire.",
+   "explanation_en": "AUC/A record at $59.3 trillion",
+   "signal_en": "AUC/A record at $59.3 trillion",
+   "nature": "Structurel",
+   "comparable": "Comparable",
+   "is_wow": false,
+   "is_generic": false,
+   "is_short_history": false,
+   "last_data_date": "2025-12-31"
+  },
+  {
+   "short": "AUM",
+   "name_fr": "Actifs sous gestion",
+   "name_en": "Assets Under Management",
+   "value": 2.2,
+   "unit": "Td$",
+   "history": [
+    null,
+    null,
+    null,
+    2.1,
+    2.2
+   ],
+   "period_type": "year",
+   "yoy": "+4.8%",
+   "type": "Operationnel",
+   "signal": "AUM Investment Management",
+   "description": "Assets Under Management du segment Investment and Wealth Management au 31/12/2025.",
+   "explanation": "Assets Under Management du segment Investment and Wealth Management au 31/12/2025.",
+   "explanation_en": "AUM stable around $2.1-2.2T",
+   "signal_en": "AUM stable around $2.1-2.2T",
+   "nature": "Structurel",
+   "comparable": "Comparable",
+   "is_wow": false,
+   "is_generic": false,
+   "is_short_history": false,
+   "last_data_date": "2025-12-31"
+  },
+  {
+   "short": "Fee Revenue",
+   "name_fr": "Revenu de commissions",
+   "name_en": "Total Fee Revenue (9M)",
+   "value": 10681,
+   "unit": "M$",
+   "history": [
+    null,
+    null,
+    null,
+    10107,
+    10681
+   ],
+   "period_type": "year",
+   "yoy": "+5.7%",
+   "type": "Mix revenu",
+   "signal": "72% du revenu total",
+   "description": "Revenu de commissions sur 9 mois 2025 (custody, investment services, M&A). 72% du revenu.",
+   "explanation": "Revenu de commissions sur 9 mois 2025 (custody, investment services, M&A). 72% du revenu.",
+   "explanation_en": "Fees +6% YoY, 72% of revenue",
+   "signal_en": "Fees +6% YoY, 72% of revenue",
+   "nature": "Structurel",
+   "comparable": "Comparable",
+   "is_wow": false,
+   "is_generic": false,
+   "is_short_history": false,
+   "last_data_date": "2025-09-30"
+  },
+  {
+   "short": "Fee Mix",
+   "name_fr": "Part commissions",
+   "name_en": "Fee Revenue Share",
+   "value": 72,
+   "unit": "%",
+   "history": [
+    null,
+    null,
+    null,
+    73,
+    72
+   ],
+   "period_type": "year",
+   "yoy": "-1pp",
+   "type": "Mix revenu",
+   "signal": "Modele fee-based dominant",
+   "description": "Part des commissions dans le revenu total. Modele economique tres fee-based versus banques traditionnelles.",
+   "explanation": "Part des commissions dans le revenu total. Modele economique tres fee-based versus banques traditionnelles.",
+   "explanation_en": "Fee-based model: 72% of revenue",
+   "signal_en": "Fee-based model: 72% of revenue",
+   "nature": "Structurel",
+   "comparable": "Comparable",
+   "is_wow": false,
+   "is_generic": false,
+   "is_short_history": false,
+   "last_data_date": "2025-09-30"
+  },
+  {
+   "short": "Pre-tax Margin",
+   "name_fr": "Marge pre-tax",
+   "name_en": "Pre-tax Operating Margin (9M)",
+   "value": 35,
+   "unit": "%",
+   "history": [
+    null,
+    null,
+    null,
+    32,
+    35
+   ],
+   "period_type": "year",
+   "yoy": "+3pp",
+   "type": "Rentabilite",
+   "signal": "Levier operationnel positif",
+   "description": "Marge pre-tax operationnelle 9 mois 2025. Levier op positif visible.",
+   "explanation": "Marge pre-tax operationnelle 9 mois 2025. Levier op positif visible.",
+   "explanation_en": "Operating leverage positive +3pp",
+   "signal_en": "Operating leverage positive +3pp",
+   "nature": "Structurel",
+   "comparable": "Comparable",
+   "is_wow": false,
+   "is_generic": false,
+   "is_short_history": false,
+   "last_data_date": "2025-09-30"
+  },
+  {
+   "short": "ROTCE",
+   "name_fr": "Rentabilite tangible",
+   "name_en": "Return on Tangible Common Equity",
+   "value": 25.9,
+   "unit": "%",
+   "history": [
+    null,
+    null,
+    null,
+    22.7,
+    25.9
+   ],
+   "period_type": "year",
+   "yoy": "+3.2pp",
+   "type": "Rentabilite",
+   "signal": "ROTCE >25%",
+   "description": "Return on Tangible Common Equity (annualise) 9M 2025. Non-GAAP. Mesure cle de rentabilite bancaire.",
+   "explanation": "Return on Tangible Common Equity (annualise) 9M 2025. Non-GAAP. Mesure cle de rentabilite bancaire.",
+   "explanation_en": "Strong ROTCE expansion to 25.9%",
+   "signal_en": "Strong ROTCE expansion to 25.9%",
+   "nature": "Structurel",
+   "comparable": "Comparable",
+   "is_wow": false,
+   "is_generic": false,
+   "is_short_history": false,
+   "last_data_date": "2025-09-30"
+  },
+  {
+   "short": "Net Interest Margin",
+   "name_fr": "Marge nette d interet",
+   "name_en": "Net Interest Margin (9M)",
+   "value": 1.3,
+   "unit": "%",
+   "history": [
+    null,
+    null,
+    null,
+    1.16,
+    1.3
+   ],
+   "period_type": "year",
+   "yoy": "+14bp",
+   "type": "Rentabilite",
+   "signal": "Expansion NIM",
+   "description": "Net Interest Margin annualisee. Expansion sur 9M 2025 vs 2024.",
+   "explanation": "Net Interest Margin annualisee. Expansion sur 9M 2025 vs 2024.",
+   "explanation_en": "NIM expansion +14bps YoY",
+   "signal_en": "NIM expansion +14bps YoY",
+   "nature": "Structurel",
+   "comparable": "Comparable",
+   "is_wow": false,
+   "is_generic": false,
+   "is_short_history": false,
+   "last_data_date": "2025-09-30"
+  },
+  {
+   "short": "Assets under custody and/or administration",
+   "period_type": "year",
+   "value": 59.3,
+   "history": [
+    null,
+    null,
+    null,
+    null,
+    59.3
+   ],
+   "type": "Bilan",
+   "nature": "Structurel",
+   "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+   "_fix_log": [
+    "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+   ]
+  },
+  {
+   "short": "Assets under management",
+   "period_type": "year",
+   "value": 2.2,
+   "history": [
+    null,
+    null,
+    null,
+    null,
+    2.2
+   ],
+   "type": "Bilan",
+   "nature": "Structurel",
+   "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+  },
+  {
+   "short": "Cash & Equivalents",
+   "period_type": "year",
+   "value": 128.67,
+   "history": [
+    107.36,
+    125.19,
+    101.94,
+    128.67
+   ],
+   "type": "Cash",
+   "nature": "Structurel",
+   "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+  }
+ ],
+ "_kpis_specific_extracted_at": "2026-05-28T01:32:17+00:00",
+ "_is_short_history_corrected_at": "2026-05-28",
+ "hero_last_data_date_override": "2026-03-31",
+ "_hero_last_data_date_refreshed_at": "2026-05-28T04:41:31.297003+00:00",
+ "tagline_fr": "Conservateur d'actifs et gestionnaire mondial pour clients institutionnels.",
+ "events_fr": [
+  {
+   "date": "2026-05-09",
+   "title_fr": "Selon Andreessen Horowitz, des agents IA comme acteurs économiques autonomes dans cinq ans n'est pas un saut",
+   "description_fr": "Andreessen Horowitz clôture son cinquième fonds crypto sur une thèse digne de la science-fiction, des agents IA autonomes détenant des wallets crypto, gagnant des revenus et opérant comme acteurs économiques indépendants d'ici cinq ans."
+  },
+  {
+   "date": "2026-05-07",
+   "title_fr": "BNY Mellon va lancer la conservation crypto Bitcoin et Ethereum aux Émirats arabes unis",
+   "description_fr": "Le géant de Wall Street BNY Mellon (désormais BNY) proposera la conservation d'actifs crypto à Abu Dhabi, en commençant par Bitcoin et Ethereum, avec d'autres services prévus."
+  },
+  {
+   "date": "2026-05-05",
+   "title_fr": "L'action BNY bondit de 65 % alors que les recrutements IA s'accélèrent",
+   "description_fr": "BNY recrute plus d'analystes et de stagiaires alors que les compétences IA dopent la productivité et soutiennent la refonte opérationnelle."
+  },
+  {
+   "date": "2026-04-27",
+   "title_fr": "Emily Portney (BNY) sur les services de titres, l'IA et l'avenir des marchés",
+   "description_fr": "Emily Portney (BNY) explique comment les services de titres irriguent discrètement les marchés mondiaux et pourquoi cette activité est passée de l'arrière-plan au cœur de l'innovation financière."
+  }
+ ],
+ "stories_body_fr": [
+  {
+   "kpi_short": "Assets under custody and/or administration",
+   "body_fr": "La société détient une vaste quantité d'actifs en garde ou en administration, indicateur clé de sa position de leader sur le marché mondial des services de garde."
+  }
+ ],
+ "kpis_description_fr": {},
+ "hero_kpi_rationale_fr": "Ce KPI est le Hero car il représente l'activité principale de la société, génère la majorité de ses revenus de frais et constitue un indicateur clé de sa position de leader dans les services de garde d'actifs et d'administration.",
+ "kpis_supplementary": [
+  {
+   "short": "Pre-tax Operating Margin",
+   "name_fr": "Marge opérationnelle avant impôt",
+   "name_en": "Pre-tax Operating Margin",
+   "value": 31,
+   "unit": "%",
+   "yoy": "+3 pts",
+   "history": [
+    29,
+    26,
+    24,
+    28,
+    31
+   ],
+   "period_type": "year",
+   "type": "Marge",
+   "nature": "Performance",
+   "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+  },
+  {
+   "short": "Tier 1 Leverage Ratio",
+   "name_fr": "Ratio de levier Tier 1",
+   "name_en": "Tier 1 Leverage Ratio",
+   "value": 5.9,
+   "unit": "%",
+   "yoy": "+0.3 pt",
+   "history": [
+    6.3,
+    5.5,
+    5.3,
+    5.6,
+    5.9
+   ],
+   "period_type": "year",
+   "type": "Bilan",
+   "nature": "Structurel",
+   "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+  },
+  {
+   "short": "Pershing AUC",
+   "name_fr": "Actifs sous administration Pershing",
+   "name_en": "Pershing Assets Under Administration",
+   "value": 2700,
+   "unit": "Md $",
+   "yoy": "+15%",
+   "history": [
+    2100,
+    2400,
+    1900,
+    2350,
+    2700
+   ],
+   "period_type": "year",
+   "type": "Bilan",
+   "nature": "Structurel",
+   "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+  },
+  {
+   "short": "Fee Revenue Share",
+   "name_fr": "Part des commissions dans les revenus totaux",
+   "name_en": "Fee Revenue Share of Total Revenue",
+   "value": 74,
+   "unit": "%",
+   "yoy": "+1 pt",
+   "history": [
+    78,
+    77,
+    71,
+    73,
+    74
+   ],
+   "period_type": "year",
+   "type": "Revenue",
+   "nature": "Structurel",
+   "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+  },
+  {
+   "short": "Capex",
+   "name_fr": "Investissements (Capex)",
+   "name_en": "Capital Expenditures",
+   "value": 1.55,
+   "unit": "Mds $",
+   "yoy": "+5.4%",
+   "history": [
+    1.22,
+    1.35,
+    1.22,
+    1.47,
+    1.55
+   ],
+   "period_type": "year",
+   "_source": "SEC XBRL",
+   "_extracted_at": "2026-05-28T21:07:10+00:00",
+   "type": "Investissement",
+   "nature": "Structurel",
+   "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+  }
+ ],
+ "_kpis_supplementary_at": "2026-05-28T16:53:07Z",
+ "_kpis_supplementary_source": "manual_extract_with_public_filings_cross_check",
+ "financial_snapshot": {
+  "market_cap_usd": 94143750144,
+  "market_cap_mds_dollars": 94.14,
+  "pe_ratio": 17.01737,
+  "pe_ttm": 17.01737,
+  "forward_pe": 14.225132,
+  "eps_ttm": 8.06,
+  "beta": 1.068,
+  "dividend_yield_pct": 0.0153,
+  "regular_market_price": null,
+  "high_52w": 141.65,
+  "low_52w": 87.41,
+  "price_52w_high": 141.65,
+  "price_52w_low": 87.41,
+  "day_change_pct": null,
+  "currency": "USD",
+  "_financial_snapshot_refreshed_at": "2026-05-28T19:33:57.436372Z"
+ },
+ "_hero_kpi_override_orphan_flag": "Assets Under Management (Investment Management)",
+ "_hero_kpi_override_orphan_flag_at": "2026-05-28",
+ "_hero_kpi_override_orphan_flag_by": "CONV-SUBAGENT-POLISH",
+ "_hero_kpi_override_orphan_flag_reason": "hero_kpi_override 'Assets Under Management (Investment Management)' does not match any short in kpis[], stories_kpis[], or kpis_supplementary[]",
+ "sector_fr": "Services financiers",
+ "ai_positioning": {
+  "stance": "explorer",
+  "summary": "Bank of New York Mellon (BNY), premier custodian mondial avec environ 52 trillions USD d'AUC/A, deploie l'IA de maniere structuree dans la custody, l'asset servicing et les operations via sa plateforme Eliza (assistant IA interne) et des partenariats OpenAI/Microsoft. Le positionnement IA est celui d'un explorer ambitieux dans la finance institutionnelle, avec un programme transformation digital pilote par le CEO Robin Vince.",
+  "evidence": [
+   "Lancement en 2024 d'Eliza, plateforme IA interne basee sur OpenAI/Microsoft Azure, deployee a environ 50 000 collaborateurs pour la productivite, la synthese et l'automatisation des workflows operationnels.",
+   "Partenariat strategique avec OpenAI annonce 2024 incluant l'usage de GPT-4 sur les fonctions de servicing client, KYC, et analyse de documents (prospectus, contrats).",
+   "Plateforme Wove (lancement 2023) pour wealth management technology integrant analytics et IA pour les advisors, distribuee aux RIA et broker-dealers.",
+   "Investissements IT et IA mentionnes dans la lettre du CEO Robin Vince (2024) comme pilier du programme 'One BNY' et levier d'amelioration du pretax operating margin (objectif 33%+).",
+   "Mention de l'IA generative dans le 10-K FY2024 (revenus environ 18,6 Mds USD) avec focus sur l'efficacite operationnelle et la differenciation des services Asset Servicing, Issuer Services et Market & Wealth Services."
   ],
-  "_kpis_specific_extracted_at": "2026-05-28T01:32:17+00:00",
-  "_is_short_history_corrected_at": "2026-05-28",
-  "hero_last_data_date_override": "2026-03-31",
-  "_hero_last_data_date_refreshed_at": "2026-05-28T04:41:31.297003+00:00",
-  "tagline_fr": "Conservateur d'actifs et gestionnaire mondial pour clients institutionnels.",
-  "events_fr": [
-    {
-      "date": "2026-05-09",
-      "title_fr": "Selon Andreessen Horowitz, des agents IA comme acteurs économiques autonomes dans cinq ans n'est pas un saut",
-      "description_fr": "Andreessen Horowitz clôture son cinquième fonds crypto sur une thèse digne de la science-fiction, des agents IA autonomes détenant des wallets crypto, gagnant des revenus et opérant comme acteurs économiques indépendants d'ici cinq ans."
-    },
-    {
-      "date": "2026-05-07",
-      "title_fr": "BNY Mellon va lancer la conservation crypto Bitcoin et Ethereum aux Émirats arabes unis",
-      "description_fr": "Le géant de Wall Street BNY Mellon (désormais BNY) proposera la conservation d'actifs crypto à Abu Dhabi, en commençant par Bitcoin et Ethereum, avec d'autres services prévus."
-    },
-    {
-      "date": "2026-05-05",
-      "title_fr": "L'action BNY bondit de 65 % alors que les recrutements IA s'accélèrent",
-      "description_fr": "BNY recrute plus d'analystes et de stagiaires alors que les compétences IA dopent la productivité et soutiennent la refonte opérationnelle."
-    },
-    {
-      "date": "2026-04-27",
-      "title_fr": "Emily Portney (BNY) sur les services de titres, l'IA et l'avenir des marchés",
-      "description_fr": "Emily Portney (BNY) explique comment les services de titres irriguent discrètement les marchés mondiaux et pourquoi cette activité est passée de l'arrière-plan au cœur de l'innovation financière."
-    }
+  "source": "BK 10-K FY2024 + Letter to Shareholders 2024 + communiques OpenAI partnership",
+  "_ai_signed_by_batch_merge": "CONV-SUBAGENT-AI-BATCH009-2026-05-30",
+  "_ai_batch_merged_at": "2026-05-30T10:50:54.356028Z"
+ },
+ "governance": {
+  "board_size": 13,
+  "board_independence_pct": 92,
+  "board_women_pct": 38,
+  "_gov_signed_by_batch_merge": "CONV-SUBAGENT-GOV-BATCH009-2026-05-30",
+  "_gov_batch_merged_at": "2026-05-30T10:50:54.862253Z"
+ },
+ "_risks_signed_by_batch_merge": "CONV-SUBAGENT-RISKS-BATCH009-2026-05-30",
+ "_risks_batch_merged_at": "2026-05-30T10:50:55.290747Z",
+ "_quarterly_history_extension": {
+  "hero_kpi_short": "Total Revenue",
+  "period_type": "quarter",
+  "history": [
+   {
+    "quarter": "Q2 2021",
+    "value": 0.685,
+    "date": "2021-06-30",
+    "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
+   },
+   {
+    "quarter": "Q3 2021",
+    "value": 0.693,
+    "date": "2021-09-30",
+    "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
+   },
+   {
+    "quarter": "Q4 2021",
+    "value": 0.729,
+    "date": "2021-12-31",
+    "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
+   },
+   {
+    "quarter": "Q1 2022",
+    "value": 0.778,
+    "date": "2022-03-31",
+    "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
+   },
+   {
+    "quarter": "Q2 2022",
+    "value": 1.159,
+    "date": "2022-06-30",
+    "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
+   },
+   {
+    "quarter": "Q3 2022",
+    "value": 1.984,
+    "date": "2022-09-30",
+    "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
+   },
+   {
+    "quarter": "Q4 2022",
+    "value": 3.197,
+    "date": "2022-12-31",
+    "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
+   },
+   {
+    "quarter": "Q1 2023",
+    "value": 3.942,
+    "date": "2023-03-31",
+    "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
+   },
+   {
+    "quarter": "Q2 2023",
+    "value": 5.224,
+    "date": "2023-06-30",
+    "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
+   },
+   {
+    "quarter": "Q3 2023",
+    "value": 5.519,
+    "date": "2023-09-30",
+    "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
+   },
+   {
+    "quarter": "Q4 2023",
+    "value": 5.963,
+    "date": "2023-12-31",
+    "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
+   },
+   {
+    "quarter": "Q1 2024",
+    "value": 6.096,
+    "date": "2024-03-31",
+    "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
+   },
+   {
+    "quarter": "Q2 2024",
+    "value": 6.392,
+    "date": "2024-06-30",
+    "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
+   },
+   {
+    "quarter": "Q3 2024",
+    "value": 6.652,
+    "date": "2024-09-30",
+    "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
+   },
+   {
+    "quarter": "Q4 2024",
+    "value": 6.467,
+    "date": "2024-12-31",
+    "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
+   },
+   {
+    "quarter": "Q1 2025",
+    "value": 6.123,
+    "date": "2025-03-31",
+    "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
+   },
+   {
+    "quarter": "Q2 2025",
+    "value": 6.602,
+    "date": "2025-06-30",
+    "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
+   },
+   {
+    "quarter": "Q3 2025",
+    "value": 6.594,
+    "date": "2025-09-30",
+    "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
+   },
+   {
+    "quarter": "Q4 2025",
+    "value": 6.307,
+    "date": "2025-12-31",
+    "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
+   },
+   {
+    "quarter": "Q1 2026",
+    "value": 5.824,
+    "date": "2026-03-31",
+    "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
+   }
   ],
-  "stories_body_fr": [
-    {
-      "kpi_short": "Assets under custody and/or administration",
-      "body_fr": "La société détient une vaste quantité d'actifs en garde ou en administration, indicateur clé de sa position de leader sur le marché mondial des services de garde."
-    }
-  ],
-  "kpis_description_fr": {},
-  "hero_kpi_rationale_fr": "Ce KPI est le Hero car il représente l'activité principale de la société, génère la majorité de ses revenus de frais et constitue un indicateur clé de sa position de leader dans les services de garde d'actifs et d'administration.",
-  "kpis_supplementary": [
-    {
-      "short": "Pre-tax Operating Margin",
-      "name_fr": "Marge opérationnelle avant impôt",
-      "name_en": "Pre-tax Operating Margin",
-      "value": 31,
-      "unit": "%",
-      "yoy": "+3 pts",
-      "history": [
-        29,
-        26,
-        24,
-        28,
-        31
-      ],
-      "period_type": "year",
-      "type": "Marge",
-      "nature": "Performance",
-      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
-    },
-    {
-      "short": "Tier 1 Leverage Ratio",
-      "name_fr": "Ratio de levier Tier 1",
-      "name_en": "Tier 1 Leverage Ratio",
-      "value": 5.9,
-      "unit": "%",
-      "yoy": "+0.3 pt",
-      "history": [
-        6.3,
-        5.5,
-        5.3,
-        5.6,
-        5.9
-      ],
-      "period_type": "year",
-      "type": "Bilan",
-      "nature": "Structurel",
-      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
-    },
-    {
-      "short": "Pershing AUC",
-      "name_fr": "Actifs sous administration Pershing",
-      "name_en": "Pershing Assets Under Administration",
-      "value": 2700,
-      "unit": "Md $",
-      "yoy": "+15%",
-      "history": [
-        2100,
-        2400,
-        1900,
-        2350,
-        2700
-      ],
-      "period_type": "year",
-      "type": "Bilan",
-      "nature": "Structurel",
-      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
-    },
-    {
-      "short": "Fee Revenue Share",
-      "name_fr": "Part des commissions dans les revenus totaux",
-      "name_en": "Fee Revenue Share of Total Revenue",
-      "value": 74,
-      "unit": "%",
-      "yoy": "+1 pt",
-      "history": [
-        78,
-        77,
-        71,
-        73,
-        74
-      ],
-      "period_type": "year",
-      "type": "Revenue",
-      "nature": "Structurel",
-      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
-    },
-    {
-      "short": "Capex",
-      "name_fr": "Investissements (Capex)",
-      "name_en": "Capital Expenditures",
-      "value": 1.55,
-      "unit": "Mds $",
-      "yoy": "+5.4%",
-      "history": [
-        1.22,
-        1.35,
-        1.22,
-        1.47,
-        1.55
-      ],
-      "period_type": "year",
-      "_source": "SEC XBRL",
-      "_extracted_at": "2026-05-28T21:07:10+00:00",
-      "type": "Investissement",
-      "nature": "Structurel",
-      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
-    }
-  ],
-  "_kpis_supplementary_at": "2026-05-28T16:53:07Z",
-  "_kpis_supplementary_source": "manual_extract_with_public_filings_cross_check",
-  "financial_snapshot": {
-    "market_cap_usd": 94143750144,
-    "market_cap_mds_dollars": 94.14,
-    "pe_ratio": 17.01737,
-    "pe_ttm": 17.01737,
-    "forward_pe": 14.225132,
-    "eps_ttm": 8.06,
-    "beta": 1.068,
-    "dividend_yield_pct": 0.0153,
-    "regular_market_price": null,
-    "high_52w": 141.65,
-    "low_52w": 87.41,
-    "price_52w_high": 141.65,
-    "price_52w_low": 87.41,
-    "day_change_pct": null,
-    "currency": "USD",
-    "_financial_snapshot_refreshed_at": "2026-05-28T19:33:57.436372Z"
+  "extracted_at": "2026-06-01T20:51:18.679912+00:00",
+  "extracted_by": "Sub-agent Opus full-q chunk-04",
+  "source_tag": "InterestAndDividendIncomeOperating",
+  "cik": "0001390777"
+ },
+ "_super_kpi_inputs": {
+  "revenue_q": 5.824,
+  "op_income_q": null,
+  "ni_q": 1.63,
+  "op_cf_q": -3.013,
+  "rd_q": null,
+  "op_margin_q_pct": null,
+  "period": "Q1 2026",
+  "source_tags": {
+   "revenue_q": "InterestAndDividendIncomeOperating",
+   "ni_q": "ProfitLoss",
+   "op_cf_q": "NetCashProvidedByUsedInOperatingActivities"
   },
-  "_hero_kpi_override_orphan_flag": "Assets Under Management (Investment Management)",
-  "_hero_kpi_override_orphan_flag_at": "2026-05-28",
-  "_hero_kpi_override_orphan_flag_by": "CONV-SUBAGENT-POLISH",
-  "_hero_kpi_override_orphan_flag_reason": "hero_kpi_override 'Assets Under Management (Investment Management)' does not match any short in kpis[], stories_kpis[], or kpis_supplementary[]",
-  "sector_fr": "Services financiers",
-  "ai_positioning": {
-    "stance": "explorer",
-    "summary": "Bank of New York Mellon (BNY), premier custodian mondial avec environ 52 trillions USD d'AUC/A, deploie l'IA de maniere structuree dans la custody, l'asset servicing et les operations via sa plateforme Eliza (assistant IA interne) et des partenariats OpenAI/Microsoft. Le positionnement IA est celui d'un explorer ambitieux dans la finance institutionnelle, avec un programme transformation digital pilote par le CEO Robin Vince.",
-    "evidence": [
-      "Lancement en 2024 d'Eliza, plateforme IA interne basee sur OpenAI/Microsoft Azure, deployee a environ 50 000 collaborateurs pour la productivite, la synthese et l'automatisation des workflows operationnels.",
-      "Partenariat strategique avec OpenAI annonce 2024 incluant l'usage de GPT-4 sur les fonctions de servicing client, KYC, et analyse de documents (prospectus, contrats).",
-      "Plateforme Wove (lancement 2023) pour wealth management technology integrant analytics et IA pour les advisors, distribuee aux RIA et broker-dealers.",
-      "Investissements IT et IA mentionnes dans la lettre du CEO Robin Vince (2024) comme pilier du programme 'One BNY' et levier d'amelioration du pretax operating margin (objectif 33%+).",
-      "Mention de l'IA generative dans le 10-K FY2024 (revenus environ 18,6 Mds USD) avec focus sur l'efficacite operationnelle et la differenciation des services Asset Servicing, Issuer Services et Market & Wealth Services."
-    ],
-    "source": "BK 10-K FY2024 + Letter to Shareholders 2024 + communiques OpenAI partnership",
-    "_ai_signed_by_batch_merge": "CONV-SUBAGENT-AI-BATCH009-2026-05-30",
-    "_ai_batch_merged_at": "2026-05-30T10:50:54.356028Z"
-  },
-  "governance": {
-    "board_size": 13,
-    "board_independence_pct": 92,
-    "board_women_pct": 38,
-    "_gov_signed_by_batch_merge": "CONV-SUBAGENT-GOV-BATCH009-2026-05-30",
-    "_gov_batch_merged_at": "2026-05-30T10:50:54.862253Z"
-  },
-  "_risks_signed_by_batch_merge": "CONV-SUBAGENT-RISKS-BATCH009-2026-05-30",
-  "_risks_batch_merged_at": "2026-05-30T10:50:55.290747Z",
-  "_quarterly_history_extension": {
-    "hero_kpi_short": "Total Revenue",
-    "period_type": "quarter",
-    "history": [
-      {
-        "quarter": "Q2 2021",
-        "value": 0.685,
-        "date": "2021-06-30",
-        "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
-      },
-      {
-        "quarter": "Q3 2021",
-        "value": 0.693,
-        "date": "2021-09-30",
-        "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
-      },
-      {
-        "quarter": "Q4 2021",
-        "value": 0.729,
-        "date": "2021-12-31",
-        "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
-      },
-      {
-        "quarter": "Q1 2022",
-        "value": 0.778,
-        "date": "2022-03-31",
-        "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
-      },
-      {
-        "quarter": "Q2 2022",
-        "value": 1.159,
-        "date": "2022-06-30",
-        "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
-      },
-      {
-        "quarter": "Q3 2022",
-        "value": 1.984,
-        "date": "2022-09-30",
-        "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
-      },
-      {
-        "quarter": "Q4 2022",
-        "value": 3.197,
-        "date": "2022-12-31",
-        "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
-      },
-      {
-        "quarter": "Q1 2023",
-        "value": 3.942,
-        "date": "2023-03-31",
-        "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
-      },
-      {
-        "quarter": "Q2 2023",
-        "value": 5.224,
-        "date": "2023-06-30",
-        "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
-      },
-      {
-        "quarter": "Q3 2023",
-        "value": 5.519,
-        "date": "2023-09-30",
-        "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
-      },
-      {
-        "quarter": "Q4 2023",
-        "value": 5.963,
-        "date": "2023-12-31",
-        "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
-      },
-      {
-        "quarter": "Q1 2024",
-        "value": 6.096,
-        "date": "2024-03-31",
-        "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
-      },
-      {
-        "quarter": "Q2 2024",
-        "value": 6.392,
-        "date": "2024-06-30",
-        "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
-      },
-      {
-        "quarter": "Q3 2024",
-        "value": 6.652,
-        "date": "2024-09-30",
-        "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
-      },
-      {
-        "quarter": "Q4 2024",
-        "value": 6.467,
-        "date": "2024-12-31",
-        "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
-      },
-      {
-        "quarter": "Q1 2025",
-        "value": 6.123,
-        "date": "2025-03-31",
-        "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
-      },
-      {
-        "quarter": "Q2 2025",
-        "value": 6.602,
-        "date": "2025-06-30",
-        "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
-      },
-      {
-        "quarter": "Q3 2025",
-        "value": 6.594,
-        "date": "2025-09-30",
-        "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
-      },
-      {
-        "quarter": "Q4 2025",
-        "value": 6.307,
-        "date": "2025-12-31",
-        "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
-      },
-      {
-        "quarter": "Q1 2026",
-        "value": 5.824,
-        "date": "2026-03-31",
-        "source": "SEC EDGAR XBRL (InterestAndDividendIncomeOperating, USD, Bn)"
-      }
-    ],
-    "extracted_at": "2026-06-01T20:51:18.679912+00:00",
-    "extracted_by": "Sub-agent Opus full-q chunk-04",
-    "source_tag": "InterestAndDividendIncomeOperating",
-    "cik": "0001390777"
-  },
-  "_super_kpi_inputs": {
-    "revenue_q": 5.824,
-    "op_income_q": null,
-    "ni_q": 1.63,
-    "op_cf_q": -3.013,
-    "rd_q": null,
-    "op_margin_q_pct": null,
-    "period": "Q1 2026",
-    "source_tags": {
-      "revenue_q": "InterestAndDividendIncomeOperating",
-      "ni_q": "ProfitLoss",
-      "op_cf_q": "NetCashProvidedByUsedInOperatingActivities"
-    },
-    "currency": "USD",
-    "period_type": "quarter",
-    "_extracted_at": "2026-06-01T20:51:18.679912+00:00",
-    "_extracted_by": "Sub-agent Opus full-q chunk-04",
-    "_cik": "0001390777"
-  },
-  "_super_kpi_unavailable": {
-    "reason": "no_revenue_or_no_profitability_kpi_after_synthesis",
-    "checked_at": "2026-06-02T05:18:16.554Z",
-    "missing": {
-      "revenue": false,
-      "margin_or_op_income": true,
-      "capex": false,
-      "super_kpi_inputs_format": "scalar"
-    }
-  },
-  "_sa24g_processed_at": "2026-06-03T00:44:26.518167Z",
-  "hero_kpi_replaced_reason": "Hero repointé sur les actifs sous garde et/ou administration (AUC/A), métrique phare de BNY premier dépositaire mondial, série annuelle propre 2021-2025 re-extraite des 10-K."
+  "currency": "USD",
+  "period_type": "quarter",
+  "_extracted_at": "2026-06-01T20:51:18.679912+00:00",
+  "_extracted_by": "Sub-agent Opus full-q chunk-04",
+  "_cik": "0001390777"
+ },
+ "_super_kpi_unavailable": {
+  "reason": "no_revenue_or_no_profitability_kpi_after_synthesis",
+  "checked_at": "2026-06-02T05:18:16.554Z",
+  "missing": {
+   "revenue": false,
+   "margin_or_op_income": true,
+   "capex": false,
+   "super_kpi_inputs_format": "scalar"
+  }
+ },
+ "_sa24g_processed_at": "2026-06-03T00:44:26.518167Z",
+ "hero_kpi_replaced_reason": "Hero repointé sur les actifs sous garde et/ou administration (AUC/A), métrique phare de BNY premier dépositaire mondial, série annuelle propre 2021-2025 re-extraite des 10-K."
 }
