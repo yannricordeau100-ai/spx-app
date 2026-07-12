@@ -4,10 +4,14 @@ scripts/quarterly-refresh-detect.py
 
 Chantier CRON RAFRAICHISSEMENT TRIMESTRIEL (go Yann 12 juil 2026).
 
-Detecte les stes de l'univers V1.9.5 avec un NOUVEAU filing SEC
-(10-Q / 10-K / 8-K earnings item 2.02) pas encore traite, en comparant
-les submissions SEC EDGAR avec l'etat connu
-`.conv-state/quarterly-refresh-state.json` (par ste : dernier accession traite).
+Detecte les stes de l'univers V1.9.5 avec un NOUVEAU document SEC utilisable
+pour un ou plusieurs blocs de page ste (complement Yann 12 juil) :
+10-Q, 10-K, 8-K (items pertinents : 2.02 resultats, 5.02 dirigeants,
+1.01/2.01 M&A, 7.01/8.01 annonces, 2.05/2.06 restructurations/impairments),
+DEF 14A (gouvernance), S-1/S-4/424B (emissions/fusions, dilution),
+SC 13D/G (participations >5%). Form 4 : hors scope par defaut (FORM4_ENABLED).
+Comparaison avec l'etat connu `.conv-state/quarterly-refresh-state.json`
+(par ste : accessions deja traites). Mapping form->blocs : FORM_TO_BLOCKS.
 
 Bootstrap (ste absente du state) : la baseline = dernier filing deja present
 localement dans data-lake/<T>/{10K,10Q,8K}/. Seuls les filings SEC plus
@@ -50,9 +54,83 @@ USER_AGENT = "Mettrik-AI-Quarterly-Refresh yann@mettrik.ai"
 THROTTLE_S = 0.5
 CIK_CACHE_MAX_AGE_S = 7 * 24 * 3600
 
-WATCHED_FORMS = {"10-K", "10-Q", "8-K"}
-# 8-K retenu uniquement si item 2.02 (Results of Operations = earnings release)
-EARNINGS_ITEM = "2.02"
+# ---------------------------------------------------------------------------
+# Mapping form SEC -> blocs de page ste alimentes (complement Yann 12 juil).
+# "kpi" = bloc auto (XBRL, fait par run.py). Le reste = flags todo-llm.
+# ---------------------------------------------------------------------------
+FORM_TO_BLOCKS: dict[str, list[str]] = {
+    "10-Q": ["kpi", "segments_geo", "ec_synthesis", "stories_rotation"],
+    # 10-K : risques + segments/geo annuels + description ste + headcount +
+    # AI positioning (Items 1 / 1A)
+    "10-K": ["kpi", "segments_geo", "risks", "description", "headcount",
+             "ai_positioning", "ec_synthesis", "stories_rotation"],
+    "8-K": [],  # depend des items, cf EIGHTK_ITEM_BLOCKS
+    # Proxy annuel : bloc Gouvernance & remuneration entier (remuneration CEO,
+    # comp_detail salaire/bonus/actions, pay ratio, say-on-pay, board, top holders)
+    "DEF 14A": ["governance"],
+    # Emissions / fusions : events + dilution
+    "S-1": ["events", "dilution"],
+    "S-4": ["events", "dilution"],
+    "424B": ["events", "dilution"],  # prefixe : 424B1..424B5
+    # Participations > 5% : top holders du bloc gouvernance
+    "SC 13D": ["governance_top_holders"],
+    "SC 13G": ["governance_top_holders"],
+}
+
+# 8-K : items pertinents -> blocs. Les autres items sont ignores.
+EIGHTK_ITEM_BLOCKS: dict[str, list[str]] = {
+    "2.02": ["kpi", "ec_synthesis", "stories_rotation", "profit_warning", "events"],  # resultats
+    "5.02": ["governance", "events"],        # depart / nomination dirigeants
+    "1.01": ["events", "stories_rotation"],  # accord materiel (M&A...)
+    "2.01": ["events", "stories_rotation"],  # acquisition / cession finalisee
+    "7.01": ["events"],                      # Reg FD (annonces materielles)
+    "8.01": ["events"],                      # autres evenements materiels
+    "2.05": ["risks", "events"],             # restructurations
+    "2.06": ["risks", "events"],             # impairments
+}
+
+# Anti-bruit 424B : whitelist stricte. Les 424B2/B3/B7/B8 sont des prospectus
+# de dette / structured notes routiniers (les banques type JPM en deposent des
+# dizaines par semaine, zero info page ste). On ne garde que les vraies
+# emissions/resales : 424B1, 424B4, 424B5.
+ALLOWED_424B = {"424B1", "424B4", "424B5"}
+# Cap par form repetitif : on ne garde que les N plus recents par detection.
+MAX_PER_FORM = {"424B": 2, "SC 13D": 3, "SC 13G": 3, "8-K": 6}
+
+# Form 4 (transactions dirigeants) : HORS SCOPE par defaut (volume enorme).
+# Passer FORM4_ENABLED=True pour flagger (a reserver aux transactions
+# CEO/CFO majeures). Blocs si active : governance + events.
+FORM4_ENABLED = False
+FORM4_BLOCKS = ["governance", "events"]
+
+
+def normalize_form(form: str) -> str | None:
+    """Ramene un form SEC a sa cle FORM_TO_BLOCKS (gere /A et prefixe 424B)."""
+    if form == "4":
+        return "4" if FORM4_ENABLED else None
+    if form in FORM_TO_BLOCKS:
+        return form
+    base = form.replace("/A", "").strip()
+    if base in FORM_TO_BLOCKS:
+        return base
+    if base.startswith("424B"):
+        return "424B" if base in ALLOWED_424B else None
+    return None
+
+
+def blocks_for_filing(form_norm: str, items: str) -> list[str]:
+    """Blocs alimentes par ce filing. 8-K : union des items pertinents."""
+    if form_norm == "4":
+        return list(FORM4_BLOCKS)
+    if form_norm != "8-K":
+        return list(FORM_TO_BLOCKS[form_norm])
+    out: list[str] = []
+    for item, blocks in EIGHTK_ITEM_BLOCKS.items():
+        if item in (items or ""):
+            for b in blocks:
+                if b not in out:
+                    out.append(b)
+    return out
 
 
 def log(msg: str) -> None:
@@ -149,10 +227,10 @@ DATE_RE = re.compile(r"(\d{4}-\d{2}-\d{2})")
 
 
 def local_baseline_date(ticker: str) -> str | None:
-    """Date du filing le plus recent deja present dans data-lake/<T>/{10K,10Q,8K}."""
+    """Date du filing le plus recent deja present dans data-lake/<T>/ (10K/10Q/8K/DEF14A)."""
     folder = datalake_folder(ticker)
     dates: list[str] = []
-    for sub in ("10K", "10Q", "8K"):
+    for sub in ("10K", "10Q", "8K", "DEF14A"):
         d = folder / sub
         if not d.is_dir():
             continue
@@ -182,7 +260,8 @@ def detect_ticker(ticker: str, cik: str, state_entry: dict | None) -> tuple[list
 
     new: list[dict] = []
     for i, form in enumerate(forms):
-        if form not in WATCHED_FORMS:
+        form_norm = normalize_form(form)
+        if not form_norm:
             continue
         try:
             fdate = dates[i]
@@ -190,21 +269,34 @@ def detect_ticker(ticker: str, cik: str, state_entry: dict | None) -> tuple[list
         except IndexError:
             continue
         items = items_l[i] if i < len(items_l) else ""
-        if form == "8-K" and EARNINGS_ITEM not in (items or ""):
-            continue  # 8-K non-earnings : ignore
+        blocks = blocks_for_filing(form_norm, items)
+        if not blocks:
+            continue  # ex 8-K sans item pertinent
         if acc in processed:
             continue
         if baseline and fdate <= baseline:
             continue  # deja couvert par le data-lake existant
         new.append({
             "form": form,
+            "form_norm": form_norm,
             "date": fdate,
             "accession": acc,
             "primary_doc": docs[i] if i < len(docs) else "",
             "items": items,
+            "blocks": blocks,
         })
-    new.sort(key=lambda x: x["date"])
-    return new, None
+    # Cap anti-bruit par form repetitif : garde les plus recents
+    capped: list[dict] = []
+    by_form: dict[str, list[dict]] = {}
+    for f in new:
+        by_form.setdefault(f["form_norm"], []).append(f)
+    for fn, lst in by_form.items():
+        cap = MAX_PER_FORM.get(fn)
+        if cap and len(lst) > cap:
+            lst = sorted(lst, key=lambda x: x["date"])[-cap:]
+        capped.extend(lst)
+    capped.sort(key=lambda x: x["date"])
+    return capped, None
 
 
 def main() -> int:
@@ -238,11 +330,17 @@ def main() -> int:
         if err:
             errors.append({"ticker": t, "error": err})
         elif new:
-            has_10k = any(f["form"] == "10-K" for f in new)
+            norms = {f["form_norm"] for f in new}
+            if "10-K" in norms:
+                rtype = "annual"
+            elif "10-Q" in norms or any("kpi" in f["blocks"] for f in new):
+                rtype = "quarter"
+            else:
+                rtype = "docs"  # DEF 14A / 8-K non-earnings / S-x / SC 13D-G seuls
             detected.append({
                 "ticker": t,
                 "cik": cik,
-                "type": "annual" if has_10k else "quarter",
+                "type": rtype,
                 "filings": new,
             })
             log(f"NEW {t}: {len(new)} filing(s) → {[f['form'] + ' ' + f['date'] for f in new]}")

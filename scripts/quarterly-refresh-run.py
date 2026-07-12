@@ -163,6 +163,16 @@ def enrich_path(ticker: str) -> Path | None:
 
 
 # ---------- (a) DOWNLOAD FILINGS ----------
+# form normalise -> dossier data-lake (arborescence existante : DEF14A/ existe deja)
+FORM_DIRS = {
+    "10-K": "10K", "10-Q": "10Q", "8-K": "8K", "DEF 14A": "DEF14A",
+    "S-1": "S1", "S-4": "S4", "424B": "424B",
+    "SC 13D": "SC13D", "SC 13G": "SC13G", "4": "FORM4",
+}
+# Forms pouvant se repeter a la meme date : accession dans le nom de fichier
+MULTI_PER_DATE = {"8-K", "424B", "SC 13D", "SC 13G", "4"}
+
+
 def download_filings(ticker: str, cik: str, filings: list[dict]) -> tuple[list[str], list[str]]:
     """Telecharge les filings dans data-lake/<T>/. Retourne (paths ok, erreurs)."""
     folder = datalake_folder(ticker)
@@ -170,10 +180,12 @@ def download_filings(ticker: str, cik: str, filings: list[dict]) -> tuple[list[s
     ok: list[str] = []
     errs: list[str] = []
     for f in filings:
-        form_dir = f["form"].replace("-", "")  # 10-K -> 10K
+        form_norm = f.get("form_norm") or f["form"]
+        form_dir = FORM_DIRS.get(
+            form_norm, form_norm.replace("-", "").replace(" ", "").replace("/", ""))
         target_dir = folder / form_dir
         target_dir.mkdir(parents=True, exist_ok=True)
-        if f["form"] == "8-K":
+        if form_norm in MULTI_PER_DATE:
             fname = f"{name}_{f['date']}_{f['accession']}.htm.gz"
         else:
             fname = f"{name}_{f['date']}.htm.gz"
@@ -453,17 +465,42 @@ def refresh_kpis(ticker: str) -> dict:
 
 
 # ---------- (d) TODO LLM ----------
+# Tous les blocs LLM possibles (portes par le mapping FORM_TO_BLOCKS /
+# EIGHTK_ITEM_BLOCKS de quarterly-refresh-detect.py). "kpi" = auto, exclu.
+ALL_LLM_BLOCKS = [
+    "ec_synthesis",            # synthese Earning Call (10-Q/10-K/8-K 2.02)
+    "stories_rotation",        # rotation KPI Stories (spec dediee)
+    "risks",                   # risques (10-K, 8-K 2.05/2.06)
+    "segments_geo",            # repartition CA segments/geo (10-Q/10-K)
+    "events",                  # evenements materiels (8-K, S-1/S-4, 424B)
+    "profit_warning",          # a evaluer si ER negatif (8-K 2.02)
+    "governance",              # bloc Gouvernance & remuneration entier (DEF 14A, 8-K 5.02)
+    "governance_top_holders",  # top holders (SC 13D/G)
+    "dilution",                # emissions/fusions (S-1, S-4, 424B)
+    "description",             # description ste (10-K Item 1)
+    "headcount",               # effectifs (10-K)
+    "ai_positioning",          # positionnement IA (10-K Items 1/1A)
+]
+
+
 def llm_flags(filings: list[dict], downloaded_paths: list[str]) -> dict:
-    forms = {f["form"] for f in filings}
-    flags = {
-        "ec_synthesis": True,          # synthese Earning Call, toujours
-        "stories_rotation": True,      # spec .conv-state/quarterly-stories-rotation-spec.md
-        "risks": "10-K" in forms,      # re-extraction risques sur nouveau 10-K
-        "segments_geo": bool(forms & {"10-Q", "10-K"}),  # repartition CA
-        "events": "8-K" in forms,      # evenements materiels (M&A, guidance, dirigeants)
-        "profit_warning": "8-K" in forms,  # a evaluer : ER negatif ?
-    }
-    return flags
+    """Union des blocs LLM alimentes par les filings detectes (champ 'blocks'
+    pose par detect.py). Fallback legacy si 'blocks' absent."""
+    blocks: set[str] = set()
+    for f in filings:
+        if f.get("blocks"):
+            blocks.update(f["blocks"])
+        else:  # legacy (detected.json ancien format)
+            form = f.get("form_norm") or f["form"]
+            if form in ("10-Q", "10-K"):
+                blocks.update(["kpi", "segments_geo", "ec_synthesis", "stories_rotation"])
+            if form == "10-K":
+                blocks.update(["risks", "description", "headcount", "ai_positioning"])
+            if form == "8-K":
+                blocks.update(["kpi", "ec_synthesis", "stories_rotation",
+                               "profit_warning", "events"])
+    blocks.discard("kpi")  # bloc auto (XBRL), fait par ce script
+    return {b: (b in blocks) for b in ALL_LLM_BLOCKS}
 
 
 def append_todo_llm(ticker: str, item: dict, filings: list[dict], paths: list[str]) -> dict:
