@@ -109,6 +109,23 @@ async function auditTicker(t: string): Promise<{ ticker: string; issues: Issue[]
     else if (!q && h.length < 5) issues.push({ code: "H2", detail: `hero "${hero.short}" annuel ${h.length} pts (<5 ans)` });
   }
 
+  // ---- Répartition CA : segments / geography ----
+  // Accepte 2+ slices OU tags _single_segment / _single_geography /
+  // _geography_not_disclosed / single_region_legitimate (mono-segment /
+  // mono-region légitime documenté).
+  const seg = (c as unknown as { revenue_by_segment?: Record<string, unknown> }).revenue_by_segment;
+  const segSlices = seg && Array.isArray(seg.slices) ? (seg.slices as unknown[]).length : 0;
+  const segSingle = !!(seg && (seg._single_segment || seg.single_segment || seg._single_segment_legitimate || seg.single_segment_legitimate));
+  if (segSlices < 2 && !segSingle) {
+    issues.push({ code: "SEG", detail: `segments slices=${segSlices} sans tag _single_segment` });
+  }
+  const geo = (c as unknown as { revenue_by_geography?: Record<string, unknown> }).revenue_by_geography;
+  const geoSlices = geo && Array.isArray(geo.slices) ? (geo.slices as unknown[]).length : 0;
+  const geoSingle = !!(geo && (geo._single_geography || geo.single_geography || geo._geography_not_disclosed || geo.geography_not_disclosed || geo.single_region_legitimate || geo._single_region_legitimate));
+  if (geoSlices < 2 && !geoSingle) {
+    issues.push({ code: "GEO", detail: `geography slices=${geoSlices} sans tag _single_geography/_geography_not_disclosed` });
+  }
+
   // ---- Stories (règle UI exacte) ----
   const mp = (c as unknown as { market_positions?: unknown[] }).market_positions as never[] | undefined;
   if (!hasStories(kpis, mp)) {
