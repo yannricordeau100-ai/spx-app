@@ -84,6 +84,110 @@ const STOCK_NAME_PATTERNS = [
   /\bper\s+piece\b/i,
   /\bpar\s+pi[eè]ce\b/i,
   /\bpar\s+colis\b/i,
+  // Yann 12 juil 2026 (chunk 1 vue annuelle vide) : moyennes par unite et
+  // comptages point-in-time classes flow a tort (AVB avg_monthly_rev,
+  // AVB dev_pipeline, CCL per diems PCD/ALBD, CHTR ARPU + lignes mobiles,
+  // CASY marge par gallon + nombre de magasins).
+  /\barpu\b/i,
+  /\bpar\s+jour\s+passager\b/i, // CCL Ticket/Onboard per PCD
+  /\bper\s+pcd\b|perpcd/i,
+  /\balbd\b/i, // CCL FuelCostALBD (cout par ALBD)
+  /\bpipeline\s+d[ée]veloppement\b|\bd[ée]veloppement\s+pipeline\b|\bdev(elopment)?\s+pipeline\b/i,
+  /\blignes?\s+mobiles?\b|\bmobile\s+lines?\b/i,
+  /\bnombre\s+total\s+de\s+magasins\b|\btotal\s+stores?\b/i,
+  /\bmensuel\s+moyen\b|\bmoyen\s+mensuel\b/i,
+  // Yann 12 juil 2026 (chunk 2 vue annuelle vide) : encours contractuel
+  // point-in-time (Gartner GTS/GBS Contract Value) + revenu par chambre
+  // disponible (MAR RevPAR = moyenne de periode, jamais sommable).
+  /\bcontract\s+value\b/i,
+  /\bvaleur\s+contractuelle\b/i,
+  /\brevpar\b/i,
+  /\bper\s+available\s+room\b/i,
+  // Yann 12 juil 2026 (chunk 3 vue annuelle vide) : moyennes par compte /
+  // par chambre occupee (VZ ARPA, VTR RevPOR) + surface operee point-in-time
+  // (ARE "Total Operating RSF") classees flow a tort.
+  /\barpa\b/i,
+  /\brevpor\b/i,
+  /\bper\s+occupied\s+(room|bed|unit)\b/i,
+  /\boperating\s+rsf\b/i,
+  // Yann 12 juil 2026 (chunk 0 vue annuelle vide) : comptages fin de periode
+  // classes flow a tort — polices en vigueur (ALL pif_auto/pif_home), prets
+  // au bilan (RJF BANK_LOANS "Loans Held for Investment"), nombre de
+  // conseillers (RJF FA_COUNT "Financial Advisor Count").
+  /\bpolic(?:ies|es)\s+in\s+force\b/i,
+  /\bpolices\s+en\s+vigueur\b/i,
+  /\bloans?\s+held\b/i,
+  /\bpr[eê]ts\s+bancaires\b/i,
+  /\badvisor\s+count\b/i,
+  /\bnombre\s+de\s+conseillers\b/i,
+  // Yann 12 juil 2026 (chunk 4 vue annuelle vide) : comptages de membres fin
+  // de periode (CVS Medicare Advantage Membership) classes flow a tort.
+  /\bmembership\b/i,
+  /\bmembres\b/i,
+  // Yann 12 juil 2026 (chunk 7 vue annuelle vide) : prix moyen chambre
+  // (WYNN "Average Daily Rate" = moyenne de periode), comptage de magasins
+  // fin de periode (ULTA "Store Count") et actifs clients fin de periode
+  // (AMP "Total Client Assets") classes flow a tort.
+  /\baverage\s+daily\s+rate\b/i,
+  /\bprix\s+moyen\s+chambre\b/i,
+  /\bstore\s+count\b/i,
+  /\bnombre\s+de\s+magasins\b/i,
+  /\bclient\s+assets\b/i,
+  /\bactifs\s+clients\b/i,
+  // Yann 12 juil 2026 (chunk 9 vue annuelle vide) : ARR (Annualized Recurring
+  // Revenue GDDY) = snapshot fin de periode annualise, pas sommable. CASM/CASM-X
+  // (LUV Cost per Available Seat Mile) = taux moyen de periode. Fleet Total
+  // (LUV nombre d'appareils) et Restaurant Count (MCD comptage etablissements)
+  // = comptages point-in-time.
+  /\bannualized\s+recurring\s+revenue\b/i,
+  /\brevenu\s+r[eé]current\s+annualis[eé]\b/i,
+  /\bcasm(?:\b|-)/i,
+  /\bcost\s+per\s+available\s+seat\s+mile\b/i,
+  /\bfleet(?:\s+total|\s+count)?\b/i,
+  /\bnombre\s+d[' ]appareils?\b/i,
+  /\brestaurant\s+count\b/i,
+  /\bnombre\s+de\s+restaurants\b/i,
+  // Yann 12 juil 2026 (chunk 10 vue annuelle vide) : soldes de bilan (advance
+  // ticket sales, loan receivables, finance receivables) et comptages moyens
+  // classes flow a tort — sont des stocks point-in-time.
+  /\badvance\s+ticket\s+sales?\b/i,
+  /\bfuture\s+bookings?\b/i,
+  /\bloan\s+receivables?\b/i,
+  /\bcr[eé]ances?\s+(sur\s+)?pr[eê]ts\b/i,
+  /\baverage\s+active\s+accounts?\b/i,
+  /\bcomptes?\s+actifs?\s+moyens?\b/i,
+  /\bcarried\s+interest\b/i,
+  /\bcontract\s+receivables?\b/i,
+  /\bfinance\s+receivables?\b/i,
+  /\bfranchise\s+receivables?\b/i,
+  // Yann 12 juil 2026 (chunk 11 vue annuelle vide) : soldes clients point-in-
+  // time (BAC GWIM_CB "Client Balances"), comptages de clients / sites clients
+  // fin de periode (DDOG total_customers, FAST large_sites_50k "Monthly
+  // Customer Sites") classes flow a tort.
+  /\bclient\s+balances?\b/i,
+  /\bcustomers?\b/i,
+  /\bcustomer\s+sites?\b/i,
+  // Yann 12 juil 2026 (chunk 13 vue annuelle vide) : poids moyen par
+  // expedition (ODFL weight_per_shipment) = moyenne de periode, jamais
+  // sommable sur 4 trimestres. Annual = valeur FY publiee (stock).
+  /\bper\s+shipment\b/i,
+  /\bpar\s+exp[eé]dition\b/i,
+  /\bweight\s+per\b/i,
+  // Yann 12 juil 2026 (chunk 17 vue annuelle vide) : prix moyen par cas
+  // (ALGN clear_aligner_asp "USD/cas" = ASP moyen de periode), comptages
+  // point-in-time de medecins actifs (ALGN active_doctor_submitters
+  // "milliers de medecins"), soumetteurs (submitters), moyennes non
+  // sommables — ASP generique.
+  /\basp\b/i,
+  /\bprix\s+moyen\s+par\s+(cas|case|unit[eé])\b/i,
+  /\bm[eé]decins?\s+actifs?\b/i,
+  /\bactive\s+doctors?\b/i,
+  /\bsubmitters?\b/i,
+  // Yann 12 juil 2026 (chunk 20 vue annuelle vide) : comptages fin de periode
+  // point-in-time — communities (PHM community_count nombre de communautes
+  // ouvertes) classees flow a tort. Annual = valeur FY publiee (stock).
+  /\bcommunity\s+count\b/i,
+  /\bcommunit(?:y|ies)\b/i,
 ];
 
 // Yann 12 juil 2026 : unites "par jour" / "par unite de capacite" = debits
@@ -93,6 +197,39 @@ const STOCK_UNIT_PATTERNS = [
   /\/\s*d(ay)?\b/i, // MMcf/d, MB/D, boe/d
   /\/\s*apcd\b/i, // USD/APCD
   /\/\s*sq\s*\.?\s*ft\b/i, // $/sq ft
+  // Yann 12 juil 2026 (chunk 1) : moyennes par mois / par gallon
+  /\/\s*mois\b|\/\s*month\b|\/\s*mo\b/i, // $/mois (AVB), USD/mois (CHTR ARPU)
+  /\/\s*gal(lon)?s?\b/i, // cents/gallon (CASY fuel_cpg)
+  // Yann 12 juil 2026 (chunk 4 vue annuelle vide) : debits journaliers ADV
+  // (CBOE "M contrats/jour", CME "M contracts/jour"), taux par contrat
+  // (CME RPC "$/contrat") et prix/marges moyens par tonne (CF "$/ton").
+  /\/\s*jours?\b/i, // contrats/jour (ADV)
+  /\/\s*contra(?:c)?ts?\b/i, // $/contrat, $/contract (RPC)
+  /\/\s*(?:metric\s+)?tonn?e?s?\b/i, // $/ton, $/tonne (prix moyen CF)
+  // Yann 12 juil 2026 (chunk 6 vue annuelle vide) : marges moyennes par baril
+  // (PSX "Realized refining margin/bbl" en $/bbl) = moyenne de periode,
+  // jamais sommable sur 4 trimestres. Annual = valeur Q4 publiee (stock).
+  /\/\s*bbl\b/i, // $/bbl
+  // Yann 12 juil 2026 (chunk 16 vue annuelle vide) : prix moyen realise par
+  // BOE (TPL PRICE_BOE en $/Boe) = moyenne de periode, jamais sommable sur
+  // 4 trimestres. Annual = valeur Q4 publiee (stock).
+  /\/\s*bo?e\b/i, // $/BOE, $/BE
+  // Yann 12 juil 2026 (chunk 17 vue annuelle vide) : debit journalier
+  // raffinage (CVX DS_REFINERY_INPUTS "MBD" = Million Barrels per Day)
+  // = moyenne de periode, jamais sommable, unite sans slash a matcher
+  // explicitement.
+  /^mbd$|^mb\/d$|\bmbd\b/i,
+  // ALGN clear_aligner_asp unit "USD/cas" — prix moyen par cas.
+  /\/\s*cas\b/i,
+  // Yann 12 juil 2026 (chunk 20 vue annuelle vide) : prix moyen par unite
+  // energetique (EQT $/Mcfe = prix realise moyen gaz naturel) et prix moyen
+  // par traitement dialyse (DVA USD/traitement) = moyennes ponderees de
+  // periode, jamais sommables sur 4 trimestres. Annual = valeur FY publiee
+  // (stock).
+  /\/\s*mcfe?\b/i,
+  /\/\s*traitement\b/i,
+  /\/\s*treatment\b/i,
+  /\/\s*acre\b/i,
 ];
 
 /**
