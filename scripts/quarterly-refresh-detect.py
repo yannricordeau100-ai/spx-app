@@ -1,0 +1,271 @@
+#!/usr/bin/env python3
+"""
+scripts/quarterly-refresh-detect.py
+
+Chantier CRON RAFRAICHISSEMENT TRIMESTRIEL (go Yann 12 juil 2026).
+
+Detecte les stes de l'univers V1.9.5 avec un NOUVEAU filing SEC
+(10-Q / 10-K / 8-K earnings item 2.02) pas encore traite, en comparant
+les submissions SEC EDGAR avec l'etat connu
+`.conv-state/quarterly-refresh-state.json` (par ste : dernier accession traite).
+
+Bootstrap (ste absente du state) : la baseline = dernier filing deja present
+localement dans data-lake/<T>/{10K,10Q,8K}/. Seuls les filings SEC plus
+recents que cette baseline sont flagges.
+
+Sortie : `.conv-state/quarterly-refresh-detected.json`
+  {"generated_at", "dry_run", "detected": [{"ticker","type":"quarter|annual",
+    "cik","filings":[{"form","date","accession","primary_doc","items"}]}],
+   "errors": [...], "checked": N}
+
+Regles : SEC EDGAR = seule source, UA obligatoire, throttle 0.5s (2 req/s,
+bien sous la limite 10 req/s). Zero LLM, zero API payante. Read-only :
+ce script n'ecrit JAMAIS le state (c'est quarterly-refresh-run.py qui marque
+une ste comme traitee apres succes → idempotent + resume-safe).
+
+Usage :
+  python3 scripts/quarterly-refresh-detect.py                     # univers complet
+  python3 scripts/quarterly-refresh-detect.py --tickers AAPL,NVDA --dry-run
+  python3 scripts/quarterly-refresh-detect.py --limit 50
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import re
+import sys
+import time
+import urllib.request
+from datetime import datetime, timezone
+from pathlib import Path
+
+ROOT = Path("/Users/yann/spx-app")
+UNIVERSE_PATH = ROOT / "src/data/v1-9-5-clean-all-tickers.json"
+STATE_PATH = ROOT / ".conv-state/quarterly-refresh-state.json"
+CIK_CACHE_PATH = ROOT / ".conv-state/quarterly-refresh-cik-map.json"
+DEFAULT_OUT = ROOT / ".conv-state/quarterly-refresh-detected.json"
+DATALAKE = ROOT / "data-lake"
+
+USER_AGENT = "Mettrik-AI-Quarterly-Refresh yann@mettrik.ai"
+THROTTLE_S = 0.5
+CIK_CACHE_MAX_AGE_S = 7 * 24 * 3600
+
+WATCHED_FORMS = {"10-K", "10-Q", "8-K"}
+# 8-K retenu uniquement si item 2.02 (Results of Operations = earnings release)
+EARNINGS_ITEM = "2.02"
+
+
+def log(msg: str) -> None:
+    print(f"[quarterly-refresh-detect] {datetime.now(timezone.utc).isoformat()} {msg}", flush=True)
+
+
+def _ssl_context():
+    """macOS python3 sans certs systeme : utilise certifi si dispo."""
+    import ssl
+    try:
+        import certifi
+        return ssl.create_default_context(cafile=certifi.where())
+    except ImportError:
+        return ssl.create_default_context()
+
+
+_SSL_CTX = _ssl_context()
+
+
+def http_get_json(url: str) -> dict | None:
+    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+    try:
+        with urllib.request.urlopen(req, timeout=45, context=_SSL_CTX) as resp:
+            return json.loads(resp.read())
+    except Exception as e:
+        # fallback curl (meme approche que scripts/datalake/build_datalake.py)
+        import subprocess
+        try:
+            out = subprocess.run(["/usr/bin/curl", "-s", "-A", USER_AGENT, url],
+                                 capture_output=True, text=True, timeout=60)
+            return json.loads(out.stdout)
+        except Exception:
+            log(f"WARNING http fail {url}: {e}")
+            return None
+
+
+def load_universe() -> list[str]:
+    data = json.loads(UNIVERSE_PATH.read_text("utf8"))
+    return list(data.get("tickers") or [])
+
+
+def load_state() -> dict:
+    if STATE_PATH.exists():
+        try:
+            return json.loads(STATE_PATH.read_text("utf8"))
+        except Exception:
+            log(f"WARNING state file corrompu, traite comme vide : {STATE_PATH}")
+    return {"tickers": {}, "updated_at": None}
+
+
+def load_cik_map(force_refresh: bool = False) -> dict[str, str]:
+    """Mapping TICKER -> CIK (zero-padded 10). Cache local 7 jours."""
+    if not force_refresh and CIK_CACHE_PATH.exists():
+        age = time.time() - CIK_CACHE_PATH.stat().st_mtime
+        if age < CIK_CACHE_MAX_AGE_S:
+            try:
+                return json.loads(CIK_CACHE_PATH.read_text("utf8"))
+            except Exception:
+                pass
+    log("Fetch SEC company_tickers.json (refresh cache CIK)...")
+    j = http_get_json("https://www.sec.gov/files/company_tickers.json")
+    time.sleep(THROTTLE_S)
+    if not j:
+        # fallback : cache perime mieux que rien
+        if CIK_CACHE_PATH.exists():
+            return json.loads(CIK_CACHE_PATH.read_text("utf8"))
+        return {}
+    m = {v["ticker"].upper(): str(v["cik_str"]).zfill(10) for v in j.values()}
+    CIK_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
+    CIK_CACHE_PATH.write_text(json.dumps(m), "utf8")
+    return m
+
+
+def resolve_cik(ticker: str, cikmap: dict[str, str]) -> str | None:
+    for cand in (ticker, ticker.replace(".", "-"), ticker.replace("-", "."), ticker.split(".")[0]):
+        c = cikmap.get(cand.upper())
+        if c:
+            return c
+    return None
+
+
+def datalake_folder(ticker: str) -> Path:
+    """data-lake utilise le format point (BRK.B), l'univers aussi en general."""
+    p = DATALAKE / ticker
+    if p.exists():
+        return p
+    alt = DATALAKE / ticker.replace("-", ".")
+    if alt.exists():
+        return alt
+    return p
+
+
+DATE_RE = re.compile(r"(\d{4}-\d{2}-\d{2})")
+
+
+def local_baseline_date(ticker: str) -> str | None:
+    """Date du filing le plus recent deja present dans data-lake/<T>/{10K,10Q,8K}."""
+    folder = datalake_folder(ticker)
+    dates: list[str] = []
+    for sub in ("10K", "10Q", "8K"):
+        d = folder / sub
+        if not d.is_dir():
+            continue
+        for f in d.iterdir():
+            m = DATE_RE.search(f.name)
+            if m:
+                dates.append(m.group(1))
+    return max(dates) if dates else None
+
+
+def detect_ticker(ticker: str, cik: str, state_entry: dict | None) -> tuple[list[dict], str | None]:
+    """Retourne (nouveaux filings, erreur)."""
+    subs = http_get_json(f"https://data.sec.gov/submissions/CIK{cik}.json")
+    if not subs:
+        return [], "sec_submissions_unreachable"
+    recent = subs.get("filings", {}).get("recent", {})
+    forms = recent.get("form") or []
+    dates = recent.get("filingDate") or []
+    accs = recent.get("accessionNumber") or []
+    docs = recent.get("primaryDocument") or []
+    items_l = recent.get("items") or []
+
+    processed: set[str] = set((state_entry or {}).get("processed_accessions") or [])
+    baseline: str | None = (state_entry or {}).get("baseline_date")
+    if state_entry is None:
+        baseline = local_baseline_date(ticker)
+
+    new: list[dict] = []
+    for i, form in enumerate(forms):
+        if form not in WATCHED_FORMS:
+            continue
+        try:
+            fdate = dates[i]
+            acc = accs[i]
+        except IndexError:
+            continue
+        items = items_l[i] if i < len(items_l) else ""
+        if form == "8-K" and EARNINGS_ITEM not in (items or ""):
+            continue  # 8-K non-earnings : ignore
+        if acc in processed:
+            continue
+        if baseline and fdate <= baseline:
+            continue  # deja couvert par le data-lake existant
+        new.append({
+            "form": form,
+            "date": fdate,
+            "accession": acc,
+            "primary_doc": docs[i] if i < len(docs) else "",
+            "items": items,
+        })
+    new.sort(key=lambda x: x["date"])
+    return new, None
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--tickers", help="liste separee par virgules (defaut: univers V1.9.5 complet)")
+    ap.add_argument("--limit", type=int, default=0, help="cap nb de stes verifiees")
+    ap.add_argument("--dry-run", action="store_true", help="affiche seulement, n'ecrit pas le fichier detected")
+    ap.add_argument("--out", default=str(DEFAULT_OUT))
+    args = ap.parse_args()
+
+    tickers = ([t.strip().upper() for t in args.tickers.split(",") if t.strip()]
+               if args.tickers else load_universe())
+    if args.limit:
+        tickers = tickers[: args.limit]
+
+    state = load_state()
+    cikmap = load_cik_map()
+    if not cikmap:
+        log("FATAL: mapping CIK indisponible (SEC injoignable et pas de cache)")
+        return 1
+
+    detected: list[dict] = []
+    errors: list[dict] = []
+    for n, t in enumerate(tickers, 1):
+        cik = resolve_cik(t, cikmap)
+        if not cik:
+            errors.append({"ticker": t, "error": "no_cik"})
+            continue
+        entry = state.get("tickers", {}).get(t)
+        new, err = detect_ticker(t, cik, entry)
+        if err:
+            errors.append({"ticker": t, "error": err})
+        elif new:
+            has_10k = any(f["form"] == "10-K" for f in new)
+            detected.append({
+                "ticker": t,
+                "cik": cik,
+                "type": "annual" if has_10k else "quarter",
+                "filings": new,
+            })
+            log(f"NEW {t}: {len(new)} filing(s) → {[f['form'] + ' ' + f['date'] for f in new]}")
+        if n % 50 == 0:
+            log(f"progress {n}/{len(tickers)}")
+        time.sleep(THROTTLE_S)
+
+    payload = {
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "dry_run": bool(args.dry_run),
+        "checked": len(tickers),
+        "detected": detected,
+        "errors": errors,
+    }
+    if args.dry_run:
+        print(json.dumps(payload, indent=2, ensure_ascii=False))
+    else:
+        out = Path(args.out)
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(json.dumps(payload, indent=2, ensure_ascii=False), "utf8")
+        log(f"Ecrit {out} : {len(detected)} ste(s) a rafraichir, {len(errors)} erreur(s)")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

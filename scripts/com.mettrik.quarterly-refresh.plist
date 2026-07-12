@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.mettrik.quarterly-refresh</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>/Users/yann/spx-app/scripts/quarterly-refresh.sh</string>
+    </array>
+    <!-- launchd StartCalendarInterval = heure LOCALE du Mac (Europe/Paris).
+         Cible Yann : tous les jours 07h30 Europe/Paris. -->
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>7</integer>
+        <key>Minute</key>
+        <integer>30</integer>
+    </dict>
+    <key>RunAtLoad</key>
+    <false/>
+    <key>KeepAlive</key>
+    <false/>
+    <key>StandardOutPath</key>
+    <string>/Users/yann/spx-app/logs/quarterly-refresh/launchd-stdout.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/yann/spx-app/logs/quarterly-refresh/launchd-stderr.log</string>
+    <key>WorkingDirectory</key>
+    <string>/Users/yann/spx-app</string>
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+        <key>LANG</key>
+        <string>en_US.UTF-8</string>
+    </dict>
+</dict>
+</plist>
