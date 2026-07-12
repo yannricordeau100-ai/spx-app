@@ -1332,7 +1332,23 @@ export function CompanyView({
                   graphPeriod={graphPeriod}
                   onGraphPeriodChange={setGraphPeriod}
                   graphPeriodAvailable={{
-                    year: true,
+                    // Yann 12 juil 2026 : "Annuel" grisé si l'agrégation ne
+                    // produit AUCUNE FY complète (KPI quarterly sans les Q4,
+                    // ex MSFT LinkedIn revenue growth) -> plus jamais de vue
+                    // annuelle vide, quel que soit le KPI promu.
+                    year: (() => {
+                      if (active.period_type !== "quarter" && active.period_type !== "semester") return true;
+                      const kind = getKpiAggregationKind(active);
+                      const fyEnd = getFiscalAudit(company.ticker)?.fiscalYearEndMonth ?? 12;
+                      const agg = aggregateQuarterlyToAnnual(
+                        active.history ?? [],
+                        active.last_data_date,
+                        kind,
+                        fyEnd,
+                        (active as { history_periods?: string[] }).history_periods,
+                      );
+                      return agg.values.length > 0;
+                    })(),
                     // Quarter / Semester dispo selon period_type natif du KPI.
                     // (data réelle, sinon désactivé).
                     quarter: active.period_type === "quarter",
