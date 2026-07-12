@@ -60,6 +60,39 @@ const STOCK_NAME_PATTERNS = [
   /\baum\b/i,
   /\bauc\b/i,
   /\brun\s+rate\b/i,
+  // Yann 12 juil 2026 (fix vue annuelle vide) : métriques non sommables
+  // classées flow à tort — encours sous gestion et moyennes/taux publiés
+  // en valeur annuelle dans le 10-K (BX total_aum, DAL PRASM, CME ADV).
+  /\bsous\s+gestion\b/i,
+  /\bunder\s+management\b/i,
+  /\bprasm\b/i,
+  /\bper\s+available\s+seat\s+mile\b/i,
+  /\baverage\s+daily\s+volume\b/i,
+  /\bjournalier\s+moyen\b/i,
+  // Yann 12 juil 2026 (chunk 4 vue annuelle vide) : encours sous
+  // administration (RJF AUA) + taux/moyennes par unite (loyer par sq ft,
+  // yield par APCD) non sommables.
+  /\baua\b/i,
+  /\bunder\s+administration\b/i,
+  /\bsous\s+administration\b/i,
+  /\bper\s+(occupied\s+)?sq\s*\.?\s*ft\b/i,
+  /\bpar\s+pied\s+carr[ée]\b/i,
+  /\bper\s+apcd\b/i,
+  /\bpar\s+apcd\b/i,
+  // Yann 12 juil 2026 (chunk 5 vue annuelle vide) : revenu moyen par colis
+  // (UPS us_dom_rpp "Revenue Per Piece") = moyenne de periode, jamais sommable.
+  /\bper\s+piece\b/i,
+  /\bpar\s+pi[eè]ce\b/i,
+  /\bpar\s+colis\b/i,
+];
+
+// Yann 12 juil 2026 : unites "par jour" / "par unite de capacite" = debits
+// moyens de la periode, jamais sommables sur 4 trimestres (OKE MMcf/d,
+// PSX MB/D, RCL USD/APCD, PSA $/sq ft). Annual = valeur FY publiee (stock).
+const STOCK_UNIT_PATTERNS = [
+  /\/\s*d(ay)?\b/i, // MMcf/d, MB/D, boe/d
+  /\/\s*apcd\b/i, // USD/APCD
+  /\/\s*sq\s*\.?\s*ft\b/i, // $/sq ft
 ];
 
 /**
@@ -74,6 +107,10 @@ export function getKpiAggregationKind(kpi: AggKpi): KpiAggregationKind {
 
   // 1. Unité = % / ratio / pp → stock (ratio à un moment T, jamais sommable)
   if (/%|^pp$|ratio|bps|points?/i.test(unit)) return "stock";
+
+  // 1bis. Unité = taux par jour / par unité de capacité → stock (moyenne de
+  // période, jamais sommable)
+  if (STOCK_UNIT_PATTERNS.some((re) => re.test(unit))) return "stock";
 
   // 2. Type explicite stock (cf. survey dataset : "Margin", "Balance Sheet",
   //    "Profitability", "Risk", "Capital", "User", "Backlog")

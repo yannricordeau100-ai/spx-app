@@ -2531,6 +2531,7 @@ export async function loadV17Company(
       pv_score?: number;
       signal?: string;
       frequency?: string;
+      last_data_date?: string;
       history?: Array<{ q: string; v: number }>;
     }>;
   }>(kpisHautPath);
@@ -2596,6 +2597,14 @@ export async function loadV17Company(
           is_wow: true,
           is_generic: false,
           pv_score: k.pv_score ?? 0,
+          // 12 juil 2026 (fix DLR/KR) : passthrough du last_data_date propre
+          // au KPI haut de gamme quand le fichier le fournit. Sans lui,
+          // enhanceFreshness backfillait la date max des AUTRES KPIs de la
+          // sté → axe trimestriel décalé (KR héritait d'une date bidon →
+          // labels jusqu'à "T2 27"). Optionnel : aucun impact si absent.
+          ...(typeof k.last_data_date === "string" && k.last_data_date.trim().length > 0
+            ? { last_data_date: k.last_data_date }
+            : {}),
         } as AnyKPI;
       });
     if (converted.length > 0) {
