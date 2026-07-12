@@ -107,6 +107,12 @@ const SECTIONS: SandboxSection[] = [
         desc: "Qui fait quoi, Pass 3 par catégorie, audit transverse cat 1 / 2 / 3.",
       },
       {
+        href: "/sandbox/refresh-status",
+        icon: Activity,
+        label: "Suivi rafraîchissements SEC",
+        desc: "Nouveaux dépôts SEC (8-K / 10-Q / 10-K) détectés par le cron 7h30 à intégrer dans les blocs sté (risks, stories, profit_warning, ai_positioning).",
+      },
+      {
         // Yann (25 mai 2026) : kpi-builder + special-kpis + image-findings
         // + page-content + blocks-control DÉPLACÉS vers la section
         // "🎨 Création & personnalisation" pour les rassembler. Lien
