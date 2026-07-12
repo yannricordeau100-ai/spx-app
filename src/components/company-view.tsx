@@ -431,6 +431,11 @@ export function CompanyView({
   // déjà appliqués sur transcript-stories (commit a8a0883e du 14 mai).
   const chartLabelsFull = useMemo(() => {
     if (!active) return undefined;
+    // Yann 12 juil 2026 : les labels d'axe X suivent la langue du GRAPH
+    // (heroTitleLang) : T1/S1 en français, Q1/H1 en anglais. Avant, "T1 22"
+    // restait affiché (et exporté en PNG) même graph basculé EN.
+    const qPrefix = heroTitleLang === "en" ? "Q" : "T";
+    const sPrefix = heroTitleLang === "en" ? "H" : "S";
     const pt = active.period_type;
     if (pt !== "quarter" && pt !== "semester") return undefined;
     if (!active.last_data_date) return undefined;
@@ -460,7 +465,7 @@ export function CompanyView({
       let endY = endY0;
       const out: string[] = [];
       for (let i = n - 1; i >= 0; i--) {
-        out.unshift(`S${endSem} ${String(endY).slice(-2)}`);
+        out.unshift(`${sPrefix}${endSem} ${String(endY).slice(-2)}`);
         endSem -= 1;
         if (endSem === 0) { endSem = 2; endY -= 1; }
       }
@@ -506,7 +511,7 @@ export function CompanyView({
         // Mois dans la FY (1-12). FY commence au mois fyEndMonth+1.
         const monthInFY = ((calM - fyEndMonth - 1 + 12) % 12) + 1;
         const q = Math.ceil(monthInFY / 3);
-        out.unshift(`T${q} ${String(fyShort).padStart(2, "0")}`);
+        out.unshift(`${qPrefix}${q} ${String(fyShort).padStart(2, "0")}`);
         // Recule de 3 mois.
         calM -= 3;
         if (calM <= 0) { calM += 12; calY -= 1; }
@@ -519,12 +524,12 @@ export function CompanyView({
     let endY = endY0;
     const out: string[] = [];
     for (let i = n - 1; i >= 0; i--) {
-      out.unshift(`T${endQ} ${String(endY).slice(-2)}`);
+      out.unshift(`${qPrefix}${endQ} ${String(endY).slice(-2)}`);
       endQ -= 1;
       if (endQ === 0) { endQ = 4; endY -= 1; }
     }
     return out;
-  }, [active, graphPeriod, company.ticker]);
+  }, [active, graphPeriod, company.ticker, heroTitleLang]);
 
   // History adaptée :
   //  - Mode trimestriel : history brute (mais filtrée des Q non publiés en
@@ -780,13 +785,17 @@ export function CompanyView({
   const exportCagr = (() => {
     const c = cagr(active.history, displayUnit, active.period_type ?? "year");
     if (c === null) return undefined;
-    const numLoc = locale === "fr" ? "fr-FR" : locale === "de" || locale === "de-CH" ? "de-DE" : "en-US";
+    // Yann 12 juil 2026 : le PNG exporté suit la langue du GRAPH au moment du
+    // téléchargement (heroTitleLang, toggle FR/EN du titre), pas la locale de
+    // la page. Avant : titre EN mais "CAGR +12,3 %/an" restait FR.
+    const exportLang = heroTitleLang === "en" ? "en" : locale;
+    const numLoc = exportLang === "fr" ? "fr-FR" : exportLang === "de" || exportLang === "de-CH" ? "de-DE" : "en-US";
     const perYear =
-      locale === "fr"
+      exportLang === "fr"
         ? "/an"
-        : locale === "de" || locale === "de-CH"
+        : exportLang === "de" || exportLang === "de-CH"
           ? "/Jahr"
-          : locale === "nl"
+          : exportLang === "nl"
             ? "/jaar"
             : "/yr";
     // "CAGR" reste tel quel (acronyme reconnu dans toutes les locales).
@@ -802,6 +811,9 @@ export function CompanyView({
   // rend que du texte brut. Le signal vient du dataset (langue de la page) ;
   // le titre/axe suivent heroTitleLang (clic titre).
   const exportInterp = useMemo(() => {
+    // Yann 12 juil 2026 : si le graph est basculé EN alors que la page est FR,
+    // le signal n'existe qu'en FR -> on l'omet du PNG (pas de mélange de langues).
+    if (heroTitleLang === "en" && locale !== "en" && locale !== "en-GB") return "";
     const sig = typeof active.signal === "string" ? active.signal : "";
     return sig
       .replace(/<[^>]+>/g, "") // retire toutes les balises HTML
@@ -813,7 +825,7 @@ export function CompanyView({
       .replace(/&quot;/g, '"')
       .replace(/\s+/g, " ")
       .trim();
-  }, [active.signal]);
+  }, [active.signal, heroTitleLang, locale]);
 
   const comparables = useMemo(
     () => findComparable(company.ticker, active.short),
