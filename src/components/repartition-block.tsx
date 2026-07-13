@@ -105,7 +105,10 @@ export function RepartitionBlock({
 
   const hasGeo = !!(geo && geo.slices.length > 0) && geoStyles.length > 0;
   const hasSegment = !!(segment && segment.slices.length > 0) && segmentStyles.length > 0;
-  const hasAiCustomer = !!(aiCustomer && aiCustomer.slices.length > 0);
+  // Yann 13 juil 2026 : bloc "Répartition CA IA part/pro" désactivé côté UI.
+  // On garde le composant et la data, on ne rend juste plus l'onglet.
+  const hasAiCustomer: boolean = false;
+  void aiCustomer;
   if (!hasGeo && !hasSegment && !hasAiCustomer) return null;
 
   const [tab, setTab] = useState<Tab>(hasGeo ? "geo" : hasSegment ? "segment" : "ai_customer");
