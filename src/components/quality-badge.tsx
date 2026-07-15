@@ -74,11 +74,13 @@ export function QualityBadge({
     </span>
   );
 
+  // Yann 16 juil 2026 : chip percentile supprimée partout (pseudo-classement
+  // heuristique sur le YoY, trompeur). Seul le badge qualité reste.
+  void PercentileChip;
   if (layout === "inline") {
     return (
       <div className="inline-flex flex-wrap items-center gap-1.5">
         {QualityChip}
-        {PercentileChip}
       </div>
     );
   }
@@ -86,7 +88,6 @@ export function QualityBadge({
   return (
     <div className="inline-flex flex-col items-start gap-2">
       {QualityChip}
-      {PercentileChip}
     </div>
   );
 }
