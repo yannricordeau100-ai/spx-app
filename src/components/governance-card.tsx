@@ -230,6 +230,25 @@ function detectDualClass(
       "multiple vote",
     ];
     if (dualSignals.some((s) => v.includes(s))) return true;
+    // Mono-class explicite = tout aussi fiable que le dual explicite. Sans ce
+    // court-circuit, le repli heuristique (source 2) déclarait DUAL-CLASS des
+    // stés mono-class (JPM, JNJ, WMT, PYPL) simplement parce que leurs listes
+    // top_voting et top_capital différaient.
+    const monoSignals = [
+      "one share one vote",
+      "one share, one vote",
+      "one_share_one_vote",
+      "one vote per share",
+      "une action une voix",
+      "une action, une voix",
+      "une action un vote",
+      "une action, un vote",
+      "une seule classe",
+      "single class",
+      "1 vote par action",
+      "un vote par action",
+    ];
+    if (monoSignals.some((s) => v.includes(s))) return false;
   }
   // Source 2 : repli heuristique par chevauchement de noms.
   if (!voting?.length || !capital?.length) return false;

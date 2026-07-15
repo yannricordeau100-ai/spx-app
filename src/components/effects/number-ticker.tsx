@@ -30,7 +30,15 @@ export function NumberTicker({
 
   useEffect(() => {
     if (!isNumeric) return;
+    // Nouvelle cible (ex promotion d'un KPI) → repartir de zéro, sinon le
+    // timestamp de l'ancienne animation fausse le progress.
+    startedAt.current = null;
     let raf = 0;
+    let done = false;
+    const finalFormatted = `${sign}${Math.abs(target).toLocaleString(isFR ? "fr-FR" : "en-US", {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals,
+    })}`;
     const step = (t: number) => {
       if (startedAt.current === null) startedAt.current = t;
       const elapsed = t - startedAt.current;
@@ -43,10 +51,17 @@ export function NumberTicker({
       });
       setDisplay(`${sign}${formatted}`);
       if (progress < 1) raf = requestAnimationFrame(step);
+      else done = true;
     };
     raf = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(raf);
-  }, [target, duration, decimals, isNumeric, sign]);
+    // Filet de sécurité : si requestAnimationFrame est throttlé (onglet en
+    // arrière-plan), la valeur restait figée à mi-course. On force la valeur
+    // finale une fois la durée écoulée.
+    const snap = setTimeout(() => {
+      if (!done) setDisplay(finalFormatted);
+    }, duration + 250);
+    return () => { cancelAnimationFrame(raf); clearTimeout(snap); };
+  }, [target, duration, decimals, isNumeric, sign, isFR]);
 
   return <span className={className}>{display}</span>;
 }

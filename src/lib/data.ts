@@ -985,7 +985,17 @@ export function interpretStructured(
   const firstNonHero = company.kpis.find(
     (k) => k.short !== hero.short && !["Cost", "Margin", "Cash"].includes(k.type)
   );
+  // Yann 14 juil 2026 (audit T7) : un KPI en recul ne peut pas être présenté
+  // comme "Moteur de croissance" (ex Paxlovid -59 % chez PFE). On préfère un
+  // candidat en croissance à chaque niveau de priorité ; si tous les candidats
+  // reculent, on garde le meilleur mais le bullet portera le label
+  // "Croissance sous pression" (cf plus bas).
+  const growsYoy = (k: { yoy?: string | null }) =>
+    typeof k.yoy === "string" ? !k.yoy.trim().startsWith("-") : true;
   const driver =
+    segmentDrivers.find((d) => d.short !== hero.short && growsYoy(d)) ??
+    revenueDrivers.find((d) => d.short !== hero.short && growsYoy(d)) ??
+    extendedDrivers.find((d) => d.short !== hero.short && growsYoy(d)) ??
     segmentDrivers.find((d) => d.short !== hero.short) ??
     revenueDrivers.find((d) => d.short !== hero.short) ??
     extendedDrivers.find((d) => d.short !== hero.short) ??
@@ -1109,10 +1119,11 @@ export function interpretStructured(
   };
   const bullets: InterpretBullet[] = [];
   if (driver && driver.short !== hero.short) {
+    const driverDeclines = typeof driver.yoy === "string" && driver.yoy.trim().startsWith("-");
     bullets.push({
-      label: bulletLabel(locale, "driver"),
+      label: bulletLabel(locale, driverDeclines ? "driver_declining" : "driver"),
       body: bulletBodyKpi(locale, kpiName(driver), fmtVal(driver.value), formatUnit(driver.unit), String(driver.yoy ?? ""), driver.signal ?? ""),
-      tone: "pos",
+      tone: driverDeclines ? "neg" : "pos",
     });
   }
   if (risk) {
@@ -1153,7 +1164,8 @@ export function interpretStructured(
         k.type === "Profit" ||
         k.type === "Profitability" ||
         k.type === "Risk";
-      const labelKey: "cash" | "risk" | "driver" = isCash ? "cash" : isRisk ? "risk" : "driver";
+      const labelKey: "cash" | "risk" | "driver" | "driver_declining" =
+        isCash ? "cash" : isRisk ? "risk" : isNeg ? "driver_declining" : "driver";
       bullets.push({
         label: bulletLabel(locale, labelKey),
         body: bulletBodyKpi(locale, kpiName(k), fmtVal(k.value), formatUnit(k.unit), String(k.yoy ?? ""), k.signal ?? ""),

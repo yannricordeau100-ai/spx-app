@@ -901,6 +901,15 @@ function concentrationRisk(c: Company, locale: Locale): SuperKpi {
   const tier: SuperKpiTier = pct < 35 ? "premium" : pct < 50 ? "solid" : pct < 65 ? "average" : "below";
   const gauge = Math.min(100, pct);
 
+  // Libellé explicite risque : les labels qualité génériques (Premium /
+  // Solide / Moyen / Faible) se lisaient comme un niveau de risque inversé
+  // (ex 89,7 % de concentration affiché "Faible"). On nomme le risque.
+  const concLabel: LocalizedString =
+    tier === "premium" ? { en: "Low risk", fr: "Risque faible", de: "Geringes Risiko" }
+    : tier === "solid" ? { en: "Moderate risk", fr: "Risque modéré", de: "Moderates Risiko" }
+    : tier === "average" ? { en: "High risk", fr: "Risque élevé", de: "Hohes Risiko" }
+    : { en: "Very high risk", fr: "Risque très élevé", de: "Sehr hohes Risiko" };
+
   return {
     id: "conc",
     name: tr("name_conc", locale),
@@ -909,7 +918,7 @@ function concentrationRisk(c: Company, locale: Locale): SuperKpi {
     display: `${fmt(pct, 1)} %`,
     tier,
     color: TIER_COLOR[tier],
-    tierLabel: pickLoc(TIER_LABEL[tier], locale),
+    tierLabel: pickLoc(concLabel, locale),
     gaugePct: gauge,
     inputs: [`${tr("in_top_segment", locale)} : ${top.name}`, `${fmt(pct, 1)} % du Revenue`],
     formula: tr("conc_formula", locale),

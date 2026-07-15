@@ -124,7 +124,10 @@ export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, ex
       {/* Header d'unité dans le SVG. Yann 2 juin 2026 : repositionné
           juste au-dessus du premier tick Y, aligné fin sur l'axe Y. */}
       <text x={PAD_LEFT - 20} y={PAD_TOP - 24} fontSize={13} fontWeight={600} fill="#e4e4e7" fontFamily="ui-monospace, monospace" textAnchor="end">
-        % (vs N-1)
+        {/* Les deltas sont calculés vs le point précédent de la série
+            affichée : en trimestriel c'est vs le trimestre précédent,
+            pas vs N-1. Le libellé doit suivre. */}
+        {xLabels.some((l) => splitQuarterLabel(l).isQuarter) ? "% (vs trim. préc.)" : "% (vs N-1)"}
       </text>
       <defs>
         {[POS, NEG].map((c, k) => (

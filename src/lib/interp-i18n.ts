@@ -260,6 +260,14 @@ export const BULLET_LABELS = {
     "de-CH": "Wachstumstreiber",
     "nl":    "Groeimotor",
   },
+  driver_declining: {
+    "fr":    "Croissance sous pression",
+    "en":    "Growth under pressure",
+    "en-GB": "Growth under pressure",
+    "de":    "Wachstum unter Druck",
+    "de-CH": "Wachstum unter Druck",
+    "nl":    "Groei onder druk",
+  },
   risk: {
     "fr":    "Point de vigilance",
     "en":    "Point of concern",

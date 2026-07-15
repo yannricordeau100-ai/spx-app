@@ -257,6 +257,11 @@ export function RepartitionTreemap({ data, unit = "", total, accent = "#a78bfa",
                     <span style={{ fontSize: Math.max(14, Math.min(22, b.w / 8)), fontWeight: 700, fontFamily: "ui-monospace, monospace" }}>
                       {fmtPct(pct, decimals)} %
                     </span>
+                    {/* Montant en clair : chaque tranche doit porter $ ET %
+                        (règle bloc répartition, audit 14 juil 2026). */}
+                    <span style={{ fontSize: Math.max(10, Math.min(13, b.w / 14)), fontWeight: 600, fontFamily: "ui-monospace, monospace", opacity: 0.85 }}>
+                      {fmt(item.value)} {unit}
+                    </span>
                   </div>
                 </foreignObject>
               )}
@@ -282,6 +287,9 @@ export function RepartitionTreemap({ data, unit = "", total, accent = "#a78bfa",
                     <span style={{ fontSize: Math.max(8, Math.min(11, b.w / 10)), fontWeight: 600, padding: "0 2px" }}>{item.label}</span>
                     <span style={{ fontSize: Math.max(10, Math.min(13, b.w / 6)), fontWeight: 700, fontFamily: "ui-monospace, monospace", marginTop: 2 }}>
                       {fmtPct(pct, decimals)} %
+                    </span>
+                    <span style={{ fontSize: Math.max(8, Math.min(10, b.w / 9)), fontWeight: 600, fontFamily: "ui-monospace, monospace", opacity: 0.85 }}>
+                      {fmt(item.value)} {unit}
                     </span>
                   </div>
                 </foreignObject>

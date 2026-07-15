@@ -2605,6 +2605,14 @@ export async function loadV17Company(
           ...(typeof k.last_data_date === "string" && k.last_data_date.trim().length > 0
             ? { last_data_date: k.last_data_date }
             : {}),
+          // 12 juil 2026 (spec annual-allkpi) : passthrough du flag
+          // is_short_history pour marquer proprement les KPI structurellement
+          // recents/ponctuels (segment cree recemment, plan capex, reserve
+          // FY-only). Sans lui, le loader compte le KPI dans le total et le
+          // bouton Annuel reste grise sans indication.
+          ...((k as { is_short_history?: boolean }).is_short_history === true
+            ? { is_short_history: true }
+            : {}),
         } as AnyKPI;
       });
     if (converted.length > 0) {

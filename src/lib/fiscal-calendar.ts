@@ -147,7 +147,14 @@ export function fiscalLabelsForTicker(
   if (!periodEnd) return null;
 
   // Mois de fin d'exercice : SEC si dispo, sinon 12 (calendrier).
-  const fyEndMonth = a?.fiscalYearEndMonth ?? 12;
+  // Cas 52/53 semaines : une sté calendaire dont l'exercice se termine le
+  // dimanche le plus proche du 31 déc peut déclarer une fin début janvier
+  // (ex JNJ "01-03"). La traiter comme fiscale décalée faisait afficher
+  // "Prochain earning T2 2027" au lieu de "T2 2026". Si fin ≤ 15 janvier,
+  // on la traite comme calendaire.
+  const fyEndMonthRaw = a?.fiscalYearEndMonth ?? 12;
+  const fyEndDay = (a as { fiscalYearEndDay?: number } | undefined)?.fiscalYearEndDay ?? 31;
+  const fyEndMonth = fyEndMonthRaw === 1 && fyEndDay <= 15 ? 12 : fyEndMonthRaw;
 
   const cur = fiscalQuarter(periodEnd, fyEndMonth);
   if (!cur) return null;
