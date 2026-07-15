@@ -835,7 +835,12 @@ export function cagr(
     period_type === "quarter" ? 4 : period_type === "semester" ? 2 : 1;
   const years = (history.length - 1) / stepsPerYear;
   if (years <= 0) return null;
-  return (Math.pow(last / first, 1 / years) - 1) * 100;
+  const result = (Math.pow(last / first, 1 / years) - 1) * 100;
+  // Garde-fou (audit 15 juil 2026, GOOGL RPO "+746 %/an") : un CAGR annualisé
+  // au-delà de ±200 %/an vient d'une série trop courte ou d'un point de départ
+  // quasi nul : trompeur pour l'investisseur → on masque plutôt qu'afficher.
+  if (!Number.isFinite(result) || Math.abs(result) > 200) return null;
+  return result;
 }
 
 /** Format CAGR for display, e.g. "+22.4 % / an" or null when N/A. */
