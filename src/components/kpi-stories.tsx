@@ -138,7 +138,12 @@ export function KpiStories({ company, freeBlocked = false }: { company: Company;
         </div>
         <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-400">
           {Math.min(active + visible, total)} / {total}
-          {currentCategory && <> · {t(`stories.cat.${currentCategory}`)}</>}
+          {/* Catégorie hors dictionnaire : t() renverrait la clé brute
+              ("stories.cat.X") ; on affiche la catégorie telle quelle. */}
+          {currentCategory && (() => {
+            const label = t(`stories.cat.${currentCategory}`);
+            return <> · {label.startsWith("stories.cat.") ? currentCategory : label}</>;
+          })()}
         </span>
       </div>
 

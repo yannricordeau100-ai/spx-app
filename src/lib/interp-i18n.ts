@@ -66,18 +66,21 @@ export function leadSentence(
   tail: string
 ): string {
   const trendCapitalized = trend.charAt(0).toUpperCase() + trend.slice(1);
+  // YoY absent → pas de "( YoY)" vide dans le lead.
+  const yoyOk = yoy && yoy.trim() && yoy.trim() !== "null";
+  const yoyPart = (label: string) => (yoyOk ? ` (${yoy} <em>${label}</em>)` : "");
   switch (locale) {
     case "en":
     case "en-GB":
-      return `The <strong>${kpi}</strong> KPI of <strong>${company}</strong>: <strong>${value} ${unit}</strong> (${yoy} <em>YoY</em>). ${trendCapitalized}.${tail}`;
+      return `The <strong>${kpi}</strong> KPI of <strong>${company}</strong>: <strong>${value} ${unit}</strong>${yoyPart("YoY")}. ${trendCapitalized}.${tail}`;
     case "de":
     case "de-CH":
-      return `Der KPI <strong>${kpi}</strong> von <strong>${company}</strong>: <strong>${value} ${unit}</strong> (${yoy} <em>YoY</em>). ${trendCapitalized}.${tail}`;
+      return `Der KPI <strong>${kpi}</strong> von <strong>${company}</strong>: <strong>${value} ${unit}</strong>${yoyPart("YoY")}. ${trendCapitalized}.${tail}`;
     case "nl":
-      return `De KPI <strong>${kpi}</strong> van <strong>${company}</strong>: <strong>${value} ${unit}</strong> (${yoy} <em>YoY</em>). ${trendCapitalized}.${tail}`;
+      return `De KPI <strong>${kpi}</strong> van <strong>${company}</strong>: <strong>${value} ${unit}</strong>${yoyPart("YoY")}. ${trendCapitalized}.${tail}`;
     case "fr":
     default:
-      return `Le KPI <strong>${kpi}</strong> de <strong>${company}</strong> : <strong>${value} ${unit}</strong> (${yoy} <em>YoY</em>). ${trendCapitalized}.${tail}`;
+      return `Le KPI <strong>${kpi}</strong> de <strong>${company}</strong> : <strong>${value} ${unit}</strong>${yoyPart("YoY")}. ${trendCapitalized}.${tail}`;
   }
 }
 
@@ -318,18 +321,21 @@ export function bulletBodyKpi(
   const valuePart = `<strong>${kpiName}</strong>`;
   const numPart = `${value} ${unit}`;
   const signalSafe = signal && signal.trim() ? ` ${signal}.` : "";
+  // YoY absent → pas de parenthèses vides "()" dans le bullet (audit 14 juil).
+  const yoySafe = yoy && yoy.trim() && yoy.trim() !== "null" ? yoy.trim() : "";
+  const paren = (txt: string) => (yoySafe ? ` (${txt})` : "");
   switch (locale) {
     case "en":
     case "en-GB":
-      return `${valuePart} at ${numPart} (${yoy}).${signalSafe}`;
+      return `${valuePart} at ${numPart}${paren(yoySafe)}.${signalSafe}`;
     case "de":
     case "de-CH":
-      return `${valuePart} bei ${numPart} (${yoy}).${signalSafe}`;
+      return `${valuePart} bei ${numPart}${paren(yoySafe)}.${signalSafe}`;
     case "nl":
-      return `${valuePart} op ${numPart} (${yoy}).${signalSafe}`;
+      return `${valuePart} op ${numPart}${paren(yoySafe)}.${signalSafe}`;
     case "fr":
     default:
-      return `${valuePart} à ${numPart} (${yoy}).${signalSafe}`;
+      return `${valuePart} à ${numPart}${paren(yoySafe)}.${signalSafe}`;
   }
 }
 
