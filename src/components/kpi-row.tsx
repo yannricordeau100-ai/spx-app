@@ -205,6 +205,38 @@ export function KpiRow({
 
       {/* COL 2 — Valeur · YoY (2 cols) */}
       <div className="col-span-6 sm:col-span-2">
+        {/* Yann 15 juil 2026 : pastille de période de référence (FY vs trimestre)
+            pour lever l'ambiguïté annuel/trimestriel dans le tableau. */}
+        {(() => {
+          const hp = (kpi as { history_periods?: unknown[] }).history_periods;
+          let periodLabel: string | null = null;
+          if (Array.isArray(hp) && hp.length > 0) {
+            const lastP = String(hp[hp.length - 1] ?? "").trim();
+            const m = lastP.match(/^Q([1-4])[\s-]+(?:FY)?(\d{4})$/);
+            if (m) periodLabel = `T${m[1]} ${m[2]}`;
+          }
+          if (!periodLabel && kpi.last_data_date) {
+            const d = new Date(kpi.last_data_date);
+            if (!Number.isNaN(d.getTime())) {
+              if (kpi.period_type === "quarter") {
+                periodLabel = `T${Math.floor(d.getUTCMonth() / 3) + 1} ${d.getUTCFullYear()}`;
+              } else if (kpi.period_type === "semester") {
+                periodLabel = `S${d.getUTCMonth() + 1 <= 6 ? 1 : 2} ${d.getUTCFullYear()}`;
+              } else {
+                periodLabel = `FY${d.getUTCFullYear()}`;
+              }
+            }
+          }
+          if (!periodLabel) return null;
+          return (
+            <span
+              className="mb-1.5 inline-flex items-center rounded border border-[#262626] bg-[#101010] px-1.5 py-[1px] font-mono text-[9.5px] uppercase tracking-wider text-zinc-500"
+              title="Période de référence de la valeur affichée"
+            >
+              {periodLabel}
+            </span>
+          );
+        })()}
         <div className="font-mono text-[26px] font-semibold tabular-nums leading-none text-zinc-50">
           {freeBlocked ? (
             <BlurredFreeValue
@@ -238,7 +270,9 @@ export function KpiRow({
             yoyStr = kpi.yoy.replace(/(\d)\.(\d)/g, "$1,$2");
           } else if (Array.isArray(kpi.history) && kpi.history.length >= 2) {
             const last = kpi.history[kpi.history.length - 1];
-            const prev = kpi.history[kpi.history.length - 2];
+            // Série trimestrielle : YoY = vs même trimestre N-1 (4 pas), pas QoQ.
+            const back = kpi.period_type === "quarter" && kpi.history.length >= 5 ? 5 : 2;
+            const prev = kpi.history[kpi.history.length - back];
             if (typeof last === "number" && typeof prev === "number" && prev !== 0) {
               const pct = ((last - prev) / Math.abs(prev)) * 100;
               const sign = pct > 0 ? "+" : "";
