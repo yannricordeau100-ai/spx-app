@@ -897,9 +897,6 @@ function renderCompanyCard(
                           <span className="size-1.5 rounded-full" style={{ background: r.color }} />
                           {t(`tier.${r.tier}`)}
                         </span>
-                        <span className="truncate font-mono text-[10px] text-zinc-400">
-                          {r.percentile}
-                        </span>
                         {/* Yann 15 juin 2026 : gros "i" bleu à droite de "Top x%"
                             (remplace la chip "Prochain résultats J-x"). Détail
                             earning dans le tooltip. */}

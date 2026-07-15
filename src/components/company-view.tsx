@@ -1286,14 +1286,10 @@ export function CompanyView({
                     </span>
                   </div>
                 )}
-                {!isIncompleteKpi && !freeBlocked && (
-                  <PercentileChipOnly rating={heroRating} scope={company.subsector} />
-                )}
-                {!isIncompleteKpi && freeBlocked && (
-                  <div className="inline-flex w-fit items-center gap-1.5 rounded-full border border-[#262626] bg-[#0d0d0d] px-3 py-1 font-mono text-[12.5px] text-zinc-200">
-                    <BlurredFreeValue value="Top 5 %" ticker={company.ticker} />
-                  </div>
-                )}
+                {/* Yann 16 juil 2026 : chip percentile "Top X % · sous-secteur"
+                    SUPPRIMÉE. C'était une heuristique sur le YoY (yoy>=0 → "Top 50 %"),
+                    pas un vrai classement vs pairs : impossible à rendre juste pour
+                    des KPI propres à chaque sté (CA iPhone n'a pas de pairs). */}
                 {isIncompleteKpi && (
                   <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/[0.06] px-3 py-1 text-[11.5px] font-medium text-amber-400">
                     <span className="size-1.5 rounded-full bg-amber-400" />
