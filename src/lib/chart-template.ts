@@ -207,11 +207,11 @@ export function buildChartSpec(
     const hpValid =
       Array.isArray(hp) &&
       hp.length === rawHistory.length &&
-      hp.every((s) => typeof s === "string" && /^Q[1-4]\s+\d{4}$/.test(s.trim()));
+      hp.every((s) => typeof s === "string" && /^Q[1-4][\s-]+(?:FY)?\d{4}$/.test(s.trim()));
     if (hpValid) {
       values = rawHistory;
       labels = (hp as string[]).map((s) => {
-        const m = s.trim().match(/^Q([1-4])\s+(\d{4})$/)!;
+        const m = s.trim().match(/^Q([1-4])[\s-]+(?:FY)?(\d{4})$/)!;
         return `T${m[1]} ${m[2].slice(-2)}`;
       });
     } else {

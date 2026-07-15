@@ -505,10 +505,10 @@ export function CompanyView({
       if (
         Array.isArray(hp) &&
         hp.length === n &&
-        hp.every((s) => typeof s === "string" && /^Q[1-4]\s+\d{4}$/.test(s.trim()))
+        hp.every((s) => typeof s === "string" && /^Q[1-4][\s-]+(?:FY)?\d{4}$/.test(s.trim()))
       ) {
         return (hp as string[]).map((s) => {
-          const m = s.trim().match(/^Q([1-4])\s+(\d{4})$/)!;
+          const m = s.trim().match(/^Q([1-4])[\s-]+(?:FY)?(\d{4})$/)!;
           return `${qPrefix}${m[1]} ${m[2].slice(-2)}`;
         });
       }
