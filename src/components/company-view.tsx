@@ -74,7 +74,7 @@ import { YoungIpoWarning } from "@/components/young-ipo-warning";
 import { BrandWordmark } from "@/components/brand-wordmark";
 import { CompanyProfileCard } from "@/components/company-profile-card";
 import { RecentIpoPlaceholder, getRecentIpoMeta } from "@/components/recent-ipo-placeholder";
-import { getFiscalAudit, isFiscalShifted, fiscalLabelsForTicker } from "@/lib/fiscal-calendar";
+import { getFiscalAudit, isFiscalShifted, fiscalLabelsForTicker, fiscalQuarterToCalendar } from "@/lib/fiscal-calendar";
 import { aggregateQuarterlyToAnnual, getKpiAggregationKind } from "@/lib/kpi-aggregation";
 import { buildChartSpec } from "@/lib/chart-template";
 import { verifyAndFix } from "@/lib/chart-spec-verify";
@@ -485,13 +485,10 @@ export function CompanyView({
         fyEndMonth,
         (active as { history_periods?: string[] }).history_periods,
       );
-      if (isFiscalShifted) {
-        return agg.years.map((y) => {
-          const short = String(y).slice(-2);
-          return `FY${short}`;
-        });
-      }
-      return [...agg.years];
+      // Yann 16 juil 2026 : plus de préfixe "FY" à l'écran. L'exercice fiscal
+      // se nomme par son année de clôture : on affiche cette année telle
+      // quelle (AAPL FY2026 clôt en septembre 2026 → "2026").
+      return [...agg.years].map(String);
     }
 
     // Mode trimestriel : 1 label par trimestre.
@@ -509,7 +506,13 @@ export function CompanyView({
       ) {
         return (hp as string[]).map((s) => {
           const m = s.trim().match(/^Q([1-4])[\s-]+(?:FY)?(\d{4})$/)!;
-          return `${qPrefix}${m[1]} ${m[2].slice(-2)}`;
+          // Yann 16 juil 2026 : plus de trimestres FISCAUX à l'écran. Les
+          // périodes des stés à exercice décalé sont converties en trimestre
+          // CALENDAIRE réel (AAPL Q1 FY2026 → T4 25 = oct-déc 2025).
+          const cal = isFiscalShifted
+            ? fiscalQuarterToCalendar(Number(m[1]), Number(m[2]), fyEndMonth)
+            : { q: Number(m[1]), year: Number(m[2]) };
+          return `${qPrefix}${cal.q} ${String(cal.year).slice(-2)}`;
         });
       }
     }
@@ -524,12 +527,11 @@ export function CompanyView({
       let calM = endMonth; // mois 1-12 du end date
       const out: string[] = [];
       for (let i = n - 1; i >= 0; i--) {
-        // FY (à 2 chiffres) : si calM > fyEndMonth, on est dans FY de l'année suivante.
-        const fyShort = calM > fyEndMonth ? (calY + 1) % 100 : calY % 100;
-        // Mois dans la FY (1-12). FY commence au mois fyEndMonth+1.
-        const monthInFY = ((calM - fyEndMonth - 1 + 12) % 12) + 1;
-        const q = Math.ceil(monthInFY / 3);
-        out.unshift(`${qPrefix}${q} ${String(fyShort).padStart(2, "0")}`);
+        // Yann 16 juil 2026 : label = trimestre CALENDAIRE réel (plus de
+        // numérotation fiscale à l'écran) : n'importe qui sait de quand
+        // datent les chiffres.
+        const q = Math.ceil(calM / 3);
+        out.unshift(`${qPrefix}${q} ${String(calY % 100).padStart(2, "0")}`);
         // Recule de 3 mois.
         calM -= 3;
         if (calM <= 0) { calM += 12; calY -= 1; }

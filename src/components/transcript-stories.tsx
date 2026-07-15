@@ -122,22 +122,10 @@ function formatDateFR(iso?: string, locale: string = "fr"): string {
 
 function quarterLabel(q?: number, y?: number, ticker?: string): string {
   if (!q || !y) return "Dernier earning call";
-  // Pour les stés à exercice fiscal décalé (NVDA jan, MSFT juin, AAPL sept…),
-  // afficher "FYyy Qq" au lieu de "Tq AAAA" calendaire (Yann 14 mai 2026).
-  if (ticker) {
-    const fyShort = y % 100;
-    // Import lazy pour éviter cycle. Le label fiscal n'est utile que pour les
-    // stés détectées comme "shifted" via fiscal-audit.json.
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const { isFiscalShifted } = require("@/lib/fiscal-calendar");
-      if (isFiscalShifted(ticker)) {
-        return `FY${fyShort < 10 ? "0" + fyShort : fyShort} Q${q}`;
-      }
-    } catch {
-      /* fallback */
-    }
-  }
+  // Yann 16 juil 2026 : plus de libellés fiscaux "FYyy Qq" côté utilisateur.
+  // La date est déjà calendaire : on affiche le trimestre calendaire réel
+  // pour toutes les stés, décalées ou non (abroge la règle du 14 mai 2026).
+  void ticker;
   return `T${q} ${y}`;
 }
 

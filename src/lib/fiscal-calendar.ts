@@ -170,12 +170,41 @@ export function fiscalLabelsForTicker(
       : nextFiscalQuarter(cur.fy, cur.q);
   const nextPeriodEnd = estimateNextPeriodEnd(periodEnd);
 
+  // Yann 16 juil 2026 : plus de libellés fiscaux "FY26 Q3" côté utilisateur.
+  // Les stés à exercice décalé sont converties en trimestre CALENDAIRE réel.
+  const toCalendarLabel = (q: number, fy: number): string => {
+    if (fyEndMonth === 12) return `Q${q} ${fy}`;
+    const fullFy = fy < 100 ? 2000 + fy : fy;
+    const cal = fiscalQuarterToCalendar(q, fullFy, fyEndMonth);
+    return `Q${cal.q} ${cal.year}`;
+  };
   return {
-    lastLabel: cur.label,
+    lastLabel: toCalendarLabel(cur.q, cur.fy),
     publicationDate: a?.latestFilingDate ?? null,
-    nextLabel: next.label,
+    nextLabel: toCalendarLabel(next.q, next.fy),
     nextPeriodEnd,
     isFiscalShifted: fyEndMonth !== 12,
     fiscalYearEndMonth: fyEndMonth,
   };
+}
+
+/**
+ * Convertit un trimestre FISCAL (q, fy) en trimestre CALENDAIRE réel.
+ * Yann 16 juil 2026 : l'utilisateur doit savoir DE QUAND datent les chiffres,
+ * sans connaître le calendrier fiscal de la sté. Ex AAPL (fyEnd=septembre) :
+ * Q1 FY2026 = oct-déc 2025 → { q: 4, year: 2025 } → affiché "T4 2025".
+ */
+export function fiscalQuarterToCalendar(
+  q: number,
+  fy: number,
+  fyEndMonth: number,
+): { q: number; year: number } {
+  if (fyEndMonth === 12 || !Number.isFinite(fyEndMonth)) return { q, year: fy };
+  // Mois calendaire de FIN du trimestre fiscal q (1-12).
+  const endMonth = ((fyEndMonth + 3 * q - 1) % 12) + 1;
+  // La FY se nomme par son année de clôture : si le mois de fin du trimestre
+  // est APRÈS le mois de clôture, on est encore dans l'année calendaire
+  // précédant la clôture (ex AAPL Q1 FY2026 finit en décembre 2025).
+  const year = endMonth > fyEndMonth ? fy - 1 : fy;
+  return { q: Math.ceil(endMonth / 3), year };
 }

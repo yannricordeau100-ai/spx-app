@@ -22,7 +22,7 @@ import {
   getKpiAggregationKind,
   type KpiAggregationKind,
 } from "@/lib/kpi-aggregation";
-import { getFiscalAudit } from "@/lib/fiscal-calendar";
+import { getFiscalAudit, fiscalQuarterToCalendar } from "@/lib/fiscal-calendar";
 import { autoRescaleSmallUnit } from "@/lib/format-hero";
 
 export type GraphPeriod = "year" | "quarter" | "semester";
@@ -212,7 +212,11 @@ export function buildChartSpec(
       values = rawHistory;
       labels = (hp as string[]).map((s) => {
         const m = s.trim().match(/^Q([1-4])[\s-]+(?:FY)?(\d{4})$/)!;
-        return `T${m[1]} ${m[2].slice(-2)}`;
+        // Yann 16 juil 2026 : conversion fiscal → calendaire à l'affichage.
+        const cal = isFiscalShifted
+          ? fiscalQuarterToCalendar(Number(m[1]), Number(m[2]), fiscalYearEndMonth)
+          : { q: Number(m[1]), year: Number(m[2]) };
+        return `T${cal.q} ${String(cal.year).slice(-2)}`;
       });
     } else {
       // Yann 11 juil 2026 : sans last_data_date, buildQuarterLabels fabriquait
@@ -337,14 +341,14 @@ function buildQuarterLabels(
   const isFiscalShifted = fiscalYearEndMonth !== 12;
 
   if (isFiscalShifted) {
+    // Yann 16 juil 2026 : labels en trimestres CALENDAIRES réels (plus de
+    // numérotation fiscale à l'écran).
     let calY = calY0;
     let calM = calM0;
     const out: string[] = [];
     for (let i = n - 1; i >= 0; i--) {
-      const fyShort = calM > fiscalYearEndMonth ? (calY + 1) % 100 : calY % 100;
-      const monthInFY = ((calM - fiscalYearEndMonth - 1 + 12) % 12) + 1;
-      const q = Math.ceil(monthInFY / 3);
-      out.unshift(`T${q} ${String(fyShort).padStart(2, "0")}`);
+      const q = Math.ceil(calM / 3);
+      out.unshift(`T${q} ${String(calY % 100).padStart(2, "0")}`);
       calM -= 3;
       if (calM <= 0) {
         calM += 12;

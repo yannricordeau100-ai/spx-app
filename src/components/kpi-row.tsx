@@ -12,6 +12,7 @@ import { AcronymHover } from "@/components/acronym-hover";
 import { useT } from "@/lib/i18n/provider";
 import { normalizeNarrative, ACRONYM_GLOSSARY, TERM_GLOSSARY } from "@/lib/ui-fix-templates";
 import { BlurredFreeValue } from "@/components/freemium/blurred-free-value";
+import { getFiscalAudit, fiscalQuarterToCalendar } from "@/lib/fiscal-calendar";
 import { BlurredFreeText } from "@/components/freemium/blurred-free-text";
 
 const TYPE_COLOR: Record<string, string> = {
@@ -213,7 +214,13 @@ export function KpiRow({
           if (Array.isArray(hp) && hp.length > 0) {
             const lastP = String(hp[hp.length - 1] ?? "").trim();
             const m = lastP.match(/^Q([1-4])[\s-]+(?:FY)?(\d{4})$/);
-            if (m) periodLabel = `T${m[1]} ${m[2]}`;
+            if (m) {
+              // Yann 16 juil 2026 : conversion trimestre fiscal → calendaire
+              // (l'utilisateur doit savoir de quand datent les chiffres).
+              const fyEnd = getFiscalAudit(ticker ?? "")?.fiscalYearEndMonth ?? 12;
+              const cal = fiscalQuarterToCalendar(Number(m[1]), Number(m[2]), fyEnd);
+              periodLabel = `T${cal.q} ${cal.year}`;
+            }
           }
           if (!periodLabel && kpi.last_data_date) {
             const d = new Date(kpi.last_data_date);
