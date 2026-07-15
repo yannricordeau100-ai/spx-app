@@ -195,6 +195,12 @@ export type Governance = {
   fiscal_year: number;
   /** CEO name. */
   ceo_name: string;
+  /** CEO actuel si différent de celui du dernier proxy (succession en cours
+   *  d'exercice, ex DIS D'Amaro mars 2026). La rémunération affichée reste
+   *  celle de `ceo_name` (le CEO couvert par le DEF14A). */
+  ceo_current?: string;
+  /** Depuis quand le CEO actuel est en poste, ex "mars 2026". */
+  ceo_current_since?: string;
   /** CEO total compensation (cash + stock + perks), in $M. */
   ceo_total_comp_m: number;
   /** Peer rank for this metric (sector median). */

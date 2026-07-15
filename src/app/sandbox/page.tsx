@@ -46,7 +46,7 @@ type SandboxItem = {
   soon?: boolean;
   /** Couleur d'accentuation du contour de la card (Yann 21 mai 2026 : repérage admin).
    *  "default" (Yann 25 mai 2026) : accent vert/emerald pour signaler la version par défaut. */
-  accent?: "blue" | "violet" | "default" | "orange";
+  accent?: "blue" | "violet" | "default" | "orange" | "highlight";
 };
 
 type SandboxSection = {
@@ -215,7 +215,8 @@ const SECTIONS: SandboxSection[] = [
         icon: ImageIcon,
         label: "Graphiques et schémas (sources diverses)",
         desc: "Recherche manuelle de graphiques et schémas via Claude conv MAX 20×. Approbation Yann, carrousel sous le hero des pages sté.",
-        accent: "default" as const,
+        // Yann 15 juil 2026 : contour rouge/jaune pour repérage immédiat.
+        accent: "highlight" as const,
       },
       {
         href: "/desk-mtk9x4kp/page-content?page=home",
@@ -592,8 +593,11 @@ export default function SandboxPage() {
                     const isBlueAccent = item.accent === "blue";
                     const isDefaultAccent = item.accent === "default";
                     const isOrangeAccent = item.accent === "orange";
+                    const isHighlightAccent = item.accent === "highlight";
                     const cardClass = item.soon
                       ? "group flex items-start gap-4 rounded-xl border border-white/5 bg-white/[0.01] p-5 opacity-60"
+                      : isHighlightAccent
+                        ? "group flex items-start gap-4 rounded-xl border-2 border-red-500/80 bg-yellow-500/[0.06] p-5 shadow-lg shadow-yellow-400/25 ring-2 ring-yellow-400/60 ring-offset-1 ring-offset-red-500/30 transition-colors hover:border-red-400 hover:bg-yellow-500/[0.1]"
                       : isOrangeAccent
                         ? "group flex items-start gap-4 rounded-xl border-2 border-orange-500/55 bg-orange-500/[0.05] p-5 shadow-lg shadow-orange-500/10 transition-colors hover:border-orange-400/80 hover:bg-orange-500/[0.08]"
                         : isDefaultAccent
@@ -602,7 +606,9 @@ export default function SandboxPage() {
                             ? "group flex items-start gap-4 rounded-xl border-2 border-sky-500/55 bg-sky-500/[0.04] p-5 transition-colors hover:border-sky-400/80 hover:bg-sky-500/[0.07]"
                             : "group flex items-start gap-4 rounded-xl border border-white/10 bg-white/[0.02] p-5 transition-colors hover:border-violet-500/30 hover:bg-white/[0.04]";
 
-                    const iconWrapClass = isOrangeAccent
+                    const iconWrapClass = isHighlightAccent
+                      ? "flex size-10 shrink-0 items-center justify-center rounded-lg border border-yellow-400/60 bg-red-500/20 text-yellow-200"
+                      : isOrangeAccent
                       ? "flex size-10 shrink-0 items-center justify-center rounded-lg border border-orange-500/40 bg-orange-500/15 text-orange-200"
                       : isDefaultAccent
                         ? "flex size-10 shrink-0 items-center justify-center rounded-lg border border-emerald-500/40 bg-emerald-500/15 text-emerald-200"

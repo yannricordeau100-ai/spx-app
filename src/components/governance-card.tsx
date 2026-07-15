@@ -72,6 +72,7 @@ function MetricCell({
   value,
   color,
   tooltip,
+  note,
   peerRank,
   inverse = false,
   freeBlocked = false,
@@ -82,6 +83,8 @@ function MetricCell({
   value: string;
   color: string;
   tooltip?: React.ReactNode;
+  /** Mention courte sous la valeur (ex succession CEO : "rémunération = ex-CEO X, FY2025"). */
+  note?: string;
   peerRank?: PeerRank;
   inverse?: boolean;
   freeBlocked?: boolean;
@@ -109,6 +112,9 @@ function MetricCell({
             value
           )}
         </div>
+        {note && (
+          <div className="mt-0.5 text-[11px] italic text-zinc-400">{note}</div>
+        )}
         {peerRank && (
           <div className="mt-1.5">
             <PeerChip rank={peerRank} inverse={inverse} />
@@ -357,13 +363,25 @@ export function GovernanceCard({
   const metrics = [
     ...(hasNum(g.ceo_total_comp_m) ? [{
       Icon: Briefcase,
-      label: g.ceo_name ? `${t("governance.metrics.ceo_comp_label")} (${g.ceo_name})` : t("governance.metrics.ceo_comp_label"),
+      // Succession en cours d'exercice (Yann 15 juil 2026) : afficher le CEO
+      // ACTUEL, la rémunération restant celle de l'ex-CEO couvert par le proxy.
+      label: g.ceo_current && g.ceo_current !== g.ceo_name
+        ? `${t("governance.metrics.ceo_comp_label")} (${g.ceo_current}${g.ceo_current_since ? `, depuis ${g.ceo_current_since}` : ""})`
+        : g.ceo_name ? `${t("governance.metrics.ceo_comp_label")} (${g.ceo_name})` : t("governance.metrics.ceo_comp_label"),
       value: `${fmt(g.ceo_total_comp_m, 1, locale)} ${currency}`,
+      note: g.ceo_current && g.ceo_current !== g.ceo_name
+        ? (locale === "fr" ? `rémunération = ex-CEO ${g.ceo_name}, FY${g.fiscal_year}` : `compensation = former CEO ${g.ceo_name}, FY${g.fiscal_year}`)
+        : undefined,
       color: "#a78bfa",
       tooltip: (
         <div className="text-[12px] leading-relaxed text-zinc-200">
           <p>
             {t("governance.metrics.ceo_comp_tooltip")} {g.fiscal_year}.
+            {g.ceo_current && g.ceo_current !== g.ceo_name && (
+              <> {locale === "fr"
+                ? `${g.ceo_current} dirige la société${g.ceo_current_since ? ` depuis ${g.ceo_current_since}` : ""} ; la rémunération affichée est celle de l'ex-CEO ${g.ceo_name} (dernier proxy, FY${g.fiscal_year}).`
+                : `${g.ceo_current} has led the company${g.ceo_current_since ? ` since ${g.ceo_current_since}` : ""}; the compensation shown is that of former CEO ${g.ceo_name} (latest proxy, FY${g.fiscal_year}).`}</>
+            )}
           </p>
           {g.comp_detail && (
             <ul className="mt-2 space-y-0.5 text-[11.5px] text-zinc-300">
