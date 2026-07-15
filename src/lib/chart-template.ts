@@ -198,21 +198,39 @@ export function buildChartSpec(
     values = out;
     labels = buildYearLabelsBackward(lastDataDate, out.length);
   } else if (period === "quarter" || pt === "quarter") {
-    // Yann 11 juil 2026 : sans last_data_date, buildQuarterLabels fabriquait
-    // des trimestres à partir de année-1, ce qui donnait un axe faux. On
-    // renvoie emptySpec + warning audit à la place.
-    if (!lastDataDate || (typeof lastDataDate === "string" && lastDataDate.trim().length === 0)) {
-      const short = typeof kpi.short === "string" ? kpi.short : "?";
-      console.warn(`chart.no_last_data_date for ${ticker}/${short}`);
-      warnings.push({
-        id: "chart.no_last_data_date",
-        level: "warn",
-        message: `Aucune last_data_date pour KPI quarterly ${short} — axe abandonné.`,
+    // Yann 15 juil 2026 (audit AAPL : axe décalé d'un an) : quand le KPI porte
+    // des history_periods XBRL complets ("Q1 2026", ...), ce sont les VRAIES
+    // périodes point par point : on étiquette avec, au lieu de reconstruire
+    // à rebours depuis last_data_date (qui décale tout l'axe dès que la date
+    // n'est plus alignée sur le dernier point de la série).
+    const hp = (kpi as KPI & { history_periods?: unknown[] }).history_periods;
+    const hpValid =
+      Array.isArray(hp) &&
+      hp.length === rawHistory.length &&
+      hp.every((s) => typeof s === "string" && /^Q[1-4]\s+\d{4}$/.test(s.trim()));
+    if (hpValid) {
+      values = rawHistory;
+      labels = (hp as string[]).map((s) => {
+        const m = s.trim().match(/^Q([1-4])\s+(\d{4})$/)!;
+        return `T${m[1]} ${m[2].slice(-2)}`;
       });
-      return emptySpec(ticker, period, kind, fiscalYearEndMonth, isFiscalShifted, lastDataDate, warnings, kpi);
+    } else {
+      // Yann 11 juil 2026 : sans last_data_date, buildQuarterLabels fabriquait
+      // des trimestres à partir de année-1, ce qui donnait un axe faux. On
+      // renvoie emptySpec + warning audit à la place.
+      if (!lastDataDate || (typeof lastDataDate === "string" && lastDataDate.trim().length === 0)) {
+        const short = typeof kpi.short === "string" ? kpi.short : "?";
+        console.warn(`chart.no_last_data_date for ${ticker}/${short}`);
+        warnings.push({
+          id: "chart.no_last_data_date",
+          level: "warn",
+          message: `Aucune last_data_date pour KPI quarterly ${short} — axe abandonné.`,
+        });
+        return emptySpec(ticker, period, kind, fiscalYearEndMonth, isFiscalShifted, lastDataDate, warnings, kpi);
+      }
+      values = rawHistory;
+      labels = buildQuarterLabels(lastDataDate, rawHistory.length, fiscalYearEndMonth);
     }
-    values = rawHistory;
-    labels = buildQuarterLabels(lastDataDate, rawHistory.length, fiscalYearEndMonth);
   } else if (period === "semester" || pt === "semester") {
     values = rawHistory;
     labels = buildSemesterLabels(lastDataDate, rawHistory.length);

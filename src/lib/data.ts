@@ -912,11 +912,17 @@ function autoRescaleForInterp(unit: string, allBelowOne: boolean): { unit: strin
 
 function computeYoyFromHistory(
   history: number[] | null | undefined,
-  locale: InterpLocale = "fr"
+  locale: InterpLocale = "fr",
+  periodType?: string
 ): string {
   if (!history || history.length < 2) return "n/a";
   const last = history[history.length - 1];
-  const prev = history[history.length - 2];
+  // Série trimestrielle : YoY = vs même trimestre N-1 (4 pas en arrière),
+  // pas vs trimestre précédent (audit 15 juil : "+0,3 %" QoQ affiché "vs N-1").
+  const back = periodType === "quarter" && history.length >= 5 ? 5
+    : periodType === "semester" && history.length >= 3 ? 3
+    : 2;
+  const prev = history[history.length - back];
   if (typeof last !== "number" || typeof prev !== "number" || prev === 0) return "n/a";
   const pct = ((last - prev) / Math.abs(prev)) * 100;
   const sign = pct > 0 ? "+" : "";
@@ -1067,7 +1073,7 @@ export function interpretStructured(
   const heroValue = Number.isFinite(rawValue)
     ? (rawValue * scaleFactor).toLocaleString(numLocale(locale), { maximumFractionDigits: 1 })
     : (hero.value ?? "—");
-  const computedYoy = computeYoyFromHistory(hero.history, locale);
+  const computedYoy = computeYoyFromHistory(hero.history, locale, hero.period_type);
   const heroYoy = (typeof hero.yoy === "string" && hero.yoy.trim()) ? hero.yoy : computedYoy;
   // Trend : valeurs rescalées pour les comparaisons.
   const scaledHist = histNums.map((v) => v * scaleFactor);
