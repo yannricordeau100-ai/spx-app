@@ -495,6 +495,24 @@ export function CompanyView({
     }
 
     // Mode trimestriel : 1 label par trimestre.
+    // Yann 15 juil 2026 (screen AAPL : axe décalé d'un an) : si le KPI porte
+    // des history_periods XBRL complets ("Q1 2026", ...), on étiquette avec
+    // les VRAIES périodes point par point au lieu de reconstruire à rebours
+    // depuis last_data_date (source des axes décalés dès que la date ne
+    // correspond plus au dernier point).
+    {
+      const hp = (active as { history_periods?: unknown[] }).history_periods;
+      if (
+        Array.isArray(hp) &&
+        hp.length === n &&
+        hp.every((s) => typeof s === "string" && /^Q[1-4]\s+\d{4}$/.test(s.trim()))
+      ) {
+        return (hp as string[]).map((s) => {
+          const m = s.trim().match(/^Q([1-4])\s+(\d{4})$/)!;
+          return `${qPrefix}${m[1]} ${m[2].slice(-2)}`;
+        });
+      }
+    }
     if (isFiscalShifted) {
       // Fiscal : on parcourt n trimestres en remontant. À chaque step,
       // on calcule (fy, q) fiscal depuis (calY, calM) calendaire où
@@ -677,9 +695,22 @@ export function CompanyView({
   // Yann 14 mai 2026 : fallback YoY computed from history when dataset
   // yoy is empty (ex Tesla Energy Storage GWh : yoy='', history dispo).
   const effectiveYoy: string | number = (() => {
+    const h = Array.isArray(active.history) ? active.history : [];
+    // Yann 15 juil 2026 (screen AAPL "+0,3 %") : sur une série trimestrielle,
+    // le YoY affiché DOIT être vs même trimestre N-1 (4 pas en arrière),
+    // recalculé depuis l'historique verbatim. Le yoy stocké sur ces KPI
+    // fusionnés est souvent un reliquat annuel ou un QoQ.
+    if (active.period_type === "quarter" && h.length >= 5) {
+      const last = h[h.length - 1];
+      const prevY = h[h.length - 5];
+      if (typeof last === "number" && typeof prevY === "number" && prevY !== 0) {
+        const pct = ((last - prevY) / Math.abs(prevY)) * 100;
+        const sign = pct > 0 ? "+" : "";
+        return `${sign}${pct.toFixed(1).replace(".", ",")} %`;
+      }
+    }
     if (typeof active.yoy === "string" && active.yoy.trim()) return active.yoy;
     if (typeof active.yoy === "number" && Number.isFinite(active.yoy)) return active.yoy;
-    const h = Array.isArray(active.history) ? active.history : [];
     if (h.length < 2) return "";
     const last = h[h.length - 1];
     const prev = h[h.length - 2];
