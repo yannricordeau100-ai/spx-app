@@ -14,8 +14,12 @@ const NEEDS_ACCENT = /\b(resultat|integre|ameliore|amelioration|experience|opera
 const HAS_ACCENT = /[àâäéèêëîïôöùûüçÀÂÉÈÊËÎÏÔÖÙÛÜÇ]/;
 
 function needsFix(s){
-  if (typeof s !== 'string' || s.length < 15) return false;
-  return FR_HINT.test(s) && !HAS_ACCENT.test(s) && NEEDS_ACCENT.test(s);
+  if (typeof s !== 'string' || s.length < 25) return false;
+  // Passe 2 (15 juil) : un texte FR de plus de 25 caractères sans AUCUN accent
+  // est quasi certainement de l'ASCII dégradé. On exige 2 stopwords FR pour
+  // éviter les textes EN.
+  const frHits = (s.match(/\b(des|les|dans|avec|pour|sur|une|aux|du|au|est|sont|par|ce|cette|qui|plus)\b/g) || []).length;
+  return frHits >= 2 && !HAS_ACCENT.test(s);
 }
 
 async function llm(texts){

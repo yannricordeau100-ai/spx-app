@@ -417,6 +417,8 @@ def refresh_kpis(ticker: str) -> dict:
             existing[s] = k
 
     added, updated, failed = [], [], []
+    kpi_points = []  # VERROU 1 (Yann 16 juil 2026) : points exposés pour la
+                     # contre-vérification indépendante qr-lock1-dual-check.py
     for short, spec in STD.items():
         ptypes = (["quarter"] if spec["period"] == "both"
                   else ["instant"] if spec["period"] == "instant" else ["year"])
@@ -445,6 +447,15 @@ def refresh_kpis(ticker: str) -> dict:
             }
             if yoy is not None:
                 kpi_obj["yoy"] = yoy
+            # VERROU 1 : valeur brute en dollars pour comparaison au document.
+            if spec.get("metric"):
+                scale = 1e6 if spec["unit"] == "$M" else 1.0
+                kpi_points.append({
+                    "metric": spec["metric"],
+                    "period_end": ldd,
+                    "value": vals[-1] * scale,
+                    "kpi": label,
+                })
             key = label.strip().lower()
             if key in existing:
                 ex = existing[key]
@@ -461,6 +472,7 @@ def refresh_kpis(ticker: str) -> dict:
                 added.append(label)
     epath.write_text(json.dumps(enrich, ensure_ascii=False, indent=2), "utf8")
     return {"status": "ok", "updated": updated, "added": added, "failed": failed,
+            "kpi_points": kpi_points,
             "enrich_file": str(epath.relative_to(ROOT))}
 
 
@@ -597,6 +609,7 @@ def main() -> int:
                 "filings_download": bool(paths),
                 "xbrl_facts": n_facts > 0,
                 "kpi_updated": kpi.get("updated", []),
+                "kpi_points": kpi.get("kpi_points", []),
                 "kpi_added": kpi.get("added", []),
                 "kpi_failed": kpi.get("failed", []),
             },

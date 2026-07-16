@@ -63,7 +63,17 @@ python3 scripts/quarterly-refresh-run.py --detected "$DETECTED"
 RUN_RC=$?
 echo "[quarterly-refresh] run rc=$RUN_RC"
 
-# 3. AUDIT fidele des pages touchees
+# 2bis. VERROU 1 : double extraction independante (companyfacts vs document)
+python3 scripts/qr-lock1-dual-check.py
+LOCK1_RC=$?
+echo "[quarterly-refresh] lock1 rc=$LOCK1_RC"
+
+# 2ter. VERROU 2 : porte de completude (100% des KPI + todo LLM vide)
+python3 scripts/qr-lock2-completeness.py
+LOCK2_RC=$?
+echo "[quarterly-refresh] lock2 rc=$LOCK2_RC"
+
+# 3. AUDIT fidele des pages touchees (VERROU 3)
 TICKERS=$(python3 -c "import json
 d=json.load(open('$RUNRESULT'))
 print(' '.join(r['ticker'] for r in d.get('results', [])))" 2>/dev/null)
@@ -115,6 +125,10 @@ report = {
 json.dump(report, open("$REPORT", "w"), ensure_ascii=False, indent=2)
 print(f"[quarterly-refresh] rapport ecrit: $REPORT ({len(tickers)} stes)")
 PYEOF
+
+# 5. VERROU 4 : historique des runs (affiche dans /sandbox/refresh-status)
+python3 scripts/qr-lock4-history.py
+echo "[quarterly-refresh] lock4 rc=$?"
 
 echo "[quarterly-refresh] done $(date +%Y%m%d-%H%M%S)"
 exit 0

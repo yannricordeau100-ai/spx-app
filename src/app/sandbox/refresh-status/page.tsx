@@ -1,7 +1,7 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import { loadV17Company } from "@/lib/company-core/load-company";
-import { RefreshStatusView, type RefreshRow } from "./refresh-status-view";
+import { RefreshStatusView, type RefreshRow, type RunHistoryEntry } from "./refresh-status-view";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 300;
@@ -120,10 +120,24 @@ export default async function RefreshStatusPage() {
     rows.push(await buildRow(t, todo.todo[t]!));
   }
 
+  // VERROU 4 (Yann 16 juil 2026) : historique des runs du cron avec le statut
+  // des 4 verrous par sté (double extraction, complétude, audit rendu).
+  let history: RunHistoryEntry[] = [];
+  try {
+    const rawH = await fs.readFile(
+      path.join(process.cwd(), "src/data/_quarterly-refresh-history.json"),
+      "utf-8",
+    );
+    history = (JSON.parse(rawH).runs ?? []).slice(0, 30);
+  } catch {
+    history = [];
+  }
+
   return (
     <RefreshStatusView
       rows={rows}
       updatedAt={todo.updated_at ?? null}
+      history={history}
     />
   );
 }

@@ -26,11 +26,28 @@ function formatDate(iso: string | null): string {
   }
 }
 
+export type RunHistoryEntry = {
+  run_at: string;
+  detectees: number;
+  traitees: number;
+  publiables: number;
+  bloquees: number;
+  stes: Record<string, {
+    statut: string;
+    raisons: string[];
+    lock1?: { status?: string | null; ok?: number | null; checked?: number | null };
+    lock2?: { status?: string | null; kpi_a_jour?: number | null; kpi_total?: number | null };
+    audit_issues?: number;
+  }>;
+};
+
 export function RefreshStatusView({
   rows,
   updatedAt,
+  history = [],
 }: {
   rows: RefreshRow[];
+  history?: RunHistoryEntry[];
   updatedAt: string | null;
 }) {
   const [filter, setFilter] = useState<Filter>("all");
@@ -225,6 +242,39 @@ export function RefreshStatusView({
           Mettrik AI · Suivi rafraîchissements SEC · Cron 7h30
         </footer>
       </div>
-    </main>
+          {/* VERROU 4 : historique des runs du cron (double extraction, complétude, audit) */}
+      {history.length > 0 && (
+        <section className="mt-10">
+          <h2 className="text-[18px] font-semibold text-zinc-100">Historique des runs (verrous qualité)</h2>
+          <p className="mt-1 text-[12.5px] text-zinc-400">
+            Chaque run : verrou 1 = double extraction indépendante (API SEC vs document téléchargé),
+            verrou 2 = 100 % des KPI mis à jour + blocs texte traités, verrou 3 = audit du rendu.
+            Une sté n&apos;est PUBLIABLE que si les 3 sont verts.
+          </p>
+          <div className="mt-3 space-y-2">
+            {history.map((h, i) => (
+              <details key={i} className="rounded-lg border border-[#1f1f1f] bg-[#0a0a0a] p-3">
+                <summary className="cursor-pointer text-[13px] text-zinc-200">
+                  <span className="font-mono">{new Date(h.run_at).toLocaleString("fr-FR")}</span>
+                  {" · "}{h.traitees} sté(s) traitée(s)
+                  {" · "}<span className="text-emerald-400">{h.publiables} publiable(s)</span>
+                  {" · "}<span className={h.bloquees > 0 ? "text-rose-400" : "text-zinc-500"}>{h.bloquees} bloquée(s)</span>
+                </summary>
+                <div className="mt-2 grid gap-1">
+                  {Object.entries(h.stes).map(([t, st]) => (
+                    <div key={t} className="flex flex-wrap items-center gap-2 text-[12px]">
+                      <span className="w-14 font-mono text-zinc-300">{t}</span>
+                      <span className={st.statut === "PUBLIABLE" ? "text-emerald-400" : "text-rose-400"}>{st.statut}</span>
+                      {st.lock2 && <span className="text-zinc-500">KPI {st.lock2.kpi_a_jour}/{st.lock2.kpi_total}</span>}
+                      {st.raisons.length > 0 && <span className="text-zinc-400">· {st.raisons.join(" ; ")}</span>}
+                    </div>
+                  ))}
+                </div>
+              </details>
+            ))}
+          </div>
+        </section>
+      )}
+</main>
   );
 }
