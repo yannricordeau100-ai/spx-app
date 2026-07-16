@@ -130,5 +130,10 @@ PYEOF
 python3 scripts/qr-lock4-history.py
 echo "[quarterly-refresh] lock4 rc=$?"
 
+# 6. PUBLICATION AUTONOME (GO Yann 16 juil 2026) : uniquement les stes
+#    PUBLIABLES (3 verrous verts). Les bloquees restent en local.
+python3 scripts/qr-publish.py
+echo "[quarterly-refresh] publish rc=$?"
+
 echo "[quarterly-refresh] done $(date +%Y%m%d-%H%M%S)"
 exit 0
