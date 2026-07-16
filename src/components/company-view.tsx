@@ -1147,11 +1147,17 @@ export function CompanyView({
                           <>
                             <strong>{company.name}</strong> a un exercice fiscal qui se termine en{" "}
                             <strong>{fyEndMonthFr}</strong> (pas en décembre comme le calendrier).
+                            {" "}Pour simplifier la lecture, tous les trimestres affichés sur cette
+                            page sont les <strong>trimestres calendaires réels</strong> : T4 2025 =
+                            octobre-décembre 2025, quel que soit le nom fiscal que la société leur donne.
                           </>
                         ) : (
                           <>
                             <strong>{company.name}</strong>&apos;s fiscal year ends in{" "}
                             <strong>{fyEndMonthEn}</strong> (not December like the calendar year).
+                            {" "}For readability, every quarter shown on this page uses the{" "}
+                            <strong>real calendar quarter</strong>: Q4 2025 = October-December 2025,
+                            whatever the company calls it fiscally.
                           </>
                         )}
                         {fl.lastLabel && (
