@@ -39,23 +39,18 @@ function storyValueFont(s: string): string {
  * - Année fiscale décalée → "Année fiscale 2025" / "Fiscal year 2025" / "Geschäftsjahr 2025"
  */
 function formatStoryPeriod(kpi: KPI, ticker: string, locale: string): string | null {
-  // Try to derive year from last_data_date, fallback period field
-  let year: number | null = null;
+  // Yann 16 juil 2026 : le badge affiche le TRIMESTRE CALENDAIRE RÉEL de
+  // l'annonce du chiffre ("T4 2025"), plus jamais "Année fiscale X" ni un
+  // simple "En 2025". Dérivé de last_data_date (fin de la période publiée).
+  void isFiscalShifted; // conservé pour compat import
   const lastDate = kpi.last_data_date;
-  if (lastDate) {
-    const d = new Date(lastDate);
-    if (!Number.isNaN(d.getTime())) year = d.getUTCFullYear();
-  }
-  if (!year) return null;
-  const fiscal = isFiscalShifted(ticker);
-  if (fiscal) {
-    if (locale.startsWith("fr")) return `Année fiscale ${year}`;
-    if (locale.startsWith("de")) return `Geschäftsjahr ${year}`;
-    return `Fiscal year ${year}`;
-  }
-  if (locale.startsWith("fr")) return `En ${year}`;
-  if (locale.startsWith("de")) return `Im Jahr ${year}`;
-  return `In ${year}`;
+  if (!lastDate) return null;
+  const d = new Date(String(lastDate).split("T")[0]);
+  if (Number.isNaN(d.getTime())) return null;
+  const q = Math.floor(d.getUTCMonth() / 3) + 1;
+  const year = d.getUTCFullYear();
+  const prefix = locale.startsWith("fr") ? "T" : "Q";
+  return `${prefix}${q} ${year}`;
 }
 
 /**
