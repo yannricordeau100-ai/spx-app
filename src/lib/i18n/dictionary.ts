@@ -438,7 +438,7 @@ export const DICTIONARY: Dict = {
   "kpi.partial_data_full": { fr: "Données partielles : historique en cours", en: "Partial data: history pending", de: "Teildaten: Historie in Arbeit", nl: "Onvolledige data: historie in behandeling", sv: "Partiella data: historik pågår", da: "Delvise data: historik i gang", "en-GB": "Partial data: history pending", "de-CH": "Teildaten: Historie in Arbeit" },
   "hero.percentile_top": { fr: "Top", en: "Top" },
   "kpi.active": { fr: "Actif", en: "Active" },
-  "kpi.definition": { fr: "Définition (si KPI imprécis)", en: "Definition (if unclear)" },
+  "kpi.definition": { fr: "Définition", en: "Definition" },
 
   /* Stories */
   "stories.aria_prev": { fr: "Story précédente", en: "Previous story" },

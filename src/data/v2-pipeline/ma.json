@@ -13,7 +13,7 @@
     "sector": "Top 5",
     "subsector": "#2"
   },
-  "hero_kpi": "Gross Dollar Volume",
+  "hero_kpi": "Gross dollar volume (GDV) growth",
   "hero_kpi_rationale": "Le GDV (volume brut de transactions) est l'indicateur maître du réseau Mastercard : il agrège tous les paiements traités et conditionne directement les revenus. Sa croissance lisse sur 5 ans en fait le meilleur signal de l'activité.",
   "kpis": [
     {
@@ -154,7 +154,7 @@
       "short": "Gross dollar volume (GDV) growth",
       "_short_raw": "Gross dollar volume growth",
       "name_fr": "Croissance du volume brut en dollars (GDV)",
-      "unit": "% YoY (local currency)",
+      "unit": "%",
       "value": 7,
       "yoy": null,
       "history": [
@@ -189,7 +189,11 @@
       "is_short_history": false,
       "_source": "ER+earnings-calls",
       "signal": "Volume total traité sur le réseau, moteur direct des revenus de paiement.",
-      "_yoy_removed_rate_dup": "+7%"
+      "_yoy_removed_rate_dup": "+7%",
+      "_unit_before": "% YoY (local currency)",
+      "explanation": "Croissance annuelle du Gross Dollar Volume : la valeur totale en dollars de TOUTES les transactions (achats + retraits cash) réglées sur les cartes Mastercard dans le monde, en devise locale. C'est le volume d'affaires qui transite par le réseau, pas le chiffre d'affaires de Mastercard.",
+      "_fixed_at": "2026-07-17",
+      "_fix_note": "hero repointé : l'ancien hero 'Gross Dollar Volume' n'existait pas → fallback affichait la série de CROISSANCE (%) sous un libellé 'Volume brut (GDV)' avec unité 'Mrd USD' fausse. Unité corrigée en %."
     },
     {
       "short": "Cross-border volume growth",
@@ -575,25 +579,6 @@
       "last_data_date": "2026-03-11",
       "_ldd_from": "_source_month (approx dépôt -35j)",
       "_ldd_estimated": true
-    },
-    {
-      "short": "gdv_usd_growth",
-      "name_fr": "Croissance GDV (USD)",
-      "name_en": "GDV Growth (USD)",
-      "value": 12,
-      "unit": "%",
-      "yoy": null,
-      "type": "quarter",
-      "nature": "operational",
-      "signal": "positive",
-      "description": "GDV sur base USD a augmenté de 12% au T1 2026 vs T1 2025 (10Q)",
-      "story_category": "Croissance",
-      "is_short_history": true,
-      "_source": "10Q avril 2026",
-      "_source_month": "avril 2026",
-      "last_data_date": "2026-03-31",
-      "_source_file": "data-lake/MA/10Q/MA_2026-04-30.htm.gz",
-      "_new_extraction_at": "2026-07-13T10:15:00Z"
     },
     {
       "short": "switched_transactions_growth",
@@ -1024,5 +1009,29 @@
   "_events_source": "SEC 8-K primary filings (data-lake)",
   "_ai_positioning_regenerated_at": "2026-07-13T00:00:00Z",
   "_ai_positioning_source": "canonical overrides (10-K/8-K/IR primary)",
-  "_segment_verified_at": "2026-07-13T02:50:00Z"
+  "_segment_verified_at": "2026-07-13T02:50:00Z",
+  "_hero_kpi_before": "Gross Dollar Volume",
+  "_kpis_dedup_removed": [
+    {
+      "short": "gdv_usd_growth",
+      "name_fr": "Croissance GDV (USD)",
+      "name_en": "GDV Growth (USD)",
+      "value": 12,
+      "unit": "%",
+      "yoy": null,
+      "type": "quarter",
+      "nature": "operational",
+      "signal": "positive",
+      "description": "GDV sur base USD a augmenté de 12% au T1 2026 vs T1 2025 (10Q)",
+      "story_category": "Croissance",
+      "is_short_history": true,
+      "_source": "10Q avril 2026",
+      "_source_month": "avril 2026",
+      "last_data_date": "2026-03-31",
+      "_source_file": "data-lake/MA/10Q/MA_2026-04-30.htm.gz",
+      "_new_extraction_at": "2026-07-13T10:15:00Z",
+      "_removed_reason": "doublon GDV growth sans historique",
+      "_removed_at": "2026-07-17"
+    }
+  ]
 }
