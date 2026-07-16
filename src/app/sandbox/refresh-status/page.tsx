@@ -102,7 +102,7 @@ export default async function RefreshStatusPage() {
       <RefreshStatusView
         rows={[]}
         updatedAt={null}
-        history={((historyRaw as { runs?: RunHistoryEntry[] }).runs ?? []).slice(0, 30)}
+        history={((historyRaw as unknown as { runs?: RunHistoryEntry[] }).runs ?? []).slice(0, 30)}
       />
     );
   }
@@ -117,7 +117,7 @@ export default async function RefreshStatusPage() {
   // VERROU 4 (Yann 16 juil 2026) : historique des runs du cron avec le statut
   // des 4 verrous par sté (double extraction, complétude, audit rendu).
   const history: RunHistoryEntry[] =
-    ((historyRaw as { runs?: RunHistoryEntry[] }).runs ?? []).slice(0, 30);
+    ((historyRaw as unknown as { runs?: RunHistoryEntry[] }).runs ?? []).slice(0, 30);
 
   return (
     <RefreshStatusView

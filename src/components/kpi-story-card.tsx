@@ -1,6 +1,6 @@
 "use client";
 
-import { Sparkles, TrendingUp, Building2 } from "lucide-react";
+import { TrendingUp } from "lucide-react";
 import type { KPI, MarketPosition } from "@/lib/data";
 import { brand } from "@/lib/brand";
 import type { StorySlide } from "@/lib/kpi-stories-ordering";
@@ -105,8 +105,9 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
             {/* Yann 12 juil 2026 : le short technique anglais ("BACKLOG
                 (UNITS)", etc.) au-dessus du titre FR est supprimé. Le titre
                 FR suffit ; le tooltip explication reste, collé au titre. */}
+            {/* Yann 17 juil 2026 : titre en justifié. */}
             <div className="flex items-start gap-1.5 text-[22px] font-bold leading-tight text-zinc-50">
-              <span className="min-w-0">{kpi.name_fr}</span>
+              <span className="min-w-0 text-justify [text-align-last:left]">{kpi.name_fr}</span>
               {kpi.explanation && (
                 <InfoTooltip color={accent} size="sm">
                   <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: accent }}>
@@ -127,13 +128,8 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
               </div>
             )}
           </div>
-          <div
-            className="shrink-0 inline-flex items-center gap-1 rounded-full border px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.14em] opacity-70"
-            style={{ background: `${accent}10`, color: accent, borderColor: `${accent}33` }}
-          >
-            <Sparkles className="size-2.5" />
-            {kpi.story_category || "Story"}
-          </div>
+          {/* Yann 17 juil 2026 : badge catégorie déplacé au-dessus de la
+              barre de temps (rendu dans StoryFrame), retiré du header. */}
         </div>
 
         {/* Chiffre principal : occupe le centre, beaucoup plus grand qu'avant
@@ -274,17 +270,11 @@ function MarketPositionStoryCard({
       />
 
       <div className="relative flex h-full flex-col">
-        {/* Header compact : nom segment à gauche (gros), badge à droite. */}
+        {/* Yann 17 juil 2026 : titre justifié, badge catégorie déplacé
+            au-dessus de la barre de temps (rendu dans StoryFrame). */}
         <div className="flex items-start justify-between gap-2">
-          <div className="min-w-0 flex-1 text-[22px] font-bold leading-tight text-zinc-50">
+          <div className="min-w-0 flex-1 text-justify [text-align-last:left] text-[22px] font-bold leading-tight text-zinc-50">
             {mp.segment_name}
-          </div>
-          <div
-            className="shrink-0 inline-flex items-center gap-1 rounded-full border px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.14em] opacity-70"
-            style={{ background: `${accent}10`, color: accent, borderColor: `${accent}33` }}
-          >
-            <Building2 className="size-2.5" />
-            {t("story.market_chip")}
           </div>
         </div>
 

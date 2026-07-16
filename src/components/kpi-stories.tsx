@@ -308,6 +308,22 @@ function StoryFrame({
               chaque changement de groupe (key sur slideIdx). Paused au hover.
               Une seule barre par frame (pas de segments multi-slides : chaque
               frame = une story unique). */}
+          {/* Yann 17 juil 2026 : nom du thème (catégorie de la story)
+              déplacé du coin haut-droit de la carte vers ICI, juste
+              au-dessus de la barre de temps. */}
+          {(() => {
+            const cat = slide.kind === "kpi"
+              ? (slide.data.story_category || "Story")
+              : "Marché";
+            return (
+              <div
+                className="absolute left-3 top-[13px] z-20 inline-flex items-center rounded-full border px-1.5 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-[0.14em] opacity-80"
+                style={{ background: `${accent}14`, color: accent, borderColor: `${accent}33` }}
+              >
+                {cat}
+              </div>
+            );
+          })()}
           {autoplay && (
             <div className="absolute inset-x-3 top-9 z-20 h-[3px] overflow-hidden rounded-full bg-white/15">
               <div

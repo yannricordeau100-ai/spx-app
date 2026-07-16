@@ -23,7 +23,10 @@ const INNER_H = H - PAD_TOP - PAD_BOTTOM;
 /** Idem bars/curve : "T1 21" → quarter only, year extrait pour year-band. */
 function splitQuarterLabel(label: string): { top: string; bottom: string; isQuarter: boolean } {
   if (!label) return { top: "", bottom: "", isQuarter: false };
-  const m = label.match(/^(T[1-4])\s+(\d{2,4})$/);
+  // Yann 17 juil 2026 (screen AAPL EN) : accepter aussi le préfixe "Q" (titre
+  // du graph basculé EN) : sinon les 20 labels "Q1 21" s'affichent en entier
+  // et se chevauchent au lieu d'être scindés trimestre / bande d'année.
+  const m = label.match(/^([TQ][1-4])\s+(\d{2,4})$/);
   if (m) return { top: m[1], bottom: m[2], isQuarter: true };
   return { top: label, bottom: "", isQuarter: false };
 }
