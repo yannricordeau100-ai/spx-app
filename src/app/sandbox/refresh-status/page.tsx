@@ -2,6 +2,7 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import { loadV17Company } from "@/lib/company-core/load-company";
 import { RefreshStatusView, type RefreshRow, type RunHistoryEntry } from "./refresh-status-view";
+import historyRaw from "@/data/_quarterly-refresh-history.json";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 300;
@@ -98,18 +99,11 @@ export default async function RefreshStatusPage() {
   const todo = await readTodo();
   if (!todo || !todo.todo || Object.keys(todo.todo).length === 0) {
     return (
-      <main className="mx-auto max-w-5xl px-4 py-10 text-zinc-100">
-        <h1 className="font-display text-[28px] font-bold tracking-tight">
-          Suivi des rafraîchissements SEC
-        </h1>
-        <p className="mt-4 text-[13.5px] text-zinc-400">
-          Aucun refresh en attente. Le fichier
-          <code className="mx-1 rounded bg-white/[0.06] px-1.5 py-0.5 font-mono text-[12px] text-zinc-300">
-            .conv-state/quarterly-refresh-todo-llm.json
-          </code>
-          est absent ou vide.
-        </p>
-      </main>
+      <RefreshStatusView
+        rows={[]}
+        updatedAt={null}
+        history={((historyRaw as { runs?: RunHistoryEntry[] }).runs ?? []).slice(0, 30)}
+      />
     );
   }
 
@@ -122,16 +116,8 @@ export default async function RefreshStatusPage() {
 
   // VERROU 4 (Yann 16 juil 2026) : historique des runs du cron avec le statut
   // des 4 verrous par sté (double extraction, complétude, audit rendu).
-  let history: RunHistoryEntry[] = [];
-  try {
-    const rawH = await fs.readFile(
-      path.join(process.cwd(), "src/data/_quarterly-refresh-history.json"),
-      "utf-8",
-    );
-    history = (JSON.parse(rawH).runs ?? []).slice(0, 30);
-  } catch {
-    history = [];
-  }
+  const history: RunHistoryEntry[] =
+    ((historyRaw as { runs?: RunHistoryEntry[] }).runs ?? []).slice(0, 30);
 
   return (
     <RefreshStatusView
