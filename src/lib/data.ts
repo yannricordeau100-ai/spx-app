@@ -512,6 +512,39 @@ export function getHero(company: Company): KPI {
 /*                              Format helpers                                */
 /* -------------------------------------------------------------------------- */
 
+/** YoY d'une série trimestrielle en matchant le MÊME trimestre de l'année
+ *  précédente par LABEL (history_periods), pas par position -4.
+ *  Yann 18 juil 2026 (screen MA Rebates) : les séries à trous (T4 absents des
+ *  10-Q) faisaient comparer T3 2025 à T2 2024 avec le recul positionnel :
+ *  +27,6 % affiché au lieu de +17,7 % réel. Formats acceptés : "Q3-2025",
+ *  "Q3 2025", "Q3-FY2025". Retourne null si labels absents ou période N-1
+ *  introuvable (l'appelant garde alors son fallback positionnel). */
+export function yoySamePeriod(
+  history: unknown,
+  historyPeriods: unknown,
+): number | null {
+  if (!Array.isArray(history) || !Array.isArray(historyPeriods)) return null;
+  if (history.length < 2 || historyPeriods.length !== history.length) return null;
+  const parse = (q: unknown) => {
+    const m = String(q ?? "").match(/^Q([1-4])[\s-](?:FY)?(\d{4})$/i);
+    return m ? { q: Number(m[1]), y: Number(m[2]) } : null;
+  };
+  const lastIdx = history.length - 1;
+  const last = history[lastIdx];
+  const lastP = parse(historyPeriods[lastIdx]);
+  if (typeof last !== "number" || !lastP) return null;
+  for (let i = lastIdx - 1; i >= 0; i--) {
+    const p = parse(historyPeriods[i]);
+    if (p && p.q === lastP.q && p.y === lastP.y - 1) {
+      const prev = history[i];
+      if (typeof prev === "number" && prev !== 0)
+        return ((last - prev) / Math.abs(prev)) * 100;
+      return null;
+    }
+  }
+  return null;
+}
+
 /** Convert "$B" → "Mds $", "B" → "Mds", "$M" → "M $", "%" → "%", etc.
  *  Yann 16 mai 2026 : aussi "B €" → "Mds €", "B £" → "Mds £" (ASMLF
  *  bookings 26.2 B € affichait "B €" au lieu de "Mds €"). */
@@ -1065,16 +1098,40 @@ export function interpretStructured(
   // Pas un copier-coller du nom KPI, mais : valeur rescalée (jamais "0,..."),
   // YoY chiffré, CAGR sur la période, point haut/bas historique, ralenti
   // ou pas. La signal pré-écrite reste un complément si non-trivial.
-  const rawValue = typeof hero.value === "number" ? hero.value : Number(hero.value);
+  const histNumsAll = (Array.isArray(hero.history) ? hero.history : []).filter((x): x is number => typeof x === "number");
+  // Yann 18 juil 2026 (MA : hero affiché 5 389 trimestriel vs lead "20 522 M
+  // USD" annuel) : pour un hero TRIMESTRIEL, le lead parle du même chiffre que
+  // le gros nombre affiché = dernier point trimestriel, pas la value annuelle.
+  const heroIsQuarterlyLead = hero.period_type === "quarter" && histNumsAll.length >= 5;
+  const rawValue = heroIsQuarterlyLead
+    ? histNumsAll[histNumsAll.length - 1]
+    : (typeof hero.value === "number" ? hero.value : Number(hero.value));
   const rawUnit = String(hero.unit ?? "").replace(/\s+deployed$/i, "").replace(/\s+units$/i, " unités");
-  const histNums = (Array.isArray(hero.history) ? hero.history : []).filter((x): x is number => typeof x === "number");
+  const histNums = histNumsAll;
   const allBelowOne = histNums.length > 0 && histNums.every((v) => Math.abs(v) < 1) && (!Number.isFinite(rawValue) || Math.abs(rawValue) < 1);
   const { unit: scaledUnit, factor: scaleFactor } = autoRescaleForInterp(rawUnit, allBelowOne);
   const heroValue = Number.isFinite(rawValue)
     ? (rawValue * scaleFactor).toLocaleString(numLocale(locale), { maximumFractionDigits: 1 })
     : (hero.value ?? "—");
   const computedYoy = computeYoyFromHistory(hero.history, locale, hero.period_type);
-  const heroYoy = (typeof hero.yoy === "string" && hero.yoy.trim()) ? hero.yoy : computedYoy;
+  // Yann 18 juil 2026 : hero trimestriel → YoY recalculé (par label de période
+  // en priorité, cf yoySamePeriod), jamais le yoy stocké souvent annuel/périmé.
+  let quarterlyLeadYoy: string | null = null;
+  if (heroIsQuarterlyLead) {
+    const byLabel = yoySamePeriod(
+      hero.history,
+      (hero as unknown as { history_periods?: string[] }).history_periods,
+    );
+    const pct = byLabel !== null
+      ? byLabel
+      : (histNumsAll.length >= 5 && histNumsAll[histNumsAll.length - 5] !== 0
+        ? ((histNumsAll[histNumsAll.length - 1] - histNumsAll[histNumsAll.length - 5]) / Math.abs(histNumsAll[histNumsAll.length - 5])) * 100
+        : null);
+    if (pct !== null) {
+      quarterlyLeadYoy = `${pct > 0 ? "+" : ""}${pct.toFixed(1).replace(".", numLocale(locale).startsWith("fr") ? "," : ".")} %`;
+    }
+  }
+  const heroYoy = quarterlyLeadYoy ?? ((typeof hero.yoy === "string" && hero.yoy.trim()) ? hero.yoy : computedYoy);
   // Trend : valeurs rescalées pour les comparaisons.
   const scaledHist = histNums.map((v) => v * scaleFactor);
   const cagrPct = scaledHist.length >= 2 ? cagr(scaledHist, scaledUnit, hero.period_type ?? "year") : null;

@@ -24,6 +24,7 @@ import {
   findComparable,
   getHero,
   interpretStructured,
+  yoySamePeriod,
 } from "@/lib/data";
 import { yoyTone } from "@/lib/utils";
 import { autoRescaleSmallUnit, isPercentMagnitudeAnomaly } from "@/lib/format-hero";
@@ -703,6 +704,17 @@ export function CompanyView({
     // recalculé depuis l'historique verbatim. Le yoy stocké sur ces KPI
     // fusionnés est souvent un reliquat annuel ou un QoQ.
     if (active.period_type === "quarter" && h.length >= 5) {
+      // Yann 18 juil 2026 (MA Rebates +27,6 % faux) : match par LABEL de
+      // période en priorité, le recul -4 positions ment sur les séries à
+      // trous (T4 absents des 10-Q).
+      const byLabel = yoySamePeriod(
+        h,
+        (active as unknown as { history_periods?: string[] }).history_periods,
+      );
+      if (byLabel !== null) {
+        const sign = byLabel > 0 ? "+" : "";
+        return `${sign}${byLabel.toFixed(1).replace(".", ",")} %`;
+      }
       const last = h[h.length - 1];
       const prevY = h[h.length - 5];
       if (typeof last === "number" && typeof prevY === "number" && prevY !== 0) {

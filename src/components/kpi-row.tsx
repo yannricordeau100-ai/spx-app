@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowDownRight, ArrowUpRight, Check } from "lucide-react";
-import { type KPI, formatCAGR, formatUnit, formatHeroValue } from "@/lib/data";
+import { type KPI, formatCAGR, formatUnit, formatHeroValue, yoySamePeriod } from "@/lib/data";
 import { cn, yoyTone } from "@/lib/utils";
 import { rate } from "@/lib/brand";
 import { Sparkline } from "@/components/effects/sparkline";
@@ -279,10 +279,19 @@ export function KpiRow({
             Array.isArray(kpi.history) &&
             kpi.history.length >= 5
           ) {
-            const last = kpi.history[kpi.history.length - 1];
-            const prev = kpi.history[kpi.history.length - 5];
-            if (typeof last === "number" && typeof prev === "number" && prev !== 0) {
-              const pct = ((last - prev) / Math.abs(prev)) * 100;
+            // Yann 18 juil 2026 (MA Rebates) : match par LABEL de période en
+            // priorité, le recul -4 positions ment sur les séries à trous.
+            let pct = yoySamePeriod(
+              kpi.history,
+              (kpi as unknown as { history_periods?: string[] }).history_periods,
+            );
+            if (pct === null) {
+              const last = kpi.history[kpi.history.length - 1];
+              const prev = kpi.history[kpi.history.length - 5];
+              if (typeof last === "number" && typeof prev === "number" && prev !== 0)
+                pct = ((last - prev) / Math.abs(prev)) * 100;
+            }
+            if (pct !== null) {
               const sign = pct > 0 ? "+" : "";
               yoyStr = `${sign}${pct.toFixed(1).replace(".", ",")} %`;
             }
