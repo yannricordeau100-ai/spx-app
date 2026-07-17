@@ -267,7 +267,29 @@ export function KpiRow({
           // Yann 14 mai 2026 : fallback calculé depuis history quand kpi.yoy
           // est vide (1 049 KPIs concernés dans le SP1500). Évite pill vide.
           let yoyStr: string | null = null;
-          if (typeof kpi.yoy === "number" && Number.isFinite(kpi.yoy)) {
+          // Yann 17 juil 2026 (audit 100 stés : 31 KPI avec yoy stocké de signe
+          // opposé à l'history, ex AAPL Chine -7,7 % vs +37,9 % réel, TSLA auto,
+          // ORCL OCI, GS EQ_REV) : pour un KPI trimestriel avec ≥5 points, le
+          // YoY affiché est TOUJOURS recalculé vs même trimestre N-1 depuis
+          // l'history (même règle que le hero). Le yoy stocké ne sert que de
+          // fallback. KPI en % exclus (delta en points, pas ratio).
+          if (
+            String(kpi.unit ?? "").trim() !== "%" &&
+            kpi.period_type === "quarter" &&
+            Array.isArray(kpi.history) &&
+            kpi.history.length >= 5
+          ) {
+            const last = kpi.history[kpi.history.length - 1];
+            const prev = kpi.history[kpi.history.length - 5];
+            if (typeof last === "number" && typeof prev === "number" && prev !== 0) {
+              const pct = ((last - prev) / Math.abs(prev)) * 100;
+              const sign = pct > 0 ? "+" : "";
+              yoyStr = `${sign}${pct.toFixed(1).replace(".", ",")} %`;
+            }
+          }
+          if (yoyStr) {
+            // recalcul trimestriel prioritaire déjà posé
+          } else if (typeof kpi.yoy === "number" && Number.isFinite(kpi.yoy)) {
             const sign = kpi.yoy > 0 ? "+" : "";
             yoyStr = `${sign}${String(kpi.yoy).replace(".", ",")}%`;
           } else if (typeof kpi.yoy === "string" && kpi.yoy.trim()) {

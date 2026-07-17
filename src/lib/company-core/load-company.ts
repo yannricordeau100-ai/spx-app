@@ -2633,11 +2633,30 @@ export async function loadV17Company(
       const hautShorts = new Set(
         converted.map((k) => String(k.short ?? "").toLowerCase()),
       );
+      // Yann 17 juil 2026 (audit 100 stés : 36 doublons visibles dans les
+      // Indicateurs clés, ex ABT "Électrophysiologie" présent via le short
+      // legacy ELECTROPHYS ET via le kpis-haut "Electrophysiology") : la
+      // dédup par short ne suffit pas, les couches nomment différemment le
+      // même KPI. On déduplique AUSSI par name_fr/name_en normalisés
+      // (accents et non-lettres retirés), kpis-haut prioritaire.
+      const normName = (s: unknown) =>
+        String(s ?? "")
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/[^a-z0-9]/g, "");
+      const hautNames = new Set(
+        converted.flatMap((k) => [normName(k.name_fr), normName(k.name_en)]).filter(Boolean),
+      );
       const keptExtras = ((data.kpis as AnyKPI[]) ?? []).filter((k) => {
         const src = (k as { _source?: unknown })._source;
         if (typeof src !== "string" || !KEPT_SOURCES.has(src)) return false;
         const s = String(k?.short ?? "").toLowerCase();
-        return s.length > 0 && !hautShorts.has(s);
+        if (s.length === 0 || hautShorts.has(s)) return false;
+        const nf = normName((k as { name_fr?: unknown }).name_fr);
+        const ne = normName((k as { name_en?: unknown }).name_en);
+        if ((nf && hautNames.has(nf)) || (ne && hautNames.has(ne))) return false;
+        return true;
       });
       data.kpis = [...converted, ...keptExtras];
       const bestHero = converted.reduce((best, k) =>
