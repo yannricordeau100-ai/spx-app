@@ -2533,6 +2533,9 @@ export async function loadV17Company(
       frequency?: string;
       last_data_date?: string;
       history?: Array<{ q: string; v: number }>;
+      _fp_note?: string;
+      _needs_review?: boolean;
+      _value_note?: string;
     }>;
   }>(kpisHautPath);
   // Yann 4 juillet 2026 : type deduit du sens du KPI (avant: "Volume"
@@ -2612,6 +2615,17 @@ export async function loadV17Company(
           // bouton Annuel reste grise sans indication.
           ...((k as { is_short_history?: boolean }).is_short_history === true
             ? { is_short_history: true }
+            : {}),
+          // 18 juil 2026 (lint-mix R5) : passthrough des notes de
+          // faux-positif / revue posées sur les KPI kpis-haut. Sans elles,
+          // le linter R5 re-flaggait des valeurs annuelles légitimes
+          // (saisonnalité, cumuls FY) déjà auditées et notées dans le draft.
+          ...(typeof k._fp_note === "string" && k._fp_note.trim().length > 0
+            ? { _fp_note: k._fp_note }
+            : {}),
+          ...(k._needs_review === true ? { _needs_review: true } : {}),
+          ...(typeof k._value_note === "string" && k._value_note.trim().length > 0
+            ? { _value_note: k._value_note }
             : {}),
         } as AnyKPI;
       });

@@ -453,7 +453,7 @@
     {
       "short": "Gross premiums written",
       "_short_raw": "Gross premiums written",
-      "name_fr": "Primes brutes emises",
+      "name_fr": "Primes brutes émises",
       "unit": "K $",
       "value": 3785766,
       "yoy": "+2.8%",
@@ -487,7 +487,8 @@
       "is_wow": true,
       "is_short_history": false,
       "_source": "ER+earnings-calls",
-      "signal": "Volume total souscrit avant réassurance, mesure de la croissance du portefeuille."
+      "signal": "Volume total souscrit avant réassurance, mesure de la croissance du portefeuille.",
+      "description": "Primes brutes émises, elles mesurent la croissance de l'activité de souscription avant cession en réassurance."
     },
     {
       "short": "Reported combined ratio",
@@ -528,7 +529,8 @@
       "is_wow": true,
       "is_short_history": false,
       "_source": "ER+earnings-calls",
-      "signal": "Rentabilite technique de la souscription, sous 100% = benefice."
+      "signal": "Rentabilite technique de la souscription, sous 100% = benefice.",
+      "description": "Ratio combiné publié, sinistralité plus frais rapportés aux primes, il mesure la rentabilité technique globale."
     },
     {
       "short": "Average rate increases excluding workers' compensation",
@@ -566,7 +568,8 @@
       "is_wow": true,
       "is_short_history": false,
       "_source": "ER+earnings-calls",
-      "signal": "Pouvoir de fixation des prix sur le portefeuille, indicateur avance de marge."
+      "signal": "Pouvoir de fixation des prix sur le portefeuille, indicateur avance de marge.",
+      "description": "Hausses tarifaires moyennes hors accidents du travail, elles jaugent le pouvoir de tarification dans le cycle."
     },
     {
       "short": "Expense ratio",
@@ -588,7 +591,8 @@
       "is_wow": true,
       "is_short_history": false,
       "_source": "calls-5y",
-      "signal": "Frais de gestion stables autour de 28%, efficacite operationnelle constante."
+      "signal": "Frais de gestion stables autour de 28%, efficacite operationnelle constante.",
+      "description": "Ratio de frais rapportés aux primes, indicateur de l'efficacité opérationnelle de l'assureur."
     },
     {
       "short": "Fixed maturity portfolio duration",
@@ -611,7 +615,8 @@
       "is_wow": true,
       "is_short_history": false,
       "_source": "calls-5y",
-      "signal": "Duration allongée à 3.1 ans mais toujours inférieure à la vie moyenne des réserves (~4 ans); flexibilité pour capter des taux plus élevés."
+      "signal": "Duration allongée à 3.1 ans mais toujours inférieure à la vie moyenne des réserves (~4 ans); flexibilité pour capter des taux plus élevés.",
+      "description": "Duration du portefeuille obligataire, elle traduit la sensibilité des placements aux variations de taux."
     },
     {
       "short": "Financial leverage ratio (historical low)",
@@ -790,41 +795,6 @@
       "_ldd_estimated": true
     },
     {
-      "short": "GAAP combined ratio",
-      "_short_raw": "Combined ratio",
-      "name_fr": "Ratio combine",
-      "unit": "%",
-      "value": 89.4,
-      "yoy": "-0.8pt",
-      "history": [
-        90.1,
-        89.7,
-        90.4,
-        88.2,
-        87.8,
-        88.6,
-        92.1,
-        88.4,
-        90.6,
-        89.6,
-        90.2,
-        88.4,
-        88.8,
-        91.1,
-        90.9,
-        90.2,
-        90.9,
-        91.6,
-        90.9,
-        89.4
-      ],
-      "period_type": "quarter",
-      "is_wow": true,
-      "is_short_history": false,
-      "_source": "sectoriel",
-      "signal": "Ratio combine sous 90%, souscription tres rentable et disciplinee."
-    },
-    {
       "short": "Loss ratio",
       "_short_raw": "Loss ratio",
       "name_fr": "Ratio de sinistralite",
@@ -857,7 +827,8 @@
       "is_wow": true,
       "is_short_history": false,
       "_source": "sectoriel",
-      "signal": "Sinistralite maitrisee autour de 61-62%, coeur de la rentabilite technique."
+      "signal": "Sinistralite maitrisee autour de 61-62%, coeur de la rentabilite technique.",
+      "description": "Ratio de sinistralité rapporté aux primes, il mesure la qualité de la sélection et de la tarification des risques."
     },
     {
       "short": "Return on equity",
@@ -1449,5 +1420,6 @@
   "_events_source": "SEC 8-K primary filings (data-lake)",
   "_ai_positioning_regenerated_at": "2026-07-13T00:00:00Z",
   "_ai_positioning_source": "canonical overrides (10-K/8-K/IR primary)",
-  "_segment_verified_at": "2026-07-13T02:50:00Z"
+  "_segment_verified_at": "2026-07-13T02:50:00Z",
+  "_kpis_dedup_removed_lint": "lint-mix 18 juil 2026: 'GAAP combined ratio' supprime (doublon name_fr 'Ratio combine' avec 'Reported combined ratio', history plus riche 26 pts vs 20)"
 }

@@ -78,7 +78,35 @@ export const RULES: Record<string, { label: string; desc: string }> = {
   },
   R12_FRAICHEUR: {
     label: "Fraîcheur des données",
-    desc: "last_data_date du KPI actif < 15 mois (orange au-delà, rouge > 24 mois).",
+    desc: "last_data_date du hero < 15 mois (orange au-delà, rouge > 24 mois). Limite : KPI annuels naturellement à 12+ mois tolérés jusqu'à 15.",
+  },
+  R13_TAM_HONNETE: {
+    label: "TAM honnête",
+    desc: "Une market_position n'est rendue QUE si la sté a divulgué elle-même segment ET TAM avec source. TAM externe + CA interne interdit. Limite : bloc absent = conforme (couverture facultative).",
+  },
+  R14_RISQUES: {
+    label: "Risques complets",
+    desc: "Au moins 3 risques rendus, chacun avec catégorie, score 1-5 et score_rationale non vide (citant les 4 critères). Rouge si <3 risques ou score hors bornes, orange si rationale vide.",
+  },
+  R15_GOUVERNANCE: {
+    label: "Gouvernance & rémunération",
+    desc: "Bloc gouvernance présent avec CEO identifié et rémunération. Limite : stés sans proxy post-fusion (ex PSKY) tolérées si _no_proxy_note.",
+  },
+  R16_STORIES_DATEES: {
+    label: "Stories datées et parlantes",
+    desc: "Chaque story KPI rendue a un signal non vide (pas de carte muette) et une last_data_date parseable (badge de période dérivable). Orange par story fautive, max 1 flag par sté.",
+  },
+  R18_REPARTITION_CA: {
+    label: "Répartition CA",
+    desc: "revenue_by_segment présent (orange si absent) ; geography souhaitée. Limite : mono-segment légitime si note explicite.",
+  },
+  R19_EVENTS: {
+    label: "Événements",
+    desc: "Au moins 3 événements de timeline. Orange si moins. Limite : IPO récentes tolérées.",
+  },
+  R20_AI_POSITIONING: {
+    label: "Positionnement IA",
+    desc: "Stance parmi leader/integrator/cautious/absent + au moins 2 éléments de preuve. Orange si incomplet.",
   },
 };
 
@@ -179,7 +207,11 @@ async function lintTicker(t: string): Promise<Issue[]> {
       const numOut = parseFloat(String(fmt.value).replace(/\s| /g, "").replace(",", "."));
       // Plafond assumé : pas de tier au-dessus de Mds (décision Yann) → >999 toléré si l'unité de sortie est déjà Mds*.
       const isMdsOut = /^Mds/.test(fmt.unit) || /^Mrd/.test(fmt.unit);
-      if (Number.isFinite(numOut) && ((Math.abs(numOut) >= 1000 && !isMdsOut) || (Math.abs(numOut) > 0 && Math.abs(numOut) < 1 && /Mds|M |K /.test(fmt.unit)))) {
+      // La règle 1-999 s'applique aux unités MONÉTAIRES ou à échelle (M/Mds/K/
+      // million...). Les counts naturels (magasins, logements, MW, rooms...)
+      // s'affichent tels quels : "1 250 magasins" est correct.
+      const isScaledUnit = /[$€£]|USD|EUR|GBP|CHF|JPY|\bM\b|\bMds\b|\bMrd\b|\bK\b|million|milliard|Bn\b/i.test(fmt.unit);
+      if (Number.isFinite(numOut) && isScaledUnit && ((Math.abs(numOut) >= 1000 && !isMdsOut) || (Math.abs(numOut) > 0 && Math.abs(numOut) < 1 && /Mds|M |K /.test(fmt.unit)))) {
         push(short, "R1_CHIFFRE_1_999", "rouge", `rendu "${fmt.value} ${fmt.unit}" hors [1,999]`);
       }
     }
@@ -242,6 +274,7 @@ async function lintTicker(t: string): Promise<Issue[]> {
     /* R7 */
     const desc = String((k as { description?: unknown }).description ?? (k as { explanation?: unknown }).explanation ?? "");
     if (desc.trim().length <= 4) push(short, "R7_TOOLTIP_I", "orange", "pas de description tooltip");
+    if (desc.includes("—")) push(short, "R6_TEXTES_FR", "orange", "em-dash dans la description");
 
     /* R11 */
     if (hist.length >= 2) {
@@ -249,13 +282,92 @@ async function lintTicker(t: string): Promise<Issue[]> {
       if (cg !== null && Math.abs(cg) > 200) push(short, "R11_CAGR_PLAUSIBLE", "orange", `CAGR ${cg.toFixed(0)}%/an`);
     }
 
-    /* R12 : hero seulement */
-    if (isHero && typeof k.last_data_date === "string") {
-      const months = (Date.now() - new Date(String(k.last_data_date)).getTime()) / (30.44 * 24 * 3600 * 1000);
-      if (months > 24) push(short, "R12_FRAICHEUR", "rouge", `dernière donnée il y a ${Math.round(months)} mois`);
-      else if (months > 15) push(short, "R12_FRAICHEUR", "orange", `dernière donnée il y a ${Math.round(months)} mois`);
+    /* R12 : hero seulement. Fraîcheur = fin de la DERNIÈRE PÉRIODE de la série
+       si labels parseables (la métadonnée last_data_date est parfois périmée
+       alors que la série est fraîche, ex AAPL) ; sinon last_data_date. */
+    if (isHero) {
+      let refDate: number | null = null;
+      const lastLabel = periods.length ? parseP(periods[periods.length - 1]) : null;
+      if (lastLabel) refDate = new Date(lastLabel.y, lastLabel.q * 3, 0).getTime();
+      else if (typeof k.last_data_date === "string" && /^\d{4}-\d{2}/.test(String(k.last_data_date)))
+        refDate = new Date(String(k.last_data_date)).getTime();
+      if (refDate !== null) {
+        const months = (Date.now() - refDate) / (30.44 * 24 * 3600 * 1000);
+        if (months > 24) push(short, "R12_FRAICHEUR", "rouge", `dernière donnée il y a ${Math.round(months)} mois`);
+        else if (months > 15) push(short, "R12_FRAICHEUR", "orange", `dernière donnée il y a ${Math.round(months)} mois`);
+      }
     }
   }
+  /* ── Règles blocs sté (R13-R20) ── */
+  const cc = c as unknown as {
+    market_positions?: Array<Record<string, unknown>>;
+    risks?: Array<Record<string, unknown>>;
+    governance?: Record<string, unknown> | null;
+    events?: unknown[];
+    ai_positioning?: { stance?: string; evidence?: unknown[] } | null;
+    revenue_by_segment?: unknown;
+    stories_kpis?: unknown;
+  };
+
+  /* R13 : TAM honnête (bloc facultatif ; si présent, doit être complet) */
+  const mpRaw = cc.market_positions as unknown;
+  const mpList: Array<Record<string, unknown>> = Array.isArray(mpRaw)
+    ? mpRaw
+    : Array.isArray((mpRaw as { positions?: unknown[] } | null | undefined)?.positions)
+      ? ((mpRaw as { positions: Array<Record<string, unknown>> }).positions)
+      : [];
+  for (const mp of mpList) {
+    const hasSegRev = mp.segment_revenue !== undefined && mp.segment_revenue !== null;
+    const hasTam = mp.tam !== undefined && mp.tam !== null;
+    const hasSource = typeof mp.source === "string" && String(mp.source).trim().length > 3;
+    if (hasTam && (!hasSegRev || !hasSource))
+      push(String(mp.segment_name ?? "mp"), "R13_TAM_HONNETE", "rouge", "TAM affiché sans segment_revenue ou sans source sté");
+  }
+
+  /* R14 : risques */
+  const risks = cc.risks ?? [];
+  if (risks.length < 3) push("", "R14_RISQUES", "rouge", `${risks.length} risques rendus (<3)`);
+  else {
+    for (const rk of risks) {
+      const sc = Number(rk.score);
+      if (!Number.isFinite(sc) || sc < 1 || sc > 5) { push(String(rk.category ?? "risk"), "R14_RISQUES", "rouge", `score invalide: ${rk.score}`); break; }
+      if (!String(rk.score_rationale ?? "").trim()) { push(String(rk.category ?? "risk"), "R14_RISQUES", "orange", "score_rationale vide"); break; }
+    }
+  }
+
+  /* R15 : gouvernance */
+  const gov = cc.governance;
+  const hasNoProxyNote = Boolean((gov as { _no_proxy_note?: unknown } | null | undefined)?._no_proxy_note);
+  if (!gov || Object.keys(gov).length === 0) {
+    if (!hasNoProxyNote) push("", "R15_GOUVERNANCE", "orange", "bloc gouvernance absent");
+  }
+
+  /* R16 : stories datées et parlantes (max 1 flag par sté) */
+  const stories = (Array.isArray(cc.stories_kpis) ? cc.stories_kpis : []) as Array<Record<string, unknown>>;
+  let storyFlagged = false;
+  for (const st of stories) {
+    if (storyFlagged) break;
+    const sig = String(st.signal ?? "").trim();
+    const ldd = String(st.last_data_date ?? "");
+    const usableStory = sig.length > 0;
+    const dated = /^\d{4}-\d{2}/.test(ldd);
+    if (usableStory && !dated) { push(String(st.short ?? "story"), "R16_STORIES_DATEES", "orange", "story sans last_data_date parseable"); storyFlagged = true; }
+  }
+
+  /* R18 : répartition CA */
+  if (!cc.revenue_by_segment) push("", "R18_REPARTITION_CA", "orange", "revenue_by_segment absent");
+
+  /* R19 : events */
+  const evts = Array.isArray(cc.events) ? cc.events : [];
+  if (evts.length < 3) push("", "R19_EVENTS", "orange", `${evts.length} événements (<3)`);
+
+  /* R20 : AI positioning */
+  const ai = cc.ai_positioning;
+  if (!ai || !["leader", "integrator", "cautious", "absent"].includes(String(ai.stance ?? "")))
+    push("", "R20_AI_POSITIONING", "orange", "stance manquante ou hors référentiel");
+  else if (!Array.isArray(ai.evidence) || ai.evidence.length < 2)
+    push("", "R20_AI_POSITIONING", "orange", `${Array.isArray(ai.evidence) ? ai.evidence.length : 0} éléments de preuve (<2)`);
+
   return issues;
 }
 
