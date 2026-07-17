@@ -24,6 +24,7 @@ import {
   findComparable,
   getHero,
   interpretStructured,
+  formatHeroValue,
   yoySamePeriod,
 } from "@/lib/data";
 import { yoyTone } from "@/lib/utils";
@@ -793,10 +794,18 @@ export function CompanyView({
       `[Mettrik] Hero KPI % anomaly on ${company.ticker} / ${active.short}: value=${active.value}, unit=${rawUnit}`,
     );
   }
-  const formattedUnit = heroPercentAnomaly ? "" : formatUnit(heroAxisUnit);
+  // Yann 18 juil 2026 (screen MA "5 389 M USD") : le gros chiffre hero suit la
+  // regle ABSOLUE 1-999 + magnitude (formatHeroValue), meme quand l'axe du
+  // chart reste en M. L'axe garde son unite ; seul le hero rescale.
+  const heroMagnitude = !heroPercentAnomaly && typeof scaledValue === "number" && Number.isFinite(scaledValue)
+    ? formatHeroValue(scaledValue, heroAxisUnit)
+    : null;
+  const formattedUnit = heroPercentAnomaly ? "" : (heroMagnitude ? heroMagnitude.unit : formatUnit(heroAxisUnit));
   const heroFormatted = heroPercentAnomaly
     ? { value: "—", unit: "" }
-    : { value: formatKpiValue(scaledValue, heroAxisUnit), unit: formattedUnit };
+    : (heroMagnitude
+      ? { value: heroMagnitude.value, unit: heroMagnitude.unit }
+      : { value: formatKpiValue(scaledValue, heroAxisUnit), unit: formattedUnit });
   // Yann 8 juin 2026 (Point 4 bis) : si KpiSwapTitle a bascule le titre en EN,
   // l'unite affichee a cote du hero number doit suivre la MEME regle que l'axe
   // Y (cf curve-chart.tsx ligne 267-268). Chaine 2 etapes identique :
