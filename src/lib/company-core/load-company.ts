@@ -2536,6 +2536,7 @@ export async function loadV17Company(
       _fp_note?: string;
       _needs_review?: boolean;
       _value_note?: string;
+      _gap_note?: string;
     }>;
   }>(kpisHautPath);
   // Yann 4 juillet 2026 : type deduit du sens du KPI (avant: "Volume"
@@ -2626,6 +2627,12 @@ export async function loadV17Company(
           ...(k._needs_review === true ? { _needs_review: true } : {}),
           ...(typeof k._value_note === "string" && k._value_note.trim().length > 0
             ? { _value_note: k._value_note }
+            : {}),
+          // 18 juil 2026 (vagues R3) : passthrough des notes de trou de série
+          // (trimestre non publié par la sté) pour que le linter classe le
+          // trou en orange documenté au lieu de rouge.
+          ...(typeof k._gap_note === "string" && k._gap_note.trim().length > 0
+            ? { _gap_note: k._gap_note }
             : {}),
         } as AnyKPI;
       });

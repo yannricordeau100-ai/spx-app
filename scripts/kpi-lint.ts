@@ -235,9 +235,10 @@ async function lintTicker(t: string): Promise<Issue[]> {
       } else {
         const idx = (p: { q: number; y: number }) => p.y * 4 + (p.q - 1);
         const ps = (parsed as Array<{ q: number; y: number }>).map(idx);
+        const gapNoted = Boolean((k as { _gap_note?: unknown })._gap_note);
         for (let i = 1; i < ps.length; i++) {
           if (ps[i] - ps[i - 1] !== 1) {
-            push(short, "R3_GRAPH_COMPLET", "rouge", `trou entre ${periods[i - 1]} et ${periods[i]}`);
+            push(short, "R3_GRAPH_COMPLET", gapNoted ? "orange" : "rouge", `trou entre ${periods[i - 1]} et ${periods[i]}${gapNoted ? " (non publié, note posée)" : ""}`);
             break; // 1 flag par KPI suffit
           }
         }
