@@ -173,8 +173,17 @@ async function lintTicker(t: string): Promise<Issue[]> {
     ...table.filter((k) => k !== hero).map((k) => ({ k, isHero: false })),
   ];
 
-  /* R9 */
-  if (table.length < 4) push("", "R9_MIN_INDICATEURS", table.length < 3 ? "rouge" : "orange", `${table.length} indicateurs rendus`);
+  /* R9. Limite d'application : couverture structurellement limitée documentée
+     (spin-off, fusion récente, périmètres changeants) via _min_indicateurs_note
+     à la racine du fichier kpis-haut → orange documenté. */
+  if (table.length < 4) {
+    let minNote = "";
+    try {
+      const haut = JSON.parse(fs.readFileSync(path.join(ROOT, ".batches-drafts-safe/kpis-haut", t + ".json"), "utf8")) as { _min_indicateurs_note?: string };
+      minNote = String(haut._min_indicateurs_note ?? "");
+    } catch { /* pas de fichier kpis-haut */ }
+    push("", "R9_MIN_INDICATEURS", table.length < 3 && !minNote ? "rouge" : "orange", `${table.length} indicateurs rendus${minNote ? " (couverture limitée documentée)" : ""}`);
+  }
 
   /* R10 */
   if (!hero) push("", "R10_HERO_VALIDE", "rouge", `hero_kpi "${c.hero_kpi}" introuvable`);
