@@ -17,24 +17,12 @@ import { translateUnitFrToEn } from "@/lib/i18n/unit-translations";
 import { useT } from "@/lib/i18n/provider";
 const axisHeader = chartAxisHeader;
 
-/** Yann 14 mai 2026 : format label barre ADAPTATIF (bug Tesla 0,41→0).
- *  Yann 19 juil 2026 : compact k/M/Md quand valeur ≥ 1000 pour éviter le
- *  chevauchement des labels au-dessus des barres serrées. */
-function formatBarLabel(v: number, dataMax: number): string {
-  if (!Number.isFinite(v)) return "—";
-  const abs = Math.abs(v);
-  if (Math.abs(dataMax) >= 1000) {
-    if (abs >= 1_000_000_000) return (v / 1_000_000_000).toLocaleString("fr-FR", { maximumFractionDigits: 1, minimumFractionDigits: 1 }) + " Md";
-    if (abs >= 1_000_000) return (v / 1_000_000).toLocaleString("fr-FR", { maximumFractionDigits: 1, minimumFractionDigits: 1 }) + " M";
-    if (abs >= 1000) return (v / 1000).toLocaleString("fr-FR", { maximumFractionDigits: 1, minimumFractionDigits: 1 }) + " k";
-    return v.toLocaleString("fr-FR", { maximumFractionDigits: 0 });
-  }
-  let decimals: number;
-  if (Math.abs(dataMax) < 1) decimals = 2;
-  else if (Math.abs(dataMax) < 100) decimals = 1;
-  else decimals = 0;
-  return v.toLocaleString("fr-FR", { maximumFractionDigits: decimals, minimumFractionDigits: decimals > 0 ? 1 : 0 });
-}
+import { formatChartValueLabel } from "@/lib/chart-label-format";
+
+/** Yann 19 juil 2026 : format label barre unifié via helper commun
+ *  (compact k/M/Md, % préservé, adaptatif petits nombres). */
+const formatBarLabel = (v: number, dataMax: number, unit?: string) =>
+  formatChartValueLabel(v, dataMax, unit);
 
 const W = 920, H = 420;
 // PAD_RIGHT = 95 (vs 70 avant) pour garantir aucun clipping du label TTM
@@ -419,19 +407,29 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
                 )}
               </g>
             )}
-            {/* Valeur au-dessus de chaque barre (toujours visible). Format
-                entier, sans virgule ni point (demande Yann 5 mai 2026). */}
-            <text
-              x={x + barW / 2 + (isClassic ? 0 : DX / 2)}
-              y={isNeg ? barBot + 18 : yT + (isClassic ? -10 : DY - 12)}
-              textAnchor="middle"
-              fontSize={valueFontSize}
-              fontWeight={700}
-              fill="#fafafa"
-              fontFamily="ui-monospace, monospace"
-            >
-              {formatBarLabel(Number(v), dataOnlyMax)}
-            </text>
+            {/* Valeur au-dessus de chaque barre. Format compact + rotation
+                automatique (-30°) quand la série est dense (>12 points) pour
+                éviter tout chevauchement quelle que soit la disposition
+                (Yann 19 juil 2026). */}
+            {(() => {
+              const cxLabel = x + barW / 2 + (isClassic ? 0 : DX / 2);
+              const cyLabel = isNeg ? barBot + 18 : yT + (isClassic ? -10 : DY - 12);
+              const rotate = isCrowded ? -30 : 0;
+              return (
+                <text
+                  x={cxLabel}
+                  y={cyLabel}
+                  textAnchor={rotate ? "start" : "middle"}
+                  fontSize={valueFontSize}
+                  fontWeight={700}
+                  fill="#fafafa"
+                  fontFamily="ui-monospace, monospace"
+                  transform={rotate ? `rotate(${rotate} ${cxLabel} ${cyLabel})` : undefined}
+                >
+                  {formatBarLabel(Number(v), dataOnlyMax, unit)}
+                </text>
+              );
+            })()}
             {/* x label : quarter uniquement (T1/T2/T3/T4) sur ligne 1. Le
                 year apparaît UNE SEULE FOIS par groupe via le year-band
                 rendu après la boucle (cf. bloc yearGroups.map plus bas).
