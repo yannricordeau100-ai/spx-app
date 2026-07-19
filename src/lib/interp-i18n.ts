@@ -279,6 +279,22 @@ export const BULLET_LABELS = {
     "de-CH": "Risikofaktor",
     "nl":    "Aandachtspunt",
   },
+  risk_margin: {
+    "fr":    "Rentabilité",
+    "en":    "Profitability",
+    "en-GB": "Profitability",
+    "de":    "Rentabilität",
+    "de-CH": "Rentabilität",
+    "nl":    "Winstgevendheid",
+  },
+  risk_cost: {
+    "fr":    "Structure de coûts",
+    "en":    "Cost structure",
+    "en-GB": "Cost structure",
+    "de":    "Kostenstruktur",
+    "de-CH": "Kostenstruktur",
+    "nl":    "Kostenstructuur",
+  },
   cash: {
     "fr":    "Génération de cash",
     "en":    "Cash generation",

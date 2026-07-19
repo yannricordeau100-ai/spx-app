@@ -1055,18 +1055,24 @@ export function interpretStructured(
   // d'interprétation. Avant : Cost↑ ou Margin↓ uniquement (manque sur 196 stés).
   // Maintenant : on accepte aussi Margin/Profitability sans condition (signal
   // structurel sectoriel) en fallback, ou Cost/Investment quel que soit yoy.
-  const risk =
-    company.kpis.find(
-      (k) =>
-        (k.type === "Cost" && typeof k.yoy === "string" && !k.yoy.startsWith("-")) ||
-        (k.type === "Margin" && typeof k.yoy === "string" && k.yoy.startsWith("-"))
-    ) ??
-    company.kpis.find(
-      (k) => (k.type === "Margin" || k.type === "Profitability") && k.short !== hero.short
-    ) ??
-    company.kpis.find(
-      (k) => (k.type === "Cost" || k.type === "Investment") && k.short !== hero.short
-    );
+  // Yann 19 juil 2026 : le label du sous-bloc suit la vraie nature du KPI
+  // choisi. "Point de vigilance" ne colle qu'à une tension avérée (Cost↑ ou
+  // Margin↓). Sinon on remplace par un label honnête : "Rentabilité" pour
+  // les marges stables/en hausse, "Structure de coûts" pour un capex neutre.
+  const riskTension = company.kpis.find(
+    (k) =>
+      (k.type === "Cost" && typeof k.yoy === "string" && !k.yoy.startsWith("-")) ||
+      (k.type === "Margin" && typeof k.yoy === "string" && k.yoy.startsWith("-"))
+  );
+  const riskMarginFallback = company.kpis.find(
+    (k) => (k.type === "Margin" || k.type === "Profitability") && k.short !== hero.short
+  );
+  const riskCostFallback = company.kpis.find(
+    (k) => (k.type === "Cost" || k.type === "Investment") && k.short !== hero.short
+  );
+  const risk = riskTension ?? riskMarginFallback ?? riskCostFallback;
+  const riskLabelKey: "risk" | "risk_margin" | "risk_cost" =
+    riskTension ? "risk" : (riskMarginFallback ? "risk_margin" : "risk_cost");
 
   // Yann 27 mai 2026 : refonte priorité cash. Avant : Cash/CashFlow/Capital
   // /Dividende par TYPE. Problème : GOOGL n'a aucun KPI typed Cash → fallback
@@ -1202,7 +1208,7 @@ export function interpretStructured(
   }
   if (risk) {
     bullets.push({
-      label: bulletLabel(locale, "risk"),
+      label: bulletLabel(locale, riskLabelKey),
       body: bulletBodyKpi(locale, kpiName(risk), fmtVal(risk.value), formatUnit(risk.unit), String(risk.yoy ?? ""), risk.signal ?? ""),
       tone: "neg",
     });
