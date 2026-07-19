@@ -17,9 +17,18 @@ import { translateUnitFrToEn } from "@/lib/i18n/unit-translations";
 import { useT } from "@/lib/i18n/provider";
 const axisHeader = chartAxisHeader;
 
-/** Yann 14 mai 2026 : format label barre ADAPTATIF (bug Tesla 0,41→0). */
+/** Yann 14 mai 2026 : format label barre ADAPTATIF (bug Tesla 0,41→0).
+ *  Yann 19 juil 2026 : compact k/M/Md quand valeur ≥ 1000 pour éviter le
+ *  chevauchement des labels au-dessus des barres serrées. */
 function formatBarLabel(v: number, dataMax: number): string {
   if (!Number.isFinite(v)) return "—";
+  const abs = Math.abs(v);
+  if (Math.abs(dataMax) >= 1000) {
+    if (abs >= 1_000_000_000) return (v / 1_000_000_000).toLocaleString("fr-FR", { maximumFractionDigits: 1, minimumFractionDigits: 1 }) + " Md";
+    if (abs >= 1_000_000) return (v / 1_000_000).toLocaleString("fr-FR", { maximumFractionDigits: 1, minimumFractionDigits: 1 }) + " M";
+    if (abs >= 1000) return (v / 1000).toLocaleString("fr-FR", { maximumFractionDigits: 1, minimumFractionDigits: 1 }) + " k";
+    return v.toLocaleString("fr-FR", { maximumFractionDigits: 0 });
+  }
   let decimals: number;
   if (Math.abs(dataMax) < 1) decimals = 2;
   else if (Math.abs(dataMax) < 100) decimals = 1;

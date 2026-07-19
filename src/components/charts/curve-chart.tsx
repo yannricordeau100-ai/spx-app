@@ -59,6 +59,18 @@ function niceTicks(min: number, max: number, count = 5): number[] {
  */
 function formatDataPointLabel(v: number, dataMax: number): string {
   if (!Number.isFinite(v)) return "—";
+  // Yann 19 juil 2026 (screens Tesla : labels 466 140 / 435 059 qui se
+  // chevauchent) : quand les valeurs dépassent 1000, on passe en format
+  // compact k/M/Md pour diviser la largeur du label par 2 sans perdre
+  // d'information significative. Les petites valeurs gardent la précision
+  // décimale (ratios, marges, EPS).
+  const abs = Math.abs(v);
+  if (Math.abs(dataMax) >= 1000) {
+    if (abs >= 1_000_000_000) return (v / 1_000_000_000).toLocaleString("fr-FR", { maximumFractionDigits: 1, minimumFractionDigits: 1 }) + " Md";
+    if (abs >= 1_000_000) return (v / 1_000_000).toLocaleString("fr-FR", { maximumFractionDigits: 1, minimumFractionDigits: 1 }) + " M";
+    if (abs >= 1000) return (v / 1000).toLocaleString("fr-FR", { maximumFractionDigits: 1, minimumFractionDigits: 1 }) + " k";
+    return v.toLocaleString("fr-FR", { maximumFractionDigits: 0 });
+  }
   let decimals: number;
   if (Math.abs(dataMax) < 1) decimals = 2;
   else if (Math.abs(dataMax) < 100) decimals = 1;
