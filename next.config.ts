@@ -25,6 +25,22 @@ const nextConfig: NextConfig = {
   outputFileTracingExcludes: {
     "*": [
       // Audits intermédiaires + datasets jamais lus au runtime
+      // Drafts de batchs : seul kpis-haut est lu au runtime (load-company.ts),
+      // tout le reste est exclu du bundle des fonctions (fix deploy 21 juil 2026).
+      "./.batches-drafts-safe/kpis-er/**/*",
+      "./.batches-drafts-safe/kpis-stories-filings/**/*",
+      "./.batches-drafts-safe/kpis-call2/**/*",
+      "./.batches-drafts-safe/risks-batch2/**/*",
+      "./.batches-drafts-safe/risks-batch4-snippets/**/*",
+      "./.batches-drafts-safe/risks-batch4-sections/**/*",
+      "./.batches-drafts-safe/risks-batch4-compact-per/**/*",
+      "./.batches-drafts-safe/kpis-batch033/**/*",
+      "./.batches-drafts-safe/gov-batch017/**/*",
+      "./.batches-drafts-safe/gov-batch063/**/*",
+      "./.batches-drafts-safe/kpis-batch019/**/*",
+      "./.batches-drafts-safe/risks-batch-3-texts/**/*",
+      "./.batches-drafts-safe/kpis-batch032-work/**/*",
+      "./.batches-drafts-safe/tmp_txt/**/*",
       "./src/data/v2-pipeline/*.gemini.json",
       "./src/data/v2-pipeline-kpi-v2/**/*",
       "./src/data/v2-pipeline-exhaustive/**/*",
