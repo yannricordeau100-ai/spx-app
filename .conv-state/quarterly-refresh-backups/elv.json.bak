@@ -1,0 +1,912 @@
+{
+  "revenue_by_geography": {
+    "single_region_legitimate": true,
+    "_reason": "subsidiaries operate outside of the United States"
+  },
+  "kpis_type_overrides": {
+    "Total Revenue": "Revenue",
+    "Net Income": "Profitability",
+    "Diluted EPS": "Profitability"
+  },
+  "_kpis_type_overrides_source": "scripts/interp-risks-fill/fill-interp-types.py (sub-agent #88, heuristic pattern match)",
+  "_kpis_type_overrides_at": "2026-05-25T14:36:29Z",
+  "overrides_governance": {
+    "voting_structure_note": "Structure de vote ordinaire présumée (DEF14A, pas de mention dual class).",
+    "ceo_total_comp_m": 22.59,
+    "extraction_status": "heuristic_real",
+    "source": "def14a_local_regex",
+    "source_file": "sec-data/cat1-us/DEF14A/2026/ELV_2026-03-27.htm.gz",
+    "verified_at": "2026-05-21T08:51:02.924796Z"
+  },
+  "_repartition_backfill_at": "2026-05-25T02:41:50Z",
+  "_repartition_backfill_source": "cerebras_paid_k1",
+  "revenue_by_segment": {
+    "slices": [
+      {
+        "label": "Health Benefits",
+        "value": null,
+        "share_pct": 58,
+        "unit": "Mds $"
+      },
+      {
+        "label": "Carelon Services",
+        "value": null,
+        "share_pct": 25,
+        "unit": "Mds $"
+      },
+      {
+        "label": "Carelon Rx",
+        "value": null,
+        "share_pct": 17,
+        "unit": "Mds $"
+      }
+    ],
+    "year": 2024
+  },
+  "ticker": "ELV",
+  "_repartition_pass2_at": "2026-05-25T02:50:16Z",
+  "_repartition_pass2_source": "cerebras_paid_k2_pass2",
+  "hero_kpi_override": "Long-term Debt",
+  "hero_kpi_replaced_reason": "Medical Membership avait seulement 5 point(s) d'historique (period_type=quarter, requis: 12 trimestres (3 ans)). Règle Yann 26 mai 2026: aucun KPI hero avec moins de 3 ans d'historique.",
+  "next_earnings_date": "2026-07-16",
+  "_earnings_updated_at": "2026-05-26T22:58:42Z",
+  "_earnings_source": "calendrier financier+info",
+  "risks": [
+    {
+      "title": "Ralentissement macroéconomique",
+      "category": "operational",
+      "severity": 3,
+      "score_rationale": "Score 3/5 : deuxieme risque de l'Item 1A : \"A significant reduction in the number of enrollees\" lie au cycle macro et aux redeterminations Medicaid. Concentration geographique citee (Californie, New York, Texas), langage conditionnel.",
+      "trend": "stable",
+      "summary": "Un risque opérationnel identifié dans le filing pourrait perturber la production, la distribution ou la qualité de service.",
+      "score": 3
+    },
+    {
+      "title": "Risque spécifique au business model",
+      "category": "operational",
+      "severity": 4,
+      "score_rationale": "Score 4/5 : tout premier risque de l'Item 1A, coeur du modele d'assureur sante : \"If we fail to appropriately predict, price for and manage healthcare costs\". Developpement long, primes fixes 12 mois non ajustables en cours d'annee, langage fort.",
+      "trend": "stable",
+      "summary": "Un risque opérationnel identifié dans le filing pourrait perturber la production, la distribution ou la qualité de service.",
+      "score": 4
+    },
+    {
+      "title": "Risques de souscription et réserves",
+      "category": "operational",
+      "severity": 3,
+      "score_rationale": "Score 3/5 : dans le premier risque de l'Item 1A : \"To the extent the actual claims experience is unfavorable compared to our underlying assumptions\". Risque actuariel reel mais attenue par les mecanismes d'ajustement, langage conditionnel.",
+      "trend": "stable",
+      "summary": "Un risque opérationnel identifié dans le filing pourrait perturber la production, la distribution ou la qualité de service.",
+      "score": 3
+    },
+    {
+      "title": "Évolution réglementaire et conformité",
+      "category": "regulatory",
+      "severity": 3,
+      "score_rationale": "Score 3/5 : haut-milieu de l'Item 1A, section Medicare et Medicaid developpee : \"could decrease rates paid to us, pay us less than the amount necessary\". Historique concret (ajustements retroactifs, audits RADV, Star Ratings) mais langage conditionnel.",
+      "trend": "stable",
+      "summary": "Les évolutions réglementaires ou les nouvelles obligations de conformité peuvent augmenter les coûts d'exploitation et restreindre les activités.",
+      "score": 3
+    },
+    {
+      "title": "Cyberattaques et défaillances IT",
+      "category": "technological",
+      "severity": 3,
+      "score_rationale": "Score 3/5 : troisieme risque de l'Item 1A : \"We have been, and may in the future be, subject to litigation and governmental investigations\" apres des cyber-attaques. Cible reguliere du secteur sante, pas d'incident materiel recent detaille.",
+      "trend": "stable",
+      "summary": "Un risque technologique identifié pourrait compromettre la fiabilité des systèmes ou la capacité d'innovation.",
+      "score": 3
+    },
+    {
+      "title": "Échec à maintenir les standards",
+      "category": "operational",
+      "severity": 3,
+      "score_rationale": "Score 3/5 : milieu de l'Item 1A : \"The failure to properly maintain the integrity or availability of our data\". Dependance forte aux systemes d'information et aux tiers (CVS), langage conditionnel standard.",
+      "trend": "stable",
+      "summary": "Un risque opérationnel identifié dans le filing pourrait perturber la production, la distribution ou la qualité de service.",
+      "score": 3
+    }
+  ],
+  "_risks_reextracted_at": "2026-05-27",
+  "_risks_source_path": "/Users/yann/spx-app/sec-data/cat1-us/10K/2026/ELV_2026-02-06.htm.gz",
+  "_risks_source_year": 2026,
+  "kpis": [
+    {
+      "short": "Members",
+      "name_fr": "Membres médicaux",
+      "name_en": "Total Medical Members",
+      "value": 45.2,
+      "unit": "M",
+      "yoy": "-1.7%",
+      "type": "Volume",
+      "nature": "Spécifique",
+      "comparable": "Sectoriel",
+      "signal": "Pertes Medicaid post-redetermination",
+      "description": "Total des membres médicaux couverts (Commercial + Medicare + Medicaid + Federal Employee Plan).",
+      "history": [
+        46.8,
+        47.5,
+        47,
+        46,
+        45.2
+      ],
+      "is_wow": true,
+      "is_generic": false,
+      "is_short_history": false,
+      "last_data_date": "2025-12-31",
+      "period_type": "year",
+      "explanation": "Total des membres médicaux couverts (Commercial + Medicare + Medicaid + Federal Employee Plan)."
+    },
+    {
+      "short": "BER",
+      "name_fr": "Ratio sinistres santé",
+      "name_en": "Benefit Expense Ratio (MLR)",
+      "value": 89.5,
+      "unit": "%",
+      "yoy": "+1.0pts",
+      "type": "Médical",
+      "nature": "Spécifique",
+      "comparable": "Sectoriel",
+      "signal": "Pression coûts médicaux",
+      "description": "Benefit Expense Ratio = sinistres santé / primes (équivalent du MLR). Métrique clé profitabilité assureurs.",
+      "history": [
+        86.7,
+        87.4,
+        88.5,
+        88.5,
+        89.5
+      ],
+      "is_wow": true,
+      "is_generic": false,
+      "is_short_history": false,
+      "last_data_date": "2025-12-31",
+      "period_type": "year",
+      "explanation": "Benefit Expense Ratio = sinistres santé / primes (équivalent du MLR). Métrique clé profitabilité assureurs."
+    },
+    {
+      "short": "CommercialMembers",
+      "name_fr": "Membres Commercial",
+      "name_en": "Commercial Members",
+      "value": 31.5,
+      "unit": "M",
+      "yoy": "-0.3%",
+      "type": "Segment",
+      "nature": "Spécifique",
+      "comparable": "Sectoriel",
+      "signal": "Stable employeurs/individuel",
+      "description": "Membres segment Commercial (employeurs + individuel ACA), historiquement le plus rentable.",
+      "history": [
+        31,
+        31.5,
+        31.3,
+        31.6,
+        31.5
+      ],
+      "is_wow": true,
+      "is_generic": false,
+      "is_short_history": false,
+      "last_data_date": "2025-12-31",
+      "period_type": "year",
+      "explanation": "Membres segment Commercial (employeurs + individuel ACA), historiquement le plus rentable."
+    },
+    {
+      "short": "MedicaidMembers",
+      "name_fr": "Membres Medicaid",
+      "name_en": "Medicaid Members",
+      "value": 8.7,
+      "unit": "M",
+      "yoy": "-8.4%",
+      "type": "Segment",
+      "nature": "Spécifique",
+      "comparable": "Sectoriel",
+      "signal": "Effet redetermination",
+      "description": "Membres Medicaid (assurance santé des bas revenus), affecté par fin des protections COVID-19.",
+      "history": [
+        10.6,
+        11.8,
+        11.1,
+        9.5,
+        8.7
+      ],
+      "is_wow": true,
+      "is_generic": false,
+      "is_short_history": false,
+      "last_data_date": "2025-12-31",
+      "period_type": "year",
+      "explanation": "Membres Medicaid (assurance santé des bas revenus), affecté par fin des protections COVID-19."
+    },
+    {
+      "short": "MedicareMembers",
+      "name_fr": "Membres Medicare",
+      "name_en": "Medicare Members",
+      "value": 2.4,
+      "unit": "M",
+      "yoy": "+0%",
+      "type": "Segment",
+      "nature": "Spécifique",
+      "comparable": "Sectoriel",
+      "signal": "Niche Medicare Advantage",
+      "description": "Membres Medicare Advantage + Supplemental, segment plus petit mais croissant chez Elevance.",
+      "history": [
+        2,
+        2.2,
+        2.3,
+        2.4,
+        2.4
+      ],
+      "is_wow": true,
+      "is_generic": false,
+      "is_short_history": false,
+      "last_data_date": "2025-12-31",
+      "period_type": "year",
+      "explanation": "Membres Medicare Advantage + Supplemental, segment plus petit mais croissant chez Elevance."
+    },
+    {
+      "short": "CarelonRev",
+      "name_fr": "Revenus Carelon",
+      "name_en": "Carelon Services Revenue",
+      "value": 55,
+      "unit": "Mds $",
+      "yoy": "+5.8%",
+      "type": "Services",
+      "nature": "Spécifique",
+      "comparable": "Sectoriel",
+      "signal": "Pivot santé intégrée",
+      "description": "Revenus segment Carelon (services santé, PBM, soins à domicile, behavioral health), pivot vers services.",
+      "history": [
+        38,
+        43,
+        49,
+        52,
+        55
+      ],
+      "is_wow": true,
+      "is_generic": false,
+      "is_short_history": false,
+      "last_data_date": "2025-12-31",
+      "period_type": "year",
+      "explanation": "Revenus segment Carelon (services santé, PBM, soins à domicile, behavioral health), pivot vers services."
+    },
+    {
+      "short": "CarelonRxScripts",
+      "name_fr": "Ordonnances CarelonRx",
+      "name_en": "CarelonRx Pharmacy Scripts",
+      "value": 385,
+      "unit": "M",
+      "yoy": "+6.9%",
+      "type": "PBM",
+      "nature": "Spécifique",
+      "comparable": "Sectoriel",
+      "signal": "Pharmacy benefit manager intégré",
+      "description": "Ordonnances traitées par CarelonRx (PBM interne, lancé fin 2022 pour remplacer IngenioRx).",
+      "history": [
+        null,
+        285,
+        320,
+        360,
+        385
+      ],
+      "is_wow": true,
+      "is_generic": false,
+      "is_short_history": false,
+      "last_data_date": "2025-12-31",
+      "period_type": "year",
+      "explanation": "Ordonnances traitées par CarelonRx (PBM interne, lancé fin 2022 pour remplacer IngenioRx)."
+    },
+    {
+      "short": "Total Revenue",
+      "name_fr": "Revenu total",
+      "history": [
+        32385,
+        33851,
+        35822,
+        38095,
+        38632,
+        39939,
+        42172,
+        43672,
+        42849,
+        42577,
+        43886,
+        45106,
+        48891,
+        49776,
+        50711,
+        50181
+      ],
+      "history_periods": [
+        "2021-Q1",
+        "2021-Q2",
+        "2021-Q3",
+        "2022-Q1",
+        "2022-Q2",
+        "2022-Q3",
+        "2023-Q1",
+        "2023-Q2",
+        "2023-Q3",
+        "2024-Q1",
+        "2024-Q2",
+        "2024-Q3",
+        "2025-Q1",
+        "2025-Q2",
+        "2025-Q3",
+        "2026-Q1"
+      ],
+      "last_data_date": "2026-03-31",
+      "period_type": "quarter",
+      "unit": "M $",
+      "method": "llm-filing-crosschecked",
+      "source": "XBRL facts.json (SEC EDGAR) : ELV"
+    },
+    {
+      "short": "Net Income",
+      "name_fr": "Résultat net",
+      "history": [
+        1665,
+        1793,
+        1509,
+        1805,
+        1653,
+        1618,
+        1989,
+        1853,
+        1289,
+        2246,
+        2300,
+        1016,
+        2183,
+        1743,
+        1189,
+        1764
+      ],
+      "history_periods": [
+        "2021-Q1",
+        "2021-Q2",
+        "2021-Q3",
+        "2022-Q1",
+        "2022-Q2",
+        "2022-Q3",
+        "2023-Q1",
+        "2023-Q2",
+        "2023-Q3",
+        "2024-Q1",
+        "2024-Q2",
+        "2024-Q3",
+        "2025-Q1",
+        "2025-Q2",
+        "2025-Q3",
+        "2026-Q1"
+      ],
+      "last_data_date": "2026-03-31",
+      "period_type": "quarter",
+      "unit": "M $",
+      "method": "llm-filing-crosschecked",
+      "source": "XBRL facts.json (SEC EDGAR) : ELV"
+    },
+    {
+      "short": "EPS Diluted",
+      "name_fr": "BPA dilué",
+      "history": [
+        6.71,
+        7.25,
+        6.13,
+        7.39,
+        6.79,
+        6.68,
+        8.3,
+        7.79,
+        5.45,
+        9.59,
+        9.85,
+        4.36,
+        9.61,
+        7.72,
+        5.32,
+        8
+      ],
+      "history_periods": [
+        "2021-Q1",
+        "2021-Q2",
+        "2021-Q3",
+        "2022-Q1",
+        "2022-Q2",
+        "2022-Q3",
+        "2023-Q1",
+        "2023-Q2",
+        "2023-Q3",
+        "2024-Q1",
+        "2024-Q2",
+        "2024-Q3",
+        "2025-Q1",
+        "2025-Q2",
+        "2025-Q3",
+        "2026-Q1"
+      ],
+      "last_data_date": "2026-03-31",
+      "period_type": "quarter",
+      "unit": "$",
+      "method": "llm-filing-crosschecked",
+      "source": "XBRL facts.json (SEC EDGAR) : ELV"
+    },
+    {
+      "short": "Op Margin",
+      "name_fr": "Marge opérationnelle",
+      "history": [
+        5.4,
+        5.4,
+        4.96,
+        4.44,
+        3.62
+      ],
+      "history_periods": [
+        "FY2021",
+        "FY2022",
+        "FY2023",
+        "FY2024",
+        "FY2025"
+      ],
+      "last_data_date": "2025-12-31",
+      "period_type": "year",
+      "unit": "%",
+      "method": "llm-filing-crosschecked",
+      "source": "XBRL facts.json (SEC EDGAR) : ELV"
+    },
+    {
+      "short": "Free Cash Flow",
+      "name_fr": "Free cash flow",
+      "history": [
+        7277,
+        7247,
+        6765,
+        4552,
+        3174
+      ],
+      "history_periods": [
+        "FY2021",
+        "FY2022",
+        "FY2023",
+        "FY2024",
+        "FY2025"
+      ],
+      "last_data_date": "2025-12-31",
+      "period_type": "year",
+      "unit": "M $",
+      "method": "llm-filing-crosschecked",
+      "source": "XBRL facts.json (SEC EDGAR) : ELV"
+    },
+    {
+      "short": "Operating Cash Flow",
+      "name_fr": "Flux de trésorerie d'exploitation",
+      "history": [
+        8364,
+        8399,
+        8061,
+        5808,
+        4290
+      ],
+      "history_periods": [
+        "FY2021",
+        "FY2022",
+        "FY2023",
+        "FY2024",
+        "FY2025"
+      ],
+      "last_data_date": "2025-12-31",
+      "period_type": "year",
+      "unit": "M $",
+      "method": "llm-filing-crosschecked",
+      "source": "XBRL facts.json (SEC EDGAR) : ELV"
+    },
+    {
+      "short": "Total Assets",
+      "name_fr": "Total actifs",
+      "history": [
+        97460,
+        102772,
+        108928,
+        116889,
+        121494,
+        125827
+      ],
+      "history_periods": [
+        "FY2021",
+        "FY2022",
+        "FY2023",
+        "FY2024",
+        "FY2025",
+        "FY2026"
+      ],
+      "last_data_date": "2026-03-31",
+      "period_type": "instant",
+      "unit": "M $",
+      "method": "llm-filing-crosschecked",
+      "source": "XBRL facts.json (SEC EDGAR) : ELV"
+    },
+    {
+      "short": "Capex",
+      "name_fr": "Capex",
+      "history": [
+        1087,
+        1152,
+        1296,
+        1256,
+        1116
+      ],
+      "history_periods": [
+        "FY2021",
+        "FY2022",
+        "FY2023",
+        "FY2024",
+        "FY2025"
+      ],
+      "last_data_date": "2025-12-31",
+      "period_type": "year",
+      "unit": "M $",
+      "method": "llm-filing-crosschecked",
+      "source": "XBRL facts.json (SEC EDGAR) : ELV"
+    },
+    {
+      "short": "Headcount",
+      "name_fr": "Effectifs",
+      "history": [
+        53000,
+        56000,
+        63900,
+        70600,
+        83400,
+        98200
+      ],
+      "history_periods": [
+        "FY2017",
+        "FY2018",
+        "FY2019",
+        "FY2020",
+        "FY2021",
+        "FY2022"
+      ],
+      "last_data_date": "2022-02-16",
+      "period_type": "year",
+      "unit": "employees",
+      "method": "llm-filing-crosschecked",
+      "source": "XBRL facts.json (SEC EDGAR) : ELV 10-K filings"
+    }
+  ],
+  "_kpis_specific_extracted_at": "2026-05-27T23:42:08.047512+00:00",
+  "hero_last_data_date_override": "2026-03-31",
+  "_hero_last_data_date_refreshed_at": "2026-05-28T04:41:31.297003+00:00",
+  "tagline_fr": "Reunir les concepts d'elever et de faire progresser",
+  "risks_rationale_fr": {
+    "0": "Coûts de santé critiques pour la rentabilité. 10-K cite facteurs : pratiques, utilisation, démographie, inflation médicale, coûts main d'oeuvre. Impact direct sur cash et finances. Citation: \"such risks could materially and adversely affect our business, financial condition, results of operations an\".",
+    "1": "Assureur santé gérant données sensibles, exposition cyber matérielle. Breaches pourraient compromettre confidentialité, générer pénalités et nuire à la réputation. Citation: \"or that we currently believe to be immaterial may also materially and adversely affect us\".",
+    "2": "Opère sous régulations santé strictes (protection des données, vie privée). Changements réglementaires pourraient accroître coûts et complexité opérationnelle. Citation: \"could decline, which could adversely affect our business, cash flows, financial condition and results o\".",
+    "3": "Marché de l'assurance santé concurrentiel, clients peuvent changer selon prix et qualité. La société doit maintenir l'avantage par différenciation et efficacité. Citation: \"costs may adversely affect our ability to predict and manage such costs, and could adv\".",
+    "4": "Revenus significatifs issus de programmes publics (Medicaid, Medicare). Évolutions des taux de remboursement ou des politiques pourraient impacter matériellement les résultats. Citation: \"or reimbursement levels could adversely affect our business, cash flows, financial condition and results o\"."
+  },
+  "ai_positioning_fr": {
+    "summary_fr": "La société n’a pas mentionné l’intelligence artificielle, l’apprentissage automatique ou des technologies similaires dans les extraits fournis de son rapport 10‑K. Aucune information n’est disponible pour évaluer son positionnement IA.",
+    "evidence_fr": [],
+    "_translated_at": "2026-05-28T16:44:18",
+    "_source": "scripts/translate-ai-positioning-fr.py"
+  },
+  "events_fr": [
+    {
+      "date": "2026-05-08",
+      "title_fr": "Myomo T1 2026 : resume du call resultats",
+      "description_fr": "Resume Moby du call resultats du T1 2026 de Myomo, Inc."
+    },
+    {
+      "date": "2026-05-07",
+      "title_fr": "Elevance Health : valorisation apres un T1 superieur aux attentes et une guidance BPA relevee",
+      "description_fr": "Elevance Health revient en focus apres un T1 2026 superieur aux attentes de revenus et BPA ajuste, et une guidance BPA"
+    },
+    {
+      "date": "2026-05-06",
+      "title_fr": "Amwell T1 2026 : transcript du call resultats",
+      "description_fr": "Ido Schoenberg : Amwell est entree en 2026 avec un objectif unique, consolider sa plateforme et delivrer ce que payeurs"
+    },
+    {
+      "date": "2026-05-06",
+      "title_fr": "American Well T1 : faits marquants du call resultats",
+      "description_fr": "American Well met en avant les progres vers la profitabilite et la demande croissante pour une plateforme telesante"
+    }
+  ],
+  "_events_fr_translated_at": "2026-05-28T00:00:00Z",
+  "_events_fr_source": "sub-agent wave2 batch 2",
+  "kpis_supplementary": [
+    {
+      "short": "Medical Members",
+      "name_fr": "Membres médicaux",
+      "name_en": "Medical Members",
+      "value": 45.7,
+      "unit": "M unités",
+      "yoy": "-1.5%",
+      "history": [
+        43.5,
+        46.8,
+        47.5,
+        46.4,
+        45.7
+      ],
+      "period_type": "year"
+    },
+    {
+      "short": "Medicaid Members",
+      "name_fr": "Membres Medicaid",
+      "name_en": "Medicaid Members",
+      "value": 8.9,
+      "unit": "M unités",
+      "yoy": "-9.2%",
+      "history": [
+        10.6,
+        11.4,
+        11.5,
+        9.8,
+        8.9
+      ],
+      "period_type": "year"
+    },
+    {
+      "short": "Medicare Advantage",
+      "name_fr": "Membres Medicare Advantage",
+      "name_en": "Medicare Advantage Members",
+      "value": 2.05,
+      "unit": "M unités",
+      "yoy": "+4.6%",
+      "history": [
+        1.4,
+        1.62,
+        1.86,
+        1.96,
+        2.05
+      ],
+      "period_type": "year"
+    },
+    {
+      "short": "Carelon Revenue",
+      "name_fr": "Revenu Carelon Services",
+      "name_en": "Carelon Services Revenue",
+      "value": 54.5,
+      "unit": "Mds $",
+      "yoy": "+13.8%",
+      "history": [
+        26.8,
+        38.7,
+        46.1,
+        47.9,
+        54.5
+      ],
+      "period_type": "year",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+    },
+    {
+      "short": "Benefit Expense Ratio",
+      "name_fr": "Ratio prestations",
+      "name_en": "Benefit Expense Ratio",
+      "value": 88.5,
+      "unit": "%",
+      "yoy": "+1.6 pt",
+      "history": [
+        86.8,
+        87.4,
+        86.6,
+        86.9,
+        88.5
+      ],
+      "period_type": "year",
+      "type": "Performance",
+      "nature": "Performance",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+    },
+    {
+      "short": "Capex",
+      "name_fr": "Investissements (Capex)",
+      "name_en": "Capital Expenditures",
+      "value": 1.12,
+      "unit": "Mds $",
+      "yoy": "-11.1%",
+      "history": [
+        1.09,
+        1.15,
+        1.3,
+        1.26,
+        1.12
+      ],
+      "period_type": "year",
+      "_source": "SEC XBRL",
+      "_extracted_at": "2026-05-28T21:10:17+00:00",
+      "type": "Investissement",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+    },
+    {
+      "short": "Net Margin",
+      "name_fr": "Marge nette",
+      "name_en": "Net Margin",
+      "explanation": "Marge nette = Net Income / Revenue (proxy de profitabilité quand Op Margin indisponible).",
+      "value": 2.84,
+      "unit": "%",
+      "yoy": "-15,8 pts",
+      "type": "Structurel",
+      "nature": "Structurel",
+      "comparable": "Yes",
+      "compare_key": "net_margin",
+      "signal": "",
+      "description": "",
+      "history": [
+        4.61,
+        3.75,
+        4.44,
+        3.76,
+        3.5,
+        3.38,
+        2.84
+      ],
+      "period_type": "year",
+      "_source": "super_kpi_inputs_scalar_fallback_netmargin"
+    }
+  ],
+  "_kpis_supplementary_at": "2026-05-28T16:51:39.928477+00:00",
+  "_kpis_supplementary_source": "manual_extract_with_public_filings_cross_check_b3",
+  "ai_positioning_override": {
+    "stance": "absent",
+    "_original_stance": "absent",
+    "_reason": "Ajustement stance (absent -> absent, score=2.5).",
+    "_score": 2.5,
+    "_generated_at": "2026-05-28T19:37:33.772Z",
+    "_generated_by": "CONV-DATA-MISSION-5-AI-POS-AUDIT",
+    "ai_positioning_evidence_to_translate": true,
+    "_evidence_lang_note": "Evidence ou summary en anglais brut, traduction FR recommandée."
+  },
+  "subsector_fr": "Assurance santé",
+  "ai_positioning": {
+    "stance": "absent",
+    "summary": "Elevance Health (ex-Anthem) déploie l'IA via sa plateforme Carelon et Sydney Health pour la gestion des soins, l'aide à la décision clinique et l'automatisation administrative. Investissements significatifs en GenAI pour réduction des coûts opérationnels et amélioration de l'expérience membre.",
+    "evidence": [
+      "Plateforme Sydney Health (app membre IA conversationnelle) et Carelon Digital Platform",
+      "Partenariat avec Google Cloud annoncé pour AI/ML santé (gestion claims, fraud detection)",
+      "Mentions explicites de l'IA générative dans le 10-K 2024 pour automation administrative",
+      "Acquisition Paragon Healthcare et focus IA dans Carelon Services (PBM, behavioral health)"
+    ],
+    "source": "ELV 10-K 2024",
+    "_ai_signed_by_batch_merge": "CONV-SUBAGENT-AI-BATCH023-2026-05-30",
+    "_ai_batch_merged_at": "2026-05-30T10:50:54.479066Z"
+  },
+  "governance": {
+    "ceo_name": "Gail K. Boudreaux",
+    "board_size": 12,
+    "board_independence_pct": 91.7,
+    "board_women_pct": 41.7,
+    "top_capital": [
+      {
+        "holder": "The Vanguard Group",
+        "pct": 9.4
+      },
+      {
+        "holder": "BlackRock, Inc.",
+        "pct": 7.8
+      },
+      {
+        "holder": "State Street Corporation",
+        "pct": 4.5
+      }
+    ],
+    "_gov_signed_by_batch_merge": "CONV-SUBAGENT-GOV-BATCH023-2026-05-30",
+    "_gov_batch_merged_at": "2026-05-30T10:50:54.928327Z"
+  },
+  "_quarterly_history_extension": {
+    "hero_kpi_short": "Total Revenue",
+    "period_type": "year",
+    "unit": "Mds $",
+    "currency": "USD",
+    "history": [
+      {
+        "period": "FY 2021",
+        "value": 156.595,
+        "date": "2021-12-31",
+        "source": "v2-pipeline kpis Total Revenue history rapport financier (Elevance Health 10-K 2021 Total Revenues)"
+      },
+      {
+        "period": "FY 2022",
+        "value": 171.34,
+        "date": "2022-12-31",
+        "source": "v2-pipeline kpis Total Revenue history rapport financier (10-K 2022)"
+      },
+      {
+        "period": "FY 2023",
+        "value": 176.812,
+        "date": "2023-12-31",
+        "source": "v2-pipeline kpis Total Revenue history rapport financier (10-K 2023)"
+      },
+      {
+        "period": "FY 2024",
+        "value": 199.12,
+        "date": "2024-12-31",
+        "source": "v2-pipeline kpis Total Revenue history rapport financier (10-K 2024)"
+      }
+    ],
+    "_note": "Données annuelles 2021-2024 via v2-pipeline kpis Total Revenue (rapport financier). Quarterly Revenues XBRL non encore extrait pour ELV (hero précédent = Medical Membership, non-Revenue).",
+    "extracted_at": "2026-06-01T22:22:46Z",
+    "extracted_by": "Sub-agent Opus EU narrative chunk-08",
+    "_replaces_previous_hero": "Medical Membership"
+  },
+  "_super_kpi_inputs": {
+    "revenue_q": 50.181,
+    "op_income_q": 2.086,
+    "ni_q": 1.764,
+    "op_cf_q": 4.332,
+    "rd_q": null,
+    "op_margin_q_pct": 4.16,
+    "unit": "Mds $",
+    "last_quarter": "Q1 2026",
+    "last_date": "2026-03-31",
+    "_source": "SEC EDGAR XBRL companyfacts (us-gaap)",
+    "_extracted_at": "2026-06-01T20:45:23Z",
+    "_extracted_by": "Sub-agent Opus full-q chunk-08",
+    "cik": 1156039
+  },
+  "_super_kpi_virtuals_filled_at": "2026-06-02T05:18:16.682Z",
+  "stories_kpis": [
+    {
+      "short": "Capital Return",
+      "name_fr": "Capital Return",
+      "story_fr": "Retour de 3,3 milliards de dollars aux actionnaires au cours de l'année.",
+      "story_en": "Returned $3.3 billion of capital to shareholders year-to-date.",
+      "signal": "positive",
+      "category": "shareholder returns",
+      "is_short_history": true,
+      "_source": "ER/ES"
+    },
+    {
+      "short": "Guidance 2025",
+      "name_fr": "Guidance exercice 2025",
+      "story_fr": "Réaffirmation du ratio de dépenses de prestations à 90 % et de l'EPS ajusté à environ 30 $ pour 2025.",
+      "story_en": "Reaffirmed exercice 2025 benefit expense ratio of approximately 90 % and adjusted diluted EPS guidance of approximately $30.00.",
+      "signal": "positive",
+      "category": "guidance",
+      "is_short_history": true,
+      "_source": "ER/ES"
+    },
+    {
+      "short": "Strategic Partnership",
+      "name_fr": "Strategic Partnership",
+      "story_fr": "Lancement d'un partenariat stratégique pour renforcer les soins primaires et l'habilitation des médecins.",
+      "story_en": "Launched a strategic partnership to advance primary care and physician enablement.",
+      "signal": "positive",
+      "category": "strategic",
+      "is_short_history": true,
+      "_source": "ER/ES"
+    },
+    {
+      "short": "EPS Outlook Upgrade",
+      "name_fr": "EPS Outlook Upgrade",
+      "story_fr": "Hausse des prévisions d'EPS dilué exercice 2024 à plus de 34,05 $.",
+      "story_en": "Raised exercice 2024 diluted EPS guidance to greater than $34.05.",
+      "signal": "positive",
+      "category": "financial outlook",
+      "is_short_history": true,
+      "_source": "ER/ES"
+    },
+    {
+      "short": "Revenue Growth Q3 2025",
+      "name_fr": "Revenue Growth Q3 2025",
+      "story_fr": "Le revenu d'exploitation a progressé de 12 % au troisième trimestre 2025.",
+      "story_en": "Operating revenue grew 12.0% year‑over‑year in Q3 2025.",
+      "signal": "positive",
+      "category": "financial performance",
+      "is_short_history": true,
+      "_source": "ER/ES"
+    }
+  ],
+  "_risks_recalibrated_at": "2026-07-12T06:52:18.675702+00:00",
+  "profit_warning": {
+    "last_date": "2025-07-17",
+    "score": 2,
+    "source_url": "https://www.healthcaredive.com/news/elevance-cuts-2025-guidance-aca-medicaid-costs-obbb/753270/",
+    "quote_en": "Elevance cut full-year 2025 adjusted EPS guidance to approximately $30 from $34.15-$34.85, citing elevated Medicaid and ACA claims; 2026 EPS guided down further to at least $25.50.",
+    "_profit_warning_at": "2026-07-12T13:02:43.624810+00:00",
+    "_score_before_recalc": 4,
+    "_score_recalc": "2026-07-14 recalcul déterministe: sans avertissement passé (last_date null), score suit la tendance des marges (rationale/margin_trend); ancienne échelle inversée sur une partie des stés"
+  }
+}

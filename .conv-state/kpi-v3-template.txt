@@ -1,0 +1,38 @@
+MISSION NORME KPI v3 "EXHAUSTIF TRIMESTRIEL" pour la sté __T__ (fichier cible: ~/spx-app/.batches-drafts-safe/kpis-haut/__T__.json)
+
+CONTEXTE: les passes v1/v2 ont manqué ~40% des KPI chiffrables et publié trop d'indicateurs en annuel. Ta mission: EXHAUSTIVITE ABSOLUE + TRIMESTRIEL PRIORITAIRE. Il n'y a AUCUNE limite de nombre: tu publies TOUS les KPI valides, indicateurs comme stories.
+
+PHASE 1 - INVENTAIRE EXHAUSTIF (sources locales d'abord):
+- Dossiers: ~/spx-app/data-lake/__T__/ (10K, 10Q, ER, EP, ES, 8K exhibits, xbrl/facts.json, kpis_wow, kpis_q). Les .gz se lisent avec `gzip -dc` (PAS zcat). Limite tes recherches au dossier data-lake/__T__/ uniquement.
+- Balaye TOUT ce qui est chiffrable en série: KPI opérationnels distinctifs (volumes, ASP, abonnés, backlog, magasins, capacité...), segments (CA + resultat op + marges par segment), geo, categories produits, ET les financiers structurants: BPA dilue, capex, OCF, FCF (derive OCF-capex), dividende par action, rachats d'actions, stocks, dette/levier, effectifs, R&D, marges (brute/op/nette).
+- ZERO invention: uniquement des valeurs verbatim des documents (ou derives arithmetiques simples marques _derived). EDGAR autorise en complement si un trimestre manque (UA "Mettrik research yannricordeau100@gmail.com", ~1 req/s, sauvegarde le fichier dans data-lake/__T__/).
+
+
+OPTIMISATION TEMPS (importante):
+- COMMENCE par lire le fichier cible existant: tout KPI deja en serie TRIMESTRIELLE propre et a jour ne doit PAS etre retraite (pas de re-extraction inutile). 
+- Concentre l'effort sur 3 cibles: (a) KPI chiffrables MANQUANTS, (b) indicateurs existants ANNUELS a convertir en trimestriel, (c) history vides ou series courtes extensibles (ex: 12 pts publies quand 40 trimestres existent).
+- Ne relis pas les documents deja exploites pour des KPI valides: cible directement les tables utiles (10-Q operating data, notes segments, cash-flow, XBRL).
+
+PHASE 2 - PUBLICATION (regles strictes):
+1. TRIMESTRIEL PRIORITAIRE: tout KPI avec serie trimestrielle constructible localement (10-Q pour T1-T3, T4 derive = annuel 10-K moins cumul 9 mois, marque _derived "FY-3T") DOIT etre publie en trimestriel. 5+ ans si possible, sinon 3+ ans.
+2. ANNUEL seulement si le trimestriel est vraiment impossible (metrique publiee uniquement en 10-K). Dans ce cas serie annuelle avec labels FY.
+3. <3 ans d'historique = STORY (is_short_history: true, donnee du dernier trimestre + mini-historique disponible).
+4. CONVERSION: chaque indicateur EXISTANT du fichier actuellement en serie annuelle doit etre converti en trimestriel si constructible (MAJ: remplace l'history annuelle par la trimestrielle, garde la valeur du dernier trimestre). Sinon laisse-le annuel.
+5. Remplis les history vides des KPI existants si les donnees existent localement.
+6. NE SUPPRIME JAMAIS un KPI existant. Dedup par nom FR normalise contre le fichier ET src/data/v2-pipeline/__t__.json (pas de doublon; si l'existant est plus pauvre, enrichis-le en MAJ).
+7. Format identique a l'existant: short, name_fr, name_en, value (= dernier point), unit (affichable 1-999: Mds $ si >999 M$), yoy (meme trimestre N-1), signal (verbatim, source citee), frequency, history [{q,v}], pv_score, last_data_date, is_short_history pour stories. Fourchettes qualitatives -> milieu + _approx_note + _range_map. Trous documentes _gap_note.
+
+PHASE 3 - VALIDATION:
+- node -e require sur le JSON (valide).
+- npx tsx scripts/kpi-lint.ts --tickers=__T__ (env Supabase via .env.local): 0 ROUGE exige. Oranges preexistants toleres, documente les tiens (_gap_note).
+- Pas de commit git.
+
+
+CHECK-LIST OBLIGATOIRE (a verifier UNE PAR UNE, et a restituer dans le retour avec OK/ABSENT/IMPOSSIBLE + raison):
+1. BPA dilue trimestriel  2. Capex trimestriel  3. OCF trimestriel  4. FCF (derive)  5. Dividende par action  6. Rachats d'actions  7. CA par segment trimestriel  8. Resultat op / marge par segment  9. Marges consolidees (brute/op/nette) trimestrielles  10. Dette (LT ou nette)  11. Stocks (si pertinent secteur)  12. Effectifs  13. Geo (US/international ou regions)  14. R&D  15. KPI operationnels distinctifs du secteur (volumes, abonnes, backlog, magasins, ASP...)
+Un point marque ABSENT ou IMPOSSIBLE doit citer la verification faite (ou trouve/pas trouve, verbatim). Ne conclus jamais "non divulgue" sans avoir cherche dans 10-Q ET 10-K ET ER/XBRL.
+
+RETOUR STRICT (obligatoire, compact):
+"__T__: X series ajoutees, Y stories ajoutees, Z conversions annuel->trimestriel, W MAJ, lint: N rouges M oranges"
++ liste des shorts ajoutes/convertis
++ "RESTE NON PUBLIE: ..." (chaque KPI chiffrable NON publie avec sa raison verbatim; si aucun, ecris "RESTE NON PUBLIE: aucun")
