@@ -138,12 +138,6 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
         {/* Chiffre principal : occupe le centre, beaucoup plus grand qu'avant
             (Yann 7 mai 2026 : "informations essentielles trop petites"). */}
         <div className="my-auto flex w-full flex-col items-center px-4 text-center">
-          {/* Mini graphique pour series multi-données (<3 ans, >1 point) */}
-          {!freeBlocked && kpi.history && Array.isArray(kpi.history) && kpi.history.length > 1 && (
-            <div className="w-full mb-4" style={{ height: "120px" }}>
-              <RechartLineChart data={kpi.history as any} accent={accent} />
-            </div>
-          )}
 
           {freeBlocked ? (
             <>
