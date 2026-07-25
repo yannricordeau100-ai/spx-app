@@ -2567,6 +2567,10 @@ export async function loadV17Company(
         const periodKey = (q: string): number => {
           let m = q.match(/^Q([1-4])-(?:FY)?(\d{4})$/i);
           if (m) return Number(m[2]) * 10 + Number(m[1]);
+          m = q.match(/^H([12])-(\d{4})$/i);
+          // 26 juil 2026 : supporte cadence SEMESTRIELLE (Netflix Engagement
+          // Report H1/H2). H1 trié après Q2 (juin), H2 après Q4 (décembre).
+          if (m) return Number(m[2]) * 10 + (Number(m[1]) === 1 ? 2 : 4);
           m = q.match(/^FY(\d{4})$/i);
           if (m) return Number(m[1]) * 10 + 5;
           return Number.MAX_SAFE_INTEGER; // labels inconnus en fin
@@ -2575,10 +2579,18 @@ export async function loadV17Company(
         // sont des cumuls annuels ~4x plus gros qui créent des pics faux
         // dans le graph trimestriel ; la vue Annuel est recalculée par
         // aggregateQuarterlyToAnnual). Un KPI annual ne garde que les FY.
+        // Un KPI semiannual ne garde que H1/H2 (rapports semestriels).
         const isAnnualKpi = k.frequency === "annual";
+        const isSemiKpi = k.frequency === "semiannual";
         const hist = (k.history as Array<{ q: string; v: number }>)
           .filter((h) => h && typeof h.v === "number")
-          .filter((h) => (isAnnualKpi ? /^FY\d{4}$/i.test(h.q) : /^Q[1-4]-/i.test(h.q)))
+          .filter((h) =>
+            isAnnualKpi
+              ? /^FY\d{4}$/i.test(h.q)
+              : isSemiKpi
+                ? /^H[12]-\d{4}$/i.test(h.q)
+                : /^Q[1-4]-/i.test(h.q),
+          )
           .slice()
           .sort((a, b) => periodKey(a.q) - periodKey(b.q));
         const values = hist.map((h) => h.v);
@@ -2597,7 +2609,12 @@ export async function loadV17Company(
           description: k.signal ?? "",
           history: values,
           history_periods: periods,
-          period_type: k.frequency === "annual" ? "year" : "quarter",
+          period_type:
+            k.frequency === "annual"
+              ? "year"
+              : k.frequency === "semiannual"
+                ? "semester"
+                : "quarter",
           is_wow: true,
           is_generic: false,
           pv_score: k.pv_score ?? 0,
