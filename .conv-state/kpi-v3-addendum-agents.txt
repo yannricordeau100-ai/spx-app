@@ -1,0 +1,16 @@
+ADDENDUM QUALITE (a inclure dans chaque mission, reduit les relances):
+RAISONS DE NON-PUBLICATION INTERDITES: "faible PV", "redondant", "non extrait cette passe", "extraction lourde/risquee", "temps imparti", "hors scope", "non demande". Si la donnee est chiffrable et dans les sources locales (ou EDGAR en secours), tu la publies.
+METHODES OBLIGATOIRES avant de conclure IMPOSSIBLE:
+- Echec XBRL => lire le TEXTE des 10-Q/10-K (gzip -dc): tableaux de flux (cumuls YTD), note segments (colonnes 3 mois), etat des capitaux propres (dividende/action).
+- Tables segments: contrôle somme segments + other/elim = consolide; publier seulement les periodes qui passent, periode KO = trou _gap_note.
+- Trimestre manquant au lake => EDGAR (UA "Mettrik research yannricordeau100@gmail.com", ~1 req/s, sauvegarder dans data-lake/<T>/).
+- <3 ans d'historique = STORY (is_short_history), jamais un abandon. Series avec zeros = valides.
+- Donnee volatile/distordue (plus-values, disc-ops) = publier avec _gap_note, pas ecarter.
+- Marges %: publier le ratio (_derived), pas seulement les montants.
+Un point ABSENT/IMPOSSIBLE doit citer le verbatim verifie et les fichiers testes.
+
+ECONOMIE DE TOKENS (qualite intacte, obligatoire):
+- Source primaire = xbrl (facts.json / companyfacts EDGAR): dense et fiable. Le texte des filings sert aux lignes absentes du XBRL (operating data, segments, dividende/action), pas a tout re-extraire.
+- grep cible (-m, contexte court), jamais de dump de tables entieres dans la sortie; scripts python pour parser en local plutot que lire des blocs massifs.
+- Un seul lint final (pas de lint intermediaire multiple). Retour STRICT compact (<40 lignes).
+- Ne re-verifie pas 2 fois la meme valeur si le controle somme/FY passe.
