@@ -5,6 +5,7 @@ import type { KPI, MarketPosition } from "@/lib/data";
 import { brand } from "@/lib/brand";
 import type { StorySlide } from "@/lib/kpi-stories-ordering";
 import { formatUnit, formatKpiValue, formatHeroValue } from "@/lib/data";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from "recharts";
 
 /** Yann 12 juil 2026 : valeur + unité STORY rescalées ensemble ([1,999] +
  *  décimales, règle CLAUDE.md §6). Avant : formatKpiValue seul laissait
@@ -135,6 +136,20 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
         {/* Chiffre principal : occupe le centre, beaucoup plus grand qu'avant
             (Yann 7 mai 2026 : "informations essentielles trop petites"). */}
         <div className="my-auto flex w-full flex-col items-center px-4 text-center">
+          {/* Mini graphique pour series multi-données (<3 ans, >1 point) */}
+          {!freeBlocked && kpi.history && Array.isArray(kpi.history) && kpi.history.length > 1 && (
+            <div className="w-full mb-4" style={{ height: "120px" }}>
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={kpi.history.map((pt: any) => ({ name: pt.q, value: typeof pt.v === "number" ? pt.v : parseFloat(pt.v) }))}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
+                  <XAxis dataKey="name" tick={{ fontSize: 11, fill: "#a1a1a1" }} />
+                  <YAxis tick={{ fontSize: 11, fill: "#a1a1a1" }} />
+                  <Line type="monotone" dataKey="value" stroke={accent} strokeWidth={2.5} dot={{ r: 3, fill: accent }} />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          )}
+
           {freeBlocked ? (
             <>
               {/* Yann 12 juil 2026 : formatHeroValue = rescale magnitude [1,999]

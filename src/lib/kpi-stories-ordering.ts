@@ -120,6 +120,12 @@ export function buildStories(
   const categories: StoryCategory[] = [];
   for (const [label, slides] of buckets.entries()) {
     if (slides.length === 0) continue;
+    // Yann 26 juil 2026 : prioriser les KPIs multi-données (history.length > 1) en position 1
+    slides.sort((a, b) => {
+      const aIsMulti = a.kind === "kpi" && a.data.history && Array.isArray(a.data.history) && a.data.history.length > 1 ? 0 : 1;
+      const bIsMulti = b.kind === "kpi" && b.data.history && Array.isArray(b.data.history) && b.data.history.length > 1 ? 0 : 1;
+      return aIsMulti - bIsMulti;
+    });
     categories.push({
       label,
       order: CATEGORY_ORDER[label] ?? 50,
