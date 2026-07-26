@@ -33,26 +33,39 @@ def load_facts(ticker: str) -> dict:
             return json.load(fh)
     cik = resolve_cik(ticker)
     url = f"https://data.sec.gov/api/xbrl/companyfacts/CIK{cik:010d}.json"
-    req = urllib.request.Request(url, headers={"User-Agent": UA})
-    with urllib.request.urlopen(req, timeout=90) as resp:
-        data = json.loads(resp.read().decode())
     os.makedirs(os.path.dirname(lake), exist_ok=True)
-    with open(lake, "w") as fh:
-        json.dump(data, fh)
+    data = fetch_json(url, lake)
+    return data
+
+
+def fetch_json(url: str, save_to: str | None = None) -> dict:
+    """urllib puis repli curl : les certificats systeme font echouer urllib
+    sur certains Mac (constate 26 juil 2026 sur KDP)."""
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": UA})
+        with urllib.request.urlopen(req, timeout=90) as resp:
+            raw = resp.read().decode()
+    except Exception:
+        import subprocess
+
+        raw = subprocess.run(
+            ["curl", "-sS", "--compressed", "-H", f"User-Agent: {UA}", url],
+            capture_output=True, text=True, timeout=180,
+        ).stdout
+        if not raw.strip():
+            raise SystemExit(f"telechargement impossible : {url}")
+    data = json.loads(raw)
+    if save_to:
+        with open(save_to, "w") as fh:
+            json.dump(data, fh)
     return data
 
 
 def resolve_cik(ticker: str) -> int:
     path = os.path.join(ROOT, "data-lake", "_meta", "company_tickers.json")
     if not os.path.exists(path):
-        req = urllib.request.Request(
-            "https://www.sec.gov/files/company_tickers.json", headers={"User-Agent": UA}
-        )
-        with urllib.request.urlopen(req, timeout=60) as resp:
-            data = json.loads(resp.read().decode())
         os.makedirs(os.path.dirname(path), exist_ok=True)
-        with open(path, "w") as fh:
-            json.dump(data, fh)
+        data = fetch_json("https://www.sec.gov/files/company_tickers.json", path)
     else:
         with open(path) as fh:
             data = json.load(fh)
