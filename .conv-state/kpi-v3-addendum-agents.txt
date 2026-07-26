@@ -14,3 +14,5 @@ ECONOMIE DE TOKENS (qualite intacte, obligatoire):
 - grep cible (-m, contexte court), jamais de dump de tables entieres dans la sortie; scripts python pour parser en local plutot que lire des blocs massifs.
 - Un seul lint final (pas de lint intermediaire multiple). Retour STRICT compact (<40 lignes).
 - Ne re-verifie pas 2 fois la meme valeur si le controle somme/FY passe.
+
+ISOLATION SCRATCH (obligatoire, collision constatee 26 juil): tout fichier de travail temporaire va dans /tmp/kpiv3-<TICKER>/ (cree-le), jamais dans un scratchpad partage ni un nom generique. Plusieurs agents tournent en parallele.
