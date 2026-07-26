@@ -116,6 +116,20 @@ def span_days(start: str, end: str) -> int:
     return (b - a).days
 
 
+# Grandeurs NON ADDITIVES : une moyenne ponderee, un taux ou un ratio ne se
+# derive pas par soustraction de cumuls. Plusieurs agents ont perdu du temps a
+# produire puis rejeter ces series (actions diluees a -2,88 M chez LYV, taux
+# d'impot a -16,8 % chez IRM). On publie le trimestre tel quel, jamais derive.
+NON_ADDITIF = (
+    "WeightedAverageNumber", "EffectiveIncomeTaxRate", "Percentage", "Ratio",
+    "PerShare", "Rate", "Yield", "Average",
+)
+
+
+def est_non_additif(tag: str) -> bool:
+    return any(m.lower() in tag.lower() for m in NON_ADDITIF)
+
+
 def collect(facts: dict, min_points: int):
     """Retourne {(tag, unit): {periode: (valeur, source)}}."""
     out = {}
@@ -158,8 +172,9 @@ def collect(facts: dict, min_points: int):
                             end, val = spans[3]
                             series[quarter_label(end)] = (val, "reported", end)
                     # 2. differences de cumuls YTD : T2 = 6M-3M, T3 = 9M-6M,
-                    #    T4 = FY-9M. Methode standard de la mission.
-                    for start, spans in ytd.items():
+                    #    T4 = FY-9M. Methode standard de la mission, sauf pour
+                    #    les grandeurs non additives.
+                    for start, spans in ytd.items() if not est_non_additif(tag) else ():
                         for cur, prev in ((6, 3), (9, 6), (12, 9)):
                             if cur not in spans or prev not in spans:
                                 continue
@@ -217,11 +232,12 @@ def main():
                 fh.write(line + "\n")
                 n += 1
             last = labs[-1]
-            index.append((tag, unit, len(labs), labs[0], last, series[last][0]))
+            index.append((tag, unit, len(labs), labs[0], last, series[last][0],
+                          "non_additif" if est_non_additif(tag) else ""))
 
     idx_path = os.path.join(os.path.dirname(out_path), "xbrl-index.tsv")
     with open(idx_path, "w") as fh:
-        fh.write("tag\tunite\tnb_points\tdebut\tfin\tderniere_valeur\n")
+        fh.write("tag\tunite\tnb_points\tdebut\tfin\tderniere_valeur\tremarque\n")
         for row in sorted(index, key=lambda r: -r[2]):
             fh.write("\t".join(str(x) for x in row) + "\n")
 
