@@ -117,18 +117,18 @@ export function buildStories(
   }
 
   // 3. Trier les catégories selon CATEGORY_ORDER
+  // Yann 26 juil 2026 : les stories multi-données (série <3 ans, >1 point,
+  // rendues avec mini graph) passent en tête : slides multi d'abord dans
+  // leur catégorie, et catégorie contenant du multi affichée en premier.
+  const isMulti = (s: StorySlide) =>
+    s.kind === "kpi" && Array.isArray(s.data.history) && s.data.history.length > 1;
   const categories: StoryCategory[] = [];
   for (const [label, slides] of buckets.entries()) {
     if (slides.length === 0) continue;
-    // Yann 26 juil 2026 : prioriser les KPIs multi-données (history.length > 1) en position 1
-    slides.sort((a, b) => {
-      const aIsMulti = a.kind === "kpi" && a.data.history && Array.isArray(a.data.history) && a.data.history.length > 1 ? 0 : 1;
-      const bIsMulti = b.kind === "kpi" && b.data.history && Array.isArray(b.data.history) && b.data.history.length > 1 ? 0 : 1;
-      return aIsMulti - bIsMulti;
-    });
+    slides.sort((a, b) => (isMulti(a) ? 0 : 1) - (isMulti(b) ? 0 : 1));
     categories.push({
       label,
-      order: CATEGORY_ORDER[label] ?? 50,
+      order: slides.some(isMulti) ? 0 : (CATEGORY_ORDER[label] ?? 50),
       slides,
     });
   }
