@@ -81,6 +81,33 @@ def quarter_label(end: str) -> str:
     return f"T{(m - 1) // 3 + 1} {y}"
 
 
+def fiscal_year_end_month(facts: dict) -> int:
+    """Mois de cloture de l'exercice, deduit des periodes de 12 mois les plus
+    frequentes. 12 = exercice calendaire."""
+    counts = defaultdict(int)
+    for taxo, tags in facts.get("facts", {}).items():
+        for tag, body in tags.items():
+            for unit, rows in body.get("units", {}).items():
+                for r in rows:
+                    start, end = r.get("start"), r.get("end")
+                    if not start or not end:
+                        continue
+                    if 330 <= span_days(start, end) <= 400:
+                        counts[int(end[5:7])] += 1
+    return max(counts, key=counts.get) if counts else 12
+
+
+def fiscal_label(end: str, fy_end_month: int) -> str:
+    """Libelle fiscal 'T2 FY2026' pour un exercice decale. Un exercice clos en
+    juin : cloture juin = T4, septembre = T1 de l'exercice suivant."""
+    y, m = int(end[:4]), int(end[5:7])
+    # nombre de mois ecoules depuis la cloture de l'exercice precedent
+    delta = (m - fy_end_month - 1) % 12
+    q = delta // 3 + 1
+    fy = y if m <= fy_end_month else y + 1
+    return f"T{q} FY{fy}"
+
+
 def span_days(start: str, end: str) -> int:
     from datetime import date
 
@@ -123,13 +150,13 @@ def collect(facts: dict, min_points: int):
                 series = {}
                 if inst:
                     for end, val in inst.items():
-                        series[quarter_label(end)] = (val, "reported")
+                        series[quarter_label(end)] = (val, "reported", end)
                 else:
                     # 1. trimestres publies tels quels
                     for start, spans in ytd.items():
                         if 3 in spans:
                             end, val = spans[3]
-                            series[quarter_label(end)] = (val, "reported")
+                            series[quarter_label(end)] = (val, "reported", end)
                     # 2. differences de cumuls YTD : T2 = 6M-3M, T3 = 9M-6M,
                     #    T4 = FY-9M. Methode standard de la mission.
                     for start, spans in ytd.items():
@@ -143,6 +170,7 @@ def collect(facts: dict, min_points: int):
                             series[lab] = (
                                 round(val - spans[prev][1], 4),
                                 f"derived_{cur}M_moins_{prev}M",
+                                end,
                             )
 
                 if len(series) >= min_points:
@@ -164,6 +192,7 @@ def main():
             out_path = args[i + 1]
 
     facts = load_facts(ticker)
+    fy_end = fiscal_year_end_month(facts)
     data = collect(facts, min_points)
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
 
@@ -174,12 +203,18 @@ def main():
     n = 0
     index = []
     with open(out_path, "w") as fh:
-        fh.write("tag\tunite\tperiode\tvaleur\tsource\n")
+        head = "tag\tunite\tperiode\tvaleur\tsource"
+        if fy_end != 12:
+            head += "\tperiode_fiscale"
+        fh.write(head + "\n")
         for (tag, unit), series in sorted(data.items()):
             labs = sorted(series, key=qkey)
             for lab in labs:
-                val, src = series[lab]
-                fh.write(f"{tag}\t{unit}\t{lab}\t{val}\t{src}\n")
+                val, src, end = series[lab]
+                line = f"{tag}\t{unit}\t{lab}\t{val}\t{src}"
+                if fy_end != 12:
+                    line += "\t" + fiscal_label(end, fy_end)
+                fh.write(line + "\n")
                 n += 1
             last = labs[-1]
             index.append((tag, unit, len(labs), labs[0], last, series[last][0]))
@@ -190,6 +225,11 @@ def main():
         for row in sorted(index, key=lambda r: -r[2]):
             fh.write("\t".join(str(x) for x in row) + "\n")
 
+    mois = {1:"janvier",2:"fevrier",3:"mars",4:"avril",5:"mai",6:"juin",7:"juillet",
+            8:"aout",9:"septembre",10:"octobre",11:"novembre",12:"decembre"}
+    if fy_end != 12:
+        print(f"ATTENTION exercice fiscal decale : cloture en {mois[fy_end]}. "
+              f"Colonne periode_fiscale ajoutee, utilise-la pour les libelles.")
     print(f"{ticker}: {len(data)} series, {n} points")
     print(f"  index (a lire en entier) : {idx_path}")
     print(f"  detail (a grepper par tag) : {out_path}")

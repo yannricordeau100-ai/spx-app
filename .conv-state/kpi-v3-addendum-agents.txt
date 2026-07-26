@@ -25,3 +25,4 @@ PRE-EXTRACTION XBRL OBLIGATOIRE (26 juil 2026, gain tokens ~40%):
 2. Ne JAMAIS ouvrir companyfacts.json directement (3 a 50 Mo). Ne jamais re-deriver a la main un T4 que le TSV donne deja.
 3. Le TEXTE des 10-Q/10-K ne sert qu'a ce que le XBRL ne contient pas: donnees operationnelles sectorielles, ventilations segments/geo non taguees, effectifs, verbatims de rupture. Cible tes greps, pas de dump.
 4. Le TSV est une source, pas une verite aveugle: si une valeur derivee est absurde (perimetre change, activites abandonnees), verifie le verbatim et documente _gap_note.
+5. Exercice fiscal decale (Sysco clot fin juin, Jabil fin aout, Oracle fin mai...) : le script le detecte seul, affiche un AVERTISSEMENT et ajoute une colonne periode_fiscale (ex "T4 FY2025"). UTILISE CETTE COLONNE pour les libelles, jamais la colonne calendaire. Verifie par recoupement somme 4 trimestres = exercice.
