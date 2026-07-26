@@ -97,47 +97,53 @@ def collect(facts: dict, min_points: int):
             continue
         for tag, body in tags.items():
             for unit, rows in body.get("units", {}).items():
-                # instant (bilan) : une valeur par date de cloture
-                inst, dur = {}, defaultdict(dict)
+                # instant (bilan) : une valeur par date de cloture.
+                # duree : on groupe les cumuls par date de DEBUT, car les
+                # cumuls YTD d'un meme exercice partagent le meme start.
+                # Ca gere aussi les exercices fiscaux decales.
+                inst = {}
+                ytd = defaultdict(dict)  # start -> {mois_cumules: (end, val)}
                 for r in rows:
-                    end = r.get("end")
-                    val = r.get("val")
+                    end, val, start = r.get("end"), r.get("val"), r.get("start")
                     if end is None or val is None:
                         continue
-                    start = r.get("start")
                     if start is None:
                         inst[end] = val
                         continue
                     d = span_days(start, end)
                     if d <= 100:
-                        dur[end][3] = val
+                        ytd[start][3] = (end, val)
                     elif d <= 200:
-                        dur[end][6] = val
+                        ytd[start][6] = (end, val)
                     elif d <= 290:
-                        dur[end][9] = val
+                        ytd[start][9] = (end, val)
                     elif d <= 400:
-                        dur[end][12] = val
+                        ytd[start][12] = (end, val)
 
                 series = {}
                 if inst:
                     for end, val in inst.items():
                         series[quarter_label(end)] = (val, "reported")
                 else:
-                    # trimestres publies
-                    for end, byspan in dur.items():
-                        if 3 in byspan:
-                            series[quarter_label(end)] = (byspan[3], "reported")
-                    # T4 derive = FY moins cumul 9 mois du meme exercice
-                    nine = {}
-                    for end, byspan in dur.items():
-                        if 9 in byspan:
-                            nine[end[:4]] = byspan[9]
-                    for end, byspan in dur.items():
-                        lab = quarter_label(end)
-                        if 12 in byspan and lab not in series:
-                            base = nine.get(end[:4])
-                            if base is not None:
-                                series[lab] = (round(byspan[12] - base, 4), "derived_Q4")
+                    # 1. trimestres publies tels quels
+                    for start, spans in ytd.items():
+                        if 3 in spans:
+                            end, val = spans[3]
+                            series[quarter_label(end)] = (val, "reported")
+                    # 2. differences de cumuls YTD : T2 = 6M-3M, T3 = 9M-6M,
+                    #    T4 = FY-9M. Methode standard de la mission.
+                    for start, spans in ytd.items():
+                        for cur, prev in ((6, 3), (9, 6), (12, 9)):
+                            if cur not in spans or prev not in spans:
+                                continue
+                            end, val = spans[cur]
+                            lab = quarter_label(end)
+                            if lab in series:
+                                continue
+                            series[lab] = (
+                                round(val - spans[prev][1], 4),
+                                f"derived_{cur}M_moins_{prev}M",
+                            )
 
                 if len(series) >= min_points:
                     out[(tag, unit)] = series
