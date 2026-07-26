@@ -16,3 +16,12 @@ ECONOMIE DE TOKENS (qualite intacte, obligatoire):
 - Ne re-verifie pas 2 fois la meme valeur si le controle somme/FY passe.
 
 ISOLATION SCRATCH (obligatoire, collision constatee 26 juil): tout fichier de travail temporaire va dans /tmp/kpiv3-<TICKER>/ (cree-le), jamais dans un scratchpad partage ni un nom generique. Plusieurs agents tournent en parallele.
+
+PRE-EXTRACTION XBRL OBLIGATOIRE (26 juil 2026, gain tokens ~40%):
+1. PREMIERE COMMANDE de la mission, avant tout grep de filing:
+   python3 scripts/kpiv3-prep.py <TICKER>
+   Elle produit /tmp/kpiv3-<TICKER>/xbrl-index.tsv (~20 Ko, A LIRE EN ENTIER: un tag par ligne avec nb de points, debut, fin, derniere valeur) et /tmp/kpiv3-<TICKER>/xbrl.tsv (detail, A GREPPER par tag, JAMAIS a lire en entier).
+   Les series trimestrielles sont deja reconstruites, T4 derive inclus (colonne source = derived_Q4, a marquer _derived dans le KPI).
+2. Ne JAMAIS ouvrir companyfacts.json directement (3 a 50 Mo). Ne jamais re-deriver a la main un T4 que le TSV donne deja.
+3. Le TEXTE des 10-Q/10-K ne sert qu'a ce que le XBRL ne contient pas: donnees operationnelles sectorielles, ventilations segments/geo non taguees, effectifs, verbatims de rupture. Cible tes greps, pas de dump.
+4. Le TSV est une source, pas une verite aveugle: si une valeur derivee est absurde (perimetre change, activites abandonnees), verifie le verbatim et documente _gap_note.
