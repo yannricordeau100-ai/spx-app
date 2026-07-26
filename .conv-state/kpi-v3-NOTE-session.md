@@ -16,3 +16,8 @@
 - Reprise auto planifiee 03:41 le 26 juil (nouvelle fenetre 5h), avec addendum tokens + relances correctives + jalon 250.
 - Modele: Yann est passe en Opus puis Haiku pour economiser jusqu'a 03:41.
 - Reste 297 stes, prochain = MET (203 done, in_progress PCAR/URI/OKE a verifier avant de marquer done).
+
+# Directive Yann 27 juil 00:35 (nouvelle fenetre)
+- Sub-agents desormais en modele PAR DEFAUT de la session (Fable, effort moyen), plus d'override Opus. But: plus de stes/heure, cout token/ste plus bas, qualite = memes regles (lint 0 rouge, check-list 15 points, zero invention).
+- Historique plafonne a 12 ans (addendum point 7).
+- Si la qualite Fable decroche (lint rouges, points manques), revenir a Opus et le signaler.
