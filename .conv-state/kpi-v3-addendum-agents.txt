@@ -28,3 +28,15 @@ PRE-EXTRACTION XBRL OBLIGATOIRE (26 juil 2026, gain tokens ~40%):
 5. Exercice fiscal decale (Sysco clot fin juin, Jabil fin aout, Oracle fin mai...) : le script le detecte seul, affiche un AVERTISSEMENT et ajoute une colonne periode_fiscale (ex "T4 FY2025"). UTILISE CETTE COLONNE pour les libelles, jamais la colonne calendaire. Verifie par recoupement somme 4 trimestres = exercice.
 6. Grandeurs NON ADDITIVES (actions moyennes ponderees, taux d'impot, ratios, prix moyens, rendements) : le script ne les derive plus et les marque "non_additif" dans l'index. Publie le trimestre tel qu'il est publie, ne tente JAMAIS FY moins 9M dessus.
 7. PROFONDEUR HISTORIQUE (Yann 27 juil): 12 ans max (48 trimestres) par serie. Ne remonte pas avant 2014 sauf si la serie existante du fichier va deja plus loin (ne rien supprimer). L'app n'affiche pas plus.
+8. CALENDRIER 52/53 SEMAINES (bug constate sur WAT le 27 juil): le quarter_label du TSV de kpiv3-prep.py se base sur le mois calendaire de cloture et DECALE d'un trimestre les stes en calendrier 52/53 semaines (cloture 1-2 avril etiquetee T2, etc.). Si les dates de cloture tombent en debut de mois ou varient d'une annee a l'autre: re-mapper par date de cloture reelle depuis companyfacts (script local) et VALIDER par somme 4 trimestres = exercice avant de publier.
+
+9. EFFICIENCE MAXIMALE (Yann 27 juil, qualite et exhaustivite INCHANGEES, seul le cout token baisse):
+- Budget indicatif: ~120 k tokens et ~40 appels d'outils par ste. Si tu depasses, c'est que tu relis des choses deja lues.
+- Source unique de depart: /tmp/kpiv3-<T>/xbrl-index.tsv (lu en entier UNE fois) puis grep cible sur xbrl.tsv par tag. Ne relis jamais deux fois le meme fichier.
+- Le texte des filings est un COMPLEMENT, pas une source primaire: n'y va que pour ce qui manque au XBRL (segments non tagues, operating data, effectifs, dividende/action, T4 non additifs). Toujours par grep cible (-m, contexte court), jamais de dump ni de lecture de fichier entier.
+- Un seul script python par famille de donnees (segments, cash-flow, geo): il ecrit un TSV compact dans /tmp/kpiv3-<T>/, tu lis le TSV, pas les filings.
+- EDGAR: uniquement si un point CHIFFRABLE et STRUCTURANT manque (T4 non additif d'un KPI cle). Jamais de telechargement en masse (pas de 20-50 ER). Maximum ~8 fichiers.
+- Ne reconstruis une serie existante QUE si elle est fausse (valeurs decalees, value = agregat, unite absurde). Une serie propre mais courte s'etend, elle ne se reconstruit pas.
+- Un seul lint, a la fin. Pas de verification repetee d'une valeur deja controlee par une somme 4T = FY.
+- Retour STRICT: 25 lignes max, pas de recitation des methodes.
+EXIGENCE NON NEGOCIABLE: le nombre de KPI, la profondeur d'historique, la granularite (segments, geo, operationnels) et la check-list 15 points restent IDENTIQUES. L'economie porte sur la METHODE d'extraction, jamais sur le livrable.
