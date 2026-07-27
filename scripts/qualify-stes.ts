@@ -33,7 +33,14 @@ function hist(k: any): number[] {
 // NE PLUS rejeter sur le flag `k.is_generic` (peu fiable, mal posé sur des KPIs
 // spécifiques, ex AAPL "iPhone Revenue" avait is_generic=true par erreur → faux
 // positif qui sur-comptait le qualifieur vs le rendu réel de la page).
-const TOTAL_REV = new Set(["total revenue", "revenue", "revenues", "net sales", "total revenues", "total net sales", "operating revenue"]);
+// Yann 27 juil 2026 : ajout des variantes FR ("CA", "Revenu", "Chiffre d'affaires")
+// vues sur les fiches europeennes, qui passaient a travers le filtre CA total.
+const TOTAL_REV = new Set(["total revenue", "revenue", "revenues", "net sales", "total revenues", "total net sales", "operating revenue", "ca", "revenu", "revenus", "chiffre d affaires", "ca total", "revenu total", "total rev", "net revenue", "total sales", "sales"]);
+// Normalise le `short` : minuscules, separateurs (_, -, ., ') -> espace, espaces
+// compactes. Sans ca "TOTAL_REV" echappait au filtre CA total (Yann 27 juil 2026).
+function normShort(s: unknown): string {
+  return String(s || "").toLowerCase().replace(/[_\-.'’]+/g, " ").replace(/\s+/g, " ").trim();
+}
 function isGen(k: any): boolean {
   return isGenericKpi(k?.short);
 }
@@ -57,8 +64,14 @@ const raw = process.argv.slice(2);
         console.log("❌ FAIL", TU, "| REDIRECT/empty");
         continue;
       }
-      const totK = co.kpis.find((k: any) => TOTAL_REV.has(String(k.short || "").toLowerCase()));
-      const totv = totK ? num(totK.value) : null;
+      // Yann 27 juil 2026 : plusieurs KPIs "CA total" coexistent parfois (un
+      // frais + un perime, ex LR.PA "CA"=8.649 et "Revenue"=6.9). On garde le
+      // plus eleve, sinon la detection de contamination rate le hero.
+      const totCands = co.kpis
+        .filter((k: any) => TOTAL_REV.has(normShort(k.short)))
+        .map((k: any) => num(k.value))
+        .filter((x: any): x is number => x !== null);
+      const totv = totCands.length ? Math.max(...totCands) : null;
 
       // HERO RÉEL AFFICHÉ : réplique effectiveDefaultHero de company-view.
       // Si le hero configuré n'est pas quarterly-usable, la page bascule sur le
@@ -94,6 +107,11 @@ const raw = process.argv.slice(2);
         const hv = num(hk.value);
         const hh = hist(hk);
         if (hv === null || hv === 0) reasons.push("hero vide/0");
+        // Yann 27 juil 2026 : hero dont la value est une annee cible sans unite
+        // (ex PSN.L "Net Zero Carbon Homes 2030" = 2030) n'est pas une mesure.
+        const hu = String(hk.unit || "").trim();
+        if (hv !== null && Number.isInteger(hv) && hv >= 1990 && hv <= 2060 && (!hu || /^(year|années?|annee|an)$/i.test(hu)))
+          reasons.push("hero = annee cible, pas une mesure");
         if (hv !== null && totv !== null && Math.abs(hv - totv) <= Math.abs(totv) * 0.01 && !isGen(hk))
           reasons.push("hero = CA total (CONTAMINATION)");
         const pt = String(hk.period_type || "").toLowerCase();
@@ -130,6 +148,10 @@ const raw = process.argv.slice(2);
           reasons.push("DUP historique[" + sigs[s].join("=") + "]");
       for (const k of co.kpis) {
         const v = num(k.value);
+        // Le KPI qui EST le CA total ne peut pas se signaler lui-meme comme
+        // contamine : c'est la reference. Seuls les KPIs cense etre specifiques
+        // et dont la valeur colle au CA total sont des contaminations.
+        if (TOTAL_REV.has(normShort(k.short))) continue;
         if (v !== null && totv !== null && Math.abs(v - totv) <= Math.abs(totv) * 0.01 && !isGen(k))
           reasons.push(String(k.short) + " = CA total");
       }

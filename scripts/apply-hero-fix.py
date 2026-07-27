@@ -102,6 +102,10 @@ def apply(fixpath):
     # _validation requis par isV18Eligible (sinon page "preparing" non rendue).
     # Legitime : hero verbatim verifie + qualifieur strict derriere.
     b["_validation"] = True
+    # _fit_for_site=False bloque isV18Eligible avant meme le hero. Une fois le
+    # hero verbatim pose et verifie par le qualifieur, la fiche est publiable.
+    if b.get("_fit_for_site") is False:
+        b["_fit_for_site"] = True
     save(bpath, b)
     e = load(epath)
     if e is not None:
