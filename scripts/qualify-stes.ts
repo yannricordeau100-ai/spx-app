@@ -35,7 +35,10 @@ function hist(k: any): number[] {
 // positif qui sur-comptait le qualifieur vs le rendu réel de la page).
 // Yann 27 juil 2026 : ajout des variantes FR ("CA", "Revenu", "Chiffre d'affaires")
 // vues sur les fiches europeennes, qui passaient a travers le filtre CA total.
-const TOTAL_REV = new Set(["total revenue", "revenue", "revenues", "net sales", "total revenues", "total net sales", "operating revenue", "ca", "revenu", "revenus", "chiffre d affaires", "ca total", "revenu total", "total rev", "net revenue", "total sales", "sales"]);
+const TOTAL_REV = new Set(["total revenue", "revenue", "revenues", "net sales", "total revenues", "total net sales", "operating revenue", "ca", "revenu", "revenus", "chiffre d affaires", "ca total", "revenu total", "total rev", "net revenue", "total sales", "sales",
+  // Fiches canadiennes et francaises : le CA total y est libelle en francais.
+  "revenu d exploitation", "revenus d exploitation", "produits d exploitation",
+  "chiffre d affaires total", "ventes totales", "revenu net", "revenus totaux"]);
 // Normalise le `short` : minuscules, separateurs (_, -, ., ') -> espace, espaces
 // compactes. Sans ca "TOTAL_REV" echappait au filtre CA total (Yann 27 juil 2026).
 function normShort(s: unknown): string {
