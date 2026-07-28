@@ -572,7 +572,7 @@ function findMarginKpi(c: Company): KPI | undefined {
  * Useful when company doesn't publish "Op Margin" directly (AWK, PFE, etc).
  * Returns a synthetic KPI-like object compatible with downstream consumers.
  */
-function computeOperatingMargin(c: Company): { value: number; history: number[] } | null {
+function computeOperatingMargin(c: Company): { value: number; history: number[]; period_type?: string } | null {
   // Cherche Op Income (valeur absolue)
   const opIncomeShorts = [
     "Operating Income",
@@ -621,7 +621,9 @@ function computeOperatingMargin(c: Company): { value: number; history: number[] 
   if (hist.length < 2) return null;
   // Sanity check : margin should be plausible (-50% to 80%)
   if (marginPct < -50 || marginPct > 80) return null;
-  return { value: marginPct, history: hist };
+  // Yann 28 juillet 2026 : on remonte la périodicité de la série source pour
+  // que yoyFromHistory recule du bon nombre de points (4 si trimestriel).
+  return { value: marginPct, history: hist, period_type: rev.period_type };
 }
 
 function num(v: unknown): number | null {
@@ -668,10 +670,25 @@ function cagr(history: number[]): number | null {
   return Math.pow(last / first, 1 / n) - 1;
 }
 
-/** YoY % depuis history */
-function yoyFromHistory(history: number[]): number | null {
+/**
+ * YoY % depuis history.
+ *
+ * Yann 28 juillet 2026 : le pas de recul dépend de la périodicité du KPI.
+ * Avant, on prenait toujours `length - 2` : juste sur une série annuelle,
+ * FAUX sur une série trimestrielle (on comparait au trimestre précédent,
+ * pas au même trimestre N-1). Depuis la chaîne KPI v3 la quasi-totalité des
+ * séries est trimestrielle, donc le "Revenue YoY" du Rule of 40 était
+ * séquentiel sur les 503 stés (ex GOOGL : -3,4 % affiché = T1 2026 vs
+ * T4 2025, alors que le vrai YoY est +21,8 % = 109,9 vs 90,2).
+ * Si l'historique est trop court pour un vrai YoY, on retourne null plutôt
+ * qu'un chiffre faux.
+ */
+function yoyFromHistory(history: number[], periodType?: string): number | null {
   if (!history || history.length < 2) return null;
-  const prev = history[history.length - 2];
+  const step = periodType === "quarter" ? 4 : periodType === "semester" ? 2 : 1;
+  const idx = history.length - 1 - step;
+  if (idx < 0) return null;
+  const prev = history[idx];
   const last = history[history.length - 1];
   if (!prev) return null;
   return ((last - prev) / Math.abs(prev)) * 100;
@@ -731,7 +748,7 @@ function fmt(n: number, decimals: number): string {
 function ruleOf40(c: Company, locale: Locale): SuperKpi {
   const rev = findRevenueKpi(c);
   const margin = findMarginKpi(c);
-  const revYoY = rev ? yoyFromHistory(rev.history) : null;
+  const revYoY = rev ? yoyFromHistory(rev.history, rev.period_type) : null;
   let marginV = margin ? num(margin.value) : null;
   // Fallback computed margin if no direct margin KPI
   if (marginV === null) {
@@ -1010,13 +1027,13 @@ function profitPowerIndex(c: Company, locale: Locale): SuperKpi {
   const conc = concentrationRisk(c, locale);
   const margin = findMarginKpi(c);
   let marginV = margin ? num(margin.value) : null;
-  let marginTrend = margin ? yoyFromHistory(margin.history) : null;
+  let marginTrend = margin ? yoyFromHistory(margin.history, margin.period_type) : null;
   // Fallback : margin computed from Op Income / Revenue
   if (marginV === null || marginTrend === null) {
     const computed = computeOperatingMargin(c);
     if (computed) {
       if (marginV === null) marginV = computed.value;
-      if (marginTrend === null) marginTrend = yoyFromHistory(computed.history);
+      if (marginTrend === null) marginTrend = yoyFromHistory(computed.history, computed.period_type);
     }
   }
 
