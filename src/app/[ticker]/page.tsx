@@ -6,7 +6,14 @@ import { AuthNav } from "@/components/auth-nav";
 import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
 import { COMPANIES, TICKERS, TICKER_ALIASES, getCompany } from "@/lib/data";
 import type { TranscriptDoc } from "@/components/transcript-stories";
+import type { TranscriptBulletsSummary } from "@/components/transcript-bullets-block";
 import V17_PUBLIC from "@/data/v1-7-public.json";
+import { loadV17Company } from "@/lib/company-core/load-company";
+import { resolveDisabledForTicker } from "@/lib/disabled-blocks-server";
+import { getServerLocale } from "@/lib/i18n/server";
+import { FreemiumBlurProvider, type UserTier } from "@/lib/freemium/context";
+import { readSimulateTier } from "@/lib/desk/effective-tier";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 async function loadTranscript(ticker: string): Promise<TranscriptDoc | null> {
   const root = process.cwd();
@@ -19,6 +26,48 @@ async function loadTranscript(ticker: string): Promise<TranscriptDoc | null> {
     }
   }
   return null;
+}
+
+async function loadTranscriptSummary(
+  ticker: string,
+): Promise<TranscriptBulletsSummary | null> {
+  try {
+    const raw = await fs.readFile(
+      path.join(process.cwd(), "src/data/transcript-summaries", `${ticker.toLowerCase()}.json`),
+      "utf-8",
+    );
+    return JSON.parse(raw) as TranscriptBulletsSummary;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Yann 28 juillet 2026 : les 5 stés du dataset V1 legacy (GOOGL, META, MSCI,
+ * SPGI, CAT) étaient les SEULES de tout l'univers à ne pas passer par le
+ * loader V1.9.5. Résultat sur /googl : 5 indicateurs annuels (dataset figé
+ * `src/data/google.json`) au lieu des 60 KPI trimestriels de la chaîne KPI v3,
+ * et bouton "Trimestriel" grisé sur le hero faute de `period_type: "quarter"`.
+ * Les 498 autres stés étaient déjà correctes via /sandbox/v1-9-5/<ticker>.
+ * On aligne donc la route publique sur le même pipeline (règle d'or §0 :
+ * dernière version uniquement), en gardant l'URL canonique /<ticker> pour
+ * le SEO et le floutage freemium géré par FreemiumBlurProvider.
+ */
+async function resolveFreemiumTier(): Promise<UserTier> {
+  const simulated = await readSimulateTier();
+  if (simulated === "anonymous") return "anon";
+  if (simulated === "free") return "free";
+  if (simulated === "premium") return "premium";
+  if (simulated === "max") return "max";
+  try {
+    const sb = await createSupabaseServerClient();
+    const {
+      data: { user },
+    } = await sb.auth.getUser();
+    return user ? "max" : "anon";
+  } catch {
+    return "anon";
+  }
 }
 
 // Force dynamic rendering pour que la session auth (cookies) soit lue
@@ -80,8 +129,8 @@ export default async function TickerPage({
   if (TICKER_ALIASES[upper]) {
     redirect(`/${TICKER_ALIASES[upper].toLowerCase()}`);
   }
-  const company = getCompany(ticker);
-  if (!company) {
+  const legacyCompany = getCompany(ticker);
+  if (!legacyCompany) {
     // Yann 21 mai 2026 : V1.9.5 = défaut. Si le ticker existe en V1.7-public,
     // on redirige vers /sandbox/v1-9-5/<ticker> (UX : tape /AAPL → ouvre AAPL).
     const v17 = V17_PUBLIC as unknown as Record<string, unknown>;
@@ -90,10 +139,44 @@ export default async function TickerPage({
     }
     notFound();
   }
+
+  // Pipeline V1.9.5 (identique aux 498 autres stés). Fallback sur le dataset
+  // legacy uniquement si le loader ne rend pas la sté, pour ne jamais servir
+  // une page vide sur une URL publique indexée.
+  const locale = await getServerLocale();
+  const r = await loadV17Company(ticker, { mode: "v18", locale });
   const transcript = await loadTranscript(ticker);
+
+  if (r.kind !== "ready") {
+    return (
+      <>
+        <CompanyView
+          company={legacyCompany}
+          authSlot={<AuthNav scope="company" />}
+          transcript={transcript}
+        />
+        <DisclaimerFooter />
+      </>
+    );
+  }
+
+  const transcriptSummary = await loadTranscriptSummary(ticker);
+  const disabledBlocks = await resolveDisabledForTicker(ticker);
+  const freemiumTier = await resolveFreemiumTier();
+
   return (
     <>
-      <CompanyView company={company} authSlot={<AuthNav scope="company" />} transcript={transcript} />
+      <FreemiumBlurProvider tier={freemiumTier}>
+        <CompanyView
+          company={r.company}
+          authSlot={<AuthNav scope="company" />}
+          transcript={transcript}
+          transcriptSummary={transcriptSummary}
+          v18Mode
+          freemiumTier={freemiumTier}
+          disabledBlocks={disabledBlocks}
+        />
+      </FreemiumBlurProvider>
       <DisclaimerFooter />
     </>
   );
