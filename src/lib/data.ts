@@ -946,7 +946,8 @@ function autoRescaleForInterp(unit: string, allBelowOne: boolean): { unit: strin
 function computeYoyFromHistory(
   history: number[] | null | undefined,
   locale: InterpLocale = "fr",
-  periodType?: string
+  periodType?: string,
+  unit?: string
 ): string {
   if (!history || history.length < 2) return "n/a";
   const last = history[history.length - 1];
@@ -957,6 +958,22 @@ function computeYoyFromHistory(
     : 2;
   const prev = history[history.length - back];
   if (typeof last !== "number" || typeof prev !== "number" || prev === 0) return "n/a";
+  // Yann 28 juillet 2026 : un KPI déjà exprimé en % (marge, taux, croissance)
+  // se compare en POINTS, jamais en variation relative. Avant, la croissance
+  // des impressions publicitaires de META (5 % au T1 2025 -> 19 % au T1 2026)
+  // s'affichait "+280,0 %", ce qu'un investisseur lit comme une hausse de 280 %
+  // des impressions. La bonne lecture est "+14,0 pts".
+  const isPercentUnit = String(unit ?? "").trim() === "%";
+  if (isPercentUnit) {
+    const diff = last - prev;
+    const sgn = diff > 0 ? "+" : "";
+    const abs = Math.abs(diff);
+    const ptLabel = locale === "fr" ? (abs < 2 ? " pt" : " pts") : abs < 2 ? " pt" : " pts";
+    return `${sgn}${diff.toLocaleString(numLocale(locale), {
+      minimumFractionDigits: 1,
+      maximumFractionDigits: 1,
+    })}${ptLabel}`;
+  }
   const pct = ((last - prev) / Math.abs(prev)) * 100;
   const sign = pct > 0 ? "+" : "";
   return `${sign}${pct.toLocaleString(numLocale(locale), {
@@ -1119,7 +1136,7 @@ export function interpretStructured(
   const heroValue = Number.isFinite(rawValue)
     ? (rawValue * scaleFactor).toLocaleString(numLocale(locale), { maximumFractionDigits: 1 })
     : (hero.value ?? "—");
-  const computedYoy = computeYoyFromHistory(hero.history, locale, hero.period_type);
+  const computedYoy = computeYoyFromHistory(hero.history, locale, hero.period_type, rawUnit);
   // Yann 18 juil 2026 : hero trimestriel → YoY recalculé (par label de période
   // en priorité, cf yoySamePeriod), jamais le yoy stocké souvent annuel/périmé.
   let quarterlyLeadYoy: string | null = null;
@@ -1134,7 +1151,21 @@ export function interpretStructured(
         ? ((histNumsAll[histNumsAll.length - 1] - histNumsAll[histNumsAll.length - 5]) / Math.abs(histNumsAll[histNumsAll.length - 5])) * 100
         : null);
     if (pct !== null) {
-      quarterlyLeadYoy = `${pct > 0 ? "+" : ""}${pct.toFixed(1).replace(".", numLocale(locale).startsWith("fr") ? "," : ".")} %`;
+      // Yann 28 juillet 2026 : même règle que computeYoyFromHistory. Un KPI
+      // déjà en % se compare en points, sinon on affiche une variation
+      // relative d'un taux, illisible pour un investisseur.
+      const dec = numLocale(locale).startsWith("fr") ? "," : ".";
+      if (String(rawUnit ?? "").trim() === "%") {
+        const li = histNumsAll.length - 1;
+        const pi = li - 4;
+        const diff = pi >= 0 ? histNumsAll[li] - histNumsAll[pi] : null;
+        if (diff !== null) {
+          const abs = Math.abs(diff);
+          quarterlyLeadYoy = `${diff > 0 ? "+" : ""}${diff.toFixed(1).replace(".", dec)}${abs < 2 ? " pt" : " pts"}`;
+        }
+      } else {
+        quarterlyLeadYoy = `${pct > 0 ? "+" : ""}${pct.toFixed(1).replace(".", dec)} %`;
+      }
     }
   }
   const heroYoy = quarterlyLeadYoy ?? ((typeof hero.yoy === "string" && hero.yoy.trim()) ? hero.yoy : computedYoy);

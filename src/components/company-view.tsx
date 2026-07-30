@@ -712,12 +712,28 @@ export function CompanyView({
         h,
         (active as unknown as { history_periods?: string[] }).history_periods,
       );
+      // Yann 28 juillet 2026 : un KPI déjà exprimé en % (marge, taux, taux de
+      // croissance) se compare en POINTS. Avant, la croissance des impressions
+      // publicitaires de META (5 % au T1 2025 -> 19 % au T1 2026) s'affichait
+      // "+280,0 %", lu comme une hausse de 280 % des impressions.
+      const isPctUnit = String(active.unit ?? "").trim() === "%";
+      const ptsLabel = (diff: number) =>
+        `${diff > 0 ? "+" : ""}${diff.toFixed(1).replace(".", ",")}${Math.abs(diff) < 2 ? " pt" : " pts"}`;
       if (byLabel !== null) {
+        if (isPctUnit) {
+          const li = h.length - 1;
+          const lastV = h[li];
+          const prevV = h[li - 4];
+          if (typeof lastV === "number" && typeof prevV === "number") return ptsLabel(lastV - prevV);
+        }
         const sign = byLabel > 0 ? "+" : "";
         return `${sign}${byLabel.toFixed(1).replace(".", ",")} %`;
       }
       const last = h[h.length - 1];
       const prevY = h[h.length - 5];
+      if (isPctUnit && typeof last === "number" && typeof prevY === "number") {
+        return ptsLabel(last - prevY);
+      }
       if (typeof last === "number" && typeof prevY === "number" && prevY !== 0) {
         const pct = ((last - prevY) / Math.abs(prevY)) * 100;
         const sign = pct > 0 ? "+" : "";
