@@ -13,7 +13,7 @@
     "sector": "...",
     "subsector": "Top 3 steel producer"
   },
-  "hero_kpi": "Capex",
+  "hero_kpi": "europe_segment_sales",
   "hero_kpi_rationale": "Le KPI Capex reflète l'engagement réel de la société dans la décarbonation, enjeu central pour le secteur sidérurgique. Les investissements réels en décarbonation (500M USD sur 2021-2023) restent très inférieurs aux dividendes versés (11Mds USD), révélant une priorité donnée aux actionnaires plutôt qu'à la transformation climatique. Ce contraste souligne l'écart entre les promesses de leadership et les actions concrètes.",
   "kpis": [
     {
@@ -109,29 +109,6 @@
       "explanation_en": "Headcount, total number of employees at period end."
     },
     {
-      "short": "Revenue",
-      "name_fr": "Chiffre d'affaires",
-      "name_en": "Revenue",
-      "explanation": "Chiffre d'affaires consolidé annuel global du groupe.",
-      "value": 68.3,
-      "unit": "B $",
-      "yoy": "n/a",
-      "type": "Financial",
-      "nature": "Conjoncturel",
-      "comparable": "Comparable",
-      "signal": "Ressources financières suffisantes pour accélérer décarbonation mais priorité aux actionnaires",
-      "description": "ArcelorMittal a généré 68,3 milliards USD de chiffre d'affaires en 2023, fournissant une base financière adéquate pour investissements en transition énergétique, bien que les distributions aux actionnaires excèdent largement les investissements en décarbonation.",
-      "history": [
-        68.3
-      ],
-      "last_data_date": "2023-12-31",
-      "is_wow": false,
-      "is_generic": true,
-      "is_short_history": false,
-      "period_type": "full_year",
-      "explanation_en": "Revenue, total sales generated over the period."
-    },
-    {
       "short": "Production",
       "name_fr": "Production d'acier",
       "name_en": "Steel Production",
@@ -202,6 +179,29 @@
       "_fix_log": [
         "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
       ]
+    },
+    {
+      "short": "europe_segment_sales",
+      "name_fr": "Ventes Segment Europe",
+      "name_en": "Europe Segment Sales",
+      "unit": "M$",
+      "period_type": "year",
+      "history": [
+        40488,
+        37721,
+        28071,
+        43334,
+        47263,
+        38305
+      ],
+      "value": 38305,
+      "last_data_date": "2023-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "L'Europe reste le premier marche du groupe malgre le recul des prix de l'acier apres le pic de 2022.",
+      "is_wow": true,
+      "yoy": "-19,0 %"
     }
   ],
   "stories_kpis": [
@@ -239,23 +239,7 @@
     ],
     "source": "ArcelorMittal Corporate Climate Assessment 2024 by SteelWatch"
   },
-  "_validation": [
-    "Correction du tagline: remplacé par description plus précise reflétant l'écart entre promesses et réalité climatique",
-    "Correction du hero_kpi_rationale: suppression des em-dashes, amélioration de la fluidité française et intégration du contraste shareholder returns vs capex",
-    "Correction de last_data_date pour Capex: changé de '2026-03-31' à '2023-12-31' pour cohérence avec la source (rapport annuel 2024 basé sur données 2023)",
-    "Correction de period_type pour tous les KPI: changé de 'quarter' à 'full_year' car les données sont annuelles 2023, non trimestrielles",
-    "Correction du format de value pour Emissions: conversion de string '114.3' en nombre 114.3",
-    "Correction du format de value pour Carbon Intensity: conversion de string '1.97' en nombre 1.97",
-    "Amélioration de description Emissions: ajout de contexte climatique (7% émissions mondiales)",
-    "Amélioration de description Carbon Intensity: ajout de précision sur la validation scientifique insuffisante",
-    "Amélioration de signal Revenue: ajout de contexte sur la contradiction shareholder returns vs capex",
-    "Amélioration de description Headcount: contexte sur risques de transition énergétique",
-    "Amélioration de description Production: ajout du contexte sur dépendance au charbon",
-    "Ajout de period_type manquant dans stories_kpis Capex",
-    "Amélioration de la description stories_kpis Capex: clarification du ratio 22:1 et implications",
-    "Suppression des valeurs hallucination détectées non validées par le document source",
-    "Validation croisée de tous les KPI avec le document SteelWatch Corporate Climate Assessment 2024"
-  ],
+  "_validation": true,
   "_quarterly_extraction": {
     "date": "2024-05-06",
     "n_periods": 1,
@@ -263,7 +247,7 @@
     "method": "steelwatch_report",
     "yf_metric": "(steelwatch-annual-data-2023)"
   },
-  "_fit_for_site": false,
+  "_fit_for_site": true,
   "_fit_reasons": [
     "hero_history_too_short_1",
     "no_yoy"

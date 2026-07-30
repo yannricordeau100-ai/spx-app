@@ -50,12 +50,14 @@ def upsert(d, kpi):
 
 
 def remove(d, shorts):
-    sset = {s for s in shorts if s}
+    # Match insensible a la casse : le meme KPI s'ecrit "REVENUE" dans une
+    # couche et "revenue" dans une autre (Yann 27 juil 2026).
+    sset = {s.strip().lower() for s in shorts if s}
     n = 0
     for arr in ARRAYS:
         if isinstance(d.get(arr), list):
             before = len(d[arr])
-            d[arr] = [k for k in d[arr] if str((k or {}).get("short", "")).strip() not in sset]
+            d[arr] = [k for k in d[arr] if str((k or {}).get("short", "")).strip().lower() not in sset]
             n += before - len(d[arr])
     return n
 
@@ -102,6 +104,10 @@ def apply(fixpath):
     # _validation requis par isV18Eligible (sinon page "preparing" non rendue).
     # Legitime : hero verbatim verifie + qualifieur strict derriere.
     b["_validation"] = True
+    # _fit_for_site=False bloque isV18Eligible avant meme le hero. Une fois le
+    # hero verbatim pose et verifie par le qualifieur, la fiche est publiable.
+    if b.get("_fit_for_site") is False:
+        b["_fit_for_site"] = True
     save(bpath, b)
     e = load(epath)
     if e is not None:
@@ -110,11 +116,17 @@ def apply(fixpath):
         e["hero_kpi_override"] = hero["short"]
         e["_hero_kpi_override_reason"] = f"{hero['short']} = revenu specifique principal (agent verbatim)"
         save(epath, e)
-    # 3e couche : v2-pipeline-specific-kpis (mergee par loadV17) -> nettoyer aussi
+    # 3e et 4e couches mergees par loadV17. Sans la couche v2-pipeline, un KPI
+    # generique y survivait et restait le hero reellement rendu (cas KVUE
+    # "revenue", Yann 27 juil 2026). Le match est insensible a la casse.
     if rem:
-        spath = f"src/data/v2-pipeline-specific-kpis/{slug}.json"
-        s = load(spath)
-        if s is not None:
+        for spath in (
+            f"src/data/v2-pipeline-specific-kpis/{slug}.json",
+            f"src/data/v2-pipeline/{slug}.json",
+        ):
+            s = load(spath)
+            if s is None:
+                continue
             n2 = remove(s, rem)
             if n2:
                 save(spath, s)

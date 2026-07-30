@@ -13,40 +13,9 @@
     "sector": "≈ #10",
     "subsector": "≈ #5"
   },
-  "hero_kpi": "EBITDA",
+  "hero_kpi": "crop_science_rev",
   "hero_kpi_rationale": "Mesure clé de la performance opérationnelle et de la capacité génératrice de cash du groupe, particulièrement pertinente pour évaluer la santé financière d'une entreprise pharmaceutique et agricole avec un profil d'endettement élevé.",
   "kpis": [
-    {
-      "short": "Sales",
-      "name_fr": "Chiffre d'affaires",
-      "name_en": "Sales",
-      "explanation": "Chiffre d'affaires total du groupe Bayer",
-      "value": "47.637",
-      "unit": "Mds €",
-      "yoy": "-1.2%",
-      "type": "Revenue",
-      "nature": "Cyclique",
-      "comparable": "Comparable",
-      "signal": "Baisse du chiffre d'affaires",
-      "description": "Chiffre d'affaires total du groupe Bayer",
-      "history": [
-        43.5,
-        41.4,
-        44.1,
-        50.7,
-        47.6
-      ],
-      "last_data_date": "2023-12-31",
-      "is_wow": false,
-      "is_generic": true,
-      "is_short_history": false,
-      "explanation_en": "Sales, total sales generated over the period.",
-      "signal_en": "Revenue pressure, demand softening",
-      "period_type": "year",
-      "_fix_log": [
-        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
-      ]
-    },
     {
       "short": "EBITDA",
       "name_fr": "EBITDA avant éléments exceptionnels",
@@ -260,6 +229,117 @@
       "_fix_log": [
         "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
       ]
+    },
+    {
+      "short": "crop_science_rev",
+      "name_fr": "CA Crop Science",
+      "name_en": "Crop Science Revenue",
+      "unit": "Mds €",
+      "period_type": "year",
+      "history": [
+        19.832,
+        18.84,
+        20.207,
+        25.169,
+        23.27,
+        22.259
+      ],
+      "value": 22.259,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Premier metier de Bayer, en recul depuis le pic de 2022 sous la pression des prix des pesticides.",
+      "is_wow": true,
+      "yoy": "-4,3 %"
+    },
+    {
+      "short": "pharma_div_sales",
+      "name_fr": "CA division Pharmaceuticals",
+      "name_en": "Pharmaceuticals Division Sales",
+      "unit": "Mds €",
+      "period_type": "year",
+      "history": [
+        17.962,
+        17.243,
+        18.349,
+        19.252,
+        18.081,
+        18.131
+      ],
+      "value": 18.131,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "La division pharmacie se stabilise autour de 18 Mds €, les nouveaux produits compensant les pertes de brevet.",
+      "is_wow": true
+    },
+    {
+      "short": "consumer_health_sales",
+      "name_fr": "CA division Consumer Health",
+      "name_en": "Consumer Health Division Sales",
+      "unit": "Mds €",
+      "period_type": "year",
+      "history": [
+        5.462,
+        5.054,
+        5.293,
+        6.08,
+        6.027,
+        5.87
+      ],
+      "value": 5.87,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "L'automedication reste la division la plus reguliere du groupe, en leger repli depuis 2022.",
+      "is_wow": false
+    },
+    {
+      "short": "xarelto_sales",
+      "name_fr": "Ventes Xarelto",
+      "name_en": "Xarelto Sales",
+      "unit": "Mds €",
+      "period_type": "year",
+      "history": [
+        4.126,
+        4.515,
+        4.735,
+        4.516,
+        4.081,
+        3.48
+      ],
+      "value": 3.48,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "L'anticoagulant vedette perd du terrain chaque annee depuis les expirations de brevet.",
+      "is_wow": true
+    },
+    {
+      "short": "eylea_sales",
+      "name_fr": "Ventes Eylea",
+      "name_en": "Eylea Sales",
+      "unit": "Mds €",
+      "period_type": "year",
+      "history": [
+        2.494,
+        2.468,
+        2.918,
+        3.213,
+        3.231,
+        3.306
+      ],
+      "value": 3.306,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Le traitement ophtalmique progresse sans interruption depuis 2020 et devient le relais de Xarelto.",
+      "is_wow": false
     }
   ],
   "stories_kpis": [
@@ -296,22 +376,7 @@
     "evidence": [],
     "source": ""
   },
-  "_validation": [
-    "Correction du secteur: 'Information Technology' changé en 'Healthcare'",
-    "Amélioration du hero_kpi_rationale: ajout de détails spécifiques au contexte de Bayer (endettement, profil opérationnel)",
-    "Ajout du KPI EBITDA avant éléments exceptionnels (11.706 Mds €) avec historique corrigé de la source",
-    "Remplacement de EBITDA avec valeur négative (-2.91) par EBITDA before special items (11.706) qui est la métrique présentée dans le rapport",
-    "Correction de R&D: ajout du yoy calculé (-18.3% basé sur historique 6.572 à 5.371)",
-    "Amélioration de la description de Net Income pour clarifier qu'il inclut opérations continuées et abandonnées",
-    "Correction du yoy du Free cash flow: calcul manuel (-57.8% basé sur 3.111 à 1.311)",
-    "Ajout du KPI Core EPS (6.39 €) avec yoy de -19.5% et historique complet",
-    "Ajout du KPI EBITDA margin before special items (24.6%) avec historique et signal de compression",
-    "Ajout du KPI Net financial debt (34.498 Mds €) avec yoy de +8.4%",
-    "Transformation du story_kpi 'Sales 2025' en KPI significatif 'Dividend per share 2023' avec données réelles et story_category 'Capital allocation'",
-    "Ajout du yoy pour Dividend: -95.4% (de 2.40 à 0.11)",
-    "Harmonisation de tous les name_fr avec capitalization appropriée",
-    "Vérification de cohérence: tous les KPI correspondent aux données du Five-Year Summary 2023"
-  ],
+  "_validation": true,
   "_quarterly_extraction": {
     "date": "2026-05-06 12:57",
     "n_periods": 5,
