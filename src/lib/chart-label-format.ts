@@ -64,9 +64,11 @@ export function formatChartValueLabel(
     return v.toLocaleString("fr-FR", { maximumFractionDigits: 0 });
   }
   // dataMax < 1000 : format adaptatif classique
+  // Yann 28 juillet 2026 : JAMAIS plus d'un chiffre apres la virgule sur un
+  // label de graphique, quelle que soit la magnitude (avant : 2 decimales
+  // sous 1, ce qui donnait "0,41" et allongeait les labels).
   let decimals: number;
-  if (maxAbs < 1) decimals = 2;
-  else if (maxAbs < 100) decimals = 1;
+  if (maxAbs < 100) decimals = 1;
   else decimals = 0;
   return v.toLocaleString("fr-FR", {
     maximumFractionDigits: decimals,
@@ -83,10 +85,11 @@ export function formatChartValueLabel(
  *
  * Retourne l'angle en degrés (négatif = penché vers la gauche, sens SVG).
  */
-export function getChartLabelRotation(nPoints: number): number {
-  if (nPoints <= 12) return 0;
-  if (nPoints <= 20) return -20;
-  return -35;
+export function getChartLabelRotation(): number {
+  // Yann 28 juillet 2026 : plus AUCUN label oblique sur les graphiques. La
+  // lisibilite passe par la reduction de la taille de police (cf
+  // getChartLabelFontSize), jamais par la rotation.
+  return 0;
 }
 
 /**
@@ -94,7 +97,12 @@ export function getChartLabelRotation(nPoints: number): number {
  * de points. Complète la rotation quand elle ne suffit pas.
  */
 export function getChartLabelFontSize(nPoints: number): number {
+  // Yann 28 juillet 2026 : les labels restent horizontaux, donc c'est la
+  // taille qui absorbe la densite.
+  if (nPoints <= 8) return 13;
   if (nPoints <= 12) return 11;
-  if (nPoints <= 20) return 10;
-  return 9;
+  if (nPoints <= 16) return 9.5;
+  if (nPoints <= 22) return 8.5;
+  if (nPoints <= 30) return 7.5;
+  return 6.5;
 }

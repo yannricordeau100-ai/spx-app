@@ -167,7 +167,15 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
   const labelFontSize = isCrowded ? 13 : 17;
   // Valeurs TOUJOURS affichées au-dessus de chaque barre (demande Yann
   // 5 mai 2026), font-size adapté à la densité pour éviter les chevauchements.
-  const valueFontSize = isCrowded ? 11 : 15;
+  // Yann 28 juillet 2026 : labels horizontaux => la taille decroit avec le
+  // nombre de barres pour garantir zero chevauchement sans rotation.
+  const valueFontSize =
+    allData.length <= 8 ? 15
+    : allData.length <= 12 ? 13
+    : allData.length <= 16 ? 11
+    : allData.length <= 22 ? 9.5
+    : allData.length <= 30 ? 8.5
+    : 7.5;
   const DX = isClassic ? 0 : 26;
   const DY = isClassic ? 0 : -16;
   // Yann 8 juin 2026 (Point 4) : si KpiSwapTitle force EN, l'axe Y traduit
@@ -414,7 +422,10 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
             {(() => {
               const cxLabel = x + barW / 2 + (isClassic ? 0 : DX / 2);
               const cyLabel = isNeg ? barBot + 18 : yT + (isClassic ? -10 : DY - 12);
-              const rotate = isCrowded ? -30 : 0;
+              // Yann 28 juillet 2026 : plus aucun label oblique. La densite est
+              // absorbee par la taille de police (valueFontSize), pas par une
+              // rotation qui rendait les chiffres penibles a lire.
+              const rotate = 0;
               return (
                 <text
                   x={cxLabel}
