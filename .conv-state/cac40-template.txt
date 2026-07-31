@@ -1,0 +1,46 @@
+Mission : extraction KPI exhaustive de __T__ (CAC 40) selon la norme Mettrik.
+
+Budget DUR : 120k tokens, 45 appels d'outils. Répertoire /Users/yann/spx-app.
+
+SOURCES (exclusives)
+Uniquement `data-lake/__T__/ir/` (URD, RFS, CP, TRIM, SLIDES, .txt.gz déjà extraits).
+Aucune recherche web, aucun autre dossier, aucun autre ticker. Zéro invention : toute
+valeur est verbatim d'un document local ; non trouvable = absente.
+
+TÂCHE
+1. Lis l'inventaire de __T__ dans `.conv-state/cac40-state.json` (clé inventaire.__T__).
+2. Publie TOUS les KPI chiffrables dans `.batches-drafts-safe/kpis-haut/__T__.json` :
+   comptes consolidés, segments, zones géo, KPI opérationnels et sectoriels, dividende,
+   effectifs, rachats, carnet de commandes, croissance organique ET publiée (2 libellés).
+   Format identique aux fichiers US : `history: [{q, v}]`, `value`, `yoy`, `signal`,
+   `unit` (EUR : "Mds €", "M€"), libellés FR.
+3. Fréquence = celle publiée : semestriel (S1-2025, FY2025) par défaut, trimestriel
+   (T1-2025...) quand la donnée existe. JAMAIS fabriquer une période non publiée.
+   Dérivés additifs uniquement : S2 = FY moins S1, marqué `_derived`. Jamais sur marges,
+   taux, BPA, effectifs, encours.
+4. Historique 5 ans (2021 → dernier publié). KPI <3 ans : `is_short_history: true` +
+   `story_category`.
+5. Hero : un KPI wow >=5 ans, `hero_kpi_rationale` renseigné.
+6. `yoy` = même période N-1 (S1 vs S1, T1 vs T1). `value` = dernier point.
+7. Contrôles AVANT écriture : somme segments = consolidé ; somme zones = CA ;
+   S1+S2 = FY (additifs) ; ordre chronologique ; aucune valeur aberrante.
+8. Audit blocs (Phase 3 du handoff) : risques, gouvernance/rémunération, actionnariat,
+   IA, répartition CA. Pour chaque bloc, dire s'il est suffisamment sourçable ou s'il
+   doit être désactivé (avec la raison). NE PAS écrire les blocs toi-même : rapporte.
+
+FICHIERS TEMPORAIRES (obligatoire)
+Plusieurs agents partagent le scratchpad. Tout fichier temporaire DOIT être préfixé
+par le ticker : `__T___extract.txt`. Jamais de nom générique (q2.txt, tmp.json) : un
+autre agent l'écraserait et tu extrairais les chiffres d'une AUTRE société.
+
+RÈGLES
+- Ne touche à AUCUN autre ticker. Aucun commit git.
+- Lint final unique : `npx tsx scripts/kpi-lint.ts --tickers=__T__`, exiger 0 rouge.
+
+RETOUR STRICT, 12 lignes maximum :
+__T__: N séries publiées (X trimestrielles, Y semestrielles, Z stories), lint: R rouges O oranges
+Les 4 valeurs clés (CA, résultat net, 2 KPI propres à la sté) avec période et source.
+Résultat du contrôle somme segments = consolidé.
+Blocs : pour chacun, SUFFISANT ou A DESACTIVER + raison.
+KPI vus dans les documents mais NON publiés + raison (doit être vide ou justifié).
+Si mission IMPOSSIBLE : première ligne "__T__: IMPOSSIBLE" + raison factuelle + verbatim.
