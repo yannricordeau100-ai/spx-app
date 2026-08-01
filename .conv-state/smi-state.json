@@ -1,0 +1,147 @@
+{
+ "doc": "Chaine SMI 20 exhaustif KPI - etat",
+ "phase": "0-inventaire",
+ "univers": [
+  {
+   "ticker": "ABBN.SW",
+   "nom": "ABB"
+  },
+  {
+   "ticker": "ALC.SW",
+   "nom": "Alcon"
+  },
+  {
+   "ticker": "AMRZ.SW",
+   "nom": "Amrize"
+  },
+  {
+   "ticker": "GEBN.SW",
+   "nom": "Geberit"
+  },
+  {
+   "ticker": "GIVN.SW",
+   "nom": "Givaudan"
+  },
+  {
+   "ticker": "HOLN.SW",
+   "nom": "Holcim"
+  },
+  {
+   "ticker": "KNIN.SW",
+   "nom": "Kuehne+Nagel International"
+  },
+  {
+   "ticker": "LOGN.SW",
+   "nom": "Logitech International"
+  },
+  {
+   "ticker": "LONN.SW",
+   "nom": "Lonza Group"
+  },
+  {
+   "ticker": "NESN.SW",
+   "nom": "Nestl\u00e9"
+  },
+  {
+   "ticker": "NOVN.SW",
+   "nom": "Novartis"
+  },
+  {
+   "ticker": "PGHN.SW",
+   "nom": "Partners Group Holding"
+  },
+  {
+   "ticker": "CFR.SW",
+   "nom": "Compagnie Financi\u00e8re Richemont"
+  },
+  {
+   "ticker": "ROG.SW",
+   "nom": "Roche Holding"
+  },
+  {
+   "ticker": "SIKA.SW",
+   "nom": "Sika"
+  },
+  {
+   "ticker": "SLHN.SW",
+   "nom": "Swiss Life Holding"
+  },
+  {
+   "ticker": "SREN.SW",
+   "nom": "Swiss Re"
+  },
+  {
+   "ticker": "SCMN.SW",
+   "nom": "Swisscom"
+  },
+  {
+   "ticker": "UBSG.SW",
+   "nom": "UBS Group"
+  },
+  {
+   "ticker": "ZURN.SW",
+   "nom": "Zurich Insurance Group"
+  }
+ ],
+ "univers_verifie_le": "2026-08-01",
+ "inventaire": {
+  "NOVN.SW": {
+   "documents_count": 28,
+   "note": "14 PDF + 14 txt.gz verifies sur disque. USD. NON EXHAUSTIF (ancien plafond 10-15 docs): passe complementaire obligatoire avant extraction, URLs de reprise dans /tmp/smi-inv-*.json."
+  },
+  "ROG.SW": {
+   "documents_count": 30,
+   "note": "15 PDF + 15 txt.gz verifies sur disque. CHF. NON EXHAUSTIF (ancien plafond 10-15 docs): passe complementaire obligatoire avant extraction, URLs de reprise dans /tmp/smi-inv-*.json."
+  },
+  "NESN.SW": {
+   "documents_count": 30,
+   "note": "15 PDF + 15 txt.gz verifies. NON EXHAUSTIF (ancien plafond 10-15 docs): passe complementaire obligatoire avant extraction, URLs de reprise dans /tmp/smi-inv-*.json."
+  }
+ },
+ "manquants": {},
+ "inventaire_complete": [],
+ "purge_backup_fait": false,
+ "order": [
+  "ABBN.SW",
+  "ALC.SW",
+  "AMRZ.SW",
+  "GEBN.SW",
+  "GIVN.SW",
+  "HOLN.SW",
+  "KNIN.SW",
+  "LOGN.SW",
+  "LONN.SW",
+  "NESN.SW",
+  "NOVN.SW",
+  "PGHN.SW",
+  "CFR.SW",
+  "ROG.SW",
+  "SIKA.SW",
+  "SLHN.SW",
+  "SREN.SW",
+  "SCMN.SW",
+  "UBSG.SW",
+  "ZURN.SW"
+ ],
+ "done": [],
+ "in_progress": [],
+ "impossible": [],
+ "phase3_done": [],
+ "phase3_in_progress": [],
+ "blocs_desactives": {},
+ "questions_yann": [
+  {
+   "sujet": "Roche symbole SIX devenu ROP (Roche PS)",
+   "detail": "La verif SIX indique que le titre SMI Roche est desormais 'ROCHE PS' symbole ROP (ISIN CH1499059983) et non ROG. L'app utilise historiquement ROG.SW (fiches existantes). Conserve ROG.SW comme identifiant interne pour la coherence, a arbitrer si tu veux migrer vers ROP.SW (pas de collision US grace au .SW, ROP nu = Roper Technologies).",
+   "date": "2026-08-02"
+  },
+  {
+   "sujet": "Composition SMI",
+   "detail": "AMRZ (Amrize, spin-off Holcim) est dans le SMI, Sonova (SOON) sorti. Univers = 20 valeurs verifiees SIX + Wikipedia concordants.",
+   "date": "2026-08-02"
+  }
+ ],
+ "verif_3_valeurs": {},
+ "exigence": "EXHAUSTIVITE TOTALE (Yann 2 aout): aucun doc manque sur aucun trimestre 2021-2026, voir section dediee du HANDOFF",
+ "note_ubsg_zurn": "UBSG.SW et ZURN.SW inventories sous l ancien plafond 12-16 docs (agents lances avant l exigence exhaustivite): passe complementaire obligatoire comme NESN/NOVN/ROG avant extraction."
+}
