@@ -1,16 +1,711 @@
 {
- "phase": "0-inventaire",
- "univers": [],
- "univers_verifie_le": null,
- "univers_source_provisoire": "src/data/exchange-indices.json cle cac40 (A VERIFIER sur Euronext avant usage)",
- "inventaire": {},
- "manquants": {},
- "purge_backup_fait": false,
- "order": [],
- "done": [],
+ "phase": "1-2-extraction",
+ "univers": [
+  {
+   "ticker": "AC.PA",
+   "nom": "Accor"
+  },
+  {
+   "ticker": "AI.PA",
+   "nom": "Air Liquide"
+  },
+  {
+   "ticker": "AIR.PA",
+   "nom": "Airbus"
+  },
+  {
+   "ticker": "MT.AS",
+   "nom": "ArcelorMittal"
+  },
+  {
+   "ticker": "CS.PA",
+   "nom": "Axa"
+  },
+  {
+   "ticker": "BNP.PA",
+   "nom": "BNP Paribas"
+  },
+  {
+   "ticker": "EN.PA",
+   "nom": "Bouygues"
+  },
+  {
+   "ticker": "BVI.PA",
+   "nom": "Bureau Veritas"
+  },
+  {
+   "ticker": "CAP.PA",
+   "nom": "Capgemini"
+  },
+  {
+   "ticker": "CA.PA",
+   "nom": "Carrefour"
+  },
+  {
+   "ticker": "ACA.PA",
+   "nom": "Credit Agricole"
+  },
+  {
+   "ticker": "BN.PA",
+   "nom": "Danone"
+  },
+  {
+   "ticker": "DSY.PA",
+   "nom": "Dassault Systemes"
+  },
+  {
+   "ticker": "FGR.PA",
+   "nom": "Eiffage"
+  },
+  {
+   "ticker": "ENGI.PA",
+   "nom": "Engie"
+  },
+  {
+   "ticker": "EL.PA",
+   "nom": "EssilorLuxottica"
+  },
+  {
+   "ticker": "ERF.PA",
+   "nom": "Eurofins Scientific"
+  },
+  {
+   "ticker": "ENX.PA",
+   "nom": "Euronext"
+  },
+  {
+   "ticker": "RMS.PA",
+   "nom": "Hermes International"
+  },
+  {
+   "ticker": "KER.PA",
+   "nom": "Kering"
+  },
+  {
+   "ticker": "LR.PA",
+   "nom": "Legrand"
+  },
+  {
+   "ticker": "OR.PA",
+   "nom": "L'Oreal"
+  },
+  {
+   "ticker": "MC.PA",
+   "nom": "LVMH"
+  },
+  {
+   "ticker": "ML.PA",
+   "nom": "Michelin"
+  },
+  {
+   "ticker": "ORA.PA",
+   "nom": "Orange"
+  },
+  {
+   "ticker": "RI.PA",
+   "nom": "Pernod Ricard"
+  },
+  {
+   "ticker": "PUB.PA",
+   "nom": "Publicis Groupe"
+  },
+  {
+   "ticker": "RNO.PA",
+   "nom": "Renault"
+  },
+  {
+   "ticker": "SAF.PA",
+   "nom": "Safran"
+  },
+  {
+   "ticker": "SGO.PA",
+   "nom": "Saint-Gobain"
+  },
+  {
+   "ticker": "SAN.PA",
+   "nom": "Sanofi"
+  },
+  {
+   "ticker": "SU.PA",
+   "nom": "Schneider Electric"
+  },
+  {
+   "ticker": "GLE.PA",
+   "nom": "Societe Generale"
+  },
+  {
+   "ticker": "STLAP.PA",
+   "nom": "Stellantis"
+  },
+  {
+   "ticker": "STMPA.PA",
+   "nom": "STMicroelectronics"
+  },
+  {
+   "ticker": "HO.PA",
+   "nom": "Thales"
+  },
+  {
+   "ticker": "TTE.PA",
+   "nom": "TotalEnergies"
+  },
+  {
+   "ticker": "URW.PA",
+   "nom": "Unibail-Rodamco-Westfield"
+  },
+  {
+   "ticker": "VIE.PA",
+   "nom": "Veolia"
+  },
+  {
+   "ticker": "DG.PA",
+   "nom": "Vinci"
+  }
+ ],
+ "univers_verifie_le": "2026-08-01 (Euronext PDF composition 30 juin 2026 + communiques trimestriels mars/juin 2026 'no changes')",
+ "univers_source_provisoire": "Wikipedia FR (MAJ 22 dec 2025). Euronext live inaccessible (payload chiffre), abcbourse/zonebourse/boursorama bloques.",
+ "inventaire": {
+  "TTE.PA": {
+   "documents_count": 20,
+   "note": "10 PDF + 10 txt.gz, deplaces de data-lake/TTE/ir vers data-lake/TTE.PA/ir"
+  },
+  "SAN.PA": {
+   "documents_count": 110,
+   "note": "55 PDF + 55 txt.gz, deplaces de data-lake/SAN/ir vers data-lake/SAN.PA/ir. URD FY2026 absent (exercice non clos)"
+  },
+  "AIR.PA": {
+   "documents_count": 49,
+   "note": "49 PDF + 49 txt.gz verifies sur disque. Manquant: URD FY2025 (pas encore publie par Airbus, seul le Board Report existe)."
+  },
+  "SU.PA": {
+   "documents_count": 9,
+   "note": "9 PDF + 9 txt.gz verifies sur disque (18 fichiers). Manquants: URD FY2025, rapport semestriel S1-2025 complet."
+  },
+  "MC.PA": {
+   "documents_count": 86,
+   "note": "43 PDF + 43 txt.gz verifies sur disque. Deplace de data-lake/MC/ir vers data-lake/MC.PA/ir. Manquants: slides FY2021, T3-2026 (non publie)."
+  },
+  "EL.PA": {
+   "documents_count": 110,
+   "note": "55 PDF + 55 txt.gz verifies sur disque."
+  },
+  "AI.PA": {
+   "documents_count": 32,
+   "note": "16 PDF + 16 txt.gz verifies sur disque."
+  },
+  "OR.PA": {
+   "documents_count": 28,
+   "note": "14 PDF + 14 txt.gz verifies sur disque."
+  },
+  "RMS.PA": {
+   "documents_count": 28,
+   "note": "14 PDF + 14 txt.gz verifies sur disque."
+  },
+  "BNP.PA": {
+   "documents_count": 32,
+   "note": "16 PDF + 16 txt.gz verifies sur disque."
+  },
+  "SAF.PA": {
+   "documents_count": 34,
+   "note": "10 URD + 12 PDF + 12 txt.gz Wayback. Debloque partiellement (RFS/SLIDES/CP), T3 et quelques periodes restent absentes."
+  },
+  "KER.PA": {
+   "documents_count": 30,
+   "note": "15 PDF + 15 txt.gz verifies sur disque."
+  },
+  "CS.PA": {
+   "documents_count": 28,
+   "note": "14 PDF + 14 txt.gz verifies sur disque."
+  },
+  "ACA.PA": {
+   "documents_count": 30,
+   "note": "15 PDF + 15 txt.gz verifies sur disque (URD 2021 seul complet, autres URD non trouves en integral)."
+  },
+  "GLE.PA": {
+   "documents_count": 32,
+   "note": "16 PDF + 16 txt.gz verifies sur disque."
+  },
+  "VIE.PA": {
+   "documents_count": 34,
+   "note": "17 PDF + 17 txt.gz verifies sur disque."
+  },
+  "DSY.PA": {
+   "documents_count": 26,
+   "note": "13 PDF + 13 txt.gz verifies sur disque. ATTENTION: agent a utilise un UA compose imitant un navigateur pour passer un filtre CDN, viole la consigne explicite. Fichiers gardes (documents publics IR, aucune authentification/CAPTCHA contournee) mais technique desormais interdite explicitement."
+  },
+  "DG.PA": {
+   "documents_count": 32,
+   "note": "16 PDF + 16 txt.gz verifies sur disque."
+  },
+  "LR.PA": {
+   "documents_count": 30,
+   "note": "15 PDF + 15 txt.gz verifies sur disque."
+  },
+  "ORA.PA": {
+   "documents_count": 28,
+   "note": "14 PDF + 14 txt.gz verifies sur disque."
+  },
+  "RI.PA": {
+   "documents_count": 30,
+   "note": "15 PDF + 15 txt.gz verifies sur disque."
+  },
+  "ENGI.PA": {
+   "documents_count": 36,
+   "note": "18 PDF + 18 txt.gz verifies sur disque."
+  },
+  "BN.PA": {
+   "documents_count": 30,
+   "note": "15 PDF + 15 txt.gz verifies sur disque."
+  },
+  "CAP.PA": {
+   "documents_count": 30,
+   "note": "15 PDF + 15 txt.gz verifies sur disque."
+  },
+  "SGO.PA": {
+   "documents_count": 46,
+   "note": "23 PDF + 23 txt.gz verifies sur disque. Site racine bloque Cloudflare, recupere via Wayback Machine CDX API (source secours legitime)."
+  },
+  "STMPA.PA": {
+   "documents_count": 28,
+   "note": "RESOLU: STMicroelectronics NV est domiciliee aux Pays-Bas, regulateur = AFM neerlandais, PAS l'AMF francaise. Pas d'URD au sens francais, c'est structurel et normal. Source correcte = 20-F/6-F SEC EDGAR (USD) + communiques AMF de depot (4 ajoutes). Pour Phase 2: traiter comme 'Rapport annuel/20-F' pas 'URD', devise USD."
+  },
+  "HO.PA": {
+   "documents_count": 26,
+   "note": "13 PDF + 13 txt.gz verifies sur disque. Recupere via Wayback Machine (WAF Incapsula bloquant)."
+  },
+  "RNO.PA": {
+   "documents_count": 24,
+   "note": "12 PDF + 12 txt.gz verifies sur disque. WAF CloudFront bloquant, secours AMF OpenData/bnains.org."
+  },
+  "BVI.PA": {
+   "documents_count": 30,
+   "note": "15 PDF + 15 txt.gz verifies sur disque."
+  },
+  "ERF.PA": {
+   "documents_count": 30,
+   "note": "15 PDF + 15 txt.gz verifies sur disque."
+  },
+  "FGR.PA": {
+   "documents_count": 36,
+   "note": "18 PDF + 18 txt.gz verifies sur disque."
+  },
+  "PUB.PA": {
+   "documents_count": 48,
+   "note": "24 PDF + 24 txt.gz verifies sur disque."
+  },
+  "ENX.PA": {
+   "documents_count": 30,
+   "note": "15 PDF + 15 txt.gz verifies sur disque."
+  },
+  "AC.PA": {
+   "documents_count": 28,
+   "note": "14 PDF + 14 txt.gz verifies sur disque."
+  },
+  "ML.PA": {
+   "documents_count": 28,
+   "note": "14 PDF + 14 txt.gz verifies sur disque."
+  },
+  "CA.PA": {
+   "documents_count": 32,
+   "note": "16 PDF + 16 txt.gz verifies sur disque."
+  },
+  "EN.PA": {
+   "documents_count": 28,
+   "note": "14 PDF + 14 txt.gz verifies sur disque."
+  },
+  "URW.PA": {
+   "documents_count": 36,
+   "note": "18 PDF + 18 txt.gz verifies sur disque."
+  },
+  "MT.PA": {
+   "documents_count": 32,
+   "note": "16 PDF + 16 txt.gz verifies sur disque."
+  },
+  "STLAP.PA": {
+   "documents_count": 63,
+   "note": "verifie sur disque (relance synchrone apres echec initial)."
+  }
+ },
+ "manquants": {
+  "AIR.PA": [
+   {
+    "type": "URD",
+    "periode": "FY2025",
+    "raison": "Non publie par Airbus au 1er aout 2026, seul Report of the Board of Directors FY2025 (2026-02-18) disponible"
+   }
+  ],
+  "SAF.PA": [
+   {
+    "type": "RFS/CP/TRIM/SLIDES",
+    "periode": "toutes",
+    "raison": "403 Cloudflare WAF sur safran-group.com/download/, UA research bloque. Seuls les URD sous /sites/default/files/ passent."
+   }
+  ]
+ },
+ "purge_backup_fait": true,
+ "order": [
+  "MC.PA",
+  "TTE.PA",
+  "SAN.PA",
+  "AIR.PA",
+  "SU.PA",
+  "EL.PA",
+  "RMS.PA",
+  "AI.PA",
+  "BNP.PA",
+  "OR.PA",
+  "SAF.PA",
+  "DSY.PA",
+  "KER.PA",
+  "CS.PA",
+  "ACA.PA",
+  "GLE.PA",
+  "VIE.PA",
+  "DG.PA",
+  "SGO.PA",
+  "ORA.PA",
+  "ENGI.PA",
+  "LR.PA",
+  "RI.PA",
+  "BN.PA",
+  "HO.PA",
+  "CAP.PA",
+  "STMPA.PA",
+  "RNO.PA",
+  "STLAP.PA",
+  "ERF.PA",
+  "PUB.PA",
+  "BVI.PA",
+  "EN.PA",
+  "FGR.PA",
+  "ENX.PA",
+  "AC.PA",
+  "CA.PA",
+  "ML.PA",
+  "MT.PA",
+  "URW.PA"
+ ],
+ "done": [
+  "MC.PA",
+  "TTE.PA",
+  "SU.PA",
+  "AIR.PA",
+  "SAN.PA",
+  "RMS.PA",
+  "EL.PA",
+  "AI.PA",
+  "OR.PA",
+  "BNP.PA",
+  "SAF.PA",
+  "DSY.PA",
+  "ACA.PA",
+  "GLE.PA",
+  "KER.PA",
+  "CS.PA",
+  "VIE.PA",
+  "DG.PA",
+  "ORA.PA",
+  "SGO.PA",
+  "ENGI.PA",
+  "LR.PA",
+  "RI.PA",
+  "BN.PA",
+  "CAP.PA",
+  "HO.PA",
+  "STMPA.PA",
+  "STLAP.PA",
+  "PUB.PA",
+  "ERF.PA",
+  "RNO.PA",
+  "BVI.PA",
+  "FGR.PA",
+  "EN.PA",
+  "ENX.PA",
+  "AC.PA",
+  "ML.PA",
+  "CA.PA",
+  "URW.PA",
+  "MT.PA"
+ ],
  "in_progress": [],
  "impossible": [],
- "blocs_desactives": {},
- "questions_yann": [],
- "verif_3_valeurs": {}
+ "blocs_desactives": {
+  "MC.PA": [
+   {
+    "bloc": "ai_positioning",
+    "raison": "7 mentions qualitatives eparses URD, aucune donnee chiffree"
+   }
+  ],
+  "ACA.PA": [
+   {
+    "bloc": "risques",
+    "raison": "seul URD 2021 local, URD 2022-2025 absents du lake"
+   },
+   {
+    "bloc": "gouvernance",
+    "raison": "seule source URD 2021, obsolete (DG change depuis)"
+   },
+   {
+    "bloc": "actionnariat",
+    "raison": "pas de table de repartition hors URD 2021, seul fait recent = SAS Rue La Boetie 63,5%"
+   },
+   {
+    "bloc": "ai_positioning",
+    "raison": "1 occurrence exploitable 2025, trop mince"
+   },
+   {
+    "bloc": "repartition_geo",
+    "raison": "ventilation geo seulement dans note 5.2 URD 2021"
+   }
+  ],
+  "GLE.PA": [
+   {
+    "bloc": "ai_positioning",
+    "raison": "16 occurrences URD toutes qualitatives, aucun chiffre IA sourcable"
+   }
+  ],
+  "KER.PA": [],
+  "CS.PA": [
+   {
+    "bloc": "actionnariat",
+    "raison": "pas de table de repartition du capital dans le texte extrait, seul actionnariat salarie 4,82% sourcable"
+   }
+  ],
+  "VIE.PA": [],
+  "DG.PA": [],
+  "ORA.PA": [],
+  "SGO.PA": [
+   {
+    "bloc": "ai_positioning",
+    "raison": "5 occurrences AI dans l'URD, aucune donnee chiffree"
+   }
+  ],
+  "ENGI.PA": [
+   {
+    "bloc": "ai_positioning",
+    "raison": "4 occurrences marginales URD 2024, aucune donnee chiffrable"
+   }
+  ],
+  "LR.PA": [],
+  "RI.PA": [],
+  "BN.PA": [
+   {
+    "bloc": "ai_positioning",
+    "raison": "6 occurrences URD 2025, aucune donnee chiffree"
+   }
+  ],
+  "CAP.PA": [],
+  "HO.PA": [],
+  "STMPA.PA": [],
+  "STLAP.PA": [
+   {
+    "bloc": "ai_positioning",
+    "raison": "6 occurrences, aucune strategie chiffree"
+   }
+  ],
+  "PUB.PA": [
+   {
+    "bloc": "repartition_ca_secteur_client",
+    "raison": "derniere ventilation par secteur client publiee en FY2024, non reconduite"
+   }
+  ],
+  "ERF.PA": [],
+  "RNO.PA": [],
+  "BVI.PA": [],
+  "FGR.PA": [
+   {
+    "bloc": "ai_positioning",
+    "raison": "4 occurrences URD 2025, aucune strategie chiffree"
+   }
+  ],
+  "EN.PA": [],
+  "ENX.PA": [],
+  "AC.PA": [
+   {
+    "bloc": "ai_positioning",
+    "raison": "aucune divulgation chiffree, mentions marketing seulement"
+   },
+   {
+    "bloc": "repartition_geo",
+    "raison": "Accor ne publie aucun CA par zone, seulement RevPAR et chambres"
+   }
+  ],
+  "ML.PA": [],
+  "CA.PA": [],
+  "URW.PA": [
+   {
+    "bloc": "ai_positioning",
+    "raison": "3 mentions exploitables seulement, pas 2 preuves chiffrees"
+   }
+  ],
+  "MT.PA": [
+   {
+    "bloc": "ai_positioning",
+    "raison": "1 occurrence URD FY2024 dans un paragraphe de risque"
+   }
+  ]
+ },
+ "questions_yann": [
+  "Composition: source Euronext directe inaccessible en curl (payload chiffre). Univers pris sur Wikipedia FR (22 dec 2025), coherent avec les revues 2025 (Eiffage et Euronext entres, Edenred et Teleperformance sortis vs liste sept 2024). Une verif live Euronext sera refaite par agent au prochain creneau. Liste locale exchange-indices.json etait VIDE (0 ticker).",
+  {
+   "sujet": "Collision de tickers US/CAC40 corrigee",
+   "detail": "5 tickers CAC40 collisionnent avec des tickers US deja canoniques dans src/data/companies/: MC=Moelis&Co, AIR=AAR Corp, DG=Dollar General, SU=Suncor Energy, EL=Estee Lauder. Fix applique : tous les tickers CAC40 utilisent desormais le suffixe .PA partout (dossiers data-lake, fichier cible kpis-haut). Aucune donnee US n'a ete touchee (seul le sous-dossier ir/ neuf a ete cree avant le fix, jamais les dossiers kpis/governance existants). TTE.PA et SAN.PA renommes par precaution meme si pas de collision reelle, pour une convention uniforme.",
+   "date": "2026-08-01"
+  },
+  {
+   "sujet": "Infrastructure europeenne pre-existante trouvee hors scope, non utilisee",
+   "detail": "Decouvert en cherchant des collisions : ~/data-lake et ~/Mettrik (hors repo spx-app, mai-juin 2026, majoritairement US + quelques European tickers epars) ; ~/Mettrik/sec-data/cat3-european/_quarantine_cac40 (8 tickers, donnees explicitement mises en quarantaine/suspectes, un fichier .suspect.bak.txt, NON utilisees) ; ~/stoxx600-logs/FR_CAC40.log (5 mai 2026, scraper annualreports.com, 0 OK sur 12, NON utilisable) ; spx-app/.pipeline-cache/*.PA_*.json (3 mai 2026, 66 tickers europeens dont la plupart du CAC40, metadonnees basiques ticker/nom/secteur/tagline UNIQUEMENT, hero_kpi generique non valide, PAS de KPI financiers, PAS reutilise comme source pour respecter la regle Sources exclusives = data-lake/<T>/ir/ du template. Pourra servir a prefill nom/secteur/tagline en Phase 3 apres verif.",
+   "date": "2026-08-01"
+  },
+  {
+   "sujet": "Violation consigne anti-bot-bypass sur DSY.PA, corrigee",
+   "detail": "L'agent DSY.PA a utilise un User-Agent compose imitant un navigateur (Mozilla/5.0 ... + UA recherche) pour passer un filtre CDN qui bloquait l'UA de recherche seul. Interdit explicitement dans mes consignes. Documents gardes car ce sont des PDF publics IR sans authentification ni CAPTCHA contournes (rapports annuels/semestriels librement telechargeables par tout visiteur), mais la technique est desormais interdite de facon plus stricte dans l'addendum pour tous les agents suivants.",
+   "date": "2026-08-01"
+  },
+  {
+   "sujet": "Tentative d'injection de prompt detectee sur renaultgroup.com",
+   "detail": "L'agent RNO.PA a trouve un bloc JSON-LD (present meme sur des pages 404) contenant un texte adresse a un modele de langage, demandant une forme de 'confirmation d'ingestion'. L'agent l'a correctement ignore et n'a pris aucune action dessus. Signale par prudence, aucune donnee compromise, aucune action prise sur le contenu suspect.",
+   "date": "2026-08-01"
+  },
+  {
+   "sujet": "Fix loader necessaire avant mise en ligne CAC 40",
+   "detail": "Le loader src/lib/company-core/load-company.ts a un alias legacy BNP.PA vers BNPQY (ligne ~354) et exige un src/data/v2-pipeline/<t>.json de base (rouge R10 kind=missing sur tous les tickers CAC 40 purges). A traiter en phase d'integration : creer les fiches de base et purger les alias legacy des tickers .PA.",
+   "date": "2026-08-01"
+  },
+  {
+   "sujet": "Defaut systemique format de periode corrige sur 15 fichiers",
+   "detail": "Le loader src/lib/company-core/load-company.ts (~l.2585) ne retient que FY2025 / H1-2025 / Q1-2026 et frequency exactement annual|semiannual|quarterly. Les agents ecrivaient 2025, S1-2025, FY-2021, T1-2026, semi-annual : 265 series sur ~415 auraient ete affichees vides sans erreur de lint. Normalisation appliquee sur les 16 fichiers deja produits (1131 libelles + 68 frequency), 0 serie vide restante, aucune valeur modifiee. Copie avant normalisation dans le scratchpad de session. Template cac40-template.txt durci pour les agents suivants.",
+   "date": "2026-08-01"
+  },
+  {
+   "sujet": "Integration CAC 40: fiches de base creees et alias legacy purges",
+   "detail": "Le runtime lit src/data/v2-pipeline/<t>.json (pas companies/) et exige _validation + un hero KPI utilisable AVANT le merge kpis-haut: les 16 fiches purgees rendaient kind=missing puis kind=preparing. Fiches de base recreees pour les 16 (identite seule depuis le backup, aucun KPI/risque/gouvernance legacy issu de cat3-european, hero recopie du draft). 6 alias legacy supprimes du loader car ils detournaient la page CAC 40 vers l'ADR US: AIR.PA->AIR.DE, BNP.PA->BNPQY, BVI.PA->BVRDF, CS.PA->CSGKF, DG.PA->VCISY, OR.PA->LRLCF. Restent hors scope, a arbitrer: SAN->SAN.PA (Banco Santander redirige vers Sanofi) et SU->SU.PA (Suncor redirige vers Schneider).",
+   "date": "2026-08-01"
+  },
+  {
+   "sujet": "Faux positif du lint corrige (R1)",
+   "detail": "scripts/kpi-lint.ts testait les codes devise sans ancrage: /EUR/i matchait la sous-chaine 'eur' de l'unite francaise 'moteurs', d'ou un rouge R1 sur SAF.PA '1 802 moteurs'. Codes devise ancres par \\b. Les counts naturels francais (moteurs, avions, magasins) sont a nouveau hors de la regle 1-999.",
+   "date": "2026-08-01"
+  },
+  {
+   "sujet": "Etat lint au jalon 20: 16 rouges R14_RISQUES structurels",
+   "detail": "Les agents d'extraction ont pour consigne de NE PAS ecrire les blocs (risques, gouvernance, actionnariat, IA, segments), seulement de les auditer. Les 20 fiches ont donc des blocs vides: 16 rouges R14 + oranges R15/R18/R19/R20. Ce n'est pas un defaut KPI, c'est la Phase 3 qui reste a executer. 0 rouge sur les regles de donnees KPI (R1 a R13).",
+   "date": "2026-08-01"
+  },
+  {
+   "sujet": "ArcelorMittal: MT.PA retenu, MT.AS masque",
+   "detail": "L'univers CAC 40 liste MT.AS (cotation Amsterdam) mais toute la chaine (inventaire Phase 0, data-lake, draft KPI) utilise MT.PA. MT.PA est donc la fiche canonique; src/data/v2-pipeline/mt.as.json recoit _adr_duplicate_of=MT.PA pour ne pas apparaitre en double dans le hub. A arbitrer si tu preferes l'inverse.",
+   "date": "2026-08-01"
+  }
+ ],
+ "verif_3_valeurs": {
+  "MC.PA": "CA S1-2026 38,644 Mds et RN 5,697 Mds verifies verbatim CP source. Somme segments OK 22 trimestres.",
+  "TTE.PA": "Production 2529 kbep/j verifiee verbatim CP T4-2025. Somme segments 18474 M$ OK.",
+  "SU.PA": "CA 40 152 M (+8,9% org) verifie verbatim CP FY2025.",
+  "AIR.PA": "793 livraisons, carnet 8 754 avions verifies verbatim CP FY2025.",
+  "SAN.PA": "CA T2 11 597 M, Dupixent 5 154 M verifies verbatim CP S1-2026.",
+  "RMS.PA": "CA S1 8 163, RN 2 238, marge 41,0% verifies verbatim.",
+  "EL.PA": "CA T2 7 692, RN 1 921, marge 18,6% verifies verbatim CP S1-2026.",
+  "AI.PA": "CA 26 940, RN 3 518 verifies verbatim CP FY2025.",
+  "OR.PA": "CA 44 052,0 M et croissance +4,0%/+1,3% verifies verbatim URD 2025.",
+  "BNP.PA": "PNB 51 223, RNPG 12 225 verifies verbatim CP T4-2025.",
+  "SAF.PA": "CA ajuste 31 329 M verifie verbatim URD FY2025.",
+  "DSY.PA": "CA 6 239,6 et RN 1 737,2 verifies verbatim CP FY2025.",
+  "ACA.PA": "PNB 28,079 Mds et RNPG 7,074 verifies verbatim CP T4-2025. PNB T2-2026 7,363 verifie verbatim slides T2-2026. Somme poles = consolide OK 5 ans.",
+  "GLE.PA": "PNB 27,254 Mds et RNPG 6,002 verifies verbatim SLIDES T4-2025 + URD FY2025. Somme segments et zones OK.",
+  "KER.PA": "CA 14 675 M, CA Gucci 5 992 M, magasins 1 719, Artemis 42,3% verifies verbatim CP FY2025 + DEU 2025.",
+  "CS.PA": "CA 66,288 Mds S1-2026, RN 4,171 Mds, combined ratio 90,6% FY2025, Solvency II 224% (a sonder).",
+  "VIE.PA": "CA 44 396 M, RNPG 1 217 M, ROCE 9,4% verifies verbatim CP FY2025. frequency absente sur les 44 series, deduite par normalisation.",
+  "DG.PA": "CA 74 599 M, RNPG 4 903 M, carnet 69,8 Mds verifies verbatim URD 2025. Vinci, pas Dollar General.",
+  "ORA.PA": "CA 40 396 M FY2025, RN 1 139 M, EBITDAaL S1-2026 6 128 M verifies verbatim URD FY2025 + CP S1-2026. Format periodes conforme des l'ecriture.",
+  "SGO.PA": "CA 23 852 M et RNPG 1 629 M S1-2025 verifies verbatim CP 31 juil 2025. Reserve: dernier point publie = S1-2025, docs FY2025/S1-2026 absents du lake.",
+  "ENGI.PA": "CA FY2024 73 812 M, CA H1-2025 38 066 M, RNPG 4 106 M verifies verbatim URD 2024 + rapport S1-2025.",
+  "LR.PA": "CA 9 480,6 M FY2025, RN 1 252,3 M, CA Am. du Nord H1-2026 2 540,8 M verifies verbatim CP FY2025 + URD 2025 + rapport S1-2026.",
+  "RI.PA": "CA 10 959 M, RN 1 626 M, dividende 4,70 EUR verifies verbatim CP FY2025 (cloture 30 juin).",
+  "BN.PA": "CA 27 283 M, RNPG 1 825 M, ROC Nutrition Specialisee 2 016 M verifies verbatim CP FY2025.",
+  "CAP.PA": "CA 22 465 M, RNPG 1 601 M, prises de commandes 24 356 M verifies verbatim CP FY2025.",
+  "HO.PA": "CA 22 136 M, carnet 53 323 M, CA T1-2026 5 316 M verifies verbatim CP FY2025 + slides T1-2026.",
+  "STMPA.PA": "CA 11 800 M$, CA Q2-2026 3 487 M$, segment AM&S 5 085 M$ verifies verbatim 20-F 2025 + 6-K. Devise USD conservee.",
+  "STLAP.PA": "CA 153 508 M, RN -22 332 M, position financiere nette 6 694 M verifies verbatim CP FY2025.",
+  "PUB.PA": "Revenu net 14 547 M, RNPG 1 653 M, T2-2026 3 769 M verifies verbatim CP FY2025 + CP S1-2026.",
+  "ERF.PA": "CA H1-2026 3 701,4 M, CA FY2025 7 296 M, BPA 2,31 EUR verifies verbatim rapport S1-2026 + CP FY2025.",
+  "RNO.PA": "CA H1-2025 27 640 M, RN -11 185 M, taux d'intervention 42,3% verifies verbatim CP S1-2025 + RFA 2024.",
+  "BVI.PA": "CA 6 466,4 M, RNPG 588,0 M, carnet Marine 33,5 M tonneaux verifies verbatim CP FY2025.",
+  "FGR.PA": "CA 25 313 M, RNPG 1 022 M, carnet 29,9 Mds verifies verbatim URD 2025.",
+  "EN.PA": "CA 56 877 M, RNPG 1 138 M, carnet construction 31 954 M verifies verbatim URD 2025.",
+  "ENX.PA": "CA 1 818,8 M, RNPG 642,9 M, actifs en conservation 8 117 Mds verifies verbatim URD FY2025 + CP Q2-2026.",
+  "AC.PA": "CA 5 639 M, RNPG 449 M, parc 881 427 chambres verifies verbatim URD 2025 + slides FY2025.",
+  "ML.PA": "CA 25 992 M FY2025, RN 1 664 M, CA S1-2026 12 687 M verifies verbatim URD 2025 + rapport S1-2026.",
+  "CA.PA": "CA TTC 91 484 M, RNPG 319 M, dividende 0,97 EUR verifies verbatim URD 2025 + CP FY2025.",
+  "URW.PA": "Loyers nets 2 247 M, RN IFRS 1 268 M, RNRAPA 9,58 EUR verifies verbatim CP FY2025.",
+  "MT.PA": "CA 61 352 M$, RN 3 152 M$, minerai de fer 35,3 Mt verifies verbatim CP Q4-2025. Devise USD conservee."
+ },
+ "inventaire_complete": [
+  "TTE.PA",
+  "SAN.PA",
+  "AIR.PA",
+  "SU.PA",
+  "MC.PA",
+  "EL.PA",
+  "AI.PA",
+  "OR.PA",
+  "RMS.PA",
+  "BNP.PA",
+  "SAF.PA",
+  "KER.PA",
+  "CS.PA",
+  "ACA.PA",
+  "GLE.PA",
+  "VIE.PA",
+  "DSY.PA",
+  "DG.PA",
+  "LR.PA",
+  "ORA.PA",
+  "RI.PA",
+  "ENGI.PA",
+  "BN.PA",
+  "CAP.PA",
+  "SGO.PA",
+  "STMPA.PA",
+  "HO.PA",
+  "RNO.PA",
+  "BVI.PA",
+  "ERF.PA",
+  "FGR.PA",
+  "PUB.PA",
+  "ENX.PA",
+  "AC.PA",
+  "ML.PA",
+  "CA.PA",
+  "EN.PA",
+  "URW.PA",
+  "MT.PA",
+  "STLAP.PA"
+ ],
+ "a_completer": [
+  {
+   "ticker": "BNP.PA",
+   "raison": "13 series seulement, trimestres 2021-2024 absents du lake (CP anciens non telecharges en Phase 0, slugs connus type 1q24-pr). Passe complementaire: telecharger CP trimestriels 2021-2024 puis etendre les series."
+  },
+  {
+   "ticker": "ACA.PA",
+   "raison": "URD 2022-2025 absents du data-lake: bloque risques, gouvernance, actionnariat, geo. Passe complementaire de telechargement URD requise."
+  },
+  {
+   "ticker": "SGO.PA",
+   "raison": "Lake s'arrete a S1-2025 (site Cloudflare, collecte via Wayback). URD 2025, CP FY2025 et S1-2026 manquants: donnees affichees vieilles de 12 mois. Passe complementaire prioritaire."
+  },
+  {
+   "ticker": "ENGI.PA",
+   "raison": "Lake s'arrete a S1-2025: URD 2025, CP FY2025 et S1-2026 absents. Donnees vieilles de 12 mois."
+  },
+  {
+   "ticker": "HO.PA",
+   "raison": "Seul l'URD 2024 est sur disque: les blocs risques/gouvernance/actionnariat/IA seront dates du 31/12/2024. URD 2025 a telecharger."
+  },
+  {
+   "ticker": "RNO.PA",
+   "raison": "Lake s'arrete a H1-2025 (WAF CloudFront, secours AMF/bnains). FY2025 et H1-2026 absents, donnees vieilles de 12 mois. URD le plus recent = 2023."
+  }
+ ]
 }

@@ -219,7 +219,12 @@ async function lintTicker(t: string): Promise<Issue[]> {
       // La règle 1-999 s'applique aux unités MONÉTAIRES ou à échelle (M/Mds/K/
       // million...). Les counts naturels (magasins, logements, MW, rooms...)
       // s'affichent tels quels : "1 250 magasins" est correct.
-      const isScaledUnit = /[$€£]|USD|EUR|GBP|CHF|JPY|\bM\b|\bMds\b|\bMrd\b|\bK\b|million|milliard|Bn\b/i.test(fmt.unit);
+      // 1er août 2026 (chaîne CAC 40) : codes devise ANCRÉS. Sans \b, "EUR"
+      // matchait la sous-chaîne "eur" de l'unité française "moteurs"
+      // (SAF.PA "1 802 moteurs" faussement rouge), et "CHF"/"JPY" auraient
+      // le même défaut sur d'autres mots. Les counts naturels doivent rester
+      // hors de la règle 1-999.
+      const isScaledUnit = /[$€£]|\b(USD|EUR|GBP|CHF|JPY)\b|\bM\b|\bMds\b|\bMrd\b|\bK\b|million|milliard|Bn\b/i.test(fmt.unit);
       if (Number.isFinite(numOut) && isScaledUnit && ((Math.abs(numOut) >= 1000 && !isMdsOut) || (Math.abs(numOut) > 0 && Math.abs(numOut) < 1 && /Mds|M |K /.test(fmt.unit)))) {
         push(short, "R1_CHIFFRE_1_999", "rouge", `rendu "${fmt.value} ${fmt.unit}" hors [1,999]`);
       }

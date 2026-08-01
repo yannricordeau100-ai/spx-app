@@ -14,8 +14,12 @@ TÂCHE
    effectifs, rachats, carnet de commandes, croissance organique ET publiée (2 libellés).
    Format identique aux fichiers US : `history: [{q, v}]`, `value`, `yoy`, `signal`,
    `unit` (EUR : "Mds €", "M€"), libellés FR.
-3. Fréquence = celle publiée : semestriel (S1-2025, FY2025) par défaut, trimestriel
-   (T1-2025...) quand la donnée existe. JAMAIS fabriquer une période non publiée.
+3. Fréquence = celle publiée : semestriel par défaut, trimestriel quand la donnée existe.
+   LIBELLES DE PERIODE OBLIGATOIRES (le loader filtre silencieusement tout autre format,
+   la série devient vide a l'affichage) : annuel = `FY2025` (jamais `2025` ni `FY-2025`),
+   semestriel = `H1-2025` / `H2-2025` (jamais `S1-2025`), trimestriel = `Q1-2026`
+   (jamais `T1-2026`). Et `frequency` doit valoir exactement `annual`, `semiannual` ou
+   `quarterly` (jamais `semi-annual`), en cohérence avec les libellés de `history`. JAMAIS fabriquer une période non publiée.
    Dérivés additifs uniquement : S2 = FY moins S1, marqué `_derived`. Jamais sur marges,
    taux, BPA, effectifs, encours.
 4. Historique 5 ans (2021 → dernier publié). KPI <3 ans : `is_short_history: true` +
