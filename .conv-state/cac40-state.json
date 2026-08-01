@@ -1,5 +1,5 @@
 {
- "phase": "1-2-extraction",
+ "phase": "3-terminee-40-40",
  "univers": [
   {
    "ticker": "AC.PA",
@@ -436,28 +436,7 @@
     "raison": "7 mentions qualitatives eparses URD, aucune donnee chiffree"
    }
   ],
-  "ACA.PA": [
-   {
-    "bloc": "risques",
-    "raison": "seul URD 2021 local, URD 2022-2025 absents du lake"
-   },
-   {
-    "bloc": "gouvernance",
-    "raison": "seule source URD 2021, obsolete (DG change depuis)"
-   },
-   {
-    "bloc": "actionnariat",
-    "raison": "pas de table de repartition hors URD 2021, seul fait recent = SAS Rue La Boetie 63,5%"
-   },
-   {
-    "bloc": "ai_positioning",
-    "raison": "1 occurrence exploitable 2025, trop mince"
-   },
-   {
-    "bloc": "repartition_geo",
-    "raison": "ventilation geo seulement dans note 5.2 URD 2021"
-   }
-  ],
+  "ACA.PA": [],
   "GLE.PA": [
    {
     "bloc": "ai_positioning",
@@ -473,11 +452,16 @@
   ],
   "VIE.PA": [],
   "DG.PA": [],
-  "ORA.PA": [],
+  "ORA.PA": [
+   {
+    "bloc": "geo",
+    "raison": "URD FY2025 ne publie pas de table CA par zone distincte des segments, controle somme impossible"
+   }
+  ],
   "SGO.PA": [
    {
-    "bloc": "ai_positioning",
-    "raison": "5 occurrences AI dans l'URD, aucune donnee chiffree"
+    "bloc": "geo",
+    "raison": "Axe regional = deja la segmentation operationnelle, seules France et USA isolees, ne couvre pas le CA consolide"
    }
   ],
   "ENGI.PA": [
@@ -494,7 +478,12 @@
     "raison": "6 occurrences URD 2025, aucune donnee chiffree"
    }
   ],
-  "CAP.PA": [],
+  "CAP.PA": [
+   {
+    "bloc": "segments",
+    "raison": "Metiers publies en % du CA seulement, base avant elimination inter-metiers, aucun montant en euros, controle somme impossible"
+   }
+  ],
   "HO.PA": [],
   "STMPA.PA": [],
   "STLAP.PA": [
@@ -596,6 +585,11 @@
    "sujet": "ArcelorMittal: MT.PA retenu, MT.AS masque",
    "detail": "L'univers CAC 40 liste MT.AS (cotation Amsterdam) mais toute la chaine (inventaire Phase 0, data-lake, draft KPI) utilise MT.PA. MT.PA est donc la fiche canonique; src/data/v2-pipeline/mt.as.json recoit _adr_duplicate_of=MT.PA pour ne pas apparaitre en double dans le hub. A arbitrer si tu preferes l'inverse.",
    "date": "2026-08-01"
+  },
+  {
+   "sujet": "Cross-pollution historique detectee et corrigee sur CA.PA",
+   "detail": "L'ancien data-lake/CA.PA/risks/extracted.json (date du 20 juin 2026, source _srctext.txt) contenait des risques d'un exploitant de domaines skiables (meteo hivernale, incendie residence MMV La Plagne) et non de Carrefour. Remplace par les vrais risques URD 2025. Ancien fichier sauvegarde dans /tmp/capa/CA.PA_old_risks_ski.json. Audit systemique lance sur les 40 tickers CAC40: 0 autre cas (tous les risks Phase 3 citent bien une source ir/).",
+   "date": "2026-08-01"
   }
  ],
  "verif_3_valeurs": {
@@ -638,7 +632,50 @@
   "ML.PA": "CA 25 992 M FY2025, RN 1 664 M, CA S1-2026 12 687 M verifies verbatim URD 2025 + rapport S1-2026.",
   "CA.PA": "CA TTC 91 484 M, RNPG 319 M, dividende 0,97 EUR verifies verbatim URD 2025 + CP FY2025.",
   "URW.PA": "Loyers nets 2 247 M, RN IFRS 1 268 M, RNRAPA 9,58 EUR verifies verbatim CP FY2025.",
-  "MT.PA": "CA 61 352 M$, RN 3 152 M$, minerai de fer 35,3 Mt verifies verbatim CP Q4-2025. Devise USD conservee."
+  "MT.PA": "CA 61 352 M$, RN 3 152 M$, minerai de fer 35,3 Mt verifies verbatim CP Q4-2025. Devise USD conservee.",
+  "MC.PA_p3": "Arnault 49,77% capital / 65,89% votes et pay ratio 78,63 verifies verbatim URD FY2025.",
+  "TTE.PA_p3": "Approbation remuneration 91,89% verifiee verbatim URD FY2024.",
+  "AIR.PA_p3": "Say-on-pay 94,56% et Etat francais 10,83% verifies verbatim URD FY2024.",
+  "SAN.PA_p3": "Say-on-pay 75,36% et CA 43 626 M verifies verbatim URD FY2025. Agent a corrige une erreur de ma note: cession Opella close le 30/04/2025, pas T4-2024.",
+  "SU.PA_p3": "Segments 33 130 + 7 022 = 40 152 = CA FY2025 verifie (deja sonde en phase 2).",
+  "RMS.PA_p3": "Say-on-pay 91,34%, H51 54,3% capital verifies verbatim URD 2025.",
+  "EL.PA_p3": "Delfin 32,4% du capital verifie verbatim URD 2025. Segments 14,891+13,600=28,491 = CA.",
+  "AI.PA_p3": "Segments 12,132+7,110+4,378+2,465+0,855=26,940 = CA 2025 (deja sonde phase 2).",
+  "DSY.PA_p3": "GIMD 39,91% capital / 53,75% votes verifies verbatim URD FY2025.",
+  "BNP.PA_p3": "Geo EMEA 41 381 verifie verbatim URD 2025. Segments 26,717+18,997+6,929-1,420=51,223 = PNB.",
+  "KER.PA_p3": "Artemis 42,34% capital / 59,07% votes et Luca de Meo DG verifies verbatim URD 2025.",
+  "ACA.PA_p3": "Segments 28,080 = PNB 28,079 (arrondi 1 M). Gouvernance et geo DESACTIVEES: URD 2021 seul dispo, dirigeant et actionnariat ont change (Gavalda DG, Caisses 63,5% vs Brassac/55,46% en 2021), publier serait faux.",
+  "CS.PA_p3": "Solvabilite II 224% verifie verbatim URD FY2025. Geo somme 115 524 = consolide exact.",
+  "GLE.PA_p3": "PNB 27 254 M verifie verbatim URD. Segments et geo bouclent au consolide.",
+  "SGO.PA_p3": "Segments somme 46 571 = CA consolide 2024, ecart nul.",
+  "DG.PA_p3": "CA 74 599 M verifie verbatim URD FY2025. Segments et geo bouclent. Dollar General (data-lake/DG) intact.",
+  "ENGI.PA_p3": "CA 73 812 M verifie verbatim URD FY2024. Agent a corrige ma note sectorielle erronee (nomenclature Thermique/Supply obsolete, URD 2024 = Renouvelables/Infrastructures/Energy Solutions/FlexGen/Retail/Nucleaire).",
+  "ORA.PA_p3": "Etat francais 13,39% capital / 21,04% votes et concert public 22,95% verifies verbatim URD FY2025.",
+  "LR.PA_p3": "CA 9 480,6 M verifie verbatim URD 2025. Agent a corrige ma note (Legrand ne publie plus France/Italie/Reste Europe, mais 3 zones).",
+  "RI.PA_p3": "CA FY25 10 959 M verifie verbatim CP FY25. Segments et geo bouclent exactement.",
+  "CAP.PA_p3": "CA 22 465 M verifie verbatim DEU 2025. Geo boucle exactement.",
+  "BN.PA_p3": "CA 27 283 M verifie verbatim URD FY2025. Agent a corrige ma note (5 zones geo publiees, pas 3).",
+  "HO.PA_p3": "CA 20 576,6 M et segments 5470,6+10969,3+4023,6+113,1 verifies verbatim. Agent a corrige ma note (segments reels: Aerospatial/Defense/Cyber et Numerique).",
+  "STMPA.PA_p3": "CA 11 800 M$ verifie verbatim 20-F 2025. Segments et geo bouclent exactement.",
+  "RNO.PA_p3": "CA 56 232 M verifie verbatim CP FY2024. Gouvernance DESACTIVEE (URD 2023 seul, or DG change: de Meo parti, Provost nomme 31/07/2025).",
+  "STLAP.PA_p3": "Exor 15,48% verifie verbatim URD FY2025. Segments et geo bouclent a 153 508 M.",
+  "ERF.PA_p3": "Famille Martin 35,2% et CA 7 296 M verifies verbatim URD FY2025.",
+  "PUB.PA_p3": "Revenu net 14 547 M verifie verbatim URD FY2025. Geo boucle exactement.",
+  "BVI.PA_p3": "CA 6 466,4 M verifie verbatim URD FY2025. Segments et geo bouclent exactement.",
+  "EN.PA_p3": "SCDM 28,3%/29,3% et CA 56 877 M verifies verbatim URD FY2025.",
+  "FGR.PA_p3": "CA 26 119 M et segments 4128+9702+7995+4271+23 verifies verbatim URD FY2025.",
+  "AC.PA_p3": "CA 5 639 M verifie verbatim URD FY2025. Agent a corrige ma note: Jinjiang absent de la table >5% au 31/12/2025.",
+  "ENX.PA_p3": "CA 1 748 427 k et CDC 8,08% verifies verbatim URD FY2025. Agent a corrige ma note: Euroclear sorti du concert en 2024.",
+  "CA.PA_p3": "Segments 41 743+19 879+20 480 = 82 102 = CA consolide. Cross-pollution ancienne detectee et corrigee.",
+  "ML.PA_p3": "Segments 14,306+6,023+5,663 = 25,992 = CA consolide.",
+  "BNP.PA_complement": "REV_Q et NI_Q etendus 10->22 pts, 8/8 controles somme=FY, T4-2023 PNB 10 898 verifie verbatim.",
+  "ACA.PA_p3bis": "Gavalda DG verifie verbatim URD 2025. Geo PNB 9 zones = 28 079 = consolide. Blocs gouvernance et geo REACTIVES sur donnees 2025.",
+  "RNO.PA_p3bis": "Provost DG 31/07/2025 et CA 57 922 verifies URD 2025. Gouvernance REACTIVEE sur donnees 2025, geo et segments rafraichis 2025.",
+  "OR.PA_p3": "Bettencourt Meyers 34,79% / Nestle 20,16% verifies verbatim URD FY2025. Segments et geo bouclent.",
+  "MT.PA_p3": "Famille Mittal 39,88%/44,25% et CA 62 441 M$ verifies verbatim rapport annuel FY2024.",
+  "SAF.PA_p3": "Etat 11,72%/18,35% et say-on-pay 99,0% verifies. Geo en % verbatim, montants derives documentes dans _source.",
+  "VIE.PA_p3": "Segments Eau+Dechets+Energie = 44 396 = CA consolide, verifie verbatim URD 2025.",
+  "URW.PA_p3": "Loyer net 2 246,6 M et say-on-pay 94,9% verifies verbatim URD 2024."
  },
  "inventaire_complete": [
   "TTE.PA",
@@ -684,28 +721,58 @@
  ],
  "a_completer": [
   {
-   "ticker": "BNP.PA",
-   "raison": "13 series seulement, trimestres 2021-2024 absents du lake (CP anciens non telecharges en Phase 0, slugs connus type 1q24-pr). Passe complementaire: telecharger CP trimestriels 2021-2024 puis etendre les series."
-  },
-  {
-   "ticker": "ACA.PA",
-   "raison": "URD 2022-2025 absents du data-lake: bloque risques, gouvernance, actionnariat, geo. Passe complementaire de telechargement URD requise."
-  },
-  {
-   "ticker": "SGO.PA",
-   "raison": "Lake s'arrete a S1-2025 (site Cloudflare, collecte via Wayback). URD 2025, CP FY2025 et S1-2026 manquants: donnees affichees vieilles de 12 mois. Passe complementaire prioritaire."
-  },
-  {
-   "ticker": "ENGI.PA",
-   "raison": "Lake s'arrete a S1-2025: URD 2025, CP FY2025 et S1-2026 absents. Donnees vieilles de 12 mois."
-  },
-  {
-   "ticker": "HO.PA",
-   "raison": "Seul l'URD 2024 est sur disque: les blocs risques/gouvernance/actionnariat/IA seront dates du 31/12/2024. URD 2025 a telecharger."
-  },
-  {
-   "ticker": "RNO.PA",
-   "raison": "Lake s'arrete a H1-2025 (WAF CloudFront, secours AMF/bnains). FY2025 et H1-2026 absents, donnees vieilles de 12 mois. URD le plus recent = 2023."
+   "ticker": "SGO.PA+HO.PA",
+   "raison": "URD 2025 PDF introuvables (WAF), mais TEXTE complet recupere via depot ESEF AMF (txt.gz). Blocs risques/gouvernance re-extractibles sur exercice 2025 si souhaite : actuellement bases sur URD 2024, corrects mais dates."
   }
- ]
+ ],
+ "phase2_terminee_le": "2026-08-01 11:05 CEST",
+ "prochaines_etapes": [
+  "Phase 3: remplir ou desactiver les blocs de page (risques, gouvernance/remuneration, actionnariat, IA, repartition CA) pour les 40 stes, depuis data-lake/<T>/ir/ uniquement. Les audits par ste sont dans les rapports d'agents et dans blocs_desactives. 37 rouges R14_RISQUES au lint viennent de la.",
+  "Passe complementaire de telechargement pour les stes de a_completer (SGO, ENGI, RNO arretees a 2025, ACA sans URD 2022-2025, BNP trimestres 2021-2024, HO sans URD 2025).",
+  "Phase 4: scripts/fr-doc-watcher.py sur le modele de daily-doc-watcher.py + plist separee.",
+  "Deploy staging et verification curl des pages: le push du jalon etait encore en cours a la fin de la fenetre."
+ ],
+ "phase3_done": [
+  "AIR.PA",
+  "TTE.PA",
+  "MC.PA",
+  "SAN.PA",
+  "SU.PA",
+  "RMS.PA",
+  "EL.PA",
+  "AI.PA",
+  "DSY.PA",
+  "BNP.PA",
+  "KER.PA",
+  "CS.PA",
+  "GLE.PA",
+  "SGO.PA",
+  "DG.PA",
+  "ENGI.PA",
+  "ORA.PA",
+  "LR.PA",
+  "RI.PA",
+  "CAP.PA",
+  "BN.PA",
+  "HO.PA",
+  "STMPA.PA",
+  "STLAP.PA",
+  "ERF.PA",
+  "PUB.PA",
+  "BVI.PA",
+  "EN.PA",
+  "FGR.PA",
+  "AC.PA",
+  "ENX.PA",
+  "CA.PA",
+  "ML.PA",
+  "ACA.PA",
+  "RNO.PA",
+  "OR.PA",
+  "MT.PA",
+  "SAF.PA",
+  "VIE.PA",
+  "URW.PA"
+ ],
+ "phase3_in_progress": []
 }

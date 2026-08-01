@@ -1,120 +1,14 @@
 {
  "doc": "Budget tokens fenetres 5h chaine CAC 40",
  "reset_reference": "2026-08-01 09:30 CEST (nouvelle fenetre, reprise scheduled task)",
- "plafond_empirique_subagent_tokens": 3900000,
- "note": "plafond herite de la chaine US (3,67-3,95M). Cumuler les subagent_tokens de chaque notification. Alerte a 85%.",
- "historique_fenetre_courante": [
-  {
-   "ticker": "ACA.PA",
-   "tokens": 107263
-  },
-  {
-   "ticker": "GLE.PA",
-   "tokens": 115872
-  },
-  {
-   "ticker": "KER.PA",
-   "tokens": 125967
-  },
-  {
-   "ticker": "CS.PA",
-   "tokens": 128145
-  },
-  {
-   "ticker": "VIE.PA",
-   "tokens": 131752
-  },
-  {
-   "ticker": "DG.PA",
-   "tokens": 134281
-  },
-  {
-   "ticker": "ORA.PA",
-   "tokens": 137394
-  },
-  {
-   "ticker": "SGO.PA",
-   "tokens": 137798
-  },
-  {
-   "ticker": "ENGI.PA",
-   "tokens": 96735
-  },
-  {
-   "ticker": "LR.PA",
-   "tokens": 99267
-  },
-  {
-   "ticker": "RI.PA",
-   "tokens": 131838
-  },
-  {
-   "ticker": "BN.PA",
-   "tokens": 118946
-  },
-  {
-   "ticker": "CAP.PA",
-   "tokens": 96904
-  },
-  {
-   "ticker": "HO.PA",
-   "tokens": 109919
-  },
-  {
-   "ticker": "STMPA.PA",
-   "tokens": 102838
-  },
-  {
-   "ticker": "STLAP.PA",
-   "tokens": 112489
-  },
-  {
-   "ticker": "PUB.PA",
-   "tokens": 94108
-  },
-  {
-   "ticker": "ERF.PA",
-   "tokens": 104831
-  },
-  {
-   "ticker": "RNO.PA",
-   "tokens": 160617
-  },
-  {
-   "ticker": "BVI.PA",
-   "tokens": 120570
-  },
-  {
-   "ticker": "FGR.PA",
-   "tokens": 104496
-  },
-  {
-   "ticker": "EN.PA",
-   "tokens": 131273
-  },
-  {
-   "ticker": "ENX.PA",
-   "tokens": 119531
-  },
-  {
-   "ticker": "AC.PA",
-   "tokens": 101952
-  },
-  {
-   "ticker": "ML.PA",
-   "tokens": 114504
-  },
-  {
-   "ticker": "CA.PA",
-   "tokens": 155534
-  },
-  {
-   "ticker": "URW.PA",
-   "tokens": 107248
-  },
-  {
-   "ticker": "MT.PA",
-   "tokens": 133300
-  }
- ]
+ "plafond_empirique_subagent_tokens": 1500000,
+ "note": "CORRIGE 1er aout 05:0x: coupure reelle constatee a ~1,55M subagent_tokens cumules (fenetre 03:40-08:40), pas 3,9M. Mon compteur ne voit pas la consommation de l'orchestrateur ni des sessions paralleles. Nouveau frein: STOP lancements a 1,2M (80%).",
+ "historique_fenetre_courante": [],
+ "fenetre_2026-08-01_03h40": {
+  "coupure_a": "~1,55M subagent_tokens",
+  "lecon": "plafond reel fenetre 5h = ~1,5M cumul agents, PAS 3,9M herite de la chaine US"
+ },
+ "frein_lancement": 1200000,
+ "note_yann_93pct": "1er aout 11h45: Yann signale 93% atteint alors que mon cumul agents affichait 1,48M. Confirme le plafond ~1,5M.",
+ "fenetre_courante_debut": "2026-08-01 11:50 CEST"
 }
